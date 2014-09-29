@@ -1,0 +1,71 @@
+GIT
+  remote: git://github.com/jeroenvandijk/capybara-mechanize.git
+  revision: ed68342ceb270a1d632486969a4ac51f23664b38
+  specs:
+    capybara-mechanize (1.1.0)
+      capybara (~> 2.1.0)
+      mechanize (~> 2.7)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    builder (3.2.2)
+    capybara (2.1.0)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
+    capybara-webkit (1.3.0)
+      capybara (>= 2.0.2, < 2.5.0)
+      json
+    cucumber (1.3.17)
+      builder (>= 2.1.2)
+      diff-lcs (>= 1.1.3)
+      gherkin (~> 2.12)
+      multi_json (>= 1.7.5, < 2.0)
+      multi_test (>= 0.1.1)
+    diff-lcs (1.2.5)
+    domain_name (0.5.21)
+      unf (>= 0.0.5, < 1.0.0)
+    gherkin (2.12.2)
+      multi_json (~> 1.3)
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
+    json (1.8.1)
+    mechanize (2.7.3)
+      domain_name (~> 0.5, >= 0.5.1)
+      http-cookie (~> 1.0)
+      mime-types (~> 2.0)
+      net-http-digest_auth (~> 1.1, >= 1.1.1)
+      net-http-persistent (~> 2.5, >= 2.5.2)
+      nokogiri (~> 1.4)
+      ntlm-http (~> 0.1, >= 0.1.1)
+      webrobots (>= 0.0.9, < 0.2)
+    mime-types (2.3)
+    mini_portile (0.6.0)
+    multi_json (1.10.1)
+    multi_test (0.1.1)
+    net-http-digest_auth (1.4)
+    net-http-persistent (2.9.4)
+    nokogiri (1.6.3.1)
+      mini_portile (= 0.6.0)
+    ntlm-http (0.1.1)
+    rack (1.5.2)
+    rack-test (0.6.2)
+      rack (>= 1.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.6)
+    webrobots (0.1.1)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  capybara (= 2.1.0)
+  capybara-mechanize!
+  capybara-webkit
+  cucumber
