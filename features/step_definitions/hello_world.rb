@@ -1,7 +1,7 @@
 Given(/^I am on the hello world page$/) do
-  visit "http://localhost/~lat/projects/cuke_php/hello_world.php"
+  visit "http://localhost:8000/hello_world.php"
 end
 
-Then(/^I should see "(.*?)"$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+Then(/^I should see "(.*?)"$/) do |hello|
+  expect(page.has_content?(hello)).to be true
 end
