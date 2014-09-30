@@ -5,3 +5,4 @@ end
 Then(/^I should see "(.*?)"$/) do |hello|
   expect(page.has_content?(hello)).to be true
 end
+
