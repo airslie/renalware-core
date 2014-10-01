@@ -4,13 +4,14 @@ Given(/^I have some fruits$/) do
 end
 
 Given(/^I am on the fruits dashboard$/) do
-  pending # express the regexp above with the code you wish you had
+  visit "http://localhost:8000/php/fruits.php"
 end
 
 When(/^I view all fruits$/) do
-  pending # express the regexp above with the code you wish you had
+  click_on "View Fruits"
+  visit "http://localhost:8000/php/index.php"
 end
 
 Then(/^I should see a list of fruits$/) do
-  pending # express the regexp above with the code you wish you had
+  $client.query("SELECT * from fruits")
 end
