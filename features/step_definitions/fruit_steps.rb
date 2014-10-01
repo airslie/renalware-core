@@ -1,7 +1,6 @@
 Given(/^I have some fruits$/) do
   $client.query("INSERT INTO fruits (name, prickly_or_not, colour, \
     country_of_origin) VALUES ('apple', false, 'reddy green', 'GB')")
-  binding.pry
 end
 
 Given(/^I am on the fruits dashboard$/) do
