@@ -8,3 +8,4 @@ gem "capybara-webkit"
 gem "mysql2"
 
 gem "pry"
+gem "launchy"
