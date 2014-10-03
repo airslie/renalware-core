@@ -2,7 +2,7 @@
 
 <p>
 <?php
-$link = mysqli_connect("localhost","CHANGE ME to username","","cuke_php_test") or die("Error " . mysqli_error($link));
+$link = mysqli_connect("localhost","lat","","cuke_php_test") or die("Error " . mysqli_error($link));
 $query = "SELECT * FROM fruits" or die("Error in the consult.." . mysqli_error($link));
 $result = $link->query($query);
 
