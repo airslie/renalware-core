@@ -4,14 +4,13 @@ Given(/^I have some fruits$/) do
 end
 
 Given(/^I am on the fruits dashboard$/) do
-  visit "http://localhost:8000/php/fruits.php"
+  visit "http://localhost:8000/fruits.php"
 end
 
 When(/^I view all fruits$/) do
   click_on "View Fruits"
-  visit "http://localhost:8000/php/index.php"
 end
 
 Then(/^I should see a list of fruits$/) do
-  $client.query("SELECT * from fruits")
+  expect(page.has_content? 'apple').to be true
 end
