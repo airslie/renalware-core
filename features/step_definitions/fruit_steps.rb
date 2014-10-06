@@ -4,7 +4,7 @@ Given(/^I have some fruits$/) do
 end
 
 Given(/^I am on the fruits dashboard$/) do
-  visit "http://localhost:8000/php/fruits.php"
+  visit "http://localhost:8000/fruits.php"
 end
 
 When(/^I view all fruits$/) do
