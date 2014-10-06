@@ -19,10 +19,6 @@
 -- Current Database: `renalware`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `renalware` /*!40100 DEFAULT CHARACTER SET latin1 */;
-
-USE `renalware`;
-
 --
 -- Table structure for table `accessclinics`
 --

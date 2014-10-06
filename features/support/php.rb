@@ -1,4 +1,4 @@
-php_dir = 'php'
+php_dir = 'php/renalware'
 php_host = 'localhost'
 php_port = 8000
 pid_file = 'tmp/php.pid'
