@@ -6,7 +6,7 @@ switch ($configstatus) {
     case 'DEVEL':
     $hostname="localhost";
     // $rwarepath="/Library/WebServer/Documents/renalware";
-    $rwarepath="lat/projects/renalwarev2/php/renalware";
+    $rwarepath="/Users/lat/projects/renalwarev2/php/renalware";
     // $rwareroot="http://$hostname/renalware";
     $rwareroot="http://$hostname:8000";
     // ----------SET LOCAL PATHS HERE ------------
