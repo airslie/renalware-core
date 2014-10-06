@@ -2,7 +2,7 @@
 //----Fri 28 Feb 2014----streamlining and sorts
 //Fri Oct 24 10:33:25 IST 2008
 //----Sun 16 Oct 2011----upgr to datatable
-include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
+include realpath($_SERVER['DOCUMENT_ROOT'].'/').'../../tmp/renalwareconn.php';
 include '../req/confcheckfxns.php';
 $thislistgroupname = "Renal Consults List";
 $thislist = "activelist";
@@ -55,9 +55,9 @@ echo "</div>";
 	$numrows=$result->num_rows;
     //show total in header
     $pagetitle= "$thislistgroupname -- $numrows $thislistname";
-    
+
     echo '<div id="pagetitlediv"><h1>'.$pagetitle.' ('.date("D d/m/Y H:i").')</h1></div>';
-    
+
 	//showInfo("$numrows $listitems found","$listnotes");
 	?>
     <div id="datatablediv">
@@ -69,7 +69,7 @@ echo "</div>";
     $orderby="ORDER BY consultward, consultstartdate, lastname";
     $where.=" AND consultsite='KCH'";
 	$sql = "SELECT $fields FROM $table $where $orderby";
-	$result = $mysqli->query($sql);    
+	$result = $mysqli->query($sql);
 	while($row = $result->fetch_assoc())
 		{
 		echo '<tr>
@@ -93,7 +93,7 @@ echo "</div>";
         $orderby="ORDER BY consultsite, consultward, consultstartdate, lastname";
         $where.=" AND consultsite != 'KCH'";
     	$sql = "SELECT $fields FROM $table $where $orderby";
-    	$result = $mysqli->query($sql);    
+    	$result = $mysqli->query($sql);
     	while($row = $result->fetch_assoc())
     		{
     		echo '<tr>

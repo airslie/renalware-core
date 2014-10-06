@@ -1,7 +1,7 @@
 <?php
 //Fri Oct 24 10:33:25 IST 2008
 //----Sun 16 Oct 2011----upgr to datatable
-include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
+include realpath($_SERVER['DOCUMENT_ROOT'].'/').'../../tmp/renalwareconn.php';
 include '../req/confcheckfxns.php';
 $thislistgroupname = "Renal Consults List";
 $thislist = "activelist";
@@ -42,7 +42,7 @@ echo "</div>";
 		$where="WHERE activeflag ='Y' AND consultsite='$get_site'";
 	}
 	$omitfields=array('consult_id','consultzid','activeflag','consultdescr');
-	
+
 	$fields="";
 	$theaders="";
 	foreach ($fieldslist as $key => $value) {
@@ -58,7 +58,7 @@ echo "</div>";
 	$numrows=$result->num_rows;
 	$sql = "SELECT $fields FROM $table $where $orderby";
 	$result = $mysqli->query($sql);
-	$numrows=$result->num_rows;	
+	$numrows=$result->num_rows;
 	showInfo("$numrows $listitems found","$listnotes");
 	?>
 	<table class="printlist" style="width: 90%;">

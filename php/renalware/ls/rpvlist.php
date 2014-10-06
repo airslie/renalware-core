@@ -2,7 +2,7 @@
 //----Sat 10 Nov 2012----confirm add pat version
 //--Sat Oct  6 19:39:29 JST 2012--NEW to New
 //--Tue Sep  4 14:21:12 CEST 2012--
-include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
+include realpath($_SERVER['DOCUMENT_ROOT'].'/').'../../tmp/renalwareconn.php';
 include '../req/confcheckfxns.php';
 //config lists
 $listslist = array(
@@ -25,7 +25,7 @@ echo '<div id="pagetitlediv"><h1>'.$pagetitle.'</h1></div>';
 if ($get_newzid) {
     $newzid=(int)$get_newzid;
 	echo '<p><a class="btn" style="color: green; border: 1px solid black; padding: 3px;" href="ls/rpvlist.php?confirmzid='.$newzid.'">Confirm you wish to add to RPV</a>&nbsp;&nbsp;<a class="btn" style="color: #f00;" href="ls/rpvlist.php">Cancel</a></p>';
-    
+
 }
 //----Tue 04 Sep 2012----to add new pat to RPV NB "NEW" only
 if ($get_confirmzid) {

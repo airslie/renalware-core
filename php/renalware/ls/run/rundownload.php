@@ -1,6 +1,6 @@
 <?php
 header("Content-type: text/plain");
-include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
+include realpath($_SERVER['DOCUMENT_ROOT'].'/').'../../tmp/renalwareconn.php';
 include '../../req/confcheckfxns.php';
 $fieldslist=$_POST['fieldslist'];
 $headerslist=$_POST['headerslist'];

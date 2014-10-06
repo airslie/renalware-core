@@ -6,7 +6,7 @@ $pagetitle= "Search PIMS";
 //set mod to select vwbar options
 include "$rwarepath/navs/topsimplenav.php";
 $baseurl="ls/pimslists.php";
-include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
+include realpath($_SERVER['DOCUMENT_ROOT'].'/').'../../tmp/renalwareconn.php';
 
 ?>
 <form action="ls/pimslists.php" method="get" accept-charset="utf-8">
@@ -14,8 +14,8 @@ include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
 	<fieldset>
 		<legend>Search by KCH No or Last Name/DOB (Data are from c. Feb 2008)</legend>
 		<p>Enter <b>either</b> KCH No or Patient surname. DOB is optional</p>
-		<label for="kchno">KCH No</label><input type="text" name="kchno" size="7" id="kchno" /> <b>OR</b> <label for="lastname">Last Name</label><input type="text" name="lastname" size="7" id="lastname" /> &nbsp;&nbsp;&nbsp;<label for="dob">DOB</label><input type="text" name="dob" size="7" id="dob" /> (Recommended with Last Name search to limit results) 
-		
+		<label for="kchno">KCH No</label><input type="text" name="kchno" size="7" id="kchno" /> <b>OR</b> <label for="lastname">Last Name</label><input type="text" name="lastname" size="7" id="lastname" /> &nbsp;&nbsp;&nbsp;<label for="dob">DOB</label><input type="text" name="dob" size="7" id="dob" /> (Recommended with Last Name search to limit results)
+
 		</fieldset>
 	<p><input type="submit" style="color: green;" value="Search &rarr;" /></p>
 </form>
@@ -117,7 +117,7 @@ if ($get_search=="pims") {
 			}
 		echo '</tbody></table>';
 		}
-	
+
 }
 include '../parts/footer.php';
 

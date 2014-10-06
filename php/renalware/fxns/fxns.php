@@ -40,7 +40,7 @@ function fixDate($datefield)
 		$datefield=NULL;
 		return($datefield);
 	}
-	else {	
+	else {
 		if(strstr($datefield,"/") OR strstr($datefield,"."))
 		{
 			//14/3/04 or 14.3.2005 e.g.
@@ -74,19 +74,19 @@ function fixDate($datefield)
 
 function incrStat($stat, $zid)
 {
-	include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
+	include realpath($_SERVER['DOCUMENT_ROOT'].'/').'../../tmp/renalwareconn.php';
 	$sql= "UPDATE renalware.patstats SET $stat=$stat+1, statstamp=NOW() WHERE statzid=$zid";
 	$result = $mysqli->query($sql);
 }
 function decrStat($stat, $zid)
 {
-	include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
+	include realpath($_SERVER['DOCUMENT_ROOT'].'/').'../../tmp/renalwareconn.php';
 	$sql= "UPDATE renalware.patstats SET $stat=$stat-1, statstamp=NOW() WHERE statzid=$zid";
 	$result = $mysqli->query($sql);
 }
 function stampPat($zid)
 {
-	include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
+	include realpath($_SERVER['DOCUMENT_ROOT'].'/').'../../tmp/renalwareconn.php';
 	$sql= "UPDATE renalware.patientdata SET modifstamp=NOW() WHERE patzid=$zid";
 	$result = $mysqli->query($sql);
 }
@@ -97,7 +97,7 @@ function runsql($sql, $debug)
 	if ($debug) {
 		echo "<p class=\"alertsmall\">$sql</p>";
 	} else {
-		include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
+		include realpath($_SERVER['DOCUMENT_ROOT'].'/').'../../tmp/renalwareconn.php';
 		$mysqli = new mysqli($host, $dbuser, $pass, $db);
 		$result = $mysqli->query($sql);
 		return $result;
@@ -115,7 +115,7 @@ extract($_COOKIE,EXTR_PREFIX_ALL,'cookie');
 extract($_SESSION,EXTR_PREFIX_ALL,'sess');
 //for escaped POSTs ----Sun 20 Jun 2010----
 
-while(list($k,$v)=each($_POST)){ 
+while(list($k,$v)=each($_POST)){
 	$vfix = $mysqli->real_escape_string($v);
 	$$k = (substr(strtolower($k),-4)=="date") ? fixDate($vfix) : $vfix ;
 }
@@ -180,41 +180,41 @@ return $lastword;
 //----Mon 28 Mar 2011----
 function makeAlert($alertlbl,$alerttext)
 {
-	echo '<div class="ui-state-highlight" style="padding: .3em; margin-bottom: 3px; border: 1px solid #f00;"> 
-					<span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span> 
+	echo '<div class="ui-state-highlight" style="padding: .3em; margin-bottom: 3px; border: 1px solid #f00;">
+					<span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
 					<strong>'.$alertlbl.'</strong> '.$alerttext.'
 				</div>';
 }
 function spanAlert($alertlbl,$alerttext)
 {
-	echo '<span class="ui-state-highlight" style="padding: .3em; margin-bottom: 3px;"> 
+	echo '<span class="ui-state-highlight" style="padding: .3em; margin-bottom: 3px;">
 					<span style="color: #f00;"><strong>'.$alertlbl.'</strong></span>&nbsp;&nbsp;'.$alerttext.'</span>';
 }
 
 function makeInfo($infolbl,$infotext)
 {
-	echo '<div class="ui-state-highlight uiinfo" style="padding: .1em; margin-bottom: 3px;"> 
-					<span class="ui-icon ui-icon-info" style="float:left; margin-right: .4em;"></span> 
+	echo '<div class="ui-state-highlight uiinfo" style="padding: .1em; margin-bottom: 3px;">
+					<span class="ui-icon ui-icon-info" style="float:left; margin-right: .4em;"></span>
 					<strong>'.$infolbl.'</strong> '.$infotext.'
 				</div>';
 }
 function showInfo($infolbl,$infotext)
 {
-	echo '<p class="ui-state-highlight uiinfo" style="padding: 3px; margin-bottom: 2px; width: 900px;"> 
+	echo '<p class="ui-state-highlight uiinfo" style="padding: 3px; margin-bottom: 2px; width: 900px;">
 <strong>'.$infolbl.'</strong> '.$infotext.'
 		</p>';
 }
 
 function makeError($errorlbl,$errortext)
 {
-	echo '<p class="ui-state-error" style="padding: 2px; margin-bottom: 3px;"> 
-					<span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span> 
+	echo '<p class="ui-state-error" style="padding: 2px; margin-bottom: 3px;">
+					<span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
 					<strong>'.$errorlbl.'</strong> '.$errortext.'
 				</p>';
 }
 function ae_detect_ie()
 {
-    if (isset($_SERVER['HTTP_USER_AGENT']) && 
+    if (isset($_SERVER['HTTP_USER_AGENT']) &&
     (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false))
         return true;
     else

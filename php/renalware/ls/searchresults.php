@@ -2,7 +2,7 @@
 //----Mon 13 Jan 2014----RPV and death colourcoding restored
 //----Mon 06 Jan 2014----
 //--Fri Dec 20 11:09:12 CET 2013--
-include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
+include realpath($_SERVER['DOCUMENT_ROOT'].'/').'../../tmp/renalwareconn.php';
 include '../req/confcheckfxns.php';
 $searchstring=$_GET["findpat"];
 $listitems="patients";
@@ -37,8 +37,8 @@ $table="patientdata";
 $listnotes="Click on patient name for Clinical Summary.";
 //scr optionlinks-- suggest first 2 at least
 $optionlinks = array(
-	'pat/patient.php?vw=admin' => "admin", 
-	'letters/createletter.php' => "new lttr", 
+	'pat/patient.php?vw=admin' => "admin",
+	'letters/createletter.php' => "new lttr",
 );
 $showsql=false;
 $fields="";

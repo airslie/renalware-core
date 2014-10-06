@@ -1,6 +1,6 @@
 <?php
 //--Fri Oct 26 15:45:21 SGT 2012--
-include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
+include realpath($_SERVER['DOCUMENT_ROOT'].'/').'../../tmp/renalwareconn.php';
 include '../req/confcheckfxns.php';
 //config lists
 $listslist = array(
@@ -45,7 +45,7 @@ foreach ($listslist as $list => $listname) {
 	<label>Enter KCH Hosp No then TAB:</label>
 	<input type="text" onchange="findHospNo();" id="ajaxhospno"/><input type="button" onclick="findHospNo()" value="Search Patients" /><br><br>
 	</fieldset></form><br>
-	<div id="searchresultsdiv"></div>		
+	<div id="searchresultsdiv"></div>
 	</div>
 <div id="datatablediv">';
 include("$thislistfolder/$thislist.php");
@@ -58,7 +58,7 @@ function findHospNo(this_id){
 	var ajaxhospno=$('#ajaxhospno').val();
 	$.get("ajax/run-getlupuslistpat.php", {hospno: ajaxhospno},
 	   function(data){
-		$('#searchresultsdiv').html(data);	   
+		$('#searchresultsdiv').html(data);
 		});
 	}
 </script>

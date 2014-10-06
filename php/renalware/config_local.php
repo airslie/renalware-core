@@ -6,13 +6,13 @@ switch ($configstatus) {
     case 'DEVEL':
     $hostname="localhost";
     // $rwarepath="/Library/WebServer/Documents/renalware";
-    $rwarepath="/Users/lat/projects/renalwarev2/php/renalware";
+    $rwarepath=realpath($_SERVER['DOCUMENT_ROOT']);
     // $rwareroot="http://$hostname/renalware";
     $rwareroot="http://$hostname:8000";
     // ----------SET LOCAL PATHS HERE ------------
     //DB connection here
     $db="renalware";
-    require_once '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
+    require_once realpath($_SERVER['DOCUMENT_ROOT']).'/../../tmp/renalwareconn.php';
 
     // ***** set prn
     //path to letter-HTML versions
@@ -30,11 +30,11 @@ switch ($configstatus) {
     //set DB
     $db="renalware";
     break;
-    
+
     case 'BETA':
    //KCH settings removed
      break;
-     
+
      case 'LIVE':
   //KCH settings removed
        break;

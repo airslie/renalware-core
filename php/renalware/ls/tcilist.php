@@ -1,6 +1,6 @@
 <?php
 //----Thu 02 Feb 2012----
-include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
+include realpath($_SERVER['DOCUMENT_ROOT'].'/').'../../tmp/renalwareconn.php';
 include '../req/confcheckfxns.php';
 //config lists
 $listslist = array(
@@ -40,7 +40,7 @@ foreach ($listslist as $list => $listname) {
 	Enter <acronym title="Enter full or partial patient surname[,forenames] or complete Hosp No. Search is not case-sensitive">patient last name or Hosp No</acronym> then TAB: <br><br>
 	<input type="text" onchange="findHospNo();" id="ajaxsearch"/><input type="button" onclick="findHospNo()" value="Search <?php echo $siteshort ?> Patients List" /><br><br>
 	</fieldset></form><br>
-	<div id='searchresultsDiv'></div>		
+	<div id='searchresultsDiv'></div>
 	</div>
 <div id="datatablediv">
 <?php
@@ -56,7 +56,7 @@ include '../parts/footer.php';
 		var thisajaxsearch=$('#ajaxsearch').val();
 		$.get("ajax/run-gettcilistpat.php", {ajaxsearch: thisajaxsearch},
 		   function(data){
-			$('#searchresultsDiv').html(data);	   
+			$('#searchresultsDiv').html(data);
 			});
 		}
 </script>

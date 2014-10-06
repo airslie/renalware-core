@@ -1,6 +1,6 @@
 <?php
 //--Thu Nov  1 11:44:19 CET 2012-- DT upgrade
-include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
+include realpath($_SERVER['DOCUMENT_ROOT'].'/').'../../tmp/renalwareconn.php';
 include '../req/confcheckfxns.php';
 //config lists
 $listslist = array(

@@ -1,6 +1,6 @@
 <?php
 //Thu Nov 20 12:58:09 GMT 2008 for HL7
-include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
+include realpath($_SERVER['DOCUMENT_ROOT'].'/').'../../tmp/renalwareconn.php';
 $sql = "SELECT * FROM hl7patientdata WHERE kchno='$kchno' LIMIT 1";
 $result = $mysqli->query($sql);
 $row = $result->fetch_assoc();
@@ -69,7 +69,7 @@ $displayfields=array(
 <fieldset>
 	<legend>Add Patient Hospital No(s)</legend>
 	<ul class="form">
-	<li><label for="patsite">Patient Site</label>&nbsp;<input type="radio" name="patsite" value="KCH" checked="checked" />KCH &nbsp; &nbsp; <input type="radio" name="patsite" value="QEH" />QEH  &nbsp; &nbsp; <input type="radio" name="patsite" value="DVH" />DVH 
+	<li><label for="patsite">Patient Site</label>&nbsp;<input type="radio" name="patsite" value="KCH" checked="checked" />KCH &nbsp; &nbsp; <input type="radio" name="patsite" value="QEH" />QEH  &nbsp; &nbsp; <input type="radio" name="patsite" value="DVH" />DVH
 		&nbsp; &nbsp; <input type="radio" name="patsite" value="BROM" />Bromley
 		&nbsp; &nbsp; <input type="radio" name="patsite" value="GUYS" />Guy&rsquo;s</li>
 <?php

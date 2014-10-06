@@ -4,7 +4,7 @@
 //----Sun 03 Aug 2014----use pathol_current EGFR DEPR
 //----Fri 15 Nov 2013----DMY fix for manual date displays
 //----Mon 23 Sep 2013----HB to HGB fix; NOW IN get_currpathdata ----Thu 31 Oct 2013----manual display
-include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
+include realpath($_SERVER['DOCUMENT_ROOT'].'/').'../../tmp/renalwareconn.php';
 include 'get_currentpathdata.php';
 include 'incl/obxcodelist.php';
 //nb $currpatharray from get_currentpathdata.php
