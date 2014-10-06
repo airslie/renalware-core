@@ -4,7 +4,7 @@ include('../incl/check.php');
 $pagetitle= "Add new $siteshort Renalware User";
 include "$rwarepath/navs/topsimplenav.php";
 //--------Page Content Here----------
-include "$rwarepath/navs/usernav.php";
+include "$rwarepath/user/navs/usernav.php";
 //create default expdate
 $expday=date(d);
 $expmonth=date(m);
