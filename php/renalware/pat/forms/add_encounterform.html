@@ -1,0 +1,55 @@
+<?php
+//NB $pagevw from upstream e.g. patient.php?zid=$zid&amp;vw=encounters
+//Fri May  8 16:03:09 CEST 2009
+?>
+<div id="adddataform" style="display: none;">
+	<form action="<?php echo $pagevw ?>&amp;run=add" method="post">
+	<fieldset>
+	<legend>Add new Encounter/Event for <?php echo $firstnames . ' ' . $lastname; ?></legend>
+	<ul class="form">
+	<li><label for="encdate">Encounter Date</label>&nbsp;<input type="text" name="encdate" id="encdate" value="<?php echo date("d/m/Y") ?>"class="datepicker" size="12" /></li>
+	<li><label for="staffname">Entered by</label>&nbsp;<input type="text" id="staffname" name="staffname" value="<?php echo $user ?>" size="30" /></li>
+	<li><label for="enctype">Encounter type</label>&nbsp;<select id="enctype" name="enctype">
+    <option value="">Select Type...</option>
+    <option>Access clinic</option>
+    <option>Anaemia clinic</option>
+    <option>CAPD Nurses clinic</option>
+    <option>CAPD clinic</option>
+    <option>Counsellor Meeting</option>
+    <option>Dietitians clinic</option>
+    <option>General Nephrology Clinic</option>
+    <option>Haemodialysis clinic</option>
+    <option>Home visit</option>
+    <option>Home Haemodialysis clinic</option>
+    <option>Iron clinic</option>
+    <option>Low Clearance clinic</option>
+    <option>Meeting with family</option>
+    <option>MDM--Liver Renal Virology</option>
+    <option>MDM--Renal Biopsy</option>
+    <option>MDM--Radiology</option>
+    <option>MDM--Renal Sickle</option>
+    <option>Physiotherapist</option>
+    <option>Research visit</option>
+    <option>Result Review</option>
+    <option>Social Worker</option>
+    <option>Telephone call</option>
+    <option>Email</option>
+    <option>Transplant clinic</option>
+    <option>Walk-in clinic</option>
+    <option>Ward round</option>
+    <option>Dartford Outreach Clinic</option>
+    <option>Woolwich Outreach Clinic</option>
+    <option>Plasma Exchange</option>
+    <option>Tx Coordination</option>
+    </select></li>
+	<li><label for="encdescr">Description</label>&nbsp;<input type="text" id="encdescr" name="encdescr" size="70" /></li>
+	<li><label for="enctext">Notes</label></li>&nbsp;<textarea id="enctext" name="enctext" rows="4" cols="100"></textarea></li>
+	<li><label for="encbpsyst">BP</label>&nbsp;<input type="text" id="encbpsyst" name="encbpsyst" size="3" />/<input type="text" id="encbpdiast" name="encbpdiast" size="3" /></li>
+	<li><label for="encweight">Weight</label>&nbsp;<input type="text" id="encweight" name="encweight" size="4" /> kg </li>
+	<li><label for="encheight">Height</label>&nbsp;<input type="text" id="encheight" name="encheight" size="4" /> meters</li>
+    <li class="submit"><input type="submit" style="color: green;" value="add <?php echo $addtype ?>" />&nbsp;&nbsp;
+	<input type="button" class="ui-state-default" style="color: white; background: red; border: red;" value="cancel" onclick="$('#adddataform').hide('slow')"/></li>
+    </ul>
+    </fieldset>
+    </form>
+</div>

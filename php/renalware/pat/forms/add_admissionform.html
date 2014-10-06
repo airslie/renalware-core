@@ -1,0 +1,70 @@
+<?php
+//----Wed 16 Jun 2010----datepicker
+//----Tue 18 Jan 2011----fiskcheere now FISK to match PIMS feed
+?>
+<div id="adddataform" style="display: none;">
+	<form action="<?php echo $pagevw ?>&amp;run=add" method="post">
+	<fieldset>
+	<legend>Add new Admission for <?php echo $firstnames . ' ' . $lastname; ?></legend>
+	<ul class="form">
+	<li><label for="admdate">Admission Date</label><input type="text" name="admdate" value="<?php echo date("d/m/Y") ?>" class="datepicker" size="12" /></li>
+	<li><label for="admward">Ward</label>&nbsp;<select id="admward" name="admward">
+	<option value="FISK">Fisk/Cheere</option>
+	<?php
+	$popcode="wardcode";
+	$popname="ward";
+	$poptable="wardlist";
+	include('../incl/simpleoptions.php');
+	?>
+	</select></li>
+	<li><label for="admodal">Adm Modality</label>&nbsp;<select id="admodal" name="admmodal"><option value="<?php echo $modalcode; ?>"><?php echo $modalcode; ?></option>
+	<?php
+	$popcode="modalcode";
+	$popname="modality";
+	$poptable="modalcodeslist";
+	include('../incl/simpleoptions.php');
+	?>
+	</select></li>
+	<li><label for="consultant">Consultant</label>&nbsp;<select id="consultant" name="consultant">
+		<?php
+		if ( $_SESSION['admconsultant'] )
+		{
+			echo '<option>' . $_SESSION['admconsultant'] . '</option>';
+		}
+		else
+		{
+			echo '<option value="">Consultant</option>';
+		}	
+		$popcode="userlast";
+		$popname="userlast";
+		$popwhere="consultantflag=1";
+		$poptable="userdata";
+		include('../incl/limitedoptions.php');
+		?>
+		</select></li>
+	<li><label for="type">Adm Type</label>&nbsp;<select id="type" name="type">
+		<option value="">Type...</option>
+		<option value="Emergency">Emergency</option>
+		<option value="A&amp;E">A&amp;E</option>
+		<option value="Elective">Elective</option>
+		<option value="Referral">Referral</option>
+		<option value="ward">Other Ward</option>
+		<option value="hospital">Other Hosp</option>
+		<option value="ARF">ARF</option>
+		<option value="Day">Day Case</option>
+		<option value="Other">Other</option>
+		</select></li>
+	<li><label for="reason">Reason for Admission</label>&nbsp;<select id="reason" name="reason">
+		<option value="">Reason...</option>
+		<option value="Emergency">ARF</option>
+		<option value="Tenchkoff">Tenchkoff</option>
+		<option value="Infection">Infection</option>
+		<option value="Other">Other (specify below)</option>
+		</select></li>
+	<li><label for="reasontext">Other Reason</label>&nbsp;<input type="text" id="reasontext" name="reasontext" size="40" /></li>
+    <li class="submit"><input type="submit" style="color: green;" value="add <?php echo $addtype ?>" />&nbsp;&nbsp;
+	<input type="button" class="ui-state-default" style="color: white; background: red; border: red;" value="cancel" onclick="$('#adddataform').hide('slow')"/></li>
+    </ul>
+    </fieldset>
+    </form>
+</div>

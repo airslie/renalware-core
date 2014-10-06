@@ -1,0 +1,22 @@
+<form action="admin/clinstudiesadmin.php?mode=addstudy" method="post">
+<fieldset>
+    <legend>Add new Clinical Study (Administrators Only)</legend>
+<ul class="form"> 
+<li><label>Study Code</label> <input type="text" size="25" name="studycode" > <i>"nickname" for checkboxes &amp; lists, max 20 char</li>
+<li><label>Formal Study Name</label> <input type="text" size="100" name="studyname" ></li>
+<li><label>Study Leader</label> 
+<select name="studyleader"><option value="">Select consultant...</option>
+<?php
+$popcode="userlast";
+$popname="authorsig";
+$popwhere="consultantflag=1";
+$poptable="userdata";
+include('../incl/limitedoptions.php');
+?>
+</select></li>
+<li><label>Notes</label> <input type="text" size="100" name="studynotes" ></li>
+<li><label>Start Date</label> <input type="text" size="10" name="studydate" value="<?php echo date("d/m/Y") ?>" /></li>
+</ul>
+</fieldset>
+<input type="submit" style="color: green;" value="add new clinical study" />
+</form>

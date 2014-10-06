@@ -1,0 +1,27 @@
+<?php
+//----Mon 25 Feb 2013----catheter flds
+?>
+<form action="renal/renal.php?zid=<?php echo $zid; ?>&amp;scr=access" method="post">
+<fieldset>
+    <legend><?php echo $addlabel . ' for ' . $firstnames . ' ' . $lastname; ?></legend>
+<input type="hidden" name="add" value="<?php echo $addtable; ?>" />
+<i>Note: The freetext will be added to the pop-up text (which can remain blank)</i><br><br>
+<ul class="form">
+<li><label>procedure (pop-up)</label>&nbsp;&nbsp;
+<select name="proced">
+	<option value="">Select...</option>
+	<?php include( '../optionlists/accessprocedures.html' ); ?>
+</select></li>
+<li><label>procedure (freetext)</label>&nbsp;&nbsp;<input type="text" size="100" name="procedtext" ></li>
+<li><label>operator</label>&nbsp;&nbsp;<input type="text" size="30" name="operator" ></li>
+<li><label>First Procedure?</label>&nbsp;&nbsp;<input type="checkbox" name="firstflag" value="1" />Yes <input type="checkbox" name="firstflag" value="0" />No</li>
+<li><label>outcome</label>&nbsp;&nbsp;<input type="text" size="30" name="outcome" ></li>
+<li><label>catheter make</label>&nbsp;&nbsp;<input type="text" size="30" name="cathetermake" ></li>
+<li><label>catheter Lot No</label>&nbsp;&nbsp;<input type="text" size="15" name="catheterlotno" ></li>
+<li><label>procedure date</label>&nbsp;&nbsp;<input type="text" size="14" name="proceduredate" class="datepicker" value="<?php echo Date("d/m/Y") ?>"></li>
+<li><label>first-used date</label>&nbsp;&nbsp;<input type="text" size="14" name="firstused_date" class="datepicker"></li>
+<li><label>failure date</label>&nbsp;&nbsp;<input type="text" size="14" name="failuredate" class="datepicker"></li>
+</ul>
+<input type="submit" style="color: green;" value="<?php echo $addlabel; ?>">
+</fieldset>
+</form>

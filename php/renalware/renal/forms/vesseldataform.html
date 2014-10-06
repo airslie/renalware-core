@@ -1,0 +1,41 @@
+<form action="renal/addrenaldata.php?zid=<?php echo $zid; ?>&amp;form=vesseldata&amp;mode=add" method="post">
+<fieldset>
+<legend>Add new Vessel Assessment for <?php echo $firstnames . ' ' . $lastname; ?></legend>
+<p class="cancel"><a href="javascript:window.close();">Cancel (close this window)</a></p>
+<ul>
+<li><label>assessment date</label> <input type="text" size="12" name="assessmentdate" value="<?php echo date("d/m/Y") ?>" /></li>
+<li><label>vessel</label> <select name="vessel">
+<option value="">Select Vessel...</option>
+<option>brachial artery R</option>
+<option>brachial artery L</option>
+<option>femoral artery R</option>
+<option>femoral artery L</option>
+<option>radial artery R</option>
+<option>radial artery L</option>
+<option>antecubital vein R</option>
+<option>antecubital vein L</option>
+<option>cephalic vein R</option>
+<option>cephalic vein L</option>
+<option>femoral vein R</option>
+<option>femoral vein L</option>
+</select></li>
+<li><label>assessment</label> <select name="assessment">
+<option value="">Select assessment...</option>
+<option>Functioning fistula</option>
+<option>Good vessels</option>
+<option>Possible vessels</option>
+<option>Impossible vessels</option>
+<option>Failed fistula</option>
+</select></li>
+<li><label>assessor</label> <input type="text" size="30" name="assessor" value="<?php echo $user; ?>" ></li>
+<li><label>method</label> <input type="text" size="30" name="method" ></li>
+<li><label>diameter</label> <input type="text" size="5" name="diameter" ></li>
+<li><label>flowrate</label> <input type="text" size="5" name="flowrate" ></li>
+<li><label>stenosis</label> <input type="text" size="5" name="stenosis" ></li>
+<li><label>stenosis_site</label> <input type="text" size="10" name="stenosis_site" ></li>
+<li><label>surg referral?</label> <input type="checkbox" name="surgreferflag"  value="Y" />Yes</li>
+<li><label>surg refer date</label> <input type="text" size="12" name="surgreferdate" ></li>
+</ul>
+</fieldset>
+<input type="submit" style="color: green;" value="add new assessment for <?php echo $firstnames . ' ' . $lastname; ?>" />
+</form>

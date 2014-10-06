@@ -1,0 +1,15 @@
+<hr />
+<form action="admin/addnewdrugname.php" method="post">
+<fieldset>
+<input type="hidden" name="mode" value="adddrug" id="mode" />
+<legend>Step (2) refine search above or add new drug to pop-up drugs listing</legend>
+<ul class="form">
+<li><label>drug name</label>&nbsp;&nbsp;<input type="text" name="drugname"  size="50" /></li>
+<li><label>ESA?</label> <input type="radio" name="esdflag" value="0" checked="checked" />No &nbsp; &nbsp; <input type="radio" name="esdflag" value="1" />YES</li>
+<li><label>Immunosuppr?</label> <input type="radio" name="immunosuppflag" value="0" checked="checked" />No &nbsp; &nbsp; <input type="radio" name="immunosuppflag" value="1" />YES</li>
+</ul>
+<?php if ($adminflag or $user==$supertypist): ?>
+<input type="submit" style="color: green;" value="Add new drug" />
+<?php endif ?>
+</fieldset>
+</form>

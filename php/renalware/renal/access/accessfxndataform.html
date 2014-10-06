@@ -1,0 +1,43 @@
+<form action="renal/renal.php?zid=<?php echo $zid; ?>&amp;scr=access" method="post">
+<fieldset>
+    <legend><?php echo $addlabel . ' for ' . $firstnames . ' ' . $lastname; ?></legend>
+<input type="hidden" name="add" value="<?php echo $addtable; ?>" />
+<ul class="form">
+<li><label>assessment date</label>&nbsp;&nbsp;<input type="text" size="14" name="assessmentdate" class="datepicker" value="<?php echo Date("d/m/Y") ?>"></li>
+<li><label>access type</label>&nbsp;&nbsp;<select name="accesstype">
+<option value="">Select type...</option>
+<?php include('../optionlists/accesstypes.html'); ?></select></li>
+<li><label>method</label>&nbsp;&nbsp;<select name="assessmentmethod" id="assessmentmethod">
+	<option value="">Select method...</option>
+<option>Hand Doppler-AccessNurse</option>
+<option>Vasular Technician Doppler</option>
+<option>Vacular Laboratory</option>
+</select></li>
+<li><label>assessment outcome</label>&nbsp;&nbsp;<select name="assessmentoutcome" id="assessmentoutcome">
+	<option value="">Select outcome...</option>
+<option value="Green">Green (Fine)</option>
+<option value="Amber">Amber (Some anxiety)</option>
+<option value="Red">Red (Severe)</option>
+</select></li>
+<li><label>flow feed artery</label>&nbsp;&nbsp;<input type="text" size="30" name="flow_feedartery" ></li>
+<li><label>art stenosis?</label>&nbsp;&nbsp;<input type="radio" name="artstenosisflag" value="1" />Y &nbsp; &nbsp; <input type="radio" name="artstenosisflag" value="0" />N</li>
+<li><label>art stenosis notes</label>&nbsp;&nbsp;<input type="text" size="30" name="artstenosistext" ></li>
+<li><label>ven stenosis?</label>&nbsp;&nbsp;<input type="radio" name="venstenosisflag" value="1" />Y &nbsp; &nbsp; <input type="radio" name="venstenosisflag" value="0" />N</li>
+<li><label>ven stenosis notes</label>&nbsp;&nbsp;<input type="text" size="30" name="venstenosistext" ></li>
+<li><label>Rx decision</label>&nbsp;&nbsp;<input type="text" size="30" name="rx_decision" ></li>
+<li><label>procedure date</label>&nbsp;&nbsp;<input type="text" size="14" name="proceduredate" class="datepicker"></li>
+<li><label>comments</label>&nbsp;&nbsp;<input type="text" size="30" name="proced_outcome" ></li>
+<li><label>residual stenosis?</label>&nbsp;&nbsp;<input type="radio" name="residualstenosisflag" value="1" />Y &nbsp; &nbsp; <input type="radio" name="residualstenosisflag" value="0" />N</li>
+<li><label>next surveillance due</label>&nbsp;&nbsp;<select name="surveillance" id="surveillance">
+	<option value="">Select type...</option>
+<option>Routine 6 Monthly</option>
+<option>Routine 3 Monthly</option>
+<option>Routine Monthly</option>
+<option>Vascular Lab 6 Monthly</option>
+<option>Vascular Lab 3 Monthly</option>
+<option>Vascular Lab Monthly</option>
+</select></li>
+</ul>
+<input type="submit" style="color: green;" value="<?php echo $addlabel; ?>">
+</fieldset>
+</form>

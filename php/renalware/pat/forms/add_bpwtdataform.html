@@ -1,0 +1,18 @@
+<?php
+//NB $pagevw from upstream e.g. patient.php?zid=$zid&amp;vw=encounters
+//Fri May  8 16:01:43 CEST 2009
+?>
+	<form action="<?php echo $pagevw ?>&amp;run=addbpwt" method="post">
+	<fieldset>
+	<legend>Add new BP/Weight data for <?php echo $firstnames . ' ' . $lastname; ?></legend>
+	<ul class="form">
+	<li><label for="bpwtdate">Date</label><input type="text" name="bpwtdate" value="<?php echo date("d/m/Y") ?>"class="datepicker" size="12" /></li>
+	<li><label for="bpwttype">Type/Situation</label>&nbsp;<input type="text" id="bpwttype" name="bpwttype" size="30" /></li>
+	<li><label for="bpwtsyst">BP</label>&nbsp;<input type="text" id="bpwtsyst" name="bpwtsyst" size="3" />/<input type="text" id="bpwtdiast" name="bpwtdiast" size="3" /></li>
+	<li><label for="bpwtweight">Weight</label>&nbsp;<input type="text" id="bpwtweight" name="bpwtweight" size="4" /> kg</li>
+    <li class="submit"><input type="submit" style="color: green;" value="submit!" />&nbsp;&nbsp;
+	<input type="button" class="ui-state-default" style="color: white; background: red; border: red;" value="cancel" onclick="$('#adddataform').hide('slow')"/></li>
+	</li>
+    </ul>
+    </fieldset>
+    </form>

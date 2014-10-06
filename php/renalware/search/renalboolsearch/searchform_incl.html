@@ -1,0 +1,69 @@
+<?php
+//get opers
+include "$searchpath/incl/opers_incl.php";
+?>
+<div id="renalsearchformdiv" class="searchoptions">
+    <p>Choose up to three fields to create a search of "TERM1 <b>AND</b> (TERM2 <b>OR</b> TERM3)" or <br>
+    "TERM1 <b>OR</b> TERM2 <b>OR</b> TERM3". Examples of the two search types are:
+  </p>
+  <ul>
+            <li>SELECT hospno1, lastname, firstnames, sex, modalcode, age, esdstatus ... <b>WHERE sex='F' AND (age>50 OR modalcode LIKE 'HD%')</b></li>
+            <li>SELECT hospno1, lastname, firstnames, sex, modalcode, age, esdstatus ... <b>WHERE sex='F' OR age>50 OR modalcode LIKE 'HD%'</b></li>
+        </ul>
+   
+<form action="renalboolsearch.php" method="post">
+    <input type="hidden" name="runsearch" value="Y" id="runsearch" />
+<fieldset class="search">
+	    <legend class="search">Create Boolean Search Criteria</legend>
+	    <span class="fieldsetnotes">NOTES: Enter dates as <b>dd/mm/yyyy</b>. Non-TEXT BLOCK fields only are available ("single line" fields). <br>
+               Remember certain fields have prescribed values (e.g. diabetesflag='Y' or 'N').<br>
+               To increase search results text fields are converted to lower case (e.g. "MacDonald" &rarr; "macdonald")</span>
+<ul>
+    <li>
+    <label for="searchfield1">Search field #1:</label>&nbsp;<select name="searchfield1" id="searchfield1">
+    <option value="">Select field...</option><?php foreach($availablefields as $key => $value) { echo '<option>'.$value.'</option>'."\n"; } ?></select>&nbsp;&nbsp;
+    <select name="searchoper1" id="searchoper1"><option value="">Select operator...</option><?php echo $allopers ?></select>&nbsp;
+    <input type="text" class="srch" name="searchval1" size="20" id="searchval1" />
+    </li>
+    <li><input type="radio" name="bool1" value="AND" checked="checked" />AND &nbsp; &nbsp; <input type="radio" name="bool1" value="OR" />OR</li>
+     <li>
+    <label for="searchfield2">Search field #2:</label>&nbsp;<select name="searchfield2" id="searchfield2">
+    <option value="">Select field...</option><?php foreach($availablefields as $key => $value) { echo '<option>'.$value.'</option>'."\n"; } ?></select>&nbsp;&nbsp;
+    <select name="searchoper2" id="searchoper2"><option value="">Select operator...</option><?php echo $allopers ?></select>&nbsp;
+    <input type="text" class="srch" name="searchval2" size="20" id="searchval2" />
+    </li>
+    <li><input type="radio" name="bool2" value="AND" />AND &nbsp; &nbsp; <input type="radio" name="bool2" value="OR" checked="checked" />OR</li>
+    <li>
+    <label for="searchfield3">Search field #3:</label>&nbsp;<select name="searchfield3" id="searchfield3">
+    <option value="">Select field...</option><?php foreach($availablefields as $key => $value) { echo '<option>'.$value.'</option>'."\n"; } ?></select>&nbsp;&nbsp;
+    <select name="searchoper3" id="searchoper3"><option value="">Select operator...</option><?php echo $allopers ?></select>&nbsp;
+    <input type="text" class="srch" name="searchval3" size="20" id="searchval3" />
+    </li>
+</ul>
+</fieldset>
+<fieldset class="search">
+    <legend class="search">Results Sort Options</legend>
+<ul>
+<li><label for="sortoptiontype">Sort Options</label><input type="radio" name="sortoptiontype" id="sortoptiontype1" value="default" checked="checked" />Default (lastname, firstname) &nbsp; &nbsp; <input type="radio" name="sortoptiontype" id="sortoptiontype2" value="custom" />custom (select up to two below)</li>
+<li><label for="sortfld1">Sort by</label>&nbsp;<select name="sortfld1" id="sortfld1">
+<option value="">Select...</option>
+<?php foreach($availablefields as $key => $value) { echo '<option>'.$value.'</option>'."\n"; } ?>
+</select>&nbsp;&nbsp;<select name="sortorder1" id="sortorder1">
+<option value="ASC">ascending (A&rarr;Z)</option>
+<option value="DESC">descending (Z&rarr;A)</option>
+</select>&nbsp;&nbsp;<label for="sortfld2">and then (optional)</label><select name="sortfld2" id="sortfld2">
+<option value="">Select...</option>
+<?php foreach($availablefields as $key => $value) { echo '<option>'.$value.'</option>'."\n"; } ?>
+</select>&nbsp;&nbsp;<select name="sortorder2" id="sortorder2">
+<option value="ASC">ascending (A&rarr;Z)</option>
+<option value="DESC">descending (Z&rarr;A)</option>
+</select></li>
+</ul>
+</fieldset> 
+<fieldset class="search">
+<span class="fieldsetnotes">Warning: all search results will be displayed and may take time with large data sets.</span>
+<p><input type="submit" style="color: green;" value="Perform Search &rarr;" /></p>
+</fieldset>
+</form>
+</div>
+<!-- END CUSTOM SEARCH FORM DIV -->

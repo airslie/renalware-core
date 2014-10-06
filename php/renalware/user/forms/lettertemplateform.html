@@ -1,0 +1,10 @@
+<form href="user/usertemplates.php?add=lettertemplate" method="post">
+<fieldset>
+<legend>Add new Letter Template for <?php echo $user; ?></legend>
+<label for="templatename">Template Name</label><br><input type="text" id="templatename" size="100" name="templatename" /><br>
+<label for "templatetext">Template Text</label><br>
+<textarea id="templatetext" name="templatetext" rows="20" cols="100">
+</textarea><br>
+<input type="submit" style="color: green;" value="add new template" />&nbsp;&nbsp;<a class="ui-state-default" style="color: red;" href="javascript:toggl('<?php echo $addtype ?>form');" />cancel</a>
+</fieldset>
+</form>

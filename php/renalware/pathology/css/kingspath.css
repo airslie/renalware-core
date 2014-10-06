@@ -1,0 +1,671 @@
+body {
+font-size : 70.5%;
+color : #333;
+background : #fff;
+font-family : Arial, Helvetica, sans-serif;
+width: 100%;
+}
+/* @group headers */
+h1, h2, h3, h4, h5, h6 {
+font-weight : normal;
+color : #111;
+}
+h1 {
+font-size : 1.6em;
+line-height : 1;
+margin-bottom : 0.2em;
+width : 100%;
+font-weight : bold;
+}
+h2 {
+font-size : 1.4em;
+margin-bottom : 0.3em;
+font-weight : bold;
+}
+h3 {
+font-size : 1.2em;
+line-height : 1;
+margin-bottom : 0.5em;
+font-weight : bold;
+}
+h4 {
+font-size : 1em;
+font-weight : bold;
+line-height : 1.25;
+margin-bottom : 1em;
+}
+h5 {
+font-size : 1em;
+font-weight : bold;
+margin-bottom : 1.5em;
+}
+h6 {
+font-size : 1em;
+font-weight : bold;
+}
+/* @end */
+
+/* @group divs */
+div#content {
+float : left;
+clear : both;
+margin-top: 10px;
+}
+
+div#leftcol {
+float : left;
+width : auto;
+height : 400px;
+overflow : scroll;
+vertical-align : top;
+margin-right: 10px;
+}
+div#headerinfo {
+margin : 3px;
+color : #999;
+font-size : 0.9em;
+}
+div#footer {
+clear : both;
+padding-top : 60px;
+margin : 10px;
+color : #999;
+font-size : 0.8em;
+background-color : transparent;
+}
+div#footer a {
+color : #999;
+font-weight : bold;
+}
+
+#patrefdiv {
+margin-top: 3px;
+clear: both;
+border-bottom : 2px solid #ddd;
+font-size : 1.6em;
+margin-bottom : 1px;
+}
+
+.alertdiv {
+font-size : 1em;
+color : #f00;
+background-color : #ff6;
+border : 1px solid red;
+padding : 5px;
+margin : 2px;
+}
+
+#showalertdiv {
+border : 2px solid #f00;
+color: #f00;
+background-color : yellow;
+padding : 3px;
+font-size : 1.5em;
+font-weight : bold;
+margin-top : 2px;
+margin-bottom : 2px;
+width : 1024px;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+}
+
+
+/* @end */
+pre {
+font-size : 1em;
+font-family : Courier, "Courier New";
+}
+.img {
+border : none;
+text-decoration : none;
+}
+
+/* @group a */
+a:hover {
+background-color : #ff3;
+color : #06f;
+border-bottom : 0 dotted #066;
+}
+a:link, a:visited {
+color : blue;
+text-decoration : none;
+}
+a.hilite {
+color : red;
+border-bottom : thin dotted red;
+text-decoration : none;
+}
+a.button {
+margin-left : 15px;
+border : 1px solid #333;
+background-color : #ddd;
+padding : 7px;
+font-size : 1.2em;
+color : #333;
+text-decoration : underline;
+}
+a.button:hover {
+border : 2px solid #f00;
+background-color : #ff6;
+padding : 7px;
+font-size : 1.2em;
+color : #000;
+font-weight : bold;
+}
+
+/* @end */
+
+/* @group typography */
+.blockquote {
+border : 1px dotted #fc0;
+background-color : #f0f0f0;
+padding : 5px 5px 5px 5px;
+margin : 10px 10px 10px 10px;
+font-size : small;
+color : #33cc33;
+}
+/* @end */
+
+/* @group ul */
+ul {
+padding-left : .2em;
+}
+ul.none {
+padding-left : .2em;
+list-style-type : none;
+}
+
+li.ext {
+background-color : #cf0;
+border : thin solid #333;
+}
+
+
+ul.list {
+list-style-type : none;
+}
+ul.list li {
+margin-top : 2px;
+padding : 1px;
+border-bottom : thin solid #ddd;
+font-size : 0.9em;
+}
+
+
+fieldset ul li b {
+	text-align : right;
+	font-weight : bold;
+	font-size : 0.95em;	
+}
+ul.portal li b {
+	text-align : right;
+	font-weight : bold;
+	font-size : 0.95em;	
+}
+
+/* @end */
+	
+.nav {
+margin-right : 3px;
+border : thin solid #ddd;
+}
+
+p.header {
+color : #f00;
+padding : 2px;
+background-color : #ddd;
+margin : 2px;
+font-size : 1em;
+font-weight : bold;
+}
+
+/* @group tables */
+th a {
+text-decoration : none;
+}
+th.thactive {
+background : #f90;
+}
+tbody {
+background : #fff;
+}
+td.opt {
+font-size : 0.8em;
+}
+td.opt a {
+color : #090;
+}
+th {
+color : #f00;
+text-align : left;
+border-bottom : thin solid #f00;
+font-size : 1em;
+}
+td {
+color : black;
+border-bottom : thin solid #ddd;
+border-right : thin solid #ddd;
+padding : 2px;
+padding-left : 2px;
+padding-right : 5px;
+vertical-align : top;
+}
+
+/* @end */
+
+/* @group forms */
+
+legend {
+color : #039;
+font-size : 1.2em;
+}
+legend.sub {
+color : #f00;
+font-size : 1.1em;
+}
+fieldset {
+background-color : #ccf;
+border : 1px solid #f00;
+width : 900px;
+font-size: 1.1em;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+
+}
+fieldset ul {
+list-style-type : none;
+}
+fieldset li {
+font-size: 1em;
+margin-top : 4px;
+padding : 3px;
+border-bottom : thin solid #fff;
+}
+fieldset li.submit {
+margin-top : 4px;
+padding : 3px;
+margin-left : 10%;
+border : none;
+}
+
+textarea {
+font-size : 1.1em;
+width : auto;
+padding : 2px 4px;
+border : 1px solid #aaa;
+color : #222;
+font-family : Arial, Helvetica, sans-serif;
+}
+label {
+text-align : right;
+color : #f00;
+font-size : 1em;
+vertical-align : top;
+}
+fieldset ul li label {
+color : #f00;
+font-size : 1em;
+vertical-align : top;
+width : 15%;
+}
+fieldset ul.form li label {
+float : left;
+width : 15%;
+margin-right : 3px;
+padding-top : 0.3em;
+text-align : right;
+font-weight : normal;
+color : #f00;
+font-size : 1em;
+clear : left;
+}
+
+label.displ {
+width : 10em;
+display : inline-block;
+text-align : right;
+color : red;
+font-size : 0.9em;
+}
+
+
+label.radiobox {
+text-align : left;
+color : #f00;
+font-size : 0.9em;
+}
+select {
+font-size : 1em;
+}
+input.focus {
+margin-bottom : 0;
+background-color : #ff6;
+font-size : 1em;
+color : #333;
+}
+.fieldsetnotes {
+margin : 4px;
+color : #000;
+font-weight : normal;
+font-family : Helvetica, Arial, sans-serif;
+font-size : 0.96em;
+padding : 3px;
+background : #ff9;
+}
+input text {
+background : #f6f6f6;
+font-size : 1em;
+padding : 2px 4px;
+border : 1px solid #f00;
+color : #222;
+}
+input submit {
+font-size : 0.8em;
+}
+
+
+/* @end */
+
+
+/* @group misc */
+
+.patref {
+font-size : 1.2em;
+font-weight : bold;
+color : black;
+background-color : transparent;
+padding-bottom : 8px;
+margin-bottom : 11px;
+}
+.alert {
+font-size : 0.95em;
+font-style : normal;
+font-weight : bold;
+color : #ff0000;
+background-color : #ffff00;
+border : 1px solid #333;
+padding : 4px;
+}
+.alertbig {
+font-size : 1.35em;
+font-weight : bold;
+color : #fff;
+background-color : #000;
+border : 3px solid #000;
+padding : 4px;
+}
+.alertsmall {
+font-size : 1em;
+font-style : normal;
+font-weight : bold;
+color : #333333;
+background-color : #fc0;
+border : 1px solid #333;
+padding : 4px;
+}
+.hint {
+font-size : 1em;
+font-style : italic;
+color : purple;
+margin : 3px;
+}
+
+.date {
+color : #00d400;
+text-align : left;
+}
+
+/* @end */
+
+
+
+/* @group data */
+li.results {
+display : inline;
+}
+li.pathix {
+font-size : 1em;
+padding-bottom : 3px;
+border-bottom : thin solid silver;
+}
+li.thispathix {
+font-size : 1em;
+padding-bottom : 3px;
+border-bottom : thin solid silver;
+background-color : #ff6;
+}
+.listing {
+font-family : Courier, monospace;
+font-size : 0.9em;
+background-color : #c0c0c0;
+color : #000000;
+}
+
+div.basket {
+background-color : white;
+padding : 3px;
+float: left;
+}
+td.data {
+font-size : 1em;
+font-style : normal;
+text-decoration : none;
+background-color : #fff;
+color : #333;
+text-align : left;
+border-bottom : 1px dotted #066;
+padding : 2px 2px 2px 2px;
+}
+
+fieldset#resultsbrowsersearch {
+	background-color: #ddd;
+	border: none;
+	width: auto;
+	padding: 2px;
+}
+fieldset#resultsbrowsersearch select{
+	font-size: 1em;
+	color: green;
+}
+
+.hb {
+text-align : right;
+background-color : #fc9;
+font-weight : bold;
+}
+.bc {
+text-align : right;
+background-color : #cf9;
+font-weight : bold;
+}
+.mdrd {
+text-align : right;
+background-color : #ccf;
+font-weight : bold;
+}
+
+span.num {
+vertical-align : top;
+margin-left : 0.5em;
+font-weight : bold;
+color : black;
+}
+span.label {
+text-align : right;
+font-weight : bold;
+color : #f00;
+font-size : 0.95em;
+}
+.date {
+color : #00d400;
+text-align : left;
+}
+/* @end */
+
+
+/* @group datalist */
+div#datalistdiv {
+padding: 3px;
+margin: 3px;
+border: thin solid gray;
+}
+
+table.datalist {
+background-color: #fff;
+float: left;
+padding: 5px;
+margin: 3px;
+table-layout : fixed;
+}
+table.datalist td {
+color : black;
+border-bottom : thin solid #ddd;
+font-size : 1.1em;
+padding : 2px;
+font-weight: normal;
+vertical-align: bottom;
+}
+table.datalist td.n {
+	text-align : right;
+}
+table.datalist td.l {
+	text-align : right;
+	color : #f00;
+	font-size : 1em;
+}
+table.datalist td.i {
+	color : green;
+	font-size : 0.9em;
+	font-style: italic;
+}
+tr.n {
+	background-color: #fff;
+}
+tr.hi {
+	background-color: #ff6;
+}
+
+/* @end */
+
+/* @group CurrentPathData */
+p.pathheader {
+	border: thin solid green;
+	padding: 4px;
+	width: 290px;
+}
+p.resultsheader {
+	padding: 1px;
+	font-size: 1em;
+	font-style: italic;
+	color: green;
+}
+div#leftpathcol {
+float : left;
+width : 300px;
+height : 400px;
+vertical-align : top;
+margin-right: 10px;
+}
+
+div#pathdatasetdiv {
+float: left;
+	width: 1200px;
+	height: 450px;
+	padding: 5px;
+}
+/* for ixlist */
+div#ixlistdiv {
+height: 400px;
+overflow: scroll;
+}
+
+table.ixlist {
+font-size : 1em;
+width: 290px;
+table-layout : fixed;
+margin-left : 5px;
+}
+
+table.ixlist td {
+color : black;
+border-bottom : thin solid #ddd;
+border-right : thin solid #ddd;
+padding : 2px;
+height: 1.1em;
+}
+
+/* @end */
+/* @group tablesorter */
+
+/* for Jquery tablesorter config */
+table.tablesorter {
+	font-size: 1em;
+	background-color: #fff;
+	width: auto;
+	border: none ;
+}
+table.tablesorter thead {
+	width: auto;
+	background-color: #ddd;
+}
+p.tblnonefound {
+	color: #333;
+	padding: 3px;
+	background-color: #ddd;
+	font-weight: normal;
+	font-size: 0.9em;
+	width: 1024px;
+}
+/*table.tablesorter td {
+	border-right: thin solid #ccc;
+	border-bottom: thin solid #ccc;
+	padding: 2px;
+}*/
+table.tablesorter .even {
+	background-color: #fff;
+}
+table.tablesorter .odd {
+	background-color: #fff;
+}
+table.tablesorter .header {
+	background-color: #ddd;
+	border: 1px solid #ccc;
+}
+table.tablesorter .headerSortUp {
+	background-color: yellow;
+}
+table.tablesorter .headerSortDown {
+	background-color: orange;
+}
+table.tablesorter td.rset {
+	width: 600px;
+}
+table.tablesorter tbody td a{
+	color: blue;
+}
+table.tablesorter tbody td a.gr{
+	color: green;
+}
+table.tablesorter tbody td a.r{
+	color: red;
+}
+
+/* tablesearch form */
+form.tablesearch { 
+display: inline;
+padding: 2px;
+background: #fff; 
+}
+form.tablesearch fieldset { border: 1px solid #ccc;}
+form.tablesearch input { 
+	margin-left: 3px;
+	width: 300px;
+	background-color: #f7f7f7;
+	border: 1px solid gray;
+	padding: 2px;
+	font-size: .9em;
+	color: gray;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	}
+/* @end */

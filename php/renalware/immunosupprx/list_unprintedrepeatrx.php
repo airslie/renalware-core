@@ -1,0 +1,84 @@
+<?php
+//--Sun Dec  1 17:11:03 CET 2013--
+//start page config
+$thispage="list_unprintedrepeatrx";
+//include fxns and config
+require 'req_fxnsconfig.php';
+$pagetitle= $pagetitles["$thispage"];
+$debug=false;
+$showsql=false;
+//use datatables prn
+$datatablesflag=true;
+//page content starts here
+require "../bs3/incl/head_bs3.php";
+require 'incl/immunosupprx_nav.php';
+echo '<div class="container">';
+//for alert msgs
+if ($_SESSION['runsuccess']) {
+   bs_Alert("success",$_SESSION['runsuccess']);
+    unset($_SESSION['runsuccess']);
+}
+echo "<h1>$pagetitle</h1>";
+//set tables incl JOINs
+$table="immunosupprepeatrxdata rx JOIN patientdata ON hospno=hospno1";
+//set fields and preferred labels/headers
+//use patzid to build options
+$fieldslist=array(
+	'patzid'=>'ZID',
+    'importdate'=>'import date',
+    'rowno'=>'row no',
+    'evolution_id'=>'Evolution ID',
+    'firstname'=>'first name',
+    'surname'=>'surname',
+    'rx.birthdate'=>'birth date',
+    'prescriber'=>'prescriber',
+    'nextdelivdate'=>'next deliv date',
+//    'hospital'=>'hospital',
+    'hospno'=>'hosp No',
+//    'nhsno'=>'nhsno',
+    'patientdx'=>'Patient Dx',
+);
+$listitems="records";
+$where="WHERE runflag=0";
+$listnotes="Includes unprinted Repeat Rx Forms starting $launchdate."; //appears before "Last run"
+//scr optionlinks-- &zid=$zid will be appended
+$optionlinks = array(
+	"immunosupprx/view_pat.php?src=list_unprintedrepeatrx" => "view pat", 
+	"immunosupprx/sign_homerxform.php?src=list_unprintedrepeatrx" => "sign Rx", 
+);
+$omitfields=array('patzid');
+$listnotes.=" Click on headers to sort; search operates across all fields"; //appears before "Last run"
+//------------END SET UP---------
+include '../bs3/incl/make_bs3datatable.php';
+//end page content
+echo '</div>'; //container
+require '../bs3/incl/footer_bs3.php';
+?>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.datatable').dataTable({
+		"sPaginationType": "bs_normal",
+		"bPaginate": true,
+		"bLengthChange": false,
+		"bFilter": true,
+		"aaSorting": [[ 1, "asc" ]],
+		"iDisplayLength": 30,
+        "aoColumnDefs": [
+            { "bSortable": false, "aTargets": [ 0 ] }
+          ],
+		"bSort": true,
+		"bInfo": false,
+		"bAutoWidth": true        
+	});	
+	$('.datatable').each(function(){
+		var datatable = $(this);
+		// SEARCH - Add the placeholder for Search and Turn this into in-line form control
+		var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
+		search_input.attr('placeholder', 'Search');
+		search_input.addClass('form-control input-sm');
+		// LENGTH - Inline-Form control
+		var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
+		length_sel.addClass('form-control input-sm');
+	});
+});
+</script>

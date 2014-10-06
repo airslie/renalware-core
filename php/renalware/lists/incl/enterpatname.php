@@ -1,0 +1,2 @@
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get"><input type="text" size="20" name="patname" /><input  type="submit"
+value="lastname[,firstname]" onfocus="if (this.value == 'lastname[,firstname]') this.value = '';" onblur="if (this.value == '') this.value = 'lastname[,firstname]';"></form>

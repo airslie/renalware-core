@@ -1,0 +1,44 @@
+<form action="<?php echo $pagevw ?>" method="post">
+<fieldset>
+	<legend>Add New Drug (non-ESA/Immunosuppressant)</legend>
+<input type="hidden" name="runtype" value="addnewdrug" />
+<ul class="form">
+<li><label for="drug_id">Select drug</label>&nbsp;&nbsp;<select name="drugid_name">
+<option value="">Select...</option>
+<?php
+$where="WHERE esdflag=0";
+if ($get_medinits) {
+	$medinits=strtolower($get_medinits);
+	$where.=" AND LOWER(drugname) LIKE '$medinits%'";
+}
+$sql= "SELECT drug_id, drugname FROM druglist $where ORDER BY drugname";
+$result = $mysqli->query($sql);
+while ($row = $result->fetch_assoc())
+	{
+	$drug_id=$row['drug_id'];
+	$drug=htmlentities($row['drugname']);
+	echo '<option value="'.$drug_id.'|'.$drug.'">'.$drug."</option>\r";
+	}
+?>
+</select></li>
+</ul>
+<?php if ($adminflag or $user==$supertypist or $consultantflag==1): ?>
+<a href="admin/addnewdrugname.php" target="new">Add New Drugname</a> (new window) <b>IMPORTANT</b>: You will have to refresh this page to see the drug after it has been added.
+<?php else: ?>
+<span class="alertsmall">IMPORTANT: If a drug does not appear in the pop-up list contact Allan O'Hea to have it added to the system*.</span>
+<?php endif ?>
+<ul class="form">
+<?php
+inputnewText("dose","Dose",20);
+inputnewText("route","Route (PO/IV/SC/IM)",3);
+inputnewText("freq","Frequency &amp; Duration",20);
+inputnewText("drugnotes","Notes",50);
+$adddate=date("d/m/Y");
+pickupDate("adddate","date added",$adddate);
+?>
+<li><label for="provider">Provider</label>&nbsp;&nbsp;<input type="radio" name="provider" value="GP" checked="checked" />GP &nbsp; &nbsp; <input type="radio" name="provider" value="hosp" />Hospital &nbsp; &nbsp; <input type="radio" name="provider" value="home" />Home Delivery</li>
+<li class="submit"><input type="submit" style="color: green;" value="Add new drug" /></li>
+</ul>
+</fieldset>
+</form>
+<p>*"Free text" drug entry has been suspended due to frequent faulty or redundant drug name entry</p>

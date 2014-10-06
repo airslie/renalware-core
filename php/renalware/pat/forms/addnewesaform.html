@@ -1,0 +1,89 @@
+<?php
+$esdfreq_options = array(
+	'.25' => 'once every 4 weeks',
+	'.5' => 'once every 2 weeks',
+	'1' => 'once per week',
+	'2' => 'twice per week',
+	'3' => '3 times per week',
+	'4' => '4 times per week'
+	);
+//adds iu equivalent to mcg doses; if not desired swop labels with doesarray2
+$iudose_options = array(
+	'500 iu',
+	'1000 iu',
+	'1250 iu',
+	'2000 iu',
+	'2250 iu',
+	'3000 iu',
+	'4000 iu',
+	'5000 iu',
+	'6000 iu',
+	'8000 iu',
+	'10000 iu',
+	'20000 iu',
+	'30000 iu',
+	);
+$mcgdose_options = array(
+	'10 mcg',
+	'15 mcg',
+	'20 mcg',
+	'30 mcg',
+	'40 mcg',
+	'50 mcg',
+	'60 mcg',
+	'75 mcg',
+	'80 mcg',
+	'100 mcg',
+	'120 mcg',
+	'150 mcg',
+	'200 mcg',
+	'250 mcg',
+	'300 mcg',
+	'350 mcg',
+	'360 mcg',
+	'400 mcg',
+	'600 mcg',
+	'800 mcg',
+	);	
+$route_options=array(
+	'IV',
+	'SC'
+	);
+?>
+<form action="<?php echo $pagevw ?>" method="post">
+<fieldset>
+<input type="hidden" name="runtype" value="run_addesd" />
+<legend>Add ESA</legend>
+<ul class="form">
+<li><label for="drug_id">Select ESA drug</label>&nbsp;&nbsp;<select id="drug_id" name="drug_id">
+<?php
+//must retain instead of array for drug_id
+$where="WHERE esdflag=1";
+$sql = "SELECT drug_id, drugname FROM druglist $where ORDER BY drugname";
+$result = $mysqli->query($sql);
+while($row = $result->fetch_assoc())
+	{
+	$drug_id=$row['drug_id'];
+	$drug=$row['drugname'];
+	echo "<option value=\"$drug_id\">$drug</option>";
+	}
+?>
+</select></li>
+</ul>
+<p class="alertsmall">Select dosage <b>either</b> in IU or in MCG:</p>
+<ul class="form">
+<?php
+makenewSelectKey("iudose","Dose (iu)", $iudose_options);
+echo "<b>OR</b> <br>";
+makenewSelectKey("mcgdose","Dose (mcg)", $mcgdose_options);
+makenewSelectKey("route","Route", $route_options);
+makenewSelectVal("esdfreq","Frequency", $esdfreq_options);
+inputnewText("drugnotes","Notes",50);
+$adddate=date("d/m/Y");
+pickupDate("adddate","date added",$adddate);
+?>
+<li><label for="provider">Provider</label>&nbsp;&nbsp;<input type="radio" name="provider" value="GP" checked="checked" />GP &nbsp; &nbsp; <input type="radio" name="provider" value="hosp" />Hospital &nbsp; &nbsp; <input type="radio" name="provider" value="home" />Home Delivery</li>
+	<li class="submit"><input type="submit" style="color: green;" value="Add new ESA" /></li>
+</ul>
+</fieldset>
+</form>

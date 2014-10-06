@@ -1,0 +1,34 @@
+#trustname {
+	font-size: 1.4em;
+	vertical-align: baseline;
+	color: #333;
+    padding-right: 5px;
+}
+
+#nhslogo {
+	font-style: italic;
+	font-weight: bold;
+	font-size: 1.4em;
+	color: white;
+	background-color: #0000FF;
+	vertical-align: baseline;
+	padding: 4px;
+}
+
+#trustcaption {
+	font-size: 0.9em;
+	color: #0000FF;
+	vertical-align: baseline;
+	padding: 2px;
+	margin-right: 60px;
+    padding-bottom: 18px;
+}
+
+.table-small {
+    font-size: 0.85em;
+}
+
+.alert {
+    margin: 3px;
+    padding: 5px;
+}

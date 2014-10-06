@@ -1,0 +1,14 @@
+White	9S1..
+Black Caribbean	9S2..
+Black African	9S3..
+Black/other/non-mixed	9S4..
+Indian	9S6..
+Pakistani	9S7..
+Bangladeshi	9S8..
+Chinese	9S9..
+North African Arab	9SA4.
+Other ethnic / mixed origin	9SB..
+Other ethnic / Black/White orig	9SB1.
+Other ethnic / Asian/White orig	9SB2.
+Other ethnic / mixed white orig	9SB3.
+Other ethnic / other mixed orig	9SB4.

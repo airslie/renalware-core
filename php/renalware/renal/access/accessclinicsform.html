@@ -1,0 +1,25 @@
+<?php
+//----Mon 25 Feb 2013----</li> fix
+?>
+<form action="renal/renal.php?zid=<?php echo $zid; ?>&amp;scr=access" method="post">
+<fieldset>
+    <legend><?php echo $addlabel . ' for ' . $firstnames . ' ' . $lastname; ?></legend>
+    <input type="hidden" name="add" value="<?php echo $addtable; ?>" />
+<ul class="form">
+<li><label>access clin date</label> <input type="text" size="14" name="accessclindate" class="datepicker" value="<?php echo Date("d/m/Y") ?>" ></li>
+<li><label>surgeon/assessor</label> 
+<select name="surgeon"><option value="">Select...</option>
+<?php
+//----Sun 31 Jul 2011----
+$optionlistname='surgeons';
+include '../optionlists/getoptionlist_incl.php';
+?>
+</select></li>
+<li><label>decision</label> <input type="text" size="60" name="decision" ></li>
+<li><label>ixrequests</label> <input type="text" size="60" name="ixrequests" ></li>
+<li><label>anaesth</label> <input type="radio" name="anaesth" value="LA" checked="checked" />LA &nbsp; &nbsp; <input type="radio" name="anaesth" value="GA" />GA</li>
+<li><label>priority</label> <input type="radio" name="priority" value="routine" checked="checked" />routine &nbsp; &nbsp; <input type="radio" name="priority" value="urgent" />urgent</li>
+</ul>
+<input type="submit" style="color: green;" value="<?php echo $addlabel; ?>" />
+</fieldset>
+</form>

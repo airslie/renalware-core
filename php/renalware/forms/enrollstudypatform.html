@@ -1,0 +1,18 @@
+<?php
+if (!$_GET['mode'])
+	{
+	echo '<form action="lists/clinstudieslist.php?mode=findstudypat" method="post">
+	<fieldset>
+		<legend>Enroll Study Patient</legend>
+		<input type="text" size="20" name="patname" />
+		<input type="submit" style="color: green;" value="find lastname[,firstname]" />
+	</fieldset>
+	</form>';
+	}
+if ($_GET['mode']=="findstudypat")
+	{
+//	    echo "name=" . $_POST['patname'];
+	echo '<b>Select desired study patient</b><br>';
+	include('../incl/studypatpopup.php');
+	}
+?>
