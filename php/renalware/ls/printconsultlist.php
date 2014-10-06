@@ -2,7 +2,7 @@
 //----Fri 28 Feb 2014----streamlining and sorts
 //Fri Oct 24 10:33:25 IST 2008
 //----Sun 16 Oct 2011----upgr to datatable
-include '/var/conns/renalwareconn.php';
+include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
 include '../req/confcheckfxns.php';
 $thislistgroupname = "Renal Consults List";
 $thislist = "activelist";

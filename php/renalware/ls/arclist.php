@@ -1,6 +1,6 @@
 <?php
 //--Thu Nov  1 11:44:19 CET 2012-- DT upgrade
-include '/var/conns/renalwareconn.php';
+include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
 include '../req/confcheckfxns.php';
 //config lists
 $listslist = array(

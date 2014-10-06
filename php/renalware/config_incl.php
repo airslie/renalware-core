@@ -50,7 +50,7 @@ $recentletters=5;
 $toggleflag=1;
 //email addr for letters (FOR TESTING PURPOSES)
 $sendletteremails=0;
-$lettersemailrecip=$alertemail;
+// $lettersemailrecip=$alertemail;
 //eCCs
 $ccdayswarning=3; //days over which users are warned re unread CCs
 //user for "supertypist" (to view Typist Audit)

@@ -1,5 +1,5 @@
 <?php
-include '/var/conns/renalwareconn.php';
+include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
 $id=$_POST["id"];
 $sql = "SELECT templatetext FROM renalware.lettertemplates WHERE template_id=$id";
 $result = $mysqli->query($sql);

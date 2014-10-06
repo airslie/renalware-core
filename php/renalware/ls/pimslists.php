@@ -6,7 +6,7 @@ $pagetitle= "Search PIMS";
 //set mod to select vwbar options
 include "$rwarepath/navs/topsimplenav.php";
 $baseurl="ls/pimslists.php";
-include '/var/conns/renalwareconn.php';
+include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
 
 ?>
 <form action="ls/pimslists.php" method="get" accept-charset="utf-8">

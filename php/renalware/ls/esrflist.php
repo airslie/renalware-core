@@ -1,6 +1,6 @@
 <?php
 //--Wed Aug  6 14:13:44 EDT 2014--
-include '/var/conns/renalwareconn.php';
+include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
 include '../req/confcheckfxns.php';
 //config lists
 $listslist = array(

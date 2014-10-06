@@ -5,12 +5,15 @@
 switch ($configstatus) {
     case 'DEVEL':
     $hostname="localhost";
-    $rwarepath="/Library/WebServer/Documents/renalware";
-    $rwareroot="http://$hostname/renalware";
+    // $rwarepath="/Library/WebServer/Documents/renalware";
+    $rwarepath="lat/projects/renalwarev2/php/renalware";
+    // $rwareroot="http://$hostname/renalware";
+    $rwareroot="http://$hostname:8000";
     // ----------SET LOCAL PATHS HERE ------------
     //DB connection here
-    $db="renalware_dev";
-    require_once '/var/conns/renalwareconn.php';
+    $db="renalware";
+    require_once '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
+
     // ***** set prn
     //path to letter-HTML versions
     $HTMLarchivepath="/Users/Shared/eprfolders/htmlarchive";

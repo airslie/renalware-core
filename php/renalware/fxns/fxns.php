@@ -74,19 +74,19 @@ function fixDate($datefield)
 
 function incrStat($stat, $zid)
 {
-	include '/var/conns/renalwareconn.php';
+	include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
 	$sql= "UPDATE renalware.patstats SET $stat=$stat+1, statstamp=NOW() WHERE statzid=$zid";
 	$result = $mysqli->query($sql);
 }
 function decrStat($stat, $zid)
 {
-	include '/var/conns/renalwareconn.php';
+	include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
 	$sql= "UPDATE renalware.patstats SET $stat=$stat-1, statstamp=NOW() WHERE statzid=$zid";
 	$result = $mysqli->query($sql);
 }
 function stampPat($zid)
 {
-	include '/var/conns/renalwareconn.php';
+	include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
 	$sql= "UPDATE renalware.patientdata SET modifstamp=NOW() WHERE patzid=$zid";
 	$result = $mysqli->query($sql);
 }
@@ -97,7 +97,7 @@ function runsql($sql, $debug)
 	if ($debug) {
 		echo "<p class=\"alertsmall\">$sql</p>";
 	} else {
-		include '/var/conns/renalwareconn.php';
+		include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
 		$mysqli = new mysqli($host, $dbuser, $pass, $db);
 		$result = $mysqli->query($sql);
 		return $result;

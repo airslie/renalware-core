@@ -1,6 +1,6 @@
 <?php
 //Thu Nov 20 12:58:09 GMT 2008 for HL7
-include '/var/conns/renalwareconn.php';
+include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
 $sql = "SELECT * FROM hl7patientdata WHERE kchno='$kchno' LIMIT 1";
 $result = $mysqli->query($sql);
 $row = $result->fetch_assoc();

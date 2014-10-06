@@ -4,7 +4,7 @@
 <?php
 //-------SET FORM VARS--------
 $thisvw="hl7visits";
-//include '/var/conns/renalwareconn.php';
+//include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
 $displaytext = "PIMS Pre-Admissions for $firstnames $lastname"; //default
 $fieldslist=array(
 	'admitdatetime'=>'Appointment date',
@@ -67,7 +67,7 @@ if ($numrows=='0')
 <?php
 //-------SET FORM VARS--------
 $thisvw="hl7visits";
-//include '/var/conns/renalwareconn.php';
+//include '/Users/lat/projects/renalwarev2/tmp/renalwareconn.php';
 $displaytext = "PIMS Visits/Admissions for $firstnames $lastname"; //default
 $fieldslist=array(
 	'admitdatetime'=>'Appointment date',

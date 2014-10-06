@@ -2,7 +2,7 @@
 ob_start();
 $_SESSION['loginerror']=FALSE;
 require 'config_incl.php'; //NB includes status and version info
-include 'versionnotes.php';
+// include 'versionnotes.php';
 include 'fxns/fxns.php';
 $pagetitle="Login to Renalware";
 include 'parts/head.php';
