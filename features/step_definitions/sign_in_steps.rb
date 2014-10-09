@@ -13,11 +13,10 @@ end
 
 When(/^I sign in$/) do
   find('#userinput').set 'daniel'
-  find('#pass').set 'password'
+  find('#pass').set 'Password1'
   click_on 'Log in now'
 end
 
 Then(/^I should see my dashboard$/) do
-  pending
-  expect(page.has_content? "My Amazing Dashboard?").to be_true
+  expect(page.has_content? "Home Screen: daniel").to be true
 end
