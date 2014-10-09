@@ -1,0 +1,10 @@
+development:
+  host: "localhost"
+  username: "renalware"
+  password: "password"
+  database: "renalware"
+test:
+  host: "localhost"
+  username: "daniel"
+  password:
+  database: "cuke_php_test"

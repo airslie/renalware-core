@@ -1,6 +1,6 @@
 php_dir = 'php/renalware'
 php_host = 'localhost'
-php_port = 8000
+php_port = 8001
 pid_file = 'tmp/php.pid'
 
 puts "Starting PHP server on http://#{php_host}:#{php_port}\n\n"
