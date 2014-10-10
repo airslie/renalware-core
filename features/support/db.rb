@@ -10,16 +10,16 @@ ENV['php_db_user'] = db_settings["username"]
 ENV['php_db_password'] = db_settings["password"]
 ENV['php_db'] = db_settings["database"]
 
-client = Mysql2::Client.new(:host => db_settings["host"], :username => db_settings["username"])
+client = Mysql2::Client.new(:host => db_settings["host"], :username => db_settings["username"], :password => "password")
 
 Before do
   client.query("CREATE DATABASE IF NOT EXISTS #{db_settings["database"]}")
 
   # Load legacy schema
-  `cat db/schema.sql | mysql #{db_settings["database"]} -u #{db_settings["username"]}`
+  `cat db/schema.sql | mysql #{db_settings["database"]} -u #{db_settings["username"]} --password=password`
 
   $client = Mysql2::Client.new(:host => "localhost", :username => db_settings["username"],
-    :database => db_settings["database"])
+    :database => db_settings["database"], :password => "password")
 end
 
 at_exit do
