@@ -94,4 +94,4 @@ if ($u && $p)
 		$_SESSION['loginerror']=$runmsgtxt;
 		header ("Location: relogin.php");
 	}
-?>tt
+?>

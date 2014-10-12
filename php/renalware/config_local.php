@@ -5,7 +5,7 @@
 switch ($configstatus) {
     case 'DEVEL':
     $hostname="localhost";
-    $port = $_ENV["PHP_ENV"] ? $_ENV["PHP_ENV"] : "8000";
+    $port = $_ENV["PHP_ENV"] == 'test' ? "8001" : "8000";
     // $rwarepath="/Library/WebServer/Documents/renalware";
     $rwarepath=realpath($_SERVER['DOCUMENT_ROOT']);
     // $rwareroot="http://$hostname/renalware";
