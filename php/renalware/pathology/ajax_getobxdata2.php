@@ -2,7 +2,7 @@
 //----Thu 06 Dec 2012----
 $obxtable="final_obx";
 $maxno=32;
-include "/var/conns/renalwareconn.php";
+realpath($_SERVER['DOCUMENT_ROOT']).'/../../tmp/renalwareconn.php';
 $thisobxcode = $_GET["obxcode"];
 $thispid = $_GET["obxpid"];
 $sql = "SELECT obxname FROM hl7data.pathol_obxcodes WHERE code='$thisobxcode'";

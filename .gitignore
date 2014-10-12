@@ -35,3 +35,6 @@ config/secrets.yml
 bower.json
 
 /tmp/renalwareconn.php
+capybara*.html
+
+config/database.yml

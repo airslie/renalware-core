@@ -1,20 +1,16 @@
-# Wipe the test database before after the tests have run
-DB_NAME = 'cuke_php_test'
-
-client = Mysql2::Client.new(:host => "localhost", :username => ENV["USER"])
-
+client = Mysql2::Client.new(:host => "localhost", :username => "renalware", :password => "password")
 
 Before do
-  client.query("CREATE DATABASE IF NOT EXISTS #{DB_NAME}")
+  client.query("CREATE DATABASE IF NOT EXISTS renalware_test")
 
   # Load legacy schema
-  `cat db/schema.sql | mysql #{DB_NAME} -u #{ENV['USER']}`
+  `cat db/schema.sql | mysql renalware_test -u renalware --password=password`
 
-  $client = Mysql2::Client.new(:host => "localhost", :username => ENV["USER"],
-    :database => DB_NAME)
+  $client = Mysql2::Client.new(:host => "localhost", :username => "renalware",
+    :database => "renalware_test", :password => "password")
 end
 
 at_exit do
-  client.query("DROP DATABASE #{DB_NAME}")
+  client.query("DROP DATABASE renalware_test")
   client.close
 end

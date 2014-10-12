@@ -1,10 +1,11 @@
 Given(/^I have a user in the database$/) do
-  $client.query("INSERT INTO userdata VALUES (1,'daniel','*668425423DB5193AF921380129F465A6425216D0', \
-    'Garland','MR',0,1,1,1,1,1,1,1,'2014-10-06',NULL,'2014-10-06 17:13:33', \
-    'IT Staff','dan@dangarland.co.uk','','Renal','United Kingdom','','', \
-    '447979770053','','DMG','Dan','GURU','2014-10-06 16:29:23', \
-    '2014-10-06 17:13:13',1,'2014-10-06 17:13:13','2014-10-06 17:14:03',1,0, \
-    NULL,0,'0',0,0)")
+  $client.query("INSERT INTO userdata VALUES (1,'daniel',
+    '*7EE969BBE0A3985C8BFF9FA65A06345C67FE434A', \
+    'Garland','Dan',0,1,1,1,1,1,1,1,'2014-10-07',NULL,'2014-10-07 15:53:05', \
+    'IT Staff','dan@dangarland.co.uk','kings','Renal','United Kingdom','','', \
+    '447979770053','','DMG','Dan','Guru','2014-10-07 15:52:35', \
+    '2014-10-09 17:15:04',1,'2014-10-09 17:15:04','2014-10-09 17:15:05', \
+    1,0,NULL,0,'0',0,0)")
 end
 
 Given(/^I am on the signin page$/) do

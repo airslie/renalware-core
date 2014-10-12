@@ -2,7 +2,7 @@
 //Tue Nov 27 10:25:38 CET 2007 changed login error report to hide pw
 ob_start();
 require '../config_incl.php';
-include realpath($_SERVER['DOCUMENT_ROOT'].'/').'../../tmp/renalwareconn.php';
+include realpath($_SERVER['DOCUMENT_ROOT']).'/../../tmp/renalwareconn.php';
 include '../fxns/fxns.php';
 $screentype = ($_POST['narrowscreen']=="yes") ? "narrow" : "wide" ;
 $message = NULL;
@@ -94,4 +94,4 @@ if ($u && $p)
 		$_SESSION['loginerror']=$runmsgtxt;
 		header ("Location: relogin.php");
 	}
-?>tt
+?>

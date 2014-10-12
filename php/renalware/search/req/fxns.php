@@ -2,7 +2,7 @@
 //created on 2009-05-05.
 //versionstamp 
 // Function to calculate script execution time.
-include "/var/conns/renalwareconn.php";
+realpath($_SERVER['DOCUMENT_ROOT']).'/../../tmp/renalwareconn.php';
 function microtime_float()
 {
     list ($msec, $sec) = explode(' ', microtime());
@@ -11,7 +11,7 @@ function microtime_float()
 }
 function sanitize($value)
 {
-    include "/var/conns/renalwareconn.php";
+    realpath($_SERVER['DOCUMENT_ROOT']).'/../../tmp/renalwareconn.php';
 	$value = stripslashes($value);
 	if (!is_numeric($value)) {
 	    $value=$mysqli->real_escape_string($value);
