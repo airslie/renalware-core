@@ -1,28 +1,23 @@
-begin
-  db_settings = YAML.load_file('config/database.yml')["test"]
-rescue
-  puts "Couldn't find config/database.yml. Do you need to copy it from config/database.yml.example?"
-end
+client = Mysql2::Client.new(:host => "localhost", :username => "renalware", :password => "password")
 
-# Update the renalwareconn.php for this environment
-ENV['php_db_host'] = db_settings["host"]
-ENV['php_db_user'] = db_settings["username"]
-ENV['php_db_password'] = db_settings["password"]
-ENV['php_db'] = db_settings["database"]
+client.query("CREATE DATABASE IF NOT EXISTS renalware_test")
 
-client = Mysql2::Client.new(:host => db_settings["host"], :username => db_settings["username"], :password => "password")
+# Load legacy schema
+`cat db/schema.sql | mysql renalware_test -u renalware --password=password`
 
-Before do
-  client.query("CREATE DATABASE IF NOT EXISTS #{db_settings["database"]}")
-
-  # Load legacy schema
-  `cat db/schema.sql | mysql #{db_settings["database"]} -u #{db_settings["username"]} --password=password`
-
-  $client = Mysql2::Client.new(:host => "localhost", :username => db_settings["username"],
-    :database => db_settings["database"], :password => "password")
-end
+$client = Mysql2::Client.new(:host => "localhost", :username => "renalware",
+  :database => "renalware_test", :password => "password", :init_command => "SET UNIQUE_CHECKS = 0")
 
 at_exit do
-  client.query("DROP DATABASE #{db_settings["database"]}")
-  client.close
+  $client.query("DROP DATABASE renalware_test")
+  $client.close
+end
+
+Before do
+  $client.query 'SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED'
+  $client.query 'START TRANSACTION'
+end
+
+After do
+  $client.query 'ROLLBACK'
 end
