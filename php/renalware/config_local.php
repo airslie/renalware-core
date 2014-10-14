@@ -14,7 +14,7 @@ switch ($configstatus) {
     $rwareroot="http://$hostname:$port";
     // ----------SET LOCAL PATHS HERE ------------
     //DB connection here
-    $db="cuke_php_test";
+    $db="renalware";
     require_once realpath($_SERVER['DOCUMENT_ROOT']).'/../../tmp/renalwareconn.php';
 
     // ***** set prn
@@ -31,7 +31,7 @@ switch ($configstatus) {
     //path to downloads folder; should be at web root level as 'krudownloads/']
     $path_to_krudownloads="http://$hostname/krudownloads";
     //set DB
-    $db="cuke_php_test";
+    $db="renalware";
     break;
 
     case 'BETA':
