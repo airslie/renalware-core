@@ -33,6 +33,21 @@ TESTS
 
 > GRANT ALL PRIVILEGES on renalware_test.* to 'renalware'@'localhost' identified by 'password';
 
-2. Run cucumber
+2. Run cucumber. We have profiles for tests against the legacy PHP app the sparkly new Ruby app.
+
+Run all PHP tests:
 
 > cucumber
+> cucumber -p php
+
+Run all PHP @wip tests
+
+> cucumber -p php_wip
+
+Run all Ruby tests
+
+> cucumber -p ruby
+
+Run all Ruby @wip tests
+
+> cucumber -p ruby_wip
