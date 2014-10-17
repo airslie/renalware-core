@@ -5,6 +5,8 @@
 switch ($configstatus) {
     case 'DEVEL':
     $hostname="localhost";
+    ini_set("error_reporting", "E_COMPILE_ERROR|E_RECOVERABLE_ERROR|E_ERROR|E_CORE_ERROR");
+    ini_set("display_errors", 0);
 
     $port = $_ENV["PHP_ENV"] == 'test' ? "8001" : "8000";
 
