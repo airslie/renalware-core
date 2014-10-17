@@ -3,6 +3,14 @@ Renalware v 2.0 (renal database)
 
 Coming Soon...
 
+INSTALL - Mac OSX
+-------
+
+Ensure that you have homebrew installed, then the following packages:
+
+
+
+
 SETUP
 -----
 
@@ -14,6 +22,7 @@ If you're setting up the legacy (v1) PHP app, the following should be enough to 
 
 2. Create a renalware database from the legacy schema
 
+> mysql -e "create database renalware;"
 > cat db/schema.sql | mysql renalware -u renalware --password=password
 
 3. Run a PHP server
