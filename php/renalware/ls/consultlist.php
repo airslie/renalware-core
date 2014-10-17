@@ -3,7 +3,7 @@
 //----Fri 20 Dec 2013----AKI list added
 //Fri Oct 24 10:33:25 IST 2008
 //----Sun 16 Oct 2011----upgr to datatable
-include realpath($_SERVER['DOCUMENT_ROOT']).'/../../tmp/renalwareconn.php';
+include realpath($_SERVER['DOCUMENT_ROOT']).'/renalwareconn.php';
 include '../req/confcheckfxns.php';
 //config lists
 $listslist = array(

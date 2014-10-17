@@ -1,5 +1,5 @@
 <?php
-include realpath($_SERVER['DOCUMENT_ROOT']).'/../../tmp/renalwareconn.php';
+include realpath($_SERVER['DOCUMENT_ROOT']).'/renalwareconn.php';
 include '../req/confcheckfxns.php';
 $thisaudit = ($get_audit) ? $get_audit : "epo" ;
 //get lastrun and auditname here :)

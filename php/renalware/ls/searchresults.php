@@ -2,7 +2,7 @@
 //----Mon 13 Jan 2014----RPV and death colourcoding restored
 //----Mon 06 Jan 2014----
 //--Fri Dec 20 11:09:12 CET 2013--
-include realpath($_SERVER['DOCUMENT_ROOT']).'/../../tmp/renalwareconn.php';
+include realpath($_SERVER['DOCUMENT_ROOT']).'/renalwareconn.php';
 include '../req/confcheckfxns.php';
 $searchstring=$_GET["findpat"];
 $listitems="patients";

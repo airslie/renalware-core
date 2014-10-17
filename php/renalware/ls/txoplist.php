@@ -1,7 +1,7 @@
 <?php
 //----Sun 07 Apr 2013----NB does not include Add Op function
 //--Sun Apr  7 15:05:35 CEST 2013--
-include realpath($_SERVER['DOCUMENT_ROOT']).'/../../tmp/renalwareconn.php';
+include realpath($_SERVER['DOCUMENT_ROOT']).'/renalwareconn.php';
 include '../req/confcheckfxns.php';
 //config lists
 $listslist = array(

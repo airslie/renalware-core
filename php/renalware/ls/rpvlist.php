@@ -2,7 +2,7 @@
 //----Sat 10 Nov 2012----confirm add pat version
 //--Sat Oct  6 19:39:29 JST 2012--NEW to New
 //--Tue Sep  4 14:21:12 CEST 2012--
-include realpath($_SERVER['DOCUMENT_ROOT']).'/../../tmp/renalwareconn.php';
+include realpath($_SERVER['DOCUMENT_ROOT']).'/renalwareconn.php';
 include '../req/confcheckfxns.php';
 //config lists
 $listslist = array(

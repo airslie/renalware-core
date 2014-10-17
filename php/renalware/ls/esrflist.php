@@ -1,6 +1,6 @@
 <?php
 //--Wed Aug  6 14:13:44 EDT 2014--
-include realpath($_SERVER['DOCUMENT_ROOT']).'/../../tmp/renalwareconn.php';
+include realpath($_SERVER['DOCUMENT_ROOT']).'/renalwareconn.php';
 include '../req/confcheckfxns.php';
 //config lists
 $listslist = array(

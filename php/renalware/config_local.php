@@ -15,7 +15,7 @@ switch ($configstatus) {
     // ----------SET LOCAL PATHS HERE ------------
     //DB connection here
     $db="renalware";
-    require_once realpath($_SERVER['DOCUMENT_ROOT']).'/../../tmp/renalwareconn.php';
+    require_once realpath($_SERVER['DOCUMENT_ROOT']).'/renalwareconn.php';
 
     // ***** set prn
     //path to letter-HTML versions

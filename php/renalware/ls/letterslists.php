@@ -1,6 +1,6 @@
 <?php
 //----Tue 11 Jun 2013----datatable upgrade
-include realpath($_SERVER['DOCUMENT_ROOT']).'/../../tmp/renalwareconn.php';
+include realpath($_SERVER['DOCUMENT_ROOT']).'/renalwareconn.php';
 include '../req/confcheckfxns.php';
 $showsql=false;
 //config lists
