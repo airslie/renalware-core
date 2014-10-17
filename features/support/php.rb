@@ -6,6 +6,9 @@ pid_file = 'tmp/php.pid'
 
 puts "Starting PHP server on http://#{php_host}:#{php_port}\n\n"
 
+# Create log file
+FileUtils.mkdir_p 'log'
+
 # Start PHP and write the process ID to a file
 php_env = { 'PHP_ENV' => 'test'}
 opts = {
