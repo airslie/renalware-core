@@ -22,8 +22,9 @@ File.open(pid_file, 'w') {|f| f.write pid }
 
 # Kill the PHP process and delete the PID file
 at_exit do
-  pid = pid_file.chomp.to_i
+  pid = File.read(pid_file).chomp.to_i
   gpid = Process.getpgid(pid)
+  binding.pry
   Process.kill(-15, gpid)
   FileUtils.rm pid_file
 end
