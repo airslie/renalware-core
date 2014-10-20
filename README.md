@@ -8,9 +8,6 @@ INSTALL - Mac OSX
 
 Ensure that you have homebrew installed, then the following packages:
 
-
-
-
 SETUP
 -----
 
@@ -55,8 +52,8 @@ Run all PHP @wip tests
 
 Run all Ruby tests
 
-> cucumber -p ruby
+> spring cucumber -p ruby
 
 Run all Ruby @wip tests
 
-> cucumber -p ruby_wip
+> spring cucumber -p ruby_wip
