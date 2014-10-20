@@ -21,4 +21,5 @@ group :development, :test do
   gem "pry"
   gem "database_cleaner"
   gem "spring-commands-cucumber"
+  gem "spring-commands-rspec"
 end
