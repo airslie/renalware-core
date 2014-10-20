@@ -20,4 +20,5 @@ group :development, :test do
   gem "launchy"
   gem "pry"
   gem "database_cleaner"
+  gem "spring-commands-cucumber"
 end
