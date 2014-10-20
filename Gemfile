@@ -1,12 +1,16 @@
 source "https://rubygems.org"
 ruby "2.1.3"
 
-gem "cucumber"
-gem "rspec-expectations"
-gem "capybara", '2.1.0'
-gem "capybara-webkit"
-
+gem "rails", "~> 4.1"
 gem "mysql2"
+gem "foundation-rails"
 
-gem "pry"
-gem "launchy"
+group :development, :test do
+  gem "cucumber-rails"
+  gem "rspec-rails"
+  gem "rspec-expectations"
+  gem "capybara", '2.1.0'
+  gem "capybara-webkit"
+  gem "launchy"
+  gem "pry"
+end
