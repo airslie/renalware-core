@@ -1,6 +1,6 @@
 <%
 std_opts = "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} --strict --tags ~@wip -r features/support -r features/stories"
-wip_opts = "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} --tags @wip:3 --wip"
+wip_opts = "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} --tags @wip:3 --wip -r features/support -r features/stories"
 %>
 default: <%= std_opts %> -r features/php
 php: <%= std_opts %> -r features/php
