@@ -38,12 +38,12 @@ When(/^complete the problem form$/) do
 end
 
 Then(/^they should see the new problem on the clinical summary$/) do
-  expect(page.has_content? "Has a toothache").to be true  
+  expect(page.has_content? "Has a toothache").to be true
 end
 
 When(/^they add a medication$/) do
   click_on "Edit Meds"
-  fill_in "Drug name/inits", :with => "beta" 
+  fill_in "Drug name/inits", :with => "beta"
   click_on "Add Med"
 end
 
@@ -54,13 +54,12 @@ When(/^complete the medication form$/) do
   fill_in "Frequency & Duration", :with => "Once daily"
   fill_in "Notes", :with => "Review in six weeks"
   fill_in "date added", :with => "20/10/2014"
-  save_and_open_page
-  choose("GP")
+  all('[name=provider]')[1].click
   click_on "Add new drug"
 end
 
 Then(/^they should see the new medication on the clinical summary$/) do
-  expect(page.has_content? "Beta-Carotene Capsules").to be true  
-  expect(page.has_content? "10mg").to be true  
-  expect(page.has_content? "Once daily").to be true  
+  expect(page.has_content? "Beta-Carotene Capsules").to be true
+  expect(page.has_content? "10mg").to be true
+  expect(page.has_content? "Once daily").to be true
 end
