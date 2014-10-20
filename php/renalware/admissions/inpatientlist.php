@@ -9,8 +9,8 @@ echo '<div id="pagetitlediv"><h1>'.$pagetitle.'</h1></div>';
 echo '<p>
     <a class="ui-state-default" style="color: #333;" href="admissions/admissionslist.php?status=disch">View Discharged Only</a>&nbsp;&nbsp;
     <a class="ui-state-default" style="color: #333;" href="admissions/dischargesummlist.php">Discharge Summary Mgt</a>&nbsp;&nbsp;
-    <a class="ui-state-default" style="color: green" href="admissions/wardreport.php" target="new">Current Ward Report</a>&nbsp;&nbsp;
-    <a class="ui-state-default" style="color: green" href="admissions/fortnightly.php" target="new">Fortnight Admission Rpt</a>&nbsp;&nbsp;
+    <a class="ui-state-default" style="color: green" href="admissions/wardreport.php" >Current Ward Report</a>&nbsp;&nbsp;
+    <a class="ui-state-default" style="color: green" href="admissions/fortnightly.php" >Fortnight Admission Rpt</a>&nbsp;&nbsp;
 </p>';
 //run discharge
 if($_POST["mode"]=="dischargepat")

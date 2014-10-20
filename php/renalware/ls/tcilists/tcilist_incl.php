@@ -36,7 +36,7 @@ while($row = $result->fetch_assoc())
 	//options links
 	echo '<td>';
 	foreach ($optionlinks as $link => $label) {
-		echo '<a href="'.$link.'&amp;zid='.$zid.'" target="new">'.$label.'</a> ';
+		echo '<a href="'.$link.'&amp;zid='.$zid.'" >'.$label.'</a> ';
 	}
 	echo '<a href="pat/patient.php?vw=edittcilistpat&amp;zid='.$zid.'&amp;tcilist_id='.$tcilist_id.'">update</a>&nbsp;
 <a href="pat/patient.php?vw=removetcilistpat&amp;zid='.$zid.'&amp;tcilist_id='.$tcilist_id.'">remove</a>&nbsp;&nbsp;';

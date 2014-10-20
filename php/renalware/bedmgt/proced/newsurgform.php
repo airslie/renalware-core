@@ -37,7 +37,7 @@ $legend="Request procedure for $patientref";
 <fieldset>
 	<legend><?php echo $legend; ?></legend>
 	<p>To CANCEL this request use your browser's BACK button or <a href="javascript:history.go(-1)">click here</a></p>
-	<p>IMPORTANT: Procedures can only be added by pop-up menu selection. <a href="index.php?vw=user&amp;scr=fixprocedslist" target="new">Add New Procedure (new window)</a></p>
+	<p>IMPORTANT: Procedures can only be added by pop-up menu selection. <a href="index.php?vw=user&amp;scr=fixprocedslist" >Add New Procedure (new window)</a></p>
 <table>
 <tr><td class="fldview">Listed Date</td><td class="data"><input type="text" name="listeddate" value="<?php echo $todaydmy; ?>" id="listeddate" size="12" /></td></tr>
 <tr><td class="fldview">Consultant</td><td class="data">

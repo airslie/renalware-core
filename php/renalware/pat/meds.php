@@ -6,7 +6,7 @@
 <div class="buttonsdiv">
         <a style="color: #333;" href="renal/renal.php?scr=esa&amp;zid=<?php echo $zid; ?>">View ESA Data</a>&nbsp;&nbsp;
         <a style="color: #333;" href="renal/renal.php?scr=immunosupp&amp;zid=<?php echo $zid; ?>">View Immunosuppression Data</a>&nbsp;&nbsp;
-        <a style="color: green; background: white;" href="patmedsprint.php?zid=<?php echo $zid; ?>" target="new">Print Meds Data</a>&nbsp;&nbsp;
+        <a style="color: green; background: white;" href="patmedsprint.php?zid=<?php echo $zid; ?>" >Print Meds Data</a>&nbsp;&nbsp;
 </div>
 <?php
 $sort = ($_GET['sort']) ? $_GET['sort'] : "medsdata_id" ;

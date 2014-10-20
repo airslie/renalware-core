@@ -276,5 +276,5 @@ $numrows=$result->affected_rows;
 if ($debug){ echo '<p class="alert">'.$sql.'</p>'; }
 echo "<p><code>$numrows records inserted into Quarter $thisqtr Patient Data table</code></p>";
 echo '<div class="alert">Continue by generating output file (ensure Path has been run for Qtr '.$thisqtr.')</div>
-<a class="btn btn-success" href="renalreg/runquarter.php?qtr='.$thisqtr.'&amp;debug='.$get_debug.'" target="new">View Renal Reg output (new window)</a>';
+<a class="btn btn-success" href="renalreg/runquarter.php?qtr='.$thisqtr.'&amp;debug='.$get_debug.'" >View Renal Reg output (new window)</a>';
 include 'incl/footer_incl.php';

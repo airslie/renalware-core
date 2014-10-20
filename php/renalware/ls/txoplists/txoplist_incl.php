@@ -28,7 +28,7 @@ while($row = $result->fetch_assoc())
 	//options links
 	echo '<td>';
 	foreach ($optionlinks as $link => $label) {
-		echo '<a href="'.$link.'&amp;zid='.$zid.'" target="new">'.$label.'</a>&nbsp;&nbsp;
+		echo '<a href="'.$link.'&amp;zid='.$zid.'" >'.$label.'</a>&nbsp;&nbsp;
         <a href="renal/txop/view_txop.php?zid='.$zid.'&amp;id='.$row["txop_id"].'">View Op</a>';
 	}
 	echo '</td>'; //end options

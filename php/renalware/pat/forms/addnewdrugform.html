@@ -23,7 +23,7 @@ while ($row = $result->fetch_assoc())
 </select></li>
 </ul>
 <?php if ($adminflag or $user==$supertypist or $consultantflag==1): ?>
-<a href="admin/addnewdrugname.php" target="new">Add New Drugname</a> (new window) <b>IMPORTANT</b>: You will have to refresh this page to see the drug after it has been added.
+<a href="admin/addnewdrugname.php" >Add New Drugname</a> (new window) <b>IMPORTANT</b>: You will have to refresh this page to see the drug after it has been added.
 <?php else: ?>
 <span class="alertsmall">IMPORTANT: If a drug does not appear in the pop-up list contact Allan O'Hea to have it added to the system*.</span>
 <?php endif ?>

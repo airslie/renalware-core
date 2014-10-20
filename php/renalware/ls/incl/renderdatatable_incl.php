@@ -34,7 +34,7 @@ if ($numrows) {
 		//options links
 		echo '<td>';
 		foreach ($optionlinks as $link => $label) {
-			echo '<a href="'.$link.'&amp;zid='.$zid.'" target="new">'.$label.'</a> ';
+			echo '<a href="'.$link.'&amp;zid='.$zid.'" >'.$label.'</a> ';
 		}
 		echo '</td>'; //end options
 		foreach ($row as $key => $value) {

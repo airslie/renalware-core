@@ -7,7 +7,7 @@ include '../parts/head.php';
 include '../navs/mainnav.php';
 echo '<div id="pagetitlediv"><h1>'.$pagetitle.'</h1></div>';
 ?>
-<p><a class="ui-state-default" style="color: green; background: white;" href="renal/screens.php?s=pd_patients" target="new">View PD Screens by patient</a> (Opens in new window)</p>
+<p><a class="ui-state-default" style="color: green; background: white;" href="renal/screens.php?s=pd_patients" >View PD Screens by patient</a> (Opens in new window)</p>
 <?php
 //get total
 $display = 500; //default

@@ -2,7 +2,7 @@
 //----Wed 13 Nov 2013----
 ?>
 <div class="btnbar"><button type="button" class="ui-state-default" onclick="$('#lowcleardiv').toggle()">Toggle Low Clear profile</button>&nbsp;&nbsp;<button type="button" class="ui-state-default" style="color: purple;" onclick="$('#updateformdiv').toggle()">Update profile</button>
-<a class="ui-state-default" style="color: black;" href="<?php echo $rwareroot ?>/renal/patient_info/printLCCsheet.php?zid=<?php echo $zid ?>" target="new">Print Patient Info (new wndw)</a></div>
+<a class="ui-state-default" style="color: black;" href="<?php echo $rwareroot ?>/renal/patient_info/printLCCsheet.php?zid=<?php echo $zid ?>" >Print Patient Info (new wndw)</a></div>
 <div id="lowcleardiv" style="display: block;" class="clear">
 	<?php
 	include( 'lowclearprofile.php' );

@@ -33,7 +33,7 @@ echo "<p class=\"header\">$numrows $thislistname results found $showwhere. Click
 		//options links
 		echo '<td>';
 		foreach ($optionlinks as $link => $label) {
-			echo '<a class="gr" href="'.$link.'&amp;zid='.$zid.'" target="new">'.$label.'</a> ';
+			echo '<a class="gr" href="'.$link.'&amp;zid='.$zid.'" >'.$label.'</a> ';
 		}
 		echo '</td>'; //end options
 		foreach ($row as $key => $value) {

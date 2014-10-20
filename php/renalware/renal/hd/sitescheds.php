@@ -46,9 +46,9 @@ while ($row = $result->fetch_assoc())
 	<td><b>' . $row["currsite"] . '</b></td>
 	<td>' . $row["sched_slot"] . '</td>
 	<td>&nbsp;&nbsp;<i>' . $row["pats"] . '</i></td>
-	<td><a href="renal/hdlists.php?list=hdpatlist&sss=' . $row["site_sched_slot"] . '" target="new">view patients</a></td>
-	<td><a href="renal/hd/printhdprofiles.php?sss=' . $row["site_sched_slot"] . '" target="new">print HD Profiles</a></td>
-	<td><a href="renal/hdscreens.php?site=' . "$site&amp;sched=$sched&amp;slot=$slot" . '" target="new">HD Screens: '.$row["site_sched_slot"].'</a></td>
+	<td><a href="renal/hdlists.php?list=hdpatlist&sss=' . $row["site_sched_slot"] . '" >view patients</a></td>
+	<td><a href="renal/hd/printhdprofiles.php?sss=' . $row["site_sched_slot"] . '" >print HD Profiles</a></td>
+	<td><a href="renal/hdscreens.php?site=' . "$site&amp;sched=$sched&amp;slot=$slot" . '" >HD Screens: '.$row["site_sched_slot"].'</a></td>
 </tr>';
 }
 ?>

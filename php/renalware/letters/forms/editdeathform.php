@@ -49,7 +49,7 @@ else
 <?php echo $pataddr; ?></u></b></p>
 <input type="submit" style="color: purple;" value="SAVE/REFRESH DRAFT if desired" />
 <table border="0" cellpadding="4"><tr>
-<td class="lttr"><b>Problem List</b> &nbsp; &nbsp;<i><a href="pat/patient.php?vw=problems&amp;menu=hide&amp;win=new&amp;zid=<?php echo $zid; ?>" target="new">update</a></i><br><?php echo nl2br($problist); ?></td>
+<td class="lttr"><b>Problem List</b> &nbsp; &nbsp;<i><a href="pat/patient.php?vw=problems&amp;menu=hide&amp;win=new&amp;zid=<?php echo $zid; ?>" >update</a></i><br><?php echo nl2br($problist); ?></td>
 </tr></table>
 <p><label>Recent Investigations (IMPORTANT: Results displayed below only appear in KCH letters)</label>: <i>Add/edit as needed</i></p>
 <textarea name="lettresults" rows="6" cols="100">

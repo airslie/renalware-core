@@ -10,8 +10,8 @@ echo '<div class="buttonsdiv">
 <a style="color: #333;" href="admissions/inpatientlist">Current Inpats and Discharge Form</a> 
 <a style="color: #333;" href="admissions/admissionslist.php?status=disch">Discharged Only</a> 
 <a style="color: #333;" href="admissions/dischargesummlist.php">Discharge Summ Mgt</a> 
-<a style="color: green; background: white;" href="admissions/wardreport.php" target="new">Print Curr Inpatients Report</a> 
-<a style="color: green; background: white;" href="admissions/fortnightly.php" target="new">Print Last Fortnight&rquo;s Admissions</a> 
+<a style="color: green; background: white;" href="admissions/wardreport.php" >Print Curr Inpatients Report</a> 
+<a style="color: green; background: white;" href="admissions/fortnightly.php" >Print Last Fortnight&rquo;s Admissions</a> 
 </div>';
 //get total
 $q = ""; //default

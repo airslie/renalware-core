@@ -42,7 +42,7 @@ while($row = $result->fetch_assoc())
 	//special for descr
 	echo '<td style="width: 450px;">'.$row["consultdescr"] . '<br>';
     //options
-    echo '<a href="pat/patient.php?vw=clinsumm&amp;zid='.$zid.'" target="new">ClinSumm</a>&nbsp;&nbsp;
+    echo '<a href="pat/patient.php?vw=clinsumm&amp;zid='.$zid.'" >ClinSumm</a>&nbsp;&nbsp;
         <a href="pat/patient.php?vw=editconsult&amp;zid='.$zid.'&amp;consult_id='.$consult_id.'">Update</a>&nbsp;&nbsp;
     <a href="pat/patient.php?vw=addtcilistform&amp;zid='.$zid.'&amp;consult_id='.$consult_id.'">add TCI</a>&nbsp;&nbsp;';
     if ($activeflag=='Y') {

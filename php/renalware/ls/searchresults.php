@@ -85,8 +85,8 @@ if ($numrows) {
 		$tdclass = ($row["modalcode"]=="death") ? ' class="death"' : '';
         $rpv = ($row["rpvstatus"]) ? $row["rpvstatus"] : '<a href="ls/rpvlist.php?newzid='.$zid.'">Add</a>';
 		echo '<tr'.$trclass.'>
-        <td><a href="letters/createletter.php?zid='.$zid.'" target="new">letter</a></td>
-        <td><a href="pat/patient.php?vw=admin&amp;zid='.$zid.'" target="new">admin</a>&nbsp;&nbsp;
+        <td><a href="letters/createletter.php?zid='.$zid.'" >letter</a></td>
+        <td><a href="pat/patient.php?vw=admin&amp;zid='.$zid.'" >admin</a>&nbsp;&nbsp;
         <td><a href="pat/patient.php?vw=clinsumm&amp;zid=' . $zid . '">' . $row["patlastfirst"] . '</a></td>
         <td>'.dmyyyy($row["birthdate"]).'</td>
         <td>'.$row["age"].'</td>

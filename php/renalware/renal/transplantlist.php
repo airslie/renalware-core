@@ -3,7 +3,7 @@ include '../req/confcheckfxns.php';
 $pagetitle= $siteshort . " Transplant Patient List";
 include "$rwarepath/navs/topsimplenav.php";
 ?>
-<a class="ui-state-default" style="color: green;"  href="renal/txwaitlist.php" target="new">Print Transplant Waiting List</a><br>
+<a class="ui-state-default" style="color: green;"  href="renal/txwaitlist.php" >Print Transplant Waiting List</a><br>
 <?php
 //get total
 $display = 500; //default

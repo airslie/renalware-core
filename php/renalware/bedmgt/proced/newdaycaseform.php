@@ -25,7 +25,7 @@ $patient=$row["firstnames"] . ' ' . $row["lastname"];
 ?>
 <h3>Request 23h Ward Stay Procedure for <?php echo $patientref; ?></h3>
 <p><small>To CANCEL this request use your browser's BACK button or <a href="javascript:history.go(-1)">click here</a></p>
-<p class="alertsmall">Note: Procedures can only be added by pop-up menu selection. <a href="index.php?vw=user&amp;scr=fixprocedslist" target="new">Add New Procedure (new window)</a></p>
+<p class="alertsmall">Note: Procedures can only be added by pop-up menu selection. <a href="index.php?vw=user&amp;scr=fixprocedslist" >Add New Procedure (new window)</a></p>
 <table border="0" cellspacing="5" cellpadding="5">
 <tr><td valign="top">
 <form action="run/rundaycaserequest.php" method="post">
