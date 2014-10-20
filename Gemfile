@@ -12,11 +12,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :development, :test do
   gem "spring"
-  gem "cucumber-rails"
+  gem "cucumber-rails", :require => false
   gem "rspec-rails"
   gem "rspec-expectations"
   gem "capybara", '2.1.0'
   gem "capybara-webkit"
   gem "launchy"
   gem "pry"
+  gem "database_cleaner"
 end
