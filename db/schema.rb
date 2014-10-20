@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20141020170329) do
 
   create_table "accessclinics", primary_key: "accessclinic_id", force: true do |t|
     t.integer  "accessclinzid",  limit: 3
@@ -112,57 +112,57 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "admissiondata", ["patlastfirst"], name: "patlastfirst", using: :btree
 
   create_table "akidata", primary_key: "aki_id", force: true do |t|
-    t.timestamp "akistamp",                                                 null: false
-    t.datetime  "akimodifdt"
-    t.integer   "akiuid",               limit: 2
-    t.string    "akiuser",              limit: 20
-    t.integer   "akizid",               limit: 3
-    t.integer   "consultid",            limit: 3
-    t.date      "akiadddate"
-    t.date      "akimodifdate"
-    t.date      "episodedate"
-    t.string    "episodestatus",        limit: 30
-    t.date      "referraldate"
-    t.string    "admissionmethod",      limit: 60
-    t.boolean   "elderlyscore"
-    t.boolean   "existingckdscore"
-    t.string    "ckdstatus",            limit: 12
-    t.boolean   "cardiacfailurescore"
-    t.boolean   "diabetesscore"
-    t.boolean   "liverdiseasescore"
-    t.boolean   "vasculardiseasescore"
-    t.boolean   "nephrotoxicmedscore"
-    t.boolean   "akiriskscore"
-    t.integer   "cre_baseline",         limit: 2
-    t.integer   "cre_peak",             limit: 2
-    t.decimal   "egfr_baseline",                    precision: 5, scale: 1
-    t.string    "urineoutput",          limit: 30
-    t.string    "urineblood",           limit: 6
-    t.string    "urineprotein",         limit: 6
-    t.boolean   "akinstage"
-    t.string    "stopdiagnosis",        limit: 60
-    t.string    "stopsubtype",          limit: 60
-    t.string    "stopsubtypenotes"
-    t.string    "akicode",              limit: 1
-    t.string    "ituflag",              limit: 1
-    t.date      "itudate"
-    t.string    "renalunitflag",        limit: 1
-    t.date      "renalunitdate"
-    t.string    "itustepdownflag",      limit: 1
-    t.string    "rrtflag",              limit: 1
-    t.string    "rrttype",              limit: 12
-    t.string    "rrtduration",          limit: 12
-    t.string    "rrtnotes",             limit: 100
-    t.text      "mgtnotes"
-    t.string    "akioutcome"
-    t.string    "ussflag",              limit: 1
-    t.date      "ussdate"
-    t.text      "ussnotes"
-    t.string    "biopsyflag",           limit: 1
-    t.date      "biopsydate"
-    t.text      "biopsynotes"
-    t.text      "otherix"
-    t.text      "akinotes"
+    t.datetime "akistamp",                                                 null: false
+    t.datetime "akimodifdt"
+    t.integer  "akiuid",               limit: 2
+    t.string   "akiuser",              limit: 20
+    t.integer  "akizid",               limit: 3
+    t.integer  "consultid",            limit: 3
+    t.date     "akiadddate"
+    t.date     "akimodifdate"
+    t.date     "episodedate"
+    t.string   "episodestatus",        limit: 30
+    t.date     "referraldate"
+    t.string   "admissionmethod",      limit: 60
+    t.boolean  "elderlyscore"
+    t.boolean  "existingckdscore"
+    t.string   "ckdstatus",            limit: 12
+    t.boolean  "cardiacfailurescore"
+    t.boolean  "diabetesscore"
+    t.boolean  "liverdiseasescore"
+    t.boolean  "vasculardiseasescore"
+    t.boolean  "nephrotoxicmedscore"
+    t.boolean  "akiriskscore"
+    t.integer  "cre_baseline",         limit: 2
+    t.integer  "cre_peak",             limit: 2
+    t.decimal  "egfr_baseline",                    precision: 5, scale: 1
+    t.string   "urineoutput",          limit: 30
+    t.string   "urineblood",           limit: 6
+    t.string   "urineprotein",         limit: 6
+    t.boolean  "akinstage"
+    t.string   "stopdiagnosis",        limit: 60
+    t.string   "stopsubtype",          limit: 60
+    t.string   "stopsubtypenotes"
+    t.string   "akicode",              limit: 1
+    t.string   "ituflag",              limit: 1
+    t.date     "itudate"
+    t.string   "renalunitflag",        limit: 1
+    t.date     "renalunitdate"
+    t.string   "itustepdownflag",      limit: 1
+    t.string   "rrtflag",              limit: 1
+    t.string   "rrttype",              limit: 12
+    t.string   "rrtduration",          limit: 12
+    t.string   "rrtnotes",             limit: 100
+    t.text     "mgtnotes"
+    t.string   "akioutcome"
+    t.string   "ussflag",              limit: 1
+    t.date     "ussdate"
+    t.text     "ussnotes"
+    t.string   "biopsyflag",           limit: 1
+    t.date     "biopsydate"
+    t.text     "biopsynotes"
+    t.text     "otherix"
+    t.text     "akinotes"
   end
 
   add_index "akidata", ["akiuid"], name: "akiuid", using: :btree
@@ -195,31 +195,31 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "apdrxdata", ["apdrxzid"], name: "apdrxzid", using: :btree
 
   create_table "arc_eq5ddata", primary_key: "eq5d_id", force: true do |t|
-    t.timestamp "eq5dstamp",                        null: false
-    t.integer   "eq5duid",               limit: 2
-    t.string    "eq5duser",              limit: 20
-    t.integer   "eq5dzid",               limit: 3
-    t.date      "eq5dadddate"
-    t.date      "eq5ddate"
-    t.string    "mobility",              limit: 24
-    t.string    "selfcare",              limit: 24
-    t.string    "activities",            limit: 24
-    t.string    "pain_discomfort",       limit: 24
-    t.string    "anxiety_depress",       limit: 24
-    t.integer   "healthstate",           limit: 1
-    t.string    "seriousillness_self",   limit: 1
-    t.string    "seriousillness_family", limit: 1
-    t.string    "seriousillness_others", limit: 1
-    t.integer   "currage",               limit: 1
-    t.string    "gender",                limit: 1
-    t.string    "smoking",               limit: 9
-    t.string    "healthsocialworker",    limit: 1
-    t.string    "healthsocialworktype",  limit: 70
-    t.string    "mainactivity",          limit: 40
-    t.string    "mainactivity_other",    limit: 70
-    t.string    "continuededuc",         limit: 1
-    t.string    "degree_qualif",         limit: 1
-    t.string    "postcode",              limit: 12
+    t.datetime "eq5dstamp",                        null: false
+    t.integer  "eq5duid",               limit: 2
+    t.string   "eq5duser",              limit: 20
+    t.integer  "eq5dzid",               limit: 3
+    t.date     "eq5dadddate"
+    t.date     "eq5ddate"
+    t.string   "mobility",              limit: 24
+    t.string   "selfcare",              limit: 24
+    t.string   "activities",            limit: 24
+    t.string   "pain_discomfort",       limit: 24
+    t.string   "anxiety_depress",       limit: 24
+    t.integer  "healthstate",           limit: 1
+    t.string   "seriousillness_self",   limit: 1
+    t.string   "seriousillness_family", limit: 1
+    t.string   "seriousillness_others", limit: 1
+    t.integer  "currage",               limit: 1
+    t.string   "gender",                limit: 1
+    t.string   "smoking",               limit: 9
+    t.string   "healthsocialworker",    limit: 1
+    t.string   "healthsocialworktype",  limit: 70
+    t.string   "mainactivity",          limit: 40
+    t.string   "mainactivity_other",    limit: 70
+    t.string   "continuededuc",         limit: 1
+    t.string   "degree_qualif",         limit: 1
+    t.string   "postcode",              limit: 12
   end
 
   add_index "arc_eq5ddata", ["eq5dadddate"], name: "eq5dadddate", using: :btree
@@ -227,38 +227,38 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "arc_eq5ddata", ["eq5dzid"], name: "eq5dzid", using: :btree
 
   create_table "arc_possdata2", primary_key: "poss_id", force: true do |t|
-    t.timestamp "possstamp",                      null: false
-    t.integer   "possuid",             limit: 2
-    t.string    "possuser",            limit: 20
-    t.integer   "posszid",             limit: 3
-    t.date      "possadddate"
-    t.date      "possdate"
-    t.boolean   "pain"
-    t.boolean   "shortness_of_breath"
-    t.boolean   "weakness"
-    t.boolean   "nausea"
-    t.boolean   "vomiting"
-    t.boolean   "poor_appetite"
-    t.boolean   "constipation"
-    t.boolean   "mouth_problems"
-    t.boolean   "drowsiness"
-    t.boolean   "poor_mobility"
-    t.boolean   "itching"
-    t.boolean   "insomnia"
-    t.boolean   "restless_legs"
-    t.boolean   "anxiety"
-    t.boolean   "depression"
-    t.boolean   "skinchanges"
-    t.boolean   "diarrhoea"
-    t.string    "othersymptom1",       limit: 50
-    t.string    "othersymptom2",       limit: 50
-    t.string    "othersymptom3",       limit: 50
-    t.boolean   "othersymptom1score"
-    t.boolean   "othersymptom2score"
-    t.boolean   "othersymptom3score"
-    t.string    "affected_most",       limit: 50
-    t.string    "improved_most",       limit: 50
-    t.integer   "totalposs_score",     limit: 2
+    t.datetime "possstamp",                      null: false
+    t.integer  "possuid",             limit: 2
+    t.string   "possuser",            limit: 20
+    t.integer  "posszid",             limit: 3
+    t.date     "possadddate"
+    t.date     "possdate"
+    t.boolean  "pain"
+    t.boolean  "shortness_of_breath"
+    t.boolean  "weakness"
+    t.boolean  "nausea"
+    t.boolean  "vomiting"
+    t.boolean  "poor_appetite"
+    t.boolean  "constipation"
+    t.boolean  "mouth_problems"
+    t.boolean  "drowsiness"
+    t.boolean  "poor_mobility"
+    t.boolean  "itching"
+    t.boolean  "insomnia"
+    t.boolean  "restless_legs"
+    t.boolean  "anxiety"
+    t.boolean  "depression"
+    t.boolean  "skinchanges"
+    t.boolean  "diarrhoea"
+    t.string   "othersymptom1",       limit: 50
+    t.string   "othersymptom2",       limit: 50
+    t.string   "othersymptom3",       limit: 50
+    t.boolean  "othersymptom1score"
+    t.boolean  "othersymptom2score"
+    t.boolean  "othersymptom3score"
+    t.string   "affected_most",       limit: 50
+    t.string   "improved_most",       limit: 50
+    t.integer  "totalposs_score",     limit: 2
   end
 
   add_index "arc_possdata2", ["possadddate"], name: "possadddate", using: :btree
@@ -267,51 +267,51 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "arc_possdata2", ["posszid"], name: "posszid", using: :btree
 
   create_table "arcdata", primary_key: "arc_id", force: true do |t|
-    t.timestamp "arcstamp",                          null: false
-    t.datetime  "arcmodifstamp"
-    t.integer   "arcuid",                limit: 2
-    t.string    "arcuser",               limit: 20
-    t.integer   "arczid",                limit: 3
-    t.date      "arcadddate"
-    t.date      "arcmodifdate"
-    t.string    "whereseen",             limit: 30
-    t.string    "surpriseflag",          limit: 1
-    t.date      "surprisedate"
-    t.string    "surveyconsentflag",     limit: 1
-    t.string    "ihdflag",               limit: 1
-    t.string    "pvdflag",               limit: 1
-    t.string    "dementiaflag",          limit: 1
-    t.string    "lowalbuminflag",        limit: 1
-    t.string    "weightlossflag",        limit: 1
-    t.string    "myeloma_cancerflag",    limit: 1
-    t.integer   "karnofskyscore",        limit: 1
-    t.text      "symptoms"
-    t.text      "patientfamilylog"
-    t.text      "healthproviderlog"
-    t.text      "arcplanninglog"
-    t.text      "placeofcareprefs"
-    t.string    "counsellorrefflag",     limit: 1
-    t.date      "counsellorrefdate"
-    t.text      "counsellorcomments"
-    t.string    "socialworkerrefflag",   limit: 1
-    t.date      "socialworkerrefdate"
-    t.text      "socialworkercomments"
-    t.string    "hospicerefflag",        limit: 1
-    t.date      "hospicerefdate"
-    t.string    "hospicename",           limit: 70
-    t.text      "endoflifeplans"
-    t.date      "deathdate"
-    t.string    "deathplace",            limit: 200
-    t.string    "deathcause"
-    t.text      "bereavementnotes"
-    t.string    "questionnairesentflag", limit: 1
-    t.date      "questionnairedate"
-    t.text      "archistory"
-    t.string    "arcdiagnosis",          limit: 200
-    t.string    "goldregisterflag",      limit: 1
-    t.string    "golddiscussedflag",     limit: 1
-    t.string    "goldacpflag",           limit: 1
-    t.string    "goldecommregisterflag", limit: 1
+    t.datetime "arcstamp",                          null: false
+    t.datetime "arcmodifstamp"
+    t.integer  "arcuid",                limit: 2
+    t.string   "arcuser",               limit: 20
+    t.integer  "arczid",                limit: 3
+    t.date     "arcadddate"
+    t.date     "arcmodifdate"
+    t.string   "whereseen",             limit: 30
+    t.string   "surpriseflag",          limit: 1
+    t.date     "surprisedate"
+    t.string   "surveyconsentflag",     limit: 1
+    t.string   "ihdflag",               limit: 1
+    t.string   "pvdflag",               limit: 1
+    t.string   "dementiaflag",          limit: 1
+    t.string   "lowalbuminflag",        limit: 1
+    t.string   "weightlossflag",        limit: 1
+    t.string   "myeloma_cancerflag",    limit: 1
+    t.integer  "karnofskyscore",        limit: 1
+    t.text     "symptoms"
+    t.text     "patientfamilylog"
+    t.text     "healthproviderlog"
+    t.text     "arcplanninglog"
+    t.text     "placeofcareprefs"
+    t.string   "counsellorrefflag",     limit: 1
+    t.date     "counsellorrefdate"
+    t.text     "counsellorcomments"
+    t.string   "socialworkerrefflag",   limit: 1
+    t.date     "socialworkerrefdate"
+    t.text     "socialworkercomments"
+    t.string   "hospicerefflag",        limit: 1
+    t.date     "hospicerefdate"
+    t.string   "hospicename",           limit: 70
+    t.text     "endoflifeplans"
+    t.date     "deathdate"
+    t.string   "deathplace",            limit: 200
+    t.string   "deathcause"
+    t.text     "bereavementnotes"
+    t.string   "questionnairesentflag", limit: 1
+    t.date     "questionnairedate"
+    t.text     "archistory"
+    t.string   "arcdiagnosis",          limit: 200
+    t.string   "goldregisterflag",      limit: 1
+    t.string   "golddiscussedflag",     limit: 1
+    t.string   "goldacpflag",           limit: 1
+    t.string   "goldecommregisterflag", limit: 1
   end
 
   add_index "arcdata", ["arcuid"], name: "arcuid", using: :btree
@@ -371,57 +371,57 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "capdrxdata", ["capdrxzid"], name: "capdrxzid", using: :btree
 
   create_table "capdworkups", primary_key: "workup_id", force: true do |t|
-    t.integer   "workupzid",         limit: 3
-    t.timestamp "workupmodifstamp",              null: false
-    t.datetime  "workupaddstamp"
-    t.string    "workupuser",        limit: 20
-    t.date      "workupdate"
-    t.string    "workupnurse",       limit: 40
-    t.date      "homevisitdate"
-    t.string    "housingtype",       limit: 30
-    t.integer   "no_rooms",          limit: 1
-    t.string    "exchangearea"
-    t.string    "handwashing"
-    t.string    "fluidstorage"
-    t.string    "bagwarming"
-    t.string    "freqdeliveries"
-    t.string    "rehousingflag",     limit: 1
-    t.text      "rehousingreasons"
-    t.string    "socialworkerflag",  limit: 1
-    t.date      "nurseassessdate"
-    t.string    "seenvideo",         limit: 1
-    t.string    "ableopenbag",       limit: 1
-    t.string    "ableliftbag",       limit: 1
-    t.string    "eyesight"
-    t.string    "hearing"
-    t.string    "dexterity"
-    t.string    "motivation"
-    t.string    "language"
-    t.text      "notes"
-    t.string    "suitableflag",      limit: 1
-    t.string    "systemchoice",      limit: 100
-    t.string    "insertdiscussflag", limit: 1
-    t.string    "methodchosen"
-    t.string    "accessclinrefflag", limit: 1
-    t.date      "accessclinrefdate"
-    t.string    "abdoassessor",      limit: 50
-    t.text      "addedcomments"
-    t.integer   "no_occupants",      limit: 1
-    t.text      "occupantnotes"
-    t.string    "boweldisflag",      limit: 1
-    t.text      "boweldisnotes"
-    t.string    "homevisitflag",     limit: 1
+    t.integer  "workupzid",         limit: 3
+    t.datetime "workupmodifstamp",              null: false
+    t.datetime "workupaddstamp"
+    t.string   "workupuser",        limit: 20
+    t.date     "workupdate"
+    t.string   "workupnurse",       limit: 40
+    t.date     "homevisitdate"
+    t.string   "housingtype",       limit: 30
+    t.integer  "no_rooms",          limit: 1
+    t.string   "exchangearea"
+    t.string   "handwashing"
+    t.string   "fluidstorage"
+    t.string   "bagwarming"
+    t.string   "freqdeliveries"
+    t.string   "rehousingflag",     limit: 1
+    t.text     "rehousingreasons"
+    t.string   "socialworkerflag",  limit: 1
+    t.date     "nurseassessdate"
+    t.string   "seenvideo",         limit: 1
+    t.string   "ableopenbag",       limit: 1
+    t.string   "ableliftbag",       limit: 1
+    t.string   "eyesight"
+    t.string   "hearing"
+    t.string   "dexterity"
+    t.string   "motivation"
+    t.string   "language"
+    t.text     "notes"
+    t.string   "suitableflag",      limit: 1
+    t.string   "systemchoice",      limit: 100
+    t.string   "insertdiscussflag", limit: 1
+    t.string   "methodchosen"
+    t.string   "accessclinrefflag", limit: 1
+    t.date     "accessclinrefdate"
+    t.string   "abdoassessor",      limit: 50
+    t.text     "addedcomments"
+    t.integer  "no_occupants",      limit: 1
+    t.text     "occupantnotes"
+    t.string   "boweldisflag",      limit: 1
+    t.text     "boweldisnotes"
+    t.string   "homevisitflag",     limit: 1
   end
 
   add_index "capdworkups", ["workupzid"], name: "workupzid", using: :btree
 
   create_table "clinstudylist", primary_key: "study_id", force: true do |t|
-    t.string    "studycode",   limit: 25
-    t.string    "studyname",   limit: 100
-    t.string    "studynotes"
-    t.timestamp "studystamp",              null: false
-    t.string    "studyleader", limit: 30
-    t.date      "studydate"
+    t.string   "studycode",   limit: 25
+    t.string   "studyname",   limit: 100
+    t.string   "studynotes"
+    t.datetime "studystamp",              null: false
+    t.string   "studyleader", limit: 30
+    t.date     "studydate"
   end
 
   create_table "clinstudypatdata", primary_key: "clinstudypat_id", force: true do |t|
@@ -443,29 +443,36 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "consfullname", limit: 50
   end
 
+  create_table "consultcodes", id: false, force: true do |t|
+    t.string "consultcode", limit: 10
+    t.string "consultname", limit: 30
+  end
+
+  add_index "consultcodes", ["consultcode"], name: "consultcode", using: :btree
+
   create_table "consultdata", primary_key: "consult_id", force: true do |t|
-    t.timestamp "consultstamp",                                null: false
-    t.datetime  "consultmodifstamp"
-    t.integer   "consultuid",        limit: 2
-    t.string    "consultuser",       limit: 20
-    t.string    "consultstaffname",  limit: 50
-    t.integer   "consultzid",        limit: 3
-    t.string    "consultmodal",      limit: 20
-    t.date      "consultstartdate"
-    t.date      "consultenddate"
-    t.string    "consultward",       limit: 50
-    t.string    "consulttype",       limit: 50
-    t.text      "consultdescr",      limit: 255
-    t.text      "consulttext"
-    t.string    "activeflag",        limit: 1,   default: "Y"
-    t.string    "akiriskflag",       limit: 1
-    t.string    "consultsite",       limit: 8
-    t.string    "othersite",         limit: 60
-    t.string    "contactbleep",      limit: 20
-    t.string    "sitehospno",        limit: 20
-    t.string    "transferpriority",  limit: 12
-    t.date      "decisiondate"
-    t.date      "transferdate"
+    t.datetime "consultstamp",                                null: false
+    t.datetime "consultmodifstamp"
+    t.integer  "consultuid",        limit: 2
+    t.string   "consultuser",       limit: 20
+    t.string   "consultstaffname",  limit: 50
+    t.integer  "consultzid",        limit: 3
+    t.string   "consultmodal",      limit: 20
+    t.date     "consultstartdate"
+    t.date     "consultenddate"
+    t.string   "consultward",       limit: 50
+    t.string   "consulttype",       limit: 50
+    t.text     "consultdescr",      limit: 255
+    t.text     "consulttext"
+    t.string   "activeflag",        limit: 1,   default: "Y"
+    t.string   "akiriskflag",       limit: 1
+    t.string   "consultsite",       limit: 8
+    t.string   "othersite",         limit: 60
+    t.string   "contactbleep",      limit: 20
+    t.string   "sitehospno",        limit: 20
+    t.string   "transferpriority",  limit: 12
+    t.date     "decisiondate"
+    t.date     "transferdate"
   end
 
   add_index "consultdata", ["consultenddate"], name: "consultenddate", using: :btree
@@ -511,22 +518,22 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   create_table "encounterdata", primary_key: "encounter_id", force: true do |t|
-    t.integer   "enczid",        limit: 3
-    t.timestamp "encmodifstamp",                                    null: false
-    t.datetime  "encaddstamp"
-    t.string    "encuser",       limit: 20
-    t.string    "encmodal",      limit: 20
-    t.date      "encdate"
-    t.string    "enctime",       limit: 20
-    t.string    "enctype",       limit: 50
-    t.string    "encdescr"
-    t.text      "enctext"
-    t.integer   "bpsyst",        limit: 1
-    t.integer   "bpdiast",       limit: 1
-    t.decimal   "weight",                   precision: 4, scale: 1
-    t.decimal   "height",                   precision: 3, scale: 2
-    t.text      "notes"
-    t.string    "staffname",     limit: 50
+    t.integer  "enczid",        limit: 3
+    t.datetime "encmodifstamp",                                    null: false
+    t.datetime "encaddstamp"
+    t.string   "encuser",       limit: 20
+    t.string   "encmodal",      limit: 20
+    t.date     "encdate"
+    t.string   "enctime",       limit: 20
+    t.string   "enctype",       limit: 50
+    t.string   "encdescr"
+    t.text     "enctext"
+    t.integer  "bpsyst",        limit: 1
+    t.integer  "bpdiast",       limit: 1
+    t.decimal  "weight",                   precision: 4, scale: 1
+    t.decimal  "height",                   precision: 3, scale: 2
+    t.text     "notes"
+    t.string   "staffname",     limit: 50
   end
 
   add_index "encounterdata", ["enczid"], name: "enczid", using: :btree
@@ -607,18 +614,58 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "patcount",             default: 0, null: false
   end
 
+  create_table "eventcodes", id: false, force: true do |t|
+    t.string "eventcode",   limit: 3
+    t.string "eventname",   limit: 60
+    t.string "supportflag", limit: 1
+  end
+
+  add_index "eventcodes", ["eventcode"], name: "eventcode", unique: true, using: :btree
+
   create_table "eventlogs", primary_key: "eventlog_id", force: true do |t|
-    t.timestamp "eventstamp",              null: false
-    t.string    "eventuser",   limit: 20
-    t.integer   "event_uid",   limit: 2
-    t.integer   "eventzid",    limit: 3
-    t.integer   "session_id",  limit: 3
-    t.text      "type",        limit: 255
-    t.integer   "session_ipn"
+    t.datetime "eventstamp",              null: false
+    t.string   "eventuser",   limit: 20
+    t.integer  "event_uid",   limit: 2
+    t.integer  "eventzid",    limit: 3
+    t.integer  "session_id",  limit: 3
+    t.text     "type",        limit: 255
+    t.integer  "session_ipn"
   end
 
   add_index "eventlogs", ["event_uid"], name: "uid", using: :btree
   add_index "eventlogs", ["eventzid"], name: "eventzid", using: :btree
+
+  create_table "eventsdata", primary_key: "event_id", force: true do |t|
+    t.timestamp "importstamp",              null: false
+    t.integer   "msg_id"
+    t.datetime  "mshdatetime"
+    t.date      "eventdate"
+    t.string    "eventcode",     limit: 3
+    t.string    "servicecode",   limit: 10
+    t.string    "kchno",         limit: 7
+    t.string    "patlastfirst",  limit: 30
+    t.date      "birthdate"
+    t.string    "sex",           limit: 6
+    t.string    "ward",          limit: 20
+    t.datetime  "admitdatetime"
+    t.date      "admitdate"
+    t.datetime  "dischdatetime"
+    t.date      "dischdate"
+    t.string    "referrercode",  limit: 10
+    t.string    "referrer",      limit: 30
+    t.string    "consultcode",   limit: 10
+    t.string    "consultname",   limit: 30
+    t.string    "patienttype",   limit: 6
+    t.string    "dischlocation", limit: 6
+  end
+
+  add_index "eventsdata", ["consultcode"], name: "consultcode", using: :btree
+  add_index "eventsdata", ["eventcode"], name: "eventcode", using: :btree
+  add_index "eventsdata", ["eventdate"], name: "eventdate", using: :btree
+  add_index "eventsdata", ["kchno"], name: "kchno", using: :btree
+  add_index "eventsdata", ["msg_id"], name: "msg_id", using: :btree
+  add_index "eventsdata", ["patlastfirst"], name: "patlastfirst", using: :btree
+  add_index "eventsdata", ["servicecode"], name: "servicecode", using: :btree
 
   create_table "exitsitedata", primary_key: "exitsitedata_id", force: true do |t|
     t.integer  "exitsitezid",   limit: 3
@@ -635,37 +682,56 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "exitsitedata", ["exitsitezid"], name: "exitsitezid", using: :btree
 
   create_table "gpCDAlogs", primary_key: "log_id", force: true do |t|
-    t.timestamp "logstamp",                                                 null: false
-    t.date      "logadddate"
-    t.integer   "logzid",          limit: 3,  default: 0,                   null: false
-    t.integer   "logletter_id",    limit: 3,  default: 0,                   null: false
-    t.string    "loghospno",       limit: 12
-    t.integer   "loguid",          limit: 2,  default: 0,                   null: false
-    t.string    "loguser",         limit: 20, default: "loguser",           null: false
-    t.string    "logpracticecode", limit: 12,                               null: false
-    t.string    "logdescr",        limit: 90, default: "letterdescription", null: false
-    t.string    "loglettertype",   limit: 20
+    t.datetime "logstamp",                                                 null: false
+    t.date     "logadddate"
+    t.integer  "logzid",          limit: 3,  default: 0,                   null: false
+    t.integer  "logletter_id",    limit: 3,  default: 0,                   null: false
+    t.string   "loghospno",       limit: 12
+    t.integer  "loguid",          limit: 2,  default: 0,                   null: false
+    t.string   "loguser",         limit: 20, default: "loguser",           null: false
+    t.string   "logpracticecode", limit: 12,                               null: false
+    t.string   "logdescr",        limit: 90, default: "letterdescription", null: false
+    t.string   "loglettertype",   limit: 20
   end
 
-  add_index "gpCDAlogs", ["logletter_id"], name: "logletter_id", using: :btree
-  add_index "gpCDAlogs", ["logpracticecode"], name: "logpracticecode", using: :btree
-  add_index "gpCDAlogs", ["loguid"], name: "loguid", using: :btree
-  add_index "gpCDAlogs", ["logzid"], name: "logzid", using: :btree
+  add_index "gpcdalogs", ["logletter_id"], name: "logletter_id", using: :btree
+  add_index "gpcdalogs", ["logpracticecode"], name: "logpracticecode", using: :btree
+  add_index "gpcdalogs", ["loguid"], name: "loguid", using: :btree
+  add_index "gpcdalogs", ["logzid"], name: "logzid", using: :btree
+
+  create_table "gpdata", primary_key: "gp_id", force: true do |t|
+    t.string "practicecode", limit: 6
+    t.string "gpcode",       limit: 8
+    t.string "gplastinits",  limit: 30
+    t.string "gpaddr1",      limit: 30
+    t.string "gpaddr2",      limit: 30
+    t.string "gpaddr3",      limit: 30
+    t.string "gpaddr4",      limit: 20
+    t.string "gppostcode",   limit: 8
+    t.string "gptel",        limit: 20
+    t.string "gpname",       limit: 30
+    t.string "gpaddress",    limit: 200
+  end
+
+  add_index "gpdata", ["gpcode"], name: "gpcode", unique: true, using: :btree
+  add_index "gpdata", ["gplastinits"], name: "gplastinits", using: :btree
+  add_index "gpdata", ["gppostcode"], name: "gppostcode", using: :btree
+  add_index "gpdata", ["practicecode"], name: "practicecode", using: :btree
 
   create_table "gpemaillogs", primary_key: "log_id", force: true do |t|
-    t.timestamp "logstamp",                                                 null: false
-    t.date      "logadddate"
-    t.integer   "logzid",          limit: 3,  default: 0,                   null: false
-    t.integer   "logletter_id",    limit: 3,  default: 0,                   null: false
-    t.string    "loghospno",       limit: 12
-    t.integer   "loguid",          limit: 2,  default: 0,                   null: false
-    t.string    "loguser",         limit: 20, default: "loguser",           null: false
-    t.string    "logpracticecode", limit: 12,                               null: false
-    t.string    "logemail",        limit: 60
-    t.string    "logdescr",        limit: 90, default: "letterdescription", null: false
-    t.string    "loglettertype",   limit: 20
-    t.string    "logfilename",     limit: 60
-    t.text      "loghtml"
+    t.datetime "logstamp",                                                 null: false
+    t.date     "logadddate"
+    t.integer  "logzid",          limit: 3,  default: 0,                   null: false
+    t.integer  "logletter_id",    limit: 3,  default: 0,                   null: false
+    t.string   "loghospno",       limit: 12
+    t.integer  "loguid",          limit: 2,  default: 0,                   null: false
+    t.string   "loguser",         limit: 20, default: "loguser",           null: false
+    t.string   "logpracticecode", limit: 12,                               null: false
+    t.string   "logemail",        limit: 60
+    t.string   "logdescr",        limit: 90, default: "letterdescription", null: false
+    t.string   "loglettertype",   limit: 20
+    t.string   "logfilename",     limit: 60
+    t.text     "loghtml"
   end
 
   add_index "gpemaillogs", ["logletter_id"], name: "logletter_id", using: :btree
@@ -697,218 +763,277 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "hdholsdata", ["holzid"], name: "zid", using: :btree
 
   create_table "hdpatdata", id: false, force: true do |t|
-    t.integer   "hdpatzid",           limit: 3,                                          null: false
-    t.timestamp "hdaddstamp",                                                            null: false
-    t.datetime  "hdmodifstamp"
-    t.string    "currsite",           limit: 6
-    t.string    "currsched",          limit: 9
-    t.string    "hdtype",             limit: 8,                           default: "HD"
-    t.string    "needlesize",         limit: 10
-    t.string    "singleneedle",       limit: 1
-    t.string    "hours",              limit: 10
-    t.string    "dialyser",           limit: 20
-    t.string    "dialysate",          limit: 20
-    t.integer   "flowrate",           limit: 2
-    t.boolean   "dialK"
-    t.decimal   "dialCa",                         precision: 3, scale: 1
-    t.decimal   "dialTemp",                       precision: 3, scale: 1
-    t.string    "dialBicarb",         limit: 30
-    t.string    "dialNaProfiling",    limit: 1
-    t.integer   "dialNa1sthalf",      limit: 1
-    t.integer   "dialNa2ndhalf",      limit: 1
-    t.string    "anticoagtype",       limit: 30
-    t.string    "anticoagloaddose",   limit: 20
-    t.string    "anticoaghourlydose", limit: 20
-    t.string    "anticoagstoptime",   limit: 30
-    t.string    "prescriber",         limit: 30
-    t.date      "prescriptdate"
-    t.string    "esdflag",            limit: 1
-    t.string    "ironflag",           limit: 1
-    t.string    "namednurse",         limit: 20
-    t.string    "warfarinflag",       limit: 1
-    t.decimal   "dryweight",                      precision: 4, scale: 1
-    t.date      "drywtassessdate"
-    t.string    "drywtassessor",      limit: 30
-    t.string    "transport",          limit: 1
-    t.string    "transportdecider",   limit: 30
-    t.date      "transportdate"
-    t.string    "transporttype",      limit: 100
-    t.string    "currslot",           limit: 3
-    t.string    "prefsite",           limit: 20
-    t.string    "prefsched",          limit: 9
-    t.string    "prefslot",           limit: 3
-    t.date      "prefdate"
-    t.string    "prefnotes"
-    t.string    "carelevelrequired",  limit: 40
-    t.date      "careleveldate"
-    t.integer   "lastavg_syst",       limit: 2
-    t.integer   "lastavg_diast",      limit: 2
-    t.string    "cannulationtype",    limit: 12
-    t.integer   "lastavg_systpost",   limit: 2
-    t.integer   "lastavg_diastpost",  limit: 2
+    t.integer  "hdpatzid",           limit: 3,                                          null: false
+    t.datetime "hdaddstamp",                                                            null: false
+    t.datetime "hdmodifstamp"
+    t.string   "currsite",           limit: 6
+    t.string   "currsched",          limit: 9
+    t.string   "hdtype",             limit: 8,                           default: "HD"
+    t.string   "needlesize",         limit: 10
+    t.string   "singleneedle",       limit: 1
+    t.string   "hours",              limit: 10
+    t.string   "dialyser",           limit: 20
+    t.string   "dialysate",          limit: 20
+    t.integer  "flowrate",           limit: 2
+    t.boolean  "dialK"
+    t.decimal  "dialCa",                         precision: 3, scale: 1
+    t.decimal  "dialTemp",                       precision: 3, scale: 1
+    t.string   "dialBicarb",         limit: 30
+    t.string   "dialNaProfiling",    limit: 1
+    t.integer  "dialNa1sthalf",      limit: 1
+    t.integer  "dialNa2ndhalf",      limit: 1
+    t.string   "anticoagtype",       limit: 30
+    t.string   "anticoagloaddose",   limit: 20
+    t.string   "anticoaghourlydose", limit: 20
+    t.string   "anticoagstoptime",   limit: 30
+    t.string   "prescriber",         limit: 30
+    t.date     "prescriptdate"
+    t.string   "esdflag",            limit: 1
+    t.string   "ironflag",           limit: 1
+    t.string   "namednurse",         limit: 20
+    t.string   "warfarinflag",       limit: 1
+    t.decimal  "dryweight",                      precision: 4, scale: 1
+    t.date     "drywtassessdate"
+    t.string   "drywtassessor",      limit: 30
+    t.string   "transport",          limit: 1
+    t.string   "transportdecider",   limit: 30
+    t.date     "transportdate"
+    t.string   "transporttype",      limit: 100
+    t.string   "currslot",           limit: 3
+    t.string   "prefsite",           limit: 20
+    t.string   "prefsched",          limit: 9
+    t.string   "prefslot",           limit: 3
+    t.date     "prefdate"
+    t.string   "prefnotes"
+    t.string   "carelevelrequired",  limit: 40
+    t.date     "careleveldate"
+    t.integer  "lastavg_syst",       limit: 2
+    t.integer  "lastavg_diast",      limit: 2
+    t.string   "cannulationtype",    limit: 12
+    t.integer  "lastavg_systpost",   limit: 2
+    t.integer  "lastavg_diastpost",  limit: 2
   end
 
   add_index "hdpatdata", ["currsite"], name: "hdsitecode", using: :btree
   add_index "hdpatdata", ["hdpatzid"], name: "hdpatzid", unique: true, using: :btree
 
   create_table "hdprofilehxdata", primary_key: "hdprofile_id", force: true do |t|
-    t.integer   "hdprofilezid",       limit: 3,                                          null: false
-    t.timestamp "hdprofileaddstamp",                                                     null: false
-    t.string    "currsite",           limit: 6
-    t.string    "currsched",          limit: 9
-    t.string    "hdtype",             limit: 8,                           default: "HD"
-    t.string    "needlesize",         limit: 10
-    t.string    "singleneedle",       limit: 1
-    t.string    "hours",              limit: 10
-    t.string    "dialyser",           limit: 20
-    t.string    "dialysate",          limit: 20
-    t.integer   "flowrate",           limit: 2
-    t.boolean   "dialK"
-    t.decimal   "dialCa",                         precision: 3, scale: 1
-    t.decimal   "dialTemp",                       precision: 3, scale: 1
-    t.string    "dialBicarb",         limit: 30
-    t.string    "dialNaProfiling",    limit: 1
-    t.integer   "dialNa1sthalf",      limit: 1
-    t.integer   "dialNa2ndhalf",      limit: 1
-    t.string    "anticoagtype",       limit: 30
-    t.string    "anticoagloaddose",   limit: 20
-    t.string    "anticoaghourlydose", limit: 20
-    t.string    "anticoagstoptime",   limit: 30
-    t.string    "prescriber",         limit: 30
-    t.date      "prescriptdate"
-    t.string    "esdflag",            limit: 1
-    t.string    "ironflag",           limit: 1
-    t.string    "namednurse",         limit: 20
-    t.string    "warfarinflag",       limit: 1
-    t.decimal   "dryweight",                      precision: 4, scale: 1
-    t.date      "drywtassessdate"
-    t.string    "drywtassessor",      limit: 30
-    t.string    "transport",          limit: 1
-    t.string    "transportdecider",   limit: 30
-    t.date      "transportdate"
-    t.string    "transporttype",      limit: 100
-    t.string    "currslot",           limit: 3
-    t.string    "prefsite",           limit: 20
-    t.string    "prefsched",          limit: 9
-    t.string    "prefslot",           limit: 3
-    t.date      "prefdate"
-    t.string    "prefnotes"
-    t.string    "carelevelrequired",  limit: 40
-    t.date      "careleveldate"
-    t.string    "cannulationtype",    limit: 12
+    t.integer  "hdprofilezid",       limit: 3,                                          null: false
+    t.datetime "hdprofileaddstamp",                                                     null: false
+    t.string   "currsite",           limit: 6
+    t.string   "currsched",          limit: 9
+    t.string   "hdtype",             limit: 8,                           default: "HD"
+    t.string   "needlesize",         limit: 10
+    t.string   "singleneedle",       limit: 1
+    t.string   "hours",              limit: 10
+    t.string   "dialyser",           limit: 20
+    t.string   "dialysate",          limit: 20
+    t.integer  "flowrate",           limit: 2
+    t.boolean  "dialK"
+    t.decimal  "dialCa",                         precision: 3, scale: 1
+    t.decimal  "dialTemp",                       precision: 3, scale: 1
+    t.string   "dialBicarb",         limit: 30
+    t.string   "dialNaProfiling",    limit: 1
+    t.integer  "dialNa1sthalf",      limit: 1
+    t.integer  "dialNa2ndhalf",      limit: 1
+    t.string   "anticoagtype",       limit: 30
+    t.string   "anticoagloaddose",   limit: 20
+    t.string   "anticoaghourlydose", limit: 20
+    t.string   "anticoagstoptime",   limit: 30
+    t.string   "prescriber",         limit: 30
+    t.date     "prescriptdate"
+    t.string   "esdflag",            limit: 1
+    t.string   "ironflag",           limit: 1
+    t.string   "namednurse",         limit: 20
+    t.string   "warfarinflag",       limit: 1
+    t.decimal  "dryweight",                      precision: 4, scale: 1
+    t.date     "drywtassessdate"
+    t.string   "drywtassessor",      limit: 30
+    t.string   "transport",          limit: 1
+    t.string   "transportdecider",   limit: 30
+    t.date     "transportdate"
+    t.string   "transporttype",      limit: 100
+    t.string   "currslot",           limit: 3
+    t.string   "prefsite",           limit: 20
+    t.string   "prefsched",          limit: 9
+    t.string   "prefslot",           limit: 3
+    t.date     "prefdate"
+    t.string   "prefnotes"
+    t.string   "carelevelrequired",  limit: 40
+    t.date     "careleveldate"
+    t.string   "cannulationtype",    limit: 12
   end
 
   add_index "hdprofilehxdata", ["hdprofilezid"], name: "hdprofilezid", using: :btree
 
   create_table "hdsessiondata", primary_key: "hdsession_id", force: true do |t|
-    t.integer   "hdsesszid",          limit: 3
-    t.datetime  "hdsessaddstamp"
-    t.timestamp "hdsessmodifstamp",                                                       null: false
-    t.string    "hdsessuser",         limit: 30
-    t.date      "hdsessdate"
-    t.string    "sitecode",           limit: 20
-    t.string    "schedule",           limit: 9
-    t.string    "hdtype",             limit: 3,                           default: "HD"
-    t.string    "modalcode",          limit: 30
-    t.string    "timeon",             limit: 6
-    t.string    "timeoff",            limit: 6
-    t.decimal   "wt_pre",                         precision: 4, scale: 1
-    t.decimal   "wt_post",                        precision: 4, scale: 1
-    t.decimal   "weightchange",                   precision: 3, scale: 1
-    t.integer   "pulse_pre",          limit: 1
-    t.integer   "pulse_post",         limit: 1
-    t.integer   "syst_pre",           limit: 2
-    t.integer   "syst_post",          limit: 2
-    t.integer   "diast_pre",          limit: 2
-    t.integer   "diast_post",         limit: 2
-    t.decimal   "temp_pre",                       precision: 3, scale: 1
-    t.decimal   "temp_post",                      precision: 3, scale: 1
-    t.string    "BM_pre",             limit: 5
-    t.string    "BM_post",            limit: 5
-    t.integer   "AP",                 limit: 2
-    t.integer   "VP",                 limit: 2
-    t.decimal   "fluidremoved",                   precision: 2, scale: 1
-    t.integer   "bloodflow",          limit: 2
-    t.decimal   "UFR",                            precision: 3, scale: 2
-    t.integer   "machineURR",         limit: 1
-    t.decimal   "machineKTV",                     precision: 2, scale: 1
-    t.string    "machineNo",          limit: 5
-    t.string    "litresproc",         limit: 10
-    t.text      "evaluation",         limit: 255
-    t.string    "signon",             limit: 20
-    t.string    "signoff",            limit: 20
-    t.boolean   "submitflag",                                             default: false
-    t.boolean   "firstuseflag"
-    t.integer   "subsfluidpct",       limit: 1
-    t.decimal   "subsgoal",                       precision: 4, scale: 2
-    t.decimal   "subsrate",                       precision: 4, scale: 2
-    t.decimal   "subsvol",                        precision: 4, scale: 2
-    t.string    "access",             limit: 50
-    t.boolean   "dressingchangeflag"
-    t.boolean   "mrsaswabflag",                                           default: false
-    t.string    "accesssitestatus",   limit: 24
+    t.integer  "hdsesszid",          limit: 3
+    t.datetime "hdsessaddstamp"
+    t.datetime "hdsessmodifstamp",                                                       null: false
+    t.string   "hdsessuser",         limit: 30
+    t.date     "hdsessdate"
+    t.string   "sitecode",           limit: 20
+    t.string   "schedule",           limit: 9
+    t.string   "hdtype",             limit: 3,                           default: "HD"
+    t.string   "modalcode",          limit: 30
+    t.string   "timeon",             limit: 6
+    t.string   "timeoff",            limit: 6
+    t.decimal  "wt_pre",                         precision: 4, scale: 1
+    t.decimal  "wt_post",                        precision: 4, scale: 1
+    t.decimal  "weightchange",                   precision: 3, scale: 1
+    t.integer  "pulse_pre",          limit: 1
+    t.integer  "pulse_post",         limit: 1
+    t.integer  "syst_pre",           limit: 2
+    t.integer  "syst_post",          limit: 2
+    t.integer  "diast_pre",          limit: 2
+    t.integer  "diast_post",         limit: 2
+    t.decimal  "temp_pre",                       precision: 3, scale: 1
+    t.decimal  "temp_post",                      precision: 3, scale: 1
+    t.string   "BM_pre",             limit: 5
+    t.string   "BM_post",            limit: 5
+    t.integer  "AP",                 limit: 2
+    t.integer  "VP",                 limit: 2
+    t.decimal  "fluidremoved",                   precision: 2, scale: 1
+    t.integer  "bloodflow",          limit: 2
+    t.decimal  "UFR",                            precision: 3, scale: 2
+    t.integer  "machineURR",         limit: 1
+    t.decimal  "machineKTV",                     precision: 2, scale: 1
+    t.string   "machineNo",          limit: 5
+    t.string   "litresproc",         limit: 10
+    t.text     "evaluation",         limit: 255
+    t.string   "signon",             limit: 20
+    t.string   "signoff",            limit: 20
+    t.boolean  "submitflag",                                             default: false
+    t.boolean  "firstuseflag"
+    t.integer  "subsfluidpct",       limit: 1
+    t.decimal  "subsgoal",                       precision: 4, scale: 2
+    t.decimal  "subsrate",                       precision: 4, scale: 2
+    t.decimal  "subsvol",                        precision: 4, scale: 2
+    t.string   "access",             limit: 50
+    t.boolean  "dressingchangeflag"
+    t.boolean  "mrsaswabflag",                                           default: false
+    t.string   "accesssitestatus",   limit: 24
   end
 
   add_index "hdsessiondata", ["hdsessdate"], name: "hdsessdate", using: :btree
   add_index "hdsessiondata", ["hdsesszid"], name: "hdsessrid", using: :btree
 
+  create_table "hl7feed2", primary_key: "hl7feed_id", force: true do |t|
+    t.timestamp "feedstamp",                             null: false
+    t.integer   "msg_id"
+    t.string    "msgtype",     limit: 3
+    t.string    "eventtype",   limit: 3
+    t.string    "msgpid",      limit: 7
+    t.boolean   "processflag",           default: false, null: false
+    t.text      "msgdata"
+  end
+
+  add_index "hl7feed2", ["eventtype"], name: "eventtype", using: :btree
+  add_index "hl7feed2", ["msgpid"], name: "mshpid", using: :btree
+  add_index "hl7feed2", ["msgtype"], name: "mshtype", using: :btree
+  add_index "hl7feed2", ["processflag"], name: "processflag", using: :btree
+
+  create_table "hl7patientdata", primary_key: "patient_id", force: true do |t|
+    t.timestamp "modifstamp",                  null: false
+    t.datetime  "addstamp"
+    t.date      "adddate"
+    t.integer   "lastmsg_id"
+    t.datetime  "lastmshdatetime"
+    t.string    "lasteventcode",    limit: 3
+    t.string    "kchno",            limit: 7
+    t.string    "lastname",         limit: 30
+    t.string    "firstname",        limit: 30
+    t.string    "middlename",       limit: 30
+    t.string    "prefix",           limit: 6
+    t.date      "birthdate"
+    t.string    "sex",              limit: 6
+    t.string    "nhsno",            limit: 10
+    t.string    "addr_street",      limit: 30
+    t.string    "addr_other",       limit: 30
+    t.string    "addr_city",        limit: 30
+    t.string    "addr_stateprov",   limit: 30
+    t.string    "addr_postcode",    limit: 14
+    t.string    "addr_country",     limit: 20
+    t.string    "countycode",       limit: 9
+    t.string    "phone_home",       limit: 30
+    t.string    "phone_business",   limit: 15
+    t.string    "maritalstatus",    limit: 10
+    t.datetime  "deathdatetime"
+    t.string    "deathyn",          limit: 1
+    t.string    "providernameaddr"
+    t.string    "providertypecode", limit: 5
+    t.string    "practicecode",     limit: 6
+    t.string    "gp_id",            limit: 8
+    t.string    "gp_lastname",      limit: 20
+    t.string    "gp_givenname",     limit: 20
+    t.string    "gp_middlename",    limit: 20
+    t.string    "birthplace",       limit: 60
+  end
+
+  add_index "hl7patientdata", ["birthdate"], name: "birthdate", using: :btree
+  add_index "hl7patientdata", ["firstname"], name: "firstname", using: :btree
+  add_index "hl7patientdata", ["gp_id"], name: "gp_id", using: :btree
+  add_index "hl7patientdata", ["kchno"], name: "kchno", using: :btree
+  add_index "hl7patientdata", ["lastname"], name: "lastname", using: :btree
+  add_index "hl7patientdata", ["nhsno"], name: "nhsno", using: :btree
+
   create_table "homehdassessdata", primary_key: "homehdassess_id", force: true do |t|
-    t.timestamp "homehdassessstamp",                null: false
-    t.integer   "homehdassesszid",      limit: 3
-    t.integer   "homehdassess_uid",     limit: 2
-    t.string    "homehdassessuser",     limit: 20
-    t.date      "referraldate"
-    t.string    "selfcarelevel",        limit: 40
-    t.text      "selfcarenotes"
-    t.text      "medicalassess"
-    t.date      "medicaldate"
-    t.text      "technicalassess"
-    t.date      "technicaldate"
-    t.text      "socialworkassess"
-    t.date      "socialworkdate"
-    t.text      "counsellorassess"
-    t.date      "counsellordate"
-    t.text      "fullindepconfirm"
-    t.date      "fullindepconfirmdate"
-    t.string    "programmetype",        limit: 40
-    t.string    "carername",            limit: 100
-    t.text      "carernotes"
-    t.date      "acceptancedate"
-    t.date      "equipinstalldate"
-    t.date      "firstdeliverydate"
-    t.date      "trainingstartdate"
-    t.date      "firstindepdialdate"
-    t.text      "assessmentnotes"
-    t.string    "assessor",             limit: 100
-    t.string    "housingtype",          limit: 30
-    t.string    "letterwrittentype",    limit: 30
-    t.date      "letterwrittendate"
-    t.string    "letterrecvtype",       limit: 30
-    t.date      "letterrecvdate"
+    t.datetime "homehdassessstamp",                null: false
+    t.integer  "homehdassesszid",      limit: 3
+    t.integer  "homehdassess_uid",     limit: 2
+    t.string   "homehdassessuser",     limit: 20
+    t.date     "referraldate"
+    t.string   "selfcarelevel",        limit: 40
+    t.text     "selfcarenotes"
+    t.text     "medicalassess"
+    t.date     "medicaldate"
+    t.text     "technicalassess"
+    t.date     "technicaldate"
+    t.text     "socialworkassess"
+    t.date     "socialworkdate"
+    t.text     "counsellorassess"
+    t.date     "counsellordate"
+    t.text     "fullindepconfirm"
+    t.date     "fullindepconfirmdate"
+    t.string   "programmetype",        limit: 40
+    t.string   "carername",            limit: 100
+    t.text     "carernotes"
+    t.date     "acceptancedate"
+    t.date     "equipinstalldate"
+    t.date     "firstdeliverydate"
+    t.date     "trainingstartdate"
+    t.date     "firstindepdialdate"
+    t.text     "assessmentnotes"
+    t.string   "assessor",             limit: 100
+    t.string   "housingtype",          limit: 30
+    t.string   "letterwrittentype",    limit: 30
+    t.date     "letterwrittendate"
+    t.string   "letterrecvtype",       limit: 30
+    t.date     "letterrecvdate"
   end
 
   add_index "homehdassessdata", ["homehdassesszid"], name: "homehdassesszid", unique: true, using: :btree
 
   create_table "immunosupprepeatrxdata", primary_key: "import_id", force: true do |t|
-    t.timestamp "importstamp",                              null: false
-    t.date      "importdate"
-    t.integer   "importuid",     limit: 3
-    t.string    "importuser",    limit: 20
-    t.integer   "rowno",         limit: 2
-    t.integer   "evolution_id",  limit: 3,  default: 0,     null: false
-    t.string    "firstname",     limit: 30
-    t.string    "surname",       limit: 30
-    t.date      "birthdate"
-    t.string    "prescriber",    limit: 30
-    t.date      "nextdelivdate"
-    t.string    "hospital",      limit: 30
-    t.string    "hospno",        limit: 12
-    t.string    "nhsno",         limit: 12
-    t.string    "patientdx",     limit: 24
-    t.boolean   "runflag",                  default: false
-    t.integer   "runuid",        limit: 3
-    t.string    "runuser",       limit: 20
-    t.datetime  "rundt"
+    t.datetime "importstamp",                              null: false
+    t.date     "importdate"
+    t.integer  "importuid",     limit: 3
+    t.string   "importuser",    limit: 20
+    t.integer  "rowno",         limit: 2
+    t.integer  "evolution_id",  limit: 3,  default: 0,     null: false
+    t.string   "firstname",     limit: 30
+    t.string   "surname",       limit: 30
+    t.date     "birthdate"
+    t.string   "prescriber",    limit: 30
+    t.date     "nextdelivdate"
+    t.string   "hospital",      limit: 30
+    t.string   "hospno",        limit: 12
+    t.string   "nhsno",         limit: 12
+    t.string   "patientdx",     limit: 24
+    t.boolean  "runflag",                  default: false
+    t.integer  "runuid",        limit: 3
+    t.string   "runuser",       limit: 20
+    t.datetime "rundt"
   end
 
   add_index "immunosupprepeatrxdata", ["evolution_id"], name: "evolution_id", using: :btree
@@ -917,15 +1042,15 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "immunosupprepeatrxdata", ["runflag"], name: "runflag", using: :btree
 
   create_table "immunosupprxforms", primary_key: "rxform_id", force: true do |t|
-    t.timestamp "rxformstamp",                                    null: false
-    t.date      "rxformdate"
-    t.integer   "rxformzid",    limit: 3,  default: 0,            null: false
-    t.string    "rxformhospno", limit: 12
-    t.string    "med_ids"
-    t.integer   "rxformuid",    limit: 2,  default: 0,            null: false
-    t.string    "rxformuser",   limit: 20, default: "rxformuser", null: false
-    t.string    "rxformmeds"
-    t.text      "rxformhtml"
+    t.datetime "rxformstamp",                                    null: false
+    t.date     "rxformdate"
+    t.integer  "rxformzid",    limit: 3,  default: 0,            null: false
+    t.string   "rxformhospno", limit: 12
+    t.string   "med_ids"
+    t.integer  "rxformuid",    limit: 2,  default: 0,            null: false
+    t.string   "rxformuser",   limit: 20, default: "rxformuser", null: false
+    t.string   "rxformmeds"
+    t.text     "rxformhtml"
   end
 
   add_index "immunosupprxforms", ["med_ids"], name: "med_ids", using: :btree
@@ -935,14 +1060,14 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "immunosupprxforms", ["rxformzid"], name: "rxformzid", using: :btree
 
   create_table "immunosupprxmedlogs", primary_key: "log_id", force: true do |t|
-    t.timestamp "logstamp",                                 null: false
-    t.date      "logdate"
-    t.integer   "logzid",    limit: 3,  default: 0,         null: false
-    t.string    "loghospno", limit: 12
-    t.integer   "rxform_id", limit: 3,  default: 0,         null: false
-    t.integer   "med_id",               default: 0,         null: false
-    t.integer   "loguid",    limit: 2,  default: 0,         null: false
-    t.string    "loguser",   limit: 20, default: "loguser", null: false
+    t.datetime "logstamp",                                 null: false
+    t.date     "logdate"
+    t.integer  "logzid",    limit: 3,  default: 0,         null: false
+    t.string   "loghospno", limit: 12
+    t.integer  "rxform_id", limit: 3,  default: 0,         null: false
+    t.integer  "med_id",               default: 0,         null: false
+    t.integer  "loguid",    limit: 2,  default: 0,         null: false
+    t.string   "loguser",   limit: 20, default: "loguser", null: false
   end
 
   add_index "immunosupprxmedlogs", ["loghospno"], name: "loghospno", using: :btree
@@ -967,6 +1092,13 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "irondosedata", ["irondosedate"], name: "irondosedate", using: :btree
   add_index "irondosedata", ["irondosezid"], name: "irondosezid", using: :btree
 
+  create_table "ixcodes", id: false, force: true do |t|
+    t.string "ixcode", limit: 10
+    t.string "ixname", limit: 40
+  end
+
+  add_index "ixcodes", ["ixcode"], name: "ixcode", unique: true, using: :btree
+
   create_table "ixworkupdata", primary_key: "ixworkupdata_id", force: true do |t|
     t.integer  "ixworkupzid",      limit: 3
     t.string   "ixworkupuser",     limit: 30
@@ -985,16 +1117,16 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "ixworkupdata", ["ixworkupzid"], name: "ixworkupzid", using: :btree
 
   create_table "letterccdata", primary_key: "lettercc_id", force: true do |t|
-    t.timestamp "ccstamp",                                  null: false
-    t.string    "ccstatus",    limit: 5,  default: "draft"
-    t.integer   "cc_uid",      limit: 2
-    t.string    "ccuser",      limit: 20
-    t.integer   "recip_uid",   limit: 2
-    t.string    "recipuser",   limit: 20
-    t.integer   "ccletter_id", limit: 3
-    t.integer   "cczid",       limit: 3
-    t.datetime  "readstamp"
-    t.datetime  "sentstamp"
+    t.datetime "ccstamp",                                  null: false
+    t.string   "ccstatus",    limit: 5,  default: "draft"
+    t.integer  "cc_uid",      limit: 2
+    t.string   "ccuser",      limit: 20
+    t.integer  "recip_uid",   limit: 2
+    t.string   "recipuser",   limit: 20
+    t.integer  "ccletter_id", limit: 3
+    t.integer  "cczid",       limit: 3
+    t.datetime "readstamp"
+    t.datetime "sentstamp"
   end
 
   add_index "letterccdata", ["cc_uid"], name: "cc_uid", using: :btree
@@ -1078,12 +1210,12 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "letterdescrlist", ["letterdescruid"], name: "lettertypeuid", using: :btree
 
   create_table "letterheadlist", primary_key: "letterhead_id", force: true do |t|
-    t.timestamp "addstamp",                 null: false
-    t.string    "sitecode",     limit: 6
-    t.string    "unitinfo",     limit: 30
-    t.string    "trustname",    limit: 100
-    t.string    "trustcaption", limit: 30
-    t.text      "siteinfohtml"
+    t.datetime "addstamp",                 null: false
+    t.string   "sitecode",     limit: 6
+    t.string   "unitinfo",     limit: 30
+    t.string   "trustname",    limit: 100
+    t.string   "trustcaption", limit: 30
+    t.text     "siteinfohtml"
   end
 
   add_index "letterheadlist", ["sitecode"], name: "sitecode", unique: true, using: :btree
@@ -1168,16 +1300,16 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "linesepsisdata", ["linesepsiszid"], name: "linesepsiszid", using: :btree
 
   create_table "lupusbxdata", primary_key: "lupusbx_id", force: true do |t|
-    t.timestamp "lupusbxstamp",               null: false
-    t.integer   "lupusbxuid",      limit: 2
-    t.string    "lupusbxuser",     limit: 20
-    t.integer   "lupusbxzid",      limit: 3
-    t.date      "lupusbxadddate"
-    t.date      "lupusbxdate"
-    t.string    "lupusbxclass",    limit: 12
-    t.integer   "activityindex",   limit: 1
-    t.integer   "chronicityindex", limit: 1
-    t.string    "lupusbxnotes"
+    t.datetime "lupusbxstamp",               null: false
+    t.integer  "lupusbxuid",      limit: 2
+    t.string   "lupusbxuser",     limit: 20
+    t.integer  "lupusbxzid",      limit: 3
+    t.date     "lupusbxadddate"
+    t.date     "lupusbxdate"
+    t.string   "lupusbxclass",    limit: 12
+    t.integer  "activityindex",   limit: 1
+    t.integer  "chronicityindex", limit: 1
+    t.string   "lupusbxnotes"
   end
 
   add_index "lupusbxdata", ["lupusbxadddate"], name: "lupusbxadddate", using: :btree
@@ -1186,58 +1318,58 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "lupusbxdata", ["lupusbxzid"], name: "lupusbxzid", using: :btree
 
   create_table "lupusdata", primary_key: "lupus_id", force: true do |t|
-    t.timestamp "lupusstamp",                 null: false
-    t.datetime  "lupusmodifdt"
-    t.integer   "lupusuid",        limit: 2
-    t.string    "lupususer",       limit: 20
-    t.integer   "lupuszid",        limit: 3
-    t.date      "lupusadddate"
-    t.date      "lupusmodifdate"
-    t.date      "lupusdxdate"
-    t.date      "anatitre_dxdate"
-    t.string    "anatitre_dx",     limit: 12
-    t.date      "dsdna_dxdate"
-    t.string    "dsdna_dx",        limit: 12
-    t.string    "anticardiolipin", limit: 3
-    t.string    "ena_sm",          limit: 1
-    t.string    "ena_la",          limit: 1
-    t.string    "ena_ro",          limit: 1
-    t.string    "ena_jo1",         limit: 1
-    t.string    "ena_scl70",       limit: 1
-    t.string    "ena_rnp",         limit: 1
-    t.date      "lastbxdate"
-    t.string    "lupusclass",      limit: 12
-    t.text      "lupusnotes"
+    t.datetime "lupusstamp",                 null: false
+    t.datetime "lupusmodifdt"
+    t.integer  "lupusuid",        limit: 2
+    t.string   "lupususer",       limit: 20
+    t.integer  "lupuszid",        limit: 3
+    t.date     "lupusadddate"
+    t.date     "lupusmodifdate"
+    t.date     "lupusdxdate"
+    t.date     "anatitre_dxdate"
+    t.string   "anatitre_dx",     limit: 12
+    t.date     "dsdna_dxdate"
+    t.string   "dsdna_dx",        limit: 12
+    t.string   "anticardiolipin", limit: 3
+    t.string   "ena_sm",          limit: 1
+    t.string   "ena_la",          limit: 1
+    t.string   "ena_ro",          limit: 1
+    t.string   "ena_jo1",         limit: 1
+    t.string   "ena_scl70",       limit: 1
+    t.string   "ena_rnp",         limit: 1
+    t.date     "lastbxdate"
+    t.string   "lupusclass",      limit: 12
+    t.text     "lupusnotes"
   end
 
   add_index "lupusdata", ["lupusuid"], name: "lupusuid", using: :btree
   add_index "lupusdata", ["lupuszid"], name: "lupuszid", using: :btree
 
   create_table "medsdata", primary_key: "medsdata_id", force: true do |t|
-    t.integer   "medzid",          limit: 3
-    t.timestamp "modifstamp",                                  null: false
-    t.integer   "drug_id",         limit: 2
-    t.string    "drugname",        limit: 100
-    t.string    "dose",            limit: 40
-    t.string    "route",           limit: 12
-    t.string    "freq",            limit: 30
-    t.string    "drugnotes"
-    t.date      "adddate"
-    t.date      "termdate"
-    t.string    "medmodal",        limit: 100
-    t.boolean   "esdflag",                     default: false
-    t.integer   "esdunitsperweek", limit: 3,   default: 0
-    t.boolean   "immunosuppflag",              default: false
-    t.boolean   "termflag",                    default: false
-    t.integer   "adduid",          limit: 2
-    t.string    "adduser",         limit: 20
-    t.string    "termuser",        limit: 20
-    t.string    "prescriber",      limit: 8
-    t.string    "provider",        limit: 8
-    t.boolean   "printflag",                   default: false
-    t.date      "printdate"
-    t.datetime  "printdt"
-    t.integer   "printuid",        limit: 2
+    t.integer  "medzid",          limit: 3
+    t.datetime "modifstamp",                                  null: false
+    t.integer  "drug_id",         limit: 2
+    t.string   "drugname",        limit: 100
+    t.string   "dose",            limit: 40
+    t.string   "route",           limit: 12
+    t.string   "freq",            limit: 30
+    t.string   "drugnotes"
+    t.date     "adddate"
+    t.date     "termdate"
+    t.string   "medmodal",        limit: 100
+    t.boolean  "esdflag",                     default: false
+    t.integer  "esdunitsperweek", limit: 3,   default: 0
+    t.boolean  "immunosuppflag",              default: false
+    t.boolean  "termflag",                    default: false
+    t.integer  "adduid",          limit: 2
+    t.string   "adduser",         limit: 20
+    t.string   "termuser",        limit: 20
+    t.string   "prescriber",      limit: 8
+    t.string   "provider",        limit: 8
+    t.boolean  "printflag",                   default: false
+    t.date     "printdate"
+    t.datetime "printdt"
+    t.integer  "printuid",        limit: 2
   end
 
   add_index "medsdata", ["adduid"], name: "adduid", using: :btree
@@ -1247,23 +1379,58 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "medsdata", ["termflag"], name: "termflag", using: :btree
 
   create_table "messagedata", primary_key: "message_id", force: true do |t|
-    t.timestamp "messagestamp",                           null: false
-    t.integer   "message_uid",  limit: 2
-    t.string    "messageuser",  limit: 20
-    t.integer   "recip_uid",    limit: 2
-    t.string    "recipuser",    limit: 20
-    t.integer   "messagezid",   limit: 3
-    t.string    "messagesubj",  limit: 100
-    t.text      "messagetext"
-    t.string    "readflag",     limit: 1,   default: "0"
-    t.datetime  "readstamp"
-    t.string    "urgentflag",   limit: 1,   default: "0"
+    t.datetime "messagestamp",                           null: false
+    t.integer  "message_uid",  limit: 2
+    t.string   "messageuser",  limit: 20
+    t.integer  "recip_uid",    limit: 2
+    t.string   "recipuser",    limit: 20
+    t.integer  "messagezid",   limit: 3
+    t.string   "messagesubj",  limit: 100
+    t.text     "messagetext"
+    t.string   "readflag",     limit: 1,   default: "0"
+    t.datetime "readstamp"
+    t.string   "urgentflag",   limit: 1,   default: "0"
   end
 
   add_index "messagedata", ["message_uid"], name: "message_uid", using: :btree
   add_index "messagedata", ["messagezid"], name: "messagezid", using: :btree
   add_index "messagedata", ["readflag"], name: "readflag", using: :btree
   add_index "messagedata", ["recip_uid"], name: "recip_uid", using: :btree
+
+  create_table "midasdata", primary_key: "midas_id", force: true do |t|
+    t.timestamp "importstamp",                                     null: false
+    t.string    "hospno",       limit: 7
+    t.string    "surname",      limit: 40
+    t.string    "forename",     limit: 50
+    t.date      "dob"
+    t.date      "sampledate"
+    t.integer   "testtype_id",  limit: 1
+    t.string    "testtype",     limit: 40
+    t.string    "qualifier",    limit: 2
+    t.decimal   "result",                  precision: 6, scale: 2
+    t.date      "creationtime"
+  end
+
+  add_index "midasdata", ["hospno"], name: "hospno", using: :btree
+  add_index "midasdata", ["sampledate"], name: "sampledate", using: :btree
+
+  create_table "midasfeeddata", primary_key: "midas_id", force: true do |t|
+    t.timestamp "importstamp",                 null: false
+    t.string    "midasrequestcode", limit: 16
+    t.datetime  "msgdatetime"
+    t.datetime  "obr_obsdatetime"
+    t.string    "kchno",            limit: 12
+    t.string    "patlastfirst",     limit: 30
+    t.string    "orc_ordernumber",  limit: 12
+    t.string    "obr_testtype",     limit: 24
+    t.string    "obx_resultvalue",  limit: 12
+    t.string    "obx_resultunits",  limit: 12
+    t.text      "nte_notes"
+  end
+
+  add_index "midasfeeddata", ["kchno"], name: "kchno", using: :btree
+  add_index "midasfeeddata", ["obr_testtype"], name: "obr_testtype", using: :btree
+  add_index "midasfeeddata", ["obx_resultvalue"], name: "obx_resultvalue", using: :btree
 
   create_table "modalcodeslist", primary_key: "modalcode_id", force: true do |t|
     t.string "modalcode",   limit: 20
@@ -1291,29 +1458,48 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "modaldata", ["rrmodalcode"], name: "rrmodalcode", using: :btree
 
   create_table "mrsadata", primary_key: "mrsa_id", force: true do |t|
-    t.timestamp "swabstamp",              null: false
-    t.integer   "mrsazid",     limit: 3
-    t.integer   "swabuid",     limit: 2
-    t.string    "swabuser",    limit: 20
-    t.date      "swabadddate"
-    t.date      "swabdate"
-    t.string    "swabsite",    limit: 60
-    t.datetime  "resultstamp"
-    t.string    "resultuser",  limit: 20
-    t.date      "resultdate"
-    t.string    "swabresult",  limit: 3
+    t.datetime "swabstamp",              null: false
+    t.integer  "mrsazid",     limit: 3
+    t.integer  "swabuid",     limit: 2
+    t.string   "swabuser",    limit: 20
+    t.date     "swabadddate"
+    t.date     "swabdate"
+    t.string   "swabsite",    limit: 60
+    t.datetime "resultstamp"
+    t.string   "resultuser",  limit: 20
+    t.date     "resultdate"
+    t.string   "swabresult",  limit: 3
   end
 
   add_index "mrsadata", ["mrsazid"], name: "mrsazid", using: :btree
   add_index "mrsadata", ["swabdate"], name: "swabdate", using: :btree
   add_index "mrsadata", ["swabresult"], name: "swabresult", using: :btree
 
+  create_table "newadtdata", primary_key: "newmsh_id", force: true do |t|
+    t.text "newmshdata"
+  end
+
+  create_table "newhl7data", primary_key: "newfeed_id", force: true do |t|
+    t.timestamp "feedstamp",                             null: false
+    t.integer   "msg_id"
+    t.string    "msgtype",     limit: 3
+    t.string    "eventtype",   limit: 3
+    t.string    "msgpid",      limit: 7
+    t.boolean   "processflag",           default: false, null: false
+    t.text      "msgdata"
+  end
+
+  add_index "newhl7data", ["eventtype"], name: "eventtype", using: :btree
+  add_index "newhl7data", ["msgpid"], name: "mshpid", using: :btree
+  add_index "newhl7data", ["msgtype"], name: "mshtype", using: :btree
+  add_index "newhl7data", ["processflag"], name: "processflag", using: :btree
+
   create_table "optionlists", primary_key: "option_id", force: true do |t|
-    t.timestamp "liststamp"
-    t.string    "listname",      limit: 30
-    t.text      "listhtml"
-    t.datetime  "listmodifdt"
-    t.string    "listmodifuser", limit: 20
+    t.datetime "liststamp"
+    t.string   "listname",      limit: 30
+    t.text     "listhtml"
+    t.datetime "listmodifdt"
+    t.string   "listmodifuser", limit: 20
   end
 
   add_index "optionlists", ["listname"], name: "listname", using: :btree
@@ -1327,6 +1513,294 @@ ActiveRecord::Schema.define(version: 0) do
     t.string   "user",       limit: 30
     t.string   "page_title", limit: 150
   end
+
+  create_table "pathol_current", primary_key: "currentpath_id", force: true do |t|
+    t.string   "currentpid", limit: 12
+    t.datetime "addstamp"
+    t.date     "adddate"
+    t.datetime "modifstamp"
+    t.date     "modifdate"
+    t.datetime "ACRAstamp"
+    t.decimal  "ACRA",                  precision: 5, scale: 1
+    t.datetime "AFPstamp"
+    t.integer  "AFP",        limit: 2
+    t.datetime "ALBstamp"
+    t.integer  "ALB",        limit: 2
+    t.datetime "ALPstamp"
+    t.integer  "ALP",        limit: 2
+    t.datetime "ALTstamp"
+    t.integer  "ALT",        limit: 2
+    t.datetime "ALstamp"
+    t.decimal  "AL",                    precision: 3, scale: 1
+    t.datetime "AMYstamp"
+    t.integer  "AMY",        limit: 2
+    t.datetime "ANAstamp"
+    t.string   "ANA",        limit: 8
+    t.datetime "ANCAstamp"
+    t.string   "ANCA",       limit: 8
+    t.datetime "APTHstamp"
+    t.decimal  "APTH",                  precision: 3, scale: 2
+    t.datetime "APTRstamp"
+    t.decimal  "APTR",                  precision: 3, scale: 2
+    t.datetime "ASMstamp"
+    t.string   "ASM",        limit: 8
+    t.datetime "ASTstamp"
+    t.integer  "AST",        limit: 2
+    t.datetime "B12stamp"
+    t.integer  "B12"
+    t.datetime "BGLUstamp"
+    t.decimal  "BGLU",                  precision: 3, scale: 1
+    t.datetime "BICstamp"
+    t.integer  "BIC",        limit: 2
+    t.datetime "BILstamp"
+    t.integer  "BIL",        limit: 2
+    t.datetime "C125stamp"
+    t.integer  "C125",       limit: 2
+    t.datetime "C199stamp"
+    t.integer  "C199",       limit: 2
+    t.datetime "C3stamp"
+    t.decimal  "C3",                    precision: 3, scale: 2
+    t.datetime "C4stamp"
+    t.decimal  "C4",                    precision: 3, scale: 2
+    t.datetime "CAERstamp"
+    t.decimal  "CAER",                  precision: 3, scale: 2
+    t.datetime "CALstamp"
+    t.decimal  "CAL",                   precision: 3, scale: 2
+    t.datetime "CCAstamp"
+    t.decimal  "CCA",                   precision: 3, scale: 2
+    t.datetime "CEAstamp"
+    t.integer  "CEA",        limit: 2
+    t.datetime "CHOLstamp"
+    t.decimal  "CHOL",                  precision: 3, scale: 1
+    t.datetime "CKstamp"
+    t.integer  "CK",         limit: 2
+    t.datetime "CRCLstamp"
+    t.integer  "CRCL",       limit: 2
+    t.datetime "CREstamp"
+    t.integer  "CRE",        limit: 2
+    t.datetime "CRPstamp"
+    t.decimal  "CRP",                   precision: 4, scale: 1
+    t.datetime "CUstamp"
+    t.string   "CU",         limit: 8
+    t.datetime "CYAstamp"
+    t.string   "CYA",        limit: 5
+    t.datetime "DNAstamp"
+    t.string   "DNA",        limit: 8
+    t.datetime "FERstamp"
+    t.integer  "FER",        limit: 2
+    t.datetime "FIBstamp"
+    t.decimal  "FIB",                   precision: 3, scale: 1
+    t.datetime "FOLstamp"
+    t.decimal  "FOL",                   precision: 3, scale: 1
+    t.datetime "GGTstamp"
+    t.integer  "GGT",        limit: 2
+    t.datetime "GLOstamp"
+    t.integer  "GLO",        limit: 2
+    t.datetime "HBAIstamp"
+    t.integer  "HBAI"
+    t.datetime "HBAstamp"
+    t.decimal  "HBA",                   precision: 3, scale: 1
+    t.datetime "HBstamp"
+    t.decimal  "HB",                    precision: 3, scale: 1
+    t.datetime "HDLstamp"
+    t.decimal  "HDL",                   precision: 2, scale: 1
+    t.datetime "HYPOstamp"
+    t.decimal  "HYPO",                  precision: 3, scale: 1
+    t.datetime "ESRRstamp"
+    t.integer  "ESRR",       limit: 2
+    t.datetime "IGLAstamp"
+    t.decimal  "IGLA",                  precision: 3, scale: 2
+    t.datetime "IGLGstamp"
+    t.decimal  "IGLG",                  precision: 4, scale: 2
+    t.datetime "IGLMstamp"
+    t.decimal  "IGLM",                  precision: 3, scale: 2
+    t.datetime "INRstamp"
+    t.decimal  "INR",                   precision: 3, scale: 2
+    t.datetime "LDLstamp"
+    t.decimal  "LDL",                   precision: 2, scale: 1
+    t.datetime "LKMstamp"
+    t.string   "LKM",        limit: 8
+    t.datetime "LYMstamp"
+    t.decimal  "LYM",                   precision: 4, scale: 2
+    t.datetime "MCHstamp"
+    t.decimal  "MCH",                   precision: 4, scale: 1
+    t.datetime "MCVstamp"
+    t.decimal  "MCV",                   precision: 4, scale: 1
+    t.integer  "MDRD",       limit: 2
+    t.datetime "MGstamp"
+    t.decimal  "MG",                    precision: 4, scale: 2
+    t.datetime "MITOstamp"
+    t.string   "MITO",       limit: 8
+    t.datetime "NAstamp"
+    t.integer  "NA",         limit: 2
+    t.datetime "NEUTstamp"
+    t.decimal  "NEUT",                  precision: 4, scale: 2
+    t.datetime "PCRAstamp"
+    t.decimal  "PCRA",                  precision: 5, scale: 1
+    t.datetime "PHOSstamp"
+    t.decimal  "PHOS",                  precision: 3, scale: 2
+    t.datetime "PLTstamp"
+    t.integer  "PLT",        limit: 2
+    t.datetime "POTstamp"
+    t.decimal  "POT",                   precision: 2, scale: 1
+    t.datetime "PTHIstamp"
+    t.integer  "PTHI",       limit: 3
+    t.datetime "RETAstamp"
+    t.decimal  "RETA",                  precision: 4, scale: 1
+    t.datetime "RFstamp"
+    t.decimal  "RF",                    precision: 4, scale: 1
+    t.datetime "TPstamp"
+    t.integer  "TP",         limit: 2
+    t.datetime "TRIGstamp"
+    t.decimal  "TRIG",                  precision: 4, scale: 1
+    t.datetime "TSHstamp"
+    t.decimal  "TSH",                   precision: 4, scale: 2
+    t.datetime "UALBstamp"
+    t.string   "UALB",       limit: 8
+    t.datetime "UPREstamp"
+    t.integer  "UPRE",       limit: 2
+    t.datetime "UPROstamp"
+    t.string   "UPRO",       limit: 8
+    t.datetime "URATstamp"
+    t.decimal  "URAT",                  precision: 3, scale: 2
+    t.datetime "UREPstamp"
+    t.decimal  "UREP",                  precision: 3, scale: 1
+    t.datetime "UREstamp"
+    t.decimal  "URE",                   precision: 3, scale: 1
+    t.datetime "URRstamp"
+    t.integer  "URR",        limit: 2
+    t.datetime "WBCstamp"
+    t.decimal  "WBC",                   precision: 4, scale: 2
+    t.string   "BHBC",       limit: 9
+    t.datetime "BHBCstamp"
+    t.string   "BHBS",       limit: 12
+    t.datetime "BHBSstamp"
+    t.string   "BHCV",       limit: 12
+    t.datetime "BHCVstamp"
+    t.string   "HCVGI",      limit: 12
+    t.datetime "HCVGIstamp"
+    t.string   "CRYO",       limit: 12
+    t.datetime "CRYOstamp"
+  end
+
+  add_index "pathol_current", ["currentpid"], name: "currentpid", unique: true, using: :btree
+  add_index "pathol_current", ["modifdate"], name: "modifdate", using: :btree
+
+  create_table "pathol_ixdata", primary_key: "ix_id", force: true do |t|
+    t.timestamp "importstamp",                                null: false
+    t.string    "pcscode",     limit: 12
+    t.string    "ixpid",       limit: 12, default: "Z999999", null: false
+    t.datetime  "ixstamp"
+    t.date      "ixdate"
+    t.string    "ixcode",      limit: 10
+    t.string    "ixname",      limit: 40, default: "ixname",  null: false
+    t.string    "requestor",   limit: 30, default: "unknown", null: false
+  end
+
+  add_index "pathol_ixdata", ["ixcode"], name: "ixcode", using: :btree
+  add_index "pathol_ixdata", ["ixdate"], name: "ixdate", using: :btree
+  add_index "pathol_ixdata", ["ixpid"], name: "ixpid", using: :btree
+  add_index "pathol_ixdata", ["pcscode"], name: "pcscode", unique: true, using: :btree
+
+  create_table "pathol_msgdata", primary_key: "msg_id", force: true do |t|
+    t.timestamp "msgstamp",            null: false
+    t.string    "msgpid",   limit: 12
+    t.text      "msgtext"
+  end
+
+  add_index "pathol_msgdata", ["msgpid"], name: "msgpid", using: :btree
+
+  create_table "pathol_obxcodes", primary_key: "code", force: true do |t|
+    t.string "obxname", limit: 30
+  end
+
+  create_table "pathol_obxdata", primary_key: "obx_id", force: true do |t|
+    t.datetime "importstamp"
+    t.integer  "ix_id",                   null: false
+    t.string   "obxpid",      limit: 12
+    t.string   "obxcode",     limit: 12
+    t.string   "obxtype",     limit: 6
+    t.date     "obxdate"
+    t.datetime "obxstamp"
+    t.string   "obxresult",   limit: 12
+    t.string   "obxcomment",  limit: 500
+  end
+
+  add_index "pathol_obxdata", ["ix_id"], name: "ix_id", using: :btree
+  add_index "pathol_obxdata", ["obxcode"], name: "obxcode", using: :btree
+  add_index "pathol_obxdata", ["obxdate"], name: "obxdate", using: :btree
+  add_index "pathol_obxdata", ["obxpid"], name: "obxpid", using: :btree
+
+  create_table "pathol_results", primary_key: "results_id", force: true do |t|
+    t.string   "resultspid",  limit: 7,                         default: "Z999999",             null: false
+    t.date     "resultsdate",                                   default: '1989-11-09',          null: false
+    t.datetime "modifstamp",                                    default: '1989-11-09 12:00:00', null: false
+    t.date     "modifdate"
+    t.decimal  "AL",                    precision: 3, scale: 1
+    t.integer  "ALB",         limit: 2
+    t.integer  "ALT",         limit: 2
+    t.integer  "AMY",         limit: 2
+    t.integer  "ALP",         limit: 2
+    t.integer  "AST",         limit: 2
+    t.integer  "B12",         limit: 2
+    t.integer  "BIC",         limit: 2
+    t.integer  "BIL",         limit: 2
+    t.decimal  "CAL",                   precision: 3, scale: 2
+    t.decimal  "CCA",                   precision: 3, scale: 2
+    t.decimal  "CHOL",                  precision: 3, scale: 1
+    t.integer  "CK",          limit: 2
+    t.integer  "CRCL",        limit: 2
+    t.integer  "CRE",         limit: 2
+    t.decimal  "CRP",                   precision: 4, scale: 1
+    t.string   "CU",          limit: 8
+    t.string   "CYA",         limit: 6
+    t.integer  "ESR",         limit: 2
+    t.integer  "FER",         limit: 2
+    t.decimal  "FIB",                   precision: 3, scale: 1
+    t.decimal  "FOL",                   precision: 3, scale: 1
+    t.integer  "GGT",         limit: 2
+    t.integer  "GLO",         limit: 2
+    t.decimal  "BGLU",                  precision: 3, scale: 1
+    t.decimal  "HB",                    precision: 3, scale: 1
+    t.integer  "HBAI",        limit: 2
+    t.decimal  "HBA",                   precision: 3, scale: 1
+    t.decimal  "HDL",                   precision: 2, scale: 1
+    t.decimal  "HYPO",                  precision: 3, scale: 1
+    t.decimal  "LYM",                   precision: 4, scale: 2
+    t.decimal  "PHOS",                  precision: 3, scale: 2
+    t.decimal  "RETA",                  precision: 4, scale: 1
+    t.decimal  "POT",                   precision: 2, scale: 1
+    t.decimal  "LDL",                   precision: 2, scale: 1
+    t.decimal  "MCH",                   precision: 4, scale: 1
+    t.decimal  "MCV",                   precision: 4, scale: 1
+    t.decimal  "MG",                    precision: 4, scale: 2
+    t.integer  "NA",          limit: 2
+    t.decimal  "NEUT",                  precision: 4, scale: 2
+    t.integer  "PLT",         limit: 2
+    t.integer  "PTHI",        limit: 2
+    t.integer  "TP",          limit: 2
+    t.decimal  "TRIG",                  precision: 2, scale: 1
+    t.decimal  "TSH",                   precision: 4, scale: 2
+    t.decimal  "URE",                   precision: 3, scale: 1
+    t.integer  "URR",         limit: 2
+    t.decimal  "WBC",                   precision: 5, scale: 2
+    t.decimal  "URAT",                  precision: 3, scale: 2
+    t.decimal  "UREP",                  precision: 3, scale: 1
+    t.decimal  "ACRA",                  precision: 5, scale: 1
+    t.decimal  "PCRA",                  precision: 5, scale: 1
+    t.integer  "EGFR",        limit: 2
+  end
+
+  add_index "pathol_results", ["resultsdate"], name: "resultsdate", using: :btree
+  add_index "pathol_results", ["resultspid", "resultsdate"], name: "piddate", unique: true, using: :btree
+  add_index "pathol_results", ["resultspid"], name: "resultspid", using: :btree
+
+  create_table "pathsearchflds", force: true do |t|
+    t.string "fldcode",  limit: 12
+    t.string "fldlabel", limit: 200
+  end
+
+  add_index "pathsearchflds", ["fldcode"], name: "fldcode", unique: true, using: :btree
 
   create_table "patientdata", primary_key: "patzid", force: true do |t|
     t.datetime "modifstamp"
@@ -1467,21 +1941,59 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "patientdata", ["nhsno"], name: "nhsno", using: :btree
   add_index "patientdata", ["rregflag"], name: "rregflag", using: :btree
 
+  create_table "patientindex", primary_key: "pat_id", force: true do |t|
+    t.string    "hospno",       limit: 7,  default: "", null: false
+    t.timestamp "patstamp",                             null: false
+    t.date      "adddate"
+    t.datetime  "modifstamp"
+    t.date      "modifdate"
+    t.string    "prefix",       limit: 6
+    t.string    "lastname",     limit: 30
+    t.string    "firstnames",   limit: 30
+    t.string    "suffix",       limit: 6
+    t.string    "sex",          limit: 6
+    t.date      "birthdate"
+    t.string    "addr1",        limit: 70
+    t.string    "addr2",        limit: 70
+    t.string    "addr3",        limit: 70
+    t.string    "addr4",        limit: 70
+    t.string    "postcode",     limit: 14
+    t.string    "patphone",     limit: 40
+    t.string    "nokname",      limit: 60
+    t.string    "nokphone",     limit: 40
+    t.string    "practicecode", limit: 6
+    t.string    "gpcode",       limit: 8
+    t.integer   "nhsno",        limit: 8
+  end
+
+  add_index "patientindex", ["birthdate"], name: "birthdate", using: :btree
+  add_index "patientindex", ["firstnames"], name: "firstnames", using: :btree
+  add_index "patientindex", ["gpcode"], name: "gpcode", using: :btree
+  add_index "patientindex", ["hospno"], name: "hospno", unique: true, using: :btree
+  add_index "patientindex", ["lastname"], name: "lastname", using: :btree
+  add_index "patientindex", ["postcode"], name: "postcode", using: :btree
+  add_index "patientindex", ["practicecode"], name: "practicecode", using: :btree
+
+  create_table "patients", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "patstats", primary_key: "statzid", force: true do |t|
-    t.timestamp "statstamp",                        null: false
-    t.string    "statpid",    limit: 7
-    t.integer   "admissions", limit: 2, default: 0, null: false
-    t.integer   "encounters", limit: 2, default: 0, null: false
-    t.integer   "pathix",     limit: 2, default: 0, null: false
-    t.integer   "ixdata",     limit: 2, default: 0, null: false
-    t.integer   "letters",    limit: 2, default: 0, null: false
-    t.integer   "problems",   limit: 1, default: 0, null: false
-    t.integer   "meds",       limit: 1, default: 0, null: false
-    t.integer   "modals",     limit: 1, default: 0, null: false
-    t.integer   "bpwts",      limit: 2, default: 0, null: false
-    t.integer   "hdsess",     limit: 2, default: 0, null: false
-    t.integer   "ops",        limit: 2, default: 0, null: false
-    t.integer   "events",     limit: 2, default: 0, null: false
+    t.datetime "statstamp",                        null: false
+    t.string   "statpid",    limit: 7
+    t.integer  "admissions", limit: 2, default: 0, null: false
+    t.integer  "encounters", limit: 2, default: 0, null: false
+    t.integer  "pathix",     limit: 2, default: 0, null: false
+    t.integer  "ixdata",     limit: 2, default: 0, null: false
+    t.integer  "letters",    limit: 2, default: 0, null: false
+    t.integer  "problems",   limit: 1, default: 0, null: false
+    t.integer  "meds",       limit: 1, default: 0, null: false
+    t.integer  "modals",     limit: 1, default: 0, null: false
+    t.integer  "bpwts",      limit: 2, default: 0, null: false
+    t.integer  "hdsess",     limit: 2, default: 0, null: false
+    t.integer  "ops",        limit: 2, default: 0, null: false
+    t.integer  "events",     limit: 2, default: 0, null: false
   end
 
   add_index "patstats", ["statpid"], name: "statpid", using: :btree
@@ -1544,11 +2056,23 @@ ActiveRecord::Schema.define(version: 0) do
 
   add_index "petadeqdata", ["petadeqzid"], name: "petadeqzid", using: :btree
 
+  create_table "practicecodes", primary_key: "practice_id", force: true do |t|
+    t.string  "practicecode",  limit: 8,                   null: false
+    t.string  "practicename",  limit: 200
+    t.string  "practiceemail", limit: 100
+    t.boolean "sendCDAflag",               default: false
+    t.boolean "sendemailflag",             default: false
+  end
+
+  add_index "practicecodes", ["practicecode"], name: "practicecode", unique: true, using: :btree
+  add_index "practicecodes", ["sendCDAflag"], name: "sendCDAflag", using: :btree
+  add_index "practicecodes", ["sendemailflag"], name: "sendemailflag", using: :btree
+
   create_table "practiceemaillist", primary_key: "email_id", force: true do |t|
-    t.timestamp "addstamp",                  null: false
-    t.string    "practicecode",  limit: 12
-    t.string    "practicename",  limit: 100
-    t.string    "practiceemail", limit: 100
+    t.datetime "addstamp",                  null: false
+    t.string   "practicecode",  limit: 12
+    t.string   "practicename",  limit: 100
+    t.string   "practiceemail", limit: 100
   end
 
   add_index "practiceemaillist", ["practicecode"], name: "practicecode", unique: true, using: :btree
@@ -1567,27 +2091,27 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "problemdata", ["probzid"], name: "zid", using: :btree
 
   create_table "psychsoc_encounterdata", primary_key: "encounter_id", force: true do |t|
-    t.integer   "enczid",      limit: 3
-    t.timestamp "encstamp",                null: false
-    t.string    "encuser",     limit: 20
-    t.string    "encmodal",    limit: 20
-    t.date      "encdate"
-    t.string    "enctime",     limit: 20
-    t.string    "enctype",     limit: 18
-    t.text      "encdescr",    limit: 255
-    t.text      "enctext"
-    t.string    "staffname",   limit: 50
-    t.boolean   "publishflag"
+    t.integer  "enczid",      limit: 3
+    t.datetime "encstamp",                null: false
+    t.string   "encuser",     limit: 20
+    t.string   "encmodal",    limit: 20
+    t.date     "encdate"
+    t.string   "enctime",     limit: 20
+    t.string   "enctype",     limit: 18
+    t.text     "encdescr",    limit: 255
+    t.text     "enctext"
+    t.string   "staffname",   limit: 50
+    t.boolean  "publishflag"
   end
 
   add_index "psychsoc_encounterdata", ["enczid"], name: "enczid", using: :btree
 
   create_table "renalbxdata", primary_key: "renalbxdata_id", force: true do |t|
-    t.date      "renalbxdate"
-    t.integer   "renalbxzid",    limit: 3
-    t.string    "renalbxresult"
-    t.timestamp "renalbxstamp",             null: false
-    t.string    "renalbxuser",   limit: 20
+    t.date     "renalbxdate"
+    t.integer  "renalbxzid",    limit: 3
+    t.string   "renalbxresult"
+    t.datetime "renalbxstamp",             null: false
+    t.string   "renalbxuser",   limit: 20
   end
 
   add_index "renalbxdata", ["renalbxzid"], name: "renalbxzid", using: :btree
@@ -1698,11 +2222,11 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "renalsessions", ["sessuid"], name: "sessuid", using: :btree
 
   create_table "rpvlogs", primary_key: "rpv_id", force: true do |t|
-    t.string    "hospno1",   limit: 12
-    t.timestamp "logstamp",             null: false
-    t.string    "rpvstatus", limit: 20
-    t.integer   "sequence",  limit: 3
-    t.text      "xmltext"
+    t.string   "hospno1",   limit: 12
+    t.datetime "logstamp",             null: false
+    t.string   "rpvstatus", limit: 20
+    t.integer  "sequence",  limit: 3
+    t.text     "xmltext"
   end
 
   add_index "rpvlogs", ["hospno1"], name: "hospno1", using: :btree
@@ -1722,83 +2246,83 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "rregmodalcodes", ["rwarecode"], name: "modalcode", unique: true, using: :btree
 
   create_table "sharedcaredata", primary_key: "sharedcare_id", force: true do |t|
-    t.timestamp "sharedcarestamp",                              null: false
-    t.integer   "sharedcareuid",     limit: 2
-    t.string    "sharedcareuser",    limit: 20
-    t.integer   "sharedcarezid",     limit: 3
-    t.date      "sharedcareadddate"
-    t.date      "sharedcaredate"
-    t.boolean   "currentflag",                  default: true
-    t.string    "q1interest",        limit: 1
-    t.boolean   "q1participating",              default: false
-    t.boolean   "q1completed",                  default: false
-    t.string    "q1completed_by",    limit: 20
-    t.date      "q1completed_date"
-    t.string    "q2interest",        limit: 1
-    t.boolean   "q2participating",              default: false
-    t.boolean   "q2completed",                  default: false
-    t.string    "q2completed_by",    limit: 20
-    t.date      "q2completed_date"
-    t.string    "q3interest",        limit: 1
-    t.boolean   "q3participating",              default: false
-    t.boolean   "q3completed",                  default: false
-    t.string    "q3completed_by",    limit: 20
-    t.date      "q3completed_date"
-    t.string    "q4interest",        limit: 1
-    t.boolean   "q4participating",              default: false
-    t.boolean   "q4completed",                  default: false
-    t.string    "q4completed_by",    limit: 20
-    t.date      "q4completed_date"
-    t.string    "q5interest",        limit: 1
-    t.boolean   "q5participating",              default: false
-    t.boolean   "q5completed",                  default: false
-    t.string    "q5completed_by",    limit: 20
-    t.date      "q5completed_date"
-    t.string    "q6interest",        limit: 1
-    t.boolean   "q6participating",              default: false
-    t.boolean   "q6completed",                  default: false
-    t.string    "q6completed_by",    limit: 20
-    t.date      "q6completed_date"
-    t.string    "q7interest",        limit: 1
-    t.boolean   "q7participating",              default: false
-    t.boolean   "q7completed",                  default: false
-    t.string    "q7completed_by",    limit: 20
-    t.date      "q7completed_date"
-    t.string    "q8interest",        limit: 1
-    t.boolean   "q8participating",              default: false
-    t.boolean   "q8completed",                  default: false
-    t.string    "q8completed_by",    limit: 20
-    t.date      "q8completed_date"
-    t.string    "q9interest",        limit: 1
-    t.boolean   "q9participating",              default: false
-    t.boolean   "q9completed",                  default: false
-    t.string    "q9completed_by",    limit: 20
-    t.date      "q9completed_date"
-    t.string    "q10interest",       limit: 1
-    t.boolean   "q10participating",             default: false
-    t.boolean   "q10completed",                 default: false
-    t.string    "q10completed_by",   limit: 20
-    t.date      "q10completed_date"
-    t.string    "q11interest",       limit: 1
-    t.boolean   "q11participating",             default: false
-    t.boolean   "q11completed",                 default: false
-    t.string    "q11completed_by",   limit: 20
-    t.date      "q11completed_date"
-    t.string    "q12interest",       limit: 1
-    t.boolean   "q12participating",             default: false
-    t.boolean   "q12completed",                 default: false
-    t.string    "q12completed_by",   limit: 20
-    t.date      "q12completed_date"
-    t.string    "q13interest",       limit: 1
-    t.boolean   "q13participating",             default: false
-    t.boolean   "q13completed",                 default: false
-    t.string    "q13completed_by",   limit: 20
-    t.date      "q13completed_date"
-    t.string    "q14interest",       limit: 1
-    t.boolean   "q14participating",             default: false
-    t.boolean   "q14completed",                 default: false
-    t.string    "q14completed_by",   limit: 20
-    t.date      "q14completed_date"
+    t.datetime "sharedcarestamp",                              null: false
+    t.integer  "sharedcareuid",     limit: 2
+    t.string   "sharedcareuser",    limit: 20
+    t.integer  "sharedcarezid",     limit: 3
+    t.date     "sharedcareadddate"
+    t.date     "sharedcaredate"
+    t.boolean  "currentflag",                  default: true
+    t.string   "q1interest",        limit: 1
+    t.boolean  "q1participating",              default: false
+    t.boolean  "q1completed",                  default: false
+    t.string   "q1completed_by",    limit: 20
+    t.date     "q1completed_date"
+    t.string   "q2interest",        limit: 1
+    t.boolean  "q2participating",              default: false
+    t.boolean  "q2completed",                  default: false
+    t.string   "q2completed_by",    limit: 20
+    t.date     "q2completed_date"
+    t.string   "q3interest",        limit: 1
+    t.boolean  "q3participating",              default: false
+    t.boolean  "q3completed",                  default: false
+    t.string   "q3completed_by",    limit: 20
+    t.date     "q3completed_date"
+    t.string   "q4interest",        limit: 1
+    t.boolean  "q4participating",              default: false
+    t.boolean  "q4completed",                  default: false
+    t.string   "q4completed_by",    limit: 20
+    t.date     "q4completed_date"
+    t.string   "q5interest",        limit: 1
+    t.boolean  "q5participating",              default: false
+    t.boolean  "q5completed",                  default: false
+    t.string   "q5completed_by",    limit: 20
+    t.date     "q5completed_date"
+    t.string   "q6interest",        limit: 1
+    t.boolean  "q6participating",              default: false
+    t.boolean  "q6completed",                  default: false
+    t.string   "q6completed_by",    limit: 20
+    t.date     "q6completed_date"
+    t.string   "q7interest",        limit: 1
+    t.boolean  "q7participating",              default: false
+    t.boolean  "q7completed",                  default: false
+    t.string   "q7completed_by",    limit: 20
+    t.date     "q7completed_date"
+    t.string   "q8interest",        limit: 1
+    t.boolean  "q8participating",              default: false
+    t.boolean  "q8completed",                  default: false
+    t.string   "q8completed_by",    limit: 20
+    t.date     "q8completed_date"
+    t.string   "q9interest",        limit: 1
+    t.boolean  "q9participating",              default: false
+    t.boolean  "q9completed",                  default: false
+    t.string   "q9completed_by",    limit: 20
+    t.date     "q9completed_date"
+    t.string   "q10interest",       limit: 1
+    t.boolean  "q10participating",             default: false
+    t.boolean  "q10completed",                 default: false
+    t.string   "q10completed_by",   limit: 20
+    t.date     "q10completed_date"
+    t.string   "q11interest",       limit: 1
+    t.boolean  "q11participating",             default: false
+    t.boolean  "q11completed",                 default: false
+    t.string   "q11completed_by",   limit: 20
+    t.date     "q11completed_date"
+    t.string   "q12interest",       limit: 1
+    t.boolean  "q12participating",             default: false
+    t.boolean  "q12completed",                 default: false
+    t.string   "q12completed_by",   limit: 20
+    t.date     "q12completed_date"
+    t.string   "q13interest",       limit: 1
+    t.boolean  "q13participating",             default: false
+    t.boolean  "q13completed",                 default: false
+    t.string   "q13completed_by",   limit: 20
+    t.date     "q13completed_date"
+    t.string   "q14interest",       limit: 1
+    t.boolean  "q14participating",             default: false
+    t.boolean  "q14completed",                 default: false
+    t.string   "q14completed_by",   limit: 20
+    t.date     "q14completed_date"
   end
 
   add_index "sharedcaredata", ["currentflag"], name: "currentflag", using: :btree
@@ -1828,24 +2352,24 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "statdata", ["datazid"], name: "datazid", using: :btree
 
   create_table "tcilistdata", primary_key: "tcilist_id", force: true do |t|
-    t.timestamp "tciliststamp",                                   null: false
-    t.datetime  "tcilistmodifstamp"
-    t.boolean   "activeflag",                      default: true
-    t.integer   "tcilistuid",          limit: 2
-    t.string    "tcilistuser",         limit: 20
-    t.integer   "tcilistzid",          limit: 3
-    t.integer   "tciconsult_id",       limit: 3
-    t.integer   "tciproced_id",        limit: 3
-    t.string    "tcilistmodal",        limit: 20
-    t.string    "tcilistsource",       limit: 20
-    t.date      "tcilistadddate"
-    t.date      "tcilistremovaldate"
-    t.string    "tcilistremovalcause", limit: 100
-    t.string    "tcireason",           limit: 20
-    t.string    "tcipriority",         limit: 20
-    t.integer   "tcilistrank",         limit: 2
-    t.string    "patlocation",         limit: 50
-    t.text      "tcinotes"
+    t.datetime "tciliststamp",                                   null: false
+    t.datetime "tcilistmodifstamp"
+    t.boolean  "activeflag",                      default: true
+    t.integer  "tcilistuid",          limit: 2
+    t.string   "tcilistuser",         limit: 20
+    t.integer  "tcilistzid",          limit: 3
+    t.integer  "tciconsult_id",       limit: 3
+    t.integer  "tciproced_id",        limit: 3
+    t.string   "tcilistmodal",        limit: 20
+    t.string   "tcilistsource",       limit: 20
+    t.date     "tcilistadddate"
+    t.date     "tcilistremovaldate"
+    t.string   "tcilistremovalcause", limit: 100
+    t.string   "tcireason",           limit: 20
+    t.string   "tcipriority",         limit: 20
+    t.integer  "tcilistrank",         limit: 2
+    t.string   "patlocation",         limit: 50
+    t.text     "tcinotes"
   end
 
   add_index "tcilistdata", ["tciconsult_id"], name: "tciconsult_id", using: :btree
@@ -1857,14 +2381,14 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "tcilistdata", ["tciproced_id"], name: "tciproced_id", using: :btree
 
   create_table "timelinedata", primary_key: "timeline_id", force: true do |t|
-    t.timestamp "timelinestamp",              null: false
-    t.integer   "timelineuid",     limit: 2
-    t.string    "timelineuser",    limit: 20
-    t.string    "timelinecode",    limit: 20
-    t.integer   "timelinezid",     limit: 3
-    t.date      "timelineadddate"
-    t.string    "timelinedescr",   limit: 60
-    t.text      "timelinetext"
+    t.datetime "timelinestamp",              null: false
+    t.integer  "timelineuid",     limit: 2
+    t.string   "timelineuser",    limit: 20
+    t.string   "timelinecode",    limit: 20
+    t.integer  "timelinezid",     limit: 3
+    t.date     "timelineadddate"
+    t.string   "timelinedescr",   limit: 60
+    t.text     "timelinetext"
   end
 
   add_index "timelinedata", ["timelinecode"], name: "timelinecode", using: :btree
@@ -2043,6 +2567,15 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   add_index "viroldata", ["virolzid"], name: "virolzid", unique: true, using: :btree
+
+  create_table "wardcodes", primary_key: "ward_id", force: true do |t|
+    t.string "wardcode", limit: 20,               null: false
+    t.string "wardname", limit: 60
+    t.string "wardflag", limit: 1,  default: "0", null: false
+  end
+
+  add_index "wardcodes", ["wardcode"], name: "visitcode", using: :btree
+  add_index "wardcodes", ["wardflag"], name: "wardflag", using: :btree
 
   create_table "wardlist", primary_key: "wardcode", force: true do |t|
     t.string "sitecode", limit: 6
