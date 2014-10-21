@@ -1,2 +1,25 @@
-%h1 Patients#show
-%p Find me in app/views/patients/show.html.haml
+%h1 Admin Info
+
+%table
+  %thead
+    %tr
+      %th(width = "250" colspan = "2") Patient Demographics 
+ 
+  %tbody
+    %tr
+      %td= "NHS Number:"
+      %td= "#{@patient.nhs_number}"
+
+    %tr
+      %td= "First Name:"
+      %td= "#{@patient.forename}"
+   
+    %tr
+      %td= "Last Name:"
+      %td= "#{@patient.surname}"
+
+    %tr
+      %td= "Date of Birth:"
+      %td= "#{@patient.dob}"
+
+
