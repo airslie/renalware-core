@@ -1,5 +1,3 @@
 Rails.application.routes.draw do
-  get 'patients/show'
-
-  
+  resources :patients, :only => [:show]
 end
