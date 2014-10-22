@@ -4,17 +4,6 @@
 
   = form_for :patient, url: patients_path, :method => :post do |f|
     
-    = field_set_tag do 
-      = f.label :nhs_number, "NHS Number" 
-      = f.text_field :nhs_number
-
-      = f.label :surname 
-      = f.text_field :surname
-
-      = f.label :forename
-      = f.text_field :forename
-
-      = f.label :dob, "DoB" 
-      = f.date_select(:dob, { start_year: (120.years.ago).year, end_year: (18.years.ago).year })
+    = render partial: "patients/demographic_form", locals: {patient: f } 
 
     = submit_tag "Add a New Renal Patient" 
