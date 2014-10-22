@@ -23,5 +23,6 @@ When(/^I complete the add a new patient form$/) do
 end
 
 Then(/^I should see the new patient in the Renal Patient List$/) do
-  visit new_patient_path #need to change to index path
+  visit patients_path
+  expect(page.has_content? "Smith").to be true 
 end
