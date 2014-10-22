@@ -11,15 +11,17 @@
       %td= "#{@patient.nhs_number}"
 
     %tr
-      %td= "First Name:"
-      %td= "#{@patient.forename}"
-   
-    %tr
       %td= "Last Name:"
       %td= "#{@patient.surname}"
 
     %tr
+      %td= "First Name:"
+      %td= "#{@patient.forename}"
+
+    %tr
       %td= "Date of Birth:"
       %td= "#{@patient.dob}"
+
+= link_to "Edit Demographics", edit_patient_path(@patient) , class: "edit-demographics"
 
 
