@@ -1,4 +1,12 @@
 class PatientsController < ApplicationController
+
+  def new 
+  end
+
+  def create
+    @patient = Patient.create!(allowed_params)
+    redirect_to patient_path(@patient)
+  end
   
   def show
     @patient = Patient.find(params[:id])

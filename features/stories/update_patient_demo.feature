@@ -1,5 +1,5 @@
 Feature: A user updates a patient's demographics
-@wip
+#wip
   Scenario: User updates a patient's demograhics
     Given I have a patient in the database
       And that I'm logged in
