@@ -19,7 +19,7 @@ end
 
 Given(/^I've selected the patient from the search results$/) do
   visit patient_path(@patient)
-  save_and_open_page
+  #save_and_open_page
 end
 
 Then(/^I should see the patient's demographics on their profile page$/) do
