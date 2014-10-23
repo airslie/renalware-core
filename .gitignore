@@ -25,4 +25,3 @@ capybara-*.html
 tmp/php.pid
 
 capybara*.html
-config/database.yml
