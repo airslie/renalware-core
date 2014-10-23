@@ -84,7 +84,7 @@ Advanced SSH stuff
 The mysql plugin needed some extra config to setup with SSL, and to work with the
 mysql2 gem. I used this config setting to get it to work:
 
-> heroku config:set DATABASE_URL="mysql2://b494aa1f075451:632a08bf@eu-cdbr-west-01.cleardb.com/heroku_3e38e1cd9ea38b4?reconnect=true&sslca=cleardb-ca-cert.pem&sslcert=b494aa1f075451-cert.pem&sslkey=b494aa1f075451-key.pem"
+> heroku config:set DATABASE_URL="mysql2://b494aa1f075451:632a08bf@eu-cdbr-west-01.cleardb.com/heroku_3e38e1cd9ea38b4?reconnect=true&sslca=cleardb-ca.pem&sslcert=b494aa1f075451-cert.pem&sslkey=b494aa1f075451-key.pem"
 
 More info:
 https://www.cleardb.com/developers/ssl_connections
