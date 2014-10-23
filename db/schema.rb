@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141023111249) do
+ActiveRecord::Schema.define(version: 20141023123657) do
 
   create_table "accessclinics", primary_key: "accessclinic_id", force: true do |t|
     t.integer  "accessclinzid",  limit: 3
@@ -1485,7 +1485,7 @@ ActiveRecord::Schema.define(version: 20141023111249) do
     t.string   "surname"
     t.string   "forename"
     t.date     "dob"
-    t.string   "paediatric_patient_indicator"
+    t.boolean  "paediatric_patient_indicator"
     t.string   "sex"
     t.string   "ethnic_category"
     t.integer  "current_address_id"

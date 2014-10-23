@@ -1,9 +1,11 @@
-%h1 Add a New Renal Patient
+%h1
+  Add a New Renal Patient
 
-.large-4.columns
+.row
+  .large-6.columns
 
-  = form_for :patient, url: patients_path, :method => :post do |f|
-    
-    = render partial: "patients/demographic_form", locals: {patient: f } 
+    = form_for :patient, url: patients_path, :method => :post do |f|
 
-    = submit_tag "Add a New Renal Patient" 
+      = render partial: "patients/demographic_form", locals: {patient: f }
+
+      = submit_tag "Add a New Renal Patient"

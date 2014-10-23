@@ -10,6 +10,7 @@ When(/^I complete the add a new patient form$/) do
   fill_in "NHS Number", :with => "1000124503"
   fill_in "Surname", :with => "Smith"
   fill_in "Forename", :with => "Ian"
+  check "If under 18 years, is the recipient being treated in a paediatric unit?"
 
   within "#current_address" do
     @current_street_1 = Faker::Address.street_address

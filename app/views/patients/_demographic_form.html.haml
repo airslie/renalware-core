@@ -1,4 +1,7 @@
 = field_set_tag do
+  %legend
+    Patient Demographics
+
   %ul.no-bullet
     %li
       = patient.label :nhs_number, "NHS Number"
@@ -7,6 +10,10 @@
     %li
       = patient.label :surname
       = patient.text_field :surname
+
+    %li
+      = patient.label :paediatric_patient_indicator
+      = patient.check_box :paediatric_patient_indicator
 
     %li
       = patient.label :forename
@@ -18,8 +25,14 @@
 
 = patient.fields_for :current_address_attributes do |a|
   %fieldset{:id => "current_address"}
+    %legend
+      Current Address
+
     = render :partial => 'addresses/address_form', :locals => { :a => a }
 
 = patient.fields_for :address_at_diagnosis_attributes do |a|
   %fieldset{:id => "address_at_diagnosis"}
+    %legend
+      Address at Diagnosis
+
     = render :partial => 'addresses/address_form', :locals => { :a => a }
