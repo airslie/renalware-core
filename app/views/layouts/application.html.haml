@@ -13,8 +13,12 @@
 
   %body
     .row
-    .one.columns
+      .large-12.columns
+        = yield
 
-      = yield
+    .row
+      .large-12.columns
+        %nav.secondary-nav
+          = yield :secondary_nav
 
       = javascript_include_tag "application"
