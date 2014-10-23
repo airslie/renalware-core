@@ -1,27 +1,29 @@
-%h1 Admin Info
+.row
+  %h1 Admin Info
 
-%table
-  %thead
-    %tr
-      %th(width = "250" colspan = "2") Patient Demographics 
- 
-  %tbody
-    %tr
-      %td= "NHS Number:"
-      %td= "#{@patient.nhs_number}"
+.row
+  %h3(class = "left") Patient Demographics
+  = link_to "Edit Demographics", edit_patient_path(@patient), class: "button tiny right"
 
-    %tr
-      %td= "Last Name:"
-      %td= "#{@patient.surname}"
+.large-4.columns
+  %dl
+    %dt NHS Number:
+    %dd= "#{@patient.nhs_number}"
 
-    %tr
-      %td= "First Name:"
-      %td= "#{@patient.forename}"
+    %dt Last Name:
+    %dd= "#{@patient.surname}"
 
-    %tr
-      %td= "Date of Birth:"
-      %td= "#{@patient.dob}"
+    %dt First Name:
+    %dd= "#{@patient.forename}"
 
-= link_to "Edit Demographics", edit_patient_path(@patient) , class: "edit-demographics"
+    %dt Date of Birth:
+    %dd= "#{@patient.dob}"
+
+.large-4.columns
+  = render @patient.current_address if @patient.current_address
+
+.large-4.columns
+  = render @patient.address_at_diagnosis if @patient.address_at_diagnosis
+
 
 
