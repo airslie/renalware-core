@@ -4,7 +4,8 @@ default: &default
   pool: 5
   username: renalware
   password: password
-  socket: /var/run/mysqld/mysqld.sock
+  # socket: /var/run/mysqld/mysqld.sock
+  host: localhost
 
 development:
   <<: *default

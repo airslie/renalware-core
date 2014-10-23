@@ -1,0 +1,5 @@
+%div
+  %h3= "#{patient.forename} #{patient.surname}, NHS No: #{patient.nhs_number}"
+
+  = render patient.current_address if patient.current_address
+  = render patient.address_at_diagnosis if patient.address_at_diagnosis

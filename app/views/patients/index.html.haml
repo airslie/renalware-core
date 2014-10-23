@@ -1,6 +1,3 @@
 %h1 Renal Patients
 
-- @patients.each do |p|
-  %h3= "#{p.forename} #{p.surname}, NHS No: #{p.nhs_number}"
-
-  
+= render @patients

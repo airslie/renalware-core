@@ -8,7 +8,7 @@ class PatientsController < ApplicationController
   def index
     @patients = Patient.all
   end
-  
+
   def show
     @patient = Patient.find(params[:id])
   end
@@ -24,8 +24,10 @@ class PatientsController < ApplicationController
   end
 
   private
-  def allowed_params #whitelist
-    params.require(:patient).permit(:nhs_number, :surname, :forename, :dob) #for each attribute in the model /white_listed
+  def allowed_params
+    params.require(:patient).permit(:nhs_number, :surname, :forename, :dob,
+      :current_address_attributes => [:street_1, :street_2, :county, :city, :postcode],
+      :address_at_diagnosis_attributes => [:street_1, :street_2, :county, :city, :postcode])
   end
 
 end

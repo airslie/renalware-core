@@ -1,12 +1,25 @@
-= field_set_tag do 
-      = patient.label :nhs_number, "NHS Number" 
+= field_set_tag do
+  %ul.no-bullet
+    %li
+      = patient.label :nhs_number, "NHS Number"
       = patient.text_field :nhs_number
 
-      = patient.label :surname 
+    %li
+      = patient.label :surname
       = patient.text_field :surname
 
+    %li
       = patient.label :forename
       = patient.text_field :forename
 
-      = patient.label :dob, "DoB" 
+    %li
+      = patient.label :dob, "DoB"
       = patient.date_select(:dob, { start_year: (120.years.ago).year, end_year: (18.years.ago).year })
+
+= patient.fields_for :current_address_attributes do |a|
+  %fieldset{:id => "current_address"}
+    = render :partial => 'addresses/address_form', :locals => { :a => a }
+
+= patient.fields_for :address_at_diagnosis_attributes do |a|
+  %fieldset{:id => "address_at_diagnosis"}
+    = render :partial => 'addresses/address_form', :locals => { :a => a }

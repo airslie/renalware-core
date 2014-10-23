@@ -56,6 +56,7 @@ GEM
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.2.2)
+    ffaker (1.25.0)
     foundation-rails (5.4.5.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
@@ -176,6 +177,7 @@ DEPENDENCIES
   capybara-webkit
   cucumber-rails
   database_cleaner
+  ffaker
   foundation-rails
   haml-rails
   jquery-rails

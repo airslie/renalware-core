@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141020171819) do
+ActiveRecord::Schema.define(version: 20141023111249) do
 
   create_table "accessclinics", primary_key: "accessclinic_id", force: true do |t|
     t.integer  "accessclinzid",  limit: 3
@@ -68,6 +68,16 @@ ActiveRecord::Schema.define(version: 20141020171819) do
   end
 
   add_index "accessprocdata", ["accessproczid"], name: "accessprocrid", using: :btree
+
+  create_table "addresses", force: true do |t|
+    t.string   "street_1"
+    t.string   "street_2"
+    t.string   "county"
+    t.string   "city"
+    t.string   "postcode"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "admissiondata", primary_key: "admission_id", force: true do |t|
     t.integer  "admzid",          limit: 3
@@ -1478,6 +1488,8 @@ ActiveRecord::Schema.define(version: 20141020171819) do
     t.string   "paediatric_patient_indicator"
     t.string   "sex"
     t.string   "ethnic_category"
+    t.integer  "current_address_id"
+    t.integer  "address_at_diagnosis_id"
   end
 
   create_table "patstats", primary_key: "statzid", force: true do |t|

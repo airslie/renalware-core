@@ -23,6 +23,7 @@ group :development, :test do
   gem "database_cleaner"
   gem "spring-commands-cucumber"
   gem "spring-commands-rspec"
+  gem "ffaker"
 end
 
 group :production do
