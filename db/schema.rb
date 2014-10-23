@@ -657,10 +657,10 @@ ActiveRecord::Schema.define(version: 20141023123657) do
     t.string    "loglettertype",   limit: 20
   end
 
-  add_index "gpCDAlogs", ["logletter_id"], name: "logletter_id", using: :btree
-  add_index "gpCDAlogs", ["logpracticecode"], name: "logpracticecode", using: :btree
-  add_index "gpCDAlogs", ["loguid"], name: "loguid", using: :btree
-  add_index "gpCDAlogs", ["logzid"], name: "logzid", using: :btree
+  add_index "gpcdalogs", ["logletter_id"], name: "logletter_id", using: :btree
+  add_index "gpcdalogs", ["logpracticecode"], name: "logpracticecode", using: :btree
+  add_index "gpcdalogs", ["loguid"], name: "loguid", using: :btree
+  add_index "gpcdalogs", ["logzid"], name: "logzid", using: :btree
 
   create_table "gpemaillogs", primary_key: "log_id", force: true do |t|
     t.timestamp "logstamp",                                                 null: false
