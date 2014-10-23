@@ -1,3 +1,25 @@
 // Place all the styles related to the patients controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+dl {
+  width:300px;
+  float:left;
+  margin-right:2em;
+}
+  
+dt {
+  font-weight:bold;
+  font-size:0.9em;
+  margin-bottom:0.7em;
+}
+  
+dd {
+  color:#444;
+  font-size:0.7em;
+  margin:0 0 2em 0;
+  padding-left:4.5em;
+  line-height:1.5em;
+  background:none no-repeat left top; 
+}
+
