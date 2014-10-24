@@ -8,4 +8,8 @@ class Patient < ActiveRecord::Base
 
   has_many :encounter_events
 
+  validates :nhs_number, presence: true
+  validates :surname, presence: true
+  validates :forename, presence: true
+
 end

@@ -4,9 +4,17 @@ class PatientsController < ApplicationController
     
   end
 
+  def new
+    @patient = Patient.new
+  end
+
   def create
-    @patient = Patient.create!(allowed_params)
-    redirect_to patients_path(@patient)
+    @patient = Patient.new(allowed_params)
+    if @patient.save
+      redirect_to patients_path(@patient), :notice => "You have successfully added a new patient." 
+    else
+      render :new  
+    end
   end
 
   def index
@@ -24,7 +32,7 @@ class PatientsController < ApplicationController
   def update
     @patient = Patient.find(params[:id])
     @patient.update(allowed_params)
-    redirect_to patient_path(@patient)
+    redirect_to patients_path(@patient)
   end
 
   private
