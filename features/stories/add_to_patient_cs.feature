@@ -2,9 +2,9 @@ Feature: A Doctor adds patient info on the patient's clinical summary page
 
 Background:
   Given that I'm logged in
-    And there is a patient
+    And I have a patient in the database
     And they are on a patient's clinical summary
-
+@wip
 Scenario: Doctor adds an event
   #event also known as encounter
   When they add an event
