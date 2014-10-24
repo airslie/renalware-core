@@ -22,6 +22,10 @@
           = patient.text_field :forename
 
         %li
+          = patient.label :sex
+          = patient.text_field :sex
+
+        %li
           = patient.label :dob, "DoB"
           = patient.date_select(:dob, { start_year: (120.years.ago).year, end_year: Time.now.year })
 
