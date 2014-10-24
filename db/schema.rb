@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141023123657) do
+ActiveRecord::Schema.define(version: 20141024091931) do
 
   create_table "accessclinics", primary_key: "accessclinic_id", force: true do |t|
     t.integer  "accessclinzid",  limit: 3
@@ -1490,6 +1490,10 @@ ActiveRecord::Schema.define(version: 20141023123657) do
     t.string   "ethnic_category"
     t.integer  "current_address_id"
     t.integer  "address_at_diagnosis_id"
+    t.string   "gp_practice_code"
+    t.string   "pct_org_code"
+    t.string   "hosp_centre_code"
+    t.string   "primary_esrf_centre"
   end
 
   create_table "patstats", primary_key: "statzid", force: true do |t|
