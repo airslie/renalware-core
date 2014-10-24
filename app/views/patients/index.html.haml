@@ -1,3 +1,7 @@
 %h1 Renal Patients
 
-= render @patients
+.row
+  = link_to "Add a New Patient", new_patient_path, class: "button tiny left"
+
+.row
+  = render @patients

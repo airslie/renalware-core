@@ -39,7 +39,7 @@ When(/^I complete the add a new patient form$/) do
   within "#patient_dob_3i" do
     select '1'
   end
-  click_on "Add a New Renal Patient"
+  click_on "Save a New Renal Patient"
 end
 
 Then(/^I should see the new patient in the Renal Patient List$/) do

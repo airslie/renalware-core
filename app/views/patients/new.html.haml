@@ -2,10 +2,10 @@
   Add a New Renal Patient
 
 .row
-  .large-6.columns
+  .large-12.columns
 
     = form_for :patient, url: patients_path, :method => :post do |f|
 
       = render partial: "patients/demographic_form", locals: {patient: f }
 
-      = submit_tag "Add a New Renal Patient"
+      = submit_tag "Save a New Renal Patient", class: "button tiny right"
