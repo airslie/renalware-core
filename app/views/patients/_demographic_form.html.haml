@@ -26,6 +26,10 @@
           = patient.text_field :sex
 
         %li
+          = patient.label :ethnic_category, "Ethnicity"
+          = patient.text_field :ethnic_category
+
+        %li
           = patient.label :dob, "DoB"
           = patient.date_select(:dob, { start_year: (120.years.ago).year, end_year: Time.now.year })
 

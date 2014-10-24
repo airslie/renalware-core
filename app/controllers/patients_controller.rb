@@ -37,7 +37,7 @@ class PatientsController < ApplicationController
 
   private
   def allowed_params
-    params.require(:patient).permit(:nhs_number, :surname, :forename, :dob,
+    params.require(:patient).permit(:nhs_number, :surname, :forename, :sex, :dob,
       :current_address_attributes => [:street_1, :street_2, :county, :city, :postcode],
       :address_at_diagnosis_attributes => [:street_1, :street_2, :county, :city, :postcode])
   end
