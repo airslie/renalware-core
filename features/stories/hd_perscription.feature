@@ -1,6 +1,6 @@
 Feature: HS Perscription
 
-@javascript
+@javascript @wip
 Scenario: Adding a HD session
   Given that I'm logged in
     And some patients who need renal treatment

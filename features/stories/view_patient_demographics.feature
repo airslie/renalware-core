@@ -1,5 +1,5 @@
 Feature: A user views a patient's demographics
-#wip
+
   Scenario: User views a patient's demograhics
     Given I have a patient in the database
       And that I'm logged in

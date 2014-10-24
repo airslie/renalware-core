@@ -1,5 +1,4 @@
 Feature: A secretary adds a new patient
-  #@wip
   Scenario: Secretary adds a new patient
     Given that I'm logged in
       And I am on the add a new patient page

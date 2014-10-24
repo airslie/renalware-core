@@ -1,3 +1,4 @@
+@wip
 Feature: Search for a patient
 
 Scenario: A doctor searches for a patient
