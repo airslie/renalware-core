@@ -11,7 +11,7 @@ class PatientsController < ApplicationController
   def create
     @patient = Patient.new(allowed_params)
     if @patient.save
-      redirect_to patients_path(@patient), :notice => "You have successfully added a new patient." 
+      redirect_to demographics_patient_path(@patient), :notice => "You have successfully added a new patient." 
     else
       render :new  
     end
