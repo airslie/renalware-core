@@ -1,5 +1,9 @@
 class PatientsController < ApplicationController
 
+  def clinical_summary
+    
+  end
+
   def create
     @patient = Patient.create!(allowed_params)
     redirect_to patient_path(@patient)

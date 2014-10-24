@@ -1,5 +1,6 @@
 %div
   %span= "#{patient.forename} #{patient.surname}, NHS No: #{patient.nhs_number}"
   %span= link_to "Demographics", demographics_patient_path(patient.id)
+  %span= link_to "Clinical Summary", clinical_summary_patient_path(patient.id)
   
   
