@@ -32,7 +32,7 @@ class PatientsController < ApplicationController
   def update
     @patient = Patient.find(params[:id])
     @patient.update(allowed_params)
-    redirect_to patients_path(@patient)
+    redirect_to demographics_patient_path(@patient)
   end
 
   private
