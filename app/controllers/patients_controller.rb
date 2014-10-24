@@ -6,7 +6,7 @@ class PatientsController < ApplicationController
 
   def create
     @patient = Patient.create!(allowed_params)
-    redirect_to patient_path(@patient)
+    redirect_to patients_path(@patient)
   end
 
   def index
