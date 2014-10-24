@@ -8,9 +8,21 @@ end
 
 When(/^I complete the add a new patient form$/) do
   fill_in "NHS Number", :with => "1000124503"
+  fill_in "Local Patient ID", :with => "Z999999"
   fill_in "Surname", :with => "Smith"
   fill_in "Forename", :with => "Ian"
-  check "If under 18 years, is the recipient being treated in a paediatric unit?"
+  fill_in "Sex", :with => "1"
+  fill_in "Ethnicity", :with => "A"
+  within "#patient_dob_1i" do
+    select '1960'
+  end
+  within "#patient_dob_2i" do
+    select 'January'
+  end
+  within "#patient_dob_3i" do
+    select '1'
+  end
+  uncheck "If under 18 years, is the recipient being treated in a paediatric unit?"
 
   within "#current_address" do
     @current_street_1 = Faker::Address.street_address
@@ -30,21 +42,18 @@ When(/^I complete the add a new patient form$/) do
     fill_in "Postcode", :with => Faker::AddressUK.postcode
   end
 
-  within "#patient_dob_1i" do
-    select '1960'
-  end
-  within "#patient_dob_2i" do
-    select 'January'
-  end
-  within "#patient_dob_3i" do
-    select '1'
-  end
   click_on "Save a New Renal Patient"
 end
 
 Then(/^I should see the new patient in the Renal Patient List$/) do
-  visit patients_path
+  expect(page.has_content? "1000124503").to be true
+  expect(page.has_content? "Z999999").to be true
   expect(page.has_content? "Smith").to be true
+  expect(page.has_content? "Ian").to be true
+  expect(page.has_content? "1").to be true
+  expect(page.has_content? "A").to be true
+  expect(page.has_content? "1960-01-01").to be true
+  expect(page.has_content? "false").to be true
   expect(page.has_content? @address_diagnosis_street_1).to be true
   expect(page.has_content? @current_street_1).to be true
 end

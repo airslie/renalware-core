@@ -18,7 +18,7 @@ Given(/^I've searched for a patient$/) do
 end
 
 Given(/^I've selected the patient from the search results$/) do
-  visit patient_path(@patient)
+  visit demographics_patient_path(@patient)
   #save_and_open_page
 end
 
