@@ -5,25 +5,48 @@
   %h3(class = "left") Patient Demographics
   = link_to "Edit Demographics", edit_patient_path(@patient), class: "button tiny right"
 
-.large-4.columns
-  %dl
-    %dt NHS Number:
-    %dd= "#{@patient.nhs_number}"
+.row 
+  .large-4.columns
+    %dl
+      %dt NHS Number:
+      %dd= "#{@patient.nhs_number}"
 
-    %dt Last Name:
-    %dd= "#{@patient.surname}"
+      %dt Last Name:
+      %dd= "#{@patient.surname}"
 
-    %dt First Name:
-    %dd= "#{@patient.forename}"
+      %dt First Name:
+      %dd= "#{@patient.forename}"
 
-    %dt Date of Birth:
-    %dd= "#{@patient.dob}"
+      %dt Date of Birth:
+      %dd= "#{@patient.dob}"
 
-.large-4.columns
-  = render @patient.current_address if @patient.current_address
+  .large-4.columns
+    %dl
+      %dt GP Practice Code:
+      %dd= "#{@patient.gp_practice_code}"
 
-.large-4.columns
-  = render @patient.address_at_diagnosis if @patient.address_at_diagnosis
+    %dl
+      %dt PCT Organisation Code:
+      %dd= "#{@patient.pct_org_code}"
+
+    %dl
+      %dt Hospital Centre Code:
+      %dd= "#{@patient.hosp_centre_code}"
+    
+    %dl
+      %dt Primary ESRF Centre:
+      %dd= "#{@patient.primary_esrf_centre}"
+
+  .large-4.columns
+    %h5 Current Address
+    = render @patient.current_address if @patient.current_address
+
+.row
+  .large-4.columns
+    %h5 Address at Diagnosis
+    = render @patient.address_at_diagnosis if @patient.address_at_diagnosis
+
+
 
 
 
