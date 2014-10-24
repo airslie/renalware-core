@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141024091931) do
+ActiveRecord::Schema.define(version: 20141024111716) do
 
   create_table "accessclinics", primary_key: "accessclinic_id", force: true do |t|
     t.integer  "accessclinzid",  limit: 3
@@ -518,6 +518,11 @@ ActiveRecord::Schema.define(version: 20141024091931) do
 
   create_table "edtadeathcodes", primary_key: "edtacode", force: true do |t|
     t.string "edtacause"
+  end
+
+  create_table "encounter_events", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "encounterdata", primary_key: "encounter_id", force: true do |t|
