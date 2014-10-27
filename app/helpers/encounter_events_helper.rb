@@ -1,0 +1,2 @@
+module EncounterEventsHelper
+end
