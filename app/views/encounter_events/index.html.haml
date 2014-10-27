@@ -1,0 +1,9 @@
+%h1 Encounters/Events
+
+= link_to "Back to patient list", patients_path, class: "button tiny right"
+
+.row
+  %div
+    %ul.no-bullet
+      - @encounter_events.each do |e|
+        %li= "#{e.enc_date}, #{e.enc_descript}"

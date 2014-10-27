@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141027105619) do
+ActiveRecord::Schema.define(version: 20141027152305) do
 
   create_table "addresses", force: true do |t|
     t.string   "street_1"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20141027105619) do
     t.string   "enc_type"
     t.string   "enc_descript"
     t.text     "enc_notes"
+    t.integer  "patient_id"
   end
 
 <<<<<<< HEAD

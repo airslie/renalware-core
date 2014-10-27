@@ -1,0 +1,33 @@
+%h1
+  Add a New Encounter/Event
+
+= link_to "Back to patient list", patients_path, class: "button tiny right"
+
+= form_for @encounter_event, :method => :post do |f|
+  
+  .row
+    .large-6.columns
+      = field_set_tag do
+        %legend
+          New Encounter/Event
+
+        %ul.no-bullet
+          %li
+            = f.label :enc_date, "Encounter Date"
+            =f.date_select(:enc_date, { start_year: (5.years.ago).year, end_year: Time.now.year })
+
+            = f.label :staff_name, "Entered by"
+            =f.text_field :staff_name
+
+            = f.label :enc_type, "Encounter Type"
+            =f.text_field :enc_type
+
+            = f.label :enc_descript, "Description"
+            =f.text_field :enc_descript
+
+            = f.label :enc_notes, "Notes"
+            =f.text_area(:enc_notes, :cols => 50, :rows => 5)
+
+            = submit_tag "Save Encounter/Event", class: "button tiny right"
+
+        
