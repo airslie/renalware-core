@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20141027152305) do
+=======
+ActiveRecord::Schema.define(version: 20141027105619) do
+>>>>>>> 89017bb... Changed encounter_events table to just events along with simplified column names
 
   create_table "addresses", force: true do |t|
     t.string   "street_1"
@@ -23,6 +27,7 @@ ActiveRecord::Schema.define(version: 20141027152305) do
     t.datetime "updated_at"
   end
 
+<<<<<<< HEAD
   create_table "encounter_events", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -994,6 +999,18 @@ ActiveRecord::Schema.define(version: 20141027152305) do
   add_index "patientdata", ["rregflag"], name: "rregflag", using: :btree
 
 >>>>>>> aa72a96... migrated columns for encounter_events
+=======
+  create_table "events", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "date"
+    t.string   "user_id"
+    t.string   "type"
+    t.string   "description"
+    t.text     "notes"
+  end
+
+>>>>>>> 89017bb... Changed encounter_events table to just events along with simplified column names
   create_table "patients", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
