@@ -6,7 +6,7 @@ class Patient < ActiveRecord::Base
   accepts_nested_attributes_for :current_address
   accepts_nested_attributes_for :address_at_diagnosis
 
-  has_many :encounter_events
+  has_many :events
 
   validates :nhs_number, presence: true
   validates :surname, presence: true

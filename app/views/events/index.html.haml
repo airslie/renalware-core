@@ -1,5 +1,5 @@
 .row
-  %h1 Encounters/Events
+  %h1 Events
 
   = link_to "Back to patient list", patients_path, class: "button tiny right"
 
@@ -7,6 +7,6 @@
   = field_set_tag do
     %legend
     %ul.no-bullet
-      - @encounter_events.each do |e|
+      - @events.each do |e|
 
-        = render partial: "encounter_events/encounter_events", locals: { e: e }
+        = render partial: "event/event", locals: { e: e }

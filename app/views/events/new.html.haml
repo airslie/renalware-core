@@ -1,15 +1,15 @@
 %h1
-  Add a New Encounter/Event
+  Add a New Event
 
 = link_to "Back to patient list", patients_path, class: "button tiny right"
 
-= form_for @encounter_event, :method => :post do |f|
+= form_for @event, :method => :post do |f|
   
   .row
     .large-6.columns
       = field_set_tag do
         %legend
-          New Encounter/Event
+          New Event
 
         %ul.no-bullet
           %li

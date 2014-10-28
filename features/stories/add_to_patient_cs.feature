@@ -9,7 +9,7 @@ Background:
 Scenario: Doctor adds an event
   #event also known as encounter
   When they add an event
-    And complete the encounter form
+    And complete the event form
   Then they should see the new event on the clinical summary
 
 Scenario: Doctor adds a problem

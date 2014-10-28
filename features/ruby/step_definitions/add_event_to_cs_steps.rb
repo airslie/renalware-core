@@ -3,17 +3,17 @@ Given(/^they are on a patient's clinical summary$/) do
 end
 
 When(/^they add an event$/) do
-  click_on "Add an Encounter/Event"
+  click_on "Add an Event"
 end
 
 When(/^complete the encounter form$/) do
-  within "#encounter_event_enc_date_1i" do
+  within "#event_enc_date_1i" do
     select '2011'
   end
-  within "#encounter_event_enc_date_2i" do
+  within "#event_enc_date_2i" do
     select 'January'
   end
-  within "#encounter_event_enc_date_3i" do
+  within "#event_enc_date_3i" do
     select '1'
   end
 
@@ -22,7 +22,7 @@ When(/^complete the encounter form$/) do
   fill_in "Description", :with => "Spoke to Son"
   fill_in "Notes", :with => "Wants to arrange a home visit"
 
-  click_on "Save Encounter/Event"
+  click_on "Save Event"
 end
 
 Then(/^they should see the new event on the clinical summary$/) do
