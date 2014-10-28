@@ -9,7 +9,7 @@ default: &default
 
 php_development:
   <<: *default
-  database: renalware
+  database: renalware_development
 
 php_test:
   <<: *default
