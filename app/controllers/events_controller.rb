@@ -15,8 +15,8 @@ class EventsController < ApplicationController
   end
 
   def index
-    @event = Event.all
-  end 
+    @events = Event.all
+  end
 
   def allowed_params
     params.require(:event).permit(:enc_date, :staff_name, :enc_type,

@@ -12,8 +12,6 @@
     %legend
       = link_to "Events", events_path
     %ul.no-bullet
-      - @encounters.each do |e|
-
+      - @events.each do |e|
         = render partial: "event/event", locals: { e: e }
 
-    
