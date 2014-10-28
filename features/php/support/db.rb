@@ -20,5 +20,5 @@ def reset_database
   $client.query("CREATE DATABASE IF NOT EXISTS renalware_test")
 
   # Load legacy schema
-  `cat db/schema.sql | mysql renalware_test -u renalware --password=password`
+  `cat db/schema_v1.sql | mysql renalware_test -u renalware --password=password`
 end
