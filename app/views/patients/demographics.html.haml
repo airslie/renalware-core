@@ -3,6 +3,7 @@
 
 .row
   %h3(class = "left") Patient Demographics
+  = link_to "Back to patient list", patients_path, class: "button tiny right"
   = link_to "Edit Demographics", edit_patient_path(@patient), class: "button tiny right"
 
 .row 

@@ -1,8 +1,19 @@
-%h1 Clinical Summary
+.row
+  %h1 Clinical Summary
 
-= link_to "Back to patient list", patients_path, class: "button tiny right"
+  = link_to "Back to patient list", patients_path, class: "button tiny right"
 
-%h2= "#{@patient.forename} #{@patient.surname}"
+  %h2= "#{@patient.forename} #{@patient.surname}"
 
-= link_to "Add an Encounter/Event", new_encounter_event_path, class: "button tiny left"
+  = link_to "Add an Encounter/Event", new_encounter_event_path, class: "button tiny left"
 
+.row
+  = field_set_tag do
+    %legend
+      = link_to "Encounters/Events", encounter_events_path
+    %ul.no-bullet
+      - @encounter_events.each do |e|
+
+        = render partial: "encounter_events/encounter_events", locals: { e: e }
+
+    
