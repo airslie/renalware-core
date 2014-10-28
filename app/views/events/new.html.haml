@@ -13,13 +13,13 @@
 
         %ul.no-bullet
           %li
-            = f.label :date, "Encounter Date"
+            = f.label :date, "Event Date"
             =f.date_select(:enc_date, { start_year: (5.years.ago).year, end_year: Time.now.year })
 
             = f.label :user_id, "Entered by"
             =f.text_field :staff_name
 
-            = f.label :Type, "Encounter Type"
+            = f.label :Type, "Event Type"
             =f.text_field :Type
 
             = f.label :description, "Description"
@@ -28,6 +28,5 @@
             = f.label :notes, "Notes"
             =f.text_area(:notes, :cols => 50, :rows => 5)
 
-            = submit_tag "Save Encounter/Event", class: "button tiny right"
+            = submit_tag "Save Event", class: "button tiny right"
 
-        
