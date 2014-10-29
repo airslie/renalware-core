@@ -29,8 +29,8 @@ If you're setting up the legacy (v1) PHP app, the following should be enough to 
 We're using frog_spawn to start/stop our PHP server, try the following tasks:
 
 > cd php/renalware
-> spring rake php:server:start
-> spring rake php:server:stop
+> rake php:server:start
+> rake php:server:stop
 
 You can also specifiy a root_dir and run it from the top-level app directory:
 
@@ -41,7 +41,7 @@ You can manually run PHP if you hit problems:
 
 > php -S localhost:8000 -t php/renalware -n
 
-4. Ask Paul to login as him
+4. Login as Paul
 
 5. Create a new user, providing initials, add all permissions
 
