@@ -7,6 +7,14 @@ default: &default
   # socket: /var/run/mysqld/mysqld.sock
   host: localhost
 
+php_development:
+  <<: *default
+  database: renalware
+
+php_test:
+  <<: *default
+  database: renalware_php_test
+
 development:
   <<: *default
   database: renalware_development

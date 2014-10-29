@@ -12,11 +12,11 @@ When(/^I complete the add a new patient form$/) do
   fill_in "KCH No", :with => "Z999998"
   fill_in "NHS No", :with => " 1000124503"
   select('Mr', :from => 'Title')
-  fill_in "last name", :with => "Smith" 
+  fill_in "last name", :with => "Smith"
   fill_in "first names", :with => "Ian"
   select('Male', :from => 'sex')
   within "#dob_day" do
-    select '13' 
+    select '13'
   end
   within "#dob_month" do
     select '01 -- Jan'
@@ -31,5 +31,5 @@ end
 
 Then(/^I should see the new patient in the Renal Patient List$/) do
   visit "/lists/patientlist.php"
-  expect(page.has_content? "Smith").to be true
+  expect(page.has_content? "SMITH").to be true
 end

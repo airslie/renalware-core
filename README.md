@@ -6,7 +6,7 @@ Coming Soon...
 INSTALL - Mac OSX
 -------
 
-Ensure that you have homebrew installed, then the following packages:
+TODO - Ensure that you have homebrew installed, then the following packages:
 
 SETUP
 -----
@@ -15,12 +15,14 @@ If you're setting up the legacy (v1) PHP app, the following should be enough to 
 
 1. Setup a mysql user renalware with a password
 
+> GRANT CREATE ON *.* TO 'renalware'@'localhost' IDENTIFIED BY 'password';
 > GRANT ALL PRIVILEGES on renalware.* to 'renalware'@'localhost' identified by 'password';
+> GRANT ALL PRIVILEGES on renalware_development.* to 'renalware'@'localhost' identified by 'password';
 
 2. Create a renalware database from the legacy schema
 
-> mysql -e "create database renalware;"
-> cat db/schema.sql | mysql renalware -u renalware --password=password
+> rake db:create:all
+> cat db/schema_v1.sql | mysql renalware -u renalware --password=password
 
 3. Run a PHP server
 
@@ -38,6 +40,7 @@ TESTS
 1. Setup a mysql user renalware with a password
 
 > GRANT ALL PRIVILEGES on renalware_test.* to 'renalware'@'localhost' identified by 'password';
+> GRANT ALL PRIVILEGES on renalware_php_test.* to 'renalware'@'localhost' identified by 'password';
 
 2. Run cucumber. We have profiles for tests against the legacy PHP app the sparkly new Ruby app.
 
