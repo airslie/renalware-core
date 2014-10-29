@@ -16,6 +16,15 @@ When(/^complete the encounter form$/) do
   within "#event_enc_date_3i" do
     select '1'
   end
+  within "#event_enc_date_1i" do
+    select '2011'
+  end
+  within "#event_date_time_4i" do
+    select '11'
+  end
+  within "#event_date_time_5i" do
+    select '30'
+  end
 
   fill_in "Entered by", :with => "evaliant"
   fill_in "Encounter Type", :with => "Telephone call"
@@ -27,5 +36,6 @@ end
 
 Then(/^they should see the new event on the clinical summary$/) do
   expect(page.has_content? "2011-01-01").to be true
+  expect(page.has_content? "11.30.00").to be true
   expect(page.has_content? "Spoke to Son").to be true
 end
