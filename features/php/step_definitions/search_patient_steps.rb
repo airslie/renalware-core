@@ -1,5 +1,5 @@
 Given(/^some patients who need renal treatment$/) do
-  $client.query File.read('test/fixtures/patient.sql')
+  mysql_client.query File.read('test/fixtures/patient.sql')
 end
 
 Given(/^I've searched for a patient$/) do
