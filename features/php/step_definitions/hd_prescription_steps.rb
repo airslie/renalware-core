@@ -1,4 +1,5 @@
 Given(/^I select the HD screen$/) do
+  pending "I think this needs a hd flag set in the database"
   click_link 'HD profile/sessions'
 end
 

@@ -1,9 +1,10 @@
 Given(/^I have a patient in the database$/) do
-  $client.query File.read('test/fixtures/patient.sql')
+  mysql_client.query File.read('test/fixtures/patient.sql')
 end
 
 Given(/^I've selected the patient from the search results$/) do
-  click_on "admin"
+  click_on "RABBIT, R"
+  click_on "Admin"
 end
 
 Then(/^I should see the patient's demographics on their profile page$/) do

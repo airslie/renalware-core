@@ -1,3 +1,9 @@
+GIT
+  remote: git@github.com:dmgarland/frog_spawn.git
+  revision: 3eb08ba6dc4b83297e23442aa4c05f29928d89a3
+  specs:
+    frog_spawn (0.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -179,6 +185,7 @@ DEPENDENCIES
   database_cleaner
   ffaker
   foundation-rails
+  frog_spawn!
   haml-rails
   jquery-rails
   launchy
