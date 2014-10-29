@@ -25,5 +25,7 @@ capybara-*.html
 /tmp
 php/renalware/tmp
 tmp/php.pid
+php/log/
+php/tmp/
 
 capybara*.html
