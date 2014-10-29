@@ -1001,13 +1001,21 @@ ActiveRecord::Schema.define(version: 20141027105619) do
 >>>>>>> aa72a96... migrated columns for encounter_events
 =======
   create_table "events", force: true do |t|
+<<<<<<< HEAD
     t.datetime "created_at"
     t.datetime "updated_at"
+=======
+>>>>>>> c358355... Added height and weight to event form/views
     t.datetime "date"
     t.string   "user_id"
     t.string   "type"
     t.string   "description"
     t.text     "notes"
+<<<<<<< HEAD
+=======
+    t.datetime "created_at"
+    t.datetime "updated_at"
+>>>>>>> c358355... Added height and weight to event form/views
   end
 
 >>>>>>> 89017bb... Changed encounter_events table to just events along with simplified column names
