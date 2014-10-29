@@ -26,6 +26,19 @@ If you're setting up the legacy (v1) PHP app, the following should be enough to 
 
 3. Run a PHP server
 
+We're using frog_spawn to start/stop our PHP server, try the following tasks:
+
+> cd php/renalware
+> spring rake php:server:start
+> spring rake php:server:stop
+
+You can also specifiy a root_dir and run it from the top-level app directory:
+
+> spring rake php:server:start root_dir=php/renalware
+> spring rake php:server:stop root_dir=php/renalware
+
+You can manually run PHP if you hit problems:
+
 > php -S localhost:8000 -t php/renalware -n
 
 4. Ask Paul to login as him
