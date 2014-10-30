@@ -5,8 +5,6 @@
 
   %h2= "#{@patient.forename} #{@patient.surname}"
 
-  = link_to "Add a Patient Event", new_patient_event_path, class: "button tiny left"
-
 .row
   = field_set_tag do
     %legend
@@ -15,8 +13,11 @@
       - @patient_events.each do |e|
         = render partial: "patient_events/patient_event", locals: { e: e }
 
-= content_for :secondary_nav do
-  %li
-    = link_to "Back to patient list", patients_path
-  %li
-    = link_to "Add an Event", new_event_path
+.row
+  = content_for :secondary_nav do
+    %li
+      = link_to "Back to Patient List", patients_path
+    %li
+      = link_to "Add a Patient Event", new_patient_event_path
+
+
