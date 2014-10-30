@@ -3,9 +3,8 @@
 
 .row
   %h3(class = "left") Patient Demographics
-  = link_to "Edit Demographics", edit_patient_path(@patient), class: "button tiny right"
 
-.row 
+.row
   .large-4.columns
     %dl
       %dt NHS Number:
@@ -44,7 +43,7 @@
     %dl
       %dt Hospital Centre Code:
       %dd= "#{@patient.hosp_centre_code}"
-    
+
     %dl
       %dt Primary ESRF Centre:
       %dd= "#{@patient.primary_esrf_centre}"
@@ -58,7 +57,8 @@
     %h5 Address at Diagnosis
     = render @patient.address_at_diagnosis if @patient.address_at_diagnosis
 
-
-
-
-
+= content_for :secondary_nav do
+  %li
+    = link_to "Back to patient list", patients_path
+  %li
+    = link_to "Edit Demographics", edit_patient_path(@patient)

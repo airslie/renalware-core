@@ -1,7 +1,8 @@
-%h1 Renal Patients 
-
-.row
-  = link_to "Add a New Patient", new_patient_path, class: "button tiny right"
+%h1 Renal Patients
 
 .row
   = render @patients
+
+= content_for :secondary_nav do
+  %li
+    = link_to "Add a New Patient", new_patient_path

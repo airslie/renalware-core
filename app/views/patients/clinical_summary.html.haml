@@ -1,6 +1,17 @@
 %h1 Clinical Summary
 
-= link_to "Back to patient list", patients_path, class: "button tiny right"
+%h2= "#{@patient.forename} #{@patient.surname}"
 
+.row
+  = field_set_tag do
+    %legend
+      = link_to "Events", events_path
+    %ul.no-bullet
+      - @events.each do |e|
+        = render partial: "event/event", locals: { e: e }
 
-
+= content_for :secondary_nav do
+  %li
+    = link_to "Back to patient list", patients_path
+  %li
+    = link_to "Add an Event", new_event_path

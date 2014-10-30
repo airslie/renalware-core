@@ -1,7 +1,5 @@
 .row
   %h1 Update Patient Demographics
-  / = content_for :secondary_nav do
-  = link_to "Back to patient list", patients_path, class: "button tiny right"
 
 .row
   .large-12.columns
@@ -12,3 +10,6 @@
 
       = submit_tag "Update Demographics", class: "button tiny right"
 
+= content_for :secondary_nav do
+  %li
+    = link_to "Back to patient list", patients_path
