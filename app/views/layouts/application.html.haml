@@ -12,16 +12,16 @@
     = csrf_meta_tag
 
   %body
-    
+
     = flash[:notice]
-    
+
     .row
       .large-12.columns
         = yield
 
     .row
       .large-12.columns
-        %nav.secondary-nav
+        %ul.sub-nav
           = yield :secondary_nav
 
-      = javascript_include_tag "application"
+    = javascript_include_tag "application"

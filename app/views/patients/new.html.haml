@@ -1,8 +1,6 @@
 %h1
   Add a New Renal Patient
 
-= link_to "Cancel", patients_path, class: "button tiny right"
-
 .row
   .large-12.columns
 
@@ -13,3 +11,8 @@
       = render partial: "patients/demographic_form", locals: {patient: f }
 
       = submit_tag "Save a New Renal Patient", class: "button tiny right"
+
+
+= content_for :secondary_nav do
+  %li
+    = link_to "Cancel", patients_path

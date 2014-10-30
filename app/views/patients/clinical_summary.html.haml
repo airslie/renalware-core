@@ -15,3 +15,8 @@
       - @patient_events.each do |e|
         = render partial: "patient_events/patient_event", locals: { e: e }
 
+= content_for :secondary_nav do
+  %li
+    = link_to "Back to patient list", patients_path
+  %li
+    = link_to "Add an Event", new_event_path
