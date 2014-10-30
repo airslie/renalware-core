@@ -6,9 +6,9 @@
 
     = form_for @patient, :method => :put do |f|
 
-      = render partial: "patients/demographic_form", locals: { patient: f }
+      = render partial: "patients/demographic_form", locals: { patient: f } 
 
-      = submit_tag "Update Demographics", class: "button tiny right"
+      = submit_tag "Update Demographics", class: "button tiny right"     
 
 = content_for :secondary_nav do
   %li

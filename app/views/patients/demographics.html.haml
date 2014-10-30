@@ -5,57 +5,62 @@
   %h3(class = "left") Patient Demographics
 
 .row
-  .large-4.columns
-    %dl
-      %dt NHS Number:
-      %dd= "#{@patient.nhs_number}"
+  = field_set_tag do 
+    .large-4.columns
+      %dl
+        %dt NHS Number:
+        %dd= "#{@patient.nhs_number}"
 
-      %dt Local Patient ID:
-      %dd= "#{@patient.local_patient_id}"
+        %dt Local Patient ID:
+        %dd= "#{@patient.local_patient_id}"
 
-      %dt Last Name:
-      %dd= "#{@patient.surname}"
+        %dt Last Name:
+        %dd= "#{@patient.surname}"
 
-      %dt First Name:
-      %dd= "#{@patient.forename}"
+        %dt First Name:
+        %dd= "#{@patient.forename}"
+    
+    .large-4.columns
+      %dl
+        %dt Sex:
+        %dd= "#{@patient.sex}"
 
-      %dt Sex:
-      %dd= "#{@patient.sex}"
+        %dt Ethnicity:
+        %dd= "#{@patient.ethnic_category}"
 
-      %dt Ethnicity:
-      %dd= "#{@patient.ethnic_category}"
+        %dt Date of Birth:
+        %dd= "#{@patient.dob}"
 
-      %dt Date of Birth:
-      %dd= "#{@patient.dob}"
+        %dt Paediatric Patient:
+        %dd= "#{@patient.paediatric_patient_indicator}"
 
-      %dt Paediatric Patient:
-      %dd= "#{@patient.paediatric_patient_indicator}"
+    .large-4.columns
+      %dl
+        %dt GP Practice Code:
+        %dd= "#{@patient.gp_practice_code}"
 
-  .large-4.columns
-    %dl
-      %dt GP Practice Code:
-      %dd= "#{@patient.gp_practice_code}"
+      %dl
+        %dt PCT Organisation Code:
+        %dd= "#{@patient.pct_org_code}"
 
-    %dl
-      %dt PCT Organisation Code:
-      %dd= "#{@patient.pct_org_code}"
+      %dl
+        %dt Hospital Centre Code:
+        %dd= "#{@patient.hosp_centre_code}"
 
-    %dl
-      %dt Hospital Centre Code:
-      %dd= "#{@patient.hosp_centre_code}"
-
-    %dl
-      %dt Primary ESRF Centre:
-      %dd= "#{@patient.primary_esrf_centre}"
-
-  .large-4.columns
-    %h5 Current Address
-    = render @patient.current_address if @patient.current_address
+      %dl
+        %dt Primary ESRF Centre:
+        %dd= "#{@patient.primary_esrf_centre}"
 
 .row
-  .large-4.columns
-    %h5 Address at Diagnosis
-    = render @patient.address_at_diagnosis if @patient.address_at_diagnosis
+  = field_set_tag do 
+    .large-6.columns
+      %h5 Current Address
+      = render @patient.current_address if @patient.current_address
+
+
+    .large-6.columns
+      %h5 Address at Diagnosis
+      = render @patient.address_at_diagnosis if @patient.address_at_diagnosis
 
 = content_for :secondary_nav do
   %li

@@ -1,8 +1,6 @@
 .row
   %h1 Patient Events
 
-  = link_to "Back to patient list", patients_path, class: "button tiny right"
-
 .row
   %ul.no-bullet
     - @patient_events.each do |e|
@@ -12,3 +10,7 @@
         %li= "Event Type: #{e.patient_event_type}" 
         %li= "Description: #{e.description}" 
         %li= "Notes: #{e.notes}" 
+
+= content_for :secondary_nav do
+  %li
+    = link_to "Back to patient list", patients_path

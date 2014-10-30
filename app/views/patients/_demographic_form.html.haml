@@ -1,43 +1,51 @@
 .row
-  .large-3.columns
+  .large-12.columns
     = field_set_tag do
       %legend
         Patient Demographics
 
-      %ul.no-bullet
-        %li
-          = patient.label :nhs_number, "NHS Number"
-          = patient.text_field :nhs_number
+      .large-4.columns
+        %ul.no-bullet
+          %li
+            = patient.label :nhs_number, "NHS Number"
+            = patient.text_field :nhs_number
 
-        %li
-          = patient.label :local_patient_id, "Local Patient ID"
-          = patient.text_field :local_patient_id
+          %li
+            = patient.label :local_patient_id, "Local Patient ID"
+            = patient.text_field :local_patient_id
+      
+      .large-4.columns
+        %ul.no-bullet
+          %li
+            = patient.label :surname
+            = patient.text_field :surname
 
-        %li
-          = patient.label :surname
-          = patient.text_field :surname
+          %li
+            = patient.label :forename
+            = patient.text_field :forename
+      
+      .large-4.columns
+        %ul.no-bullet
+          %li
+            = patient.label :sex
+            = patient.text_field :sex
 
-        %li
-          = patient.label :forename
-          = patient.text_field :forename
+          %li
+            = patient.label :ethnic_category, "Ethnicity"
+            = patient.text_field :ethnic_category
+      
+      .large-12.columns
+        %ul.no-bullet
+          %li
+            = patient.label :dob, "DoB"
+            = patient.date_select(:dob, start_year: (120.years.ago).year, end_year: Time.now.year , order: [:day, :month, :year])
+      
+          %ul.no-bullet
+            %li
+              = patient.label :paediatric_patient_indicator
+              = patient.check_box :paediatric_patient_indicator
 
-        %li
-          = patient.label :sex
-          = patient.text_field :sex
-
-        %li
-          = patient.label :ethnic_category, "Ethnicity"
-          = patient.text_field :ethnic_category
-
-        %li
-          = patient.label :dob, "DoB"
-          = patient.date_select(:dob, { start_year: (120.years.ago).year, end_year: Time.now.year })
-
-        %li
-          = patient.label :paediatric_patient_indicator
-          = patient.check_box :paediatric_patient_indicator
-
-  .large-3.columns
+  .large-4.columns
     = patient.fields_for :current_address_attributes, patient.object.current_address do |a|
       %fieldset{:id => "current_address"}
         %legend
@@ -45,7 +53,7 @@
 
         = render :partial => 'addresses/address_form', :locals => { :a => a }
 
-  .large-3.columns
+  .large-4.columns
     = patient.fields_for :address_at_diagnosis_attributes, patient.object.address_at_diagnosis do |a|
       %fieldset{:id => "address_at_diagnosis"}
         %legend
@@ -53,7 +61,7 @@
 
         = render :partial => 'addresses/address_form', :locals => { :a => a }
 
-  .large-3.columns
+  .large-4.columns
     = field_set_tag do
       %legend
         Organisation/Practice

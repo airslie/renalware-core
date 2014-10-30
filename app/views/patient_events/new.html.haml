@@ -1,31 +1,37 @@
-%h1
-  Add a New Event
-
-= link_to "Back to patient list", patients_path, class: "button tiny right"
+.row
+  %h1
+    Add a New Patient Event
 
 = form_for @patient_event, :method => :post do |f|
   
   .row
-    .large-6.columns
-      = field_set_tag do
-        %legend
-          New Patient Event
 
-        %ul.no-bullet
-          %li
-            = f.label :date_time, "Patient Event Date"
-            = f.datetime_select(:date_time, { start_year: (5.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year] })
+    =field_set_tag do
+      .large-12.columns
+        = f.label :date_time, "Patient Event Date/Time"
+        = f.datetime_select(:date_time, { start_year: (5.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]})
 
-            = f.label :user_id, "Entered by"
-            = f.text_field :user_id
+      %ul.no-bullet.large-6.columns
+        
+        %li
+          = f.label :user_id, "Entered by"
+          = f.text_field :user_id
+        %li
+          = f.label :patient_event_type, "Patient Event Type"
+          = f.text_field :patient_event_type
+              
+        %li
+          = f.label :description, "Description"
+          = f.text_field :description
 
-            = f.label :patient_event_type, "Patient Event Type"
-            = f.text_field :patient_event_type
+      %ul.no-bullet.large-6.columns
+        
+        %li
+          = f.label :notes, "Notes"
+          = f.text_area(:notes, :cols => 50, :rows => 6)
+        %li
+          = submit_tag "Save Event", class: "button tiny right"
 
-            = f.label :description, "Description"
-            = f.text_field :description
-
-            = f.label :notes, "Notes"
-            = f.text_area(:notes, :cols => 50, :rows => 5)
-
-            = submit_tag "Save Event", class: "button tiny right"
+= content_for :secondary_nav do
+  %li
+    = link_to "Back to patient list", patients_path

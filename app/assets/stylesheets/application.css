@@ -14,5 +14,6 @@
  *= require_self
  *= require foundation_and_overrides
  *= require patients
+ *= require patient_events
 
  */
