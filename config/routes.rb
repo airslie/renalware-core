@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :events, :only => [:new, :create, :index]
+  resources :patient_events, :only => [:new, :create, :index]
 
   # TODO - This will probably change in future
   root to: "patients#index"

@@ -2,7 +2,7 @@ class PatientsController < ApplicationController
 
   def clinical_summary
     @patient = Patient.find(params[:id])
-    @events = Event.all
+    @patient_events = PatientEvent.all
   end
 
   def new

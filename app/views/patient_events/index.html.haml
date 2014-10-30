@@ -1,0 +1,14 @@
+.row
+  %h1 Patient Events
+
+  = link_to "Back to patient list", patients_path, class: "button tiny right"
+
+.row
+  %ul.no-bullet
+    - @patient_events.each do |e|
+      = field_set_tag do
+        %li= "Event Date/Time : #{e.date_time}" 
+        %li= "Entered by: #{e.user_id}" 
+        %li= "Event Type: #{e.patient_event_type}" 
+        %li= "Description: #{e.description}" 
+        %li= "Notes: #{e.notes}" 

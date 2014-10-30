@@ -6,12 +6,12 @@ Given(/^they are on a patient's clinical summary$/) do
    visit '/pat/patient.php?vw=clinsumm&zid=124502'
 end
 
-When(/^they add an event$/) do
+When(/^they add a patient event$/) do
   click_on 'Encs'
   click_on 'add new encounter'
 end
 
-When(/^complete the encounter form$/) do
+When(/^complete the patient event form$/) do
   fill_in "Encounter Date", :with => "20/10/2014"
   fill_in "Entered by", :with => "daniel"
   select('Home visit', :from => 'Encounter type')
@@ -23,7 +23,7 @@ When(/^complete the encounter form$/) do
   click_on "add encounter"
 end
 
-Then(/^they should see the new event on the clinical summary$/) do
+Then(/^they should see the new patient event on the clinical summary$/) do
   expect(page.has_content? "Home visit").to be true
 end
 

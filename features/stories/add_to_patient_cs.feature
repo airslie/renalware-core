@@ -5,13 +5,13 @@ Background:
   Given that I'm logged in
     And I have a patient in the database
     And they are on a patient's clinical summary
-@wip
-Scenario: Doctor adds an event
-  #event also known as encounter
-  When they add an event
-    And complete the event form
-  Then they should see the new event on the clinical summary
 
+Scenario: Doctor adds a patient event
+  #event also known as encounter
+  When they add a patient event
+    And complete the patient event form
+  Then they should see the new patient event on the clinical summary
+@wip
 Scenario: Doctor adds a problem
   When they add a problem
     And complete the problem form

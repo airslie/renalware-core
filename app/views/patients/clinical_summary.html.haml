@@ -5,13 +5,13 @@
 
   %h2= "#{@patient.forename} #{@patient.surname}"
 
-  = link_to "Add an Event", new_event_path, class: "button tiny left"
+  = link_to "Add a Patient Event", new_patient_event_path, class: "button tiny left"
 
 .row
   = field_set_tag do
     %legend
-      = link_to "Events", events_path
+      = link_to "Patient Events", patient_events_path
     %ul.no-bullet
-      - @events.each do |e|
-        = render partial: "event/event", locals: { e: e }
+      - @patient_events.each do |e|
+        = render partial: "patient_events/patient_event", locals: { e: e }
 

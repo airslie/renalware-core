@@ -23,14 +23,12 @@ ActiveRecord::Schema.define(version: 20141024111716) do
     t.datetime "updated_at"
   end
 
-  create_table "events", force: true do |t|
+  create_table "patient_events", force: true do |t|
     t.datetime "date_time"
     t.string   "user_id"
-    t.string   "encounter_type"
+    t.string   "patient_event_type"
     t.string   "description"
     t.text     "notes"
-    t.decimal  "height",         precision: 3, scale: 2
-    t.decimal  "weight",         precision: 4, scale: 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end
