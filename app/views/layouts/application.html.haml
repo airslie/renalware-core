@@ -12,6 +12,20 @@
     = csrf_meta_tag
 
   %body
+    %nav.top-bar(data-topbar role = "navigation")
+      %ul.title-area
+        %li.name
+          %h1 
+            = link_to "Renalwarev2", "#"
+ 
+      %section.top-bar-section
+        %ul.right
+          %li.has-dropdown
+            = link_to "Patients", patients_path
+            %ul.dropdown
+              %li
+                = link_to "Add a New Patient", new_patient_path
+    
     .row
       = flash[:notice]
     
