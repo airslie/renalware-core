@@ -8,8 +8,11 @@ class Patient < ActiveRecord::Base
 
   has_many :patient_events
 
-  validates :nhs_number, presence: true
+  validates :nhs_number, presence: true, length: { minimum: 10, maximum: 10 }
   validates :surname, presence: true
   validates :forename, presence: true
+  validates :local_patient_id, presence: true
+  validates :sex, presence: true
+  validates :dob, presence: true
 
 end
