@@ -3,29 +3,30 @@
     Add a New Patient Event
 
 = form_for @patient_event, :method => :post do |f|
-  
+
   .row
 
     =field_set_tag do
       .large-12.columns
         = f.label :date_time, "Patient Event Date/Time"
-        = f.datetime_select(:date_time, { start_year: (5.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]})
+        = f.datetime_select(:date_time, { start_year: (5.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
 
       %ul.no-bullet.large-6.columns
-        
+
         %li
           = f.label :user_id, "Entered by"
           = f.text_field :user_id
+
         %li
-          = f.label :patient_event_type, "Patient Event Type"
-          = f.text_field :patient_event_type
-              
+          = f.label :patient_event_type_id, "Patient Event Type"
+          = f.select(:patient_event_type_id, PatientEventType.all.collect { |p| [p.name, p.id] })
+
         %li
           = f.label :description, "Description"
           = f.text_field :description
 
       %ul.no-bullet.large-6.columns
-        
+
         %li
           = f.label :notes, "Notes"
           = f.text_area(:notes, :cols => 50, :rows => 6)

@@ -8,8 +8,8 @@
     %legend
       = link_to "Patient Events", patient_events_path
     %ul.no-bullet
-      - @patient_events.each do |e|
-        = render partial: "patient_events/patient_event", locals: { e: e }
+      - @patient_events.each do |p|
+        = render partial: "patient_events/patient_event", locals: {patient_event: p }
 
 .row
   = content_for :secondary_nav do
