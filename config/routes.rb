@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :patients, :except => [:show, :destroy] do
+  resources :patients, :except => [] do
     member do
       get :demographics
       get :clinical_summary
@@ -11,5 +11,5 @@ Rails.application.routes.draw do
   # TODO - This will probably change in future
   root to: "patients#index"
 
-  resources :patient_event_types, :only => [:new, :create, :index] 
+  resources :patient_event_types, :except => [:show, :delete] 
 end

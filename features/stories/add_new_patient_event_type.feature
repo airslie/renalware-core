@@ -5,7 +5,6 @@ Background:
     And I have a patient in the database
     And they are adding a new patient event
 
-@wip
 Scenario: Doctor adds a new patient event type that does not exist on the dropdown 
   #event also known as encounter
   When they add a new patient event type
