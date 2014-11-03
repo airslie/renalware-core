@@ -7,10 +7,10 @@ When(/^they add a new patient event type$/) do
 end
 
 When(/^they complete the add a new patient event type form$/) do
-  fill_in "New Event Type", :with => "I am a New Event Type"
+  fill_in "New Patient Event Type", :with => "I am a New Event Type"
   click_on "Save New Patient Event Type"
 end
 
 Then(/^they should see the new patient event type added to the patient event type list$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(page.has_content? "I am a New Event Type").to be true
 end

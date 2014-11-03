@@ -1,0 +1,10 @@
+%h1 Existing Patient Event Types
+
+- @patient_event_types.each do |t|
+
+  %ul
+    %li= t.name
+
+= content_for :secondary_nav do
+  %li
+    = link_to "Return to New Patient Event", new_patient_event_path

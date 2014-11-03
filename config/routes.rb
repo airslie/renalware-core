@@ -11,5 +11,5 @@ Rails.application.routes.draw do
   # TODO - This will probably change in future
   root to: "patients#index"
 
-  resources :patient_event_types, :only => [:new, :create] 
+  resources :patient_event_types, :only => [:new, :create, :index] 
 end

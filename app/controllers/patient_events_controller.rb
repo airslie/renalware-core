@@ -2,6 +2,7 @@ class PatientEventsController < ApplicationController
 
   def new
     @patient_event = PatientEvent.new
+    @patient_event_type = PatientEventType.new
   end
 
   def create

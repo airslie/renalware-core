@@ -1,17 +1,24 @@
 %h1 Add a New Patient Type
 
+.row
+  = render partial: "shared/errors", locals: { model: @patient_event_type }
+
 .large-6.columns
   %ul.no-bullet
 
     = form_for @patient_event_type, :method => :post do |f|
 
       %li
-        = f.label :name, "New Event Type"
+        = f.label :name, "New Patient Event Type"
         = f.text_field :name
       %li
         = submit_tag "Save New Patient Event Type", class: "button tiny right"
 
+
 = content_for :secondary_nav do
   %li
-    = link_to "Back to patient list", new_patient_event_path
+    = link_to "Back to Add New Patient Event", new_patient_event_path
+  %li
+    = link_to "Existing Patient Event Types", patient_event_types_path
+    
 
