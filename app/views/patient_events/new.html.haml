@@ -21,11 +21,13 @@
           = f.label :patient_event_type_id, "Patient Event Type"
           = f.select(:patient_event_type_id, PatientEventType.all.collect { |p| [p.name, p.id] })
 
+        %li 
+          =link_to "Add a New Event Type", new_patient_event_type_path, class: "button tiny"         
+
+      %ul.no-bullet.large-6.columns
         %li
           = f.label :description, "Description"
           = f.text_field :description
-
-      %ul.no-bullet.large-6.columns
 
         %li
           = f.label :notes, "Notes"

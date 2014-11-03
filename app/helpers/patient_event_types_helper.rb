@@ -1,0 +1,2 @@
+module PatientEventTypesHelper
+end

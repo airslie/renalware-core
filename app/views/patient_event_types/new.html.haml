@@ -1,0 +1,17 @@
+%h1 Add a New Patient Type
+
+.large-6.columns
+  %ul.no-bullet
+
+    = form_for @patient_event_type, :method => :post do |f|
+
+      %li
+        = f.label :name, "New Event Type"
+        = f.text_field :name
+      %li
+        = submit_tag "Save New Patient Event Type", class: "button tiny right"
+
+= content_for :secondary_nav do
+  %li
+    = link_to "Back to patient list", new_patient_event_path
+
