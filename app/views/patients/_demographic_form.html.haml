@@ -31,8 +31,9 @@
             = patient.select(:sex, options_for_select([["Unknown", "0"], ["Male", "1"], ["Female", "2"], ["Not Specified", "9"]]))
 
           %li
-            = patient.label :ethnic_category, "Ethnicity"
-            = patient.text_field :ethnic_category
+            = patient.label :ethnicity_id, "Ethnicity"
+            = patient.select(:ethnicity_id, Ethnicity.all.collect { |p| [p.name, p.id] })
+
       
       .large-12.columns.row
         = patient.label :dob, "DoB"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141030183859) do
+ActiveRecord::Schema.define(version: 20141104152805) do
 
   create_table "addresses", force: true do |t|
     t.string   "street_1"
@@ -19,6 +19,12 @@ ActiveRecord::Schema.define(version: 20141030183859) do
     t.string   "county"
     t.string   "city"
     t.string   "postcode"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ethnicities", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -47,7 +53,6 @@ ActiveRecord::Schema.define(version: 20141030183859) do
     t.date     "dob"
     t.boolean  "paediatric_patient_indicator"
     t.string   "sex"
-    t.string   "ethnic_category"
     t.integer  "current_address_id"
     t.integer  "address_at_diagnosis_id"
     t.string   "gp_practice_code"
@@ -56,6 +61,7 @@ ActiveRecord::Schema.define(version: 20141030183859) do
     t.string   "primary_esrf_centre"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "ethnicity_id"
   end
 
 end
