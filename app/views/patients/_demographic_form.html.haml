@@ -28,7 +28,7 @@
         %ul.no-bullet
           %li
             = patient.label :sex
-            = patient.text_field :sex
+            = patient.select(:sex, options_for_select([["Unknown", "0"], ["Male", "1"], ["Female", "2"], ["Not Specified", "9"]]))
 
           %li
             = patient.label :ethnic_category, "Ethnicity"
