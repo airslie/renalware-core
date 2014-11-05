@@ -54,7 +54,7 @@ include '../parts/head.php';
 	?>
 	</select></p>
 	<p><label>Typist:</label><input type="hidden" name="typistid" value="<?php echo $uid; ?>" /><?php echo $user; ?> [default]</p>
-	<p><label>Recipient (GP):</label> <i><a href="pat/form.php?f=update_patient&amp;zid=<?php echo $zid; ?>" target="new">update GP/patient details</a> (new window)</i></p>
+	<p><label>Recipient (GP):</label> <i><a href="pat/form.php?f=update_patient&amp;zid=<?php echo $zid; ?>" >update GP/patient details</a> (new window)</i></p>
 <textarea name="gpreciptext" rows="5" cols="30" ><?php echo $gpblock; ?></textarea><br>
 	<p><b><u><?php echo $patref; ?><br>
 	<?php echo $pataddrhoriz; ?></u></b></p>

@@ -110,16 +110,16 @@
 			<li><a href="pat/patient.php?zid=<?php echo $zid ?>&amp;vw=clinsumm">Clin Summary</a></li>
 			<li><a href="letters/createletter.php?zid=<?php echo $zid; ?>">New Letter</a></li>
 			<?php if (substr($modalcode,0,2)== 'HD'): ?>
-				<li><a href="renal/patient_info/printHDsheets.php?zid=<?php echo $zid; ?>" target="new">HD Info Sheet</a></li>
+				<li><a href="renal/patient_info/printHDsheets.php?zid=<?php echo $zid; ?>" >HD Info Sheet</a></li>
 			<?php endif ?>
 			<?php if ($modalcode== 'nephrology' or $modalcode=='diabetic'): ?>
-				<li><a href="renal/patient_info/printDMsheet.php?zid=<?php echo $zid; ?>" target="new">DM Nephrol Info</a></li>
+				<li><a href="renal/patient_info/printDMsheet.php?zid=<?php echo $zid; ?>" >DM Nephrol Info</a></li>
 			<?php endif ?>
 			<?php if ($modalcode== 'nephrology'): ?>
-				<li><a href="renal/patient_info/printNephrosheet.php?zid=<?php echo $zid; ?>" target="new">Nephrol Info</a></li>
+				<li><a href="renal/patient_info/printNephrosheet.php?zid=<?php echo $zid; ?>" >Nephrol Info</a></li>
 			<?php endif ?>
 			<?php if ($modalcode== 'lowclear'): ?>
-				<li><a href="renal/patient_info/printLCCsheet.php?zid=<?php echo $zid; ?>" target="new">LCC Info Sheet</a></li>
+				<li><a href="renal/patient_info/printLCCsheet.php?zid=<?php echo $zid; ?>" >LCC Info Sheet</a></li>
 			<?php endif ?>
 			</ul>
 		</li>

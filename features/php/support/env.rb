@@ -1,0 +1,6 @@
+require 'capybara'
+require 'capybara/dsl'
+require 'capybara/cucumber'
+require 'capybara-webkit'
+require 'pry'
+require 'mysql2'

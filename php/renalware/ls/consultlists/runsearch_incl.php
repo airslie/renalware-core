@@ -46,7 +46,7 @@ $display_string .= "<th>options</th><th>view (in new window)</th></tr>";
 		$display_string .= "<td>".$row["$value"]."</td>";
 	}
 	$display_string .= '<td class="links"><a href="pat/patient.php?vw=addconsultform&amp;zid='.$row["patzid"].'">add consult</a></td>';
-	$display_string .= '<td class="links"><a href="pat/patient.php?vw=clinsumm&amp;zid='.$row["patzid"].'" target="new">view clin summ</a> (new window)</td>';
+	$display_string .= '<td class="links"><a href="pat/patient.php?vw=clinsumm&amp;zid='.$row["patzid"].'" >view clin summ</a> (new window)</td>';
 	$display_string .= "</tr>";
 }
 $display_string .= "</table>";

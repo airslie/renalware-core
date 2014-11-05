@@ -29,7 +29,7 @@ while($row = $result->fetch_assoc())
 		echo "<td>".$row["$value"]."</td>";
 	}
 	echo '<td class="links"><a href="ls/lupuslist.php?newzid='.$row["patzid"].'">add to Lupus Patients</a></td>
-    <td class="links"><a href="pat/patient.php?vw=clinsumm&amp;zid='.$row["patzid"].'" target="new">view clin summ</a> (new window)</td></tr>';
+    <td class="links"><a href="pat/patient.php?vw=clinsumm&amp;zid='.$row["patzid"].'" >view clin summ</a> (new window)</td></tr>';
 }
 echo "</table>";
 } else {

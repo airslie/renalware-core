@@ -1,0 +1,44 @@
+!!! 5
+%html{ :lang => "en"}
+  %head
+    %meta{ :charset => "utf-8" }
+
+    %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }
+
+    %title= content_for?(:title) ? yield(:title) : "Untitled"
+
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "vendor/modernizr"
+    = csrf_meta_tag
+
+  %body
+    %nav.top-bar(data-topbar role = "navigation")
+      %ul.title-area
+        %li.name
+          %h1 
+            = link_to "Renalwarev2", patients_path
+ 
+      %section.top-bar-section
+        %ul.right
+          %li.has-dropdown
+            = link_to "Patients", patients_path
+            %ul.dropdown
+              %li
+                = link_to "Add a New Patient", new_patient_path
+    
+    - if flash[:notice]
+      .row
+        .alert-box.info.round{:data => {:alert => nil}}
+          = flash[:notice]
+          <a href="#" class="close">&times;</a>
+      
+    .row
+      .large-12.columns
+        = yield
+
+    .row
+      .large-12.columns
+        %ul.sub-nav
+          = yield :secondary_nav
+
+    = javascript_include_tag "application"

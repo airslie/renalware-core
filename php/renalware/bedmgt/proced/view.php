@@ -11,7 +11,7 @@ echo "<div class=\"$priority\">$proced -- Priority $showpriority (Status: $statu
 	{
 	echo "<p>Print (new window): ";
 	foreach ($lettertypes as $type => $descr) {
-		echo '<a href="letter.php?pid=' . $pid .'&amp;type='.$type.'" target="new">'.$descr.'</a> &nbsp;&nbsp;&nbsp;';
+		echo '<a href="letter.php?pid=' . $pid .'&amp;type='.$type.'" >'.$descr.'</a> &nbsp;&nbsp;&nbsp;';
 		}
 	echo '</p>';
 	}

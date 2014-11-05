@@ -20,7 +20,7 @@ foreach ($hdmodes as $key => $value) {
 	$color = ($key==$hdmode) ? "red" : "#333" ;
 	echo '<a style="color: '.$color.';" href="renal/renal.php?zid=' . $zid . '&amp;scr=hdnav&amp;hdmode=' . $key . '">' . $value . '</a>&nbsp;&nbsp;';
 	}
-echo '<a style="color: purple;" href="renal/hd/printhdprofiles.php?zid='.$zid.'" target="new">Print HD Profile</a>&nbsp;&nbsp;';
+echo '<a style="color: purple;" href="renal/hd/printhdprofiles.php?zid='.$zid.'" >Print HD Profile</a>&nbsp;&nbsp;';
 $patinfoURL='renal/patient_info/printHDsheets.php?zid=' . $zid;
 echo '<a style="color: green;" href="' . $patinfoURL . '"  target="_blank" onclick="window.open(\'' . $patinfoURL . '\',\'Letter\',\'toolbar=yes,scrollbars=yes,width=900,height=900,resize=yes\'); return(false);">Print Pat HD Info</a>&nbsp;';
     echo '</div>';

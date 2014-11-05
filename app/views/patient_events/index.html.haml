@@ -1,0 +1,16 @@
+.row
+  %h1 Patient Events
+
+.row
+  %ul.no-bullet
+    - @patient_events.each do |p|
+      = field_set_tag do
+        %li= "Event Date/Time: #{p.date_time}"
+        %li= "Entered by: #{p.user_id}"
+        %li= "Event Type: #{p.patient_event_type.name}"
+        %li= "Description: #{p.description}"
+        %li= "Notes: #{p.notes}"
+
+= content_for :secondary_nav do
+  %li
+    = link_to "Back to patient list", patients_path

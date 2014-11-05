@@ -3,7 +3,7 @@
 //----Thu 06 Dec 2012----for ixdata2
 $ixtable="pathol_ixdata";
 $obxtable="pathol_obxdata";
-include "/var/conns/renalwareconn.php";
+realpath($_SERVER['DOCUMENT_ROOT']).'/renalwareconn.php';
 $ix_id = (int)$_GET["ix_id"];
 $sql = "SELECT * FROM hl7data.$ixtable WHERE ix_id=$ix_id LIMIT 1";
 $result = $mysqli->query($sql);

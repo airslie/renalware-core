@@ -56,7 +56,7 @@ if ($type) {
     		while($row = $result->fetch_assoc())
     			{
     			echo '<tr><td>';
-    			echo '<a href="pat/patient.php?scr=modals&amp;zid='.$row["patzid"].'" target="new">modals</a></td>';
+    			echo '<a href="pat/patient.php?scr=modals&amp;zid='.$row["patzid"].'" >modals</a></td>';
     			foreach ($fieldsarray as $key => $field) {
     				echo '<td>'.$row["$field"].'</td>';
     			}
@@ -114,7 +114,7 @@ if ($type) {
     		while($row = $result->fetch_assoc())
     			{
     			echo '<tr><td>';
-    			echo '<a href="renal/renal.php?scr=update_esrf&amp;zid='.$row["patzid"].'" target="new">ESRF</a></td>';
+    			echo '<a href="renal/renal.php?scr=update_esrf&amp;zid='.$row["patzid"].'" >ESRF</a></td>';
     			foreach ($fieldsarray as $key => $field) {
     				echo '<td>'.$row["$field"].'</td>';
     			}

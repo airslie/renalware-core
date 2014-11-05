@@ -1,0 +1,69 @@
+.row
+  %h1 Admin Info
+
+.row
+  %h3(class = "left") Patient Demographics
+
+.row
+  = field_set_tag do 
+    .large-4.columns
+      %dl
+        %dt NHS Number:
+        %dd= "#{@patient.nhs_number}"
+
+        %dt Local Patient ID:
+        %dd= "#{@patient.local_patient_id}"
+
+        %dt Last Name:
+        %dd= "#{@patient.surname}"
+
+        %dt First Name:
+        %dd= "#{@patient.forename}"
+    
+    .large-4.columns
+      %dl
+        %dt Sex:
+        %dd= "#{@patient.sex}"
+
+        %dt Ethnicity:
+        %dd= "#{@patient.ethnicity.name}"
+
+        %dt Date of Birth:
+        %dd= "#{@patient.dob}"
+
+        %dt Paediatric Patient:
+        %dd= "#{@patient.paediatric_patient_indicator}"
+
+    .large-4.columns
+      %dl
+        %dt GP Practice Code:
+        %dd= "#{@patient.gp_practice_code}"
+
+      %dl
+        %dt PCT Organisation Code:
+        %dd= "#{@patient.pct_org_code}"
+
+      %dl
+        %dt Hospital Centre Code:
+        %dd= "#{@patient.hosp_centre_code}"
+
+      %dl
+        %dt Primary ESRF Centre:
+        %dd= "#{@patient.primary_esrf_centre}"
+
+.row
+  = field_set_tag do 
+    .large-6.columns
+      %h5 Current Address
+      = render @patient.current_address if @patient.current_address
+
+
+    .large-6.columns
+      %h5 Address at Diagnosis
+      = render @patient.address_at_diagnosis if @patient.address_at_diagnosis
+
+= content_for :secondary_nav do
+  %li
+    = link_to "Back to patient list", patients_path
+  %li
+    = link_to "Edit Demographics", edit_patient_path(@patient)

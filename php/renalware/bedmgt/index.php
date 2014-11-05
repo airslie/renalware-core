@@ -56,7 +56,7 @@ if ($mode=='view')
 		}
 	//print option
 	$hostname=$_SERVER['HTTP_HOST'];
-echo '<li><a href="http://' . $hostname . htmlentities($_SERVER['REQUEST_URI']) . '&amp;mode=print" title="print mode" target="new">Print Screen</a></li>'; 
+echo '<li><a href="http://' . $hostname . htmlentities($_SERVER['REQUEST_URI']) . '&amp;mode=print" title="print mode" >Print Screen</a></li>'; 
 	echo "</ul>";
 	include('nav/' . $vw . '.php');
 	//get name from k=v array

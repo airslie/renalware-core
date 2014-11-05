@@ -21,7 +21,7 @@ while ($row = $result->fetch_assoc())
 	echo '<tr>
 	<td><b>' . $row["sitename"] . '</b></td>
 	<td><a href="renal/hdlists.php?list=hdpatlist&amp;site=' . $row["currsite"] . '">' . $row["modalsite"] . ' view list</td>
-	<td><a href="renal/hd/hdsitepatlist_print.php?hdsite=' . $row["currsite"] . '" target="new">print list*</td>
+	<td><a href="renal/hd/hdsitepatlist_print.php?hdsite=' . $row["currsite"] . '" >print list*</td>
 	<td>' . $row["patcount"] . '</td>
 	</tr>';
 	}

@@ -1,6 +1,6 @@
 <?php
 //Thu Nov 20 12:58:09 GMT 2008 for HL7
-include realpath($_SERVER['DOCUMENT_ROOT'].'/').'../../tmp/renalwareconn.php';
+include realpath($_SERVER['DOCUMENT_ROOT']).'/renalwareconn.php';
 $sql = "SELECT * FROM hl7patientdata WHERE kchno='$kchno' LIMIT 1";
 $result = $mysqli->query($sql);
 $row = $result->fetch_assoc();

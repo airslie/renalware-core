@@ -36,9 +36,9 @@ while($row = $result->fetch_assoc())
 	echo "<tr>";
 	//special for bedmgt
 	if (!$tciproced_id) {
-		echo '<td><a href="bedmgt/index.php?vw=proced&scr=requestsurgcase&amp;zid='.$zid.'&amp;tcilist_id='.$tcilist_id.'" target="new">Request Op/Procedure</a></td>';
+		echo '<td><a href="bedmgt/index.php?vw=proced&scr=requestsurgcase&amp;zid='.$zid.'&amp;tcilist_id='.$tcilist_id.'" >Request Op/Procedure</a></td>';
 	} else {
-		echo '<td><a href="bedmgt/index.php?vw=proced&scr=update&amp;zid='.$zid.'&amp;pid='.$tciproced_id.'" target="new">view '.$row["status"].'</a></td>';
+		echo '<td><a href="bedmgt/index.php?vw=proced&scr=update&amp;zid='.$zid.'&amp;pid='.$tciproced_id.'" >view '.$row["status"].'</a></td>';
 	}
 	foreach ($row as $key => $value) {
 		if (!in_array($key,$omitfields)) {

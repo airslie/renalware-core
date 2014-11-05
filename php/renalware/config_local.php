@@ -5,14 +5,19 @@
 switch ($configstatus) {
     case 'DEVEL':
     $hostname="localhost";
+    ini_set("error_reporting", "E_COMPILE_ERROR|E_RECOVERABLE_ERROR|E_ERROR|E_CORE_ERROR");
+    ini_set("display_errors", 0);
+
+    $port = $_ENV["PHP_ENV"] == 'test' ? "8001" : "8000";
+
     // $rwarepath="/Library/WebServer/Documents/renalware";
     $rwarepath=realpath($_SERVER['DOCUMENT_ROOT']);
     // $rwareroot="http://$hostname/renalware";
-    $rwareroot="http://$hostname:8000";
+    $rwareroot="http://$hostname:$port";
     // ----------SET LOCAL PATHS HERE ------------
     //DB connection here
     $db="renalware";
-    require_once realpath($_SERVER['DOCUMENT_ROOT']).'/../../tmp/renalwareconn.php';
+    require_once realpath($_SERVER['DOCUMENT_ROOT']).'/renalwareconn.php';
 
     // ***** set prn
     //path to letter-HTML versions

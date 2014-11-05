@@ -112,7 +112,7 @@ if ($numrows) {
     <tbody>';
 	while ($row = $result->fetch_assoc()) {
 		$zid = $row["patzid"];
-		$printprofile = '<a class="gr" href="renal/hd/printhdprofiles.php?zid=' . $zid . '" target="new">print profile</a>';
+		$printprofile = '<a class="gr" href="renal/hd/printhdprofiles.php?zid=' . $zid . '" >print profile</a>';
 		$patlink = '<a href="pat/patient.php?vw=clinsumm&amp;zid=' . $zid . '">' . strtoupper($row["lastname"]) . ', ' . $row["firstnames"] . '</a>';
 		$modalslink = '<a href="pat/patient.php?vw=modals&amp;zid=' . $zid . '">' . $row["modalcode"] . '</a> -- <b>' . $row["currsite"];
 		$accesslink = '<a href="renal/renal.php?zid=' . $zid . '&amp;scr=access">' . $row["accessCurrent"] . '</a>';

@@ -1,0 +1,16 @@
+%h1 Edit Patient Event Type
+
+= render partial: "shared/errors", locals: { model: @patient_event_type }
+
+.large-6.columns
+
+  = form_for @patient_event_type, :method => :put do |f|
+    %ul.no-bullet
+      = render partial: "patient_event_types/form", locals: { f: f }   
+
+      = submit_tag "Update Patient Event Type", class: "button tiny right"
+
+
+= content_for :secondary_nav do
+  %li
+    = link_to "Cancel", patient_event_types_path  
