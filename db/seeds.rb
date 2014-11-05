@@ -16,7 +16,6 @@ Patient.find_or_create_by!(:nhs_number => "1000124502") do |patient|
   patient.ethnicity_id = 1
 end
 
-PatientEventType.find_or_create_by(name: "Other")
 PatientEventType.find_or_create_by(name: "Access clinic")
 PatientEventType.find_or_create_by(name: "Anaemia clinic")
 PatientEventType.find_or_create_by(name: "CAPD Nurses clinic")

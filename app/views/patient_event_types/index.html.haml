@@ -5,8 +5,10 @@
   %ul.no-bullet
     %li
       = t.name
+      
       = link_to "Edit", edit_patient_event_type_path(t.id) 
-
+      
+      = link_to "Delete", patient_event_type_path(t.id), id: "#{t.id}-pet", method: :delete, data: {confirm: "Are you sure you want to delete this option?"} 
 
 = content_for :secondary_nav do
   %li

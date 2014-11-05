@@ -25,10 +25,19 @@ class PatientEventTypesController < ApplicationController
     @patient_event_type = PatientEventType.find(params[:id])
     @patient_event_type.update(allowed_params)
     redirect_to patient_event_types_path
+  end
+
+  def destroy
+    @patient_event_type = PatientEventType.find(params[:id])
+    if @patient_event_type.update_attributes!(:deleted_at => Time.now)
+      redirect_to patient_event_types_path, :notice => "You have successfully removed a patient event type."
+    else
+      render :index
+    end
   end 
 
   def allowed_params
-    params.require(:patient_event_type).permit(:name)
+    params.require(:patient_event_type).permit(:name, :deleted_at)
   end 
 
 end
