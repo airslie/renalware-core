@@ -32,7 +32,7 @@
 
           %li
             = patient.label :ethnicity_id, "Ethnicity"
-            = patient.select(:ethnicity_id, Ethnicity.all.collect { |p| [p.name, p.id] })
+            = patient.collection_select(:ethnicity_id, Ethnicity.all, :id, :name)
 
       
       .large-12.columns.row
