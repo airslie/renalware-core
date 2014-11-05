@@ -13,7 +13,6 @@ class PatientsController < ApplicationController
     @patient = Patient.new(allowed_params)
     if @patient.save
       redirect_to demographics_patient_path(@patient), :notice => "You have successfully added a new patient."
-    binding.pry
     else
       render :new
     end
@@ -40,7 +39,7 @@ class PatientsController < ApplicationController
   private
   def allowed_params
     params.require(:patient).permit(:nhs_number, :local_patient_id, :surname,
-      :forename, :sex, :ethnic_category, :dob, :paediatric_patient_indicator,
+      :forename, :sex, :ethnicity_id, :dob, :paediatric_patient_indicator,
       :gp_practice_code, :pct_org_code, :hosp_centre_code, :primary_esrf_centre,
       :current_address_attributes => [:street_1, :street_2, :county, :city, :postcode],
       :address_at_diagnosis_attributes => [:street_1, :street_2, :county, :city, :postcode])

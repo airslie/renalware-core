@@ -11,8 +11,11 @@ When(/^I complete the add a new patient form$/) do
   fill_in "Local Patient ID", :with => "Z999999"
   fill_in "Surname", :with => "Smith"
   fill_in "Forename", :with => "Ian"
-  fill_in "Sex", :with => "1"
-  fill_in "Ethnicity", :with => "A"
+
+  select "Male", from: "Sex"
+
+  select "White", from: "Ethnicity"
+  
   within "#patient_dob_1i" do
     select '1960'
   end
@@ -22,7 +25,7 @@ When(/^I complete the add a new patient form$/) do
   within "#patient_dob_3i" do
     select '1'
   end
-  uncheck "If under 18 years, is the recipient being treated in a paediatric unit?"
+  uncheck "Paediatric patient indicator"
 
   within "#current_address" do
     @current_street_1 = Faker::Address.street_address
@@ -51,7 +54,7 @@ Then(/^I should see the new patient in the Renal Patient List$/) do
   expect(page.has_content? "Smith").to be true
   expect(page.has_content? "Ian").to be true
   expect(page.has_content? "1").to be true
-  expect(page.has_content? "A").to be true
+  expect(page.has_content? "White").to be true
   expect(page.has_content? "1960-01-01").to be true
   expect(page.has_content? "false").to be true
   expect(page.has_content? @address_diagnosis_street_1).to be true

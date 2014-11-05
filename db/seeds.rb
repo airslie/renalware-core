@@ -13,7 +13,7 @@ Patient.find_or_create_by!(:nhs_number => "1000124502") do |patient|
   patient.dob = "01/01/1947"
   patient.paediatric_patient_indicator = "1"
   patient.sex = "1"
-  patient.ethnic_category = "A"
+  patient.ethnicity_id = 1
 end
 
 PatientEventType.find_or_create_by(name: "Other")

@@ -1,7 +1,8 @@
 Feature: A user views a patient's demographics
 
   Scenario: User views a patient's demograhics
-    Given I have a patient in the database
+    Given there are ethnicities in the database
+      And I have a patient in the database
       And that I'm logged in
       And I've searched for a patient
       And I've selected the patient from the search results

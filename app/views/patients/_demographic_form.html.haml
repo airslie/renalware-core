@@ -27,7 +27,7 @@
       .large-4.columns
         %ul.no-bullet
           %li
-            = patient.label :sex
+            = patient.label :sex, "Sex"
             = patient.select(:sex, options_for_select([["Unknown", "0"], ["Male", "1"], ["Female", "2"], ["Not Specified", "9"]]))
 
           %li

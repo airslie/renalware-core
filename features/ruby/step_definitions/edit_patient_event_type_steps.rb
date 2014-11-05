@@ -3,11 +3,12 @@ Given(/^they are on the existing patient event types page$/) do
 end
 
 Given(/^there are existing patient event types in the database$/) do
-  @patient_event_type = PatientEventType.create!(:name => "I am a new patient event") 
+  @patient_event_types = ["Telephone call", "Email", "Meeting with family"]
+  @patient_event_types.map { |t| @pet = PatientEventType.create!(:name => t) }
 end
 
 When(/^they edit a patient event type$/) do
-  visit edit_patient_event_type_path(@patient_event_type)
+  visit edit_patient_event_type_path(@pet)
 end
 
 When(/^they complete the edit patient event type form$/) do

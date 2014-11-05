@@ -1,6 +1,8 @@
 Feature: A secretary adds a new patient
+
   Scenario: Secretary adds a new patient
     Given that I'm logged in
+      And there are ethnicities in the database
       And I am on the add a new patient page
       And I've searched for a patient in the database
     When I complete the add a new patient form

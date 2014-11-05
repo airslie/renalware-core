@@ -26,14 +26,16 @@ When(/^complete the patient event form$/) do
   end
 
   fill_in "Entered by", :with => "evaliant"
-  fill_in "Patient Event Type", :with => "Telephone call"
+ 
+  select "Telephone call", from: "Patient Event Type"
+  
   fill_in "Description", :with => "Spoke to Son"
   fill_in "Notes", :with => "Wants to arrange a home visit"
 
   click_on "Save Patient Event"
 end
 
-Then(/^they should see the new ptient event on the clinical summary$/) do
+Then(/^they should see the new patient event on the clinical summary$/) do
   expect(page.has_content? "2011-01-01").to be true
   expect(page.has_content? "Telephone call").to be true
   expect(page.has_content? "11:30").to be true
