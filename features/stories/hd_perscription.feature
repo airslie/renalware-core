@@ -1,5 +1,6 @@
+@wip
 Feature: HS Perscription
-#@wip
+
 @javascript
 Scenario: Adding a HD session
   Given that I'm logged in
