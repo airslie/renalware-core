@@ -23,8 +23,11 @@ class PatientEventTypesController < ApplicationController
 
   def update
     @patient_event_type = PatientEventType.find(params[:id])
-    @patient_event_type.update(allowed_params)
-    redirect_to patient_event_types_path
+    if @patient_event_type.update(allowed_params)
+      redirect_to patient_event_types_path, :notice => "You have successfully updated patient event type"
+    else
+      render :edit
+    end
   end
 
   def destroy

@@ -2,38 +2,39 @@
   %h1
     Add a New Patient Event
 
+= render partial: "shared/errors", locals: { model: @patient_event }
+
 = form_for @patient_event, :method => :post do |f|
 
   .row
 
     =field_set_tag do
-      .large-12.columns
-        = f.label :date_time, "Patient Event Date/Time"
-        = f.datetime_select(:date_time, { start_year: (5.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
+      %ul.no-bullet
+        .large-6.columns
+          = f.label :date_time, "Patient Event Date/Time"
+          = f.datetime_select(:date_time, { start_year: (5.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
+        
+          %li
+            = f.label :user_id, "Entered by"
+            = f.text_field :user_id
 
-      %ul.no-bullet.large-6.columns
+          %li
+            = f.label :patient_event_type_id, "Patient Event Type"
+            = f.select(:patient_event_type_id, PatientEventType.all.collect { |p| [p.name, p.id] })
 
-        %li
-          = f.label :user_id, "Entered by"
-          = f.text_field :user_id
+          %li 
+            =link_to "Add a New Event Type", new_patient_event_type_path, class: "button tiny"      
+          
+        .large-6.columns
+          %li
+            = f.label :description, "Description"
+            = f.text_field :description
 
-        %li
-          = f.label :patient_event_type_id, "Patient Event Type"
-          = f.select(:patient_event_type_id, PatientEventType.all.collect { |p| [p.name, p.id] })
-
-        %li 
-          =link_to "Add a New Event Type", new_patient_event_type_path, class: "button tiny"      
-
-      %ul.no-bullet.large-6.columns
-        %li
-          = f.label :description, "Description"
-          = f.text_field :description
-
-        %li
-          = f.label :notes, "Notes"
-          = f.text_area(:notes, :cols => 50, :rows => 6)
-        %li
-          = submit_tag "Save Patient Event", class: "button tiny right"
+          %li
+            = f.label :notes, "Notes"
+            = f.text_area(:notes, :cols => 50, :rows => 6)
+          %li
+            = submit_tag "Save Patient Event", class: "button tiny right"
 
 = content_for :secondary_nav do
   %li
