@@ -1,11 +1,18 @@
 en:
+  enums:
+    gender:
+      not_known: Not Known
+      male: Male
+      female: Female
+      not_specified: Not Specified
+
   helpers:
     label:
       patient:
         paediatric_patient_indicator: "If under 18 years, is the recipient being treated in a paediatric unit?"
 
-en:
   activerecord:
     attributes:
       patient_event_type:
         name: New Patient Event Type
+

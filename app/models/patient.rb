@@ -16,4 +16,6 @@ class Patient < ActiveRecord::Base
   validates :sex, presence: true
   validates :dob, presence: true
 
+  enum sex: { not_known: 0, male: 1, female: 2, not_specified: 9 }
+
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141105153315) do
+ActiveRecord::Schema.define(version: 20141106100842) do
 
   create_table "addresses", force: true do |t|
     t.string   "street_1"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20141105153315) do
     t.string   "forename"
     t.date     "dob"
     t.boolean  "paediatric_patient_indicator"
-    t.string   "sex"
+    t.integer  "sex",                          default: 9
     t.integer  "current_address_id"
     t.integer  "address_at_diagnosis_id"
     t.string   "gp_practice_code"

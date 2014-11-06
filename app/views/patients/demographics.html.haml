@@ -23,7 +23,7 @@
     .large-4.columns
       %dl
         %dt Sex:
-        %dd= "#{@patient.sex}"
+        %dd= I18n.t("enums.gender.#{@patient.sex}")
 
         %dt Ethnicity:
         %dd= "#{@patient.ethnicity.name}"
