@@ -1,0 +1,13 @@
+%h1 Existing Drugs List
+
+- @drugs.each do |t|
+  
+  %ul.no-bullet
+    %li
+      %span= t.name
+      %span= "Type: #{t.type}"
+
+= content_for :secondary_nav do
+  %li
+    = link_to "Add a New Drug", new_drug_path
+

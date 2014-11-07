@@ -8,6 +8,8 @@ class Patient < ActiveRecord::Base
   accepts_nested_attributes_for :address_at_diagnosis
 
   has_many :patient_events
+  has_many :drugs_patients
+  has_many :drugs, :through => :drugs_patients
 
   validates :nhs_number, presence: true, length: { minimum: 10, maximum: 10 }
   validates :surname, presence: true

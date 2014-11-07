@@ -1,0 +1,2 @@
+class Standard < Drug
+end
