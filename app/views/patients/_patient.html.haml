@@ -1,7 +1,16 @@
-%ul.no-bullet
-  %li
-    %span= "#{patient.forename} #{patient.surname}, NHS No: #{patient.nhs_number}"
-    %span= link_to "Demographics", demographics_patient_path(patient.id)
-    %span= link_to "Clinical Summary", clinical_summary_patient_path(patient.id)
-    
+%ul.columns.large-12.no-bullet.patient-list
+
+  %li.columns.large-2
+    = patient.surname
+  %li.columns.large-2
+    = patient.forename
+  %li.columns.large-2
+    = patient.nhs_number
+  %li.columns.large-2
+    = patient.dob
+  %li.columns.large-2
+    = link_to "Demographics", demographics_patient_path(patient.id)
+  %li.columns.large-2
+    = link_to "Clinical Summary", clinical_summary_patient_path(patient.id)
+
 

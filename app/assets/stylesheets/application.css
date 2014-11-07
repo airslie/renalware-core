@@ -15,5 +15,6 @@
  *= require patients
  *= require patient_events
  *= require errors
+ *= require main
 
  */

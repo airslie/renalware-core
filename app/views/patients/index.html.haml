@@ -2,7 +2,25 @@
   %h1 Renal Patients
 
 .row
-  = render @patients
+  %dl.large-12.columns
+    .row
+      %dt.patient-list
+        %ul.no-bullet.row
+          %li.columns.large-2
+            Last Name
+          %li.columns.large-2
+            First Name
+          %li.columns.large-2
+            NHS Number
+          %li.columns.large-2
+            DoB
+          %li.columns.large-2  
+            View      
+          %li.columns.large-2
+            View
+      
+      %dd.row.columns.large-12
+        = render @patients   
 
 = content_for :secondary_nav do
   %li
