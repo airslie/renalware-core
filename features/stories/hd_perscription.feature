@@ -1,4 +1,4 @@
-@wip
+#@wip
 Feature: HS Perscription
 
 @javascript
