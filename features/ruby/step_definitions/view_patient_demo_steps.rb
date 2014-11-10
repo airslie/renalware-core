@@ -13,7 +13,7 @@ Given(/^I have a patient in the database$/) do
     :forename => "R",
     :dob => "01/01/1947",
     :paediatric_patient_indicator => "1",
-    :sex => "1",
+    :sex => 1,
     :ethnicity_id => Ethnicity.last.id
     ) 
   
