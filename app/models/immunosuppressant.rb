@@ -1,0 +1,2 @@
+class Immunosuppressant < Drug
+end

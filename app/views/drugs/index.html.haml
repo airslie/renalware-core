@@ -5,7 +5,7 @@
   %ul.no-bullet
     %li
       %span= t.name
-      %span= "Type: #{t.type}"
+      %span= "Type: #{ t.type == " " ? "Standard Drug" : t.type == "Esa" ? "ESA" : t.type }"
 
 = content_for :secondary_nav do
   %li

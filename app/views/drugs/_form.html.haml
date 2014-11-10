@@ -3,4 +3,4 @@
   = f.text_field :name
 %li
   = f.label :type, "Type"
-  = f.text_field :type
+  = f.select(:type, options_for_select([["Standard(Non-ESA, Non-Immunosuppressant)", " "], ["ESA", "Esa"], ["Immunosuppressant", "Immunosuppressant"]])) 
