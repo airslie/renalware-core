@@ -1,11 +1,12 @@
 %h1 Existing Drugs List
 
 - @drugs.each do |t|
-  
+
   %ul.no-bullet
     %li
-      %span= t.name
-      %span= "Type: #{ t.type == " " ? "Standard Drug" : t.type == "Esa" ? "ESA" : t.type }"
+      = t.name
+      Type: #{t.display_type}
+      = link_to "Edit", edit_drug_path(t.id)
 
 = content_for :secondary_nav do
   %li

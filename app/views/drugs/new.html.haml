@@ -5,9 +5,8 @@
 
 .row
   .large-6.columns
-    %ul.no-bullet
-      = form_for @drug, :method => :post do |f|
-        %ul.no-bullet
-          = render partial: "drugs/form", locals: { f: f }   
+    = form_for @drug, :method => :post, :url => drug_path(@drug) do |f|
+      %ul.no-bullet
+        = render partial: "drugs/form", locals: { f: f }   
 
-          = submit_tag "Save New Drug", class: "button tiny right"
+        = submit_tag "Save New Drug", class: "button tiny right"

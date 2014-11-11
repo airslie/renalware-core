@@ -1,0 +1,18 @@
+%h1 Edit a Drug
+
+= render partial: "shared/errors", locals: { model: @drug }
+
+.row
+  .large-6.columns
+    = form_for @drug, :as => :drug, :method => :put, :url => drug_path(@drug) do |f|
+      %ul.no-bullet
+
+        = render partial: "drugs/form", locals: { f: f }
+
+        = submit_tag "Update Drug", class: "button tiny right"
+
+
+= content_for :secondary_nav do
+  %li
+    = link_to "Cancel", drugs_path
+

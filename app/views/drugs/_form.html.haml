@@ -1,6 +1,6 @@
 %li
-  = f.label :name, "New Drug Name"
+  = f.label :name, "Drug Name"
   = f.text_field :name
 %li
   = f.label :type, "Type"
-  = f.select(:type, options_for_select([["Standard(Non-ESA, Non-Immunosuppressant)", " "], ["ESA", "Esa"], ["Immunosuppressant", "Immunosuppressant"]])) 
+  = f.select(:type, options_for_select([["Standard(Non-ESA, Non-Immunosuppressant)", nil], ["ESA", "Esa"], ["Immunosuppressant", "Immunosuppressant"]])) 
