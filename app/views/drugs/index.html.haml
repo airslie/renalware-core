@@ -7,6 +7,7 @@
       = t.name
       Type: #{t.display_type}
       = link_to "Edit", edit_drug_path(t.id)
+      = link_to "Delete", drug_path(t.id), id: "#{t.id}-drug", method: :delete, data: { confirm: "Are you sure you want to delete this drug?" }
 
 = content_for :secondary_nav do
   %li

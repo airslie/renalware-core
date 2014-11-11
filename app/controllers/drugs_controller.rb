@@ -32,6 +32,12 @@ class DrugsController < ApplicationController
     end
   end
 
+  def destroy
+    @drug = Drug.find(params[:id])
+    @drug.soft_delete!
+    redirect_to drugs_path, :notice => "You have successfully removed a drug."
+  end
+
   private
   def allowed_params
     params.require(:drug).permit(:name, :type, :deleted_at)
