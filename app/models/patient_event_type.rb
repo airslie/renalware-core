@@ -1,4 +1,5 @@
 class PatientEventType < ActiveRecord::Base
+  include Concerns::SoftDelete
 
   has_many :patient_event
 
