@@ -30,13 +30,16 @@
             %td{:data => { :heading => "User"}}
               / TODO
 
+    .g-center
+      = link_to "Add a Patient Event", new_patient_event_path, :class => 'button'
+
   .columns.large-6.small-12
 
 .row
   = content_for :secondary_nav do
-    %li
+    %dd
       = link_to "Back to Patient List", patients_path
-    %li
-      = link_to "Add a Patient Event", new_patient_event_path
+    %dd
+      = link_to "Patient Demographics", demographics_patient_path(@patient)
 
 
