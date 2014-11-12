@@ -3,28 +3,34 @@
 
   %h2= "#{@patient.forename} #{@patient.surname}"
 
-  %table.responsive
-    %caption
-      = link_to "All Patient Events", patient_events_path
+  .columns.large-6.small-12
+    %table.responsive
+      %caption
+        = link_to "All Patient Events", patient_events_path
 
-    %thead
-      %th
-        Added
-      %th
-        Event Type
-      %th
-        User
-      %th
-        Modal
-      %th
-        Description
-      %th
-        Time
-      %th
-        Staff Name
+      %thead
+        %th
+          Added
+        %th
+          Event Type
+        %th
+          Description
+        %th
+          User
 
-    %tbody
-      = render @patient_events
+      %tbody
+        - @patient_events.each do |event|
+          %tr
+            %td{:data => { :heading => "Added" }}
+              = event.created_at
+            %td{:data => { :heading => "Event Type"}}
+              = event.patient_event_type.name
+            %td{:data => { :heading => "Description"}}
+              = event.description
+            %td{:data => { :heading => "User"}}
+              / TODO
+
+  .columns.large-6.small-12
 
 .row
   = content_for :secondary_nav do
