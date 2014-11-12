@@ -33,3 +33,7 @@ Then(/^I should see the new patient in the Renal Patient List$/) do
   visit "/lists/patientlist.php"
   expect(page.has_content? "SMITH").to be true
 end
+
+Then(/^the patient should be created$/) do
+  expect(mysql_client.query("SELECT COUNT(*) FROM patientdata").count).to eq(1)
+end
