@@ -1,27 +1,22 @@
 .row
   %h1 Renal Patients
 
-.row
-  %dl.large-12.columns
-    .row
-      %dt.patient-list
-        %ul.no-bullet.row
-          %li.columns.large-2
-            Last Name
-          %li.columns.large-2
-            First Name
-          %li.columns.large-2
-            NHS Number
-          %li.columns.large-2
-            DoB
-          %li.columns.large-2  
-            View      
-          %li.columns.large-2
-            View
-      
-      %dd.row.columns.large-12
-        = render @patients   
+  %table.responsive
+    %caption Renal Patients
+    %thead
+      %tr
+        %th
+          Forename
+        %th
+          Surname
+        %th
+          NHS Number
+        %th.g-center{ :colspan => 2 }
+          Actions
+
+    %tbody
+      = render @patients
 
 = content_for :secondary_nav do
-  %li
+  %dd
     = link_to "Add a New Patient", new_patient_path

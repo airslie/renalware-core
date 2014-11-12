@@ -5,7 +5,7 @@
   %h3(class = "left") Patient Demographics
 
 .row
-  = field_set_tag do 
+  = field_set_tag do
     .large-4.columns
       %dl
         %dt NHS Number:
@@ -19,7 +19,7 @@
 
         %dt First Name:
         %dd= "#{@patient.forename}"
-    
+
     .large-4.columns
       %dl
         %dt Sex:
@@ -52,7 +52,7 @@
         %dd= "#{@patient.primary_esrf_centre}"
 
 .row
-  = field_set_tag do 
+  = field_set_tag do
     .large-6.columns
       %h5 Current Address
       = render @patient.current_address if @patient.current_address
@@ -63,7 +63,9 @@
       = render @patient.address_at_diagnosis if @patient.address_at_diagnosis
 
 = content_for :secondary_nav do
-  %li
-    = link_to "Back to patient list", patients_path
-  %li
+  %dd
+    = link_to "Patient list", patients_path
+  %dd
     = link_to "Edit Demographics", edit_patient_path(@patient)
+  %dd
+    = link_to "Clinical Summary", clinical_summary_patient_path(@patient)

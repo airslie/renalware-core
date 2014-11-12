@@ -13,7 +13,7 @@
         .large-6.columns
           = f.label :date_time, "Patient Event Date/Time"
           = f.datetime_select(:date_time, { start_year: (5.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
-        
+
           %li
             = f.label :user_id, "Entered by"
             = f.text_field :user_id
@@ -22,9 +22,9 @@
             = f.label :patient_event_type_id, "Patient Event Type"
             = f.collection_select(:patient_event_type_id, PatientEventType.all, :id, :name )
 
-          %li 
-            =link_to "Add a New Event Type", new_patient_event_type_path, class: "button tiny"      
-          
+          %li
+            =link_to "Add a New Event Type", new_patient_event_type_path, class: "button tiny"
+
         .large-6.columns
           %li
             = f.label :description, "Description"
@@ -37,5 +37,5 @@
             = submit_tag "Save Patient Event", class: "button tiny right"
 
 = content_for :secondary_nav do
-  %li
-    = link_to "Back to patient list", patients_path
+  %dd
+    = link_to "Patient list", patients_path

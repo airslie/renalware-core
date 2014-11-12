@@ -15,7 +15,7 @@ When(/^I complete the add a new patient form$/) do
   select "Male", from: "Sex"
 
   select "White", from: "Ethnicity"
-  
+
   within "#patient_dob_1i" do
     select '1960'
   end
@@ -25,7 +25,8 @@ When(/^I complete the add a new patient form$/) do
   within "#patient_dob_3i" do
     select '1'
   end
-  uncheck "Paediatric patient indicator"
+
+  uncheck "If under 18 years, is the recipient being treated in a paediatric unit?"
 
   within "#current_address" do
     @current_street_1 = Faker::Address.street_address
