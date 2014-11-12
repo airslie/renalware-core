@@ -1,0 +1,56 @@
+table {
+  width: 100%;
+}
+
+@media screen and (max-width: 719px) {
+  table.responsive {
+    display: block;
+
+    thead, tbody, th, td, tr , caption {
+      display: block;
+    }
+
+    td:before {
+      font-weight: bold;
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      width: 33%;
+      padding-right: 10px;
+      white-space: nowrap;
+      content: attr(data-heading);
+      float: left;
+    }
+
+    td:first-child {
+      background: #ccc;
+    }
+
+    td:nth-child(even) { background: #FCFCFC; }
+
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    tbody tr {
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    td {
+      position: relative;
+      padding: 6px 24px 24px 35%;
+      border-bottom: 0;
+    }
+
+    th {
+      padding: 12px;
+    }
+
+    th.g-center, td.g-center {
+      text-align: left;
+    }
+  }
+}

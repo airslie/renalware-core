@@ -1,0 +1,15 @@
+nav.sub-nav-container {
+  width: 100%;
+  background-color: #f2f2f2;
+  margin-bottom: 1rem;
+
+  .sub-nav {
+    padding: 10px 10px 10px 0;
+    margin: -0.25rem 0 0 1rem;
+
+    dt, dd {
+      margin: 0;
+      line-height: 21px;
+    }
+  }
+}

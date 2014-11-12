@@ -12,8 +12,12 @@
  *
  *= require_self
  *= require foundation_and_overrides
+ *= require globals
  *= require patients
  *= require patient_events
+ *= require tables
+ *= require navigation
+ *= require lists
  *= require errors
 
  */

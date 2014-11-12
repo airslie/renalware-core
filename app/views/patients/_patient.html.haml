@@ -1,7 +1,13 @@
-%ul.no-bullet
-  %li
-    %span= "#{patient.forename} #{patient.surname}, NHS No: #{patient.nhs_number}"
-    %span= link_to "Demographics", demographics_patient_path(patient.id)
-    %span= link_to "Clinical Summary", clinical_summary_patient_path(patient.id)
-    
+%tr
+  %td{ :data => { :heading => "Forename"}}
+    = patient.forename
+  %td{ :data => { :heading => "Surname"}}
+    = patient.surname
+  %td{ :data => { :heading => "NHS Number"}}
+    = patient.nhs_number
+  %td.g-center{ :data => { :heading => "Actions"}}
+    = link_to "Demographics", demographics_patient_path(patient)
+  %td.g-center
+    = link_to "Clinical Summary", clinical_summary_patient_path(patient)
+
 
