@@ -1,15 +1,17 @@
-%h1 Existing Patient Event Types
+%h1 All Patient Event Types
 
-- @patient_event_types.each do |t|
+.row
+  .small-12.large-6.columns
+    %ul.no-bullet.stripy-list
+      - @patient_event_types.each do |t|
+        %li.row
+          .small-4.large-8.columns
+            = t.name
+          .small-4.large-2.columns
+            = link_to "Edit", edit_patient_event_type_path(t.id)
+          .small-4.large-2.columns
+            = link_to "Delete", patient_event_type_path(t.id), id: "#{t.id}-pet", method: :delete, data: {confirm: "Are you sure you want to delete this option?"}
 
-  %ul.no-bullet
-    %li
-      = t.name
+  .small-12.large-6.columns
+    = link_to "New Patient Event Type", new_patient_event_type_path, :class => "button tiny"
 
-      = link_to "Edit", edit_patient_event_type_path(t.id)
-
-      = link_to "Delete", patient_event_type_path(t.id), id: "#{t.id}-pet", method: :delete, data: {confirm: "Are you sure you want to delete this option?"}
-
-= content_for :secondary_nav do
-  %dd
-    = link_to "Return to New Patient Event", new_patient_event_path

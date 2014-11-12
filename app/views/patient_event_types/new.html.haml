@@ -7,18 +7,14 @@
   %ul.no-bullet
 
     = form_for @patient_event_type, :method => :post do |f|
+      %fieldset
+        = render :partial => 'form', :locals => {:f => f}
 
-      %li
-        = f.label :name, "New Patient Event Type"
-        = f.text_field :name
-      %li
-        = submit_tag "Save New Patient Event Type", class: "button tiny right"
+        = submit_tag "Save", class: "button tiny right"
 
 
 = content_for :secondary_nav do
   %dd
-    = link_to "Back to Add New Patient Event", new_patient_event_path
-  %dd
-    = link_to "Existing Patient Event Types", patient_event_types_path
+    = link_to "Patient Event Types", patient_event_types_path
 
 

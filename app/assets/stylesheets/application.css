@@ -17,6 +17,7 @@
  *= require patient_events
  *= require tables
  *= require navigation
+ *= require lists
  *= require errors
 
  */

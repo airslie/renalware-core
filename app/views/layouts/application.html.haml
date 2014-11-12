@@ -24,7 +24,15 @@
             = link_to "Patients", patients_path
             %ul.dropdown
               %li
+                = link_to "All Patients", patients_path
+              %li
                 = link_to "Add a New Patient", new_patient_path
+          %li.has-dropdown
+            %a{href: "#"}
+              Admin
+            %ul.dropdown
+              %li
+                = link_to "Manage Patient Event Types", patient_event_types_path
 
     - if flash[:notice]
       .row
@@ -36,11 +44,12 @@
       .large-12.columns
         = yield
 
-    .row
-      %nav.sub-nav-container
-        %dl.sub-nav
-          %dt Navigate To:
-          = yield :secondary_nav
-        .g-cb
+    - if content_for? :secondary_nav
+      .row
+        %nav.sub-nav-container
+          %dl.sub-nav
+            %dt Navigate To:
+            = content_for :secondary_nav
+          .g-cb
 
     = javascript_include_tag "application"
