@@ -1,1 +1,15 @@
-%li= "Event Date/Time: #{patient_event.date_time}, Event Type: #{patient_event.patient_event_type.name}, Description: #{patient_event.description}"
+%tr
+  %td{:data => { :heading => "Added" }}
+    = patient_event.created_at
+  %td{:data => { :heading => "Event Type"}}
+    = patient_event.patient_event_type.name
+  %td{:data => { :heading => "User"}}
+    / TODO
+  %td{:data => { :heading => "Modal"}}
+    / TODO
+  %td{:data => { :heading => "Description"}}
+    = patient_event.description
+  %td{:data => { :heading => "Time"}}
+    = patient_event.date_time
+  %td{:data => { :heading => "Staff Name"}}
+    / TODO

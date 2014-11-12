@@ -7,7 +7,7 @@ When(/^they add a patient event$/) do
 end
 
 When(/^complete the patient event form$/) do
-  
+
   within "#patient_event_date_time_3i" do
     select '1'
   end
@@ -26,9 +26,9 @@ When(/^complete the patient event form$/) do
   end
 
   fill_in "Entered by", :with => "evaliant"
- 
+
   select "Telephone call", from: "Patient Event Type"
-  
+
   fill_in "Description", :with => "Spoke to Son"
   fill_in "Notes", :with => "Wants to arrange a home visit"
 
@@ -36,6 +36,10 @@ When(/^complete the patient event form$/) do
 end
 
 Then(/^they should see the new patient event on the clinical summary$/) do
+  %w(Telephone call Added Event Type User Modal Description Time Staff Name).each do |heading|
+    expect(page.has_content? heading).to be(true), "Expected #{heading} to be in the view"
+  end
+
   expect(page.has_content? "2011-01-01").to be true
   expect(page.has_content? "Telephone call").to be true
   expect(page.has_content? "11:30").to be true

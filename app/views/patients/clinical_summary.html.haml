@@ -3,13 +3,28 @@
 
   %h2= "#{@patient.forename} #{@patient.surname}"
 
-.row
-  = field_set_tag do
-    %legend
-      = link_to "Patient Events", patient_events_path
-    %ul.no-bullet
-      - @patient_events.each do |p|
-        = render partial: "patient_events/patient_event", locals: {patient_event: p }
+  %table.responsive
+    %caption
+      = link_to "All Patient Events", patient_events_path
+
+    %thead
+      %th
+        Added
+      %th
+        Event Type
+      %th
+        User
+      %th
+        Modal
+      %th
+        Description
+      %th
+        Time
+      %th
+        Staff Name
+
+    %tbody
+      = render @patient_events
 
 .row
   = content_for :secondary_nav do
