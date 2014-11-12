@@ -1,7 +1,7 @@
 .row
   %h1 Clinical Summary
 
-  %h2= "#{@patient.forename} #{@patient.surname}"
+  %h2= @patient.full_name
 
   .columns.large-6.small-12
     %table.responsive
@@ -31,7 +31,7 @@
               / TODO
 
     .g-center
-      = link_to "Add a Patient Event", new_patient_event_path, :class => 'button'
+      = link_to "Add New Event For #{@patient.full_name}", new_patient_event_path, :class => 'button'
 
   .columns.large-6.small-12
 
