@@ -1,5 +1,5 @@
 Feature: An admin soft deletes a drug in the drugs list
-@wip
+
   Scenario: An admin soft deletes a drug in the drugs list
     Given that I'm logged in
       And there are drugs in the database
