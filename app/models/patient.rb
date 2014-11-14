@@ -22,6 +22,6 @@ class Patient < ActiveRecord::Base
   enum sex: { not_known: 0, male: 1, female: 2, not_specified: 9 }
 
   def full_name
-    "#{forename} #{surname}"
+    "#{surname}, #{forename}"
   end
 end
