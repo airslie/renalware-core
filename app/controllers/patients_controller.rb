@@ -1,5 +1,5 @@
 class PatientsController < ApplicationController
-  before_action :load_patient, :only => [:clinical_summary, :medications, :demographics, :edit, :update] 
+  before_action :load_patient, :only => [:clinical_summary, :medications, :medications_index, :demographics, :edit, :update] 
 
   def clinical_summary
     @patient_events = PatientEvent.all
@@ -8,6 +8,10 @@ class PatientsController < ApplicationController
 
   def medications
     @patient.patient_medications.build(:medication_type => "Drug")
+  end
+
+  def medications_index
+    @patient_medications = PatientMedication.all
   end
 
   def new

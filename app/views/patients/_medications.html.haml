@@ -1,0 +1,25 @@
+%thead
+  %th
+    Medication
+  %th
+    Dose
+  %th
+    Route
+  %th
+    Frequency
+  %th
+    Prescribed On
+
+%tbody
+  - @patient_medications.each do |p|
+    %tr
+      %td{:data => { :heading => "Medication" }}
+        = p.medication.name
+      %td{:data => { :heading => "Dose"}}
+        = p.dose
+      %td{:data => { :heading => "Route"}}
+        = p.route
+      %td{:data => { :heading => "Frequency"}}
+        = p.frequency
+      %td{:data => { :heading => "Prescribed On"}}
+        = p.date

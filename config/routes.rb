@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       get :demographics
       get :clinical_summary
       get :medications
+      get :medications_index
     end
   end
 
