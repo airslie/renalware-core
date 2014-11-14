@@ -31,13 +31,6 @@ ActiveRecord::Schema.define(version: 20141107145615) do
     t.datetime "updated_at"
   end
 
-  create_table "drugs_patients", force: true do |t|
-    t.integer  "drug_id"
-    t.integer  "patient_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "ethnicities", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -59,6 +52,22 @@ ActiveRecord::Schema.define(version: 20141107145615) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "patient_event_type_id"
+  end
+
+  create_table "patient_medications", force: true do |t|
+    t.integer  "patient_id"
+    t.integer  "medication_id"
+    t.integer  "user_id"
+    t.string   "medication_type"
+    t.string   "dose"
+    t.string   "route"
+    t.string   "frequency"
+    t.text     "notes"
+    t.date     "date"
+    t.string   "provider"
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "patients", force: true do |t|
