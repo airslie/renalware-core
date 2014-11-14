@@ -2,7 +2,7 @@ class Patient < ActiveRecord::Base
 
   belongs_to :current_address, :class_name => "Address", :foreign_key => :current_address_id
   belongs_to :address_at_diagnosis, :class_name => "Address", :foreign_key => :address_at_diagnosis_id
-  belongs_to :ethnicity 
+  belongs_to :ethnicity
 
   has_many :patient_events
   has_many :patient_medications
@@ -21,4 +21,7 @@ class Patient < ActiveRecord::Base
 
   enum sex: { not_known: 0, male: 1, female: 2, not_specified: 9 }
 
+  def full_name
+    "#{forename} #{surname}"
+  end
 end

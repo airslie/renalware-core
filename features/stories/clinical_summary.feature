@@ -1,4 +1,3 @@
-
 Feature: A Doctor adds patient info on the patient's clinical summary page
 
 Background:
@@ -14,11 +13,12 @@ Scenario: Doctor adds a patient event
   When they add a patient event
     And complete the patient event form
   Then they should see the new patient event on the clinical summary
-#@wip
+
 Scenario: Doctor adds a problem
   When they add a problem
     And complete the problem form
   Then they should see the new problem on the clinical summary
+
 @wip
 Scenario: Doctor adds a medication for a patient
   When they add a medication

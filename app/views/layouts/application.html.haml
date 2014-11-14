@@ -15,14 +15,16 @@
     %nav.top-bar(data-topbar role = "navigation")
       %ul.title-area
         %li.name
-          %h1 
+          %h1
             = link_to "Renalwarev2", patients_path
- 
+
       %section.top-bar-section
         %ul.right
           %li.has-dropdown
             = link_to "Patients", patients_path
             %ul.dropdown
+              %li
+                = link_to "All Patients", patients_path
               %li
                 = link_to "Add a New Patient", new_patient_path
 
@@ -45,14 +47,17 @@
         .alert-box.info.round{:data => {:alert => nil}}
           = flash[:notice]
           <a href="#" class="close">&times;</a>
-      
+
     .row
       .large-12.columns
         = yield
 
-    .row
-      .large-12.columns
-        %ul.sub-nav
-          = yield :secondary_nav
+    - if content_for? :secondary_nav
+      .row
+        %nav.sub-nav-container
+          %dl.sub-nav
+            %dt Navigate To:
+            = content_for :secondary_nav
+          .g-cb
 
     = javascript_include_tag "application"

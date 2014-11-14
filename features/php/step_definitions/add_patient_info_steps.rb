@@ -2,6 +2,16 @@ Given(/^there is a patient$/) do
   mysql_client.query File.read('test/fixtures/patient.sql')
 end
 
+Given(/^there are ethnicities in the database$/) do
+  File.read('test/fixtures/ethnicities.sql').each_line do |sql|
+    mysql_client.query sql
+  end
+end
+
+Given(/^there are existing patient event types in the database$/) do
+  # Not needed in PHP - hard coded in the view
+end
+
 Given(/^they are on a patient's clinical summary$/) do
    visit '/pat/patient.php?vw=clinsumm&zid=124502'
 end
@@ -25,6 +35,9 @@ end
 
 Then(/^they should see the new patient event on the clinical summary$/) do
   expect(page.has_content? "Home visit").to be true
+  %w(added enc date user modal description time staffname).each do |heading|
+    expect(page.has_content? heading).to be(true), "Expected #{heading} to be in the view"
+  end
 end
 
 When(/^they add a problem$/) do

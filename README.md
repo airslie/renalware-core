@@ -59,7 +59,6 @@ TESTS
 
 Run all PHP tests:
 
-> cucumber
 > cucumber -p php
 
 Run all PHP @wip tests
@@ -68,7 +67,7 @@ Run all PHP @wip tests
 
 Run all Ruby tests
 
-> spring cucumber -p ruby
+> spring cucumber
 
 Run all Ruby @wip tests
 

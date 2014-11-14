@@ -1,15 +1,39 @@
 .row
   %h1 Clinical Summary
 
-  %h2= "#{@patient.forename} #{@patient.surname}"
+  %h2= @patient.full_name
 
-.row
-  = field_set_tag do
-    %legend
-      = link_to "Patient Events", patient_events_path
-    %ul.no-bullet
-      - @patient_events.each do |p|
-        = render partial: "patient_events/patient_event", locals: {patient_event: p }
+  .columns.large-6.small-12
+    %table.responsive
+      %caption
+        = link_to "All Patient Events", patient_events_path
+
+      %thead
+        %th
+          Added
+        %th
+          Event Type
+        %th
+          Description
+        %th
+          User
+
+      %tbody
+        - @patient_events.each do |event|
+          %tr
+            %td{:data => { :heading => "Added" }}
+              = event.created_at
+            %td{:data => { :heading => "Event Type"}}
+              = event.patient_event_type.name
+            %td{:data => { :heading => "Description"}}
+              = event.description
+            %td{:data => { :heading => "User"}}
+              / TODO
+
+    .g-center
+      = link_to "Add New Event For #{@patient.full_name}", new_patient_event_path, :class => 'button'
+
+  .columns.large-6.small-12
 
 .row
   = field_set_tag do
@@ -21,11 +45,12 @@
 
 .row
   = content_for :secondary_nav do
-    %li
+
+    %dd
       = link_to "Back to Patient List", patients_path
-    %li
+    %dd
       = link_to "Add a Patient Event", new_patient_event_path
-    %li
+    %dd
       = link_to "Add a Medication", medications_patient_path(@patient)
 
 
