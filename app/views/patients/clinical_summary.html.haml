@@ -1,9 +1,7 @@
 .row
-  %h1 Clinical Summary
+  %h1= "Clinical Summary for #{@patient.full_name}"
 
-  %h2= @patient.full_name
-
-  .columns.large-6.small-12
+  .columns.large-12.small-12
     %table.responsive
       %caption
         = link_to "All Patient Events", patient_events_path
@@ -31,17 +29,41 @@
               / TODO
 
     .g-center
-      = link_to "Add New Event For #{@patient.full_name}", new_patient_event_path, :class => 'button'
+      = link_to "Add New Event For #{@patient.full_name}", new_patient_event_path, :class => 'button tiny'
 
-  .columns.large-6.small-12
+.columns.large-12.small-12
+  %table.responsive
+    %caption
+      = link_to "All Patient Medication ", "#"
 
-.row
-  = field_set_tag do
-    %legend
-      = link_to "Patient Medications", "#"
-    %ul.no-bullet.cs_medications
+    %thead
+      %th
+        Medication
+      %th
+        Dose
+      %th
+        Route
+      %th
+        frequency
+      %th
+        Prescribed On
+
+    %tbody
       - @patient_medications.each do |p|
-        %li= "#{p.medication.name}, #{p.dose}, #{p.route}, #{p.frequency}, #{p.date}"
+        %tr
+          %td{:data => { :heading => "Medication" }}
+            = p.medication.name
+          %td{:data => { :heading => "Dose"}}
+            = p.dose
+          %td{:data => { :heading => "Route"}}
+            = p.route
+          %td{:data => { :heading => "Frequency"}}
+            = p.frequency
+          %td{:data => { :heading => "Prescribed On"}}
+            = p.date
+          
+  .g-center
+    = link_to "Add new medication for #{@patient.full_name}", medications_patient_path(@patient), :class => 'button tiny'
 
 .row
   = content_for :secondary_nav do
