@@ -1,8 +1,13 @@
 class PatientsController < ApplicationController
+  before_action :load_patient, :only => [:clinical_summary, :medications, :demographics, :edit, :update] 
 
   def clinical_summary
-    @patient = Patient.find(params[:id])
     @patient_events = PatientEvent.all
+    @patient_medications = PatientMedication.all
+  end
+
+  def medications
+    @patient.patient_medications.build(:medication_type => "Drug")
   end
 
   def new
@@ -22,18 +27,9 @@ class PatientsController < ApplicationController
     @patients = Patient.all
   end
 
-  def demographics
-    @patient = Patient.find(params[:id])
-  end
-
-  def edit
-    @patient = Patient.find(params[:id])
-  end
-
   def update
-    @patient = Patient.find(params[:id])
     @patient.update(allowed_params)
-    redirect_to demographics_patient_path(@patient)
+    redirect_to clinical_summary_patient_path(@patient)
   end
 
   private
@@ -42,7 +38,13 @@ class PatientsController < ApplicationController
       :forename, :sex, :ethnicity_id, :dob, :paediatric_patient_indicator,
       :gp_practice_code, :pct_org_code, :hosp_centre_code, :primary_esrf_centre,
       :current_address_attributes => [:street_1, :street_2, :county, :city, :postcode],
-      :address_at_diagnosis_attributes => [:street_1, :street_2, :county, :city, :postcode])
+      :address_at_diagnosis_attributes => [:street_1, :street_2, :county, :city, :postcode],
+      :patient_medications_attributes => [:id, :medication_id, :medication_type,:dose, :route, 
+      :frequency, :notes, :date, :provider])
+  end
+
+  def load_patient
+    @patient = Patient.find(params[:id])
   end
 
 end

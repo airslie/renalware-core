@@ -12,10 +12,21 @@
         = render partial: "patient_events/patient_event", locals: {patient_event: p }
 
 .row
+  = field_set_tag do
+    %legend
+      = link_to "Patient Medications", "#"
+    %ul.no-bullet.cs_medications
+      - @patient_medications.each do |p|
+        %li= "#{p.medication.name}, #{p.dose}, #{p.route}, #{p.frequency}, #{p.date}"
+
+.row
   = content_for :secondary_nav do
     %li
       = link_to "Back to Patient List", patients_path
     %li
       = link_to "Add a Patient Event", new_patient_event_path
+    %li
+      = link_to "Add a Medication", medications_patient_path(@patient)
+
 
 

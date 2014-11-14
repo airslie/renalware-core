@@ -1,0 +1,37 @@
+%h1 Patient Medications
+
+= form_for @patient do |f| 
+
+  = f.fields_for :patient_medications do |pm|
+    - if pm.object.new_record?
+      %h4 Add a new medication
+
+    = pm.text_field :id
+
+    = pm.hidden_field :patient_id
+
+    = pm.hidden_field :medication_type 
+    
+    = pm.label :medication_id, "Select Drug"
+    = pm.collection_select :medication_id, Drug.all, :id, :name
+
+    = pm.label :dose
+    = pm.text_field :dose
+
+    = pm.label :route, "Route (PO/IV/SC/IM)"
+    = pm.text_field :route
+
+    = pm.label :frequency, "Frequency & Duration"
+    = pm.text_field :frequency
+
+    = pm.label :notes
+    = pm.text_area :notes, :cols => 50, :rows => 6
+
+    = pm.label :date, "Prescribed On"
+    = pm.date_select(:date, {start_year: (120.years.ago).year, end_year: Time.now.year , order: [:day, :month, :year]}, class: "date")
+
+    = pm.label :provider
+    = pm.text_field :provider
+
+  = f.submit "Save Medication", :class => "button tiny right"
+      
