@@ -28,9 +28,6 @@
             %td{:data => { :heading => "User"}}
               / TODO
 
-    .g-center
-      = link_to "Add New Event For #{@patient.full_name}", new_patient_event_path, :class => 'button tiny'
-
 .columns.large-12.small-12
   %table.responsive
     %caption
@@ -62,18 +59,15 @@
           %td{:data => { :heading => "Prescribed On"}}
             = p.date
           
-  .g-center
-    = link_to "Add new medication for #{@patient.full_name}", medications_patient_path(@patient), :class => 'button tiny'
-
 .row
   = content_for :secondary_nav do
 
     %dd
       = link_to "Back to Patient List", patients_path
     %dd
-      = link_to "Add a Patient Event", new_patient_event_path
+      = link_to "Add a Patient Event for #{@patient.full_name}", new_patient_event_path
     %dd
-      = link_to "Add a Medication", medications_patient_path(@patient)
+      = link_to "Add a Medication #{@patient.full_name}", medications_patient_path(@patient)
 
 
 
