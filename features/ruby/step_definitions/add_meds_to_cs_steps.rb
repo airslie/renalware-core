@@ -2,8 +2,9 @@ When(/^they add a medication$/) do
   visit medications_patient_path(@patient.id)
 end
 
-When(/^complete the medication form$/) do
-  select "I am a drug", :from => "Select Drug"
+When(/^complete the medication form$/) do 
+  select "Standard Drug", :from => "Medication Type"
+  select "Red", :from => "Select Drug"
   fill_in "Dose", :with => "10mg"
   fill_in "Route (PO/IV/SC/IM)", :with => "PO"
   fill_in "Frequency & Duration", :with => "Once daily"
@@ -21,7 +22,8 @@ When(/^complete the medication form$/) do
 end
 
 Then(/^they should see the new medication on the clinical summary$/) do
-  expect(page.has_content? "I am a drug").to be true
+  expect(page.has_content? "").to be true
+  expect(page.has_content? "Red").to be true
   expect(page.has_content? "10mg").to be true
   expect(page.has_content? "PO").to be true
   expect(page.has_content? "Once daily").to be true

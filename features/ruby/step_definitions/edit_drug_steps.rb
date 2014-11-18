@@ -1,5 +1,6 @@
 Given(/^there are drugs in the database$/) do
-  @drug = Drug.create!(:name => "I am a drug", :type => "Esa")
+  @drugs = [["Red", nil], ["Blue", "Esa"], ["Green", "Immunosuppressant"]]
+  @drugs.map! {|d| @drug = Drug.create!(:name => d[0], :type => d[1])}
 end
 
 Given(/^that I choose to edit a drug$/) do
