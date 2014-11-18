@@ -6,6 +6,11 @@ en:
       female: Female
       not_specified: Not Specified
 
+    provider:
+      gp: GP
+      hospital: Hospital
+      home_delivery: Home Delivery
+
   helpers:
     label:
       patient:
