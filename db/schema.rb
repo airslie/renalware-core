@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20141107145615) do
     t.string   "frequency"
     t.text     "notes"
     t.date     "date"
-    t.string   "provider"
+    t.integer  "provider"
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
