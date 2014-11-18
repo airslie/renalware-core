@@ -6,7 +6,7 @@ class Patient < ActiveRecord::Base
 
   has_many :patient_events
   has_many :patient_medications
-  has_many :drugs, :through => :patient_medications, :source => :medication, :source_type => "Drug"
+  has_many :drugs, :through => :patient_medications, :source => :medication, :source_type => "Esa"
 
   accepts_nested_attributes_for :current_address
   accepts_nested_attributes_for :address_at_diagnosis
@@ -20,7 +20,7 @@ class Patient < ActiveRecord::Base
   validates :dob, presence: true
 
   enum sex: { not_known: 0, male: 1, female: 2, not_specified: 9 }
-
+  
   def full_name
     "#{surname}, #{forename}"
   end

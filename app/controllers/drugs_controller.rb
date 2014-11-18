@@ -14,7 +14,11 @@ class DrugsController < ApplicationController
   end
 
   def index
-    @drugs = Drug.all
+    @drugs = Drug.where(:type => params[:medication_type])
+    respond_to do |format|
+      format.html
+      format.json { render :json => @drugs.as_json(:only => [:id, :name]) }
+    end
   end
 
   def edit
@@ -23,9 +27,7 @@ class DrugsController < ApplicationController
 
   def update
     @drug = Drug.find(params[:id])
-    #binding.pry
     if @drug.update(allowed_params)
-
       redirect_to drugs_path, :notice => "You have successfully updated a drug"
     else
       render :edit

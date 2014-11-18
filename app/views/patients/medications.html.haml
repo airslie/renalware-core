@@ -1,37 +1,49 @@
 %h1 Patient Medications
 
-= form_for @patient do |f| 
+= form_tag medications_patient_path(@patient), :method => :get do
+  = label_tag :medication_type, "Medication Type"
+  = select_tag :medication_type, options_for_select([["Standard Drug", nil], ["ESA", "Esa"], ["Immunosuppressant", "Immunosuppressant"]], params[:medication_type])
 
-  = f.fields_for :patient_medications do |pm|
-    - if pm.object.new_record?
-      %h4 Add a new medication
+= form_for @patient do |f|
 
-    = pm.text_field :id
+  = f.fields_for :patient_medications, @patient_medication do |pm|
+    / - if pm.object.new_record?
+    /   %h5 Add a new medication
 
-    = pm.hidden_field :patient_id
+    #med_form
 
-    = pm.hidden_field :medication_type 
-    
-    = pm.label :medication_id, "Select Drug"
-    = pm.collection_select :medication_id, Drug.all, :id, :name
+      = pm.hidden_field :id
 
-    = pm.label :dose
-    = pm.text_field :dose
+      = pm.hidden_field :patient_id
 
-    = pm.label :route, "Route (PO/IV/SC/IM)"
-    = pm.text_field :route
+      = pm.hidden_field :medication_type
 
-    = pm.label :frequency, "Frequency & Duration"
-    = pm.text_field :frequency
+      = pm.label :medication_id, "Select Drug"
+      = pm.collection_select :medication_id, @drugs, :id, :name
 
-    = pm.label :notes
-    = pm.text_area :notes, :cols => 50, :rows => 6
+      = pm.label :dose
+      = pm.text_field :dose
 
-    = pm.label :date, "Prescribed On"
-    = pm.date_select(:date, {start_year: (120.years.ago).year, end_year: Time.now.year , order: [:day, :month, :year]}, class: "date")
+      = pm.label :route, "Route (PO/IV/SC/IM)"
+      = pm.text_field :route
 
-    = pm.label :provider
-    = pm.text_field :provider
+      = pm.label :frequency, "Frequency & Duration"
+      = pm.text_field :frequency
+
+      = pm.label :notes
+      = pm.text_area :notes, :cols => 50, :rows => 6
+
+      = pm.label :date, "Prescribed On"
+      = pm.date_select(:date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "date")
+
+      = pm.label :provider
+
+      - PatientMedication.providers.keys.map do |p|
+        %ul.no-bullet.provider
+
+          %li
+            = pm.radio_button :provider, p
+          %li
+            = pm.label :provider, I18n.t("enums.provider.#{p}")
 
   = f.submit "Save Medication", :class => "button tiny right"
-      

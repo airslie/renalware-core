@@ -1,5 +1,7 @@
 %thead
   %th
+    Type
+  %th
     Medication
   %th
     Dose
@@ -13,6 +15,8 @@
 %tbody
   - @patient_medications.each do |p|
     %tr
+      %td{:data => { :heading => "Type" }}
+        = p.medication.type  
       %td{:data => { :heading => "Medication" }}
         = p.medication.name
       %td{:data => { :heading => "Dose"}}

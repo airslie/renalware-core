@@ -31,3 +31,12 @@ select.dob {
 .patient-list {
   border-bottom: 1px solid #DDDDDD;
 }
+
+ul.provider {
+  display: inline-block;
+  padding-right: 2em;
+}
+
+.provider>li {
+  display: inline-block;
+}
