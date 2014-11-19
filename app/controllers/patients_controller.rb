@@ -1,5 +1,6 @@
 class PatientsController < ApplicationController
-  before_action :load_patient, :only => [:clinical_summary, :medications, :medications_index, :demographics, :edit, :update]
+  before_action :load_patient, :only => [:clinical_summary, :medications, 
+    :medications_index, :demographics, :edit, :update]
 
   def clinical_summary
     @patient_events = PatientEvent.all
@@ -46,7 +47,7 @@ class PatientsController < ApplicationController
       :current_address_attributes => [:street_1, :street_2, :county, :city, :postcode],
       :address_at_diagnosis_attributes => [:street_1, :street_2, :county, :city, :postcode],
       :patient_medications_attributes => [:id, :medication_id, :medication_type, :dose, :route,
-      :frequency, :notes, :date, :provider])
+      :frequency, :notes, :date, :provider, :_destroy])
   end
 
   def load_patient

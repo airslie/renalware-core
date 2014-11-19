@@ -6,9 +6,10 @@
 
 = form_for @patient do |f|
 
-  = f.fields_for :patient_medications, @patient_medication do |pm|
-    / - if pm.object.new_record?
-    /   %h5 Add a new medication
+  / = f.fields_for :patient_medications, @patient_medication do |pm|
+  = f.fields_for :patient_medications do |pm|
+    - if pm.object.new_record?
+      %h5 Add a new medication
 
     #med_form
 
@@ -45,5 +46,8 @@
             = pm.radio_button :provider, p
           %li
             = pm.label :provider, I18n.t("enums.provider.#{p}")
+
+      = pm.check_box :_destroy
+      = pm.label :_destroy, "Terminate?"
 
   = f.submit "Save Medication", :class => "button tiny right"

@@ -10,7 +10,7 @@ class Patient < ActiveRecord::Base
 
   accepts_nested_attributes_for :current_address
   accepts_nested_attributes_for :address_at_diagnosis
-  accepts_nested_attributes_for :patient_medications
+  accepts_nested_attributes_for :patient_medications, allow_destroy: true
 
   validates :nhs_number, presence: true, length: { minimum: 10, maximum: 10 }
   validates :surname, presence: true
