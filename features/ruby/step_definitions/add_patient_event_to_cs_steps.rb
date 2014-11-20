@@ -3,7 +3,7 @@ Given(/^they are on a patient's clinical summary$/) do
 end
 
 When(/^they add a patient event$/) do
-  click_on "Add New Event For #{@patient.full_name}"
+  click_on "Add a Patient Event for #{@patient.full_name}"
 end
 
 When(/^complete the patient event form$/) do
