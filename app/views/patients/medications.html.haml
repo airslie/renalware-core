@@ -1,26 +1,23 @@
 %h1 Patient Medications
 
-= form_tag medications_patient_path(@patient), :method => :get do
-  = label_tag :medication_type, "Medication Type"
-  = select_tag :medication_type, options_for_select([["Standard Drug", nil], ["ESA", "Esa"], ["Immunosuppressant", "Immunosuppressant"]], params[:medication_type])
-
 = form_for @patient do |f|
 
-  / = f.fields_for :patient_medications, @patient_medication do |pm|
   = f.fields_for :patient_medications do |pm|
+
     - if pm.object.new_record?
       %h5 Add a new medication
 
-    #med_form
+    .med-form
 
       = pm.hidden_field :id
 
       = pm.hidden_field :patient_id
 
-      = pm.hidden_field :medication_type
+      = pm.label :medication_type, "Medication Type"
+      = pm.select :medication_type, options_for_select([["Standard Drug", nil], ["ESA", "Esa"], ["Immunosuppressant", "Immunosuppressant"]], params[:medication_type]), {}, :class => "medication-type-select"
 
       = pm.label :medication_id, "Select Drug"
-      = pm.collection_select :medication_id, @drugs, :id, :name
+      = pm.collection_select :medication_id, @drugs, :id, :name, {}, :class => "drug-select"
 
       = pm.label :dose
       = pm.text_field :dose
@@ -43,7 +40,7 @@
         %ul.no-bullet.provider
 
           %li
-            = pm.radio_button :provider, p
+            = pm.radio_button :provider, p, :class => "provider-#{p}"
           %li
             = pm.label :provider, I18n.t("enums.provider.#{p}")
 
