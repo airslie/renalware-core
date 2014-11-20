@@ -1,6 +1,5 @@
 Given(/^they are on a patient's clinical summary$/) do
   visit clinical_summary_patient_path(@patient)
-  save_and_open_page
 end
 
 When(/^they add a patient event$/) do

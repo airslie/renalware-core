@@ -12,7 +12,8 @@ end
 
 When(/^they terminate a medication$/) do
   visit medications_patient_path(@patient)
-  check('Terminate?')
+  find(:css, "#patient_patient_medications_attributes_0__destroy[value='1']").set(true)
+  click_on "Save Medication"
 end
 
 Then(/^they should no longer see this medication in their clinical summary$/) do
