@@ -4,7 +4,7 @@ Given(/^there are ethnicities in the database$/) do
 end
 
 Given(/^I have a patient in the database$/) do
-  @patient = Patient.create!(
+  @patient = Patient.find_or_create_by!(
     :nhs_number => "1000124502",
     :local_patient_id => "Z999999",
     :surname => "RABBIT",

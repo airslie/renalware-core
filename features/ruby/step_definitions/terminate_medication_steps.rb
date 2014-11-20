@@ -12,6 +12,7 @@ end
 
 When(/^they terminate a medication$/) do
   visit medications_patient_path(@patient)
+  check('Terminate?')
 end
 
 Then(/^they should no longer see this medication in their clinical summary$/) do
