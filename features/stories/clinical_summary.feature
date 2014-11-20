@@ -19,8 +19,14 @@ Scenario: Doctor adds a problem
     And complete the problem form
   Then they should see the new problem on the clinical summary
 
-@wip
+@javascript 
 Scenario: Doctor adds a medication for a patient
   When they add a medication
     And complete the medication form
   Then they should see the new medication on the clinical summary
+@wip
+Scenario: Doctor terminates a medication for a patient
+  Given a patient has a medication
+  When they terminate a medication
+  Then they should no longer see this medication in their clinical summary 
+    # And should see this terminated medication in their medications history
