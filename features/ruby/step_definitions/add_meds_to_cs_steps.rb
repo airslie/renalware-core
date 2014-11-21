@@ -6,7 +6,7 @@ When(/^complete the medication form$/) do
   select "ESA", :from => "Medication Type"
   select "Blue", :from => "Select Drug"
   fill_in "Dose", :with => "10mg"
-  fill_in "Route (PO/IV/SC/IM)", :with => "PO"
+  select "PO", :from =>  "Route"
   fill_in "Frequency & Duration", :with => "Once daily"
   fill_in "Notes", :with => "Review in six weeks"
   within "#patient_patient_medications_attributes_0_date_3i" do
@@ -18,6 +18,9 @@ When(/^complete the medication form$/) do
   within "#patient_patient_medications_attributes_0_date_1i" do
     select '2013'
   end
+
+  find("#patient_patient_medications_attributes_0_provider_gp").set(true)
+
   click_on "Save Medication"  
 end
 
