@@ -9,14 +9,14 @@ $(document).ready(function(){
     var med_form = select_box.closest('.med-form');
     
     switch (selected_medication_type) {
-      case "":
+      case "Drug":
         med_form.find('.provider-gp').prop("checked", true);
       break;
       case "Esa":
         med_form.find('.provider-hospital').prop("checked", true);
       break;
       case "Immunosuppressant":
-        med_form.find('.provider-home-delivery').prop("checked", true);
+        med_form.find('.provider-gp').prop("checked", true);
       break;
     }
 

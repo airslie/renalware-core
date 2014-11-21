@@ -9,7 +9,7 @@ class PatientsController < ApplicationController
 
   def medications
     @patient_medication = @patient.patient_medications.build(:provider => :gp,
-      :medication_type => params[:medication_type] || "Drug")
+      :medication_type => "Drug")
     @drugs = Drug.standard
   end
 
