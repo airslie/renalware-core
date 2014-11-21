@@ -14,10 +14,11 @@ class DrugsController < ApplicationController
   end
 
   def index
-    @drugs = Drug.where(:type => params[:medication_type])
+    @drugs = Drug.all
+    @drugs_select = Drug.where(:type => params[:medication_type])
     respond_to do |format|
       format.html
-      format.json { render :json => @drugs.as_json(:only => [:id, :name]) }
+      format.json { render :json => @drugs_select.as_json(:only => [:id, :name]) }
     end
   end
 
