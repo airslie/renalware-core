@@ -34,6 +34,10 @@ $(document).ready(function(){
           var option_html = _.template("<option value=<%=id%>><%=name%></option>")({ id: drug_id, name: drug_name });
           drug_select_box.append(option_html);
         }
+      },
+      error: function(json) {
+        console.log("Drug list failed to load");
+        console.log(json);
       }
     });
 
