@@ -10,7 +10,8 @@ class Patient < ActiveRecord::Base
 
   accepts_nested_attributes_for :current_address
   accepts_nested_attributes_for :address_at_diagnosis
-  accepts_nested_attributes_for :patient_medications, allow_destroy: true
+  accepts_nested_attributes_for :patient_medications, allow_destroy: true,
+  :reject_if => proc { |attrs| attrs[:dose].blank? && attrs[:notes].blank? && attrs[:frequency].blank? }
 
   validates :nhs_number, presence: true, length: { minimum: 10, maximum: 10 }
   validates :surname, presence: true
@@ -20,7 +21,7 @@ class Patient < ActiveRecord::Base
   validates :dob, presence: true
 
   enum sex: { not_known: 0, male: 1, female: 2, not_specified: 9 }
-  
+
   def full_name
     "#{surname}, #{forename}"
   end
