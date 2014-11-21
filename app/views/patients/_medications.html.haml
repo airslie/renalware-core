@@ -22,7 +22,7 @@
       %td{:data => { :heading => "Dose"}}
         = p.dose
       %td{:data => { :heading => "Route"}}
-        = p.route
+        = I18n.t("enums.route.#{p.route}")
       %td{:data => { :heading => "Frequency"}}
         = p.frequency
       %td{:data => { :heading => "Prescribed On"}}

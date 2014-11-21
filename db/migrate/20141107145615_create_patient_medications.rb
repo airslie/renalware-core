@@ -6,7 +6,7 @@ class CreatePatientMedications < ActiveRecord::Migration
       t.integer :user_id
       t.string :medication_type 
       t.string :dose
-      t.string :route
+      t.integer :route
       t.string :frequency
       t.text :notes
       t.date :date

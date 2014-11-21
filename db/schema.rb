@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 20141107145615) do
     t.integer  "user_id"
     t.string   "medication_type"
     t.string   "dose"
-    t.string   "route"
+    t.integer  "route"
     t.string   "frequency"
     t.text     "notes"
     t.date     "date"

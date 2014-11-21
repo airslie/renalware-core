@@ -6,6 +6,13 @@ en:
       female: Female
       not_specified: Not Specified
 
+    route:
+      po: PO
+      iv: IV 
+      sc: SC
+      im: IM  
+      other: Other(Please specify in notes)  
+
     provider:
       gp: GP
       hospital: Hospital
