@@ -14,10 +14,10 @@
       = pm.hidden_field :patient_id
 
       = pm.label :medication_type, "Medication Type"
-      = pm.select :medication_type, options_for_select([["Standard Drug", nil], ["ESA", "Esa"], ["Immunosuppressant", "Immunosuppressant"]], params[:medication_type]), {}, :class => "medication-type-select"
+      = pm.select :medication_type, options_for_select([["Standard Drug", nil], ["ESA", "Esa"], ["Immunosuppressant", "Immunosuppressant"]], pm.object.medication_type), {}, :class => "medication-type-select"
 
       = pm.label :medication_id, "Select Drug"
-      = pm.collection_select :medication_id, @drugs, :id, :name, {}, :class => "drug-select"
+      = pm.collection_select :medication_id, Drug.where(:type => pm.object.medication_type), :id, :name, {}, :class => "drug-select"
 
       = pm.label :dose
       = pm.text_field :dose
