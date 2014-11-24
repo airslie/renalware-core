@@ -25,5 +25,6 @@
       = render @patient_events
 
 = content_for :secondary_nav do
+
   %dd
-    = link_to "Patient list", patients_path
+    = link_to "Add a Patient Event for #{@patient.full_name}", new_patient_patient_event_path(@patient)
