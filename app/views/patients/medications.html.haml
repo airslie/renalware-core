@@ -39,3 +39,10 @@
           = render :partial => 'patient_medication_fields', :locals => { :pm => pm }
 
   = f.submit "Save Medication", :class => "button tiny right"
+
+.row
+  = content_for :secondary_nav do
+  
+    %dd
+      = link_to "Clinical Summary for #{@patient.full_name}", clinical_summary_patient_path(@patient.id)
+  
