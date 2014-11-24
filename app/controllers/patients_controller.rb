@@ -1,5 +1,5 @@
 class PatientsController < ApplicationController
-  before_action :load_patient, :only => [:clinical_summary, :medications, 
+  before_action :load_patient, :only => [:clinical_summary, :medications,
     :medications_index, :demographics, :edit, :update]
 
   def clinical_summary
@@ -8,7 +8,7 @@ class PatientsController < ApplicationController
   end
 
   def medications
-    @patient_medication = @patient.patient_medications.build(:provider => :gp,
+    @patient.patient_medications.build(:provider => :gp,
       :medication_type => "Drug")
     @drugs = Drug.standard
   end
@@ -36,7 +36,7 @@ class PatientsController < ApplicationController
 
   def update
     @patient.update(allowed_params)
-    redirect_to clinical_summary_patient_path(@patient)
+    redirect_to params[:redirect_url] || clinical_summary_patient_path(@patient)
   end
 
   private

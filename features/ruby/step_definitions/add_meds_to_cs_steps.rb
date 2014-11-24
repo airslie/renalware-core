@@ -1,5 +1,6 @@
 When(/^they add a medication$/) do
   visit medications_patient_path(@patient.id)
+  click_link "Add a new medication"
 end
 
 When(/^complete the medication form$/) do
@@ -21,15 +22,14 @@ When(/^complete the medication form$/) do
 
   find("#patient_patient_medications_attributes_0_provider_gp").set(true)
 
-  click_on "Save Medication"  
+  click_on "Save Medication"
 end
 
 Then(/^they should see the new medication on the clinical summary$/) do
-  expect(page.has_content? "Esa").to be true
+  expect(page.has_css? ".drug-esa").to be true
   expect(page.has_content? "Blue").to be true
   expect(page.has_content? "10mg").to be true
   expect(page.has_content? "PO").to be true
   expect(page.has_content? "Once daily").to be true
   expect(page.has_content? "2013-01-01").to be true
 end
-     

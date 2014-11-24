@@ -1,55 +1,41 @@
 %h1 Patient Medications
 
 = form_for @patient do |f|
+  = hidden_field_tag :redirect_url, medications_patient_path(@patient)
 
   = f.fields_for :patient_medications do |pm|
 
     - if pm.object.new_record?
-      %h5 Add a new medication
+      #new-form
+        %a.button.tiny.toggle{href: '#new-form'}
+          Add a new medication
 
-    %dl.accordion{data: {accordion: true} }
-      %dd.accordion-navigation.med-form
-        %a{href: "#edit-meds-#{pm.object.id}"}        
-          = pm.label :medication_id, Drug.where(:name => pm.object.medication_id), :class => "drug-select"
-      
-        .med-form.content{:id => "edit-meds-#{pm.object.id}"}
+        .g-hidden
+          %a.button.tiny.close-new-form{href: '#'}
+            Close
 
-          = pm.hidden_field :id
+          %fieldset
+            %legend
+              Add a new medication
 
-          = pm.hidden_field :patient_id
+            = render :partial => 'patient_medication_fields', :locals => { :pm => pm }
 
-          = pm.label :medication_type, "Medication Type"
-          = pm.select :medication_type, drug_select_options(pm.object.medication_type), {}, :class => "medication-type-select"
-
-          = pm.label :medication_id, "Select Drug"
-          = pm.collection_select :medication_id, drugs_for(pm.object.medication_type), :id, :name, {}, :class => "drug-select"
-
-          = pm.label :dose
-          = pm.text_field :dose
-
-          = pm.label :route, "Route"
-          = pm.select :route, route_options
-
-          = pm.label :frequency, "Frequency & Duration"
-          = pm.text_field :frequency
-
-          = pm.label :notes
-          = pm.text_area :notes, :cols => 50, :rows => 6
-
-          = pm.label :date, "Prescribed On"
-          = pm.date_select(:date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
-
-          = pm.label :provider
-
-          - PatientMedication.providers.keys.map do |p|
-            %ul.no-bullet.provider
-
+    - else
+      %dl.accordion{data: {accordion: true} }
+        %dd.accordion-navigation.med-form{:class => "drug-#{pm.object.medication_type.downcase}"}
+          %a{href: "#edit-meds-#{pm.object.id}"}
+            %ul.no-bullet
               %li
-                = pm.radio_button :provider, p, :class => "provider-#{p}"
+                = pm.object.medication.name
               %li
-                = pm.label :provider, I18n.t("enums.provider.#{p}")
+                = pm.object.dose
+              %li
+                = pm.object.route
+              %li
+                = pm.object.frequency
+              %li
+                = pm.object.date
 
-          = pm.check_box :_destroy
-          = pm.label :_destroy, "Terminate?"
+          = render :partial => 'patient_medication_fields', :locals => { :pm => pm }
 
   = f.submit "Save Medication", :class => "button tiny right"

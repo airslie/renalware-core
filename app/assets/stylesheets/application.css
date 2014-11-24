@@ -19,6 +19,7 @@
  *= require navigation
  *= require lists
  *= require errors
+ *= require toggle
  *= require main
 
  */

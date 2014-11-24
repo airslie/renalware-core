@@ -1,0 +1,18 @@
+#new-form:target {
+  .g-hidden {
+    display: block;
+  }
+
+  .close-new-form {
+    display: inline-block;
+  }
+
+  .toggle {
+    display: none;
+  }
+
+}
+
+.close-new-form {
+  display: none;
+}
