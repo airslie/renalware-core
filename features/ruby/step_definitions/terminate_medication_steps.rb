@@ -1,5 +1,5 @@
 Given(/^a patient has a medication$/) do
-  @patient_medication = @patient.patient_medications.build(medication_id: 2,
+  @patient_medication = PatientMedication.new(medication_id: 2,
     medication_type: "Esa",
     dose: "10mg",
     route: "po",
@@ -8,13 +8,12 @@ Given(/^a patient has a medication$/) do
     date: "2014-11-01",
     provider: 1
     )
+  @patient.patient_medications << @patient_medication
 end
 
 When(/^they terminate a medication$/) do
   visit medications_patient_path(@patient)
-  # find(:css, "#patient_patient_medications_attributes_0__destroy").set(true)
-  # save_and_open_page
-  # binding.pry
+  find("a.drug-esa").click  
   check "Terminate?"
   click_on "Save Medication"
 end

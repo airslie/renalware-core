@@ -20,13 +20,13 @@ Scenario: Doctor adds a problem
     And complete the problem form
   Then they should see the new problem on the clinical summary
 
-@javascript @wip
+@javascript
 Scenario: Doctor adds a medication for a patient
   When they add a medication
     And complete the medication form
   Then they should see the new medication on the clinical summary
 
-@javascript @wip
+@javascript
 Scenario: Doctor terminates a medication for a patient
   Given a patient has a medication
   When they terminate a medication
