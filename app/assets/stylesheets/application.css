@@ -11,16 +11,6 @@
  * file per style scope.
  *
  *= require_self
- *= require foundation_and_overrides
- *= require globals
- *= require patients
- *= require patient_events
- *= require patient_medications
- *= require tables
- *= require navigation
- *= require lists
- *= require errors
- *= require toggle
- *= require main
-
+ *= require_tree ./lib
+ *= require_tree ./foundation
  */

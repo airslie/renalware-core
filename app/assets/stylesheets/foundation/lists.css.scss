@@ -1,3 +1,7 @@
+ul {
+  margin-bottom: 0;
+}
+
 ul.stripy-list {
   li:nth-child(even) { background: #FCFCFC; }
   li:hover {
