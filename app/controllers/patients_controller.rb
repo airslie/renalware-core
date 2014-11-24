@@ -36,7 +36,8 @@ class PatientsController < ApplicationController
 
   def update
     @patient.update(allowed_params)
-    redirect_to params[:redirect_url] || clinical_summary_patient_path(@patient)
+    redirect_to params[:redirect_url] || clinical_summary_patient_path(@patient), 
+    :notice => "You have successfully updated a patient."
   end
 
   private
