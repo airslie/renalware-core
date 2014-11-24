@@ -14,6 +14,7 @@ gem "frog_spawn", :git => "git@github.com:dmgarland/frog_spawn.git"
 gem "sdoc", "~> 0.4.0", group: :doc
 
 group :development, :test do
+  gem 'poltergeist'
   gem "spring"
   gem "cucumber-rails", :require => false
   gem "rspec-rails"
