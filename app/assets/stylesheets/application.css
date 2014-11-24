@@ -15,6 +15,7 @@
  *= require globals
  *= require patients
  *= require patient_events
+ *= require patient_medications
  *= require tables
  *= require navigation
  *= require lists

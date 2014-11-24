@@ -14,9 +14,9 @@
 
 %tbody
   - @patient_medications.each do |p|
-    %tr
+    %tr{:class => "drug-#{p.medication.type.downcase}"}
       %td{:data => { :heading => "Type" }}
-        = p.medication.type  
+        = p.medication.type 
       %td{:data => { :heading => "Medication" }}
         = p.medication.name
       %td{:data => { :heading => "Dose"}}

@@ -22,17 +22,17 @@
 
     - else
       %dl.accordion{data: {accordion: true} }
-        %dd.accordion-navigation.med-form{:class => "drug-#{pm.object.medication_type.downcase}"}
-          %a{href: "#edit-meds-#{pm.object.id}"}
-            %ul.no-bullet
+        %dd.accordion-navigation.med-form
+          %a{href: "#edit-meds-#{pm.object.id}", :class => "drug-#{pm.object.medication_type.downcase}"}
+            %ul.no-bullet.med-list
               %li
-                = pm.object.medication.name
+                = "#{pm.object.medication.name},"
               %li
-                = pm.object.dose
+                = "#{pm.object.dose},"
               %li
-                = pm.object.route
+                = "#{I18n.t("enums.route.#{pm.object.route}")},"
               %li
-                = pm.object.frequency
+                = "#{pm.object.frequency},"
               %li
                 = pm.object.date
 
