@@ -1,8 +1,8 @@
 GIT
   remote: git@github.com:dmgarland/frog_spawn.git
-  revision: 3eb08ba6dc4b83297e23442aa4c05f29928d89a3
+  revision: 522fe7b8128481f47a1d138d8bc73c80969a38c6
   specs:
-    frog_spawn (0.0.0)
+    frog_spawn (0.1.0)
 
 GEM
   remote: https://rubygems.org/
