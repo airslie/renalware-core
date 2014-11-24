@@ -1,10 +1,10 @@
 .row
   %h1
-    Add a New Patient Event
-
+    = "Add a New Patient Event for #{@patient.full_name}"
+ 
 = render partial: "shared/errors", locals: { model: @patient_event }
 
-= form_for @patient_event, :method => :post do |f|
+= form_for [@patient, @patient_event], :method => :post do |f|
 
   .row
 

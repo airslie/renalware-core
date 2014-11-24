@@ -11,5 +11,5 @@
     = patient_event.description
   %td{:data => { :heading => "Time"}}
     = patient_event.date_time
-  %td{:data => { :heading => "Staff Name"}}
-    / TODO
+  %td{:data => { :heading => "Entered By"}}
+    = patient_event.user_id
