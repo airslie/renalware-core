@@ -10,6 +10,7 @@ class Patient < ActiveRecord::Base
 
   accepts_nested_attributes_for :current_address
   accepts_nested_attributes_for :address_at_diagnosis
+  accepts_nested_attributes_for :patient_events
   accepts_nested_attributes_for :patient_medications, allow_destroy: true,
   :reject_if => proc { |attrs| attrs[:dose].blank? && attrs[:notes].blank? && attrs[:frequency].blank? }
 
