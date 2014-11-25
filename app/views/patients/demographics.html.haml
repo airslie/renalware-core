@@ -1,40 +1,50 @@
 .row
-  %h1 Admin Info
+  %h5(class = "left")= "Patient Demographics for #{@patient.full_name}"
 
 .row
-  %h3(class = "left") Patient Demographics
+  .large-12.columns
+    = field_set_tag do
+      %legend
+        Patient Demographics
+  
+      .large-3.columns
+        %dl
+          %dt NHS Number:
+          %dd= "#{@patient.nhs_number}"
+
+          %dt Local Patient ID:
+          %dd= "#{@patient.local_patient_id}"
+
+      .large-3.columns
+        %dl    
+          %dt Last Name:
+          %dd= "#{@patient.surname}"
+
+          %dt First Name:
+          %dd= "#{@patient.forename}"
+
+      .large-3.columns
+        %dl
+          %dt Sex:
+          %dd= I18n.t("enums.gender.#{@patient.sex}")
+
+          %dt Ethnicity:
+          %dd= "#{@patient.ethnicity.name}"
+
+      .large-3.columns
+        %dl
+          %dt Date of Birth:
+          %dd= "#{@patient.dob}"
+
+          %dt Paediatric Patient:
+          %dd= "#{@patient.paediatric_patient_indicator}"
 
 .row
-  = field_set_tag do
-    .large-4.columns
-      %dl
-        %dt NHS Number:
-        %dd= "#{@patient.nhs_number}"
+  .large-4.columns
+    = field_set_tag do
+      %legend
+        Organisation/Practice
 
-        %dt Local Patient ID:
-        %dd= "#{@patient.local_patient_id}"
-
-        %dt Last Name:
-        %dd= "#{@patient.surname}"
-
-        %dt First Name:
-        %dd= "#{@patient.forename}"
-
-    .large-4.columns
-      %dl
-        %dt Sex:
-        %dd= I18n.t("enums.gender.#{@patient.sex}")
-
-        %dt Ethnicity:
-        %dd= "#{@patient.ethnicity.name}"
-
-        %dt Date of Birth:
-        %dd= "#{@patient.dob}"
-
-        %dt Paediatric Patient:
-        %dd= "#{@patient.paediatric_patient_indicator}"
-
-    .large-4.columns
       %dl
         %dt GP Practice Code:
         %dd= "#{@patient.gp_practice_code}"
@@ -51,21 +61,24 @@
         %dt Primary ESRF Centre:
         %dd= "#{@patient.primary_esrf_centre}"
 
-.row
-  = field_set_tag do
-    .large-6.columns
-      %h5 Current Address
+  .large-4.columns
+    = field_set_tag do
+      %legend
+        Current Address
+      
       = render @patient.current_address if @patient.current_address
-
-
-    .large-6.columns
-      %h5 Address at Diagnosis
+  
+  .large-4.columns
+    = field_set_tag do
+      %legend
+        Address at Diagnosis
+         
       = render @patient.address_at_diagnosis if @patient.address_at_diagnosis
-
+  
 = content_for :secondary_nav do
   %dd
-    = link_to "Patient list", patients_path
+    = link_to "Renal Patient list", patients_path
   %dd
-    = link_to "Edit Demographics", edit_patient_path(@patient)
+    = link_to "Edit Demographics for #{@patient.full_name}", edit_patient_path(@patient)
   %dd
-    = link_to "Clinical Summary", clinical_summary_patient_path(@patient)
+    = link_to "Clinical Summary for #{@patient.full_name}", clinical_summary_patient_path(@patient)

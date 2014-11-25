@@ -1,5 +1,5 @@
 .row
-  %h1 Patient Events
+  %h5= "Patient Events for #{@patient.full_name}"
 
   %table.responsive
     %caption
@@ -28,3 +28,6 @@
 
   %dd
     = link_to "Add a Patient Event for #{@patient.full_name}", new_patient_patient_event_path(@patient)
+
+  %dd
+    = link_to "Clinical Summary for #{@patient.full_name}", clinical_summary_patient_path(@patient)

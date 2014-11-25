@@ -1,4 +1,4 @@
-%h1
+%h5
   Add a New Renal Patient
 
 .row
@@ -12,7 +12,4 @@
 
       = submit_tag "Save a New Renal Patient", class: "button tiny right"
 
-
-= content_for :secondary_nav do
-  %dd
-    = link_to "Patient list", patients_path
+      = link_to "Cancel", patients_path, class: "button tiny left"

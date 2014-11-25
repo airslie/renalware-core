@@ -1,5 +1,5 @@
 .row
-  %h1
+  %h5
     = "Add a New Patient Event for #{@patient.full_name}"
  
 = render partial: "shared/errors", locals: { model: @patient_event }
@@ -22,8 +22,7 @@
             = f.label :patient_event_type_id, "Patient Event Type"
             = f.collection_select(:patient_event_type_id, PatientEventType.all, :id, :name )
 
-          %li
-            =link_to "Add a New Event Type", new_patient_event_type_path, class: "button tiny"
+          = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left"
 
         .large-6.columns
           %li
@@ -35,7 +34,4 @@
             = f.text_area(:notes, :cols => 50, :rows => 6)
           %li
             = submit_tag "Save Patient Event", class: "button tiny right"
-
-= content_for :secondary_nav do
-  %dd
-    = link_to "Patient list", patients_path
+            

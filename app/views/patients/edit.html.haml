@@ -1,6 +1,7 @@
 .row
-  %h1 Update Patient Demographics
-
+  %h5 
+    = "Update Patient Demographics #{@patient.full_name}"
+    
 .row
   .large-12.columns
 
@@ -9,9 +10,5 @@
       = render partial: "patients/demographic_form", locals: { patient: f }
 
       = submit_tag "Update Demographics", class: "button tiny right"
-
-= content_for :secondary_nav do
-  %dd
-    = link_to "Patient list", patients_path
-  %dd
-    = link_to "Patient Demographics", demographics_patient_path(@patient)
+      
+      = link_to "Cancel", demographics_patient_path(@patient), class: "button tiny left"

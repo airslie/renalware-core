@@ -1,4 +1,4 @@
-%h1 Patient Medications
+%h5= "Patient Medications for #{@patient.full_name}"
 
 = form_for @patient do |f|
   = hidden_field_tag :redirect_url, medications_patient_path(@patient)
@@ -7,7 +7,7 @@
 
     - if pm.object.new_record?
       #new-form
-        %a.button.tiny.toggle.left.mt{href: '#new-form'}
+        %a.button.tiny.toggle.right.mt{href: '#new-form'}
           Add a new medication
 
         .hide
@@ -19,6 +19,8 @@
               Add a new medication
 
             = render :partial => 'patient_medication_fields', :locals => { :pm => pm }
+
+      = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left mt"
 
     - else
       %dl.accordion{data: {accordion: true} }
@@ -39,10 +41,3 @@
           = render :partial => 'patient_medication_fields', :locals => { :pm => pm }
 
   = f.submit "Save Medication", :class => "button tiny right mt"
-
-.row
-  = content_for :secondary_nav do
-
-    %dd
-      = link_to "Clinical Summary for #{@patient.full_name}", clinical_summary_patient_path(@patient.id)
-

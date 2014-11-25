@@ -1,4 +1,4 @@
-%h1 Edit a Drug
+%h5 Edit a Drug
 
 = render partial: "shared/errors", locals: { model: @drug }
 
@@ -11,8 +11,4 @@
 
         = submit_tag "Update Drug", class: "button tiny right"
 
-
-= content_for :secondary_nav do
-  %li
-    = link_to "Cancel", drugs_path
-
+        = link_to "Cancel", drugs_path, class: "button tiny left"
