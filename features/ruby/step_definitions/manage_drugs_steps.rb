@@ -32,9 +32,8 @@ When(/^I choose to soft delete a drug$/) do
 end
 
 Then(/^I should see the new drug on the drugs list$/) do
-  save_and_open_page
   expect(page.has_content? "I am a new drug").to be true
-  expect(page.has_content? "Immunosuppressant").to be truegit st
+  expect(page.has_content? "Immunosuppressant").to be true
 end
 
 Then(/^I should see the updated drug on the drugs list$/) do

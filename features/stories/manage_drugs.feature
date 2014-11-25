@@ -1,5 +1,3 @@
-@wip
-
 Feature: An admin manages the drugs list
 
   Background:
