@@ -11,7 +11,7 @@
           Added
         %th
           Event Type
-        %th
+        %th.table-description
           Description
         %th
           User
@@ -24,7 +24,12 @@
             %td{:data => { :heading => "Event Type"}}
               = event.patient_event_type.name
             %td{:data => { :heading => "Description"}}
-              = event.description
+              %dl.accordion{data: {accordion: true} }
+                %dd.accordion-navigation
+                  %a.toggle-notes{href: "#patient-event-notes-#{event.id}"}
+                    = event.description
+                  .content.toggle-content{:id => "patient-event-notes-#{event.id}"}  
+                    = event.notes
             %td{:data => { :heading => "User"}}
               / TODO
 .row
