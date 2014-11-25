@@ -1,4 +1,3 @@
-@wip
 Feature: A secretary manages patients
 
   Background:
