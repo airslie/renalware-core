@@ -14,13 +14,16 @@
           %a.button.tiny.close-new-form{href: '#'}
             Close
 
+          
           %fieldset
             %legend
               Add a new medication
 
             = render :partial => 'patient_medication_fields', :locals => { :pm => pm }
 
+    
       = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left mt"
+
 
     - else
       %dl.accordion{data: {accordion: true} }
@@ -39,5 +42,9 @@
                 = pm.object.date
 
           = render :partial => 'patient_medication_fields', :locals => { :pm => pm }
+
+          .med-form.content{:id => "edit-meds-#{pm.object.id}"}  
+            = pm.check_box :_destroy
+            = pm.label :_destroy, "Terminate?"
 
   = f.submit "Save Medication", :class => "button tiny right mt"
