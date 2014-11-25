@@ -10,7 +10,6 @@ Background:
     And they are adding a new patient event
 
 Scenario: Doctor adds a new patient event type that does not exist on the dropdown
-
   When they add a new patient event type
     And they complete the add a new patient event type form
   Then they should see the new patient event type added to the patient event type list

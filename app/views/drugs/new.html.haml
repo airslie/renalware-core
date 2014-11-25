@@ -1,4 +1,4 @@
-%h1 Add a New Drug
+%h5 Add a New Drug
 
 .row 
   = render partial: "shared/errors", locals: { model: @drug }
@@ -10,3 +10,5 @@
         = render partial: "drugs/form", locals: { f: f }   
 
         = submit_tag "Save New Drug", class: "button tiny right"
+
+        %li= link_to "Cancel", drugs_path, :class => "button tiny"
