@@ -1,11 +1,6 @@
-require 'elasticsearch/model'
-
 class Drug < ActiveRecord::Base
   include Concerns::SoftDelete
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
-
-  
+  include Concerns::Searchable
 
   validates :name, presence: true
 
