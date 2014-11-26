@@ -10,6 +10,8 @@ gem "uglifier", ">= 1.3.0"
 gem "sass-rails", "~> 4.0.3"
 gem "haml-rails"
 gem "sdoc", "~> 0.4.0", group: :doc
+gem "elasticsearch-model"
+gem "elasticsearch-rails"
 
 group :development, :test do
   gem 'poltergeist'
