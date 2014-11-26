@@ -1,17 +1,17 @@
 .row
   %h5= "Clinical Summary for #{@patient.full_name} - KCH: #{@patient.local_patient_id}, Sex: #{I18n.t("enums.gender.#{@patient.sex}")}, DoB: #{@patient.dob}, Modal: "
-
+.row
   .columns.large-12.small-12
     %table.responsive
       %caption
-        = link_to "All Patient Events", patient_events_path
+        = link_to "All Patient Events", patient_patient_events_path(@patient)
 
       %thead
         %th
           Added
         %th
           Event Type
-        %th
+        %th.table-description
           Description
         %th
           User
@@ -24,26 +24,31 @@
             %td{:data => { :heading => "Event Type"}}
               = event.patient_event_type.name
             %td{:data => { :heading => "Description"}}
-              = event.description
+              %dl.accordion{data: {accordion: true} }
+                %dd.accordion-navigation
+                  %a.toggle-notes{href: "#patient-event-notes-#{event.id}"}
+                    = event.description
+                  .content.toggle-content{:id => "patient-event-notes-#{event.id}"}  
+                    = event.notes
             %td{:data => { :heading => "User"}}
               / TODO
+.row
+  .columns.large-12.small-12
+    %table.responsive
+      %caption
+        = link_to "All Current Medications", medications_index_patient_path
 
-.columns.large-12.small-12
-  %table.responsive
-    %caption
-      = link_to "All Current Medications", medications_index_patient_path
-
-      = render partial: "patients/medications", locals: { model: @patient_medications }
+        = render partial: "patients/medications", locals: { model: @patient_medications }
           
 .row
   = content_for :secondary_nav do
 
     %dd
-      = link_to "Back to Patient List", patients_path
+      = link_to "Renal Patient List", patients_path
     %dd
-      = link_to "Add a Patient Event for #{@patient.full_name}", new_patient_event_path
+      = link_to "Add a Patient Event for #{@patient.full_name}", new_patient_patient_event_path(@patient)
     %dd
-      = link_to "Edit Medications #{@patient.full_name}", medications_patient_path(@patient)
+      = link_to "Edit Medications for #{@patient.full_name}", medications_patient_path(@patient)
 
 
 

@@ -2,6 +2,10 @@ table {
   width: 100%;
 }
 
+.table-description {
+  width: 50%;
+}
+
 @media screen and (max-width: 719px) {
   table.responsive {
     display: block;

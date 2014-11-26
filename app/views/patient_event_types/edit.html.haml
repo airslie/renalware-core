@@ -1,4 +1,4 @@
-%h1 Edit Patient Event Type
+%h5 Edit Patient Event Type
 
 = render partial: "shared/errors", locals: { model: @patient_event_type }
 
@@ -10,7 +10,4 @@
 
       = submit_tag "Update Patient Event Type", class: "button tiny right"
 
-
-= content_for :secondary_nav do
-  %dd
-    = link_to "Patient Event Types", patient_event_types_path
+      = link_to "Cancel", patient_event_types_path, :class => "button tiny"

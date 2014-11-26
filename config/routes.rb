@@ -6,9 +6,8 @@ Rails.application.routes.draw do
       get :medications
       get :medications_index
     end
+    resources :patient_events, :only => [:new, :create, :index]
   end
-
-  resources :patient_events, :only => [:new, :create, :index]
 
   # TODO - This will probably change in future
   root to: "patients#index"

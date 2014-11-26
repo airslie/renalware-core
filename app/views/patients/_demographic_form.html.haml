@@ -33,7 +33,6 @@
           %li
             = patient.label :ethnicity_id, "Ethnicity"
             = patient.collection_select(:ethnicity_id, Ethnicity.all, :id, :name)
-
       
       .large-12.columns.row
         = patient.label :dob, "DoB"
@@ -45,6 +44,12 @@
         = patient.check_box :paediatric_patient_indicator
         = patient.label :paediatric_patient_indicator
 
+  .large-4.columns
+    = field_set_tag do
+      %legend
+        Organisation/Practice
+
+      = render :partial => 'organisation_practice_form', :locals => { :patient => patient }
 
   .large-4.columns
     = patient.fields_for :current_address_attributes, patient.object.current_address do |a|
@@ -61,11 +66,4 @@
           Address at Diagnosis
 
         = render :partial => 'addresses/address_form', :locals => { :a => a }
-
-  .large-4.columns
-    = field_set_tag do
-      %legend
-        Organisation/Practice
-
-      = render :partial => 'organisation_practice_form', :locals => { :patient => patient }
 

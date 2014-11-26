@@ -1,5 +1,5 @@
 .row
-  %h1 Renal Patients
+  %h5 Renal Patients
 
   %table.responsive
     %caption Renal Patients
@@ -17,6 +17,4 @@
     %tbody
       = render @patients
 
-= content_for :secondary_nav do
-  %dd
-    = link_to "Add a New Patient", new_patient_path
+   

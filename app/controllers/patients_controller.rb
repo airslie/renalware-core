@@ -36,7 +36,8 @@ class PatientsController < ApplicationController
 
   def update
     @patient.update(allowed_params)
-    redirect_to params[:redirect_url] || clinical_summary_patient_path(@patient)
+    redirect_to params[:redirect_url] || clinical_summary_patient_path(@patient), 
+    :notice => "You have successfully updated a patient."
   end
 
   private
@@ -46,6 +47,7 @@ class PatientsController < ApplicationController
       :gp_practice_code, :pct_org_code, :hosp_centre_code, :primary_esrf_centre,
       :current_address_attributes => [:street_1, :street_2, :county, :city, :postcode],
       :address_at_diagnosis_attributes => [:street_1, :street_2, :county, :city, :postcode],
+      :patient_event_attributes => [:date_time, :user_id, :description, :notes, :patient_event_type_id, :patient_id],
       :patient_medications_attributes => [:id, :medication_id, :medication_type, :dose, :route,
       :frequency, :notes, :date, :provider, :_destroy])
   end
