@@ -26,4 +26,9 @@ class Patient < ActiveRecord::Base
   def full_name
     "#{surname}, #{forename}"
   end
+
+  def age
+    Time.now.year - dob.year
+  end
+
 end
