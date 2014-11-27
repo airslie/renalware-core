@@ -13,7 +13,8 @@
     Prescribed On
 
 %tbody
-  - @patient_medications.each do |p|
+  - @patient.patient_medications.each do |p|
+   
     %tr{:class => "drug-#{p.medication.type.downcase}"}
       %td{:data => { :heading => "Type" }}
         = p.medication.type 
