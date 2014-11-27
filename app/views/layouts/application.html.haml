@@ -34,13 +34,9 @@
             = link_to "Admin", patients_path
             %ul.dropdown
               %li
-                = link_to "Add New Patient Event Type", new_patient_event_type_path
+                = link_to "Manage Patient Event Types", patient_event_types_path
               %li
-                = link_to "Edit Patient Event Types", patient_event_types_path
-              %li
-                = link_to "Add New Drug", new_drug_path  
-              %li
-                = link_to "Edit Drugs List", drugs_path
+                = link_to "Manage Drugs", drugs_path
     
     - if flash[:notice]
       .row
