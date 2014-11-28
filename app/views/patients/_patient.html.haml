@@ -1,13 +1,19 @@
 %tr
-  %td{ :data => { :heading => "Forename"}}
-    = patient.forename
-  %td{ :data => { :heading => "Surname"}}
-    = patient.surname
-  %td{ :data => { :heading => "NHS Number"}}
-    = patient.nhs_number
   %td.g-center{ :data => { :heading => "Actions"}}
     = link_to "Demographics", demographics_patient_path(patient)
   %td.g-center
     = link_to "Clinical Summary", clinical_summary_patient_path(patient)
+  %td{ :data => { :heading => "Forename"}}
+    = patient.full_name
+  %td{ :data => { :heading => "NHS No."}}
+    = patient.nhs_number
+  %td{ :data => { :heading => "Hospital No."}}
+    = patient.hosp_centre_code
+  %td{ :data => { :heading => "Sex"}}
+    = I18n.t("enums.gender.#{patient.sex}")
+  %td{ :data => { :heading => "DoB"}}
+    = patient.dob
+  %td{ :data => { :heading => "Age"}}
+    = patient.age
 
 

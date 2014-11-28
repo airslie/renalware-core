@@ -1,6 +1,23 @@
-.row
-  %h5= "Clinical Summary for #{@patient.full_name} - KCH: #{@patient.local_patient_id}, Sex: #{I18n.t("enums.gender.#{@patient.sex}")}, DoB: #{@patient.dob}, Modal: "
-.row
+.row.g-center
+  %h5= "Clinical Summary for #{@patient.full_name} - KCH: #{@patient.local_patient_id}, Age: #{@patient.age}, Sex: #{I18n.t("enums.gender.#{@patient.sex}")}, DoB: #{@patient.dob}, Modal: "
+
+.clinical-summary
+  .columns.large-6.small-6
+    %table.responsive
+      %caption
+        = link_to "Problems", "#"
+
+        = render partial: "patients/problems"
+
+.clinical-summary
+  .columns.large-6.small-6
+    %table.responsive
+      %caption
+        = link_to "All Current Medications", medications_index_patient_path(@patient)
+
+        = render partial: "patients/medications", locals: { model: @patient.patient_medications }
+
+.clinical-summary
   .columns.large-12.small-12
     %table.responsive
       %caption
@@ -32,15 +49,8 @@
                     = event.notes
             %td{:data => { :heading => "User"}}
               / TODO
-.row
-  .columns.large-12.small-12
-    %table.responsive
-      %caption
-        = link_to "All Current Medications", medications_index_patient_path(@patient)
-
-        = render partial: "patients/medications", locals: { model: @patient.patient_medications }
           
-.row
+.clinical-summary
   = content_for :secondary_nav do
 
     %dd

@@ -1,50 +1,51 @@
 %h5= "Patient Medications for #{@patient.full_name}"
 
-= form_for @patient do |f|
-  = hidden_field_tag :redirect_url, medications_patient_path(@patient)
+.row
+  = form_for @patient do |f|
+    = hidden_field_tag :redirect_url, medications_patient_path(@patient)
 
-  = f.fields_for :patient_medications do |pm|
+    = f.fields_for :patient_medications do |pm|
 
-    - if pm.object.new_record?
-      #new-form
-        %a.button.tiny.toggle.right.mt{href: '#new-form'}
-          Add a new medication
+      - if pm.object.new_record?
+        #new-form
+          %a.button.tiny.toggle.right.mt{href: '#new-form'}
+            Add a new medication
 
-        .hide
-          %a.button.tiny.close-new-form{href: '#'}
-            Close
+          .hide
+            %a.button.tiny.close-new-form{href: '#'}
+              Close
 
-          
-          %fieldset
-            %legend
-              Add a new medication
+            
+            %fieldset
+              %legend
+                Add a new medication
+
+              = render :partial => 'patient_medication_fields', :locals => { :pm => pm }
+
+      
+        = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left mt"
+
+
+      - else
+        %dl.accordion{data: {accordion: true} }
+          %dd.accordion-navigation.med-form
+            %a{href: "#edit-meds-#{pm.object.id}", :class => "drug-#{pm.object.medication_type.downcase}"}
+              %ul.no-bullet.med-list
+                %li
+                  = "#{pm.object.medication.name},"
+                %li
+                  = "#{pm.object.dose},"
+                %li
+                  = "#{I18n.t("enums.route.#{pm.object.route}")},"
+                %li
+                  = "#{pm.object.frequency},"
+                %li
+                  = pm.object.date
 
             = render :partial => 'patient_medication_fields', :locals => { :pm => pm }
 
-    
-      = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left mt"
+            .med-form.content{:id => "edit-meds-#{pm.object.id}"}  
+              = pm.check_box :_destroy
+              = pm.label :_destroy, "Terminate?"
 
-
-    - else
-      %dl.accordion{data: {accordion: true} }
-        %dd.accordion-navigation.med-form
-          %a{href: "#edit-meds-#{pm.object.id}", :class => "drug-#{pm.object.medication_type.downcase}"}
-            %ul.no-bullet.med-list
-              %li
-                = "#{pm.object.medication.name},"
-              %li
-                = "#{pm.object.dose},"
-              %li
-                = "#{I18n.t("enums.route.#{pm.object.route}")},"
-              %li
-                = "#{pm.object.frequency},"
-              %li
-                = pm.object.date
-
-          = render :partial => 'patient_medication_fields', :locals => { :pm => pm }
-
-          .med-form.content{:id => "edit-meds-#{pm.object.id}"}  
-            = pm.check_box :_destroy
-            = pm.label :_destroy, "Terminate?"
-
-  = f.submit "Save Medication", :class => "button tiny right mt"
+    = f.submit "Save Medication", :class => "button tiny right mt"
