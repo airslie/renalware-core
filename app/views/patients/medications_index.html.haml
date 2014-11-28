@@ -1,11 +1,13 @@
-%h5= "All Current Medications for #{@patient.full_name}" 
+.row
+  %h5= "All Current Medications for #{@patient.full_name}" 
 
-.columns.large-12.small-12
-  %table.responsive
-    %caption
-      = link_to "All Current Medications", medications_index_patient_path
+.row
+  .columns.large-12.small-12
+    %table.responsive
+      %caption
+        = link_to "All Current Medications", medications_index_patient_path
 
-      = render partial: "patients/medications", locals: { model: @patient_medications }
+        = render partial: "patients/medications", locals: { model: @patient_medications }
 
 .row
   = content_for :secondary_nav do

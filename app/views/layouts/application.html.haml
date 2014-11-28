@@ -43,10 +43,9 @@
         .alert-box.info.round{:data => {:alert => nil}}
           = flash[:notice]
           <a href="#" class="close">&times;</a>
-
-    .row
-      .large-12.columns
-        = yield
+    
+    .large-12.columns
+      = yield
 
     - if content_for? :secondary_nav
       .row
