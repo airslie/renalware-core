@@ -2,6 +2,11 @@ class PatientsController < ApplicationController
   before_action :load_patient, :only => [:clinical_summary, :medications,
     :medications_index, :demographics, :edit, :update]
 
+  def search
+    @search = params[:patient_search]
+    @results = Patient.search(@search)
+  end
+
   def clinical_summary
     @patient_events = PatientEvent.all
     @patient_medications = PatientMedication.all

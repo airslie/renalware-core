@@ -10,4 +10,4 @@ Feature: Search for a patient
 
   Scenario: A doctor searches for a patient
     When I search for a patient by hospital centre code
-    Then they will see a list of matching results
+    Then they will see a list of matching results for patients
