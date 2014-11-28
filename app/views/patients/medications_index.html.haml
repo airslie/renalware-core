@@ -9,8 +9,7 @@
 
 .row
   = content_for :secondary_nav do
-
-    %dd
-      = link_to "Clinical Summary for #{@patient.full_name}", clinical_summary_patient_path(@patient.id)
     %dd
       = link_to "Edit Medications #{@patient.full_name}", medications_patient_path(@patient)
+    %dd
+      = link_to "Clinical Summary for #{@patient.full_name}", clinical_summary_patient_path(@patient.id)
