@@ -24,6 +24,15 @@ class Patient < ActiveRecord::Base
 
   enum sex: { not_known: 0, male: 1, female: 2, not_specified: 9 }
 
+  # mappings dynamic: false do
+  #   indexes :forename
+  #   indexes :hosp_centre_code
+  # end
+
+  def as_indexed_json(options={})
+    as_json(only: %i(forename surname hosp_centre_code))
+  end
+
   def full_name
     "#{surname}, #{forename}"
   end

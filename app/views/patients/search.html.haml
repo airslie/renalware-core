@@ -1,5 +1,7 @@
 %h2.search-results Search Results
-  
+
 .results
   - @results.each do |result|
-    = result.surname
+    = succeed ", " do
+      =result.surname
+    = result.forename
