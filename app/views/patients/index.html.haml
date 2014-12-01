@@ -1,12 +1,6 @@
 .row
   %h5 Renal Patients
 
-.search.large-4.columns
-  = form_tag search_patients_path, :method => "get" do
-    = label_tag :patient_search, "Patient Search"
-    = search_field_tag  :patient_search, params[:patient_search]
-    = submit_tag "Find Patient" 
-
 .row
   %table.responsive
     %caption Renal Patients
@@ -30,4 +24,4 @@
     %tbody
       = render @patients
 
-   
+

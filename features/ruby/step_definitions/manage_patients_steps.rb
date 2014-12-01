@@ -6,6 +6,10 @@ Given(/^I am on the patients list$/) do
   visit patients_path
 end
 
+Given(/^I've searched for a patient in the database$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
 Given(/^there are ethnicities in the database$/) do
   @ethnicities = ["White", "Black", "Asian"]
   @ethnicities.map! { |e| Ethnicity.create!(:name => e) }
@@ -27,15 +31,10 @@ Given(/^I have a patient in the database$/) do
     :ethnicity_id => Ethnicity.last.id,
     :hosp_centre_code => "888"
     )
-  # binding.pry
-end
-
-Given(/^I've searched for a patient in the database$/) do
-  #click_on "Search Renalware Patients"
 end
 
 Given(/^I've selected the patient from the search results$/) do
-  visit demographics_patient_path(@patient)
+  click_on "Demographics"
 end
 
 When(/^I complete the add a new patient form$/) do
