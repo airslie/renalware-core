@@ -17,6 +17,11 @@ When(/^I search for a patient by the first few letters of the first name$/) do
   click_on "Find Patient"
 end
 
+When(/^I search for a patient by the surname$/) do
+  fill_in "Patient Search", :with => "rabbit"
+  click_on "Find Patient"
+end
+
 Then(/^they will see a list of matching results for patients$/) do
-  expect(page.has_content?("Roger")).to be true
+  expect(page.has_content?("RABBIT, Roger")).to be true
 end

@@ -20,3 +20,7 @@ Feature: Search for a patient
     When I search for a patient by the first few letters of the first name
     Then they will see a list of matching results for patients
 
+  Scenario: A doctor searches for a patient by surname
+    When I search for a patient by the surname
+    Then they will see a list of matching results for patients
+
