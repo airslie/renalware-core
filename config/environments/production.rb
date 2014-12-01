@@ -81,3 +81,5 @@ Rails.application.configure do
     [u, p] == ["renalware", "kidney175@stones?"]
   end
 end
+
+Elasticsearch::Model.client = Elasticsearch::Client.new host: ENV['SEARCHBOX_URL']
