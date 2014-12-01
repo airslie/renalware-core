@@ -19,6 +19,18 @@
             = link_to "Renalwarev2", patients_path
 
       %section.top-bar-section
+        - if @patient && @patient.persisted?
+          %ul.left
+            %li.has-dropdown
+              = link_to "#{@patient.full_name}", clinical_summary_patient_path(@patient)
+              %ul.dropdown
+                %li
+                  = link_to "Add Problem", "#"
+                %li
+                  = link_to "Manage Medications", medications_patient_path(@patient)
+                %li
+                  = link_to "Add Patient Event", new_patient_patient_event_path(@patient)
+
         %ul.left
           %li.has-form
             = form_tag search_patients_path, :method => "get" do
