@@ -1,0 +1,62 @@
+!!! 5
+%html{ :lang => "en"}
+  %head
+    %meta{ :charset => "utf-8" }
+
+    %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }
+
+    %title= content_for?(:title) ? yield(:title) : "Untitled"
+
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "vendor/modernizr"
+    = csrf_meta_tag
+
+  %body
+    %nav.top-bar(data-topbar role = "navigation")
+      %ul.title-area
+        %li.name
+          %h1
+            = link_to "Renalwarev2", patients_path
+
+      %section.top-bar-section
+        %ul.left
+          = render partial: "/patients/patient_link", locals: { model: @patient }
+
+      %section.top-bar-section
+        %ul.right
+          %li.has-dropdown
+            = link_to "Patients", patients_path
+            %ul.dropdown
+              %li
+                = link_to "All Patients", patients_path
+              %li
+                = link_to "Add a New Patient", new_patient_path
+
+      %section.top-bar-section
+        %ul.right
+          %li.has-dropdown
+            = link_to "Admin", patients_path
+            %ul.dropdown
+              %li
+                = link_to "Manage Patient Event Types", patient_event_types_path
+              %li
+                = link_to "Manage Drugs", drugs_path
+    
+    - if flash[:notice]
+      .row
+        .alert-box.info.round{:data => {:alert => nil}}
+          = flash[:notice]
+          <a href="#" class="close">&times;</a>
+    
+    .main-body.large-12.columns.main-body
+      = yield
+
+    - if content_for? :secondary_nav
+      .row
+        %nav.sub-nav-container
+          %dl.sub-nav
+            %dt Navigate To:
+            = content_for :secondary_nav
+          .g-cb
+
+    = javascript_include_tag "application"

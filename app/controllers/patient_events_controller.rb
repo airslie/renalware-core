@@ -1,5 +1,6 @@
 class PatientEventsController < ApplicationController
   before_action :load_patient, :only => [:new, :create, :index]
+  layout "layouts/patient_main"
 
   def new
     @patient_event = PatientEvent.new
