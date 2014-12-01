@@ -1,6 +1,7 @@
 class PatientsController < ApplicationController
   before_action :load_patient, :only => [:clinical_summary, :medications,
     :medications_index, :demographics, :edit, :update]
+  layout "layouts/patient_main", :except => [:index]
 
   def clinical_summary
     @patient_events = PatientEvent.all
