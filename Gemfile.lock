@@ -34,6 +34,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.6)
+    ansi (1.4.3)
     arel (5.0.1.20140414130214)
     builder (3.2.2)
     capybara (2.1.0)
@@ -66,6 +67,9 @@ GEM
       elasticsearch-transport (= 1.0.6)
     elasticsearch-api (1.0.6)
       multi_json
+    elasticsearch-extensions (0.0.17)
+      ansi
+      ruby-prof
     elasticsearch-model (0.1.6)
       activesupport (> 3)
       elasticsearch (> 0.4)
@@ -165,6 +169,7 @@ GEM
       rspec-mocks (~> 3.1.0)
       rspec-support (~> 3.1.0)
     rspec-support (3.1.2)
+    ruby-prof (0.15.2)
     sass (3.2.19)
     sass-rails (4.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -214,6 +219,7 @@ DEPENDENCIES
   capybara-webkit
   cucumber-rails
   database_cleaner
+  elasticsearch-extensions
   elasticsearch-model
   elasticsearch-rails
   ffaker

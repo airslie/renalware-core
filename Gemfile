@@ -12,6 +12,7 @@ gem "haml-rails"
 gem "sdoc", "~> 0.4.0", group: :doc
 gem "elasticsearch-model"
 gem "elasticsearch-rails"
+gem "elasticsearch-extensions"
 
 group :development, :test do
   gem 'poltergeist'

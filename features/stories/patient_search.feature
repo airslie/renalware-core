@@ -1,3 +1,4 @@
+@elasticsearch
 Feature: Search for a patient
   As a clinician
   I want to quicksearch by hospital number, lastname, firstname or NHS number
@@ -6,6 +7,7 @@ Feature: Search for a patient
     Given there are ethnicities in the database
       And that I'm logged in
       And some patients who need renal treatment
+      And I've waited for the indexes to update
       And I am on the patients list
 
   Scenario: A doctor searches for a patient by hospital code

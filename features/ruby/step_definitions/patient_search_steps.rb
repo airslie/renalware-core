@@ -2,6 +2,11 @@ Given(/^some patients who need renal treatment$/) do
   step "I have a patient in the database"
 end
 
+Given(/^I've waited for the indexes to update$/) do
+  sleep 1
+end
+
+
 When(/^I search for a patient by hospital centre code$/) do
   fill_in "Patient Search", :with => "888"
   click_on "Find Patient"

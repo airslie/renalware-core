@@ -27,7 +27,6 @@ Given(/^I have a patient in the database$/) do
     :ethnicity_id => Ethnicity.last.id,
     :hosp_centre_code => "888"
     )
-  # binding.pry
 end
 
 Given(/^I've searched for a patient in the database$/) do
