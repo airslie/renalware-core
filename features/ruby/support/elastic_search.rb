@@ -14,6 +14,7 @@ Before('@elasticsearch') do
       )
 
       Elasticsearch::Model.client = Elasticsearch::Client.new(host: "localhost:#{ELASTIC_SEARCH_TEST_PORT}")
+      Elasticsearch::Model::Proxy::ClassMethodsProxy.any_instance.stubs(:client).returns(Elasticsearch::Model.client)
     rescue Exception => e
       puts "Could not start ElasticSearch: #{e.message}"
       print e.backtrace.join("\n")

@@ -29,12 +29,8 @@ Given(/^I have a patient in the database$/) do
     )
 end
 
-Given(/^I've searched for a patient in the database$/) do
-  #click_on "Search Renalware Patients"
-end
-
 Given(/^I've selected the patient from the search results$/) do
-  visit demographics_patient_path(@patient)
+  pending
 end
 
 When(/^I complete the add a new patient form$/) do

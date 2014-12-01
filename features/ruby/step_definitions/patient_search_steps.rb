@@ -6,24 +6,23 @@ Given(/^I've waited for the indexes to update$/) do
   sleep 1
 end
 
-
 When(/^I search for a patient by hospital centre code$/) do
-  fill_in "Patient Search", :with => "888"
+  fill_in "patient_search", :with => "888"
   click_on "Find Patient"
 end
 
 When(/^I search for a patient by first name$/) do
-  fill_in "Patient Search", :with => "Roger"
+  fill_in "patient_search", :with => "Roger"
   click_on "Find Patient"
 end
 
 When(/^I search for a patient by the first few letters of the first name$/) do
-  fill_in "Patient Search", :with => "Rog"
+  fill_in "patient_search", :with => "Rog"
   click_on "Find Patient"
 end
 
 When(/^I search for a patient by the surname$/) do
-  fill_in "Patient Search", :with => "rabbit"
+  fill_in "patient_search", :with => "rabbit"
   click_on "Find Patient"
 end
 
