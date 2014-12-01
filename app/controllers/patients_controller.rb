@@ -4,7 +4,8 @@ class PatientsController < ApplicationController
 
   def search
     @search = params[:patient_search]
-    @results = Patient.search("#{@search}*")
+    @patients = Patient.search("#{@search}*").records
+    render :template => 'patients/index'
   end
 
   def clinical_summary
