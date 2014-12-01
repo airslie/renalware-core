@@ -4,7 +4,7 @@ class PatientsController < ApplicationController
 
   def search
     @search = params[:patient_search]
-    @results = Patient.search(@search)
+    @results = Patient.search("#{@search}*")
   end
 
   def clinical_summary
@@ -41,7 +41,7 @@ class PatientsController < ApplicationController
 
   def update
     @patient.update(allowed_params)
-    redirect_to params[:redirect_url] || clinical_summary_patient_path(@patient), 
+    redirect_to params[:redirect_url] || clinical_summary_patient_path(@patient),
     :notice => "You have successfully updated a patient."
   end
 

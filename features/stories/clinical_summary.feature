@@ -1,5 +1,3 @@
-@wip
-
 Feature: A Doctor adds patient info on the patient's clinical summary page
 
 Background:
