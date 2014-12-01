@@ -13,6 +13,7 @@ Feature: A secretary manages patients
     @elasticsearch
     Scenario: User views a patient's demographics
       Given I have a patient in the database
+        And I've waited for the indexes to update
         And I am on the patients list
       When I search for a patient by first name
         And I've selected the patient from the search results
@@ -21,6 +22,7 @@ Feature: A secretary manages patients
     @elasticsearch
     Scenario: User updates a patient's demographics
       Given I have a patient in the database
+        And I've waited for the indexes to update
         And I am on the patients list
       When I search for a patient by first name
         And I've selected the patient from the search results

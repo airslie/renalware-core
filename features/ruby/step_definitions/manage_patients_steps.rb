@@ -30,7 +30,7 @@ Given(/^I have a patient in the database$/) do
 end
 
 Given(/^I've selected the patient from the search results$/) do
-  pending
+  click_on "Demographics"
 end
 
 When(/^I complete the add a new patient form$/) do
