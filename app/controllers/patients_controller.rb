@@ -3,6 +3,12 @@ class PatientsController < ApplicationController
     :medications_index, :demographics, :edit, :update]
   layout "layouts/patient_main", :except => [:index]
 
+  def search
+    @search = params[:patient_search]
+    @patients = Patient.search("#{@search}*").records
+    render :template => 'patients/index'
+  end
+
   def clinical_summary
     @patient_events = PatientEvent.all
     @patient_medications = PatientMedication.all

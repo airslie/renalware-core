@@ -10,6 +10,9 @@ gem "uglifier", ">= 1.3.0"
 gem "sass-rails", "~> 4.0.3"
 gem "haml-rails"
 gem "sdoc", "~> 0.4.0", group: :doc
+gem "elasticsearch-model"
+gem "elasticsearch-rails"
+gem "elasticsearch-extensions"
 
 group :development, :test do
   gem 'poltergeist'
@@ -27,6 +30,7 @@ group :development, :test do
   gem "spring-commands-cucumber"
   gem "spring-commands-rspec"
   gem "ffaker"
+  gem "mocha"
 end
 
 group :production do

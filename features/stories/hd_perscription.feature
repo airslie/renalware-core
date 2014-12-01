@@ -1,12 +1,17 @@
-#@wip
-Feature: HS Perscription
+Feature: HD Perscription
 
-@javascript
-Scenario: Adding a HD session
-  Given that I'm logged in
+Background:
+  Given there are ethnicities in the database
+    And that I'm logged in
     And some patients who need renal treatment
-    And I've searched for a patient
+    And I've waited for the indexes to update
+    And I am on the patients list
+    And I search for a patient by surname
     And I've selected the patient from the search results
+
+@javascript @elasticsearch
+Scenario: Adding a HD session
+  When
     And I select the HD screen
     And I select the HD perscription
     And I complete the form

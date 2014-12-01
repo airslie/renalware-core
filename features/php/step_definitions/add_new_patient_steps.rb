@@ -9,7 +9,8 @@ end
 
 When(/^I complete the add a new patient form$/) do
   all('[name=patsite]')[1].click
-  fill_in "KCH No", :with => "Z999998"
+  fill_in "KCH No", :with => "Z999978"
+  fill_in "QEH No", :with => "Z999979"
   fill_in "NHS No", :with => " 1000124503"
   select('Mr', :from => 'Title')
   fill_in "last name", :with => "Smith"

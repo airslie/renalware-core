@@ -1,5 +1,6 @@
 class Drug < ActiveRecord::Base
   include Concerns::SoftDelete
+  include Concerns::Searchable
 
   validates :name, presence: true
 

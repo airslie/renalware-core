@@ -1,4 +1,13 @@
 Given(/^that I'm logged in$/) do
+  # pending
+end
+
+Given(/^I am on the patients list$/) do
+  visit patients_path
+end
+
+Given(/^I've searched for a patient in the database$/) do
+  pending # express the regexp above with the code you wish you had
 end
 
 Given(/^there are ethnicities in the database$/) do
@@ -15,20 +24,17 @@ Given(/^I have a patient in the database$/) do
     :nhs_number => "1000124502",
     :local_patient_id => "Z999999",
     :surname => "RABBIT",
-    :forename => "R",
+    :forename => "Roger",
     :dob => "01/01/1947",
     :paediatric_patient_indicator => "1",
     :sex => 1,
-    :ethnicity_id => Ethnicity.last.id
+    :ethnicity_id => Ethnicity.last.id,
+    :hosp_centre_code => "888"
     )
 end
 
-Given(/^I've searched for a patient in the database$/) do
-  #click_on "Search Renalware Patients"
-end
-
 Given(/^I've selected the patient from the search results$/) do
-  visit demographics_patient_path(@patient)
+  click_on "Demographics"
 end
 
 When(/^I complete the add a new patient form$/) do
