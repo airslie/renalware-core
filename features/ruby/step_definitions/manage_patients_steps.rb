@@ -6,6 +6,10 @@ Given(/^I am on the patients list$/) do
   visit patients_path
 end
 
+Given(/^I've searched for a patient in the database$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
 Given(/^there are ethnicities in the database$/) do
   @ethnicities = ["White", "Black", "Asian"]
   @ethnicities.map! { |e| Ethnicity.create!(:name => e) }

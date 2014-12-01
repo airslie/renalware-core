@@ -6,7 +6,7 @@ Background:
     And some patients who need renal treatment
     And I've waited for the indexes to update
     And I am on the patients list
-    And I search for a patient by first name
+    And I search for a patient by surname
     And I've selected the patient from the search results
 
 @javascript @elasticsearch

@@ -14,15 +14,17 @@ Feature: Search for a patient
     When I search for a patient by hospital centre code
     Then they will see a list of matching results for patients
 
-  Scenario: A doctor searches for a patient by first name
-    When I search for a patient by first name
-    Then they will see a list of matching results for patients
-
-  Scenario: A doctor searches for a patient by partial match
-    When I search for a patient by the first few letters of the first name
+  @no_php
+  Scenario: A doctor searches for a patient by forename
+    When I search for a patient by forename
     Then they will see a list of matching results for patients
 
   Scenario: A doctor searches for a patient by surname
-    When I search for a patient by the surname
+    When I search for a patient by surname
     Then they will see a list of matching results for patients
+
+  Scenario: A doctor searches for a patient by partial match
+    When I search for a patient by the first few letters of the surname
+    Then they will see a list of matching results for patients
+
 
