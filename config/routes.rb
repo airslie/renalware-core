@@ -6,6 +6,9 @@ Rails.application.routes.draw do
       get :medications
       get :medications_index
     end
+    collection do
+      get :search
+    end
     resources :patient_events, :only => [:new, :create, :index]
   end
 

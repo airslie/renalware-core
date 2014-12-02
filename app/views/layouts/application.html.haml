@@ -19,7 +19,30 @@
             = link_to "Renalwarev2", patients_path
 
       %section.top-bar-section
-        %ul.right
+        - if @patient && @patient.persisted?
+          %ul.left
+            %li.has-dropdown
+              = link_to "#{@patient.full_name}", clinical_summary_patient_path(@patient)
+              %ul.dropdown
+                %li
+                  = link_to "Add Problem", "#"
+                %li
+                  = link_to "Manage Medications", medications_patient_path(@patient)
+                %li
+                  = link_to "Add Patient Event", new_patient_patient_event_path(@patient)
+
+        %ul.left
+          %li.has-form
+            = form_tag search_patients_path, :method => "get" do
+              .row.collapse
+                .large-8.small-9.columns
+                  = label_tag :patient_search, "Patient Search" do
+                    = search_field_tag  :patient_search, params[:patient_search],
+                    :placeholder => "Patient name, hosptial centre code or NHS number"
+                .large-4.small-3.columns
+                  = submit_tag "Find Patient", :class => "button"
+
+        %ul.right.large-2.columns
           %li.has-dropdown
             = link_to "Patients", patients_path
             %ul.dropdown
@@ -28,8 +51,6 @@
               %li
                 = link_to "Add a New Patient", new_patient_path
 
-      %section.top-bar-section
-        %ul.right
           %li.has-dropdown
             = link_to "Admin", patients_path
             %ul.dropdown
@@ -37,13 +58,13 @@
                 = link_to "Manage Patient Event Types", patient_event_types_path
               %li
                 = link_to "Manage Drugs", drugs_path
-    
+
     - if flash[:notice]
       .row
         .alert-box.info.round{:data => {:alert => nil}}
           = flash[:notice]
           <a href="#" class="close">&times;</a>
-    
+
     .large-12.columns
       = yield
 

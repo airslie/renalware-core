@@ -17,7 +17,3 @@ end
 Then(/^I should be on the HS screen$/) do
   pending # express the regexp above with the code you wish you had
 end
-
-Then(/^they will see a list of matching results$/) do
-  pending # express the regexp above with the code you wish you had
-end

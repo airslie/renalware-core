@@ -1,7 +1,12 @@
 class PatientsController < ApplicationController
   before_action :load_patient, :only => [:clinical_summary, :medications,
     :medications_index, :demographics, :edit, :update]
-  layout "layouts/patient_main", :except => [:index]
+
+  def search
+    @search = params[:patient_search]
+    @patients = Patient.search("#{@search}*").records
+    render :template => 'patients/index'
+  end
 
   def clinical_summary
     @patient_events = PatientEvent.all
@@ -36,9 +41,12 @@ class PatientsController < ApplicationController
   end
 
   def update
-    @patient.update(allowed_params)
-    redirect_to params[:redirect_url] || clinical_summary_patient_path(@patient), 
-    :notice => "You have successfully updated a patient."
+    if @patient.update(allowed_params)
+      redirect_to params[:redirect_url] || clinical_summary_patient_path(@patient),
+      :notice => "You have successfully updated a patient."
+    else
+      render :edit
+    end
   end
 
   private
