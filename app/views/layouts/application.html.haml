@@ -69,11 +69,11 @@
       = yield
 
     - if content_for? :secondary_nav
-      .row
-        %nav.sub-nav-container
-          %dl.sub-nav
-            %dt Navigate To:
-            = content_for :secondary_nav
-          .g-cb
+     
+      %nav.sub-nav-container
+        .dl.sub-nav
+          %dt Navigate To:
+          = content_for :secondary_nav
+        .g-cb
 
     = javascript_include_tag "application"
