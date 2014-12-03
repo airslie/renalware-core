@@ -43,7 +43,7 @@
             %td{:data => { :heading => "Description"}}
               %dl.accordion{data: {accordion: true} }
                 %dd.accordion-navigation
-                  %a.toggle-notes{href: "#patient-event-notes-#{event.id}"}
+                  %a.fi-plus.fi-minus.toggle-notes{:id => "patient-event-notes-#{event.id}", href: "#patient-event-notes-#{event.id}"}
                     = event.description
                   .content.toggle-content{:id => "patient-event-notes-#{event.id}"}  
                     = event.notes

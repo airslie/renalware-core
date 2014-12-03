@@ -17,5 +17,9 @@ Rails.application.routes.draw do
 
   resources :patient_event_types, :except => [:show]
 
-  resources :drugs, :except => [:show]
+  resources :drugs, :except => [:show] do
+    collection do
+      get :search
+    end 
+  end 
 end

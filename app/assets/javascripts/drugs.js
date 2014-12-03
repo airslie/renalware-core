@@ -43,6 +43,33 @@ $(document).ready(function(){
 
   });
 
-});
+  $('.find_drug').change(function(e) {
+    var entered_drug = $(e.currentTarget);
+    var drug_value = entered_drug.val();
+    var med_form = entered_drug.closest('.med-form');
+    
+    $.ajax({
+      url: '/drugs/search.json',
+      data: { drug_search: drug_value },
+      success: function(json) {
+        console.log(json);
+        var drug_select_box = med_form.find('.drug-select');
+        drug_select_box.html('');
 
+        for (var i = 0; i < json.length; i++) {
+          var drug_id = json[i].id;
+          var drug_name = json[i].name;
+          var option_html = _.template("<option value=<%=id%>><%=name%></option>")({ id: drug_id, name: drug_name });
+          drug_select_box.append(option_html);
+        }
+      },
+      error: function(json) {
+        console.log("Drug list failed to load");
+        console.log(json);
+      }
+    });
+    
+  });
+
+});
 
