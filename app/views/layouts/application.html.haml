@@ -37,7 +37,7 @@
               .row.collapse
                 .large-8.small-9.columns
                   = label_tag :patient_search, "Patient Search" do
-                    = search_field_tag  :patient_search, params[:patient_search],
+                    = search_field_tag :patient_search, params[:patient_search], 
                     :placeholder => "Patient name, hosptial centre code or NHS number"
                 .large-4.small-3.columns
                   = submit_tag "Find Patient", :class => "button"

@@ -1,5 +1,16 @@
 class DrugsController < ApplicationController
 
+  def search
+   
+    @search = params[:drug_search]   
+    @drugs = Drug.search("#{@search}*").records
+    respond_to do |format|
+      format.html
+      format.json { render :json => @drugs.as_json(:only => [:id, :name]) }
+    end
+    # render :template => 'drugs/index'
+  end 
+
   def new
     @drug = Drug.new
   end
