@@ -30,7 +30,7 @@ class Patient < ActiveRecord::Base
   # end
 
   def as_indexed_json(options={})
-    as_json(only: %i(forename surname hosp_centre_code))
+    as_json(only: %i(forename surname hosp_centre_code nhs_number))
   end
 
   def full_name
