@@ -60,7 +60,7 @@
                 = link_to "Manage Drugs", drugs_path
 
     - if flash[:notice]
-      .row
+      .row.flash-notice 
         .alert-box.info.round{:data => {:alert => nil}}
           = flash[:notice]
           <a href="#" class="close">&times;</a>
