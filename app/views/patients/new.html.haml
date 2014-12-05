@@ -1,5 +1,5 @@
-%h5
-  Add a New Renal Patient
+.row
+  %h5 Add a New Renal Patient
 
 .row
   .large-12.columns
@@ -8,7 +8,7 @@
 
     = form_for @patient, :method => :post do |f|
 
-      = render partial: "patients/demographic_form", locals: {patient: f }
+      = render partial: "patients/demographic_form", locals: { patient: f }
 
       = submit_tag "Save a New Renal Patient", class: "button tiny right"
 
