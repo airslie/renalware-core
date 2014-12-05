@@ -34,7 +34,7 @@ class Patient < ActiveRecord::Base
   end
 
   def full_name
-    "#{surname}, #{forename}"
+    "#{surname.capitalize}, #{forename.capitalize[0]}"
   end
 
   def age
