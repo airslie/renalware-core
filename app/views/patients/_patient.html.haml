@@ -6,7 +6,7 @@
   %td{ :data => { :heading => "NHS No."}}
     = patient.nhs_number
   %td{ :data => { :heading => "Hospital No."}}
-    = patient.hosp_centre_code
+    = patient.local_patient_id
   %td{ :data => { :heading => "Sex"}}
     = I18n.t("enums.gender.#{patient.sex}")
   %td{ :data => { :heading => "DoB"}}

@@ -15,10 +15,10 @@ class Patient < ActiveRecord::Base
   accepts_nested_attributes_for :patient_medications, allow_destroy: true,
   :reject_if => proc { |attrs| attrs[:dose].blank? && attrs[:notes].blank? && attrs[:frequency].blank? }
 
-  validates :nhs_number, presence: true, length: { minimum: 10, maximum: 10 }
+  validates :nhs_number, presence: true, length: { minimum: 10, maximum: 10 }, uniqueness: true
   validates :surname, presence: true
   validates :forename, presence: true
-  validates :local_patient_id, presence: true
+  validates :local_patient_id, presence: true, uniqueness: true
   validates :sex, presence: true
   validates :dob, presence: true
 
@@ -30,7 +30,7 @@ class Patient < ActiveRecord::Base
   # end
 
   def as_indexed_json(options={})
-    as_json(only: %i(forename surname hosp_centre_code nhs_number))
+    as_json(only: %i(forename surname local_patient_id nhs_number))
   end
 
   def full_name
