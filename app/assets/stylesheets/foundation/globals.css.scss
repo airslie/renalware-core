@@ -3,6 +3,12 @@ body > .main-content {
   top: 2.8em;
 }
 
+body > .flash-notice {
+  position: relative;
+  top: 3.2em;
+  z-index: 1;
+} 
+
 .g-center {
   text-align: center;
 }
