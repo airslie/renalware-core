@@ -10,4 +10,23 @@
   background: #CCFFFF;
 }
 
+.med-form.content ul.drug-results{
+  height: 15em;
+  padding: 1em;
+  overflow-y: scroll;
+  border: 1px solid #ccc;
+
+  li {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
+.esa-or-immno {
+  display: none;
+}
+
+.drug-results {
+  display: none;
+}
 
