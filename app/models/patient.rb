@@ -8,12 +8,14 @@ class Patient < ActiveRecord::Base
   has_many :patient_events
   has_many :patient_medications
   has_many :drugs, :through => :patient_medications, :source => :medication, :source_type => "Esa"
+  has_many :problems
 
   accepts_nested_attributes_for :current_address
   accepts_nested_attributes_for :address_at_diagnosis
   accepts_nested_attributes_for :patient_events
   accepts_nested_attributes_for :patient_medications, allow_destroy: true,
   :reject_if => proc { |attrs| attrs[:dose].blank? && attrs[:notes].blank? && attrs[:frequency].blank? }
+  accepts_nested_attributes_for :problems
 
   validates :nhs_number, presence: true, length: { minimum: 10, maximum: 10 }, uniqueness: true
   validates :surname, presence: true
