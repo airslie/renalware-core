@@ -70,9 +70,9 @@
 
     - if content_for? :secondary_nav
      
-      %nav.sub-nav-container
+      %nav.sub-nav-container{data: {:"magellan-expedition" => "fixed"}}
         %dl.sub-nav
-          %dt Navigate To:
+          %dt
           = content_for :secondary_nav
         .g-cb
 

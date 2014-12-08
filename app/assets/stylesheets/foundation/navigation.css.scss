@@ -8,7 +8,6 @@ nav.sub-nav-container {
   z-index: 0;
 
   .sub-nav {
-    padding: 10px 10px 10px 0;
     margin: -0.25rem 0 0 1rem;
 
     dt, dd {
@@ -19,4 +18,8 @@ nav.sub-nav-container {
 
 #patient_search {
   width: 365px;
+}
+
+dd.patient-name {
+  display: none;
 }

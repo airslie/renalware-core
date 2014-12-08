@@ -52,13 +52,16 @@
           
 .clinical-summary
   = content_for :secondary_nav do
-
+    %dd.remove-name.patient-name
+      = link_to "#{@patient.full_name}", clinical_summary_patient_path(@patient)
     %dd
-      = link_to "Renal Patient List", patients_path
+      = link_to "Demographics", demographics_patient_path(@patient)
     %dd
-      = link_to "Add a Patient Event for #{@patient.full_name}", new_patient_patient_event_path(@patient)
+      = link_to "Problems", "#"
     %dd
-      = link_to "Edit Medications for #{@patient.full_name}", medications_patient_path(@patient)
+      = link_to "Meds", medications_patient_path(@patient)
+    %dd
+      = link_to "Events", patient_patient_events_path(@patient)
 
 
 
