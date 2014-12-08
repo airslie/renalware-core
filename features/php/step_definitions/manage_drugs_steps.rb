@@ -49,3 +49,12 @@ end
 Then(/^I should see the drug removed from the drugs list$/) do
   pending # express the regexp above with the code you wish you had
 end
+
+When(/^I search for a drug by name$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^they should see the list of drugs listed in the dropdown$/) do
+  pending # express the regexp above with the code you wish you had
+end
+

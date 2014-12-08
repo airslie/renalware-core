@@ -40,18 +40,22 @@ Then(/^they should see the new patient event on the clinical summary$/) do
   end
 end
 
-When(/^they add a problem$/) do
+Given(/^they go to the problem list page$/) do
   click_on "Probs"
   click_on "Add problem(s)"
 end
 
-When(/^complete the problem form$/) do
-  fill_in "problemblock", :with => "Has a toothache"
+When(/^they add some problems to the list$/) do
+  fill_in "problemblock", :with => "Has a toothache\nHas bad breath"
+end
+
+When(/^they save the problem list$/) do
   click_on "add new problem(s)"
 end
 
-Then(/^they should see the new problem on the clinical summary$/) do
+Then(/^they should see the new problems on the clinical summary$/) do
   expect(page.has_content? "Has a toothache").to be true
+  expect(page.has_content? "Has bad breath").to be true
 end
 
 When(/^they add a medication$/) do
