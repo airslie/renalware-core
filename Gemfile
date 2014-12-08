@@ -22,7 +22,7 @@ group :development, :test do
   gem "cucumber-rails", :require => false
   gem "rspec-rails"
   gem "rspec-expectations"
-  gem "capybara", "2.1.0"
+  gem "capybara", "2.2.0"
   gem "capybara-webkit"
   gem "launchy"
   gem "pry"
@@ -31,6 +31,7 @@ group :development, :test do
   gem "spring-commands-rspec"
   gem "ffaker"
   gem "mocha"
+  gem "shoulda-matchers"
 end
 
 group :production do
