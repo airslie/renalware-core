@@ -1,13 +1,15 @@
-%h5 Add a New Patient Event Type
+.row
+  %h4 Add a New Patient Event Type
 
 .row
   = render partial: "shared/errors", locals: { model: @patient_event_type }
 
-.large-6.columns
-  %ul.no-bullet
+.row
+  .large-6.columns
+    %ul.no-bullet
 
-    = form_for @patient_event_type, :method => :post do |f|
-      %fieldset
+      = form_for @patient_event_type, :method => :post do |f|
+        
         = render :partial => 'form', :locals => {:f => f}
 
         = submit_tag "Save", class: "button tiny right"
