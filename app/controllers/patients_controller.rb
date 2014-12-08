@@ -1,5 +1,5 @@
 class PatientsController < ApplicationController
-  before_action :load_patient, :only => [:clinical_summary, :medications,
+  before_action :load_patient, :only => [:clinical_summary, :medications, :problems,
     :medications_index, :demographics, :edit, :update]
 
   def search
@@ -17,6 +17,10 @@ class PatientsController < ApplicationController
     @patient.patient_medications.build(:provider => :gp,
       :medication_type => "Drug")
     @drugs = Drug.standard
+  end
+
+  def problems
+    @patient.problems.build
   end
 
   def medications_index

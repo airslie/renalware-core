@@ -25,7 +25,7 @@
               = link_to "#{@patient.full_name}", clinical_summary_patient_path(@patient)
               %ul.dropdown
                 %li
-                  = link_to "Add Problem", "#"
+                  = link_to "Add Problem", problems_patient_path(@patient)
                 %li
                   = link_to "Manage Medications", medications_patient_path(@patient)
                 %li

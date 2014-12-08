@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       get :clinical_summary
       get :medications
       get :medications_index
+      get :problems
     end
     collection do
       get :search
