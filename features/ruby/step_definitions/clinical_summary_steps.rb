@@ -48,12 +48,16 @@ When(/^complete the patient event form$/) do
   click_on "Save Patient Event"
 end
 
-When(/^they add a problem$/) do
-  click_on "Add a Problem"
+Given(/^they go to the problem list page$/) do
+  click_on "Add Problem"
 end
 
-When(/^complete the problem form$/) do
+When(/^they add some problems to the list$/) do
   fill_in "Add New Problem", :with => "Have abdominal pain, possibly kidney stones"
+  # all(".add-problem").first
+  # all(".add-problem").second
+  # all(".add-problem").set "bad back"
+  # fill_in "Add New Problem", :with => "Bad breath"
   click_on "Save Problem"
 end
 
@@ -86,7 +90,7 @@ end
 
 When(/^they terminate a medication$/) do
   visit medications_patient_path(@patient)
-  find("a.drug-esa").click  
+  find("a.drug-esa").click
   check "Terminate?"
   click_on "Save Medication"
 end
@@ -102,8 +106,9 @@ Then(/^they should see the new patient event on the clinical summary$/) do
   expect(page.has_content? "Spoke to Son").to be true
 end
 
-Then(/^they should see the new problem on the clinical summary$/) do
+Then(/^they should see the new problems on the clinical summary$/) do
   expect(page.has_content? "Have abdominal pain, possibly kidney stones").to be true
+  expect(page.has_content? "Bad breath").to be true
 end
 
 Then(/^they should see the new medication on the clinical summary$/) do
