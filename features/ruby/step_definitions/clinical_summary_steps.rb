@@ -58,6 +58,9 @@ When(/^they add some problems to the list$/) do
   # all(".add-problem").second
   # all(".add-problem").set "bad back"
   # fill_in "Add New Problem", :with => "Bad breath"
+end
+
+When(/^they save the problem list$/) do
   click_on "Save Problem"
 end
 
