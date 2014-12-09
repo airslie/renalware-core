@@ -1,0 +1,10 @@
+.probs-form.content{:id => "edit-probs-#{pb.object.id}"}
+  = pb.hidden_field :id
+  = pb.hidden_field :patient_id
+
+  = pb.label :description
+  = pb.text_field :description
+  
+  //change to hidden 
+  = pb.label :user_id
+  = pb.text_field :user_id

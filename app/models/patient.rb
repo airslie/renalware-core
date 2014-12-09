@@ -15,7 +15,9 @@ class Patient < ActiveRecord::Base
   accepts_nested_attributes_for :patient_events
   accepts_nested_attributes_for :patient_medications, allow_destroy: true,
   :reject_if => proc { |attrs| attrs[:dose].blank? && attrs[:notes].blank? && attrs[:frequency].blank? }
-  accepts_nested_attributes_for :problems
+  accepts_nested_attributes_for :problems, allow_destroy: true,
+  :reject_if => proc { |attrs| attrs[:description].blank? }
+ 
 
   validates :nhs_number, presence: true, length: { minimum: 10, maximum: 10 }, uniqueness: true
   validates :surname, presence: true

@@ -63,7 +63,7 @@ class PatientsController < ApplicationController
       :patient_event_attributes => [:date_time, :user_id, :description, :notes, :patient_event_type_id, :patient_id],
       :patient_medications_attributes => [:id, :medication_id, :medication_type, :dose, :route,
       :frequency, :notes, :date, :provider, :_destroy],
-      :problems_attributes => [:patient_id, :description, :date, :user_id, :deleted_at]
+      :problems_attributes => [:id, :patient_id, :description, :date, :user_id, :deleted_at, :_destroy]
       )
   end
 
