@@ -2,20 +2,17 @@
   %h5
     = "Patient Problems for #{@patient.full_name}"
 
-    = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny right mt"
-
 .row
-  = form_for @patient do |f|
-    
+  = form_for @patient do |f|  
     = hidden_field_tag :redirect_url, problems_patient_path(@patient)
     
     = f.fields_for :problems do |pb|
 
       - if pb.object.new_record?
 
-        #new-probs-form.large-6.columns.left    
+        #new-probs-form   
           %a.button.tiny.toggle.right.mt{href: '#new-probs-form'}
-            Add new problem
+            Add a new problem
 
           .hide
             %a.button.tiny.close-new-form{href: '#'}
@@ -30,25 +27,23 @@
 
               .row
                 .additional-form
-
-                %a.button.tiny.left.mt.add-problem{href: '#'}
-                  Add another problem
+    
+        = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left mt"
                    
       - else
-        .large-6.columns.right  
-          %dl.accordion{data: {accordion: true} }
-            %dd.accordion-navigation.med-form
-              %a{href: "#edit-probs-#{pb.object.id}"}
-                %ul.probs-list.no-bullet.med-list
-                  %li
-                    = "#{pb.object.description},"        
-                  %li
-                    = "#{pb.object.created_at.strftime("%d/%m/%Y")}" 
+        %dl.accordion{data: {accordion: true} }
+          %dd.accordion-navigation.med-form
+            %a{href: "#edit-probs-#{pb.object.id}"}
+              %ul.probs-list.no-bullet.med-list
+                %li
+                  = "#{pb.object.description},"        
+                %li
+                  = "#{pb.object.created_at.strftime("%d/%m/%Y")}" 
 
-              = render :partial => 'problem_form', :locals => { :pb => pb }
+            = render :partial => 'problem_form', :locals => { :pb => pb }
 
-              .probs-form.content{:id => "edit-probs-#{pb.object.id}"}  
-                = pb.check_box :_destroy
-                = pb.label :_destroy, "Terminate?"
+            .probs-form.content{:id => "edit-probs-#{pb.object.id}"}  
+              = pb.check_box :_destroy
+              = pb.label :_destroy, "Terminate?"
 
-    = f.submit "Save Problems", :class => "button tiny left"
+    = f.submit "Save Problems", :class => "button tiny right mt"

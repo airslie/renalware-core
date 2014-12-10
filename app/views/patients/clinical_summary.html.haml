@@ -5,7 +5,7 @@
   .columns.large-6.small-6
     %table.responsive
       %caption
-        = link_to "Problems", "#"
+        = link_to "Problems", problems_patient_path(@patient)
 
         = render partial: "patients/problems"
 
