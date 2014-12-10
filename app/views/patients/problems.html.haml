@@ -22,11 +22,13 @@
               %legend
                 Add New Problem
 
-              .row            
+              .row#new-probs-template{data: { index: @patient.problems.length - 1 }}  
                 = render :partial => 'problem_form', :locals => { :pb => pb }
+              
+                #additional-form
 
-              .row
-                .additional-form
+              %a.button.tiny.left.mt.add-problem{href: '#'}
+                Add another problem
     
         = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left mt"
                    
@@ -39,8 +41,9 @@
                   = "#{pb.object.description},"        
                 %li
                   = "#{pb.object.created_at.strftime("%d/%m/%Y")}" 
-
-            = render :partial => 'problem_form', :locals => { :pb => pb }
+            
+            .probs-form.content{:id => "edit-probs-#{pb.object.id}", data: { index: 0 }}         
+              = render :partial => 'problem_form', :locals => { :pb => pb }
 
             .probs-form.content{:id => "edit-probs-#{pb.object.id}"}  
               = pb.check_box :_destroy
