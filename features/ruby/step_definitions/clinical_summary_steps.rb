@@ -53,8 +53,9 @@ Given(/^they go to the problem list page$/) do
 end
 
 When(/^they add some problems to the list$/) do
-  fill_in "Add New Problem", :with => "Have abdominal pain, possibly kidney stones"
-  # all(".add-problem").first
+  click_on "Add a new problem"
+  fill_in "Description", :with => "Have abdominal pain, possibly kidney stones"
+  # all(".add-problem").first 
   # all(".add-problem").second
   # all(".add-problem").set "bad back"
   # fill_in "Add New Problem", :with => "Bad breath"
@@ -111,7 +112,7 @@ end
 
 Then(/^they should see the new problems on the clinical summary$/) do
   expect(page.has_content? "Have abdominal pain, possibly kidney stones").to be true
-  expect(page.has_content? "Bad breath").to be true
+  # expect(page.has_content? "Bad breath").to be true
 end
 
 Then(/^they should see the new medication on the clinical summary$/) do
