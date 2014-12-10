@@ -13,7 +13,7 @@ Scenario: Doctor adds a patient event
     And complete the patient event form
   Then they should see the new patient event on the clinical summary
 
-@wip
+@javascript @wip
 Scenario: Doctor adds a problem
   Given they go to the problem list page
     When they add some problems to the list

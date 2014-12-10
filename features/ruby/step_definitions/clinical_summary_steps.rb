@@ -49,20 +49,20 @@ When(/^complete the patient event form$/) do
 end
 
 Given(/^they go to the problem list page$/) do
-  click_on "Add Problem"
+  visit problems_patient_path(@patient)
 end
 
 When(/^they add some problems to the list$/) do
   click_on "Add a new problem"
   fill_in "Description", :with => "Have abdominal pain, possibly kidney stones"
-  # all(".add-problem").first 
-  # all(".add-problem").second
-  # all(".add-problem").set "bad back"
-  # fill_in "Add New Problem", :with => "Bad breath"
+  click_on "Add another problem"
+  all(".probs-description")[1].set "Bad breath"
 end
 
 When(/^they save the problem list$/) do
-  click_on "Save Problem"
+  save_and_open_page 
+  click_on "Save Problems"
+
 end
 
 When(/^they add a medication$/) do
@@ -112,7 +112,7 @@ end
 
 Then(/^they should see the new problems on the clinical summary$/) do
   expect(page.has_content? "Have abdominal pain, possibly kidney stones").to be true
-  # expect(page.has_content? "Bad breath").to be true
+  expect(page.has_content? "Bad breath").to be true
 end
 
 Then(/^they should see the new medication on the clinical summary$/) do
