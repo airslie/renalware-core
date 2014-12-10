@@ -7,8 +7,10 @@ Before('@elasticsearch') do
     begin
       $es_started = true
 
+      es_binary = `which elasticsearch`
+
       Elasticsearch::Extensions::Test::Cluster.start(
-        command: ENV['ELASTIC_SEARCH_BINARY'] || `which elasticsearch`,
+        command: es_binary.empty? ? ENV['ELASTIC_SEARCH_BINARY'] : es_binary,
         port: ELASTIC_SEARCH_TEST_PORT,
         nodes: 1
       )
