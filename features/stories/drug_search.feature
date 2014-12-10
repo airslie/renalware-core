@@ -1,4 +1,3 @@
-#@wip
 Feature: Search for a Drug
   As a clinician
   I want to quick search a drug for adding a medication

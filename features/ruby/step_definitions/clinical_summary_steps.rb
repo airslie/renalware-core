@@ -16,6 +16,7 @@ Given(/^they are on a patient's clinical summary$/) do
 end
 
 When(/^they add a patient event$/) do
+  click_on "All Patient Events"
   click_on "Add a Patient Event for #{@patient.full_name}"
 end
 
@@ -38,8 +39,6 @@ When(/^complete the patient event form$/) do
     select '30'
   end
 
-  fill_in "Entered by", :with => "evaliant"
-
   select "Telephone call", from: "Patient Event Type"
 
   fill_in "Description", :with => "Spoke to Son"
@@ -60,9 +59,7 @@ When(/^they add some problems to the list$/) do
 end
 
 When(/^they save the problem list$/) do
-  save_and_open_page 
   click_on "Save Problems"
-
 end
 
 When(/^they add a medication$/) do

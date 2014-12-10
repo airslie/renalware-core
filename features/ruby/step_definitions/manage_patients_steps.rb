@@ -114,5 +114,5 @@ Then(/^I should see the patient's demographics on their profile page$/) do
 end
 
 Then(/^I should see the patient's new demographics on their profile page$/) do
-  expect(page.has_content? "Roger").to be true
+  expect(page.has_content? "R").to be true
 end

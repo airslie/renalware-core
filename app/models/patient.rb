@@ -17,7 +17,7 @@ class Patient < ActiveRecord::Base
   :reject_if => proc { |attrs| attrs[:dose].blank? && attrs[:notes].blank? && attrs[:frequency].blank? }
   accepts_nested_attributes_for :problems, allow_destroy: true,
   :reject_if => proc { |attrs| attrs[:description].blank? }
- 
+
 
   validates :nhs_number, presence: true, length: { minimum: 10, maximum: 10 }, uniqueness: true
   validates :surname, presence: true
@@ -38,7 +38,7 @@ class Patient < ActiveRecord::Base
   end
 
   def full_name
-    "#{surname.capitalize}, #{forename.capitalize[0]}"
+    "#{surname}, #{forename[0]}"
   end
 
   def age

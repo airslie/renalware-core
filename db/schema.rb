@@ -31,6 +31,13 @@ ActiveRecord::Schema.define(version: 20141208160813) do
     t.datetime "updated_at"
   end
 
+  create_table "drugs_patients", force: true do |t|
+    t.integer  "drug_id"
+    t.integer  "patient_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "ethnicities", force: true do |t|
     t.string   "name"
     t.datetime "created_at"

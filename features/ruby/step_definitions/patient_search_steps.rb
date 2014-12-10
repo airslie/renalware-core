@@ -27,5 +27,5 @@ When(/^I search for a patient by surname$/) do
 end
 
 Then(/^they will see a list of matching results for patients$/) do
-  expect(page.has_content?("RABBIT, Roger")).to be true
+  expect(page.has_content?("RABBIT, R")).to be true
 end
