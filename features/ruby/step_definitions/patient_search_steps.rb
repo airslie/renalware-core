@@ -1,13 +1,10 @@
-Given(/^some patients who need renal treatment$/) do
-  step "I have a patient in the database"
-end
-
 Given(/^I've waited for the indexes to update$/) do
   sleep 1
 end
 
-When(/^I search for a patient by hospital centre code$/) do
-  fill_in "patient_search", :with => "888"
+When(/^I search for a patient by local patient id$/) do
+  save_and_open_page
+  fill_in "patient_search", :with => "Z999999"
   click_on "Find Patient"
 end
 

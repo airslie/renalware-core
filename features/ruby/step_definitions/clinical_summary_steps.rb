@@ -58,7 +58,7 @@ When(/^they add some problems to the list$/) do
   all(".probs-description")[1].set "Bad breath"
 end
 
-When(/^they save the problem list$/) do
+When(/^they save the problem list$/) do 
   click_on "Save Problems"
 end
 
