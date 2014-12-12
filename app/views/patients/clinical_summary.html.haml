@@ -4,9 +4,8 @@
 
 .clinical-summary
   .columns.large-6.small-6
-    %h5
-
-      = link_to "Problems", problems_patient_path(@patient)
+    %h5 
+      = link_to "#{@patient.problems.length} Problems", problems_patient_path(@patient)
 
       %ul.no-bullet
         - @patient.problems.each do |p|
@@ -17,8 +16,7 @@
 .clinical-summary
   .columns.large-6
     %h5
-      
-      = link_to "All Current Medications", medications_index_patient_path(@patient)
+      = link_to "#{@patient.patient_medications.length} Current Medications", medications_index_patient_path(@patient)
 
       %ul.no-bullet
         - @patient.patient_medications.each do |p|
@@ -30,8 +28,8 @@
 .clinical-summary
   .columns.large-12.small-12
     %table.responsive
-      %caption
-        = link_to "All Patient Events", patient_patient_events_path(@patient)
+      %caption 
+        = link_to "#{@patient.patient_events.length} Patient Events", patient_patient_events_path(@patient)
 
       %thead
         %th
