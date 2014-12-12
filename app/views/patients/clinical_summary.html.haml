@@ -1,5 +1,6 @@
 .row.g-center
-  %h5= "Clinical Summary for #{@patient.full_name} - KCH: #{@patient.local_patient_id}, Age: #{@patient.age}, Sex: #{I18n.t("enums.gender.#{@patient.sex}")}, DoB: #{@patient.dob}, Modal: "
+  %h5.fi-graph-trend
+    = "Clinical Summary for #{@patient.full_name} - KCH: #{@patient.local_patient_id}, Age: #{@patient.age}, Sex: #{I18n.t("enums.gender.#{@patient.sex}")}, DoB: #{@patient.dob}, Modal: "
 
 .clinical-summary
   .columns.large-6.small-6
@@ -51,17 +52,6 @@
               / TODO
           
 .clinical-summary
-  = content_for :secondary_nav do
-    %dd.remove-name.patient-name
-      = link_to "#{@patient.full_name}", clinical_summary_patient_path(@patient)
-    %dd
-      = link_to "Demographics", demographics_patient_path(@patient)
-    %dd
-      = link_to "Problems", problems_patient_path(@patient)
-    %dd
-      = link_to "Meds", medications_patient_path(@patient)
-    %dd
-      = link_to "Events", patient_patient_events_path(@patient)
-
-
+  = content_for :secondary_nav do  
+    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
 

@@ -1,7 +1,6 @@
 .row  
   %h5= "Patient Medications for #{@patient.full_name}"
 
-
 .row
   = form_for @patient do |f|
     = hidden_field_tag :redirect_url, medications_patient_path(@patient)
@@ -53,3 +52,9 @@
               = pm.label :_destroy, "Terminate?"
 
     = f.submit "Save Medication", :class => "button tiny right mt"
+
+.clinical-summary
+  = content_for :secondary_nav do  
+    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
+
+

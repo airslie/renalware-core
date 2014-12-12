@@ -22,8 +22,10 @@
         - if @patient && @patient.persisted?
           %ul.left
             %li.has-dropdown
-              = link_to "#{@patient.full_name}", clinical_summary_patient_path(@patient)
+              = link_to "#{@patient.full_name}", clinical_summary_patient_path(@patient), :title => "Clinical Summary"
               %ul.dropdown
+                %li
+                  = link_to "New Letter", "#"
                 %li
                   = link_to "Add Problem", problems_patient_path(@patient)
                 %li

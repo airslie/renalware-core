@@ -32,4 +32,9 @@
           = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left"
 
           = submit_tag "Save Patient Event", class: "button tiny right"
+
+.clinical-summary
+  = content_for :secondary_nav do  
+    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
+
             
