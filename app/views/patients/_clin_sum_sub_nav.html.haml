@@ -5,8 +5,8 @@
 %dd
   = link_to " " + "View", demographics_patient_path(@patient), :title => "Demographics", :class => "fi-clipboard-notes icon-style"
 %dd
-  = link_to "Problems", problems_patient_path(@patient)
+  = link_to "Problems", problems_patient_path(@patient), :title => "Manage Problems"
 %dd
   = link_to "Meds", medications_patient_path(@patient), :title => "Manage Medications"
 %dd
-  = link_to "Events", patient_patient_events_path(@patient)
+  = link_to "Events", patient_patient_events_path(@patient), :title => "Patient Events"
