@@ -8,7 +8,12 @@
   %td{:data => { :heading => "Modal"}}
     / TODO
   %td{:data => { :heading => "Description"}}
-    = patient_event.description
+    %dl.accordion{data: {accordion: true} }
+      %dd.accordion-navigation
+        %a.fi-plus.fi-minus.toggle-notes{:id => "patient-event-notes-#{patient_event.id}", href: "#patient-event-notes-#{patient_event.id}"}
+          = patient_event.description
+        .content.toggle-content{:id => "patient-event-notes-#{patient_event.id}"} 
+          = patient_event.notes
   %td{:data => { :heading => "Time"}}
     = patient_event.date_time
   %td{:data => { :heading => "Entered By"}}
