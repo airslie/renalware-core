@@ -55,6 +55,7 @@ $(document).ready(function(){
     var entered_drug = $(e.currentTarget);
     var drug_value = entered_drug.val();
     var med_form = entered_drug.closest('.med-form');
+    var find_drug_list = entered_drug.closest('.find-drug-list');
 
     if(timer) clearTimeout(timer);
 
@@ -79,8 +80,33 @@ $(document).ready(function(){
           console.log(json);
         }
       });
+
+      $.ajax({
+        url: '/drugs/search.json',
+        data: { drug_search: drug_value },
+        success: function(json) {
+          console.log(json);
+          var drug_results = find_drug_list.find('.drug-results-admin');
+          drug_results.html('').show();
+
+          for (var i = 0; i < json.length; i++) {
+            var drug_id = json[i].id;
+            var drug_type = json[i].type;
+            var drug_name = json[i].name;
+            var found_html = _.template("<li class='drug-list' data-drug-id=<%=id%>><div class='large-4 columns'><%= type %></div><div class='large-4 columns'><%= name %></div><div class='large-2 columns'><a href='/drugs/<%=id%>/edit'>Edit</a></div><div class='large-2 columns'><a href='/drugs/<%=id%>'>Delete</a></div></li>")({ id: drug_id, name: drug_name, type: drug_type });
+            (drug_results).append(found_html);
+          }
+        },
+        error: function(json) {
+          console.log("Drug list failed to load");
+          console.log(json);
+        }
+      });
+
+
     }, 500);
   });
+
 
   $('body').on('click', '.drug-select-link', function(e) {
     var bullet = $(e.currentTarget);
