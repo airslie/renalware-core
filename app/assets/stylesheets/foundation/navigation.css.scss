@@ -3,6 +3,21 @@
 //   margin: 0;
 // }
 
+.sub-nav dd a.has-tip:hover {
+  color: #008cba;
+}
+
+.tooltip {
+  background-color: #008cba;
+  margin-left: 10px;
+  radius: 30px;
+}
+
+.tooltip > .nub{
+  border-color: transparent transparent #008cba transparent;
+}
+
+
 nav.sub-nav-container {
   position: absolute;
   top: 2.8em;
