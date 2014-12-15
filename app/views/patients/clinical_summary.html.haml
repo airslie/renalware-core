@@ -1,9 +1,10 @@
 .row.g-center
   %h5.fi-graph-trend
-    = "Clinical Summary for #{@patient.full_name} - KCH: #{@patient.local_patient_id}, Age: #{@patient.age}, Sex: #{I18n.t("enums.gender.#{@patient.sex}")}, DoB: #{@patient.dob}, Modal: "
+    = "Clinical Summary for #{@patient.full_name} - KCH: #{@patient.local_patient_id}, Age: #{@patient.age}, #{I18n.t("enums.gender.#{@patient.sex}")}, DoB: #{@patient.dob}, Modal: "
+
 
 .clinical-summary
-  .columns.large-6.small-6
+  .columns.large-6
     %h5 
       = link_to "#{@patient.problems.length} Problems", problems_patient_path(@patient)
 
