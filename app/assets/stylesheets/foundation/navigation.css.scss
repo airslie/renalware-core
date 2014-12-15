@@ -3,6 +3,11 @@
 //   margin: 0;
 // }
 
+a.fi-plus:before a.fi-minus:before {
+  position: absolute;
+  right: 0;
+}
+
 .sub-nav dd a.has-tip:hover {
   color: #008cba;
 }

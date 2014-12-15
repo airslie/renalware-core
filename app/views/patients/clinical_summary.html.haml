@@ -27,37 +27,20 @@
             = "#{p.medication.type}, #{p.medication.name}, #{p.dose}, #{I18n.t("enums.route.#{p.route}")}, #{p.frequency}, #{p.date}"          
 
 .clinical-summary
-  .columns.large-12.small-12
-    %table.responsive
-      %caption 
-        = link_to "#{@patient.patient_events.length} Patient Events", patient_patient_events_path(@patient)
+  .columns.large-12
+    %h5.g-center
+      = link_to "#{@patient.patient_events.length} Patient Events", patient_patient_events_path(@patient)
 
-      %thead
-        %th
-          Added
-        %th
-          Event Type
-        %th.table-description
-          Description
-        %th
-          User
-
-      %tbody
-        - @patient.patient_events.each do |event|
-          %tr
-            %td{:data => { :heading => "Added" }}
-              = event.created_at
-            %td{:data => { :heading => "Event Type"}}
-              = event.patient_event_type.name
-            %td{:data => { :heading => "Description"}}
-              %dl.accordion{data: {accordion: true} }
-                %dd.accordion-navigation
-                  %a.fi-plus.fi-minus.toggle-notes{:id => "patient-event-notes-#{event.id}", href: "#patient-event-notes-#{event.id}"}
-                    = event.description
-                  .content.toggle-content{:id => "patient-event-notes-#{event.id}"}  
-                    = event.notes
-            %td{:data => { :heading => "User"}}
-              / TODO
+    %ul.no-bullet 
+      - @patient.patient_events.each do |event|
+        %li
+          %dl.accordion{data: {accordion: true} }
+            %dd.accordion-navigation
+              %a.fi-plus.fi-minus.toggle-notes{:id => "patient-event-notes-#{event.id}", href: "#patient-event-notes-#{event.id}"}           
+                = "#{event.created_at}, #{event.description}"
+                 
+              .patient-event.content{:id => "patient-event-notes-#{event.id}"}
+                = event.notes
           
 .clinical-summary
   = content_for :secondary_nav do  
