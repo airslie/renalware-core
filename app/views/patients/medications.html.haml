@@ -26,7 +26,7 @@
                 = render :partial => 'patient_medication_fields', :locals => { :pm => pm }
 
       
-        = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left mt"
+        = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left cancel mt"
 
 
       - else
