@@ -1,8 +1,8 @@
 .row
-  %h5.fi-clipboard-notes
-    = "Patient Info for #{@patient.full_name} - Age: #{@patient.age}, Modal: "
-
-  = link_to "Edit", edit_patient_path(@patient), :title => "Edit demographics",:class => "fi-clipboard-pencil"
+  %h5.g-center.fi-clipboard-notes.left
+    = "Patient Info"
+  %h5.g-center.right
+    = link_to "Edit", edit_patient_path(@patient), :title => "Edit demographics", :class => "fi-clipboard-pencil"
 .row
   .large-12.columns
     = field_set_tag do

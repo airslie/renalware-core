@@ -1,5 +1,5 @@
 .row
-  %h5= "Patient Events for #{@patient.full_name}"
+  %h5= link_to "Patient Events", patient_patient_events_path(@patient)
 
   %table.responsive
     %caption

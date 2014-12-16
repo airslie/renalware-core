@@ -1,6 +1,6 @@
 .row
   %h5
-    = "Add a New Patient Event for #{@patient.full_name}"
+    = link_to "Add a New Patient Event", new_patient_patient_event_path
  
 = render partial: "shared/errors", locals: { model: @patient_event }
 
