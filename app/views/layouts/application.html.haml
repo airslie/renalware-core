@@ -40,9 +40,9 @@
                 .large-8.small-9.columns
                   = label_tag :patient_search, "Patient Search" do
                     = search_field_tag :patient_search, params[:patient_search], 
-                    :placeholder => "Patient name, Local Patient ID or NHS number"
+                    :placeholder => "Patient Name, Local Patient ID or NHS Number"
                 .large-4.small-3.columns
-                  = submit_tag "Find Patient", :class => "button"
+                  = submit_tag "Find!", :title => "Find Patient", :class => "nav-search button tiny"
 
         %ul.right.large-2.columns
           %li.has-dropdown
