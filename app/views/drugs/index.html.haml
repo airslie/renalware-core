@@ -1,20 +1,20 @@
 .row
   %h4 Existing Drugs List
 
-.row
-  .small-12.large-6.columns
-    = link_to "Add New Drug", new_drug_path, :class => "button tiny"
+.row  
+  = link_to "Add New Drug", new_drug_path, :class => "button tiny"
 
-.row
-  .small-12.large-6.columns.find-drug-list 
+.row 
+    
+  .small-12.large-6.columns.find-drug-list.left 
     = label_tag :drug_search, "Drug"
     = text_field_tag :drug_search, nil, :class => "find_drug", :placeholder => "Search drug by name"
   
 
     %ul.no-bullet.stripy-list.drug-results-admin
 
-.row
-  .small-12.large-6.columns
+  
+  .small-12.large-6.columns.right
     %ul.no-bullet.stripy-list
       - @drugs.each do |t|
         %li.row
