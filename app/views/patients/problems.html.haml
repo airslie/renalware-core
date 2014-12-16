@@ -35,7 +35,7 @@
       - else
         %dl.accordion{data: {accordion: true} }
           %dd.accordion-navigation.med-form
-            %a{href: "#edit-probs-#{pb.object.id}"}
+            %a{ class: "problem", href: "#edit-probs-#{pb.object.id}"}
               %ul.probs-list.no-bullet.med-list
                 %li
                   = "#{pb.object.description},"        
@@ -47,9 +47,9 @@
 
             .probs-form.content{:id => "edit-probs-#{pb.object.id}"}  
               = pb.check_box :_destroy
-              = pb.label :_destroy, "Terminate?"
+              = pb.label :_destroy, "Terminate?", class: "delete"
 
-    = f.submit "Save Problems", :class => "button tiny right mt"
+    = f.submit "Save Problems", :class => "button tiny right save mt"
 
 .clinical-summary
   = content_for :secondary_nav do  
