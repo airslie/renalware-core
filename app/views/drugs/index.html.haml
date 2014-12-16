@@ -25,6 +25,6 @@
           .small-4.large-2.columns
             = link_to "Edit", edit_drug_path(t.id)
           .small-4.large-2.columns
-            = link_to "Delete", drug_path(t.id), id: "#{t.id}-drug", method: :delete, data: { confirm: "Are you sure you want to delete this drug?" }
+            = link_to "Delete", drug_path(t.id), id: "#{t.id}-drug", method: :delete, :class => "delete", data: { confirm: "Are you sure you want to delete this drug?"} 
 
 

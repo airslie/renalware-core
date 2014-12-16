@@ -49,9 +49,9 @@
 
             .med-form.content{:id => "edit-meds-#{pm.object.id}"}  
               = pm.check_box :_destroy
-              = pm.label :_destroy, "Terminate?"
+              = pm.label :_destroy, "Terminate?", class: "delete"
 
-    = f.submit "Save Medication", :class => "button tiny right mt"
+    = f.submit "Save Medication", :class => "button tiny right save mt"
 
 .clinical-summary
   = content_for :secondary_nav do  

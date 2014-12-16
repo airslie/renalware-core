@@ -10,6 +10,6 @@
       %ul.no-bullet
         = render partial: "drugs/form", locals: { f: f }   
 
-        = submit_tag "Save New Drug", class: "button tiny right"
+        = submit_tag "Save New Drug", class: "button tiny right save"
 
         %li= link_to "Cancel", drugs_path, :class => "button tiny cancel"

@@ -3,8 +3,16 @@
 //   margin: 0;
 // }
 
+.save {
+  background-color: green !important;
+}
+
 .cancel {
   background-color: red !important;
+}
+
+.delete {
+  color: red !important;
 } 
 
 a.fi-plus:before a.fi-minus:before {
