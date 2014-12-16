@@ -93,7 +93,7 @@ $(document).ready(function(){
             var drug_id = json[i].id;
             var drug_type = json[i].type;
             var drug_name = json[i].name;
-            var found_html = _.template("<li class='drug-list' data-drug-id=<%=id%>><div class='large-4 columns'><%= type %></div><div class='large-4 columns'><%= name %></div><div class='large-2 columns'><a href='/drugs/<%=id%>/edit'>Edit</a></div><div class='large-2 columns'><a href='/drugs/<%=id%>'>Delete</a></div></li>")({ id: drug_id, name: drug_name, type: drug_type });
+            var found_html = _.template("<li class='drug-list' data-drug-id=<%=id%>><div class='large-4 columns'><%= type %></div><div class='large-4 columns'><%= name %></div><div class='large-2 columns'><a href='/drugs/<%=id%>/edit'>Edit</a></div><div class='large-2 columns'><a data-confirm='Are you sure you want to delete this drug?' data-method='delete' href='/drugs/<%=id%>'>Delete</a></div></li>")({ id: drug_id, name: drug_name, type: drug_type });
             (drug_results).append(found_html);
           }
         },
