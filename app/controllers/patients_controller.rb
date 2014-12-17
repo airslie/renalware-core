@@ -24,8 +24,7 @@ class PatientsController < ApplicationController
   end
 
   def problems
-    @patient.problems.build
-    @results = Snomed.lookup
+    @patient.problems.build  
   end
 
   def medications_index
