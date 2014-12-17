@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141216160648) do
+ActiveRecord::Schema.define(version: 20141217190213) do
 
   create_table "addresses", force: true do |t|
     t.string   "street_1"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 20141216160648) do
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "snomed_id"
   end
 
 end
