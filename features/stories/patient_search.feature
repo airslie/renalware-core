@@ -15,7 +15,7 @@ Feature: Search for a patient
     Then they will see a list of matching results for patients
 
   #@no_php
-  @wip
+  #@wip
   Scenario: A doctor searches for a patient by forename
     When I search for a patient by forename
     Then they will see a list of matching results for patients
