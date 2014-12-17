@@ -21,8 +21,8 @@
       %section.top-bar-section
         - if @patient && @patient.persisted?
           %ul.left
-            %li.has-dropdown
-              = link_to " " + "#{@patient.full_name}", clinical_summary_patient_path(@patient), :title => "Clinical Summary", :"data-tooltip aria-haspopup" => "true", :class => "fi-graph-trend tip-right"
+            %li.has-dropdown.active
+              = link_to " " + "#{@patient.full_name}", clinical_summary_patient_path(@patient), :title => "Clinical Summary", :"data-tooltip aria-haspopup" => "true", :class => "fi-graph-trend"
               %ul.dropdown
                 %li
                   = link_to "New Letter", "#"
@@ -78,7 +78,7 @@
     - if content_for? :secondary_nav
      
       %nav.sub-nav-container{data: {:"magellan-expedition" => "fixed"}}
-        %dl.sub-nav
+        %dl.sub-nav{role: "menu"}
           %dt
           = content_for :secondary_nav
         .g-cb
