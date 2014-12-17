@@ -1,6 +1,10 @@
 class PatientsController < ApplicationController
   before_action :load_patient, :only => [:clinical_summary, :medications, :problems,
     :medications_index, :demographics, :edit, :update]
+  
+  def death
+    @dead_patients = Patient.where("death_date IS NOT NULL", params[:death_date])  
+  end
 
   def search
     @search = params[:patient_search]
@@ -56,7 +60,7 @@ class PatientsController < ApplicationController
   private
   def allowed_params
     params.require(:patient).permit(:nhs_number, :local_patient_id, :surname,
-      :forename, :sex, :ethnicity_id, :dob, :paediatric_patient_indicator,
+      :forename, :sex, :ethnicity_id, :dob, :death_date, :paediatric_patient_indicator,
       :gp_practice_code, :pct_org_code, :hosp_centre_code, :primary_esrf_centre,
       :current_address_attributes => [:street_1, :street_2, :county, :city, :postcode],
       :address_at_diagnosis_attributes => [:street_1, :street_2, :county, :city, :postcode],
