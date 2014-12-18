@@ -1,6 +1,6 @@
 %dt  
   %dd.remove-name.patient-name{role: "menuitem"}
-    = link_to " " + "#{@patient.full_name}", clinical_summary_patient_path(@patient), :title => "Clinical Summary", :"data-tooltip aria-haspopup" => "true", :class => "fi-graph-trend has-tip"
+    = link_to " " + "#{@patient.full_name}", clinical_summary_patient_path(@patient), :title => "Clinical Summary", :"data-tooltip aria-haspopup" => "true", :class => "fi-graph-trend"
   %dd{role: "menuitem"}
     = link_to " " + "View", "#", :title => "View Letters", :title => "Letters", :class => "fi-mail icon-style"
   %dd{role: "menuitem"}
