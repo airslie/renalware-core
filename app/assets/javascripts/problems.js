@@ -11,10 +11,10 @@ $(document).ready(function() {
 
     $("#additional-form").append(update_markup);
 
-
   });
 
   $('.snomed-lookup').change(function(e) {
+
     var entered_text = e.currentTarget.value;
 
     $.ajax({
@@ -30,7 +30,6 @@ $(document).ready(function() {
     });
   });
 
-
   $('body').on('click', '.snomed-select-link', function(e) {
     var bullet = $(e.currentTarget);
     var problem_form = bullet.closest('.problem-form');
@@ -42,7 +41,5 @@ $(document).ready(function() {
     problem_form.find('.snomed-lookup').val(bullet.html());
     problem_form.find('.snomed-results').hide();
   });
-
-
 
 });
