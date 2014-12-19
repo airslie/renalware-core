@@ -33,6 +33,9 @@ group :development, :test do
   gem "ffaker"
   gem "mocha"
   gem "shoulda-matchers"
+end
+
+group :test do 
   gem "webmock"
 end
 
