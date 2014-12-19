@@ -1,9 +1,17 @@
-= pb.hidden_field :id
-= pb.hidden_field :patient_id
+.problem-form
+  = pb.hidden_field :id
+  = pb.hidden_field :patient_id
 
-= pb.label :description
-= pb.text_field :description, :class => "probs-description"
+  = label_tag :snomed_term
+  = text_field_tag :snomed_term, nil, :placeholder => "Enter a snomed concept", :class => "snomed-lookup"
 
-//change to hidden 
-= pb.label :user_id
-= pb.text_field :user_id
+  %ul.no-bullet.snomed-results
+
+  = pb.hidden_field :snomed_id, :class => "selected-snomed-id"
+
+  = pb.label :description
+  = pb.text_field :description, :class => "probs-description"
+
+  //change to hidden
+  = pb.label :user_id
+  = pb.text_field :user_id

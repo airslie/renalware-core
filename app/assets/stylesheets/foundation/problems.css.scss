@@ -1,3 +1,8 @@
 .accordion dd > a.problem {
   background-color: #B9B9DC;
 }
+
+li.snomed-select-link {
+  cursor: pointer;
+  text-decoration: underline;
+}

@@ -1,8 +1,7 @@
 class SnomedController < ApplicationController
-  
+
   def index
-    @results = Snomed.lookup("cool beans")
-    render nothing: true
+    render :json => Snomed.lookup(params[:snomed_term])
   end
 
 end
