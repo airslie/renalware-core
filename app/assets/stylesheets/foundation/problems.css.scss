@@ -2,6 +2,13 @@
   background-color: #B9B9DC;
 }
 
+ul.no-bullet.snomed-results {
+  height: 15em;
+  padding: 1em;
+  overflow-y: scroll;
+  border: 1px solid #ccc;
+}
+
 li.snomed-select-link {
   cursor: pointer;
   text-decoration: underline;
