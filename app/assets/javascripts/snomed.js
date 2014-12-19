@@ -2,10 +2,6 @@
 // All this logic will automatically be available in application.js.
 $(document).ready(function(){
 
-  $.ajax({
-    url: '/snomed.json',
-    data: {  },
-    success: function(json) {
-      console.log(json);
+
 
 });
