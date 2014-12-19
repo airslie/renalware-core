@@ -1,6 +1,6 @@
 %tr
   %td{:data => { :heading => "Added" }}
-    = patient_event.created_at
+    = patient_event.created_at.strftime("%d/%m/%Y")
   %td{:data => { :heading => "Event Type"}}
     = patient_event.patient_event_type.name
   %td{:data => { :heading => "User"}}
@@ -15,6 +15,8 @@
         .content.toggle-content{:id => "patient-event-notes-#{patient_event.id}"} 
           = patient_event.notes
   %td{:data => { :heading => "Time"}}
-    = patient_event.date_time
+    = patient_event.date_time.strftime("%d/%m/%Y")
+  %td{:data => { :heading => "Time"}}
+    = patient_event.date_time.strftime("%H:%M")
   %td{:data => { :heading => "Entered By"}}
     = patient_event.user_id
