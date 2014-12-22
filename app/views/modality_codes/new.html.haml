@@ -10,14 +10,9 @@
 
       = form_for @modal_code, :method => :post do |m|
         
-        %li
-          = m.label :name, "Modal Name"
-          = m.text_field :name
-        %li
-          = m.label :code, "Modal Code"
-          = m.text_field :code
+        = render partial: "modality_codes/form", locals: { m: m }  
 
         = submit_tag "Save", class: "button tiny right save"
 
-        %li= link_to "Cancel", patients_path, :class => "button tiny cancel"
+        %li= link_to "Cancel", modality_codes_path, :class => "button tiny cancel"
 

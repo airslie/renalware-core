@@ -17,6 +17,19 @@ class ModalityCodesController < ApplicationController
     @modal_codes = ModalityCode.all
   end
 
+  def edit
+    @modal_code = ModalityCode.find(params[:id])
+  end
+
+  def update
+    @modal_code = ModalityCode.find(params[:id])
+    if @modal_code.update(allowed_params)
+      redirect_to modality_codes_path, :notice => "You have successfully updated a modality"
+    else
+      render :edit
+    end
+  end
+
   private
   def allowed_params
     params.require(:modality_code).permit(:name, :code, :deleted_at)
