@@ -14,6 +14,7 @@ end
 When(/^I complete the form for a new modal$/) do
   fill_in "Modal Name",:with => "New Modal" 
   fill_in "Modal Code",:with => "newmodels"
+  fill_in "Modal Site",:with => "New Modal Site"
   click_on "Save" 
 end
 
@@ -25,6 +26,7 @@ end
 Then(/^I should see the new modal on the modalities list$/) do
   expect(page.has_content? "New Modal").to be true
   expect(page.has_content? "newmodel").to be true
+  expect(page.has_content? "Modal Site").to be true
 end
 
 Then(/^I should see the updated drug on the modality list$/) do
