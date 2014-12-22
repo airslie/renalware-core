@@ -1,0 +1,2 @@
+class ModalityCodesController < ApplicationController
+end

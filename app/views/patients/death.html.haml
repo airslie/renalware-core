@@ -1,0 +1,9 @@
+.row
+  %h5 Deceased Patients
+
+.row
+  %ul.no-bullet
+    - @dead_patients.each do |patient| 
+    
+      %li
+        = patient.full_name

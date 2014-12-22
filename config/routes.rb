@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     end
     collection do
       get :search
+      get :death
     end
     resources :patient_events, :only => [:new, :create, :index]
   end
@@ -23,4 +24,7 @@ Rails.application.routes.draw do
       get :search
     end 
   end 
+
+  resources :snomed, :only => [:index]
+
 end
