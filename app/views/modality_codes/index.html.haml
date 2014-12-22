@@ -16,6 +16,6 @@
           .small-4.large-2.columns
             = link_to "Edit", edit_modality_code_path(m.id)
           .small-4.large-2.columns
-            = link_to "Delete", "#"
+            = link_to "Delete", modality_code_path(m.id), id: "#{m.id}-modal", method: :delete, :class => "delete", data: {confirm: "Are you sure you want to delete this modal?" }
 
   

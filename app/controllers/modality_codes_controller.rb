@@ -30,6 +30,12 @@ class ModalityCodesController < ApplicationController
     end
   end
 
+  def destroy
+    @modal_code = ModalityCode.find(params[:id])
+    @modal_code.soft_delete!
+    redirect_to modality_codes_path, :notice => "You have successfully removed a modality."
+  end
+
   private
   def allowed_params
     params.require(:modality_code).permit(:name, :code, :deleted_at)
