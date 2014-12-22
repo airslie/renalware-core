@@ -38,7 +38,7 @@ class ModalityCodesController < ApplicationController
 
   private
   def allowed_params
-    params.require(:modality_code).permit(:name, :code, :deleted_at)
+    params.require(:modality_code).permit(:name, :code, :site, :deleted_at)
   end
 
 end

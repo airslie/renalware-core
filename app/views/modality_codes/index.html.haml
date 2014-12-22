@@ -5,17 +5,29 @@
   = link_to "Add A New Modality", new_modality_code_path, :class => "button tiny"
 
 .row
-  .small-12.large-6.columns
-    %ul.no-bullet.stripy-list
-      - @modal_codes.each do |m|
-        %li.row
-          .small-4.large-4.columns
+  %table.responsive
+    %caption.title
+      Modalities
+    %thead
+      %th
+        Modal Name 
+      %th  
+        Modal Code
+      %th 
+        Modal Site
+      %th 
+        Action 
+      
+    - @modal_codes.each do |m|
+      %tbody
+        %tr
+          %td{:data => { :heading => "Modal Name" }}      
             = m.name
-          .small-4.large-4.columns
+          %td{:data => { :heading => "Modal Code" }}   
             = m.code
-          .small-4.large-2.columns
+          %td{:data => { :heading => "Modal Site" }}    
+            = m.site
+          %td{:data => { :heading => "Action" }} 
             = link_to "Edit", edit_modality_code_path(m.id)
-          .small-4.large-2.columns
             = link_to "Delete", modality_code_path(m.id), id: "#{m.id}-modal", method: :delete, :class => "delete", data: {confirm: "Are you sure you want to delete this modal?" }
 
-  
