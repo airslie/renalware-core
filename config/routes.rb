@@ -27,4 +27,6 @@ Rails.application.routes.draw do
 
   resources :snomed, :only => [:index]
 
+  resources :modality_codes, :only => [:new, :create, :index]
+
 end

@@ -1,0 +1,23 @@
+.row
+  %h4 Add New Modality Code
+
+.row
+  = render partial: "shared/errors", locals: { model: @modal_code }
+
+.row
+  .large-6.columns
+    %ul.no-bullet
+
+      = form_for @modal_code, :method => :post do |m|
+        
+        %li
+          = m.label :name, "Modal Name"
+          = m.text_field :name
+        %li
+          = m.label :code, "Modal Code"
+          = m.text_field :code
+
+        = submit_tag "Save", class: "button tiny right save"
+
+        %li= link_to "Cancel", patients_path, :class => "button tiny cancel"
+
