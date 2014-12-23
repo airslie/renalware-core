@@ -40,7 +40,13 @@
       .large-5.columns.left
         = patient.date_select(:dob, {start_year: (120.years.ago).year, end_year: Time.now.year , order: [:day, :month, :year]}, class: "dob")
       
-      .large-5.columns.row.right
+      .large-12.columns.row
+        = patient.label :death_date, "Date of Death"
+
+      .large-5.columns.left
+        = patient.date_select(:death_date, {start_year: (100.years.ago).year, end_year: Time.now.year , order: [:day, :month, :year], include_blank: true}, class: "dob")
+          
+      .large-5.columns.row.left
         = patient.check_box :paediatric_patient_indicator
         = patient.label :paediatric_patient_indicator
 

@@ -18,7 +18,7 @@ Feature: A secretary manages patients
       When I search for a patient by surname
         And I've selected the patient from the search results
       Then I should see the patient's demographics on their profile page
-
+    
     Scenario: User updates a patient's demographics
       Given I have a patient in the database
         And I've waited for the indexes to update
@@ -26,4 +26,7 @@ Feature: A secretary manages patients
       When I search for a patient by surname
         And I've selected the patient from the search results
         And I update the patient's demographics
+        And record the patient's death
+        And submit the update form
       Then I should see the patient's new demographics on their profile page
+      Then I should see the patient on the death list

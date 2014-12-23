@@ -13,6 +13,7 @@ gem "sdoc", "~> 0.4.0", group: :doc
 gem "elasticsearch-model"
 gem "elasticsearch-rails"
 gem "elasticsearch-extensions"
+gem "httparty"
 
 group :development, :test do
   gem 'poltergeist'
@@ -32,6 +33,10 @@ group :development, :test do
   gem "ffaker"
   gem "mocha"
   gem "shoulda-matchers"
+end
+
+group :test do 
+  gem "webmock"
 end
 
 group :production do

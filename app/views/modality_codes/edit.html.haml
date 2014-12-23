@@ -1,0 +1,17 @@
+.row
+  %h4 Edit Modality Code
+
+.row
+  = render partial: "shared/errors", locals: { model: @modal_code }
+
+.row
+  .large-6.columns
+    %ul.no-bullet
+
+      = form_for @modal_code, :method => :put do |m|
+        
+        = render partial: "modality_codes/form", locals: { m: m }  
+
+        = submit_tag "Update Modal", class: "button tiny right"
+
+        = link_to "Cancel", modality_codes_path, :class => "button tiny cancel"

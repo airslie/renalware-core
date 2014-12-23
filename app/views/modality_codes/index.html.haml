@@ -1,0 +1,33 @@
+.row
+  %h4 Manage Modalities
+
+.row
+  = link_to "Add A New Modality", new_modality_code_path, :class => "button tiny"
+
+.row
+  %table.responsive
+    %caption.title
+      Modalities
+    %thead
+      %th
+        Modal Name 
+      %th  
+        Modal Code
+      %th 
+        Modal Site
+      %th 
+        Action 
+      
+    - @modal_codes.each do |m|
+      %tbody
+        %tr
+          %td{:data => { :heading => "Modal Name" }}      
+            = m.name
+          %td{:data => { :heading => "Modal Code" }}   
+            = m.code
+          %td{:data => { :heading => "Modal Site" }}    
+            = m.site
+          %td{:data => { :heading => "Action" }} 
+            = link_to "Edit", edit_modality_code_path(m.id)
+            = link_to "Delete", modality_code_path(m.id), id: "#{m.id}-modal", method: :delete, :class => "delete", data: {confirm: "Are you sure you want to delete this modal?" }
+

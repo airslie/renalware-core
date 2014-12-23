@@ -1,0 +1,2 @@
+module SnomedHelper
+end

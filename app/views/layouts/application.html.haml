@@ -21,8 +21,8 @@
       %section.top-bar-section
         - if @patient && @patient.persisted?
           %ul.left
-            %li.has-dropdown
-              = link_to " " + "#{@patient.full_name}", clinical_summary_patient_path(@patient), :title => "Clinical Summary", :"data-tooltip aria-haspopup" => "true", :class => "fi-graph-trend tip-right"
+            %li.has-dropdown.active
+              = link_to " " + "#{@patient.full_name}", clinical_summary_patient_path(@patient), :title => "Clinical Summary", :"data-tooltip aria-haspopup" => "true", :class => "fi-graph-trend"
               %ul.dropdown
                 %li
                   = link_to "New Letter", "#"
@@ -52,6 +52,8 @@
                 = link_to "All Patients", patients_path
               %li
                 = link_to "Add a New Patient", new_patient_path
+              %li
+                = link_to "Deceased Patients", death_patients_path
 
           %li.has-dropdown
             = link_to "Admin", patients_path
@@ -60,6 +62,8 @@
                 = link_to "Manage Patient Event Types", patient_event_types_path
               %li
                 = link_to "Manage Drugs", drugs_path
+              %li
+                = link_to "Manage Modalities", modality_codes_path
 
     - if flash[:notice]
       .row.flash-notice 
@@ -78,7 +82,7 @@
     - if content_for? :secondary_nav
      
       %nav.sub-nav-container{data: {:"magellan-expedition" => "fixed"}}
-        %dl.sub-nav
+        %dl.sub-nav{role: "menu"}
           %dt
           = content_for :secondary_nav
         .g-cb
