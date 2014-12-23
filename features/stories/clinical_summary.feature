@@ -4,6 +4,7 @@ Background:
   Given that I'm logged in
     And there are ethnicities in the database
     And I have a patient in the database
+    And there are modalities in the database
     And they are on a patient's clinical summary
 
 Scenario: Doctor adds a patient event
@@ -34,3 +35,9 @@ Scenario: Doctor terminates a medication for a patient
   When they terminate a medication
   Then they should no longer see this medication in their clinical summary
     # And should see this terminated medication in their medications history
+
+@wip
+Scenario: Doctor adds a modality for a patient
+  Given I choose to add a modality
+  When I complete the modality form
+  Then I should see a patient's modality on their clinical summary

@@ -129,3 +129,30 @@ end
 #   visit medications_index_patient_path(@patient)
 #   expect(page.has_content? "Blue" ).to be true
 # end
+
+Given(/^I choose to add a modality$/) do
+  visit new_patient_modality_path(@patient)
+end
+
+When(/^I complete the modality form$/) do
+  fill_in "New Modality", :with => "HD-ARF"
+  fill_in "Dialysis site (if HD)", :with => "Dartford"
+  
+  within "#patient_modality_date_3i" do
+    select '1'
+  end
+  within "#patient_modality_date_2i" do
+    select 'December'
+  end
+  within "#patient_modality_date_1i" do
+    select '2014'
+  end
+
+  fill_in "Notes", :with => "Needs wheel chair access"
+
+  click_on "Add Modality"
+end
+
+Then(/^I should see a patient's modality on their clinical summary$/) do
+   expect(page.has_content? "HD-ARF").to be true
+end
