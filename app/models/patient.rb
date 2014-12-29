@@ -1,5 +1,5 @@
 class Patient < ActiveRecord::Base
-  include Concerns::Searchable
+  # include Concerns::Searchable
 
   belongs_to :current_address, :class_name => "Address", :foreign_key => :current_address_id
   belongs_to :address_at_diagnosis, :class_name => "Address", :foreign_key => :address_at_diagnosis_id
@@ -10,6 +10,9 @@ class Patient < ActiveRecord::Base
   has_many :drugs, :through => :patient_medications, :source => :medication, :source_type => "Esa"
   has_many :problems
 
+  has_one :patient_modality
+  has_one :modality_code, :through => :patient_modality
+
   accepts_nested_attributes_for :current_address
   accepts_nested_attributes_for :address_at_diagnosis
   accepts_nested_attributes_for :patient_events
@@ -17,6 +20,7 @@ class Patient < ActiveRecord::Base
   :reject_if => proc { |attrs| attrs[:dose].blank? && attrs[:notes].blank? && attrs[:frequency].blank? }
   accepts_nested_attributes_for :problems, allow_destroy: true,
   :reject_if => proc { |attrs| attrs[:description].blank? }
+  accepts_nested_attributes_for :patient_modality
 
 
   validates :nhs_number, presence: true, length: { minimum: 10, maximum: 10 }, uniqueness: true
