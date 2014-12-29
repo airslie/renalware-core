@@ -1,5 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe ModalityCode, :type => :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should have_many :patient_modality }
+  it { should have_many(:patients).through(:patient_modality)}
 end
