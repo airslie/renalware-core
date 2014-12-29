@@ -1,0 +1,42 @@
+.row
+  %h5
+    Set Patient Modality
+
+.row
+  %ul.no-bullet
+    = form_for @patient do |f|
+      
+      = hidden_field_tag :redirect_url, clinical_summary_patient_path(@patient)
+      
+      = f.fields_for :patient_modality, @patient_modality do |m| 
+        
+        = m.hidden_field :id
+
+        = m.hidden_field :patient_id
+    
+        %li
+          / TODO hidden
+          = m.label :user_id, "Entered By"
+          = m.text_field :user_id
+        
+        %li
+          = m.label :modality_code_id, "Modality"
+          = m.collection_select :modality_code_id, ModalityCode.all ,:id, :name, {}, :class => "modality-code-select"
+
+        %li
+          = m.label :modality_reason_id, "Reason for Change"
+          = m.text_field :modality_reason_id
+
+        %li
+          = m.label :date, "Start Date"
+          = m.date_select(:date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
+        
+        %li
+          = m.label :notes, "Notes"
+          = m.text_area(:notes, :cols => 10, :rows => 2)
+  
+      = f.submit "Save Modality", :class => "button tiny right save mt"
+
+  = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left cancel mt"
+                   
+   
