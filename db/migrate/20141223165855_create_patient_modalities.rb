@@ -5,6 +5,7 @@ class CreatePatientModalities < ActiveRecord::Migration
       t.integer :user_id
       t.integer :modality_code_id
       t.integer :modality_reason_id
+      t.string :modal_change_type
       t.text :notes   
       t.date :date
       t.datetime :deleted_at       

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141223165855) do
+ActiveRecord::Schema.define(version: 20141229135723) do
 
   create_table "addresses", force: true do |t|
     t.string   "street_1"
@@ -41,6 +41,15 @@ ActiveRecord::Schema.define(version: 20141223165855) do
     t.string   "code"
     t.string   "name"
     t.string   "site"
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "modality_reasons", force: true do |t|
+    t.string   "type"
+    t.integer  "rr_code"
+    t.string   "description"
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -85,6 +94,7 @@ ActiveRecord::Schema.define(version: 20141223165855) do
     t.integer  "user_id"
     t.integer  "modality_code_id"
     t.integer  "modality_reason_id"
+    t.string   "modal_change_type"
     t.text     "notes"
     t.date     "date"
     t.datetime "deleted_at"
