@@ -30,4 +30,6 @@ Rails.application.routes.draw do
 
   resources :modality_codes, :except => [:show]
 
+  resources :modality_reasons, :only => [:index]
+
 end
