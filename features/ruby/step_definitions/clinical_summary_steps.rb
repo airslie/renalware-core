@@ -1,3 +1,10 @@
+Given(/^there are modality reasons in the database$/) do
+  @modality_reasons = [[nil, nil, "Other"], ["PdToHaemodialysis", 111, "Reason One"], ["HaemodialysisToPd", 222, "Reason Two"]]
+  @modality_reasons.map! do |mr| 
+    @modality_reason = ModalityReason.create!(:type => mr[0], :rr_code => mr[1], :description => mr[2])
+  end
+end
+
 Given(/^a patient has a medication$/) do
   @patient_medication = PatientMedication.new(medication_id: 2,
     medication_type: "Esa",
@@ -135,9 +142,10 @@ Given(/^I choose to add a modality$/) do
 end
 
 When(/^I complete the modality form$/) do
-  
-  select "Modal One", :from =>  "Modality"
-  fill_in "Reason for Change", :with => 1
+ 
+  select "Modal One", :from => "Modality"
+  select "PD To Haemodialysis", :from => "Type of Change"  
+  select "Reason One", :from => "Reason for Change"  
   
   within "#patient_patient_modality_attributes_date_3i" do
     select '1'
