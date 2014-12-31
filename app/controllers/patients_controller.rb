@@ -1,5 +1,5 @@
 class PatientsController < ApplicationController
-  before_action :load_patient, :only => [:clinical_summary, :medications, :problems,
+  before_action :load_patient, :only => [:clinical_summary, :medications, :problems, :modality,
     :medications_index, :demographics, :edit, :update]
   
   def death
@@ -15,6 +15,14 @@ class PatientsController < ApplicationController
   def clinical_summary
     @patient_events = PatientEvent.all
     @patient_medications = PatientMedication.all
+  end
+
+  def modality
+    if @patient.patient_modality.blank?
+      @patient_modality = @patient.build_patient_modality
+    else
+      @patient.patient_modality
+    end
   end
 
   def medications
@@ -67,7 +75,8 @@ class PatientsController < ApplicationController
       :patient_event_attributes => [:date_time, :user_id, :description, :notes, :patient_event_type_id, :patient_id],
       :patient_medications_attributes => [:id, :medication_id, :medication_type, :dose, :route,
       :frequency, :notes, :date, :provider, :_destroy],
-      :problems_attributes => [:id, :patient_id, :snomed_id, :description, :date, :user_id, :deleted_at, :_destroy]
+      :problems_attributes => [:id, :patient_id, :snomed_id, :description, :date, :user_id, :deleted_at, :_destroy],
+      :patient_modality_attributes => [:id, :patient_id, :user_id, :modality_code_id, :modality_reason_id, :modal_change_type, :notes, :date, :deleted_at]
       )
   end
 

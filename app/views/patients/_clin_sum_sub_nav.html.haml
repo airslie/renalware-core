@@ -6,6 +6,8 @@
   %dd{role: "menuitem"}
     = link_to " " + "View", demographics_patient_path(@patient), :title => "Demographics", :class => "fi-clipboard-notes icon-style"
   %dd{role: "menuitem"}
+    = link_to "Modal", modality_patient_path(@patient), :title => "Patient Modality"
+  %dd{role: "menuitem"}
     = link_to "Problems", problems_patient_path(@patient), :title => "Manage Problems"
   %dd{role: "menuitem"}
     = link_to "Meds", medications_patient_path(@patient), :title => "Manage Medications"
