@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       get :medications
       get :medications_index
       get :problems
+      get :modality
     end
     collection do
       get :search
@@ -28,5 +29,7 @@ Rails.application.routes.draw do
   resources :snomed, :only => [:index]
 
   resources :modality_codes, :except => [:show]
+
+  resources :modality_reasons, :only => [:index]
 
 end

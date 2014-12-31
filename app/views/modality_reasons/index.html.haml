@@ -1,0 +1,52 @@
+.row
+  %h5
+    Renal Registry Reason for Change Codes
+
+.row
+  %table.responsive
+    %caption Haemodialysis to PD
+    %thead
+      %tr
+        %th.g-center
+          RR Code
+        %th
+          Reason for Change
+    
+    %tbody
+      - @reason_hd_pd.each do |mr| 
+        %tr
+        
+          %td.g-center{ :data => { :heading => "RR Code" } }
+            = mr.rr_code
+          %td{ :data => { :heading => "Haemodialysis to PD" } }
+            = mr.description
+
+
+  %table.responsive
+    %caption PD to Haemodialysis
+    %thead
+      %tr
+        %th.g-center
+          RR Code
+        %th
+          Reason for Change
+    
+    %tbody
+      - @reason_pd_hd.each do |mr| 
+        %tr
+        
+          %td.g-center{ :data => { :heading => "RR Code" } }
+            = mr.rr_code
+          %td{ :data => { :heading => "PD to Haemodialysis" } }
+            = mr.description
+            
+
+
+
+
+
+            
+
+
+
+
