@@ -141,8 +141,11 @@ Given(/^I choose to add a modality$/) do
 end
 
 When(/^I complete the modality form$/) do
+ 
+  within "#modality-code-select" do
+    select "Modal One"
+  end
 
-  select "Modal One", :from => "Modality"
   select "PD To Haemodialysis", :from => "Type of Change"
   select "Reason One", :from => "Reason for Change"
 
