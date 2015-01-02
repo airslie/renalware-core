@@ -1,7 +1,7 @@
 class PatientsController < ApplicationController
-  before_action :load_patient, :only => [:clinical_summary, :medications, :problems, :modality,
+  before_action :load_patient, :only => [:death_update, :clinical_summary, :medications, :problems, :modality,
     :medications_index, :demographics, :edit, :update]
-  
+
   def death
     @dead_patients = Patient.where("death_date IS NOT NULL", params[:death_date])  
   end
@@ -61,14 +61,15 @@ class PatientsController < ApplicationController
       redirect_to params[:redirect_url] || clinical_summary_patient_path(@patient),
       :notice => "You have successfully updated a patient."
     else
-      render :edit
+      render params[:template] || :edit 
     end
   end
 
   private
   def allowed_params
     params.require(:patient).permit(:nhs_number, :local_patient_id, :surname,
-      :forename, :sex, :ethnicity_id, :dob, :death_date, :paediatric_patient_indicator,
+      :forename, :sex, :ethnicity_id, :dob, :paediatric_patient_indicator, 
+      :death_date, :first_edta_code_id, :second_edta_code_id, :death_details,
       :gp_practice_code, :pct_org_code, :hosp_centre_code, :primary_esrf_centre,
       :current_address_attributes => [:street_1, :street_2, :county, :city, :postcode],
       :address_at_diagnosis_attributes => [:street_1, :street_2, :county, :city, :postcode],
