@@ -204,5 +204,5 @@ end
 
 Then(/^see the date of death in the patient's demographics$/) do
   visit demographics_patient_path(@patient)
-  expect(page.has_content? "2014-09-22").to be true
+  expect(page.has_content? "22/09/2014").to be true
 end
