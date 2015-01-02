@@ -1,5 +1,5 @@
 Given(/^there are modalities in the database$/) do
-  @modal_codes = [["Modal One", "modelone"], ["Modal Two", "modeltwo"], ["Modal Three", "Modalthree"]]
+  @modal_codes = [["Modal One", "modelone"], ["Modal Two", "modeltwo"], ["Death", "death"]]
   @modal_codes.map! {|d| @modal_code = ModalityCode.create!(:name => d[0], :code => d[1])}
 end
 

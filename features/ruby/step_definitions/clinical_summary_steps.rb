@@ -136,6 +136,13 @@ end
 #   expect(page.has_content? "Blue" ).to be true
 # end
 
+Given(/^there are edta causes of death in the database$/) do
+  @edta_codes = [[100, "Cause one"], [200, "Cause two"]]
+  @edta_codes.map! do |dc|
+    @edta_code = EdtaCode.create!(:code => dc[0], :death_cause => dc[1])
+  end
+end
+
 Given(/^I choose to add a modality$/) do
   visit modality_patient_path(@patient)
 end
@@ -166,4 +173,36 @@ end
 
 Then(/^I should see a patient's modality on their clinical summary$/) do
    expect(page.has_content? "Modal One").to be true
+end
+
+When(/^I select death modality$/) do
+  within "#modality-code-select" do
+    select "Death"
+  end
+end
+
+Then(/^I should complete the cause of death form$/) do
+  click_on "Cause of Death"
+
+  within "#patient_death_date_3i" do
+    select '22'
+  end
+  within "#patient_death_date_2i" do
+    select 'September'
+  end
+  within "#patient_death_date_1i" do
+    select '2014'
+  end
+
+  select "Cause one", :from => "EDTA Cause of Death (1)"
+  select "Cause two", :from => "EDTA Cause of Death (2)"
+
+  fill_in "Notes/Details", :with => "Heart stopped"
+
+  click_on "Save"
+end
+
+Then(/^see the date of death in the patient's demographics$/) do
+  visit demographics_patient_path(@patient)
+  expect(page.has_content? "2014-09-22").to be true
 end
