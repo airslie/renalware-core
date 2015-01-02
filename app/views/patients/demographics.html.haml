@@ -38,6 +38,10 @@
           %dt Date of Birth:
           %dd= "#{@patient.dob}"
 
+          %dt Date of Death:
+          %dd= "#{@patient.death_date}"
+      .large-12.columns
+        %dl
           %dt Paediatric Patient:
           %dd= "#{@patient.paediatric_patient_indicator}"
 
