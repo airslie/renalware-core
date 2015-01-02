@@ -14,7 +14,7 @@
   
   .row  
     %li.large-2.columns
-      = link_to "Cause of Death", death_update_patient_path, {:style => m.object.modality_code.name == "Death" ? 'display:block' : 'display:none', class: "update-death button tiny mt"}
+      = link_to "Cause of Death", death_update_patient_path, {:style => m.object.modality_code.blank? || m.object.modality_code.name == "Death" ? 'display:block' : 'display:none', class: "update-death button tiny mt"}
    
   %li
     = m.label :modal_change_type, "Type of Change"
