@@ -1,6 +1,6 @@
 Given(/^there are modality reasons in the database$/) do
   @modality_reasons = [[nil, nil, "Other"], ["PdToHaemodialysis", 111, "Reason One"], ["HaemodialysisToPd", 222, "Reason Two"]]
-  @modality_reasons.map! do |mr| 
+  @modality_reasons.map! do |mr|
     @modality_reason = ModalityReason.create!(:type => mr[0], :rr_code => mr[1], :description => mr[2])
   end
 end
@@ -23,8 +23,7 @@ Given(/^they are on a patient's clinical summary$/) do
 end
 
 When(/^they add a patient event$/) do
-  click_on "All Patient Events"
-  click_on "Add a Patient Event for #{@patient.full_name}"
+  click_on "Add Patient Event"
 end
 
 When(/^complete the patient event form$/) do
@@ -65,7 +64,7 @@ When(/^they add some problems to the list$/) do
   all(".probs-description")[1].set "Bad breath"
 end
 
-When(/^they save the problem list$/) do 
+When(/^they save the problem list$/) do
   click_on "Save Problems"
 end
 
@@ -108,7 +107,7 @@ Then(/^they should see the new patient event on the clinical summary$/) do
     expect(page.has_content? heading).to be(true), "Expected #{heading} to be in the view"
   end
 
-  expect(page.has_content? "2011-01-01").to be true
+  expect(page.has_content? "01/01/2011").to be true
   expect(page.has_content? "Telephone call").to be true
   expect(page.has_content? "11:30").to be true
   expect(page.has_content? "Spoke to Son").to be true
@@ -142,11 +141,11 @@ Given(/^I choose to add a modality$/) do
 end
 
 When(/^I complete the modality form$/) do
- 
+
   select "Modal One", :from => "Modality"
-  select "PD To Haemodialysis", :from => "Type of Change"  
-  select "Reason One", :from => "Reason for Change"  
-  
+  select "PD To Haemodialysis", :from => "Type of Change"
+  select "Reason One", :from => "Reason for Change"
+
   within "#patient_patient_modality_attributes_date_3i" do
     select '1'
   end
