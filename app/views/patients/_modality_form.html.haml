@@ -10,8 +10,12 @@
 
   %li
     = m.label :modality_code_id, "Modality"
-    = m.collection_select :modality_code_id, ModalityCode.all, :id, :name, {}, :class => "modality-code-select" 
+    = m.collection_select :modality_code_id, ModalityCode.all, :id, :name, {}, :id => "modality-code-select" 
   
+  .row  
+    %li.large-2.columns
+      = link_to "Cause of Death", death_update_patient_path, {:style => m.object.modality_code.blank? || m.object.modality_code.name == "Death" ? 'display:block' : 'display:none', class: "update-death button tiny mt"}
+   
   %li
     = m.label :modal_change_type, "Type of Change"
     = m.select :modal_change_type, modal_change_options(m.object.modal_change_type), {}, :class => "modal-change-type"  
