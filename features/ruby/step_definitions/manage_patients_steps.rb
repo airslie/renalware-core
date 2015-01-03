@@ -105,7 +105,7 @@ Then(/^I should see the new patient in the Renal Patient List$/) do
   expect(page.has_content? "Ian").to be true
   expect(page.has_content? "1").to be true
   expect(page.has_content? "White").to be true
-  expect(page.has_content? "1960-01-01").to be true
+  expect(page.has_content? "01/01/1960").to be true
   expect(page.has_content? "false").to be true
   expect(page.has_content? @address_diagnosis_street_1).to be true
   expect(page.has_content? @current_street_1).to be true

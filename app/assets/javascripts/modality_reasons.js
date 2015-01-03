@@ -32,4 +32,15 @@ $(document).ready(function(){
 
   });
 
+  $('#modality-code-select').change(function() {
+    var selected_modal = $('#modality-code-select option:selected').text();
+
+    if(selected_modal === "Death") {
+      $('.update-death').show();
+    } else {
+      $('.update-death').hide();
+    }
+
+  });
+
 });
