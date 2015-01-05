@@ -43,4 +43,22 @@ $(document).ready(function(){
 
   });
 
+  $('#modal-reason-code').click(function() {
+    var bigModal = $("<div></div>").attr('class','show');
+    var smallModal = $("<div></div>").attr('class','modal-window ');
+    var close = $('<b class="close fi-x"></b>');
+    
+    bigModal.attr('id','big-modal').appendTo('div#wrapper');
+    smallModal.attr('id','small-modal').appendTo('div#big-modal');
+    close.attr('id','close').appendTo('div#small-modal');
+
+    $('#close').click(function() {
+      $('#big-modal').remove();
+    });
+     
+
+  });
+
+
+
 });
