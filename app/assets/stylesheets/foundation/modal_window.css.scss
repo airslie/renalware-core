@@ -21,13 +21,20 @@
   padding: 20px;
   border-radius: 20px;
   box-shadow: 1px 1px 1px #333;
-  height:400px;
+  height: 460px;
+}
+
+#modal-holder {
+  width: 560px;
+  height: 380px;
+  overflow: scroll;
 }
 
 .close {
+  display: fixed;
   float: right;
-  width:20px;
-  height:20px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
   z-index: 100;
 }
