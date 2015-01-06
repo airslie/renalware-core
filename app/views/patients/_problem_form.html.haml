@@ -1,18 +1,40 @@
-.problem-form{data: { index: @patient.problems.length - 1 }}
-  = pb.hidden_field :id
-  = pb.hidden_field :patient_id
+- if pb.object.new_record?
 
-  = label_tag :snomed_term
-  = text_field_tag :snomed_term, nil, :placeholder => "Enter a snomed concept", :class => "snomed-lookup"
+  .problem-form{data: { index: @patient.problems.length - 1 }}
+    = pb.hidden_field :id
+    = pb.hidden_field :patient_id
 
-  %ul.no-bullet.snomed-results
+    = label_tag :snomed_term
+    = text_field_tag :snomed_term, nil, :placeholder => "Enter a snomed concept", :class => "snomed-lookup"
 
-  = pb.hidden_field :snomed_id, :class => "selected-snomed-id"
+    %ul.no-bullet.snomed-results
 
-  = pb.label :description
-  = pb.text_field :description, :class => "probs-description"
+    = pb.hidden_field :snomed_id, :class => "selected-snomed-id"
 
-  //change to hidden
-  = pb.label :user_id
-  = pb.text_field :user_id
+    = pb.label :description
+    = pb.text_field :description, :class => "probs-description"
+
+    //change to hidden 
+    = pb.label :user_id
+    = pb.text_field :user_id
+
+- else
+  
+  .saved-problem-form
+    = pb.hidden_field :id
+    = pb.hidden_field :patient_id
+
+    = label_tag :snomed_term
+    = text_field_tag :snomed_term, nil, :placeholder => "Enter a snomed concept", :class => "snomed-lookup"
+    
+    %ul.no-bullet.snomed-results
+
+    = pb.hidden_field :snomed_id, :class => "selected-snomed-id"
+
+    = pb.label :description
+    = pb.text_field :description, :class => "probs-description"
+
+    //change to hidden 
+    = pb.label :user_id
+    = pb.text_field :user_id
 
