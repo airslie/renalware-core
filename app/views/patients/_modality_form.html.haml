@@ -22,6 +22,9 @@
   %li
     = m.label :modality_reason_id, "Reason for Change"
     = m.collection_select :modality_reason_id, modal_reasons_for(m.object.modal_change_type), :id, :description, {}, :class => "modality-reason-select"
+
+  %li
+    = link_to "Renal Registry Reason for Change Codes (old link)", modality_reasons_path, id: "modal-reason-code-old", class: "button tiny mt"
   
   %li
     = link_to "Renal Registry Reason for Change Codes", "#", id: "modal-reason-code", class: "button tiny mt"
