@@ -22,7 +22,7 @@
               %legend
                 Add New Problem
 
-              .row#new-probs-template{data: { index: @patient.problems.length - 1 }}  
+              .row#new-probs-template  
                 = render :partial => 'problem_form', :locals => { :pb => pb }
               
                 #additional-form
