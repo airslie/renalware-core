@@ -45,8 +45,8 @@ $(document).ready(function(){
 
   $('#modal-reason-code').click(function() {
 
-    var bigModal = $('<div></div>').attr('class','show');
-    var smallModal = $('<div><b class="close fi-x"></b><h5 class="g-center ">Renal Registry Reason for Change Codes</h5></div>').attr('class','modal-window ');
+    var bigModal = $('<div></div>').attr('class','modal-show');
+    var smallModal = $('<div><b class="modal-close fi-x"></b><h5 class="g-center ">Renal Registry Reason for Change Codes</h5></div>').attr('class','modal-window ');
     var modalHolder = $('<div id=modal-holder></div>');
     var hd_pd_table = $('<table><caption>Haemodialysis to PD</caption><thead><tr><th>RR Code</th><th>Reason for Change</th></tr></thead><tbody id="hd-pd"></tbody></table>');
     var pd_hd_table = $('<table><caption>PD to Haemodialysis</caption><thead><tr><th>RR Code</th><th>Reason for Change</th></tr></thead><tbody id="pd-hd"></tbody></table>');
@@ -57,7 +57,7 @@ $(document).ready(function(){
     hd_pd_table.appendTo('div#modal-holder');
     pd_hd_table.appendTo('div#modal-holder');
 
-    $('.close').click(function() {
+    $('.modal-close').click(function() {
       $('#big-modal').remove();
     });
 

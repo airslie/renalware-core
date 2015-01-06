@@ -13,80 +13,80 @@
 
   %body
     #wrapper.big-wrapper
-      %nav.top-bar(data-topbar role = "navigation")
-        %ul.title-area
-          %li.name
-            %h1
-              = link_to "Renalwarev2", patients_path, :title => "Home"
+    %nav.top-bar(data-topbar role = "navigation")
+      %ul.title-area
+        %li.name
+          %h1
+            = link_to "Renalwarev2", patients_path, :title => "Home"
 
-        %section.top-bar-section
-          - if @patient && @patient.persisted?
-            %ul.left
-              %li.has-dropdown.active
-                = link_to " " + "#{@patient.full_name}", clinical_summary_patient_path(@patient), :title => "Clinical Summary", :"data-tooltip aria-haspopup" => "true", :class => "fi-graph-trend"
-                %ul.dropdown
-                  %li
-                    = link_to "New Letter", "#"
-                  %li
-                    = link_to "Manage Problems", problems_patient_path(@patient)
-                  %li
-                    = link_to "Manage Medications", medications_patient_path(@patient)
-                  %li
-                    = link_to "Add Patient Event", new_patient_patient_event_path(@patient)
-
-          %ul.left
-            %li.has-form
-              = form_tag search_patients_path, :method => "get" do
-                .row.collapse
-                  .large-8.small-9.columns
-                    = label_tag :patient_search, "Patient Search" do
-                      = search_field_tag :patient_search, params[:patient_search], 
-                      :placeholder => "Patient Name, Local Patient ID or NHS Number"
-                  .large-4.small-3.columns
-                    = submit_tag "Find!", :title => "Find Patient", :class => "nav-search button tiny"
-
-          %ul.right.large-2.columns
-            %li.has-dropdown
-              = link_to "Patients", patients_path
-              %ul.dropdown
-                %li
-                  = link_to "All Patients", patients_path
-                %li
-                  = link_to "Add a New Patient", new_patient_path
-                %li
-                  = link_to "Deceased Patients", death_patients_path
-
-            %li.has-dropdown
-              = link_to "Admin", patients_path
-              %ul.dropdown
-                %li
-                  = link_to "Manage Patient Event Types", patient_event_types_path
-                %li
-                  = link_to "Manage Drugs", drugs_path
-                %li
-                  = link_to "Manage Modalities", modality_codes_path
-
-      - if flash[:notice]
-        .row.flash-notice 
-          .alert-box.info.round{:data => {:alert => nil}}
-            = flash[:notice]
-            <a href="#" class="close">&times;</a>
-
-      .main-content
+      %section.top-bar-section
         - if @patient && @patient.persisted?
+          %ul.left
+            %li.has-dropdown.active
+              = link_to " " + "#{@patient.full_name}", clinical_summary_patient_path(@patient), :title => "Clinical Summary", :"data-tooltip aria-haspopup" => "true", :class => "fi-graph-trend"
+              %ul.dropdown
+                %li
+                  = link_to "New Letter", "#"
+                %li
+                  = link_to "Manage Problems", problems_patient_path(@patient)
+                %li
+                  = link_to "Manage Medications", medications_patient_path(@patient)
+                %li
+                  = link_to "Add Patient Event", new_patient_patient_event_path(@patient)
 
-          .row.g-center
-            %h4.patient-info
-              = "#{@patient.full_name} - KCH: #{@patient.local_patient_id}, Age: #{@patient.age}, #{I18n.t("enums.gender.#{@patient.sex}")}, DoB: #{@patient.dob}, #{@patient.patient_modality.blank? || @patient.patient_modality.new_record? ? "No Modal" : @patient.patient_modality.modality_code.name}"
+        %ul.left
+          %li.has-form
+            = form_tag search_patients_path, :method => "get" do
+              .row.collapse
+                .large-8.small-9.columns
+                  = label_tag :patient_search, "Patient Search" do
+                    = search_field_tag :patient_search, params[:patient_search], 
+                    :placeholder => "Patient Name, Local Patient ID or NHS Number"
+                .large-4.small-3.columns
+                  = submit_tag "Find!", :title => "Find Patient", :class => "nav-search button tiny"
 
-        = yield
+        %ul.right.large-2.columns
+          %li.has-dropdown
+            = link_to "Patients", patients_path
+            %ul.dropdown
+              %li
+                = link_to "All Patients", patients_path
+              %li
+                = link_to "Add a New Patient", new_patient_path
+              %li
+                = link_to "Deceased Patients", death_patients_path
 
-      - if content_for? :secondary_nav
-       
-        %nav.sub-nav-container{data: {:"magellan-expedition" => "fixed"}}
-          %dl.sub-nav{role: "menu"}
-            %dt
-            = content_for :secondary_nav
-          .g-cb
+          %li.has-dropdown
+            = link_to "Admin", patients_path
+            %ul.dropdown
+              %li
+                = link_to "Manage Patient Event Types", patient_event_types_path
+              %li
+                = link_to "Manage Drugs", drugs_path
+              %li
+                = link_to "Manage Modalities", modality_codes_path
 
-      = javascript_include_tag "application"
+    - if flash[:notice]
+      .row.flash-notice 
+        .alert-box.info.round{:data => {:alert => nil}}
+          = flash[:notice]
+          <a href="#" class="close">&times;</a>
+
+    .main-content
+      - if @patient && @patient.persisted?
+
+        .row.g-center
+          %h4.patient-info
+            = "#{@patient.full_name} - KCH: #{@patient.local_patient_id}, Age: #{@patient.age}, #{I18n.t("enums.gender.#{@patient.sex}")}, DoB: #{@patient.dob}, #{@patient.patient_modality.blank? || @patient.patient_modality.new_record? ? "No Modal" : @patient.patient_modality.modality_code.name}"
+
+      = yield
+
+    - if content_for? :secondary_nav
+     
+      %nav.sub-nav-container{data: {:"magellan-expedition" => "fixed"}}
+        %dl.sub-nav{role: "menu"}
+          %dt
+          = content_for :secondary_nav
+        .g-cb
+
+    = javascript_include_tag "application"

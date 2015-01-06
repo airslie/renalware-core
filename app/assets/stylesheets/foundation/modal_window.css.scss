@@ -1,4 +1,4 @@
-.show {
+.modal-show {
   position: relative;
   background: #333;
   width: 100%;
@@ -30,7 +30,7 @@
   overflow: scroll;
 }
 
-.close {
+.modal-close {
   display: fixed;
   float: right;
   width: 20px;
