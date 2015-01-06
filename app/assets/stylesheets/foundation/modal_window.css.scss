@@ -1,0 +1,40 @@
+.modal-show {
+  position: relative;
+  background: #333;
+  width: 100%;
+  height: 100%;
+  background: rgba(56,80,70,0.5);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.modal-window {
+  background: #FFF;
+  width: 600px;
+  margin-left: auto;
+  margin: auto;
+  margin-top: 100px;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 1px 1px 1px #333;
+  height: 460px;
+}
+
+#modal-holder {
+  width: 560px;
+  height: 380px;
+  overflow: scroll;
+}
+
+.modal-close {
+  display: fixed;
+  float: right;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  z-index: 100;
+}
