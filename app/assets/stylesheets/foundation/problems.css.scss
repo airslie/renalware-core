@@ -13,3 +13,21 @@ li.snomed-select-link {
   cursor: pointer;
   text-decoration: underline;
 }
+
+.a-problem {
+  background-color: #DCDCEE;
+  margin: 0.5em;
+  border-radius: 0.5em;
+  padding: 0.5em;
+}
+
+.remove-problem.fi-x {
+  display: block;
+  width: 20px;
+  height: 20px;
+  z-index: 100;
+}
+
+.hidden-problem-form {
+  display: none;
+}

@@ -5,13 +5,19 @@ $(document).ready(function() {
     var next_number =  $(".problem-form").data("index") + 1;
     $(".problem-form").data("index", next_number);
 
-    var new_problem = $(".problem-form").html();
+    var new_problem = $(".hidden-problem-form").html();
 
     var update_markup = new_problem.replace(/\d/g, next_number);
 
     $("#additional-form").append(update_markup);
 
+    $(".fi-x").click(function(e) {
+      console.log("hello");
+      $(e.currentTarget).closest(".problem-form").remove();
+    });
+
   });
+  
 
   $('.snomed-lookup').change(function(e) {
 
@@ -40,6 +46,7 @@ $(document).ready(function() {
     // Show the selected drug
     problem_form.find('.snomed-lookup').val(bullet.html());
     problem_form.find('.snomed-results').hide();
+
   });
 
 });
