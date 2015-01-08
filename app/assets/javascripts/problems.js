@@ -5,11 +5,13 @@ $(document).ready(function() {
     var next_number =  $(".problem-form").data("index") + 1;
     $(".problem-form").data("index", next_number);
 
-    var new_problem = $(".hidden-problem-form").html();
+    var new_problem = $(".problem-form").html();
 
-    var update_markup = new_problem.replace(/\d/g, next_number);
+    var update_number_markup = new_problem.replace(/\d/g, next_number);
 
-    $("#additional-form").append(update_markup);
+    var updated_markup = update_number_markup.replace("add-x", "fi-x");
+
+    $("#additional-form").append(updated_markup);
 
     $(".fi-x").click(function(e) {
       console.log("hello");
