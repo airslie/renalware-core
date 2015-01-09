@@ -11,137 +11,146 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150102095659) do
+ActiveRecord::Schema.define(version: 20150109152145) do
 
-  create_table "addresses", force: true do |t|
-    t.string   "street_1"
-    t.string   "street_2"
-    t.string   "county"
-    t.string   "city"
-    t.string   "postcode"
+  create_table "addresses", force: :cascade do |t|
+    t.string   "street_1",   limit: 255
+    t.string   "street_2",   limit: 255
+    t.string   "county",     limit: 255
+    t.string   "city",       limit: 255
+    t.string   "postcode",   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "drugs", force: true do |t|
-    t.string   "name"
-    t.string   "type"
+  create_table "drugs", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "type",       limit: 255
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "edta_codes", force: true do |t|
-    t.integer  "code"
-    t.string   "death_cause"
+  create_table "edta_codes", force: :cascade do |t|
+    t.integer  "code",        limit: 4
+    t.string   "death_cause", limit: 255
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "ethnicities", force: true do |t|
-    t.string   "name"
+  create_table "esrf_infos", force: :cascade do |t|
+    t.integer  "patient_id",  limit: 4
+    t.integer  "user_id",     limit: 4
+    t.date     "date"
+    t.integer  "prd_code_id", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "modality_codes", force: true do |t|
-    t.string   "code"
-    t.string   "name"
-    t.string   "site"
+  create_table "ethnicities", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "modality_codes", force: :cascade do |t|
+    t.string   "code",       limit: 255
+    t.string   "name",       limit: 255
+    t.string   "site",       limit: 255
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "modality_reasons", force: true do |t|
-    t.string   "type"
-    t.integer  "rr_code"
-    t.string   "description"
+  create_table "modality_reasons", force: :cascade do |t|
+    t.string   "type",        limit: 255
+    t.integer  "rr_code",     limit: 4
+    t.string   "description", limit: 255
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "patient_event_types", force: true do |t|
+  create_table "patient_event_types", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
+    t.string   "name",       limit: 255
     t.datetime "deleted_at"
   end
 
-  create_table "patient_events", force: true do |t|
+  create_table "patient_events", force: :cascade do |t|
     t.datetime "date_time"
-    t.string   "user_id"
-    t.string   "description"
-    t.text     "notes"
+    t.string   "user_id",               limit: 255
+    t.string   "description",           limit: 255
+    t.text     "notes",                 limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "patient_event_type_id"
-    t.integer  "patient_id"
+    t.integer  "patient_event_type_id", limit: 4
+    t.integer  "patient_id",            limit: 4
   end
 
-  create_table "patient_medications", force: true do |t|
-    t.integer  "patient_id"
-    t.integer  "medication_id"
-    t.integer  "user_id"
-    t.string   "medication_type"
-    t.string   "dose"
-    t.integer  "route"
-    t.string   "frequency"
-    t.text     "notes"
+  create_table "patient_medications", force: :cascade do |t|
+    t.integer  "patient_id",      limit: 4
+    t.integer  "medication_id",   limit: 4
+    t.integer  "user_id",         limit: 4
+    t.string   "medication_type", limit: 255
+    t.string   "dose",            limit: 255
+    t.integer  "route",           limit: 4
+    t.string   "frequency",       limit: 255
+    t.text     "notes",           limit: 65535
     t.date     "date"
-    t.integer  "provider"
+    t.integer  "provider",        limit: 4
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "patient_modalities", force: true do |t|
-    t.integer  "patient_id"
-    t.integer  "user_id"
-    t.integer  "modality_code_id"
-    t.integer  "modality_reason_id"
-    t.string   "modal_change_type"
-    t.text     "notes"
+  create_table "patient_modalities", force: :cascade do |t|
+    t.integer  "patient_id",         limit: 4
+    t.integer  "user_id",            limit: 4
+    t.integer  "modality_code_id",   limit: 4
+    t.integer  "modality_reason_id", limit: 4
+    t.string   "modal_change_type",  limit: 255
+    t.text     "notes",              limit: 65535
     t.date     "date"
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "patients", force: true do |t|
-    t.string   "nhs_number"
-    t.string   "local_patient_id"
-    t.string   "surname"
-    t.string   "forename"
+  create_table "patients", force: :cascade do |t|
+    t.string   "nhs_number",                   limit: 255
+    t.string   "local_patient_id",             limit: 255
+    t.string   "surname",                      limit: 255
+    t.string   "forename",                     limit: 255
     t.date     "dob"
-    t.boolean  "paediatric_patient_indicator"
-    t.integer  "sex",                          default: 9
-    t.integer  "current_address_id"
-    t.integer  "address_at_diagnosis_id"
-    t.string   "gp_practice_code"
-    t.string   "pct_org_code"
-    t.string   "hosp_centre_code"
-    t.string   "primary_esrf_centre"
+    t.boolean  "paediatric_patient_indicator", limit: 1
+    t.integer  "sex",                          limit: 4,     default: 9
+    t.integer  "current_address_id",           limit: 4
+    t.integer  "address_at_diagnosis_id",      limit: 4
+    t.string   "gp_practice_code",             limit: 255
+    t.string   "pct_org_code",                 limit: 255
+    t.string   "hosp_centre_code",             limit: 255
+    t.string   "primary_esrf_centre",          limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "ethnicity_id"
+    t.integer  "ethnicity_id",                 limit: 4
     t.datetime "death_date"
-    t.integer  "first_edta_code_id"
-    t.integer  "second_edta_code_id"
-    t.text     "death_details"
+    t.integer  "first_edta_code_id",           limit: 4
+    t.integer  "second_edta_code_id",          limit: 4
+    t.text     "death_details",                limit: 65535
   end
 
-  create_table "problems", force: true do |t|
-    t.integer  "patient_id"
-    t.string   "description"
+  create_table "problems", force: :cascade do |t|
+    t.integer  "patient_id",  limit: 4
+    t.string   "description", limit: 255
     t.date     "date"
-    t.integer  "user_id"
+    t.integer  "user_id",     limit: 4
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "snomed_id"
+    t.string   "snomed_id",   limit: 255
   end
 
 end
