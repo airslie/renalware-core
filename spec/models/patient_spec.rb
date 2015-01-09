@@ -5,5 +5,7 @@ RSpec.describe Patient, :type => :model do
   it { should accept_nested_attributes_for(:problems) }
   it { should have_one :patient_modality }
   it { should have_one(:modality_code).through(:patient_modality)}
-  it { should accept_nested_attributes_for(:patient_modality)}   
+  it { should accept_nested_attributes_for(:patient_modality)}
+  it { should have_one :esrf_info }
+  it { should accept_nested_attributes_for(:esrf_info)}  
 end
