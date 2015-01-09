@@ -1,0 +1,23 @@
+.row
+  %h5
+    ESRF Summary 
+
+.row
+  %ul.no-bullet
+    = form_for @patient do |f|
+      
+      = hidden_field_tag :redirect_url, clinical_summary_patient_path(@patient)
+      
+      = f.fields_for :esrf_info, @esrf_info do |esrf| 
+        
+        = render :partial => 'esrf_info_form', :locals => { :esrf => esrf }
+          
+      = f.submit "Save ESRF Summary", :class => "button tiny right save mt"
+
+  = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left cancel mt"
+                   
+.clinical-summary
+  = content_for :secondary_nav do  
+    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
+
+ 

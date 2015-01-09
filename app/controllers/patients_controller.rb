@@ -1,6 +1,14 @@
 class PatientsController < ApplicationController
-  before_action :load_patient, :only => [:death_update, :clinical_summary, :medications, :problems, :modality,
+  before_action :load_patient, :only => [:esrf_info, :death_update, :clinical_summary, :medications, :problems, :modality,
     :medications_index, :demographics, :edit, :update]
+
+  def esrf_info
+    if @patient.esrf_info.blank?
+      @esrf_info = @patient.build_esrf_info
+    else
+      @patient.patient_modality
+    end
+  end
 
   def death
     @dead_patients = Patient.where("death_date IS NOT NULL", params[:death_date])  

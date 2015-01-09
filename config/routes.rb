@@ -7,7 +7,8 @@ Rails.application.routes.draw do
       get :medications_index
       get :problems
       get :modality
-      get :death_update 
+      get :death_update
+      get :esrf_info 
     end
     collection do
       get :search
