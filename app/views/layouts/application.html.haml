@@ -88,7 +88,8 @@
 
         .row
           .renal-profile
-            = link_to "ESRF", esrf_info_patient_path(@patient)
+            = link_to "ESRF:", esrf_info_patient_path(@patient) 
+            = "#{@patient.esrf_info.blank? || @patient.esrf_info.new_record? ? " " : @patient.esrf_info.date}"
 
       = yield
 
