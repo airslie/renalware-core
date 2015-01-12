@@ -23,7 +23,7 @@
         - if @patient && @patient.persisted?
           %ul.left
             %li.has-dropdown.active
-              = link_to " " + "#{@patient.full_name}", clinical_summary_patient_path(@patient), :title => "Clinical Summary", :"data-tooltip aria-haspopup" => "true", :class => "fi-graph-trend"
+              = link_to "#{@patient.full_name}", clinical_summary_patient_path(@patient), :title => "Clinical Summary"
               %ul.dropdown
                 %li
                   = link_to "New Letter", "#"
