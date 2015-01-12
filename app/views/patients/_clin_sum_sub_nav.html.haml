@@ -1,6 +1,6 @@
 %dt  
   %dd.remove-name.patient-name{role: "menuitem"}
-    = link_to "ClinSumm", clinical_summary_patient_path(@patient), :title => "Clinical Summary"
+    = link_to "#{@patient.full_name}", clinical_summary_patient_path(@patient), :title => "Clinical Summary", :"data-tooltip aria-haspopup" => true
   %dd{role: "menuitem"}
     = link_to "Letters", "#", :title => "View Letters", :title => "Letters"
   %dd{role: "menuitem"}
