@@ -1,5 +1,6 @@
 .row  
-  %h5= link_to "Patient Medications", medications_patient_path(@patient)
+  %h5.g-center
+    = link_to "Patient Medications", medications_patient_path(@patient)
 
 .row
   = form_for @patient do |f|
