@@ -14,4 +14,4 @@
 
   %li
     = esrf.label :prd_code_id, "Renal Diagnosis"
-    = esrf.text_field :prd_code_id
+    = esrf.collection_select :prd_code_id, PrdCode.all, :id, :term, { :prompt => "Select renal diagnosis", include_blank: true }, :class => "prd-select"
