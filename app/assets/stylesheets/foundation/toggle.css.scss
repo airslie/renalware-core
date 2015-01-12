@@ -39,3 +39,11 @@
 .accordion .accordion-navigation > .content.active, .accordion dd  > .content.toggle-content {
   background: rgba(255, 255, 255, 0);
 }
+
+.fi-plus:before, .fi-minus:before {
+  color: #008cba;
+}
+
+.edit {
+  color: #999999;
+}
