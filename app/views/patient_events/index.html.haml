@@ -1,19 +1,12 @@
-.row
+.row.g-center
   %h5= link_to "Patient Events", patient_patient_events_path(@patient)
 
   %table.responsive
-    %caption
-      = link_to "All Patient Events", patient_patient_events_path(@patient)
-
     %thead
       %th
         Added
       %th
         Event Type
-      %th
-        User
-      %th
-        Modal
       %th
         Description
       %th

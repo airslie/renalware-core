@@ -3,10 +3,6 @@
     = patient_event.created_at.strftime("%d/%m/%Y")
   %td{:data => { :heading => "Event Type"}}
     = patient_event.patient_event_type.name
-  %td{:data => { :heading => "User"}}
-    / TODO
-  %td{:data => { :heading => "Modal"}}
-    / TODO
   %td{:data => { :heading => "Description"}}
     %dl.accordion{data: {accordion: true} }
       %dd.accordion-navigation
