@@ -14,7 +14,6 @@ $(document).ready(function() {
     $("#additional-form").append(updated_markup);
 
     $(".fi-x").click(function(e) {
-      console.log("hello");
       $(e.currentTarget).closest(".problem-form").remove();
     });
 
