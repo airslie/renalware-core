@@ -32,12 +32,12 @@ $(document).ready(function(){
       success: function(json) {
         console.log(json);
         var drug_select_box = med_form.find('.drug-select');
-        drug_select_box.html('');
+        drug_select_box.html('<option>Select a drug</option>');
 
         for (var i = 0; i < json.length; i++) {
           var drug_id = json[i].id;
           var drug_name = json[i].name;
-          var option_html = _.template("<option value=<%=id%>><%=name%></option>")({ id: drug_id, name: drug_name });
+          var option_html = _.template("<option class='drug-select-link' value=<%=id%>><%=name%></option>")({ id: drug_id, name: drug_name });
           drug_select_box.append(option_html);
         }
       },
@@ -118,6 +118,14 @@ $(document).ready(function(){
     // Show the selected drug
     med_form.find('.find_drug').val(bullet.html());
     med_form.find('.drug-results').hide();
+  });
+
+  $('.drug-select').change(function(e) {
+    console.log("Hello");
+    var bullet = $(e.currentTarget);
+    var med_form = bullet.closest('.med-form');
+    var selected_drug = med_form.find('.drug-select').val();
+    med_form.find('.selected-medication-id').val(selected_drug);
   });
 
 });
