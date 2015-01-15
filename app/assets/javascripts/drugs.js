@@ -2,6 +2,7 @@
 // All this logic will automatically be available in application.js.
 $(document).ready(function(){
 
+  //drug type by select
   $('.medication-type-select').change(function(e) {
     var select_box = $(e.currentTarget);
     var selected_medication_type = select_box.val();
@@ -49,6 +50,7 @@ $(document).ready(function(){
 
   });
 
+  // drug search
   var timer;
 
   $('.find_drug').keydown(function(e) {
@@ -107,7 +109,7 @@ $(document).ready(function(){
     }, 500);
   });
 
-
+  // set hidden value of chosen medication via search
   $('body').on('click', '.drug-select-link', function(e) {
     var bullet = $(e.currentTarget);
     var med_form = bullet.closest('.med-form');
@@ -120,7 +122,7 @@ $(document).ready(function(){
     med_form.find('.drug-results').hide();
   });
 
-
+  // set hidden value of chosen medication via select dropdown
   $('.medication-type-select').change(function(e) {
     var bullet = $(e.currentTarget);
     var med_form = bullet.closest('.med-form');
