@@ -26,7 +26,7 @@ group :development, :test do
   gem "capybara", "2.2.0"
   gem "capybara-webkit"
   gem "launchy"
-  gem "pry"
+  gem "pry-byebug"
   gem "database_cleaner"
   gem "spring-commands-cucumber"
   gem "spring-commands-rspec"
