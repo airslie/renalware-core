@@ -14,6 +14,7 @@ gem "elasticsearch-model"
 gem "elasticsearch-rails"
 gem "elasticsearch-extensions"
 gem "httparty"
+gem 'paper_trail', '~> 3.0.6'
 
 group :development, :test do
   gem 'poltergeist'

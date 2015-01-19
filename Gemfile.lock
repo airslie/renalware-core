@@ -148,6 +148,9 @@ GEM
     mysql2 (0.3.16)
     nokogiri (1.6.5)
       mini_portile (~> 0.6.0)
+    paper_trail (3.0.6)
+      activerecord (>= 3.0, < 5.0)
+      activesupport (>= 3.0, < 5.0)
     poltergeist (1.5.1)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -285,6 +288,7 @@ DEPENDENCIES
   launchy
   mocha
   mysql2
+  paper_trail (~> 3.0.6)
   poltergeist
   pry-byebug
   rails (~> 4.2)
