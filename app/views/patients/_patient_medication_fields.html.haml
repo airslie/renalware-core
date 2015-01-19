@@ -9,7 +9,7 @@
   / Only show this for standard
   .standard
     = label_tag :drug_search, "Drug"
-    = text_field_tag :drug_search, pm.object.persisted? ? pm.object.medication.name : nil, :class => "find_drug", :placeholder => "Search drug by name"
+    = text_field_tag :drug_search, pm.object.persisted? ? pm.object.medication.name : nil, :class => "find_drug", :placeholder => "Search drug by name or type"
 
     %ul.no-bullet.drug-results
 
