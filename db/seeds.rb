@@ -23,7 +23,7 @@ Patient.find_or_create_by!(:nhs_number => "1000124503") do |patient|
   patient.dob = "02/05/1965"
   patient.paediatric_patient_indicator = "0"
   patient.sex = 2
-  patient.ethnicity_id = 2
+  patient.ethnicity_id = 11
 end
 
 Patient.find_or_create_by!(:nhs_number => "1000124504") do |patient|
@@ -33,7 +33,7 @@ Patient.find_or_create_by!(:nhs_number => "1000124504") do |patient|
   patient.dob = "02/05/1930"
   patient.paediatric_patient_indicator = "0"
   patient.sex = 1
-  patient.ethnicity_id = 5
+  patient.ethnicity_id = 21
 end
 
 PatientEventType.find_or_create_by!(name: "Access clinic")
