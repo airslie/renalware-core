@@ -11,9 +11,29 @@ Patient.find_or_create_by!(:nhs_number => "1000124502") do |patient|
   patient.surname = "RABBIT" 
   patient.forename = "R"
   patient.dob = "01/01/1947"
-  patient.paediatric_patient_indicator = "1"
+  patient.paediatric_patient_indicator = "0"
   patient.sex = 1
   patient.ethnicity_id = 1
+end
+
+Patient.find_or_create_by!(:nhs_number => "1000124503") do |patient|
+  patient.local_patient_id = "Z999998" 
+  patient.surname = "Day" 
+  patient.forename = "Doris"
+  patient.dob = "02/05/1965"
+  patient.paediatric_patient_indicator = "0"
+  patient.sex = 2
+  patient.ethnicity_id = 2
+end
+
+Patient.find_or_create_by!(:nhs_number => "1000124504") do |patient|
+  patient.local_patient_id = "Z999997" 
+  patient.surname = "Ghost" 
+  patient.forename = "Casper"
+  patient.dob = "02/05/1930"
+  patient.paediatric_patient_indicator = "0"
+  patient.sex = 1
+  patient.ethnicity_id = 5
 end
 
 PatientEventType.find_or_create_by!(name: "Access clinic")
