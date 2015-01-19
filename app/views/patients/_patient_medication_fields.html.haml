@@ -9,7 +9,7 @@
   / Only show this for standard
   .standard
     = label_tag :drug_search, "Drug"
-    = text_field_tag :drug_search, pm.object.persisted? ? pm.object.medication.name : nil, :class => "find_drug", :placeholder => "Search drug by name"
+    = text_field_tag :drug_search, pm.object.persisted? ? pm.object.medication.name : nil, :class => "find_drug", :placeholder => "Search drug by name or type"
 
     %ul.no-bullet.drug-results
 
@@ -17,8 +17,8 @@
 
   / Only show this for ESA/ Imnosupressnt.
   .esa-or-immno
-    = pm.label :medication_id, "Select Drug"
-    = pm.collection_select :medication_id, drugs_for(pm.object.medication_type), :id, :name, {}, :class => "drug-select"
+    = pm.label :drug_select, "Select Drug"
+    = pm.collection_select :drug_select, drugs_for(pm.object.medication_type), :id, :name, {}, :class => "drug-select"
 
   / Same for both
   = pm.label :dose

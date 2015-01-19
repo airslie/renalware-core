@@ -1,5 +1,6 @@
 .row  
-  %h5= link_to "Patient Medications", medications_patient_path(@patient)
+  %h5.g-center
+    = link_to "Patient Medications", medications_patient_path(@patient)
 
 .row
   = form_for @patient do |f|
@@ -32,18 +33,11 @@
       - else
         %dl.accordion{data: {accordion: true} }
           %dd.accordion-navigation.med-form
-            %a{href: "#edit-meds-#{pm.object.id}", :class => "drug-#{pm.object.medication_type.downcase}"}
-              %ul.no-bullet.med-list
-                %li
-                  = "#{pm.object.medication.name},"
-                %li
-                  = "#{pm.object.dose},"
-                %li
-                  = "#{I18n.t("enums.route.#{pm.object.route}")},"
-                %li
-                  = "#{pm.object.frequency},"
-                %li
-                  = pm.object.date
+            %a.fi-plus.fi-minus{href: "#edit-meds-#{pm.object.id}", :class => "drug-#{pm.object.medication_type.downcase}"}
+                
+              = "#{pm.object.medication.name}, #{pm.object.dose}, #{I18n.t("enums.route.#{pm.object.route}")}, #{pm.object.frequency}, #{pm.object.date}"
+              .right.edit
+                Edit
 
             = render :partial => 'patient_medication_fields', :locals => { :pm => pm }
 

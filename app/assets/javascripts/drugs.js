@@ -2,6 +2,7 @@
 // All this logic will automatically be available in application.js.
 $(document).ready(function(){
 
+  //drug type by select
   $('.medication-type-select').change(function(e) {
     var select_box = $(e.currentTarget);
     var selected_medication_type = select_box.val();
@@ -37,7 +38,7 @@ $(document).ready(function(){
         for (var i = 0; i < json.length; i++) {
           var drug_id = json[i].id;
           var drug_name = json[i].name;
-          var option_html = _.template("<option value=<%=id%>><%=name%></option>")({ id: drug_id, name: drug_name });
+          var option_html = _.template("<option class='drug-select-link' value=<%=id%>><%=name%></option>")({ id: drug_id, name: drug_name });
           drug_select_box.append(option_html);
         }
       },
@@ -49,6 +50,7 @@ $(document).ready(function(){
 
   });
 
+  // drug search
   var timer;
 
   $('.find_drug').keydown(function(e) {
@@ -107,7 +109,7 @@ $(document).ready(function(){
     }, 500);
   });
 
-
+  // set hidden value of chosen medication via search
   $('body').on('click', '.drug-select-link', function(e) {
     var bullet = $(e.currentTarget);
     var med_form = bullet.closest('.med-form');
@@ -120,5 +122,23 @@ $(document).ready(function(){
     med_form.find('.drug-results').hide();
   });
 
+  // set hidden value of chosen medication via select dropdown
+  $('.medication-type-select').change(function(e) {
+    var bullet = $(e.currentTarget);
+    var med_form = bullet.closest('.med-form');
+    var delay = 1000;
+    setTimeout(function(){
+      var selected_drug = med_form.find('.drug-select').val();
+      med_form.find('.selected-medication-id').val(selected_drug);
+    }, delay);
+
+    $('.drug-select').change(function(e) {
+      var bullet = $(e.currentTarget);
+      var med_form = bullet.closest('.med-form');
+      var selected_drug = med_form.find('.drug-select').val();
+      med_form.find('.selected-medication-id').val(selected_drug);
+    });
+
+  });
 });
 

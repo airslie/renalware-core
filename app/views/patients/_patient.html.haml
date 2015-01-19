@@ -1,10 +1,10 @@
 %tr
   %td.g-center{:data => { :heading => "Letters"}}
-    = link_to " " + "New", "#", :title => "New Letter", :class => "fi-mail icon-style"
+    = link_to "New", "#", :title => "New Letter"
   %td.g-center{ :data => { :heading => "Admin"}}
-    = link_to " " + "View", demographics_patient_path(patient), :title => "Demographics", :class => "fi-clipboard-notes icon-style"
+    = link_to "View", demographics_patient_path(patient), :title => "Demographics"
   %td{ :data => { :heading => "Forename"}}
-    = link_to " " + patient.full_name, clinical_summary_patient_path(patient), :title => "Clinical Summary", :class => "fi-graph-trend"
+    = link_to " " + patient.full_name, clinical_summary_patient_path(patient), :title => "Clinical Summary"
   %td{ :data => { :heading => "NHS No."}}
     = patient.nhs_number
   %td{ :data => { :heading => "Hospital No."}}

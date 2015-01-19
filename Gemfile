@@ -1,7 +1,7 @@
 source "https://rubygems.org"
-ruby "2.1.3"
+# ruby "2.1.3"
 
-gem "rails", "~> 4.1"
+gem "rails", "~> 4.2"
 gem "mysql2"
 gem "foundation-rails"
 gem "jquery-rails"
@@ -26,13 +26,14 @@ group :development, :test do
   gem "capybara", "2.2.0"
   gem "capybara-webkit"
   gem "launchy"
-  gem "pry"
+  gem "pry-byebug"
   gem "database_cleaner"
   gem "spring-commands-cucumber"
   gem "spring-commands-rspec"
   gem "ffaker"
   gem "mocha"
   gem "shoulda-matchers"
+  gem "web-console", "~> 2.0"
 end
 
 group :test do 

@@ -14,6 +14,7 @@ class Patient < ActiveRecord::Base
 
   has_one :patient_modality
   has_one :modality_code, :through => :patient_modality
+  has_one :esrf_info
 
   accepts_nested_attributes_for :current_address
   accepts_nested_attributes_for :address_at_diagnosis
@@ -23,6 +24,7 @@ class Patient < ActiveRecord::Base
   accepts_nested_attributes_for :problems, allow_destroy: true,
   :reject_if => proc { |attrs| attrs[:description].blank? }
   accepts_nested_attributes_for :patient_modality
+  accepts_nested_attributes_for :esrf_info
 
 
   validates :nhs_number, presence: true, length: { minimum: 10, maximum: 10 }, uniqueness: true

@@ -23,7 +23,7 @@
         - if @patient && @patient.persisted?
           %ul.left
             %li.has-dropdown.active
-              = link_to " " + "#{@patient.full_name}", clinical_summary_patient_path(@patient), :title => "Clinical Summary", :"data-tooltip aria-haspopup" => "true", :class => "fi-graph-trend"
+              = link_to "#{@patient.full_name}", clinical_summary_patient_path(@patient), :title => "Clinical Summary"
               %ul.dropdown
                 %li
                   = link_to "New Letter", "#"
@@ -85,6 +85,11 @@
         .row.g-center
           %h4.patient-info
             = "#{@patient.full_name} - KCH: #{@patient.local_patient_id}, Age: #{@patient.age}, #{I18n.t("enums.gender.#{@patient.sex}")}, DoB: #{@patient.dob}, #{@patient.patient_modality.blank? || @patient.patient_modality.new_record? ? "No Modal" : @patient.patient_modality.modality_code.name}"
+
+        .row
+          .renal-profile
+            = link_to "ESRF:", esrf_info_patient_path(@patient) 
+            = "#{@patient.esrf_info.blank? || @patient.esrf_info.new_record? ? " " : @patient.esrf_info.date}"
 
       = yield
 

@@ -9,4 +9,8 @@ class Drug < ActiveRecord::Base
   def display_type
     "Standard Drug"
   end
+  
+  def as_indexed_json(options={})
+    as_json(only: %i(name type))
+  end
 end
