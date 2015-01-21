@@ -40,7 +40,8 @@ class PatientsController < ApplicationController
   end
 
   def problems
-    @patient.problems.build  
+    @patient.problems.build
+    @problem_history = ProblemVersion.all
   end
 
   def medications_index

@@ -3,6 +3,12 @@
     = link_to "Patient Problems", problems_patient_path(@patient)
 
 .row
+  - @problem_history.each do |ph|
+    %ul.no-bullet
+      %li
+        = ph.object   
+
+.row
   = form_for @patient do |f|  
     = hidden_field_tag :redirect_url, problems_patient_path(@patient)
     
