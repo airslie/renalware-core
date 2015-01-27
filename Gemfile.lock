@@ -100,6 +100,11 @@ GEM
       multi_json
     erubis (2.7.0)
     execjs (2.2.2)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
+      railties (>= 3.0.0)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
     ffaker (1.25.0)
@@ -279,6 +284,7 @@ DEPENDENCIES
   elasticsearch-extensions
   elasticsearch-model
   elasticsearch-rails
+  factory_girl_rails (~> 4.0)
   ffaker
   foundation-rails
   frog_spawn!
