@@ -41,7 +41,7 @@ class PatientsController < ApplicationController
 
   def problems
     @patient.problems.build
-    @problem_history = ProblemVersion.all
+    @problems = @patient.problems.map { |p| p.history }
   end
 
   def medications_index

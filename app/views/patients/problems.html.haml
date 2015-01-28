@@ -3,16 +3,15 @@
     = link_to "Patient Problems", problems_patient_path(@patient)
 
 .row
-  - @problem_history.each do |ph|
-    %ul.no-bullet
-      %li
-        = ph.object   
-
-.row
   = form_for @patient do |f|  
     = hidden_field_tag :redirect_url, problems_patient_path(@patient)
     
     = f.fields_for :problems do |pb|
+      %h4
+        History
+     
+      - pb.object.history.each do |p|
+        = p.description
 
       - if pb.object.new_record?
 
