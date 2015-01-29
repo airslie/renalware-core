@@ -5,7 +5,7 @@ RSpec.describe Problem, :type => :model do
 
   describe "history", :versioning => true do
     before do
-      binding.pry
+      # binding.pry
       @patient = Patient.find_or_create_by!(
         nhs_number: "1000124505", 
         local_patient_id: "Z999988", 
@@ -20,12 +20,13 @@ RSpec.describe Problem, :type => :model do
 
     context "display all history of problems " do
       before do
-        p = @patient.problems.create!(description: "I have a problem")
-        p.update!(description: "I have another problem")
+        @problem = @patient.problems.create!(description: "I have a problem")
+        @problem.update!(description: "I have another problem") 
+        @problem.update!(description: "I have more problems")   
       end
 
       it "should record a patient's history of a problem" do
-        expect(@patient.problems.length).to eq(1)
+        expect(@problem.history.map { |x| x.description }).to eq(["I have another problem", "I have a problem"])
       end 
     end
 
