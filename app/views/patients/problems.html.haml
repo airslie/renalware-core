@@ -18,7 +18,7 @@
               
                 %ul.no-bullet
                   %li.history
-                    = "#{p.description}, #{p.created_at.strftime("%d/%m/%Y")}"
+                    = "#{p.description}, #{p.updated_at.strftime("%d/%m/%Y - %H:%M")}"
 
       - if pb.object.new_record?
 
