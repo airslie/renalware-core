@@ -7,7 +7,9 @@
     = hidden_field_tag :redirect_url, problems_patient_path(@patient)
     
     = f.fields_for :problems do |pb|
+      
       - if pb.object.history != []
+       
         %dl.accordion.right{data: {accordion: true} }
           %dd.accordion-navigation   
             %a.problem-history-link.fi-plus.fi-minus.toggle-notes{ class: "problem-history", href: "#history-list-#{pb.object.id}" }  
@@ -48,6 +50,7 @@
         = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left cancel mt"
                    
       - else
+     
         %dl.accordion{data: {accordion: true} }
           %dd.accordion-navigation.med-form
             %a.fi-plus.fi-minus.toggle-notes{ class: "problem", href: "#edit-probs-#{pb.object.id}" }              
@@ -56,12 +59,12 @@
                 Edit
 
           
-            .probs-form.content{:id => "edit-probs-#{pb.object.id}", data: { index: 0 }}         
+            .columns.large-8.probs-form.content{:id => "edit-probs-#{pb.object.id}", data: { index: 0 }}         
               = render :partial => 'problem_form', :locals => { :pb => pb }
-
-            .probs-form.content{:id => "edit-probs-#{pb.object.id}"}  
-              = pb.check_box :_destroy
-              = pb.label :_destroy, "Terminate?", class: "delete"
+            
+              .probs-form.content{:id => "edit-probs-#{pb.object.id}"}  
+                = pb.check_box :_destroy
+                = pb.label :_destroy, "Terminate?", class: "delete"
 
     = f.submit "Save Problems", :class => "button tiny right save mt"
 
