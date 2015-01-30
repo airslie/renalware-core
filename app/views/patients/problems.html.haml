@@ -2,7 +2,7 @@
   %h5.g-center
     = link_to "Patient Problems", problems_patient_path(@patient)
 
-.row
+.wide-screen
   = form_for @patient do |f|  
     = hidden_field_tag :redirect_url, problems_patient_path(@patient)
     
@@ -10,7 +10,7 @@
       
       - if pb.object.history != []
        
-        %dl.accordion.right{data: {accordion: true} }
+        %dl.accordion.right.columns.large-6{data: {accordion: true} }
           %dd.accordion-navigation   
             %a.problem-history-link.fi-plus.fi-minus.toggle-notes{ class: "problem-history", href: "#history-list-#{pb.object.id}" }  
               View history of active problem 
@@ -59,7 +59,7 @@
                 Edit
 
           
-            .columns.large-8.probs-form.content{:id => "edit-probs-#{pb.object.id}", data: { index: 0 }}         
+            .columns.large-6.probs-form.content{:id => "edit-probs-#{pb.object.id}", data: { index: 0 }}         
               = render :partial => 'problem_form', :locals => { :pb => pb }
             
               .probs-form.content{:id => "edit-probs-#{pb.object.id}"}  
