@@ -2,7 +2,7 @@
   %h4
     = link_to "Clinical Summary", clinical_summary_patient_path(@patient)
 
-.clinical-summary
+.wide-screen
   .columns.large-6
     %h5.g-center 
       = link_to "#{@patient.problems.length} Problems", problems_patient_path(@patient)
@@ -13,7 +13,7 @@
         %li
           = "#{p.description}, #{p.created_at.strftime("%d/%m/%Y")}, #{p.user_id}"
                     
-.clinical-summary
+.wide-screen
   .columns.large-6
     %h5.g-center
       = link_to "#{@patient.patient_medications.length} Current Medications", medications_index_patient_path(@patient)
@@ -25,7 +25,7 @@
           
           = "#{p.medication.type}, #{p.medication.name}, #{p.dose}, #{I18n.t("enums.route.#{p.route}")}, #{p.frequency}, #{p.date}"          
 
-.clinical-summary
+.wide-screen
   .columns.large-12
     %h5.g-center
       = link_to "#{@patient.patient_events.length} Patient Events", patient_patient_events_path(@patient)
@@ -41,7 +41,7 @@
               .patient-event.content{:id => "patient-event-notes-#{event.id}"}
                 = event.notes
           
-.clinical-summary
+.wide-screen
   = content_for :secondary_nav do  
     = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
 
