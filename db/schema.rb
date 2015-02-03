@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150120155952) do
+ActiveRecord::Schema.define(version: 20150203161438) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street_1",   limit: 255
@@ -53,6 +53,18 @@ ActiveRecord::Schema.define(version: 20150120155952) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "medication_versions", force: :cascade do |t|
+    t.string   "item_type",      limit: 255,   null: false
+    t.integer  "item_id",        limit: 4,     null: false
+    t.string   "event",          limit: 255,   null: false
+    t.string   "whodunnit",      limit: 255
+    t.text     "object",         limit: 65535
+    t.text     "object_changes", limit: 65535
+    t.datetime "created_at"
+  end
+
+  add_index "medication_versions", ["item_type", "item_id"], name: "index_medication_versions_on_item_type_and_item_id", using: :btree
 
   create_table "modality_codes", force: :cascade do |t|
     t.string   "code",       limit: 255

@@ -1,6 +1,8 @@
 class PatientMedication < ActiveRecord::Base
   attr_accessor :drug_select
 
+  has_paper_trail :class_name => 'MedicationVersion'
+
   belongs_to :medication, :polymorphic => true
   belongs_to :patients
 
