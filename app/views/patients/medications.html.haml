@@ -2,11 +2,24 @@
   %h5.g-center
     = link_to "Patient Medications", medications_patient_path(@patient)
 
-.row
+.wide-screen
   = form_for @patient do |f|
     = hidden_field_tag :redirect_url, medications_patient_path(@patient)
 
     = f.fields_for :patient_medications do |pm|
+      - if pm.object.history != []
+       
+        %dl.accordion.right.columns.large-6{ class: "medication-history", data: {accordion: true} }
+          %dd.accordion-navigation   
+            %a.fi-plus.fi-minus.toggle-notes{ class: "medication-history-link", href: "#history-list-#{pm.object.id}" }  
+              View history of active problem 
+            
+            .content{ id: "history-list-#{pm.object.id}" }
+              - pm.object.history.each do |m|
+              
+                %ul.no-bullet
+                  %li.history
+                    = "#{m.notes}, #{m.updated_at.strftime("%d/%m/%Y - %H:%M")}"
 
       - if pm.object.new_record?
 

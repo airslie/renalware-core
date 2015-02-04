@@ -6,13 +6,12 @@
   = form_for @patient do |f|  
     = hidden_field_tag :redirect_url, problems_patient_path(@patient)
     
-    = f.fields_for :problems do |pb|
-      
+    = f.fields_for :problems do |pb|  
       - if pb.object.history != []
        
-        %dl.accordion.right.columns.large-6{data: {accordion: true} }
+        %dl.accordion.right.columns.large-6{ class: "problem-history", data: {accordion: true} }
           %dd.accordion-navigation   
-            %a.problem-history-link.fi-plus.fi-minus.toggle-notes{ class: "problem-history", href: "#history-list-#{pb.object.id}" }  
+            %a.fi-plus.fi-minus.toggle-notes{ class: "problem-history-link", href: "#history-list-#{pb.object.id}" }  
               View history of active problem 
             
             .content{ id: "history-list-#{pb.object.id}" }
