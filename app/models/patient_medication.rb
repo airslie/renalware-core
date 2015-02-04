@@ -10,5 +10,15 @@ class PatientMedication < ActiveRecord::Base
   enum provider: %i(gp hospital home_delivery)
 
   # validates :medication_id, presence: true
+
+  def history
+    problem = self
+    history = [problem]
+    while (problem = problem.previous_version) != nil
+      history << problem
+    end
+    history.shift
+    history
+  end
   
 end
