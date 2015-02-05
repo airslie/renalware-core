@@ -6,8 +6,9 @@ Given(/^there are modality reasons in the database$/) do
 end
 
 Given(/^a patient has a medication$/) do
-  @patient_medication = PatientMedication.new(medication_id: 2,
+  @patient_medication_one = PatientMedication.new(medication_id: 2,
     medication_type: "Esa",
+    medication_id: 2,
     dose: "10mg",
     route: "po",
     frequency: "Daily",
@@ -15,7 +16,21 @@ Given(/^a patient has a medication$/) do
     date: "2014-11-01",
     provider: 1
     )
-  @patient.patient_medications << @patient_medication
+
+  @patient_medication_two = PatientMedication.new(medication_id: 2,
+    medication_type: "Drug",
+    medication_id: 1,
+    dose: "20ml",
+    route: "iv",
+    frequency: "Twice Weekly",
+    notes: "Needs review in 6 months",
+    date: "2015-01-02",
+    provider: 1
+    )
+  
+  @patient.patient_medications << @patient_medication_one
+  @patient.patient_medications << @patient_medication_two
+
 end
 
 Given(/^they are on a patient's clinical summary$/) do

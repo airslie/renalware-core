@@ -10,7 +10,7 @@ Feature: A secretary manages patients
       When I complete the add a new patient form
       Then I should see the new patient in the Renal Patient List
         And the patient should be created
-    @wip
+    
     Scenario: User views a patient's demographics
       Given I have a patient in the database
         And I've waited for the indexes to update

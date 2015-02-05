@@ -1,5 +1,5 @@
 Given(/^there are drugs in the database$/) do
-  @drugs = [["Red", nil], ["Blue", "Esa"], ["Green", "Immunosuppressant"]]
+  @drugs = [["Red", "Drug"], ["Blue", "Esa"], ["Green", "Immunosuppressant"]]
   @drugs.map! {|d| @drug = Drug.create!(:name => d[0], :type => d[1])}
 end
 
@@ -42,6 +42,11 @@ Then(/^I should see the updated drug on the drugs list$/) do
 end
 
 Then(/^I should see the drug removed from the drugs list$/) do
-  expect(page.has_content? "I am a drug").to be false
+  expect(page.has_content? "Green").to be false
+end
+
+Then(/^I should see the patient medication using removed drug to be terminated from active medications$/) do
+  visit medications_patient_path(@patient)
+  expect(page.has_content? "Red").to be false
 end
 

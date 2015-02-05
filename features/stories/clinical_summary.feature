@@ -23,14 +23,14 @@ Scenario: Doctor adds a problem
   When they save the problem list
   Then they should see the new problems on the clinical summary
 
-@javascript
+@javascript @wip
 Scenario: Doctor adds a medication for a patient
   Given there are drugs in the database
   When they add a medication
     And complete the medication form
   Then they should see the new medication on the clinical summary
 
-@javascript
+@javascript @wip
 Scenario: Doctor terminates a medication for a patient
   Given there are drugs in the database
   Given a patient has a medication
@@ -38,13 +38,13 @@ Scenario: Doctor terminates a medication for a patient
   Then they should no longer see this medication in their clinical summary
     # And should see this terminated medication in their medications history
 
-@javascript @wip
+@javascript 
 Scenario: Doctor adds a modality for a patient
   Given I choose to add a modality
   When I complete the modality form
   Then I should see a patient's modality on their clinical summary
 
-@javascript @wip
+@javascript 
 Scenario: Doctor adds a death modality for a patient
   Given I choose to add a modality
   When I select death modality
