@@ -12,7 +12,7 @@
         %dl.accordion.right.columns.large-6{ class: "medication-history", data: {accordion: true} }
           %dd.accordion-navigation   
             %a.fi-plus.fi-minus.toggle-notes{ class: "medication-history-link", href: "#history-list-#{pm.object.id}" }  
-              View history of active problem 
+              View history of active medication 
             
             .content{ id: "history-list-#{pm.object.id}" }
               - pm.object.versions.map(&:reify).each do |m|
