@@ -15,11 +15,11 @@
               View history of active problem 
             
             .content{ id: "history-list-#{pm.object.id}" }
-              - pm.object.history.each do |m|
+              - pm.object.versions.map(&:reify).each do |m|
               
                 %ul.no-bullet
                   %li.history
-                    = "#{m.notes}, #{m.updated_at.strftime("%d/%m/%Y - %H:%M")}"
+                    = "#{m.medication.name}, #{m.dose}, #{I18n.t("enums.route.#{m.route}")}, #{pm.object.frequency}, #{m.updated_at.strftime("%d/%m/%Y - %H:%M")}"
 
       - if pm.object.new_record?
 
