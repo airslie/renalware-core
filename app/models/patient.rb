@@ -9,6 +9,7 @@ class Patient < ActiveRecord::Base
 
   has_many :patient_events
   has_many :patient_medications
+  has_many :active_patient_medications, -> { where deleted_at: nil }, class_name: "PatientMedication"
   has_many :drugs, :through => :patient_medications, :source => :medication, :source_type => "Esa"
   has_many :problems
 

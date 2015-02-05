@@ -6,7 +6,7 @@
   = form_for @patient do |f|
     = hidden_field_tag :redirect_url, medications_patient_path(@patient)
 
-    = f.fields_for :patient_medications do |pm|
+    = f.fields_for :patient_medications, @patient.active_patient_medications do |pm|
       - if pm.object.history != []
        
         %dl.accordion.right.columns.large-6{ class: "medication-history", data: {accordion: true} }

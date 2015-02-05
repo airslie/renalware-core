@@ -2,6 +2,10 @@ class Drug < ActiveRecord::Base
   include Concerns::SoftDelete
   include Concerns::Searchable
 
+  index_name "drugs"
+
+  document_type "drug"
+
   validates :name, presence: true
 
   scope :standard, -> { where("type is null or type = '' ") }

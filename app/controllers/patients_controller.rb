@@ -34,9 +34,10 @@ class PatientsController < ApplicationController
   end
 
   def medications
-    @patient.patient_medications.build(:provider => :gp,
+    @patient.active_patient_medications.build(:provider => :gp,
       :medication_type => "Drug")
     @drugs = Drug.standard
+    @medications = @patient.patient_medications.map { |m| m.history }
   end
 
   def problems

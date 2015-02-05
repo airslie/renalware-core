@@ -25,7 +25,7 @@ class DrugsController < ApplicationController
   end
 
   def index
-    @drugs = Drug.all
+    @drugs = Drug.active
     @drugs_select = Drug.where(:type => params[:medication_type])
     respond_to do |format|
       format.html
@@ -49,6 +49,7 @@ class DrugsController < ApplicationController
   def destroy
     @drug = Drug.find(params[:id])
     @drug.soft_delete!
+    PatientMedication.where(medication_id: @drug.to_param).each { |pm| pm.soft_delete! }
     redirect_to drugs_path, :notice => "You have successfully removed a drug."
   end
 

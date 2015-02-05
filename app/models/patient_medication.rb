@@ -1,4 +1,5 @@
 class PatientMedication < ActiveRecord::Base
+  include Concerns::SoftDelete
   attr_accessor :drug_select
 
   has_paper_trail :class_name => 'MedicationVersion'
