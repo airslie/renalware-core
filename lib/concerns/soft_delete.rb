@@ -2,7 +2,8 @@ module Concerns::SoftDelete
 
   def self.included(klass)
     klass.class_eval do
-      default_scope{ where(deleted_at: nil) }
+      scope :active, -> { where(deleted_at: nil) }
+      scope :deleted, -> { where.not(deleted_at: nil) }
     end
   end
   
