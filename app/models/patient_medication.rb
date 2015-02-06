@@ -2,6 +2,8 @@ class PatientMedication < ActiveRecord::Base
   include Concerns::SoftDelete
   attr_accessor :drug_select
 
+  acts_as_paranoid
+
   has_paper_trail :class_name => 'MedicationVersion'
 
   belongs_to :medication, :polymorphic => true
