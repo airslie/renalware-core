@@ -7,7 +7,7 @@
     = hidden_field_tag :redirect_url, problems_patient_path(@patient)
     
     = f.fields_for :problems do |pb|  
-      - if pb.object.history != []
+      - if pb.object.versions != []
        
         %dl.accordion.right.columns.large-6{ class: "problem-history", data: {accordion: true} }
           %dd.accordion-navigation   
