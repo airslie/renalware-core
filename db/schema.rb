@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150206115827) do
+ActiveRecord::Schema.define(version: 20150206174242) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street_1",   limit: 255
@@ -185,6 +185,8 @@ ActiveRecord::Schema.define(version: 20150206115827) do
     t.datetime "updated_at"
     t.string   "snomed_id",   limit: 255
   end
+
+  add_index "problems", ["deleted_at"], name: "index_problems_on_deleted_at", using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",  limit: 255,   null: false
