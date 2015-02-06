@@ -45,8 +45,4 @@ Then(/^I should see the drug removed from the drugs list$/) do
   expect(page.has_content? "Green").to be false
 end
 
-Then(/^I should see the patient medication using removed drug to be terminated from active medications$/) do
-  visit medications_patient_path(@patient)
-  expect(page.has_content? "Red").to be false
-end
 

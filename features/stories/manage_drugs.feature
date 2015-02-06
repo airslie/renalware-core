@@ -20,4 +20,3 @@ Feature: An admin manages the drugs list
       Given I am on the drugs index
       When I choose to soft delete a drug
       Then I should see the drug removed from the drugs list
-       And I should see the patient medication using removed drug to be terminated from active medications
