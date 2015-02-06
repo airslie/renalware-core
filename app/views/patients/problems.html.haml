@@ -15,7 +15,7 @@
               View history of active problem 
             
             .content{ id: "history-list-#{pb.object.id}" }
-              - pb.object.history.each do |p|
+              - pb.object.versions.map(&:reify).each do |p|
               
                 %ul.no-bullet
                   %li.history
