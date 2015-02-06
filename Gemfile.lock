@@ -156,6 +156,8 @@ GEM
     paper_trail (3.0.6)
       activerecord (>= 3.0, < 5.0)
       activesupport (>= 3.0, < 5.0)
+    paranoia (2.1.0)
+      activerecord (~> 4.0)
     poltergeist (1.5.1)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -295,6 +297,7 @@ DEPENDENCIES
   mocha
   mysql2
   paper_trail (~> 3.0.6)
+  paranoia (~> 2.0)
   poltergeist
   pry-byebug
   rails (~> 4.2)
