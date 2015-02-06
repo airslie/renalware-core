@@ -7,7 +7,7 @@
     = hidden_field_tag :redirect_url, medications_patient_path(@patient)
 
     = f.fields_for :patient_medications, @patient.active_patient_medications do |pm|
-      - if pm.object.history != []
+      - if pm.object.versions != []
        
         %dl.accordion.right.columns.large-6{ class: "medication-history", data: {accordion: true} }
           %dd.accordion-navigation   
@@ -59,6 +59,7 @@
               .med-form.content{:id => "edit-meds-#{pm.object.id}"}  
                 = pm.check_box :_destroy
                 = pm.label :_destroy, "Terminate?", class: "delete"
+
 
     = f.submit "Save Medication", :class => "button tiny right save mt"
 
