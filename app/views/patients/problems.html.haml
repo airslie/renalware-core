@@ -6,7 +6,7 @@
   = form_for @patient do |f|  
     = hidden_field_tag :redirect_url, problems_patient_path(@patient)
     
-    = f.fields_for :problems do |pb|  
+    = f.fields_for :patient_problems do |pb|  
       - if pb.object.versions != []
        
         %dl.accordion.right.columns.large-6{ class: "problem-history", data: {accordion: true} }
@@ -37,7 +37,7 @@
 
               .row#new-probs-template
 
-                .problem-form{data: { index: @patient.problems.length - 1 }}
+                .problem-form{data: { index: @patient.patient_problems.length - 1 }}
 
                   = render :partial => 'problem_form', :locals => { :pb => pb }
               

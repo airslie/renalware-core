@@ -40,7 +40,7 @@ class PatientsController < ApplicationController
   end
 
   def problems
-    @patient.problems.build
+    @patient.patient_problems.build
   end
 
   def medications_index
@@ -84,7 +84,7 @@ class PatientsController < ApplicationController
       :patient_event_attributes => [:date_time, :user_id, :description, :notes, :patient_event_type_id, :patient_id],
       :patient_medications_attributes => [:id, :medication_id, :medication_type, :dose, :route,
       :frequency, :notes, :date, :provider, :_destroy],
-      :problems_attributes => [:id, :patient_id, :snomed_id, :description, :date, :user_id, :deleted_at, :_destroy],
+      :patient_problems_attributes => [:id, :patient_id, :snomed_id, :description, :date, :user_id, :deleted_at, :_destroy],
       :patient_modality_attributes => [:id, :patient_id, :user_id, :modality_code_id, :modality_reason_id, :modal_change_type, :notes, :date, :deleted_at],
       :esrf_info_attributes => [:id, :patient_id, :user_id, :date, :prd_code_id] 
       )

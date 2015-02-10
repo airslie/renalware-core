@@ -11,7 +11,7 @@ class Patient < ActiveRecord::Base
   has_many :patient_medications
   has_many :active_patient_medications, -> { where deleted_at: nil }, class_name: "PatientMedication"
   has_many :drugs, :through => :patient_medications, :source => :medication, :source_type => "Esa"
-  has_many :problems
+  has_many :patient_problems
 
   has_one :patient_modality
   has_one :modality_code, :through => :patient_modality
@@ -22,7 +22,7 @@ class Patient < ActiveRecord::Base
   accepts_nested_attributes_for :patient_events
   accepts_nested_attributes_for :patient_medications, allow_destroy: true,
   :reject_if => proc { |attrs| attrs[:dose].blank? && attrs[:notes].blank? && attrs[:frequency].blank? }
-  accepts_nested_attributes_for :problems, allow_destroy: true,
+  accepts_nested_attributes_for :patient_problems, allow_destroy: true,
   :reject_if => proc { |attrs| attrs[:description].blank? }
   accepts_nested_attributes_for :patient_modality
   accepts_nested_attributes_for :esrf_info

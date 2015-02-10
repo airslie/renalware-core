@@ -54,18 +54,6 @@ ActiveRecord::Schema.define(version: 20150206174242) do
     t.datetime "updated_at"
   end
 
-  create_table "medication_versions", force: :cascade do |t|
-    t.string   "item_type",      limit: 255,   null: false
-    t.integer  "item_id",        limit: 4,     null: false
-    t.string   "event",          limit: 255,   null: false
-    t.string   "whodunnit",      limit: 255
-    t.text     "object",         limit: 65535
-    t.text     "object_changes", limit: 65535
-    t.datetime "created_at"
-  end
-
-  add_index "medication_versions", ["item_type", "item_id"], name: "index_medication_versions_on_item_type_and_item_id", using: :btree
-
   create_table "modality_codes", force: :cascade do |t|
     t.string   "code",       limit: 255
     t.string   "name",       limit: 255
@@ -102,6 +90,18 @@ ActiveRecord::Schema.define(version: 20150206174242) do
     t.integer  "patient_id",            limit: 4
   end
 
+  create_table "patient_medication_versions", force: :cascade do |t|
+    t.string   "item_type",      limit: 255,   null: false
+    t.integer  "item_id",        limit: 4,     null: false
+    t.string   "event",          limit: 255,   null: false
+    t.string   "whodunnit",      limit: 255
+    t.text     "object",         limit: 65535
+    t.text     "object_changes", limit: 65535
+    t.datetime "created_at"
+  end
+
+  add_index "patient_medication_versions", ["item_type", "item_id"], name: "index_patient_medication_versions_on_item_type_and_item_id", using: :btree
+
   create_table "patient_medications", force: :cascade do |t|
     t.integer  "patient_id",      limit: 4
     t.integer  "medication_id",   limit: 4
@@ -133,6 +133,31 @@ ActiveRecord::Schema.define(version: 20150206174242) do
     t.datetime "updated_at"
   end
 
+  create_table "patient_problem_versions", force: :cascade do |t|
+    t.string   "item_type",      limit: 255,   null: false
+    t.integer  "item_id",        limit: 4,     null: false
+    t.string   "event",          limit: 255,   null: false
+    t.string   "whodunnit",      limit: 255
+    t.text     "object",         limit: 65535
+    t.text     "object_changes", limit: 65535
+    t.datetime "created_at"
+  end
+
+  add_index "patient_problem_versions", ["item_type", "item_id"], name: "index_patient_problem_versions_on_item_type_and_item_id", using: :btree
+
+  create_table "patient_problems", force: :cascade do |t|
+    t.integer  "patient_id",  limit: 4
+    t.string   "description", limit: 255
+    t.date     "date"
+    t.integer  "user_id",     limit: 4
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "snomed_id",   limit: 255
+  end
+
+  add_index "patient_problems", ["deleted_at"], name: "index_patient_problems_on_deleted_at", using: :btree
+
   create_table "patients", force: :cascade do |t|
     t.string   "nhs_number",                   limit: 255
     t.string   "local_patient_id",             limit: 255
@@ -162,31 +187,6 @@ ActiveRecord::Schema.define(version: 20150206174242) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "problem_versions", force: :cascade do |t|
-    t.string   "item_type",      limit: 255,   null: false
-    t.integer  "item_id",        limit: 4,     null: false
-    t.string   "event",          limit: 255,   null: false
-    t.string   "whodunnit",      limit: 255
-    t.text     "object",         limit: 65535
-    t.text     "object_changes", limit: 65535
-    t.datetime "created_at"
-  end
-
-  add_index "problem_versions", ["item_type", "item_id"], name: "index_problem_versions_on_item_type_and_item_id", using: :btree
-
-  create_table "problems", force: :cascade do |t|
-    t.integer  "patient_id",  limit: 4
-    t.string   "description", limit: 255
-    t.date     "date"
-    t.integer  "user_id",     limit: 4
-    t.datetime "deleted_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "snomed_id",   limit: 255
-  end
-
-  add_index "problems", ["deleted_at"], name: "index_problems_on_deleted_at", using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",  limit: 255,   null: false
