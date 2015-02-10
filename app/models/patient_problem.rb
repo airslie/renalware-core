@@ -1,4 +1,4 @@
-class Problem < ActiveRecord::Base
+class PatientProblem < ActiveRecord::Base
   
   acts_as_paranoid
 
