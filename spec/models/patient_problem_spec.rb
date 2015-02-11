@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Problem, :type => :model do
+RSpec.describe PatientProblem, :type => :model do
   it { should belong_to :patient }
 
   describe "history", :versioning => true do
@@ -11,7 +11,7 @@ RSpec.describe Problem, :type => :model do
 
     context "display all history of problems " do
       before do
-        @problem = @patient.problems.create!(description: "I have a problem")
+        @problem = @patient.patient_problems.create!(description: "I have a problem")
         @problem.update!(description: "I have another problem") 
         @problem.update!(description: "I have more problems")   
       end
