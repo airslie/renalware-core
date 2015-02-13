@@ -1,0 +1,17 @@
+.row  
+  %h5.g-center
+    = link_to "PD Info", pd_info_patient_path(@patient)
+
+.row
+  %ul.no-bullet
+    = form_for @patient do |f|
+      
+      = hidden_field_tag :redirect_url, clinical_summary_patient_path(@patient)
+      
+      = f.fields_for :peritonitis_episode, @peritonitis_episodes do |p|
+
+        = p.label :start_treatment_date
+        = p.date_select(:start_treatment_date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
+        
+        = p.label :end_treatment_date
+        = p.date_select(:end_treatment_date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
