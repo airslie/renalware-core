@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150206174242) do
+ActiveRecord::Schema.define(version: 20150213103857) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street_1",   limit: 255
@@ -179,6 +179,42 @@ ActiveRecord::Schema.define(version: 20150206174242) do
     t.integer  "first_edta_code_id",           limit: 4
     t.integer  "second_edta_code_id",          limit: 4
     t.text     "death_details",                limit: 65535
+  end
+
+  create_table "peritonitis_episodes", force: :cascade do |t|
+    t.integer  "patient_id",           limit: 4
+    t.integer  "user_id",              limit: 4
+    t.date     "start_treatment_date"
+    t.date     "end_treatment_date"
+    t.string   "episode_type",         limit: 255
+    t.boolean  "catheter_removed",     limit: 1
+    t.boolean  "line_break",           limit: 1
+    t.boolean  "exit_site_infection",  limit: 1
+    t.boolean  "diarrhoea",            limit: 1
+    t.boolean  "abdominal_pain",       limit: 1
+    t.integer  "fluid_description",    limit: 4
+    t.date     "diagnosis_date"
+    t.integer  "white_cell_total",     limit: 4
+    t.integer  "white_cell_neutro",    limit: 4
+    t.integer  "white_cell_lympho",    limit: 4
+    t.integer  "white_cell_degen",     limit: 4
+    t.integer  "white_cell_other",     limit: 4
+    t.string   "organism_1",           limit: 255
+    t.string   "organism_2",           limit: 255
+    t.text     "sensitivities",        limit: 65535
+    t.text     "notes",                limit: 65535
+    t.integer  "antibiotic_1",         limit: 4
+    t.integer  "antibiotic_2",         limit: 4
+    t.integer  "antibiotic_3",         limit: 4
+    t.integer  "antibiotic_4",         limit: 4
+    t.integer  "antibiotic_5",         limit: 4
+    t.integer  "antibiotic_1_route",   limit: 4
+    t.integer  "antibiotic_2_route",   limit: 4
+    t.integer  "antibiotic_3_route",   limit: 4
+    t.integer  "antibiotic_4_route",   limit: 4
+    t.integer  "antibiotic_5_route",   limit: 4
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "prd_codes", force: :cascade do |t|
