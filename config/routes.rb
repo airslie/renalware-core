@@ -8,7 +8,8 @@ Rails.application.routes.draw do
       get :problems
       get :modality
       get :death_update
-      get :esrf_info 
+      get :esrf_info
+      get :pd_info 
     end
     collection do
       get :search
