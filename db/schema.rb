@@ -201,7 +201,6 @@ ActiveRecord::Schema.define(version: 20150213103857) do
     t.integer  "white_cell_other",     limit: 4
     t.integer  "organism_1",           limit: 4
     t.integer  "organism_2",           limit: 4
-    t.text     "sensitivities",        limit: 65535
     t.text     "notes",                limit: 65535
     t.integer  "antibiotic_1",         limit: 4
     t.integer  "antibiotic_2",         limit: 4
@@ -213,6 +212,7 @@ ActiveRecord::Schema.define(version: 20150213103857) do
     t.integer  "antibiotic_3_route",   limit: 4
     t.integer  "antibiotic_4_route",   limit: 4
     t.integer  "antibiotic_5_route",   limit: 4
+    t.text     "sensitivities",        limit: 65535
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
   end

@@ -20,7 +20,6 @@ class CreatePeritonitisEpisodes < ActiveRecord::Migration
       t.integer :white_cell_other
       t.integer :organism_1
       t.integer :organism_2
-      t.text :sensitivities
       t.text :notes
       t.integer :antibiotic_1
       t.integer :antibiotic_2
@@ -32,6 +31,7 @@ class CreatePeritonitisEpisodes < ActiveRecord::Migration
       t.integer :antibiotic_3_route
       t.integer :antibiotic_4_route
       t.integer :antibiotic_5_route
+      t.text :sensitivities
       t.timestamps null: false
     end
   end
