@@ -18,8 +18,8 @@ class CreatePeritonitisEpisodes < ActiveRecord::Migration
       t.integer :white_cell_lympho
       t.integer :white_cell_degen
       t.integer :white_cell_other
-      t.string :organism_1
-      t.string :organism_2
+      t.integer :organism_1
+      t.integer :organism_2
       t.text :sensitivities
       t.text :notes
       t.integer :antibiotic_1

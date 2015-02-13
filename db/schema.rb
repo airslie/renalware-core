@@ -199,8 +199,8 @@ ActiveRecord::Schema.define(version: 20150213103857) do
     t.integer  "white_cell_lympho",    limit: 4
     t.integer  "white_cell_degen",     limit: 4
     t.integer  "white_cell_other",     limit: 4
-    t.string   "organism_1",           limit: 255
-    t.string   "organism_2",           limit: 255
+    t.integer  "organism_1",           limit: 4
+    t.integer  "organism_2",           limit: 4
     t.text     "sensitivities",        limit: 65535
     t.text     "notes",                limit: 65535
     t.integer  "antibiotic_1",         limit: 4
