@@ -12,6 +12,7 @@ class Patient < ActiveRecord::Base
   has_many :active_patient_medications, -> { where deleted_at: nil }, class_name: "PatientMedication"
   has_many :drugs, :through => :patient_medications, :source => :medication, :source_type => "Esa"
   has_many :patient_problems
+  has_many :peritonitis_episodes
 
   has_one :patient_modality
   has_one :modality_code, :through => :patient_modality
@@ -26,6 +27,7 @@ class Patient < ActiveRecord::Base
   :reject_if => proc { |attrs| attrs[:description].blank? }
   accepts_nested_attributes_for :patient_modality
   accepts_nested_attributes_for :esrf_info
+  accepts_nested_attributes_for :peritonitis_episodes
 
 
   validates :nhs_number, presence: true, length: { minimum: 10, maximum: 10 }, uniqueness: true
