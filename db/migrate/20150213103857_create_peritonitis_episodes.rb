@@ -3,16 +3,16 @@ class CreatePeritonitisEpisodes < ActiveRecord::Migration
     create_table :peritonitis_episodes do |t|
       t.integer :patient_id
       t.integer :user_id
+      t.date :diagnosis_date
       t.date :start_treatment_date
       t.date :end_treatment_date
-      t.string :episode_type
+      t.integer :episode_type
       t.boolean :catheter_removed
       t.boolean :line_break
       t.boolean :exit_site_infection
       t.boolean :diarrhoea
       t.boolean :abdominal_pain
       t.integer :fluid_description
-      t.date :diagnosis_date
       t.integer :white_cell_total
       t.integer :white_cell_neutro
       t.integer :white_cell_lympho
