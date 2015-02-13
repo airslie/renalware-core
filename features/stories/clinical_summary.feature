@@ -16,21 +16,21 @@ Scenario: Doctor adds a patient event
     And complete the patient event form
   Then they should see the new patient event on the clinical summary
 
-@javascript
+@javascript @wip
 Scenario: Doctor adds a problem
   Given they go to the problem list page
     When they add some problems to the list
   When they save the problem list
   Then they should see the new problems on the clinical summary
 
-@javascript @wip
+@javascript 
 Scenario: Doctor adds a medication for a patient
   Given there are drugs in the database
   When they add a medication
     And complete the medication form
   Then they should see the new medication on the clinical summary
 
-@javascript @wip
+@javascript 
 Scenario: Doctor terminates a medication for a patient
   Given there are drugs in the database
   Given a patient has a medication
