@@ -2,13 +2,16 @@
   %h5.g-center
     = link_to "PD Info", pd_info_patient_path(@patient)
 
-.row
+.wide-screen
+  %h4
+    = "Peritonitis Episode (#{@patient.peritonitis_episodes.length})"
+  
   %ul.no-bullet
     = form_for @patient do |f|
       
       = hidden_field_tag :redirect_url, pd_info_patient_path(@patient)
       
-      = f.fields_for :peritonitis_episode, @peritonitis_episodes do |p|
+      = f.fields_for :peritonitis_episodes, @peritonitis_episodes do |p|
 
         - if p.object.new_record?
 
@@ -25,119 +28,28 @@
                   Add a Peritonitis Episode
 
                 .row
-                  = p.hidden_field :id
+                  = render :partial => 'peritonitis_form', :locals => { :p => p }
 
-                  = p.hidden_field :patient_id
-
-                  = p.label :user_id
-                  = p.text_field :user_id
-
-                  = p.label :diagnosis_date
-                  = p.date_select(:diagnosis_date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")     
-
-                  = p.label :start_treatment_date
-                  = p.date_select(:start_treatment_date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
-                  
-                  = p.label :end_treatment_date
-                  = p.date_select(:end_treatment_date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
-
-                  = p.label :episode_type
-                  = p.text_field :episode_type
-
-                  = p.check_box :catheter_removed
-                  = p.label :catheter_removed
-                  
-                  = p.check_box :line_break
-                  = p.label :line_break
-
-                  = p.check_box :exit_site_infection
-                  = p.label :exit_site_infection
-
-                  = p.check_box :diarrhoea
-                  = p.label :diarrhoea
-
-                  = p.check_box :abdominal_pain
-                  = p.label :abdominal_pain
-
-                  = p.label :fluid_description
-                  = p.text_field :fluid_description
-
-                  = p.label :white_cell_total
-                  = p.text_field :white_cell_total
-
-                  = p.label :white_cell_neutro, "Neutro (%)"
-                  = p.text_field :white_cell_neutro
-
-                  = p.label :white_cell_lympho, "Lympho (%)"
-                  = p.text_field :white_cell_lympho
-
-                  = p.label :white_cell_degen, "Degen (%)"
-                  = p.text_field :white_cell_degen
-
-                  = p.label :white_cell_other, "Other (%)"
-                  = p.text_field :white_cell_other
-                  
-                  = p.label :organism_1
-                  = p.text_field :organism_1
-
-                  = p.label :organism_2
-                  = p.text_field :organism_2
-
-                  = p.label :notes
-                  = p.text_area :notes, :cols => 50, :rows => 6
-
-                  = p.label :antibiotic_1
-                  = p.text_field :antibiotic_1
-
-                  = p.label :antibiotic_1_route, "Route (Antibiotic 1)"
-                  = p.text_field :antibiotic_1_route
-
-                  = p.label :antibiotic_2
-                  = p.text_field :antibiotic_2
-
-                  = p.label :antibiotic_2_route, "Route (Antibiotic 2)"
-                  = p.text_field :antibiotic_2_route
-
-                  = p.label :antibiotic_3
-                  = p.text_field :antibiotic_3
-
-                  = p.label :antibiotic_3_route, "Route (Antibiotic 3)"
-                  = p.text_field :antibiotic_3_route
-
-                  = p.label :antibiotic_4
-                  = p.text_field :antibiotic_4
-
-                  = p.label :antibiotic_4_route, "Route (Antibiotic 4)"
-                  = p.text_field :antibiotic_4_route
-
-                  = p.label :antibiotic_5
-                  = p.text_field :antibiotic_5
-
-                  = p.label :antibiotic_5_route, "Route (Antibiotic 5)"
-                  = p.text_field :antibiotic_5_route
-
-                  = p.label :sensitivities
-                  = p.text_field :sensitivities
-
+                
           = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left cancel mt"
           
-
         - else
+          
           %dl.accordion{data: {accordion: true} }
             %dd.accordion-navigation.peritonitis-form
-              %a.fi-plus.fi-minus{href: "#edit-meds-#{pm.object.id}", :class => "drug-#{pm.object.medication_type.downcase}"}
+              %a.fi-plus.fi-minus{ href: "#edit-peritonitis-#{p.object.id}" }
                   
-                = "Diagnosis Date: #{p.object.diagnosis_date}, Start Date: #{p.object.start_treatment_date}, End Date#{p.object.end_treatment_date}, Episode Type: #{p.object.episode_type}"
+                = "Diagnosis Date: #{p.object.diagnosis_date.strftime("%d/%m/%Y")}, Start Date: #{p.object.start_treatment_date.strftime("%d/%m/%Y")}, End Date: #{p.object.end_treatment_date.strftime("%d/%m/%Y")}, Episode Type: #{p.object.episode_type}, White Cell Count: #{p.object.white_cell_total}"
                 .right.edit
                   Edit
 
-              .columns.large-6.meds-form.content{:id => "edit-meds-#{pm.object.id}", data: { index: 0 }} 
+              .columns.large-6.peritonitis-form.content{:id => "edit-peritonitis-#{p.object.id}", data: { index: 0 }}
+                 
+                = render :partial => 'peritonitis_form', :locals => { :p => p } 
 
-                = render :partial => 'patient_medication_fields', :locals => { :pm => pm }
-
-                .med-form.content{:id => "edit-meds-#{pm.object.id}"}  
-                  = pm.check_box :_destroy
-                  = pm.label :_destroy, "Terminate?", class: "delete"
+                / .peritonitis-form.content{:id => "edit-meds-#{p.object.id}"}  
+                /   = p.check_box :_destroy
+                /   = p.label :_destroy, "Terminate?", class: "delete"
 
 
         = f.submit "Save Peritonitis Episode", :class => "button tiny right save mt"
@@ -145,24 +57,4 @@
 .wide-screen
   = content_for :secondary_nav do  
     = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
-
-
-        
-
-
-
-          
-        
-
-
-
-
-
-
-
-
-
-
-
-
 
