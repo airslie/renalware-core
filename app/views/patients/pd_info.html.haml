@@ -34,6 +34,55 @@
           = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left cancel mt"
           
         - else
+          %table.responsive
+            %thead
+              %th.table-width 
+                Diagnosis Date
+              %th.table-width 
+                Start Treatment Date
+              %th.table-width 
+                End Date
+              %th.table-width 
+                Episode Type
+              %th.table-width 
+                Notes
+              %th.table-width 
+                White Cell Count
+              %th.table-width 
+                Entered By
+
+            %tbody
+              %tr{ valign: "top" }
+                %td{:data => { :heading => "Diagnosis Date" }}
+                  = p.object.diagnosis_date.strftime("%d/%m/%Y")
+                %td{:data => { :heading => "Start Date"}}
+                  = p.object.start_treatment_date.strftime("%d/%m/%Y")
+                %td{:data => { :heading => "End Date"}}
+                  = p.object.end_treatment_date.strftime("%d/%m/%Y")
+                %td{:data => { :heading => "Episode Type"}}
+                  = p.object.episode_type
+                %td{:data => { :heading => "Description", valign: "top" }}
+                  %dl.accordion{data: {accordion: true} }
+                    %dd.accordion-navigation
+                      %a.fi-plus.fi-minus.toggle-notes{ :id => "patient-peritonitis-notes-#{p.object.id}", href: "#patient-peritonitis-notes-#{p.object.id}" }
+                        Read Notes
+                      .content.toggle-content{ :id => "patient-peritonitis-notes-#{p.object.id}" } 
+                        = p.object.notes
+                %td{ :data => { :heading => "White Cell Count", valign: "top"} } 
+                  %dl.accordion{ data: { accordion: true } }
+                    %dd.accordion-navigation
+                      %a.fi-plus.fi-minus.toggle-notes{ :id => "patient-peritonitis-white-cell-#{p.object.id}", href: "#patient-peritonitis-white-cell-#{p.object.id}" }
+                        = p.object.white_cell_total
+                      .content.toggle-content{ :id => "patient-peritonitis-white-cell-#{p.object.id}" } 
+                        = "Neutro: #{p.object.white_cell_neutro}%"
+                        = "Lympho: #{p.object.white_cell_lympho}%"
+                        = "Degen: #{p.object.white_cell_degen}%"
+                        = "Other: #{p.object.white_cell_other}%"
+
+              
+
+                %td{:data => { :heading => "Entered By"}}
+                  = p.object.user_id
           
           %dl.accordion{data: {accordion: true} }
             %dd.accordion-navigation.peritonitis-form
