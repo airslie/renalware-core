@@ -1,0 +1,2 @@
+class PeritonitisEpisodesController < ApplicationController
+end
