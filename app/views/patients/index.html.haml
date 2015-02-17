@@ -3,15 +3,11 @@
 
 .row
   %table.responsive
-    %caption Renal Patients
+    %caption All Patients
     %thead
       %tr
-        %th.g-center
-          Letters
-        %th.g-center
-          Admin
         %th
-          Clinical Summary
+          Name
         %th
           NHS No.
         %th
@@ -19,9 +15,13 @@
         %th
           Sex
         %th
-          DoB
+          Date of Birth
         %th
           Age
+        %th.g-center{colspan: "2"}
+          Actions
+       
+          
 
     %tbody
       = render @patients

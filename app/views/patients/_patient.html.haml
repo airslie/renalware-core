@@ -1,8 +1,4 @@
 %tr
-  %td.g-center{:data => { :heading => "Letters"}}
-    = link_to "New", "#", :title => "New Letter"
-  %td.g-center{ :data => { :heading => "Admin"}}
-    = link_to "View", demographics_patient_path(patient), :title => "Demographics"
   %td{ :data => { :heading => "Forename"}}
     = link_to " " + patient.full_name, clinical_summary_patient_path(patient), :title => "Clinical Summary"
   %td{ :data => { :heading => "NHS No."}}
@@ -15,5 +11,9 @@
     = patient.dob
   %td{ :data => { :heading => "Age"}}
     = patient.age
+  %td.g-center{ :data => { :heading => "Admin"}}
+    = link_to "Demographics", demographics_patient_path(patient), :title => "Demographics"
+  %td.g-center{:data => { :heading => "Letters"}}
+    = link_to "New Letter", "#", :title => "New Letter"
 
 

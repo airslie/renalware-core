@@ -80,12 +80,7 @@
           <a href="#" class="close">&times;</a>
 
     .main-content
-      - if @patient && @patient.persisted?
-
-        .row.g-center
-          %h4.patient-info
-            = "#{@patient.full_name} - KCH: #{@patient.local_patient_id}, Age: #{@patient.age}, #{I18n.t("enums.gender.#{@patient.sex}")}, DoB: #{@patient.dob}, #{@patient.patient_modality.blank? || @patient.patient_modality.new_record? ? "No Modal" : @patient.patient_modality.modality_code.name}"
-
+      
       = yield
 
     - if content_for? :secondary_nav
