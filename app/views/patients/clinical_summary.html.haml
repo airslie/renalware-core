@@ -1,3 +1,7 @@
+.main-content
+  .row
+    = render partial: "patients/mini_renal_profile", locals: { model: @patient }
+
 .row.g-center
   %h4
     = link_to "Clinical Summary", clinical_summary_patient_path(@patient)

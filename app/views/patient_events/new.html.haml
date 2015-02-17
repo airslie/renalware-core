@@ -1,3 +1,7 @@
+.main-content
+  .row
+    = render partial: "patients/mini_renal_profile", locals: { model: @patient }
+
 .row
   %h5
     = link_to "Add a New Patient Event", new_patient_patient_event_path
