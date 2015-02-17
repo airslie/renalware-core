@@ -7,37 +7,37 @@ Given(/^they have been diagnosed with peritonitis$/) do
 end
 
 When(/^the Clinician records the episode of peritonitis$/) do
-  within "#patient_peritonitis_episode_diagnosis_date_3i" do
+  within "#patient_peritonitis_episodes_attributes_0_diagnosis_date_3i" do
     select '25'
   end
-  within "#patient_peritonitis_episode_diagnosis_date_2i" do
+  within "#patient_peritonitis_episodes_attributes_0_diagnosis_date_2i" do
     select 'December'
   end
-  within "#patient_peritonitis_episode_diagnosis_date_1i" do
+  within "#patient_peritonitis_episodes_attributes_0_diagnosis_date_1i" do
     select '2014'
   end
   
-  within "#patient_peritonitis_episode_start_treatment_date_3i" do
+  within "#patient_peritonitis_episodes_attributes_0_start_treatment_date_3i" do
     select '30'
   end
-  within "#patient_peritonitis_episode_start_treatment_date_2i" do
+  within "#patient_peritonitis_episodes_attributes_0_start_treatment_date_2i" do
     select 'December'
   end
-  within "#patient_peritonitis_episode_start_treatment_date_1i" do
+  within "#patient_peritonitis_episodes_attributes_0_start_treatment_date_1i" do
     select '2014'
   end
   
-  within "#patient_peritonitis_episode_end_treatment_date_3i" do
+  within "#patient_peritonitis_episodes_attributes_0_end_treatment_date_3i" do
     select '31'
   end
-  within "#patient_peritonitis_episode_end_treatment_date_2i" do
+  within "#patient_peritonitis_episodes_attributes_0_end_treatment_date_2i" do
     select 'January'
   end
-  within "#patient_peritonitis_episode_end_treatment_date_1i" do
+  within "#patient_peritonitis_episodes_attributes_0_end_treatment_date_1i" do
     select '2015'
   end
 
-  fill_in "Episode type", :with => 1
+  fill_in "Episode type", :with => 3
   
   check "Catheter removed"
   check "Line break"
@@ -79,9 +79,9 @@ Then(/^the episode should be displayed on PD info page$/) do
   visit pd_info_patient_path(@patient)
 
   expect(page.has_content? "25/12/2014").to be true
-  expect(page.has_content? "20/12/2014").to be true
+  expect(page.has_content? "30/12/2014").to be true
   expect(page.has_content? "31/01/2015").to be true
-  expect(page.has_content? "1").to be true
+  expect(page.has_content? "3").to be true
   expect(page.has_content? "1000").to be true
 end
 
