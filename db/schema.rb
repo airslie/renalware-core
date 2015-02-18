@@ -223,7 +223,7 @@ ActiveRecord::Schema.define(version: 20150213103857) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
+  
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",  limit: 255,   null: false
     t.integer  "item_id",    limit: 4,     null: false
