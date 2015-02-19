@@ -30,7 +30,7 @@
    
         %li{:class => "drug-#{p.medication.type.downcase}"}
           
-          = "#{p.medication.type}, #{p.medication.name}, #{p.dose}, #{I18n.t("enums.route.#{p.route}")}, #{p.frequency}, #{p.date}"          
+          = "#{p.medication.type}, #{p.medication.name}, #{p.dose}, #{I18n.t("enums.route.#{p.route}")}, #{p.frequency}, #{p.date.strftime("%d/%m/%Y")}"          
 
 .wide-screen
   .columns.large-12
@@ -42,8 +42,8 @@
         %li
           %dl.accordion{data: {accordion: true} }
             %dd.accordion-navigation
-              %a.fi-plus.fi-minus.toggle-notes{:id => "patient-event-notes-#{event.id}", href: "#patient-event-notes-#{event.id}"}           
-                = "#{event.created_at}, #{event.description}"
+              %a.fi-plus.fi-minus.toggle-notes{:id => "patient-event-toggle-notes-#{event.id}", href: "#patient-event-notes-#{event.id}"}           
+                = "#{event.date_time.strftime("%d/%m/%Y")}, #{event.patient_event_type.name} - #{event.description}, #{event.user_id}"
                  
               .patient-event.content{:id => "patient-event-notes-#{event.id}"}
                 = event.notes

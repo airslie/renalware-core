@@ -15,7 +15,7 @@ Feature: An admin manages the drugs list
       Given that I choose to edit a drug
       When I complete the form for editing a drug
       Then I should see the updated drug on the drugs list
-    @wip
+    
     Scenario: An admin soft deletes a drug in the drugs list
       Given I am on the drugs index
       When I choose to soft delete a drug
