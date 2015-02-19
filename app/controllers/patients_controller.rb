@@ -11,7 +11,8 @@ class PatientsController < ApplicationController
   end
 
   def pd_info
-    @patient.peritonitis_episodes.build
+    # @patient.peritonitis_episodes.build
+    @peritonitis_episodes = PeritonitisEpisode.all
   end
 
   def death
