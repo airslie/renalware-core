@@ -1,0 +1,26 @@
+.main-content
+  .row.g-center
+    = render partial: "patients/patient_info_header", locals: { model: @patient }
+
+  .row
+    = render partial: "patients/mini_renal_profile", locals: { model: @patient }
+
+.row
+  %h5 Update a Peritonitis Episode
+
+.row
+  .large-12.columns
+    = form_for @peritonitis_episode, @patient, :method => :put do |p|
+    
+      = field_set_tag do                  
+        .row
+          = render partial: "peritonitis_episode/peritonitis_form", locals: { p: p }
+
+        = submit_tag "Update Peritonitis Episode", class: "button tiny right"
+
+        = link_to "Cancel", pd_info_patient_path(@patient), class: "button tiny left cancel"
+
+.wide-screen
+  = content_for :secondary_nav do  
+    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
+
