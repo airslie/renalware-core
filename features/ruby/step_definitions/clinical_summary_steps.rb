@@ -214,7 +214,7 @@ Then(/^I should complete the cause of death form$/) do
 
   fill_in "Notes/Details", :with => "Heart stopped"
 
-  click_on "Save"
+  click_on "Save Cause of Death"
 end
 
 Then(/^see the date of death in the patient's demographics$/) do
