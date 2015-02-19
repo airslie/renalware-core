@@ -1,0 +1,21 @@
+.row  
+  %h4
+    Record an Episode of Peritonitis
+
+.row  
+  %ul.no-bullet
+    = field_set_tag do
+             
+      = form_for [@patient, @peritonitis_episode] do |p|
+            
+        .row
+          = render :partial => 'peritonitis_form', :locals => { :p => p }
+              
+        = link_to "Cancel", pd_info_patient_path(@patient), class: "button tiny left cancel mt"
+        
+        = p.submit "Save Peritonitis Episode", :class => "button tiny right save mt"
+
+.wide-screen
+  = content_for :secondary_nav do  
+    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
+

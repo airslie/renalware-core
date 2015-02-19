@@ -21,19 +21,17 @@
   = p.check_box :catheter_removed
   = p.label :catheter_removed
 
-  = field_set_tag "Causes/Symptoms"
+  = p.check_box :line_break
+  = p.label :line_break
 
-    = p.check_box :line_break
-    = p.label :line_break
+  = p.check_box :exit_site_infection
+  = p.label :exit_site_infection
 
-    = p.check_box :exit_site_infection
-    = p.label :exit_site_infection
+  = p.check_box :diarrhoea
+  = p.label :diarrhoea
 
-    = p.check_box :diarrhoea
-    = p.label :diarrhoea
-
-    = p.check_box :abdominal_pain
-    = p.label :abdominal_pain
+  = p.check_box :abdominal_pain
+  = p.label :abdominal_pain
 
   = p.label :fluid_description
   = p.text_field :fluid_description
