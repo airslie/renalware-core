@@ -118,14 +118,13 @@ When(/^they terminate a medication$/) do
 end
 
 Then(/^they should see the new patient event on the clinical summary$/) do
-  %w(Telephone call Added Event Type User Modal Description Time Entered By).each do |heading|
+  %w(01/01/2011 Telephone call Spoke to son ).each do |heading|
     expect(page.has_content? heading).to be(true), "Expected #{heading} to be in the view"
   end
+end
 
-  expect(page.has_content? "01/01/2011").to be true
-  expect(page.has_content? "Telephone call").to be true
-  expect(page.has_content? "11:30").to be true
-  expect(page.has_content? "Spoke to Son").to be true
+Then(/^be able to view notes through toggling the description data\.$/) do
+  expect(page.has_content? "Wants to arrange a home visit").to be(true)
 end
 
 Then(/^they should see the new problems on the clinical summary$/) do

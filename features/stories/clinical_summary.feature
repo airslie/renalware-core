@@ -8,15 +8,16 @@ Background:
     And there are edta causes of death in the database 
     And I have a patient in the database
     And they are on a patient's clinical summary
-
+@wip
 Scenario: Doctor adds a patient event
   Given there are existing patient event types in the database
   #event also known as encounter
   When they add a patient event
     And complete the patient event form
   Then they should see the new patient event on the clinical summary
+    And be able to view notes through toggling the description data.
 
-@javascript @wip
+@javascript 
 Scenario: Doctor adds a problem
   Given they go to the problem list page
     When they add some problems to the list

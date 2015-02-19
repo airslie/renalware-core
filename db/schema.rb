@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20150213103857) do
 
   create_table "patient_events", force: :cascade do |t|
     t.datetime "date_time"
-    t.string   "user_id",               limit: 255
+    t.integer  "user_id",               limit: 4
     t.string   "description",           limit: 255
     t.text     "notes",                 limit: 65535
     t.datetime "created_at"

@@ -7,7 +7,7 @@ Background:
     And there are modality reasons in the database
     And there are edta causes of death in the database 
     And I have a patient in the database
-@wip
+
 Scenario: Clinician records an episode of peritonitis
   Given a patient has PD
     And they have been diagnosed with peritonitis
