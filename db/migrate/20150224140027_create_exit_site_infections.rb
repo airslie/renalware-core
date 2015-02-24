@@ -9,6 +9,13 @@ class CreateExitSiteInfections < ActiveRecord::Migration
       t.text :treatment
       t.text :outcome
       t.text :notes
+      t.integer :antibiotic_1
+      t.integer :antibiotic_2
+      t.integer :antibiotic_3
+      t.integer :antibiotic_1_route
+      t.integer :antibiotic_2_route
+      t.integer :antibiotic_3_route
+      t.text :sensitivities
       t.timestamps null: false
     end
   end
