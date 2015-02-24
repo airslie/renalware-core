@@ -3,7 +3,7 @@ class CreateExitSiteInfections < ActiveRecord::Migration
     create_table :exit_site_infections do |t|
       t.integer :patient_id
       t.integer :user_id
-      t.date :infection_date
+      t.date :diagnosis_date
       t.integer :organism_1
       t.integer :organism_2
       t.text :treatment

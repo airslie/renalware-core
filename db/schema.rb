@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20150224140027) do
   create_table "exit_site_infections", force: :cascade do |t|
     t.integer  "patient_id",         limit: 4
     t.integer  "user_id",            limit: 4
-    t.date     "infection_date"
+    t.date     "diagnosis_date"
     t.integer  "organism_1",         limit: 4
     t.integer  "organism_2",         limit: 4
     t.text     "treatment",          limit: 65535
