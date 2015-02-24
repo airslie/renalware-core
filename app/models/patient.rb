@@ -13,6 +13,7 @@ class Patient < ActiveRecord::Base
   has_many :drugs, :through => :patient_medications, :source => :medication, :source_type => "Esa"
   has_many :patient_problems
   has_many :peritonitis_episodes
+  has_many :site_exit_infections
 
   has_one :patient_modality
   has_one :modality_code, :through => :patient_modality

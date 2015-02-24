@@ -9,7 +9,7 @@ RSpec.describe Patient, :type => :model do
   it { should have_one :esrf_info }
   it { should accept_nested_attributes_for(:esrf_info)}
   it { should have_many :peritonitis_episodes }
-  it { should accept_nested_attributes_for(:peritonitis_episodes)}  
+  it { should have_many :exit_site_infections }
 
   describe "updating with nested attributes containing _destroy" do
     it "should soft delete the associated record" do
