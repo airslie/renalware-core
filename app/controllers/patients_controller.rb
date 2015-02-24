@@ -11,8 +11,7 @@ class PatientsController < ApplicationController
   end
 
   def pd_info
-    # @patient.peritonitis_episodes.build
-    @peritonitis_episodes = PeritonitisEpisode.all
+    @peritonitis_episodes = PeritonitisEpisode.where(:patient_id => @patient)
   end
 
   def death
@@ -26,8 +25,8 @@ class PatientsController < ApplicationController
   end
 
   def clinical_summary
-    @patient_events = PatientEvent.all
-    @patient_medications = PatientMedication.all
+    # @patient_events = PatientEvent.all
+    # @patient_medications = PatientMedication.all
   end
 
   def modality
@@ -49,7 +48,7 @@ class PatientsController < ApplicationController
   end
 
   def medications_index
-    @patient_medications = PatientMedication.all
+    # @patient_medications = PatientMedication.all
   end
 
   def new
