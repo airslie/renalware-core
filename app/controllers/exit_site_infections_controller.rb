@@ -1,0 +1,2 @@
+class ExitSiteInfectionsController < ApplicationController
+end

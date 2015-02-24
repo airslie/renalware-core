@@ -1,0 +1,2 @@
+module ExitSiteInfectionsHelper
+end
