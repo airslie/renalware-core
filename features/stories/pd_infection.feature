@@ -7,12 +7,17 @@ Background:
     And there are modality reasons in the database
     And there are edta causes of death in the database 
     And I have a patient in the database
-
+@wip
 Scenario: Clinician records an episode of peritonitis
   Given a patient has PD
-    And they have been diagnosed with peritonitis
   When the Clinician records the episode of peritonitis
-  Then the episode should be displayed on PD info page  
+  Then the episode should be displayed on PD info page
+@wip
+Scenario: Clinician updates an episode of peritonitis
+  Given a patient has PD
+    And a patient has a recently recorded episode of peritonitis 
+  When the Clinician updates the episode of peritonitis
+  Then the updated episode should be displayed on PD info page 
 
 
 

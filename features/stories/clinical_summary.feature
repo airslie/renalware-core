@@ -8,7 +8,7 @@ Background:
     And there are edta causes of death in the database 
     And I have a patient in the database
     And they are on a patient's clinical summary
-@wip
+
 Scenario: Doctor adds a patient event
   Given there are existing patient event types in the database
   #event also known as encounter
