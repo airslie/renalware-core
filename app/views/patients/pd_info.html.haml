@@ -27,7 +27,7 @@
         %th.table-width 
           End Date
         %th.table-width 
-          Causes/Symptoms
+          Causes/ Symptoms
         %th.table-width 
           Organisms
         %th.table-width 
@@ -40,6 +40,8 @@
           Antibiotics
         %th.table-width 
           Entered By
+        %th.table-width 
+          Last Updated
         %th.table-width 
           Action
     
@@ -128,6 +130,9 @@
 
             %td{:data => { :heading => "Entered By"}, valign: "top"}
               = p.user_id
+
+            %td{:data => { :heading => "Last Updated"}, valign: "top"}
+              = p.updated_at.strftime("%d/%m/%Y, %H:%M")
 
             %td{:data => { :heading => "Entered By"}, valign: "top"}
               = link_to "Update", edit_patient_peritonitis_episode_path(@patient, p.id)
