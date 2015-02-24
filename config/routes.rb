@@ -15,8 +15,8 @@ Rails.application.routes.draw do
       get :search
       get :death
     end
-    resources :patient_events, :only => [:new, :create, :index]
-    resources :peritonitis_episodes, :only => [:new, :create]
+    resources :patient_events, :only => [:new, :create, :index]    
+    resources :peritonitis_episodes, :only => [:new, :create, :edit, :update]
   end
 
   # TODO - This will probably change in future

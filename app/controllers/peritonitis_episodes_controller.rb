@@ -1,5 +1,6 @@
 class PeritonitisEpisodesController < ApplicationController
-  before_action :load_patient, :only => [:new, :create, :index, :edit, :update]
+
+  before_action :load_patient, :only => [:new, :create]
 
   def new
     @peritonitis_episode = PeritonitisEpisode.new
@@ -15,23 +16,21 @@ class PeritonitisEpisodesController < ApplicationController
     end
   end
 
-  # def index
-  #   @peritonitis_episodes = @patient.peritonitis_episodes
-  # end
+  def edit
+    @patient = Patient.find(params[:id])
+    @peritonitis_episode = PeritonitisEpisode.find(params[:id])
+  end 
 
-  # def edit
-  #   # binding.pry
-  #   @peritonitis_episode = @patient.peritonitis_episodes.find(params[:id])
-  # end 
-
-  # def update
-  #   if @patient.peritonitis_episodes.update(allowed_params)
-  #     redirect_to params[:redirect_url] || pd_info_patient_path(@patient),
-  #     :notice => "You have successfully updated a peritonitis episode."
-  #   else
-  #     render params[:template] || :edit 
-  #   end
-  # end
+  def update
+    @patient = Patient.find(params[:id])
+    @peritonitis_episode = PeritonitisEpisode.find(params[:id])
+    if @peritonitis_episode.update(allowed_params)
+      redirect_to pd_info_patient_path(@patient),
+      :notice => "You have successfully updated a peritonitis episode."
+    else
+      render :edit 
+    end
+  end
 
   private
   def allowed_params

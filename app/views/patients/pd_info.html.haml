@@ -44,7 +44,7 @@
           Action
     
       %tbody
-        - @patient.peritonitis_episodes.each do |p|
+        - @peritonitis_episodes.each do |p|
           %tr{ valign: "top" }        
             %td{:data => { :heading => "Diagnosis Date" }, valign: "top"}
               = p.diagnosis_date.strftime("%d/%m/%Y")
@@ -86,7 +86,7 @@
                   %a.fi-plus.fi-minus.toggle-notes{ :id => "patient-peritonitis-organism-#{p.id}", href: "#patient-peritonitis-organism-#{p.id}" }
                     = p.episode_type
                   .content.toggle-content{ :id => "patient-peritonitis-organism-#{p.id}" } 
-                    = "Catheter Removed: #{p.catheter_removed},"
+                    = "Catheter Removed: #{p.catheter_removed}"
                                 
             %td{:data => { :heading => "Description" }, valign: "top"}
               %dl.accordion{data: {accordion: true} }
@@ -130,7 +130,7 @@
               = p.user_id
 
             %td{:data => { :heading => "Entered By"}, valign: "top"}
-              = link_to "Update", "#"
+              = link_to "Update", edit_patient_peritonitis_episode_path(@patient, p.id)
           
 .wide-screen
   = content_for :secondary_nav do  

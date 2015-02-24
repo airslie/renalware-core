@@ -10,11 +10,11 @@
 
 .row
   .large-12.columns
-    = form_for @peritonitis_episode, @patient, :method => :put do |p|
+    = form_for [@patient, @peritonitis_episode], :method => :put do |p|
     
       = field_set_tag do                  
         .row
-          = render partial: "peritonitis_episode/peritonitis_form", locals: { p: p }
+          = render partial: "peritonitis_episodes/peritonitis_form", locals: { p: p }
 
         = submit_tag "Update Peritonitis Episode", class: "button tiny right"
 
