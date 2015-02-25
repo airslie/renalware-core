@@ -1,0 +1,21 @@
+.row  
+  %h4
+    Record an Exit Site Infection
+
+.row  
+  %ul.no-bullet
+    = field_set_tag do
+             
+      = form_for [@patient, @exit_site_infection] do |e|
+            
+        .row
+          = render :partial => 'exit_site_infections/form', :locals => { :e => e }
+              
+        = link_to "Cancel", pd_info_patient_path(@patient), class: "button tiny left cancel mt"
+        
+        = e.submit "Save Exit Site Infection", :class => "button tiny right save mt"
+
+.wide-screen
+  = content_for :secondary_nav do  
+    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
+

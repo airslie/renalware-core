@@ -1,0 +1,47 @@
+.peritonitis-form
+  = e.hidden_field :id
+
+  = e.hidden_field :patient_id
+
+  = e.label :user_id
+  = e.text_field :user_id
+
+  = e.label :diagnosis_date
+  = e.date_select(:diagnosis_date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")     
+  
+  = e.label :organism_1
+  = e.text_field :organism_1
+
+  = e.label :organism_2
+  = e.text_field :organism_2
+
+  = e.label :treatment
+  = e.text_area :treatment, :cols => 50, :rows => 6
+
+  = e.label :outcome
+  = e.text_area :outcome, :cols => 50, :rows => 6
+
+  = e.label :notes
+  = e.text_area :notes, :cols => 50, :rows => 6
+
+  = e.label :antibiotic_1
+  = e.text_field :antibiotic_1
+
+  = e.label :antibiotic_1_route, "Route (Antibiotic 1)"
+  = e.text_field :antibiotic_1_route
+
+  = e.label :antibiotic_2
+  = e.text_field :antibiotic_2
+
+  = e.label :antibiotic_2_route, "Route (Antibiotic 2)"
+  = e.text_field :antibiotic_2_route
+
+  = e.label :antibiotic_3
+  = e.text_field :antibiotic_3
+
+  = e.label :antibiotic_3_route, "Route (Antibiotic 3)"
+  = e.text_field :antibiotic_3_route
+
+  = e.label :sensitivities
+  = e.text_field :sensitivities
+

@@ -12,6 +12,7 @@ class PatientsController < ApplicationController
 
   def pd_info
     @peritonitis_episodes = PeritonitisEpisode.where(:patient_id => @patient)
+    @exit_site_infections = ExitSiteInfection.where(:patient_id => @patient)
   end
 
   def death
