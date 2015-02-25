@@ -11,13 +11,20 @@ Background:
 Scenario: Clinician records an episode of peritonitis
   Given a patient has PD
   When the Clinician records the episode of peritonitis
-  Then the episode should be displayed on PD info page
+  Then the recorded episode should be displayed on PD info page
 @wip
 Scenario: Clinician updates an episode of peritonitis
   Given a patient has PD
     And a patient has a recently recorded episode of peritonitis 
   When the Clinician updates the episode of peritonitis
   Then the updated episode should be displayed on PD info page 
+@wip
+Scenario: Clinician records an exit site infection
+  Given a patient has PD
+  When the Clinician records an exit site infection
+  Then the recorded exit site infection should be displayed on PD info page 
+
+
 
 
 

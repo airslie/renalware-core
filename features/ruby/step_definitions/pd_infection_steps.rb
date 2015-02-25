@@ -74,7 +74,7 @@ When(/^the Clinician records the episode of peritonitis$/) do
 
 end
 
-Then(/^the episode should be displayed on PD info page$/) do
+Then(/^the recorded episode should be displayed on PD info page$/) do
 
   expect(page.has_content? "25/12/2014").to be true
   expect(page.has_content? "30/12/2014").to be true
@@ -151,5 +151,48 @@ Then(/^the updated episode should be displayed on PD info page$/) do
   @peritonitis_episode.reload
   expect(page.has_content? "6").to be true
   expect(page.has_content? "On review, needs stronger antibiotics.").to be true
+end
+
+When(/^the Clinician records an exit site infection$/) do
+  visit new_patient_exit_site_infection_path(@patient)
+
+  within "#exit_site_infection_diagnosis_date_3i" do
+    select '1'
+  end
+  within "#exit_site_infection_diagnosis_date_2i" do
+    select 'January'
+  end
+  within "#exit_site_infection_diagnosis_date_1i" do
+    select '2015'
+  end
+
+  fill_in "Organism 1", :with => 4
+  fill_in "Organism 2", :with => 10
+
+  fill_in "Treatment", :with => "Special treatment."
+  fill_in "Outcome", :with => "It is a good outcome."
+  fill_in "Notes", :with => "Review in a weeks time."
+
+  fill_in "Antibiotic 1", :with => 8
+  fill_in "Antibiotic 2", :with => 9
+  fill_in "Antibiotic 3", :with => 10
+  
+  fill_in "Route (Antibiotic 1)", :with => 2
+  fill_in "Route (Antibiotic 2)", :with => 2
+  fill_in "Route (Antibiotic 3)", :with => 2
+
+  fill_in "Sensitivities", :with => "All showing good response."
+
+  click_on "Save Exit Site Infection"
+end
+
+Then(/^the recorded exit site infection should be displayed on PD info page$/) do
+
+  expect(page.has_content? "01/01/2015").to be true
+  expect(page.has_content? "4").to be true
+  expect(page.has_content? "10").to be true
+  expect(page.has_content? "Special treatment.").to be true
+  expect(page.has_content? "It is a good outcome.").to be true
+  expect(page.has_content? "Review in a weeks time.").to be true
 end
 
