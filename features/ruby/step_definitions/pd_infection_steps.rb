@@ -100,6 +100,8 @@ Then(/^the recorded episode should be displayed on PD info page$/) do
   expect(page.has_content? "Route: 1").to be true
   expect(page.has_content? "Antibiotic: 15").to be true 
   expect(page.has_content? "Route: 2").to be true
+  expect(page.has_content? "Antibiotic 1 most effective.").to be true
+  
 end
 
 Given(/^a patient has a recently recorded episode of peritonitis$/) do

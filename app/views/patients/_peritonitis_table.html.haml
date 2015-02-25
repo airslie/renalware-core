@@ -106,7 +106,8 @@
                     = "Antibiotic: #{p.antibiotic_4}, Route: #{p.antibiotic_4_route},"
                   %li.toggle-content
                     = "Antibiotic: #{p.antibiotic_5}, Route: #{p.antibiotic_5_route},"
-                 
+                  %li.toggle-content
+                    = "Sensitivities: #{p.sensitivities}"
 
         %td{:data => { :heading => "Entered By"}, valign: "top"}
           = p.user_id
