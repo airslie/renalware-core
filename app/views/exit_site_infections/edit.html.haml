@@ -1,0 +1,25 @@
+.main-content
+  .row.g-center
+    = render partial: "patients/patient_info_header", locals: { model: @patient }
+
+  .row
+    = render partial: "patients/mini_renal_profile", locals: { model: @patient }
+
+.row
+  %h5 Update an Exit Site Infection
+
+.row
+  .large-12.columns
+    = form_for [@patient, @exit_site_infection], :method => :put do |e|
+    
+      = field_set_tag do                  
+        .row
+          = render partial: "exit_site_infections/form", locals: { e: e }
+
+        = submit_tag "Update Exit Site Infection", class: "button tiny right"
+
+        = link_to "Cancel", pd_info_patient_path(@patient), class: "button tiny left cancel"
+
+.wide-screen
+  = content_for :secondary_nav do  
+    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }

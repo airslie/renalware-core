@@ -16,11 +16,27 @@ class ExitSiteInfectionsController < ApplicationController
     end
   end
 
+  def edit
+    @patient = Patient.find(params[:id])
+    @exit_site_infection = ExitSiteInfection.find(params[:id])
+  end
+
+  def update
+    @patient = Patient.find(params[:id])
+    @exit_site_infection = ExitSiteInfection.find(params[:id])
+    if @exit_site_infection.update(allowed_params)
+      redirect_to pd_info_patient_path(@patient),
+      :notice => "You have successfully updated an exit site infection."
+    else
+      render :edit 
+    end
+  end
+
   private
   def allowed_params
     params.require(:exit_site_infection).permit(:patient_id, :user_id, :diagnosis_date, :organism_1, 
     :organism_2, :treatment, :outcome, :notes, :antibiotic_1, :antibiotic_2, :antibiotic_3, 
-    :antibiotic_1_route, :antibiotic_2_route, :antibiotic_3_route)
+    :antibiotic_1_route, :antibiotic_2_route, :antibiotic_3_route, :sensitivities)
   end
 
   def load_patient

@@ -11,7 +11,7 @@
 
 .wide-screen
   %h5
-    = "Peritonitis Episode (#{@patient.peritonitis_episodes.length})"
+    = "Peritonitis Episode (#{@peritonitis_episodes.length})"
 
   %h6
     = link_to "Record an Episode of Peritonitis", new_patient_peritonitis_episode_path(@patient)
@@ -19,7 +19,7 @@
   = render partial: "patients/peritonitis_table"
 
   %h5
-    = "Exit Site Infections (#{@patient.peritonitis_episodes.length})"
+    = "Exit Site Infections (#{@exit_site_infections.length})"
 
   %h6
     = link_to "Record an Exit Site Infection", new_patient_exit_site_infection_path(@patient)
