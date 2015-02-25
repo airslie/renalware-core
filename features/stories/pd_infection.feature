@@ -23,6 +23,13 @@ Scenario: Clinician records an exit site infection
   Given a patient has PD
   When the Clinician records an exit site infection
   Then the recorded exit site infection should be displayed on PD info page 
+@wip
+Scenario: Clinician updates an exit site infection
+  Given a patient has PD
+    And a patient has a recently recorded exit site infection
+  When the Clinician updates an exit site infection
+  Then the updated exit site infection should be displayed on PD info page 
+
 
 
 

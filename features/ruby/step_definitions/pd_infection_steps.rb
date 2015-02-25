@@ -177,8 +177,8 @@ When(/^the Clinician records an exit site infection$/) do
   fill_in "Antibiotic 2", :with => 9
   fill_in "Antibiotic 3", :with => 10
   
-  fill_in "Route (Antibiotic 1)", :with => 2
-  fill_in "Route (Antibiotic 2)", :with => 2
+  fill_in "Route (Antibiotic 1)", :with => 1
+  fill_in "Route (Antibiotic 2)", :with => 3
   fill_in "Route (Antibiotic 3)", :with => 2
 
   fill_in "Sensitivities", :with => "All showing good response."
@@ -194,5 +194,51 @@ Then(/^the recorded exit site infection should be displayed on PD info page$/) d
   expect(page.has_content? "Special treatment.").to be true
   expect(page.has_content? "It is a good outcome.").to be true
   expect(page.has_content? "Review in a weeks time.").to be true
+  
+  expect(page.has_content? "8").to be true
+  expect(page.has_content? "9").to be true
+  expect(page.has_content? "10").to be true
+
+  expect(page.has_content? "1").to be true
+  expect(page.has_content? "3").to be true
+  expect(page.has_content? "2").to be true
+  
+  expect(page.has_content? "All showing good response.").to be true
+end
+
+Given(/^a patient has a recently recorded exit site infection$/) do
+  @exit_site_infection = ExitSiteInfection.create!(
+    patient_id: 1,
+    user_id: 1,            
+    diagnosis_date: "01/01/2015",
+    organism_1: 7,         
+    organism_2: 11,         
+    treatment: "Typical treatment.",         
+    outcome: "Ok outcome.",           
+    notes: "review treatment in a 6 weeks.",             
+    antibiotic_1: 1,       
+    antibiotic_2: 2,       
+    antibiotic_3: 3,       
+    antibiotic_1_route: 2, 
+    antibiotic_2_route: 2, 
+    antibiotic_3_route: 2, 
+    sensitivities: "All antibiotics responding well."
+  )
+end
+
+When(/^the Clinician updates an exit site infection$/) do
+  visit edit_patient_exit_site_infection_path(@patient, @exit_site_infection.id)
+
+  fill_in "Organism 2", :with => 12
+  fill_in "Notes", :with => "Needs a review in 2 weeks time."
+
+  click_on "Update Exit Site Infection"
+end
+
+Then(/^the updated exit site infection should be displayed on PD info page$/) do
+  @exit_site_infection.reload
+
+  expect(page.has_content? "12").to be true
+  expect(page.has_content? "Needs a review in 2 weeks time.").to be true
 end
 
