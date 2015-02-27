@@ -62,11 +62,12 @@ When(/^the Clinician records the episode of peritonitis$/) do
   fill_in "Antibiotic 4", :with => 14
   fill_in "Antibiotic 5", :with => 15
 
-  fill_in "Route (Antibiotic 1)", :with => 1
-  fill_in "Route (Antibiotic 2)", :with => 1
-  fill_in "Route (Antibiotic 3)", :with => 1
-  fill_in "Route (Antibiotic 4)", :with => 1
-  fill_in "Route (Antibiotic 5)", :with => 2
+
+  select "PO", from: "Route (Antibiotic 1)"
+  select "IV", from: "Route (Antibiotic 2)"
+  select "SC", from: "Route (Antibiotic 3)"
+  select "IM", from: "Route (Antibiotic 4)"
+  select "Other (Please specify in notes)", from: "Route (Antibiotic 5)"
   
   fill_in "Sensitivities", :with => "Antibiotic 1 most effective."
 
@@ -91,15 +92,15 @@ Then(/^the recorded episode should be displayed on PD info page$/) do
   expect(page.has_content? "Degen: 25%").to be true
   expect(page.has_content? "Other: 25%").to be true
   expect(page.has_content? "Antibiotic: 11").to be true
-  expect(page.has_content? "Route: 1").to be true
+  expect(page.has_content? "Route: PO").to be true
   expect(page.has_content? "Antibiotic: 12").to be true
-  expect(page.has_content? "Route: 1").to be true
+  expect(page.has_content? "Route: IV").to be true
   expect(page.has_content? "Antibiotic: 13").to be true
-  expect(page.has_content? "Route: 1").to be true
+  expect(page.has_content? "Route: SC").to be true
   expect(page.has_content? "Antibiotic: 14").to be true
-  expect(page.has_content? "Route: 1").to be true
+  expect(page.has_content? "Route: IM").to be true
   expect(page.has_content? "Antibiotic: 15").to be true 
-  expect(page.has_content? "Route: 2").to be true
+  expect(page.has_content? "Route: Other (Please specify in notes)").to be true
   expect(page.has_content? "Antibiotic 1 most effective.").to be true
   
 end
