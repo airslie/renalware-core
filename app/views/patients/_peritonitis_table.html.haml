@@ -97,15 +97,15 @@
               .content.toggle-content{ :id => "patient-peritonitis-antibiotics-#{p.id}" } 
                 %ul.no-bullet
                   %li.toggle-content
-                    = "Antibiotic: #{p.antibiotic_1}, Route: #{p.antibiotic_1_route},"
+                    = "Antibiotic: #{p.antibiotic_1}, Route: #{p.antibiotic_routes.first.name},"
                   %li.toggle-content
-                    = "Antibiotic: #{p.antibiotic_2}, Route: #{p.antibiotic_2_route},"
+                    = "Antibiotic: #{p.antibiotic_2}, Route: #{p.antibiotic_routes.second.name},"
                   %li.toggle-content
-                    = "Antibiotic: #{p.antibiotic_3}, Route: #{p.antibiotic_3_route},"
+                    = "Antibiotic: #{p.antibiotic_3}, Route: #{p.antibiotic_routes.third.name},"
                   %li.toggle-content
-                    = "Antibiotic: #{p.antibiotic_4}, Route: #{p.antibiotic_4_route},"
+                    = "Antibiotic: #{p.antibiotic_4}, Route: #{p.antibiotic_routes.fourth.name},"
                   %li.toggle-content
-                    = "Antibiotic: #{p.antibiotic_5}, Route: #{p.antibiotic_5_route},"
+                    = "Antibiotic: #{p.antibiotic_5}, Route: #{p.antibiotic_routes.fifth.name},"
                   %li.toggle-content
                     = "Sensitivities: #{p.sensitivities}"
 
