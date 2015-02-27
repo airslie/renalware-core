@@ -1,3 +1,10 @@
+.main-content
+  .row.g-center
+    = render partial: "patients/patient_info_header", locals: { model: @patient }
+
+  .row
+    = render partial: "patients/mini_renal_profile", locals: { model: @patient }
+
 .row  
   %h4
     Record an Episode of Peritonitis
@@ -7,9 +14,9 @@
     = field_set_tag do
              
       = form_for [@patient, @peritonitis_episode] do |p|
-            
+       
         .row
-          = render :partial => 'peritonitis_form', :locals => { :p => p }
+          = render :partial => 'peritonitis_episodes/peritonitis_form', :locals => { :p => p }
               
         = link_to "Cancel", pd_info_patient_path(@patient), class: "button tiny left cancel mt"
         

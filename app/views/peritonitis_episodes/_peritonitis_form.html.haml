@@ -64,31 +64,31 @@
   = p.text_field :antibiotic_1
 
   = p.label :antibiotic_1_route, "Route (Antibiotic 1)"
-  = p.text_field :antibiotic_1_route
-
+  = p.select :antibiotic_1_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
+  
   = p.label :antibiotic_2
   = p.text_field :antibiotic_2
 
   = p.label :antibiotic_2_route, "Route (Antibiotic 2)"
-  = p.text_field :antibiotic_2_route
+  = p.select :antibiotic_2_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
 
   = p.label :antibiotic_3
   = p.text_field :antibiotic_3
 
   = p.label :antibiotic_3_route, "Route (Antibiotic 3)"
-  = p.text_field :antibiotic_3_route
+  = p.select :antibiotic_3_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
 
   = p.label :antibiotic_4
   = p.text_field :antibiotic_4
 
   = p.label :antibiotic_4_route, "Route (Antibiotic 4)"
-  = p.text_field :antibiotic_4_route
+  = p.select :antibiotic_4_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
 
   = p.label :antibiotic_5
   = p.text_field :antibiotic_5
 
   = p.label :antibiotic_5_route, "Route (Antibiotic 5)"
-  = p.text_field :antibiotic_5_route
+  = p.select :antibiotic_5_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
 
   = p.label :sensitivities
   = p.text_field :sensitivities

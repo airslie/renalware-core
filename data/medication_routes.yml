@@ -1,0 +1,20 @@
+- !ruby/object:MedicationRoute
+  id: 1
+  name: PO
+  decription: "Oral"
+- !ruby/object:MedicationRoute
+  id: 2
+  name: IV
+  description: "Intravenous"
+- !ruby/object:MedicationRoute
+  id: 3
+  name: SC
+  description: "Subcutaneous"
+- !ruby/object:MedicationRoute
+  id: 4
+  name: IM
+  description: "Intramuscular"
+- !ruby/object:MedicationRoute
+  id: 5
+  name: Other (Please specify in notes)
+  description: "Other (Please specify in notes)"
