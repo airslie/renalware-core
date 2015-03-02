@@ -1,3 +1,10 @@
+.main-content
+  .row.g-center
+    = render partial: "patients/patient_info_header", locals: { model: @patient }
+
+  .row
+    = render partial: "patients/mini_renal_profile", locals: { model: @patient }
+
 .row  
   %h4
     Record an Exit Site Infection
