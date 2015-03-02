@@ -180,9 +180,9 @@ When(/^the Clinician records an exit site infection$/) do
   fill_in "Antibiotic 2", :with => 9
   fill_in "Antibiotic 3", :with => 10
   
-  fill_in "Route (Antibiotic 1)", :with => 1
-  fill_in "Route (Antibiotic 2)", :with => 3
-  fill_in "Route (Antibiotic 3)", :with => 2
+  select "PO", from: "Route (Antibiotic 1)"
+  select "IV", from: "Route (Antibiotic 2)"
+  select "SC", from: "Route (Antibiotic 3)"
 
   fill_in "Sensitivities", :with => "All showing good response."
 
@@ -202,9 +202,9 @@ Then(/^the recorded exit site infection should be displayed on PD info page$/) d
   expect(page.has_content? "9").to be true
   expect(page.has_content? "10").to be true
 
-  expect(page.has_content? "1").to be true
-  expect(page.has_content? "3").to be true
-  expect(page.has_content? "2").to be true
+  expect(page.has_content? "PO").to be true
+  expect(page.has_content? "IV").to be true
+  expect(page.has_content? "SC").to be true
   
   expect(page.has_content? "All showing good response.").to be true
 end
@@ -223,7 +223,7 @@ Given(/^a patient has a recently recorded exit site infection$/) do
     antibiotic_2: 2,       
     antibiotic_3: 3,       
     antibiotic_1_route: 2, 
-    antibiotic_2_route: 2, 
+    antibiotic_2_route: 1, 
     antibiotic_3_route: 2, 
     sensitivities: "All antibiotics responding well."
   )
