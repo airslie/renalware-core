@@ -26,7 +26,7 @@
               
                 %ul.no-bullet
                   %li.history
-                    = "#{m.medication.name}, #{m.dose}, #{I18n.t("enums.route.#{m.route}")}, #{pm.object.frequency}, #{m.updated_at.strftime("%d/%m/%Y - %H:%M")}"
+                    = "#{m.medication.name}, #{m.dose}, #{m.route}, #{pm.object.frequency}, #{m.updated_at.strftime("%d/%m/%Y - %H:%M")}"
 
       - if pm.object.new_record?
 
@@ -55,7 +55,7 @@
           %dd.accordion-navigation.med-form
             %a.fi-plus.fi-minus{href: "#edit-meds-#{pm.object.id}", :class => "drug-#{pm.object.medication_type.downcase}"}
                 
-              = "#{pm.object.medication.name}, #{pm.object.dose}, #{I18n.t("enums.route.#{pm.object.route}")}, #{pm.object.frequency}, #{pm.object.date}"
+              = "#{pm.object.medication.name}, #{pm.object.dose}, #{pm.object.medication_route(pm.object.route).name}, #{pm.object.frequency}, #{pm.object.date}"
               .right.edit
                 Edit
 

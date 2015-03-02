@@ -4,14 +4,7 @@ en:
       not_known: Not Known
       male: Male
       female: Female
-      not_specified: Not Specified
-
-    route:
-      po: PO
-      iv: IV 
-      sc: SC
-      im: IM  
-      other: Other(Please specify in notes)  
+      not_specified: Not Specified  
 
     provider:
       gp: GP

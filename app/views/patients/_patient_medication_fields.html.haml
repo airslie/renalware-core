@@ -25,7 +25,7 @@
   = pm.text_field :dose
 
   = pm.label :route, "Route"
-  = pm.select :route, route_options
+  = pm.select :route, medication_routes(pm.object.class.name.constantize), { prompt: "Please select route of administration" }
 
   = pm.label :frequency, "Frequency & Duration"
   = pm.text_field :frequency
