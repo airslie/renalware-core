@@ -24,14 +24,14 @@ Scenario: Doctor adds a problem
   When they save the problem list
   Then they should see the new problems on the clinical summary
 
-@javascript 
+@javascript @wip
 Scenario: Doctor adds a medication for a patient
   Given there are drugs in the database
   When they add a medication
     And complete the medication form
   Then they should see the new medication on the clinical summary
 
-@javascript 
+@javascript @wip
 Scenario: Doctor terminates a medication for a patient
   Given there are drugs in the database
   Given a patient has a medication
