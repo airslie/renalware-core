@@ -69,11 +69,11 @@
               .content.toggle-content{ :id => "patient-exit-site-antibiotics-#{e.id}" } 
                 %ul.no-bullet
                   %li.toggle-content
-                    = "Antibiotic: #{e.antibiotic_1}, Route: #{e.antibiotic_1_route},"
+                    = "Antibiotic: #{e.antibiotic_1}, Route: #{e.antibiotic_routes.first.name},"
                   %li.toggle-content
-                    = "Antibiotic: #{e.antibiotic_2}, Route: #{e.antibiotic_2_route},"
+                    = "Antibiotic: #{e.antibiotic_2}, Route: #{e.antibiotic_routes.second.name},"
                   %li.toggle-content
-                    = "Antibiotic: #{e.antibiotic_3}, Route: #{e.antibiotic_3_route},"
+                    = "Antibiotic: #{e.antibiotic_3}, Route: #{e.antibiotic_routes.third.name},"
                   %li.toggle-content
                     = "Sensitivities: #{e.sensitivities}"
                   

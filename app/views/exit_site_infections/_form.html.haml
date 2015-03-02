@@ -1,4 +1,4 @@
-.peritonitis-form
+.exit-site-form
   = e.hidden_field :id
 
   = e.hidden_field :patient_id
@@ -28,19 +28,19 @@
   = e.text_field :antibiotic_1
 
   = e.label :antibiotic_1_route, "Route (Antibiotic 1)"
-  = e.text_field :antibiotic_1_route
+  = e.select :antibiotic_1_route, medication_routes(e.object.class.name.constantize), { prompt: "Please select route of administration" } 
 
   = e.label :antibiotic_2
   = e.text_field :antibiotic_2
 
   = e.label :antibiotic_2_route, "Route (Antibiotic 2)"
-  = e.text_field :antibiotic_2_route
+  = e.select :antibiotic_2_route, medication_routes(e.object.class.name.constantize), { prompt: "Please select route of administration" } 
 
   = e.label :antibiotic_3
   = e.text_field :antibiotic_3
 
   = e.label :antibiotic_3_route, "Route (Antibiotic 3)"
-  = e.text_field :antibiotic_3_route
+  = e.select :antibiotic_3_route, medication_routes(e.object.class.name.constantize), { prompt: "Please select route of administration" } 
 
   = e.label :sensitivities
   = e.text_field :sensitivities
