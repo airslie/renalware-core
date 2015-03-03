@@ -49,6 +49,8 @@
                     = "Diarrhoea: #{p.diarrhoea}"
                   %li
                     = "Abdominal Pain: #{p.abdominal_pain}"
+                  %li
+                    = "Fluid Description: #{p.fluid_description_id}"
           
         %td{ :data => { :heading => "Organisms"}, valign: "top" } 
           %dl.accordion{ data: { accordion: true } }
@@ -58,9 +60,9 @@
               .content.toggle-content{ :id => "patient-peritonitis-organism-#{p.id}" }
                 %ul.no-bullet
                   %li 
-                    = "Organism 1: #{p.organism_1},"
+                    = "Organism 1: #{p.organism_1.name},"
                   %li
-                    = "Organism 2: #{p.organism_2}"
+                    = "Organism 2: #{p.organism_2.name}"
         
         %td{ :data => { :heading => "Episode Type"}, valign: "top" } 
           %dl.accordion{ data: { accordion: true } }
@@ -97,15 +99,15 @@
               .content.toggle-content{ :id => "patient-peritonitis-antibiotics-#{p.id}" } 
                 %ul.no-bullet
                   %li.toggle-content
-                    = "Antibiotic: #{p.antibiotic_1}, Route: #{p.antibiotic_routes.first.name},"
+                    = "Antibiotic: #{p.antibiotic_1_id}, Route: #{p.antibiotic_routes.first.name},"
                   %li.toggle-content
-                    = "Antibiotic: #{p.antibiotic_2}, Route: #{p.antibiotic_routes.second.name},"
+                    = "Antibiotic: #{p.antibiotic_2_id}, Route: #{p.antibiotic_routes.second.name},"
                   %li.toggle-content
-                    = "Antibiotic: #{p.antibiotic_3}, Route: #{p.antibiotic_routes.third.name},"
+                    = "Antibiotic: #{p.antibiotic_3_id}, Route: #{p.antibiotic_routes.third.name},"
                   %li.toggle-content
-                    = "Antibiotic: #{p.antibiotic_4}, Route: #{p.antibiotic_routes.fourth.name},"
+                    = "Antibiotic: #{p.antibiotic_4_id}, Route: #{p.antibiotic_routes.fourth.name},"
                   %li.toggle-content
-                    = "Antibiotic: #{p.antibiotic_5}, Route: #{p.antibiotic_routes.fifth.name},"
+                    = "Antibiotic: #{p.antibiotic_5_id}, Route: #{p.antibiotic_routes.fifth.name},"
                   %li.toggle-content
                     = "Sensitivities: #{p.sensitivities}"
 

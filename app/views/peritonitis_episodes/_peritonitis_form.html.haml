@@ -33,8 +33,8 @@
   = p.check_box :abdominal_pain
   = p.label :abdominal_pain
 
-  = p.label :fluid_description
-  = p.text_field :fluid_description
+  = p.label :fluid_description_id
+  = p.text_field :fluid_description_id
 
   = p.label :white_cell_total
   = p.text_field :white_cell_total
@@ -51,41 +51,41 @@
   = p.label :white_cell_other, "Other (%)"
   = p.text_field :white_cell_other
 
-  = p.label :organism_1
-  = p.text_field :organism_1
+  = p.label :organism_1_id
+  = p.collection_select :organism_1_id, OrganismCode.all, :id, :name, { :prompt => "Please Select Organism Found", include_blank: true, :class => "organism-select" }
 
-  = p.label :organism_2
-  = p.text_field :organism_2
+  = p.label :organism_2_id
+  = p.collection_select :organism_2_id, OrganismCode.all, :id, :name, { :prompt => "Please Select Organism Found", include_blank: true, :class => "organism-select" }
 
   = p.label :notes
   = p.text_area :notes, :cols => 50, :rows => 6
 
-  = p.label :antibiotic_1
-  = p.text_field :antibiotic_1
+  = p.label :antibiotic_1_id
+  = p.text_field :antibiotic_1_id
 
   = p.label :antibiotic_1_route, "Route (Antibiotic 1)"
   = p.select :antibiotic_1_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
   
-  = p.label :antibiotic_2
-  = p.text_field :antibiotic_2
+  = p.label :antibiotic_2_id
+  = p.text_field :antibiotic_2_id
 
   = p.label :antibiotic_2_route, "Route (Antibiotic 2)"
   = p.select :antibiotic_2_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
 
-  = p.label :antibiotic_3
-  = p.text_field :antibiotic_3
+  = p.label :antibiotic_3_id
+  = p.text_field :antibiotic_3_id
 
   = p.label :antibiotic_3_route, "Route (Antibiotic 3)"
   = p.select :antibiotic_3_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
 
-  = p.label :antibiotic_4
-  = p.text_field :antibiotic_4
+  = p.label :antibiotic_4_id
+  = p.text_field :antibiotic_4_id
 
   = p.label :antibiotic_4_route, "Route (Antibiotic 4)"
   = p.select :antibiotic_4_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
 
-  = p.label :antibiotic_5
-  = p.text_field :antibiotic_5
+  = p.label :antibiotic_5_id
+  = p.text_field :antibiotic_5_id
 
   = p.label :antibiotic_5_route, "Route (Antibiotic 5)"
   = p.select :antibiotic_5_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
