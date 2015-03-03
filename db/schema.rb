@@ -58,14 +58,14 @@ ActiveRecord::Schema.define(version: 20150302171638) do
     t.integer  "patient_id",         limit: 4
     t.integer  "user_id",            limit: 4
     t.date     "diagnosis_date"
-    t.integer  "organism_1",         limit: 4
-    t.integer  "organism_2",         limit: 4
+    t.integer  "organism_1_id",      limit: 4
+    t.integer  "organism_2_id",      limit: 4
     t.text     "treatment",          limit: 65535
     t.text     "outcome",            limit: 65535
     t.text     "notes",              limit: 65535
-    t.integer  "antibiotic_1",       limit: 4
-    t.integer  "antibiotic_2",       limit: 4
-    t.integer  "antibiotic_3",       limit: 4
+    t.integer  "antibiotic_1_id",    limit: 4
+    t.integer  "antibiotic_2_id",    limit: 4
+    t.integer  "antibiotic_3_id",    limit: 4
     t.integer  "antibiotic_1_route", limit: 4
     t.integer  "antibiotic_2_route", limit: 4
     t.integer  "antibiotic_3_route", limit: 4
@@ -221,20 +221,20 @@ ActiveRecord::Schema.define(version: 20150302171638) do
     t.boolean  "exit_site_infection",  limit: 1
     t.boolean  "diarrhoea",            limit: 1
     t.boolean  "abdominal_pain",       limit: 1
-    t.integer  "fluid_description",    limit: 4
+    t.integer  "fluid_description_id", limit: 4
     t.integer  "white_cell_total",     limit: 4
     t.integer  "white_cell_neutro",    limit: 4
     t.integer  "white_cell_lympho",    limit: 4
     t.integer  "white_cell_degen",     limit: 4
     t.integer  "white_cell_other",     limit: 4
-    t.integer  "organism_1",           limit: 4
-    t.integer  "organism_2",           limit: 4
+    t.integer  "organism_1_id",        limit: 4
+    t.integer  "organism_2_id",        limit: 4
     t.text     "notes",                limit: 65535
-    t.integer  "antibiotic_1",         limit: 4
-    t.integer  "antibiotic_2",         limit: 4
-    t.integer  "antibiotic_3",         limit: 4
-    t.integer  "antibiotic_4",         limit: 4
-    t.integer  "antibiotic_5",         limit: 4
+    t.integer  "antibiotic_1_id",      limit: 4
+    t.integer  "antibiotic_2_id",      limit: 4
+    t.integer  "antibiotic_3_id",      limit: 4
+    t.integer  "antibiotic_4_id",      limit: 4
+    t.integer  "antibiotic_5_id",      limit: 4
     t.integer  "antibiotic_1_route",   limit: 4
     t.integer  "antibiotic_2_route",   limit: 4
     t.integer  "antibiotic_3_route",   limit: 4
