@@ -1,6 +1,9 @@
 class ExitSiteInfection < ActiveRecord::Base
   belongs_to :patient
 
+  belongs_to :organism_1, :class_name => "OrganismCode", :foreign_key => :organism_1_id
+  belongs_to :organism_2, :class_name => "OrganismCode", :foreign_key => :organism_2_id
+
   def self.medication_routes
     @medication_routes ||= YAML.load_file(Rails.root.join("data", "medication_routes.yml"))
   end
