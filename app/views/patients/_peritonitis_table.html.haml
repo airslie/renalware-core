@@ -17,7 +17,7 @@
     %th.table-width 
       White Cell Count
     %th.table-width 
-      Antibiotics
+      Antibiotics - Routes
     %th.table-width 
       Entered By
     %th.table-width 
@@ -91,7 +91,7 @@
                 = "Degen: #{p.white_cell_degen}%,"
                 = "Other: #{p.white_cell_other}%"
 
-        %td{ :data => { :heading => "Antibiotics"}, valign: "top" } 
+        %td{ :data => { :heading => "Antibiotics/ Routes"}, valign: "top" } 
           %dl.accordion{ data: { accordion: true } }
             %dd.accordion-navigation
               %a.fi-plus.fi-minus.toggle-notes{ :id => "patient-peritonitis-antibiotics-#{p.id}", href: "#patient-peritonitis-antibiotics-#{p.id}" }
@@ -99,15 +99,15 @@
               .content.toggle-content{ :id => "patient-peritonitis-antibiotics-#{p.id}" } 
                 %ul.no-bullet
                   %li.toggle-content
-                    = "Antibiotic: #{p.antibiotic_1_id}, Route: #{p.antibiotic_routes.first.name},"
+                    = "#{p.antibiotic_1.name} - #{p.antibiotic_routes.first.name},"
                   %li.toggle-content
-                    = "Antibiotic: #{p.antibiotic_2_id}, Route: #{p.antibiotic_routes.second.name},"
+                    = "#{p.antibiotic_2.name} - #{p.antibiotic_routes.second.name},"
                   %li.toggle-content
-                    = "Antibiotic: #{p.antibiotic_3_id}, Route: #{p.antibiotic_routes.third.name},"
+                    = "#{p.antibiotic_3.name} - #{p.antibiotic_routes.third.name},"
                   %li.toggle-content
-                    = "Antibiotic: #{p.antibiotic_4_id}, Route: #{p.antibiotic_routes.fourth.name},"
+                    = "#{p.antibiotic_4.name} - #{p.antibiotic_routes.fourth.name},"
                   %li.toggle-content
-                    = "Antibiotic: #{p.antibiotic_5_id}, Route: #{p.antibiotic_routes.fifth.name},"
+                    = "#{p.antibiotic_5.name} - #{p.antibiotic_routes.fifth.name},"
                   %li.toggle-content
                     = "Sensitivities: #{p.sensitivities}"
 

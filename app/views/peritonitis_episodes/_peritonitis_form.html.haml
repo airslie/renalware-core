@@ -7,8 +7,7 @@
 
     = p.label :user_id
     = p.text_field :user_id
-
-
+ 
     .row       
       .large-12.columns
         .form-section 
@@ -32,10 +31,10 @@
 
         .large-6.columns
           = p.label :organism_1_id
-          = p.collection_select :organism_1_id, OrganismCode.all, :id, :name, { :prompt => "Please Select Organism Found", include_blank: true, :class => "organism-select" }
+          = p.collection_select :organism_1_id, OrganismCode.all, :id, :name, { :prompt => "Please select organism found", include_blank: true, :class => "organism-select" }
         .large-6.columns
           = p.label :organism_2_id
-          = p.collection_select :organism_2_id, OrganismCode.all, :id, :name, { :prompt => "Please Select Organism Found", include_blank: true, :class => "organism-select" }
+          = p.collection_select :organism_2_id, OrganismCode.all, :id, :name, { :prompt => "Please select organism found", include_blank: true, :class => "organism-select" }
           
         .large-12.columns
           = p.label :episode_type_id
@@ -44,8 +43,7 @@
         .large-12.columns 
           = p.check_box :catheter_removed
           = p.label :catheter_removed
-      
-        
+              
     .row        
       .large-12.columns
         .form-section 
@@ -110,35 +108,40 @@
         
         .large-6.columns
           = p.label :antibiotic_1_id
-          = p.text_field :antibiotic_1_id
+          = p.collection_select :antibiotic_1_id, Antibiotic.all, :id, :name, { :prompt => "Please select prescribed antibiotic" }
+
         .large-6.columns
           = p.label :antibiotic_1_route, "Route (Antibiotic 1)"
           = p.select :antibiotic_1_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
         
         .large-6.columns  
           = p.label :antibiotic_2_id
-          = p.text_field :antibiotic_2_id
+          = p.collection_select :antibiotic_2_id, Antibiotic.all, :id, :name, { :prompt => "Please select prescribed antibiotic" }
+
         .large-6.columns
           = p.label :antibiotic_2_route, "Route (Antibiotic 2)"
           = p.select :antibiotic_2_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
         
         .large-6.columns 
           = p.label :antibiotic_3_id
-          = p.text_field :antibiotic_3_id
+          = p.collection_select :antibiotic_3_id, Antibiotic.all, :id, :name, { :prompt => "Please select prescribed antibiotic" }
+
         .large-6.columns 
           = p.label :antibiotic_3_route, "Route (Antibiotic 3)"
           = p.select :antibiotic_3_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
         
         .large-6.columns 
           = p.label :antibiotic_4_id
-          = p.text_field :antibiotic_4_id
+          = p.collection_select :antibiotic_4_id, Antibiotic.all, :id, :name, { :prompt => "Please select prescribed antibiotic" }
+
         .large-6.columns 
           = p.label :antibiotic_4_route, "Route (Antibiotic 4)"
           = p.select :antibiotic_4_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
         
         .large-6.columns
           = p.label :antibiotic_5_id
-          = p.text_field :antibiotic_5_id
+          = p.collection_select :antibiotic_5_id, Antibiotic.all, :id, :name, { :prompt => "Please select prescribed antibiotic" }
+
         .large-6.columns
           = p.label :antibiotic_5_route, "Route (Antibiotic 5)"
           = p.select :antibiotic_5_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
