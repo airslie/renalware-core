@@ -5,6 +5,13 @@ Given(/^there are organisms in the database$/) do
   end
 end
 
+Given(/^there are antibiotics in the database$/) do
+  @antibiotics = %w(Amoxicillin Cephradine Dicloxacillin Metronidazole Penicillin Rifampin Tobramycin Vancomycin)
+  @antibiotics.map! do |antibiotic|
+    @antibiotic = Antibiotic.create!( :name => antibiotic )
+  end
+end
+
 Given(/^a patient has PD$/) do
   visit pd_info_patient_path(@patient)
 end
@@ -63,11 +70,11 @@ When(/^the Clinician records the episode of peritonitis$/) do
 
   fill_in "Notes", :with => "Review in a weeks time"
 
-  fill_in "Antibiotic 1", :with => 11
-  fill_in "Antibiotic 2", :with => 12
-  fill_in "Antibiotic 3", :with => 13
-  fill_in "Antibiotic 4", :with => 14
-  fill_in "Antibiotic 5", :with => 15
+  select "Cephradine", from: "Antibiotic 1"
+  select "Dicloxacillin", from: "Antibiotic 2"
+  select "Metronidazole", from: "Antibiotic 3"
+  select "Rifampin", from: "Antibiotic 4"
+  select "Vancomycin", from: "Antibiotic 5"
 
   select "PO", from: "Route (Antibiotic 1)"
   select "IV", from: "Route (Antibiotic 2)"
@@ -106,16 +113,16 @@ Then(/^the recorded episode should be displayed on PD info page$/) do
   expect(page.has_content? "Bacillis").to be true
   expect(page.has_content? "E.Coli").to be true
   
-  expect(page.has_content? "Antibiotic: 11").to be true
-  expect(page.has_content? "Route: PO").to be true
-  expect(page.has_content? "Antibiotic: 12").to be true
-  expect(page.has_content? "Route: IV").to be true
-  expect(page.has_content? "Antibiotic: 13").to be true
-  expect(page.has_content? "Route: SC").to be true
-  expect(page.has_content? "Antibiotic: 14").to be true
-  expect(page.has_content? "Route: IM").to be true
-  expect(page.has_content? "Antibiotic: 15").to be true 
-  expect(page.has_content? "Route: Other (Please specify in notes)").to be true
+  expect(page.has_content? "Cephradine").to be true
+  expect(page.has_content? "PO").to be true
+  expect(page.has_content? "Dicloxacillin").to be true
+  expect(page.has_content? "IV").to be true
+  expect(page.has_content? "Metronidazole").to be true
+  expect(page.has_content? "SC").to be true
+  expect(page.has_content? "Rifampin").to be true
+  expect(page.has_content? "IM").to be true
+  expect(page.has_content? "Vancomycin").to be true 
+  expect(page.has_content? "Other (Please specify in notes)").to be true
   
   expect(page.has_content? "Antibiotic 1 most effective.").to be true
   
