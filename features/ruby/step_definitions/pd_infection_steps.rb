@@ -199,10 +199,10 @@ When(/^the Clinician records an exit site infection$/) do
   fill_in "Outcome", :with => "It is a good outcome."
   fill_in "Notes", :with => "Review in a weeks time."
 
-  fill_in "Antibiotic 1", :with => 8
-  fill_in "Antibiotic 2", :with => 9
-  fill_in "Antibiotic 3", :with => 10
-  
+  select "Amoxicillin", from: "Antibiotic 1"
+  select "Penicillin", from: "Antibiotic 2"
+  select "Tobramycin", from: "Antibiotic 3"
+   
   select "PO", from: "Route (Antibiotic 1)"
   select "IV", from: "Route (Antibiotic 2)"
   select "SC", from: "Route (Antibiotic 3)"
@@ -223,9 +223,9 @@ Then(/^the recorded exit site infection should be displayed on PD info page$/) d
   expect(page.has_content? "It is a good outcome.").to be true
   expect(page.has_content? "Review in a weeks time.").to be true
   
-  expect(page.has_content? "8").to be true
-  expect(page.has_content? "9").to be true
-  expect(page.has_content? "10").to be true
+  expect(page.has_content? "Amoxicillin").to be true
+  expect(page.has_content? "Penicillin").to be true
+  expect(page.has_content? "Tobramycin").to be true
 
   expect(page.has_content? "PO").to be true
   expect(page.has_content? "IV").to be true
