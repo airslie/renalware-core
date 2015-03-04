@@ -128,7 +128,7 @@ Given(/^a patient has a recently recorded episode of peritonitis$/) do
     diagnosis_date: "24/02/15",
     start_treatment_date: "25/02/15", 
     end_treatment_date: "25/03/2015",
-    episode_type: 1,         
+    episode_type_id: 1,         
     catheter_removed: 1,     
     line_break: 1,           
     exit_site_infection: 1,  
@@ -259,7 +259,7 @@ end
 Then(/^the updated exit site infection should be displayed on PD info page$/) do
   @exit_site_infection.reload
 
-  expect(page.has_content? "12").to be true
+  expect(page.has_content? "MRSA").to be true
   expect(page.has_content? "Needs a review in 2 weeks time.").to be true
 end
 
