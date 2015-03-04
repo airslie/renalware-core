@@ -9,6 +9,16 @@ body > .flash-notice {
   z-index: 1;
 } 
 
+fieldset {
+  border-radius: 1em;
+  padding: 2em;
+}
+
+.form-section {
+  border-bottom: #008cba solid 0.1em;
+  margin: 0.5em;
+}
+
 .g-center {
   text-align: center;
 }

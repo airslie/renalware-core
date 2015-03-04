@@ -1,94 +1,144 @@
-.peritonitis-form
-  = p.hidden_field :id
-
-  = p.hidden_field :patient_id
-
-  = p.label :user_id
-  = p.text_field :user_id
-
-  = p.label :diagnosis_date
-  = p.date_select(:diagnosis_date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")     
-
-  = p.label :start_treatment_date
-  = p.date_select(:start_treatment_date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
-
-  = p.label :end_treatment_date
-  = p.date_select(:end_treatment_date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
-
-  = p.label :episode_type
-  = p.text_field :episode_type
-
-  = p.check_box :catheter_removed
-  = p.label :catheter_removed
-
-  = p.check_box :line_break
-  = p.label :line_break
-
-  = p.check_box :exit_site_infection
-  = p.label :exit_site_infection
-
-  = p.check_box :diarrhoea
-  = p.label :diarrhoea
-
-  = p.check_box :abdominal_pain
-  = p.label :abdominal_pain
-
-  = p.label :fluid_description_id
-  = p.text_field :fluid_description_id
-
-  = p.label :white_cell_total
-  = p.text_field :white_cell_total
-
-  = p.label :white_cell_neutro, "Neutro (%)"
-  = p.text_field :white_cell_neutro
-
-  = p.label :white_cell_lympho, "Lympho (%)"
-  = p.text_field :white_cell_lympho
-
-  = p.label :white_cell_degen, "Degen (%)"
-  = p.text_field :white_cell_degen
-
-  = p.label :white_cell_other, "Other (%)"
-  = p.text_field :white_cell_other
-
-  = p.label :organism_1_id
-  = p.collection_select :organism_1_id, OrganismCode.all, :id, :name, { :prompt => "Please Select Organism Found", include_blank: true, :class => "organism-select" }
-
-  = p.label :organism_2_id
-  = p.collection_select :organism_2_id, OrganismCode.all, :id, :name, { :prompt => "Please Select Organism Found", include_blank: true, :class => "organism-select" }
-
-  = p.label :notes
-  = p.text_area :notes, :cols => 50, :rows => 6
-
-  = p.label :antibiotic_1_id
-  = p.text_field :antibiotic_1_id
-
-  = p.label :antibiotic_1_route, "Route (Antibiotic 1)"
-  = p.select :antibiotic_1_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
+.row.peritonitis-form
+  .large-12.columns
   
-  = p.label :antibiotic_2_id
-  = p.text_field :antibiotic_2_id
+    = p.hidden_field :id
 
-  = p.label :antibiotic_2_route, "Route (Antibiotic 2)"
-  = p.select :antibiotic_2_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
+    = p.hidden_field :patient_id
 
-  = p.label :antibiotic_3_id
-  = p.text_field :antibiotic_3_id
+    = p.label :user_id
+    = p.text_field :user_id
 
-  = p.label :antibiotic_3_route, "Route (Antibiotic 3)"
-  = p.select :antibiotic_3_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
 
-  = p.label :antibiotic_4_id
-  = p.text_field :antibiotic_4_id
+    .row       
+      .large-12.columns
+        .form-section 
+          Dates:
+            
+        .large-4.columns
+          = p.label :diagnosis_date
+          = p.date_select(:diagnosis_date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")     
 
-  = p.label :antibiotic_4_route, "Route (Antibiotic 4)"
-  = p.select :antibiotic_4_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
+        .large-4.columns
+          = p.label :start_treatment_date
+          = p.date_select(:start_treatment_date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
+        .large-4.columns
+          = p.label :end_treatment_date
+          = p.date_select(:end_treatment_date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
+    
+    .row        
+      .large-12.columns
+        .form-section 
+          Outcome:
 
-  = p.label :antibiotic_5_id
-  = p.text_field :antibiotic_5_id
+        .large-6.columns
+          = p.label :organism_1_id
+          = p.collection_select :organism_1_id, OrganismCode.all, :id, :name, { :prompt => "Please Select Organism Found", include_blank: true, :class => "organism-select" }
+        .large-6.columns
+          = p.label :organism_2_id
+          = p.collection_select :organism_2_id, OrganismCode.all, :id, :name, { :prompt => "Please Select Organism Found", include_blank: true, :class => "organism-select" }
+          
+        .large-12.columns
+          = p.label :episode_type
+          = p.text_field :episode_type
+     
+        .large-12.columns 
+          = p.check_box :catheter_removed
+          = p.label :catheter_removed
+      
+        
+    .row        
+      .large-12.columns
+        .form-section 
+          Causes/Symptoms:
+      
+        .large-12.columns 
+          = p.check_box :line_break
+          = p.label :line_break
 
-  = p.label :antibiotic_5_route, "Route (Antibiotic 5)"
-  = p.select :antibiotic_5_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
+          = p.check_box :exit_site_infection
+          = p.label :exit_site_infection
 
-  = p.label :sensitivities
-  = p.text_field :sensitivities
+          = p.check_box :diarrhoea
+          = p.label :diarrhoea
+
+          = p.check_box :abdominal_pain
+          = p.label :abdominal_pain
+        
+        .large-12.columns     
+          = p.label :fluid_description_id
+          = p.text_field :fluid_description_id
+
+    .row        
+      .large-12.columns
+        .form-section 
+          White Cell Count:    
+
+        .large-4.columns
+          = p.label :white_cell_total
+          = p.text_field :white_cell_total
+        .large-2.columns
+          = p.label :white_cell_neutro, "Neutro (%)"
+          = p.text_field :white_cell_neutro
+        .large-2.columns
+          = p.label :white_cell_lympho, "Lympho (%)"
+          = p.text_field :white_cell_lympho
+        .large-2.columns
+          = p.label :white_cell_degen, "Degen (%)"
+          = p.text_field :white_cell_degen
+        .large-2.columns
+          = p.label :white_cell_other, "Other (%)"
+          = p.text_field :white_cell_other
+
+    .row        
+      .large-12.columns
+        .form-section 
+          Comments:    
+    
+        .large-6.columns
+          = p.label :notes
+          = p.text_area :notes, :cols => 50, :rows => 6
+        
+        .large-6.columns
+          = p.label :sensitivities, "Sensitivities (Antibiotics)"
+          = p.text_area :sensitivities, :cols => 50, :rows => 6
+
+
+    .row        
+      .large-12.columns
+        .form-section 
+          Prescribed Antibiotics:  
+        
+        .large-6.columns
+          = p.label :antibiotic_1_id
+          = p.text_field :antibiotic_1_id
+        .large-6.columns
+          = p.label :antibiotic_1_route, "Route (Antibiotic 1)"
+          = p.select :antibiotic_1_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
+        
+        .large-6.columns  
+          = p.label :antibiotic_2_id
+          = p.text_field :antibiotic_2_id
+        .large-6.columns
+          = p.label :antibiotic_2_route, "Route (Antibiotic 2)"
+          = p.select :antibiotic_2_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
+        
+        .large-6.columns 
+          = p.label :antibiotic_3_id
+          = p.text_field :antibiotic_3_id
+        .large-6.columns 
+          = p.label :antibiotic_3_route, "Route (Antibiotic 3)"
+          = p.select :antibiotic_3_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
+        
+        .large-6.columns 
+          = p.label :antibiotic_4_id
+          = p.text_field :antibiotic_4_id
+        .large-6.columns 
+          = p.label :antibiotic_4_route, "Route (Antibiotic 4)"
+          = p.select :antibiotic_4_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
+        
+        .large-6.columns
+          = p.label :antibiotic_5_id
+          = p.text_field :antibiotic_5_id
+        .large-6.columns
+          = p.label :antibiotic_5_route, "Route (Antibiotic 5)"
+          = p.select :antibiotic_5_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
