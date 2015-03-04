@@ -25,19 +25,19 @@
   = e.text_area :notes, :cols => 50, :rows => 6
 
   = e.label :antibiotic_1_id
-  = e.text_field :antibiotic_1_id
+  = e.collection_select :antibiotic_1_id, Antibiotic.all, :id, :name, { :prompt => "Please select prescribed antibiotic" }
 
   = e.label :antibiotic_1_route, "Route (Antibiotic 1)"
   = e.select :antibiotic_1_route, medication_routes(e.object.class.name.constantize), { prompt: "Please select route of administration" } 
 
   = e.label :antibiotic_2_id
-  = e.text_field :antibiotic_2_id
+  = e.collection_select :antibiotic_2_id, Antibiotic.all, :id, :name, { :prompt => "Please select prescribed antibiotic" }
 
   = e.label :antibiotic_2_route, "Route (Antibiotic 2)"
   = e.select :antibiotic_2_route, medication_routes(e.object.class.name.constantize), { prompt: "Please select route of administration" } 
 
   = e.label :antibiotic_3_id
-  = e.text_field :antibiotic_3_id
+  = e.collection_select :antibiotic_3_id, Antibiotic.all, :id, :name, { :prompt => "Please select prescribed antibiotic" }
 
   = e.label :antibiotic_3_route, "Route (Antibiotic 3)"
   = e.select :antibiotic_3_route, medication_routes(e.object.class.name.constantize), { prompt: "Please select route of administration" } 
