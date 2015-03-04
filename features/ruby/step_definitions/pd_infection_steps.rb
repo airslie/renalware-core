@@ -75,7 +75,7 @@ When(/^the Clinician records the episode of peritonitis$/) do
   select "IM", from: "Route (Antibiotic 4)"
   select "Other (Please specify in notes)", from: "Route (Antibiotic 5)"
   
-  fill_in "Sensitivities", :with => "Antibiotic 1 most effective."
+  fill_in "Sensitivities (Antibiotics)", :with => "Antibiotic 1 most effective."
 
   click_on "Save Peritonitis Episode"
 
