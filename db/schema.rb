@@ -215,7 +215,7 @@ ActiveRecord::Schema.define(version: 20150302171638) do
     t.date     "diagnosis_date"
     t.date     "start_treatment_date"
     t.date     "end_treatment_date"
-    t.integer  "episode_type",         limit: 4
+    t.integer  "episode_type_id",      limit: 4
     t.boolean  "catheter_removed",     limit: 1
     t.boolean  "line_break",           limit: 1
     t.boolean  "exit_site_infection",  limit: 1
