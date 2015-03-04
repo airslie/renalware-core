@@ -38,8 +38,8 @@
           = p.collection_select :organism_2_id, OrganismCode.all, :id, :name, { :prompt => "Please Select Organism Found", include_blank: true, :class => "organism-select" }
           
         .large-12.columns
-          = p.label :episode_type
-          = p.text_field :episode_type
+          = p.label :episode_type_id
+          = p.text_field :episode_type_id
      
         .large-12.columns 
           = p.check_box :catheter_removed

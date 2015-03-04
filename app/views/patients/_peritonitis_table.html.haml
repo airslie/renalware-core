@@ -68,7 +68,7 @@
           %dl.accordion{ data: { accordion: true } }
             %dd.accordion-navigation
               %a.fi-plus.fi-minus.toggle-notes{ :id => "patient-peritonitis-episode-type-#{p.id}", href: "#patient-peritonitis-episode-type-#{p.id}" }
-                = p.episode_type
+                = p.episode_type_id
               .content.toggle-content{ :id => "patient-peritonitis-episode-type-#{p.id}" } 
                 = "Catheter Removed: #{p.catheter_removed}"
                             

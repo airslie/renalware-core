@@ -35,7 +35,7 @@ class PeritonitisEpisodesController < ApplicationController
   private
   def allowed_params
     params.require(:peritonitis_episode).permit(:patient_id, :user_id, :start_treatment_date, :end_treatment_date, 
-      :episode_type, :catheter_removed, :line_break, :exit_site_infection, :diarrhoea, :abdominal_pain, :fluid_description_id, 
+      :episode_type_id, :catheter_removed, :line_break, :exit_site_infection, :diarrhoea, :abdominal_pain, :fluid_description_id, 
       :diagnosis_date, :white_cell_total, :white_cell_neutro, :white_cell_lympho, :white_cell_degen, :white_cell_other, 
       :organism_1_id, :organism_2_id, :sensitivities, :notes, :antibiotic_1_id, :antibiotic_2_id, :antibiotic_3_id, :antibiotic_4_id, 
       :antibiotic_5_id, :antibiotic_1_route, :antibiotic_2_route, :antibiotic_3_route, :antibiotic_4_route, :antibiotic_5_route)
