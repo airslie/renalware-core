@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe PeritonitisEpisode, :type => :model do
   it { should belong_to :patient }
 
-  describe "history", :versioning => true do
+  context "medication routes" do
     before do
       @patient = FactoryGirl.create(:patient,
         nhs_number: "1000124505",
@@ -15,14 +15,25 @@ RSpec.describe PeritonitisEpisode, :type => :model do
         sex: 1,
         ethnicity_id: 1
       )
+
+      @pe = PeritonitisEpisode.new
     end
 
-    context "display all history of problems " do
+    it "should have five medication routes" do        
+      expect(@pe).not_to be_valid
 
-      it "should record a patient's history of a problem" do
+      medication_route = MedicationRoute.new
+
+      5.times do
+        @pe.medication_routes << medication_route
       end
+
+      expect(@pe).to be_valid
+    end
+
+    it "should be of type MedicationRoute" do
+      expect{ @pe.medication_routes << nil }.to raise_error(ActiveRecord::AssociationTypeMismatch)
     end
 
   end
-
 end
