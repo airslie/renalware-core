@@ -23,17 +23,6 @@ ActiveRecord::Schema.define(version: 20150304173609) do
     t.datetime "updated_at"
   end
 
-  create_table "administrations", force: :cascade do |t|
-    t.string "name", limit: 255
-  end
-
-  create_table "antibiotics", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "deleted_at"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
   create_table "drugs", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.string   "type",       limit: 255
@@ -86,9 +75,12 @@ ActiveRecord::Schema.define(version: 20150304173609) do
   end
 
   create_table "medication_routes", force: :cascade do |t|
-    t.integer "administration_id",   limit: 4
-    t.integer "administerable_id",   limit: 4
-    t.string  "administerable_type", limit: 255
+    t.string   "name",       limit: 255
+    t.string   "full_name",  limit: 255
+    t.string   "meaning",    limit: 255
+    t.datetime "deleted_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "modality_codes", force: :cascade do |t|
