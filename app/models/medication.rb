@@ -1,6 +1,4 @@
-require 'medication_route'
-
-class PatientMedication < ActiveRecord::Base
+class Medication < ActiveRecord::Base
   include Concerns::SoftDelete
   attr_accessor :drug_select
 
@@ -8,8 +6,9 @@ class PatientMedication < ActiveRecord::Base
 
   has_paper_trail :class_name => 'PatientMedicationVersion'
 
-  belongs_to :medication, :polymorphic => true
+  # belongs_to :medication, :polymorphic => true
   belongs_to :patients
+  belongs_to :administer_by, :polymorphic => true 
 
   enum provider: %i(gp hospital home_delivery)
 

@@ -1,12 +1,12 @@
-class CreatePatientMedications < ActiveRecord::Migration
+class CreateMedications < ActiveRecord::Migration
   def up
-    create_table :patient_medications do |t|
+    create_table :medications do |t|
       t.integer :patient_id
       t.integer :medication_id
       t.integer :user_id
       t.string :medication_type 
       t.string :dose
-      t.integer :route
+      t.integer :administer_by_id
       t.string :frequency
       t.text :notes
       t.date :date
@@ -17,6 +17,6 @@ class CreatePatientMedications < ActiveRecord::Migration
   end
   
   def down
-    drop_table :patient_medications 
+    drop_table :medications 
   end
 end
