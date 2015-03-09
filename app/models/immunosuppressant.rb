@@ -1,7 +1,7 @@
 class Immunosuppressant < Drug
 
+  #Indexing for drug search 
   index_name "drugs"
-
   document_type "drug"
 
   def display_type

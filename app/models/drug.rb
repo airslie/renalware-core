@@ -2,8 +2,8 @@ class Drug < ActiveRecord::Base
   include Concerns::SoftDelete
   include Concerns::Searchable
 
+  #Indexing for drug search 
   index_name "drugs"
-
   document_type "drug"
 
   validates :name, presence: true
