@@ -4,7 +4,7 @@ class Medication < ActiveRecord::Base
 
   acts_as_paranoid
 
-  has_paper_trail :class_name => 'PatientMedicationVersion'
+  has_paper_trail :class_name => 'MedicationVersion'
 
   belongs_to :patients
   belongs_to :medicate_with, :polymorphic => true
