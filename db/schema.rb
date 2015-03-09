@@ -77,10 +77,37 @@ ActiveRecord::Schema.define(version: 20150304173609) do
   create_table "medication_routes", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.string   "full_name",  limit: 255
-    t.string   "meaning",    limit: 255
     t.datetime "deleted_at"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "medication_versions", force: :cascade do |t|
+    t.string   "item_type",      limit: 255,   null: false
+    t.integer  "item_id",        limit: 4,     null: false
+    t.string   "event",          limit: 255,   null: false
+    t.string   "whodunnit",      limit: 255
+    t.text     "object",         limit: 65535
+    t.text     "object_changes", limit: 65535
+    t.datetime "created_at"
+  end
+
+  add_index "medication_versions", ["item_type", "item_id"], name: "index_medication_versions_on_item_type_and_item_id", using: :btree
+
+  create_table "medications", force: :cascade do |t|
+    t.integer  "patient_id",       limit: 4
+    t.integer  "medicate_with_id", limit: 4
+    t.integer  "user_id",          limit: 4
+    t.string   "medication_type",  limit: 255
+    t.string   "dose",             limit: 255
+    t.integer  "administer_by_id", limit: 4
+    t.string   "frequency",        limit: 255
+    t.text     "notes",            limit: 65535
+    t.date     "date"
+    t.integer  "provider",         limit: 4
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "modality_codes", force: :cascade do |t|
@@ -126,36 +153,6 @@ ActiveRecord::Schema.define(version: 20150304173609) do
     t.integer  "patient_event_type_id", limit: 4
     t.integer  "patient_id",            limit: 4
   end
-
-  create_table "patient_medication_versions", force: :cascade do |t|
-    t.string   "item_type",      limit: 255,   null: false
-    t.integer  "item_id",        limit: 4,     null: false
-    t.string   "event",          limit: 255,   null: false
-    t.string   "whodunnit",      limit: 255
-    t.text     "object",         limit: 65535
-    t.text     "object_changes", limit: 65535
-    t.datetime "created_at"
-  end
-
-  add_index "patient_medication_versions", ["item_type", "item_id"], name: "index_patient_medication_versions_on_item_type_and_item_id", using: :btree
-
-  create_table "patient_medications", force: :cascade do |t|
-    t.integer  "patient_id",      limit: 4
-    t.integer  "medication_id",   limit: 4
-    t.integer  "user_id",         limit: 4
-    t.string   "medication_type", limit: 255
-    t.string   "dose",            limit: 255
-    t.integer  "route",           limit: 4
-    t.string   "frequency",       limit: 255
-    t.text     "notes",           limit: 65535
-    t.date     "date"
-    t.integer  "provider",        limit: 4
-    t.datetime "deleted_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "patient_medications", ["deleted_at"], name: "index_patient_medications_on_deleted_at", using: :btree
 
   create_table "patient_modalities", force: :cascade do |t|
     t.integer  "patient_id",         limit: 4
