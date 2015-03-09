@@ -23,10 +23,10 @@
 .wide-screen
   .columns.large-6
     %h5.g-center
-      = link_to "#{@patient.patient_medications.length} Current Medications", medications_index_patient_path(@patient)
+      = link_to "#{@patient.medications.length} Current Medications", medications_index_patient_path(@patient)
 
     %ul.no-bullet
-      - @patient.patient_medications.each do |p|
+      - @patient.medications.each do |p|
    
         %li{:class => "drug-#{p.medication.type.downcase}"}
           
