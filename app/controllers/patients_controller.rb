@@ -25,11 +25,6 @@ class PatientsController < ApplicationController
     render :template => 'patients/index'
   end
 
-  def clinical_summary
-    # @patient_events = PatientEvent.all
-    # @patient_medications = PatientMedication.all
-  end
-
   def modality
     if @patient.patient_modality.blank?
       @patient_modality = @patient.build_patient_modality
@@ -39,17 +34,13 @@ class PatientsController < ApplicationController
   end
 
   def medications
-    @patient.active_patient_medications.build(:provider => :gp,
+    @patient.active_medications.build(:provider => :gp,
       :medication_type => "Drug")
     @drugs = Drug.standard
   end
 
   def problems
     @patient.patient_problems.build
-  end
-
-  def medications_index
-    # @patient_medications = PatientMedication.all
   end
 
   def new
@@ -87,7 +78,7 @@ class PatientsController < ApplicationController
       :current_address_attributes => [:street_1, :street_2, :county, :city, :postcode],
       :address_at_diagnosis_attributes => [:street_1, :street_2, :county, :city, :postcode],
       :patient_event_attributes => [:date_time, :user_id, :description, :notes, :patient_event_type_id, :patient_id],
-      :patient_medications_attributes => [:id, :medication_id, :medication_type, :dose, :route,
+      :medications_attributes => [:id, :medicate_with_id, :medication_type, :dose, :administer_by_id,
       :frequency, :notes, :date, :provider, :_destroy],
       :patient_problems_attributes => [:id, :patient_id, :snomed_id, :description, :date, :user_id, :deleted_at, :_destroy],
       :patient_modality_attributes => [:id, :patient_id, :user_id, :modality_code_id, :modality_reason_id, :modal_change_type, :notes, :date, :deleted_at],
