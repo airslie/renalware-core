@@ -1,6 +1,6 @@
-class CreatePatientMedicationVersions < ActiveRecord::Migration
+class CreateMedicationVersions < ActiveRecord::Migration
   def change
-    create_table :patient_medication_versions do |t|
+    create_table :medication_versions do |t|
       t.string   :item_type, :null => false
       t.integer  :item_id,   :null => false
       t.string   :event,     :null => false
@@ -9,6 +9,6 @@ class CreatePatientMedicationVersions < ActiveRecord::Migration
       t.text     :object_changes
       t.datetime :created_at
     end
-    add_index :patient_medication_versions, [:item_type, :item_id]
+    add_index :medication_versions, [:item_type, :item_id]
   end
 end
