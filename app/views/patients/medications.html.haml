@@ -13,7 +13,7 @@
   = form_for @patient do |f|
     = hidden_field_tag :redirect_url, medications_patient_path(@patient)
 
-    = f.fields_for :patient_medications, @patient.active_patient_medications do |pm|
+    = f.fields_for :medications, @patient.active_medications do |pm|
       - if pm.object.versions != []
        
         %dl.accordion.right.columns.large-6{ class: "medication-history", data: {accordion: true} }
@@ -26,7 +26,7 @@
               
                 %ul.no-bullet
                   %li.history
-                    = "#{m.medication.name}, #{m.dose}, #{m.route}, #{pm.object.frequency}, #{m.updated_at.strftime("%d/%m/%Y - %H:%M")}"
+                    = "#{m.medicate_with.name}, #{m.dose}, #{m.administer_by.name}, #{pm.object.frequency}, #{m.updated_at.strftime("%d/%m/%Y - %H:%M")}"
 
       - if pm.object.new_record?
 
@@ -44,7 +44,7 @@
 
               .row
               
-                = render :partial => 'patient_medication_fields', :locals => { :pm => pm }
+                = render :partial => 'medication_fields', :locals => { :pm => pm }
 
       
         = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left cancel mt"
@@ -55,13 +55,13 @@
           %dd.accordion-navigation.med-form
             %a.fi-plus.fi-minus{href: "#edit-meds-#{pm.object.id}", :class => "drug-#{pm.object.medication_type.downcase}"}
                 
-              = "#{pm.object.medication.name}, #{pm.object.dose}, #{pm.object.medication_route(pm.object.route).name}, #{pm.object.frequency}, #{pm.object.date}"
+              = "#{pm.object.medicate_with.name}, #{pm.object.dose}, #{pm.object.administer_by.name}, #{pm.object.frequency}, #{pm.object.date}"
               .right.edit
                 Edit
 
             .columns.large-6.meds-form.content{:id => "edit-meds-#{pm.object.id}", data: { index: 0 }} 
 
-              = render :partial => 'patient_medication_fields', :locals => { :pm => pm }
+              = render :partial => 'medication_fields', :locals => { :pm => pm }
 
               .med-form.content{:id => "edit-meds-#{pm.object.id}"}  
                 = pm.check_box :_destroy

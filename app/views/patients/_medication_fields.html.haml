@@ -13,7 +13,7 @@
 
     %ul.no-bullet.drug-results
 
-    = pm.hidden_field :medication_id, :class => "selected-medication-id"
+    = pm.hidden_field :medicate_with_id, :class => "selected-medication-id"
 
   / Only show this for ESA/ Imnosupressnt.
   .esa-or-immno
@@ -24,9 +24,9 @@
   = pm.label :dose
   = pm.text_field :dose
 
-  = pm.label :route, "Route"
-  = pm.select :route, medication_routes(pm.object.class.name.constantize), { prompt: "Please select route of administration" }
-
+  = pm.label :administer_by_id, "Route"
+  = pm.collection_select :administer_by_id, MedicationRoute.all, :id, :name, { :prompt => "Please select route of administration" }, :class => "medication-route-select"
+  
   = pm.label :frequency, "Frequency & Duration"
   = pm.text_field :frequency
 
@@ -38,7 +38,7 @@
 
   = pm.label :provider
 
-  - PatientMedication.providers.keys.map do |p|
+  - Medication.providers.keys.map do |p|
     %ul.no-bullet.provider
 
       %li
