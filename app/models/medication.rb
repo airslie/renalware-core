@@ -6,8 +6,8 @@ class Medication < ActiveRecord::Base
 
   has_paper_trail :class_name => 'PatientMedicationVersion'
 
-  # belongs_to :medication, :polymorphic => true
   belongs_to :patients
+  belongs_to :medicate_with, :polymorphic => true
   belongs_to :administer_by, :polymorphic => true 
 
   enum provider: %i(gp hospital home_delivery)

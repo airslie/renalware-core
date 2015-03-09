@@ -8,9 +8,10 @@ class Patient < ActiveRecord::Base
   belongs_to :second_edta_code, :class_name => "EdtaCode", :foreign_key => :second_edta_code_id
 
   has_many :patient_events
-  has_many :patient_medications
-  has_many :active_patient_medications, -> { where deleted_at: nil }, class_name: "PatientMedication"
-  has_many :drugs, :through => :patient_medications, :source => :medication, :source_type => "Esa"
+  has_many :medications
+  has_many :active_medications, -> { where deleted_at: nil }, class_name: "Medication"
+  has_many :drugs, :through => :medications, :source => :medicate_with, :source_type => "Esa"
+  has_many :medication_routes, :through => :medications, :source => :administer_by
   has_many :patient_problems
   has_many :peritonitis_episodes
   has_many :exit_site_infections
@@ -22,7 +23,7 @@ class Patient < ActiveRecord::Base
   accepts_nested_attributes_for :current_address
   accepts_nested_attributes_for :address_at_diagnosis
   accepts_nested_attributes_for :patient_events
-  accepts_nested_attributes_for :patient_medications, allow_destroy: true,
+  accepts_nested_attributes_for :medications, allow_destroy: true,
   :reject_if => proc { |attrs| attrs[:dose].blank? && attrs[:notes].blank? && attrs[:frequency].blank? }
   accepts_nested_attributes_for :patient_problems, allow_destroy: true,
   :reject_if => proc { |attrs| attrs[:description].blank? }
