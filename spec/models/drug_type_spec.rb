@@ -1,5 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe DrugType, :type => :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  it { should have_many(:drug_drug_types) }
+  it { should have_many(:drugs).through(:drug_drug_types) }
+
 end
