@@ -2,6 +2,9 @@ class Drug < ActiveRecord::Base
   include Concerns::SoftDelete
   include Concerns::Searchable
 
+  has_many :medications, as: :medicate_with
+  has_many :patients, through: :medications, as: :medicate_with
+
   #Indexing for drug search 
   index_name "drugs"
   document_type "drug"
