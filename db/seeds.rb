@@ -520,3 +520,11 @@ MedicationRoute.find_or_create_by!(name: "IV", full_name: "Intravenous")
 MedicationRoute.find_or_create_by!(name: "SC", full_name: "Subcutaneous")
 MedicationRoute.find_or_create_by!(name: "IM", full_name: "Intramuscular")
 MedicationRoute.find_or_create_by!(name: "Other (Please specify in notes)", full_name: "Other (Refer to notes)")
+
+DrugType.find_or_create_by!(name: "Antibiotic")
+DrugType.find_or_create_by!(name: "Esa")
+DrugType.find_or_create_by!(name: "Immunosuppressant")
+DrugType.find_or_create_by!(name: "Peritonitis")
+
+
+
