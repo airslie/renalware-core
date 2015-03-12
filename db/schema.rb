@@ -95,20 +95,23 @@ ActiveRecord::Schema.define(version: 20150304173609) do
   add_index "medication_versions", ["item_type", "item_id"], name: "index_medication_versions_on_item_type_and_item_id", using: :btree
 
   create_table "medications", force: :cascade do |t|
-    t.integer  "patient_id",       limit: 4
-    t.integer  "medicate_with_id", limit: 4
-    t.integer  "user_id",          limit: 4
-    t.string   "medication_type",  limit: 255
-    t.string   "dose",             limit: 255
-    t.integer  "administer_by_id", limit: 4
-    t.string   "frequency",        limit: 255
-    t.text     "notes",            limit: 65535
+    t.integer  "patient_id",          limit: 4
+    t.integer  "medicate_with_id",    limit: 4
+    t.string   "medicate_with_type",  limit: 255
+    t.integer  "user_id",             limit: 4
+    t.string   "medication_type",     limit: 255
+    t.string   "dose",                limit: 255
+    t.integer  "medication_route_id", limit: 4
+    t.string   "frequency",           limit: 255
+    t.text     "notes",               limit: 65535
     t.date     "date"
-    t.integer  "provider",         limit: 4
+    t.integer  "provider",            limit: 4
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "medications", ["medicate_with_type", "medicate_with_id"], name: "index_medications_on_medicate_with_type_and_medicate_with_id", using: :btree
 
   create_table "modality_codes", force: :cascade do |t|
     t.string   "code",       limit: 255
