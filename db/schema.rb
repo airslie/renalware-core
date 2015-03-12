@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(version: 20150312113937) do
 
   create_table "drugs", force: :cascade do |t|
     t.string   "name",       limit: 255
-    t.string   "type",       limit: 255
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
