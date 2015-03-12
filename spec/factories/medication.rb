@@ -1,11 +1,11 @@
 FactoryGirl.define do
   factory :medication do
     patient_id 1
-    medication_id 1
     user_id "1"
-    medication_type "Esa"
+    medicate_with_id 1
+    medicate_with_type "Drug"
     dose "20mg"
-    route "po"
+    medication_route_id 1
     frequency "daily"
     notes "with food"
     date "2015"
