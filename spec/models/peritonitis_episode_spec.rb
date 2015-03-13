@@ -6,37 +6,33 @@ RSpec.describe PeritonitisEpisode, :type => :model do
   it { should have_many(:infection_organisms) }
   it { should have_many(:organism_codes).through(:infection_organisms) }
 
-  context "medication routes" do
+  describe "peritonitis episode" do
+      
     before do
-      @patient = FactoryGirl.create(:patient,
-        nhs_number: "1000124505",
-        local_patient_id: "Z999988",
-        surname: "Jones",
-        forename: "Jack",
-        dob: "01/01/1988",
-        paediatric_patient_indicator: "0",
-        sex: 1,
-        ethnicity_id: 1
-      )
-
-      @pe = PeritonitisEpisode.new
+      @pe = FactoryGirl.build(:peritonitis_episode)
     end
+    
+    context "organism codes" do
 
-    it "should have five medication routes" do        
-      expect(@pe).not_to be_valid
+      it "can be assigned many unique organisms" do
+          
+        @mrsa = FactoryGirl.create(:organism_code, name: "MRSA")
+        @ecoli = FactoryGirl.create(:organism_code, name: "E.Coli") 
 
-      medication_route = MedicationRoute.new
+        @pe.organism_codes << @mrsa
+        @pe.organism_codes << @mrsa
+        @pe.organism_codes << @ecoli
 
-      5.times do
-        @pe.medication_routes << medication_route
+        @pe.save!
+        @pe.reload
+
+        expect(@pe.organism_codes.size).to eq(2)
+
+        expect(@pe).to be_valid 
       end
 
-      expect(@pe).to be_valid
     end
-
-    it "should be of type MedicationRoute" do
-      expect{ @pe.medication_routes << nil }.to raise_error(ActiveRecord::AssociationTypeMismatch)
-    end
-
+      
   end
+
 end
