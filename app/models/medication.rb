@@ -7,7 +7,7 @@ class Medication < ActiveRecord::Base
   has_paper_trail :class_name => 'MedicationVersion'
 
   belongs_to :patient
-  belongs_to :medicate_with, :polymorphic => true
+  belongs_to :medicatable, :polymorphic => true
   belongs_to :medication_route
 
   enum provider: %i(gp hospital home_delivery)

@@ -2,8 +2,8 @@ class Drug < ActiveRecord::Base
   include Concerns::SoftDelete
   include Concerns::Searchable
 
-  has_many :medications, as: :medicate_with
-  has_many :patients, through: :medications, as: :medicate_with
+  has_many :medications, as: :medicatable
+  has_many :patients, through: :medications, as: :medicatable
   has_many :drug_drug_types
   has_many :drug_types, -> { uniq }, through: :drug_drug_types  
 

@@ -78,7 +78,7 @@ class PatientsController < ApplicationController
       :current_address_attributes => [:street_1, :street_2, :county, :city, :postcode],
       :address_at_diagnosis_attributes => [:street_1, :street_2, :county, :city, :postcode],
       :patient_event_attributes => [:date_time, :user_id, :description, :notes, :patient_event_type_id, :patient_id],
-      :medications_attributes => [:id, :medicate_with_id, :medicate_with_type, :dose, :medication_route_id,
+      :medications_attributes => [:id, :medicatable_id, :medicatable_type, :dose, :medication_route_id,
       :frequency, :notes, :date, :provider, :_destroy],
       :patient_problems_attributes => [:id, :patient_id, :snomed_id, :description, :date, :user_id, :deleted_at, :_destroy],
       :patient_modality_attributes => [:id, :patient_id, :user_id, :modality_code_id, :modality_reason_id, :modal_change_type, :notes, :date, :deleted_at],

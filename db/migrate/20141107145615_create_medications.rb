@@ -2,7 +2,7 @@ class CreateMedications < ActiveRecord::Migration
   def up
     create_table :medications do |t|
       t.integer :patient_id
-      t.references :medicate_with, polymorphic: true, index: true
+      t.references :medicatable, polymorphic: true, index: true
       t.integer :user_id
       t.string :medication_type 
       t.string :dose

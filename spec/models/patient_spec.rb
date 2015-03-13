@@ -15,7 +15,7 @@ RSpec.describe Patient, :type => :model do
   it { should have_many :exit_site_infections }
   it { should have_many :medications }
 
-  it { should have_many(:drugs).through(:medications).source(:medicate_with) }
+  it { should have_many(:drugs).through(:medications).source(:medicatable) }
   it { should have_many(:medication_routes).through(:medications) }
   
   describe "updating with nested attributes containing _destroy" do

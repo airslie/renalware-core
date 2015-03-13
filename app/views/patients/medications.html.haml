@@ -26,7 +26,7 @@
               
                 %ul.no-bullet
                   %li.history
-                    = "#{m.medicate_with.name}, #{m.dose}, #{m.administer_by.name}, #{pm.object.frequency}, #{m.updated_at.strftime("%d/%m/%Y - %H:%M")}"
+                    = "#{m.medicatable.name}, #{m.dose}, #{m.administer_by.name}, #{pm.object.frequency}, #{m.updated_at.strftime("%d/%m/%Y - %H:%M")}"
 
       - if pm.object.new_record?
 
@@ -55,7 +55,7 @@
           %dd.accordion-navigation.med-form
             %a.fi-plus.fi-minus{href: "#edit-meds-#{pm.object.id}", :class => "drug-#{pm.object.medication_type.downcase}"}
                 
-              = "#{pm.object.medicate_with.name}, #{pm.object.dose}, #{pm.object.administer_by.name}, #{pm.object.frequency}, #{pm.object.date}"
+              = "#{pm.object.medicatable.name}, #{pm.object.dose}, #{pm.object.administer_by.name}, #{pm.object.frequency}, #{pm.object.date}"
               .right.edit
                 Edit
 
