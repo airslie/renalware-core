@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20150312113937) do
     t.datetime "updated_at",             null: false
   end
 
+  add_index "drug_drug_types", ["drug_id", "drug_type_id"], name: "index_drug_drug_types_on_drug_id_and_drug_type_id", unique: true, using: :btree
+
   create_table "drug_types", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
