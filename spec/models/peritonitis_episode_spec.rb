@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe PeritonitisEpisode, :type => :model do
   it { should belong_to :patient }
 
+  it { should have_many(:infection_organisms) }
+  it { should have_many(:organism_codes).through(:infection_organisms) }
+
   context "medication routes" do
     before do
       @patient = FactoryGirl.create(:patient,

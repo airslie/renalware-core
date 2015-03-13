@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe OrganismCode, :type => :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  
+  it { should have_many(:infection_organisms) }
+  it { should have_many(:peritonitis_episodes).through(:infection_organisms).source(:infectable) }
+  it { should have_many(:exit_site_infections).through(:infection_organisms).source(:infectable) }
+
 end

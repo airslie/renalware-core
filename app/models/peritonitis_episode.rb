@@ -1,8 +1,8 @@
 class PeritonitisEpisode < ActiveRecord::Base
   belongs_to :patient
 
-  belongs_to :organism_1, :class_name => "OrganismCode", :foreign_key => :organism_1_id
-  belongs_to :organism_2, :class_name => "OrganismCode", :foreign_key => :organism_2_id
+  has_many :infection_organisms, as: :infectable
+  has_many :organism_codes, through: :infection_organisms, as: :infectable
 
   has_many :medication_routes, as: :administerable
 

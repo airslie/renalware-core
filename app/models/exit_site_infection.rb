@@ -1,12 +1,8 @@
 class ExitSiteInfection < ActiveRecord::Base
   belongs_to :patient
-
-  belongs_to :organism_1, :class_name => "OrganismCode", :foreign_key => :organism_1_id
-  belongs_to :organism_2, :class_name => "OrganismCode", :foreign_key => :organism_2_id
-
-  belongs_to :antibiotic_1, :class_name => "Antibiotic", :foreign_key => :antibiotic_1_id
-  belongs_to :antibiotic_2, :class_name => "Antibiotic", :foreign_key => :antibiotic_2_id
-  belongs_to :antibiotic_3, :class_name => "Antibiotic", :foreign_key => :antibiotic_3_id
+ 
+  has_many :infection_organisms, as: :infectable
+  has_many :organism_codes, through: :infection_organisms, as: :infectable
  
   def self.medication_routes
     @medication_routes ||= YAML.load_file(Rails.root.join("data", "medication_routes.yml"))
