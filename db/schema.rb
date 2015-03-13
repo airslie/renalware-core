@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(version: 20150313124325) do
   end
 
   add_index "infection_organisms", ["infectable_type", "infectable_id"], name: "index_infection_organisms_on_infectable_type_and_infectable_id", using: :btree
+  add_index "infection_organisms", ["organism_code_id", "infectable_id", "infectable_type"], name: "index_infection_organisms", unique: true, using: :btree
 
   create_table "medication_routes", force: :cascade do |t|
     t.string   "name",       limit: 255
