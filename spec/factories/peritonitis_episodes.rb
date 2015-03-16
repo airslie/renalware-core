@@ -1,6 +1,5 @@
 FactoryGirl.define do
-  factory :peritonitis_episode do
-    patient_id 1                     
+  factory :peritonitis_episode do                   
     diagnosis_date "30/01/2015"
     start_treatment_date "1/02/2015"
     end_treatment_date "28/02/2015"
