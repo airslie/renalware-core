@@ -8,6 +8,7 @@ class Medication < ActiveRecord::Base
 
   belongs_to :patient
   belongs_to :medicatable, :polymorphic => true
+  belongs_to :treatable, :polymorphic => true
   belongs_to :medication_route
 
   enum provider: %i(gp hospital home_delivery)

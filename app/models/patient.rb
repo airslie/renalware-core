@@ -8,16 +8,15 @@ class Patient < ActiveRecord::Base
   belongs_to :second_edta_code, :class_name => "EdtaCode", :foreign_key => :second_edta_code_id
 
   has_many :patient_events
+  has_many :patient_problems
   has_many :medications
   has_many :medication_routes
   has_many :active_medications, -> { where deleted_at: nil }, class_name: "Medication"
   has_many :drugs, :through => :medications, :source => :medicatable, :source_type => "Drug"
+  has_many :exit_site_infections, :through => :medications, :source => :treatable, :source_type => "ExitSiteInfection"
+  has_many :peritonitis_episodes, :through => :medications, :source => :treatable, :source_type => "PeritonitisEpisode"
   has_many :medication_routes, :through => :medications
   
-  has_many :patient_problems
-  has_many :peritonitis_episodes
-  has_many :exit_site_infections
-
   has_one :patient_modality
   has_one :modality_code, :through => :patient_modality
   has_one :esrf_info
