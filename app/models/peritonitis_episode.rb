@@ -1,6 +1,7 @@
 class PeritonitisEpisode < ActiveRecord::Base
 
   belongs_to :episode_type
+  belongs_to :fluid_description
  
   has_many :medications, as: :treatable
   has_many :medication_routes, through: :medications, as: :treatable  
