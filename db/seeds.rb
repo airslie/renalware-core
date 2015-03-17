@@ -534,5 +534,10 @@ EpisodeType.find_or_create_by!(term: "Refractory", definition: "Failure of the e
 EpisodeType.find_or_create_by!(term: "Catheter-related", definition: "Peritonitis in conjunction with an exit-site or tunnel infection with the same organism or 1 site.")
 EpisodeType.find_or_create_by!(term: "Other", definition: "Refer to notes.")
 
+FluidDescription.find_or_create_by!(description: "Clear")
+FluidDescription.find_or_create_by!(description: "Misty")
+FluidDescription.find_or_create_by!(description: "Cloudy")
+FluidDescription.find_or_create_by!(description: "Pea Soup")
+
 
 
