@@ -54,10 +54,11 @@ ActiveRecord::Schema.define(version: 20150317095034) do
   end
 
   create_table "episode_types", force: :cascade do |t|
-    t.string   "description", limit: 255
+    t.string   "term",       limit: 255
+    t.string   "definition", limit: 255
     t.datetime "deleted_at"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "esrf_infos", force: :cascade do |t|
