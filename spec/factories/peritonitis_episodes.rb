@@ -15,8 +15,7 @@ FactoryGirl.define do
     white_cell_lympho 25 
     white_cell_degen 20  
     white_cell_other 30       
-    notes "Needs review in 6 weeks"                  
-    sensitivities "Need to monitor antibiotic 1"                        
+    notes "Needs review in 6 weeks"                               
   end
 
 end
