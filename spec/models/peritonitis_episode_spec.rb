@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe PeritonitisEpisode, :type => :model do
  
+  it { should belong_to(:episode_type) }
+  
   it { should have_many(:medications) }
   it { should have_many(:medication_routes).through(:medications) }
   it { should have_many(:patients).through(:medications) }
