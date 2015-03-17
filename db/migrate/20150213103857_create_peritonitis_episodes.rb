@@ -17,20 +17,7 @@ class CreatePeritonitisEpisodes < ActiveRecord::Migration
       t.integer :white_cell_lympho
       t.integer :white_cell_degen
       t.integer :white_cell_other
-      t.integer :organism_1_id
-      t.integer :organism_2_id
       t.text :notes
-      t.integer :antibiotic_1_id
-      t.integer :antibiotic_2_id
-      t.integer :antibiotic_3_id
-      t.integer :antibiotic_4_id
-      t.integer :antibiotic_5_id
-      t.integer :antibiotic_1_route
-      t.integer :antibiotic_2_route
-      t.integer :antibiotic_3_route
-      t.integer :antibiotic_4_route
-      t.integer :antibiotic_5_route
-      t.text :sensitivities
       t.timestamps null: false
     end
   end

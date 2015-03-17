@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150313124325) do
+ActiveRecord::Schema.define(version: 20150317095034) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street_1",   limit: 255
@@ -51,6 +51,12 @@ ActiveRecord::Schema.define(version: 20150313124325) do
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "episode_types", force: :cascade do |t|
+    t.string   "description", limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "esrf_infos", force: :cascade do |t|
@@ -263,20 +269,7 @@ ActiveRecord::Schema.define(version: 20150313124325) do
     t.integer  "white_cell_lympho",    limit: 4
     t.integer  "white_cell_degen",     limit: 4
     t.integer  "white_cell_other",     limit: 4
-    t.integer  "organism_1_id",        limit: 4
-    t.integer  "organism_2_id",        limit: 4
     t.text     "notes",                limit: 65535
-    t.integer  "antibiotic_1_id",      limit: 4
-    t.integer  "antibiotic_2_id",      limit: 4
-    t.integer  "antibiotic_3_id",      limit: 4
-    t.integer  "antibiotic_4_id",      limit: 4
-    t.integer  "antibiotic_5_id",      limit: 4
-    t.integer  "antibiotic_1_route",   limit: 4
-    t.integer  "antibiotic_2_route",   limit: 4
-    t.integer  "antibiotic_3_route",   limit: 4
-    t.integer  "antibiotic_4_route",   limit: 4
-    t.integer  "antibiotic_5_route",   limit: 4
-    t.text     "sensitivities",        limit: 65535
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
   end
