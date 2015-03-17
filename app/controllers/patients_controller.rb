@@ -82,12 +82,7 @@ class PatientsController < ApplicationController
       :frequency, :notes, :date, :provider, :_destroy],
       :patient_problems_attributes => [:id, :patient_id, :snomed_id, :description, :date, :user_id, :deleted_at, :_destroy],
       :patient_modality_attributes => [:id, :patient_id, :user_id, :modality_code_id, :modality_reason_id, :modal_change_type, :notes, :date, :deleted_at],
-      :esrf_info_attributes => [:id, :patient_id, :user_id, :date, :prd_code_id],
-      :peritonitis_episodes_attributes => [:id, :patient_id, :user_id, :start_treatment_date, :end_treatment_date, 
-        :episode_type, :catheter_removed, :line_break, :exit_site_infection, :diarrhoea, :abdominal_pain, :fluid_description, 
-        :diagnosis_date, :white_cell_total, :white_cell_neutro, :white_cell_lympho, :white_cell_degen, :white_cell_other, 
-        :organism_1, :organism_2, :sensitivities, :notes, :antibiotic_1, :antibiotic_2, :antibiotic_3, :antibiotic_4, 
-        :antibiotic_5, :antibiotic_1_route, :antibiotic_2_route, :antibiotic_3_route, :antibiotic_4_route, :antibiotic_5_route] 
+      :esrf_info_attributes => [:id, :patient_id, :user_id, :date, :prd_code_id]
       )
   end
 
