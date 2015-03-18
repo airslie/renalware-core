@@ -42,6 +42,6 @@
   = e.label :antibiotic_3_route, "Route (Antibiotic 3)"
   = e.select :antibiotic_3_route, medication_routes(e.object.class.name.constantize), { prompt: "Please select route of administration" } 
 
-  = e.label :sensitivities
-  = e.text_area :sensitivities, :cols => 50, :rows => 6
+  = e.label :sensitivity
+  = e.text_area :sensitivity, :cols => 50, :rows => 6
 

@@ -82,7 +82,7 @@ When(/^the Clinician records the episode of peritonitis$/) do
   select "IM", from: "Route (Antibiotic 4)"
   select "Other (Please specify in notes)", from: "Route (Antibiotic 5)"
   
-  fill_in "Sensitivities (Antibiotics)", :with => "Antibiotic 1 most effective."
+  fill_in "sensitivity (Antibiotics)", :with => "Antibiotic 1 most effective."
 
   click_on "Save Peritonitis Episode"
 
@@ -160,7 +160,7 @@ Given(/^a patient has a recently recorded episode of peritonitis$/) do
     antibiotic_3_route: 1,   
     antibiotic_4_route: 2,   
     antibiotic_5_route: 2,   
-    sensitivities: "Need to monitor antibiotic 1"        
+    sensitivity: "Need to monitor antibiotic 1"        
   )
 end
 
@@ -207,7 +207,7 @@ When(/^the Clinician records an exit site infection$/) do
   select "IV", from: "Route (Antibiotic 2)"
   select "SC", from: "Route (Antibiotic 3)"
 
-  fill_in "Sensitivities", :with => "All showing good response."
+  fill_in "sensitivity", :with => "All showing good response."
 
   click_on "Save Exit Site Infection"
 end
@@ -250,7 +250,7 @@ Given(/^a patient has a recently recorded exit site infection$/) do
     antibiotic_1_route: 2, 
     antibiotic_2_route: 1, 
     antibiotic_3_route: 2, 
-    sensitivities: "All antibiotics responding well."
+    sensitivity: "All antibiotics responding well."
   )
 end
 
