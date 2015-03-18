@@ -9,6 +9,8 @@ class PeritonitisEpisode < ActiveRecord::Base
   has_many :infection_organisms
   has_many :organism_codes, -> { uniq }, through: :infection_organisms, as: :infectable
 
+  accepts_nested_attributes_for :infection_organisms
+
 
 
   # validate :number_of_medication_routes
