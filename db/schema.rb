@@ -77,22 +77,13 @@ ActiveRecord::Schema.define(version: 20150317165143) do
   end
 
   create_table "exit_site_infections", force: :cascade do |t|
-    t.integer  "user_id",            limit: 4
+    t.integer  "user_id",        limit: 4
     t.date     "diagnosis_date"
-    t.integer  "organism_1_id",      limit: 4
-    t.integer  "organism_2_id",      limit: 4
-    t.text     "treatment",          limit: 65535
-    t.text     "outcome",            limit: 65535
-    t.text     "notes",              limit: 65535
-    t.integer  "antibiotic_1_id",    limit: 4
-    t.integer  "antibiotic_2_id",    limit: 4
-    t.integer  "antibiotic_3_id",    limit: 4
-    t.integer  "antibiotic_1_route", limit: 4
-    t.integer  "antibiotic_2_route", limit: 4
-    t.integer  "antibiotic_3_route", limit: 4
-    t.text     "sensitivities",      limit: 65535
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.text     "treatment",      limit: 65535
+    t.text     "outcome",        limit: 65535
+    t.text     "notes",          limit: 65535
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   create_table "fluid_descriptions", force: :cascade do |t|
