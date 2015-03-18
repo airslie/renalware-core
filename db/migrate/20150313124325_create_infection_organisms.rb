@@ -2,7 +2,7 @@ class CreateInfectionOrganisms < ActiveRecord::Migration
   def change
     create_table :infection_organisms do |t|
       t.integer :organism_code_id
-      t.text :sensitivities
+      t.text :sensitivity
       t.references :infectable, polymorphic: true, index: true
       t.timestamps null: false
     end
