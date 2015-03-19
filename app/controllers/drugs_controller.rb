@@ -1,7 +1,6 @@
 class DrugsController < ApplicationController
 
-  def search
-   
+  def search   
     @search = params[:drug_search]   
     @drugs = Drug.search("#{@search}*").records
     respond_to do |format|
@@ -55,7 +54,7 @@ class DrugsController < ApplicationController
 
   private
   def allowed_params
-    params.require(:drug).permit(:name, :type, :deleted_at)
+    params.require(:drug).permit(:name, :deleted_at)
   end
 
 end
