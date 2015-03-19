@@ -7,8 +7,8 @@ class CreatePatients < ActiveRecord::Migration
       t.string :forename
       t.date :dob
       t.boolean :paediatric_patient_indicator
-      t.string :sex
-      t.string :ethnic_category
+      t.integer :sex
+      t.integer :ethnicity_id
       t.integer :current_address_id
       t.integer :address_at_diagnosis_id
       t.string :gp_practice_code

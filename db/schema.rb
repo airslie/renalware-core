@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20150317151009) do
 
   create_table "exit_site_infections", force: :cascade do |t|
     t.integer  "user_id",        limit: 4
+    t.integer  "patient_id",     limit: 4
     t.date     "diagnosis_date"
     t.text     "treatment",      limit: 65535
     t.text     "outcome",        limit: 65535
@@ -237,7 +238,8 @@ ActiveRecord::Schema.define(version: 20150317151009) do
     t.string   "forename",                     limit: 255
     t.date     "dob"
     t.boolean  "paediatric_patient_indicator", limit: 1
-    t.integer  "sex",                          limit: 4,     default: 9
+    t.integer  "sex",                          limit: 4
+    t.integer  "ethnicity_id",                 limit: 4
     t.integer  "current_address_id",           limit: 4
     t.integer  "address_at_diagnosis_id",      limit: 4
     t.string   "gp_practice_code",             limit: 255
@@ -246,15 +248,11 @@ ActiveRecord::Schema.define(version: 20150317151009) do
     t.string   "primary_esrf_centre",          limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "ethnicity_id",                 limit: 4
-    t.datetime "death_date"
-    t.integer  "first_edta_code_id",           limit: 4
-    t.integer  "second_edta_code_id",          limit: 4
-    t.text     "death_details",                limit: 65535
   end
 
   create_table "peritonitis_episodes", force: :cascade do |t|
     t.integer  "user_id",              limit: 4
+    t.integer  "patient_id",           limit: 4
     t.date     "diagnosis_date"
     t.date     "start_treatment_date"
     t.date     "end_treatment_date"

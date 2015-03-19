@@ -2,6 +2,7 @@ class CreatePeritonitisEpisodes < ActiveRecord::Migration
   def change
     create_table :peritonitis_episodes do |t|
       t.integer :user_id
+      t.integer :patient_id
       t.date :diagnosis_date
       t.date :start_treatment_date
       t.date :end_treatment_date
