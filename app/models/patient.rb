@@ -7,6 +7,8 @@ class Patient < ActiveRecord::Base
   belongs_to :first_edta_code, :class_name => "EdtaCode", :foreign_key => :first_edta_code_id
   belongs_to :second_edta_code, :class_name => "EdtaCode", :foreign_key => :second_edta_code_id
 
+  has_many :exit_site_infections
+  has_many :peritonitis_episodes
   has_many :patient_events
   has_many :patient_problems
   has_many :medications

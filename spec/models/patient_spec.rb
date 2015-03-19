@@ -10,6 +10,8 @@ RSpec.describe Patient, :type => :model do
   it { should accept_nested_attributes_for(:patient_problems) }
   it { should accept_nested_attributes_for(:patient_modality) }
 
+  it { should have_many :exit_site_infections } 
+  it { should have_many :peritonitis_episodes } 
   it { should have_many :patient_problems } 
   it { should have_many :peritonitis_episodes }
   it { should have_many :exit_site_infections }
