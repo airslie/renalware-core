@@ -8,7 +8,7 @@ end
 Given(/^a patient has a medication$/) do
   @patient_medication_one = PatientMedication.new(medication_id: 2,
     medication_type: "Esa",
-    medication_id: 2,
+    medicatable_id: 2,
     dose: "10mg",
     route: 1,
     frequency: "Daily",
@@ -19,7 +19,7 @@ Given(/^a patient has a medication$/) do
 
   @patient_medication_two = PatientMedication.new(medication_id: 2,
     medication_type: "Drug",
-    medication_id: 1,
+    medicatable_id: 1,
     dose: "20ml",
     route: 2,
     frequency: "Twice Weekly",

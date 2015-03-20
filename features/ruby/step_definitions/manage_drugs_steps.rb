@@ -1,6 +1,18 @@
 Given(/^there are drugs in the database$/) do
-  @drugs = [["Red", "Drug"], ["Blue", "Esa"], ["Green", "Immunosuppressant"]]
-  @drugs.map! {|d| @drug = Drug.create!(:name => d[0], :type => d[1])}
+  @drugs = ["Red", "Blue", "Green"]
+  @drugs.map! { |d| @drug = Drug.create!(:name => d )}
+end
+
+Given(/^there are drug types in the database$/) do
+  @drug_types = ["Antibiotic", "ESA", "Immunosuppressant", "Peritonitis"]
+  @drug_types.map! { |dt| DrugType.create!(:name => dt)}
+end
+
+Given(/^existing drugs have been assigned a drug type$/) do
+  @drug_drug_type_1 = @drugs[0].drug_drug_types.build(drug_type_id: @drug_types[1].id).save!
+  @drug_drug_type_2 = @drugs[1].drug_drug_types.build(drug_type_id: @drug_types[1].id).save!
+  @drug_drug_type_3 = @drugs[2].drug_drug_types.build(drug_type_id: @drug_types[0].id).save!
+  @drug_drug_type_4 = @drugs[2].drug_drug_types.build(drug_type_id: @drug_types[3].id).save!  
 end
 
 Given(/^that I'm on the add a new drug page$/) do

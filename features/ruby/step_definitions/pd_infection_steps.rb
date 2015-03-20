@@ -8,7 +8,7 @@ end
 Given(/^there are antibiotics in the database$/) do
   @antibiotics = %w(Amoxicillin Cephradine Dicloxacillin Metronidazole Penicillin Rifampin Tobramycin Vancomycin)
   @antibiotics.map! do |antibiotic|
-    @antibiotic = Antibiotic.create!( :name => antibiotic )
+    @antibiotic = Drug.create!( :name => antibiotic )
   end
 end
 
