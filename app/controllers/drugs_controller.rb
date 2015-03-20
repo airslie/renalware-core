@@ -12,11 +12,12 @@ class DrugsController < ApplicationController
 
   def new
     @drug = Drug.new
+    @drug.drug_drug_types.build
   end
 
   def create
     @drug = Drug.new(allowed_params)
-    if @drug.save
+    if @drug.save 
       redirect_to drugs_path, :notice => "You have successfully added a new drug."
     else
       render :new
@@ -48,13 +49,13 @@ class DrugsController < ApplicationController
   def destroy
     @drug = Drug.find(params[:id])
     @drug.soft_delete!
-    PatientMedication.where(medication_id: @drug.to_param).each { |pm| pm.soft_delete! }
+    Medication.where(medicatable_id: @drug.to_param).each { |pm| pm.soft_delete! }
     redirect_to drugs_path, :notice => "You have successfully removed a drug."
   end
 
   private
   def allowed_params
-    params.require(:drug).permit(:name, :deleted_at)
+    params.require(:drug).permit(:name, :deleted_at, :drug_drug_types_attributes => [:id, :drug_id, :drug_type_id])
   end
 
 end
