@@ -7,6 +7,8 @@ RSpec.describe Drug, :type => :model do
   it { should have_many(:drug_drug_types) }
   it { should have_many(:drug_types).through(:drug_drug_types) }
 
+  it { should accept_nested_attributes_for(:drug_drug_types) }
+
   context "assign drug types to a drug" do
     
     before do
