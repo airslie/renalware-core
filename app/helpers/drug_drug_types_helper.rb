@@ -1,0 +1,2 @@
+module DrugDrugTypesHelper
+end
