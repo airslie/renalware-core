@@ -7,9 +7,9 @@
 .row
   .large-6.columns
     = form_for @drug, :method => :post, :url => drugs_path(@drug) do |f|
-      %ul.no-bullet
-        = render partial: "drugs/form", locals: { f: f }   
+     
+      = render partial: "drugs/form", locals: { f: f }   
 
-        = submit_tag "Save New Drug", class: "button tiny right save"
+      = submit_tag "Save New Drug", class: "button tiny right save"
 
-        %li= link_to "Cancel", drugs_path, :class => "button tiny cancel"
+    = link_to "Cancel", drugs_path, :class => "button tiny cancel"

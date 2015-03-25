@@ -1,6 +1,9 @@
-%li
-  = f.label :name, "Drug Name"
-  = f.text_field :name
-%li
-  = f.label :type, "Type"
-  = f.select(:type, drug_select_options) 
+
+= f.label :name, "Drug Name"
+= f.text_field :name
+
+%h6 
+  Select categories/types for this drug:
+  
+.row
+  = f.collection_check_boxes :drug_type_ids, @drug_types, :id, :name
