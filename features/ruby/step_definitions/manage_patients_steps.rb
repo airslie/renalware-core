@@ -11,9 +11,8 @@ Given(/^there are ethnicities in the database$/) do
   @ethnicities.map! { |e| Ethnicity.create!(:name => e) }
 end
 
-
 Given(/^I have a patient in the database$/) do
-  @patient = Patient.find_or_create_by!(
+  @patient = FactoryGirl.create(:patient,
     :nhs_number => "1000124502",
     :local_patient_id => "Z999999",
     :surname => "RABBIT",
@@ -23,7 +22,7 @@ Given(/^I have a patient in the database$/) do
     :sex => 1,
     :ethnicity_id => Ethnicity.last.id,
     :hosp_centre_code => "888"
-    )
+  )
 end
 
 Given(/^I am on the add a new patient page$/) do
