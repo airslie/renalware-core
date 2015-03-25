@@ -28,7 +28,8 @@ Rails.application.routes.draw do
   resources :drugs, :except => [:show] do
     collection do
       get :search
-    end 
+    end
+    resources :drug_drug_types, :only => [:index, :create, :destroy] 
   end 
 
   resources :snomed, :only => [:index]
