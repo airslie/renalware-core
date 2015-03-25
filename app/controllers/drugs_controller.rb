@@ -12,11 +12,11 @@ class DrugsController < ApplicationController
 
   def new
     @drug = Drug.new
-    @drug.drug_drug_types.build
+    @drug_types = DrugType.all
   end
 
   def create
-    @drug = Drug.new(allowed_params)
+    @drug = Drug.new(allowed_params)  
     if @drug.save 
       redirect_to drugs_path, :notice => "You have successfully added a new drug."
     else
@@ -35,6 +35,8 @@ class DrugsController < ApplicationController
 
   def edit
     @drug = Drug.find(params[:id])
+    @drug_drug_types = @drug.drug_drug_types
+    @drug_types = DrugType.all
   end
 
   def update
@@ -55,7 +57,7 @@ class DrugsController < ApplicationController
 
   private
   def allowed_params
-    params.require(:drug).permit(:name, :deleted_at, :drug_drug_types_attributes => [:id, :drug_id, :drug_type_id])
+    params.require(:drug).permit(:name, :deleted_at, :drug_type_ids => [])
   end
 
 end
