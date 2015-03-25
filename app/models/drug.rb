@@ -7,8 +7,6 @@ class Drug < ActiveRecord::Base
   has_many :drug_drug_types
   has_many :drug_types, -> { uniq }, through: :drug_drug_types
 
-  accepts_nested_attributes_for :drug_drug_types  
-
   #Indexing for drug search 
   index_name "drugs"
   document_type "drug"
