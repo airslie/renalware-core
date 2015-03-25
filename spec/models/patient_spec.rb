@@ -16,12 +16,12 @@ RSpec.describe Patient, :type => :model do
       patient = FactoryGirl.create(:patient)
       patient_medication = FactoryGirl.create(:patient_medication)
       patient.patient_medications << patient_medication
-      
+
       patient.update(patient_medications_attributes: {
         "0" => { id: patient_medication.id, dose: "a lot", _destroy: "1" } })
-      
+
       expect(patient.patient_medications.with_deleted.first).to eq(patient_medication)
       expect(patient.patient_medications.with_deleted.first.deleted_at).not_to be nil
     end
-  end 
+  end
 end
