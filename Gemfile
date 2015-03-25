@@ -26,7 +26,6 @@ group :development, :test do
   gem "rspec-rails"
   gem "rspec-expectations"
   gem "capybara", "2.2.0"
-  gem "capybara-webkit"
   gem "launchy"
   gem "pry-byebug"
   gem "database_cleaner"
