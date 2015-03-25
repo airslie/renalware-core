@@ -29,13 +29,14 @@ end
 
 When(/^I complete the form for a new drug$/) do
   fill_in "Drug Name", with: "I am a new drug"
-  select "Immunosuppressant", from: "Type"
+  check "Antibiotic"
+  check "Immunosuppressant"
   click_on "Save New Drug"
 end
 
 When(/^I complete the form for editing a drug$/) do
   fill_in "Drug Name", with: "I am an edited drug"
-  select "Immunosuppressant", from: "Type"
+  uncheck('Peritonitis')
   click_on "Update Drug"
 end
 
@@ -45,12 +46,20 @@ end
 
 Then(/^I should see the new drug on the drugs list$/) do
   expect(page.has_content? "I am a new drug").to be true
-  expect(page.has_content? "Immunosuppressant").to be true
+end
+
+Then(/^I should see the new drug's categories\/types$/) do
+  visit drug_drug_drug_types_path(Drug.all.fourth)
+  expect(page.has_content? "Antibiotic").to be true 
+  expect(page.has_content? "Immunosuppressant").to be true 
 end
 
 Then(/^I should see the updated drug on the drugs list$/) do
   expect(page.has_content? "I am an edited drug").to be true
-  expect(page.has_content? "Immunosuppressant").to be true
+  
+  visit drug_drug_drug_types_path(@drug)
+  page.assert_selector('li', :text => 'Antibiotic', :count => 1)
+  page.assert_selector('li', :text => 'Peritonitis', :count => 0)
 end
 
 Then(/^I should see the drug removed from the drugs list$/) do
