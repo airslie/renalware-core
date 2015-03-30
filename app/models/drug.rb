@@ -13,7 +13,10 @@ class Drug < ActiveRecord::Base
 
   validates :name, presence: true
 
-  scope :standard, -> { where("type is null or type = '' ") }
+  scope :antibiotic, -> { joins(:drug_types).where(:drug_types => {:name => "Antibiotic"}).map(&:name) }
+  scope :esa, -> { joins(:drug_types).where(:drug_types => {:name => "ESA"}).map(&:name) }
+  scope :immunosuppressant, -> { joins(:drug_types).where(:drug_types => {:name => "Immunosuppressant"}).map(&:name) }
+  scope :peritonitis, -> { joins(:drug_types).where(:drug_types => {:name => "Peritonitis"}).map(&:name) }
 
   def display_type
     "Standard Drug"
