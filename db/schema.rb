@@ -248,6 +248,10 @@ ActiveRecord::Schema.define(version: 20150317151009) do
     t.string   "primary_esrf_centre",          limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "death_date"
+    t.integer  "first_edta_code_id",           limit: 4
+    t.integer  "second_edta_code_id",          limit: 4
+    t.text     "death_details",                limit: 65535
   end
 
   create_table "peritonitis_episodes", force: :cascade do |t|
