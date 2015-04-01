@@ -1,18 +1,30 @@
 Given(/^there are drugs in the database$/) do
-  @drugs = ["Red", "Blue", "Green"]
+  @drugs = ["Red", "Blue", "Yellow", "Green"]
   @drugs.map! { |d| @drug = Drug.create!(:name => d )}
+
+  @red = @drugs[0]
+  @blue = @drugs[1]
+  @yellow = @drugs[2]
+  @green = @drugs[3]
 end
 
 Given(/^there are drug types in the database$/) do
   @drug_types = ["Antibiotic", "ESA", "Immunosuppressant", "Peritonitis"]
   @drug_types.map! { |dt| DrugType.create!(:name => dt)}
+
+  @antibiotic = @drug_types[0]
+  @esa = @drug_types[1]
+  @immunosuppressant = @drug_types[2]
+  @peritonitis = @drug_types[3]
 end
 
-Given(/^existing drugs have been assigned a drug type$/) do
-  @drug_drug_type_1 = @drugs[0].drug_drug_types.build(drug_type_id: @drug_types[1].id).save!
-  @drug_drug_type_2 = @drugs[1].drug_drug_types.build(drug_type_id: @drug_types[1].id).save!
-  @drug_drug_type_3 = @drugs[2].drug_drug_types.build(drug_type_id: @drug_types[0].id).save!
-  @drug_drug_type_4 = @drugs[2].drug_drug_types.build(drug_type_id: @drug_types[3].id).save!  
+Given(/^existing drugs have been assigned a drug type$/) do 
+  @drug_drug_type_1 = DrugDrugType.create!(drug_id: @red.id, drug_type_id: @immunosuppressant.id)
+  @drug_drug_type_2 = DrugDrugType.create!(drug_id: @blue.id, drug_type_id: @esa.id)
+  @drug_drug_type_3 = DrugDrugType.create!(drug_id: @yellow.id, drug_type_id: @antibiotic.id)
+  @drug_drug_type_4 = DrugDrugType.create!(drug_id: @yellow.id, drug_type_id: @peritonitis.id)  
+  @drug_drug_type_5 = DrugDrugType.create!(drug_id: @green.id, drug_type_id: @antibiotic.id)  
+  @drug_drug_type_5 = DrugDrugType.create!(drug_id: @green.id, drug_type_id: @peritonitis.id)  
 end
 
 Given(/^that I'm on the add a new drug page$/) do
