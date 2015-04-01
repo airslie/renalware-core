@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     member do
       get :demographics
       get :clinical_summary
-      get :medications
+      get :manage_medications
       get :medications_index
       get :problems
       get :modality
