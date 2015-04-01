@@ -10,12 +10,17 @@ $(document).ready(function(){
     var med_form = select_box.closest('.med-form');
 
     switch (selected_medication_type) {
-      case "Drug":
-        med_form.find('.provider-gp').prop("checked", true);
-        med_form.find('.standard').show();
-        med_form.find('.esa-or-immno').hide();
+      case "Antibiotic":
+        med_form.find('.provider-hospital').prop("checked", true);
+        med_form.find('.standard').hide();
+        med_form.find('.esa-or-immno').show();
       break;
-      case "Esa":
+      case "Peritonitis":
+        med_form.find('.provider-hospital').prop("checked", true);
+        med_form.find('.standard').hide();
+        med_form.find('.esa-or-immno').show();
+      break;
+      case "ESA":
         med_form.find('.provider-hospital').prop("checked", true);
         med_form.find('.standard').hide();
         med_form.find('.esa-or-immno').show();
@@ -25,11 +30,16 @@ $(document).ready(function(){
         med_form.find('.standard').hide();
         med_form.find('.esa-or-immno').show();
       break;
+      default:
+        med_form.find('.provider-gp').prop("checked", true);
+        med_form.find('.standard').show();
+        med_form.find('.esa-or-immno').hide();
+      break;
     }
 
     $.ajax({
       url: '/drugs.json',
-      data: { medication_type: selected_medication_type },
+      data: { medication_type: selected_medication_type},
       success: function(json) {
         console.log(json);
         var drug_select_box = med_form.find('.drug-select');
@@ -112,10 +122,11 @@ $(document).ready(function(){
   // set hidden value of chosen medication via search
   $('body').on('click', '.drug-select-link', function(e) {
     var bullet = $(e.currentTarget);
+    console.log(bullet);
     var med_form = bullet.closest('.med-form');
     var drugId = bullet.data('drug-id');
     console.log("clicked on a drug" + drugId);
-    med_form.find('.selected-medication-id').val(drugId);
+    med_form.find('.selected-medicatable-id').val(drugId);
 
     // Show the selected drug
     med_form.find('.find_drug').val(bullet.html());
@@ -129,14 +140,14 @@ $(document).ready(function(){
     var delay = 1000;
     setTimeout(function(){
       var selected_drug = med_form.find('.drug-select').val();
-      med_form.find('.selected-medication-id').val(selected_drug);
+      med_form.find('.selected-medicatable-id').val(selected_drug);
     }, delay);
 
     $('.drug-select').change(function(e) {
       var bullet = $(e.currentTarget);
       var med_form = bullet.closest('.med-form');
       var selected_drug = med_form.find('.drug-select').val();
-      med_form.find('.selected-medication-id').val(selected_drug);
+      med_form.find('.selected-medicatable-id').val(selected_drug);
     });
 
   });

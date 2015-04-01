@@ -4,28 +4,29 @@
   = pm.hidden_field :patient_id
 
   = pm.label :medication_type, "Medication Type"
-  = pm.select :medication_type, drug_select_options(pm.object.medication_type), {}, :class => "medication-type-select"
+  = pm.select :medication_type, drug_select_options(pm.object.medication_type), { include_blank: true }, :class => "medication-type-select"
 
   / Only show this for standard
   .standard
     = label_tag :drug_search, "Drug"
-    = text_field_tag :drug_search, pm.object.persisted? ? pm.object.medication.name : nil, :class => "find_drug", :placeholder => "Search drug by name or type"
+    = text_field_tag :drug_search, pm.object.persisted? ? pm.object.medicatable.name : nil, :class => "find_drug", :placeholder => "Search drug by name or type"
 
     %ul.no-bullet.drug-results
 
-    = pm.hidden_field :medicatable_id, :class => "selected-medication-id"
+    = pm.hidden_field :medicatable_id, :class => "selected-medicatable-id"
+    = pm.hidden_field :medicatable_type, value: "Drug", :class => "selected-medicatable-type"
 
   / Only show this for ESA/ Imnosupressnt.
   .esa-or-immno
     = pm.label :drug_select, "Select Drug"
-    = pm.collection_select :drug_select, drugs_for(pm.object.medication_type), :id, :name, {}, :class => "drug-select"
+    = pm.collection_select :drug_select, drugs_for(pm.object.medication_type.downcase), :id, :name, {}, :class => "drug-select"
 
   / Same for both
   = pm.label :dose
   = pm.text_field :dose
 
-  = pm.label :administer_by_id, "Route"
-  = pm.collection_select :administer_by_id, MedicationRoute.all, :id, :name, { :prompt => "Please select route of administration" }, :class => "medication-route-select"
+  / = pm.label :administer_by_id, "Route"
+  / = pm.collection_select :administer_by_id, MedicationRoute.all, :id, :name, { :prompt => "Please select route of administration" }, :class => "medication-route-select"
   
   = pm.label :frequency, "Frequency & Duration"
   = pm.text_field :frequency

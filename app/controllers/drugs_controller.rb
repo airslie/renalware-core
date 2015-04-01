@@ -5,7 +5,7 @@ class DrugsController < ApplicationController
     @drugs = Drug.search("#{@search}*").records
     respond_to do |format|
       format.html
-      format.json { render :json => @drugs.as_json(:only => [:id, :name, :type]) }
+      format.json { render :json => @drugs.as_json(:only => [:id, :name]) }
     end
     # render :template => 'drugs/index'
   end 
@@ -26,7 +26,7 @@ class DrugsController < ApplicationController
 
   def index
     @drugs = Drug.active
-    @drugs_select = Drug.where(:type => params[:medication_type])
+    @drugs_select =  Drug.joins(:drug_types).where(:drug_types => { :name => params[:medication_type] })
     respond_to do |format|
       format.html
       format.json { render :json => @drugs_select.as_json(:only => [:id, :name]) }

@@ -27,10 +27,10 @@
 
     %ul.no-bullet
       - @patient.medications.each do |p|
-   
-        %li{:class => "drug-#{p.medication.type.downcase}"}
+       
+        %li{:class => "drug-#{p.medication_type.downcase}"}
           
-          = "#{p.medication.type}, #{p.medication.name}, #{p.dose}, #{I18n.t("enums.route.#{p.route}")}, #{p.frequency}, #{p.date.strftime("%d/%m/%Y")}"          
+          = "#{p.medication_type}, #{p.medicatable.name}, #{p.dose}, ROUTE, #{p.frequency}, #{p.date.strftime("%d/%m/%Y")}"          
 
 .wide-screen
   .columns.large-12
