@@ -23,4 +23,12 @@ RSpec.describe PatientsController, :type => :controller do
 
   end
 
+  describe "GET medications" do
+    it "returns http status 200" do
+      get :manage_medications
+      expect(response).to render_template("medications") 
+      expect(response.status).to eq(200)
+    end
+  end
+
 end
