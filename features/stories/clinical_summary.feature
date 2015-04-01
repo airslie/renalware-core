@@ -27,6 +27,8 @@ Scenario: Doctor adds a problem
 @javascript 
 Scenario: Doctor adds a medication for a patient
   Given there are drugs in the database
+    And there are drug types in the database
+    And existing drugs have been assigned a drug type
   When they add a medication
     And complete the medication form
   Then they should see the new medication on the clinical summary
