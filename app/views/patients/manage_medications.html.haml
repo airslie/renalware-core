@@ -7,29 +7,17 @@
 
 .row  
   %h5.g-center
-    = link_to "Patient Medications", medications_patient_path(@patient)
+    = link_to "Patient Medications", manage_medications_patient_path(@patient)
 
 .wide-screen
   = form_for @patient do |f|
-    = hidden_field_tag :redirect_url, medications_patient_path(@patient)
 
+    = hidden_field_tag :redirect_url, manage_medications_patient_path(@patient)
+   
     = f.fields_for :medications, @patient.active_medications do |pm|
-      - if pm.object.versions != []
-       
-        %dl.accordion.right.columns.large-6{ class: "medication-history", data: {accordion: true} }
-          %dd.accordion-navigation   
-            %a.fi-plus.fi-minus.toggle-notes{ class: "medication-history-link", href: "#history-list-#{pm.object.id}" }  
-              View history of active medication 
-            
-            .content{ id: "history-list-#{pm.object.id}" }
-              - pm.object.versions.map(&:reify).each do |m|
-              
-                %ul.no-bullet
-                  %li.history
-                    = "#{m.medicatable.name}, #{m.dose}, #{m.administer_by.name}, #{pm.object.frequency}, #{m.updated_at.strftime("%d/%m/%Y - %H:%M")}"
-
+      / - binding.pry
       - if pm.object.new_record?
-
+        
         #new-form
           %a.button.tiny.toggle.right.mt{href: '#new-form'}
             Add a new medication
@@ -46,16 +34,16 @@
               
                 = render :partial => 'medication_fields', :locals => { :pm => pm }
 
-      
+    
         = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left cancel mt"
-
-
+      
       - else
+        
         %dl.accordion{data: {accordion: true} }
           %dd.accordion-navigation.med-form
             %a.fi-plus.fi-minus{href: "#edit-meds-#{pm.object.id}", :class => "drug-#{pm.object.medication_type.downcase}"}
-                
-              = "#{pm.object.medicatable.name}, #{pm.object.dose}, #{pm.object.administer_by.name}, #{pm.object.frequency}, #{pm.object.date}"
+              
+              = "#{pm.object.medicatable.name}, #{pm.object.dose}, route, #{pm.object.frequency}, #{pm.object.date}"
               .right.edit
                 Edit
 
@@ -66,8 +54,7 @@
               .med-form.content{:id => "edit-meds-#{pm.object.id}"}  
                 = pm.check_box :_destroy
                 = pm.label :_destroy, "Terminate?", class: "delete"
-
-
+      
     = f.submit "Save Medication", :class => "button tiny right save mt"
 
 .wide-screen
