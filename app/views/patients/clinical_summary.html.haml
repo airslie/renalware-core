@@ -28,9 +28,9 @@
     %ul.no-bullet
       - @patient.medications.each do |p|
        
-        %li{:class => "drug-#{p.medication_type.downcase}"}
+        %li{:class => "drug-#{p.medication_type}"}
           
-          = "#{p.medication_type}, #{p.medicatable.name}, #{p.dose}, ROUTE, #{p.frequency}, #{p.date.strftime("%d/%m/%Y")}"          
+          = "#{p.medication_type}, #{p.medicatable.name}, #{p.dose}, #{p.medication_route.name}, #{p.frequency}, #{p.date.strftime("%d/%m/%Y")}"          
 
 .wide-screen
   .columns.large-12

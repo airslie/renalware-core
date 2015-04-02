@@ -10,22 +10,22 @@ $(document).ready(function(){
     var med_form = select_box.closest('.med-form');
 
     switch (selected_medication_type) {
-      case "Antibiotic":
+      case "antibiotic":
         med_form.find('.provider-hospital').prop("checked", true);
         med_form.find('.standard').hide();
         med_form.find('.esa-or-immno').show();
       break;
-      case "Peritonitis":
+      case "peritonitis":
         med_form.find('.provider-hospital').prop("checked", true);
         med_form.find('.standard').hide();
         med_form.find('.esa-or-immno').show();
       break;
-      case "ESA":
+      case "esa":
         med_form.find('.provider-hospital').prop("checked", true);
         med_form.find('.standard').hide();
         med_form.find('.esa-or-immno').show();
       break;
-      case "Immunosuppressant":
+      case "immunosuppressant":
         med_form.find('.provider-gp').prop("checked", true);
         med_form.find('.standard').hide();
         med_form.find('.esa-or-immno').show();
@@ -147,6 +147,7 @@ $(document).ready(function(){
       var bullet = $(e.currentTarget);
       var med_form = bullet.closest('.med-form');
       var selected_drug = med_form.find('.drug-select').val();
+      console.log(selected_drug);
       med_form.find('.selected-medicatable-id').val(selected_drug);
     });
 

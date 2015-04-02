@@ -34,7 +34,7 @@ class PatientsController < ApplicationController
   end
 
   def manage_medications
-    @patient.active_medications.build(medication_type: "all", provider: :gp )
+    @patient.active_medications.build( provider: :gp )
   end
 
   def problems
