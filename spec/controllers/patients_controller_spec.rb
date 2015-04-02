@@ -5,11 +5,11 @@ RSpec.describe PatientsController, :type => :controller do
   # When a doctor checks a terminate box a soft delete is triggered.
   # And the deleted_at value is not nil.
 
-  describe "PATCH update" do
+  before do
+    @patient = FactoryGirl.create(:patient)
+  end
 
-    before do
-      @patient = FactoryGirl.create(:patient)
-    end
+  describe "PATCH update" do
 
     it "should redirect when the patient is updated" do
       patch :update, id: @patient.id, patient: { patient_medications_attributes: {} }
@@ -23,11 +23,10 @@ RSpec.describe PatientsController, :type => :controller do
 
   end
 
-  describe "GET medications" do
-    it "returns http status 200" do
-      get :manage_medications
-      expect(response).to render_template("medications") 
-      expect(response.status).to eq(200)
+  describe "GET manage_medications" do
+    it "returns http success" do
+      get :manage_medications, id: @patient.id
+      expect(response).to have_http_status(:success)
     end
   end
 

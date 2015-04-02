@@ -18,7 +18,7 @@ Given(/^there are drug types in the database$/) do
   @peritonitis = @drug_types[3]
 end
 
-Given(/^existing drugs have been assigned a drug type$/) do 
+Given(/^existing drugs have been assigned drug types$/) do 
   @drug_drug_type_1 = DrugDrugType.create!(drug_id: @red.id, drug_type_id: @immunosuppressant.id)
   @drug_drug_type_2 = DrugDrugType.create!(drug_id: @blue.id, drug_type_id: @esa.id)
   @drug_drug_type_3 = DrugDrugType.create!(drug_id: @yellow.id, drug_type_id: @antibiotic.id)

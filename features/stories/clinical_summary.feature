@@ -28,7 +28,8 @@ Scenario: Doctor adds a problem
 Scenario: Doctor adds a medication for a patient
   Given there are drugs in the database
     And there are drug types in the database
-    And existing drugs have been assigned a drug type
+    And existing drugs have been assigned drug types
+    And there are medication routes in the database
   When they add a medication
     And complete the medication form
   Then they should see the new medication on the clinical summary
@@ -36,7 +37,10 @@ Scenario: Doctor adds a medication for a patient
 @javascript 
 Scenario: Doctor terminates a medication for a patient
   Given there are drugs in the database
-  Given a patient has a medication
+    And there are drug types in the database
+    And existing drugs have been assigned drug types
+    And there are medication routes in the database
+    And a patient has a medication
   When they terminate a medication
   Then they should no longer see this medication in their clinical summary
     # And should see this terminated medication in their medications history

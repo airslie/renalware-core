@@ -5,21 +5,32 @@ Given(/^there are modality reasons in the database$/) do
   end
 end
 
+Given(/^there are medication routes in the database$/) do
+  @medication_routes = [["PO", "Per Oral"], ["IV", "Intravenous"], ["SC", "Subcutaneous"], ["IM", "Intramuscular"], ["Other (Please specify in notes)", "Other (Refer to notes)"]]
+  @medication_routes.map! do |mroute|
+    MedicationRoute.create!(:name => mroute[0], :full_name => mroute[1])
+  end
+end
+
 Given(/^a patient has a medication$/) do
-  @medication_one = Medication.new(patient_id: 2,
-    medication_type: @drug_types[1],
-    medicatable_id: 2,
+  @medication_one = Medication.create!(patient_id: 2,
+    medication_type: @antibiotic.name.downcase,
+    medicatable_id: @yellow.id,
+    medicatable_type: "Drug",
     dose: "10mg",
+    medication_route_id: 2,
     frequency: "Daily",
     notes: "Must take with food",
     date: "2014-11-01",
     provider: 1
     )
 
-  @medication_two = Medication.new(patient_id: 2,
-    medication_type: "all",
-    medicatable_id: 1,
+  @medication_two = Medication.create!(patient_id: 2,
+    medication_type: @esa.name.downcase,
+    medicatable_id: @blue.id,
+    medicatable_type: "Drug",
     dose: "20ml",
+    medication_route_id: 1,
     frequency: "Twice Weekly",
     notes: "Needs review in 6 months",
     date: "2015-01-02",
@@ -89,8 +100,8 @@ end
 When(/^complete the medication form$/) do
   select "ESA", :from => "Medication Type"
   select "Blue", :from => "Select Drug"
-  fill_in "Dose", :with => "10mg"
-  # select "PO", :from =>  "Route"
+  fill_in "Dose", :with => "10mg" 
+  select "PO", :from =>  "Route"
   fill_in "Frequency & Duration", :with => "Once daily"
   fill_in "Notes", :with => "Review in six weeks"
   within "#patient_medications_attributes_0_date_3i" do
@@ -109,10 +120,11 @@ When(/^complete the medication form$/) do
 end
 
 When(/^they terminate a medication$/) do
-  # visit medications_patient_path(@patient)
-  # find("a.drug-esa").click
-  # check "Terminate?"
-  # click_on "Save Medication"
+  visit manage_medications_patient_path(@patient)
+  save_and_open_page
+  find("a.drug-esa").click
+  check "Terminate?"
+  click_on "Save Medication"
 end
 
 Then(/^they should see the new patient event on the clinical summary$/) do
@@ -131,13 +143,13 @@ Then(/^they should see the new problems on the clinical summary$/) do
 end
 
 Then(/^they should see the new medication on the clinical summary$/) do
-  # expect(page.has_css? ".drug-esa").to be true
-  save_and_open_page
+  visit clinical_summary_patient_path(@patient)
+  expect(page.has_css? ".drug-esa").to be true
   expect(page.has_content? "Blue").to be true
   expect(page.has_content? "10mg").to be true
-  # expect(page.has_content? "PO").to be true
+  expect(page.has_content? "PO").to be true
   expect(page.has_content? "Once daily").to be true
-  expect(page.has_content? "2013-01-01").to be true
+  expect(page.has_content? "01/01/2013").to be true
 end
 
 Then(/^they should no longer see this medication in their clinical summary$/) do
