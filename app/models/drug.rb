@@ -23,7 +23,7 @@ class Drug < ActiveRecord::Base
   end
   
   def as_indexed_json(options={})
-    as_json(only: %i(name type))
+    as_json(only: :name, include: { drug_types: { only: :name } })
   end
 
 end
