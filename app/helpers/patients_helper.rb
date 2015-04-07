@@ -7,4 +7,8 @@ module PatientsHelper
     options_for_select ["Other", ["Haemodialysis To PD", "HaemodialysisToPd"], ["PD To Haemodialysis", "PdToHaemodialysis"]], selected
   end
 
+  def med_color_tag(med_type)
+    med_type.blank? ? "drug" : med_type
+  end
+
 end
