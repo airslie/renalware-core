@@ -121,7 +121,6 @@ end
 
 When(/^they terminate a medication$/) do
   visit manage_medications_patient_path(@patient)
-  save_and_open_page
   find("a.drug-esa").click
   check "Terminate?"
   click_on "Save Medication"
