@@ -12,6 +12,7 @@ RSpec.describe PeritonitisEpisode, :type => :model do
   it { should have_many(:infection_organisms) }
   it { should have_many(:organism_codes).through(:infection_organisms) }
 
+  it { should accept_nested_attributes_for(:medications) }
   it { should accept_nested_attributes_for(:infection_organisms) }
 
   describe "peritonitis episode" do
