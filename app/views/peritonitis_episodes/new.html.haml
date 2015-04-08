@@ -14,12 +14,12 @@
     = field_set_tag do
              
       = form_for [@patient, @peritonitis_episode] do |p|
-       
-        .row
-          = render :partial => 'peritonitis_episodes/peritonitis_form', :locals => { :p => p }
-              
-        = link_to "Cancel", pd_info_patient_path(@patient), class: "button tiny left cancel mt"
         
+        .row    
+          = render :partial => 'peritonitis_episodes/peritonitis_form', :locals => { :p => p }
+        
+        = link_to "Cancel", pd_info_patient_path(@patient), class: "button tiny left cancel mt"
+
         = p.submit "Save Peritonitis Episode", :class => "button tiny right save mt"
 
 .wide-screen

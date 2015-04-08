@@ -5,8 +5,8 @@
 
     = p.hidden_field :patient_id
 
-    = p.label :user_id
-    = p.text_field :user_id
+    / = p.label :user_id
+    / = p.text_field :user_id
  
     .row       
       .large-12.columns
@@ -29,16 +29,16 @@
         .form-section 
           Outcome:
 
-        .large-6.columns
-          = p.label :organism_1_id
-          = p.collection_select :organism_1_id, OrganismCode.all, :id, :name, { :prompt => "Please select organism found", include_blank: true, :class => "organism-select" }
-        .large-6.columns
-          = p.label :organism_2_id
-          = p.collection_select :organism_2_id, OrganismCode.all, :id, :name, { :prompt => "Please select organism found", include_blank: true, :class => "organism-select" }
+        / .large-6.columns
+        /   = p.label :organism_1_id
+        /   = p.collection_select :organism_1_id, OrganismCode.all, :id, :name, { :prompt => "Please select organism found", include_blank: true, :class => "organism-select" }
+        / .large-6.columns
+        /   = p.label :organism_2_id
+        /   = p.collection_select :organism_2_id, OrganismCode.all, :id, :name, { :prompt => "Please select organism found", include_blank: true, :class => "organism-select" }
           
         .large-12.columns
           = p.label :episode_type_id
-          = p.text_field :episode_type_id
+          = p.collection_select :episode_type_id, EpisodeType.all, :id, :term, { :prompt => "Please select episode type" }, :class => "episode-type_select"
      
         .large-12.columns 
           = p.check_box :catheter_removed
@@ -95,53 +95,50 @@
         .large-6.columns
           = p.label :notes
           = p.text_area :notes, :cols => 50, :rows => 6
-        
-        .large-6.columns
-          = p.label :sensitivity, "sensitivity (Antibiotics)"
-          = p.text_area :sensitivity, :cols => 50, :rows => 6
 
 
     .row        
       .large-12.columns
-        .form-section 
-          Prescribed Antibiotics:  
+        .form-section
+          Antibiotics
         
-        .large-6.columns
-          = p.label :antibiotic_1_id
-          = p.collection_select :antibiotic_1_id, Antibiotic.all, :id, :name, { :prompt => "Please select prescribed antibiotic" }
-
-        .large-6.columns
-          = p.label :antibiotic_1_route, "Route (Antibiotic 1)"
-          = p.select :antibiotic_1_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
+        = p.fields_for :medications, @peritonitis_episode.medications do |pm|
         
-        .large-6.columns  
-          = p.label :antibiotic_2_id
-          = p.collection_select :antibiotic_2_id, Antibiotic.all, :id, :name, { :prompt => "Please select prescribed antibiotic" }
+          - if pm.object.new_record?
+      
+            #new-form
+              %a.button.tiny.toggle.right.mt{href: '#new-form'}
+                Add a new medication
 
-        .large-6.columns
-          = p.label :antibiotic_2_route, "Route (Antibiotic 2)"
-          = p.select :antibiotic_2_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
-        
-        .large-6.columns 
-          = p.label :antibiotic_3_id
-          = p.collection_select :antibiotic_3_id, Antibiotic.all, :id, :name, { :prompt => "Please select prescribed antibiotic" }
+              .hide
+                %a.button.tiny.close-new-form{href: '#'}
+                  Close
+                
+                %fieldset
+                  %legend
+                    Add a new medication
 
-        .large-6.columns 
-          = p.label :antibiotic_3_route, "Route (Antibiotic 3)"
-          = p.select :antibiotic_3_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
-        
-        .large-6.columns 
-          = p.label :antibiotic_4_id
-          = p.collection_select :antibiotic_4_id, Antibiotic.all, :id, :name, { :prompt => "Please select prescribed antibiotic" }
+                  .row
+                  
+                    = render :partial => 'patients/medication_fields', :locals => { :pm => pm }
+          
+          - else
+            
+            %dl.accordion{data: {accordion: true} }
+              %dd.accordion-navigation.med-form
+               
+                %a.fi-plus.fi-minus{href: "#edit-meds-#{pm.object.id}", :class => "drug-#{med_color_tag(pm.object.medication_type)}"}
+                
+                  = "#{pm.object.medicatable.name}, #{pm.object.dose}, #{pm.object.medication_route.name}, #{pm.object.frequency}, #{pm.object.date}"
+                  .right.edit
+                    Edit
 
-        .large-6.columns 
-          = p.label :antibiotic_4_route, "Route (Antibiotic 4)"
-          = p.select :antibiotic_4_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
-        
-        .large-6.columns
-          = p.label :antibiotic_5_id
-          = p.collection_select :antibiotic_5_id, Antibiotic.all, :id, :name, { :prompt => "Please select prescribed antibiotic" }
+                .columns.large-6.meds-form.content{:id => "edit-meds-#{pm.object.id}", data: { index: 0 }} 
 
-        .large-6.columns
-          = p.label :antibiotic_5_route, "Route (Antibiotic 5)"
-          = p.select :antibiotic_5_route, medication_routes(p.object.class.name.constantize), { prompt: "Please select route of administration" } 
+                  = render :partial => 'patients/medication_fields', :locals => { :pm => pm }
+
+                  .med-form.content{:id => "edit-meds-#{pm.object.id}"}  
+                    = pm.check_box :_destroy
+                    = pm.label :_destroy, "Terminate?", class: "delete"
+          
+            

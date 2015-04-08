@@ -42,7 +42,7 @@
         %dl.accordion{data: {accordion: true} }
           %dd.accordion-navigation.med-form
             %a.fi-plus.fi-minus{href: "#edit-meds-#{pm.object.id}", :class => "drug-#{med_color_tag(pm.object.medication_type)}"}
-              
+             
               = "#{pm.object.medicatable.name}, #{pm.object.dose}, #{pm.object.medication_route.name}, #{pm.object.frequency}, #{pm.object.date}"
               .right.edit
                 Edit
