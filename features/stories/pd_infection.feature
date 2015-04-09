@@ -9,6 +9,8 @@ Background:
     And there are organisms in the database
     And there are drugs in the database
     And there are antibiotics in the database
+    And there are episode types in the database
+    And there are fluid descriptions in the database
     And I have a patient in the database
 # @wip
 Scenario: Clinician records an episode of peritonitis
@@ -21,12 +23,12 @@ Scenario: Clinician updates an episode of peritonitis
     And a patient has a recently recorded episode of peritonitis 
   When the Clinician updates the episode of peritonitis
   Then the updated episode should be displayed on PD info page 
-# @wip
+@wip
 Scenario: Clinician records an exit site infection
   Given a patient has PD
   When the Clinician records an exit site infection
   Then the recorded exit site infection should be displayed on PD info page 
-# @wip
+@wip
 Scenario: Clinician updates an exit site infection
   Given a patient has PD
     And a patient has a recently recorded exit site infection
