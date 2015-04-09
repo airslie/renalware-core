@@ -13,27 +13,27 @@ $(document).ready(function(){
       case "antibiotic":
         med_form.find('.provider-hospital').prop("checked", true);
         med_form.find('.standard').hide();
-        med_form.find('.esa-or-immno').show();
+        med_form.find('.drug-by-select').show();
       break;
       case "peritonitis":
         med_form.find('.provider-hospital').prop("checked", true);
         med_form.find('.standard').hide();
-        med_form.find('.esa-or-immno').show();
+        med_form.find('.drug-by-select').show();
       break;
       case "esa":
         med_form.find('.provider-hospital').prop("checked", true);
         med_form.find('.standard').hide();
-        med_form.find('.esa-or-immno').show();
+        med_form.find('.drug-by-select').show();
       break;
       case "immunosuppressant":
         med_form.find('.provider-gp').prop("checked", true);
         med_form.find('.standard').hide();
-        med_form.find('.esa-or-immno').show();
+        med_form.find('.drug-by-select').show();
       break;
       default:
         med_form.find('.provider-gp').prop("checked", true);
         med_form.find('.standard').show();
-        med_form.find('.esa-or-immno').hide();
+        med_form.find('.drug-by-select').hide();
       break;
     }
 
