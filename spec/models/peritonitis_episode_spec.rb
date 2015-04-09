@@ -19,10 +19,60 @@ RSpec.describe PeritonitisEpisode, :type => :model do
       
     before do
       @pe = FactoryGirl.build(:peritonitis_episode)
+      @drug_1 = FactoryGirl.create(:drug, name: "Amoxicillin")
+      @drug_2 = FactoryGirl.create(:drug, name: "Penicillin")
+      @drug_type_1 = FactoryGirl.create(:drug_type, name: "Antibiotic")
+      @drug_type_2 = FactoryGirl.create(:drug_type, name: "Peritonitis")
+      @drug_drug_type_1 = FactoryGirl.create(:drug_drug_type, drug_id: @drug_1.id, drug_type_id: @drug_type_1.id)
+      @drug_drug_type_2 = FactoryGirl.create(:drug_drug_type, drug_id: @drug_1.id, drug_type_id: @drug_type_2.id)
+      @drug_drug_type_3 = FactoryGirl.create(:drug_drug_type, drug_id: @drug_2.id, drug_type_id: @drug_type_1.id)
+      @drug_drug_type_4 = FactoryGirl.create(:drug_drug_type, drug_id: @drug_2.id, drug_type_id: @drug_type_2.id)
+    end
+
+    context "medications" do  
+      it "can be assigned many medications" do
+        
+        @medication_one = FactoryGirl.create(:medication,
+          patient_id: @patient,
+          user_id: "1",
+          medicatable_id: @drug_1,
+          medicatable_type: "Drug",
+          treatable_id: 1,
+          treatable_type: "PeritonitisEpisode",
+          dose: "20mg",
+          medication_route_id: 1,
+          frequency: "daily",
+          notes: "with food",
+          date: "02/03/2015",
+          deleted_at: "NULL",
+          created_at: "2015-02-03 18:21:04",
+          updated_at: "2015-02-05 18:21:04"
+        )
+        
+        @medication_two = FactoryGirl.create(:medication,
+          patient_id: @patient,
+          user_id: "1",
+          medicatable_id: @drug_2,
+          medicatable_type: "Drug",
+          treatable_id: 1,
+          treatable_type: "PeritonitisEpisode",
+          dose: "20mg",
+          medication_route_id: 1,
+          frequency: "daily",
+          notes: "with food",
+          date: "02/03/2015",
+          deleted_at: "NULL",
+          created_at: "2015-02-03 18:21:04",
+          updated_at: "2015-02-05 18:21:04"
+        )
+
+        @pe.medications << @medication_one
+        @pe.medications << @medication_two
+        
+      end
     end
     
     context "organism codes" do
-
       it "can be assigned many unique organisms through infection_organisms" do
           
         @mrsa = FactoryGirl.create(:organism_code, name: "MRSA")
@@ -60,7 +110,6 @@ RSpec.describe PeritonitisEpisode, :type => :model do
 
         expect(@pe).to be_valid
       end
-
     end
 
   end

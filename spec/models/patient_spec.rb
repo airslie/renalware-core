@@ -24,7 +24,7 @@ RSpec.describe Patient, :type => :model do
   
   describe "updating with nested attributes containing _destroy" do
     it "should soft delete the associated record" do
-      patient = FactoryGirl.create(:patient)
+      @patient = FactoryGirl.create(:patient)
 
       medication = FactoryGirl.create(:medication)
       patient.medications << medication
