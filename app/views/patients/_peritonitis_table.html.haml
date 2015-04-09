@@ -50,7 +50,7 @@
                   %li
                     = "Abdominal Pain: #{p.abdominal_pain}"
                   %li
-                    = "Fluid Description: #{p.fluid_description_id}"
+                    = "Fluid Description: #{p.fluid_description.description}"
           
         %td{ :data => { :heading => "Organisms"}, valign: "top" } 
           %dl.accordion{ data: { accordion: true } }
@@ -68,7 +68,7 @@
           %dl.accordion{ data: { accordion: true } }
             %dd.accordion-navigation
               %a.fi-plus.fi-minus.toggle-notes{ :id => "patient-peritonitis-episode-type-#{p.id}", href: "#patient-peritonitis-episode-type-#{p.id}" }
-                = p.episode_type_id
+                = p.episode_type.term
               .content.toggle-content{ :id => "patient-peritonitis-episode-type-#{p.id}" } 
                 = "Catheter Removed: #{p.catheter_removed}"
                             

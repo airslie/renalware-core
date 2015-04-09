@@ -64,7 +64,7 @@
         
         .large-12.columns     
           = p.label :fluid_description_id
-          = p.text_field :fluid_description_id
+          = p.collection_select :fluid_description_id, FluidDescription.all, :id, :description, { prompt: "Please select description that best describes fluid" }, :class => "episode-type_select"
 
     .row        
       .large-12.columns
@@ -93,7 +93,7 @@
           Comments:    
     
         .large-6.columns
-          = p.label :notes
+          = p.label :notes, "Episode notes"
           = p.text_area :notes, :cols => 50, :rows => 6
 
 
@@ -103,7 +103,7 @@
           Antibiotics
         
         = p.fields_for :medications, @peritonitis_episode.medications do |pm|
-        
+                    
           - if pm.object.new_record?
       
             #new-form
@@ -134,7 +134,7 @@
                     Edit
 
                 .columns.large-6.meds-form.content{:id => "edit-meds-#{pm.object.id}", data: { index: 0 }} 
-
+                                    
                   = render :partial => 'patients/medication_fields', :locals => { :pm => pm }
 
                   .med-form.content{:id => "edit-meds-#{pm.object.id}"}  
