@@ -1,7 +1,7 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 $(document).ready(function(){
-
+   
   //drug type by select
   $('.medication-type-select').change(function(e) {
     var select_box = $(e.currentTarget);
@@ -11,11 +11,6 @@ $(document).ready(function(){
 
     switch (selected_medication_type) {
       case "antibiotic":
-        med_form.find('.provider-hospital').prop("checked", true);
-        med_form.find('.standard').hide();
-        med_form.find('.drug-by-select').show();
-      break;
-      case "peritonitis":
         med_form.find('.provider-hospital').prop("checked", true);
         med_form.find('.standard').hide();
         med_form.find('.drug-by-select').show();
