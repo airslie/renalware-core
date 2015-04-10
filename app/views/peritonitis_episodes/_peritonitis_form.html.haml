@@ -96,11 +96,10 @@
           = p.label :notes, "Episode notes"
           = p.text_area :notes, :cols => 50, :rows => 6
 
-
     .row        
       .large-12.columns
         .form-section
-          Antibiotics
+          Medications administered for this peritonitis episode
         
         = p.fields_for :medications, @peritonitis_episode.medications do |pm|
                     
