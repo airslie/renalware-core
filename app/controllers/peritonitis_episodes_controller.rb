@@ -4,7 +4,7 @@ class PeritonitisEpisodesController < ApplicationController
 
   def new
     @peritonitis_episode = PeritonitisEpisode.new
-    @peritonitis_episode.medications.build(medication_type: "peritonitis") 
+    @peritonitis_episode.medications.build(provider: :gp) 
   end
 
   def create
@@ -19,7 +19,7 @@ class PeritonitisEpisodesController < ApplicationController
 
   def edit
     @peritonitis_episode = PeritonitisEpisode.find(params[:id])
-    @peritonitis_episode.medications.build(medication_type: "peritonitis") 
+    @peritonitis_episode.medications.build(provider: :gp) 
   end 
 
   def update
