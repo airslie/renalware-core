@@ -147,5 +147,14 @@ $(document).ready(function(){
     });
 
   });
+
+  $('.peritonitis-drug-select').change(function(e) {
+    var bullet = $(e.currentTarget);
+    var med_form = bullet.closest('.med-form');
+    var selected_drug = med_form.find('.peritonitis-drug-select').val();
+    console.log(selected_drug);
+    med_form.find('.selected-medicatable-id').val(selected_drug);
+  });
+
 });
 
