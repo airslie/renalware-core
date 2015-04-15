@@ -9,7 +9,7 @@ Background:
     And I search for a patient by surname
     And I've selected the patient from the search results
 
-@javascript @elasticsearch
+@wip @javascript @elasticsearch
 Scenario: Adding a HD session
   When
     And I select the HD screen

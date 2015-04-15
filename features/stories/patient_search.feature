@@ -6,7 +6,7 @@ Feature: Search for a patient
   Background:
     Given there are ethnicities in the database
       And that I'm logged in
-      And I have a patient in the database
+      And some patients who need renal treatment
       And I've waited for the indexes to update
       And I am on the patients list
   

@@ -5,13 +5,6 @@ Given(/^there are organisms in the database$/) do
   end
 end
 
-Given(/^there are antibiotics in the database$/) do
-  @antibiotics = %w(Amoxicillin Cephradine Dicloxacillin Metronidazole Penicillin Rifampin Tobramycin Vancomycin)
-  @antibiotics.map! do |antibiotic|
-    @antibiotic = Drug.create!( :name => antibiotic )
-  end
-end
-
 Given(/^there are episode types in the database$/) do
   @episode_types = ["De novo", "Recurrent", "Relapsing", "Repeat", "Refractory", "Catheter-related", "Other"]
   @episode_types.map! do |et|
@@ -26,8 +19,33 @@ Given(/^there are fluid descriptions in the database$/) do
   end
 end
 
+Given(/^a patient has a recently recorded episode of peritonitis$/) do
+
+  @peritonitis_episode = PeritonitisEpisode.create!( 
+    patient_id: @patient_1.id,         
+    user_id: 1,              
+    diagnosis_date: "24/02/2015",
+    start_treatment_date: "25/02/2015", 
+    end_treatment_date: "25/03/2015",
+    episode_type_id: 1,         
+    catheter_removed: 1,     
+    line_break: 1,           
+    exit_site_infection: 1,  
+    diarrhoea: 0,            
+    abdominal_pain: 0,       
+    fluid_description_id: 2,    
+    white_cell_total: 2000,     
+    white_cell_neutro: 20,    
+    white_cell_lympho: 20,    
+    white_cell_degen: 30,     
+    white_cell_other: 30,              
+    notes: "Needs review in 6 weeks"       
+  )
+
+end
+
 Given(/^a patient has PD$/) do
-  visit pd_info_patient_path(@patient)
+  visit pd_info_patient_path(@patient_1)
 end
 
 When(/^the Clinician records the episode of peritonitis$/) do
@@ -81,26 +99,12 @@ When(/^the Clinician records the episode of peritonitis$/) do
   fill_in "Other (%)", :with => 25
 
   # select "Bacillis", from: "Organism 1"
+  # fill_in "sensitivity (Antibiotics)", :with => "Antibiotic 1 most effective."
   # select "E.Coli", from: "Organism 2"
-
-  fill_in "Episode notes", :with => "Review in a weeks time"
-
-  # select "Cephradine", from: "Antibiotic 1"
-  # select "Dicloxacillin", from: "Antibiotic 2"
-  # select "Metronidazole", from: "Antibiotic 3"
-  # select "Rifampin", from: "Antibiotic 4"
-  # select "Vancomycin", from: "Antibiotic 5"
-
-  # select "PO", from: "Route (Antibiotic 1)"
-  # select "IV", from: "Route (Antibiotic 2)"
-  # select "SC", from: "Route (Antibiotic 3)"
-  # select "IM", from: "Route (Antibiotic 4)"
-  # select "Other (Please specify in notes)", from: "Route (Antibiotic 5)"
-  
   # fill_in "sensitivity (Antibiotics)", :with => "Antibiotic 1 most effective."
 
+  fill_in "Episode notes", :with => "Review in a weeks time"
   click_on "Save Peritonitis Episode"
-
 end
 
 Then(/^the recorded episode should be displayed on PD info page$/) do
@@ -143,33 +147,32 @@ Then(/^the recorded episode should be displayed on PD info page$/) do
   
 end
 
-Given(/^a patient has a recently recorded episode of peritonitis$/) do
-  @peritonitis_episode = PeritonitisEpisode.create!( 
-    patient_id: @patient,         
-    user_id: 1,              
-    diagnosis_date: "24/02/15",
-    start_treatment_date: "25/02/15", 
-    end_treatment_date: "25/03/2015",
-    episode_type_id: 1,         
-    catheter_removed: 1,     
-    line_break: 1,           
-    exit_site_infection: 1,  
-    diarrhoea: 0,            
-    abdominal_pain: 0,       
-    fluid_description_id: 2,    
-    white_cell_total: 2000,     
-    white_cell_neutro: 20,    
-    white_cell_lympho: 20,    
-    white_cell_degen: 30,     
-    white_cell_other: 30,              
-    notes: "Needs review in 6 weeks"       
-  )
-end
 
 When(/^the Clinician updates the episode of peritonitis$/) do
-  visit edit_patient_peritonitis_episode_path(@patient, @peritonitis_episode.id)
+  visit edit_patient_peritonitis_episode_path(@patient_1, @peritonitis_episode.id)
   
   fill_in "Episode notes", :with => "On review, needs stronger antibiotics."
+
+  click_on "Update Peritonitis Episode"
+end
+
+When(/^they add a medication to this episode of peritonitis$/) do
+  visit edit_patient_peritonitis_episode_path(@patient_1, @peritonitis_episode.id)
+  click_on "Add a new medication"
+  select "Penicillin", from: "Select Drug (peritonitis drugs only)"
+  fill_in "Dose", with: "5mg"
+  select "IV", from: "Route"
+  fill_in "Frequency & Duration", with: "PID"
+  fill_in "Notes", with: "Review in 1 month."
+  within "#peritonitis_episode_medications_attributes_0_date_3i" do
+    select '28'
+  end
+  within "#peritonitis_episode_medications_attributes_0_date_2i" do
+    select 'February'
+  end
+  within "#peritonitis_episode_medications_attributes_0_date_1i" do
+    select '2015'
+  end
 
   click_on "Update Peritonitis Episode"
 end
@@ -179,8 +182,17 @@ Then(/^the updated episode should be displayed on PD info page$/) do
   expect(page.has_content? "On review, needs stronger antibiotics.").to be true
 end
 
+Then(/^the new medication should be displayed on the updated peritonitis form\.$/) do
+  visit edit_patient_peritonitis_episode_path(@patient_1, @peritonitis_episode.id)
+  expect(page.has_content? "Penicillin").to be true
+  expect(page.has_content? "5mg").to be true
+  expect(page.has_content? "IV").to be true
+  expect(page.has_content? "PID").to be true
+  expect(page.has_content? "2015-02-28").to be true
+end
+
 When(/^the Clinician records an exit site infection$/) do
-  visit new_patient_exit_site_infection_path(@patient)
+  visit new_patient_exit_site_infection_path(@patient_1)
 
   within "#exit_site_infection_diagnosis_date_3i" do
     select '1'
@@ -236,7 +248,7 @@ end
 
 Given(/^a patient has a recently recorded exit site infection$/) do
   @exit_site_infection = ExitSiteInfection.create!(
-    patient_id: 1,
+    patient_id: @patient_1,
     user_id: 1,            
     diagnosis_date: "01/01/2015",
     # organism_1_id: 1,         
@@ -255,7 +267,7 @@ Given(/^a patient has a recently recorded exit site infection$/) do
 end
 
 When(/^the Clinician updates an exit site infection$/) do
-  visit edit_patient_exit_site_infection_path(@patient, @exit_site_infection.id)
+  visit edit_patient_exit_site_infection_path(@patient_1, @exit_site_infection.id)
 
   # select "MRSA", from: "Organism 2"
   fill_in "Notes", :with => "Needs a review in 2 weeks time."

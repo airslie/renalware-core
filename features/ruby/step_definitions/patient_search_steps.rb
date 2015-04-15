@@ -3,7 +3,7 @@ Given(/^I've waited for the indexes to update$/) do
 end
 
 When(/^I search for a patient by local patient id$/) do
-  fill_in "patient_search", :with => "Z999999"
+  fill_in "patient_search", :with => "Z999991"
   click_on "Find Patient"
 end
 

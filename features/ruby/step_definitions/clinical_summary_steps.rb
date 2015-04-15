@@ -13,7 +13,7 @@ Given(/^there are medication routes in the database$/) do
 end
 
 Given(/^a patient has a medication$/) do
-  @medication_one = Medication.create!(patient_id: 2,
+  @medication_one = Medication.create!(patient_id: @patient_1.id,
     medication_type: @antibiotic.name.downcase,
     medicatable_id: @yellow.id,
     medicatable_type: "Drug",
@@ -25,7 +25,7 @@ Given(/^a patient has a medication$/) do
     provider: 1
     )
 
-  @medication_two = Medication.create!(patient_id: 2,
+  @medication_two = Medication.create!(patient_id: @patient_1.id,
     medication_type: @esa.name.downcase,
     medicatable_id: @blue.id,
     medicatable_type: "Drug",
@@ -37,13 +37,13 @@ Given(/^a patient has a medication$/) do
     provider: 1
     )
   
-  @patient.medications << @medication_one
-  @patient.medications << @medication_two
+  @patient_1.medications << @medication_one
+  @patient_1.medications << @medication_two
 
 end
 
 Given(/^they are on a patient's clinical summary$/) do
-  visit clinical_summary_patient_path(@patient)
+  visit clinical_summary_patient_path(@patient_1)
 end
 
 When(/^they add a patient event$/) do
@@ -78,7 +78,7 @@ When(/^complete the patient event form$/) do
 end
 
 Given(/^they go to the problem list page$/) do
-  visit problems_patient_path(@patient)
+  visit problems_patient_path(@patient_1)
 end
 
 When(/^they add some problems to the list$/) do
@@ -93,7 +93,7 @@ When(/^they save the problem list$/) do
 end
 
 When(/^they add a medication$/) do
-  visit manage_medications_patient_path(@patient)
+  visit manage_medications_patient_path(@patient_1)
   click_link "Add a new medication"
 end
 
@@ -120,7 +120,7 @@ When(/^complete the medication form$/) do
 end
 
 When(/^they terminate a medication$/) do
-  visit manage_medications_patient_path(@patient)
+  visit manage_medications_patient_path(@patient_1)
   find("a.drug-esa").click
   check "Terminate?"
   click_on "Save Medication"
@@ -142,7 +142,7 @@ Then(/^they should see the new problems on the clinical summary$/) do
 end
 
 Then(/^they should see the new medication on the clinical summary$/) do
-  visit clinical_summary_patient_path(@patient)
+  visit clinical_summary_patient_path(@patient_1)
   expect(page.has_css? ".drug-esa").to be true
   expect(page.has_content? "Blue").to be true
   expect(page.has_content? "10mg").to be true
@@ -168,7 +168,7 @@ Given(/^there are edta causes of death in the database$/) do
 end
 
 Given(/^I choose to add a modality$/) do
-  visit modality_patient_path(@patient)
+  visit modality_patient_path(@patient_1)
 end
 
 When(/^I complete the modality form$/) do
@@ -227,6 +227,6 @@ Then(/^I should complete the cause of death form$/) do
 end
 
 Then(/^see the date of death in the patient's demographics$/) do
-  visit demographics_patient_path(@patient)
+  visit demographics_patient_path(@patient_1)
   expect(page.has_content? "22/09/2014").to be true
 end

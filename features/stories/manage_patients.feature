@@ -12,7 +12,7 @@ Feature: A secretary manages patients
         And the patient should be created
     
     Scenario: User views a patient's demographics
-      Given I have a patient in the database
+      Given some patients who need renal treatment
         And I've waited for the indexes to update
         And I am on the patients list
       When I search for a patient by surname
@@ -20,7 +20,7 @@ Feature: A secretary manages patients
       Then I should see the patient's demographics on their profile page
     
     Scenario: User updates a patient's demographics
-      Given I have a patient in the database
+      Given some patients who need renal treatment
         And I've waited for the indexes to update
         And I am on the patients list
       When I search for a patient by surname

@@ -6,7 +6,7 @@ Background:
     And there are modalities in the database
     And there are modality reasons in the database
     And there are edta causes of death in the database 
-    And I have a patient in the database
+    And some patients who need renal treatment
     And they are on a patient's clinical summary
 
 Scenario: Doctor adds a patient event
@@ -17,7 +17,7 @@ Scenario: Doctor adds a patient event
   Then they should see the new patient event on the clinical summary
     And be able to view notes through toggling the description data.
 
-@javascript @wip
+@javascript 
 Scenario: Doctor adds a problem
   Given they go to the problem list page
     When they add some problems to the list

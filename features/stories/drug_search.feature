@@ -6,8 +6,8 @@ Feature: Search for a Drug
     Given that I'm logged in
       And there are ethnicities in the database
       And there are drugs in the database
-      And I've waited for the indexes to update
       And some patients who need renal treatment
+      And I've waited for the indexes to update
       And they add a medication
 
   @javascript @elasticsearch

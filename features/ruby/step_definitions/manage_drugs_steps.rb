@@ -1,11 +1,19 @@
 Given(/^there are drugs in the database$/) do
-  @drugs = ["Red", "Blue", "Yellow", "Green"]
+  @drugs = ["Red", "Blue", "Yellow", "Green", "Amoxicillin", "Cephradine", "Dicloxacillin", "Metronidazole", "Penicillin", "Rifampin", "Tobramycin", "Vancomycin"]
   @drugs.map! { |d| @drug = Drug.create!(:name => d )}
 
   @red = @drugs[0]
   @blue = @drugs[1]
   @yellow = @drugs[2]
   @green = @drugs[3]
+  @amoxicillin = @drugs[4]
+  @cephradine = @drugs[5]
+  @dicloxacillin = @drugs[6]
+  @metronidazole = @drugs[7]
+  @penicillin = @drugs[8]
+  @rifampin = @drugs[9]
+  @tobramycin = @drugs[10]
+  @vancomycin = @drugs[11]
 end
 
 Given(/^there are drug types in the database$/) do
@@ -21,10 +29,24 @@ end
 Given(/^existing drugs have been assigned drug types$/) do 
   @drug_drug_type_1 = DrugDrugType.create!(drug_id: @red.id, drug_type_id: @immunosuppressant.id)
   @drug_drug_type_2 = DrugDrugType.create!(drug_id: @blue.id, drug_type_id: @esa.id)
-  @drug_drug_type_3 = DrugDrugType.create!(drug_id: @yellow.id, drug_type_id: @antibiotic.id)
-  @drug_drug_type_4 = DrugDrugType.create!(drug_id: @yellow.id, drug_type_id: @peritonitis.id)  
-  @drug_drug_type_5 = DrugDrugType.create!(drug_id: @green.id, drug_type_id: @antibiotic.id)  
-  @drug_drug_type_5 = DrugDrugType.create!(drug_id: @green.id, drug_type_id: @peritonitis.id)  
+  @drug_drug_type_3 = DrugDrugType.create!(drug_id: @yellow.id, drug_type_id: @immunosuppressant.id)
+  @drug_drug_type_5 = DrugDrugType.create!(drug_id: @green.id, drug_type_id: @esa.id)  
+  @drug_drug_type_6 = DrugDrugType.create!(drug_id: @amoxicillin.id, drug_type_id: @antibiotic.id)  
+  @drug_drug_type_7 = DrugDrugType.create!(drug_id: @amoxicillin.id, drug_type_id: @peritonitis.id)  
+  @drug_drug_type_8 = DrugDrugType.create!(drug_id: @cephradine.id, drug_type_id: @antibiotic.id)  
+  @drug_drug_type_9 = DrugDrugType.create!(drug_id: @cephradine.id, drug_type_id: @peritonitis.id)  
+  @drug_drug_type_10 = DrugDrugType.create!(drug_id: @dicloxacillin.id, drug_type_id: @antibiotic.id)  
+  @drug_drug_type_11 = DrugDrugType.create!(drug_id: @dicloxacillin.id, drug_type_id: @peritonitis.id)  
+  @drug_drug_type_12 = DrugDrugType.create!(drug_id: @metronidazole.id, drug_type_id: @antibiotic.id)  
+  @drug_drug_type_13 = DrugDrugType.create!(drug_id: @metronidazole.id, drug_type_id: @peritonitis.id)  
+  @drug_drug_type_14 = DrugDrugType.create!(drug_id: @penicillin.id, drug_type_id: @antibiotic.id)  
+  @drug_drug_type_15 = DrugDrugType.create!(drug_id: @penicillin.id, drug_type_id: @peritonitis.id)  
+  @drug_drug_type_16 = DrugDrugType.create!(drug_id: @rifampin.id, drug_type_id: @antibiotic.id)  
+  @drug_drug_type_17 = DrugDrugType.create!(drug_id: @rifampin.id, drug_type_id: @peritonitis.id)  
+  @drug_drug_type_18 = DrugDrugType.create!(drug_id: @tobramycin.id, drug_type_id: @antibiotic.id)  
+  @drug_drug_type_19 = DrugDrugType.create!(drug_id: @tobramycin.id, drug_type_id: @peritonitis.id)  
+  @drug_drug_type_20 = DrugDrugType.create!(drug_id: @vancomycin.id, drug_type_id: @antibiotic.id)  
+  @drug_drug_type_21 = DrugDrugType.create!(drug_id: @vancomycin.id, drug_type_id: @peritonitis.id)  
 end
 
 Given(/^that I'm on the add a new drug page$/) do
@@ -75,7 +97,7 @@ Then(/^I should see the updated drug on the drugs list$/) do
 end
 
 Then(/^I should see the drug removed from the drugs list$/) do
-  expect(page.has_content? "Green").to be false
+  expect(page.has_content? "Vancomycin").to be false
 end
 
 

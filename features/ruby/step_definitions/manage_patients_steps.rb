@@ -11,17 +11,41 @@ Given(/^there are ethnicities in the database$/) do
   @ethnicities.map! { |e| Ethnicity.create!(:name => e) }
 end
 
-Given(/^I have a patient in the database$/) do
-  @patient = FactoryGirl.create(:patient,
-    :nhs_number => "1000124502",
-    :local_patient_id => "Z999999",
+Given(/^some patients who need renal treatment$/) do
+  @patient_1 = FactoryGirl.create(:patient,
+    :nhs_number => "1000124501",
+    :local_patient_id => "Z999991",
     :surname => "RABBIT",
     :forename => "Roger",
     :dob => "01/01/1947",
     :paediatric_patient_indicator => "1",
     :sex => 1,
-    :ethnicity_id => Ethnicity.last.id,
+    :ethnicity_id => Ethnicity.first.id,
     :hosp_centre_code => "888"
+  )
+
+  @patient_2 = FactoryGirl.create(:patient,
+    :nhs_number => "1000124502",
+    :local_patient_id => "Z999992",
+    :surname => "Day",
+    :forename => "Doris",
+    :dob => "24/06/1970",
+    :paediatric_patient_indicator => "1",
+    :sex => 2,
+    :ethnicity_id => Ethnicity.second.id,
+    :hosp_centre_code => "888"
+  )
+
+  @patient_3 = FactoryGirl.create(:patient,
+    :nhs_number => "1000124503",
+    :local_patient_id => "Z999993",
+    :surname => "Casper",
+    :forename => "Ghost",
+    :dob => "28/02/1930",
+    :paediatric_patient_indicator => "1",
+    :sex => 1,
+    :ethnicity_id => Ethnicity.third.id,
+    :hosp_centre_code => "999"
   )
 end
 
@@ -34,8 +58,8 @@ Given(/^I've selected the patient from the search results$/) do
 end
 
 When(/^I complete the add a new patient form$/) do
-  fill_in "NHS Number", :with => "1000124503"
-  fill_in "Local Patient ID", :with => "Z999999"
+  fill_in "NHS Number", :with => "1000124504"
+  fill_in "Local Patient ID", :with => "Z999994"
   fill_in "Surname", :with => "Smith"
   fill_in "Forename", :with => "Ian"
 
@@ -98,8 +122,8 @@ When(/^submit the update form$/) do
 end
 
 Then(/^I should see the new patient in the Renal Patient List$/) do
-  expect(page.has_content? "1000124503").to be true
-  expect(page.has_content? "Z999999").to be true
+  expect(page.has_content? "1000124504").to be true
+  expect(page.has_content? "Z999994").to be true
   expect(page.has_content? "Smith").to be true
   expect(page.has_content? "Ian").to be true
   expect(page.has_content? "1").to be true
@@ -108,6 +132,7 @@ Then(/^I should see the new patient in the Renal Patient List$/) do
   expect(page.has_content? "false").to be true
   expect(page.has_content? @address_diagnosis_street_1).to be true
   expect(page.has_content? @current_street_1).to be true
+  # save_and_open_page
 end
 
 Then(/^the patient should be created$/) do
@@ -119,7 +144,7 @@ Then(/^the patient should be created$/) do
 end
 
 Then(/^I should see the patient's demographics on their profile page$/) do
-  expect(page.has_content? "1000124502").to be true
+  expect(page.has_content? "1000124501").to be true
   expect(page.has_content? "RABBIT").to be true
   expect(page.has_content? "R").to be true
 end

@@ -6,7 +6,7 @@ Feature: A Doctor adds a new patient event type
 Background:
   Given that I'm logged in
     And there are ethnicities in the database
-    And I have a patient in the database
+    And some patients who need renal treatment
     And they are adding a new patient event
 
 Scenario: Doctor adds a new patient event type that does not exist on the dropdown
