@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :medication do
     patient
-    user_id "1"
+    user_id 1
     medicatable_id 1
     medicatable_type "Drug"
     treatable_id nil

@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :patient do
-    nhs_number "1000124505"
-    local_patient_id "Z999988"
+    nhs_number "1000124500"
+    local_patient_id "Z999990"
     surname "Jones"
     forename "Jack"
     dob "01/01/1988"

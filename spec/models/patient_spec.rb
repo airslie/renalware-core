@@ -26,14 +26,14 @@ RSpec.describe Patient, :type => :model do
     it "should soft delete the associated record" do
       @patient = FactoryGirl.create(:patient)
 
-      medication = FactoryGirl.create(:medication)
-      patient.medications << medication
+      medication = FactoryGirl.create(:medication, patient: @patient)
+      @patient.medications << medication
       
-      patient.update(medications_attributes: {
+      @patient.update(medications_attributes: {
         "0" => { id: medication.id, dose: "a lot", _destroy: "1" } })
       
-      expect(patient.medications.with_deleted.first).to eq(medication)
-      expect(patient.medications.with_deleted.first.deleted_at).not_to be nil
+      expect(@patient.medications.with_deleted.first).to eq(medication)
+      expect(@patient.medications.with_deleted.first.deleted_at).not_to be nil
     end
   end
 end
