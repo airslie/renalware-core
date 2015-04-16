@@ -17,8 +17,9 @@ class Patient < ActiveRecord::Base
   has_many :exit_site_infections, :through => :medications, :source => :treatable, :source_type => "ExitSiteInfection"
   has_many :peritonitis_episodes, :through => :medications, :source => :treatable, :source_type => "PeritonitisEpisode"
   has_many :medication_routes, :through => :medications
-  
-  has_one :patient_modality
+  has_many :patient_modalities
+
+  has_one :patient_modality, -> { where deleted_at: nil }
   has_one :modality_code, :through => :patient_modality
   has_one :esrf_info
 
