@@ -13,7 +13,8 @@ class PeritonitisEpisode < ActiveRecord::Base
   accepts_nested_attributes_for :medications, allow_destroy: true, 
   reject_if: proc { |attrs| attrs[:dose].blank? && attrs[:notes].blank? && attrs[:frequency].blank? }
 
-  accepts_nested_attributes_for :infection_organisms
+  accepts_nested_attributes_for :infection_organisms, allow_destroy: true, 
+  reject_if: proc { |attrs| attrs[:sensitvity].blank? && attrs[:organism_code_id].blank? }
 
 
 
