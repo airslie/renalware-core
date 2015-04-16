@@ -6,16 +6,16 @@ Rails.application.routes.draw do
       get :manage_medications
       get :medications_index
       get :problems
-      get :modality
       get :death_update
       get :esrf_info
-      get :pd_info 
+      get :pd_info
     end
     collection do
       get :search
       get :death
     end
-    resources :patient_events, :only => [:new, :create, :index]    
+    resources :patient_events, :only => [:new, :create, :index]
+    resources :patient_modalities, :only => [:new, :create, :index]
     resources :peritonitis_episodes, :only => [:new, :create, :edit, :update]
     resources :exit_site_infections, :only => [:new, :create, :edit, :update]
   end
