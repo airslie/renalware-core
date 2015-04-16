@@ -98,9 +98,7 @@ When(/^the Clinician records the episode of peritonitis$/) do
   fill_in "Degen (%)", :with => 25
   fill_in "Other (%)", :with => 25
 
-  # select "Bacillis", from: "Organism 1"
   # fill_in "sensitivity (Antibiotics)", :with => "Antibiotic 1 most effective."
-  # select "E.Coli", from: "Organism 2"
   # fill_in "sensitivity (Antibiotics)", :with => "Antibiotic 1 most effective."
 
   fill_in "Episode notes", :with => "Review in a weeks time"
@@ -129,8 +127,6 @@ Then(/^the recorded episode should be displayed on PD info page$/) do
   expect(page.has_content? "Degen: 25%").to be true
   expect(page.has_content? "Other: 25%").to be true
   
-  # expect(page.has_content? "Bacillis").to be true
-  # expect(page.has_content? "E.Coli").to be true
   
   # expect(page.has_content? "Cephradine").to be true
   # expect(page.has_content? "PO").to be true
@@ -146,7 +142,6 @@ Then(/^the recorded episode should be displayed on PD info page$/) do
   # expect(page.has_content? "Antibiotic 1 most effective.").to be true
   
 end
-
 
 When(/^the Clinician updates the episode of peritonitis$/) do
   visit edit_patient_peritonitis_episode_path(@patient_1, @peritonitis_episode.id)
@@ -177,18 +172,37 @@ When(/^they add a medication to this episode of peritonitis$/) do
   click_on "Update Peritonitis Episode"
 end
 
+When(/^they record an organism and sensitivity to this episode of peritonitis$/) do
+  visit edit_patient_peritonitis_episode_path(@patient_1, @peritonitis_episode.id)
+  
+  click_on "Record a new organism and sensitivity"
+
+  select "Bacillis", from: "Organism"
+
+  fill_in "Sensitivity", with: "Very sensitive to Bacillis."
+  
+  click_on "Update Peritonitis Episode"
+end
+
 Then(/^the updated episode should be displayed on PD info page$/) do
   @peritonitis_episode.reload
   expect(page.has_content? "On review, needs stronger antibiotics.").to be true
 end
 
-Then(/^the new medication should be displayed on the updated peritonitis form\.$/) do
+Then(/^the new medication should be displayed on the updated peritonitis form$/) do
   visit edit_patient_peritonitis_episode_path(@patient_1, @peritonitis_episode.id)
   expect(page.has_content? "Penicillin").to be true
   expect(page.has_content? "5mg").to be true
   expect(page.has_content? "IV").to be true
   expect(page.has_content? "PID").to be true
   expect(page.has_content? "2015-02-28").to be true
+end
+
+Then(/^the recorded organism and sensitivity should be displayed on the updated peritonitis form$/) do
+  visit edit_patient_peritonitis_episode_path(@patient_1, @peritonitis_episode.id)
+
+  expect(page.has_content? "Bacillis").to be true
+  expect(page.has_content? "Very sensitive to Bacillis.").to be true
 end
 
 When(/^the Clinician records an exit site infection$/) do

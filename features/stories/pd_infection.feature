@@ -25,8 +25,10 @@ Scenario: Clinician updates an episode of peritonitis
     And a patient has a recently recorded episode of peritonitis 
   When the Clinician updates the episode of peritonitis
     And they add a medication to this episode of peritonitis
+    And they record an organism and sensitivity to this episode of peritonitis 
   Then the updated episode should be displayed on PD info page
-    And the new medication should be displayed on the updated peritonitis form.
+    And the new medication should be displayed on the updated peritonitis form
+    And the recorded organism and sensitivity should be displayed on the updated peritonitis form
 @wip
 Scenario: Clinician records an exit site infection
   Given a patient has PD
