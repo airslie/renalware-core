@@ -4,9 +4,6 @@
     = p.hidden_field :id
 
     = p.hidden_field :patient_id
-
-    / = p.label :user_id
-    / = p.text_field :user_id
  
     .row       
       .large-12.columns
@@ -29,13 +26,6 @@
         .form-section 
           Outcome:
 
-        / .large-6.columns
-        /   = p.label :organism_1_id
-        /   = p.collection_select :organism_1_id, OrganismCode.all, :id, :name, { :prompt => "Please select organism found", include_blank: true, :class => "organism-select" }
-        / .large-6.columns
-        /   = p.label :organism_2_id
-        /   = p.collection_select :organism_2_id, OrganismCode.all, :id, :name, { :prompt => "Please select organism found", include_blank: true, :class => "organism-select" }
-          
         .large-12.columns
           = p.label :episode_type_id
           = p.collection_select :episode_type_id, EpisodeType.all, :id, :term, { :prompt => "Please select episode type" }, :class => "episode-type_select"
@@ -44,6 +34,50 @@
           = p.check_box :catheter_removed
           = p.label :catheter_removed
               
+      .large-12.columns
+        .form-section
+          Organisms and their sensitivities for this peritonitis episode:
+        
+        = p.fields_for :infection_organisms, @peritonitis_episode.infection_organisms do |io|
+              
+          - if io.object.new_record?
+      
+            #new-organism-form
+              %a.button.tiny.toggle.right.mt{ href: '#new-organism-form' }
+                Record a new organism and sensitivity
+
+              .hide
+                %a.button.tiny.close-new-form{ href: '#' }
+                  Close
+                
+                %fieldset
+                  %legend
+                    Record a new organism and sensitivity
+
+                  .row
+                  
+                    = render :partial => 'infection_organisms/organism_fields', :locals => { :io => io }
+          
+          - else
+            
+            %dl.accordion{data: {accordion: true} }
+              %dd.accordion-navigation.organism-form
+               
+                %a.fi-plus.fi-minus{ href: "#edit-organism-#{io.object.id}", class: "organism-accordian" }
+                
+                  = "#{io.object.organism_code.name}, #{io.object.sensitivity}"
+                  
+                  .right.edit
+                    Edit
+
+                .columns.large-6.organism-form.content{:id => "edit-organism-#{io.object.id}", data: { index: 0 }} 
+                                    
+                  = render :partial => 'infection_organisms/organism_fields', :locals => { :io => io }
+
+                  .organism-form.content{:id => "edit-organism-#{io.object.id}"}  
+                    = io.check_box :_destroy
+                    = io.label :_destroy, "Terminate?", class: "delete"
+                            
     .row        
       .large-12.columns
         .form-section 
@@ -99,7 +133,7 @@
     .row        
       .large-12.columns
         .form-section
-          Medications administered for this peritonitis episode
+          Medications administered for this peritonitis episode:
         
         = p.fields_for :medications, @peritonitis_episode.medications do |pm|
                     
@@ -129,6 +163,7 @@
                 %a.fi-plus.fi-minus{href: "#edit-meds-#{pm.object.id}", :class => "drug-#{med_color_tag(pm.object.medication_type)}"}
                 
                   = "#{pm.object.medicatable.name}, #{pm.object.dose}, #{pm.object.medication_route.name}, #{pm.object.frequency}, #{pm.object.date}"
+                  
                   .right.edit
                     Edit
 
@@ -139,5 +174,5 @@
                   .med-form.content{:id => "edit-meds-#{pm.object.id}"}  
                     = pm.check_box :_destroy
                     = pm.label :_destroy, "Terminate?", class: "delete"
-          
-            
+
+    

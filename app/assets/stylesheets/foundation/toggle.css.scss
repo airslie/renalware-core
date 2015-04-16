@@ -26,6 +26,24 @@
   }
 }
 
+#new-organism-form:target {
+  .hide {
+    display: block;
+  }
+
+  .close-new-form {
+    display: inline-block;
+  }
+
+  .toggle {
+    display: none;
+  }
+}
+
+.close-new-organism-form {
+  display: none;
+}
+
 .close-new-form {
   display: none;
 }
