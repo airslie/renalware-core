@@ -5,6 +5,7 @@ class PeritonitisEpisodesController < ApplicationController
   def new
     @peritonitis_episode = PeritonitisEpisode.new
     @peritonitis_episode.medications.build(provider: :gp) 
+    @peritonitis_episode.infection_organisms.build 
   end
 
   def create
@@ -19,7 +20,8 @@ class PeritonitisEpisodesController < ApplicationController
 
   def edit
     @peritonitis_episode = PeritonitisEpisode.find(params[:id])
-    @peritonitis_episode.medications.build(provider: :gp) 
+    @peritonitis_episode.medications.build(provider: :gp)
+    @peritonitis_episode.infection_organisms.build 
   end 
 
   def update
@@ -39,7 +41,7 @@ class PeritonitisEpisodesController < ApplicationController
       :white_cell_total, :white_cell_neutro, :white_cell_lympho, :white_cell_degen, :white_cell_other, :notes,
       :medications_attributes => [:id, :patient_id, :treatable_id, :treatable_type, :medicatable_id, :medicatable_type, :medication_type, :dose, :medication_route_id,
       :frequency, :notes, :date, :provider, :_destroy],
-      :infection_organism_attributes => [:id, :organism_code_id, :sensitivity, :infectable_id, :infectable_type ]
+      :infection_organisms_attributes => [:id, :organism_code_id, :sensitivity, :infectable_id, :infectable_type ]
       ) 
   end
 
