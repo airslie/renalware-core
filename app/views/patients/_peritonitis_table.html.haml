@@ -59,10 +59,8 @@
                 View
               .content.toggle-content{ :id => "patient-peritonitis-organism-#{p.id}" }
                 %ul.no-bullet
-                  / %li 
-                  /   = "Organism 1: #{p.organism_1.name},"
-                  / %li
-                  /   = "Organism 2: #{p.organism_2.name}"
+                  %li
+                    = organism_and_sensitivity(p.infection_organisms)
         
         %td{ :data => { :heading => "Episode Type"}, valign: "top" } 
           %dl.accordion{ data: { accordion: true } }
@@ -98,19 +96,9 @@
                 View 
               .content.toggle-content{ :id => "patient-peritonitis-antibiotics-#{p.id}" } 
                 %ul.no-bullet
-                  / %li.toggle-content
-                  /   = "#{p.antibiotic_1.name} - #{p.antibiotic_routes.first.name},"
-                  / %li.toggle-content
-                  /   = "#{p.antibiotic_2.name} - #{p.antibiotic_routes.second.name},"
-                  / %li.toggle-content
-                  /   = "#{p.antibiotic_3.name} - #{p.antibiotic_routes.third.name},"
-                  / %li.toggle-content
-                  /   = "#{p.antibiotic_4.name} - #{p.antibiotic_routes.fourth.name},"
-                  / %li.toggle-content
-                  /   = "#{p.antibiotic_5.name} - #{p.antibiotic_routes.fifth.name},"
-                  / %li.toggle-content
-                  /   = "sensitivity: #{p.sensitivity}"
-
+                  %li.toggle-content
+                    = medication_and_route(p.medications)
+                  
         %td{:data => { :heading => "Entered By"}, valign: "top"}
           = p.user_id
 
