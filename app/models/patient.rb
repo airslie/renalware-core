@@ -60,4 +60,14 @@ class Patient < ActiveRecord::Base
     now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
   end
 
+  # @section services
+  #
+  def set_modality(attrs={})
+    if patient_modality.present?
+      self.patient_modalities << patient_modality.supersede!(attrs)
+    else
+      self.patient_modalities << PatientModality.create!(attrs)
+    end
+  end
+
 end
