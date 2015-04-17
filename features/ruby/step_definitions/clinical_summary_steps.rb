@@ -168,11 +168,11 @@ Given(/^there are edta causes of death in the database$/) do
 end
 
 Given(/^I choose to add a modality$/) do
-  visit modality_patient_path(@patient_1)
+  visit new_patient_patient_modality_path(@patient_1)
 end
 
 When(/^I complete the modality form$/) do
- 
+
   within "#modality-code-select" do
     select "Modal One"
   end
@@ -180,13 +180,13 @@ When(/^I complete the modality form$/) do
   select "PD To Haemodialysis", :from => "Type of Change"
   select "Reason One", :from => "Reason for Change"
 
-  within "#patient_patient_modality_attributes_date_3i" do
+  within "#modality_date_3i" do
     select '1'
   end
-  within "#patient_patient_modality_attributes_date_2i" do
+  within "#modality_date_2i" do
     select 'December'
   end
-  within "#patient_patient_modality_attributes_date_1i" do
+  within "#modality_date_1i" do
     select '2014'
   end
 
