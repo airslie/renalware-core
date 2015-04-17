@@ -48,13 +48,19 @@ describe Patient, :type => :model do
       end
     end
     context 'given the patient has an existing modality' do
-      it 'supersedes the existing modality and adds a new one on the patient' do
-        modality = create(:modality)
-        subject.modalities << modality
-        subject.set_modality
-        expect(subject.reload.modalities.count).to eq(1)
-        expect(subject.modalities.with_deleted.count).to eq(2)
-        expect(subject.current_modality).not_to eq(modality)
+      before do
+        @modality = create(:modality)
+        subject.modalities << @modality
+        subject.set_modality(start_date: Date.parse('2015-04-17'))
+        subject.reload
+      end
+      it 'supersedes the existing modality' do
+        expect(@modality.reload.termination_date).to eq(Date.parse('2015-04-16'))
+        expect(subject.current_modality).not_to eq(@modality)
+      end
+      it 'sets a new modality for the patient' do
+        expect(subject.current_modality.start_date).to eq(Date.parse('2015-04-17'))
+        expect(subject.current_modality.termination_date).to be_nil
       end
     end
   end

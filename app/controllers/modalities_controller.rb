@@ -7,9 +7,7 @@ class ModalitiesController < ApplicationController
   end
 
   def index
-    # TODO: Ordering is incorrect here as an arbitrary date
-    # of termination can be set.
-    @modalities = @patient.modalities.with_deleted.order('deleted_at DESC')
+    @modalities = @patient.modalities.with_deleted.order('termination_date DESC')
   end
 
   def create
@@ -22,8 +20,8 @@ class ModalitiesController < ApplicationController
 
   def modality_params
     params.require(:modality).permit(
-      :patient_id, :user_id, :modality_code_id,
-      :modality_change_type, :modality_reason_id, :date)
+      :patient_id, :user_id, :modality_code_id, :modality_change_type,
+      :modality_reason_id, :start_date)
   end
 
   def find_patient
