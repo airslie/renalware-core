@@ -149,6 +149,20 @@ ActiveRecord::Schema.define(version: 20150317151009) do
   add_index "medications", ["medicatable_type", "medicatable_id"], name: "index_medications_on_medicatable_type_and_medicatable_id", using: :btree
   add_index "medications", ["treatable_type", "treatable_id"], name: "index_medications_on_treatable_type_and_treatable_id", using: :btree
 
+  create_table "modalities", force: :cascade do |t|
+    t.integer  "patient_id",         limit: 4
+    t.integer  "user_id",            limit: 4
+    t.integer  "modality_code_id",   limit: 4
+    t.integer  "modality_reason_id", limit: 4
+    t.string   "modal_change_type",  limit: 255
+    t.text     "notes",              limit: 65535
+    t.date     "start_date"
+    t.date     "termination_date"
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "modality_codes", force: :cascade do |t|
     t.string   "code",       limit: 255
     t.string   "name",       limit: 255
@@ -191,19 +205,6 @@ ActiveRecord::Schema.define(version: 20150317151009) do
     t.datetime "updated_at"
     t.integer  "patient_event_type_id", limit: 4
     t.integer  "patient_id",            limit: 4
-  end
-
-  create_table "patient_modalities", force: :cascade do |t|
-    t.integer  "patient_id",         limit: 4
-    t.integer  "user_id",            limit: 4
-    t.integer  "modality_code_id",   limit: 4
-    t.integer  "modality_reason_id", limit: 4
-    t.string   "modal_change_type",  limit: 255
-    t.text     "notes",              limit: 65535
-    t.date     "date"
-    t.datetime "deleted_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "patient_problem_versions", force: :cascade do |t|

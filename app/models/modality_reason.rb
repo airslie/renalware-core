@@ -1,3 +1,3 @@
 class ModalityReason < ActiveRecord::Base
-  has_many :patient_modalities
+  has_many :modalities
 end

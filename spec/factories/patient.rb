@@ -1,7 +1,15 @@
 FactoryGirl.define do
+  sequence :nhs_number do |n|
+    n.to_s.rjust(10, '1234567890')
+  end
+
+  sequence :local_patient_id do |n|
+    n.to_s.rjust(6, 'Z99999')
+  end
+
   factory :patient do
-    nhs_number "1000124500"
-    local_patient_id "Z999990"
+    nhs_number
+    local_patient_id
     surname "Jones"
     forename "Jack"
     dob "01/01/1988"
