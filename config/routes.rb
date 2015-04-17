@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       get :death
     end
     resources :patient_events, :only => [:new, :create, :index]
-    resources :patient_modalities, :only => [:new, :create, :index]
+    resources :modalities, :only => [:new, :create, :index]
     resources :peritonitis_episodes, :only => [:new, :create, :edit, :update]
     resources :exit_site_infections, :only => [:new, :create, :edit, :update]
   end

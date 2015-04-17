@@ -1,14 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe Patient, :type => :model do
+describe Patient, :type => :model do
 
   it { should have_one :esrf_info }
-  it { should have_one :patient_modality }
-  it { should have_one(:modality_code).through(:patient_modality) }
+  it { should have_one :current_modality }
+  it { should have_one(:modality_code).through(:current_modality) }
 
   it { should accept_nested_attributes_for(:esrf_info) }
   it { should accept_nested_attributes_for(:patient_problems) }
-  it { should accept_nested_attributes_for(:patient_modality) }
 
   it { should have_many :exit_site_infections }
   it { should have_many :peritonitis_episodes }
@@ -16,7 +15,7 @@ RSpec.describe Patient, :type => :model do
   it { should have_many :peritonitis_episodes }
   it { should have_many :exit_site_infections }
   it { should have_many :medications }
-  it { should have_many :patient_modalities }
+  it { should have_many :modalities }
 
   it { should have_many(:drugs).through(:medications).source(:medicatable) }
   it { should have_many(:exit_site_infections).through(:medications).source(:treatable) }
@@ -39,23 +38,23 @@ RSpec.describe Patient, :type => :model do
   end
 
   describe 'set_modality' do
-    subject { FactoryGirl.create(:patient) }
+    subject { create(:patient) }
 
     context 'given the patient has no modality' do
       it 'creates a patient modality on the patient' do
         subject.set_modality
-        expect(subject.reload.patient_modality).not_to be_nil
-        expect(subject.patient_modalities).not_to be_empty
+        expect(subject.reload.current_modality).not_to be_nil
+        expect(subject.modalities).not_to be_empty
       end
     end
     context 'given the patient has an existing modality' do
       it 'supersedes the existing modality and adds a new one on the patient' do
-        modality = FactoryGirl.create(:patient_modality)
-        subject.patient_modalities << modality
+        modality = create(:modality)
+        subject.modalities << modality
         subject.set_modality
-        expect(subject.reload.patient_modalities.count).to eq(1)
-        expect(subject.patient_modalities.with_deleted.count).to eq(2)
-        expect(subject.patient_modality).not_to eq(modality)
+        expect(subject.reload.modalities.count).to eq(1)
+        expect(subject.modalities.with_deleted.count).to eq(2)
+        expect(subject.current_modality).not_to eq(modality)
       end
     end
   end

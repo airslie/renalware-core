@@ -1,21 +1,21 @@
-class PatientModalitiesController < ApplicationController
+class ModalitiesController < ApplicationController
 
   before_filter :find_patient
 
   def new
-    @modality = PatientModality.new(patient: @patient)
+    @modality = Modality.new(patient: @patient)
   end
 
   def index
     # TODO: Ordering is incorrect here as an arbitrary date
     # of termination can be set.
-    @modalities = @patient.patient_modalities.with_deleted.order('deleted_at DESC')
+    @modalities = @patient.modalities.with_deleted.order('deleted_at DESC')
   end
 
   def create
     @patient.set_modality(modality_params)
 
-    redirect_to patient_patient_modalities_path(@patient)
+    redirect_to patient_modalities_path(@patient)
   end
 
   private

@@ -16,7 +16,7 @@
 .row
   .large-12.columns
     = form_for @patient, :method => :put do |f|
-      = hidden_field_tag :redirect_url, new_patient_patient_modality_path(@patient)
+      = hidden_field_tag :redirect_url, new_patient_modality_path(@patient)
       = hidden_field_tag :template, "death_update"
 
       = f.label :death_date, "Date of Death"
@@ -33,7 +33,7 @@
 
       = submit_tag "Save Cause of Death", class: "button tiny right save"
 
-      = link_to "Cancel", new_patient_patient_modality_path(@patient), class: "button tiny left cancel"
+      = link_to "Cancel", new_patient_modality_path(@patient), class: "button tiny left cancel"
 
 .wide-screen
   = content_for :secondary_nav do

@@ -17,10 +17,10 @@ class Patient < ActiveRecord::Base
   has_many :exit_site_infections, :through => :medications, :source => :treatable, :source_type => "ExitSiteInfection"
   has_many :peritonitis_episodes, :through => :medications, :source => :treatable, :source_type => "PeritonitisEpisode"
   has_many :medication_routes, :through => :medications
-  has_many :patient_modalities
+  has_many :modalities
 
-  has_one :patient_modality, -> { where deleted_at: nil }
-  has_one :modality_code, :through => :patient_modality
+  has_one :current_modality, -> { where deleted_at: nil }, class_name: 'Modality'
+  has_one :modality_code, :through => :current_modality
   has_one :esrf_info
 
   accepts_nested_attributes_for :current_address
@@ -30,7 +30,6 @@ class Patient < ActiveRecord::Base
   :reject_if => proc { |attrs| attrs[:dose].blank? && attrs[:notes].blank? && attrs[:frequency].blank? }
   accepts_nested_attributes_for :patient_problems, allow_destroy: true,
   :reject_if => proc { |attrs| attrs[:description].blank? }
-  accepts_nested_attributes_for :patient_modality
   accepts_nested_attributes_for :esrf_info
 
   validates :nhs_number, presence: true, length: { minimum: 10, maximum: 10 }, uniqueness: true
@@ -63,10 +62,10 @@ class Patient < ActiveRecord::Base
   # @section services
   #
   def set_modality(attrs={})
-    if patient_modality.present?
-      self.patient_modalities << patient_modality.supersede!(attrs)
+    if current_modality.present?
+      self.modalities << current_modality.supersede!(attrs)
     else
-      self.patient_modalities << PatientModality.create!(attrs)
+      self.modalities << Modality.create!(attrs)
     end
   end
 

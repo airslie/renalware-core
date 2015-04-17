@@ -1,4 +1,4 @@
-class PatientModality < ActiveRecord::Base
+class Modality < ActiveRecord::Base
   include Supersedeable
 
   belongs_to :modality_code

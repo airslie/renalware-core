@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe PatientModalitiesController, :type => :controller do
+describe ModalitiesController, :type => :controller do
 
   before do
     @patient = create(:patient)
@@ -22,7 +22,7 @@ describe PatientModalitiesController, :type => :controller do
         expect(response).to be_success
       end
       it 'assigns a new PatientModality' do
-        expect(assigns(:modality)).to be_a(PatientModality)
+        expect(assigns(:modality)).to be_a(Modality)
       end
     end
   end
@@ -36,7 +36,7 @@ describe PatientModalitiesController, :type => :controller do
 
     context 'with a patient' do
       before do
-        @patient.patient_modalities << create(:patient_modality)
+        @patient.modalities << create(:modality)
         get :index, patient_id: @patient.to_param
       end
 
@@ -62,7 +62,7 @@ describe PatientModalitiesController, :type => :controller do
       end
 
       it 'succeeds' do
-        expect(response).to redirect_to(patient_patient_modalities_path(@patient))
+        expect(response).to redirect_to(patient_modalities_path(@patient))
       end
     end
   end

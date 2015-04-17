@@ -35,9 +35,9 @@ shared_examples_for Supersedeable do
 end
 
 
-describe PatientModality do
+describe Modality do
   it_behaves_like Supersedeable do
-    subject { FactoryGirl.create(:patient_modality) }
+    subject { create(:modality) }
     it 'duplicates associations' do
       actual = subject.supersede!
       expect(actual.patient).to eq(subject.patient)
