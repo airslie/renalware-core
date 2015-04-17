@@ -1,0 +1,32 @@
+.row.g-center
+  = render partial: 'patients/patient_info_header', locals: { model: @patient }
+
+.row
+  = render partial: 'patients/mini_renal_profile', locals: { model: @patient }
+
+.row
+  %h5
+    Patient Modality
+
+  %table
+    %tr
+      %th
+        Modality Code
+      %th
+        Modality Reason
+      %th
+        Termination Date
+
+    - @modalities.each do |modality|
+      %tr
+        %td
+          = modality.modality_code.name
+        %td
+          = modality.modality_reason.description
+        %td
+          = modality.deleted_at
+
+
+  = link_to 'Set New Modality', new_patient_patient_modality_path(@patient),
+      title: 'Set Patient Modality',
+      class: 'button tiny left cancel mt'
