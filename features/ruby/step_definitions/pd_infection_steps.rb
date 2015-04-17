@@ -98,10 +98,8 @@ When(/^the Clinician records the episode of peritonitis$/) do
   fill_in "Degen (%)", :with => 25
   fill_in "Other (%)", :with => 25
 
-  # fill_in "sensitivity (Antibiotics)", :with => "Antibiotic 1 most effective."
-  # fill_in "sensitivity (Antibiotics)", :with => "Antibiotic 1 most effective."
-
   fill_in "Episode notes", :with => "Review in a weeks time"
+  
   click_on "Save Peritonitis Episode"
 end
 
@@ -127,20 +125,6 @@ Then(/^the recorded episode should be displayed on PD info page$/) do
   expect(page.has_content? "Degen: 25%").to be true
   expect(page.has_content? "Other: 25%").to be true
   
-  
-  # expect(page.has_content? "Cephradine").to be true
-  # expect(page.has_content? "PO").to be true
-  # expect(page.has_content? "Dicloxacillin").to be true
-  # expect(page.has_content? "IV").to be true
-  # expect(page.has_content? "Metronidazole").to be true
-  # expect(page.has_content? "SC").to be true
-  # expect(page.has_content? "Rifampin").to be true
-  # expect(page.has_content? "IM").to be true
-  # expect(page.has_content? "Vancomycin").to be true 
-  # expect(page.has_content? "Other (Please specify in notes)").to be true
-  
-  # expect(page.has_content? "Antibiotic 1 most effective.").to be true
-  
 end
 
 When(/^the Clinician updates the episode of peritonitis$/) do
@@ -153,12 +137,15 @@ end
 
 When(/^they add a medication to this episode of peritonitis$/) do
   visit edit_patient_peritonitis_episode_path(@patient_1, @peritonitis_episode.id)
+  
   click_on "Add a new medication"
+  
   select "Penicillin", from: "Select Drug (peritonitis drugs only)"
   fill_in "Dose", with: "5mg"
   select "IV", from: "Route"
   fill_in "Frequency & Duration", with: "PID"
   fill_in "Notes", with: "Review in 1 month."
+  
   within "#peritonitis_episode_medications_attributes_0_date_3i" do
     select '28'
   end
@@ -178,7 +165,6 @@ When(/^they record an organism and sensitivity to this episode of peritonitis$/)
   click_on "Record a new organism and sensitivity"
 
   select "Bacillis", from: "Organism"
-
   fill_in "Sensitivity", with: "Very sensitive to Bacillis."
   
   click_on "Update Peritonitis Episode"
@@ -218,22 +204,9 @@ When(/^the Clinician records an exit site infection$/) do
     select '2015'
   end
 
-  # select "MRSA", from: "Organism 1"
-  # select "Strep", from: "Organism 2"
-
   fill_in "Treatment", :with => "Special treatment."
   fill_in "Outcome", :with => "It is a good outcome."
   fill_in "Notes", :with => "Review in a weeks time."
-
-  # select "Amoxicillin", from: "Antibiotic 1"
-  # select "Penicillin", from: "Antibiotic 2"
-  # select "Tobramycin", from: "Antibiotic 3"
-   
-  # select "PO", from: "Route (Antibiotic 1)"
-  # select "IV", from: "Route (Antibiotic 2)"
-  # select "SC", from: "Route (Antibiotic 3)"
-
-  # fill_in "sensitivity", :with => "All showing good response."
 
   click_on "Save Exit Site Infection"
 end
@@ -241,49 +214,26 @@ end
 Then(/^the recorded exit site infection should be displayed on PD info page$/) do
 
   expect(page.has_content? "01/01/2015").to be true
-
-  # expect(page.has_content? "MRSA").to be true
-  # expect(page.has_content? "Strep").to be true
-
   expect(page.has_content? "Special treatment.").to be true
   expect(page.has_content? "It is a good outcome.").to be true
   expect(page.has_content? "Review in a weeks time.").to be true
-  
-  # expect(page.has_content? "Amoxicillin").to be true
-  # expect(page.has_content? "Penicillin").to be true
-  # expect(page.has_content? "Tobramycin").to be true
 
-  # expect(page.has_content? "PO").to be true
-  # expect(page.has_content? "IV").to be true
-  # expect(page.has_content? "SC").to be true
-  
-  # expect(page.has_content? "All showing good response.").to be true
 end
 
 Given(/^a patient has a recently recorded exit site infection$/) do
   @exit_site_infection = ExitSiteInfection.create!(
     patient_id: @patient_1,
     user_id: 1,            
-    diagnosis_date: "01/01/2015",
-    # organism_1_id: 1,         
-    # organism_2_id: 2,         
+    diagnosis_date: "01/01/2015",        
     treatment: "Typical treatment.",         
     outcome: "Ok outcome.",           
-    notes: "review treatment in a 6 weeks.",             
-    # antibiotic_1_id: 1,       
-    # antibiotic_2_id: 2,       
-    # antibiotic_3_id: 3,       
-    # antibiotic_1_route: 2, 
-    # antibiotic_2_route: 1, 
-    # antibiotic_3_route: 2, 
-    # sensitivity: "All antibiotics responding well."
+    notes: "review treatment in a 6 weeks."
   )
 end
 
 When(/^the Clinician updates an exit site infection$/) do
   visit edit_patient_exit_site_infection_path(@patient_1, @exit_site_infection.id)
 
-  # select "MRSA", from: "Organism 2"
   fill_in "Notes", :with => "Needs a review in 2 weeks time."
 
   click_on "Update Exit Site Infection"
@@ -292,7 +242,6 @@ end
 Then(/^the updated exit site infection should be displayed on PD info page$/) do
   @exit_site_infection.reload
 
-  # expect(page.has_content? "MRSA").to be true
   expect(page.has_content? "Needs a review in 2 weeks time.").to be true
 end
 
