@@ -1,15 +1,14 @@
-.main-content
-  .row.g-center
-    = render partial: "patients/patient_info_header", locals: { model: @patient }
+.row.g-center
+  = render partial: "patients/patient_info_header", locals: { model: @patient }
 
-  .row
-    = render partial: "patients/mini_renal_profile", locals: { model: @patient }
+.row
+  = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
-  .row
+.row
   %h5
     Set Patient Modality
 
-  .row
+.row
   %ul.no-bullet
     = form_for @modality, as: :modality, url: patient_patient_modalities_path(@patient) do |m|
 
@@ -54,7 +53,7 @@
 
   = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left cancel mt"
 
-  .wide-screen
+.wide-screen
   = content_for :secondary_nav do
     = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
 
