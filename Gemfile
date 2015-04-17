@@ -25,7 +25,7 @@ group :development, :test do
   gem "cucumber-rails", :require => false
   gem "rspec-rails"
   gem "rspec-expectations"
-  gem "capybara", "2.2.0"
+  gem "capybara", "2.4.4"
   gem "launchy"
   gem "pry-byebug"
   gem "database_cleaner"
@@ -38,7 +38,7 @@ group :development, :test do
   gem "factory_girl_rails", "~> 4.0"
 end
 
-group :test do 
+group :test do
   gem "webmock"
 end
 
