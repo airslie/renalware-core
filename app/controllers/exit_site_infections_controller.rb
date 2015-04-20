@@ -34,7 +34,7 @@ class ExitSiteInfectionsController < ApplicationController
 
   private
   def allowed_params
-    params.require(:exit_site_infection).permit(:user_id, :diagnosis_date, :treatment, :outcome, :notes)
+    params.require(:exit_site_infection).permit(:diagnosis_date, :treatment, :outcome, :notes)
   end
 
   def load_patient
