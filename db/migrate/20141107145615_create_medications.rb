@@ -5,7 +5,6 @@ class CreateMedications < ActiveRecord::Migration
       t.references :medicatable, polymorphic: true, index: true
       t.references :treatable, polymorphic: true, index: true
       t.integer :user_id
-      t.string :medication_type 
       t.string :dose
       t.integer :medication_route_id    
       t.string :frequency

@@ -133,7 +133,6 @@ ActiveRecord::Schema.define(version: 20150317151009) do
     t.integer  "treatable_id",        limit: 4
     t.string   "treatable_type",      limit: 255
     t.integer  "user_id",             limit: 4
-    t.string   "medication_type",     limit: 255
     t.string   "dose",                limit: 255
     t.integer  "medication_route_id", limit: 4
     t.string   "frequency",           limit: 255
@@ -145,7 +144,6 @@ ActiveRecord::Schema.define(version: 20150317151009) do
     t.datetime "updated_at"
   end
 
-  add_index "medications", ["deleted_at"], name: "index_medications_on_deleted_at", using: :btree
   add_index "medications", ["medicatable_type", "medicatable_id"], name: "index_medications_on_medicatable_type_and_medicatable_id", using: :btree
   add_index "medications", ["treatable_type", "treatable_id"], name: "index_medications_on_treatable_type_and_treatable_id", using: :btree
 
