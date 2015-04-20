@@ -3,8 +3,6 @@
     Problem
   %th
     Date
-  %th
-    Entered By
 
 %tbody
   - @patient.problems.each do |p|   
@@ -14,6 +12,6 @@
       %td{:data => { :heading => "Date" }}
         = p.created_at.strftime("%d/%m/%Y")
       %td{:data => { :heading => "Date" }}
-        = p.user_id
+
       
       

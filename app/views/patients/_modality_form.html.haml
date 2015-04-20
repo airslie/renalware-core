@@ -4,11 +4,6 @@
   = m.hidden_field :patient_id
 
   %li
-    / TODO hidden
-    = m.label :user_id, "Entered By"
-    = m.text_field :user_id
-
-  %li
     = m.label :modality_code_id, "Modality"
     = m.collection_select :modality_code_id, ModalityCode.all, :id, :name, {}, :id => "modality-code-select" 
   

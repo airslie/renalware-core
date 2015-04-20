@@ -13,8 +13,6 @@
     %th.table-width 
       Antibiotics
     %th.table-width 
-      Entered By
-    %th.table-width 
       Last Updated
     %th.table-width 
       Action
@@ -77,9 +75,6 @@
                   %li.toggle-content
                     = "sensitivity: #{e.sensitivity}"
                   
-        %td{:data => { :heading => "Entered By"}, valign: "top"}
-          = e.user_id
-
         %td{:data => { :heading => "Last Updated"}, valign: "top"}
           = e.updated_at.strftime("%d/%m/%Y, %H:%M")
 

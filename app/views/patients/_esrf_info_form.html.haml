@@ -4,11 +4,6 @@
   = esrf.hidden_field :patient_id
 
   %li
-    / TODO hidden
-    = esrf.label :user_id, "Entered By"
-    = esrf.text_field :user_id
-
-  %li
     = esrf.label :date, "Date"
     = esrf.date_select(:date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
 

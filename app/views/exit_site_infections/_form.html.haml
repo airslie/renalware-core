@@ -3,9 +3,6 @@
 
   = e.hidden_field :patient_id
 
-  = e.label :user_id
-  = e.text_field :user_id
-
   = e.label :diagnosis_date
   = e.date_select(:diagnosis_date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")     
   
