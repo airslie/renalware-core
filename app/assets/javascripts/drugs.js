@@ -4,6 +4,7 @@ $(document).ready(function(){
    
   //drug type by select
   $('.medication-type-select').change(function(e) {
+    console.log("Hello");
     var $selectBox = $(e.currentTarget);
     var selectedMedicationType = $selectBox.val();
     var $medForm = $selectBox.closest('.med-form');
@@ -37,8 +38,8 @@ $(document).ready(function(){
     }
 
     $.ajax({
-      url: '/drugs.json',
-      data: { medication_type: selectedMedicationType},
+      url: '/drugs/selected_drugs.json',
+      data: { medication_switch: selectedMedicationType },
       success: function(json) {
         console.log(json);
         var $drugSelectBox = $medForm.find('.drug-select');

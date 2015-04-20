@@ -1,5 +1,14 @@
 class DrugsController < ApplicationController
 
+  def selected_drugs
+    @medication_switch = params[:medication_switch]
+    @selected_drugs = Drug.send(@medication_switch)
+    respond_to do |format|
+      format.html
+      format.json { render :json => @selected_drugs.as_json(:only => [:id, :name]) }
+    end
+  end
+
   def search   
     @search = params[:drug_search]   
     @drugs = Drug.search("#{@search}*").records
@@ -26,7 +35,7 @@ class DrugsController < ApplicationController
 
   def index
     @drugs = Drug.active
-    @drugs_select =  Drug.joins(:drug_types).where(:drug_types => { :name => params[:medication_type] })
+    @drugs_select =  Drug.joins(:drug_types).where(:drug_types => { :name => params[:medication_switch] })
     respond_to do |format|
       format.html
       format.json { render :json => @drugs_select.as_json(:only => [:id, :name]) }
