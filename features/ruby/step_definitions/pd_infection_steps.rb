@@ -22,8 +22,7 @@ end
 Given(/^a patient has a recently recorded episode of peritonitis$/) do
 
   @peritonitis_episode = PeritonitisEpisode.create!( 
-    patient_id: @patient_1.id,         
-    user_id: 1,              
+    patient_id: @patient_1.id,             
     diagnosis_date: "24/02/2015",
     start_treatment_date: "25/02/2015", 
     end_treatment_date: "25/03/2015",

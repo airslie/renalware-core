@@ -34,7 +34,6 @@ RSpec.describe PeritonitisEpisode, :type => :model do
         
         @medication_one = FactoryGirl.create(:medication,
           patient_id: @patient,
-          user_id: "1",
           medicatable_id: @drug_1,
           medicatable_type: "Drug",
           treatable_id: 1,
