@@ -63,7 +63,6 @@ ActiveRecord::Schema.define(version: 20150317151009) do
 
   create_table "esrf_infos", force: :cascade do |t|
     t.integer  "patient_id",  limit: 4
-    t.integer  "user_id",     limit: 4
     t.date     "date"
     t.integer  "prd_code_id", limit: 4
     t.datetime "created_at"
@@ -77,7 +76,6 @@ ActiveRecord::Schema.define(version: 20150317151009) do
   end
 
   create_table "exit_site_infections", force: :cascade do |t|
-    t.integer  "user_id",        limit: 4
     t.integer  "patient_id",     limit: 4
     t.date     "diagnosis_date"
     t.text     "treatment",      limit: 65535
@@ -132,7 +130,6 @@ ActiveRecord::Schema.define(version: 20150317151009) do
     t.string   "medicatable_type",    limit: 255
     t.integer  "treatable_id",        limit: 4
     t.string   "treatable_type",      limit: 255
-    t.integer  "user_id",             limit: 4
     t.string   "dose",                limit: 255
     t.integer  "medication_route_id", limit: 4
     t.string   "frequency",           limit: 255
@@ -182,18 +179,15 @@ ActiveRecord::Schema.define(version: 20150317151009) do
 
   create_table "patient_events", force: :cascade do |t|
     t.datetime "date_time"
-    t.integer  "user_id",               limit: 4
-    t.string   "description",           limit: 255
-    t.text     "notes",                 limit: 65535
+    t.string   "patient_event_type", limit: 255
+    t.string   "description",        limit: 255
+    t.text     "notes",              limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "patient_event_type_id", limit: 4
-    t.integer  "patient_id",            limit: 4
   end
 
   create_table "patient_modalities", force: :cascade do |t|
     t.integer  "patient_id",         limit: 4
-    t.integer  "user_id",            limit: 4
     t.integer  "modality_code_id",   limit: 4
     t.integer  "modality_reason_id", limit: 4
     t.string   "modal_change_type",  limit: 255
@@ -220,14 +214,10 @@ ActiveRecord::Schema.define(version: 20150317151009) do
     t.integer  "patient_id",  limit: 4
     t.string   "description", limit: 255
     t.date     "date"
-    t.integer  "user_id",     limit: 4
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "snomed_id",   limit: 255
   end
-
-  add_index "patient_problems", ["deleted_at"], name: "index_patient_problems_on_deleted_at", using: :btree
 
   create_table "patients", force: :cascade do |t|
     t.string   "nhs_number",                   limit: 255
@@ -253,7 +243,6 @@ ActiveRecord::Schema.define(version: 20150317151009) do
   end
 
   create_table "peritonitis_episodes", force: :cascade do |t|
-    t.integer  "user_id",              limit: 4
     t.integer  "patient_id",           limit: 4
     t.date     "diagnosis_date"
     t.date     "start_treatment_date"
