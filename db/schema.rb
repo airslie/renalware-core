@@ -141,12 +141,12 @@ ActiveRecord::Schema.define(version: 20150317151009) do
     t.datetime "updated_at"
   end
 
+  add_index "medications", ["deleted_at"], name: "index_medications_on_deleted_at", using: :btree
   add_index "medications", ["medicatable_type", "medicatable_id"], name: "index_medications_on_medicatable_type_and_medicatable_id", using: :btree
   add_index "medications", ["treatable_type", "treatable_id"], name: "index_medications_on_treatable_type_and_treatable_id", using: :btree
 
   create_table "modalities", force: :cascade do |t|
     t.integer  "patient_id",         limit: 4
-    t.integer  "user_id",            limit: 4
     t.integer  "modality_code_id",   limit: 4
     t.integer  "modality_reason_id", limit: 4
     t.string   "modal_change_type",  limit: 255
@@ -193,11 +193,12 @@ ActiveRecord::Schema.define(version: 20150317151009) do
 
   create_table "patient_events", force: :cascade do |t|
     t.datetime "date_time"
-    t.string   "patient_event_type", limit: 255
-    t.string   "description",        limit: 255
-    t.text     "notes",              limit: 65535
+    t.string   "description",           limit: 255
+    t.text     "notes",                 limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "patient_event_type_id", limit: 4
+    t.integer  "patient_id",            limit: 4
   end
 
   create_table "patient_problem_versions", force: :cascade do |t|
@@ -219,7 +220,10 @@ ActiveRecord::Schema.define(version: 20150317151009) do
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "snomed_id",   limit: 255
   end
+
+  add_index "patient_problems", ["deleted_at"], name: "index_patient_problems_on_deleted_at", using: :btree
 
   create_table "patients", force: :cascade do |t|
     t.string   "nhs_number",                   limit: 255
