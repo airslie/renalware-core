@@ -3,6 +3,7 @@ FactoryGirl.define do
     patient
     modality_code
     modality_reason
+    start_date Date.parse('2015-04-01')
 
     trait :pd_to_haemo do
       after(:create) do |instance|
