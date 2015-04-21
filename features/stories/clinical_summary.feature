@@ -33,8 +33,8 @@ Scenario: Doctor adds a medication for a patient
   When they add a medication
     And complete the medication form
   Then they should see the new medication on the clinical summary
-
-@javascript 
+  
+@javascript @wip
 Scenario: Doctor terminates a medication for a patient
   Given there are drugs in the database
     And there are drug types in the database
@@ -43,7 +43,7 @@ Scenario: Doctor terminates a medication for a patient
     And a patient has a medication
   When they terminate a medication
   Then they should no longer see this medication in their clinical summary
-    # And should see this terminated medication in their medications history
+    And should see this terminated medication in their medications history
 
 @javascript 
 Scenario: Doctor adds a modality for a patient

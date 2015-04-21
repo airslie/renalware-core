@@ -104,25 +104,25 @@ end
 
 Then(/^the recorded episode should be displayed on PD info page$/) do
 
-  expect(page.has_content? "25/12/2014").to be true
-  expect(page.has_content? "30/12/2014").to be true
-  expect(page.has_content? "31/01/2015").to be true
+  expect(page).to have_content("25/12/2014")
+  expect(page).to have_content("30/12/2014")
+  expect(page).to have_content("31/01/2015")
   
-  expect(page.has_content? "De novo").to be true
+  expect(page).to have_content("De novo")
   
-  expect(page.has_content? "Catheter Removed: true").to be true
-  expect(page.has_content? "Line Break: false").to be true
-  expect(page.has_content? "Exit Site Infection: true").to be true
-  expect(page.has_content? "Diarrhoea: true").to be true
-  expect(page.has_content? "Abdominal Pain: true").to be true
+  expect(page).to have_content("Catheter Removed: true")
+  expect(page).to have_content("Line Break: false")
+  expect(page).to have_content("Exit Site Infection: true")
+  expect(page).to have_content("Diarrhoea: true")
+  expect(page).to have_content("Abdominal Pain: true")
   
-  expect(page.has_content? "Misty").to be true
+  expect(page).to have_content("Misty")
   
-  expect(page.has_content? "1000").to be true
-  expect(page.has_content? "Neutro: 20%").to be true
-  expect(page.has_content? "Lympho: 30%").to be true
-  expect(page.has_content? "Degen: 25%").to be true
-  expect(page.has_content? "Other: 25%").to be true
+  expect(page).to have_content("1000")
+  expect(page).to have_content("Neutro: 20%")
+  expect(page).to have_content("Lympho: 30%")
+  expect(page).to have_content("Degen: 25%")
+  expect(page).to have_content("Other: 25%")
   
 end
 
@@ -171,23 +171,23 @@ end
 
 Then(/^the updated episode should be displayed on PD info page$/) do
   @peritonitis_episode.reload
-  expect(page.has_content? "On review, needs stronger antibiotics.").to be true
+  expect(page).to have_content("On review, needs stronger antibiotics.")
 end
 
 Then(/^the new medication should be displayed on the updated peritonitis form$/) do
   visit edit_patient_peritonitis_episode_path(@patient_1, @peritonitis_episode.id)
-  expect(page.has_content? "Penicillin").to be true
-  expect(page.has_content? "5mg").to be true
-  expect(page.has_content? "IV").to be true
-  expect(page.has_content? "PID").to be true
-  expect(page.has_content? "2015-02-28").to be true
+  expect(page).to have_content("Penicillin")
+  expect(page).to have_content("5mg")
+  expect(page).to have_content("IV")
+  expect(page).to have_content("PID")
+  expect(page).to have_content("2015-02-28")
 end
 
 Then(/^the recorded organism and sensitivity should be displayed on the updated peritonitis form$/) do
   visit edit_patient_peritonitis_episode_path(@patient_1, @peritonitis_episode.id)
 
-  expect(page.has_content? "Bacillis").to be true
-  expect(page.has_content? "Very sensitive to Bacillis.").to be true
+  expect(page).to have_content("Bacillis")
+  expect(page).to have_content("Very sensitive to Bacillis.")
 end
 
 When(/^the Clinician records an exit site infection$/) do
@@ -212,10 +212,10 @@ end
 
 Then(/^the recorded exit site infection should be displayed on PD info page$/) do
 
-  expect(page.has_content? "01/01/2015").to be true
-  expect(page.has_content? "Special treatment.").to be true
-  expect(page.has_content? "It is a good outcome.").to be true
-  expect(page.has_content? "Review in a weeks time.").to be true
+  expect(page).to have_content("01/01/2015")
+  expect(page).to have_content("Special treatment.")
+  expect(page).to have_content("It is a good outcome.")
+  expect(page).to have_content("Review in a weeks time.")
 
 end
 
@@ -241,6 +241,6 @@ end
 Then(/^the updated exit site infection should be displayed on PD info page$/) do
   @exit_site_infection.reload
 
-  expect(page.has_content? "Needs a review in 2 weeks time.").to be true
+  expect(page).to have_content("Needs a review in 2 weeks time.")
 end
 

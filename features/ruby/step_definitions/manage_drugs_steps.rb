@@ -79,17 +79,17 @@ When(/^I choose to soft delete a drug$/) do
 end
 
 Then(/^I should see the new drug on the drugs list$/) do
-  expect(page.has_content? "I am a new drug").to be true
+  expect(page).to have_content("I am a new drug")
 end
 
 Then(/^I should see the new drug's categories\/types$/) do
   visit drug_drug_drug_types_path(Drug.all.fourth)
-  expect(page.has_content? "Antibiotic").to be true 
-  expect(page.has_content? "Immunosuppressant").to be true 
+  expect(page).to have_content("Antibiotic")
+  expect(page).to have_content("Immunosuppressant")
 end
 
 Then(/^I should see the updated drug on the drugs list$/) do
-  expect(page.has_content? "I am an edited drug").to be true
+  expect(page).to have_content("I am an edited drug")
   
   visit drug_drug_drug_types_path(@drug)
   page.assert_selector('li', :text => 'Antibiotic', :count => 1)
@@ -97,7 +97,7 @@ Then(/^I should see the updated drug on the drugs list$/) do
 end
 
 Then(/^I should see the drug removed from the drugs list$/) do
-  expect(page.has_content? "Vancomycin").to be false
+  expect(page).to have_no_content("Vancomycin")
 end
 
 

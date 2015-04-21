@@ -122,17 +122,16 @@ When(/^submit the update form$/) do
 end
 
 Then(/^I should see the new patient in the Renal Patient List$/) do
-  expect(page.has_content? "1000124504").to be true
-  expect(page.has_content? "Z999994").to be true
-  expect(page.has_content? "Smith").to be true
-  expect(page.has_content? "Ian").to be true
-  expect(page.has_content? "1").to be true
-  expect(page.has_content? "White").to be true
-  expect(page.has_content? "01/01/1960").to be true
-  expect(page.has_content? "false").to be true
-  expect(page.has_content? @address_diagnosis_street_1).to be true
-  expect(page.has_content? @current_street_1).to be true
-  # save_and_open_page
+  expect(page).to have_content("1000124504")
+  expect(page).to have_content("Z999994")
+  expect(page).to have_content("Smith")
+  expect(page).to have_content("Ian")
+  expect(page).to have_content("1")
+  expect(page).to have_content("White")
+  expect(page).to have_content("01/01/1960")
+  expect(page).to have_content("false")
+  expect(page).to have_content(@address_diagnosis_street_1)
+  expect(page).to have_content(@current_street_1)
 end
 
 Then(/^the patient should be created$/) do
@@ -144,16 +143,16 @@ Then(/^the patient should be created$/) do
 end
 
 Then(/^I should see the patient's demographics on their profile page$/) do
-  expect(page.has_content? "1000124501").to be true
-  expect(page.has_content? "RABBIT").to be true
-  expect(page.has_content? "R").to be true
+  expect(page).to have_content("1000124501")
+  expect(page).to have_content("RABBIT")
+  expect(page).to have_content("R")
 end
 
 Then(/^I should see the patient's new demographics on their profile page$/) do
-  expect(page.has_content? "R").to be true
+  expect(page).to have_content("R")
 end
 
 Then(/^I should see the patient on the death list$/) do
   visit death_patients_path
-  expect(page.has_content? "RABBIT").to be true
+  expect(page).to have_content("RABBIT")
 end

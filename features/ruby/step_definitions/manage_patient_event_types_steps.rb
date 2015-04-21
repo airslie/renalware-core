@@ -34,13 +34,13 @@ When(/^they delete a patient event type$/) do
 end
 
 Then(/^they should see the deleted event type removed from the existing event type list$/) do
-  expect(page.has_content? "Meeting with family").to be false
+  expect(page).to have_no_content("Meeting with family")
 end
 
 Then(/^they should see the new patient event type added to the patient event type list$/) do
-  expect(page.has_content? "I am a new patient event type").to be true
+  expect(page).to have_content?("I am a new patient event type")
 end
 
 Then(/^they should see the updated event type on the existing patient event type list$/) do
-  expect(page.has_content? "I am an updated new patient event").to be true
+  expect(page).to have_content?("I am an updated new patient event")
 end

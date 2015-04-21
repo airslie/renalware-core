@@ -128,37 +128,37 @@ end
 
 Then(/^they should see the new patient event on the clinical summary$/) do
   %w(01/01/2011 Telephone call Spoke to son ).each do |heading|
-    expect(page.has_content? heading).to be(true), "Expected #{heading} to be in the view"
+    expect(page).to have_content(heading), "Expected #{heading} to be in the view"
   end
 end
 
 Then(/^be able to view notes through toggling the description data\.$/) do
-  expect(page.has_content? "Wants to arrange a home visit").to be(true)
+  expect(page).to have_content("Wants to arrange a home visit")
 end
 
 Then(/^they should see the new problems on the clinical summary$/) do
-  expect(page.has_content? "Have abdominal pain, possibly kidney stones").to be true
-  expect(page.has_content? "Bad breath").to be true
+  expect(page).to have_content("Have abdominal pain, possibly kidney stones")
+  expect(page).to have_content("Bad breath")
 end
 
 Then(/^they should see the new medication on the clinical summary$/) do
   visit clinical_summary_patient_path(@patient_1)
-  expect(page.has_css? ".drug-esa").to be true
-  expect(page.has_content? "Blue").to be true
-  expect(page.has_content? "10mg").to be true
-  expect(page.has_content? "PO").to be true
-  expect(page.has_content? "Once daily").to be true
-  expect(page.has_content? "01/01/2013").to be true
+  expect(page).to have_css(".drug-esa")
+  expect(page).to have_content("Blue")
+  expect(page).to have_content("10mg")
+  expect(page).to have_content("PO")
+  expect(page).to have_content("Once daily")
+  expect(page).to have_content("01/01/2013")
 end
 
 Then(/^they should no longer see this medication in their clinical summary$/) do
-  expect(page.has_content? "Blue").to be false
+  expect(page).to have_no_content("Blue")
 end
 
-# Then(/^should see this terminated medication in their medications history$/) do
-#   visit medications_index_patient_path(@patient)
-#   expect(page.has_content? "Blue" ).to be true
-# end
+Then(/^should see this terminated medication in their medications history$/) do
+  visit medications_index_patient_path(@patient)
+  expect(page).to have_content?("Blue" )
+end
 
 Given(/^there are edta causes of death in the database$/) do
   @edta_codes = [[100, "Cause one"], [200, "Cause two"]]
@@ -196,7 +196,7 @@ When(/^I complete the modality form$/) do
 end
 
 Then(/^I should see a patient's modality on their clinical summary$/) do
-   expect(page.has_content? "Modal One").to be true
+   expect(page).to have_content("Modal One")
 end
 
 When(/^I select death modality$/) do
@@ -228,5 +228,5 @@ end
 
 Then(/^see the date of death in the patient's demographics$/) do
   visit demographics_patient_path(@patient_1)
-  expect(page.has_content? "22/09/2014").to be true
+  expect(page).to have_content("22/09/2014")
 end
