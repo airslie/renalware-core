@@ -83,7 +83,7 @@ $(document).ready(function(){
           for (var i = 0; i < json.length; i++) {
             var drugId = json[i].id;
             var drugName = json[i].name;
-            var optionHtml = _.template("<li class='drug-select-link' data-drug-id=<%=id%>><%= name %></li>")({ id: drugId, name: drugName });
+            var optionHtml = _.template("<li id=drug-<%=id%> class='drug-select-link' data-drug-id=<%=id%>><%= name %></li>")({ id: drugId, name: drugName });
             $drugResults.append(optionHtml);
           }
         },
