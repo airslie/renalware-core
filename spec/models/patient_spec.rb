@@ -42,7 +42,7 @@ describe Patient, :type => :model do
 
     context 'given the patient has no modality' do
       it 'creates a patient modality on the patient' do
-        subject.set_modality
+        subject.set_modality(start_date: Date.today)
         expect(subject.reload.current_modality).not_to be_nil
         expect(subject.modalities).not_to be_empty
       end
@@ -55,7 +55,7 @@ describe Patient, :type => :model do
         subject.reload
       end
       it 'supersedes the existing modality' do
-        expect(@modality.reload.termination_date).to eq(Date.parse('2015-04-16'))
+        expect(@modality.reload.termination_date).to eq(Date.parse('2015-04-17'))
         expect(subject.current_modality).not_to eq(@modality)
       end
       it 'sets a new modality for the patient' do
