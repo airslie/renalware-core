@@ -1,12 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Snomed, :type => :model do
-  
+
   context "lookup" do
     before do
-      stub_request(:get, "http://snomed.com/").
-      with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
-      to_return(:status => 200, :body => '[{ "id": "12345", "concept": "cool beans"}]', :headers => {})
       @results = Snomed.lookup "cool beans"
     end
 

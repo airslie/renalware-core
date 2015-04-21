@@ -6,7 +6,7 @@ class PatientsController < ApplicationController
     if @patient.esrf_info.blank?
       @esrf_info = @patient.build_esrf_info
     else
-      @patient.patient_modality
+      @patient.current_modality
     end
   end
 
@@ -23,14 +23,6 @@ class PatientsController < ApplicationController
     @search = params[:patient_search]
     @patients = Patient.search("#{@search}*").records
     render :template => 'patients/index'
-  end
-
-  def modality
-    if @patient.patient_modality.blank?
-      @patient_modality = @patient.build_patient_modality
-    else
-      @patient.patient_modality
-    end
   end
 
   def manage_medications
@@ -77,11 +69,10 @@ class PatientsController < ApplicationController
       :address_at_diagnosis_attributes => [:street_1, :street_2, :county, :city, :postcode],
       :patient_event_attributes => [:date_time, :description, :notes, :patient_event_type_id, :patient_id],
       :medications_attributes => [:id, :medicatable_id, :medicatable_type, :dose, :medication_route_id,
-      :frequency, :notes, :date, :provider, :_destroy],
-      :patient_problems_attributes => [:id, :patient_id, :snomed_id, :description, :date, :deleted_at, :_destroy],
-      :patient_modality_attributes => [:id, :patient_id, :modality_code_id, :modality_reason_id, :modal_change_type, :notes, :date, :deleted_at],
-      :esrf_info_attributes => [:id, :patient_id, :date, :prd_code_id]
-    )
+      :frequency, :notes, :date, :provider, :_destroy], 
+      :patient_problems_attributes => [:id, :patient_id, :snomed_id, :description, :date, :user_id, :deleted_at, :_destroy],
+      :esrf_info_attributes => [:id, :patient_id, :user_id, :date, :prd_code_id]
+      )
   end
 
   def load_patient

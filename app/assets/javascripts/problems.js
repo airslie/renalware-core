@@ -28,9 +28,9 @@ $(document).ready(function() {
       url: '/snomed.json?snomedTerm=' + enteredText,
       success: function(json) {
         for(var i = 0; i < json.length; i++) {
-          var snomedId = json[i].id;
-          var snomedTerm = json[i].concept;
-          var term = _.template("<li class='snomed-select-link' data-snomed-id=<%= id %>><%= term %></li>")({ id: snomedId, term: snomedTerm });
+          var snomed_id = json[i].id;
+          var snomed_term = json[i].label;
+          var term = _.template("<li class='snomed-select-link' data-snomed-id=<%= id %>><%= term %></li>")({ id: snomed_id, term: snomed_term });
           $('.snomed-results').append(term);
         }
       }
