@@ -8,7 +8,6 @@ describe 'A clinician sets a patient modality' do
     visit new_patient_modality_path(@patient)
 
     within '.modality-form' do
-      fill_in 'Entered By', with: 'Doctor'
       select 'CAPD (disconnect)', from: 'modality-code-select'
       select 'Haemodialysis To PD', from: 'Type of Change'
       select 'Patient / partner choice', from: 'Reason for Change'
