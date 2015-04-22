@@ -12,10 +12,10 @@ class Modality < ActiveRecord::Base
   #
   def transfer!(attrs)
     transaction do
-      self.termination_date = attrs[:start_date]
+      successor = Modality.create!(attrs)
+      self.termination_date = successor.start_date
       self.save!
       self.destroy!
-      successor = Modality.create!(attrs)
       successor
     end
   end
