@@ -18,23 +18,37 @@ $(document).ready(function() {
     });
 
   });
-  
 
-  $('.snomed-lookup').change(function(e) {
+  var snomedQueryTimeout,
+      lastQueryTerm;
 
-    var entered_text = e.currentTarget.value;
+  $('.snomed-lookup').bind('keyup', function(e) {
+    var enteredText = e.currentTarget.value;
 
-    $.ajax({
-      url: '/snomed.json?snomed_term=' + entered_text,
-      success: function(json) {
-        for(var i = 0; i < json.length; i++) {
-          var snomed_id = json[i].id;
-          var snomed_term = json[i].label;
-          var term = _.template("<li class='snomed-select-link' data-snomed-id=<%= id %>><%= term %></li>")({ id: snomed_id, term: snomed_term });
-          $('.snomed-results').append(term);
-        }
+    clearTimeout(snomedQueryTimeout);
+    snomedQueryTimeout = setTimeout(function() {
+      if (enteredText.length > 2) {
+        $.ajax({
+          url: '/snomed.json?snomed_term=' + enteredText,
+          success: function(json) {
+            var len = json.length;
+            $('.snomed-results').html('');
+            if (len) {
+              for(var i = 0; i < len; i++) {
+                var snomedId = json[i].id;
+                var snomedTerm = json[i].label;
+                var term = _.template("<li class='snomed-select-link' data-snomed-id=<%= id %>><%= term %></li>")({ id: snomedId, term: snomedTerm });
+                $('.snomed-results').append(term);
+              }
+            } else {
+              $('.snomed-results').html("<li>No results for '" + enteredText + "'</li>");
+            }
+          }
+        });
+      } else {
+        $('.snomed-results').html("<li>Please enter at least 3 characters</li>");
       }
-    });
+    }, 500);
   });
 
   $('body').on('click', '.snomed-select-link', function(e) {
