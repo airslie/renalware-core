@@ -22,7 +22,7 @@ When(/^I search for a patient by surname$/) do
   click_on "Find Patient"
 end
 
-Then(/^they will see a list of matching results for patients with hospital code$/) do
+Then(/^they will see a list of matching results for patients with same hospital code$/) do
   expect(page).to have_content("DAY, D")
 end
 
