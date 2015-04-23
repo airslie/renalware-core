@@ -13,8 +13,8 @@ Given(/^there are medication routes in the database$/) do
 end
 
 Given(/^a patient has a medication$/) do
-  @medication_one = Medication.create!(patient_id: @patient_1.id,
-    medication_type: @antibiotic.name.downcase,
+  @medication_one = FactoryGirl.create(:medication, 
+    patient: @patient_1,
     medicatable_id: @yellow.id,
     medicatable_type: "Drug",
     dose: "10mg",
@@ -25,8 +25,8 @@ Given(/^a patient has a medication$/) do
     provider: 1
     )
 
-  @medication_two = Medication.create!(patient_id: @patient_1.id,
-    medication_type: @esa.name.downcase,
+  @medication_two = FactoryGirl.create(:medication,
+    patient: @patient_1,
     medicatable_id: @blue.id,
     medicatable_type: "Drug",
     dose: "20ml",
@@ -144,7 +144,6 @@ end
 When(/^complete the medication form by drug search$/) do
   visit manage_medications_patient_path(@patient_1)
   click_link "Add a new medication"
-
   
   fill_in "Drug", :with => "amo"
   
