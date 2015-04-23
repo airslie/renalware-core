@@ -16,7 +16,6 @@ class DrugsController < ApplicationController
       format.html
       format.json { render :json => @drugs.as_json(:only => [:id, :name]) }
     end
-    # render :template => 'drugs/index'
   end 
 
   def new
