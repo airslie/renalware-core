@@ -47,6 +47,13 @@
 
           %dt Date of Death:
           %dd= "#{@patient.death_date.blank? ? "N/A" : @patient.death_date.strftime("%d/%m/%Y")}"
+
+          - if @patient.death_date.present? && @patient.first_edta_code_id.blank?
+            .alert_text
+              Please update patient's causes of death!
+            = link_to "Update Cause of Death", death_update_patient_path(@patient), {class: "update-death button tiny mt"}
+            
+
       .large-12.columns
         %dl
           %dt Paediatric Patient:
