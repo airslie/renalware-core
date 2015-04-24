@@ -257,10 +257,15 @@ When(/^I select death modality$/) do
   within "#modality-code-select" do
     select "Death"
   end
+
+  fill_in "Notes", :with => "Painful death."
+
+  click_on "Save Modality"
 end
 
 Then(/^I should complete the cause of death form$/) do
-  click_on "Cause of Death"
+  
+  click_on "Update Cause and Date of Death"
 
   within "#patient_death_date_3i" do
     select '22'
