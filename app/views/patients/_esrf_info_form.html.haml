@@ -8,5 +8,5 @@
     = esrf.date_select(:date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
 
   %li
-    = esrf.label :prd_code_id, "Renal Diagnosis"
-    = esrf.collection_select :prd_code_id, PrdCode.all, :id, :term, { :prompt => "Select renal diagnosis", include_blank: true }, :class => "prd-select"
+    = esrf.label :prd_code_id, "Primary Renal Diagnosis (PRD)"
+    = esrf.collection_select :prd_code_id, PrdCode.all, :id, :term, { :prompt => "Please select primary renal diagnosis", include_blank: true }, :class => "prd-select"
