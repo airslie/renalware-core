@@ -3,52 +3,53 @@
     = field_set_tag do
       %legend
         Patient Demographics
+      .row
+        .large-4.columns
+          %ul.no-bullet
+            %li
+              = patient.label :nhs_number, "NHS Number"
+              = patient.text_field :nhs_number
 
-      .large-4.columns
-        %ul.no-bullet
-          %li
-            = patient.label :nhs_number, "NHS Number"
-            = patient.text_field :nhs_number
+            %li
+              = patient.label :local_patient_id, "Local Patient ID"
+              = patient.text_field :local_patient_id
+        
+        .large-4.columns
+          %ul.no-bullet
+            %li
+              = patient.label :surname
+              = patient.text_field :surname
 
-          %li
-            = patient.label :local_patient_id, "Local Patient ID"
-            = patient.text_field :local_patient_id
-      
-      .large-4.columns
-        %ul.no-bullet
-          %li
-            = patient.label :surname
-            = patient.text_field :surname
+            %li
+              = patient.label :forename
+              = patient.text_field :forename
+        
+        .large-4.columns
+          %ul.no-bullet
+            %li
+              = patient.label :sex, "Sex"
+              = patient.select(:sex, gender_options)
 
-          %li
-            = patient.label :forename
-            = patient.text_field :forename
-      
-      .large-4.columns
-        %ul.no-bullet
-          %li
-            = patient.label :sex, "Sex"
-            = patient.select(:sex, gender_options)
+            %li
+              = patient.label :ethnicity_id, "Ethnicity"
+              = patient.collection_select(:ethnicity_id, Ethnicity.all, :id, :name)
+        
+        .large-6.columns
+          = patient.label :dob, "DoB"
+          = patient.date_select(:dob, {start_year: (120.years.ago).year, end_year: Time.now.year , order: [:day, :month, :year]}, class: "dob")
+                  
+        .large-12.columns
+          = patient.check_box :paediatric_patient_indicator
+          = patient.label :paediatric_patient_indicator
 
-          %li
-            = patient.label :ethnicity_id, "Ethnicity"
-            = patient.collection_select(:ethnicity_id, Ethnicity.all, :id, :name)
-      
-      .large-12.columns.row
-        = patient.label :dob, "DoB"
+      .row
+        .form-section
+      .row
+        .large-6.columns          
+          = patient.label :death_date, "Date of Death"
+          = patient.date_select(:death_date, {start_year: (100.years.ago).year, end_year: Time.now.year , order: [:day, :month, :year], include_blank: true}, class: "dob")
 
-      .large-5.columns.left
-        = patient.date_select(:dob, {start_year: (120.years.ago).year, end_year: Time.now.year , order: [:day, :month, :year]}, class: "dob")
-      
-      .large-12.columns.row
-        = patient.label :death_date, "Date of Death"
-
-      .large-5.columns.left
-        = patient.date_select(:death_date, {start_year: (100.years.ago).year, end_year: Time.now.year , order: [:day, :month, :year], include_blank: true}, class: "dob")
-          
-      .large-5.columns.row.left
-        = patient.check_box :paediatric_patient_indicator
-        = patient.label :paediatric_patient_indicator
+          = link_to "Update Cause of Death", death_update_patient_path(@patient), {class: "update-death button tiny mt"}
 
   .large-4.columns
     = field_set_tag do
