@@ -14,6 +14,8 @@
 
     = form_for @patient, :method => :put do |f|
 
+      = hidden_field_tag :redirect_url, demographics_patient_path(@patient)
+
       = render partial: "patients/demographic_form", locals: { patient: f }
 
       = submit_tag "Update Demographics", class: "button tiny right"

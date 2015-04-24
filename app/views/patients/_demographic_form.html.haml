@@ -46,10 +46,7 @@
         .form-section
       .row
         .large-6.columns          
-          = patient.label :death_date, "Date of Death"
-          = patient.date_select(:death_date, {start_year: (100.years.ago).year, end_year: Time.now.year , order: [:day, :month, :year], include_blank: true}, class: "dob")
-
-          = link_to "Update Cause of Death", death_update_patient_path(@patient), {class: "update-death button tiny mt"}
+          = link_to "Update Cause and Date of Death", death_update_patient_path(@patient), {class: "update-death button tiny mt"}
 
   .large-4.columns
     = field_set_tag do
