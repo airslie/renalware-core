@@ -59,6 +59,7 @@ Ruby / Rails - Setup
 2. Start elasticserach `sudo service elasticsearch start` for ubuntu, see homebrew
 instructions for mac
 3. Visit http://localhost:3000
+4. If required, run `bin/reset_data` to reset both mysql db and elasticsearch indexes. 
 
 TESTS
 -----
