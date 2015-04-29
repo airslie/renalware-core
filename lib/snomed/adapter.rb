@@ -45,6 +45,8 @@ module Snomed
     end
   end
 
+  class ApiAdapterError < StandardError; end
+
   class ApiAdapter < AbstractAdapter
     def initialize(config={})
       super(config)
@@ -54,9 +56,11 @@ module Snomed
     end
 
     def search(term, params={})
-      response = HTTParty.get("#{@endpoint}/snomed/#{@database}/#{@version}/descriptions?query=#{term}").body
-      parsed_response = JSON(response)
-      Response.new(parsed_response)
+      response = HTTParty.get("#{@endpoint}/snomed/#{@database}/#{@version}/descriptions?query=#{term}")
+      raise Snomed::ApiAdapterError.new(response.inspect) unless response.code == 200
+
+      parsed_body = JSON(response.body)
+      Response.new(parsed_body)
     end
   end
 

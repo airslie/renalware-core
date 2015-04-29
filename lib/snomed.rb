@@ -2,18 +2,19 @@ require 'snomed/adapter'
 
 module Snomed
 
-  def self.configure(config={})
+  module_function
+
+  def configure(config={})
     @configuration ||= config
   end
 
-  def self.adapter_factory
-    @factory ||= AdapterFactory.new(@configuration)
+  def adapter
+    configure unless @configuration.present?
+    @adapter ||= AdapterFactory.new(@configuration).adapter
   end
 
-  def self.search(term, params={})
-    adapter_factory.adapter.search(term, params)
+  def search(term, params={})
+    adapter.search(term, params)
   end
 
 end
-
-
