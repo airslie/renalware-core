@@ -68,10 +68,10 @@ describe ModalitiesController, :type => :controller do
 
     context 'with a patient and death modality' do      
       before do
-        post :create, patient_id: @patient.to_param, modality: { modality: :death, start_date: '2015-04-22', notes: 'Death notes' }
+        post :create, patient_id: @patient.to_param, modality: { modality_code: :death, start_date: '2015-04-22', notes: 'Death notes' }
       end
 
-      it 'succeeds' do
+      it 'succeeds with redirect to update cause of death' do
         expect(response).to redirect_to(edit_patient_path(@patient))
       end
     end
