@@ -20,9 +20,9 @@ describe Snomed do
 
         actual = Snomed.search('foo')
 
-        expect(actual).to be_a(Hash)
-        expect(actual['matches']).to be_a(Array)
-        expect(actual['matches'].first['label']).to eq('Foo')
+        expect(actual).to be_a(Snomed::Response)
+        expect(actual.results).to be_a(Array)
+        expect(actual.results.first['label']).to eq('Foo')
       end
       it 'should only read from file once' do
       end
@@ -44,9 +44,10 @@ describe Snomed do
 
         actual = Snomed.search('foo')
 
-        expect(actual).to be_a(Hash)
-        expect(actual['matches']).to be_a(Array)
-        expect(actual['matches'].first['label']).to eq('API Foo')
+        expect(actual).to be_a(Snomed::Response)
+        expect(actual.total).to eq(1)
+        expect(actual.results).to be_a(Array)
+        expect(actual.results.first['label']).to eq('API Foo')
       end
     end
 
@@ -57,9 +58,10 @@ describe Snomed do
       it 'should return static data' do
         actual = Snomed.search('foo')
 
-        expect(actual).to be_a(Hash)
-        expect(actual['matches']).to be_a(Array)
-        expect(actual['matches'].first['label']).to eq('cool beans')
+        expect(actual).to be_a(Snomed::Response)
+        expect(actual.total).to eq(1)
+        expect(actual.results).to be_a(Array)
+        expect(actual.results.first['label']).to eq('cool beans')
       end
     end
   end

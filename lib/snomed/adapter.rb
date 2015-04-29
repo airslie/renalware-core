@@ -1,4 +1,17 @@
 module Snomed
+
+  class Response < OpenStruct
+    def results
+      self.matches
+    end
+
+    def total
+      return details['total'] if details.present?
+      return matches.size if matches.present?
+      0
+    end
+  end
+
   class AdapterFactory
     attr_accessor :adapter
 
@@ -22,7 +35,9 @@ module Snomed
     cattr_accessor :data
 
     def search(term, params={})
-      { 'matches' => data.select { |t| t['label'] =~ Regexp.new(term, 'i') } }
+      matches = data.select { |t| t['label'] =~ Regexp.new(term, 'i') }
+      Response.new({ 'details' => { 'total' => matches.size },
+                     'matches' => matches })
     end
 
     def data
@@ -40,13 +55,14 @@ module Snomed
 
     def search(term, params={})
       response = HTTParty.get("#{@endpoint}/snomed/#{@database}/#{@version}/descriptions?query=#{term}").body
-      JSON(response)
+      parsed_response = JSON(response)
+      Response.new(parsed_response)
     end
   end
 
   class TestAdapter < AbstractAdapter
     def search(term, params={})
-      { 'matches' => [{'id' => 123,'label' => 'cool beans'}] }
+      Response.new({ 'matches' => [{'id' => 123,'label' => 'cool beans'}] })
     end
   end
 end
