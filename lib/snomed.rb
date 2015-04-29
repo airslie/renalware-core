@@ -13,8 +13,8 @@ module Snomed
     @adapter ||= AdapterFactory.new(@configuration).adapter
   end
 
-  def search(term, params={})
-    adapter.search(term, params)
+  def search(params={})
+    adapter.search(params)
   end
 
 end

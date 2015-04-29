@@ -18,7 +18,7 @@ describe Snomed do
           .with(Rails.root.join('data','snomed.yml'))
           .and_return([{'id' => 123, 'label' => 'Foo'}])
 
-        actual = Snomed.search('foo')
+        actual = Snomed.search(query: 'foo')
 
         expect(actual).to be_a(Snomed::Response)
         expect(actual.results).to be_a(Array)
@@ -42,7 +42,7 @@ describe Snomed do
       end
       it 'should make a request to the API endpoint' do
 
-        actual = Snomed.search('foo')
+        actual = Snomed.search(query: 'foo')
 
         expect(actual).to be_a(Snomed::Response)
         expect(actual.total).to eq(1)
@@ -56,7 +56,7 @@ describe Snomed do
         Snomed.configure(adapter: Snomed::TestAdapter)
       end
       it 'should return static data' do
-        actual = Snomed.search('foo')
+        actual = Snomed.search(query: 'foo')
 
         expect(actual).to be_a(Snomed::Response)
         expect(actual.total).to eq(1)

@@ -25,7 +25,7 @@ module Snomed
       @opts = opts
     end
 
-    def search(term, params={})
+    def search(params={})
       raise "Please implement AbstractAdapter#search in a subclass"
     end
   end
@@ -34,8 +34,8 @@ module Snomed
 
     cattr_accessor :data
 
-    def search(term, params={})
-      matches = data.select { |t| t['label'] =~ Regexp.new(term, 'i') }
+    def search(params={})
+      matches = data.select { |t| t['label'] =~ Regexp.new(params[:query], 'i') }
       Response.new({ 'details' => { 'total' => matches.size },
                      'matches' => matches })
     end
@@ -55,17 +55,21 @@ module Snomed
       @version  = config.fetch(:version, 'v20150131')
     end
 
-    def search(term, params={})
-      response = HTTParty.get("#{@endpoint}/snomed/#{@database}/#{@version}/descriptions?query=#{term}")
+    def search(params={})
+      response = HTTParty.get(search_url(params))
       raise Snomed::ApiAdapterError.new(response.inspect) unless response.code == 200
 
       parsed_body = JSON(response.body)
       Response.new(parsed_body)
     end
+
+    def search_url(params)
+      "#{@endpoint}/snomed/#{@database}/#{@version}/descriptions?#{params.to_query}"
+    end
   end
 
   class TestAdapter < AbstractAdapter
-    def search(term, params={})
+    def search(params={})
       Response.new({ 'matches' => [{'id' => 123,'label' => 'cool beans'}] })
     end
   end

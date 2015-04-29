@@ -19,6 +19,9 @@ $(document).ready(function() {
 
   });
 
+  /**
+   * TODO: Create a Snomed namespace for these functions and test them!
+   */
   var $snomedSelect2 = $('#snomed_term');
 
   $snomedSelect2.select2({
@@ -32,7 +35,7 @@ $(document).ready(function() {
       data: function (params) {
         return {
           snomed_term: params.term, // search term
-          page: params.page
+          semantic_tag: 'disorder'
         };
       },
       processResults: function (data, page) {
