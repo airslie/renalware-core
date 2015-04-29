@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require foundation
 //= require underscore
+//= require select2/js/select2.min
 //= require_tree .
 
 $(function(){ $(document).foundation(); });

@@ -9,9 +9,7 @@
       = pb.hidden_field :patient_id
 
       = label_tag :snomed_term
-      = text_field_tag :snomed_term, nil, :placeholder => "Enter a snomed concept", :class => "snomed-lookup"
-
-      %ul.no-bullet.snomed-results
+      = select_tag :snomed_term
 
       = pb.hidden_field :snomed_id, :class => "selected-snomed-id"
 
@@ -19,19 +17,11 @@
       = pb.text_field :description, :class => "probs-description"
 
 - else
-  
+
   .saved-problem-form
-    
+
     = pb.hidden_field :id
     = pb.hidden_field :patient_id
 
-    / = label_tag :snomed_term
-    / = text_field_tag :snomed_term, nil, :placeholder => "Enter a snomed concept", :class => "snomed-lookup"
-    
-    / %ul.no-bullet.snomed-results
-
-    / = pb.hidden_field :snomed_id, :class => "selected-snomed-id"
-
     = pb.label :description
     = pb.text_field :description, :class => "probs-description"
-
