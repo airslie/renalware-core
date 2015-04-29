@@ -1,8 +1,6 @@
 %dt
-  %dd.remove-name.patient-name{role: "menuitem"}
-    = link_to "#{@patient.full_name}", clinical_summary_patient_path(@patient), title:  "Clinical Summary", "data-tooltip aria-haspopup": true
   %dd{role: "menuitem"}
-    = link_to "Letters", "#", title:  "Letters"
+    = link_to "ClinSumm", clinical_summary_patient_path(@patient), title:  "Clinical Summary"
   %dd{role: "menuitem"}
     = link_to "Admin", demographics_patient_path(@patient), title:  "Demographics"
   %dd{role: "menuitem"}
@@ -13,5 +11,3 @@
     = link_to "Meds (#{@patient.medications.length})", manage_medications_patient_path(@patient), title:  "Manage Medications"
   %dd{role: "menuitem"}
     = link_to "Events (#{@patient.patient_events.length})", patient_patient_events_path(@patient), title:  "Patient Events"
-
-

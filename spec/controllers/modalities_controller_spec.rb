@@ -58,7 +58,7 @@ describe ModalitiesController, :type => :controller do
 
     context 'with a patient' do
       before do
-        post :create, patient_id: @patient.to_param, modality: { notes: 'Notes' }
+        post :create, patient_id: @patient.to_param, modality: { start_date: '2015-04-21', notes: 'Notes' }
       end
 
       it 'succeeds' do

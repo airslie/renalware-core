@@ -1,141 +1,163 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'csv'
 
-Patient.find_or_create_by!(:nhs_number => "1000124502") do |patient|
-  patient.local_patient_id = "Z999999" 
-  patient.surname = "RABBIT" 
-  patient.forename = "R"
-  patient.dob = "01/01/1947"
-  patient.paediatric_patient_indicator = "0"
-  patient.sex = 1
-  patient.ethnicity_id = 1
+def log(msg)
+  puts msg
 end
 
-Patient.find_or_create_by!(:nhs_number => "1000124503") do |patient|
-  patient.local_patient_id = "Z999998" 
-  patient.surname = "Day" 
-  patient.forename = "Doris"
-  patient.dob = "02/05/1965"
-  patient.paediatric_patient_indicator = "0"
-  patient.sex = 2
-  patient.ethnicity_id = 11
+def maybe_value(value)
+  return if value == 'NULL' || value.blank?
+  value
 end
 
-Patient.find_or_create_by!(:nhs_number => "1000124504") do |patient|
-  patient.local_patient_id = "Z999997" 
-  patient.surname = "Ghost" 
-  patient.forename = "Casper"
-  patient.dob = "02/05/1930"
-  patient.paediatric_patient_indicator = "0"
-  patient.sex = 1
-  patient.ethnicity_id = 21
+log 'Adding Drug types...'
+
+DrugType.find_or_create_by!(name: "Antibiotic")
+DrugType.find_or_create_by!(name: "ESA")
+DrugType.find_or_create_by!(name: "Immunosuppressant")
+DrugType.find_or_create_by!(name: "Peritonitis")
+DrugType.find_or_create_by!(name: "Controlled")
+
+log '-----------Adding Drugs----------'
+
+file_path = Rails.root.join('db', 'csv', 'drugs_merged.csv')
+
+logcount=0
+CSV.foreach(file_path, headers: true) do |row|
+  name = row['drugname']
+  logcount += 1
+  Drug.find_or_create_by!(name: name)
 end
 
-PatientEventType.find_or_create_by!(name: "Access clinic")
-PatientEventType.find_or_create_by!(name: "Anaemia clinic")
-PatientEventType.find_or_create_by!(name: "CAPD Nurses clinic")
-PatientEventType.find_or_create_by!(name: "CAPD clinic")
-PatientEventType.find_or_create_by!(name: "Counsellor Meeting")
-PatientEventType.find_or_create_by!(name: "Dietitians clinic")
-PatientEventType.find_or_create_by!(name: "General Nephrology Clinic")
-PatientEventType.find_or_create_by!(name: "Haemodialysis clinic")
-PatientEventType.find_or_create_by!(name: "Home Haemodialysis clinic")
-PatientEventType.find_or_create_by!(name: "Iron clinic")
-PatientEventType.find_or_create_by!(name: "Low Clearance clinic")
-PatientEventType.find_or_create_by!(name: "Meeting with family")
-PatientEventType.find_or_create_by!(name: "MDM--Liver Renal Virology")
-PatientEventType.find_or_create_by!(name: "MDM--Renal Biopsy")
-PatientEventType.find_or_create_by!(name: "MDM--Radiology")
-PatientEventType.find_or_create_by!(name: "MDM--Renal Sickle")
-PatientEventType.find_or_create_by!(name: "Physiotherapist")
-PatientEventType.find_or_create_by!(name: "Research visit")
-PatientEventType.find_or_create_by!(name: "Result Review")
-PatientEventType.find_or_create_by!(name: "Social Worker")
-PatientEventType.find_or_create_by!(name: "Telephone call")
-PatientEventType.find_or_create_by!(name: "Email")
-PatientEventType.find_or_create_by!(name: "Transplant clinic")
-PatientEventType.find_or_create_by!(name: "Walk-in clinic")
-PatientEventType.find_or_create_by!(name: "Ward round")
-PatientEventType.find_or_create_by!(name: "Dartford Outreach Clinic")
-PatientEventType.find_or_create_by!(name: "Woolwich Outreach Clinic")
-PatientEventType.find_or_create_by!(name: "Plasma Exchange")
-PatientEventType.find_or_create_by!(name: "Tx Coordination")
+log "...#{logcount} drugs seeded!"
 
-Ethnicity.find_or_create_by!(name: "White")
-Ethnicity.find_or_create_by!(name: "Black Caribbean")
-Ethnicity.find_or_create_by!(name: "Black African")
-Ethnicity.find_or_create_by!(name: "Black/other/non-mixed origin")
-Ethnicity.find_or_create_by!(name: "Indian")
-Ethnicity.find_or_create_by!(name: "Pakistani")
-Ethnicity.find_or_create_by!(name: "Bangladeshi")
-Ethnicity.find_or_create_by!(name: "Chinese")
-Ethnicity.find_or_create_by!(name: "Black British")
-Ethnicity.find_or_create_by!(name: "Black Caribbean")
-Ethnicity.find_or_create_by!(name: "Black North African")
-Ethnicity.find_or_create_by!(name: "Black--other African country")
-Ethnicity.find_or_create_by!(name: "Black East African Asian")
-Ethnicity.find_or_create_by!(name: "Black Indian sub-continent")
-Ethnicity.find_or_create_by!(name: "Black--other Asian")
-Ethnicity.find_or_create_by!(name: "Black Black - other")
-Ethnicity.find_or_create_by!(name: "Black--other/mixed")
-Ethnicity.find_or_create_by!(name: "Other Black--Black/White origin")
-Ethnicity.find_or_create_by!(name: "Other Black--Black/Asian origin")
-Ethnicity.find_or_create_by!(name: "Other ethnic non-mixed (NMO)")
-Ethnicity.find_or_create_by!(name: "British ethnic minority spec.(NMO)")
-Ethnicity.find_or_create_by!(name: "British ethnic minority unsp (NMO)")
-Ethnicity.find_or_create_by!(name: "Caribbean Island (NMO)")
-Ethnicity.find_or_create_by!(name: "North African Arab (NMO)")
-Ethnicity.find_or_create_by!(name: "Other African countries (NMO)")
-Ethnicity.find_or_create_by!(name: "East African Asian (NMO)")
-Ethnicity.find_or_create_by!(name: "Indian sub-continent (NMO)")
-Ethnicity.find_or_create_by!(name: "Other Asian (NMO)")
-Ethnicity.find_or_create_by!(name: "Irish (NMO)")
-Ethnicity.find_or_create_by!(name: "Greek Cypriot (NMO)")
-Ethnicity.find_or_create_by!(name: "Turkish Cypriot (NMO)")
-Ethnicity.find_or_create_by!(name: "Other European (NMO)")
-Ethnicity.find_or_create_by!(name: "Other ethnic NEC (NMO)")
-Ethnicity.find_or_create_by!(name: "Other ethnic/mixed origin")
-Ethnicity.find_or_create_by!(name: "Other ethnic/Black/White origin")
-Ethnicity.find_or_create_by!(name: "Other ethnic/Asian/White origin")
-Ethnicity.find_or_create_by!(name: "Other ethnic/mixed white origin")
-Ethnicity.find_or_create_by!(name: "Other ethnic/other mixed origin")
-Ethnicity.find_or_create_by!(name: "Refused")
+log '-----------Assigning Drug Types----------'
 
-ModalityCode.find_or_create_by!(name: "None")
-ModalityCode.find_or_create_by!(name: "CAPD (disconnect)")
-ModalityCode.find_or_create_by!(name: "CAPD (standard)") 
-ModalityCode.find_or_create_by!(name: "CCPD (<6 nights/wk)") 
-ModalityCode.find_or_create_by!(name: "CCPD (6/7 nights/wk)")
-ModalityCode.find_or_create_by!(name: "Haemodialysis")
-ModalityCode.find_or_create_by!(name: "Haemofiltration")
-ModalityCode.find_or_create_by!(name: "Haemodiafiltration") 
-ModalityCode.find_or_create_by!(name: "Ultrafiltration") 
-ModalityCode.find_or_create_by!(name: "Transplant (cad - HB)")
-ModalityCode.find_or_create_by!(name: "Transplant (cad - NHB)") 
-ModalityCode.find_or_create_by!(name: "Transplant (LRD)")
-ModalityCode.find_or_create_by!(name: "Transplant (LUD)")
-ModalityCode.find_or_create_by!(name: "Conservative care")
-ModalityCode.find_or_create_by!(name: "Recovery of renal function")
-ModalityCode.find_or_create_by!(code: "death", name: "Death")
+file_path = Rails.root.join('db', 'csv', 'drug_drug_types.csv')
 
-PdToHaemodialysis.find_or_create_by!(rr_code: 201, description: "Patient / partner choice") 
+logcount=0
+CSV.foreach(file_path, headers: true) do |row|
+  drug_id = row['drug_id']
+  drug_type_id = row['drug_type_id']
+  logcount += 1
+  DrugDrugType.find_or_create_by!(drug_id: drug_id, drug_type_id: drug_type_id)
+end
+
+log "...#{logcount} drugs types assigned!"
+
+log '-----------Adding Event Types----------'
+
+file_path = Rails.root.join('db', 'csv', 'rw_eventtypes.csv')
+
+logcount=0
+CSV.foreach(file_path, headers: true) do |row|
+  eventtype = row['eventtype']
+  log "   ... adding #{eventtype}"
+  logcount += 1
+  PatientEventType.find_or_create_by!(name: eventtype)
+end
+
+log "...#{logcount} eventtypes seeded!"
+
+log '-----------Adding Ethnicities----------'
+
+file_path = Rails.root.join('db', 'csv', 'rw_ethnicities.csv')
+
+logcount=0
+CSV.foreach(file_path, headers: true) do |row|
+  ethnicity = row['ethnicity']
+  log "   ... adding #{ethnicity}"
+  logcount += 1
+  PatientEventType.find_or_create_by!(name: ethnicity)
+end
+
+log "...#{logcount} ethnicities seeded!"
+
+log '-----------Adding Modality Codes----------'
+
+file_path = Rails.root.join('db', 'csv', 'rw_modalcodes.csv')
+
+logcount=0
+CSV.foreach(file_path, headers: true) do |row|
+  code = row['code']
+  name = row['name']
+  log "   ... adding #{code}: #{name}"
+  logcount += 1
+  ModalityCode.find_or_create_by!(code: code) do |code|
+    code.name = name
+  end
+end
+
+log "...#{logcount} modality codes seeded!"
+
+log '-----------Adding EDTA death causes----------'
+
+file_path = Rails.root.join('db', 'csv', 'rw_edtadeathcauses.csv')
+
+logcount=0
+CSV.foreach(file_path, headers: true) do |row|
+  code = row['code']
+  cause = row['cause']
+  log "   ... adding #{code}: #{cause}"
+  logcount += 1
+  EdtaCode.find_or_create_by!(code: code) do |code|
+    code.death_cause = cause
+  end
+end
+
+log "...#{logcount} EDTA death causes seeded!"
+
+
+log '-----------Adding PRD terms----------'
+
+file_path = Rails.root.join('db', 'csv', 'rw_prdcodes.csv')
+
+logcount=0
+CSV.foreach(file_path, headers: true) do |row|
+  code = row['code']
+  term = row['term']
+  log "   ... adding #{code}: #{term}"
+  logcount += 1
+  PrdCode.find_or_create_by!(code: code) do |code|
+    code.term = term
+  end
+end
+
+log "...#{logcount} PRD terms seeded!"
+
+log '-----------Adding Organisms----------'
+
+file_path = Rails.root.join('db', 'csv', 'rw_organisms.csv')
+
+logcount=0
+CSV.foreach(file_path, headers: true) do |row|
+  code = row['code']
+  name = row['name']
+  log "   ... adding #{code}: #{name}"
+  logcount += 1
+  OrganismCode.find_or_create_by!(read_code: code) do |code|
+    code.name = name
+  end
+end
+
+log "...#{logcount} Organisms seeded!"
+
+log 'Adding PD to HD reasons...'
+
+PdToHaemodialysis.find_or_create_by!(rr_code: 201, description: "Patient/partner choice") 
 PdToHaemodialysis.find_or_create_by!(rr_code: 202, description: "Loss of supporting partner") 
 PdToHaemodialysis.find_or_create_by!(rr_code: 203, description: "Other change of personal circumstances")
 PdToHaemodialysis.find_or_create_by!(rr_code: 204, description: "Inability to perform PD")
 PdToHaemodialysis.find_or_create_by!(rr_code: 205, description: "Other reasons")
-PdToHaemodialysis.find_or_create_by!(rr_code: 211, description: "Frequent / Recurrent peritonitis with or without loss of UF")
+PdToHaemodialysis.find_or_create_by!(rr_code: 211, description: "Frequent/Recurrent peritonitis with or without loss of UF")
 PdToHaemodialysis.find_or_create_by!(rr_code: 212, description: "Unresolving peritonitis")
 PdToHaemodialysis.find_or_create_by!(rr_code: 213, description: "Catheter loss through exit site infection")
 PdToHaemodialysis.find_or_create_by!(rr_code: 214, description: "Loss of UF")
 PdToHaemodialysis.find_or_create_by!(rr_code: 215, description: "Inadequate clearance")
 PdToHaemodialysis.find_or_create_by!(rr_code: 216, description: "Abdominal surgery or complications")
 
-HaemodialysisToPd.find_or_create_by!(rr_code: 221, description: "Patient / partner choice")
+log 'Adding HD to PD reasons...'
+
+HaemodialysisToPd.find_or_create_by!(rr_code: 221, description: "Patient/partner choice")
 HaemodialysisToPd.find_or_create_by!(rr_code: 222, description: "Loss of supporting partner")
 HaemodialysisToPd.find_or_create_by!(rr_code: 223, description: "Other change of personal circumstances")
 HaemodialysisToPd.find_or_create_by!(rr_code: 224, description: "Lack of HD facilities")
@@ -144,376 +166,8 @@ HaemodialysisToPd.find_or_create_by!(rr_code: 231, description: "Loss of vascula
 HaemodialysisToPd.find_or_create_by!(rr_code: 232, description: "Haemodynamic instability")
 HaemodialysisToPd.find_or_create_by!(rr_code: 233, description: "Elective after temporary HD")
 
-EdtaCode.find_or_create_by!(code: 0, death_cause: "Cause of death uncertain/not determined [0]")       
-EdtaCode.find_or_create_by!(code: 11, death_cause: "Myocardial ischaemia and infarction [11]")
-EdtaCode.find_or_create_by!(code: 12, death_cause: "Hyperkalaemia [12]")
-EdtaCode.find_or_create_by!(code: 13, death_cause: "Haemorrhagic pericarditis [13]")
-EdtaCode.find_or_create_by!(code: 14, death_cause: "Other causes of cardiac failure [14]")
-EdtaCode.find_or_create_by!(code: 15, death_cause: "Cardiac arrest/sudden death; other cause or unknown [15]")
-EdtaCode.find_or_create_by!(code: 16, death_cause: "Hypertensive cardiac failure [16]")
-EdtaCode.find_or_create_by!(code: 17, death_cause: "Hypokalaemia [17]")
-EdtaCode.find_or_create_by!(code: 18, death_cause: "Fluid overload/pulmonary oedema [18]")
-EdtaCode.find_or_create_by!(code: 21, death_cause: "Pulmonary embolus [21]")
-EdtaCode.find_or_create_by!(code: 22, death_cause: "Cerebro-vascular accident, other cause or unspecified [22]")
-EdtaCode.find_or_create_by!(code: 23, death_cause: "Gastro-intestinal haemorrhage (digestive) [23]")
-EdtaCode.find_or_create_by!(code: 24, death_cause: "Haemorrhage from graft site [24]")
-EdtaCode.find_or_create_by!(code: 25, death_cause: "Hameorrhage from vascular access or dialysis circuit [25]")
-EdtaCode.find_or_create_by!(code: 26, death_cause: "Haemorrhage from ruptured vascular aneurysm (not code 22 or 23) [26]")
-EdtaCode.find_or_create_by!(code: 27, death_cause: "Haemorrhage from surgery (not codes 23,24,26) [27]")
-EdtaCode.find_or_create_by!(code: 28, death_cause: "Other haemorrhage, (not codes 23-27) [28]")
-EdtaCode.find_or_create_by!(code: 29, death_cause: "Mesenteric infarction [29]")
-EdtaCode.find_or_create_by!(code: 31, death_cause: "Pulmonary infection bacterial (not code 73) [31]")
-EdtaCode.find_or_create_by!(code: 32, death_cause: "Pulmonary infection (viral) [32]")
-EdtaCode.find_or_create_by!(code: 33, death_cause: "Pulmonary infection (fungal or protozoal; parasitic) [33]")
-EdtaCode.find_or_create_by!(code: 34, death_cause: "Infections elsewhere except viral hepatitis [34]")
-EdtaCode.find_or_create_by!(code: 35, death_cause: "Septicaemia [35]")
-EdtaCode.find_or_create_by!(code: 36, death_cause: "Tuberculosis (lung) [36]")
-EdtaCode.find_or_create_by!(code: 37, death_cause: "Tuberculosis (elsewhere) [37]")
-EdtaCode.find_or_create_by!(code: 38, death_cause: "Generalized viral infection [38]")
-EdtaCode.find_or_create_by!(code: 39, death_cause: "Peritonitis (all causes except for Peritoneal Dialysis) [39]")
-EdtaCode.find_or_create_by!(code: 41, death_cause: "Liver disease due to hepatitis B virus [41]")
-EdtaCode.find_or_create_by!(code: 42, death_cause: "Liver disease due to other viral hepatitis [42]")
-EdtaCode.find_or_create_by!(code: 43, death_cause: "Liver disease due to drug toxicity [43]")
-EdtaCode.find_or_create_by!(code: 44, death_cause: "Cirrhosis - not viral (alcoholic or other cause) [44]")
-EdtaCode.find_or_create_by!(code: 45, death_cause: "Cystic liver disease [45]")
-EdtaCode.find_or_create_by!(code: 46, death_cause: "Liver failure - cause unknown [46]")
-EdtaCode.find_or_create_by!(code: 51, death_cause: "Patient refused further treatment for ESRF [51]")
-EdtaCode.find_or_create_by!(code: 52, death_cause: "Suicide [52]")
-EdtaCode.find_or_create_by!(code: 53, death_cause: "ESRF treatment ceased for any other reason [53]")
-EdtaCode.find_or_create_by!(code: 54, death_cause: "ESRF treatment withdrawn for medical reasons [54]")
-EdtaCode.find_or_create_by!(code: 61, death_cause: "Uraemia caused by graft failure [61]")
-EdtaCode.find_or_create_by!(code: 62, death_cause: "Pancreatitis [62]")
-EdtaCode.find_or_create_by!(code: 63, death_cause: "Bone marrow depression (Aplasia) [63]")
-EdtaCode.find_or_create_by!(code: 64, death_cause: "Cachexia [64]")
-EdtaCode.find_or_create_by!(code: 66, death_cause: "Malignant disease in patient treated by immunosuppressive therapy [66]")
-EdtaCode.find_or_create_by!(code: 67, death_cause: "Malignant disease: solid tumors except those of 66 [67]")
-EdtaCode.find_or_create_by!(code: 68, death_cause: "Malignant disease: lymphoproliferative disorders (Except 66) [68]")
-EdtaCode.find_or_create_by!(code: 69, death_cause: "Dementia [69]")
-EdtaCode.find_or_create_by!(code: 70, death_cause: "Peritonitis (sclerosing, with peritoneal dialysis) [70]")
-EdtaCode.find_or_create_by!(code: 71, death_cause: "Perforation of peptic ulcer [71]")
-EdtaCode.find_or_create_by!(code: 72, death_cause: "Perforation of colon [72]")
-EdtaCode.find_or_create_by!(code: 73, death_cause: "Chronic obstructive pulmonary disease [73]")
-EdtaCode.find_or_create_by!(code: 81, death_cause: "Accident related to ESRF treatment (not 25) [81]")
-EdtaCode.find_or_create_by!(code: 82, death_cause: "Accident unrelated to ESRF treatment [82]")
-EdtaCode.find_or_create_by!(code: 99, death_cause: "Other identified cause of death [99]")
-EdtaCode.find_or_create_by!(code: 100, death_cause: "Peritonitis (bacterial, with peritoneal dialysis) [100]")
-EdtaCode.find_or_create_by!(code: 101, death_cause: "Peritonitis (fungal, with peritoneal dialysis) [101]")
-EdtaCode.find_or_create_by!(code: 102, death_cause: "Peritonitis (due to other cause, with peritoneal dialysis) [102]")
+log 'Adding Medication routes...'
 
-PrdCode.find_or_create_by!(code: "3749", term: "Glomerulonephritis--no histology")
-PrdCode.find_or_create_by!(code: "1003", term: "Adult nephrotic syndrome--no histology")
-PrdCode.find_or_create_by!(code: "1019", term: "Nephrotic syndrome of childhood--steroid sensitive--no histology")
-PrdCode.find_or_create_by!(code: "3604", term: "Nephrotic syndrome of childhood--steroid resistant--no histology")
-PrdCode.find_or_create_by!(code: "3615", term: "Nephrotic syndrome of childhood--no trial of steroids--no histology")
-PrdCode.find_or_create_by!(code: "1026", term: "Congenital nephrotic syndrome (CNS)--no histology")
-PrdCode.find_or_create_by!(code: "1035", term: "Congenital nephrotic syndrome (CNS)--Finnish type--no histology")
-PrdCode.find_or_create_by!(code: "1042", term: "Congenital nephrotic syndrome (CNS)--Finnish type--histologically proven")
-PrdCode.find_or_create_by!(code: "1057", term: "Congenital nephrotic syndrome (CNS)--diffuse mesangial sclerosis")
-PrdCode.find_or_create_by!(code: "1061", term: "Congenital nephrotic syndrome (CNS)--focal segmental glomerulosclerosis (FSGS)")
-PrdCode.find_or_create_by!(code: "1074", term: "Denys-Drash syndrome")
-PrdCode.find_or_create_by!(code: "1088", term: "Congenital nephrotic syndrome (CNS)--congenital infection")
-PrdCode.find_or_create_by!(code: "1090", term: "Minimal change nephropathy--no histology")
-PrdCode.find_or_create_by!(code: "1100", term: "Minimal change nephropathy--histologically proven")
-PrdCode.find_or_create_by!(code: "1116", term: "IgA nephropathy--no histology")
-PrdCode.find_or_create_by!(code: "1128", term: "IgA nephropathy--histologically proven")
-PrdCode.find_or_create_by!(code: "1137", term: "Familial IgA nephropathy--no histology")
-PrdCode.find_or_create_by!(code: "1144", term: "Familial IgA nephropathy--histologically proven")
-PrdCode.find_or_create_by!(code: "1159", term: "IgA nephropathy secondary to liver cirrhosis--no histology")
-PrdCode.find_or_create_by!(code: "1163", term: "IgA nephropathy secondary to liver cirrhosis--histologically proven")
-PrdCode.find_or_create_by!(code: "1171", term: "IgM--associated nephropathy")
-PrdCode.find_or_create_by!(code: "1185", term: "Membranous nephropathy--idiopathic")
-PrdCode.find_or_create_by!(code: "1192", term: "Membranous nephropathy--malignancy associated")
-PrdCode.find_or_create_by!(code: "1205", term: "Membranous nephropathy--drug induced")
-PrdCode.find_or_create_by!(code: "1214", term: "Membranous nephropathy--infection associated")
-PrdCode.find_or_create_by!(code: "1222", term: "Mesangiocapillary glomerulonephritis type 1")
-PrdCode.find_or_create_by!(code: "1233", term: "Mesangiocapillary glomerulonephritis type 2 (dense deposit disease)")
-PrdCode.find_or_create_by!(code: "1246", term: "Mesangiocapillary glomerulonephritis type 3")
-PrdCode.find_or_create_by!(code: "1251", term: "Idiopathic rapidly progressive (crescentic) glomerulonephritis")
-PrdCode.find_or_create_by!(code: "1267", term: "Primary focal segmental glomerulosclerosis (FSGS)")
-PrdCode.find_or_create_by!(code: "1279", term: "Familial focal segmental glomerulosclerosis (FSGS)--autosomal recessive--no histology")
-PrdCode.find_or_create_by!(code: "1280", term: "Familial focal segmental glomerulosclerosis (FSGS)--autosomal recessive--histologically proven")
-PrdCode.find_or_create_by!(code: "1298", term: "Familial focal segmental glomerulosclerosis (FSGS)--autosomal dominant--no histology")
-PrdCode.find_or_create_by!(code: "1308", term: "Familial focal segmental glomerulosclerosis (FSGS)--autosomal dominant--histologically proven")
-PrdCode.find_or_create_by!(code: "1312", term: "Focal segmental glomerulosclerosis (FSGS) secondary to obesity--no histology")
-PrdCode.find_or_create_by!(code: "1320", term: "Focal segmental glomerulosclerosis (FSGS) secondary to obesity--histologically proven")
-PrdCode.find_or_create_by!(code: "1331", term: "Diffuse endocapillary glomerulonephritis")
-PrdCode.find_or_create_by!(code: "1349", term: "Mesangial proliferative glomerulonephritis")
-PrdCode.find_or_create_by!(code: "1354", term: "Focal and segmental proliferative glomerulonephritis")
-PrdCode.find_or_create_by!(code: "1365", term: "Glomerulonephritis--secondary to other systemic disease")
-PrdCode.find_or_create_by!(code: "1377", term: "Glomerulonephritis--histologically indeterminate")
-PrdCode.find_or_create_by!(code: "1383", term: "Systemic vasculitis--ANCA negative--histologically proven")
-PrdCode.find_or_create_by!(code: "1396", term: "Systemic vasculitis--ANCA positive--no histology")
-PrdCode.find_or_create_by!(code: "1401", term: "Granulomatosis with polyangiitis--no histology")
-PrdCode.find_or_create_by!(code: "1417", term: "Granulomatosis with polyangiitis--histologically proven")
-PrdCode.find_or_create_by!(code: "1429", term: "Microscopic polyangiitis--histologically proven")
-PrdCode.find_or_create_by!(code: "1438", term: "Churg-Strauss syndrome--no histology")
-PrdCode.find_or_create_by!(code: "1440", term: "Churg-Strauss syndrome--histologically proven")
-PrdCode.find_or_create_by!(code: "1455", term: "Polyarteritis nodosa")
-PrdCode.find_or_create_by!(code: "1464", term: "Anti-Glomerular basement membrane (GBM) disease/Goodpasture's syndrome--no histology")
-PrdCode.find_or_create_by!(code: "1472", term: "Anti-Glomerular basement membrane (GBM) disease/Goodpasture's syndrome--histologically proven")
-PrdCode.find_or_create_by!(code: "1486", term: "Systemic lupus erythematosus/nephritis--no histology")
-PrdCode.find_or_create_by!(code: "1493", term: "Systemic lupus erythematosus/nephritis--histologically proven")
-PrdCode.find_or_create_by!(code: "1504", term: "Henoch-Schoenlein purpura/nephritis--no histology")
-PrdCode.find_or_create_by!(code: "1515", term: "Henoch-Schoenlein purpura/nephritis--histologically proven")
-PrdCode.find_or_create_by!(code: "1527", term: "Renal scleroderma/systemic sclerosis--no histology")
-PrdCode.find_or_create_by!(code: "1536", term: "Renal scleroderma/systemic sclerosis--histologically proven")
-PrdCode.find_or_create_by!(code: "1543", term: "Essential mixed cryoglobulinaemia--no histology")
-PrdCode.find_or_create_by!(code: "1558", term: "Essential mixed cryoglobulinaemia--histologically proven")
-PrdCode.find_or_create_by!(code: "1562", term: "Cryoglobulinaemia secondary to hepatitis C--no histology")
-PrdCode.find_or_create_by!(code: "1570", term: "Cryoglobulinaemia secondary to hepatitis C--histologically proven")
-PrdCode.find_or_create_by!(code: "1589", term: "Cryoglobulinaemia secondary to systemic disease--no histology")
-PrdCode.find_or_create_by!(code: "1591", term: "Cryoglobulinaemia secondary to systemic disease--histologically proven")
-PrdCode.find_or_create_by!(code: "1602", term: "Primary reflux nephropathy--sporadic")
-PrdCode.find_or_create_by!(code: "1618", term: "Familial reflux nephropathy")
-PrdCode.find_or_create_by!(code: "1625", term: "Congenital dysplasia/hypoplasia")
-PrdCode.find_or_create_by!(code: "1639", term: "Multicystic dysplastic kidneys")
-PrdCode.find_or_create_by!(code: "1641", term: "Dysplasia due to fetal ACE-inhibitor exposure")
-PrdCode.find_or_create_by!(code: "3627", term: "Renal cysts and diabetes syndrome")
-PrdCode.find_or_create_by!(code: "1656", term: "Glomerulocystic disease")
-PrdCode.find_or_create_by!(code: "1660", term: "Congenital pelvi-ureteric junction obstruction")
-PrdCode.find_or_create_by!(code: "1673", term: "Congenital vesico-ureteric junction obstruction")
-PrdCode.find_or_create_by!(code: "1687", term: "Posterior urethral valves")
-PrdCode.find_or_create_by!(code: "1694", term: "Syndrome of agenesis of abdominal muscles--prune belly syndrome")
-PrdCode.find_or_create_by!(code: "1706", term: "Congenital neurogenic bladder")
-PrdCode.find_or_create_by!(code: "1710", term: "Bladder exstrophy")
-PrdCode.find_or_create_by!(code: "1723", term: "Megacystis-megaureter")
-PrdCode.find_or_create_by!(code: "1734", term: "Oligomeganephronia")
-PrdCode.find_or_create_by!(code: "1747", term: "Renal papillary necrosis--cause unknown")
-PrdCode.find_or_create_by!(code: "1752", term: "Acquired obstructive uropathy/nephropathy")
-PrdCode.find_or_create_by!(code: "1768", term: "Acquired obstructive nephropathy due to neurogenic bladder")
-PrdCode.find_or_create_by!(code: "1775", term: "Obstructive nephropathy due to prostatic hypertrophy")
-PrdCode.find_or_create_by!(code: "1781", term: "Obstructive nephropathy due to prostate cancer")
-PrdCode.find_or_create_by!(code: "1799", term: "Obstructive nephropathy due to bladder cancer")
-PrdCode.find_or_create_by!(code: "1809", term: "Obstructive nephropathy due to other malignancies")
-PrdCode.find_or_create_by!(code: "1813", term: "Idiopathic retroperitoneal fibrosis")
-PrdCode.find_or_create_by!(code: "1821", term: "Retroperitoneal fibrosis secondary to malignancies")
-PrdCode.find_or_create_by!(code: "3689", term: "Retroperitoneal fibrosis secondary to drugs")
-PrdCode.find_or_create_by!(code: "3670", term: "Retroperitoneal fibrosis secondary to peri-aortitis")
-PrdCode.find_or_create_by!(code: "1832", term: "Calculus nephropathy/urolithiasis")
-PrdCode.find_or_create_by!(code: "1845", term: "Calcium oxalate urolithiasis")
-PrdCode.find_or_create_by!(code: "1850", term: "Enteric hyperoxaluria")
-PrdCode.find_or_create_by!(code: "1866", term: "Magnesium ammonium phosphate (struvite) urolithiasis")
-PrdCode.find_or_create_by!(code: "1878", term: "Uric acid urolithiasis")
-PrdCode.find_or_create_by!(code: "1884", term: "Tubulointerstitial nephritis--no histology")
-PrdCode.find_or_create_by!(code: "1897", term: "Tubulointerstitial nephritis--histologically proven")
-PrdCode.find_or_create_by!(code: "1907", term: "Familial interstitial nephropathy--no histology")
-PrdCode.find_or_create_by!(code: "1911", term: "Familial interstitial nephropathy--histologically proven")
-PrdCode.find_or_create_by!(code: "1924", term: "Tubulointerstitial nephritis associated with autoimmune disease--no histology")
-PrdCode.find_or_create_by!(code: "1930", term: "Tubulointerstitial nephritis associated with autoimmune disease--histologically proven")
-PrdCode.find_or_create_by!(code: "1948", term: "Tubulointerstitial nephritis with uveitis (TINU)--no histology")
-PrdCode.find_or_create_by!(code: "1953", term: "Tubulointerstitial nephritis with uveitis (TINU)--histologically proven")
-PrdCode.find_or_create_by!(code: "1969", term: "Renal sarcoidosis--no histology")
-PrdCode.find_or_create_by!(code: "1976", term: "Renal sarcoidosis--histologically proven")
-PrdCode.find_or_create_by!(code: "1982", term: "Aristolochic acid nephropathy (Balkan/Chinese herb/endemic nephropathy)--no histology")
-PrdCode.find_or_create_by!(code: "1995", term: "Aristolochic acid nephropathy (Balkan/Chinese herb/endemic nephropathy)--histologically proven")
-PrdCode.find_or_create_by!(code: "2005", term: "Drug-induced tubulointerstitial nephritis--no histology")
-PrdCode.find_or_create_by!(code: "2014", term: "Drug-induced tubulointerstitial nephritis--histologically proven")
-PrdCode.find_or_create_by!(code: "2022", term: "Nephropathy due to analgesic drugs--no histology")
-PrdCode.find_or_create_by!(code: "2033", term: "Nephropathy due to analgesic drugs--histologically proven")
-PrdCode.find_or_create_by!(code: "2046", term: "Nephropathy due to ciclosporin--no histology")
-PrdCode.find_or_create_by!(code: "2051", term: "Nephropathy due to ciclosporin--histologically proven")
-PrdCode.find_or_create_by!(code: "2067", term: "Nephropathy due to tacrolimus--no histology")
-PrdCode.find_or_create_by!(code: "2079", term: "Nephropathy due to tacrolimus--histologically proven")
-PrdCode.find_or_create_by!(code: "2080", term: "Nephropathy due to aminoglycosides--no histology")
-PrdCode.find_or_create_by!(code: "2098", term: "Nephropathy due to aminoglycosides--histologically proven")
-PrdCode.find_or_create_by!(code: "2108", term: "Nephropathy due to amphotericin--no histology")
-PrdCode.find_or_create_by!(code: "2112", term: "Nephropathy due to amphotericin--histologically proven")
-PrdCode.find_or_create_by!(code: "2120", term: "Nephropathy due to cisplatin--no histology")
-PrdCode.find_or_create_by!(code: "2131", term: "Nephropathy due to cisplatin--histologically proven")
-PrdCode.find_or_create_by!(code: "2149", term: "Nephropathy due to lithium--no histology")
-PrdCode.find_or_create_by!(code: "2154", term: "Nephropathy due to lithium--histologically proven")
-PrdCode.find_or_create_by!(code: "2165", term: "Lead induced nephropathy--no histology")
-PrdCode.find_or_create_by!(code: "2177", term: "Lead induced nephropathy--histologically proven")
-PrdCode.find_or_create_by!(code: "2183", term: "Acute urate nephropathy--no histology")
-PrdCode.find_or_create_by!(code: "2196", term: "Acute urate nephropathy--histologically proven")
-PrdCode.find_or_create_by!(code: "3636", term: "Chronic urate nephropathy--no histology")
-PrdCode.find_or_create_by!(code: "2203", term: "Chronic urate nephropathy--histologically proven")
-PrdCode.find_or_create_by!(code: "3662", term: "Hypercalcaemic nephropathy")
-PrdCode.find_or_create_by!(code: "2219", term: "Radiation nephritis")
-PrdCode.find_or_create_by!(code: "2226", term: "Renal/perinephric abscess")
-PrdCode.find_or_create_by!(code: "2235", term: "Renal tuberculosis")
-PrdCode.find_or_create_by!(code: "2242", term: "Leptospirosis")
-PrdCode.find_or_create_by!(code: "2257", term: "Hantavirus nephropathy")
-PrdCode.find_or_create_by!(code: "2261", term: "Xanthogranulomatous pyelonephritis")
-PrdCode.find_or_create_by!(code: "2274", term: "Nephropathy related to HIV--no histology")
-PrdCode.find_or_create_by!(code: "2288", term: "Nephropathy related to HIV--histologically proven")
-PrdCode.find_or_create_by!(code: "2290", term: "Schistosomiasis")
-PrdCode.find_or_create_by!(code: "2300", term: "Other specific infection")
-PrdCode.find_or_create_by!(code: "2316", term: "Diabetic nephropathy in type I diabetes--no histology")
-PrdCode.find_or_create_by!(code: "2328", term: "Diabetic nephropathy in type I diabetes--histologically proven")
-PrdCode.find_or_create_by!(code: "2337", term: "Diabetic nephropathy in type II diabetes--no histology")
-PrdCode.find_or_create_by!(code: "2344", term: "Diabetic nephropathy in type II diabetes--histologically proven")
-PrdCode.find_or_create_by!(code: "2359", term: "Chronic hypertensive nephropathy--no histology")
-PrdCode.find_or_create_by!(code: "2363", term: "Chronic hypertensive nephropathy--histologically proven")
-PrdCode.find_or_create_by!(code: "2371", term: "Malignant hypertensive nephropathy/accelerated hypertensive nephropathy--no histology")
-PrdCode.find_or_create_by!(code: "2385", term: "Malignant hypertensive nephropathy/accelerated hypertensive nephropathy--histologically proven")
-PrdCode.find_or_create_by!(code: "2392", term: "Ageing kidney--no histology")
-PrdCode.find_or_create_by!(code: "2407", term: "Ischaemic nephropathy--no histology")
-PrdCode.find_or_create_by!(code: "2411", term: "Ischaemic nephropathy/microvascular disease--histologically proven")
-PrdCode.find_or_create_by!(code: "2424", term: "Renal artery stenosis")
-PrdCode.find_or_create_by!(code: "2430", term: "Atheroembolic renal disease--no histology")
-PrdCode.find_or_create_by!(code: "2448", term: "Atheroembolic renal disease--histologically proven")
-PrdCode.find_or_create_by!(code: "2453", term: "Fibromuscular dysplasia of renal artery")
-PrdCode.find_or_create_by!(code: "2469", term: "Renal arterial thrombosis/occlusion")
-PrdCode.find_or_create_by!(code: "2476", term: "Renal vein thrombosis")
-PrdCode.find_or_create_by!(code: "2482", term: "Cardiorenal syndrome")
-PrdCode.find_or_create_by!(code: "2495", term: "Hepatorenal syndrome")
-PrdCode.find_or_create_by!(code: "2509", term: "Renal amyloidosis")
-PrdCode.find_or_create_by!(code: "2513", term: "AA amyloid secondary to chronic inflammation")
-PrdCode.find_or_create_by!(code: "2521", term: "AL amyloid secondary to plasma cell dyscrasia")
-PrdCode.find_or_create_by!(code: "2532", term: "Familial amyloid secondary to protein mutations--no histology")
-PrdCode.find_or_create_by!(code: "2545", term: "Familial amyloid secondary to protein mutations--histologically proven")
-PrdCode.find_or_create_by!(code: "2550", term: "Familial AA amyloid secondary to familial Mediterranean fever/TRAPS (Hibernian fever)--no histology")
-PrdCode.find_or_create_by!(code: "2566", term: "Familial AA amyloid secondary to familial Mediterranean fever/TRAPS (Hibernian fever)--histologically proven")
-PrdCode.find_or_create_by!(code: "2578", term: "Myeloma kidney--no histology")
-PrdCode.find_or_create_by!(code: "2584", term: "Myeloma cast nephropathy--histologically proven")
-PrdCode.find_or_create_by!(code: "2597", term: "Light chain deposition disease")
-PrdCode.find_or_create_by!(code: "2606", term: "Immunotactoid/fibrillary nephropathy")
-PrdCode.find_or_create_by!(code: "2610", term: "Haemolytic uraemic syndrome (HUS)--diarrhoea associated")
-PrdCode.find_or_create_by!(code: "2623", term: "Atypical haemolytic uraemic syndrome (HUS)--diarrhoea negative")
-PrdCode.find_or_create_by!(code: "2634", term: "Thrombotic thrombocytopenic purpura (TTP)")
-PrdCode.find_or_create_by!(code: "2647", term: "Haemolytic uraemic syndrome (HUS) secondary to systemic disease")
-PrdCode.find_or_create_by!(code: "2652", term: "Congenital haemolytic uraemic syndrome (HUS)")
-PrdCode.find_or_create_by!(code: "2668", term: "Familial haemolytic uraemic syndrome (HUS)")
-PrdCode.find_or_create_by!(code: "2675", term: "Familial thrombotic thrombocytopenic purpura (TTP)")
-PrdCode.find_or_create_by!(code: "2681", term: "Nephropathy due to pre-eclampsia/eclampsia")
-PrdCode.find_or_create_by!(code: "2699", term: "Sickle cell nephropathy--no histology")
-PrdCode.find_or_create_by!(code: "2702", term: "Sickle cell nephropathy--histologically proven")
-PrdCode.find_or_create_by!(code: "2718", term: "Autosomal dominant (AD) polycystic kidney disease")
-PrdCode.find_or_create_by!(code: "2725", term: "Autosomal dominant (AD) polycystic kidney disease type I")
-PrdCode.find_or_create_by!(code: "2739", term: "Autosomal dominant (AD) polycystic kidney disease type II")
-PrdCode.find_or_create_by!(code: "2741", term: "Autosomal recessive (AR) polycystic kidney disease")
-PrdCode.find_or_create_by!(code: "2756", term: "Alport syndrome--no histology")
-PrdCode.find_or_create_by!(code: "2760", term: "Alport syndrome--histologically proven")
-PrdCode.find_or_create_by!(code: "2773", term: "Benign familial haematuria")
-PrdCode.find_or_create_by!(code: "2787", term: "Thin basement membrane disease")
-PrdCode.find_or_create_by!(code: "2794", term: "Cystic kidney disease")
-PrdCode.find_or_create_by!(code: "2804", term: "Medullary cystic kidney disease type I")
-PrdCode.find_or_create_by!(code: "2815", term: "Medullary cystic kidney disease type II")
-PrdCode.find_or_create_by!(code: "2827", term: "Uromodulin-associated nephropathy (familial juvenile hyperuricaemic nephropathy)")
-PrdCode.find_or_create_by!(code: "2836", term: "Nephronophthisis")
-PrdCode.find_or_create_by!(code: "2843", term: "Nephronophthisis--type 1 (juvenile type)")
-PrdCode.find_or_create_by!(code: "2858", term: "Nephronophthisis--type 2 (infantile type)")
-PrdCode.find_or_create_by!(code: "2862", term: "Nephronophthisis--type 3 (adolescent type)")
-PrdCode.find_or_create_by!(code: "2870", term: "Nephronophthisis--type 4 (juvenile type)")
-PrdCode.find_or_create_by!(code: "2889", term: "Nephronophthisis--type 5")
-PrdCode.find_or_create_by!(code: "2891", term: "Nephronophthisis--type 6")
-PrdCode.find_or_create_by!(code: "2901", term: "Primary Fanconi syndrome")
-PrdCode.find_or_create_by!(code: "2917", term: "Tubular disorder as part of inherited metabolic diseases")
-PrdCode.find_or_create_by!(code: "2929", term: "Dent disease")
-PrdCode.find_or_create_by!(code: "2938", term: "Lowe syndrome (oculocerebrorenal syndrome)")
-PrdCode.find_or_create_by!(code: "2940", term: "Inherited aminoaciduria")
-PrdCode.find_or_create_by!(code: "2955", term: "Cystinuria")
-PrdCode.find_or_create_by!(code: "2964", term: "Cystinosis")
-PrdCode.find_or_create_by!(code: "2972", term: "Inherited renal glycosuria")
-PrdCode.find_or_create_by!(code: "2986", term: "Hypophosphataemic rickets X-linked (XL)")
-PrdCode.find_or_create_by!(code: "2993", term: "Hypophosphataemic rickets autosomal recessive (AR)")
-PrdCode.find_or_create_by!(code: "3000", term: "Primary renal tubular acidosis (RTA)")
-PrdCode.find_or_create_by!(code: "3016", term: "Proximal renal tubular acidosis (RTA)--type II")
-PrdCode.find_or_create_by!(code: "3028", term: "Distal renal tubular acidosis (RTA)--type I")
-PrdCode.find_or_create_by!(code: "3037", term: "Distal renal tubular acidosis with sensorineural deafness--gene mutations")
-PrdCode.find_or_create_by!(code: "3044", term: "Nephrogenic diabetes insipidus")
-PrdCode.find_or_create_by!(code: "3059", term: "Lesch Nyhan syndrome--hypoxanthine guanine phosphoribosyl transferase deficiency ")
-PrdCode.find_or_create_by!(code: "3063", term: "Phosphoribosyl pyrophosphate synthetase (PRPPS) superactivity")
-PrdCode.find_or_create_by!(code: "3071", term: "Alagille syndrome")
-PrdCode.find_or_create_by!(code: "3085", term: "Bartter syndrome")
-PrdCode.find_or_create_by!(code: "3092", term: "Gitelman syndrome")
-PrdCode.find_or_create_by!(code: "3102", term: "Liddle syndrome")
-PrdCode.find_or_create_by!(code: "3118", term: "Apparent mineralocorticoid excess")
-PrdCode.find_or_create_by!(code: "3125", term: "Glucocorticoid suppressible hyperaldosteronism")
-PrdCode.find_or_create_by!(code: "3139", term: "Inherited/genetic diabetes mellitus type II")
-PrdCode.find_or_create_by!(code: "3141", term: "Pseudohypoaldosteronism type 1")
-PrdCode.find_or_create_by!(code: "3156", term: "Pseudohypoaldosteronism type 2 (Gordon syndrome)")
-PrdCode.find_or_create_by!(code: "3160", term: "Familial hypocalciuric hypercalcaemia")
-PrdCode.find_or_create_by!(code: "3173", term: "Familial hypercalciuric hypocalcaemia")
-PrdCode.find_or_create_by!(code: "3187", term: "Familial hypomagnesaemia")
-PrdCode.find_or_create_by!(code: "3194", term: "Primary hyperoxaluria")
-PrdCode.find_or_create_by!(code: "3207", term: "Primary hyperoxaluria type I")
-PrdCode.find_or_create_by!(code: "3211", term: "Primary hyperoxaluria type II")
-PrdCode.find_or_create_by!(code: "3731", term: "Primary hyperoxaluria type III")
-PrdCode.find_or_create_by!(code: "3224", term: "Fabry disease--no histology")
-PrdCode.find_or_create_by!(code: "3230", term: "Fabry disease--histologically proven")
-PrdCode.find_or_create_by!(code: "3248", term: "Xanthinuria")
-PrdCode.find_or_create_by!(code: "3253", term: "Nail-patella syndrome")
-PrdCode.find_or_create_by!(code: "3269", term: "Rubinstein-Taybi syndrome")
-PrdCode.find_or_create_by!(code: "3276", term: "Tuberous sclerosis")
-PrdCode.find_or_create_by!(code: "3282", term: "Von Hippel-Lindau disease")
-PrdCode.find_or_create_by!(code: "3295", term: "Medullary sponge kidneys")
-PrdCode.find_or_create_by!(code: "3305", term: "Horse-shoe kidney")
-PrdCode.find_or_create_by!(code: "3314", term: "Frasier syndrome")
-PrdCode.find_or_create_by!(code: "3658", term: "Renal coloboma syndrome")
-PrdCode.find_or_create_by!(code: "3322", term: "Branchio-oto-renal syndrome")
-PrdCode.find_or_create_by!(code: "3333", term: "Williams syndrome")
-PrdCode.find_or_create_by!(code: "3346", term: "Townes-Brocks syndrome")
-PrdCode.find_or_create_by!(code: "3351", term: "Lawrence-Moon-Biedl/Bardet-Biedl syndrome")
-PrdCode.find_or_create_by!(code: "3367", term: "Mitochondrial cytopathy")
-PrdCode.find_or_create_by!(code: "3379", term: "Familial nephropathy")
-PrdCode.find_or_create_by!(code: "3380", term: "Acute kidney injury")
-PrdCode.find_or_create_by!(code: "3398", term: "Acute kidney injury due to hypovolaemia")
-PrdCode.find_or_create_by!(code: "3403", term: "Acute kidney injury due to circulatory failure")
-PrdCode.find_or_create_by!(code: "3419", term: "Acute kidney injury due to sepsis")
-PrdCode.find_or_create_by!(code: "3426", term: "Acute kidney injury due to rhabdomyolysis")
-PrdCode.find_or_create_by!(code: "3435", term: "Acute kidney injury due to nephrotoxicity")
-PrdCode.find_or_create_by!(code: "3442", term: "Acute cortical necrosis")
-PrdCode.find_or_create_by!(code: "3457", term: "Acute pyelonephritis")
-PrdCode.find_or_create_by!(code: "3461", term: "Kidney tumour")
-PrdCode.find_or_create_by!(code: "3474", term: "Renal cell carcinoma--histologically proven")
-PrdCode.find_or_create_by!(code: "3488", term: "Transitional cell carcinoma--histologically proven")
-PrdCode.find_or_create_by!(code: "3490", term: "Wilms tumour--histologically proven")
-PrdCode.find_or_create_by!(code: "3501", term: "Mesoblastic nephroma--histologically proven")
-PrdCode.find_or_create_by!(code: "3517", term: "Single kidney identified in adulthood")
-PrdCode.find_or_create_by!(code: "3529", term: "Chronic kidney disease (CKD)/chronic renal failure (CRF) caused by tumour nephrectomy")
-PrdCode.find_or_create_by!(code: "3538", term: "Chronic kidney disease (CKD)/chronic renal failure (CRF) due to traumatic loss of kidney")
-PrdCode.find_or_create_by!(code: "3540", term: "Chronic kidney disease (CKD)/chronic renal failure (CRF) due to donor nephrectomy")
-PrdCode.find_or_create_by!(code: "3555", term: "Chronic kidney disease (CKD)/chronic renal failure (CRF)--aetiology uncertain/unknown--no histology")
-PrdCode.find_or_create_by!(code: "3564", term: "Chronic kidney disease (CKD)/chronic renal failure (CRF)--aetiology uncertain/unknown--histologically proven")
-PrdCode.find_or_create_by!(code: "3572", term: "Haematuria and proteinuria--no histology")
-PrdCode.find_or_create_by!(code: "3712", term: "Isolated haematuria--no histology")
-PrdCode.find_or_create_by!(code: "3720", term: "Isolated proteinuria--no histology")
-PrdCode.find_or_create_by!(code: "3643", term: "Chronic renal failure due to systemic infection")
-PrdCode.find_or_create_by!(code: "3691", term: "Renal failure")
-PrdCode.find_or_create_by!(code: "3708", term: "Chronic renal failure")
-
-OrganismCode.find_or_create_by!(read_code: "READ1", name: "Acineobactor")
-OrganismCode.find_or_create_by!(read_code: "READ2", name: "Bacillis")
-OrganismCode.find_or_create_by!(read_code: "READ3", name: "Bacteroides")
-OrganismCode.find_or_create_by!(read_code: "READ4", name: "Campylobactor")
-OrganismCode.find_or_create_by!(read_code: "READ5", name: "Candida Albicans")
-OrganismCode.find_or_create_by!(read_code: "READ6", name: "Chryseomonas luteola")
-OrganismCode.find_or_create_by!(read_code: "READ7", name: "Citrobactor species")
-OrganismCode.find_or_create_by!(read_code: "READ8", name: "Coliforms")
-OrganismCode.find_or_create_by!(read_code: "READ9", name: "Corynebacterium")
-OrganismCode.find_or_create_by!(read_code: "READ10", name: "Diptheroids")
-OrganismCode.find_or_create_by!(read_code: "READ11", name: "E.Coli")
-OrganismCode.find_or_create_by!(read_code: "READ12", name: "Enterobacter")
-OrganismCode.find_or_create_by!(read_code: "READ13", name: "Enterococcus faecalis")
-OrganismCode.find_or_create_by!(read_code: "READ14", name: "Escherichia sp")
-OrganismCode.find_or_create_by!(read_code: "READ15", name: "Gram Neg rods")
-OrganismCode.find_or_create_by!(read_code: "READ16", name: "Gram Pos cocci")
-OrganismCode.find_or_create_by!(read_code: "READ17", name: "Gram Pos Rods")
-OrganismCode.find_or_create_by!(read_code: "READ18", name: "Klebsiella")
-OrganismCode.find_or_create_by!(read_code: "READ19", name: "Lactococcus")
-OrganismCode.find_or_create_by!(read_code: "READ20", name: "Lymphocytes")
-OrganismCode.find_or_create_by!(read_code: "READ21", name: "Morganella morganii")
-OrganismCode.find_or_create_by!(read_code: "READ22", name: "MRSA")
-OrganismCode.find_or_create_by!(read_code: "READ23", name: "pantoea species")
-OrganismCode.find_or_create_by!(read_code: "READ24", name: "Proteus")
-OrganismCode.find_or_create_by!(read_code: "READ25", name: "Pseudomonas")
-OrganismCode.find_or_create_by!(read_code: "READ26", name: "Pus +++")
-OrganismCode.find_or_create_by!(read_code: "READ27", name: "Pus cells")
-OrganismCode.find_or_create_by!(read_code: "READ28", name: "Pus cells no growth")
-OrganismCode.find_or_create_by!(read_code: "READ29", name: "Scanty Candida")
-OrganismCode.find_or_create_by!(read_code: "READ30", name: "Scanty Diptheroids")
-OrganismCode.find_or_create_by!(read_code: "READ31", name: "Scanty enterobacter")
-OrganismCode.find_or_create_by!(read_code: "READ32", name: "Scanty Escherichia vulneris")
-OrganismCode.find_or_create_by!(read_code: "READ33", name: "Staph aureus")
-OrganismCode.find_or_create_by!(read_code: "READ34", name: "Staph epi")
-OrganismCode.find_or_create_by!(read_code: "READ35", name: "Staph haemolyticus")
-OrganismCode.find_or_create_by!(read_code: "READ36", name: "Strep")
-OrganismCode.find_or_create_by!(read_code: "READ37", name: "Streptococcus mitis")
-OrganismCode.find_or_create_by!(read_code: "READ38", name: "Streptococcus salivarious")
-OrganismCode.find_or_create_by!(read_code: "READ39", name: "Streptococcus sp")
-OrganismCode.find_or_create_by!(read_code: "READ40", name: "Viradans Strep")
 
 MedicationRoute.find_or_create_by!(name: "PO", full_name: "Per Oral")
 MedicationRoute.find_or_create_by!(name: "IV", full_name: "Intravenous")
@@ -521,10 +175,8 @@ MedicationRoute.find_or_create_by!(name: "SC", full_name: "Subcutaneous")
 MedicationRoute.find_or_create_by!(name: "IM", full_name: "Intramuscular")
 MedicationRoute.find_or_create_by!(name: "Other (Please specify in notes)", full_name: "Other (Refer to notes)")
 
-DrugType.find_or_create_by!(name: "Antibiotic")
-DrugType.find_or_create_by!(name: "ESA")
-DrugType.find_or_create_by!(name: "Immunosuppressant")
-DrugType.find_or_create_by!(name: "Peritonitis")
+
+log 'Adding Peritonitis Episode Types...'
 
 EpisodeType.find_or_create_by!(term: "De novo", definition: "First infection.")
 EpisodeType.find_or_create_by!(term: "Recurrent", definition: "An episode that occurs within 4 weeks of completion of therapy of a prior episode but with a different organism.")
@@ -534,10 +186,57 @@ EpisodeType.find_or_create_by!(term: "Refractory", definition: "Failure of the e
 EpisodeType.find_or_create_by!(term: "Catheter-related", definition: "Peritonitis in conjunction with an exit-site or tunnel infection with the same organism or 1 site.")
 EpisodeType.find_or_create_by!(term: "Other", definition: "Refer to notes.")
 
+log 'Adding Fluid descriptions...'
+
 FluidDescription.find_or_create_by!(description: "Clear")
 FluidDescription.find_or_create_by!(description: "Misty")
 FluidDescription.find_or_create_by!(description: "Cloudy")
 FluidDescription.find_or_create_by!(description: "Pea Soup")
 
+log '-----------Adding Patients----------'
+file_path = Rails.root.join('db', 'csv', 'rw_patients.csv')
+
+demo_nhsno = 1234567890
+logcount=0
+CSV.foreach(file_path, headers: true) do |row|
+  local_patient_id = row['local_patient_id']
+  demo_nhsno += 1
+  log "   ... adding #{local_patient_id}"
+  logcount += 1
+  sex = (row['sex'] == 'M' ? 1 : 2)
+  Patient.find_or_create_by!(local_patient_id: local_patient_id) do |patient|
+    patient.surname = row['surname']
+    patient.forename = row['forename']
+    patient.sex = sex
+    patient.dob = row['dob']
+    patient.nhs_number = demo_nhsno
+    patient.created_at = row['created_at']
+  end
+end
+
+log "...#{logcount} patients seeded!"
 
 
+log 'Adding RABBIT problems...'
+
+randweeks = (0..52).to_a
+file_path = Rails.root.join('db', 'csv', 'rabbit_problems.csv')
+logcount=0
+CSV.foreach(file_path, headers: true) do |row|
+  randwk = randweeks.sample
+  date = Time.now - randwk.weeks  
+  description = row['description']
+  snomed_id = row['snomed_id ']
+  log "   ... adding #{snomed_id}: #{description} from #{date}"
+  logcount += 1
+  PatientProblem.create(
+    patient_id: 1, 
+    description: description, 
+    date: date, 
+    user_id: 1, 
+    snomed_id: snomed_id)
+end
+
+log "...#{logcount} problems seeded!"
+
+log '-----------Database seeding complete!----------'
