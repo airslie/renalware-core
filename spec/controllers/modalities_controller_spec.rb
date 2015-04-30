@@ -4,6 +4,7 @@ describe ModalitiesController, :type => :controller do
 
   before do
     @patient = create(:patient)
+    @modality = create(:modality)
   end
 
   describe 'new' do
@@ -57,25 +58,23 @@ describe ModalitiesController, :type => :controller do
     end
 
     context 'with a patient' do
-      before do
-        post :create, patient_id: @patient.to_param, modality: { start_date: '2015-04-21', notes: 'Notes' }
-      end
-
       it 'succeeds' do
+        modality_code = create(:modality_code)
+        post :create, patient_id: @patient.to_param, modality: { modality_code_id: modality_code.to_param, start_date: '2015-04-21', notes: 'Notes' }
         expect(response).to redirect_to(patient_modalities_path(@patient))
       end
-    end
 
-    context 'with a patient and death modality' do      
-      before do
-        post :create, patient_id: @patient.to_param, modality: { modality_code: :death, start_date: '2015-04-22', notes: 'Death notes' }
+      context 'and death modality' do
+        before do
+          death_modality_code = create(:modality_code, name: 'Death')
+          post :create, patient_id: @patient.to_param, modality: { modality_code_id: death_modality_code.to_param, start_date: '2015-04-22', notes: 'Death notes' }
+        end
+
+        it 'succeeds with redirect to update cause of death' do
+          expect(response).to redirect_to(edit_patient_path(@patient))
+        end
       end
-
-      it 'succeeds with redirect to update cause of death' do
-        expect(response).to redirect_to(edit_patient_path(@patient))
-      end
     end
-
   end
 
 end
