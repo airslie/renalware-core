@@ -20,8 +20,8 @@ class ModalitiesController < ApplicationController
 
   def modality_params
     params.require(:modality).permit(
-      :patient_id, :user_id, :modality_code_id, :modality_change_type,
-      :modality_reason_id, :start_date)
+      :patient_id, :modality_code_id, :modality_change_type,
+      :modality_reason_id, :notes, :start_date)
   end
 
   def find_patient
