@@ -8,9 +8,9 @@ $(document).ready(function(){
     var selectedModal = $('#modality-code-select option:selected').text();
 
     if(selectedModal === "Death") {
-      $('.update-death').show();
+      $('.hide-death').hide();
     } else {
-      $('.update-death').hide();
+      $('.hide-death').show();
     }
 
   });
