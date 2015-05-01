@@ -71,7 +71,7 @@ describe ModalitiesController, :type => :controller do
         end
 
         it 'succeeds with redirect to update cause of death' do
-          expect(response).to redirect_to(edit_patient_path(@patient))
+          expect(response).to redirect_to(death_update_patient_path(@patient))
         end
       end
     end

@@ -14,12 +14,11 @@ class ModalitiesController < ApplicationController
     @patient.set_modality(modality_params)
 
     if @patient.modality_code.death?
-      redirect_to edit_patient_path(@patient), :notice => "Please make sure to update patient date of death and cause of death!"
+      redirect_to death_update_patient_path(@patient), :notice => "Please make sure to update patient date of death and cause of death!"
     else
       redirect_to patient_modalities_path(@patient)
     end
-
-    # redirect_to patient_modalities_path(@patient)    
+       
   end
 
   private
