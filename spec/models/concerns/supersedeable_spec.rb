@@ -34,13 +34,3 @@ shared_examples_for Supersedeable do
   end
 end
 
-
-describe Modality do
-  it_behaves_like Supersedeable do
-    subject { create(:modality) }
-    it 'duplicates associations' do
-      actual = subject.supersede!
-      expect(actual.patient).to eq(subject.patient)
-    end
-  end
-end

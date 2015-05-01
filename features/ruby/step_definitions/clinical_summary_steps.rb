@@ -221,7 +221,7 @@ Then(/^should see this terminated medication in their medications history$/) do
 end
 
 Given(/^there are edta causes of death in the database$/) do
-  @edta_codes = [[100, "Cause one"], [200, "Cause two"]]
+  @edta_codes = [[100, "Death cause one"], [200, "Death cause two"]]
   @edta_codes.map! do |dc|
     @edta_code = EdtaCode.create!(:code => dc[0], :death_cause => dc[1])
   end
@@ -258,14 +258,14 @@ When(/^I select death modality$/) do
     select "Death"
   end
 
-  fill_in "Notes", :with => "Painful death."
+  select '2015', from: 'modality_start_date_1i'
+  select 'April', from: 'modality_start_date_2i'
+  select '1', from: 'modality_start_date_3i'
 
   click_on "Save Modality"
 end
 
 Then(/^I should complete the cause of death form$/) do
-  
-  click_on "Update Cause and Date of Death"
 
   within "#patient_death_date_3i" do
     select '22'
@@ -277,8 +277,8 @@ Then(/^I should complete the cause of death form$/) do
     select '2014'
   end
 
-  select "Cause one", :from => "EDTA Cause of Death (1)"
-  select "Cause two", :from => "EDTA Cause of Death (2)"
+  select "Death cause one", :from => "EDTA Cause of Death (1)"
+  select "Death cause two", :from => "EDTA Cause of Death (2)"
 
   fill_in "Notes/Details", :with => "Heart stopped"
 
@@ -288,4 +288,25 @@ end
 Then(/^see the date of death in the patient's demographics$/) do
   visit demographics_patient_path(@patient_1)
   expect(page).to have_content("22/09/2014")
+end
+
+Then(/^I should see the patient on the death list$/) do
+  visit death_patients_path
+  expect(page).to have_content("RABBIT")
+end
+
+Then(/^I should see the patient's current death modality and set date in index$/) do
+  visit patient_modalities_path(@patient_1)
+
+  expect(page).to have_content("Death")
+  expect(page).to have_content("2015-04-01")
+end
+
+Then(/^I can view the deceased patient's causes of death$/) do
+  visit death_patients_path
+
+  click_on "Causes of death"
+  
+  expect(page).to have_content("Death cause one")
+  expect(page).to have_content("Death cause two")
 end

@@ -41,12 +41,14 @@
         .large-12.columns
           = patient.check_box :paediatric_patient_indicator
           = patient.label :paediatric_patient_indicator
-
-      .row
-        .form-section
-      .row
-        .large-6.columns          
-          = link_to "Update Cause and Date of Death", death_update_patient_path(@patient), {class: "update-death button tiny mt"}
+      
+      - if @patient.persisted?        
+        .row
+          .form-section
+        .row
+          .large-12.columns
+            To enter date of death please set 'Death' modality:
+            = link_to "Change Modal", new_patient_modality_path(@patient), title: "Patient Modality", class: "death-update"
 
   .large-4.columns
     = field_set_tag do

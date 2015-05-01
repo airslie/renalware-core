@@ -105,18 +105,6 @@ When(/^I update the patient's demographics$/) do
   fill_in "Forename", :with => "Roger"
 end
 
-When(/^record the patient's death$/) do
-  within "#patient_death_date_1i" do
-    select '2014'
-  end
-  within "#patient_death_date_2i" do
-    select 'June'
-  end
-  within "#patient_death_date_3i" do
-    select '8'
-  end
-end
-
 When(/^submit the update form$/) do
   click_on "Update Demographics"
 end
@@ -150,9 +138,4 @@ end
 
 Then(/^I should see the patient's new demographics on their profile page$/) do
   expect(page).to have_content("R")
-end
-
-Then(/^I should see the patient on the death list$/) do
-  visit death_patients_path
-  expect(page).to have_content("RABBIT")
 end

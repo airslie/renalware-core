@@ -4,6 +4,9 @@ RSpec.describe Snomed, :type => :model do
 
   context "lookup" do
     before do
+      allow(YAML).to receive(:load_file).and_return(
+        [{'id' => 123, 'label' => 'cool beans'}])
+
       @results = Snomed.lookup "cool beans"
     end
 
