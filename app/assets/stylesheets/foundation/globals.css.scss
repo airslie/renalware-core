@@ -7,7 +7,17 @@ body > .flash-notice {
   position: relative;
   top: 3.2em;
   z-index: 1;
-} 
+}
+
+table thead tr th, table thead tr td {
+  padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+  font-size: 0.65em;
+}
+
+table tr th, table tr td {
+  padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+  font-size: 0.65em;
+}
 
 fieldset {
   border-radius: 1em;
@@ -47,8 +57,12 @@ fieldset {
   margin-bottom: 0;
 }
 
+.accordion .accordion-navigation > .content, .accordion dd > .content {
+  padding: 0;
+}
+
 .toggle-content {
-  font-size: 0.9em;
+  font-size: 0.7em;
 }
 
 .underline {
