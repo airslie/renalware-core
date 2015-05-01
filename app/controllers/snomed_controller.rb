@@ -7,7 +7,11 @@ class SnomedController < ApplicationController
   private
 
   def snomed_params
-    { 'query' => params[:snomed_term], 'semanticTag' => params[:semantic_tag] }
+    {
+      'query' => params[:snomed_term],
+      'semanticFilter' => params[:semantic_tag],
+      'groupByConcept' => params.fetch(:group_by_concept, true)
+    }
   end
 
 end
