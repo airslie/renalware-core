@@ -1,5 +1,4 @@
 class Patient < ActiveRecord::Base
-  include Concerns::Searchable
 
   belongs_to :current_address, :class_name => "Address", :foreign_key => :current_address_id
   belongs_to :address_at_diagnosis, :class_name => "Address", :foreign_key => :address_at_diagnosis_id
@@ -40,15 +39,6 @@ class Patient < ActiveRecord::Base
   validates :dob, presence: true
 
   enum sex: { not_known: 0, male: 1, female: 2, not_specified: 9 }
-
-  # mappings dynamic: false do
-  #   indexes :forename
-  #   indexes :hosp_centre_code
-  # end
-
-  def as_indexed_json(options={})
-    as_json(only: %i(forename surname local_patient_id nhs_number))
-  end
 
   def full_name
     "#{surname}, #{forename[0]}"
