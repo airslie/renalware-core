@@ -34,7 +34,6 @@ RSpec.describe PeritonitisEpisode, :type => :model do
         
         @medication_one = FactoryGirl.create(:medication,
           patient_id: @patient,
-          user_id: "1",
           medicatable_id: @drug_1,
           medicatable_type: "Drug",
           treatable_id: 1,
@@ -51,7 +50,6 @@ RSpec.describe PeritonitisEpisode, :type => :model do
         
         @medication_two = FactoryGirl.create(:medication,
           patient_id: @patient,
-          user_id: "1",
           medicatable_id: @drug_2,
           medicatable_type: "Drug",
           treatable_id: 1,
@@ -81,8 +79,6 @@ RSpec.describe PeritonitisEpisode, :type => :model do
         @pe.organism_codes << @mrsa
         @pe.organism_codes << @mrsa
         @pe.organism_codes << @ecoli
-
-        # @pe.infection_organisms.build(:sensitivity )
 
         @pe.save!
         @pe.reload

@@ -23,8 +23,7 @@ class PatientEventsController < ApplicationController
 
   private
   def allowed_params
-    params.require(:patient_event).permit(:patient_event_type_id, :date_time, :user_id,
-      :description, :notes)
+    params.require(:patient_event).permit(:patient_event_type_id, :date_time, :description, :notes)
   end
 
   def load_patient

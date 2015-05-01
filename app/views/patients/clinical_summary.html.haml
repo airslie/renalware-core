@@ -18,7 +18,7 @@
       - @patient.patient_problems.each do |p|
    
         %li
-          = "#{p.description}, #{p.created_at.strftime("%d/%m/%Y")}, #{p.user_id}"
+          = "#{p.description}, #{p.created_at.strftime("%d/%m/%Y")}"
                     
 .wide-screen
   .columns.large-6
@@ -28,9 +28,9 @@
     %ul.no-bullet
       - @patient.medications.each do |p|
        
-        %li{:class => "drug-#{p.medication_type}"}
+        %li{:class => "drug-#{drug_types_colour_tag(p.medicatable.drug_types)}"}
           
-          = "#{p.medication_type}, #{p.medicatable.name}, #{p.dose}, #{p.medication_route.name}, #{p.frequency}, #{p.date.strftime("%d/%m/%Y")}"          
+          = "#{drug_types_tag(p.medicatable.drug_types)}: #{p.medicatable.name}, #{p.dose}, #{p.medication_route.name}, #{p.frequency}, #{p.date.strftime("%d/%m/%Y")}"          
 
 .wide-screen
   .columns.large-12
@@ -43,7 +43,7 @@
           %dl.accordion{data: {accordion: true} }
             %dd.accordion-navigation
               %a.fi-plus.fi-minus.toggle-notes{:id => "patient-event-toggle-notes-#{event.id}", href: "#patient-event-notes-#{event.id}"}           
-                = "#{event.date_time.strftime("%d/%m/%Y")}, #{event.patient_event_type.name} - #{event.description}, #{event.user_id}"
+                = "#{event.date_time.strftime("%d/%m/%Y")}, #{event.patient_event_type.name} - #{event.description}"
                  
               .patient-event.content{:id => "patient-event-notes-#{event.id}"}
                 = event.notes

@@ -2,16 +2,16 @@ $(document).ready(function() {
 
   $("a.add-problem").click(function(e) {
     e.preventDefault();
-    var next_number =  $(".problem-form").data("index") + 1;
-    $(".problem-form").data("index", next_number);
+    var nextNumber =  $(".problem-form").data("index") + 1;
+    $(".problem-form").data("index", nextNumber);
 
-    var new_problem = $(".problem-form").html();
+    var newProblem = $(".problem-form").html();
 
-    var update_number_markup = new_problem.replace(/\d/g, next_number);
+    var updateNumberMarkup = newProblem.replace(/\d/g, nextNumber);
 
-    var updated_markup = update_number_markup.replace("add-x", "fi-x");
+    var updatedMarkup = updateNumberMarkup.replace("add-x", "fi-x");
 
-    $("#additional-form").append(updated_markup);
+    $("#additional-form").append(updatedMarkup);
 
     $(".fi-x").click(function(e) {
       $(e.currentTarget).closest(".problem-form").remove();
@@ -52,15 +52,15 @@ $(document).ready(function() {
   });
 
   $('body').on('click', '.snomed-select-link', function(e) {
-    var bullet = $(e.currentTarget);
-    var problem_form = bullet.closest('.problem-form');
+    var $bullet = $(e.currentTarget);
+    var $problemForm = $bullet.closest('.problem-form');
     var snomedId = bullet.data('snomed-id');
     console.log("clicked on a snomed term" + snomedId);
-    problem_form.find('.selected-snomed-id').val(snomedId);
+    problemForm.find('.selected-snomed-id').val(snomedId);
 
     // Show the selected drug
-    problem_form.find('.snomed-lookup').val(bullet.html());
-    problem_form.find('.snomed-results').hide();
+    problemForm.find('.snomed-lookup').val(bullet.html());
+    problemForm.find('.snomed-results').hide();
 
   });
 

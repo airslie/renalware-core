@@ -24,17 +24,18 @@ Scenario: Doctor adds a problem
   When they save the problem list
   Then they should see the new problems on the clinical summary
 
-@javascript 
+@javascript @elasticsearch
 Scenario: Doctor adds a medication for a patient
   Given there are drugs in the database
     And there are drug types in the database
     And existing drugs have been assigned drug types
     And there are medication routes in the database
   When they add a medication
-    And complete the medication form
-  Then they should see the new medication on the clinical summary
-
-@javascript 
+    And complete the medication form by drug type select
+    And complete the medication form by drug search
+  Then they should see the new medications on the clinical summary
+  
+@javascript @wip
 Scenario: Doctor terminates a medication for a patient
   Given there are drugs in the database
     And there are drug types in the database
@@ -43,7 +44,7 @@ Scenario: Doctor terminates a medication for a patient
     And a patient has a medication
   When they terminate a medication
   Then they should no longer see this medication in their clinical summary
-    # And should see this terminated medication in their medications history
+    And should see this terminated medication in their medications history
 
 @javascript 
 Scenario: Doctor adds a modality for a patient
@@ -57,3 +58,8 @@ Scenario: Doctor adds a death modality for a patient
   When I select death modality
   Then I should complete the cause of death form
     And see the date of death in the patient's demographics
+    And I should see the patient on the death list
+    And I should see the patient's current death modality and set date in index
+    And I can view the deceased patient's causes of death
+
+

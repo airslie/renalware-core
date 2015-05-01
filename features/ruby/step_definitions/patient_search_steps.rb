@@ -3,7 +3,7 @@ Given(/^I've waited for the indexes to update$/) do
 end
 
 When(/^I search for a patient by local patient id$/) do
-  fill_in "patient_search", :with => "Z999991"
+  fill_in "patient_search", :with => "Z999992"
   click_on "Find Patient"
 end
 
@@ -22,6 +22,10 @@ When(/^I search for a patient by surname$/) do
   click_on "Find Patient"
 end
 
+Then(/^they will see a list of matching results for patients with same hospital code$/) do
+  expect(page).to have_content("DAY, D")
+end
+
 Then(/^they will see a list of matching results for patients$/) do
-  expect(page.has_content?("RABBIT, R")).to be true
+  expect(page).to have_content("RABBIT, R")
 end

@@ -1,13 +1,13 @@
 %dt
   %dd{role: "menuitem"}
-    = link_to "ClinSumm", clinical_summary_patient_path(@patient), title:  "Clinical Summary"
+    = link_to "ClinSumm", clinical_summary_patient_path(@patient), title: "Clinical Summary"
   %dd{role: "menuitem"}
-    = link_to "Admin", demographics_patient_path(@patient), title:  "Demographics"
+    = link_to "Admin", demographics_patient_path(@patient), title: "Demographics"
   %dd{role: "menuitem"}
-    = link_to "Modal", patient_modalities_path(@patient), title:  "Patient Modality"
+    = link_to "Modal", patient_modalities_path(@patient), title: "Patient Modality"
   %dd{role: "menuitem"}
-    = link_to "Problems (#{@patient.patient_problems.length})", problems_patient_path(@patient), title:  "Manage Problems"
+    = link_to "Problems (#{@patient.patient_problems.length})", problems_patient_path(@patient), title: "Manage Problems"
   %dd{role: "menuitem"}
-    = link_to "Meds (#{@patient.medications.length})", manage_medications_patient_path(@patient), title:  "Manage Medications"
+    = link_to "Meds (#{@patient.medications.length})", manage_medications_patient_path(@patient), title: "Manage Medications"
   %dd{role: "menuitem"}
-    = link_to "Events (#{@patient.patient_events.length})", patient_patient_events_path(@patient), title:  "Patient Events"
+    = link_to "Events (#{@patient.patient_events.length})", patient_patient_events_path(@patient), title: "Patient Events"

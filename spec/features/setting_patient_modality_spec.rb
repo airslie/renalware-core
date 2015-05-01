@@ -8,7 +8,6 @@ describe 'A clinician sets a patient modality' do
     visit new_patient_modality_path(@patient)
 
     within '.modality-form' do
-      fill_in 'Entered By', with: 'Doctor'
       select 'CAPD (disconnect)', from: 'modality-code-select'
       select 'Haemodialysis To PD', from: 'Type of Change'
       select 'Patient / partner choice', from: 'Reason for Change'
@@ -30,19 +29,17 @@ describe 'A clinician sets a patient modality' do
       within('.main-content') do
         within('table tr:nth-child(2)') do
           expect(page).to have_css('td:first-child', text: 'CAPD (disconnect)')
-          expect(page).to have_css('td:nth-child(2)', text: 'Patient / partner choice')
+          expect(page).to have_css('td:nth-child(2)', text: 'Adding modality for patient')
         end
       end
     end
   end
   context 'where the patient has an existing modality' do
     it 'supercedes the existing modality with a new one' do
-      within('.main-content') do
-        expect(page).to have_content('Patient Modality')
-        within('table tr:nth-child(2)') do
-          expect(page).to have_css('td:first-child', text: 'CAPD (disconnect)')
-          expect(page).to have_css('td:nth-child(2)', text: 'Patient / partner choice')
-        end
+      expect(page).to have_content('Patient Modality')
+      within('table tr:nth-child(2)') do
+        expect(page).to have_css('td:first-child', text: 'CAPD (disconnect)')
+        expect(page).to have_css('td:nth-child(2)', text: 'Adding modality for patient')
       end
     end
   end

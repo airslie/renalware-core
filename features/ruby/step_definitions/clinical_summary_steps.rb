@@ -13,8 +13,8 @@ Given(/^there are medication routes in the database$/) do
 end
 
 Given(/^a patient has a medication$/) do
-  @medication_one = Medication.create!(patient_id: @patient_1.id,
-    medication_type: @antibiotic.name.downcase,
+  @medication_one = FactoryGirl.create(:medication, 
+    patient: @patient_1,
     medicatable_id: @yellow.id,
     medicatable_type: "Drug",
     dose: "10mg",
@@ -25,8 +25,8 @@ Given(/^a patient has a medication$/) do
     provider: 1
     )
 
-  @medication_two = Medication.create!(patient_id: @patient_1.id,
-    medication_type: @esa.name.downcase,
+  @medication_two = FactoryGirl.create(:medication,
+    patient: @patient_1,
     medicatable_id: @blue.id,
     medicatable_type: "Drug",
     dose: "20ml",
@@ -119,6 +119,59 @@ When(/^complete the medication form$/) do
   click_on "Save Medication"
 end
 
+When(/^complete the medication form by drug type select$/) do
+  select "ESA", :from => "Medication Type"
+  select "Blue", :from => "Select Drug"
+  fill_in "Dose", :with => "10mg" 
+  select "PO", :from =>  "Route"
+  fill_in "Frequency & Duration", :with => "Once daily"
+  fill_in "Notes", :with => "Review in six weeks"
+  within "#patient_medications_attributes_0_date_3i" do
+    select '1'
+  end
+  within "#patient_medications_attributes_0_date_2i" do
+    select 'January'
+  end
+  within "#patient_medications_attributes_0_date_1i" do
+    select '2013'
+  end
+
+  find("#patient_medications_attributes_0_provider_gp").set(true)
+
+  click_on "Save Medication"
+end
+
+When(/^complete the medication form by drug search$/) do
+  visit manage_medications_patient_path(@patient_1)
+  click_link "Add a new medication"
+  
+  fill_in "Drug", :with => "amo"
+  
+  within('.drug-results') do
+    page.has_css?("option", :text => "Amoxicillin")
+  end
+  
+  page.find("#drug-5").click
+
+  fill_in "Dose", :with => "20mg" 
+  select "IV", :from =>  "Route"
+  fill_in "Frequency & Duration", :with => "Twice weekly"
+  fill_in "Notes", :with => "Review in two weeks."
+  within "#patient_medications_attributes_1_date_3i" do
+    select '2'
+  end
+  within "#patient_medications_attributes_1_date_2i" do
+    select 'February'
+  end
+  within "#patient_medications_attributes_1_date_1i" do
+    select '2014'
+  end
+
+  find("#patient_medications_attributes_1_provider_hospital").set(true)
+
+  click_on "Save Medication"
+end
+
 When(/^they terminate a medication$/) do
   visit manage_medications_patient_path(@patient_1)
   find("a.drug-esa").click
@@ -128,40 +181,47 @@ end
 
 Then(/^they should see the new patient event on the clinical summary$/) do
   %w(01/01/2011 Telephone call Spoke to son ).each do |heading|
-    expect(page.has_content? heading).to be(true), "Expected #{heading} to be in the view"
+    expect(page).to have_content(heading), "Expected #{heading} to be in the view"
   end
 end
 
 Then(/^be able to view notes through toggling the description data\.$/) do
-  expect(page.has_content? "Wants to arrange a home visit").to be(true)
+  expect(page).to have_content("Wants to arrange a home visit")
 end
 
 Then(/^they should see the new problems on the clinical summary$/) do
-  expect(page.has_content? "Have abdominal pain, possibly kidney stones").to be true
-  expect(page.has_content? "Bad breath").to be true
+  expect(page).to have_content("Have abdominal pain, possibly kidney stones")
+  expect(page).to have_content("Bad breath")
 end
 
-Then(/^they should see the new medication on the clinical summary$/) do
+Then(/^they should see the new medications on the clinical summary$/) do
   visit clinical_summary_patient_path(@patient_1)
-  expect(page.has_css? ".drug-esa").to be true
-  expect(page.has_content? "Blue").to be true
-  expect(page.has_content? "10mg").to be true
-  expect(page.has_content? "PO").to be true
-  expect(page.has_content? "Once daily").to be true
-  expect(page.has_content? "01/01/2013").to be true
+  expect(page).to have_css(".drug-esa")
+  expect(page).to have_content("Blue")
+  expect(page).to have_content("10mg")
+  expect(page).to have_content("PO")
+  expect(page).to have_content("Once daily")
+  expect(page).to have_content("01/01/2013")
+
+  expect(page).to have_css(".drug-drug")
+  expect(page).to have_content("Amoxicillin")
+  expect(page).to have_content("20mg")
+  expect(page).to have_content("IV")
+  expect(page).to have_content("Twice weekly")
+  expect(page).to have_content("02/02/2014")
 end
 
 Then(/^they should no longer see this medication in their clinical summary$/) do
-  expect(page.has_content? "Blue").to be false
+  expect(page).to have_no_content("Blue")
 end
 
-# Then(/^should see this terminated medication in their medications history$/) do
-#   visit medications_index_patient_path(@patient)
-#   expect(page.has_content? "Blue" ).to be true
-# end
+Then(/^should see this terminated medication in their medications history$/) do
+  visit medications_index_patient_path(@patient)
+  expect(page).to have_content?("Blue" )
+end
 
 Given(/^there are edta causes of death in the database$/) do
-  @edta_codes = [[100, "Cause one"], [200, "Cause two"]]
+  @edta_codes = [[100, "Death cause one"], [200, "Death cause two"]]
   @edta_codes.map! do |dc|
     @edta_code = EdtaCode.create!(:code => dc[0], :death_cause => dc[1])
   end
@@ -190,17 +250,22 @@ When(/^I complete the modality form$/) do
 end
 
 Then(/^I should see a patient's modality on their clinical summary$/) do
-   expect(page.has_content? "Modal One").to be true
+   expect(page).to have_content("Modal One")
 end
 
 When(/^I select death modality$/) do
   within "#modality-code-select" do
     select "Death"
   end
+
+  select '2015', from: 'modality_start_date_1i'
+  select 'April', from: 'modality_start_date_2i'
+  select '1', from: 'modality_start_date_3i'
+
+  click_on "Save Modality"
 end
 
 Then(/^I should complete the cause of death form$/) do
-  click_on "Cause of Death"
 
   within "#patient_death_date_3i" do
     select '22'
@@ -212,8 +277,8 @@ Then(/^I should complete the cause of death form$/) do
     select '2014'
   end
 
-  select "Cause one", :from => "EDTA Cause of Death (1)"
-  select "Cause two", :from => "EDTA Cause of Death (2)"
+  select "Death cause one", :from => "EDTA Cause of Death (1)"
+  select "Death cause two", :from => "EDTA Cause of Death (2)"
 
   fill_in "Notes/Details", :with => "Heart stopped"
 
@@ -222,5 +287,26 @@ end
 
 Then(/^see the date of death in the patient's demographics$/) do
   visit demographics_patient_path(@patient_1)
-  expect(page.has_content? "22/09/2014").to be true
+  expect(page).to have_content("22/09/2014")
+end
+
+Then(/^I should see the patient on the death list$/) do
+  visit death_patients_path
+  expect(page).to have_content("RABBIT")
+end
+
+Then(/^I should see the patient's current death modality and set date in index$/) do
+  visit patient_modalities_path(@patient_1)
+
+  expect(page).to have_content("Death")
+  expect(page).to have_content("2015-04-01")
+end
+
+Then(/^I can view the deceased patient's causes of death$/) do
+  visit death_patients_path
+
+  click_on "Causes of death"
+  
+  expect(page).to have_content("Death cause one")
+  expect(page).to have_content("Death cause two")
 end

@@ -27,7 +27,7 @@ Given(/^some patients who need renal treatment$/) do
   @patient_2 = FactoryGirl.create(:patient,
     :nhs_number => "1000124502",
     :local_patient_id => "Z999992",
-    :surname => "Day",
+    :surname => "DAY",
     :forename => "Doris",
     :dob => "24/06/1970",
     :paediatric_patient_indicator => "1",
@@ -39,7 +39,7 @@ Given(/^some patients who need renal treatment$/) do
   @patient_3 = FactoryGirl.create(:patient,
     :nhs_number => "1000124503",
     :local_patient_id => "Z999993",
-    :surname => "Casper",
+    :surname => "CASPER",
     :forename => "Ghost",
     :dob => "28/02/1930",
     :paediatric_patient_indicator => "1",
@@ -105,34 +105,21 @@ When(/^I update the patient's demographics$/) do
   fill_in "Forename", :with => "Roger"
 end
 
-When(/^record the patient's death$/) do
-  within "#patient_death_date_1i" do
-    select '2014'
-  end
-  within "#patient_death_date_2i" do
-    select 'June'
-  end
-  within "#patient_death_date_3i" do
-    select '8'
-  end
-end
-
 When(/^submit the update form$/) do
   click_on "Update Demographics"
 end
 
 Then(/^I should see the new patient in the Renal Patient List$/) do
-  expect(page.has_content? "1000124504").to be true
-  expect(page.has_content? "Z999994").to be true
-  expect(page.has_content? "Smith").to be true
-  expect(page.has_content? "Ian").to be true
-  expect(page.has_content? "1").to be true
-  expect(page.has_content? "White").to be true
-  expect(page.has_content? "01/01/1960").to be true
-  expect(page.has_content? "false").to be true
-  expect(page.has_content? @address_diagnosis_street_1).to be true
-  expect(page.has_content? @current_street_1).to be true
-  # save_and_open_page
+  expect(page).to have_content("1000124504")
+  expect(page).to have_content("Z999994")
+  expect(page).to have_content("Smith")
+  expect(page).to have_content("Ian")
+  expect(page).to have_content("1")
+  expect(page).to have_content("White")
+  expect(page).to have_content("01/01/1960")
+  expect(page).to have_content("false")
+  expect(page).to have_content(@address_diagnosis_street_1)
+  expect(page).to have_content(@current_street_1)
 end
 
 Then(/^the patient should be created$/) do
@@ -144,16 +131,11 @@ Then(/^the patient should be created$/) do
 end
 
 Then(/^I should see the patient's demographics on their profile page$/) do
-  expect(page.has_content? "1000124501").to be true
-  expect(page.has_content? "RABBIT").to be true
-  expect(page.has_content? "R").to be true
+  expect(page).to have_content("1000124501")
+  expect(page).to have_content("RABBIT")
+  expect(page).to have_content("R")
 end
 
 Then(/^I should see the patient's new demographics on their profile page$/) do
-  expect(page.has_content? "R").to be true
-end
-
-Then(/^I should see the patient on the death list$/) do
-  visit death_patients_path
-  expect(page.has_content? "RABBIT").to be true
+  expect(page).to have_content("R")
 end

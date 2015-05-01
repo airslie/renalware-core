@@ -21,9 +21,6 @@
           = f.datetime_select(:date_time, { start_year: (5.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
 
           %li
-            = f.hidden_field :user_id
-
-          %li
             = f.label :patient_event_type_id, "Patient Event Type"
             = f.collection_select(:patient_event_type_id, PatientEventType.all, :id, :name )
 

@@ -13,7 +13,7 @@
       %th
         Modality Code
       %th
-        Modality Reason
+        Notes
       %th
         Start Date
       %th
@@ -24,7 +24,7 @@
         %td
           = modality.modality_code.name
         %td
-          = modality.modality_reason.description
+          = modality.notes
         %td
           = modality.start_date
         %td
@@ -34,3 +34,8 @@
   = link_to 'Set New Modality', new_patient_modality_path(@patient),
       title: 'Set Patient Modality',
       class: 'button tiny left cancel mt'
+
+.wide-screen
+  = content_for :secondary_nav do
+    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
+

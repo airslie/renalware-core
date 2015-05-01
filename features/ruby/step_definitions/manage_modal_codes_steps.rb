@@ -24,13 +24,13 @@ When(/^I complete the form for editing a modality$/) do
 end
 
 Then(/^I should see the new modal on the modalities list$/) do
-  expect(page.has_content? "New Modal").to be true
-  expect(page.has_content? "newmodel").to be true
-  expect(page.has_content? "Modal Site").to be true
+  expect(page).to have_content("New Modal")
+  expect(page).to have_content("newmodel")
+  expect(page).to have_content("Modal Site")
 end
 
 Then(/^I should see the updated drug on the modality list$/) do
-  expect(page.has_content? "This is an edited modal").to be true
+  expect(page).to have_content("This is an edited modal")
 end
 
 Given(/^I am on the modalities index$/) do
@@ -42,5 +42,5 @@ When(/^I choose to soft delete a modal$/) do
 end
 
 Then(/^I should see the modal removed from the modalities list$/) do
-  expect(page.has_content? "Modal Three").to be false
+  expect(page).to have_no_content("Modal Three")
 end

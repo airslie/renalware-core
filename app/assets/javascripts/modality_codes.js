@@ -5,12 +5,12 @@ $(document).ready(function(){
 
  $('#modality-code-select').change(function() {
 
-    var selected_modal = $('#modality-code-select option:selected').text();
+    var selectedModal = $('#modality-code-select option:selected').text();
 
-    if(selected_modal === "Death") {
-      $('.update-death').show();
+    if(selectedModal === "Death") {
+      $('.hide-death').hide();
     } else {
-      $('.update-death').hide();
+      $('.hide-death').show();
     }
 
   });

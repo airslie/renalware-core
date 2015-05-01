@@ -52,6 +52,11 @@
   background: none;
   border-radius: 0.5em;
   padding: 0 0.3em 0 0.3em;
+  font-size: 0.8em;
+}
+
+.toggle-text {
+  font-size: 0.8em;
 }
 
 .accordion .accordion-navigation > .content.active, .accordion dd  > .content.toggle-content {
