@@ -62,25 +62,12 @@ class Patient < ActiveRecord::Base
   # @section services
   #
   def set_modality(attrs={})
-    if current_modality.present?
-      transaction do
-        current_modality.update_attribute(:termination_date, termination_date(attrs))
-        nillify_termination_date(attrs)
-        self.modalities << current_modality.supersede!(attrs)
+    self.modalities << (
+      if current_modality.present?
+        current_modality.transfer!(attrs)
+      else
+        Modality.create!(attrs)
       end
-    else
-      self.modalities << Modality.create!(attrs)
-    end
+    )
   end
-
-  private
-
-  def nillify_termination_date(attrs)
-    attrs[:termination_date] = nil
-  end
-
-  def termination_date(attrs)
-    attrs.fetch(:start_date, Date.today) - 1
-  end
-
 end

@@ -29,19 +29,17 @@ describe 'A clinician sets a patient modality' do
       within('.main-content') do
         within('table tr:nth-child(2)') do
           expect(page).to have_css('td:first-child', text: 'CAPD (disconnect)')
-          expect(page).to have_css('td:nth-child(2)', text: 'Patient / partner choice')
+          expect(page).to have_css('td:nth-child(2)', text: 'Adding modality for patient')
         end
       end
     end
   end
   context 'where the patient has an existing modality' do
     it 'supercedes the existing modality with a new one' do
-      within('.main-content') do
-        expect(page).to have_content('Patient Modality')
-        within('table tr:nth-child(2)') do
-          expect(page).to have_css('td:first-child', text: 'CAPD (disconnect)')
-          expect(page).to have_css('td:nth-child(2)', text: 'Patient / partner choice')
-        end
+      expect(page).to have_content('Patient Modality')
+      within('table tr:nth-child(2)') do
+        expect(page).to have_css('td:first-child', text: 'CAPD (disconnect)')
+        expect(page).to have_css('td:nth-child(2)', text: 'Adding modality for patient')
       end
     end
   end
