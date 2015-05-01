@@ -144,16 +144,17 @@ end
 When(/^complete the medication form by drug search$/) do
   visit manage_medications_patient_path(@patient_1)
   click_link "Add a new medication"
-  
+
   fill_in "Drug", :with => "amo"
-  
-  within('.drug-results') do
-    page.has_css?("option", :text => "Amoxicillin")
+  page.execute_script %Q( $('#drug_search').trigger('keydown'); )
+
+  within('#drug-results') do
+    expect(page).to have_css("li", :text => "Amoxicillin")
   end
-  
+
   page.find("#drug-5").click
 
-  fill_in "Dose", :with => "20mg" 
+  fill_in "Dose", :with => "20mg"
   select "IV", :from =>  "Route"
   fill_in "Frequency & Duration", :with => "Twice weekly"
   fill_in "Notes", :with => "Review in two weeks."

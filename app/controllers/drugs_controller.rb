@@ -1,5 +1,7 @@
 class DrugsController < ApplicationController
 
+  before_filter :prepare_drugs_search, only: [:search]
+
   def selected_drugs
     @medication_switch = params[:medication_switch]
     @selected_drugs = Drug.send(@medication_switch)
@@ -9,14 +11,13 @@ class DrugsController < ApplicationController
     end
   end
 
-  def search   
-    @search = params[:drug_search]   
-    @drugs = Drug.search("#{@search}*").records
+  def search
+    @drugs = @drugs_search.result
     respond_to do |format|
       format.html
       format.json { render :json => @drugs.as_json(:only => [:id, :name]) }
     end
-  end 
+  end
 
   def new
     @drug = Drug.new
@@ -24,8 +25,8 @@ class DrugsController < ApplicationController
   end
 
   def create
-    @drug = Drug.new(allowed_params)  
-    if @drug.save 
+    @drug = Drug.new(allowed_params)
+    if @drug.save
       redirect_to drugs_path, :notice => "You have successfully added a new drug."
     else
       render :new
@@ -37,7 +38,7 @@ class DrugsController < ApplicationController
     @drugs_select =  Drug.joins(:drug_types).where(:drug_types => { :name => params[:medication_switch] })
     respond_to do |format|
       format.html
-      format.json { render :json => @drugs_select.as_json(:only => [:id, :name]) }
+      format.json { render :json => @drugs_select.as_json(:only => [:id, :name, :drug_types]) }
     end
   end
 
@@ -66,6 +67,10 @@ class DrugsController < ApplicationController
   private
   def allowed_params
     params.require(:drug).permit(:name, :deleted_at, :drug_type_ids => [])
+  end
+
+  def prepare_drugs_search
+    @drugs_search = Drug.ransack(params[:q])
   end
 
 end
