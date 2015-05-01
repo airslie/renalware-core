@@ -10,12 +10,10 @@ gem "uglifier", ">= 1.3.0"
 gem "sass-rails", "~> 4.0.3"
 gem "haml-rails"
 gem "sdoc", "~> 0.4.0", group: :doc
-gem "elasticsearch-model"
-gem "elasticsearch-rails"
-gem "elasticsearch-extensions"
 gem "httparty"
 gem 'paper_trail', '~> 3.0.6'
 gem "paranoia", "~> 2.0"
+gem 'ransack', git: 'https://github.com/activerecord-hackery/ransack.git'
 
 group :development, :test do
   gem 'poltergeist'
