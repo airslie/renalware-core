@@ -24,8 +24,8 @@
         = search_form_for @patient_search do |f|
           .row.collapse
             .large-8.small-9.columns
-              = label_tag :forename_or_surname_or_local_patient_id_or_nhs_number_cont, "Patient Search" do
-                = f.search_field :forename_or_surname_or_local_patient_id_or_nhs_number_cont,
+              = label_tag :identity_match, "Patient Search" do
+                = f.search_field :identity_match,
                   :id => 'patient_search_input',
                   :placeholder => "Patient Name, Local Patient ID or NHS No."
             .large-4.small-3.columns

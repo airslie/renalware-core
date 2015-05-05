@@ -11,8 +11,8 @@ Feature: Search for a patient
       And I am on the patients list
 
   Scenario: A clinician searches for a patient by hospital code
-    When I search for a patient with "Z99999"
-    Then the following patients are found: "RABBIT, R|DAY, D|CASPER, G"
+    When I search for a patient with "Z999991"
+    Then the following patients are found: "RABBIT, R"
 
   Scenario: A clinician searches for a patient by forename
     When I search for a patient with "Rog"
@@ -23,5 +23,5 @@ Feature: Search for a patient
     Then the following patients are found: "CASPER, G"
 
   Scenario: A clinician searches for a patient by NHS number
-    When I search for a patient with "10001"
-    Then the following patients are found: "RABBIT, R|DAY, D|CASPER, G"
+    When I search for a patient with "1000124502"
+    Then the following patients are found: "DAY, D"
