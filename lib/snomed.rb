@@ -1,5 +1,3 @@
-require 'snomed/adapter'
-
 module Snomed
 
   module_function
@@ -10,7 +8,8 @@ module Snomed
 
   def adapter
     configure unless @configuration.present?
-    @adapter ||= AdapterFactory.new(@configuration).adapter
+    configured_adapter = @configuration[:adapter]
+    (configured_adapter || YamlAdapter).new(@configuration)
   end
 
   def search(params={})
