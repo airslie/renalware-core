@@ -17,8 +17,6 @@ gem 'ransack', git: 'https://github.com/activerecord-hackery/ransack.git'
 gem 'kaminari', '~> 0.15.1'
 
 group :development, :test do
-  gem "frog_spawn", :git => "git@github.com:dmgarland/frog_spawn.git"
-  # gem "frog_spawn", :path => '/home/daniel/projects/frog_spawn'
   gem "spring"
   gem "cucumber-rails", :require => false
   gem "rspec-rails"
