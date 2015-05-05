@@ -6,16 +6,23 @@ PHP - Setup
 
 If you're setting up the legacy (v1) PHP app, the following should be enough to get going...
 
-1. Setup a mysql user renalware with a password
+1. Setup a postgres user with a password, for development purposes this can be your system login.
+```bash
+$ sudo su - postgres
+$ psql template1
+```
+At the psql prompt run the following (replacing <username> and <password> accordingly):
+```sql
+CREATE USER <username> WITH PASSWORD '<password>';
+ALTER USER <username> SUPERUSER;
+```
 
-> GRANT CREATE ON *.* TO 'renalware'@'localhost' IDENTIFIED BY 'password';
-> GRANT ALL PRIVILEGES on renalware.* to 'renalware'@'localhost' identified by 'password';
-> GRANT ALL PRIVILEGES on renalware_development.* to 'renalware'@'localhost' identified by 'password';
-
-2. Create a renalware database from the legacy schema
-
-> rake db:create:all
-> cat db/schema_v1.sql | mysql renalware -u renalware --password=password
+2. Create a renalware database
+```bash
+$ rake db:create:all
+$ rake db:migrate
+$ rake db:seed
+```
 
 3. Run a PHP server
 
@@ -49,10 +56,10 @@ Ruby / Rails - Setup
 TESTS
 -----
 
-1. Setup a mysql user renalware with a password
-
-> GRANT ALL PRIVILEGES on renalware_test.* to 'renalware'@'localhost' identified by 'password';
-> GRANT ALL PRIVILEGES on renalware_php_test.* to 'renalware'@'localhost' identified by 'password';
+1. Setup a test database
+```bash
+$ bundle exec rake db:test:load
+```
 
 2. Run cucumber. We have profiles for tests against the legacy PHP app the sparkly new Ruby app.
 
@@ -94,11 +101,6 @@ password: kidney175@stones?
 
 Advanced SSH stuff
 ------------------
-
-The mysql plugin needed some extra config to setup with SSL, and to work with the
-mysql2 gem. I used this config setting to get it to work:
-
-> heroku config:set DATABASE_URL="mysql2://b494aa1f075451:632a08bf@eu-cdbr-west-01.cleardb.com/heroku_3e38e1cd9ea38b4?reconnect=true&sslca=db/cleardb/cleardb-ca.pem&sslcert=db/cleardb/b494aa1f075451-cert.pem&sslkey=db/cleardb/b494aa1f075451-key.pem"
 
 More info:
 https://www.cleardb.com/developers/ssl_connections
