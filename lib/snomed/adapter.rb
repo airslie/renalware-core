@@ -35,7 +35,7 @@ module Snomed
     cattr_accessor :data
 
     def search(params={})
-      matches = data.select { |t| t['label'] =~ Regexp.new(params[:query], 'i') }
+      matches = data.select { |t| t['term'] =~ Regexp.new(params['query'], 'i') }
       Response.new({ 'details' => { 'total' => matches.size },
                      'matches' => matches })
     end
