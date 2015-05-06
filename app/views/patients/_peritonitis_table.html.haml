@@ -17,6 +17,8 @@
     %th.table-width
       Antibiotics/Routes
     %th.table-width
+      Notes
+    %th.table-width
       Last Updated
     %th.table-width.g-center{colspan: "2"}
       Action
@@ -31,9 +33,9 @@
         %td{ :data => { :heading => "End Date"}, valign: "top" }
           = p.end_treatment_date.strftime("%d/%m/%Y")
         %td{ :data => { :heading => "Organisms"}, valign: "top" }
-          %ul.no-bullet.table-data-list
+          %ul.table-data-list
             %li
-              = "Line Break: #{p.line_break.yesno},"
+              = "Line Break: #{p.line_break.yesno}"
             %li
               = "Exit Site Infection: #{p.exit_site_infection.yesno}"
             %li
@@ -44,56 +46,39 @@
               = "Fluid Description: #{p.fluid_description.description}"
 
         %td{ :data => { :heading => "Organisms"}, valign: "top" }
-          %dl.accordion{ data: { accordion: true } }
-            %dd.accordion-navigation
-              %a.toggle-info{ :id => "patient-peritonitis-toggle-#{p.id}", href: "#patient-peritonitis-toggle-#{p.id}" }
-                View
-              .content{ :id => "patient-peritonitis-toggle-#{p.id}" }
-                %ul.no-bullet.toggle-content
-                  %li
-                    = organism_and_sensitivity(p.infection_organisms)
+          = organism_and_sensitivity(p.infection_organisms)
 
         %td{ :data => { :heading => "Episode Type"}, valign: "top" }
-          %dl.accordion{ data: { accordion: true } }
-            %dd.accordion-navigation
-              %a.toggle-info{ :id => "patient-peritonitis-toggle-#{p.id}", href: "#patient-peritonitis-toggle-#{p.id}" }
-                = p.episode_type.blank? ? "Unknown": p.episode_type.term
-              .content.toggle-content{ :id => "patient-peritonitis-toggle-#{p.id}" }
-                = "Catheter Removed: #{p.catheter_removed.yesno}"
-
-        / %td{:data => { :heading => "Description" }, valign: "top"}
-        /   %dl.accordion{ data: { accordion: true } }
-        /     %dd.accordion-navigation
-        /       %a.toggle-info{ :id => "patient-peritonitis-toggle-#{p.id}", href: "#patient-peritonitis-toggle-#{p.id}" }
-        /         View
-        /       .content.toggle-content{ :id => "patient-peritonitis-toggle-#{p.id}" }
-        /         = p.notes
+          %ul.table-data-list
+            %li
+              = p.episode_type.blank? ? "Unknown": p.episode_type.term
+            %li
+              = "Catheter Removed: #{p.catheter_removed.yesno}"
 
         %td{ :data => { :heading => "White Cell Count"}, valign: "top" }
-          %dl.accordion{ data: { accordion: true } }
-            %dd.accordion-navigation
-              %a.toggle-info{ :id => "patient-peritonitis-toggle-#{p.id}", href: "#patient-peritonitis-toggle-#{p.id}" }
-                = "Total: #{p.white_cell_total}"
-              .content{ :id => "patient-peritonitis-toggle-#{p.id}" }
-                %ul.no-bullet.toggle-content
-                  %li
-                    = "Neutro: #{p.white_cell_neutro}%,"
-                  %li
-                    = "Lympho: #{p.white_cell_lympho}%,"
-                  %li
-                    = "Degen: #{p.white_cell_degen}%,"
-                  %li
-                    = "Other: #{p.white_cell_other}%"
+          %ul.table-data-list
+            %li
+              = "Total: #{p.white_cell_total}"
+            %li
+              = "Neutro: #{p.white_cell_neutro}%"
+            %li
+              = "Lympho: #{p.white_cell_lympho}%"
+            %li
+              = "Degen: #{p.white_cell_degen}%"
+            %li
+              = "Other: #{p.white_cell_other}%"
 
         %td{ :data => { :heading => "Antibiotics/ Routes"}, valign: "top" }
+          %ul.table-data-list
+            = medication_and_route(p.medications)
+
+        %td{:data => { :heading => "Description" }, valign: "top"}
           %dl.accordion{ data: { accordion: true } }
             %dd.accordion-navigation
               %a.toggle-info{ :id => "patient-peritonitis-toggle-#{p.id}", href: "#patient-peritonitis-toggle-#{p.id}" }
                 View
               .content.toggle-content{ :id => "patient-peritonitis-toggle-#{p.id}" }
-                %ul.no-bullet
-                  %li.toggle-content
-                    = medication_and_route(p.medications)
+                = p.notes
 
         %td{ :data => { :heading => "Last Updated" }, valign: "top" }
           = p.updated_at.strftime("%d/%m/%Y, %H:%M")
