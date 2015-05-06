@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     end
     resources :patient_events, :only => [:new, :create, :index]
     resources :modalities, :only => [:new, :create, :index]
-    resources :peritonitis_episodes, :only => [:new, :create, :edit, :update]
+    resources :peritonitis_episodes, :only => [:new, :create, :show, :edit, :update]
     resources :exit_site_infections, :only => [:new, :create, :edit, :update]
   end
 
@@ -30,8 +30,8 @@ Rails.application.routes.draw do
       get :search
       get :selected_drugs
     end
-    resources :drug_drug_types, :only => [:index, :create, :destroy] 
-  end 
+    resources :drug_drug_types, :only => [:index, :create, :destroy]
+  end
 
   resources :snomed, :only => [:index]
 

@@ -1,6 +1,6 @@
 class PeritonitisEpisodesController < ApplicationController
 
-  before_action :load_patient, :only => [:new, :create, :edit, :update]
+  before_action :load_patient, :only => [:new, :create, :show, :edit, :update]
 
   def new
     @peritonitis_episode = PeritonitisEpisode.new
@@ -16,6 +16,10 @@ class PeritonitisEpisodesController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
+    @peritonitis_episode = PeritonitisEpisode.find(params[:id])
   end
 
   def edit

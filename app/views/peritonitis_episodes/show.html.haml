@@ -1,0 +1,73 @@
+.main-content
+  .row.g-center
+    = render partial: "patients/patient_info_header", locals: { model: @patient }
+
+  .row
+    = render partial: "patients/mini_renal_profile", locals: { model: @patient }
+
+.row
+  %h5.g-center
+    = "Peritonitis Episode Details Diagnosed #{@peritonitis_episode.diagnosis_date.strftime("%d/%m/%Y")}"
+
+.row
+  .large-12.columns
+    = field_set_tag do
+      %legend
+        Episode Details
+
+      %ul
+        %li
+          = "Treatment Start Date: #{@peritonitis_episode.treatment_start_date}"
+        %li
+          = "Treatment End Date: #{@peritonitis_episode.treatment_end_date}"
+        %li
+          = "Episode Type: #{@peritonitis_episode.episode_type.blank? ? "Unknown": p.episode_type.term}"
+        %li
+          Organisms/Sensitivity:
+          %ul.table-data-list
+            = organism_and_sensitivity(@peritonitis_episode.infection_organisms)
+        %li
+          White Cell Count:
+          %ul
+            %li
+              = "Total: #{@peritonitis_episode.white_cell_total}"
+            %li
+              = "Neutro: #{@peritonitis_episode.white_cell_neutro}%"
+            %li
+              = "Lympho: #{@peritonitis_episode.white_cell_lympho}%"
+            %li
+              = "Degen: #{@peritonitis_episode.white_cell_degen}%"
+            %li
+              = "Other: #{@peritonitis_episode.white_cell_other}%"
+        %li
+          Causes/Symptoms:
+          %ul.table-data-list
+            %li
+              = "Line Break: #{@peritonitis_episode.line_break.yesno}"
+            %li
+              = "Exit Site Infection: #{@peritonitis_episode.exit_site_infection.yesno}"
+            %li
+              = "Diarrhoea: #{@peritonitis_episode.diarrhoea.yesno}"
+            %li
+              = "Abdominal Pain: #{@peritonitis_episode.abdominal_pain.yesno}"
+            %li
+              = "Fluid Description: #{@peritonitis_episode.fluid_description.description}"
+          %li
+            Antibiotics/Routes:
+            %ul.table-data-list
+              = medication_and_route(@peritonitis_episode.medications)
+          %li
+            Episode Notes:
+            = @peritonitis_episode.notes
+          %li
+            Last Updated:
+            = @peritonitis_episode.updated_at.strftime("%d/%m/%Y, %H:%M")
+        .row
+          = link_to "Update", edit_patient_peritonitis_episode_path(@patient, @peritonitis_episode.id), class: "tiny button right"
+
+
+
+.wide-screen
+  = content_for :secondary_nav do
+    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
+
