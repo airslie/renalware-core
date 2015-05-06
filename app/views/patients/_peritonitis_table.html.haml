@@ -59,7 +59,7 @@
               %a.toggle-info{ :id => "patient-peritonitis-toggle-#{p.id}", href: "#patient-peritonitis-toggle-#{p.id}" }
                 = p.episode_type.blank? ? "Unknown": p.episode_type.term
               .content.toggle-content{ :id => "patient-peritonitis-toggle-#{p.id}" }
-                = "Catheter Removed: #{p.catheter_removed}"
+                = "Catheter Removed: #{p.catheter_removed.yesno}"
 
         / %td{:data => { :heading => "Description" }, valign: "top"}
         /   %dl.accordion{ data: { accordion: true } }
