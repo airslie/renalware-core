@@ -18,7 +18,7 @@
       Antibiotics/Routes
     %th.table-width
       Last Updated
-    %th.table-width.g-center{colspan: "1"}
+    %th.table-width.g-center{colspan: "2"}
       Action
 
   %tbody
@@ -31,22 +31,17 @@
         %td{ :data => { :heading => "End Date"}, valign: "top" }
           = p.end_treatment_date.strftime("%d/%m/%Y")
         %td{ :data => { :heading => "Organisms"}, valign: "top" }
-          %dl.accordion{ data: { accordion: true } }
-            %dd.accordion-navigation
-              %a.toggle-info{ :id => "patient-peritonitis-toggle-#{p.id}", href: "#patient-peritonitis-toggle-#{p.id}" }
-                View
-              .content{ :id => "patient-peritonitis-toggle-#{p.id}" }
-                %ul.no-bullet.toggle-content
-                  %li
-                    = "Line Break: #{p.line_break},"
-                  %li
-                    = "Exit Site Infection: #{p.exit_site_infection}"
-                  %li
-                    = "Diarrhoea: #{p.diarrhoea}"
-                  %li
-                    = "Abdominal Pain: #{p.abdominal_pain}"
-                  %li
-                    = "Fluid Description: #{p.fluid_description.description}"
+          %ul.no-bullet.table-data-list
+            %li
+              = "Line Break: #{p.line_break.yesno},"
+            %li
+              = "Exit Site Infection: #{p.exit_site_infection.yesno}"
+            %li
+              = "Diarrhoea: #{p.diarrhoea.yesno}"
+            %li
+              = "Abdominal Pain: #{p.abdominal_pain.yesno}"
+            %li
+              = "Fluid Description: #{p.fluid_description.description}"
 
         %td{ :data => { :heading => "Organisms"}, valign: "top" }
           %dl.accordion{ data: { accordion: true } }
