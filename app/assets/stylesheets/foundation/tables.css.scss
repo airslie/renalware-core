@@ -6,11 +6,12 @@ table {
   width: 50%;
 }
 
-@media screen and (max-width: 719px) {
+@media screen and (max-width: 1000px) {
+
   table.responsive {
     display: block;
 
-    thead, tbody, th, td, tr , caption {
+    thead, tbody, th, td, tr, caption {
       display: block;
     }
 

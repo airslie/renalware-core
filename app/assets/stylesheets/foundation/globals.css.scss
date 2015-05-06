@@ -24,6 +24,24 @@ fieldset {
   padding: 2em;
 }
 
+table {
+  table-layout: fixed;
+  .column-6-width {
+    width: 6%;
+  }
+  .column-9-width {
+    width: 8.5%;
+  }
+
+}
+  th, td {
+    overflow: hidden;
+  }
+
+.table-data-list {
+  font-size: 1em;
+}
+
 .form-section {
   border-bottom: #008cba solid 0.1em;
   margin: 0.5em;
