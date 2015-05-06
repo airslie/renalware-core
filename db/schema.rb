@@ -251,8 +251,8 @@ ActiveRecord::Schema.define(version: 20150317151009) do
   create_table "peritonitis_episodes", force: :cascade do |t|
     t.integer  "patient_id",           limit: 4
     t.date     "diagnosis_date"
-    t.date     "start_treatment_date"
-    t.date     "end_treatment_date"
+    t.date     "treatment_start_date"
+    t.date     "treatment_end_date"
     t.integer  "episode_type_id",      limit: 4
     t.boolean  "catheter_removed",     limit: 1
     t.boolean  "line_break",           limit: 1
