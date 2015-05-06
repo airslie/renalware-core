@@ -64,7 +64,7 @@
             = @peritonitis_episode.updated_at.strftime("%d/%m/%Y, %H:%M")
         .row
           = link_to "Update", edit_patient_peritonitis_episode_path(@patient, @peritonitis_episode.id), class: "tiny button right"
-
+          = link_to "Back", pd_info_patient_path(@patient), class: "button tiny left cancel"
 
 
 .wide-screen
