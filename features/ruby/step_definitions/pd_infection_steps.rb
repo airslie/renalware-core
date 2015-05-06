@@ -32,8 +32,8 @@ Given(/^a patient has a recently recorded episode of peritonitis$/) do
   @peritonitis_episode_1 = FactoryGirl.create(:peritonitis_episode,
     patient: @patient_1,
     diagnosis_date: "24/02/2015",
-    start_treatment_date: "25/02/2015",
-    end_treatment_date: "25/03/2015",
+    treatment_start_date: "25/02/2015",
+    treatment_end_date: "25/03/2015",
     episode_type: @de_novo,
     catheter_removed: 1,
     line_break: 1,
@@ -60,8 +60,8 @@ Given(/^a patient has episodes of peritonitis$/) do
   @peritonitis_episode_2 = FactoryGirl.create(:peritonitis_episode,
     patient: @patient_1,
     diagnosis_date: "20/12/2015",
-    start_treatment_date: "21/12/2015",
-    end_treatment_date: "25/01/2015",
+    treatment_start_date: "21/12/2015",
+    treatment_end_date: "25/01/2015",
     episode_type: @relapsing,
     catheter_removed: 1,
     line_break: 1,
@@ -80,8 +80,8 @@ Given(/^a patient has episodes of peritonitis$/) do
   @peritonitis_episode_3 = FactoryGirl.create(:peritonitis_episode,
     patient: @patient_1,
     diagnosis_date: "24/01/2015",
-    start_treatment_date: "25/01/2015",
-    end_treatment_date: "27/02/2015",
+    treatment_start_date: "25/01/2015",
+    treatment_end_date: "27/02/2015",
     episode_type: @repeat,
     catheter_removed: 0,
     line_break: 1,
@@ -118,23 +118,23 @@ When(/^the Clinician records the episode of peritonitis$/) do
     select '2014'
   end
 
-  within "#peritonitis_episode_start_treatment_date_3i" do
+  within "#peritonitis_episode_treatment_start_date_3i" do
     select '30'
   end
-  within "#peritonitis_episode_start_treatment_date_2i" do
+  within "#peritonitis_episode_treatment_start_date_2i" do
     select 'December'
   end
-  within "#peritonitis_episode_start_treatment_date_1i" do
+  within "#peritonitis_episode_treatment_start_date_1i" do
     select '2014'
   end
 
-  within "#peritonitis_episode_end_treatment_date_3i" do
+  within "#peritonitis_episode_treatment_end_date_3i" do
     select '31'
   end
-  within "#peritonitis_episode_end_treatment_date_2i" do
+  within "#peritonitis_episode_treatment_end_date_2i" do
     select 'January'
   end
-  within "#peritonitis_episode_end_treatment_date_1i" do
+  within "#peritonitis_episode_treatment_end_date_1i" do
     select '2015'
   end
 
