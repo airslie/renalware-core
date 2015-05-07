@@ -7,7 +7,7 @@
 
     .row
       .large-12.columns
-        .section-divider
+        .section-underliner
           Dates:
 
         .large-4.columns
@@ -23,7 +23,7 @@
 
     .row
       .large-12.columns
-        .section-divider
+        .section-underliner
           Outcome:
 
         .large-12.columns
@@ -35,7 +35,7 @@
           = p.label :catheter_removed
 
       .large-12.columns
-        .section-divider
+        .section-underliner
           Organisms and their sensitivities for this peritonitis episode:
 
         = p.fields_for :infection_organisms, @peritonitis_episode.infection_organisms do |io|
@@ -80,7 +80,7 @@
 
     .row
       .large-12.columns
-        .section-divider
+        .section-underliner
           Causes/Symptoms:
 
         .large-12.columns
@@ -102,7 +102,7 @@
 
     .row
       .large-12.columns
-        .section-divider
+        .section-underliner
           White Cell Count:
 
         .large-4.columns
@@ -123,7 +123,7 @@
 
     .row
       .large-12.columns
-        .section-divider
+        .section-underliner
           Comments:
 
         .large-12.columns
@@ -132,7 +132,7 @@
 
     .row
       .large-12.columns
-        .section-divider
+        .section-underliner
           Medications administered for this peritonitis episode:
 
         = p.fields_for :medications, @peritonitis_episode.medications do |pm|
