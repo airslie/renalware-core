@@ -2,17 +2,17 @@
   = pm.hidden_field :id
 
   = pm.hidden_field :patient_id, value: @patient.id
-  
+
   - if pm.object.treatable_type == "PeritonitisEpisode"
-    
+
     .select-peritonitis-drug
       = pm.label :medicatable_id, "Select Drug (peritonitis drugs only)"
       = pm.collection_select :medicatable_id, Drug.peritonitis, :id, :name, {prompt: "Please select drug used to treat this episode of peritonitis" }, :class => "peritonitis-drug-select"
 
       = pm.hidden_field :medicatable_type, value: "Drug", :class => "selected-medicatable-type"
 
-  - else 
-    
+  - else
+
     .medication-type-field
       = label_tag :medication_switch, "Medication Type"
       = select_tag :medication_switch, drug_select_options, { :prompt => "Select drug by category/type or use the search option below", include_blank: true, :class => "medication-type-select" }
@@ -22,7 +22,7 @@
       = label_tag :drug_search, "Drug"
       = text_field_tag :drug_search, pm.object.persisted? ? pm.object.medicatable.name : nil, :class => "find_drug", :placeholder => "Search drug by name or type"
 
-      %ul.no-bullet.drug-results
+      %ul#drug-results.no-bullet
 
       = pm.hidden_field :medicatable_id, :class => "selected-medicatable-id"
       = pm.hidden_field :medicatable_type, value: "Drug", :class => "selected-medicatable-type"
@@ -38,7 +38,7 @@
 
   = pm.label :medication_route_id, "Route"
   = pm.collection_select :medication_route_id, MedicationRoute.all, :id, :name, { :prompt => "Please select route of administration" }, :class => "medication-route-select"
-  
+
   = pm.label :frequency, "Frequency & Duration"
   = pm.text_field :frequency
 

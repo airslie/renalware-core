@@ -1,31 +1,18 @@
-Given(/^I've waited for the indexes to update$/) do
-  sleep 1
-end
-
-When(/^I search for a patient by local patient id$/) do
-  fill_in "patient_search", :with => "Z999992"
-  click_on "Find Patient"
-end
-
-When(/^I search for a patient by forename$/) do
-  fill_in "patient_search", :with => "Roger"
-  click_on "Find Patient"
-end
-
-When(/^I search for a patient by the first few letters of the surname$/) do
-  fill_in "patient_search", :with => "Rog"
+When(/^I search for a patient with "(.*)"$/) do |query|
+  fill_in "patient_search_input", with: query
   click_on "Find Patient"
 end
 
 When(/^I search for a patient by surname$/) do
-  fill_in "patient_search", :with => "rabbit"
+  fill_in "patient_search_input", :with => "rabbit"
   click_on "Find Patient"
 end
 
-Then(/^they will see a list of matching results for patients with same hospital code$/) do
-  expect(page).to have_content("DAY, D")
+Then(/^the following patients are found: "(.*)"$/) do |patient_names|
+  within('table.patients') do
+    patient_names.split('|').each_with_index do |name, idx|
+      expect(page).to have_css("tbody tr:nth-child(#{idx+1}) td[data-heading=Name] a", text: name)
+    end
+  end
 end
 
-Then(/^they will see a list of matching results for patients$/) do
-  expect(page).to have_content("RABBIT, R")
-end

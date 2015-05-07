@@ -11,7 +11,6 @@ Rails.application.routes.draw do
       get :pd_info
     end
     collection do
-      get :search
       get :death
     end
     resources :patient_events, :only => [:new, :create, :index]

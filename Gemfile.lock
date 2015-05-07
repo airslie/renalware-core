@@ -4,6 +4,17 @@ GIT
   specs:
     frog_spawn (0.1.0)
 
+GIT
+  remote: https://github.com/activerecord-hackery/ransack.git
+  revision: c09aa177953deb27e28179f55844ced0489613b4
+  specs:
+    ransack (1.6.6)
+      actionpack (>= 3.0)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      i18n
+      polyamorous (~> 1.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -43,7 +54,6 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.6)
-    ansi (1.4.3)
     arel (6.0.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -79,22 +89,6 @@ GEM
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
-    elasticsearch (1.0.6)
-      elasticsearch-api (= 1.0.6)
-      elasticsearch-transport (= 1.0.6)
-    elasticsearch-api (1.0.6)
-      multi_json
-    elasticsearch-extensions (0.0.17)
-      ansi
-      ruby-prof
-    elasticsearch-model (0.1.6)
-      activesupport (> 3)
-      elasticsearch (> 0.4)
-      hashie
-    elasticsearch-rails (0.1.6)
-    elasticsearch-transport (1.0.6)
-      faraday
-      multi_json
     erubis (2.7.0)
     execjs (2.2.2)
     factory_girl (4.5.0)
@@ -102,8 +96,6 @@ GEM
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
-    faraday (0.9.0)
-      multipart-post (>= 1.2, < 3)
     ffaker (1.25.0)
     foundation-rails (5.4.5.0)
       railties (>= 3.1.0)
@@ -119,7 +111,6 @@ GEM
       activesupport (>= 4.0.1)
       haml (>= 3.1, < 5.0)
       railties (>= 4.0.1)
-    hashie (3.3.1)
     hike (1.2.3)
     httparty (0.13.3)
       json (~> 1.8)
@@ -146,7 +137,6 @@ GEM
     multi_json (1.10.1)
     multi_test (0.1.1)
     multi_xml (0.5.5)
-    multipart-post (2.0.0)
     mysql2 (0.3.16)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
@@ -160,6 +150,8 @@ GEM
       cliver (~> 0.3.1)
       multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
+    polyamorous (1.2.0)
+      activerecord (>= 3.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -219,7 +211,6 @@ GEM
       rspec-mocks (~> 3.1.0)
       rspec-support (~> 3.1.0)
     rspec-support (3.1.2)
-    ruby-prof (0.15.2)
     safe_yaml (1.0.4)
     sass (3.2.19)
     sass-rails (4.0.3)
@@ -279,9 +270,6 @@ DEPENDENCIES
   capybara (= 2.4.4)
   cucumber-rails
   database_cleaner
-  elasticsearch-extensions
-  elasticsearch-model
-  elasticsearch-rails
   factory_girl_rails (~> 4.0)
   ffaker
   foundation-rails
@@ -298,6 +286,7 @@ DEPENDENCIES
   pry-byebug
   rails (~> 4.2)
   rails_12factor
+  ransack!
   rspec-expectations
   rspec-rails
   sass-rails (~> 4.0.3)

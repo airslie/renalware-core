@@ -1,18 +1,6 @@
 Renalware v 2.0 (renal database)
 ============
 
-Coming Soon...
-
-INSTALL - Mac OSX
--------
-
-Ensure that you have homebrew installed and are raring to brew,
-then the following packages:
-
-TODO - update this list!
-
-> brew install elasticsearch
-
 PHP - Setup
 -----------
 
@@ -56,9 +44,7 @@ Ruby / Rails - Setup
 --------------------
 
 1. Run `bundle`
-2. Start elasticserach `sudo service elasticsearch start` for ubuntu, see homebrew
-instructions for mac
-3. Visit http://localhost:3000
+2. Visit http://localhost:3000
 
 TESTS
 -----
@@ -85,13 +71,6 @@ Run all Ruby tests
 Run all Ruby @wip tests
 
 > spring cucumber -p ruby_wip
-
-For tests that require elasticsearch, cucumber will attempt to start it's own
-instance running on port 9250. It will try and figure out where your binary is
-installed using `which`, but you can override it by setting an environment
-variable:
-
-> export ELASTIC_SEARCH_BINARY=/usr/share/elasticsearch/bin/elasticsearch
 
 Deployment
 ----------

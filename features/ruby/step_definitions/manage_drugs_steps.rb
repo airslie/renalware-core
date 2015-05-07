@@ -1,29 +1,13 @@
 Given(/^there are drugs in the database$/) do
-  @drugs = ["Red", "Blue", "Yellow", "Green", "Amoxicillin", "Cephradine", "Dicloxacillin", "Metronidazole", "Penicillin", "Rifampin", "Tobramycin", "Vancomycin"]
-  @drugs.map! { |d| @drug = Drug.create!(:name => d )}
-
-  @red = @drugs[0]
-  @blue = @drugs[1]
-  @yellow = @drugs[2]
-  @green = @drugs[3]
-  @amoxicillin = @drugs[4]
-  @cephradine = @drugs[5]
-  @dicloxacillin = @drugs[6]
-  @metronidazole = @drugs[7]
-  @penicillin = @drugs[8]
-  @rifampin = @drugs[9]
-  @tobramycin = @drugs[10]
-  @vancomycin = @drugs[11]
+  %w(Red Blue Yellow Green Amoxicillin Cephradine Dicloxacillin Metronidazole Penicillin Rifampin Tobramycin Vancomycin).each do |name|
+    instance_variable_set(:"@#{name.downcase}", FactoryGirl.create(:drug, :name => name))
+  end
 end
 
 Given(/^there are drug types in the database$/) do
-  @drug_types = ["Antibiotic", "ESA", "Immunosuppressant", "Peritonitis"]
-  @drug_types.map! { |dt| DrugType.create!(:name => dt)}
-
-  @antibiotic = @drug_types[0]
-  @esa = @drug_types[1]
-  @immunosuppressant = @drug_types[2]
-  @peritonitis = @drug_types[3]
+  %w(Antibiotic ESA Immunosuppressant Peritonitis).each do |dt|
+    instance_variable_set(:"@#{dt.downcase}", FactoryGirl.create(:drug_type, :name => dt))
+  end
 end
 
 Given(/^existing drugs have been assigned drug types$/) do 
@@ -54,7 +38,7 @@ Given(/^that I'm on the add a new drug page$/) do
 end
 
 Given(/^that I choose to edit a drug$/) do
-  visit edit_drug_path(@drug)
+  visit edit_drug_path(@vancomycin)
 end
 
 Given(/^I am on the drugs index$/) do
@@ -75,7 +59,7 @@ When(/^I complete the form for editing a drug$/) do
 end
 
 When(/^I choose to soft delete a drug$/) do
-  find("##{@drug.id}-drug").click
+  find("##{@vancomycin.id}-drug").click
 end
 
 Then(/^I should see the new drug on the drugs list$/) do
@@ -90,8 +74,8 @@ end
 
 Then(/^I should see the updated drug on the drugs list$/) do
   expect(page).to have_content("I am an edited drug")
-  
-  visit drug_drug_drug_types_path(@drug)
+
+  visit drug_drug_drug_types_path(@vancomycin)
   page.assert_selector('li', :text => 'Antibiotic', :count => 1)
   page.assert_selector('li', :text => 'Peritonitis', :count => 0)
 end
