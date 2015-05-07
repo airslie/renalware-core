@@ -15,5 +15,4 @@ module Snomed
   def search(params={})
     adapter.search(params)
   end
-
 end

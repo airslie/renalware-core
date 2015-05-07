@@ -13,5 +13,4 @@ class SnomedController < ApplicationController
       'groupByConcept' => params.fetch(:group_by_concept, true)
     }
   end
-
 end
