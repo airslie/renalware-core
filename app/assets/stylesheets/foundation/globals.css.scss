@@ -32,11 +32,25 @@ table {
   .column-9-width {
     width: 8.5%;
   }
-
 }
-  th, td {
-    overflow: hidden;
-  }
+
+th, td {
+  overflow: hidden;
+}
+
+.page-title {
+  color: #008cba;
+}
+
+.title-bold {
+  font-size: 1.05em;
+  font-weight: 500;
+}
+
+.sub-bold {
+  font-weight: 500;
+}
+
 
 .table-data-list {
   font-size: 1em;
@@ -51,6 +65,12 @@ table {
   border-bottom: #008cba solid 0.1em;
   padding: 0 0 0.5em 0;
   margin: 0 0 0.5em 0;
+}
+
+.vertical-divider {
+  border-right: #008cba solid 0.1em;
+  padding: 0 0.5em 0 0;
+  margin: 0 0.5em 0 0;
 }
 
 .g-center {

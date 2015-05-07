@@ -6,74 +6,93 @@
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
 .row
-  %h5.g-center
-    = "Peritonitis Episode Details Diagnosed #{@peritonitis_episode.diagnosis_date.strftime("%d/%m/%Y")}"
+  %h5
+    = "Peritonitis Episode Details - Diagnosed: #{@peritonitis_episode.diagnosis_date.strftime("%d/%m/%Y")}"
 
 .row
   .large-12.columns
     = field_set_tag do
-      %legend
-        Episode Details
+      %legend.title-bold
+        = "Last Updated: #{@peritonitis_episode.updated_at.strftime("%d/%m/%Y, %H:%M")}"
 
-      .section-divider
-        %ul
-          %li
-            = "Treatment Start Date: #{@peritonitis_episode.treatment_start_date}"
-          %li
-            = "Treatment End Date: #{@peritonitis_episode.treatment_end_date}"
-      .section-divider
-        %ul
-          %li
-            = "Episode Type: #{@peritonitis_episode.episode_type.blank? ? "Unknown": p.episode_type.term}"
-          %li
-            Organisms/Sensitivity:
-            %ul.table-data-list
-              = organism_and_sensitivity(@peritonitis_episode.infection_organisms)
-          %li
-            White Cell Count:
+      .large-6.columns
+
+        .large-12.columns
+          %dl
+            %dt.title-bold
+              Treatment Start Date:
+            %dd
+              = @peritonitis_episode.treatment_start_date
+            %dt.title-bold
+              Treatment End Date:
+            %dd
+              = @peritonitis_episode.treatment_end_date
+        .row
+          .large-12.columns
+            .section-underliner.title-bold
+              Outcome:
+
+            .large-12.columns
+              %dl
+                %dt.title-bold
+                  Episode Type:
+                %dd
+                  = @peritonitis_episode.episode_type.blank? ? "Unknown": @peritonitis_episode.episode_type.term
+
+            .large-12.columns
+              .sub-bold
+                Organisms/Sensitivity:
+            .large-12.columns
+              %ul.table-data-list
+                = organisms_and_sensitivities(@peritonitis_episode.infection_organisms)
+
+            .large-12.columns
+              .sub-bold
+                White Cell Count:
+              %ul
+                %li
+                  = "Total: #{@peritonitis_episode.white_cell_total}"
+                %li
+                  = "Neutro: #{@peritonitis_episode.white_cell_neutro}%"
+                %li
+                  = "Lympho: #{@peritonitis_episode.white_cell_lympho}%"
+                %li
+                  = "Degen: #{@peritonitis_episode.white_cell_degen}%"
+                %li
+                  = "Other: #{@peritonitis_episode.white_cell_other}%"
+        .row
+          .large-12.columns
+            .section-underliner.title-bold
+              Causes/Symptoms:
+            .large-12.columns
+              %ul.table-data-list
+                %li
+                  = "Line Break: #{@peritonitis_episode.line_break.yesno}"
+                %li
+                  = "Exit Site Infection: #{@peritonitis_episode.exit_site_infection.yesno}"
+                %li
+                  = "Diarrhoea: #{@peritonitis_episode.diarrhoea.yesno}"
+                %li
+                  = "Abdominal Pain: #{@peritonitis_episode.abdominal_pain.yesno}"
+                %li
+                  = "Fluid Description: #{@peritonitis_episode.fluid_description.description}"
+
+      .large-6.columns
+        .row
+          .large-12.columns
+            .section-underliner.title-bold
+              Antibiotics/Routes:
+            .large-12.columns
+              %ul.table-data-list
+                = medication_and_route(@peritonitis_episode.medications)
+          .large-12.columns
+            .section-underliner.title-bold
+              Episode Notes:
             %ul
-              %li
-                = "Total: #{@peritonitis_episode.white_cell_total}"
-              %li
-                = "Neutro: #{@peritonitis_episode.white_cell_neutro}%"
-              %li
-                = "Lympho: #{@peritonitis_episode.white_cell_lympho}%"
-              %li
-                = "Degen: #{@peritonitis_episode.white_cell_degen}%"
-              %li
-                = "Other: #{@peritonitis_episode.white_cell_other}%"
-      .section-divider
-        %ul
-          %li
-            Causes/Symptoms:
-            %ul.table-data-list
-              %li
-                = "Line Break: #{@peritonitis_episode.line_break.yesno}"
-              %li
-                = "Exit Site Infection: #{@peritonitis_episode.exit_site_infection.yesno}"
-              %li
-                = "Diarrhoea: #{@peritonitis_episode.diarrhoea.yesno}"
-              %li
-                = "Abdominal Pain: #{@peritonitis_episode.abdominal_pain.yesno}"
-              %li
-                = "Fluid Description: #{@peritonitis_episode.fluid_description.description}"
-          %li
-            Antibiotics/Routes:
-            %ul.table-data-list
-              = medication_and_route(@peritonitis_episode.medications)
-      .section-divider
-        %ul
-          %li
-            Episode Notes:
-            = @peritonitis_episode.notes
-      .section-divider
-        %ul
-          %li
-            Last Updated:
-            = @peritonitis_episode.updated_at.strftime("%d/%m/%Y, %H:%M")
+              = @peritonitis_episode.notes
 
-      .row
-        = link_to "Update", edit_patient_peritonitis_episode_path(@patient, @peritonitis_episode.id), class: "tiny button right"
+      .large-12.columns.button-padding
+        = link_to "Edit", edit_patient_peritonitis_episode_path(@patient, @peritonitis_episode.id), class: "tiny button right"
         = link_to "Back", pd_info_patient_path(@patient), class: "button tiny left cancel"
 
 
