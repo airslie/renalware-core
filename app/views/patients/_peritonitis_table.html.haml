@@ -45,7 +45,7 @@
               = "Catheter Removed: #{p.catheter_removed.yesno}"
 
         %td{ :data => { :heading => "Organisms"}, valign: "top" }
-          = organism_and_sensitivity(p.infection_organisms)
+          = organisms(p.infection_organisms)
 
         %td{ :data => { :heading => "White Cell Count"}, valign: "top" }
           %ul.table-data-list
