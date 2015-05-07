@@ -137,7 +137,7 @@ GEM
     multi_json (1.10.1)
     multi_test (0.1.1)
     multi_xml (0.5.5)
-    mysql2 (0.3.16)
+    multipart-post (2.0.0)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     paper_trail (3.0.6)
@@ -145,6 +145,7 @@ GEM
       activesupport (>= 3.0, < 5.0)
     paranoia (2.1.0)
       activerecord (~> 4.0)
+    pg (0.18.1)
     poltergeist (1.5.1)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -279,9 +280,9 @@ DEPENDENCIES
   jquery-rails
   launchy
   mocha
-  mysql2
   paper_trail (~> 3.0.6)
   paranoia (~> 2.0)
+  pg
   poltergeist
   pry-byebug
   rails (~> 4.2)

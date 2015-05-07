@@ -233,7 +233,6 @@ CSV.foreach(file_path, headers: true) do |row|
     patient_id: 1, 
     description: description, 
     date: date, 
-    user_id: 1, 
     snomed_id: snomed_id)
 end
 
