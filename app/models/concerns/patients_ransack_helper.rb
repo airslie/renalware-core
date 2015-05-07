@@ -23,26 +23,13 @@ module PatientsRansackHelper
       query.gsub(',','')
     end
 
-    # TODO: This can go away once migration to postgres is complete.
     def identity_sql
-      mysql_identity_sql
-    end
-
-    def postgresql_identity_sql
       <<-SQL.squish
         local_patient_id = :exact_term OR
         nhs_number = :exact_term OR
-        CONCAT(surname, ' ', forename) ILIKE :fuzzy_term OR
-        CONCAT(forename, ' ', surname) ILIKE :fuzzy_term
-      SQL
-    end
-
-    def mysql_identity_sql
-      <<-SQL.squish
-        local_patient_id = :exact_term OR
-        nhs_number = :exact_term OR
-        CONCAT(forename, ' ', surname) LIKE :fuzzy_term OR
-        CONCAT(surname, ' ', forename) LIKE :fuzzy_term
+        forename ILIKE :fuzzy_term OR
+        surname ILIKE :fuzzy_term OR
+        CONCAT(surname, ' ', forename) ILIKE :fuzzy_term
       SQL
     end
   end

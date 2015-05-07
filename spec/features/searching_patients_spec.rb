@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'A clinician searches for a patient' do
+feature 'Searching for a patient' do
 
   def search_for_patient(query)
     visit '/'
@@ -21,20 +21,20 @@ describe 'A clinician searches for a patient' do
   end
 
 
-  before do
+  background do
     create(:patient, surname: 'Jones', forename: 'Jenny')
     create(:patient, surname: 'Smith', forename: 'Will', nhs_number: 'Z111111119')
     create(:patient, surname: 'Walker', forename: 'Johnny',  local_patient_id: '0987654321')
   end
 
-  context 'with comma delimited terms' do
+  feature 'with comma delimited terms' do
     it 'ignores commas' do
       search_for_patient('Jones, J')
       expect_patient_in_results('Jones, J')
     end
   end
 
-  context 'by first name' do
+  feature 'by first name' do
     it 'matches the full first name' do
       search_for_patient('Jenny')
       expect_patient_in_results('Jones, J')
@@ -47,13 +47,9 @@ describe 'A clinician searches for a patient' do
       search_for_patient('joHN')
       expect_patient_in_results('Walker, J')
     end
-    it 'matches a first name and initial' do
-      search_for_patient('Johnny W')
-      expect_patient_in_results('Walker, J')
-    end
   end
 
-  context 'by surname' do
+  feature 'by surname' do
     it 'matches the full surname' do
       search_for_patient('Jones')
       expect_patient_in_results('Jones, J')
@@ -72,7 +68,7 @@ describe 'A clinician searches for a patient' do
     end
   end
 
-  context 'by nhs number' do
+  feature 'by nhs number' do
     it 'matches the exactly' do
       search_for_patient('Z111111119')
       expect_patient_in_results('Smith, W')
@@ -83,7 +79,7 @@ describe 'A clinician searches for a patient' do
     end
   end
 
-  context 'by local id' do
+  feature 'by local id' do
     it 'matches exactly' do
       search_for_patient('0987654321')
       expect_patient_in_results('Walker, J')
