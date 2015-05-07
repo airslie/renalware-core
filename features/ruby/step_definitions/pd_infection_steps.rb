@@ -101,8 +101,6 @@ end
 
 Then(/^an episode of peritonitis can be viewed in more detail from the PD info page$/) do
   visit pd_info_patient_path(@patient_1)
-  save_and_open_page
-
 end
 
 When(/^the Clinician records the episode of peritonitis$/) do
@@ -167,12 +165,12 @@ Then(/^the recorded episode should be displayed on PD info page$/) do
   expect(page).to have_content("31/01/2015")
 
   expect(page).to have_content("De novo")
+  expect(page).to have_content("Catheter Removed: Yes")
 
-  expect(page).to have_content("Catheter Removed: true")
-  expect(page).to have_content("Line Break: false")
-  expect(page).to have_content("Exit Site Infection: true")
-  expect(page).to have_content("Diarrhoea: true")
-  expect(page).to have_content("Abdominal Pain: true")
+  expect(page).to have_content("Line Break: No")
+  expect(page).to have_content("Exit Site Infection: Yes")
+  expect(page).to have_content("Diarrhoea: Yes")
+  expect(page).to have_content("Abdominal Pain: Yes")
 
   expect(page).to have_content("Misty")
 
