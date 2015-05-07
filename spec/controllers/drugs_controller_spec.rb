@@ -20,4 +20,45 @@ RSpec.describe DrugsController, :type => :controller do
 
   end
 
+  describe 'GET #index' do
+
+    let(:page) { double(:page) }
+    let(:result) { double(:result, page: page) }
+    let(:search) { double(:search, result: result) }
+
+    it 'responds successfully' do
+      get :index
+      expect(response).to have_http_status(:success)
+    end
+
+    context 'with no params' do
+      it 'returns all drugs' do
+        expect(page).to receive(:per)
+        expect(Drug).to receive(:ransack)
+          .with(active: true)
+            .and_return(search)
+        expect(search).to receive(:sorts=).with('name')
+
+        get :index
+      end
+    end
+
+    context 'with search params' do
+      it 'ransacks for drugs' do
+        expect(Drug).to receive(:ransack).and_return(search)
+        expect(page).to receive(:per)
+        expect(search).to receive(:sorts=).with('name')
+
+        get :index, q: { name_cont: 'cillin' }
+      end
+    end
+    context 'with pagination params' do
+      it 'assigns paging variables' do
+        get :index,  q: { name_cont: 'cillin', page: '2', per_page: '50' }
+
+        expect(assigns(:page)).to eq('2')
+        expect(assigns(:per_page)).to eq('50')
+      end
+    end
+  end
 end

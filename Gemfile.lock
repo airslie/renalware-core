@@ -280,13 +280,14 @@ DEPENDENCIES
   haml-rails
   httparty
   jquery-rails
-  kaminari
+  kaminari (~> 0.15.1)
   launchy
   mocha
   paper_trail (~> 3.0.6)
   paranoia (~> 2.0)
-  pg
+  pg (~> 0.18.1)
   poltergeist (~> 1.5.1)
+  poltergeist
   pry-byebug
   rails (~> 4.2)
   rails_12factor
