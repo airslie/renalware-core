@@ -16,7 +16,6 @@ gem "paranoia", "~> 2.0"
 gem 'ransack', git: 'https://github.com/activerecord-hackery/ransack.git'
 
 group :development, :test do
-  gem 'poltergeist'
   gem "frog_spawn", :git => "git@github.com:dmgarland/frog_spawn.git"
   # gem "frog_spawn", :path => '/home/daniel/projects/frog_spawn'
   gem "spring"
@@ -37,6 +36,7 @@ group :development, :test do
 end
 
 group :test do
+  gem "poltergeist", "~> 1.5.1"
   gem "webmock"
 end
 
