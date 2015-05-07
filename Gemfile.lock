@@ -120,6 +120,9 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.2)
+    kaminari (0.15.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     kgio (2.9.2)
     launchy (2.4.2)
       addressable (~> 2.3)
@@ -277,6 +280,7 @@ DEPENDENCIES
   haml-rails
   httparty
   jquery-rails
+  kaminari
   launchy
   mocha
   paper_trail (~> 3.0.6)

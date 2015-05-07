@@ -2,7 +2,7 @@ source "https://rubygems.org"
 ruby "2.2.2"
 
 gem "rails", "~> 4.2"
-gem "pg"
+gem "pg", "~> 0.18.1"
 gem "foundation-rails"
 gem "jquery-rails"
 gem "underscore-rails"
@@ -14,6 +14,7 @@ gem "httparty"
 gem 'paper_trail', '~> 3.0.6'
 gem "paranoia", "~> 2.0"
 gem 'ransack', git: 'https://github.com/activerecord-hackery/ransack.git'
+gem 'kaminari', '~> 0.15.1'
 
 group :development, :test do
   gem "frog_spawn", :git => "git@github.com:dmgarland/frog_spawn.git"
