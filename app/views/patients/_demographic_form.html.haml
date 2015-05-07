@@ -13,7 +13,7 @@
             %li
               = patient.label :local_patient_id, "Local Patient ID"
               = patient.text_field :local_patient_id
-        
+
         .large-4.columns
           %ul.no-bullet
             %li
@@ -23,7 +23,7 @@
             %li
               = patient.label :forename
               = patient.text_field :forename
-        
+
         .large-4.columns
           %ul.no-bullet
             %li
@@ -33,18 +33,18 @@
             %li
               = patient.label :ethnicity_id, "Ethnicity"
               = patient.collection_select(:ethnicity_id, Ethnicity.all, :id, :name)
-        
+
         .large-6.columns
           = patient.label :dob, "DoB"
           = patient.date_select(:dob, {start_year: (120.years.ago).year, end_year: Time.now.year , order: [:day, :month, :year]}, class: "dob")
-                  
+
         .large-12.columns
           = patient.check_box :paediatric_patient_indicator
           = patient.label :paediatric_patient_indicator
-      
-      - if @patient.persisted?        
+
+      - if @patient.persisted?
         .row
-          .form-section
+          .section-divider
         .row
           .large-12.columns
             To enter date of death please set 'Death' modality:
