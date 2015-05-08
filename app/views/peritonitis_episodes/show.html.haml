@@ -33,11 +33,13 @@
               Outcome:
 
             .large-12.columns
-              %dl
-                %dt.title-bold
-                  Episode Type:
-                %dd
+              .sub-bold
+                Episode Type:
+              %ul
+                %li
                   = @peritonitis_episode.episode_type.blank? ? "Unknown": @peritonitis_episode.episode_type.term
+                %li
+                  = "Catheter Removed: #{yes_no(@peritonitis_episode.catheter_removed)}"
 
             .large-12.columns
               .sub-bold
@@ -69,13 +71,13 @@
             .large-12.columns
               %ul.table-data-list
                 %li
-                  = "Line Break: #{@peritonitis_episode.line_break.yesno}"
+                  = "Line Break: #{yes_no(@peritonitis_episode.line_break)}"
                 %li
-                  = "Exit Site Infection: #{@peritonitis_episode.exit_site_infection.yesno}"
+                  = "Exit Site Infection: #{yes_no(@peritonitis_episode.exit_site_infection)}"
                 %li
-                  = "Diarrhoea: #{@peritonitis_episode.diarrhoea.yesno}"
+                  = "Diarrhoea: #{yes_no(@peritonitis_episode.diarrhoea)}"
                 %li
-                  = "Abdominal Pain: #{@peritonitis_episode.abdominal_pain.yesno}"
+                  = "Abdominal Pain: #{yes_no(@peritonitis_episode.abdominal_pain)}"
                 %li
                   = "Fluid Description: #{@peritonitis_episode.fluid_description.description}"
         .row

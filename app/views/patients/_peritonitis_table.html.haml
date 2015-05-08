@@ -42,7 +42,7 @@
             %li
               = p.episode_type.blank? ? "Unknown": p.episode_type.term
             %li
-              = "Catheter Removed: #{p.catheter_removed.yesno}"
+              = "Catheter Removed: #{yes_no(p.catheter_removed)}"
 
         %td{ :data => { :heading => "Organisms"}, valign: "top" }
           = organisms(p.infection_organisms)
@@ -63,13 +63,13 @@
         %td{ :data => { :heading => "Causes/ Symptoms"}, valign: "top" }
           %ul.table-data-list
             %li
-              = "Line Break: #{p.line_break.yesno}"
+              = "Line Break: #{yes_no(p.line_break)}"
             %li
-              = "Exit Site Infection: #{p.exit_site_infection.yesno}"
+              = "Exit Site Infection: #{yes_no(p.exit_site_infection)}"
             %li
-              = "Diarrhoea: #{p.diarrhoea.yesno}"
+              = "Diarrhoea: #{yes_no(p.diarrhoea)}"
             %li
-              = "Abdominal Pain: #{p.abdominal_pain.yesno}"
+              = "Abdominal Pain: #{yes_no(p.abdominal_pain)}"
             %li
               = "Fluid Description: #{p.fluid_description.description}"
 
