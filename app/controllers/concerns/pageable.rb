@@ -8,6 +8,9 @@ module Pageable
       if params[:q].present?
         @page = params[:q][:page]
         @per_page = params[:q][:per_page]
+      else
+        @page = params[:page]
+        @per_page = params[:per_page]
       end
     end
   end
