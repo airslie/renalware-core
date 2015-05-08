@@ -1,8 +1,13 @@
 Given(/^there are organisms in the database$/) do
   @organism_codes = [["READ1", "Bacillis"], ["READ2", "E.Coli"], ["READ3", "MRSA"], ["READ4", "Strep"]]
   @organism_codes.map! do |oc|
-    @organism_code = OrganismCode.create!(:read_code => oc[0], :name => oc[1])
+    @organism_code = FactoryGirl.create(:organism_code, :read_code => oc[0], :name => oc[1])
   end
+
+  @bacillis = @organism_codes[0]
+  @e_coli = @organism_codes[1]
+  @mrsa = @organism_codes[2]
+  @strep = @organism_codes[3]
 end
 
 Given(/^there are episode types in the database$/) do
@@ -23,8 +28,13 @@ end
 Given(/^there are fluid descriptions in the database$/) do
   @fluid_descriptions = ["Clear", "Misty", "Cloudy", "Pea Soup"]
   @fluid_descriptions.map! do |fd|
-    FluidDescription.create!( :description => fd )
+    FactoryGirl.create(:fluid_description, :description => fd )
   end
+
+  @clear = @fluid_descriptions[0]
+  @misty = @fluid_descriptions[1]
+  @cloudy = @fluid_descriptions[2]
+  @pea_soup = @fluid_descriptions[3]
 end
 
 Given(/^a patient has a recently recorded episode of peritonitis$/) do
@@ -40,7 +50,7 @@ Given(/^a patient has a recently recorded episode of peritonitis$/) do
     exit_site_infection: 1,
     diarrhoea: 0,
     abdominal_pain: 0,
-    fluid_description_id: 2,
+    fluid_description: @misty,
     white_cell_total: 2000,
     white_cell_neutro: 20,
     white_cell_lympho: 20,
@@ -68,7 +78,7 @@ Given(/^a patient has episodes of peritonitis$/) do
     exit_site_infection: 0,
     diarrhoea: 1,
     abdominal_pain: 0,
-    fluid_description_id: 3,
+    fluid_description: @cloudy,
     white_cell_total: 1500,
     white_cell_neutro: 25,
     white_cell_lympho: 25,
@@ -88,7 +98,7 @@ Given(/^a patient has episodes of peritonitis$/) do
     exit_site_infection: 0,
     diarrhoea: 1,
     abdominal_pain: 1,
-    fluid_description_id: 2,
+    fluid_description: @misty,
     white_cell_total: 3000,
     white_cell_neutro: 20,
     white_cell_lympho: 25,
