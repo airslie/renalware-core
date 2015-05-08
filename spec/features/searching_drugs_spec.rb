@@ -24,6 +24,7 @@ feature 'Searching drugs' do
 
   scenario 'with a search term' do
     fill_in 'q_name_or_drug_types_name_cont', with: 'cillin'
+
     click_on 'Search'
 
     within('ul.drugs') do
@@ -34,7 +35,21 @@ feature 'Searching drugs' do
   end
 
   scenario 'with paged results' do
-    visit drugs_path(q: { page: '2', per_page: '5' })
+    Kaminari.configure { |k| k.default_per_page = 5 }
+
+    visit drugs_path
+
+    within('ul.drugs') do
+      expect_to_find_drug('Amoxicillin',   1)
+      expect_to_find_drug('Cephradine',    2)
+      expect_to_find_drug('Dicloxacillin', 3)
+      expect_to_find_drug('Metronidazole', 4)
+      expect_to_find_drug('Penicillin',    5)
+    end
+
+    within('.pagination-top') do
+      click_on 'Next'
+    end
 
     within('ul.drugs') do
       expect_to_find_drug('Rifampin',      1)
