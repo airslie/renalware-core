@@ -11,17 +11,17 @@
 .row
   .large-12.columns
     = form_for [@patient, @peritonitis_episode], :method => :put do |p|
-    
-      = field_set_tag do                  
+
+      = field_set_tag do
         .row
           = render partial: "peritonitis_episodes/peritonitis_form", locals: { p: p }
-      
+
         .row.button-padding
-          = submit_tag "Update Peritonitis Episode", class: "button tiny right"
+          = submit_tag "Update Peritonitis Episode", class: "button tiny right save"
 
           = link_to "Cancel", pd_info_patient_path(@patient), class: "button tiny left cancel"
 
 .wide-screen
-  = content_for :secondary_nav do  
+  = content_for :secondary_nav do
     = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
 
