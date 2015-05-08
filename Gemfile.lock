@@ -294,7 +294,6 @@ DEPENDENCIES
   paranoia (~> 2.0)
   pg (~> 0.18.1)
   poltergeist (~> 1.5.1)
-  poltergeist
   pry-byebug
   rails (~> 4.2)
   rails_12factor
