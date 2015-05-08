@@ -3,13 +3,13 @@ FactoryGirl.define do
     diagnosis_date "30/01/2015"
     treatment_start_date "1/02/2015"
     treatment_end_date "28/02/2015"
-    episode_type_id 1
+    episode_type
     catheter_removed true
     line_break false
     exit_site_infection true
     diarrhoea false
     abdominal_pain false
-    fluid_description_id 2
+    fluid_description
     white_cell_total 2000
     white_cell_neutro 25
     white_cell_lympho 25
