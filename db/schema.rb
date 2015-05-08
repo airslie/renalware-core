@@ -256,21 +256,21 @@ ActiveRecord::Schema.define(version: 20150317151009) do
     t.date     "diagnosis_date"
     t.date     "treatment_start_date"
     t.date     "treatment_end_date"
-    t.integer  "episode_type_id",      limit: 4
-    t.boolean  "catheter_removed",     limit: 1
-    t.boolean  "line_break",           limit: 1
-    t.boolean  "exit_site_infection",  limit: 1
-    t.boolean  "diarrhoea",            limit: 1
-    t.boolean  "abdominal_pain",       limit: 1
-    t.integer  "fluid_description_id", limit: 4
-    t.integer  "white_cell_total",     limit: 4
-    t.integer  "white_cell_neutro",    limit: 4
-    t.integer  "white_cell_lympho",    limit: 4
-    t.integer  "white_cell_degen",     limit: 4
-    t.integer  "white_cell_other",     limit: 4
-    t.text     "notes",                limit: 65535
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.integer  "episode_type_id"
+    t.boolean  "catheter_removed"
+    t.boolean  "line_break"
+    t.boolean  "exit_site_infection"
+    t.boolean  "diarrhoea"
+    t.boolean  "abdominal_pain"
+    t.integer  "fluid_description_id"
+    t.integer  "white_cell_total"
+    t.integer  "white_cell_neutro"
+    t.integer  "white_cell_lympho"
+    t.integer  "white_cell_degen"
+    t.integer  "white_cell_other"
+    t.text     "notes"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "prd_codes", force: :cascade do |t|
