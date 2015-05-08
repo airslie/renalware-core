@@ -5,6 +5,11 @@ describe Snomed::YamlAdapter do
   subject { Snomed::YamlAdapter.new }
 
   describe 'search' do
+
+    before do
+      Snomed::YamlAdapter.data = nil
+    end
+
     it 'should read data from file' do
       expect(YAML).to receive(:load_file)
         .with(Rails.root.join('data','snomed.yml'))
@@ -18,8 +23,6 @@ describe Snomed::YamlAdapter do
     end
 
     it 'should only read from file once' do
-      Snomed::YamlAdapter.data = nil
-
       expect(YAML).to receive(:load_file)
         .with(Rails.root.join('data','snomed.yml')).once
         .and_return([{'conceptId' => 123, 'term' => 'Foo'}])
