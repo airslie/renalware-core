@@ -13,129 +13,132 @@
 
 ActiveRecord::Schema.define(version: 20150317151009) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "addresses", force: :cascade do |t|
-    t.string   "street_1",   limit: 255
-    t.string   "street_2",   limit: 255
-    t.string   "county",     limit: 255
-    t.string   "city",       limit: 255
-    t.string   "postcode",   limit: 255
+    t.string   "street_1"
+    t.string   "street_2"
+    t.string   "county"
+    t.string   "city"
+    t.string   "postcode"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "drug_drug_types", force: :cascade do |t|
-    t.integer  "drug_id",      limit: 4
-    t.integer  "drug_type_id", limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "drug_id"
+    t.integer  "drug_type_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   add_index "drug_drug_types", ["drug_id", "drug_type_id"], name: "index_drug_drug_types_on_drug_id_and_drug_type_id", unique: true, using: :btree
 
   create_table "drug_types", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "drugs", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name"
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "edta_codes", force: :cascade do |t|
-    t.integer  "code",        limit: 4
-    t.string   "death_cause", limit: 255
+    t.integer  "code"
+    t.string   "death_cause"
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "episode_types", force: :cascade do |t|
-    t.string   "term",       limit: 255
-    t.string   "definition", limit: 255
+    t.string   "term"
+    t.string   "definition"
     t.datetime "deleted_at"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "esrf_infos", force: :cascade do |t|
-    t.integer  "patient_id",  limit: 4
+    t.integer  "patient_id"
     t.date     "date"
-    t.integer  "prd_code_id", limit: 4
+    t.integer  "prd_code_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "ethnicities", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "exit_site_infections", force: :cascade do |t|
-    t.integer  "patient_id",     limit: 4
+    t.integer  "patient_id"
     t.date     "diagnosis_date"
-    t.text     "treatment",      limit: 65535
-    t.text     "outcome",        limit: 65535
-    t.text     "notes",          limit: 65535
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.text     "treatment"
+    t.text     "outcome"
+    t.text     "notes"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "fluid_descriptions", force: :cascade do |t|
-    t.string   "description", limit: 255
+    t.string   "description"
     t.datetime "deleted_at"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "infection_organisms", force: :cascade do |t|
-    t.integer  "organism_code_id", limit: 4
-    t.text     "sensitivity",      limit: 65535
-    t.integer  "infectable_id",    limit: 4
-    t.string   "infectable_type",  limit: 255
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.integer  "organism_code_id"
+    t.text     "sensitivity"
+    t.integer  "infectable_id"
+    t.string   "infectable_type"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   add_index "infection_organisms", ["infectable_type", "infectable_id"], name: "index_infection_organisms_on_infectable_type_and_infectable_id", using: :btree
   add_index "infection_organisms", ["organism_code_id", "infectable_id", "infectable_type"], name: "index_infection_organisms", unique: true, using: :btree
 
   create_table "medication_routes", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "full_name",  limit: 255
+    t.string   "name"
+    t.string   "full_name"
     t.datetime "deleted_at"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "medication_versions", force: :cascade do |t|
-    t.string   "item_type",      limit: 255,   null: false
-    t.integer  "item_id",        limit: 4,     null: false
-    t.string   "event",          limit: 255,   null: false
-    t.string   "whodunnit",      limit: 255
-    t.text     "object",         limit: 65535
-    t.text     "object_changes", limit: 65535
+    t.string   "item_type",      null: false
+    t.integer  "item_id",        null: false
+    t.string   "event",          null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.text     "object_changes"
     t.datetime "created_at"
   end
 
   add_index "medication_versions", ["item_type", "item_id"], name: "index_medication_versions_on_item_type_and_item_id", using: :btree
 
   create_table "medications", force: :cascade do |t|
-    t.integer  "patient_id",          limit: 4
-    t.integer  "medicatable_id",      limit: 4
-    t.string   "medicatable_type",    limit: 255
-    t.integer  "treatable_id",        limit: 4
-    t.string   "treatable_type",      limit: 255
-    t.string   "dose",                limit: 255
-    t.integer  "medication_route_id", limit: 4
-    t.string   "frequency",           limit: 255
-    t.text     "notes",               limit: 65535
+    t.integer  "patient_id"
+    t.integer  "medicatable_id"
+    t.string   "medicatable_type"
+    t.integer  "treatable_id"
+    t.string   "treatable_type"
+    t.string   "dose"
+    t.integer  "medication_route_id"
+    t.string   "frequency"
+    t.text     "notes"
     t.date     "date"
-    t.integer  "provider",            limit: 4
+    t.integer  "provider"
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -146,11 +149,11 @@ ActiveRecord::Schema.define(version: 20150317151009) do
   add_index "medications", ["treatable_type", "treatable_id"], name: "index_medications_on_treatable_type_and_treatable_id", using: :btree
 
   create_table "modalities", force: :cascade do |t|
-    t.integer  "patient_id",         limit: 4
-    t.integer  "modality_code_id",   limit: 4
-    t.integer  "modality_reason_id", limit: 4
-    t.string   "modal_change_type",  limit: 255
-    t.text     "notes",              limit: 65535
+    t.integer  "patient_id"
+    t.integer  "modality_code_id"
+    t.integer  "modality_reason_id"
+    t.string   "modal_change_type"
+    t.text     "notes"
     t.date     "start_date"
     t.date     "termination_date"
     t.datetime "deleted_at"
@@ -159,97 +162,97 @@ ActiveRecord::Schema.define(version: 20150317151009) do
   end
 
   create_table "modality_codes", force: :cascade do |t|
-    t.string   "code",       limit: 255
-    t.string   "name",       limit: 255
-    t.string   "site",       limit: 255
+    t.string   "code"
+    t.string   "name"
+    t.string   "site"
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "modality_reasons", force: :cascade do |t|
-    t.string   "type",        limit: 255
-    t.integer  "rr_code",     limit: 4
-    t.string   "description", limit: 255
+    t.string   "type"
+    t.integer  "rr_code"
+    t.string   "description"
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "organism_codes", force: :cascade do |t|
-    t.string   "read_code",  limit: 255
-    t.string   "name",       limit: 255
+    t.string   "read_code"
+    t.string   "name"
     t.datetime "deleted_at"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "patient_event_types", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name",       limit: 255
+    t.string   "name"
     t.datetime "deleted_at"
   end
 
   create_table "patient_events", force: :cascade do |t|
     t.datetime "date_time"
-    t.string   "description",           limit: 255
-    t.text     "notes",                 limit: 65535
+    t.string   "description"
+    t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "patient_event_type_id", limit: 4
-    t.integer  "patient_id",            limit: 4
+    t.integer  "patient_event_type_id"
+    t.integer  "patient_id"
   end
 
   create_table "patient_problem_versions", force: :cascade do |t|
-    t.string   "item_type",      limit: 255,   null: false
-    t.integer  "item_id",        limit: 4,     null: false
-    t.string   "event",          limit: 255,   null: false
-    t.string   "whodunnit",      limit: 255
-    t.text     "object",         limit: 65535
-    t.text     "object_changes", limit: 65535
+    t.string   "item_type",      null: false
+    t.integer  "item_id",        null: false
+    t.string   "event",          null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.text     "object_changes"
     t.datetime "created_at"
   end
 
   add_index "patient_problem_versions", ["item_type", "item_id"], name: "index_patient_problem_versions_on_item_type_and_item_id", using: :btree
 
   create_table "patient_problems", force: :cascade do |t|
-    t.integer  "patient_id",  limit: 4
-    t.string   "description", limit: 255
+    t.integer  "patient_id"
+    t.string   "description"
     t.date     "date"
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "snomed_id",   limit: 255
+    t.string   "snomed_id"
   end
 
   add_index "patient_problems", ["deleted_at"], name: "index_patient_problems_on_deleted_at", using: :btree
 
   create_table "patients", force: :cascade do |t|
-    t.string   "nhs_number",                   limit: 255
-    t.string   "local_patient_id",             limit: 255
-    t.string   "surname",                      limit: 255
-    t.string   "forename",                     limit: 255
+    t.string   "nhs_number"
+    t.string   "local_patient_id"
+    t.string   "surname"
+    t.string   "forename"
     t.date     "dob"
-    t.boolean  "paediatric_patient_indicator", limit: 1
-    t.integer  "sex",                          limit: 4
-    t.integer  "ethnicity_id",                 limit: 4
-    t.integer  "current_address_id",           limit: 4
-    t.integer  "address_at_diagnosis_id",      limit: 4
-    t.string   "gp_practice_code",             limit: 255
-    t.string   "pct_org_code",                 limit: 255
-    t.string   "hosp_centre_code",             limit: 255
-    t.string   "primary_esrf_centre",          limit: 255
+    t.boolean  "paediatric_patient_indicator"
+    t.integer  "sex"
+    t.integer  "ethnicity_id"
+    t.integer  "current_address_id"
+    t.integer  "address_at_diagnosis_id"
+    t.string   "gp_practice_code"
+    t.string   "pct_org_code"
+    t.string   "hosp_centre_code"
+    t.string   "primary_esrf_centre"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "death_date"
-    t.integer  "first_edta_code_id",           limit: 4
-    t.integer  "second_edta_code_id",          limit: 4
-    t.text     "death_details",                limit: 65535
+    t.integer  "first_edta_code_id"
+    t.integer  "second_edta_code_id"
+    t.text     "death_details"
   end
 
   create_table "peritonitis_episodes", force: :cascade do |t|
-    t.integer  "patient_id",           limit: 4
+    t.integer  "patient_id"
     t.date     "diagnosis_date"
     t.date     "treatment_start_date"
     t.date     "treatment_end_date"
@@ -271,18 +274,18 @@ ActiveRecord::Schema.define(version: 20150317151009) do
   end
 
   create_table "prd_codes", force: :cascade do |t|
-    t.string   "code",       limit: 255
-    t.string   "term",       limit: 255
+    t.string   "code"
+    t.string   "term"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "versions", force: :cascade do |t|
-    t.string   "item_type",  limit: 255,   null: false
-    t.integer  "item_id",    limit: 4,     null: false
-    t.string   "event",      limit: 255,   null: false
-    t.string   "whodunnit",  limit: 255
-    t.text     "object",     limit: 65535
+    t.string   "item_type",  null: false
+    t.integer  "item_id",    null: false
+    t.string   "event",      null: false
+    t.string   "whodunnit"
+    t.text     "object"
     t.datetime "created_at"
   end
 

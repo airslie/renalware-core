@@ -1,10 +1,9 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 $(document).ready(function(){
-   
+
   //drug type by select
   $('.medication-type-select').change(function(e) {
-    console.log("Hello");
     var $selectBox = $(e.currentTarget);
     var selectedMedicationType = $selectBox.val();
     var $medForm = $selectBox.closest('.med-form');
@@ -41,7 +40,6 @@ $(document).ready(function(){
       url: '/drugs/selected_drugs.json',
       data: { medication_switch: selectedMedicationType },
       success: function(json) {
-        console.log(json);
         var $drugSelectBox = $medForm.find('.drug-select');
         $drugSelectBox.html('');
 
@@ -61,75 +59,52 @@ $(document).ready(function(){
   });
 
   // drug search
-  var timer;
+  var timer,
+      $drugResults = $('#drug-results');
+      // TODO: Get rid of this.
+      drugAdminTemplate = "<li class='row drug-list' data-drug-id=<%=id%>><div class='large-4 columns'></div><div class='large-4 columns'><a href='/drugs/<%=id%>/drug_drug_types'><%= name %></a></div><div class='large-2 columns'><a href='/drugs/<%=id%>/edit'>Edit</a></div><div class='large-2 columns'><a class='delete' data-confirm='Are you sure you want to delete this drug?' data-method='delete' href='/drugs/<%=id%>'>Delete</a></div></li>",
+      medicationsTemplate = "<li id=drug-<%=id%> class='drug-select-link' data-drug-id=<%=id%>><%= name %></li>";
 
-  $('.find_drug').keydown(function(e) {
-    var $enteredDrug = $(e.currentTarget);
-    var drugValue = $enteredDrug.val();
-    var $medForm = $enteredDrug.closest('.med-form');
-    var $findDrugList = $enteredDrug.closest('.find-drug-list');
+  $('#drug_search').keydown(function(e) {
+    var $searchInput = $(e.currentTarget),
+        query = $searchInput.val();
 
     if(timer) clearTimeout(timer);
 
     timer = setTimeout(function() {
-      $.ajax({
-        url: '/drugs/search.json',
-        data: { drug_search: drugValue },
-        success: function(json) {
-          console.log(json);
-          var $drugResults = $medForm.find('.drug-results');
-          $drugResults.html('').show();
-
-          for (var i = 0; i < json.length; i++) {
-            var drugId = json[i].id;
-            var drugName = json[i].name;
-            var optionHtml = _.template("<li id=drug-<%=id%> class='drug-select-link' data-drug-id=<%=id%>><%= name %></li>")({ id: drugId, name: drugName });
-            $drugResults.append(optionHtml);
+      if (query.length > 2) {
+        $.ajax({
+          url: '/drugs/search.json',
+          data: { q : { name_or_drug_types_name_cont : query } },
+          success: function(json) {
+            $drugResults.html('').show();
+            for (var i = 0; i < json.length; i++) {
+              var drugId = json[i].id,
+                  drugName = json[i].name,
+                  htmlTemplate = location.pathname === '/drugs' ? drugAdminTemplate : medicationsTemplate,
+                  resultsHtml = _.template(htmlTemplate)({ id: drugId, name: drugName });
+              $drugResults.append(resultsHtml);
+            }
+          },
+          error: function(json) {
+            console.log("Drug list failed to load");
+            console.log(json);
           }
-        },
-        error: function(json) {
-          console.log("Drug list failed to load");
-          console.log(json);
-        }
-      });
-
-      $.ajax({
-        url: '/drugs/search.json',
-        data: { drug_search: drugValue },
-        success: function(json) {
-          console.log(json);
-          var $drugResults = $findDrugList.find('.drug-results-admin');
-          $drugResults.html('').show();
-
-          for (var i = 0; i < json.length; i++) {
-            var drugId = json[i].id;
-            var drugType = json[i].type;
-            var drugName = json[i].name;
-            var foundHtml = _.template("<li class='row drug-list' data-drug-id=<%=id%>><div class='large-4 columns'><%= type %></div><div class='large-4 columns'><a href='/drugs/<%=id%>/drug_drug_types'><%= name %></a></div><div class='large-2 columns'><a href='/drugs/<%=id%>/edit'>Edit</a></div><div class='large-2 columns'><a class='delete' data-confirm='Are you sure you want to delete this drug?' data-method='delete' href='/drugs/<%=id%>'>Delete</a></div></li>")({ id: drugId, name: drugName, type: drugType });
-            $drugResults.append(foundHtml);
-          }
-        },
-        error: function(json) {
-          console.log("Drug list failed to load");
-          console.log(json);
-        }
-      });
-
+        });
+      }
     }, 500);
   });
 
   // set hidden value of chosen medication via search
-  $('body').on('click', '.drug-select-link', function(e) {
+  $drugResults.on('click', '.drug-select-link', function(e) {
     var $bullet = $(e.currentTarget);
-    console.log($bullet);
     var $medForm = $bullet.closest('.med-form');
     var drugId = $bullet.data('drug-id');
-    console.log("clicked on a drug" + drugId);
     $medForm.find('.selected-medicatable-id').val(drugId);
 
     // Show the selected drug
     $medForm.find('.find_drug').val($bullet.html());
-    $medForm.find('.drug-results').hide();
+    $drugResults.hide();
   });
 
   // set hidden value of chosen medication via select dropdown

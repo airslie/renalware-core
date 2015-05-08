@@ -7,10 +7,9 @@ Feature: Search for a Drug
       And there are ethnicities in the database
       And there are drugs in the database
       And some patients who need renal treatment
-      And I've waited for the indexes to update
       And they add a medication
 
-  @javascript @elasticsearch
+  @javascript
   Scenario: A doctor searches for a drug
     When I search for a drug by name
     Then they should see the list of drugs listed in the dropdown

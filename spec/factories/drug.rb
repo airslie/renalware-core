@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :drug do
-    name "Blue Pill" 
+    name "Blue Pill"
   end
 end

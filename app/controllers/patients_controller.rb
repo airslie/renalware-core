@@ -19,10 +19,14 @@ class PatientsController < ApplicationController
     @dead_patients = Patient.where("death_date IS NOT NULL", params[:death_date])  
   end
 
-  def search
-    @search = params[:patient_search]
-    @patients = Patient.search("#{@search}*").records
-    render :template => 'patients/index'
+  def index
+    @patients = (
+      if params[:q].present?
+        @patient_search.result
+      else
+        Patient.all
+      end
+    )
   end
 
   def manage_medications
@@ -44,10 +48,6 @@ class PatientsController < ApplicationController
     else
       render :new
     end
-  end
-
-  def index
-    @patients = Patient.all
   end
 
   def update
