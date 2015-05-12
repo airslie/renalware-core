@@ -24,10 +24,10 @@
           Age
         %th.g-center{colspan: "4"}
           Actions
-       
+
     %tbody
-      %tr      
-        - @dead_patients.each do |patient| 
+      %tr
+        - @dead_patients.each do |patient|
           %td{ :data => { :heading => "Forename"}}
             = link_to " " + patient.full_name, clinical_summary_patient_path(patient), :title => "Clinical Summary"
           %td{ :data => { :heading => "NHS No."}}
@@ -42,10 +42,10 @@
             = patient.death_date.strftime("%d/%m/%Y")
           %td{ :data => { :heading => "Age"}}
             = patient.age
-          %td.g-center{ :data => { :heading => "Causes of Death"}, valign: "top" } 
+          %td.g-center{ :data => { :heading => "Causes of Death"}, valign: "top" }
             %dl.accordion{ data: { accordion: true } }
               %dd.accordion-navigation
-                %a.fi-plus.fi-minus.toggle-notes{ :id => "patient-death-cause-#{patient.id}", href: "#patient-death-cause-#{patient.id}" }
+                %a.fi-plus.fi-minus.toggle-info{ :id => "patient-death-cause-#{patient.id}", href: "#patient-death-cause-#{patient.id}" }
                   Causes of death
                 .content.toggle-content{ :id => "patient-death-cause-#{patient.id}" }
                   %ul.no-bullet
@@ -54,7 +54,7 @@
                     %li.toggle-text
                       = patient.second_edta_code.death_cause
           %td.g-center{:data => { :heading => "Edit death details"}}
-            = link_to "Edit death details", death_update_patient_path(patient.id), :title => "Edit death details"          
+            = link_to "Edit death details", death_update_patient_path(patient.id), :title => "Edit death details"
           %td.g-center{ :data => { :heading => "Admin"}}
             = link_to "Demographics", demographics_patient_path(patient), :title => "Demographics"
-  
+

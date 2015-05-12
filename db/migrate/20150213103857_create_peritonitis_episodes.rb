@@ -3,8 +3,8 @@ class CreatePeritonitisEpisodes < ActiveRecord::Migration
     create_table :peritonitis_episodes do |t|
       t.integer :patient_id
       t.date :diagnosis_date
-      t.date :start_treatment_date
-      t.date :end_treatment_date
+      t.date :treatment_start_date
+      t.date :treatment_end_date
       t.integer :episode_type_id
       t.boolean :catheter_removed
       t.boolean :line_break

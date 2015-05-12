@@ -1,104 +1,96 @@
 %table.responsive
   %thead
-    %th.table-width 
-      Diagnosis Date
-    %th.table-width 
-      Start Treatment Date
-    %th.table-width 
-      End Treatment Date
-    %th.table-width 
-      Causes/ Symptoms
-    %th.table-width 
-      Organisms
-    %th.table-width 
-      Episode Type
-    %th.table-width 
-      Notes
-    %th.table-width 
-      White Cell Count
-    %th.table-width 
-      Antibiotics - Routes
-    %th.table-width 
-      Last Updated
-    %th.table-width 
-      Action
+    %tr
+      %th.column-6-width
+        Diagnosis Date
+      %th.column-6-width
+        Treatment Start Date
+      %th.column-6-width
+        Treatment End Date
+      %th
+        Episode Type
+      %th
+        Organisms
+      %th.column-9-width
+        White Cell Count
+      %th
+        Causes/ Symptoms
+      %th
+        Antibiotics/Routes
+      %th
+        Notes
+      %th.column-6-width
+        Last Updated
+      %th
+        Action
 
   %tbody
     - @peritonitis_episodes.each do |p|
-      %tr{ valign: "top" }        
-        %td{:data => { :heading => "Diagnosis Date" }, valign: "top"}
-          = p.diagnosis_date.strftime("%d/%m/%Y")
-        %td{:data => { :heading => "Start Date"}, valign: "top"}
-          = p.start_treatment_date.strftime("%d/%m/%Y")
-        %td{:data => { :heading => "End Date"}, valign: "top"}
-          = p.end_treatment_date.strftime("%d/%m/%Y")
-        %td{ :data => { :heading => "Organisms"}, valign: "top" } 
-          %dl.accordion{ data: { accordion: true } }
-            %dd.accordion-navigation
-              %a.fi-plus.fi-minus.toggle-notes{ :id => "patient-peritonitis-cause-#{p.id}", href: "#patient-peritonitis-cause-#{p.id}" }
-                View
-              .content.toggle-content{ :id => "patient-peritonitis-cause-#{p.id}" }
-                %ul.no-bullet
-                  %li 
-                    = "Line Break: #{p.line_break},"
-                  %li
-                    = "Exit Site Infection: #{p.exit_site_infection}"
-                  %li
-                    = "Diarrhoea: #{p.diarrhoea}"
-                  %li
-                    = "Abdominal Pain: #{p.abdominal_pain}"
-                  %li
-                    = "Fluid Description: #{p.fluid_description.description}"
-          
-        %td{ :data => { :heading => "Organisms"}, valign: "top" } 
-          %dl.accordion{ data: { accordion: true } }
-            %dd.accordion-navigation
-              %a.fi-plus.fi-minus.toggle-notes{ :id => "patient-peritonitis-organism-#{p.id}", href: "#patient-peritonitis-organism-#{p.id}" }
-                View
-              .content.toggle-content{ :id => "patient-peritonitis-organism-#{p.id}" }
-                %ul.no-bullet
-                  %li
-                    = organism_and_sensitivity(p.infection_organisms)
-        
-        %td{ :data => { :heading => "Episode Type"}, valign: "top" } 
-          %dl.accordion{ data: { accordion: true } }
-            %dd.accordion-navigation
-              %a.fi-plus.fi-minus.toggle-notes{ :id => "patient-peritonitis-episode-type-#{p.id}", href: "#patient-peritonitis-episode-type-#{p.id}" }
-                = p.episode_type.term
-              .content.toggle-content{ :id => "patient-peritonitis-episode-type-#{p.id}" } 
-                = "Catheter Removed: #{p.catheter_removed}"
-                            
-        %td{:data => { :heading => "Description" }, valign: "top"}
-          %dl.accordion{data: {accordion: true} }
-            %dd.accordion-navigation
-              %a.fi-plus.fi-minus.toggle-notes{ :id => "patient-peritonitis-notes-#{p.id}", href: "#patient-peritonitis-notes-#{p.id}" }
-                View
-              .content.toggle-content{ :id => "patient-peritonitis-notes-#{p.id}" } 
-                = p.notes
-        
-        %td{ :data => { :heading => "White Cell Count"}, valign: "top" } 
-          %dl.accordion{ data: { accordion: true } }
-            %dd.accordion-navigation
-              %a.fi-plus.fi-minus.toggle-notes{ :id => "patient-peritonitis-white-cell-#{p.id}", href: "#patient-peritonitis-white-cell-#{p.id}" }
-                = "Total: #{p.white_cell_total}"
-              .content.toggle-content{ :id => "patient-peritonitis-white-cell-#{p.id}" } 
-                = "Neutro: #{p.white_cell_neutro}%,"
-                = "Lympho: #{p.white_cell_lympho}%,"
-                = "Degen: #{p.white_cell_degen}%,"
-                = "Other: #{p.white_cell_other}%"
+      %tr{ valign: "top" }
 
-        %td{ :data => { :heading => "Antibiotics/ Routes"}, valign: "top" } 
+        %td{ :data => { :heading => "Diagnosis Date" }, valign: "top" }
+          = p.diagnosis_date.strftime("%d/%m/%Y")
+
+        %td{ :data => { :heading => "Start Treatment Date"}, valign: "top" }
+          = p.treatment_start_date.strftime("%d/%m/%Y")
+
+        %td{ :data => { :heading => "End Treatment Date"}, valign: "top" }
+          = p.treatment_end_date.strftime("%d/%m/%Y")
+
+        %td{ :data => { :heading => "Episode Type"}, valign: "top" }
+          %ul.table-data-list
+            %li
+              = p.episode_type.blank? ? "Unknown": p.episode_type.term
+            %li
+              = "Catheter Removed: #{yes_no(p.catheter_removed)}"
+
+        %td{ :data => { :heading => "Organisms"}, valign: "top" }
+          = organisms(p.infection_organisms)
+
+        %td{ :data => { :heading => "White Cell Count"}, valign: "top" }
+          %ul.table-data-list
+            %li
+              = "Total: #{p.white_cell_total}"
+            %li
+              = "Neutro: #{p.white_cell_neutro}%"
+            %li
+              = "Lympho: #{p.white_cell_lympho}%"
+            %li
+              = "Degen: #{p.white_cell_degen}%"
+            %li
+              = "Other: #{p.white_cell_other}%"
+
+        %td{ :data => { :heading => "Causes/ Symptoms"}, valign: "top" }
+          %ul.table-data-list
+            %li
+              = "Line Break: #{yes_no(p.line_break)}"
+            %li
+              = "Exit Site Infection: #{yes_no(p.exit_site_infection)}"
+            %li
+              = "Diarrhoea: #{yes_no(p.diarrhoea)}"
+            %li
+              = "Abdominal Pain: #{yes_no(p.abdominal_pain)}"
+            %li
+              = "Fluid Description: #{p.fluid_description.description}"
+
+        %td{ :data => { :heading => "Antibiotics/ Routes"}, valign: "top" }
+          %ul.table-data-list
+            = medication_and_route(p.medications)
+
+        %td{:data => { :heading => "Notes" }, valign: "top"}
           %dl.accordion{ data: { accordion: true } }
             %dd.accordion-navigation
-              %a.fi-plus.fi-minus.toggle-notes{ :id => "patient-peritonitis-antibiotics-#{p.id}", href: "#patient-peritonitis-antibiotics-#{p.id}" }
-                View 
-              .content.toggle-content{ :id => "patient-peritonitis-antibiotics-#{p.id}" } 
-                %ul.no-bullet
-                  %li.toggle-content
-                    = medication_and_route(p.medications)
-                  
-        %td{:data => { :heading => "Last Updated"}, valign: "top"}
+              %a.toggle-info{ :id => "patient-peritonitis-toggle-#{p.id}", href: "#patient-peritonitis-toggle-#{p.id}" }
+                View
+              .content.toggle-content{ :id => "patient-peritonitis-toggle-#{p.id}" }
+                = p.notes
+
+        %td{ :data => { :heading => "Last Updated" }, valign: "top" }
           = p.updated_at.strftime("%d/%m/%Y, %H:%M")
 
-        %td{:data => { :heading => "Entered By"}, valign: "top"}
-          = link_to "Update", edit_patient_peritonitis_episode_path(@patient, p.id)
+        %td{ :data => { :heading => "Action" }, valign: "top" }
+          %ul.table-data-list
+            %li
+              = link_to "Update", edit_patient_peritonitis_episode_path(@patient, p.id)
+            %li
+              = link_to "View Episode", patient_peritonitis_episode_path(@patient, p.id)

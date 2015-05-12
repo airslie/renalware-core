@@ -1,70 +1,70 @@
 %table.responsive
   %thead
-    %th.table-width 
+    %th.table-width
       Diagnosis Date
-    %th.table-width  
+    %th.table-width
       Organisms
-    %th.table-width 
+    %th.table-width
       Treatment
-    %th.table-width 
+    %th.table-width
       Outcome
-    %th.table-width 
+    %th.table-width
       Notes
-    %th.table-width 
+    %th.table-width
       Antibiotics
-    %th.table-width 
+    %th.table-width
       Last Updated
-    %th.table-width 
+    %th.table-width
       Action
 
   %tbody
     - @exit_site_infections.each do |e|
-      %tr{ valign: "top" }        
+      %tr{ valign: "top" }
         %td{:data => { :heading => "Diagnosis Date" }, valign: "top"}
           = e.diagnosis_date.strftime("%d/%m/%Y")
-          
-        %td{ :data => { :heading => "Organisms"}, valign: "top" } 
+
+        %td{ :data => { :heading => "Organisms"}, valign: "top" }
           %dl.accordion{ data: { accordion: true } }
             %dd.accordion-navigation
-              %a.fi-plus.fi-minus.toggle-notes{ :id => "patient-exit-site-organism-#{e.id}", href: "#patient-exit-site-organism-#{e.id}" }
+              %a.fi-plus.fi-minus.toggle-info{ :id => "patient-exit-site-organism-#{e.id}", href: "#patient-exit-site-organism-#{e.id}" }
                 View
               .content.toggle-content{ :id => "patient-exit-site-organism-#{e.id}" }
                 %ul.no-bullet
-                  %li 
+                  %li
                     = "Organism 1: #{e.organism_1.name},"
                   %li
                     = "Organism 2: #{e.organism_2.name}"
-                                            
+
         %td{:data => { :heading => "Treatment" }, valign: "top"}
           %dl.accordion{data: {accordion: true} }
             %dd.accordion-navigation
-              %a.fi-plus.fi-minus.toggle-notes{ :id => "exit-site-treatment-#{e.id}", href: "#exit-site-treatment-#{e.id}" }
+              %a.fi-plus.fi-minus.toggle-info{ :id => "exit-site-treatment-#{e.id}", href: "#exit-site-treatment-#{e.id}" }
                 View
-              .content.toggle-content{ :id => "exit-site-treatment-#{e.id}" } 
+              .content.toggle-content{ :id => "exit-site-treatment-#{e.id}" }
                 = e.treatment
 
         %td{:data => { :heading => "Outcome" }, valign: "top"}
           %dl.accordion{data: {accordion: true} }
             %dd.accordion-navigation
-              %a.fi-plus.fi-minus.toggle-notes{ :id => "exit-site-outcome-#{e.id}", href: "#exit-site-outcome-#{e.id}" }
+              %a.fi-plus.fi-minus.toggle-info{ :id => "exit-site-outcome-#{e.id}", href: "#exit-site-outcome-#{e.id}" }
                 View
-              .content.toggle-content{ :id => "exit-site-outcome-#{e.id}" } 
+              .content.toggle-content{ :id => "exit-site-outcome-#{e.id}" }
                 = e.outcome
 
         %td{:data => { :heading => "Description" }, valign: "top"}
           %dl.accordion{data: {accordion: true} }
             %dd.accordion-navigation
-              %a.fi-plus.fi-minus.toggle-notes{ :id => "patient-peritonitis-notes-#{e.id}", href: "#patient-peritonitis-notes-#{e.id}" }
+              %a.fi-plus.fi-minus.toggle-info{ :id => "patient-peritonitis-notes-#{e.id}", href: "#patient-peritonitis-notes-#{e.id}" }
                 View
-              .content.toggle-content{ :id => "patient-peritonitis-notes-#{e.id}" } 
-                = e.notes       
+              .content.toggle-content{ :id => "patient-peritonitis-notes-#{e.id}" }
+                = e.notes
 
-        %td{ :data => { :heading => "Antibiotics"}, valign: "top" } 
+        %td{ :data => { :heading => "Antibiotics"}, valign: "top" }
           %dl.accordion{ data: { accordion: true } }
             %dd.accordion-navigation
-              %a.fi-plus.fi-minus.toggle-notes{ :id => "patient-exit-site-antibiotics-#{e.id}", href: "#patient-exit-site-antibiotics-#{e.id}" }
-                View 
-              .content.toggle-content{ :id => "patient-exit-site-antibiotics-#{e.id}" } 
+              %a.fi-plus.fi-minus.toggle-info{ :id => "patient-exit-site-antibiotics-#{e.id}", href: "#patient-exit-site-antibiotics-#{e.id}" }
+                View
+              .content.toggle-content{ :id => "patient-exit-site-antibiotics-#{e.id}" }
                 %ul.no-bullet
                   %li.toggle-content
                     = "Antibiotic: #{e.antibiotic_1.name}, Route: #{e.antibiotic_routes.first.name},"
@@ -74,7 +74,7 @@
                     = "Antibiotic: #{e.antibiotic_3.name}, Route: #{e.antibiotic_routes.third.name},"
                   %li.toggle-content
                     = "sensitivity: #{e.sensitivity}"
-                  
+
         %td{:data => { :heading => "Last Updated"}, valign: "top"}
           = e.updated_at.strftime("%d/%m/%Y, %H:%M")
 

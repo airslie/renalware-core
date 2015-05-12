@@ -5,7 +5,7 @@ Background:
     And there are ethnicities in the database
     And there are modalities in the database
     And there are modality reasons in the database
-    And there are edta causes of death in the database 
+    And there are edta causes of death in the database
     And there are organisms in the database
     And there are drugs in the database
     And there are drug types in the database
@@ -19,13 +19,18 @@ Scenario: Clinician records an episode of peritonitis
   Given a patient has PD
   When the Clinician records the episode of peritonitis
   Then the recorded episode should be displayed on PD info page
+
+Scenario: Clinician views an episode of peritonitis
+  Given a patient has PD
+    And a patient has episodes of peritonitis
+  Then an episode of peritonitis can be viewed in more detail from the PD info page
 # @wip
 Scenario: Clinician updates an episode of peritonitis
   Given a patient has PD
-    And a patient has a recently recorded episode of peritonitis 
+    And a patient has a recently recorded episode of peritonitis
   When the Clinician updates the episode of peritonitis
     And they add a medication to this episode of peritonitis
-    And they record an organism and sensitivity to this episode of peritonitis 
+    And they record an organism and sensitivity to this episode of peritonitis
   Then the updated episode should be displayed on PD info page
     And the new medication should be displayed on the updated peritonitis form
     And the recorded organism and sensitivity should be displayed on the updated peritonitis form
@@ -33,13 +38,13 @@ Scenario: Clinician updates an episode of peritonitis
 Scenario: Clinician records an exit site infection
   Given a patient has PD
   When the Clinician records an exit site infection
-  Then the recorded exit site infection should be displayed on PD info page 
+  Then the recorded exit site infection should be displayed on PD info page
 @wip
 Scenario: Clinician updates an exit site infection
   Given a patient has PD
     And a patient has a recently recorded exit site infection
   When the Clinician updates an exit site infection
-  Then the updated exit site infection should be displayed on PD info page 
+  Then the updated exit site infection should be displayed on PD info page
 
 
 

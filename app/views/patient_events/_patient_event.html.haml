@@ -6,9 +6,9 @@
   %td{:data => { :heading => "Description"}}
     %dl.accordion{data: {accordion: true} }
       %dd.accordion-navigation
-        %a.fi-plus.fi-minus.toggle-notes{:id => "patient-event-notes-#{patient_event.id}", href: "#patient-event-notes-#{patient_event.id}"}
+        %a.fi-plus.fi-minus.toggle-info{:id => "patient-event-notes-#{patient_event.id}", href: "#patient-event-notes-#{patient_event.id}"}
           = patient_event.description
-        .content.toggle-content{:id => "patient-event-notes-#{patient_event.id}"} 
+        .content.toggle-content{:id => "patient-event-notes-#{patient_event.id}"}
           = patient_event.notes
   %td{:data => { :heading => "Time"}}
     = patient_event.date_time.strftime("%d/%m/%Y")

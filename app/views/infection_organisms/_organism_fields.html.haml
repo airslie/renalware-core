@@ -6,4 +6,4 @@
   = io.collection_select :organism_code_id, OrganismCode.all, :id, :name, {prompt: "Please select organism found for this peritonitis episode" }, :class => "organism-select"
 
   = io.label :sensitivity
-  = io.text_field :sensitivity
+  = io.text_area :sensitivity, :cols => 50, :rows => 3
