@@ -1,5 +1,5 @@
 class PatientEventType < ActiveRecord::Base
-  include Concerns::SoftDelete
+  acts_as_paranoid
 
   has_many :patient_event
 
