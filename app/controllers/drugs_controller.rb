@@ -54,9 +54,7 @@ class DrugsController < ApplicationController
   end
 
   def destroy
-    @drug = Drug.find(params[:id])
-    @drug.soft_delete!
-    Medication.where(medicatable_id: @drug.to_param).each { |pm| pm.soft_delete! }
+    Drug.destroy(params[:id])
     redirect_to drugs_path, :notice => "You have successfully removed a drug."
   end
 
