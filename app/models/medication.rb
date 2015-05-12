@@ -1,5 +1,4 @@
 class Medication < ActiveRecord::Base
-  include Concerns::SoftDelete
   attr_accessor :drug_select
 
   acts_as_paranoid
@@ -12,7 +11,4 @@ class Medication < ActiveRecord::Base
   belongs_to :medication_route
 
   enum provider: %i(gp hospital home_delivery)
-
-  # validates :medication_id, presence: true
-  
 end
