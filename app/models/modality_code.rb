@@ -1,5 +1,5 @@
 class ModalityCode < ActiveRecord::Base
-  include Concerns::SoftDelete
+  acts_as_paranoid
 
   has_many :modalities
   has_many :patients, :through => :modalities
