@@ -165,30 +165,67 @@ When(/^the Clinician records the episode of peritonitis$/) do
 
   fill_in "Episode notes", :with => "Review in a weeks time"
 
+  # Add an organism and sensitvity
+  click_on "Record a new organism and sensitivity"
+
+  select "E.Coli", from: "Organism"
+  fill_in "Sensitivity", with: "Low sensitivity to E.Coli."
+
+  # Add an medication
+  click_on "Add a new medication"
+
+  select "Rifampin", from: "Select Drug (peritonitis drugs only)"
+  fill_in "Dose", with: "2mg"
+  select "SC", from: "Route"
+  fill_in "Frequency & Duration", with: "BD"
+  fill_in "Notes", with: "Review in 3 weeks."
+
+  within "#peritonitis_episode_medications_attributes_0_date_3i" do
+    select '28'
+  end
+  within "#peritonitis_episode_medications_attributes_0_date_2i" do
+    select 'February'
+  end
+  within "#peritonitis_episode_medications_attributes_0_date_1i" do
+    select '2015'
+  end
+
+  find("#peritonitis_episode_medications_attributes_0_provider_hospital").set(true)
+
   click_on "Save Peritonitis Episode"
 end
 
 Then(/^the recorded episode should be displayed on PD info page$/) do
 
+  #dates
   expect(page).to have_content("25/12/2014")
   expect(page).to have_content("30/12/2014")
   expect(page).to have_content("31/01/2015")
 
+  #outcome
   expect(page).to have_content("De novo")
   expect(page).to have_content("Catheter Removed: Yes")
 
+  #organism
+  expect(page).to have_content("E.Coli")
+
+  #causes/symptoms
   expect(page).to have_content("Line Break: No")
   expect(page).to have_content("Exit Site Infection: Yes")
   expect(page).to have_content("Diarrhoea: Yes")
   expect(page).to have_content("Abdominal Pain: Yes")
-
   expect(page).to have_content("Misty")
 
+  #whitecells
   expect(page).to have_content("1000")
   expect(page).to have_content("Neutro: 20%")
   expect(page).to have_content("Lympho: 30%")
   expect(page).to have_content("Degen: 25%")
   expect(page).to have_content("Other: 25%")
+
+  #medication/route
+  expect(page).to have_content("Rifampin")
+  expect(page).to have_content("SC")
 
 end
 
@@ -269,26 +306,66 @@ When(/^the Clinician records an exit site infection$/) do
     select '2015'
   end
 
-  fill_in "Treatment", :with => "Special treatment."
-  fill_in "Outcome", :with => "It is a good outcome."
-  fill_in "Notes", :with => "Review in a weeks time."
+  fill_in "Treatment notes", :with => "Special treatment."
+  fill_in "Outcome notes", :with => "It is a good outcome."
+  fill_in "General notes about this infection", :with => "Review in a weeks time."
+
+  # Add an organism and sensitvity
+  click_on "Record a new organism and sensitivity"
+
+  select "MRSA", from: "Organism"
+  fill_in "Sensitivity", with: "Medium sensitivity to MRSA."
+
+  # Add an medication
+  click_on "Add a new medication"
+
+  select "Tobramycin", from: "Select Drug (exit site drugs only)"
+  fill_in "Dose", with: "3mg"
+  select "IM", from: "Route"
+  fill_in "Frequency & Duration", with: "Daily"
+  fill_in "Notes", with: "Review in 6 weeks."
+
+  within "#exit_site_infection_medications_attributes_0_date_3i" do
+    select '1'
+  end
+  within "#exit_site_infection_medications_attributes_0_date_2i" do
+    select 'January'
+  end
+  within "#exit_site_infection_medications_attributes_0_date_1i" do
+    select '2015'
+  end
+
+  find("#exit_site_infection_medications_attributes_0_provider_gp").set(true)
 
   click_on "Save Exit Site Infection"
 end
 
 Then(/^the recorded exit site infection should be displayed on PD info page$/) do
 
+  #dates
   expect(page).to have_content("01/01/2015")
-  expect(page).to have_content("Special treatment.")
+
+  #outcome
   expect(page).to have_content("It is a good outcome.")
+
+  #organism
+  expect(page).to have_content("MRSA")
+
+  #treatment
+  expect(page).to have_content("Special treatment.")
+
+  #medication/route
+  expect(page).to have_content("Tobramycin")
+  expect(page).to have_content("IM")
+
+  #notes
   expect(page).to have_content("Review in a weeks time.")
 
 end
 
 Given(/^a patient has a recently recorded exit site infection$/) do
-  @exit_site_infection = ExitSiteInfection.create!(
-    patient_id: @patient_1,
-    user_id: 1,
+  @exit_site_infection = FactoryGirl.create(:exit_site_infection,
+    patient: @patient_1,
     diagnosis_date: "01/01/2015",
     treatment: "Typical treatment.",
     outcome: "Ok outcome.",
