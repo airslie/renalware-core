@@ -4,6 +4,8 @@ class ExitSiteInfectionsController < ApplicationController
 
   def new
     @exit_site_infection = ExitSiteInfection.new
+    @exit_site_infection.infection_organisms.build
+    @exit_site_infection.medications.build(provider: :gp)
   end
 
   def create
@@ -28,17 +30,20 @@ class ExitSiteInfectionsController < ApplicationController
       redirect_to pd_info_patient_path(@patient),
       :notice => "You have successfully updated an exit site infection."
     else
-      render :edit 
+      render :edit
     end
   end
 
   private
   def allowed_params
-    params.require(:exit_site_infection).permit(:diagnosis_date, :treatment, :outcome, :notes)
+    params.require(:exit_site_infection).permit(:diagnosis_date, :treatment, :outcome, :notes,
+      :infection_organisms_attributes => [:id, :organism_code_id, :sensitivity, :infectable_id, :infectable_type ],
+      :medications_attributes => [:id, :patient_id, :treatable_id, :treatable_type, :medicatable_id, :medicatable_type,
+      :dose, :medication_route_id, :frequency, :notes, :date, :provider, :_destroy])
   end
 
   def load_patient
     @patient = Patient.find(params[:patient_id])
-  end 
+  end
 
 end
