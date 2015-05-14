@@ -64,7 +64,7 @@ $(document).ready(function(){
       drugAdminTemplate = "<li class='row drug-list' data-drug-id=<%=id%>><div class='large-4 columns'></div><div class='large-4 columns'><a href='/drugs/<%=id%>/drug_drug_types'><%= name %></a></div><div class='large-2 columns'><a href='/drugs/<%=id%>/edit'>Edit</a></div><div class='large-2 columns'><a class='delete' data-confirm='Are you sure you want to delete this drug?' data-method='delete' href='/drugs/<%=id%>'>Delete</a></div></li>",
       medicationsTemplate = "<li id=drug-<%=id%> class='drug-select-link' data-drug-id=<%=id%>><%= name %></li>";
 
-  $('.find_drug').keydown(function(e) {
+  $('.find_drug').keyup(function(e) {
     var $drugSearchInput = $(e.currentTarget),
         query = $drugSearchInput.val();
         $medForm = $drugSearchInput.closest('.med-form');
