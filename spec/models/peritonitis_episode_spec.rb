@@ -18,47 +18,48 @@ RSpec.describe PeritonitisEpisode, :type => :model do
   describe "peritonitis episode" do
 
     before do
+      @patient = create(:patient)
       @pe = FactoryGirl.build(:peritonitis_episode)
-      @drug_1 = FactoryGirl.create(:drug, name: "Amoxicillin")
-      @drug_2 = FactoryGirl.create(:drug, name: "Penicillin")
-      @drug_type_1 = FactoryGirl.create(:drug_type, name: "Antibiotic")
-      @drug_type_2 = FactoryGirl.create(:drug_type, name: "Peritonitis")
-      @drug_drug_type_1 = FactoryGirl.create(:drug_drug_type, drug_id: @drug_1.id, drug_type_id: @drug_type_1.id)
-      @drug_drug_type_2 = FactoryGirl.create(:drug_drug_type, drug_id: @drug_1.id, drug_type_id: @drug_type_2.id)
-      @drug_drug_type_3 = FactoryGirl.create(:drug_drug_type, drug_id: @drug_2.id, drug_type_id: @drug_type_1.id)
-      @drug_drug_type_4 = FactoryGirl.create(:drug_drug_type, drug_id: @drug_2.id, drug_type_id: @drug_type_2.id)
+      @mrsa = FactoryGirl.create(:organism_code, name: "MRSA")
+      @ecoli = FactoryGirl.create(:organism_code, name: "E.Coli")
+      load_drugs
+      load_drug_types
+      set_drug_drug_types
+      load_med_routes
     end
 
     context "medications" do
-      it "can be assigned many medications" do
+      it "can be assigned many medications and organisms/sensitivities" do
 
         @medication_one = FactoryGirl.create(:medication,
-          patient_id: @patient,
-          medicatable_id: @drug_1,
+          patient: @patient,
+          medicatable: @amoxicillin,
           medicatable_type: "Drug",
-          treatable_id: 1,
+          treatable: @pe,
           treatable_type: "PeritonitisEpisode",
           dose: "20mg",
-          medication_route_id: 1,
+          medication_route: @po,
           frequency: "daily",
           notes: "with food",
           date: "02/03/2015",
+          provider: 0,
           deleted_at: "NULL",
           created_at: "2015-02-03 18:21:04",
           updated_at: "2015-02-05 18:21:04"
         )
 
         @medication_two = FactoryGirl.create(:medication,
-          patient_id: @patient,
-          medicatable_id: @drug_2,
+          patient: @patient,
+          medicatable: @penicillin,
           medicatable_type: "Drug",
-          treatable_id: 1,
+          treatable: @pe,
           treatable_type: "PeritonitisEpisode",
           dose: "20mg",
-          medication_route_id: 1,
+          medication_route: @iv,
           frequency: "daily",
           notes: "with food",
           date: "02/03/2015",
+          provider: 1,
           deleted_at: "NULL",
           created_at: "2015-02-03 18:21:04",
           updated_at: "2015-02-05 18:21:04"
@@ -67,38 +68,17 @@ RSpec.describe PeritonitisEpisode, :type => :model do
         @pe.medications << @medication_one
         @pe.medications << @medication_two
 
-      end
-    end
-
-    context "organism codes" do
-      it "can be assigned many unique organisms through infection_organisms" do
-
-        mrsa = FactoryGirl.create(:organism_code, name: "MRSA")
-        ecoli = FactoryGirl.create(:organism_code, name: "E.Coli")
-
-        @pe.organism_codes << mrsa
-        @pe.organism_codes << mrsa
-        @pe.organism_codes << ecoli
+        @mrsa_sensitivity = @pe.infection_organisms.build(organism_code: @mrsa, sensitivity: "Sensitive to MRSA.")
+        @ecoli_sensitivity = @pe.infection_organisms.build(organism_code: @ecoli, sensitivity: "Sensitive to E.Coli.")
 
         @pe.save!
         @pe.reload
 
-        expect(@pe.organism_codes.size).to eq(2)
-        expect(@pe.organism_codes).to match_array([ecoli, mrsa])
-
-        expect(@pe).to be_valid
-      end
-
-      it "should record a sensitivity per organism" do
-
-        mrsa = @pe.infection_organisms.build(sensitivity: "Sensitive to MRSA.")
-        ecoli = @pe.infection_organisms.build(sensitivity: "Sensitive to E.Coli.")
-
-        @pe.save!
-        @pe.reload
-
+        expect(@pe.medications.size).to eq(2)
         expect(@pe.infection_organisms.size).to eq(2)
-        expect(@pe.infection_organisms).to match_array([ecoli, mrsa])
+
+        expect(@pe.medications).to match_array([@medication_two, @medication_one])
+        expect(@pe.infection_organisms).to match_array([@ecoli_sensitivity, @mrsa_sensitivity])
 
         expect(@pe).to be_valid
       end
