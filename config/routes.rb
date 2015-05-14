@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :patients, :except => [:destroy] do
     member do
       get :demographics
