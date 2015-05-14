@@ -41,9 +41,7 @@ RSpec.describe DrugsController, :type => :controller do
     context 'with no params' do
       it 'returns all drugs' do
         expect(page).to receive(:per)
-        expect(Drug).to receive(:ransack)
-          .with(active: true)
-            .and_return(search)
+        expect(Drug).to receive(:ransack).and_return(search)
         expect(search).to receive(:sorts=).with('name')
 
         get :index

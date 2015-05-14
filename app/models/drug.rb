@@ -17,8 +17,4 @@ class Drug < ActiveRecord::Base
   def display_type
     "Standard Drug"
   end
-
-  def self.ransackable_scopes(auth=nil)
-    %i(active)
-  end
 end

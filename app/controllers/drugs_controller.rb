@@ -64,7 +64,7 @@ class DrugsController < ApplicationController
   end
 
   def prepare_drugs_search
-    search_params = { active: true }.merge(params.fetch(:q, {}))
+    search_params = params.fetch(:q, {})
     @drugs_search = Drug.ransack(search_params)
     @drugs_search.sorts = 'name'
   end
