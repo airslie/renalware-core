@@ -3,42 +3,127 @@
 
   = e.hidden_field :patient_id
 
-  = e.label :diagnosis_date
-  = e.date_select(:diagnosis_date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")     
-  
-  = e.label :organism_1_id
-  = e.collection_select :organism_1_id, OrganismCode.all, :id, :name, { :prompt => "Please Select Organism Found", include_blank: true, :class => "organism-select" }
+.row
+  .large-12.columns
+    .section-underliner
+      Dates:
+    .large-4.columns
+      = e.label :diagnosis_date
+      = e.date_select(:diagnosis_date, { start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year] }, class: "datetime")
 
-  = e.label :organism_2_id
-  = e.collection_select :organism_2_id, OrganismCode.all, :id, :name, { :prompt => "Please Select Organism Found", include_blank: true, :class => "organism-select" }
+.row
+  .large-12.columns
+    .section-underliner
+      Outcome:
+    .large-12.columns
+      = e.label :outcome, "Outcome notes"
+      = e.text_area :outcome, :cols => 50, :rows => 6
 
-  = e.label :treatment
-  = e.text_area :treatment, :cols => 50, :rows => 6
+.row
+  .large-12.columns
+    .section-underliner
+      Organisms and their sensitivities for this exit site infection:
 
-  = e.label :outcome
-  = e.text_area :outcome, :cols => 50, :rows => 6
+    = e.fields_for :infection_organisms, @exit_site_infection.infection_organisms do |io|
 
-  = e.label :notes
-  = e.text_area :notes, :cols => 50, :rows => 6
+      - if io.object.new_record?
 
-  = e.label :antibiotic_1_id
-  = e.collection_select :antibiotic_1_id, Antibiotic.all, :id, :name, { :prompt => "Please select prescribed antibiotic" }
+        #new-organism-form
+          %a.button.tiny.toggle.right.mt{ href: '#new-organism-form' }
+            Record a new organism and sensitivity
 
-  = e.label :antibiotic_1_route, "Route (Antibiotic 1)"
-  = e.select :antibiotic_1_route, medication_routes(e.object.class.name.constantize), { prompt: "Please select route of administration" } 
+          .hide
+            %a.button.tiny.close-new-form{ href: '#' }
+              Close
 
-  = e.label :antibiotic_2_id
-  = e.collection_select :antibiotic_2_id, Antibiotic.all, :id, :name, { :prompt => "Please select prescribed antibiotic" }
+            %fieldset
+              %legend
+                Record a new organism and sensitivity
 
-  = e.label :antibiotic_2_route, "Route (Antibiotic 2)"
-  = e.select :antibiotic_2_route, medication_routes(e.object.class.name.constantize), { prompt: "Please select route of administration" } 
+              .row
 
-  = e.label :antibiotic_3_id
-  = e.collection_select :antibiotic_3_id, Antibiotic.all, :id, :name, { :prompt => "Please select prescribed antibiotic" }
+                = render :partial => 'infection_organisms/organism_fields', :locals => { :io => io }
 
-  = e.label :antibiotic_3_route, "Route (Antibiotic 3)"
-  = e.select :antibiotic_3_route, medication_routes(e.object.class.name.constantize), { prompt: "Please select route of administration" } 
+      - else
 
-  = e.label :sensitivity
-  = e.text_area :sensitivity, :cols => 50, :rows => 6
+        %dl.accordion{ data: { accordion: true } }
+          %dd.accordion-navigation.organism-form
+
+            %a.fi-plus.fi-minus{ href: "#edit-organism-#{io.object.id}", class: "organism-accordian" }
+
+              = "#{io.object.organism_code.name}, #{io.object.sensitivity}"
+
+              .right.edit
+                Edit
+
+            .columns.large-6.organism-form.content{ :id => "edit-organism-#{io.object.id}", data: { index: 0 }}
+
+              = render :partial => 'infection_organisms/organism_fields', :locals => { :io => io }
+
+              .organism-form.content{ :id => "edit-organism-#{io.object.id}" }
+                = io.check_box :_destroy
+                = io.label :_destroy, "Terminate?", class: "delete"
+
+.row
+  .large-12.columns
+    .section-underliner
+      Treatment:
+    .large-12.columns
+      = e.label :treatment, "Treatment notes"
+      = e.text_area :treatment, :cols => 50, :rows => 6
+
+.row
+  .large-12.columns
+    .section-underliner
+      Medications administered for this exit site infection:
+
+    = e.fields_for :medications, @exit_site_infection.medications do |pm|
+
+      - if pm.object.new_record?
+
+        #new-form
+          %a.button.tiny.toggle.right.mt{ href: '#new-form' }
+            Add a new medication
+
+          .hide
+            %a.button.tiny.close-new-form{ href: '#' }
+              Close
+
+            %fieldset
+              %legend
+                Add a new medication
+
+              .row
+
+                = render :partial => 'patients/medication_fields', :locals => { :pm => pm }
+
+      - else
+
+        %dl.accordion{ data: { accordion: true } }
+          %dd.accordion-navigation.med-form
+
+            %a.fi-plus.fi-minus{ href: "#edit-meds-#{pm.object.id}", :class => "drug-#{drug_types_colour_tag(pm.object.medicatable.drug_types)}" }
+
+              = "#{pm.object.medicatable.name}, #{pm.object.dose}, #{pm.object.medication_route.name}, #{pm.object.frequency}, #{pm.object.date}"
+
+              .right.edit
+                Edit
+
+            .columns.large-6.meds-form.content{ :id => "edit-meds-#{pm.object.id}", data: { index: 0 } }
+
+              = render :partial => 'patients/medication_fields', :locals => { :pm => pm }
+
+              .med-form.content{ :id => "edit-meds-#{pm.object.id}" }
+                = pm.check_box :_destroy
+                = pm.label :_destroy, "Terminate?", class: "delete"
+
+.row
+  .large-12.columns
+    .section-underliner
+      Comments:
+
+    .large-12.columns
+      = e.label :notes, "General notes about this infection"
+      = e.text_area :notes, :cols => 50, :rows => 6
+
 
