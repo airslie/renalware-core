@@ -6,7 +6,9 @@ Feature: Search for a Drug
     Given that I'm logged in
       And there are ethnicities in the database
       And there are drugs in the database
+      And there are medication routes in the database
       And some patients who need renal treatment
+      And a patient has a medication
       And they add a medication
 
   @javascript
