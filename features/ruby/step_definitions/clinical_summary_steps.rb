@@ -13,30 +13,28 @@ Given(/^there are medication routes in the database$/) do
 end
 
 Given(/^a patient has a medication$/) do
-  @medication_one = FactoryGirl.create(:medication, 
+  @medication_one = FactoryGirl.create(:medication,
     patient: @patient_1,
-    medicatable_id: @yellow.id,
-    medicatable_type: "Drug",
+    medicatable: @yellow,
     dose: "10mg",
     medication_route_id: 2,
     frequency: "Daily",
     notes: "Must take with food",
     date: "2014-11-01",
     provider: 1
-    )
+  )
 
   @medication_two = FactoryGirl.create(:medication,
     patient: @patient_1,
-    medicatable_id: @blue.id,
-    medicatable_type: "Drug",
+    medicatable: @blue,
     dose: "20ml",
     medication_route_id: 1,
     frequency: "Twice Weekly",
     notes: "Needs review in 6 months",
     date: "2015-01-02",
     provider: 1
-    )
-  
+  )
+
   @patient_1.medications << @medication_one
   @patient_1.medications << @medication_two
 
