@@ -279,6 +279,7 @@ end
 
 Then(/^the new medication should be displayed on the updated peritonitis form$/) do
   visit edit_patient_peritonitis_episode_path(@patient_1, @peritonitis_episode_1.id)
+
   expect(page).to have_content("Penicillin")
   expect(page).to have_content("5mg")
   expect(page).to have_content("IV")
@@ -376,7 +377,42 @@ end
 When(/^the Clinician updates an exit site infection$/) do
   visit edit_patient_exit_site_infection_path(@patient_1, @exit_site_infection.id)
 
-  fill_in "Notes", :with => "Needs a review in 2 weeks time."
+  fill_in "General notes about this infection", :with => "Needs a review in 2 weeks time."
+
+  click_on "Update Exit Site Infection"
+end
+
+When(/^they add a medication to this exit site infection$/) do
+  visit edit_patient_exit_site_infection_path(@patient_1, @exit_site_infection.id)
+
+  click_on "Add a new medication"
+
+  select "Tobramycin", from: "Select Drug (exit site drugs only)"
+  fill_in "Dose", with: "10mg"
+  select "PO", from: "Route"
+  fill_in "Frequency & Duration", with: "Twice a week"
+  fill_in "Notes", with: "Watch for improvement."
+
+  within "#exit_site_infection_medications_attributes_0_date_3i" do
+    select '10'
+  end
+  within "#exit_site_infection_medications_attributes_0_date_2i" do
+    select 'April'
+  end
+  within "#exit_site_infection_medications_attributes_0_date_1i" do
+    select '2015'
+  end
+
+  click_on "Update Exit Site Infection"
+end
+
+When(/^they record an organism and sensitivity to this exit site infection$/) do
+  visit edit_patient_exit_site_infection_path(@patient_1, @exit_site_infection.id)
+
+  click_on "Record a new organism and sensitivity"
+
+  select "E.Coli", from: "Organism"
+  fill_in "Sensitivity", with: "High sensitivity to E.Coli."
 
   click_on "Update Exit Site Infection"
 end
@@ -387,3 +423,18 @@ Then(/^the updated exit site infection should be displayed on PD info page$/) do
   expect(page).to have_content("Needs a review in 2 weeks time.")
 end
 
+Then(/^the new medication should be displayed on the updated exit site form$/) do
+  visit edit_patient_exit_site_infection_path(@patient_1, @exit_site_infection.id)
+  expect(page).to have_content("Tobramycin")
+  expect(page).to have_content("10mg")
+  expect(page).to have_content("PO")
+  expect(page).to have_content("Twice a week")
+  expect(page).to have_content("2015-04-10")
+end
+
+Then(/^the recorded organism and sensitivity should be displayed on the updated exit site form$/) do
+  visit edit_patient_exit_site_infection_path(@patient_1, @exit_site_infection.id)
+
+  expect(page).to have_content("E.Coli")
+  expect(page).to have_content("High sensitivity to E.Coli.")
+end

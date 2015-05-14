@@ -40,12 +40,15 @@ Scenario: Clinician records an exit site infection
   When the Clinician records an exit site infection
   Then the recorded exit site infection should be displayed on PD info page
 
-@wip
 Scenario: Clinician updates an exit site infection
   Given a patient has PD
     And a patient has a recently recorded exit site infection
   When the Clinician updates an exit site infection
+    And they add a medication to this exit site infection
+    And they record an organism and sensitivity to this exit site infection
   Then the updated exit site infection should be displayed on PD info page
+    And the new medication should be displayed on the updated exit site form
+    And the recorded organism and sensitivity should be displayed on the updated exit site form
 
 
 
