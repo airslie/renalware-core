@@ -33,6 +33,7 @@ group :development, :test do
   gem "shoulda-matchers"
   gem "web-console", "~> 2.0"
   gem "factory_girl_rails", "~> 4.0"
+  gem 'rubocop', require: false
 end
 
 group :test do
