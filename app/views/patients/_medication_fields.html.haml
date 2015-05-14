@@ -22,7 +22,7 @@
       = label_tag :drug_search, "Drug"
       = text_field_tag :drug_search, pm.object.persisted? ? pm.object.medicatable.name : nil, :class => "find_drug", :placeholder => "Search drug by name or type"
 
-      %ul#drug-results.no-bullet
+      %ul.drug-results.no-bullet
 
       = pm.hidden_field :medicatable_id, :class => "selected-medicatable-id"
       = pm.hidden_field :medicatable_type, value: "Drug", :class => "selected-medicatable-type"
