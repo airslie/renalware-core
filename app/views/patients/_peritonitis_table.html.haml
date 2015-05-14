@@ -31,23 +31,24 @@
         %td{ :data => { :heading => "Diagnosis Date" }, valign: "top" }
           = p.diagnosis_date.strftime("%d/%m/%Y")
 
-        %td{ :data => { :heading => "Start Treatment Date"}, valign: "top" }
+        %td{ :data => { :heading => "Start Treatment Date" }, valign: "top" }
           = p.treatment_start_date.strftime("%d/%m/%Y")
 
-        %td{ :data => { :heading => "End Treatment Date"}, valign: "top" }
+        %td{ :data => { :heading => "End Treatment Date" }, valign: "top" }
           = p.treatment_end_date.strftime("%d/%m/%Y")
 
-        %td{ :data => { :heading => "Episode Type"}, valign: "top" }
+        %td{ :data => { :heading => "Episode Type" }, valign: "top" }
           %ul.table-data-list
             %li
               = p.episode_type.blank? ? "Unknown": p.episode_type.term
             %li
               = "Catheter Removed: #{yes_no(p.catheter_removed)}"
 
-        %td{ :data => { :heading => "Organisms"}, valign: "top" }
-          = organisms(p.infection_organisms)
+        %td{ :data => { :heading => "Organisms" }, valign: "top" }
+          %ul.table-data-list
+            = organisms(p.infection_organisms)
 
-        %td{ :data => { :heading => "White Cell Count"}, valign: "top" }
+        %td{ :data => { :heading => "White Cell Count" }, valign: "top" }
           %ul.table-data-list
             %li
               = "Total: #{p.white_cell_total}"
@@ -60,7 +61,7 @@
             %li
               = "Other: #{p.white_cell_other}%"
 
-        %td{ :data => { :heading => "Causes/ Symptoms"}, valign: "top" }
+        %td{ :data => { :heading => "Causes/ Symptoms" }, valign: "top" }
           %ul.table-data-list
             %li
               = "Line Break: #{yes_no(p.line_break)}"
@@ -73,11 +74,11 @@
             %li
               = "Fluid Description: #{p.fluid_description.description}"
 
-        %td{ :data => { :heading => "Antibiotics/ Routes"}, valign: "top" }
+        %td{ :data => { :heading => "Antibiotics/Routes" }, valign: "top" }
           %ul.table-data-list
             = medication_and_route(p.medications)
 
-        %td{:data => { :heading => "Notes" }, valign: "top"}
+        %td{:data => { :heading => "Notes" }, valign: "top" }
           %dl.accordion{ data: { accordion: true } }
             %dd.accordion-navigation
               %a.toggle-info{ :id => "patient-peritonitis-toggle-#{p.id}", href: "#patient-peritonitis-toggle-#{p.id}" }
