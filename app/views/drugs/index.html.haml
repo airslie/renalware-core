@@ -1,26 +1,34 @@
 .row
-  %h4 Existing Drugs List
+  %h4 Drugs
+
+.row.collapse
+  = search_form_for @drugs_search do |f|
+    .small-9.large-8.columns
+      = f.search_field :name_or_drug_types_name_cont, :placeholder => 'Search drug by name or type'
+    .small-3.large-4.columns
+      = f.submit 'Search', class: 'button tiny'
 
 .row
-  = link_to "Add New Drug", new_drug_path, :class => "button tiny"
+  = link_to "Add drug", new_drug_path, :class => "button tiny"
+
+.row.collapse
+  .small-6.large-8.columns.right.pagination-top
+    = paginate @drugs
 
 .row
+  %ul.drugs.no-bullet.stripy-list
+    - @drugs.each do |t|
+      %li.row
+        .small-6.large-8.columns.name
+          = link_to "#{t.name}", drug_drug_drug_types_path("#{t.id}", @drug_drug_types), title: "Edit drug categories/types"
+        .small-4.large-4.columns
+          = link_to "Edit", edit_drug_path(t.id), class: 'save button tiny'
+          = link_to 'Delete', drug_path(t.id),
+              id: "#{t.id}-drug",
+              method: :delete,
+              class: 'cancel button tiny',
+              data: { confirm: "Are you sure you want to delete this drug?"}
 
-  .small-12.large-6.columns.find-drug-list.left
-    = label_tag :drug_search, "Drug"
-    = search_field_tag :drug_search, nil, :placeholder => 'Search drug by name or type'
-
-
-    %ul#drug-results.no-bullet.stripy-list
-
-  .small-12.large-6.columns.right
-    %ul.no-bullet.stripy-list
-      - @drugs.each do |t|
-        %li.row
-          .small-4.large-4.columns
-            = link_to "#{t.name}", drug_drug_drug_types_path("#{t.id}", @drug_drug_types), title: "Edit drug categories/types"
-          .small-4.large-2.columns
-            = link_to "Edit", edit_drug_path(t.id)
-          .small-4.large-2.columns
-            = link_to "Delete", drug_path(t.id), id: "#{t.id}-drug", method: :delete, :class => "delete", data: { confirm: "Are you sure you want to delete this drug?"}
-
+.row.collapse
+  .small-6.large-8.columns.right.pagination-bottom
+    = paginate @drugs

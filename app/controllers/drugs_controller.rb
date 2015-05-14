@@ -1,6 +1,9 @@
 class DrugsController < ApplicationController
 
-  before_filter :prepare_drugs_search, only: [:search]
+  include Pageable
+
+  before_filter :prepare_drugs_search, only: [:index]
+  before_filter :prepare_paging, only: [:index]
 
   def selected_drugs
     @medication_switch = params[:medication_switch]
@@ -8,14 +11,6 @@ class DrugsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render :json => @selected_drugs.as_json(:only => [:id, :name]) }
-    end
-  end
-
-  def search
-    @drugs = @drugs_search.result
-    respond_to do |format|
-      format.html
-      format.json { render :json => @drugs.as_json(:only => [:id, :name]) }
     end
   end
 
@@ -34,11 +29,12 @@ class DrugsController < ApplicationController
   end
 
   def index
-    @drugs = Drug.active
-    @drugs_select =  Drug.joins(:drug_types).where(:drug_types => { :name => params[:medication_switch] })
+    @drugs = @drugs_search.result(distinct: true)
+    @drugs = @drugs.page(@page).per(@per_page) if request.format.html?
+
     respond_to do |format|
       format.html
-      format.json { render :json => @drugs_select.as_json(:only => [:id, :name, :drug_types]) }
+      format.json { render :json => @drugs }
     end
   end
 
@@ -70,7 +66,8 @@ class DrugsController < ApplicationController
   end
 
   def prepare_drugs_search
-    @drugs_search = Drug.ransack(params[:q])
+    search_params = { active: true }.merge(params.fetch(:q, {}))
+    @drugs_search = Drug.ransack(search_params)
+    @drugs_search.sorts = 'name'
   end
-
 end
