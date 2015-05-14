@@ -1,7 +1,8 @@
 class Drug < ActiveRecord::Base
-  include Concerns::SoftDelete
 
-  has_many :medications, as: :medicatable
+  acts_as_paranoid
+
+  has_many :medications, as: :medicatable, dependent: :destroy
   has_many :patients, through: :medications, as: :medicatable
   has_many :drug_drug_types
   has_many :drug_types, -> { uniq }, through: :drug_drug_types
@@ -15,9 +16,5 @@ class Drug < ActiveRecord::Base
 
   def display_type
     "Standard Drug"
-  end
-
-  def self.ransackable_scopes(auth=nil)
-    %i(active)
   end
 end

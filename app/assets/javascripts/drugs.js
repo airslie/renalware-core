@@ -116,7 +116,6 @@ $(document).ready(function(){
       var $bullet = $(e.currentTarget);
       var $medForm = $bullet.closest('.med-form');
       var selectedDrug = $medForm.find('.drug-select').val();
-      console.log(selectedDrug);
       $medForm.find('.selected-medicatable-id').val(selectedDrug);
     });
 

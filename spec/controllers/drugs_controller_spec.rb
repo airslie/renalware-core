@@ -11,13 +11,20 @@ RSpec.describe DrugsController, :type => :controller do
     end
   end
 
-  describe "GET #new" do
-
-    it "renders the new template" do
+  describe 'GET #new' do
+    it 'renders the new template' do
       get :new
-      expect(response).to render_template("new")
+      expect(response).to render_template('new')
     end
+  end
 
+  describe 'GET index' do
+    it 'assigns drugs' do
+      create(:drug)
+
+      get :index
+      expect(assigns(:drugs).first).to be_a(Drug)
+    end
   end
 
   describe 'GET #index' do
@@ -34,9 +41,7 @@ RSpec.describe DrugsController, :type => :controller do
     context 'with no params' do
       it 'returns all drugs' do
         expect(page).to receive(:per)
-        expect(Drug).to receive(:ransack)
-          .with(active: true)
-            .and_return(search)
+        expect(Drug).to receive(:ransack).and_return(search)
         expect(search).to receive(:sorts=).with('name')
 
         get :index
