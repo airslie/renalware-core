@@ -23,14 +23,12 @@ feature 'Searching drugs' do
   end
 
   scenario 'with a search term' do
-    fill_in 'q_name_or_drug_types_name_cont', with: 'cillin'
+    fill_in 'q_name_or_drug_types_name_start', with: 'Amox'
 
     click_on 'Search'
 
     within('ul.drugs') do
       expect_to_find_drug('Amoxicillin',   1)
-      expect_to_find_drug('Dicloxacillin', 2)
-      expect_to_find_drug('Penicillin',    3)
     end
   end
 

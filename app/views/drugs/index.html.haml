@@ -4,7 +4,7 @@
 .row.collapse
   = search_form_for @drugs_search do |f|
     .small-9.large-8.columns
-      = f.search_field :name_or_drug_types_name_cont, :placeholder => 'Search drug by name or type'
+      = f.search_field :name_or_drug_types_name_start, :placeholder => 'Search drug by name or type'
     .small-3.large-4.columns
       = f.submit 'Search', class: 'button tiny'
 
