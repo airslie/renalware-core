@@ -1,6 +1,6 @@
 class ExitSiteInfectionsController < ApplicationController
 
-  before_action :load_patient, :only => [:new, :create]
+  before_action :load_patient, :only => [:new, :create, :edit, :update]
 
   def new
     @exit_site_infection = ExitSiteInfection.new
@@ -19,12 +19,12 @@ class ExitSiteInfectionsController < ApplicationController
   end
 
   def edit
-    @patient = Patient.find(params[:id])
     @exit_site_infection = ExitSiteInfection.find(params[:id])
+    @exit_site_infection.medications.build(provider: :gp)
+    @exit_site_infection.infection_organisms.build
   end
 
   def update
-    @patient = Patient.find(params[:id])
     @exit_site_infection = ExitSiteInfection.find(params[:id])
     if @exit_site_infection.update(allowed_params)
       redirect_to pd_info_patient_path(@patient),
