@@ -74,7 +74,7 @@ $(document).ready(function(){
     timer = setTimeout(function() {
       if (query.length > 2) {
         $.ajax({
-          url: '/drugs/search.json',
+          url: '/drugs.json',
           data: { q : { name_or_drug_types_name_cont : query } },
           success: function(json) {
             $drugResults.html('').show();

@@ -20,10 +20,4 @@ class Drug < ActiveRecord::Base
   def self.ransackable_scopes(auth=nil)
     %i(active)
   end
-
-  # A JSON representation compatible with select2.
-  #
-  def as_json(options={})
-    { id: self.id, text: self.name }
-  end
 end

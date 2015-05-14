@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe DrugsController, :type => :controller do
   describe "DELETE to destroy" do
     it "returns http success" do
-      drug = FactoryGirl.create(:drug)
+      drug = create(:drug)
       delete :destroy, id: drug.id
       drug.reload
       expect(drug.deleted_at).not_to be nil
@@ -54,10 +54,23 @@ RSpec.describe DrugsController, :type => :controller do
     end
     context 'with pagination params' do
       it 'assigns paging variables' do
-        get :index,  q: { name_cont: 'cillin', page: '2', per_page: '50' }
+        get :index,  {q: {name_cont: 'cillin'}, page: '2', per_page: '50'}
 
         expect(assigns(:page)).to eq('2')
         expect(assigns(:per_page)).to eq('50')
+      end
+    end
+
+    context 'as JSON' do
+      it 'responds with JSON' do
+        expect(Drug).to receive(:ransack).and_return(search)
+        allow(search).to receive(:result).and_return([])
+        expect(search).to receive(:sorts=).with('name')
+
+        get :index, format: :json
+
+        parsed_body = JSON.parse(response.body)
+        expect(parsed_body).to be_a(Array)
       end
     end
   end

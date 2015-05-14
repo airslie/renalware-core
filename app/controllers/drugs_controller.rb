@@ -2,7 +2,7 @@ class DrugsController < ApplicationController
 
   include Pageable
 
-  before_filter :prepare_drugs_search, only: [:index, :search]
+  before_filter :prepare_drugs_search, only: [:index]
   before_filter :prepare_paging, only: [:index]
 
   def selected_drugs
@@ -11,14 +11,6 @@ class DrugsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render :json => @selected_drugs.as_json(:only => [:id, :name]) }
-    end
-  end
-
-  def search
-    @drugs = @drugs_search.result
-    respond_to do |format|
-      format.html
-      format.json { render :json => @drugs.as_json(:only => [:id, :name]) }
     end
   end
 
@@ -37,7 +29,13 @@ class DrugsController < ApplicationController
   end
 
   def index
-    @drugs = @drugs_search.result.page(@page).per(@per_page)
+    @drugs = @drugs_search.result(distinct: true)
+    @drugs = @drugs.page(@page).per(@per_page) if request.format.html?
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @drugs }
+    end
   end
 
   def edit
