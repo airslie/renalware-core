@@ -1,0 +1,21 @@
+.row
+  %h1 Users
+
+.row
+  = link_to 'All Users', action: 'index'
+  |
+  = link_to 'Awaiting approval', action: 'index', approved: 'false'
+
+.row
+  %table
+    %thead
+      %th Email
+      %th Approved
+      %th
+
+    %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.email
+        %td= user.approved
+        %td= link_to "Edit"
