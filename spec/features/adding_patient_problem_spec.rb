@@ -5,9 +5,7 @@ feature 'Patient problems' do
 
   background do
     @patient = create(:patient)
-  end
-
-  scenario 'A clinician saves a new problem', js: true do
+    login_as create(:user, :approved)
     visit problems_patient_path(@patient)
 
     click_on 'Add a new problem'
