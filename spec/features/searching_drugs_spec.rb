@@ -6,6 +6,7 @@ feature 'Searching drugs' do
       instance_variable_set(:"@#{name.downcase}", create(:drug, name: name))
     end
 
+    login_as create(:user, :approved)
     visit drugs_path
   end
 
