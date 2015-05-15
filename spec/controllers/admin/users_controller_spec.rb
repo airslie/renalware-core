@@ -2,10 +2,6 @@ require 'rails_helper'
 
 describe Admin::UsersController, :type => :controller do
   describe 'GET index' do
-    before(:each) do
-      login_user
-    end
-
     it 'responds with success' do
       get :index
       expect(response).to have_http_status(:success)
