@@ -18,26 +18,26 @@ gem 'kaminari', '~> 0.15.1'
 gem 'devise', '~> 3.4.1'
 
 group :development, :test do
-  gem 'spring'
-  gem 'launchy'
-  gem 'pry-byebug'
-  gem 'web-console', '~> 2.0'
-  gem 'rubocop', require: false
-end
-
-group :test do
   gem 'capybara', '2.4.4'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'ffaker'
+  gem 'launchy'
   gem 'mocha'
   gem 'poltergeist', '~> 1.5.1'
+  gem 'pry-byebug'
   gem 'rspec-rails'
   gem 'rspec-expectations'
   gem 'shoulda-matchers'
+  gem 'spring'
   gem 'spring-commands-cucumber'
   gem 'spring-commands-rspec'
+  gem 'rubocop', require: false
+  gem 'web-console', '~> 2.0'
+end
+
+group :test do
   gem 'webmock'
 end
 

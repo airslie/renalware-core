@@ -1,7 +1,3 @@
-Given(/^that I'm logged in$/) do
-  # pending
-end
-
 Given(/^I am on the patients list$/) do
   visit patients_path
 end
