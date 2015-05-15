@@ -9,6 +9,28 @@ def maybe_value(value)
   value
 end
 
+def get_stdin(msg)
+  STDOUT.puts msg
+  STDIN.gets.strip
+end
+
+log 'Adding Superuser...'
+
+email = get_stdin('Superuser email:')
+password = get_stdin('Superuser password:')
+confirm_password = get_stdin('Superuser password again:')
+
+if password == confirm_password
+  User.find_or_create_by!(email: email) do |u|
+    u.password = password
+    u.approved = true
+  end
+else
+  raise 'Passwords do not match'
+end
+
+
+
 log 'Adding Drug types...'
 
 DrugType.find_or_create_by!(name: "Antibiotic")
