@@ -15,11 +15,19 @@ module ApplicationHelper
   end
 
   def organisms_and_sensitivities(infection_organisms)
-    safe_join(infection_organisms.map { |io| "<li>#{io.organism_code.name} - #{io.sensitivity}</li>".html_safe })
+    if infection_organisms.blank?
+      "Unknown"
+    else
+      safe_join(infection_organisms.map { |io| "<li>#{io.organism_code.name} - #{io.sensitivity}</li>".html_safe })
+    end
   end
 
   def organisms(infection_organisms)
-    safe_join(infection_organisms.map { |io| "<li>#{io.organism_code.name}</li>".html_safe })
+    if infection_organisms.blank?
+      "Unknown"
+    else
+      safe_join(infection_organisms.map { |io| "<li>#{io.organism_code.name}</li>".html_safe })
+    end
   end
 
 end
