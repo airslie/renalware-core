@@ -92,6 +92,6 @@
         %td{ :data => { :heading => "Action" }, valign: "top" }
           %ul.table-data-list
             %li
-              = link_to "Update", edit_patient_peritonitis_episode_path(@patient, p.id)
+              = link_to "Update", edit_patient_peritonitis_episode_path(@patient, p.id), class: "update-pe", id: "update-pe-#{p.id}"
             %li
-              = link_to "View Episode", patient_peritonitis_episode_path(@patient, p.id)
+              = link_to "View Episode", patient_peritonitis_episode_path(@patient, p.id), class: "view-pe", id: "view-pe-#{p.id}"
