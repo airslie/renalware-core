@@ -59,4 +59,10 @@
           = e.updated_at.strftime("%d/%m/%Y, %H:%M")
 
         %td{ :data => { :heading => "Action" }, valign: "top" }
-          = link_to "Update", edit_patient_exit_site_infection_path(@patient, e.id)
+          %ul.table-data-list
+            %li
+              = link_to "Update", edit_patient_exit_site_infection_path(@patient, e.id), class: "update-es-infection", id: "update-es-infection-#{e.id}"
+            %li
+              = link_to "View Infection", patient_exit_site_infection_path(@patient, e.id), class: "view-es-infection", id: "view-es-infection-#{e.id}"
+
+
