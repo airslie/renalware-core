@@ -59,24 +59,24 @@
                     = render :partial => 'infection_organisms/organism_fields', :locals => { :io => io }
 
           - else
+            .large-12.columns
+              %dl.accordion{data: {accordion: true} }
+                %dd.accordion-navigation.organism-form
 
-            %dl.accordion{data: {accordion: true} }
-              %dd.accordion-navigation.organism-form
+                  %a.fi-plus.fi-minus.form-toggle{ href: "#edit-organism-#{io.object.id}", class: "organism-accordian" }
 
-                %a.fi-plus.fi-minus{ href: "#edit-organism-#{io.object.id}", class: "organism-accordian" }
+                    = "#{io.object.organism_code.name} - #{io.object.sensitivity}"
 
-                  = "#{io.object.organism_code.name}, #{io.object.sensitivity}"
+                    .right.edit
+                      Edit
 
-                  .right.edit
-                    Edit
+                  .columns.large-6.organism-form.content{:id => "edit-organism-#{io.object.id}", data: { index: 0 }}
 
-                .columns.large-6.organism-form.content{:id => "edit-organism-#{io.object.id}", data: { index: 0 }}
+                    = render :partial => 'infection_organisms/organism_fields', :locals => { :io => io }
 
-                  = render :partial => 'infection_organisms/organism_fields', :locals => { :io => io }
-
-                  .organism-form.content{:id => "edit-organism-#{io.object.id}"}
-                    = io.check_box :_destroy
-                    = io.label :_destroy, "Terminate?", class: "delete"
+                    .organism-form.content{:id => "edit-organism-#{io.object.id}"}
+                      = io.check_box :_destroy
+                      = io.label :_destroy, "Terminate?", class: "delete"
 
     .row
       .large-12.columns
@@ -160,9 +160,9 @@
             %dl.accordion{data: {accordion: true} }
               %dd.accordion-navigation.med-form
 
-                %a.fi-plus.fi-minus{href: "#edit-meds-#{pm.object.id}", :class => "drug-#{drug_types_colour_tag(pm.object.medicatable.drug_types)}"}
+                %a.fi-plus.fi-minus.form-toggle{href: "#edit-meds-#{pm.object.id}", :class => "drug-#{drug_types_colour_tag(pm.object.medicatable.drug_types)}"}
 
-                  = "#{pm.object.medicatable.name}, #{pm.object.dose}, #{pm.object.medication_route.name}, #{pm.object.frequency}, #{pm.object.date}"
+                  = "#{pm.object.medicatable.name} - #{pm.object.dose}, #{pm.object.medication_route.name}, #{pm.object.frequency}, #{pm.object.date}"
 
                   .right.edit
                     Edit

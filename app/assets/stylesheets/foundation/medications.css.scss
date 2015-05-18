@@ -1,31 +1,25 @@
-.accordion dd > a.drug-drug, li.drug-drug, tbody tr.drug-drug {
-  background: #FFFFFF;
-  padding: 0;
-  border-radius: 0.5em;
-}
+.accordion dd > {
 
-.accordion dd > a.drug-esa, li.drug-esa, tbody tr.drug-esa{
-  background: #FFFF99;
-  padding: 0;
-  border-radius: 0.5em;
-}
+  a.drug-drug, li.drug-drug, tbody tr.drug-drug {
+    background: #FFFFFF;
+  }
 
-.accordion dd > a.drug-immunosuppressant, li.drug-immunosuppressant, tbody tr.drug-immunosuppressant {
-  background: #CCFFFF;
-  padding: 0;
-  border-radius: 0.5em;
-}
+  a.drug-esa, li.drug-esa, tbody tr.drug-esa{
+    background: #FFFF99;
+  }
 
-.accordion dd > a.drug-antibiotic, li.drug-antibiotic, tbody tr.drug-antibiotic {
-  background: #FFFFFF;
-  padding: 0;
-  border-radius: 0.5em;
-}
+  a.drug-immunosuppressant, li.drug-immunosuppressant, tbody tr.drug-immunosuppressant {
+    background: #CCFFFF;
+  }
 
-.accordion dd > a.drug-peritonitis, li.drug-peritonitis, tbody tr.drug-peritonitis {
-  background: #FFFFFF;
-  padding: 0;
-  border-radius: 0.5em;
+  a.drug-antibiotic, li.drug-antibiotic, tbody tr.drug-antibiotic {
+    background: #FFFFFF;
+  }
+
+  a.drug-peritonitis, li.drug-peritonitis, tbody tr.drug-peritonitis {
+    background: #FFFFFF;
+  }
+
 }
 
 .med-form.content ul.drug-results {
@@ -42,7 +36,7 @@
 
 .find-drug-list ul.drug-results-admin {
   height: 20em;
- 
+
   overflow-y: scroll;
   // border: 1px solid #ccc;
 }
