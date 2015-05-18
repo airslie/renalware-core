@@ -22,11 +22,11 @@
             %dt.title-bold
               Treatment Start Date:
             %dd
-              = @peritonitis_episode.treatment_start_date
+              = @peritonitis_episode.treatment_start_date.strftime("%d/%m/%Y")
             %dt.title-bold
               Treatment End Date:
             %dd
-              = @peritonitis_episode.treatment_end_date
+              = @peritonitis_episode.treatment_end_date.strftime("%d/%m/%Y")
         .row
           .large-12.columns
             .section-underliner.title-bold
@@ -89,7 +89,7 @@
                 = medication_and_route(@peritonitis_episode.medications)
           .large-12.columns
             .section-underliner.title-bold
-              Episode Notes:
+              Peritonitis Episode Notes:
             %ul
               = @peritonitis_episode.notes
 
