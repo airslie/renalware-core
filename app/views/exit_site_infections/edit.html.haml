@@ -18,7 +18,7 @@
 
         = submit_tag "Update Exit Site Infection", class: "button tiny right save"
 
-        = link_to "Cancel", pd_info_patient_path(@patient), class: "button tiny left cancel"
+        = link_to "Cancel", patient_exit_site_infection_path(@patient, @exit_site_infection.id), class: "button tiny left cancel"
 
 .wide-screen
   = content_for :secondary_nav do
