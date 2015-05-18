@@ -1,6 +1,6 @@
 class ExitSiteInfectionsController < ApplicationController
 
-  before_action :load_patient, :only => [:new, :create, :edit, :update]
+  before_action :load_patient, :only => [:new, :create, :show, :edit, :update]
 
   def new
     @exit_site_infection = ExitSiteInfection.new
@@ -16,6 +16,10 @@ class ExitSiteInfectionsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
+    @exit_site_infection = ExitSiteInfection.find(params[:id])
   end
 
   def edit
