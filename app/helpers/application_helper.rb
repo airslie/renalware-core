@@ -10,6 +10,11 @@ module ApplicationHelper
     bool ? 'Yes' : 'No'
   end
 
+  #Data which is not using a foreign key
+  def blank_unknown_data(manage_data)
+    manage_data.blank? ? "Unknown" : manage_data
+  end
+
   def medication_and_route(med_route)
     if med_route.blank?
       "No medication prescribed"
