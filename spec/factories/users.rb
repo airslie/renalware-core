@@ -3,7 +3,12 @@ FactoryGirl.define do
     "renalware.user-#{n}@nhs.net"
   end
 
+  sequence :username do |n|
+    "renalwareuser-#{n}"
+  end
+
   factory :user do
+    username
     email
     password 'supersecret'
 
