@@ -14,6 +14,11 @@ def get_stdin(msg)
   STDIN.gets.strip
 end
 
+log 'Creating Roles...'
+super_admin_role = Role.find_or_create_by!(name: :super_admin)
+Role.find_or_create_by!(name: :admin)
+Role.find_or_create_by!(name: :clinician)
+
 log 'Adding Superuser...'
 
 email = get_stdin('Superuser email:')
@@ -24,6 +29,7 @@ if password == confirm_password
   User.find_or_create_by!(email: email) do |u|
     u.password = password
     u.approved = true
+    u.roles = [super_admin_role]
   end
 else
   raise 'Passwords do not match'
