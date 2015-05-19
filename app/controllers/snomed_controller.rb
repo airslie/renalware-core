@@ -1,5 +1,8 @@
 class SnomedController < ApplicationController
 
+  # Cancancan authorization filter
+  load_and_authorize_resource
+
   def index
     render :json => Snomed.search(snomed_params).to_h
   end

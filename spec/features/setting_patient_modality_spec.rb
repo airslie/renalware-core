@@ -4,7 +4,7 @@ describe 'A clinician sets a patient modality' do
   before do
     @patient = create(:patient)
     @modality = create(:modality, :pd_to_haemo)
-    login_as create(:user, :approved)
+    login_as_super_admin
 
     visit new_patient_modality_path(@patient)
 

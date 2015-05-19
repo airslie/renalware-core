@@ -5,9 +5,11 @@ feature 'Patient problems' do
 
   background do
     @patient = create(:patient)
-    login_as create(:user, :approved)
+    login_as_super_admin
     visit problems_patient_path(@patient)
+  end
 
+  scenario 'A clinician saves a new problem', js: true do
     click_on 'Add a new problem'
     select2 'Anemia of diabetes', '#snomed_term'
     fill_in 'Description', with: 'a description'

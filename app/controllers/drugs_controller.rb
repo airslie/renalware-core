@@ -2,6 +2,9 @@ class DrugsController < ApplicationController
 
   include Pageable
 
+  # Cancancan authorization filter
+  load_and_authorize_resource
+
   before_filter :prepare_drugs_search, only: [:index]
   before_filter :prepare_paging, only: [:index]
 
@@ -20,7 +23,7 @@ class DrugsController < ApplicationController
   end
 
   def create
-    @drug = Drug.new(allowed_params)
+    @drug = Drug.new(drug_params)
     if @drug.save
       redirect_to drugs_path, :notice => "You have successfully added a new drug."
     else
@@ -46,7 +49,7 @@ class DrugsController < ApplicationController
 
   def update
     @drug = Drug.find(params[:id])
-    if @drug.update(allowed_params)
+    if @drug.update(drug_params)
       redirect_to drugs_path, :notice => "You have successfully updated a drug"
     else
       render :edit
@@ -59,7 +62,7 @@ class DrugsController < ApplicationController
   end
 
   private
-  def allowed_params
+  def drug_params
     params.require(:drug).permit(:name, :deleted_at, :drug_type_ids => [])
   end
 

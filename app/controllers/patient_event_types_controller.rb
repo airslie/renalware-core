@@ -1,5 +1,8 @@
 class PatientEventTypesController < ApplicationController
 
+  # Cancancan authorization filter
+  load_and_authorize_resource
+
   def new
     @patient_event_type = PatientEventType.new
   end

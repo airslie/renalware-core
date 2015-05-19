@@ -7,7 +7,7 @@ Given(/^I am on the signin page$/) do
 end
 
 Given(/^that I'm logged in$/) do
-  @user ||= FactoryGirl.create(:user, :approved)
+  @user ||= FactoryGirl.create(:user, :approved, :super_admin)
   login_as @user
 end
 
