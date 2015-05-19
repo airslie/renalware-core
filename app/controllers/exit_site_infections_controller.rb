@@ -1,6 +1,7 @@
 class ExitSiteInfectionsController < ApplicationController
 
   before_action :load_patient, :only => [:new, :create, :show, :edit, :update]
+  before_action :load_exit_site_infection, :only => [:show, :edit, :update]
 
   def new
     @exit_site_infection = ExitSiteInfection.new
@@ -18,18 +19,12 @@ class ExitSiteInfectionsController < ApplicationController
     end
   end
 
-  def show
-    @exit_site_infection = ExitSiteInfection.find(params[:id])
-  end
-
   def edit
-    @exit_site_infection = ExitSiteInfection.find(params[:id])
     @exit_site_infection.medications.build(provider: :gp)
     @exit_site_infection.infection_organisms.build
   end
 
   def update
-    @exit_site_infection = ExitSiteInfection.find(params[:id])
     if @exit_site_infection.update(allowed_params)
       redirect_to pd_info_patient_path(@patient),
       :notice => "You have successfully updated an exit site infection."
@@ -48,6 +43,10 @@ class ExitSiteInfectionsController < ApplicationController
 
   def load_patient
     @patient = Patient.find(params[:patient_id])
+  end
+
+  def load_exit_site_infection
+    @exit_site_infection = ExitSiteInfection.find(params[:id])
   end
 
 end
