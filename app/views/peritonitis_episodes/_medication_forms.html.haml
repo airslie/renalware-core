@@ -1,0 +1,9 @@
+= p.fields_for :medications, @peritonitis_episode.medications do |pm|
+
+  - if pm.object.new_record?
+
+    = render :partial => 'peritonitis_episodes/new_medication', :locals => { :pm => pm }
+
+  - else
+
+    = render :partial => 'peritonitis_episodes/recorded_medications', :locals => { :pm => pm }
