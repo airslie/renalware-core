@@ -11,7 +11,11 @@ module ApplicationHelper
   end
 
   def medication_and_route(med_route)
-    safe_join(med_route.map { |m| "<li>#{m.medicatable.name} - #{m.medication_route.name == 'Other (Please specify in notes)' ? m.medication_route.full_name : m.medication_route.name }</li>".html_safe })
+    if med_route.blank?
+      "No medication prescribed"
+    else
+      safe_join(med_route.map { |m| "<li>#{m.medicatable.name} - #{m.medication_route.name == 'Other (Please specify in notes)' ? m.medication_route.full_name : m.medication_route.name }</li>".html_safe })
+    end
   end
 
   def organisms_and_sensitivities(infection_organisms)
