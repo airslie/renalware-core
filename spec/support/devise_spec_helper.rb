@@ -6,9 +6,10 @@ RSpec.configure do |config|
   config.include LoginMacros, type: :controller
 
   config.include Warden::Test::Helpers, type: :feature
+  config.include LoginMacros, type: :feature
 
   config.before(:each, type: :controller) do
-    login_user
+    login_as_super_admin
   end
 
   config.before :suite do

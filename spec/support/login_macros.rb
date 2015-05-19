@@ -1,12 +1,21 @@
 module LoginMacros
-  def login_admin
-    @request.env["devise.mapping"] = Devise.mappings[:admin]
-    sign_in FactoryGirl.create(:admin) # Using factory girl as an example
+  def login_as_admin
+    login_user(:admin)
   end
 
-  def login_user
-    @request.env["devise.mapping"] = Devise.mappings[:user]
-    user = create(:user, :approved)
-    sign_in user
+  def login_as_clinician
+    login_user(:clinician)
   end
+
+  def login_user(role_trait=:super_admin)
+    user = create(:user, :approved, role_trait)
+    if @request.present? # eg for controller specs
+      @request.env["devise.mapping"] = Devise.mappings[:user]
+      sign_in user
+    else # features
+      login_as user
+    end
+  end
+
+  alias_method :login_as_super_admin, :login_user
 end
