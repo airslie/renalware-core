@@ -1,6 +1,7 @@
 class PeritonitisEpisodesController < ApplicationController
 
   before_action :load_patient, :only => [:new, :create, :show, :edit, :update]
+  before_action :load_peritonitis_episode, :only => [:show, :edit, :update]
 
   def new
     @peritonitis_episode = PeritonitisEpisode.new
@@ -18,18 +19,12 @@ class PeritonitisEpisodesController < ApplicationController
     end
   end
 
-  def show
-    @peritonitis_episode = PeritonitisEpisode.find(params[:id])
-  end
-
   def edit
-    @peritonitis_episode = PeritonitisEpisode.find(params[:id])
     @peritonitis_episode.medications.build(provider: :gp)
     @peritonitis_episode.infection_organisms.build
   end
 
   def update
-    @peritonitis_episode = PeritonitisEpisode.find(params[:id])
     if @peritonitis_episode.update(allowed_params)
       redirect_to pd_info_patient_path(@patient),
       :notice => "You have successfully updated a peritonitis episode."
@@ -51,6 +46,10 @@ class PeritonitisEpisodesController < ApplicationController
 
   def load_patient
     @patient = Patient.find(params[:patient_id])
+  end
+
+  def load_peritonitis_episode
+    @peritonitis_episode = PeritonitisEpisode.find(params[:id])
   end
 
 end
