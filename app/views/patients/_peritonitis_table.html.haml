@@ -8,7 +8,7 @@
       %th.column-6-width
         Treatment End Date
       %th
-        Episode Type
+        Outcome
       %th
         Organisms
       %th.column-9-width
@@ -40,7 +40,7 @@
         %td{ :data => { :heading => "Episode Type" }, valign: "top" }
           %ul.table-data-list
             %li
-              = p.episode_type.blank? ? "Unknown": p.episode_type.term
+              = p.episode_type.blank? ? "Episode Type: Unknown": "Episode Type: #{p.episode_type.term}"
             %li
               = "Catheter Removed: #{yes_no(p.catheter_removed)}"
 
