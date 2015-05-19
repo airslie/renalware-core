@@ -16,6 +16,7 @@ gem 'paranoia', '~> 2.0'
 gem 'ransack', git: 'https://github.com/activerecord-hackery/ransack.git'
 gem 'kaminari', '~> 0.15.1'
 gem 'devise', '~> 3.4.1'
+gem 'cancancan', '~> 1.10'
 
 group :development, :test do
   gem 'capybara', '2.4.4'
