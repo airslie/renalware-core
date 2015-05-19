@@ -2,6 +2,8 @@ require 'rails_helper'
 
 describe User, :type => :model do
 
+  it { should have_and_belong_to_many :roles }
+
   describe 'class' do
     it 'includes Deviseable to authenticate using Devise' do
       expect(User.ancestors).to include(Deviseable)
