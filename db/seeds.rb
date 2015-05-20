@@ -9,29 +9,9 @@ def maybe_value(value)
   value
 end
 
-def get_stdin(msg)
-  STDOUT.puts msg
-  STDIN.gets.strip
-end
-
 def add_super_admin
-  log 'Adding Super admin...'
-
-  email = get_stdin('Super admin email:')
-  password = get_stdin('Super admin password:')
-  confirm_password = get_stdin('Super admin password again:')
-
-  if password == confirm_password
-    User.find_or_create_by!(email: email) do |u|
-      u.password = password
-      u.approved = true
-      u.first_name = 'Super'
-      u.last_name = 'Admin'
-      u.roles = [super_admin_role]
-    end
-  else
-    raise 'Passwords do not match'
-  end
+  log 'Adding default user...'
+  Rake::Task['users:add_user'].invoke
 end
 
 
