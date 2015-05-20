@@ -22,9 +22,10 @@ RSpec.describe PeritonitisEpisode, :type => :model do
       @pe = FactoryGirl.build(:peritonitis_episode)
       @mrsa = FactoryGirl.create(:organism_code, name: "MRSA")
       @ecoli = FactoryGirl.create(:organism_code, name: "E.Coli")
-      load_drugs
-      load_drug_types
-      set_drug_drug_types
+
+      load_drugs_by_type('Amoxicillin' => ['Antibiotic','Peritonitis'],
+        'Penicillin' => ['Antibiotic','Peritonitis'])
+
       load_med_routes
     end
 

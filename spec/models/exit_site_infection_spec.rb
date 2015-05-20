@@ -19,9 +19,10 @@ RSpec.describe ExitSiteInfection, :type => :model do
       @es = FactoryGirl.build(:exit_site_infection)
       @lymphocytes = FactoryGirl.create(:organism_code, name: "Lymphocytes")
       @proteus = FactoryGirl.create(:organism_code, name: "Proteus")
-      load_drugs
-      load_drug_types
-      set_drug_drug_types
+
+      load_drugs_by_type('Cephradine' => ['Antibiotic','Peritonitis'],
+                         'Dicloxacillin' => ['Antibiotic','Peritonitis'])
+
       load_med_routes
     end
 
