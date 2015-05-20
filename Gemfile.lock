@@ -1,10 +1,4 @@
 GIT
-  remote: git@github.com:dmgarland/frog_spawn.git
-  revision: 522fe7b8128481f47a1d138d8bc73c80969a38c6
-  specs:
-    frog_spawn (0.1.0)
-
-GIT
   remote: https://github.com/activerecord-hackery/ransack.git
   revision: c09aa177953deb27e28179f55844ced0489613b4
   specs:
@@ -290,7 +284,6 @@ DEPENDENCIES
   factory_girl_rails (~> 4.0)
   ffaker
   foundation-rails
-  frog_spawn!
   haml-rails
   httparty
   jquery-rails
