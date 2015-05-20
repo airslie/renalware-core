@@ -26,6 +26,7 @@
               Treatment End Date:
             %dd
               = @peritonitis_episode.treatment_end_date.strftime("%d/%m/%Y")
+
         .row
           .large-12.columns
             .section-underliner.title-bold
@@ -42,6 +43,7 @@
           .large-12.columns
             .section-underliner.title-bold
               Organisms/Sensitivity:
+
             .large-12.columns
               %ul.table-data-list
                 = organisms_and_sensitivities(@peritonitis_episode.infection_organisms)
@@ -49,7 +51,7 @@
           .large-12.columns
             .section-underliner.title-bold
               White Cell Count:
-            .large-12.columns
+            .large-12.columnss
               %ul
                 %li
                   = "Total: #{@peritonitis_episode.white_cell_total}"
@@ -89,6 +91,7 @@
           .large-12.columns
             .section-underliner.title-bold
               Peritonitis Episode Notes:
+
             %ul
               = @peritonitis_episode.notes
 
