@@ -231,56 +231,6 @@ Given(/^a patient has exit site infections$/) do
 
 end
 
-Given(/^a patient has episodes of peritonitis$/) do
-
-  @peritonitis_episode_2 = FactoryGirl.create(:peritonitis_episode,
-    patient: @patient_1,
-    diagnosis_date: "20/12/2015",
-    start_treatment_date: "21/12/2015",
-    end_treatment_date: "25/01/2015",
-    episode_type: @relapsing,
-    catheter_removed: 1,
-    line_break: 1,
-    exit_site_infection: 0,
-    diarrhoea: 1,
-    abdominal_pain: 0,
-    fluid_description_id: 3,
-    white_cell_total: 1500,
-    white_cell_neutro: 25,
-    white_cell_lympho: 25,
-    white_cell_degen: 25,
-    white_cell_other: 25,
-    notes: "Has problems getting rid of infection."
-  )
-
-  @peritonitis_episode_3 = FactoryGirl.create(:peritonitis_episode,
-    patient: @patient_1,
-    diagnosis_date: "24/01/2015",
-    start_treatment_date: "25/01/2015",
-    end_treatment_date: "27/02/2015",
-    episode_type: @repeat,
-    catheter_removed: 0,
-    line_break: 1,
-    exit_site_infection: 0,
-    diarrhoea: 1,
-    abdominal_pain: 1,
-    fluid_description_id: 2,
-    white_cell_total: 3000,
-    white_cell_neutro: 20,
-    white_cell_lympho: 25,
-    white_cell_degen: 30,
-    white_cell_other: 25,
-    notes: "Needs pain management."
-  )
-
-end
-
-Then(/^an episode of peritonitis can be viewed in more detail from the PD info page$/) do
-  visit pd_info_patient_path(@patient_1)
-  save_and_open_page
-
-end
-
 When(/^the Clinician records the episode of peritonitis$/) do
   click_on "Record an Episode of Peritonitis"
 
