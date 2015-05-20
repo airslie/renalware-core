@@ -45,4 +45,10 @@ namespace :users do
       raise 'Passwords do not match'
     end
   end
+
+  desc 'Approve a user'
+  task :approve_user, [:username] => :environment do |t, args|
+    user = User.find_by!(username: args[:username])
+    puts "#{user.username} approved." if user.update_attributes(approved: true)
+  end
 end
