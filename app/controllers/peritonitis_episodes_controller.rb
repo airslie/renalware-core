@@ -19,6 +19,10 @@ class PeritonitisEpisodesController < ApplicationController
     end
   end
 
+  def show
+    @peritonitis_episode = PeritonitisEpisode.find(params[:id])
+  end
+
   def edit
     @peritonitis_episode.medications.build(provider: :gp)
     @peritonitis_episode.infection_organisms.build
