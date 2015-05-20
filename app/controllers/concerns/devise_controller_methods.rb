@@ -12,9 +12,25 @@ module DeviseControllerMethods
     protected
 
     def configure_permitted_parameters
-      devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :password, :password_confirmation, :remember_me) }
+      configure_sign_up_parameters
+      configure_sign_in_parameters
+      configure_account_update_parameters
+    end
+
+    def configure_sign_up_parameters
+      devise_parameter_sanitizer.for(:sign_up) do |u|
+        u.permit(:first_name, :last_name, :username, :email, :password, :password_confirmation, :remember_me)
+      end
+    end
+
+    def configure_sign_in_parameters
       devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:username, :password, :remember_me) }
-      devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :email, :password, :password_confirmation, :current_password) }
+    end
+
+    def configure_account_update_parameters
+      devise_parameter_sanitizer.for(:account_update) do |u|
+        u.permit(:first_name, :last_name, :username, :email, :password, :password_confirmation, :current_password)
+      end
     end
   end
 end

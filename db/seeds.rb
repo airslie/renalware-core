@@ -14,28 +14,33 @@ def get_stdin(msg)
   STDIN.gets.strip
 end
 
+def add_super_admin
+  log 'Adding Super admin...'
+
+  email = get_stdin('Super admin email:')
+  password = get_stdin('Super admin password:')
+  confirm_password = get_stdin('Super admin password again:')
+
+  if password == confirm_password
+    User.find_or_create_by!(email: email) do |u|
+      u.password = password
+      u.approved = true
+      u.first_name = 'Super'
+      u.last_name = 'Admin'
+      u.roles = [super_admin_role]
+    end
+  else
+    raise 'Passwords do not match'
+  end
+end
+
+
 log 'Creating Roles...'
 super_admin_role = Role.find_or_create_by!(name: :super_admin)
 Role.find_or_create_by!(name: :admin)
 Role.find_or_create_by!(name: :clinician)
 
-log 'Adding Superuser...'
-
-email = get_stdin('Superuser email:')
-password = get_stdin('Superuser password:')
-confirm_password = get_stdin('Superuser password again:')
-
-if password == confirm_password
-  User.find_or_create_by!(email: email) do |u|
-    u.password = password
-    u.approved = true
-    u.roles = [super_admin_role]
-  end
-else
-  raise 'Passwords do not match'
-end
-
-
+add_super_admin if Rails.env.development?
 
 log 'Adding Drug types...'
 
