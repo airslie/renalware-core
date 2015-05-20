@@ -13,6 +13,7 @@ RSpec.describe ExitSiteInfection, :type => :model do
   it { should accept_nested_attributes_for(:medications) }
   it { should accept_nested_attributes_for(:infection_organisms) }
 
+<<<<<<< HEAD
   describe "exit site infection" do
     before do
       @patient = create(:patient)
@@ -83,4 +84,6 @@ RSpec.describe ExitSiteInfection, :type => :model do
     end
 
   end
+=======
+>>>>>>> a712608... Setup associations for medications and organisms with spec test.
 end
