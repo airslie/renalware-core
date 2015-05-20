@@ -38,5 +38,4 @@ module ApplicationHelper
       safe_join(infection_organisms.map { |io| "<li>#{io.organism_code.name}</li>".html_safe })
     end
   end
-
 end
