@@ -1,1 +1,0 @@
-<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get"><fieldset style="width: 300px;"><input type="text" size="20" name="patname" /><input type="submit" style="color: green;" value="find lastname[,firstname]" /></fieldset></form>
