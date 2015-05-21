@@ -19,6 +19,10 @@ class ExitSiteInfectionsController < ApplicationController
     end
   end
 
+  def show
+    @exit_site_infection = ExitSiteInfection.find(params[:id])
+  end
+
   def edit
     @exit_site_infection.medications.build(provider: :gp)
     @exit_site_infection.infection_organisms.build
