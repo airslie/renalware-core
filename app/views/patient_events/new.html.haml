@@ -3,9 +3,7 @@
     = render partial: "patients/patient_info_header", locals: { model: @patient }
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
-.row
-  %h5
-    = link_to "Add a New Patient Event", new_patient_patient_event_path
+    %h5 Add a New Patient Event
  
 = render partial: "shared/errors", locals: { model: @patient_event }
 

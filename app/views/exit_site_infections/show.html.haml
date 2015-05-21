@@ -3,9 +3,8 @@
     = render partial: "patients/patient_info_header", locals: { model: @patient }
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
-.row
-  %h5
-    = "Exit Site Infection Details - Diagnosed: #{@exit_site_infection.diagnosis_date.strftime("%d/%m/%Y")}"
+    %h5
+      = "Exit Site Infection Details - Diagnosed: #{@exit_site_infection.diagnosis_date.strftime("%d/%m/%Y")}"
 
 .row
   .large-12.columns
