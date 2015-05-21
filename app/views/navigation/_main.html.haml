@@ -1,0 +1,13 @@
+%nav.top-bar(data-topbar role = "navigation")
+  %ul.title-area
+    %li.name.has-dropdown.active
+      %h1
+        = link_to "Renalwarev2", patients_path, :title => "Home"
+
+  - if current_user.present?
+    %section.top-bar-section
+      = render partial: 'navigation/patient_admin'
+      = render partial: 'navigation/patient_search'
+      = render partial: 'navigation/sign_out'
+      = render partial: 'navigation/renal_reg_codes_admin'
+      = render partial: 'navigation/patients_admin'

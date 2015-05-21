@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Logging in' do
+feature 'Authentication' do
   background do
     @user = create(:user, :approved, :clinician)
     @unapproved_user = create(:user)
@@ -42,5 +42,14 @@ feature 'Logging in' do
     click_on 'Log in'
 
     expect(current_path).to eq(root_path)
+  end
+
+  scenario 'An authenticated user signs out' do
+    login_as_clinician
+    visit root_path
+
+    click_on 'Log out'
+
+    expect(current_path).to eq(new_user_session_path)
   end
 end
