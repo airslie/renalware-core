@@ -12,6 +12,6 @@
  *
  *= require_self
  *= require_tree ./lib
- *= require_tree ./foundation
+ *= require_tree ./renalware
  *= require select2/css/select2.min
  */
