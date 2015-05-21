@@ -20,7 +20,6 @@ feature 'Searching for a patient' do
     end
   end
 
-
   background do
     create(:patient, surname: 'Jones', forename: 'Jenny')
     create(:patient, surname: 'Smith', forename: 'Will', nhs_number: 'Z111111119')
@@ -86,4 +85,5 @@ feature 'Searching for a patient' do
     search_for_patient('1234')
     dont_expect_patient_in_results('Walker, J')
   end
+
 end
