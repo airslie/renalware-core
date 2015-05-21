@@ -21,8 +21,8 @@ RSpec.describe DrugsController, :type => :controller do
   describe 'GET index' do
     it 'assigns drugs' do
       create(:drug)
-      get :index
 
+      get :index
       expect(assigns(:drugs).first).to be_a(Drug)
     end
   end
@@ -35,7 +35,6 @@ RSpec.describe DrugsController, :type => :controller do
 
     it 'responds successfully' do
       get :index
-
       expect(response).to have_http_status(:success)
     end
 
@@ -58,6 +57,7 @@ RSpec.describe DrugsController, :type => :controller do
         get :index, q: { name_cont: 'cillin' }
       end
     end
+
     context 'with pagination params' do
       it 'assigns paging variables' do
         get :index,  {q: {name_cont: 'cillin'}, page: '2', per_page: '50'}
