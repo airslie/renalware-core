@@ -3,11 +3,11 @@
     = render partial: "patients/patient_info_header", locals: { model: @patient }
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
-.row
-  %h5.g-center.fi-clipboard-notes.left
-    = "Patient Info"
-  %h5.g-center.right
-    = link_to "Edit", edit_patient_path(@patient), :title => "Edit demographics", :class => "fi-clipboard-pencil"
+    %h5 Patient Demographics/Admin
+
+    %p
+      = link_to "Update", edit_patient_path(@patient), :title => "Edit demographics", :class => "button tiny right"
+
 .row
   .large-12.columns
     = field_set_tag do
