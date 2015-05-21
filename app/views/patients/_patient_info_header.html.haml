@@ -1,2 +1,7 @@
 %h4.patient-info
   = "#{@patient.full_name} - KCH: #{@patient.local_patient_id}, Age: #{@patient.age}, #{I18n.t("enums.gender.#{@patient.sex}")}, DoB: #{@patient.dob}, #{@patient.current_modality.blank? || @patient.current_modality.new_record? ? "No Modal" : @patient.current_modality.modality_code.name}"
+
+%nav.sub-nav-container
+  %dl.sub-nav{role: "menu"}
+    %dt
+    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }

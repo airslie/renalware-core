@@ -92,7 +92,3 @@
         Address at Diagnosis
          
       = render @patient.address_at_diagnosis if @patient.address_at_diagnosis
-  
-.wide-screen
-  = content_for :secondary_nav do  
-    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
