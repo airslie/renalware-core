@@ -3,14 +3,12 @@
     = render partial: "patients/patient_info_header", locals: { model: @patient }
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
-.row.g-center
-  %h4
-    = link_to "Clinical Summary", clinical_summary_patient_path(@patient)
+    %h5 Clinical Summary
 
 .wide-screen
   .columns.large-6
-    %h5.g-center
-      = link_to "#{@patient.problems.length} Problems", problems_patient_path(@patient)
+    %h6
+      = link_to "#{@patient.patient_problems.length} Problems", problems_patient_path(@patient)
 
     %ul.no-bullet
       - @patient.problems.each do |p|
@@ -20,7 +18,7 @@
 
 .wide-screen
   .columns.large-6
-    %h5.g-center
+    %h6
       = link_to "#{@patient.medications.length} Current Medications", medications_index_patient_path(@patient)
 
     %ul.no-bullet
@@ -30,9 +28,11 @@
 
           = "#{drug_types_tag(p.medicatable.drug_types)}: #{p.medicatable.name}, #{p.dose}, #{p.medication_route.name}, #{p.frequency}, #{p.date}"
 
+%hr
+
 .wide-screen
   .columns.large-12
-    %h5.g-center
+    %h6
       = link_to "#{@patient.patient_events.length} Patient Events", patient_patient_events_path(@patient)
 
     %ul.no-bullet
