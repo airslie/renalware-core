@@ -10,4 +10,32 @@ module ApplicationHelper
     bool ? 'Yes' : 'No'
   end
 
+  #Data which is not using a foreign key
+  def blank_unknown_data(manage_data)
+    manage_data.blank? ? "Unknown" : manage_data
+  end
+
+  def medication_and_route(med_route)
+    if med_route.blank?
+      "No medication prescribed"
+    else
+      safe_join(med_route.map { |m| "<li>#{m.medicatable.name} - #{m.medication_route.name == 'Other (Please specify in notes)' ? m.medication_route.full_name : m.medication_route.name }</li>".html_safe })
+    end
+  end
+
+  def organisms_and_sensitivities(infection_organisms)
+    if infection_organisms.blank?
+      "Unknown"
+    else
+      safe_join(infection_organisms.map { |io| "<li>#{io.organism_code.name} - #{io.sensitivity}</li>".html_safe })
+    end
+  end
+
+  def organisms(infection_organisms)
+    if infection_organisms.blank?
+      "Unknown"
+    else
+      safe_join(infection_organisms.map { |io| "<li>#{io.organism_code.name}</li>".html_safe })
+    end
+  end
 end

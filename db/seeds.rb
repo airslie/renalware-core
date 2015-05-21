@@ -143,8 +143,8 @@ log "...#{logcount} Organisms seeded!"
 
 log 'Adding PD to HD reasons...'
 
-PdToHaemodialysis.find_or_create_by!(rr_code: 201, description: "Patient/partner choice") 
-PdToHaemodialysis.find_or_create_by!(rr_code: 202, description: "Loss of supporting partner") 
+PdToHaemodialysis.find_or_create_by!(rr_code: 201, description: "Patient/partner choice")
+PdToHaemodialysis.find_or_create_by!(rr_code: 202, description: "Loss of supporting partner")
 PdToHaemodialysis.find_or_create_by!(rr_code: 203, description: "Other change of personal circumstances")
 PdToHaemodialysis.find_or_create_by!(rr_code: 204, description: "Inability to perform PD")
 PdToHaemodialysis.find_or_create_by!(rr_code: 205, description: "Other reasons")
@@ -173,7 +173,7 @@ MedicationRoute.find_or_create_by!(name: "PO", full_name: "Per Oral")
 MedicationRoute.find_or_create_by!(name: "IV", full_name: "Intravenous")
 MedicationRoute.find_or_create_by!(name: "SC", full_name: "Subcutaneous")
 MedicationRoute.find_or_create_by!(name: "IM", full_name: "Intramuscular")
-MedicationRoute.find_or_create_by!(name: "Other (Please specify in notes)", full_name: "Other (Refer to notes)")
+MedicationRoute.find_or_create_by!(name: "Other (Please specify in notes)", full_name: "Other (Refer to medication notes)")
 
 
 log 'Adding Peritonitis Episode Types...'
@@ -224,15 +224,15 @@ file_path = Rails.root.join('db', 'csv', 'rabbit_problems.csv')
 logcount=0
 CSV.foreach(file_path, headers: true) do |row|
   randwk = randweeks.sample
-  date = Time.now - randwk.weeks  
+  date = Time.now - randwk.weeks
   description = row['description']
   snomed_id = row['snomed_id ']
   log "   ... adding #{snomed_id}: #{description} from #{date}"
   logcount += 1
   PatientProblem.create(
-    patient_id: 1, 
-    description: description, 
-    date: date, 
+    patient_id: 1,
+    description: description,
+    date: date,
     snomed_id: snomed_id)
 end
 

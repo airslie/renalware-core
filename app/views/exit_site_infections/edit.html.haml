@@ -11,15 +11,15 @@
 .row
   .large-12.columns
     = form_for [@patient, @exit_site_infection], :method => :put do |e|
-    
-      = field_set_tag do                  
+
+      = field_set_tag do
         .row
           = render partial: "exit_site_infections/form", locals: { e: e }
 
-        = submit_tag "Update Exit Site Infection", class: "button tiny right"
+        = submit_tag "Update Exit Site Infection", class: "button tiny right save"
 
-        = link_to "Cancel", pd_info_patient_path(@patient), class: "button tiny left cancel"
+        = link_to "Cancel", patient_exit_site_infection_path(@patient, @exit_site_infection.id), class: "button tiny left cancel"
 
 .wide-screen
-  = content_for :secondary_nav do  
+  = content_for :secondary_nav do
     = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }

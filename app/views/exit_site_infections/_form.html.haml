@@ -3,42 +3,50 @@
 
   = e.hidden_field :patient_id
 
-  = e.label :diagnosis_date
-  = e.date_select(:diagnosis_date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")     
-  
-  = e.label :organism_1_id
-  = e.collection_select :organism_1_id, OrganismCode.all, :id, :name, { :prompt => "Please Select Organism Found", include_blank: true, :class => "organism-select" }
+.row
+  .large-12.columns
+    .section-underliner
+      Dates:
+    .large-4.columns
+      = e.label :diagnosis_date
+      = e.date_select(:diagnosis_date, { start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year] }, class: "datetime")
 
-  = e.label :organism_2_id
-  = e.collection_select :organism_2_id, OrganismCode.all, :id, :name, { :prompt => "Please Select Organism Found", include_blank: true, :class => "organism-select" }
+.row
+  .large-12.columns
+    .section-underliner
+      Outcome:
+    .large-12.columns
+      = e.label :outcome, "Outcome notes"
+      = e.text_area :outcome, :cols => 50, :rows => 6
 
-  = e.label :treatment
-  = e.text_area :treatment, :cols => 50, :rows => 6
+.row
+  .large-12.columns
+    .section-underliner
+      Organisms and their sensitivities for this exit site infection:
 
-  = e.label :outcome
-  = e.text_area :outcome, :cols => 50, :rows => 6
+    = render :partial => 'exit_site_infections/organism_forms', :locals => { :e => e }
 
-  = e.label :notes
-  = e.text_area :notes, :cols => 50, :rows => 6
+.row
+  .large-12.columns
+    .section-underliner
+      Treatment:
+    .large-12.columns
+      = e.label :treatment, "Treatment notes"
+      = e.text_area :treatment, :cols => 50, :rows => 6
 
-  = e.label :antibiotic_1_id
-  = e.collection_select :antibiotic_1_id, Antibiotic.all, :id, :name, { :prompt => "Please select prescribed antibiotic" }
+.row
+  .large-12.columns
+    .section-underliner
+      Medications administered for this exit site infection:
 
-  = e.label :antibiotic_1_route, "Route (Antibiotic 1)"
-  = e.select :antibiotic_1_route, medication_routes(e.object.class.name.constantize), { prompt: "Please select route of administration" } 
+    = render :partial => 'exit_site_infections/medication_forms', :locals => { :e => e }
 
-  = e.label :antibiotic_2_id
-  = e.collection_select :antibiotic_2_id, Antibiotic.all, :id, :name, { :prompt => "Please select prescribed antibiotic" }
+.row
+  .large-12.columns
+    .section-underliner
+      Comments:
 
-  = e.label :antibiotic_2_route, "Route (Antibiotic 2)"
-  = e.select :antibiotic_2_route, medication_routes(e.object.class.name.constantize), { prompt: "Please select route of administration" } 
-
-  = e.label :antibiotic_3_id
-  = e.collection_select :antibiotic_3_id, Antibiotic.all, :id, :name, { :prompt => "Please select prescribed antibiotic" }
-
-  = e.label :antibiotic_3_route, "Route (Antibiotic 3)"
-  = e.select :antibiotic_3_route, medication_routes(e.object.class.name.constantize), { prompt: "Please select route of administration" } 
-
-  = e.label :sensitivity
-  = e.text_area :sensitivity, :cols => 50, :rows => 6
+    .large-12.columns
+      = e.label :notes, "General notes about this infection"
+      = e.text_area :notes, :cols => 50, :rows => 6
 

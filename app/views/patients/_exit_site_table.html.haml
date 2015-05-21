@@ -1,82 +1,68 @@
 %table.responsive
   %thead
-    %th.table-width
+    %th.column-6-width
       Diagnosis Date
-    %th.table-width
+    %th
       Organisms
-    %th.table-width
+    %th
       Treatment
-    %th.table-width
+    %th
       Outcome
-    %th.table-width
+    %th
       Notes
-    %th.table-width
+    %th
       Antibiotics
-    %th.table-width
+    %th.column-6-width
       Last Updated
-    %th.table-width
+    %th
       Action
 
   %tbody
     - @exit_site_infections.each do |e|
       %tr{ valign: "top" }
-        %td{:data => { :heading => "Diagnosis Date" }, valign: "top"}
+        %td{ :data => { :heading => "Diagnosis Date" }, valign: "top" }
           = e.diagnosis_date.strftime("%d/%m/%Y")
 
-        %td{ :data => { :heading => "Organisms"}, valign: "top" }
+        %td{ :data => { :heading => "Organisms" }, valign: "top" }
+          %ul.table-data-list
+            = organisms(e.infection_organisms)
+
+        %td{:data => { :heading => "Treatment" }, valign: "top" }
           %dl.accordion{ data: { accordion: true } }
             %dd.accordion-navigation
-              %a.fi-plus.fi-minus.toggle-info{ :id => "patient-exit-site-organism-#{e.id}", href: "#patient-exit-site-organism-#{e.id}" }
+              %a.toggle-info{ :id => "patient-exit-site-toggle-#{e.id}", href: "#patient-exit-site-toggle-#{e.id}" }
                 View
-              .content.toggle-content{ :id => "patient-exit-site-organism-#{e.id}" }
-                %ul.no-bullet
-                  %li
-                    = "Organism 1: #{e.organism_1.name},"
-                  %li
-                    = "Organism 2: #{e.organism_2.name}"
+              .content.toggle-content{ :id => "patient-exit-site-toggle-#{e.id}" }
+                = blank_unknown_data(e.treatment)
 
-        %td{:data => { :heading => "Treatment" }, valign: "top"}
-          %dl.accordion{data: {accordion: true} }
+        %td{ :data => { :heading => "Outcome" }, valign: "top" }
+          %dl.accordion{ data: { accordion: true } }
             %dd.accordion-navigation
-              %a.fi-plus.fi-minus.toggle-info{ :id => "exit-site-treatment-#{e.id}", href: "#exit-site-treatment-#{e.id}" }
+              %a.toggle-info{ :id => "patient-exit-site-toggle-#{e.id}", href: "#patient-exit-site-toggle-#{e.id}" }
                 View
-              .content.toggle-content{ :id => "exit-site-treatment-#{e.id}" }
-                = e.treatment
+              .content.toggle-content{ :id => "patient-exit-site-toggle-#{e.id}" }
+                = blank_unknown_data(e.outcome)
 
-        %td{:data => { :heading => "Outcome" }, valign: "top"}
-          %dl.accordion{data: {accordion: true} }
+        %td{ :data => { :heading => "Notes" }, valign: "top" }
+          %dl.accordion{ data: { accordion: true } }
             %dd.accordion-navigation
-              %a.fi-plus.fi-minus.toggle-info{ :id => "exit-site-outcome-#{e.id}", href: "#exit-site-outcome-#{e.id}" }
+              %a.toggle-info{ :id => "patient-exit-site-toggle-#{e.id}", href: "#patient-exit-site-toggle-#{e.id}" }
                 View
-              .content.toggle-content{ :id => "exit-site-outcome-#{e.id}" }
-                = e.outcome
-
-        %td{:data => { :heading => "Description" }, valign: "top"}
-          %dl.accordion{data: {accordion: true} }
-            %dd.accordion-navigation
-              %a.fi-plus.fi-minus.toggle-info{ :id => "patient-peritonitis-notes-#{e.id}", href: "#patient-peritonitis-notes-#{e.id}" }
-                View
-              .content.toggle-content{ :id => "patient-peritonitis-notes-#{e.id}" }
+              .content.toggle-content{ :id => "patient-exit-site-toggle-#{e.id}" }
                 = e.notes
 
-        %td{ :data => { :heading => "Antibiotics"}, valign: "top" }
-          %dl.accordion{ data: { accordion: true } }
-            %dd.accordion-navigation
-              %a.fi-plus.fi-minus.toggle-info{ :id => "patient-exit-site-antibiotics-#{e.id}", href: "#patient-exit-site-antibiotics-#{e.id}" }
-                View
-              .content.toggle-content{ :id => "patient-exit-site-antibiotics-#{e.id}" }
-                %ul.no-bullet
-                  %li.toggle-content
-                    = "Antibiotic: #{e.antibiotic_1.name}, Route: #{e.antibiotic_routes.first.name},"
-                  %li.toggle-content
-                    = "Antibiotic: #{e.antibiotic_2.name}, Route: #{e.antibiotic_routes.second.name},"
-                  %li.toggle-content
-                    = "Antibiotic: #{e.antibiotic_3.name}, Route: #{e.antibiotic_routes.third.name},"
-                  %li.toggle-content
-                    = "sensitivity: #{e.sensitivity}"
+        %td{ :data => { :heading => "Antibiotics" }, valign: "top" }
+          %ul.table-data-list
+            = medication_and_route(e.medications)
 
-        %td{:data => { :heading => "Last Updated"}, valign: "top"}
+        %td{ :data => { :heading => "Last Updated" }, valign: "top" }
+
           = e.updated_at.strftime("%d/%m/%Y, %H:%M")
 
-        %td{:data => { :heading => "Action"}, valign: "top"}
-          = link_to "Update", edit_patient_exit_site_infection_path(@patient, e.id)
+        %td{ :data => { :heading => "Action" }, valign: "top" }
+          %ul.table-data-list
+            %li
+              = link_to "Update", edit_patient_exit_site_infection_path(@patient, e.id), class: "update-es-infection", id: "update-es-infection-#{e.id}"
+            %li
+              = link_to "View Infection", patient_exit_site_infection_path(@patient, e.id), class: "view-es-infection", id: "view-es-infection-#{e.id}"
+

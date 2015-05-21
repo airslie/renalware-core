@@ -38,6 +38,11 @@ th, td {
   overflow: hidden;
 }
 
+p {
+  padding: 0 0.5em 0 0.5em;
+  margin: 0 0 0.5em 0;
+}
+
 .page-title {
   color: #008cba;
 }
@@ -50,7 +55,6 @@ th, td {
 .sub-bold {
   font-weight: 500;
 }
-
 
 .table-data-list {
   font-size: 1em;
@@ -103,10 +107,6 @@ th, td {
 
 .accordion .accordion-navigation > .content, .accordion dd > .content {
   padding: 0;
-}
-
-.toggle-content {
-  font-size: 0.7em;
 }
 
 .underline {

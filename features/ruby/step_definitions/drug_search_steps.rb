@@ -1,5 +1,6 @@
 When(/^I search for a drug by name$/) do
   fill_in "Drug", :with => "Red"
+
   page.execute_script %Q($('.find_drug').trigger('keyup'))
 end
 

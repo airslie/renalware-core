@@ -65,6 +65,7 @@ $(document).ready(function(){
       medicationsTemplate = "<li id=drug-<%=id%> class='drug-select-link' data-drug-id=<%=id%>><%= name %></li>";
 
   $('.find_drug').keyup(function(e) {
+
     var $drugSearchInput = $(e.currentTarget),
         query = $drugSearchInput.val();
         $medForm = $drugSearchInput.closest('.med-form');

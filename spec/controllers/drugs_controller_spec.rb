@@ -57,6 +57,7 @@ RSpec.describe DrugsController, :type => :controller do
         get :index, q: { name_cont: 'cillin' }
       end
     end
+
     context 'with pagination params' do
       it 'assigns paging variables' do
         get :index,  {q: {name_cont: 'cillin'}, page: '2', per_page: '50'}
@@ -78,5 +79,6 @@ RSpec.describe DrugsController, :type => :controller do
         expect(parsed_body).to be_a(Array)
       end
     end
+
   end
 end

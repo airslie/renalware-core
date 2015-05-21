@@ -1,0 +1,18 @@
+.large-12.columns
+  %dl.accordion{ data: { accordion: true } }
+    %dd.accordion-navigation.organism-form
+
+      %a.fi-plus.fi-minus.form-toggle{ href: "#edit-organism-#{io.object.id}", class: "organism-accordian" }
+
+        = "#{io.object.organism_code.name} - #{io.object.sensitivity}"
+
+        .right.edit
+          Edit
+
+      .columns.large-6.organism-form.content{ :id => "edit-organism-#{io.object.id}", data: { index: 0 } }
+
+        = render :partial => 'infection_organisms/organism_fields', :locals => { :io => io }
+
+        .organism-form.content{ :id => "edit-organism-#{io.object.id}" }
+          = io.check_box :_destroy
+          = io.label :_destroy, "Terminate?", class: "delete"

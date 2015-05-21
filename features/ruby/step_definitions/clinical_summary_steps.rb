@@ -10,6 +10,12 @@ Given(/^there are medication routes in the database$/) do
   @medication_routes.map! do |mroute|
     MedicationRoute.create!(:name => mroute[0], :full_name => mroute[1])
   end
+
+  @po = @medication_routes[0]
+  @iv = @medication_routes[1]
+  @sc = @medication_routes[2]
+  @im = @medication_routes[3]
+  @other_med_route = @medication_routes[4]
 end
 
 Given(/^a patient has a medication$/) do
@@ -17,7 +23,7 @@ Given(/^a patient has a medication$/) do
     patient: @patient_1,
     medicatable: @yellow,
     dose: "10mg",
-    medication_route_id: 2,
+    medication_route: @iv,
     frequency: "Daily",
     notes: "Must take with food",
     date: "2014-11-01",
@@ -28,7 +34,7 @@ Given(/^a patient has a medication$/) do
     patient: @patient_1,
     medicatable: @blue,
     dose: "20ml",
-    medication_route_id: 1,
+    medication_route: @po,
     frequency: "Twice Weekly",
     notes: "Needs review in 6 months",
     date: "2015-01-02",
@@ -98,7 +104,7 @@ end
 When(/^complete the medication form$/) do
   select "ESA", :from => "Medication Type"
   select "Blue", :from => "Select Drug"
-  fill_in "Dose", :with => "10mg" 
+  fill_in "Dose", :with => "10mg"
   select "PO", :from =>  "Route"
   fill_in "Frequency & Duration", :with => "Once daily"
   fill_in "Notes", :with => "Review in six weeks"
@@ -120,7 +126,7 @@ end
 When(/^complete the medication form by drug type select$/) do
   select "ESA", :from => "Medication Type"
   select "Blue", :from => "Select Drug"
-  fill_in "Dose", :with => "10mg" 
+  fill_in "Dose", :with => "10mg"
   select "PO", :from =>  "Route"
   fill_in "Frequency & Duration", :with => "Once daily"
   fill_in "Notes", :with => "Review in six weeks"
@@ -305,7 +311,7 @@ Then(/^I can view the deceased patient's causes of death$/) do
   visit death_patients_path
 
   click_on "Causes of death"
-  
+
   expect(page).to have_content("Death cause one")
   expect(page).to have_content("Death cause two")
 end

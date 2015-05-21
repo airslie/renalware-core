@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     resources :patient_events, :only => [:new, :create, :index]
     resources :modalities, :only => [:new, :create, :index]
     resources :peritonitis_episodes, :only => [:new, :create, :show, :edit, :update]
-    resources :exit_site_infections, :only => [:new, :create, :edit, :update]
+    resources :exit_site_infections, :only => [:new, :create, :show, :edit, :update]
   end
 
   # TODO - This will probably change in future
