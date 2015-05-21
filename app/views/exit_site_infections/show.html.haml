@@ -53,6 +53,7 @@
       .large-12.columns.button-padding
         = link_to "Edit", edit_patient_exit_site_infection_path(@patient, @exit_site_infection.id), class: "tiny button right"
 
+<<<<<<< HEAD
         = link_to "Return to PD info", pd_info_patient_path(@patient), class: "button tiny left cancel"
 
 
@@ -60,3 +61,6 @@
   = content_for :secondary_nav do
     = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
 
+=======
+        = link_to "Back", pd_info_patient_path(@patient), class: "button tiny left cancel"
+>>>>>>> Further removal of fixed secondary_nav partial

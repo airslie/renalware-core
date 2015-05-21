@@ -20,9 +20,3 @@
       = f.submit "Save ESRF Summary", :class => "button tiny right save mt"
 
   = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left cancel mt"
-                   
-.wide-screen
-  = content_for :secondary_nav do  
-    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
-
- 
