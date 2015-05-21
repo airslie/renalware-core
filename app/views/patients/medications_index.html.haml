@@ -13,8 +13,3 @@
         = link_to "All Current Medications", medications_index_patient_path
 
         = render partial: "patients/medications", locals: { model: @patient_medications }
-
-.wide-screen
-  = content_for :secondary_nav do  
-    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
-

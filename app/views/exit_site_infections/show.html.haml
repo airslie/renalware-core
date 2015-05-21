@@ -54,9 +54,3 @@
         = link_to "Edit", edit_patient_exit_site_infection_path(@patient, @exit_site_infection.id), class: "tiny button right"
 
         = link_to "Back", pd_info_patient_path(@patient), class: "button tiny left cancel"
-
-
-.wide-screen
-  = content_for :secondary_nav do
-    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
-
