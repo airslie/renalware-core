@@ -489,6 +489,7 @@ Then(/^the recorded episode should be displayed on PD info page$/) do
   #medication/route
   expect(page).to have_content("Rifampin")
   expect(page).to have_content("SC")
+
 end
 
 Then(/^the recorded exit site infection should be displayed on PD info page$/) do
