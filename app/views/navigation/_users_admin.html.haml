@@ -1,0 +1,4 @@
+- if current_user.has_role?(:super_admin)
+  %ul.left
+    %li
+      = link_to 'Manage users', admin_users_path, title: 'Manage users'

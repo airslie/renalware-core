@@ -13,23 +13,26 @@ FactoryGirl.define do
     username
     email
     password 'supersecret'
+    approved false
 
     trait :approved do
-      approved true
+      after(:create) do |user|
+        user.authorise!([find_or_create_role], true)
+      end
     end
     trait :super_admin do
       after(:create) do |user|
-        user.roles = [create(:role)]
+        user.roles = [find_or_create_role]
       end
     end
     trait :admin do
       after(:create) do |user|
-        user.roles = [create(:role, :admin)]
+        user.roles = [find_or_create_role(:admin)]
       end
     end
     trait :clinician do
       after(:create) do |user|
-        user.roles = [create(:role, :clinician)]
+        user.roles = [find_or_create_role(:clinician)]
       end
     end
   end

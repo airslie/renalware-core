@@ -11,7 +11,21 @@ describe User, :type => :model do
     end
   end
 
-  it 'is approvable' do
+  it 'is unapproved by default' do
     expect(build(:user)).not_to be_approved
+  end
+
+  describe 'authorise!' do
+    subject { build(:user) }
+
+    it 'optionally approves the user' do
+      expect(subject).to receive(:approve)
+      subject.authorise!([], true)
+    end
+    it 'sets the Roles on the user' do
+      expect(subject).to receive(:roles=).with([:foo, :bar])
+      expect(subject).not_to receive(:approve)
+      subject.authorise!([:foo, :bar], false)
+    end
   end
 end
