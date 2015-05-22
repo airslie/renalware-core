@@ -3,9 +3,8 @@
     = render partial: "patients/patient_info_header", locals: { model: @patient }
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
-.row
-  %h5 
-    = "Update Patient Demographics #{@patient.full_name}"
+    %h5 
+      = "Update Patient Demographics #{@patient.full_name}"
     
 .row
   .large-12.columns
