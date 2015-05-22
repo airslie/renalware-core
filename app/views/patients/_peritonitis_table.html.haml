@@ -14,7 +14,7 @@
       %th.column-9-width
         White Cell Count
       %th
-        Causes/ Symptoms
+        Causes/Symptoms
       %th
         Antibiotics/Routes
       %th
@@ -61,7 +61,7 @@
             %li
               = "Other: #{p.white_cell_other}%"
 
-        %td{ :data => { :heading => "Causes/ Symptoms" }, valign: "top" }
+        %td{ :data => { :heading => "Causes/Symptoms" }, valign: "top" }
           %ul.table-data-list
             %li
               = "Line Break: #{yes_no(p.line_break)}"
@@ -72,19 +72,14 @@
             %li
               = "Abdominal Pain: #{yes_no(p.abdominal_pain)}"
             %li
-              = "Fluid Description: #{p.fluid_description}"
+              = "Fluid Descr: #{p.fluid_description.description}"
 
         %td{ :data => { :heading => "Antibiotics/Routes" }, valign: "top" }
           %ul.table-data-list
             = medication_and_route(p.medications)
 
         %td{:data => { :heading => "Notes" }, valign: "top" }
-          %dl.accordion{ data: { accordion: true } }
-            %dd.accordion-navigation
-              %a.toggle-info{ :id => "patient-peritonitis-toggle-#{p.id}", href: "#patient-peritonitis-toggle-#{p.id}" }
-                View
-              .content.toggle-content{ :id => "patient-peritonitis-toggle-#{p.id}" }
-                = p.notes
+          = p.notes
 
         %td{ :data => { :heading => "Last Updated" }, valign: "top" }
           = p.updated_at.strftime("%d/%m/%Y, %H:%M")
