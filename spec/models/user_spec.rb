@@ -27,5 +27,10 @@ describe User, :type => :model do
       expect(subject).not_to receive(:approve)
       subject.authorise!([:foo, :bar], false)
     end
+
+    it 'notifies the user of authorisation' do
+      role = find_or_create_role(:super_admin)
+      expect { subject.authorise!([role], true) }.to change {ActionMailer::Base.deliveries.count}.by(1)
+    end
   end
 end

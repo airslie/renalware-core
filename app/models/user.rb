@@ -18,11 +18,18 @@ class User < ActiveRecord::Base
   end
 
   def authorise!(roles, approved)
+    notify = !self.approved
     transaction do
       self.approve if approved
       self.roles = roles
       self.save!
     end
+
+    # TODO This should use ActiveJob's deliver_later method in a background process.
+    # Currently not using a worker process because Heroku.
+    Admin::UserMailer.approval(self).deliver_now if notify
+    true
+
   rescue ActiveRecord::RecordInvalid
     false
   end
@@ -31,7 +38,7 @@ class User < ActiveRecord::Base
   #
   def approval_with_roles
     if self.approved? && self.roles.empty?
-      errors.add(:approved, "approved users must have a role")
+      errors.add(:approved, 'approved users must have a role')
     end
   end
 end

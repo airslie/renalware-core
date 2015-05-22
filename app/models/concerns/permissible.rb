@@ -11,5 +11,9 @@ module Permissible
     def has_role?(name)
       !!roles.find_by(name: name)
     end
+
+    def role_names
+      roles.map { |r| r.name.humanize }
+    end
   end
 end
