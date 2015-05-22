@@ -1,5 +1,5 @@
 Rails.application.configure do
-  config.relative_url_root = "http://renalware.herokuapp.com/"
+  config.relative_url_root = ENV['RAILS_RELATIVE_URL_ROOT'] || "http://renalware.herokuapp.com/"
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -78,7 +78,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Set a password while we're still in 'development' e.g. for our eyes only
-  config.middleware.use '::Rack::Auth::Basic' do |u, p|
-    [u, p] == ["renalware", "kidney175@stones?"]
-  end
+  # config.middleware.use '::Rack::Auth::Basic' do |u, p|
+  #   [u, p] == ["renalware", "kidney175@stones?"]
+  # end
 end
