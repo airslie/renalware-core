@@ -3,9 +3,7 @@
     = render partial: "patients/patient_info_header", locals: { model: @patient }
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
-.row  
-  %h5.g-center
-    = link_to "Patient Medications", manage_medications_patient_path(@patient)
+    %h5 Patient Medications
 
 .wide-screen
   = form_for @patient do |f|
