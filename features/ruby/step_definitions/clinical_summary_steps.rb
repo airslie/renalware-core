@@ -222,7 +222,7 @@ end
 
 Then(/^should see this terminated medication in their medications history$/) do
   visit medications_index_patient_path(@patient)
-  expect(page).to have_content?("Blue" )
+  expect(page).to have_content?("Blue")
 end
 
 Given(/^there are edta causes of death in the database$/) do
