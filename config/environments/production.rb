@@ -1,5 +1,5 @@
 Rails.application.configure do
-  config.relative_url_root = "http://renalware.herokuapp.com/"
+  config.relative_url_root = ENV['RAILS_RELATIVE_URL_ROOT'] || "http://renalware.herokuapp.com/"
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.

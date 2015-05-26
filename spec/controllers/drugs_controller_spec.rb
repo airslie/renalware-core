@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe DrugsController, :type => :controller do
+
   describe "DELETE to destroy" do
     it "returns http success" do
       drug = create(:drug)

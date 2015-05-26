@@ -1,0 +1,17 @@
+FactoryGirl.define do
+  factory :role do
+    name :super_admin
+
+    trait :super_admin
+    trait :admin do
+      name :admin
+    end
+    trait :clinician do
+      name :clinician
+    end
+  end
+end
+
+def find_or_create_role(name=:super_admin)
+  Role.find_by(name: name) || create(:role, name)
+end

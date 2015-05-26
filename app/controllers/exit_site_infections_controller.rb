@@ -1,7 +1,9 @@
 class ExitSiteInfectionsController < ApplicationController
 
-  before_action :load_patient, :only => [:new, :create, :show, :edit, :update]
-  before_action :load_exit_site_infection, :only => [:show, :edit, :update]
+  before_action :load_patient, only: [:new, :create, :show, :edit, :update]
+  before_action :load_exit_site_infection, only: [:show, :edit, :update]
+  # Cancancan authorization filter
+  load_and_authorize_resource
 
   def new
     @exit_site_infection = ExitSiteInfection.new

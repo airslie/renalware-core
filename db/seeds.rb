@@ -9,6 +9,19 @@ def maybe_value(value)
   value
 end
 
+def add_super_admin
+  log 'Adding default user...'
+  Rake::Task['users:add_user'].invoke
+end
+
+
+log 'Creating Roles...'
+super_admin_role = Role.find_or_create_by!(name: :super_admin)
+Role.find_or_create_by!(name: :admin)
+Role.find_or_create_by!(name: :clinician)
+
+add_super_admin if Rails.env.development?
+
 log 'Adding Drug types...'
 
 DrugType.find_or_create_by!(name: "Antibiotic")

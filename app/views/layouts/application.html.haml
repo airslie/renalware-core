@@ -14,13 +14,14 @@
   %body
     #wrapper.big-wrapper
 
-    = render partial: 'shared/main_navigation'
+    = render partial: 'navigation/main'
 
-    - if flash[:notice]
-      .row.flash-notice
-        .alert-box.info.round{:data => {:alert => nil}}
-          = flash[:notice]
-          <a href="#" class="close">&times;</a>
+    - flash.each do |name, msg|
+      - if flash[name]
+        .row{class: "flash-#{name}"}
+          .alert-box.info.round{:data => {:alert => nil}}
+            = msg
+            <a href="#" class="close">&times;</a>
 
     .main-content
 

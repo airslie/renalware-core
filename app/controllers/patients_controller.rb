@@ -1,4 +1,8 @@
 class PatientsController < ApplicationController
+
+  # Cancancan authorization filter
+  load_and_authorize_resource
+
   before_action :load_patient, :only => [:esrf_info, :pd_info, :death_update, :clinical_summary, :manage_medications, :problems, :modality,
     :medications_index, :demographics, :edit, :update]
 
@@ -42,7 +46,7 @@ class PatientsController < ApplicationController
   end
 
   def create
-    @patient = Patient.new(allowed_params)
+    @patient = Patient.new(patient_params)
     if @patient.save
       redirect_to demographics_patient_path(@patient), :notice => "You have successfully added a new patient."
     else
@@ -51,7 +55,7 @@ class PatientsController < ApplicationController
   end
 
   def update
-    if @patient.update(allowed_params)
+    if @patient.update(patient_params)
       redirect_to params[:redirect_url] || clinical_summary_patient_path(@patient),
       :notice => "You have successfully updated a patient."
     else
@@ -60,7 +64,7 @@ class PatientsController < ApplicationController
   end
 
   private
-  def allowed_params
+  def patient_params
     params.require(:patient).permit(:nhs_number, :local_patient_id, :surname,
       :forename, :sex, :ethnicity_id, :dob, :paediatric_patient_indicator, 
       :death_date, :first_edta_code_id, :second_edta_code_id, :death_details,

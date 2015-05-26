@@ -1,0 +1,23 @@
+.row
+  %h3 Update #{@user.full_name}
+
+.row
+  = form_for :user, url: admin_user_path(@user), method: :put do |f|
+    = f.hidden_field :approved, value: true
+
+    - if @user.errors.any?
+      #error_explanation
+        .alert.alert-error
+          %ul
+            - @user.errors.full_messages.each do |msg|
+              %li= msg
+
+    .row
+      - Role.all.each_with_index do |role, index|
+        - element_id = "user_role_ids_#{index}"
+        = check_box_tag 'user[role_ids][]', role.id, @user.has_role?(role.name), id: element_id, class: 'inline'
+        = label_tag element_id, role.name.humanize
+
+    .row
+      - msg = @user.approved? ? 'Update' : 'Approve'
+      = f.submit msg, class: 'button save'
