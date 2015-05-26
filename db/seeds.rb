@@ -64,10 +64,10 @@ file_path = Rails.root.join('db', 'csv', 'rw_ethnicities.csv')
 
 logcount=0
 CSV.foreach(file_path, headers: true) do |row|
-  ethnicity = row['ethnicity']
-  log "   ... adding #{ethnicity}"
+  name = row['name']
+  log "   ... adding #{name}"
   logcount += 1
-  PatientEventType.find_or_create_by!(name: ethnicity)
+  Ethnicity.find_or_create_by!(name: name)
 end
 
 log "...#{logcount} ethnicities seeded!"
