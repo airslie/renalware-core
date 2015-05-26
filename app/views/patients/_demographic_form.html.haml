@@ -28,11 +28,11 @@
           %ul.no-bullet
             %li
               = patient.label :sex, "Sex"
-              = patient.select(:sex, gender_options)
+              = patient.select(:sex, gender_options, { prompt: "Please select gender" })
 
             %li
               = patient.label :ethnicity_id, "Ethnicity"
-              = patient.collection_select(:ethnicity_id, Ethnicity.all, :id, :name)
+              = patient.collection_select(:ethnicity_id, Ethnicity.all, :id, :name, { prompt: "Please select ethnicity" })
 
         .large-6.columns
           = patient.label :dob, "DoB"
