@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
   before_filter :load_user, only: [:edit, :update]
 
   def index
-    @users = params[:approved] == 'false' ? User.where(approved: false) : User.all
+    @users = params[:approved] == 'false' ? User.unapproved : User.all
   end
 
   def update

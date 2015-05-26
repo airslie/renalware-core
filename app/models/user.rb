@@ -2,10 +2,12 @@ class User < ActiveRecord::Base
   include Deviseable
   include Permissible
 
-  validates_uniqueness_of :username
+  validates :username, presence: true, uniqueness: true
   validates_presence_of :first_name
   validates_presence_of :last_name
   validate :approval_with_roles
+
+  scope :unapproved, -> { where(approved: [nil, false]) }
 
   def full_name
     "#{first_name} #{last_name}"

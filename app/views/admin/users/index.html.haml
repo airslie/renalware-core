@@ -17,5 +17,5 @@
       - @users.each do |user|
         %tr
           %td= user.email
-          %td= user.approved
+          %td= user.approved?
           %td= link_to 'Edit', edit_admin_user_path(user), class: 'button tiny save'
