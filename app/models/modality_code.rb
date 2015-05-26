@@ -4,8 +4,14 @@ class ModalityCode < ActiveRecord::Base
   has_many :modalities
   has_many :patients, :through => :modalities
 
+  PD_NAMES = ['PD-APD', 'PD-CAPD', 'PD Rest on HD', 'PD-Assisted APD', 'PD-PrePD']
+
   def death?
     name == 'Death'
+  end
+
+  def pd_modality?
+    PD_NAMES.include?(name)
   end
 
 end
