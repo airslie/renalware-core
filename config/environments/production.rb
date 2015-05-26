@@ -1,5 +1,6 @@
 Rails.application.configure do
-  config.relative_url_root = ENV['RAILS_RELATIVE_URL_ROOT'] || "http://renalware.herokuapp.com/"
+  # Important for Devise redirects to and from login page.
+  config.relative_url_root = ENV['RAILS_RELATIVE_URL_ROOT'] || '/'
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
