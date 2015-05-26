@@ -12,7 +12,7 @@ class ExitSiteInfectionsController < ApplicationController
   end
 
   def create
-    @exit_site_infection = ExitSiteInfection.new(allowed_params)
+    @exit_site_infection = ExitSiteInfection.new(exit_site_infection_params)
     @exit_site_infection.patient_id = @patient.id
     if @exit_site_infection.save
       redirect_to pd_info_patient_path(@patient), :notice => "You have successfully added a peritonitis episode."
@@ -27,7 +27,7 @@ class ExitSiteInfectionsController < ApplicationController
   end
 
   def update
-    if @exit_site_infection.update(allowed_params)
+    if @exit_site_infection.update(exit_site_infection_params)
       redirect_to pd_info_patient_path(@patient),
       :notice => "You have successfully updated an exit site infection."
     else
@@ -36,7 +36,7 @@ class ExitSiteInfectionsController < ApplicationController
   end
 
   private
-  def allowed_params
+  def exit_site_infection_params
     params.require(:exit_site_infection).permit(:diagnosis_date, :treatment, :outcome, :notes,
       :infection_organisms_attributes => [:id, :organism_code_id, :sensitivity, :infectable_id, :infectable_type ],
       :medications_attributes => [:id, :patient_id, :treatable_id, :treatable_type, :medicatable_id, :medicatable_type,
