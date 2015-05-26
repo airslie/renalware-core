@@ -80,12 +80,7 @@
             = medication_and_route(p.medications)
 
         %td{:data => { :heading => "Notes" }, valign: "top" }
-          %dl.accordion{ data: { accordion: true } }
-            %dd.accordion-navigation
-              %a.toggle-info{ :id => "patient-peritonitis-toggle-#{p.id}", href: "#patient-peritonitis-toggle-#{p.id}" }
-                View
-              .content.toggle-content{ :id => "patient-peritonitis-toggle-#{p.id}" }
-                = p.notes
+          = p.notes
 
         %td{ :data => { :heading => "Last Updated" }, valign: "top" }
           = p.updated_at.strftime("%d/%m/%Y, %H:%M")
