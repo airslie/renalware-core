@@ -23,7 +23,7 @@
               Outcome:
 
             %p
-              = blank_unknown_data(@exit_site_infection.outcome)
+              = default_for_blank(@exit_site_infection.outcome, "Unknown")
 
           .large-12.columns
             .section-underliner.title-bold
@@ -38,7 +38,7 @@
             .section-underliner.title-bold
               Treatment:
             %p
-              = blank_unknown_data(@exit_site_infection.treatment)
+              = default_for_blank(@exit_site_infection.treatment, "Unknown")
 
           .large-12.columns
             .section-underliner.title-bold

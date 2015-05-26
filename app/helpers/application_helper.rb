@@ -10,9 +10,12 @@ module ApplicationHelper
     bool ? 'Yes' : 'No'
   end
 
-  #Data which is not using a foreign key
-  def blank_unknown_data(manage_data)
-    manage_data.blank? ? "Unknown" : manage_data
+  def default_for_associated(assoc, method, msg)
+    assoc.present? ? assoc.send(method) : msg
+  end
+
+  def default_for_blank(val, msg)
+    val.blank? ? msg : val
   end
 
   def medication_and_route(med_route)
