@@ -28,28 +28,13 @@
             = organisms(e.infection_organisms)
 
         %td{:data => { :heading => "Treatment" }, valign: "top" }
-          %dl.accordion{ data: { accordion: true } }
-            %dd.accordion-navigation
-              %a.toggle-info{ :id => "patient-exit-site-toggle-#{e.id}", href: "#patient-exit-site-toggle-#{e.id}" }
-                View
-              .content.toggle-content{ :id => "patient-exit-site-toggle-#{e.id}" }
-                = default_for_blank(e.treatment, "Unknown")
+          = default_for_blank(e.treatment, "Unknown")
 
         %td{ :data => { :heading => "Outcome" }, valign: "top" }
-          %dl.accordion{ data: { accordion: true } }
-            %dd.accordion-navigation
-              %a.toggle-info{ :id => "patient-exit-site-toggle-#{e.id}", href: "#patient-exit-site-toggle-#{e.id}" }
-                View
-              .content.toggle-content{ :id => "patient-exit-site-toggle-#{e.id}" }
-                = default_for_blank(e.outcome, "Unknown")
+          = default_for_blank(e.outcome, "Unknown")
 
         %td{ :data => { :heading => "Notes" }, valign: "top" }
-          %dl.accordion{ data: { accordion: true } }
-            %dd.accordion-navigation
-              %a.toggle-info{ :id => "patient-exit-site-toggle-#{e.id}", href: "#patient-exit-site-toggle-#{e.id}" }
-                View
-              .content.toggle-content{ :id => "patient-exit-site-toggle-#{e.id}" }
-                = e.notes
+          = e.notes
 
         %td{ :data => { :heading => "Antibiotics" }, valign: "top" }
           %ul.table-data-list
