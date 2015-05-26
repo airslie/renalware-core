@@ -40,7 +40,8 @@
         %td{ :data => { :heading => "Episode Type" }, valign: "top" }
           %ul.table-data-list
             %li
-              = p.episode_type.blank? ? "Episode Type: Unknown": "Episode Type: #{p.episode_type.term}"
+              Episode Type:
+              = default_for_associated(p.episode_type, :term, "Unknown")
             %li
               = "Catheter Removed: #{yes_no(p.catheter_removed)}"
 

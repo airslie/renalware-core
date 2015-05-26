@@ -33,7 +33,7 @@
               %a.toggle-info{ :id => "patient-exit-site-toggle-#{e.id}", href: "#patient-exit-site-toggle-#{e.id}" }
                 View
               .content.toggle-content{ :id => "patient-exit-site-toggle-#{e.id}" }
-                = blank_unknown_data(e.treatment)
+                = default_for_blank(e.treatment, "Unknown")
 
         %td{ :data => { :heading => "Outcome" }, valign: "top" }
           %dl.accordion{ data: { accordion: true } }
@@ -41,7 +41,7 @@
               %a.toggle-info{ :id => "patient-exit-site-toggle-#{e.id}", href: "#patient-exit-site-toggle-#{e.id}" }
                 View
               .content.toggle-content{ :id => "patient-exit-site-toggle-#{e.id}" }
-                = blank_unknown_data(e.outcome)
+                = default_for_blank(e.outcome, "Unknown")
 
         %td{ :data => { :heading => "Notes" }, valign: "top" }
           %dl.accordion{ data: { accordion: true } }
