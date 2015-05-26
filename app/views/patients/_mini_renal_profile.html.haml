@@ -1,7 +1,10 @@
 .row
   .renal-profile
-    = link_to "ESRF:", esrf_info_patient_path(@patient) 
+    = link_to "ESRF:", esrf_info_patient_path(@patient)
     = "#{@patient.esrf_info.blank? || @patient.esrf_info.new_record? ? " " : @patient.esrf_info.date}"
 
-    = link_to "PD info:", pd_info_patient_path(@patient) 
+    - if display_pd_menu(@patient.modalities.with_deleted)
+      = render partial: "patients/pd_menu", locals: { model: @patient }
+
+
 
