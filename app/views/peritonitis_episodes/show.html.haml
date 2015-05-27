@@ -7,7 +7,7 @@
 
 .row
   %h5
-    = "Peritonitis Episode Details - Diagnosed: #{@peritonitis_episode.diagnosis_date.strftime("%d/%m/%Y")}"
+    = "Peritonitis Episode Details - Diagnosed: #{@peritonitis_episode.diagnosis_date}"
 
 .row
   .large-12.columns
@@ -21,11 +21,11 @@
             %dt.title-bold
               Treatment Start Date:
             %dd
-              = @peritonitis_episode.treatment_start_date.strftime("%d/%m/%Y")
+              = @peritonitis_episode.treatment_start_date
             %dt.title-bold
               Treatment End Date:
             %dd
-              = @peritonitis_episode.treatment_end_date.strftime("%d/%m/%Y")
+              = default_for_blank(@peritonitis_episode.treatment_end_date, "Pending")
 
         .row
           .large-12.columns
@@ -36,7 +36,7 @@
               %ul
                 %li
                   Episode Type:
-                  = @peritonitis_episode.episode_type.blank? ? "Unknown" : @peritonitis_episode.episode_type.term
+                  = default_for_associated(@peritonitis_episode.episode_type, :term, "Unknown")
                 %li
                   = "Catheter Removed: #{yes_no(@peritonitis_episode.catheter_removed)}"
 
@@ -98,7 +98,7 @@
 
       .large-12.columns.button-padding
         = link_to "Edit", edit_patient_peritonitis_episode_path(@patient, @peritonitis_episode.id), class: "tiny button right"
-        = link_to "Back", pd_info_patient_path(@patient), class: "button tiny left cancel"
+        = link_to "Return to PD info", pd_info_patient_path(@patient), class: "button tiny left cancel"
 
 .wide-screen
   = content_for :secondary_nav do

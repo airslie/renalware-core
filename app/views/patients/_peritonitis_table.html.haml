@@ -29,13 +29,13 @@
       %tr{ valign: "top" }
 
         %td{ :data => { :heading => "Diagnosis Date" }, valign: "top" }
-          = p.diagnosis_date.strftime("%d/%m/%Y")
+          = p.diagnosis_date
 
         %td{ :data => { :heading => "Start Treatment Date" }, valign: "top" }
-          = p.treatment_start_date.strftime("%d/%m/%Y")
+          = p.treatment_start_date
 
         %td{ :data => { :heading => "End Treatment Date" }, valign: "top" }
-          = p.treatment_end_date.strftime("%d/%m/%Y")
+          = default_for_blank(p.treatment_end_date, "Pending")
 
         %td{ :data => { :heading => "Episode Type" }, valign: "top" }
           %ul.table-data-list
@@ -83,7 +83,7 @@
           = p.notes
 
         %td{ :data => { :heading => "Last Updated" }, valign: "top" }
-          = p.updated_at.strftime("%d/%m/%Y, %H:%M")
+          = p.updated_at
 
         %td{ :data => { :heading => "Action" }, valign: "top" }
           %ul.table-data-list
