@@ -17,6 +17,10 @@ class User < ActiveRecord::Base
     "#{last_name}, #{first_name}"
   end
 
+  def read_only?
+    has_role?(:read_only)
+  end
+
   # @section services
   #
   def approve
