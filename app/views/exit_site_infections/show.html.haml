@@ -7,13 +7,13 @@
 
 .row
   %h5
-    = "Exit Site Infection Details - Diagnosed: #{@exit_site_infection.diagnosis_date.strftime("%d/%m/%Y")}"
+    = "Exit Site Infection Details - Diagnosed: #{@exit_site_infection.diagnosis_date}"
 
 .row
   .large-12.columns
     = field_set_tag do
       %legend.title-bold
-        = "Last Updated: #{@exit_site_infection.updated_at.strftime("%d/%m/%Y, %H:%M")}"
+        = "Last Updated: #{@exit_site_infection.updated_at}"
 
       .large-6.columns
 
