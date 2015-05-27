@@ -1,14 +1,14 @@
 %tr
-  %td{:data => { :heading => "Added" }}
+  %td{ :data => { :heading => "Added" } }
     = patient_event.created_at
-  %td{:data => { :heading => "Event Type"}}
+  %td{ :data => { :heading => "Event Type" } }
     = patient_event.patient_event_type.name
-  %td{:data => { :heading => "Description"}}
-    %dl.accordion{data: {accordion: true} }
+  %td{ :data => { :heading => "Description" } }
+    %dl.accordion{ data: { accordion: true} }
       %dd.accordion-navigation
-        %a.fi-plus.fi-minus.toggle-info{:id => "patient-event-notes-#{patient_event.id}", href: "#patient-event-notes-#{patient_event.id}"}
+        %a.fi-plus.fi-minus.toggle-info{ :id => "patient-event-notes-#{patient_event.id}", href: "#patient-event-notes-#{patient_event.id}" }
           = patient_event.description
-        .content.toggle-content{:id => "patient-event-notes-#{patient_event.id}"}
+        .content.toggle-content{ :id => "patient-event-notes-#{patient_event.id}" }
           = patient_event.notes
-  %td{:data => { :heading => "Date/Time"}}
+  %td{ :data => { :heading => "Date/Time" } }
     = patient_event.date_time
