@@ -9,6 +9,9 @@ FactoryGirl.define do
     trait :clinician do
       name :clinician
     end
+    trait :read_only do
+      name :read_only
+    end
   end
 end
 

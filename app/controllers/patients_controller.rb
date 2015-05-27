@@ -1,7 +1,7 @@
 class PatientsController < ApplicationController
 
   # Cancancan authorization filters
-  skip_authorize_resource only: [:esrf_info, :pd_info, :clinical_summary, :manage_medications, :demographics]
+  skip_authorize_resource only: [:clinical_summary, :demographics, :esrf_info, :manage_medications, :pd_info, :problems]
   load_and_authorize_resource
 
   before_action :load_patient, only: [:esrf_info, :pd_info, :death_update, :clinical_summary, :manage_medications, :problems,
