@@ -3,15 +3,15 @@
     %th.column-6-width
       Diagnosis Date
     %th
+      Outcome
+    %th
       Organisms
     %th
       Treatment
     %th
-      Outcome
+      Antibiotics
     %th
       Notes
-    %th
-      Antibiotics
     %th.column-6-width
       Last Updated
     %th
@@ -23,6 +23,9 @@
         %td{ :data => { :heading => "Diagnosis Date" }, valign: "top" }
           = e.diagnosis_date.strftime("%d/%m/%Y")
 
+        %td{ :data => { :heading => "Outcome" }, valign: "top" }
+          = default_for_blank(e.outcome, "Unknown")
+
         %td{ :data => { :heading => "Organisms" }, valign: "top" }
           %ul.table-data-list
             = organisms(e.infection_organisms)
@@ -30,15 +33,12 @@
         %td{:data => { :heading => "Treatment" }, valign: "top" }
           = default_for_blank(e.treatment, "Unknown")
 
-        %td{ :data => { :heading => "Outcome" }, valign: "top" }
-          = default_for_blank(e.outcome, "Unknown")
-
-        %td{ :data => { :heading => "Notes" }, valign: "top" }
-          = e.notes
-
         %td{ :data => { :heading => "Antibiotics" }, valign: "top" }
           %ul.table-data-list
             = medication_and_route(e.medications)
+
+        %td{ :data => { :heading => "Notes" }, valign: "top" }
+          = e.notes
 
         %td{ :data => { :heading => "Last Updated" }, valign: "top" }
 
