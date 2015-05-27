@@ -570,7 +570,7 @@ Then(/^the new medication should be displayed on the updated peritonitis form$/)
   expect(page).to have_content("5mg")
   expect(page).to have_content("IV")
   expect(page).to have_content("PID")
-  expect(page).to have_content("2015-02-28")
+  expect(page).to have_content("28/02/2015")
 end
 
 Then(/^the new medication should be displayed on the updated exit site form$/) do
@@ -580,7 +580,7 @@ Then(/^the new medication should be displayed on the updated exit site form$/) d
   expect(page).to have_content("10mg")
   expect(page).to have_content("PO")
   expect(page).to have_content("Twice a week")
-  expect(page).to have_content("2015-04-10")
+  expect(page).to have_content("10/04/2015")
 end
 
 Then(/^the recorded organism and sensitivity should be displayed on the updated peritonitis form$/) do
