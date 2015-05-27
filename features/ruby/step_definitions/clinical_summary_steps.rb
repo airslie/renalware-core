@@ -304,7 +304,7 @@ Then(/^I should see the patient's current death modality and set date in index$/
   visit patient_modalities_path(@patient_1)
 
   expect(page).to have_content("Death")
-  expect(page).to have_content("2015-04-01")
+  expect(page).to have_content("01/04/2015")
 end
 
 Then(/^I can view the deceased patient's causes of death$/) do
