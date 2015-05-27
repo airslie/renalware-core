@@ -19,6 +19,7 @@ log 'Creating Roles...'
 super_admin_role = Role.find_or_create_by!(name: :super_admin)
 Role.find_or_create_by!(name: :admin)
 Role.find_or_create_by!(name: :clinician)
+Role.find_or_create_by!(name: :read_only)
 
 add_super_admin if Rails.env.development?
 

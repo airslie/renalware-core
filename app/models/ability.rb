@@ -35,6 +35,7 @@ class Permission < Struct.new(:role, :ability, :models)
   def self.all
     [ Permission.new(:super_admin, :manage, :all),
       Permission.new(:admin, :manage, admin_models),
-      Permission.new(:clinician, :manage, CLINICAL_MODELS) ]
+      Permission.new(:clinician, :manage, CLINICAL_MODELS),
+      Permission.new(:read_only, :read, :all)]
   end
 end
