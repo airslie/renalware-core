@@ -1,9 +1,10 @@
-%li.has-dropdown
-  = link_to "Admin", patients_path
-  %ul.dropdown
-    %li
-      = link_to "Manage Patient Event Types", patient_event_types_path
-    %li
-      = link_to "Manage Drugs", drugs_path
-    %li
-      = link_to "Manage Modalities", modality_codes_path
+%ul.right.large-2.columns
+  %li.has-dropdown
+    = link_to "Admin", patients_path
+    %ul.dropdown
+      %li
+        = link_to "Manage Patient Event Types", patient_event_types_path
+      %li
+        = link_to "Manage Drugs", drugs_path
+      %li
+        = link_to "Manage Modalities", modality_codes_path
