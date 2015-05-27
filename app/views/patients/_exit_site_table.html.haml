@@ -21,7 +21,7 @@
     - @exit_site_infections.each do |e|
       %tr{ valign: "top" }
         %td{ :data => { :heading => "Diagnosis Date" }, valign: "top" }
-          = e.diagnosis_date.strftime("%d/%m/%Y")
+          = e.diagnosis_date
 
         %td{ :data => { :heading => "Outcome" }, valign: "top" }
           = default_for_blank(e.outcome, "Unknown")
@@ -41,8 +41,7 @@
           = e.notes
 
         %td{ :data => { :heading => "Last Updated" }, valign: "top" }
-
-          = e.updated_at.strftime("%d/%m/%Y, %H:%M")
+          = e.updated_at
 
         %td{ :data => { :heading => "Action" }, valign: "top" }
           %ul.table-data-list
