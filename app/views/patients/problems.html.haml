@@ -60,7 +60,7 @@
         %dl.accordion{data: {accordion: true} }
           %dd.accordion-navigation.med-form
             %a.fi-plus.fi-minus.toggle-info{ class: "problem", href: "#edit-probs-#{pb.object.id}" }
-              = "#{pb.object.description}, #{pb.object.created_at.strftime("%d/%m/%Y")}"
+              = "#{pb.object.description}, #{pb.object.created_at}"
               .right.edit
                 Edit
 
