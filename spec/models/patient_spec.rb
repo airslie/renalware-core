@@ -7,11 +7,11 @@ describe Patient, :type => :model do
   it { should have_one(:modality_code).through(:current_modality) }
 
   it { should accept_nested_attributes_for(:esrf_info) }
-  it { should accept_nested_attributes_for(:patient_problems) }
+  it { should accept_nested_attributes_for(:problems) }
 
   it { should have_many :exit_site_infections }
   it { should have_many :peritonitis_episodes }
-  it { should have_many :patient_problems }
+  it { should have_many :problems }
   it { should have_many :peritonitis_episodes }
   it { should have_many :exit_site_infections }
   it { should have_many :medications }

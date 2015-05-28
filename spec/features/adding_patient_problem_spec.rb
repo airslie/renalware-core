@@ -16,6 +16,6 @@ feature 'Patient problems' do
     click_on 'Save Problems'
 
     expect(page).to have_css("dl.accordion dd.accordion-navigation a", text: 'a description')
-    expect(@patient.reload.patient_problems.last.snomed_id).to eq('824516018')
+    expect(@patient.reload.problems.last.snomed_id).to eq('824516018')
   end
 end

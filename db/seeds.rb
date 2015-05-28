@@ -242,7 +242,7 @@ CSV.foreach(file_path, headers: true) do |row|
   snomed_id = row['snomed_id ']
   log "   ... adding #{snomed_id}: #{description} from #{date}"
   logcount += 1
-  PatientProblem.create(
+  Problem.create(
     patient_id: 1,
     description: description,
     date: date,

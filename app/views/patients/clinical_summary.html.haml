@@ -12,10 +12,10 @@
 .wide-screen
   .columns.large-6
     %h5.g-center
-      = link_to "#{@patient.patient_problems.length} Problems", problems_patient_path(@patient)
+      = link_to "#{@patient.problems.length} Problems", problems_patient_path(@patient)
 
     %ul.no-bullet
-      - @patient.patient_problems.each do |p|
+      - @patient.problems.each do |p|
 
         %li
           = "#{p.description}, #{p.created_at.strftime("%d/%m/%Y")}"

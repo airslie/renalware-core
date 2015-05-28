@@ -6,7 +6,7 @@
   %dd{role: "menuitem"}
     = link_to "Modal", patient_modalities_path(@patient), title: "Patient Modality"
   %dd{role: "menuitem"}
-    = link_to "Problems (#{@patient.patient_problems.length})", problems_patient_path(@patient), title: "Manage Problems"
+    = link_to "Problems (#{@patient.problems.length})", problems_patient_path(@patient), title: "Manage Problems"
   %dd{role: "menuitem"}
     = link_to "Meds (#{@patient.medications.length})", manage_medications_patient_path(@patient), title: "Manage Medications"
   %dd{role: "menuitem"}
