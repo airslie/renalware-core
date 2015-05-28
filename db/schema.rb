@@ -226,7 +226,8 @@ ActiveRecord::Schema.define(version: 20150604153421) do
     t.string   "local_patient_id"
     t.string   "surname"
     t.string   "forename"
-    t.date     "dob"
+    t.date     "birth_date"
+    t.date     "death_date"
     t.boolean  "paediatric_patient_indicator"
     t.integer  "sex"
     t.integer  "ethnicity_id"
@@ -238,10 +239,6 @@ ActiveRecord::Schema.define(version: 20150604153421) do
     t.string   "primary_esrf_centre"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "death_date"
-    t.integer  "first_edta_code_id"
-    t.integer  "second_edta_code_id"
-    t.text     "death_details"
   end
 
   create_table "peritonitis_episodes", force: :cascade do |t|
