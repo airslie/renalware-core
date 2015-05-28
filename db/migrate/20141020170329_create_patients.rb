@@ -6,7 +6,6 @@ class CreatePatients < ActiveRecord::Migration
       t.string :surname
       t.string :forename
       t.date :birth_date
-      t.date :death_date
       t.boolean :paediatric_patient_indicator
       t.integer :sex
       t.integer :ethnicity_id
@@ -16,6 +15,10 @@ class CreatePatients < ActiveRecord::Migration
       t.string :pct_org_code
       t.string :hosp_centre_code
       t.string :primary_esrf_centre
+      t.date :death_date
+      t.integer :first_edta_code_id
+      t.integer :second_edta_code_id
+      t.text :death_details
       t.timestamps
     end
   end
