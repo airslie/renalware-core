@@ -15,6 +15,12 @@ describe User, :type => :model do
     expect(build(:user)).not_to be_approved
   end
 
+  describe 'read_only?' do
+    it 'denotes a user with the read_only role' do
+      expect(create(:user, :read_only)).to be_read_only
+    end
+  end
+
   describe 'authorise!' do
     subject { build(:user) }
 

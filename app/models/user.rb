@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
     end
 
     # TODO This should use ActiveJob's deliver_later method in a background process.
-    # Currently not using a worker process because Heroku.
+    # Currently not using a worker process because Heroku charges for worker processes.
     Admin::UserMailer.approval(self).deliver_now if notify
     true
 
