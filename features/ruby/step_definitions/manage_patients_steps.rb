@@ -13,7 +13,7 @@ Given(/^some patients who need renal treatment$/) do
     :local_patient_id => "Z999991",
     :surname => "RABBIT",
     :forename => "Roger",
-    :dob => "01/01/1947",
+    :birth_date => "01/01/1947",
     :paediatric_patient_indicator => "1",
     :sex => 1,
     :ethnicity_id => Ethnicity.first.id,
@@ -25,7 +25,7 @@ Given(/^some patients who need renal treatment$/) do
     :local_patient_id => "Z999992",
     :surname => "DAY",
     :forename => "Doris",
-    :dob => "24/06/1970",
+    :birth_date => "24/06/1970",
     :paediatric_patient_indicator => "1",
     :sex => 2,
     :ethnicity_id => Ethnicity.second.id,
@@ -37,7 +37,7 @@ Given(/^some patients who need renal treatment$/) do
     :local_patient_id => "Z999993",
     :surname => "CASPER",
     :forename => "Ghost",
-    :dob => "28/02/1930",
+    :birth_date => "28/02/1930",
     :paediatric_patient_indicator => "1",
     :sex => 1,
     :ethnicity_id => Ethnicity.third.id,
@@ -63,13 +63,13 @@ When(/^I complete the add a new patient form$/) do
 
   select "White", from: "Ethnicity"
 
-  within "#patient_dob_1i" do
+  within "#patient_birth_date_1i" do
     select '1960'
   end
-  within "#patient_dob_2i" do
+  within "#patient_birth_date_2i" do
     select 'January'
   end
-  within "#patient_dob_3i" do
+  within "#patient_birth_date_3i" do
     select '1'
   end
 
@@ -93,7 +93,7 @@ When(/^I complete the add a new patient form$/) do
     fill_in "Postcode", :with => Faker::AddressUK.postcode
   end
 
-  click_on "Save a New Renal Patient"  
+  click_on "Save a New Renal Patient"
 end
 
 When(/^I update the patient's demographics$/) do

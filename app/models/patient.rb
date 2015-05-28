@@ -37,7 +37,7 @@ class Patient < ActiveRecord::Base
   validates :forename, presence: true
   validates :local_patient_id, presence: true, uniqueness: true
   validates :sex, presence: true
-  validates :dob, presence: true
+  validates :birth_date, presence: true
 
   enum sex: { not_known: 0, male: 1, female: 2, not_specified: 9 }
 
@@ -47,7 +47,7 @@ class Patient < ActiveRecord::Base
 
   def age
     now = Time.now.utc.to_date
-    now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
+    now.year - birth_date.year - ((now.month > birth_date.month || (now.month == birth_date.month && now.day >= birth_date.day)) ? 0 : 1)
   end
 
   # @section services
