@@ -204,30 +204,6 @@ ActiveRecord::Schema.define(version: 20150520085606) do
     t.integer  "patient_id"
   end
 
-  create_table "patient_problem_versions", force: :cascade do |t|
-    t.string   "item_type",      null: false
-    t.integer  "item_id",        null: false
-    t.string   "event",          null: false
-    t.string   "whodunnit"
-    t.text     "object"
-    t.text     "object_changes"
-    t.datetime "created_at"
-  end
-
-  add_index "patient_problem_versions", ["item_type", "item_id"], name: "index_patient_problem_versions_on_item_type_and_item_id", using: :btree
-
-  create_table "patient_problems", force: :cascade do |t|
-    t.integer  "patient_id"
-    t.string   "description"
-    t.date     "date"
-    t.datetime "deleted_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "snomed_id"
-  end
-
-  add_index "patient_problems", ["deleted_at"], name: "index_patient_problems_on_deleted_at", using: :btree
-
   create_table "patients", force: :cascade do |t|
     t.string   "nhs_number"
     t.string   "local_patient_id"
@@ -280,6 +256,30 @@ ActiveRecord::Schema.define(version: 20150520085606) do
     t.datetime "updated_at"
   end
 
+  create_table "problem_versions", force: :cascade do |t|
+    t.string   "item_type",      null: false
+    t.integer  "item_id",        null: false
+    t.string   "event",          null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.text     "object_changes"
+    t.datetime "created_at"
+  end
+
+  add_index "problem_versions", ["item_type", "item_id"], name: "index_problem_versions_on_item_type_and_item_id", using: :btree
+
+  create_table "problems", force: :cascade do |t|
+    t.integer  "patient_id"
+    t.string   "description"
+    t.date     "date"
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "snomed_id"
+  end
+
+  add_index "problems", ["deleted_at"], name: "index_problems_on_deleted_at", using: :btree
+
   create_table "roles", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -292,19 +292,19 @@ ActiveRecord::Schema.define(version: 20150520085606) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "approved"
+    t.boolean  "approved",               default: false
     t.string   "username"
     t.string   "first_name"
     t.string   "last_name"

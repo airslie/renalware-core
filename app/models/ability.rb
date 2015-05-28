@@ -25,7 +25,7 @@ class Permission < Struct.new(:role, :ability, :models)
                   PatientEventType, PrdCode]
 
   CLINICAL_MODELS = [ExitSiteInfection, Medication, Modality, Patient,
-                     PatientEvent, PatientProblem, PeritonitisEpisode]
+                     PatientEvent, Problem, PeritonitisEpisode]
 
 
   def self.admin_models

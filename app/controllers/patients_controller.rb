@@ -38,7 +38,7 @@ class PatientsController < ApplicationController
   end
 
   def problems
-    @patient.patient_problems.build
+    @patient.problems.build
   end
 
   def new
@@ -74,7 +74,7 @@ class PatientsController < ApplicationController
       :patient_event_attributes => [:date_time, :description, :notes, :patient_event_type_id, :patient_id],
       :medications_attributes => [:id, :medicatable_id, :medicatable_type, :dose, :medication_route_id,
       :frequency, :notes, :date, :provider, :_destroy], 
-      :patient_problems_attributes => [:id, :patient_id, :snomed_id, :description, :date, :user_id, :deleted_at, :_destroy],
+      :problems_attributes => [:id, :patient_id, :snomed_id, :description, :date, :user_id, :deleted_at, :_destroy],
       :esrf_info_attributes => [:id, :patient_id, :user_id, :date, :prd_code_id]
       )
   end
