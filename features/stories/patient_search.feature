@@ -14,12 +14,12 @@ Feature: Search for a patient
     When I search for a patient with "Z999991"
     Then the following patients are found: "RABBIT, R"
 
-  Scenario: A clinician searches for a patient by forename
-    When I search for a patient with "Rog"
+  Scenario: A clinician searches for a patient by partial surname and forename
+    When I search for a patient with "rabb r"
     Then the following patients are found: "RABBIT, R"
 
   Scenario: A clinician searches for a patient by surname
-    When I search for a patient with "Ghost"
+    When I search for a patient with "casper"
     Then the following patients are found: "CASPER, G"
 
   Scenario: A clinician searches for a patient by NHS number
