@@ -7,13 +7,13 @@
 
 .row
   %h5
-    = "Exit Site Infection Details - Diagnosed: #{@exit_site_infection.diagnosis_date.strftime("%d/%m/%Y")}"
+    = "Exit Site Infection Details - Diagnosed: #{@exit_site_infection.diagnosis_date}"
 
 .row
   .large-12.columns
     = field_set_tag do
       %legend.title-bold
-        = "Last Updated: #{@exit_site_infection.updated_at.strftime("%d/%m/%Y, %H:%M")}"
+        = "Last Updated: #{@exit_site_infection.updated_at}"
 
       .large-6.columns
 
@@ -55,7 +55,7 @@
       .large-12.columns.button-padding
         = link_to "Edit", edit_patient_exit_site_infection_path(@patient, @exit_site_infection.id), class: "tiny button right"
 
-        = link_to "Back", pd_info_patient_path(@patient), class: "button tiny left cancel"
+        = link_to "Return to PD info", pd_info_patient_path(@patient), class: "button tiny left cancel"
 
 
 .wide-screen

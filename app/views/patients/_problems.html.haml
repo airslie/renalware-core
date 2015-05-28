@@ -5,13 +5,12 @@
     Date
 
 %tbody
-  - @patient.problems.each do |p|   
+  - @patient.problems.each do |p|
     %tr{:class => "problem"}
       %td{:data => { :heading => "Problem" }}
-        = p.description 
+        = p.description
       %td{:data => { :heading => "Date" }}
-        = p.created_at.strftime("%d/%m/%Y")
+        = p.created_at
       %td{:data => { :heading => "Date" }}
 
-      
-      
+

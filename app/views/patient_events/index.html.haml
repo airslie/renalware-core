@@ -17,16 +17,12 @@
       %th
         Description
       %th
-        Date
-      %th
-        Time
-      %th
-        Entered By
+        Date/Time
 
     %tbody
       = render @patient_events
 
 .wide-screen
-  = content_for :secondary_nav do  
+  = content_for :secondary_nav do
     = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
 

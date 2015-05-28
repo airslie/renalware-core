@@ -43,10 +43,10 @@
       .large-3.columns
         %dl
           %dt Date of Birth:
-          %dd= @patient.dob.strftime("%d/%m/%Y")
+          %dd= @patient.dob
 
           %dt Date of Death:
-          %dd= @patient.death_date.blank? ? "N/A" : @patient.death_date.strftime("%d/%m/%Y")
+          %dd= @patient.death_date.blank? ? "N/A" : @patient.death_date
 
           - if @patient.death_date.present? && @patient.first_edta_code_id.blank?
             .alert_text

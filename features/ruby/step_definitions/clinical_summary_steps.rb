@@ -187,6 +187,7 @@ end
 Then(/^they should see the new patient event on the clinical summary$/) do
   %w(01/01/2011 Telephone call Spoke to son ).each do |heading|
     expect(page).to have_content(heading), "Expected #{heading} to be in the view"
+    expect(page).to have_content("01/01/2011, 11:30")
   end
 end
 
@@ -304,7 +305,7 @@ Then(/^I should see the patient's current death modality and set date in index$/
   visit patient_modalities_path(@patient_1)
 
   expect(page).to have_content("Death")
-  expect(page).to have_content("2015-04-01")
+  expect(page).to have_content("01/04/2015")
 end
 
 Then(/^I can view the deceased patient's causes of death$/) do
