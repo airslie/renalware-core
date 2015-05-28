@@ -66,7 +66,7 @@ CSV.foreach(file_path, headers: true) do |row|
   eventtype = row['eventtype']
   log "   ... adding #{eventtype}"
   logcount += 1
-  PatientEventType.find_or_create_by!(name: eventtype)
+  EventType.find_or_create_by!(name: eventtype)
 end
 
 log "...#{logcount} eventtypes seeded!"
@@ -253,26 +253,26 @@ log "...#{logcount} problems seeded!"
 
 log 'Adding RABBIT events...'
 
-PatientEvent.create(
+Event.create(
   patient_id: 1,
-  patient_event_type_id: 19,
+  event_type_id: 19,
   description: "meeting with family in clinic",
   notes: "anxious about medication changes",
   date_time: Time.now - 2.weeks
 )
 
 
-PatientEvent.create(
+Event.create(
   patient_id: 1,
-  patient_event_type_id: 25,
+  event_type_id: 25,
   description: "call regarding meds",
   notes: "told patient to get other drug info from GP",
   date_time: Time.now - 12.days
 )
 
-PatientEvent.create(
+Event.create(
   patient_id: 1,
-  patient_event_type_id: 8,
+  event_type_id: 8,
   description: "email re next clinic visit",
   notes: "reminded patient to bring complete drug list to clinic",
   date_time: Time.now - 5.days

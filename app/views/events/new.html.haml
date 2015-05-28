@@ -5,9 +5,9 @@
 
     %h5 Add a New Patient Event
  
-= render partial: "shared/errors", locals: { model: @patient_event }
+= render partial: "shared/errors", locals: { model: @event }
 
-= form_for [@patient, @patient_event], :method => :post do |f|
+= form_for [@patient, @event], :method => :post do |f|
 
   .row
     =field_set_tag do
@@ -17,14 +17,14 @@
           = f.datetime_select(:date_time, { start_year: (5.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
 
           %li
-            = f.label :patient_event_type_id, "Patient Event Type"
-            = f.collection_select(:patient_event_type_id, PatientEventType.all, :id, :name )
+            = f.label :event_type_id, "Patient Event Type"
+            = f.collection_select(:event_type_id, EventType.all, :id, :name )
 
           %li
             = f.label :description, "Description"
             = f.text_field :description
-        
-        .large-6.columns 
+
+        .large-6.columns
           %li
             = f.label :notes, "Notes"
             = f.text_area(:notes, :cols => 50, :rows => 11)

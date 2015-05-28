@@ -56,20 +56,20 @@ end
 
 When(/^complete the patient event form$/) do
 
-  within "#patient_event_date_time_3i" do
+  within "#event_date_time_3i" do
     select '1'
   end
-  within "#patient_event_date_time_2i" do
+  within "#event_date_time_2i" do
     select 'January'
   end
-  within "#patient_event_date_time_1i" do
+  within "#event_date_time_1i" do
     select '2011'
   end
 
-  within "#patient_event_date_time_4i" do
+  within "#event_date_time_4i" do
     select '11'
   end
-  within "#patient_event_date_time_5i" do
+  within "#event_date_time_5i" do
     select '30'
   end
 
@@ -185,7 +185,7 @@ When(/^they terminate a medication$/) do
 end
 
 Then(/^they should see the new patient event on the clinical summary$/) do
-  %w(01/01/2011, 11:30 Telephone call Spoke to son ).each do |heading|
+  %w(11:30 Telephone call Spoke to son ).each do |heading|
     expect(page).to have_content(heading), "Expected #{heading} to be in the view"
   end
 end

@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     collection do
       get :death
     end
-    resources :patient_events, only: [:new, :create, :index]
+    resources :events, only: [:new, :create, :index]
     resources :modalities, only: [:new, :create, :index]
     resources :peritonitis_episodes, only: [:new, :create, :show, :edit, :update]
     resources :exit_site_infections, only: [:new, :create, :show, :edit, :update]
@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   # TODO - This will probably change in future
   root to: "patients#index"
 
-  resources :patient_event_types, except: [:show]
+  resources :event_types, except: [:show]
 
   resources :drugs, except: [:show] do
     collection do

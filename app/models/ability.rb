@@ -22,10 +22,10 @@ class Permission < Struct.new(:role, :ability, :models)
   ADMIN_MODELS = [Address, Drug, DrugType, EdtaCode, EpisodeType, EsrfInfo,
                   FluidDescription, InfectionOrganism, MedicationRoute,
                   ModalityCode, ModalityReason, OrganismCode,
-                  PatientEventType, PrdCode]
+                  EventType, PrdCode]
 
   CLINICAL_MODELS = [ExitSiteInfection, Medication, Modality, Patient,
-                     PatientEvent, Problem, PeritonitisEpisode]
+                     Event, Problem, PeritonitisEpisode]
 
 
   def self.admin_models
