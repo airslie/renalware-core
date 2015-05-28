@@ -187,6 +187,7 @@ end
 Then(/^they should see the new patient event on the clinical summary$/) do
   %w(01/01/2011 Telephone call Spoke to son ).each do |heading|
     expect(page).to have_content(heading), "Expected #{heading} to be in the view"
+    expect(page).to have_content("01/01/2011, 11:30")
   end
 end
 
