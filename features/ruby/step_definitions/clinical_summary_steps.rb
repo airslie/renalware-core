@@ -340,10 +340,6 @@ Then(/^should see this terminated medication in their medications history$/) do
   expect(page).to have_content?("Blue")
 end
 
-Then(/^be able to view notes through toggling the description data\.$/) do
-  expect(page).to have_content("Wants to arrange a home visit")
-end
-
 Then(/^I should see a patient's modality on their clinical summary$/) do
    expect(page).to have_content("Modal One")
 end
