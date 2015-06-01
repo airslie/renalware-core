@@ -22,6 +22,37 @@ describe Patient, :type => :model do
   it { should have_many(:peritonitis_episodes).through(:medications).source(:treatable) }
   it { should have_many(:medication_routes).through(:medications) }
 
+  it { should validate_presence_of :nhs_number }
+  it { should validate_uniqueness_of :nhs_number }
+  it { should ensure_length_of(:nhs_number).is_at_least(10) }
+  it { should ensure_length_of(:nhs_number).is_at_most(10) }
+
+  it { should validate_presence_of :surname }
+  it { should validate_presence_of :forename }
+
+  it { should validate_presence_of :local_patient_id }
+  it { should validate_uniqueness_of :local_patient_id }
+
+  it { should validate_presence_of :sex }
+  it { should validate_presence_of :birth_date }
+
+  describe "current modality death" do
+    subject { create(:patient) }
+
+    context "if current modality is death" do
+      before { subject.stub(:current_modality_death?) { true } }
+      it { expect(subject).to validate_presence_of(:death_date) }
+      it { expect(subject).to validate_presence_of(:first_edta_code_id) }
+    end
+
+    context "if current modality is not death" do
+      before { subject.stub(:current_modality_death?) { false } }
+      it { expect(subject).not_to validate_presence_of(:death_date) }
+      it { expect(subject).not_to validate_presence_of(:first_edta_code_id) }
+    end
+
+  end
+
   describe "updating with nested attributes containing _destroy" do
     it "should soft delete the associated record" do
       @patient = FactoryGirl.create(:patient)
@@ -47,6 +78,7 @@ describe Patient, :type => :model do
         expect(subject.modalities).not_to be_empty
       end
     end
+
     context 'given the patient has an existing modality' do
       before do
         @modality = create(:modality)
@@ -54,14 +86,18 @@ describe Patient, :type => :model do
         subject.set_modality(start_date: Date.parse('2015-04-17'))
         subject.reload
       end
+
       it 'supersedes the existing modality' do
         expect(@modality.reload.termination_date).to eq(Date.parse('2015-04-17'))
         expect(subject.current_modality).not_to eq(@modality)
       end
+
       it 'sets a new modality for the patient' do
         expect(subject.current_modality.start_date).to eq(Date.parse('2015-04-17'))
         expect(subject.current_modality.termination_date).to be_nil
       end
     end
+
   end
+
 end

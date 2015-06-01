@@ -39,6 +39,11 @@ class Patient < ActiveRecord::Base
   validates :sex, presence: true
   validates :birth_date, presence: true
 
+  with_options if: :current_modality_death?, on: :update do |death|
+    death.validates :death_date, presence: true
+    death.validates :first_edta_code_id, presence: true
+  end
+
   enum sex: { not_known: 0, male: 1, female: 2, not_specified: 9 }
 
   def full_name
@@ -61,4 +66,11 @@ class Patient < ActiveRecord::Base
       end
     )
   end
+
+  def current_modality_death?
+    if self.current_modality.present?
+      self.current_modality.modality_code.death?
+    end
+  end
+
 end
