@@ -1,13 +1,10 @@
-.main-content
-  .row.g-center
+.wide-screen
+  .columns.large-12
     = render partial: "patients/patient_info_header", locals: { model: @patient }
-
-  .row
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
-.row
-  %h5
-    = "Peritonitis Episode Details - Diagnosed: #{@peritonitis_episode.diagnosis_date}"
+    %h5
+      = "Peritonitis Episode Details - Diagnosed: #{@peritonitis_episode.diagnosis_date.strftime("%d/%m/%Y")}"
 
 .row
   .large-12.columns
@@ -99,9 +96,4 @@
 
       .large-12.columns.button-padding
         = link_to "Edit", edit_patient_peritonitis_episode_path(@patient, @peritonitis_episode.id), class: "tiny button right"
-        = link_to "Return to PD info", pd_info_patient_path(@patient), class: "button tiny left cancel"
-
-.wide-screen
-  = content_for :secondary_nav do
-    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
-
+        = link_to "Back", pd_info_patient_path(@patient), class: "button tiny left cancel"

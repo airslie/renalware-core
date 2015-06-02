@@ -1,13 +1,9 @@
-.main-content
-  .row.g-center
+.wide-screen
+  .columns.large-12
     = render partial: "patients/patient_info_header", locals: { model: @patient }
-  
-  .row
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
-.row  
-  %h5.g-center
-    = link_to "Patient Medications", manage_medications_patient_path(@patient)
+    %h5 Patient Medications
 
 .wide-screen
   = form_for @patient do |f|
@@ -56,9 +52,3 @@
                 = pm.label :_destroy, "Terminate?", class: "delete"
       
     = f.submit "Save Medication", :class => "button tiny right save mt"
-
-.wide-screen
-  = content_for :secondary_nav do  
-    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
-
-

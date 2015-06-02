@@ -3,7 +3,6 @@
 
 .row
   %table.patients.responsive
-    %caption All Patients
     %thead
       %tr
         %th
@@ -11,7 +10,7 @@
         %th
           NHS No.
         %th
-          KCH No.
+          Hosp No.
         %th
           Sex
         %th
@@ -21,9 +20,5 @@
         %th.g-center{colspan: "2"}
           Actions
 
-
-
     %tbody
       = render @patients
-
-

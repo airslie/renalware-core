@@ -232,7 +232,7 @@ Given(/^a patient has exit site infections$/) do
 end
 
 When(/^the Clinician records the episode of peritonitis$/) do
-  click_on "Record an Episode of Peritonitis"
+  click_on "Add Peritonitis Episode"
 
   within "#peritonitis_episode_diagnosis_date_3i" do
     select '25'

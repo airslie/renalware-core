@@ -1,12 +1,9 @@
-.main-content
-  .row.g-center
+.wide-screen
+  .columns.large-12
     = render partial: "patients/patient_info_header", locals: { model: @patient }
-
-  .row
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
-.row.g-center
-  %h5= link_to "Patient Events", patient_patient_events_path(@patient)
+    %h5 Patient Events
 
   %table.responsive
     %thead
@@ -21,8 +18,3 @@
 
     %tbody
       = render @patient_events
-
-.wide-screen
-  = content_for :secondary_nav do
-    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
-
