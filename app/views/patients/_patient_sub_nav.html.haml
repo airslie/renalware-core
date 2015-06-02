@@ -10,4 +10,4 @@
   %dd{role: "menuitem"}
     = link_to "Meds (#{@patient.medications.length})", manage_medications_patient_path(@patient), title: "Manage Medications"
   %dd{role: "menuitem"}
-    = link_to "Events (#{@patient.patient_events.length})", patient_patient_events_path(@patient), title: "Patient Events"
+    = link_to "Events (#{@patient.events.length})", patient_events_path(@patient), title: "Patient Events"

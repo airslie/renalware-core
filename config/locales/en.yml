@@ -4,7 +4,7 @@ en:
       not_known: Not Known
       male: Male
       female: Female
-      not_specified: Not Specified  
+      not_specified: Not Specified
 
     provider:
       gp: GP
@@ -18,6 +18,6 @@ en:
 
   activerecord:
     attributes:
-      patient_event_type:
+      event_type:
         name: Name
 

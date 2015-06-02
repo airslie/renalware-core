@@ -78,6 +78,23 @@ ActiveRecord::Schema.define(version: 20150520085606) do
     t.datetime "updated_at"
   end
 
+  create_table "event_types", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.datetime "deleted_at"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.datetime "date_time"
+    t.string   "description"
+    t.text     "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "event_type_id"
+    t.integer  "patient_id"
+  end
+
   create_table "exit_site_infections", force: :cascade do |t|
     t.integer  "patient_id"
     t.date     "diagnosis_date"
@@ -185,23 +202,6 @@ ActiveRecord::Schema.define(version: 20150520085606) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "patient_event_types", force: :cascade do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "name"
-    t.datetime "deleted_at"
-  end
-
-  create_table "patient_events", force: :cascade do |t|
-    t.datetime "date_time"
-    t.string   "description"
-    t.text     "notes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "patient_event_type_id"
-    t.integer  "patient_id"
   end
 
   create_table "patients", force: :cascade do |t|

@@ -9,7 +9,7 @@ class Patient < ActiveRecord::Base
 
   has_many :exit_site_infections
   has_many :peritonitis_episodes
-  has_many :patient_events
+  has_many :events
   has_many :problems
   has_many :medications
   has_many :active_medications, -> { where deleted_at: nil }, class_name: "Medication"
@@ -25,7 +25,7 @@ class Patient < ActiveRecord::Base
 
   accepts_nested_attributes_for :current_address
   accepts_nested_attributes_for :address_at_diagnosis
-  accepts_nested_attributes_for :patient_events
+  accepts_nested_attributes_for :events
   accepts_nested_attributes_for :medications, allow_destroy: true,
   :reject_if => proc { |attrs| attrs[:dose].blank? && attrs[:notes].blank? && attrs[:frequency].blank? }
   accepts_nested_attributes_for :problems, allow_destroy: true,
