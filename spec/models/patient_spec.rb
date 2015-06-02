@@ -52,6 +52,13 @@ describe Patient, :type => :model do
     end
   end
 
+  describe "updating patient date of death" do
+    it "should still retain patient details" do
+      subject
+      expect { subject.update(death_date: "2015-02-25") }.to change(Patient, :count).by(0)
+    end
+  end
+
   describe "updating with nested attributes containing _destroy" do
     it "should soft delete the associated record" do
 
