@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150520085606) do
+ActiveRecord::Schema.define(version: 20150602151910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,20 @@ ActiveRecord::Schema.define(version: 20150520085606) do
     t.string   "postcode"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "bag_types", force: :cascade do |t|
+    t.string   "manufacturer"
+    t.string   "bag_description"
+    t.integer  "amount_1_36_glucose"
+    t.integer  "amount_2_27_glucose"
+    t.integer  "amount_3_86_glucose"
+    t.integer  "amount_amino_acid"
+    t.integer  "amount_icodextrin_acid"
+    t.boolean  "uses_low_gdp"
+    t.boolean  "uses_low_sodium"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "drug_drug_types", force: :cascade do |t|
