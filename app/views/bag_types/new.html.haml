@@ -1,0 +1,18 @@
+.row
+  %h4
+    Create a new CAPD Bag Type
+
+.row
+  = render partial: "shared/errors", locals: { model: @bag_type }
+
+.row
+  .large-6.columns
+    = form_for @bag_type, :method => :post do |bt|
+
+      = render partial: "bag_types/form", locals: { bt: bt }
+
+      %ul.no-bullet.button-padding
+        %li= submit_tag "Save", class: "button tiny right save"
+
+        %li= link_to "Cancel", patients_path, :class => "button tiny cancel"
+

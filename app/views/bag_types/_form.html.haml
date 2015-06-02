@@ -1,0 +1,29 @@
+= bt.label :manufacturer
+= bt.text_field :manufacturer
+
+= bt.label :bag_description
+= bt.text_field :bag_description
+
+= bt.label :amount_1_36_glucose, "Volume of 1.36% glucose/liter (ml)"
+= bt.text_field :amount_1_36_glucose
+
+= bt.label :amount_2_27_glucose, "Volume of 2.27% glucose/liter (ml)"
+= bt.text_field :amount_2_27_glucose
+
+= bt.label :amount_3_86_glucose, "Volume of 3.86% glucose/liter (ml)"
+= bt.text_field :amount_3_86_glucose
+
+= bt.label :amount_amino_acid, "Volume of amino acid soln/liter (ml)"
+= bt.text_field :amount_amino_acid
+
+= bt.label :amount_icodextrin_acid, "Volume of icodextrin soln (ml)"
+= bt.text_field :amount_icodextrin_acid
+
+%ul.no-bullet
+  %li
+    = bt.check_box :uses_low_gdp
+    = bt.label :uses_low_gdp, "Low glucose degradation product (GDP)"
+  %li
+    = bt.check_box :uses_low_sodium
+    = bt.label :uses_low_sodium, "Low sodium solution"
+
