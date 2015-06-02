@@ -8,7 +8,7 @@
 .wide-screen
   .columns.large-6
     %h6
-      = link_to "#{@patient.patient_problems.length} Problems", problems_patient_path(@patient)
+      = link_to "#{@patient.problems.length} Problems", problems_patient_path(@patient)
 
     %ul.no-bullet
       - @patient.problems.each do |p|
