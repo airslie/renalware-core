@@ -2,6 +2,7 @@
   .columns.large-12
     = render partial: "patients/patient_info_header", locals: { model: @patient }
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
+
     %h5
       = "Peritonitis Episode Details - Diagnosed: #{@peritonitis_episode.diagnosis_date.strftime("%d/%m/%Y")}"
 
