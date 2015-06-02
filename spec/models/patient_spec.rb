@@ -36,40 +36,37 @@ describe Patient, :type => :model do
   it { should validate_presence_of :sex }
   it { should validate_presence_of :birth_date }
 
-  describe "current modality death" do
-    subject { create(:patient) }
+  subject { create(:patient) }
 
+  describe "current modality death" do
     context "if current modality is death" do
-      before { subject.stub(:current_modality_death?) { true } }
+      before { allow(subject).to receive(:current_modality_death?).and_return(true) }
       it { expect(subject).to validate_presence_of(:death_date) }
       it { expect(subject).to validate_presence_of(:first_edta_code_id) }
     end
 
     context "if current modality is not death" do
-      before { subject.stub(:current_modality_death?) { false } }
+      before { allow(subject).to receive(:current_modality_death?).and_return(false) }
       it { expect(subject).not_to validate_presence_of(:death_date) }
       it { expect(subject).not_to validate_presence_of(:first_edta_code_id) }
     end
-
   end
 
   describe "updating with nested attributes containing _destroy" do
     it "should soft delete the associated record" do
-      @patient = FactoryGirl.create(:patient)
 
-      medication = FactoryGirl.create(:medication, patient: @patient)
-      @patient.medications << medication
+      medication = FactoryGirl.create(:medication, patient: subject)
+      subject.medications << medication
 
-      @patient.update(medications_attributes: {
+      subject.update(medications_attributes: {
         "0" => { id: medication.id, dose: "a lot", _destroy: "1" } })
 
-      expect(@patient.medications.with_deleted.first).to eq(medication)
-      expect(@patient.medications.with_deleted.first.deleted_at).not_to be nil
+      expect(subject.medications.with_deleted.first).to eq(medication)
+      expect(subject.medications.with_deleted.first.deleted_at).not_to be nil
     end
   end
 
   describe 'set_modality' do
-    subject { create(:patient) }
 
     context 'given the patient has no modality' do
       it 'creates a patient modality on the patient' do
