@@ -1,83 +1,48 @@
 Renalware v 2.0 (renal database)
 ============
 
-PHP - Setup
------------
+Renalware PHP
+-------------
+The renalware PHP source code can be found [here](https://github.com/airslie/renalware_php)
 
-If you're setting up the legacy (v1) PHP app, the following should be enough to get going...
-
+Ruby / Rails - Development Setup
+--------------------
 1. Setup a postgres user with a password, for development purposes this can be your system login.
-```bash
-$ sudo su - postgres
-$ psql template1
-```
-At the psql prompt run the following (replacing <username> and <password> accordingly):
-```sql
-CREATE USER <username> WITH PASSWORD '<password>';
-ALTER USER <username> SUPERUSER;
-```
+  ```bash
+  $ sudo su - postgres
+  $ psql template1
+  ```
+  At the psql prompt run the following (replacing <username> and <password> accordingly):
+  ```sql
+  CREATE USER <username> WITH PASSWORD '<password>';
+  ALTER USER <username> SUPERUSER;
+  ```
 
 2. Create a renalware database
-```bash
-$ rake db:create:all
-$ rake db:migrate
-$ rake db:seed
-```
+  ```bash
+  $ rake db:create:all
+  $ rake db:migrate
+  $ rake db:seed
+  ```
+  At the prompt you can create a bespoke `User` for authentication or accept defaults, this will create a user with the credentials `superadmin:supersecret`
 
-3. Run a PHP server
-
-We're using frog_spawn to start/stop our PHP server, try the following tasks:
-
-> cd php/renalware
-> rake php:server:start
-> rake php:server:stop
-
-You can also specifiy a root_dir and run it from the top-level app directory:
-
-> spring rake php:server:start root_dir=php/renalware
-> spring rake php:server:stop root_dir=php/renalware
-
-You can manually run PHP if you hit problems:
-
-> php -S localhost:8000 -t php/renalware -n
-
-4. Login as Paul
-
-5. Create a new user, providing initials, add all permissions
-
-> http://localhost:8000/admin/addnewuser.php
-
-Ruby / Rails - Setup
---------------------
-
-1. Run `bundle`
-2. Visit http://localhost:3000
+3. Visit [http://localhost:3000](http://localhost:3000)
 
 TESTS
 -----
 
 1. Setup a test database
-```bash
-$ bundle exec rake db:test:load
-```
+  ```bash
+  $ bundle exec rake db:create RAILS_ENV=test
+  $ bundle exec rake db:test:load
+  ```
+  
+2. Run the test suite
+  ```bash
+  $ bundle exec rake
+  ```
 
-2. Run cucumber. We have profiles for tests against the legacy PHP app the sparkly new Ruby app.
-
-Run all PHP tests:
-
-> cucumber -p php
-
-Run all PHP @wip tests
-
-> cucumber -p php_wip
-
-Run all Ruby tests
-
-> spring cucumber
-
-Run all Ruby @wip tests
-
-> spring cucumber -p ruby_wip
+Test coverage reports can be found in `coverage/`
 
 Deployment
 ----------
@@ -88,13 +53,13 @@ Assuming that you've got a Heroku account and are added to the app, you ought to
 be able to:
 
 > heroku login
-> heroku git:remote -a renalware-dev
+> heroku git:remote -a renalware
 
 To deploy:
 > git push heroku master
 > heroku open
 
-The app is available at http://renalware-dev.herokuapp.com. It is currently password protected:
+The app is available at http://renalware.herokuapp.com. It is currently password protected:
 
 username: renalware
 password: kidney175@stones?
