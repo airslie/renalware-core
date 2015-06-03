@@ -8,6 +8,6 @@ FactoryGirl.define do
     amino_acid_ml 40
     icodextrin_acid_ml 50
     low_glucose_degradation 1
-    uses_low_sodium 0
+    low_sodium 0
   end
 end
