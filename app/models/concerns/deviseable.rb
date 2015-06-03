@@ -1,11 +1,14 @@
 require 'active_support/concern'
 
+# Concern for Devise enhancements
+# eg. User approval and password expiry
+#
 module Deviseable
   extend ActiveSupport::Concern
 
   included do
     class_eval do
-      devise(:database_authenticatable, :registerable,
+      devise(:expirable, :database_authenticatable, :registerable,
              :recoverable, :rememberable, :trackable, :validatable)
     end
 
@@ -19,7 +22,7 @@ module Deviseable
       if !approved?
         :not_approved
       else
-        super # Use whatever other message
+        super
       end
     end
   end

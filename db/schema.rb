@@ -330,10 +330,14 @@ ActiveRecord::Schema.define(version: 20150604153421) do
     t.string   "username"
     t.string   "first_name"
     t.string   "last_name"
+    t.datetime "last_activity_at"
+    t.datetime "expired_at"
   end
 
   add_index "users", ["approved"], name: "index_users_on_approved", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["expired_at"], name: "index_users_on_expired_at", using: :btree
+  add_index "users", ["last_activity_at"], name: "index_users_on_last_activity_at", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
