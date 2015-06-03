@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20150602151910) do
 
   create_table "bag_types", force: :cascade do |t|
     t.string   "manufacturer"
-    t.string   "bag_description"
+    t.string   "description"
     t.integer  "amount_1_36_glucose"
     t.integer  "amount_2_27_glucose"
     t.integer  "amount_3_86_glucose"
