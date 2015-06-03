@@ -19,7 +19,7 @@ class BagTypesController < ApplicationController
 
   private
   def bag_type_params
-    params.require(:bag_type).permit(:manufacturer, :description, :glucose_ml_percent_1_36, :amount_2_27_glucose,
+    params.require(:bag_type).permit(:manufacturer, :description, :glucose_ml_percent_1_36, :glucose_ml_percent_2_27,
       :amount_3_86_glucose, :amount_amino_acid, :amount_icodextrin_acid, :uses_low_gdp, :uses_low_sodium)
   end
 end
