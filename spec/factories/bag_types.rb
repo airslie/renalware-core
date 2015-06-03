@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :bag_type do
     manufacturer "Star Brand, Lucky Brand"
-    bag_description "Green–2.34"
+    description "Green–2.34"
     amount_1_36_glucose 10
     amount_2_27_glucose 20
     amount_3_86_glucose 30
