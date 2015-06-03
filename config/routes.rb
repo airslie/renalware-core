@@ -2,7 +2,12 @@ Rails.application.routes.draw do
   devise_for :users
 
   namespace :admin do
-    resources :users
+    resources :users do
+      collection do
+        get :unapproved
+        get :expired
+      end
+    end
   end
 
   resources :patients, except: [:destroy] do

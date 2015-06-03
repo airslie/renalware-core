@@ -54,8 +54,7 @@ feature 'Authentication' do
   end
 
   scenario 'An inactive user attempts to authenticate' do
-    inactive = create(:user, :approved, :clinician,
-                      last_activity_at: 60.days.ago)
+    inactive = create(:user, :approved, last_activity_at: 60.days.ago)
 
     visit new_user_session_path
 

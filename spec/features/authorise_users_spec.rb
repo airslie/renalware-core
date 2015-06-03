@@ -4,6 +4,7 @@ feature 'Authorising users' do
   background do
     @approved = create(:user, :approved)
     @unapproved = create(:user)
+    @expired = create(:user, :approved, :expired)
     @clinician_role = create(:role, name: 'clinician')
 
     login_as_super_admin
@@ -67,5 +68,25 @@ feature 'Authorising users' do
     expect(page).to have_content(/renalwareuser-\d+ updated/)
     expect(@approved.reload).to be_approved
     expect(@approved.roles).to include(@clinician_role)
+  end
+
+  scenario 'An admin reactivates an expired user' do
+    click_link 'Inactive users'
+
+    within('tbody tr:first-child td:nth-child(3)') do
+      click_link 'Edit'
+    end
+    expect(current_path).to eq(edit_admin_user_path(@expired))
+
+    check 'Reactivate account'
+    click_on 'Update'
+
+    expect(current_path).to eq(admin_users_path)
+    expect(page).to have_content(/renalwareuser-\d+ updated/)
+    expect(@expired.reload.expired_at).to be_within(1.hour).of(Time.zone.now)
+
+    click_link 'Inactive users'
+
+    expect(page).not_to have_content(@expired.username)
   end
 end

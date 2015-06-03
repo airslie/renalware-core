@@ -2,9 +2,11 @@
   %h3 Manage users
 
 .row
-  = link_to 'All Users', action: 'index'
+  = link_to 'All users', action: 'index'
   |
-  = link_to 'Awaiting approval', action: 'index', approved: 'false'
+  = link_to 'Awaiting approval', action: 'unapproved'
+  |
+  = link_to 'Inactive users', action: 'expired'
 
 .row
   %table

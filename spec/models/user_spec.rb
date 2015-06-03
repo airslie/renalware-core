@@ -7,7 +7,7 @@ describe User, :type => :model do
   describe 'class' do
     it 'includes Deviseable to authenticate using Devise' do
       expect(User.ancestors).to include(Deviseable)
-      expect(User.devise_modules).to match_array(%i(database_authenticatable rememberable recoverable registerable validatable trackable))
+      expect(User.devise_modules).to match_array(%i(expirable database_authenticatable rememberable recoverable registerable validatable trackable))
     end
   end
 
@@ -18,25 +18,6 @@ describe User, :type => :model do
   describe 'read_only?' do
     it 'denotes a user with the read_only role' do
       expect(create(:user, :read_only)).to be_read_only
-    end
-  end
-
-  describe 'authorise!' do
-    subject { build(:user) }
-
-    it 'optionally approves the user' do
-      expect(subject).to receive(:approve)
-      subject.authorise!([], true)
-    end
-    it 'sets the Roles on the user' do
-      expect(subject).to receive(:roles=).with([:foo, :bar])
-      expect(subject).not_to receive(:approve)
-      subject.authorise!([:foo, :bar], false)
-    end
-
-    it 'notifies the user of authorisation' do
-      role = find_or_create_role(:super_admin)
-      expect { subject.authorise!([role], true) }.to change {ActionMailer::Base.deliveries.count}.by(1)
     end
   end
 end
