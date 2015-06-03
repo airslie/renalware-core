@@ -16,9 +16,13 @@ FactoryGirl.define do
     approved false
 
     trait :approved do
+      approved true
       after(:create) do |user|
-        user.authorise!([find_or_create_role], true)
+        user.roles = [find_or_create_role]
       end
+    end
+    trait :expired do
+      expired_at Time.zone.now
     end
     trait :super_admin do
       after(:create) do |user|
