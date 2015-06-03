@@ -7,10 +7,14 @@ class BagTypesController < ApplicationController
   def create
     @bag_type = BagType.new(bag_type_params)
     if @bag_type.save
-      redirect_to patients_path, :notice => "You have successfully created a new bag type."
+      redirect_to bag_types_path, :notice => "You have successfully created a new bag type."
     else
       render :new
     end
+  end
+
+  def index
+    @bag_types = BagType.all
   end
 
   private

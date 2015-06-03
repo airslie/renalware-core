@@ -43,6 +43,6 @@ Rails.application.routes.draw do
 
   resources :modality_reasons, only: [:index]
 
-  resources :bag_types, only: [:new, :create]
+  resources :bag_types, only: [:new, :create, :index]
 
 end
