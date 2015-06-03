@@ -4,7 +4,7 @@ end
 
 When(/^I complete the form for a bag type$/) do
   fill_in "Manufacturer", with: "Brand One, Brand Two"
-  fill_in "Bag description", with: "Yellow–2.34"
+  fill_in "Description", with: "Yellow–2.34"
   fill_in "Volume of 1.36% glucose/liter (ml)", with: 10
   fill_in "Volume of 2.27% glucose/liter (ml)", with: 20
   fill_in "Volume of 3.86% glucose/liter (ml)", with: 30
