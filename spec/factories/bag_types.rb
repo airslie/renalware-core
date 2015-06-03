@@ -6,7 +6,7 @@ FactoryGirl.define do
     glucose_ml_percent_2_27 20
     glucose_ml_percent_3_86 30
     amino_acid_ml 40
-    amount_icodextrin_acid 50
+    icodextrin_acid_ml 50
     uses_low_gdp 1
     uses_low_sodium 0
   end
