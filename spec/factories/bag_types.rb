@@ -4,7 +4,7 @@ FactoryGirl.define do
     description "Green–2.34"
     glucose_ml_percent_1_36 10
     glucose_ml_percent_2_27 20
-    amount_3_86_glucose 30
+    glucose_ml_percent_3_86 30
     amount_amino_acid 40
     amount_icodextrin_acid 50
     uses_low_gdp 1
