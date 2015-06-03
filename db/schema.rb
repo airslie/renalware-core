@@ -29,15 +29,15 @@ ActiveRecord::Schema.define(version: 20150602151910) do
   create_table "bag_types", force: :cascade do |t|
     t.string   "manufacturer"
     t.string   "description"
-    t.integer  "amount_1_36_glucose"
-    t.integer  "amount_2_27_glucose"
-    t.integer  "amount_3_86_glucose"
-    t.integer  "amount_amino_acid"
-    t.integer  "amount_icodextrin_acid"
-    t.boolean  "uses_low_gdp"
-    t.boolean  "uses_low_sodium"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "glucose_ml_percent_1_36"
+    t.integer  "glucose_ml_percent_2_27"
+    t.integer  "glucose_ml_percent_3_86"
+    t.integer  "amino_acid_ml"
+    t.integer  "icodextrin_acid_ml"
+    t.boolean  "low_glucose_degradation"
+    t.boolean  "low_sodium"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "drug_drug_types", force: :cascade do |t|
