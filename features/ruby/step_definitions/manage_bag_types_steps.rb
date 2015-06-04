@@ -61,7 +61,7 @@ end
 
 When(/^I complete the form for editing a bag type$/) do
   fill_in "Volume of 2.27% glucose/litre (ml)", with: 62
-  fill_in "Volume of amino acid soln/litre (ml)", with: 37
+  fill_in "Volume of amino acid soln (ml)", with: 37
   uncheck "Low glucose degradation product (GDP)"
 
   click_on "Update Bag Type"
