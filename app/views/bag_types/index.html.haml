@@ -53,4 +53,4 @@
             = yes_no(bt.low_sodium)
           %td{ :data => { :heading => "Action" } }
             = link_to "Edit", edit_bag_type_path(bt.id), id: "edit-bag-type-#{bt.id}"
-            = link_to "Delete", bag_type_path(bt.id), method: :delete , class: "delete", id: "delete-bag-type-#{bt.id}"
+            = link_to "Delete", bag_type_path(bt.id), method: :delete , class: "delete", id: "delete-bag-type-#{bt.id}", data: { confirm: "Are you sure you want to delete this bag type?" }
