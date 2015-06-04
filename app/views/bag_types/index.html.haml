@@ -1,0 +1,56 @@
+.row
+  %h4 Manage CAPD Bag Types
+
+.row
+  = link_to "Create a new Bag Type", new_bag_type_path, :class => "button tiny"
+
+.row
+  %table.responsive
+    %caption.title
+      Bag Types
+    %thead
+      %th
+        Manufacturer
+      %th
+        Description (nickname)
+      %th
+        Vol of 1.36% glucose/litre (ml)
+      %th
+        Vol of 2.27% glucose/litre (ml)
+      %th
+        Vol of 3.86% glucose/litre (ml)
+      %th
+        Vol of amino acid soln/litre (ml)
+      %th
+        Vol of icodextrin acid soln/litre (ml)
+      %th
+        Low glucose degradation product (GDP)
+      %th
+        Low sodium solution
+      %th
+        Action
+
+    - @bag_types.each do |bt|
+      %tbody
+        %tr
+          %td{ :data => { :heading => "Manufacturer" } }
+            = bt.manufacturer
+          %td{ :data => { :heading => "Bag description" } }
+            = bt.description
+          %td{ :data => { :heading => "1.36% glucose/liter (ml)" } }
+            = bt.glucose_ml_percent_1_36
+          %td{ :data => { :heading => "2.27% glucose/liter (ml)" } }
+            = bt.glucose_ml_percent_2_27
+          %td{ :data => { :heading => "3.86% glucose/liter (ml)" } }
+            = bt.glucose_ml_percent_3_86
+          %td{ :data => { :heading => "amino acid soln/liter (ml)" } }
+            = bt.amino_acid_ml
+          %td{ :data => { :heading => "icodextrin soln (ml)" } }
+            = bt.icodextrin_acid_ml
+          %td{ :data => { :heading => "Low glucose degradation product (GDP)" } }
+            = yes_no(bt.low_glucose_degradation)
+          %td{ :data => { :heading => "Low sodium solution" } }
+            = yes_no(bt.low_sodium)
+          %td{ :data => { :heading => "Action" } }
+            = link_to "Edit", edit_bag_type_path(bt.id), id: "edit-bag-type-#{bt.id}"
+            = link_to "Delete", bag_type_path(bt.id), method: :delete , class: "delete", id: "delete-bag-type-#{bt.id}", data: { confirm: "Are you sure you want to delete this bag type?" }

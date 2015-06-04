@@ -43,4 +43,6 @@ Rails.application.routes.draw do
 
   resources :modality_reasons, only: [:index]
 
+  resources :bag_types, except: [:show]
+
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150520085606) do
+ActiveRecord::Schema.define(version: 20150602151910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,23 @@ ActiveRecord::Schema.define(version: 20150520085606) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "bag_types", force: :cascade do |t|
+    t.string   "manufacturer"
+    t.string   "description"
+    t.integer  "glucose_ml_percent_1_36"
+    t.integer  "glucose_ml_percent_2_27"
+    t.integer  "glucose_ml_percent_3_86"
+    t.integer  "amino_acid_ml"
+    t.integer  "icodextrin_acid_ml"
+    t.boolean  "low_glucose_degradation"
+    t.boolean  "low_sodium"
+    t.datetime "deleted_at"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "bag_types", ["deleted_at"], name: "index_bag_types_on_deleted_at", using: :btree
 
   create_table "drug_drug_types", force: :cascade do |t|
     t.integer  "drug_id"
