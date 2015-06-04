@@ -10,7 +10,9 @@ class CreateBagTypes < ActiveRecord::Migration
       t.integer :icodextrin_acid_ml
       t.boolean :low_glucose_degradation
       t.boolean :low_sodium
+      t.datetime :deleted_at
       t.timestamps null: false
     end
+    add_index :bag_types, :deleted_at
   end
 end
