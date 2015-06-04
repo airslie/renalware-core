@@ -72,3 +72,13 @@ Then(/^I should see the updated bag type on the bag types list$/) do
   expect(page).to have_content("37")
   expect(page).to have_css("td", text: "No", count: 2)
 end
+
+When(/^I choose to soft delete a bag type$/) do
+  visit bag_types_path
+  find("#delete-bag-type-#{@bag_type_2.id}").click
+end
+
+Then(/^I should no longer see the soft deleted bag type on the bag types list$/) do
+  expect(page).to have_content("Blue–2.34")
+  expect(page).not_to have_content("Red–3.25")
+end
