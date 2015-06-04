@@ -54,4 +54,6 @@
           %td{ :data => { :heading => "Action" } }
             %ul.table-data-list
               %li
-                = link_to "Edit", edit_bag_type_path(bt.id)
+                = link_to "Edit", edit_bag_type_path(bt.id), id: "edit-bag-type-#{bt.id}"
+              %li
+                = link_to "Delete", bag_type_path(bt.id), method: :delete ,id: "delete-bag-type-#{bt.id}"
