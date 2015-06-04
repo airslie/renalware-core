@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Authorising users' do
+feature 'Authorising, approving and reactivating users' do
   background do
     @approved = create(:user, :approved)
     @unapproved = create(:user)
@@ -13,7 +13,7 @@ feature 'Authorising users' do
   end
 
   scenario 'An admin approves a newly registered user' do
-    click_on 'Awaiting approval'
+    click_on 'Unapproved'
 
     click_link 'Edit'
     expect(current_path).to eq(edit_admin_user_path(@unapproved))
@@ -28,7 +28,7 @@ feature 'Authorising users' do
   end
 
   scenario 'An admin approves a user without assigning a role' do
-    click_on 'Awaiting approval'
+    click_on 'Unapproved'
 
     click_link 'Edit'
     expect(current_path).to eq(edit_admin_user_path(@unapproved))
@@ -71,9 +71,9 @@ feature 'Authorising users' do
   end
 
   scenario 'An admin reactivates an expired user' do
-    click_link 'Inactive users'
+    click_link 'Inactive'
 
-    within('tbody tr:first-child td:nth-child(3)') do
+    within('tbody tr:first-child td:nth-child(7)') do
       click_link 'Edit'
     end
     expect(current_path).to eq(edit_admin_user_path(@expired))
@@ -83,9 +83,9 @@ feature 'Authorising users' do
 
     expect(current_path).to eq(admin_users_path)
     expect(page).to have_content(/renalwareuser-\d+ updated/)
-    expect(@expired.reload.expired_at).to be_within(1.hour).of(Time.zone.now)
+    expect(@expired.reload.expired_at).to be_nil
 
-    click_link 'Inactive users'
+    click_link 'Inactive'
 
     expect(page).not_to have_content(@expired.username)
   end

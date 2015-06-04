@@ -4,4 +4,6 @@
       = link_to 'Manage users', admin_users_path, title: 'Manage users'
       %ul.dropdown
         %li
-          = link_to 'Approve users', admin_users_path(approved: false)
+          = link_to 'Approve users', unapproved_admin_users_path
+        %li
+          = link_to 'Reactivate users', expired_admin_users_path
