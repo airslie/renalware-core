@@ -7,7 +7,7 @@ class CreateBagTypes < ActiveRecord::Migration
       t.integer :glucose_ml_percent_2_27
       t.integer :glucose_ml_percent_3_86
       t.integer :amino_acid_ml
-      t.integer :icodextrin_acid_ml
+      t.integer :icodextrin_ml
       t.boolean :low_glucose_degradation
       t.boolean :low_sodium
       t.datetime :deleted_at
