@@ -37,7 +37,7 @@ Given(/^that I have saved bag types$/) do
     glucose_ml_percent_2_27: 25,
     glucose_ml_percent_3_86: 35,
     amino_acid_ml: 45,
-    icodextrin_acid_ml: 55,
+    icodextrin_ml: 55,
     low_glucose_degradation: 1,
     low_sodium: 1
   )
@@ -49,7 +49,7 @@ Given(/^that I have saved bag types$/) do
     glucose_ml_percent_2_27: 28,
     glucose_ml_percent_3_86: 38,
     amino_acid_ml: 48,
-    icodextrin_acid_ml: 58,
+    icodextrin_ml: 58,
     low_glucose_degradation: 0,
     low_sodium: 1
   )
