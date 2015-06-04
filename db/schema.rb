@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150602151910) do
+ActiveRecord::Schema.define(version: 20150604153421) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20150602151910) do
     t.integer  "glucose_ml_percent_2_27"
     t.integer  "glucose_ml_percent_3_86"
     t.integer  "amino_acid_ml"
-    t.integer  "icodextrin_acid_ml"
+    t.integer  "icodextrin_ml"
     t.boolean  "low_glucose_degradation"
     t.boolean  "low_sodium"
     t.datetime "deleted_at"
@@ -296,6 +296,11 @@ ActiveRecord::Schema.define(version: 20150602151910) do
   end
 
   add_index "problems", ["deleted_at"], name: "index_problems_on_deleted_at", using: :btree
+
+  create_table "regimes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"

@@ -8,8 +8,8 @@ When(/^I complete the form for a bag type$/) do
   fill_in "Volume of 1.36% glucose/litre (ml)", with: 10
   fill_in "Volume of 2.27% glucose/litre (ml)", with: 20
   fill_in "Volume of 3.86% glucose/litre (ml)", with: 30
-  fill_in "Volume of amino acid soln/litre (ml)", with: 40
-  fill_in "Volume of icodextrin acid soln/litre (ml)", with: 55
+  fill_in "Volume of amino acid soln (ml)", with: 40
+  fill_in "Volume of icodextrin soln (ml)", with: 55
 
   check "Low glucose degradation product (GDP)"
   uncheck "Low sodium solution"
@@ -37,7 +37,7 @@ Given(/^that I have saved bag types$/) do
     glucose_ml_percent_2_27: 25,
     glucose_ml_percent_3_86: 35,
     amino_acid_ml: 45,
-    icodextrin_acid_ml: 55,
+    icodextrin_ml: 55,
     low_glucose_degradation: 1,
     low_sodium: 1
   )
@@ -49,7 +49,7 @@ Given(/^that I have saved bag types$/) do
     glucose_ml_percent_2_27: 28,
     glucose_ml_percent_3_86: 38,
     amino_acid_ml: 48,
-    icodextrin_acid_ml: 58,
+    icodextrin_ml: 58,
     low_glucose_degradation: 0,
     low_sodium: 1
   )
@@ -61,7 +61,7 @@ end
 
 When(/^I complete the form for editing a bag type$/) do
   fill_in "Volume of 2.27% glucose/litre (ml)", with: 62
-  fill_in "Volume of amino acid soln/litre (ml)", with: 37
+  fill_in "Volume of amino acid soln (ml)", with: 37
   uncheck "Low glucose degradation product (GDP)"
 
   click_on "Update Bag Type"

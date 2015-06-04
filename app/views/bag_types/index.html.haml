@@ -20,9 +20,9 @@
       %th
         Vol of 3.86% glucose/litre (ml)
       %th
-        Vol of amino acid soln/litre (ml)
+        Vol of amino acid soln (ml)
       %th
-        Vol of icodextrin acid soln/litre (ml)
+        Vol of icodextrin soln (ml)
       %th
         Low glucose degradation product (GDP)
       %th
@@ -37,16 +37,16 @@
             = bt.manufacturer
           %td{ :data => { :heading => "Bag description" } }
             = bt.description
-          %td{ :data => { :heading => "1.36% glucose/liter (ml)" } }
+          %td{ :data => { :heading => "1.36% glucose/litre (ml)" } }
             = bt.glucose_ml_percent_1_36
-          %td{ :data => { :heading => "2.27% glucose/liter (ml)" } }
+          %td{ :data => { :heading => "2.27% glucose/litre (ml)" } }
             = bt.glucose_ml_percent_2_27
-          %td{ :data => { :heading => "3.86% glucose/liter (ml)" } }
+          %td{ :data => { :heading => "3.86% glucose/litre (ml)" } }
             = bt.glucose_ml_percent_3_86
-          %td{ :data => { :heading => "amino acid soln/liter (ml)" } }
+          %td{ :data => { :heading => "amino acid soln (ml)" } }
             = bt.amino_acid_ml
           %td{ :data => { :heading => "icodextrin soln (ml)" } }
-            = bt.icodextrin_acid_ml
+            = bt.icodextrin_ml
           %td{ :data => { :heading => "Low glucose degradation product (GDP)" } }
             = yes_no(bt.low_glucose_degradation)
           %td{ :data => { :heading => "Low sodium solution" } }
