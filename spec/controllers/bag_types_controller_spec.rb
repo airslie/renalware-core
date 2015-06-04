@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe BagTypesController, :type => :controller do
 
+  before do
+    @bag_type = create(:bag_type)
+  end
+
   describe 'GET #new' do
     it 'renders the new template' do
       get :new
@@ -26,9 +30,6 @@ RSpec.describe BagTypesController, :type => :controller do
   end
 
   describe 'PUT #update' do
-    before do
-      @bag_type = create(:bag_type)
-    end
 
     context "with valid attributes" do
       it 'updates a bag type' do
@@ -42,6 +43,15 @@ RSpec.describe BagTypesController, :type => :controller do
         put :update, id: @bag_type.id, bag_type: { description: nil }
         expect(response).to render_template(:edit)
       end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    it 'returns http success' do
+      delete :destroy, id: @bag_type.id
+      @bag_type.reload
+      expect(@bag_type.deleted_at).not_to be nil
+      expect(response).to have_http_status(:found)
     end
   end
 
