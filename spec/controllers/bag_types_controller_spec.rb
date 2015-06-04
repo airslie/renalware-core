@@ -25,4 +25,24 @@ RSpec.describe BagTypesController, :type => :controller do
     end
   end
 
+  describe 'PUT #update' do
+    before do
+      @bag_type = create(:bag_type)
+    end
+
+    context "with valid attributes" do
+      it 'updates a bag type' do
+        put :update, id: @bag_type.id, bag_type: { description: "Yellow Bag" }
+        expect(response).to redirect_to(bag_types_path)
+      end
+    end
+
+    context "with invalid attributes" do
+      it 'update a bag type' do
+        put :update, id: @bag_type.id, bag_type: { description: nil }
+        expect(response).to render_template(:edit)
+      end
+    end
+  end
+
 end
