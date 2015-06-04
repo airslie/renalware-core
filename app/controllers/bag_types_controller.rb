@@ -1,5 +1,7 @@
 class BagTypesController < ApplicationController
 
+  before_action :load_bag_type, only: [:edit, :update]
+
   def new
     @bag_type = BagType.new
   end
@@ -17,12 +19,7 @@ class BagTypesController < ApplicationController
     @bag_types = BagType.all
   end
 
-  def edit
-    @bag_type = BagType.find(params[:id])
-  end
-
   def update
-    @bag_type = BagType.find(params[:id])
     if @bag_type.update(bag_type_params)
       redirect_to bag_types_path, :notice => "You have successfully updated a bag type"
     else
@@ -39,5 +36,9 @@ class BagTypesController < ApplicationController
   def bag_type_params
     params.require(:bag_type).permit(:manufacturer, :description, :glucose_ml_percent_1_36, :glucose_ml_percent_2_27,
       :glucose_ml_percent_3_86, :amino_acid_ml, :icodextrin_acid_ml, :low_glucose_degradation, :low_sodium)
+  end
+
+  def load_bag_type
+    @bag_type = BagType.find(params[:id])
   end
 end
