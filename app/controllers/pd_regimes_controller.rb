@@ -1,0 +1,2 @@
+class PdRegimesController < ApplicationController
+end
