@@ -41,7 +41,7 @@ feature 'Authorising users' do
   end
 
   scenario 'An admin removes all roles from a user' do
-    within('tbody tr:first-child td:nth-child(3)') do
+    within('tbody tr:first-child td:nth-child(7)') do
       click_link 'Edit'
     end
     expect(current_path).to eq(edit_admin_user_path(@approved))
@@ -55,7 +55,7 @@ feature 'Authorising users' do
   end
 
   scenario 'An admin authorises an existing user with additional roles' do
-    within('tbody tr:first-child td:nth-child(3)') do
+    within('tbody tr:first-child td:nth-child(7)') do
       click_link 'Edit'
     end
     expect(current_path).to eq(edit_admin_user_path(@approved))

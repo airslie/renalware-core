@@ -9,13 +9,21 @@
 .row
   %table
     %thead
+      %th ID
+      %th User
+      %th Login
       %th Email
+      %th Added
       %th Approved
-      %th{width: '8%'}
+      %th Options
 
     %tbody
       - @users.each do |user|
         %tr
+          %td= user.id
+          %td= user.last_first
+          %td= user.username
           %td= user.email
+          %td= user.created_at
           %td= user.approved?
-          %td= link_to 'Edit', edit_admin_user_path(user), class: 'button tiny save'
+          %td= link_to 'Edit', edit_admin_user_path(user)
