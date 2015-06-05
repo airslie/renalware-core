@@ -18,6 +18,7 @@ class Patient < ActiveRecord::Base
   has_many :peritonitis_episodes, :through => :medications, :source => :treatable, :source_type => "PeritonitisEpisode"
   has_many :medication_routes, :through => :medications
   has_many :modalities
+  has_many :pd_regimes
 
   has_one :current_modality, -> { where deleted_at: nil }, class_name: 'Modality'
   has_one :modality_code, :through => :current_modality
