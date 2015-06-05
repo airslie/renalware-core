@@ -1,0 +1,7 @@
+manufacturer,description,glucose_ml_percent_1_36,glucose_ml_percent_2_27,glucose_ml_percent_3_86,amino_acid_ml,icodextrin_ml,low_glucose_degradation,low_sodium
+Baxter,Dianeal PD-2 1.36%,76,0,0,0,0,f,f
+Baxter,Dianeal PD-2 2.27%,0,126,0,0,0,f,f
+Baxter,Dianeal PD-2 3.86%,0,0,214,0,0,f,f
+Baxter,Dianeal PD-4 1.36%,76,0,0,0,0,f,f
+Baxter,Dianeal PD-4 2.27%,0,126,0,0,0,f,f
+Baxter,Dianeal PD-4 3.86%,0,0,214,0,0,f,f
