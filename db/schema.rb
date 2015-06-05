@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150605095934) do
+ActiveRecord::Schema.define(version: 20150605151945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -242,6 +242,22 @@ ActiveRecord::Schema.define(version: 20150605095934) do
     t.text     "death_details"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "pd_regime_bags", force: :cascade do |t|
+    t.integer  "pd_regime_id"
+    t.integer  "bag_type_id"
+    t.integer  "volume"
+    t.integer  "per_week"
+    t.boolean  "monday"
+    t.boolean  "tuesday"
+    t.boolean  "wednesday"
+    t.boolean  "thursday"
+    t.boolean  "friday"
+    t.boolean  "saturday"
+    t.boolean  "sunday"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "pd_regimes", force: :cascade do |t|
