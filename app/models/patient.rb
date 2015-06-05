@@ -28,8 +28,7 @@ class Patient < ActiveRecord::Base
   accepts_nested_attributes_for :events
   accepts_nested_attributes_for :medications, allow_destroy: true,
   :reject_if => proc { |attrs| attrs[:dose].blank? && attrs[:notes].blank? && attrs[:frequency].blank? }
-  accepts_nested_attributes_for :problems, allow_destroy: true,
-  :reject_if => proc { |attrs| attrs[:description].blank? }
+  accepts_nested_attributes_for :problems, allow_destroy: true, reject_if: Problem.reject_if_proc
   accepts_nested_attributes_for :esrf_info
 
   validates :nhs_number, presence: true, length: { minimum: 10, maximum: 10 }, uniqueness: true

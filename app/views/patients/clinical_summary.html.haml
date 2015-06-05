@@ -14,7 +14,7 @@
       - @patient.problems.each do |p|
 
         %li
-          = "#{p.description}, #{p.created_at}"
+          = "#{p.full_description}, #{p.created_at}"
 
 .wide-screen
   .columns.large-6
