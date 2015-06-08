@@ -3,7 +3,13 @@ class Admin::UsersController < ApplicationController
   before_filter :load_user, only: [:edit, :update]
 
   def index
-    @users = params[:approved] == 'false' ? User.unapproved : User.all
+    @users = (
+      if params[:approved] == 'false'
+        User.unapproved.order(:username)
+      else
+        User.order(:username)
+      end
+    )
   end
 
   def update

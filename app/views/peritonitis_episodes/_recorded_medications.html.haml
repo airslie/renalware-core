@@ -1,7 +1,7 @@
 %dl.accordion{data: {accordion: true} }
   %dd.accordion-navigation.med-form
 
-    %a.fi-plus.fi-minus.form-toggle{href: "#edit-meds-#{pm.object.id}", :class => "drug-#{drug_types_colour_tag(pm.object.medicatable.drug_types)}"}
+    %a.fi-plus.fi-minus.form-toggle{href: "#edit-meds-#{pm.object.id}", class: "drug-#{drug_types_colour_tag(pm.object.medicatable.drug_types)}"}
 
       = "#{pm.object.medicatable.name} - #{pm.object.dose}, #{pm.object.medication_route.name}, #{pm.object.frequency}, #{pm.object.date}"
 
@@ -10,9 +10,9 @@
 
     .columns.large-6.meds-form.content{:id => "edit-meds-#{pm.object.id}", data: { index: 0 }}
 
-      = render :partial => 'patients/medication_fields', :locals => { :pm => pm }
+      = render partial: 'medications/fields', locals: { pm: pm }
 
-      .med-form.content{:id => "edit-meds-#{pm.object.id}"}
+      .med-form.content{id: "edit-meds-#{pm.object.id}"}
         = pm.check_box :_destroy
-        = pm.label :_destroy, "Terminate?", class: "delete"
+        = pm.label :_destroy, 'Terminate?', class: 'delete'
 

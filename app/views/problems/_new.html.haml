@@ -1,0 +1,25 @@
+- unless current_user.read_only?
+  #new-probs-form
+    %a.button.tiny.toggle.right.mt{href: '#new-probs-form'}
+      Add a new problem
+
+    .hide
+      %a.button.tiny.close-new-form{href: '#'}
+        Close
+
+      %fieldset
+        %legend
+          Add New Problem
+
+        .row#new-probs-template
+
+          .problem-form{data: { index: @patient.problems.length - 1 }}
+
+            = render partial: 'problems/form', locals: { pb: pb }
+
+          #additional-form
+
+          %a.button.tiny.left.mt.add-problem{href: '#'}
+            Add another problem
+
+  = link_to 'Cancel', clinical_summary_patient_path(@patient), class: 'button tiny left cancel mt'

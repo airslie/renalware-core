@@ -24,48 +24,8 @@
                   %li.history
                     = "#{p.description}, #{p.updated_at.strftime("%d/%m/%Y - %H:%M")}"
 
-      - if pb.object.new_record?
+      = render partial: 'problems/new', locals: { pb: pb } if pb.object.new_record?
+      = render partial: 'problems/problem', locals: { pb: pb } unless pb.object.new_record?
 
-        #new-probs-form
-          %a.button.tiny.toggle.right.mt{href: '#new-probs-form'}
-            Add a new problem
-
-          .hide
-            %a.button.tiny.close-new-form{href: '#'}
-              Close
-
-            %fieldset
-              %legend
-                Add New Problem
-
-              .row#new-probs-template
-
-                .problem-form{data: { index: @patient.problems.length - 1 }}
-
-                  = render :partial => 'problem_form', :locals => { :pb => pb }
-
-                #additional-form
-
-                %a.button.tiny.left.mt.add-problem{href: '#'}
-                  Add another problem
-
-        = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left cancel mt"
-
-      - else
-
-        %dl.accordion{data: {accordion: true} }
-          %dd.accordion-navigation.med-form
-            %a.fi-plus.fi-minus.toggle-info{ class: "problem", href: "#edit-probs-#{pb.object.id}" }
-              = "#{pb.object.description}, #{pb.object.created_at}"
-              .right.edit
-                Edit
-
-
-            .columns.large-6.probs-form.content{:id => "edit-probs-#{pb.object.id}", data: { index: 0 }}
-              = render :partial => 'problem_form', :locals => { :pb => pb }
-
-              .probs-form.content{:id => "edit-probs-#{pb.object.id}"}
-                = pb.check_box :_destroy
-                = pb.label :_destroy, "Terminate?", class: "delete"
-
-    = f.submit "Save Problems", :class => "button tiny right save mt"
+    - unless current_user.read_only?
+      = f.submit "Save Problems", :class => "button tiny right save mt"

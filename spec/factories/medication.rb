@@ -1,12 +1,11 @@
 FactoryGirl.define do
-  factory :medication do
+  factory :medication do |medication|
     patient
-    medicatable_id 1
-    medicatable_type "Drug"
+    association :medicatable, factory: :drug
     treatable_id nil
     treatable_type nil
     dose "20mg"
-    medication_route_id 1
+    medication_route
     frequency "daily"
     notes "with food"
     date "25/02/2015"

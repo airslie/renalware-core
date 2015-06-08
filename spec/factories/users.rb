@@ -35,5 +35,10 @@ FactoryGirl.define do
         user.roles = [find_or_create_role(:clinician)]
       end
     end
+    trait :read_only do
+      after(:create) do |user|
+        user.roles = [find_or_create_role(:read_only)]
+      end
+    end
   end
 end
