@@ -290,9 +290,11 @@ Then(/^I should see a patient's modality on their clinical summary$/) do
    expect(page).to have_content("Modal One")
 end
 
-Then(/^I should see the date of death in the patient's demographics$/) do
+Then(/^I should see the date of death and causes of death in the patient's demographics$/) do
   visit demographics_patient_path(@patient_1)
   expect(page).to have_content("22/09/2014")
+  expect(page).to have_content("Death cause one")
+  expect(page).to have_content("Death cause two")
 end
 
 Then(/^I should see the patient on the death list$/) do
@@ -307,11 +309,3 @@ Then(/^I should see the patient's current death modality and set date in index$/
   expect(page).to have_content("01/04/2015")
 end
 
-Then(/^I can view the deceased patient's causes of death$/) do
-  visit death_patients_path
-
-  click_on "Causes of death"
-
-  expect(page).to have_content("Death cause one")
-  expect(page).to have_content("Death cause two")
-end

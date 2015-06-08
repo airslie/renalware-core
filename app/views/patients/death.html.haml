@@ -1,9 +1,7 @@
-.main-content
-
-.row
+.wide-screen
   %h5 Deceased Patients
 
-.row
+.wide-screen
   %table.responsive
     %caption All Patients
     %thead
@@ -14,7 +12,7 @@
           NHS No.
         %th
           KCH No.
-        %th.column-6-width
+        %th
           Sex
         %th
           Date of Birth
@@ -22,7 +20,7 @@
           Date of Death
         %th.column-6-width
           Age
-        %th.g-center{colspan: "3"}
+        %th.g-center{colspan: "2"}
           Actions
 
     %tbody
@@ -42,17 +40,6 @@
             = patient.death_date
           %td{ :data => { :heading => "Age"}}
             = patient.age
-          %td.g-center{ :data => { :heading => "Causes of Death"}, valign: "top" }
-            %dl.accordion{ data: { accordion: true } }
-              %dd.accordion-navigation
-                %a.fi-plus.fi-minus.toggle-info{ :id => "patient-death-cause-#{patient.id}", href: "#patient-death-cause-#{patient.id}" }
-                  Causes of death
-                .content.toggle-content{ :id => "patient-death-cause-#{patient.id}" }
-                  %ul.bullet-number
-                    %li.toggle-text
-                      = patient.first_edta_code.death_cause
-                    %li.toggle-text
-                      = default_for_associated(patient.second_edta_code, :death_cause, "N/A")
           %td.g-center{:data => { :heading => "Edit death details"}}
             = link_to "Edit death details", death_update_patient_path(patient.id), :title => "Edit death details"
           %td.g-center{ :data => { :heading => "Admin"}}
