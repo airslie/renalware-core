@@ -14,20 +14,20 @@
           NHS No.
         %th
           KCH No.
-        %th
+        %th.column-6-width
           Sex
         %th
           Date of Birth
         %th
           Date of Death
-        %th
+        %th.column-6-width
           Age
-        %th.g-center{colspan: "4"}
+        %th.g-center{colspan: "3"}
           Actions
 
     %tbody
-      %tr
-        - @dead_patients.each do |patient|
+      - @dead_patients.each do |patient|
+        %tr
           %td{ :data => { :heading => "Forename"}}
             = link_to " " + patient.full_name, clinical_summary_patient_path(patient), :title => "Clinical Summary"
           %td{ :data => { :heading => "NHS No."}}
@@ -48,11 +48,11 @@
                 %a.fi-plus.fi-minus.toggle-info{ :id => "patient-death-cause-#{patient.id}", href: "#patient-death-cause-#{patient.id}" }
                   Causes of death
                 .content.toggle-content{ :id => "patient-death-cause-#{patient.id}" }
-                  %ul.no-bullet
+                  %ul.bullet-number
                     %li.toggle-text
                       = patient.first_edta_code.death_cause
                     %li.toggle-text
-                      = patient.second_edta_code.death_cause
+                      = default_for_associated(patient.second_edta_code, :death_cause, "N/A")
           %td.g-center{:data => { :heading => "Edit death details"}}
             = link_to "Edit death details", death_update_patient_path(patient.id), :title => "Edit death details"
           %td.g-center{ :data => { :heading => "Admin"}}
