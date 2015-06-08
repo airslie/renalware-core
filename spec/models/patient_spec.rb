@@ -22,23 +22,58 @@ describe Patient, :type => :model do
   it { should have_many(:peritonitis_episodes).through(:medications).source(:treatable) }
   it { should have_many(:medication_routes).through(:medications) }
 
+  it { should validate_presence_of :nhs_number }
+  it { should validate_uniqueness_of :nhs_number }
+  it { should ensure_length_of(:nhs_number).is_at_least(10) }
+  it { should ensure_length_of(:nhs_number).is_at_most(10) }
+
+  it { should validate_presence_of :surname }
+  it { should validate_presence_of :forename }
+
+  it { should validate_presence_of :local_patient_id }
+  it { should validate_uniqueness_of :local_patient_id }
+
+  it { should validate_presence_of :sex }
+  it { should validate_presence_of :birth_date }
+
+  subject { create(:patient) }
+
+  describe "current modality death" do
+    context "if current modality is death" do
+      before { allow(subject).to receive(:current_modality_death?).and_return(true) }
+      it { expect(subject).to validate_presence_of(:death_date) }
+      it { expect(subject).to validate_presence_of(:first_edta_code_id) }
+    end
+
+    context "if current modality is not death" do
+      before { allow(subject).to receive(:current_modality_death?).and_return(false) }
+      it { expect(subject).not_to validate_presence_of(:death_date) }
+      it { expect(subject).not_to validate_presence_of(:first_edta_code_id) }
+    end
+  end
+
+  describe "updating patient date of death" do
+    it "should still retain patient details" do
+      subject
+      expect { subject.update(death_date: "2015-02-25") }.to change(Patient, :count).by(0)
+    end
+  end
+
   describe "updating with nested attributes containing _destroy" do
     it "should soft delete the associated record" do
-      @patient = FactoryGirl.create(:patient)
 
-      medication = FactoryGirl.create(:medication, patient: @patient)
-      @patient.medications << medication
+      medication = FactoryGirl.create(:medication, patient: subject)
+      subject.medications << medication
 
-      @patient.update(medications_attributes: {
+      subject.update(medications_attributes: {
         "0" => { id: medication.id, dose: "a lot", _destroy: "1" } })
 
-      expect(@patient.medications.with_deleted.first).to eq(medication)
-      expect(@patient.medications.with_deleted.first.deleted_at).not_to be nil
+      expect(subject.medications.with_deleted.first).to eq(medication)
+      expect(subject.medications.with_deleted.first.deleted_at).not_to be nil
     end
   end
 
   describe 'set_modality' do
-    subject { create(:patient) }
 
     context 'given the patient has no modality' do
       it 'creates a patient modality on the patient' do
@@ -47,6 +82,7 @@ describe Patient, :type => :model do
         expect(subject.modalities).not_to be_empty
       end
     end
+
     context 'given the patient has an existing modality' do
       before do
         @modality = create(:modality)
@@ -54,14 +90,18 @@ describe Patient, :type => :model do
         subject.set_modality(start_date: Date.parse('2015-04-17'))
         subject.reload
       end
+
       it 'supersedes the existing modality' do
         expect(@modality.reload.termination_date).to eq(Date.parse('2015-04-17'))
         expect(subject.current_modality).not_to eq(@modality)
       end
+
       it 'sets a new modality for the patient' do
         expect(subject.current_modality.start_date).to eq(Date.parse('2015-04-17'))
         expect(subject.current_modality.termination_date).to be_nil
       end
     end
+
   end
+
 end

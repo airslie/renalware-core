@@ -41,16 +41,21 @@
       .large-3.columns
         %dl
           %dt Date of Birth:
-          %dd= @patient.dob
+          %dd= @patient.birth_date
 
           %dt Date of Death:
           %dd= @patient.death_date.blank? ? "N/A" : @patient.death_date
 
-          - if @patient.death_date.present? && @patient.first_edta_code_id.blank?
-            .alert_text
-              Please update patient's causes of death!
-            = link_to "Update Cause of Death", death_update_patient_path(@patient), {class: "update-death button tiny mt"}
+      .large-12.columns
+        - if @patient.death_date.present?
+          %dl
+            %dt First cause of Death:
+            %dd= @patient.first_edta_code.death_cause
 
+            %dt Second cause of Death:
+            %dd= default_for_associated(@patient.second_edta_code, :death_cause, 'N/A')
+
+          = link_to "Update Causes of Death", death_update_patient_path(@patient), {class: "update-death button tiny mt"}
 
       .large-12.columns
         %dl

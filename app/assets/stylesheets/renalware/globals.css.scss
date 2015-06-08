@@ -43,6 +43,11 @@ p {
   margin: 0 0 0.5em 0;
 }
 
+ul.bullet-number {
+  list-style-type: decimal;
+  text-align: left;
+ }
+
 .page-title {
   color: #008cba;
 }

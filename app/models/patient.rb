@@ -37,7 +37,14 @@ class Patient < ActiveRecord::Base
   validates :forename, presence: true
   validates :local_patient_id, presence: true, uniqueness: true
   validates :sex, presence: true
-  validates :dob, presence: true
+  validates :birth_date, presence: true
+
+  with_options if: :current_modality_death?, on: :update do |death|
+    death.validates :death_date, presence: true
+    death.validates :first_edta_code_id, presence: true
+  end
+
+  scope :dead, -> { where("death_date IS NOT NULL") }
 
   enum sex: { not_known: 0, male: 1, female: 2, not_specified: 9 }
 
@@ -47,7 +54,7 @@ class Patient < ActiveRecord::Base
 
   def age
     now = Time.now.utc.to_date
-    now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
+    now.year - birth_date.year - ((now.month > birth_date.month || (now.month == birth_date.month && now.day >= birth_date.day)) ? 0 : 1)
   end
 
   # @section services
@@ -61,4 +68,11 @@ class Patient < ActiveRecord::Base
       end
     )
   end
+
+  def current_modality_death?
+    if self.current_modality.present?
+      self.current_modality.modality_code.death?
+    end
+  end
+
 end

@@ -1,5 +1,5 @@
 %h4.patient-info
-  = "#{@patient.full_name} - HospNo: #{@patient.local_patient_id} #{@patient.age} yo #{I18n.t("enums.gender.#{@patient.sex}")} DoB: #{@patient.dob.strftime("%d/%m/%Y")} [#{@patient.current_modality.blank? || @patient.current_modality.new_record? ? "No Modal" : @patient.current_modality.modality_code.name}]"
+  = "#{@patient.full_name} - KCH: #{@patient.local_patient_id}, Age: #{@patient.age}, #{I18n.t("enums.gender.#{@patient.sex}")}, DoB: #{@patient.birth_date}, #{@patient.current_modality.blank? || @patient.current_modality.new_record? ? "No Modal" : @patient.current_modality.modality_code.name}"
 
 %nav.sub-nav-container
   %dl.sub-nav{role: "menu"}

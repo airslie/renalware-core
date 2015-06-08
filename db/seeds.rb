@@ -245,7 +245,7 @@ CSV.foreach(file_path, headers: true) do |row|
     patient.surname = row['surname']
     patient.forename = row['forename']
     patient.sex = sex
-    patient.dob = row['dob']
+    patient.birth_date = row['birth_date']
     patient.nhs_number = demo_nhsno
     patient.created_at = row['created_at']
   end

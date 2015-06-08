@@ -5,6 +5,19 @@ Given(/^there are modality reasons in the database$/) do
   end
 end
 
+Given(/^there are edta causes of death in the database$/) do
+  FactoryGirl.create(:edta_code, code: 100, :death_cause => "Death cause one")
+  FactoryGirl.create(:edta_code, code: 200, :death_cause => "Death cause two")
+end
+
+Given(/^they are on a patient's clinical summary$/) do
+  visit clinical_summary_patient_path(@patient_1)
+end
+
+Given(/^they go to the problem list page$/) do
+  visit problems_patient_path(@patient_1)
+end
+
 Given(/^there are medication routes in the database$/) do
   @medication_routes = [["PO", "Per Oral"], ["IV", "Intravenous"], ["SC", "Subcutaneous"], ["IM", "Intramuscular"], ["Other (Please specify in notes)", "Other (Refer to notes)"]]
   @medication_routes.map! do |mroute|
@@ -46,8 +59,8 @@ Given(/^a patient has a medication$/) do
 
 end
 
-Given(/^they are on a patient's clinical summary$/) do
-  visit clinical_summary_patient_path(@patient_1)
+Given(/^I choose to add a modality$/) do
+  visit new_patient_modality_path(@patient_1)
 end
 
 When(/^they add a patient event$/) do
@@ -79,10 +92,6 @@ When(/^complete the patient event form$/) do
   fill_in "Notes", :with => "Wants to arrange a home visit"
 
   click_on "Save Patient Event"
-end
-
-Given(/^they go to the problem list page$/) do
-  visit problems_patient_path(@patient_1)
 end
 
 When(/^they add some problems to the list$/) do
@@ -184,58 +193,6 @@ When(/^they terminate a medication$/) do
   click_on "Save Medication"
 end
 
-Then(/^they should see the new patient event on the clinical summary$/) do
-  %w(11:30 Telephone call Spoke to son ).each do |heading|
-    expect(page).to have_content(heading), "Expected #{heading} to be in the view"
-  end
-end
-
-Then(/^be able to view notes through toggling the description data\.$/) do
-  expect(page).to have_content("Wants to arrange a home visit")
-end
-
-Then(/^they should see the new problems on the clinical summary$/) do
-  expect(page).to have_content("Have abdominal pain, possibly kidney stones")
-  expect(page).to have_content("Bad breath")
-end
-
-Then(/^they should see the new medications on the clinical summary$/) do
-  visit clinical_summary_patient_path(@patient_1)
-  expect(page).to have_css(".drug-esa")
-  expect(page).to have_content("Blue")
-  expect(page).to have_content("10mg")
-  expect(page).to have_content("PO")
-  expect(page).to have_content("Once daily")
-  expect(page).to have_content("01/01/2013")
-
-  expect(page).to have_css(".drug-drug")
-  expect(page).to have_content("Amoxicillin")
-  expect(page).to have_content("20mg")
-  expect(page).to have_content("IV")
-  expect(page).to have_content("Twice weekly")
-  expect(page).to have_content("02/02/2014")
-end
-
-Then(/^they should no longer see this medication in their clinical summary$/) do
-  expect(page).to have_no_content("Blue")
-end
-
-Then(/^should see this terminated medication in their medications history$/) do
-  visit medications_index_patient_path(@patient)
-  expect(page).to have_content?("Blue")
-end
-
-Given(/^there are edta causes of death in the database$/) do
-  @edta_codes = [[100, "Death cause one"], [200, "Death cause two"]]
-  @edta_codes.map! do |dc|
-    @edta_code = EdtaCode.create!(:code => dc[0], :death_cause => dc[1])
-  end
-end
-
-Given(/^I choose to add a modality$/) do
-  visit new_patient_modality_path(@patient_1)
-end
-
 When(/^I complete the modality form$/) do
 
   within "#modality-code-select" do
@@ -254,10 +211,6 @@ When(/^I complete the modality form$/) do
   click_on "Save Modality"
 end
 
-Then(/^I should see a patient's modality on their clinical summary$/) do
-   expect(page).to have_content("Modal One")
-end
-
 When(/^I select death modality$/) do
   within "#modality-code-select" do
     select "Death"
@@ -270,7 +223,7 @@ When(/^I select death modality$/) do
   click_on "Save Modality"
 end
 
-Then(/^I should complete the cause of death form$/) do
+When(/^I complete the cause of death form$/) do
 
   within "#patient_death_date_3i" do
     select '22'
@@ -290,7 +243,54 @@ Then(/^I should complete the cause of death form$/) do
   click_on "Save Cause of Death"
 end
 
-Then(/^see the date of death in the patient's demographics$/) do
+Then(/^they should see the new patient event on the clinical summary$/) do
+  %w(01/01/2011, 11:30 Telephone call Spoke to son ).each do |heading|
+    expect(page).to have_content(heading), "Expected #{heading} to be in the view"
+  end
+end
+
+Then(/^be able to view notes through toggling the description data\.$/) do
+  expect(page).to have_content("Wants to arrange a home visit")
+end
+
+Then(/^they should see the new problems on the clinical summary$/) do
+  expect(page).to have_content("Have abdominal pain, possibly kidney stones")
+  expect(page).to have_content("Bad breath")
+end
+
+Then(/^they should see the new medications on the clinical summary$/) do
+  visit clinical_summary_patient_path(@patient_1)
+  within(".drug-esa") do
+    expect(page).to have_content("Blue")
+    expect(page).to have_content("10mg")
+    expect(page).to have_content("PO")
+    expect(page).to have_content("Once daily")
+    expect(page).to have_content("01/01/2013")
+  end
+
+  within(".drug-drug") do
+    expect(page).to have_content("Amoxicillin")
+    expect(page).to have_content("20mg")
+    expect(page).to have_content("IV")
+    expect(page).to have_content("Twice weekly")
+    expect(page).to have_content("02/02/2014")
+  end
+end
+
+Then(/^they should no longer see this medication in their clinical summary$/) do
+  expect(page).to have_no_content("Blue")
+end
+
+Then(/^should see this terminated medication in their medications history$/) do
+  visit medications_index_patient_path(@patient)
+  expect(page).to have_content?("Blue")
+end
+
+Then(/^I should see a patient's modality on their clinical summary$/) do
+   expect(page).to have_content("Modal One")
+end
+
+Then(/^I should see the date of death in the patient's demographics$/) do
   visit demographics_patient_path(@patient_1)
   expect(page).to have_content("22/09/2014")
 end
