@@ -11,14 +11,21 @@ describe Admin::UsersController, :type => :controller do
       get :index
       expect(assigns(:users).first).to be_a(User)
     end
+  end
 
-    it 'filters approved users' do
-      create(:user)
-      create(:user,:approved)
+  describe 'GET unapproved' do
+    it 'list unapproved users' do
+      expect(User).to receive(:unapproved).and_return([])
 
-      get :index, approved: 'false'
+      get :unapproved
+    end
+  end
 
-      expect(assigns(:users)).not_to eq(User.all)
+  describe 'GET expired' do
+    it 'lists expired users' do
+      expect(User).to receive(:expired).and_return([])
+
+      get :expired
     end
   end
 end
