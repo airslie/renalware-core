@@ -11,6 +11,5 @@
         .content.toggle-content{:id => "patient-event-notes-#{event.id}"}
           = event.notes
   %td{:data => { :heading => "Time"}}
-    = event.date_time.strftime("%d/%m/%Y")
-  %td{:data => { :heading => "Time"}}
-    = event.date_time.strftime("%H:%M")
+    = event.date_time
+
