@@ -75,7 +75,7 @@ class PatientsController < ApplicationController
       :event_attributes => [:date_time, :description, :notes, :event_type_id, :patient_id],
       :medications_attributes => [:id, :medicatable_id, :medicatable_type, :dose, :medication_route_id,
       :frequency, :notes, :date, :provider, :_destroy],
-      :problems_attributes => [:id, :patient_id, :snomed_id, :description, :date, :user_id, :deleted_at, :_destroy],
+      :problems_attributes => [:id, :patient_id, :snomed_id, :snomed_description, :description, :date, :user_id, :deleted_at, :_destroy],
       :esrf_info_attributes => [:id, :patient_id, :user_id, :date, :prd_code_id]
       )
   end

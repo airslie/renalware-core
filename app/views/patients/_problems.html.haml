@@ -8,7 +8,7 @@
   - @patient.problems.each do |p|
     %tr{:class => "problem"}
       %td{:data => { :heading => "Problem" }}
-        = p.description
+        = p.full_description
       %td{:data => { :heading => "Date" }}
         = p.created_at
       %td{:data => { :heading => "Date" }}

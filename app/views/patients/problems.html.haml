@@ -22,10 +22,10 @@
 
                 %ul.no-bullet
                   %li.history
-                    = "#{p.description}, #{p.updated_at.strftime("%d/%m/%Y - %H:%M")}"
+                    = "#{p.full_description}, #{p.updated_at.strftime("%d/%m/%Y - %H:%M")}"
 
       = render partial: 'problems/new', locals: { pb: pb } if pb.object.new_record?
       = render partial: 'problems/problem', locals: { pb: pb } unless pb.object.new_record?
 
-    - unless current_user.read_only?
-      = f.submit "Save Problems", :class => "button tiny right save mt"
+      - unless current_user.read_only?
+        = f.submit "Save Problems", :class => "button tiny right save mt"

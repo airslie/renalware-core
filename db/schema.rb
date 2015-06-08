@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150604153421) do
+ActiveRecord::Schema.define(version: 20150605083655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -293,14 +293,10 @@ ActiveRecord::Schema.define(version: 20150604153421) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "snomed_id"
+    t.string   "snomed_description"
   end
 
   add_index "problems", ["deleted_at"], name: "index_problems_on_deleted_at", using: :btree
-
-  create_table "regimes", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
