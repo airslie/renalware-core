@@ -206,6 +206,30 @@ FluidDescription.find_or_create_by!(description: "Misty")
 FluidDescription.find_or_create_by!(description: "Cloudy")
 FluidDescription.find_or_create_by!(description: "Pea Soup")
 
+log '-----------Adding CAPD Bag Types----------'
+file_path = Rails.root.join('db', 'csv', 'pd_bagtypes.csv')
+
+logcount=0
+CSV.foreach(file_path, headers: true) do |row|
+  logcount += 1
+  manufacturer = row['manufacturer']
+  description = row['description']
+  log "... adding #{manufacturer}: #{description}"
+  BagType.create(
+    manufacturer: row['manufacturer'],
+    description: row['description'],
+    glucose_ml_percent_1_36: row['glucose_ml_percent_1_36'],
+    glucose_ml_percent_2_27: row['glucose_ml_percent_2_27'],
+    glucose_ml_percent_3_86: row['glucose_ml_percent_3_86'],
+    amino_acid_ml: row['amino_acid_ml'],
+    icodextrin_ml: row['icodextrin_ml'],
+    low_glucose_degradation: row['low_glucose_degradation'],
+    low_sodium: row['low_sodium'],
+  )
+end
+
+log "...#{logcount} bag types seeded!"
+
 log '-----------Adding Patients----------'
 file_path = Rails.root.join('db', 'csv', 'rw_patients.csv')
 

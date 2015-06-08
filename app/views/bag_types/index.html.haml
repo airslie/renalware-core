@@ -6,29 +6,27 @@
 
 .row
   %table.responsive
-    %caption.title
-      Bag Types
     %thead
       %th
         Manufacturer
       %th
-        Description (nickname)
+        Description
       %th
-        Vol of 1.36% glucose/litre (ml)
+        1.36% glc/l (ml)
       %th
-        Vol of 2.27% glucose/litre (ml)
+        2.27% glc/l (ml)
       %th
-        Vol of 3.86% glucose/litre (ml)
+        3.86% glc/l (ml)
       %th
-        Vol of amino acid soln (ml)
+        amino acid (ml)
       %th
-        Vol of icodextrin soln (ml)
+        icodextrin (ml)
       %th
-        Low glucose degradation product (GDP)
+        Low GDP
       %th
-        Low sodium solution
+        Low Na
       %th
-        Action
+        Options
 
     - @bag_types.each do |bt|
       %tbody
@@ -47,10 +45,10 @@
             = bt.amino_acid_ml
           %td{ :data => { :heading => "icodextrin soln (ml)" } }
             = bt.icodextrin_ml
-          %td{ :data => { :heading => "Low glucose degradation product (GDP)" } }
+          %td{ :data => { :heading => "Low GDP" } }
             = yes_no(bt.low_glucose_degradation)
-          %td{ :data => { :heading => "Low sodium solution" } }
+          %td{ :data => { :heading => "Low Na" } }
             = yes_no(bt.low_sodium)
-          %td{ :data => { :heading => "Action" } }
+          %td{ :data => { :heading => "Options" } }
             = link_to "Edit", edit_bag_type_path(bt.id), id: "edit-bag-type-#{bt.id}"
             = link_to "Delete", bag_type_path(bt.id), method: :delete , class: "delete", id: "delete-bag-type-#{bt.id}", data: { confirm: "Are you sure you want to delete this bag type?" }
