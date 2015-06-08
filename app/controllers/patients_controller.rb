@@ -20,7 +20,7 @@ class PatientsController < ApplicationController
   end
 
   def death
-    @dead_patients = Patient.where("death_date IS NOT NULL", params[:death_date])
+    @dead_patients = Patient.dead
   end
 
   def index

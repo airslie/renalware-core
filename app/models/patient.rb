@@ -44,6 +44,8 @@ class Patient < ActiveRecord::Base
     death.validates :first_edta_code_id, presence: true
   end
 
+  scope :dead, -> { where("death_date IS NOT NULL") }
+
   enum sex: { not_known: 0, male: 1, female: 2, not_specified: 9 }
 
   def full_name
