@@ -17,9 +17,4 @@
 
             = render partial: 'problems/form', locals: { pb: pb }
 
-          #additional-form
-
-          %a.button.tiny.left.mt.add-problem{href: '#'}
-            Add another problem
-
   = link_to 'Cancel', clinical_summary_patient_path(@patient), class: 'button tiny left cancel mt'
