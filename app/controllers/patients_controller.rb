@@ -1,4 +1,7 @@
 class PatientsController < ApplicationController
+  include Pageable
+
+  before_filter :prepare_paging, only: [:index]
 
   # Cancancan authorization filter
   load_and_authorize_resource
@@ -24,13 +27,7 @@ class PatientsController < ApplicationController
   end
 
   def index
-    @patients = (
-      if params[:q].present?
-        @patient_search.result
-      else
-        Patient.all
-      end
-    )
+    @patients = @patient_search.result.page(@page).per(@per_page)
   end
 
   def manage_medications
