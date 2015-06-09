@@ -6,9 +6,6 @@ describe Patient, :type => :model do
   it { should have_one :current_modality }
   it { should have_one(:modality_code).through(:current_modality) }
 
-  it { should accept_nested_attributes_for(:esrf_info) }
-  it { should accept_nested_attributes_for(:problems) }
-
   it { should have_many :exit_site_infections }
   it { should have_many :peritonitis_episodes }
   it { should have_many :problems }
@@ -22,6 +19,9 @@ describe Patient, :type => :model do
   it { should have_many(:exit_site_infections).through(:medications).source(:treatable) }
   it { should have_many(:peritonitis_episodes).through(:medications).source(:treatable) }
   it { should have_many(:medication_routes).through(:medications) }
+
+  it { should accept_nested_attributes_for(:problems) }
+  it { should accept_nested_attributes_for(:esrf_info) }
 
   it { should validate_presence_of :nhs_number }
   it { should validate_uniqueness_of :nhs_number }
