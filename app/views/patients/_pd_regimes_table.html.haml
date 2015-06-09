@@ -61,6 +61,10 @@
           = yes_no(r.additional_hd)
 
         %td{ :data => { :heading => "Actions" } }
+          %ul.table-data-list
+            - unless current_user.read_only?
+              %li
+                = link_to "Update", edit_patient_pd_regime_path(@patient, r.id), class: "update-pd-regime", id: "update-pd-regime-#{r.id}"
 
 
 
