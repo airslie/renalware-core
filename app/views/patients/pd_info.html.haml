@@ -5,9 +5,16 @@
 
     %h5 PD Info
     %p
-      = link_to "Add Peritonitis Episode", new_patient_peritonitis_episode_path(@patient), :class => "button tiny" 
+      = link_to "Add PD Regime", new_patient_pd_regime_path(@patient), :class => "button tiny"
+      = link_to "Add Peritonitis Episode", new_patient_peritonitis_episode_path(@patient), :class => "button tiny"
       = link_to "Add Exit Site Infection", new_patient_exit_site_infection_path(@patient), :class => "button tiny"
+
 .wide-screen
+  %h6
+    = "PD Regimes (#{@pd_regimes.length})"
+
+  = render partial: "patients/pd_regimes_table"
+
   %h6
     = "Peritonitis Episodes (#{@peritonitis_episodes.length})"
 
