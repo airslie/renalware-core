@@ -1,7 +1,7 @@
 = r.hidden_field :patient_id
 
 .row
-  .large-6.columns
+  .large-10.columns
     .large-12.columns
       .section-underliner
         Dates:
@@ -32,6 +32,9 @@
 
         = r.label :icodextrin_ml, "Daily volume of icodextrin soln (ml)"
         = r.text_field :icodextrin_ml
+
+    .large-18.columns
+      = render partial: 'pd_regime_bags', locals: {r: r}
 
       .large-12.columns
         %ul.no-bullet
