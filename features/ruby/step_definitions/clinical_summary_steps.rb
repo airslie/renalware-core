@@ -97,8 +97,6 @@ end
 When(/^they add some problems to the list$/) do
   click_on "Add a new problem"
   fill_in "Description", :with => "Have abdominal pain, possibly kidney stones"
-  click_on "Add another problem"
-  all(".probs-description")[1].set "Bad breath"
 end
 
 When(/^they save the problem list$/) do
@@ -255,7 +253,6 @@ end
 
 Then(/^they should see the new problems on the clinical summary$/) do
   expect(page).to have_content("Have abdominal pain, possibly kidney stones")
-  expect(page).to have_content("Bad breath")
 end
 
 Then(/^they should see the new medications on the clinical summary$/) do
