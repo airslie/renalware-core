@@ -13,26 +13,6 @@
         = r.label :end_date, "Regime End Date"
         = r.date_select(:end_date, { start_year: (50.years.ago).year, end_year: Time.now.year , order: [:day, :month, :year] }, class: "datetime")
 
-    .large-12.columns
-      .section-underliner
-        Daily Total Fluid Exchanges:
-
-      .large-12.columns
-        = r.label :glucose_ml_percent_1_36, "Daily volume of 1.36% glucose/litre (ml)"
-        = r.text_field :glucose_ml_percent_1_36
-
-        = r.label :glucose_ml_percent_2_27, "Daily volume of 2.27% glucose/litre (ml)"
-        = r.text_field :glucose_ml_percent_2_27
-
-        = r.label :glucose_ml_percent_3_86, "Daily volume of 3.86% glucose/litre (ml)"
-        = r.text_field :glucose_ml_percent_3_86
-
-        = r.label :amino_acid_ml, "Daily volume of amino acid soln (ml)"
-        = r.text_field :amino_acid_ml
-
-        = r.label :icodextrin_ml, "Daily volume of icodextrin soln (ml)"
-        = r.text_field :icodextrin_ml
-
     .large-18.columns
       = render partial: 'pd_regime_bags', locals: {r: r}
 
