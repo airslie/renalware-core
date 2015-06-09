@@ -261,7 +261,6 @@ ActiveRecord::Schema.define(version: 20150605151945) do
   end
 
   create_table "pd_regimes", force: :cascade do |t|
-    t.integer  "user_id"
     t.integer  "patient_id"
     t.date     "start_date"
     t.date     "end_date"
