@@ -15,7 +15,6 @@ Rails.application.routes.draw do
       get :demographics
       get :clinical_summary
       get :manage_medications
-      get :medications_index
       get :problems
       get :death_update
       get :esrf_info

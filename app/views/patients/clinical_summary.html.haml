@@ -19,7 +19,7 @@
 .wide-screen
   .columns.large-6
     %h6
-      = link_to "#{@patient.medications.length} Current Medications", medications_index_patient_path(@patient)
+      = link_to "#{@patient.medications.length} Current Medications", manage_medications_patient_path(@patient)
 
     %ul.no-bullet
       - @patient.medications.each do |p|

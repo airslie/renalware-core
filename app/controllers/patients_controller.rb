@@ -8,7 +8,7 @@ class PatientsController < ApplicationController
   load_and_authorize_resource
 
   before_action :load_patient, only: [:esrf_info, :pd_info, :death_update, :clinical_summary, :manage_medications, :problems,
-                                      :medications_index, :demographics, :edit, :update]
+                                      :demographics, :edit, :update]
 
   def esrf_info
     if @patient.esrf_info.blank?
