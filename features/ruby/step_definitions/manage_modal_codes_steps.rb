@@ -13,7 +13,7 @@ Given(/^that I'm on the add a new modal page$/) do
 end
 
 Given(/^that I choose to edit a modality$/) do
-  visit edit_modality_code_path(@modal_code)
+  visit edit_modality_code_path(@modal_two)
 end
 
 When(/^I complete the form for a new modal$/) do
@@ -34,7 +34,7 @@ Then(/^I should see the new modal on the modalities list$/) do
   expect(page).to have_content("Modal Site")
 end
 
-Then(/^I should see the updated drug on the modality list$/) do
+Then(/^I should see the updated modal on the modality list$/) do
   expect(page).to have_content("This is an edited modal")
 end
 
@@ -43,9 +43,13 @@ Given(/^I am on the modalities index$/) do
 end
 
 When(/^I choose to soft delete a modal$/) do
-  find("##{@modal_code.id}-modal").click
+
+  within("table.modality-codes tbody tr:first-child") do
+    click_link('Delete')
+  end
+
 end
 
 Then(/^I should see the modal removed from the modalities list$/) do
-  expect(page).to have_no_content("Modal Three")
+  expect(page).to have_no_content("Modal One")
 end
