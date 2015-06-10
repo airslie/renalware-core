@@ -3,7 +3,7 @@ Feature: An admin manages the bag types list
   Background:
     Given that I'm logged in
       And there are ethnicities in the database
-      And there are modalities in the database
+      And there are modality codes in the database
       And some patients who need renal treatment
       And a patient has PD
 
