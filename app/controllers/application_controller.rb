@@ -12,5 +12,6 @@ class ApplicationController < ActionController::Base
 
   def prepare_patient_search
     @patient_search = Patient.ransack(params[:q])
+    @patient_search.sorts = ['surname', 'forename']
   end
 end
