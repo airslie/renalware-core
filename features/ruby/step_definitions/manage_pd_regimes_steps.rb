@@ -12,12 +12,6 @@ When(/^I complete the form for a pd regime$/) do
   select 'June', from: 'pd_regime_end_date_2i'
   select '1', from: 'pd_regime_end_date_3i'
 
-  fill_in "Daily volume of 1.36% glucose/litre (ml)", with: 15
-  fill_in "Daily volume of 2.27% glucose/litre (ml)", with: 25
-  fill_in "Daily volume of 3.86% glucose/litre (ml)", with: 35
-  fill_in "Daily volume of amino acid soln (ml)", with: 45
-  fill_in "Daily volume of icodextrin soln (ml)", with: 60
-
   uncheck "Low glucose degradation product (GDP)"
   check "Low sodium solution"
   check "On additional HD"
@@ -28,16 +22,12 @@ end
 Then(/^I should see the new pd regime on the PD info page\.$/) do
   expect(page).to have_content("02/04/2015")
   expect(page).to have_content("01/06/2015")
-  expect(page).to have_content("15")
-  expect(page).to have_content("25")
-  expect(page).to have_content("35")
-  expect(page).to have_content("45")
-  expect(page).to have_content("60")
   expect(page).to have_content("No")
   expect(page).to have_css("td", text: "Yes", count: 2)
 end
 
 Given(/^there are existing PD Regimes$/) do
+
   @pd_regime_1 = FactoryGirl.create(:pd_regime,
     patient: @patient_1,
     start_date: "05/03/2015",
@@ -68,6 +58,7 @@ Given(/^there are existing PD Regimes$/) do
 end
 
 When(/^I choose to edit and update the form for a pd regime$/) do
+  save_and_open_page
   find("#update-pd-regime-#{@pd_regime_1.id}").click
 
   select '2015', from: 'pd_regime_end_date_1i'
@@ -78,5 +69,5 @@ When(/^I choose to edit and update the form for a pd regime$/) do
 end
 
 Then(/^I should see the updated pd regime on the PD info page\.$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(page).to have_content("03/05/2015")
 end
