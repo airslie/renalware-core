@@ -6,16 +6,6 @@
       %th.column-6-width
         Regime End Date
       %th
-        1.36% glc/l (ml)
-      %th
-        2.27% glc/l (ml)
-      %th.column-9-width
-        3.86% glc/l (ml)
-      %th
-        amino acid (ml)
-      %th
-        icodextrin (ml)
-      %th
         Low GDP
       %th
         Low Na
@@ -36,21 +26,6 @@
         %td{ :data => { :heading => "End Date" }, valign: "top" }
           = default_for_blank(r.end_date, "Pending")
 
-        %td{ :data => { :heading => "Daily 1.36% glc/l (ml)" }, valign: "top" }
-          = r.glucose_ml_percent_1_36
-
-        %td{ :data => { :heading => "Daily 2.27% glc/l (ml)" }, valign: "top" }
-          = r.glucose_ml_percent_2_27
-
-        %td{ :data => { :heading => "Daily 3.86% glc/l (ml)" }, valign: "top" }
-          = r.glucose_ml_percent_3_86
-
-        %td{ :data => { :heading => "Daily amino acid soln (ml)" }, valign: "top" }
-          = r.amino_acid_ml
-
-        %td{ :data => { :heading => "Daily icodextrin soln (ml)" }, valign: "top" }
-          = r.icodextrin_ml
-
         %td{ :data => { :heading => "Low GDP" } }
           = yes_no(r.low_glucose_degradation)
 
@@ -59,6 +34,9 @@
 
         %td{ :data => { :heading => "On HD" } }
           = yes_no(r.additional_hd)
+
+        %td{ :data => { :heading => "Last Updated" } }
+          = r.updated_at
 
         %td{ :data => { :heading => "Actions" } }
           %ul.table-data-list
