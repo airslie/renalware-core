@@ -36,7 +36,7 @@
 
         .large-6.columns
           = patient.label :birth_date, "DoB"
-          = patient.date_select(:birth_date, {start_year: (120.years.ago).year, end_year: Time.now.year , order: [:day, :month, :year]}, class: "dob")
+          = patient.date_select(:birth_date, {start_year: (100.years.ago).year, end_year: Time.now.year , order: [:day, :month, :year]}, class: "dob")
 
         .large-12.columns
           = patient.check_box :paediatric_patient_indicator

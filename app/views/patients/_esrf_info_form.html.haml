@@ -5,7 +5,7 @@
 
   %li
     = esrf.label :date, "Date"
-    = esrf.date_select(:date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
+    = esrf.date_select(:date, {start_year: (10.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
 
   %li
     = esrf.label :prd_code_id, "Primary Renal Diagnosis (PRD)"

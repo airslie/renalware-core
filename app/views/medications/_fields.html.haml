@@ -54,7 +54,7 @@
   = pm.text_area :notes, :cols => 50, :rows => 6
 
   = pm.label :date, "Prescribed On"
-  = pm.date_select(:date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
+  = pm.date_select(:date, {start_year: (1.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
 
   = pm.label :provider
 
