@@ -7,22 +7,21 @@ module NestedActionsControllerMethods
     # Allows add and remove form submissions for a nested collection
     #
     # @params
-    # model - the parent model
     # collection - the nested collection where items are added or removed
+    # default_action - the update or save action wrapped in a proc
     # build_attrs - attributes to pass to collection#build when adding to the collection
     #
-    def perform_action(model, collection, build_attrs={})
+    def perform_action(nested, default_action, build_attrs={})
       if (actions = params[:actions]).present?
-        associated = model.send(collection)
         if actions.key?(:remove)
           index = actions[:remove].keys.first.to_i
-          associated.delete(associated[index])
+          nested.delete(nested[index])
         else
-          associated.build(build_attrs)
+          nested.build(build_attrs)
         end
         false
       else
-        model.save
+        default_action.call
       end
     end
   end

@@ -62,5 +62,25 @@ RSpec.describe PdRegimesController, :type => :controller do
         expect(response).to render_template(:edit)
       end
     end
+
+    context 'add bag' do
+      it 'adds a bag to the saved PdRegime' do
+        expect {
+          put :update, id: @pd_regime.id, patient_id: @patient.id,
+            actions: {add_bag: 'Add Bag'}, pd_regime: {start_date: Date.today}
+        }.to change(PdRegime, :count).by(0)
+
+        expect(assigns(:pd_regime).pd_regime_bags.size).to eq(1)
+      end
+    end
+
+    context 'remove bag' do
+      it 'removes a bag from the unsaved PdRegime' do
+        @pd_regime.pd_regime_bags << create(:pd_regime_bag)
+        put :update, id: @pd_regime.id, patient_id: @patient.id,
+          actions: {remove: {'0' => 'Remove'}}, pd_regime: {start_date: Date.today}
+        expect(assigns(:pd_regime).pd_regime_bags.size).to eq(0)
+      end
+    end
   end
 end

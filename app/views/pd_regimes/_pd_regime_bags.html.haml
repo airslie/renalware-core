@@ -1,8 +1,9 @@
 %h5.section-underliner Bags
 
-= r.fields_for :pd_regime_bags do |rb|
+#pd-regime-bags
+  = r.fields_for :pd_regime_bags do |rb|
 
-  = render partial: 'pd_regimes/bags/form', locals: {rb: rb}
+    = render partial: 'pd_regimes/bags/form', locals: {rb: rb}
 
 .large-12.columns.section-underliner
-  = r.submit 'Add Bag', name: 'actions[add]', class: 'button save tiny'
+  = r.submit 'Add Bag', name: 'actions[add]', class: 'add-bag button save tiny'
