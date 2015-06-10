@@ -3,7 +3,7 @@ Feature: A Clinician records an infection for a patient caused by Peritoneal Dia
 Background:
   Given that I'm logged in
     And there are ethnicities in the database
-    And there are modalities in the database
+    And there are modality codes in the database
     And there are modality reasons in the database
     And there are edta causes of death in the database
     And there are organisms in the database
