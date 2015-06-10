@@ -26,7 +26,7 @@ Then(/^I should see the new pd regime on the PD info page\.$/) do
   expect(page).to have_css("td", text: "Yes", count: 2)
 end
 
-Given(/^there are existing PD Regimes$/) do
+Given(/^a patient has existing PD Regimes$/) do
 
   @pd_regime_1 = FactoryGirl.create(:pd_regime,
     patient: @patient_1,
@@ -41,7 +41,6 @@ Given(/^there are existing PD Regimes$/) do
     low_sodium: true,
     additional_hd: false
     )
-
   @pd_regime_2 = FactoryGirl.create(:pd_regime,
     patient: @patient_1,
     start_date: "02/04/2015",
@@ -58,8 +57,11 @@ Given(/^there are existing PD Regimes$/) do
 end
 
 When(/^I choose to edit and update the form for a pd regime$/) do
-  save_and_open_page
-  find("#update-pd-regime-#{@pd_regime_1.id}").click
+  visit pd_info_patient_path(@patient_1)
+
+  within("table.pd-regimes tbody tr:first-child") do
+    click_link('Update')
+  end
 
   select '2015', from: 'pd_regime_end_date_1i'
   select 'May', from: 'pd_regime_end_date_2i'

@@ -1,4 +1,4 @@
-%table.responsive
+%table.responsive.pd-regimes
   %thead
     %tr
       %th.column-6-width
@@ -17,7 +17,7 @@
         Actions
 
   %tbody
-    - @pd_regimes.each do |r|
+    - @patient.pd_regimes.each do |r|
       %tr{ valign: "top" }
 
         %td{ :data => { :heading => "Start Date" }, valign: "top" }
@@ -42,7 +42,7 @@
           %ul.table-data-list
             - unless current_user.read_only?
               %li
-                = link_to "Update", edit_patient_pd_regime_path(@patient, r.id), class: "update-pd-regime", id: "update-pd-regime-#{r.id}"
+                = link_to "Update", edit_patient_pd_regime_path(@patient, r.id), class: "update-pd-regime"
 
 
 
