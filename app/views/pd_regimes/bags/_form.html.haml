@@ -1,0 +1,34 @@
+= rb.hidden_field :pd_regime_id
+
+.large-4.columns.inline
+  = rb.label :bag_type_id, 'Bag Type'
+  = rb.select :bag_type_id, BagType.all.map { |bt| [bt.description, bt.id] }
+
+.large-2.columns.inline
+  = rb.label :volume, 'Volume'
+  = rb.text_field :volume
+
+.large-2.columns.inline
+  = rb.label :per_week, 'Per week'
+  = rb.select :per_week, (1..7)
+
+.large-3.columns.inline
+  = rb.submit 'Remove', name: "actions[remove][#{rb.index}]", class: 'button cancel tiny right'
+
+.large-12.columns
+  = rb.check_box :monday, class: 'inline'
+  = rb.label :monday
+  = rb.check_box :tuesday, class: 'inline'
+  = rb.label :tuesday
+  = rb.check_box :wednesday, class: 'inline'
+  = rb.label :wednesday
+  = rb.check_box :thursday, class: 'inline'
+  = rb.label :thursday
+  = rb.check_box :friday, class: 'inline'
+  = rb.label :friday
+  = rb.check_box :saturday, class: 'inline'
+  = rb.label :saturday
+  = rb.check_box :sunday, class: 'inline'
+  = rb.label :sunday
+
+%hr
