@@ -8,10 +8,10 @@
 
       .large-12.columns
         = r.label :start_date, "Regime Start Date"
-        = r.date_select(:start_date, { start_year: (50.years.ago).year, end_year: Time.now.year , order: [:day, :month, :year] }, class: "datetime")
+        = r.date_select(:start_date, { start_year: (1.years.ago).year, end_year: Time.now.year , order: [:day, :month, :year] }, class: "datetime")
 
         = r.label :end_date, "Regime End Date"
-        = r.date_select(:end_date, { start_year: (50.years.ago).year, end_year: Time.now.year , order: [:day, :month, :year] }, class: "datetime")
+        = r.date_select(:end_date, { start_year: (1.years.ago).year, end_year: (Time.now.year + 1), order: [:day, :month, :year] }, class: "datetime")
 
     .large-12.columns
       = render partial: 'pd_regime_bags', locals: {r: r}
