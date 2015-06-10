@@ -1,7 +1,7 @@
 = r.hidden_field :patient_id
 
 .row
-  .large-10.columns
+  .large-12.columns
     .large-12.columns
       .section-underliner
         Dates:
@@ -13,8 +13,12 @@
         = r.label :end_date, "Regime End Date"
         = r.date_select(:end_date, { start_year: (50.years.ago).year, end_year: Time.now.year , order: [:day, :month, :year] }, class: "datetime")
 
-    .large-18.columns
+    .large-12.columns
       = render partial: 'pd_regime_bags', locals: {r: r}
+
+    .large-12.columns
+      .section-underliner
+        Bag Solution Indicators:
 
       .large-12.columns
         %ul.no-bullet
