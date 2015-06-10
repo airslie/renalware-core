@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe PdRegime, :type => :model do
+RSpec.describe PdRegime, type: :model do
 
   it { should belong_to :patient }
 
