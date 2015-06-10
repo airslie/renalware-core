@@ -5,7 +5,7 @@ class PdRegimesController < ApplicationController
   load_and_authorize_resource
 
   before_action :find_patient
-  before_action :find_pd_regime, only: [:edit, :update]
+  before_action :find_pd_regime, only: [:edit, :update, :show]
 
   def new
     @pd_regime = PdRegime.new(patient: @patient)
