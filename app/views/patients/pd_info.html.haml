@@ -12,8 +12,8 @@
 .wide-screen
   %h6
     = "PD Regimes (#{@pd_regimes.length})"
-
-  = render partial: "patients/pd_regimes_table"
+  = render partial: 'pd_regimes/current_regime' unless @current_regime.nil?
+  = render partial: 'patients/pd_regimes_table'
 
   %h6
     = "Peritonitis Episodes (#{@peritonitis_episodes.length})"
