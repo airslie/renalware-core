@@ -26,7 +26,8 @@ Then(/^I should see the new pd regime on the PD info page\.$/) do
   expect(page).to have_css("td", text: "Yes", count: 2)
 end
 
-Given(/^there are existing PD Regimes$/) do
+Given(/^a patient has existing PD Regimes$/) do
+
   @pd_regime_1 = FactoryGirl.create(:pd_regime,
     patient: @patient_1,
     start_date: "05/03/2015",
@@ -40,7 +41,6 @@ Given(/^there are existing PD Regimes$/) do
     low_sodium: true,
     additional_hd: false
     )
-
   @pd_regime_2 = FactoryGirl.create(:pd_regime,
     patient: @patient_1,
     start_date: "02/04/2015",
@@ -54,10 +54,44 @@ Given(/^there are existing PD Regimes$/) do
     low_sodium: true,
     additional_hd: false
     )
+
+  @pd_regime_bag_1 = FactoryGirl.create(:pd_regime_bag,
+    bag_type: @bag_type_1,
+    volume: 10,
+    per_week: 2,
+    monday: false,
+    tuesday: false,
+    wednesday: true,
+    thursday: false,
+    friday: true,
+    saturday: false,
+    sunday: false,
+    )
+
+  @pd_regime_bag_2 = FactoryGirl.create(:pd_regime_bag,
+    bag_type: @bag_type_2,
+    volume: 20,
+    per_week: 4,
+    monday: true,
+    tuesday: false,
+    wednesday: true,
+    thursday: false,
+    friday: true,
+    saturday: false,
+    sunday: true,
+    )
+
+  @pd_regime_2.pd_regime_bags << @pd_regime_bag_1
+  @pd_regime_2.pd_regime_bags << @pd_regime_bag_2
+
 end
 
 When(/^I choose to edit and update the form for a pd regime$/) do
-  find("#update-pd-regime-#{@pd_regime_1.id}").click
+  visit pd_info_patient_path(@patient_1)
+
+  within("table.pd-regimes tbody tr:first-child") do
+    click_link('Update')
+  end
 
   select '2015', from: 'pd_regime_end_date_1i'
   select 'May', from: 'pd_regime_end_date_2i'
@@ -67,5 +101,34 @@ When(/^I choose to edit and update the form for a pd regime$/) do
 end
 
 Then(/^I should see the updated pd regime on the PD info page\.$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(page).to have_content("03/05/2015")
+end
+
+When(/^I choose to view a pd regime$/) do
+  visit pd_info_patient_path(@patient_1)
+
+  within("table.pd-regimes tbody tr:nth-child(2)") do
+    click_link('View Regime')
+  end
+end
+
+Then(/^I should see the chosen pd regime details$/) do
+  expect(page).to have_content("02/04/2015")
+  expect(page).to have_content("21/05/2015")
+  expect(page).to have_content("Low glucose degradation(GDP): Yes")
+  expect(page).to have_content("Low sodium: Yes")
+  expect(page).to have_content("On additional HD: No")
+
+  #saved bags for this regime:
+  #bag 1
+  expect(page).to have_content("Bag type: Blue–2.34")
+  expect(page).to have_content("Volume: 10ml")
+  expect(page).to have_content("No. per week: 2")
+  expect(page).to have_content("Days: Wed, Fri")
+
+  #bag 2
+  expect(page).to have_content("Bag type: Red–3.25")
+  expect(page).to have_content("Volume: 20ml")
+  expect(page).to have_content("No. per week: 4")
+  expect(page).to have_content("Days: Sun, Mon, Wed, Fri")
 end
