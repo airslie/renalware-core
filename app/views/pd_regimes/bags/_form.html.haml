@@ -2,7 +2,7 @@
 
 .large-4.columns.inline
   = rb.label :bag_type_id, 'Bag Type'
-  = rb.select :bag_type_id, BagType.all.map { |bt| [bt.description, bt.id] }
+  = rb.select :bag_type_id, BagType.all.map { |bt| [bt.full_description, bt.id] }
 
 .large-2.columns.inline
   = rb.label :volume, 'Volume'
