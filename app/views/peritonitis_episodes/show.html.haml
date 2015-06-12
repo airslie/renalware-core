@@ -18,11 +18,11 @@
             %dt.title-bold
               Treatment Start Date:
             %dd
-              = @peritonitis_episode.treatment_start_date
+              = default_for_blank(@peritonitis_episode.treatment_start_date, nil)
             %dt.title-bold
               Treatment End Date:
             %dd
-              = default_for_blank(@peritonitis_episode.treatment_end_date, "Pending")
+              = default_for_blank(@peritonitis_episode.treatment_end_date, nil)
 
         .row
           .large-12.columns
@@ -52,15 +52,15 @@
             .large-12.columns
               %ul
                 %li
-                  = "Total: #{@peritonitis_episode.white_cell_total}"
+                  = "Total: #{default_for_blank_units(@peritonitis_episode.white_cell_total, "x 10\u2079", "N/A")}"
                 %li
-                  = "Neutro: #{@peritonitis_episode.white_cell_neutro}%"
+                  = "Neutro: #{default_for_blank_units(@peritonitis_episode.white_cell_neutro, "%", "N/A")}"
                 %li
-                  = "Lympho: #{@peritonitis_episode.white_cell_lympho}%"
+                  = "Lympho: #{default_for_blank_units(@peritonitis_episode.white_cell_lympho, "%", "N/A")}"
                 %li
-                  = "Degen: #{@peritonitis_episode.white_cell_degen}%"
+                  = "Degen: #{default_for_blank_units(@peritonitis_episode.white_cell_degen, "%", "N/A")}"
                 %li
-                  = "Other: #{@peritonitis_episode.white_cell_other}%"
+                  = "Other: #{default_for_blank_units(@peritonitis_episode.white_cell_other, "%", "N/A")}"
 
       .large-6.columns
         .row
@@ -79,7 +79,7 @@
                 %li
                   = "Abdominal Pain: #{yes_no(@peritonitis_episode.abdominal_pain)}"
                 %li
-                  = "Fluid Description: #{@peritonitis_episode.fluid_description.description}"
+                  = "Fluid Description: #{default_for_associated(@peritonitis_episode.fluid_description, :description, "N/A")}"
         .row
           .large-12.columns
             .section-underliner.title-bold
@@ -96,4 +96,4 @@
 
       .large-12.columns.button-padding
         = link_to "Edit", edit_patient_peritonitis_episode_path(@patient, @peritonitis_episode.id), class: "tiny button right"
-        = link_to "Back", pd_info_patient_path(@patient), class: "button tiny left cancel"
+        = link_to "Return to PD Info", pd_info_patient_path(@patient), class: "button tiny left cancel"
