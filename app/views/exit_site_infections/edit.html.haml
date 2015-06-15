@@ -5,6 +5,9 @@
 
     %h5 Update an Exit Site Infection
 
+    .large-12.columns
+    = render partial: "shared/errors", locals: { model: @exit_site_infection }
+
 .row
   .large-12.columns
     = form_for [@patient, @exit_site_infection], :method => :put do |e|
