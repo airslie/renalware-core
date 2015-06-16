@@ -3,7 +3,7 @@
 
     %a.fi-plus.fi-minus.form-toggle{href: "#edit-meds-#{pm.object.id}", class: "drug-#{drug_types_colour_tag(pm.object.medicatable.drug_types)}"}
 
-      = "#{pm.object.medicatable.name} - #{pm.object.dose}, #{pm.object.medication_route.name}, #{pm.object.frequency}, #{pm.object.date}"
+      = "#{pm.object.medicatable.name} - #{pm.object.dose}, #{pm.object.medication_route.name}, #{pm.object.frequency}, #{pm.object.start_date}"
 
       .right.edit
         Edit
