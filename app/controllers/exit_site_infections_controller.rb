@@ -38,7 +38,7 @@ class ExitSiteInfectionsController < RenalwareController
     params.require(:exit_site_infection).permit(:diagnosis_date, :treatment, :outcome, :notes,
       :infection_organisms_attributes => [:id, :organism_code_id, :sensitivity, :infectable_id, :infectable_type ],
       :medications_attributes => [:id, :patient_id, :treatable_id, :treatable_type, :medicatable_id, :medicatable_type,
-      :dose, :medication_route_id, :frequency, :notes, :date, :provider, :_destroy])
+      :dose, :medication_route_id, :frequency, :notes, :start_date, :end_date, :provider, :_destroy])
   end
 
   def load_exit_site_infection
