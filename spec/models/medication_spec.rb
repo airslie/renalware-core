@@ -10,4 +10,5 @@ RSpec.describe Medication, :type => :model do
   it { should validate_presence_of :dose }
   it { should validate_presence_of :medication_route_id }
   it { should validate_presence_of :frequency }
+  it { should validate_presence_of :start_date }
 end

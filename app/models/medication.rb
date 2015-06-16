@@ -14,6 +14,7 @@ class Medication < ActiveRecord::Base
   validates :dose, presence: true
   validates :medication_route_id, presence: true
   validates :frequency, presence: true
+  validates :start_date, presence: true
 
   enum provider: %i(gp hospital home_delivery)
 end
