@@ -1,4 +1,4 @@
-.med-form.content{:id => "edit-meds-#{pm.object.id}"}
+.med-form.content{ :id => "edit-meds-#{pm.object.id}" }
   = pm.hidden_field :id
 
   = pm.hidden_field :patient_id, value: @patient.id
@@ -53,8 +53,11 @@
   = pm.label :notes
   = pm.text_area :notes, :cols => 50, :rows => 6
 
-  = pm.label :date, "Prescribed On"
-  = pm.date_select(:date, {start_year: (1.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
+  = pm.label :start_date, "Prescribed On"
+  = pm.date_select(:start_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year], include_blank: true }, class: "datetime")
+
+  = pm.label :end_date, "Terminated On"
+  = pm.date_select(:end_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year], include_blank: true }, class: "datetime")
 
   = pm.label :provider
 
