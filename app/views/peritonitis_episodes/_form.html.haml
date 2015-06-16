@@ -20,7 +20,7 @@
 
         .large-4.columns
           = p.label :treatment_end_date
-          = p.date_select(:treatment_end_date, { start_year: (1.year.ago).year, end_year: Time.now.year +1, order: [:day, :month, :year], include_blank: true }, class: "datetime")
+          = p.date_select(:treatment_end_date, { start_year: (1.year.ago).year, end_year: Time.now.year + 1, order: [:day, :month, :year], include_blank: true }, class: "datetime")
 
     .row
       .large-12.columns
