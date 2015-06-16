@@ -31,7 +31,7 @@
 
         %li
           = m.label :date, "Start Date"
-          = m.date_select(:start_date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
+          = m.date_select(:start_date, {start_year: (1.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
 
         %li.hide-death
           = m.label :notes, "Notes"
