@@ -8,9 +8,7 @@ FactoryGirl.define do
     medication_route
     frequency "daily"
     notes "with food"
-    date "25/02/2015"
+    start_date "25/02/#{Date.current.year}"
     deleted_at "NULL"
-    created_at "2015-02-03 18:21:04"
-    updated_at "2015-02-05 18:21:04"
   end
 end
