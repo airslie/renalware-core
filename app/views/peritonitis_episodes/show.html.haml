@@ -1,19 +1,16 @@
-.main-content
-  .row.g-center
+.wide-screen
+  .columns.large-12
     = render partial: "patients/patient_info_header", locals: { model: @patient }
-
-  .row
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
-.row
-  %h5
-    = "Peritonitis Episode Details - Diagnosed: #{@peritonitis_episode.diagnosis_date.strftime("%d/%m/%Y")}"
+    %h5
+      = "Peritonitis Episode Details - Diagnosed: #{@peritonitis_episode.diagnosis_date.strftime("%d/%m/%Y")}"
 
 .row
   .large-12.columns
     = field_set_tag do
       %legend.title-bold
-        = "Last Updated: #{@peritonitis_episode.updated_at.strftime("%d/%m/%Y, %H:%M")}"
+        = "Last Updated: #{@peritonitis_episode.updated_at}"
 
       .large-6.columns
         .large-12.columns
@@ -21,11 +18,11 @@
             %dt.title-bold
               Treatment Start Date:
             %dd
-              = @peritonitis_episode.treatment_start_date.strftime("%d/%m/%Y")
+              = @peritonitis_episode.treatment_start_date
             %dt.title-bold
               Treatment End Date:
             %dd
-              = @peritonitis_episode.treatment_end_date.strftime("%d/%m/%Y")
+              = default_for_blank(@peritonitis_episode.treatment_end_date, "Pending")
 
         .row
           .large-12.columns
@@ -36,7 +33,7 @@
               %ul
                 %li
                   Episode Type:
-                  = @peritonitis_episode.episode_type.blank? ? "Unknown" : @peritonitis_episode.episode_type.term
+                  = default_for_associated(@peritonitis_episode.episode_type, :term, "Unknown")
                 %li
                   = "Catheter Removed: #{yes_no(@peritonitis_episode.catheter_removed)}"
 
@@ -52,7 +49,7 @@
             .section-underliner.title-bold
               White Cell Count:
 
-            .large-12.columnss
+            .large-12.columns
               %ul
                 %li
                   = "Total: #{@peritonitis_episode.white_cell_total}"
@@ -70,6 +67,7 @@
           .large-12.columns
             .section-underliner.title-bold
               Causes/Symptoms:
+
             .large-12.columns
               %ul.table-data-list
                 %li
@@ -93,14 +91,9 @@
             .section-underliner.title-bold
               Peritonitis Episode Notes:
 
-            %ul
+            %p
               = @peritonitis_episode.notes
 
       .large-12.columns.button-padding
         = link_to "Edit", edit_patient_peritonitis_episode_path(@patient, @peritonitis_episode.id), class: "tiny button right"
         = link_to "Back", pd_info_patient_path(@patient), class: "button tiny left cancel"
-
-.wide-screen
-  = content_for :secondary_nav do
-    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
-

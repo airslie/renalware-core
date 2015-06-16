@@ -1,0 +1,22 @@
+.wide-screen
+  .columns.large-12
+    = render partial: "patients/patient_info_header", locals: { model: @patient }
+    = render partial: "patients/mini_renal_profile", locals: { model: @patient }
+
+.row
+  %h4
+    Record a PD Regime
+
+.row
+  %ul.no-bullet
+    = field_set_tag do
+
+      = form_for [@patient, @pd_regime] do |r|
+
+        .row
+          = render :partial => 'pd_regimes/form', :locals => { :r => r }
+
+        .large-12.columns.button-padding
+          = link_to "Cancel", pd_info_patient_path(@patient), class: "button tiny left cancel mt"
+
+          = r.submit "Save PD Regime", :class => "button tiny right save mt"

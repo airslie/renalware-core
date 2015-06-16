@@ -1,0 +1,2 @@
+= render partial: 'medications/show', locals: { pm: pm } if current_user.read_only?
+= render partial: 'medications/edit', locals: { pm: pm } unless current_user.read_only?

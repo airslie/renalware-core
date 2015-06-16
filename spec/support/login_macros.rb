@@ -7,6 +7,10 @@ module LoginMacros
     login_user(:clinician)
   end
 
+  def login_as_read_only
+    login_user(:read_only)
+  end
+
   def login_user(role_trait=:super_admin)
     user = create(:user, :approved, role_trait)
     if @request.present? # eg for controller specs

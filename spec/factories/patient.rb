@@ -12,9 +12,22 @@ FactoryGirl.define do
     local_patient_id
     surname "Jones"
     forename "Jack"
-    dob "01/01/1988"
+    birth_date "01/01/1988"
     paediatric_patient_indicator "0"
     sex 1
     ethnicity_id 1
+    death_date nil
+    first_edta_code_id nil
+
+    trait :with_problems do
+      after(:create) do |patient|
+        3.times { patient.problems << create(:problem) }
+      end
+    end
+    trait :with_meds do
+      after(:create) do |patient|
+        3.times { patient.medications << create(:medication) }
+      end
+    end
   end
 end

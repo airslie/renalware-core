@@ -13,7 +13,7 @@ describe Snomed::ApiAdapter do
         }.to_json)
     end
 
-    subject { Snomed::ApiAdapter.new }
+    subject { Snomed::ApiAdapter.new(endpoint: 'http://localhost:3100', database: 'en-edition', version: 'v20150131') }
 
     it 'should make a request to the API endpoint' do
 

@@ -38,6 +38,11 @@ Given(/^there are fluid descriptions in the database$/) do
 end
 
 Given(/^a patient has PD$/) do
+  FactoryGirl.create(:modality,
+    patient: @patient_1,
+    modality_code: @modal_pd
+    )
+
   visit pd_info_patient_path(@patient_1)
 end
 
@@ -232,7 +237,7 @@ Given(/^a patient has exit site infections$/) do
 end
 
 When(/^the Clinician records the episode of peritonitis$/) do
-  click_on "Record an Episode of Peritonitis"
+  click_on "Add Peritonitis Episode"
 
   within "#peritonitis_episode_diagnosis_date_3i" do
     select '25'
@@ -570,7 +575,7 @@ Then(/^the new medication should be displayed on the updated peritonitis form$/)
   expect(page).to have_content("5mg")
   expect(page).to have_content("IV")
   expect(page).to have_content("PID")
-  expect(page).to have_content("2015-02-28")
+  expect(page).to have_content("28/02/2015")
 end
 
 Then(/^the new medication should be displayed on the updated exit site form$/) do
@@ -580,7 +585,7 @@ Then(/^the new medication should be displayed on the updated exit site form$/) d
   expect(page).to have_content("10mg")
   expect(page).to have_content("PO")
   expect(page).to have_content("Twice a week")
-  expect(page).to have_content("2015-04-10")
+  expect(page).to have_content("10/04/2015")
 end
 
 Then(/^the recorded organism and sensitivity should be displayed on the updated peritonitis form$/) do

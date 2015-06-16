@@ -3,16 +3,10 @@ module Snomed
 
   class ApiAdapter
 
-    # TODO:
-    # These would be better configured in ENV OR fall back to constants.
-    API_ENDPOINT = 'http://localhost:3100'
-    API_DATABASE = 'en-edition'
-    API_VERSION = 'v20150131'
-
     def initialize(config={})
-      @endpoint = config.fetch(:endpoint, API_ENDPOINT)
-      @database = config.fetch(:database, API_DATABASE)
-      @version  = config.fetch(:version,  API_VERSION)
+      @endpoint = config[:endpoint]
+      @database = config[:database]
+      @version  = config[:version]
     end
 
     def search(params={})

@@ -5,35 +5,21 @@ class User < ActiveRecord::Base
   validates :username, presence: true, uniqueness: true
   validates_presence_of :first_name
   validates_presence_of :last_name
-  validate :approval_with_roles
+  validate :approval_with_roles, on: :update
 
   scope :unapproved, -> { where(approved: [nil, false]) }
+  scope :expired, -> { where.not(expired_at: nil) }
 
   def full_name
     "#{first_name} #{last_name}"
   end
 
-  # @section services
-  #
-  def approve
-    self.approved = true
+  def last_first
+    "#{last_name}, #{first_name}"
   end
 
-  def authorise!(roles, approved)
-    notify = !self.approved
-    transaction do
-      self.approve if approved
-      self.roles = roles
-      self.save!
-    end
-
-    # TODO This should use ActiveJob's deliver_later method in a background process.
-    # Currently not using a worker process because Heroku.
-    Admin::UserMailer.approval(self).deliver_now if notify
-    true
-
-  rescue ActiveRecord::RecordInvalid
-    false
+  def read_only?
+    has_role?(:read_only)
   end
 
   # @section custom validation methods

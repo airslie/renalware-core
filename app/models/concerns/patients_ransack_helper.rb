@@ -6,8 +6,7 @@ module PatientsRansackHelper
   included do
     class_eval do
       scope :identity_match, -> (identity=1) {
-        term = sanitize_identity_query(identity)
-        where(identity_sql, {fuzzy_term: "%#{term}%", exact_term: term})
+        where(sql_and_params(identity))
       }
     end
   end
@@ -19,17 +18,41 @@ module PatientsRansackHelper
 
     private
 
-    def sanitize_identity_query(query)
-      query.gsub(',','')
+    def sanitize_query!(query)
+      query.gsub!(',','')
+    end
+
+    def sql_and_params(query)
+      sanitize_query!(query)
+
+      if query.include?(' ')
+        [full_name_sql, full_name_params(query)]
+      else
+        [identity_sql, identity_params(query)]
+      end
+    end
+
+    def identity_params(query)
+      { fuzzy_term: "#{query}%", exact_term: query }
     end
 
     def identity_sql
       <<-SQL.squish
         local_patient_id = :exact_term OR
         nhs_number = :exact_term OR
-        forename ILIKE :fuzzy_term OR
-        surname ILIKE :fuzzy_term OR
-        CONCAT(surname, ' ', forename) ILIKE :fuzzy_term
+        surname ILIKE :fuzzy_term
+      SQL
+    end
+
+    def full_name_params(query)
+      surname, forename = query.split(' ')
+      { surname: "#{surname}%", forename: "#{forename}%" }
+    end
+
+    def full_name_sql
+      <<-SQL.squish
+        surname ILIKE :surname AND
+        forename ILIKE :forename
       SQL
     end
   end

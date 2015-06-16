@@ -21,6 +21,7 @@ feature 'Searching for a patient' do
   end
 
   background do
+    create(:patient, surname: 'Jones', forename: 'Bill')
     create(:patient, surname: 'Jones', forename: 'Jenny')
     create(:patient, surname: 'Smith', forename: 'Will', nhs_number: 'Z111111119')
     create(:patient, surname: 'Walker', forename: 'Johnny',  local_patient_id: '0987654321')
@@ -32,29 +33,17 @@ feature 'Searching for a patient' do
     expect_patient_in_results('Jones, J')
   end
 
-  scenario 'by first name it matches the full first name' do
-    search_for_patient('Jenny')
+  scenario 'with comma delimited terms it matches partial surname and forename' do
+    search_for_patient('Jone, J')
+
     expect_patient_in_results('Jones, J')
-  end
-
-  scenario 'by first name it matches a partial first name' do
-    search_for_patient('John')
-    expect_patient_in_results('Walker, J')
-  end
-
-  scenario 'scenario by first name it matches a first name in any case' do
-    search_for_patient('joHN')
-    expect_patient_in_results('Walker, J')
+    dont_expect_patient_in_results('Jones, B')
   end
 
   scenario 'by surname it matches the full surname' do
     search_for_patient('Jones')
-    expect_patient_in_results('Jones, J')
-  end
-
-  scenario 'by surname it matches a partial surname' do
-    search_for_patient('mith')
-    expect_patient_in_results('Smith, W')
+    expect_patient_in_results('Jones, B', 1)
+    expect_patient_in_results('Jones, J', 2)
   end
 
   scenario 'by surname it matches a surname in any case' do
@@ -63,8 +52,9 @@ feature 'Searching for a patient' do
   end
 
   scenario 'by surname it matches a surname and initial' do
-    search_for_patient('Walker J')
-    expect_patient_in_results('Walker, J')
+    search_for_patient('Jon Bi')
+    expect_patient_in_results('Jones, B')
+    dont_expect_patient_in_results('Jones, J')
   end
 
   scenario 'by nhs number it matches the exactly' do

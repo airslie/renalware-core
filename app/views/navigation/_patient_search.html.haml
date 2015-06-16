@@ -6,7 +6,7 @@
           = label_tag :identity_match, "Patient Search" do
             = f.search_field :identity_match,
               :id => 'patient_search_input',
-              :placeholder => "Patient Name, Local Patient ID or NHS No."
+              :placeholder => "Name, Hosp No or NHS No"
         .large-4.small-3.columns
           = f.submit "Find!", :title => "Find Patient", :class => "nav-search button tiny"
 

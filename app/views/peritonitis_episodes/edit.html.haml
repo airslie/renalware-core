@@ -1,12 +1,9 @@
-.main-content
-  .row.g-center
+.wide-screen
+  .columns.large-12
     = render partial: "patients/patient_info_header", locals: { model: @patient }
-
-  .row
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
-.row
-  %h5 Update a Peritonitis Episode
+    %h5 Update a Peritonitis Episode
 
 .row
   .large-12.columns
@@ -20,8 +17,3 @@
           = submit_tag "Update Peritonitis Episode", class: "button tiny right save"
 
           = link_to "Cancel", patient_exit_site_infection_path(@patient, @peritonitis_episode.id), class: "button tiny left cancel"
-
-.wide-screen
-  = content_for :secondary_nav do
-    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
-

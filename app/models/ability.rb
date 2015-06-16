@@ -22,10 +22,10 @@ class Permission < Struct.new(:role, :ability, :models)
   ADMIN_MODELS = [Address, Drug, DrugType, EdtaCode, EpisodeType, EsrfInfo,
                   FluidDescription, InfectionOrganism, MedicationRoute,
                   ModalityCode, ModalityReason, OrganismCode,
-                  PatientEventType, PrdCode]
+                  EventType, PrdCode]
 
   CLINICAL_MODELS = [ExitSiteInfection, Medication, Modality, Patient,
-                     PatientEvent, PatientProblem, PeritonitisEpisode]
+                     Event, Problem, PeritonitisEpisode]
 
 
   def self.admin_models
@@ -35,6 +35,7 @@ class Permission < Struct.new(:role, :ability, :models)
   def self.all
     [ Permission.new(:super_admin, :manage, :all),
       Permission.new(:admin, :manage, admin_models),
-      Permission.new(:clinician, :manage, CLINICAL_MODELS) ]
+      Permission.new(:clinician, :manage, CLINICAL_MODELS),
+      Permission.new(:read_only, :read, :all)]
   end
 end

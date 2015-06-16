@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150520085606) do
+ActiveRecord::Schema.define(version: 20150605151945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,23 @@ ActiveRecord::Schema.define(version: 20150520085606) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "bag_types", force: :cascade do |t|
+    t.string   "manufacturer"
+    t.string   "description"
+    t.integer  "glucose_ml_percent_1_36"
+    t.integer  "glucose_ml_percent_2_27"
+    t.integer  "glucose_ml_percent_3_86"
+    t.integer  "amino_acid_ml"
+    t.integer  "icodextrin_ml"
+    t.boolean  "low_glucose_degradation"
+    t.boolean  "low_sodium"
+    t.datetime "deleted_at"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "bag_types", ["deleted_at"], name: "index_bag_types_on_deleted_at", using: :btree
 
   create_table "drug_drug_types", force: :cascade do |t|
     t.integer  "drug_id"
@@ -76,6 +93,23 @@ ActiveRecord::Schema.define(version: 20150520085606) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "event_types", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.datetime "deleted_at"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.datetime "date_time"
+    t.string   "description"
+    t.text     "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "event_type_id"
+    t.integer  "patient_id"
   end
 
   create_table "exit_site_infections", force: :cascade do |t|
@@ -187,53 +221,12 @@ ActiveRecord::Schema.define(version: 20150520085606) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "patient_event_types", force: :cascade do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "name"
-    t.datetime "deleted_at"
-  end
-
-  create_table "patient_events", force: :cascade do |t|
-    t.datetime "date_time"
-    t.string   "description"
-    t.text     "notes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "patient_event_type_id"
-    t.integer  "patient_id"
-  end
-
-  create_table "patient_problem_versions", force: :cascade do |t|
-    t.string   "item_type",      null: false
-    t.integer  "item_id",        null: false
-    t.string   "event",          null: false
-    t.string   "whodunnit"
-    t.text     "object"
-    t.text     "object_changes"
-    t.datetime "created_at"
-  end
-
-  add_index "patient_problem_versions", ["item_type", "item_id"], name: "index_patient_problem_versions_on_item_type_and_item_id", using: :btree
-
-  create_table "patient_problems", force: :cascade do |t|
-    t.integer  "patient_id"
-    t.string   "description"
-    t.date     "date"
-    t.datetime "deleted_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "snomed_id"
-  end
-
-  add_index "patient_problems", ["deleted_at"], name: "index_patient_problems_on_deleted_at", using: :btree
-
   create_table "patients", force: :cascade do |t|
     t.string   "nhs_number"
     t.string   "local_patient_id"
     t.string   "surname"
     t.string   "forename"
-    t.date     "dob"
+    t.date     "birth_date"
     t.boolean  "paediatric_patient_indicator"
     t.integer  "sex"
     t.integer  "ethnicity_id"
@@ -243,12 +236,44 @@ ActiveRecord::Schema.define(version: 20150520085606) do
     t.string   "pct_org_code"
     t.string   "hosp_centre_code"
     t.string   "primary_esrf_centre"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "death_date"
+    t.date     "death_date"
     t.integer  "first_edta_code_id"
     t.integer  "second_edta_code_id"
     t.text     "death_details"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pd_regime_bags", force: :cascade do |t|
+    t.integer  "pd_regime_id"
+    t.integer  "bag_type_id"
+    t.integer  "volume"
+    t.integer  "per_week"
+    t.boolean  "monday"
+    t.boolean  "tuesday"
+    t.boolean  "wednesday"
+    t.boolean  "thursday"
+    t.boolean  "friday"
+    t.boolean  "saturday"
+    t.boolean  "sunday"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "pd_regimes", force: :cascade do |t|
+    t.integer  "patient_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "glucose_ml_percent_1_36"
+    t.integer  "glucose_ml_percent_2_27"
+    t.integer  "glucose_ml_percent_3_86"
+    t.integer  "amino_acid_ml"
+    t.integer  "icodextrin_ml"
+    t.boolean  "low_glucose_degradation"
+    t.boolean  "low_sodium"
+    t.boolean  "additional_hd"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "peritonitis_episodes", force: :cascade do |t|
@@ -280,6 +305,31 @@ ActiveRecord::Schema.define(version: 20150520085606) do
     t.datetime "updated_at"
   end
 
+  create_table "problem_versions", force: :cascade do |t|
+    t.string   "item_type",      null: false
+    t.integer  "item_id",        null: false
+    t.string   "event",          null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.text     "object_changes"
+    t.datetime "created_at"
+  end
+
+  add_index "problem_versions", ["item_type", "item_id"], name: "index_problem_versions_on_item_type_and_item_id", using: :btree
+
+  create_table "problems", force: :cascade do |t|
+    t.integer  "patient_id"
+    t.string   "description"
+    t.date     "date"
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "snomed_id"
+    t.string   "snomed_description"
+  end
+
+  add_index "problems", ["deleted_at"], name: "index_problems_on_deleted_at", using: :btree
+
   create_table "roles", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -292,26 +342,30 @@ ActiveRecord::Schema.define(version: 20150520085606) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "approved"
+    t.boolean  "approved",               default: false
     t.string   "username"
     t.string   "first_name"
     t.string   "last_name"
+    t.datetime "last_activity_at"
+    t.datetime "expired_at"
   end
 
   add_index "users", ["approved"], name: "index_users_on_approved", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["expired_at"], name: "index_users_on_expired_at", using: :btree
+  add_index "users", ["last_activity_at"], name: "index_users_on_last_activity_at", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 

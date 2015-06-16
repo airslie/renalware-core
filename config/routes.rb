@@ -2,7 +2,12 @@ Rails.application.routes.draw do
   devise_for :users
 
   namespace :admin do
-    resources :users
+    resources :users do
+      collection do
+        get :unapproved
+        get :expired
+      end
+    end
   end
 
   resources :patients, except: [:destroy] do
@@ -10,7 +15,6 @@ Rails.application.routes.draw do
       get :demographics
       get :clinical_summary
       get :manage_medications
-      get :medications_index
       get :problems
       get :death_update
       get :esrf_info
@@ -19,16 +23,17 @@ Rails.application.routes.draw do
     collection do
       get :death
     end
-    resources :patient_events, only: [:new, :create, :index]
+    resources :events, only: [:new, :create, :index]
     resources :modalities, only: [:new, :create, :index]
     resources :peritonitis_episodes, only: [:new, :create, :show, :edit, :update]
     resources :exit_site_infections, only: [:new, :create, :show, :edit, :update]
+    resources :pd_regimes, only: [:new, :create, :edit, :update, :show]
   end
 
   # TODO - This will probably change in future
   root to: "patients#index"
 
-  resources :patient_event_types, except: [:show]
+  resources :event_types, except: [:show]
 
   resources :drugs, except: [:show] do
     collection do
@@ -42,5 +47,7 @@ Rails.application.routes.draw do
   resources :modality_codes, except: [:show]
 
   resources :modality_reasons, only: [:index]
+
+  resources :bag_types, except: [:show]
 
 end

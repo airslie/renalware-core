@@ -1,64 +1,20 @@
-.main-content
-  .row.g-center
+.wide-screen
+  .columns.large-12
     = render partial: "patients/patient_info_header", locals: { model: @patient }
-  
-  .row
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
-.row  
-  %h5.g-center
-    = link_to "Patient Medications", manage_medications_patient_path(@patient)
+    %h5 Patient Medications
 
 .wide-screen
   = form_for @patient do |f|
 
     = hidden_field_tag :redirect_url, manage_medications_patient_path(@patient)
-   
+
     = f.fields_for :medications, @patient.active_medications do |pm|
-    
-      - if pm.object.new_record?
-        
-        #new-form
-          %a.button.tiny.toggle.right.mt{href: '#new-form'}
-            Add a new medication
 
-          .hide
-            %a.button.tiny.close-new-form{href: '#'}
-              Close
-            
-            %fieldset
-              %legend
-                Add a new medication
+      = render partial: 'medications/new', locals: { pm: pm } if pm.object.new_record?
 
-              .row
-              
-                = render :partial => 'medication_fields', :locals => { :pm => pm }
+      = render partial: 'medications/medication', locals: { pm: pm } unless pm.object.new_record?
 
-    
-        = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left cancel mt"
-      
-      - else
-        
-        %dl.accordion{data: {accordion: true} }
-          %dd.accordion-navigation.med-form
-            %a.fi-plus.fi-minus{href: "#edit-meds-#{pm.object.id}", :class => "drug-#{drug_types_colour_tag(pm.object.medicatable.drug_types)}"}
-             
-              = "#{pm.object.medicatable.name}, #{pm.object.dose}, #{pm.object.medication_route.name}, #{pm.object.frequency}, #{pm.object.date}"
-              .right.edit
-                Edit
-
-            .columns.large-6.meds-form.content{:id => "edit-meds-#{pm.object.id}", data: { index: 0 }} 
-
-              = render :partial => 'medication_fields', :locals => { :pm => pm }
-
-              .med-form.content{:id => "edit-meds-#{pm.object.id}"}  
-                = pm.check_box :_destroy
-                = pm.label :_destroy, "Terminate?", class: "delete"
-      
-    = f.submit "Save Medication", :class => "button tiny right save mt"
-
-.wide-screen
-  = content_for :secondary_nav do  
-    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
-
-
+    - unless current_user.read_only?
+      = f.submit 'Save Medication', class: 'button tiny right save mt'

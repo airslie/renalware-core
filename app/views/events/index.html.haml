@@ -1,0 +1,20 @@
+.wide-screen
+  .columns.large-12
+    = render partial: "patients/patient_info_header", locals: { model: @patient }
+    = render partial: "patients/mini_renal_profile", locals: { model: @patient }
+
+    %h5 Patient Events
+
+  %table.responsive
+    %thead
+      %th
+        Added
+      %th
+        Event Type
+      %th
+        Description
+      %th
+        Date/Time
+
+    %tbody
+      = render @events

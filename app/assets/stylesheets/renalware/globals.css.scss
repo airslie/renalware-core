@@ -1,0 +1,130 @@
+body > .main-content {
+  position: relative;
+  top: 2em;
+}
+
+body > .flash-notice {
+  position: relative;
+  top: 3.2em;
+  z-index: 1;
+}
+
+table thead tr th, table thead tr td {
+  padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+  font-size: 0.65em;
+}
+
+table tr th, table tr td {
+  padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+  font-size: 0.7em;
+}
+
+fieldset {
+  border-radius: 1em;
+  padding: 2em;
+}
+
+table {
+  table-layout: fixed;
+  .column-6-width {
+    width: 6%;
+  }
+  .column-9-width {
+    width: 8.5%;
+  }
+}
+
+th, td {
+  overflow: hidden;
+}
+
+p {
+  padding: 0 0.5em 0 0.5em;
+  margin: 0 0 0.5em 0;
+}
+
+ul.bullet-number {
+  list-style-type: decimal;
+  text-align: left;
+ }
+
+.page-title {
+  color: #008cba;
+}
+
+.title-bold {
+  font-size: 1.05em;
+  font-weight: 500;
+}
+
+.sub-bold {
+  font-weight: 500;
+}
+
+.table-data-list {
+  font-size: 1em;
+}
+
+.section-underliner {
+  border-bottom: #008cba solid 0.1em;
+  margin: 0.5em;
+}
+
+.horizontal-divider {
+  border-bottom: #008cba solid 0.1em;
+  padding: 0 0 0.5em 0;
+  margin: 0 0 0.5em 0;
+}
+
+.vertical-divider {
+  border-right: #008cba solid 0.1em;
+  padding: 0 0.5em 0 0;
+  margin: 0 0.5em 0 0;
+}
+
+.g-center {
+  text-align: center;
+}
+
+.g-cb {
+  clear: both;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #008cba;
+}
+
+.history {
+  display: block;
+  color: #999999;
+}
+
+.wide-screen {
+  width: 100%;
+  padding: 0 20px 0 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.accordion .accordion-navigation > .content, .accordion dd > .content {
+  padding: 0;
+}
+
+.underline {
+  border-bottom: 0.1em solid #008cba;
+  padding-bottom: 0.1em;
+  margin-bottom: 0.6em;
+}
+
+.button-padding {
+  padding-top: 1em;
+}
+
+.alert_text {
+  color: red;
+}
+

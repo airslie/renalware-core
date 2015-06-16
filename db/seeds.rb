@@ -19,6 +19,7 @@ log 'Creating Roles...'
 super_admin_role = Role.find_or_create_by!(name: :super_admin)
 Role.find_or_create_by!(name: :admin)
 Role.find_or_create_by!(name: :clinician)
+Role.find_or_create_by!(name: :read_only)
 
 add_super_admin if Rails.env.development?
 
@@ -66,7 +67,7 @@ CSV.foreach(file_path, headers: true) do |row|
   eventtype = row['eventtype']
   log "   ... adding #{eventtype}"
   logcount += 1
-  PatientEventType.find_or_create_by!(name: eventtype)
+  EventType.find_or_create_by!(name: eventtype)
 end
 
 log "...#{logcount} eventtypes seeded!"
@@ -206,6 +207,30 @@ FluidDescription.find_or_create_by!(description: "Misty")
 FluidDescription.find_or_create_by!(description: "Cloudy")
 FluidDescription.find_or_create_by!(description: "Pea Soup")
 
+log '-----------Adding CAPD Bag Types----------'
+file_path = Rails.root.join('db', 'csv', 'pd_bagtypes.csv')
+
+logcount=0
+CSV.foreach(file_path, headers: true) do |row|
+  logcount += 1
+  manufacturer = row['manufacturer']
+  description = row['description']
+  log "... adding #{manufacturer}: #{description}"
+  BagType.create(
+    manufacturer: row['manufacturer'],
+    description: row['description'],
+    glucose_ml_percent_1_36: row['glucose_ml_percent_1_36'],
+    glucose_ml_percent_2_27: row['glucose_ml_percent_2_27'],
+    glucose_ml_percent_3_86: row['glucose_ml_percent_3_86'],
+    amino_acid_ml: row['amino_acid_ml'],
+    icodextrin_ml: row['icodextrin_ml'],
+    low_glucose_degradation: row['low_glucose_degradation'],
+    low_sodium: row['low_sodium'],
+  )
+end
+
+log "...#{logcount} bag types seeded!"
+
 log '-----------Adding Patients----------'
 file_path = Rails.root.join('db', 'csv', 'rw_patients.csv')
 
@@ -221,7 +246,7 @@ CSV.foreach(file_path, headers: true) do |row|
     patient.surname = row['surname']
     patient.forename = row['forename']
     patient.sex = sex
-    patient.dob = row['dob']
+    patient.birth_date = row['birth_date']
     patient.nhs_number = demo_nhsno
     patient.created_at = row['created_at']
   end
@@ -242,7 +267,7 @@ CSV.foreach(file_path, headers: true) do |row|
   snomed_id = row['snomed_id ']
   log "   ... adding #{snomed_id}: #{description} from #{date}"
   logcount += 1
-  PatientProblem.create(
+  Problem.create(
     patient_id: 1,
     description: description,
     date: date,
@@ -253,26 +278,26 @@ log "...#{logcount} problems seeded!"
 
 log 'Adding RABBIT events...'
 
-PatientEvent.create(
+Event.create(
   patient_id: 1,
-  patient_event_type_id: 19,
+  event_type_id: 19,
   description: "meeting with family in clinic",
   notes: "anxious about medication changes",
   date_time: Time.now - 2.weeks
 )
 
 
-PatientEvent.create(
+Event.create(
   patient_id: 1,
-  patient_event_type_id: 25,
+  event_type_id: 25,
   description: "call regarding meds",
   notes: "told patient to get other drug info from GP",
   date_time: Time.now - 12.days
 )
 
-PatientEvent.create(
+Event.create(
   patient_id: 1,
-  patient_event_type_id: 8,
+  event_type_id: 8,
   description: "email re next clinic visit",
   notes: "reminded patient to bring complete drug list to clinic",
   date_time: Time.now - 5.days

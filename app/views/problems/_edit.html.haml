@@ -1,0 +1,14 @@
+%dl.accordion{data: {accordion: true} }
+  %dd.accordion-navigation.med-form
+    %a.fi-plus.fi-minus.toggle-info{ class: 'problem', href: "#edit-probs-#{pb.object.id}" }
+      = "#{pb.object.full_description}, #{pb.object.created_at.to_date}"
+      .right.edit
+        Edit
+
+
+    .columns.large-6.probs-form.content{:id => "edit-probs-#{pb.object.id}", data: { index: 0 }}
+      = render partial: 'problems/form', locals: { pb: pb }
+
+      .probs-form.content{id: "edit-probs-#{pb.object.id}"}
+        = pb.check_box :_destroy
+        = pb.label :_destroy, 'Terminate?', class: 'delete'

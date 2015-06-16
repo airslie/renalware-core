@@ -52,4 +52,30 @@ feature 'Authentication' do
 
     expect(current_path).to eq(new_user_session_path)
   end
+
+  scenario 'An inactive user attempts to authenticate' do
+    inactive = create(:user, :approved, last_activity_at: 60.days.ago)
+
+    visit new_user_session_path
+
+    fill_in 'Username', with: inactive.username
+    fill_in 'Password', with: inactive.password
+    click_on 'Log in'
+
+    expect(current_path).to eq(new_user_session_path)
+    expect(page).to have_css('.flash-alert', text: /Your account has expired due to inactivity\. Please contact the site administrator/)
+  end
+
+  scenario 'A fairly inactive user attempts to authenticate' do
+    inactive = create(:user, :approved, :clinician,
+                      last_activity_at: 59.days.ago)
+
+    visit new_user_session_path
+
+    fill_in 'Username', with: inactive.username
+    fill_in 'Password', with: inactive.password
+    click_on 'Log in'
+
+    expect(current_path).to eq(root_path)
+  end
 end

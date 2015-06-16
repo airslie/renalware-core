@@ -14,7 +14,7 @@
       %th.column-9-width
         White Cell Count
       %th
-        Causes/ Symptoms
+        Causes/Symptoms
       %th
         Antibiotics/Routes
       %th
@@ -29,13 +29,13 @@
       %tr{ valign: "top" }
 
         %td{ :data => { :heading => "Diagnosis Date" }, valign: "top" }
-          = p.diagnosis_date.strftime("%d/%m/%Y")
+          = p.diagnosis_date
 
         %td{ :data => { :heading => "Start Treatment Date" }, valign: "top" }
-          = p.treatment_start_date.strftime("%d/%m/%Y")
+          = p.treatment_start_date
 
         %td{ :data => { :heading => "End Treatment Date" }, valign: "top" }
-          = p.treatment_end_date.strftime("%d/%m/%Y")
+          = default_for_blank(p.treatment_end_date, "Pending")
 
         %td{ :data => { :heading => "Episode Type" }, valign: "top" }
           %ul.table-data-list
@@ -62,7 +62,7 @@
             %li
               = "Other: #{p.white_cell_other}%"
 
-        %td{ :data => { :heading => "Causes/ Symptoms" }, valign: "top" }
+        %td{ :data => { :heading => "Causes/Symptoms" }, valign: "top" }
           %ul.table-data-list
             %li
               = "Line Break: #{yes_no(p.line_break)}"
@@ -73,7 +73,7 @@
             %li
               = "Abdominal Pain: #{yes_no(p.abdominal_pain)}"
             %li
-              = "Fluid Description: #{p.fluid_description.description}"
+              = "Fluid Descr: #{p.fluid_description.description}"
 
         %td{ :data => { :heading => "Antibiotics/Routes" }, valign: "top" }
           %ul.table-data-list
@@ -83,12 +83,13 @@
           = p.notes
 
         %td{ :data => { :heading => "Last Updated" }, valign: "top" }
-          = p.updated_at.strftime("%d/%m/%Y, %H:%M")
+          = p.updated_at
 
         %td{ :data => { :heading => "Action" }, valign: "top" }
           %ul.table-data-list
-            %li
-              = link_to "Update", edit_patient_peritonitis_episode_path(@patient, p.id), class: "update-pe", id: "update-pe-#{p.id}"
+            - unless current_user.read_only?
+              %li
+                = link_to "Update", edit_patient_peritonitis_episode_path(@patient, p.id), class: "update-pe", id: "update-pe-#{p.id}"
             %li
               = link_to "View Episode", patient_peritonitis_episode_path(@patient, p.id), class: "view-pe", id: "view-pe-#{p.id}"
 

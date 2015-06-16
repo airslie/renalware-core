@@ -3,11 +3,21 @@ class Admin::UsersController < ApplicationController
   before_filter :load_user, only: [:edit, :update]
 
   def index
-    @users = params[:approved] == 'false' ? User.unapproved : User.all
+    @users = User.all
+  end
+
+  def unapproved
+    @users = User.unapproved
+    render :index
+  end
+
+  def expired
+    @users = User.expired
+    render :index
   end
 
   def update
-    if @user.authorise!(fetch_roles, approve?)
+    if user_service.update_and_notify!(service_params)
       redirect_to admin_users_path, notice: "#{@user.username} updated"
     else
       flash[:alert] = "#{@user.username} could not be updated"
@@ -21,17 +31,22 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def service_params
+    roles = fetch_roles(user_params[:role_ids])
+    user_params.merge(roles: roles)
+  end
+
   def user_params
-    params.require(:user).permit(:approved, role_ids: [])
+    params.require(:user).permit(:approved, :unexpire, role_ids: [])
   end
 
-  def fetch_roles
-    return [] if user_params[:role_ids].nil?
-    role_ids = user_params[:role_ids].map(&:to_i)
-    Role.where(id: role_ids)
+  def fetch_roles(role_ids)
+    return if role_ids.nil?
+    return [] if role_ids.empty?
+    Role.where(id: role_ids.map(&:to_i))
   end
 
-  def approve?
-    user_params[:approved] == 'true'
+  def user_service
+    @service ||= Admin::UserService.new(@user)
   end
 end

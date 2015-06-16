@@ -1,12 +1,9 @@
-.row.g-center
-  = render partial: "patients/patient_info_header", locals: { model: @patient }
+.wide-screen
+  .columns.large-12
+    = render partial: "patients/patient_info_header", locals: { model: @patient }
+    = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
-.row
-  = render partial: "patients/mini_renal_profile", locals: { model: @patient }
-
-.row
-  %h5
-    Set Patient Modality
+    %h5 Set Patient Modality
 
 .row
   %ul.no-bullet
@@ -34,7 +31,7 @@
 
         %li
           = m.label :date, "Start Date"
-          = m.date_select(:start_date, {start_year: (120.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
+          = m.date_select(:start_date, {start_year: (1.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
 
         %li.hide-death
           = m.label :notes, "Notes"
@@ -43,8 +40,3 @@
         = m.submit "Save Modality", :class => "button tiny right save mt"
 
   = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left cancel mt"
-
-.wide-screen
-  = content_for :secondary_nav do
-    = render partial: "patients/clin_sum_sub_nav", locals: { model: @patient }
-

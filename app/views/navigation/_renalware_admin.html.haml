@@ -1,9 +1,19 @@
-%li.has-dropdown
-  = link_to "Admin", patients_path
-  %ul.dropdown
-    %li
-      = link_to "Manage Patient Event Types", patient_event_types_path
-    %li
-      = link_to "Manage Drugs", drugs_path
-    %li
-      = link_to "Manage Modalities", modality_codes_path
+%ul.right.large-2.columns
+  %li.has-dropdown
+    = link_to "Admin", patients_path
+    %ul.dropdown
+      - if current_user_is_super_admin?
+        %li
+          = link_to "Manage Event Types", event_types_path
+        %li
+          = link_to "Manage Drugs", drugs_path
+        %li
+          = link_to "Manage Modalities", modality_codes_path
+        %li
+          = link_to "Manage Bag Types", bag_types_path
+
+      - if current_user_is_admin?
+        %li
+          = link_to 'Approve users', unapproved_admin_users_path
+        %li
+          = link_to 'Reactivate users', expired_admin_users_path

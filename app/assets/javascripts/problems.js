@@ -50,7 +50,13 @@ $(document).ready(function() {
   });
 
   $snomedSelect2.on("select2:select", function(e) {
-    var $snomedIdField = $(e.target).closest('form').find('.selected-snomed-id');
-    $snomedIdField.val(e.params.data.id);
+    var $form = $(e.target).closest('form'),
+        $snomedId = $form.find('.selected-snomed-id'),
+        $snomedDescription = $form.find('.selected-snomed-description');
+
+    if (typeof e.params.data.id != 'undefined') {
+      $snomedId.val(e.params.data.id);
+      $snomedDescription.val(e.params.data.text);
+    }
   });
 });
