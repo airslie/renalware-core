@@ -38,6 +38,11 @@ Given(/^there are fluid descriptions in the database$/) do
 end
 
 Given(/^a patient has PD$/) do
+  FactoryGirl.create(:modality,
+    patient: @patient_1,
+    modality_code: @modal_pd
+    )
+
   visit pd_info_patient_path(@patient_1)
 end
 

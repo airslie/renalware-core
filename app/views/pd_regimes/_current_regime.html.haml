@@ -1,0 +1,28 @@
+%fieldset
+  %legend.title-bod Current PD Regime
+
+  %ul.no-bullet
+    %li
+      %b Regime Start Date:
+      = @current_regime.start_date
+      &nbsp;&nbsp;
+      %b Regime End Date:
+      = default_for_blank(@current_regime.end_date, 'Pending')
+
+    %li
+      %b Bags:
+      %ul{ style: 'list-style-type: disc'}
+        = pd_regime_bags(@current_regime.pd_regime_bags)
+
+    %li
+      %b Bag Solution Indicators:
+
+      %ul{ style: 'list-style-type: disc'}
+        %li
+          = "Low glucose degradation(GDP): #{yes_no(@current_regime.low_glucose_degradation)}"
+        %li
+          = "Low sodium: #{yes_no(@current_regime.low_sodium)}"
+
+    %li
+      %b On additional HD:
+      = yes_no(@current_regime.additional_hd)

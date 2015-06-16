@@ -1,0 +1,40 @@
+= r.hidden_field :patient_id
+
+.row
+  .large-12.columns
+    .large-12.columns
+      .section-underliner
+        Dates:
+
+      .large-12.columns
+        = r.label :start_date, "Regime Start Date"
+        = r.date_select(:start_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year , order: [:day, :month, :year] }, class: "datetime")
+
+        = r.label :end_date, "Regime End Date"
+        = r.date_select(:end_date, { include_blank: true, start_year: (1.years.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year] }, class: "datetime")
+
+    .large-12.columns
+      = render partial: 'pd_regime_bags', locals: {r: r}
+
+    .large-12.columns
+      .section-underliner
+        Bag Solution Indicators:
+
+      .large-12.columns
+        %ul.no-bullet
+          %li
+            = r.check_box :low_glucose_degradation
+            = r.label :low_glucose_degradation, "Low glucose degradation product (GDP)"
+          %li
+            = r.check_box :low_sodium
+            = r.label :low_sodium, "Low sodium solution"
+
+    .large-12.columns
+      .section-underliner
+        Other Info:
+
+      .large-12.columns
+        %ul.no-bullet
+          %li
+            = r.check_box :additional_hd
+            = r.label :additional_hd, "On additional HD"
