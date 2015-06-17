@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   validate :approval_with_roles, on: :update
 
   scope :unapproved, -> { where(approved: [nil, false]) }
-  scope :expired, -> { where.not(expired_at: nil) }
+  scope :inactive, -> { where('last_activity_at IS NOT NULL AND last_activity_at < ?', expire_after.ago) }
 
   def full_name
     "#{first_name} #{last_name}"

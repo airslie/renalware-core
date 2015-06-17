@@ -48,6 +48,7 @@ class Admin::UserService
   def unexpire
     notifications << notifier.unexpiry(user)
     user.expired_at = nil
+    user.last_activity_at = Time.zone.now
   end
 
   def authorise(roles)
