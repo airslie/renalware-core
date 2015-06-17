@@ -39,7 +39,7 @@ Given(/^a patient has a medication$/) do
     medication_route: @iv,
     frequency: "Daily",
     notes: "Must take with food",
-    date: "2014-11-01",
+    start_date: "#{Date.current.year - 1}-11-01",
     provider: 1
   )
 
@@ -50,7 +50,7 @@ Given(/^a patient has a medication$/) do
     medication_route: @po,
     frequency: "Twice Weekly",
     notes: "Needs review in 6 months",
-    date: "2015-01-02",
+    start_date: "#{Date.current.year}-01-02",
     provider: 1
   )
 
@@ -108,28 +108,6 @@ When(/^they add a medication$/) do
   click_link "Add a new medication"
 end
 
-When(/^complete the medication form$/) do
-  select "ESA", :from => "Medication Type"
-  select "Blue", :from => "Select Drug"
-  fill_in "Dose", :with => "10mg"
-  select "PO", :from =>  "Route"
-  fill_in "Frequency & Duration", :with => "Once daily"
-  fill_in "Notes", :with => "Review in six weeks"
-  within "#patient_medications_attributes_0_date_3i" do
-    select '1'
-  end
-  within "#patient_medications_attributes_0_date_2i" do
-    select 'January'
-  end
-  within "#patient_medications_attributes_0_date_1i" do
-    select '2013'
-  end
-
-  find("#patient_medications_attributes_0_provider_gp").set(true)
-
-  click_on "Save Medication"
-end
-
 When(/^complete the medication form by drug type select$/) do
   select "ESA", :from => "Medication Type"
   select "Blue", :from => "Select Drug"
@@ -137,14 +115,15 @@ When(/^complete the medication form by drug type select$/) do
   select "PO", :from =>  "Route"
   fill_in "Frequency & Duration", :with => "Once daily"
   fill_in "Notes", :with => "Review in six weeks"
-  within "#patient_medications_attributes_0_date_3i" do
-    select '1'
+
+  within "#patient_medications_attributes_0_start_date_3i" do
+    select '2'
   end
-  within "#patient_medications_attributes_0_date_2i" do
-    select 'January'
+  within "#patient_medications_attributes_0_start_date_2i" do
+    select 'March'
   end
-  within "#patient_medications_attributes_0_date_1i" do
-    select '2013'
+  within "#patient_medications_attributes_0_start_date_1i" do
+    select "#{Date.current.year - 1}"
   end
 
   find("#patient_medications_attributes_0_provider_gp").set(true)
@@ -157,9 +136,9 @@ When(/^complete the medication form by drug search$/) do
   click_link "Add a new medication"
 
   fill_in "Drug", :with => "amo"
-  page.execute_script %Q( $('#drug_search').trigger('keydown'); )
 
-  within('#drug-results') do
+  page.execute_script %Q( $('#drug_search').trigger('keydown'); )
+  within('.drug-results') do
     expect(page).to have_css("li", :text => "Amoxicillin")
   end
 
@@ -169,14 +148,15 @@ When(/^complete the medication form by drug search$/) do
   select "IV", :from =>  "Route"
   fill_in "Frequency & Duration", :with => "Twice weekly"
   fill_in "Notes", :with => "Review in two weeks."
-  within "#patient_medications_attributes_1_date_3i" do
+
+  within "#patient_medications_attributes_1_start_date_3i" do
     select '2'
   end
-  within "#patient_medications_attributes_1_date_2i" do
+  within "#patient_medications_attributes_1_start_date_2i" do
     select 'February'
   end
-  within "#patient_medications_attributes_1_date_1i" do
-    select '2014'
+  within "#patient_medications_attributes_1_start_date_1i" do
+    select "#{Date.current.year}"
   end
 
   find("#patient_medications_attributes_1_provider_hospital").set(true)
@@ -257,12 +237,13 @@ end
 
 Then(/^they should see the new medications on the clinical summary$/) do
   visit clinical_summary_patient_path(@patient_1)
+
   within(".drug-esa") do
     expect(page).to have_content("Blue")
     expect(page).to have_content("10mg")
     expect(page).to have_content("PO")
     expect(page).to have_content("Once daily")
-    expect(page).to have_content("01/01/2013")
+    expect(page).to have_content("02/03/#{Date.current.year - 1}")
   end
 
   within(".drug-drug") do
@@ -270,7 +251,7 @@ Then(/^they should see the new medications on the clinical summary$/) do
     expect(page).to have_content("20mg")
     expect(page).to have_content("IV")
     expect(page).to have_content("Twice weekly")
-    expect(page).to have_content("02/02/2014")
+    expect(page).to have_content("02/02/#{Date.current.year}")
   end
 end
 
