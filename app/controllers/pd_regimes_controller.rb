@@ -1,7 +1,7 @@
 class PdRegimesController < RenalwareController
   include NestedActionsControllerMethods
 
-  before_action :find_patient
+  before_action :load_patient
   before_action :find_pd_regime, only: [:edit, :update, :show]
 
   def new
@@ -33,10 +33,6 @@ class PdRegimesController < RenalwareController
       :icodextrin_ml, :low_glucose_degradation, :low_sodium, :additional_hd,
       pd_regime_bags_attributes: [:id, :bag_type_id, :volume, :per_week, :monday, :tuesday,
                                   :wednesday, :thursday, :friday, :saturday, :sunday])
-  end
-
-  def find_patient
-    @patient = Patient.find(params[:patient_id])
   end
 
   def find_pd_regime

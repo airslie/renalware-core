@@ -25,8 +25,4 @@ class EventsController < RenalwareController
   def event_params
     params.require(:event).permit(:event_type_id, :date_time, :description, :notes)
   end
-
-  def load_patient
-    @patient = Patient.find(params[:patient_id])
-  end
 end

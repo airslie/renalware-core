@@ -6,7 +6,7 @@ class PatientsController < RenalwareController
   # Cancancan authorization filters
   skip_authorize_resource only: [:clinical_summary, :demographics, :esrf_info, :manage_medications, :pd_info, :problems]
 
-  before_action :load_patient, only: [:esrf_info, :pd_info, :death_update, :clinical_summary, :manage_medications, :problems,
+  before_action :find_patient, only: [:esrf_info, :pd_info, :death_update, :clinical_summary, :manage_medications, :problems,
                                       :demographics, :edit, :update]
 
   def esrf_info
@@ -79,8 +79,7 @@ class PatientsController < RenalwareController
       )
   end
 
-  def load_patient
+  def find_patient
     @patient = Patient.find(params[:id])
   end
-
 end

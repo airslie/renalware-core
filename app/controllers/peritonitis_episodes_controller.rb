@@ -44,12 +44,7 @@ class PeritonitisEpisodesController < RenalwareController
     )
   end
 
-  def load_patient
-    @patient = Patient.find(params[:patient_id])
-  end
-
   def load_peritonitis_episode
     @peritonitis_episode = PeritonitisEpisode.find(params[:id])
   end
-
 end

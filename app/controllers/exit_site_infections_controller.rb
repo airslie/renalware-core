@@ -41,12 +41,7 @@ class ExitSiteInfectionsController < RenalwareController
       :dose, :medication_route_id, :frequency, :notes, :date, :provider, :_destroy])
   end
 
-  def load_patient
-    @patient = Patient.find(params[:patient_id])
-  end
-
   def load_exit_site_infection
     @exit_site_infection = ExitSiteInfection.find(params[:id])
   end
-
 end
