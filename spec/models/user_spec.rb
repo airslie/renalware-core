@@ -20,4 +20,29 @@ describe User, :type => :model do
       expect(create(:user, :read_only)).to be_read_only
     end
   end
+
+  describe 'scopes' do
+    describe 'unapproved' do
+      it 'retrieves unapproved users' do
+        approved = create(:user, :approved)
+        unapproved = create(:user)
+
+        actual = User.unapproved
+        expect(actual.size).to eq(1)
+        expect(actual).to include(unapproved)
+        expect(actual).not_to include(approved)
+      end
+    end
+    describe 'inactive' do
+      it 'retrieves inactive users' do
+        active = create(:user, last_activity_at: 1.minute.ago)
+        inactive = create(:user, last_activity_at: 60.days.ago)
+
+        actual = User.inactive
+        expect(actual.size).to eq(1)
+        expect(actual).to include(inactive)
+        expect(actual).not_to include(active)
+      end
+    end
+  end
 end

@@ -22,6 +22,7 @@ FactoryGirl.define do
       end
     end
     trait :expired do
+      last_activity_at 60.days.ago
       expired_at Time.zone.now
     end
     trait :super_admin do

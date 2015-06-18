@@ -11,8 +11,8 @@ class Admin::UsersController < ApplicationController
     render :index
   end
 
-  def expired
-    @users = User.expired
+  def inactive
+    @users = User.inactive
     render :index
   end
 

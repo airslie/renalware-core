@@ -70,7 +70,7 @@ feature 'Authorising, approving and reactivating users' do
     expect(@approved.roles).to include(@clinician_role)
   end
 
-  scenario 'An admin reactivates an expired user' do
+  scenario 'An admin reactivates an inactive user' do
     click_link 'Inactive'
 
     within('tbody tr:first-child td:nth-child(7)') do

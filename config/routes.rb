@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     resources :users do
       collection do
         get :unapproved
-        get :expired
+        get :inactive
       end
     end
   end

@@ -21,11 +21,11 @@ describe Admin::UsersController, :type => :controller do
     end
   end
 
-  describe 'GET expired' do
+  describe 'GET inactive' do
     it 'lists expired users' do
-      expect(User).to receive(:expired).and_return([])
+      expect(User).to receive(:inactive).and_return([])
 
-      get :expired
+      get :inactive
     end
   end
 end
