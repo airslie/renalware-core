@@ -1,7 +1,4 @@
-class ModalityCodesController < ApplicationController
-
-  # Cancancan authorization filter
-  load_and_authorize_resource
+class ModalityCodesController < RenalwareController
 
   def new
     @modal_code = ModalityCode.new

@@ -1,8 +1,5 @@
-class PdRegimesController < ApplicationController
+class PdRegimesController < RenalwareController
   include NestedActionsControllerMethods
-
-  # Cancancan authorization filter
-  load_and_authorize_resource
 
   before_action :find_patient
   before_action :find_pd_regime, only: [:edit, :update, :show]

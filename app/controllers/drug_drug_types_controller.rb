@@ -1,7 +1,4 @@
-class DrugDrugTypesController < ApplicationController
-
-  # Cancancan authorization filter
-  load_and_authorize_resource
+class DrugDrugTypesController < RenalwareController
 
   #TODO: Refactor
   def index
@@ -11,7 +8,7 @@ class DrugDrugTypesController < ApplicationController
   end
 
   def create
-    @drug_drug_type = DrugDrugType.create!(allowed_params)  
+    @drug_drug_type = DrugDrugType.create!(allowed_params)
     redirect_to drug_drug_drug_types_path
   end
 

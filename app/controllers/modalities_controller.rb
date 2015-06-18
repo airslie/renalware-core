@@ -1,7 +1,4 @@
-class ModalitiesController < ApplicationController
-
-  # Cancancan authorization filter
-  load_and_authorize_resource
+class ModalitiesController < RenalwareController
 
   before_filter :find_patient
 
@@ -21,7 +18,6 @@ class ModalitiesController < ApplicationController
     else
       redirect_to patient_modalities_path(@patient)
     end
-       
   end
 
   private

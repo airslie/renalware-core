@@ -1,9 +1,6 @@
-class DrugsController < ApplicationController
+class DrugsController < RenalwareController
 
   include Pageable
-
-  # Cancancan authorization filter
-  load_and_authorize_resource
 
   before_filter :prepare_drugs_search, only: [:index]
   before_filter :prepare_paging, only: [:index]

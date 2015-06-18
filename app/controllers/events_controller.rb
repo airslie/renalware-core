@@ -1,4 +1,4 @@
-class EventsController < ApplicationController
+class EventsController < RenalwareController
   before_action :load_patient, :only => [:new, :create, :index]
 
   def new
@@ -7,7 +7,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.new(allowed_params)
+    @event = Event.new(event_params)
     @event.patient_id = @patient.id
     if @event.save
       redirect_to patient_events_path(@patient), :notice => "You have successfully added an encounter/event."
@@ -22,7 +22,7 @@ class EventsController < ApplicationController
   end
 
   private
-  def allowed_params
+  def event_params
     params.require(:event).permit(:event_type_id, :date_time, :description, :notes)
   end
 

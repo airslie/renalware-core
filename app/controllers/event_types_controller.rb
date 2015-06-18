@@ -1,7 +1,4 @@
-class EventTypesController < ApplicationController
-
-  # Cancancan authorization filter
-  load_and_authorize_resource
+class EventTypesController < RenalwareController
 
   def new
     @event_type = EventType.new
