@@ -1,7 +1,4 @@
-class ModalityReasonsController < ApplicationController
-
-  # Cancancan authorization filter
-  load_and_authorize_resource
+class ModalityReasonsController < RenalwareController
 
   def index
     @reason_hd_pd = HaemodialysisToPd.all

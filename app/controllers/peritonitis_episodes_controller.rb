@@ -1,7 +1,4 @@
-class PeritonitisEpisodesController < ApplicationController
-
-  # Cancancan authorization filter
-  load_and_authorize_resource
+class PeritonitisEpisodesController < RenalwareController
 
   before_action :load_patient, :only => [:new, :create, :show, :edit, :update]
   before_action :load_peritonitis_episode, :only => [:show, :edit, :update]
@@ -47,12 +44,7 @@ class PeritonitisEpisodesController < ApplicationController
     )
   end
 
-  def load_patient
-    @patient = Patient.find(params[:patient_id])
-  end
-
   def load_peritonitis_episode
     @peritonitis_episode = PeritonitisEpisode.find(params[:id])
   end
-
 end

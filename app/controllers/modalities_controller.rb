@@ -1,9 +1,6 @@
-class ModalitiesController < ApplicationController
+class ModalitiesController < RenalwareController
 
-  # Cancancan authorization filter
-  load_and_authorize_resource
-
-  before_filter :find_patient
+  before_filter :load_patient
 
   def new
     @modality = Modality.new(patient: @patient)
@@ -21,7 +18,6 @@ class ModalitiesController < ApplicationController
     else
       redirect_to patient_modalities_path(@patient)
     end
-       
   end
 
   private
@@ -30,9 +26,5 @@ class ModalitiesController < ApplicationController
     params.require(:modality).permit(
       :patient_id, :modality_code_id, :modality_change_type,
       :modality_reason_id, :notes, :start_date)
-  end
-
-  def find_patient
-    @patient = Patient.find(params[:patient_id])
   end
 end

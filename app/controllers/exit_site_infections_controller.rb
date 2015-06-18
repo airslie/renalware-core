@@ -1,9 +1,7 @@
-class ExitSiteInfectionsController < ApplicationController
+class ExitSiteInfectionsController < RenalwareController
 
   before_action :load_patient, only: [:new, :create, :show, :edit, :update]
   before_action :load_exit_site_infection, only: [:show, :edit, :update]
-  # Cancancan authorization filter
-  load_and_authorize_resource
 
   def new
     @exit_site_infection = ExitSiteInfection.new
@@ -43,12 +41,7 @@ class ExitSiteInfectionsController < ApplicationController
       :dose, :medication_route_id, :frequency, :notes, :date, :provider, :_destroy])
   end
 
-  def load_patient
-    @patient = Patient.find(params[:patient_id])
-  end
-
   def load_exit_site_infection
     @exit_site_infection = ExitSiteInfection.find(params[:id])
   end
-
 end

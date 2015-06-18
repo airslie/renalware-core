@@ -1,4 +1,4 @@
-class BagTypesController < ApplicationController
+class BagTypesController < RenalwareController
 
   before_action :load_bag_type, only: [:edit, :update]
 

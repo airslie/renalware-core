@@ -1,13 +1,12 @@
-class PatientsController < ApplicationController
+class PatientsController < RenalwareController
   include Pageable
 
   before_filter :prepare_paging, only: [:index]
 
   # Cancancan authorization filters
   skip_authorize_resource only: [:clinical_summary, :demographics, :esrf_info, :manage_medications, :pd_info, :problems]
-  load_and_authorize_resource
 
-  before_action :load_patient, only: [:esrf_info, :pd_info, :death_update, :clinical_summary, :manage_medications, :problems,
+  before_action :find_patient, only: [:esrf_info, :pd_info, :death_update, :clinical_summary, :manage_medications, :problems,
                                       :demographics, :edit, :update]
 
   def esrf_info
@@ -80,8 +79,7 @@ class PatientsController < ApplicationController
       )
   end
 
-  def load_patient
+  def find_patient
     @patient = Patient.find(params[:id])
   end
-
 end
