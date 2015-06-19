@@ -16,6 +16,17 @@ When(/^I complete the form for a pd regime$/) do
   check "Low sodium solution"
   check "On additional HD"
 
+  click_on "Add Bag"
+
+  select('Sunshine Brand Blue–2.34', from: 'Bag Type')
+  fill_in('Volume', with: '2')
+  select('5', from: 'Per week')
+  check('Monday')
+  check('Wednesday')
+  check('Thursday')
+  check('Friday')
+  check('Sunday')
+
   click_on "Save PD Regime"
 end
 
@@ -24,6 +35,16 @@ Then(/^I should see the new pd regime on the PD info page\.$/) do
   expect(page).to have_content("01/06/2015")
   expect(page).to have_content("No")
   expect(page).to have_css("td", text: "Yes", count: 2)
+end
+
+Then(/^the new pd regime should be current$/) do
+  within('.current-regime') do
+    expect(page).to have_content('Regime Start Date: 02/04/2015')
+    expect(page).to have_content('Regime End Date: 01/06/2015')
+    expect(page).to have_content('Bag type: Blue–2.34, Volume: 2ml, No. per week: 5, Days: Sun, Mon, Wed, Thu, Fri')
+    expect(page).to have_content('Bag Solution Indicators: Low glucose degradation(GDP): No Low sodium: Yes')
+    expect(page).to have_content('On additional HD: Yes')
+  end
 end
 
 Given(/^a patient has existing PD Regimes$/) do
