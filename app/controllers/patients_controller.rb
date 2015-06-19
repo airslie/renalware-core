@@ -34,7 +34,7 @@ class PatientsController < RenalwareController
   end
 
   def manage_medications
-    @patient.active_medications.build( provider: :gp )
+    @patient.medications.build( provider: :gp )
   end
 
   def problems
