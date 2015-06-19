@@ -13,7 +13,6 @@ class Patient < ActiveRecord::Base
   has_many :events
   has_many :problems
   has_many :medications
-  has_many :active_medications, -> { where deleted_at: nil }, class_name: "Medication"
   has_many :drugs, :through => :medications, :source => :medicatable, :source_type => "Drug"
   has_many :exit_site_infections, :through => :medications, :source => :treatable, :source_type => "ExitSiteInfection"
   has_many :peritonitis_episodes, :through => :medications, :source => :treatable, :source_type => "PeritonitisEpisode"
@@ -28,8 +27,9 @@ class Patient < ActiveRecord::Base
   accepts_nested_attributes_for :current_address
   accepts_nested_attributes_for :address_at_diagnosis
   accepts_nested_attributes_for :events
-  accepts_nested_attributes_for :medications, allow_destroy: true,
-  :reject_if => proc { |attrs| attrs[:dose].blank? && attrs[:notes].blank? && attrs[:frequency].blank? }
+  accepts_nested_attributes_for :medications, allow_destroy: true, :reject_if => proc { |attrs|
+      attrs[:medicatable_id].blank?
+    }
   accepts_nested_attributes_for :problems, allow_destroy: true, reject_if: Problem.reject_if_proc
   accepts_nested_attributes_for :esrf_info
 
@@ -45,6 +45,10 @@ class Patient < ActiveRecord::Base
     death.validates :first_edta_code_id, presence: true
   end
 
+  with_options if: :not_new_medication, on: :update do |patient_med|
+    patient_med.validates_associated :medications
+  end
+
   scope :dead, -> { where.not(death_date: nil) }
 
   enum sex: { not_known: 0, male: 1, female: 2, not_specified: 9 }
@@ -58,7 +62,7 @@ class Patient < ActiveRecord::Base
   end
 
   # @section services
-  #
+
   def set_modality(attrs={})
     self.modalities << (
       if current_modality.present?
@@ -73,6 +77,10 @@ class Patient < ActiveRecord::Base
     if self.current_modality.present?
       self.current_modality.modality_code.death?
     end
+  end
+
+  def not_new_medication
+    self.medications.build( provider: :gp ).changed.include?('medicatable_id')
   end
 
 end
