@@ -16,7 +16,7 @@ When(/^I complete the form for a pd regime$/) do
   check "Low sodium solution"
   check "On additional HD"
 
-  click_on "Add Bag"
+  find("input.add-bag").click
 
   select('Sunshine Brand Blue–2.34', from: 'Bag Type')
   fill_in('Volume', with: '2')

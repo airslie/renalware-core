@@ -13,7 +13,8 @@
   = rb.select :per_week, (1..7)
 
 .large-3.columns.inline
-  = rb.submit 'Remove', name: "actions[remove][#{rb.index}]", class: 'button cancel tiny right'
+  = rb.submit 'Remove', name: "actions[remove][#{rb.index}]", class: 'button cancel tiny right remove-bag'
+  = rb.link_to_remove 'Remove', class: 'button cancel tiny right remove-bag hide'
 
 .large-12.columns
   = rb.check_box :monday, class: 'inline'
