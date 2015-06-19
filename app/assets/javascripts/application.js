@@ -15,6 +15,7 @@
 //= require foundation
 //= require underscore
 //= require select2/js/select2.min
+//= require jquery_nested_form
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
