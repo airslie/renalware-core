@@ -18,6 +18,7 @@ gem 'kaminari', '~> 0.15.1'
 gem 'devise', '~> 3.4.1'
 gem 'devise_security_extension', git: 'https://github.com/phatworx/devise_security_extension.git'
 gem 'cancancan', '~> 1.10'
+gem 'nested_form', '~> 0.3.2'
 
 group :development, :test do
   gem 'capybara', '2.4.4'
