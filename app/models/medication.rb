@@ -10,11 +10,13 @@ class Medication < ActiveRecord::Base
   belongs_to :treatable, :polymorphic => true
   belongs_to :medication_route
 
-  validates :medicatable, presence: true
-  validates :dose, presence: true
-  validates :medication_route_id, presence: true
-  validates :frequency, presence: true
-  validates :start_date, presence: true
+  validates :patient, presence: true
+
+  validates :dose, presence: { message: "Dose can't be blank" }
+  validates :medication_route, presence: { message: "Route can't be blank" }
+  validates :frequency, presence: { message: "Frequency & Duration can't be blank" }
+  validates :start_date, presence: { message: "Prescribed On can't be blank" }
 
   enum provider: %i(gp hospital home_delivery)
+
 end
