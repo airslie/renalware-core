@@ -45,7 +45,7 @@
   = pm.text_field :dose
 
   = pm.label :medication_route_id, "Route"
-  = pm.collection_select :medication_route_id, MedicationRoute.all, :id, :name, { :prompt => "Please select route of administration" }, :class => "medication-route-select"
+  = pm.collection_select :medication_route_id, MedicationRoute.all, :id, :name, { :prompt => "Please select route of administration" }, :class => "medication-route-select #{ validation_highlight(pm.object, :medication_route) }"
 
   = pm.label :frequency, "Frequency & Duration"
   = pm.text_field :frequency

@@ -8,4 +8,8 @@ module MedicationsHelper
     end
   end
 
+  def validation_highlight(med_object, med_attribute)
+    med_object.errors.include?(med_attribute) ? "med-route-error" : nil
+  end
+
 end
