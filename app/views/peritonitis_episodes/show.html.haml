@@ -18,11 +18,11 @@
             %dt.title-bold
               Treatment Start Date:
             %dd
-              = default_for_blank(@peritonitis_episode.treatment_start_date, nil)
+              = @peritonitis_episode.treatment_start_date
             %dt.title-bold
               Treatment End Date:
             %dd
-              = default_for_blank(@peritonitis_episode.treatment_end_date, nil)
+              = @peritonitis_episode.treatment_end_date
 
         .row
           .large-12.columns

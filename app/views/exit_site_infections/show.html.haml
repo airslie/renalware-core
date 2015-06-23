@@ -20,7 +20,7 @@
               Outcome:
 
             %p
-              = default_for_blank(@exit_site_infection.outcome, nil)
+              = @exit_site_infection.outcome
 
           .large-12.columns
             .section-underliner.title-bold
@@ -35,7 +35,7 @@
             .section-underliner.title-bold
               Treatment:
             %p
-              = default_for_blank(@exit_site_infection.treatment, nil)
+              = @exit_site_infection.treatment
 
           .large-12.columns
             .section-underliner.title-bold
@@ -47,7 +47,7 @@
             .section-underliner.title-bold
               Exit Site Infection Notes:
             %p
-              = default_for_blank(@exit_site_infection.notes, nil)
+              = @exit_site_infection.notes
 
       .large-12.columns.button-padding
         = link_to "Edit", edit_patient_exit_site_infection_path(@patient, @exit_site_infection.id), class: "tiny button right"
