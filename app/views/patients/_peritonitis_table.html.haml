@@ -32,10 +32,10 @@
           = p.diagnosis_date
 
         %td{ :data => { :heading => "Start Treatment Date" }, valign: "top" }
-          = default_for_blank(p.treatment_start_date, nil)
+          = p.treatment_start_date
 
         %td{ :data => { :heading => "End Treatment Date" }, valign: "top" }
-          = default_for_blank(p.treatment_end_date, nil)
+          = p.treatment_end_date
 
         %td{ :data => { :heading => "Episode Type" }, valign: "top" }
           %ul.table-data-list
@@ -80,7 +80,7 @@
             = medication_and_route(p.medications)
 
         %td{:data => { :heading => "Notes" }, valign: "top" }
-          = default_for_blank(p.notes, nil)
+          = p.notes
 
         %td{ :data => { :heading => "Last Updated" }, valign: "top" }
           = p.updated_at
