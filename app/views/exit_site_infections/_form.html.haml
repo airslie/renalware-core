@@ -9,7 +9,7 @@
       Dates:
     .large-4.columns
       = e.label :diagnosis_date
-      = e.date_select(:diagnosis_date, { start_year: (1.year.ago).year, end_year: Time.now.year + 1, order: [:day, :month, :year] }, class: "datetime")
+      = e.date_select(:diagnosis_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year] }, class: "datetime")
 
 .row
   .large-12.columns
