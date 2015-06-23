@@ -19,6 +19,7 @@ module LoginMacros
     else # features
       login_as user
     end
+    user
   end
 
   alias_method :login_as_super_admin, :login_user
