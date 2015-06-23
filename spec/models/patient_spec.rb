@@ -2,6 +2,8 @@ require 'rails_helper'
 
 describe Patient, :type => :model do
 
+  it_behaves_like 'Personable'
+
   it { should have_one :esrf_info }
   it { should have_one :current_modality }
   it { should have_one(:modality_code).through(:current_modality) }

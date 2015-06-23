@@ -27,7 +27,7 @@
       - @dead_patients.each do |patient|
         %tr
           %td{ :data => { :heading => "Forename"}}
-            = link_to " " + patient.full_name, clinical_summary_patient_path(patient), :title => "Clinical Summary"
+            = link_to " #{patient.to_s(:full_name)}", clinical_summary_patient_path(patient), :title => "Clinical Summary"
           %td{ :data => { :heading => "NHS No."}}
             = patient.nhs_number
           %td{ :data => { :heading => "Hospital No."}}

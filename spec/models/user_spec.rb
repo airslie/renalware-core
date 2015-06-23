@@ -1,6 +1,8 @@
 require 'rails_helper'
 
-describe User, :type => :model do
+describe User, type: :model do
+
+  it_behaves_like 'Personable'
 
   it { should have_and_belong_to_many :roles }
 

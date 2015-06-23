@@ -3,9 +3,9 @@
     = render partial: "patients/patient_info_header", locals: { model: @patient }
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
-    %h5 
-      = "Update Patient Demographics #{@patient.full_name}"
-    
+    %h5
+      = "Update Patient Demographics #{@patient.to_s(:full_name)}"
+
 .row
   .large-12.columns
 
@@ -16,5 +16,5 @@
       = render partial: "patients/demographic_form", locals: { patient: f }
 
       = submit_tag "Update Demographics", class: "button tiny right"
-      
+
       = link_to "Cancel", demographics_patient_path(@patient), class: "button tiny left cancel"
