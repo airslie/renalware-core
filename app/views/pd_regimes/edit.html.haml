@@ -11,7 +11,7 @@
   %ul.no-bullet
     = field_set_tag do
 
-      = form_for [@patient, @pd_regime], :method => :put do |r|
+      = nested_form_for [@patient, @pd_regime], :method => :put do |r|
 
         .row
           = render :partial => 'pd_regimes/form', :locals => { :r => r }
