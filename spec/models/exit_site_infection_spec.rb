@@ -13,6 +13,8 @@ RSpec.describe ExitSiteInfection, :type => :model do
   it { should accept_nested_attributes_for(:medications) }
   it { should accept_nested_attributes_for(:infection_organisms) }
 
+  it { should validate_presence_of :diagnosis_date }
+
   describe "exit site infection" do
     before do
       @patient = create(:patient)

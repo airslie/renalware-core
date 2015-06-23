@@ -20,7 +20,7 @@
               Outcome:
 
             %p
-              = default_for_blank(@exit_site_infection.outcome, "Unknown")
+              = @exit_site_infection.outcome
 
           .large-12.columns
             .section-underliner.title-bold
@@ -35,7 +35,7 @@
             .section-underliner.title-bold
               Treatment:
             %p
-              = default_for_blank(@exit_site_infection.treatment, "Unknown")
+              = @exit_site_infection.treatment
 
           .large-12.columns
             .section-underliner.title-bold
@@ -52,4 +52,4 @@
       .large-12.columns.button-padding
         = link_to "Edit", edit_patient_exit_site_infection_path(@patient, @exit_site_infection.id), class: "tiny button right"
 
-        = link_to "Back", pd_info_patient_path(@patient), class: "button tiny left cancel"
+        = link_to "Return to PD Info", pd_info_patient_path(@patient), class: "button tiny left cancel"

@@ -1,6 +1,6 @@
 %table.responsive
   %thead
-    %th.column-6-width
+    %th.col-width-date
       Diagnosis Date
     %th
       Outcome
@@ -12,9 +12,9 @@
       Antibiotics/Routes
     %th
       Notes
-    %th.column-6-width
+    %th.col-width-date
       Last Updated
-    %th
+    %th.col-width-9
       Action
 
   %tbody
@@ -24,14 +24,14 @@
           = e.diagnosis_date
 
         %td{ :data => { :heading => "Outcome" }, valign: "top" }
-          = default_for_blank(e.outcome, "Unknown")
+          = e.outcome
 
         %td{ :data => { :heading => "Organisms" }, valign: "top" }
           %ul.table-data-list
             = organisms(e.infection_organisms)
 
         %td{:data => { :heading => "Treatment" }, valign: "top" }
-          = default_for_blank(e.treatment, "Unknown")
+          = e.treatment
 
         %td{ :data => { :heading => "Antibiotics" }, valign: "top" }
           %ul.table-data-list

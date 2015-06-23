@@ -19,6 +19,18 @@ table tr th, table tr td {
   font-size: 0.7em;
 }
 
+table tr th.col-width-date{
+  width: 5.5rem;
+}
+
+table tr th.col-width-9{
+  width: 9rem;
+}
+
+table tr th.col-width-13{
+  width: 13rem;
+}
+
 fieldset {
   border-radius: 1em;
   padding: 2em;

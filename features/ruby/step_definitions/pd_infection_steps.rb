@@ -280,7 +280,7 @@ When(/^the Clinician records the episode of peritonitis$/) do
 
   select "Misty", from: "Fluid description"
 
-  fill_in "White cell total", :with => 1000
+  fill_in "White Cell Total (x10\u2079)", :with => 1000
   fill_in "Neutro (%)", :with => 20
   fill_in "Lympho (%)", :with => 30
   fill_in "Degen (%)", :with => 25
@@ -486,10 +486,10 @@ Then(/^the recorded episode should be displayed on PD info page$/) do
 
   #whitecells
   expect(page).to have_content("1000")
-  expect(page).to have_content("Neutro: 20%")
-  expect(page).to have_content("Lympho: 30%")
-  expect(page).to have_content("Degen: 25%")
-  expect(page).to have_content("Other: 25%")
+  expect(page).to have_content("Neutro: 20 %")
+  expect(page).to have_content("Lympho: 30 %")
+  expect(page).to have_content("Degen: 25 %")
+  expect(page).to have_content("Other: 25 %")
 
   #medication/route
   expect(page).to have_content("Rifampin")

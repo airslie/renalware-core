@@ -3,19 +3,22 @@
     = render partial: "patients/patient_info_header", locals: { model: @patient }
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
-.row  
+.row
   %h4
     Record an Exit Site Infection
 
-.row  
+  .large-12.columns
+    = render partial: "shared/errors", locals: { model: @exit_site_infection }
+
+.row
   %ul.no-bullet
     = field_set_tag do
-             
+
       = form_for [@patient, @exit_site_infection] do |e|
-            
+
         .row
           = render :partial => 'exit_site_infections/form', :locals => { :e => e }
-              
+
         = link_to "Cancel", pd_info_patient_path(@patient), class: "button tiny left cancel mt"
-        
+
         = e.submit "Save Exit Site Infection", :class => "button tiny right save mt"

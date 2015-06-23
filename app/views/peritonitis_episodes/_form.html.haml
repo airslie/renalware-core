@@ -12,14 +12,15 @@
 
         .large-4.columns
           = p.label :diagnosis_date
-          = p.date_select(:diagnosis_date, { start_year: (1.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year] }, class: "datetime")
+          = p.date_select(:diagnosis_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year] }, class: "datetime")
 
         .large-4.columns
           = p.label :treatment_start_date
-          = p.date_select(:treatment_start_date, { start_year: (1.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year] }, class: "datetime")
+          = p.date_select(:treatment_start_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year], include_blank: true }, class: "datetime")
+
         .large-4.columns
           = p.label :treatment_end_date
-          = p.date_select(:treatment_end_date, { start_year: (1.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year], include_blank: true }, class: "datetime")
+          = p.date_select(:treatment_end_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year], include_blank: true }, class: "datetime")
 
     .row
       .large-12.columns
@@ -68,7 +69,7 @@
           White Cell Count:
 
         .large-4.columns
-          = p.label :white_cell_total
+          = p.label :white_cell_total, "White Cell Total (x10\u2079)"
           = p.text_field :white_cell_total
         .large-2.columns
           = p.label :white_cell_neutro, "Neutro (%)"

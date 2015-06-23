@@ -1,27 +1,27 @@
 %table.responsive
   %thead
     %tr
-      %th.column-6-width
+      %th.col-width-date
         Diagnosis Date
-      %th.column-6-width
+      %th.col-width-date
         Treatment Start Date
-      %th.column-6-width
+      %th.col-width-date
         Treatment End Date
       %th
         Outcome
       %th
         Organisms
-      %th.column-9-width
+      %th.col-width-9
         White Cell Count
-      %th
+      %th.col-width-13
         Causes/Symptoms
       %th
         Antibiotics/Routes
       %th
         Notes
-      %th.column-6-width
+      %th.col-width-date
         Last Updated
-      %th
+      %th.col-width-9
         Action
 
   %tbody
@@ -35,7 +35,7 @@
           = p.treatment_start_date
 
         %td{ :data => { :heading => "End Treatment Date" }, valign: "top" }
-          = default_for_blank(p.treatment_end_date, "Pending")
+          = p.treatment_end_date
 
         %td{ :data => { :heading => "Episode Type" }, valign: "top" }
           %ul.table-data-list
@@ -52,15 +52,15 @@
         %td{ :data => { :heading => "White Cell Count" }, valign: "top" }
           %ul.table-data-list
             %li
-              = "Total: #{p.white_cell_total}"
+              = "Total: #{ default_for_blank_units(p.white_cell_total, "x 10\u2079", "N/A")}"
             %li
-              = "Neutro: #{p.white_cell_neutro}%"
+              = "Neutro: #{ default_for_blank_units(p.white_cell_neutro, "%", "N/A") }"
             %li
-              = "Lympho: #{p.white_cell_lympho}%"
+              = "Lympho: #{ default_for_blank_units(p.white_cell_lympho, "%", "N/A") }"
             %li
-              = "Degen: #{p.white_cell_degen}%"
+              = "Degen: #{ default_for_blank_units(p.white_cell_degen, "%", "N/A") }"
             %li
-              = "Other: #{p.white_cell_other}%"
+              = "Other: #{ default_for_blank_units(p.white_cell_other, "%", "N/A") }"
 
         %td{ :data => { :heading => "Causes/Symptoms" }, valign: "top" }
           %ul.table-data-list
@@ -73,7 +73,7 @@
             %li
               = "Abdominal Pain: #{yes_no(p.abdominal_pain)}"
             %li
-              = "Fluid Descr: #{p.fluid_description.description}"
+              = "Fluid Description: #{default_for_associated(p.fluid_description, :description, "N/A")}"
 
         %td{ :data => { :heading => "Antibiotics/Routes" }, valign: "top" }
           %ul.table-data-list

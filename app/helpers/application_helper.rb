@@ -18,11 +18,15 @@ module ApplicationHelper
     val.blank? ? msg : val
   end
 
+  def default_for_blank_units(val, unit, msg)
+    val.blank? ? msg : "#{val} #{unit}"
+  end
+
   def medication_and_route(med_route)
     if med_route.blank?
       "No medication prescribed"
     else
-      safe_join(med_route.map { |m| "<li>#{m.medicatable.name} - #{m.medication_route.name == 'Other (Please specify in notes)' ? m.medication_route.full_name : m.medication_route.name }</li>".html_safe })
+      safe_join(med_route.map { |m| "<li>#{m.medicatable.name} - #{m.medication_route.name == 'Route: Other (Please specify in notes)' ? m.medication_route.full_name : m.medication_route.name }</li>".html_safe })
     end
   end
 

@@ -7,6 +7,9 @@
   %h4
     Record an Episode of Peritonitis
 
+  .large-12.columns
+    = render partial: "shared/errors", locals: { model: @peritonitis_episode }
+
 .row
   %ul.no-bullet
     = field_set_tag do
