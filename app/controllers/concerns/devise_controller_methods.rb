@@ -30,7 +30,8 @@ module DeviseControllerMethods
     def configure_account_update_parameters
       devise_parameter_sanitizer.for(:account_update) do |u|
         u.permit(:first_name, :last_name, :username, :email, :password,
-                 :password_confirmation, :current_password, :professional_position)
+                 :password_confirmation, :current_password,
+                 :professional_position, :signature)
       end
     end
   end
