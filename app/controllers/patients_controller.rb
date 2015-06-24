@@ -33,10 +33,6 @@ class PatientsController < RenalwareController
     @patients = @patient_search.result.page(@page).per(@per_page)
   end
 
-  def manage_medications
-    @patient.medications.build( provider: :gp )
-  end
-
   def problems
     @patient.problems.build
   end
