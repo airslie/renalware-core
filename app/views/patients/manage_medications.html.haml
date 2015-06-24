@@ -19,3 +19,5 @@
 
     - unless current_user.read_only?
       = f.submit 'Save Medication', class: 'button tiny right save mt'
+      = link_to 'Cancel', clinical_summary_patient_path(@patient), class: 'button tiny left cancel mt'
+

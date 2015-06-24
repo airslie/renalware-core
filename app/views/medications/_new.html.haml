@@ -1,9 +1,9 @@
 - unless current_user.read_only?
   #new-form
-    %a.button.tiny.toggle.right.mt{ href: '#new-form', class: show_validation_fail(pm.object,'hide-button')}
+    %a.button.tiny.toggle.right.mt{ href: '#new-form', class: show_validation_fail(pm.object,'hide-button', nil)}
       Add a new medication
 
-    .hide{ class: show_validation_fail(pm.object,'show-form') }
+    .hide{ class: show_validation_fail(pm.object,'show-form', nil) }
       %a.button.tiny.close-new-form{ href: '#' }
         Close
 
@@ -19,6 +19,3 @@
 
         .row
           = render partial: 'medications/fields', locals: { pm: pm }
-
-
-  = link_to 'Cancel', clinical_summary_patient_path(@patient), class: 'button tiny left cancel mt'
