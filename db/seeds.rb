@@ -305,4 +305,14 @@ Event.create(
 
 log "...3 events seeded!"
 
+log 'Adding Practices...'
+
+CSV.foreach(Rails.root.join('db','csv','practices.csv'), headers: true) do |row|
+  address = Address.find_or_create_by(postcode: row['postcode'], street_1: row['street_1'])
+  Practice.find_or_create_by(code: row['code']) do |practice|
+    practice.name = row['name']
+    practice.address = address
+  end
+end
+
 log '-----------Database seeding complete!----------'
