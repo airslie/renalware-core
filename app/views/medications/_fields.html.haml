@@ -65,6 +65,6 @@
     %ul.no-bullet.provider
 
       %li
-        = pm.radio_button :provider, p, :class => "provider-#{p}"
+        = pm.radio_button :provider, p, :class => "provider-#{p}", checked: default_provider(p)
       %li
         = pm.label :provider, I18n.t("enums.provider.#{p}")

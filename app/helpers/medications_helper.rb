@@ -16,4 +16,8 @@ module MedicationsHelper
     med_object.errors.any? ? tag : default_tag
   end
 
+  def default_provider(provider)
+    provider == 'gp' ? 'checked' : nil
+  end
+
 end
