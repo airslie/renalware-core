@@ -12,8 +12,9 @@ class Medication < ActiveRecord::Base
 
   validates :patient, presence: true
 
+  validates :medicatable, presence: { message: "Medication to be administered can't be blank" }
   validates :dose, presence: { message: "Dose can't be blank" }
-  validates :medication_route, presence: { message: "Route can't be blank" }
+  validates :medication_route_id, presence: { message: "Route can't be blank" }
   validates :frequency, presence: { message: "Frequency & Duration can't be blank" }
   validates :start_date, presence: { message: "Prescribed On can't be blank" }
 
