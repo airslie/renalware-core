@@ -1,9 +1,9 @@
 - unless current_user.read_only?
   #new-form
-    %a.button.tiny.toggle.right.mt{ href: '#new-form' }
+    %a.button.tiny.toggle.right.mt{ href: '#new-form', class: show_validation_fail(pm.object,'hide-button')}
       Add a new medication
 
-    .hide
+    .hide{ class: show_validation_fail(pm.object,'show-form') }
       %a.button.tiny.close-new-form{ href: '#' }
         Close
 
