@@ -13,4 +13,5 @@ RSpec.describe Medication, :type => :model do
   it { should validate_presence_of(:medication_route_id).with_message("Route can't be blank") }
   it { should validate_presence_of(:frequency).with_message("Frequency & Duration can't be blank") }
   it { should validate_presence_of(:start_date).with_message("Prescribed On can't be blank") }
+  it { should validate_presence_of(:provider).with_message("Provider can't be blank") }
 end

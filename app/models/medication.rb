@@ -17,6 +17,7 @@ class Medication < ActiveRecord::Base
   validates :medication_route_id, presence: { message: "Route can't be blank" }
   validates :frequency, presence: { message: "Frequency & Duration can't be blank" }
   validates :start_date, presence: { message: "Prescribed On can't be blank" }
+  validates :provider, presence: { message: "Provider can't be blank" }
 
   enum provider: %i(gp hospital home_delivery)
 
