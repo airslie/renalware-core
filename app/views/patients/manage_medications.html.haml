@@ -6,7 +6,7 @@
     %h5 Patient Medications
 
 .wide-screen
-  = form_for @patient do |f|
+  = nested_form_for @patient do |f|
 
     = hidden_field_tag :redirect_url, manage_medications_patient_path(@patient)
     = hidden_field_tag :template, "manage_medications"
@@ -15,7 +15,11 @@
 
       = render partial: 'medications/medication', locals: { pm: pm } unless pm.object.new_record?
 
-      = render partial: 'medications/new', locals: { pm: pm } if pm.object.new_record?
+      #medications
+        = render partial: 'medications/new', locals: { pm: pm } if pm.object.new_record?
+
+    .large-12.columns
+      = f.link_to_add 'Add a new medication', :medications, class: 'add-medication button tiny'
 
     - unless current_user.read_only?
       = f.submit 'Save Medication', class: 'button tiny right save mt'
