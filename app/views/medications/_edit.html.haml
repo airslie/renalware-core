@@ -15,10 +15,7 @@
           Edit this medication
 
         .large-12.columns
-          %ul.error-messages
-            - if pm.object.errors.any?
-              - pm.object.errors.messages.each do |field, msg|
-                %li= msg.join(",")
+          = render partial: 'shared/error_messages', locals: { pm: pm }
 
         .row
           = render partial: 'medications/fields', locals: { pm: pm }

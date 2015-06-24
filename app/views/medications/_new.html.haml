@@ -1,21 +1,10 @@
-- unless current_user.read_only?
-  #new-form
-    %a.button.tiny.toggle.right.mt{ href: '#new-form', class: show_validation_fail(pm.object,'hide-button', nil)}
+#new-form
+  %fieldset
+    %legend
       Add a new medication
 
-    .hide{ class: show_validation_fail(pm.object,'show-form', nil) }
-      %a.button.tiny.close-new-form{ href: '#' }
-        Close
+    .large-12.columns
+      = render partial: 'shared/error_messages', locals: { pm: pm }
 
-      %fieldset
-        %legend
-          Add a new medication
-
-        .large-12.columns
-          %ul.error-messages
-            - if pm.object.errors.any?
-              - pm.object.errors.messages.each do |field, msg|
-                %li= msg.join(",")
-
-        .row
-          = render partial: 'medications/fields', locals: { pm: pm }
+    .row
+      = render partial: 'medications/fields', locals: { pm: pm }
