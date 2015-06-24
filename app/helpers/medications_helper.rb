@@ -12,8 +12,8 @@ module MedicationsHelper
     med_object.errors.include?(med_attribute) ? "med-route-error" : nil
   end
 
-  def show_validation_fail(med_object, tag)
-    med_object.errors.any? ? tag : nil
+  def show_validation_fail(med_object, tag, default_tag)
+    med_object.errors.any? ? tag : default_tag
   end
 
 end
