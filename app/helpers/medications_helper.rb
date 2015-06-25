@@ -9,7 +9,13 @@ module MedicationsHelper
   end
 
   def validation_highlight(med_object, med_attribute)
-    med_object.errors.include?(med_attribute) ? "field_with_errors" : nil
+    if med_object.blank?
+      nil
+    elsif med_object.errors.include?(med_attribute)
+      "field_with_errors"
+    else
+      nil
+    end
   end
 
   def show_validation_fail(med_object, tag, default_tag)
