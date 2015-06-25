@@ -116,14 +116,8 @@ When(/^complete the medication form by drug type select$/) do
   fill_in "Frequency & Duration", :with => "Once daily"
   fill_in "Notes", :with => "Review in six weeks"
 
-  within "#patient_medications_attributes_0_start_date_3i" do
-    select '2'
-  end
-  within "#patient_medications_attributes_0_start_date_2i" do
-    select 'March'
-  end
-  within "#patient_medications_attributes_0_start_date_1i" do
-    select "#{Date.current.year - 1}"
+  within("#new-form fieldset .row .med-form") do
+    select_date("2 March #{Date.current.year - 1}", from: 'Prescribed On')
   end
 
   find("#patient_medications_attributes_0_provider_gp").set(true)
