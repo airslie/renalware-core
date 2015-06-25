@@ -63,7 +63,7 @@
         %legend
           Current Address
 
-        = render :partial => 'addresses/address_form', :locals => { :a => a }
+        = render :partial => 'addresses/form', :locals => { :a => a }
 
   .large-4.columns
     = patient.fields_for :address_at_diagnosis_attributes, patient.object.address_at_diagnosis do |a|
@@ -71,5 +71,5 @@
         %legend
           Address at Diagnosis
 
-        = render :partial => 'addresses/address_form', :locals => { :a => a }
+        = render :partial => 'addresses/form', :locals => { :a => a }
 
