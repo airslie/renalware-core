@@ -1,0 +1,31 @@
+.row
+  = f.label :first_name
+  = f.text_field :first_name
+
+.row
+  = f.label :last_name
+  = f.text_field :last_name
+
+.row
+  = f.label :email
+  = f.text_field :email
+
+.row
+  = f.label :code
+  = f.text_field :code
+
+.row
+  = f.label :practitioner_type
+  = f.select :practitioner_type, options_for_select(['GP', 'Other'])
+
+.row
+  = label_tag 'doctor[practice_ids]', 'Practices'
+  = select_tag 'doctor[practice_ids]',
+    practices_options_for_select(f.object),
+    { include_hidden: false, multiple: true }
+
+.row
+  %h6 Address
+  = f.fields_for :address_attributes do |a|
+    = a.hidden_field :id
+    = render partial: 'addresses/form', locals: { a: a }

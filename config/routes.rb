@@ -50,4 +50,5 @@ Rails.application.routes.draw do
 
   resources :bag_types, except: [:show]
 
+  resources :doctors
 end
