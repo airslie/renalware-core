@@ -28,7 +28,7 @@
     / Search all drugs
     .standard
       = label_tag :drug_search, "Drug"
-      = text_field_tag :drug_search, display_med_field(pm.object, pm.object.medicatable, :name), :class => "find_drug", :placeholder => "Search drug by name or type"
+      = text_field_tag :drug_search, display_med_field(pm.object, pm.object.medicatable, :name), :class => "find_drug #{ validation_highlight(@patient.medications.last, :medicatable) }", :placeholder => "Search drug by name or type"
 
       %ul.drug-results.no-bullet
 
@@ -45,7 +45,7 @@
   = pm.text_field :dose
 
   = pm.label :medication_route_id, "Route"
-  = pm.collection_select :medication_route_id, MedicationRoute.all, :id, :name, { :prompt => "Please select route of administration" }, :class => "medication-route-select #{ validation_highlight(pm.object, :medication_route) }"
+  = pm.collection_select :medication_route_id, MedicationRoute.all, :id, :name, { :prompt => "Please select route of administration" }, :class => "medication-route-select }"
 
   = pm.label :frequency, "Frequency & Duration"
   = pm.text_field :frequency
