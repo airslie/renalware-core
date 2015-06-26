@@ -105,7 +105,7 @@ $(document).ready(function(){
   });
 
   // set hidden value of chosen medication via select dropdown
-  $('.medication-type-select').change(function(e) {
+  $(document).on('change', '.medication-type-select', function(e) {
     var $bullet = $(e.currentTarget);
     var $medForm = $bullet.closest('.med-form');
     var delay = 1000;
