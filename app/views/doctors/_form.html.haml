@@ -24,8 +24,12 @@
     practices_options_for_select(f.object),
     { include_hidden: false, multiple: true }
 
+%hr
+
 .row
-  %h6 Address
-  = f.fields_for :address_attributes do |a|
-    = a.hidden_field :id
-    = render partial: 'addresses/form', locals: { a: a }
+  %a#address-form-toggle{href:'#address-form', class: 'button tiny'} Alternative address
+
+  %fieldset#address-form{style:'display:none'}
+    = f.fields_for :address_attributes do |a|
+      = a.hidden_field :id
+      = render partial: 'addresses/form', locals: { a: a }
