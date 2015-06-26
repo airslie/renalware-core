@@ -2,7 +2,7 @@ class DoctorsController < RenalwareController
   include Pageable
 
   def index
-    @doctors = Doctor.page(@page).per(@per_page)
+    @doctors = Doctor.order(:last_name).page(@page).per(@per_page)
   end
 
   def new
