@@ -9,5 +9,6 @@ class CreateDoctors < ActiveRecord::Migration
       t.string  :practitioner_type, null: false
       t.timestamps null: false
     end
+    add_index :doctors, :code, unique: true
   end
 end

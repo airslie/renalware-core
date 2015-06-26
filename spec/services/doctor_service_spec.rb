@@ -45,6 +45,7 @@ def doctor_params
     first_name: 'Barry',
     last_name: 'Foster',
     email: 'barry.foster@nhs.net',
+    code: 'GP98765',
     practitioner_type: 'GP'
   }
 end

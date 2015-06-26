@@ -6,7 +6,7 @@ class DoctorService
   def update!(params)
     update_practices(params.delete(:practice_ids))
     update_doctor(params)
-    @doctor.save!
+    @doctor.save
   end
 
   private

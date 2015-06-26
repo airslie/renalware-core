@@ -9,5 +9,6 @@ class Doctor < ActiveRecord::Base
 
   validates_with DoctorAddressValidator
   validates_with DoctorEmailValidator
+  validates_uniqueness_of :code
   validates_presence_of :practitioner_type
 end

@@ -44,6 +44,7 @@ describe DoctorsController, type: :controller do
         first_name: 'Lall',
         last_name: 'Sawh',
         email: 'lall.sawh@nhs.net',
+        code: 'GP54321',
         practitioner_type: 'GP',
         address_attributes: address_params
       }
