@@ -8,4 +8,14 @@ class Address < ActiveRecord::Base
       attrs[:postcode].blank?
     end
   end
+
+  alias_method :orig_to_s, :to_s
+
+  def to_s(*fields)
+    if fields.any?
+      fields.map { |f| send(f) }.join(', ')
+    else
+      orig_to_s
+    end
+  end
 end

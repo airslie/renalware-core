@@ -4,18 +4,19 @@ module DoctorsHelper
     options_from_collection_for_select(Practice.all, :id, :name, selected_ids)
   end
 
-  def address_or_practices(doctor)
-    if doctor.practices.any?
-      practices_list(doctor.practices)
-    elsif doctor.address.present?
-      doctor.address
-    else
-      'N/A'
-    end
+  def practices_or_address(doctor)
+    return practices_list(doctor.practices) if doctor.practices.any?
+    return format_address(doctor.address) if doctor.address.present?
+  end
+
+  private
+
+  def format_address(address)
+    address.to_s(:street_1, :postcode)
   end
 
   def practices_list(practices)
-    practice_links = practices.map { |p| link_to(p.name, '#') }
+    practice_links = practices.map { |p| link_to(p.name, '#', title: format_address(p.address)) }
     practice_links.join(tag(:br)).html_safe
   end
 end
