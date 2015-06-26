@@ -120,9 +120,8 @@ When(/^complete the medication form by drug type select$/) do
     select_date("2 March #{Date.current.year - 1}", from: 'Prescribed On')
   end
 
-  find("#patient_medications_attributes_0_provider_gp").set(true)
-
   click_on "Save Medication"
+
 end
 
 When(/^complete the medication form by drug search$/) do
@@ -143,17 +142,9 @@ When(/^complete the medication form by drug search$/) do
   fill_in "Frequency & Duration", :with => "Twice weekly"
   fill_in "Notes", :with => "Review in two weeks."
 
-  within "#patient_medications_attributes_1_start_date_3i" do
-    select '2'
-  end
-  within "#patient_medications_attributes_1_start_date_2i" do
-    select 'February'
-  end
-  within "#patient_medications_attributes_1_start_date_1i" do
-    select "#{Date.current.year}"
-  end
+  select_date("2 February #{Date.current.year}", from: 'Prescribed On')
 
-  find("#patient_medications_attributes_1_provider_hospital").set(true)
+  find(:xpath, ".//*[@value='hospital']").set(true)
 
   click_on "Save Medication"
 end
@@ -232,6 +223,7 @@ end
 Then(/^they should see the new medications on the clinical summary$/) do
   visit clinical_summary_patient_path(@patient_1)
 
+  #drug by select
   within(".drug-esa") do
     expect(page).to have_content("Blue")
     expect(page).to have_content("10mg")
@@ -240,6 +232,7 @@ Then(/^they should see the new medications on the clinical summary$/) do
     expect(page).to have_content("02/03/#{Date.current.year - 1}")
   end
 
+  #drug by search
   within(".drug-drug") do
     expect(page).to have_content("Amoxicillin")
     expect(page).to have_content("20mg")
@@ -247,6 +240,7 @@ Then(/^they should see the new medications on the clinical summary$/) do
     expect(page).to have_content("Twice weekly")
     expect(page).to have_content("02/02/#{Date.current.year}")
   end
+
 end
 
 Then(/^they should no longer see this medication in their clinical summary$/) do
