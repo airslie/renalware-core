@@ -28,7 +28,7 @@
     / Search all drugs
     .standard
       = label_tag :drug_search, "Drug"
-      = text_field_tag :drug_search, display_med_field(pm.object, pm.object.medicatable, :name), :class => "find_drug #{ validation_highlight(@patient.medications.last, :medicatable) }", :placeholder => "Search drug by name or type"
+      = text_field_tag :drug_search, display_med_field(pm.object, pm.object.medicatable, :name), :class => "find_drug #{ validation_highlight(pm.object, :medicatable) }", :placeholder => "Search drug by name or type"
 
       %ul.drug-results.no-bullet
 
