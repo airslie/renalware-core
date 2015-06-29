@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe MedicationsHelper, :type => :helper do
 
-  describe 'validation_highlight' do
+  describe 'highlight_validation_fail' do
     before do
       @patient = FactoryGirl.create(:patient)
     end
@@ -20,7 +20,7 @@ RSpec.describe MedicationsHelper, :type => :helper do
           provider: nil)
 
         @patient_medication.save
-        expect(validation_highlight(@patient_medication, :medicatable_id)).to eq('field_with_errors')
+        expect(highlight_validation_fail(@patient_medication, :medicatable_id)).to eq('field_with_errors')
       end
     end
 
@@ -38,7 +38,7 @@ RSpec.describe MedicationsHelper, :type => :helper do
           provider: 0)
 
         @patient_medication.save
-        expect(validation_highlight(@patient_medication, :medicatable)).to eq(nil)
+        expect(highlight_validation_fail(@patient_medication, :medicatable)).to eq(nil)
       end
     end
 

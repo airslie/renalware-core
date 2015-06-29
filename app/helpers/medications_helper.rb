@@ -4,11 +4,11 @@ module MedicationsHelper
     if med_object.persisted? || med_object.changed.include?('medicatable_id')
       assoc.send(method)
     else
-      return nil
+      nil
     end
   end
 
-  def validation_highlight(med_object, med_attribute)
+  def highlight_validation_fail(med_object, med_attribute)
     if med_object.errors.include?(med_attribute)
       'field_with_errors'
     else
