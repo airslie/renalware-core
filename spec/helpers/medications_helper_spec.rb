@@ -11,7 +11,7 @@ RSpec.describe MedicationsHelper, :type => :helper do
       it 'should apply hightlight' do
         @patient_medication = FactoryGirl.build(
           :medication,
-          patient_id: @patient,
+          patient: @patient,
           medicatable_id: nil,
           dose: nil,
           medication_route_id: nil,
@@ -28,7 +28,7 @@ RSpec.describe MedicationsHelper, :type => :helper do
       it 'should not apply highlight' do
         @patient_medication = FactoryGirl.build(
           :medication,
-          patient_id: @patient.id,
+          patient: @patient,
           medicatable_id: 2,
           medicatable_type: 'Drug',
           dose: '23mg',
