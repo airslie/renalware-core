@@ -9,10 +9,8 @@ module MedicationsHelper
   end
 
   def validation_highlight(med_object, med_attribute)
-    if med_object.blank?
-      nil
-    elsif med_object.errors.include?(med_attribute)
-      "field_with_errors"
+    if med_object.errors.include?(med_attribute)
+      'field_with_errors'
     else
       nil
     end
