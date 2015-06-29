@@ -5,19 +5,11 @@
 
   - if pm.object.treatable_type == "PeritonitisEpisode"
 
-    .select-peritonitis-drug
-      = pm.label :medicatable_id, "Select Drug (peritonitis drugs only)"
-      = pm.collection_select :medicatable_id, Drug.peritonitis, :id, :name, { prompt: "Please select drug used to treat this episode of peritonitis" }, :class => "peritonitis-drug-select"
-
-      = pm.hidden_field :medicatable_type, value: "Drug", :class => "selected-medicatable-type"
+    = render partial: 'medications/peritonitis', locals: { pm: pm }
 
   - elsif pm.object.treatable_type == "ExitSiteInfection"
 
-    .select-exit-site-drug
-      = pm.label :medicatable_id, "Select Drug (exit site drugs only)"
-      = pm.collection_select :medicatable_id, Drug.peritonitis, :id, :name, { prompt: "Please select drug used to treat this exit site infection" }, :class => "exit-site-drug-select"
-
-      = pm.hidden_field :medicatable_type, value: "Drug", :class => "selected-medicatable-type"
+    = render partial: 'medications/exit_site', locals: { pm: pm }
 
   - else
 
