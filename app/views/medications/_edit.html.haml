@@ -18,7 +18,7 @@
           = render partial: 'shared/error_messages', locals: { pm: pm }
 
           .row
-            = render partial: 'medications/fields', locals: { pm: pm }
+            = render partial: 'medications/form', locals: { pm: pm }
 
             .med-form.content{:id => "edit-meds-#{pm.object.id}"}
               = pm.check_box :_destroy
