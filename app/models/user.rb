@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include Deviseable
   include Permissible
+  include Personable
 
   validates :username, presence: true, uniqueness: true
   validates_presence_of :first_name
@@ -9,14 +10,6 @@ class User < ActiveRecord::Base
 
   scope :unapproved, -> { where(approved: [nil, false]) }
   scope :inactive, -> { where('last_activity_at IS NOT NULL AND last_activity_at < ?', expire_after.ago) }
-
-  def full_name
-    "#{first_name} #{last_name}"
-  end
-
-  def last_first
-    "#{last_name}, #{first_name}"
-  end
 
   def read_only?
     has_role?(:read_only)

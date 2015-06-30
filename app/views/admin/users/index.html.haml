@@ -23,7 +23,7 @@
       - @users.each do |user|
         %tr
           %td= user.id
-          %td= user.last_first
+          %td= user.to_s(:last_first)
           %td= user.username
           %td= user.email
           %td= user.created_at

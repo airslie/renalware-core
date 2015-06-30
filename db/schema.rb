@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150619150714) do
+ActiveRecord::Schema.define(version: 20150623105816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,24 @@ ActiveRecord::Schema.define(version: 20150619150714) do
   end
 
   add_index "bag_types", ["deleted_at"], name: "index_bag_types_on_deleted_at", using: :btree
+
+  create_table "doctors", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "code"
+    t.integer  "address_id"
+    t.string   "practitioner_type", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  create_table "doctors_practices", id: false, force: :cascade do |t|
+    t.integer "doctor_id"
+    t.integer "practice_id"
+  end
+
+  add_index "doctors_practices", ["doctor_id", "practice_id"], name: "index_doctors_practices", using: :btree
 
   create_table "drug_drug_types", force: :cascade do |t|
     t.integer  "drug_id"
@@ -296,6 +314,15 @@ ActiveRecord::Schema.define(version: 20150619150714) do
     t.text     "notes"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+  end
+
+  create_table "practices", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "code"
+    t.integer  "address_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "prd_codes", force: :cascade do |t|

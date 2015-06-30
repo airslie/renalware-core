@@ -1,5 +1,6 @@
 class Patient < ActiveRecord::Base
   include PatientsRansackHelper
+  include Personable
 
   belongs_to :current_address, :class_name => "Address", :foreign_key => :current_address_id
   belongs_to :address_at_diagnosis, :class_name => "Address", :foreign_key => :address_at_diagnosis_id
@@ -48,9 +49,8 @@ class Patient < ActiveRecord::Base
 
   enum sex: { not_known: 0, male: 1, female: 2, not_specified: 9 }
 
-  def full_name
-    "#{surname}, #{forename}"
-  end
+  alias_attribute :first_name, :forename
+  alias_attribute :last_name,  :surname
 
   def age
     now = Time.now.utc.to_date
