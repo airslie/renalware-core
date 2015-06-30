@@ -8,7 +8,7 @@
       .right.edit
         Edit
 
-    .columns.large-12.meds-form{ id: "edit-meds-#{pm.object.id}", data: { index: 0 }, class: show_validation_fail(pm.object,'show-form', 'content') }
+    .columns.large-12.meds-form{ id: "edit-meds-#{pm.object.id}", data: { index: 0 }, class: validation_fail(pm.object) }
 
       %fieldset
         %legend
