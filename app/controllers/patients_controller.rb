@@ -52,8 +52,8 @@ class PatientsController < RenalwareController
 
   def update
     if @patient.update(patient_params)
-      redirect_to params[:redirect_url] || clinical_summary_patient_path(@patient),
-      :notice => "You have successfully updated a patient."
+      (redirect_to params[:redirect_url], notice: params[:message]) || (redirect_to clinical_summary_patient_path(@patient),
+      :notice => "You have successfully updated a patient.")
     else
       render params[:template] || :edit
     end
