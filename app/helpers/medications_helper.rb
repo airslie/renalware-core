@@ -1,8 +1,8 @@
 module MedicationsHelper
 
-  def display_med_field(med_object, assoc, method)
-    if med_object.persisted? || med_object.changed.include?('medicatable_id')
-      assoc.send(method)
+  def medicatable_name(medication)
+    if medication.medicatable.present?
+      medication.medicatable.name
     else
       nil
     end
@@ -16,8 +16,8 @@ module MedicationsHelper
     end
   end
 
-  def show_validation_fail(med_object, tag, default_tag)
-    med_object.errors.any? ? tag : default_tag
+  def validation_fail(medication)
+    medication.errors.any? ? 'show-form' : 'content'
   end
 
   def default_provider(provider)
