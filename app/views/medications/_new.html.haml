@@ -1,10 +1,14 @@
 #new-form
-  %fieldset
-    %legend
-      Add a new medication
+  .large-12.columns
+    %fieldset
+      %legend
+        Add a new medication
 
-    .large-12.columns
-      = render partial: 'shared/error_messages', locals: { pm: pm }
+      .large-12.columns
+        = pm.link_to_remove "Remove this medication", class: "button cancel tiny right remove-bag hide"
 
-    .row
-      = render partial: 'medications/fields', locals: { pm: pm }
+        = render partial: 'shared/error_messages', locals: { pm: pm }
+
+        .row
+          = render partial: 'medications/fields', locals: { pm: pm }
+
