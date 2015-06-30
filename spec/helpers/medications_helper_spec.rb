@@ -87,4 +87,23 @@ RSpec.describe MedicationsHelper, :type => :helper do
     end
   end
 
+  describe 'default_provider' do
+    before do
+      @gp = Medication.providers.keys[0]
+      @hospital = Medication.providers.keys[1]
+    end
+
+    context 'is gp' do
+      it 'should return "checked"' do
+        expect(default_provider(@gp)).to eq('checked')
+      end
+    end
+
+    context 'is not gp' do
+      it 'should return nil' do
+        expect(default_provider(@hospital)).to eq(nil)
+      end
+    end
+  end
+
 end
