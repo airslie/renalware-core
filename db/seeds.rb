@@ -339,4 +339,12 @@ CSV.foreach(Rails.root.join('db','csv','london_practices.csv'), headers: true) d
 end
 log "...#{logcount} practices seeded!"
 
+log 'Adding Letter Descriptions'
+logcount=0
+CSV.foreach(Rails.root.join('db','csv','letter_descriptions.csv'), headers: true) do |row|
+  logcount += 1
+  LetterDescription.find_or_create_by(text: row['text'])
+end
+log "...#{logcount} letter descriptions seeded!"
+
 log '-----------Database seeding complete!----------'
