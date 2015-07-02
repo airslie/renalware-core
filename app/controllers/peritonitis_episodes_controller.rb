@@ -26,7 +26,7 @@ class PeritonitisEpisodesController < RenalwareController
 
   def update
     if @peritonitis_episode.update(peritonitis_episode_params)
-      redirect_to pd_info_patient_path(@patient),
+      redirect_to patient_peritonitis_episode_path(@patient, @peritonitis_episode),
       :notice => "You have successfully updated a peritonitis episode."
     else
       render :edit
