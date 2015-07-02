@@ -4,6 +4,8 @@ class Doctor < ActiveRecord::Base
 
   belongs_to :address
   has_and_belongs_to_many :practices
+  has_many :letters
+  has_many :patients
 
   accepts_nested_attributes_for :address, reject_if: Address.reject_if_blank
 
