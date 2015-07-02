@@ -46,5 +46,15 @@ describe User, type: :model do
         expect(actual).not_to include(active)
       end
     end
+    describe 'author' do
+      it 'retrieves users with a signature' do
+        author = create(:user, signature: 'Dr D.O. Good')
+        unsigned = create(:user, signature: nil)
+
+        actual = User.author
+        expect(actual).to include(author)
+        expect(actual).not_to include(unsigned)
+      end
+    end
   end
 end

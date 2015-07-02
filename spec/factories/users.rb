@@ -14,6 +14,7 @@ FactoryGirl.define do
     email
     password 'supersecret'
     approved false
+    signature 'Aneurin Bevan, Health Minister'
 
     trait :approved do
       approved true
