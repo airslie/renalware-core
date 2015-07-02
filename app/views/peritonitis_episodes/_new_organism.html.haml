@@ -1,15 +1,17 @@
 #new-organism-form
-  %a.button.tiny.toggle.right.mt{ href: '#new-organism-form' }
-    Record a new organism and sensitivity
-
-  .hide
-    %a.button.tiny.close-new-form{ href: '#' }
-      Close
-
+  .large-12.columns
     %fieldset
       %legend
         Record a new organism and sensitivity
 
-      .row
+      .large-12.columns
+        .row
+          = io.link_to_remove "Remove this organism/sensitivity", class: "button cancel tiny right hide"
 
-        = render :partial => 'infection_organisms/organism_fields', :locals => { :io => io }
+        %ul.error-messages
+          - if io.object.errors.any?
+            - io.object.errors.messages.each do |field, msg|
+              %li= msg.join(",")
+
+        .row
+          = render :partial => 'infection_organisms/organism_fields', :locals => { :io => io }
