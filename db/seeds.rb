@@ -276,6 +276,27 @@ end
 
 log "...#{logcount} problems seeded!"
 
+log 'Adding RABBIT modalities...'
+
+file_path = Rails.root.join('db', 'csv', 'rabbit_modalities.csv')
+logcount=0
+CSV.foreach(file_path, headers: true) do |row|
+  logcount += 1
+  Modality.create(
+    patient_id: 1,
+    modality_code_id: row['modality_code_id'],
+    modality_reason_id: row['modality_reason_id'],
+    modal_change_type: row['modal_change_type'],
+    start_date: row['start_date'],
+    termination_date: row['termination_date'],
+    deleted_at: row['deleted_at'],
+    created_at: row['created_at'],
+    updated_at: row['updated_at']
+  )
+end
+
+log "...#{logcount} modalities seeded!"
+
 log 'Adding RABBIT events...'
 
 Event.create(
