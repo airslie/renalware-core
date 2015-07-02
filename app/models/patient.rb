@@ -13,7 +13,6 @@ class Patient < ActiveRecord::Base
   has_many :events
   has_many :problems
   has_many :medications
-  has_many :active_medications, -> { where deleted_at: nil }, class_name: "Medication"
   has_many :drugs, :through => :medications, :source => :medicatable, :source_type => "Drug"
   has_many :exit_site_infections, :through => :medications, :source => :treatable, :source_type => "ExitSiteInfection"
   has_many :peritonitis_episodes, :through => :medications, :source => :treatable, :source_type => "PeritonitisEpisode"
@@ -28,8 +27,7 @@ class Patient < ActiveRecord::Base
   accepts_nested_attributes_for :current_address
   accepts_nested_attributes_for :address_at_diagnosis
   accepts_nested_attributes_for :events
-  accepts_nested_attributes_for :medications, allow_destroy: true,
-  :reject_if => proc { |attrs| attrs[:dose].blank? && attrs[:notes].blank? && attrs[:frequency].blank? }
+  accepts_nested_attributes_for :medications, allow_destroy: true
   accepts_nested_attributes_for :problems, allow_destroy: true, reject_if: Problem.reject_if_proc
   accepts_nested_attributes_for :esrf_info
 
@@ -58,7 +56,7 @@ class Patient < ActiveRecord::Base
   end
 
   # @section services
-  #
+
   def set_modality(attrs={})
     self.modalities << (
       if current_modality.present?

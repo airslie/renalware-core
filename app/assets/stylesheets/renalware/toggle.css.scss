@@ -10,6 +10,14 @@
 
 }
 
+.hide-button {
+  display: none;
+}
+
+.show-form {
+  display: block;
+}
+
 #new-form:target {
   .hide {
     display: block;

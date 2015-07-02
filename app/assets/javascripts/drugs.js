@@ -3,7 +3,7 @@
 $(document).ready(function(){
 
   //drug type by select
-  $('.medication-type-select').change(function(e) {
+  $(document).on('change', '.medication-type-select', function(e) {
     var $selectBox = $(e.currentTarget);
     var selectedMedicationType = $selectBox.val();
     var $medForm = $selectBox.closest('.med-form');
@@ -64,7 +64,8 @@ $(document).ready(function(){
       drugAdminTemplate = "<li class='row drug-list' data-drug-id=<%=id%>><div class='large-4 columns'></div><div class='large-4 columns'><a href='/drugs/<%=id%>/drug_drug_types'><%= name %></a></div><div class='large-2 columns'><a href='/drugs/<%=id%>/edit'>Edit</a></div><div class='large-2 columns'><a class='delete' data-confirm='Are you sure you want to delete this drug?' data-method='delete' href='/drugs/<%=id%>'>Delete</a></div></li>",
       medicationsTemplate = "<li id=drug-<%=id%> class='drug-select-link' data-drug-id=<%=id%>><%= name %></li>";
 
-  $('.find_drug').keyup(function(e) {
+   // $(document).on('change', '.medication-type-select', function(e) {
+  $(document).on('keyup', '.find_drug', function(e) {
 
     var $drugSearchInput = $(e.currentTarget),
         query = $drugSearchInput.val();
@@ -104,7 +105,7 @@ $(document).ready(function(){
   });
 
   // set hidden value of chosen medication via select dropdown
-  $('.medication-type-select').change(function(e) {
+  $(document).on('change', '.medication-type-select', function(e) {
     var $bullet = $(e.currentTarget);
     var $medForm = $bullet.closest('.med-form');
     var delay = 1000;

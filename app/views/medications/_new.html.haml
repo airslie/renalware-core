@@ -1,19 +1,14 @@
-- unless current_user.read_only?
-  #new-form
-    %a.button.tiny.toggle.right.mt{href: '#new-form'}
-      Add a new medication
+#new-form
+  .large-12.columns
+    %fieldset
+      %legend
+        Add a new medication
 
-    .hide
-      %a.button.tiny.close-new-form{href: '#'}
-        Close
+      .large-12.columns
+        = pm.link_to_remove "Remove this medication", class: "button cancel tiny right hide"
 
-      %fieldset
-        %legend
-          Add a new medication
+        = render partial: 'shared/error_messages', locals: { pm: pm }
 
         .row
-
           = render partial: 'medications/fields', locals: { pm: pm }
 
-
-  = link_to 'Cancel', clinical_summary_patient_path(@patient), class: 'button tiny left cancel mt'

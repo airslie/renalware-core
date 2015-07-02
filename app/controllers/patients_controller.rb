@@ -33,10 +33,6 @@ class PatientsController < RenalwareController
     @patients = @patient_search.result.page(@page).per(@per_page)
   end
 
-  def manage_medications
-    @patient.active_medications.build( provider: :gp )
-  end
-
   def problems
     @patient.problems.build
   end
@@ -56,8 +52,7 @@ class PatientsController < RenalwareController
 
   def update
     if @patient.update(patient_params)
-      redirect_to params[:redirect_url] || clinical_summary_patient_path(@patient),
-      :notice => "You have successfully updated a patient."
+      redirect_to params[:redirect_url] || clinical_summary_patient_path(@patient), notice: params[:message]
     else
       render params[:template] || :edit
     end
@@ -73,7 +68,7 @@ class PatientsController < RenalwareController
       :address_at_diagnosis_attributes => [:street_1, :street_2, :county, :city, :postcode],
       :event_attributes => [:date_time, :description, :notes, :event_type_id, :patient_id],
       :medications_attributes => [:id, :medicatable_id, :medicatable_type, :dose, :medication_route_id,
-      :frequency, :notes, :date, :provider, :_destroy],
+      :frequency, :notes, :start_date, :end_date, :provider, :_destroy],
       :problems_attributes => [:id, :patient_id, :snomed_id, :snomed_description, :description, :date, :user_id, :deleted_at, :_destroy],
       :esrf_info_attributes => [:id, :patient_id, :user_id, :date, :prd_code_id]
       )

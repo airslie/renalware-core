@@ -24,7 +24,7 @@ Scenario: Doctor adds a problem
   When they save the problem list
   Then they should see the new problems on the clinical summary
 
-@javascript @wip
+@javascript
 Scenario: Doctor adds a medication for a patient
   Given there are drugs in the database
     And there are drug types in the database

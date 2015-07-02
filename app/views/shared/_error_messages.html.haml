@@ -1,0 +1,4 @@
+%ul.error-messages
+  - if pm.object.errors.any?
+    - pm.object.errors.messages.each do |field, msg|
+      %li= msg.join(",")

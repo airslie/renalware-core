@@ -1,4 +1,4 @@
-.med-form.content{:id => "edit-meds-#{pm.object.id}"}
+.med-form.content{ :id => "edit-meds-#{pm.object.id}" }
   = pm.hidden_field :id
 
   = pm.hidden_field :patient_id, value: @patient.id
@@ -28,7 +28,7 @@
     / Search all drugs
     .standard
       = label_tag :drug_search, "Drug"
-      = text_field_tag :drug_search, pm.object.persisted? ? pm.object.medicatable.name : nil, :class => "find_drug", :placeholder => "Search drug by name or type"
+      = text_field_tag :drug_search, medicatable_name(pm.object), :class => "find_drug #{ highlight_validation_fail(pm.object, :medicatable_id) }", :placeholder => "Search drug by name or type"
 
       %ul.drug-results.no-bullet
 
@@ -45,7 +45,7 @@
   = pm.text_field :dose
 
   = pm.label :medication_route_id, "Route"
-  = pm.collection_select :medication_route_id, MedicationRoute.all, :id, :name, { :prompt => "Please select route of administration" }, :class => "medication-route-select"
+  = pm.collection_select :medication_route_id, MedicationRoute.all, :id, :name, { :prompt => "Please select route of administration" }, :class => "medication-route-select }"
 
   = pm.label :frequency, "Frequency & Duration"
   = pm.text_field :frequency
@@ -53,8 +53,11 @@
   = pm.label :notes
   = pm.text_area :notes, :cols => 50, :rows => 6
 
-  = pm.label :date, "Prescribed On"
-  = pm.date_select(:date, {start_year: (1.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
+  = pm.label :start_date, "Prescribed On"
+  = pm.date_select(:start_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year], include_blank: true }, class: "datetime")
+
+  = pm.label :end_date, "Terminated On"
+  = pm.date_select(:end_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year], include_blank: true }, class: "datetime")
 
   = pm.label :provider
 
@@ -62,6 +65,6 @@
     %ul.no-bullet.provider
 
       %li
-        = pm.radio_button :provider, p, :class => "provider-#{p}"
+        = pm.radio_button :provider, p, :class => "provider-#{p}", checked: default_provider(p)
       %li
         = pm.label :provider, I18n.t("enums.provider.#{p}")
