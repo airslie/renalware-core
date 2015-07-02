@@ -39,7 +39,12 @@
         .section-underliner
           Organisms and their sensitivities for this peritonitis episode:
 
-        = render :partial => 'peritonitis_episodes/organism_forms', :locals => { :p => p }
+        = p.fields_for :infection_organisms do |io|
+
+          = render :partial => 'peritonitis_episodes/organism_forms', :locals => { :io => io }
+
+        .large-12.columns
+          = p.link_to_add 'Record a new organism and sensitivity', :infection_organisms, class: 'add-organism-sensitivity button tiny right mt'
 
     .row
       .large-12.columns
