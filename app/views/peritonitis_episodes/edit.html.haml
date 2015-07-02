@@ -10,7 +10,7 @@
 
 .row
   .large-12.columns
-    = form_for [@patient, @peritonitis_episode], :method => :put do |p|
+    = nested_form_for [@patient, @peritonitis_episode], :method => :put do |p|
 
       = field_set_tag do
         .row
