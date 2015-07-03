@@ -5,7 +5,6 @@ class PeritonitisEpisodesController < RenalwareController
 
   def new
     @peritonitis_episode = PeritonitisEpisode.new
-    @peritonitis_episode.medications.build(provider: :gp)
   end
 
   def create
@@ -16,10 +15,6 @@ class PeritonitisEpisodesController < RenalwareController
     else
       render :new
     end
-  end
-
-  def edit
-    @peritonitis_episode.medications.build(provider: :gp)
   end
 
   def update
