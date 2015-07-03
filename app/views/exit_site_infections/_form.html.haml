@@ -1,45 +1,50 @@
 .exit-site-form
-  = e.hidden_field :id
+  = es.hidden_field :id
 
-  = e.hidden_field :patient_id
+  = es.hidden_field :patient_id
 
 .row
   .large-12.columns
     .section-underliner
       Dates:
     .large-4.columns
-      = e.label :diagnosis_date
-      = e.date_select(:diagnosis_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year] }, class: "datetime")
+      = es.label :diagnosis_date
+      = es.date_select(:diagnosis_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year] }, class: "datetime")
 
 .row
   .large-12.columns
     .section-underliner
       Outcome:
     .large-12.columns
-      = e.label :outcome, "Outcome notes"
-      = e.text_area :outcome, :cols => 50, :rows => 6
+      = es.label :outcome, "Outcome notes"
+      = es.text_area :outcome, :cols => 50, :rows => 6
 
 .row
   .large-12.columns
     .section-underliner
       Organisms and their sensitivities for this exit site infection:
 
-    = render :partial => 'exit_site_infections/organism_forms', :locals => { :e => e }
+    = es.fields_for :infection_organisms do |io|
+
+      = render :partial => 'infection_organisms/organism_forms', :locals => { :io => io }
+
+    .large-12.columns
+      = es.link_to_add 'Record a new organism and sensitivity', :infection_organisms, class: 'add-organism-sensitivity button tiny right mt'
 
 .row
   .large-12.columns
     .section-underliner
       Treatment:
     .large-12.columns
-      = e.label :treatment, "Treatment notes"
-      = e.text_area :treatment, :cols => 50, :rows => 6
+      = es.label :treatment, "Treatment notes"
+      = es.text_area :treatment, :cols => 50, :rows => 6
 
 .row
   .large-12.columns
     .section-underliner
       Medications administered for this exit site infection:
 
-    = render :partial => 'exit_site_infections/medication_forms', :locals => { :e => e }
+    = render :partial => 'exit_site_infections/medication_forms', :locals => { :es => es }
 
 .row
   .large-12.columns
@@ -47,6 +52,6 @@
       Comments:
 
     .large-12.columns
-      = e.label :notes, "General notes about this infection"
-      = e.text_area :notes, :cols => 50, :rows => 6
+      = es.label :notes, "General notes about this infection"
+      = es.text_area :notes, :cols => 50, :rows => 6
 
