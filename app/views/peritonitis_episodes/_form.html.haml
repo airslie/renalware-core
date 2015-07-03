@@ -1,9 +1,9 @@
 .row.peritonitis-form
   .large-12.columns
 
-    = p.hidden_field :id
+    = pe.hidden_field :id
 
-    = p.hidden_field :patient_id
+    = pe.hidden_field :patient_id
 
     .row
       .large-12.columns
@@ -11,16 +11,16 @@
           Dates:
 
         .large-4.columns
-          = p.label :diagnosis_date
-          = p.date_select(:diagnosis_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year] }, class: "datetime")
+          = pe.label :diagnosis_date
+          = pe.date_select(:diagnosis_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year] }, class: "datetime")
 
         .large-4.columns
-          = p.label :treatment_start_date
-          = p.date_select(:treatment_start_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year], include_blank: true }, class: "datetime")
+          = pe.label :treatment_start_date
+          = pe.date_select(:treatment_start_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year], include_blank: true }, class: "datetime")
 
         .large-4.columns
-          = p.label :treatment_end_date
-          = p.date_select(:treatment_end_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year], include_blank: true }, class: "datetime")
+          = pe.label :treatment_end_date
+          = pe.date_select(:treatment_end_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year], include_blank: true }, class: "datetime")
 
     .row
       .large-12.columns
@@ -28,23 +28,23 @@
           Outcome:
 
         .large-12.columns
-          = p.label :episode_type_id
-          = p.collection_select :episode_type_id, EpisodeType.all, :id, :term, { :prompt => "Please select episode type" }, :class => "episode-type_select"
+          = pe.label :episode_type_id
+          = pe.collection_select :episode_type_id, EpisodeType.all, :id, :term, { :prompt => "Please select episode type" }, :class => "episode-type_select"
 
         .large-12.columns
-          = p.check_box :catheter_removed
-          = p.label :catheter_removed
+          = pe.check_box :catheter_removed
+          = pe.label :catheter_removed
 
       .large-12.columns
         .section-underliner
           Organisms and their sensitivities for this peritonitis episode:
 
-        = p.fields_for :infection_organisms do |io|
+        = pe.fields_for :infection_organisms do |io|
 
           = render :partial => 'infection_organisms/organism_forms', :locals => { :io => io }
 
         .large-12.columns
-          = p.link_to_add 'Record a new organism and sensitivity', :infection_organisms, class: 'add-organism-sensitivity button tiny right mt'
+          = pe.link_to_add 'Record a new organism and sensitivity', :infection_organisms, class: 'add-organism-sensitivity button tiny right mt'
 
     .row
       .large-12.columns
@@ -52,21 +52,21 @@
           Causes/Symptoms:
 
         .large-12.columns
-          = p.check_box :line_break
-          = p.label :line_break
+          = pe.check_box :line_break
+          = pe.label :line_break
 
-          = p.check_box :exit_site_infection
-          = p.label :exit_site_infection
+          = pe.check_box :exit_site_infection
+          = pe.label :exit_site_infection
 
-          = p.check_box :diarrhoea
-          = p.label :diarrhoea
+          = pe.check_box :diarrhoea
+          = pe.label :diarrhoea
 
-          = p.check_box :abdominal_pain
-          = p.label :abdominal_pain
+          = pe.check_box :abdominal_pain
+          = pe.label :abdominal_pain
 
         .large-12.columns
-          = p.label :fluid_description_id
-          = p.collection_select :fluid_description_id, FluidDescription.all, :id, :description, { prompt: "Please select description that best describes fluid" }, :class => "episode-type_select"
+          = pe.label :fluid_description_id
+          = pe.collection_select :fluid_description_id, FluidDescription.all, :id, :description, { prompt: "Please select description that best describes fluid" }, :class => "episode-type_select"
 
     .row
       .large-12.columns
@@ -74,20 +74,20 @@
           White Cell Count:
 
         .large-4.columns
-          = p.label :white_cell_total, "White Cell Total (x10\u2079)"
-          = p.text_field :white_cell_total
+          = pe.label :white_cell_total, "White Cell Total (x10\u2079)"
+          = pe.text_field :white_cell_total
         .large-2.columns
-          = p.label :white_cell_neutro, "Neutro (%)"
-          = p.text_field :white_cell_neutro
+          = pe.label :white_cell_neutro, "Neutro (%)"
+          = pe.text_field :white_cell_neutro
         .large-2.columns
-          = p.label :white_cell_lympho, "Lympho (%)"
-          = p.text_field :white_cell_lympho
+          = pe.label :white_cell_lympho, "Lympho (%)"
+          = pe.text_field :white_cell_lympho
         .large-2.columns
-          = p.label :white_cell_degen, "Degen (%)"
-          = p.text_field :white_cell_degen
+          = pe.label :white_cell_degen, "Degen (%)"
+          = pe.text_field :white_cell_degen
         .large-2.columns
-          = p.label :white_cell_other, "Other (%)"
-          = p.text_field :white_cell_other
+          = pe.label :white_cell_other, "Other (%)"
+          = pe.text_field :white_cell_other
 
     .row
       .large-12.columns
@@ -95,12 +95,12 @@
           Comments:
 
         .large-12.columns
-          = p.label :notes, "Episode notes"
-          = p.text_area :notes, :cols => 50, :rows => 6
+          = pe.label :notes, "Episode notes"
+          = pe.text_area :notes, :cols => 50, :rows => 6
 
     .row
       .large-12.columns
         .section-underliner
           Medications administered for this peritonitis episode:
 
-        = render :partial => 'peritonitis_episodes/medication_forms', :locals => { :p => p }
+        = render :partial => 'peritonitis_episodes/medication_forms', :locals => { :pe => pe }
