@@ -20,7 +20,7 @@ feature 'Drafting a letter', js: true do
     select2 'Aneurin Bevan', '#letter_author_id'
     select 'clinic', from:  'Letter type'
     select_date '2015,April,1', from: 'Clinic date'
-    fill_in 'Body', with: ''
+    fill_in 'Message', with: 'Dear Dr. Goode, I am pleased to inform you that the latest clinic appointment went extremely well'
 
     click_on 'Save'
 

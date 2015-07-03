@@ -25,8 +25,9 @@
   .columns.large-12.inline
     %h6 Recipient:
 
-    = f.radio_button :recipient, 'doctor', class: 'inline'
-    = f.label :recipient, 'Doctor'
+    - if @patient.doctor.present?
+      = f.radio_button :recipient, 'doctor', class: 'inline'
+      = f.label :recipient, 'Doctor'
 
     = f.radio_button :recipient, 'patient', class: 'inline'
     = f.label :recipient, 'Patient'
@@ -42,7 +43,7 @@
     = patient_medications(@letter)
 
 .row
-  = f.label :body
+  = f.label :body, 'Message'
   = f.text_area :body, rows: 15
 
 - if @letter.author.present?
