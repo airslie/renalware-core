@@ -6,7 +6,9 @@ class Letter < ActiveRecord::Base
   belongs_to :doctor
   belongs_to :patient
   belongs_to :letter_description
+  belongs_to :recipient_address, class_name: 'Address'
 
+  validates_with LetterSignatureValidator
   validates_presence_of :recipient
   validates_presence_of :recipient_address
   validates_presence_of :letter_description

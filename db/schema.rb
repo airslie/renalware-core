@@ -232,6 +232,7 @@ ActiveRecord::Schema.define(version: 20150702084036) do
     t.datetime "updated_at"
   end
 
+  add_index "medications", ["deleted_at"], name: "index_medications_on_deleted_at", using: :btree
   add_index "medications", ["medicatable_type", "medicatable_id"], name: "index_medications_on_medicatable_type_and_medicatable_id", using: :btree
   add_index "medications", ["treatable_type", "treatable_id"], name: "index_medications_on_treatable_type_and_treatable_id", using: :btree
 

@@ -56,8 +56,8 @@ feature 'Authorising, approving and reactivating users' do
   end
 
   scenario 'An admin authorises an existing user with additional roles' do
-    within('tbody tr:first-child td:nth-child(7)') do
-      click_link 'Edit'
+    within('tbody') do
+      find("a[href='#{edit_admin_user_path(@approved)}']").click
     end
     expect(current_path).to eq(edit_admin_user_path(@approved))
 

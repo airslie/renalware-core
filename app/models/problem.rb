@@ -18,4 +18,7 @@ class Problem < ActiveRecord::Base
     "#{snomed_description}, #{description}"
   end
 
+  def formatted
+    "#{full_description}, #{date}"
+  end
 end

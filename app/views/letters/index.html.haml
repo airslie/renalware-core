@@ -1,0 +1,23 @@
+.row
+  %h5 Letters (Patient: #{@patient.full_name})
+
+.row
+  %table.letters.responsive
+    %thead
+      %tr
+        %th
+          Author
+        %th
+          Description
+        %th
+          State
+        %th
+          Last updated
+        %th.g-center
+          Actions
+
+    %tbody
+      = render @letters
+
+.row
+  = link_to 'Draft letter', new_patient_letter_path(@patient), class: 'button tiny save'

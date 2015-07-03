@@ -1,0 +1,51 @@
+= f.hidden_field :patient_id
+
+.row
+  %h5 #{patient_and_doctor_info(@patient)}
+
+.row
+  = f.label :letter_description_id, 'Description'
+  = f.select :letter_description_id, descriptions_options, include_blank: true, prompt: 'Select a letter description'
+
+.row
+  .columns.large-4.inline
+    = f.label :author_id
+    = f.select :author_id, authors_options
+
+  .columns.large-4.inline
+    = f.label :letter_type
+    = f.select :letter_type, [:clinic, :simple]
+
+  - if @letter.clinic?
+    .columns.large-4.inline
+      = f.label :clinic_date
+      = f.date_select :clinic_date, {}, class: 'datetime'
+
+.row
+  .columns.large-12.inline
+    %h6 Recipient:
+
+    = f.radio_button :recipient, 'doctor', class: 'inline'
+    = f.label :recipient, 'Doctor'
+
+    = f.radio_button :recipient, 'patient', class: 'inline'
+    = f.label :recipient, 'Patient'
+
+    = f.radio_button :recipient, 'other', class: 'inline'
+    = f.label :recipient, 'Other'
+
+    = text_field_tag :other_recipient_address
+
+- if @letter.clinic?
+  .row
+    = patient_problems(@letter)
+    = patient_medications(@letter)
+
+.row
+  = f.label :body
+  = f.text_area :body, rows: 15
+
+- if @letter.author.present?
+  .row
+    %h6 Signature
+    = @letter.author.signature

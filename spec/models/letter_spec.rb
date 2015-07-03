@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe Letter, type: :model do
+  subject { create(:letter) }
   it { should belong_to :author }
   it { should belong_to :reviewer }
   it { should belong_to :doctor }

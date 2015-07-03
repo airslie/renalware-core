@@ -18,6 +18,8 @@ FactoryGirl.define do
     ethnicity_id 1
     death_date nil
     first_edta_code_id nil
+    association :current_address, factory: :address
+    practice
 
     trait :with_problems do
       after(:create) do |patient|
