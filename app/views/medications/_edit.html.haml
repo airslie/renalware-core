@@ -15,7 +15,7 @@
           Edit this medication
 
         .large-12.columns
-          = render partial: 'shared/error_messages', locals: { pm: pm }
+          = render partial: 'shared/error_messages', locals: { object: pm.object }
 
           .row
             = render partial: 'medications/form', locals: { pm: pm }
