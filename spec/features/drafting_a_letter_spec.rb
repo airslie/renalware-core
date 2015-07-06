@@ -33,6 +33,15 @@ feature 'Drafting a letter', js: true do
     end
   end
 
+  scenario 'an invalid letter' do
+    select2 'Aneurin Bevan', '#letter_author_id'
+
+    click_on 'Save'
+
+    expect(page).to have_content('Failed to save letter')
+    expect(page).to have_content("Letter description can't be blank")
+  end
+
   scenario 'a death notification' do
 
   end

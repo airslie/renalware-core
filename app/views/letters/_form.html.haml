@@ -1,3 +1,5 @@
+= render partial: 'shared/errors', locals: {model: f.object}
+
 = f.hidden_field :patient_id
 
 .row
@@ -22,17 +24,16 @@
       = f.date_select :clinic_date, {}, class: 'datetime'
 
 .row
-  .columns.large-12.inline
+  %div{class: "columns large-12 inline#{errors_css_class(f.object, :recipient_address)}"}
     %h6 Recipient:
 
-    - if @patient.doctor.present?
-      = f.radio_button :recipient, 'doctor', class: 'inline'
-      = f.label :recipient, 'Doctor'
+    = f.radio_button :recipient, 'doctor', class: 'inline', disabled: !@patient.doctor.present?
+    = f.label :recipient, 'Doctor'
 
-    = f.radio_button :recipient, 'patient', class: 'inline'
+    = f.radio_button :recipient, 'patient', class: 'inline', disabled: !@patient.current_address.present?
     = f.label :recipient, 'Patient'
 
-    = f.radio_button :recipient, 'other', class: 'inline'
+    = radio_button_tag 'letter[recipient]', 'other', @patient.doctor.nil? && @patient.current_address.nil?, class: 'inline'
     = f.label :recipient, 'Other'
 
     = text_field_tag :other_recipient_address

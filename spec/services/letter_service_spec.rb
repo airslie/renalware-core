@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe LetterService, type: :service do
   describe 'update!' do
-    let(:letter) { build(:letter) }
+    let(:letter) { create(:letter) }
     subject { LetterService.new(letter) }
 
     context 'on a Letter to the patient' do
@@ -22,8 +22,8 @@ describe LetterService, type: :service do
     context 'on a Letter to the GP' do
       context 'belonging to a practice' do
         before do
-          letter.doctor.practices << letter.patient.practice
-          @actual = subject.update!(recipient: 'doctor')
+          letter.patient.doctor.practices << letter.patient.practice
+          subject.update!(recipient: 'doctor')
         end
 
         it 'populates the recipient address with the practice address' do
@@ -37,7 +37,7 @@ describe LetterService, type: :service do
         end
 
         it 'populates the recipient address with the doctor address' do
-          expect(letter.recipient_address).to eq(letter.doctor.address)
+          expect(letter.recipient_address).to eq(letter.patient.doctor.address)
         end
 
         it 'returns true' do

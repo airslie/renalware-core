@@ -18,7 +18,7 @@ class LetterService
     update_description(params[:letter_description_id])
     update_recipient_address
     update_letter(params)
-    letter.save!
+    letter.save
   end
 
   private
@@ -28,7 +28,9 @@ class LetterService
   end
 
   def update_description(letter_description_id)
-    letter.letter_description = LetterDescription.find(letter_description_id.to_i)
+    if letter_description_id.present?
+      letter.letter_description = LetterDescription.find(letter_description_id.to_i)
+    end
   end
 
   def update_recipient_address
@@ -45,8 +47,9 @@ class LetterService
 
   def doctor_address
     return unless doctor.present?
-    if doctor.practices.any? && patient.practice.present? && doctor.practices.include?(patient.practice)
-      patient.practice.address
+    if doctor.practices.any? && patient.practice.present? &&
+      doctor.practices.include?(patient.practice)
+        patient.practice.address
     elsif doctor.address.present?
       doctor.address
     end

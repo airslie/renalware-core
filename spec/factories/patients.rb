@@ -19,6 +19,7 @@ FactoryGirl.define do
     death_date nil
     first_edta_code_id nil
     association :current_address, factory: :address
+    doctor
     practice
 
     trait :with_problems do

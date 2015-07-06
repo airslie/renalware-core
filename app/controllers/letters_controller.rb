@@ -15,10 +15,12 @@ class LettersController < RenalwareController
 
   def create
     @letter = Letter.new(letter_params)
+
     if LetterService.new(@letter).update!(letter_params)
       redirect_to patient_letters_path(@patient)
     else
-      render :new, alert: 'Failed to save letter.'
+      flash[:error] = 'Failed to save letter'
+      render :new
     end
   end
 
@@ -31,4 +33,6 @@ class LettersController < RenalwareController
                                    :letter_description_id,
                                    :body, :signature)
   end
+
+
 end
