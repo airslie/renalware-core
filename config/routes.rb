@@ -31,6 +31,8 @@ Rails.application.routes.draw do
     resources :letters
   end
 
+  get 'authors/:author_id/letters', to: 'letters#author'
+
   # TODO - This will probably change in future
   root to: "patients#index"
 
@@ -52,4 +54,5 @@ Rails.application.routes.draw do
   resources :bag_types, except: [:show]
 
   resources :doctors
+
 end

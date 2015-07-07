@@ -1,5 +1,9 @@
 module LettersHelper
 
+  def author_view?(letter)
+    current_page?(action: 'author', author_id: letter.author.to_param)
+  end
+
   def descriptions_options
     options_from_collection_for_select(LetterDescription.all, :id, :text)
   end

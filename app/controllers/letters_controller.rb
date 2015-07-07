@@ -3,10 +3,15 @@ class LettersController < RenalwareController
   # Cancancan authorization filter
   load_and_authorize_resource
 
-  before_filter :load_patient
+  before_filter :load_patient, except: :author
+  before_filter :load_author, only: :author
 
   def index
     @letters = Letter.where(patient: @patient)
+  end
+
+  def author
+    @letters = Letter.where(author: @author)
   end
 
   def new
@@ -34,5 +39,7 @@ class LettersController < RenalwareController
                                    :body, :signature)
   end
 
-
+  def load_author
+    @author = User.find(params[:author_id])
+  end
 end
