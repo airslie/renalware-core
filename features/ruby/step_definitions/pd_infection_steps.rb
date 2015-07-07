@@ -342,17 +342,9 @@ When(/^the Clinician records an exit site infection$/) do
   fill_in "Frequency & Duration", with: "Daily"
   fill_in "Notes", with: "Review in 6 weeks."
 
-  within "#exit_site_infection_medications_attributes_0_start_date_3i" do
-    select '1'
-  end
-  within "#exit_site_infection_medications_attributes_0_start_date_2i" do
-    select 'January'
-  end
-  within "#exit_site_infection_medications_attributes_0_start_date_1i" do
-    select "#{Date.current.year}"
-  end
+  select_date("1 January #{Date.current.year}", from: 'Prescribed On')
 
-  find("#exit_site_infection_medications_attributes_0_provider_gp").set(true)
+  find(:xpath, ".//*[@value='gp']").set(true)
 
   click_on "Save Exit Site Infection"
 end
@@ -412,15 +404,7 @@ When(/^they add a medication to this exit site infection$/) do
   fill_in "Frequency & Duration", with: "Twice a week"
   fill_in "Notes", with: "Watch for improvement."
 
-  within "#exit_site_infection_medications_attributes_0_start_date_3i" do
-    select '10'
-  end
-  within "#exit_site_infection_medications_attributes_0_start_date_2i" do
-    select 'April'
-  end
-  within "#exit_site_infection_medications_attributes_0_start_date_1i" do
-    select "#{Date.current.year}"
-  end
+  select_date("10 April #{Date.current.year}", from: 'Prescribed On')
 
   click_on "Update Exit Site Infection"
 end
