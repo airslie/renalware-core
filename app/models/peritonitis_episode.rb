@@ -11,7 +11,6 @@ class PeritonitisEpisode < ActiveRecord::Base
   has_many :organism_codes, -> { uniq }, through: :infection_organisms, as: :infectable
 
   accepts_nested_attributes_for :medications, allow_destroy: true
-
   accepts_nested_attributes_for :infection_organisms, allow_destroy: true
 
   validates :diagnosis_date, presence: true
