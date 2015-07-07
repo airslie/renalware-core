@@ -5,7 +5,6 @@ class ExitSiteInfectionsController < RenalwareController
 
   def new
     @exit_site_infection = ExitSiteInfection.new
-    @exit_site_infection.medications.build(provider: :gp)
   end
 
   def create
@@ -16,10 +15,6 @@ class ExitSiteInfectionsController < RenalwareController
     else
       render :new
     end
-  end
-
-  def edit
-    @exit_site_infection.medications.build(provider: :gp)
   end
 
   def update
