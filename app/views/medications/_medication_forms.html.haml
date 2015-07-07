@@ -1,4 +1,4 @@
-= es.fields_for :medications do |pm|
+= object.fields_for :medications do |pm|
 
   = render :partial => 'medications/medication', :locals => { :pm => pm } unless pm.object.new_record?
 

@@ -1,6 +1,0 @@
-= pe.fields_for :medications do |pm|
-
-  = render :partial => 'medications/medication', :locals => { :pm => pm } unless pm.object.new_record?
-
-  #medications
-    = render partial: 'medications/new', locals: { pm: pm } if pm.object.new_record?
