@@ -1,0 +1,12 @@
+super_admin:
+  - User
+  - Role
+admin:
+  - Drug
+  - DrugType
+  - EdtaCode
+  - EventType
+  - MedicationRoute
+  - ModalityCode
+  - OrganismCode
+  - PrdCode

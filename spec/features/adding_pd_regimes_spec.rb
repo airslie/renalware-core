@@ -4,7 +4,7 @@ feature 'Adding PD Regimes' do
   background do
     patient = create(:patient)
     create(:bag_type)
-    login_as_super_admin
+    login_as_clinician
     visit new_patient_pd_regime_path(patient)
   end
 

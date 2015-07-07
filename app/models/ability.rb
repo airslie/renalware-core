@@ -15,27 +15,3 @@ class Ability
     end
   end
 end
-
-class Permission < Struct.new(:role, :ability, :models)
-  SUPER_ADMIN_MODELS = [Role, User]
-
-  ADMIN_MODELS = [Address, Drug, DrugType, EdtaCode, EpisodeType, EsrfInfo,
-                  FluidDescription, InfectionOrganism, MedicationRoute,
-                  ModalityCode, ModalityReason, OrganismCode,
-                  EventType, PrdCode]
-
-  CLINICAL_MODELS = [ExitSiteInfection, Medication, Modality, Patient,
-                     Event, Problem, PeritonitisEpisode]
-
-
-  def self.admin_models
-    ADMIN_MODELS + CLINICAL_MODELS
-  end
-
-  def self.all
-    [ Permission.new(:super_admin, :manage, :all),
-      Permission.new(:admin, :manage, admin_models),
-      Permission.new(:clinician, :manage, CLINICAL_MODELS),
-      Permission.new(:read_only, :read, :all)]
-  end
-end
