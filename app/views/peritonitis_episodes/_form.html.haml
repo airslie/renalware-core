@@ -103,7 +103,7 @@
         .section-underliner
           Medications administered for this peritonitis episode:
 
-        = render :partial => 'peritonitis_episodes/medication_forms', :locals => { :pe => pe }
+        = render :partial => 'medications/medication_forms', :locals => { object: pe }
 
         .large-12.columns
           = pe.link_to_add 'Add a new medication', :medications, model_object: Medication.peritonitis, class: 'add-medication button tiny right mt'
