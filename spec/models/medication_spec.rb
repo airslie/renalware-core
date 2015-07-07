@@ -21,4 +21,10 @@ RSpec.describe Medication, :type => :model do
     end
   end
 
+  describe 'self.exit_site' do
+    it "should set 'treatable_type' as 'ExitSiteInfection' for a medication relating to exit site" do
+      expect(Medication.exit_site.treatable_type).to eq('ExitSiteInfection')
+    end
+  end
+
 end

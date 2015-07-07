@@ -35,4 +35,8 @@ class Medication < ActiveRecord::Base
     self.new(treatable_type: 'PeritonitisEpisode')
   end
 
+  def self.exit_site
+    self.new(treatable_type: 'ExitSiteInfection')
+  end
+
 end
