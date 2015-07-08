@@ -20,4 +20,12 @@ en:
     attributes:
       event_type:
         name: Name
+      peritonitis_episode/medications:
+        medicatable_id: Medication to be administered
+        dose: Medication's dose
+        medication_route_id: Medication's route
+        frequency: "Medication's frequency & duration"
+        start_date: "Medication's prescribed on"
+        provider: Medication's provider
+
 
