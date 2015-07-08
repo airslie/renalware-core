@@ -5,7 +5,7 @@ feature 'Patient problems' do
 
   background do
     @patient = create(:patient)
-    login_as_super_admin
+    login_as_clinician
     visit problems_patient_path(@patient)
   end
 

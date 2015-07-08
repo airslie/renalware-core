@@ -1,4 +1,4 @@
-class Admin::UsersController < ApplicationController
+class Admin::UsersController < RenalwareController
 
   before_filter :load_user, only: [:edit, :update]
 

@@ -25,7 +25,7 @@ feature 'Searching for a patient' do
     create(:patient, surname: 'Jones', forename: 'Jenny')
     create(:patient, surname: 'Smith', forename: 'Will', nhs_number: 'Z111111119')
     create(:patient, surname: 'Walker', forename: 'Johnny',  local_patient_id: '0987654321')
-    login_as_super_admin
+    login_as_clinician
   end
 
   scenario 'with comma delimited terms it ignores commas' do

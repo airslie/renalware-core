@@ -1,4 +1,4 @@
-class SnomedController < RenalwareController
+class SnomedController < ApplicationController
 
   def index
     render :json => Snomed.search(snomed_params).to_h
