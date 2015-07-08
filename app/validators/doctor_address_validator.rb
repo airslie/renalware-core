@@ -3,6 +3,6 @@ class DoctorAddressValidator < ActiveModel::Validator
     return if record.address.present?
     return if record.practices.any? && record.practices.map(&:address).any?
 
-    record.errors[:address] << 'Must have an address or a practice with an address.'
+    record.errors[:address] << 'or practice must be present'
   end
 end

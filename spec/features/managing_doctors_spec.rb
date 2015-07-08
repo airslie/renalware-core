@@ -35,6 +35,15 @@ feature 'Managing Doctors', js: true do
     end
   end
 
+  scenario 'Submitting invalid details' do
+    visit new_doctor_path
+    click_on 'Save'
+
+    expect(page).to have_content("First name can't be blank")
+    expect(page).to have_content("Last name can't be blank")
+    expect(page).to have_content("Address or practice must be present")
+  end
+
   scenario 'Editing an existing Doctor' do
     doctor = create(:doctor, email: 'do.good@nhs.net', practices: [@athena_medical_centre])
 

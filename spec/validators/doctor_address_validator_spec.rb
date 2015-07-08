@@ -5,7 +5,7 @@ describe DoctorAddressValidator do
     it 'validates an address is present on the Doctor' do
       doc = build_stubbed(:doctor, address: nil)
       DoctorAddressValidator.new.validate(doc)
-      expect(doc.errors[:address]).to match_array(['Must have an address or a practice with an address.'])
+      expect(doc.errors[:address]).to match_array(['or practice must be present'])
     end
 
     it 'does nothing when the doctor has an address' do
