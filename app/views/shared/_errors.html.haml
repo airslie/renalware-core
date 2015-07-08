@@ -1,4 +1,3 @@
-.row
-  %ul.no-bullet   
-    - model.errors.full_messages.each do |msg|
-      %li= msg
+%ul.error-messages
+  - model.errors.full_messages.each do |msg|
+    %li= msg

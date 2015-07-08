@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
   scope :unapproved, -> { where(approved: [nil, false]) }
   scope :inactive, -> { where('last_activity_at IS NOT NULL AND last_activity_at < ?', expire_after.ago) }
+  scope :author, -> { where.not(signature: nil) }
 
   def read_only?
     has_role?(:read_only)

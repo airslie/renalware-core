@@ -21,4 +21,13 @@ class Medication < ActiveRecord::Base
 
   enum provider: %i(gp hospital home_delivery)
 
+  def formatted
+    [].tap { |ary|
+      ary << medicatable.name if medicatable.present?
+      ary << dose
+      ary << medication_route.name if medication_route.present?
+      ary << frequency
+      ary << date
+    }.compact.join(', ')
+  end
 end

@@ -1,0 +1,20 @@
+.row
+  %h5 #{@author.full_name}'s letters
+
+.row
+  %table.letters.responsive
+    %thead
+      %tr
+        %th
+          Patient
+        %th
+          Description
+        %th
+          State
+        %th
+          Last updated
+        %th.g-center
+          Actions
+
+    %tbody
+      = render @letters

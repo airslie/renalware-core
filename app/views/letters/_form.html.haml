@@ -1,0 +1,53 @@
+= render partial: 'shared/errors', locals: {model: f.object}
+
+= f.hidden_field :patient_id
+
+.row
+  %h5 #{patient_and_doctor_info(@patient)}
+
+.row
+  = f.label :letter_description_id, 'Description'
+  = f.select :letter_description_id, descriptions_options, include_blank: true, prompt: 'Select a letter description'
+
+.row
+  .columns.large-4.inline
+    = f.label :author_id
+    = f.select :author_id, authors_options
+
+  .columns.large-4.inline
+    = f.label :letter_type
+    = f.select :letter_type, [:clinic, :simple]
+
+  - if @letter.clinic?
+    .columns.large-4.inline
+      = f.label :clinic_date
+      = f.date_select :clinic_date, {}, class: 'datetime'
+
+.row
+  %div{class: "columns large-12 inline#{errors_css_class(f.object, :recipient_address)}"}
+    %h6 Recipient:
+
+    = f.radio_button :recipient, 'doctor', class: 'inline', disabled: !@patient.doctor.present?
+    = f.label :recipient, 'Doctor'
+
+    = f.radio_button :recipient, 'patient', class: 'inline', disabled: !@patient.current_address.present?
+    = f.label :recipient, 'Patient'
+
+    = radio_button_tag 'letter[recipient]', 'other', @patient.doctor.nil? && @patient.current_address.nil?, class: 'inline'
+    = f.label :recipient, 'Other'
+
+    = text_field_tag :other_recipient_address
+
+- if @letter.clinic?
+  .row
+    = patient_problems(@letter)
+    = patient_medications(@letter)
+
+.row
+  = f.label :body, 'Message'
+  = f.text_area :body, rows: 15
+
+- if @letter.author.present?
+  .row
+    %h6 Signature
+    = @letter.author.signature

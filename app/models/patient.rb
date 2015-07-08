@@ -7,6 +7,8 @@ class Patient < ActiveRecord::Base
   belongs_to :ethnicity
   belongs_to :first_edta_code, :class_name => "EdtaCode", :foreign_key => :first_edta_code_id
   belongs_to :second_edta_code, :class_name => "EdtaCode", :foreign_key => :second_edta_code_id
+  belongs_to :doctor
+  belongs_to :practice
 
   has_many :exit_site_infections
   has_many :peritonitis_episodes
@@ -19,6 +21,7 @@ class Patient < ActiveRecord::Base
   has_many :medication_routes, :through => :medications
   has_many :modalities
   has_many :pd_regimes
+  has_many :letters
 
   has_one :current_modality, -> { where deleted_at: nil }, class_name: 'Modality'
   has_one :modality_code, :through => :current_modality

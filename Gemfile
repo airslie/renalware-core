@@ -32,6 +32,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'rspec-rails'
   gem 'rspec-expectations'
+  gem 'rspec-html-matchers'
   gem 'shoulda-matchers'
   gem 'spring'
   gem 'spring-commands-cucumber'
