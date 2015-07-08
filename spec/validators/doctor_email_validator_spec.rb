@@ -5,7 +5,7 @@ describe DoctorEmailValidator do
     it 'validates an email is present on the Doctor' do
       doc = build_stubbed(:doctor, email: nil)
       DoctorEmailValidator.new.validate(doc)
-      expect(doc.errors[:email]).to match_array(['Must have an email address or an contact email address at a practice.'])
+      expect(doc.errors[:email]).to match_array(['or an email address for a practice must be present'])
     end
 
     it 'does nothing when the doctor has an email' do
