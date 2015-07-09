@@ -19,6 +19,6 @@
         .row
           = render :partial => 'exit_site_infections/form', :locals => { :es => es }
 
-        .large-12.columns
+        .row.button-padding
           = link_to "Cancel", pd_info_patient_path(@patient), class: "button tiny left cancel mt"
           = es.submit "Save Exit Site Infection", :class => "button tiny right save mt"
