@@ -3,10 +3,12 @@
     = render partial: "patients/patient_info_header", locals: { model: @patient }
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
-    %h5 Update a Peritonitis Episode
+.row
+  %h4
+    Update a Peritonitis Episode
 
-    .row
-      = render partial: "shared/errors", locals: { model: @peritonitis_episode }
+  .large-12.columns
+    = render partial: "shared/errors", locals: { model: @peritonitis_episode }
 
 .row
   .large-12.columns

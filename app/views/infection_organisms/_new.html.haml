@@ -8,7 +8,5 @@
         .row
           = io.link_to_remove "Remove this organism/sensitivity", class: "button cancel tiny right hide"
 
-        = render partial: 'shared/error_messages', locals: { object: io.object }
-
         .row
           = render :partial => 'infection_organisms/fields', :locals => { :io => io }
