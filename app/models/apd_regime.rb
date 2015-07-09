@@ -1,0 +1,2 @@
+class ApdRegime < PdRegime
+end

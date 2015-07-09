@@ -1,0 +1,2 @@
+class CapdRegime < PdRegime
+end
