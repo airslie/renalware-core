@@ -41,7 +41,7 @@
 
         = pe.fields_for :infection_organisms do |io|
 
-          = render :partial => 'infection_organisms/organism_forms', :locals => { :io => io }
+          = render :partial => 'infection_organisms/forms', :locals => { :io => io }
 
         .large-12.columns
           = pe.link_to_add 'Record a new organism and sensitivity', :infection_organisms, class: 'add-organism-sensitivity button tiny right mt'
