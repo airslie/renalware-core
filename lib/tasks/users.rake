@@ -14,6 +14,19 @@ def get_stdin(msg, default, echo=true)
   end
 end
 
+def default_super_admin_attrs
+  {
+    first_name: 'Super',
+    last_name: 'Admin',
+    username: 'superadmin',
+    email: 'superadmin@renalware.net',
+    password: 'supersecret',
+    roles: [Role.find_by!(name: :super_admin)],
+    approved: true,
+    signature: 'Super Admin'
+  }
+end
+
 namespace :users do
   desc 'Add a new User to Renalware.'
   task add_user: :environment do
@@ -40,10 +53,21 @@ namespace :users do
         u.password = password
         u.approved = true
         u.roles = [role]
+        u.signature = "#{first_name} #{last_name}"
       end
     else
       raise 'Passwords do not match'
     end
+  end
+
+  desc 'Add default super admin'
+  task add_super_admin: :environment do
+    User.find_or_create_by!(username: default_super_admin_attrs[:username]) do |u|
+      default_super_admin_attrs.each do |k,v|
+        u.send(:"#{k}=", v)
+      end
+    end
+    puts "Super Admin credentials: #{default_super_admin_attrs[:username]}/#{default_super_admin_attrs[:password]}"
   end
 
   desc 'Approve a user'
