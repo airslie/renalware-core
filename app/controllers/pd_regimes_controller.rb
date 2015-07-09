@@ -28,7 +28,7 @@ class PdRegimesController < RenalwareController
   private
 
   def pd_regime_params
-    params.require(:pd_regime).permit(:patient_id, :start_date, :end_date,
+    params.require(:pd_regime).permit(:patient_id, :start_date, :end_date, :type,
       :glucose_ml_percent_1_36, :glucose_ml_percent_2_27, :glucose_ml_percent_3_86, :amino_acid_ml,
       :icodextrin_ml, :low_glucose_degradation, :low_sodium, :additional_hd,
       pd_regime_bags_attributes: [:id, :pd_regime_id, :bag_type_id, :volume, :per_week, :monday, :tuesday,
