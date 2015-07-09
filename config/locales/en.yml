@@ -20,6 +20,10 @@ en:
     attributes:
       event_type:
         name: Name
+      peritonitis_episode/infection_organisms:
+        organism_code_id: Organism
+      exit_site_infection/infection_organisms:
+        organism_code_id: Organism
       patient/medications:
         medicatable_id: Medication to be administered
         dose: Medication's dose
