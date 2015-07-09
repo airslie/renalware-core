@@ -18,3 +18,7 @@
   %li
     = a.label :postcode
     = a.text_field :postcode
+
+  %li
+    = a.label :country
+    = a.select :country, Country.all.map(&:name)

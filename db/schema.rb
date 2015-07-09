@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150702084036) do
+ActiveRecord::Schema.define(version: 20150709152737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20150702084036) do
     t.string   "postcode"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "country"
   end
 
   create_table "bag_types", force: :cascade do |t|
@@ -232,6 +233,7 @@ ActiveRecord::Schema.define(version: 20150702084036) do
     t.datetime "updated_at"
   end
 
+  add_index "medications", ["deleted_at"], name: "index_medications_on_deleted_at", using: :btree
   add_index "medications", ["medicatable_type", "medicatable_id"], name: "index_medications_on_medicatable_type_and_medicatable_id", using: :btree
   add_index "medications", ["treatable_type", "treatable_id"], name: "index_medications_on_treatable_type_and_treatable_id", using: :btree
 
