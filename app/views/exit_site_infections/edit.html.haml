@@ -3,10 +3,12 @@
     = render partial: "patients/patient_info_header", locals: { model: @patient }
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
-    %h5 Update an Exit Site Infection
+.row
+  %h4
+    Update an Exit Site Infection
 
-    .row
-      = render partial: "shared/errors", locals: { model: @exit_site_infection }
+  .large-12.columns
+    = render partial: "shared/errors", locals: { model: @exit_site_infection }
 
 .row
   .large-12.columns
