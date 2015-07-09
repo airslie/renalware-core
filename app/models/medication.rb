@@ -12,12 +12,12 @@ class Medication < ActiveRecord::Base
 
   validates :patient, presence: true
 
-  validates :medicatable_id, presence: { message: "Medication to be administered can't be blank" }
-  validates :dose, presence: { message: "Dose can't be blank" }
-  validates :medication_route_id, presence: { message: "Route can't be blank" }
-  validates :frequency, presence: { message: "Frequency & Duration can't be blank" }
-  validates :start_date, presence: { message: "Prescribed On can't be blank" }
-  validates :provider, presence: { message: "Provider can't be blank" }
+  validates :medicatable_id, presence: true
+  validates :dose, presence: true
+  validates :medication_route_id, presence: true
+  validates :frequency, presence: true
+  validates :start_date, presence: true
+  validates :provider, presence: true
 
   enum provider: %i(gp hospital home_delivery)
 
@@ -30,4 +30,13 @@ class Medication < ActiveRecord::Base
       ary << date
     }.compact.join(', ')
   end
+
+  def self.peritonitis
+    self.new(treatable_type: 'PeritonitisEpisode')
+  end
+
+  def self.exit_site
+    self.new(treatable_type: 'ExitSiteInfection')
+  end
+
 end

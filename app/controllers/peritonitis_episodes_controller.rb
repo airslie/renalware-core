@@ -5,8 +5,6 @@ class PeritonitisEpisodesController < RenalwareController
 
   def new
     @peritonitis_episode = PeritonitisEpisode.new
-    @peritonitis_episode.infection_organisms.build
-    @peritonitis_episode.medications.build(provider: :gp)
   end
 
   def create
@@ -19,14 +17,9 @@ class PeritonitisEpisodesController < RenalwareController
     end
   end
 
-  def edit
-    @peritonitis_episode.medications.build(provider: :gp)
-    @peritonitis_episode.infection_organisms.build
-  end
-
   def update
     if @peritonitis_episode.update(peritonitis_episode_params)
-      redirect_to pd_info_patient_path(@patient),
+      redirect_to patient_peritonitis_episode_path(@patient, @peritonitis_episode),
       :notice => "You have successfully updated a peritonitis episode."
     else
       render :edit

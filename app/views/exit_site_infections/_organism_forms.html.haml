@@ -1,9 +1,0 @@
-= e.fields_for :infection_organisms, @exit_site_infection.infection_organisms do |io|
-
-  - if io.object.new_record?
-
-    = render :partial => 'exit_site_infections/new_organism', :locals =>{ :io => io }
-
-  - else
-
-    = render :partial => 'exit_site_infections/recorded_organisms', :locals =>{ :io => io }

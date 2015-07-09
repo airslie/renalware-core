@@ -5,17 +5,18 @@
 
     %h5 Update an Exit Site Infection
 
-    .large-12.columns
-    = render partial: "shared/errors", locals: { model: @exit_site_infection }
+    .row
+      = render partial: "shared/errors", locals: { model: @exit_site_infection }
 
 .row
   .large-12.columns
-    = form_for [@patient, @exit_site_infection], :method => :put do |e|
+    = nested_form_for [@patient, @exit_site_infection], :method => :put do |es|
 
       = field_set_tag do
         .row
-          = render partial: "exit_site_infections/form", locals: { e: e }
+          = render partial: "exit_site_infections/form", locals: { es: es }
 
-        = submit_tag "Update Exit Site Infection", class: "button tiny right save"
+        .row.button-padding
+          = submit_tag "Update Exit Site Infection", class: "button tiny right save"
 
-        = link_to "Cancel", patient_exit_site_infection_path(@patient, @exit_site_infection.id), class: "button tiny left cancel"
+          = link_to "Cancel", patient_exit_site_infection_path(@patient, @exit_site_infection.id), class: "button tiny left cancel"

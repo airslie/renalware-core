@@ -5,6 +5,9 @@
 
     %h5 Patient Medications
 
+    .large-12.columns
+      = render partial: "shared/errors", locals: { model: @patient }
+
 .wide-screen
   = nested_form_for @patient do |f|
 

@@ -1,9 +1,0 @@
-= e.fields_for :medications, @exit_site_infection.medications do |pm|
-
-  - if pm.object.new_record?
-
-    = render :partial => 'exit_site_infections/new_medication', :locals => { :pm => pm }
-
-  - else
-
-    = render :partial => 'exit_site_infections/recorded_medications', :locals => { :pm => pm }

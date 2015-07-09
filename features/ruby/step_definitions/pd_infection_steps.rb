@@ -303,17 +303,9 @@ When(/^the Clinician records the episode of peritonitis$/) do
   fill_in "Frequency & Duration", with: "BD"
   fill_in "Notes", with: "Review in 3 weeks."
 
-  within "#peritonitis_episode_medications_attributes_0_start_date_3i" do
-    select '28'
-  end
-  within "#peritonitis_episode_medications_attributes_0_start_date_2i" do
-    select 'February'
-  end
-  within "#peritonitis_episode_medications_attributes_0_start_date_1i" do
-    select "#{Date.current.year}"
-  end
+  select_date("28 February #{Date.current.year}", from: 'Prescribed On')
 
-  find("#peritonitis_episode_medications_attributes_0_provider_hospital").set(true)
+  find(:xpath, ".//*[@value='hospital']").set(true)
 
   click_on "Save Peritonitis Episode"
 end
@@ -350,17 +342,9 @@ When(/^the Clinician records an exit site infection$/) do
   fill_in "Frequency & Duration", with: "Daily"
   fill_in "Notes", with: "Review in 6 weeks."
 
-  within "#exit_site_infection_medications_attributes_0_start_date_3i" do
-    select '1'
-  end
-  within "#exit_site_infection_medications_attributes_0_start_date_2i" do
-    select 'January'
-  end
-  within "#exit_site_infection_medications_attributes_0_start_date_1i" do
-    select "#{Date.current.year}"
-  end
+  select_date("1 January #{Date.current.year}", from: 'Prescribed On')
 
-  find("#exit_site_infection_medications_attributes_0_provider_gp").set(true)
+  find(:xpath, ".//*[@value='gp']").set(true)
 
   click_on "Save Exit Site Infection"
 end
@@ -404,15 +388,7 @@ When(/^they add a medication to this episode of peritonitis$/) do
   fill_in "Frequency & Duration", with: "PID"
   fill_in "Notes", with: "Review in 1 month."
 
-  within "#peritonitis_episode_medications_attributes_0_start_date_3i" do
-    select '28'
-  end
-  within "#peritonitis_episode_medications_attributes_0_start_date_2i" do
-    select 'February'
-  end
-  within "#peritonitis_episode_medications_attributes_0_start_date_1i" do
-    select "#{Date.current.year}"
-  end
+  select_date("21 March #{Date.current.year}", from: 'Prescribed On')
 
   click_on "Update Peritonitis Episode"
 end
@@ -428,15 +404,7 @@ When(/^they add a medication to this exit site infection$/) do
   fill_in "Frequency & Duration", with: "Twice a week"
   fill_in "Notes", with: "Watch for improvement."
 
-  within "#exit_site_infection_medications_attributes_0_start_date_3i" do
-    select '10'
-  end
-  within "#exit_site_infection_medications_attributes_0_start_date_2i" do
-    select 'April'
-  end
-  within "#exit_site_infection_medications_attributes_0_start_date_1i" do
-    select "#{Date.current.year}"
-  end
+  select_date("10 April #{Date.current.year}", from: 'Prescribed On')
 
   click_on "Update Exit Site Infection"
 end
@@ -575,7 +543,7 @@ Then(/^the new medication should be displayed on the updated peritonitis form$/)
   expect(page).to have_content("5mg")
   expect(page).to have_content("IV")
   expect(page).to have_content("PID")
-  expect(page).to have_content("28/02/#{Date.current.year}")
+  expect(page).to have_content("21/03/#{Date.current.year}")
 end
 
 Then(/^the new medication should be displayed on the updated exit site form$/) do
