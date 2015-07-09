@@ -30,4 +30,9 @@ class Medication < ActiveRecord::Base
       ary << date
     }.compact.join(', ')
   end
+
+  def self.peritonitis
+    self.new(treatable_type: 'PeritonitisEpisode')
+  end
+
 end

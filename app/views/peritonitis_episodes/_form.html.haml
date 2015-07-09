@@ -111,4 +111,4 @@
             = render partial: 'medications/new', locals: { pm: pm } if pm.object.new_record?
 
         .large-12.columns
-          = pe.link_to_add 'Add a new medication', :medications, class: 'add-medication button tiny right mt'
+          = pe.link_to_add 'Add a new medication', :medications, model_object: Medication.peritonitis, class: 'add-medication button tiny right mt'

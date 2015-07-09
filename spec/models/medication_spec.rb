@@ -14,4 +14,11 @@ RSpec.describe Medication, :type => :model do
   it { should validate_presence_of(:frequency).with_message("Frequency & Duration can't be blank") }
   it { should validate_presence_of(:start_date).with_message("Prescribed On can't be blank") }
   it { should validate_presence_of(:provider).with_message("Provider can't be blank") }
+
+  describe 'self.peritonitis' do
+    it "should set 'treatable_type' as 'PeritonitisEpisode' for a medication relating to peritonitis" do
+      expect(Medication.peritonitis.treatable_type).to eq('PeritonitisEpisode')
+    end
+  end
+
 end
