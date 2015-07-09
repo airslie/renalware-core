@@ -8,7 +8,5 @@
         .row
           = pm.link_to_remove "Remove this medication", class: "button cancel tiny right hide"
 
-        = render partial: 'shared/error_messages', locals: { object: pm.object }
-
         .row
           = render partial: 'medications/form', locals: { pm: pm }
