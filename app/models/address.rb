@@ -1,12 +1,15 @@
 class Address < ActiveRecord::Base
-  validates_presence_of :street_1, :postcode
+  validates_presence_of :street_1
+  validates_with AddressValidator
 
   def self.reject_if_blank
     Proc.new do |attrs|
-      attrs[:street_1].blank? && attrs[:street_2].blank? &&
-      attrs[:city].blank? && attrs[:county].blank? &&
-      attrs[:postcode].blank?
+      !%i(street_1 street_2 city county postcode).map{|a| attrs[a].blank?}.include?(false)
     end
+  end
+
+  def uk?
+    'United Kingdom' == country
   end
 
   alias_method :orig_to_s, :to_s
