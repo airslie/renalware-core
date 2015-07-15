@@ -1,7 +1,17 @@
 = r.hidden_field :patient_id
 
+= r.hidden_field :type
+
 .row
   .large-12.columns
+    .large-12.columns
+      .section-underliner
+        Treatment Type:
+
+      .large-12.columns
+        = r.label :treatment_type, 'PD Regime Treatment'
+        = r.select :treatment_type, capd_apd_scope(r.object.type), { :prompt => "Please select from options" }, :class => "pd-regime-treament-select"
+
     .large-12.columns
       .section-underliner
         Dates:
@@ -18,23 +28,20 @@
 
     .large-12.columns
       .section-underliner
-        Bag Solution Indicators:
-
-      .large-12.columns
-        %ul.no-bullet
-          %li
-            = r.check_box :low_glucose_degradation
-            = r.label :low_glucose_degradation, "Low glucose degradation product (GDP)"
-          %li
-            = r.check_box :low_sodium
-            = r.label :low_sodium, "Low sodium solution"
-
-    .large-12.columns
-      .section-underliner
         Other Info:
 
       .large-12.columns
         %ul.no-bullet
           %li
-            = r.check_box :additional_hd
-            = r.label :additional_hd, "On additional HD"
+            = r.check_box :add_hd
+            = r.label :add_hd, "On additional HD"
+
+    - if r.object.type == 'ApdRegime'
+
+      = render partial: 'pd_regimes/apd_fields', locals: { r: r }
+
+    - else
+
+      = nil
+
+

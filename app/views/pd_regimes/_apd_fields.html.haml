@@ -1,0 +1,38 @@
+.large-12.columns
+  .section-underliner
+    Additional exchanges:
+
+  .large-12.columns
+    = r.label :last_fill_ml, 'Last Fill (ml)'
+    = r.text_field :last_fill_ml
+
+    = r.check_box :add_manual_exchange
+    = r.label :add_manual_exchange, "Additional manual exchange"
+
+.large-12.columns
+  .section-underliner
+    Tidal:
+
+  .large-12.columns
+    = r.check_box :tidal_indicator
+    = r.label :tidal_indicator
+
+    = r.label :tidal_percentage
+    = r.text_field :tidal_percentage
+
+.large-12.columns
+  .section-underliner
+    Additional Info:
+
+  .large-12.columns
+    = r.label :no_cycles_per_apd, 'Number of cycles per APD session'
+    = r.text_field :no_cycles_per_apd
+
+  .large-12.columns
+    = r.label :overnight_pd_ml, 'Overnight pd volume on APD'
+    = r.text_field :overnight_pd_ml
+
+
+
+
+
