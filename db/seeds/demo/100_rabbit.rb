@@ -16,8 +16,9 @@ CSV.foreach(file_path, headers: true) do |row|
   Problem.find_or_create_by!(
     patient_id: rabbit.to_param,
     description: description,
-    date: date,
-    snomed_id: snomed_id)
+    snomed_id: snomed_id) do |problem|
+      problem.date = date
+    end
 end
 
 log "#{logcount} Problems seeded"
@@ -28,17 +29,17 @@ file_path = File.join(demo_path, 'rabbit_modalities.csv')
 logcount=0
 CSV.foreach(file_path, headers: true) do |row|
   logcount += 1
-  Modality.create(
+  Modality.find_or_create_by!(
     patient_id: rabbit.to_param,
     modality_code_id: row['modality_code_id'],
-    modality_reason_id: row['modality_reason_id'],
-    modal_change_type: row['modal_change_type'],
-    start_date: row['start_date'],
-    termination_date: row['termination_date'],
-    deleted_at: row['deleted_at'],
-    created_at: row['created_at'],
-    updated_at: row['updated_at']
-  )
+    modality_reason_id: row['modality_reason_id']) do |mod|
+      mod.modal_change_type   = row['modal_change_type']
+      mod.start_date          = row['start_date']
+      mod.termination_date    = row['termination_date']
+      mod.deleted_at          = row['deleted_at']
+      mod.created_at          = row['created_at']
+      mod.updated_at          = row['updated_at']
+    end
 end
 
 log "#{logcount} Modalities seeded"
@@ -71,3 +72,25 @@ Event.find_or_create_by!(
 )
 
 log "3 Events seeded"
+
+log '--------------------Adding Doctor for Roger RABBIT---------------------'
+practice = Practice.first
+
+doctor = Doctor.find_or_create_by!(code: 'GP912837465') do |doc|
+  doc.first_name = 'John'
+  doc.last_name = 'Merrill'
+  doc.email = 'john.merrill@nhs.net'
+  doc.practitioner_type = 'GP'
+  doc.practices << practice
+end
+
+rabbit.doctor = doctor
+rabbit.practice = practice
+rabbit.save!
+
+log '--------------------Adding Address for Roger RABBIT-------------------'
+rabbit.current_address = Address.create!(street_1: '123 South Street',
+                                         city: 'Toontown',
+                                         postcode: 'TT1 1HD',
+                                         country: 'United Kingdom')
+rabbit.save!
