@@ -15,14 +15,5 @@
         = pd_regime_bags(@current_regime.pd_regime_bags)
 
     %li
-      %b Bag Solution Indicators:
-
-      %ul{ style: 'list-style-type: disc'}
-        %li
-          = "Low glucose degradation(GDP): #{yes_no(@current_regime.low_glucose_degradation)}"
-        %li
-          = "Low sodium: #{yes_no(@current_regime.low_sodium)}"
-
-    %li
       %b On additional HD:
-      = yes_no(@current_regime.additional_hd)
+      = yes_no(@current_regime.add_hd)
