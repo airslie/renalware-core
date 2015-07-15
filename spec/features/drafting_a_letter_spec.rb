@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Drafting a letter', js: true do
   include Select2SpecHelper
-  include SelectDate
+  include SelectDateSpecHelper
 
   background do
     create(:letter_description, text: 'Clinic letter')
