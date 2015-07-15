@@ -25,7 +25,7 @@ feature 'Managing Doctors', js: true do
     fill_in 'Email', with: 'john.merrill@nhs.net'
     fill_in 'Code', with: 'GP12345'
     select 'GP', from: 'Practitioner type'
-    select2 'Median Road Surgery', '#doctor_practice_ids'
+    select2 'Median Road Surgery', from: '#doctor_practice_ids'
 
     click_on 'Save'
 
@@ -82,7 +82,7 @@ feature 'Managing Doctors', js: true do
     end
 
     fill_in 'Email', with: 'john.merrill@nhs.net'
-    select2 'Median Road Surgery', '#doctor_practice_ids'
+    select2 'Median Road Surgery', from: '#doctor_practice_ids'
 
     click_on 'Update'
 
