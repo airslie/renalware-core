@@ -4,14 +4,14 @@
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
 .row
-  %h4
-    Record a PD Regime
-
-.row
   %ul.no-bullet
     = field_set_tag do
 
       = nested_form_for [@patient, @pd_regime] do |r|
+        .row
+          .large-12.columns
+            %h4
+              = "Record a #{capd_apd_title(r.object.type)} Regime"
 
         .row
           = render :partial => 'pd_regimes/form', :locals => { :r => r }
