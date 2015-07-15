@@ -4,8 +4,8 @@ module LettersHelper
     current_page?(action: 'author', author_id: letter.author.to_param)
   end
 
-  def descriptions_options
-    options_from_collection_for_select(LetterDescription.all, :id, :text)
+  def descriptions_options(selected)
+    options_from_collection_for_select(LetterDescription.all, :id, :text, selected)
   end
 
   def authors_options
@@ -30,6 +30,12 @@ module LettersHelper
     info = "Patient: #{patient.full_name}"
     info << ", Doctor: #{patient.doctor.full_name}" if patient.doctor.present?
     info
+  end
+
+  def recipient_address(letter)
+    if letter.recipient_address.present?
+      letter.recipient_address.to_s(:street_1, :street_2, :city, :postcode)
+    end
   end
 
   private

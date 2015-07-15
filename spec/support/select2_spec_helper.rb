@@ -1,5 +1,7 @@
 module Select2SpecHelper
-  def select2(value, scope)
+  def select2(value, opts)
+    scope = opts[:from]
+
     select2_container = first("#{scope} + .select2-container")
     select2_container.first(".select2-selection").click
 

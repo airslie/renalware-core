@@ -1,4 +1,4 @@
-module SelectDate
+module SelectDateSpecHelper
 
   def select_date(date, options = {})
     field = options[:from]
@@ -8,5 +8,4 @@ module SelectDate
     select month, :from => "#{base_id}_2i"
     select day,   :from => "#{base_id}_3i"
   end
-
 end

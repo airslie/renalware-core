@@ -6,8 +6,16 @@
   %h5 #{patient_and_doctor_info(@patient)}
 
 .row
-  = f.label :letter_description_id, 'Description'
-  = f.select :letter_description_id, descriptions_options, include_blank: true, prompt: 'Select a letter description'
+  .columns.large-10.inline
+    = f.label :letter_description_id, 'Description'
+    = f.select :letter_description_id,
+      descriptions_options(@letter.letter_description_id),
+      include_blank: true,
+      prompt: 'Select a letter description'
+
+  .columns.large-2.inline
+    = f.label :state, 'Status'
+    = f.select :state, [:draft, :review]
 
 .row
   .columns.large-4.inline
@@ -36,7 +44,7 @@
     = radio_button_tag 'letter[recipient]', 'other', @patient.doctor.nil? && @patient.current_address.nil?, class: 'inline'
     = f.label :recipient, 'Other'
 
-    = text_field_tag :other_recipient_address
+    = text_field_tag 'other_recipient_address', recipient_address(@letter)
 
 - if @letter.clinic?
   .row
