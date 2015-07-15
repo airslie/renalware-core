@@ -13,7 +13,7 @@ class Address < ActiveRecord::Base
 
   def to_s(*fields)
     if fields.any?
-      fields.map { |f| send(f) }.join(', ')
+      fields.map { |f| send(f) }.compact.join(', ')
     else
       orig_to_s
     end
