@@ -1,0 +1,8 @@
+.row
+  %h5 Edit Letter
+
+.row
+  .large-12.columns
+    = form_for [@patient, @letter], url: patient_letter_path(patient_id: @patient.to_param, id: @letter.to_param) do |f|
+      = render partial: 'form', locals: { f: f }
+      = f.submit 'Update', class: 'button save'

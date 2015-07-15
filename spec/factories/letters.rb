@@ -11,6 +11,10 @@ FactoryGirl.define do
     signature 'Dr. D.O. Good'
     association :author, factory: :user
 
+    trait(:review) do
+      state 'review'
+    end
+
     trait(:death) do
       letter_type 'death'
     end
