@@ -4,8 +4,10 @@
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
     %h5 PD Info
+
     %p
-      = link_to "Add PD Regime", new_patient_pd_regime_path(@patient), :class => "button tiny"
+      = link_to "Add CAPD Regime", new_patient_pd_regime_path(@patient, type: 'CapdRegime'), :class => "button tiny"
+      = link_to "Add APD Regime", new_patient_pd_regime_path(@patient, type: 'ApdRegime'), :class => "button tiny"
       = link_to "Add Peritonitis Episode", new_patient_peritonitis_episode_path(@patient), :class => "button tiny"
       = link_to "Add Exit Site Infection", new_patient_exit_site_infection_path(@patient), :class => "button tiny"
 

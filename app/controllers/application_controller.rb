@@ -14,4 +14,8 @@ class ApplicationController < ActionController::Base
     @patient_search = Patient.ransack(params[:q])
     @patient_search.sorts = ['surname', 'forename']
   end
+
+  def regime_type_params(regime)
+    regime.underscore.to_sym
+  end
 end
