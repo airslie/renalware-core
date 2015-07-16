@@ -19,4 +19,4 @@
         .large-12.columns.button-padding
           = link_to "Cancel", pd_info_patient_path(@patient), class: "button tiny left cancel mt"
 
-          = r.submit "Save PD Regime", :class => "button tiny right save mt"
+          = r.submit "Save #{capd_apd_title(r.object.type)} Regime", :class => "button tiny right save mt"
