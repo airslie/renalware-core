@@ -4,7 +4,7 @@ class CreatePdRegimes < ActiveRecord::Migration
       t.integer :patient_id
       t.date :start_date
       t.date :end_date
-      t.string :treatment_type
+      t.string :treatment
       t.string :type
       t.integer :glucose_ml_percent_1_36
       t.integer :glucose_ml_percent_2_27
