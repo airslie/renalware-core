@@ -4,7 +4,7 @@ RSpec.describe PdRegimesController, :type => :controller do
 
   before do
     @patient = create(:patient)
-    @pd_regime = create(:pd_regime)
+    @capd_regime = create(:capd_regime)
   end
 
   describe 'GET #new' do
@@ -51,14 +51,14 @@ RSpec.describe PdRegimesController, :type => :controller do
   describe 'PUT #update' do
     context "with valid attributes" do
       it 'updates a PD Regime' do
-        put :update, id: @pd_regime.id, patient_id: @patient.id, pd_regime: { start_date: '15/02/2015' }
+        put :update, id: @capd_regime.id, patient_id: @patient.id, pd_regime: { start_date: '15/02/2015' }
         expect(response).to redirect_to(pd_info_patient_path(@patient))
       end
     end
 
     context "with invalid attributes" do
       it 'update a PD Regime' do
-        put :update, id: @pd_regime.id, patient_id: @patient.id, pd_regime: { start_date: nil }
+        put :update, id: @capd_regime.id, patient_id: @patient.id, pd_regime: { start_date: nil }
         expect(response).to render_template(:edit)
       end
     end
@@ -66,7 +66,7 @@ RSpec.describe PdRegimesController, :type => :controller do
     context 'add bag' do
       it 'adds a bag to the saved PdRegime' do
         expect {
-          put :update, id: @pd_regime.id, patient_id: @patient.id,
+          put :update, id: @capd_regime.id, patient_id: @patient.id,
             actions: {add_bag: 'Add Bag'}, pd_regime: {start_date: Date.today}
         }.to change(PdRegime, :count).by(0)
 
@@ -76,8 +76,8 @@ RSpec.describe PdRegimesController, :type => :controller do
 
     context 'remove bag' do
       it 'removes a bag from the unsaved PdRegime' do
-        @pd_regime.pd_regime_bags << create(:pd_regime_bag)
-        put :update, id: @pd_regime.id, patient_id: @patient.id,
+        @capd_regime.pd_regime_bags << create(:pd_regime_bag)
+        put :update, id: @capd_regime.id, patient_id: @patient.id,
           actions: {remove: {'0' => 'Remove'}}, pd_regime: {start_date: Date.today}
         expect(assigns(:pd_regime).pd_regime_bags.size).to eq(0)
       end
