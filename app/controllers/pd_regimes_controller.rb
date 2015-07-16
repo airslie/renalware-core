@@ -1,6 +1,5 @@
 class PdRegimesController < RenalwareController
   include NestedActionsControllerMethods
-  include PdRegimesControllerMethods
 
   before_action :load_patient
   before_action :find_pd_regime, only: [:edit, :update, :show]
@@ -29,7 +28,7 @@ class PdRegimesController < RenalwareController
   private
 
   def pd_regime_params
-    params.require(regime_type_params(params[:type])).permit(:patient_id, :start_date, :end_date,
+    params.require(:pd_regime).permit(:patient_id, :start_date, :end_date,
       :treatment, :type, :glucose_ml_percent_1_36, :glucose_ml_percent_2_27, :glucose_ml_percent_3_86,
       :amino_acid_ml, :icodextrin_ml, :low_glucose_degradation, :low_sodium, :add_hd, :last_fill_ml,
       :add_manual_exchange, :tidal_indicator, :tidal_percentage, :no_cycles_per_apd, :overnight_pd_ml,

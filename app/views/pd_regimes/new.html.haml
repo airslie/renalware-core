@@ -7,7 +7,7 @@
   %ul.no-bullet
     = field_set_tag do
 
-      = nested_form_for [@patient, @pd_regime] do |r|
+      = nested_form_for [@patient, @pd_regime], as: :pd_regime do |r|
         .row
           .large-12.columns
             %h4
