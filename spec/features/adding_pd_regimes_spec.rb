@@ -24,7 +24,6 @@ feature 'Adding PD Regimes' do
     check 'Friday'
     check 'Saturday'
 
-    check 'Low sodium solution'
     check 'On additional HD'
 
     click_on 'Save PD Regime'
@@ -32,7 +31,6 @@ feature 'Adding PD Regimes' do
     within('.current-regime') do
       expect(page).to have_content('Regime Start Date: 15/06/2015')
       expect(page).to have_content('Bag type: Green–2.34, Volume: 2ml, No. per week: 5, Days: Mon, Tue, Wed, Fri, Sat')
-      expect(page).to have_content('Bag Solution Indicators: Low glucose degradation(GDP): No Low sodium: Yes')
       expect(page).to have_content('On additional HD: Yes')
     end
   end
