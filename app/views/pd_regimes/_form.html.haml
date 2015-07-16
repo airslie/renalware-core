@@ -9,8 +9,8 @@
         Treatment Type:
 
       .large-12.columns
-        = r.label :treatment_type, 'PD Regime Treatment'
-        = r.select :treatment_type, capd_apd_scope(r.object.type), { :prompt => "Please select from options" }, :class => "pd-regime-treament-select"
+        = r.label :treatment, 'PD Regime Treatment'
+        = r.select :treatment, capd_apd_scope(r.object.type), { :prompt => "Please select from options" }, :class => "pd-regime-treament-select"
 
     .large-12.columns
       .section-underliner
