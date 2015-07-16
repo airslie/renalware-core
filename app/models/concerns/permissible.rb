@@ -6,6 +6,10 @@ module Permissible
   included do
     class_eval do
       has_and_belongs_to_many :roles
+
+      Permission.all.map(&:role).uniq.each do |role_name|
+        define_method(:"#{role_name}?") { has_role?(role_name.to_sym) }
+      end
     end
 
     def has_role?(name)

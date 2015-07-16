@@ -7,7 +7,7 @@ module LetterTypes
 
       # Create instance methods from letter types eg. 'clinic?', 'death?'
       LETTER_TYPES.each do |t|
-        send(:define_method, :"#{t}?") { letter_type == t.to_s }
+        define_method(:"#{t}?") { letter_type == t.to_s }
       end
     end
   end
