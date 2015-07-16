@@ -10,6 +10,10 @@
       = default_for_blank(@current_regime.end_date, 'Pending')
 
     %li
+      %b Treatment:
+      = @current_regime.treatment
+
+    %li
       %b Bags:
       %ul{ style: 'list-style-type: disc'}
         = pd_regime_bags(@current_regime.pd_regime_bags)

@@ -5,6 +5,8 @@
         Regime Start Date
       %th.col-width-date
         Regime End Date
+      %th.col-width-13
+        Treatment
       %th
         Regime Bags
       %th.column-6-width
@@ -23,6 +25,9 @@
 
         %td{ :data => { :heading => "End Date" }, valign: "top" }
           = default_for_blank(r.end_date, "Pending")
+
+        %td{ :data => { :heading => "Treatment" }, valign: "top" }
+          = r.treatment
 
         %td{ :data => { :heading => "Regime Bags" }, valign: "top" }
           = pd_regime_bags(r.pd_regime_bags)

@@ -24,6 +24,14 @@
             %dd
               = default_for_blank(@pd_regime.end_date, "Pending")
 
+        .large-12.columns
+          .section-underliner.title-bold
+            Treatment:
+
+          .large-12.columns
+            %p
+              = @pd_regime.treatment
+
 
         .large-12.columns
           .section-underliner.title-bold
@@ -35,23 +43,12 @@
 
         .large-12.columns
           .section-underliner.title-bold
-            Bag Solution Indicators:
-
-          .large-12.columns
-            %ul
-              %li
-                = "Low glucose degradation(GDP): #{yes_no(@pd_regime.low_glucose_degradation)}"
-              %li
-                = "Low sodium: #{yes_no(@pd_regime.low_sodium)}"
-
-        .large-12.columns
-          .section-underliner.title-bold
             Other Info:
 
           .large-12.columns
             %ul
               %li
-                = "On additional HD: #{yes_no(@pd_regime.additional_hd)}"
+                = "On additional HD: #{yes_no(@pd_regime.add_hd)}"
 
       .large-12.columns.button-padding
         = link_to "Edit", edit_patient_pd_regime_path(@patient, @pd_regime.id), class: "tiny button right"
