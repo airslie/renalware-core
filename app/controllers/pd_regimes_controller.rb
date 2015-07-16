@@ -1,5 +1,6 @@
 class PdRegimesController < RenalwareController
   include NestedActionsControllerMethods
+  include PdRegimesControllerMethods
 
   before_action :load_patient
   before_action :find_pd_regime, only: [:edit, :update, :show]
