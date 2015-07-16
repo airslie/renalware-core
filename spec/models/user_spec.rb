@@ -5,6 +5,8 @@ describe User, type: :model do
   it_behaves_like 'Personable'
 
   it { should have_and_belong_to_many :roles }
+  it { should validate_presence_of(:professional_position).on(:update) }
+  it { should validate_presence_of(:signature).on(:update) }
 
   describe 'class' do
     it 'includes Deviseable to authenticate using Devise' do

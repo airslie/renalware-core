@@ -9,9 +9,11 @@ feature 'User registration' do
 
     click_on 'Sign up'
 
-    expect(page).to have_css('#error_explanation', text: /Email can't be blank/)
-    expect(page).to have_css('#error_explanation', text: /Password can't be blank/)
-    expect(page).to have_css('#error_explanation', text: /Last name can't be blank/)
+    within('.error-messages') do
+      expect(page).to have_content("Email can't be blank")
+      expect(page).to have_content("Password can't be blank")
+      expect(page).to have_content("Last name can't be blank")
+    end
   end
 
   scenario 'A user registers with an existing username' do
@@ -28,7 +30,7 @@ feature 'User registration' do
 
     click_on 'Sign up'
 
-    expect(page).to have_css('#error_explanation', text: /Username has already been taken/)
+    expect(page).to have_css('.error-messages', text: /Username has already been taken/)
   end
 
   scenario 'A user registers with an existing email address' do
@@ -45,7 +47,7 @@ feature 'User registration' do
 
     click_on 'Sign up'
 
-    expect(page).to have_css('#error_explanation', text: /Email has already been taken/)
+    expect(page).to have_css('.error-messages', text: /Email has already been taken/)
   end
 
   scenario 'A user registers giving required information' do

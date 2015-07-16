@@ -6,11 +6,9 @@
     = f.hidden_field :approved, value: true
 
     - if @user.errors.any?
-      #error_explanation
-        .alert.alert-error
-          %ul
-            - @user.errors.full_messages.each do |msg|
-              %li= msg
+      %ul.error-messages
+        - @user.errors.full_messages.each do |msg|
+          %li= msg
 
     - if @user.expired?
       .row
