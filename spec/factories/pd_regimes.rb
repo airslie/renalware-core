@@ -7,6 +7,7 @@ FactoryGirl.define do
     patient
     start_date "01/02/2015"
     end_date "01/02/2015"
+    treatment "CAPD 3 exchanges per day"
     glucose_ml_percent_1_36 10
     glucose_ml_percent_2_27 20
     glucose_ml_percent_3_86 30
@@ -19,6 +20,7 @@ FactoryGirl.define do
     patient
     start_date "01/03/2015"
     end_date "02/04/2015"
+    treatment "APD Wet day with additional exchange"
     glucose_ml_percent_1_36 13
     glucose_ml_percent_2_27 23
     glucose_ml_percent_3_86 33
