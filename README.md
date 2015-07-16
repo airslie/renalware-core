@@ -27,7 +27,7 @@ Ruby on Rails - Development Setup
   $ rake db:migrate
   $ rake db:seed
   ```
-  At the prompt you can create a bespoke `User` for authentication or accept defaults, this will create a user with the credentials `superadmin:supersecret`
+ In development mode this will create a super admin user with the credentials `superadmin:supersecret`
 
 3. Copy `.env-example` to `.env` and change whatever need to be changed
 
