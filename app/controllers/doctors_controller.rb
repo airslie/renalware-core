@@ -47,6 +47,6 @@ class DoctorsController < RenalwareController
   def doctor_params
     params.require(:doctor).permit(
       :first_name, :last_name, :email, :practitioner_type, :code, practice_ids: [],
-      address_attributes: [:id, :street_1, :street_2, :city, :county, :postcode])
+      address_attributes: [:id, :street_1, :street_2, :city, :county, :postcode, :country])
   end
 end

@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe Address, type: :model do
   it { should validate_presence_of :street_1 }
-  it { should validate_presence_of :postcode }
 
   describe 'to_s' do
     subject { build_stubbed(:address) }

@@ -49,7 +49,6 @@ feature 'Managing Doctors', js: true do
     click_on 'Alternative address'
 
     fill_in 'Street 1', with: '123 Sunset Bvd.'
-    fill_in 'Postcode', with: '122223'
 
     select 'United States', from: 'Country'
 
@@ -60,6 +59,25 @@ feature 'Managing Doctors', js: true do
       expect(page).to have_content('GP12345')
       expect(page).to have_content('123 Sunset Bvd.')
     end
+  end
+
+  scenario 'Submitting an invalid address' do
+    visit new_doctor_path
+
+    fill_in 'First name', with: 'John'
+    fill_in 'Last name', with: 'Merrill'
+    fill_in 'Email', with: 'john.merrill@nhs.net'
+    fill_in 'Code', with: 'GP12345'
+    select 'GP', from: 'Practitioner type'
+
+    click_on 'Alternative address'
+
+    fill_in 'Street 1', with: '123 North Road'
+    select 'United Kingdom', from: 'Country'
+
+    click_on 'Save'
+
+    expect(page).to have_content("Address postcode can't be blank for UK address")
   end
 
 
