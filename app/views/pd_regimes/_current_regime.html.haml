@@ -1,23 +1,28 @@
 %fieldset.current-regime
   %legend.title-bod Current PD Regime
 
-  %ul.no-bullet
-    %li
-      %b Regime Start Date:
-      = @current_regime.start_date
-      &nbsp;&nbsp;
-      %b Regime End Date:
-      = default_for_blank(@current_regime.end_date, 'Pending')
+  .large-6.columns
+    %ul.no-bullet
+      %li
+        %b Regime Start Date:
+        = @current_regime.start_date
+        &nbsp;&nbsp;
+        %b Regime End Date:
+        = default_for_blank(@current_regime.end_date, 'Pending')
 
-    %li
-      %b Treatment:
-      = @current_regime.treatment
+      %li
+        %b Treatment:
+        = @current_regime.treatment
 
-    %li
-      %b Bags:
-      %ul{ style: 'list-style-type: disc'}
-        = pd_regime_bags(@current_regime.pd_regime_bags)
+      %li
+        %b Bags:
+        %ul{ style: 'list-style-type: disc' }
+          = pd_regime_bags(@current_regime.pd_regime_bags)
 
-    %li
-      %b On additional HD:
-      = yes_no(@current_regime.add_hd)
+      %li
+        %b On additional HD:
+        = yes_no(@current_regime.add_hd)
+
+  .large-6.columns
+    - if @current_regime.type == 'ApdRegime'
+      = render partial: 'pd_regimes/current_apd_regime', locals: { model: @current_regime }
