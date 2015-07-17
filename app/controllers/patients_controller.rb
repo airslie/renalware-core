@@ -19,6 +19,8 @@ class PatientsController < RenalwareController
 
   def pd_info
     @pd_regimes = PdRegime.where(patient_id: @patient).order(:created_at)
+    @capd_regimes = CapdRegime.where(patient_id: @patient).order(created_at: :desc)
+    @apd_regimes = ApdRegime.where(patient_id: @patient).order(created_at:  :desc)
     @current_regime = @pd_regimes.last if @pd_regimes.any?
 
     @peritonitis_episodes = PeritonitisEpisode.where(patient_id: @patient)
