@@ -1,4 +1,4 @@
-%table.responsive.pd-regimes
+%table.responsive.apd-regimes
   %thead
     %tr
       %th.col-width-date
@@ -17,7 +17,7 @@
         Actions
 
   %tbody
-    - @patient.pd_regimes.each do |r|
+    - @apd_regimes.each do |r|
       %tr{ valign: "top" }
 
         %td{ :data => { :heading => "Start Date" }, valign: "top" }

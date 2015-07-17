@@ -12,10 +12,16 @@
       = link_to "Add Exit Site Infection", new_patient_exit_site_infection_path(@patient), :class => "button tiny"
 
 .wide-screen
-  %h6
-    = "PD Regimes (#{@pd_regimes.length})"
   = render partial: 'pd_regimes/current_regime' unless @current_regime.nil?
-  = render partial: 'patients/pd_regimes_table'
+
+  %h6
+    = "CAPD Regimes (#{@capd_regimes.length})"
+  = render partial: 'patients/capd_regimes_table'
+
+  %h6
+    = "APD Regimes (#{@apd_regimes.length})"
+  / = render partial: 'pd_regimes/current_regime' unless @current_regime.nil?
+  = render partial: 'patients/apd_regimes_table'
 
   %h6
     = "Peritonitis Episodes (#{@peritonitis_episodes.length})"
