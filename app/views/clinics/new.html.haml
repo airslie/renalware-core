@@ -1,0 +1,8 @@
+.row
+  %h5 Add Clinic
+
+.row
+  .large-12.columns
+    = form_for [@patient, @clinic], url: patient_clinics_path(@patient) do |f|
+      = render partial: 'form', locals: { f: f }
+      = f.submit 'Save', class: 'button save'

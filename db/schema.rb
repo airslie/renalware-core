@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150709152737) do
+ActiveRecord::Schema.define(version: 20150717093153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,22 @@ ActiveRecord::Schema.define(version: 20150709152737) do
   end
 
   add_index "bag_types", ["deleted_at"], name: "index_bag_types_on_deleted_at", using: :btree
+
+  create_table "clinics", force: :cascade do |t|
+    t.integer  "patient_id"
+    t.datetime "date",          null: false
+    t.float    "height"
+    t.float    "weight"
+    t.integer  "systolic_bp"
+    t.integer  "diastolic_bp"
+    t.string   "urine_blood"
+    t.string   "urine_protein"
+    t.text     "notes"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "clinics", ["patient_id"], name: "index_clinics_on_patient_id", using: :btree
 
   create_table "doctors", force: :cascade do |t|
     t.string   "first_name"

@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     resources :exit_site_infections, only: [:new, :create, :show, :edit, :update]
     resources :pd_regimes, only: [:new, :create, :edit, :update, :show]
     resources :letters
+    resources :clinics
   end
 
   get 'authors/:author_id/letters', to: 'letters#author'
