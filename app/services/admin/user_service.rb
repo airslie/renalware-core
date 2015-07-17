@@ -18,6 +18,7 @@ class Admin::UserService
 
   def update!(params)
     User.transaction do
+      user.super_admin_update = true
       approve if can_approve?(params)
       unexpire if can_unexpire?(params)
       authorise(params[:roles] || [])

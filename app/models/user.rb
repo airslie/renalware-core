@@ -7,14 +7,15 @@ class User < ActiveRecord::Base
   validates_presence_of :first_name
   validates_presence_of :last_name
   validate :approval_with_roles, on: :update
+  validates_presence_of :professional_position, on: :update, unless: :super_admin_update
+  validates_presence_of :signature, on: :update, unless: :super_admin_update
 
   scope :unapproved, -> { where(approved: [nil, false]) }
   scope :inactive, -> { where('last_activity_at IS NOT NULL AND last_activity_at < ?', expire_after.ago) }
   scope :author, -> { where.not(signature: nil) }
 
-  def read_only?
-    has_role?(:read_only)
-  end
+  # Non-persistent attribute to signify an update by an admin (bypassing some validations)
+  attr_accessor :super_admin_update
 
   # @section custom validation methods
   #
