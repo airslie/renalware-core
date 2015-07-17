@@ -1,11 +1,12 @@
 require 'rails_helper'
 
-feature 'Adding PD Regimes' do
+feature 'Adding CAPD Regimes' do
   background do
     patient = create(:patient)
     create(:bag_type)
     login_as_clinician
-    visit new_patient_pd_regime_path(patient)
+    visit pd_info_patient_path(patient)
+    click_on 'Add CAPD Regime'
   end
 
   scenario 'with javascript enabled', js: true do
@@ -26,7 +27,7 @@ feature 'Adding PD Regimes' do
 
     check 'On additional HD'
 
-    click_on 'Save PD Regime'
+    click_on 'Save CAPD Regime'
 
     within('.current-regime') do
       expect(page).to have_content('Regime Start Date: 15/06/2015')
