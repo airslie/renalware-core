@@ -1,0 +1,10 @@
+%tr
+  %td
+    = clinic.date
+  %td
+    = clinic.bmi
+  %td
+    = clinic.bp
+  %td
+    = link_to 'Edit', edit_patient_clinic_path(patient_id: clinic.patient.to_param, id: clinic.to_param), class: 'button tiny'
+    = link_to 'Delete', patient_clinic_path(patient_id: clinic.patient.to_param, id: clinic.to_param), method: :delete, class: 'button tiny cancel'

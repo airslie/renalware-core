@@ -1,0 +1,21 @@
+.row
+  %h5 Clinics (Patient: #{@patient.full_name})
+
+.row
+  %table.clinics.responsive
+    %thead
+      %tr
+        %th
+          Date
+        %th
+          BMI
+        %th
+          BP
+        %th.g-center
+          Actions
+
+    %tbody
+      = render @clinics
+
+.row
+  = link_to 'New clinic', new_patient_clinic_path(@patient), class: 'button tiny save'

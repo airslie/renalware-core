@@ -10,4 +10,12 @@ class Clinic < ActiveRecord::Base
   def bmi
     ((weight / height) / height).round(2)
   end
+
+  def bp
+    "#{systolic_bp}/#{diastolic_bp}" if systolic_bp.present? && diastolic_bp.present?
+  end
+
+  def bp=(val)
+    self.systolic_bp, self.diastolic_bp = val.split('/')
+  end
 end

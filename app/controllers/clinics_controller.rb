@@ -44,8 +44,7 @@ class ClinicsController < RenalwareController
   def clinic_params
     params.require(:clinic).permit(
       :patient_id, :date, :height, :weight,
-      :systolic_bp, :diastolic_bp, :urine_blood,
-      :urine_protein, :notes)
+      :bp, :urine_blood, :urine_protein, :notes)
   end
 
   def load_clinic

@@ -33,8 +33,8 @@ describe ClinicsController, type: :controller do
     before do
       post :create, patient_id: patient.to_param, clinic: {
         patient_id: patient.to_param, date: Time.now,
-        height: 1725, weight: 89.2, systolic_bp: 110,
-        diastolic_bp: 78, urine_blood: 'neg', urine_protein: 'neg',
+        height: 1725, weight: 89.2, bp: '110/78',
+        urine_blood: 'neg', urine_protein: 'neg',
         notes: 'Nothing unusual' }
     end
     it 'redirects to the clinics index' do
@@ -59,8 +59,8 @@ describe ClinicsController, type: :controller do
       put :update, patient_id: patient.to_param, id: clinic.to_param,
         clinic: {
           patient_id: patient.to_param, date: Time.now,
-          height: 1725, weight: 89.2, systolic_bp: 110,
-          diastolic_bp: 78, urine_blood: 'neg', urine_protein: 'neg',
+          height: 1725, weight: 89.2, bp: '110/70',
+          urine_blood: 'neg', urine_protein: 'neg',
           notes: 'Nothing unusual' }
     end
     it 'redirects to the clinics index' do
