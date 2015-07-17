@@ -16,10 +16,10 @@
       .section-underliner
         Dates:
 
-      .large-12.columns
+      .large-6.columns
         = r.label :start_date, "Regime Start Date"
         = r.date_select(:start_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year , order: [:day, :month, :year] }, class: "datetime")
-
+      .large-6.columns
         = r.label :end_date, "Regime End Date"
         = r.date_select(:end_date, { include_blank: true, start_year: (1.years.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year] }, class: "datetime")
 
@@ -28,7 +28,7 @@
 
     .large-12.columns
       .section-underliner
-        Other Info:
+        On HD?:
 
       .large-12.columns
         %ul.no-bullet
