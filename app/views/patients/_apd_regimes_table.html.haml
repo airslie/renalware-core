@@ -12,6 +12,16 @@
       %th.column-6-width
         On HD
       %th.column-6-width
+        Last Fill (ml)
+      %th.column-6-width
+        Additional Manual Exchange
+      %th.column-6-width
+        Tidal
+      %th.column-6-width
+        No. of Cycles per Session
+      %th.column-6-width
+        Overnight PD Volume (ml)
+      %th.column-6-width
         Last Updated
       %th.col-width-9
         Actions
@@ -34,6 +44,22 @@
 
         %td{ :data => { :heading => "On HD" } }
           = yes_no(r.add_hd)
+
+        %td{ :data => { :heading => "Last Fill (ml)" } }
+          = r.last_fill_ml
+
+        %td{ :data => { :heading => "Additional Manual Exchange" } }
+          = yes_no(r.add_manual_exchange)
+
+        %td{ :data => { :heading => "Tidal" } }
+          = "Has tidal?: #{yes_no(r.tidal_indicator)}"
+          = "Volume(%): #{r.tidal_percentage}"
+
+        %td{ :data => { :heading => "Number of Cycles per Session" } }
+          = r.no_cycles_per_apd
+
+        %td{ :data => { :heading => "Overnight PD volume (ml)" } }
+          = r.overnight_pd_ml
 
         %td{ :data => { :heading => "Last Updated" } }
           = r.updated_at
