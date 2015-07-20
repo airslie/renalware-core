@@ -3,7 +3,8 @@
 #pd-regime-bags
   = r.fields_for :pd_regime_bags do |rb|
 
-    = render partial: 'pd_regimes/bags/form', locals: {rb: rb}
+    = field_set_tag do
+      = render partial: 'pd_regimes/bags/form', locals: {rb: rb}
 
 .large-12.columns
   = r.submit 'Add Bag', name: 'actions[add]', class: 'add-bag button tiny'
