@@ -184,7 +184,7 @@ When(/^I complete the form for a apd regime$/) do
   check 'Additional manual exchange'
 
   check 'Has tidal?'
-  fill_in 'Tidal percentage', with: 15
+  fill_in 'Tidal (%)', with: 15
 
   fill_in 'Number of cycles per APD session', with: 3
 
