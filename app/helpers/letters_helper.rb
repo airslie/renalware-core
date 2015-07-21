@@ -30,9 +30,11 @@ module LettersHelper
     end
   end
 
-  def patient_and_doctor_info(patient)
+  def letter_info(letter)
+    patient = letter.patient
     info = "Patient: #{patient.full_name}"
     info << ", Doctor: #{patient.doctor.full_name}" if patient.doctor.present?
+    info << ", Clinic date: #{letter.clinic.date}" if letter.clinic_letter?
     info
   end
 

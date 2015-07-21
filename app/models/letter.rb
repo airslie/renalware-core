@@ -16,6 +16,10 @@ class Letter < ActiveRecord::Base
   validates_presence_of :state, in: [:draft, :review] # TODO: Final states TBC.
   validates_presence_of :type, in: LetterType.all
 
+  def title
+    self.class.name.underscore.titleize
+  end
+
   def to_partial_path
     'letters/letter'
   end

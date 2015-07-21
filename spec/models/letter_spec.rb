@@ -12,4 +12,10 @@ describe Letter, type: :model do
   it { should validate_presence_of :recipient_address }
   it { should validate_presence_of :state }
   it { should validate_presence_of :type }
+
+  describe 'title' do
+    it 'titleizes the class name' do
+      expect(subject.title).to eq('Letter')
+    end
+  end
 end
