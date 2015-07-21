@@ -11,5 +11,5 @@ describe Letter, type: :model do
   it { should validate_presence_of :recipient }
   it { should validate_presence_of :recipient_address }
   it { should validate_presence_of :state }
-  it { should validate_presence_of :letter_type }
+  it { should validate_presence_of :type }
 end

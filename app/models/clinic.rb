@@ -1,5 +1,6 @@
 class Clinic < ActiveRecord::Base
   belongs_to :patient
+  has_many :clinic_letters
 
   validates_presence_of :date
   validates_presence_of :height

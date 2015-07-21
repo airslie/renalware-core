@@ -1,5 +1,5 @@
 class Letter < ActiveRecord::Base
-  include LetterTypes
+  include LetterType
 
   belongs_to :author, class_name: 'User'
   belongs_to :reviewer, class_name: 'User'
@@ -14,5 +14,9 @@ class Letter < ActiveRecord::Base
   validates_presence_of :recipient_address
   validates_presence_of :letter_description_id
   validates_presence_of :state, in: [:draft, :review] # TODO: Final states TBC.
-  validates_presence_of :letter_type, in: LETTER_TYPES
+  validates_presence_of :type, in: LetterType.all
+
+  def to_partial_path
+    'letters/letter'
+  end
 end
