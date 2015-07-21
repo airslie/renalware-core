@@ -41,7 +41,7 @@ class LettersController < RenalwareController
 
   # Provides the underlying STI class
   def letter_class
-    klass = params[:type]
+    klass = params[:type] || 'Letter'
     klass.constantize if klass.in?(LetterType.all)
   end
 

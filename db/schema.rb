@@ -185,20 +185,20 @@ ActiveRecord::Schema.define(version: 20150717093153) do
   end
 
   create_table "letters", force: :cascade do |t|
-    t.string   "state",                 default: "draft",        null: false
-    t.string   "type",                  default: "ClinicLetter", null: false
-    t.integer  "letter_description_id",                          null: false
+    t.string   "state",                 default: "draft",  null: false
+    t.string   "type",                  default: "Letter", null: false
+    t.integer  "letter_description_id",                    null: false
     t.text     "problems"
     t.text     "medications"
     t.text     "body"
     t.string   "signature"
-    t.string   "recipient",             default: "doctor",       null: false
+    t.string   "recipient",             default: "doctor", null: false
     t.string   "additional_recipients"
     t.integer  "doctor_id"
     t.integer  "patient_id"
     t.integer  "clinic_visit_id"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.integer  "author_id"
     t.integer  "reviewer_id"
     t.integer  "recipient_address_id"

@@ -31,10 +31,6 @@ Rails.application.routes.draw do
 
     resources :clinic_visits
     resources :letters
-    resources :simple_letters, controller: 'letters', type: 'SimpleLetter', only: [:new, :edit]
-    resources :death_notifications, controller: 'letters', type: 'DeathNotification', only: [:new, :edit]
-    resources :discharge_summaries, controller: 'letters', type: 'DischargeSummary', only: [:new, :edit]
-    resources :correction_letters, controller: 'letters', type: 'CorrectionLetter', only: [:new, :edit]
   end
 
   resources :clinic_visits do

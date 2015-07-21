@@ -3,21 +3,20 @@ require 'rails_helper'
 feature 'Drafting a letter', js: true do
 
   background do
-    create(:letter_description, text: 'Clinic letter')
+    create(:letter_description, text: 'Simple letter')
     @doctor = create(:doctor)
     @practice = create(:practice)
     @doctor.practices << @practice
-    @patient = create(:patient, :with_clinic_visits, doctor: @doctor, practice: @practice)
-    @clinic_visit = @patient.clinic_visits.last
+    @patient = create(:patient, doctor: @doctor, practice: @practice)
 
-    login_as_super_admin
-    visit new_clinic_visit_letter_path(clinic_visit_id: @clinic_visit.to_param)
+    login_as_clinician
+    visit new_patient_letter_path(patient_id: @patient.to_param)
   end
 
-  scenario 'a clinic letter' do
-    select 'Clinic letter', from: 'Description'
+  scenario 'a valid letter' do
+    select 'Simple letter', from: 'Description'
     select2 'Aneurin Bevan', from: '#letter_author_id'
-    fill_in 'Message', with: 'Dear Dr. Goode, I am pleased to inform you that the latest clinic appointment went extremely well'
+    fill_in 'Message', with: 'Dear Dr. Goode, I am pleased to inform you that things are going extremely well'
 
     click_on 'Save'
 
@@ -25,7 +24,7 @@ feature 'Drafting a letter', js: true do
 
     within('table.letters tbody tr:first-child') do
       expect(page).to have_content('Aneurin Bevan')
-      expect(page).to have_content('Clinic letter')
+      expect(page).to have_content('Simple letter')
       expect(page).to have_content('draft')
     end
   end
@@ -40,7 +39,7 @@ feature 'Drafting a letter', js: true do
   end
 
   scenario 'a letter to a recipient other than the doctor or patient' do
-    select 'Clinic letter', from: 'Description'
+    select 'Simple letter', from: 'Description'
     select2 'Aneurin Bevan', from: '#letter_author_id'
     choose 'letter_recipient_other'
     fill_in 'other_recipient_address', with: '28 Newton Road, Torquay, Devon, TQ2 5BZ'
@@ -52,7 +51,7 @@ feature 'Drafting a letter', js: true do
   end
 
   scenario 'a letter sent for review' do
-    select 'Clinic letter', from: 'Description'
+    select 'Simple letter', from: 'Description'
     select 'review', from: 'Status'
     select2 'Aneurin Bevan', from: '#letter_author_id'
     fill_in 'Message', with: 'Dear Dr. Goode, I am pleased to inform you that the latest clinic appointment went extremely well'
@@ -62,17 +61,5 @@ feature 'Drafting a letter', js: true do
     within('table.letters tbody tr:first-child') do
       expect(page).to have_content('review')
     end
-  end
-
-  scenario 'a death notification' do
-
-  end
-
-  scenario 'a discharge notification' do
-
-  end
-
-  scenario 'a simple letter' do
-
   end
 end

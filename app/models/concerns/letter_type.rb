@@ -2,7 +2,7 @@ module LetterType
   extend ActiveSupport::Concern
 
   def self.all
-    @types ||= %w(ClinicLetter CorrectionLetter DeathNotification DischargeSummary SimpleLetter)
+    @types ||= %w(ClinicLetter CorrectionLetter DeathNotification DischargeSummary Letter)
   end
 
   included do
