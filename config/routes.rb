@@ -28,8 +28,17 @@ Rails.application.routes.draw do
     resources :peritonitis_episodes, only: [:new, :create, :show, :edit, :update]
     resources :exit_site_infections, only: [:new, :create, :show, :edit, :update]
     resources :pd_regimes, only: [:new, :create, :edit, :update, :show]
-    resources :letters
+
     resources :clinics
+    resources :letters
+    resources :simple_letters, controller: 'letters', type: 'SimpleLetter', only: [:new, :edit]
+    resources :death_notifications, controller: 'letters', type: 'DeathNotification', only: [:new, :edit]
+    resources :discharge_summaries, controller: 'letters', type: 'DischargeSummary', only: [:new, :edit]
+    resources :correction_letters, controller: 'letters', type: 'CorrectionLetter', only: [:new, :edit]
+  end
+
+  resources :clinics do
+    resources :letters, controller: 'clinic_letters', only: [:new, :edit]
   end
 
   get 'authors/:author_id/letters', to: 'letters#author'

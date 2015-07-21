@@ -1,25 +1,22 @@
 require 'rails_helper'
 
 feature 'Drafting a letter', js: true do
-  include Select2SpecHelper
-  include SelectDateSpecHelper
 
   background do
     create(:letter_description, text: 'Clinic letter')
     @doctor = create(:doctor)
     @practice = create(:practice)
     @doctor.practices << @practice
-    @patient = create(:patient, doctor: @doctor, practice: @practice)
+    @patient = create(:patient, :with_clinics, doctor: @doctor, practice: @practice)
+    @clinic = @patient.clinics.last
 
     login_as_super_admin
-    visit new_patient_letter_path(@patient)
+    visit new_clinic_letter_path(clinic_id: @clinic.to_param)
   end
 
   scenario 'a clinic letter' do
     select 'Clinic letter', from: 'Description'
     select2 'Aneurin Bevan', from: '#letter_author_id'
-    select 'clinic', from:  'Letter type'
-    select_date '2015,April,1', from: 'Clinic date'
     fill_in 'Message', with: 'Dear Dr. Goode, I am pleased to inform you that the latest clinic appointment went extremely well'
 
     click_on 'Save'
@@ -58,8 +55,6 @@ feature 'Drafting a letter', js: true do
     select 'Clinic letter', from: 'Description'
     select 'review', from: 'Status'
     select2 'Aneurin Bevan', from: '#letter_author_id'
-    select 'clinic', from:  'Letter type'
-    select_date '2015,April,1', from: 'Clinic date'
     fill_in 'Message', with: 'Dear Dr. Goode, I am pleased to inform you that the latest clinic appointment went extremely well'
 
     click_on 'Save'

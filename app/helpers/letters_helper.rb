@@ -12,6 +12,10 @@ module LettersHelper
     options_from_collection_for_select(User.author, :id, :full_name)
   end
 
+  def clinic_dates_options(patient)
+    options_from_collection_for_select(Clinic.where(patient: patient), :id, :date)
+  end
+
   def patient_medications(letter)
     if letter.patient.medications.any?
       medications = letter.patient.medications.map{|m| medication_list_item(m)}.join.html_safe

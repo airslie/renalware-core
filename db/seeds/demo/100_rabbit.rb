@@ -89,8 +89,17 @@ rabbit.practice = practice
 rabbit.save!
 
 log '--------------------Adding Address for Roger RABBIT-------------------'
-rabbit.current_address = Address.create!(street_1: '123 South Street',
-                                         city: 'Toontown',
-                                         postcode: 'TT1 1HD',
-                                         country: 'United Kingdom')
+rabbit.current_address = Address.find_or_create_by!(street_1: '123 South Street',
+                                                    city: 'Toontown',
+                                                    postcode: 'TT1 1HD',
+                                                    country: 'United Kingdom')
 rabbit.save!
+
+
+log '--------------------Adding Clinics for Roger RABBIT-------------------'
+5.times do |n|
+  rabbit.clinics << Clinic.find_or_create_by!(patient: rabbit, height: 1.25,
+    weight: 55 + n, systolic_bp: 110 + n, diastolic_bp: 68 + n) do |clinic|
+      clinic.date = n.days.ago.change({ hour: (10 + (2 * n)), min: 0 })
+    end
+end

@@ -1,6 +1,8 @@
 = render partial: 'shared/errors', locals: {model: f.object}
 
+= hidden_field_tag :type, @letter.type
 = f.hidden_field :patient_id
+= f.hidden_field :clinic_id if @letter.clinic_letter?
 
 .row
   %h5 #{patient_and_doctor_info(@patient)}
@@ -22,15 +24,6 @@
     = f.label :author_id
     = f.select :author_id, authors_options
 
-  .columns.large-4.inline
-    = f.label :letter_type
-    = f.select :letter_type, [:clinic, :simple]
-
-  - if @letter.clinic?
-    .columns.large-4.inline
-      = f.label :clinic_date
-      = f.date_select :clinic_date, {}, class: 'datetime'
-
 .row
   %div{class: "columns large-12 inline#{errors_css_class(f.object, :recipient_address)}"}
     %h6 Recipient:
@@ -46,7 +39,7 @@
 
     = text_field_tag 'other_recipient_address', recipient_address(@letter)
 
-- if @letter.clinic?
+- if @letter.clinic_letter?
   .row
     = patient_problems(@letter)
     = patient_medications(@letter)

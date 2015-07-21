@@ -3,6 +3,6 @@
 
 .row
   .large-12.columns
-    = form_for [@patient, @letter], url: patient_letters_path(@patient) do |f|
+    = form_for [@patient, @letter], as: :letter, url: patient_letters_path(@patient) do |f|
       = render partial: 'form', locals: { f: f }
       = f.submit 'Save', class: 'button save'
