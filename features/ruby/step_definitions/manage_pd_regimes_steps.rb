@@ -34,7 +34,7 @@ Given(/^a patient has existing CAPD Regimes$/) do
 
   @capd_regime_bag_1 = FactoryGirl.create(:pd_regime_bag,
     bag_type: @bag_type_1,
-    volume: 10,
+    volume: 100,
     per_week: 2,
     monday: false,
     tuesday: false,
@@ -47,7 +47,7 @@ Given(/^a patient has existing CAPD Regimes$/) do
 
   @capd_regime_bag_2 = FactoryGirl.create(:pd_regime_bag,
     bag_type: @bag_type_2,
-    volume: 20,
+    volume: 200,
     per_week: 4,
     monday: true,
     tuesday: false,
@@ -103,7 +103,7 @@ Given(/^a patient has existing APD Regimes$/) do
 
   @apd_regime_bag_1 = FactoryGirl.create(:pd_regime_bag,
     bag_type: @bag_type_4,
-    volume: 25,
+    volume: 250,
     per_week: 4,
     monday: false,
     tuesday: true,
@@ -116,7 +116,7 @@ Given(/^a patient has existing APD Regimes$/) do
 
   @apd_regime_bag_2 = FactoryGirl.create(:pd_regime_bag,
     bag_type: @bag_type_3,
-    volume: 45,
+    volume: 450,
     per_week: 3,
     monday: false,
     tuesday: true,
@@ -147,13 +147,10 @@ When(/^I complete the form for a capd regime$/) do
   find("input.add-bag").click
 
   select('Sunshine Brand Blue–2.34', from: 'Bag Type')
-  fill_in('Volume', with: '2')
-  select('5', from: 'Per week')
-  check('Monday')
-  check('Wednesday')
-  check('Thursday')
-  check('Friday')
-  check('Sunday')
+  fill_in('Volume', with: '230')
+
+  uncheck 'Tuesday'
+  uncheck 'Saturday'
 
   click_on "Save CAPD Regime"
 end
@@ -172,11 +169,11 @@ When(/^I complete the form for a apd regime$/) do
   find('input.add-bag').click
 
   select('Unicorn Brand Green–5.35', from: 'Bag Type')
-  fill_in('Volume', with: '4')
-  select('3', from: 'Per week')
-  check('Monday')
-  check('Thursday')
-  check('Sunday')
+  fill_in('Volume', with: '400')
+  uncheck 'Tuesday'
+  uncheck 'Wednesday'
+  uncheck 'Saturday'
+  uncheck 'Friday'
 
   #APD specific fields
   fill_in 'Last Fill (ml)', with: 20
@@ -247,7 +244,7 @@ Then(/^I should see the new capd regime on the PD info page\.$/) do
     expect(page).to have_css("td", text: "Yes", count: 1)
 
     #pd regime bags
-    expect(page).to have_content("Bag type: Blue–2.34, Volume: 2ml, No. per week: 5, Days: Sun, Mon, Wed, Thu, Fri")
+    expect(page).to have_content("Bag type: Blue–2.34, Volume: 230ml, No. per week: 5, Days: Sun, Mon, Wed, Thu, Fri")
   end
 end
 
@@ -257,7 +254,7 @@ Then(/^I should see the new apd regime on the PD info page\.$/) do
     expect(page).to have_content("16/07/2015")
     expect(page).to have_content("APD Wet day with additional exchange")
     #pd regime bags
-    expect(page).to have_content("Bag type: Green–5.35, Volume: 4ml, No. per week: 3, Days: Sun, Mon, Thu")
+    expect(page).to have_content("Bag type: Green–5.35, Volume: 400ml, No. per week: 3, Days: Sun, Mon, Thu")
   end
 
   within('table.apd-regimes tbody tr:first-child td:nth-child(5)') do
@@ -273,7 +270,7 @@ Then(/^the new capd regime should be current$/) do
     expect(page).to have_content("On additional HD: Yes")
 
     #pd regime bags
-    expect(page).to have_content("Bag type: Blue–2.34, Volume: 2ml, No. per week: 5, Days: Sun, Mon, Wed, Thu, Fri")
+    expect(page).to have_content("Bag type: Blue–2.34, Volume: 230ml, No. per week: 5, Days: Sun, Mon, Wed, Thu, Fri")
   end
 end
 
@@ -285,7 +282,7 @@ Then(/^the new apd regime should be current$/) do
     expect(page).to have_content("On additional HD: No")
 
     #pd regime bags
-    expect(page).to have_content("Bag type: Green–5.35, Volume: 4ml, No. per week: 3, Days: Sun, Mon, Thu")
+    expect(page).to have_content("Bag type: Green–5.35, Volume: 400ml, No. per week: 3, Days: Sun, Mon, Thu")
   end
 end
 
@@ -313,13 +310,13 @@ Then(/^I should see the chosen capd regime details$/) do
   #saved bags for this regime:
   #bag 1
   expect(page).to have_content("Bag type: Blue–2.34")
-  expect(page).to have_content("Volume: 10ml")
+  expect(page).to have_content("Volume: 100ml")
   expect(page).to have_content("No. per week: 2")
   expect(page).to have_content("Days: Wed, Fri")
 
   #bag 2
   expect(page).to have_content("Bag type: Red–3.25")
-  expect(page).to have_content("Volume: 20ml")
+  expect(page).to have_content("Volume: 200ml")
   expect(page).to have_content("No. per week: 4")
   expect(page).to have_content("Days: Sun, Mon, Wed, Fri")
 end
@@ -335,6 +332,6 @@ Then(/^I should see the chosen apd regime details$/) do
   expect(page).to have_content("Number of cycles per APD session: 4")
   expect(page).to have_content("Overnight PD volume on APD (ml): 72")
   #bag 1
-  expect(page).to have_content("Bag type: Green–5.35, Volume: 45ml, No. per week: 3, Days: Tue, Thu, Sat")
+  expect(page).to have_content("Bag type: Green–5.35, Volume: 450ml, No. per week: 3, Days: Tue, Thu, Sat")
 end
 
