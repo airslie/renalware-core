@@ -19,8 +19,4 @@ class Letter < ActiveRecord::Base
   def title
     self.class.name.underscore.titleize
   end
-
-  def to_partial_path
-    'letters/letter'
-  end
 end

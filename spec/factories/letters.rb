@@ -3,10 +3,10 @@ FactoryGirl.define do
     patient
     doctor
     state 'draft'
-    type 'ClinicLetter'
+    type 'Letter'
     letter_description
     recipient 'doctor'
-    body 'Dear Dr Sawr, I saw Mrs. Brown last Tuesay and I am pleased to report a marked improvement in her condition.'
+    body 'I met with Mrs. Brown last Tuesay and I am pleased to report a marked improvement in her condition.'
     signature 'Dr. D.O. Good'
     association :recipient_address, factory: :address
     association :author, factory: :user

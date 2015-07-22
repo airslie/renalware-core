@@ -1,0 +1,28 @@
+.letter-preview-header
+  .row
+    .columns.large-4
+      Status: #{@letter.state.upcase}
+    .columns.large-4
+      Author: #{@letter.author.full_name}
+    .columns.large-4
+      Letter type: #{@letter.title}
+
+  .row
+    .columns.large-4
+      To: #{recipients(@letter).first}, CC: #{recipients(@letter).last}
+    .columns.large-4
+      Title: #{@letter.letter_description.text}
+
+%hr
+
+.letter-preview-body
+  .row
+    = salutation(@letter)
+
+  .row
+    = @letter.body
+
+  .row
+    = @letter.author.signature
+    %br
+    = @letter.author.professional_position
