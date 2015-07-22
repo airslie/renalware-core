@@ -16,12 +16,12 @@
 
   %h6
     = "CAPD Regimes (#{@capd_regimes.length})"
-  = render partial: 'patients/capd_regimes_table'
+  = render partial: 'patients/capd_regimes'
 
   %h6
     = "APD Regimes (#{@apd_regimes.length})"
   / = render partial: 'pd_regimes/current_regime' unless @current_regime.nil?
-  = render partial: 'patients/apd_regimes_table'
+  = render partial: 'patients/apd_regimes'
 
   %h6
     = "Peritonitis Episodes (#{@peritonitis_episodes.length})"
