@@ -1,4 +1,4 @@
-class Clinic < ActiveRecord::Base
+class ClinicVisit < ActiveRecord::Base
   belongs_to :patient
   has_many :clinic_letters
 

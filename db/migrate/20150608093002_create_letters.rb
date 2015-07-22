@@ -12,7 +12,7 @@ class CreateLetters < ActiveRecord::Migration
       t.string :additional_recipients
       t.belongs_to :doctor, index: true
       t.belongs_to :patient, index: true
-      t.belongs_to :clinic, index: true
+      t.belongs_to :clinic_visit, index: true
       t.timestamps null: false
     end
 

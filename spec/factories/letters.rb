@@ -30,6 +30,6 @@ FactoryGirl.define do
 
   factory :clinic_letter,  class: ClinicLetter, parent: :letter do
     type 'ClinicLetter'
-    clinic
+    clinic_visit
   end
 end

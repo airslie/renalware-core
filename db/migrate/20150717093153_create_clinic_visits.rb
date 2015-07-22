@@ -1,6 +1,6 @@
-class CreateClinics < ActiveRecord::Migration
+class CreateClinicVisits < ActiveRecord::Migration
   def change
-    create_table :clinics do |t|
+    create_table :clinic_visits do |t|
       t.belongs_to :patient, index: true
       t.datetime :date, null: false
       t.float :height

@@ -22,7 +22,7 @@ class Patient < ActiveRecord::Base
   has_many :modalities
   has_many :pd_regimes
   has_many :letters
-  has_many :clinics
+  has_many :clinic_visits
 
   has_one :current_modality, -> { where deleted_at: nil }, class_name: 'Modality'
   has_one :modality_code, :through => :current_modality

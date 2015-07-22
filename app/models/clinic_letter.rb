@@ -1,4 +1,4 @@
 class ClinicLetter < Letter
-  belongs_to :clinic
-  validates_presence_of :clinic_id
+  belongs_to :clinic_visit
+  validates_presence_of :clinic_visit_id
 end

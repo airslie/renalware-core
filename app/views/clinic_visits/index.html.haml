@@ -15,7 +15,7 @@
           Actions
 
     %tbody
-      = render @clinics
+      = render @clinic_visits
 
 .row
-  = link_to 'New clinic', new_patient_clinic_path(@patient), class: 'button tiny save'
+  = link_to 'New clinic', new_patient_clinic_visit_path(@patient), class: 'button tiny save'

@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :clinic do
+  factory :clinic_visit do
     patient
     date Time.now
     height 1725

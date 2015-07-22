@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Clinic, type: :model do
+describe ClinicVisit, type: :model do
   it { should belong_to :patient }
   it { should validate_presence_of :date }
   it { should validate_presence_of :height }
@@ -10,7 +10,7 @@ describe Clinic, type: :model do
 
 
   describe 'bmi' do
-    subject { create(:clinic, height: 1.7, weight: 82.5) }
+    subject { create(:clinic_visit, height: 1.7, weight: 82.5) }
 
     it 'is calculated from height and weight' do
       expect(subject.bmi).to eq(28.55)

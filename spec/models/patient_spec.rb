@@ -17,6 +17,7 @@ describe Patient, :type => :model do
   it { should have_many :modalities }
   it { should have_many :pd_regimes }
   it { should have_many :letters }
+  it { should have_many :clinic_visits }
 
   it { should have_many(:drugs).through(:medications).source(:medicatable) }
   it { should have_many(:exit_site_infections).through(:medications).source(:treatable) }

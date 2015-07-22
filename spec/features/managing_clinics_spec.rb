@@ -7,7 +7,7 @@ feature 'Managing clinics' do
   end
 
   scenario 'Adding a clinic' do
-    visit new_patient_clinic_path(@patient)
+    visit new_patient_clinic_visit_path(@patient)
 
     fill_in 'Height', with: '1.78'
     fill_in 'Weight', with: '82.5'
@@ -26,11 +26,11 @@ feature 'Managing clinics' do
     end
   end
 
-  scenario 'Editing a clinic' do
-    clinic = create(:clinic)
-    @patient.clinics << clinic
+  scenario 'Editing a clinic visit' do
+    clinic_visit = create(:clinic_visit)
+    @patient.clinic_visits << clinic_visit
 
-    visit edit_patient_clinic_path(patient_id: @patient.to_param, id: clinic.to_param)
+    visit edit_patient_clinic_visit_path(patient_id: @patient.to_param, id: clinic_visit.to_param)
 
     fill_in 'Height', with: '1.62'
     fill_in 'Weight', with: '95'
