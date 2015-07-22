@@ -19,6 +19,8 @@ Rails.application.routes.draw do
       get :death_update
       get :esrf_info
       get :pd_info
+      get :capd_regime
+      get :apd_regime
     end
     collection do
       get :death
@@ -28,8 +30,9 @@ Rails.application.routes.draw do
     resources :peritonitis_episodes, only: [:new, :create, :show, :edit, :update]
     resources :exit_site_infections, only: [:new, :create, :show, :edit, :update]
     resources :pd_regimes, only: [:new, :create, :edit, :update, :show]
-
     resources :clinic_visits
+    resources :capd_regimes, :controller => "pd_regimes", :type => "CapdRegime"
+    resources :apd_regimes, :controller => "pd_regimes", :type => "ApdRegime"
     resources :letters
     resources :simple_letters, controller: 'letters', type: 'SimpleLetter', only: [:new, :edit]
     resources :death_notifications, controller: 'letters', type: 'DeathNotification', only: [:new, :edit]

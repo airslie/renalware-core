@@ -4,14 +4,14 @@
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
 .row
-  %h4
-    Edit a PD Regime
-
-.row
   %ul.no-bullet
     = field_set_tag do
 
-      = nested_form_for [@patient, @pd_regime], :method => :put do |r|
+      = nested_form_for [@patient, @pd_regime], as: :pd_regime, :method => :put do |r|
+        .row
+          .large-12.columns
+            %h4
+              = "Edit this #{capd_apd_title(r.object.type)} Regime"
 
         .row
           = render :partial => 'pd_regimes/form', :locals => { :r => r }
@@ -19,4 +19,4 @@
         .large-12.columns.button-padding
           = link_to "Cancel", pd_info_patient_path(@patient), class: "button tiny left cancel mt"
 
-          = r.submit "Update PD Regime", :class => "button tiny right save mt"
+          = r.submit "Update #{capd_apd_title(r.object.type)} Regime", :class => "button tiny right save mt"

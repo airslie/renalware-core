@@ -1,23 +1,23 @@
-%table.responsive.pd-regimes
+%table.responsive.capd-regimes
   %thead
     %tr
-      %th.column-6-width
+      %th.col-width-date
         Regime Start Date
-      %th.column-6-width
+      %th.col-width-date
         Regime End Date
+      %th.col-width-13
+        Treatment
       %th
-        Low GDP
-      %th
-        Low Na
-      %th
+        Regime Bags
+      %th.column-6-width
         On HD
       %th.column-6-width
         Last Updated
-      %th
+      %th.col-width-9
         Actions
 
   %tbody
-    - @patient.pd_regimes.each do |r|
+    - @capd_regimes.each do |r|
       %tr{ valign: "top" }
 
         %td{ :data => { :heading => "Start Date" }, valign: "top" }
@@ -26,14 +26,14 @@
         %td{ :data => { :heading => "End Date" }, valign: "top" }
           = default_for_blank(r.end_date, "Pending")
 
-        %td{ :data => { :heading => "Low GDP" } }
-          = yes_no(r.low_glucose_degradation)
+        %td{ :data => { :heading => "Treatment" }, valign: "top" }
+          = r.treatment
 
-        %td{ :data => { :heading => "Low Na" } }
-          = yes_no(r.low_sodium)
+        %td{ :data => { :heading => "Regime Bags" }, valign: "top" }
+          = pd_regime_bags(r.pd_regime_bags)
 
         %td{ :data => { :heading => "On HD" } }
-          = yes_no(r.additional_hd)
+          = yes_no(r.add_hd)
 
         %td{ :data => { :heading => "Last Updated" } }
           = r.updated_at

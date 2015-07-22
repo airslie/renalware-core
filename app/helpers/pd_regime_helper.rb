@@ -1,4 +1,21 @@
 module PdRegimeHelper
+
+  def capd_apd_scope(regime)
+    if regime == 'CapdRegime'
+      ["CAPD 3 exchanges per day", "CAPD 4 exchanges per day", "CAPD 5 exchanges per day"]
+    else
+      ["APD Dry Day", "APD Wet Day", "APD Wet day with additional exchange"]
+    end
+  end
+
+  def capd_apd_title(regime)
+    if regime == 'CapdRegime'
+      'CAPD'
+    else
+      'APD'
+    end
+  end
+
   def pd_regime_bags(regime_bags)
     if regime_bags.blank?
       "Unknown"
