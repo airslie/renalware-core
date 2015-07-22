@@ -4,8 +4,8 @@ describe LettersHelper do
   include RSpecHtmlMatchers
 
   describe 'patient_medications' do
-    let(:amoxicillin_200_mg) { double(:amoxicillin_200_mg, date: 10.days.ago, formatted: "Amoxicillin, 200mg, PO, Twice Daily, #{10.days.ago}") }
-    let(:penicillin_150_mg) { double(:penicillin_150_mg, date: 15.days.ago, formatted: "Penicillin, 150mg, PO, Daily, #{15.days.ago}") }
+    let(:amoxicillin_200_mg) { double(:amoxicillin_200_mg, start_date: 10.days.ago, formatted: "Amoxicillin, 200mg, PO, Twice Daily, #{10.days.ago}") }
+    let(:penicillin_150_mg) { double(:penicillin_150_mg, start_date: 15.days.ago, formatted: "Penicillin, 150mg, PO, Daily, #{15.days.ago}") }
     let(:patient) { double(:patient, medications: [amoxicillin_200_mg, penicillin_150_mg]) }
 
     subject { build_stubbed(:letter) }

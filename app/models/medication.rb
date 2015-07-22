@@ -27,7 +27,7 @@ class Medication < ActiveRecord::Base
       ary << dose
       ary << medication_route.name if medication_route.present?
       ary << frequency
-      ary << date
+      ary << start_date
     }.compact.join(', ')
   end
 
