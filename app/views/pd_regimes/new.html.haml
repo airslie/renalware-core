@@ -4,6 +4,10 @@
     = render partial: "patients/mini_renal_profile", locals: { model: @patient }
 
 .row
+  .large-12.columns
+    = render partial: "shared/errors", locals: { model: @pd_regime }
+
+.row
   %ul.no-bullet
     = field_set_tag do
 

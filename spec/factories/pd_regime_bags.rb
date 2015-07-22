@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :pd_regime_bag do
     bag_type
-    volume 1
+    volume 200
     per_week 3
     monday true
     tuesday false
