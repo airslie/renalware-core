@@ -96,10 +96,10 @@ rabbit.current_address = Address.find_or_create_by!(street_1: '123 South Street'
 rabbit.save!
 
 
-log '--------------------Adding Clinics for Roger RABBIT-------------------'
+log '--------------------Adding ClinicVisits for Roger RABBIT-------------------'
 5.times do |n|
-  rabbit.clinics << Clinic.find_or_create_by!(patient: rabbit, height: 1.25,
-    weight: 55 + n, systolic_bp: 110 + n, diastolic_bp: 68 + n) do |clinic|
+  rabbit.clinic_visits << ClinicVisit.find_or_create_by!(
+    patient: rabbit, height: 1.25, weight: 55 + n, systolic_bp: 110 + n, diastolic_bp: 68 + n) do |clinic|
       clinic.date = n.days.ago.change({ hour: (10 + (2 * n)), min: 0 })
     end
 end

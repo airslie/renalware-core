@@ -3,7 +3,7 @@
 = f.hidden_field :patient_id
 
 .row
-  %h5 Patient: #{@clinic.patient.full_name}
+  %h5 Patient: #{@clinic_visit.patient.full_name}
 
 .row
   .columns.large-12.inline
@@ -21,7 +21,7 @@
     kg.
   .columns.large-2.small-2
     = f.label :bp, 'Blood Pressure'
-    = text_field_tag 'clinic[bp]', @clinic.bp, placeholder: 'eg. 110/70'
+    = text_field_tag 'clinic_visit[bp]', @clinic_visit.bp, placeholder: 'eg. 110/70'
 
 .row
   .columns.large-6.inline

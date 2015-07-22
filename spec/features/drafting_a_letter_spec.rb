@@ -7,11 +7,11 @@ feature 'Drafting a letter', js: true do
     @doctor = create(:doctor)
     @practice = create(:practice)
     @doctor.practices << @practice
-    @patient = create(:patient, :with_clinics, doctor: @doctor, practice: @practice)
-    @clinic = @patient.clinics.last
+    @patient = create(:patient, :with_clinic_visits, doctor: @doctor, practice: @practice)
+    @clinic_visit = @patient.clinic_visits.last
 
     login_as_super_admin
-    visit new_clinic_letter_path(clinic_id: @clinic.to_param)
+    visit new_clinic_visit_letter_path(clinic_visit_id: @clinic_visit.to_param)
   end
 
   scenario 'a clinic letter' do

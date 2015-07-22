@@ -34,7 +34,7 @@ module LettersHelper
     patient = letter.patient
     info = "Patient: #{patient.full_name}"
     info << ", Doctor: #{patient.doctor.full_name}" if patient.doctor.present?
-    info << ", Clinic date: #{letter.clinic.date}" if letter.clinic_letter?
+    info << ", Clinic date: #{letter.clinic_visit.date}" if letter.clinic_letter?
     info
   end
 

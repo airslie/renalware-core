@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20150717093153) do
 
   add_index "bag_types", ["deleted_at"], name: "index_bag_types_on_deleted_at", using: :btree
 
-  create_table "clinics", force: :cascade do |t|
+  create_table "clinic_visits", force: :cascade do |t|
     t.integer  "patient_id"
     t.datetime "date",          null: false
     t.float    "height"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20150717093153) do
     t.datetime "updated_at",    null: false
   end
 
-  add_index "clinics", ["patient_id"], name: "index_clinics_on_patient_id", using: :btree
+  add_index "clinic_visits", ["patient_id"], name: "index_clinic_visits_on_patient_id", using: :btree
 
   create_table "doctors", force: :cascade do |t|
     t.string   "first_name"
@@ -196,7 +196,7 @@ ActiveRecord::Schema.define(version: 20150717093153) do
     t.string   "additional_recipients"
     t.integer  "doctor_id"
     t.integer  "patient_id"
-    t.integer  "clinic_id"
+    t.integer  "clinic_visit_id"
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
     t.integer  "author_id"
@@ -205,7 +205,7 @@ ActiveRecord::Schema.define(version: 20150717093153) do
   end
 
   add_index "letters", ["author_id"], name: "index_letters_on_author_id", using: :btree
-  add_index "letters", ["clinic_id"], name: "index_letters_on_clinic_id", using: :btree
+  add_index "letters", ["clinic_visit_id"], name: "index_letters_on_clinic_visit_id", using: :btree
   add_index "letters", ["doctor_id"], name: "index_letters_on_doctor_id", using: :btree
   add_index "letters", ["letter_description_id"], name: "index_letters_on_letter_description_id", using: :btree
   add_index "letters", ["patient_id"], name: "index_letters_on_patient_id", using: :btree

@@ -51,7 +51,7 @@ class LettersController < RenalwareController
 
   def letter_params
     params.require(:letter).permit(:id, :patient_id, :author_id,
-                                   :type, :clinic_id, :recipient,
+                                   :type, :clinic_visit_id, :recipient,
                                    :letter_description_id,
                                    :body, :state)
   end
