@@ -185,31 +185,33 @@ ActiveRecord::Schema.define(version: 20150717093153) do
   end
 
   create_table "letters", force: :cascade do |t|
-    t.string   "state",                 default: "draft",  null: false
-    t.string   "letter_type",           default: "clinic", null: false
-    t.date     "clinic_date"
-    t.integer  "letter_description_id",                    null: false
+    t.string   "state",                 default: "draft",        null: false
+    t.string   "type",                  default: "ClinicLetter", null: false
+    t.integer  "letter_description_id",                          null: false
     t.text     "problems"
     t.text     "medications"
     t.text     "body"
     t.string   "signature"
-    t.string   "recipient",             default: "doctor", null: false
+    t.string   "recipient",             default: "doctor",       null: false
     t.string   "additional_recipients"
     t.integer  "doctor_id"
     t.integer  "patient_id"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.integer  "clinic_id"
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
     t.integer  "author_id"
     t.integer  "reviewer_id"
     t.integer  "recipient_address_id"
   end
 
   add_index "letters", ["author_id"], name: "index_letters_on_author_id", using: :btree
+  add_index "letters", ["clinic_id"], name: "index_letters_on_clinic_id", using: :btree
   add_index "letters", ["doctor_id"], name: "index_letters_on_doctor_id", using: :btree
   add_index "letters", ["letter_description_id"], name: "index_letters_on_letter_description_id", using: :btree
   add_index "letters", ["patient_id"], name: "index_letters_on_patient_id", using: :btree
   add_index "letters", ["recipient_address_id"], name: "index_letters_on_recipient_address_id", using: :btree
   add_index "letters", ["reviewer_id"], name: "index_letters_on_reviewer_id", using: :btree
+  add_index "letters", ["type"], name: "index_letters_on_type", using: :btree
 
   create_table "medication_routes", force: :cascade do |t|
     t.string   "name"

@@ -3,12 +3,13 @@ require 'rails_helper'
 feature 'Reviewing a letter' do
   background do
     create(:letter_description, text: 'Biopsy Letter')
-    @letter = create(:letter, :review)
+    @letter = create(:clinic_letter, :review)
     @patient = @letter.patient
+    @clinic = create(:clinic, patient: @patient)
 
     login_as_clinician
 
-    visit edit_patient_letter_path(patient_id: @patient.to_param, id: @letter.to_param)
+    visit edit_clinic_letter_path(clinic_id: @clinic.to_param, id: @letter.to_param)
   end
 
   scenario 'a clinician amends a letter in review' do

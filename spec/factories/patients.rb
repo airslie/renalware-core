@@ -32,5 +32,10 @@ FactoryGirl.define do
         3.times { patient.medications << create(:medication) }
       end
     end
+    trait :with_clinics do
+      after(:create) do |patient|
+        3.times { |n| patient.clinics << create(:clinic, date: n.days.ago) }
+      end
+    end
   end
 end

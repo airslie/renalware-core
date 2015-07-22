@@ -7,7 +7,7 @@ describe LettersController, type: :controller do
 
   describe 'GET new' do
     before do
-      get :new, { patient_id: @patient.to_param }
+      get :new, { patient_id: @patient.to_param, type: 'ClinicLetter' }
     end
 
     it 'responds with success' do

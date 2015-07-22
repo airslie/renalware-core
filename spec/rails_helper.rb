@@ -47,4 +47,8 @@ RSpec.configure do |config|
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
+
+  config.include CapybaraHelper, type: :feature
+  config.include Select2SpecHelper, type: :feature
+  config.include SelectDateSpecHelper, type: :feature
 end
