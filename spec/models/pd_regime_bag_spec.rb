@@ -48,6 +48,8 @@ RSpec.describe PdRegimeBag, :type => :model do
         select 'May', from: 'pd_regime_start_date_2i'
         select '25', from: 'pd_regime_start_date_3i'
 
+        select 'CAPD 3 exchanges per day', from: 'Treatment'
+
         find("input.add-bag").click
 
         select 'Star Brand, Lucky Brand Green–2.34', from: 'Bag Type'
