@@ -27,12 +27,12 @@ FactoryGirl.define do
     amino_acid_ml 43
     icodextrin_ml 53
     add_hd true
-    last_fill_ml 63
+    last_fill_ml 630
     add_manual_exchange true
     tidal_indicator true
     tidal_percentage 30
     no_cycles_per_apd 2
-    overnight_pd_ml 25
+    overnight_pd_ml 5100
   end
 
 end
