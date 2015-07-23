@@ -16,23 +16,36 @@ RSpec.describe PdRegimesController, :type => :controller do
 
   describe 'POST #create' do
     context "with valid attributes" do
-      it 'creates a new PD Regime' do
-        expect { post :create, patient_id: @patient.id, pd_regime: { start_date: '01/02/2015' } }.to change(PdRegime, :count).by(1)
+      it 'creates a new CAPD Regime' do
+        expect {
+          post :create,
+          patient_id: @patient.id,
+          pd_regime: { type: 'CapdRegime', start_date: '01/02/2015', treatment: 'CAPD 3 exchanges per day' }
+        }.to change(PdRegime, :count).by(1)
+
         expect(response).to redirect_to(pd_info_patient_path(@patient))
       end
     end
 
     context "with invalid attributes" do
-      it 'creates a new PD Regime' do
-        expect { post :create, patient_id: @patient.id, pd_regime: { start_date: nil } }.to change(PdRegime, :count).by(0)
+      it 'creates a new CAPD Regime' do
+        expect {
+          post :create,
+          patient_id: @patient.id,
+          pd_regime: { type: 'CapdRegime', start_date: nil, treatment: nil }
+        }.to change(PdRegime, :count).by(0)
+
         expect(response).to render_template(:new)
       end
     end
 
     context 'add bag' do
-      it 'adds a bag to the unsaved PdRegime' do
+      it 'adds a bag to the unsaved CAPD Regime' do
         expect {
-          post :create, patient_id: @patient.id, actions: {add_bag: 'Add Bag'}, pd_regime: {start_date: Date.today}
+          post :create,
+          patient_id: @patient.id,
+          actions: { add_bag: 'Add Bag' },
+          pd_regime: { type: 'CapdRegime', start_date: Date.today, treatment: 'CAPD 3 exchanges per day' }
         }.to change(PdRegime, :count).by(0)
 
         expect(assigns(:pd_regime).pd_regime_bags.size).to eq(1)
@@ -40,9 +53,11 @@ RSpec.describe PdRegimesController, :type => :controller do
     end
 
     context 'remove bag' do
-      it 'removes a bag from the unsaved PdRegime' do
-        post :create, patient_id: @patient.id, actions: {remove: {'0' => 'Remove'}}, pd_regime: {
-          start_date: Date.today, pd_regime_bags_attributes: [{bag_type_id:'100',volume:'2',per_week:'1',monday:true}]}
+      it 'removes a bag from the unsaved CAPD Regime' do
+        post :create,
+        patient_id: @patient.id,
+        actions: { remove: { '0' => 'Remove' } },
+        pd_regime: { type: 'CapdRegime', start_date: Date.today, treatment: 'CAPD 4 exchanges per day', pd_regime_bags_attributes: [{ bag_type_id:'100',volume:'2',per_week:'1',monday:true }] }
         expect(assigns(:pd_regime).pd_regime_bags.size).to eq(0)
       end
     end
@@ -50,24 +65,33 @@ RSpec.describe PdRegimesController, :type => :controller do
 
   describe 'PUT #update' do
     context "with valid attributes" do
-      it 'updates a PD Regime' do
-        put :update, id: @capd_regime.id, patient_id: @patient.id, pd_regime: { start_date: '15/02/2015' }
+      it 'updates a CAPD Regime' do
+        put :update,
+        id: @capd_regime.id,
+        patient_id: @patient.id,
+        pd_regime: { type: 'CapdRegime', start_date: '15/02/2015', treatment: ' CAPD 5 exchanges per day' }
         expect(response).to redirect_to(pd_info_patient_path(@patient))
       end
     end
 
     context "with invalid attributes" do
-      it 'update a PD Regime' do
-        put :update, id: @capd_regime.id, patient_id: @patient.id, pd_regime: { start_date: nil }
+      it 'update a CAPD Regime' do
+        put :update,
+        id: @capd_regime.id,
+        patient_id: @patient.id,
+        pd_regime: { type: 'CapdRegime', start_date: nil, treatment: nil }
         expect(response).to render_template(:edit)
       end
     end
 
     context 'add bag' do
-      it 'adds a bag to the saved PdRegime' do
+      it 'adds a bag to the saved CAPD Regime' do
         expect {
-          put :update, id: @capd_regime.id, patient_id: @patient.id,
-            actions: {add_bag: 'Add Bag'}, pd_regime: {start_date: Date.today}
+          put :update,
+          id: @capd_regime.id,
+          patient_id: @patient.id,
+          actions: { add_bag: 'Add Bag' },
+          pd_regime: { type: 'CapdRegime', start_date: Date.today, treatment: 'CAPD 3 exchanges per day' }
         }.to change(PdRegime, :count).by(0)
 
         expect(assigns(:pd_regime).pd_regime_bags.size).to eq(1)
@@ -75,10 +99,13 @@ RSpec.describe PdRegimesController, :type => :controller do
     end
 
     context 'remove bag' do
-      it 'removes a bag from the unsaved PdRegime' do
+      it 'removes a bag from the unsaved CAPD Regime' do
         @capd_regime.pd_regime_bags << create(:pd_regime_bag)
-        put :update, id: @capd_regime.id, patient_id: @patient.id,
-          actions: {remove: {'0' => 'Remove'}}, pd_regime: {start_date: Date.today}
+        put :update,
+        id: @capd_regime.id,
+        patient_id: @patient.id,
+        actions: { remove: { '0' => 'Remove' } },
+        pd_regime: { type: 'CapdRegime', start_date: Date.today, treatment: 'CAPD 3 exchanges per day' }
         expect(assigns(:pd_regime).pd_regime_bags.size).to eq(0)
       end
     end
