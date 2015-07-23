@@ -43,6 +43,7 @@ describe Patient, :type => :model do
 
   subject { create(:patient) }
 
+  #Validation for date of death and cause of death
   describe "current modality death" do
     context "if current modality is death" do
       before { allow(subject).to receive(:current_modality_death?).and_return(true) }
