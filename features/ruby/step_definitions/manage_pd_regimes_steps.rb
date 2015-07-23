@@ -74,12 +74,12 @@ Given(/^a patient has existing APD Regimes$/) do
     amino_acid_ml: 46,
     icodextrin_ml: 56,
     add_hd: false,
-    last_fill_ml: 63,
+    last_fill_ml: 630,
     add_manual_exchange: false,
     tidal_indicator: true,
     tidal_percentage: 10,
     no_cycles_per_apd: 3,
-    overnight_pd_ml: 76
+    overnight_pd_ml: 7600
     )
 
   @apd_regime_2 = FactoryGirl.create(:apd_regime,
@@ -93,12 +93,12 @@ Given(/^a patient has existing APD Regimes$/) do
     amino_acid_ml: 47,
     icodextrin_ml: 57,
     add_hd: true,
-    last_fill_ml: 35,
+    last_fill_ml: 535,
     add_manual_exchange: true,
     tidal_indicator: false,
     tidal_percentage: nil,
     no_cycles_per_apd: 4,
-    overnight_pd_ml: 72
+    overnight_pd_ml: 7800
     )
 
   @apd_regime_bag_1 = FactoryGirl.create(:pd_regime_bag,
@@ -176,7 +176,7 @@ When(/^I complete the form for a apd regime$/) do
   uncheck 'Friday'
 
   #APD specific fields
-  fill_in 'Last Fill (ml)', with: 20
+  fill_in 'Last Fill (ml)', with: 520
 
   check 'Additional manual exchange'
 
@@ -185,7 +185,7 @@ When(/^I complete the form for a apd regime$/) do
 
   fill_in 'Number of cycles per APD session', with: 3
 
-  fill_in 'Overnight PD volume on APD', with: 30
+  fill_in 'Overnight PD volume on APD', with: 3100
 
   click_on "Save APD Regime"
 end
@@ -260,6 +260,23 @@ Then(/^I should see the new apd regime on the PD info page\.$/) do
   within('table.apd-regimes tbody tr:first-child td:nth-child(5)') do
     expect(page).to have_content("No")
   end
+  within('table.apd-regimes tbody tr:first-child td:nth-child(6)') do
+    expect(page).to have_content("520")
+  end
+  within('table.apd-regimes tbody tr:first-child td:nth-child(7)') do
+    expect(page).to have_content("Yes")
+  end
+  within('table.apd-regimes tbody tr:first-child td:nth-child(8)') do
+    expect(page).to have_content("Yes")
+    expect(page).to have_content("15")
+  end
+
+  within('table.apd-regimes tbody tr:first-child td:nth-child(9)') do
+    expect(page).to have_content("3")
+  end
+  within('table.apd-regimes tbody tr:first-child td:nth-child(10)') do
+    expect(page).to have_content("3100")
+  end
 end
 
 Then(/^the new capd regime should be current$/) do
@@ -283,6 +300,13 @@ Then(/^the new apd regime should be current$/) do
 
     #pd regime bags
     expect(page).to have_content("Bag type: Green–5.35, Volume: 400ml, No. per week: 3, Days: Sun, Mon, Thu")
+
+    expect(page).to have_content("Last Fill: 520")
+    expect(page).to have_content("Additional manual exchange: Yes")
+    expect(page).to have_content("Tidal?: Yes")
+    expect(page).to have_content("Tidal percentage: 15")
+    expect(page).to have_content("Number of cycles per APD session: 3")
+    expect(page).to have_content("Overnight PD volume on APD: 3100")
   end
 end
 
@@ -326,11 +350,11 @@ Then(/^I should see the chosen apd regime details$/) do
   expect(page).to have_content("End Date: 28/05/2015")
   expect(page).to have_content("Treatment: APD Wet Day")
   expect(page).to have_content("On additional HD: Yes")
-  expect(page).to have_content("Last fill (ml): 35")
+  expect(page).to have_content("Last fill (ml): 535")
   expect(page).to have_content("Additional manual exchange: Yes")
   expect(page).to have_content("Has tidal?: No")
   expect(page).to have_content("Number of cycles per APD session: 4")
-  expect(page).to have_content("Overnight PD volume on APD (ml): 72")
+  expect(page).to have_content("Overnight PD volume on APD (ml): 7800")
   #bag 1
   expect(page).to have_content("Bag type: Green–5.35, Volume: 450ml, No. per week: 3, Days: Tue, Thu, Sat")
 end
