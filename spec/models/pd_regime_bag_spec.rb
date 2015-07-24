@@ -6,7 +6,10 @@ RSpec.describe PdRegimeBag, :type => :model do
   it { should belong_to :bag_type }
   it { should belong_to :pd_regime }
 
-  it { should validate_numericality_of(:volume).is_greater_than_or_equal_to(100).is_less_than_or_equal_to(10000) }
+  it { should validate_presence_of :bag_type_id }
+  it { should validate_presence_of :volume }
+
+  it { should validate_numericality_of(:volume).is_greater_than_or_equal_to(100).is_less_than_or_equal_to(10000).allow_nil }
 
   before do
     @patient = create(:patient)
