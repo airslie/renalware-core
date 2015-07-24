@@ -5,7 +5,12 @@ class PdRegimeBag < ActiveRecord::Base
   belongs_to :bag_type
   belongs_to :pd_regime
 
-  validates :volume, numericality: { greater_than_or_equal_to: 100, less_than_or_equal_to: 10000 }
+  validates :bag_type_id, presence: true
+  validates :volume, presence: true
+
+  validates :volume, numericality: { allow_nil: true, greater_than_or_equal_to: 100, less_than_or_equal_to: 10000 }
+
+  validate :must_select_one_day
 
   def initialize(attributes = nil, options = {})
     super
@@ -27,6 +32,11 @@ class PdRegimeBag < ActiveRecord::Base
 
   def days_to_sym
     Date::DAYNAMES.map { |n| n.underscore.to_sym }
+  end
+
+  private
+  def must_select_one_day
+    errors.add(:days, 'must be assigned at least one day of the week') if self.days.count(false) == 7
   end
 
 end
