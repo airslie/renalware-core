@@ -18,7 +18,7 @@
     %label
       Days to be administered:
 
-    .large-12.columns{ class: highlight_days_invalid(rb.object, :days) }
+    .large-12.columns{ class: highlight_days_invalid(rb.object) }
       = rb.check_box :sunday, class: 'inline'
       = rb.label :sunday
       = rb.check_box :monday, class: 'inline'

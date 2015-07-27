@@ -4,3 +4,11 @@ form .row .columns .validate-days-of-week {
   padding-left: 0.5rem;
 }
 
+form .row .columns .validate-add-min-bag {
+  border: 2px red solid;
+  width: 7rem;
+  height: 3.5rem;
+  padding-top: 0.5rem;
+  padding-right: 0.5rem;
+  z-index: 1;
+}

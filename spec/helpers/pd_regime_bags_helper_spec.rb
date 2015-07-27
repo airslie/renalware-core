@@ -17,7 +17,7 @@ RSpec.describe PdRegimeBagsHelper, :type => :helper do
                             )
 
     @valid_pd_regime_bag = build(:pd_regime_bag,
-                            bag_type_id: @pd_bag_type,
+                            bag_type_id: @bag_type,
                             volume: 600,
                             sunday: true,
                             monday: true,
