@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe PdRegimeBagsHelper, :type => :helper do
 
   before do
-    @pd_bag_type = create(:bag_type)
+    @bag_type = create(:bag_type)
     @invalid_pd_regime_bag = build(:pd_regime_bag,
                               bag_type_id: nil,
                               volume: nil,
@@ -35,14 +35,14 @@ RSpec.describe PdRegimeBagsHelper, :type => :helper do
     context 'invalid' do
       it 'should apply class "show-form"' do
         @invalid_pd_regime_bag.save
-        expect(highlight_days_invalid(@invalid_pd_regime_bag, :days)).to eq('validate-days-of-week')
+        expect(highlight_days_invalid(@invalid_pd_regime_bag)).to eq('validate-days-of-week')
       end
     end
 
     context 'valid' do
       it 'should not apply class "show-form"' do
         @valid_pd_regime_bag.save
-        expect(highlight_days_invalid(@invalid_pd_regime_bag, :days)).to eq(nil)
+        expect(highlight_days_invalid(@invalid_pd_regime_bag)).to eq(nil)
       end
     end
   end
