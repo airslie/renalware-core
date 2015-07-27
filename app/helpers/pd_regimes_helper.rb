@@ -1,12 +1,4 @@
-module PdRegimeHelper
-
-  def highlight_days_invalid(pd_regime_bag, days)
-    if pd_regime_bag.errors.include?(:days)
-      "days-of-week"
-    else
-      nil
-    end
-  end
+module PdRegimesHelper
 
   def capd_apd_scope(regime)
     if regime == 'CapdRegime'
