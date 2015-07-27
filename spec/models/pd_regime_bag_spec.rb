@@ -13,17 +13,16 @@ RSpec.describe PdRegimeBag, :type => :model do
 
   before do
     @patient = create(:patient)
-    @capd_regime = create(:capd_regime, patient_id: @patient)
     @pd_regime_bag_1 = PdRegimeBag.new
     @pd_regime_bag_2 = build(:pd_regime_bag,
-        sunday: true,
-        monday: false,
-        tuesday: true,
-        wednesday: false,
-        thursday: false,
-        friday: true,
-        saturday: false
-        )
+                        sunday: true,
+                        monday: false,
+                        tuesday: true,
+                        wednesday: false,
+                        thursday: false,
+                        friday: true,
+                        saturday: false
+                      )
   end
 
   describe 'initialize', :type => :feature do
