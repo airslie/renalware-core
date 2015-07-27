@@ -7,6 +7,7 @@ Given(/^I choose to record a new apd regime$/) do
 end
 
 Given(/^a patient has existing CAPD Regimes$/) do
+  @bag_type = FactoryGirl.create(:bag_type)
   @capd_regime_1 = FactoryGirl.create(:capd_regime,
     patient: @patient_1,
     start_date: "05/03/2015",
@@ -17,8 +18,20 @@ Given(/^a patient has existing CAPD Regimes$/) do
     glucose_ml_percent_3_86: 31,
     amino_acid_ml: 41,
     icodextrin_ml: 51,
-    add_hd: false
-    )
+    add_hd: false,
+    pd_regime_bags_attributes: [
+      bag_type: @bag_type_1,
+      volume: 600,
+      sunday: true,
+      monday: true,
+      tuesday: true,
+      wednesday: true,
+      thursday: true,
+      friday: true,
+      saturday: true
+    ]
+  )
+
   @capd_regime_2 = FactoryGirl.create(:capd_regime,
     patient: @patient_1,
     start_date: "02/04/2015",
@@ -29,8 +42,19 @@ Given(/^a patient has existing CAPD Regimes$/) do
     glucose_ml_percent_3_86: 32,
     amino_acid_ml: 42,
     icodextrin_ml: 52,
-    add_hd: false
-    )
+    add_hd: false,
+    pd_regime_bags_attributes: [
+      bag_type: @bag_type_1,
+      volume: 600,
+      sunday: true,
+      monday: true,
+      tuesday: true,
+      wednesday: true,
+      thursday: true,
+      friday: true,
+      saturday: true
+    ]
+  )
 
   @capd_regime_bag_1 = FactoryGirl.create(:pd_regime_bag,
     bag_type: @bag_type_1,
@@ -79,9 +103,19 @@ Given(/^a patient has existing APD Regimes$/) do
     tidal_indicator: true,
     tidal_percentage: 10,
     no_cycles_per_apd: 3,
-    overnight_pd_ml: 7600
-    )
-
+    overnight_pd_ml: 7600,
+    pd_regime_bags_attributes: [
+      bag_type: @bag_type_2,
+      volume: 600,
+      sunday: true,
+      monday: true,
+      tuesday: true,
+      wednesday: true,
+      thursday: true,
+      friday: true,
+      saturday: true
+    ]
+  )
   @apd_regime_2 = FactoryGirl.create(:apd_regime,
     patient: @patient_1,
     start_date: "20/03/2015",
@@ -98,8 +132,19 @@ Given(/^a patient has existing APD Regimes$/) do
     tidal_indicator: false,
     tidal_percentage: nil,
     no_cycles_per_apd: 4,
-    overnight_pd_ml: 7800
-    )
+    overnight_pd_ml: 7800,
+    pd_regime_bags_attributes: [
+      bag_type: @bag_type_1,
+      volume: 600,
+      sunday: true,
+      monday: true,
+      tuesday: true,
+      wednesday: true,
+      thursday: true,
+      friday: true,
+      saturday: true
+    ]
+  )
 
   @apd_regime_bag_1 = FactoryGirl.create(:pd_regime_bag,
     bag_type: @bag_type_4,
