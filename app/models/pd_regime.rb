@@ -10,6 +10,8 @@ class PdRegime < ActiveRecord::Base
   validates :start_date, presence: true
   validates :treatment, presence: true
 
+  validate :min_one_pd_regime_bag
+
   with_options if: :type_apd? do |apd|
     apd.validates :last_fill_ml, allow_nil: true, numericality: { greater_than_or_equal_to: 500, less_than_or_equal_to: 5000 }
     apd.validates :tidal_percentage, allow_nil: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
@@ -21,6 +23,11 @@ class PdRegime < ActiveRecord::Base
     if self.type.present?
       self.type == 'ApdRegime'
     end
+  end
+
+  private
+  def min_one_pd_regime_bag
+    errors.add(:pd_regime_bags, "must be assigned at least one bag") if pd_regime_bags.size < 1
   end
 
 end

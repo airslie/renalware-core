@@ -11,10 +11,54 @@ RSpec.describe PdRegime, type: :model do
   it { should validate_presence_of :start_date }
   it { should validate_presence_of :treatment }
 
+  describe 'creating a regime without a bag', :type => :feature do
+    context 'CAPD' do
+      it 'should fail validation and display appropriate error message' do
+        @patient = create(:patient)
+        login_as_clinician
+        visit pd_info_patient_path(@patient)
+
+        click_link 'Add CAPD Regime'
+
+        select 'CAPD 3 exchanges per day'
+
+        click_on 'Save CAPD Regime'
+
+        expect(page).to have_content('PD regime must be assigned at least one bag')
+      end
+    end
+  end
+
   describe "type_apd?" do
     before do
-      @capd_regime = create(:capd_regime)
-      @apd_regime = create(:apd_regime)
+      @bag_type = create(:bag_type)
+
+      @capd_regime = create(:capd_regime,
+                      pd_regime_bags_attributes: [
+                        bag_type_id: @bag_type.id,
+                        volume: 600,
+                        sunday: true,
+                        monday: true,
+                        tuesday: true,
+                        wednesday: true,
+                        thursday: true,
+                        friday: true,
+                        saturday: true
+                      ]
+                    )
+      @apd_regime = create(:apd_regime,
+                      pd_regime_bags_attributes: [
+                        bag_type_id: @bag_type.id,
+                        volume: 600,
+                        sunday: true,
+                        monday: true,
+                        tuesday: true,
+                        wednesday: true,
+                        thursday: true,
+                        friday: true,
+                        saturday: true
+                      ]
+                    )
     end
 
     context "if PD type is ApdRegime" do
@@ -56,8 +100,8 @@ RSpec.describe PdRegime, type: :model do
         click_on 'Save CAPD Regime'
 
         expect(page).to have_content("PD bag type can't be blank")
-        expect(page).to have_content("PD regime volume (ml) can't be blank")
-        expect(page).to have_content("PD regime bag must be assigned at least one day of the week")
+        expect(page).to have_content("PD bag volume (ml) can't be blank")
+        expect(page).to have_content("PD bag must be assigned at least one day of the week")
         expect(page).to have_content("PD regime treatment can't be blank")
       end
     end
@@ -83,8 +127,8 @@ RSpec.describe PdRegime, type: :model do
         click_on 'Save APD Regime'
 
         expect(page).to have_content("PD bag type can't be blank")
-        expect(page).to have_content("PD regime volume (ml) can't be blank")
-        expect(page).to have_content("PD regime bag must be assigned at least one day of the week")
+        expect(page).to have_content("PD bag volume (ml) can't be blank")
+        expect(page).to have_content("PD bag must be assigned at least one day of the week")
         expect(page).to have_content("PD regime treatment can't be blank")
       end
     end
