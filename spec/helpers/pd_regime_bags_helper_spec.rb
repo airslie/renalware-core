@@ -35,7 +35,7 @@ RSpec.describe PdRegimeBagsHelper, :type => :helper do
     context 'invalid' do
       it 'should apply class "show-form"' do
         @invalid_pd_regime_bag.save
-        expect(highlight_days_invalid(@invalid_pd_regime_bag, :days)).to eq('days-of-week')
+        expect(highlight_days_invalid(@invalid_pd_regime_bag, :days)).to eq('validate-days-of-week')
       end
     end
 
