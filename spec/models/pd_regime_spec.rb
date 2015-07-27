@@ -61,6 +61,33 @@ RSpec.describe PdRegime, type: :model do
         expect(page).to have_content("PD regime treatment can't be blank")
       end
     end
+
+    context 'APD' do
+      it 'should display custom error messages when a APD regime fails validation' do
+        @patient = create(:patient)
+        login_as_clinician
+        visit pd_info_patient_path(@patient)
+
+        click_link 'Add APD Regime'
+
+        find('input.add-bag').click
+
+        uncheck 'Sunday'
+        uncheck 'Monday'
+        uncheck 'Tuesday'
+        uncheck 'Wednesday'
+        uncheck 'Thursday'
+        uncheck 'Friday'
+        uncheck 'Saturday'
+
+        click_on 'Save APD Regime'
+
+        expect(page).to have_content("PD bag type can't be blank")
+        expect(page).to have_content("PD regime volume (ml) can't be blank")
+        expect(page).to have_content("PD regime bag must be assigned at least one day of the week")
+        expect(page).to have_content("PD regime treatment can't be blank")
+      end
+    end
   end
 
 end
