@@ -1,12 +1,14 @@
 .row
-  %h4
-    Create a new CAPD Bag Type
+  .large-12.columns
+    = render partial: "shared/errors", locals: { model: @bag_type }
 
 .row
-  = render partial: "shared/errors", locals: { model: @bag_type }
+  = field_set_tag do
+    .row
+      .large-12.columns
+        %h4
+          Create a new PD Bag Type
 
-.row
-  .large-6.columns
     = form_for @bag_type, :method => :post do |bt|
 
       = render partial: "bag_types/form", locals: { bt: bt }
