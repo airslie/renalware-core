@@ -6,8 +6,7 @@
   = field_set_tag do
     .row
       .large-12.columns
-        %h4
-          Create a new PD Bag Type
+        %h4 Create a new PD Bag Type
 
     = form_for @bag_type, :method => :post do |bt|
 
@@ -15,6 +14,5 @@
 
       %ul.no-bullet.button-padding
         %li= submit_tag "Save", class: "button tiny right save"
-
         %li= link_to "Cancel", patients_path, :class => "button tiny cancel"
 

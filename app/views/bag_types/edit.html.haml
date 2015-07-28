@@ -1,15 +1,17 @@
 .row
-  %h5 Edit a Bag Type
-
-= render partial: "shared/errors", locals: { model: @bag_type }
+  .large-12.columns
+    = render partial: "shared/errors", locals: { model: @bag_type }
 
 .row
-  .large-6.columns
+  = field_set_tag do
+    .row
+      .large-12.columns
+        %h4 Edit this PD Bag Type
+
     = form_for @bag_type, :as => :bag_type, :method => :put, :url => bag_type_path(@bag_type) do |bt|
-      %ul.no-bullet
 
         = render partial: "bag_types/form", locals: { bt: bt }
 
-      .row.button-padding
-        = submit_tag "Update Bag Type", class: "button tiny right"
-        = link_to "Cancel", bag_types_path, class: "button tiny left cancel"
+      %ul.no-bullet.button-padding
+        %li= submit_tag "Update Bag Type", class: "button tiny right"
+        %li= link_to "Cancel", bag_types_path, class: "button tiny left cancel"
