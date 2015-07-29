@@ -1,4 +1,4 @@
-module PdRegimeHelper
+module PdRegimesHelper
 
   def capd_apd_scope(regime)
     if regime == 'CapdRegime'

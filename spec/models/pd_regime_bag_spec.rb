@@ -6,21 +6,23 @@ RSpec.describe PdRegimeBag, :type => :model do
   it { should belong_to :bag_type }
   it { should belong_to :pd_regime }
 
-  it { should validate_numericality_of(:volume).is_greater_than_or_equal_to(100).is_less_than_or_equal_to(10000) }
+  it { should validate_presence_of :bag_type_id }
+  it { should validate_presence_of :volume }
+
+  it { should validate_numericality_of(:volume).is_greater_than_or_equal_to(100).is_less_than_or_equal_to(10000).allow_nil }
 
   before do
     @patient = create(:patient)
-    @capd_regime = create(:capd_regime, patient_id: @patient)
     @pd_regime_bag_1 = PdRegimeBag.new
     @pd_regime_bag_2 = build(:pd_regime_bag,
-        sunday: true,
-        monday: false,
-        tuesday: true,
-        wednesday: false,
-        thursday: false,
-        friday: true,
-        saturday: false
-        )
+                        sunday: true,
+                        monday: false,
+                        tuesday: true,
+                        wednesday: false,
+                        thursday: false,
+                        friday: true,
+                        saturday: false
+                      )
   end
 
   describe 'initialize', :type => :feature do
@@ -47,6 +49,8 @@ RSpec.describe PdRegimeBag, :type => :model do
         select '2015', from: 'pd_regime_start_date_1i'
         select 'May', from: 'pd_regime_start_date_2i'
         select '25', from: 'pd_regime_start_date_3i'
+
+        select 'CAPD 3 exchanges per day', from: 'Treatment'
 
         find("input.add-bag").click
 

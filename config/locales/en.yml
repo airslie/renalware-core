@@ -45,6 +45,14 @@ en:
         frequency: "Medication's frequency & duration"
         start_date: "Medication's prescribed date"
         provider: Medication's provider
+      pd_regime:
+        treatment: PD regime treatment
+        pd_regime_bags: PD regime
+      pd_regime/pd_regime_bags:
+        bag_type_id: PD bag type
+        volume: "PD bag volume (ml)"
+        days: PD bag
+
 
 
 
