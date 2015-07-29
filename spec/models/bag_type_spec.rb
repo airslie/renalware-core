@@ -7,7 +7,7 @@ RSpec.describe BagType, :type => :model do
   it { should validate_presence_of :description }
   it { should validate_presence_of :glucose_grams_per_litre }
 
-  it { should validate_numericality_of(:glucose_grams_per_litre).is_greater_than_or_equal_to(10).is_less_than_or_equal_to(50).allow_nil  }
+  it { should validate_numericality_of(:glucose_grams_per_litre).is_greater_than_or_equal_to(0).is_less_than_or_equal_to(50).allow_nil  }
 
   describe 'full_description' do
     it 'concatenates manufacturer and description values' do
