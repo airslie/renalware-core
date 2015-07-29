@@ -122,7 +122,7 @@ When(/^I complete the form for editing a bag type$/) do
 end
 
 Then(/^I should see the updated bag type on the bag types list$/) do
-    within('table.bag-types-list tbody tr:first-child td:nth-child(6)') do
+  within('table.bag-types-list tbody tr:first-child td:nth-child(6)') do
     have_css("td", text: "No", count: 1)
   end
 end
