@@ -19,7 +19,7 @@ When(/^I complete the form for a bag type$/) do
   fill_in 'Calcium content', with: 2.56
   fill_in 'Magnesium content', with: 3.47
 
-  click_on "Save"
+  click_on "Save New Bag Type"
 end
 
 Then(/^I should see the new bag type on the bag type list$/) do
@@ -118,7 +118,7 @@ end
 When(/^I complete the form for editing a bag type$/) do
   uncheck "Low glucose degradation product (GDP)"
 
-  click_on "Update Bag Type"
+  click_on "Update This Bag Type"
 end
 
 Then(/^I should see the updated bag type on the bag types list$/) do
