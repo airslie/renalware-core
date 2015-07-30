@@ -14,10 +14,10 @@ When(/^I complete the form for a bag type$/) do
   check "Low glucose degradation product (GDP)"
   uncheck "Low sodium solution"
 
-  fill_in 'Sodium content', with: 8
-  fill_in 'Lactate content', with: 7
-  fill_in 'Calcium content', with: 2.56
-  fill_in 'Magnesium content', with: 3.47
+  fill_in 'Sodium content (mmole/l)', with: 8
+  fill_in 'Lactate content (mmole/l)', with: 7
+  fill_in 'Calcium content (mmole/l)', with: 2.56
+  fill_in 'Magnesium content (mmole/l)', with: 3.47
 
   click_on "Save New Bag Type"
 end
