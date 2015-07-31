@@ -3,7 +3,8 @@ Given(/^that I'm on the add a new bag type page$/) do
 end
 
 When(/^I complete the form for a bag type$/) do
-  fill_in "Manufacturer", with: "Brand One"
+  select 'Baxter', from: 'Manufacturer'
+
   fill_in "Description", with: "Yellow–2.34"
 
   fill_in "Glucose content (g/l)", with: 31.7
@@ -24,7 +25,7 @@ When(/^I complete the form for a bag type$/) do
 end
 
 Then(/^I should see the new bag type on the bag type list$/) do
-  expect(page).to have_content("Brand One")
+  expect(page).to have_content("Baxter")
   expect(page).to have_content("Yellow–2.34")
   expect(page).to have_content("31.7")
 
