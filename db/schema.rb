@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20150717093153) do
     t.boolean  "icodextrin"
     t.boolean  "low_glucose_degradation"
     t.boolean  "low_sodium"
-    t.integer  "sodium_mmole_1"
+    t.integer  "sodium_mmole_l"
     t.integer  "lactate_mmole_l"
     t.integer  "bicarbonate_mmole_l"
     t.decimal  "calcium_mmole_l",         precision: 3, scale: 2
