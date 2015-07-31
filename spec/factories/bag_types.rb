@@ -7,9 +7,10 @@ FactoryGirl.define do
     icodextrin false
     low_glucose_degradation true
     low_sodium false
-    sodium_content 20
-    lactate_content 25
-    calcium_content 1.56
-    magnesium_content 2.67
+    sodium_mmole_l 20
+    lactate_mmole_l 25
+    bicarbonate_mmole_l 47
+    calcium_mmole_l 1.56
+    magnesium_mmole_l 2.67
   end
 end
