@@ -29,6 +29,8 @@
           %th
             Lactate content (mmole/l)
           %th
+            Bicarbonate content (mmole/l)
+          %th
             Calcium content (mmole/l)
           %th
             Magnesium content (mmole/l)
@@ -53,13 +55,15 @@
             %td{ :data => { :heading => "Low Na" } }
               = yes_no(bt.low_sodium)
             %td{ :data => { :heading => "Sodium (mmole/l)" } }
-              = bt.sodium_content
+              = bt.sodium_mmole_l
             %td{ :data => { :heading => "Lactate (mmole/l)" } }
-              = bt.lactate_content
+              = bt.lactate_mmole_l
+            %td{ :data => { :heading => "Bicarbonate (mmole/l)" } }
+              = bt.bicarbonate_mmole_l
             %td{ :data => { :heading => "Calcium (mmole/l)" } }
-              = bt.calcium_content
+              = bt.calcium_mmole_l
             %td{ :data => { :heading => "Magnesium (mmole/l)" } }
-              = bt.magnesium_content
+              = bt.magnesium_mmole_l
             %td{ :data => { :heading => "Actions" } }
               = link_to "Edit", edit_bag_type_path(bt.id), id: "edit-bag-type-#{bt.id}"
               = link_to "Delete", bag_type_path(bt.id), method: :delete , class: "delete", id: "delete-bag-type-#{bt.id}", data: { confirm: "Are you sure you want to delete this bag type?" }
