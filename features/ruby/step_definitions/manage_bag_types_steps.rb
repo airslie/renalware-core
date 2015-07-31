@@ -14,10 +14,11 @@ When(/^I complete the form for a bag type$/) do
   check "Low glucose degradation product (GDP)"
   uncheck "Low sodium solution"
 
-  fill_in 'Sodium content', with: 8
-  fill_in 'Lactate content', with: 7
-  fill_in 'Calcium content', with: 2.56
-  fill_in 'Magnesium content', with: 3.47
+  fill_in 'Sodium content (mmole/l)', with: 8
+  fill_in 'Lactate content (mmole/l)', with: 7
+  fill_in 'Bicarbonate content (mmole/l)', with: 9
+  fill_in 'Calcium content (mmole/l)', with: 2.56
+  fill_in 'Magnesium content (mmole/l)', with: 3.47
 
   click_on "Save New Bag Type"
 end
@@ -46,9 +47,12 @@ Then(/^I should see the new bag type on the bag type list$/) do
     expect(page).to have_content("7")
   end
   within('table.bag-types-list tbody tr:first-child td:nth-child(10)') do
-    expect(page).to have_content("2.56")
+    expect(page).to have_content("9")
   end
   within('table.bag-types-list tbody tr:first-child td:nth-child(11)') do
+    expect(page).to have_content("2.56")
+  end
+  within('table.bag-types-list tbody tr:first-child td:nth-child(12)') do
     expect(page).to have_content("3.47")
   end
 end
@@ -62,10 +66,11 @@ Given(/^there are PD bag types in the database$/) do
     icodextrin: true,
     low_glucose_degradation: false,
     low_sodium: true,
-    sodium_content: 2,
-    lactate_content: 3,
-    calcium_content: 3.21,
-    magnesium_content: 6.55
+    sodium_mmole_l: 2,
+    lactate_mmole_l: 3,
+    bicarbonate_mmole_l: 59,
+    calcium_mmole_l: 3.21,
+    magnesium_mmole_l: 6.55
   )
 
   @bag_type_2 = FactoryGirl.create(:bag_type,
@@ -76,10 +81,11 @@ Given(/^there are PD bag types in the database$/) do
     icodextrin: true,
     low_glucose_degradation: false,
     low_sodium: true,
-    sodium_content: 7,
-    lactate_content: 5,
-    calcium_content: 4.22,
-    magnesium_content: 2.35
+    sodium_mmole_l: 7,
+    lactate_mmole_l: 5,
+    bicarbonate_mmole_l: 38,
+    calcium_mmole_l: 4.22,
+    magnesium_mmole_l: 2.35
   )
 
   @bag_type_3 = FactoryGirl.create(:bag_type,
@@ -90,10 +96,11 @@ Given(/^there are PD bag types in the database$/) do
     icodextrin: false,
     low_glucose_degradation: false,
     low_sodium: true,
-    sodium_content: 3,
-    lactate_content: 7,
-    calcium_content: 8.28,
-    magnesium_content: 1.45
+    sodium_mmole_l: 3,
+    lactate_mmole_l: 7,
+    bicarbonate_mmole_l: 26,
+    calcium_mmole_l: 8.28,
+    magnesium_mmole_l: 1.45
   )
 
   @bag_type_4 = FactoryGirl.create(:bag_type,
@@ -104,10 +111,11 @@ Given(/^there are PD bag types in the database$/) do
     icodextrin: true,
     low_glucose_degradation: false,
     low_sodium: false,
-    sodium_content: 9,
-    lactate_content: 10,
-    calcium_content: 6.27,
-    magnesium_content: 3.46
+    sodium_mmole_l: 9,
+    lactate_mmole_l: 10,
+    bicarbonate_mmole_l: 18,
+    calcium_mmole_l: 6.27,
+    magnesium_mmole_l: 3.46
   )
 end
 
