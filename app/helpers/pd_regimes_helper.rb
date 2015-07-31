@@ -1,5 +1,15 @@
 module PdRegimesHelper
 
+  def tidal_options
+    options = []
+    tidal = 55
+    while tidal < 100 do
+      tidal = tidal + 5
+      options << tidal
+    end
+    options
+  end
+
   def capd_apd_scope(regime)
     if regime == 'CapdRegime'
       ["CAPD 3 exchanges per day", "CAPD 4 exchanges per day", "CAPD 5 exchanges per day"]
