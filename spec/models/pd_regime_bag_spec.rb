@@ -71,12 +71,6 @@ RSpec.describe PdRegimeBag, :type => :model do
     end
   end
 
-  describe 'assign_days_per_week' do
-    it 'should return number of days per week' do
-      expect(@pd_regime_bag_2.assign_days_per_week).to eq(3)
-    end
-  end
-
   describe 'days' do
     it 'should return days of the week which have been checked as true or false' do
       expect(@pd_regime_bag_2.days).to eq([true, false, true, false, false, true, false])
