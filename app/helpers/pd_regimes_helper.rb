@@ -10,6 +10,14 @@ module PdRegimesHelper
     options
   end
 
+  def default_daily_glucose_average(glucose)
+    if glucose.blank?
+      0
+    else
+      glucose
+    end
+  end
+
   def capd_apd_scope(regime)
     if regime == 'CapdRegime'
       ["CAPD 3 exchanges per day", "CAPD 4 exchanges per day", "CAPD 5 exchanges per day"]
