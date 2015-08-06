@@ -226,7 +226,8 @@ When(/^I complete the form for a apd regime$/) do
   check 'Additional manual exchange'
 
   check 'Has tidal?'
-  fill_in 'Tidal (%)', with: 15
+
+  select '75', from: 'Tidal (%)'
 
   fill_in 'Number of cycles per APD session', with: 3
 
@@ -313,7 +314,7 @@ Then(/^I should see the new apd regime on the PD info page\.$/) do
   end
   within('table.apd-regimes tbody tr:first-child td:nth-child(8)') do
     expect(page).to have_content("Yes")
-    expect(page).to have_content("15")
+    expect(page).to have_content("75")
   end
 
   within('table.apd-regimes tbody tr:first-child td:nth-child(9)') do
@@ -349,7 +350,7 @@ Then(/^the new apd regime should be current$/) do
     expect(page).to have_content("Last Fill: 520")
     expect(page).to have_content("Additional manual exchange: Yes")
     expect(page).to have_content("Tidal?: Yes")
-    expect(page).to have_content("Tidal percentage: 15")
+    expect(page).to have_content("Tidal percentage: 75")
     expect(page).to have_content("Number of cycles per APD session: 3")
     expect(page).to have_content("Overnight PD volume on APD: 3100")
   end
