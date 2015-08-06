@@ -282,7 +282,7 @@ When(/^I choose to view a apd regime$/) do
   end
 end
 
-Then(/^I should see the new capd regime on the PD info page\.$/) do
+Then(/^I should see the new capd regime on the PD info page$/) do
   within('table.capd-regimes tbody tr:first-child') do
     expect(page).to have_content("02/04/2015")
     expect(page).to have_content("01/06/2015")
@@ -294,7 +294,7 @@ Then(/^I should see the new capd regime on the PD info page\.$/) do
   end
 end
 
-Then(/^I should see the new apd regime on the PD info page\.$/) do
+Then(/^I should see the new apd regime on the PD info page$/) do
   within('table.apd-regimes tbody tr:first-child') do
     expect(page).to have_content("15/05/2015")
     expect(page).to have_content("16/07/2015")
@@ -356,13 +356,13 @@ Then(/^the new apd regime should be current$/) do
   end
 end
 
-Then(/^I should see the updated capd regime on the PD info page\.$/) do
+Then(/^I should see the updated capd regime on the PD info page$/) do
   within('table.capd-regimes tbody tr:first-child') do
     expect(page).to have_content("03/05/2015")
   end
 end
 
-Then(/^I should see the updated apd regime on the PD info page\.$/) do
+Then(/^I should see the updated apd regime on the PD info page$/) do
   within('table.apd-regimes tbody tr:first-child') do
     expect(page).to have_content("30/08/2015")
   end
