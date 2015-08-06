@@ -59,10 +59,10 @@ Then(/^I should see the new bag type on the bag type list$/) do
 end
 
 Given(/^there are PD bag types in the database$/) do
-  @bag_type_1 = FactoryGirl.create(:bag_type,
+  @bag_type_13_6 = FactoryGirl.create(:bag_type,
     manufacturer: "Sunshine Brand",
-    description: "Blue–2.34",
-    glucose_grams_per_litre: 21.5,
+    description: "Blue–1.36",
+    glucose_grams_per_litre: 13.6,
     amino_acid: false,
     icodextrin: true,
     low_glucose_degradation: false,
@@ -74,10 +74,10 @@ Given(/^there are PD bag types in the database$/) do
     magnesium_mmole_l: 6.55
   )
 
-  @bag_type_2 = FactoryGirl.create(:bag_type,
+  @bag_type_22_7 = FactoryGirl.create(:bag_type,
     manufacturer: "Rainbow Brand",
-    description: "Red–3.25",
-    glucose_grams_per_litre: 17.7,
+    description: "Red–2.27",
+    glucose_grams_per_litre: 22.7,
     amino_acid: true,
     icodextrin: true,
     low_glucose_degradation: false,
@@ -89,10 +89,10 @@ Given(/^there are PD bag types in the database$/) do
     magnesium_mmole_l: 2.35
   )
 
-  @bag_type_3 = FactoryGirl.create(:bag_type,
+  @bag_type_38_6 = FactoryGirl.create(:bag_type,
     manufacturer: "Unicorn Brand",
-    description: "Green–5.35",
-    glucose_grams_per_litre: 32.3,
+    description: "Green–3.86",
+    glucose_grams_per_litre: 38.6,
     amino_acid: true,
     icodextrin: false,
     low_glucose_degradation: false,
@@ -104,7 +104,7 @@ Given(/^there are PD bag types in the database$/) do
     magnesium_mmole_l: 1.45
   )
 
-  @bag_type_4 = FactoryGirl.create(:bag_type,
+  @bag_type_other = FactoryGirl.create(:bag_type,
     manufacturer: "Lucky Brand",
     description: "Orange–5.35",
     glucose_grams_per_litre: 26.8,
@@ -121,7 +121,7 @@ Given(/^there are PD bag types in the database$/) do
 end
 
 Given(/^that I choose to edit a bag type$/) do
-  visit edit_bag_type_path(@bag_type_3)
+  visit edit_bag_type_path(@bag_type_38_6)
 end
 
 When(/^I complete the form for editing a bag type$/) do
@@ -138,10 +138,10 @@ end
 
 When(/^I choose to soft delete a bag type$/) do
   visit bag_types_path
-  find("#delete-bag-type-#{@bag_type_2.id}").click
+  find("#delete-bag-type-#{@bag_type_22_7.id}").click
 end
 
 Then(/^I should no longer see the soft deleted bag type on the bag types list$/) do
-  expect(page).to have_content("Blue–2.34")
-  expect(page).not_to have_content("Red–3.25")
+  expect(page).to have_content("Blue–1.36")
+  expect(page).not_to have_content("Red–2.27")
 end
