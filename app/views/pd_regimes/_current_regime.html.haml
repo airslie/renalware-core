@@ -23,6 +23,22 @@
         %b On additional HD:
         = yes_no(@current_regime.add_hd)
 
+      %li
+        %b Average Daily Glucose:
+
+        %ul
+          %li
+            %b 1.36%:
+            = "#{ default_daily_glucose_average(@current_regime.glucose_ml_percent_1_36) } ml"
+
+          %li
+            %b 2.27%:
+            = "#{ default_daily_glucose_average(@current_regime.glucose_ml_percent_2_27) } ml"
+
+          %li
+            %b 3.86%:
+            = "#{ default_daily_glucose_average(@current_regime.glucose_ml_percent_3_86) } ml"
+
   .large-6.columns
     - if @current_regime.type == 'ApdRegime'
       = render partial: 'pd_regimes/current_apd_regime', locals: { model: @current_regime }

@@ -11,6 +11,112 @@ RSpec.describe PdRegime, type: :model do
   it { should validate_presence_of :start_date }
   it { should validate_presence_of :treatment }
 
+  describe 'daily average glucose calculations from bags assigned during one week', :type => :feature do
+    before do
+      @patient = create(:patient)
+
+      @bag_type_13_6 = create(:bag_type,
+                    manufacturer: 'Baxter',
+                    description: 'Dianeal PD2 1.36% (Yellow)',
+                    glucose_grams_per_litre: 13.6)
+
+      @bag_type_22_7 = create(:bag_type,
+                    manufacturer: 'Baxter',
+                    description: 'Dianeal PD2 2.27% (Green)',
+                    glucose_grams_per_litre: 22.7)
+
+      @bag_type_38_6 = create(:bag_type,
+                    manufacturer: 'Baxter',
+                    description: 'Dianeal PD2 3.86% (Red)',
+                    glucose_grams_per_litre: 38.6)
+
+      login_as_clinician
+
+      visit pd_info_patient_path(@patient)
+
+      click_link 'Add CAPD Regime'
+
+      select 'CAPD 3 exchanges per day', from: 'Treatment'
+
+      select '2015', from: 'pd_regime_start_date_1i'
+      select 'April', from: 'pd_regime_start_date_2i'
+      select '18', from: 'pd_regime_start_date_3i'
+
+      #bag 1
+      find('input.add-bag').click
+
+      within('body fieldset #new_pd_regime div#pd-regime-bags div.fields:nth-child(1)') do
+        select 'Dianeal PD2 1.36% (Yellow)', from: 'Bag Type'
+
+        fill_in 'Volume (ml)', with: 2000
+
+        uncheck 'Monday'
+        uncheck 'Wednesday'
+        uncheck 'Friday'
+        uncheck 'Saturday'
+      end
+
+      #bag 2
+      find('input.add-bag').click
+
+      within('body fieldset #new_pd_regime div#pd-regime-bags div.fields:nth-child(2)') do
+        select 'Dianeal PD2 2.27% (Green)', from: 'Bag Type'
+
+        fill_in 'Volume (ml)', with: 3000
+
+        uncheck 'Tuesday'
+        uncheck 'Thursday'
+      end
+
+      #bag 3
+      find('input.add-bag').click
+
+      within('body fieldset #new_pd_regime div#pd-regime-bags div.fields:nth-child(3)') do
+        select 'Dianeal PD2 3.86% (Red)', from: 'Bag Type'
+
+        fill_in 'Volume (ml)', with: 1500
+
+        uncheck 'Sunday'
+        uncheck 'Wednesday'
+        uncheck 'Friday'
+      end
+
+      #bag 4
+      find('input.add-bag').click
+
+      within('body fieldset #new_pd_regime div#pd-regime-bags div.fields:nth-child(4)') do
+        select 'Dianeal PD2 3.86% (Red)', from: 'Bag Type'
+
+        fill_in 'Volume (ml)', with: 2000
+
+        uncheck 'Monday'
+        uncheck 'Wednesday'
+        uncheck 'Friday'
+        uncheck 'Saturday'
+      end
+
+      click_on 'Save CAPD Regime'
+    end
+
+    context '1.36 %' do
+      it 'should return daily average volume (ml)' do
+        expect(page).to have_content("1.36%: 857 ml")
+      end
+    end
+
+    context '2.27 %' do
+      it 'should return daily average volume (ml)' do
+        expect(page).to have_content("2.27%: 2143 ml")
+      end
+    end
+
+    context '3.86 %' do
+      it 'should return daily average volume (ml)' do
+        expect(page).to have_content("3.86%: 1714 ml")
+      end
+    end
+  end
+
   describe 'creating a regime without a bag', :type => :feature do
     context 'CAPD' do
       it 'should fail validation and display appropriate error message' do
@@ -20,7 +126,7 @@ RSpec.describe PdRegime, type: :model do
 
         click_link 'Add CAPD Regime'
 
-        select 'CAPD 3 exchanges per day'
+        select 'CAPD 3 exchanges per day', from: 'Treatment'
 
         click_on 'Save CAPD Regime'
 

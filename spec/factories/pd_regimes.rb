@@ -10,7 +10,6 @@ FactoryGirl.define do
     treatment "CAPD 3 exchanges per day"
     glucose_ml_percent_1_36 10
     glucose_ml_percent_2_27 20
-    glucose_ml_percent_3_86 30
     amino_acid_ml 40
     icodextrin_ml 50
     add_hd false
