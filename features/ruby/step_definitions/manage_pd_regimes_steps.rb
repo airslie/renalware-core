@@ -288,9 +288,19 @@ Then(/^I should see the new capd regime on the PD info page$/) do
     expect(page).to have_content("01/06/2015")
     expect(page).to have_content("CAPD 4 exchanges per day")
     expect(page).to have_css("td", text: "Yes", count: 1)
+  end
 
-    #pd regime bags
-    expect(page).to have_content("Bag type: Blue–1.36, Volume: 230ml, No. per week: 5, Days: Sun, Mon, Wed, Thu, Fri")
+  #average daily glucose
+  within('table.capd-regimes tbody tr:first-child td:nth-child(4)') do
+    expect(page).to have_content("164")
+  end
+
+  within('table.capd-regimes tbody tr:first-child td:nth-child(5)') do
+    expect(page).to have_content("0")
+  end
+
+  within('table.capd-regimes tbody tr:first-child td:nth-child(6)') do
+    expect(page).to have_content("0")
   end
 end
 
@@ -299,28 +309,45 @@ Then(/^I should see the new apd regime on the PD info page$/) do
     expect(page).to have_content("15/05/2015")
     expect(page).to have_content("16/07/2015")
     expect(page).to have_content("APD Wet day with additional exchange")
-    #pd regime bags
-    expect(page).to have_content("Bag type: Green–3.86, Volume: 400ml, No. per week: 3, Days: Sun, Mon, Thu")
+  end
+
+  #average daily glucose
+  within('table.apd-regimes tbody tr:first-child td:nth-child(4)') do
+    expect(page).to have_content("0")
   end
 
   within('table.apd-regimes tbody tr:first-child td:nth-child(5)') do
+    expect(page).to have_content("0")
+  end
+
+  within('table.apd-regimes tbody tr:first-child td:nth-child(6)') do
+    expect(page).to have_content("171")
+  end
+
+  within('table.apd-regimes tbody tr:first-child td:nth-child(7)') do
     expect(page).to have_content("No")
   end
-  within('table.apd-regimes tbody tr:first-child td:nth-child(6)') do
-    expect(page).to have_content("520")
-  end
-  within('table.apd-regimes tbody tr:first-child td:nth-child(7)') do
-    expect(page).to have_content("Yes")
-  end
+
   within('table.apd-regimes tbody tr:first-child td:nth-child(8)') do
-    expect(page).to have_content("Yes")
-    expect(page).to have_content("75")
+    expect(page).to have_content("520")
   end
 
   within('table.apd-regimes tbody tr:first-child td:nth-child(9)') do
+    expect(page).to have_content("Yes")
+  end
+
+  within('table.apd-regimes tbody tr:first-child td:nth-child(10)') do
+    expect(page).to have_content("Yes")
+  end
+
+  within('table.apd-regimes tbody tr:first-child td:nth-child(11)') do
+    expect(page).to have_content("75")
+  end
+
+  within('table.apd-regimes tbody tr:first-child td:nth-child(12)') do
     expect(page).to have_content("3")
   end
-  within('table.apd-regimes tbody tr:first-child td:nth-child(10)') do
+  within('table.apd-regimes tbody tr:first-child td:nth-child(13)') do
     expect(page).to have_content("3100")
   end
 end
@@ -330,7 +357,12 @@ Then(/^the new capd regime should be current$/) do
     expect(page).to have_content("02/04/2015")
     expect(page).to have_content("01/06/2015")
     expect(page).to have_content("CAPD 4 exchanges per day")
-    expect(page).to have_content("On additional HD: Yes")
+    expect(page).to have_content("On additional HD?: Yes")
+
+    #average daily glucose
+    expect(page).to have_content("1.36 %: 164 ml")
+    expect(page).to have_content("2.27 %: 0 ml")
+    expect(page).to have_content("3.86 %: 0 ml")
 
     #pd regime bags
     expect(page).to have_content("Bag type: Blue–1.36, Volume: 230ml, No. per week: 5, Days: Sun, Mon, Wed, Thu, Fri")
@@ -342,15 +374,19 @@ Then(/^the new apd regime should be current$/) do
     expect(page).to have_content("15/05/2015")
     expect(page).to have_content("16/07/2015")
     expect(page).to have_content("APD Wet day with additional exchange")
-    expect(page).to have_content("On additional HD: No")
+    expect(page).to have_content("On additional HD?: No")
+
+    expect(page).to have_content("1.36 %: 0 ml")
+    expect(page).to have_content("2.27 %: 0 ml")
+    expect(page).to have_content("3.86 %: 171 ml")
 
     #pd regime bags
     expect(page).to have_content("Bag type: Green–3.86, Volume: 400ml, No. per week: 3, Days: Sun, Mon, Thu")
 
     expect(page).to have_content("Last Fill: 520")
-    expect(page).to have_content("Additional manual exchange: Yes")
+    expect(page).to have_content("Additional manual exchange?: Yes")
     expect(page).to have_content("Tidal?: Yes")
-    expect(page).to have_content("Tidal percentage: 75")
+    expect(page).to have_content("Tidal: 75 %")
     expect(page).to have_content("Number of cycles per APD session: 3")
     expect(page).to have_content("Overnight PD volume on APD: 3100")
   end
@@ -375,7 +411,7 @@ end
 Then(/^I should see the chosen capd regime details$/) do
   expect(page).to have_content("02/04/2015")
   expect(page).to have_content("21/05/2015")
-  expect(page).to have_content("On additional HD: No")
+  expect(page).to have_content("On additional HD?: No")
 
   #saved bags for this regime:
   #bag 1
@@ -395,12 +431,12 @@ Then(/^I should see the chosen apd regime details$/) do
   expect(page).to have_content("Start Date: 20/03/2015")
   expect(page).to have_content("End Date: 28/05/2015")
   expect(page).to have_content("Treatment: APD Wet Day")
-  expect(page).to have_content("On additional HD: Yes")
-  expect(page).to have_content("Last fill (ml): 535")
-  expect(page).to have_content("Additional manual exchange: Yes")
+  expect(page).to have_content("On additional HD?: Yes")
+  expect(page).to have_content("Last fill: 535 ml")
+  expect(page).to have_content("Additional manual exchange?: Yes")
   expect(page).to have_content("Has tidal?: No")
   expect(page).to have_content("Number of cycles per APD session: 4")
-  expect(page).to have_content("Overnight PD volume on APD (ml): 7800")
+  expect(page).to have_content("Overnight PD volume on APD: 7800 ml")
   #bag 1
   expect(page).to have_content("Bag type: Green–3.86, Volume: 450ml, No. per week: 3, Days: Tue, Thu, Sat")
 end
