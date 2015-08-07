@@ -8,9 +8,13 @@
       %th.col-width-13
         Treatment
       %th
-        Regime Bags
+        Glucose - 1.36 % (ml)
+      %th
+        Glucose - 2.27 % (ml)
+      %th
+        Glucose - 3.86 % (ml)
       %th.column-6-width
-        On HD
+        On HD?
       %th.column-6-width
         Last Updated
       %th.col-width-9
@@ -29,8 +33,14 @@
         %td{ :data => { :heading => "Treatment" }, valign: "top" }
           = r.treatment
 
-        %td{ :data => { :heading => "Regime Bags" }, valign: "top" }
-          = pd_regime_bags(r.pd_regime_bags)
+        %td{ :data => { :heading => "Glucose - 1.36% (ml)" }, valign: "top" }
+          = default_daily_glucose_average(r.glucose_ml_percent_1_36)
+
+        %td{ :data => { :heading => "Glucose - 2.27% (ml)" }, valign: "top" }
+          = default_daily_glucose_average(r.glucose_ml_percent_2_27)
+
+        %td{ :data => { :heading => "Glucose - 3.86% (ml)" }, valign: "top" }
+          = default_daily_glucose_average(r.glucose_ml_percent_3_86)
 
         %td{ :data => { :heading => "On HD" } }
           = yes_no(r.add_hd)
