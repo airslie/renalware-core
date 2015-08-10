@@ -100,19 +100,19 @@ RSpec.describe PdRegime, type: :model do
 
     context '1.36 %' do
       it 'should return daily average volume (ml)' do
-        expect(page).to have_content("1.36%: 857 ml")
+        expect(page).to have_content("1.36 %: 857 ml")
       end
     end
 
     context '2.27 %' do
       it 'should return daily average volume (ml)' do
-        expect(page).to have_content("2.27%: 2143 ml")
+        expect(page).to have_content("2.27 %: 2143 ml")
       end
     end
 
     context '3.86 %' do
       it 'should return daily average volume (ml)' do
-        expect(page).to have_content("3.86%: 1714 ml")
+        expect(page).to have_content("3.86 %: 1714 ml")
       end
     end
   end

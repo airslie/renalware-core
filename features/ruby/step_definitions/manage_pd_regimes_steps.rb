@@ -8,14 +8,12 @@ end
 
 Given(/^a patient has existing CAPD Regimes$/) do
   @bag_type = FactoryGirl.create(:bag_type)
+
   @capd_regime_1 = FactoryGirl.create(:capd_regime,
     patient: @patient_1,
     start_date: "05/03/2015",
     end_date: "25/04/2015",
     treatment: "CAPD 4 exchanges per day",
-    glucose_ml_percent_1_36: 11,
-    glucose_ml_percent_2_27: 21,
-    glucose_ml_percent_3_86: 31,
     amino_acid_ml: 41,
     icodextrin_ml: 51,
     add_hd: false,
@@ -37,9 +35,6 @@ Given(/^a patient has existing CAPD Regimes$/) do
     start_date: "02/04/2015",
     end_date: "21/05/2015",
     treatment: "CAPD 5 exchanges per day",
-    glucose_ml_percent_1_36: 12,
-    glucose_ml_percent_2_27: 22,
-    glucose_ml_percent_3_86: 32,
     amino_acid_ml: 42,
     icodextrin_ml: 52,
     add_hd: false,
@@ -48,7 +43,7 @@ Given(/^a patient has existing CAPD Regimes$/) do
       volume: 600,
       sunday: true,
       monday: true,
-      tuesday: true,
+      tuesday: false,
       wednesday: true,
       thursday: true,
       friday: true,
@@ -56,34 +51,6 @@ Given(/^a patient has existing CAPD Regimes$/) do
     ]
   )
 
-  @capd_regime_bag_1 = FactoryGirl.create(:pd_regime_bag,
-    bag_type: @bag_type_13_6,
-    volume: 100,
-    per_week: 2,
-    monday: false,
-    tuesday: false,
-    wednesday: true,
-    thursday: false,
-    friday: true,
-    saturday: false,
-    sunday: false,
-    )
-
-  @capd_regime_bag_2 = FactoryGirl.create(:pd_regime_bag,
-    bag_type: @bag_type_22_7,
-    volume: 200,
-    per_week: 4,
-    monday: true,
-    tuesday: false,
-    wednesday: true,
-    thursday: false,
-    friday: true,
-    saturday: false,
-    sunday: true,
-    )
-
-  @capd_regime_2.pd_regime_bags << @capd_regime_bag_1
-  @capd_regime_2.pd_regime_bags << @capd_regime_bag_2
 end
 
 Given(/^a patient has existing APD Regimes$/) do
@@ -92,9 +59,6 @@ Given(/^a patient has existing APD Regimes$/) do
     start_date: "17/06/2015",
     end_date: "21/07/2015",
     treatment: "APD Dry Day",
-    glucose_ml_percent_1_36: 16,
-    glucose_ml_percent_2_27: 26,
-    glucose_ml_percent_3_86: 36,
     amino_acid_ml: 46,
     icodextrin_ml: 56,
     add_hd: false,
@@ -116,14 +80,12 @@ Given(/^a patient has existing APD Regimes$/) do
       saturday: true
     ]
   )
+
   @apd_regime_2 = FactoryGirl.create(:apd_regime,
     patient: @patient_1,
     start_date: "20/03/2015",
     end_date: "28/05/2015",
     treatment: "APD Wet Day",
-    glucose_ml_percent_1_36: 17,
-    glucose_ml_percent_2_27: 27,
-    glucose_ml_percent_3_86: 37,
     amino_acid_ml: 47,
     icodextrin_ml: 57,
     add_hd: true,
@@ -134,46 +96,18 @@ Given(/^a patient has existing APD Regimes$/) do
     no_cycles_per_apd: 4,
     overnight_pd_ml: 7800,
     pd_regime_bags_attributes: [
-      bag_type: @bag_type_13_6,
-      volume: 600,
+      bag_type: @bag_type_38_6,
+      volume: 2000,
       sunday: true,
-      monday: true,
+      monday: false,
       tuesday: true,
       wednesday: true,
       thursday: true,
-      friday: true,
+      friday: false,
       saturday: true
     ]
   )
 
-  @apd_regime_bag_1 = FactoryGirl.create(:pd_regime_bag,
-    bag_type: @bag_type_other,
-    volume: 250,
-    per_week: 4,
-    monday: false,
-    tuesday: true,
-    wednesday: false,
-    thursday: true,
-    friday: false,
-    saturday: true,
-    sunday: true
-    )
-
-  @apd_regime_bag_2 = FactoryGirl.create(:pd_regime_bag,
-    bag_type: @bag_type_38_6,
-    volume: 450,
-    per_week: 3,
-    monday: false,
-    tuesday: true,
-    wednesday: false,
-    thursday: true,
-    friday: false,
-    saturday: true,
-    sunday: false
-    )
-
-  @apd_regime_1.pd_regime_bags << @apd_regime_bag_1
-  @apd_regime_2.pd_regime_bags << @apd_regime_bag_2
 end
 
 When(/^I complete the form for a capd regime$/) do
@@ -288,9 +222,19 @@ Then(/^I should see the new capd regime on the PD info page$/) do
     expect(page).to have_content("01/06/2015")
     expect(page).to have_content("CAPD 4 exchanges per day")
     expect(page).to have_css("td", text: "Yes", count: 1)
+  end
 
-    #pd regime bags
-    expect(page).to have_content("Bag type: Blue–1.36, Volume: 230ml, No. per week: 5, Days: Sun, Mon, Wed, Thu, Fri")
+  #average daily glucose
+  within('table.capd-regimes tbody tr:first-child td:nth-child(4)') do
+    expect(page).to have_content("164")
+  end
+
+  within('table.capd-regimes tbody tr:first-child td:nth-child(5)') do
+    expect(page).to have_content("0")
+  end
+
+  within('table.capd-regimes tbody tr:first-child td:nth-child(6)') do
+    expect(page).to have_content("0")
   end
 end
 
@@ -299,28 +243,45 @@ Then(/^I should see the new apd regime on the PD info page$/) do
     expect(page).to have_content("15/05/2015")
     expect(page).to have_content("16/07/2015")
     expect(page).to have_content("APD Wet day with additional exchange")
-    #pd regime bags
-    expect(page).to have_content("Bag type: Green–3.86, Volume: 400ml, No. per week: 3, Days: Sun, Mon, Thu")
+  end
+
+  #average daily glucose
+  within('table.apd-regimes tbody tr:first-child td:nth-child(4)') do
+    expect(page).to have_content("0")
   end
 
   within('table.apd-regimes tbody tr:first-child td:nth-child(5)') do
+    expect(page).to have_content("0")
+  end
+
+  within('table.apd-regimes tbody tr:first-child td:nth-child(6)') do
+    expect(page).to have_content("171")
+  end
+
+  within('table.apd-regimes tbody tr:first-child td:nth-child(7)') do
     expect(page).to have_content("No")
   end
-  within('table.apd-regimes tbody tr:first-child td:nth-child(6)') do
-    expect(page).to have_content("520")
-  end
-  within('table.apd-regimes tbody tr:first-child td:nth-child(7)') do
-    expect(page).to have_content("Yes")
-  end
+
   within('table.apd-regimes tbody tr:first-child td:nth-child(8)') do
-    expect(page).to have_content("Yes")
-    expect(page).to have_content("75")
+    expect(page).to have_content("520")
   end
 
   within('table.apd-regimes tbody tr:first-child td:nth-child(9)') do
+    expect(page).to have_content("Yes")
+  end
+
+  within('table.apd-regimes tbody tr:first-child td:nth-child(10)') do
+    expect(page).to have_content("Yes")
+  end
+
+  within('table.apd-regimes tbody tr:first-child td:nth-child(11)') do
+    expect(page).to have_content("75")
+  end
+
+  within('table.apd-regimes tbody tr:first-child td:nth-child(12)') do
     expect(page).to have_content("3")
   end
-  within('table.apd-regimes tbody tr:first-child td:nth-child(10)') do
+  within('table.apd-regimes tbody tr:first-child td:nth-child(13)') do
     expect(page).to have_content("3100")
   end
 end
@@ -330,7 +291,12 @@ Then(/^the new capd regime should be current$/) do
     expect(page).to have_content("02/04/2015")
     expect(page).to have_content("01/06/2015")
     expect(page).to have_content("CAPD 4 exchanges per day")
-    expect(page).to have_content("On additional HD: Yes")
+    expect(page).to have_content("On additional HD?: Yes")
+
+    #average daily glucose
+    expect(page).to have_content("1.36 %: 164 ml")
+    expect(page).to have_content("2.27 %: 0 ml")
+    expect(page).to have_content("3.86 %: 0 ml")
 
     #pd regime bags
     expect(page).to have_content("Bag type: Blue–1.36, Volume: 230ml, No. per week: 5, Days: Sun, Mon, Wed, Thu, Fri")
@@ -342,15 +308,19 @@ Then(/^the new apd regime should be current$/) do
     expect(page).to have_content("15/05/2015")
     expect(page).to have_content("16/07/2015")
     expect(page).to have_content("APD Wet day with additional exchange")
-    expect(page).to have_content("On additional HD: No")
+    expect(page).to have_content("On additional HD?: No")
+
+    expect(page).to have_content("1.36 %: 0 ml")
+    expect(page).to have_content("2.27 %: 0 ml")
+    expect(page).to have_content("3.86 %: 171 ml")
 
     #pd regime bags
     expect(page).to have_content("Bag type: Green–3.86, Volume: 400ml, No. per week: 3, Days: Sun, Mon, Thu")
 
     expect(page).to have_content("Last Fill: 520")
-    expect(page).to have_content("Additional manual exchange: Yes")
+    expect(page).to have_content("Additional manual exchange?: Yes")
     expect(page).to have_content("Tidal?: Yes")
-    expect(page).to have_content("Tidal percentage: 75")
+    expect(page).to have_content("Tidal: 75 %")
     expect(page).to have_content("Number of cycles per APD session: 3")
     expect(page).to have_content("Overnight PD volume on APD: 3100")
   end
@@ -375,33 +345,37 @@ end
 Then(/^I should see the chosen capd regime details$/) do
   expect(page).to have_content("02/04/2015")
   expect(page).to have_content("21/05/2015")
-  expect(page).to have_content("On additional HD: No")
+  expect(page).to have_content("Treatment: CAPD 5 exchanges per day")
+  expect(page).to have_content("On additional HD?: No")
 
-  #saved bags for this regime:
+  #saved bag for this regime:
   #bag 1
-  expect(page).to have_content("Bag type: Blue–1.36")
-  expect(page).to have_content("Volume: 100ml")
-  expect(page).to have_content("No. per week: 2")
-  expect(page).to have_content("Days: Wed, Fri")
+  expect(page).to have_content("Bag type: Blue–1.36, Volume: 600ml, No. per week: 6, Days: Sun, Mon, Wed, Thu, Fri, Sat")
 
-  #bag 2
-  expect(page).to have_content("Bag type: Red–2.27")
-  expect(page).to have_content("Volume: 200ml")
-  expect(page).to have_content("No. per week: 4")
-  expect(page).to have_content("Days: Sun, Mon, Wed, Fri")
+  #average daily glucose calculated from bags
+  expect(page).to have_content("1.36%: 514 ml")
+  expect(page).to have_content("2.27%: 0 ml")
+  expect(page).to have_content("3.86%: 0 ml")
 end
 
 Then(/^I should see the chosen apd regime details$/) do
   expect(page).to have_content("Start Date: 20/03/2015")
   expect(page).to have_content("End Date: 28/05/2015")
   expect(page).to have_content("Treatment: APD Wet Day")
-  expect(page).to have_content("On additional HD: Yes")
-  expect(page).to have_content("Last fill (ml): 535")
-  expect(page).to have_content("Additional manual exchange: Yes")
+  expect(page).to have_content("On additional HD?: Yes")
+  expect(page).to have_content("Last fill: 535 ml")
+  expect(page).to have_content("Additional manual exchange?: Yes")
   expect(page).to have_content("Has tidal?: No")
   expect(page).to have_content("Number of cycles per APD session: 4")
-  expect(page).to have_content("Overnight PD volume on APD (ml): 7800")
+  expect(page).to have_content("Overnight PD volume on APD: 7800 ml")
+
+  #saved bag for this regime:
   #bag 1
-  expect(page).to have_content("Bag type: Green–3.86, Volume: 450ml, No. per week: 3, Days: Tue, Thu, Sat")
+  expect(page).to have_content("Bag type: Green–3.86, Volume: 2000ml, No. per week: 5, Days: Sun, Tue, Wed, Thu, Sat")
+
+  #average daily glucose calculated from bags
+  expect(page).to have_content("1.36%: 0 ml")
+  expect(page).to have_content("2.27%: 0 ml")
+  expect(page).to have_content("3.86%: 1429 ml")
 end
 
