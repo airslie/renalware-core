@@ -3,6 +3,7 @@ class BagType < ActiveRecord::Base
 
   has_many :pd_regime_bags
 
+  validates :manufacturer, presence: true
   validates :description, presence: true
   validates :glucose_grams_per_litre, presence: true
 
