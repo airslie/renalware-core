@@ -4,6 +4,7 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+.DS_Store
 .floo
 .flooignore
 # Ignore bundler config.
@@ -14,6 +15,7 @@ capybara-*.html
 /coverage/
 /spec/tmp
 **.orig
+.env
 
 ## Environment normalisation:
 /.bundle
