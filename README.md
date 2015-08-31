@@ -26,7 +26,19 @@ Ruby / Rails - Development Setup
   ```
   At the prompt you can create a bespoke `User` for authentication or accept defaults, this will create a user with the credentials `superadmin:supersecret`
 
-3. Visit [http://localhost:3000](http://localhost:3000)
+3. Copy `.env-example` to `.env` and change whatever need to be changed
+
+4. Start the server using Foreman
+  ```bash
+  $ bundle exec foreman start
+  ```
+  To see the output of the Rails server, open up another terminal window and run
+  ```bash
+  $ tail -f log/developments.log
+  ```
+  Foreman uses Procfile to start all the components that we need for the app (server, workers, ...).  The Procfile file is also used by Heroku.
+
+5. Visit [http://localhost:3000](http://localhost:3000)
 
 TESTS
 -----
