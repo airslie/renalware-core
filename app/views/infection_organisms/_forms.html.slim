@@ -1,7 +1,7 @@
-= render :partial => 'infection_organisms/edit', :locals => { :io => io } unless io.object.new_record?
+= render partial: 'infection_organisms/edit', locals: { io: io } unless io.object.new_record?
 
 #infection-organisms
-  = render :partial => 'infection_organisms/new', :locals => { :io => io } if io.object.new_record?
+  = render partial: 'infection_organisms/new', locals: { io: io } if io.object.new_record?
 
 
 

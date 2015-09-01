@@ -6,7 +6,7 @@
 
     = render partial: "shared/errors", locals: { model: @patient }
 
-    = form_for @patient, :method => :post do |f|
+    = form_for @patient, method: :post do |f|
 
       = render partial: "patients/demographic_form", locals: { patient: f }
 

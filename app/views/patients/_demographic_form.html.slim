@@ -56,7 +56,7 @@
       legend
         | Organisation/Practice
 
-      = render :partial => 'organisation_practice_form', :locals => { :patient => patient }
+      = render partial: 'organisation_practice_form', locals: { patient: patient }
 
   .large-4.columns
     = patient.fields_for :current_address_attributes, patient.object.current_address do |a|
@@ -64,7 +64,7 @@
         legend
           | Current Address
 
-        = render :partial => 'addresses/form', :locals => { :a => a }
+        = render partial: 'addresses/form', locals: { a: a }
 
   .large-4.columns
     = patient.fields_for :address_at_diagnosis_attributes, patient.object.address_at_diagnosis do |a|
@@ -72,5 +72,5 @@
         legend
           | Address at Diagnosis
 
-        = render :partial => 'addresses/form', :locals => { :a => a }
+        = render partial: 'addresses/form', locals: { a: a }
 

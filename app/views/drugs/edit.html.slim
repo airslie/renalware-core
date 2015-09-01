@@ -5,7 +5,7 @@
 
 .row
   .large-6.columns
-    = form_for @drug, :as => :drug, :method => :put, :url => drug_path(@drug) do |f|
+    = form_for @drug, as: :drug, method: :put, url: drug_path(@drug) do |f|
       ul.no-bullet
 
         = render partial: "drugs/form", locals: { f: f }

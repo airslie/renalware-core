@@ -5,8 +5,8 @@ ul.left
         .large-8.small-9.columns
           = label_tag :identity_match, "Patient Search" do
             = f.search_field :identity_match,
-              :id => 'patient_search_input',
-              :placeholder => "Name, Hosp No or NHS No"
+              id: 'patient_search_input',
+              placeholder: "Name, Hosp No or NHS No"
         .large-4.small-3.columns
-          = f.submit "Find!", :title => "Find Patient", :class => "nav-search button tiny"
+          = f.submit "Find!", title: "Find Patient", class: "nav-search button tiny"
 

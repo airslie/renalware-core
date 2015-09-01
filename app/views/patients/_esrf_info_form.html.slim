@@ -9,4 +9,4 @@
 
   li
     = esrf.label :prd_code_id, "Primary Renal Diagnosis (PRD)"
-    = esrf.collection_select :prd_code_id, PrdCode.all, :id, :term, { :prompt => "Please select primary renal diagnosis", include_blank: true }, :class => "prd-select"
+    = esrf.collection_select :prd_code_id, PrdCode.all, :id, :term, { prompt: "Please select primary renal diagnosis", include_blank: true }, class: "prd-select"

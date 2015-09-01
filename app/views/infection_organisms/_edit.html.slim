@@ -8,7 +8,7 @@
           | Edit
 
       .columns.large-6.organism-form.content id="edit-organism-#{io.object.id}" data-index=0
-        = render :partial => 'infection_organisms/fields', :locals => { :io => io }
+        = render partial: 'infection_organisms/fields', locals: { io: io }
 
         .organism-form.content id="edit-organism-#{io.object.id}"
           = io.check_box :_destroy

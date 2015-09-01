@@ -29,7 +29,7 @@
 
         .large-12.columns
           = pe.label :episode_type_id
-          = pe.collection_select :episode_type_id, EpisodeType.all, :id, :term, { :prompt => "Please select episode type" }, :class => "episode-type_select"
+          = pe.collection_select :episode_type_id, EpisodeType.all, :id, :term, { prompt: "Please select episode type" }, class: "episode-type_select"
 
         .large-12.columns
           = pe.check_box :catheter_removed
@@ -41,7 +41,7 @@
 
         = pe.fields_for :infection_organisms do |io|
 
-          = render :partial => 'infection_organisms/forms', :locals => { :io => io }
+          = render partial: 'infection_organisms/forms', locals: { io: io }
 
         .large-12.columns
           = pe.link_to_add 'Record a new organism and sensitivity', :infection_organisms, class: 'add-organism-sensitivity button tiny right mt'
@@ -66,7 +66,7 @@
 
         .large-12.columns
           = pe.label :fluid_description_id
-          = pe.collection_select :fluid_description_id, FluidDescription.all, :id, :description, { prompt: "Please select description that best describes fluid" }, :class => "episode-type_select"
+          = pe.collection_select :fluid_description_id, FluidDescription.all, :id, :description, { prompt: "Please select description that best describes fluid" }, class: "episode-type_select"
 
     .row
       .large-12.columns
@@ -96,14 +96,14 @@
 
         .large-12.columns
           = pe.label :notes, "Episode notes"
-          = pe.text_area :notes, :cols => 50, :rows => 6
+          = pe.text_area :notes, cols: 50, rows: 6
 
     .row
       .large-12.columns
         .section-underliner
           | Medications administered for this peritonitis episode:
 
-        = render :partial => 'medications/medication_forms', :locals => { object: pe }
+        = render partial: 'medications/medication_forms', locals: { object: pe }
 
         .large-12.columns
           = pe.link_to_add 'Add a new medication', :medications, model_object: Medication.peritonitis, class: 'add-medication button tiny right mt'

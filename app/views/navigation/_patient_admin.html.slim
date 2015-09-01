@@ -1,7 +1,7 @@
 - if @patient && @patient.persisted?
   ul.left
     li.has-dropdown.active
-      = link_to "#{@patient.to_s(:full_name)}", clinical_summary_patient_path(@patient), :title => "Clinical Summary"
+      = link_to "#{@patient.to_s(:full_name)}", clinical_summary_patient_path(@patient), title: "Clinical Summary"
       ul.dropdown
         li
           = link_to "Manage Problems", problems_patient_path(@patient)

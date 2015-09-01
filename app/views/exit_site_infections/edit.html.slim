@@ -12,7 +12,7 @@
 
 .row
   .large-12.columns
-    = nested_form_for [@patient, @exit_site_infection], :method => :put do |es|
+    = nested_form_for [@patient, @exit_site_infection], method: :put do |es|
 
       = field_set_tag do
         .row

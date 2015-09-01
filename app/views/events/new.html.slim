@@ -7,7 +7,7 @@
 
 = render partial: "shared/errors", locals: { model: @event }
 
-= form_for [@patient, @event], :method => :post do |f|
+= form_for [@patient, @event], method: :post do |f|
 
   .row
     = field_set_tag do
@@ -27,7 +27,7 @@
         .large-6.columns
           li
             = f.label :notes, "Notes"
-            = f.text_area(:notes, :cols => 50, :rows => 11)
+            = f.text_area(:notes, cols: 50, rows: 11)
         .row
           = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left cancel"
 

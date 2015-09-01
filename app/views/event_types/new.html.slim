@@ -8,11 +8,11 @@
   .large-6.columns
     ul.no-bullet
 
-      = form_for @event_type, :method => :post do |f|
+      = form_for @event_type, method: :post do |f|
 
-        = render :partial => 'form', :locals => {:f => f}
+        = render partial: 'form', locals: {f: f}
 
         = submit_tag "Save", class: "button tiny right save"
 
-        li= link_to "Cancel", event_types_path, :class => "button tiny cancel"
+        li= link_to "Cancel", event_types_path, class: "button tiny cancel"
 

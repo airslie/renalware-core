@@ -8,7 +8,7 @@
       .large-12.columns
         h4 Edit this PD Bag Type
 
-    = form_for @bag_type, :as => :bag_type, :method => :put, :url => bag_type_path(@bag_type) do |bt|
+    = form_for @bag_type, as: :bag_type, method: :put, url: bag_type_path(@bag_type) do |bt|
 
       = render partial: "bag_types/form", locals: { bt: bt }
 

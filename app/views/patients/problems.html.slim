@@ -28,4 +28,4 @@
       = render partial: 'problems/problem', locals: { pb: pb } unless pb.object.new_record?
 
     - unless current_user.read_only?
-      = f.submit "Save Problems", :class => "button tiny right save mt"
+      = f.submit "Save Problems", class: "button tiny right save mt"

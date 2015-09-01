@@ -17,8 +17,8 @@
       = nested_form_for [@patient, @exit_site_infection] do |es|
 
         .row
-          = render :partial => 'exit_site_infections/form', :locals => { :es => es }
+          = render partial: 'exit_site_infections/form', locals: { es: es }
 
         .row.button-padding
           = link_to "Cancel", pd_info_patient_path(@patient), class: "button tiny left cancel mt"
-          = es.submit "Save Exit Site Infection", :class => "button tiny right save mt"
+          = es.submit "Save Exit Site Infection", class: "button tiny right save mt"

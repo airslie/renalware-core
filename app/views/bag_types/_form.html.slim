@@ -1,7 +1,7 @@
 = bt.hidden_field :id unless bt.object.new_record?
 
 = bt.label :manufacturer
-= bt.select :manufacturer, manufacturer_options, { :prompt => "Please select from options" }, class: "manufacturer-select"
+= bt.select :manufacturer, manufacturer_options, { prompt: "Please select from options" }, class: "manufacturer-select"
 
 = bt.label :description
 = bt.text_field :description
