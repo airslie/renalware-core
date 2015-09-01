@@ -20,7 +20,6 @@ gem 'cancancan', '~> 1.10'
 gem 'nested_form', '~> 0.3.2'
 gem 'slim-rails'
 
-gem 'haml-rails' # To remove
 group :development do
   gem 'guard-rspec', require: false
   gem 'guard-cucumber', require: false
@@ -48,7 +47,7 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'web-console', '~> 2.0'
 
-  gem 'haml2slim' # To remove
+  gem 'haml2slim' # TODO: remove when we're done moving to Slim
 end
 
 group :test do
