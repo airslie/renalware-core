@@ -8,7 +8,6 @@ gem 'jquery-rails'
 gem 'underscore-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'sass-rails', '~> 4.0.3'
-gem 'haml-rails'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'httparty'
 gem 'paper_trail', '~> 3.0.6'
@@ -19,6 +18,9 @@ gem 'devise', '~> 3.4.1'
 gem 'devise_security_extension', git: 'https://github.com/phatworx/devise_security_extension.git'
 gem 'cancancan', '~> 1.10'
 gem 'nested_form', '~> 0.3.2'
+gem 'slim-rails'
+
+gem 'haml-rails' # To remove
 
 group :development, :test do
   gem 'capybara', '2.4.4'
@@ -41,6 +43,8 @@ group :development, :test do
   gem 'spring-commands-rspec'
   gem 'rubocop', require: false
   gem 'web-console', '~> 2.0'
+
+  gem 'haml2slim' # To remove
 end
 
 group :test do
