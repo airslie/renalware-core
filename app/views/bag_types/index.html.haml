@@ -25,13 +25,15 @@
           %th
             Low Na
           %th
-            Sodium content
+            Sodium content (mmole/l)
           %th
-            Lactate content
+            Lactate content (mmole/l)
           %th
-            Calcium content
+            Bicarbonate content (mmole/l)
           %th
-            Magnesium content
+            Calcium content (mmole/l)
+          %th
+            Magnesium content (mmole/l)
           %th
             Action
 
@@ -52,14 +54,16 @@
               = yes_no(bt.low_glucose_degradation)
             %td{ :data => { :heading => "Low Na" } }
               = yes_no(bt.low_sodium)
-            %td{ :data => { :heading => "Sodium content" } }
-              = bt.sodium_content
-            %td{ :data => { :heading => "Lactate content" } }
-              = bt.lactate_content
-            %td{ :data => { :heading => "Calcium content" } }
-              = bt.calcium_content
-            %td{ :data => { :heading => "Magnesium content" } }
-              = bt.magnesium_content
+            %td{ :data => { :heading => "Sodium (mmole/l)" } }
+              = bt.sodium_mmole_l
+            %td{ :data => { :heading => "Lactate (mmole/l)" } }
+              = bt.lactate_mmole_l
+            %td{ :data => { :heading => "Bicarbonate (mmole/l)" } }
+              = bt.bicarbonate_mmole_l
+            %td{ :data => { :heading => "Calcium (mmole/l)" } }
+              = bt.calcium_mmole_l
+            %td{ :data => { :heading => "Magnesium (mmole/l)" } }
+              = bt.magnesium_mmole_l
             %td{ :data => { :heading => "Actions" } }
               = link_to "Edit", edit_bag_type_path(bt.id), id: "edit-bag-type-#{bt.id}"
               = link_to "Delete", bag_type_path(bt.id), method: :delete , class: "delete", id: "delete-bag-type-#{bt.id}", data: { confirm: "Are you sure you want to delete this bag type?" }

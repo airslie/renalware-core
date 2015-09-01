@@ -40,7 +40,7 @@ Rails.application.routes.draw do
     resources :letters, controller: 'clinic_letters', only: [:new, :edit]
   end
 
-  get 'authors/:author_id/letters', to: 'letters#author'
+  get 'authors/:author_id/letters', to: 'letters#author', as: 'author_letters'
 
   # TODO - This will probably change in future
   root to: "patients#index"

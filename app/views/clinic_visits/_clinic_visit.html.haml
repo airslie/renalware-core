@@ -6,6 +6,8 @@
   %td
     = clinic_visit.bp
   %td
-    = link_to 'Add Letter', new_clinic_visit_letter_path(clinic_visit), class: 'button tiny'
-    = link_to 'Edit', edit_patient_clinic_visit_path(patient_id: clinic_visit.patient.to_param, id: clinic_visit.to_param), class: 'button tiny'
-    = link_to 'Delete', patient_clinic_visit_path(patient_id: clinic_visit.patient.to_param, id: clinic_visit.to_param), method: :delete, class: 'button tiny cancel'
+    = link_to 'Create Clinic Letter', new_clinic_visit_letter_path(clinic_visit)
+    &nbsp;|&nbsp;
+    = link_to 'Edit', edit_patient_clinic_visit_path(patient_id: clinic_visit.patient.to_param, id: clinic_visit.to_param)
+    &nbsp;|&nbsp;
+    = link_to 'Delete', patient_clinic_visit_path(patient_id: clinic_visit.patient.to_param, id: clinic_visit.to_param), method: :delete

@@ -6,6 +6,7 @@
 
   - if user_signed_in?
     %section.top-bar-section
+      = render partial: 'navigation/user_admin'
       = render partial: 'navigation/patient_admin'
       = render partial: 'navigation/patient_search'
       = render partial: 'navigation/sign_out'

@@ -27,9 +27,27 @@
             %li
               %b Treatment:
               = @pd_regime.treatment
+          .padding-bottom-1
+            %li
+              %b On additional HD?:
+              = yes_no(@pd_regime.add_hd)
+
           %li
-            %b On additional HD:
-            = yes_no(@pd_regime.add_hd)
+            %b Average Daily Glucose:
+
+            %ul
+              %li
+                %b 1.36%:
+                = "#{ default_daily_glucose_average(@pd_regime.glucose_ml_percent_1_36) } ml"
+
+              %li
+                %b 2.27%:
+                = "#{ default_daily_glucose_average(@pd_regime.glucose_ml_percent_2_27) } ml"
+
+              %li
+                %b 3.86%:
+                = "#{ default_daily_glucose_average(@pd_regime.glucose_ml_percent_3_86) } ml"
+
 
       .large-6.columns
         - if @pd_regime.type == 'ApdRegime'
@@ -39,7 +57,7 @@
       .section-underliner.title-bold.padding-top-1
         Bags:
 
-      .large-12.columns
+      .large-12.columns.padding-bottom-1
         %ul
           = pd_regime_bags(@pd_regime.pd_regime_bags)
 

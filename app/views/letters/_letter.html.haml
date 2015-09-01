@@ -8,5 +8,6 @@
   %td
     = letter.updated_at
   %td
-    = link_to 'Edit', edit_patient_letter_path(patient_id: letter.patient.to_param, id: letter.to_param), class: 'button tiny'
-    = link_to 'Delete', patient_letter_path(patient_id: letter.patient.to_param, id: letter.to_param), method: :delete, class: 'button tiny cancel'
+    = link_to 'Edit', edit_patient_letter_path(patient_id: letter.patient.to_param, id: letter.to_param)
+    &nbsp;|&nbsp;
+    = link_to 'Delete', patient_letter_path(patient_id: letter.patient.to_param, id: letter.to_param), method: :delete
