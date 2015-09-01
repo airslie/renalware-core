@@ -1,5 +1,5 @@
 .row
-  h3 Update #{@user.to_s(:full_name)}
+  h3= "Update #{@user.to_s(:full_name)}"
 
 .row
   = form_for :user, url: admin_user_path(@user), method: :put do |f|
