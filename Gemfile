@@ -21,6 +21,10 @@ gem 'nested_form', '~> 0.3.2'
 gem 'slim-rails'
 
 gem 'haml-rails' # To remove
+group :development do
+  gem 'guard-rspec', require: false
+  gem 'guard-cucumber', require: false
+end
 
 group :development, :test do
   gem 'capybara', '2.4.4'
