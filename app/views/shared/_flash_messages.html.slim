@@ -1,0 +1,6 @@
+- flash.each do |name, msg|
+  - if flash[name]
+    .row class="flash-#{name}"
+      .alert-box.info.round data={alert: nil}
+        = msg
+        a href="#" class='close' &times;

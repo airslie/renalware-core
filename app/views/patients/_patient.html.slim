@@ -1,0 +1,15 @@
+tr
+  td data-heading="Name"
+    = link_to patient.to_s(:last_first), clinical_summary_patient_path(patient), title: 'Clinical Summary'
+  td data-heading="NHS No."
+    = patient.nhs_number
+  td data-heading="Hospital No."
+    = patient.local_patient_id
+  td data-heading="Sex"
+    = I18n.t("enums.gender.#{patient.sex}")
+  td data-heading="DoB"
+    = patient.birth_date
+  td data-heading="Age"
+    = patient.age
+  td.g-center data-heading="Admin"
+    = link_to 'Demographics', demographics_patient_path(patient), title: 'Demographics'

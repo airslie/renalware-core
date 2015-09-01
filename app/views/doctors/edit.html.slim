@@ -1,0 +1,8 @@
+.row
+  h5 Update Doctor
+
+.row
+  .large-8.columns
+    = form_for @doctor, as: :doctor, method: :put, url: doctor_path(@doctor) do |f|
+      = render partial: 'form', locals: { f: f }
+      = f.submit 'Update', class: 'button save'

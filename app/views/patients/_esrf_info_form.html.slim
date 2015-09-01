@@ -1,0 +1,12 @@
+.esrf-info-form
+  = esrf.hidden_field :id
+
+  = esrf.hidden_field :patient_id
+
+  li
+    = esrf.label :date, "Date"
+    = esrf.date_select(:date, {start_year: (1.years.ago).year, end_year: (Time.now.year + 1), order: [:day, :month, :year], include_blank: true }, class: "datetime")
+
+  li
+    = esrf.label :prd_code_id, "Primary Renal Diagnosis (PRD)"
+    = esrf.collection_select :prd_code_id, PrdCode.all, :id, :term, { :prompt => "Please select primary renal diagnosis", include_blank: true }, :class => "prd-select"

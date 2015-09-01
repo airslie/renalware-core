@@ -1,0 +1,27 @@
+ul.no-bullet
+  li.padding-bottom-1
+    b Last fill:
+    | &nbsp;
+    = "#{@pd_regime.last_fill_ml} ml"
+  li.padding-bottom-1
+    b Additional manual exchange?:
+    | &nbsp;
+    = yes_no(@pd_regime.add_manual_exchange)
+  li.padding-bottom-1
+    b Has tidal?:
+    | &nbsp;
+    = yes_no(@pd_regime.tidal_indicator)
+  li.padding-bottom-1
+    b Tidal:
+    | &nbsp;
+    = "#{@pd_regime.tidal_percentage} %"
+  li.padding-bottom-1
+    b Number of cycles per APD session:
+    | &nbsp;
+    = @pd_regime.no_cycles_per_apd
+  li.padding-bottom-1
+    b Overnight PD volume on APD:
+    | &nbsp;
+    = "#{@pd_regime.overnight_pd_ml} ml"
+
+

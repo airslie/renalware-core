@@ -1,0 +1,10 @@
+.row
+  h5 Edit Clinic
+
+.row
+  .large-12.columns
+    = form_for [@patient, @clinic_visit],
+      url: patient_clinic_visit_path(patient_id: @patient.to_param, id: @clinic_visit.to_param) do |f|
+
+      = render partial: 'form', locals: { f: f }
+      = f.submit 'Update', class: 'button save'

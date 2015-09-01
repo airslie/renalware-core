@@ -1,0 +1,34 @@
+.wide-screen
+  .columns.large-12
+    = render partial: "patients/patient_info_header", locals: { model: @patient }
+    = render partial: "patients/mini_renal_profile", locals: { model: @patient }
+
+    h5 PD Info
+
+    p
+      = link_to "Add CAPD Regime", new_patient_pd_regime_path(@patient, type: 'CapdRegime'), :class => "button tiny"
+      = link_to "Add APD Regime", new_patient_pd_regime_path(@patient, type: 'ApdRegime'), :class => "button tiny"
+      = link_to "Add Peritonitis Episode", new_patient_peritonitis_episode_path(@patient), :class => "button tiny"
+      = link_to "Add Exit Site Infection", new_patient_exit_site_infection_path(@patient), :class => "button tiny"
+
+.wide-screen
+  = render partial: 'pd_regimes/current_regime' unless @current_regime.nil?
+
+  h6
+    = "CAPD Regimes (#{@capd_regimes.length})"
+  = render partial: 'patients/capd_regimes'
+
+  h6
+    = "APD Regimes (#{@apd_regimes.length})"
+  /! = render partial: 'pd_regimes/current_regime' unless @current_regime.nil?
+  = render partial: 'patients/apd_regimes'
+
+  h6
+    = "Peritonitis Episodes (#{@peritonitis_episodes.length})"
+
+  = render partial: "patients/peritonitis_episodes"
+
+  h6
+    = "Exit Site Infections (#{@exit_site_infections.length})"
+
+  = render partial: "patients/exit_site_infections"

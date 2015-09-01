@@ -1,0 +1,42 @@
+.wide-screen
+  .columns.large-12
+    = render partial: "patients/patient_info_header", locals: { model: @patient }
+    = render partial: "patients/mini_renal_profile", locals: { model: @patient }
+
+    h5 Set Patient Modality
+
+.row
+  ul.no-bullet
+    = form_for @modality, as: :modality, url: patient_modalities_path(@patient) do |m|
+
+      .modality-form
+
+        = m.hidden_field :id
+
+        = m.hidden_field :patient_id
+
+        li
+          = m.label :modality_code_id, "Modality"
+          = m.collection_select :modality_code_id, ModalityCode.all, :id, :name, {}, :id => "modality-code-select"
+
+        li.hide-death
+          = m.label :modal_change_type, "Type of Change"
+          = m.select :modal_change_type, modal_change_options(m.object.modal_change_type), {}, :class => "modal-change-type"
+        li.hide-death
+          = m.label :modality_reason_id, "Reason for Change"
+          = m.collection_select :modality_reason_id, modal_reasons_for(m.object.modal_change_type), :id, :description, {}, :class => "modality-reason-select"
+
+        li.hide-death
+          = link_to "Renal Registry Reason for Change Codes", "#", id: "modal-reason-code", class: "button tiny mt"
+
+        li
+          = m.label :date, "Start Date"
+          = m.date_select(:start_date, {start_year: (1.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
+
+        li.hide-death
+          = m.label :notes, "Notes"
+          = m.text_area(:notes, :cols => 10, :rows => 2)
+
+        = m.submit "Save Modality", :class => "button tiny right save mt"
+
+  = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left cancel mt"

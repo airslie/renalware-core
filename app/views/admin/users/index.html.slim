@@ -1,0 +1,31 @@
+.row
+  h3 Manage users
+
+.row
+  = link_to 'All', action: 'index'
+  = pipe_separator
+  = link_to 'Unapproved', action: 'unapproved'
+  = pipe_separator
+  = link_to 'Inactive', action: 'inactive'
+
+.row
+  table
+    thead
+      th ID
+      th User
+      th Login
+      th Email
+      th Added
+      th Approved
+      th Options
+
+    tbody
+      - @users.each do |user|
+        tr
+          td= user.id
+          td= user.to_s(:last_first)
+          td= user.username
+          td= user.email
+          td= user.created_at
+          td= user.approved?
+          td= link_to 'Edit', edit_admin_user_path(user)

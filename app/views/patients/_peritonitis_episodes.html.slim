@@ -1,0 +1,95 @@
+table.responsive
+  thead
+    tr
+      th.col-width-date
+        | Diagnosis Date
+      th.col-width-date
+        | Treatment Start Date
+      th.col-width-date
+        | Treatment End Date
+      th
+        | Outcome
+      th
+        | Organisms
+      th.col-width-9
+        | White Cell Count
+      th.col-width-13
+        | Causes/Symptoms
+      th
+        | Antibiotics/Routes
+      th
+        | Notes
+      th.col-width-date
+        | Last Updated
+      th.col-width-9
+        | Action
+
+  tbody
+    - @peritonitis_episodes.each do |p|
+      tr valign="top"
+
+        td data-heading="Diagnosis Date" valign="top"
+          = p.diagnosis_date
+
+        td data-heading="Start Treatment Date" valign="top"
+          = p.treatment_start_date
+
+        td data-heading="End Treatment Date" valign="top"
+          = p.treatment_end_date
+
+        td data-heading="Episode Type" valign="top"
+          ul.table-data-list
+            li
+              | Episode Type:
+              = default_for_associated(p.episode_type, :term, "Unknown")
+            li
+              = "Catheter Removed: #{yes_no(p.catheter_removed)}"
+
+        td data-heading="Organisms" valign="top"
+          ul.table-data-list
+            = organisms(p.infection_organisms)
+
+        td data-heading="White Cell Count" valign="top"
+          ul.table-data-list
+            li
+              = "Total: #{ default_for_blank_units(p.white_cell_total, "x 10\u2079", "N/A")}"
+            li
+              = "Neutro: #{ default_for_blank_units(p.white_cell_neutro, "%", "N/A") }"
+            li
+              = "Lympho: #{ default_for_blank_units(p.white_cell_lympho, "%", "N/A") }"
+            li
+              = "Degen: #{ default_for_blank_units(p.white_cell_degen, "%", "N/A") }"
+            li
+              = "Other: #{ default_for_blank_units(p.white_cell_other, "%", "N/A") }"
+
+        td data-heading="Causes/Symptoms" valign="top"
+          ul.table-data-list
+            li
+              = "Line Break: #{yes_no(p.line_break)}"
+            li
+              = "Exit Site Infection: #{yes_no(p.exit_site_infection)}"
+            li
+              = "Diarrhoea: #{yes_no(p.diarrhoea)}"
+            li
+              = "Abdominal Pain: #{yes_no(p.abdominal_pain)}"
+            li
+              = "Fluid Description: #{default_for_associated(p.fluid_description, :description, "N/A")}"
+
+        td data-heading="Antibiotics/Routes" valign="top"
+          ul.table-data-list
+            = medication_and_route(p.medications)
+
+        td data-heading="Notes" valign="top"
+          = p.notes
+
+        td data-heading="Last Updated" valign="top"
+          = p.updated_at
+
+        td data-heading="Action" valign="top"
+          ul.table-data-list
+            - unless current_user.read_only?
+              li
+                = link_to "Update", edit_patient_peritonitis_episode_path(@patient, p.id), class: "update-pe", id: "update-pe-#{p.id}"
+            li
+              = link_to "View Episode", patient_peritonitis_episode_path(@patient, p.id), class: "view-pe", id: "view-pe-#{p.id}"
+

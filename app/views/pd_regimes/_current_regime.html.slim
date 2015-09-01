@@ -1,0 +1,56 @@
+fieldset.current-regime
+  legend.title-bod Current PD Regime
+
+  .large-3.columns
+    ul.no-bullet
+      li
+        b Regime Start Date:
+        | &nbsp;
+        = @current_regime.start_date
+
+      li
+        b Regime End Date:
+        | &nbsp;
+        = default_for_blank(@current_regime.end_date, 'Pending')
+
+      li
+        b Treatment:
+        | &nbsp;
+        = @current_regime.treatment
+
+      li
+        b On additional HD?:
+        | &nbsp;
+        = yes_no(@current_regime.add_hd)
+
+  .large-3.columns
+    b Average Daily Glucose:
+
+    ul style="list-style-type: disc"
+      li
+        b 1.36 %:
+        | &nbsp;
+        = "#{ default_daily_glucose_average(@current_regime.glucose_ml_percent_1_36) } ml"
+
+      li
+        b 2.27 %:
+        | &nbsp;
+        = "#{ default_daily_glucose_average(@current_regime.glucose_ml_percent_2_27) } ml"
+
+      li
+        b 3.86 %:
+        | &nbsp;
+        = "#{ default_daily_glucose_average(@current_regime.glucose_ml_percent_3_86) } ml"
+
+  - if @current_regime.type == 'ApdRegime'
+    = render partial: 'pd_regimes/current_apd_regime', locals: { model: @current_regime }
+
+  .large-12.columns
+    .section-underliner.padding-top-1
+      b Bags:
+
+    .large-12.columns
+      ul
+        = pd_regime_bags(@current_regime.pd_regime_bags)
+
+

@@ -1,0 +1,15 @@
+tr
+  td data-heading="Added"
+    = event.created_at.strftime("%d/%m/%Y")
+  td data-heading="Event Type"
+    = event.event_type.name
+  td data-heading="Description"
+    dl.accordion(data-accordion)
+      dd.accordion-navigation
+        a.fi-plus.fi-minus.toggle-info id="patient-event-notes-#{event.id}" href="#patient-event-notes-#{event.id}"
+          = event.description
+        .content.toggle-content id="patient-event-notes-#{event.id}"
+          = event.notes
+  td data-heading="Time"
+    = event.date_time
+

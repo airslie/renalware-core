@@ -1,0 +1,39 @@
+.wide-screen
+  h5 Deceased Patients
+
+.wide-screen
+  table.responsive
+    caption All Patients
+    thead
+      tr
+        th Name
+        th NHS No.
+        th KCH No.
+        th Sex
+        th Date of Birth
+        th Date of Death
+        th.column-6-width Age
+        th.g-center colspan=2 Actions
+
+    tbody
+      - @dead_patients.each do |patient|
+        tr
+          td data-heading="Forename"
+            = link_to " #{patient.to_s(:full_name)}", clinical_summary_patient_path(patient), :title => "Clinical Summary"
+          td data-heading=("NHS No.")
+            = patient.nhs_number
+          td data-heading=("Hospital No.")
+            = patient.local_patient_id
+          td data-heading="Sex"
+            = I18n.t("enums.gender.#{patient.sex}")
+          td data-heading="DoB"
+            = patient.birth_date
+          td data-heading="DoD"
+            = patient.death_date
+          td data-heading="Age"
+            = patient.age
+          td.g-center data-heading="Edit death details"
+            = link_to "Edit death details", death_update_patient_path(patient.id), :title => "Edit death details"
+          td.g-center data-heading="Admin"
+            = link_to "Demographics", demographics_patient_path(patient), :title => "Demographics"
+

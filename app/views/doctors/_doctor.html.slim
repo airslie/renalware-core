@@ -1,0 +1,12 @@
+tr
+  td
+    = doctor.to_s(:full_name)
+  td
+    = doctor.code
+  td
+    = doctor.email
+  td
+    = practices_or_address(doctor)
+  td
+    = link_to 'Edit', edit_doctor_path(doctor), class: 'button tiny'
+    = link_to 'Delete', doctor_path(doctor), method: :delete, class: 'button tiny cancel'

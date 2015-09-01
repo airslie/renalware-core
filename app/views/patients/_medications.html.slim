@@ -1,0 +1,30 @@
+thead
+  th
+    | Type
+  th
+    | Medication
+  th
+    | Dose
+  th
+    | Route
+  th
+    | Frequency
+  th
+    | Prescribed On
+
+tbody
+  - @patient.patient_medications.each do |p|
+
+    tr class="drug-#{p.medication.type.downcase}"
+      td data-heading="Type"
+        = p.medication.type
+      td data-heading="Medication"
+        = p.medication.name
+      td data-heading="Dose"
+        = p.dose
+      td data-heading="Route"
+        = I18n.t("enums.route.#{p.route}")
+      td data-heading="Frequency"
+        = p.frequency
+      td data-heading="Prescribed On"
+        = p.date

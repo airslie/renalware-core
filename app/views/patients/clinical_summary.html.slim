@@ -1,0 +1,47 @@
+.wide-screen
+  .columns.large-12
+    = render partial: "patients/patient_info_header", locals: { model: @patient }
+    = render partial: "patients/mini_renal_profile", locals: { model: @patient }
+
+    h5 Clinical Summary
+
+.wide-screen
+  .columns.large-6
+    h6
+      = link_to "#{@patient.problems.length} Problems", problems_patient_path(@patient)
+
+    ul.no-bullet
+      - @patient.problems.each do |p|
+
+        li
+          = "#{p.full_description}, #{p.created_at.to_date}"
+
+.wide-screen
+  .columns.large-6
+    h6
+      = link_to "#{@patient.medications.length} Current Medications", manage_medications_patient_path(@patient)
+
+    ul.no-bullet
+      - @patient.medications.each do |p|
+
+        li class="drug-#{drug_types_colour_tag(p.medicatable.drug_types)}"
+
+          = "#{drug_types_tag(p.medicatable.drug_types)}: #{p.medicatable.name}, #{p.dose}, #{p.medication_route.name}, #{p.frequency}, #{p.start_date}"
+
+hr
+
+.wide-screen
+  .columns.large-12
+    h6
+      = link_to "#{@patient.events.length} Patient Events", patient_events_path(@patient)
+
+    ul.no-bullet
+      - @patient.events.each do |event|
+        li
+          dl.accordion(data-accordion)
+            dd.accordion-navigation
+              a.fi-plus.fi-minus.toggle-info id="patient-event-toggle-info-#{event.id}" href="#patient-event-notes-#{event.id}"
+                = "#{event.date_time}, #{event.event_type.name} - #{event.description}"
+
+              .patient-event.content id="patient-event-notes-#{event.id}"
+                = event.notes
