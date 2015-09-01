@@ -1,12 +1,9 @@
 class ClinicLettersController < LettersController
   before_filter :load_clinic_visit
+  before_filter :load_letter, except: :new
 
   def new
     @letter = ClinicLetter.new(patient: @clinic_visit.patient, clinic_visit: @clinic_visit)
-  end
-
-  def edit
-    @letter = ClinicLetter.find(params[:id])
   end
 
   private
@@ -18,5 +15,9 @@ class ClinicLettersController < LettersController
   def load_patient
     return super if params[:patient_id].present?
     @patient = load_clinic_visit.patient
+  end
+
+  def load_letter
+    @letter = ClinicLetter.find(params[:id])
   end
 end

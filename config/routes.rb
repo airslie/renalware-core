@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   end
 
   resources :clinic_visits do
-    resources :letters, controller: 'clinic_letters', only: [:new, :edit]
+    resources :letters, controller: 'clinic_letters', only: [:new, :edit, :show]
   end
 
   get 'authors/:author_id/letters', to: 'letters#author', as: 'author_letters'

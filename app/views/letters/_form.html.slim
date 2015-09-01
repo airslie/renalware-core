@@ -37,7 +37,7 @@
     = radio_button_tag 'letter[recipient]', 'other', @patient.doctor.nil? && @patient.current_address.nil?, class: 'inline'
     = f.label :recipient, 'Other'
 
-    = text_field_tag 'other_recipient_address', recipient_address(@letter)
+    = text_area_tag 'other_recipient_address', recipient_address(@letter), rows: 3, disabled: @letter.recipient != 'other', placeholder: 'Alternative recipient address'
 
 - if @letter.clinic_letter?
   .row
