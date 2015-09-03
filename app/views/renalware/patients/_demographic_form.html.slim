@@ -1,0 +1,76 @@
+.row
+  .large-12.columns
+    = field_set_tag do
+      legend
+        | Patient Demographics
+      .row
+        .large-4.columns
+          ul.no-bullet
+            li
+              = patient.label :nhs_number, "NHS Number"
+              = patient.text_field :nhs_number
+
+            li
+              = patient.label :local_patient_id, "Local Patient ID"
+              = patient.text_field :local_patient_id
+
+        .large-4.columns
+          ul.no-bullet
+            li
+              = patient.label :surname
+              = patient.text_field :surname
+
+            li
+              = patient.label :forename
+              = patient.text_field :forename
+
+        .large-4.columns
+          ul.no-bullet
+            li
+              = patient.label :sex, "Sex"
+              = patient.select(:sex, gender_options, { prompt: "Please select gender" })
+
+            li
+              = patient.label :ethnicity_id, "Ethnicity"
+              = patient.collection_select(:ethnicity_id, Renalware::Ethnicity.all, :id, :name, { prompt: "Please select ethnicity" })
+
+        .large-6.columns
+          = patient.label :birth_date, "DoB"
+          = patient.date_select(:birth_date, {start_year: (100.years.ago).year, end_year: Time.now.year , order: [:day, :month, :year]}, class: "dob")
+
+        .large-12.columns
+          = patient.check_box :paediatric_patient_indicator
+          = patient.label :paediatric_patient_indicator
+
+      - if @patient.persisted?
+        .row
+          .section-underliner
+        .row
+          .large-12.columns
+            | To enter date of death please set 'Death' modality:
+            | &nbsp;
+            = link_to "Change Modal", new_patient_modality_path(@patient), title: "Patient Modality", class: "death-update"
+
+  .large-4.columns
+    = field_set_tag do
+      legend
+        | Organisation/Practice
+
+      = render partial: 'organisation_practice_form', locals: { patient: patient }
+
+  .large-4.columns
+    = patient.fields_for :current_address_attributes, patient.object.current_address do |a|
+      fieldset id="current_address"
+        legend
+          | Current Address
+
+        = render partial: 'renalware/addresses/form', locals: { a: a }
+
+  .large-4.columns
+    = patient.fields_for :address_at_diagnosis_attributes, patient.object.address_at_diagnosis do |a|
+      fieldset id="address_at_diagnosis"
+        legend
+          | Address at Diagnosis
+
+        = render partial: 'renalware/addresses/form', locals: { a: a }
+

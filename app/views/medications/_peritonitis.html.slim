@@ -1,5 +1,0 @@
-.select-peritonitis-drug
-  = pm.label :medicatable_id, "Select Drug (peritonitis drugs only)"
-  = pm.collection_select :medicatable_id, Drug.peritonitis, :id, :name, { prompt: "Please select drug used to treat this episode of peritonitis" }, class: "peritonitis-drug-select"
-
-  = pm.hidden_field :medicatable_type, value: "Drug", class: "selected-medicatable-type"

@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :role do
+  factory :role, class: "Renalware::Role" do
     name :super_admin
 
     trait :super_admin
@@ -16,5 +16,5 @@ FactoryGirl.define do
 end
 
 def find_or_create_role(name=:super_admin)
-  Role.find_by(name: name) || create(:role, name)
+  Renalware::Role.find_by(name: name) || create(:role, name)
 end

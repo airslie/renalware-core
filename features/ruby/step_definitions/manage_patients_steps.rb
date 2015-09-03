@@ -4,7 +4,7 @@ end
 
 Given(/^there are ethnicities in the database$/) do
   @ethnicities = ["White", "Black", "Asian"]
-  @ethnicities.map! { |e| Ethnicity.create!(:name => e) }
+  @ethnicities.map! { |e| Renalware::Ethnicity.create!(:name => e) }
 end
 
 Given(/^some patients who need renal treatment$/) do
@@ -16,7 +16,7 @@ Given(/^some patients who need renal treatment$/) do
     :birth_date => "01/01/1947",
     :paediatric_patient_indicator => "1",
     :sex => 1,
-    :ethnicity_id => Ethnicity.first.id,
+    :ethnicity_id => Renalware::Ethnicity.first.id,
     :hosp_centre_code => "888"
   )
 
@@ -28,7 +28,7 @@ Given(/^some patients who need renal treatment$/) do
     :birth_date => "24/06/1970",
     :paediatric_patient_indicator => "1",
     :sex => 2,
-    :ethnicity_id => Ethnicity.second.id,
+    :ethnicity_id => Renalware::Ethnicity.second.id,
     :hosp_centre_code => "888"
   )
 
@@ -40,7 +40,7 @@ Given(/^some patients who need renal treatment$/) do
     :birth_date => "28/02/1930",
     :paediatric_patient_indicator => "1",
     :sex => 1,
-    :ethnicity_id => Ethnicity.third.id,
+    :ethnicity_id => Renalware::Ethnicity.third.id,
     :hosp_centre_code => "999"
   )
 end
@@ -119,9 +119,9 @@ Then(/^I should see the new patient in the Renal Patient List$/) do
 end
 
 Then(/^the patient should be created$/) do
-  expect(Patient.count).to eq(1)
-  expect(Address.count).to eq(2)
-  @patient = Patient.first
+  expect(Renalware::Patient.count).to eq(1)
+  expect(Renalware::Address.count).to eq(2)
+  @patient = Renalware::Patient.first
   expect(@patient.current_address_id).to_not be_nil
   expect(@patient.address_at_diagnosis_id).to_not be_nil
 end

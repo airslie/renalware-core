@@ -1,0 +1,18 @@
+.row
+  .large-12.columns
+    = render partial: "renalware/shared/errors", locals: { model: @bag_type }
+
+.row
+  = field_set_tag do
+    .row
+      .large-12.columns
+        h4 Create a new PD Bag Type
+
+    = form_for @bag_type, method: :post do |bt|
+
+      = render partial: "renalware/bag_types/form", locals: { bt: bt }
+
+      ul.no-bullet.button-padding
+        li= submit_tag "Save New Bag Type", class: "button tiny right save"
+        li= link_to "Cancel", patients_path, class: "button tiny cancel"
+
