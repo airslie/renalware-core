@@ -1,18 +1,18 @@
-%tr
-  %td
+tr
+  td
     = author_view?(clinic_letter) ? clinic_letter.patient.full_name : clinic_letter.author.full_name
-  %td
+  td
     = clinic_letter.letter_description.text
-  %td
+  td
     = clinic_letter.state
-  %td
+  td
     = clinic_letter.updated_at
-  %td
+  td
     = link_to 'Preview', clinic_visit_letter_path(clinic_visit_id: clinic_letter.clinic_visit.to_param,
-                                                  id: clinic_letter.to_param), class: 'button tiny'
+      id: clinic_letter.to_param), class: 'button tiny'
 
     = link_to 'Edit', edit_clinic_visit_letter_path(clinic_visit_id: clinic_letter.clinic_visit.to_param,
-                                                    id: clinic_letter.to_param), class: 'button tiny'
+      id: clinic_letter.to_param), class: 'button tiny'
 
     = link_to 'Delete', patient_letter_path(patient_id: clinic_letter.patient.to_param,
-                                            id: clinic_letter.to_param), method: :delete, class: 'button tiny cancel'
+      id: clinic_letter.to_param), method: :delete, class: 'button tiny cancel'

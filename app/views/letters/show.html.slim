@@ -1,19 +1,19 @@
 .letter-preview-header
   .row
     .columns.large-4
-      Status: #{@letter.state.upcase}
+      | Status: #{@letter.state.upcase}
     .columns.large-4
-      Author: #{@letter.author.full_name}
+      | Author: #{@letter.author.full_name}
     .columns.large-4
-      Letter type: #{@letter.title}
+      | Letter type: #{@letter.title}
 
   .row
     .columns.large-4
-      To: #{recipients(@letter).first}, CC: #{recipients(@letter).last}
+      | To: #{recipients(@letter).first}, CC: #{recipients(@letter).last}
     .columns.large-4
-      Title: #{@letter.letter_description.text}
+      | Title: #{@letter.letter_description.text}
 
-%hr
+hr
 
 .letter-preview-body
   .row
@@ -24,5 +24,5 @@
 
   .row
     = @letter.author.signature
-    %br
+    br
     = @letter.author.professional_position
