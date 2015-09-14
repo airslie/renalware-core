@@ -1,0 +1,38 @@
+.letter-preview-header
+  .row
+    .columns.large-4
+      | Status: #{@letter.state.upcase}
+    .columns.large-4
+      | Author: #{@letter.author.full_name}
+    .columns.large-4
+      | Letter type: #{@letter.title}
+
+  .row
+    .columns.large-4
+      | To: #{recipients(@letter).first}, CC: #{recipients(@letter).last}
+    .columns.large-4
+      | Title: #{@letter.letter_description.text}
+
+    - if @letter.is_a? Renalware::ClinicLetter
+      .columns.large-4
+        | Clinic date: #{@letter.clinic_visit.date}
+
+hr
+
+.letter-preview-body
+  - if @letter.is_a? Renalware::ClinicLetter
+    .row
+      = patient_problems(@letter)
+      = patient_medications(@letter)
+
+    p
+
+  .row
+    = salutation(@letter)
+    br
+    = @letter.body
+
+  .row
+    = @letter.author.signature
+    br
+    = @letter.author.professional_position

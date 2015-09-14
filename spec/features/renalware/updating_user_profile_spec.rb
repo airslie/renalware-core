@@ -21,6 +21,7 @@ module Renalware
 
     scenario 'updating with no signature or professional position' do
       fill_in 'Signature', with: ''
+      fill_in 'Professional position', with: ''
       fill_in 'Current password', with: @clinician.password
       click_on 'Update'
 

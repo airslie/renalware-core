@@ -8,6 +8,6 @@ tr
   td
     = letter.updated_at
   td
-    = link_to 'Edit', edit_patient_letter_path(patient_id: letter.patient.to_param, id: letter.to_param)
-    = pipe_separator
-    = link_to 'Delete', patient_letter_path(patient_id: letter.patient.to_param, id: letter.to_param), method: :delete
+    = link_to 'Preview', patient_letter_path(patient_id: letter.patient.to_param, id: letter.to_param), class: 'button tiny'
+    = link_to 'Edit', edit_patient_letter_path(patient_id: letter.patient.to_param, id: letter.to_param), class: 'button tiny'
+    = link_to 'Delete', patient_letter_path(patient_id: letter.patient.to_param, id: letter.to_param), method: :delete, class: 'button tiny cancel'

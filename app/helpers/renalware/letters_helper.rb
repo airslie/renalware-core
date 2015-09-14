@@ -45,6 +45,24 @@ module Renalware
       end
     end
 
+    def salutation(letter)
+      case letter.recipient
+      when 'doctor'
+        "Dear Dr. #{letter.patient.doctor.last_name}"
+      when 'patient'
+        "Dear #{letter.patient.full_name}"
+      end
+    end
+
+    def recipients(letter)
+      case letter.recipient
+      when 'doctor'
+        [letter.patient.doctor.full_name, letter.patient.full_name]
+      when 'patient'
+        [letter.patient.full_name, letter.patient.doctor.full_name]
+      end
+    end
+
     private
 
     def patient_history_element(title, items)
