@@ -8,7 +8,7 @@ end
 
 Given(/^there are existing patient event types in the database$/) do
   @event_types = ["Telephone call", "Email", "Meeting with family"]
-  @event_types.map { |t| @pet = EventType.create!(:name => t) }
+  @event_types.map { |t| @pet = Renalware::EventType.create!(:name => t) }
 end
 
 When(/^they edit a patient event type$/) do

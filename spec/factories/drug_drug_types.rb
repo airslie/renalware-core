@@ -1,7 +1,7 @@
 FactoryGirl.define do
-  factory :drug_drug_type do
-    drug 
-    drug_type 
+  factory :drug_drug_type, class: "Renalware::DrugDrugType" do
+    drug
+    drug_type
   end
 
 end

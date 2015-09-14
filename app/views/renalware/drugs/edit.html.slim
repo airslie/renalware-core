@@ -1,0 +1,15 @@
+.row
+  h5 Edit a Drug
+
+= render partial: "renalware/shared/errors", locals: { model: @drug }
+
+.row
+  .large-6.columns
+    = form_for @drug, as: :drug, method: :put, url: drug_path(@drug) do |f|
+      ul.no-bullet
+
+        = render partial: "renalware/drugs/form", locals: { f: f }
+
+      .row.button-padding
+        = submit_tag "Update Drug", class: "button tiny right"
+        = link_to "Cancel", drugs_path, class: "button tiny left cancel"

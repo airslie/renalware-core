@@ -7,7 +7,7 @@ FactoryGirl.define do
     n.to_s.rjust(6, 'Z99999')
   end
 
-  factory :patient do
+  factory :patient, class: "Renalware::Patient" do
     nhs_number
     local_patient_id
     surname "Jones"

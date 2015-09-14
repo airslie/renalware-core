@@ -1,0 +1,22 @@
+.wide-screen
+  .columns.large-12
+    = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
+    = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
+
+.row
+  ul.no-bullet
+    = field_set_tag do
+
+      = nested_form_for [@patient, @pd_regime], as: :pd_regime, method: :put do |r|
+        .row
+          .large-12.columns
+            h4
+              = "Edit this #{capd_apd_title(r.object.type)} Regime"
+
+        .row
+          = render partial: 'renalware/pd_regimes/form', locals: { r: r }
+
+        .large-12.columns.button-padding
+          = link_to "Cancel", pd_info_patient_path(@patient), class: "button tiny left cancel mt"
+
+          = r.submit "Update #{capd_apd_title(r.object.type)} Regime", class: "button tiny right save mt"

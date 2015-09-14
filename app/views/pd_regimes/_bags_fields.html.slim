@@ -1,3 +1,0 @@
-= form_for [@patient, @pd_regime], authenticity_token: false do |r|
-  = r.fields_for :pd_regime_bags do |rb|
-    = render partial: 'pd_regimes/bags/form', locals: {rb: rb}

@@ -1,0 +1,21 @@
+.wide-screen
+  .columns.large-12
+    = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
+    = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
+
+    h5
+      = "Update Patient Demographics #{@patient.to_s(:full_name)}"
+
+.row
+  .large-12.columns
+
+    = form_for @patient, method: :put do |f|
+
+      = hidden_field_tag :redirect_url, demographics_patient_path(@patient)
+      = hidden_field_tag :message, "You have successfully updated a patient's demographics"
+
+      = render partial: "renalware/patients/demographic_form", locals: { patient: f }
+
+      = submit_tag "Update Demographics", class: "button tiny right"
+
+      = link_to "Cancel", demographics_patient_path(@patient), class: "button tiny left cancel"

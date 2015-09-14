@@ -7,7 +7,7 @@ FactoryGirl.define do
     "renalwareuser-#{n}"
   end
 
-  factory :user do
+  factory :user, class: "Renalware::User" do
     first_name 'Aneurin'
     last_name 'Bevan'
     username
