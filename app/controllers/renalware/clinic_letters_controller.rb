@@ -1,6 +1,6 @@
 module Renalware
-  class ClinicLettersController < BaseController
-    load_and_authorize_resource
+  class ClinicLettersController < LettersController
+    load_and_authorize_resource class: Renalware::BaseLetter
 
     before_filter :load_clinic_visit
     before_filter :load_letter, except: :new
@@ -19,6 +19,10 @@ module Renalware
 
     def load_clinic_visit
       @clinic_visit = ClinicVisit.find(params[:clinic_visit_id])
+    end
+
+    def load_patient
+      @patient = load_clinic_visit.patient
     end
   end
 end

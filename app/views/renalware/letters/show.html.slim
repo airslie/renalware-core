@@ -13,13 +13,23 @@
     .columns.large-4
       | Title: #{@letter.letter_description.text}
 
+    - if @letter.is_a? Renalware::ClinicLetter
+      .columns.large-4
+        | Clinic date: #{@letter.clinic_visit.date}
+
 hr
 
 .letter-preview-body
-  .row
-    = salutation(@letter)
+  - if @letter.is_a? Renalware::ClinicLetter
+    .row
+      = patient_problems(@letter)
+      = patient_medications(@letter)
+
+    p
 
   .row
+    = salutation(@letter)
+    br
     = @letter.body
 
   .row
