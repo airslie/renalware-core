@@ -12,7 +12,7 @@ $(document).ready(function(){
         url: '/modality_reasons.json',
         data: { modal_change_type: selectedChangeType },
         success: function(json) {
-          console.log(json);
+          // console.log(json);
           var $reasonSelectBox = $modalityForm.find('.modality-reason-select');
           $reasonSelectBox.html('');
 
@@ -54,7 +54,7 @@ $(document).ready(function(){
         url: '/modality_reasons.json',
         data: { modal_change_type: "HaemodialysisToPd" },
         success: function(json) {
-          console.log(json);
+          // console.log(json);
 
           for (var i = 0; i < json.length; i++) {
             var reasonRrCode = json[i].rr_code;
@@ -68,12 +68,12 @@ $(document).ready(function(){
           console.log(json);
         }
       });
-     
+
     $.ajax({
         url: '/modality_reasons.json',
         data: { modal_change_type: "PdToHaemodialysis" },
         success: function(json) {
-          console.log(json);
+          // console.log(json);
 
           for (var i = 0; i < json.length; i++) {
             var reasonRrCode = json[i].rr_code;

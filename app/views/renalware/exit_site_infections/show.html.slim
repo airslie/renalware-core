@@ -1,0 +1,55 @@
+.wide-screen
+  .columns.large-12
+    = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
+    = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
+
+    h5
+      = "Exit Site Infection Details - Diagnosed: #{@exit_site_infection.diagnosis_date.strftime("%d/%m/%Y")}"
+
+.row
+  .large-12.columns
+    = field_set_tag do
+      legend.title-bold
+        = "Last Updated: #{@exit_site_infection.updated_at}"
+
+      .large-6.columns
+
+        .row
+          .large-12.columns
+            .section-underliner.title-bold
+              | Outcome:
+
+            p
+              = @exit_site_infection.outcome
+
+          .large-12.columns
+            .section-underliner.title-bold
+              | Organisms/Sensitivity:
+            .large-12.columns
+              ul.table-data-list
+                = organisms_and_sensitivities(@exit_site_infection.infection_organisms)
+
+      .large-6.columns
+        .row
+          .large-12.columns
+            .section-underliner.title-bold
+              | Treatment:
+            p
+              = @exit_site_infection.treatment
+
+          .large-12.columns
+            .section-underliner.title-bold
+              | Antibiotics/Routes:
+            .large-12.columns
+              ul.table-data-list
+                = medication_and_route(@exit_site_infection.medications)
+          .large-12.columns
+            .section-underliner.title-bold
+              | Exit Site Infection Notes:
+            p
+              = @exit_site_infection.notes
+
+      .large-12.columns.button-padding
+        = link_to "Edit", edit_patient_exit_site_infection_path(@patient, @exit_site_infection.id), class: "tiny button right"
+
+        = link_to "Return to PD Info", pd_info_patient_path(@patient), class: "button tiny left cancel"

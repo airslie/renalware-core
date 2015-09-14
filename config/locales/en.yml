@@ -18,37 +18,37 @@ en:
 
   activerecord:
     attributes:
-      event_type:
+      renalware/event_type:
         name: Name
-      peritonitis_episode/infection_organisms:
+      renalware/peritonitis_episode/infection_organisms:
         organism_code_id: Organism
-      exit_site_infection/infection_organisms:
+      renalware/exit_site_infection/infection_organisms:
         organism_code_id: Organism
-      patient/medications:
+      renalware/patient/medications:
         medicatable_id: Medication to be administered
         dose: Medication's dose
         medication_route_id: Medication's route
         frequency: "Medication's frequency & duration"
         start_date: "Medication's prescribed date"
         provider: Medication's provider
-      peritonitis_episode/medications:
+      renalware/peritonitis_episode/medications:
         medicatable_id: Medication to be administered
         dose: Medication's dose
         medication_route_id: Medication's route
         frequency: "Medication's frequency & duration"
         start_date: "Medication's prescribed date"
         provider: Medication's provider
-      exit_site_infection/medications:
+      renalware/exit_site_infection/medications:
         medicatable_id: Medication to be administered
         dose: Medication's dose
         medication_route_id: Medication's route
         frequency: "Medication's frequency & duration"
         start_date: "Medication's prescribed date"
         provider: Medication's provider
-      pd_regime:
+      renalware/pd_regime:
         treatment: PD regime treatment
         pd_regime_bags: PD regime
-      pd_regime/pd_regime_bags:
+      renalware/pd_regime/pd_regime_bags:
         bag_type_id: PD bag type
         volume: "PD bag volume (ml)"
         days: PD bag

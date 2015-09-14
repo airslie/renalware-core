@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :bag_type do
+  factory :bag_type, class: "Renalware::BagType" do
     manufacturer "Star Brand, Lucky Brand"
     description "Green–2.34"
     glucose_grams_per_litre 28.6

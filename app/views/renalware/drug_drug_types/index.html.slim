@@ -1,0 +1,46 @@
+.row
+  .large-12.columns
+    h4
+      | Assign categories/types for
+      i
+        = "#{@drug.name}"
+
+.row
+  .large-6.columns
+    h5.underline
+      | Existing categories/types for this drug:
+
+    .drug_type_list
+      ul.no-bullet
+        - @drug_drug_types.each do |t|
+
+          - if t.drug_type.blank?
+
+            li
+              = "No assigned categories/types for this drug."
+
+          - else
+            li
+              = t.drug_type.name
+              = link_to "Delete", drug_drug_drug_type_path(@drug, t.id), class: "right"
+
+  .large-6.columns
+    h5.underline
+      | Assign a category/type for this drug:
+
+    = form_for @assign_drug_types, url: drug_drug_drug_types_path(@drug), method: :post do |ddt_attributes|
+
+      = ddt_attributes.hidden_field :drug_id
+
+      = ddt_attributes.label :drug_type_id, "Drug Category/Type"
+      = ddt_attributes.collection_select :drug_type_id, Renalware::DrugType.all, :id, :name, { prompt: "Please select a type for this drug", include_blank: true, class: "drug-type-select", multiple: true }
+
+      = submit_tag "Assign Category/Type", class: "button tiny right save"
+      = link_to "Cancel", drugs_path, class: "button tiny cancel"
+
+
+
+
+
+
+

@@ -1,7 +1,8 @@
 Given(/^there are modality reasons in the database$/) do
   @modality_reasons = [[nil, nil, "Other"], ["PdToHaemodialysis", 111, "Reason One"], ["HaemodialysisToPd", 222, "Reason Two"]]
   @modality_reasons.map! do |mr|
-    @modality_reason = ModalityReason.create!(:type => mr[0], :rr_code => mr[1], :description => mr[2])
+    type = mr[0] ? "Renalware::#{mr[0]}" : nil
+    @modality_reason = Renalware::ModalityReason.create!(:type => type, :rr_code => mr[1], :description => mr[2])
   end
 end
 
@@ -21,7 +22,7 @@ end
 Given(/^there are medication routes in the database$/) do
   @medication_routes = [["PO", "Per Oral"], ["IV", "Intravenous"], ["SC", "Subcutaneous"], ["IM", "Intramuscular"], ["Other (Please specify in notes)", "Other (Refer to notes)"]]
   @medication_routes.map! do |mroute|
-    MedicationRoute.create!(:name => mroute[0], :full_name => mroute[1])
+    Renalware::MedicationRoute.create!(:name => mroute[0], :full_name => mroute[1])
   end
 
   @po = @medication_routes[0]

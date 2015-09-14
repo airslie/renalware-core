@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :modality do
+  factory :modality, class: "Renalware::Modality" do
     patient
     modality_code
     modality_reason

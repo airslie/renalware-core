@@ -1,9 +1,8 @@
 FactoryGirl.define do
-  factory :letter do
+  factory :letter, class: "Renalware::Letter" do
     patient
     doctor
     state 'draft'
-    type 'Letter'
     letter_description
     recipient 'doctor'
     body 'I met with Mrs. Brown last Tuesay and I am pleased to report a marked improvement in her condition.'
@@ -28,8 +27,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :clinic_letter,  class: ClinicLetter, parent: :letter do
-    type 'ClinicLetter'
+  factory :clinic_letter, class: "Renalware::ClinicLetter", parent: :letter do
     clinic_visit
   end
 end
