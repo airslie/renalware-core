@@ -34,7 +34,7 @@ group :development, :test do
   gem 'foreman'
   gem 'launchy'
   gem 'mocha'
-  gem 'poltergeist' #, '~> 1.5.1'
+  gem 'poltergeist'
   gem 'pry-byebug'
   gem 'quiet_assets'
   gem 'rspec-rails'
