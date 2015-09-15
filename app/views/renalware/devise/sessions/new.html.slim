@@ -1,0 +1,12 @@
+.row.small-6.large-4
+  h3 Log in to Renalware
+
+  = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    = f.input :username, input_html: { autofocus: true }, required: false
+    = f.input :password, input_html: { autocomplete: "off" }
+    = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+
+    .actions
+      = f.submit "Log in", class: 'button save'
+
+  = render "devise/shared/links"
