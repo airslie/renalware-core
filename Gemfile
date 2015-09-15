@@ -19,6 +19,7 @@ gem 'devise_security_extension', git: 'https://github.com/phatworx/devise_securi
 gem 'cancancan', '~> 1.10'
 gem 'nested_form', '~> 0.3.2'
 gem 'slim-rails'
+gem 'simple_form'
 
 group :development do
   gem 'guard-rspec', require: false
@@ -47,6 +48,7 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
 
   gem 'haml2slim' # TODO: remove when we're done moving to Slim
+  gem 'html2slim' # TODO: remove when we're done moving to Slim
 end
 
 group :test do

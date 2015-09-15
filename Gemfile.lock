@@ -147,6 +147,9 @@ GEM
       nokogiri
       ruby_parser
     hike (1.2.3)
+    hpricot (0.8.6)
+    html2slim (0.2.0)
+      hpricot
     httparty (0.13.3)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
@@ -299,6 +302,9 @@ GEM
     shellany (0.0.1)
     shoulda-matchers (2.7.0)
       activesupport (>= 3.0.0)
+    simple_form (3.1.1)
+      actionpack (~> 4.0)
+      activemodel (~> 4.0)
     simplecov (0.7.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
@@ -374,6 +380,7 @@ DEPENDENCIES
   guard-cucumber
   guard-rspec
   haml2slim
+  html2slim
   httparty
   jquery-rails
   kaminari (~> 0.15.1)
@@ -395,6 +402,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   shoulda-matchers
+  simple_form
   simplecov
   slim-rails
   spring
