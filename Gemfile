@@ -33,7 +33,6 @@ group :development, :test do
   gem 'ffaker'
   gem 'foreman'
   gem 'launchy'
-  gem 'mocha'
   gem 'poltergeist'
   gem 'pry-byebug'
   gem 'quiet_assets'
