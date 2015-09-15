@@ -90,12 +90,13 @@ module Renalware
   rabbit.save!
 
   log '--------------------Adding Address for Roger RABBIT-------------------'
-  rabbit.current_address = Address.find_or_create_by!(street_1: '123 South Street',
-                                                      city: 'Toontown',
-                                                      postcode: 'TT1 1HD',
-                                                      country: 'United Kingdom')
+  rabbit.current_address = Address.find_or_create_by!(
+    street_1: '123 South Street',
+    city: 'Toontown',
+    postcode: 'TT1 1HD',
+    country: 'United Kingdom'
+    )
   rabbit.save!
-
 
   log '--------------------Adding ClinicVisits for Roger RABBIT-------------------'
   5.times do |n|
@@ -104,4 +105,53 @@ module Renalware
         clinic.date = n.days.ago.change({ hour: (10 + (2 * n)), min: 0 })
       end
   end
+
+  log '--------------------Adding Medications for Roger RABBIT-------------------'
+  Medication.create([
+    {patient_id: 1, medicatable_id: 986, medicatable_type: "Drug", treatable_id: nil, treatable_type: nil, dose: "50 mg", medication_route_id: 1, frequency: "bd for 7 days", notes: "        ", start_date: "2015-09-13", end_date: "2015-09-20", provider: 0, deleted_at: nil},
+    {patient_id: 1, medicatable_id: 183, medicatable_type: "Drug", treatable_id: nil, treatable_type: nil, dose: "25 mg", medication_route_id: 1, frequency: "nocte", notes: "        ", start_date: "2014-10-10", end_date: nil, provider: 0, deleted_at: nil},
+    {patient_id: 1, medicatable_id: 269, medicatable_type: "Drug", treatable_id: nil, treatable_type: nil, dose: "100 mg", medication_route_id: 1, frequency: "bd", notes: "", start_date: "2015-06-16", end_date: nil, provider: 0, deleted_at: nil},
+    {patient_id: 1, medicatable_id: 126, medicatable_type: "Drug", treatable_id: 1, treatable_type: "PeritonitisEpisode", dose: "100 mg", medication_route_id: 1, frequency: "tid for 7d", notes: "", start_date: "2015-09-14", end_date: "2015-09-21", provider: 0, deleted_at: nil}
+  ])
+
+  log '--------------------Adding ESRF Info for Roger RABBIT-------------------'
+  EsrfInfo.create([
+    {patient_id: 1, date: "2015-05-05", prd_code_id: 109}
+  ])
+
+  log '--------------------Adding Exit Site Infection for Roger RABBIT-------------------'
+  ExitSiteInfection.create([
+    {patient_id: 1, diagnosis_date: "2015-06-09", treatment: "liquid and electrolyte replacement ", outcome: "Recovered well. Scheduled another training review session.", notes: ""}
+  ])
+
+  log '--------------------Adding Peritonitis Episode for Roger RABBIT-------------------'
+  PeritonitisEpisode.create([
+    {patient_id: 1, diagnosis_date: "2015-09-14", treatment_start_date: "2015-09-14", treatment_end_date: "2015-09-21", episode_type_id: 6, catheter_removed: true, line_break: false, exit_site_infection: false, diarrhoea: false, abdominal_pain: true, fluid_description_id: 4, white_cell_total: 5, white_cell_neutro: 57, white_cell_lympho: 37, white_cell_degen: 3, white_cell_other: 3, notes: ""}
+  ])
+
+  InfectionOrganism.create([
+    {organism_code_id: 33, sensitivity: "+++", infectable_id: 1, infectable_type: "PeritonitisEpisode"},
+    {organism_code_id: 4, sensitivity: "unknown", infectable_id: 1, infectable_type: "ExitSiteInfection"}
+  ])
+
+  log '--------------------Adding PD Regimes for Roger RABBIT-------------------'
+  PdRegime.create([
+    {patient_id: 1, start_date: "2015-05-05", end_date: "2015-09-15", treatment: "CAPD 3 exchanges per day", type: "CapdRegime", glucose_ml_percent_1_36: 1000, glucose_ml_percent_2_27: 2000, glucose_ml_percent_3_86: 1500, amino_acid_ml: nil, icodextrin_ml: nil, add_hd: false, last_fill_ml: nil, add_manual_exchange: nil, tidal_indicator: nil, tidal_percentage: nil, no_cycles_per_apd: nil, overnight_pd_ml: nil},
+    {patient_id: 1, start_date: "2015-08-15", end_date: "2015-09-15", treatment: "CAPD 3 exchanges per day", type: "CapdRegime", glucose_ml_percent_1_36: 1500, glucose_ml_percent_2_27: 1500, glucose_ml_percent_3_86: 2000, amino_acid_ml: nil, icodextrin_ml: nil, add_hd: false, last_fill_ml: nil, add_manual_exchange: nil, tidal_indicator: nil, tidal_percentage: nil, no_cycles_per_apd: nil, overnight_pd_ml: nil},
+    {patient_id: 1, start_date: "2015-09-15", end_date: nil, treatment: "APD Wet Day", type: "ApdRegime", glucose_ml_percent_1_36: 1000, glucose_ml_percent_2_27: 2000, glucose_ml_percent_3_86: 1500, amino_acid_ml: nil, icodextrin_ml: nil, add_hd: false, last_fill_ml: 1000, add_manual_exchange: false, tidal_indicator: true, tidal_percentage: 95, no_cycles_per_apd: 3, overnight_pd_ml: 3000}
+  ])
+
+  PdRegimeBag.create([
+    {pd_regime_id: 1, bag_type_id: 1, volume: 1000, per_week: 7, monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true},
+    {pd_regime_id: 1, bag_type_id: 2, volume: 2000, per_week: 7, monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true},
+    {pd_regime_id: 1, bag_type_id: 3, volume: 1500, per_week: 7, monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true},
+    {pd_regime_id: 1, bag_type_id: 7, volume: 2000, per_week: 2, monday: false, tuesday: false, wednesday: false, thursday: false, friday: true, saturday: true, sunday: false},
+    {pd_regime_id: 2, bag_type_id: 4, volume: 1500, per_week: 7, monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true},
+    {pd_regime_id: 2, bag_type_id: 5, volume: 1500, per_week: 7, monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true},
+    {pd_regime_id: 2, bag_type_id: 6, volume: 2000, per_week: 7, monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true},
+    {pd_regime_id: 2, bag_type_id: 7, volume: 1000, per_week: 2, monday: false, tuesday: false, wednesday: false, thursday: false, friday: true, saturday: true, sunday: false},
+    {pd_regime_id: 3, bag_type_id: 4, volume: 1000, per_week: 7, monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true},
+    {pd_regime_id: 3, bag_type_id: 2, volume: 2000, per_week: 7, monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true},
+    {pd_regime_id: 3, bag_type_id: 3, volume: 1500, per_week: 7, monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true}
+  ])
 end
