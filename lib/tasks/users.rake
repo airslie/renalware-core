@@ -27,6 +27,19 @@ def default_super_admin_attrs
   }
 end
 
+def demo_admin_user_attrs
+  {
+    first_name: 'Admin',
+    last_name: 'User',
+    username: 'adminuser',
+    email: 'adminuser@renalware.net',
+    password: 'renalware',
+    roles: [Role.find_by!(name: :admin)],
+    approved: true,
+    signature: 'Admin User'
+  }
+end
+
 namespace :users do
   desc 'Add a new User to Renalware.'
   task add_user: :environment do
@@ -68,6 +81,16 @@ namespace :users do
       end
     end
     puts "Super Admin credentials: #{default_super_admin_attrs[:username]}/#{default_super_admin_attrs[:password]}"
+  end
+
+  desc 'Add demo Admin User'
+  task add_demo_admin_user: :environment do
+    User.find_or_create_by!(username: demo_admin_user_attrs[:username]) do |u|
+      demo_admin_user_attrs.each do |k,v|
+        u.send(:"#{k}=", v)
+      end
+    end
+    puts "Admin User credentials: #{demo_admin_user_attrs[:username]}/#{demo_admin_user_attrs[:password]}"
   end
 
   desc 'Approve a user'

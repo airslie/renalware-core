@@ -9,3 +9,4 @@ end
 
 
 Rake::Task['users:add_super_admin'].invoke if Rails.env.development?
+Rake::Task['users:add_demo_admin_user'].invoke if Rails.env.development?
