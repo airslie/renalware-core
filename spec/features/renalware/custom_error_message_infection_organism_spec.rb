@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Renalware
-  feature 'able to view custom error messages on failed validation for an infection organism', js: true do
+  feature 'Able to view custom error messages on failed validation for an infection organism', js: true do
     background do
       @patient = create(:patient)
       login_as_clinician
