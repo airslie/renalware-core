@@ -12,24 +12,6 @@ module Renalware
     it { should validate_presence_of :start_date }
     it { should validate_presence_of :treatment }
 
-    describe 'creating a regime without a bag', :type => :feature do
-      context 'CAPD' do
-        it 'should fail validation and display appropriate error message' do
-          @patient = create(:patient)
-          login_as_clinician
-          visit pd_info_patient_path(@patient)
-
-          click_link 'Add CAPD Regime'
-
-          select 'CAPD 3 exchanges per day', from: 'Treatment'
-
-          click_on 'Save CAPD Regime'
-
-          expect(page).to have_content('PD regime must be assigned at least one bag')
-        end
-      end
-    end
-
     describe "type_apd?" do
       before do
         @bag_type = create(:bag_type)
