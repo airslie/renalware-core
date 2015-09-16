@@ -21,7 +21,7 @@ def default_super_admin_attrs
     username: 'superadmin',
     email: 'superadmin@renalware.net',
     password: 'supersecret',
-    roles: [Role.find_by!(name: :super_admin)],
+    roles: [Renalware::Role.find_by!(name: :super_admin)],
     approved: true,
     signature: 'Super Admin'
   }
@@ -36,17 +36,17 @@ namespace :users do
     email = get_stdin('Email', 'superadmin@renalware.net')
     password = get_stdin('Password', 'supersecret', false)
     confirm_password = get_stdin('Password again', 'supersecret', false)
-    available_role_names = Role.all.map { |r| "'#{r.name}'" }.join(',')
+    available_role_names = Renalware::Role.all.map { |r| "'#{r.name}'" }.join(',')
     role_name = get_stdin("Role, [#{available_role_names}]", 'super_admin')
 
-    if Role.all.map(&:name).include?(role_name)
-      role = Role.find_by!(name: role_name)
+    if Renalware::Role.all.map(&:name).include?(role_name)
+      role = Renalware::Role.find_by!(name: role_name)
     else
       raise "Role #{role_name} does not exist"
     end
 
     if password == confirm_password
-      User.find_or_create_by!(username: username) do |u|
+      Renalware::User.find_or_create_by!(username: username) do |u|
         u.first_name = first_name
         u.last_name = last_name
         u.email = email
@@ -62,7 +62,7 @@ namespace :users do
 
   desc 'Add default super admin'
   task add_super_admin: :environment do
-    User.find_or_create_by!(username: default_super_admin_attrs[:username]) do |u|
+    Renalware::User.find_or_create_by!(username: default_super_admin_attrs[:username]) do |u|
       default_super_admin_attrs.each do |k,v|
         u.send(:"#{k}=", v)
       end
@@ -72,7 +72,7 @@ namespace :users do
 
   desc 'Approve a user'
   task :approve_user, [:username] => :environment do |t, args|
-    user = User.find_by!(username: args[:username])
+    user = Renalware::User.find_by!(username: args[:username])
     puts "#{user.username} approved." if user.update_attributes(approved: true)
   end
 end

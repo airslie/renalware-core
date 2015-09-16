@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.2'
+ruby '2.2.3'
 
 gem 'rails', '~> 4.2'
 gem 'pg', '~> 0.18.1'
@@ -10,7 +10,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'sass-rails', '~> 4.0.3'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'httparty'
-gem 'paper_trail', '~> 3.0.6'
+gem 'paper_trail', '~> 4.0.0'
 gem 'paranoia', '~> 2.0'
 gem 'ransack', git: 'https://github.com/activerecord-hackery/ransack.git'
 gem 'kaminari', '~> 0.15.1'
@@ -19,6 +19,7 @@ gem 'devise_security_extension', git: 'https://github.com/phatworx/devise_securi
 gem 'cancancan', '~> 1.10'
 gem 'nested_form', '~> 0.3.2'
 gem 'slim-rails'
+gem 'simple_form'
 
 group :development do
   gem 'guard-rspec', require: false
@@ -33,8 +34,7 @@ group :development, :test do
   gem 'ffaker'
   gem 'foreman'
   gem 'launchy'
-  gem 'mocha'
-  gem 'poltergeist', '~> 1.5.1'
+  gem 'poltergeist'
   gem 'pry-byebug'
   gem 'quiet_assets'
   gem 'rspec-rails'
@@ -48,6 +48,7 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
 
   gem 'haml2slim' # TODO: remove when we're done moving to Slim
+  gem 'html2slim' # TODO: remove when we're done moving to Slim
 end
 
 group :test do

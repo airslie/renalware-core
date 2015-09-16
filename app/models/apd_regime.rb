@@ -1,2 +1,0 @@
-class ApdRegime < PdRegime
-end

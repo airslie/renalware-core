@@ -1,0 +1,18 @@
+.row
+  h4 Add New Modality Code
+
+.row
+  = render partial: "renalware/shared/errors", locals: { model: @modal_code }
+
+.row
+  .large-6.columns
+    ul.no-bullet
+
+      = form_for @modal_code, method: :post do |m|
+
+        = render partial: "renalware/modality_codes/form", locals: { m: m }
+
+        = submit_tag "Save", class: "button tiny right save"
+
+        li= link_to "Cancel", modality_codes_path, class: "button tiny cancel"
+

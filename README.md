@@ -44,6 +44,18 @@ Ruby on Rails - Development Setup
 5. Visit [http://localhost:3000](http://localhost:3000)
 
 
+Converting an issue to a pull request
+-----
+
+First, make sure you have the [Hub](hub.github.com/) tool.  You can use Homebrew to install it: `brew install hub`
+
+Then create a new local branch for the feature/fix/chore that will address the issue.  You will need at least one commit
+in that branch for the issue conversion to work.
+
+Convert the issue this way: `hub pull-request -i 999` where 999 is the issue number.  IMPORTANT: make sure
+your local branch is checked out and you are not in master.
+
+
 Tests
 -----
 

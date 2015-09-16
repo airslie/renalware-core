@@ -1,0 +1,62 @@
+.med-form.content id=("edit-meds-#{pm.object.id}" )
+  = pm.hidden_field :id
+
+  = pm.hidden_field :patient_id, value: @patient.id
+
+  - if pm.object.treatable_type == "Renalware::PeritonitisEpisode"
+
+    = render partial: 'renalware/medications/peritonitis', locals: { pm: pm }
+
+  - elsif pm.object.treatable_type == "Renalware::ExitSiteInfection"
+
+    = render partial: 'renalware/medications/exit_site', locals: { pm: pm }
+
+  - else
+
+    .medication-type-field
+      = label_tag :medication_switch, "Medication Type"
+      = select_tag :medication_switch, drug_select_options, { prompt: "Select drug by category/type or use the search option below", include_blank: true, class: "medication-type-select" }
+
+    /! Search all drugs
+    .standard
+      = label_tag :drug_search, "Drug"
+      = text_field_tag :drug_search, medicatable_name(pm.object), class: "find_drug #{ highlight_validation_fail(pm.object, :medicatable_id) }", placeholder: "Search drug by name or type"
+
+      ul.drug-results.no-bullet
+
+      = pm.hidden_field :medicatable_id, class: "selected-medicatable-id"
+      = pm.hidden_field :medicatable_type, value: "Renalware::Drug", class: "selected-medicatable-type"
+
+    /! Show only when selecting drugs by category/type.
+    .drug-by-select
+      = label_tag :drug_select, "Select Drug"
+      = select_tag :drug_select, @selected_drugs, class: "drug-select"
+
+  /! Same for both
+  = pm.label :dose
+  = pm.text_field :dose
+
+  = pm.label :medication_route_id, "Route"
+  = pm.collection_select :medication_route_id, Renalware::MedicationRoute.all, :id, :name, { prompt: "Please select route of administration" }, class: "medication-route-select }"
+
+  = pm.label :frequency, "Frequency & Duration"
+  = pm.text_field :frequency
+
+  = pm.label :notes
+  = pm.text_area :notes, cols: 50, rows: 6
+
+  = pm.label :start_date, "Prescribed On"
+  = pm.date_select(:start_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year], include_blank: true }, class: "datetime")
+
+  = pm.label :end_date, "Terminated On"
+  = pm.date_select(:end_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year], include_blank: true }, class: "datetime")
+
+  = pm.label :provider
+
+  - Renalware::Medication.providers.keys.map do |p|
+    ul.no-bullet.provider
+
+      li
+        = pm.radio_button :provider, p, class: "provider-#{p}", checked: default_provider(p)
+      li
+        = pm.label :provider, I18n.t("enums.provider.#{p}")

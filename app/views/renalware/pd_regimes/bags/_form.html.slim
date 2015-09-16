@@ -1,0 +1,35 @@
+= rb.hidden_field :pd_regime_id
+
+.row
+  .large-5.columns.inline
+    = rb.label :bag_type_id, 'Bag Type'
+    = rb.select :bag_type_id, Renalware::BagType.all.map { |bt| [bt.full_description, bt.id] }, { prompt: 'Please select a bag type' }
+
+  .large-2.columns.inline
+    = rb.label :volume, 'Volume (ml)'
+    = rb.text_field :volume
+
+  .large-2.columns.inline
+    = rb.submit 'Remove', name: "actions[remove][#{rb.index}]", class: 'button cancel tiny right remove-bag'
+    = rb.link_to_remove 'Remove', class: 'button cancel tiny right remove-bag hide'
+
+.row
+  .large-10.columns
+    label
+      | Days to be administered:
+
+    .large-12.columns class="#{highlight_days_invalid(rb.object)}"
+      = rb.check_box :sunday, class: 'inline'
+      = rb.label :sunday
+      = rb.check_box :monday, class: 'inline'
+      = rb.label :monday
+      = rb.check_box :tuesday, class: 'inline'
+      = rb.label :tuesday
+      = rb.check_box :wednesday, class: 'inline'
+      = rb.label :wednesday
+      = rb.check_box :thursday, class: 'inline'
+      = rb.label :thursday
+      = rb.check_box :friday, class: 'inline'
+      = rb.label :friday
+      = rb.check_box :saturday, class: 'inline'
+      = rb.label :saturday

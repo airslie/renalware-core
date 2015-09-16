@@ -7,14 +7,15 @@ FactoryGirl.define do
     "renalwareuser-#{n}"
   end
 
-  factory :user do
+  factory :user, class: "Renalware::User" do
     first_name 'Aneurin'
     last_name 'Bevan'
     username
     email
     password 'supersecret'
     approved false
-    signature 'Aneurin Bevan, Health Minister'
+    signature 'Aneurin Bevan'
+    professional_position 'Health Minister'
 
     trait :approved do
       approved true
