@@ -1,6 +1,8 @@
 .renal-profile
-  = link_to "ESRF:", esrf_info_patient_path(@patient)
+  = link_to "ESRF", esrf_info_patient_path(@patient)
+  = " "
   = display_prd_date(@patient)
+  = " "
   = display_prd(@patient)
 
   br

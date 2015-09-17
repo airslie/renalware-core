@@ -3,7 +3,7 @@
     = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
     = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
 
-    h5 Patient Medications
+    h5 Current Medications
 
     .large-12.columns
       = render partial: "renalware/shared/errors", locals: { model: @patient }

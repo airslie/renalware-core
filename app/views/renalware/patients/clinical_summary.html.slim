@@ -26,7 +26,7 @@
 
         li class="drug-#{drug_types_colour_tag(p.medicatable.drug_types)}"
 
-          = "#{drug_types_tag(p.medicatable.drug_types)}: #{p.medicatable.name}, #{p.dose}, #{p.medication_route.name}, #{p.frequency}, #{p.start_date}"
+          = "#{p.medicatable.name}, #{p.dose}, #{p.medication_route.name} #{p.frequency}, #{p.start_date}"
 
 hr
 

@@ -6,10 +6,7 @@ curl -XDELETE localhost:9200/drugs
 echo 'Deleting elasticsearch index for patients'
 curl -XDELETE localhost:9200/patients
 
-echo 'Resetting db'
+echo 'Resetting & seeding db'
 rake db:reset
-
-echo 'Seeding db'
-rake db:seed
 
 echo 'Done'
