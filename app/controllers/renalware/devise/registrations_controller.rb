@@ -1,7 +1,5 @@
-module Renalware
-  class Devise::RegistrationsController < ::Devise::RegistrationsController
-    include Concerns::DeviseControllerMethods
+class Renalware::Devise::RegistrationsController < ::Devise::RegistrationsController
+  include Renalware::Concerns::DeviseControllerMethods
 
-    layout 'renalware/layouts/application'
-  end
+  layout 'renalware/layouts/application'
 end
