@@ -18,6 +18,7 @@ class PatientsController < RenalwareController
   end
 
   def pd_info
+    @current_regime = @patient.pd_regimes.current if @patient.pd_regimes.any?
     @capd_regimes = CapdRegime.where(patient_id: @patient).order(created_at: :desc)
     @apd_regimes = ApdRegime.where(patient_id: @patient).order(created_at:  :desc)
 
