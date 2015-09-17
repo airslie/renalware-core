@@ -21,10 +21,9 @@ module Renalware
     end
 
     def pd_info
-      @pd_regimes = PdRegime.where(patient_id: @patient).order(:created_at)
+      @current_regime = @patient.pd_regimes.current if @patient.pd_regimes.any?
       @capd_regimes = CapdRegime.where(patient_id: @patient).order(created_at: :desc)
       @apd_regimes = ApdRegime.where(patient_id: @patient).order(created_at:  :desc)
-      @current_regime = @pd_regimes.last if @pd_regimes.any?
 
       @peritonitis_episodes = PeritonitisEpisode.where(patient_id: @patient)
       @exit_site_infections = ExitSiteInfection.where(patient_id: @patient)

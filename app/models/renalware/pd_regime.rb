@@ -12,6 +12,8 @@ module Renalware
 
     accepts_nested_attributes_for :pd_regime_bags, allow_destroy: true
 
+    scope :current, -> { order('created_at DESC').limit(1) }
+
     validates :start_date, presence: true
     validates :treatment, presence: true
 
