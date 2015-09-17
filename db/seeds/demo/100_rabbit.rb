@@ -108,10 +108,10 @@ module Renalware
 
   log '--------------------Adding Medications for Roger RABBIT-------------------'
   Medication.create([
-    {patient_id: 1, medicatable_id: 986, medicatable_type: "Drug", treatable_id: nil, treatable_type: nil, dose: "50 mg", medication_route_id: 1, frequency: "bd for 7 days", notes: "        ", start_date: "2015-09-13", end_date: "2015-09-20", provider: 0, deleted_at: nil},
-    {patient_id: 1, medicatable_id: 183, medicatable_type: "Drug", treatable_id: nil, treatable_type: nil, dose: "25 mg", medication_route_id: 1, frequency: "nocte", notes: "        ", start_date: "2014-10-10", end_date: nil, provider: 0, deleted_at: nil},
-    {patient_id: 1, medicatable_id: 269, medicatable_type: "Drug", treatable_id: nil, treatable_type: nil, dose: "100 mg", medication_route_id: 1, frequency: "bd", notes: "", start_date: "2015-06-16", end_date: nil, provider: 0, deleted_at: nil},
-    {patient_id: 1, medicatable_id: 126, medicatable_type: "Drug", treatable_id: 1, treatable_type: "PeritonitisEpisode", dose: "100 mg", medication_route_id: 1, frequency: "tid for 7d", notes: "", start_date: "2015-09-14", end_date: "2015-09-21", provider: 0, deleted_at: nil}
+    {patient_id: 1, medicatable_id: 986, medicatable_type: "Renalware::Drug", treatable_id: nil, treatable_type: nil, dose: "50 mg", medication_route_id: 1, frequency: "bd for 7 days", notes: "        ", start_date: "2015-09-13", end_date: "2015-09-20", provider: 0, deleted_at: nil},
+    {patient_id: 1, medicatable_id: 183, medicatable_type: "Renalware::Drug", treatable_id: nil, treatable_type: nil, dose: "25 mg", medication_route_id: 1, frequency: "nocte", notes: "        ", start_date: "2014-10-10", end_date: nil, provider: 0, deleted_at: nil},
+    {patient_id: 1, medicatable_id: 269, medicatable_type: "Renalware::Drug", treatable_id: nil, treatable_type: nil, dose: "100 mg", medication_route_id: 1, frequency: "bd", notes: "", start_date: "2015-06-16", end_date: nil, provider: 0, deleted_at: nil},
+    {patient_id: 1, medicatable_id: 126, medicatable_type: "Renalware::Drug", treatable_id: 1, treatable_type: "Renalware::PeritonitisEpisode", dose: "100 mg", medication_route_id: 1, frequency: "tid for 7d", notes: "", start_date: "2015-09-14", end_date: "2015-09-21", provider: 0, deleted_at: nil}
   ])
 
   log '--------------------Adding ESRF Info for Roger RABBIT-------------------'
@@ -130,15 +130,15 @@ module Renalware
   ])
 
   InfectionOrganism.create([
-    {organism_code_id: 33, sensitivity: "+++", infectable_id: 1, infectable_type: "PeritonitisEpisode"},
-    {organism_code_id: 4, sensitivity: "unknown", infectable_id: 1, infectable_type: "ExitSiteInfection"}
+    {organism_code_id: 33, sensitivity: "+++", infectable_id: 1, infectable_type: "Renalware::PeritonitisEpisode"},
+    {organism_code_id: 4, sensitivity: "unknown", infectable_id: 1, infectable_type: "Renalware::ExitSiteInfection"}
   ])
 
   log '--------------------Adding PD Regimes for Roger RABBIT-------------------'
   PdRegime.create([
-    {patient_id: 1, start_date: "2015-05-05", end_date: "2015-09-15", treatment: "CAPD 3 exchanges per day", type: "CapdRegime", glucose_ml_percent_1_36: 1000, glucose_ml_percent_2_27: 2000, glucose_ml_percent_3_86: 1500, amino_acid_ml: nil, icodextrin_ml: nil, add_hd: false, last_fill_ml: nil, add_manual_exchange: nil, tidal_indicator: nil, tidal_percentage: nil, no_cycles_per_apd: nil, overnight_pd_ml: nil},
-    {patient_id: 1, start_date: "2015-08-15", end_date: "2015-09-15", treatment: "CAPD 3 exchanges per day", type: "CapdRegime", glucose_ml_percent_1_36: 1500, glucose_ml_percent_2_27: 1500, glucose_ml_percent_3_86: 2000, amino_acid_ml: nil, icodextrin_ml: nil, add_hd: false, last_fill_ml: nil, add_manual_exchange: nil, tidal_indicator: nil, tidal_percentage: nil, no_cycles_per_apd: nil, overnight_pd_ml: nil},
-    {patient_id: 1, start_date: "2015-09-15", end_date: nil, treatment: "APD Wet Day", type: "ApdRegime", glucose_ml_percent_1_36: 1000, glucose_ml_percent_2_27: 2000, glucose_ml_percent_3_86: 1500, amino_acid_ml: nil, icodextrin_ml: nil, add_hd: false, last_fill_ml: 1000, add_manual_exchange: false, tidal_indicator: true, tidal_percentage: 95, no_cycles_per_apd: 3, overnight_pd_ml: 3000}
+    {patient_id: 1, start_date: "2015-05-05", end_date: "2015-09-15", treatment: "CAPD 3 exchanges per day", type: "Renalware::CapdRegime", glucose_ml_percent_1_36: 1000, glucose_ml_percent_2_27: 2000, glucose_ml_percent_3_86: 1500, amino_acid_ml: nil, icodextrin_ml: nil, add_hd: false, last_fill_ml: nil, add_manual_exchange: nil, tidal_indicator: nil, tidal_percentage: nil, no_cycles_per_apd: nil, overnight_pd_ml: nil},
+    {patient_id: 1, start_date: "2015-08-15", end_date: "2015-09-15", treatment: "CAPD 3 exchanges per day", type: "Renalware::CapdRegime", glucose_ml_percent_1_36: 1500, glucose_ml_percent_2_27: 1500, glucose_ml_percent_3_86: 2000, amino_acid_ml: nil, icodextrin_ml: nil, add_hd: false, last_fill_ml: nil, add_manual_exchange: nil, tidal_indicator: nil, tidal_percentage: nil, no_cycles_per_apd: nil, overnight_pd_ml: nil},
+    {patient_id: 1, start_date: "2015-09-15", end_date: nil, treatment: "APD Wet Day", type: "Renalware::ApdRegime", glucose_ml_percent_1_36: 1000, glucose_ml_percent_2_27: 2000, glucose_ml_percent_3_86: 1500, amino_acid_ml: nil, icodextrin_ml: nil, add_hd: false, last_fill_ml: 1000, add_manual_exchange: false, tidal_indicator: true, tidal_percentage: 95, no_cycles_per_apd: 3, overnight_pd_ml: 3000}
   ])
 
   PdRegimeBag.create([

@@ -34,7 +34,7 @@ def demo_admin_user_attrs
     username: 'adminuser',
     email: 'adminuser@renalware.net',
     password: 'renalware',
-    roles: [Role.find_by!(name: :admin)],
+    roles: [Renalware::Role.find_by!(name: :admin)],
     approved: true,
     signature: 'Admin User'
   }
@@ -85,7 +85,7 @@ namespace :users do
 
   desc 'Add demo Admin User'
   task add_demo_admin_user: :environment do
-    User.find_or_create_by!(username: demo_admin_user_attrs[:username]) do |u|
+    Renalware::User.find_or_create_by!(username: demo_admin_user_attrs[:username]) do |u|
       demo_admin_user_attrs.each do |k,v|
         u.send(:"#{k}=", v)
       end
