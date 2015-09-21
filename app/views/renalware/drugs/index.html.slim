@@ -11,10 +11,6 @@
 .row
   = link_to "Add drug", new_drug_path, class: "button tiny"
 
-.row.collapse
-  .small-6.large-8.columns.right.pagination-top
-    = paginate @drugs
-
 .row
   ul.drugs.no-bullet.stripy-list
     - @drugs.each do |t|

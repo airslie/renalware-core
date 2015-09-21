@@ -2,9 +2,6 @@
   h5 Doctors
 
 .row
-  = paginate @doctors
-
-.row
   table.doctors.responsive
     thead
       tr
@@ -24,3 +21,6 @@
 
 .row
   = link_to 'Add Doctor', new_doctor_path, class: 'button tiny save'
+
+.row
+  = paginate @doctors
