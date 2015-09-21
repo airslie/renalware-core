@@ -3,7 +3,7 @@
     = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
     = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
 
-    h5
+    h2
       = "Update Patient Demographics #{@patient.to_s(:full_name)}"
 
 .row
