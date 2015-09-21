@@ -11,21 +11,21 @@
 .row
   table
     thead
+      th Options
       th ID
       th User
       th Login
       th Email
       th Added
       th Approved
-      th Options
 
     tbody
       - @users.each do |user|
         tr
+          td= link_to 'Edit', edit_admin_user_path(user)
           td= user.id
           td= user.to_s(:last_first)
           td= user.username
           td= user.email
           td= user.created_at
           td= user.approved?
-          td= link_to 'Edit', edit_admin_user_path(user)

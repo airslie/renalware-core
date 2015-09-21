@@ -2,19 +2,14 @@
   h1 Doctors
 
 .row
-  table.doctors.responsive
+  table.doctors
     thead
       tr
-        th
-          | Name
-        th
-          | GP Code
-        th
-          | Email
-        th
-          | Practices/Address
-        th.g-center
-          | Actions
+        th Actions
+        th Name
+        th GP Code
+        th Email
+        th Practices/Address
 
     tbody
       = render @doctors

@@ -1,13 +1,10 @@
 tr
   td
-    = clinic_visit.date
-  td
-    = clinic_visit.bmi
-  td
-    = clinic_visit.bp
-  td
     = link_to 'Create Clinic Letter', new_clinic_visit_letter_path(clinic_visit)
     = pipe_separator
     = link_to 'Edit', edit_patient_clinic_visit_path(patient_id: clinic_visit.patient.to_param, id: clinic_visit.to_param)
     = pipe_separator
     = link_to 'Delete', patient_clinic_visit_path(patient_id: clinic_visit.patient.to_param, id: clinic_visit.to_param), method: :delete
+  td= clinic_visit.date
+  td.bmi= clinic_visit.bmi
+  td.bp= clinic_visit.bp

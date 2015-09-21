@@ -2,16 +2,16 @@
   h1 Patients
 
 .row
-  table.patients.responsive
+  table.patients
     thead
       tr
+        th Options
         th Name
         th NHS No.
         th Hosp No.
         th Sex
         th Date of Birth
         th Age
-        th.g-center Actions
 
     tbody
       = render @patients

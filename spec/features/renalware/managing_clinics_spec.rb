@@ -18,10 +18,10 @@ module Renalware
       click_on 'Save'
 
       within('.clinics tbody tr:first-child') do
-        within('td:nth-child(2)') do
+        within('.bmi') do
           expect(page).to have_content('26.04')
         end
-        within('td:nth-child(3)') do
+        within('.bp') do
           expect(page).to have_content('110/75')
         end
       end
@@ -41,10 +41,10 @@ module Renalware
       click_on 'Update'
 
       within('.clinics tbody tr:first-child') do
-        within('td:nth-child(2)') do
+        within('.bmi') do
           expect(page).to have_content('36.2')
         end
-        within('td:nth-child(3)') do
+        within('.bp') do
           expect(page).to have_content('128/95')
         end
       end

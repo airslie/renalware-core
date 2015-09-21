@@ -6,27 +6,20 @@
     h2 Patient Modality History
 
   table
-    tr
-      th
-        | Modality Code
-      th
-        | Notes
-      th
-        | Start Date
-      th
-        | Termination Date
-
-    - @modalities.each do |modality|
+    thead
       tr
-        td
-          = modality.modality_code.name
-        td
-          = modality.notes
-        td
-          = modality.start_date
-        td
-          = modality.termination_date
+        th Modality Code
+        th Notes
+        th Start Date
+        th Termination Date
 
+    tbody
+      - @modalities.each do |modality|
+        tr
+          td= modality.modality_code.name
+          td= modality.notes
+          td= modality.start_date
+          td= modality.termination_date
 
   = link_to 'Set New Modality', new_patient_modality_path(@patient),
       title: 'Set Patient Modality',

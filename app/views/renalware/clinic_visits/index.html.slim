@@ -5,17 +5,13 @@
 
     h2 Clinic Visits
 
-    table.clinics.responsive
+    table.clinics
       thead
         tr
-          th
-            | Date
-          th
-            | BMI
-          th
-            | BP
-          th.g-center
-            | Actions
+          th Actions
+          th Date
+          th BMI
+          th BP
 
       tbody
         = render @clinic_visits

@@ -1,5 +1,3 @@
-
-
 Feature: Search for a patient
   As a clinician
   I want to quicksearch by local patient id, lastname, firstname or NHS number

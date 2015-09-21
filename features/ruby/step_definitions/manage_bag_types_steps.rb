@@ -28,34 +28,6 @@ Then(/^I should see the new bag type on the bag type list$/) do
   expect(page).to have_content("Baxter")
   expect(page).to have_content("Yellow–2.34")
   expect(page).to have_content("31.7")
-
-  within('table.bag-types-list tbody tr:first-child td:nth-child(4)') do
-    expect(page).to have_content("Yes")
-  end
-  within('table.bag-types-list tbody tr:first-child td:nth-child(5)') do
-    expect(page).to have_content("Yes")
-  end
-  within('table.bag-types-list tbody tr:first-child td:nth-child(6)') do
-    expect(page).to have_content("Yes")
-  end
-  within('table.bag-types-list tbody tr:first-child td:nth-child(7)') do
-    expect(page).to have_content("No")
-  end
-  within('table.bag-types-list tbody tr:first-child td:nth-child(8)') do
-    expect(page).to have_content("8")
-  end
-  within('table.bag-types-list tbody tr:first-child td:nth-child(9)') do
-    expect(page).to have_content("7")
-  end
-  within('table.bag-types-list tbody tr:first-child td:nth-child(10)') do
-    expect(page).to have_content("9")
-  end
-  within('table.bag-types-list tbody tr:first-child td:nth-child(11)') do
-    expect(page).to have_content("2.56")
-  end
-  within('table.bag-types-list tbody tr:first-child td:nth-child(12)') do
-    expect(page).to have_content("3.47")
-  end
 end
 
 Given(/^there are PD bag types in the database$/) do
@@ -131,7 +103,7 @@ When(/^I complete the form for editing a bag type$/) do
 end
 
 Then(/^I should see the updated bag type on the bag types list$/) do
-  within('table.bag-types-list tbody tr:first-child td:nth-child(6)') do
+  within('table tbody tr:first-child td:nth-child(6)') do
     have_css("td", text: "No", count: 1)
   end
 end

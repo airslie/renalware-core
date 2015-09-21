@@ -29,7 +29,7 @@ module Renalware
     context 'where the patient has no existng modality' do
       it 'adds a new modality for the patient' do
         within('.main-content') do
-          within('table tr:nth-child(2)') do
+          within('table tbody tr:nth-child(1)') do
             expect(page).to have_css('td:first-child', text: 'CAPD (disconnect)')
             expect(page).to have_css('td:nth-child(2)', text: 'Adding modality for patient')
           end
@@ -39,7 +39,7 @@ module Renalware
     context 'where the patient has an existing modality' do
       it 'supercedes the existing modality with a new one' do
         expect(page).to have_content('Patient Modality')
-        within('table tr:nth-child(2)') do
+        within('table tbody tr:nth-child(1)') do
           expect(page).to have_css('td:first-child', text: 'CAPD (disconnect)')
           expect(page).to have_css('td:nth-child(2)', text: 'Adding modality for patient')
         end

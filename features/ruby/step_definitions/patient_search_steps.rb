@@ -11,7 +11,7 @@ end
 Then(/^the following patients are found: "(.*)"$/) do |patient_names|
   within('table.patients') do
     patient_names.split('|').each_with_index do |name, idx|
-      expect(page).to have_css("tbody tr:nth-child(#{idx+1}) td[data-heading=Name] a", text: name)
+      expect(page).to have_css("tbody tr:nth-child(#{idx+1})", text: name)
     end
   end
 end

@@ -43,9 +43,8 @@ module Renalware
     end
 
     scenario 'An admin removes all roles from a user' do
-      within('tbody tr:first-child td:nth-child(7)') do
-        click_link 'Edit'
-      end
+      first('tbody tr').click_link('Edit')
+
       expect(current_path).to eq(edit_admin_user_path(@approved))
 
       uncheck 'Super admin'
@@ -74,9 +73,7 @@ module Renalware
     scenario 'An admin reactivates an inactive user' do
       click_link 'Inactive'
 
-      within('tbody tr:first-child td:nth-child(7)') do
-        click_link 'Edit'
-      end
+      first('tbody tr').click_link('Edit')
       expect(current_path).to eq(edit_admin_user_path(@expired))
 
       check 'Reactivate account'

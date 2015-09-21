@@ -1,13 +1,11 @@
 tr
   td
-    = author_view?(letter) ? letter.patient.full_name : letter.author.full_name
-  td
-    = letter.letter_description.text
-  td
-    = letter.state
-  td
-    = letter.updated_at
-  td
     = link_to 'Preview', patient_letter_path(patient_id: letter.patient.to_param, id: letter.to_param), class: 'button tiny'
+    = pipe_separator
     = link_to 'Edit', edit_patient_letter_path(patient_id: letter.patient.to_param, id: letter.to_param), class: 'button tiny'
+    = pipe_separator
     = link_to 'Delete', patient_letter_path(patient_id: letter.patient.to_param, id: letter.to_param), method: :delete, class: 'button tiny cancel'
+  td= author_view?(letter) ? letter.patient.full_name : letter.author.full_name
+  td= letter.letter_description.text
+  td= letter.state
+  td= letter.updated_at
