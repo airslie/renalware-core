@@ -1,17 +1,9 @@
-.row
-  h1 Users
-
-.row
-  = link_to 'All', action: 'index'
-  = pipe_separator
-  = link_to 'Unapproved', action: 'unapproved'
-  = pipe_separator
-  = link_to 'Inactive', action: 'inactive'
+= render "header"
 
 .row
   table
     thead
-      th Options
+      th
       th ID
       th User
       th Login
