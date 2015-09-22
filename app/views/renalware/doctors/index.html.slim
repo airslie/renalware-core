@@ -1,5 +1,4 @@
-.row
-  h1 Doctors
+= render "header"
 
 .row
   table.doctors
@@ -13,9 +12,6 @@
 
     tbody
       = render @doctors
-
-.row
-  = link_to 'Add Doctor', new_doctor_path, class: 'button tiny save'
 
 .row
   = paginate @doctors
