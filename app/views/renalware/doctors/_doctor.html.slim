@@ -1,7 +1,7 @@
 tr
   td
     = link_to 'Edit', edit_doctor_path(doctor)
-    |&nbsp;|&nbsp;
+    = pipe_separator
     = link_to 'Delete', doctor_path(doctor), method: :delete
   td
     = doctor.to_s(:full_name)

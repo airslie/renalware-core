@@ -22,7 +22,7 @@
         tr
           td
             = link_to "Edit", edit_drug_path(t.id)
-            |&nbsp;|&nbsp;
+            = pipe_separator
             = link_to 'Delete', drug_path(t.id),
               id: "#{t.id}-drug",
               method: :delete,
