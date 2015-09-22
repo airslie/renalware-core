@@ -1,14 +1,10 @@
-.row
-  h1 Modalities
-
-.row
-  = link_to "Add A New Modality", new_modality_code_path, class: "button tiny"
+= render "header"
 
 .row
   table.modality-codes
     thead
       tr
-        th Options
+        th
         th Modal Name
         th Modal Code
         th Modal Site
