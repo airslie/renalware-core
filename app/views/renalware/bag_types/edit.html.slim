@@ -1,17 +1,14 @@
+= render "header"
+
 .row
   .large-12.columns
     = render partial: "renalware/shared/errors", locals: { model: @bag_type }
 
 .row
-  = field_set_tag do
-    .row
-      .large-12.columns
-        h4 Edit this PD Bag Type
-
+  .large-12.columns
     = form_for @bag_type, as: :bag_type, method: :put, url: bag_type_path(@bag_type) do |bt|
-
       = render partial: "renalware/bag_types/form", locals: { bt: bt }
 
-      ul.no-bullet.button-padding
-        li= submit_tag "Update This Bag Type", class: "button tiny right"
-        li= link_to "Cancel", bag_types_path, class: "button tiny left cancel"
+      = submit_tag "Update", class: "button"
+      span= " or "
+      = link_to "Cancel", bag_types_path
