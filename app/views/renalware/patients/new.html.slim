@@ -1,5 +1,4 @@
-.row
-  h1 New Patient
+=render "header"
 
 .row
   .large-12.columns
@@ -10,6 +9,6 @@
 
       = render partial: "renalware/patients/demographic_form", locals: { patient: f }
 
-      = submit_tag "Save a New Renal Patient", class: "button tiny right save"
-
-      = link_to "Cancel", patients_path, class: "button tiny left cancel"
+      = submit_tag "Save", class: "button"
+      span= " or "
+      = link_to "cancel", patients_path
