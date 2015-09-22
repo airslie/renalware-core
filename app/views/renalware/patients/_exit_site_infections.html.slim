@@ -1,21 +1,13 @@
 table.responsive
   thead
-    th.col-width-date
-      | Diagnosis Date
-    th
-      | Outcome
-    th
-      | Organisms
-    th
-      | Treatment
-    th
-      | Antibiotics/Routes
-    th
-      | Notes
-    th.col-width-date
-      | Last Updated
+    th.col-width-date Diagnosis Date
+    th Outcome
+    th Organisms
+    th Treatment
+    th Antibiotics/Routes
+    th Notes
+    th.col-width-date Last Updated
     th.col-width-9
-      | Action
 
   tbody
     - @exit_site_infections.each do |e|
