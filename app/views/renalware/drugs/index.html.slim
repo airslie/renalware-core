@@ -1,5 +1,4 @@
-.row
-  h1 Drugs
+= render "header"
 
 .row.collapse
   = search_form_for @drugs_search do |f|
@@ -9,13 +8,10 @@
       = f.submit 'Search', class: 'button tiny'
 
 .row
-  = link_to "Add drug", new_drug_path, class: "button tiny"
-
-.row
   table.drugs
     thead
       tr
-        th Options
+        th
         th Name
     tbody
       - @drugs.each do |t|
