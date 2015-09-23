@@ -17,13 +17,13 @@ module Renalware
         select 'April', from: 'modality_start_date_2i'
         select '17', from: 'modality_start_date_3i'
         fill_in 'Notes', with: 'Adding modality for patient'
-        click_button 'Save Modality'
+        click_button 'Save'
       end
     end
 
     it 'takes the clinician to the patient modality history' do
       expect(current_path).to eq(patient_modalities_path(@patient))
-      expect(page).to have_content('Patient Modality')
+      expect(page).to have_content('Modality')
     end
 
     context 'where the patient has no existng modality' do
@@ -38,7 +38,7 @@ module Renalware
     end
     context 'where the patient has an existing modality' do
       it 'supercedes the existing modality with a new one' do
-        expect(page).to have_content('Patient Modality')
+        expect(page).to have_content('Modality')
         within('table tbody tr:nth-child(1)') do
           expect(page).to have_css('td:first-child', text: 'CAPD (disconnect)')
           expect(page).to have_css('td:nth-child(2)', text: 'Adding modality for patient')

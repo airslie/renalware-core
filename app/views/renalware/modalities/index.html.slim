@@ -1,9 +1,6 @@
 .wide-screen
   .columns.large-12
-    = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
-    = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
-
-    h2 Patient Modality History
+    = render "header"
 
   table
     thead
@@ -20,7 +17,3 @@
           td= modality.notes
           td= modality.start_date
           td= modality.termination_date
-
-  = link_to 'Set New Modality', new_patient_modality_path(@patient),
-      title: 'Set Patient Modality',
-      class: 'button tiny left cancel mt'
