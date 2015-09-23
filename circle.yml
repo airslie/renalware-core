@@ -1,0 +1,5 @@
+dependencies:
+  pre:
+    - gem install bundler rake
+  post:
+    - bundle exec bundle-audit update && bundle exec bundle-audit check

@@ -28,6 +28,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'bundler-audit', require: false
   gem 'capybara', '2.4.4'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
