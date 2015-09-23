@@ -1,4 +1,4 @@
-module Renalware
+module Document
   # This concern wraps the logic for embedding document in an active record object.
   # The document fields are stored in a jsonb column. The database migration
   # should look like this:
@@ -18,10 +18,10 @@ module Renalware
   #     end
   #   end
   #
-  # You then have to create a class for the document under _/documents_
+  # You then have to create a class for the document under _/app/documents_
   # and provide a list of the attributes following the Virtus conventions.
   # The class name must the the concatenation of the ActiveRecord class name
-  # and "Document", and must class must inherit from {BaseDocument}.
+  # and "Document", and must class must inherit from {Document::Base}.
   #
   # The class also includes the ActiveModel::Model module so you can use validations.
   #
@@ -29,7 +29,7 @@ module Renalware
   #
   #   module Renalware
   #     module Transplants
-  #       class RecipientWorkupDocument < BaseDocument
+  #       class RecipientWorkupDocument < Document::Base
   #         attribute :hx_tb, Boolean
   #         attribute :hx_dvt, Boolean
   #         attribute :pregnancies_no, Integer
@@ -40,6 +40,17 @@ module Renalware
   #
   #         validates_presence_of :cervical_date
   #         validates_presence_of :tx_consent_date, if: :tx_consent
+  #       end
+  #     end
+  #   end
+  #
+  # You then include the {Document::Embedded} module in the parent ActiveRecord.
+  # For instance:
+  #
+  #   module Renalware
+  #     module Transplants
+  #       class RecipientWorkup < ActiveRecord::Base
+  #         include Document::Embedded
   #       end
   #     end
   #   end
@@ -77,7 +88,7 @@ module Renalware
   #     = fd.input :hx_dvt, as: :boolean
   #     = fd.input :cervical_date, as: :date
   #
-  # The controller will also need to handle strong parameters.  {BaseDocument} provides
+  # The controller will also need to handle strong parameters.  {Document::Base} provides
   # an helper for a list of the attributes in the document class.  Here's an example
   # of a params method in a controller:
   #
@@ -89,7 +100,7 @@ module Renalware
   #     params.require(:transplants_recipient_workup).permit(fields)
   #   end
   #
-  module EmbeddedDocument
+  module Embedded
     extend ActiveSupport::Concern
 
     included do

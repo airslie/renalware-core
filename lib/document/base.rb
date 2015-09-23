@@ -1,5 +1,5 @@
-module Renalware
-  class BaseDocument
+module Document
+  class Base
     include Virtus.model
     include ActiveModel::Model
 
