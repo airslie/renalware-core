@@ -1,0 +1,36 @@
+.simple_form {
+  fieldset {
+    padding: 0.25rem 1rem;
+  }
+  div.boolean label {
+    float: none;
+    padding-left: 1rem;
+    padding-bottom: 0.25rem;
+    line-height: 1.3em;
+
+    input {
+      float: left;
+      margin: 0.15rem 0 0 -1rem;
+    }
+  }
+
+  select.date, select.datetime {
+    margin-bottom: 1rem;
+  }
+
+  .field_with_hint {
+    input, select {
+      margin-bottom: 0;
+    }
+  }
+
+  .hint {
+    display: block;
+    padding: 0.2rem 0rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: normal;
+    font-style: italic;
+    color: #aaa;
+  }
+}
