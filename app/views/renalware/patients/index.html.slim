@@ -1,20 +1,19 @@
-.row
-  h5 Renal Patients
+= render "header"
 
 .row
-  = paginate @patients
-
-.row
-  table.patients.responsive
+  table.patients
     thead
       tr
+        th
         th Name
         th NHS No.
         th Hosp No.
         th Sex
         th Date of Birth
         th Age
-        th.g-center Actions
 
     tbody
       = render @patients
+
+.row
+  = paginate @patients

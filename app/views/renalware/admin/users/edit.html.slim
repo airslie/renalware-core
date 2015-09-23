@@ -1,7 +1,8 @@
-.row
-  h3= "Update #{@user.to_s(:full_name)}"
+= render "header"
 
 .row
+  h2= @user.to_s(:full_name)
+
   = form_for :user, url: admin_user_path(@user), method: :put do |f|
     = f.hidden_field :approved, value: true
 
@@ -23,4 +24,6 @@
 
     .row
       - msg = @user.approved? ? 'Update' : 'Approve'
-      = f.submit msg, class: 'button save'
+      = f.submit msg, class: 'button'
+      span= " or "
+      = link_to "cancel", admin_users_path

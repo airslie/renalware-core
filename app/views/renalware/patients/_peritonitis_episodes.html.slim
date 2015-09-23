@@ -1,28 +1,17 @@
 table.responsive
   thead
     tr
-      th.col-width-date
-        | Diagnosis Date
-      th.col-width-date
-        | Treatment Start Date
-      th.col-width-date
-        | Treatment End Date
-      th
-        | Outcome
-      th
-        | Organisms
+      th.col-width-date Diagnosis Date
+      th.col-width-date Treatment Start Date
+      th.col-width-date Treatment End Date
+      th Outcome
+      th Organisms
+      th.col-width-9 White Cell Count
+      th.col-width-13 Causes/Symptoms
+      th Antibiotics/Routes
+      th Notes
+      th.col-width-date Last Updated
       th.col-width-9
-        | White Cell Count
-      th.col-width-13
-        | Causes/Symptoms
-      th
-        | Antibiotics/Routes
-      th
-        | Notes
-      th.col-width-date
-        | Last Updated
-      th.col-width-9
-        | Action
 
   tbody
     - @peritonitis_episodes.each do |p|

@@ -93,7 +93,7 @@ When(/^I complete the add a new patient form$/) do
     fill_in "Postcode", :with => Faker::AddressUK.postcode
   end
 
-  click_on "Save a New Renal Patient"
+  click_on "Save"
 end
 
 When(/^I update the patient's demographics$/) do
@@ -102,7 +102,7 @@ When(/^I update the patient's demographics$/) do
 end
 
 When(/^submit the update form$/) do
-  click_on "Update Demographics"
+  click_on "Update"
 end
 
 Then(/^I should see the new patient in the Renal Patient List$/) do

@@ -1,26 +1,15 @@
 .wide-screen
   .columns.large-12
-    = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
-    = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
+    = render "header"
 
-    h5 Letters
-
-    table.letters.responsive
+    table.letters
       thead
         tr
           th
-            | Author
-          th
-            | Description
-          th
-            | State
-          th
-            | Last updated
-          th.g-center
-            | Actions
+          th Author
+          th Description
+          th State
+          th Last updated
 
       tbody
         = render @letters
-
-.row
-  = link_to 'Draft letter', new_patient_letter_path(@patient), class: 'button tiny save'

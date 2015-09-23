@@ -1,18 +1,12 @@
-.row
-  h4 Add New Patient Event Type
+= render 'header'
 
 .row
   = render partial: "renalware/shared/errors", locals: { model: @event_type }
 
 .row
   .large-6.columns
-    ul.no-bullet
-
-      = form_for @event_type, method: :post do |f|
-
-        = render partial: 'form', locals: {f: f}
-
-        = submit_tag "Save", class: "button tiny right save"
-
-        li= link_to "Cancel", event_types_path, class: "button tiny cancel"
-
+    = form_for @event_type, method: :post do |f|
+      = render partial: 'form', locals: {f: f}
+      = submit_tag "Save", class: "button"
+      span= " or "
+      = link_to "cancel", drugs_path

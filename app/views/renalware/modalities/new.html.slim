@@ -1,9 +1,6 @@
 .wide-screen
   .columns.large-12
-    = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
-    = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
-
-    h5 Set Patient Modality
+    = render "header"
 
 .row
   ul.no-bullet
@@ -37,6 +34,6 @@
           = m.label :notes, "Notes"
           = m.text_area(:notes, cols: 10, rows: 2)
 
-        = m.submit "Save Modality", class: "button tiny right save mt"
-
-  = link_to "Cancel", clinical_summary_patient_path(@patient), class: "button tiny left cancel mt"
+        = m.submit "Save", class: "button"
+        span= " or "
+        = link_to "cancel", patient_modalities_path(@patient)

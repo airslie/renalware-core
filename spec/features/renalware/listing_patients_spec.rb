@@ -14,19 +14,13 @@ module Renalware
 
     scenario 'Viewing the first page of patients' do
       visit '/patients?per_page=4'
-      expect(page).to have_css('nav.pagination', text: '1 2 Next › Last »')
+      expect(page).to have_css('.pagination')
 
       within('table.patients tbody') do
-        expect(page).to have_css('tr:first-child td[data-heading=Name]', text: 'Alpha, Johnny')
-        expect(page).to have_css('tr:nth-child(2) td[data-heading=Name]', text: 'Bravo, Betty')
-        expect(page).to have_css('tr:nth-child(3) td[data-heading=Name]', text: 'Bravo, Juliette')
+        expect(page).to have_css('tr:first-child td', text: 'Alpha, Johnny')
+        expect(page).to have_css('tr:nth-child(2) td', text: 'Bravo, Betty')
+        expect(page).to have_css('tr:nth-child(3) td', text: 'Bravo, Juliette')
       end
-    end
-
-    scenario 'Paging to the second page of patients' do
-      visit '/patients?per_page=4'
-      click_link 'Next ›'
-      expect(page).to have_css('nav.pagination', text: '« First ‹ Prev 1 2')
     end
   end
 end

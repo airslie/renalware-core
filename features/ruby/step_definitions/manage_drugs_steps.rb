@@ -49,13 +49,13 @@ When(/^I complete the form for a new drug$/) do
   fill_in "Drug Name", with: "I am a new drug"
   check "Antibiotic"
   check "Immunosuppressant"
-  click_on "Save New Drug"
+  click_on "Save"
 end
 
 When(/^I complete the form for editing a drug$/) do
   fill_in "Drug Name", with: "I am an edited drug"
   uncheck('Peritonitis')
-  click_on "Update Drug"
+  click_on "Update"
 end
 
 When(/^I choose to soft delete a drug$/) do

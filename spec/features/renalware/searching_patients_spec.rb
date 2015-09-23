@@ -11,13 +11,13 @@ module Renalware
 
     def expect_patient_in_results(name, row_number=1)
       within('table.patients') do
-        expect(page).to have_css("tbody tr:nth-child(#{row_number}) td[data-heading=Name] a", text: name)
+        expect(page).to have_css("tbody tr:nth-child(#{row_number}) td", text: name)
       end
     end
 
     def dont_expect_patient_in_results(name)
       within('table.patients') do
-        expect(page).not_to have_css("tbody tr td[data-heading=Name] a", text: name)
+        expect(page).not_to have_css("tbody tr td", text: name)
       end
     end
 

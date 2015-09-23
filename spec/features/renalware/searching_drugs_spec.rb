@@ -12,7 +12,7 @@ module Renalware
     end
 
     scenario 'without a query' do
-      within('ul.drugs') do
+      within('.drugs') do
         expect_to_find_drug('Amoxicillin',   1)
         expect_to_find_drug('Cephradine',    2)
         expect_to_find_drug('Dicloxacillin', 3)
@@ -29,7 +29,7 @@ module Renalware
 
       click_on 'Search'
 
-      within('ul.drugs') do
+      within('.drugs') do
         expect_to_find_drug('Amoxicillin',   1)
       end
     end
@@ -39,7 +39,7 @@ module Renalware
 
       visit drugs_path
 
-      within('ul.drugs') do
+      within('.drugs') do
         expect_to_find_drug('Amoxicillin',   1)
         expect_to_find_drug('Cephradine',    2)
         expect_to_find_drug('Dicloxacillin', 3)
@@ -47,11 +47,11 @@ module Renalware
         expect_to_find_drug('Penicillin',    5)
       end
 
-      within('.pagination-top') do
+      within('.pagination') do
         click_on 'Next'
       end
 
-      within('ul.drugs') do
+      within('.drugs') do
         expect_to_find_drug('Rifampin',      1)
         expect_to_find_drug('Tobramycin',    2)
         expect_to_find_drug('Vancomycin',    3)
@@ -61,5 +61,5 @@ module Renalware
 end
 
 def expect_to_find_drug(name, row=1)
-  expect(page).to have_css("li.row:nth-child(#{row}) .name", text: name)
+  expect(page).to have_css("tr:nth-child(#{row})", text: name)
 end

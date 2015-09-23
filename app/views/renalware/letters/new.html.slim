@@ -1,8 +1,9 @@
-.row
-  h5= "Add #{@letter.title}"
+.wide-screen
+  .columns.large-12
+    = render "header"
 
 .row
   .large-12.columns
     = form_for [@patient, @letter], as: :letter, url: patient_letters_path(@patient) do |f|
       = render partial: 'renalware/letters/form', locals: { f: f }
-      = f.submit 'Save', class: 'button save'
+      = f.submit 'Save', class: 'button'

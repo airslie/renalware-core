@@ -16,7 +16,7 @@
 
 .delete {
   color: red !important;
-} 
+}
 
 a.fi-plus:before a.fi-minus:before {
   position: absolute;
@@ -60,4 +60,14 @@ nav.sub-nav-container {
 
 dd.patient-name {
   display: none;
+}
+
+.patient-nav {
+  background-color: #656565;
+  height: rem-calc(35) !important;
+
+  .top-bar-section li:not(.has-form) a:not(.button) {
+    line-height: rem-calc(35) !important;
+    background-color: #656565 !important;
+  }
 }

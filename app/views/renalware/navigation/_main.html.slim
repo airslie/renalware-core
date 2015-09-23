@@ -6,10 +6,14 @@ nav.top-bar(data-topbar role="navigation")
 
   - if user_signed_in?
     section.top-bar-section
-      = render partial: 'renalware/navigation/user_admin'
-      = render partial: 'renalware/navigation/patient_admin'
       = render partial: 'renalware/navigation/patient_search'
-      = render partial: 'renalware/navigation/sign_out'
-      = render partial: 'renalware/navigation/help_items'
-      = render partial: 'renalware/navigation/patients_admin'
-      = render partial: 'renalware/navigation/renalware_admin'
+
+      ul.right.large-2.columns
+        = render partial: 'renalware/navigation/patients_admin'
+        li.divider
+        = render partial: 'renalware/navigation/renalware_admin'
+        li.divider
+        = render partial: 'renalware/navigation/user_admin'
+        = render partial: 'renalware/navigation/sign_out'
+        li.divider
+        = render partial: 'renalware/navigation/help_items'
