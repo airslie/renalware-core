@@ -1,8 +1,7 @@
-ul.right.large-2.columns
-  li.has-dropdown
-    = link_to "#{current_user.username}", edit_user_registration_path
-    ul.dropdown
-      li
-        = link_to "Update Profile", edit_user_registration_path
-      li
-        = link_to "View Letters", author_letters_path(current_user.id)
+li.has-dropdown
+  = link_to "#{current_user.username}", edit_user_registration_path
+  ul.dropdown
+    li
+      = link_to "Update Profile", edit_user_registration_path
+    li
+      = link_to "View Letters", author_letters_path(current_user.id)

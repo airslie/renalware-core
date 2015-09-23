@@ -16,7 +16,7 @@ module WebWorld
     login_as user
     visit clinical_summary_patient_path(patient)
     click_on "Recipient Workups"
-    click_on "Add"
+    click_on "Add workup"
 
     select '2015', from: 'transplants_recipient_workup_performed_at_1i'
     select 'April', from: 'transplants_recipient_workup_performed_at_2i'

@@ -19,7 +19,7 @@ module Renalware
     scenario 'Adding a new Doctor' do
       visit doctors_path
 
-      click_on 'Add Doctor'
+      click_on 'Add doctor'
 
       fill_in 'First name', with: 'John'
       fill_in 'Last name', with: 'Merrill'
@@ -39,7 +39,7 @@ module Renalware
     scenario 'Adding a foreign Doctor' do
       visit doctors_path
 
-      click_on 'Add Doctor'
+      click_on 'Add doctor'
 
       fill_in 'First name', with: 'John'
       fill_in 'Last name', with: 'Merrill'

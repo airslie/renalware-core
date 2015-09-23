@@ -18,5 +18,3 @@ Scenario: An admin soft deletes a modal in the modalities list
   Given I am on the modalities index
   When I choose to soft delete a modal
   Then I should see the modal removed from the modalities list
-
-

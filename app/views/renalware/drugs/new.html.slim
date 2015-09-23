@@ -1,5 +1,4 @@
-.row
-  h4 Add New Drug
+= render "header"
 
 .row
   = render partial: "renalware/shared/errors", locals: { model: @drug }
@@ -10,6 +9,6 @@
 
       = render partial: "renalware/drugs/form", locals: { f: f }
 
-      = submit_tag "Save New Drug", class: "button tiny right save"
-
-    = link_to "Cancel", drugs_path, class: "button tiny cancel"
+      = submit_tag "Save", class: "button"
+      span= " or "
+      = link_to "cancel", drugs_path

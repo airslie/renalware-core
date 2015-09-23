@@ -1,36 +1,21 @@
 table.responsive.apd-regimes
   thead
     tr
-      th.col-width-date
-        | Regime Start Date
-      th.col-width-date
-        | Regime End Date
-      th.col-width-13
-        | Treatment
-      th
-        | Glucose - 1.36 % (ml)
-      th
-        | Glucose - 2.27 % (ml)
-      th
-        | Glucose - 3.86 % (ml)
-      th.column-6-width
-        | On HD?
-      th.column-6-width
-        | Last Fill (ml)
-      th.column-6-width
-        | Additional Manual Exchange?
-      th.column-6-width
-        | Has Tidal?
-      th.column-6-width
-        | Tidal (%)
-      th.column-6-width
-        | No. of Cycles per Session
-      th.column-6-width
-        | Overnight PD Volume (ml)
-      th.column-6-width
-        | Last Updated
+      th.col-width-date Regime Start Date
+      th.col-width-date Regime End Date
+      th.col-width-13 Treatment
+      th Glucose - 1.36 % (ml)
+      th Glucose - 2.27 % (ml)
+      th Glucose - 3.86 % (ml)
+      th.column-6-width On HD?
+      th.column-6-width Last Fill (ml)
+      th.column-6-width Additional Manual Exchange?
+      th.column-6-width Has Tidal?
+      th.column-6-width Tidal (%)
+      th.column-6-width No. of Cycles per Session
+      th.column-6-width Overnight PD Volume (ml)
+      th.column-6-width Last Updated
       th.col-width-9
-        | Actions
 
   tbody
     - @apd_regimes.each do |r|

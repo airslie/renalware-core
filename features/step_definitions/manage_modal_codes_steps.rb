@@ -25,7 +25,7 @@ end
 
 When(/^I complete the form for editing a modality$/) do
   fill_in "Modal Name",:with => "This is an edited modal"
-  click_on "Update Modal"
+  click_on "Update"
 end
 
 Then(/^I should see the new modal on the modalities list$/) do

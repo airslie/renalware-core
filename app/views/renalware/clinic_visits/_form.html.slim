@@ -3,11 +3,6 @@
 = f.hidden_field :patient_id
 
 .row
-  h5
-    | Patient:&nbsp;
-    = @clinic_visit.patient.full_name
-
-.row
   .columns.large-12.inline
     = f.label :date, 'Clinic date'
     = f.datetime_select :date, {}, class: 'datetime'

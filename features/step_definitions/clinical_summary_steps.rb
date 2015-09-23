@@ -64,8 +64,8 @@ Given(/^I choose to add a modality$/) do
   visit new_patient_modality_path(@patient_1)
 end
 
-When(/^they add a patient event$/) do
-  click_on "Add Patient Event"
+When(/^they choose to add a patient event$/) do
+  visit new_patient_event_path(@patient_1)
 end
 
 When(/^complete the patient event form$/) do
@@ -92,7 +92,7 @@ When(/^complete the patient event form$/) do
   fill_in "Description", :with => "Spoke to Son"
   fill_in "Notes", :with => "Wants to arrange a home visit"
 
-  click_on "Save Patient Event"
+  click_on "Save"
 end
 
 When(/^they add some problems to the list$/) do
@@ -172,7 +172,7 @@ When(/^I complete the modality form$/) do
 
   fill_in "Notes", :with => "Needs wheel chair access"
 
-  click_on "Save Modality"
+  click_on "Save"
 end
 
 When(/^I select death modality$/) do
@@ -184,7 +184,7 @@ When(/^I select death modality$/) do
   select 'April', from: 'modality_start_date_2i'
   select '1', from: 'modality_start_date_3i'
 
-  click_on "Save Modality"
+  click_on "Save"
 end
 
 When(/^I complete the cause of death form$/) do

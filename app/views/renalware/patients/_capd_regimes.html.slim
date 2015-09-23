@@ -1,24 +1,15 @@
 table.responsive.capd-regimes
   thead
     tr
-      th.col-width-date
-        | Regime Start Date
-      th.col-width-date
-        | Regime End Date
-      th.col-width-13
-        | Treatment
-      th
-        | Glucose - 1.36 % (ml)
-      th
-        | Glucose - 2.27 % (ml)
-      th
-        | Glucose - 3.86 % (ml)
-      th.column-6-width
-        | On HD?
-      th.column-6-width
-        | Last Updated
+      th.col-width-date Regime Start Date
+      th.col-width-date Regime End Date
+      th.col-width-13 Treatment
+      th Glucose - 1.36 % (ml)
+      th Glucose - 2.27 % (ml)
+      th Glucose - 3.86 % (ml)
+      th.column-6-width On HD?
+      th.column-6-width Last Updated
       th.col-width-9
-        | Actions
 
   tbody
     - @capd_regimes.each do |r|
@@ -55,6 +46,3 @@ table.responsive.capd-regimes
                 = link_to "Update", edit_patient_pd_regime_path(@patient, r.id), class: "update-pd-regime"
               li
                 = link_to "View Regime", patient_pd_regime_path(@patient, r.id), class: "view-pd-regime"
-
-
-

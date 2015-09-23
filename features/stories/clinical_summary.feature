@@ -10,9 +10,10 @@ Background:
     And they are on a patient's clinical summary
 
 Scenario: Doctor adds a patient event
+  Note: Event also known as an 'encounter'
+
   Given there are existing patient event types in the database
-  #event also known as encounter
-  When they add a patient event
+  When they choose to add a patient event
     And complete the patient event form
   Then they should see the new patient event on the clinical summary
     And be able to view notes through toggling the description data.

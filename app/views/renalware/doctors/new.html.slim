@@ -1,8 +1,9 @@
-.row
-  h5 Add Doctor
+= render "header"
 
 .row
   .large-8.columns
     = form_for @doctor, as: :doctor do |f|
       = render partial: 'form', locals: { f: f }
-      = f.submit 'Save', class: 'button save'
+      = f.submit 'Save', class: 'button'
+      span= " or "
+      = link_to "cancel", doctors_path

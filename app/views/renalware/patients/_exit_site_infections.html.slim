@@ -1,21 +1,13 @@
 table.responsive
   thead
-    th.col-width-date
-      | Diagnosis Date
-    th
-      | Outcome
-    th
-      | Organisms
-    th
-      | Treatment
-    th
-      | Antibiotics/Routes
-    th
-      | Notes
-    th.col-width-date
-      | Last Updated
+    th.col-width-date Diagnosis Date
+    th Outcome
+    th Organisms
+    th Treatment
+    th Antibiotics/Routes
+    th Notes
+    th.col-width-date Last Updated
     th.col-width-9
-      | Action
 
   tbody
     - @exit_site_infections.each do |e|
@@ -49,4 +41,3 @@ table.responsive
               = link_to "Update", edit_patient_exit_site_infection_path(@patient, e.id), class: "update-es-infection", id: "update-es-infection-#{e.id}"
             li
               = link_to "View Infection", patient_exit_site_infection_path(@patient, e.id), class: "view-es-infection", id: "view-es-infection-#{e.id}"
-
