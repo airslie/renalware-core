@@ -64,8 +64,8 @@ Given(/^I choose to add a modality$/) do
   visit new_patient_modality_path(@patient_1)
 end
 
-When(/^they add a patient event$/) do
-  click_on "Add Patient Event"
+When(/^they choose to add a patient event$/) do
+  visit new_patient_event_path(@patient_1)
 end
 
 When(/^complete the patient event form$/) do
