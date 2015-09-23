@@ -22,8 +22,12 @@ table tr th.col-width-13{
 }
 
 fieldset {
-  border-radius: 1em;
-  padding: 2em;
+  padding: 1em;
+
+  dt {
+    font-weight: normal;
+    color: rgb(153, 153, 153);
+  }
 }
 
 table {
