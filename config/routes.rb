@@ -38,6 +38,10 @@ Rails.application.routes.draw do
       resources :capd_regimes, :controller => "pd_regimes", :type => "CapdRegime"
       resources :apd_regimes, :controller => "pd_regimes", :type => "ApdRegime"
       resources :letters
+
+      namespace :transplants do
+        resources :recipient_workups
+      end
     end
 
     resources :clinic_visits do

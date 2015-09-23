@@ -1,0 +1,41 @@
+# https://github.com/plataformatec/simple_form#i18n
+
+en:
+  activerecord:
+    attributes:
+      renalware/transplants/recipient_workup:
+        performed_at: Performed On
+  activemodel:
+    attributes:
+      renalware/transplants/recipient_workup_document:
+        hx_tb: History of TB?
+        hx_dvt: History of DVT?
+        hx_reflux: History of reflux?
+        hx_neurogenic_bladder: History of neurogenic bladder?
+        hx_recurrent_utis: History of UTIs?
+        hx_family_diabetes: Family history of diabetes?
+        pregnancies_no: Number of pregnancies
+        cervical_result: Cervical smear result
+        cervical_date: Cervical smear date
+        femoral_pulse_r: Femoral pulse (right)?
+        femoral_pulse_l: Femoral pulse (left)?
+        dorsalis_pedis_pulse_r: Dorsalis pedis pulse (right)
+        dorsalis_pedis_pulse_l: Dorsalis pedis pulse (left)
+        posterior_tibial_pulse_r: Posterior tibial pulse (right)
+        posterior_tibial_pulse_l: Posterior tibial pulse (left)
+        bruits: Bruits
+        heart_sounds: Heart Sounds
+        tx_consent: Tx consent?
+        tx_consent_date: Tx consent date
+        tx_consent_marginal: Tx marginal consent?
+        tx_consent_marginal_date: Tx marginal consent date
+  # simple_form:
+  #   hints:
+  #     transplants_recipient_workup:
+  #       performed_at: The date and time the workup was completed
+  #       document:
+  #         cervical_date: Just a date
+  #   placeholders:
+  #     transplants_recipient_workup:
+  #       document:
+  #         pregnancies_no: "0"

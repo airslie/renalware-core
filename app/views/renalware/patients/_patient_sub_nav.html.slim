@@ -15,3 +15,5 @@ dt
     = link_to "Clinic Visits (#{@patient.clinic_visits.length})", patient_clinic_visits_path(@patient), title: "Clinic Visits"
   dd role="menuitem"
     = link_to "Letters (#{@patient.letters.length})", patient_letters_path(@patient), title: "Letters"
+  dd role="menuitem"
+    = link_to "Recipient Workups", patient_transplants_recipient_workups_path(@patient), title: "Recipient Workups"

@@ -1,0 +1,28 @@
+.row
+  .small-6.columns
+    h3 Recipient Workups
+  .small-6.columns
+    p.right= link_to 'Add', new_patient_transplants_recipient_workup_path(@patient), class: 'button tiny'
+
+.row
+  .small-12.columns
+    table
+      thead
+        tr
+          th= Renalware::Transplants::RecipientWorkup.human_attribute_name(:performed_at)
+          th= Renalware::Transplants::RecipientWorkupDocument.human_attribute_name(:cervical_date)
+          th= Renalware::Transplants::RecipientWorkup.human_attribute_name(:notes)
+          th.g-center Actions
+
+      tbody
+        - @workups.each do |workup|
+          tr.workup
+            td= l workup.performed_at if workup.performed_at
+            td= l workup.document.cervical_date if workup.document.cervical_date
+            td= workup.notes
+            td
+              / = link_to "Edit", edit_patient_transplants_recipient_workup_path(workup.patient, workup)
+              /= pipe_separator
+              / = link_to "Delete", patient_transplants_recipient_workup_path(workup.patient, workup),
+              /  method: :delete, class: "delete",
+              /  data: { confirm: "Are you sure you want to delete this modal?" }
