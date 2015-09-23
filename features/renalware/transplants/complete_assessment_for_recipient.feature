@@ -1,0 +1,1 @@
+Feature: Complete assessment for a recipient

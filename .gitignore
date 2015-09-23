@@ -24,11 +24,6 @@ capybara-*.html
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
-/php/renalware/log
 /tmp
-php/renalware/tmp
-tmp/php.pid
-php/log/
-php/tmp/
 
 capybara*.html
