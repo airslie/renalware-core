@@ -1,18 +1,11 @@
 .wide-screen
   .columns.large-12
-    = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
-    = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
-
-    h2 Patient Demographics/Admin
-
-    p
-      = link_to "Update", edit_patient_path(@patient), title: "Edit demographics", class: "button tiny right"
+    = render "record_header"
 
 .row
   .large-12.columns
     = field_set_tag do
-      legend
-        | Patient Demographics
+      legend Patient Demographics
 
       .large-3.columns
         dl
@@ -65,8 +58,7 @@
 .row
   .large-4.columns
     = field_set_tag do
-      legend
-        | Organisation/Practice
+      legend Organisation/Practice
 
       dl
         dt GP Practice Code:
@@ -86,14 +78,10 @@
 
   .large-4.columns
     = field_set_tag do
-      legend
-        | Current Address
-
+      legend Current Address
       = render @patient.current_address if @patient.current_address
 
   .large-4.columns
     = field_set_tag do
-      legend
-        | Address at Diagnosis
-
+      legend Address at Diagnosis
       = render @patient.address_at_diagnosis if @patient.address_at_diagnosis

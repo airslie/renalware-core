@@ -102,7 +102,7 @@ When(/^I update the patient's demographics$/) do
 end
 
 When(/^submit the update form$/) do
-  click_on "Update Demographics"
+  click_on "Update"
 end
 
 Then(/^I should see the new patient in the Renal Patient List$/) do

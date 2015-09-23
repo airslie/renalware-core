@@ -172,7 +172,7 @@ When(/^I complete the modality form$/) do
 
   fill_in "Notes", :with => "Needs wheel chair access"
 
-  click_on "Save Modality"
+  click_on "Save"
 end
 
 When(/^I select death modality$/) do
@@ -184,7 +184,7 @@ When(/^I select death modality$/) do
   select 'April', from: 'modality_start_date_2i'
   select '1', from: 'modality_start_date_3i'
 
-  click_on "Save Modality"
+  click_on "Save"
 end
 
 When(/^I complete the cause of death form$/) do
