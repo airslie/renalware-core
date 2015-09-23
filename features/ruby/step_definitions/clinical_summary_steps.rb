@@ -92,7 +92,7 @@ When(/^complete the patient event form$/) do
   fill_in "Description", :with => "Spoke to Son"
   fill_in "Notes", :with => "Wants to arrange a home visit"
 
-  click_on "Save Patient Event"
+  click_on "Save"
 end
 
 When(/^they add some problems to the list$/) do

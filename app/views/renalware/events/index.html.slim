@@ -1,11 +1,6 @@
 .wide-screen
   .columns.large-12
-    = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
-    = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
-
-    h2 Patient Events
-
-    p= link_to "Add event", new_patient_event_path(@patient), class: "button"
+    = render "header"
 
   table
     thead
