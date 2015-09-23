@@ -69,7 +69,7 @@ guard :rspec, cmd: "bundle exec rspec" do
   end
 end
 
-guard "cucumber", all_on_start: false, cli: "--format progress --strict --tags ~@wip -r features" do
+guard "cucumber", command_prefix: 'FAST=1', all_on_start: false, cli: "--strict --format progress --strict --tags ~@wip -r features" do
   watch(%r{^features/.+\.feature$})
   watch(%r{^features/support/.+$})          { "features" }
 
