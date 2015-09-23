@@ -1,8 +1,8 @@
-.row
-  h2 Add Clinic
+.wide-screen
+  .columns.large-12
+    = render "header"
 
-.row
-  .large-12.columns
+  .row
     = form_for [@patient, @clinic_visit], url: patient_clinic_visits_path(@patient) do |f|
       = render partial: 'form', locals: { f: f }
-      = f.submit 'Save', class: 'button save'
+      = f.submit 'Save', class: 'button'

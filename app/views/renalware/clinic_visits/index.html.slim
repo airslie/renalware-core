@@ -1,9 +1,6 @@
 .wide-screen
   .columns.large-12
-    = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
-    = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
-
-    h2 Clinic Visits
+    = render "header"
 
     table.clinics
       thead
@@ -15,6 +12,3 @@
 
       tbody
         = render @clinic_visits
-
-.row
-  = link_to 'Add Clinic Visit', new_patient_clinic_visit_path(@patient), class: 'button tiny save'
