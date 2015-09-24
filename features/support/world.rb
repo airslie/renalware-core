@@ -6,8 +6,21 @@ module DomainWorld
     )
   end
 
+  def update_workup(workup, user, updated_at)
+    workup.update_attributes(
+      document_attributes: {
+        hx_tb: true
+      },
+      updated_at: updated_at
+    )
+  end
+
   def recipient_workups_for(patient)
     Renalware::Transplants::RecipientWorkup.for_patient(patient)
+  end
+
+  def workups_updated_at(patient, timestamp)
+    Renalware::Transplants::RecipientWorkup.for_patient(patient).where(updated_at: timestamp)
   end
 end
 
@@ -27,12 +40,28 @@ module WebWorld
     click_on "Save"
   end
 
+  def update_workup(workup, user, updated_at)
+    login_as user
+    visit clinical_summary_patient_path(workup.patient)
+    click_on "Recipient Workups"
+    find("#transplants_recipient_workup_#{workup.id} a", text: "Edit").click
+
+    fill_in "Cervical smear result", with: "193"
+
+    click_on "Save"
+  end
+
   def recipient_workups_for(patient)
     all("tr.workup td:first-child").map { |node| node.text }
   end
+
+  def workups_updated_at(patient, timestamp)
+    text = I18n.l timestamp, format: :long
+    all("tr.workup td", text: text).map { |node| node.text }
+  end
 end
 
-if ENV['TEST_DEPTH'] == "Web"
+if ENV['TEST_DEPTH'] == "web"
   World(WebWorld)
 else
   World(DomainWorld)

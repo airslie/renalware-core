@@ -47,6 +47,7 @@ group :development, :test do
   gem 'spring-commands-cucumber'
   gem 'spring-commands-rspec'
   gem 'rubocop', require: false
+  gem 'timecop'
   gem 'web-console', '~> 2.0'
 
   gem 'haml2slim' # TODO: remove when we're done moving to Slim
