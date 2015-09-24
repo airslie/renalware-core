@@ -204,7 +204,7 @@ When(/^I choose to view a capd regime$/) do
   visit pd_info_patient_path(@patient_1)
 
   within("table.capd-regimes tbody tr:nth-child(1)") do
-    click_link('View Regime')
+    click_link('View')
   end
 end
 
@@ -212,7 +212,7 @@ When(/^I choose to view a apd regime$/) do
   visit pd_info_patient_path(@patient_1)
 
   within("table.apd-regimes tbody tr:nth-child(1)") do
-    click_link('View Regime')
+    click_link('View')
   end
 end
 
@@ -221,19 +221,18 @@ Then(/^I should see the new capd regime on the PD info page$/) do
     expect(page).to have_content("02/04/2015")
     expect(page).to have_content("01/06/2015")
     expect(page).to have_content("CAPD 4 exchanges per day")
-    expect(page).to have_css("td", text: "Yes", count: 1)
   end
 
   #average daily glucose
-  within('table.capd-regimes tbody tr:first-child td:nth-child(4)') do
+  within('table.capd-regimes tbody tr:first-child td:nth-child(5)') do
     expect(page).to have_content("164")
   end
 
-  within('table.capd-regimes tbody tr:first-child td:nth-child(5)') do
+  within('table.capd-regimes tbody tr:first-child td:nth-child(6)') do
     expect(page).to have_content("0")
   end
 
-  within('table.capd-regimes tbody tr:first-child td:nth-child(6)') do
+  within('table.capd-regimes tbody tr:first-child td:nth-child(7)') do
     expect(page).to have_content("0")
   end
 end
@@ -246,43 +245,16 @@ Then(/^I should see the new apd regime on the PD info page$/) do
   end
 
   #average daily glucose
-  within('table.apd-regimes tbody tr:first-child td:nth-child(4)') do
-    expect(page).to have_content("0")
-  end
-
   within('table.apd-regimes tbody tr:first-child td:nth-child(5)') do
     expect(page).to have_content("0")
   end
 
   within('table.apd-regimes tbody tr:first-child td:nth-child(6)') do
-    expect(page).to have_content("171")
+    expect(page).to have_content("0")
   end
 
   within('table.apd-regimes tbody tr:first-child td:nth-child(7)') do
-    expect(page).to have_content("No")
-  end
-
-  within('table.apd-regimes tbody tr:first-child td:nth-child(8)') do
-    expect(page).to have_content("520")
-  end
-
-  within('table.apd-regimes tbody tr:first-child td:nth-child(9)') do
-    expect(page).to have_content("Yes")
-  end
-
-  within('table.apd-regimes tbody tr:first-child td:nth-child(10)') do
-    expect(page).to have_content("Yes")
-  end
-
-  within('table.apd-regimes tbody tr:first-child td:nth-child(11)') do
-    expect(page).to have_content("75")
-  end
-
-  within('table.apd-regimes tbody tr:first-child td:nth-child(12)') do
-    expect(page).to have_content("3")
-  end
-  within('table.apd-regimes tbody tr:first-child td:nth-child(13)') do
-    expect(page).to have_content("3100")
+    expect(page).to have_content("171")
   end
 end
 
@@ -335,10 +307,6 @@ end
 Then(/^I should see the updated apd regime on the PD info page$/) do
   within('table.apd-regimes tbody tr:first-child') do
     expect(page).to have_content("30/08/2015")
-  end
-  #Additional Manual Exchange
-  within('table.apd-regimes tbody tr:first-child td:nth-child(7)') do
-    expect(page).to have_content("Yes")
   end
 end
 
