@@ -36,7 +36,7 @@ Scenario: Doctor adds a medication for a patient
     And complete the medication form by drug search
   Then they should see the new medications on the clinical summary
 
-@javascript @wip
+@javascript @pending
 Scenario: Doctor terminates a medication for a patient
   Given there are drugs in the database
     And there are drug types in the database

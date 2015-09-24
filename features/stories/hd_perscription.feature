@@ -8,7 +8,7 @@ Background:
     And I search for a patient by surname
     And I've selected the patient from the search results
 
-@wip @javascript
+@javascript @pending
 Scenario: Adding a HD session
   When
     And I select the HD screen
