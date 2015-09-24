@@ -1,3 +1,3 @@
-After do |scenario|
+After do
   Timecop.return
 end

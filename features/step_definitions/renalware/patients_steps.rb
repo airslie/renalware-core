@@ -3,7 +3,7 @@ Given(/^Patty is a patient in the system$/) do
     nhs_number: "1234567890",
     surname: "Patty",
     forename: "ThePatient",
-    local_patient_id: '123456',
+    local_patient_id: "123456",
     sex: :female,
     birth_date: Date.today
   )
