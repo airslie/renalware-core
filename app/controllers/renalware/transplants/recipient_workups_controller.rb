@@ -41,7 +41,7 @@ module Renalware
         redirect_to patient_transplants_recipient_workups_path(@patient)
       end
 
-    protected
+      protected
 
       def workup_params
         fields = [

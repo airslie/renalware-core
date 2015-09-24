@@ -2,19 +2,23 @@
   fieldset {
     padding: 0.25rem 1rem;
   }
-  div.boolean label {
-    float: none;
-    padding-left: 1rem;
-    padding-bottom: 0.25rem;
-    line-height: 1.3em;
 
-    input {
-      float: left;
-      margin: 0.15rem 0 0 -1rem;
+  div.boolean {
+    label {
+      float: none;
+      line-height: 1.3em;
+      padding-bottom: 0.25rem;
+      padding-left: 1rem;
+
+      input {
+        float: left;
+        margin: 0.15rem 0 0 -1rem;
+      }
     }
   }
 
-  select.date, select.datetime {
+  select.date,
+  select.datetime {
     margin-bottom: 1rem;
   }
 
@@ -25,12 +29,12 @@
   }
 
   .hint {
-    display: block;
-    padding: 0.2rem 0rem;
-    margin-bottom: 0.25rem;
-    font-size: 0.75rem;
-    font-weight: normal;
-    font-style: italic;
     color: #aaa;
+    display: block;
+    font-size: 0.75rem;
+    font-style: italic;
+    font-weight: normal;
+    margin-bottom: 0.25rem;
+    padding: 0.2rem 0rem;
   }
 }
