@@ -1,5 +1,9 @@
 <%
-std_opts = "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} --strict --tags ~@wip -r features"
-wip_opts = "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} --tags @wip:100 --wip -r features"
+env_format = "#{ENV['CUCUMBER_FORMAT']}"
+base_opts = (env_format == "" ? "" : "--format #{env_format}") + " -r features"
+std_opts = "#{base_opts} --tags ~@wip --tags ~@pending --strict"
+wip_opts = "#{base_opts} --tags @wip:100 --wip"
 %>
-default: <%= std_opts %> -r features/support -r features/step_definitions --tags ~@wip
+default: <%= std_opts %>
+guard: <%= wip_opts %> --format pretty
+guard_all: <%= std_opts %> --format progress

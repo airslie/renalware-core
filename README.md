@@ -72,6 +72,16 @@ Tests
 
 Test coverage reports can be found in `coverage/`
 
+### Acceptance Tests
+
+To run the acceptance tests without the UI:
+
+    bundle exec cucumber
+
+To run the acceptance tests with the UI:
+
+    TEST_DEPTH=web bundle exec cucumber
+
 
 Deployment
 ----------
