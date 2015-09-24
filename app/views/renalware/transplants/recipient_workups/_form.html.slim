@@ -1,6 +1,26 @@
-.row
-  .medium-12.columns
-    = f.input :performed_at, as: :datetime, required: true
+ruby:
+  if f.object.new_record?
+    back_path = clinical_summary_patient_path(@patient)
+  else
+    back_path = patient_transplants_recipient_workup_path(@patient)
+  end
+
+
+.row.top
+  .medium-6.columns
+    = f.submit 'Save', class: 'button save'
+    span= " or "
+    = link_to 'cancel', back_path
+- if f.object.persisted?
+  .medium-3.columns
+    dl
+      dt Created On
+      dd= timestamp f.object.created_at
+
+  .medium-3.columns
+    dl
+      dt Updated On
+      dd= timestamp f.object.updated_at
 
 .row
   .medium-12.columns
@@ -8,50 +28,72 @@
       .row
         .medium-6.columns
           fieldset
-            legend Co-morbidities
+            legend Co-morbidities / Historical
+            - %i(angina myocardial_infarct coronary_artery_bypass_graft heart_failure smoking chronic_obstr_pulm_dis cvd_or_stroke diabetes malignancy liver_disease claudication ischaemic_neuropathic_ulcers non_coronary_angioplasty amputation_for_pvd).each do |attribute|
+              .row
+                .medium-6.columns
+                  = yes_no_radio_buttons(fd, attribute)
+                .medium-6.columns
+                  = fd.input "#{attribute}_date".to_sym, as: :date, include_blank: true, label: false
+
+            = yes_no_radio_buttons(fd, :hx_tb)
+            = yes_no_radio_buttons(fd, :hx_dvt)
+            = yes_no_radio_buttons(fd, :hx_reflux)
+            = yes_no_radio_buttons(fd, :hx_neurogenic_bladder)
+            = yes_no_radio_buttons(fd, :hx_recurrent_utis)
+            = yes_no_radio_buttons(fd, :hx_family_diabetes)
+
             .row
               .medium-6.columns
-                = fd.input :hx_tb, as: :boolean
-                = fd.input :hx_dvt, as: :boolean
-                = fd.input :hx_reflux, as: :boolean
-              .medium-6.columns
-                = fd.input :hx_neurogenic_bladder, as: :boolean
-                = fd.input :hx_recurrent_utis, as: :boolean
-                = fd.input :hx_family_diabetes, as: :boolean
-            = fd.input :pregnancies_no
+                = fd.input :pregnancies_count, collection: (0..9).to_a
 
         .medium-6.columns
+
+          fieldset
+            legend Scores
+            .row
+              .medium-6.columns
+                = fd.input :karnofsky_score
+              .medium-6.columns
+                = fd.input :prisma_score
+
           fieldset
             legend Cervical smear data (latest and historical)
-            = fd.input :cervical_result
-            = fd.input :cervical_date, as: :date, include_blank: true, required: true
+            .row
+              .medium-6.columns
+                = fd.input :cervical_result
+              .medium-6.columns
+                = fd.input :cervical_date, as: :date, include_blank: true
 
-      fieldset
-        legend Examination
-        .row
-          .medium-6.columns
-            = fd.input :femoral_pulse_r, as: :boolean
-            = fd.input :femoral_pulse_l, as: :boolean
-            = fd.input :dorsalis_pedis_pulse_r, as: :boolean
-            = fd.input :dorsalis_pedis_pulse_l, as: :boolean
-            = fd.input :posterior_tibial_pulse_r, as: :boolean
-            = fd.input :posterior_tibial_pulse_l, as: :boolean
-          .medium-6.columns
-            = fd.input :bruits
-            = fd.input :heart_sounds
+          fieldset
+            legend Examination
+            .row
+              .medium-6.columns
+                = yes_no_radio_buttons(fd, :femoral_pulse_r)
+                = yes_no_radio_buttons(fd, :femoral_pulse_l)
+                = yes_no_radio_buttons(fd, :dorsalis_pedis_pulse_r)
+                = yes_no_radio_buttons(fd, :dorsalis_pedis_pulse_l)
+                = yes_no_radio_buttons(fd, :posterior_tibial_pulse_r)
+                = yes_no_radio_buttons(fd, :posterior_tibial_pulse_l)
+              .medium-6.columns
+                = yes_no_radio_buttons(fd, :carotid_bruit_l)
+                = yes_no_radio_buttons(fd, :carotid_bruit_r)
+                = yes_no_radio_buttons(fd, :femoral_bruit_l)
+                = yes_no_radio_buttons(fd, :femoral_bruit_r)
+                = fd.input :heart_sounds
 
-      fieldset
-        legend Consent
-        .row
-          .medium-6.columns
-            = fd.input :tx_consent, as: :boolean
-            = fd.input :tx_consent_date, as: :date, include_blank: true
-          .medium-6.columns
-            = fd.input :tx_consent_marginal, as: :boolean
-            = fd.input :tx_consent_marginal_date, as: :date, include_blank: true
+          fieldset
+            legend Consent
+            .row
+              .medium-6.columns
+                = fd.input :tx_consent, as: :boolean
+                = fd.input :tx_consent_date, as: :date, include_blank: true
+              .medium-6.columns
+                = fd.input :tx_consent_marginal, as: :boolean
+                = fd.input :tx_consent_marginal_date, as: :date, include_blank: true
 
-    = f.input :notes, as: :text, input_html: { rows: 6 }
+      = fd.input :hla_data, as: :text, input_html: { rows: 3 }
 
     = f.submit 'Save', class: 'button save'
     span= " or "
-    = link_to 'cancel', patient_transplants_recipient_workups_path(@patient)
+    = link_to 'cancel', back_path

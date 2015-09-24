@@ -10,16 +10,15 @@ When(/^Clyde drafts a recipient workup for Patty$/) do
   create_recipient_workup(@clyde, @patty)
 end
 
-When(/^Clyde updates the assessment at a given time$/) do
+When(/^Clyde updates the assessment$/) do
   Timecop.freeze
-  update_workup(@workup, @clyde, Time.zone.now)
+  update_workup(@workup, @clyde, Time.zone.now + 1.minute)
 end
 
-Then(/^Patty has (-?\d+) recipient workup$/) do |count|
-  workups = recipient_workups_for(@patty)
-  expect(workups.size).to eq(count)
+Then(/^Patty's recipient workup exists$/) do
+  expect(recipient_workup_exists(@patty)).to be_truthy
 end
 
-Then(/^Patty has a recipient workup updated at that time$/) do
-  expect(workups_updated_at(@patty, Time.zone.now).size).to eq(1)
+Then(/^Patty's recipient workup gets updated$/) do
+  expect(workup_was_updated(@patty)).to be_truthy
 end

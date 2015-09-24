@@ -15,12 +15,13 @@ module DomainWorld
     )
   end
 
-  def recipient_workups_for(patient)
-    Renalware::Transplants::RecipientWorkup.for_patient(patient)
+  def recipient_workup_exists(patient)
+    Renalware::Transplants::RecipientWorkup.for_patient(patient).present?
   end
 
-  def workups_updated_at(patient, timestamp)
-    Renalware::Transplants::RecipientWorkup.for_patient(patient).where(updated_at: timestamp)
+  def workup_was_updated(patient)
+    workup = Renalware::Transplants::RecipientWorkup.for_patient(patient)
+    workup.updated_at != workup.created_at
   end
 end
 
@@ -28,36 +29,34 @@ module WebWorld
   def create_recipient_workup(user, patient)
     login_as user
     visit clinical_summary_patient_path(patient)
-    click_on "Recipient Workups"
-    click_on "Add workup"
+    click_on "Recipient Workup"
 
-    select "2015", from: "transplants_recipient_workup_performed_at_1i"
-    select "April", from: "transplants_recipient_workup_performed_at_2i"
-    select "2", from: "transplants_recipient_workup_performed_at_3i"
-    select "10", from: "transplants_recipient_workup_performed_at_4i"
-    select "30", from: "transplants_recipient_workup_performed_at_5i"
+    fill_in "Karnofsky Score", with: "66"
 
-    click_on "Save"
+    within ".top" do
+      click_on "Save"
+    end
   end
 
   def update_workup(workup, user, _updated_at)
     login_as user
     visit clinical_summary_patient_path(workup.patient)
-    click_on "Recipient Workups"
-    find("#transplants_recipient_workup_#{workup.id} a", text: "Edit").click
+    click_on "Recipient Workup"
+    click_on "Edit"
 
     fill_in "Cervical smear result", with: "193"
 
-    click_on "Save"
+    within ".top" do
+      click_on "Save"
+    end
   end
 
-  def recipient_workups_for(_patient)
-    all("tr.workup td:first-child").map { |node| node.text }
+  def recipient_workup_exists(_patient)
+    !first(".workup").nil?
   end
 
-  def workups_updated_at(_patient, timestamp)
-    text = I18n.l timestamp, format: :long
-    all("tr.workup td", text: text).map { |node| node.text }
+  def workup_was_updated(_patient)
+    !first(".workup").nil?
   end
 end
 

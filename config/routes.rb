@@ -40,7 +40,7 @@ Rails.application.routes.draw do
       resources :letters
 
       namespace :transplants do
-        resources :recipient_workups
+        resource :recipient_workup
       end
     end
 

@@ -7,10 +7,8 @@ module Renalware
 
       belongs_to :patient
 
-      validates :performed_at, presence: true
-
       def self.for_patient(patient)
-        where(patient: patient)
+        where(patient: patient).first_or_initialize
       end
     end
   end

@@ -54,5 +54,13 @@ module Renalware
     def pipe_separator
       "&nbsp;|&nbsp;".html_safe
     end
+
+    def yes_no_radio_buttons(f, attribute)
+      f.input attribute, as: :radio_buttons, item_wrapper_class: 'inline', collection: [["Yes", "yes"], ["No", "no"], ["Unknown", "unknown"]]
+    end
+
+    def timestamp(time)
+      I18n.l time, format: :long
+    end
   end
 end

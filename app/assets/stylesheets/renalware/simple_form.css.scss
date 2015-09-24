@@ -37,4 +37,13 @@
     margin-bottom: 0.25rem;
     padding: 0.2rem 0rem;
   }
+
+  .radio.inline {
+    display: table-cell;
+    padding-right: 0.75rem;
+
+    input {
+      margin-right: 0.25rem;
+    }
+  }
 }
