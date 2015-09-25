@@ -50,6 +50,17 @@ en:
         femoral_bruit_l: Femoral Bruit (left)
         femoral_bruit_r: Femoral Bruit (right)
         hla_data: HLA Data
+        educ_waiting_list: Waiting List
+        educ_transport_benefits: Transport/Benefits
+        educ_procedure: Transplant Procedure
+        educ_infection: Infection Risks
+        educ_rejection: Rejection Risks
+        educ_success_rate: Success Rate
+        educ_drugs_shortterm: Drugs (Short term)
+        educ_drugs_longterm: Drugs (Long term)
+        educ_cancer: Cancer Risks
+        educ_followup: Follow-Up
+        educ_recurrence: Recurrence Risks
     errors:
       models:
         renalware/transplants/recipient_workup_document:
