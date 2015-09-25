@@ -74,6 +74,7 @@ en:
     hints:
       transplants_recipient_workup:
         document:
+          angina: For comorbidities enter date diagnosed at right if YES
           smoking: Includes former as well as current smokers
   #   placeholders:
   #     transplants_recipient_workup:
