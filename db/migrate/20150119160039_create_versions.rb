@@ -5,7 +5,8 @@ class CreateVersions < ActiveRecord::Migration
       t.integer  :item_id,   :null => false
       t.string   :event,     :null => false
       t.string   :whodunnit
-      t.text     :object
+      t.jsonb    :object
+      t.jsonb    :object_changes
       t.datetime :created_at
     end
     add_index :versions, [:item_type, :item_id]
