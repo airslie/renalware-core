@@ -1,43 +1,28 @@
 table.responsive
   thead
-    th.col-width-date Diagnosis Date
-    th Outcome
-    th Organisms
-    th Treatment
-    th Antibiotics/Routes
-    th Notes
-    th.col-width-date Last Updated
     th.col-width-9
+    th.col-width-date Diagnosed on
+    th Outcome
+    th Treatment
+    th.col-width-date Updated on
 
   tbody
     - @exit_site_infections.each do |e|
       tr valign="top"
-        td data-heading="Diagnosis Date" valign="top"
+        td valign="top"
+          - unless current_user.read_only?
+            = link_to "Update", edit_patient_exit_site_infection_path(@patient, e.id), class: "update-es-infection", id: "update-es-infection-#{e.id}"
+            = pipe_separator
+          = link_to "View", patient_exit_site_infection_path(@patient, e.id), class: "view-es-infection", id: "view-es-infection-#{e.id}"
+        td valign="top"
           = e.diagnosis_date
 
-        td data-heading="Outcome" valign="top"
+        td valign="top"
           = e.outcome
 
-        td data-heading="Organisms" valign="top"
-          ul.table-data-list
-            = organisms(e.infection_organisms)
-
-        td data-heading="Treatment" valign="top"
+        td valign="top"
           = e.treatment
 
-        td data-heading="Antibiotics" valign="top"
-          ul.table-data-list
-            = medication_and_route(e.medications)
+        td valign="top"
+          = e.updated_at.to_date
 
-        td data-heading="Notes" valign="top"
-          = e.notes
-
-        td data-heading="Last Updated" valign="top"
-          = e.updated_at
-
-        td data-heading="Action" valign="top"
-          ul.table-data-list
-            li
-              = link_to "Update", edit_patient_exit_site_infection_path(@patient, e.id), class: "update-es-infection", id: "update-es-infection-#{e.id}"
-            li
-              = link_to "View Infection", patient_exit_site_infection_path(@patient, e.id), class: "view-es-infection", id: "view-es-infection-#{e.id}"

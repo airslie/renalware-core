@@ -436,33 +436,10 @@ Then(/^the recorded episode should be displayed on PD info page$/) do
   #dates
   expect(page).to have_content("25/12/#{Date.current.year - 1}")
   expect(page).to have_content("30/12/#{Date.current.year - 1}")
-  expect(page).to have_content("31/01/#{Date.current.year}")
 
   #outcome
   expect(page).to have_content("De novo")
   expect(page).to have_content("Catheter Removed: Yes")
-
-  #organism
-  expect(page).to have_content("E.Coli")
-
-  #causes/symptoms
-  expect(page).to have_content("Line Break: No")
-  expect(page).to have_content("Exit Site Infection: Yes")
-  expect(page).to have_content("Diarrhoea: Yes")
-  expect(page).to have_content("Abdominal Pain: Yes")
-  expect(page).to have_content("Misty")
-
-  #whitecells
-  expect(page).to have_content("1000")
-  expect(page).to have_content("Neutro: 20 %")
-  expect(page).to have_content("Lympho: 30 %")
-  expect(page).to have_content("Degen: 25 %")
-  expect(page).to have_content("Other: 25 %")
-
-  #medication/route
-  expect(page).to have_content("Rifampin")
-  expect(page).to have_content("SC")
-
 end
 
 Then(/^the recorded exit site infection should be displayed on PD info page$/) do
@@ -473,19 +450,8 @@ Then(/^the recorded exit site infection should be displayed on PD info page$/) d
   #outcome
   expect(page).to have_content("It is a good outcome.")
 
-  #organism
-  expect(page).to have_content("MRSA")
-
   #treatment
   expect(page).to have_content("Special treatment.")
-
-  #medication/route
-  expect(page).to have_content("Tobramycin")
-  expect(page).to have_content("IM")
-
-  #notes
-  expect(page).to have_content("Review in a weeks time.")
-
 end
 
 Then(/^an episode of peritonitis can be viewed in more detail from the PD info page$/) do
@@ -528,12 +494,6 @@ Then(/^the updated peritonitis episode should be displayed on PD info page$/) do
   @peritonitis_episode_1.reload
 
   expect(page).to have_content("On review, needs stronger antibiotics.")
-end
-
-Then(/^the updated exit site infection should be displayed on PD info page$/) do
-  @exit_site_1.reload
-
-  expect(page).to have_content("Needs a review in 2 weeks time.")
 end
 
 Then(/^the new medication should be displayed on the updated peritonitis form$/) do
