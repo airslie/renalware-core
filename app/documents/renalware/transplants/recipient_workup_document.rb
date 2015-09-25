@@ -63,6 +63,18 @@ module Renalware
       attribute :tx_consent_marginal, Boolean
       attribute :tx_consent_marginal_date, Date
 
+      attribute :educ_waiting_list
+      attribute :educ_transport_benefits
+      attribute :educ_procedure
+      attribute :educ_infection
+      attribute :educ_rejection
+      attribute :educ_success_rate
+      attribute :educ_drugs_shortterm
+      attribute :educ_drugs_longterm
+      attribute :educ_cancer
+      attribute :educ_followup
+      attribute :educ_recurrence
+
       attribute :hla_data
 
       validates :tx_consent_date, presence: true, if: :tx_consent
