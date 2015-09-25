@@ -92,6 +92,18 @@ ruby:
                 = fd.input :tx_consent_marginal, as: :boolean
                 = fd.input :tx_consent_marginal_date, as: :date, include_blank: true
 
+          fieldset
+            legend Transplant Education
+            .row
+              .medium-6.columns
+                - %i(educ_waiting_list educ_transport_benefits educ_procedure educ_infection educ_rejection educ_success_rate ).each do |attribute|
+                  .row
+                    = yes_no_radio_buttons(fd, attribute)
+              .medium-6.columns
+                - %i(educ_drugs_shortterm educ_drugs_longterm educ_cancer educ_followup educ_recurrence).each do |attribute|
+                  .row
+                    = yes_no_radio_buttons(fd, attribute)
+
       = fd.input :hla_data, as: :text, input_html: { rows: 3 }
 
     = f.submit 'Save', class: 'button save'
