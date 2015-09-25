@@ -21,6 +21,7 @@ gem 'nested_form', '~> 0.3.2'
 gem 'slim-rails'
 gem 'simple_form'
 gem 'virtus'
+gem 'hashdiff'
 
 group :development do
   gem 'guard-rspec', require: false
