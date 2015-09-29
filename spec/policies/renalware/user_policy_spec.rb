@@ -9,7 +9,7 @@ module Renalware
 
     context "for a superadmin" do
       let(:user) { User.new }
-
+      #TODO - tests permits
     end
   end
 
