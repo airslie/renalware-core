@@ -10,11 +10,13 @@ module Renalware
 
     def unapproved
       @users = User.unapproved
+      authorize @users, :index?
       render :index
     end
 
     def inactive
       @users = User.inactive
+      authorize @users, :index?
       render :index
     end
 
