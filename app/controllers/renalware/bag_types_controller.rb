@@ -1,15 +1,16 @@
 module Renalware
   class BagTypesController < BaseController
-    load_and_authorize_resource
 
     before_action :load_bag_type, only: [:edit, :update]
 
     def new
       @bag_type = BagType.new
+      authorize @bag_type
     end
 
     def create
       @bag_type = BagType.new(bag_type_params)
+      authorize @bag_type
       if @bag_type.save
         redirect_to bag_types_path, :notice => "You have successfully created a new bag type."
       else
@@ -19,6 +20,7 @@ module Renalware
 
     def index
       @bag_types = BagType.all
+      authorize @bag_type
     end
 
     def update
@@ -30,7 +32,7 @@ module Renalware
     end
 
     def destroy
-      BagType.destroy(params[:id])
+      authorize BagType.destroy(params[:id])
       redirect_to bag_types_path, :notice => "You have successfully removed a bag type."
     end
 
@@ -42,6 +44,7 @@ module Renalware
 
     def load_bag_type
       @bag_type = BagType.find(params[:id])
+      authorize @bag_type
     end
   end
 end
