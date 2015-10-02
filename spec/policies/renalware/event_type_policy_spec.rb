@@ -5,7 +5,7 @@ module Renalware
   describe EventTypePolicy, type: :policy do
     subject { described_class }
 
-    permissions :new? do
+    permissions :new?, :create?, :index?, :edit?, :destroy? do
       it "grants access if user super_admin" do
         expect(subject).to permit(FactoryGirl.create(:user, :super_admin))
       end
@@ -16,6 +16,10 @@ module Renalware
 
       it "denies access if user clinician" do
         expect(subject).to_not permit(FactoryGirl.create(:user, :clinician))
+      end
+
+      it "denies access if user read_only" do
+        expect(subject).to_not permit(FactoryGirl.create(:user, :read_only))
       end
     end
 
