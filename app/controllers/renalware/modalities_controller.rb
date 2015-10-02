@@ -1,19 +1,19 @@
 module Renalware
   class ModalitiesController < BaseController
-    load_and_authorize_resource
 
     before_filter :load_patient
 
     def new
       @modality = Modality.new(patient: @patient)
+      authorize @modality
     end
 
     def index
-      @modalities = @patient.modalities.with_deleted.order('termination_date DESC')
+      authorize @modalities = @patient.modalities.with_deleted.order('termination_date DESC')
     end
 
     def create
-      @patient.set_modality(modality_params)
+      authorize @patient.set_modality(modality_params)
 
       if @patient.modality_code.death?
         redirect_to death_update_patient_path(@patient), :notice => "Please make sure to update patient date of death and cause of death!"
