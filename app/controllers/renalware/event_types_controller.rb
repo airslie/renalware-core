@@ -1,13 +1,16 @@
 module Renalware
   class EventTypesController < BaseController
-    load_and_authorize_resource
+
+    before_action :load_event_type, only: [:edit, :update]
 
     def new
       @event_type = EventType.new
+      authorize @event_type
     end
 
     def create
       @event_type = EventType.new(allowed_params)
+      authorize @event_type
       if @event_type.save
         redirect_to event_types_path, :notice => "You have successfully added a new patient event type."
       else
@@ -17,14 +20,10 @@ module Renalware
 
     def index
       @event_types = EventType.all
-    end
-
-    def edit
-      @event_type = EventType.find(params[:id])
+      authorize @event_types
     end
 
     def update
-      @event_type = EventType.find(params[:id])
       if @event_type.update(allowed_params)
         redirect_to event_types_path, :notice => "You have successfully updated patient event type"
       else
@@ -33,12 +32,18 @@ module Renalware
     end
 
     def destroy
-      EventType.destroy(params[:id])
+      authorize EventType.destroy(params[:id])
       redirect_to event_types_path, :notice => "You have successfully removed a patient event type."
     end
 
+    private
     def allowed_params
       params.require(:event_type).permit(:name, :deleted_at)
+    end
+
+    def load_event_type
+      @event_type = EventType.find(params[:id])
+      authorize @event_type
     end
   end
 end
