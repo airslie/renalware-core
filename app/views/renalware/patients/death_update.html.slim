@@ -14,7 +14,7 @@
 .row
   .large-12.columns
     = form_for @patient, method: :put do |f|
-      = hidden_field_tag :redirect_url, demographics_patient_path(@patient)
+      = hidden_field_tag :redirect_url, patient_path(@patient)
       = hidden_field_tag :template, "death_update"
 
       = f.label :death_date, "Date of Death"
