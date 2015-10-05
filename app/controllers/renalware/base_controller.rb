@@ -1,7 +1,6 @@
 module Renalware
   class BaseController < ActionController::Base
     include Concerns::DeviseControllerMethods
-    include Renalware::Concerns::CancanControllerMethods
     include Pundit
 
     after_action :verify_authorized
