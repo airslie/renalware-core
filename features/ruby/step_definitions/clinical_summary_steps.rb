@@ -258,7 +258,7 @@ Then(/^I should see a patient's modality on their clinical summary$/) do
 end
 
 Then(/^I should see the date of death and causes of death in the patient's demographics$/) do
-  visit demographics_patient_path(@patient_1)
+  visit patient_path(@patient_1)
   expect(page).to have_content("22/09/2014")
   expect(page).to have_content("Death cause one")
   expect(page).to have_content("Death cause two")

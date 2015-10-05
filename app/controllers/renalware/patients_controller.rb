@@ -7,10 +7,10 @@ module Renalware
     before_filter :prepare_paging, only: [:index]
 
     # Cancancan authorization filters
-    skip_authorize_resource only: [:clinical_summary, :demographics, :esrf_info, :manage_medications, :pd_info, :problems]
+    skip_authorize_resource only: [:clinical_summary, :show, :esrf_info, :manage_medications, :pd_info, :problems]
 
     before_action :find_patient, only: [:esrf_info, :pd_info, :death_update, :clinical_summary, :manage_medications, :problems,
-                                        :demographics, :edit, :update]
+                                        :show, :edit, :update]
 
     def esrf_info
       if @patient.esrf_info.blank?
@@ -48,7 +48,7 @@ module Renalware
     def create
       @patient = Patient.new(patient_params)
       if @patient.save
-        redirect_to demographics_patient_path(@patient), :notice => "You have successfully added a new patient."
+        redirect_to patient_path(@patient), :notice => "You have successfully added a new patient."
       else
         render :new
       end
