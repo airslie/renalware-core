@@ -17,14 +17,14 @@
 
     = f.fields_for :medications do |pm|
 
-      = render partial: 'renalware/medications/medication', locals: { pm: pm } unless pm.object.new_record?
+      = render partial: "renalware/medications/medication", locals: { pm: pm } unless pm.object.new_record?
 
       #medications
-        = render partial: 'renalware/medications/new', locals: { pm: pm } if pm.object.new_record?
+        = render partial: "renalware/medications/new", locals: { pm: pm } if pm.object.new_record?
 
     - unless current_user.read_only?
       .large-12.columns
-        = f.link_to_add 'Add a new medication', :medications, class: 'add-medication button tiny right mt'
-        = f.submit 'Save Medication', class: 'button tiny right save mt'
-        = link_to 'Cancel', patient_clinical_summary_path(@patient), class: 'button tiny left cancel mt'
+        = f.link_to_add "Add a new medication", :medications, class: "add-medication button tiny right mt"
+        = f.submit "Save Medication", class: "button tiny right save mt"
+        = link_to "Cancel", patient_clinical_summary_path(@patient), class: "button tiny left cancel mt"
 
