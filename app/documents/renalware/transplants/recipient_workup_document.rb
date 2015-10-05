@@ -83,8 +83,10 @@ module Renalware
       validates :tx_consent, inclusion: { in: %w(full partial refused), allow_blank: true }
       validates :tx_consent_date, presence: true, if: "tx_consent.present?"
       validates :tx_consenting_name, presence: true, if: "tx_consent.present?"
-      validates :tx_marginal_consenting_name, presence: true, if: Proc.new { |o| %w(yes no).include? o.tx_marginal_consent }
-      validates :tx_marginal_consent_date, presence: true, if: Proc.new { |o| %w(yes no).include? o.tx_marginal_consent }
+      validates :tx_marginal_consenting_name, presence: true,
+        if: Proc.new { |o| %w(yes no).include? o.tx_marginal_consent }
+      validates :tx_marginal_consent_date, presence: true,
+        if: Proc.new { |o| %w(yes no).include? o.tx_marginal_consent }
 
       validates :karnofsky_score, inclusion: { in: 0..100, allow_blank: true }
       validates :prisma_score, inclusion: { in: 0..7, allow_blank: true }

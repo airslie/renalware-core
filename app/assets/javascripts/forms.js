@@ -4,4 +4,4 @@ $(function() {
       scrollTop: ($('small.error').first().offset().top)
     },500);
   }
-})
+});
