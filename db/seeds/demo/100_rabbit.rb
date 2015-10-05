@@ -115,7 +115,7 @@ module Renalware
   ])
 
   log '--------------------Adding ESRF Info for Roger RABBIT-------------------'
-  EsrfInfo.create([
+  ESRF.create([
     {patient_id: 1, date: "2015-05-05", prd_code_id: 109}
   ])
 

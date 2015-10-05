@@ -11,9 +11,9 @@
 
       = hidden_field_tag :redirect_url, patient_clinical_summary_path(@patient)
 
-      = f.fields_for :esrf_info, @esrf_info do |esrf|
+      = f.fields_for :esrf, @esrf do |esrf|
 
-        = render partial: 'renalware/patients/esrf_info_form', locals: { esrf: esrf }
+        = render partial: 'renalware/patients/esrf_form', locals: { esrf: esrf }
 
       = f.submit "Save ESRF Summary", class: "button tiny right save mt"
 

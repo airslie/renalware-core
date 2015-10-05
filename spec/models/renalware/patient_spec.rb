@@ -5,7 +5,7 @@ module Renalware
 
     it_behaves_like 'Personable'
 
-    it { should have_one :esrf_info }
+    it { should have_one :esrf }
     it { should have_one :current_modality }
     it { should have_one(:modality_code).through(:current_modality) }
 
@@ -26,7 +26,7 @@ module Renalware
     it { should have_many(:medication_routes).through(:medications) }
 
     it { should accept_nested_attributes_for(:problems) }
-    it { should accept_nested_attributes_for(:esrf_info) }
+    it { should accept_nested_attributes_for(:esrf) }
 
     it { should validate_presence_of :nhs_number }
     it { should validate_uniqueness_of :nhs_number }

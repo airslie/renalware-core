@@ -1,5 +1,7 @@
 module Renalware
-  class EsrfInfo < ActiveRecord::Base
+  class ESRF < ActiveRecord::Base
+    self.table_name = "esrf"
+
     belongs_to :patient
     belongs_to :prd_code
   end

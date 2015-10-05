@@ -1,11 +1,11 @@
 module Renalware
-  module EsrfInfosHelper
+  module ESRFInfosHelper
     def display_prd_date(patient)
-      patient.try(:esrf_info).try(:date)
+      patient.try(:esrf).try(:date)
     end
 
     def display_prd(patient)
-      patient.try(:esrf_info).try(:prd_code).try(:term)
+      patient.try(:esrf).try(:prd_code).try(:term)
     end
   end
 end
