@@ -6,7 +6,7 @@
     h1 ESRF Summary
 
 .row
-    = form_for @esrf, url: patient_esrf_path(@patient), method: :patch do |f|
+    = simple_form_for @esrf, url: patient_esrf_path(@patient), method: :patch do |f|
       = render partial: "form", locals: { f: f }
 
       = submit_tag "Save", class: "button"

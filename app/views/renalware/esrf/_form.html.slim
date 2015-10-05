@@ -1,6 +1,12 @@
 .esrf-info-form
-  = f.label :date, "Date"
-  = f.date_select(:diagnosed_on, {start_year: (1.years.ago).year, end_year: (Time.now.year + 1), order: [:day, :month, :year], include_blank: true }, class: "datetime")
+  = f.input :diagnosed_on,
+    as: :date, start_year: (1.years.ago).year,
+    end_year: (Time.now.year + 1), order: [:day, :month, :year],
+    include_blank: true,
+    label: "Date", input_html: {class: "datetime"}
 
-  = f.label :prd_code_id, "Primary Renal Diagnosis (PRD)"
-  = f.collection_select :prd_code_id, Renalware::PrdCode.all, :id, :term, { prompt: "Please select primary renal diagnosis", include_blank: true }, class: "prd-select"
+  = f.association :prd_code,
+    collection: Renalware::PrdCode.all, prompt: "Please select primary renal diagnosis",
+    include_blank: true,
+    label_method: :term,
+    label: "Primary Renal Diagnosis (PRD)", input_html:  {class: "prd-select"}
