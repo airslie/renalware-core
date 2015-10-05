@@ -116,7 +116,7 @@ module Renalware
 
   log '--------------------Adding ESRF Info for Roger RABBIT-------------------'
   ESRF.create([
-    {patient_id: 1, date: "2015-05-05", prd_code_id: 109}
+    {patient_id: 1, diagnosed_on: "2015-05-05", prd_code_id: 109}
   ])
 
   log '--------------------Adding Exit Site Infection for Roger RABBIT-------------------'

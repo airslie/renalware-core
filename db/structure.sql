@@ -361,7 +361,7 @@ ALTER SEQUENCE episode_types_id_seq OWNED BY episode_types.id;
 CREATE TABLE esrf (
     id integer NOT NULL,
     patient_id integer,
-    date date,
+    diagnosed_on date,
     prd_code_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone

@@ -1,7 +1,7 @@
 .esrf-info-form
   li
     = f.label :date, "Date"
-    = f.date_select(:date, {start_year: (1.years.ago).year, end_year: (Time.now.year + 1), order: [:day, :month, :year], include_blank: true }, class: "datetime")
+    = f.date_select(:diagnosed_on, {start_year: (1.years.ago).year, end_year: (Time.now.year + 1), order: [:day, :month, :year], include_blank: true }, class: "datetime")
 
   li
     = f.label :prd_code_id, "Primary Renal Diagnosis (PRD)"
