@@ -3,14 +3,25 @@ require "rails_helper"
 module Renalware
 
   describe UserPolicy, type: :policy do
-    subject { UserPolicy.new(current_user, user) }
 
-    let(:current_user) { build_stubbed :user }
+    subject { described_class }
 
-    context "for a superadmin" do
-      let(:user) { User.new }
-      #TODO - tests permits
+    permissions :edit?, :update?, :index? do
+      it "grants access if user super_admin" do
+        expect(subject).to permit(FactoryGirl.create(:user, :super_admin))
+      end
+
+      it "grants access if user admin" do
+        expect(subject).to_not permit(FactoryGirl.create(:user, :admin))
+      end
+
+      it "denies access if user clinician" do
+        expect(subject).to_not permit(FactoryGirl.create(:user, :clinician))
+      end
+
+      it "denies access if user read_only" do
+        expect(subject).to_not permit(FactoryGirl.create(:user, :read_only))
+      end
     end
   end
-
 end
