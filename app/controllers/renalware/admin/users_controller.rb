@@ -22,6 +22,7 @@ module Renalware
 
     def update
       if user_service.update_and_notify!(service_params)
+        authorize @user
         redirect_to admin_users_path, notice: "#{@user.username} updated"
       else
         flash[:alert] = "#{@user.username} could not be updated"
