@@ -3,12 +3,12 @@
     = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
     = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
 
-    h5 ESRF Summary
+    h1 ESRF Summary
 
 .row
-  ul.no-bullet
     = form_for @esrf, url: patient_esrf_path(@patient), method: :patch do |f|
       = render partial: "form", locals: { f: f }
-      = f.submit "Save ESRF Summary", class: "button tiny right save mt"
 
-  = link_to "Cancel", patient_clinical_summary_path(@patient), class: "button tiny left cancel mt"
+      = submit_tag "Save", class: "button"
+      span= " or "
+      = link_to "cancel", patient_clinical_summary_path(@patient)
