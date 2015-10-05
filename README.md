@@ -1,6 +1,9 @@
 Renalware v 2.0 (renal database)
 ============
 
+Renalware uses demographic, clinical, pathology, and nephrology datasets to improve patient care,
+undertake clinical and administrative audits and share data with external systems.
+
 Renalware PHP
 -------------
 
