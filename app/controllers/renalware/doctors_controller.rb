@@ -2,18 +2,19 @@ module Renalware
   class DoctorsController < BaseController
     include Renalware::Concerns::Pageable
 
-    load_and_authorize_resource
-
     def index
       @doctors = Doctor.order(:last_name).page(@page).per(@per_page)
+      authorize @doctors
     end
 
     def new
       @doctor = Doctor.new
+      authorize @doctor
     end
 
     def edit
       @doctor = Doctor.find(params[:id])
+      authorize @doctor
     end
 
     def create
@@ -33,7 +34,7 @@ module Renalware
     end
 
     def destroy
-      if Doctor.destroy(params[:id])
+      if authorize Doctor.destroy(params[:id])
         redirect_to doctors_path, notice: 'Doctor successfully deleted'
       else
         render :index, alert: 'Failed to delete Doctor'
@@ -44,6 +45,7 @@ module Renalware
 
     def service
       @doctor = Doctor.find_or_initialize_by(id: params[:id])
+      authorize @doctor
       DoctorService.new(@doctor)
     end
 
