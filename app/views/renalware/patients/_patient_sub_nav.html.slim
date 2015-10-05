@@ -1,7 +1,7 @@
 nav class="top-bar patient-nav" data-topbar="" role="navigation"
   section.top-bar-section
     ul
-      li= link_to "Admin", demographics_patient_path(@patient), title: "Demographics"
+      li= link_to "Admin", patient_path(@patient), title: "Demographics"
       li= link_to "ClinSumm", clinical_summary_patient_path(@patient), title: "Clinical Summary"
       li= link_to "Modals", patient_modalities_path(@patient), title: "Patient Modality"
       li= link_to "Problems (#{@patient.problems.length})", problems_patient_path(@patient), title: "Manage Problems"

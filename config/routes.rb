@@ -16,7 +16,6 @@ Rails.application.routes.draw do
 
     resources :patients, except: [:destroy] do
       member do
-        get :demographics
         get :clinical_summary
         get :manage_medications
         get :problems

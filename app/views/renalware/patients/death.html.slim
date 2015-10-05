@@ -17,7 +17,7 @@
       - @dead_patients.each do |patient|
         tr
           td
-            = link_to "Demographics", demographics_patient_path(patient), title: "Demographics"
+            = link_to "Demographics", patient_path(patient), title: "Demographics"
             = pipe_separator
             = link_to "Edit death details", death_update_patient_path(patient.id), title: "Edit death details"
           td= patient.to_s(:full_name)
