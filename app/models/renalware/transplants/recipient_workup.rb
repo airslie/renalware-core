@@ -5,7 +5,7 @@ module Renalware
 
       include Document::Embedded
 
-      has_paper_trail class_name: 'Renalware::Transplants::RecipientWorkupVersion'
+      has_paper_trail class_name: "Renalware::Transplants::RecipientWorkupVersion"
 
       belongs_to :patient
 

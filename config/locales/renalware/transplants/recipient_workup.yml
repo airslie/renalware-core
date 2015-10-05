@@ -41,10 +41,12 @@ en:
         pregnancies_count: Number of pregnancies
         prisma_score: Frailty (Prisma) score
         smoking: Smoker?
-        tx_consent: Tx consent?
-        tx_consent_date: Tx consent date
-        tx_consent_marginal: Tx marginal consent?
-        tx_consent_marginal_date: Tx marginal consent date
+        tx_consent: Consent
+        tx_consent_date: Consent Date
+        tx_consenting_name: Who consented
+        tx_marginal_consent: Marginal consent?
+        tx_marginal_consent_date: Marginal Consent Date
+        tx_marginal_consenting_name: Who marginally consented
         carotid_bruit_l: Carotid Bruit (left)
         carotid_bruit_r: Carotid Bruit (right)
         femoral_bruit_l: Femoral Bruit (left)

@@ -63,5 +63,9 @@ module Renalware
     def timestamp(time)
       I18n.l time, format: :long
     end
+
+    def titleize_enum(list)
+      list.map { |item| [item.titleize, item] }
+    end
   end
 end
