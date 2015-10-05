@@ -1,16 +1,17 @@
 module Renalware
   class ExitSiteInfectionsController < BaseController
-    load_and_authorize_resource
 
     before_action :load_patient, only: [:new, :create, :show, :edit, :update]
     before_action :load_exit_site_infection, only: [:show, :edit, :update]
 
     def new
       @exit_site_infection = ExitSiteInfection.new
+      authorize @exit_site_infection
     end
 
     def create
       @exit_site_infection = ExitSiteInfection.new(exit_site_infection_params)
+      authorize @exit_site_infection
       @exit_site_infection.patient_id = @patient.id
       if @exit_site_infection.save
         redirect_to patient_pd_summary_path(@patient),
@@ -47,6 +48,7 @@ module Renalware
 
     def load_exit_site_infection
       @exit_site_infection = ExitSiteInfection.find(params[:id])
+      authorize @exit_site_infection
     end
   end
 end
