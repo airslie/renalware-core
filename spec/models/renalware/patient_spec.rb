@@ -26,7 +26,6 @@ module Renalware
     it { should have_many(:medication_routes).through(:medications) }
 
     it { should accept_nested_attributes_for(:problems) }
-    it { should accept_nested_attributes_for(:esrf) }
 
     it { should validate_presence_of :nhs_number }
     it { should validate_uniqueness_of :nhs_number }

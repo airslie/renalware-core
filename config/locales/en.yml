@@ -54,5 +54,7 @@ en:
         days: PD bag
 
 
-
-
+  renalware:
+    esrf:
+      update:
+        success: Successfully updated.

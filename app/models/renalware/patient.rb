@@ -34,7 +34,6 @@ module Renalware
     accepts_nested_attributes_for :events
     accepts_nested_attributes_for :medications, allow_destroy: true
     accepts_nested_attributes_for :problems, allow_destroy: true, reject_if: Problem.reject_if_proc
-    accepts_nested_attributes_for :esrf
 
     validates :nhs_number, presence: true, length: { minimum: 10, maximum: 10 }, uniqueness: true
     validates :surname, presence: true

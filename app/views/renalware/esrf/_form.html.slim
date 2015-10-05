@@ -1,0 +1,8 @@
+.esrf-info-form
+  li
+    = f.label :date, "Date"
+    = f.date_select(:date, {start_year: (1.years.ago).year, end_year: (Time.now.year + 1), order: [:day, :month, :year], include_blank: true }, class: "datetime")
+
+  li
+    = f.label :prd_code_id, "Primary Renal Diagnosis (PRD)"
+    = f.collection_select :prd_code_id, Renalware::PrdCode.all, :id, :term, { prompt: "Please select primary renal diagnosis", include_blank: true }, class: "prd-select"
