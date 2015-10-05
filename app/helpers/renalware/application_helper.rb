@@ -56,7 +56,8 @@ module Renalware
     end
 
     def yes_no_radio_buttons(f, attribute)
-      f.input attribute, as: :radio_buttons, item_wrapper_class: 'inline', collection: [["Yes", "yes"], ["No", "no"], ["Unknown", "unknown"]]
+      f.input attribute, as: :radio_buttons, item_wrapper_class: 'inline',
+        collection: [["Yes", "yes"], ["No", "no"], ["Unknown", "unknown"]]
     end
 
     def timestamp(time)
