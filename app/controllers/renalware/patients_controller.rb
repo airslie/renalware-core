@@ -7,9 +7,9 @@ module Renalware
     before_filter :prepare_paging, only: [:index]
 
     # Cancancan authorization filters
-    skip_authorize_resource only: [:clinical_summary, :show, :esrf_info, :manage_medications, :pd_info, :problems]
+    skip_authorize_resource only: [:show, :esrf_info, :manage_medications, :pd_info, :problems]
 
-    before_action :find_patient, only: [:esrf_info, :pd_info, :death_update, :clinical_summary, :manage_medications, :problems,
+    before_action :find_patient, only: [:esrf_info, :pd_info, :death_update, :manage_medications, :problems,
                                         :show, :edit, :update]
 
     def esrf_info
@@ -56,7 +56,7 @@ module Renalware
 
     def update
       if @patient.update(patient_params)
-        redirect_to params[:redirect_url] || clinical_summary_patient_path(@patient), notice: params[:message]
+        redirect_to params[:redirect_url] || patient_clinical_summary_path(@patient), notice: params[:message]
       else
         render params[:template] || :edit
       end
