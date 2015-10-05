@@ -12,7 +12,7 @@ module Document
     end
 
     # Returns a list of the Virtus attributes in the model
-    def self.fields
+    def self.attributes_list
       attribute_set.entries.map(&:name)
     end
 

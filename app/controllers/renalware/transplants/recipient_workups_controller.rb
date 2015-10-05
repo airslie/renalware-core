@@ -26,7 +26,7 @@ module Renalware
 
       def workup_params
         fields = [
-          { document_attributes: RecipientWorkupDocument.fields }
+          { document_attributes: RecipientWorkup.embedded_attributes }
         ]
         params.require(:transplants_recipient_workup).permit(fields)
       end

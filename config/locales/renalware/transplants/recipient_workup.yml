@@ -7,7 +7,7 @@ en:
   #       performed_at: Performed On
   activemodel:
     attributes:
-      renalware/transplants/recipient_workup_document:
+      renalware/transplants/recipient_workup/document:
         amputation_for_pvd: Amputation for PVD?
         angina: Angina?
         bruits: Bruits
@@ -65,7 +65,7 @@ en:
         educ_recurrence: Recurrence Risks
     errors:
       models:
-        renalware/transplants/recipient_workup_document:
+        renalware/transplants/recipient_workup/document:
           attributes:
             karnofsky_score:
               inclusion: must be between 0 and 100

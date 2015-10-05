@@ -7,12 +7,10 @@ Feature: Complete the transplant assessment for the recipient
     Given Clyde is a clinician
     And Patty is a patient in the system
 
-  @wip
   Scenario: Draft an assessment
     When Clyde drafts a recipient workup for Patty
     Then Patty's recipient workup exists
 
-  @wip
   Scenario: Update an assessment
     Given Patty has a recipient workup
     When Clyde updates the assessment
