@@ -15,6 +15,6 @@
 
           .problem-form data={ index: @patient.problems.length - 1 }
 
-            = render partial: 'renalware/problems/form', locals: { pb: pb }
+            = render partial: "renalware/problems/form", locals: { pb: pb }
 
-  = link_to 'Cancel', clinical_summary_patient_path(@patient), class: 'button tiny left cancel mt'
+  = link_to "Cancel", patient_clinical_summary_path(@patient), class: "button tiny left cancel mt"

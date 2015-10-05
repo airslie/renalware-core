@@ -12,7 +12,7 @@ Given(/^there are edta causes of death in the database$/) do
 end
 
 Given(/^they are on a patient's clinical summary$/) do
-  visit clinical_summary_patient_path(@patient_1)
+  visit patient_clinical_summary_path(@patient_1)
 end
 
 Given(/^they go to the problem list page$/) do
@@ -222,7 +222,7 @@ Then(/^they should see the new problems on the clinical summary$/) do
 end
 
 Then(/^they should see the new medications on the clinical summary$/) do
-  visit clinical_summary_patient_path(@patient_1)
+  visit patient_clinical_summary_path(@patient_1)
 
   #drug by select
   within(".drug-esa") do
