@@ -7,7 +7,7 @@
 
 .row
     = simple_form_for @esrf, url: patient_esrf_path(@patient), method: :patch do |f|
-      = render partial: "form", locals: { f: f }
+      = render partial: "form", locals: { f: f, prd_descriptions: @prd_descriptions }
 
       = submit_tag "Save", class: "button"
       span= " or "
