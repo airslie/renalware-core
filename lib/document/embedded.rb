@@ -135,7 +135,8 @@ module Document
 
         params.each do |attribute, value|
           if value.is_a?(Hash)
-            params[attribute] = filter_date_params(value) # TODO: #validate should only handle local form params.
+            # TODO: #validate should only handle local form params.
+            params[attribute] = filter_date_params(value)
           elsif matches = attribute.match(/^(\w+)\(.i\)$/)
             date_attribute = matches[1]
             date_attributes[date_attribute] = params_to_date(
