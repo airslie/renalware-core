@@ -27,7 +27,7 @@ Rails.application.routes.draw do
         get :death
       end
       resource :clinical_summary, only: :show
-      resource :esrf, only: [:edit, :update], controller: 'esrf'
+      resource :esrf, only: [:edit, :update], controller: "esrf"
       resources :events, only: [:new, :create, :index]
       resources :modalities, only: [:new, :create, :index]
       resources :peritonitis_episodes, only: [:new, :create, :show, :edit, :update]
