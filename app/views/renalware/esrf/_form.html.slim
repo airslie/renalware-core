@@ -6,7 +6,7 @@
     input_html: {class: "datetime"}
 
   = f.association :prd_code,
-    collection: Renalware::PrdCode.all, prompt: t(".prd_prompt"),
+    collection: Renalware::PrdCode.ordered, prompt: t(".prd_prompt"),
     include_blank: true,
     label_method: :term,
     input_html:  {class: "prd-select"}
