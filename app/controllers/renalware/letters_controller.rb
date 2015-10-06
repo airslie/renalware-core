@@ -1,24 +1,27 @@
 module Renalware
   class LettersController < BaseController
-    load_and_authorize_resource class: Renalware::BaseLetter
 
     before_filter :load_patient, except: :author
     before_filter :load_author, only: :author
 
     def index
       @letters = @patient.letters
+      authorize @letters
     end
 
     def author
       @letters = BaseLetter.where(author: @author)
+      authorize @letters
     end
 
     def new
       @letter = letter_class.new(patient: @patient)
+      authorize @letter
     end
 
     def create
       @letter = letter_class.new(letter_params)
+      authorize @letter
 
       if service.update!(full_params)
         redirect_to patient_letters_path(@patient)
@@ -30,7 +33,7 @@ module Renalware
 
     def update
       @letter = letter_class.find(params[:id])
-
+      authorize @letter
       if service.update!(full_params)
         redirect_to patient_letters_path(@patient)
       else
