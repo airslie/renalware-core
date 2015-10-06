@@ -5,6 +5,7 @@ module Renalware
     def create? ; has_privilege? end
     def index? ; has_privilege? end
     def edit? ; has_privilege? end
+    def update? ; has_privilege? end
     def destroy? ; has_privilege? end
 
     private
