@@ -1,3 +1,5 @@
+require 'extensions/pundit'
+
 module Renalware
   class BaseController < ActionController::Base
     include Concerns::DeviseControllerMethods
