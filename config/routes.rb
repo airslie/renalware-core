@@ -16,7 +16,6 @@ Rails.application.routes.draw do
 
     resources :patients, except: [:destroy] do
       member do
-        get :clinical_summary
         get :manage_medications
         get :problems
         get :death_update
@@ -28,6 +27,7 @@ Rails.application.routes.draw do
       collection do
         get :death
       end
+      resource :clinical_summary, only: :show
       resources :events, only: [:new, :create, :index]
       resources :modalities, only: [:new, :create, :index]
       resources :peritonitis_episodes, only: [:new, :create, :show, :edit, :update]
