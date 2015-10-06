@@ -7,7 +7,7 @@ en:
   #       performed_at: Performed On
   activemodel:
     attributes:
-      renalware/transplants/recipient_workup/document:
+      renalware/transplants/recipient_workup_document:
         amputation_for_pvd: Amputation for PVD?
         angina: Angina?
         bruits: Bruits
@@ -65,7 +65,7 @@ en:
         educ_recurrence: Recurrence Risks
     errors:
       models:
-        renalware/transplants/recipient_workup/document:
+        renalware/transplants/recipient_workup_document:
           attributes:
             karnofsky_score:
               inclusion: must be between 0 and 100
@@ -78,6 +78,7 @@ en:
         document:
           angina: For comorbidities enter date diagnosed at right if YES
           smoking: Includes former as well as current smokers
+          tx_consenting_name: Your name or the person who consented
   #   placeholders:
   #     transplants_recipient_workup:
   #       document:

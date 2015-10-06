@@ -102,12 +102,13 @@ module Document
     extend ActiveSupport::Concern
 
     class_methods do
-      def has_embedded(options)
-        @document_class = options[:class_name].constantize
+      def has_document(options)
+        class_name = options[:class_name]
+        @document_class = self.const_get(class_name)
         serialize :document, @document_class
       end
 
-      def embedded_attributes
+      def document_attributes
         @document_class.attributes_list
       end
     end
@@ -118,7 +119,8 @@ module Document
       end
 
       def document_attributes=(value)
-        document.attributes = filter_date_params(value)
+        filtered_value = filter_date_params(value)
+        document.attributes = filtered_value
       end
 
       def document_attributes
@@ -133,7 +135,7 @@ module Document
 
         params.each do |attribute, value|
           if value.is_a?(Hash)
-            params[attribute] = call(value) # TODO: #validate should only handle local form params.
+            params[attribute] = filter_date_params(value) # TODO: #validate should only handle local form params.
           elsif matches = attribute.match(/^(\w+)\(.i\)$/)
             date_attribute = matches[1]
             date_attributes[date_attribute] = params_to_date(

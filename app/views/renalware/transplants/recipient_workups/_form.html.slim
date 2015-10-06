@@ -99,12 +99,16 @@ ruby:
             .row
               .medium-6.columns
                 = fd.input :tx_consent, as: :select, collection: titleize_enum(%w(full partial refused))
-                = fd.input :tx_consenting_name
+              .medium-6.columns
                 = fd.input :tx_consent_date, as: :date, include_blank: true
+                = fd.input :tx_consenting_name
+            hr
+            .row
               .medium-6.columns
                 = yes_no_radio_buttons(fd, :tx_marginal_consent)
-                = fd.input :tx_marginal_consenting_name
+              .medium-6.columns
                 = fd.input :tx_marginal_consent_date, as: :date, include_blank: true
+                = fd.input :tx_marginal_consenting_name
 
       = fd.input :hla_data, as: :text, input_html: { rows: 3 }
 

@@ -1,7 +1,9 @@
 module Document
   class Base
-    include Virtus.model
+    include Virtus::Model
     include ActiveModel::Model
+
+    @@methods_to_ignore = []
 
     def self.dump(object)
       object.to_json
@@ -23,7 +25,6 @@ module Document
     #     old_attribute :hx_tb
     #   end
     def self.old_attribute(attribute)
-      @@methods_to_ignore ||= []
       @@methods_to_ignore << attribute
       @@methods_to_ignore << "#{attribute}=".to_sym
     end
