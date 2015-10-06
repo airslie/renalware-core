@@ -9,6 +9,9 @@ module Renalware
     it 'checks and defines permissions for super admins' do
       policy = BasePolicy.new(super_admin, User.new)
       expect(policy.create?).to be true
+
+      policy = BasePolicy.new(super_admin, DrugType.new)
+      expect(policy.create?).to be true
     end
 
     it 'checks and defines permissions for admins' do

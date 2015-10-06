@@ -14,7 +14,10 @@ module Renalware
     end
 
     def index?
-      if restricted?
+      case
+      when user.super_admin?
+        true
+      when restricted?
         has_permission_for_restricted?
       else
         has_any_role?
@@ -26,7 +29,10 @@ module Renalware
     end
 
     def create?
-      if restricted?
+      case
+      when user.super_admin?
+        true
+      when restricted?
         has_permission_for_restricted?
       else
         has_write_privileges?
