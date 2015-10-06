@@ -1,7 +1,7 @@
 module Renalware
   log '--------------------Adding PrdCodes--------------------'
 
-  file_path = File.join(default_path, 'prd_codes.csv')
+  file_path = File.join(default_path, 'prd_descriptions.csv')
 
   logcount=0
   CSV.foreach(file_path, headers: true) do |row|

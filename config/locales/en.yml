@@ -53,7 +53,7 @@ en:
         volume: "PD bag volume (ml)"
         days: PD bag
       renalware/esrf:
-        prd_code: Primary Renal Diagnosis (PRD)
+        prd_description: Primary Renal Diagnosis (PRD)
         diagnosed_on: Date
 
 

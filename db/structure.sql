@@ -362,7 +362,7 @@ CREATE TABLE esrf (
     id integer NOT NULL,
     patient_id integer,
     diagnosed_on date,
-    prd_code_id integer,
+    prd_description_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -1132,10 +1132,10 @@ ALTER SEQUENCE practices_id_seq OWNED BY practices.id;
 
 
 --
--- Name: prd_codes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: prd_descriptions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE prd_codes (
+CREATE TABLE prd_descriptions (
     id integer NOT NULL,
     code character varying,
     term character varying,
@@ -1145,10 +1145,10 @@ CREATE TABLE prd_codes (
 
 
 --
--- Name: prd_codes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: prd_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE prd_codes_id_seq
+CREATE SEQUENCE prd_descriptions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1157,10 +1157,10 @@ CREATE SEQUENCE prd_codes_id_seq
 
 
 --
--- Name: prd_codes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: prd_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE prd_codes_id_seq OWNED BY prd_codes.id;
+ALTER SEQUENCE prd_descriptions_id_seq OWNED BY prd_descriptions.id;
 
 
 --
@@ -1580,7 +1580,7 @@ ALTER TABLE ONLY practices ALTER COLUMN id SET DEFAULT nextval('practices_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY prd_codes ALTER COLUMN id SET DEFAULT nextval('prd_codes_id_seq'::regclass);
+ALTER TABLE ONLY prd_descriptions ALTER COLUMN id SET DEFAULT nextval('prd_descriptions_id_seq'::regclass);
 
 
 --
@@ -1859,11 +1859,11 @@ ALTER TABLE ONLY practices
 
 
 --
--- Name: prd_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: prd_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY prd_codes
-    ADD CONSTRAINT prd_codes_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY prd_descriptions
+    ADD CONSTRAINT prd_descriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -2257,4 +2257,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150717093153');
 INSERT INTO schema_migrations (version) VALUES ('20150903143922');
 
 INSERT INTO schema_migrations (version) VALUES ('20151005175700');
+
+INSERT INTO schema_migrations (version) VALUES ('20151006135256');
 

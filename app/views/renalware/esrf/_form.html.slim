@@ -5,7 +5,7 @@
     include_blank: true,
     input_html: {class: "datetime"}
 
-  = f.association :prd_code,
+  = f.association :prd_description,
     collection: prd_descriptions, prompt: t(".prd_prompt"),
     include_blank: true,
     label_method: :term,

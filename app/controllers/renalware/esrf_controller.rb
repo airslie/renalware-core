@@ -25,11 +25,11 @@ module Renalware
     end
 
     def find_prd_descriptions
-      @prd_descriptions = PrdCode.ordered
+      @prd_descriptions = PRDDescription.ordered
     end
 
     def esrf_params
-      params.require(:esrf).permit(:date, :prd_code_id)
+      params.require(:esrf).permit(:diagnosed_on, :prd_description_id)
     end
   end
 end

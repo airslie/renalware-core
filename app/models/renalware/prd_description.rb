@@ -1,5 +1,5 @@
 module Renalware
-  class PrdCode < ActiveRecord::Base
+  class PRDDescription < ActiveRecord::Base
     scope :ordered, -> { order(:id) }
 
     def to_s
