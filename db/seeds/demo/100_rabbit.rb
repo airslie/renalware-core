@@ -133,25 +133,4 @@ module Renalware
     {organism_code_id: 33, sensitivity: "+++", infectable_id: 1, infectable_type: "Renalware::PeritonitisEpisode"},
     {organism_code_id: 4, sensitivity: "unknown", infectable_id: 1, infectable_type: "Renalware::ExitSiteInfection"}
   ])
-
-  log '--------------------Adding PD Regimes for Roger RABBIT-------------------'
-  PdRegime.create([
-    {patient_id: 1, start_date: "2015-05-05", end_date: "2015-09-15", treatment: "CAPD 3 exchanges per day", type: "Renalware::CapdRegime", glucose_ml_percent_1_36: 1000, glucose_ml_percent_2_27: 2000, glucose_ml_percent_3_86: 1500, amino_acid_ml: nil, icodextrin_ml: nil, add_hd: false, last_fill_ml: nil, add_manual_exchange: nil, tidal_indicator: nil, tidal_percentage: nil, no_cycles_per_apd: nil, overnight_pd_ml: nil},
-    {patient_id: 1, start_date: "2015-08-15", end_date: "2015-09-15", treatment: "CAPD 3 exchanges per day", type: "Renalware::CapdRegime", glucose_ml_percent_1_36: 1500, glucose_ml_percent_2_27: 1500, glucose_ml_percent_3_86: 2000, amino_acid_ml: nil, icodextrin_ml: nil, add_hd: false, last_fill_ml: nil, add_manual_exchange: nil, tidal_indicator: nil, tidal_percentage: nil, no_cycles_per_apd: nil, overnight_pd_ml: nil},
-    {patient_id: 1, start_date: "2015-09-15", end_date: nil, treatment: "APD Wet Day", type: "Renalware::ApdRegime", glucose_ml_percent_1_36: 1000, glucose_ml_percent_2_27: 2000, glucose_ml_percent_3_86: 1500, amino_acid_ml: nil, icodextrin_ml: nil, add_hd: false, last_fill_ml: 1000, add_manual_exchange: false, tidal_indicator: true, tidal_percentage: 95, no_cycles_per_apd: 3, overnight_pd_ml: 3000}
-  ])
-
-  PdRegimeBag.create([
-    {pd_regime_id: 1, bag_type_id: 1, volume: 1000, per_week: 7, monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true},
-    {pd_regime_id: 1, bag_type_id: 2, volume: 2000, per_week: 7, monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true},
-    {pd_regime_id: 1, bag_type_id: 3, volume: 1500, per_week: 7, monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true},
-    {pd_regime_id: 1, bag_type_id: 7, volume: 2000, per_week: 2, monday: false, tuesday: false, wednesday: false, thursday: false, friday: true, saturday: true, sunday: false},
-    {pd_regime_id: 2, bag_type_id: 4, volume: 1500, per_week: 7, monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true},
-    {pd_regime_id: 2, bag_type_id: 5, volume: 1500, per_week: 7, monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true},
-    {pd_regime_id: 2, bag_type_id: 6, volume: 2000, per_week: 7, monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true},
-    {pd_regime_id: 2, bag_type_id: 7, volume: 1000, per_week: 2, monday: false, tuesday: false, wednesday: false, thursday: false, friday: true, saturday: true, sunday: false},
-    {pd_regime_id: 3, bag_type_id: 4, volume: 1000, per_week: 7, monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true},
-    {pd_regime_id: 3, bag_type_id: 2, volume: 2000, per_week: 7, monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true},
-    {pd_regime_id: 3, bag_type_id: 3, volume: 1500, per_week: 7, monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true}
-  ])
 end
