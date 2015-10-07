@@ -6,7 +6,7 @@ Given(/^Patty has a recipient workup$/) do
   )
 end
 
-When(/^Clyde drafts a recipient workup for Patty$/) do
+When(/^Clyde creates a recipient workup for Patty$/) do
   create_recipient_workup(@clyde, @patty)
 end
 

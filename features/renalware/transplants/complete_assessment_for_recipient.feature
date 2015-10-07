@@ -7,8 +7,8 @@ Feature: Complete the transplant assessment for the recipient
     Given Clyde is a clinician
     And Patty is a patient in the system
 
-  Scenario: Draft an assessment
-    When Clyde drafts a recipient workup for Patty
+  Scenario: Create an assessment
+    When Clyde creates a recipient workup for Patty
     Then Patty's recipient workup exists
 
   Scenario: Update an assessment
