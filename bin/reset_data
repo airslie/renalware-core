@@ -1,11 +1,5 @@
 #!/bin/sh
 
-echo 'Deleting elasticsearch index for drugs'
-curl -XDELETE localhost:9200/drugs
-
-echo 'Deleting elasticsearch index for patients'
-curl -XDELETE localhost:9200/patients
-
 echo 'Resetting & seeding db'
 rake db:reset
 
