@@ -23,7 +23,7 @@ module Renalware
 
         it 'enables admins to manage specific models' do
           expect(@admin_permission.ability).to eq(:manage)
-          expect(@admin_permission.models).not_to include(Renalware::User)
+          expect(@admin_permission.models).to include(Renalware::User)
           expect(@admin_permission.models).to include(Renalware::Drug)
           expect(@admin_permission.models).to include(Renalware::Patient)
         end
