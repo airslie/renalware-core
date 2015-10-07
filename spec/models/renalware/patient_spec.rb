@@ -119,13 +119,13 @@ module Renalware
         end
 
         it 'supersedes the existing modality' do
-          expect(@modality.reload.termination_date).to eq(Date.parse('2015-04-17'))
+          expect(@modality.reload.end_date).to eq(Date.parse('2015-04-17'))
           expect(subject.current_modality).not_to eq(@modality)
         end
 
         it 'sets a new modality for the patient' do
           expect(subject.current_modality.start_date).to eq(Date.parse('2015-04-17'))
-          expect(subject.current_modality.termination_date).to be_nil
+          expect(subject.current_modality.end_date).to be_nil
         end
       end
 

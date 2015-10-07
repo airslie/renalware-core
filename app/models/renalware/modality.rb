@@ -14,7 +14,7 @@ module Renalware
     def transfer!(attrs)
       transaction do
         successor = Modality.create!(attrs)
-        self.termination_date = successor.start_date
+        self.end_date = successor.start_date
         self.save!
         self.destroy!
         successor

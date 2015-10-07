@@ -15,8 +15,8 @@ module Renalware
         @actual = subject.transfer!(notes: 'Some notes', start_date: start_date)
       end
 
-      it 'updates the termination date' do
-        expect(subject.termination_date).to eq(start_date)
+      it 'updates the end date' do
+        expect(subject.end_date).to eq(start_date)
       end
 
       it 'soft deletes the current modality' do
