@@ -27,14 +27,13 @@ module Renalware
 
     has_one :current_modality, -> { where deleted_at: nil }, class_name: 'Modality'
     has_one :modality_code, :through => :current_modality
-    has_one :esrf_info
+    has_one :esrf
 
     accepts_nested_attributes_for :current_address
     accepts_nested_attributes_for :address_at_diagnosis
     accepts_nested_attributes_for :events
     accepts_nested_attributes_for :medications, allow_destroy: true
     accepts_nested_attributes_for :problems, allow_destroy: true, reject_if: Problem.reject_if_proc
-    accepts_nested_attributes_for :esrf_info
 
     validates :nhs_number, presence: true, length: { minimum: 10, maximum: 10 }, uniqueness: true
     validates :surname, presence: true

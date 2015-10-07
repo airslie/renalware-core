@@ -1,0 +1,12 @@
+.esrf-info-form
+  = f.input :diagnosed_on,
+    as: :date, start_year: (1.years.ago).year,
+    end_year: (Time.now.year + 1), order: [:day, :month, :year],
+    include_blank: true,
+    input_html: {class: "datetime"}
+
+  = f.association :prd_description,
+    collection: prd_descriptions, prompt: t(".prd_prompt"),
+    include_blank: true,
+    label_method: :term,
+    input_html:  {class: "prd-select"}
