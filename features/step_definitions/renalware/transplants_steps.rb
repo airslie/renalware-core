@@ -11,8 +11,8 @@ When(/^Clyde creates a recipient workup for Patty$/) do
 end
 
 When(/^Clyde updates the assessment$/) do
-  Timecop.freeze
-  update_workup(@workup, @clyde, Time.zone.now + 1.minute)
+  travel_to 1.hour.from_now
+  update_workup(@workup, @clyde, Time.zone.now)
 end
 
 Then(/^Patty's recipient workup exists$/) do
