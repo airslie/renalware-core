@@ -5,5 +5,6 @@ std_opts = "#{base_opts} --tags ~@wip --tags ~@pending --strict"
 wip_opts = "#{base_opts} --tags @wip:100 --wip"
 %>
 default: <%= std_opts %>
+wip: <%= wip_opts %>
 guard: <%= wip_opts %> --format pretty
 guard_all: <%= std_opts %> --format progress
