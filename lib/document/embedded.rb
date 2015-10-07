@@ -18,31 +18,40 @@ module Document
   #     end
   #   end
   #
-  # You then include the {Document::Embedded} module in the parent ActiveRecord.
-  # and create an inner class for the document
-  # with a list of the attributes following the Virtus conventions.
-  # The base class includes the ActiveModel::Model module so you can use validations.
+  # You then have to create a class for the document under _/app/documents_
+  # and provide a list of the attributes following the Virtus conventions.
+  #
+  # The class also includes the ActiveModel::Model module so you can use validations.
   #
   # Here's an example:
   #
   #   module Renalware
   #     module Transplants
+  #       class RecipientWorkupDocument < Document::Base
+  #         attribute :hx_tb, Boolean
+  #         attribute :hx_dvt, Boolean
+  #         attribute :pregnancies_no, Integer
+  #         attribute :cervical_result, String
+  #         attribute :cervical_date, Date
+  #         attribute :tx_consent, Boolean
+  #         attribute :tx_consent_date, Date
+  #
+  #         validates_presence_of :cervical_date
+  #         validates_presence_of :tx_consent_date, if: :tx_consent
+  #       end
+  #     end
+  #   end
+  #
+  # You then include the {Document::Embedded} module in the parent ActiveRecord
+  # and provide the document class to use.
+  #
+  # For instance:
+  #
+  #   module Renalware
+  #     module Transplants
   #       class RecipientWorkup < ActiveRecord::Base
   #         include Document::Embedded
-  #
-  #         class Document < Document::Base
-  #           attribute :hx_tb, Boolean
-  #           attribute :hx_dvt, Boolean
-  #           attribute :pregnancies_no, Integer
-  #           attribute :cervical_result, String
-  #           attribute :cervical_date, Date
-  #           attribute :tx_consent, Boolean
-  #           attribute :tx_consent_date, Date
-  #
-  #           validates_presence_of :cervical_date
-  #           validates_presence_of :tx_consent_date, if: :tx_consent
-  #         end
-  #         has_embedded class_name: "Renalware::Transplants::RecipientWorkup::Document"
+  #         has_document class_name: "RecipientWorkupDocument"
   #       end
   #     end
   #   end
@@ -54,7 +63,7 @@ module Document
   #   en:
   #     activemodel:
   #       attributes:
-  #         renalware/transplants/recipient_workup/document:
+  #         renalware/transplants/recipient_workup_document:
   #           hx_tb: History of TB?
   #           hx_dvt: History of DVT?
   #           pregnancies_no: Number of pregnancies
@@ -62,12 +71,6 @@ module Document
   #           cervical_date: Cervical smear date
   #           tx_consent: Tx consent?
   #           tx_consent_date: Tx consent date
-  #     errors:
-  #       models:
-  #         renalware/transplants/recipient_workup/document:
-  #           attributes:
-  #             karnofsky_score:
-  #               inclusion: must be between 0 and 100
   #     simple_form:
   #       hints:
   #         transplants_recipient_workup:
@@ -93,7 +96,7 @@ module Document
   #   def workup_params
   #     fields = [
   #       :performed_at, :notes,
-  #       { document_attributes: RecipientWorkup::Document.fields }
+  #       { document_attributes: RecipientWorkupDocument.fields }
   #     ]
   #     params.require(:transplants_recipient_workup).permit(fields)
   #   end
