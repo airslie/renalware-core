@@ -39,7 +39,7 @@ Rails.application.routes.draw do
       resources :letters
 
       namespace :transplants do
-        resource :recipient_workup
+        resource :recipient_workup, except: :destroy
       end
     end
 
