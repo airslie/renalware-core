@@ -96,10 +96,3 @@ The app is available at http://renalware.herokuapp.com. It is currently password
 
     username: renalware
     password: kidney175@stones?
-
-
-Advanced SSH stuff
-------------------
-
-More info:
-https://www.cleardb.com/developers/ssl_connections
