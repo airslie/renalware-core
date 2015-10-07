@@ -25,7 +25,7 @@ module Renalware
     end
 
     def self.renalware_models
-      @models ||= (ActiveRecord::Base.connection.tables + %w(base_letters)).map{ |x| "Renalware::#{x.classify}".safe_constantize }.compact
+      @models = ActiveRecord::Base.descendants
     end
 
     def self.config
