@@ -28,7 +28,7 @@ end
 module WebWorld
   def create_recipient_workup(user, patient)
     login_as user
-    visit clinical_summary_patient_path(patient)
+    visit patient_clinical_summary_path(patient)
     click_on "Recipient Workup"
 
     fill_in "Karnofsky Score", with: "66"
@@ -40,7 +40,7 @@ module WebWorld
 
   def update_workup(workup, user, _updated_at)
     login_as user
-    visit clinical_summary_patient_path(workup.patient)
+    visit patient_clinical_summary_path(workup.patient)
     click_on "Recipient Workup"
     click_on "Edit"
 
