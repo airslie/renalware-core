@@ -12,7 +12,7 @@ describe Snomed::YamlAdapter do
 
     it 'should read data from file' do
       expect(YAML).to receive(:load_file)
-        .with(Rails.root.join('data','snomed.yml'))
+        .with(Rails.root.join("db", "static", "snomed.yml"))
         .and_return([{'conceptId' => 123, 'term' => 'Foo'}])
 
       actual = subject.search(query: 'foo')
@@ -24,7 +24,7 @@ describe Snomed::YamlAdapter do
 
     it 'should only read from file once' do
       expect(YAML).to receive(:load_file)
-        .with(Rails.root.join('data','snomed.yml')).once
+        .with(Rails.root.join("db", "static", "snomed.yml")).once
         .and_return([{'conceptId' => 123, 'term' => 'Foo'}])
 
       subject.search(query: 'foo')
