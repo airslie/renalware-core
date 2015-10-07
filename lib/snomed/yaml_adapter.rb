@@ -4,7 +4,7 @@ module Snomed
     cattr_accessor :data
 
     def initialize(opts={})
-      @yml_path = opts.fetch(:yaml_path, Rails.root.join('data', 'snomed.yml'))
+      @yml_path = opts.fetch(:yaml_path, Rails.root.join("db", "static", "snomed.yml"))
     end
 
     def search(params={})
