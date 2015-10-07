@@ -1,4 +1,5 @@
-# Rules: Given code should not go through UI, no matter what the world is
+# Rule: Given steps should not go through the UI, no matter what the world is
+
 Given(/^Patty has a recipient workup$/) do
   @workup = Renalware::Transplants::RecipientWorkup.create!(
     patient: @patty,
