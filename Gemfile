@@ -22,6 +22,7 @@ gem 'slim-rails'
 gem 'simple_form'
 gem 'virtus'
 gem 'hashdiff'
+gem 'enumerize'
 
 group :development do
   gem 'guard-rspec', require: false

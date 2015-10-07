@@ -1,6 +1,8 @@
 module Renalware
   module Transplants
     class RecipientWorkupDocument < Document::Base
+      extend Enumerize
+
       # Co-morbidities
       attribute :angina
       attribute :angina_date, Date
@@ -65,12 +67,12 @@ module Renalware
 
       # Consent
       attribute :tx_consent
+      enumerize :tx_consent, in: [:full, :partial, :refused]
       attribute :tx_consenting_name
       attribute :tx_consent_date, Date
       attribute :tx_marginal_consent
       attribute :tx_marginal_consenting_name
       attribute :tx_marginal_consent_date, Date
-      validates :tx_consent, inclusion: { in: %w(full partial refused), allow_blank: true }
       validates :tx_consent_date, presence: true, if: "tx_consent.present?"
       validates :tx_consenting_name, presence: true, if: "tx_consent.present?"
       validates :tx_marginal_consenting_name, presence: true,

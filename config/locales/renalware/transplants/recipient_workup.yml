@@ -71,7 +71,12 @@ en:
               inclusion: must be between 0 and 100
             prisma_score:
               inclusion: must be between 0 and 7
-
+  enumerize:
+    renalware/transplants/recipient_workup_document:
+      tx_consent:
+        full: Full
+        partial: Partial
+        refused: Refused
   simple_form:
     hints:
       transplants_recipient_workup:
