@@ -38,7 +38,7 @@ Rails.application.routes.draw do
       resources :letters
     end
 
-    get 'patients/:patient_id/pd_info', to: 'pd_summaries#show', as: 'pd_info_patient'
+    get "patients/:patient_id/pd_info", to: "pd_summaries#show", as: "pd_info_patient"
 
     resources :clinic_visits do
       resources :letters, controller: 'clinic_letters', only: [:new, :edit]
