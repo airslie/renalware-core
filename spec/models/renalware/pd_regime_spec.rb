@@ -44,7 +44,7 @@ module Renalware
                       )
       end
 
-      context "if PD type is ApdRegime" do
+      context "if PD type is APDRegime" do
         before { allow(@apd_regime).to receive(:type_apd?).and_return(true) }
         it { expect(@apd_regime).to validate_numericality_of(:last_fill_ml).is_greater_than_or_equal_to(500).is_less_than_or_equal_to(5000) }
         it { expect(@apd_regime).to validate_numericality_of(:tidal_percentage).is_greater_than_or_equal_to(0).is_less_than_or_equal_to(100) }

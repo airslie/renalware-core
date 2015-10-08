@@ -46,7 +46,7 @@ fieldset.current-regime
           = "#{ default_daily_glucose_average(current.glucose_ml_percent_3_86) } ml"
 
     .large-6.columns
-      - if current.type == 'Renalware::ApdRegime'
+      - if current.type == 'Renalware::APDRegime'
         = render partial: 'renalware/pd_regimes/current_apd_regime', locals: { current: current }
 
     .large-12.columns
