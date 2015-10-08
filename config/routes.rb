@@ -19,7 +19,6 @@ Rails.application.routes.draw do
         get :manage_medications
         get :problems
         get :death_update
-        get :pd_info
         get :capd_regime
         get :apd_regime
       end
@@ -38,6 +37,8 @@ Rails.application.routes.draw do
       resources :apd_regimes, :controller => "pd_regimes", :type => "ApdRegime"
       resources :letters
     end
+
+    get 'patients/:patient_id/pd_info', to: 'pd_summaries#show', as: 'pd_info_patient'
 
     resources :clinic_visits do
       resources :letters, controller: 'clinic_letters', only: [:new, :edit]

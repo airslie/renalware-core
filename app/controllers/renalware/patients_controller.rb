@@ -7,19 +7,10 @@ module Renalware
     before_filter :prepare_paging, only: [:index]
 
     # Cancancan authorization filters
-    skip_authorize_resource only: [:show, :manage_medications, :pd_info, :problems]
+    skip_authorize_resource only: [:show, :manage_medications, :problems]
 
-    before_action :find_patient, only: [:pd_info, :death_update, :manage_medications, :problems,
+    before_action :find_patient, only: [:death_update, :manage_medications, :problems,
                                         :show, :edit, :update]
-
-    def pd_info
-      @current_regime = @patient.pd_regimes.current if @patient.pd_regimes.any?
-      @capd_regimes = CapdRegime.where(patient_id: @patient).order(created_at: :desc)
-      @apd_regimes = ApdRegime.where(patient_id: @patient).order(created_at:  :desc)
-
-      @peritonitis_episodes = PeritonitisEpisode.where(patient_id: @patient)
-      @exit_site_infections = ExitSiteInfection.where(patient_id: @patient)
-    end
 
     def death
       @dead_patients = Patient.dead
