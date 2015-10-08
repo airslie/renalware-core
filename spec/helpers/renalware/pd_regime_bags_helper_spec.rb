@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Renalware
-  RSpec.describe PDRegimeBagsHelper, :type => :helper do
+  RSpec.describe PDRegimeBagsHelper, type: :helper do
 
     before do
       @bag_type = create(:bag_type)

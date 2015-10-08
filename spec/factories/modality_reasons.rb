@@ -9,12 +9,12 @@ FactoryGirl.define do
   end
 
   factory :pd_to_haemodialysis, parent: :modality_reason do
-    type 'PDToHaemodialysis'
+    type "PDToHaemodialysis"
     description 'Effective after temporary HD'
   end
 
   factory :haemodialysis_to_pd, parent: :modality_reason do
-    type 'HaemodialysisToPD'
+    type "HaemodialysisToPD"
     description 'Abdominal surgery or complications'
   end
 end

@@ -2,7 +2,7 @@ require 'rails_helper'
 require './spec/support/login_macros'
 
 module Renalware
-  RSpec.describe PDRegimeBag, :type => :model do
+  RSpec.describe PDRegimeBag, type: :model do
 
     it { should belong_to :bag_type }
     it { should belong_to :pd_regime }

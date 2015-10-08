@@ -1,5 +1,9 @@
 Given(/^there are modality reasons in the database$/) do
-  @modality_reasons = [[nil, nil, "Other"], ["PDToHaemodialysis", 111, "Reason One"], ["HaemodialysisToPD", 222, "Reason Two"]]
+  @modality_reasons = [
+    [nil, nil, "Other"],
+    ["PDToHaemodialysis", 111, "Reason One"],
+    ["HaemodialysisToPD", 222, "Reason Two"]
+  ]
   @modality_reasons.map! do |mr|
     type = mr[0] ? "Renalware::#{mr[0]}" : nil
     @modality_reason = Renalware::ModalityReason.create!(:type => type, :rr_code => mr[1], :description => mr[2])
