@@ -20,7 +20,7 @@ module Renalware
     end
 
     def capd_apd_scope(regime)
-      if regime == 'Renalware::CAPDRegime'
+      if regime == "Renalware::CAPDRegime"
         ["CAPD 3 exchanges per day", "CAPD 4 exchanges per day", "CAPD 5 exchanges per day"]
       else
         ["APD Dry Day", "APD Wet Day", "APD Wet day with additional exchange"]
