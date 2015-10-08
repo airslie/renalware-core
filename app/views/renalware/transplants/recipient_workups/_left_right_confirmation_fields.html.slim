@@ -1,5 +1,5 @@
 = f.simple_fields_for attribute, f.object.send(attribute) do |fc|
   tr
     td= f.object.class.human_attribute_name(attribute)
-    td= enum_radio_buttons(fc, :left, false)
-    td= enum_radio_buttons(fc, :right, false)
+    td= fc.input :left, as: :inline_radio_buttons, label: false
+    td= fc.input :right, as: :inline_radio_buttons, label: false

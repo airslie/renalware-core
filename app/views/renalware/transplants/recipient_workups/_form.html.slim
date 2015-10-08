@@ -36,12 +36,13 @@ ruby:
           fieldset
             legend Historical
             = fd.simple_fields_for :historicals, fd.object.historicals do |fcm|
-              = enum_radio_buttons(fcm, :tb)
-              = enum_radio_buttons(fcm, :dvt)
-              = enum_radio_buttons(fcm, :reflux)
-              = enum_radio_buttons(fcm, :neurogenic_bladder)
-              = enum_radio_buttons(fcm, :recurrent_utis)
-              = enum_radio_buttons(fcm, :family_diabetes)
+              = fcm.input :tb, as: :inline_radio_buttons
+              = fcm.input :dvt, as: :inline_radio_buttons
+              = fcm.input :dvt, as: :inline_radio_buttons
+              = fcm.input :reflux, as: :inline_radio_buttons
+              = fcm.input :neurogenic_bladder, as: :inline_radio_buttons
+              = fcm.input :recurrent_utis, as: :inline_radio_buttons
+              = fcm.input :family_diabetes, as: :inline_radio_buttons
 
               .row
                 .medium-6.columns
@@ -91,7 +92,7 @@ ruby:
                 - fcm.object.class.attributes_list.in_groups(2, false).each do |group|
                   .medium-6.columns
                     - group.each do |attribute|
-                      = enum_radio_buttons(fcm, attribute)
+                      = fcm.input attribute, as: :inline_radio_buttons
 
           fieldset
             legend Consent
