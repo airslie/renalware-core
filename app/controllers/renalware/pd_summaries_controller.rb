@@ -1,5 +1,5 @@
 module Renalware
-  class PdSummariesController < BaseController
+  class PDSummariesController < BaseController
     skip_authorize_resource only: :show
 
     def show

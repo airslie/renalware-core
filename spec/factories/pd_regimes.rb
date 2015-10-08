@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :pd_regime, class: "Renalware::PdRegime" do
+  factory :pd_regime, class: "Renalware::PDRegime" do
     patient
   end
 

@@ -1,5 +1,5 @@
 module Renalware
-  class PdRegime < ActiveRecord::Base
+  class PDRegime < ActiveRecord::Base
 
     before_save :set_glucose_ml_percent_1_36
     before_save :set_glucose_ml_percent_2_27

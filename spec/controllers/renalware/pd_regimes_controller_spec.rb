@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Renalware
-  RSpec.describe PdRegimesController, :type => :controller do
+  RSpec.describe PDRegimesController, :type => :controller do
 
     before do
       @patient = create(:patient)
@@ -50,7 +50,7 @@ module Renalware
                 saturday: true
               ]
             }
-          }.to change(PdRegime, :count).by(1)
+          }.to change(PDRegime, :count).by(1)
 
           expect(response).to redirect_to(pd_info_patient_path(@patient))
         end
@@ -65,7 +65,7 @@ module Renalware
               start_date: nil,
               treatment: nil
             }
-          }.to change(PdRegime, :count).by(0)
+          }.to change(PDRegime, :count).by(0)
 
           expect(response).to render_template(:new)
         end
@@ -80,7 +80,7 @@ module Renalware
             pd_regime: { type: 'Renalware::CapdRegime',
               start_date: Date.today,
               treatment: 'CAPD 3 exchanges per day' }
-          }.to change(PdRegime, :count).by(0)
+          }.to change(PDRegime, :count).by(0)
 
           expect(assigns(:pd_regime).pd_regime_bags.size).to eq(1)
         end
@@ -142,7 +142,7 @@ module Renalware
               start_date: Date.today,
               treatment: 'CAPD 3 exchanges per day'
             }
-          }.to change(PdRegime, :count).by(0)
+          }.to change(PDRegime, :count).by(0)
 
           expect(assigns(:pd_regime).pd_regime_bags.size).to eq(2)
         end

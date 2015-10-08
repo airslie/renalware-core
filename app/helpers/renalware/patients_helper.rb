@@ -5,7 +5,7 @@ module Renalware
     end
 
     def modal_change_options(selected = nil)
-      options_for_select ["Other", ["Haemodialysis To PD", "HaemodialysisToPd"], ["PD To Haemodialysis", "PdToHaemodialysis"]], selected
+      options_for_select ["Other", ["Haemodialysis To PD", "HaemodialysisToPD"], ["PD To Haemodialysis", "PDToHaemodialysis"]], selected
     end
 
     def med_color_tag(med_type)

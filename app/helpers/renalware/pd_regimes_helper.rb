@@ -1,5 +1,5 @@
 module Renalware
-  module PdRegimesHelper
+  module PDRegimesHelper
 
     def tidal_options
       options = []

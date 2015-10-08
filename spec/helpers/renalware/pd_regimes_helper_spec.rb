@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Renalware
-  RSpec.describe PdRegimesHelper, :type => :helper do
+  RSpec.describe PDRegimesHelper, :type => :helper do
 
     describe 'tidal_options' do
       it 'should produce options between 60 and 100, incrementing by 5' do

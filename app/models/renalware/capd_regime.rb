@@ -1,5 +1,5 @@
 module Renalware
-  class CapdRegime < PdRegime
+  class CapdRegime < PDRegime
     include DefaultOrder
     include PatientScope
   end

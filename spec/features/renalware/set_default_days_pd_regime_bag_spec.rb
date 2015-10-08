@@ -5,7 +5,7 @@ module Renalware
 
     background do
       @patient = create(:patient)
-      @pd_regime_bag_1 = PdRegimeBag.new
+      @pd_regime_bag_1 = PDRegimeBag.new
       @pd_regime_bag_2 = build(:pd_regime_bag,
                           sunday: true,
                           monday: false,

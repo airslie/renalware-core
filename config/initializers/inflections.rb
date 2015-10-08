@@ -15,4 +15,5 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   # inflect.acronym 'RESTful'
   inflect.acronym "ESRF"
   inflect.acronym "PRD"
+  inflect.acronym "PD"
 end

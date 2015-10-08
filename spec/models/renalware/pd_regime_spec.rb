@@ -2,7 +2,7 @@ require 'rails_helper'
 require './spec/support/login_macros'
 
 module Renalware
-  RSpec.describe PdRegime, type: :model do
+  RSpec.describe PDRegime, type: :model do
 
     it { should belong_to :patient }
 
