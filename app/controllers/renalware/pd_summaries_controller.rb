@@ -7,7 +7,7 @@ module Renalware
 
       @current_regime = @patient.pd_regimes.current if @patient.pd_regimes.any?
       @capd_regimes = CapdRegime.where(patient_id: @patient).order(created_at: :desc)
-      @apd_regimes = ApdRegime.where(patient_id: @patient).order(created_at:  :desc)
+      @apd_regimes = ApdRegime.where(patient_id: @patient).order(created_at: :desc)
 
       @peritonitis_episodes = PeritonitisEpisode.where(patient_id: @patient)
       @exit_site_infections = ExitSiteInfection.where(patient_id: @patient)
