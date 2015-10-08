@@ -1,7 +1,7 @@
 module Renalware
   module Transplants
     class RecipientWorkup < ActiveRecord::Base
-      include Document::Embedded
+      include Document::Base
 
       belongs_to :patient
 

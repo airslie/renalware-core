@@ -10,9 +10,10 @@ module Renalware
       options_for_select Patient.sexes.keys.map { |g| [I18n.t("enums.gender.#{g}"), g] }
     end
 
-    def yes_no_radio_buttons(f, attribute)
+    def enum_radio_buttons(f, attribute, label=nil)
       f.input attribute, as: :radio_buttons, item_wrapper_class: 'inline',
-        collection: [["Yes", "yes"], ["No", "no"], ["Unknown", "unknown"]]
+        collection: f.object.class.send(attribute).options,
+        label: label
     end
 
     def titleize_enum(list)

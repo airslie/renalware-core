@@ -1327,7 +1327,7 @@ CREATE TABLE transplants_recipient_workups (
     id integer NOT NULL,
     patient_id integer,
     performed_at timestamp without time zone,
-    document jsonb DEFAULT '{}'::jsonb NOT NULL,
+    document jsonb,
     notes text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL

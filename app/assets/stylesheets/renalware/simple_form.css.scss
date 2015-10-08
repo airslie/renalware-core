@@ -46,4 +46,10 @@
       margin-right: 0.25rem;
     }
   }
+
+  td {
+    input[type=radio] {
+      margin: auto;
+    }
+  }
 }

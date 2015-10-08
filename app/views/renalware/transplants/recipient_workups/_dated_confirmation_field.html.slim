@@ -1,0 +1,6 @@
+= f.simple_fields_for attribute, f.object.send(attribute) do |fd|
+  .row
+    .medium-6.columns
+      = enum_radio_buttons(fd, :status, f.object.class.human_attribute_name(attribute))
+    .medium-6.columns
+      = fd.input :date, as: :date, include_blank: true, label: false
