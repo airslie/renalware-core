@@ -16,4 +16,5 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "ESRF"
   inflect.acronym "PRD"
   inflect.acronym "PD"
+  inflect.acronym "CAPD"
 end

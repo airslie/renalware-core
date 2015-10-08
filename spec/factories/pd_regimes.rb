@@ -3,7 +3,7 @@ FactoryGirl.define do
     patient
   end
 
-  factory :capd_regime, class: "Renalware::CapdRegime" do
+  factory :capd_regime, class: "Renalware::CAPDRegime" do
     patient
     start_date "01/02/2015"
     end_date "01/02/2015"
