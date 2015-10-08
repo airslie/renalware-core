@@ -10,8 +10,10 @@ module World
 
       def update_workup(workup, _user, updated_at)
         workup.update_attributes(
-          document_attributes: {
-            hx_tb: true
+          document: {
+            historicals: {
+              tb: "no"
+            }
           },
           updated_at: updated_at
         )

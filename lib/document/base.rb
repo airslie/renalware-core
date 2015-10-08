@@ -69,7 +69,7 @@ module Document
       end
 
       def document_valid
-        errors.add(:base, 'Invalid document') unless document.valid?
+        errors.add(:base, :invalid) unless document.valid?
       end
     end
   end
