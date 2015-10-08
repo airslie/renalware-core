@@ -6,5 +6,8 @@ module Renalware
 
     validates :name, presence: true
 
+    def self.policy_class
+      BasePolicy
+    end
   end
 end
