@@ -28,7 +28,7 @@ module Renalware
 
     def type_apd?
       if self.type.present?
-        self.type == 'Renalware::APDRegime'
+        self.type == "Renalware::APDRegime"
       end
     end
 

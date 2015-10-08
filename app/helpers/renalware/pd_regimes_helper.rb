@@ -28,10 +28,10 @@ module Renalware
     end
 
     def capd_apd_title(regime)
-      if regime == 'Renalware::CAPDRegime'
-        'CAPD'
+      if regime == "Renalware::CAPDRegime"
+        "CAPD"
       else
-        'APD'
+        "APD"
       end
     end
 
