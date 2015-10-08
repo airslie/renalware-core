@@ -18,6 +18,10 @@ module Renalware
     # Non-persistent attribute to signify an update by an admin (bypassing some validations)
     attr_accessor :super_admin_update
 
+    def self.policy_class
+      BasePolicy
+    end
+
     # @section custom validation methods
     #
     def approval_with_roles
