@@ -5,14 +5,14 @@ module Renalware
 
     subject { create(:event_type) }
 
-    describe 'GET #new' do
+    describe 'GET new' do
       it 'renders the new template' do
         get :new
         expect(response).to render_template('new')
       end
     end
 
-    describe 'POST #create' do
+    describe 'POST create' do
       context "with valid attributes" do
         it 'creates a new event type' do
           expect {
@@ -34,12 +34,20 @@ module Renalware
     end
 
     describe 'GET index' do
-      it 'responds successfully' do
+      it 'responds with success' do
+        get :index
         expect(response).to have_http_status(:success)
       end
     end
 
-    describe 'PUT #update' do
+    describe 'GET edit' do
+      it 'responds with success' do
+        get :edit, id: subject.id
+        expect(response).to have_http_status(:success)
+      end
+    end
+
+    describe 'PUT update' do
       context "with valid attributes" do
         it 'updates an event type' do
           put :update, id: subject.id, event_type: { name: "Transplant clinic" }
@@ -55,7 +63,7 @@ module Renalware
       end
     end
 
-    describe 'DELETE #destroy' do
+    describe 'DELETE destroy' do
       it 'returns http success' do
         delete :destroy, id: subject.id
         subject.reload
