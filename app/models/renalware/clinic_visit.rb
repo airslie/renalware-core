@@ -9,6 +9,10 @@ module Renalware
     validates_presence_of :systolic_bp
     validates_presence_of :diastolic_bp
 
+    def self.policy_class
+      BasePolicy
+    end
+
     def bmi
       ((weight / height) / height).round(2)
     end
