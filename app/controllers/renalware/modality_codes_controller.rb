@@ -20,14 +20,10 @@ module Renalware
 
     def index
       @modal_codes = ModalityCode.all
-    end
-
-    def edit
-      @modal_code = ModalityCode.find(params[:id])
+      authorize @modal_codes
     end
 
     def update
-      @modal_code = ModalityCode.find(params[:id])
       if @modal_code.update(modality_code_params)
         redirect_to modality_codes_path, :notice => "You have successfully updated a modality"
       else
