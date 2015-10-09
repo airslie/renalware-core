@@ -5,5 +5,9 @@ module Renalware
 
     validates :event_type_id, :date_time,
         :description, :notes, :presence => true
+
+    def self.policy_class
+      BasePolicy
+    end
   end
 end
