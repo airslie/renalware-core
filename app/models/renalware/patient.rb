@@ -54,6 +54,10 @@ module Renalware
     alias_attribute :first_name, :forename
     alias_attribute :last_name,  :surname
 
+    def self.policy_class
+      BasePolicy
+    end
+
     def age
       now = Time.now.utc.to_date
       now.year - birth_date.year - ((now.month > birth_date.month || (now.month == birth_date.month && now.day >= birth_date.day)) ? 0 : 1)
