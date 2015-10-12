@@ -4,8 +4,8 @@ module Renalware
 
     before_filter :prepare_paging, only: [:index]
 
-    before_action :find_patient, only: [:esrf_info, :pd_info, :death_update, :clinical_summary, :manage_medications, :problems,
-                                        :demographics, :edit, :update]
+    before_action :find_patient, only: [:show, :esrf_info, :pd_info, :death_update, :clinical_summary, :manage_medications, :problems,
+      :edit, :update]
 
     def esrf_info
       if @patient.esrf_info.blank?
