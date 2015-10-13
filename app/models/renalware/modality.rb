@@ -9,6 +9,10 @@ module Renalware
 
     validates :start_date, presence: true
 
+    def self.policy_class
+      BasePolicy
+    end
+
     # @section services
     #
     def transfer!(attrs)
