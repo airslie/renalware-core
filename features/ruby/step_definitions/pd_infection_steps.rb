@@ -43,7 +43,7 @@ Given(/^a patient has PD$/) do
     modality_code: @modal_pd
     )
 
-  visit pd_info_patient_path(@patient_1)
+  visit patient_pd_summary_path(@patient_1)
 end
 
 Given(/^a patient has a recently recorded episode of peritonitis$/) do
@@ -350,13 +350,13 @@ When(/^the Clinician records an exit site infection$/) do
 end
 
 When(/^a patient selects an episode of peritonitis view$/) do
-  visit pd_info_patient_path(@patient_1)
+  visit patient_pd_summary_path(@patient_1)
 
   find("#view-pe-2").click
 end
 
 When(/^a patient selects an exit site infection to view$/) do
-  visit pd_info_patient_path(@patient_1)
+  visit patient_pd_summary_path(@patient_1)
 
   find("#view-es-infection-2").click
 end

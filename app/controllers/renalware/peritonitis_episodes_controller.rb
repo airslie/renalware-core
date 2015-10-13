@@ -13,7 +13,7 @@ module Renalware
       @peritonitis_episode = PeritonitisEpisode.new(peritonitis_episode_params)
       @peritonitis_episode.patient_id = @patient.id
       if @peritonitis_episode.save
-        redirect_to pd_info_patient_path(@patient), :notice => "You have successfully added a peritonitis episode."
+        redirect_to patient_pd_summary_path(@patient), :notice => "You have successfully added a peritonitis episode."
       else
         render :new
       end
