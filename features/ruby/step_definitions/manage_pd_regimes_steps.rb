@@ -171,7 +171,7 @@ When(/^I complete the form for a apd regime$/) do
 end
 
 When(/^I choose to edit and update the form for a capd regime$/) do
-  visit pd_info_patient_path(@patient_1)
+  visit patient_pd_summary_path(@patient_1)
 
   within("table.capd-regimes tbody tr:first-child") do
     click_link('Update')
@@ -185,7 +185,7 @@ When(/^I choose to edit and update the form for a capd regime$/) do
 end
 
 When(/^I choose to edit and update the form for a apd regime$/) do
-  visit pd_info_patient_path(@patient_1)
+  visit patient_pd_summary_path(@patient_1)
 
   within("table.apd-regimes tbody tr:first-child") do
     click_link('Update')
@@ -201,7 +201,7 @@ When(/^I choose to edit and update the form for a apd regime$/) do
 end
 
 When(/^I choose to view a capd regime$/) do
-  visit pd_info_patient_path(@patient_1)
+  visit patient_pd_summary_path(@patient_1)
 
   within("table.capd-regimes tbody tr:nth-child(1)") do
     click_link('View')
@@ -209,7 +209,7 @@ When(/^I choose to view a capd regime$/) do
 end
 
 When(/^I choose to view a apd regime$/) do
-  visit pd_info_patient_path(@patient_1)
+  visit patient_pd_summary_path(@patient_1)
 
   within("table.apd-regimes tbody tr:nth-child(1)") do
     click_link('View')

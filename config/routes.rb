@@ -26,6 +26,7 @@ Rails.application.routes.draw do
         get :death
       end
       resource :clinical_summary, only: :show
+      resource :pd_summary, only: :show
       resource :esrf, only: [:edit, :update], controller: "esrf"
       resources :events, only: [:new, :create, :index]
       resources :modalities, only: [:new, :create, :index]
@@ -37,8 +38,6 @@ Rails.application.routes.draw do
       resources :apd_regimes, :controller => "pd_regimes", :type => "ApdRegime"
       resources :letters
     end
-
-    get "patients/:patient_id/pd_info", to: "pd_summaries#show", as: "pd_info_patient"
 
     resources :clinic_visits do
       resources :letters, controller: 'clinic_letters', only: [:new, :edit]

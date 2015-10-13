@@ -6,7 +6,7 @@ module Renalware
       patient = create(:patient)
       create(:bag_type)
       login_as_clinician
-      visit pd_info_patient_path(patient)
+      visit patient_pd_summary_path(patient)
       click_on 'Add CAPD Regime'
     end
 
