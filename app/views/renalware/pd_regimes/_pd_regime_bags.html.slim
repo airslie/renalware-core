@@ -1,4 +1,4 @@
-h5.section-underliner Bags:
+h5.section-underliner Bags
 
 #pd-regime-bags.large-12.columns.add-bag
   = r.fields_for :pd_regime_bags do |rb|
@@ -8,6 +8,6 @@ h5.section-underliner Bags:
 
 .large-12.columns.add-bag
   .large-2.columns.right class="#{highlight_add_bag_invalid(r.object)}"
-    = r.submit 'Add Bag', name: 'actions[add]', data: { target: "#pd-regime-bags" }, class: 'add-bag button tiny right'
-    = r.link_to_add 'Add Bag', :pd_regime_bags, data: { target: "#pd-regime-bags" }, class: 'add-bag button tiny hide right'
+    = r.submit 'Add Bag', name: 'actions[add]', data: { target: "#pd-regime-bags" }, class: 'add-bag right'
+    = r.link_to_add 'Add Bag', :pd_regime_bags, data: { target: "#pd-regime-bags" }, class: 'add-bag hide right'
 
