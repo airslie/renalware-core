@@ -1,9 +1,9 @@
 module Renalware
   class Event < ActiveRecord::Base
-    belongs_to :patients
+    belongs_to :patient
     belongs_to :event_type
 
-    validates :event_type_id, :date_time,
+    validates :patient_id, :event_type_id, :date_time,
         :description, :notes, :presence => true
 
     def self.policy_class
