@@ -1,9 +1,9 @@
 FactoryGirl.define do
-  factory :pd_regime, class: "Renalware::PdRegime" do
+  factory :pd_regime, class: "Renalware::PDRegime" do
     patient
   end
 
-  factory :capd_regime, class: "Renalware::CapdRegime" do
+  factory :capd_regime, class: "Renalware::CAPDRegime" do
     patient
     start_date "01/02/2015"
     end_date "01/02/2015"
@@ -13,7 +13,7 @@ FactoryGirl.define do
     add_hd false
   end
 
-  factory :apd_regime, class: "Renalware::ApdRegime" do
+  factory :apd_regime, class: "Renalware::APDRegime" do
     patient
     start_date "01/03/2015"
     end_date "02/04/2015"

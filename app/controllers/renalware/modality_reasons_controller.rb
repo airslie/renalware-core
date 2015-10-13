@@ -3,8 +3,8 @@ module Renalware
     load_and_authorize_resource
 
     def index
-      @reason_hd_pd = HaemodialysisToPd.all
-      @reason_pd_hd = PdToHaemodialysis.all
+      @reason_hd_pd = HaemodialysisToPD.all
+      @reason_pd_hd = PDToHaemodialysis.all
       type = params[:modal_change_type] ? "Renalware::#{params[:modal_change_type]}" : nil
       @modality_reason_select = ModalityReason.where(:type => type)
       respond_to do |format|

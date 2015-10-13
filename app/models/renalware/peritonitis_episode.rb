@@ -1,5 +1,6 @@
 module Renalware
   class PeritonitisEpisode < ActiveRecord::Base
+    include PatientScope
 
     belongs_to :patient
     belongs_to :episode_type

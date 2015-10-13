@@ -57,7 +57,7 @@
 
 
       .large-6.columns
-        - if @pd_regime.type == 'Renalware::ApdRegime'
+        - if @pd_regime.type == 'Renalware::APDRegime'
           = render partial: 'renalware/pd_regimes/apd_regime_show', locals: { model: @pd_regime }
 
     .large-12.columns

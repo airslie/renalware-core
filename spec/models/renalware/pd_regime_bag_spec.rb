@@ -2,7 +2,7 @@ require 'rails_helper'
 require './spec/support/login_macros'
 
 module Renalware
-  RSpec.describe PdRegimeBag, :type => :model do
+  RSpec.describe PDRegimeBag, type: :model do
 
     it { should belong_to :bag_type }
     it { should belong_to :pd_regime }
@@ -14,7 +14,7 @@ module Renalware
 
     before do
       @patient = create(:patient)
-      @pd_regime_bag_1 = PdRegimeBag.new
+      @pd_regime_bag_1 = PDRegimeBag.new
       @pd_regime_bag_2 = build(:pd_regime_bag,
                           sunday: true,
                           monday: false,

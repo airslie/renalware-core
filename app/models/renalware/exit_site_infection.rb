@@ -1,5 +1,6 @@
 module Renalware
   class ExitSiteInfection < ActiveRecord::Base
+    include PatientScope
 
     belongs_to :patient
 

@@ -36,7 +36,7 @@
             = r.check_box :add_hd
             = r.label :add_hd, "On additional HD"
 
-    - if r.object.type == 'Renalware::ApdRegime'
+    - if r.object.type == 'Renalware::APDRegime'
 
       = render partial: 'apd_fields', locals: { r: r }
 
