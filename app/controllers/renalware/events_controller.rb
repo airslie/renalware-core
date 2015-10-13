@@ -21,14 +21,13 @@ module Renalware
     end
 
     def index
-      @event = Event.new
-      authorize @event
       @events = @patient.events
+      authorize @events
     end
 
     private
     def event_params
-      params.require(:event).permit(:event_type_id, :date_time, :description, :notes)
+      params.require(:event).permit(:patient_id, :event_type_id, :date_time, :description, :notes)
     end
   end
 end
