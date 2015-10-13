@@ -1,14 +1,14 @@
 module Renalware
-  class PatientPolicy < ApplicationPolicy
+  class PatientPolicy < BasePolicy
     def new? ; has_privilege? end
     def create? ; has_privilege? end
     def edit? ; has_privilege? end
     def update? ; has_privilege? end
+    def index? ; has_privilege? end
     def death_update? ; has_privilege? end
-    def index? ; true end
-    def demographics? ; true end
-    def clinical_summary? ; true end
+    def death? ; true end
     def esrf_info? ; true end
+    def show? ; true end
     def manage_medications? ; true end
     def pd_info? ; true end
     def problems? ; true end
