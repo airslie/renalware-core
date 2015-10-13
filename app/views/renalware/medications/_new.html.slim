@@ -1,12 +1,11 @@
 #new-form
   .large-12.columns
     fieldset
-      legend
-        | Add a new medication
+      legend Add a new medication
 
       .large-12.columns
         .row
-          = pm.link_to_remove "Remove this medication", class: "button cancel tiny right hide"
+          = pm.link_to_remove "Remove", class: "button tiny right hide"
 
         .row
           = render partial: 'renalware/medications/form', locals: { pm: pm }

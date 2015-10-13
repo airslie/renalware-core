@@ -4,21 +4,19 @@
     = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
 
 .row
-  h4
-    | Record an Exit Site Infection
+  h1 Exit Site Infection
 
   .large-12.columns
     = render partial: "renalware/shared/errors", locals: { model: @exit_site_infection }
 
 .row
-  ul.no-bullet
-    = field_set_tag do
+  .large-12.columns
+    = nested_form_for [@patient, @exit_site_infection] do |es|
 
-      = nested_form_for [@patient, @exit_site_infection] do |es|
+      .row
+        = render partial: 'renalware/exit_site_infections/form', locals: { es: es }
 
-        .row
-          = render partial: 'renalware/exit_site_infections/form', locals: { es: es }
-
-        .row.button-padding
-          = link_to "Cancel", patient_pd_summary_path(@patient), class: "button tiny left cancel mt"
-          = es.submit "Save Exit Site Infection", class: "button tiny right save mt"
+      .row.button-padding
+        = submit_tag "Save", class: "button"
+        span= " or "
+        = link_to "cancel", patient_pd_summary_path(@patient)

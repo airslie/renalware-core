@@ -323,8 +323,8 @@ When(/^the Clinician records an exit site infection$/) do
     select "#{Date.current.year}"
   end
 
-  fill_in "Treatment notes", :with => "Special treatment."
-  fill_in "Outcome notes", :with => "It is a good outcome."
+  fill_in "Treatment", :with => "Special treatment."
+  fill_in "Outcome", :with => "It is a good outcome."
   fill_in "General notes about this infection", :with => "Review in a weeks time."
 
   # Add an organism and sensitvity
@@ -346,7 +346,7 @@ When(/^the Clinician records an exit site infection$/) do
 
   find(:xpath, ".//*[@value='gp']").set(true)
 
-  click_on "Save Exit Site Infection"
+  click_on "Save"
 end
 
 When(/^a patient selects an episode of peritonitis view$/) do
