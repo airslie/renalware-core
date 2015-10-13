@@ -7,6 +7,10 @@ module Renalware
 
     validates :diagnosed_on, presence: true
 
+    def self.policy_class
+      BasePolicy
+    end
+
     def to_s
       [diagnosed_on, prd_description].compact.join(" ")
     end
