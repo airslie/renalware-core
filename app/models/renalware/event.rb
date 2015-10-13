@@ -3,8 +3,7 @@ module Renalware
     belongs_to :patient
     belongs_to :event_type
 
-    validates :patient_id, :event_type_id, :date_time,
-        :description, :notes, :presence => true
+    validates :patient, :event_type, :date_time, :description, :notes, :presence => true
 
     def self.policy_class
       BasePolicy
