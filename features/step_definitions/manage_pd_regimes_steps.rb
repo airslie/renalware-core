@@ -131,7 +131,7 @@ When(/^I complete the form for a capd regime$/) do
   uncheck 'Tuesday'
   uncheck 'Saturday'
 
-  click_on "Save CAPD Regime"
+  click_on "Save"
 end
 
 When(/^I complete the form for a apd regime$/) do
@@ -167,7 +167,7 @@ When(/^I complete the form for a apd regime$/) do
 
   fill_in 'Overnight PD volume on APD', with: 3100
 
-  click_on "Save APD Regime"
+  click_on "Save"
 end
 
 When(/^I choose to edit and update the form for a capd regime$/) do

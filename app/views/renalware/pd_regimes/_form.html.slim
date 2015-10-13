@@ -5,43 +5,24 @@
 .row
   .large-12.columns
     .large-12.columns
-      .section-underliner
-        | Treatment Type:
+        = field_set_tag do
+          legend PD Regime
 
-      .large-12.columns
-        = r.label :treatment, 'PD Regime Treatment'
-        = r.select :treatment, capd_apd_scope(r.object.type), { :prompt => "Please select from options" }, :class => "pd-regime-treatment-select"
+          = r.label :treatment, 'Treatment'
+          = r.select :treatment, capd_apd_scope(r.object.type), { :prompt => "Please select from options" }, :class => "pd-regime-treatment-select"
+          = r.label :start_date, "Start Date"
+          = r.date_select(:start_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year , order: [:day, :month, :year] }, class: "datetime")
+          = r.label :end_date, "End Date"
+          = r.date_select(:end_date, { include_blank: true, start_year: (1.years.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year] }, class: "datetime")
 
-    .large-12.columns
-      .section-underliner
-        | Dates:
-
-      .large-6.columns
-        = r.label :start_date, "Regime Start Date"
-        = r.date_select(:start_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year , order: [:day, :month, :year] }, class: "datetime")
-      .large-6.columns
-        = r.label :end_date, "Regime End Date"
-        = r.date_select(:end_date, { include_blank: true, start_year: (1.years.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year] }, class: "datetime")
+          p
+            = r.check_box :add_hd
+            = r.label :add_hd, "On additional HD"
 
     .large-12.columns
       = render partial: 'pd_regime_bags', locals: {r: r}
 
-    .large-12.columns
-      .section-underliner
-        | On HD?:
-
-      .large-12.columns
-        ul.no-bullet
-          li
-            = r.check_box :add_hd
-            = r.label :add_hd, "On additional HD"
-
     - if r.object.type == 'Renalware::APDRegime'
-
       = render partial: 'apd_fields', locals: { r: r }
-
     - else
-
       = nil
-
-

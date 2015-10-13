@@ -37,7 +37,7 @@ module Renalware
       #bag 1
       find('a.add-bag').click
 
-      within('body fieldset #new_pd_regime div#pd-regime-bags div.fields:nth-child(1)') do
+      within('#pd-regime-bags div.fields:nth-child(1)') do
         select 'Dianeal PD2 1.36% (Yellow)', from: 'Bag Type'
 
         fill_in 'Volume (ml)', with: 2000
@@ -51,7 +51,7 @@ module Renalware
       #bag 2
       find('a.add-bag').click
 
-      within('body fieldset #new_pd_regime div#pd-regime-bags div.fields:nth-child(2)') do
+      within('#pd-regime-bags div.fields:nth-child(2)') do
         select 'Dianeal PD2 2.27% (Green)', from: 'Bag Type'
 
         fill_in 'Volume (ml)', with: 3000
@@ -63,7 +63,7 @@ module Renalware
       #bag 3
       find('a.add-bag').click
 
-      within('body fieldset #new_pd_regime div#pd-regime-bags div.fields:nth-child(3)') do
+      within('#pd-regime-bags div.fields:nth-child(3)') do
         select 'Dianeal PD2 3.86% (Red)', from: 'Bag Type'
 
         fill_in 'Volume (ml)', with: 1500
@@ -76,7 +76,7 @@ module Renalware
       #bag 4
       find('a.add-bag').click
 
-      within('body fieldset #new_pd_regime div#pd-regime-bags div.fields:nth-child(4)') do
+      within('#pd-regime-bags div.fields:nth-child(4)') do
         select 'Dianeal PD2 3.86% (Red)', from: 'Bag Type'
 
         fill_in 'Volume (ml)', with: 2000
@@ -87,7 +87,7 @@ module Renalware
         uncheck 'Saturday'
       end
 
-      click_on 'Save CAPD Regime'
+      click_on 'Save'
 
       expect(page).to have_content("1.36 %: 857 ml")
       expect(page).to have_content("2.27 %: 2143 ml")

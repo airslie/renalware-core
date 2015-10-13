@@ -47,7 +47,7 @@ module Renalware
 
       uncheck 'Thursday'
 
-      click_on 'Save CAPD Regime'
+      click_on 'Save'
 
       within '.current-regime' do
         expect(page).to have_content("Days: Sun, Mon, Wed, Fri, Sat")

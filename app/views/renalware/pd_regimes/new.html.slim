@@ -8,19 +8,15 @@
     = render partial: "renalware/shared/errors", locals: { model: @pd_regime }
 
 .row
-  ul.no-bullet
-    = field_set_tag do
+  = nested_form_for [@patient, @pd_regime], as: :pd_regime do |r|
+    .row
+      .large-12.columns
+        h1= "#{capd_apd_title(r.object.type)} Regime"
 
-      = nested_form_for [@patient, @pd_regime], as: :pd_regime do |r|
-        .row
-          .large-12.columns
-            h4
-              = "Record a #{capd_apd_title(r.object.type)} Regime"
+    .row
+      = render partial: 'renalware/pd_regimes/form', locals: { r: r }
 
-        .row
-          = render partial: 'renalware/pd_regimes/form', locals: { r: r }
-
-        .large-12.columns.button-padding
-          = link_to "Cancel", patient_pd_summary_path(@patient), class: "button tiny left cancel mt"
-
-          = r.submit "Save #{capd_apd_title(r.object.type)} Regime", class: "button tiny right save mt"
+    .large-12.columns.button-padding
+      = submit_tag "Save", class: "button"
+      span= " or "
+      = link_to "cancel", patient_pd_summary_path(@patient)
