@@ -1,7 +1,7 @@
 require "active_support/concern"
 
 module Renalware
-  module DefaultOrder
+  module OrderedScope
     extend ActiveSupport::Concern
 
     included do
