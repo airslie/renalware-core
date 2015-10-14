@@ -8,3 +8,5 @@ default: <%= std_opts %>
 wip: <%= wip_opts %>
 guard: <%= wip_opts %> --format pretty
 guard_all: <%= std_opts %> --format progress
+rake: <%= std_opts %> --format progress
+rake_web: <%= std_opts %> --format progress
