@@ -31,7 +31,7 @@ module Renalware
     private
     def exit_site_infection_params
       params.require(:exit_site_infection).permit(:diagnosis_date, :treatment, :outcome, :notes,
-        :infection_organisms_attributes => [:id, :organism_code_id, :sensitivity, :infectable_id, :infectable_type ],
+        :infection_organisms_attributes => [:id, :organism_code_id, :sensitivity, :infectable_id, :infectable_type, :_destroy ],
         :medications_attributes => [:id, :patient_id, :treatable_id, :treatable_type, :medicatable_id, :medicatable_type,
         :dose, :medication_route_id, :frequency, :notes, :start_date, :end_date, :provider, :_destroy])
     end
