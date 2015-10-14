@@ -13,7 +13,8 @@ module Renalware
       @exit_site_infection = ExitSiteInfection.new(exit_site_infection_params)
       @exit_site_infection.patient_id = @patient.id
       if @exit_site_infection.save
-        redirect_to patient_pd_summary_path(@patient), notice: "You have successfully added a peritonitis episode."
+        redirect_to patient_pd_summary_path(@patient),
+          notice: "You have successfully added a peritonitis episode."
       else
         render :new
       end
