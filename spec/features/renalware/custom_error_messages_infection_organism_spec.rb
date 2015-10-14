@@ -10,7 +10,7 @@ module Renalware
 
     scenario 'a peritonitis episode is saved with invalid values for an infection organism' do
       click_link 'Record a new organism and sensitivity'
-      click_on 'Save Peritonitis Episode'
+      click_on "Save"
 
       expect(page).to have_content("Organism can't be blank")
     end

@@ -10,13 +10,12 @@
     = rb.text_field :volume
 
   .large-2.columns.inline
-    = rb.submit 'Remove', name: "actions[remove][#{rb.index}]", class: 'button cancel tiny right remove-bag'
-    = rb.link_to_remove 'Remove', class: 'button cancel tiny right remove-bag hide'
+    = rb.submit 'Remove', name: "actions[remove][#{rb.index}]", class: 'right remove-bag'
+    = rb.link_to_remove 'Remove', class: 'remove-bag hide'
 
 .row
   .large-10.columns
-    label
-      | Days to be administered:
+    label Days to be administered:
 
     .large-12.columns class="#{highlight_days_invalid(rb.object)}"
       = rb.check_box :sunday, class: 'inline'
