@@ -2,7 +2,7 @@ dependencies:
   pre:
     - gem install bundler rake
   post:
-    - bundle exec rake cucumber_web:
+    - bundle exec rake cucumber:web:
         environment:
           RAILS_ENV: test
           TEST_DEPTH: web
