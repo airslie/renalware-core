@@ -44,6 +44,13 @@ module Renalware
       end
     end
 
+    describe 'GET show' do
+      it 'responds with success' do
+        get :show, id: subject.id, patient_id: @patient.id
+        expect(response).to have_http_status(:success)
+      end
+    end
+
     describe 'GET edit' do
       it 'responds with success' do
         get :edit, id: subject.id, patient_id: @patient.id
