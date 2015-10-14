@@ -34,13 +34,12 @@ module Renalware
     end
 
     def destroy
-      if authorize Doctor.destroy(params[:id])
-        redirect_to doctors_path, notice: 'Doctor successfully deleted'
-      else
-        render :index, alert: 'Failed to delete Doctor'
-      end
-    end
+      @doctor = Doctor.find(params[:id])
+      authorize @doctor
+      @doctor.destroy!
 
+      redirect_to doctors_path, notice: 'Doctor successfully deleted'
+    end
     private
 
     def service

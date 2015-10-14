@@ -105,11 +105,6 @@ module Renalware
         delete :destroy, id: @doc.to_param
         expect(response).to redirect_to(doctors_path)
       end
-      it 'renders the doctors index when unsuccessful' do
-        expect(Doctor).to receive(:destroy).with(@doc.to_param).and_return(false)
-        delete :destroy, id: @doc.to_param
-        expect(response).to render_template(:index)
-      end
     end
   end
 end
