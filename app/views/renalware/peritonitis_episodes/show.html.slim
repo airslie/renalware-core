@@ -1,76 +1,69 @@
-.wide-screen
-  .columns.large-12
-    = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
-    = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
+- header = "Peritonitis Episode - Diagnosed: #{@peritonitis_episode.diagnosis_date.strftime("%d/%m/%Y")}"
+= render layout: "renalware/pd/layout", locals: { header: header, patient: @patient } do
+  .row
+    p
+      = "Last Updated: #{@peritonitis_episode.updated_at}"
+      = pipe_separator
+      = link_to "Edit", edit_patient_peritonitis_episode_path(@patient, @peritonitis_episode.id)
 
-    h1 = "Peritonitis Episode - Diagnosed: #{@peritonitis_episode.diagnosis_date.strftime("%d/%m/%Y")}"
+  .row
+    .large-6.columns
+      fieldset
+        legend Treatment
+        .large-2.columns
+          dl
+            dt Start
+            dl= @peritonitis_episode.treatment_start_date
+            dt End
+            dl= @peritonitis_episode.treatment_end_date
 
-    = render partial: "renalware/pd_summaries/header", locals: { patient: @patient }
+        .large-4.columns
+          dl
+            dt Episode Type
+            dl = default_for_associated(@peritonitis_episode.episode_type, :term, "Unknown")
+            dt Catheter Removed
+            dl= yes_no(@peritonitis_episode.catheter_removed)
 
-.row
-  p
-    = "Last Updated: #{@peritonitis_episode.updated_at}"
-    = pipe_separator
-    = link_to "Edit", edit_patient_peritonitis_episode_path(@patient, @peritonitis_episode.id)
+    .large-6.columns
+      fieldset
+        legend Organisms/Sensitivity:
 
-.row
-  .large-6.columns
-    fieldset
-      legend Treatment
-      .large-2.columns
-        dl
-          dt Start
-          dl= @peritonitis_episode.treatment_start_date
-          dt End
-          dl= @peritonitis_episode.treatment_end_date
+        ul.table-data-list
+          = organisms_and_sensitivities(@peritonitis_episode.infection_organisms)
 
-      .large-4.columns
-        dl
-          dt Episode Type
-          dl = default_for_associated(@peritonitis_episode.episode_type, :term, "Unknown")
-          dt Catheter Removed
-          dl= yes_no(@peritonitis_episode.catheter_removed)
+  .row
+    .large-6.columns
+      fieldset
+        legend White Cell Count:
 
-  .large-6.columns
-    fieldset
-      legend Organisms/Sensitivity:
+        ul
+          li= "Total: #{default_for_blank_units(@peritonitis_episode.white_cell_total, "x 10\u2079", "N/A")}"
+          li= "Neutro: #{default_for_blank_units(@peritonitis_episode.white_cell_neutro, "%", "N/A")}"
+          li= "Lympho: #{default_for_blank_units(@peritonitis_episode.white_cell_lympho, "%", "N/A")}"
+          li= "Degen: #{default_for_blank_units(@peritonitis_episode.white_cell_degen, "%", "N/A")}"
+          li= "Other: #{default_for_blank_units(@peritonitis_episode.white_cell_other, "%", "N/A")}"
 
-      ul.table-data-list
-        = organisms_and_sensitivities(@peritonitis_episode.infection_organisms)
+    .large-6.columns
+      fieldset
+        legend Causes/Symptoms
 
-.row
-  .large-6.columns
-    fieldset
-      legend White Cell Count:
+        ul.table-data-list
+          li= "Line Break: #{yes_no(@peritonitis_episode.line_break)}"
+          li= "Exit Site Infection: #{yes_no(@peritonitis_episode.exit_site_infection)}"
+          li= "Diarrhoea: #{yes_no(@peritonitis_episode.diarrhoea)}"
+          li= "Abdominal Pain: #{yes_no(@peritonitis_episode.abdominal_pain)}"
+          li= "Fluid Description: #{default_for_associated(@peritonitis_episode.fluid_description, :description, "N/A")}"
 
-      ul
-        li= "Total: #{default_for_blank_units(@peritonitis_episode.white_cell_total, "x 10\u2079", "N/A")}"
-        li= "Neutro: #{default_for_blank_units(@peritonitis_episode.white_cell_neutro, "%", "N/A")}"
-        li= "Lympho: #{default_for_blank_units(@peritonitis_episode.white_cell_lympho, "%", "N/A")}"
-        li= "Degen: #{default_for_blank_units(@peritonitis_episode.white_cell_degen, "%", "N/A")}"
-        li= "Other: #{default_for_blank_units(@peritonitis_episode.white_cell_other, "%", "N/A")}"
+  .row
+    .large-6.columns
+      fieldset
+        legend Antibiotics/Routes
 
-  .large-6.columns
-    fieldset
-      legend Causes/Symptoms
+        ul.table-data-list
+          = medication_and_route(@peritonitis_episode.medications)
 
-      ul.table-data-list
-        li= "Line Break: #{yes_no(@peritonitis_episode.line_break)}"
-        li= "Exit Site Infection: #{yes_no(@peritonitis_episode.exit_site_infection)}"
-        li= "Diarrhoea: #{yes_no(@peritonitis_episode.diarrhoea)}"
-        li= "Abdominal Pain: #{yes_no(@peritonitis_episode.abdominal_pain)}"
-        li= "Fluid Description: #{default_for_associated(@peritonitis_episode.fluid_description, :description, "N/A")}"
+    .large-6.columns
+      fieldset
+        legend Peritonitis Episode Notes
 
-.row
-  .large-6.columns
-    fieldset
-      legend Antibiotics/Routes
-
-      ul.table-data-list
-        = medication_and_route(@peritonitis_episode.medications)
-
-  .large-6.columns
-    fieldset
-      legend Peritonitis Episode Notes
-
-      p= @peritonitis_episode.notes
+        p= @peritonitis_episode.notes

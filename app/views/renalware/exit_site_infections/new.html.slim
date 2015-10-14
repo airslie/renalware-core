@@ -1,12 +1,6 @@
-.wide-screen
-  .columns.large-12
-    = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
-    = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
+= render layout: "renalware/pd/layout", locals: { header: "Exit Site Infection", patient: @patient } do
 
-    h1 Exit Site Infection
-
-    = render partial: "renalware/pd_summaries/header", locals: { patient: @patient }
-
+.row
   .large-12.columns
     = render partial: "renalware/shared/errors", locals: { model: @exit_site_infection }
 

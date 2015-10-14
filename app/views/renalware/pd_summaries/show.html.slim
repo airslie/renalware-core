@@ -1,23 +1,15 @@
-.wide-screen
-  .columns.large-12
-    = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
-    = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
+= render layout: "renalware/pd/layout", locals: { header: "PD Info", patient: @patient } do
+  .wide-screen
+    = render partial: 'renalware/pd_regimes/current_regime' unless @current_regime.nil?
 
-    h1 PD Info
+    h6= "CAPD Regimes (#{@capd_regimes.length})"
+    = render partial: 'renalware/patients/capd_regimes'
 
-    = render partial: "renalware/pd_summaries/header", locals: { patient: @patient }
+    h6= "APD Regimes (#{@apd_regimes.length})"
+    = render partial: 'renalware/patients/apd_regimes'
 
-.wide-screen
-  = render partial: 'renalware/pd_regimes/current_regime' unless @current_regime.nil?
+    h6= "Peritonitis Episodes (#{@peritonitis_episodes.length})"
+    = render partial: "renalware/patients/peritonitis_episodes"
 
-  h6= "CAPD Regimes (#{@capd_regimes.length})"
-  = render partial: 'renalware/patients/capd_regimes'
-
-  h6= "APD Regimes (#{@apd_regimes.length})"
-  = render partial: 'renalware/patients/apd_regimes'
-
-  h6= "Peritonitis Episodes (#{@peritonitis_episodes.length})"
-  = render partial: "renalware/patients/peritonitis_episodes"
-
-  h6= "Exit Site Infections (#{@exit_site_infections.length})"
-  = render partial: "renalware/patients/exit_site_infections"
+    h6= "Exit Site Infections (#{@exit_site_infections.length})"
+    = render partial: "renalware/patients/exit_site_infections"

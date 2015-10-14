@@ -1,49 +1,42 @@
-.wide-screen
-  .columns.large-12
-    = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
-    = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
+- header = "Exit Site Infection - Diagnosed: #{@exit_site_infection.diagnosis_date.strftime("%d/%m/%Y")}"
+= render layout: "renalware/pd/layout", locals: { header: header, patient: @patient } do
+  .row
+    p
+      = "Last Updated: #{@exit_site_infection.updated_at}"
+      = pipe_separator
+      = link_to "Edit", edit_patient_exit_site_infection_path(@patient, @exit_site_infection.id)
 
-    h1= "Exit Site Infection - Diagnosed: #{@exit_site_infection.diagnosis_date.strftime("%d/%m/%Y")}"
-
-    = render partial: "renalware/pd_summaries/header", locals: { patient: @patient }
-
-.row
-  p
-    = "Last Updated: #{@exit_site_infection.updated_at}"
-    = pipe_separator
-    = link_to "Edit", edit_patient_exit_site_infection_path(@patient, @exit_site_infection.id)
-
-.row
-  .large-6.columns
-    fieldset
-      legend Outcome
-
-      p= @exit_site_infection.outcome
-
-  .large-6.columns
+  .row
+    .large-6.columns
       fieldset
-        legend Organisms/Sensitivity
+        legend Outcome
 
-        ul.table-data-list
-          = organisms_and_sensitivities(@exit_site_infection.infection_organisms)
+        p= @exit_site_infection.outcome
 
-.row
-  .large-6.columns
-      fieldset
-        legend Treatment
+    .large-6.columns
+        fieldset
+          legend Organisms/Sensitivity
 
-        p= @exit_site_infection.treatment
+          ul.table-data-list
+            = organisms_and_sensitivities(@exit_site_infection.infection_organisms)
 
-  .large-6.columns
-      fieldset
-        legend Antibiotics/Routes
+  .row
+    .large-6.columns
+        fieldset
+          legend Treatment
 
-        ul.table-data-list
-          = medication_and_route(@exit_site_infection.medications)
+          p= @exit_site_infection.treatment
 
-.row
-  .large-6.columns
-      fieldset
-        legend Exit Site Infection Notes
+    .large-6.columns
+        fieldset
+          legend Antibiotics/Routes
 
-        p= @exit_site_infection.notes
+          ul.table-data-list
+            = medication_and_route(@exit_site_infection.medications)
+
+  .row
+    .large-6.columns
+        fieldset
+          legend Exit Site Infection Notes
+
+          p= @exit_site_infection.notes
