@@ -16,6 +16,7 @@
 //= require underscore
 //= require select2/js/select2.min
 //= require jquery_nested_form
+//= require foundation-datepicker
 //= require_tree .
 
 $(function(){ $(document).foundation(); });

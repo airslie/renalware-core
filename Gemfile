@@ -24,6 +24,11 @@ gem 'virtus'
 gem 'hashdiff'
 gem 'enumerize'
 
+source 'https://rails-assets.org' do
+  gem 'rails-assets-fontawesome'
+  gem 'rails-assets-foundation-datepicker'
+end
+
 group :development do
   gem 'guard-rspec', require: false
   gem 'guard-cucumber', require: false
