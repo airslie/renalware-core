@@ -3,10 +3,11 @@ env_format = "#{ENV['CUCUMBER_FORMAT']}"
 base_opts = (env_format == "" ? "" : "--format #{env_format}") + " -r features"
 std_opts = "#{base_opts} --tags ~@wip --tags ~@pending --strict"
 wip_opts = "#{base_opts} --tags @wip:100 --wip"
+web_opts = "#{base_opts} --tags @web --tags ~@pending --strict"
 %>
 default: <%= std_opts %>
 wip: <%= wip_opts %>
 guard: <%= wip_opts %> --format pretty
 guard_all: <%= std_opts %> --format progress
 rake: <%= std_opts %> --format progress
-rake_web: <%= std_opts %> --format progress
+rake_web: <%= web_opts %> --format progress
