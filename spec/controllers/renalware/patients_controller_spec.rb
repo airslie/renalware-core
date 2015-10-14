@@ -41,6 +41,13 @@ module Renalware
       end
     end
 
+    describe 'GET show' do
+      it 'responds with success' do
+        get :show, id: @subject.id
+        expect(response).to have_http_status(:success)
+      end
+    end
+
     describe "PATCH update" do
       it "should redirect when the patient is updated" do
         patch :update, id: subject.id, patient: { patient_medications_attributes: {} }
