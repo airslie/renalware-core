@@ -323,9 +323,9 @@ When(/^the Clinician records an exit site infection$/) do
     select "#{Date.current.year}"
   end
 
-  fill_in "Treatment", :with => "Special treatment."
-  fill_in "Outcome", :with => "It is a good outcome."
-  fill_in "General notes about this infection", :with => "Review in a weeks time."
+  fill_in "Treatment", with: "Special treatment."
+  fill_in "Outcome", with: "It is a good outcome."
+  fill_in "General notes about this infection", with: "Review in a weeks time."
 
   # Add an organism and sensitvity
   click_on "Record a new organism and sensitivity"

@@ -87,7 +87,7 @@ module Renalware
         uncheck 'Saturday'
       end
 
-      click_on 'Save'
+      click_on "Save"
 
       expect(page).to have_content("1.36 % 857 ml")
       expect(page).to have_content("2.27 % 2143 ml")
