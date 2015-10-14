@@ -28,14 +28,14 @@ SimpleForm.setup do |config|
     b.optional :min_max
     b.optional :readonly
 
-    b.wrapper :label_wrapper, tag: :div, class: 'small-3 columns' do |ba|
+    b.wrapper :label_wrapper, tag: :div, class: 'small-5 columns' do |ba|
       ba.use :label, class: 'right inline'
     end
 
-    b.wrapper :right_input_wrapper, tag: :div, class: 'small-9 columns' do |ba|
+    b.wrapper :right_input_wrapper, tag: :div, class: 'small-7 columns' do |ba|
       ba.use :input
       ba.use :error, wrap_with: { tag: :small, class: :error }
-      # ba.use :hint,  wrap_with: { tag: :span, class: :hint }
+      ba.use :hint,  wrap_with: { tag: :span, class: :hint }
     end
   end
 
