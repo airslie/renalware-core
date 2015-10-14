@@ -3,7 +3,7 @@ dependencies:
     - gem install bundler rake
   post:
     - bundle exec rake cucumber_web:
-      environment:
-        RAILS_ENV: test
-        TEST_DEPTH: web
+        environment:
+          RAILS_ENV: test
+          TEST_DEPTH: web
     - bundle exec bundle-audit update && bundle exec bundle-audit check
