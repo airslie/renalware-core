@@ -20,7 +20,8 @@ SimpleForm.setup do |config|
     b.use :hint,  wrap_with: { tag: :span, class: :hint }
   end
 
-  config.wrappers :horizontal_form, tag: 'div', class: 'row', hint_class: :field_with_hint, error_class: :error do |b|
+  config.wrappers :horizontal_form, tag: "div", class: "row",
+    hint_class: :field_with_hint, error_class: :error do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
@@ -28,11 +29,11 @@ SimpleForm.setup do |config|
     b.optional :min_max
     b.optional :readonly
 
-    b.wrapper :label_wrapper, tag: :div, class: 'small-5 columns' do |ba|
-      ba.use :label, class: 'right inline'
+    b.wrapper :label_wrapper, tag: :div, class: "small-5 columns" do |ba|
+      ba.use :label, class: "right inline"
     end
 
-    b.wrapper :right_input_wrapper, tag: :div, class: 'small-7 columns' do |ba|
+    b.wrapper :right_input_wrapper, tag: :div, class: "small-7 columns" do |ba|
       ba.use :input
       ba.use :error, wrap_with: { tag: :small, class: :error }
       ba.use :hint,  wrap_with: { tag: :span, class: :hint }
@@ -105,7 +106,8 @@ SimpleForm.setup do |config|
   # The default wrapper to be used by the FormBuilder.
   config.default_wrapper = :vertical_form
 
-  config.wrappers :two_columns_table_row, tag: 'tr', hint_class: :field_with_hint, error_class: :error do |b|
+  config.wrappers :two_columns_table_row, tag: "tr",
+    hint_class: :field_with_hint, error_class: :error do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
