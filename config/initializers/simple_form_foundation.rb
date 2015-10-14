@@ -104,4 +104,23 @@ SimpleForm.setup do |config|
 
   # The default wrapper to be used by the FormBuilder.
   config.default_wrapper = :vertical_form
+
+  config.wrappers :two_columns_table_row, tag: 'tr', hint_class: :field_with_hint, error_class: :error do |b|
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :pattern
+    b.optional :min_max
+    b.optional :readonly
+
+    b.wrapper :label_wrapper, tag: :td do |ba|
+      ba.use :label
+    end
+
+    b.wrapper :right_input_wrapper, tag: :td do |ba|
+      ba.use :input
+      ba.use :error, wrap_with: { tag: :small, class: :error }
+      ba.use :hint,  wrap_with: { tag: :span, class: :hint }
+    end
+  end
 end
