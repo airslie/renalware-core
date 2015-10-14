@@ -9,16 +9,16 @@
           dt= group.class.human_attribute_name attribute
           dd
             - if value.respond_to? :status
-              = value.status.text
+              = value.status.try(&:text)
               = " (#{group.send(attribute).date})" if value.date.present?
             - elsif value.respond_to? :left
               span.label.info L
               | &nbsp;
-              = group.send(attribute).left.text
+              = group.send(attribute).left.try(&:text)
               | &nbsp;
               span.label.info R
               | &nbsp;
-              = group.send(attribute).right.text
+              = group.send(attribute).right.try(&:text)
             - elsif value.respond_to? :text
               = value.text
             - else

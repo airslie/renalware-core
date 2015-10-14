@@ -56,11 +56,11 @@ module World
       end
 
       def recipient_workup_exists(_patient)
-        !first(".workup").nil?
+        expect(page).to have_content("Heart failure")
       end
 
       def workup_was_updated(_patient)
-        !first(".workup").nil?
+        expect(page).to have_content("Heart failure")
       end
     end
   end
