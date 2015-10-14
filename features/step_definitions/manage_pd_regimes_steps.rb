@@ -263,12 +263,13 @@ Then(/^the new capd regime should be current$/) do
     expect(page).to have_content("02/04/2015")
     expect(page).to have_content("01/06/2015")
     expect(page).to have_content("CAPD 4 exchanges per day")
-    expect(page).to have_content("On additional HD?: Yes")
+    expect(page).to have_content("On additional HD?")
+    expect(page).to have_content("Yes")
 
     #average daily glucose
-    expect(page).to have_content("1.36 %: 164 ml")
-    expect(page).to have_content("2.27 %: 0 ml")
-    expect(page).to have_content("3.86 %: 0 ml")
+    expect(page).to have_content("1.36 % 164 ml")
+    expect(page).to have_content("2.27 % 0 ml")
+    expect(page).to have_content("3.86 % 0 ml")
 
     #pd regime bags
     expect(page).to have_content("Bag type: Blue–1.36, Volume: 230ml, No. per week: 5, Days: Sun, Mon, Wed, Thu, Fri")
@@ -280,11 +281,12 @@ Then(/^the new apd regime should be current$/) do
     expect(page).to have_content("15/05/2015")
     expect(page).to have_content("16/07/2015")
     expect(page).to have_content("APD Wet day with additional exchange")
-    expect(page).to have_content("On additional HD?: No")
+    expect(page).to have_content("On additional HD?")
+    expect(page).to have_content("No")
 
-    expect(page).to have_content("1.36 %: 0 ml")
-    expect(page).to have_content("2.27 %: 0 ml")
-    expect(page).to have_content("3.86 %: 171 ml")
+    expect(page).to have_content("1.36 % 0 ml")
+    expect(page).to have_content("2.27 % 0 ml")
+    expect(page).to have_content("3.86 % 171 ml")
 
     #pd regime bags
     expect(page).to have_content("Bag type: Green–3.86, Volume: 400ml, No. per week: 3, Days: Sun, Mon, Thu")
@@ -314,7 +316,8 @@ Then(/^I should see the chosen capd regime details$/) do
   expect(page).to have_content("02/04/2015")
   expect(page).to have_content("21/05/2015")
   expect(page).to have_content("Treatment: CAPD 5 exchanges per day")
-  expect(page).to have_content("On additional HD?: No")
+  expect(page).to have_content("On additional HD?")
+  expect(page).to have_content("No")
 
   #saved bag for this regime:
   #bag 1
