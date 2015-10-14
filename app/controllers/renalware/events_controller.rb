@@ -10,9 +10,9 @@ module Renalware
     end
 
     def create
-      @event = Event.new(event_params)
+      @event = @patient.events.new(event_params)
       authorize @event
-      @event.patient_id = @patient.id
+
       if @event.save
         redirect_to patient_events_path(@patient), :notice => "You have successfully added an encounter/event."
       else
@@ -27,7 +27,7 @@ module Renalware
 
     private
     def event_params
-      params.require(:event).permit(:patient_id, :event_type_id, :date_time, :description, :notes)
+      params.require(:event).permit(:event_type_id, :date_time, :description, :notes)
     end
   end
 end
