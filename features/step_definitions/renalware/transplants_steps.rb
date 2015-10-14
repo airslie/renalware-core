@@ -2,8 +2,7 @@
 
 Given(/^Patty has a recipient workup$/) do
   @workup = Renalware::Transplants::RecipientWorkup.create!(
-    patient: @patty,
-    performed_at: 1.day.ago
+    patient: @patty
   )
 end
 
