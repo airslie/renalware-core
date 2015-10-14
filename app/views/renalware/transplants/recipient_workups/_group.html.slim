@@ -8,13 +8,18 @@
           - value = group.send(attribute)
           dt= group.class.human_attribute_name attribute
           dd
-            - if value.is_a? Renalware::Transplants::DatedConfirmation
-              = value.status
+            - if value.respond_to? :status
+              = value.status.text
               = " (#{group.send(attribute).date})" if value.date.present?
             - elsif value.respond_to? :left
-              | (L)&nbsp;
-              = group.send(attribute).left
-              | &nbsp;(R)&nbsp;
-              = group.send(attribute).right
+              span.label.info L
+              | &nbsp;
+              = group.send(attribute).left.text
+              | &nbsp;
+              span.label.info R
+              | &nbsp;
+              = group.send(attribute).right.text
+            - elsif value.respond_to? :text
+              = value.text
             - else
               = value
