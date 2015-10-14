@@ -307,7 +307,7 @@ When(/^the Clinician records the episode of peritonitis$/) do
 
   find(:xpath, ".//*[@value='hospital']").set(true)
 
-  click_on "Save Peritonitis Episode"
+  click_on "Save"
 end
 
 When(/^the Clinician records an exit site infection$/) do
@@ -366,7 +366,7 @@ When(/^the Clinician updates the episode of peritonitis$/) do
 
   fill_in "Episode notes", :with => "On review, needs stronger antibiotics."
 
-  click_on "Update Peritonitis Episode"
+  click_on "Save"
 end
 
 When(/^the Clinician updates an exit site infection$/) do
@@ -390,7 +390,7 @@ When(/^they add a medication to this episode of peritonitis$/) do
 
   select_date("21 March #{Date.current.year}", from: 'Prescribed On')
 
-  click_on "Update Peritonitis Episode"
+  click_on "Save"
 end
 
 When(/^they add a medication to this exit site infection$/) do
@@ -417,7 +417,7 @@ When(/^they record an organism and sensitivity to this episode of peritonitis$/)
   select "Bacillis", from: "Organism"
   fill_in "Sensitivity", with: "Very sensitive to Bacillis."
 
-  click_on "Update Peritonitis Episode"
+  click_on "Save"
 end
 
 When(/^they record an organism and sensitivity to this exit site infection$/) do
