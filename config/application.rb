@@ -25,9 +25,13 @@ module Renalware
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
+    config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]
+
     # config.i18n.default_locale = :de
     # Custom directories with classes and modules you want to be autoloadable.
-    config.autoload_paths += %W(#{config.root}/lib #{config.root}/app/validators #{config.root}/app/documents)
+    config.autoload_paths << "#{config.root}/lib"
+    config.autoload_paths << "#{config.root}/app/validators"
+    config.autoload_paths << "#{config.root}/app/documents"
 
     config.active_record.schema_format = :sql
   end

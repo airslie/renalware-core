@@ -1,6 +1,6 @@
 # event is also known as encounter
 # Not implemented in PHP, done at DB level?
-@no_php
+@pending
 Feature: A Doctor adds a new patient event type
 
 Background:

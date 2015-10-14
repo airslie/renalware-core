@@ -213,7 +213,7 @@ Style/HashSyntax:
 Style/IfUnlessModifier:
   Description: Favor modifier if/unless usage when you have a single-line body.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#if-as-a-modifier
-  Enabled: true
+  Enabled: false
   MaxLineLength: 100
 Style/IndentationWidth:
   Description: Use 2 spaces for indentation.
@@ -481,7 +481,7 @@ Style/VariableName:
 Style/WhileUntilModifier:
   Description: Favor modifier while/until usage when you have a single-line body.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#while-as-a-modifier
-  Enabled: true
+  Enabled: false
   MaxLineLength: 100
 Style/WordArray:
   Description: Use %w or %W for arrays of words.
@@ -591,6 +591,15 @@ Rails/ScopeArgs:
   Enabled: false
   Include:
   - app/models/**/*.rb
+Rails/TimeZone:
+  EnforcedStyle: flexible
+  SupportedStyles:
+  - strict
+  - flexible
+  Description: Checks the correct usage of time zone aware methods.
+  StyleGuide: https://github.com/bbatsov/rails-style-guide#time
+  Reference: http://danilenko.org/2012/7/6/rails_timezones
+  Enabled: false
 Rails/Validation:
   Description: Use validates :attribute, hash of validations.
   Enabled: false

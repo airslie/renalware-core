@@ -1,0 +1,17 @@
+Feature: Complete the transplant assessment for the recipient
+
+  Patients being considered for a kidney transplant require a series of investigations
+  which are then reviewed on a regular basis to determine suitability for a transplant.
+
+  Background:
+    Given Clyde is a clinician
+    And Patty is a patient in the system
+
+  Scenario: Create an assessment
+    When Clyde creates a recipient workup for Patty
+    Then Patty's recipient workup exists
+
+  Scenario: Update an assessment
+    Given Patty has a recipient workup
+    When Clyde updates the assessment
+    Then Patty's recipient workup gets updated

@@ -69,10 +69,11 @@ guard :rspec, cmd: "bundle exec rspec" do
   end
 end
 
-guard "cucumber", all_on_start: false, cli: "--format progress --strict --tags ~@wip --tags ~@no_php --tags ~@no_ruby -r features/stories" do
+guard "cucumber", command_prefix: 'FAST=1', cli: "--profile guard",
+  run_all: { cli: "--profile guard_all" },
+  all_on_start: false, all_after_pass: false do
   watch(%r{^features/.+\.feature$})
   watch(%r{^features/support/.+$})          { "features" }
-
   watch(%r{^features/step_definitions/(.+)_steps\.rb$}) do |m|
     Dir[File.join("**/#{m[1]}.feature")][0] || "features"
   end

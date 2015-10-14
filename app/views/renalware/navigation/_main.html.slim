@@ -1,19 +1,20 @@
-nav.top-bar(data-topbar role="navigation")
-  ul.title-area
-    li.name.has-dropdown.active
-      h1
-        = link_to "RW2.0", patients_path, title: "Home"
+.sticky
+  nav.top-bar(data-topbar role="navigation")
+    ul.title-area
+      li.name.has-dropdown.active
+        h1
+          = link_to "RW2.0", patients_path, title: "Home"
 
-  - if user_signed_in?
-    section.top-bar-section
-      = render partial: 'renalware/navigation/patient_search'
+    - if user_signed_in?
+      section.top-bar-section
+        = render partial: 'renalware/navigation/patient_search'
 
-      ul.right.large-2.columns
-        = render partial: 'renalware/navigation/patients_admin'
-        li.divider
-        = render partial: 'renalware/navigation/renalware_admin'
-        li.divider
-        = render partial: 'renalware/navigation/user_admin'
-        = render partial: 'renalware/navigation/sign_out'
-        li.divider
-        = render partial: 'renalware/navigation/help_items'
+        ul.right.large-2.columns
+          = render partial: 'renalware/navigation/patients_admin'
+          li.divider
+          = render partial: 'renalware/navigation/renalware_admin'
+          li.divider
+          = render partial: 'renalware/navigation/user_admin'
+          = render partial: 'renalware/navigation/sign_out'
+          li.divider
+          = render partial: 'renalware/navigation/help_items'

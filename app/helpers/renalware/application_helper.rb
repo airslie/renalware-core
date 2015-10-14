@@ -2,15 +2,6 @@
 
 module Renalware
   module ApplicationHelper
-
-    def errors_css_class(model, attr)
-      ' field_with_errors' if model.errors.key?(attr)
-    end
-
-    def gender_options
-      options_for_select Patient.sexes.keys.map { |g| [I18n.t("enums.gender.#{g}"), g] }
-    end
-
     def yes_no(bool)
       bool ? 'Yes' : 'No'
     end
@@ -53,6 +44,10 @@ module Renalware
 
     def pipe_separator
       "&nbsp;|&nbsp;".html_safe
+    end
+
+    def timestamp(time)
+      I18n.l time, format: :long
     end
   end
 end

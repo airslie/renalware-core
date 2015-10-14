@@ -705,8 +705,8 @@ CREATE TABLE medication_versions (
     item_id integer NOT NULL,
     event character varying NOT NULL,
     whodunnit character varying,
-    object text,
-    object_changes text,
+    object jsonb,
+    object_changes jsonb,
     created_at timestamp without time zone
 );
 
@@ -1173,8 +1173,8 @@ CREATE TABLE problem_versions (
     item_id integer NOT NULL,
     event character varying NOT NULL,
     whodunnit character varying,
-    object text,
-    object_changes text,
+    object jsonb,
+    object_changes jsonb,
     created_at timestamp without time zone
 );
 
@@ -1285,6 +1285,75 @@ CREATE TABLE schema_migrations (
 
 
 --
+-- Name: transplants_recipient_workup_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE transplants_recipient_workup_versions (
+    id integer NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: transplants_recipient_workup_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE transplants_recipient_workup_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transplants_recipient_workup_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE transplants_recipient_workup_versions_id_seq OWNED BY transplants_recipient_workup_versions.id;
+
+
+--
+-- Name: transplants_recipient_workups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE transplants_recipient_workups (
+    id integer NOT NULL,
+    patient_id integer,
+    performed_at timestamp without time zone,
+    document jsonb,
+    notes text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: transplants_recipient_workups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE transplants_recipient_workups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transplants_recipient_workups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE transplants_recipient_workups_id_seq OWNED BY transplants_recipient_workups.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1342,7 +1411,8 @@ CREATE TABLE versions (
     item_id integer NOT NULL,
     event character varying NOT NULL,
     whodunnit character varying,
-    object text,
+    object jsonb,
+    object_changes jsonb,
     created_at timestamp without time zone
 );
 
@@ -1602,6 +1672,20 @@ ALTER TABLE ONLY problems ALTER COLUMN id SET DEFAULT nextval('problems_id_seq':
 --
 
 ALTER TABLE ONLY roles ALTER COLUMN id SET DEFAULT nextval('roles_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplants_recipient_workup_versions ALTER COLUMN id SET DEFAULT nextval('transplants_recipient_workup_versions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplants_recipient_workups ALTER COLUMN id SET DEFAULT nextval('transplants_recipient_workups_id_seq'::regclass);
 
 
 --
@@ -1891,6 +1975,22 @@ ALTER TABLE ONLY roles
 
 
 --
+-- Name: transplants_recipient_workup_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY transplants_recipient_workup_versions
+    ADD CONSTRAINT transplants_recipient_workup_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: transplants_recipient_workups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY transplants_recipient_workups
+    ADD CONSTRAINT transplants_recipient_workups_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2061,6 +2161,20 @@ CREATE INDEX index_problems_on_deleted_at ON problems USING btree (deleted_at);
 
 
 --
+-- Name: index_transplants_recipient_workups_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplants_recipient_workups_on_document ON transplants_recipient_workups USING gin (document);
+
+
+--
+-- Name: index_transplants_recipient_workups_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplants_recipient_workups_on_patient_id ON transplants_recipient_workups USING btree (patient_id);
+
+
+--
 -- Name: index_users_on_approved; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2110,6 +2224,13 @@ CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (it
 
 
 --
+-- Name: tx_workup_versions_type_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX tx_workup_versions_type_id ON transplants_recipient_workup_versions USING btree (item_type, item_id);
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2138,6 +2259,14 @@ ALTER TABLE ONLY letters
 
 ALTER TABLE ONLY letters
     ADD CONSTRAINT fk_rails_e6d1b83a79 FOREIGN KEY (recipient_address_id) REFERENCES addresses(id);
+
+
+--
+-- Name: fk_rails_f38bf6647a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplants_recipient_workups
+    ADD CONSTRAINT fk_rails_f38bf6647a FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -2255,6 +2384,10 @@ INSERT INTO schema_migrations (version) VALUES ('20150709152737');
 INSERT INTO schema_migrations (version) VALUES ('20150717093153');
 
 INSERT INTO schema_migrations (version) VALUES ('20150903143922');
+
+INSERT INTO schema_migrations (version) VALUES ('20150923201215');
+
+INSERT INTO schema_migrations (version) VALUES ('20150925133903');
 
 INSERT INTO schema_migrations (version) VALUES ('20151005175700');
 

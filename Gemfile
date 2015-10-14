@@ -21,6 +21,13 @@ gem 'nested_form', '~> 0.3.2'
 gem 'slim-rails'
 gem 'simple_form'
 gem 'virtus'
+gem 'hashdiff'
+gem 'enumerize'
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-fontawesome'
+  gem 'rails-assets-foundation-datepicker'
+end
 
 group :development do
   gem 'guard-rspec', require: false

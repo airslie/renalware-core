@@ -8,7 +8,7 @@ module Document
   #       create_table :transplants_recipient_workups do |t|
   #         t.belongs_to :patient, index: true, foreign_key: true
   #         t.timestamp :performed_at
-  #         t.jsonb :document, null: false, default: '{}'
+  #         t.jsonb :document
   #         t.text :notes
   #
   #         t.timestamps null: false
@@ -20,8 +20,6 @@ module Document
   #
   # You then have to create a class for the document under _/app/documents_
   # and provide a list of the attributes following the Virtus conventions.
-  # The class name must the the concatenation of the ActiveRecord class name
-  # and "Document", and must class must inherit from {Document::Base}.
   #
   # The class also includes the ActiveModel::Model module so you can use validations.
   #
@@ -29,28 +27,35 @@ module Document
   #
   #   module Renalware
   #     module Transplants
-  #       class RecipientWorkupDocument < Document::Base
+  #       class RecipientWorkupDocument < Document::Embedded
   #         attribute :hx_tb, Boolean
   #         attribute :hx_dvt, Boolean
   #         attribute :pregnancies_no, Integer
   #         attribute :cervical_result, String
   #         attribute :cervical_date, Date
-  #         attribute :tx_consent, Boolean
-  #         attribute :tx_consent_date, Date
+  #
+  #         class Consent < Document::Embedded
+  #           attribute :consent, Boolean
+  #           attribute :consent_date, Date
+  #
+  #           validates_presence_of :consent_date, if: :consent
+  #         end
   #
   #         validates_presence_of :cervical_date
-  #         validates_presence_of :tx_consent_date, if: :tx_consent
   #       end
   #     end
   #   end
   #
-  # You then include the {Document::Embedded} module in the parent ActiveRecord.
+  # You then include the {Document::Base} module in the parent ActiveRecord
+  # and provide the document class to use.
+  #
   # For instance:
   #
   #   module Renalware
   #     module Transplants
   #       class RecipientWorkup < ActiveRecord::Base
-  #         include Document::Embedded
+  #         include Document::Base
+  #         has_document class_name: "RecipientWorkupDocument"
   #       end
   #     end
   #   end
@@ -68,8 +73,9 @@ module Document
   #           pregnancies_no: Number of pregnancies
   #           cervical_result: Cervical smear result
   #           cervical_date: Cervical smear date
-  #           tx_consent: Tx consent?
-  #           tx_consent_date: Tx consent date
+  #         renalware/transplants/recipient_workup_document/consent:
+  #           consent: Tx consent?
+  #           consent_date: Tx consent date
   #     simple_form:
   #       hints:
   #         transplants_recipient_workup:
@@ -83,84 +89,94 @@ module Document
   #
   # Then in a form, you simply use the form builder fields_for helper:
   #
-  #   = f.fields_for :document do |fd|
+  #   = f.simple_fields_for :document do |fd|
   #     = fd.input :hx_tb, as: :boolean
   #     = fd.input :hx_dvt, as: :boolean
   #     = fd.input :cervical_date, as: :date
+  #     = fd.simple_fields_for :consent, fd.object.consent do |fdd|
+  #       = fdd.input :consent
+  #       = fdd.input :consent_date, as: :date
   #
-  # The controller will also need to handle strong parameters.  {Document::Base} provides
-  # an helper for a list of the attributes in the document class.  Here's an example
-  # of a params method in a controller:
   #
-  #   def workup_params
-  #     fields = [
-  #       :performed_at, :notes,
-  #       { document_attributes: RecipientWorkupDocument.fields }
-  #     ]
-  #     params.require(:transplants_recipient_workup).permit(fields)
-  #   end
-  #
-  module Embedded
-    extend ActiveSupport::Concern
+  class Embedded
+    include Virtus.model
+    include ActiveModel::Model
+    extend Enumerize
 
-    included do
-      class_eval do
-        validate :document_valid
+    # Assign a default value to the attributes using a custom type.
+    # Set a validation on nested object.
+    #
+    # You can specify an enum attribute by passing the `enums` options:
+    #
+    #   attribute :gender, enums: [:male, :female]
+    #
+    # For a confirmation attribute (yes, no, unknown), pass `:confirmation`
+    # as the enums array:
+    #
+    #   attribute :accepted, enums: :confirmation
+    #
+    # For a yes/no attribute, pass `:yes_no` as the enums array:
+    #
+    #   attribute :accepted, enums: :yes_no
+    #
+    def self.attribute(*args)
+      options = args.extract_options!
+      name, type = *args
+      if type && type.included_modules.include?(ActiveModel::Model)
+        options.reverse_merge!(default: type.send(:new))
 
-        serialize :document, "#{self.name}Document".constantize
-      end
+        # Add validation
+        validate "#{name}_valid".to_sym
 
-      def document_attributes=(value)
-        document.attributes = filter_date_params(value)
-      end
-
-      def document_attributes
-        document.attributes
-      end
-
-      protected
-
-      def filter_date_params(params)
-        params = params.dup # DISCUSS: not sure if that slows down form processing?
-        date_attributes = {}
-
-        params.each do |attribute, value|
-          if value.is_a?(Hash)
-            params[attribute] = call(value) # TODO: #validate should only handle local form params.
-          elsif matches = attribute.match(/^(\w+)\(.i\)$/)
-            date_attribute = matches[1]
-            date_attributes[date_attribute] = params_to_date(
-              params.delete("#{date_attribute}(1i)"),
-              params.delete("#{date_attribute}(2i)"),
-              params.delete("#{date_attribute}(3i)"),
-              params.delete("#{date_attribute}(4i)"),
-              params.delete("#{date_attribute}(5i)")
-            )
-          end
+        # Validation method
+        define_method("#{name}_valid".to_sym) do
+          errors.add(name.to_sym, :invalid) if send(name).invalid?
         end
-        params.merge!(date_attributes)
-      end
-
-      def params_to_date(year, month, day, hour, minute)
-        date_fields = [year, month, day].map!(&:to_i)
-        time_fields = [hour, minute].map!(&:to_i)
-
-        if date_fields.any?(&:zero?) || !Date.valid_date?(*date_fields)
-          return nil
-        end
-
-        if hour.blank? && minute.blank?
-          Date.new(*date_fields)
-        else
-          args = date_fields + time_fields
-          Time.zone ? Time.zone.local(*args) :
-            Time.new(*args)
+      else
+        enums = options[:enums]
+        case enums
+        when :confirmation
+          enums = %i(yes no unknown)
+        when :yes_no
+          enums = %i(yes no)
         end
       end
+      super(name, type, options)
+      enumerize name, in: enums if enums
+    end
 
-      def document_valid
-        errors.add(:base, 'Invalid document') unless document.valid?
-      end
+    # Returns a list of the Virtus attributes in the model
+    def self.attributes_list
+      attribute_set.entries.map(&:name)
+    end
+
+
+    @@methods_to_ignore = []
+
+    # Flag an old attribute to be ignored
+    # when the document is deserialized from the database
+    #
+    #   class RecipientWorkupDocument < Document::Base
+    #     old_attribute :hx_tb
+    #   end
+    def self.old_attribute(attribute)
+      @@methods_to_ignore << attribute
+      @@methods_to_ignore << "#{attribute}=".to_sym
+    end
+
+    # Flag a list of old attribtues to be ignored
+    # when the document is deserialized from the database
+    #
+    #   class RecipientWorkupDocument < Document::Base
+    #     old_attributes :hx_tb, :hx_tb_date, :foo_bar
+    #   end
+    def self.old_attributes(*list)
+      list.each { |item| old_attribute(item) }
+    end
+
+    # Don't raise exception if known missing attribute
+    def method_missing(method_sym, *arguments, &block)
+      super unless @@methods_to_ignore.include? method_sym
     end
   end
 end

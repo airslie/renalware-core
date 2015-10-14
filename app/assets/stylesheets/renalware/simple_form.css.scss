@@ -1,0 +1,55 @@
+.simple_form {
+  fieldset {
+    padding: 0.25rem 1rem;
+  }
+
+  div.boolean {
+    label {
+      float: none;
+      line-height: 1.3em;
+      padding-bottom: 0.25rem;
+      padding-left: 1rem;
+
+      input {
+        float: left;
+        margin: 0.15rem 0 0 -1rem;
+      }
+    }
+  }
+
+  select.date,
+  select.datetime {
+    margin-bottom: 1rem;
+  }
+
+  .field_with_hint {
+    input, select {
+      margin-bottom: 0;
+    }
+  }
+
+  .hint {
+    color: #aaa;
+    display: block;
+    font-size: 0.75rem;
+    font-style: italic;
+    font-weight: normal;
+    margin-bottom: 0.25rem;
+    padding: 0.2rem 0rem;
+  }
+
+  .radio.inline {
+    display: table-cell;
+    padding-right: 0.75rem;
+
+    input {
+      margin-right: 0.25rem;
+    }
+  }
+
+  td {
+    input[type=radio] {
+      margin: auto;
+    }
+  }
+}

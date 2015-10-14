@@ -1,0 +1,91 @@
+# https://github.com/plataformatec/simple_form#i18n
+
+en:
+  # activerecord:
+  #   attributes:
+  #     renalware/transplants/recipient_workup:
+  #       performed_at: Performed On
+  activemodel:
+    attributes:
+      renalware/transplants/recipient_workup_document:
+        hla_data: HLA Data
+      renalware/transplants/recipient_workup_document/comorbidities:
+        angina: Angina?
+        amputation_for_pvd: Amputation for PVD?
+        chronic_obstr_pulm_dis: COPD?
+        claudication: Claudication?
+        coronary_artery_bypass_graft: CABG?
+        cvd_or_stroke: CVD or stroke?
+        diabetes: Diabetes?
+        ischaemic_neuropathic_ulcers: Ischaemic/Neuropathic Ulcers?
+        liver_disease: Liver disease?
+        malignancy: Cancer or malignancy?
+        myocardial_infarct: Myocardial Infarct?
+        non_coronary_angioplasty: Angioplasty, vascular graft, aneurysm, stent (non-coronary)?
+        smoking: Smoker?
+      renalware/transplants/recipient_workup_document/historicals:
+        dvt: History of DVT?
+        family_diabetes: Family history of diabetes?
+        neurogenic_bladder: History of neurogenic bladder?
+        recurrent_utis: History of UTIs?
+        reflux: History of reflux?
+        tb: History of TB?
+        pregnancies_count: Number of pregnancies
+      renalware/transplants/recipient_workup_document/scores:
+        karnofsky: Karnofsky Score
+        prisma: Frailty (Prisma) score
+      renalware/transplants/recipient_workup_document/cervical_smear:
+        date: Cervical smear date
+        result: Cervical smear result
+      renalware/transplants/recipient_workup_document/examination:
+        femoral_pulse: Femoral pulse?
+        dorsalis_pedis_pulse: Dorsalis pedis pulse?
+        posterior_tibial_pulse: Posterior tibial pulse?
+        carotid_bruit: Carotid Bruit?
+        femoral_bruit: Femoral Bruit?
+        heart_failure: Heart Failure?
+        heart_sounds: Heart Sounds
+      renalware/transplants/recipient_workup_document/transplant_consents:
+        consent: Transplant Consent
+        consent_date: Consent Date
+        consenting_name: Who consented
+        marginal_consent: Marginal consent?
+        marginal_consent_date: Marginal Consent Date
+        marginal_consenting_name: Who marginally consented
+      renalware/transplants/recipient_workup_document/education:
+        waiting_list: Waiting List
+        transport_benefits: Transport/Benefits
+        procedure: Transplant Procedure
+        infection: Infection Risks
+        rejection: Rejection Risks
+        success_rate: Success Rate
+        drugs_shortterm: Drugs (Short term)
+        drugs_longterm: Drugs (Long term)
+        cancer: Cancer Risks
+        followup: Follow-Up
+        recurrence: Recurrence Risks
+    errors:
+      models:
+        renalware/transplants/recipient_workup_document/scores:
+          attributes:
+            karnofsky:
+              inclusion: must be between 0 and 100
+            prisma:
+              inclusion: must be between 0 and 7
+  enumerize:
+    renalware/transplants/recipient_workup_document/transplant_consents:
+      consent:
+        full: Full
+        partial: Partial
+        refused: Refused transplant
+  simple_form:
+    hints:
+      transplants_recipient_workup:
+        document:
+          comorbidities:
+            angina:
+              status: For comorbidities enter date diagnosed at right if YES
+            smoking:
+              status: Includes former as well as current smokers
+          transplant_consents:
+            consenting_name: Your name or the person who consented

@@ -11,7 +11,9 @@
  * file per style scope.
  *
  *= require_self
+ *= require select2/css/select2.min
+ *= require fontawesome
+ *= require foundation-datepicker
  *= require_tree ./lib
  *= require_tree ./renalware
- *= require select2/css/select2.min
  */
