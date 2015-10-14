@@ -70,15 +70,16 @@ module Renalware
 
       class TransplantConsents < Document::Embedded
         attribute :consent, enums: [:full, :partial, :refused]
-        attribute :consenting_name
         attribute :consent_date, Date
-        attribute :marginal_consent, DatedConfirmation
+        attribute :consenting_name
+        attribute :marginal_consent, enums: :confirmation
+        attribute :marginal_consent_date, Date
         attribute :marginal_consenting_name
 
         validates :consent_date, presence: true, if: "consent.present?"
         validates :consenting_name, presence: true, if: "consent.present?"
         validates :marginal_consenting_name, presence: true,
-          if: "marginal_consent.status.try(:yes?)"
+          if: "marginal_consent.try(:yes?)"
       end
       attribute :transplant_consents, TransplantConsents
 
