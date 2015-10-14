@@ -3,9 +3,9 @@
     = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
     = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
 
-.row
-  h4
-    | Record an Episode of Peritonitis
+    h1 Peritonitis Episode
+
+    = render partial: "renalware/pd_summaries/header", locals: { patient: @patient }
 
   .large-12.columns
     = render partial: "renalware/shared/errors", locals: { model: @peritonitis_episode }

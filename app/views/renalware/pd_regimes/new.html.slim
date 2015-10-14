@@ -3,16 +3,15 @@
     = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
     = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
 
+    h1= "#{capd_apd_title(@pd_regime.type)} Regime"
+
+    = render partial: "renalware/pd_summaries/header", locals: { patient: @patient }
 .row
   .large-12.columns
     = render partial: "renalware/shared/errors", locals: { model: @pd_regime }
 
 .row
   = nested_form_for [@patient, @pd_regime], as: :pd_regime do |r|
-    .row
-      .large-12.columns
-        h1= "#{capd_apd_title(r.object.type)} Regime"
-
     .row
       = render partial: 'renalware/pd_regimes/form', locals: { r: r }
 

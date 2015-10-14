@@ -3,8 +3,9 @@
     = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
     = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
 
-    h5
-      = "Exit Site Infection Details - Diagnosed: #{@exit_site_infection.diagnosis_date.strftime("%d/%m/%Y")}"
+    h1= "Exit Site Infection - Diagnosed: #{@exit_site_infection.diagnosis_date.strftime("%d/%m/%Y")}"
+
+    = render partial: "renalware/pd_summaries/header", locals: { patient: @patient }
 
 .row
   .large-12.columns
@@ -50,6 +51,4 @@
               = @exit_site_infection.notes
 
       .large-12.columns.button-padding
-        = link_to "Edit", edit_patient_exit_site_infection_path(@patient, @exit_site_infection.id), class: "tiny button right"
-
-        = link_to "Return to PD Info", patient_pd_summary_path(@patient), class: "button tiny left cancel"
+        = link_to "Edit", edit_patient_exit_site_infection_path(@patient, @exit_site_infection.id), class: "right"
