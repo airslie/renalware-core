@@ -5,7 +5,7 @@ module Renalware
     background do
       @patient = create(:patient)
       login_as_clinician
-      visit pd_info_patient_path(@patient)
+      visit patient_pd_summary_path(@patient)
     end
 
     scenario 'creating a CAPD regime without a bag should fail validation' do

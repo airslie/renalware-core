@@ -1,9 +1,7 @@
 .renal-profile
-  = link_to "ESRF", esrf_info_patient_path(@patient)
+  = link_to "ESRF", edit_patient_esrf_path(@patient)
   = " "
-  = display_prd_date(@patient)
-  = " "
-  = display_prd(@patient)
+  = @patient.esrf
 
   br
   - if display_pd_menu(@patient.modalities.with_deleted)

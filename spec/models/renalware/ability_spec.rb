@@ -14,7 +14,7 @@ module Renalware
     it 'checks and defines permissions for admins' do
       admin_ability = Ability.new(admin)
       expect(admin_ability.can?(:manage, Drug.new)).to be true
-      expect(admin_ability.cannot?(:manage, User.new)).to be true
+      expect(admin_ability.cannot?(:manage, Role.new)).to be true
     end
     it 'checks and defines permissions for clinicians' do
       clinician_ability = Ability.new(clinician)

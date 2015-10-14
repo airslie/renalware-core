@@ -1,5 +1,5 @@
 module Renalware
-  class HaemodialysisToPd < ModalityReason
+  class HaemodialysisToPD < ModalityReason
     def display_type
       "Haemodialysis To PD"
     end

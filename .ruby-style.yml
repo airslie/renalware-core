@@ -18,6 +18,7 @@ AllCops:
   Exclude:
   - "vendor/**/*"
   - "db/migrate/*"
+  - "db/seeds/*"
   - "db/schema.rb"
   - "db/structure.sql"
   RunRailsCops: false
@@ -121,8 +122,8 @@ Style/CommentAnnotation:
 Style/DotPosition:
   Description: Checks the position of the dot in multi-line method calls.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#consistent-multi-line-chains
-  Enabled: false
-  EnforcedStyle: trailing
+  Enabled: true
+  EnforcedStyle: leading
   SupportedStyles:
   - leading
   - trailing

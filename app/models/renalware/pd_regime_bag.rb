@@ -1,5 +1,5 @@
 module Renalware
-  class PdRegimeBag < ActiveRecord::Base
+  class PDRegimeBag < ActiveRecord::Base
 
     before_save :assign_days_per_week
 

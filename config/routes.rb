@@ -19,8 +19,6 @@ Rails.application.routes.draw do
         get :manage_medications
         get :problems
         get :death_update
-        get :esrf_info
-        get :pd_info
         get :capd_regime
         get :apd_regime
       end
@@ -28,6 +26,8 @@ Rails.application.routes.draw do
         get :death
       end
       resource :clinical_summary, only: :show
+      resource :pd_summary, only: :show
+      resource :esrf, only: [:edit, :update], controller: "esrf"
       resources :events, only: [:new, :create, :index]
       resources :modalities, only: [:new, :create, :index]
       resources :peritonitis_episodes, only: [:new, :create, :show, :edit, :update]

@@ -1,5 +1,5 @@
 module Renalware
-  class PdRegimesController < BaseController
+  class PDRegimesController < BaseController
     include Renalware::Concerns::NestedActionsControllerMethods
 
     load_and_authorize_resource
@@ -9,13 +9,13 @@ module Renalware
 
     def new
       regime_type = params[:type] ? "Renalware::#{params[:type]}" : nil
-      @pd_regime = PdRegime.new(patient: @patient, type: regime_type)
+      @pd_regime = PDRegime.new(patient: @patient, type: regime_type)
     end
 
     def create
-      @pd_regime = PdRegime.new(pd_regime_params)
+      @pd_regime = PDRegime.new(pd_regime_params)
       if perform_action(pd_regime_bags, Proc.new { @pd_regime.save }, pd_regime: @pd_regime)
-        redirect_to pd_info_patient_path(@patient), notice: "You have successfully added a PD Regime."
+        redirect_to patient_pd_summary_path(@patient), notice: "You have successfully added a PD Regime."
       else
         render :new
       end
@@ -23,7 +23,7 @@ module Renalware
 
     def update
       if perform_action(pd_regime_bags, Proc.new { @pd_regime.update(pd_regime_params) }, pd_regime: @pd_regime)
-        redirect_to pd_info_patient_path(@patient), notice: "You have successfully updated a PD Regime."
+        redirect_to patient_pd_summary_path(@patient), notice: "You have successfully updated a PD Regime."
       else
         render :edit
       end
@@ -41,7 +41,7 @@ module Renalware
     end
 
     def find_pd_regime
-      @pd_regime = PdRegime.find(params[:id])
+      @pd_regime = PDRegime.find(params[:id])
     end
 
     def pd_regime_bags

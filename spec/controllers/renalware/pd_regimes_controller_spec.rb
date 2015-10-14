@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Renalware
-  RSpec.describe PdRegimesController, :type => :controller do
+  RSpec.describe PDRegimesController, type: :controller do
 
     before do
       @patient = create(:patient)
@@ -35,7 +35,7 @@ module Renalware
           expect { post :create,
             patient_id: @patient.id,
             pd_regime: {
-              type: 'Renalware::CapdRegime',
+              type: "Renalware::CAPDRegime",
               start_date: '01/02/2015',
               treatment: 'CAPD 3 exchanges per day',
               pd_regime_bags_attributes: [
@@ -50,9 +50,9 @@ module Renalware
                 saturday: true
               ]
             }
-          }.to change(PdRegime, :count).by(1)
+          }.to change(PDRegime, :count).by(1)
 
-          expect(response).to redirect_to(pd_info_patient_path(@patient))
+          expect(response).to redirect_to(patient_pd_summary_path(@patient))
         end
       end
 
@@ -61,11 +61,11 @@ module Renalware
           expect {
             post :create,
             patient_id: @patient.id,
-            pd_regime: { type: 'Renalware::CapdRegime',
+            pd_regime: { type: "Renalware::CAPDRegime",
               start_date: nil,
               treatment: nil
             }
-          }.to change(PdRegime, :count).by(0)
+          }.to change(PDRegime, :count).by(0)
 
           expect(response).to render_template(:new)
         end
@@ -77,10 +77,10 @@ module Renalware
             post :create,
             patient_id: @patient.id,
             actions: { add_bag: 'Add Bag' },
-            pd_regime: { type: 'Renalware::CapdRegime',
+            pd_regime: { type: "Renalware::CAPDRegime",
               start_date: Date.today,
               treatment: 'CAPD 3 exchanges per day' }
-          }.to change(PdRegime, :count).by(0)
+          }.to change(PDRegime, :count).by(0)
 
           expect(assigns(:pd_regime).pd_regime_bags.size).to eq(1)
         end
@@ -91,7 +91,7 @@ module Renalware
           post :create,
           patient_id: @patient.id,
           actions: { remove: { '0' => 'Remove' } },
-          pd_regime: { type: 'Renalware::CapdRegime',
+          pd_regime: { type: "Renalware::CAPDRegime",
             start_date: Date.today,
             treatment: 'CAPD 4 exchanges per day',
             pd_regime_bags_attributes: [{ bag_type_id:'100', volume:'2', per_week:'1', monday:true }]
@@ -108,12 +108,12 @@ module Renalware
           put :update,
           id: @capd_regime.id,
           patient_id: @patient.id,
-          pd_regime: { type: 'Renalware::CapdRegime',
+          pd_regime: { type: "Renalware::CAPDRegime",
             start_date: '15/02/2015',
             treatment: ' CAPD 5 exchanges per day'
           }
 
-          expect(response).to redirect_to(pd_info_patient_path(@patient))
+          expect(response).to redirect_to(patient_pd_summary_path(@patient))
         end
       end
 
@@ -122,7 +122,7 @@ module Renalware
           put :update,
           id: @capd_regime.id,
           patient_id: @patient.id,
-          pd_regime: { type: 'Renalware::CapdRegime',
+          pd_regime: { type: "Renalware::CAPDRegime",
             start_date: nil,
             treatment: nil
           }
@@ -138,11 +138,11 @@ module Renalware
             id: @capd_regime.id,
             patient_id: @patient.id,
             actions: { add_bag: 'Add Bag' },
-            pd_regime: { type: 'Renalware::CapdRegime',
+            pd_regime: { type: "Renalware::CAPDRegime",
               start_date: Date.today,
               treatment: 'CAPD 3 exchanges per day'
             }
-          }.to change(PdRegime, :count).by(0)
+          }.to change(PDRegime, :count).by(0)
 
           expect(assigns(:pd_regime).pd_regime_bags.size).to eq(2)
         end
@@ -155,7 +155,7 @@ module Renalware
           id: @capd_regime.id,
           patient_id: @patient.id,
           actions: { remove: { '0' => 'Remove' } },
-          pd_regime: { type: 'Renalware::CapdRegime',
+          pd_regime: { type: "Renalware::CAPDRegime",
             start_date: Date.today,
             treatment: 'CAPD 3 exchanges per day'
           }

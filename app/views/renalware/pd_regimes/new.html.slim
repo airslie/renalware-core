@@ -21,6 +21,6 @@
           = render partial: 'renalware/pd_regimes/form', locals: { r: r }
 
         .large-12.columns.button-padding
-          = link_to "Cancel", pd_info_patient_path(@patient), class: "button tiny left cancel mt"
+          = link_to "Cancel", patient_pd_summary_path(@patient), class: "button tiny left cancel mt"
 
           = r.submit "Save #{capd_apd_title(r.object.type)} Regime", class: "button tiny right save mt"

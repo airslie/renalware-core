@@ -5,14 +5,10 @@
     = render partial: "renalware/shared/errors", locals: { model: @bag_type }
 
 .row
-  .row
-    .large-12.columns
-      h4 Create a new PD Bag Type
+  .large-12.columns
+    = form_for @bag_type, method: :post do |bt|
+      = render partial: "renalware/bag_types/form", locals: { bt: bt }
 
-  = form_for @bag_type, method: :post do |bt|
-
-    = render partial: "renalware/bag_types/form", locals: { bt: bt }
-
-    = submit_tag "Save", class: "button"
-    span= " or "
-    = link_to "cancel", patients_path
+      = submit_tag "Save", class: "button"
+      span= " or "
+      = link_to "cancel", patients_path
