@@ -15,6 +15,7 @@ module Renalware
       end
     end
 
+    # WIP - test fix pending
     describe 'POST create' do
       context "with valid attributes" do
         it 'creates a new event' do
