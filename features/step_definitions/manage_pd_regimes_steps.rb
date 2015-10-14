@@ -315,7 +315,8 @@ end
 Then(/^I should see the chosen capd regime details$/) do
   expect(page).to have_content("02/04/2015")
   expect(page).to have_content("21/05/2015")
-  expect(page).to have_content("Treatment: CAPD 5 exchanges per day")
+  expect(page).to have_content("Treatment:")
+  expect(page).to have_content("CAPD 5 exchanges per day")
   expect(page).to have_content("On additional HD?")
   expect(page).to have_content("No")
 
@@ -324,29 +325,38 @@ Then(/^I should see the chosen capd regime details$/) do
   expect(page).to have_content("Bag type: Blue–1.36, Volume: 600ml, No. per week: 6, Days: Sun, Mon, Wed, Thu, Fri, Sat")
 
   #average daily glucose calculated from bags
-  expect(page).to have_content("1.36%: 514 ml")
-  expect(page).to have_content("2.27%: 0 ml")
-  expect(page).to have_content("3.86%: 0 ml")
+  expect(page).to have_content("1.36% 514 ml")
+  expect(page).to have_content("2.27% 0 ml")
+  expect(page).to have_content("3.86% 0 ml")
 end
 
 Then(/^I should see the chosen apd regime details$/) do
-  expect(page).to have_content("Start Date: 20/03/2015")
-  expect(page).to have_content("End Date: 28/05/2015")
-  expect(page).to have_content("Treatment: APD Wet Day")
-  expect(page).to have_content("On additional HD?: Yes")
-  expect(page).to have_content("Last fill: 535 ml")
-  expect(page).to have_content("Additional manual exchange?: Yes")
-  expect(page).to have_content("Has tidal?: No")
-  expect(page).to have_content("Number of cycles per APD session: 4")
-  expect(page).to have_content("Overnight PD volume on APD: 7800 ml")
+  expect(page).to have_content("Start")
+  expect(page).to have_content("20/03/2015")
+  expect(page).to have_content("End")
+  expect(page).to have_content("28/05/2015")
+  expect(page).to have_content("Treatment")
+  expect(page).to have_content("APD Wet Day")
+  expect(page).to have_content("On additional HD?")
+  expect(page).to have_content("Yes")
+  expect(page).to have_content("Last fill")
+  expect(page).to have_content("535 ml")
+  expect(page).to have_content("Additional manual exchange?")
+  expect(page).to have_content("Yes")
+  expect(page).to have_content("Has tidal?")
+  expect(page).to have_content("No")
+  expect(page).to have_content("Number of cycles per APD session")
+  expect(page).to have_content("4")
+  expect(page).to have_content("Overnight PD volume on APD")
+  expect(page).to have_content("7800 ml")
 
   #saved bag for this regime:
   #bag 1
   expect(page).to have_content("Bag type: Green–3.86, Volume: 2000ml, No. per week: 5, Days: Sun, Tue, Wed, Thu, Sat")
 
   #average daily glucose calculated from bags
-  expect(page).to have_content("1.36%: 0 ml")
-  expect(page).to have_content("2.27%: 0 ml")
-  expect(page).to have_content("3.86%: 1429 ml")
+  expect(page).to have_content("1.36% 0 ml")
+  expect(page).to have_content("2.27% 0 ml")
+  expect(page).to have_content("3.86% 1429 ml")
 end
 
