@@ -66,11 +66,11 @@ en:
         recurrence: Recurrence Risks
     errors:
       models:
-        renalware/transplants/recipient_workup_document:
+        renalware/transplants/recipient_workup_document/scores:
           attributes:
-            karnofsky_score:
+            karnofsky:
               inclusion: must be between 0 and 100
-            prisma_score:
+            prisma:
               inclusion: must be between 0 and 7
   enumerize:
     renalware/transplants/recipient_workup_document/transplant_consents:

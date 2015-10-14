@@ -10,7 +10,6 @@ $(document).ready(function(){
   });
 
 
- 
   $("dd").each(function(){
     var $href = $(this).find('a').attr('href');
     if ($href === window.location.pathname) {
@@ -18,5 +17,10 @@ $(document).ready(function(){
     }
   });
 
-
+  $(document).foundation({
+    "magellan-expedition": {
+      destination_threshold: 30, //pixels from the top of destination for it to be considered active
+      fixed_top: 45, // top distance in pixels assigend to the fixed element on scroll
+    }
+  });
 });

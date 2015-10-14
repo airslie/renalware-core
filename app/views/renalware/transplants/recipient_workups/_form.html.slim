@@ -1,41 +1,54 @@
 ruby:
-  if f.object.new_record?
-    back_path = patient_clinical_summary_path(@patient)
+  back_path = if f.object.new_record?
+    patient_clinical_summary_path(@patient)
   else
-    back_path = patient_transplants_recipient_workup_path(@patient)
+    patient_transplants_recipient_workup_path(@patient)
   end
 
+  sections = [
+    ["Co-morbidities", "comorbidities"],
+    ["Historical", "historical"],
+    ["Scores", "scores"],
+    ["Cervical smear", "cervical"],
+    ["Examination", "examination"],
+    ["Education", "education"],
+    ["Consent", "consent"],
+    ["HLA Data", "hla"]
+  ]
+
+
+div data-magellan-expedition="fixed"
+  dl.sub-nav
+    - sections.each do |title, target|
+      dd data-magellan-arrival="#{target}"
+        = link_to title, "#"+target
 
 .row.top
   .medium-6.columns
-    = f.submit "Save", class: "button save"
+    = f.submit "Save", class: "button"
     span= " or "
     = link_to "cancel", back_path
-- if f.object.persisted?
-  .medium-3.columns
-    dl
-      dt Created On
-      dd= timestamp f.object.created_at
 
-  .medium-3.columns
-    dl
-      dt Updated On
-      dd= timestamp f.object.updated_at
-
-.row
-  .medium-12.columns
-    = f.fields_for :document, f.object.document do |fd|
-      .row
-        .medium-6.columns
-          fieldset
-            legend Co-morbidities
-            = fd.simple_fields_for :comorbidities, fd.object.comorbidities do |fcm|
+.wrapper
+  = f.simple_fields_for :document, f.object.document do |fd|
+    .row data-magellan-destination="comorbidities"
+      .large-12.columns
+        a name="comorbidities"
+        fieldset
+          legend Co-morbidities
+          = fd.simple_fields_for :comorbidities, fd.object.comorbidities do |fcm|
+            table
               - fcm.object.class.attributes_list.each do |attribute|
                 = render "dated_confirmation_field", attribute: attribute, f: fcm
 
-          fieldset
-            legend Historical
-            = fd.simple_fields_for :historicals, fd.object.historicals do |fcm|
+    .row data-magellan-destination="historical"
+      .large-12.columns
+        a name="historical"
+        fieldset
+          legend Historical
+          = fd.simple_fields_for :historicals, fd.object.historicals,
+            wrapper: "two_columns_table_row" do |fcm|
+            table
               = fcm.input :tb, as: :inline_radio_buttons
               = fcm.input :dvt, as: :inline_radio_buttons
               = fcm.input :dvt, as: :inline_radio_buttons
@@ -44,76 +57,82 @@ ruby:
               = fcm.input :recurrent_utis, as: :inline_radio_buttons
               = fcm.input :family_diabetes, as: :inline_radio_buttons
 
-              .row
-                .medium-6.columns
-                  = fcm.input :pregnancies_count, collection: (0..9).to_a
+            = fcm.input :pregnancies_count, collection: (0..9).to_a,
+              wrapper: "horizontal_form", input_html: { class: "small-input" }
 
-        .medium-6.columns
+    .row data-magellan-destination="scores"
+      .large-12.columns
+        a name="scores"
+        fieldset
+          legend Scores
+          = fd.simple_fields_for :scores, fd.object.scores do |fcm|
+            = fcm.input :karnofsky, input_html: { class: "small-input" }
+            = fcm.input :prisma, input_html: { class: "small-input" }
 
-          fieldset
-            legend Scores
-            = fd.simple_fields_for :scores, fd.object.scores do |fcm|
-              .row
-                .medium-6.columns
-                  = fcm.input :karnofsky
-                .medium-6.columns
-                  = fcm.input :prisma
+    .row data-magellan-destination="cervical"
+      .large-12.columns
+        a name="cervical"
+        fieldset
+          legend Cervical smear data (latest and historical)
+          = fd.simple_fields_for :cervical_smear, fd.object.cervical_smear do |fcm|
+            = fcm.input :result
+            = fcm.input :date, as: :date_picker
 
-          fieldset
-            legend Cervical smear data (latest and historical)
-            = fd.simple_fields_for :cervical_smear, fd.object.cervical_smear do |fcm|
-              .row
-                .medium-6.columns
-                  = fcm.input :result
-                .medium-6.columns
-                  = fcm.input :date, as: :date, include_blank: true
+    .row data-magellan-destination="examination"
+      .large-12.columns
+        a name="examination"
+        fieldset
+          legend Examination
+          = fd.simple_fields_for :examination, fd.object.examination do |fcm|
+            table
+              thead
+                tr
+                  th
+                  th Left
+                  th Right
+              tbody
+                = render "left_right_confirmation_fields", attribute: :femoral_pulse, f: fcm
+                = render "left_right_confirmation_fields", attribute: :dorsalis_pedis_pulse, f: fcm
+                = render "left_right_confirmation_fields", attribute: :posterior_tibial_pulse, f: fcm
+                = render "left_right_confirmation_fields", attribute: :carotid_bruit, f: fcm
+                = render "left_right_confirmation_fields", attribute: :femoral_bruit, f: fcm
+            = fcm.input :heart_sounds, input_html: { class: "small-input" }
 
-          fieldset
-            legend Examination
-            = fd.simple_fields_for :examination, fd.object.examination do |fcm|
-              table
-                thead
-                  tr
-                    th
-                    th Left
-                    th Right
-                tbody
-                  = render "left_right_confirmation_fields", attribute: :femoral_pulse, f: fcm
-                  = render "left_right_confirmation_fields", attribute: :dorsalis_pedis_pulse, f: fcm
-                  = render "left_right_confirmation_fields", attribute: :posterior_tibial_pulse, f: fcm
-                  = render "left_right_confirmation_fields", attribute: :carotid_bruit, f: fcm
-                  = render "left_right_confirmation_fields", attribute: :femoral_bruit, f: fcm
-              = fcm.input :heart_sounds
+    .row data-magellan-destination="education"
+      .large-12.columns
+        a name="education"
+        fieldset
+          legend Transplant Education
+          = fd.simple_fields_for :education, fd.object.education,
+            wrapper: "two_columns_table_row" do |fcm|
+            table
+              - fcm.object.class.attributes_list.each do |attribute|
+                = fcm.input attribute, as: :inline_radio_buttons
 
-          fieldset
-            legend Transplant Education
-            = fd.simple_fields_for :education, fd.object.education do |fcm|
-              .row
-                - fcm.object.class.attributes_list.in_groups(2, false).each do |group|
-                  .medium-6.columns
-                    - group.each do |attribute|
-                      = fcm.input attribute, as: :inline_radio_buttons
+    .row data-magellan-destination="consent"
+      .large-12.columns
+        a name="consent"
+        fieldset
+          legend Consent
+          = fd.simple_fields_for :transplant_consents, fd.object.transplant_consents do |fcm|
+            = fcm.input :consent, as: :inline_radio_buttons
+            = fcm.input :consent_date, as: :date_picker
+            = fcm.input :consenting_name
+            hr
+            = fcm.input :marginal_consent, as: :inline_radio_buttons
+            = fcm.input :marginal_consent_date, as: :date_picker
+            = fcm.input :marginal_consenting_name
 
-          fieldset
-            legend Consent
-            = fd.simple_fields_for :transplant_consents, fd.object.transplant_consents do |fcm|
-              .row
-                .medium-6.columns
-                  = fcm.input :consent, as: :select,
-                    collection: fcm.object.class.consent.options
-                .medium-6.columns
-                  = fcm.input :consent_date, as: :date, include_blank: true
-              .row
-                .medium-12.columns
-                  = fcm.input :consenting_name
-              hr
-              = render "dated_confirmation_field", attribute: :marginal_consent, f: fcm
-              .row
-                .medium-12.columns
-                  = fcm.input :marginal_consenting_name
+    .row data-magellan-destination="hla"
+      .large-12.columns
+        a name="hla"
+        fieldset
+          legend HLA Data
+          = fd.input :hla_data, as: :text, input_html: { rows: 10 },
+            label: false, wrapper: "vertical_form"
 
-      = fd.input :hla_data, as: :text, input_html: { rows: 3 }
-
-    = f.submit 'Save', class: 'button save'
+.row
+  .large-12.columns
+    = f.submit 'Save', class: 'button'
     span= " or "
     = link_to 'cancel', back_path
