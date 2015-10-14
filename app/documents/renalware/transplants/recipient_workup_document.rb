@@ -39,7 +39,7 @@ module Renalware
         attribute :neurogenic_bladder, enums: :confirmation
         attribute :recurrent_utis, enums: :confirmation
         attribute :family_diabetes, enums: :confirmation
-        attribute :pregnancies_count, Integer, enums: :confirmation
+        attribute :pregnancies_count, Integer
       end
       attribute :historicals, Historicals
 
