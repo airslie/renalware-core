@@ -1,4 +1,4 @@
-class CreatePdRegimes < ActiveRecord::Migration
+class CreatePDRegimes < ActiveRecord::Migration
   def change
     create_table :pd_regimes do |t|
       t.integer :patient_id

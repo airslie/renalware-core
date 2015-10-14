@@ -1,4 +1,4 @@
-class CreatePdRegimeBags < ActiveRecord::Migration
+class CreatePDRegimeBags < ActiveRecord::Migration
   def change
     create_table :pd_regime_bags do |t|
       t.integer :pd_regime_id
