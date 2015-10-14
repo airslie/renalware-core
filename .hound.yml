@@ -5,4 +5,5 @@ ruby:
   config_file: .ruby-style.yml
 
 javascript:
+  enabled: false
   ignore_file: .javascript_ignore
