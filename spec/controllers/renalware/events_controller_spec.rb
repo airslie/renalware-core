@@ -15,14 +15,12 @@ module Renalware
       end
     end
 
-    # WIP - test fix pending
     describe 'POST create' do
       context "with valid attributes" do
         it 'creates a new event' do
-          expect { post :create, patient_id: @patient.id,
+          expect { post :create, patient_id: @patient,
             event: {
-              patient: @patient,
-              event_type: @event_type,
+              event_type_id: @event_type,
               date_time: Time.now,
               description: "Needs blood test",
               notes: "Arrange appointment in a weeks time."
