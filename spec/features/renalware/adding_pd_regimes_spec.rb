@@ -27,7 +27,7 @@ module Renalware
 
       check 'On additional HD'
 
-      click_on 'Save CAPD Regime'
+      click_on "Save"
 
       within('.current-regime') do
         expect(page).to have_content('Regime Start Date: 15/06/2015')
