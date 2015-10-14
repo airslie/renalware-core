@@ -30,7 +30,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: addresses; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: addresses; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE addresses (
@@ -66,7 +66,7 @@ ALTER SEQUENCE addresses_id_seq OWNED BY addresses.id;
 
 
 --
--- Name: bag_types; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: bag_types; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE bag_types (
@@ -109,7 +109,7 @@ ALTER SEQUENCE bag_types_id_seq OWNED BY bag_types.id;
 
 
 --
--- Name: clinic_visits; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: clinic_visits; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE clinic_visits (
@@ -148,7 +148,7 @@ ALTER SEQUENCE clinic_visits_id_seq OWNED BY clinic_visits.id;
 
 
 --
--- Name: doctors; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: doctors; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE doctors (
@@ -184,7 +184,7 @@ ALTER SEQUENCE doctors_id_seq OWNED BY doctors.id;
 
 
 --
--- Name: doctors_practices; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: doctors_practices; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE doctors_practices (
@@ -194,7 +194,7 @@ CREATE TABLE doctors_practices (
 
 
 --
--- Name: drug_drug_types; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: drug_drug_types; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE drug_drug_types (
@@ -226,7 +226,7 @@ ALTER SEQUENCE drug_drug_types_id_seq OWNED BY drug_drug_types.id;
 
 
 --
--- Name: drug_types; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: drug_types; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE drug_types (
@@ -257,7 +257,7 @@ ALTER SEQUENCE drug_types_id_seq OWNED BY drug_types.id;
 
 
 --
--- Name: drugs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: drugs; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE drugs (
@@ -289,7 +289,7 @@ ALTER SEQUENCE drugs_id_seq OWNED BY drugs.id;
 
 
 --
--- Name: edta_codes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: edta_codes; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE edta_codes (
@@ -322,7 +322,7 @@ ALTER SEQUENCE edta_codes_id_seq OWNED BY edta_codes.id;
 
 
 --
--- Name: episode_types; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: episode_types; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE episode_types (
@@ -355,7 +355,7 @@ ALTER SEQUENCE episode_types_id_seq OWNED BY episode_types.id;
 
 
 --
--- Name: esrf; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: esrf; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE esrf (
@@ -388,7 +388,7 @@ ALTER SEQUENCE esrf_id_seq OWNED BY esrf.id;
 
 
 --
--- Name: ethnicities; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: ethnicities; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE ethnicities (
@@ -419,7 +419,7 @@ ALTER SEQUENCE ethnicities_id_seq OWNED BY ethnicities.id;
 
 
 --
--- Name: event_types; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: event_types; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE event_types (
@@ -451,7 +451,7 @@ ALTER SEQUENCE event_types_id_seq OWNED BY event_types.id;
 
 
 --
--- Name: events; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: events; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE events (
@@ -486,7 +486,7 @@ ALTER SEQUENCE events_id_seq OWNED BY events.id;
 
 
 --
--- Name: exit_site_infections; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: exit_site_infections; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE exit_site_infections (
@@ -521,7 +521,7 @@ ALTER SEQUENCE exit_site_infections_id_seq OWNED BY exit_site_infections.id;
 
 
 --
--- Name: fluid_descriptions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: fluid_descriptions; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE fluid_descriptions (
@@ -553,7 +553,7 @@ ALTER SEQUENCE fluid_descriptions_id_seq OWNED BY fluid_descriptions.id;
 
 
 --
--- Name: infection_organisms; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: infection_organisms; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE infection_organisms (
@@ -587,7 +587,7 @@ ALTER SEQUENCE infection_organisms_id_seq OWNED BY infection_organisms.id;
 
 
 --
--- Name: letter_descriptions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: letter_descriptions; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE letter_descriptions (
@@ -618,7 +618,7 @@ ALTER SEQUENCE letter_descriptions_id_seq OWNED BY letter_descriptions.id;
 
 
 --
--- Name: letters; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: letters; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE letters (
@@ -663,7 +663,7 @@ ALTER SEQUENCE letters_id_seq OWNED BY letters.id;
 
 
 --
--- Name: medication_routes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: medication_routes; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE medication_routes (
@@ -696,7 +696,7 @@ ALTER SEQUENCE medication_routes_id_seq OWNED BY medication_routes.id;
 
 
 --
--- Name: medication_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: medication_versions; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE medication_versions (
@@ -731,7 +731,7 @@ ALTER SEQUENCE medication_versions_id_seq OWNED BY medication_versions.id;
 
 
 --
--- Name: medications; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: medications; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE medications (
@@ -774,7 +774,7 @@ ALTER SEQUENCE medications_id_seq OWNED BY medications.id;
 
 
 --
--- Name: modalities; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: modalities; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE modalities (
@@ -812,7 +812,7 @@ ALTER SEQUENCE modalities_id_seq OWNED BY modalities.id;
 
 
 --
--- Name: modality_codes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: modality_codes; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE modality_codes (
@@ -846,7 +846,7 @@ ALTER SEQUENCE modality_codes_id_seq OWNED BY modality_codes.id;
 
 
 --
--- Name: modality_reasons; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: modality_reasons; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE modality_reasons (
@@ -880,7 +880,7 @@ ALTER SEQUENCE modality_reasons_id_seq OWNED BY modality_reasons.id;
 
 
 --
--- Name: organism_codes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: organism_codes; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE organism_codes (
@@ -913,7 +913,7 @@ ALTER SEQUENCE organism_codes_id_seq OWNED BY organism_codes.id;
 
 
 --
--- Name: patients; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: patients; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE patients (
@@ -963,7 +963,7 @@ ALTER SEQUENCE patients_id_seq OWNED BY patients.id;
 
 
 --
--- Name: pd_regime_bags; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: pd_regime_bags; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE pd_regime_bags (
@@ -1004,7 +1004,7 @@ ALTER SEQUENCE pd_regime_bags_id_seq OWNED BY pd_regime_bags.id;
 
 
 --
--- Name: pd_regimes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: pd_regimes; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE pd_regimes (
@@ -1051,7 +1051,7 @@ ALTER SEQUENCE pd_regimes_id_seq OWNED BY pd_regimes.id;
 
 
 --
--- Name: peritonitis_episodes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: peritonitis_episodes; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE peritonitis_episodes (
@@ -1098,7 +1098,7 @@ ALTER SEQUENCE peritonitis_episodes_id_seq OWNED BY peritonitis_episodes.id;
 
 
 --
--- Name: practices; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: practices; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE practices (
@@ -1132,7 +1132,7 @@ ALTER SEQUENCE practices_id_seq OWNED BY practices.id;
 
 
 --
--- Name: prd_descriptions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: prd_descriptions; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE prd_descriptions (
@@ -1164,7 +1164,7 @@ ALTER SEQUENCE prd_descriptions_id_seq OWNED BY prd_descriptions.id;
 
 
 --
--- Name: problem_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: problem_versions; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE problem_versions (
@@ -1199,7 +1199,7 @@ ALTER SEQUENCE problem_versions_id_seq OWNED BY problem_versions.id;
 
 
 --
--- Name: problems; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: problems; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE problems (
@@ -1235,7 +1235,7 @@ ALTER SEQUENCE problems_id_seq OWNED BY problems.id;
 
 
 --
--- Name: roles; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: roles; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE roles (
@@ -1266,7 +1266,7 @@ ALTER SEQUENCE roles_id_seq OWNED BY roles.id;
 
 
 --
--- Name: roles_users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: roles_users; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE roles_users (
@@ -1276,7 +1276,7 @@ CREATE TABLE roles_users (
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE schema_migrations (
@@ -1285,7 +1285,7 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: transplants_recipient_workup_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: transplants_recipient_workup_versions; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE transplants_recipient_workup_versions (
@@ -1320,15 +1320,13 @@ ALTER SEQUENCE transplants_recipient_workup_versions_id_seq OWNED BY transplants
 
 
 --
--- Name: transplants_recipient_workups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: transplants_recipient_workups; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE transplants_recipient_workups (
     id integer NOT NULL,
     patient_id integer,
-    performed_at timestamp without time zone,
     document jsonb,
-    notes text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -1354,7 +1352,7 @@ ALTER SEQUENCE transplants_recipient_workups_id_seq OWNED BY transplants_recipie
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE users (
@@ -1402,7 +1400,7 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: versions; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE versions (
@@ -1703,7 +1701,7 @@ ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq':
 
 
 --
--- Name: addresses_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: addresses_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY addresses
@@ -1711,7 +1709,7 @@ ALTER TABLE ONLY addresses
 
 
 --
--- Name: bag_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: bag_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY bag_types
@@ -1719,7 +1717,7 @@ ALTER TABLE ONLY bag_types
 
 
 --
--- Name: clinic_visits_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: clinic_visits_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY clinic_visits
@@ -1727,7 +1725,7 @@ ALTER TABLE ONLY clinic_visits
 
 
 --
--- Name: doctors_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: doctors_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY doctors
@@ -1735,7 +1733,7 @@ ALTER TABLE ONLY doctors
 
 
 --
--- Name: drug_drug_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: drug_drug_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY drug_drug_types
@@ -1743,7 +1741,7 @@ ALTER TABLE ONLY drug_drug_types
 
 
 --
--- Name: drug_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: drug_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY drug_types
@@ -1751,7 +1749,7 @@ ALTER TABLE ONLY drug_types
 
 
 --
--- Name: drugs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: drugs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY drugs
@@ -1759,7 +1757,7 @@ ALTER TABLE ONLY drugs
 
 
 --
--- Name: edta_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: edta_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY edta_codes
@@ -1767,7 +1765,7 @@ ALTER TABLE ONLY edta_codes
 
 
 --
--- Name: episode_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: episode_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY episode_types
@@ -1775,7 +1773,7 @@ ALTER TABLE ONLY episode_types
 
 
 --
--- Name: esrf_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: esrf_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY esrf
@@ -1783,7 +1781,7 @@ ALTER TABLE ONLY esrf
 
 
 --
--- Name: ethnicities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: ethnicities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY ethnicities
@@ -1791,7 +1789,7 @@ ALTER TABLE ONLY ethnicities
 
 
 --
--- Name: event_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: event_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY event_types
@@ -1799,7 +1797,7 @@ ALTER TABLE ONLY event_types
 
 
 --
--- Name: events_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: events_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY events
@@ -1807,7 +1805,7 @@ ALTER TABLE ONLY events
 
 
 --
--- Name: exit_site_infections_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: exit_site_infections_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY exit_site_infections
@@ -1815,7 +1813,7 @@ ALTER TABLE ONLY exit_site_infections
 
 
 --
--- Name: fluid_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: fluid_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY fluid_descriptions
@@ -1823,7 +1821,7 @@ ALTER TABLE ONLY fluid_descriptions
 
 
 --
--- Name: infection_organisms_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: infection_organisms_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY infection_organisms
@@ -1831,7 +1829,7 @@ ALTER TABLE ONLY infection_organisms
 
 
 --
--- Name: letter_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: letter_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY letter_descriptions
@@ -1839,7 +1837,7 @@ ALTER TABLE ONLY letter_descriptions
 
 
 --
--- Name: letters_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: letters_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY letters
@@ -1847,7 +1845,7 @@ ALTER TABLE ONLY letters
 
 
 --
--- Name: medication_routes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: medication_routes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY medication_routes
@@ -1855,7 +1853,7 @@ ALTER TABLE ONLY medication_routes
 
 
 --
--- Name: medication_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: medication_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY medication_versions
@@ -1863,7 +1861,7 @@ ALTER TABLE ONLY medication_versions
 
 
 --
--- Name: medications_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: medications_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY medications
@@ -1871,7 +1869,7 @@ ALTER TABLE ONLY medications
 
 
 --
--- Name: modalities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: modalities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY modalities
@@ -1879,7 +1877,7 @@ ALTER TABLE ONLY modalities
 
 
 --
--- Name: modality_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: modality_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY modality_codes
@@ -1887,7 +1885,7 @@ ALTER TABLE ONLY modality_codes
 
 
 --
--- Name: modality_reasons_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: modality_reasons_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY modality_reasons
@@ -1895,7 +1893,7 @@ ALTER TABLE ONLY modality_reasons
 
 
 --
--- Name: organism_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: organism_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY organism_codes
@@ -1903,7 +1901,7 @@ ALTER TABLE ONLY organism_codes
 
 
 --
--- Name: patients_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: patients_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY patients
@@ -1911,7 +1909,7 @@ ALTER TABLE ONLY patients
 
 
 --
--- Name: pd_regime_bags_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: pd_regime_bags_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY pd_regime_bags
@@ -1919,7 +1917,7 @@ ALTER TABLE ONLY pd_regime_bags
 
 
 --
--- Name: pd_regimes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: pd_regimes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY pd_regimes
@@ -1927,7 +1925,7 @@ ALTER TABLE ONLY pd_regimes
 
 
 --
--- Name: peritonitis_episodes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: peritonitis_episodes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY peritonitis_episodes
@@ -1935,7 +1933,7 @@ ALTER TABLE ONLY peritonitis_episodes
 
 
 --
--- Name: practices_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: practices_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY practices
@@ -1943,7 +1941,7 @@ ALTER TABLE ONLY practices
 
 
 --
--- Name: prd_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: prd_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY prd_descriptions
@@ -1951,7 +1949,7 @@ ALTER TABLE ONLY prd_descriptions
 
 
 --
--- Name: problem_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: problem_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY problem_versions
@@ -1959,7 +1957,7 @@ ALTER TABLE ONLY problem_versions
 
 
 --
--- Name: problems_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: problems_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY problems
@@ -1967,7 +1965,7 @@ ALTER TABLE ONLY problems
 
 
 --
--- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY roles
@@ -1975,7 +1973,7 @@ ALTER TABLE ONLY roles
 
 
 --
--- Name: transplants_recipient_workup_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: transplants_recipient_workup_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY transplants_recipient_workup_versions
@@ -1983,7 +1981,7 @@ ALTER TABLE ONLY transplants_recipient_workup_versions
 
 
 --
--- Name: transplants_recipient_workups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: transplants_recipient_workups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY transplants_recipient_workups
@@ -1991,7 +1989,7 @@ ALTER TABLE ONLY transplants_recipient_workups
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY users
@@ -1999,7 +1997,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY versions
@@ -2007,231 +2005,231 @@ ALTER TABLE ONLY versions
 
 
 --
--- Name: index_bag_types_on_deleted_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_bag_types_on_deleted_at; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_bag_types_on_deleted_at ON bag_types USING btree (deleted_at);
 
 
 --
--- Name: index_clinic_visits_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_clinic_visits_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_clinic_visits_on_patient_id ON clinic_visits USING btree (patient_id);
 
 
 --
--- Name: index_doctors_on_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_doctors_on_code; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_doctors_on_code ON doctors USING btree (code);
 
 
 --
--- Name: index_doctors_practices; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_doctors_practices; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_doctors_practices ON doctors_practices USING btree (doctor_id, practice_id);
 
 
 --
--- Name: index_drug_drug_types_on_drug_id_and_drug_type_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_drug_drug_types_on_drug_id_and_drug_type_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_drug_drug_types_on_drug_id_and_drug_type_id ON drug_drug_types USING btree (drug_id, drug_type_id);
 
 
 --
--- Name: index_infection_organisms; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_infection_organisms; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_infection_organisms ON infection_organisms USING btree (organism_code_id, infectable_id, infectable_type);
 
 
 --
--- Name: index_infection_organisms_on_infectable_type_and_infectable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_infection_organisms_on_infectable_type_and_infectable_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_infection_organisms_on_infectable_type_and_infectable_id ON infection_organisms USING btree (infectable_type, infectable_id);
 
 
 --
--- Name: index_letters_on_author_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_letters_on_author_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_letters_on_author_id ON letters USING btree (author_id);
 
 
 --
--- Name: index_letters_on_clinic_visit_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_letters_on_clinic_visit_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_letters_on_clinic_visit_id ON letters USING btree (clinic_visit_id);
 
 
 --
--- Name: index_letters_on_doctor_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_letters_on_doctor_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_letters_on_doctor_id ON letters USING btree (doctor_id);
 
 
 --
--- Name: index_letters_on_letter_description_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_letters_on_letter_description_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_letters_on_letter_description_id ON letters USING btree (letter_description_id);
 
 
 --
--- Name: index_letters_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_letters_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_letters_on_patient_id ON letters USING btree (patient_id);
 
 
 --
--- Name: index_letters_on_recipient_address_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_letters_on_recipient_address_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_letters_on_recipient_address_id ON letters USING btree (recipient_address_id);
 
 
 --
--- Name: index_letters_on_reviewer_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_letters_on_reviewer_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_letters_on_reviewer_id ON letters USING btree (reviewer_id);
 
 
 --
--- Name: index_letters_on_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_letters_on_type; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_letters_on_type ON letters USING btree (type);
 
 
 --
--- Name: index_medication_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_medication_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_medication_versions_on_item_type_and_item_id ON medication_versions USING btree (item_type, item_id);
 
 
 --
--- Name: index_medications_on_deleted_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_medications_on_deleted_at; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_medications_on_deleted_at ON medications USING btree (deleted_at);
 
 
 --
--- Name: index_medications_on_medicatable_type_and_medicatable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_medications_on_medicatable_type_and_medicatable_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_medications_on_medicatable_type_and_medicatable_id ON medications USING btree (medicatable_type, medicatable_id);
 
 
 --
--- Name: index_medications_on_treatable_type_and_treatable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_medications_on_treatable_type_and_treatable_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_medications_on_treatable_type_and_treatable_id ON medications USING btree (treatable_type, treatable_id);
 
 
 --
--- Name: index_patients_on_doctor_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_patients_on_doctor_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_patients_on_doctor_id ON patients USING btree (doctor_id);
 
 
 --
--- Name: index_problem_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_problem_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_problem_versions_on_item_type_and_item_id ON problem_versions USING btree (item_type, item_id);
 
 
 --
--- Name: index_problems_on_deleted_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_problems_on_deleted_at; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_problems_on_deleted_at ON problems USING btree (deleted_at);
 
 
 --
--- Name: index_transplants_recipient_workups_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_transplants_recipient_workups_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_transplants_recipient_workups_on_document ON transplants_recipient_workups USING gin (document);
 
 
 --
--- Name: index_transplants_recipient_workups_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_transplants_recipient_workups_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_transplants_recipient_workups_on_patient_id ON transplants_recipient_workups USING btree (patient_id);
 
 
 --
--- Name: index_users_on_approved; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_approved; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_users_on_approved ON users USING btree (approved);
 
 
 --
--- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
--- Name: index_users_on_expired_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_expired_at; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_users_on_expired_at ON users USING btree (expired_at);
 
 
 --
--- Name: index_users_on_last_activity_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_last_activity_at; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_users_on_last_activity_at ON users USING btree (last_activity_at);
 
 
 --
--- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
 
 
 --
--- Name: index_users_on_username; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_username; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_users_on_username ON users USING btree (username);
 
 
 --
--- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (item_type, item_id);
 
 
 --
--- Name: tx_workup_versions_type_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: tx_workup_versions_type_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX tx_workup_versions_type_id ON transplants_recipient_workup_versions USING btree (item_type, item_id);
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
