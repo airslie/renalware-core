@@ -1,11 +1,12 @@
 .row
   .columns.large-12
-    = render "header"
+    = render "record_header"
 
 .row
-  .columns.large-12.document
-    = simple_form_for @workup,
-      url: patient_transplants_recipient_workup_path(@patient),
-      method: :patch,
-      wrapper: "horizontal_form" do |f|
-      = render 'form', f: f
+  .columns.large-12
+    .document
+      = simple_form_for @workup,
+        url: patient_transplants_recipient_workup_path(@patient),
+        method: :patch,
+        wrapper: "horizontal_form" do |f|
+        = render 'form', f: f

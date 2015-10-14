@@ -1,11 +1,47 @@
-.row
-  .columns.large-12
-    = render "header"
+ruby:
+  sections = [
+    ["Co-morbidities", "comorbidities"],
+    ["Historical", "historical"],
+    ["Scores", "scores"],
+    ["Cervical smear", "cervical"],
+    ["Examination", "examination"],
+    ["Education", "education"],
+    ["Consent", "consent"],
+    ["HLA Data", "hla"]
+  ]
 
 .row
   .columns.large-12
-    = link_to "Edit", edit_patient_transplants_recipient_workup_path(@patient)
+    = render "record_header"
 
-    - if @workup
-      .workup
-        = @workup.updated_at
+    = render "sections_nav", sections: sections
+
+- if @workup
+  .document-view
+    = render "group", group: @workup.document.comorbidities,
+      legend: "Co-morbidities", destination: "comorbidities"
+
+    = render "group", group: @workup.document.historicals,
+      legend: "Historicals", destination: "historical"
+
+    = render "group", group: @workup.document.scores,
+      legend: "Scores", destination: "scores"
+
+    = render "group", group: @workup.document.cervical_smear,
+      legend: "Cervical smear data (latest and historical)", destination: "cervical"
+
+    = render "group", group: @workup.document.examination,
+      legend: "Examination", destination: "examination"
+
+    = render "group", group: @workup.document.education,
+      legend: "Transplant Education", destination: "education"
+
+    = render "group", group: @workup.document.transplant_consents,
+      legend: "Consent", destination: "consent"
+
+    .row data-magellan-destination="hla"
+      .columns.large-12
+        a name="hla"
+        = field_set_tag do
+          legend HLA Data
+          = simple_format @workup.document.hla_data

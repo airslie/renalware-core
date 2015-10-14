@@ -143,3 +143,24 @@ ul.bullet-number {
   color: red;
 }
 
+.document-view {
+  dl {
+    width: 100%;
+    overflow: hidden;
+
+    dt {
+      clear: both;
+      float: left;
+      width: 41%;
+      padding: 0 1em 0 0;
+      margin: 0;
+      text-align: right;
+    }
+    dd {
+      float: left;
+      width: 59%;
+      padding: 0;
+      margin: 0;
+    }
+  }
+}

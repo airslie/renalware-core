@@ -1,0 +1,8 @@
+= render "renalware/patients/patient_info_header", model: @patient
+= render "renalware/patients/mini_renal_profile", model: @patient
+
+h2 Recipient Workup
+
+dl.sub-nav
+  dd= link_to "View", patient_transplants_recipient_workup_path(@patient)
+  dd= link_to "Edit", edit_patient_transplants_recipient_workup_path(@patient)

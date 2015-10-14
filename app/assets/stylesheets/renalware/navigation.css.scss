@@ -71,3 +71,11 @@ dd.patient-name {
     background-color: #656565 !important;
   }
 }
+
+[data-magellan-expedition], [data-magellan-expedition-clone] {
+  padding: 5px 0;
+}
+
+.sub-nav.fixed {
+  left: auto;
+}

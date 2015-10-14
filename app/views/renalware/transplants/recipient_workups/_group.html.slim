@@ -1,0 +1,20 @@
+.row data-magellan-destination="#{destination}"
+  a name="#{destination}"
+  .columns.large-12
+    = field_set_tag do
+      legend= legend
+      dl
+        - group.class.attributes_list.each do |attribute|
+          - value = group.send(attribute)
+          dt= group.class.human_attribute_name attribute
+          dd
+            - if value.is_a? Renalware::Transplants::DatedConfirmation
+              = value.status
+              = " (#{group.send(attribute).date})" if value.date.present?
+            - elsif value.respond_to? :left
+              | (L)&nbsp;
+              = group.send(attribute).left
+              | &nbsp;(R)&nbsp;
+              = group.send(attribute).right
+            - else
+              = value
