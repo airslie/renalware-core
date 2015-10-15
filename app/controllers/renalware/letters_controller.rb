@@ -31,6 +31,11 @@ module Renalware
       end
     end
 
+    def show
+      @letter = BaseLetter.find(params[:id])
+      authorize @letter
+    end
+
     def update
       @letter = letter_class.find(params[:id])
       authorize @letter
