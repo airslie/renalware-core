@@ -10,3 +10,8 @@ nav class="top-bar patient-nav" data-topbar="" role="navigation"
       li= link_to "Clinic Visits (#{@patient.clinic_visits.length})", patient_clinic_visits_path(@patient), title: "Clinic Visits"
       li= link_to "Letters (#{@patient.letters.length})", patient_letters_path(@patient), title: "Letters"
       li= link_to "Recipient Workup", patient_transplants_recipient_workup_path(@patient), title: "Recipient Workups"
+      li.has-dropdown.not_click
+        a href="#" Workups
+        ul.dropdown
+          li= link_to "Transplant Recipient Workup", patient_transplants_recipient_workup_path(@patient)
+          li= link_to "Transplant Donor Workup", patient_transplants_donor_workup_path(@patient)

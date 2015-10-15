@@ -25,7 +25,7 @@ ruby:
     span= " or "
     = link_to "cancel", back_path
 
-.wrapper
+.form-content
   = f.simple_fields_for :document, f.object.document do |fd|
     .row data-magellan-destination="comorbidities"
       .large-12.columns

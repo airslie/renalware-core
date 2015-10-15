@@ -26,6 +26,7 @@ gem 'enumerize'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-fontawesome'
+  # https://github.com/najlepsiwebdesigner/foundation-datepicker
   gem 'rails-assets-foundation-datepicker'
 end
 

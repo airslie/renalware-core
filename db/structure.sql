@@ -1285,6 +1285,73 @@ CREATE TABLE schema_migrations (
 
 
 --
+-- Name: transplants_donor_workup_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE transplants_donor_workup_versions (
+    id integer NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: transplants_donor_workup_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE transplants_donor_workup_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transplants_donor_workup_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE transplants_donor_workup_versions_id_seq OWNED BY transplants_donor_workup_versions.id;
+
+
+--
+-- Name: transplants_donor_workups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE transplants_donor_workups (
+    id integer NOT NULL,
+    patient_id integer,
+    document jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: transplants_donor_workups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE transplants_donor_workups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transplants_donor_workups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE transplants_donor_workups_id_seq OWNED BY transplants_donor_workups.id;
+
+
+--
 -- Name: transplants_recipient_workup_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1676,6 +1743,20 @@ ALTER TABLE ONLY roles ALTER COLUMN id SET DEFAULT nextval('roles_id_seq'::regcl
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY transplants_donor_workup_versions ALTER COLUMN id SET DEFAULT nextval('transplants_donor_workup_versions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplants_donor_workups ALTER COLUMN id SET DEFAULT nextval('transplants_donor_workups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY transplants_recipient_workup_versions ALTER COLUMN id SET DEFAULT nextval('transplants_recipient_workup_versions_id_seq'::regclass);
 
 
@@ -1973,6 +2054,22 @@ ALTER TABLE ONLY roles
 
 
 --
+-- Name: transplants_donor_workup_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY transplants_donor_workup_versions
+    ADD CONSTRAINT transplants_donor_workup_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: transplants_donor_workups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY transplants_donor_workups
+    ADD CONSTRAINT transplants_donor_workups_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: transplants_recipient_workup_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2002,6 +2099,13 @@ ALTER TABLE ONLY users
 
 ALTER TABLE ONLY versions
     ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: donor_workup_versions_type_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX donor_workup_versions_type_id ON transplants_donor_workup_versions USING btree (item_type, item_id);
 
 
 --
@@ -2159,6 +2263,20 @@ CREATE INDEX index_problems_on_deleted_at ON problems USING btree (deleted_at);
 
 
 --
+-- Name: index_transplants_donor_workups_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplants_donor_workups_on_document ON transplants_donor_workups USING gin (document);
+
+
+--
+-- Name: index_transplants_donor_workups_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplants_donor_workups_on_patient_id ON transplants_donor_workups USING btree (patient_id);
+
+
+--
 -- Name: index_transplants_recipient_workups_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2233,6 +2351,14 @@ CREATE INDEX tx_workup_versions_type_id ON transplants_recipient_workup_versions
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: fk_rails_15ecb734e1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplants_donor_workups
+    ADD CONSTRAINT fk_rails_15ecb734e1 FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -2390,4 +2516,8 @@ INSERT INTO schema_migrations (version) VALUES ('20150925133903');
 INSERT INTO schema_migrations (version) VALUES ('20151005175700');
 
 INSERT INTO schema_migrations (version) VALUES ('20151006135256');
+
+INSERT INTO schema_migrations (version) VALUES ('20151014205537');
+
+INSERT INTO schema_migrations (version) VALUES ('20151014210052');
 

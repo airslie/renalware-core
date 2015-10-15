@@ -40,6 +40,7 @@ Rails.application.routes.draw do
 
       namespace :transplants do
         resource :recipient_workup, except: :destroy
+        resource :donor_workup, except: :destroy
       end
     end
 

@@ -1,0 +1,113 @@
+# https://github.com/plataformatec/simple_form#i18n
+
+en:
+  # activerecord:
+  #   attributes:
+  #     renalware/transplants/donor_workup:
+  #       performed_at: Performed On
+  activemodel:
+    attributes:
+      renalware/transplants/donor_workup_document/relationship:
+        donor_recip_relationship: Relationship to Recipient
+        relationship_other: Other Relationship (if required)
+      renalware/transplants/donor_workup_document/comorbidities:
+        angina: Angina?
+        amputation_for_pvd: Amputation for PVD?
+        chronic_obstr_pulm_dis: COPD?
+        claudication: Claudication?
+        coronary_artery_bypass_graft: CABG?
+        cvd_or_stroke: CVD or stroke?
+        diabetes: Diabetes?
+        ischaemic_neuropathic_ulcers: Ischaemic/Neuropathic Ulcers?
+        liver_disease: Liver disease?
+        malignancy: Cancer or malignancy?
+        myocardial_infarct: Myocardial Infarct?
+        non_coronary_angioplasty: Angioplasty, vascular graft, aneurysm, stent (non-coronary)?
+        smoking: Smoker?
+      renalware/transplants/donor_workup_document/infections:
+        hiv_status: HIV Status
+        hcv_status: HCV Status
+        htlv_status: HTLV Status (pre-op)
+        syphilis_test: Syphilis Test (pre-op)
+        htlv: HTLV Test
+        ebv: EBV Test
+        cytology: Urine Cytology
+        syphilis: Syphilis Test
+        toxoplasmosis: Toxoplasmosis Test
+      renalware/transplants/donor_workup_document/imaging_and_scans:
+        ecg_comment: EGC Comment
+        chest_xray: Chest X-ray (CXR)
+        renal_ultrasound: Renal Ultrasound
+      renalware/transplants/donor_workup_document/creatinine_clearance:
+        clearance_type: Calculated Clearance Type
+        clearance: Calculated Clearance
+        measured_clearance: Measured Clearance
+      renalware/transplants/donor_workup_document/glomerular_filtration_rate:
+        is_measured_grf_corrected: Is Measured GFR Corrected?
+        gfr_corrected_for_bsa: GFR Corrected for Body Surface Area?
+        measured_gfr: Measured GFR
+        isotopic_gfr: Isotopic GFR
+      renalware/transplants/donor_workup_document/urine_dipsticks:
+        blood: Blood Result
+        protein: Protein Result
+      renalware/transplants/donor_workup_document/other_investigations:
+        number_renal_arteries: Number of Renal Arteries
+        sitting_blood_pressure: Sitting Blood Pressure
+        protein_creatinine_ratio: Protein Creatinine Ratio
+        egfr: Donor eGFR
+        haemoglobinopathy: Haemoglobinopathy Comment
+        oral_gtt: Oral GTT
+
+    errors:
+      models:
+        renalware/transplants/donor_workup_document/scores:
+          attributes:
+            karnofsky:
+              inclusion: must be between 0 and 100
+            prisma:
+              inclusion: must be between 0 and 7
+  enumerize:
+    renalware/transplants/donor_workup_document/dated_test:
+      result:
+        negative: Neg
+        positive: Pos
+        not_done: Not Done
+    renalware/transplants/donor_workup_document/creatinine_clearance:
+      clearance_type:
+        cockroft_gault: Cockroft & Gault
+        schwartz: Schwartz
+        other: Other
+    renalware/transplants/donor_workup_document/relationship:
+      donor_recip_relationship:
+        son_or_daughter: "Son or daughter"
+        mother_or_father: "Mother or father"
+        sibling_2_shared: "Sibling (2 shared haplotypes)"
+        sibling_1_shared: "Sibling (1 shared haplotype)"
+        sibling_0_shared: "Sibling (0 shared haplotypes)"
+        sibling:: "Sibling (genetic relationship unknown)"
+        monozygotic_twin: "Monozygotic (identical) twin"
+        dizygotic_twin: "Dizygotic (non-identical) twin"
+        other_living_related: "Other living related - please specify"
+        living_non_related_spouse: "Living non-related donor - spouse"
+        living_non_related_partner: "Living non-related donor - partner"
+        pooled_paired: "Pooled/paired donor"
+        altruistic_non_directed: "Altruistic non-directed donor"
+        other_living_non_related: "Other living non-related donor - please specify"
+
+  simple_form:
+    hints:
+      transplants_donor_workup:
+        document:
+          comorbidities:
+            angina:
+              status: For comorbidities enter date diagnosed at right if YES
+            smoking:
+              status: Includes former as well as current smokers
+          infections:
+            htlv:
+              status: Enter date of this and following tests at right
+          glomerular_filtration_rate:
+            measured_gfr:
+              result: "Uncorrected: enter as <b>ml/min</b><br>Corrected: enter as <b>ml/min/1.73m²</b>"
+          other_investigations:
+            sitting_blood_pressure: Enter as e.g. '120/80'

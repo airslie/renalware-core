@@ -1,0 +1,11 @@
+.row
+  .columns.large-12
+    = render "header"
+
+.row
+  .columns.large-12
+    = link_to "Edit", edit_patient_transplants_donor_workup_path(@patient)
+
+    - if @workup
+      .workup
+        = @workup.updated_at

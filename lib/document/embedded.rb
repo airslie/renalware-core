@@ -137,6 +137,10 @@ module Document
         case enums
         when :confirmation
           enums = %i(yes no unknown)
+        when :test
+          enums = %i(negative positive not_done)
+        when :infection_status
+          enums = %i(negative positive test_result_awaited not_tested unknown)
         when :yes_no
           enums = %i(yes no)
         end
