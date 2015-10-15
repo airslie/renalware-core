@@ -43,10 +43,10 @@ en:
         clearance: Calculated Clearance
         measured_clearance: Measured Clearance
       renalware/transplants/donor_workup_document/glomerular_filtration_rate:
-        is_measured_grf_corrected: Is Measured GFR Corrected?
-        gfr_corrected_for_bsa: GFR Corrected for Body Surface Area?
-        measured_gfr: Measured GFR
-        isotopic_gfr: Isotopic GFR
+        is_measured_value_corrected: Is Measured GFR Corrected?
+        value_corrected_for_bsa: GFR Corrected for Body Surface Area?
+        measured_value: Measured GFR
+        isotopic_value: Isotopic GFR
       renalware/transplants/donor_workup_document/urine_dipsticks:
         blood: Blood Result
         protein: Protein Result

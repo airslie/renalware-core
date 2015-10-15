@@ -93,11 +93,11 @@ ruby:
           legend Glomerular Filtration Rate (GFR)
           = fd.simple_fields_for :glomerular_filtration_rate,
             fd.object.glomerular_filtration_rate do |fcm|
-            = fcm.input :is_measured_grf_corrected, as: :inline_radio_buttons
-            = fcm.input :gfr_corrected_for_bsa, as: :inline_radio_buttons
+            = fcm.input :is_measured_value_corrected, as: :inline_radio_buttons
+            = fcm.input :value_corrected_for_bsa, as: :inline_radio_buttons
             table.no-stripes
-              = render "dated_result_field", attribute: :measured_gfr, f: fcm
-              = render "dated_result_field", attribute: :isotopic_gfr, f: fcm
+              = render "dated_result_field", attribute: :measured_value, f: fcm
+              = render "dated_result_field", attribute: :isotopic_value, f: fcm
 
     .row data-magellan-destination="urine_dipsticks"
       .large-12.columns

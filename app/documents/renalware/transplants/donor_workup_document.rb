@@ -83,10 +83,10 @@ module Renalware
       attribute :creatinine_clearance, CreatinineClearance
 
       class GlomerularFiltrationRate < Document::Embedded
-        attribute :is_measured_grf_corrected, Boolean
-        attribute :gfr_corrected_for_bsa, Boolean
-        attribute :measured_gfr, DatedResult
-        attribute :isotopic_gfr, DatedResult
+        attribute :is_measured_value_corrected, Boolean
+        attribute :value_corrected_for_bsa, Boolean
+        attribute :measured_value, DatedResult
+        attribute :isotopic_value, DatedResult
       end
       attribute :glomerular_filtration_rate, GlomerularFiltrationRate
 
