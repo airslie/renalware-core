@@ -25,10 +25,10 @@ en:
         non_coronary_angioplasty: Angioplasty, vascular graft, aneurysm, stent (non-coronary)?
         smoking: Smoker?
       renalware/transplants/donor_workup_document/infections:
-        hiv_status: HIV Status
-        hcv_status: HCV Status
-        htlv_status: HTLV Status (pre-op)
-        syphilis_test: Syphilis Test (pre-op)
+        hiv: HIV Status
+        hcv: HCV Status
+        htlv_preop: HTLV Status (pre-op)
+        syphilis_preop: Syphilis Test (pre-op)
         htlv: HTLV Test
         ebv: EBV Test
         cytology: Urine Cytology
@@ -67,11 +67,6 @@ en:
             prisma:
               inclusion: must be between 0 and 7
   enumerize:
-    renalware/transplants/donor_workup_document/dated_test:
-      result:
-        negative: Neg
-        positive: Pos
-        not_done: Not Done
     renalware/transplants/donor_workup_document/creatinine_clearance:
       clearance_type:
         cockroft_gault: Cockroft & Gault

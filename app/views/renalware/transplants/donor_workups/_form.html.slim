@@ -53,10 +53,10 @@ ruby:
         fieldset
           legend Virology/Bacteriology/Cytology
           = fd.simple_fields_for :infections, fd.object.infections do |fcm|
-            = fcm.input :hiv_status, input_html: { class: "small-input" }
-            = fcm.input :hcv_status, input_html: { class: "small-input" }
-            = fcm.input :htlv_status, input_html: { class: "small-input" }
-            = fcm.input :syphilis_test, input_html: { class: "small-input" }
+            / = fcm.input :hiv_status, input_html: { class: "small-input" }
+            / = fcm.input :hcv_status, input_html: { class: "small-input" }
+            / = fcm.input :htlv_status, input_html: { class: "small-input" }
+            / = fcm.input :syphilis_test, input_html: { class: "small-input" }
             table.no-stripes
               = render "dated_test_field", attribute: :htlv, f: fcm
               = render "dated_test_field", attribute: :ebv, f: fcm

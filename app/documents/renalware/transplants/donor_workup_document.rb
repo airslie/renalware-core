@@ -1,32 +1,9 @@
 module Renalware
   module Transplants
     class DonorWorkupDocument < Document::Embedded
-
-      class DatedConfirmation < Document::Embedded
-        attribute :status, enums: :confirmation
-        attribute :date, Date
-
-        validates :date, timeliness: { type: :date, allow_blank: true }
-        validates :date, presence: true, if: "status.try(:yes?)"
-      end
-
-      class DatedTest < Document::Embedded
-        attribute :result, enums: :test
-        attribute :date, Date
-
-        validates :date, timeliness: { type: :date, allow_blank: true }
-      end
-
-      class DatedResult < Document::Embedded
-        attribute :result
-        attribute :date, Date
-
-        validates :date, timeliness: { type: :date, allow_blank: true }
-      end
-
       class Relationship < Document::Embedded
         attribute :donor_recip_relationship,
-          enums: %w(
+          enums: %i(
             son_or_daughter mother_or_father sibling_2_shared
             sibling_1_shared sibling_0_shared sibling
             monozygotic_twin dizygotic_twin other_living_related
@@ -56,10 +33,10 @@ module Renalware
       attribute :comorbidities, Comorbidities
 
       class Infections < Document::Embedded
-        attribute :hiv_status, enums: :infection_status
-        attribute :hcv_status, enums: :infection_status
-        attribute :htlv_status, enums: :infection_status
-        attribute :syphilis_test, enums: :infection_status
+        attribute :hiv, InfectionStatus
+        attribute :hcv, InfectionStatus
+        attribute :htlv_preop, InfectionStatus
+        attribute :syphilis_preop, InfectionStatus
         attribute :htlv, DatedTest
         attribute :ebv, DatedTest
         attribute :syphilis, DatedTest

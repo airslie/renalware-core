@@ -2,19 +2,6 @@ module Renalware
   module Transplants
     class RecipientWorkupDocument < Document::Embedded
 
-      class DatedConfirmation < Document::Embedded
-        attribute :status, enums: :confirmation
-        attribute :date, Date
-
-        validates :date, timeliness: { type: :date, allow_blank: true }
-        validates :date, presence: true, if: "status.try(:yes?)"
-      end
-
-      class LeftRightConfirmation < Document::Embedded
-        attribute :left, enums: :yes_no
-        attribute :right, enums: :yes_no
-      end
-
       class Comorbidities < Document::Embedded
         attribute :angina, DatedConfirmation
         attribute :myocardial_infarct, DatedConfirmation
