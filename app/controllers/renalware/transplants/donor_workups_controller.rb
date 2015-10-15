@@ -26,7 +26,9 @@ module Renalware
       protected
 
       def workup_params
-        params.require(:transplants_donor_workup).permit!
+        all_document_attributes = params.require(:transplants_donor_workup)
+          .fetch(:document, nil).try(:permit!)
+        params.require(:transplants_donor_workup).permit.merge(document: all_document_attributes)
       end
     end
   end
