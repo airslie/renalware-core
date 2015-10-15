@@ -28,100 +28,76 @@ ruby:
 .form-content
   = f.simple_fields_for :document, f.object.document do |fd|
 
-    .row data-magellan-destination="relationship"
-      .large-12.columns
-        a name="relationship"
-        fieldset
-          legend Donor-Recipient Relationship
-          = fd.simple_fields_for :relationship, fd.object.relationship do |fcm|
-            = fcm.input :donor_recip_relationship
-            = fcm.input :relationship_other
+    = render layout: "fieldset",
+      locals: { legend: "Donor-Recipient Relationship", name: "relationship" } do
+      = fd.simple_fields_for :relationship, fd.object.relationship do |fcm|
+        = fcm.input :donor_recip_relationship
+        = fcm.input :relationship_other
 
-    .row data-magellan-destination="comorbidities"
-      .large-12.columns
-        a name="comorbidities"
-        fieldset
-          legend Co-morbidities
-          = fd.simple_fields_for :comorbidities, fd.object.comorbidities do |fcm|
-            table
-              - fcm.object.class.attributes_list.each do |attribute|
-                = render "dated_confirmation_field", attribute: attribute, f: fcm
+    = render layout: "fieldset",
+      locals: { legend: "Co-morbidities", name: "comorbidities" } do
+      = fd.simple_fields_for :comorbidities, fd.object.comorbidities do |fcm|
+        table
+          - fcm.object.class.attributes_list.each do |attribute|
+            = render "dated_confirmation_field", attribute: attribute, f: fcm
 
-    .row data-magellan-destination="infections"
-      .large-12.columns
-        a name="infections"
-        fieldset
-          legend Virology/Bacteriology/Cytology
-          = fd.simple_fields_for :infections, fd.object.infections do |fcm|
-            / = fcm.input :hiv_status, input_html: { class: "small-input" }
-            / = fcm.input :hcv_status, input_html: { class: "small-input" }
-            / = fcm.input :htlv_status, input_html: { class: "small-input" }
-            / = fcm.input :syphilis_test, input_html: { class: "small-input" }
-            table.no-stripes
-              = render "dated_test_field", attribute: :htlv, f: fcm
-              = render "dated_test_field", attribute: :ebv, f: fcm
-              = render "dated_test_field", attribute: :syphilis, f: fcm
-              = render "dated_test_field", attribute: :toxoplasmosis, f: fcm
-              = render "dated_test_field", attribute: :cytology, f: fcm
+    = render layout: "fieldset",
+      locals: { legend: "Virology/Bacteriology/Cytology", name: "infections" } do
+      = fd.simple_fields_for :infections, fd.object.infections do |fcm|
+        / = fcm.input :hiv_status, input_html: { class: "small-input" }
+        / = fcm.input :hcv_status, input_html: { class: "small-input" }
+        / = fcm.input :htlv_status, input_html: { class: "small-input" }
+        / = fcm.input :syphilis_test, input_html: { class: "small-input" }
+        table.no-stripes
+          = render "dated_test_field", attribute: :htlv, f: fcm
+          = render "dated_test_field", attribute: :ebv, f: fcm
+          = render "dated_test_field", attribute: :syphilis, f: fcm
+          = render "dated_test_field", attribute: :toxoplasmosis, f: fcm
+          = render "dated_test_field", attribute: :cytology, f: fcm
 
-    .row data-magellan-destination="imaging_and_scans"
-      .large-12.columns
-        a name="imaging_and_scans"
-        fieldset
-          legend Imaging and Scans
-          = fd.simple_fields_for :imaging_and_scans, fd.object.imaging_and_scans do |fcm|
-            table.no-stripes
-              = render "dated_result_field", attribute: :ecg_comment, f: fcm
-              = render "dated_result_field", attribute: :chest_xray, f: fcm
-              = render "dated_result_field", attribute: :renal_ultrasound, f: fcm
+    = render layout: "fieldset",
+      locals: { legend: "Imaging and Scans", name: "imaging_and_scans" } do
+      = fd.simple_fields_for :imaging_and_scans, fd.object.imaging_and_scans do |fcm|
+        table.no-stripes
+          = render "dated_result_field", attribute: :ecg_comment, f: fcm
+          = render "dated_result_field", attribute: :chest_xray, f: fcm
+          = render "dated_result_field", attribute: :renal_ultrasound, f: fcm
 
-    .row data-magellan-destination="creatinine_clearance"
-      .large-12.columns
-        a name="creatinine_clearance"
-        fieldset
-          legend Creatinine Clearance
-          = fd.simple_fields_for :creatinine_clearance, fd.object.creatinine_clearance do |fcm|
-            = fcm.input :clearance_type, input_html: { class: "small-input" }
-            table.no-stripes
-              = render "dated_result_field", attribute: :clearance, f: fcm
-              = render "dated_result_field", attribute: :measured_clearance, f: fcm
+    = render layout: "fieldset",
+      locals: { legend: "Creatinine Clearance", name: "creatinine_clearance" } do
+      = fd.simple_fields_for :creatinine_clearance, fd.object.creatinine_clearance do |fcm|
+        = fcm.input :clearance_type, input_html: { class: "small-input" }
+        table.no-stripes
+          = render "dated_result_field", attribute: :clearance, f: fcm
+          = render "dated_result_field", attribute: :measured_clearance, f: fcm
 
-    .row data-magellan-destination="glomerular_filtration_rate"
-      .large-12.columns
-        a name="glomerular_filtration_rate"
-        fieldset
-          legend Glomerular Filtration Rate (GFR)
-          = fd.simple_fields_for :glomerular_filtration_rate,
-            fd.object.glomerular_filtration_rate do |fcm|
-            = fcm.input :is_measured_value_corrected, as: :inline_radio_buttons
-            = fcm.input :value_corrected_for_bsa, as: :inline_radio_buttons
-            table.no-stripes
-              = render "dated_result_field", attribute: :measured_value, f: fcm
-              = render "dated_result_field", attribute: :isotopic_value, f: fcm
+    = render layout: "fieldset",
+      locals: { legend: "Glomerular Filtration Rate (GFR)", name: "glomerular_filtration_rate" } do
+      = fd.simple_fields_for :glomerular_filtration_rate,
+        fd.object.glomerular_filtration_rate do |fcm|
+        = fcm.input :is_measured_value_corrected, as: :inline_radio_buttons
+        = fcm.input :value_corrected_for_bsa, as: :inline_radio_buttons
+        table.no-stripes
+          = render "dated_result_field", attribute: :measured_value, f: fcm
+          = render "dated_result_field", attribute: :isotopic_value, f: fcm
 
-    .row data-magellan-destination="urine_dipsticks"
-      .large-12.columns
-        a name="urine_dipsticks"
-        fieldset
-          legend Urine Dipsticks
-          = fd.simple_fields_for :urine_dipsticks, fd.object.urine_dipsticks do |fcm|
-            table.no-stripes
-              = render "dated_result_field", attribute: :blood, f: fcm
-              = render "dated_result_field", attribute: :protein, f: fcm
+    = render layout: "fieldset",
+      locals: { legend: "Urine Dipsticks", name: "urine_dipsticks" } do
+      = fd.simple_fields_for :urine_dipsticks, fd.object.urine_dipsticks do |fcm|
+        table.no-stripes
+          = render "dated_result_field", attribute: :blood, f: fcm
+          = render "dated_result_field", attribute: :protein, f: fcm
 
-    .row data-magellan-destination="other_investigations"
-      .large-12.columns
-        a name="other_investigations"
-        fieldset
-          legend Other Investigations
-          = fd.simple_fields_for :other_investigations, fd.object.other_investigations do |fcm|
-            = fcm.input :number_renal_arteries, collection: (1..5).to_a, input_html: { class: "small-input" }
-            = fcm.input :sitting_blood_pressure, input_html: { class: "small-input" }
-            table.no-stripes
-              = render "dated_result_field", attribute: :protein_creatinine_ratio, f: fcm
-              = render "dated_result_field", attribute: :egfr, f: fcm
-              = render "dated_result_field", attribute: :haemoglobinopathy, f: fcm
-              = render "dated_result_field", attribute: :oral_gtt, f: fcm
+    = render layout: "fieldset",
+      locals: { legend: "Other Investigations", name: "other_investigations" } do
+      = fd.simple_fields_for :other_investigations, fd.object.other_investigations do |fcm|
+        = fcm.input :number_renal_arteries, collection: (1..5).to_a, input_html: { class: "small-input" }
+        = fcm.input :sitting_blood_pressure, input_html: { class: "small-input" }
+        table.no-stripes
+          = render "dated_result_field", attribute: :protein_creatinine_ratio, f: fcm
+          = render "dated_result_field", attribute: :egfr, f: fcm
+          = render "dated_result_field", attribute: :haemoglobinopathy, f: fcm
+          = render "dated_result_field", attribute: :oral_gtt, f: fcm
 
 .row
   .large-12.columns

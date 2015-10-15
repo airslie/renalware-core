@@ -27,104 +27,81 @@ ruby:
 
 .form-content
   = f.simple_fields_for :document, f.object.document do |fd|
-    .row data-magellan-destination="comorbidities"
-      .large-12.columns
-        a name="comorbidities"
-        fieldset
-          legend Co-morbidities
-          = fd.simple_fields_for :comorbidities, fd.object.comorbidities do |fcm|
-            table
-              - fcm.object.class.attributes_list.each do |attribute|
-                = render "dated_confirmation_field", attribute: attribute, f: fcm
 
-    .row data-magellan-destination="historical"
-      .large-12.columns
-        a name="historical"
-        fieldset
-          legend Historical
-          = fd.simple_fields_for :historicals, fd.object.historicals,
-            wrapper: "two_columns_table_row" do |fcm|
-            table
-              = fcm.input :tb, as: :inline_radio_buttons
-              = fcm.input :dvt, as: :inline_radio_buttons
-              = fcm.input :reflux, as: :inline_radio_buttons
-              = fcm.input :neurogenic_bladder, as: :inline_radio_buttons
-              = fcm.input :recurrent_utis, as: :inline_radio_buttons
-              = fcm.input :family_diabetes, as: :inline_radio_buttons
+    = render layout: "fieldset",
+      locals: { legend: "Co-morbidities", name: "comorbidities" } do
+      = fd.simple_fields_for :comorbidities, fd.object.comorbidities do |fcm|
+        table
+          - fcm.object.class.attributes_list.each do |attribute|
+            = render "dated_confirmation_field", attribute: attribute, f: fcm
 
-            = fcm.input :pregnancies_count, collection: (0..9).to_a,
-              wrapper: "horizontal_form", input_html: { class: "small-input" }
+    = render layout: "fieldset",
+      locals: { legend: "Historical", name: "historical" } do
+      = fd.simple_fields_for :historicals, fd.object.historicals,
+        wrapper: "two_columns_table_row" do |fcm|
+        table
+          = fcm.input :tb, as: :inline_radio_buttons
+          = fcm.input :dvt, as: :inline_radio_buttons
+          = fcm.input :reflux, as: :inline_radio_buttons
+          = fcm.input :neurogenic_bladder, as: :inline_radio_buttons
+          = fcm.input :recurrent_utis, as: :inline_radio_buttons
+          = fcm.input :family_diabetes, as: :inline_radio_buttons
 
-    .row data-magellan-destination="scores"
-      .large-12.columns
-        a name="scores"
-        fieldset
-          legend Scores
-          = fd.simple_fields_for :scores, fd.object.scores do |fcm|
-            = fcm.input :karnofsky, input_html: { class: "small-input" }
-            = fcm.input :prisma, input_html: { class: "small-input" }
+        = fcm.input :pregnancies_count, collection: (0..9).to_a,
+          wrapper: "horizontal_form", input_html: { class: "small-input" }
 
-    .row data-magellan-destination="cervical"
-      .large-12.columns
-        a name="cervical"
-        fieldset
-          legend Cervical smear data (latest and historical)
-          = fd.simple_fields_for :cervical_smear, fd.object.cervical_smear do |fcm|
-            = fcm.input :result
-            = fcm.input :date, as: :date_picker
+    = render layout: "fieldset",
+      locals: { legend: "Scores", name: "scores" } do
+      = fd.simple_fields_for :scores, fd.object.scores do |fcm|
+        = fcm.input :karnofsky, input_html: { class: "small-input" }
+        = fcm.input :prisma, input_html: { class: "small-input" }
 
-    .row data-magellan-destination="examination"
-      .large-12.columns
-        a name="examination"
-        fieldset
-          legend Examination
-          = fd.simple_fields_for :examination, fd.object.examination do |fcm|
-            table
-              thead
-                tr
-                  th
-                  th Left
-                  th Right
-              tbody
-                = render "left_right_confirmation_fields", attribute: :femoral_pulse, f: fcm
-                = render "left_right_confirmation_fields", attribute: :dorsalis_pedis_pulse, f: fcm
-                = render "left_right_confirmation_fields", attribute: :posterior_tibial_pulse, f: fcm
-                = render "left_right_confirmation_fields", attribute: :carotid_bruit, f: fcm
-                = render "left_right_confirmation_fields", attribute: :femoral_bruit, f: fcm
-            = fcm.input :heart_sounds, input_html: { class: "small-input" }
+    = render layout: "fieldset",
+      locals: { legend: "Cervical smear data (latest and historical)", name: "cervical" } do
+      = fd.simple_fields_for :cervical_smear, fd.object.cervical_smear do |fcm|
+        = fcm.input :result
+        = fcm.input :date, as: :date_picker
 
-    .row data-magellan-destination="education"
-      .large-12.columns
-        a name="education"
-        fieldset
-          legend Transplant Education
-          = fd.simple_fields_for :education, fd.object.education,
-            wrapper: "two_columns_table_row" do |fcm|
-            table
-              - fcm.object.class.attributes_list.each do |attribute|
-                = fcm.input attribute, as: :inline_radio_buttons
+    = render layout: "fieldset",
+      locals: { legend: "Examination", name: "examination" } do
+      = fd.simple_fields_for :examination, fd.object.examination do |fcm|
+        table
+          thead
+            tr
+              th
+              th Left
+              th Right
+          tbody
+            = render "left_right_confirmation_fields", attribute: :femoral_pulse, f: fcm
+            = render "left_right_confirmation_fields", attribute: :dorsalis_pedis_pulse, f: fcm
+            = render "left_right_confirmation_fields", attribute: :posterior_tibial_pulse, f: fcm
+            = render "left_right_confirmation_fields", attribute: :carotid_bruit, f: fcm
+            = render "left_right_confirmation_fields", attribute: :femoral_bruit, f: fcm
+        = fcm.input :heart_sounds, input_html: { class: "small-input" }
 
-    .row data-magellan-destination="consent"
-      .large-12.columns
-        a name="consent"
-        fieldset
-          legend Consent
-          = fd.simple_fields_for :transplant_consents, fd.object.transplant_consents do |fcm|
-            = fcm.input :consent, as: :inline_radio_buttons
-            = fcm.input :consent_date, as: :date_picker
-            = fcm.input :consenting_name
-            hr
-            = fcm.input :marginal_consent, as: :inline_radio_buttons
-            = fcm.input :marginal_consent_date, as: :date_picker
-            = fcm.input :marginal_consenting_name
+    = render layout: "fieldset",
+      locals: { legend: "Transplant Education", name: "education" } do
+      = fd.simple_fields_for :education, fd.object.education,
+        wrapper: "two_columns_table_row" do |fcm|
+        table
+          - fcm.object.class.attributes_list.each do |attribute|
+            = fcm.input attribute, as: :inline_radio_buttons
 
-    .row data-magellan-destination="hla"
-      .large-12.columns
-        a name="hla"
-        fieldset
-          legend HLA Data
-          = fd.input :hla_data, as: :text, input_html: { rows: 10 },
-            label: false, wrapper: "vertical_form"
+    = render layout: "fieldset",
+      locals: { legend: "Consent", name: "consent" } do
+      = fd.simple_fields_for :transplant_consents, fd.object.transplant_consents do |fcm|
+        = fcm.input :consent, as: :inline_radio_buttons
+        = fcm.input :consent_date, as: :date_picker
+        = fcm.input :consenting_name
+        hr
+        = fcm.input :marginal_consent, as: :inline_radio_buttons
+        = fcm.input :marginal_consent_date, as: :date_picker
+        = fcm.input :marginal_consenting_name
+
+    = render layout: "fieldset",
+      locals: { legend: "HLA Data", name: "hla" } do
+      = fd.input :hla_data, as: :text, input_html: { rows: 10 },
+        label: false, wrapper: "vertical_form"
 
 .row
   .large-12.columns
