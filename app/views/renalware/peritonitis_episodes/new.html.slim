@@ -1,24 +1,15 @@
-.wide-screen
-  .columns.large-12
-    = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
-    = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
+= render layout: "renalware/pd/layout", locals: { header: "Peritonitis Episode", patient: @patient } do
+  .row
+    .large-12.columns
+      = render partial: "renalware/shared/errors", locals: { model: @peritonitis_episode }
 
-.row
-  h4
-    | Record an Episode of Peritonitis
-
-  .large-12.columns
-    = render partial: "renalware/shared/errors", locals: { model: @peritonitis_episode }
-
-.row
-  ul.no-bullet
-    = field_set_tag do
-
+  .row
+    .large-12.columns
       = nested_form_for [@patient, @peritonitis_episode] do |pe|
-
         .row
           = render partial: 'renalware/peritonitis_episodes/form', locals: { pe: pe }
 
         .row.button-padding
-          = link_to "Cancel", patient_pd_summary_path(@patient), class: "button tiny left cancel mt"
-          = pe.submit "Save Peritonitis Episode", class: "button tiny right save mt"
+          = submit_tag "Save", class: "button"
+          span= " or "
+          = link_to "cancel", patient_pd_summary_path(@patient)

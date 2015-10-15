@@ -2,56 +2,52 @@
   .large-12.columns
 
     = pe.hidden_field :id
-
     = pe.hidden_field :patient_id
 
     .row
       .large-12.columns
-        .section-underliner
-          | Dates:
+        = field_set_tag do
+          legend Dates
 
-        .large-4.columns
-          = pe.label :diagnosis_date
-          = pe.date_select(:diagnosis_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year] }, class: "datetime")
+          .large-4.columns
+            = pe.label :diagnosis_date
+            = pe.date_select(:diagnosis_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year] }, class: "datetime")
 
-        .large-4.columns
-          = pe.label :treatment_start_date
-          = pe.date_select(:treatment_start_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year], include_blank: true }, class: "datetime")
+          .large-4.columns
+            = pe.label :treatment_start_date
+            = pe.date_select(:treatment_start_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year], include_blank: true }, class: "datetime")
 
-        .large-4.columns
-          = pe.label :treatment_end_date
-          = pe.date_select(:treatment_end_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year], include_blank: true }, class: "datetime")
+          .large-4.columns
+            = pe.label :treatment_end_date
+            = pe.date_select(:treatment_end_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year], include_blank: true }, class: "datetime")
 
     .row
       .large-12.columns
-        .section-underliner
-          | Outcome:
+        = field_set_tag do
+          legend Outcome
 
-        .large-12.columns
           = pe.label :episode_type_id
           = pe.collection_select :episode_type_id, Renalware::EpisodeType.all, :id, :term, { prompt: "Please select episode type" }, class: "episode-type_select"
 
-        .large-12.columns
           = pe.check_box :catheter_removed
           = pe.label :catheter_removed
 
       .large-12.columns
         .section-underliner
-          | Organisms and their sensitivities for this peritonitis episode:
+          h5 Organisms and their sensitivities for this peritonitis episode
 
         = pe.fields_for :infection_organisms do |io|
 
           = render partial: 'renalware/infection_organisms/forms', locals: { io: io }
 
         .large-12.columns
-          = pe.link_to_add 'Record a new organism and sensitivity', :infection_organisms, class: 'add-organism-sensitivity button tiny right mt'
+          = pe.link_to_add 'Record a new organism and sensitivity', :infection_organisms, class: 'add-organism-sensitivity right mt'
 
     .row
       .large-12.columns
-        .section-underliner
-          | Causes/Symptoms:
+        = field_set_tag do
+          legend Causes/Symptoms
 
-        .large-12.columns
           = pe.check_box :line_break
           = pe.label :line_break
 
@@ -64,46 +60,44 @@
           = pe.check_box :abdominal_pain
           = pe.label :abdominal_pain
 
-        .large-12.columns
           = pe.label :fluid_description_id
           = pe.collection_select :fluid_description_id, Renalware::FluidDescription.all, :id, :description, { prompt: "Please select description that best describes fluid" }, class: "episode-type_select"
 
     .row
       .large-12.columns
-        .section-underliner
-          | White Cell Count:
+        = field_set_tag do
+          legend White Cell Count
 
-        .large-4.columns
-          = pe.label :white_cell_total, "White Cell Total (x10\u2079)"
-          = pe.text_field :white_cell_total
-        .large-2.columns
-          = pe.label :white_cell_neutro, "Neutro (%)"
-          = pe.text_field :white_cell_neutro
-        .large-2.columns
-          = pe.label :white_cell_lympho, "Lympho (%)"
-          = pe.text_field :white_cell_lympho
-        .large-2.columns
-          = pe.label :white_cell_degen, "Degen (%)"
-          = pe.text_field :white_cell_degen
-        .large-2.columns
-          = pe.label :white_cell_other, "Other (%)"
-          = pe.text_field :white_cell_other
+          .large-4.columns
+            = pe.label :white_cell_total, "White Cell Total (x10\u2079)"
+            = pe.text_field :white_cell_total
+          .large-2.columns
+            = pe.label :white_cell_neutro, "Neutro (%)"
+            = pe.text_field :white_cell_neutro
+          .large-2.columns
+            = pe.label :white_cell_lympho, "Lympho (%)"
+            = pe.text_field :white_cell_lympho
+          .large-2.columns
+            = pe.label :white_cell_degen, "Degen (%)"
+            = pe.text_field :white_cell_degen
+          .large-2.columns
+            = pe.label :white_cell_other, "Other (%)"
+            = pe.text_field :white_cell_other
 
     .row
       .large-12.columns
-        .section-underliner
-          | Comments:
+        = field_set_tag do
+          legend Comments
 
-        .large-12.columns
           = pe.label :notes, "Episode notes"
           = pe.text_area :notes, cols: 50, rows: 6
 
     .row
       .large-12.columns
         .section-underliner
-          | Medications administered for this peritonitis episode:
+          h5 Medications administered for this peritonitis episode
 
         = render partial: 'renalware/medications/medication_forms', locals: { object: pe }
 
         .large-12.columns
-          = pe.link_to_add 'Add a new medication', :medications, model_object: Renalware::Medication.peritonitis, class: 'add-medication button tiny right mt'
+          = pe.link_to_add 'Add a new medication', :medications, model_object: Renalware::Medication.peritonitis, class: 'add-medication right mt'

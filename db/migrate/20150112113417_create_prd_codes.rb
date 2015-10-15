@@ -1,4 +1,4 @@
-class CreatePrdCodes < ActiveRecord::Migration
+class CreatePRDCodes < ActiveRecord::Migration
   def change
     create_table :prd_codes do |t|
       t.string :code

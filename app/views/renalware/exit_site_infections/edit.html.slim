@@ -1,24 +1,17 @@
-.wide-screen
-  .columns.large-12
-    = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
-    = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
+= render layout: "renalware/pd/layout", locals: { header: "Exit Site Infection", patient: @patient } do
 
-.row
-  h4
-    | Update an Exit Site Infection
+  .row
+    .large-12.columns
+      = render partial: "renalware/shared/errors", locals: { model: @exit_site_infection }
 
-  .large-12.columns
-    = render partial: "renalware/shared/errors", locals: { model: @exit_site_infection }
+  .row
+    .large-12.columns
+      = nested_form_for [@patient, @exit_site_infection], method: :put do |es|
 
-.row
-  .large-12.columns
-    = nested_form_for [@patient, @exit_site_infection], method: :put do |es|
-
-      = field_set_tag do
         .row
           = render partial: "renalware/exit_site_infections/form", locals: { es: es }
 
         .row.button-padding
-          = submit_tag "Update Exit Site Infection", class: "button tiny right save"
-
-          = link_to "Cancel", patient_exit_site_infection_path(@patient, @exit_site_infection.id), class: "button tiny left cancel"
+          = submit_tag "Save", class: "button"
+          span= " or "
+          = link_to "cancel", patient_exit_site_infection_path(@patient, @exit_site_infection.id)

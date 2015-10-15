@@ -3,8 +3,7 @@ module World
     module Domain
       def create_recipient_workup(_user, patient)
         Renalware::Transplants::RecipientWorkup.create!(
-          patient: patient,
-          performed_at: 1.day.ago
+          patient: patient
         )
       end
 

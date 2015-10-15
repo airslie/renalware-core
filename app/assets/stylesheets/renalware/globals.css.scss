@@ -73,8 +73,13 @@ ul.bullet-number {
 }
 
 .section-underliner {
-  border-bottom: #008cba solid 0.1em;
+  border-bottom: rgb(221, 221, 221) solid 0.1em;
   margin: 0.5em;
+}
+
+h5 {
+  font-size: 1em;
+  font-weight: bold;
 }
 
 .horizontal-divider {

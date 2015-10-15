@@ -307,7 +307,7 @@ When(/^the Clinician records the episode of peritonitis$/) do
 
   find(:xpath, ".//*[@value='hospital']").set(true)
 
-  click_on "Save Peritonitis Episode"
+  click_on "Save"
 end
 
 When(/^the Clinician records an exit site infection$/) do
@@ -323,9 +323,9 @@ When(/^the Clinician records an exit site infection$/) do
     select "#{Date.current.year}"
   end
 
-  fill_in "Treatment notes", :with => "Special treatment."
-  fill_in "Outcome notes", :with => "It is a good outcome."
-  fill_in "General notes about this infection", :with => "Review in a weeks time."
+  fill_in "Treatment", with: "Special treatment."
+  fill_in "Outcome", with: "It is a good outcome."
+  fill_in "General notes about this infection", with: "Review in a weeks time."
 
   # Add an organism and sensitvity
   click_on "Record a new organism and sensitivity"
@@ -346,7 +346,7 @@ When(/^the Clinician records an exit site infection$/) do
 
   find(:xpath, ".//*[@value='gp']").set(true)
 
-  click_on "Save Exit Site Infection"
+  click_on "Save"
 end
 
 When(/^a patient selects an episode of peritonitis view$/) do
@@ -366,7 +366,7 @@ When(/^the Clinician updates the episode of peritonitis$/) do
 
   fill_in "Episode notes", :with => "On review, needs stronger antibiotics."
 
-  click_on "Update Peritonitis Episode"
+  click_on "Save"
 end
 
 When(/^the Clinician updates an exit site infection$/) do
@@ -374,7 +374,7 @@ When(/^the Clinician updates an exit site infection$/) do
 
   fill_in "General notes about this infection", :with => "Needs a review in 2 weeks time."
 
-  click_on "Update Exit Site Infection"
+  click_on "Save"
 end
 
 When(/^they add a medication to this episode of peritonitis$/) do
@@ -390,7 +390,7 @@ When(/^they add a medication to this episode of peritonitis$/) do
 
   select_date("21 March #{Date.current.year}", from: 'Prescribed On')
 
-  click_on "Update Peritonitis Episode"
+  click_on "Save"
 end
 
 When(/^they add a medication to this exit site infection$/) do
@@ -406,7 +406,7 @@ When(/^they add a medication to this exit site infection$/) do
 
   select_date("10 April #{Date.current.year}", from: 'Prescribed On')
 
-  click_on "Update Exit Site Infection"
+  click_on "Save"
 end
 
 When(/^they record an organism and sensitivity to this episode of peritonitis$/) do
@@ -417,7 +417,7 @@ When(/^they record an organism and sensitivity to this episode of peritonitis$/)
   select "Bacillis", from: "Organism"
   fill_in "Sensitivity", with: "Very sensitive to Bacillis."
 
-  click_on "Update Peritonitis Episode"
+  click_on "Save"
 end
 
 When(/^they record an organism and sensitivity to this exit site infection$/) do
@@ -428,7 +428,7 @@ When(/^they record an organism and sensitivity to this exit site infection$/) do
   select "E.Coli", from: "Organism"
   fill_in "Sensitivity", with: "High sensitivity to E.Coli."
 
-  click_on "Update Exit Site Infection"
+  click_on "Save"
 end
 
 Then(/^the recorded episode should be displayed on PD info page$/) do

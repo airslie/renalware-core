@@ -7,12 +7,12 @@ Feature: Complete the transplant assessment for the recipient
     Given Clyde is a clinician
     And Patty is a patient in the system
 
-  @wip
+  @web
   Scenario: Create an assessment
     When Clyde creates a recipient workup for Patty
     Then Patty's recipient workup exists
 
-  @wip
+  @web
   Scenario: Update an assessment
     Given Patty has a recipient workup
     When Clyde updates the assessment

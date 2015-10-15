@@ -1,49 +1,41 @@
 fieldset.current-regime
-  legend.title-bod Current PD Regime
+  legend Current PD Regime
 
   - @current_regime.each do |current|
 
     .large-3.columns
-      ul.no-bullet
+      dl
+        dt Regime Start Date:
+        dl= current.start_date
 
-        li
-          b Regime Start Date:
-          | &nbsp;
-          = current.start_date
+        dt Regime End Date:
+        dl= default_for_blank(current.end_date, 'Pending')
 
-        li
-          b Regime End Date:
-          | &nbsp;
-          = default_for_blank(current.end_date, 'Pending')
+        dt Treatment:
+        dl= current.treatment
 
-        li
-          b Treatment:
-          | &nbsp;
-          = current.treatment
-
-        li
-          b On additional HD?:
-          | &nbsp;
-          = yes_no(current.add_hd)
+        dt On additional HD?:
+        dl= yes_no(current.add_hd)
 
     .large-3.columns
-      b Average Daily Glucose:
+      dl
+        dt Average Daily Glucose:
+        dl
+        ul style="list-style-type: disc"
+          li
+            b 1.36 %
+            | &nbsp;
+            = "#{ default_daily_glucose_average(current.glucose_ml_percent_1_36) } ml"
 
-      ul style="list-style-type: disc"
-        li
-          b 1.36 %:
-          | &nbsp;
-          = "#{ default_daily_glucose_average(current.glucose_ml_percent_1_36) } ml"
+          li
+            b 2.27 %
+            | &nbsp;
+            = "#{ default_daily_glucose_average(current.glucose_ml_percent_2_27) } ml"
 
-        li
-          b 2.27 %:
-          | &nbsp;
-          = "#{ default_daily_glucose_average(current.glucose_ml_percent_2_27) } ml"
-
-        li
-          b 3.86 %:
-          | &nbsp;
-          = "#{ default_daily_glucose_average(current.glucose_ml_percent_3_86) } ml"
+          li
+            b 3.86 %
+            | &nbsp;
+            = "#{ default_daily_glucose_average(current.glucose_ml_percent_3_86) } ml"
 
     .large-6.columns
       - if current.type == 'Renalware::APDRegime'

@@ -2,17 +2,13 @@
   dl.accordion(data-accordion)
     dd.accordion-navigation.med-form
       a.fi-plus.fi-minus  href="#edit-meds-#{pm.object.id}" class="drug-#{drug_types_colour_tag(pm.object.medicatable.drug_types)}"
-
         = "#{pm.object.medicatable.name}, #{pm.object.dose}, #{pm.object.medication_route.name}, #{pm.object.frequency}, #{pm.object.start_date}"
 
-        .right.edit
-          | Edit
-
+        .right.edit Edit
       .columns.large-12.meds-form  id="edit-meds-#{pm.object.id}" data-index=0 class="#{validation_fail(pm.object)}"
 
         fieldset
-          legend
-            | Edit this medication
+          legend Edit medication
 
           .large-12.columns
             .row
@@ -21,5 +17,3 @@
               .med-form.content id="edit-meds-#{pm.object.id}"
                 = pm.check_box :_destroy
                 = pm.label :_destroy, 'Terminate?', class: 'delete'
-
-
