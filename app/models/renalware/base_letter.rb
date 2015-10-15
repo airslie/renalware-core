@@ -19,7 +19,7 @@ module Renalware
     validates_presence_of :state, in: [:draft, :review] # TODO: Final states TBC.
 
     def self.policy_class
-      BasePolicy
+      LetterPolicy
     end
 
     def title
