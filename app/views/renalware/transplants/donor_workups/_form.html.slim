@@ -115,7 +115,7 @@ ruby:
         fieldset
           legend Other Investigations
           = fd.simple_fields_for :other_investigations, fd.object.other_investigations do |fcm|
-            = fcm.input :number_renal_arteries, input_html: { class: "small-input" }
+            = fcm.input :number_renal_arteries, collection: (1..5).to_a, input_html: { class: "small-input" }
             = fcm.input :sitting_blood_pressure, input_html: { class: "small-input" }
             table.no-stripes
               = render "dated_result_field", attribute: :protein_creatinine_ratio, f: fcm
