@@ -5,5 +5,7 @@ $(function() {
     },500);
   }
 
-  $('.datepicker').fdatepicker();
+  $('.datepicker').fdatepicker({
+    format: "dd/mm/yyyy"
+  });
 });
