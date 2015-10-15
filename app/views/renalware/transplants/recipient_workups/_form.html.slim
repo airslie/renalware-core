@@ -33,7 +33,7 @@ ruby:
       = fd.simple_fields_for :comorbidities, fd.object.comorbidities do |fcm|
         table
           - fcm.object.class.attributes_list.each do |attribute|
-            = render "dated_confirmation_field", attribute: attribute, f: fcm
+            = render_input fcm, attribute
 
     = render layout: "fieldset",
       locals: { legend: "Historical", name: "historical" } do
@@ -72,11 +72,11 @@ ruby:
               th Left
               th Right
           tbody
-            = render "left_right_confirmation_fields", attribute: :femoral_pulse, f: fcm
-            = render "left_right_confirmation_fields", attribute: :dorsalis_pedis_pulse, f: fcm
-            = render "left_right_confirmation_fields", attribute: :posterior_tibial_pulse, f: fcm
-            = render "left_right_confirmation_fields", attribute: :carotid_bruit, f: fcm
-            = render "left_right_confirmation_fields", attribute: :femoral_bruit, f: fcm
+            = render_input fcm, :femoral_pulse
+            = render_input fcm, :dorsalis_pedis_pulse
+            = render_input fcm, :posterior_tibial_pulse
+            = render_input fcm, :carotid_bruit
+            = render_input fcm, :femoral_bruit
         = fcm.input :heart_sounds, input_html: { class: "small-input" }
 
     = render layout: "fieldset",
