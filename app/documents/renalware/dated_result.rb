@@ -1,5 +1,5 @@
 module Renalware
-  class DatedResult < Document::Embedded
+  class DatedResult < NestedAttribute
     attribute :result
     attribute :date, Date
 

@@ -1,5 +1,5 @@
 module Renalware
-  class DatedTest < Document::Embedded
+  class DatedTest < NestedAttribute
     attribute :result, enums: :test
     attribute :date, Date
 

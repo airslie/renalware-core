@@ -5,20 +5,6 @@ ruby:
     patient_transplants_recipient_workup_path(@patient)
   end
 
-  sections = [
-    ["Co-morbidities", "comorbidities"],
-    ["Historical", "historical"],
-    ["Scores", "scores"],
-    ["Cervical smear", "cervical"],
-    ["Examination", "examination"],
-    ["Education", "education"],
-    ["Consent", "consent"],
-    ["HLA Data", "hla"]
-  ]
-
-
-= render "sections_nav", sections: sections
-
 .row.top
   .medium-6.columns
     = f.submit "Save", class: "button"
@@ -28,14 +14,14 @@ ruby:
 .form-content
   = f.simple_fields_for :document, f.object.document do |fd|
 
-    = render layout: "fieldset",
+    = render layout: "renalware/shared/documents/fieldset",
       locals: { legend: "Co-morbidities", name: "comorbidities" } do
       = fd.simple_fields_for :comorbidities, fd.object.comorbidities do |fcm|
         table
           - fcm.object.class.attributes_list.each do |attribute|
             = render_input fcm, attribute
 
-    = render layout: "fieldset",
+    = render layout: "renalware/shared/documents/fieldset",
       locals: { legend: "Historical", name: "historical" } do
       = fd.simple_fields_for :historicals, fd.object.historicals,
         wrapper: "two_columns_table_row" do |fcm|
@@ -50,19 +36,19 @@ ruby:
         = fcm.input :pregnancies_count, collection: (0..9).to_a,
           wrapper: "horizontal_form", input_html: { class: "small-input" }
 
-    = render layout: "fieldset",
+    = render layout: "renalware/shared/documents/fieldset",
       locals: { legend: "Scores", name: "scores" } do
       = fd.simple_fields_for :scores, fd.object.scores do |fcm|
         = fcm.input :karnofsky, input_html: { class: "small-input" }
         = fcm.input :prisma, input_html: { class: "small-input" }
 
-    = render layout: "fieldset",
+    = render layout: "renalware/shared/documents/fieldset",
       locals: { legend: "Cervical smear data (latest and historical)", name: "cervical" } do
       = fd.simple_fields_for :cervical_smear, fd.object.cervical_smear do |fcm|
         = fcm.input :result
         = fcm.input :date, as: :date_picker
 
-    = render layout: "fieldset",
+    = render layout: "renalware/shared/documents/fieldset",
       locals: { legend: "Examination", name: "examination" } do
       = fd.simple_fields_for :examination, fd.object.examination do |fcm|
         table
@@ -79,7 +65,7 @@ ruby:
             = render_input fcm, :femoral_bruit
         = fcm.input :heart_sounds, input_html: { class: "small-input" }
 
-    = render layout: "fieldset",
+    = render layout: "renalware/shared/documents/fieldset",
       locals: { legend: "Transplant Education", name: "education" } do
       = fd.simple_fields_for :education, fd.object.education,
         wrapper: "two_columns_table_row" do |fcm|
@@ -87,7 +73,7 @@ ruby:
           - fcm.object.class.attributes_list.each do |attribute|
             = fcm.input attribute, as: :inline_radio_buttons
 
-    = render layout: "fieldset",
+    = render layout: "renalware/shared/documents/fieldset",
       locals: { legend: "Consent", name: "consent" } do
       = fd.simple_fields_for :transplant_consents, fd.object.transplant_consents do |fcm|
         = fcm.input :consent, as: :inline_radio_buttons
@@ -98,7 +84,7 @@ ruby:
         = fcm.input :marginal_consent_date, as: :date_picker
         = fcm.input :marginal_consenting_name
 
-    = render layout: "fieldset",
+    = render layout: "renalware/shared/documents/fieldset",
       locals: { legend: "HLA Data", name: "hla" } do
       = fd.input :hla_data, as: :text, input_html: { rows: 10 },
         label: false, wrapper: "vertical_form"

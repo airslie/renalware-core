@@ -1,5 +1,5 @@
 module Renalware
-  class LeftRightConfirmation < Document::Embedded
+  class LeftRightConfirmation < NestedAttribute
     attribute :left, enums: :yes_no
     attribute :right, enums: :yes_no
   end

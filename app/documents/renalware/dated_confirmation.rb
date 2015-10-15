@@ -1,5 +1,5 @@
 module Renalware
-  class DatedConfirmation < Document::Embedded
+  class DatedConfirmation < NestedAttribute
     attribute :status, enums: :confirmation
     attribute :date, Date
 
