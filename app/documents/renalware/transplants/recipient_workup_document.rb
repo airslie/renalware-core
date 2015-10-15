@@ -6,6 +6,7 @@ module Renalware
         attribute :status, enums: :confirmation
         attribute :date, Date
 
+        validates :date, timeliness: { type: :date, allow_blank: true }
         validates :date, presence: true, if: "status.try(:yes?)"
       end
 
@@ -55,6 +56,8 @@ module Renalware
       class CervicalSmear < Document::Embedded
         attribute :result
         attribute :date, Date
+
+        validates :date, timeliness: { type: :date, allow_blank: true }
       end
       attribute :cervical_smear, CervicalSmear
 
@@ -76,6 +79,7 @@ module Renalware
         attribute :marginal_consent_date, Date
         attribute :marginal_consenting_name
 
+        validates :consent_date, timeliness: { type: :date, allow_blank: true }
         validates :consent_date, presence: true, if: "consent.present?"
         validates :consenting_name, presence: true, if: "consent.present?"
         validates :marginal_consenting_name, presence: true,

@@ -6,17 +6,22 @@ module Renalware
         attribute :status, enums: :confirmation
         attribute :date, Date
 
+        validates :date, timeliness: { type: :date, allow_blank: true }
         validates :date, presence: true, if: "status.try(:yes?)"
       end
 
       class DatedTest < Document::Embedded
         attribute :result, enums: :test
         attribute :date, Date
+
+        validates :date, timeliness: { type: :date, allow_blank: true }
       end
 
       class DatedResult < Document::Embedded
         attribute :result
         attribute :date, Date
+
+        validates :date, timeliness: { type: :date, allow_blank: true }
       end
 
       class Relationship < Document::Embedded

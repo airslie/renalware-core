@@ -23,6 +23,7 @@ gem 'simple_form'
 gem 'virtus'
 gem 'hashdiff'
 gem 'enumerize'
+gem 'validates_timeliness'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-fontawesome'
