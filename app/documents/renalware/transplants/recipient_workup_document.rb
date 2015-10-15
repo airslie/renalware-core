@@ -58,21 +58,27 @@ module Renalware
       end
       attribute :examination, Examination
 
-      class TransplantConsents < Document::Embedded
-        attribute :consent, enums: [:full, :partial, :refused]
-        attribute :consent_date, Date
-        attribute :consenting_name
-        attribute :marginal_consent, enums: :confirmation
-        attribute :marginal_consent_date, Date
-        attribute :marginal_consenting_name
+      class Consent < Document::Embedded
+        attribute :value, enums: %i(full partial refused)
+        attribute :date, Date
+        attribute :name
 
-        validates :consent_date, timeliness: { type: :date, allow_blank: true }
-        validates :consent_date, presence: true, if: "consent.present?"
-        validates :consenting_name, presence: true, if: "consent.present?"
-        validates :marginal_consenting_name, presence: true,
-          if: "marginal_consent.try(:yes?)"
+        validates :date, timeliness: { type: :date, allow_blank: true }
+        validates :date, presence: true, if: "value.present?"
+        validates :name, presence: true, if: "value.present?"
       end
-      attribute :transplant_consents, TransplantConsents
+      attribute :consent, Consent
+
+      class MarginalConsent < Document::Embedded
+        attribute :value, enums: %i(yes no unknown)
+        attribute :date, Date
+        attribute :name
+
+        validates :date, timeliness: { type: :date, allow_blank: true }
+        validates :date, presence: true, if: "value.present?"
+        validates :name, presence: true, if: "value.present?"
+      end
+      attribute :marginal_consent, MarginalConsent
 
       class Education < Document::Embedded
         attribute :waiting_list, enums: :confirmation

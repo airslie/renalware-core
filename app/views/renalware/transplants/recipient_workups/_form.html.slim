@@ -75,14 +75,15 @@ ruby:
 
     = render layout: "renalware/shared/documents/fieldset",
       locals: { legend: "Consent", name: "consent" } do
-      = fd.simple_fields_for :transplant_consents, fd.object.transplant_consents do |fcm|
-        = fcm.input :consent, as: :inline_radio_buttons
-        = fcm.input :consent_date, as: :date_picker
-        = fcm.input :consenting_name
+      = fd.simple_fields_for :consent, fd.object.consent do |fcm|
+        = fcm.input :value, as: :inline_radio_buttons
+        = fcm.input :date, as: :date_picker
+        = fcm.input :name
         hr
-        = fcm.input :marginal_consent, as: :inline_radio_buttons
-        = fcm.input :marginal_consent_date, as: :date_picker
-        = fcm.input :marginal_consenting_name
+      = fd.simple_fields_for :marginal_consent, fd.object.marginal_consent do |fcm|
+        = fcm.input :value, as: :inline_radio_buttons
+        = fcm.input :date, as: :date_picker
+        = fcm.input :name
 
     = render layout: "renalware/shared/documents/fieldset",
       locals: { legend: "HLA Data", name: "hla" } do

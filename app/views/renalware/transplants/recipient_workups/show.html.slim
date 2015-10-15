@@ -27,7 +27,7 @@
       legend: "Transplant Education", destination: "education"
 
     = render "renalware/shared/documents/attributes_group",
-      group: @workup.document.transplant_consents,
+      group: [@workup.document.consent, @workup.document.marginal_consent],
       legend: "Consent", destination: "consent"
 
     .row data-magellan-destination="hla"
