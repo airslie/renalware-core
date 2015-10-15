@@ -112,7 +112,7 @@ module World
       end
 
       def donor_workup_exists(_donor)
-        !first(".workup").nil?
+        expect(page).to have_content("Heart failure")
       end
 
       def workup_was_updated(_patient)
@@ -120,7 +120,7 @@ module World
       end
 
       def donor_workup_was_updated(_patient)
-        !first(".workup").nil?
+        expect(page).to have_content("193")
       end
     end
   end

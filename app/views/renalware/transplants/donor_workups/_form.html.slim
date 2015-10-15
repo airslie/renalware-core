@@ -17,11 +17,7 @@ ruby:
   ]
 
 
-div data-magellan-expedition="fixed"
-  dl.sub-nav
-    - sections.each do |title, target|
-      dd data-magellan-arrival="#{target}"
-        = link_to title, "#"+target
+= render "sections_nav", sections: sections
 
 .row.top
   .medium-6.columns
