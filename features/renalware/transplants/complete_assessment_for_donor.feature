@@ -7,12 +7,12 @@ Feature: Complete the donor assessment
     Given Clyde is a clinician
     And Don is a donor in the system
 
-  @wip @web
+  @web
   Scenario: Create an assessment
     When Clyde creates a donor workup for Don
     Then Don's donor workup exists
 
-  @wip @web
+  @web
   Scenario: Update an assessment
     Given Don has a donor workup
     When Clyde updates the donor assessment
