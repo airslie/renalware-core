@@ -2,15 +2,18 @@ module Renalware
   class PatientsController < BaseController
     include Renalware::Concerns::Pageable
 
-    load_and_authorize_resource
-
     before_filter :prepare_paging, only: [:index]
 
-    # Cancancan authorization filters
-    skip_authorize_resource only: [:show, :manage_medications, :problems]
+    before_action :find_patient, only: [:esrf_info, :pd_info, :death_update, :clinical_summary, :manage_medications, :problems,
+                                        :demographics, :edit, :update]
 
-    before_action :find_patient, only: [:death_update, :manage_medications, :problems,
-                                        :show, :edit, :update]
+    def esrf_info
+      if @patient.esrf_info.blank?
+        @esrf_info = @patient.build_esrf_info
+      else
+        @patient.current_modality
+      end
+    end
 
     def death
       @dead_patients = Patient.dead
@@ -18,6 +21,7 @@ module Renalware
 
     def index
       @patients = @patient_search.result.page(@page).per(@per_page)
+      authorize @patients
     end
 
     def problems
@@ -26,10 +30,12 @@ module Renalware
 
     def new
       @patient = Patient.new
+      authorize @patient
     end
 
     def create
       @patient = Patient.new(patient_params)
+      authorize @patient
       if @patient.save
         redirect_to patient_path(@patient), notice: "You have successfully added a new patient."
       else
@@ -62,6 +68,7 @@ module Renalware
 
     def find_patient
       @patient = Patient.find(params[:id])
+      authorize @patient
     end
   end
 end
