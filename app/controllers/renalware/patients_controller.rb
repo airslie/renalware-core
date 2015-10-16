@@ -4,29 +4,7 @@ module Renalware
 
     before_filter :prepare_paging, only: [:index]
 
-    before_action :find_patient, only: [:show, :esrf_info, :pd_info, :death_update, :clinical_summary, :manage_medications, :problems,
-      :edit, :update]
-
-    def esrf_info
-      if @patient.esrf_info.blank?
-        @esrf_info = @patient.build_esrf_info
-      else
-        @patient.current_modality
-      end
-    end
-
-    def death
-      @dead_patients = Patient.dead
-    end
-
-    def index
-      @patients = @patient_search.result.page(@page).per(@per_page)
-      authorize @patients
-    end
-
-    def problems
-      @patient.problems.build
-    end
+    before_action :find_patient, only: [:show, :edit, :update, :pd_info, :death_update, :manage_medications, :problems]
 
     def new
       @patient = Patient.new
@@ -49,6 +27,29 @@ module Renalware
       else
         render params[:template] || :edit
       end
+    end
+
+    def index
+      @patients = @patient_search.result.page(@page).per(@per_page)
+      authorize @patients
+    end
+
+    def death
+      @dead_patients = Patient.dead
+      authorize @dead_patients
+    end
+
+    def pd_info
+      @current_regime = @patient.pd_regimes.current if @patient.pd_regimes.any?
+      @capd_regimes = CapdRegime.where(patient_id: @patient).order(created_at: :desc)
+      @apd_regimes = ApdRegime.where(patient_id: @patient).order(created_at:  :desc)
+
+      @peritonitis_episodes = PeritonitisEpisode.where(patient_id: @patient)
+      @exit_site_infections = ExitSiteInfection.where(patient_id: @patient)
+    end
+
+    def problems
+      @patient.problems.build
     end
 
     private
