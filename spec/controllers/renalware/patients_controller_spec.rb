@@ -43,7 +43,7 @@ module Renalware
 
     describe 'GET show' do
       it 'responds with success' do
-        get :show, id: @subject.id
+        get :show, id: subject.id
         expect(response).to have_http_status(:success)
       end
     end
