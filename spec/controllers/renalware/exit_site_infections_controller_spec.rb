@@ -66,7 +66,7 @@ module Renalware
           exit_site_infection: {
             diagnosis_date: "25/06/#{Date.current.year}"
           }
-          expect(response).to redirect_to(pd_info_patient_path(@patient))
+          expect(response).to redirect_to(patient_exit_site_infection_path(@patient, subject))
         end
       end
 

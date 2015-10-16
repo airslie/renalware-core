@@ -23,8 +23,8 @@ module Renalware
 
     def update
       if @exit_site_infection.update(exit_site_infection_params)
-        redirect_to patient_pd_summary_path(@patient),
-        notice: "You have successfully updated an exit site infection."
+        redirect_to patient_exit_site_infection_path(@patient, @exit_site_infection),
+        :notice => "You have successfully updated an exit site infection."
       else
         render :edit
       end
