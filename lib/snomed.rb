@@ -1,3 +1,6 @@
+require_dependency 'snomed/yaml_adapter'
+require_dependency 'snomed/api_adapter'
+
 module Snomed
 
   module_function

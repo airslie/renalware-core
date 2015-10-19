@@ -1,4 +1,4 @@
-require 'snomed'
+require_dependency 'snomed'
 
 # TODO: Feed in ENV vars for API here.
 if ENV['SNOMED_API']
