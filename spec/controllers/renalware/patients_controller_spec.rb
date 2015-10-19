@@ -81,16 +81,9 @@ module Renalware
       end
     end
 
-    describe 'pd_info' do
-      it 'responds with success' do
-        get :pd_info, id: subject.id
-        expect(response).to have_http_status(:success)
-      end
-    end
-
     describe 'problems' do
       it 'responds with success' do
-        get :pd_info, id: subject.id
+        get :problems, id: subject.id
         expect(response).to have_http_status(:success)
       end
     end
