@@ -15,7 +15,7 @@ module Renalware
     end
 
     it 'checks and defines permissions for admins' do
-      policy = BasePolicy.new(admin, User.new)
+      policy = BasePolicy.new(admin, Role.new)
       expect(policy.create?).to be false
 
       policy = BasePolicy.new(admin, DrugType.new)
