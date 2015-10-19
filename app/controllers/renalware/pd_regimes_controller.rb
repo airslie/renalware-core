@@ -7,12 +7,12 @@ module Renalware
 
     def new
       regime_type = params[:type] ? "Renalware::#{params[:type]}" : nil
-      @pd_regime = PdRegime.new(patient: @patient, type: regime_type)
+      @pd_regime = PDRegime.new(patient: @patient, type: regime_type)
       authorize @pd_regime
     end
 
     def create
-      @pd_regime = PdRegime.new(pd_regime_params)
+      @pd_regime = PDRegime.new(pd_regime_params)
       authorize @pd_regime
       if perform_action(pd_regime_bags, Proc.new { @pd_regime.save }, pd_regime: @pd_regime)
         redirect_to patient_pd_summary_path(@patient), notice: "You have successfully added a PD Regime."
@@ -41,7 +41,7 @@ module Renalware
     end
 
     def find_pd_regime
-      @pd_regime = PdRegime.find(params[:id])
+      @pd_regime = PDRegime.find(params[:id])
       authorize @pd_regime
     end
 
