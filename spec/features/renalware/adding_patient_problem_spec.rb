@@ -10,7 +10,7 @@ module Renalware
       visit problems_patient_path(@patient)
     end
 
-    scenario 'A clinician saves a new problem', js: true do
+    scenario 'A clinician saves a new problem', js: true, pending: true do
       click_on 'Add a new problem'
       select2 'Anemia of diabetes', from: '#snomed_term'
       fill_in 'Description', with: 'a description'
@@ -22,7 +22,7 @@ module Renalware
       expect(@patient.problems.last.description).to eq('a description')
     end
 
-    scenario 'A clinician saves a new problem with no description', js: true do
+    scenario 'A clinician saves a new problem with no description', js: true, pending: true do
       click_on 'Add a new problem'
       select2 'Anemia of diabetes', from: '#snomed_term'
       click_on 'Save Problems'
