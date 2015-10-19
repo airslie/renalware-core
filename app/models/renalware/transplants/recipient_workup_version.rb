@@ -1,7 +1,8 @@
 module Renalware
   module Transplants
-    class RecipientWorkupVersion < Version
-      default_scope { where.not(event: "create") }
+    class RecipientWorkupVersion < PaperTrail::Version
+      self.table_name = :transplants_recipient_workup_versions
+      include DefaultVersionScope
     end
   end
 end
