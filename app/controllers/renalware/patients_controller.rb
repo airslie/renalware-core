@@ -4,7 +4,7 @@ module Renalware
 
     before_filter :prepare_paging, only: [:index]
 
-    before_action :find_patient, only: [:show, :edit, :update, :pd_info, :death_update, :manage_medications, :problems]
+    before_action :find_patient, only: [:show, :edit, :update, :death_update, :manage_medications, :problems]
 
     def new
       @patient = Patient.new
@@ -37,15 +37,6 @@ module Renalware
     def death
       @dead_patients = Patient.dead
       authorize @dead_patients
-    end
-
-    def pd_info
-      @current_regime = @patient.pd_regimes.current if @patient.pd_regimes.any?
-      @capd_regimes = CapdRegime.where(patient_id: @patient).order(created_at: :desc)
-      @apd_regimes = ApdRegime.where(patient_id: @patient).order(created_at:  :desc)
-
-      @peritonitis_episodes = PeritonitisEpisode.where(patient_id: @patient)
-      @exit_site_infections = ExitSiteInfection.where(patient_id: @patient)
     end
 
     def problems
