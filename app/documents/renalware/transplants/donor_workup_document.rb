@@ -11,6 +11,9 @@ module Renalware
             pooled_paired altruistic_non_directed other_living_non_related
           )
         attribute :relationship_other
+
+        validates :donor_recip_relationship, presence: true
+        validates :relationship_other, presence: true, if: "donor_recip_relationship.try(:other_living_non_related?)"
       end
       attribute :relationship, Relationship
 
