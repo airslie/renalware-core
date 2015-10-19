@@ -3,7 +3,9 @@
     = render "renalware/patients/patient_info_header", model: @patient
     = render "renalware/patients/mini_renal_profile", model: @patient
 
-    h2 Donor Workup
+    h2
+      | Transplant Donor Workup&nbsp;
+      = render "renalware/shared/last_update", record: @workup
 
     dl.sub-nav
       dd= link_to "View", patient_transplants_donor_workup_path(@patient)
