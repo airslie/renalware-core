@@ -40,7 +40,7 @@ module Renalware
       within('#pd-regime-bags div.fields:nth-child(1)') do
         select 'Dianeal PD2 1.36% (Yellow)', from: 'Bag Type'
 
-        fill_in 'Volume (ml)', with: 2000
+        select '2000', from: 'Volume (ml)'
 
         uncheck 'Monday'
         uncheck 'Wednesday'
@@ -54,7 +54,7 @@ module Renalware
       within('#pd-regime-bags div.fields:nth-child(2)') do
         select 'Dianeal PD2 2.27% (Green)', from: 'Bag Type'
 
-        fill_in 'Volume (ml)', with: 3000
+        select '3000', from: 'Volume (ml)'
 
         uncheck 'Tuesday'
         uncheck 'Thursday'
@@ -66,7 +66,7 @@ module Renalware
       within('#pd-regime-bags div.fields:nth-child(3)') do
         select 'Dianeal PD2 3.86% (Red)', from: 'Bag Type'
 
-        fill_in 'Volume (ml)', with: 1500
+        select '1500', from: 'Volume (ml)'
 
         uncheck 'Sunday'
         uncheck 'Wednesday'
@@ -79,7 +79,7 @@ module Renalware
       within('#pd-regime-bags div.fields:nth-child(4)') do
         select 'Dianeal PD2 3.86% (Red)', from: 'Bag Type'
 
-        fill_in 'Volume (ml)', with: 2000
+        select '2000', from: 'Volume (ml)'
 
         uncheck 'Monday'
         uncheck 'Wednesday'
