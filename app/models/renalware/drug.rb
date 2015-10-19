@@ -15,10 +15,6 @@ module Renalware
     scope :immunosuppressant, -> { joins(:drug_types).where(:drug_types => {:name => "Immunosuppressant"}) }
     scope :peritonitis, -> { joins(:drug_types).where(:drug_types => {:name => "Peritonitis"}) }
 
-    def self.policy_class
-      BasePolicy
-    end
-
     def display_type
       "Standard Drug"
     end
