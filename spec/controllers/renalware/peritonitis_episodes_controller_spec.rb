@@ -26,7 +26,7 @@ module Renalware
               diagnosis_date: "21/06/#{Date.current.year}"
             }
           }.to change(PeritonitisEpisode, :count).by(1)
-          expect(response).to redirect_to(pd_info_patient_path(@patient))
+          expect(response).to redirect_to(patient_pd_summary_path(@patient))
         end
       end
 
