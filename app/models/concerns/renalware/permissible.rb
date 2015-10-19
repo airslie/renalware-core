@@ -1,4 +1,5 @@
 require 'active_support/concern'
+require_dependency 'renalware/permission'
 
 module Renalware
   module Permissible
