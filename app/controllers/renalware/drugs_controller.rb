@@ -9,6 +9,7 @@ module Renalware
     def selected_drugs
       @medication_switch = params[:medication_switch]
       @selected_drugs = Drug.send(@medication_switch)
+      authorize @selected_drugs
       respond_to do |format|
         format.html
         format.json { render :json => @selected_drugs.as_json(:only => [:id, :name]) }
