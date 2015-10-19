@@ -126,7 +126,8 @@ When(/^I complete the form for a capd regime$/) do
   find("input.add-bag").click
 
   select('Sunshine Brand Blue–1.36', from: 'Bag Type')
-  fill_in('Volume', with: '230')
+
+  select('2500', from: 'Volume (ml)')
 
   uncheck 'Tuesday'
   uncheck 'Saturday'
@@ -148,7 +149,7 @@ When(/^I complete the form for a apd regime$/) do
   find('input.add-bag').click
 
   select('Unicorn Brand Green–3.86', from: 'Bag Type')
-  fill_in('Volume', with: '400')
+  select('4000', from: 'Volume (ml)')
   uncheck 'Tuesday'
   uncheck 'Wednesday'
   uncheck 'Saturday'
@@ -225,7 +226,7 @@ Then(/^I should see the new capd regime on the PD info page$/) do
 
   #average daily glucose
   within('table.capd-regimes tbody tr:first-child td:nth-child(5)') do
-    expect(page).to have_content("164")
+    expect(page).to have_content("1786")
   end
 
   within('table.capd-regimes tbody tr:first-child td:nth-child(6)') do
@@ -267,12 +268,12 @@ Then(/^the new capd regime should be current$/) do
     expect(page).to have_content("Yes")
 
     #average daily glucose
-    expect(page).to have_content("1.36 % 164 ml")
+    expect(page).to have_content("1.36 % 1786 ml")
     expect(page).to have_content("2.27 % 0 ml")
     expect(page).to have_content("3.86 % 0 ml")
 
     #pd regime bags
-    expect(page).to have_content("Bag type: Blue–1.36, Volume: 230ml, No. per week: 5, Days: Sun, Mon, Wed, Thu, Fri")
+    expect(page).to have_content("Bag type: Blue–1.36, Volume: 2500ml, No. per week: 5, Days: Sun, Mon, Wed, Thu, Fri")
   end
 end
 
@@ -286,10 +287,10 @@ Then(/^the new apd regime should be current$/) do
 
     expect(page).to have_content("1.36 % 0 ml")
     expect(page).to have_content("2.27 % 0 ml")
-    expect(page).to have_content("3.86 % 171 ml")
+    expect(page).to have_content("3.86 % 1714 ml")
 
     #pd regime bags
-    expect(page).to have_content("Bag type: Green–3.86, Volume: 400ml, No. per week: 3, Days: Sun, Mon, Thu")
+    expect(page).to have_content("Bag type: Green–3.86, Volume: 4000ml, No. per week: 3, Days: Sun, Mon, Thu")
 
     expect(page).to have_content("Last Fill: 520")
     expect(page).to have_content("Additional manual exchange?: Yes")
