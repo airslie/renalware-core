@@ -2,6 +2,8 @@ module Renalware
   class PatientsController < BaseController
     include Renalware::Concerns::Pageable
 
+    skip_after_action :verify_authorized, only: [ :show, :manage_medications, :problems ]
+
     before_filter :prepare_paging, only: [:index]
 
     before_action :find_patient, only: [:show, :edit, :update, :death_update, :manage_medications, :problems]
@@ -21,7 +23,12 @@ module Renalware
       end
     end
 
+    def edit
+      authorize @patient
+    end
+
     def update
+      authorize @patient
       if @patient.update(patient_params)
         redirect_to params[:redirect_url] || patient_clinical_summary_path(@patient), notice: params[:message]
       else
@@ -32,6 +39,10 @@ module Renalware
     def index
       @patients = @patient_search.result.page(@page).per(@per_page)
       authorize @patients
+    end
+
+    def death_update
+      authorize @patient
     end
 
     def death
@@ -60,7 +71,6 @@ module Renalware
 
     def find_patient
       @patient = Patient.find(params[:id])
-      authorize @patient
     end
   end
 end

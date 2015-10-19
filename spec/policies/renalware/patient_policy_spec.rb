@@ -6,7 +6,7 @@ module Renalware
 
     subject { described_class }
 
-    permissions :death_update? do
+    permissions :death_update?, :death? do
       it "grants access if user super_admin" do
         expect(subject).to permit(FactoryGirl.create(:user, :super_admin))
       end
