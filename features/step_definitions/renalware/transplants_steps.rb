@@ -8,7 +8,12 @@ end
 
 Given(/^Don has a donor workup$/) do
   @workup = Renalware::Transplants::DonorWorkup.create!(
-    patient: @don
+    patient: @don,
+    document: {
+      relationship: {
+        donor_recip_relationship: "son_or_daughter"
+      }
+    }
   )
 end
 

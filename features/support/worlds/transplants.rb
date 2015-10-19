@@ -9,7 +9,12 @@ module World
 
       def create_donor_workup(_user, patient)
         Renalware::Transplants::DonorWorkup.create!(
-          patient: patient
+          patient: patient,
+          document: {
+            relationship: {
+              donor_recip_relationship: "son_or_daughter"
+            }
+          }
         )
       end
 
@@ -74,6 +79,7 @@ module World
         visit patient_clinical_summary_path(patient)
         click_on "Transplant Donor Workup"
 
+        select "Mother or father", from: "Relationship to Recipient"
         fill_in "Oral GTT", with: "66"
 
         within ".top" do
