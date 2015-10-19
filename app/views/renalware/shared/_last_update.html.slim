@@ -1,7 +1,7 @@
 - if record.persisted?
-  - version = record.versions.last
-  span.note
-    | Last update:&nbsp;
-    = timestamp version.created_at
-    | &nbsp;by&nbsp;
-    = who_did_it version
+  - if version = record.versions.last
+    span.note
+      | Last update:&nbsp;
+      = timestamp version.created_at
+      | &nbsp;by&nbsp;
+      = who_did_it version
