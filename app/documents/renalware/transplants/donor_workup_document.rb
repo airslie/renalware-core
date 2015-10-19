@@ -85,6 +85,9 @@ module Renalware
         attribute :oral_gtt, DatedResult
       end
       attribute :other_investigations, OtherInvestigations
+
+      attribute :foo
+      attribute :bar
     end
   end
 end

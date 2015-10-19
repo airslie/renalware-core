@@ -19,7 +19,7 @@ module World
       end
 
       def update_workup(workup, _user, updated_at)
-        workup.update_attributes(
+        workup.update_attributes!(
           document: {
             historicals: {
               tb: "no"
@@ -30,8 +30,11 @@ module World
       end
 
       def update_donor_workup(workup, _user, updated_at)
-        workup.update_attributes(
+        workup.update_attributes!(
           document: {
+            relationship: {
+              donor_recip_relationship: "son_or_daughter"
+            },
             comorbidities: {
               angina: {
                 status: "no"
