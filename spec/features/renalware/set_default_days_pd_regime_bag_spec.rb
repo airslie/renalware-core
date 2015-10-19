@@ -41,7 +41,7 @@ module Renalware
 
       select 'Star Brand, Lucky Brand Green–2.34', from: 'Bag Type'
 
-      fill_in 'Volume', with: '230'
+      select '2500', from: 'Volume (ml)'
 
       uncheck 'Tuesday'
 
