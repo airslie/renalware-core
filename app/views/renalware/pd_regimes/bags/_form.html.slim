@@ -5,9 +5,9 @@
     = rb.label :bag_type_id, 'Bag Type'
     = rb.select :bag_type_id, Renalware::BagType.all.map { |bt| [bt.full_description, bt.id] }, { prompt: 'Please select a bag type' }
 
-  .large-2.columns.inline
+  .large-3.columns.inline
     = rb.label :volume, 'Volume (ml)'
-    = rb.text_field :volume
+    = rb.select :volume, pd_bag_volume_options, { prompt: "Please select from options" }, class: "pd-regime-bag-volume-select"
 
   .large-2.columns.inline
     = rb.submit 'Remove', name: "actions[remove][#{rb.index}]", class: 'right remove-bag'
