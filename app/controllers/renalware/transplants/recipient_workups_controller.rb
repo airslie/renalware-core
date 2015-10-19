@@ -1,7 +1,7 @@
 module Renalware
   module Transplants
     class RecipientWorkupsController < BaseController
-      load_and_authorize_resource class: Renalware::Transplants::RecipientWorkup
+
       before_filter :load_patient
 
       def show
