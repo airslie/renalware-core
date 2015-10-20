@@ -5,7 +5,6 @@ module Renalware
 
     def show
       @patient = Patient.find(params[:patient_id])
-      authorize @patient
     end
   end
 end
