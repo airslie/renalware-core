@@ -17,9 +17,5 @@ module Renalware
 
     validates :diagnosis_date, presence: true
 
-    def self.policy_class
-      BasePolicy
-    end
-
   end
 end
