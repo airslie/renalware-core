@@ -6,7 +6,6 @@ module Renalware
 
     def index
       @letters = @patient.letters
-      authorize @letters
     end
 
     def author
@@ -16,12 +15,10 @@ module Renalware
 
     def new
       @letter = letter_class.new(patient: @patient)
-      authorize @letter
     end
 
     def create
       @letter = letter_class.new(letter_params)
-      authorize @letter
 
       if service.update!(full_params)
         redirect_to patient_letters_path(@patient)
@@ -33,7 +30,6 @@ module Renalware
 
     def show
       @letter = BaseLetter.find(params[:id])
-      authorize @letter
     end
 
     def update
