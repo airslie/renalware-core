@@ -8,7 +8,7 @@ module Renalware
     local_patient_id = row['local_patient_id']
     demo_nhsno += 1
     logcount += 1
-    sex = (row['sex'] == 'M' ? 1 : 2)
+    sex = (row['sex'] == 'M' ? "Male" : "Female")
 
     Patient.find_or_create_by!(local_patient_id: local_patient_id) do |patient|
       patient.surname = row['surname']

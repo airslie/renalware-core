@@ -14,5 +14,9 @@ module Renalware
     validates_with DoctorEmailValidator
     validates_uniqueness_of :code
     validates_presence_of :practitioner_type
+
+    def self.policy_class
+      BasePolicy
+    end
   end
 end

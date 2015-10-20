@@ -2,6 +2,7 @@ super_admin:
   - Renalware::Role
 admin:
   - Renalware::User
+  - Renalware::BagType
   - Renalware::Drug
   - Renalware::DrugType
   - Renalware::EdtaCode

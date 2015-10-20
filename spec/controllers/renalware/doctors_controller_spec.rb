@@ -4,7 +4,7 @@ module Renalware
   describe DoctorsController, type: :controller do
 
     describe 'GET index' do
-      let(:doctors) { [build_stubbed(:doctor), build_stubbed(:doctor)] }
+      let(:doctors) { Doctor.none }
       let(:paginator) { double(:paginator, per: doctors) }
 
       it 'is successful' do
@@ -104,11 +104,6 @@ module Renalware
       it 'redirects to the doctors index when successful' do
         delete :destroy, id: @doc.to_param
         expect(response).to redirect_to(doctors_path)
-      end
-      it 'renders the doctors index when unsuccessful' do
-        expect(Doctor).to receive(:destroy).with(@doc.to_param).and_return(false)
-        delete :destroy, id: @doc.to_param
-        expect(response).to render_template(:index)
       end
     end
   end

@@ -924,7 +924,7 @@ CREATE TABLE patients (
     forename character varying,
     birth_date date,
     paediatric_patient_indicator boolean,
-    sex integer,
+    sex character varying,
     ethnicity_id integer,
     current_address_id integer,
     address_at_diagnosis_id integer,
@@ -2386,8 +2386,4 @@ INSERT INTO schema_migrations (version) VALUES ('20150903143922');
 INSERT INTO schema_migrations (version) VALUES ('20150923201215');
 
 INSERT INTO schema_migrations (version) VALUES ('20150925133903');
-
-INSERT INTO schema_migrations (version) VALUES ('20151005175700');
-
-INSERT INTO schema_migrations (version) VALUES ('20151006135256');
 
