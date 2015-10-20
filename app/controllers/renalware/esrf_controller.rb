@@ -1,8 +1,9 @@
 module Renalware
   class ESRFController < BaseController
-    skip_after_action :verify_authorized
 
-    before_action :find_patient, :find_prd_descriptions
+    before_action :load_patient
+
+    before_action :find_prd_descriptions
 
     def edit
       @esrf = ESRF.find_or_initialize_by(patient: @patient)
@@ -18,10 +19,6 @@ module Renalware
     end
 
     private
-
-    def find_patient
-      @patient = Patient.find(params[:patient_id])
-    end
 
     def find_prd_descriptions
       @prd_descriptions = PRDDescription.ordered
