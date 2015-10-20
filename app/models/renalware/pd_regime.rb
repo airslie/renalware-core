@@ -26,10 +26,6 @@ module Renalware
       apd.validates :overnight_pd_ml, allow_nil: true, numericality: { greater_than_or_equal_to: 3000, less_than_or_equal_to: 25000 }
     end
 
-    def self.policy_class
-      BasePolicy
-    end
-
     def type_apd?
       if self.type.present?
         self.type == "Renalware::APDRegime"
