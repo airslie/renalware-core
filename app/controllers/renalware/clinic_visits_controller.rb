@@ -32,12 +32,8 @@ module Renalware
     end
 
     def destroy
-      if @clinic_visit.destroy
-        redirect_to patient_clinic_visits_path(@patient)
-      else
-        flash[:error] = 'Failed to delete clinic'
-        render :index
-      end
+      @clinic_visit.destroy
+      redirect_to patient_clinic_visits_path(@patient), notice: "Patient's clinic visit successfully deleted"
     end
 
     private
