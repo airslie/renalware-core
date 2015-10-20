@@ -1,3 +1,4 @@
+@wip
 Feature: Record the transplant required by a patient
 
   A patient may require the transplant of one or many organs: kidney, pancreas or liver.
@@ -19,12 +20,10 @@ Feature: Record the transplant required by a patient
     Given Clyde is a clinician
     And Patty is a patient in the system
 
-  @wip
   Scenario: Add patient to the transplant wait list
     When Clyde creates a transplant for Patty with status "Active"
     Then Patty is on the transplant wait list
 
-  @wip
   Scenario: Enter transplant details
     Given Patty has a transplant recorded
     When Clyde updates the transplant with transplant details
