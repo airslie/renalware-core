@@ -4,7 +4,7 @@ module Renalware
   describe DoctorsController, type: :controller do
 
     describe 'GET index' do
-      let(:doctors) { [build_stubbed(:doctor), build_stubbed(:doctor)] }
+      let(:doctors) { Doctor.none }
       let(:paginator) { double(:paginator, per: doctors) }
 
       it 'is successful' do

@@ -20,7 +20,7 @@ module Renalware
 
     def index
       @bag_types = BagType.all
-      authorize @bag_type
+      authorize @bag_types
     end
 
     def update
