@@ -29,10 +29,6 @@ module Renalware
       authorize @patient
     end
 
-    def current_ability
-      @current_ability ||= Renalware::Ability.new(current_user)
-    end
-
     def user_not_authorized
       flash[:error] = "You are not authorized to perform this action."
       redirect_to patients_path
