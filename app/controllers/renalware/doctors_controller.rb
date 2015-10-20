@@ -34,10 +34,7 @@ module Renalware
     end
 
     def destroy
-      @doctor = Doctor.find(params[:id])
-      authorize @doctor
-      @doctor.destroy!
-
+      authorize Doctor.destroy(params[:id])
       redirect_to doctors_path, notice: 'Doctor successfully deleted'
     end
     private
