@@ -6,17 +6,14 @@ module Renalware
 
     def index
       @clinic_visits = @patient.clinic_visits
-      authorize @clinic_visits
     end
 
     def new
       @clinic_visit = ClinicVisit.new(patient: @patient)
-      authorize @clinic_visit
     end
 
     def create
       @clinic_visit = ClinicVisit.new(clinic_visit_params)
-      authorize @clinic_visit
       if @clinic_visit.save
         redirect_to patient_clinic_visits_path(@patient)
       else
@@ -53,7 +50,6 @@ module Renalware
 
     def load_clinic_visit
       @clinic_visit = ClinicVisit.find(params[:id])
-      authorize @clinic_visit
     end
   end
 end
