@@ -1,17 +1,15 @@
 module Renalware
   class PeritonitisEpisodesController < BaseController
 
-    before_action :load_patient, :only => [:new, :create, :show, :edit, :update]
+    before_action :load_patient, :except => [:index, :destroy]
     before_action :load_peritonitis_episode, :only => [:show, :edit, :update]
 
     def new
       @peritonitis_episode = PeritonitisEpisode.new
-      authorize @peritonitis_episode
     end
 
     def create
       @peritonitis_episode = PeritonitisEpisode.new(peritonitis_episode_params)
-      authorize @peritonitis_episode
       @peritonitis_episode.patient_id = @patient.id
       if @peritonitis_episode.save
         redirect_to patient_pd_summary_path(@patient), :notice => "You have successfully added a peritonitis episode."
@@ -42,7 +40,6 @@ module Renalware
 
     def load_peritonitis_episode
       @peritonitis_episode = PeritonitisEpisode.find(params[:id])
-      authorize @peritonitis_episode
     end
   end
 end
