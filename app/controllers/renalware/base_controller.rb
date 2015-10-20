@@ -26,6 +26,7 @@ module Renalware
 
     def load_patient
       @patient = Patient.find(params[:patient_id])
+      authorize @patient
     end
 
     def current_ability
