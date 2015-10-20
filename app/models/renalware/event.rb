@@ -5,8 +5,5 @@ module Renalware
 
     validates :patient, :event_type, :date_time, :description, :notes, :presence => true
 
-    def self.policy_class
-      BasePolicy
-    end
   end
 end
