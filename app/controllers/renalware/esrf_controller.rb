@@ -1,16 +1,15 @@
 module Renalware
   class ESRFController < BaseController
+    skip_after_action :verify_authorized
 
     before_action :find_patient, :find_prd_descriptions
 
     def edit
       @esrf = ESRF.find_or_initialize_by(patient: @patient)
-      authorize @esrf
     end
 
     def update
       @esrf = ESRF.find_or_initialize_by(patient: @patient)
-      authorize @esrf
       if @esrf.update_attributes(esrf_params)
         redirect_to patient_clinical_summary_path(@patient), notice: t(".success")
       else
