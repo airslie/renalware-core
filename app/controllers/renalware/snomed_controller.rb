@@ -1,5 +1,9 @@
+require 'snomed/yaml_adapter'
+
 module Renalware
   class SnomedController < BaseController
+
+    skip_after_action :verify_authorized
 
     def index
       render :json => Snomed.search(snomed_params).to_h
