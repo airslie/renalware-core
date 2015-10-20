@@ -10,10 +10,6 @@ module Renalware
       has_paper_trail class_name: "Renalware::Transplants::RecipientWorkupVersion"
       has_document class_name: "RecipientWorkupDocument"
 
-      def self.policy_class
-        BasePolicy
-      end
-
       def self.for_patient(patient)
         where(patient: patient).first_or_initialize
       end
