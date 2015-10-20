@@ -4,9 +4,13 @@ module Renalware
   describe YAMLPermissionConfiguration, type: :policy do
     subject { YAMLPermissionConfiguration.new(model, Rails.root.join('spec', 'fixtures', 'permissions.yml')) }
 
+    class ::FakeModel; end
+
+    let(:model) { FakeModel }
+
     describe "#restricted?" do
       context "given a model has not been specified in the configuration" do
-        let(:model) { ::FakeModel = Class.new }
+        let(:model) { ::FakeUnspecifiedModel = Class.new }
 
         it "returns false" do
           expect(subject.restricted?).to be false
@@ -14,7 +18,6 @@ module Renalware
       end
 
       context "given a model has been specified in the configuration" do
-        let(:model) { ::FakeUser = Class.new }
 
         it "returns true" do
           expect(subject.restricted?).to be true
@@ -24,7 +27,6 @@ module Renalware
 
     describe "#has_permission?" do
       context "given a user has not been assigned the role to manage the model" do
-        let(:model) { ::FakeUser = Class.new }
         let(:admin) { double(:admin, role_names: [:admin]) }
 
         it "returns false" do
@@ -33,7 +35,6 @@ module Renalware
       end
 
       context "given a user has been assigned the role to manage the model" do
-        let(:model) { ::FakeUser = Class.new }
         let(:super_admin) { double(:super_admin, role_names: [:super_admin]) }
 
         it "returns false" do
