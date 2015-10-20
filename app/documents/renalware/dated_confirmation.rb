@@ -1,6 +1,6 @@
 module Renalware
   class DatedConfirmation < NestedAttribute
-    attribute :status, enums: :confirmation
+    attribute :status, enums: %i(yes no unknown)
     attribute :date, Date
 
     validates :date, timeliness: { type: :date, allow_blank: true }

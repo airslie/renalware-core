@@ -108,16 +108,7 @@ module Document
     #
     # You can specify an enum attribute by passing the `enums` options:
     #
-    #   attribute :gender, enums: [:male, :female]
-    #
-    # For a confirmation attribute (yes, no, unknown), pass `:confirmation`
-    # as the enums array:
-    #
-    #   attribute :accepted, enums: :confirmation
-    #
-    # For a yes/no attribute, pass `:yes_no` as the enums array:
-    #
-    #   attribute :accepted, enums: :yes_no
+    #   attribute :gender, enums: %i(male female)
     #
     def self.attribute(*args)
       options = args.extract_options!
@@ -134,16 +125,6 @@ module Document
         end
       else
         enums = options[:enums]
-        case enums
-        when :confirmation
-          enums = %i(yes no unknown)
-        when :test
-          enums = %i(negative positive not_done)
-        when :infection_status
-          enums = %i(negative positive test_result_awaited not_tested unknown)
-        when :yes_no
-          enums = %i(yes no)
-        end
       end
       super(name, type, options)
       enumerize name, in: enums if enums

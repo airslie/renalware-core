@@ -1,6 +1,6 @@
 module Renalware
   class LeftRightConfirmation < NestedAttribute
-    attribute :left, enums: :yes_no
-    attribute :right, enums: :yes_no
+    attribute :left, enums: %i(yes no)
+    attribute :right, enums: %i(yes no)
   end
 end

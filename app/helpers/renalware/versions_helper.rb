@@ -5,8 +5,11 @@ module Renalware
     def who_did_it(model)
       if model.whodunnit
         user_id = model.whodunnit.to_i
-        user = User.find(user_id)
-        user.try(:name)
+        if user = User.find_by(id: user_id)
+          user.name
+        else
+          "User #{user_id}"
+        end
       else
         "System"
       end

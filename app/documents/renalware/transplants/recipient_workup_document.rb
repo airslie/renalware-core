@@ -2,6 +2,8 @@ module Renalware
   module Transplants
     class RecipientWorkupDocument < Document::Embedded
 
+      CONFIRMATION = %i(yes no)
+
       class Comorbidities < Document::Embedded
         attribute :angina, DatedConfirmation
         attribute :myocardial_infarct, DatedConfirmation
@@ -21,12 +23,12 @@ module Renalware
       attribute :comorbidities, Comorbidities
 
       class Historicals < Document::Embedded
-        attribute :tb, enums: :confirmation
-        attribute :dvt, enums: :confirmation
-        attribute :reflux, enums: :confirmation
-        attribute :neurogenic_bladder, enums: :confirmation
-        attribute :recurrent_utis, enums: :confirmation
-        attribute :family_diabetes, enums: :confirmation
+        attribute :tb, enums: CONFIRMATION
+        attribute :dvt, enums: CONFIRMATION
+        attribute :reflux, enums: CONFIRMATION
+        attribute :neurogenic_bladder, enums: CONFIRMATION
+        attribute :recurrent_utis, enums: CONFIRMATION
+        attribute :family_diabetes, enums: CONFIRMATION
         attribute :pregnancies_count, Integer
       end
       attribute :historicals, Historicals
@@ -81,17 +83,17 @@ module Renalware
       attribute :marginal_consent, MarginalConsent
 
       class Education < Document::Embedded
-        attribute :waiting_list, enums: :confirmation
-        attribute :transport_benefits, enums: :confirmation
-        attribute :procedure, enums: :confirmation
-        attribute :infection, enums: :confirmation
-        attribute :rejection, enums: :confirmation
-        attribute :success_rate, enums: :confirmation
-        attribute :drugs_shortterm, enums: :confirmation
-        attribute :drugs_longterm, enums: :confirmation
-        attribute :cancer, enums: :confirmation
-        attribute :followup, enums: :confirmation
-        attribute :recurrence, enums: :confirmation
+        attribute :waiting_list, enums: CONFIRMATION
+        attribute :transport_benefits, enums: CONFIRMATION
+        attribute :procedure, enums: CONFIRMATION
+        attribute :infection, enums: CONFIRMATION
+        attribute :rejection, enums: CONFIRMATION
+        attribute :success_rate, enums: CONFIRMATION
+        attribute :drugs_shortterm, enums: CONFIRMATION
+        attribute :drugs_longterm, enums: CONFIRMATION
+        attribute :cancer, enums: CONFIRMATION
+        attribute :followup, enums: CONFIRMATION
+        attribute :recurrence, enums: CONFIRMATION
       end
       attribute :education, Education
 

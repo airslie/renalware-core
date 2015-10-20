@@ -1,17 +1,10 @@
-ruby:
-  if group.respond_to? :each
-    groups = group
-  else
-    groups = [group]
-  end
-
 .row data-magellan-destination="#{destination}"
   a name="#{destination}"
   .columns.large-12
     = field_set_tag do
       legend= legend
       dl
-        - groups.each do |group|
+        - Array.wrap(group).each do |group|
           - group.class.attributes_list.each do |attribute|
             - value = group.send(attribute)
             dt

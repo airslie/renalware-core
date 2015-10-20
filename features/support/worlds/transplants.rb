@@ -46,20 +46,20 @@ module World
       end
 
       def recipient_workup_exists(patient)
-        Renalware::Transplants::RecipientWorkup.for_patient(patient).present?
+        Renalware::Transplants::RecipientWorkup.for_patient(patient).any?
       end
 
       def donor_workup_exists(donor)
-        Renalware::Transplants::DonorWorkup.for_patient(donor).present?
+        Renalware::Transplants::DonorWorkup.for_patient(donor).any?
       end
 
       def workup_was_updated(patient)
-        workup = Renalware::Transplants::RecipientWorkup.for_patient(patient)
+        workup = Renalware::Transplants::RecipientWorkup.for_patient(patient).first
         workup.updated_at != workup.created_at
       end
 
       def donor_workup_was_updated(patient)
-        workup = Renalware::Transplants::DonorWorkup.for_patient(patient)
+        workup = Renalware::Transplants::DonorWorkup.for_patient(patient).first
         workup.updated_at != workup.created_at
       end
     end
