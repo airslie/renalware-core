@@ -6,7 +6,7 @@ $(function() {
   }
 
   $('.datepicker').fdatepicker({
-    format: "dd/mm/yyyy"
+    format: "dd-mm-yyyy"
   });
 
   $('.datepicker-wrapper i').on('click', function() {
