@@ -6,11 +6,11 @@ Feature: Record the transplant required by a patient
 
   Transplant details:
 
-  - Blood Group
-  - HLA Type
   - Type of transplant patient requires
   - Pancreas only transplant type
   - Rejection Risk
+  - Blood Group
+  - HLA Type
   - If kidney/pancreas required, is the patient also to be listed for kidney only?
   - In addition to this registration, is the patient to be listed for other organ(s)?
   - Has this recipient received a previous kidney or pancreas graft(s)?
@@ -19,12 +19,13 @@ Feature: Record the transplant required by a patient
     Given Clyde is a clinician
     And Patty is a patient in the system
 
+  @wip
   Scenario: Add patient to the transplant wait list
-    When Clyde creates a transplant for Patty
-     And the transplant status is set to "Active"
+    When Clyde creates a transplant for Patty with status "Active"
     Then Patty is on the transplant wait list
 
-  Scenario: Enter transplant requirements
+  @wip
+  Scenario: Enter transplant details
     Given Patty has a transplant recorded
     When Clyde updates the transplant with transplant details
     Then Patty's transplant get updated
