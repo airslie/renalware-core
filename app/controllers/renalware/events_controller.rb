@@ -5,14 +5,11 @@ module Renalware
 
     def new
       @event = Event.new
-      authorize @event
       @event_type = EventType.new
     end
 
     def create
       @event = @patient.events.new(event_params)
-      authorize @event
-
       if @event.save
         redirect_to patient_events_path(@patient), :notice => "You have successfully added an encounter/event."
       else
@@ -22,7 +19,6 @@ module Renalware
 
     def index
       @events = @patient.events
-      authorize @events
     end
 
     private
