@@ -22,10 +22,12 @@ gem 'simple_form'
 gem 'virtus'
 gem 'hashdiff'
 gem 'enumerize'
+gem 'validates_timeliness'
 gem 'pundit'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-fontawesome'
+  # https://github.com/najlepsiwebdesigner/foundation-datepicker
   gem 'rails-assets-foundation-datepicker'
 end
 

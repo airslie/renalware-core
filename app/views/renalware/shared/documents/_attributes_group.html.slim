@@ -1,0 +1,18 @@
+.row data-magellan-destination="#{destination}"
+  a name="#{destination}"
+  .columns.large-12
+    = field_set_tag do
+      legend= legend
+      dl
+        - Array.wrap(group).each do |group|
+          - group.class.attributes_list.each do |attribute|
+            - value = group.send(attribute)
+            dt
+              = group.class.human_attribute_name attribute
+            dd
+              - if value.respond_to? :nested_attribute?
+                = render value
+              - elsif value.respond_to? :text
+                = value.text
+              - else
+                = value

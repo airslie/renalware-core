@@ -1,0 +1,6 @@
+= f.simple_fields_for attribute, f.object.send(attribute) do |fd|
+  tr
+    td= fd.label :status, f.object.class.human_attribute_name(attribute)
+    td= fd.input :status, as: :inline_radio_buttons,
+        label: false, wrapper: "vertical_form"
+    td= fd.input :date, as: :date_picker, label: false, wrapper: "vertical_form"

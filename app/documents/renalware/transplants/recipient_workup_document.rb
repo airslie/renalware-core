@@ -1,20 +1,10 @@
-require_dependency 'document/embedded'
+require "document/embedded"
 
 module Renalware
   module Transplants
     class RecipientWorkupDocument < Document::Embedded
 
-      class DatedConfirmation < Document::Embedded
-        attribute :status, enums: :confirmation
-        attribute :date, Date
-
-        validates :date, presence: true, if: "status.try(:yes?)"
-      end
-
-      class LeftRightConfirmation < Document::Embedded
-        attribute :left, enums: :yes_no
-        attribute :right, enums: :yes_no
-      end
+      CONFIRMATION = %i(yes no)
 
       class Comorbidities < Document::Embedded
         attribute :angina, DatedConfirmation
@@ -35,12 +25,12 @@ module Renalware
       attribute :comorbidities, Comorbidities
 
       class Historicals < Document::Embedded
-        attribute :tb, enums: :confirmation
-        attribute :dvt, enums: :confirmation
-        attribute :reflux, enums: :confirmation
-        attribute :neurogenic_bladder, enums: :confirmation
-        attribute :recurrent_utis, enums: :confirmation
-        attribute :family_diabetes, enums: :confirmation
+        attribute :tb, enums: CONFIRMATION
+        attribute :dvt, enums: CONFIRMATION
+        attribute :reflux, enums: CONFIRMATION
+        attribute :neurogenic_bladder, enums: CONFIRMATION
+        attribute :recurrent_utis, enums: CONFIRMATION
+        attribute :family_diabetes, enums: CONFIRMATION
         attribute :pregnancies_count, Integer
       end
       attribute :historicals, Historicals
@@ -57,6 +47,8 @@ module Renalware
       class CervicalSmear < Document::Embedded
         attribute :result
         attribute :date, Date
+
+        validates :date, timeliness: { type: :date, allow_blank: true }
       end
       attribute :cervical_smear, CervicalSmear
 
@@ -70,33 +62,40 @@ module Renalware
       end
       attribute :examination, Examination
 
-      class TransplantConsents < Document::Embedded
-        attribute :consent, enums: [:full, :partial, :refused]
-        attribute :consent_date, Date
-        attribute :consenting_name
-        attribute :marginal_consent, enums: :confirmation
-        attribute :marginal_consent_date, Date
-        attribute :marginal_consenting_name
+      class Consent < Document::Embedded
+        attribute :value, enums: %i(full partial refused)
+        attribute :date, Date
+        attribute :name
 
-        validates :consent_date, presence: true, if: "consent.present?"
-        validates :consenting_name, presence: true, if: "consent.present?"
-        validates :marginal_consenting_name, presence: true,
-          if: "marginal_consent.try(:yes?)"
+        validates :date, timeliness: { type: :date, allow_blank: true }
+        validates :date, presence: true, if: "value.present?"
+        validates :name, presence: true, if: "value.present?"
       end
-      attribute :transplant_consents, TransplantConsents
+      attribute :consent, Consent
+
+      class MarginalConsent < Document::Embedded
+        attribute :value, enums: %i(yes no unknown)
+        attribute :date, Date
+        attribute :name
+
+        validates :date, timeliness: { type: :date, allow_blank: true }
+        validates :date, presence: true, if: "value.present?"
+        validates :name, presence: true, if: "value.present?"
+      end
+      attribute :marginal_consent, MarginalConsent
 
       class Education < Document::Embedded
-        attribute :waiting_list, enums: :confirmation
-        attribute :transport_benefits, enums: :confirmation
-        attribute :procedure, enums: :confirmation
-        attribute :infection, enums: :confirmation
-        attribute :rejection, enums: :confirmation
-        attribute :success_rate, enums: :confirmation
-        attribute :drugs_shortterm, enums: :confirmation
-        attribute :drugs_longterm, enums: :confirmation
-        attribute :cancer, enums: :confirmation
-        attribute :followup, enums: :confirmation
-        attribute :recurrence, enums: :confirmation
+        attribute :waiting_list, enums: CONFIRMATION
+        attribute :transport_benefits, enums: CONFIRMATION
+        attribute :procedure, enums: CONFIRMATION
+        attribute :infection, enums: CONFIRMATION
+        attribute :rejection, enums: CONFIRMATION
+        attribute :success_rate, enums: CONFIRMATION
+        attribute :drugs_shortterm, enums: CONFIRMATION
+        attribute :drugs_longterm, enums: CONFIRMATION
+        attribute :cancer, enums: CONFIRMATION
+        attribute :followup, enums: CONFIRMATION
+        attribute :recurrence, enums: CONFIRMATION
       end
       attribute :education, Education
 

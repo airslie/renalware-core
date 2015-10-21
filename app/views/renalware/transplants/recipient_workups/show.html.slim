@@ -1,42 +1,33 @@
-ruby:
-  sections = [
-    ["Co-morbidities", "comorbidities"],
-    ["Historical", "historical"],
-    ["Scores", "scores"],
-    ["Cervical smear", "cervical"],
-    ["Examination", "examination"],
-    ["Education", "education"],
-    ["Consent", "consent"],
-    ["HLA Data", "hla"]
-  ]
-
-.row
-  .columns.large-12
-    = render "record_header"
-
-    = render "sections_nav", sections: sections
+= render "record_header"
 
 - if @workup
   .document-view
-    = render "group", group: @workup.document.comorbidities,
+    = render "renalware/shared/documents/attributes_group",
+      group: @workup.document.comorbidities,
       legend: "Co-morbidities", destination: "comorbidities"
 
-    = render "group", group: @workup.document.historicals,
+    = render "renalware/shared/documents/attributes_group",
+      group: @workup.document.historicals,
       legend: "Historicals", destination: "historical"
 
-    = render "group", group: @workup.document.scores,
+    = render "renalware/shared/documents/attributes_group",
+      group: @workup.document.scores,
       legend: "Scores", destination: "scores"
 
-    = render "group", group: @workup.document.cervical_smear,
+    = render "renalware/shared/documents/attributes_group",
+      group: @workup.document.cervical_smear,
       legend: "Cervical smear data (latest and historical)", destination: "cervical"
 
-    = render "group", group: @workup.document.examination,
+    = render "renalware/shared/documents/attributes_group",
+      group: @workup.document.examination,
       legend: "Examination", destination: "examination"
 
-    = render "group", group: @workup.document.education,
+    = render "renalware/shared/documents/attributes_group",
+      group: @workup.document.education,
       legend: "Transplant Education", destination: "education"
 
-    = render "group", group: @workup.document.transplant_consents,
+    = render "renalware/shared/documents/attributes_group",
+      group: [@workup.document.consent, @workup.document.marginal_consent],
       legend: "Consent", destination: "consent"
 
     .row data-magellan-destination="hla"

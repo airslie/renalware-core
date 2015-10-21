@@ -1,17 +1,18 @@
-require_dependency 'document/base'
+require "document/base"
 
 module Renalware
   module Transplants
     class RecipientWorkup < ActiveRecord::Base
       include Document::Base
+      include PatientScope
 
       belongs_to :patient
 
       has_paper_trail class_name: "Renalware::Transplants::RecipientWorkupVersion"
       has_document class_name: "RecipientWorkupDocument"
 
-      def self.for_patient(patient)
-        where(patient: patient).first_or_initialize
+      def self.policy_class
+        BasePolicy
       end
     end
   end

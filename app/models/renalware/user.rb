@@ -29,5 +29,9 @@ module Renalware
         errors.add(:approved, 'approved users must have a role')
       end
     end
+
+    def name
+      [first_name, last_name].compact.join(" ")
+    end
   end
 end
