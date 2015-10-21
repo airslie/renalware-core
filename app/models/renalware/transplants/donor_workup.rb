@@ -1,4 +1,4 @@
-require 'document/base'
+require "document/base"
 
 module Renalware
   module Transplants

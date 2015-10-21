@@ -1,4 +1,4 @@
-require 'document/embedded'
+require "document/embedded"
 
 module Renalware
   module Transplants
