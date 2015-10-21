@@ -2,13 +2,7 @@ module Renalware
   module PDRegimesHelper
 
     def tidal_options
-      options = []
-      tidal = 55
-      while tidal < 100
-        tidal += 5
-        options << tidal
-      end
-      options
+      60.step(100, 5).to_a
     end
 
     def default_daily_glucose_average(glucose)
