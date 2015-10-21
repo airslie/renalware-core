@@ -1,4 +1,5 @@
 require 'rails_helper'
+require_dependency 'snomed'
 
 describe Snomed do
 

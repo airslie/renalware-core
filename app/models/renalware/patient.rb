@@ -49,8 +49,6 @@ module Renalware
 
     scope :dead, -> { where.not(death_date: nil) }
 
-    enum sex: { not_known: 0, male: 1, female: 2, not_specified: 9 }
-
     alias_attribute :first_name, :forename
     alias_attribute :last_name,  :surname
 

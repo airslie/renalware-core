@@ -33,7 +33,7 @@ module Renalware
 
       let(:page) { double(:page) }
       let(:result) { double(:result, page: page) }
-      let(:search) { double(:search, result: result) }
+      let(:search) { double(:search, result: Drug.none) }
 
       it 'responds successfully' do
         get :index
@@ -42,7 +42,6 @@ module Renalware
 
       context 'with no params' do
         it 'returns all drugs' do
-          expect(page).to receive(:per)
           expect(Drug).to receive(:ransack).and_return(search)
           expect(search).to receive(:sorts=).with('name')
 
@@ -53,7 +52,6 @@ module Renalware
       context 'with search params' do
         it 'ransacks for drugs' do
           expect(Drug).to receive(:ransack).and_return(search)
-          expect(page).to receive(:per)
           expect(search).to receive(:sorts=).with('name')
 
           get :index, q: { name_cont: 'cillin' }
@@ -72,7 +70,7 @@ module Renalware
       context 'as JSON' do
         it 'responds with JSON' do
           expect(Drug).to receive(:ransack).and_return(search)
-          allow(search).to receive(:result).and_return([])
+          allow(search).to receive(:result).and_return(Drug.none)
           expect(search).to receive(:sorts=).with('name')
 
           get :index, format: :json

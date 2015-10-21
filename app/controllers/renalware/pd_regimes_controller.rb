@@ -2,8 +2,6 @@ module Renalware
   class PDRegimesController < BaseController
     include Renalware::Concerns::NestedActionsControllerMethods
 
-    load_and_authorize_resource
-
     before_action :load_patient
     before_action :find_pd_regime, only: [:edit, :update, :show]
 

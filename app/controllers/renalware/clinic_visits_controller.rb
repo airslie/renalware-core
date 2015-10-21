@@ -1,6 +1,5 @@
 module Renalware
   class ClinicVisitsController < BaseController
-    load_and_authorize_resource
 
     before_filter :load_patient
     before_filter :load_clinic_visit, only: [:edit, :update, :destroy]
@@ -15,7 +14,6 @@ module Renalware
 
     def create
       @clinic_visit = ClinicVisit.new(clinic_visit_params)
-
       if @clinic_visit.save
         redirect_to patient_clinic_visits_path(@patient)
       else
@@ -34,12 +32,8 @@ module Renalware
     end
 
     def destroy
-      if @clinic_visit.destroy
-        redirect_to patient_clinic_visits_path(@patient)
-      else
-        flash[:error] = 'Failed to delete clinic'
-        render :index
-      end
+      @clinic_visit.destroy
+      redirect_to patient_clinic_visits_path(@patient), notice: "Patient's clinic visit successfully deleted"
     end
 
     private

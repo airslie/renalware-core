@@ -10,6 +10,10 @@ module Renalware
 
     PD_NAMES = ['PD-APD', 'PD-CAPD', 'PD Rest on HD', 'PD-Assisted APD', 'PD-PrePD']
 
+    def self.policy_class
+      BasePolicy
+    end
+
     def death?
       name == 'Death'
     end

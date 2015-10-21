@@ -1,6 +1,5 @@
 module Renalware
   class ModalitiesController < BaseController
-    load_and_authorize_resource
 
     before_filter :load_patient
 

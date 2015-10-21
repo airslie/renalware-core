@@ -1,3 +1,5 @@
+require_dependency 'document/base'
+
 module Renalware
   module Transplants
     class RecipientWorkup < ActiveRecord::Base

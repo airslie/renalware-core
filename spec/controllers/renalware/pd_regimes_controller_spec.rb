@@ -102,6 +102,22 @@ module Renalware
       end
     end
 
+    describe 'GET show' do
+      it 'responds with success' do
+        get :show, id: @capd_regime.id, patient_id: @patient.id
+        expect(response).to have_http_status(:success)
+      end
+    end
+
+    describe 'GET edit' do
+      it 'responds with success' do
+        get :edit,
+        id: @capd_regime.id,
+        patient_id: @patient.id
+        expect(response).to have_http_status(:success)
+      end
+    end
+
     describe 'PUT #update' do
       context "with valid attributes" do
         it 'updates a CAPD Regime' do

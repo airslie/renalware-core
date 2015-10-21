@@ -1,6 +1,6 @@
-class CreatePRDCodes < ActiveRecord::Migration
+class CreatePRDDescriptions < ActiveRecord::Migration
   def change
-    create_table :prd_codes do |t|
+    create_table :prd_descriptions do |t|
       t.string :code
       t.string :term
       t.timestamps null: true

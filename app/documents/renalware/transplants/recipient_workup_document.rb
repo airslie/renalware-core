@@ -1,3 +1,5 @@
+require_dependency 'document/embedded'
+
 module Renalware
   module Transplants
     class RecipientWorkupDocument < Document::Embedded

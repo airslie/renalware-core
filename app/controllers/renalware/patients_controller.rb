@@ -2,34 +2,20 @@ module Renalware
   class PatientsController < BaseController
     include Renalware::Concerns::Pageable
 
-    load_and_authorize_resource
+    skip_after_action :verify_authorized, only: [ :show, :manage_medications, :problems ]
 
     before_filter :prepare_paging, only: [:index]
 
-    # Cancancan authorization filters
-    skip_authorize_resource only: [:show, :manage_medications, :problems]
-
-    before_action :find_patient, only: [:death_update, :manage_medications, :problems,
-                                        :show, :edit, :update]
-
-    def death
-      @dead_patients = Patient.dead
-    end
-
-    def index
-      @patients = @patient_search.result.page(@page).per(@per_page)
-    end
-
-    def problems
-      @patient.problems.build
-    end
+    before_action :find_patient, only: [:show, :edit, :update, :death_update, :manage_medications, :problems]
 
     def new
       @patient = Patient.new
+      authorize @patient
     end
 
     def create
       @patient = Patient.new(patient_params)
+      authorize @patient
       if @patient.save
         redirect_to patient_path(@patient), notice: "You have successfully added a new patient."
       else
@@ -37,12 +23,35 @@ module Renalware
       end
     end
 
+    def edit
+      authorize @patient
+    end
+
     def update
+      authorize @patient
       if @patient.update(patient_params)
         redirect_to params[:redirect_url] || patient_clinical_summary_path(@patient), notice: params[:message]
       else
         render params[:template] || :edit
       end
+    end
+
+    def index
+      @patients = @patient_search.result.page(@page).per(@per_page)
+      authorize @patients
+    end
+
+    def death_update
+      authorize @patient
+    end
+
+    def death
+      @dead_patients = Patient.dead
+      authorize @dead_patients
+    end
+
+    def problems
+      @patient.problems.build
     end
 
     private

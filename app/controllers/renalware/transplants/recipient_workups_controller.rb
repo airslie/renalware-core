@@ -1,7 +1,7 @@
 module Renalware
   module Transplants
     class RecipientWorkupsController < BaseController
-      load_and_authorize_resource class: Renalware::Transplants::RecipientWorkup
+
       before_filter :load_patient
 
       def show
@@ -14,9 +14,8 @@ module Renalware
       end
 
       def update
-        @workup = RecipientWorkup.for_patient(@patient).first_or_initialize
-
-        if @workup.update_attributes(workup_params)
+        @workup = RecipientWorkup.for_patient(@patient)
+        if @workup.update_attributes workup_params
           redirect_to patient_transplants_recipient_workup_path(@patient)
         else
           render :edit
