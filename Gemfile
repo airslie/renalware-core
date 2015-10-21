@@ -55,9 +55,6 @@ group :development, :test do
   gem 'spring-commands-rspec'
   gem 'rubocop', require: false
   gem 'web-console', '~> 2.0'
-
-  gem 'haml2slim' # TODO: remove when we're done moving to Slim
-  gem 'html2slim' # TODO: remove when we're done moving to Slim
 end
 
 group :test do
