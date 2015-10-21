@@ -19,6 +19,7 @@ module Renalware
 
     def create
       @letter = letter_class.new(letter_params)
+      @letter.patient = @patient
 
       if service.update!(full_params)
         redirect_to patient_letters_path(@patient)
@@ -56,7 +57,7 @@ module Renalware
     end
 
     def letter_params
-      params.require(:letter).permit(:id, :patient_id, :author_id,
+      params.require(:letter).permit(:id, :author_id,
                                      :clinic_visit_id, :recipient,
                                      :letter_description_id,
                                      :body, :state)
