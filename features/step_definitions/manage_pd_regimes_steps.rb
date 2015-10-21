@@ -3,7 +3,7 @@ Given(/^I choose to record a new capd regime$/) do
 end
 
 Given(/^I choose to record a new apd regime$/) do
-  click_on 'Add APD Regime'
+  click_on "Add APD Regime"
 end
 
 Given(/^a patient has existing CAPD Regimes$/) do
@@ -111,62 +111,62 @@ Given(/^a patient has existing APD Regimes$/) do
 end
 
 When(/^I complete the form for a capd regime$/) do
-  select '2015', from: 'pd_regime_start_date_1i'
-  select 'April', from: 'pd_regime_start_date_2i'
-  select '2', from: 'pd_regime_start_date_3i'
+  select "2015", from: "pd_regime_start_date_1i"
+  select "April", from: "pd_regime_start_date_2i"
+  select "2", from: "pd_regime_start_date_3i"
 
-  select '2015', from: 'pd_regime_end_date_1i'
-  select 'June', from: 'pd_regime_end_date_2i'
-  select '1', from: 'pd_regime_end_date_3i'
+  select "2015", from: "pd_regime_end_date_1i"
+  select "June", from: "pd_regime_end_date_2i"
+  select "1", from: "pd_regime_end_date_3i"
 
-  select('CAPD 4 exchanges per day', from: 'Treatment')
+  select("CAPD 4 exchanges per day", from: "Treatment")
 
   check "On additional HD"
 
   find("input.add-bag").click
 
-  select('Sunshine Brand Blue–1.36', from: 'Bag Type')
+  select("Sunshine Brand Blue–1.36", from: "Bag Type")
 
-  select('2500', from: 'Volume (ml)')
+  select("2500", from: "Volume (ml)")
 
-  uncheck 'Tuesday'
-  uncheck 'Saturday'
+  uncheck "Tuesday"
+  uncheck "Saturday"
 
   click_on "Save"
 end
 
 When(/^I complete the form for a apd regime$/) do
-  select '2015', from: 'pd_regime_start_date_1i'
-  select 'May', from: 'pd_regime_start_date_2i'
-  select '15', from: 'pd_regime_start_date_3i'
+  select "2015", from: "pd_regime_start_date_1i"
+  select "May", from: "pd_regime_start_date_2i"
+  select "15", from: "pd_regime_start_date_3i"
 
-  select '2015', from: 'pd_regime_end_date_1i'
-  select 'July', from: 'pd_regime_end_date_2i'
-  select '16', from: 'pd_regime_end_date_3i'
+  select "2015", from: "pd_regime_end_date_1i"
+  select "July", from: "pd_regime_end_date_2i"
+  select "16", from: "pd_regime_end_date_3i"
 
-  select('APD Wet day with additional exchange', from: 'Treatment')
+  select("APD Wet day with additional exchange", from: "Treatment")
 
-  find('input.add-bag').click
+  find("input.add-bag").click
 
-  select('Unicorn Brand Green–3.86', from: 'Bag Type')
-  select('4000', from: 'Volume (ml)')
-  uncheck 'Tuesday'
-  uncheck 'Wednesday'
-  uncheck 'Saturday'
-  uncheck 'Friday'
+  select("Unicorn Brand Green–3.86", from: "Bag Type")
+  select("4000", from: "Volume (ml)")
+  uncheck "Tuesday"
+  uncheck "Wednesday"
+  uncheck "Saturday"
+  uncheck "Friday"
 
   #APD specific fields
-  fill_in 'Last Fill (ml)', with: 520
+  fill_in "Last Fill (ml)", with: 520
 
-  check 'Additional manual exchange'
+  check "Additional manual exchange"
 
-  check 'Has tidal?'
+  check "Has tidal?"
 
-  select '75', from: 'Tidal (%)'
+  select "75", from: "Tidal (%)"
 
-  fill_in 'Number of cycles per APD session', with: 3
+  fill_in "Number of cycles per APD session", with: 3
 
-  fill_in 'Overnight PD volume on APD', with: 3100
+  fill_in "Overnight PD volume on APD", with: 3100
 
   click_on "Save"
 end
@@ -175,12 +175,12 @@ When(/^I choose to edit and update the form for a capd regime$/) do
   visit patient_pd_summary_path(@patient_1)
 
   within("table.capd-regimes tbody tr:first-child") do
-    click_link('Update')
+    click_link("Update")
   end
 
-  select '2015', from: 'pd_regime_end_date_1i'
-  select 'May', from: 'pd_regime_end_date_2i'
-  select '3', from: 'pd_regime_end_date_3i'
+  select "2015", from: "pd_regime_end_date_1i"
+  select "May", from: "pd_regime_end_date_2i"
+  select "3", from: "pd_regime_end_date_3i"
 
   click_on "Update CAPD Regime"
 end
@@ -189,14 +189,14 @@ When(/^I choose to edit and update the form for a apd regime$/) do
   visit patient_pd_summary_path(@patient_1)
 
   within("table.apd-regimes tbody tr:first-child") do
-    click_link('Update')
+    click_link("Update")
   end
 
-  select '2015', from: 'pd_regime_end_date_1i'
-  select 'August', from: 'pd_regime_end_date_2i'
-  select '30', from: 'pd_regime_end_date_3i'
+  select "2015", from: "pd_regime_end_date_1i"
+  select "August", from: "pd_regime_end_date_2i"
+  select "30", from: "pd_regime_end_date_3i"
 
-  check 'Additional manual exchange'
+  check "Additional manual exchange"
 
   click_on "Update APD Regime"
 end
@@ -205,7 +205,7 @@ When(/^I choose to view a capd regime$/) do
   visit patient_pd_summary_path(@patient_1)
 
   within("table.capd-regimes tbody tr:nth-child(1)") do
-    click_link('View')
+    click_link("View")
   end
 end
 
@@ -213,54 +213,54 @@ When(/^I choose to view a apd regime$/) do
   visit patient_pd_summary_path(@patient_1)
 
   within("table.apd-regimes tbody tr:nth-child(1)") do
-    click_link('View')
+    click_link("View")
   end
 end
 
 Then(/^I should see the new capd regime on the PD info page$/) do
-  within('table.capd-regimes tbody tr:first-child') do
+  within("table.capd-regimes tbody tr:first-child") do
     expect(page).to have_content("02/04/2015")
     expect(page).to have_content("01/06/2015")
     expect(page).to have_content("CAPD 4 exchanges per day")
   end
 
   #average daily glucose
-  within('table.capd-regimes tbody tr:first-child td:nth-child(5)') do
+  within("table.capd-regimes tbody tr:first-child td:nth-child(5)") do
     expect(page).to have_content("1786")
   end
 
-  within('table.capd-regimes tbody tr:first-child td:nth-child(6)') do
+  within("table.capd-regimes tbody tr:first-child td:nth-child(6)") do
     expect(page).to have_content("0")
   end
 
-  within('table.capd-regimes tbody tr:first-child td:nth-child(7)') do
+  within("table.capd-regimes tbody tr:first-child td:nth-child(7)") do
     expect(page).to have_content("0")
   end
 end
 
 Then(/^I should see the new apd regime on the PD info page$/) do
-  within('table.apd-regimes tbody tr:first-child') do
+  within("table.apd-regimes tbody tr:first-child") do
     expect(page).to have_content("15/05/2015")
     expect(page).to have_content("16/07/2015")
     expect(page).to have_content("APD Wet day with additional exchange")
   end
 
   #average daily glucose
-  within('table.apd-regimes tbody tr:first-child td:nth-child(5)') do
+  within("table.apd-regimes tbody tr:first-child td:nth-child(5)") do
     expect(page).to have_content("0")
   end
 
-  within('table.apd-regimes tbody tr:first-child td:nth-child(6)') do
+  within("table.apd-regimes tbody tr:first-child td:nth-child(6)") do
     expect(page).to have_content("0")
   end
 
-  within('table.apd-regimes tbody tr:first-child td:nth-child(7)') do
+  within("table.apd-regimes tbody tr:first-child td:nth-child(7)") do
     expect(page).to have_content("171")
   end
 end
 
 Then(/^the new capd regime should be current$/) do
-  within('.current-regime') do
+  within(".current-regime") do
     expect(page).to have_content("02/04/2015")
     expect(page).to have_content("01/06/2015")
     expect(page).to have_content("CAPD 4 exchanges per day")
@@ -278,7 +278,7 @@ Then(/^the new capd regime should be current$/) do
 end
 
 Then(/^the new apd regime should be current$/) do
-  within('.current-regime') do
+  within(".current-regime") do
     expect(page).to have_content("15/05/2015")
     expect(page).to have_content("16/07/2015")
     expect(page).to have_content("APD Wet day with additional exchange")
@@ -302,13 +302,13 @@ Then(/^the new apd regime should be current$/) do
 end
 
 Then(/^I should see the updated capd regime on the PD info page$/) do
-  within('table.capd-regimes tbody tr:first-child') do
+  within("table.capd-regimes tbody tr:first-child") do
     expect(page).to have_content("03/05/2015")
   end
 end
 
 Then(/^I should see the updated apd regime on the PD info page$/) do
-  within('table.apd-regimes tbody tr:first-child') do
+  within("table.apd-regimes tbody tr:first-child") do
     expect(page).to have_content("30/08/2015")
   end
 end
