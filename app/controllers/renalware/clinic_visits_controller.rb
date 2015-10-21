@@ -9,11 +9,11 @@ module Renalware
     end
 
     def new
-      @clinic_visit = ClinicVisit.new(patient: @patient)
+      @clinic_visit = @patient.clinic_visits.new
     end
 
     def create
-      @clinic_visit = ClinicVisit.new(clinic_visit_params)
+      @clinic_visit = @patient.clinic_visits.new(clinic_visit_params)
       if @clinic_visit.save
         redirect_to patient_clinic_visits_path(@patient)
       else
@@ -40,7 +40,7 @@ module Renalware
 
     def clinic_visit_params
       params.require(:clinic_visit).permit(
-        :patient_id, :date, :height, :weight,
+        :date, :height, :weight,
         :bp, :urine_blood, :urine_protein, :notes)
     end
 
