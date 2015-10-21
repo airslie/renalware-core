@@ -1,3 +1,5 @@
+require 'document/embedded'
+
 module Renalware
   module Transplants
     class DonorWorkupDocument < Document::Embedded

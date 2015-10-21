@@ -1,4 +1,4 @@
-require_dependency 'document/embedded'
+require 'document/embedded'
 
 module Renalware
   module Transplants
