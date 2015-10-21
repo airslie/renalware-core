@@ -25,7 +25,7 @@ module Renalware
 
     def modality_params
       params.require(:modality).permit(
-        :patient_id, :modality_code_id, :modality_change_type,
+        :modality_code_id, :modality_change_type,
         :modality_reason_id, :notes, :start_date)
     end
   end
