@@ -65,7 +65,7 @@ module Renalware
         :event_attributes => [:date_time, :description, :notes, :event_type_id],
         :medications_attributes => [:id, :medicatable_id, :medicatable_type, :dose, :medication_route_id,
         :frequency, :notes, :start_date, :end_date, :provider, :_destroy],
-        :problems_attributes => [:id, :patient_id, :snomed_id, :snomed_description, :description, :date, :user_id, :deleted_at, :_destroy],
+        :problems_attributes => [:id, :snomed_id, :snomed_description, :description, :date, :user_id, :deleted_at, :_destroy],
         )
     end
 
