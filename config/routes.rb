@@ -18,13 +18,10 @@ Rails.application.routes.draw do
       member do
         get :manage_medications
         get :problems
-        get :death_update
         get :capd_regime
         get :apd_regime
       end
-      collection do
-        get :death
-      end
+
       resource :clinical_summary, only: :show
       resource :death, only: [:edit, :update]
       resource :pd_summary, only: :show
