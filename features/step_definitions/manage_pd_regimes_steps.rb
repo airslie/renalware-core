@@ -273,7 +273,9 @@ Then(/^the new capd regime should be current$/) do
     expect(page).to have_content("3.86 % 0 ml")
 
     #pd regime bags
-    expect(page).to have_content("Bag type: Blue–1.36, Volume: 2500ml, No. per week: 5, Days: Sun, Mon, Wed, Thu, Fri")
+    expect(page).to have_content(
+      "Bag type: Blue–1.36, Volume: 2500ml, No. per week: 5, Days: Sun, Mon, Wed, Thu, Fri"
+    )
   end
 end
 
@@ -290,7 +292,9 @@ Then(/^the new apd regime should be current$/) do
     expect(page).to have_content("3.86 % 1714 ml")
 
     #pd regime bags
-    expect(page).to have_content("Bag type: Green–3.86, Volume: 4000ml, No. per week: 3, Days: Sun, Mon, Thu")
+    expect(page).to have_content(
+      "Bag type: Green–3.86, Volume: 4000ml, No. per week: 3, Days: Sun, Mon, Thu"
+    )
 
     expect(page).to have_content("Last Fill: 520")
     expect(page).to have_content("Additional manual exchange?: Yes")
@@ -323,7 +327,9 @@ Then(/^I should see the chosen capd regime details$/) do
 
   #saved bag for this regime:
   #bag 1
-  expect(page).to have_content("Bag type: Blue–1.36, Volume: 600ml, No. per week: 6, Days: Sun, Mon, Wed, Thu, Fri, Sat")
+  expect(page).to have_content(
+    "Bag type: Blue–1.36, Volume: 600ml, No. per week: 6, Days: Sun, Mon, Wed, Thu, Fri, Sat"
+  )
 
   #average daily glucose calculated from bags
   expect(page).to have_content("1.36% 514 ml")
@@ -353,7 +359,9 @@ Then(/^I should see the chosen apd regime details$/) do
 
   #saved bag for this regime:
   #bag 1
-  expect(page).to have_content("Bag type: Green–3.86, Volume: 2000ml, No. per week: 5, Days: Sun, Tue, Wed, Thu, Sat")
+  expect(page).to have_content(
+    "Bag type: Green–3.86, Volume: 2000ml, No. per week: 5, Days: Sun, Tue, Wed, Thu, Sat"
+  )
 
   #average daily glucose calculated from bags
   expect(page).to have_content("1.36% 0 ml")
