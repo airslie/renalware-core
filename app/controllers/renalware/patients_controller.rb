@@ -60,12 +60,13 @@ module Renalware
         :forename, :sex, :ethnicity_id, :birth_date, :paediatric_patient_indicator,
         :death_date, :first_edta_code_id, :second_edta_code_id, :death_details,
         :gp_practice_code, :pct_org_code, :hosp_centre_code, :primary_esrf_centre,
-        :current_address_attributes => [:street_1, :street_2, :county, :country, :city, :postcode],
-        :address_at_diagnosis_attributes => [:street_1, :street_2, :county, :country, :city, :postcode],
-        :event_attributes => [:date_time, :description, :notes, :event_type_id, :patient_id],
-        :medications_attributes => [:id, :medicatable_id, :medicatable_type, :dose, :medication_route_id,
+        current_address_attributes: [:street_1, :street_2, :county, :country, :city, :postcode],
+        address_at_diagnosis_attributes: [:street_1, :street_2, :county, :country, :city, :postcode],
+        event_attributes: [:date_time, :description, :notes, :event_type_id],
+        medications_attributes: [:id, :medicatable_id, :medicatable_type, :dose, :medication_route_id,
         :frequency, :notes, :start_date, :end_date, :provider, :_destroy],
-        :problems_attributes => [:id, :patient_id, :snomed_id, :snomed_description, :description, :date, :user_id, :deleted_at, :_destroy],
+        problems_attributes:  [:id, :snomed_id, :snomed_description, :description, :date,
+                               :user_id, :deleted_at, :_destroy],
         )
     end
 
