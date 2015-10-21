@@ -1,16 +1,6 @@
 module Renalware
   module PDRegimesHelper
 
-    def pd_bag_volume_options
-      options = []
-      min_vol = 750
-      while min_vol < 4000
-        min_vol += 250
-        options << min_vol
-      end
-      options
-    end
-
     def tidal_options
       options = []
       tidal = 55

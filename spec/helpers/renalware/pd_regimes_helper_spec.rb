@@ -3,14 +3,6 @@ require 'rails_helper'
 module Renalware
   RSpec.describe PDRegimesHelper, type: :helper do
 
-    describe 'pd_bag_volume_options' do
-      it 'should produce options between 1000 and 4000, incrementing by 250' do
-        expect(pd_bag_volume_options).to eq(
-          [1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 3250, 3500, 3750, 4000]
-        )
-      end
-    end
-
     describe 'tidal_options' do
       it 'should produce options between 60 and 100, incrementing by 5' do
         expect(tidal_options).to eq([60, 65, 70, 75, 80, 85, 90, 95, 100])

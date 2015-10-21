@@ -7,7 +7,7 @@
 
   .large-3.columns.inline
     = rb.label :volume, 'Volume (ml)'
-    = rb.select :volume, pd_bag_volume_options, { prompt: "Please select from options" }, class: "pd-regime-bag-volume-select"
+    = rb.select :volume, BagVolume.values, { prompt: "Please select from options" }, class: "pd-regime-bag-volume-select"
 
   .large-2.columns.inline
     = rb.submit 'Remove', name: "actions[remove][#{rb.index}]", class: 'right remove-bag'
