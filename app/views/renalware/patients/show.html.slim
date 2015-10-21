@@ -48,7 +48,7 @@
             dt Second cause of Death:
             dd= default_for_associated(@patient.second_edta_code, :death_cause, 'N/A')
 
-          = link_to "Update Causes of Death", death_update_patient_path(@patient), {class: "update-death button tiny mt"}
+          = link_to "Update Causes of Death", edit_patient_death_path(@patient), {class: "update-death button tiny mt"}
 
       .large-12.columns
         dl

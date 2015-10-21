@@ -269,7 +269,7 @@ Then(/^I should see the date of death and causes of death in the patient's demog
 end
 
 Then(/^I should see the patient on the death list$/) do
-  visit death_patients_path
+  visit patient_deaths_path
   expect(page).to have_content("RABBIT")
 end
 

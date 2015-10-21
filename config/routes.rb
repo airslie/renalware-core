@@ -26,6 +26,7 @@ Rails.application.routes.draw do
         get :death
       end
       resource :clinical_summary, only: :show
+      resource :death, only: [:edit, :update]
       resource :pd_summary, only: :show
       resource :esrf, only: [:edit, :update], controller: "esrf"
       resources :events, only: [:new, :create, :index]
@@ -43,6 +44,8 @@ Rails.application.routes.draw do
         resource :donor_workup, except: :destroy
       end
     end
+
+    resources :deaths, only: :index, as: :patient_deaths
 
     resources :clinic_visits do
       resources :letters, controller: 'clinic_letters', only: [:new, :edit]
