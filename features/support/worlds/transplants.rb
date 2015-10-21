@@ -53,6 +53,10 @@ module World
         Renalware::Transplants::DonorWorkup.for_patient(donor).any?
       end
 
+      def transplant_registration_exists(patient)
+        Renalware::Transplants::Registration.for_patient(patient).any?
+      end
+
       def workup_was_updated(patient)
         workup = Renalware::Transplants::RecipientWorkup.for_patient(patient).first
         workup.updated_at != workup.created_at
@@ -61,6 +65,22 @@ module World
       def donor_workup_was_updated(patient)
         workup = Renalware::Transplants::DonorWorkup.for_patient(patient).first
         workup.updated_at != workup.created_at
+      end
+
+      def create_transplant_registration(_user, patient)
+        Renalware::Transplants::Registration.create!(
+          patient: patient
+        )
+      end
+
+      def update_transplant_registration(registration, _user, updated_at)
+        registration.update_attributes!(
+          document: {
+          },
+          updated_at: updated_at
+        )
+        registration.reload
+        registration.updated_at != registration.created_at
       end
     end
 

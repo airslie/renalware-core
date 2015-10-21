@@ -1,6 +1,6 @@
 @wip
 Feature: Record the transplant registration for a patient
-  
+
   A patient requires the transplant of one or many organs: kidney, pancreas or liver. To
   receive a transplant a patient needs to be registered on a wait list.
 
