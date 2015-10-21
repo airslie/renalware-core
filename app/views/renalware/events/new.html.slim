@@ -9,8 +9,6 @@
 
       .row
         .large-6.columns
-          = f.hidden_field :patient_id
-
           = f.label :date_time, "Patient Event Date/Time"
           = f.datetime_select(:date_time, { start_year: (5.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
           = f.label :event_type_id, "Patient Event Type"
