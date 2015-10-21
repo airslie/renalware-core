@@ -18,6 +18,10 @@ module Renalware
     validates_presence_of :letter_description_id
     validates_presence_of :state, in: [:draft, :review] # TODO: Final states TBC.
 
+    def self.policy_class
+      LetterPolicy
+    end
+
     def title
       self.class.name.underscore.titleize.gsub("Renalware/", "")
     end

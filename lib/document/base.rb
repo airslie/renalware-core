@@ -5,11 +5,11 @@ module Document
     class_methods do
       def has_document(options)
         class_name = options[:class_name]
-        @@document_class = self.const_get(class_name)
-      end
+        document_class = self.const_get(class_name)
 
-      def document_class
-        @@document_class
+        define_method("document_class".to_sym) do
+          document_class
+        end
       end
     end
 
@@ -19,13 +19,13 @@ module Document
       end
 
       def document
-        @document ||= self.class.document_class.new(read_attribute(:document))
+        @document ||= document_class.new(read_attribute(:document))
       end
 
       def document=(attributes)
         @document = nil
         filtered_attributes = filter_date_params(attributes)
-        write_attribute(:document, self.class.document_class.new(filtered_attributes).to_json)
+        write_attribute(:document, document_class.new(filtered_attributes).to_json)
       end
 
       protected

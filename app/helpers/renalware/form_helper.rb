@@ -9,5 +9,10 @@ module Renalware
     def gender_options
       options_for_select Patient.sexes.keys.map { |g| [I18n.t("enums.gender.#{g}"), g] }
     end
+
+    def render_input(builder, attribute)
+      class_name = builder.object.send(attribute).class.name.demodulize.underscore
+      render "renalware/shared/documents/#{class_name}_input", attribute: attribute, f: builder
+    end
   end
 end

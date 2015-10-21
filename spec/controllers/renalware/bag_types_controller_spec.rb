@@ -41,7 +41,7 @@ module Renalware
 
       context "with valid attributes" do
         it 'updates a bag type' do
-          put :update, id: @bag_type.id, bag_type: { description: "Yellow Bag" }
+          put :update, id: @bag_type.id, bag_type: { manufacturer: "Unicorn", description: "Yellow Bag", glucose_grams_per_litre: 23.4 }
           expect(response).to redirect_to(bag_types_path)
         end
       end

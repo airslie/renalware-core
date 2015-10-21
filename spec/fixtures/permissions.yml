@@ -1,0 +1,7 @@
+super_admin:
+  - FakeUser
+  - FakeRole
+  - FakeModel
+admin:
+  - FakePatient
+  - FakeAdmission

@@ -1,6 +1,5 @@
 module Renalware
   class EventsController < BaseController
-    load_and_authorize_resource
 
     before_action :load_patient, :only => [:new, :create, :index]
 
@@ -10,8 +9,7 @@ module Renalware
     end
 
     def create
-      @event = Event.new(event_params)
-      @event.patient_id = @patient.id
+      @event = @patient.events.new(event_params)
       if @event.save
         redirect_to patient_events_path(@patient), :notice => "You have successfully added an encounter/event."
       else
@@ -20,7 +18,6 @@ module Renalware
     end
 
     def index
-      @event = Event.new
       @events = @patient.events
     end
 

@@ -16,16 +16,18 @@ gem 'ransack', git: 'https://github.com/activerecord-hackery/ransack.git'
 gem 'kaminari', '~> 0.15.1'
 gem 'devise', '~> 3.4.1'
 gem 'devise_security_extension', git: 'https://github.com/phatworx/devise_security_extension.git'
-gem 'cancancan', '~> 1.10'
 gem 'nested_form', '~> 0.3.2'
 gem 'slim-rails'
 gem 'simple_form'
 gem 'virtus'
 gem 'hashdiff'
 gem 'enumerize'
+gem 'validates_timeliness'
+gem 'pundit'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-fontawesome'
+  # https://github.com/najlepsiwebdesigner/foundation-datepicker
   gem 'rails-assets-foundation-datepicker'
 end
 

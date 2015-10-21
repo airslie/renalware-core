@@ -7,7 +7,7 @@ class DatePickerInput < SimpleForm::Inputs::StringInput
   end
 
   def prefix_column
-    template.content_tag(:div, class: "medium-2 columns") do
+    template.content_tag(:div, class: "large-2 columns") do
       template.concat icon_calendar
     end
   end
@@ -16,8 +16,10 @@ class DatePickerInput < SimpleForm::Inputs::StringInput
     html_options = input_html_options
     html_options[:class] ||= []
     html_options[:class] << "datepicker"
-    template.content_tag(:div, class: "medium-10 columns") do
-      template.concat @builder.text_field(attribute_name, html_options)
+    template.content_tag(:div, class: "large-10 columns") do
+      datestamp = @builder.object.send(attribute_name)
+      value = datestamp.present? ? I18n.l(datestamp) : ""
+      template.concat @builder.text_field(attribute_name, html_options.merge(value: value))
     end
   end
 

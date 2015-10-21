@@ -26,7 +26,7 @@
       .large-3.columns
         dl
           dt Sex:
-          dd= I18n.t("enums.gender.#{@patient.sex}")
+          dd= @patient.sex
 
           dt Ethnicity:
           dd= default_for_associated(@patient.ethnicity, :name, 'Unspecified')

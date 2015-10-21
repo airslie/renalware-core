@@ -1,4 +1,5 @@
 require 'active_support/concern'
+require_dependency 'renalware/permission'
 
 module Renalware
   module Permissible
@@ -18,7 +19,7 @@ module Renalware
       end
 
       def role_names
-        roles.map { |r| r.name.humanize }
+        roles.map { |r| r.name }
       end
     end
   end

@@ -1,8 +1,7 @@
 module Renalware
   class PeritonitisEpisodesController < BaseController
-    load_and_authorize_resource
 
-    before_action :load_patient, :only => [:new, :create, :show, :edit, :update]
+    before_action :load_patient, :except => [:index, :destroy]
     before_action :load_peritonitis_episode, :only => [:show, :edit, :update]
 
     def new
