@@ -29,4 +29,7 @@
             | &nbsp;
             = link_to "Edit", edit_patient_transplants_registration_path(@patient), class: "button tiny"
       - else
-        = link_to "Enter registration details", edit_patient_transplants_registration_path(@patient)
+        .call-to-action
+          = link_to edit_patient_transplants_registration_path(@patient) do
+            i.fa.fa-plus-circle
+            | Enter registration details
