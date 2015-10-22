@@ -23,7 +23,7 @@
           td= patient.to_s(:full_name)
           td= patient.nhs_number
           td= patient.local_patient_id
-          td= I18n.t("enums.gender.#{patient.sex}")
+          td= patient.sex
           td= patient.birth_date
           td= patient.death_date
           td= patient.age
