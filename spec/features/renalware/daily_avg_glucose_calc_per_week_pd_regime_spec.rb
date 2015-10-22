@@ -1,23 +1,24 @@
-require 'rails_helper'
+require "rails_helper"
 
 module Renalware
-  feature 'Daily average glucose volume calculated from bags per concentration type assigned during one week', js: true do
+  feature "Daily average glucose(ml) calculated from bags per type assigned during one week",
+    js: true do
     background do
       @patient = create(:patient)
 
       @bag_type_13_6 = create(:bag_type,
-                    manufacturer: 'Baxter',
-                    description: 'Dianeal PD2 1.36% (Yellow)',
+                    manufacturer: "Baxter",
+                    description: "Dianeal PD2 1.36% (Yellow)",
                     glucose_grams_per_litre: 13.6)
 
       @bag_type_22_7 = create(:bag_type,
-                    manufacturer: 'Baxter',
-                    description: 'Dianeal PD2 2.27% (Green)',
+                    manufacturer: "Baxter",
+                    description: "Dianeal PD2 2.27% (Green)",
                     glucose_grams_per_litre: 22.7)
 
       @bag_type_38_6 = create(:bag_type,
-                    manufacturer: 'Baxter',
-                    description: 'Dianeal PD2 3.86% (Red)',
+                    manufacturer: "Baxter",
+                    description: "Dianeal PD2 3.86% (Red)",
                     glucose_grams_per_litre: 38.6)
 
       login_as_clinician
@@ -25,66 +26,66 @@ module Renalware
       visit patient_pd_summary_path(@patient)
     end
 
-    scenario 'should return daily average volume (ml) for each concentration type' do
-      click_link 'Add CAPD Regime'
+    scenario "should return daily average volume (ml) for each concentration type" do
+      click_link "Add CAPD Regime"
 
-      select 'CAPD 3 exchanges per day', from: 'Treatment'
+      select "CAPD 3 exchanges per day", from: "Treatment"
 
-      select '2015', from: 'pd_regime_start_date_1i'
-      select 'April', from: 'pd_regime_start_date_2i'
-      select '18', from: 'pd_regime_start_date_3i'
+      select "2015", from: "pd_regime_start_date_1i"
+      select "April", from: "pd_regime_start_date_2i"
+      select "18", from: "pd_regime_start_date_3i"
 
       #bag 1
-      find('a.add-bag').click
+      find("a.add-bag").click
 
-      within('#pd-regime-bags div.fields:nth-child(1)') do
-        select 'Dianeal PD2 1.36% (Yellow)', from: 'Bag Type'
+      within("#pd-regime-bags div.fields:nth-child(1)") do
+        select "Dianeal PD2 1.36% (Yellow)", from: "Bag Type"
 
-        fill_in 'Volume (ml)', with: 2000
+        select "2000", from: "Volume (ml)"
 
-        uncheck 'Monday'
-        uncheck 'Wednesday'
-        uncheck 'Friday'
-        uncheck 'Saturday'
+        uncheck "Monday"
+        uncheck "Wednesday"
+        uncheck "Friday"
+        uncheck "Saturday"
       end
 
       #bag 2
-      find('a.add-bag').click
+      find("a.add-bag").click
 
-      within('#pd-regime-bags div.fields:nth-child(2)') do
-        select 'Dianeal PD2 2.27% (Green)', from: 'Bag Type'
+      within("#pd-regime-bags div.fields:nth-child(2)") do
+        select "Dianeal PD2 2.27% (Green)", from: "Bag Type"
 
-        fill_in 'Volume (ml)', with: 3000
+        select "3000", from: "Volume (ml)"
 
-        uncheck 'Tuesday'
-        uncheck 'Thursday'
+        uncheck "Tuesday"
+        uncheck "Thursday"
       end
 
       #bag 3
-      find('a.add-bag').click
+      find("a.add-bag").click
 
-      within('#pd-regime-bags div.fields:nth-child(3)') do
-        select 'Dianeal PD2 3.86% (Red)', from: 'Bag Type'
+      within("#pd-regime-bags div.fields:nth-child(3)") do
+        select "Dianeal PD2 3.86% (Red)", from: "Bag Type"
 
-        fill_in 'Volume (ml)', with: 1500
+        select "1500", from: "Volume (ml)"
 
-        uncheck 'Sunday'
-        uncheck 'Wednesday'
-        uncheck 'Friday'
+        uncheck "Sunday"
+        uncheck "Wednesday"
+        uncheck "Friday"
       end
 
       #bag 4
-      find('a.add-bag').click
+      find("a.add-bag").click
 
-      within('#pd-regime-bags div.fields:nth-child(4)') do
-        select 'Dianeal PD2 3.86% (Red)', from: 'Bag Type'
+      within("#pd-regime-bags div.fields:nth-child(4)") do
+        select "Dianeal PD2 3.86% (Red)", from: "Bag Type"
 
-        fill_in 'Volume (ml)', with: 2000
+        select "2000", from: "Volume (ml)"
 
-        uncheck 'Monday'
-        uncheck 'Wednesday'
-        uncheck 'Friday'
-        uncheck 'Saturday'
+        uncheck "Monday"
+        uncheck "Wednesday"
+        uncheck "Friday"
+        uncheck "Saturday"
       end
 
       click_on "Save"
