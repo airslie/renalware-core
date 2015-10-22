@@ -1,6 +1,7 @@
 module Renalware
   class ClinicalSummariesController < BaseController
-    skip_authorize_resource only: :show
+
+    skip_after_action :verify_authorized
 
     def show
       @patient = Patient.find(params[:patient_id])

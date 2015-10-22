@@ -45,13 +45,14 @@ en:
         femoral_bruit: Femoral Bruit?
         heart_failure: Heart Failure?
         heart_sounds: Heart Sounds
-      renalware/transplants/recipient_workup_document/transplant_consents:
-        consent: Transplant Consent
-        consent_date: Consent Date
-        consenting_name: Who consented
-        marginal_consent: Marginal consent?
-        marginal_consent_date: Marginal Consent Date
-        marginal_consenting_name: Who marginally consented
+      renalware/transplants/recipient_workup_document/consent:
+        value: Transplant Consent
+        date: Consent Date
+        name: Who consented
+      renalware/transplants/recipient_workup_document/marginal_consent:
+        value: Marginal consent?
+        date: Marginal Consent Date
+        name: Who marginally consented
       renalware/transplants/recipient_workup_document/education:
         waiting_list: Waiting List
         transport_benefits: Transport/Benefits
@@ -73,8 +74,8 @@ en:
             prisma:
               inclusion: must be between 0 and 7
   enumerize:
-    renalware/transplants/recipient_workup_document/transplant_consents:
-      consent:
+    renalware/transplants/recipient_workup_document/consent:
+      value:
         full: Full
         partial: Partial
         refused: Refused transplant
@@ -87,5 +88,5 @@ en:
               status: For comorbidities enter date diagnosed at right if YES
             smoking:
               status: Includes former as well as current smokers
-          transplant_consents:
-            consenting_name: Your name or the person who consented
+          consent:
+            name: Your name or the person who consented

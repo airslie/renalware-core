@@ -1,25 +1,28 @@
 module Renalware
   class Admin::UsersController < BaseController
-    load_and_authorize_resource class: Renalware::User
 
     before_filter :load_user, only: [:edit, :update]
 
     def index
       @users = User.all
+      authorize @users
     end
 
     def unapproved
       @users = User.unapproved
+      authorize @users, :index?
       render :index
     end
 
     def inactive
       @users = User.inactive
+      authorize @users, :index?
       render :index
     end
 
     def update
       if user_service.update_and_notify!(service_params)
+        authorize @user
         redirect_to admin_users_path, notice: "#{@user.username} updated"
       else
         flash[:alert] = "#{@user.username} could not be updated"
@@ -31,6 +34,7 @@ module Renalware
 
     def load_user
       @user = User.find(params[:id])
+      authorize @user
     end
 
     def service_params

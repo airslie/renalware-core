@@ -6,6 +6,10 @@ $(function() {
   }
 
   $('.datepicker').fdatepicker({
-    format: "dd/mm/yyyy"
+    format: "dd-mm-yyyy"
   });
+
+  $('.datepicker-wrapper i').on('click', function() {
+    $(this).closest('.datepicker-wrapper').find('.datepicker').fdatepicker('show');
+  })
 });

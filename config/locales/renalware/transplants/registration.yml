@@ -1,0 +1,48 @@
+# https://github.com/plataformatec/simple_form#i18n
+
+en:
+  # activerecord:
+  #   attributes:
+  #     renalware/transplants/recipient_workup:
+  #       performed_at: Performed On
+  activemodel:
+    attributes:
+      renalware/transplants/registration_document/codes:
+        uk_transplant_centre_code: UK Transplant Centre Code
+        uk_transplant_patient_recipient_number: UK Transplant Patient Recpient Number
+      renalware/transplants/registration_document/crf:
+        highest: Highest
+        latest: Latest
+      renalware/transplants/registration_document/transplant:
+        blood_group: Blood Group
+        hla_type: HLA Type
+        nb_of_previous_grafts: Number of previous graft(s)
+        sens_status: Sens Status
+      renalware/transplants/registration_document/hla_type:
+        result: HLA Type
+        date: HLA Type Date
+      renalware/transplants/registration_document/organs:
+        transplant_type: Transplant Type
+        pancreas_only_type: "If pancreas only, which type?"
+        rejection_risk: Rejection Risk
+        also_listed_for_kidney_only: "If kidney/pancreas required, is the patient also to be listed for kidney only?"
+        to_be_listed_for_other_organs: "In addition to this registration, is the patient to be listed for other organ(s)?"
+        received_previous_kidney_or_pancreas_grafts: "Has this recipient received a previous kidney or pancreas graft(s)?"
+      renalware/transplants/registration_document/consent:
+        value: NHB Consent
+        date: Date Consent Asked
+        name: Consent By
+      renalware/transplants/registration_document/admin:
+        referral_date: Referral Date
+        assessment_date: Assessment Date
+        wait_list_contact: Wait List Contact
+        notes: Notes
+
+  enumerize:
+    renalware/transplants/registration_document/organs:
+      transplant_type:
+        kidney: Kidney only
+        kidney_pancreas: Kidney and pancreas
+        pancreas: Pancreas only
+        kidney_liver: Kidney and liver
+        liver: Liver only

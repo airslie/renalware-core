@@ -1,4 +1,5 @@
 require 'rails_helper'
+require_dependency 'snomed/response'
 
 describe Snomed::Response do
   describe 'results' do

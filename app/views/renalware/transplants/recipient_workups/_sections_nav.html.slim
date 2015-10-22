@@ -1,3 +1,15 @@
+ruby:
+  sections = [
+    ["Co-morbidities", "comorbidities"],
+    ["Historical", "historical"],
+    ["Scores", "scores"],
+    ["Cervical smear", "cervical"],
+    ["Examination", "examination"],
+    ["Education", "education"],
+    ["Consent", "consent"],
+    ["HLA Data", "hla"]
+  ]
+
 dl.sub-nav data-magellan-expedition="fixed"
   - sections.each do |title, target|
     dd data-magellan-arrival="#{target}"

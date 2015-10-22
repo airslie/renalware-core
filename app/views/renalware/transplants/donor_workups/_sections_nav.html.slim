@@ -1,0 +1,16 @@
+ruby:
+  sections = [
+    ["Relationship", "relationship"],
+    ["Co-morbidities", "comorbidities"],
+    ["Infections", "infections"],
+    ["Imaging", "imaging_and_scans"],
+    ["Creat Clearance", "creatinine_clearance"],
+    ["GFR", "glomerular_filtration_rate"],
+    ["Urine Dipsticks", "urine_dipsticks"],
+    ["Other Investigations", "other_investigations"]
+  ]
+
+dl.sub-nav data-magellan-expedition="fixed"
+  - sections.each do |title, target|
+    dd data-magellan-arrival="#{target}"
+      = link_to title, "#"+target
