@@ -1,5 +1,12 @@
 module World
   module Transplants
+
+    def registration_status_description_named(name)
+      Renalware::Transplants::RegistrationStatusDescription.find_or_create_by(
+        name: name
+      )
+    end
+
     module Domain
       def create_recipient_workup(_user, patient)
         Renalware::Transplants::RecipientWorkup.create!(

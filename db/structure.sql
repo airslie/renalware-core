@@ -1419,6 +1419,72 @@ ALTER SEQUENCE transplants_recipient_workups_id_seq OWNED BY transplants_recipie
 
 
 --
+-- Name: transplants_registration_status_descriptions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE transplants_registration_status_descriptions (
+    id integer NOT NULL,
+    name character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: transplants_registration_status_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE transplants_registration_status_descriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transplants_registration_status_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE transplants_registration_status_descriptions_id_seq OWNED BY transplants_registration_status_descriptions.id;
+
+
+--
+-- Name: transplants_registration_statuses; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE transplants_registration_statuses (
+    id integer NOT NULL,
+    registration_id integer,
+    description_id integer,
+    started_on date,
+    terminated_on date,
+    whodunnit character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: transplants_registration_statuses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE transplants_registration_statuses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transplants_registration_statuses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE transplants_registration_statuses_id_seq OWNED BY transplants_registration_statuses.id;
+
+
+--
 -- Name: transplants_registration_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1838,6 +1904,20 @@ ALTER TABLE ONLY transplants_recipient_workups ALTER COLUMN id SET DEFAULT nextv
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY transplants_registration_status_descriptions ALTER COLUMN id SET DEFAULT nextval('transplants_registration_status_descriptions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplants_registration_statuses ALTER COLUMN id SET DEFAULT nextval('transplants_registration_statuses_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY transplants_registration_versions ALTER COLUMN id SET DEFAULT nextval('transplants_registration_versions_id_seq'::regclass);
 
 
@@ -2167,6 +2247,22 @@ ALTER TABLE ONLY transplants_recipient_workups
 
 
 --
+-- Name: transplants_registration_status_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY transplants_registration_status_descriptions
+    ADD CONSTRAINT transplants_registration_status_descriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: transplants_registration_statuses_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY transplants_registration_statuses
+    ADD CONSTRAINT transplants_registration_statuses_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: transplants_registration_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2388,6 +2484,20 @@ CREATE INDEX index_transplants_recipient_workups_on_patient_id ON transplants_re
 
 
 --
+-- Name: index_transplants_registration_statuses_on_description_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplants_registration_statuses_on_description_id ON transplants_registration_statuses USING btree (description_id);
+
+
+--
+-- Name: index_transplants_registration_statuses_on_registration_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplants_registration_statuses_on_registration_id ON transplants_registration_statuses USING btree (registration_id);
+
+
+--
 -- Name: index_transplants_registrations_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2485,6 +2595,22 @@ ALTER TABLE ONLY transplants_donor_workups
 
 ALTER TABLE ONLY letters
     ADD CONSTRAINT fk_rails_7f025877c9 FOREIGN KEY (reviewer_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_9646f7f1b0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplants_registration_statuses
+    ADD CONSTRAINT fk_rails_9646f7f1b0 FOREIGN KEY (description_id) REFERENCES transplants_registration_status_descriptions(id);
+
+
+--
+-- Name: fk_rails_b298a0b037; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplants_registration_statuses
+    ADD CONSTRAINT fk_rails_b298a0b037 FOREIGN KEY (registration_id) REFERENCES transplants_registrations(id);
 
 
 --
@@ -2646,4 +2772,8 @@ INSERT INTO schema_migrations (version) VALUES ('20151014210052');
 INSERT INTO schema_migrations (version) VALUES ('20151021194419');
 
 INSERT INTO schema_migrations (version) VALUES ('20151021194622');
+
+INSERT INTO schema_migrations (version) VALUES ('20151022184845');
+
+INSERT INTO schema_migrations (version) VALUES ('20151022190252');
 

@@ -53,4 +53,5 @@ RSpec.configure do |config|
   config.include CapybaraHelper, type: :feature
   config.include Select2SpecHelper, type: :feature
   config.include SelectDateSpecHelper, type: :feature
+  config.include ActiveSupport::Testing::TimeHelpers
 end

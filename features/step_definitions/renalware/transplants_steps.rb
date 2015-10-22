@@ -23,6 +23,20 @@ Given(/^Patty is registered on the wait list$/) do
   )
 end
 
+Given(/^Patty is registered on the wait list with this status history$/) do |table|
+  @registration = Renalware::Transplants::Registration.create!(
+    patient: @patty
+  )
+  table.hashes.each do |row|
+    description = registration_status_description_named(row[:status])
+    @registration.statuses.create!(
+      description: description,
+      started_on: row[:start_date],
+      terminated_on: row[:termination_date]
+    )
+  end
+end
+
 When(/^Clyde creates a donor workup for Don$/) do
   create_donor_workup(@clyde, @don)
 end
@@ -43,6 +57,23 @@ end
 
 When(/^Clyde registers Patty on the wait list$/) do
   create_transplant_registration(@clyde, @patty)
+end
+
+When(/^Clyde sets the registration status to "(.*?)" and the start date to "(.*?)"$/) do |status, start_date|
+  description = registration_status_description_named(status)
+  @registration.add_status(description: description, started_on: start_date)
+end
+
+When(/^Clyde changes the "(.*?)" start date to "(.*?)"$/) do |status, start_date|
+  description = registration_status_description_named(status)
+  status = @registration.statuses.where(description_id: description.id).first
+  @registration.update_status(status, started_on: start_date)
+end
+
+When(/^Clyde deletes the "(.*?)" status change$/) do |status|
+  description = registration_status_description_named(status)
+  status = @registration.statuses.where(description_id: description.id).first
+  @registration.delete_status(status)
 end
 
 Then(/^Patty's recipient workup exists$/) do
@@ -67,4 +98,35 @@ end
 
 Then(/^Clyde can update Patty's transplant registration$/) do
   expect(update_transplant_registration(@registration, @clyde, Time.zone.now)).to be_truthy
+end
+
+Then(/^the registration status history is$/) do |table|
+  statuses = @registration.reload.statuses.map do |s|
+    { status: s.description.name,
+      start_date: I18n.l(s.started_on),
+      termination_date: (s.terminated_on ? I18n.l(s.terminated_on) : "")
+    }.with_indifferent_access
+  end
+  expect(statuses.size).to eq(table.hashes.size)
+  table.hashes.each do |row|
+    expect(statuses).to include(row)
+  end
+end
+
+Then(/^the transplant current status stays "(.*?)" since "(.*?)"$/) do |name, start_date|
+  status = @registration.current_status
+  expect(status.to_s).to eq(name)
+  expect(I18n.l(status.started_on)).to eq(start_date)
+end
+
+Then(/^the status history has the following revised termination dates$/) do |table|
+  statuses = @registration.reload.statuses.map do |s|
+    { status: s.description.name,
+      start_date: I18n.l(s.started_on),
+      termination_date: (s.terminated_on ? I18n.l(s.terminated_on) : "")
+    }.with_indifferent_access
+  end
+  table.hashes.each do |row|
+    expect(statuses).to include(row)
+  end
 end
