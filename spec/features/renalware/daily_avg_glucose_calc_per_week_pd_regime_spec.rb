@@ -1,7 +1,8 @@
 require "rails_helper"
 
 module Renalware
-  feature "Daily average glucose volume calculated from bags per concentration type assigned during one week", js: true do
+  feature "Daily average glucose(ml) calculated from bags per type assigned during one week",
+    js: true do
     background do
       @patient = create(:patient)
 

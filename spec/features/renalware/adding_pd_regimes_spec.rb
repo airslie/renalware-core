@@ -32,7 +32,11 @@ module Renalware
       within(".current-regime") do
         expect(page).to have_content("Regime Start Date: 15/06/2015")
         expect(page).to have_content("CAPD 4 exchanges per day")
-        expect(page).to have_content("Bag type: Green–2.34, Volume: 2500ml, No. per week: 5, Days: Mon, Tue, Wed, Fri, Sat")
+        expect(page).to have_content(
+          "Bag type: Green–2.34,
+          Volume: 2500ml, No. per week: 5,
+          Days: Mon, Tue, Wed, Fri, Sat"
+        )
         expect(page).to have_content("On additional HD?: Yes")
       end
     end
