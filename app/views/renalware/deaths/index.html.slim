@@ -1,4 +1,4 @@
-= render "header"
+= render "renalware/patients/header"
 
 .row
   table
@@ -14,16 +14,16 @@
         th.column-6-width Age
 
     tbody
-      - @dead_patients.each do |patient|
+      - @patients.each do |patient|
         tr
           td
             = link_to "Demographics", patient_path(patient), title: "Demographics"
             = pipe_separator
-            = link_to "Edit death details", death_update_patient_path(patient.id), title: "Edit death details"
+            = link_to "Edit death details", edit_patient_death_path(patient.id), title: "Edit death details"
           td= patient.to_s(:full_name)
           td= patient.nhs_number
           td= patient.local_patient_id
-          td= I18n.t("enums.gender.#{patient.sex}")
+          td= patient.sex
           td= patient.birth_date
           td= patient.death_date
           td= patient.age

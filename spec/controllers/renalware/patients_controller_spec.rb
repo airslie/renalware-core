@@ -74,13 +74,6 @@ module Renalware
       end
     end
 
-    describe 'death' do
-      it 'responds with success' do
-        get :death
-        expect(response).to have_http_status(:success)
-      end
-    end
-
     describe 'problems' do
       it 'responds with success' do
         get :problems, id: subject.id

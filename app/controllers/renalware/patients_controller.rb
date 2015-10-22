@@ -6,7 +6,7 @@ module Renalware
 
     before_filter :prepare_paging, only: [:index]
 
-    before_action :find_patient, only: [:show, :edit, :update, :death_update, :manage_medications, :problems]
+    before_action :find_patient, only: [:show, :edit, :update, :manage_medications, :problems]
 
     def new
       @patient = Patient.new
@@ -41,15 +41,6 @@ module Renalware
       authorize @patients
     end
 
-    def death_update
-      authorize @patient
-    end
-
-    def death
-      @dead_patients = Patient.dead
-      authorize @dead_patients
-    end
-
     def problems
       @patient.problems.build
     end
@@ -58,7 +49,6 @@ module Renalware
     def patient_params
       params.require(:patient).permit(:nhs_number, :local_patient_id, :surname,
         :forename, :sex, :ethnicity_id, :birth_date, :paediatric_patient_indicator,
-        :death_date, :first_edta_code_id, :second_edta_code_id, :death_details,
         :gp_practice_code, :pct_org_code, :hosp_centre_code, :primary_esrf_centre,
         current_address_attributes: [:street_1, :street_2, :county, :country, :city, :postcode],
         address_at_diagnosis_attributes: [:street_1, :street_2, :county, :country, :city, :postcode],
