@@ -24,9 +24,9 @@ gem 'hashdiff'
 gem 'enumerize'
 gem 'validates_timeliness'
 gem 'pundit'
+gem 'font-awesome-rails' # See icons here: https://fortawesome.github.io/Font-Awesome/icons/
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-fontawesome'
   # https://github.com/najlepsiwebdesigner/foundation-datepicker
   gem 'rails-assets-foundation-datepicker'
 end
