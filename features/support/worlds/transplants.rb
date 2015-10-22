@@ -110,6 +110,18 @@ module World
         end
       end
 
+      def create_transplant_registration(user, patient)
+        login_as user
+        visit patient_transplants_dashboard_path(patient)
+        click_on "Enter registration details"
+
+        select "Kidney only", from: "Transplant Type"
+
+        within ".top" do
+          click_on "Save"
+        end
+      end
+
       def update_workup(workup, user, _updated_at)
         login_as user
         visit patient_clinical_summary_path(workup.patient)
@@ -136,12 +148,32 @@ module World
         end
       end
 
+      def update_transplant_registration(registration, user, _updated_at)
+        login_as user
+        visit patient_transplants_dashboard_path(registration.patient)
+        within_fieldset "Transplant Wait List Registration" do
+          click_on "Edit"
+        end
+
+        select "Pancreas only", from: "Transplant Type"
+
+        within ".top" do
+          click_on "Save"
+        end
+
+        have_content("Pancreas onlfy")
+      end
+
       def recipient_workup_exists(_patient)
         expect(page).to have_content("Heart failure")
       end
 
       def donor_workup_exists(_donor)
         expect(page).to have_content("Heart failure")
+      end
+
+      def transplant_registration_exists(_patient)
+        expect(page).to have_content("Kidney only")
       end
 
       def workup_was_updated(_patient)

@@ -24,18 +24,20 @@ module Renalware
         attribute :nb_of_previous_grafts, Integer
         attribute :sens_status
       end
+      attribute :transplant, Transplant
 
       class Organs < Document::Embedded
         attribute :transplant_type, enums: TRANSPLANT_TYPES
         attribute :pancreas_only_type, enums: %i(solid_organ islets)
         attribute :rejection_risk, enums: %i(low standard high individualised)
-        attribute :also_listed_for_kidney_only, Boolean
-        attribute :to_be_listed_for_other_organs, Boolean
-        attribute :received_previous_kidney_or_pancreas_grafts, Boolean
+        attribute :also_listed_for_kidney_only, enums: %i(yes no unknown)
+        attribute :to_be_listed_for_other_organs, enums: %i(yes no unknown)
+        attribute :received_previous_kidney_or_pancreas_grafts, enums: %i(yes no unknown)
       end
+      attribute :organs, Organs
 
       class Consent < Document::Embedded
-        attribute :value, enums: %i(full partial refused)
+        attribute :value, enums: %i(yes no unkwown)
         attribute :date, Date
         attribute :name
 

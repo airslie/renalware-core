@@ -1,0 +1,27 @@
+= render "record_header"
+
+- return unless @registration
+.document-view
+  = render "renalware/shared/documents/attributes_group",
+    group: @registration.document.codes,
+    legend: "Codes", destination: "codes"
+
+  = render "renalware/shared/documents/attributes_group",
+    group: @registration.document.crf,
+    legend: "CRF", destination: "crf"
+
+  = render "renalware/shared/documents/attributes_group",
+    group: @registration.document.transplant,
+    legend: "Transplant", destination: "transplant"
+
+  = render "renalware/shared/documents/attributes_group",
+    group: @registration.document.organs,
+    legend: "Organs", destination: "organs"
+
+  = render "renalware/shared/documents/attributes_group",
+    group: @registration.document.nhb_consent,
+    legend: "Consent", destination: "consent"
+
+  = render "renalware/shared/documents/attributes_group",
+    group: @registration.document.admin,
+    legend: "Admin", destination: "admin"

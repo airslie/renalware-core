@@ -39,8 +39,10 @@ Rails.application.routes.draw do
       resources :letters
 
       namespace :transplants do
+        resource :dashboard, only: :show
         resource :recipient_workup, except: :destroy
         resource :donor_workup, except: :destroy
+        resource :registration, expect: :destroy
       end
     end
 
