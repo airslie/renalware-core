@@ -17,7 +17,6 @@ Rails.application.routes.draw do
     resources :patients, except: [:destroy] do
       member do
         get :manage_medications
-        get :problems
         get :capd_regime
         get :apd_regime
       end
@@ -27,6 +26,7 @@ Rails.application.routes.draw do
       resource :pd_summary, only: :show
       resource :esrf, only: [:edit, :update], controller: "esrf"
       resources :events, only: [:new, :create, :index]
+      resources :problems, only: [:index]
       resources :modalities, only: [:new, :create, :index]
       resources :peritonitis_episodes, only: [:new, :create, :show, :edit, :update]
       resources :exit_site_infections, only: [:new, :create, :show, :edit, :update]

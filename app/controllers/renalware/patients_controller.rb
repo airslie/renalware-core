@@ -41,10 +41,6 @@ module Renalware
       authorize @patients
     end
 
-    def problems
-      @patient.problems.build
-    end
-
     private
     def patient_params
       params.require(:patient).permit(:nhs_number, :local_patient_id, :surname,

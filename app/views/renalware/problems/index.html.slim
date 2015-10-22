@@ -7,7 +7,7 @@
 
 .wide-screen
   = form_for @patient do |f|
-    = hidden_field_tag :redirect_url, problems_patient_path(@patient)
+    = hidden_field_tag :redirect_url, patient_problems_path(@patient)
 
     = f.fields_for :problems do |pb|
       - if pb.object.versions != []

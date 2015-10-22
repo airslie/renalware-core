@@ -7,7 +7,7 @@ module Renalware
     background do
       @patient = create(:patient)
       login_as_clinician
-      visit problems_patient_path(@patient)
+      visit patient_problems_path(@patient)
     end
 
     scenario 'A clinician saves a new problem', js: true do

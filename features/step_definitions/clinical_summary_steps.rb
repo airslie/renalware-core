@@ -20,7 +20,7 @@ Given(/^they are on a patient's clinical summary$/) do
 end
 
 Given(/^they go to the problem list page$/) do
-  visit problems_patient_path(@patient_1)
+  visit patient_problems_path(@patient_1)
 end
 
 Given(/^there are medication routes in the database$/) do
