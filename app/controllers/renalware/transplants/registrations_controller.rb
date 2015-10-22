@@ -6,7 +6,8 @@ module Renalware
       def show
         @registration = Registration.for_patient(@patient).first_or_initialize
         authorize @registration
-        redirect_to edit_patient_transplants_registration_path(@patient) if @registration.new_record?
+        url = edit_patient_transplants_registration_path(@patient)
+        redirect_to url if @registration.new_record?
       end
 
       def edit
