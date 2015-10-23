@@ -14,7 +14,7 @@ FactoryGirl.define do
     forename "Jack"
     birth_date "01/01/1988"
     paediatric_patient_indicator "0"
-    sex 1
+    sex "Male"
     ethnicity_id 1
     death_date nil
     first_edta_code_id nil

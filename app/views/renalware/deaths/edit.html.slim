@@ -14,7 +14,6 @@
 .row
   .large-12.columns
     = form_for @patient, url: patient_death_path(@patient) do |f|
-      = hidden_field_tag :redirect_url, patient_path(@patient)
 
       = f.label :death_date, "Date of Death"
       = f.date_select(:death_date, {start_year: (1.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year], include_blank: true}, class: "datetime")

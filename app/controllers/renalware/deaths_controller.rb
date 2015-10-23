@@ -9,7 +9,7 @@ module Renalware
 
     def update
       if @patient.update(death_params)
-        redirect_to patient_clinical_summary_path(@patient), notice: "Update successful"
+        redirect_to patient_path(@patient), notice: "Update successful"
       else
         render :edit
       end
