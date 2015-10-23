@@ -15,7 +15,7 @@ Given(/^some patients who need renal treatment$/) do
     :forename => "Roger",
     :birth_date => "01/01/1947",
     :paediatric_patient_indicator => "1",
-    :sex => 1,
+    :sex => "Male",
     :ethnicity_id => Renalware::Ethnicity.first.id,
     :hosp_centre_code => "888"
   )
@@ -27,7 +27,7 @@ Given(/^some patients who need renal treatment$/) do
     :forename => "Doris",
     :birth_date => "24/06/1970",
     :paediatric_patient_indicator => "1",
-    :sex => 2,
+    :sex => "Female",
     :ethnicity_id => Renalware::Ethnicity.second.id,
     :hosp_centre_code => "888"
   )
@@ -39,7 +39,7 @@ Given(/^some patients who need renal treatment$/) do
     :forename => "Ghost",
     :birth_date => "28/02/1930",
     :paediatric_patient_indicator => "1",
-    :sex => 1,
+    :sex => "Male",
     :ethnicity_id => Renalware::Ethnicity.third.id,
     :hosp_centre_code => "999"
   )
