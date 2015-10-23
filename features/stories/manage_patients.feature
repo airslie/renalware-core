@@ -7,7 +7,8 @@ Feature: A secretary manages patients
     Scenario: Secretary adds a new patient
       Given I am on the add a new patient page
       When I complete the add a new patient form
-      Then I should see the new patient in the Renal Patient List
+      Then I should see the new patient's newly recorded details
+        And I can see the new patient in the Renal Patient List
         And the patient should be created
 
     Scenario: User views a patient's demographics
