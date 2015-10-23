@@ -105,17 +105,47 @@ When(/^submit the update form$/) do
   click_on "Update"
 end
 
-Then(/^I should see the new patient in the Renal Patient List$/) do
-  expect(page).to have_content("1000124504")
-  expect(page).to have_content("Z999994")
-  expect(page).to have_content("Smith")
-  expect(page).to have_content("Ian")
-  expect(page).to have_content("1")
-  expect(page).to have_content("White")
-  expect(page).to have_content("01/01/1960")
-  expect(page).to have_content("false")
-  expect(page).to have_content(@address_diagnosis_street_1)
-  expect(page).to have_content(@current_street_1)
+Then(/^I should see the new patient's newly recorded details$/) do
+  within ("h1.patient-info") do
+     expect(page).to have_content("Ian Smith")
+     expect(page).to have_content("KCH: Z999994")
+     expect(page).to have_content("Age: 55")
+     expect(page).to have_content("Male")
+     expect(page).to have_content("DoB: 01/01/1960")
+     expect(page).to have_content("No Modal")
+  end
+
+  within ( ".patient-demographics .row .large-12.columns fieldset" ) do
+    expect(page).to have_content("1000124504")
+    expect(page).to have_content("Z999994")
+    expect(page).to have_content("Smith")
+    expect(page).to have_content("Ian")
+    expect(page).to have_content("Male")
+    expect(page).to have_content("White")
+    expect(page).to have_content("01/01/1960")
+    expect(page).to have_content("N/A")
+    expect(page).to have_content("No")
+  end
+
+  within ( ".patient-demographics .row:nth-child(2) .large-4.columns:nth-child(2) fieldset" ) do
+    expect(page).to have_content(@current_street_1)
+  end
+
+  within ( ".patient-demographics .row:nth-child(2) .large-4.columns:nth-child(3) fieldset" ) do
+    expect(page).to have_content(@address_diagnosis_street_1)
+  end
+end
+
+Then(/^I can see the new patient in the Renal Patient List$/) do
+  visit patients_path
+  within('table.patients tbody tr:nth-child(1)') do
+    expect(page).to have_css("td:nth-child(2)", text: "Smith, Ian")
+    expect(page).to have_css("td:nth-child(3)", text: "1000124504")
+    expect(page).to have_css("td:nth-child(4)", text: "Z999994")
+    expect(page).to have_css("td:nth-child(5)", text: "Male")
+    expect(page).to have_css("td:nth-child(6)", text: "01/01/1960")
+    expect(page).to have_css("td:nth-child(7)", text: "55")
+  end
 end
 
 Then(/^the patient should be created$/) do
