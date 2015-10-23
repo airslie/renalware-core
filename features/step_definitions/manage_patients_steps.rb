@@ -64,13 +64,13 @@ When(/^I complete the add a new patient form$/) do
   select "White", from: "Ethnicity"
 
   within "#patient_birth_date_1i" do
-    select '1960'
+    select "1960"
   end
   within "#patient_birth_date_2i" do
-    select 'January'
+    select "January"
   end
   within "#patient_birth_date_3i" do
-    select '1'
+    select "1"
   end
 
   uncheck "If under 18 years, is the recipient being treated in a paediatric unit?"
