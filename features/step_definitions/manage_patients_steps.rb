@@ -138,7 +138,7 @@ end
 
 Then(/^I can see the new patient in the Renal Patient List$/) do
   visit patients_path
-  within('table.patients tbody tr:nth-child(1)') do
+  within("table.patients tbody tr:nth-child(1)") do
     expect(page).to have_css("td:nth-child(2)", text: "Smith, Ian")
     expect(page).to have_css("td:nth-child(3)", text: "1000124504")
     expect(page).to have_css("td:nth-child(4)", text: "Z999994")
