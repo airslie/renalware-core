@@ -37,7 +37,7 @@ module Renalware
       attribute :organs, Organs
 
       class Consent < Document::Embedded
-        attribute :value, enums: %i(yes no unkwown)
+        attribute :value, enums: %i(yes no unknown)
         attribute :date, Date
         attribute :name
 
