@@ -8,7 +8,8 @@ module Renalware
     before do
       @edta_code = FactoryGirl.create(:edta_code)
       @modality_code = FactoryGirl.create(:modality_code, :death)
-      @patient_modality = FactoryGirl.create(:modality, patient_id: subject.id, modality_code_id: @modality_code.id)
+      @patient_modality = FactoryGirl.create(:modality,
+        patient_id: subject.id, modality_code_id: @modality_code.id)
     end
 
     describe "index" do
@@ -18,16 +19,16 @@ module Renalware
       end
     end
 
-    describe 'GET edit' do
-      it 'responds with success' do
+    describe "GET edit" do
+      it "responds with success" do
         get :edit, patient_id: subject.id
         expect(response).to have_http_status(:success)
       end
     end
 
-    describe 'PUT update' do
+    describe "PUT update" do
       context "with valid attributes" do
-        it 'updates death details' do
+        it "updates death details" do
           put :update,
           patient_id: subject.id,
           patient: {
@@ -39,7 +40,7 @@ module Renalware
       end
 
       context "with invalid attributes" do
-        it 'updates death details' do
+        it "updates death details" do
           put :update, patient_id: subject.id, patient: { death_date: nil }
           expect(response).to render_template(:edit)
         end
