@@ -22,6 +22,10 @@ module Renalware
       BasePolicy
     end
 
+    def self.ransackable_scopes(_auth_object = nil)
+      %i(unapproved inactive)
+    end
+
     # @section custom validation methods
     #
     def approval_with_roles

@@ -4,20 +4,10 @@ module Renalware
     before_filter :load_user, only: [:edit, :update]
 
     def index
-      @users = User.all
+      @search = User.search(params[:q])
+      @users = @search.result(distinct: true)
+
       authorize @users
-    end
-
-    def unapproved
-      @users = User.unapproved
-      authorize @users, :index?
-      render :index
-    end
-
-    def inactive
-      @users = User.inactive
-      authorize @users, :index?
-      render :index
     end
 
     def update
