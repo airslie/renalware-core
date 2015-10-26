@@ -24,8 +24,10 @@
                   li.history
                     = "#{p.full_description}, #{p.updated_at.strftime("%d/%m/%Y - %H:%M")}"
 
-      = render partial: 'renalware/problems/new', locals: { pb: pb } if pb.object.new_record?
-      = render partial: 'renalware/problems/problem', locals: { pb: pb } unless pb.object.new_record?
+      - if pb.object.new_record?
+        = render partial: 'renalware/problems/new', locals: { pb: pb }
+      - else
+        = render partial: 'renalware/problems/problem', locals: { pb: pb }
 
     - unless current_user.read_only?
       = f.submit "Save Problems", class: "button tiny right save mt"
