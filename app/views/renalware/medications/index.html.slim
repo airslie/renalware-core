@@ -9,12 +9,7 @@
       = render partial: "renalware/shared/errors", locals: { model: @patient }
 
 .wide-screen
-  = nested_form_for @patient do |f|
-
-    = hidden_field_tag :redirect_url, manage_medications_patient_path(@patient)
-    = hidden_field_tag :template, "manage_medications"
-    = hidden_field_tag :message, "You have successfully updated a patient's medications."
-
+  = nested_form_for @patient, url: patient_medications_batch_path(@patient) do |f|
     = f.fields_for :medications do |pm|
 
       = render partial: "renalware/medications/medication", locals: { pm: pm } unless pm.object.new_record?

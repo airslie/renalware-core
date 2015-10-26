@@ -16,7 +16,7 @@
 
 .wide-screen
     = field_set_tag do
-      legend= link_to "#{@patient.medications.length} Current Medications", manage_medications_patient_path(@patient)
+      legend= link_to "#{@patient.medications.length} Current Medications", patient_medications_path(@patient)
 
       ul.no-bullet
         - @patient.medications.each do |p|

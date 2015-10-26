@@ -16,7 +16,6 @@ Rails.application.routes.draw do
 
     resources :patients, except: [:destroy] do
       member do
-        get :manage_medications
         get :capd_regime
         get :apd_regime
       end
@@ -34,6 +33,9 @@ Rails.application.routes.draw do
       resources :capd_regimes, :controller => "pd_regimes", :type => "CapdRegime"
       resources :apd_regimes, :controller => "pd_regimes", :type => "ApdRegime"
       resources :letters
+
+      resources :medications, only: :index
+      patch "medications", to: "medications#update", as: "medications_batch"
 
       resources :problems, only: :index
       patch "problems", to: "problems#update", as: "problems_batch"
