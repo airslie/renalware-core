@@ -36,6 +36,7 @@ module Renalware
     def update
       @letter = letter_class.find(params[:id])
       authorize @letter
+
       if service.update!(full_params)
         redirect_to patient_letters_path(@patient)
       else
@@ -57,10 +58,10 @@ module Renalware
     end
 
     def letter_params
-      params.require(:letter).permit(:id, :author_id,
-                                     :clinic_visit_id, :recipient,
-                                     :letter_description_id,
-                                     :body, :state)
+      params.require(:letter).permit(
+        :id, :author_id, :clinic_visit_id, :recipient, :letter_description_id,
+        :body, :state
+      )
     end
 
     def service

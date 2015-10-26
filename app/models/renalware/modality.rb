@@ -9,8 +9,8 @@ module Renalware
 
     validates :start_date, presence: true
 
-    # @section services
-    #
+    scope :ordered, -> { order('termination_date DESC') }
+
     def transfer!(attrs)
       transaction do
         successor = Modality.create!(attrs)

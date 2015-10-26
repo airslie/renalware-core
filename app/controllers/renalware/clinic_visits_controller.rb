@@ -33,7 +33,8 @@ module Renalware
 
     def destroy
       @clinic_visit.destroy
-      redirect_to patient_clinic_visits_path(@patient), notice: "Patient's clinic visit successfully deleted"
+      redirect_to patient_clinic_visits_path(@patient),
+        notice: "Patient's clinic visit successfully deleted"
     end
 
     private
@@ -41,7 +42,8 @@ module Renalware
     def clinic_visit_params
       params.require(:clinic_visit).permit(
         :date, :height, :weight,
-        :bp, :urine_blood, :urine_protein, :notes)
+        :bp, :urine_blood, :urine_protein, :notes
+      )
     end
 
     def load_clinic_visit

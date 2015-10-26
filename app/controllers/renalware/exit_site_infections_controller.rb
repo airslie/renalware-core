@@ -29,6 +29,7 @@ module Renalware
     end
 
     private
+
     def exit_site_infection_params
       params.require(:exit_site_infection).permit(
         :diagnosis_date, :treatment, :outcome, :notes,

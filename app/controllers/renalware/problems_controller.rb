@@ -7,7 +7,6 @@ module Renalware
     end
 
     def update
-      authorize @patient
       reject_invalid_or_update_problems(problem_params)
       redirect_to patient_problems_path(@patient), notice: "Problems successfully updated."
     end

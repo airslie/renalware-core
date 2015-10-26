@@ -11,6 +11,7 @@ module Renalware
     def create
       @event_type = EventType.new(allowed_params)
       authorize @event_type
+
       if @event_type.save
         redirect_to event_types_path, :notice => "You have successfully added a new patient event type."
       else
@@ -37,6 +38,7 @@ module Renalware
     end
 
     private
+
     def allowed_params
       params.require(:event_type).permit(:name, :deleted_at)
     end

@@ -7,6 +7,7 @@ module Renalware
       def show
         @workup = RecipientWorkup.for_patient(@patient).first_or_initialize
         authorize @workup
+
         redirect_to edit_patient_transplants_recipient_workup_path(@patient) if @workup.new_record?
       end
 
@@ -26,7 +27,7 @@ module Renalware
         end
       end
 
-      protected
+      private
 
       def workup_params
         document_attributes = params.require(:transplants_recipient_workup)

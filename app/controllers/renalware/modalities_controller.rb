@@ -8,7 +8,7 @@ module Renalware
     end
 
     def index
-      @modalities = @patient.modalities.with_deleted.order('termination_date DESC')
+      @modalities = @patient.modalities.with_deleted.ordered
     end
 
     def create
@@ -27,7 +27,8 @@ module Renalware
     def modality_params
       params.require(:modality).permit(
         :modality_code_id, :modality_change_type,
-        :modality_reason_id, :notes, :start_date)
+        :modality_reason_id, :notes, :start_date
+      )
     end
   end
 end

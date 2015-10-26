@@ -2,7 +2,6 @@ module Renalware
   class ESRFController < BaseController
 
     before_action :load_patient
-
     before_action :find_prd_descriptions
 
     def edit
@@ -11,6 +10,7 @@ module Renalware
 
     def update
       @esrf = ESRF.find_or_initialize_by(patient: @patient)
+
       if @esrf.update_attributes(esrf_params)
         redirect_to patient_clinical_summary_path(@patient), notice: t(".success")
       else
