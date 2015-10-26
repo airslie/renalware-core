@@ -2,10 +2,6 @@ require 'rails_helper'
 
 module Renalware
   RSpec.describe PatientsController, :type => :controller do
-
-    # When a doctor checks a terminate box a soft delete is triggered.
-    # And the deleted_at value is not nil.
-
     subject { create(:patient) }
 
     describe 'GET new' do
