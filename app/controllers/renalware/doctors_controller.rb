@@ -35,6 +35,7 @@ module Renalware
 
     def destroy
       authorize Doctor.destroy(params[:id])
+
       redirect_to doctors_path, notice: 'Doctor successfully deleted'
     end
     private
@@ -42,13 +43,17 @@ module Renalware
     def service
       @doctor = Doctor.find_or_initialize_by(id: params[:id])
       authorize @doctor
+
       DoctorService.new(@doctor)
     end
 
     def doctor_params
       params.require(:doctor).permit(
         :first_name, :last_name, :email, :practitioner_type, :code, practice_ids: [],
-        address_attributes: [:id, :street_1, :street_2, :city, :county, :postcode, :country])
+        address_attributes: [
+          :id, :street_1, :street_2, :city, :county, :postcode, :country
+        ]
+      )
     end
   end
 end

@@ -10,13 +10,9 @@ Rails.application.routes.draw do
     root to: "patients#index"
 
     namespace :admin do
-      resources :users do
-        collection do
-          get :inactive
-          get :unapproved
-        end
-      end
+      resources :users
     end
+
 
     get "authors/:author_id/letters", to: "letters#author", as: "author_letters"
 

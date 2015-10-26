@@ -30,12 +30,16 @@ module Renalware
     private
 
     def pd_regime_params
-      params.require(:pd_regime).permit(:start_date, :end_date,
-        :treatment, :type, :glucose_ml_percent_1_36, :glucose_ml_percent_2_27, :glucose_ml_percent_3_86,
-        :amino_acid_ml, :icodextrin_ml, :low_glucose_degradation, :low_sodium, :add_hd, :last_fill_ml,
-        :add_manual_exchange, :tidal_indicator, :tidal_percentage, :no_cycles_per_apd, :overnight_pd_ml,
-        pd_regime_bags_attributes: [:id, :pd_regime_id, :bag_type_id, :volume, :per_week, :monday, :tuesday,
-                                    :wednesday, :thursday, :friday, :saturday, :sunday, :_destroy])
+      params.require(:pd_regime).permit(
+        :start_date, :end_date, :treatment, :type, :glucose_ml_percent_1_36,
+        :glucose_ml_percent_2_27, :glucose_ml_percent_3_86, :amino_acid_ml,
+        :icodextrin_ml, :low_glucose_degradation, :low_sodium, :add_hd, :last_fill_ml,
+        :add_manual_exchange, :tidal_indicator, :tidal_percentage, :no_cycles_per_apd,
+        :overnight_pd_ml,
+        pd_regime_bags_attributes: [
+          :id, :pd_regime_id, :bag_type_id, :volume, :per_week, :monday, :tuesday,
+          :wednesday, :thursday, :friday, :saturday, :sunday, :_destroy]
+      )
     end
 
     def find_pd_regime

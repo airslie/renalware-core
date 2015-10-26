@@ -10,6 +10,7 @@ module Renalware
       @medication_switch = params[:medication_switch]
       @selected_drugs = Drug.send(@medication_switch)
       authorize @selected_drugs
+
       respond_to do |format|
         format.html
         format.json { render :json => @selected_drugs.as_json(:only => [:id, :name]) }
@@ -19,14 +20,16 @@ module Renalware
     def new
       @drug = Drug.new
       authorize @drug
+
       @drug_types = DrugType.all
     end
 
     def create
       @drug = Drug.new(drug_params)
       authorize @drug
+
       if @drug.save
-        redirect_to drugs_path, :notice => "You have successfully added a new drug."
+        redirect_to drugs_path, notice: "You have successfully added a new drug."
       else
         render :new
       end
@@ -35,16 +38,19 @@ module Renalware
     def index
       @drugs = @drugs_search.result(distinct: true)
       authorize @drugs
+
       @drugs = @drugs.page(@page).per(@per_page) if request.format.html?
+
       respond_to do |format|
         format.html
-        format.json { render :json => @drugs }
+        format.json { render json: @drugs }
       end
     end
 
     def edit
       @drug = Drug.find(params[:id])
       authorize @drug
+
       @drug_drug_types = @drug.drug_drug_types
       @drug_types = DrugType.all
     end
@@ -52,8 +58,9 @@ module Renalware
     def update
       @drug = Drug.find(params[:id])
       authorize @drug
+
       if @drug.update(drug_params)
-        redirect_to drugs_path, :notice => "You have successfully updated a drug"
+        redirect_to drugs_path, notice: "You have successfully updated a drug"
       else
         render :edit
       end
@@ -61,10 +68,12 @@ module Renalware
 
     def destroy
       authorize Drug.destroy(params[:id])
-      redirect_to drugs_path, :notice => "You have successfully removed a drug."
+
+      redirect_to drugs_path, notice: "You have successfully removed a drug."
     end
 
     private
+
     def drug_params
       params.require(:drug).permit(:name, :deleted_at, :drug_type_ids => [])
     end

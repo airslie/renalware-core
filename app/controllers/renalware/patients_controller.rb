@@ -6,9 +6,13 @@ module Renalware
     before_action :prepare_paging, only: [:index]
     before_action :find_patient, only: [:show, :edit, :update]
 
+    def index
+      @patients = @patient_search.result.page(@page).per(@per_page)
+      authorize @patients
+    end
+
     def new
       @patient = Patient.new
-
       authorize @patient
     end
 
@@ -24,24 +28,16 @@ module Renalware
     end
 
     def edit
-      authorize @patient
+      render
     end
 
     def update
-      authorize @patient
-
       if @patient.update(patient_params)
         redirect_to patient_clinical_summary_path(@patient),
           notice: "You have successfully updated a patient's demographics"
       else
         render :edit
       end
-    end
-
-    def index
-      @patients = @patient_search.result.page(@page).per(@per_page)
-
-      authorize @patients
     end
 
     private
@@ -62,6 +58,7 @@ module Renalware
 
     def find_patient
       @patient = Patient.find(params[:id])
+      authorize @patient
     end
   end
 end
