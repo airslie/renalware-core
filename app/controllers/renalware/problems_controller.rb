@@ -8,15 +8,15 @@ module Renalware
 
     def update
       authorize @patient
-
-      if @patient.update(problem_params)
-        redirect_to patient_problems_path(@patient), notice: "Problems successfully updated."
-      else
-        render :index
-      end
+      reject_invalid_or_update_problems(problem_params)
+      redirect_to patient_problems_path(@patient), notice: "Problems successfully updated."
     end
 
     private
+
+    def reject_invalid_or_update_problems(problem_params)
+      @patient.update(problem_params)
+    end
 
     def problem_params
       params.require(:patient).permit(
