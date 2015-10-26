@@ -2,11 +2,11 @@ module Renalware
   class PatientsController < BaseController
     include Renalware::Concerns::Pageable
 
-    skip_after_action :verify_authorized, only: [ :show, :manage_medications, :problems ]
+    skip_after_action :verify_authorized, only: [:show, :manage_medications]
 
     before_filter :prepare_paging, only: [:index]
 
-    before_action :find_patient, only: [:show, :edit, :update, :manage_medications, :problems]
+    before_action :find_patient, only: [:show, :edit, :update, :manage_medications]
 
     def new
       @patient = Patient.new
@@ -41,10 +41,6 @@ module Renalware
       authorize @patients
     end
 
-    def problems
-      @patient.problems.build
-    end
-
     private
     def patient_params
       params.require(:patient).permit(:nhs_number, :local_patient_id, :surname,
@@ -53,9 +49,7 @@ module Renalware
         current_address_attributes: [:street_1, :street_2, :county, :country, :city, :postcode],
         address_at_diagnosis_attributes: [:street_1, :street_2, :county, :country, :city, :postcode],
         medications_attributes: [:id, :medicatable_id, :medicatable_type, :dose, :medication_route_id,
-        :frequency, :notes, :start_date, :end_date, :provider, :_destroy],
-        problems_attributes:  [:id, :snomed_id, :snomed_description, :description, :date,
-                               :user_id, :deleted_at, :_destroy],
+        :frequency, :notes, :start_date, :end_date, :provider, :_destroy]
         )
     end
 

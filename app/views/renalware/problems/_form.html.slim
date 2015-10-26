@@ -4,9 +4,6 @@
     .a-problem
       .row
         .remove-problem.right.add-x
-
-      = pb.hidden_field :id
-
       = label_tag :snomed_term
       = select_tag :snomed_term
 
@@ -21,7 +18,5 @@
   .saved-problem-form
 
     = pb.hidden_field :id
-    = pb.hidden_field :patient_id
-
     = pb.label :description
     = pb.text_field :description, class: "probs-description"

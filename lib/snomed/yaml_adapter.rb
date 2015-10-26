@@ -1,3 +1,5 @@
+require "snomed/response"
+
 module Snomed
   class YamlAdapter
 

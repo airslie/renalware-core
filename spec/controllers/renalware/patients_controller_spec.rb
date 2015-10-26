@@ -2,10 +2,6 @@ require 'rails_helper'
 
 module Renalware
   RSpec.describe PatientsController, :type => :controller do
-
-    # When a doctor checks a terminate box a soft delete is triggered.
-    # And the deleted_at value is not nil.
-
     subject { create(:patient) }
 
     describe 'GET new' do
@@ -74,19 +70,11 @@ module Renalware
       end
     end
 
-    describe 'problems' do
-      it 'responds with success' do
-        get :problems, id: subject.id
-        expect(response).to have_http_status(:success)
-      end
-    end
-
     describe "GET manage_medications" do
       it "returns http success" do
         get :manage_medications, id: subject.id
         expect(response).to have_http_status(:success)
       end
     end
-
   end
 end

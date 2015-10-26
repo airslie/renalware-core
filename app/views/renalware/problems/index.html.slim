@@ -1,0 +1,20 @@
+.wide-screen
+  .columns.large-12
+    = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
+    = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
+
+    h2 Patient Problems
+
+.wide-screen
+  = form_for @patient, url: patient_problems_batch_path(@patient) do |f|
+    = f.fields_for :problems do |pb|
+      - if pb.object.versions.any?
+        = render 'versions', object: pb.object, versions: pb.object.versions
+
+      - if pb.object.new_record?
+        = render partial: 'renalware/problems/new', locals: { pb: pb }
+      - else
+        = render partial: 'renalware/problems/problem', locals: { pb: pb }
+
+    - unless current_user.read_only?
+      = f.submit "Save Problems", class: "button tiny right save mt"
