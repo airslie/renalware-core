@@ -9,7 +9,7 @@ module Renalware
 
     validates :start_date, presence: true
 
-    scope :ordered, -> { order('termination_date DESC') }
+    scope :ordered, -> { order(termination_date: :desc) }
 
     def transfer!(attrs)
       transaction do

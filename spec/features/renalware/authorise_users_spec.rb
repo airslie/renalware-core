@@ -1,5 +1,5 @@
-require 'rails_helper'
-require 'action_view/record_identifier'
+require "rails_helper"
+require "action_view/record_identifier"
 
 module Renalware
   feature 'Authorising, approving and reactivating users' do
@@ -46,7 +46,7 @@ module Renalware
     end
 
     scenario 'An admin removes all roles from a user' do
-      first("tbody tr##{dom_id(@approved)}").click_link('Edit')
+      first("tbody tr##{dom_id(@approved)}").click_link("Edit")
       expect(current_path).to eq(edit_admin_user_path(@approved))
 
       uncheck 'Super admin'
