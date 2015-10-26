@@ -8,4 +8,4 @@ dl.accordion.right.columns.large-6.problem-history(data-accordion)
 
         ul.no-bullet
           li.history
-            = "#{p.full_description}, #{p.updated_at.strftime("%d/%m/%Y - %H:%M")}"
+            = "#{p.full_description}, #{l p.updated_at, format: :long}"
