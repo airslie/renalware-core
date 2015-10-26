@@ -36,9 +36,7 @@ module Renalware
     end
 
     def fetch_roles(role_ids)
-      return if role_ids.nil?
-      return [] if role_ids.empty?
-      Role.where(id: role_ids.map(&:to_i))
+      Role.fetch(role_ids)
     end
 
     def user_service
