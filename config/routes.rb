@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
-  devise_for :users, class_name: 'Renalware::User',
-    controllers: { registrations: "renalware/devise/registrations", sessions: "renalware/devise/sessions" }
+  devise_for :users, class_name: "Renalware::User", controllers: {
+    registrations: "renalware/devise/registrations",
+    sessions: "renalware/devise/sessions"
+  }
 
   scope module: "renalware" do
     # TODO - This will probably change in future
@@ -16,12 +18,12 @@ Rails.application.routes.draw do
       end
     end
 
-    get 'authors/:author_id/letters', to: 'letters#author', as: 'author_letters'
+    get "authors/:author_id/letters", to: "letters#author", as: "author_letters"
 
     resources :bag_types, except: [:show]
 
     resources :clinic_visits do
-      resources :letters, controller: 'clinic_letters', only: [:new, :edit]
+      resources :letters, controller: "clinic_letters", only: [:new, :edit]
     end
 
     resources :deaths, only: :index, as: :patient_deaths
@@ -49,8 +51,8 @@ Rails.application.routes.draw do
       resource :esrf, only: [:edit, :update], controller: "esrf"
       resource :pd_summary, only: :show
 
-      resources :apd_regimes, :controller => "pd_regimes", :type => "ApdRegime"
-      resources :capd_regimes, :controller => "pd_regimes", :type => "CapdRegime"
+      resources :apd_regimes, controller: "pd_regimes", type: "ApdRegime"
+      resources :capd_regimes, controller: "pd_regimes", type: "CapdRegime"
       resources :clinic_visits
       resources :events, only: [:new, :create, :index]
       resources :exit_site_infections, only: [:new, :create, :show, :edit, :update]
