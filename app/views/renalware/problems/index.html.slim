@@ -6,9 +6,7 @@
     h2 Patient Problems
 
 .wide-screen
-  = form_for @patient do |f|
-    = hidden_field_tag :redirect_url, patient_problems_path(@patient)
-
+  = form_for @patient, url: patient_problems_batch_path(@patient) do |f|
     = f.fields_for :problems do |pb|
       - if pb.object.versions != []
 
