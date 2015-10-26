@@ -2,11 +2,11 @@ module Renalware
   class PatientsController < BaseController
     include Renalware::Concerns::Pageable
 
-    skip_after_action :verify_authorized, only: [:show, :manage_medications]
+    skip_after_action :verify_authorized, only: :show
 
     before_filter :prepare_paging, only: [:index]
 
-    before_action :find_patient, only: [:show, :edit, :update, :manage_medications]
+    before_action :find_patient, only: [:show, :edit, :update]
 
     def new
       @patient = Patient.new

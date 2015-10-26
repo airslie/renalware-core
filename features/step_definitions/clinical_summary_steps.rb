@@ -109,7 +109,7 @@ When(/^they save the problem list$/) do
 end
 
 When(/^they add a medication$/) do
-  visit manage_medications_patient_path(@patient_1)
+  visit patient_medications_path(@patient_1)
   click_link "Add a new medication"
 end
 
@@ -130,7 +130,7 @@ When(/^complete the medication form by drug type select$/) do
 end
 
 When(/^complete the medication form by drug search$/) do
-  visit manage_medications_patient_path(@patient_1)
+  visit patient_medications_path(@patient_1)
   click_link "Add a new medication"
 
   fill_in "Drug", :with => "amo"
@@ -155,7 +155,7 @@ When(/^complete the medication form by drug search$/) do
 end
 
 When(/^they terminate a medication$/) do
-  visit manage_medications_patient_path(@patient_1)
+  visit patient_medications_path(@patient_1)
   find("a.drug-esa").click
   check "Terminate?"
   click_on "Save Medication"
