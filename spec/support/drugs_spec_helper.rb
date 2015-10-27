@@ -37,7 +37,7 @@ def load_drugs_by_type(drugs_by_type)
         drug_type = instance_variable_set(:"@#{drug_type_name.downcase}",
           create(:drug_type, name: drug_type_name))
       end
-      create(:drug_drug_type, drug_id: drug.id, drug_type_id: drug_type.id)
+      drug.drug_types << drug_type
     end
 
   end

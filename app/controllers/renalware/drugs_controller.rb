@@ -51,7 +51,6 @@ module Renalware
       @drug = Drug.find(params[:id])
       authorize @drug
 
-      @drug_drug_types = @drug.drug_drug_types
       @drug_types = DrugType.all
     end
 

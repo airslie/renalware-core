@@ -11,26 +11,26 @@ Given(/^there are drug types in the database$/) do
 end
 
 Given(/^existing drugs have been assigned drug types$/) do
-  @drug_drug_type_1  = Renalware::DrugDrugType.create!(drug_id: @red.id, drug_type_id: @immunosuppressant.id)
-  @drug_drug_type_2  = Renalware::DrugDrugType.create!(drug_id: @blue.id, drug_type_id: @esa.id)
-  @drug_drug_type_3  = Renalware::DrugDrugType.create!(drug_id: @yellow.id, drug_type_id: @immunosuppressant.id)
-  @drug_drug_type_5  = Renalware::DrugDrugType.create!(drug_id: @green.id, drug_type_id: @esa.id)
-  @drug_drug_type_6  = Renalware::DrugDrugType.create!(drug_id: @amoxicillin.id, drug_type_id: @antibiotic.id)
-  @drug_drug_type_7  = Renalware::DrugDrugType.create!(drug_id: @amoxicillin.id, drug_type_id: @peritonitis.id)
-  @drug_drug_type_8  = Renalware::DrugDrugType.create!(drug_id: @cephradine.id, drug_type_id: @antibiotic.id)
-  @drug_drug_type_9  = Renalware::DrugDrugType.create!(drug_id: @cephradine.id, drug_type_id: @peritonitis.id)
-  @drug_drug_type_10 = Renalware::DrugDrugType.create!(drug_id: @dicloxacillin.id, drug_type_id: @antibiotic.id)
-  @drug_drug_type_11 = Renalware::DrugDrugType.create!(drug_id: @dicloxacillin.id, drug_type_id: @peritonitis.id)
-  @drug_drug_type_12 = Renalware::DrugDrugType.create!(drug_id: @metronidazole.id, drug_type_id: @antibiotic.id)
-  @drug_drug_type_13 = Renalware::DrugDrugType.create!(drug_id: @metronidazole.id, drug_type_id: @peritonitis.id)
-  @drug_drug_type_14 = Renalware::DrugDrugType.create!(drug_id: @penicillin.id, drug_type_id: @antibiotic.id)
-  @drug_drug_type_15 = Renalware::DrugDrugType.create!(drug_id: @penicillin.id, drug_type_id: @peritonitis.id)
-  @drug_drug_type_16 = Renalware::DrugDrugType.create!(drug_id: @rifampin.id, drug_type_id: @antibiotic.id)
-  @drug_drug_type_17 = Renalware::DrugDrugType.create!(drug_id: @rifampin.id, drug_type_id: @peritonitis.id)
-  @drug_drug_type_18 = Renalware::DrugDrugType.create!(drug_id: @tobramycin.id, drug_type_id: @antibiotic.id)
-  @drug_drug_type_19 = Renalware::DrugDrugType.create!(drug_id: @tobramycin.id, drug_type_id: @peritonitis.id)
-  @drug_drug_type_20 = Renalware::DrugDrugType.create!(drug_id: @vancomycin.id, drug_type_id: @antibiotic.id)
-  @drug_drug_type_21 = Renalware::DrugDrugType.create!(drug_id: @vancomycin.id, drug_type_id: @peritonitis.id)
+  @red.drug_types << @immunosuppressant
+  @blue.drug_types << @esa
+  @yellow.drug_types << @immunosuppressant
+  @green.drug_types << @esa
+  @amoxicillin.drug_types << @antibiotic
+  @amoxicillin.drug_types << @peritonitis
+  @cephradine.drug_types << @antibiotic
+  @cephradine.drug_types << @peritonitis
+  @dicloxacillin.drug_types << @antibiotic
+  @dicloxacillin.drug_types << @peritonitis
+  @metronidazole.drug_types << @antibiotic
+  @metronidazole.drug_types << @peritonitis
+  @penicillin.drug_types << @antibiotic
+  @penicillin.drug_types << @peritonitis
+  @rifampin.drug_types << @antibiotic
+  @rifampin.drug_types << @peritonitis
+  @tobramycin.drug_types << @antibiotic
+  @tobramycin.drug_types << @peritonitis
+  @vancomycin.drug_types << @antibiotic
+  @vancomycin.drug_types << @peritonitis
 end
 
 Given(/^that I'm on the add a new drug page$/) do

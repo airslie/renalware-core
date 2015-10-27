@@ -5,8 +5,7 @@ module Renalware
 
     has_many :medications, as: :medicatable, dependent: :destroy
     has_many :patients, through: :medications, as: :medicatable
-    has_many :drug_drug_types
-    has_many :drug_types, -> { uniq }, through: :drug_drug_types
+    has_and_belongs_to_many :drug_types
 
     validates :name, presence: true
 
