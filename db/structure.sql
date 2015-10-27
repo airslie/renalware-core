@@ -199,7 +199,8 @@ CREATE TABLE doctors_practices (
 
 CREATE TABLE drug_types (
     id integer NOT NULL,
-    name character varying,
+    name character varying NOT NULL,
+    code character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );

@@ -11,7 +11,7 @@ module Renalware
 
       def selected_drugs
         @medication_switch = params[:medication_switch]
-        @selected_drugs = Drug.send(@medication_switch)
+        @selected_drugs = Drug.for(@medication_switch)
         authorize @selected_drugs
 
         respond_to do |format|

@@ -11,10 +11,9 @@ module Renalware
 
       validates :name, presence: true
 
-      scope :antibiotic, -> { joins(:drug_types).where(:drug_types => {:name => "Antibiotic"}) }
-      scope :esa, -> { joins(:drug_types).where(:drug_types => {:name => "ESA"}) }
-      scope :immunosuppressant, -> { joins(:drug_types).where(:drug_types => {:name => "Immunosuppressant"}) }
-      scope :peritonitis, -> { joins(:drug_types).where(:drug_types => {:name => "Peritonitis"}) }
+      def self.for(code)
+        joins(:drug_types).where(drug_types: {code: code.to_s})
+      end
 
       def display_type
         "Standard Drug"

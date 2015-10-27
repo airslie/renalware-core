@@ -2,7 +2,9 @@ module Renalware
   log '--------------------Adding DrugTypes--------------------'
 
   %w(Antibiotic ESA Immunosuppressant Peritonitis Controlled).each do |drug_type|
-    Drugs::Type.find_or_create_by!(name: drug_type)
+    Drugs::Type.find_or_create_by!(code: drug_type.downcase) do |type|
+      type.name = drug_type
+    end
   end
 
   log '--------------------Adding Drugs--------------------'
