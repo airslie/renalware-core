@@ -40,7 +40,7 @@ module Renalware
       end
 
       context "with invalid attributes" do
-        it "updates death details" do
+        it "fails to update death details" do
           put :update, patient_id: subject.id, patient: { death_date: nil }
           expect(response).to render_template(:edit)
         end
