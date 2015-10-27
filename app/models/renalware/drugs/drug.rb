@@ -6,8 +6,6 @@ module Renalware
 
       acts_as_paranoid
 
-      has_many :medications, as: :medicatable, dependent: :destroy
-      has_many :patients, through: :medications, as: :medicatable
       has_and_belongs_to_many :drug_types, class_name: "Type",
         association_foreign_key: :drug_type_id
 
