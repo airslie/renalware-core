@@ -2,6 +2,7 @@ require 'rails_helper'
 
 module Renalware
   RSpec.describe ExitSiteInfection, :type => :model do
+    include DrugsSpecHelper
 
     it { should belong_to(:patient) }
 

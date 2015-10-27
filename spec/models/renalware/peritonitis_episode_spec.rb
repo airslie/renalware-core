@@ -2,6 +2,7 @@ require 'rails_helper'
 
 module Renalware
   RSpec.describe PeritonitisEpisode, :type => :model do
+    include DrugsSpecHelper
 
     it { should belong_to(:patient) }
     it { should belong_to(:episode_type) }
