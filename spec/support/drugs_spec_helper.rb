@@ -22,10 +22,6 @@ def load_all_drug_types
   load_drug_types(DRUG_TYPES)
 end
 
-def set_drug_drug_types(drug,drug_type)
-  create(:drug_drug_type, drug_id: drug.id, drug_type_id: drug_type.id)
-end
-
 # { 'Amoxicillin' => ['Antibiotic', 'Peritonitis'], 'Penicillin' => ['Foo', ...] }
 def load_drugs_by_type(drugs_by_type)
   drugs_by_type.each do |drug_name, drug_type_names|
@@ -33,11 +29,11 @@ def load_drugs_by_type(drugs_by_type)
     drug = instance_variable_set(:"@#{drug_name.downcase}", create(:drug, name: drug_name))
 
     drug_type_names.each do |drug_type_name|
-      unless drug_type = Renalware::DrugType.find_by(name: drug_type_name)
+      unless drug_type = Renalware::Drugs::Type.find_by(name: drug_type_name)
         drug_type = instance_variable_set(:"@#{drug_type_name.downcase}",
           create(:drug_type, name: drug_type_name))
       end
-      create(:drug_drug_type, drug_id: drug.id, drug_type_id: drug_type.id)
+      drug.drug_types << drug_type
     end
 
   end

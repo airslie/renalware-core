@@ -10,7 +10,6 @@ Feature: An admin manages the drugs list
       Given that I'm on the add a new drug page
       When I complete the form for a new drug
       Then I should see the new drug on the drugs list
-        And I should see the new drug's categories/types
 
     Scenario: An admin edits a drug in the drugs list
       Given that I choose to edit a drug

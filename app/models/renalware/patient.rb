@@ -16,7 +16,7 @@ module Renalware
     has_many :events
     has_many :problems
     has_many :medications
-    has_many :drugs, :through => :medications, :source => :medicatable, :source_type => "Drug"
+    has_many :drugs, :through => :medications, :source => :medicatable, :source_type => "Drugs::Drug"
     has_many :exit_site_infections, :through => :medications, :source => :treatable, :source_type => "ExitSiteInfection"
     has_many :peritonitis_episodes, :through => :medications, :source => :treatable, :source_type => "PeritonitisEpisode"
     has_many :medication_routes, :through => :medications

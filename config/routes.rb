@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   }
 
   scope module: "renalware" do
-    # TODO - This will probably change in future
     root to: "patients#index"
 
     namespace :admin do
@@ -25,11 +24,12 @@ Rails.application.routes.draw do
     resources :deaths, only: :index, as: :patient_deaths
     resources :doctors
 
-    resources :drugs, except: [:show] do
-      collection do
-        get :selected_drugs
+    namespace :drugs do
+      resources :drugs, except: :show do
+        collection do
+          get :selected_drugs
+        end
       end
-      resources :drug_drug_types, only: [:index, :create, :destroy]
     end
 
     resources :event_types, except: [:show]

@@ -37,7 +37,7 @@ $(document).ready(function(){
     }
 
     $.ajax({
-      url: '/drugs/selected_drugs.json',
+      url: '/drugs/drugs/selected_drugs.json',
       data: { medication_switch: selectedMedicationType },
       success: function(json) {
         var $drugSelectBox = $medForm.find('.drug-select');
@@ -77,7 +77,7 @@ $(document).ready(function(){
     timer = setTimeout(function() {
       if (query.length > 2) {
         $.ajax({
-          url: '/drugs.json',
+          url: '/drugs/drugs.json',
           data: { q : { name_or_drug_types_name_start : query } },
           success: function(json) {
             $drugResults.html('').show();

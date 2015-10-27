@@ -1,13 +1,7 @@
 require 'rails_helper'
 
-module Renalware
+module Renalware::Drugs
   RSpec.describe Drug, :type => :model do
-
-    it { should have_many(:medications).dependent(:destroy) }
-    it { should have_many(:patients).through(:medications) }
-    it { should have_many(:drug_drug_types) }
-    it { should have_many(:drug_types).through(:drug_drug_types) }
-
     subject { build(:drug) }
 
     describe 'destroy' do
@@ -25,7 +19,6 @@ module Renalware
         @antibiotic = create(:drug_type, name: 'Antibiotic')
         @esa = create(:drug_type, name: 'ESA')
 
-        subject.drug_types << @antibiotic
         subject.drug_types << @antibiotic
         subject.drug_types << @esa
 
