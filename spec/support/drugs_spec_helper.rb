@@ -29,7 +29,7 @@ def load_drugs_by_type(drugs_by_type)
     drug = instance_variable_set(:"@#{drug_name.downcase}", create(:drug, name: drug_name))
 
     drug_type_names.each do |drug_type_name|
-      unless drug_type = Renalware::DrugType.find_by(name: drug_type_name)
+      unless drug_type = Renalware::Drugs::Type.find_by(name: drug_type_name)
         drug_type = instance_variable_set(:"@#{drug_type_name.downcase}",
           create(:drug_type, name: drug_type_name))
       end

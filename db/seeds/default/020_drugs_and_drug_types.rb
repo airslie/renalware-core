@@ -2,7 +2,7 @@ module Renalware
   log '--------------------Adding DrugTypes--------------------'
 
   %w(Antibiotic ESA Immunosuppressant Peritonitis Controlled).each do |drug_type|
-    DrugType.find_or_create_by!(name: drug_type)
+    Drugs::Type.find_or_create_by!(name: drug_type)
   end
 
   log '--------------------Adding Drugs--------------------'
@@ -12,7 +12,7 @@ module Renalware
   logcount=0
   CSV.foreach(file_path, headers: true) do |row|
     logcount += 1
-    Drug.find_or_create_by!(name: row['drugname'])
+    Drugs::Drug.find_or_create_by!(name: row['drugname'])
   end
 
   log "#{logcount} Drugs seeded"
@@ -24,7 +24,9 @@ module Renalware
   logcount=0
   CSV.foreach(file_path, headers: true) do |row|
     logcount += 1
-    DrugDrugType.find_or_create_by!(drug_id: row['drug_id'], drug_type_id: row['drug_type_id'])
+    drug = Drugs::Drug.find(row['drug_id'])
+    drug_type = Drugs::Type.find(row['drug_type_id'])
+    drug.drug_types << drug_type unless drug.drug_types.include?(drug_type)
   end
 
   log "#{logcount} DrugTypes assigned"

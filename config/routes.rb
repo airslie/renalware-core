@@ -24,9 +24,11 @@ Rails.application.routes.draw do
     resources :deaths, only: :index, as: :patient_deaths
     resources :doctors
 
-    resources :drugs, except: [:show] do
-      collection do
-        get :selected_drugs
+    namespace :drugs do
+      resources :drugs, except: :show do
+        collection do
+          get :selected_drugs
+        end
       end
     end
 

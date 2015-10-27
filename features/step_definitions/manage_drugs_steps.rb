@@ -34,15 +34,15 @@ Given(/^existing drugs have been assigned drug types$/) do
 end
 
 Given(/^that I'm on the add a new drug page$/) do
-  visit new_drug_path
+  visit new_drugs_drug_path
 end
 
 Given(/^that I choose to edit a drug$/) do
-  visit edit_drug_path(@vancomycin)
+  visit edit_drugs_drug_path(@vancomycin)
 end
 
 Given(/^I am on the drugs index$/) do
-  visit drugs_path
+  visit drugs_drugs_path
 end
 
 When(/^I complete the form for a new drug$/) do

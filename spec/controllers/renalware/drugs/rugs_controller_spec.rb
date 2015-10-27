@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-module Renalware
+module Renalware::Drugs
   RSpec.describe DrugsController, :type => :controller do
 
     describe "DELETE to destroy" do

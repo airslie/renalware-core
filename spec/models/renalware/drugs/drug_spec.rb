@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-module Renalware
+module Renalware::Drugs
   RSpec.describe Drug, :type => :model do
     subject { build(:drug) }
 

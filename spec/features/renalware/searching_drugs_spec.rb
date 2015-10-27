@@ -8,7 +8,7 @@ module Renalware
       end
 
       login_as_clinician
-      visit drugs_path
+      visit drugs_drugs_path
     end
 
     scenario 'without a query' do
@@ -37,7 +37,7 @@ module Renalware
     scenario 'with paged results' do
       Kaminari.configure { |k| k.default_per_page = 5 }
 
-      visit drugs_path
+      visit drugs_drugs_path
 
       within('.drugs') do
         expect_to_find_drug('Amoxicillin',   1)
