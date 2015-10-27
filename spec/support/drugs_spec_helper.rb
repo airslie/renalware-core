@@ -22,10 +22,6 @@ def load_all_drug_types
   load_drug_types(DRUG_TYPES)
 end
 
-def set_drug_drug_types(drug,drug_type)
-  create(:drug_drug_type, drug_id: drug.id, drug_type_id: drug_type.id)
-end
-
 # { 'Amoxicillin' => ['Antibiotic', 'Peritonitis'], 'Penicillin' => ['Foo', ...] }
 def load_drugs_by_type(drugs_by_type)
   drugs_by_type.each do |drug_name, drug_type_names|
