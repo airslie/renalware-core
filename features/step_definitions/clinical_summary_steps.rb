@@ -155,7 +155,7 @@ When(/^complete the medication form by drug search$/) do
 end
 
 When(/^they terminate a medication$/) do
-  visit patient_medications_path(@patient_1)
+  visit manage_medications_patient_path(@patient_1)
   find("a.drug-esa").click
   check "Terminate?"
   click_on "Save Medication"
@@ -270,19 +270,15 @@ end
 
 Then(/^I should see the patient on the death list$/) do
   visit patient_deaths_path
-  within("table tbody tr") do
-    expect(page).to have_css("td:nth-child(2)", text: "Roger RABBIT")
-    expect(page).to have_css("td:nth-child(3)", text: "1000124501")
-    expect(page).to have_css("td:nth-child(4)", text: "Z999991")
-    expect(page).to have_css("td:nth-child(5)", text: "Male")
-    expect(page).to have_css("td:nth-child(6)", text: "01/01/1947")
-    expect(page).to have_css("td:nth-child(7)", text: "22/09/2014")
-    expect(page).to have_css("td:nth-child(8)", text: "68")
+  within("#patients-deceased") do
+    expect(page).to have_content("1000124501")
+    expect(page).to have_content("Male")
   end
 end
 
 Then(/^I should see the patient's current modality set as death with set date$/) do
   visit patient_modalities_path(@patient_1)
+
   expect(page).to have_content("Death")
   expect(page).to have_content("01/04/2015")
 end
