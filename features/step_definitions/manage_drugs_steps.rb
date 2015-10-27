@@ -66,18 +66,8 @@ Then(/^I should see the new drug on the drugs list$/) do
   expect(page).to have_content("I am a new drug")
 end
 
-Then(/^I should see the new drug's categories\/types$/) do
-  visit drug_drug_drug_types_path(Renalware::Drug.all.fourth)
-  expect(page).to have_content("Antibiotic")
-  expect(page).to have_content("Immunosuppressant")
-end
-
 Then(/^I should see the updated drug on the drugs list$/) do
   expect(page).to have_content("I am an edited drug")
-
-  visit drug_drug_drug_types_path(@vancomycin)
-  page.assert_selector('li', :text => 'Antibiotic', :count => 1)
-  page.assert_selector('li', :text => 'Peritonitis', :count => 0)
 end
 
 Then(/^I should see the drug removed from the drugs list$/) do
