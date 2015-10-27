@@ -3,7 +3,6 @@ require_dependency 'renalware/drugs'
 module Renalware
   module Drugs
     class Drug < ActiveRecord::Base
-
       acts_as_paranoid
 
       has_and_belongs_to_many :drug_types, class_name: "Type",
