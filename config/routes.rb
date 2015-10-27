@@ -29,7 +29,6 @@ Rails.application.routes.draw do
       collection do
         get :selected_drugs
       end
-      resources :drug_drug_types, only: [:index, :create, :destroy]
     end
 
     resources :event_types, except: [:show]
