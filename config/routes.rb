@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   }
 
   scope module: "renalware" do
-    # TODO - This will probably change in future
     root to: "patients#index"
 
     namespace :admin do
