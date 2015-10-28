@@ -7,7 +7,7 @@ module Renalware
 
       acts_as_paranoid
 
-      has_paper_trail class_name: 'Renalware::Problems::ProblemVersion'
+      has_paper_trail class_name: "Renalware::Problems::ProblemVersion"
 
       belongs_to :patient
 
