@@ -155,7 +155,7 @@ When(/^complete the medication form by drug search$/) do
 end
 
 When(/^they terminate a medication$/) do
-  visit manage_medications_patient_path(@patient_1)
+  visit patient_medications_path(@patient_1)
   find("a.drug-esa").click
   check "Terminate?"
   click_on "Save Medication"
