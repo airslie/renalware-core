@@ -9,5 +9,9 @@ module Renalware
     def self.policy_class
       BasePolicy
     end
+
+    def to_s
+      name
+    end
   end
 end
