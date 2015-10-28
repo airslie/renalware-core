@@ -44,3 +44,35 @@ end
 Then(/^they should see the updated event type on the existing patient event type list$/) do
   expect(page).to have_content?("I am an updated new patient event")
 end
+
+When(/^they choose to add a patient event$/) do
+  visit new_patient_event_path(@patient_1)
+end
+
+When(/^complete the patient event form$/) do
+  within "#events_event_date_time_3i" do
+    select '1'
+  end
+
+  within "#events_event_date_time_2i" do
+    select 'January'
+  end
+
+  within "#events_event_date_time_1i" do
+    select '2011'
+  end
+
+  within "#events_event_date_time_4i" do
+    select '11'
+  end
+  within "#events_event_date_time_5i" do
+    select '30'
+  end
+
+  select "Telephone call", from: "Patient Event Type"
+
+  fill_in "Description", :with => "Spoke to Son"
+  fill_in "Notes", :with => "Wants to arrange a home visit"
+
+  click_on "Save"
+end
