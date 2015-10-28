@@ -16,8 +16,8 @@ module Renalware::Drugs
 
     context 'assign drug types to a drug' do
       it 'can be assigned many unique drug types' do
-        @antibiotic = create(:drug_type, code: 'antibiotic', name: 'Antibiotic')
-        @esa = create(:drug_type, code: 'esa', name: 'ESA')
+        @antibiotic = create(:drug_type, code: "antibiotic", name: "Antibiotic")
+        @esa = create(:drug_type, code: "esa", name: "ESA")
 
         subject.drug_types << @antibiotic
         subject.drug_types << @esa
