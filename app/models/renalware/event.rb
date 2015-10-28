@@ -3,7 +3,7 @@ module Renalware
     belongs_to :patient
     belongs_to :event_type
 
-    validates :patient, :event_type, :date_time, :description, :presence => true
+    validates :patient, :date_time, :description, :presence => true
 
   end
 end
