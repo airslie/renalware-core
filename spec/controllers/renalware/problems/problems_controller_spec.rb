@@ -1,6 +1,6 @@
 require "rails_helper"
 
-module Renalware
+module Renalware::Problems
   RSpec.describe ProblemsController, type: :controller do
     subject { create(:patient) }
 

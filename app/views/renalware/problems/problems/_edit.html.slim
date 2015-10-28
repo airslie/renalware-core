@@ -7,8 +7,8 @@ dl.accordion(data-accordion)
 
 
     .columns.large-6.probs-form.content id="edit-probs-#{pb.object.id}" data-index=0
-      = render partial: 'renalware/problems/form', locals: { pb: pb }
+      = render partial: "renalware/problems/problems/form", locals: { pb: pb }
 
       .probs-form.content id="edit-probs-#{pb.object.id}"
         = pb.check_box :_destroy
-        = pb.label :_destroy, 'Terminate?', class: 'delete'
+        = pb.label :_destroy, "Terminate?", class: "delete"
