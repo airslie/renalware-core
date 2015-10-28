@@ -4,7 +4,7 @@ module Renalware
 
     has_many :events
 
-    validates :name, presence: true
+    validates :name, presence: true, uniqueness: true
 
     def self.policy_class
       BasePolicy
