@@ -11,7 +11,7 @@ module Renalware
     def create
       @event = @patient.events.new(event_params)
       if @event.save
-        redirect_to patient_events_path(@patient), :notice => "You have successfully added an encounter/event."
+        redirect_to patient_events_path(@patient), :notice => "You have successfully added a patient event."
       else
         render :new
       end
