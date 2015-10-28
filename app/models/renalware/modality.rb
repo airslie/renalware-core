@@ -7,14 +7,14 @@ module Renalware
     belongs_to :patient
     belongs_to :modality_reason
 
-    validates :start_date, presence: true
+    validates :started_on, presence: true
 
-    scope :ordered, -> { order(end_date: :desc) }
+    scope :ordered, -> { order(ended_on: :desc) }
 
     def transfer!(attrs)
       transaction do
         successor = Modality.create!(attrs)
-        self.end_date = successor.start_date
+        self.ended_on = successor.started_on
         self.save!
         self.destroy!
         successor
