@@ -74,20 +74,20 @@ end
 
 When(/^complete the patient event form$/) do
 
-  within "#event_date_time_3i" do
+  within "#events_event_date_time_3i" do
     select '1'
   end
-  within "#event_date_time_2i" do
+  within "#events_event_date_time_2i" do
     select 'January'
   end
-  within "#event_date_time_1i" do
+  within "#events_event_date_time_1i" do
     select '2011'
   end
 
-  within "#event_date_time_4i" do
+  within "#events_event_date_time_4i" do
     select '11'
   end
-  within "#event_date_time_5i" do
+  within "#events_event_date_time_5i" do
     select '30'
   end
 

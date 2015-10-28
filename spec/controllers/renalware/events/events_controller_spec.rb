@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-module Renalware
+module Renalware::Events
   RSpec.describe EventsController, :type => :controller do
 
     before do
@@ -19,7 +19,7 @@ module Renalware
       context "with valid attributes" do
         it 'creates a new event' do
           expect { post :create, patient_id: @patient,
-            event: {
+            events_event: {
               event_type_id: @event_type,
               date_time: Time.now,
               description: "Needs blood test",
@@ -33,7 +33,7 @@ module Renalware
       context "with invalid attributes" do
         it 'creates a new event' do
           expect { post :create, patient_id: @patient.id,
-            event: {
+            events_event: {
               patient: @patient,
               event_type: nil
             }
@@ -49,6 +49,5 @@ module Renalware
         expect(response).to have_http_status(:success)
       end
     end
-
   end
 end

@@ -5,14 +5,14 @@
   .row
     = render partial: "renalware/shared/errors", locals: { model: @event }
 
-    = form_for [@patient, @event], method: :post do |f|
+    = form_for @event, url: patient_events_path(@patient, @event), method: :post do |f|
 
       .row
         .large-6.columns
           = f.label :date_time, "Patient Event Date/Time"
           = f.datetime_select(:date_time, { start_year: (5.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
           = f.label :event_type_id, "Patient Event Type"
-          = f.collection_select(:event_type_id, Renalware::EventType.all, :id, :name, include_blank: true)
+          = f.collection_select(:event_type_id, Renalware::Events::Type.all, :id, :name, include_blank: true)
 
           = f.label :description, "Description"
           = f.text_field :description

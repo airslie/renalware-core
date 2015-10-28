@@ -6,7 +6,7 @@ admin:
   - Renalware::Drugs::Drug
   - Renalware::Drugs::Type
   - Renalware::EdtaCode
-  - Renalware::EventType
+  - Renalware::Events::Type
   - Renalware::MedicationRoute
   - Renalware::ModalityCode
   - Renalware::OrganismCode

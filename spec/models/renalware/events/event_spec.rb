@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-module Renalware
+module Renalware::Events
   describe Event, :type => :model do
 
     it { should belong_to :patient }

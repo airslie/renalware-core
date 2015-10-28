@@ -32,7 +32,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :event_types, except: [:show]
+    namespace :events do
+      resources :types, except: :show
+    end
     resources :modality_codes, except: [:show]
     resources :modality_reasons, only: [:index]
 
@@ -50,7 +52,7 @@ Rails.application.routes.draw do
       resources :apd_regimes, controller: "pd_regimes", type: "ApdRegime"
       resources :capd_regimes, controller: "pd_regimes", type: "CapdRegime"
       resources :clinic_visits
-      resources :events, only: [:new, :create, :index]
+      resources :events, only: [:new, :create, :index], controller: "events/events"
       resources :exit_site_infections, only: [:new, :create, :show, :edit, :update]
       resources :letters
 
