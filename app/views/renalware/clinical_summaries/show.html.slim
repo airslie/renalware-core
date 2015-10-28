@@ -25,10 +25,10 @@
 
 .wide-screen
     = field_set_tag do
-      legend= link_to "#{@patient.events.length} Patient Events", patient_events_path(@patient)
+      legend= link_to "#{@events.size} Patient Events", patient_events_path(@patient)
 
       ul.no-bullet
-        - @patient.events.each do |event|
+        - @events.each do |event|
           li
             dl.accordion(data-accordion)
               dd.accordion-navigation

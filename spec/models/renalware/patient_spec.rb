@@ -27,7 +27,6 @@ module Renalware
 
     it { should accept_nested_attributes_for(:current_address) }
     it { should accept_nested_attributes_for(:address_at_diagnosis) }
-    it { should accept_nested_attributes_for(:events) }
     it { should accept_nested_attributes_for(:medications) }
     it { should accept_nested_attributes_for(:problems) }
 

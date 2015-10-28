@@ -6,7 +6,7 @@ nav class="top-bar patient-nav" data-topbar="" role="navigation"
       li= link_to "Modals", patient_modalities_path(@patient), title: "Patient Modality"
       li= link_to "Problems (#{@patient.problems.length})", patient_problems_path(@patient), title: "Manage Problems"
       li= link_to "Meds (#{@patient.medications.length})", patient_medications_path(@patient), title: "Manage Medications"
-      li= link_to "Events (#{@patient.events.length})", patient_events_path(@patient), title: "Patient Events"
+      li= link_to "Events (#{Renalware::Events::Event.for_patient(@patient).count})", patient_events_path(@patient), title: "Patient Events"
       li= link_to "Clinic Visits (#{@patient.clinic_visits.length})", patient_clinic_visits_path(@patient), title: "Clinic Visits"
       li= link_to "Letters (#{@patient.letters.length})", patient_letters_path(@patient), title: "Letters"
       li.has-dropdown.not_click

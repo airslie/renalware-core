@@ -13,7 +13,6 @@ module Renalware
 
     has_many :exit_site_infections
     has_many :peritonitis_episodes
-    has_many :events
     has_many :problems
     has_many :medications
     has_many :drugs, :through => :medications, :source => :medicatable, :source_type => "Drugs::Drug"
@@ -31,7 +30,6 @@ module Renalware
 
     accepts_nested_attributes_for :current_address
     accepts_nested_attributes_for :address_at_diagnosis
-    accepts_nested_attributes_for :events
     accepts_nested_attributes_for :medications, allow_destroy: true
     accepts_nested_attributes_for :problems, allow_destroy: true, reject_if: Problem.reject_if_proc
 
