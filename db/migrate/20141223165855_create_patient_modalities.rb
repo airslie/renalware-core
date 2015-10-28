@@ -6,8 +6,8 @@ class CreatePatientModalities < ActiveRecord::Migration
       t.integer :modality_reason_id
       t.string :modal_change_type
       t.text :notes
-      t.date :start_date
-      t.date :end_date
+      t.date :started_on
+      t.date :ended_on
       t.datetime :deleted_at
       t.timestamps
     end
