@@ -11,13 +11,11 @@ module Renalware
     randwk = randweeks.sample
     date = Time.now - randwk.weeks
     description = row['description']
-    snomed_id = row['snomed_id ']
-    log "   ... adding #{snomed_id}: #{description} from #{date}"
+    log "   ... adding #{description} from #{date}"
     logcount += 1
     Problem.find_or_create_by!(
       patient_id: rabbit.to_param,
-      description: description,
-      snomed_id: snomed_id) do |problem|
+      description: description) do |problem|
         problem.date = date
       end
   end

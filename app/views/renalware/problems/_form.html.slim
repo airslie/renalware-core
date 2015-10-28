@@ -1,20 +1,11 @@
 - if pb.object.new_record?
-
   .problem-form data={ index: @patient.problems.length - 1 }
     .a-problem
       .row
-        .remove-problem.right.add-x
-      = label_tag :snomed_term
-      = select_tag :snomed_term
-
-      = pb.hidden_field :snomed_id, class: 'selected-snomed-id'
-      = pb.hidden_field :snomed_description, class: 'selected-snomed-description'
-
       = pb.label :description
       = pb.text_field :description, class: "probs-description"
 
 - else
-
   .saved-problem-form
 
     = pb.hidden_field :id
