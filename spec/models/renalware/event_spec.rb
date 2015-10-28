@@ -10,6 +10,5 @@ module Renalware
     it { should validate_presence_of :event_type }
     it { should validate_presence_of :date_time }
     it { should validate_presence_of :description }
-    it { should validate_presence_of :notes }
   end
 end
