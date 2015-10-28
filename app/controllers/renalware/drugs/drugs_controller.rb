@@ -3,15 +3,13 @@ require_dependency 'renalware/drugs'
 module Renalware
   module Drugs
     class DrugsController < BaseController
-
       include Renalware::Concerns::Pageable
 
-      before_filter :prepare_drugs_search, only: [:index]
-      before_filter :prepare_paging, only: [:index]
+      before_filter :prepare_drugs_search, only: :index
+      before_filter :prepare_paging, only: :index
 
       def selected_drugs
-        @medication_switch = params[:medication_switch]
-        @selected_drugs = Drug.send(@medication_switch)
+        @selected_drugs = Drug.for(params[:medication_switch])
         authorize @selected_drugs
 
         respond_to do |format|

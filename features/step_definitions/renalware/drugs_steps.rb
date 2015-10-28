@@ -6,7 +6,8 @@ end
 
 Given(/^there are drug types in the database$/) do
   %w(Antibiotic ESA Immunosuppressant Peritonitis).each do |dt|
-    instance_variable_set(:"@#{dt.downcase}", FactoryGirl.create(:drug_type, :name => dt))
+    drug_type = FactoryGirl.create(:drug_type, code: dt.downcase, name: dt)
+    instance_variable_set(:"@#{dt.downcase}", drug_type)
   end
 end
 
