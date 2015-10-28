@@ -61,14 +61,27 @@ module Renalware
       context "with a patient" do
         it "succeeds" do
           modality_code = create(:modality_code)
-          post :create, patient_id: @patient.to_param, modality: { modality_code_id: modality_code.to_param, started_on: "2015-04-21", notes: "Notes" }
+          post :create,
+            patient_id: @patient.to_param,
+            modality: {
+              modality_code_id: modality_code.to_param,
+              started_on: "2015-04-21",
+              notes: "Notes"
+            }
+
           expect(response).to redirect_to(patient_modalities_path(@patient))
         end
 
         context "and death modality" do
           before do
             death_modality_code = create(:modality_code, name: "Death")
-            post :create, patient_id: @patient.to_param, modality: { modality_code_id: death_modality_code.to_param, started_on: "2015-04-22", notes: "Death notes" }
+            post :create,
+            patient_id: @patient.to_param,
+            modality: {
+              modality_code_id: death_modality_code.to_param,
+              started_on: "2015-04-22",
+              notes: "Death notes"
+            }
           end
 
           it "succeeds with redirect to update cause of death" do
