@@ -19,7 +19,7 @@ module Renalware
 
     def problem_params
       params.require(:patient).permit(
-        problems_attributes:  [:id, :snomed_id, :snomed_description, :description, :_destroy]
+        problems_attributes:  [:id, :description, :_destroy]
       )
     end
   end

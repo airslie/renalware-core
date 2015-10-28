@@ -16,14 +16,7 @@ module Renalware
         it "redirects to the problem index" do
           put :update,
           patient_id: subject.id, patient: {
-            problem_attributes: {
-              0 => {
-                snomed_id: "626364014",
-                snomed_description: "Acrorenal field defect, ectodermal dysplasia,
-                and lipoatrophic diabetes",
-                description: "testing"
-              }
-            }
+            problem_attributes: { 0 => { description: "testing" } }
           }
 
           expect(response).to redirect_to(patient_problems_path(subject))

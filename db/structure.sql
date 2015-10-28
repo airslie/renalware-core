@@ -1190,9 +1190,7 @@ CREATE TABLE problems (
     date date,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    snomed_id character varying,
-    snomed_description character varying
+    updated_at timestamp without time zone
 );
 
 
@@ -2389,8 +2387,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141124152845');
 
 INSERT INTO schema_migrations (version) VALUES ('20141208160813');
 
-INSERT INTO schema_migrations (version) VALUES ('20141217190213');
-
 INSERT INTO schema_migrations (version) VALUES ('20141222110119');
 
 INSERT INTO schema_migrations (version) VALUES ('20141223165855');
@@ -2446,8 +2442,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150520085606');
 INSERT INTO schema_migrations (version) VALUES ('20150602151910');
 
 INSERT INTO schema_migrations (version) VALUES ('20150603105219');
-
-INSERT INTO schema_migrations (version) VALUES ('20150605083655');
 
 INSERT INTO schema_migrations (version) VALUES ('20150605095934');
 
