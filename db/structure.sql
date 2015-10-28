@@ -766,7 +766,7 @@ CREATE TABLE modalities (
     modal_change_type character varying,
     notes text,
     start_date date,
-    termination_date date,
+    end_date date,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone,
     updated_at timestamp without time zone

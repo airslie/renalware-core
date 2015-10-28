@@ -34,7 +34,7 @@ module Renalware
       modality_reason_id: row['modality_reason_id']) do |mod|
         mod.modal_change_type   = row['modal_change_type']
         mod.start_date          = row['start_date']
-        mod.termination_date    = row['termination_date']
+        mod.end_date    = row['end_date']
         mod.deleted_at          = row['deleted_at']
         mod.created_at          = row['created_at']
         mod.updated_at          = row['updated_at']
