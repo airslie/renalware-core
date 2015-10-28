@@ -1,4 +1,4 @@
-require_dependency 'renalware/events'
+require_dependency "renalware/events"
 
 module Renalware
   module Events
