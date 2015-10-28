@@ -19,10 +19,6 @@ Given(/^they are on a patient's clinical summary$/) do
   visit patient_clinical_summary_path(@patient_1)
 end
 
-Given(/^they go to the problem list page$/) do
-  visit patient_problems_path(@patient_1)
-end
-
 Given(/^there are medication routes in the database$/) do
   @medication_routes = [["PO", "Per Oral"], ["IV", "Intravenous"], ["SC", "Subcutaneous"], ["IM", "Intramuscular"], ["Other (Please specify in notes)", "Other (Refer to notes)"]]
   @medication_routes.map! do |mroute|
@@ -66,15 +62,6 @@ end
 
 Given(/^I choose to add a modality$/) do
   visit new_patient_modality_path(@patient_1)
-end
-
-When(/^they add some problems to the list$/) do
-  click_on "Add a new problem"
-  fill_in "Description", :with => "Have abdominal pain, possibly kidney stones"
-end
-
-When(/^they save the problem list$/) do
-  click_on "Save Problems"
 end
 
 When(/^they add a medication$/) do

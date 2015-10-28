@@ -1,0 +1,4 @@
+- if current_user.read_only?
+  = render partial: "renalware/problems/problems/show", locals: { pb: pb }
+- else
+  = render partial: "renalware/problems/problems/edit", locals: { pb: pb }

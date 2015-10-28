@@ -13,7 +13,7 @@ module Renalware
     description = row['description']
     log "   ... adding #{description} from #{date}"
     logcount += 1
-    Problem.find_or_create_by!(
+    Problems::Problem.find_or_create_by!(
       patient_id: rabbit.to_param,
       description: description) do |problem|
         problem.date = date
