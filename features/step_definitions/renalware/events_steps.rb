@@ -16,7 +16,7 @@ When(/^they edit a patient event type$/) do
 end
 
 When(/^they complete the edit patient event type form$/) do
-  fill_in "New Patient Event Type", :with => "I am an updated new patient event"
+  fill_in "New Patient Event Type", with: "I am an updated new patient event"
   click_on "Update Patient Event Type"
 end
 
@@ -25,7 +25,7 @@ When(/^they add a new patient event type$/) do
 end
 
 When(/^they complete the add a new patient event type form$/) do
-  fill_in "New Patient Event Type", :with => "I am a new patient event type"
+  fill_in "New Patient Event Type", with: "I am a new patient event type"
   click_on "Save New Patient Event Type"
 end
 
@@ -51,28 +51,28 @@ end
 
 When(/^complete the patient event form$/) do
   within "#events_event_date_time_3i" do
-    select '1'
+    select "1"
   end
 
   within "#events_event_date_time_2i" do
-    select 'January'
+    select "January"
   end
 
   within "#events_event_date_time_1i" do
-    select '2011'
+    select "2011"
   end
 
   within "#events_event_date_time_4i" do
-    select '11'
+    select "11"
   end
   within "#events_event_date_time_5i" do
-    select '30'
+    select "30"
   end
 
   select "Telephone call", from: "Patient Event Type"
 
-  fill_in "Description", :with => "Spoke to Son"
-  fill_in "Notes", :with => "Wants to arrange a home visit"
+  fill_in "Description", with: "Spoke to Son"
+  fill_in "Notes", with: "Wants to arrange a home visit"
 
   click_on "Save"
 end
