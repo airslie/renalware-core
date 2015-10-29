@@ -1,7 +1,7 @@
 module Renalware
   module PatientsHelper
     def gender_options
-      ["Not Known", "Male", "Female", "Not Specified"]
+      Gender.values
     end
 
     def modal_reasons_for(type)
