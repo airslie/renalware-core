@@ -21,7 +21,7 @@ module Renalware
               surname: "Joe",
               forename: "Bloggs",
               local_patient_id: "123456",
-              sex: "Male",
+              sex: "M",
               birth_date: "02/02/1935"
             }
           }.to change(Patient, :count).by(1)

@@ -4,7 +4,7 @@ Given(/^Patty is a patient in the system$/) do
     surname: "Patty",
     forename: "ThePatient",
     local_patient_id: "123456",
-    sex: 'Female',
+    sex: "F",
     birth_date: Time.zone.today
   )
 end
@@ -15,7 +15,7 @@ Given(/^Don is a donor in the system$/) do
     surname: "Don",
     forename: "TheDonor",
     local_patient_id: "123456",
-    sex: :female,
+    sex: "F",
     birth_date: Time.zone.today
   )
 end

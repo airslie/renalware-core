@@ -1,9 +1,5 @@
 module Renalware
   module PatientsHelper
-    def gender_options
-      Gender.values
-    end
-
     def modal_reasons_for(type)
       ModalityReason.where(:type => type)
     end
