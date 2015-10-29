@@ -226,10 +226,13 @@ end
 
 Then(/^I should see the patient on the death list$/) do
   visit patient_deaths_path
-  expect(page).to have_content("RABBIT")
+  within("#patients-deceased") do
+    expect(page).to have_content("1000124501")
+    expect(page).to have_content("Male")
+  end
 end
 
-Then(/^I should see the patient's current death modality and set date in index$/) do
+Then(/^I should see the patient's current modality set as death with set date$/) do
   visit patient_modalities_path(@patient_1)
 
   expect(page).to have_content("Death")

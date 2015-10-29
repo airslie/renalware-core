@@ -9,9 +9,9 @@ When(/^I search for a patient by surname$/) do
 end
 
 Then(/^the following patients are found: "(.*)"$/) do |patient_names|
-  within('table.patients') do
-    patient_names.split('|').each_with_index do |name, idx|
-      expect(page).to have_css("tbody tr:nth-child(#{idx+1})", text: name)
+  within("#patients") do
+    patient_names.split("|").each do |name|
+      expect(page).to have_content(name)
     end
   end
 end
