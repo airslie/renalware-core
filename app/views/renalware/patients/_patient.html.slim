@@ -1,6 +1,6 @@
 tr
   td= link_to "Demographics", patient_path(patient), title: "Demographics"
-  td= patient.to_s(:last_first)
+  td.full-name= patient.to_s(:last_first)
   td= patient.nhs_number
   td= patient.local_patient_id
   td= patient.sex

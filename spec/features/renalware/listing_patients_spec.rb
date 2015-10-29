@@ -14,12 +14,13 @@ module Renalware
 
     scenario 'Viewing the first page of patients' do
       visit "/patients?per_page=4"
+
       expect(page).to have_css(".pagination")
 
       within("#patients") do
-        expect(page).to have_content("Alpha, Johnny")
-        expect(page).to have_content("Bravo, Betty")
-        expect(page).to have_content("Bravo, Juliette")
+        expect(page).to have_css("tr:first-child .full-name", text: "Alpha, Johnny")
+        expect(page).to have_css("tr:nth-child(2) .full-name", text: "Bravo, Betty")
+        expect(page).to have_css("tr:nth-child(3) .full-name", text: "Bravo, Juliette")
       end
     end
   end
