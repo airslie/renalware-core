@@ -28,7 +28,7 @@
           ul.no-bullet
             li
               = patient.label :sex, "Sex"
-              = patient.select(:sex, gender_options, { prompt: "Please select gender" })
+              = patient.collection_select(:sex, Renalware::Gender.all, :code, :name, { prompt: "Please select gender" })
 
             li
               = patient.label :ethnicity_id, "Ethnicity"

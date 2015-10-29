@@ -3,6 +3,8 @@ module Renalware
     include PatientsRansackHelper
     include Personable
 
+    serialize :sex, Gender
+
     belongs_to :current_address, :class_name => "Address", :foreign_key => :current_address_id
     belongs_to :address_at_diagnosis, :class_name => "Address", :foreign_key => :address_at_diagnosis_id
     belongs_to :ethnicity
@@ -38,8 +40,8 @@ module Renalware
     validates :surname, presence: true
     validates :forename, presence: true
     validates :local_patient_id, presence: true, uniqueness: true
-    validates :sex, presence: true
     validates :birth_date, presence: true
+    validate :validate_sex
 
     with_options if: :current_modality_death?, on: :update do |death|
       death.validates :death_date, presence: true
@@ -78,5 +80,10 @@ module Renalware
       end
     end
 
+    private
+
+    def validate_sex
+      errors.add(:sex, "is invalid option (#{sex.code})") unless sex.valid?
+    end
   end
 end
