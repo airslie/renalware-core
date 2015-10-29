@@ -1,4 +1,5 @@
 require 'rails_helper'
+require_dependency "models/renalware/concerns/personable"
 
 module Renalware
   describe Patient, :type => :model do
