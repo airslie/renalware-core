@@ -8,5 +8,11 @@ module Renalware
       class_name = builder.object.send(attribute).class.name.demodulize.underscore
       render "renalware/shared/documents/#{class_name}_input", attribute: attribute, f: builder
     end
+
+    def monospace(value, width=5)
+      content_tag(:span, class: "monospaced") do
+        concat ("%#{width}s" % value).gsub(/ /, "&nbsp;").html_safe
+      end
+    end
   end
 end

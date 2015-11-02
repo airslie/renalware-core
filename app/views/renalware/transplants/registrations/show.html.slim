@@ -11,6 +11,10 @@
     legend: "CRF", destination: "crf"
 
   = render "renalware/shared/documents/attributes_group",
+    group: @registration.document.hla,
+    legend: "HLA", destination: "hla"
+
+  = render "renalware/shared/documents/attributes_group",
     group: @registration.document.transplant,
     legend: "Transplant", destination: "transplant"
 
@@ -21,7 +25,3 @@
   = render "renalware/shared/documents/attributes_group",
     group: @registration.document.nhb_consent,
     legend: "Consent", destination: "consent"
-
-  = render "renalware/shared/documents/attributes_group",
-    group: @registration.document.admin,
-    legend: "Admin", destination: "admin"

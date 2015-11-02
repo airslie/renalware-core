@@ -1439,6 +1439,10 @@ ALTER SEQUENCE transplants_registration_versions_id_seq OWNED BY transplants_reg
 CREATE TABLE transplants_registrations (
     id integer NOT NULL,
     patient_id integer,
+    referred_on date,
+    assessed_on date,
+    contact text,
+    notes text,
     document jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
