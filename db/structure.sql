@@ -901,7 +901,7 @@ CREATE TABLE patients (
     id integer NOT NULL,
     nhs_number character varying,
     local_patient_id character varying,
-    surname character varying,
+    family_name character varying,
     forename character varying,
     birth_date date,
     paediatric_patient_indicator boolean,

@@ -18,7 +18,7 @@ module Renalware
             post :create,
             patient: {
               nhs_number: "1234567890",
-              surname: "Joe",
+              family_name: "Joe",
               forename: "Bloggs",
               local_patient_id: "123456",
               sex: "M",

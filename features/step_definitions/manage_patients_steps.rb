@@ -11,7 +11,7 @@ Given(/^some patients who need renal treatment$/) do
   @patient_1 = FactoryGirl.create(:patient,
     nhs_number: "1000124501",
     local_patient_id: "Z999991",
-    surname: "RABBIT",
+    family_name: "RABBIT",
     forename: "Roger",
     birth_date: "01/01/1947",
     paediatric_patient_indicator: "1",
@@ -23,7 +23,7 @@ Given(/^some patients who need renal treatment$/) do
   @patient_2 = FactoryGirl.create(:patient,
     nhs_number: "1000124502",
     local_patient_id: "Z999992",
-    surname: "DAY",
+    family_name: "DAY",
     forename: "Doris",
     birth_date: "24/06/1970",
     paediatric_patient_indicator: "1",
@@ -35,7 +35,7 @@ Given(/^some patients who need renal treatment$/) do
   @patient_3 = FactoryGirl.create(:patient,
     nhs_number: "1000124503",
     local_patient_id: "Z999993",
-    surname: "CASPER",
+    family_name: "CASPER",
     forename: "Ghost",
     birth_date: "28/02/1930",
     paediatric_patient_indicator: "1",
@@ -56,7 +56,7 @@ end
 When(/^I complete the add a new patient form$/) do
   fill_in "NHS Number", with: "1000124504"
   fill_in "Local Patient ID", with: "Z999994"
-  fill_in "Surname", with: "Smith"
+  fill_in "Family name", with: "Smith"
   fill_in "Forename", with: "Ian"
 
   select "Male", from: "Sex"

@@ -1,7 +1,7 @@
 Given(/^Patty is a patient in the system$/) do
   @patty = Renalware::Patient.create!(
     nhs_number: "1234567890",
-    surname: "Patty",
+    family_name: "Patty",
     forename: "ThePatient",
     local_patient_id: "123456",
     sex: "F",
@@ -12,7 +12,7 @@ end
 Given(/^Don is a donor in the system$/) do
   @don = Renalware::Patient.create!(
     nhs_number: "1234567890",
-    surname: "Don",
+    family_name: "Don",
     forename: "TheDonor",
     local_patient_id: "123456",
     sex: "F",

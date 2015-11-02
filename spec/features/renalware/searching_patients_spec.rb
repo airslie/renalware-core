@@ -22,10 +22,10 @@ module Renalware
     end
 
     background do
-      create(:patient, surname: "Jones", forename: "Bill")
-      create(:patient, surname: "Jones", forename: "Jenny")
-      create(:patient, surname: "Smith", forename: "Will", nhs_number: "Z111111119")
-      create(:patient, surname: "Walker", forename: "Johnny",  local_patient_id: "0987654321")
+      create(:patient, family_name: "Jones", forename: "Bill")
+      create(:patient, family_name: "Jones", forename: "Jenny")
+      create(:patient, family_name: "Smith", forename: "Will", nhs_number: "Z111111119")
+      create(:patient, family_name: "Walker", forename: "Johnny",  local_patient_id: "0987654321")
       login_as_clinician
     end
 
@@ -34,25 +34,25 @@ module Renalware
       expect_patient_in_results("Jones, J")
     end
 
-    scenario "with comma delimited terms it matches partial surname and forename" do
+    scenario "with comma delimited terms it matches partial family name and forename" do
       search_for_patient("Jone, J")
 
       expect_patient_in_results("Jones, J")
       dont_expect_patient_in_results("Jones, B")
     end
 
-    scenario "by surname it matches the full surname" do
+    scenario "by family name it matches the full family name" do
       search_for_patient("Jones")
       expect_patient_in_results("Jones, B", 1)
       expect_patient_in_results("Jones, J", 2)
     end
 
-    scenario "by surname it matches a surname in any case" do
+    scenario "by family name it matches a family name in any case" do
       search_for_patient("wALk")
       expect_patient_in_results("Walker, J")
     end
 
-    scenario "by surname it matches a surname and initial" do
+    scenario "by family name it matches a family name and initial" do
       search_for_patient("Jon Bi")
       expect_patient_in_results("Jones, B")
       dont_expect_patient_in_results("Jones, J")

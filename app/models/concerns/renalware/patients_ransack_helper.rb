@@ -41,18 +41,18 @@ module Renalware
         <<-SQL.squish
           local_patient_id = :exact_term OR
           nhs_number = :exact_term OR
-          surname ILIKE :fuzzy_term
+          family_name ILIKE :fuzzy_term
         SQL
       end
 
       def full_name_params(query)
-        surname, forename = query.split(' ')
-        { surname: "#{surname}%", forename: "#{forename}%" }
+        family_name, forename = query.split(' ')
+        { family_name: "#{family_name}%", forename: "#{forename}%" }
       end
 
       def full_name_sql
         <<-SQL.squish
-          surname ILIKE :surname AND
+          family_name ILIKE :family_name AND
           forename ILIKE :forename
         SQL
       end
