@@ -8,14 +8,14 @@ module Renalware
     end
 
     scenario 'viewing patient problems' do
-      visit problems_patient_path(@patient)
+      visit patient_problems_path(@patient)
 
       expect(page).to have_content(@patient.problems.last.description)
       expect(page).not_to have_link('Add a new problem')
     end
 
     scenario 'viewing patient medications' do
-      visit manage_medications_patient_path(@patient)
+      visit patient_medications_path(@patient)
 
       expect(page).to have_content(@patient.medications.last.medicatable.name)
       expect(page).not_to have_link('Add a new medication')

@@ -4,25 +4,14 @@ module Renalware
     before_filter :load_user, only: [:edit, :update]
 
     def index
-      @users = User.all
+      @search = User.search(params[:q])
+      @users = @search.result(distinct: true)
+
       authorize @users
-    end
-
-    def unapproved
-      @users = User.unapproved
-      authorize @users, :index?
-      render :index
-    end
-
-    def inactive
-      @users = User.inactive
-      authorize @users, :index?
-      render :index
     end
 
     def update
       if user_service.update_and_notify!(service_params)
-        authorize @user
         redirect_to admin_users_path, notice: "#{@user.username} updated"
       else
         flash[:alert] = "#{@user.username} could not be updated"
@@ -47,9 +36,7 @@ module Renalware
     end
 
     def fetch_roles(role_ids)
-      return if role_ids.nil?
-      return [] if role_ids.empty?
-      Role.where(id: role_ids.map(&:to_i))
+      Role.fetch(role_ids)
     end
 
     def user_service

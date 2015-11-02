@@ -1,4 +1,5 @@
 require 'rails_helper'
+require_dependency "models/renalware/concerns/personable"
 
 module Renalware
   describe Patient, :type => :model do
@@ -27,7 +28,6 @@ module Renalware
 
     it { should accept_nested_attributes_for(:current_address) }
     it { should accept_nested_attributes_for(:address_at_diagnosis) }
-    it { should accept_nested_attributes_for(:events) }
     it { should accept_nested_attributes_for(:medications) }
     it { should accept_nested_attributes_for(:problems) }
 
@@ -42,7 +42,6 @@ module Renalware
     it { should validate_presence_of :local_patient_id }
     it { should validate_uniqueness_of :local_patient_id }
 
-    it { should validate_presence_of :sex }
     it { should validate_presence_of :birth_date }
 
     subject { create(:patient) }
@@ -60,6 +59,11 @@ module Renalware
         it { expect(subject).not_to validate_presence_of(:death_date) }
         it { expect(subject).not_to validate_presence_of(:first_edta_code_id) }
       end
+    end
+
+    it "validates sex" do
+      subject.sex = "X"
+      expect(subject).to be_invalid
     end
 
     describe "updating patient date of death" do
@@ -80,6 +84,19 @@ module Renalware
 
         expect(subject.medications.with_deleted.first).to eq(medication)
         expect(subject.medications.with_deleted.first.deleted_at).not_to be nil
+      end
+    end
+
+    describe "#sex" do
+      it "serializes gender" do
+        expect(subject.sex).to be_a Gender
+      end
+
+      it "deserializes gender" do
+        subject.sex = Gender.new("F")
+        subject.save!
+        subject.reload
+        expect(subject.sex.code).to eq "F"
       end
     end
 

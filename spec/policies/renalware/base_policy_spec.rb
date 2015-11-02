@@ -10,7 +10,7 @@ module Renalware
       policy = BasePolicy.new(super_admin, User.new)
       expect(policy.create?).to be true
 
-      policy = BasePolicy.new(super_admin, DrugType.new)
+      policy = BasePolicy.new(super_admin, Drugs::Type.new)
       expect(policy.create?).to be true
     end
 
@@ -18,7 +18,7 @@ module Renalware
       policy = BasePolicy.new(admin, Role.new)
       expect(policy.create?).to be false
 
-      policy = BasePolicy.new(admin, DrugType.new)
+      policy = BasePolicy.new(admin, Drugs::Type.new)
       expect(policy.create?).to be true
     end
 
@@ -26,7 +26,7 @@ module Renalware
       policy = BasePolicy.new(clinician, User.new)
       expect(policy.create?).to be false
 
-      policy = BasePolicy.new(clinician, DrugType.new)
+      policy = BasePolicy.new(clinician, Drugs::Type.new)
       expect(policy.create?).to be false
 
       policy = BasePolicy.new(clinician, Patient.new)

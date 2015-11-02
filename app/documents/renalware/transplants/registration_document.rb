@@ -4,8 +4,6 @@ module Renalware
   module Transplants
     class RegistrationDocument < Document::Embedded
 
-      TRANSPLANT_TYPES = %i(kidney kidney_pancreas pancreas kidney_liver liver)
-
       class Codes < Document::Embedded
         attribute :uk_transplant_centre_code
         attribute :uk_transplant_patient_recipient_number
@@ -20,14 +18,13 @@ module Renalware
 
       class Transplant < Document::Embedded
         attribute :blood_group
-        attribute :hla_type, DatedResult
         attribute :nb_of_previous_grafts, Integer
         attribute :sens_status
       end
       attribute :transplant, Transplant
 
       class Organs < Document::Embedded
-        attribute :transplant_type, enums: TRANSPLANT_TYPES
+        attribute :transplant_type, enums: %i(kidney kidney_pancreas pancreas kidney_liver liver)
         attribute :pancreas_only_type, enums: %i(solid_organ islets)
         attribute :rejection_risk, enums: %i(low standard high individualised)
         attribute :also_listed_for_kidney_only, enums: %i(yes no unknown)
@@ -37,23 +34,28 @@ module Renalware
       attribute :organs, Organs
 
       class Consent < Document::Embedded
-        attribute :value, enums: %i(yes no unkwown)
-        attribute :date, Date
+        attribute :value, enums: %i(yes no unknown)
+        attribute :consented_on, Date
         attribute :name
 
-        validates :date, timeliness: { type: :date, allow_blank: true }
-        validates :date, presence: true, if: "value.present?"
+        validates :consented_on, timeliness: { type: :date, allow_blank: true }
+        validates :consented_on, presence: true, if: "value.present?"
         validates :name, presence: true, if: "value.present?"
       end
       attribute :nhb_consent, Consent
 
-      class Admin < Document::Embedded
-        attribute :referral_date, Date
-        attribute :assessment_date, Date
-        attribute :wait_list_contact
-        attribute :notes
+      class HLA < Document::Embedded
+        attribute :a, AncestralMarker
+        attribute :b, AncestralMarker
+        attribute :cw, AncestralMarker
+        attribute :dr, AncestralMarker
+        attribute :dq, AncestralMarker
+        attribute :drw, AncestralMarker
+        attribute :drq, AncestralMarker
+        attribute :type
+        attribute :recorded_on, Date
       end
-      attribute :admin, Admin
+      attribute :hla, HLA
     end
   end
 end

@@ -5,7 +5,7 @@ module Renalware
     background do
       @patient = create(:patient)
       login_as_clinician
-      visit manage_medications_patient_path(@patient)
+      visit patient_medications_path(@patient)
     end
 
     scenario 'a medication is saved with invalid values' do

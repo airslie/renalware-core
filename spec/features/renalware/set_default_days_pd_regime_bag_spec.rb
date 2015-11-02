@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 module Renalware
   feature "pd regime bag's days assigned are by default set all to true"  do
@@ -18,7 +18,7 @@ module Renalware
       login_as_clinician
     end
 
-    scenario 'when creating a new pd regime bag, all days of week set by default as true' do
+    scenario "when creating a new pd regime bag, all days of week set by default as true" do
       expect(@pd_regime_bag_1.monday).to eq(true)
       expect(@pd_regime_bag_1.tuesday).to eq(true)
       expect(@pd_regime_bag_1.wednesday).to eq(true)
@@ -28,28 +28,28 @@ module Renalware
       expect(@pd_regime_bag_1.sunday).to eq(true)
     end
 
-    scenario 'when creating a new pd regime bag, some days are deselected' do
+    scenario "when creating a new pd regime bag, some days are deselected" do
       visit new_patient_pd_regime_path(@patient, type: "CAPDRegime")
 
-      select '2015', from: 'pd_regime_start_date_1i'
-      select 'May', from: 'pd_regime_start_date_2i'
-      select '25', from: 'pd_regime_start_date_3i'
+      select "2015", from: "pd_regime_start_date_1i"
+      select "May", from: "pd_regime_start_date_2i"
+      select "25", from: "pd_regime_start_date_3i"
 
-      select 'CAPD 3 exchanges per day', from: 'Treatment'
+      select "CAPD 3 exchanges per day", from: "Treatment"
 
       find("input.add-bag").click
 
-      select 'Star Brand, Lucky Brand Green–2.34', from: 'Bag Type'
+      select "Star Brand, Lucky Brand Green–2.34", from: "Bag Type"
 
-      fill_in 'Volume', with: '230'
+      select "2500", from: "Volume (ml)"
 
-      uncheck 'Tuesday'
+      uncheck "Tuesday"
 
-      uncheck 'Thursday'
+      uncheck "Thursday"
 
       click_on "Save"
 
-      within '.current-regime' do
+      within ".current-regime" do
         expect(page).to have_content("Days: Sun, Mon, Wed, Fri, Sat")
       end
     end

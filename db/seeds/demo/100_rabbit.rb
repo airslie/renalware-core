@@ -11,13 +11,11 @@ module Renalware
     randwk = randweeks.sample
     date = Time.now - randwk.weeks
     description = row['description']
-    snomed_id = row['snomed_id ']
-    log "   ... adding #{snomed_id}: #{description} from #{date}"
+    log "   ... adding #{description} from #{date}"
     logcount += 1
-    Problem.find_or_create_by!(
+    Problems::Problem.find_or_create_by!(
       patient_id: rabbit.to_param,
-      description: description,
-      snomed_id: snomed_id) do |problem|
+      description: description) do |problem|
         problem.date = date
       end
   end
@@ -47,7 +45,7 @@ module Renalware
 
   log '--------------------Adding Events for Roger RABBIT--------------------'
 
-  Event.find_or_create_by!(
+  Events::Event.find_or_create_by!(
     patient_id: rabbit.to_param,
     event_type_id: 19,
     description: "meeting with family in clinic",
@@ -56,7 +54,7 @@ module Renalware
   )
 
 
-  Event.find_or_create_by!(
+  Events::Event.find_or_create_by!(
     patient_id: rabbit.to_param,
     event_type_id: 25,
     description: "call regarding meds",
@@ -64,7 +62,7 @@ module Renalware
     date_time: Time.now - 12.days
   )
 
-  Event.find_or_create_by!(
+  Events::Event.find_or_create_by!(
     patient_id: rabbit.to_param,
     event_type_id: 8,
     description: "email re next clinic visit",

@@ -13,21 +13,5 @@ module Renalware
         expect(assigns(:users).first).to be_a(User)
       end
     end
-
-    describe 'GET unapproved' do
-      it 'list unapproved users' do
-        expect(User).to receive(:unapproved).and_return(User.none)
-
-        get :unapproved
-      end
-    end
-
-    describe 'GET inactive' do
-      it 'lists expired users' do
-        expect(User).to receive(:inactive).and_return(User.none)
-
-        get :inactive
-      end
-    end
   end
 end

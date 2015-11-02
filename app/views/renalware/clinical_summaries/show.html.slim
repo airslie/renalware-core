@@ -7,7 +7,7 @@
 
 .wide-screen
     = field_set_tag do
-      legend = link_to "#{@patient.problems.length} Problems", problems_patient_path(@patient)
+      legend = link_to "#{@patient.problems.length} Problems", patient_problems_path(@patient)
 
       ul.no-bullet
         - @patient.problems.each do |p|
@@ -16,7 +16,7 @@
 
 .wide-screen
     = field_set_tag do
-      legend= link_to "#{@patient.medications.length} Current Medications", manage_medications_patient_path(@patient)
+      legend= link_to "#{@patient.medications.length} Current Medications", patient_medications_path(@patient)
 
       ul.no-bullet
         - @patient.medications.each do |p|
@@ -25,10 +25,10 @@
 
 .wide-screen
     = field_set_tag do
-      legend= link_to "#{@patient.events.length} Patient Events", patient_events_path(@patient)
+      legend= link_to "#{@events.size} Patient Events", patient_events_path(@patient)
 
       ul.no-bullet
-        - @patient.events.each do |event|
+        - @events.each do |event|
           li
             dl.accordion(data-accordion)
               dd.accordion-navigation

@@ -24,13 +24,31 @@ ruby:
           = render_input fcm, :latest
 
     = render layout: "renalware/shared/documents/fieldset",
+      locals: { legend: "HLA", name: "hla" } do
+      = fd.simple_fields_for :hla, fd.object.hla do |fcm|
+        = fcm.input :type
+        = fcm.input :recorded_on, as: :date_picker
+        table
+          thead
+            tr
+              th
+              th Mother
+              th Father
+              th(width="30%")
+          tbody
+            = render_input fcm, :a
+            = render_input fcm, :b
+            = render_input fcm, :cw
+            = render_input fcm, :dr
+            = render_input fcm, :dq
+            = render_input fcm, :drw
+            = render_input fcm, :drq
+
+    = render layout: "renalware/shared/documents/fieldset",
       locals: { legend: "Transplant", name: "transplant" } do
       = fd.simple_fields_for :transplant, fd.object.transplant do |fcm|
         table.no-stripes
           = fcm.input :blood_group
-          = fcm.simple_fields_for :hla_type, fcm.object.hla_type do |fhla|
-            = fhla.input :result, as: :text, label: "HLA Type", input_html: { rows: 4 }
-            = fhla.input :date, as: :date_picker, label: "HLA Type Date"
           = fcm.input :nb_of_previous_grafts, input_html: { class: "small-input" }
           = fcm.input :sens_status
 
@@ -49,16 +67,15 @@ ruby:
       locals: { legend: "Consent", name: "consent" } do
       = fd.simple_fields_for :nhb_consent, fd.object.nhb_consent do |fcm|
         = fcm.input :value, as: :inline_radio_buttons
-        = fcm.input :date, as: :date_picker
+        = fcm.input :consented_on, as: :date_picker
         = fcm.input :name
 
     = render layout: "renalware/shared/documents/fieldset",
       locals: { legend: "Admin", name: "admin" } do
-      = fd.simple_fields_for :admin, fd.object.admin do |fcm|
-        = fcm.input :referral_date, as: :date_picker
-        = fcm.input :assessment_date, as: :date_picker
-        = fcm.input :wait_list_contact, as: :text, input_html: { rows: 5 }
-        = fcm.input :notes, as: :text, input_html: { rows: 5 }
+      = f.input :referred_on, as: :date_picker
+      = f.input :assessed_on, as: :date_picker
+      = f.input :contact, as: :text, input_html: { rows: 5 }
+      = f.input :notes, as: :text, input_html: { rows: 5 }
 
 .row
   .large-12.columns

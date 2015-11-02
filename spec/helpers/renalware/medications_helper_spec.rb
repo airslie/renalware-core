@@ -22,7 +22,7 @@ module Renalware
                             :medication,
                             patient: @patient,
                             medicatable: @amoxicillin,
-                            medicatable_type: 'Renalware::Drug',
+                            medicatable_type: 'Renalware::Drugs::Drug',
                             dose: '23mg',
                             medication_route: @med_route,
                             frequency: 'PID',

@@ -1,0 +1,12 @@
+= render "header"
+
+= render partial: "renalware/shared/errors", locals: { model: @event_type }
+
+.row
+  .large-6.columns
+    = form_for @event_type, method: :put do |f|
+      = render partial: "renalware/event_types/form", locals: { f: f }
+
+      = submit_tag "Update", class: "button"
+      span= " or "
+      = link_to "cancel", events_types_path

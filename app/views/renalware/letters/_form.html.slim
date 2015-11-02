@@ -1,7 +1,6 @@
 = render partial: 'renalware/shared/errors', locals: {model: f.object}
 
 = hidden_field_tag :letter_type, @letter.short_type
-= f.hidden_field :patient_id
 = f.hidden_field :clinic_visit_id if @letter.clinic_letter?
 
 .row

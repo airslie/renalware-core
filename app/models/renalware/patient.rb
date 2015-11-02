@@ -3,6 +3,8 @@ module Renalware
     include PatientsRansackHelper
     include Personable
 
+    serialize :sex, Gender
+
     belongs_to :current_address, :class_name => "Address", :foreign_key => :current_address_id
     belongs_to :address_at_diagnosis, :class_name => "Address", :foreign_key => :address_at_diagnosis_id
     belongs_to :ethnicity
@@ -13,10 +15,9 @@ module Renalware
 
     has_many :exit_site_infections
     has_many :peritonitis_episodes
-    has_many :events
-    has_many :problems
+    has_many :problems, class_name: "Problems::Problem"
     has_many :medications
-    has_many :drugs, :through => :medications, :source => :medicatable, :source_type => "Drug"
+    has_many :drugs, :through => :medications, :source => :medicatable, :source_type => "Drugs::Drug"
     has_many :exit_site_infections, :through => :medications, :source => :treatable, :source_type => "ExitSiteInfection"
     has_many :peritonitis_episodes, :through => :medications, :source => :treatable, :source_type => "PeritonitisEpisode"
     has_many :medication_routes, :through => :medications
@@ -31,16 +32,16 @@ module Renalware
 
     accepts_nested_attributes_for :current_address
     accepts_nested_attributes_for :address_at_diagnosis
-    accepts_nested_attributes_for :events
     accepts_nested_attributes_for :medications, allow_destroy: true
-    accepts_nested_attributes_for :problems, allow_destroy: true, reject_if: Problem.reject_if_proc
+    accepts_nested_attributes_for :problems, allow_destroy: true,
+      reject_if: Problems::Problem.reject_if_proc
 
     validates :nhs_number, presence: true, length: { minimum: 10, maximum: 10 }, uniqueness: true
     validates :surname, presence: true
     validates :forename, presence: true
     validates :local_patient_id, presence: true, uniqueness: true
-    validates :sex, presence: true
     validates :birth_date, presence: true
+    validate :validate_sex
 
     with_options if: :current_modality_death?, on: :update do |death|
       death.validates :death_date, presence: true
@@ -51,6 +52,10 @@ module Renalware
 
     alias_attribute :first_name, :forename
     alias_attribute :last_name,  :surname
+
+    def self.policy_class
+      BasePolicy
+    end
 
     def age
       now = Time.now.utc.to_date
@@ -75,5 +80,10 @@ module Renalware
       end
     end
 
+    private
+
+    def validate_sex
+      errors.add(:sex, "is invalid option (#{sex.code})") unless sex.valid?
+    end
   end
 end

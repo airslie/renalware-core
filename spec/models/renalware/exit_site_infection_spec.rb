@@ -2,6 +2,7 @@ require 'rails_helper'
 
 module Renalware
   RSpec.describe ExitSiteInfection, :type => :model do
+    include DrugsSpecHelper
 
     it { should belong_to(:patient) }
 
@@ -35,35 +36,25 @@ module Renalware
           @medication_one = FactoryGirl.create(:medication,
             patient: @patient,
             medicatable: @cephradine,
-            medicatable_type: "Renalware::Drug",
             treatable: @es,
-            treatable_type: "Renalware::ExitSiteInfection",
             dose: "20mg",
             medication_route: @im,
             frequency: "daily",
             notes: "with food",
             start_date: "02/03/2015",
-            provider: 1,
-            deleted_at: "NULL",
-            created_at: "2015-02-03 18:21:04",
-            updated_at: "2015-02-05 18:21:04"
+            provider: 1
           )
 
           @medication_two = FactoryGirl.create(:medication,
             patient: @patient,
             medicatable: @dicloxacillin,
-            medicatable_type: "Renalware::Drug",
             treatable: @es,
-            treatable_type: "Renalware::ExitSiteInfection",
             dose: "20mg",
             medication_route: @sc,
             frequency: "daily",
             notes: "with food",
             start_date: "02/03/2015",
-            provider: 1,
-            deleted_at: "NULL",
-            created_at: "2015-02-03 18:21:04",
-            updated_at: "2015-02-05 18:21:04"
+            provider: 1
           )
 
           @lymphocytes_sensitivity = @es.infection_organisms.build(organism_code: @lymphocytes, sensitivity: "Sensitive to Lymphocytes.")

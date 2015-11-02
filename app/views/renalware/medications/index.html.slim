@@ -1,0 +1,26 @@
+.wide-screen
+  .columns.large-12
+    = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
+    = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
+
+    h2 Current Medications
+
+    .large-12.columns
+      = render partial: "renalware/shared/errors", locals: { model: @patient }
+
+.wide-screen
+  = nested_form_for @patient, url: patient_medications_batch_path(@patient) do |f|
+    = f.fields_for :medications do |pm|
+
+      = render partial: "renalware/medications/medication", locals: { pm: pm } unless pm.object.new_record?
+
+      #medications
+        = render partial: "renalware/medications/new", locals: { pm: pm } if pm.object.new_record?
+
+    - unless current_user.read_only?
+      .row
+        = f.link_to_add "Add a new medication", :medications, class: "add-medication"
+      .row
+        = f.submit "Save Medication", class: "button tiny mt"
+        span= " or "
+        = link_to "cancel", patient_clinical_summary_path(@patient)
