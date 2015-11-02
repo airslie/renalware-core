@@ -17,7 +17,7 @@ module Renalware
       end
 
       def current_status
-        statuses.where(terminated_on: nil).first
+        statuses.find_by(terminated_on: nil)
       end
 
       ### Registration Services
@@ -45,7 +45,7 @@ module Renalware
 
       def recompute_termination_dates!
         terminated_on = nil
-        statuses.order('started_on DESC').each do |status|
+        statuses.order("started_on DESC").each do |status|
           status.terminated_on = terminated_on
           status.save if status.changed?
           terminated_on = status.started_on

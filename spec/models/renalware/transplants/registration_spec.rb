@@ -1,11 +1,11 @@
-require 'rails_helper'
+require "rails_helper"
 
 module Renalware
   module Transplants
     describe Registration do
       let(:registration) { create(:transplant_registration, :with_statuses) }
-      let(:earliest_status) { registration.statuses.order('created_at ASC').first }
-      let(:latest_status) { registration.statuses.order('created_at DESC').first }
+      let(:earliest_status) { registration.statuses.order("created_at ASC").first }
+      let(:latest_status) { registration.statuses.order("created_at DESC").first }
 
       describe "#current_status" do
         it "returns the status not terminated" do
@@ -17,7 +17,7 @@ module Renalware
         it "terminates the current status" do
           status = registration.current_status
 
-          registration.add_status(started_on: Date.today)
+          registration.add_status(started_on: Time.zone.today)
 
           expect(status.reload).to be_terminated
         end
@@ -41,7 +41,10 @@ module Renalware
         it "recomputes the termination dates" do
           expect(registration).to receive(:recompute_termination_dates!)
 
-          registration.update_status(earliest_status, started_on: earliest_status.started_on + 1.day)
+          registration.update_status(
+            earliest_status,
+            started_on: earliest_status.started_on + 1.day
+          )
         end
       end
 
