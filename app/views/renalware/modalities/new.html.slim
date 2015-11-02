@@ -3,6 +3,10 @@
     = render "header"
 
 .row
+  .large-12.columns
+    = render partial: "renalware/shared/errors", locals: { model: @modality }
+
+.row
   ul.no-bullet
     = form_for @modality, as: :modality, url: patient_modalities_path(@patient) do |m|
 
@@ -27,8 +31,8 @@
           = link_to "Renal Registry Reason for Change Codes", "#", id: "modal-reason-code", class: "button tiny mt"
 
         li
-          = m.label :date, "Start Date"
-          = m.date_select(:start_date, {start_year: (1.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
+          = m.label :started_on, "Start Date"
+          = m.date_select(:started_on, {start_year: (1.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
 
         li.hide-death
           = m.label :notes, "Notes"

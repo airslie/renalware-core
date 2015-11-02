@@ -765,8 +765,8 @@ CREATE TABLE modalities (
     modality_reason_id integer,
     modal_change_type character varying,
     notes text,
-    start_date date,
-    termination_date date,
+    started_on date,
+    ended_on date,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone,
     updated_at timestamp without time zone

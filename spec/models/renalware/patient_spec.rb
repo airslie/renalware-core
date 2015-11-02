@@ -1,10 +1,10 @@
-require 'rails_helper'
+require "rails_helper"
 require_dependency "models/renalware/concerns/personable"
 
 module Renalware
   describe Patient, :type => :model do
 
-    it_behaves_like 'Personable'
+    it_behaves_like "Personable"
 
     it { should have_one :esrf }
     it { should have_one :current_modality }
@@ -100,32 +100,33 @@ module Renalware
       end
     end
 
-    describe 'set_modality' do
+    describe "set_modality" do
+      let(:modality_code) { create(:modality_code) }
 
-      context 'given the patient has no modality' do
-        it 'creates a patient modality on the patient' do
-          subject.set_modality(start_date: Date.today)
+      context "given the patient has no modality" do
+        it "creates a patient modality on the patient" do
+          subject.set_modality(modality_code: modality_code, started_on: Time.zone.today)
           expect(subject.reload.current_modality).not_to be_nil
           expect(subject.modalities).not_to be_empty
         end
       end
 
-      context 'given the patient has an existing modality' do
+      context "given the patient has an existing modality" do
         before do
           @modality = create(:modality)
           subject.modalities << @modality
-          subject.set_modality(start_date: Date.parse('2015-04-17'))
+          subject.set_modality(modality_code: modality_code, started_on: Date.parse("2015-04-17"))
           subject.reload
         end
 
-        it 'supersedes the existing modality' do
-          expect(@modality.reload.termination_date).to eq(Date.parse('2015-04-17'))
+        it "supersedes the existing modality" do
+          expect(@modality.reload.ended_on).to eq(Date.parse("2015-04-17"))
           expect(subject.current_modality).not_to eq(@modality)
         end
 
-        it 'sets a new modality for the patient' do
-          expect(subject.current_modality.start_date).to eq(Date.parse('2015-04-17'))
-          expect(subject.current_modality.termination_date).to be_nil
+        it "sets a new modality for the patient" do
+          expect(subject.current_modality.started_on).to eq(Date.parse("2015-04-17"))
+          expect(subject.current_modality.ended_on).to be_nil
         end
       end
 
