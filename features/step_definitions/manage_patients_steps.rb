@@ -13,7 +13,7 @@ Given(/^some patients who need renal treatment$/) do
     local_patient_id: "Z999991",
     family_name: "RABBIT",
     given_name: "Roger",
-    birth_date: "01/01/1947",
+    born_on: "01/01/1947",
     paediatric_patient_indicator: "1",
     sex: "M",
     ethnicity_id: Renalware::Ethnicity.first.id,
@@ -25,7 +25,7 @@ Given(/^some patients who need renal treatment$/) do
     local_patient_id: "Z999992",
     family_name: "DAY",
     given_name: "Doris",
-    birth_date: "24/06/1970",
+    born_on: "24/06/1970",
     paediatric_patient_indicator: "1",
     sex: "F",
     ethnicity_id: Renalware::Ethnicity.second.id,
@@ -37,7 +37,7 @@ Given(/^some patients who need renal treatment$/) do
     local_patient_id: "Z999993",
     family_name: "CASPER",
     given_name: "Ghost",
-    birth_date: "28/02/1930",
+    born_on: "28/02/1930",
     paediatric_patient_indicator: "1",
     sex: "M",
     ethnicity_id: Renalware::Ethnicity.third.id,
@@ -63,13 +63,13 @@ When(/^I complete the add a new patient form$/) do
 
   select "White", from: "Ethnicity"
 
-  within "#patient_birth_date_1i" do
+  within "#patient_born_on_1i" do
     select "1960"
   end
-  within "#patient_birth_date_2i" do
+  within "#patient_born_on_2i" do
     select "January"
   end
-  within "#patient_birth_date_3i" do
+  within "#patient_born_on_3i" do
     select "1"
   end
 

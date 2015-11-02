@@ -12,7 +12,7 @@ FactoryGirl.define do
     local_patient_id
     family_name "Jones"
     given_name "Jack"
-    birth_date "01/01/1988"
+    born_on "01/01/1988"
     paediatric_patient_indicator "0"
     sex "M"
     ethnicity_id 1

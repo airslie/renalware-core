@@ -40,7 +40,7 @@ module Renalware
     validates :family_name, presence: true
     validates :given_name, presence: true
     validates :local_patient_id, presence: true, uniqueness: true
-    validates :birth_date, presence: true
+    validates :born_on, presence: true
     validate :validate_sex
 
     with_options if: :current_modality_death?, on: :update do |death|
@@ -59,7 +59,7 @@ module Renalware
 
     def age
       now = Time.now.utc.to_date
-      now.year - birth_date.year - ((now.month > birth_date.month || (now.month == birth_date.month && now.day >= birth_date.day)) ? 0 : 1)
+      now.year - born_on.year - ((now.month > born_on.month || (now.month == born_on.month && now.day >= born_on.day)) ? 0 : 1)
     end
 
     # @section services

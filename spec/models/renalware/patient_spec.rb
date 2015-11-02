@@ -42,7 +42,7 @@ module Renalware
     it { should validate_presence_of :local_patient_id }
     it { should validate_uniqueness_of :local_patient_id }
 
-    it { should validate_presence_of :birth_date }
+    it { should validate_presence_of :born_on }
 
     subject { create(:patient) }
 

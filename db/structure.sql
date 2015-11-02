@@ -903,7 +903,7 @@ CREATE TABLE patients (
     local_patient_id character varying,
     family_name character varying,
     given_name character varying,
-    birth_date date,
+    born_on date,
     paediatric_patient_indicator boolean,
     sex character varying,
     ethnicity_id integer,

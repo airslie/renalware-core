@@ -13,7 +13,7 @@ module Renalware
       patient.family_name = row['family_name']
       patient.given_name = row['given_name']
       patient.sex = row['sex']
-      patient.birth_date = row['birth_date']
+      patient.born_on = row['born_on']
       patient.nhs_number = demo_nhsno
       patient.created_at = row['created_at']
     end

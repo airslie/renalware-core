@@ -1,4 +1,4 @@
-"local_patient_id","family_name","given_name","birth_date","sex","created_at"
+"local_patient_id","family_name","given_name","born_on","sex","created_at"
 "Z100001","RABBIT","Roger","1926-01-01","M","1996-03-01 13:32:43"
 "Z5000023","LLEWELLYN","Baby","2006-01-01","M","2012-01-19 14:22:27"
 "Z5000025","KALSI","Philip","1900-01-01","M","2012-01-19 14:22:31"
