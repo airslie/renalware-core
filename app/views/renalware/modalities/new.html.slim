@@ -3,6 +3,10 @@
     = render "header"
 
 .row
+  .large-12.columns
+    = render partial: "renalware/shared/errors", locals: { model: @modality }
+
+.row
   ul.no-bullet
     = form_for @modality, as: :modality, url: patient_modalities_path(@patient) do |m|
 
