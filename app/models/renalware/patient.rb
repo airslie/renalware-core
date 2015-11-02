@@ -59,7 +59,11 @@ module Renalware
 
     def age
       now = Time.now.utc.to_date
-      now.year - born_on.year - ((now.month > born_on.month || (now.month == born_on.month && now.day >= born_on.day)) ? 0 : 1)
+      now.year - born_on.year - (
+        (now.month > born_on.month ||
+          (now.month == born_on.month && now.day >= born_on.day)
+        ) ? 0 : 1
+      )
     end
 
     # @section services
