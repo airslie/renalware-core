@@ -72,7 +72,7 @@ module Renalware
       new_modality = if current_modality.present?
         current_modality.transfer!(attrs)
       else
-        modalities.create!(attrs)
+        modalities.create(attrs)
       end
     end
 

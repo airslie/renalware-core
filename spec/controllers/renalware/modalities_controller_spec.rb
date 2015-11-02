@@ -52,13 +52,7 @@ module Renalware
     end
 
     describe "create" do
-      context "without a patient" do
-        it "errors" do
-          expect { post :create }.to raise_error(ActionController::UrlGenerationError)
-        end
-      end
-
-      context "with a patient" do
+      context "with a valid modality" do
         it "succeeds" do
           modality_code = create(:modality_code)
           post :create,
@@ -70,6 +64,17 @@ module Renalware
             }
 
           expect(response).to redirect_to(patient_modalities_path(@patient))
+        end
+      end
+
+      context "with an invalid modality" do
+        it "fails" do
+          modality_code = create(:modality_code)
+          post :create,
+            patient_id: @patient.to_param,
+            modality: { notes: "Notes" }
+
+          expect(response).to be_success
         end
 
         context "and death modality" do
