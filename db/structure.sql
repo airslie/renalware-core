@@ -194,44 +194,25 @@ CREATE TABLE doctors_practices (
 
 
 --
--- Name: drug_drug_types; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: drug_types; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE drug_drug_types (
+CREATE TABLE drug_types (
     id integer NOT NULL,
-    drug_id integer,
-    drug_type_id integer,
+    name character varying NOT NULL,
+    code character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
 
 
 --
--- Name: drug_drug_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: drug_types_drugs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE SEQUENCE drug_drug_types_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: drug_drug_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE drug_drug_types_id_seq OWNED BY drug_drug_types.id;
-
-
---
--- Name: drug_types; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE drug_types (
-    id integer NOT NULL,
-    name character varying,
+CREATE TABLE drug_types_drugs (
+    drug_id integer,
+    drug_type_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -1209,9 +1190,7 @@ CREATE TABLE problems (
     date date,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    snomed_id character varying,
-    snomed_description character varying
+    updated_at timestamp without time zone
 );
 
 
@@ -1600,13 +1579,6 @@ ALTER TABLE ONLY doctors ALTER COLUMN id SET DEFAULT nextval('doctors_id_seq'::r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY drug_drug_types ALTER COLUMN id SET DEFAULT nextval('drug_drug_types_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY drug_types ALTER COLUMN id SET DEFAULT nextval('drug_types_id_seq'::regclass);
 
 
@@ -1892,14 +1864,6 @@ ALTER TABLE ONLY clinic_visits
 
 ALTER TABLE ONLY doctors
     ADD CONSTRAINT doctors_pkey PRIMARY KEY (id);
-
-
---
--- Name: drug_drug_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY drug_drug_types
-    ADD CONSTRAINT drug_drug_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -2234,10 +2198,10 @@ CREATE INDEX index_doctors_practices ON doctors_practices USING btree (doctor_id
 
 
 --
--- Name: index_drug_drug_types_on_drug_id_and_drug_type_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_drug_types_drugs_on_drug_id_and_drug_type_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX index_drug_drug_types_on_drug_id_and_drug_type_id ON drug_drug_types USING btree (drug_id, drug_type_id);
+CREATE UNIQUE INDEX index_drug_types_drugs_on_drug_id_and_drug_type_id ON drug_types_drugs USING btree (drug_id, drug_type_id);
 
 
 --
@@ -2549,8 +2513,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141124152845');
 
 INSERT INTO schema_migrations (version) VALUES ('20141208160813');
 
-INSERT INTO schema_migrations (version) VALUES ('20141217190213');
-
 INSERT INTO schema_migrations (version) VALUES ('20141222110119');
 
 INSERT INTO schema_migrations (version) VALUES ('20141223165855');
@@ -2606,8 +2568,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150520085606');
 INSERT INTO schema_migrations (version) VALUES ('20150602151910');
 
 INSERT INTO schema_migrations (version) VALUES ('20150603105219');
-
-INSERT INTO schema_migrations (version) VALUES ('20150605083655');
 
 INSERT INTO schema_migrations (version) VALUES ('20150605095934');
 

@@ -19,10 +19,6 @@ Given(/^they are on a patient's clinical summary$/) do
   visit patient_clinical_summary_path(@patient_1)
 end
 
-Given(/^they go to the problem list page$/) do
-  visit problems_patient_path(@patient_1)
-end
-
 Given(/^there are medication routes in the database$/) do
   @medication_routes = [["PO", "Per Oral"], ["IV", "Intravenous"], ["SC", "Subcutaneous"], ["IM", "Intramuscular"], ["Other (Please specify in notes)", "Other (Refer to notes)"]]
   @medication_routes.map! do |mroute|
@@ -68,48 +64,8 @@ Given(/^I choose to add a modality$/) do
   visit new_patient_modality_path(@patient_1)
 end
 
-When(/^they choose to add a patient event$/) do
-  visit new_patient_event_path(@patient_1)
-end
-
-When(/^complete the patient event form$/) do
-
-  within "#event_date_time_3i" do
-    select '1'
-  end
-  within "#event_date_time_2i" do
-    select 'January'
-  end
-  within "#event_date_time_1i" do
-    select '2011'
-  end
-
-  within "#event_date_time_4i" do
-    select '11'
-  end
-  within "#event_date_time_5i" do
-    select '30'
-  end
-
-  select "Telephone call", from: "Patient Event Type"
-
-  fill_in "Description", :with => "Spoke to Son"
-  fill_in "Notes", :with => "Wants to arrange a home visit"
-
-  click_on "Save"
-end
-
-When(/^they add some problems to the list$/) do
-  click_on "Add a new problem"
-  fill_in "Description", :with => "Have abdominal pain, possibly kidney stones"
-end
-
-When(/^they save the problem list$/) do
-  click_on "Save Problems"
-end
-
 When(/^they add a medication$/) do
-  visit manage_medications_patient_path(@patient_1)
+  visit patient_medications_path(@patient_1)
   click_link "Add a new medication"
 end
 
@@ -130,7 +86,7 @@ When(/^complete the medication form by drug type select$/) do
 end
 
 When(/^complete the medication form by drug search$/) do
-  visit manage_medications_patient_path(@patient_1)
+  visit patient_medications_path(@patient_1)
   click_link "Add a new medication"
 
   fill_in "Drug", :with => "amo"
@@ -155,7 +111,7 @@ When(/^complete the medication form by drug search$/) do
 end
 
 When(/^they terminate a medication$/) do
-  visit manage_medications_patient_path(@patient_1)
+  visit patient_medications_path(@patient_1)
   find("a.drug-esa").click
   check "Terminate?"
   click_on "Save Medication"
@@ -269,11 +225,14 @@ Then(/^I should see the date of death and causes of death in the patient's demog
 end
 
 Then(/^I should see the patient on the death list$/) do
-  visit death_patients_path
-  expect(page).to have_content("RABBIT")
+  visit patient_deaths_path
+  within("#patients-deceased") do
+    expect(page).to have_content("1000124501")
+    expect(page).to have_content("Male")
+  end
 end
 
-Then(/^I should see the patient's current death modality and set date in index$/) do
+Then(/^I should see the patient's current modality set as death with set date$/) do
   visit patient_modalities_path(@patient_1)
 
   expect(page).to have_content("Death")

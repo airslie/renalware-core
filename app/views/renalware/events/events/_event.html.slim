@@ -1,0 +1,12 @@
+tr
+  td= event.created_at.strftime("%d/%m/%Y")
+  td= event.event_type
+  td
+    dl.accordion(data-accordion)
+      dd.accordion-navigation
+        a.fi-plus.fi-minus.toggle-info id="patient-event-notes-#{event.id}" href="#patient-event-notes-#{event.id}"
+          = event.description
+        .content.toggle-content id="patient-event-notes-#{event.id}"
+          = event.notes
+  td= event.date_time
+

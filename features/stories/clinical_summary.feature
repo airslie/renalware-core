@@ -60,4 +60,4 @@ Scenario: Doctor adds a death modality for a patient
   When I complete the cause of death form
   Then I should see the date of death and causes of death in the patient's demographics
     And I should see the patient on the death list
-    And I should see the patient's current death modality and set date in index
+    And I should see the patient's current modality set as death with set date

@@ -1,0 +1,13 @@
+- if pb.object.new_record?
+  .problem-form data={ index: @patient.problems.length - 1 }
+    .a-problem
+      .row
+      = pb.label :description
+      = pb.text_field :description, class: "probs-description"
+
+- else
+  .saved-problem-form
+
+    = pb.hidden_field :id
+    = pb.label :description
+    = pb.text_field :description, class: "probs-description"

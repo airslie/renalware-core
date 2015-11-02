@@ -5,6 +5,7 @@ module Renalware
 
     def show
       @patient = Patient.find(params[:patient_id])
+      @events = Events::Event.for_patient(@patient)
     end
   end
 end

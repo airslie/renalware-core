@@ -24,20 +24,20 @@ module Renalware
         it 'enables admins to manage specific models' do
           expect(@admin_permission.ability).to eq(:manage)
           expect(@admin_permission.models).to include(Renalware::User)
-          expect(@admin_permission.models).to include(Renalware::Drug)
+          expect(@admin_permission.models).to include(Renalware::Drugs::Drug)
           expect(@admin_permission.models).to include(Renalware::Patient)
         end
 
         it 'enables clinicians to manage common models' do
           expect(@clinical_permission.ability).to eq(:manage)
-          expect(@clinical_permission.models).to include(Renalware::Patient)
-          expect(@clinical_permission.models).not_to include(Renalware::Drug)
+          # expect(@clinical_permission.models).to include(Renalware::Patient)
+          expect(@clinical_permission.models).not_to include(Renalware::Drugs::Drug)
           expect(@clinical_permission.models).not_to include(Renalware::Role)
         end
 
         it 'enables clinicians to view admin models' do
           expect(@clinical_read_permission.ability).to eq(:read)
-          expect(@clinical_read_permission.models).to include(Renalware::Drug)
+          expect(@clinical_read_permission.models).to include(Renalware::Drugs::Drug)
         end
 
         it 'enables readonly users to read any model' do

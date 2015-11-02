@@ -2,6 +2,7 @@ require 'rails_helper'
 
 module Renalware
   RSpec.describe PeritonitisEpisode, :type => :model do
+    include DrugsSpecHelper
 
     it { should belong_to(:patient) }
     it { should belong_to(:episode_type) }
@@ -38,35 +39,25 @@ module Renalware
           @medication_one = FactoryGirl.create(:medication,
             patient: @patient,
             medicatable: @amoxicillin,
-            medicatable_type: "Renalware::Drug",
             treatable: @pe,
-            treatable_type: "Renalware::PeritonitisEpisode",
             dose: "20mg",
             medication_route: @po,
             frequency: "daily",
             notes: "with food",
             start_date: "02/03/2015",
-            provider: 0,
-            deleted_at: "NULL",
-            created_at: "2015-02-03 18:21:04",
-            updated_at: "2015-02-05 18:21:04"
+            provider: 0
           )
 
           @medication_two = FactoryGirl.create(:medication,
             patient: @patient,
             medicatable: @penicillin,
-            medicatable_type: "Renalware::Drug",
             treatable: @pe,
-            treatable_type: "Renalware::PeritonitisEpisode",
             dose: "20mg",
             medication_route: @iv,
             frequency: "daily",
             notes: "with food",
             start_date: "02/03/2015",
-            provider: 1,
-            deleted_at: "NULL",
-            created_at: "2015-02-03 18:21:04",
-            updated_at: "2015-02-05 18:21:04"
+            provider: 1
           )
 
           @pe.medications << @medication_one

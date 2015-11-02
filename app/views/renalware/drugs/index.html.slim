@@ -24,7 +24,7 @@
               method: :delete,
               data: { confirm: "Are you sure you want to delete this drug?"}
           td
-            = link_to "#{t.name}", drug_drug_drug_types_path("#{t.id}", @drug_drug_types), title: "Edit drug categories/types"
+            = link_to t.name, edit_drug_path(t.id)
 
 .row
   = paginate @drugs

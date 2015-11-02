@@ -1,0 +1,15 @@
+- unless current_user.read_only?
+  #new-probs-form
+    a.toggle href="#new-probs-form"
+      | Add a new problem
+
+    .hide
+      a.close-new-form href='#'
+        | Close
+
+      fieldset
+        legend Add New Problem
+
+        .row#new-probs-template
+          .problem-form data={ index: @patient.problems.length - 1 }
+            = render partial: "renalware/problems/problems/form", locals: { pb: pb }

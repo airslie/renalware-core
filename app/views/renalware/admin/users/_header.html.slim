@@ -3,6 +3,6 @@
 
 .row
   dl.sub-nav
-    dd= link_to 'All', action: 'index'
-    dd= link_to 'Unapproved', action: 'unapproved'
-    dd= link_to 'Inactive', action: 'inactive'
+    dd= link_to 'All', admin_users_path
+    dd= link_to 'Unapproved', admin_unapproved_users_path
+    dd= link_to 'Inactive', admin_inactive_users_path

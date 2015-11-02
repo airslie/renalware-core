@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :event, class: "Renalware::Event" do
+  factory :event, class: "Renalware::Events::Event" do
     patient
     event_type
     date_time Time.now

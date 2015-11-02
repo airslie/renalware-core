@@ -33,7 +33,7 @@ module Renalware
     describe 'POST create' do
       before do
         post :create, patient_id: patient.to_param, clinic_visit: {
-          patient_id: patient.to_param, date: Time.now,
+          date: Time.now,
           height: 1725, weight: 89.2, bp: '110/78',
           urine_blood: 'neg', urine_protein: 'neg',
           notes: 'Nothing unusual' }
@@ -59,7 +59,7 @@ module Renalware
       before do
         put :update, patient_id: patient.to_param, id: clinic_visit.to_param,
           clinic_visit: {
-            patient_id: patient.to_param, date: Time.now,
+            date: Time.now,
             height: 1725, weight: 89.2, bp: '110/70',
             urine_blood: 'neg', urine_protein: 'neg',
             notes: 'Nothing unusual' }

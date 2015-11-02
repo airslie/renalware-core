@@ -1,0 +1,14 @@
+= render "header"
+
+.row
+  = render partial: "renalware/shared/errors", locals: { model: @drug }
+
+.row
+  .large-6.columns
+    = form_for @drug, method: :post, url: drugs_drugs_path(@drug) do |f|
+
+      = render partial: "form", locals: { f: f }
+
+      = submit_tag "Save", class: "button"
+      span= " or "
+      = link_to "cancel", drugs_drugs_path

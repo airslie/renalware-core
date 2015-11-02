@@ -2,12 +2,10 @@
 
 .row
   .large-12.columns
-
     = render partial: "renalware/shared/errors", locals: { model: @patient }
 
     = form_for @patient, method: :post do |f|
-
-      = render partial: "renalware/patients/demographic_form", locals: { patient: f }
+      = render partial: "renalware/patients/form", locals: { patient: f }
 
       = submit_tag "Save", class: "button"
       span= " or "
