@@ -18,11 +18,11 @@ module Renalware
             post :create,
             patient: {
               nhs_number: "1234567890",
-              surname: "Joe",
-              forename: "Bloggs",
+              family_name: "Joe",
+              given_name: "Bloggs",
               local_patient_id: "123456",
               sex: "M",
-              birth_date: "02/02/1935"
+              born_on: "02/02/1935"
             }
           }.to change(Patient, :count).by(1)
           expect(response).to redirect_to :action => :show, :id => assigns(:patient).id
@@ -51,7 +51,7 @@ module Renalware
       end
 
       it "should render the form when update fails" do
-        patch :update, id: subject.id, patient: { forename: " " }
+        patch :update, id: subject.id, patient: { given_name: " " }
         expect(response).to have_http_status(:success)
       end
     end

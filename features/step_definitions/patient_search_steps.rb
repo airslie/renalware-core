@@ -3,7 +3,7 @@ When(/^I search for a patient with "(.*)"$/) do |query|
   click_on "Find Patient"
 end
 
-When(/^I search for a patient by surname$/) do
+When(/^I search for a patient by family name$/) do
   fill_in "patient_search_input", :with => "rabbit"
   click_on "Find Patient"
 end

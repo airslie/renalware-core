@@ -149,13 +149,13 @@ end
 
 When(/^I complete the cause of death form$/) do
 
-  within "#patient_death_date_3i" do
+  within "#patient_died_on_3i" do
     select '22'
   end
-  within "#patient_death_date_2i" do
+  within "#patient_died_on_2i" do
     select 'September'
   end
-  within "#patient_death_date_1i" do
+  within "#patient_died_on_1i" do
     select '2014'
   end
 

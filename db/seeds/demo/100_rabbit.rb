@@ -1,7 +1,7 @@
 module Renalware
   log '--------------------Adding Problems for Roger RABBIT--------------------'
 
-  rabbit = Patient.find_by(surname: 'RABBIT', forename: 'Roger')
+  rabbit = Patient.find_by(family_name: 'RABBIT', given_name: 'Roger')
 
   randweeks = (0..52).to_a
   file_path = File.join(demo_path, 'rabbit_problems.csv')
