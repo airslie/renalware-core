@@ -916,7 +916,7 @@ CREATE TABLE patients (
     died_on date,
     first_edta_code_id integer,
     second_edta_code_id integer,
-    death_details text,
+    death_notes text,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     practice_id integer,

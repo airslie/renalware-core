@@ -18,7 +18,7 @@ class CreatePatients < ActiveRecord::Migration
       t.date :died_on
       t.integer :first_edta_code_id
       t.integer :second_edta_code_id
-      t.text :death_details
+      t.text :death_notes
       t.timestamps
     end
   end
