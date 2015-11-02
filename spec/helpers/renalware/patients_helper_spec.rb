@@ -13,7 +13,7 @@ module Renalware
 
       context "patient has history of PD" do
         it "should detect PD" do
-          @pd_modality = create(:modality, patient: @patient, modality_code: @pd_capd, deleted_at: "2015-05-22 10:58:25.428869")
+          @pd_modality = create(:modality, patient: @patient, modality_code: @pd_capd, started_on: Date.parse("2015-05-01"))
           @patient.modalities << @pd_modality
 
           expect(display_pd_menu(@patient.modalities.with_deleted)).to eq(true)
