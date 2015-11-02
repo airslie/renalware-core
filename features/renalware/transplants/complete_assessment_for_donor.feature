@@ -5,7 +5,7 @@ Feature: Complete the donor assessment
 
   Background:
     Given Clyde is a clinician
-    And Don is a donor in the system
+    And Don is a donor
 
   @web
   Scenario: Create an assessment

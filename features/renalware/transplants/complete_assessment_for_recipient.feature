@@ -5,7 +5,7 @@ Feature: Complete the transplant assessment for the recipient
 
   Background:
     Given Clyde is a clinician
-    And Patty is a patient in the system
+    And Patty is a patient
 
   @web
   Scenario: Create an assessment
