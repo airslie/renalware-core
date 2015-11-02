@@ -35,9 +35,6 @@ module Renalware
         mod.modal_change_type   = row['modal_change_type']
         mod.started_on          = row['started_on']
         mod.ended_on            = row['ended_on']
-        mod.deleted_at          = row['deleted_at']
-        mod.created_at          = row['created_at']
-        mod.updated_at          = row['updated_at']
       end
   end
 
