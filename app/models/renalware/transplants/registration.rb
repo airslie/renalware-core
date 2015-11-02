@@ -1,3 +1,4 @@
+require_dependency "renalware/transplants"
 require "document/base"
 
 module Renalware
