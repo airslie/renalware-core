@@ -11,7 +11,7 @@ module Renalware
     # For APIs, you may want to use :null_session instead.
     protect_from_forgery with: :exception
 
-    layout 'renalware/layouts/application'
+    layout "renalware/layouts/application"
 
     before_filter :prepare_patient_search
 
@@ -19,7 +19,7 @@ module Renalware
 
     def prepare_patient_search
       @patient_search = Renalware::Patient.ransack(params[:q])
-      @patient_search.sorts = ['family_name', 'forename']
+      @patient_search.sorts = ["family_name", "forename"]
     end
 
     def load_patient

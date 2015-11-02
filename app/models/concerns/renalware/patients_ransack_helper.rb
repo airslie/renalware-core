@@ -1,4 +1,4 @@
-require 'active_support/concern'
+require "active_support/concern"
 
 module Renalware
   module PatientsRansackHelper
@@ -20,13 +20,13 @@ module Renalware
       private
 
       def sanitize_query!(query)
-        query.gsub!(',','')
+        query.delete!(",")
       end
 
       def sql_and_params(query)
         sanitize_query!(query)
 
-        if query.include?(' ')
+        if query.include?(" ")
           [full_name_sql, full_name_params(query)]
         else
           [identity_sql, identity_params(query)]
@@ -46,7 +46,7 @@ module Renalware
       end
 
       def full_name_params(query)
-        family_name, forename = query.split(' ')
+        family_name, forename = query.split(" ")
         { family_name: "#{family_name}%", forename: "#{forename}%" }
       end
 
