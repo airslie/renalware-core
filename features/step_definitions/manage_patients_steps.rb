@@ -17,7 +17,7 @@ Given(/^some patients who need renal treatment$/) do
     paediatric_patient_indicator: "1",
     sex: "M",
     ethnicity_id: Renalware::Ethnicity.first.id,
-    hosp_centre_code: "888"
+    hospital_centre_code: "888"
   )
 
   @patient_2 = FactoryGirl.create(:patient,
@@ -29,7 +29,7 @@ Given(/^some patients who need renal treatment$/) do
     paediatric_patient_indicator: "1",
     sex: "F",
     ethnicity_id: Renalware::Ethnicity.second.id,
-    hosp_centre_code: "888"
+    hospital_centre_code: "888"
   )
 
   @patient_3 = FactoryGirl.create(:patient,
@@ -41,7 +41,7 @@ Given(/^some patients who need renal treatment$/) do
     paediatric_patient_indicator: "1",
     sex: "M",
     ethnicity_id: Renalware::Ethnicity.third.id,
-    hosp_centre_code: "999"
+    hospital_centre_code: "999"
   )
 end
 

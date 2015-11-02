@@ -13,7 +13,7 @@ class CreatePatients < ActiveRecord::Migration
       t.integer :address_at_diagnosis_id
       t.string :gp_practice_code
       t.string :pct_org_code
-      t.string :hosp_centre_code
+      t.string :hospital_centre_code
       t.string :primary_esrf_centre
       t.date :died_on
       t.integer :first_edta_code_id

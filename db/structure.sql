@@ -911,7 +911,7 @@ CREATE TABLE patients (
     address_at_diagnosis_id integer,
     gp_practice_code character varying,
     pct_org_code character varying,
-    hosp_centre_code character varying,
+    hospital_centre_code character varying,
     primary_esrf_centre character varying,
     died_on date,
     first_edta_code_id integer,
