@@ -4,7 +4,7 @@ class CreatePatients < ActiveRecord::Migration
       t.string :nhs_number
       t.string :local_patient_id
       t.string :family_name
-      t.string :forename
+      t.string :given_name
       t.date :birth_date
       t.boolean :paediatric_patient_indicator
       t.string :sex

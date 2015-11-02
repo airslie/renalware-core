@@ -11,7 +11,7 @@ module Renalware
 
     Patient.find_or_create_by!(local_patient_id: local_patient_id) do |patient|
       patient.family_name = row['family_name']
-      patient.forename = row['forename']
+      patient.given_name = row['given_name']
       patient.sex = row['sex']
       patient.birth_date = row['birth_date']
       patient.nhs_number = demo_nhsno

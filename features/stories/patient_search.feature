@@ -12,7 +12,7 @@ Feature: Search for a patient
     When I search for a patient with "Z999991"
     Then the following patients are found: "RABBIT, R"
 
-  Scenario: A clinician searches for a patient by partial family name and forename
+  Scenario: A clinician searches for a patient by partial family name and given name
     When I search for a patient with "rabb r"
     Then the following patients are found: "RABBIT, R"
 

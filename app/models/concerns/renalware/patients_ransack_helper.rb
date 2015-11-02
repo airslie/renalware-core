@@ -46,14 +46,14 @@ module Renalware
       end
 
       def full_name_params(query)
-        family_name, forename = query.split(" ")
-        { family_name: "#{family_name}%", forename: "#{forename}%" }
+        family_name, given_name = query.split(" ")
+        { family_name: "#{family_name}%", given_name: "#{given_name}%" }
       end
 
       def full_name_sql
         <<-SQL.squish
           family_name ILIKE :family_name AND
-          forename ILIKE :forename
+          given_name ILIKE :given_name
         SQL
       end
     end

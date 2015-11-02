@@ -3,11 +3,11 @@ require "rails_helper"
 module Renalware
   feature "Listing patients" do
     background do
-      create(:patient, family_name: "Alpha", forename: "Johnny")
-      create(:patient, family_name: "Bravo", forename: "Betty")
-      create(:patient, family_name: "Bravo", forename: "Juliette")
-      create(:patient, family_name: "Delta", forename: "Dave")
-      create(:patient, family_name: "Zebra", forename: "Zoe")
+      create(:patient, family_name: "Alpha", given_name: "Johnny")
+      create(:patient, family_name: "Bravo", given_name: "Betty")
+      create(:patient, family_name: "Bravo", given_name: "Juliette")
+      create(:patient, family_name: "Delta", given_name: "Dave")
+      create(:patient, family_name: "Zebra", given_name: "Zoe")
 
       login_as_clinician
     end

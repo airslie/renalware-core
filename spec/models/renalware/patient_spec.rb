@@ -37,7 +37,7 @@ module Renalware
     it { should ensure_length_of(:nhs_number).is_at_most(10) }
 
     it { should validate_presence_of :family_name }
-    it { should validate_presence_of :forename }
+    it { should validate_presence_of :given_name }
 
     it { should validate_presence_of :local_patient_id }
     it { should validate_uniqueness_of :local_patient_id }

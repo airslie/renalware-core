@@ -19,7 +19,7 @@ module Renalware
             patient: {
               nhs_number: "1234567890",
               family_name: "Joe",
-              forename: "Bloggs",
+              given_name: "Bloggs",
               local_patient_id: "123456",
               sex: "M",
               birth_date: "02/02/1935"
@@ -51,7 +51,7 @@ module Renalware
       end
 
       it "should render the form when update fails" do
-        patch :update, id: subject.id, patient: { forename: " " }
+        patch :update, id: subject.id, patient: { given_name: " " }
         expect(response).to have_http_status(:success)
       end
     end

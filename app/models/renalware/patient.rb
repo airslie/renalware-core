@@ -38,7 +38,7 @@ module Renalware
 
     validates :nhs_number, presence: true, length: { minimum: 10, maximum: 10 }, uniqueness: true
     validates :family_name, presence: true
-    validates :forename, presence: true
+    validates :given_name, presence: true
     validates :local_patient_id, presence: true, uniqueness: true
     validates :birth_date, presence: true
     validate :validate_sex
@@ -50,7 +50,7 @@ module Renalware
 
     scope :dead, -> { where.not(death_date: nil) }
 
-    alias_attribute :first_name, :forename
+    alias_attribute :first_name, :given_name
     alias_attribute :last_name,  :family_name
 
     def self.policy_class

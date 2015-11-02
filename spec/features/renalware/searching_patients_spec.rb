@@ -22,10 +22,10 @@ module Renalware
     end
 
     background do
-      create(:patient, family_name: "Jones", forename: "Bill")
-      create(:patient, family_name: "Jones", forename: "Jenny")
-      create(:patient, family_name: "Smith", forename: "Will", nhs_number: "Z111111119")
-      create(:patient, family_name: "Walker", forename: "Johnny",  local_patient_id: "0987654321")
+      create(:patient, family_name: "Jones", given_name: "Bill")
+      create(:patient, family_name: "Jones", given_name: "Jenny")
+      create(:patient, family_name: "Smith", given_name: "Will", nhs_number: "Z111111119")
+      create(:patient, family_name: "Walker", given_name: "Johnny",  local_patient_id: "0987654321")
       login_as_clinician
     end
 
@@ -34,7 +34,7 @@ module Renalware
       expect_patient_in_results("Jones, J")
     end
 
-    scenario "with comma delimited terms it matches partial family name and forename" do
+    scenario "with comma delimited terms it matches partial family name and given name" do
       search_for_patient("Jone, J")
 
       expect_patient_in_results("Jones, J")

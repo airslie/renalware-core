@@ -12,7 +12,7 @@ Given(/^some patients who need renal treatment$/) do
     nhs_number: "1000124501",
     local_patient_id: "Z999991",
     family_name: "RABBIT",
-    forename: "Roger",
+    given_name: "Roger",
     birth_date: "01/01/1947",
     paediatric_patient_indicator: "1",
     sex: "M",
@@ -24,7 +24,7 @@ Given(/^some patients who need renal treatment$/) do
     nhs_number: "1000124502",
     local_patient_id: "Z999992",
     family_name: "DAY",
-    forename: "Doris",
+    given_name: "Doris",
     birth_date: "24/06/1970",
     paediatric_patient_indicator: "1",
     sex: "F",
@@ -36,7 +36,7 @@ Given(/^some patients who need renal treatment$/) do
     nhs_number: "1000124503",
     local_patient_id: "Z999993",
     family_name: "CASPER",
-    forename: "Ghost",
+    given_name: "Ghost",
     birth_date: "28/02/1930",
     paediatric_patient_indicator: "1",
     sex: "M",
@@ -57,7 +57,7 @@ When(/^I complete the add a new patient form$/) do
   fill_in "NHS Number", with: "1000124504"
   fill_in "Local Patient ID", with: "Z999994"
   fill_in "Family name", with: "Smith"
-  fill_in "Forename", with: "Ian"
+  fill_in "Given name", with: "Ian"
 
   select "Male", from: "Sex"
 
@@ -98,7 +98,7 @@ end
 
 When(/^I update the patient's demographics$/) do
   click_on "Edit"
-  fill_in "Forename", with: "Roger"
+  fill_in "Given name", with: "Roger"
 end
 
 When(/^submit the update form$/) do

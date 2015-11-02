@@ -19,7 +19,7 @@ module Renalware
 
     def prepare_patient_search
       @patient_search = Renalware::Patient.ransack(params[:q])
-      @patient_search.sorts = ["family_name", "forename"]
+      @patient_search.sorts = ["family_name", "given_name"]
     end
 
     def load_patient
