@@ -15,7 +15,7 @@ class CreatePatients < ActiveRecord::Migration
       t.string :pct_org_code
       t.string :hosp_centre_code
       t.string :primary_esrf_centre
-      t.date :death_date
+      t.date :died_on
       t.integer :first_edta_code_id
       t.integer :second_edta_code_id
       t.text :death_details

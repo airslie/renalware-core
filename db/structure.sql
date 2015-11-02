@@ -913,7 +913,7 @@ CREATE TABLE patients (
     pct_org_code character varying,
     hosp_centre_code character varying,
     primary_esrf_centre character varying,
-    death_date date,
+    died_on date,
     first_edta_code_id integer,
     second_edta_code_id integer,
     death_details text,

@@ -50,13 +50,13 @@ module Renalware
     describe "current modality death" do
       context "if current modality is death" do
         before { allow(subject).to receive(:current_modality_death?).and_return(true) }
-        it { expect(subject).to validate_presence_of(:death_date) }
+        it { expect(subject).to validate_presence_of(:died_on) }
         it { expect(subject).to validate_presence_of(:first_edta_code_id) }
       end
 
       context "if current modality is not death" do
         before { allow(subject).to receive(:current_modality_death?).and_return(false) }
-        it { expect(subject).not_to validate_presence_of(:death_date) }
+        it { expect(subject).not_to validate_presence_of(:died_on) }
         it { expect(subject).not_to validate_presence_of(:first_edta_code_id) }
       end
     end
@@ -69,7 +69,7 @@ module Renalware
     describe "updating patient date of death" do
       it "should still retain patient details" do
         subject
-        expect { subject.update(death_date: "2015-02-25") }.to change(Patient, :count).by(0)
+        expect { subject.update(died_on: "2015-02-25") }.to change(Patient, :count).by(0)
       end
     end
 

@@ -44,11 +44,11 @@ module Renalware
     validate :validate_sex
 
     with_options if: :current_modality_death?, on: :update do |death|
-      death.validates :death_date, presence: true
+      death.validates :died_on, presence: true
       death.validates :first_edta_code_id, presence: true
     end
 
-    scope :dead, -> { where.not(death_date: nil) }
+    scope :dead, -> { where.not(died_on: nil) }
 
     alias_attribute :first_name, :given_name
     alias_attribute :last_name,  :family_name

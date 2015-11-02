@@ -32,7 +32,7 @@ module Renalware
           put :update,
           patient_id: subject.id,
           patient: {
-            death_date: Date.parse(Time.now.to_s),
+            died_on: Date.parse(Time.now.to_s),
             first_edta_code_id: @edta_code.id
           }
           expect(response).to redirect_to(patient_path(subject))
@@ -41,7 +41,7 @@ module Renalware
 
       context "with invalid attributes" do
         it "fails to update death details" do
-          put :update, patient_id: subject.id, patient: { death_date: nil }
+          put :update, patient_id: subject.id, patient: { died_on: nil }
           expect(response).to render_template(:edit)
         end
       end

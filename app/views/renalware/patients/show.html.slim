@@ -38,10 +38,10 @@
             dd= @patient.born_on
 
             dt Date of Death:
-            dd= @patient.death_date.blank? ? "N/A" : @patient.death_date
+            dd= @patient.died_on.blank? ? "N/A" : @patient.died_on
 
         .large-12.columns
-          - if @patient.death_date.present?
+          - if @patient.died_on.present?
             dl
               dt First cause of Death:
               dd= @patient.first_edta_code.death_cause
