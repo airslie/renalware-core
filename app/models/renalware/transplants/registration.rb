@@ -21,14 +21,14 @@ module Renalware
         statuses.find_by(terminated_on: nil)
       end
 
-      ### Registration Services
-
-      def add_status(params)
+      # @section services
+      #
+      def add_status!(params)
         statuses.create!(params)
         recompute_termination_dates!
       end
 
-      def update_status(status, params)
+      def update_status!(status, params)
         status.attributes = params
         if status.changed?
           status.save
@@ -36,7 +36,7 @@ module Renalware
         end
       end
 
-      def delete_status(status)
+      def delete_status!(status)
         status.destroy
         recompute_termination_dates!
       end
@@ -45,11 +45,10 @@ module Renalware
       private
 
       def recompute_termination_dates!
-        terminated_on = nil
-        statuses.order("started_on DESC").each do |status|
-          status.terminated_on = terminated_on
-          status.save if status.changed?
-          terminated_on = status.started_on
+        previous_started_on = nil
+        statuses.ordered(:desc).each do |status|
+          status.update!(terminated_on: previous_started_on)
+          previous_started_on = status.started_on
         end
       end
     end

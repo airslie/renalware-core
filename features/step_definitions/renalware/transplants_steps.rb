@@ -38,42 +38,45 @@ Given(/^Patty is registered on the wait list with this status history$/) do |tab
 end
 
 When(/^Clyde creates a donor workup for Don$/) do
-  create_donor_workup(@clyde, @don)
+  create_donor_workup(user: @clyde, patient: @don)
 end
 
 When(/^Clyde creates a recipient workup for Patty$/) do
-  create_recipient_workup(@clyde, @patty)
+  create_recipient_workup(user: @clyde, patient: @patty)
 end
 
 When(/^Clyde updates the assessment$/) do
   travel_to 1.hour.from_now
-  update_workup(@workup, @clyde, Time.zone.now)
+  update_workup(workup: @workup, user: @clyde, updated_at: Time.zone.now)
 end
 
 When(/^Clyde updates the donor assessment$/) do
   travel_to 1.hour.from_now
-  update_donor_workup(@workup, @clyde, Time.zone.now)
+  update_donor_workup(workup: @workup, user: @clyde, updated_at: Time.zone.now)
 end
 
-When(/^Clyde registers Patty on the wait list$/) do
-  create_transplant_registration(@clyde, @patty)
+When(/^Clyde registers Patty on the wait list with status "(.*?)" starting on "(.*?)"$/) do |status, started_on|
+  create_transplant_registration(
+    user: @clyde, patient: @patty,
+    status: status, started_on: started_on
+  )
 end
 
 When(/^Clyde sets the registration status to "(.*?)" and the start date to "(.*?)"$/) do |status, start_date|
   description = registration_status_description_named(status)
-  @registration.add_status(description: description, started_on: start_date)
+  @registration.add_status!(description: description, started_on: start_date)
 end
 
 When(/^Clyde changes the "(.*?)" start date to "(.*?)"$/) do |status, start_date|
   description = registration_status_description_named(status)
-  status = @registration.statuses.where(description_id: description.id).first
-  @registration.update_status(status, started_on: start_date)
+  status = @registration.statuses.find_by description: description
+  @registration.update_status!(status, started_on: start_date)
 end
 
 When(/^Clyde deletes the "(.*?)" status change$/) do |status|
   description = registration_status_description_named(status)
-  status = @registration.statuses.where(description_id: description.id).first
-  @registration.delete_status(status)
+  status = @registration.statuses.find_by description: description
+  @registration.delete_status!(status)
 end
 
 Then(/^Patty's recipient workup exists$/) do
@@ -92,12 +95,15 @@ Then(/^Don's donor workup gets updated$/) do
   expect(donor_workup_was_updated(@don)).to be_truthy
 end
 
-Then(/^Patty has an active transplant registration$/) do
-  expect(transplant_registration_exists(@patty)).to be_truthy
+Then(/^Patty has an active transplant registration since "(.*?)$/) do |started_on|
+ transplant_registration_exists(patient: @patty, status_name: "Active", started_on: started_on)
 end
 
 Then(/^Clyde can update Patty's transplant registration$/) do
-  expect(update_transplant_registration(@registration, @clyde, Time.zone.now)).to be_truthy
+  expect(update_transplant_registration(
+    registration: @registration, user: @clyde,
+    updated_at: Time.zone.now)
+  ).to be_truthy
 end
 
 Then(/^the registration status history is$/) do |table|

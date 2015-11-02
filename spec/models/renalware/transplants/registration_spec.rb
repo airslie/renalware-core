@@ -13,11 +13,11 @@ module Renalware
         end
       end
 
-      describe "#add_status" do
+      describe "#add_status!" do
         it "terminates the current status" do
           status = registration.current_status
 
-          registration.add_status(started_on: Time.zone.today)
+          registration.add_status!(started_on: Time.zone.today)
 
           expect(status.reload).to be_terminated
         end
@@ -25,15 +25,15 @@ module Renalware
         it "recomputes the termination dates" do
           expect(registration).to receive(:recompute_termination_dates!)
 
-          registration.add_status(started_on: 3.days.ago)
+          registration.add_status!(started_on: 3.days.ago)
         end
       end
 
-      describe "#update_status" do
+      describe "#update_status!" do
         it "updates the status with given parameters" do
           datestamp = earliest_status.started_on + 1.day
 
-          registration.update_status(earliest_status, started_on: datestamp)
+          registration.update_status!(earliest_status, started_on: datestamp)
 
           expect(earliest_status.reload.started_on).to eq(datestamp)
         end
@@ -41,16 +41,16 @@ module Renalware
         it "recomputes the termination dates" do
           expect(registration).to receive(:recompute_termination_dates!)
 
-          registration.update_status(
+          registration.update_status!(
             earliest_status,
             started_on: earliest_status.started_on + 1.day
           )
         end
       end
 
-      describe "#delete_status" do
+      describe "#delete_status!" do
         it "updates the status with given parameters" do
-          registration.delete_status(earliest_status)
+          registration.delete_status!(earliest_status)
 
           expect(registration.statuses.where(id: earliest_status.id).exists?).to be_falsy
         end
@@ -58,7 +58,7 @@ module Renalware
         it "recomputes the termination dates" do
           expect(registration).to receive(:recompute_termination_dates!)
 
-          registration.delete_status(earliest_status)
+          registration.delete_status!(earliest_status)
         end
       end
     end
