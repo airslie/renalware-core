@@ -8,12 +8,20 @@ module Renalware
 
       scope :ordered, -> (direction=:desc) { order(started_on: direction) }
 
+      after_initialize :set_defaults, if: :new_record?
+
       def terminated?
         terminated_on.present?
       end
 
       def to_s
-        description.name
+        description.to_s if description
+      end
+
+      protected
+
+      def set_defaults
+        self.started_on ||= Time.zone.today
       end
     end
   end

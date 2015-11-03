@@ -6,8 +6,9 @@ Feature: Record the transplant registration for a patient
   Background:
     Given Clyde is a clinician
     And Patty is a patient
+    And the transplants module is configured
 
-  @web @wip
+  @web
   Scenario: Register a patient on the transplant wait list
     When Clyde registers Patty on the wait list with status "Active" starting on "24-10-2015"
     Then Patty has an active transplant registration since "24-10-2015"

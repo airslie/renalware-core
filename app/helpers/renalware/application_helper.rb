@@ -54,5 +54,9 @@ module Renalware
     def timestamp(time)
       I18n.l time, format: :long
     end
+
+    def datestamp(date)
+      I18n.l date
+    end
   end
 end

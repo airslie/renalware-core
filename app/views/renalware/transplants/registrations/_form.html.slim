@@ -71,6 +71,16 @@ ruby:
       = f.input :contact, as: :text, input_html: { rows: 5 }
       = f.input :notes, as: :text, input_html: { rows: 5 }
 
+    - if f.object.new_record?
+      = render layout: "renalware/shared/documents/fieldset",
+        locals: { legend: "Status", name: "status" } do
+          - f.object.statuses.build if f.object.statuses.empty?
+          = f.simple_fields_for :statuses, f.object.statuses do |fs|
+            = fs.input :started_on, as: :date_picker
+            = fs.input :description_id,
+              collection: Renalware::Transplants::RegistrationStatusDescription.ordered,
+              label_method: :name, value_method: :id, include_blank: false
+
 .row
   .large-12.columns
     = f.submit 'Save', class: 'button'

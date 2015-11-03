@@ -130,6 +130,10 @@ module World
         click_on "Enter registration details"
 
         select "Kidney only", from: "Transplant Type"
+        within_fieldset "Status" do
+          fill_in "Started on", with: started_on
+          select "Active", from: "Description"
+        end
 
         within ".top" do
           click_on "Save"

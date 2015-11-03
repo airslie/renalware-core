@@ -29,9 +29,14 @@ module Renalware
       protected
 
       def registration_params
+        attributes = [
+          :referred_on, :assessed_on, :contact, :notes,
+          statuses_attributes: [:started_on, :description_id],
+          document: []
+        ]
         document_attributes = params.require(:transplants_registration)
           .fetch(:document, nil).try(:permit!)
-        params.require(:transplants_registration).permit.merge(document: document_attributes)
+        params.require(:transplants_registration).permit(attributes).merge(document: document_attributes)
       end
     end
   end

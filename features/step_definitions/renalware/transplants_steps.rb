@@ -1,4 +1,9 @@
 # Rule: Given steps should not go through the UI, no matter what the world is
+Given(/^the transplants module is configured$/) do
+  Renalware::Transplants::RegistrationStatusDescription.create!(
+    name: "Active", position: 1
+  )
+end
 
 Given(/^Patty has a recipient workup$/) do
   @workup = Renalware::Transplants::RecipientWorkup.create!(
@@ -95,7 +100,7 @@ Then(/^Don's donor workup gets updated$/) do
   expect(donor_workup_was_updated(@don)).to be_truthy
 end
 
-Then(/^Patty has an active transplant registration since "(.*?)$/) do |started_on|
+Then(/^Patty has an active transplant registration since "(.*?)"$/) do |started_on|
  transplant_registration_exists(patient: @patty, status_name: "Active", started_on: started_on)
 end
 

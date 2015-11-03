@@ -1404,6 +1404,7 @@ ALTER SEQUENCE transplants_recipient_workups_id_seq OWNED BY transplants_recipie
 CREATE TABLE transplants_registration_status_descriptions (
     id integer NOT NULL,
     name character varying,
+    "position" integer DEFAULT 0,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );

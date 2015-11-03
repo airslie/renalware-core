@@ -13,6 +13,8 @@ module Renalware
       has_paper_trail class_name: "Renalware::Transplants::RegistrationVersion"
       has_document class_name: "RegistrationDocument"
 
+      accepts_nested_attributes_for :statuses
+
       def self.policy_class
         BasePolicy
       end

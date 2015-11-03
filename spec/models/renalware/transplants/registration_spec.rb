@@ -7,6 +7,32 @@ module Renalware
       let(:earliest_status) { registration.statuses.order("created_at ASC").first }
       let(:latest_status) { registration.statuses.order("created_at DESC").first }
 
+      it { should accept_nested_attributes_for(:statuses) }
+
+      describe "#update_attributes" do
+        context "when creating the registration" do
+          let(:patient) { create(:patient) }
+          let(:status_description) { create(:transplant_registration_status_description) }
+
+          it "creates the status at the same time" do
+            params = {
+              patient_id: patient.id,
+              statuses_attributes: {
+                "0": {
+                  started_on: "03-11-2015",
+                  description_id: status_description.id
+                }
+              }
+            }
+
+            registration = Registration.new
+            registration.update_attributes(params)
+            expect(registration).to be_persisted
+            expect(registration.statuses.count).to eq(1)
+          end
+        end
+      end
+
       describe "#current_status" do
         it "returns the status not terminated" do
           expect(registration.current_status).to eq(latest_status)
