@@ -6,6 +6,7 @@
     h2 Clinical Summary
 
 .wide-screen
+  .columns.large-6
     = field_set_tag do
       legend = link_to "#{@patient.problems.length} Problems", patient_problems_path(@patient)
 
@@ -14,7 +15,7 @@
           li
             = "#{p.full_description}, #{p.created_at.to_date}"
 
-.wide-screen
+  .columns.large-6
     = field_set_tag do
       legend= link_to "#{@patient.medications.length} Current Medications", patient_medications_path(@patient)
 
@@ -24,6 +25,7 @@
             = "#{p.medicatable.name}, #{p.dose}, #{p.medication_route.name} #{p.frequency}, #{p.start_date}"
 
 .wide-screen
+  .columns.large-12
     = field_set_tag do
       legend= link_to "#{@events.size} Patient Events", patient_events_path(@patient)
 
