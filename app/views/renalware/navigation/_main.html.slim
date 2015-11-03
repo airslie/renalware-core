@@ -1,11 +1,11 @@
-.sticky
-  nav.top-bar(data-topbar role="navigation")
-    ul.title-area
-      li.name.has-dropdown.active
-        h1
-          = link_to "RW2.0", patients_path, title: "Home"
+- if user_signed_in?
+  .sticky
+    nav.top-bar(data-topbar role="navigation")
+      ul.title-area
+        li.name.has-dropdown.active
+          h1
+            = link_to "RW2.0", patients_path, title: "Home"
 
-    - if user_signed_in?
       section.top-bar-section
         = render partial: "renalware/navigation/patient_search"
 
@@ -21,3 +21,10 @@
           = render partial: "renalware/navigation/sign_out"
           li.divider
           = render partial: "renalware/navigation/help_items"
+- else
+  .sticky
+    nav.top-bar(data-topbar role="navigation")
+      ul.title-area
+        li.name.has-dropdown.active
+          h1
+            = link_to "Renalware 2", patients_path, title: "Home"
