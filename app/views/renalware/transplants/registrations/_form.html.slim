@@ -29,12 +29,6 @@ ruby:
         = fcm.input :type
         = fcm.input :recorded_on, as: :date_picker
         table
-          thead
-            tr
-              th
-              th Mother
-              th Father
-              th(width="30%")
           tbody
             = render_input fcm, :a
             = render_input fcm, :b

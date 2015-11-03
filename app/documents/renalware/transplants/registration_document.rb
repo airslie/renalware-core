@@ -45,13 +45,13 @@ module Renalware
       attribute :nhb_consent, Consent
 
       class HLA < Document::Embedded
-        attribute :a, AncestralMarker
-        attribute :b, AncestralMarker
-        attribute :cw, AncestralMarker
-        attribute :dr, AncestralMarker
-        attribute :dq, AncestralMarker
-        attribute :drw, AncestralMarker
-        attribute :drq, AncestralMarker
+        attribute :a, BinaryMarker
+        attribute :b, BinaryMarker
+        attribute :cw, BinaryMarker
+        attribute :dr, BinaryMarker
+        attribute :dq, BinaryMarker
+        attribute :drw, BinaryMarker
+        attribute :drq, BinaryMarker
         attribute :type
         attribute :recorded_on, Date
       end
