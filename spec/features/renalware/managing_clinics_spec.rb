@@ -13,7 +13,6 @@ module Renalware
       fill_in 'Height', with: '1.78'
       fill_in 'Weight', with: '82.5'
       fill_in 'Blood Pressure', with: '110/75'
-      fill_in 'Notes', with: 'Everything normal'
 
       click_on 'Save'
 
@@ -36,7 +35,6 @@ module Renalware
       fill_in 'Height', with: '1.62'
       fill_in 'Weight', with: '95'
       fill_in 'Blood Pressure', with: '128/95'
-      fill_in 'Notes', with: 'Not good'
 
       click_on 'Update'
 
