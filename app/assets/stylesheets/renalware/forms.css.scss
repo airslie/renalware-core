@@ -6,16 +6,18 @@
   }
 }
 
+form {
+  .small-input {
+    max-width: 250px !important;
+  }
+}
+
 .document form {
   .form-content {
     max-width: 960px;
   }
 
   .datepicker-wrapper {
-    max-width: 250px !important;
-  }
-
-  .small-input {
     max-width: 250px !important;
   }
 
