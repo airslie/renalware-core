@@ -70,7 +70,9 @@ Rails.application.routes.draw do
         resource :dashboard, only: :show
         resource :recipient_workup, except: :destroy
         resource :donor_workup, except: :destroy
-        resource :registration, expect: :destroy
+        resource :registration, expect: :destroy do
+          resources :statuses, controller: "registration_statuses"
+        end
       end
     end
 

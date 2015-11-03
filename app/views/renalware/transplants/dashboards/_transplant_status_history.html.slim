@@ -1,0 +1,41 @@
+ruby:
+  patient = @registration.patient
+  post_path = patient_transplants_registration_statuses_path(patient)
+  new_status = @registration.statuses.build(description: @registration.current_status.description)
+
+fieldset
+  legend Status History
+
+  .row
+    .large-centered.large-8.columns
+      = simple_form_for new_status, url: post_path, wrapper: "inline_form" do |f|
+          = f.input :description_id,
+            collection: Renalware::Transplants::RegistrationStatusDescription.ordered,
+            label_method: :name, value_method: :id, include_blank: false,
+            label: false
+          = f.input :started_on, as: :date_picker, label: false
+          = f.submit "Add status", class: 'button tiny'
+  .row
+    .large-12.columns
+      table
+        thead
+          th
+          th Start Date
+          th Status
+          th By
+          th Termination Date
+        tbody
+          - @registration.statuses.ordered(:desc).each do |status|
+            tr
+              td
+                = link_to "Edit", "#"
+                = pipe_separator
+                = link_to 'Delete',
+                  patient_transplants_registration_status_path(patient, status),
+                  id: "#{status.id}-status",
+                  method: :delete,
+                  data: { confirm: "Are you sure you want to delete this status?"}
+              td= l status.started_on
+              td= status.description
+              td= who_did_it status
+              td= l status.terminated_on if status.terminated_on

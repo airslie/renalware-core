@@ -76,10 +76,10 @@ ruby:
         locals: { legend: "Status", name: "status" } do
           - f.object.statuses.build if f.object.statuses.empty?
           = f.simple_fields_for :statuses, f.object.statuses do |fs|
-            = fs.input :started_on, as: :date_picker
             = fs.input :description_id,
               collection: Renalware::Transplants::RegistrationStatusDescription.ordered,
               label_method: :name, value_method: :id, include_blank: false
+            = fs.input :started_on, as: :date_picker
 
 .row
   .large-12.columns
