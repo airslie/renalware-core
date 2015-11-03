@@ -17,7 +17,7 @@ module Renalware
       click_on 'Log in'
 
       expect(current_path).to eq(new_user_session_path)
-      expect(page).to have_css('.flash-alert', text: /Invalid username or password/)
+      expect(page).to have_css('.alert', text: /Invalid username or password/)
     end
 
     scenario 'An unapproved user authenticates with valid credentials' do
@@ -30,7 +30,7 @@ module Renalware
       click_on 'Log in'
 
       expect(current_path).to eq(new_user_session_path)
-      expect(page).to have_css('.flash-alert', text: /Your account needs approval before you can access the system/)
+      expect(page).to have_css('.alert', text: /Your account needs approval before you can access the system/)
     end
 
     scenario 'An approved user authenticates with valid credentials' do
@@ -64,7 +64,7 @@ module Renalware
       click_on 'Log in'
 
       expect(current_path).to eq(new_user_session_path)
-      expect(page).to have_css('.flash-alert', text: /Your account has expired due to inactivity\. Please contact the site administrator/)
+      expect(page).to have_css('.alert', text: /Your account has expired due to inactivity\. Please contact the site administrator/)
     end
 
     scenario 'A fairly inactive user attempts to authenticate' do
