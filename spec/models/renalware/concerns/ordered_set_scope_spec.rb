@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 module Renalware
   describe "Ordered Set scope" do
@@ -42,7 +42,7 @@ module Renalware
       ActiveRecord::Schema.define do
         self.verbose = false
 
-        create_table :quxes, :force => true do |t|
+        create_table :quxes, force: true do |t|
           t.string :code
         end
       end
