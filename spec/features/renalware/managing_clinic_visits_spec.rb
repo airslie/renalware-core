@@ -4,12 +4,15 @@ module Renalware
   feature "Managing clinic visits" do
     background do
       @patient = create(:patient)
+      create(:clinic_type, name: "Access")
+      create(:clinic_type, name: "Anaemia")
       login_as_clinician
     end
 
     scenario "Adding a clinic visit" do
       visit new_patient_clinic_visit_path(@patient)
 
+      select "Access", from: "Clinic type"
       fill_in "Height", with: "1.78"
       fill_in "Weight", with: "82.5"
       fill_in "Blood Pressure", with: "110/75"
@@ -23,6 +26,9 @@ module Renalware
         within(".bp") do
           expect(page).to have_content("110/75")
         end
+        within(".clinic-type") do
+          expect(page).to have_content("Access")
+        end
       end
     end
 
@@ -33,6 +39,7 @@ module Renalware
       visit edit_patient_clinic_visit_path(patient_id: @patient.to_param,
                                            id: clinic_visit.to_param)
 
+      select "Anaemia", from: "Clinic type"
       fill_in "Height", with: "1.62"
       fill_in "Weight", with: "95"
       fill_in "Blood Pressure", with: "128/95"
@@ -45,6 +52,9 @@ module Renalware
         end
         within(".bp") do
           expect(page).to have_content("128/95")
+        end
+        within(".clinic-type") do
+          expect(page).to have_content("Anaemia")
         end
       end
 

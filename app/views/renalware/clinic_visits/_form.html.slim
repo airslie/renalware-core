@@ -7,6 +7,10 @@
       = f.label :date, "Clinic date", class: "right"
     .columns.small-7
       = f.datetime_select :date, {}, class: "datetime"
+    .columns.small-5
+      = f.label :clinic_type_id, class: "right"
+    .columns.small-7
+      = f.collection_select :clinic_type_id, Renalware::ClinicType.all, :id, :name, class: "datetime"
 
   fieldset
     legend Observations

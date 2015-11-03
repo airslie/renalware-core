@@ -1,6 +1,7 @@
 module Renalware
   class ClinicVisit < ActiveRecord::Base
     belongs_to :patient
+    belongs_to :clinic_type
     has_many :clinic_letters
 
     validates_presence_of :date

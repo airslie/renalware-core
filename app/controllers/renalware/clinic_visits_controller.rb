@@ -41,7 +41,7 @@ module Renalware
 
     def clinic_visit_params
       params.require(:clinic_visit).permit(
-        :date, :height, :weight,
+        :date, :clinic_type_id, :height, :weight,
         :bp, :urine_blood, :urine_protein, :notes
       )
     end
