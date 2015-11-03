@@ -95,10 +95,17 @@ module Renalware
 
   log '--------------------Adding ClinicVisits for Roger RABBIT-------------------'
   5.times do |n|
-    rabbit.clinic_visits << ClinicVisit.find_or_create_by!(
-      patient: rabbit, height: 1.25, weight: 55 + n, systolic_bp: 110 + n, diastolic_bp: 68 + n) do |clinic|
-        clinic.date = n.days.ago.change({ hour: (10 + (2 * n)), min: 0 })
-      end
+    clinic_visit = ClinicVisit.find_or_create_by!(
+      patient: rabbit,
+      clinic_type: ClinicType.order("RANDOM()").first,
+      height: 1.25,
+      weight: 55 + n,
+      systolic_bp: 110 + n,
+      diastolic_bp: 68 + n,
+      date: n.days.ago.change({ hour: (10 + (2 * n)), min: 0 })
+    )
+
+    rabbit.clinic_visits << clinic_visit
   end
 
   log '--------------------Adding Medications for Roger RABBIT-------------------'
