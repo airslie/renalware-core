@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 module Renalware
-  feature 'Managing clinics' do
+  feature 'Managing clinic visits' do
     background do
       @patient = create(:patient)
       login_as_clinician
     end
 
-    scenario 'Adding a clinic' do
+    scenario 'Adding a clinic visit' do
       visit new_patient_clinic_visit_path(@patient)
 
       fill_in 'Height', with: '1.78'
