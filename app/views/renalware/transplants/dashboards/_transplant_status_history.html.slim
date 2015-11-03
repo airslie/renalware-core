@@ -1,7 +1,10 @@
 ruby:
   patient = @registration.patient
   post_path = patient_transplants_registration_statuses_path(patient)
-  new_status = @registration.statuses.build(description: @registration.current_status.description)
+  new_status = @registration.statuses.build(
+    description: @registration.current_status.description,
+    started_on: Time.zone.today
+  )
 
 fieldset
   legend Status History
@@ -28,7 +31,8 @@ fieldset
           - @registration.statuses.ordered(:desc).each do |status|
             tr
               td
-                = link_to "Edit", "#"
+                = link_to "Edit",
+                  edit_patient_transplants_registration_status_path(patient, status)
                 = pipe_separator
                 = link_to 'Delete',
                   patient_transplants_registration_status_path(patient, status),

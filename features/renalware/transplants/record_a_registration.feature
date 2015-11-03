@@ -4,9 +4,9 @@ Feature: Record the transplant registration for a patient
   receive a transplant a patient needs to be registered on a wait list.
 
   Background:
-    Given Clyde is a clinician
+    Given the transplants module is configured
+    And Clyde is a clinician
     And Patty is a patient
-    And the transplants module is configured
 
   @web
   Scenario: Register a patient on the transplant wait list

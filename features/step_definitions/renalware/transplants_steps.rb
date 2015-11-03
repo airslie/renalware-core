@@ -1,8 +1,8 @@
 # Rule: Given steps should not go through the UI, no matter what the world is
 Given(/^the transplants module is configured$/) do
-  Renalware::Transplants::RegistrationStatusDescription.create!(
-    name: "Active", position: 1
-  )
+  ["Active", "Transplanted", "Waiting"].each do |name|
+    Renalware::Transplants::RegistrationStatusDescription.create!(name: name)
+  end
 end
 
 Given(/^Patty has a recipient workup$/) do
@@ -24,7 +24,13 @@ end
 
 Given(/^Patty is registered on the wait list$/) do
   @registration = Renalware::Transplants::Registration.create!(
-    patient: @patty
+    patient: @patty,
+    statuses_attributes: {
+      "0": {
+        started_on: "03-11-2015",
+        description_id: 1
+      }
+    }
   )
 end
 
@@ -67,21 +73,19 @@ When(/^Clyde registers Patty on the wait list with status "(.*?)" starting on "(
   )
 end
 
-When(/^Clyde sets the registration status to "(.*?)" and the start date to "(.*?)"$/) do |status, start_date|
-  description = registration_status_description_named(status)
-  @registration.add_status!(description: description, started_on: start_date)
+When(/^Clyde sets the registration status to "(.*?)" and the start date to "(.*?)"$/) do |status, started_on|
+  set_transplant_registration_status(registration: @registration, user: @clyde,
+    status: status, started_on: started_on)
 end
 
-When(/^Clyde changes the "(.*?)" start date to "(.*?)"$/) do |status, start_date|
-  description = registration_status_description_named(status)
-  status = @registration.statuses.find_by description: description
-  @registration.update_status!(status, started_on: start_date)
+When(/^Clyde changes the "(.*?)" start date to "(.*?)"$/) do |status, started_on|
+  update_transplant_registration_status(registration: @registration, user: @clyde,
+    status: status, started_on: started_on)
 end
 
 When(/^Clyde deletes the "(.*?)" status change$/) do |status|
-  description = registration_status_description_named(status)
-  status = @registration.statuses.find_by description: description
-  @registration.delete_status!(status)
+  delete_transplant_registration_status(registration: @registration, user: @clyde,
+    status: status)
 end
 
 Then(/^Patty's recipient workup exists$/) do
@@ -112,32 +116,14 @@ Then(/^Clyde can update Patty's transplant registration$/) do
 end
 
 Then(/^the registration status history is$/) do |table|
-  statuses = @registration.reload.statuses.map do |s|
-    { status: s.description.name,
-      start_date: I18n.l(s.started_on),
-      termination_date: (s.terminated_on ? I18n.l(s.terminated_on) : "")
-    }.with_indifferent_access
-  end
-  expect(statuses.size).to eq(table.hashes.size)
-  table.hashes.each do |row|
-    expect(statuses).to include(row)
-  end
+  transplant_registration_status_history_matches(registration: @registration, hashes: table.hashes)
 end
 
 Then(/^the transplant current status stays "(.*?)" since "(.*?)"$/) do |name, start_date|
-  status = @registration.current_status
-  expect(status.to_s).to eq(name)
-  expect(I18n.l(status.started_on)).to eq(start_date)
+  transplant_registration_current_status_is(registration: @registration,
+    name: name, started_on: start_date)
 end
 
 Then(/^the status history has the following revised termination dates$/) do |table|
-  statuses = @registration.reload.statuses.map do |s|
-    { status: s.description.name,
-      start_date: I18n.l(s.started_on),
-      termination_date: (s.terminated_on ? I18n.l(s.terminated_on) : "")
-    }.with_indifferent_access
-  end
-  table.hashes.each do |row|
-    expect(statuses).to include(row)
-  end
+  transplant_registration_status_history_includes(registration: @registration, hashes: table.hashes)
 end

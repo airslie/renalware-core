@@ -40,6 +40,11 @@ module Renalware
       end
 
       describe "#add_status!" do
+        it "returns the new status" do
+          status = registration.add_status!(started_on: Time.zone.today)
+          expect(status).to be_a(RegistrationStatus)
+        end
+
         it "terminates the current status" do
           status = registration.current_status
 
@@ -53,9 +58,21 @@ module Renalware
 
           registration.add_status!(started_on: 3.days.ago)
         end
+
+        it "returns status with errors if not valid" do
+          status = registration.add_status!({})
+
+          expect(status).to_not be_valid
+        end
       end
 
       describe "#update_status!" do
+        it "returns the updated status" do
+          status = registration.update_status!(earliest_status, {})
+
+          expect(status).to be_a(RegistrationStatus)
+        end
+
         it "updates the status with given parameters" do
           datestamp = earliest_status.started_on + 1.day
 

@@ -74,7 +74,7 @@ ruby:
     - if f.object.new_record?
       = render layout: "renalware/shared/documents/fieldset",
         locals: { legend: "Status", name: "status" } do
-          - f.object.statuses.build if f.object.statuses.empty?
+          - f.object.statuses.build(started_on: Time.zone.today) if f.object.statuses.empty?
           = f.simple_fields_for :statuses, f.object.statuses do |fs|
             = fs.input :description_id,
               collection: Renalware::Transplants::RegistrationStatusDescription.ordered,
