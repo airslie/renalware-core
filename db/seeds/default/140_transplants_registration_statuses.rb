@@ -21,7 +21,7 @@ module Renalware
   statuses.each_with_index do |status, index|
     Transplants::RegistrationStatusDescription.create!(
       name: status,
-      position: index
+      position: index*10
     )
   end
 end
