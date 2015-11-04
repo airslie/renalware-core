@@ -1,23 +1,6 @@
 .flash-message
   - flash.each do |name, msg|
-    - if flash[name]
-      - if name == "notice"
-        .row class=name
-          .alert-box.success.round data={alert: nil}
-            = msg
-            a href="#" class="close" &times;
-      - elsif name == "error"
-        .row class=name
-          .alert-box.alert.round data={alert: nil}
-            = msg
-            a href="#" class="close" &times;
-      - elsif name == "warning"
-        .row class=name
-          .alert-box.warning.round data={alert: nil}
-            = msg
-            a href="#" class="close" &times;
-      - else
-        .row class=name
-          .alert-box.info.round data={alert: nil}
-            = msg
-            a href="#" class="close" &times;
+    .row class=name
+      .alert-box.round class=flash_style(name) data={alert: nil}
+        = msg
+        a href="#" class="close" &times;
