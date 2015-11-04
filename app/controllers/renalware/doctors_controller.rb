@@ -21,7 +21,7 @@ module Renalware
       if service.update!(doctor_params)
         redirect_to doctors_path
       else
-        flash[:error] = 'Failed to create new Doctor'
+        flash[:error] = "Failed to create new Doctor"
         render :new
       end
     end
@@ -30,7 +30,7 @@ module Renalware
       if service.update!(doctor_params)
         redirect_to doctors_path
       else
-        flash[:error] = 'Failed to update Doctor'
+        flash[:error] = "Failed to update Doctor"
         render :edit
       end
     end
@@ -38,7 +38,7 @@ module Renalware
     def destroy
       authorize Doctor.destroy(params[:id])
 
-      redirect_to doctors_path, notice: 'Doctor successfully deleted'
+      redirect_to doctors_path, notice: "Doctor successfully deleted"
     end
     private
 
