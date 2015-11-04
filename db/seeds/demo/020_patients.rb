@@ -10,10 +10,10 @@ module Renalware
     logcount += 1
 
     Patient.find_or_create_by!(local_patient_id: local_patient_id) do |patient|
-      patient.surname = row['surname']
-      patient.forename = row['forename']
+      patient.family_name = row['family_name']
+      patient.given_name = row['given_name']
       patient.sex = row['sex']
-      patient.birth_date = row['birth_date']
+      patient.born_on = row['born_on']
       patient.nhs_number = demo_nhsno
       patient.created_at = row['created_at']
     end

@@ -126,9 +126,9 @@ When(/^I complete the modality form$/) do
   select "PD To Haemodialysis", :from => "Type of Change"
   select "Reason One", :from => "Reason for Change"
 
-  select '2014', from: 'modality_start_date_1i'
-  select 'December', from: 'modality_start_date_2i'
-  select '1', from: 'modality_start_date_3i'
+  select "2014", from: "modality_started_on_1i"
+  select "December", from: "modality_started_on_2i"
+  select "1", from: "modality_started_on_3i"
 
   fill_in "Notes", :with => "Needs wheel chair access"
 
@@ -140,22 +140,22 @@ When(/^I select death modality$/) do
     select "Death"
   end
 
-  select '2015', from: 'modality_start_date_1i'
-  select 'April', from: 'modality_start_date_2i'
-  select '1', from: 'modality_start_date_3i'
+  select "2015", from: "modality_started_on_1i"
+  select "April", from: "modality_started_on_2i"
+  select "1", from: "modality_started_on_3i"
 
   click_on "Save"
 end
 
 When(/^I complete the cause of death form$/) do
 
-  within "#patient_death_date_3i" do
+  within "#patient_died_on_3i" do
     select '22'
   end
-  within "#patient_death_date_2i" do
+  within "#patient_died_on_2i" do
     select 'September'
   end
-  within "#patient_death_date_1i" do
+  within "#patient_died_on_1i" do
     select '2014'
   end
 

@@ -10,13 +10,13 @@ FactoryGirl.define do
   factory :patient, class: "Renalware::Patient" do
     nhs_number
     local_patient_id
-    surname "Jones"
-    forename "Jack"
-    birth_date "01/01/1988"
+    family_name "Jones"
+    given_name "Jack"
+    born_on "01/01/1988"
     paediatric_patient_indicator "0"
     sex "M"
     ethnicity_id 1
-    death_date nil
+    died_on nil
     first_edta_code_id nil
     association :current_address, factory: :address
     doctor

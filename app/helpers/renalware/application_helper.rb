@@ -1,5 +1,3 @@
-# require 'medication_route'
-
 module Renalware
   module ApplicationHelper
 

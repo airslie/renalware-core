@@ -11,37 +11,37 @@ Given(/^some patients who need renal treatment$/) do
   @patient_1 = FactoryGirl.create(:patient,
     nhs_number: "1000124501",
     local_patient_id: "Z999991",
-    surname: "RABBIT",
-    forename: "Roger",
-    birth_date: "01/01/1947",
+    family_name: "RABBIT",
+    given_name: "Roger",
+    born_on: "01/01/1947",
     paediatric_patient_indicator: "1",
     sex: "M",
     ethnicity_id: Renalware::Ethnicity.first.id,
-    hosp_centre_code: "888"
+    hospital_centre_code: "888"
   )
 
   @patient_2 = FactoryGirl.create(:patient,
     nhs_number: "1000124502",
     local_patient_id: "Z999992",
-    surname: "DAY",
-    forename: "Doris",
-    birth_date: "24/06/1970",
+    family_name: "DAY",
+    given_name: "Doris",
+    born_on: "24/06/1970",
     paediatric_patient_indicator: "1",
     sex: "F",
     ethnicity_id: Renalware::Ethnicity.second.id,
-    hosp_centre_code: "888"
+    hospital_centre_code: "888"
   )
 
   @patient_3 = FactoryGirl.create(:patient,
     nhs_number: "1000124503",
     local_patient_id: "Z999993",
-    surname: "CASPER",
-    forename: "Ghost",
-    birth_date: "28/02/1930",
+    family_name: "CASPER",
+    given_name: "Ghost",
+    born_on: "28/02/1930",
     paediatric_patient_indicator: "1",
     sex: "M",
     ethnicity_id: Renalware::Ethnicity.third.id,
-    hosp_centre_code: "999"
+    hospital_centre_code: "999"
   )
 end
 
@@ -56,20 +56,20 @@ end
 When(/^I complete the add a new patient form$/) do
   fill_in "NHS Number", with: "1000124504"
   fill_in "Local Patient ID", with: "Z999994"
-  fill_in "Surname", with: "Smith"
-  fill_in "Forename", with: "Ian"
+  fill_in "Family name", with: "Smith"
+  fill_in "Given name", with: "Ian"
 
   select "Male", from: "Sex"
 
   select "White", from: "Ethnicity"
 
-  within "#patient_birth_date_1i" do
+  within "#patient_born_on_1i" do
     select "1960"
   end
-  within "#patient_birth_date_2i" do
+  within "#patient_born_on_2i" do
     select "January"
   end
-  within "#patient_birth_date_3i" do
+  within "#patient_born_on_3i" do
     select "1"
   end
 
@@ -98,7 +98,7 @@ end
 
 When(/^I update the patient's demographics$/) do
   click_on "Edit"
-  fill_in "Forename", with: "Roger"
+  fill_in "Given name", with: "Roger"
 end
 
 When(/^submit the update form$/) do

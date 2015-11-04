@@ -1,7 +1,7 @@
 module Renalware
   log '--------------------Adding Problems for Roger RABBIT--------------------'
 
-  rabbit = Patient.find_by(surname: 'RABBIT', forename: 'Roger')
+  rabbit = Patient.find_by(family_name: 'RABBIT', given_name: 'Roger')
 
   randweeks = (0..52).to_a
   file_path = File.join(demo_path, 'rabbit_problems.csv')
@@ -33,11 +33,8 @@ module Renalware
       modality_code_id: row['modality_code_id'],
       modality_reason_id: row['modality_reason_id']) do |mod|
         mod.modal_change_type   = row['modal_change_type']
-        mod.start_date          = row['start_date']
-        mod.termination_date    = row['termination_date']
-        mod.deleted_at          = row['deleted_at']
-        mod.created_at          = row['created_at']
-        mod.updated_at          = row['updated_at']
+        mod.started_on          = row['started_on']
+        mod.ended_on            = row['ended_on']
       end
   end
 

@@ -1,4 +1,4 @@
-require 'active_support/concern'
+require "active_support/concern"
 
 module Renalware
   module PatientsRansackHelper
@@ -20,13 +20,13 @@ module Renalware
       private
 
       def sanitize_query!(query)
-        query.gsub!(',','')
+        query.delete!(",")
       end
 
       def sql_and_params(query)
         sanitize_query!(query)
 
-        if query.include?(' ')
+        if query.include?(" ")
           [full_name_sql, full_name_params(query)]
         else
           [identity_sql, identity_params(query)]
@@ -41,19 +41,19 @@ module Renalware
         <<-SQL.squish
           local_patient_id = :exact_term OR
           nhs_number = :exact_term OR
-          surname ILIKE :fuzzy_term
+          family_name ILIKE :fuzzy_term
         SQL
       end
 
       def full_name_params(query)
-        surname, forename = query.split(' ')
-        { surname: "#{surname}%", forename: "#{forename}%" }
+        family_name, given_name = query.split(" ")
+        { family_name: "#{family_name}%", given_name: "#{given_name}%" }
       end
 
       def full_name_sql
         <<-SQL.squish
-          surname ILIKE :surname AND
-          forename ILIKE :forename
+          family_name ILIKE :family_name AND
+          given_name ILIKE :given_name
         SQL
       end
     end

@@ -1,33 +1,45 @@
-= render partial: 'renalware/shared/errors', locals: {model: f.object}
+= render partial: "renalware/shared/errors", locals: {model: f.object}
 
-.row
-  .columns.large-12.inline
-    = f.label :date, 'Clinic date'
-    = f.datetime_select :date, {}, class: 'datetime'
+.simple_form
+  fieldset
+    legend Summary
+    .columns.small-5
+      = f.label :date, "Clinic date", class: "right"
+    .columns.small-7
+      = f.datetime_select :date, {}, class: "datetime"
 
-.row
-  .columns.large-2.small-2
-    = f.label :height
-    = f.text_field :height
-    | metres
-  .columns.large-2.small-2
-    = f.label :weight
-    = f.text_field :weight
-    | kg.
-  .columns.large-2.small-2
-    = f.label :bp, 'Blood Pressure'
-    = text_field_tag 'clinic_visit[bp]', @clinic_visit.bp, placeholder: 'eg. 110/70'
+  fieldset
+    legend Observations
+    .row
+      .columns.small-5
+          = f.label :height, class: "right"
+      .columns.small-7.field_with_hint
+          = f.text_field :height, class: "small-input"
+          span.hint metres
+    .row
+      .columns.small-5
+          = f.label :weight, class: "right"
+      .columns.small-7.field_with_hint
+          = f.text_field :weight, class: "small-input"
+          span.hint kg.
+    .row
+      .columns.small-5
+        = f.label :bp, "Blood Pressure", class: "right"
+      .columns.small-7
+        = text_field_tag "clinic_visit[bp]", @clinic_visit.bp, placeholder: "eg. 110/70", class: "small-input"
+    .row
+      .columns.small-5
+        = f.label :urine_blood, class: "right"
+      .columns.small-7
+        = f.select :urine_blood, %i(neg trace), {}, class: "small-input"
+    .row
+      .columns.small-5
+        = f.label :urine_protein, class: "right"
+      .columns.small-7
+        = f.select :urine_protein, %i(neg trace), {}, class: "small-input"
 
-.row
-  .columns.large-6.inline
-    = f.label :urine_blood
-    = f.select :urine_blood, %i(neg trace)
-
-  .columns.large-6.inline
-    = f.label :urine_protein
-    = f.select :urine_protein, %i(neg trace)
-
-.row
-  .columns.large-12
-    = f.label :notes
-    = f.text_area :notes, rows: 8
+  fieldset
+    legend Notes
+    .row
+      .columns.large-12
+        = f.text_area :notes, rows: 8

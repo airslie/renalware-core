@@ -37,21 +37,21 @@ module Renalware
       reject_if: Problems::Problem.reject_if_proc
 
     validates :nhs_number, presence: true, length: { minimum: 10, maximum: 10 }, uniqueness: true
-    validates :surname, presence: true
-    validates :forename, presence: true
+    validates :family_name, presence: true
+    validates :given_name, presence: true
     validates :local_patient_id, presence: true, uniqueness: true
-    validates :birth_date, presence: true
+    validates :born_on, presence: true
     validate :validate_sex
 
     with_options if: :current_modality_death?, on: :update do |death|
-      death.validates :death_date, presence: true
+      death.validates :died_on, presence: true
       death.validates :first_edta_code_id, presence: true
     end
 
-    scope :dead, -> { where.not(death_date: nil) }
+    scope :dead, -> { where.not(died_on: nil) }
 
-    alias_attribute :first_name, :forename
-    alias_attribute :last_name,  :surname
+    alias_attribute :first_name, :given_name
+    alias_attribute :last_name,  :family_name
 
     def self.policy_class
       BasePolicy
@@ -59,19 +59,21 @@ module Renalware
 
     def age
       now = Time.now.utc.to_date
-      now.year - birth_date.year - ((now.month > birth_date.month || (now.month == birth_date.month && now.day >= birth_date.day)) ? 0 : 1)
+      now.year - born_on.year - (
+        (now.month > born_on.month ||
+          (now.month == born_on.month && now.day >= born_on.day)
+        ) ? 0 : 1
+      )
     end
 
     # @section services
 
-    def set_modality(attrs={})
-      self.modalities << (
-        if current_modality.present?
-          current_modality.transfer!(attrs)
-        else
-          Modality.create!(attrs)
-        end
-      )
+    def set_modality(attrs)
+      new_modality = if current_modality.present?
+        current_modality.transfer!(attrs)
+      else
+        modalities.create(attrs)
+      end
     end
 
     def current_modality_death?

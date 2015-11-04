@@ -14,14 +14,14 @@ Feature: A secretary manages patients
     Scenario: User views a patient's demographics
       Given some patients who need renal treatment
         And I am on the patients list
-      When I search for a patient by surname
+      When I search for a patient by family name
         And I've selected the patient from the search results
       Then I should see the patient's demographics on their profile page
 
     Scenario: User updates a patient's demographics
       Given some patients who need renal treatment
         And I am on the patients list
-      When I search for a patient by surname
+      When I search for a patient by family name
         And I've selected the patient from the search results
         And I update the patient's demographics
         And submit the update form

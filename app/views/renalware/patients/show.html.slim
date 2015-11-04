@@ -19,10 +19,10 @@
         .large-3.columns
           dl
             dt Last Name:
-            dd= @patient.surname
+            dd= @patient.family_name
 
             dt First Name:
-            dd= @patient.forename
+            dd= @patient.given_name
 
         .large-3.columns
           dl
@@ -35,13 +35,13 @@
         .large-3.columns
           dl
             dt Date of Birth:
-            dd= @patient.birth_date
+            dd= @patient.born_on
 
             dt Date of Death:
-            dd= @patient.death_date.blank? ? "N/A" : @patient.death_date
+            dd= @patient.died_on.blank? ? "N/A" : @patient.died_on
 
         .large-12.columns
-          - if @patient.death_date.present?
+          - if @patient.died_on.present?
             dl
               dt First cause of Death:
               dd= @patient.first_edta_code.death_cause
@@ -72,7 +72,7 @@
 
         dl
           dt Hospital Centre Code:
-          dd= @patient.hosp_centre_code
+          dd= @patient.hospital_centre_code
 
         dl
           dt Primary ESRF Centre:
