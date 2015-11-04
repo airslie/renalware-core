@@ -8,14 +8,14 @@ FactoryGirl.define do
           start_date = day.days.ago
           create(
             :transplant_registration_status,
-            registration: registration,
+            registration_id: registration.id,
             started_on: start_date,
             terminated_on: start_date+1.day
           )
         end
         create(
           :transplant_registration_status,
-          registration: registration,
+          registration_id: registration.id,
           started_on: 7.day.ago
         )
       end

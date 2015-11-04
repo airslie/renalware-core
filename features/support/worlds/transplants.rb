@@ -65,20 +65,11 @@ module World
       # Commands
 
       def create_recipient_workup(user: nil, patient:)
-        Renalware::Transplants::RecipientWorkup.create!(
-          patient: patient
-        )
+        set_up_recipient_workup_for(patient)
       end
 
       def create_donor_workup(user: nil, patient:)
-        Renalware::Transplants::DonorWorkup.create!(
-          patient: patient,
-          document: {
-            relationship: {
-              donor_recip_relationship: "son_or_daughter"
-            }
-          }
-        )
+        set_up_doner_workup_for(patient)
       end
 
       def update_workup(patient:, user: nil, updated_at:)
