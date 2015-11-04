@@ -26,24 +26,27 @@ module Renalware
       # @section services
       #
       def add_status!(params)
-        statuses.build(params).tap do |status|
-          if status.valid?
-            status.save!
-            recompute_termination_dates!
+        Registration.transaction do
+          statuses.create(params).tap do |status|
+            recompute_termination_dates! if status.valid?
           end
         end
       end
 
       def update_status!(status, params)
-        if status.update(params)
-          recompute_termination_dates!
+        Registration.transaction do
+          if status.update(params)
+            recompute_termination_dates!
+          end
+          status
         end
-        status
       end
 
       def delete_status!(status)
-        status.destroy
-        recompute_termination_dates!
+        Registration.transaction do
+          status.destroy
+          recompute_termination_dates!
+        end
       end
 
 
