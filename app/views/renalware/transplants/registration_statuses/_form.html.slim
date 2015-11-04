@@ -7,10 +7,7 @@ ruby:
     .large-12.columns
       fieldset
         legend Status
-        = f.input :description_id,
-          collection: Renalware::Transplants::RegistrationStatusDescription.ordered,
-          label_method: :name, value_method: :id, include_blank: false
-        = f.input :started_on, as: :date_picker
+        = render "inputs", f: f
 
 .row
   .large-12.columns
