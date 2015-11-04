@@ -6,9 +6,14 @@
           .alert-box.success.round data={alert: nil}
             = msg
             a href="#" class="close" &times;
-      - elsif name == "error" || "alert"
+      - elsif name == "error"
         .row class=name
           .alert-box.alert.round data={alert: nil}
+            = msg
+            a href="#" class="close" &times;
+      - elsif name == "warning"
+        .row class=name
+          .alert-box.warning.round data={alert: nil}
             = msg
             a href="#" class="close" &times;
       - else
