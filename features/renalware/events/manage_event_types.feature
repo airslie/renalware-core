@@ -1,28 +1,24 @@
 # event is also known as encounter
 # Not implemented in PHP, done at DB level?
-@pending
-Feature: A Doctor adds a new patient event type
+
+Feature: An admin manages event types
 
 Background:
   Given that I'm logged in
-    And there are ethnicities in the database
-    And some patients who need renal treatment
-    And they are adding a new patient event
+    And there are existing event types in the database
 
-Scenario: Doctor adds a new patient event type that does not exist on the dropdown
-  When they add a new patient event type
-    And they complete the add a new patient event type form
-  Then they should see the new patient event type added to the patient event type list
+Scenario: Admin adds a new event type
+  Given they choose to add a new event type
+    And they complete the new event form
+  Then they should see the new event type added to the event types index
 
-Scenario: Doctor adds a new patient event type that does not exist on the dropdown
-  Given there are existing patient event types in the database
-    And they are on the existing patient event types page
-  When they delete a patient event type
-  Then they should see the deleted event type removed from the existing event type list
+Scenario: Admin edits an existing event type
+  Given they visit the event types index
+  When they choose to edit an event type
+    And complete the event type form
+  Then they should see the updated event type in the event types index
 
-Scenario: Doctor adds a new patient event type that does not exist on the dropdown
-  Given there are existing patient event types in the database
-    And they are on the existing patient event types page
-  When they edit a patient event type
-    And they complete the edit patient event type form
-  Then they should see the updated event type on the existing patient event type list
+Scenario: Admin soft deletes an existing event type
+  Given they visit the event types index
+  When they choose to soft delete a event type
+  Then they should see this event type removed from the event types index
