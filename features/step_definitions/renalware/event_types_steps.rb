@@ -1,7 +1,7 @@
 
 Given(/^there are existing event types in the database$/) do
   %w(Home Clinic Phone Email).each do |name|
-    instance_variable_set(:"@#{name.downcase}", FactoryGirl.create(:events_type, :name => name))
+    instance_variable_set(:"@#{name.downcase}", FactoryGirl.create(:events_type, name: name))
   end
 end
 
