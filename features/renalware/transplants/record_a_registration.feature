@@ -21,5 +21,4 @@ Feature: Record the transplant registration for a patient
   @web
   Scenario: A clinician submitted an erroneous registration
     When Clyde submits an erroneous registration
-    Then the registration is not accepted by the system
-    And Clyde is notified of the registration errors
+    Then the registration is not accepted

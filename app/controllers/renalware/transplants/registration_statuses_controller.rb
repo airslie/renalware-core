@@ -28,8 +28,8 @@ module Renalware
         authorize @registration
 
         status = @registration.statuses.find(params[:id])
-        status_params.merge!(whodunnit: current_user.id)
-        @status = @registration.update_status!(status, status_params)
+        attributes = status_params.merge(whodunnit: current_user.id)
+        @status = @registration.update_status!(status, attributes)
 
         if @status.valid?
           redirect_to patient_transplants_dashboard_path(@patient)
