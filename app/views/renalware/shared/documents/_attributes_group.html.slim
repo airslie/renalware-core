@@ -14,5 +14,7 @@
                 = render value
               - elsif value.respond_to? :text
                 = value.text
+              - elsif value.is_a? Date
+                = I18n.l value
               - else
-                = value
+                = simple_format value.to_s

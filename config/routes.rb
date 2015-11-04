@@ -67,8 +67,10 @@ Rails.application.routes.draw do
       patch "problems", to: "problems/problems#update", as: "problems_batch"
 
       namespace :transplants do
+        resource :dashboard, only: :show
         resource :recipient_workup, except: :destroy
         resource :donor_workup, except: :destroy
+        resource :registration, expect: :destroy
       end
     end
 

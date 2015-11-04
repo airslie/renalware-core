@@ -168,6 +168,11 @@ h5 {
       width: 59%;
       padding: 0;
       margin: 0;
+
+      p {
+        padding: 0;
+        margin: 0;
+      }
     }
   }
 }
@@ -175,4 +180,17 @@ h5 {
 span.note {
   color: #999;
   font-size: 0.8rem;
+}
+
+.call-to-action {
+  text-align: center;
+  i {
+    display: block;
+    font-size: 5em;
+  }
+}
+
+span.monospaced {
+  font-family: monospace;
+  font-size: 1.2em;
 }
