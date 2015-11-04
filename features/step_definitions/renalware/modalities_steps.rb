@@ -18,7 +18,7 @@ end
 
 When(/^I complete the modality form$/) do
 
-  within "#modality-code-select" do
+  within "#modality-description-select" do
     select "Modal One"
   end
 
@@ -35,7 +35,7 @@ When(/^I complete the modality form$/) do
 end
 
 When(/^I select death modality$/) do
-  within "#modality-code-select" do
+  within "#modality-description-select" do
     select "Death"
   end
 
@@ -54,32 +54,31 @@ Then(/^I should see the patient's current modality set as death with set date$/)
 end
 
 Given(/^there are modality codes in the database$/) do
-  @modal_codes = [
+  @modal_descriptions = [
     ["Modal One", "modelone"],
     ["Modal Two", "modeltwo"],
     ["PD Modality", "pdmodality"],
     ["Death", "death"]
   ]
-  @modal_codes.map! {|d| FactoryGirl.create(:modality_code, name: d[0], code: d[1])}
+  @modal_descriptions.map! {|d| FactoryGirl.create(:modality_description, name: d[0], code: d[1])}
 
-  @modal_one = @modal_codes[0]
-  @modal_two = @modal_codes[1]
-  @modal_pd = @modal_codes[2]
-  @modal_death = @modal_codes[3]
+  @modal_one = @modal_descriptions[0]
+  @modal_two = @modal_descriptions[1]
+  @modal_pd = @modal_descriptions[2]
+  @modal_death = @modal_descriptions[3]
 end
 
 Given(/^that I'm on the add a new modal page$/) do
-  visit new_modalities_code_path
+  visit new_modalities_description_path
 end
 
 Given(/^that I choose to edit a modality$/) do
-  visit edit_modalities_code_path(@modal_two)
+  visit edit_modalities_description_path(@modal_two)
 end
 
 When(/^I complete the form for a new modal$/) do
   fill_in "Modal Name", with: "New Modal"
   fill_in "Modal Code", with: "newmodels"
-  fill_in "Modal Site", with: "New Modal Site"
   click_on "Save"
 end
 
@@ -91,7 +90,6 @@ end
 Then(/^I should see the new modal on the modalities list$/) do
   expect(page).to have_content("New Modal")
   expect(page).to have_content("newmodel")
-  expect(page).to have_content("Modal Site")
 end
 
 Then(/^I should see the updated modal on the modality list$/) do
@@ -99,7 +97,7 @@ Then(/^I should see the updated modal on the modality list$/) do
 end
 
 Given(/^I am on the modalities index$/) do
-  visit modalities_codes_path
+  visit modalities_descriptions_path
 end
 
 When(/^I choose to soft delete a modal$/) do

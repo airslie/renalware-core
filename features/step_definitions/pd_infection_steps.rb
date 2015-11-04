@@ -53,7 +53,7 @@ end
 Given(/^a patient has PD$/) do
   FactoryGirl.create(:modality,
     patient: @patient_1,
-    modality_code: @modal_pd
+    modality_description: @modal_pd
     )
 
   visit patient_pd_summary_path(@patient_1)

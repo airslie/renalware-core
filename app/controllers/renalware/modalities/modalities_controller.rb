@@ -28,13 +28,13 @@ module Renalware
 
       def modality_params
         params.require(:modality).permit(
-          :modality_code_id, :modality_change_type,
+          :modality_description_id, :modality_change_type,
           :modality_reason_id, :notes, :started_on
         )
       end
 
       def handle_valid_modality
-        if @patient.modality_code.death?
+        if @patient.modality_description.death?
           redirect_to edit_patient_death_path(@patient),
             warning: "Please make sure to update patient date of death and cause of death!"
         else

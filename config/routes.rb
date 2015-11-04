@@ -36,7 +36,7 @@ Rails.application.routes.draw do
       resources :types, except: :show
     end
     namespace :modalities do
-      resources :codes, except: [:show]
+      resources :descriptions, except: [:show]
       resources :reasons, only: [:index]
     end
 

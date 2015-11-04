@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :modality, class: "Renalware::Modalities::Modality" do
     patient
-    modality_code
+    modality_description
     modality_reason
     started_on Date.parse("2015-04-01")
 

@@ -6,7 +6,7 @@ module Renalware
 
       acts_as_paranoid
 
-      belongs_to :modality_code, class_name: "Code"
+      belongs_to :modality_description, class_name: "Description"
       belongs_to :patient
       belongs_to :modality_reason, class_name: "Reason"
 
@@ -16,7 +16,7 @@ module Renalware
 
       validates :patient, presence: true
       validates :started_on, presence: true
-      validates :modality_code, presence: true
+      validates :modality_description, presence: true
 
       validate :validate_modality_starts_later_than_previous, on: :create, if: :patient
 

@@ -27,7 +27,7 @@ module Renalware
     has_many :clinic_visits
 
     has_one :current_modality, -> { where(deleted_at: nil) }, class_name: "Modalities::Modality"
-    has_one :modality_code, through: :current_modality, class_name: "Modalities::Code"
+    has_one :modality_description, through: :current_modality, class_name: "Modalities::Description"
     has_one :esrf
 
     accepts_nested_attributes_for :current_address
@@ -78,7 +78,7 @@ module Renalware
 
     def current_modality_death?
       if self.current_modality.present?
-        self.current_modality.modality_code.death?
+        self.current_modality.modality_description.death?
       end
     end
 

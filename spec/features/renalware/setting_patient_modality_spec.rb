@@ -10,7 +10,7 @@ module Renalware
       visit new_patient_modality_path(@patient)
 
       within ".modality-form" do
-        select "CAPD (disconnect)", from: "modality-code-select"
+        select "CAPD (disconnect)", from: "modality-description-select"
         select "Haemodialysis To PD", from: "Type of Change"
         select "Patient / partner choice", from: "Reason for Change"
         select "2015", from: "modality_started_on_1i"

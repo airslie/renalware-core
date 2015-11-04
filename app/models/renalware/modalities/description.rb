@@ -2,8 +2,8 @@ require_dependency "renalware/modalities"
 
 module Renalware
   module Modalities
-    class Code < ActiveRecord::Base
-      self.table_name = "modality_codes"
+    class Description < ActiveRecord::Base
+      self.table_name = "modality_descriptions"
       acts_as_paranoid
 
       has_many :modalities
