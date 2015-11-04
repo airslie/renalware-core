@@ -4,10 +4,12 @@ body > .main-content {
   padding-bottom: 4em;
 }
 
-body > .flash-notice {
-  position: relative;
-  top: 3.2em;
-  z-index: 1;
+body {
+  .flash-message {
+    position: relative;
+    top: 1.5em;
+    z-index: 1;
+  }
 }
 
 table tr th.col-width-date{

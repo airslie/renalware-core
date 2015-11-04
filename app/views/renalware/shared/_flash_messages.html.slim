@@ -1,6 +1,6 @@
-- flash.each do |name, msg|
-  - if flash[name]
-    .row class="flash-#{name}"
-      .alert-box.info.round data={alert: nil}
+.flash-message
+  - flash.each do |name, msg|
+    .row class=name
+      .alert-box.round class=flash_style(name) data={alert: nil}
         = msg
-        a href="#" class='close' &times;
+        a href="#" class="close" &times;
