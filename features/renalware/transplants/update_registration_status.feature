@@ -23,7 +23,6 @@ Feature: Change the status of a transplant wait list registration
       | Active       | 15-07-2015 | Chloe   | 15-08-2015       |
       | Working Up   | 15-06-2015 | Chloe   | 15-07-2015       |
 
-  @web
   Scenario: A clinician recorded retroactively a registration status
     When Clyde sets the registration status to "Waiting" and the start date to "11-08-2015"
     Then the transplant current status stays "Suspended" since "15-08-2015"
@@ -33,7 +32,7 @@ Feature: Change the status of a transplant wait list registration
       | Active       | 15-07-2015 | 11-08-2015       |
 
   @web
-  Scenario: A clinician edited a historical status
+  Scenario: A clinician edited a registration status
     When Clyde changes the "Active" start date to "11-07-2015"
     Then the status history has the following revised statuses
       | status       | start_date | termination_date | by       |
@@ -41,7 +40,7 @@ Feature: Change the status of a transplant wait list registration
       | Working Up   | 15-06-2015 | 11-07-2015       | Chloe    |
 
   @web
-  Scenario: A clinician deleted a historical status
+  Scenario: A clinician deleted a registration status
     When Clyde deletes the "Active" status change
     Then the status history has the following revised termination dates
       | status       | start_date | termination_date |
@@ -51,6 +50,3 @@ Feature: Change the status of a transplant wait list registration
   Scenario: A clinician submitted an erroneous registration status
     When Clyde submits an erroneous registration status
     Then the registration status is not accepted
-
-
-
