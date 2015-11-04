@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Renalware
-  describe ModalityCodesController, :type => :controller do
+  describe Modalities::CodesController, type: :controller do
 
     subject { create(:modality_code) }
 
@@ -17,18 +17,20 @@ module Renalware
         it 'creates a new modality code' do
           expect {
             post :create,
-            modality_code: {
+            modalities_code: {
               code: "diabetic",
               name: "Renal/Diabetic"
             }
-          }.to change(ModalityCode, :count).by(1)
-          expect(response).to redirect_to(modality_codes_path)
+          }.to change(Modalities::Code, :count).by(1)
+          expect(response).to redirect_to(modalities_codes_path)
         end
       end
 
       context "with invalid attributes" do
         it 'creates a new modality code' do
-          expect { post :create, modality_code: { code: nil, name: nil } }.to change(ModalityCode, :count).by(0)
+          expect { post :create,
+                   modalities_code: { code: nil, name: nil }
+                 }.to change(Modalities::Code, :count).by(0)
           expect(response).to render_template(:new)
         end
       end
@@ -51,14 +53,14 @@ module Renalware
     describe 'PUT update' do
       context "with valid attributes" do
         it 'updates a modality code' do
-          put :update, id: subject.id, modality_code: { name: "Low Clearance" }
-          expect(response).to redirect_to(modality_codes_path)
+          put :update, id: subject.id, modalities_code: { name: "Low Clearance" }
+          expect(response).to redirect_to(modalities_codes_path)
         end
       end
 
       context "with invalid attributes" do
         it 'update a modality code' do
-          put :update, id: subject.id, modality_code: { name: nil }
+          put :update, id: subject.id, modalities_code: { name: nil }
           expect(response).to render_template(:edit)
         end
       end
@@ -68,7 +70,7 @@ module Renalware
       it 'soft deletes a modality code' do
         @modality_code = create(:modality_code)
 
-        expect { delete :destroy, id: @modality_code }.to change(ModalityCode, :count).by(-1)
+        expect { delete :destroy, id: @modality_code }.to change(Modalities::Code, :count).by(-1)
 
         expect(@modality_code.reload.deleted_at).not_to be_nil
       end

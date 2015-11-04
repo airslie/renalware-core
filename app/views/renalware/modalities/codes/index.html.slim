@@ -13,7 +13,7 @@
       - @modal_codes.each do |m|
         tr
           td
-            = link_to "Edit", edit_modality_code_path(m.id)
+            = link_to "Edit", edit_modalities_code_path(m.id)
             = pipe_separator
             = link_to "Delete", modality_code_path(m.id), method: :delete,
               data: { confirm: I18n.t("prompts.confirm_delete") }

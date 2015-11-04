@@ -9,11 +9,11 @@ Given(/^there are modality codes in the database$/) do
 end
 
 Given(/^that I'm on the add a new modal page$/) do
-  visit new_modality_code_path
+  visit new_modalities_code_path
 end
 
 Given(/^that I choose to edit a modality$/) do
-  visit edit_modality_code_path(@modal_two)
+  visit edit_modalities_code_path(@modal_two)
 end
 
 When(/^I complete the form for a new modal$/) do
@@ -39,7 +39,7 @@ Then(/^I should see the updated modal on the modality list$/) do
 end
 
 Given(/^I am on the modalities index$/) do
-  visit modality_codes_path
+  visit modalities_codes_path
 end
 
 When(/^I choose to soft delete a modal$/) do

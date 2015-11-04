@@ -7,7 +7,7 @@ $(document).ready(function(){
     var $modalityForm = $selectBox.closest('.modality-form');
 
     $.ajax({
-        url: '/modality_reasons.json',
+        url: '/modalities/reasons.json',
         data: { modal_change_type: selectedChangeType },
         success: function(json) {
           // console.log(json);
@@ -49,8 +49,8 @@ $(document).ready(function(){
     });
 
     $.ajax({
-        url: '/modality_reasons.json',
-        data: { modal_change_type: "HaemodialysisToPd" },
+        url: '/modalities/reasons.json',
+        data: { modal_change_type: "Modalities::HaemodialysisToPd" },
         success: function(json) {
           // console.log(json);
 
@@ -68,8 +68,8 @@ $(document).ready(function(){
       });
 
     $.ajax({
-        url: '/modality_reasons.json',
-        data: { modal_change_type: "PdToHaemodialysis" },
+        url: '/modalities/reasons.json',
+        data: { modal_change_type: "Modalities::PdToHaemodialysis" },
         success: function(json) {
           // console.log(json);
 

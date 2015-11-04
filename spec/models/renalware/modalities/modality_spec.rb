@@ -1,7 +1,7 @@
 require "rails_helper"
 
 module Renalware
-  describe Modality, :type => :model do
+  describe Modalities::Modality, type: :model do
     it { should belong_to(:modality_code) }
     it { should belong_to(:patient) }
     it { should belong_to(:modality_reason) }

@@ -35,8 +35,10 @@ Rails.application.routes.draw do
     namespace :events do
       resources :types, except: :show
     end
-    resources :modality_codes, except: [:show]
-    resources :modality_reasons, only: [:index]
+    namespace :modalities do
+      resources :codes, except: [:show]
+      resources :reasons, only: [:index]
+    end
 
     resources :patients, except: [:destroy] do
       member do
@@ -59,7 +61,7 @@ Rails.application.routes.draw do
       resources :medications, only: :index
       patch "medications", to: "medications#update", as: "medications_batch"
 
-      resources :modalities, only: [:new, :create, :index]
+      resources :modalities, only: [:new, :create, :index], controller: "modalities/modalities"
       resources :pd_regimes, only: [:new, :create, :edit, :update, :show]
       resources :peritonitis_episodes, only: [:new, :create, :show, :edit, :update]
 

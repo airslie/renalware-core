@@ -28,7 +28,7 @@ module Renalware
   logcount=0
   CSV.foreach(file_path, headers: true) do |row|
     logcount += 1
-    Modality.find_or_create_by!(
+    Modalities::Modality.find_or_create_by!(
       patient_id: rabbit.to_param,
       modality_code_id: row['modality_code_id'],
       modality_reason_id: row['modality_reason_id']) do |mod|

@@ -3,7 +3,7 @@ FactoryGirl.define do
     200 + n
   end
 
-  factory :modality_reason, class: "Renalware::ModalityReason" do
+  factory :modality_reason, class: "Renalware::Modalities::Reason" do
     rr_code
     description 'Patient / partner choice'
   end

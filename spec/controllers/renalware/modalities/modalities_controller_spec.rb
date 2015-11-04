@@ -1,7 +1,7 @@
 require "rails_helper"
 
 module Renalware
-  describe ModalitiesController, :type => :controller do
+  describe Modalities::ModalitiesController, type: :controller do
 
     before do
       @patient = create(:patient)
@@ -24,7 +24,7 @@ module Renalware
           expect(response).to be_success
         end
         it "assigns a new PatientModality" do
-          expect(assigns(:modality)).to be_a(Modality)
+          expect(assigns(:modality)).to be_a(Modalities::Modality)
         end
       end
     end

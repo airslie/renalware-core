@@ -21,13 +21,13 @@ module Renalware
     has_many :exit_site_infections, :through => :medications, :source => :treatable, :source_type => "ExitSiteInfection"
     has_many :peritonitis_episodes, :through => :medications, :source => :treatable, :source_type => "PeritonitisEpisode"
     has_many :medication_routes, :through => :medications
-    has_many :modalities
+    has_many :modalities, class_name: "Modalities::Modality"
     has_many :pd_regimes
     has_many :letters, class_name: 'Renalware::BaseLetter'
     has_many :clinic_visits
 
-    has_one :current_modality, -> { where deleted_at: nil }, class_name: 'Modality'
-    has_one :modality_code, :through => :current_modality
+    has_one :current_modality, -> { where(deleted_at: nil) }, class_name: "Modalities::Modality"
+    has_one :modality_code, through: :current_modality, class_name: "Modalities::Code"
     has_one :esrf
 
     accepts_nested_attributes_for :current_address

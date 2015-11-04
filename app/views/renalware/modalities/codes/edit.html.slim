@@ -6,7 +6,7 @@
 .row
   .large-6.columns
     = form_for @modal_code, method: :put do |m|
-      = render partial: "renalware/modality_codes/form", locals: { m: m }
+      = render partial: "form", locals: { m: m }
       = submit_tag "Update", class: "button"
       span= " or "
-      = link_to "Cancel", modality_codes_path
+      = link_to "Cancel", modalities_codes_path

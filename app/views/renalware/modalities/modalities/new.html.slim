@@ -18,7 +18,7 @@
 
         li
           = m.label :modality_code_id, "Modality"
-          = m.collection_select :modality_code_id, Renalware::ModalityCode.all, :id, :name, {}, id: "modality-code-select"
+          = m.collection_select :modality_code_id, Renalware::Modalities::Code.all, :id, :name, {}, id: "modality-code-select"
 
         li.hide-death
           = m.label :modal_change_type, "Type of Change"
