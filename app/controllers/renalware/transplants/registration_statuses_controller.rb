@@ -10,7 +10,6 @@ module Renalware
         attributes = status_params.merge(whodunnit: current_user.id)
 
         @status = @registration.add_status!(attributes)
-        @status = nil if @status.valid?
 
         respond_to do |format|
           format.html { redirect_to patient_transplants_dashboard_path(@patient) }

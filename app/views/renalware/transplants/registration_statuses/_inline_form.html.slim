@@ -1,9 +1,12 @@
 ruby:
   post_path = patient_transplants_registration_statuses_path(@registration.patient)
-  @status ||= @registration.statuses.build(
-    description: @registration.current_status.description,
-    started_on: Time.zone.today
-  )
+  if !@status || @status.valid?
+    # After a status was created, let's reset the status form
+    @status = @registration.statuses.build(
+      description: @registration.current_status.description,
+      started_on: Time.zone.today
+    )
+  end
 
 = simple_form_for @status, url: post_path, wrapper: "inline_form", remote: true do |f|
     = f.input :description_id,
