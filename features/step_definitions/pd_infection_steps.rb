@@ -1,7 +1,12 @@
 Given(/^there are organisms in the database$/) do
-  @organism_codes = [["READ1", "Bacillis"], ["READ2", "E.Coli"], ["READ3", "MRSA"], ["READ4", "Strep"]]
+  @organism_codes = [
+    ["READ1", "Bacillis"],
+    ["READ2", "E.Coli"],
+    ["READ3", "MRSA"],
+    ["READ4", "Strep"]
+  ]
   @organism_codes.map! do |oc|
-    @organism_code = FactoryGirl.create(:organism_code, :read_code => oc[0], :name => oc[1])
+    @organism_code = FactoryGirl.create(:organism_code, read_code: oc[0], name: oc[1])
   end
 
   @bacillis = @organism_codes[0]
@@ -11,9 +16,17 @@ Given(/^there are organisms in the database$/) do
 end
 
 Given(/^there are episode types in the database$/) do
-  @episode_types = ["De novo", "Recurrent", "Relapsing", "Repeat", "Refractory", "Catheter-related", "Other"]
+  @episode_types = [
+    "De novo",
+    "Recurrent",
+    "Relapsing",
+    "Repeat",
+    "Refractory",
+    "Catheter-related",
+    "Other"
+  ]
   @episode_types.map! do |et|
-    FactoryGirl.create(:episode_type, :term => et )
+    FactoryGirl.create(:episode_type, term: et )
   end
 
   @de_novo = @episode_types[0]
@@ -28,7 +41,7 @@ end
 Given(/^there are fluid descriptions in the database$/) do
   @fluid_descriptions = ["Clear", "Misty", "Cloudy", "Pea Soup"]
   @fluid_descriptions.map! do |fd|
-    FactoryGirl.create(:fluid_description, :description => fd )
+    FactoryGirl.create(:fluid_description, description: fd )
   end
 
   @clear = @fluid_descriptions[0]
@@ -240,30 +253,30 @@ When(/^the Clinician records the episode of peritonitis$/) do
   click_on "Add Peritonitis Episode"
 
   within "#peritonitis_episode_diagnosis_date_3i" do
-    select '25'
+    select "25"
   end
   within "#peritonitis_episode_diagnosis_date_2i" do
-    select 'December'
+    select "December"
   end
   within "#peritonitis_episode_diagnosis_date_1i" do
     select "#{Date.current.year - 1}"
   end
 
   within "#peritonitis_episode_treatment_start_date_3i" do
-    select '30'
+    select "30"
   end
   within "#peritonitis_episode_treatment_start_date_2i" do
-    select 'December'
+    select "December"
   end
   within "#peritonitis_episode_treatment_start_date_1i" do
     select "#{Date.current.year - 1}"
   end
 
   within "#peritonitis_episode_treatment_end_date_3i" do
-    select '31'
+    select "31"
   end
   within "#peritonitis_episode_treatment_end_date_2i" do
-    select 'January'
+    select "January"
   end
   within "#peritonitis_episode_treatment_end_date_1i" do
     select "#{Date.current.year}"
@@ -280,13 +293,13 @@ When(/^the Clinician records the episode of peritonitis$/) do
 
   select "Misty", from: "Fluid description"
 
-  fill_in "White Cell Total (x10\u2079)", :with => 1000
-  fill_in "Neutro (%)", :with => 20
-  fill_in "Lympho (%)", :with => 30
-  fill_in "Degen (%)", :with => 25
-  fill_in "Other (%)", :with => 25
+  fill_in "White Cell Total (x10\u2079)", with: 1000
+  fill_in "Neutro (%)", with: 20
+  fill_in "Lympho (%)", with: 30
+  fill_in "Degen (%)", with: 25
+  fill_in "Other (%)", with: 25
 
-  fill_in "Episode notes", :with => "Review in a weeks time"
+  fill_in "Episode notes", with: "Review in a weeks time"
 
   # Add an organism and sensitvity
   click_on "Record a new organism and sensitivity"
@@ -304,7 +317,7 @@ When(/^the Clinician records the episode of peritonitis$/) do
   fill_in "Frequency & Duration", with: "BD"
   fill_in "Notes", with: "Review in 3 weeks."
 
-  select_date("28 February #{Date.current.year}", from: 'Prescribed On')
+  select_date("28 February #{Date.current.year}", from: "Prescribed On")
 
   find(:xpath, ".//*[@value='hospital']").set(true)
 
@@ -315,10 +328,10 @@ When(/^the Clinician records an exit site infection$/) do
   visit new_patient_exit_site_infection_path(@patient_1)
 
   within "#exit_site_infection_diagnosis_date_3i" do
-    select '1'
+    select "1"
   end
   within "#exit_site_infection_diagnosis_date_2i" do
-    select 'January'
+    select "January"
   end
   within "#exit_site_infection_diagnosis_date_1i" do
     select "#{Date.current.year}"
