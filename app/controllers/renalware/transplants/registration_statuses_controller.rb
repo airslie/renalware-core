@@ -7,13 +7,16 @@ module Renalware
       def create
         authorize @registration
 
-        if @status = @registration.add_status!(status_params)
-          redirect_to patient_transplants_dashboard_path(@patient)
-        else
-          render :edit
+        attributes = status_params.merge(whodunnit: current_user.id)
+
+        @status = @registration.add_status!(attributes)
+        @status = nil if @status.valid?
+
+        respond_to do |format|
+          format.html { redirect_to patient_transplants_dashboard_path(@patient) }
+          format.js
         end
       end
-
 
       def edit
         authorize @registration
@@ -25,6 +28,7 @@ module Renalware
         authorize @registration
 
         status = @registration.statuses.find(params[:id])
+        status_params.merge!(whodunnit: current_user.id)
         @status = @registration.update_status!(status, status_params)
 
         if @status.valid?

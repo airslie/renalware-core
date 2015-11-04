@@ -6,4 +6,5 @@
     h2 Transplant Status
 
     = render "transplant_status"
-    = render "transplant_status_history" if @registration.persisted?
+    - if @registration.persisted?
+      = render "renalware/transplants/registration_statuses/status_history"

@@ -46,6 +46,7 @@ Given(/^Patty is registered on the wait list with this status history$/) do |tab
       terminated_on: row[:termination_date]
     )
   end
+  @initial_statuses_count = @registration.statuses.count
 end
 
 When(/^Clyde creates a donor workup for Don$/) do
@@ -73,9 +74,21 @@ When(/^Clyde registers Patty on the wait list with status "(.*?)" starting on "(
   )
 end
 
+When(/^Clyde submits an erroneous registration$/) do
+  create_transplant_registration(
+    user: @clyde, patient: @patty,
+    status: "boom", started_on: "99-99-9999"
+  )
+end
+
 When(/^Clyde sets the registration status to "(.*?)" and the start date to "(.*?)"$/) do |status, started_on|
   set_transplant_registration_status(registration: @registration, user: @clyde,
     status: status, started_on: started_on)
+end
+
+When(/^Clyde submits an erroneous registration status$/) do
+  set_transplant_registration_status(registration: @registration, user: @clyde,
+    status: "Active", started_on: "")
 end
 
 When(/^Clyde changes the "(.*?)" start date to "(.*?)"$/) do |status, started_on|
@@ -105,7 +118,15 @@ Then(/^Don's donor workup gets updated$/) do
 end
 
 Then(/^Patty has an active transplant registration since "(.*?)"$/) do |started_on|
- transplant_registration_exists(patient: @patty, status_name: "Active", started_on: started_on)
+  transplant_registration_exists(patient: @patty, status_name: "Active", started_on: started_on)
+end
+
+Then(/^the registration is not accepted by the system$/) do
+  transplant_registration_was_refused
+end
+
+Then(/^Clyde is notified of the registration errors$/) do
+  transplant_registration_has_errors
 end
 
 Then(/^Clyde can update Patty's transplant registration$/) do
@@ -117,6 +138,14 @@ end
 
 Then(/^the registration status history is$/) do |table|
   transplant_registration_status_history_matches(registration: @registration, hashes: table.hashes)
+end
+
+Then(/^the registration status is not accepted by the system$/) do
+  transplant_registration_status_was_refused
+end
+
+Then(/^Clyde is notified of the registration status errors$/) do
+  transplant_registration_status_has_errors
 end
 
 Then(/^the transplant current status stays "(.*?)" since "(.*?)"$/) do |name, start_date|

@@ -9,11 +9,17 @@ Feature: Record the transplant registration for a patient
     And Patty is a patient
 
   @web
-  Scenario: Register a patient on the transplant wait list
+  Scenario: A clinician registered a patient on the transplant wait list
     When Clyde registers Patty on the wait list with status "Active" starting on "24-10-2015"
     Then Patty has an active transplant registration since "24-10-2015"
 
   @web
-  Scenario: Update the transplant wait list registration
+  Scenario: A clinician updated a patient's registration
     Given Patty is registered on the wait list
     Then Clyde can update Patty's transplant registration
+
+  @web
+  Scenario: A clinician submitted an erroneous registration
+    When Clyde submits an erroneous registration
+    Then the registration is not accepted by the system
+    And Clyde is notified of the registration errors

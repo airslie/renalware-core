@@ -60,7 +60,7 @@ module World
 
       def set_transplant_registration_status(registration:, user: nil, status:, started_on:)
         description = registration_status_description_named(status)
-        registration.add_status!(description: description, started_on: started_on)
+        @status = registration.add_status!(description: description, started_on: started_on)
       end
 
       def recipient_workup_exists(patient)
@@ -91,11 +91,16 @@ module World
       end
 
       def create_transplant_registration(user: nil, patient:, status:, started_on:)
-        registration = Renalware::Transplants::Registration.create!(
-          patient: patient
-        )
         description = registration_status_description_named(status)
-        registration.add_status!(description_id: description.id, started_on: started_on )
+        @registration = Renalware::Transplants::Registration.create(
+          patient: patient,
+          statuses_attributes: {
+            "0": {
+              started_on: started_on,
+              description_id: description.id
+            }
+          }
+        )
       end
 
       def update_transplant_registration(registration:, user: nil, updated_at:)
@@ -106,6 +111,22 @@ module World
         )
         registration.reload
         registration.updated_at != registration.created_at
+      end
+
+      def transplant_registration_was_refused
+        expect(@registration).to_not be_valid
+      end
+
+      def transplant_registration_has_errors
+        expect(@registration.errors).to_not be_empty
+      end
+
+      def transplant_registration_status_was_refused
+        expect(@status).to_not be_valid
+      end
+
+      def transplant_registration_status_has_errors
+        expect(@status.errors).to_not be_empty
       end
 
       def transplant_registration_status_history_matches(registration:, hashes:)
@@ -261,6 +282,26 @@ module World
         visit patient_transplants_dashboard_path(registration.patient)
         within_fieldset "Status History" do
           find(:xpath, "//tr[td[contains(.,'#{status}')]]/td/a", text: 'Delete').click
+        end
+      end
+
+      def transplant_registration_was_refused
+        expect(page).to have_css("input[type=submit]")
+      end
+
+      def transplant_registration_has_errors
+        expect(page).to have_css("small.error")
+      end
+
+      def transplant_registration_status_was_refused
+        within_fieldset "Status History" do
+          expect(page.all('tbody tr').size).to eq(@initial_statuses_count)
+        end
+      end
+
+      def transplant_registration_status_has_errors
+        within_fieldset "Status History" do
+          expect(page).to have_css("small.error")
         end
       end
 
