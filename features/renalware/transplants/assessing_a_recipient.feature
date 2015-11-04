@@ -1,4 +1,4 @@
-Feature: Complete the transplant assessment for the recipient
+Feature: Assessing (workup) a Recipient
 
   Patients being considered for a kidney transplant require a series of investigations
   which are then reviewed on a regular basis to determine suitability for a transplant.

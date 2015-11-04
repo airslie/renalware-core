@@ -1,4 +1,4 @@
-Feature: Change the status of a transplant wait list registration
+Feature: Changing the wait list status
 
   Status changes to a wait list registration are recorded providing a historical log.
 

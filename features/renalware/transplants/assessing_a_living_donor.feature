@@ -1,4 +1,4 @@
-Feature: Complete the donor assessment
+Feature: Assessing (workup) a Living Donor
 
   A potential living kidney donor needs a series of tests to assess and document their suitability
   to have a kidney removed and to be a donor.

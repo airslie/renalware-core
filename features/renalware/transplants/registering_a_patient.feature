@@ -1,4 +1,4 @@
-Feature: Record the transplant registration for a patient
+Feature: Registering a patient on the wait list
 
   A patient requires the transplant of one or many organs: kidney, pancreas or liver. To
   receive a transplant a patient needs to be registered on a wait list.
