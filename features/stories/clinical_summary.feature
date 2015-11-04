@@ -8,11 +8,11 @@ Background:
     And there are edta causes of death in the database
     And some patients who need renal treatment
     And they are on a patient's clinical summary
-
+@wip
 Scenario: Doctor adds a patient event
   Note: Event also known as an 'encounter'
 
-  Given there are existing patient event types in the database
+  Given there are existing event types in the database
   When they choose to add a patient event
     And complete the patient event form
   Then they should see the new patient event on the clinical summary
