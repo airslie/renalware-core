@@ -21,7 +21,8 @@ module Renalware
       if service.update!(doctor_params)
         redirect_to doctors_path
       else
-        render :new, alert: 'Failed to create new Doctor'
+        flash[:error] = 'Failed to create new Doctor'
+        render :new
       end
     end
 
@@ -29,7 +30,8 @@ module Renalware
       if service.update!(doctor_params)
         redirect_to doctors_path
       else
-        render :edit, alert: 'Failed to update Doctor'
+        flash[:error] = 'Failed to update Doctor'
+        render :edit
       end
     end
 
