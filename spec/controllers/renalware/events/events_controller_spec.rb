@@ -5,7 +5,7 @@ module Renalware::Events
 
     before do
       @patient = create(:patient)
-      @event_type = create(:event_type)
+      @event_type = create(:events_type)
     end
 
     describe 'GET new' do
@@ -20,7 +20,7 @@ module Renalware::Events
         it 'creates a new event' do
           expect { post :create, patient_id: @patient,
             events_event: {
-              event_type_id: @event_type,
+              events_type_id: @event_type,
               date_time: Time.now,
               description: "Needs blood test",
               notes: "Arrange appointment in a weeks time."

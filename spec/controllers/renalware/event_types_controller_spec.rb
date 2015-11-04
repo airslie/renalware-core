@@ -3,7 +3,7 @@ require 'rails_helper'
 module Renalware::Events
   RSpec.describe TypesController, type: :controller do
 
-    subject { create(:event_type) }
+    subject { create(:events_type) }
 
     describe 'GET new' do
       it 'renders the new template' do
@@ -17,7 +17,7 @@ module Renalware::Events
         it 'creates a new event type' do
           expect {
             post :create,
-            event_type: {
+            events_type: {
               name: "Iron clinic"
             }
           }.to change(Type, :count).by(1)
@@ -27,7 +27,7 @@ module Renalware::Events
 
       context "with invalid attributes" do
         it 'creates a new event type' do
-          expect { post :create, event_type: { name: nil } }.to change(Type, :count).by(0)
+          expect { post :create, events_type: { name: nil } }.to change(Type, :count).by(0)
           expect(response).to render_template(:new)
         end
       end
@@ -50,14 +50,14 @@ module Renalware::Events
     describe 'PUT update' do
       context "with valid attributes" do
         it 'updates an event type' do
-          put :update, id: subject.id, event_type: { name: "Transplant clinic" }
+          put :update, id: subject.id, events_type: { name: "Transplant clinic" }
           expect(response).to redirect_to(events_types_path)
         end
       end
 
       context "with invalid attributes" do
         it 'update an event type' do
-          put :update, id: subject.id, event_type: { name: nil }
+          put :update, id: subject.id, events_type: { name: nil }
           expect(response).to render_template(:edit)
         end
       end
