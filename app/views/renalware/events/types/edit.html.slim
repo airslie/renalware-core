@@ -5,7 +5,7 @@
 .row
   .large-6.columns
     = form_for @event_type, method: :put do |f|
-      = render partial: "renalware/event_types/form", locals: { f: f }
+      = render partial: "renalware/events/types/form", locals: { f: f }
 
       = submit_tag "Update", class: "button"
       span= " or "
