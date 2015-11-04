@@ -342,7 +342,7 @@ module World
         login_as user
         visit patient_transplants_dashboard_path(patient)
         within_fieldset "Status History" do
-          find(:xpath, "//tr[td[contains(.,'#{status}')]]/td/a", text: 'Edit').click
+          find(:xpath, "//tr[td[contains(.,'#{status}')]]/td/a", text: "Edit").click
         end
 
         fill_in "transplants_registration_status[started_on]", with: started_on
@@ -353,7 +353,7 @@ module World
         login_as user
         visit patient_transplants_dashboard_path(patient)
         within_fieldset "Status History" do
-          find(:xpath, "//tr[td[contains(.,'#{status}')]]/td/a", text: 'Delete').click
+          find(:xpath, "//tr[td[contains(.,'#{status}')]]/td/a", text: "Delete").click
         end
       end
     end

@@ -41,7 +41,8 @@ When(/^Clyde updates the donor assessment$/) do
   update_donor_workup(patient: @don, user: @clyde, updated_at: Time.zone.now)
 end
 
-When(/^Clyde registers Patty on the wait list with status "(.*?)" starting on "(.*?)"$/) do |status, started_on|
+When(/^Clyde registers Patty on the wait list with status "(.*?)" starting on "(.*?)"$/) \
+  do |status, started_on|
   create_transplant_registration(
     patient: @patty,
     status: status, started_on: started_on,
@@ -57,7 +58,8 @@ When(/^Clyde submits an erroneous registration$/) do
   )
 end
 
-When(/^Clyde sets the registration status to "(.*?)" and the start date to "(.*?)"$/) do |status, started_on|
+When(/^Clyde sets the registration status to "(.*?)" and the start date to "(.*?)"$/) \
+  do |status, started_on|
   set_transplant_registration_status(
     patient: @patty,
     status: status, started_on: started_on,
@@ -108,7 +110,9 @@ Then(/^Don's donor workup gets updated$/) do
 end
 
 Then(/^Patty has an active transplant registration since "(.*?)"$/) do |started_on|
-  assert_transplant_registration_exists(patient: @patty, status_name: "Active", started_on: started_on)
+  assert_transplant_registration_exists(
+    patient: @patty, status_name: "Active", started_on: started_on
+  )
 end
 
 Then(/^the registration is not accepted$/) do

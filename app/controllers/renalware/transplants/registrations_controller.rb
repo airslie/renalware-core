@@ -38,7 +38,8 @@ module Renalware
         ]
         document_attributes = params.require(:transplants_registration)
           .fetch(:document, nil).try(:permit!)
-        params.require(:transplants_registration).permit(attributes).merge(document: document_attributes)
+        params.require(:transplants_registration)
+          .permit(attributes).merge(document: document_attributes)
       end
     end
   end
