@@ -109,6 +109,37 @@ ALTER SEQUENCE bag_types_id_seq OWNED BY bag_types.id;
 
 
 --
+-- Name: clinic_types; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE clinic_types (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: clinic_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE clinic_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: clinic_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE clinic_types_id_seq OWNED BY clinic_types.id;
+
+
+--
 -- Name: clinic_visits; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -124,7 +155,8 @@ CREATE TABLE clinic_visits (
     urine_protein character varying,
     notes text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    clinic_type_id integer NOT NULL
 );
 
 
@@ -1569,6 +1601,13 @@ ALTER TABLE ONLY bag_types ALTER COLUMN id SET DEFAULT nextval('bag_types_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY clinic_types ALTER COLUMN id SET DEFAULT nextval('clinic_types_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY clinic_visits ALTER COLUMN id SET DEFAULT nextval('clinic_visits_id_seq'::regclass);
 
 
@@ -1852,6 +1891,14 @@ ALTER TABLE ONLY addresses
 
 ALTER TABLE ONLY bag_types
     ADD CONSTRAINT bag_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: clinic_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY clinic_types
+    ADD CONSTRAINT clinic_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -2448,6 +2495,14 @@ ALTER TABLE ONLY transplants_donor_workups
 
 
 --
+-- Name: fk_rails_1f56ee2c91; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinic_visits
+    ADD CONSTRAINT fk_rails_1f56ee2c91 FOREIGN KEY (clinic_type_id) REFERENCES clinic_types(id);
+
+
+--
 -- Name: fk_rails_7f025877c9; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2610,4 +2665,6 @@ INSERT INTO schema_migrations (version) VALUES ('20151014210052');
 INSERT INTO schema_migrations (version) VALUES ('20151021194419');
 
 INSERT INTO schema_migrations (version) VALUES ('20151021194622');
+
+INSERT INTO schema_migrations (version) VALUES ('20151103210628');
 
