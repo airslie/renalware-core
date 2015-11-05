@@ -10,11 +10,14 @@
         = render partial: 'renalware/navigation/patient_search'
 
         ul.right.large-2.columns
-          = render partial: 'renalware/navigation/patients_admin'
           li.divider
-          = render partial: 'renalware/navigation/renalware_admin'
+          = render partial: 'renalware/navigation/patients_admin'
+          - if current_user_is_admin?
+            li.divider
+            = render partial: 'renalware/navigation/renalware_admin'
           li.divider
           = render partial: 'renalware/navigation/user_admin'
+          li.divider
           = render partial: 'renalware/navigation/sign_out'
           li.divider
           = render partial: 'renalware/navigation/help_items'
