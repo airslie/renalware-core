@@ -1,0 +1,5 @@
+en:
+  renalware:
+    clinic_visits:
+      form:
+        clinic_type_prompt: Select clinic type

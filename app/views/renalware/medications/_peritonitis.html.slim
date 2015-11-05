@@ -1,5 +1,6 @@
 .select-peritonitis-drug
-  = pm.label :medicatable_id, "Select Drug (peritonitis drugs only)"
-  = pm.collection_select :medicatable_id, Renalware::Drugs::Drug.for(:peritonitis), :id, :name, { prompt: "Please select drug used to treat this episode of peritonitis" }, class: "peritonitis-drug-select"
+  = pm.label :medicatable_id, "Select Drug (common peritonitis drugs listed at the top)"
+  = pm.grouped_collection_select(:medicatable_id, Renalware::Drugs::Type.for(:peritonitis, :antibiotic), :drugs, :name, :id, :name)
+
 
   = pm.hidden_field :medicatable_type, value: "Renalware::Drugs::Drug", class: "selected-medicatable-type"

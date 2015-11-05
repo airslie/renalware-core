@@ -297,7 +297,8 @@ When(/^the Clinician records the episode of peritonitis$/) do
   # Add an medication
   click_on "Add a new medication"
 
-  select "Rifampin", from: "Select Drug (peritonitis drugs only)"
+  select "Rifampin", from: "Select Drug (common peritonitis drugs listed at the top)",
+    match: :first
   fill_in "Dose", with: "2mg"
   select "SC", from: "Route"
   fill_in "Frequency & Duration", with: "BD"
@@ -382,7 +383,8 @@ When(/^they add a medication to this episode of peritonitis$/) do
 
   click_on "Add a new medication"
 
-  select "Penicillin", from: "Select Drug (peritonitis drugs only)"
+  select "Penicillin", from: "Select Drug (common peritonitis drugs listed at the top)",
+    match: :first
   fill_in "Dose", with: "5mg"
   select "IV", from: "Route"
   fill_in "Frequency & Duration", with: "PID"

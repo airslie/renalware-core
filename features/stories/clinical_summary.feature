@@ -34,7 +34,8 @@ Scenario: Doctor adds a medication for a patient
   When they add a medication
     And complete the medication form by drug type select
     And complete the medication form by drug search
-  Then they should see the new medications on the clinical summary
+  Then should see the new medication on the patient's clinical summary
+    And should see the new medication on their medications index.
 
 @javascript @pending
 Scenario: Doctor terminates a medication for a patient
