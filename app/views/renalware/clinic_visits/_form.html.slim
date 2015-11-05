@@ -10,9 +10,13 @@
     .columns.small-5
       = f.label :clinic_type_id, class: "right"
     .columns.small-7
-      = f.collection_select :clinic_type_id, Renalware::ClinicType.all, :id, :name, class: "datetime"
+      = f.collection_select :clinic_type_id, Renalware::ClinicType.all, :id, :name,
+          class: "datetime", prompt: t(".clinic_type_prompt")
+  p= t(".clinic_type_prompt")
 
   fieldset
+
+
     legend Observations
     .row
       .columns.small-5
