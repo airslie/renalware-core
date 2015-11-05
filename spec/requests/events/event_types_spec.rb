@@ -6,7 +6,6 @@ RSpec.describe "Configuring Event Types", type: :request do
   describe "GET new" do
     it "responds with a form" do
       get new_events_type_path
-
       expect(response).to have_http_status(:success)
     end
   end
