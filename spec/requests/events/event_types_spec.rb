@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Configuring Event Types", type: :request do
 
-  it "creates a creates an event type" do
+  it "creates an event type" do
     get new_events_type_path
     expect(response).to have_http_status(:success)
 
