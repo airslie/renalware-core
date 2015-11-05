@@ -19,4 +19,3 @@ Scenario: Admin soft deletes an existing event type
   Given they visit the event types index
   When they choose to soft delete a event type
   Then they should see this event type removed from the event types index
-
