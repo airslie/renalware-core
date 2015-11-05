@@ -6,17 +6,19 @@ module Renalware
       let(:clinician) { create(:user, :clinician) }
 
       describe "#valid?" do
-        subject { build(:transplant_registration_status, overrides).valid? }
-        let(:overrides) { {} }
+        let(:attributes) { {} }
+        subject { build(:transplant_registration_status, attributes) }
 
-        context "with missing started_on" do
-          let(:overrides) { {started_on: nil} }
-          it { is_expected.to be_falsy }
+        it { is_expected.to be_valid }
+
+        context "given a missing started_on" do
+          let(:attributes) { {started_on: nil} }
+          it { is_expected.to_not be_valid }
         end
 
-        context "with invalid started_on" do
-          let(:overrides) { {started_on: "99-99-9999"} }
-          it { is_expected.to be_falsy }
+        context "given an invalid started_on" do
+          let(:attributes) { {started_on: "99-99-9999"} }
+          it { is_expected.to_not be_valid }
         end
       end
 
