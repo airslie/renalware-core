@@ -7,7 +7,11 @@ module AjaxHelpers
   end
 
   def finished_all_ajax_requests?
-    page.evaluate_script('jQuery.active').zero?
+    if page.driver.is_a? Capybara::RackTest::Driver
+      true
+    else
+      page.evaluate_script('jQuery.active').zero?
+    end
   end
 
 end
