@@ -53,12 +53,6 @@ module Renalware
           expect(status.reload).to be_terminated
         end
 
-        it "recomputes the termination dates" do
-          expect(registration).to receive(:recompute_termination_dates!)
-
-          registration.add_status!(started_on: 3.days.ago)
-        end
-
         it "returns status with errors if not valid" do
           status = registration.add_status!({})
 
@@ -79,15 +73,6 @@ module Renalware
           registration.update_status!(earliest_status, started_on: datestamp)
 
           expect(earliest_status.reload.started_on).to eq(datestamp)
-        end
-
-        it "recomputes the termination dates" do
-          expect(registration).to receive(:recompute_termination_dates!)
-
-          registration.update_status!(
-            earliest_status,
-            started_on: earliest_status.started_on + 1.day
-          )
         end
       end
 

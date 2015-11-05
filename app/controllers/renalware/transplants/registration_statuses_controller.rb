@@ -5,10 +5,6 @@ module Renalware
       before_filter :load_registration
 
       def create
-        authorize @registration
-
-        attributes = status_params.merge(whodunnit: current_user.id)
-
         @status = @registration.add_status!(attributes)
 
         respond_to do |format|
@@ -18,17 +14,12 @@ module Renalware
       end
 
       def edit
-        authorize @registration
-
         @status = @registration.statuses.find(params[:id])
       end
 
       def update
-        authorize @registration
-
-        status = @registration.statuses.find(params[:id])
-        attributes = status_params.merge(whodunnit: current_user.id)
-        @status = @registration.update_status!(status, attributes)
+        existing_status = @registration.statuses.find(params[:id])
+        @status = @registration.update_status!(existing_status, attributes)
 
         if @status.valid?
           redirect_to patient_transplants_dashboard_path(@patient)
@@ -38,8 +29,6 @@ module Renalware
       end
 
       def destroy
-        authorize @registration
-
         status = @registration.statuses.find(params[:id])
         @registration.delete_status!(status)
 
@@ -50,11 +39,11 @@ module Renalware
 
       def load_registration
         @registration = Registration.for_patient(@patient).first_or_initialize
+        authorize @registration
       end
 
       def status_params
-        statuses_attributes = [:started_on, :description_id]
-        params.require(:transplants_registration_status).permit(statuses_attributes)
+        params.require(:transplants_registration_status).permit(:started_on, :description_id)
       end
     end
   end

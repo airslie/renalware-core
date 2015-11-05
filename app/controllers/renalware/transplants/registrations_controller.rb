@@ -18,7 +18,7 @@ module Renalware
         authorize @registration
 
         attributes = registration_params
-        # TODO: improve this current_user thing
+        # TODO: improve this current_user thing when NJH is done with the Blamable concern
         attributes[:statuses_attributes]["0"][:whodunnit] = current_user.id.to_s
         if @registration.update_attributes(attributes)
           redirect_to patient_transplants_dashboard_path(@patient)

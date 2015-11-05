@@ -10,7 +10,7 @@ module AjaxHelpers
     if page.driver.is_a? Capybara::RackTest::Driver
       true
     else
-      page.evaluate_script('jQuery.active').zero?
+      page.evaluate_script("jQuery.active").zero?
     end
   end
 

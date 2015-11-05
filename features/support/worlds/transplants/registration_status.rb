@@ -65,7 +65,7 @@ module World
         statuses = transplant_registration_for(patient).reload.statuses.map do |s|
           { status: s.description.name,
             start_date: I18n.l(s.started_on),
-            by: s.whodunnit_name.split.first,
+            by: s.updated_by.to_s.split.first,
             termination_date: (s.terminated_on ? I18n.l(s.terminated_on) : "")
           }.with_indifferent_access
         end
@@ -88,7 +88,7 @@ module World
             termination_date: (s.terminated_on ? I18n.l(s.terminated_on) : "")
           }
           if hashes.first[:by].present?
-            hash[:by] = s.whodunnit_name.split.first
+            hash[:by] = s.updated_by.first_name
           end
           hash.with_indifferent_access
         end

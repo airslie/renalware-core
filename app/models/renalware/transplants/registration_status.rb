@@ -14,16 +14,9 @@ module Renalware
         terminated_on.present?
       end
 
-      def whodunnit_name
-        if whodunnit.present?
-          if user = User.find_by(id: whodunnit)
-            user.name
-          else
-            "User #{whodunnit}"
-          end
-        else
-          "System"
-        end
+      def updated_by
+        # TODO: remove eventually
+        User.find_by(id: whodunnit)
       end
 
       def to_s
