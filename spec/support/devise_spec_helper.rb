@@ -8,7 +8,14 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers, type: :feature
   config.include LoginMacros, type: :feature
 
+  config.include Warden::Test::Helpers, type: :request
+  config.include LoginMacros, type: :request
+
   config.before(:each, type: :controller) do
+    login_as_super_admin
+  end
+
+  config.before(:each, type: :request) do
     login_as_super_admin
   end
 
