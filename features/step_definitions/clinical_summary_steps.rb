@@ -181,7 +181,7 @@ Then(/^they should see the new problems on the clinical summary$/) do
   expect(page).to have_content("Have abdominal pain, possibly kidney stones")
 end
 
-Then(/^they should see the new medications on the clinical summary$/) do
+Then(/^should see the new medication on the patient's clinical summary$/) do
   visit patient_clinical_summary_path(@patient_1)
 
   #drug by select
@@ -201,7 +201,28 @@ Then(/^they should see the new medications on the clinical summary$/) do
     expect(page).to have_content("Twice weekly")
     expect(page).to have_content("02/02/#{Date.current.year}")
   end
+end
 
+Then(/^should see the new medication on their medications index\.$/) do
+  visit patient_medications_path(@patient_1)
+
+  within(".drug-esa") do
+    expect(page).to have_content("ESA")
+    expect(page).to have_content("Blue")
+    expect(page).to have_content("10mg")
+    expect(page).to have_content("PO")
+    expect(page).to have_content("Once daily")
+    expect(page).to have_content("02/03/#{Date.current.year - 1}")
+  end
+
+  within(".drug-drug") do
+    expect(page).to have_content("Standard")
+    expect(page).to have_content("Amoxicillin")
+    expect(page).to have_content("20mg")
+    expect(page).to have_content("IV")
+    expect(page).to have_content("Twice weekly")
+    expect(page).to have_content("02/02/#{Date.current.year}")
+  end
 end
 
 Then(/^they should no longer see this medication in their clinical summary$/) do

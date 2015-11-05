@@ -103,10 +103,10 @@ module Renalware
 
   log '--------------------Adding Medications for Roger RABBIT-------------------'
   Medication.create([
-    {patient_id: 1, medicatable_id: 986, medicatable_type: "Renalware::Drug", treatable_id: nil, treatable_type: nil, dose: "50 mg", medication_route_id: 1, frequency: "bd for 7 days", notes: "        ", start_date: "2015-09-13", end_date: "2015-09-20", provider: 0, deleted_at: nil},
-    {patient_id: 1, medicatable_id: 183, medicatable_type: "Renalware::Drug", treatable_id: nil, treatable_type: nil, dose: "25 mg", medication_route_id: 1, frequency: "nocte", notes: "        ", start_date: "2014-10-10", end_date: nil, provider: 0, deleted_at: nil},
-    {patient_id: 1, medicatable_id: 269, medicatable_type: "Renalware::Drug", treatable_id: nil, treatable_type: nil, dose: "100 mg", medication_route_id: 1, frequency: "bd", notes: "", start_date: "2015-06-16", end_date: nil, provider: 0, deleted_at: nil},
-    {patient_id: 1, medicatable_id: 126, medicatable_type: "Renalware::Drug", treatable_id: 1, treatable_type: "Renalware::PeritonitisEpisode", dose: "100 mg", medication_route_id: 1, frequency: "tid for 7d", notes: "", start_date: "2015-09-14", end_date: "2015-09-21", provider: 0, deleted_at: nil}
+    {patient_id: 1, medicatable_id: 986, medicatable_type: "Renalware::Drugs::Drug", treatable_id: nil, treatable_type: nil, dose: "50 mg", medication_route_id: 1, frequency: "bd for 7 days", notes: "        ", start_date: "2015-09-13", end_date: "2015-09-20", provider: 0, deleted_at: nil},
+    {patient_id: 1, medicatable_id: 183, medicatable_type: "Renalware::Drugs::Drug", treatable_id: nil, treatable_type: nil, dose: "25 mg", medication_route_id: 1, frequency: "nocte", notes: "        ", start_date: "2014-10-10", end_date: nil, provider: 0, deleted_at: nil},
+    {patient_id: 1, medicatable_id: 269, medicatable_type: "Renalware::Drugs::Drug", treatable_id: nil, treatable_type: nil, dose: "100 mg", medication_route_id: 1, frequency: "bd", notes: "", start_date: "2015-06-16", end_date: nil, provider: 0, deleted_at: nil},
+    {patient_id: 1, medicatable_id: 126, medicatable_type: "Renalware::Drugs::Drug", treatable_id: 1, treatable_type: "Renalware::PeritonitisEpisode", dose: "100 mg", medication_route_id: 1, frequency: "tid for 7d", notes: "", start_date: "2015-09-14", end_date: "2015-09-21", provider: 0, deleted_at: nil}
   ])
 
   log '--------------------Adding ESRF Info for Roger RABBIT-------------------'
