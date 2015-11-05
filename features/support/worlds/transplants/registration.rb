@@ -48,15 +48,16 @@ module World
         expect(registration.current_status.started_on).to eq(Date.parse(started_on))
       end
 
-      def assert_update_transplant_registration(patient:, user: nil, updated_at:)
+      def assert_update_transplant_registration(patient:)
+        travel_to 1.hour.from_now
+
         registration = transplant_registration_for(patient)
         registration.update_attributes!(
           document: {
           },
-          updated_at: updated_at
+          updated_at: Time.zone.now
         )
-        registration.reload
-        expect(registration.updated_at).to_not eq(registration.created_at)
+        expect(registration.reload.updated_at).to_not eq(registration.created_at)
       end
 
       def assert_transplant_registration_was_refused
@@ -84,7 +85,7 @@ module World
         end
       end
 
-      def update_transplant_registration(patient:, user:, updated_at: nil)
+      def update_transplant_registration(patient:, user:)
         login_as user
         visit patient_transplants_dashboard_path(patient)
         within_fieldset "Transplant Wait List Registration" do

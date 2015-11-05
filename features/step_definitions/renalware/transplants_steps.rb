@@ -25,13 +25,11 @@ When(/^Clyde creates a recipient workup for Patty$/) do
 end
 
 When(/^Clyde updates the assessment$/) do
-  travel_to 1.hour.from_now
-  update_workup(patient: @patty, user: @clyde, updated_at: Time.zone.now)
+  update_workup(patient: @patty, user: @clyde)
 end
 
 When(/^Clyde updates the donor assessment$/) do
-  travel_to 1.hour.from_now
-  update_donor_workup(patient: @don, user: @clyde, updated_at: Time.zone.now)
+  update_donor_workup(patient: @don, user: @clyde)
 end
 
 When(/^Clyde registers Patty on the wait list with status "(.*?)" starting on "(.*?)"$/) \
@@ -113,10 +111,7 @@ Then(/^the registration is not accepted$/) do
 end
 
 Then(/^Clyde can update Patty's transplant registration$/) do
-  assert_update_transplant_registration(
-    patient: @patty, user: @clyde,
-    updated_at: Time.zone.now
-  )
+  assert_update_transplant_registration(patient: @patty)
 end
 
 Then(/^the registration status history is$/) do |table|

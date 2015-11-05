@@ -26,7 +26,9 @@ module World
         set_up_doner_workup_for(patient)
       end
 
-      def update_donor_workup(patient:, user: nil, updated_at:)
+      def update_donor_workup(patient:, user: nil)
+        travel_to 1.hour.from_now
+
         workup = donor_workup_for(patient)
         workup.update_attributes!(
           document: {
@@ -39,7 +41,7 @@ module World
               }
             }
           },
-          updated_at: updated_at
+          updated_at: Time.zone.now
         )
       end
 
@@ -72,7 +74,7 @@ module World
         end
       end
 
-      def update_donor_workup(patient:, user:, updated_at: nil)
+      def update_donor_workup(patient:, user:)
         login_as user
         visit patient_clinical_summary_path(patient)
         click_on "Transplant Donor Workup"
