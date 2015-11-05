@@ -28,14 +28,14 @@ module Renalware
       end
 
       context "given the values not present in the relation for the specified attribute" do
-        let(:ordered_values) { ["foo;DROP users", "bar"] }
+        let(:ordered_values) { ["foo", "::does not exists::", "bar"] }
 
-        it "returns an empty scope" do
+        it "returns an ordered scope with the values that exist in the relation"  do
           attribute = :code
           actual_scope = Qux.ordered_set(attribute, ordered_values)
 
           expect(actual_scope).to be_a ActiveRecord::Relation
-          expect(actual_scope).to be_empty
+          expect(actual_scope.map(&:code)).to eq(%w(foo bar))
         end
       end
     end

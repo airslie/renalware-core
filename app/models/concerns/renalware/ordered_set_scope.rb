@@ -27,19 +27,19 @@ module Renalware
       # http://sqlandme.com/2013/11/18/sql-server-custom-sorting-in-order-by-clause/
       #
       def ordered_set(attribute, values)
-        return none unless safe?(attribute, values)
+        verified_values = verify_values(attribute, values.map(&:to_s))
 
-        where(attribute => values.map(&:to_s))
+        where(attribute => verified_values)
           .order("CASE #{generate_conditions(attribute, values.uniq)} END")
       end
 
       private
 
-      # Ensures the values being ordered on exists in the database to prevent
-      # a SQL inject attack.
+      # Verify the values exist in the database, prevents a SQL inject attack
+      # when ordering, as order scopes doen't sanitize.
       #
-      def safe?(attribute, values)
-        where(attribute => values).count == values.size
+      def verify_values(attribute, values)
+        values & where(attribute => values).pluck(attribute)
       end
 
       # Example:
