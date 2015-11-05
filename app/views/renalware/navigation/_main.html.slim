@@ -1,10 +1,6 @@
 - if user_signed_in?
   .sticky
     nav.top-bar(data-topbar role="navigation")
-      ul.title-area
-        li.name.has-dropdown.active
-          h1
-            = link_to "RW2.0", patients_path, title: "Home"
 
       section.top-bar-section
         = render partial: "renalware/navigation/patient_search"
@@ -21,6 +17,7 @@
           = render partial: "renalware/navigation/sign_out"
           li.divider
           = render partial: "renalware/navigation/help_items"
+
 - else
   .sticky
     nav.top-bar(data-topbar role="navigation")
@@ -28,3 +25,7 @@
         li.name.has-dropdown.active
           h1
             = link_to "Renalware 2", patients_path, title: "Home"
+
+  .row
+    footer
+      |&nbsp;&nbsp;Renalware® v2.0.0 © 2015-2016 Airslie Ltd
