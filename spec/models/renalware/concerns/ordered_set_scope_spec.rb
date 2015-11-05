@@ -15,21 +15,27 @@ module Renalware
         end
       end
 
-      context "given the specified values we wish to query with are present in the relation" do
+      context "given the specified values present in the relation" do
         let(:ordered_values) { %w(foo bar) }
 
-        it "returns the set in order of the attribute and values specified" do
-          actual_set = Qux.ordered_set(:code, ordered_values)
+        it "returns an ordered scope with the attribute and values specified" do
+          attribute = :code
+          actual_scope = Qux.ordered_set(attribute, ordered_values)
 
-          expect(actual_set.map(&:code)).to eq(ordered_values)
+          expect(actual_scope).to be_a ActiveRecord::Relation
+          expect(actual_scope.map(&:code)).to eq(ordered_values)
         end
       end
 
-      context "given the specifed values we wish to query with are not present in the relation" do
+      context "given the values not present in the relation for the specified attribute" do
         let(:ordered_values) { ["foo;DROP users", "bar"] }
 
         it "returns an empty scope" do
-          expect(Qux.ordered_set(:code, ordered_values)).to be_empty
+          attribute = :code
+          actual_scope = Qux.ordered_set(attribute, ordered_values)
+
+          expect(actual_scope).to be_a ActiveRecord::Relation
+          expect(actual_scope).to be_empty
         end
       end
     end
