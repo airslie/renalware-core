@@ -12,6 +12,7 @@ Feature: Registering a patient on the wait list
   Scenario: A clinician registered a patient on the transplant wait list
     When Clyde registers Patty on the wait list with status "Active" starting on "24-10-2015"
     Then Patty has an active transplant registration since "24-10-2015"
+    And the current status was set by Clyde
 
   @web
   Scenario: A clinician updated a patient's registration

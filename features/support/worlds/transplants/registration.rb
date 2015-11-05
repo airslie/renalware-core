@@ -23,14 +23,15 @@ module World
 
       # Commands
 
-      def create_transplant_registration(user: nil, patient:, status:, started_on:)
+      def create_transplant_registration(user:, patient:, status:, started_on:)
         description = registration_status_description_named(status)
         Renalware::Transplants::Registration.create(
           patient: patient,
           statuses_attributes: {
             "0": {
               started_on: started_on,
-              description_id: description.id
+              description_id: description.id,
+              whodunnit: user.id.to_s
             }
           }
         )

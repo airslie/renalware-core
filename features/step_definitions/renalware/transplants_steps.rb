@@ -146,3 +146,7 @@ end
 Then(/^the status history has the following revised statuses$/) do |table|
   assert_transplant_registration_status_history_includes(patient: @patty, hashes: table.hashes)
 end
+
+Then(/^the current status was set by Clyde$/) do
+  assert_transplant_registration_current_status_by(patient: @patty, user: @clyde)
+end

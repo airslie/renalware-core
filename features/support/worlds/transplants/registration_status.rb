@@ -96,6 +96,11 @@ module World
           expect(statuses).to include(row)
         end
       end
+
+      def assert_transplant_registration_current_status_by(patient:, user:)
+        registration = transplant_registration_for(patient)
+        expect(registration.current_status.whodunnit).to eq(user.id.to_s)
+      end
     end
 
 

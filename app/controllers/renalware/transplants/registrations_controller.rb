@@ -17,7 +17,10 @@ module Renalware
       def update
         authorize @registration
 
-        if @registration.update_attributes(registration_params)
+        attributes = registration_params
+        # TODO: improve this current_user thing
+        attributes[:statuses_attributes]["0"][:whodunnit] = current_user.id.to_s
+        if @registration.update_attributes(attributes)
           redirect_to patient_transplants_dashboard_path(@patient)
         else
           render :edit
