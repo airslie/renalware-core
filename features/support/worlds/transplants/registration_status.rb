@@ -110,6 +110,7 @@ module World
           select status, from: "transplants_registration_status[description_id]"
           click_on "Add status"
         end
+        wait_for_ajax
       end
 
       def update_transplant_registration_status(user:, patient:, status:, started_on:)
