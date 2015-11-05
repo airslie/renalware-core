@@ -154,6 +154,8 @@ CREATE TABLE clinic_visits (
     urine_blood character varying,
     urine_protein character varying,
     notes text,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     clinic_type_id integer NOT NULL
@@ -2228,10 +2230,24 @@ CREATE INDEX index_bag_types_on_deleted_at ON bag_types USING btree (deleted_at)
 
 
 --
+-- Name: index_clinic_visits_on_created_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_clinic_visits_on_created_by_id ON clinic_visits USING btree (created_by_id);
+
+
+--
 -- Name: index_clinic_visits_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_clinic_visits_on_patient_id ON clinic_visits USING btree (patient_id);
+
+
+--
+-- Name: index_clinic_visits_on_updated_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_clinic_visits_on_updated_by_id ON clinic_visits USING btree (updated_by_id);
 
 
 --

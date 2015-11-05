@@ -10,6 +10,8 @@ class CreateClinicVisits < ActiveRecord::Migration
       t.string :urine_blood
       t.string :urine_protein
       t.text :notes
+      t.belongs_to :created_by, index: true, null: false
+      t.belongs_to :updated_by, index: true, null: false
       t.timestamps null: false
     end
   end

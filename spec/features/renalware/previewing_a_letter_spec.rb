@@ -7,8 +7,10 @@ module Renalware
       login_as_clinician
     end
 
+    let(:author) { User.find_by(first_name: "Aneurin") }
+
     scenario 'A simple letter' do
-      create(:letter, patient: @patient)
+      create(:letter, patient: @patient, author: author)
       visit patient_letters_path(@patient)
 
       within('.letters tbody tr:first-child') do
@@ -31,7 +33,7 @@ module Renalware
     end
 
     scenario 'A clinic letter' do
-      create(:clinic_letter, patient: @patient)
+      create(:clinic_letter, patient: @patient, author: author)
       visit patient_letters_path(@patient)
 
       within('.letters tbody tr:first-child') do
