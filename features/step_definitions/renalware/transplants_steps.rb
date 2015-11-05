@@ -1,10 +1,3 @@
-# Rule: Given steps should not go through the UI, no matter what the world is
-Given(/^the transplants module is configured$/) do
-  ["Active", "Transplanted", "Waiting"].each do |name|
-    Renalware::Transplants::RegistrationStatusDescription.create!(name: name)
-  end
-end
-
 Given(/^Patty has a recipient workup$/) do
   set_up_recipient_workup_for(@patty)
 end
@@ -53,7 +46,7 @@ end
 When(/^Clyde submits an erroneous registration$/) do
   create_transplant_registration(
     patient: @patty,
-    status: "boom", started_on: "99-99-9999",
+    status: "Died", started_on: "99-99-9999",
     user: @clyde
   )
 end

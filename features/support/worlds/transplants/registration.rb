@@ -15,7 +15,7 @@ module World
           statuses_attributes: {
             "0": {
               started_on: "03-11-2015",
-              description_id: 1
+              description_id: registration_status_description_named("Active").id
             }
           }
         )

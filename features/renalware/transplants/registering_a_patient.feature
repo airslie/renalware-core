@@ -4,7 +4,6 @@ Feature: Registering a patient on the wait list
   receive a transplant a patient needs to be registered on a wait list.
 
   Background:
-    Given the transplants module is configured
     And Clyde is a clinician
     And Patty is a patient
 

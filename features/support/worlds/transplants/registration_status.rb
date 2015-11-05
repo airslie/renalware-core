@@ -4,9 +4,9 @@ module World
       # Helpers
 
       def registration_status_description_named(name)
-        Renalware::Transplants::RegistrationStatusDescription.find_or_create_by(
+        Renalware::Transplants::RegistrationStatusDescription.find_by(
           name: name
-        )
+        ) || raise("Cannot find status [#{name}] in seeding data")
       end
 
       def status_for_registration_and_name(registration, name)
