@@ -6,7 +6,7 @@ module Renalware
       include OrderedSetScope
     end
 
-    context "given a relation" do
+    describe "#ordered_set" do
       before do
         create_relation
 
@@ -15,25 +15,21 @@ module Renalware
         end
       end
 
-      context "and the specified values we wish to query with are present in the relation" do
+      context "given the specified values we wish to query with are present in the relation" do
         let(:ordered_values) { %w(foo bar) }
 
-        describe "when querying the relation with the scope" do
-          it "returns the set in order of the attribute and values specified" do
-            actual_set = Qux.ordered_set(:code, ordered_values)
+        it "returns the set in order of the attribute and values specified" do
+          actual_set = Qux.ordered_set(:code, ordered_values)
 
-            expect(actual_set.map(&:code)).to eq(ordered_values)
-          end
+          expect(actual_set.map(&:code)).to eq(ordered_values)
         end
       end
 
       context "given the specifed values we wish to query with are not present in the relation" do
         let(:ordered_values) { ["foo;DROP users", "bar"] }
 
-        describe "when querying the relation with the scope" do
-          it "return an empty scope" do
-            expect(Qux.ordered_set(:code, ordered_values)).to be_empty
-          end
+        it "returns an empty scope" do
+          expect(Qux.ordered_set(:code, ordered_values)).to be_empty
         end
       end
     end
