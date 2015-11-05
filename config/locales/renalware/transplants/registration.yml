@@ -12,7 +12,7 @@ en:
     attributes:
       renalware/transplants/registration_document/codes:
         uk_transplant_centre_code: UK Transplant Centre Code
-        uk_transplant_patient_recipient_number: UK Transplant Patient Recpient Number
+        uk_transplant_patient_recipient_number: UK Transplant Patient Recipient Number
       renalware/transplants/registration_document/crf:
         highest: Highest
         latest: Latest
