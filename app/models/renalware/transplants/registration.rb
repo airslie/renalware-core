@@ -9,6 +9,9 @@ module Renalware
 
       belongs_to :patient
       has_many :statuses, class_name: "RegistrationStatus", foreign_key: "registration_id"
+      has_one :current_status, -> { where(terminated_on: nil) },
+        class_name: "RegistrationStatus", foreign_key: "registration_id"
+
 
       has_paper_trail class_name: "Renalware::Transplants::RegistrationVersion"
       has_document class_name: "RegistrationDocument"
@@ -17,10 +20,6 @@ module Renalware
 
       def self.policy_class
         BasePolicy
-      end
-
-      def current_status
-        statuses.find_by(terminated_on: nil)
       end
 
       # @section services
