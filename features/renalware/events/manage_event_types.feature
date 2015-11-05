@@ -1,6 +1,3 @@
-# event is also known as encounter
-# Not implemented in PHP, done at DB level?
-
 Feature: An admin manages event types
 
 Background:
