@@ -12,6 +12,11 @@ body {
   }
 }
 
+h1.brand-name {
+  color: #FFFFFF;
+  padding-left: 0.7em;
+}
+
 table tr th.col-width-date{
   width: 5.5rem;
 }
@@ -197,7 +202,7 @@ span.monospaced {
 
 footer {
   text-align: right;
-  position: absolute;
+  position: fixed;
   right: 0px;
   bottom: 0px;
   width: 100%;
