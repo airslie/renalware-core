@@ -1,31 +1,14 @@
-- if user_signed_in?
-  .sticky
-    nav.top-bar(data-topbar role="navigation")
+.sticky
+  nav.top-bar(data-topbar role="navigation")
 
-      section.top-bar-section
-        = render partial: "renalware/navigation/patient_search"
+    - if user_signed_in?
 
-        ul.right.large-2.columns
-          li.divider
-          = render partial: "renalware/navigation/patients_admin"
-          - if current_user_is_admin?
-            li.divider
-            = render partial: "renalware/navigation/renalware_admin"
-          li.divider
-          = render partial: "renalware/navigation/user_admin"
-          li.divider
-          = render partial: "renalware/navigation/sign_out"
-          li.divider
-          = render partial: "renalware/navigation/help_items"
+      = render partial: "renalware/navigation/menu"
 
-- else
-  .sticky
-    nav.top-bar(data-topbar role="navigation")
-      ul.title-area
-        li.name.has-dropdown.active
-          h1
-            = link_to "Renalware 2", patients_path, title: "Home"
+    - else
 
-  .row
-    footer
-      |&nbsp;&nbsp;Renalware® v2.0.0 © 2015-2016 Airslie Ltd
+      = render partial: "renalware/navigation/branding"
+
+- if !user_signed_in?
+
+  = render partial: "renalware/navigation/footer"
