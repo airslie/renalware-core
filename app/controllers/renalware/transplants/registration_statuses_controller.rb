@@ -5,7 +5,7 @@ module Renalware
       before_filter :load_registration
 
       def create
-        @status = @registration.add_status!(attributes)
+        @status = @registration.add_status!(status_params)
 
         respond_to do |format|
           format.html { redirect_to patient_transplants_dashboard_path(@patient) }
@@ -19,7 +19,7 @@ module Renalware
 
       def update
         existing_status = @registration.statuses.find(params[:id])
-        @status = @registration.update_status!(existing_status, attributes)
+        @status = @registration.update_status!(existing_status, status_params)
 
         if @status.valid?
           redirect_to patient_transplants_dashboard_path(@patient)

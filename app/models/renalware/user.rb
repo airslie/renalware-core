@@ -37,9 +37,5 @@ module Renalware
     def name
       [first_name, last_name].compact.join(" ")
     end
-
-    def to_s
-      name
-    end
   end
 end

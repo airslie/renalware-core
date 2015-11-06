@@ -5,22 +5,15 @@ module Renalware
       before_filter :load_registration
 
       def show
-        authorize @registration
         url = edit_patient_transplants_registration_path(@patient)
         redirect_to url if @registration.new_record?
       end
 
       def edit
-        authorize @registration
       end
 
       def update
-        authorize @registration
-
-        attributes = registration_params
-        # TODO: improve this current_user thing when NJH is done with the Blamable concern
-        attributes[:statuses_attributes]["0"][:whodunnit] = current_user.id.to_s
-        if @registration.update_attributes(attributes)
+        if @registration.update_attributes(registration_params)
           redirect_to patient_transplants_dashboard_path(@patient)
         else
           render :edit
@@ -31,6 +24,7 @@ module Renalware
 
       def load_registration
         @registration = Registration.for_patient(@patient).first_or_initialize
+        authorize @registration
       end
 
       def registration_params

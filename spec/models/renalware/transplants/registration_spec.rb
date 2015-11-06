@@ -6,6 +6,7 @@ module Renalware
       let(:registration) { create(:transplant_registration, :with_statuses) }
       let(:earliest_status) { registration.statuses.order("created_at ASC").first }
       let(:latest_status) { registration.statuses.order("created_at DESC").first }
+      let(:clinician) { create(:user, :clinician) }
 
       it { should accept_nested_attributes_for(:statuses) }
 
@@ -15,6 +16,7 @@ module Renalware
           let(:status_description) { create(:transplant_registration_status_description) }
 
           it "creates the status at the same time" do
+            PaperTrail.whodunnit = clinician.id
             params = {
               patient_id: patient.id,
               statuses_attributes: {

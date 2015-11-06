@@ -26,7 +26,7 @@ module World
             description: description,
             started_on: row[:start_date],
             terminated_on: row[:termination_date],
-            whodunnit: Renalware::User.find_by(first_name: row[:by]).id,
+            created_by_id: Renalware::User.find_by(first_name: row[:by]).id,
           )
         end
         @initial_statuses_count = registration.statuses.count
@@ -35,17 +35,19 @@ module World
       # Commands
 
       def set_transplant_registration_status(patient:, user:, status:, started_on:)
+        PaperTrail.whodunnit = user.id
         registration = transplant_registration_for(patient)
         description = registration_status_description_named(status)
         registration.add_status!(
-          description: description, started_on: started_on, whodunnit: user.id
+          description: description, started_on: started_on
         )
       end
 
       def update_transplant_registration_status(patient:, user:, status:, started_on:)
+        PaperTrail.whodunnit = user.id
         registration = transplant_registration_for(patient)
         s = status_for_registration_and_name(registration, status)
-        registration.update_status!(s, started_on: started_on, whodunnit: user.id)
+        registration.update_status!(s, started_on: started_on)
       end
 
       def delete_transplant_registration_status(patient:, user:, status:)
@@ -65,7 +67,7 @@ module World
         statuses = transplant_registration_for(patient).reload.statuses.map do |s|
           { status: s.description.name,
             start_date: I18n.l(s.started_on),
-            by: s.updated_by.to_s.split.first,
+            by: s.updated_by.first_name,
             termination_date: (s.terminated_on ? I18n.l(s.terminated_on) : "")
           }.with_indifferent_access
         end
@@ -99,7 +101,7 @@ module World
 
       def assert_transplant_registration_current_status_by(patient:, user:)
         registration = transplant_registration_for(patient)
-        expect(registration.current_status.whodunnit).to eq(user.id.to_s)
+        expect(registration.current_status.updated_by.id).to eq(user.id)
       end
     end
 

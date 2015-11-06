@@ -54,7 +54,7 @@ module Renalware
       def recompute_termination_dates!
         previous_started_on = nil
         statuses.ordered(:desc).each do |status|
-          status.update!(terminated_on: previous_started_on)
+          status.update_column(:terminated_on, previous_started_on)
           previous_started_on = status.started_on
         end
       end

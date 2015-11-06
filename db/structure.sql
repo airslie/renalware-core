@@ -1469,9 +1469,10 @@ CREATE TABLE transplants_registration_statuses (
     id integer NOT NULL,
     registration_id integer,
     description_id integer,
-    started_on date,
+    started_on date NOT NULL,
     terminated_on date,
-    whodunnit character varying,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );

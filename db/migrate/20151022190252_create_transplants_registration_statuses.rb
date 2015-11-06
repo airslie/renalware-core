@@ -3,9 +3,10 @@ class CreateTransplantsRegistrationStatuses < ActiveRecord::Migration
     create_table :transplants_registration_statuses do |t|
       t.belongs_to :registration, index: true
       t.belongs_to :description, index: true
-      t.date :started_on
+      t.date :started_on, null: false
       t.date :terminated_on
-      t.string :whodunnit
+      t.integer :created_by_id, null: false
+      t.integer :updated_by_id, null: false
 
       t.timestamps null: false
     end
