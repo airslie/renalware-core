@@ -10,9 +10,6 @@ fieldset
           br
           | since&nbsp;
           = datestamp @registration.current_status.started_on
-          br
-          = link_to "Update Status", new_patient_transplants_registration_status_path(@patient),
-            class: 'button tiny secondary'
 
     .large-3.columns
       dl
@@ -27,7 +24,6 @@ fieldset
             = timestamp version.created_at
             | &nbsp;by&nbsp;
             = who_did_it version
-
 
     .large-2.columns
       .right

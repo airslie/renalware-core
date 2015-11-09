@@ -112,7 +112,7 @@ module World
       def set_transplant_registration_status(user:, patient:, status:, started_on:)
         login_as user
         visit patient_transplants_dashboard_path(patient)
-        within_fieldset "Transplant Wait List Registration" do
+        within_fieldset "Status History" do
           click_on "Update Status"
         end
 
