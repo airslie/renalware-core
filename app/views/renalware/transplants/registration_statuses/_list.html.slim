@@ -27,5 +27,5 @@ fieldset.status-history
                   data: { confirm: I18n.t("prompts.confirm_delete") }
               td= l status.started_on
               td= status.description
-              td= status.updated_by
+              td= status.updated_by.to_s(:full_name)
               td= l status.terminated_on if status.terminated_on
