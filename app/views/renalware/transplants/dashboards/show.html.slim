@@ -3,33 +3,8 @@
     = render "renalware/patients/patient_info_header", model: @patient
     = render "renalware/patients/mini_renal_profile", model: @patient
 
-    h2 Transplant Status
+    h2 Transplant Info
 
-    fieldset
-      legend Transplant Wait List Registration
-
-      - if @registration.persisted?
-        .large-5.columns
-          dl
-            dt Last Update:
-            dd
-              - if version = @registration.versions.last
-                = timestamp version.created_at
-                | &nbsp;by&nbsp;
-                = who_did_it version
-
-        .large-5.columns
-          dl
-            dt Transplant Type:
-            dd= @registration.document.organs.transplant_type.try(:text)
-
-        .large-2.columns
-          .right
-            = link_to "View", patient_transplants_registration_path(@patient), class: "button tiny"
-            | &nbsp;
-            = link_to "Edit", edit_patient_transplants_registration_path(@patient), class: "button tiny"
-      - else
-        .call-to-action
-          = link_to edit_patient_transplants_registration_path(@patient) do
-            i.fa.fa-plus-circle
-            | Enter registration details
+    = render "renalware/transplants/registrations/summary"
+    - if @registration.persisted?
+      = render "renalware/transplants/registration_statuses/list"

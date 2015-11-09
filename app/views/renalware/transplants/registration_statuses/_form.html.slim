@@ -1,0 +1,16 @@
+ruby:
+  back_path = patient_transplants_dashboard_path(@patient)
+
+.form-content
+
+  .row
+    .large-12.columns
+      fieldset
+        legend Status
+        = render "inputs", f: f
+
+.row
+  .large-12.columns
+    = f.submit 'Save', class: 'button'
+    span= " or "
+    = link_to 'cancel', back_path

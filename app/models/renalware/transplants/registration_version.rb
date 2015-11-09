@@ -1,3 +1,5 @@
+require_dependency "renalware/transplants"
+
 module Renalware
   module Transplants
     class RegistrationVersion < PaperTrail::Version

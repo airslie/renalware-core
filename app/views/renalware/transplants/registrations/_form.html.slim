@@ -10,20 +10,20 @@ ruby:
 .form-content
   = f.simple_fields_for :document, f.object.document do |fd|
 
-    = render layout: "renalware/shared/documents/fieldset",
+    = render layout: "renalware/shared/fieldset",
       locals: { legend: "Codes", name: "codes" } do
       = fd.simple_fields_for :codes, fd.object.codes do |fcm|
         = fcm.input :uk_transplant_centre_code, input_html: { class: "small-input" }
         = fcm.input :uk_transplant_patient_recipient_number, input_html: { class: "small-input" }
 
-    = render layout: "renalware/shared/documents/fieldset",
+    = render layout: "renalware/shared/fieldset",
       locals: { legend: "CRF", name: "crf" } do
       = fd.simple_fields_for :crf, fd.object.crf do |fcm|
         table.no-stripes
           = render_input fcm, :highest
           = render_input fcm, :latest
 
-    = render layout: "renalware/shared/documents/fieldset",
+    = render layout: "renalware/shared/fieldset",
       locals: { legend: "HLA", name: "hla" } do
       = fd.simple_fields_for :hla, fd.object.hla do |fcm|
         = fcm.input :type
@@ -38,7 +38,7 @@ ruby:
             = render_input fcm, :drw
             = render_input fcm, :drq
 
-    = render layout: "renalware/shared/documents/fieldset",
+    = render layout: "renalware/shared/fieldset",
       locals: { legend: "Transplant", name: "transplant" } do
       = fd.simple_fields_for :transplant, fd.object.transplant do |fcm|
         table.no-stripes
@@ -46,7 +46,7 @@ ruby:
           = fcm.input :nb_of_previous_grafts, input_html: { class: "small-input" }
           = fcm.input :sens_status
 
-    = render layout: "renalware/shared/documents/fieldset",
+    = render layout: "renalware/shared/fieldset",
       locals: { legend: "Organs", name: "organs" } do
       = fd.simple_fields_for :organs, fd.object.organs do |fcm|
         table.no-stripes
@@ -57,19 +57,21 @@ ruby:
           = fcm.input :to_be_listed_for_other_organs, as: :inline_radio_buttons
           = fcm.input :received_previous_kidney_or_pancreas_grafts, as: :inline_radio_buttons
 
-    = render layout: "renalware/shared/documents/fieldset",
+    = render layout: "renalware/shared/fieldset",
       locals: { legend: "Consent", name: "consent" } do
       = fd.simple_fields_for :nhb_consent, fd.object.nhb_consent do |fcm|
         = fcm.input :value, as: :inline_radio_buttons
         = fcm.input :consented_on, as: :date_picker
         = fcm.input :name
 
-    = render layout: "renalware/shared/documents/fieldset",
+    = render layout: "renalware/shared/fieldset",
       locals: { legend: "Admin", name: "admin" } do
       = f.input :referred_on, as: :date_picker
       = f.input :assessed_on, as: :date_picker
       = f.input :contact, as: :text, input_html: { rows: 5 }
       = f.input :notes, as: :text, input_html: { rows: 5 }
+
+    = render "status_form", f: f if f.object.new_record?
 
 .row
   .large-12.columns

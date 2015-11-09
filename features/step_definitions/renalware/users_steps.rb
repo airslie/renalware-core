@@ -1,11 +1,12 @@
-Given(/^Clyde is a clinician$/) do
-  @clyde = Renalware::User.create!(
-    first_name: "Clyde",
+Given(/^(.*?) is a clinician$/) do |name|
+  user = Renalware::User.create!(
+    first_name: name,
     last_name: "The Clinician",
-    username: "clyde",
-    email: "clyde@renalware.com",
+    username: name,
+    email: "#{name}@renalware.com",
     password: "supersecret",
     approved: true,
   )
-  @clyde.roles << Renalware::Role.find_or_create_by(name: "clinician")
+  user.roles << Renalware::Role.find_or_create_by(name: "clinician")
+  instance_variable_set("@"+name.downcase, user)
 end

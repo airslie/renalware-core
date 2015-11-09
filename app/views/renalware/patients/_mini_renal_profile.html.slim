@@ -3,7 +3,7 @@
   = " "
   = @patient.esrf
   = " "
-  = link_to "Transplant Status/OPs", patient_transplants_dashboard_path(@patient)
+  = link_to "Transplant info", patient_transplants_dashboard_path(@patient)
 
   br
   - if display_pd_menu(@patient.modalities.with_deleted)

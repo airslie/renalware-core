@@ -22,7 +22,7 @@
             = link_to 'Delete', drugs_drug_path(drug),
               id: "#{drug.id}-drug",
               method: :delete,
-              data: { confirm: "Are you sure you want to delete this drug?"}
+              data: { confirm: I18n.t("prompts.confirm_delete") }
           td
             = link_to drug, edit_drugs_drug_path(drug)
 

@@ -1,0 +1,10 @@
+= render "record_header"
+
+.row
+  .columns.large-12
+    .document
+      = simple_form_for @status,
+        url: patient_transplants_registration_status_path(@patient, @status),
+        method: :patch,
+        wrapper: "horizontal_form" do |f|
+        = render 'form', f: f

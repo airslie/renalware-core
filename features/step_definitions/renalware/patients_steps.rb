@@ -1,4 +1,4 @@
-Given(/^Patty is a patient in the system$/) do
+Given(/^Patty is a patient$/) do
   @patty = Renalware::Patient.create!(
     nhs_number: "1234567890",
     family_name: "Patty",
@@ -9,7 +9,7 @@ Given(/^Patty is a patient in the system$/) do
   )
 end
 
-Given(/^Don is a donor in the system$/) do
+Given(/^Don is a donor$/) do
   @don = Renalware::Patient.create!(
     nhs_number: "1234567890",
     family_name: "Don",

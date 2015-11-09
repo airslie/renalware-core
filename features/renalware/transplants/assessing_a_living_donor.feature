@@ -1,11 +1,11 @@
-Feature: Complete the donor assessment
+Feature: Assessing (workup) a Living Donor
 
   A potential living kidney donor needs a series of tests to assess and document their suitability
   to have a kidney removed and to be a donor.
 
   Background:
     Given Clyde is a clinician
-    And Don is a donor in the system
+    And Don is a donor
 
   @web
   Scenario: Create an assessment

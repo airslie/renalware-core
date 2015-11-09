@@ -1,0 +1,32 @@
+fieldset.status-history
+  legend Status History
+
+  .row
+    .large-12.columns
+      table
+        thead
+          th
+          th Start Date
+          th Status
+          th By
+          th Termination Date
+        tbody
+          - @registration.statuses.ordered(:desc).each do |status|
+            tr
+              td
+                = link_to "Edit",
+                  edit_patient_transplants_registration_status_path(@patient, status)
+                = pipe_separator
+                = link_to 'Delete',
+                  patient_transplants_registration_status_path(@patient, status),
+                  method: :delete,
+                  data: { confirm: I18n.t("prompts.confirm_delete") }
+              td= l status.started_on
+              td= status.description
+              td= status.updated_by.to_s(:full_name)
+              td= l status.terminated_on if status.terminated_on
+
+  .row
+    .large-12.columns
+      .right= link_to "Update Status", new_patient_transplants_registration_status_path(@patient),
+        class: 'button tiny'
