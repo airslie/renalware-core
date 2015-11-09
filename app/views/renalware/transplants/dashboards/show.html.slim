@@ -3,7 +3,7 @@
     = render "renalware/patients/patient_info_header", model: @patient
     = render "renalware/patients/mini_renal_profile", model: @patient
 
-    h2 Transplant Status
+    h2 Transplant Info
 
     = render "renalware/transplants/registrations/summary"
     - if @registration.persisted?

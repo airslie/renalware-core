@@ -4,10 +4,4 @@
     = render "renalware/patients/mini_renal_profile", model: @patient
 
     h2
-      | Transplant Wait List Registration&nbsp;
-      = render "renalware/shared/last_update", record: @registration
-
-    dl.sub-nav
-      dd= link_to "Registration Status", patient_transplants_dashboard_path(@patient)
-      dd= link_to "View", patient_transplants_registration_path(@patient)
-      dd= link_to "Edit", edit_patient_transplants_registration_path(@patient)
+      | Edit Transplant Status History
