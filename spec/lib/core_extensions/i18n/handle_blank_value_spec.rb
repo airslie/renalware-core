@@ -7,7 +7,7 @@ module CoreExtensions
       ::I18n.extend CoreExtensions::I18n::HandleBlankValue
     end
 
-    describe '.localize' do
+    describe ".localize" do
       it "returns empty string if provided a nil value" do
         expect(::I18n.localize(nil)).to eq("")
       end
@@ -17,7 +17,7 @@ module CoreExtensions
       end
     end
 
-    describe '.l' do
+    describe ".l" do
       it "is the same as .localize" do
         expect(::I18n.method(:l)).to eq(::I18n.method(:localize))
       end
