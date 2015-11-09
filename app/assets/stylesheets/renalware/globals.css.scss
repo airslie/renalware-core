@@ -12,6 +12,11 @@ body {
   }
 }
 
+h1.brand-name {
+  color: #FFFFFF;
+  padding-left: 0.7em;
+}
+
 table tr th.col-width-date{
   width: 5.5rem;
 }
@@ -193,4 +198,15 @@ span.note {
 span.monospaced {
   font-family: monospace;
   font-size: 1.2em;
+}
+
+footer {
+  text-align: right;
+  position: fixed;
+  right: 0px;
+  bottom: 0px;
+  width: 100%;
+  color: #C0C0C0;
+  font-size: 12px;
+  margin: 1em;
 }

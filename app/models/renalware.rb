@@ -1,4 +1,6 @@
 module Renalware
+  VERSION = "2.0.0 BETA1"
+
   def self.table_name_prefix
     # 'renalware_' # TODO: eventually, prefix the tables
     ''
