@@ -13,8 +13,14 @@ module Renalware
       validates :started_on, timeliness: { type: :date, allow_blank: false }
       validates :terminated_on, timeliness: { type: :date, allow_blank: true }
 
+      validate :constraint_started_on_today_or_before, if: :started_on
+
       def terminated?
         terminated_on.present?
+      end
+
+      def constraint_started_on_today_or_before
+        errors.add(:started_on, :invalid) if started_on > Time.zone.today
       end
 
       def to_s

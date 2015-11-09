@@ -7,13 +7,13 @@ module Renalware
       let(:earliest_status) { registration.statuses.order("created_at ASC").first }
       let(:latest_status) { registration.statuses.order("created_at DESC").first }
       let(:clinician) { create(:user, :clinician) }
+      let(:status_description) { create(:transplant_registration_status_description) }
 
       it { should accept_nested_attributes_for(:statuses) }
 
       describe "#update_attributes" do
         context "when creating the registration" do
           let(:patient) { create(:patient) }
-          let(:status_description) { create(:transplant_registration_status_description) }
 
           it "creates the status at the same time" do
             PaperTrail.whodunnit = clinician.id
@@ -43,15 +43,17 @@ module Renalware
 
       describe "#add_status!" do
         it "returns the new status" do
-          status = registration.add_status!(started_on: Time.zone.today)
+          status = registration.add_status!({})
           expect(status).to be_a(RegistrationStatus)
         end
 
         it "terminates the current status" do
           status = registration.current_status
 
-          registration.add_status!(started_on: Time.zone.today)
-
+          registration.add_status!(
+            description: status_description,
+            started_on: Time.zone.today
+          )
           expect(status.reload).to be_terminated
         end
 

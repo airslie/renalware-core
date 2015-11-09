@@ -49,3 +49,7 @@ Feature: Changing the wait list status
   Scenario: A clinician submitted an erroneous registration status
     When Clyde submits an erroneous registration status
     Then the registration status is not accepted
+
+  Scenario: A clinician submitted a pre-dated registration
+    When Clyde submits an pre-dated registration status
+    Then the registration status is not accepted

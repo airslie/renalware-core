@@ -22,3 +22,7 @@ Feature: Registering a patient on the wait list
   Scenario: A clinician submitted an erroneous registration
     When Clyde submits an erroneous registration
     Then the registration is not accepted
+
+  Scenario: A clinician submitted a pre-dated registration
+    When Clyde submits a pre-dated registration
+    Then the registration is not accepted

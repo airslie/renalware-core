@@ -20,6 +20,11 @@ module Renalware
           let(:attributes) { {started_on: "99-99-9999"} }
           it { is_expected.to_not be_valid }
         end
+
+        context "given a stated_on in the future" do
+          let(:attributes) { {started_on: (Time.zone.today + 1.day)} }
+          it { is_expected.to_not be_valid }
+        end
       end
     end
   end

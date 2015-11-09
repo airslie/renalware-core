@@ -49,6 +49,15 @@ When(/^Clyde submits an erroneous registration$/) do
   )
 end
 
+When(/^Clyde submits a pre\-dated registration$/) do
+  create_transplant_registration(
+    patient: @patty,
+    status: "Died", started_on: Time.zone.today + 1.day,
+    user: @clyde
+  )
+end
+
+
 When(/^Clyde sets the registration status to "(.*?)" and the start date to "(.*?)"$/) \
   do |status, started_on|
   set_transplant_registration_status(
@@ -62,6 +71,14 @@ When(/^Clyde submits an erroneous registration status$/) do
   set_transplant_registration_status(
     patient: @patty,
     status: "Active", started_on: "",
+    user: @clyde
+  )
+end
+
+When(/^Clyde submits an pre\-dated registration status$/) do
+  set_transplant_registration_status(
+    patient: @patty,
+    status: "Active", started_on: (Time.zone.today + 1.day),
     user: @clyde
   )
 end
