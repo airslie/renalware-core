@@ -5,10 +5,12 @@ module Renalware
 
     background do
       create(:letter_description, text: 'Clinic letter')
+      create(:user, first_name: "Aneurin", last_name: "Bevan", signature: "Aneurin Bevan")
       @doctor = create(:doctor)
       @practice = create(:practice)
       @doctor.practices << @practice
       @patient = create(:patient, :with_clinic_visits, doctor: @doctor, practice: @practice)
+
       @clinic_visit = @patient.clinic_visits.last
 
       login_as_super_admin

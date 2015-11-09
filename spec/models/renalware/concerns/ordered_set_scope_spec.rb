@@ -2,8 +2,13 @@ require "rails_helper"
 
 module Renalware
   describe "Ordered Set scope" do
-    class ::Qux < ActiveRecord::Base
-      include OrderedSetScope
+    before do
+      @klass = Class.new(ActiveRecord::Base) do
+        self.table_name = "quxes"
+        include OrderedSetScope
+      end
+
+      @klass.reset_column_information
     end
 
     describe "#ordered_set" do
@@ -11,7 +16,7 @@ module Renalware
         create_relation
 
         %w(baz bar foo).each do |value|
-          Qux.create(code: value)
+          @klass.create(code: value)
         end
       end
 
@@ -20,7 +25,7 @@ module Renalware
 
         it "returns an ordered scope with the attribute and values specified" do
           attribute = :code
-          actual_scope = Qux.ordered_set(attribute, ordered_values)
+          actual_scope = @klass.ordered_set(attribute, ordered_values)
 
           expect(actual_scope).to be_a ActiveRecord::Relation
           expect(actual_scope.map(&:code)).to eq(ordered_values)
@@ -32,7 +37,7 @@ module Renalware
 
         it "returns an ordered scope with the values that exist in the relation"  do
           attribute = :code
-          actual_scope = Qux.ordered_set(attribute, ordered_values)
+          actual_scope = @klass.ordered_set(attribute, ordered_values)
 
           expect(actual_scope).to be_a ActiveRecord::Relation
           expect(actual_scope.map(&:code)).to eq(%w(foo bar))

@@ -1,5 +1,7 @@
 module Renalware
   class ClinicVisit < ActiveRecord::Base
+    include Blameable
+
     belongs_to :patient
     belongs_to :clinic_type
     has_many :clinic_letters

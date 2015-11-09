@@ -95,6 +95,7 @@ module Renalware
 
   log '--------------------Adding ClinicVisits for Roger RABBIT-------------------'
   5.times do |n|
+    user = User.first
     clinic_visit = ClinicVisit.find_or_create_by!(
       patient: rabbit,
       clinic_type: ClinicType.order("RANDOM()").first,
@@ -102,7 +103,8 @@ module Renalware
       weight: 55 + n,
       systolic_bp: 110 + n,
       diastolic_bp: 68 + n,
-      date: n.days.ago.change({ hour: (10 + (2 * n)), min: 0 })
+      date: n.days.ago.change({ hour: (10 + (2 * n)), min: 0 }),
+      created_by: user
     )
 
     rabbit.clinic_visits << clinic_visit
