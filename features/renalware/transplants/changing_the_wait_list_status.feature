@@ -45,7 +45,7 @@ Feature: Changing the wait list status
       | status       | start_date | termination_date |
       | Transfer Out | 15-06-2015 | 15-08-2015       |
 
-  @web @javascript
+  @web
   Scenario: A clinician submitted an erroneous registration status
     When Clyde submits an erroneous registration status
     Then the registration status is not accepted
