@@ -15,6 +15,10 @@ module CoreExtensions
       it "returns empty string if provided an empty string" do
         expect(::I18n.localize("")).to eq("")
       end
+
+      it "returns something when not blank" do
+        expect(::I18n.localize(Time.now)).to_not be_blank
+      end
     end
 
     describe ".l" do
