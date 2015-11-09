@@ -1,4 +1,4 @@
 = f.input :description_id,
   collection: Renalware::Transplants::RegistrationStatusDescription.ordered,
-  label_method: :name, value_method: :id, include_blank: false
+  label_method: :name, value_method: :id
 = f.input :started_on, as: :date_picker

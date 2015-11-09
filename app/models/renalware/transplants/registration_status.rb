@@ -9,6 +9,7 @@ module Renalware
 
       scope :ordered, -> (direction=:desc) { order(started_on: direction) }
 
+      validates :description_id, presence: true
       validates :started_on, timeliness: { type: :date, allow_blank: false }
       validates :terminated_on, timeliness: { type: :date, allow_blank: true }
 

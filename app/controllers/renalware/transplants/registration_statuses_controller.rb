@@ -4,12 +4,17 @@ module Renalware
       before_filter :load_patient
       before_filter :load_registration
 
+      def new
+        @status = @registration.statuses.build
+      end
+
       def create
         @status = @registration.add_status!(status_params)
 
-        respond_to do |format|
-          format.html { redirect_to patient_transplants_dashboard_path(@patient) }
-          format.js
+        if @status.valid?
+          redirect_to patient_transplants_dashboard_path(@patient)
+        else
+          render :new
         end
       end
 

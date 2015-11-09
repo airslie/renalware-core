@@ -12,7 +12,7 @@ Feature: Changing the wait list status
       | Active       | 15-07-2015 | 15-08-2015       | Chloe    |
       | Transfer Out | 15-06-2015 | 15-07-2015       | Chloe    |
 
-  @web @javascript
+  @web
   Scenario: A clinician changed the current status of a registration
     When Clyde sets the registration status to "Transplanted" and the start date to "15-09-2015"
     Then the registration status history is
