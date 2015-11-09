@@ -2,8 +2,17 @@ require "rails_helper"
 
 module Renalware
   describe Blameable do
-    class ::Qux < ActiveRecord::Base
-      include Blameable
+    before do
+      @klass = Class.new(ActiveRecord::Base) do
+        self.table_name = "quxes"
+        include Blameable
+
+        def self.name
+          "Qux"
+        end
+      end
+
+      @klass.reset_column_information
     end
 
     let(:created_by_user) { create(:user) }
@@ -15,7 +24,7 @@ module Renalware
     describe "#create" do
       context "given the created user is explicity assigned" do
         it "assigns the user who created the record" do
-          subject = Qux.create!(created_by: created_by_user, dummy: ":: created it ::")
+          subject = @klass.create!(created_by: created_by_user, dummy: ":: created it ::")
 
           expect(subject.created_by).to eq(created_by_user)
           expect(subject.updated_by).to eq(created_by_user)
@@ -28,7 +37,7 @@ module Renalware
         end
 
         it "assigns the user who created the record" do
-          subject = Qux.create!(dummy: ":: created it ::")
+          subject = @klass.create!(dummy: ":: created it ::")
 
           expect(subject.created_by).to eq(created_by_user)
           expect(subject.updated_by).to eq(created_by_user)
@@ -39,7 +48,7 @@ module Renalware
     describe "#updated_by" do
       let(:updated_by_user) { create(:user) }
 
-      subject! { Qux.create!(created_by: created_by_user, dummy: ":: created it ::") }
+      subject! { @klass.create!(created_by: created_by_user, dummy: ":: created it ::") }
 
       context "given the updated user is explicity assigned" do
         it "assigns the user who updated the record" do
@@ -52,7 +61,7 @@ module Renalware
       context "given the updated user is implicity assigned" do
         it "assigns the user who updated the record" do
           PaperTrail.whodunnit = created_by_user.id
-          subject = Qux.create!(dummy: ":: created it ::")
+          subject = @klass.create!(dummy: ":: created it ::")
           PaperTrail.whodunnit = updated_by_user.id
           subject.update(dummy: ":: updated_it ::")
 
