@@ -3,7 +3,7 @@ FactoryGirl.define do
     class: Renalware::Transplants::RegistrationStatus do
     description { create(:transplant_registration_status_description) }
     started_on Time.zone.today
-    created_by_id 0
-    updated_by_id 0
+    association :created_by,  factory: :user
+    association :updated_by,  factory: :user
   end
 end

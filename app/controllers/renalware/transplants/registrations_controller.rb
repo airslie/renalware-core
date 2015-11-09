@@ -13,7 +13,9 @@ module Renalware
       end
 
       def update
-        if @registration.update_attributes(registration_params)
+        @registration.attributes = registration_params
+        @registration.statuses.first.by = current_user if @registration.new_record?
+        if @registration.save
           redirect_to patient_transplants_dashboard_path(@patient)
         else
           render :edit

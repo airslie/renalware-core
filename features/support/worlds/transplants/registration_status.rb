@@ -35,19 +35,17 @@ module World
       # Commands
 
       def set_transplant_registration_status(patient:, user:, status:, started_on:)
-        PaperTrail.whodunnit = user.id
         registration = transplant_registration_for(patient)
         description = registration_status_description_named(status)
         registration.add_status!(
-          description: description, started_on: started_on
+          description: description, started_on: started_on, by: user
         )
       end
 
       def update_transplant_registration_status(patient:, user:, status:, started_on:)
-        PaperTrail.whodunnit = user.id
         registration = transplant_registration_for(patient)
         s = status_for_registration_and_name(registration, status)
-        registration.update_status!(s, started_on: started_on)
+        registration.update_status!(s, started_on: started_on, by: user)
       end
 
       def delete_transplant_registration_status(patient:, user:, status:)
