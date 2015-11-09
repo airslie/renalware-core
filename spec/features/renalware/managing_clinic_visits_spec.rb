@@ -36,8 +36,7 @@ module Renalware
     end
 
     scenario "Editing a clinic visit" do
-      clinic_visit = create(:clinic_visit)
-      @patient.clinic_visits << clinic_visit
+      clinic_visit = create(:clinic_visit, patient: @patient)
 
       visit edit_patient_clinic_visit_path(patient_id: @patient.to_param,
                                            id: clinic_visit.to_param)
