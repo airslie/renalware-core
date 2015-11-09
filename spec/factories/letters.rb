@@ -8,7 +8,7 @@ FactoryGirl.define do
     body 'I met with Mrs. Brown last Tuesay and I am pleased to report a marked improvement in her condition.'
     signature 'Dr. D.O. Good'
     association :recipient_address, factory: :address
-    association :author, factory: :user
+    association :author, factory: [:user, :author]
 
     trait(:review) do
       state 'review'

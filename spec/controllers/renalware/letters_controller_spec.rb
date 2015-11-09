@@ -40,7 +40,7 @@ module Renalware
 
     describe 'GET author' do
       before do
-        @author = create(:user)
+        @author = create(:user, :author)
         create(:letter, author: @author)
         get :author, { author_id: @author.to_param }
       end

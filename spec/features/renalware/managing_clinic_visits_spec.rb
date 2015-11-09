@@ -29,6 +29,9 @@ module Renalware
         within(".clinic-type") do
           expect(page).to have_content("Access")
         end
+        within(".created-by") do
+          expect(page).to have_content("Bevan")
+        end
       end
     end
 
