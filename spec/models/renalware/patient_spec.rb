@@ -79,7 +79,7 @@ module Renalware
       end
     end
 
-    describe "set_modality" do
+    describe "#set_modality" do
       let(:modality_description) { create(:modality_description) }
 
       context "given the patient has no modality" do
