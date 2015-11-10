@@ -8,7 +8,6 @@ Feature: Search for a Drug
       And there are drugs in the database
       And there are medication routes in the database
       And some patients who need renal treatment
-      And a patient has a medication
       And they add a medication
 
   @javascript

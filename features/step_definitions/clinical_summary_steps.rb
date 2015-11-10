@@ -32,34 +32,6 @@ Given(/^there are medication routes in the database$/) do
   @other_med_route = @medication_routes[4]
 end
 
-Given(/^a patient has a medication$/) do
-  @medication_one = FactoryGirl.create(:medication,
-    patient: @patient_1,
-    medicatable: @yellow,
-    dose: "10mg",
-    medication_route: @iv,
-    frequency: "Daily",
-    notes: "Must take with food",
-    start_date: "#{Date.current.year - 1}-11-01",
-    provider: 1
-  )
-
-  @medication_two = FactoryGirl.create(:medication,
-    patient: @patient_1,
-    medicatable: @blue,
-    dose: "20ml",
-    medication_route: @po,
-    frequency: "Twice Weekly",
-    notes: "Needs review in 6 months",
-    start_date: "#{Date.current.year}-01-02",
-    provider: 1
-  )
-
-  @patient_1.medications << @medication_one
-  @patient_1.medications << @medication_two
-
-end
-
 Given(/^I choose to add a modality$/) do
   visit new_patient_modality_path(@patient_1)
 end
@@ -107,13 +79,6 @@ When(/^complete the medication form by drug search$/) do
 
   find(:xpath, ".//*[@value='hospital']").set(true)
 
-  click_on "Save Medication"
-end
-
-When(/^they terminate a medication$/) do
-  visit patient_medications_path(@patient_1)
-  find("a.drug-esa").click
-  check "Terminate?"
   click_on "Save Medication"
 end
 
@@ -223,15 +188,6 @@ Then(/^should see the new medication on their medications index\.$/) do
     expect(page).to have_content("Twice weekly")
     expect(page).to have_content("02/02/#{Date.current.year}")
   end
-end
-
-Then(/^they should no longer see this medication in their clinical summary$/) do
-  expect(page).to have_no_content("Blue")
-end
-
-Then(/^should see this terminated medication in their medications history$/) do
-  visit medications_index_patient_path(@patient)
-  expect(page).to have_content?("Blue")
 end
 
 Then(/^I should see a patient's modality on their clinical summary$/) do
