@@ -2,9 +2,6 @@ require "rails_helper"
 
 module Renalware
   describe Modalities::Modality, type: :model do
-    it { should belong_to(:modality_description) }
-    it { should belong_to(:patient) }
-    it { should belong_to(:modality_reason) }
     it { should validate_presence_of :patient }
     it { should validate_presence_of :started_on }
     it { should validate_presence_of :modality_description }
