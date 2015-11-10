@@ -48,3 +48,10 @@ en:
         pancreas: Pancreas only
         kidney_liver: Kidney and liver
         liver: Liver only
+
+  simple_form:
+    hints:
+      transplants_registration:
+        document:
+          hla:
+            type: Freetext entry (not parsed)
