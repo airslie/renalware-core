@@ -15,12 +15,12 @@ RSpec.describe "Configuring Event Types", type: :request do
       it "creates a new record" do
         attributes = {name: "My Event"}
         post events_types_path, events_type: attributes
-        expect(response).to have_http_status(:redirect)
 
-        event_type = Renalware::Events::Type.find_by(attributes)
-        expect(event_type).to be_present
+        expect(response).to have_http_status(:redirect)
+        expect(Renalware::Events::Type.exists?(attributes)).to be_truthy
 
         follow_redirect!
+
         expect(response).to have_http_status(:success)
       end
     end
@@ -48,12 +48,12 @@ RSpec.describe "Configuring Event Types", type: :request do
       it "updates a record" do
         attributes = {name: "My Edited Event"}
         patch events_type_path(event_type), events_type: attributes
-        expect(response).to have_http_status(:redirect)
 
-        event_type = Renalware::Events::Type.find_by(attributes)
-        expect(event_type).to be_present
+        expect(response).to have_http_status(:redirect)
+        expect(Renalware::Events::Type.exists?(attributes)).to be_truthy
 
         follow_redirect!
+
         expect(response).to have_http_status(:success)
       end
     end
@@ -62,6 +62,7 @@ RSpec.describe "Configuring Event Types", type: :request do
       it "responds with a form" do
         attributes = {name: ""}
         patch events_type_path(event_type), events_type: attributes
+
         expect(response).to have_http_status(:success)
       end
     end
@@ -72,8 +73,7 @@ RSpec.describe "Configuring Event Types", type: :request do
       delete events_type_path(event_type)
       expect(response).to have_http_status(:redirect)
 
-      deleted_event_type = Renalware::Events::Type.find_by(id: event_type.id)
-      expect(deleted_event_type).to_not be_present
+      expect(Renalware::Events::Type.exists?(id: event_type.id)).to be_falsey
 
       follow_redirect!
       expect(response).to have_http_status(:success)
