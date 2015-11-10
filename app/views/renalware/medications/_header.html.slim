@@ -1,0 +1,8 @@
+= render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
+= render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
+
+h2 Medications
+
+dl.sub-nav
+  dd= link_to 'Current Medications', patient_medications_path(@patient)
+  dd= link_to 'Add medication', new_patient_medication_path(@patient)

@@ -1,0 +1,28 @@
+/! Same for both
+= pm.label :dose
+= pm.text_field :dose
+
+= pm.label :medication_route_id, "Route"
+= pm.collection_select :medication_route_id, Renalware::MedicationRoute.all, :id, :name, { prompt: "Please select route of administration" }, class: "medication-route-select }"
+
+= pm.label :frequency, "Frequency & Duration"
+= pm.text_field :frequency
+
+= pm.label :notes
+= pm.text_area :notes, cols: 50, rows: 6
+
+= pm.label :start_date, "Prescribed On"
+= pm.date_select(:start_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year], include_blank: true }, class: "datetime")
+
+= pm.label :end_date, "Terminated On"
+= pm.date_select(:end_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year], include_blank: true }, class: "datetime")
+
+= pm.label :provider
+
+- Renalware::Medication.providers.keys.map do |p|
+  ul.no-bullet.provider
+
+    li
+      = pm.radio_button :provider, p, class: "provider-#{p}", checked: default_provider(p)
+    li
+      = pm.label :provider, I18n.t("enums.provider.#{p}")

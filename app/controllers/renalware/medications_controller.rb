@@ -1,8 +1,14 @@
 module Renalware
   class MedicationsController < BaseController
-    before_action :load_patient, only: [:index, :update]
+    before_action :load_patient
 
     def index
+      render
+    end
+
+    def new
+      @medication = @patient.medications.build
+
       render
     end
 
