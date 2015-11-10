@@ -42,7 +42,7 @@ ruby:
       locals: { legend: "Transplant", name: "transplant" } do
       = fd.simple_fields_for :transplant, fd.object.transplant do |fcm|
         table.no-stripes
-          = fcm.input :blood_group
+          = render_input fcm, :blood_group
           = fcm.input :nb_of_previous_grafts, input_html: { class: "small-input" }
           = fcm.input :sens_status
 
