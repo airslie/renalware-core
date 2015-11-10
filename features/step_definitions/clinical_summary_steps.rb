@@ -167,12 +167,6 @@ When(/^I complete the cause of death form$/) do
   click_on "Save Cause of Death"
 end
 
-Then(/^they should see the new patient event on the clinical summary$/) do
-  %w(01/01/2011, 11:30 Telephone call Spoke to son ).each do |heading|
-    expect(page).to have_content(heading), "Expected #{heading} to be in the view"
-  end
-end
-
 Then(/^be able to view notes through toggling the description data\.$/) do
   expect(page).to have_content("Wants to arrange a home visit")
 end
