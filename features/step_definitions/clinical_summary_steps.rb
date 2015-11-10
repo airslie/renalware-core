@@ -20,10 +20,6 @@ Given(/^there are medication routes in the database$/) do
   @other_med_route = @medication_routes[4]
 end
 
-Given(/^I choose to add a modality$/) do
-  visit new_patient_modality_path(@patient_1)
-end
-
 When(/^they add a medication$/) do
   visit patient_medications_path(@patient_1)
   click_link "Add a new medication"
