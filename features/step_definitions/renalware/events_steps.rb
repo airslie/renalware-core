@@ -1,78 +1,52 @@
-Given(/^they are adding a new patient event$/) do
-  visit new_event_path
-end
 
-Given(/^they are on the existing patient event types page$/) do
-  visit event_types_path
-end
-
-Given(/^there are existing patient event types in the database$/) do
-  @event_types = ["Telephone call", "Email", "Meeting with family"]
-  @event_types.map { |t| @pet = Renalware::Events::Type.create!(name: t) }
-end
-
-When(/^they edit a patient event type$/) do
-  visit edit_event_type_path(@pet)
-end
-
-When(/^they complete the edit patient event type form$/) do
-  fill_in "New Patient Event Type", with: "I am an updated new patient event"
-  click_on "Update Patient Event Type"
-end
-
-When(/^they add a new patient event type$/) do
-  click_on "Add a New Event Type"
-end
-
-When(/^they complete the add a new patient event type form$/) do
-  fill_in "New Patient Event Type", with: "I am a new patient event type"
-  click_on "Save New Patient Event Type"
-end
-
-When(/^they delete a patient event type$/) do
-  find("##{@pet.id}-pet").click
-end
-
-Then(/^they should see the deleted event type removed from the existing event type list$/) do
-  expect(page).to have_no_content("Meeting with family")
-end
-
-Then(/^they should see the new patient event type added to the patient event type list$/) do
-  expect(page).to have_content?("I am a new patient event type")
-end
-
-Then(/^they should see the updated event type on the existing patient event type list$/) do
-  expect(page).to have_content?("I am an updated new patient event")
-end
-
-When(/^they choose to add a patient event$/) do
-  visit new_patient_event_path(@patient_1)
-end
-
-When(/^complete the patient event form$/) do
-  within "#events_event_date_time_3i" do
-    select "1"
+Given(/^there are existing event types in the database$/) do
+  %w(Phone Email Clinic Meeting).each do |name|
+    instance_variable_set(:"@#{name.downcase}", FactoryGirl.create(:events_type, name: name))
   end
+end
 
-  within "#events_event_date_time_2i" do
-    select "January"
-  end
+Given(/^Clyde is logged in$/) do
+  login_as @clyde
+end
 
-  within "#events_event_date_time_1i" do
-    select "2011"
-  end
+Given(/^Clyde is on Patty's event index$/) do
+  visit patient_events_path(@patty)
+end
 
-  within "#events_event_date_time_4i" do
-    select "11"
-  end
-  within "#events_event_date_time_5i" do
-    select "30"
-  end
+When(/^Clyde chooses to add an event$/) do
+  click_on "Add event"
+end
 
-  select "Telephone call", from: "Patient Event Type"
+When(/^records Patty's event$/) do
+  select "20", from: "events_event_date_time_3i"
+  select "April", from: "events_event_date_time_2i"
+  select Date.current.year, from: "events_event_date_time_1i"
 
-  fill_in "Description", with: "Spoke to Son"
-  fill_in "Notes", with: "Wants to arrange a home visit"
+  select "10", from: "events_event_date_time_4i"
+  select "45", from: "events_event_date_time_5i"
+
+  select "Email", from: "Patient Event Type"
+
+  fill_in "Description", with: "Discussed meeting to be set up with family."
+
+  fill_in "Notes", with: "Patty to speak to family before meeting set up."
 
   click_on "Save"
+end
+
+Then(/^Clyde should see Patty's new event on the clinical summary$/) do
+  expect(page).to have_content("20/04/#{Date.current.year}")
+  expect(page).to have_content("10:45")
+  expect(page).to have_content("Email")
+  expect(page).to have_content("Discussed meeting to be set up with family.")
+  expect(page).to have_content("Patty to speak to family before meeting set up.")
+end
+
+Then(/^see Patty's new event in her event index$/) do
+  visit patient_events_path(@patty)
+  expect(page).to have_content("20/04/#{Date.current.year}")
+  expect(page).to have_content("10:45")
+  expect(page).to have_content("Email")
+  expect(page).to have_content("Discussed meeting to be set up with family.")
+  expect(page).to have_content("Patty to speak to family before meeting set up.")
 end

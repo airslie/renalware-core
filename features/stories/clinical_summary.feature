@@ -9,15 +9,6 @@ Background:
     And some patients who need renal treatment
     And they are on a patient's clinical summary
 
-Scenario: Doctor adds a patient event
-  Note: Event also known as an 'encounter'
-
-  Given there are existing patient event types in the database
-  When they choose to add a patient event
-    And complete the patient event form
-  Then they should see the new patient event on the clinical summary
-    And be able to view notes through toggling the description data.
-
 @javascript
 Scenario: Doctor adds a problem
   Given they go to the problem list page
