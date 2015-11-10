@@ -42,8 +42,9 @@ module Renalware
     end
 
     describe "updating patient date of death" do
+      subject!{ create(:patient) }
+
       it "should still retain patient details" do
-        subject
         expect { subject.update(died_on: "2015-02-25") }.to change(Patient, :count).by(0)
       end
     end
