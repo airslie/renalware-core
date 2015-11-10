@@ -104,8 +104,9 @@ module Renalware
       systolic_bp: 110 + n,
       diastolic_bp: 68 + n,
       date: n.days.ago.change({ hour: (10 + (2 * n)), min: 0 }),
-      created_by: user
-    )
+    ) do |cv|
+      cv.by = user
+    end
 
     rabbit.clinic_visits << clinic_visit
   end
