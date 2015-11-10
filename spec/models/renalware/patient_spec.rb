@@ -6,31 +6,6 @@ module Renalware
 
     it_behaves_like "Personable"
 
-    it { should have_one :esrf }
-    it { should have_one :current_modality }
-    it { should have_one(:modality_description).through(:current_modality) }
-
-    it { should have_many :exit_site_infections }
-    it { should have_many :peritonitis_episodes }
-    it { should have_many :problems }
-    it { should have_many :peritonitis_episodes }
-    it { should have_many :exit_site_infections }
-    it { should have_many :medications }
-    it { should have_many :modalities }
-    it { should have_many :pd_regimes }
-    it { should have_many :letters }
-    it { should have_many :clinic_visits }
-
-    it { should have_many(:drugs).through(:medications).source(:medicatable) }
-    it { should have_many(:exit_site_infections).through(:medications).source(:treatable) }
-    it { should have_many(:peritonitis_episodes).through(:medications).source(:treatable) }
-    it { should have_many(:medication_routes).through(:medications) }
-
-    it { should accept_nested_attributes_for(:current_address) }
-    it { should accept_nested_attributes_for(:address_at_diagnosis) }
-    it { should accept_nested_attributes_for(:medications) }
-    it { should accept_nested_attributes_for(:problems) }
-
     it { should validate_presence_of :nhs_number }
     it { should validate_uniqueness_of :nhs_number }
     it { should ensure_length_of(:nhs_number).is_at_least(10) }
