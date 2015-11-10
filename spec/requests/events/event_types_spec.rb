@@ -13,7 +13,7 @@ RSpec.describe "Configuring Event Types", type: :request do
   describe "POST create" do
     context "given valid attributes" do
       it "creates a new record" do
-        attributes = {name: "My Event"}
+        attributes = attributes_for(:events_type)
         post events_types_path, events_type: attributes
 
         expect(response).to have_http_status(:redirect)
