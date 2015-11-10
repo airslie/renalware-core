@@ -3,7 +3,7 @@ require_dependency "renalware/transplants"
 module Renalware
   module Transplants
     class RegistrationStatus < ActiveRecord::Base
-      include Blameable
+      include Accountable
 
       belongs_to :description, class_name: "RegistrationStatusDescription"
 

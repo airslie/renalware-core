@@ -1,6 +1,6 @@
 module Renalware
   class ClinicVisit < ActiveRecord::Base
-    include Blameable
+    include Accountable
 
     belongs_to :patient
     belongs_to :clinic_type

@@ -1,7 +1,7 @@
 require_dependency "renalware"
 
 module Renalware
-  module Blameable
+  module Accountable
     extend ActiveSupport::Concern
 
     included do

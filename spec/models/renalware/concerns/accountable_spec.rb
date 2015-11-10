@@ -1,11 +1,11 @@
 require "rails_helper"
 
 module Renalware
-  describe Blameable do
+  describe Accountable do
     before do
       @klass = Class.new(ActiveRecord::Base) do
         self.table_name = "quxes"
-        include Blameable
+        include Accountable
 
         def self.name
           "Qux"
