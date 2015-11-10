@@ -7,13 +7,6 @@ Background:
     And they are on a patient's clinical summary
 
 @javascript
-Scenario: Doctor adds a problem
-  Given they go to the problem list page
-    When they add some problems to the list
-  When they save the problem list
-  Then they should see the new problems on the clinical summary
-
-@javascript
 Scenario: Doctor adds a medication for a patient
   Given there are drugs in the database
     And there are drug types in the database
