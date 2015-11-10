@@ -6,9 +6,6 @@ module Renalware
       self.table_name = "modality_descriptions"
       acts_as_paranoid
 
-      has_many :modalities
-      has_many :patients, through: :modalities
-
       validates :name, presence: true
       validates :code, presence: true
 
