@@ -1,9 +1,12 @@
 module Renalware
   class BloodGroup < NestedAttribute
-    attribute :value, enums: %i(a aplus aminus b bplus bminus ab abplus abminus o oplus ominus)
+    OPTIONS = %w(A A+ A- B B+ B- AB AB+ AB- O O+ O-)
+
+    attribute :value, String
 
     def to_s
-      value.try(:text)
+      value
     end
   end
 end
+
