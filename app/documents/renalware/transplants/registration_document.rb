@@ -17,7 +17,7 @@ module Renalware
       attribute :crf, CRF
 
       class Transplant < Document::Embedded
-        attribute :blood_group
+        attribute :blood_group, BloodGroup
         attribute :nb_of_previous_grafts, Integer
         attribute :sens_status
       end

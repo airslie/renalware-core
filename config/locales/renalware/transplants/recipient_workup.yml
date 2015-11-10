@@ -79,6 +79,7 @@ en:
         full: Full
         partial: Partial
         refused: Refused transplant
+
   simple_form:
     hints:
       transplants_recipient_workup:

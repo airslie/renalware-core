@@ -1,0 +1,16 @@
+en:
+  enumerize:
+    renalware/blood_group:
+      value:
+        a: A
+        aplus: A+
+        aminus: A-
+        b: B
+        bplus: B+
+        bminus: B-
+        ab: AB
+        abplus: AB+
+        abminus: AB-
+        o: O
+        oplus: O+
+        ominus: O-
