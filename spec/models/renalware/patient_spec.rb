@@ -25,12 +25,14 @@ module Renalware
     describe "current modality death" do
       context "if current modality is death" do
         before { allow(subject).to receive(:current_modality_death?).and_return(true) }
+
         it { expect(subject).to validate_presence_of(:died_on) }
         it { expect(subject).to validate_presence_of(:first_edta_code_id) }
       end
 
       context "if current modality is not death" do
         before { allow(subject).to receive(:current_modality_death?).and_return(false) }
+
         it { expect(subject).not_to validate_presence_of(:died_on) }
         it { expect(subject).not_to validate_presence_of(:first_edta_code_id) }
       end
@@ -38,6 +40,7 @@ module Renalware
 
     it "validates sex" do
       subject.sex = "X"
+
       expect(subject).to be_invalid
     end
 
@@ -70,8 +73,8 @@ module Renalware
 
       it "deserializes gender" do
         subject.sex = Gender.new("F")
-        subject.save!
-        subject.reload
+        subject.save! and subject.reload
+
         expect(subject.sex.code).to eq "F"
       end
     end
@@ -82,6 +85,7 @@ module Renalware
       context "given the patient has no modality" do
         it "creates a patient modality on the patient" do
           subject.set_modality(description: modality_description, started_on: Time.zone.today)
+
           expect(subject.reload.current_modality).not_to be_nil
           expect(subject.modalities).not_to be_empty
         end
@@ -105,8 +109,6 @@ module Renalware
           expect(subject.current_modality.ended_on).to be_nil
         end
       end
-
     end
-
   end
 end
