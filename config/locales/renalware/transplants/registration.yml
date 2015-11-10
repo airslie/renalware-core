@@ -38,7 +38,7 @@ en:
       renalware/transplants/registration_document/consent:
         value: NHB Consent
         consented_on: Date Consent Asked
-        name: Consent By
+        name: Consent Obtained By
 
   enumerize:
     renalware/transplants/registration_document/organs:
