@@ -795,8 +795,8 @@ ALTER SEQUENCE medications_id_seq OWNED BY medications.id;
 CREATE TABLE modalities (
     id integer NOT NULL,
     patient_id integer,
-    modality_code_id integer,
-    modality_reason_id integer,
+    description_id integer,
+    reason_id integer,
     modal_change_type character varying,
     notes text,
     started_on date,
@@ -827,14 +827,13 @@ ALTER SEQUENCE modalities_id_seq OWNED BY modalities.id;
 
 
 --
--- Name: modality_codes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: modality_descriptions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE modality_codes (
+CREATE TABLE modality_descriptions (
     id integer NOT NULL,
-    code character varying,
-    name character varying,
-    site character varying,
+    code character varying NOT NULL,
+    name character varying NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -842,10 +841,10 @@ CREATE TABLE modality_codes (
 
 
 --
--- Name: modality_codes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: modality_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE modality_codes_id_seq
+CREATE SEQUENCE modality_descriptions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -854,10 +853,10 @@ CREATE SEQUENCE modality_codes_id_seq
 
 
 --
--- Name: modality_codes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: modality_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE modality_codes_id_seq OWNED BY modality_codes.id;
+ALTER SEQUENCE modality_descriptions_id_seq OWNED BY modality_descriptions.id;
 
 
 --
@@ -1811,7 +1810,7 @@ ALTER TABLE ONLY modalities ALTER COLUMN id SET DEFAULT nextval('modalities_id_s
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY modality_codes ALTER COLUMN id SET DEFAULT nextval('modality_codes_id_seq'::regclass);
+ALTER TABLE ONLY modality_descriptions ALTER COLUMN id SET DEFAULT nextval('modality_descriptions_id_seq'::regclass);
 
 
 --
@@ -2138,11 +2137,11 @@ ALTER TABLE ONLY modalities
 
 
 --
--- Name: modality_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: modality_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY modality_codes
-    ADD CONSTRAINT modality_codes_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY modality_descriptions
+    ADD CONSTRAINT modality_descriptions_pkey PRIMARY KEY (id);
 
 
 --

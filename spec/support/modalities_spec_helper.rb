@@ -15,7 +15,7 @@ MODALITIES = [
 
 def load_modalities(*modalities)
   modalities.each do |modality|
-    instance_variable_set(:"@#{modality[0].downcase}", create(:modality_code, code: modality[0], name: modality[1]))
+    instance_variable_set(:"@#{modality[0].downcase}", create(:modality_description, code: modality[0], name: modality[1]))
   end
 end
 

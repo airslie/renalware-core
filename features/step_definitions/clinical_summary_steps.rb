@@ -1,15 +1,3 @@
-Given(/^there are modality reasons in the database$/) do
-  @modality_reasons = [
-    [nil, nil, "Other"],
-    ["PDToHaemodialysis", 111, "Reason One"],
-    ["HaemodialysisToPD", 222, "Reason Two"]
-  ]
-  @modality_reasons.map! do |mr|
-    type = mr[0] ? "Renalware::#{mr[0]}" : nil
-    @modality_reason = Renalware::ModalityReason.create!(:type => type, :rr_code => mr[1], :description => mr[2])
-  end
-end
-
 Given(/^there are edta causes of death in the database$/) do
   FactoryGirl.create(:edta_code, code: 100, :death_cause => "Death cause one")
   FactoryGirl.create(:edta_code, code: 200, :death_cause => "Death cause two")
@@ -30,10 +18,6 @@ Given(/^there are medication routes in the database$/) do
   @sc = @medication_routes[2]
   @im = @medication_routes[3]
   @other_med_route = @medication_routes[4]
-end
-
-Given(/^I choose to add a modality$/) do
-  visit new_patient_modality_path(@patient_1)
 end
 
 When(/^they add a medication$/) do
@@ -80,36 +64,6 @@ When(/^complete the medication form by drug search$/) do
   find(:xpath, ".//*[@value='hospital']").set(true)
 
   click_on "Save Medication"
-end
-
-When(/^I complete the modality form$/) do
-
-  within "#modality-code-select" do
-    select "Modal One"
-  end
-
-  select "PD To Haemodialysis", :from => "Type of Change"
-  select "Reason One", :from => "Reason for Change"
-
-  select "2014", from: "modality_started_on_1i"
-  select "December", from: "modality_started_on_2i"
-  select "1", from: "modality_started_on_3i"
-
-  fill_in "Notes", :with => "Needs wheel chair access"
-
-  click_on "Save"
-end
-
-When(/^I select death modality$/) do
-  within "#modality-code-select" do
-    select "Death"
-  end
-
-  select "2015", from: "modality_started_on_1i"
-  select "April", from: "modality_started_on_2i"
-  select "1", from: "modality_started_on_3i"
-
-  click_on "Save"
 end
 
 When(/^I complete the cause of death form$/) do
@@ -202,11 +156,3 @@ Then(/^I should see the patient on the death list$/) do
     expect(page).to have_content("Male")
   end
 end
-
-Then(/^I should see the patient's current modality set as death with set date$/) do
-  visit patient_modalities_path(@patient_1)
-
-  expect(page).to have_content("Death")
-  expect(page).to have_content("01/04/2015")
-end
-

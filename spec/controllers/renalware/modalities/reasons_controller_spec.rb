@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Renalware
-  describe ModalityReasonsController, :type => :controller do
+  describe Modalities::ReasonsController, type: :controller do
 
     describe 'GET index' do
       it 'responds with success' do

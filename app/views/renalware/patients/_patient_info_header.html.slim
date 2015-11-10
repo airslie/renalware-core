@@ -4,5 +4,5 @@ h1#patient-header-info
   = "Age: #{@patient.age}, "
   = "#{@patient.sex}, "
   = "DoB: #{@patient.born_on}, "
-  = "#{@patient.current_modality.blank? || @patient.current_modality.new_record? ? "No Modal" : @patient.current_modality.modality_code.name}"
+  = "#{@patient.current_modality.blank? || @patient.current_modality.new_record? ? "No Modal" : @patient.current_modality.description.name}"
 = render partial: "renalware/patients/patient_sub_nav", locals: { model: @patient }

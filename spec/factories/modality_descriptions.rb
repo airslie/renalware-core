@@ -3,7 +3,7 @@ FactoryGirl.define do
     100 + n
   end
 
-  factory :modality_code, class: "Renalware::ModalityCode" do
+  factory :modality_description, class: "Renalware::Modalities::Description" do
     code
     name 'CAPD (disconnect)'
 

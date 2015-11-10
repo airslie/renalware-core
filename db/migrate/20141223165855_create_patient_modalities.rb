@@ -2,8 +2,8 @@ class CreatePatientModalities < ActiveRecord::Migration
   def change
     create_table :modalities do |t|
       t.integer :patient_id
-      t.integer :modality_code_id
-      t.integer :modality_reason_id
+      t.integer :description_id
+      t.integer :reason_id
       t.string :modal_change_type
       t.text :notes
       t.date :started_on

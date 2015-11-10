@@ -1,13 +1,10 @@
 require "rails_helper"
 
 module Renalware
-  describe Modality, :type => :model do
-    it { should belong_to(:modality_code) }
-    it { should belong_to(:patient) }
-    it { should belong_to(:modality_reason) }
+  describe Modalities::Modality, type: :model do
     it { should validate_presence_of :patient }
     it { should validate_presence_of :started_on }
-    it { should validate_presence_of :modality_code }
+    it { should validate_presence_of :description }
 
     describe "validate start date based on previous modalities" do
       let!(:another_patients_modality) { create(:modality, started_on: Date.parse("2015-06-02")) }
@@ -61,8 +58,8 @@ module Renalware
       let(:started_on) { Date.parse("2015-04-21") }
 
       before do
-        modality_code = FactoryGirl.create(:modality_code, :capd_standard)
-        @actual = subject.transfer!(modality_code: modality_code, notes: "Some notes", started_on: started_on)
+        modality_description = FactoryGirl.create(:modality_description, :capd_standard)
+        @actual = subject.transfer!(description: modality_description, notes: "Some notes", started_on: started_on)
       end
 
       it "updates the end date" do

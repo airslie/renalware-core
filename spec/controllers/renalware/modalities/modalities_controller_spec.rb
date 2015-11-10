@@ -1,7 +1,7 @@
 require "rails_helper"
 
 module Renalware
-  describe ModalitiesController, :type => :controller do
+  describe Modalities::ModalitiesController, type: :controller do
 
     before do
       @patient = create(:patient)
@@ -24,7 +24,7 @@ module Renalware
           expect(response).to be_success
         end
         it "assigns a new PatientModality" do
-          expect(assigns(:modality)).to be_a(Modality)
+          expect(assigns(:modality)).to be_a(Modalities::Modality)
         end
       end
     end
@@ -54,11 +54,11 @@ module Renalware
     describe "create" do
       context "with a valid modality" do
         it "succeeds" do
-          modality_code = create(:modality_code)
+          modality_description = create(:modality_description)
           post :create,
             patient_id: @patient.to_param,
             modality: {
-              modality_code_id: modality_code.to_param,
+              description_id: modality_description.to_param,
               started_on: "2015-04-21",
               notes: "Notes"
             }
@@ -69,7 +69,7 @@ module Renalware
 
       context "with an invalid modality" do
         it "fails" do
-          modality_code = create(:modality_code)
+          modality_description = create(:modality_description)
           post :create,
             patient_id: @patient.to_param,
             modality: { notes: "Notes" }
@@ -79,11 +79,11 @@ module Renalware
 
         context "and death modality" do
           before do
-            death_modality_code = create(:modality_code, name: "Death")
+            death_modality_description = create(:modality_description, name: "Death")
             post :create,
             patient_id: @patient.to_param,
             modality: {
-              modality_code_id: death_modality_code.to_param,
+              description_id: death_modality_description.to_param,
               started_on: "2015-04-22",
               notes: "Death notes"
             }
