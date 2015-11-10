@@ -1,6 +1,16 @@
 require_dependency "renalware"
 
 module Renalware
+  # Reponsible for assigning a system user to the record when it is created
+  # and updated.
+  #
+  # @example
+  #
+  #   clinic_visit = ClinicVisit.new(by: current_user)
+  #   clinic_visit.save!
+  #   clinic_visit.created_by == current_user # => true
+  #   clinic_visit.updated_by == current_user # => true
+  #
   module Accountable
     extend ActiveSupport::Concern
 
