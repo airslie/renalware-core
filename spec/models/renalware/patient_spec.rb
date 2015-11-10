@@ -52,17 +52,19 @@ module Renalware
       end
     end
 
-    describe "updating with nested attributes containing _destroy" do
-      it "should soft delete the associated record" do
+    describe "#update" do
+      describe "given _destroy is specified within nested attributes" do
+        let(:medication) { FactoryGirl.create(:medication, patient: subject) }
+        let(:medication_attributes) do
+          {"0" => { id: medication.id, dose: "a lot", _destroy: "1" } }
+        end
 
-        medication = FactoryGirl.create(:medication, patient: subject)
-        subject.medications << medication
+        it "soft deletes the associated record" do
+          subject.update(medications_attributes: medication_attributes)
 
-        subject.update(medications_attributes: {
-          "0" => { id: medication.id, dose: "a lot", _destroy: "1" } })
-
-        expect(subject.medications.with_deleted.first).to eq(medication)
-        expect(subject.medications.with_deleted.first.deleted_at).not_to be nil
+          expect(subject.medications.with_deleted.first).to eq(medication)
+          expect(subject.medications.with_deleted.first.deleted_at).not_to be nil
+        end
       end
     end
 
