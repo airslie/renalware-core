@@ -1,4 +1,4 @@
-"patient_id","modality_code_id","modality_reason_id","modal_change_type","started_on","ended_on"
+"patient_id","modality_code_id","reason_id","modal_change_type","started_on","ended_on"
 1,11,NULL,NULL,"2015-03-02","2015-06-02"
 1,9,NULL,NULL,"2015-07-02","2015-07-12"
 1,14,NULL,NULL,"2015-09-02","2015-09-12"

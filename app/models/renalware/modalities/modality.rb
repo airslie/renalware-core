@@ -8,7 +8,7 @@ module Renalware
 
       belongs_to :modality_description, class_name: "Description"
       belongs_to :patient
-      belongs_to :modality_reason, class_name: "Reason"
+      belongs_to :reason, class_name: "Reason"
 
       scope :ordered, -> { order(ended_on: :desc) }
 

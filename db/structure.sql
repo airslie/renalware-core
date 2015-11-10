@@ -796,7 +796,7 @@ CREATE TABLE modalities (
     id integer NOT NULL,
     patient_id integer,
     modality_description_id integer,
-    modality_reason_id integer,
+    reason_id integer,
     modal_change_type character varying,
     notes text,
     started_on date,

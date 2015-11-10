@@ -31,7 +31,7 @@ module Renalware
     Modalities::Modality.find_or_create_by!(
       patient_id: rabbit.to_param,
       modality_description_id: row['modality_code_id'],
-      modality_reason_id: row['modality_reason_id']) do |mod|
+      reason_id: row['reason_id']) do |mod|
         mod.modal_change_type   = row['modal_change_type']
         mod.started_on          = row['started_on']
         mod.ended_on            = row['ended_on']
