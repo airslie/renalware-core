@@ -92,16 +92,16 @@ module Renalware
       end
 
       context "given the patient has an existing modality" do
+        let!(:modality) { create(:modality, patient: subject) }
+
         before do
-          @modality = create(:modality)
-          subject.modalities << @modality
           subject.set_modality(description: modality_description, started_on: Date.parse("2015-04-17"))
           subject.reload
         end
 
         it "supersedes the existing modality" do
-          expect(@modality.reload.ended_on).to eq(Date.parse("2015-04-17"))
-          expect(subject.current_modality).not_to eq(@modality)
+          expect(modality.reload.ended_on).to eq(Date.parse("2015-04-17"))
+          expect(subject.current_modality).not_to eq(modality)
         end
 
         it "sets a new modality for the patient" do
