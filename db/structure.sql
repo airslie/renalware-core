@@ -795,7 +795,7 @@ ALTER SEQUENCE medications_id_seq OWNED BY medications.id;
 CREATE TABLE modalities (
     id integer NOT NULL,
     patient_id integer,
-    modality_description_id integer,
+    description_id integer,
     reason_id integer,
     modal_change_type character varying,
     notes text,

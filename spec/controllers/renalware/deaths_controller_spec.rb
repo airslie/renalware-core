@@ -9,7 +9,7 @@ module Renalware
       @edta_code = FactoryGirl.create(:edta_code)
       @modality_description = FactoryGirl.create(:modality_description, :death)
       @patient_modality = FactoryGirl.create(:modality,
-        patient_id: subject.id, modality_description: @modality_description)
+        patient_id: subject.id, description: @modality_description)
     end
 
     describe "index" do

@@ -17,8 +17,8 @@
         = m.hidden_field :patient_id
 
         li
-          = m.label :modality_description_id, "Modality"
-          = m.collection_select :modality_description_id, Renalware::Modalities::Description.all, :id, :name, {}, id: "modality-description-select"
+          = m.label :description_id, "Modality"
+          = m.collection_select :description_id, Renalware::Modalities::Description.all, :id, :name, {}, id: "modality-description-select"
 
         li.hide-death
           = m.label :modal_change_type, "Type of Change"

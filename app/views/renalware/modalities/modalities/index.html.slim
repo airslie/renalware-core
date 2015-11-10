@@ -13,7 +13,7 @@
     tbody
       - @modalities.each do |modality|
         tr
-          td= modality.modality_description.name
+          td= modality.description.name
           td= modality.notes
           td= modality.started_on
           td= modality.ended_on

@@ -58,7 +58,7 @@ module Renalware
           post :create,
             patient_id: @patient.to_param,
             modality: {
-              modality_description_id: modality_description.to_param,
+              description_id: modality_description.to_param,
               started_on: "2015-04-21",
               notes: "Notes"
             }
@@ -83,7 +83,7 @@ module Renalware
             post :create,
             patient_id: @patient.to_param,
             modality: {
-              modality_description_id: death_modality_description.to_param,
+              description_id: death_modality_description.to_param,
               started_on: "2015-04-22",
               notes: "Death notes"
             }

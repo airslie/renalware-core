@@ -5,7 +5,7 @@ module Renalware
     end
 
     def display_pd_menu(patient_modalities)
-      patient_modalities.map { |m|m.modality_description.pd_modality? }.include? true
+      patient_modalities.map { |m|m.description.pd_modality? }.include? true
     end
 
   end

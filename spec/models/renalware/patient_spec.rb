@@ -105,7 +105,7 @@ module Renalware
 
       context "given the patient has no modality" do
         it "creates a patient modality on the patient" do
-          subject.set_modality(modality_description: modality_description, started_on: Time.zone.today)
+          subject.set_modality(description: modality_description, started_on: Time.zone.today)
           expect(subject.reload.current_modality).not_to be_nil
           expect(subject.modalities).not_to be_empty
         end
@@ -115,7 +115,7 @@ module Renalware
         before do
           @modality = create(:modality)
           subject.modalities << @modality
-          subject.set_modality(modality_description: modality_description, started_on: Date.parse("2015-04-17"))
+          subject.set_modality(description: modality_description, started_on: Date.parse("2015-04-17"))
           subject.reload
         end
 

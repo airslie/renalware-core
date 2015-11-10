@@ -4,7 +4,7 @@ module Renalware
   describe Modalities::Modality, type: :model do
     it { should validate_presence_of :patient }
     it { should validate_presence_of :started_on }
-    it { should validate_presence_of :modality_description }
+    it { should validate_presence_of :description }
 
     describe "validate start date based on previous modalities" do
       let!(:another_patients_modality) { create(:modality, started_on: Date.parse("2015-06-02")) }
@@ -59,7 +59,7 @@ module Renalware
 
       before do
         modality_description = FactoryGirl.create(:modality_description, :capd_standard)
-        @actual = subject.transfer!(modality_description: modality_description, notes: "Some notes", started_on: started_on)
+        @actual = subject.transfer!(description: modality_description, notes: "Some notes", started_on: started_on)
       end
 
       it "updates the end date" do
