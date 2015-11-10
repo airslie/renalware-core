@@ -16,13 +16,13 @@ module Renalware
           let(:patient) { create(:patient) }
 
           it "creates the status at the same time" do
-            PaperTrail.whodunnit = clinician.id
             params = {
               patient_id: patient.id,
               statuses_attributes: {
                 "0": {
                   started_on: "03-11-2015",
-                  description_id: status_description.id
+                  description_id: status_description.id,
+                  by: clinician
                 }
               }
             }
@@ -43,7 +43,7 @@ module Renalware
 
       describe "#add_status!" do
         it "returns the new status" do
-          status = registration.add_status!({})
+          status = registration.add_status!(by: clinician)
           expect(status).to be_a(RegistrationStatus)
         end
 
@@ -52,7 +52,8 @@ module Renalware
 
           registration.add_status!(
             description: status_description,
-            started_on: Time.zone.today
+            started_on: Time.zone.today,
+            by: clinician
           )
           expect(status.reload).to be_terminated
         end
@@ -66,7 +67,7 @@ module Renalware
 
       describe "#update_status!" do
         it "returns the updated status" do
-          status = registration.update_status!(earliest_status, {})
+          status = registration.update_status!(earliest_status, by: clinician)
 
           expect(status).to be_a(RegistrationStatus)
         end
@@ -74,7 +75,7 @@ module Renalware
         it "updates the status with given parameters" do
           datestamp = earliest_status.started_on + 1.day
 
-          registration.update_status!(earliest_status, started_on: datestamp)
+          registration.update_status!(earliest_status, started_on: datestamp, by: clinician)
 
           expect(earliest_status.reload.started_on).to eq(datestamp)
         end

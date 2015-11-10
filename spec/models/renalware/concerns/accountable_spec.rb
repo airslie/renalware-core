@@ -1,11 +1,11 @@
 require "rails_helper"
 
 module Renalware
-  describe Blameable do
+  describe Accountable do
     before do
       @klass = Class.new(ActiveRecord::Base) do
         self.table_name = "quxes"
-        include Blameable
+        include Accountable
 
         def self.name
           "Qux"
@@ -32,12 +32,8 @@ module Renalware
       end
 
       context "given the user is implicity assigned" do
-        before do
-          PaperTrail.whodunnit = created_by_user.id
-        end
-
         it "assigns the user who created the record" do
-          subject = @klass.create!(dummy: ":: created it ::")
+          subject = @klass.create!(by: created_by_user, dummy: ":: created it ::")
 
           expect(subject.created_by).to eq(created_by_user)
           expect(subject.updated_by).to eq(created_by_user)
@@ -60,10 +56,8 @@ module Renalware
 
       context "given the updated user is implicity assigned" do
         it "assigns the user who updated the record" do
-          PaperTrail.whodunnit = created_by_user.id
-          subject = @klass.create!(dummy: ":: created it ::")
-          PaperTrail.whodunnit = updated_by_user.id
-          subject.update(dummy: ":: updated_it ::")
+          subject = @klass.create!(by: created_by_user, dummy: ":: created it ::")
+          subject.update(by: updated_by_user, dummy: ":: updated_it ::")
 
           expect(subject.updated_by).to eq(updated_by_user)
         end

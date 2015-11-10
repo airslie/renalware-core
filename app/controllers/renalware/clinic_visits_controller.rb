@@ -43,7 +43,7 @@ module Renalware
       params.require(:clinic_visit).permit(
         :date, :clinic_type_id, :height, :weight,
         :bp, :urine_blood, :urine_protein, :notes
-      )
+      ).merge(by: current_user)
     end
 
     def load_clinic_visit

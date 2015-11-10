@@ -3,9 +3,9 @@ require 'rails_helper'
 module Renalware
   describe ClinicVisitsController, type: :controller do
 
-    let(:clinic_visit) { create(:clinic_visit) }
     let(:clinic_type) { create(:clinic_type) }
-    let(:patient) { create(:patient, clinic_visits: [clinic_visit]) }
+    let(:patient) { create(:patient) }
+    let!(:clinic_visit) { create(:clinic_visit, patient: patient) }
 
     describe 'GET index' do
       before do

@@ -10,13 +10,26 @@ module World
       # Set-ups
 
       def set_up_patient_on_wait_list(patient)
-        PaperTrail.whodunnit = Renalware::User.first.id
         Renalware::Transplants::Registration.create!(
           patient: patient,
           statuses_attributes: {
             "0": {
               started_on: "03-11-2015",
-              description_id: registration_status_description_named("Active").id
+              description_id: registration_status_description_named("Active").id,
+              by: Renalware::User.first
+            }
+          }
+        )
+      end
+
+      def set_up_patient_on_wait_list(patient)
+        Renalware::Transplants::Registration.create!(
+          patient: patient,
+          statuses_attributes: {
+            "0": {
+              started_on: "03-11-2015",
+              description_id: registration_status_description_named("Active").id,
+              by: Renalware::User.first
             }
           }
         )
@@ -25,7 +38,6 @@ module World
       # Commands
 
       def create_transplant_registration(user:, patient:, status:, started_on:)
-        PaperTrail.whodunnit = user.id
         description = registration_status_description_named(status)
         Renalware::Transplants::Registration.create(
           patient: patient,
@@ -33,6 +45,7 @@ module World
             "0": {
               started_on: started_on,
               description_id: description.id,
+              by: user
             }
           }
         )
