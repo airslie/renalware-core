@@ -28,17 +28,6 @@ Scenario: Doctor adds a medication for a patient
   Then should see the new medication on the patient's clinical summary
     And should see the new medication on their medications index.
 
-@javascript @pending
-Scenario: Doctor terminates a medication for a patient
-  Given there are drugs in the database
-    And there are drug types in the database
-    And existing drugs have been assigned drug types
-    And there are medication routes in the database
-    And a patient has a medication
-  When they terminate a medication
-  Then they should no longer see this medication in their clinical summary
-    And should see this terminated medication in their medications history
-
 @javascript
 Scenario: Doctor adds a modality for a patient
   Given I choose to add a modality
