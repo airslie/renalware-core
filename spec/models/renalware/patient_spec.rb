@@ -21,27 +21,26 @@ module Renalware
 
     subject { create(:patient) }
 
-    #Validation for date of death and cause of death
-    describe "current modality death" do
-      context "if current modality is death" do
+    describe "#valid?" do
+      context "given the current modality is death" do
         before { allow(subject).to receive(:current_modality_death?).and_return(true) }
 
         it { expect(subject).to validate_presence_of(:died_on) }
         it { expect(subject).to validate_presence_of(:first_edta_code_id) }
       end
 
-      context "if current modality is not death" do
+      context "given the current modality is not death" do
         before { allow(subject).to receive(:current_modality_death?).and_return(false) }
 
         it { expect(subject).not_to validate_presence_of(:died_on) }
         it { expect(subject).not_to validate_presence_of(:first_edta_code_id) }
       end
-    end
 
-    it "validates sex" do
-      subject.sex = "X"
+      it "validates sex" do
+        subject.sex = "X"
 
-      expect(subject).to be_invalid
+        expect(subject).to be_invalid
+      end
     end
 
     describe "updating patient date of death" do
