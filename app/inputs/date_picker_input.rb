@@ -15,7 +15,7 @@ class DatePickerInput < SimpleForm::Inputs::StringInput
   def input_column
     html_options = input_html_options
     html_options[:class] ||= []
-    html_options[:class] << "datepicker"
+    html_options[:class] << class_name
     template.content_tag(:div, class: "large-10 columns") do
       datestamp = @builder.object.send(attribute_name)
       value = datestamp.present? ? I18n.l(datestamp) : ""
@@ -29,5 +29,9 @@ class DatePickerInput < SimpleForm::Inputs::StringInput
 
   def input_type
     :string
+  end
+
+  def class_name
+    "datepicker"
   end
 end

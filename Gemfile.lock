@@ -239,7 +239,7 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.4)
       sprockets-rails
-    rails-assets-foundation-datepicker (1.4.0)
+    rails-assets-foundation-datepicker (1.5.0)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.7)
