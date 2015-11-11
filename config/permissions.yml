@@ -8,6 +8,6 @@ admin:
   - Renalware::EdtaCode
   - Renalware::Events::Type
   - Renalware::MedicationRoute
-  - Renalware::ModalityCode
+  - Renalware::Modality::Description
   - Renalware::OrganismCode
-  - Renalware::PrdCode
+  - Renalware::PRDDescription
