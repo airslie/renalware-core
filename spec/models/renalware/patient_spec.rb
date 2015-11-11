@@ -43,14 +43,6 @@ module Renalware
       end
     end
 
-    describe "updating patient date of death" do
-      subject!{ create(:patient) }
-
-      it "should still retain patient details" do
-        expect { subject.update(died_on: "2015-02-25") }.to change(Patient, :count).by(0)
-      end
-    end
-
     describe "#update" do
       describe "given _destroy is specified within nested attributes" do
         let(:medication) { FactoryGirl.create(:medication, patient: subject) }
@@ -63,6 +55,14 @@ module Renalware
 
           expect(subject.medications.with_deleted.first).to eq(medication)
           expect(subject.medications.with_deleted.first.deleted_at).not_to be nil
+        end
+      end
+
+      context "given #died_on is specified" do
+        subject!{ create(:patient) }
+
+        it "should still retain patient details" do
+          expect { subject.update(died_on: "2015-02-25") }.to change(Patient, :count).by(0)
         end
       end
     end
