@@ -6,9 +6,8 @@
     = render partial: "renalware/shared/errors", locals: { model: @event }
 
     = simple_form_for @event,
-      url: patient_events_path(@patient, @event),
-      method: :post,
-      wrapper: "horizontal_form" do |f|
+        url: patient_events_path(@patient, @event),
+        wrapper: "horizontal_form" do |f|
 
       .row
         .large-12.columns
