@@ -8,7 +8,7 @@ module TestDateHelper
   end
 
   def test_date
-    "20/04/#{Date.current.year}"
+    "20-04-#{Date.current.year}"
   end
 
   def test_time
