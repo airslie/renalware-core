@@ -53,17 +53,17 @@ module World
 
       # @section expectations
       #
-      def assert_recipient_operation_exists(patient)
+      def expect_recipient_operation_to_exist(patient)
         expect(Renalware::Transplants::RecipientOperation.for_patient(patient)).to be_present
       end
 
-      def assert_update_recipient_operation(patient:, user:)
+      def expect_update_recipient_operation_to_succeed(patient:, user:)
         update_recipient_operation(patient: patient, user: user)
         operation = recipient_operation_for(patient)
         expect(operation.reload.updated_at).to_not eq(operation.created_at)
       end
 
-      def assert_recipient_operation_was_refused
+      def expect_recipient_operation_to_be_refused
         expect(Renalware::Transplants::RecipientOperation.count).to eq(0)
       end
     end

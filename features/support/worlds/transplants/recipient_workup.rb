@@ -37,11 +37,11 @@ module World
 
       # @section expectations
       #
-      def assert_recipient_workup_exists(patient)
+      def expect_recipient_workup_to_exist(patient)
         expect(Renalware::Transplants::RecipientWorkup.for_patient(patient)).to be_present
       end
 
-      def assert_workup_was_updated(patient)
+      def expect_workup_to_be_modified(patient)
         workup = Renalware::Transplants::RecipientWorkup.for_patient(patient).first
         expect(workup.updated_at).to_not eq(workup.created_at)
       end

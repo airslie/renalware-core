@@ -122,67 +122,67 @@ end
 # THEN
 
 Then(/^Patty's recipient workup exists$/) do
-  assert_recipient_workup_exists(@patty)
+  expect_recipient_workup_to_exist(@patty)
 end
 
 Then(/^Patty's recipient workup gets updated$/) do
-  assert_workup_was_updated(@patty)
+  expect_workup_to_be_modified(@patty)
 end
 Then(/^Don's donor workup exists$/) do
-  assert_donor_workup_exists(@don)
+  expect_donor_workup_to_exist(@don)
 end
 
 Then(/^Don's donor workup gets updated$/) do
-  assert_donor_workup_was_updated(@don)
+  expect_donor_workup_to_be_modified(@don)
 end
 
 Then(/^Patty has an active transplant registration since "(.*?)"$/) do |started_on|
-  assert_transplant_registration_exists(
+  expect_transplant_registration_to_exist(
     patient: @patty, status_name: "Active", started_on: started_on
   )
 end
 
 Then(/^Patty has a new recipient operation$/) do
-  assert_recipient_operation_exists(@patty)
+  expect_recipient_operation_to_exist(@patty)
 end
 
 Then(/^the registration is not accepted$/) do
-  assert_transplant_registration_was_refused
+  expect_transplant_registration_to_be_refused
 end
 
 Then(/^Clyde can update Patty's transplant registration$/) do
-  assert_update_transplant_registration(patient: @patty)
+  expect_transplant_registration_to_be_modified(patient: @patty)
 end
 
 Then(/^Clyde can update Patty's recipient operation$/) do
-  assert_update_recipient_operation(patient: @patty, user: @clyde)
+  expect_update_recipient_operation_to_succeed(patient: @patty, user: @clyde)
 end
 
 Then(/^the registration status history is$/) do |table|
-  assert_transplant_registration_status_history_matches(patient: @patty, hashes: table.hashes)
+  expect_transplant_registration_status_history_to_match(patient: @patty, hashes: table.hashes)
 end
 
 Then(/^the registration status is not accepted$/) do
-  assert_transplant_registration_status_was_refused(@patty)
+  expect_transplant_registration_status_to_be_refused(@patty)
 end
 
 Then(/^the recipient operation is not accepted$/) do
-  assert_recipient_operation_was_refused
+  expect_recipient_operation_to_be_refused
 end
 
 Then(/^the transplant current status stays "(.*?)" since "(.*?)"$/) do |name, start_date|
-  assert_transplant_registration_current_status_is(patient: @patty,
+  expect_transplant_registration_current_status_to_be(patient: @patty,
     name: name, started_on: start_date)
 end
 
 Then(/^the status history has the following revised termination dates$/) do |table|
-  assert_transplant_registration_status_history_includes(patient: @patty, hashes: table.hashes)
+  expect_transplant_registration_status_history_to_include(patient: @patty, hashes: table.hashes)
 end
 
 Then(/^the status history has the following revised statuses$/) do |table|
-  assert_transplant_registration_status_history_includes(patient: @patty, hashes: table.hashes)
+  expect_transplant_registration_status_history_to_include(patient: @patty, hashes: table.hashes)
 end
 
 Then(/^the current status was set by Clyde$/) do
-  assert_transplant_registration_current_status_by(patient: @patty, user: @clyde)
+  expect_transplant_registration_current_status_by_to_be(patient: @patty, user: @clyde)
 end

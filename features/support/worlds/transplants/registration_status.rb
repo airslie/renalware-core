@@ -56,12 +56,12 @@ module World
 
       # @section expectations
       #
-      def assert_transplant_registration_status_was_refused(patient)
+      def expect_transplant_registration_status_to_be_refused(patient)
         registration = transplant_registration_for(patient)
         expect(registration.statuses.count).to eq(@initial_statuses_count)
       end
 
-      def assert_transplant_registration_status_history_matches(patient:, hashes:)
+      def expect_transplant_registration_status_history_to_match(patient:, hashes:)
         statuses = transplant_registration_for(patient).reload.statuses.map do |s|
           { status: s.description.name,
             start_date: I18n.l(s.started_on),
@@ -75,13 +75,13 @@ module World
         end
       end
 
-      def assert_transplant_registration_current_status_is(patient:, name:, started_on:)
+      def expect_transplant_registration_current_status_to_be(patient:, name:, started_on:)
         status = transplant_registration_for(patient).current_status
         expect(status.to_s).to eq(name)
         expect(I18n.l(status.started_on)).to eq(started_on)
       end
 
-      def assert_transplant_registration_status_history_includes(patient:, hashes:)
+      def expect_transplant_registration_status_history_to_include(patient:, hashes:)
         statuses = transplant_registration_for(patient).reload.statuses.map do |s|
           hash = { status: s.description.name,
             start_date: I18n.l(s.started_on),
@@ -97,7 +97,7 @@ module World
         end
       end
 
-      def assert_transplant_registration_current_status_by(patient:, user:)
+      def expect_transplant_registration_current_status_by_to_be(patient:, user:)
         registration = transplant_registration_for(patient)
         expect(registration.current_status.updated_by.id).to eq(user.id)
       end

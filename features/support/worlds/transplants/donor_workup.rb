@@ -47,11 +47,11 @@ module World
 
       # @section expectations
       #
-      def assert_donor_workup_exists(donor)
+      def expect_donor_workup_to_exist(donor)
         expect(Renalware::Transplants::DonorWorkup.for_patient(donor)).to be_present
       end
 
-      def assert_donor_workup_was_updated(patient)
+      def expect_donor_workup_to_be_modified(patient)
         workup = Renalware::Transplants::DonorWorkup.for_patient(patient).first
         expect(workup.updated_at).to_not eq(workup.created_at)
       end
