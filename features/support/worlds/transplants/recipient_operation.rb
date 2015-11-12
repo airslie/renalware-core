@@ -7,34 +7,36 @@ module World
         Renalware::Transplants::RecipientOperation.for_patient(patient).first_or_initialize
       end
 
+      def valid_recipient_operation_attributes
+        {
+          performed_on: fake_date,
+          theatre_case_start_time: fake_time,
+          donor_kidney_removed_from_ice_at: fake_date_time,
+          operation_type: "kidney",
+          transplant_site: "somewhere",
+          kidney_perfused_with_blood_at: fake_date_time,
+          cold_ischaemic_time: fake_time
+        }
+      end
+
       # @section set-ups
       #
       def set_up_recipient_operation(patient)
         Renalware::Transplants::RecipientOperation.create!(
-          patient: patient,
-          performed_on: Time.zone.today,
-          theatre_case_start_time: "11:00",
-          donor_kidney_removed_from_ice_at: Time.zone.now,
-          operation_type: "kidney",
-          transplant_site: "somewhere",
-          kidney_perfused_with_blood_at: Time.zone.now,
-          cold_ischaemic_time: "11:30"
+          valid_recipient_operation_attributes.merge(
+            patient: patient,
+          )
         )
       end
-
 
       # @section commands
       #
       def create_recipient_operation(patient:, user:, performed_on:)
         Renalware::Transplants::RecipientOperation.create(
-          patient: patient,
-          performed_on: performed_on,
-          theatre_case_start_time: "11:00",
-          donor_kidney_removed_from_ice_at: Time.zone.now,
-          operation_type: "kidney",
-          transplant_site: "somewhere",
-          kidney_perfused_with_blood_at: Time.zone.now,
-          cold_ischaemic_time: "11:30"
+          valid_recipient_operation_attributes.merge(
+            patient: patient,
+            performed_on: performed_on
+          )
         )
       end
 
@@ -77,11 +79,11 @@ module World
 
         select "Kidney only", from: "Operation Type"
         fill_in "Operation Date", with: performed_on
-        fill_in "Theatre Case Start Time", with: "11:00"
-        fill_in "Donor Kidney Removed From Ice At", with: "11:00"
+        fill_in "Theatre Case Start Time", with: fake_time
+        fill_in "Donor Kidney Removed From Ice At", with: fake_time
         fill_in "Transplant Site", with: "somewhere"
-        fill_in "Kidney Perfused With Blood At", with: "11:00"
-        fill_in "Cold Ischaemic Time", with: "11:00"
+        fill_in "Kidney Perfused With Blood At", with: fake_time
+        fill_in "Cold Ischaemic Time", with: fake_time
 
         within ".top" do
           click_on "Save"
