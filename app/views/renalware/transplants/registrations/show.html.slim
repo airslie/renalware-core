@@ -25,3 +25,9 @@
   = render "renalware/shared/documents/attributes_group",
     group: @registration.document.nhb_consent,
     legend: "Consent", destination: "consent"
+
+  = render "renalware/shared/attributes_group",
+    legend: "Admin", destination: "admin",
+    resource: @registration,
+    attributes: %i(referred_on assessed_on contact notes)
+
