@@ -1,17 +1,14 @@
-Renalware v 2.0 (renal database)
-============
+# Renalware v 2.0 (renal database)
 
 Renalware uses demographic, clinical, pathology, and nephrology datasets to improve patient care,
 undertake clinical and administrative audits and share data with external systems.
 
-Renalware PHP
--------------
+## Renalware PHP
 
 The renalware PHP source code can be found [here](https://github.com/airslie/renalware_php)
 
 
-Ruby on Rails - Development Setup
---------------------
+## Ruby on Rails - Development Setup
 
 1. Setup a postgres user with a password, for development purposes this can be your system login.
   ```bash
@@ -47,8 +44,7 @@ Ruby on Rails - Development Setup
 5. Visit [http://localhost:3000](http://localhost:3000)
 
 
-Converting an issue to a pull request
------
+## Converting an issue to a pull request
 
 First, make sure you have the [Hub](hub.github.com/) tool.  You can use Homebrew to install it: `brew install hub`
 
@@ -59,8 +55,7 @@ Convert the issue this way: `hub pull-request -i 999` where 999 is the issue num
 your local branch is checked out and you are not in master.
 
 
-Tests
------
+## Tests
 
 1. Setup a test database
   ```bash
@@ -86,8 +81,7 @@ To run the acceptance tests with the UI:
     TEST_DEPTH=web bundle exec cucumber
 
 
-Deployment
-----------
+## Deployment
 
 Deployment is currently on Heroku. Get yourself a copy of the Heroku toolbelt: https://toolbelt.heroku.com
 
