@@ -1,0 +1,23 @@
+# A simple collection of dates so we don't have to make these up every time
+# and protects us from changes in date/time UI implementation; i.e. selecting
+# a different Calendar widget.
+#
+module TestDateHelper
+  def fill_in_date_time(label, with:)
+    fill_in(label, with: with)
+  end
+
+  def test_date
+    "20/04/#{Date.current.year}"
+  end
+
+  def test_time
+    "10:45"
+  end
+
+  def test_date_time
+    "#{test_date} #{test_time}"
+  end
+end
+
+include TestDateHelper
