@@ -14,13 +14,16 @@
         .large-12.columns
           fieldset
             legend New Event
-            = f.input :date_time, as: :datetime_picker
-            = f.input :event_type_id,
-              collection: Renalware::Events::Type.all,
-              label_method: :name, value_method: :id
-            = f.input :description
-            = f.input :notes, as: :text, input_html: { rows: 5 }
+            .large-9.columns
+              = f.input :date_time, as: :datetime_picker
+              = f.input :event_type_id,
+                collection: Renalware::Events::Type.all,
+                label_method: :name, value_method: :id
+              = f.input :description
+              = f.input :notes, as: :text, input_html: { rows: 5 }
 
-      = submit_tag "Save", class: "button"
-      span= " or "
-      = link_to "Cancel", patient_events_path(@patient)
+      .row
+        .large-12.columns
+          = submit_tag "Save", class: "button"
+          span= " or "
+          = link_to "Cancel", patient_events_path(@patient)
