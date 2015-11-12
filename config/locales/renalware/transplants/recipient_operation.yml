@@ -4,51 +4,51 @@ en:
   activerecord:
     attributes:
       renalware/transplants/recipient_operation:
-        performed_on: Operation Date
-        theatre_case_start_time: Theatre Case Start Time
+        cold_ischaemic_time: Cold Ischaemic Time
         donor_kidney_removed_from_ice_at: Donor Kidney Removed From Ice At
         kidney_perfused_with_blood_at: Kidney Perfused With Blood At
-        operation_type: Operation Type
-        transplant_site: Transplant Site
-        cold_ischaemic_time: Cold Ischaemic Time
         notes: Notes
+        operation_type: Operation Type
+        performed_on: Operation Date
+        theatre_case_start_time: Theatre Case Start Time
+        transplant_site: Transplant Site
   activemodel:
     attributes:
       renalware/transplants/recipient_operation_document/kidney:
-        side: Side
-        asyst: Asyst
         age: Age
+        asyst: Asyst
+        side: Side
         weight: Weight
       renalware/transplants/recipient_operation_document/recipient:
-        operation_number: Transplant Operation Nb
         age:
-        last_dialysis_on: Last Dialysis Date
-        cmv_status: CMV Status
         blood_group: Blood Group
+        cmv_status: CMV Status
+        last_dialysis_on: Last Dialysis Date
+        operation_number: Transplant Operation Nb
       renalware/transplants/recipient_operation_document/donor:
-        type: Donor Type
-        gender: Gender
-        born_on: Birthdate
         age: Age
+        blood_group: Blood Group
+        born_on: Birthdate
         cause_of_death: Cause Of Death
+        cmv_status: CMV Status
+        gender: Gender
         hla: HLA
         hla_mismatch: HLA Mismatch
-        cmv_status: CMV Status
-        blood_group: Blood Group
+        type: Donor Type
       renalware/transplants/recipient_operation_document/dsa:
-        tested_on: Test Date
-        results: Results
         notes: Notes
+        results: Results
+        tested_on: Test Date
       renalware/transplants/recipient_operation_document/bkv:
-        tested_on: Test Date
-        results: Results
         notes: Notes
+        results: Results
+        tested_on: Test Date
       renalware/transplants/recipient_operation_document/outcome:
-        transplant_failed: Transplant failed?
         failed_on: Failure Date
         failure_cause: Failure Cause
         failure_description: Failure Description
         stent_removed_on: Stent Removal Date
+        transplant_failed: Transplant failed?
 
   enumerize:
     renalware/transplants/recipient_operation:

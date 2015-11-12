@@ -10,8 +10,8 @@ en:
       renalware/transplants/recipient_workup_document:
         hla_data: HLA Data
       renalware/transplants/recipient_workup_document/comorbidities:
-        angina: Angina?
         amputation_for_pvd: Amputation for PVD?
+        angina: Angina?
         chronic_obstr_pulm_dis: COPD?
         claudication: Claudication?
         coronary_artery_bypass_graft: CABG?
@@ -27,10 +27,10 @@ en:
         dvt: History of DVT?
         family_diabetes: Family history of diabetes?
         neurogenic_bladder: History of neurogenic bladder?
+        pregnancies_count: Number of pregnancies
         recurrent_utis: History of UTIs?
         reflux: History of reflux?
         tb: History of TB?
-        pregnancies_count: Number of pregnancies
       renalware/transplants/recipient_workup_document/scores:
         karnofsky: Karnofsky Score
         prisma: Frailty (Prisma) score
@@ -38,33 +38,33 @@ en:
         date: Cervical smear date
         result: Cervical smear result
       renalware/transplants/recipient_workup_document/examination:
-        femoral_pulse: Femoral pulse?
-        dorsalis_pedis_pulse: Dorsalis pedis pulse?
-        posterior_tibial_pulse: Posterior tibial pulse?
         carotid_bruit: Carotid Bruit?
+        dorsalis_pedis_pulse: Dorsalis pedis pulse?
         femoral_bruit: Femoral Bruit?
+        femoral_pulse: Femoral pulse?
         heart_failure: Heart Failure?
         heart_sounds: Heart Sounds
+        posterior_tibial_pulse: Posterior tibial pulse?
       renalware/transplants/recipient_workup_document/consent:
-        value: Transplant Consent
         date: Consent Date
         name: Who consented
+        value: Transplant Consent
       renalware/transplants/recipient_workup_document/marginal_consent:
-        value: Marginal consent?
         date: Marginal Consent Date
         name: Who marginally consented
+        value: Marginal consent?
       renalware/transplants/recipient_workup_document/education:
-        waiting_list: Waiting List
-        transport_benefits: Transport/Benefits
-        procedure: Transplant Procedure
+        cancer: Cancer Risks
+        drugs_longterm: Drugs (Long term)
+        drugs_shortterm: Drugs (Short term)
+        followup: Follow-Up
         infection: Infection Risks
+        procedure: Transplant Procedure
+        recurrence: Recurrence Risks
         rejection: Rejection Risks
         success_rate: Success Rate
-        drugs_shortterm: Drugs (Short term)
-        drugs_longterm: Drugs (Long term)
-        cancer: Cancer Risks
-        followup: Follow-Up
-        recurrence: Recurrence Risks
+        transport_benefits: Transport/Benefits
+        waiting_list: Waiting List
     errors:
       models:
         renalware/transplants/recipient_workup_document/scores:

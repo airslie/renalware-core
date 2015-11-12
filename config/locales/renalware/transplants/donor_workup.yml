@@ -11,8 +11,8 @@ en:
         donor_recip_relationship: Relationship to Recipient
         relationship_other: Other Relationship (if required)
       renalware/transplants/donor_workup_document/comorbidities:
-        angina: Angina?
         amputation_for_pvd: Amputation for PVD?
+        angina: Angina?
         chronic_obstr_pulm_dis: COPD?
         claudication: Claudication?
         coronary_artery_bypass_graft: CABG?
@@ -25,38 +25,38 @@ en:
         non_coronary_angioplasty: Angioplasty, vascular graft, aneurysm, stent (non-coronary)?
         smoking: Smoker?
       renalware/transplants/donor_workup_document/infections:
-        hiv: HIV Status
-        hcv: HCV Status
-        htlv_preop: HTLV Status (pre-op)
-        syphilis_preop: Syphilis Test (pre-op)
-        htlv: HTLV Test
-        ebv: EBV Test
         cytology: Urine Cytology
+        ebv: EBV Test
+        hcv: HCV Status
+        hiv: HIV Status
+        htlv: HTLV Test
+        htlv_preop: HTLV Status (pre-op)
         syphilis: Syphilis Test
+        syphilis_preop: Syphilis Test (pre-op)
         toxoplasmosis: Toxoplasmosis Test
       renalware/transplants/donor_workup_document/imaging_and_scans:
-        ecg_comment: EGC Comment
         chest_xray: Chest X-ray (CXR)
+        ecg_comment: EGC Comment
         renal_ultrasound: Renal Ultrasound
       renalware/transplants/donor_workup_document/creatinine_clearance:
-        clearance_type: Calculated Clearance Type
         clearance: Calculated Clearance
+        clearance_type: Calculated Clearance Type
         measured_clearance: Measured Clearance
       renalware/transplants/donor_workup_document/glomerular_filtration_rate:
         is_measured_value_corrected: Is Measured GFR Corrected?
-        value_corrected_for_bsa: GFR Corrected for Body Surface Area?
-        measured_value: Measured GFR
         isotopic_value: Isotopic GFR
+        measured_value: Measured GFR
+        value_corrected_for_bsa: GFR Corrected for Body Surface Area?
       renalware/transplants/donor_workup_document/urine_dipsticks:
         blood: Blood Result
         protein: Protein Result
       renalware/transplants/donor_workup_document/other_investigations:
-        number_renal_arteries: Number of Renal Arteries
-        sitting_blood_pressure: Sitting Blood Pressure
-        protein_creatinine_ratio: Protein Creatinine Ratio
         egfr: Donor eGFR
         haemoglobinopathy: Haemoglobinopathy Comment
+        number_renal_arteries: Number of Renal Arteries
         oral_gtt: Oral GTT
+        protein_creatinine_ratio: Protein Creatinine Ratio
+        sitting_blood_pressure: Sitting Blood Pressure
 
     errors:
       models:
