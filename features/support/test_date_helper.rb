@@ -8,7 +8,7 @@ module TestDateHelper
   end
 
   def test_date
-    "20-04-#{Date.current.year}"
+    I18n.l(Date.parse("20-07-#{Date.current.year}"))
   end
 
   def test_time
