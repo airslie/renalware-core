@@ -31,7 +31,7 @@ module Document
       protected
 
       def filter_date_params(params)
-        params = params.dup # DISCUSS: not sure if that slows down form processing?
+        params = (params ? params.dup : {}) # DISCUSS: not sure if that slows down form processing?
         date_attributes = {}
 
         params.each do |attribute, value|
