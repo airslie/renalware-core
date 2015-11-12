@@ -9,11 +9,11 @@ function initDatePicker(container, elem, pickerOptions) {
 }
 
 function initDatepickersIn(container) {
-  initDatePicker(container, '.datepicker', {format: "dd-mm-yy"});
+  initDatePicker(container, '.datepicker', {format: "dd-mm-yyyy"});
 }
 
 function initDateTimepickersIn(container) {
-  initDatePicker(container, '.datetimepicker', {format: "dd-mm-yy hh:ii", pickTime: true});
+  initDatePicker(container, '.datetimepicker', {format: "dd-mm-yyyy hh:ii", pickTime: true});
 }
 
 $(function() {
