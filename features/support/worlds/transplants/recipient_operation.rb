@@ -52,7 +52,7 @@ module World
       # @section expectations
       #
       def assert_recipient_operation_exists(patient)
-        expect(Renalware::Transplants::RecipientOperation.for_patient(patient).any?).to be_truthy
+        expect(Renalware::Transplants::RecipientOperation.for_patient(patient)).to be_present
       end
 
       def assert_update_recipient_operation(patient:, user:)

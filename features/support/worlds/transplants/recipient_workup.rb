@@ -38,7 +38,7 @@ module World
       # @section expectations
       #
       def assert_recipient_workup_exists(patient)
-        expect(Renalware::Transplants::RecipientWorkup.for_patient(patient).any?).to be_truthy
+        expect(Renalware::Transplants::RecipientWorkup.for_patient(patient)).to be_present
       end
 
       def assert_workup_was_updated(patient)

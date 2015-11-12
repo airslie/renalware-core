@@ -48,7 +48,7 @@ module World
       # @section expectations
       #
       def assert_donor_workup_exists(donor)
-        expect(Renalware::Transplants::DonorWorkup.for_patient(donor).any?).to be_truthy
+        expect(Renalware::Transplants::DonorWorkup.for_patient(donor)).to be_present
       end
 
       def assert_donor_workup_was_updated(patient)
