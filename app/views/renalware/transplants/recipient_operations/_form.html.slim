@@ -11,7 +11,7 @@ ruby:
   = f.simple_fields_for :document, f.object.document do |fd|
 
     = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Operation", name: "operation" } do
+        locals: { legend: "Operation", name: "operation" } do
       = f.input :performed_on, as: :date_picker
       = f.input :theatre_case_start_time, as: :string, input_html: { class: "small-input" }
       = f.input :donor_kidney_removed_from_ice_at, as: :string
@@ -22,7 +22,7 @@ ruby:
       = f.input :notes, as: :text, input_html: { rows: 5 }
 
     = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Kidney", name: "kidney" } do
+        locals: { legend: "Kidney", name: "kidney" } do
       = fd.simple_fields_for :kidney, fd.object.kidney do |fcm|
         = fcm.input :side, input_html: { class: "small-input" }
         = fcm.input :asyst
@@ -30,7 +30,7 @@ ruby:
         = fcm.input :weight, input_html: { class: "small-input" }
 
     = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Recipient", name: "recipient" } do
+        locals: { legend: "Recipient", name: "recipient" } do
       = fd.simple_fields_for :recipient, fd.object.recipient do |fcm|
         = fcm.input :operation_number, input_html: { class: "small-input" }
         = fcm.input :age, input_html: { class: "small-input" }
@@ -39,7 +39,7 @@ ruby:
         = render_input fcm, :blood_group
 
     = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Donor", name: "donor" } do
+        locals: { legend: "Donor", name: "donor" } do
       = fd.simple_fields_for :donor, fd.object.donor do |fcm|
         = fcm.input :type, input_html: { class: "small-input" }
         = fcm.input :gender, input_html: { class: "small-input" }
@@ -52,21 +52,21 @@ ruby:
         = render_input fcm, :blood_group
 
     = render layout: "renalware/shared/fieldset",
-      locals: { legend: "DSA", name: "dsa" } do
+        locals: { legend: "DSA", name: "dsa" } do
       = fd.simple_fields_for :dsa, fd.object.dsa do |fcm|
         = fcm.input :tested_on, as: :date_picker
         = fcm.input :results
         = fcm.input :notes, as: :text, input_html: { rows: 2 }
 
     = render layout: "renalware/shared/fieldset",
-      locals: { legend: "BKV", name: "bkv" } do
+        locals: { legend: "BKV", name: "bkv" } do
       = fd.simple_fields_for :bkv, fd.object.bkv do |fcm|
         = fcm.input :tested_on, as: :date_picker
         = fcm.input :results
         = fcm.input :notes, as: :text, input_html: { rows: 2 }
 
     = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Outcome", name: "outcome" } do
+        locals: { legend: "Outcome", name: "outcome" } do
       = f.input :transplant_failed, as: :inline_radio_buttons
       = f.input :failed_on, as: :date_picker
       = f.input :failure_cause
