@@ -7,16 +7,16 @@ module TestDateHelper
     fill_in(label, with: with)
   end
 
-  def test_date
+  def fake_date
     I18n.l(Date.parse("20-07-#{Date.current.year}"))
   end
 
-  def test_time
+  def fake_time
     "10:45"
   end
 
-  def test_date_time
-    "#{test_date} #{test_time}"
+  def fake_date_time
+    "#{fake_date} #{fake_time}"
   end
 end
 
