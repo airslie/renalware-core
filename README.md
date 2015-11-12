@@ -70,6 +70,11 @@ your local branch is checked out and you are not in master.
 
 Test coverage reports can be found in `coverage/`
 
+### Configuration
+
+RSpec is configured to silence backtrace from third-party gems. This can be
+altered by configure `.rspec` with `--backtrace`.
+
 ### Acceptance Tests
 
 To run the acceptance tests without the UI:
