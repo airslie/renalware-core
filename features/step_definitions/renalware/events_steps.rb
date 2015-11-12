@@ -1,4 +1,3 @@
-
 Given(/^there are existing event types in the database$/) do
   %w(Phone Email Clinic Meeting).each do |name|
     instance_variable_set(:"@#{name.downcase}", FactoryGirl.create(:events_type, name: name))
@@ -18,25 +17,16 @@ When(/^Clyde chooses to add an event$/) do
 end
 
 When(/^records Patty's event$/) do
-  select "20", from: "events_event_date_time_3i"
-  select "April", from: "events_event_date_time_2i"
-  select Date.current.year, from: "events_event_date_time_1i"
-
-  select "10", from: "events_event_date_time_4i"
-  select "45", from: "events_event_date_time_5i"
-
-  select "Email", from: "Patient Event Type"
-
+  fill_in_date_time "Date time", with: fake_date_time
+  select "Email", from: "Event type"
   fill_in "Description", with: "Discussed meeting to be set up with family."
-
   fill_in "Notes", with: "Patty to speak to family before meeting set up."
-
   click_on "Save"
 end
 
 Then(/^Clyde should see Patty's new event on the clinical summary$/) do
-  expect(page).to have_content("20/04/#{Date.current.year}")
-  expect(page).to have_content("10:45")
+  expect(page).to have_content(fake_date)
+  expect(page).to have_content(fake_time)
   expect(page).to have_content("Email")
   expect(page).to have_content("Discussed meeting to be set up with family.")
   expect(page).to have_content("Patty to speak to family before meeting set up.")
@@ -44,8 +34,9 @@ end
 
 Then(/^see Patty's new event in her event index$/) do
   visit patient_events_path(@patty)
-  expect(page).to have_content("20/04/#{Date.current.year}")
-  expect(page).to have_content("10:45")
+
+  expect(page).to have_content(fake_date)
+  expect(page).to have_content(fake_time)
   expect(page).to have_content("Email")
   expect(page).to have_content("Discussed meeting to be set up with family.")
   expect(page).to have_content("Patty to speak to family before meeting set up.")
