@@ -18,14 +18,9 @@ When(/^Clyde chooses to add an event$/) do
 end
 
 When(/^records Patty's event$/) do
-  select "20", from: "events_event_date_time_3i"
-  select "April", from: "events_event_date_time_2i"
-  select Date.current.year, from: "events_event_date_time_1i"
+  fill_in "Date time", with: "20-04-#{Date.current.year} 10:45"
 
-  select "10", from: "events_event_date_time_4i"
-  select "45", from: "events_event_date_time_5i"
-
-  select "Email", from: "Patient Event Type"
+  select "Email", from: "Event type"
 
   fill_in "Description", with: "Discussed meeting to be set up with family."
 
