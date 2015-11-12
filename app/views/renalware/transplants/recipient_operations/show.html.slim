@@ -9,10 +9,10 @@
       :kidney_perfused_with_blood_at, :operation_type, :transplant_site,
       :cold_ischaemic_time, :notes]
 
-  - %w(Kidney Recipient Donor DSA BKV).each do |group|
+  - ["Kidney", "Recipient", "Donor", "DSA", "BKV"].each do |group|
     = render "renalware/shared/documents/attributes_group",
-      group: @recipient_operation.document.send(group.underscore),
-      legend: group, destination: group.underscore
+      group: @recipient_operation.document.send(group.parameterize('_')),
+      legend: group, destination: group.parameterize('_')
 
   = render "renalware/shared/attributes_group",
     legend: "Outcome", destination: "outcome",
