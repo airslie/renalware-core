@@ -75,6 +75,7 @@ Rails.application.routes.draw do
         resource :registration, expect: :destroy do
           resources :statuses, controller: "registration_statuses"
         end
+        resources :recipient_operations
       end
     end
 

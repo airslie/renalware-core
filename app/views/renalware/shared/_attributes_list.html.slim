@@ -1,0 +1,18 @@
+dl
+  - Array.wrap(attributes).each do |attribute|
+    - value = resource.send(attribute)
+    dt
+      = resource.class.human_attribute_name attribute
+    dd
+      - if value.respond_to? :nested_attribute?
+        = render value
+      - elsif value.respond_to? :text
+        = value.text
+      - elsif value.is_a? Date
+        = I18n.l value
+      - elsif value.is_a? TrueClass
+        | Yes
+      - elsif value.is_a? FalseClass
+        | No
+      - else
+        = simple_format value.to_s

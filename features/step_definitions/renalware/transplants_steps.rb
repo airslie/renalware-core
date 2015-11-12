@@ -14,6 +14,10 @@ Given(/^Patty is registered on the wait list with this status history$/) do |tab
   set_up_patient_wait_list_statuses(@patty, table)
 end
 
+Given(/^Patty has a recipient operation$/) do
+  set_up_recipient_operation(@patty)
+end
+
 # WHEN
 
 When(/^Clyde creates a donor workup for Don$/) do
@@ -41,11 +45,27 @@ When(/^Clyde registers Patty on the wait list with status "(.*?)" starting on "(
   )
 end
 
+When(/^Clyde records a recipient operation for Patty$/) do
+  create_recipient_operation(
+    patient: @patty,
+    user: @clyde,
+    performed_on: Time.zone.today
+  )
+end
+
 When(/^Clyde submits an erroneous registration$/) do
   create_transplant_registration(
     patient: @patty,
     status: "Died", started_on: "99-99-9999",
     user: @clyde
+  )
+end
+
+When(/^Clyde submits an erroneous recipient operation$/) do
+  create_recipient_operation(
+    patient: @patty,
+    user: @clyde,
+    performed_on: ""
   )
 end
 
@@ -108,7 +128,6 @@ end
 Then(/^Patty's recipient workup gets updated$/) do
   assert_workup_was_updated(@patty)
 end
-
 Then(/^Don's donor workup exists$/) do
   assert_donor_workup_exists(@don)
 end
@@ -123,6 +142,10 @@ Then(/^Patty has an active transplant registration since "(.*?)"$/) do |started_
   )
 end
 
+Then(/^Patty has a new recipient operation$/) do
+  assert_recipient_operation_exists(@patty)
+end
+
 Then(/^the registration is not accepted$/) do
   assert_transplant_registration_was_refused
 end
@@ -131,12 +154,20 @@ Then(/^Clyde can update Patty's transplant registration$/) do
   assert_update_transplant_registration(patient: @patty)
 end
 
+Then(/^Clyde can update Patty's recipient operation$/) do
+  assert_update_recipient_operation(patient: @patty, user: @clyde)
+end
+
 Then(/^the registration status history is$/) do |table|
   assert_transplant_registration_status_history_matches(patient: @patty, hashes: table.hashes)
 end
 
 Then(/^the registration status is not accepted$/) do
   assert_transplant_registration_status_was_refused(@patty)
+end
+
+Then(/^the recipient operation is not accepted$/) do
+  assert_recipient_operation_was_refused
 end
 
 Then(/^the transplant current status stays "(.*?)" since "(.*?)"$/) do |name, start_date|

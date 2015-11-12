@@ -1,0 +1,48 @@
+fieldset.status-history
+  legend Operations
+
+  - if @recipient_operations.empty?
+    .call-to-action
+      = link_to new_patient_transplants_recipient_operation_path(@patient) do
+        i.fa.fa-plus-circle
+        | Enter operation details
+  - else
+    .row
+      .large-12.columns
+        table
+          thead
+            th
+            th Date
+            th Type
+            th Op Nb
+            th Recip Age
+            th Donor Type
+            th Donor Age
+            th Donor CMV
+            th Recip CMV
+            th Site
+            th Failure Date
+            th Stent Rem Date
+          tbody
+            - @recipient_operations.each do |operation|
+              tr
+                td= link_to "Edit", [:edit, @patient, operation]
+                td
+                  = link_to [:edit, @patient, operation] do
+                    = l operation.performed_on
+                td= operation.operation_type.text
+                td= operation.document.recipient.operation_number
+                td= operation.document.recipient.age
+                td= operation.document.donor.type.try(:text)
+                td= operation.document.donor.age
+                td= operation.document.donor.cmv_status
+                td= operation.document.recipient.cmv_status
+                td= operation.transplant_site
+                td= l operation.failed_on
+                th= l operation.stent_removed_on
+
+    .row
+      .large-12.columns
+        .right
+          = link_to "Add an operation", new_patient_transplants_recipient_operation_path(@patient),
+            class: 'button tiny'

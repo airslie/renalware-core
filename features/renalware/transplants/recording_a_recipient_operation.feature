@@ -7,7 +7,7 @@ Feature: Recording the operation on a recipient
     And Clyde is a clinician
     And Patty is a patient
 
-  @web @wip
+  @web
   Scenario: A clinician recorded a transplant operation on a recipient
     When Clyde records a recipient operation for Patty
     Then Patty has a new recipient operation
@@ -19,5 +19,5 @@ Feature: Recording the operation on a recipient
 
   @web
   Scenario: A clinician submitted an erroneous transplant operation on a recipient
-    When Clyde submits an erroneous registration
+    When Clyde submits an erroneous recipient operation
     Then the recipient operation is not accepted
