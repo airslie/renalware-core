@@ -73,7 +73,7 @@ Test coverage reports can be found in `coverage/`
 ### Configuration
 
 RSpec is configured to silence backtrace from third-party gems. This can be
-altered by configure `.rspec` with `--backtrace`.
+configured in `.rspec` with `--backtrace` which will display the full backtrace.
 
 ### Acceptance Tests
 
