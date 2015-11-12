@@ -71,7 +71,7 @@ module World
           },
           updated_at: Time.zone.now
         )
-        expect(registration.reload.updated_at).to_not eq(registration.created_at)
+        expect(registration).to be_modified
       end
 
       def expect_transplant_registration_to_be_refused

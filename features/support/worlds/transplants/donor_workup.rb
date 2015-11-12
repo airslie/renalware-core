@@ -53,7 +53,7 @@ module World
 
       def expect_donor_workup_to_be_modified(patient)
         workup = Renalware::Transplants::DonorWorkup.for_patient(patient).first
-        expect(workup.updated_at).to_not eq(workup.created_at)
+        expect(workup).to be_modified
       end
     end
 

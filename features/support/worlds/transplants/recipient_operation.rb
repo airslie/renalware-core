@@ -60,7 +60,7 @@ module World
       def expect_update_recipient_operation_to_succeed(patient:, user:)
         update_recipient_operation(patient: patient, user: user)
         operation = recipient_operation_for(patient)
-        expect(operation.reload.updated_at).to_not eq(operation.created_at)
+        expect(operation).to be_modified
       end
 
       def expect_recipient_operation_to_be_refused
