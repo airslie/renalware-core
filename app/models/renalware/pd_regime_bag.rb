@@ -16,14 +16,14 @@ module Renalware
     def initialize(attributes = nil, options = {})
       super
       days_to_sym.each do |day|
-        self.send(:"#{day}=", true)
+        self.public_send(:"#{day}=", true)
       end
       self.attributes = attributes unless attributes.nil?
     end
 
     def days
       days_to_sym.map do |day|
-        self.send(day)
+        self.public_send(day)
       end
     end
 

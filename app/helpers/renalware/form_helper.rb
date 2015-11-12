@@ -5,7 +5,7 @@ module Renalware
     end
 
     def render_input(builder, attribute)
-      class_name = builder.object.send(attribute).class.name.demodulize.underscore
+      class_name = builder.object.public_send(attribute).class.name.demodulize.underscore
       render "renalware/shared/documents/#{class_name}_input", attribute: attribute, f: builder
     end
 

@@ -17,7 +17,7 @@ class DatePickerInput < SimpleForm::Inputs::StringInput
     html_options[:class] ||= []
     html_options[:class] << "datepicker"
     template.content_tag(:div, class: "large-10 columns") do
-      datestamp = @builder.object.send(attribute_name)
+      datestamp = @builder.object.public_send(attribute_name)
       value = datestamp.present? ? I18n.l(datestamp) : ""
       template.concat @builder.text_field(attribute_name, html_options.merge(value: value))
     end

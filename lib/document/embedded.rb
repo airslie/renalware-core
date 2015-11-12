@@ -114,14 +114,14 @@ module Document
       options = args.extract_options!
       name, type = *args
       if type && type.included_modules.include?(ActiveModel::Model)
-        options.reverse_merge!(default: type.send(:new))
+        options.reverse_merge!(default: type.public_send(:new))
 
         # Add validation
         validate "#{name}_valid".to_sym
 
         # Validation method
         define_method("#{name}_valid".to_sym) do
-          errors.add(name.to_sym, :invalid) if send(name).invalid?
+          errors.add(name.to_sym, :invalid) if public_send(name).invalid?
         end
       else
         enums = options[:enums]

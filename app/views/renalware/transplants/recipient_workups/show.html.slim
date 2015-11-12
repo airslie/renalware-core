@@ -4,7 +4,7 @@
   .document-view
     - ["Comorbidities", "Historicals", "Scores"].each do |group|
       = render "renalware/shared/documents/attributes_group",
-        group: @workup.document.send(group.parameterize('_')),
+        group: @workup.document.public_send(group.parameterize('_')),
         legend: group, destination: group.parameterize('_')
 
     = render "renalware/shared/documents/attributes_group",
@@ -13,7 +13,7 @@
 
     - ["Examination", "Education", "Consent"].each do |group|
       = render "renalware/shared/documents/attributes_group",
-        group: @workup.document.send(group.parameterize('_')),
+        group: @workup.document.public_send(group.parameterize('_')),
         legend: group, destination: group.parameterize('_')
 
     .row data-magellan-destination="hla"

@@ -1,6 +1,6 @@
 dl
   - Array.wrap(attributes).each do |attribute|
-    - value = resource.send(attribute)
+    - value = resource.public_send(attribute)
     dt
       = resource.class.human_attribute_name attribute
     dd

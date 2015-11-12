@@ -51,7 +51,7 @@ module Renalware
     def pd_regime_bag_days(regime_bag)
       days = []
       Date::DAYNAMES.each_with_index do |day, index|
-        days << Date::ABBR_DAYNAMES[index] if regime_bag.send(day.downcase.to_sym)
+        days << Date::ABBR_DAYNAMES[index] if regime_bag.public_send(day.downcase.to_sym)
       end
       days.join(', ')
     end

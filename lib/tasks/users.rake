@@ -77,7 +77,7 @@ namespace :users do
   task add_super_admin: :environment do
     Renalware::User.find_or_create_by!(username: default_super_admin_attrs[:username]) do |u|
       default_super_admin_attrs.each do |k,v|
-        u.send(:"#{k}=", v)
+        u.public_send(:"#{k}=", v)
       end
     end
     puts "Super Admin credentials: #{default_super_admin_attrs[:username]}/#{default_super_admin_attrs[:password]}"
@@ -87,7 +87,7 @@ namespace :users do
   task add_demo_admin_user: :environment do
     Renalware::User.find_or_create_by!(username: demo_admin_user_attrs[:username]) do |u|
       demo_admin_user_attrs.each do |k,v|
-        u.send(:"#{k}=", v)
+        u.public_send(:"#{k}=", v)
       end
     end
     puts "Admin User credentials: #{demo_admin_user_attrs[:username]}/#{demo_admin_user_attrs[:password]}"

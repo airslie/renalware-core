@@ -10,7 +10,7 @@ module Renalware
     end
 
     def default_for_associated(assoc, method, msg)
-      assoc.present? ? assoc.send(method) : msg
+      assoc.present? ? assoc.public_send(method) : msg
     end
 
     def default_for_blank(val, msg)
