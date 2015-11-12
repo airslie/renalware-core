@@ -1,5 +1,5 @@
 tr
-  td= event.created_at.strftime("%d/%m/%Y")
+  td= l event.created_at.to_date
   td= event.event_type
   td
     dl.accordion(data-accordion)
@@ -8,5 +8,4 @@ tr
           = event.description
         .content.toggle-content id="patient-event-notes-#{event.id}"
           = event.notes
-  td= event.date_time
-
+  td=l event.date_time

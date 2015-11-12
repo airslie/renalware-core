@@ -6,9 +6,12 @@
     h1 ESRF Summary
 
 .row
-    = simple_form_for @esrf, url: patient_esrf_path(@patient), method: :patch do |f|
-      = render partial: "form", locals: { f: f, prd_descriptions: @prd_descriptions }
+  = simple_form_for @esrf,
+    url: patient_esrf_path(@patient),
+    method: :patch,
+    wrapper: "horizontal_form"  do |f|
+    = render partial: "form", locals: { f: f, prd_descriptions: @prd_descriptions }
 
-      = submit_tag "Save", class: "button"
-      span= " or "
-      = link_to "cancel", patient_clinical_summary_path(@patient)
+    = submit_tag "Save", class: "button"
+    span= " or "
+    = link_to "cancel", patient_clinical_summary_path(@patient)

@@ -5,23 +5,24 @@
   .row
     = render partial: "renalware/shared/errors", locals: { model: @event }
 
-    = form_for @event, url: patient_events_path(@patient, @event), method: :post do |f|
+    = simple_form_for @event,
+        url: patient_events_path(@patient, @event),
+        wrapper: "horizontal_form" do |f|
 
       .row
-        .large-6.columns
-          = f.label :date_time, "Patient Event Date/Time"
-          = f.datetime_select(:date_time, { start_year: (5.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
-          = f.label :event_type_id, "Patient Event Type"
-          = f.collection_select(:event_type_id, Renalware::Events::Type.all, :id, :name, include_blank: true)
+        .large-12.columns
+          fieldset
+            legend New Event
+            .large-9.columns
+              = f.input :date_time, as: :datetime_picker
+              = f.input :event_type_id,
+                collection: Renalware::Events::Type.all,
+                label_method: :name, value_method: :id
+              = f.input :description
+              = f.input :notes, as: :text, input_html: { rows: 5 }
 
-          = f.label :description, "Description"
-          = f.text_field :description
-
-        .large-6.columns
-            = f.label :notes, "Notes"
-            = f.text_area(:notes, cols: 50, rows: 11)
-        .row
-
+      .row
+        .large-12.columns
           = submit_tag "Save", class: "button"
           span= " or "
           = link_to "Cancel", patient_events_path(@patient)

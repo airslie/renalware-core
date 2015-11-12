@@ -1,12 +1,20 @@
-function initDatepickersIn(elem) {
-  $(elem+' .datepicker').fdatepicker({
-    format: "dd-mm-yyyy"
-  });
+function initDatePicker(container, elem, pickerOptions) {
+  $(container + ' ' + elem).fdatepicker(pickerOptions);
 
-  $(elem+' .datepicker-wrapper i').on('click', function() {
-    $(this).closest('.datepicker-wrapper').find('.datepicker').fdatepicker('show');
-  })
-};
+  $(container + ' ' + elem + ' i').on('click', function() {
+    $(this).closest(elem + 'wrapper')
+      .find(elem)
+      .fdatepicker('show');
+  });
+}
+
+function initDatepickersIn(container) {
+  initDatePicker(container, '.datepicker', {format: "dd-mm-yyyy"});
+}
+
+function initDateTimepickersIn(container) {
+  initDatePicker(container, '.datetimepicker', {format: "dd-mm-yyyy hh:ii", pickTime: true});
+}
 
 $(function() {
   if ($('small.error').length > 0) {
@@ -16,4 +24,5 @@ $(function() {
   }
 
   initDatepickersIn("body");
+  initDateTimepickersIn("body");
 });
