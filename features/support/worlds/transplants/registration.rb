@@ -1,14 +1,14 @@
 module World
   module Transplants::Registration
     module Domain
-      # Helpers
-
+      # @section helpers
+      #
       def transplant_registration_for(patient)
         Renalware::Transplants::Registration.for_patient(patient).first_or_initialize
       end
 
-      # Set-ups
-
+      # @section set-ups
+      #
       def set_up_patient_on_wait_list(patient)
         Renalware::Transplants::Registration.create!(
           patient: patient,
@@ -35,8 +35,8 @@ module World
         )
       end
 
-      # Commands
-
+      # @section commands
+      #
       def create_transplant_registration(user:, patient:, status:, started_on:)
         description = registration_status_description_named(status)
         Renalware::Transplants::Registration.create(
@@ -51,8 +51,8 @@ module World
         )
       end
 
-      # Asserts
-
+      # @section expectations
+      #
       def assert_transplant_registration_exists(patient:, status_name:, started_on:)
         registration = Renalware::Transplants::Registration.for_patient(patient).first
         expect(registration).to_not be_nil

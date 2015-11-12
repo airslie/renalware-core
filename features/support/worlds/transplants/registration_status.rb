@@ -1,8 +1,8 @@
 module World
   module Transplants::RegistrationStatus
     module Domain
-      # Helpers
-
+      # @section helpers
+      #
       def registration_status_description_named(name)
         Renalware::Transplants::RegistrationStatusDescription.find_by(
           name: name
@@ -14,8 +14,8 @@ module World
         registration.statuses.find_by description: description
       end
 
-      # Set-ups
-
+      # @section set-ups
+      #
       def set_up_patient_wait_list_statuses(patient, table)
         registration = Renalware::Transplants::Registration.create!(
           patient: patient
@@ -32,8 +32,8 @@ module World
         @initial_statuses_count = registration.statuses.count
       end
 
-      # Commands
-
+      # @section commands
+      #
       def set_transplant_registration_status(patient:, user:, status:, started_on:)
         registration = transplant_registration_for(patient)
         description = registration_status_description_named(status)
@@ -54,8 +54,8 @@ module World
         registration.delete_status!(s)
       end
 
-      # Asserts
-
+      # @section expectations
+      #
       def assert_transplant_registration_status_was_refused(patient)
         registration = transplant_registration_for(patient)
         expect(registration.statuses.count).to eq(@initial_statuses_count)

@@ -1,13 +1,14 @@
 module World
   module Transplants::RecipientOperation
     module Domain
-      # Helpers
-
+      # @section helpers
+      #
       def recipient_operation_for(patient)
         Renalware::Transplants::RecipientOperation.for_patient(patient).first_or_initialize
       end
 
-      # Set-ups
+      # @section set-ups
+      #
       def set_up_recipient_operation(patient)
         Renalware::Transplants::RecipientOperation.create!(
           patient: patient,
@@ -22,8 +23,8 @@ module World
       end
 
 
-      # Commands
-
+      # @section commands
+      #
       def create_recipient_operation(patient:, user:, performed_on:)
         Renalware::Transplants::RecipientOperation.create(
           patient: patient,
@@ -48,7 +49,8 @@ module World
         )
       end
 
-      # Asserts
+      # @section expectations
+      #
       def assert_recipient_operation_exists(patient)
         expect(Renalware::Transplants::RecipientOperation.for_patient(patient).any?).to be_truthy
       end

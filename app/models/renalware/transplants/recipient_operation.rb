@@ -28,9 +28,6 @@ module Renalware
       def self.policy_class
         BasePolicy
       end
-
-      # @section services
-      #
     end
   end
 end
