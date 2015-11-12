@@ -6,6 +6,8 @@ dl
     dd
       - if value.respond_to? :nested_attribute?
         = render value
+      - if attribute =~ /_time$/
+        = I18n.l value, format: :time
       - elsif value.respond_to? :text
         = value.text
       - elsif value.is_a? Date

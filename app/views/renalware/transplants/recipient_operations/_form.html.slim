@@ -13,12 +13,12 @@ ruby:
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Operation", name: "operation" } do
       = f.input :performed_on, as: :date_picker
-      = f.input :theatre_case_start_time, as: :string, input_html: { class: "small-input" }
-      = f.input :donor_kidney_removed_from_ice_at, as: :string
-      = f.input :kidney_perfused_with_blood_at, as: :string
+      = f.input :theatre_case_start_time, as: :simple_time, input_html: { class: "small-input" }
+      = f.input :donor_kidney_removed_from_ice_at, as: :datetime_picker
+      = f.input :kidney_perfused_with_blood_at, as: :datetime_picker
       = f.input :operation_type, input_html: { class: "small-input" }
       = f.input :transplant_site, input_html: { class: "small-input" }
-      = f.input :cold_ischaemic_time, as: :string, input_html: { class: "small-input" }
+      = f.input :cold_ischaemic_time, as: :simple_time, input_html: { class: "small-input" }
       = f.input :notes, as: :text, input_html: { rows: 5 }
 
     = render layout: "renalware/shared/fieldset",

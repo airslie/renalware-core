@@ -197,4 +197,5 @@ en-GB:
       default: "%d-%m-%Y %H:%M"
       long: "%d %B, %Y %H:%M"
       short: "%d %b %H:%M"
+      time: "%H:%M"
     pm: pm

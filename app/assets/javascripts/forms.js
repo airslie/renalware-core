@@ -1,8 +1,8 @@
 function initDatePicker(container, elem, pickerOptions) {
   $(container + ' ' + elem).fdatepicker(pickerOptions);
 
-  $(container + ' ' + elem + ' i').on('click', function() {
-    $(this).closest(elem + 'wrapper')
+  $(container + ' ' + elem + '-wrapper .prefix i').on('click', function() {
+    $(this).closest(elem + '-wrapper')
       .find(elem)
       .fdatepicker('show');
   });
