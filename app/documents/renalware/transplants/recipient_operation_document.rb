@@ -61,6 +61,18 @@ module Renalware
         validates :tested_on, timeliness: { type: :date, allow_blank: true }
       end
       attribute :bkv, BKV
+
+      class Outcome < Document::Embedded
+        attribute :transplant_failed, enums: %i(yes no)
+        attribute :failed_on, Date
+        attribute :failure_cause
+        attribute :failure_description
+        attribute :stent_removed_on, Date
+
+        validates :failed_on, timeliness: { type: :date, allow_blank: true }
+        validates :stent_removed_on, timeliness: { type: :date, allow_blank: true }
+      end
+      attribute :outcome, Outcome
     end
   end
 end

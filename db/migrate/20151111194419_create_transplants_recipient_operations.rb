@@ -10,11 +10,6 @@ class CreateTransplantsRecipientOperations < ActiveRecord::Migration
       t.string :transplant_site, null: false
       t.datetime :kidney_perfused_with_blood_at, null: false
       t.time :cold_ischaemic_time, null: false
-      t.boolean :transplant_failed
-      t.date :failed_on
-      t.string :failure_cause
-      t.string :failure_description
-      t.date :stent_removed_on
       t.text :notes
 
       t.jsonb :document

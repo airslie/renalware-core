@@ -67,11 +67,12 @@ ruby:
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Outcome", name: "outcome" } do
-      = f.input :transplant_failed, as: :inline_radio_buttons
-      = f.input :failed_on, as: :date_picker
-      = f.input :failure_cause
-      = f.input :failure_description
-      = f.input :stent_removed_on, as: :date_picker
+      = fd.simple_fields_for :outcome, fd.object.outcome do |fcm|
+        = fcm.input :transplant_failed, as: :inline_radio_buttons
+        = fcm.input :failed_on, as: :date_picker
+        = fcm.input :failure_cause
+        = fcm.input :failure_description
+        = fcm.input :stent_removed_on, as: :date_picker
 
 
 .row

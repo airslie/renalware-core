@@ -37,8 +37,8 @@ fieldset.status-history
                 td= operation.document.donor.cmv_status
                 td= operation.document.recipient.cmv_status
                 td= operation.transplant_site
-                td= l operation.failed_on
-                th= l operation.stent_removed_on
+                td= l operation.document.outcome.failed_on
+                th= l operation.document.outcome.stent_removed_on
 
     .row
       .large-12.columns
