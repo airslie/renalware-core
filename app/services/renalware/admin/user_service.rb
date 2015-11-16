@@ -30,7 +30,7 @@ module Renalware
     end
 
     def notify!
-      notifications.each { |n| n.send(delivery_method) } if notifications.any?
+      notifications.each { |n| n.public_send(delivery_method) } if notifications.any?
       true
     end
 

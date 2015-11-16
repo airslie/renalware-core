@@ -1,8 +1,8 @@
 function initDatePicker(container, elem, pickerOptions) {
   $(container + ' ' + elem).fdatepicker(pickerOptions);
 
-  $(container + ' ' + elem + ' i').on('click', function() {
-    $(this).closest(elem + 'wrapper')
+  $(container + ' ' + elem + '-wrapper .prefix i').on('click', function() {
+    $(this).closest(elem + '-wrapper')
       .find(elem)
       .fdatepicker('show');
   });
@@ -13,7 +13,9 @@ function initDatepickersIn(container) {
 }
 
 function initDateTimepickersIn(container) {
-  initDatePicker(container, '.datetimepicker', {format: "dd-mm-yyyy hh:ii", pickTime: true});
+  initDatePicker(container, '.datetimepicker', {
+    format: "dd-mm-yyyy hh:ii", pickTime: true, minuteStep: 1
+  });
 }
 
 $(function() {

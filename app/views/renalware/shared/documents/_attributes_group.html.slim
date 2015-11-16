@@ -1,20 +1,5 @@
-.row data-magellan-destination="#{destination}"
-  a name="#{destination}"
-  .columns.large-12
-    = field_set_tag do
-      legend= legend
-      dl
-        - Array.wrap(group).each do |group|
-          - group.class.attributes_list.each do |attribute|
-            - value = group.send(attribute)
-            dt
-              = group.class.human_attribute_name attribute
-            dd
-              - if value.respond_to? :nested_attribute?
-                = render value
-              - elsif value.respond_to? :text
-                = value.text
-              - elsif value.is_a? Date
-                = I18n.l value
-              - else
-                = simple_format value.to_s
+= render layout: "renalware/shared/magellan_block",
+  locals: { destination: destination, legend: legend } do
+  - Array.wrap(group).each do |group|
+    = render "renalware/shared/attributes_list",
+      resource: group, attributes: group.class.attributes_list

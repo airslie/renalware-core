@@ -1,0 +1,39 @@
+fieldset.status-history
+  legend Operations
+
+  - if @recipient_operations.empty?
+    .call-to-action
+      = link_to new_patient_transplants_recipient_operation_path(@patient) do
+        i.fa.fa-plus-circle
+        | Enter operation details
+  - else
+    .row
+      .large-12.columns
+        table
+          thead
+            th
+            th Op Date
+            th Type
+            th Recip Age
+            th Donor Type
+            th Site
+            th Failure Date
+            th Failure Cause
+          tbody
+            - @recipient_operations.each do |operation|
+              tr
+                td= link_to "Edit", edit_patient_transplants_recipient_operation_path(@patient, operation)
+                td= link_to patient_transplants_recipient_operation_path(@patient, operation) do
+                    = l operation.performed_on
+                td= operation.operation_type.text
+                td= operation.document.recipient.age
+                td= operation.document.donor.type.try(:text)
+                td= operation.transplant_site
+                td= l operation.document.outcome.failed_on
+                td= operation.document.outcome.failure_cause
+
+    .row
+      .large-12.columns
+        .right
+          = link_to "Add an operation", new_patient_transplants_recipient_operation_path(@patient),
+            class: 'button tiny'

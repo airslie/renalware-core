@@ -1,4 +1,4 @@
-= f.simple_fields_for attribute, f.object.send(attribute) do |fd|
+= f.simple_fields_for attribute, f.object.public_send(attribute) do |fd|
   tr
     td= fd.label :result, f.object.class.human_attribute_name(attribute)
     td= fd.input :result, label: false, wrapper: "vertical_form"

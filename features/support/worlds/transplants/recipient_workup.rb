@@ -1,22 +1,22 @@
 module World
   module Transplants::RecipientWorkup
     module Domain
-      # Helpers
-
+      # @section helpers
+      #
       def recipient_workup_for(patient)
         Renalware::Transplants::RecipientWorkup.for_patient(patient).first_or_initialize
       end
 
-      # Set-ups
-
+      # @section set-ups
+      #
       def set_up_recipient_workup_for(patient)
         Renalware::Transplants::RecipientWorkup.create!(
           patient: patient
         )
       end
 
-      # Commands
-
+      # @section commands
+      #
       def create_recipient_workup(user: nil, patient:)
         set_up_recipient_workup_for(patient)
       end
@@ -35,15 +35,15 @@ module World
         )
       end
 
-      # Asserts
-
-      def assert_recipient_workup_exists(patient)
-        expect(Renalware::Transplants::RecipientWorkup.for_patient(patient).any?).to be_truthy
+      # @section expectations
+      #
+      def expect_recipient_workup_to_exist(patient)
+        expect(Renalware::Transplants::RecipientWorkup.for_patient(patient)).to be_present
       end
 
-      def assert_workup_was_updated(patient)
+      def expect_workup_to_be_modified(patient)
         workup = Renalware::Transplants::RecipientWorkup.for_patient(patient).first
-        expect(workup.updated_at).to_not eq(workup.created_at)
+        expect(workup).to be_modified
       end
     end
 

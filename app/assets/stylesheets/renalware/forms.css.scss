@@ -17,8 +17,12 @@ form {
     max-width: 960px;
   }
 
-  .datepicker-wrapper {
+  .datepicker-wrapper,
+  .datetimepicker-wrapper, {
     max-width: 250px !important;
+    i {
+      font-size: 1.5rem;
+    }
   }
 
   label.radio_buttons {
@@ -27,12 +31,6 @@ form {
 
   label.inline {
     margin-right: 0.3rem;
-  }
-
-  .datepicker-wrapper {
-    i {
-      font-size: 1.5rem;
-    }
   }
 
   table {

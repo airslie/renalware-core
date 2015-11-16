@@ -1,0 +1,66 @@
+# https://github.com/plataformatec/simple_form#i18n
+
+en:
+  activerecord:
+    attributes:
+      renalware/transplants/recipient_operation:
+        cold_ischaemic_time: Cold Ischaemic Time
+        donor_kidney_removed_from_ice_at: Donor Kidney Removed From Ice At
+        kidney_perfused_with_blood_at: Kidney Perfused With Blood At
+        notes: Notes
+        operation_type: Operation Type
+        performed_on: Operation Date
+        theatre_case_start_time: Theatre Case Start Time
+        transplant_site: Transplant Site
+  activemodel:
+    attributes:
+      renalware/transplants/recipient_operation_document/kidney:
+        age: Age
+        asyst: Asyst
+        side: Side
+        weight: Weight
+      renalware/transplants/recipient_operation_document/recipient:
+        age:
+        blood_group: Blood Group
+        cmv_status: CMV Status
+        last_dialysis_on: Last Dialysis Date
+        operation_number: Transplant Operation Nb
+      renalware/transplants/recipient_operation_document/donor:
+        age: Age
+        blood_group: Blood Group
+        born_on: Birthdate
+        cause_of_death: Cause Of Death
+        cmv_status: CMV Status
+        gender: Gender
+        hla: HLA
+        hla_mismatch: HLA Mismatch
+        type: Donor Type
+      renalware/transplants/recipient_operation_document/dsa:
+        notes: Notes
+        results: Results
+        tested_on: Test Date
+      renalware/transplants/recipient_operation_document/bkv:
+        notes: Notes
+        results: Results
+        tested_on: Test Date
+      renalware/transplants/recipient_operation_document/outcome:
+        failed_on: Failure Date
+        failure_cause: Failure Cause
+        failure_description: Failure Description
+        stent_removed_on: Stent Removal Date
+        transplant_failed: Transplant failed?
+
+  enumerize:
+    renalware/transplants/recipient_operation:
+      operation_type:
+        kidney: Kidney only
+        kidney_pancreas: Kidney and pancreas
+        pancreas: Pancreas only
+        kidney_liver: Kidney and liver
+        liver: Liver only
+    renalware/transplants/recipient_operation_document/donor:
+      type:
+        live_related: Live related
+        cadaver: Cadaver
+        nhb: NHB
+        live_unrelated: Live unrelated

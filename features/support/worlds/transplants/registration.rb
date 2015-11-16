@@ -1,14 +1,14 @@
 module World
   module Transplants::Registration
     module Domain
-      # Helpers
-
+      # @section helpers
+      #
       def transplant_registration_for(patient)
         Renalware::Transplants::Registration.for_patient(patient).first_or_initialize
       end
 
-      # Set-ups
-
+      # @section set-ups
+      #
       def set_up_patient_on_wait_list(patient)
         Renalware::Transplants::Registration.create!(
           patient: patient,
@@ -35,8 +35,8 @@ module World
         )
       end
 
-      # Commands
-
+      # @section commands
+      #
       def create_transplant_registration(user:, patient:, status:, started_on:)
         description = registration_status_description_named(status)
         Renalware::Transplants::Registration.create(
@@ -51,9 +51,9 @@ module World
         )
       end
 
-      # Asserts
-
-      def assert_transplant_registration_exists(patient:, status_name:, started_on:)
+      # @section expectations
+      #
+      def expect_transplant_registration_to_exist(patient:, status_name:, started_on:)
         registration = Renalware::Transplants::Registration.for_patient(patient).first
         expect(registration).to_not be_nil
         status = registration.current_status
@@ -62,7 +62,7 @@ module World
         expect(registration.current_status.started_on).to eq(Date.parse(started_on))
       end
 
-      def assert_update_transplant_registration(patient:)
+      def expect_transplant_registration_to_be_modified(patient:)
         travel_to 1.hour.from_now
 
         registration = transplant_registration_for(patient)
@@ -71,10 +71,10 @@ module World
           },
           updated_at: Time.zone.now
         )
-        expect(registration.reload.updated_at).to_not eq(registration.created_at)
+        expect(registration).to be_modified
       end
 
-      def assert_transplant_registration_was_refused
+      def expect_transplant_registration_to_be_refused
         expect(Renalware::Transplants::Registration.count).to eq(0)
       end
     end

@@ -1364,6 +1364,81 @@ ALTER SEQUENCE transplants_donor_workups_id_seq OWNED BY transplants_donor_worku
 
 
 --
+-- Name: transplants_recipient_operation_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE transplants_recipient_operation_versions (
+    id integer NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: transplants_recipient_operation_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE transplants_recipient_operation_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transplants_recipient_operation_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE transplants_recipient_operation_versions_id_seq OWNED BY transplants_recipient_operation_versions.id;
+
+
+--
+-- Name: transplants_recipient_operations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE transplants_recipient_operations (
+    id integer NOT NULL,
+    patient_id integer,
+    performed_on date NOT NULL,
+    theatre_case_start_time time without time zone NOT NULL,
+    donor_kidney_removed_from_ice_at timestamp without time zone NOT NULL,
+    operation_type character varying NOT NULL,
+    transplant_site character varying NOT NULL,
+    kidney_perfused_with_blood_at timestamp without time zone NOT NULL,
+    cold_ischaemic_time time without time zone NOT NULL,
+    notes text,
+    document jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: transplants_recipient_operations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE transplants_recipient_operations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transplants_recipient_operations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE transplants_recipient_operations_id_seq OWNED BY transplants_recipient_operations.id;
+
+
+--
 -- Name: transplants_recipient_workup_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1908,6 +1983,20 @@ ALTER TABLE ONLY transplants_donor_workups ALTER COLUMN id SET DEFAULT nextval('
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY transplants_recipient_operation_versions ALTER COLUMN id SET DEFAULT nextval('transplants_recipient_operation_versions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplants_recipient_operations ALTER COLUMN id SET DEFAULT nextval('transplants_recipient_operations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY transplants_recipient_workup_versions ALTER COLUMN id SET DEFAULT nextval('transplants_recipient_workup_versions_id_seq'::regclass);
 
 
@@ -2249,6 +2338,22 @@ ALTER TABLE ONLY transplants_donor_workups
 
 
 --
+-- Name: transplants_recipient_operation_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY transplants_recipient_operation_versions
+    ADD CONSTRAINT transplants_recipient_operation_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: transplants_recipient_operations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY transplants_recipient_operations
+    ADD CONSTRAINT transplants_recipient_operations_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: transplants_recipient_workup_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2502,6 +2607,20 @@ CREATE INDEX index_transplants_donor_workups_on_patient_id ON transplants_donor_
 
 
 --
+-- Name: index_transplants_recipient_operations_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplants_recipient_operations_on_document ON transplants_recipient_operations USING gin (document);
+
+
+--
+-- Name: index_transplants_recipient_operations_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplants_recipient_operations_on_patient_id ON transplants_recipient_operations USING btree (patient_id);
+
+
+--
 -- Name: index_transplants_recipient_workups_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2593,6 +2712,13 @@ CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (it
 
 
 --
+-- Name: tx_rec_operation_versions_type_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX tx_rec_operation_versions_type_id ON transplants_recipient_operation_versions USING btree (item_type, item_id);
+
+
+--
 -- Name: tx_registration_versions_type_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2627,6 +2753,14 @@ ALTER TABLE ONLY transplants_donor_workups
 
 ALTER TABLE ONLY clinic_visits
     ADD CONSTRAINT fk_rails_1f56ee2c91 FOREIGN KEY (clinic_type_id) REFERENCES clinic_types(id);
+
+
+--
+-- Name: fk_rails_6de0aa89c3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplants_recipient_operations
+    ADD CONSTRAINT fk_rails_6de0aa89c3 FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -2814,4 +2948,8 @@ INSERT INTO schema_migrations (version) VALUES ('20151022184845');
 INSERT INTO schema_migrations (version) VALUES ('20151022190252');
 
 INSERT INTO schema_migrations (version) VALUES ('20151103210628');
+
+INSERT INTO schema_migrations (version) VALUES ('20151111194419');
+
+INSERT INTO schema_migrations (version) VALUES ('20151111194420');
 

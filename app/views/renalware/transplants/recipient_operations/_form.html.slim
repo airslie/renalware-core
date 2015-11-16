@@ -1,0 +1,82 @@
+ruby:
+  back_path = patient_transplants_dashboard_path(@patient)
+
+.row.top
+  .medium-6.columns
+    = f.submit "Save", class: "button"
+    span= " or "
+    = link_to "cancel", back_path
+
+.form-content
+  = f.simple_fields_for :document, f.object.document do |fd|
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Operation", name: "operation" } do
+      = f.input :performed_on, as: :date_picker
+      = f.input :theatre_case_start_time, as: :simple_time, input_html: { class: "small-input" }
+      = f.input :donor_kidney_removed_from_ice_at, as: :datetime_picker
+      = f.input :kidney_perfused_with_blood_at, as: :datetime_picker
+      = f.input :operation_type, input_html: { class: "small-input" }
+      = f.input :transplant_site, input_html: { class: "small-input" }
+      = f.input :cold_ischaemic_time, as: :simple_time, input_html: { class: "small-input" }
+      = f.input :notes, as: :text, input_html: { rows: 5 }
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Kidney", name: "kidney" } do
+      = fd.simple_fields_for :kidney, fd.object.kidney do |fcm|
+        = fcm.input :side, input_html: { class: "small-input" }
+        = fcm.input :asyst
+        = fcm.input :age, input_html: { class: "small-input" }
+        = fcm.input :weight, input_html: { class: "small-input" }
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Recipient", name: "recipient" } do
+      = fd.simple_fields_for :recipient, fd.object.recipient do |fcm|
+        = fcm.input :operation_number, input_html: { class: "small-input" }
+        = fcm.input :age, input_html: { class: "small-input" }
+        = fcm.input :last_dialysis_on, as: :date_picker
+        = fcm.input :cmv_status, input_html: { class: "small-input" }
+        = render_input fcm, :blood_group
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Donor", name: "donor" } do
+      = fd.simple_fields_for :donor, fd.object.donor do |fcm|
+        = fcm.input :type, input_html: { class: "small-input" }
+        = fcm.input :gender, input_html: { class: "small-input" }
+        = fcm.input :born_on, as: :date_picker
+        = fcm.input :age, input_html: { class: "small-input" }
+        = fcm.input :cause_of_death
+        = fcm.input :hla
+        = fcm.input :hla_mismatch
+        = fcm.input :cmv_status, input_html: { class: "small-input" }
+        = render_input fcm, :blood_group
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "DSA", name: "dsa" } do
+      = fd.simple_fields_for :dsa, fd.object.dsa do |fcm|
+        = fcm.input :tested_on, as: :date_picker
+        = fcm.input :results
+        = fcm.input :notes, as: :text, input_html: { rows: 2 }
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "BKV", name: "bkv" } do
+      = fd.simple_fields_for :bkv, fd.object.bkv do |fcm|
+        = fcm.input :tested_on, as: :date_picker
+        = fcm.input :results
+        = fcm.input :notes, as: :text, input_html: { rows: 2 }
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Outcome", name: "outcome" } do
+      = fd.simple_fields_for :outcome, fd.object.outcome do |fcm|
+        = fcm.input :transplant_failed, as: :inline_radio_buttons
+        = fcm.input :failed_on, as: :date_picker
+        = fcm.input :failure_cause
+        = fcm.input :failure_description
+        = fcm.input :stent_removed_on, as: :date_picker
+
+
+.row
+  .large-12.columns
+    = f.submit 'Save', class: 'button'
+    span= " or "
+    = link_to 'cancel', back_path

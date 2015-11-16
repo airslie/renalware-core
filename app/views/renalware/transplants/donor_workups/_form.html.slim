@@ -15,20 +15,20 @@ ruby:
   = f.simple_fields_for :document, f.object.document do |fd|
 
     = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Donor-Recipient Relationship", name: "relationship" } do
+        locals: { legend: "Donor-Recipient Relationship", name: "relationship" } do
       = fd.simple_fields_for :relationship, fd.object.relationship do |fcm|
         = fcm.input :donor_recip_relationship
         = fcm.input :relationship_other
 
     = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Co-morbidities", name: "comorbidities" } do
+        locals: { legend: "Co-morbidities", name: "comorbidities" } do
       = fd.simple_fields_for :comorbidities, fd.object.comorbidities do |fcm|
         table
           - fcm.object.class.attributes_list.each do |attribute|
             = render_input fcm, attribute
 
     = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Virology/Bacteriology/Cytology", name: "infections" } do
+        locals: { legend: "Virology/Bacteriology/Cytology", name: "infections" } do
       = fd.simple_fields_for :infections, fd.object.infections do |fcm|
         table.no-stripes
           = render_input fcm, :hiv
@@ -42,7 +42,7 @@ ruby:
           = render_input fcm, :cytology
 
     = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Imaging and Scans", name: "imaging_and_scans" } do
+        locals: { legend: "Imaging and Scans", name: "imaging_and_scans" } do
       = fd.simple_fields_for :imaging_and_scans, fd.object.imaging_and_scans do |fcm|
         table.no-stripes
           = render_input fcm, :ecg_comment
@@ -50,7 +50,7 @@ ruby:
           = render_input fcm, :renal_ultrasound
 
     = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Creatinine Clearance", name: "creatinine_clearance" } do
+        locals: { legend: "Creatinine Clearance", name: "creatinine_clearance" } do
       = fd.simple_fields_for :creatinine_clearance, fd.object.creatinine_clearance do |fcm|
         = fcm.input :clearance_type, input_html: { class: "small-input" }
         table.no-stripes
@@ -58,7 +58,7 @@ ruby:
           = render_input fcm, :measured_clearance
 
     = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Glomerular Filtration Rate (GFR)", name: "glomerular_filtration_rate" } do
+        locals: { legend: "Glomerular Filtration Rate (GFR)", name: "glomerular_filtration_rate" } do
       = fd.simple_fields_for :glomerular_filtration_rate,
         fd.object.glomerular_filtration_rate do |fcm|
         = fcm.input :is_measured_value_corrected, as: :inline_radio_buttons
@@ -68,14 +68,14 @@ ruby:
           = render_input fcm, :isotopic_value
 
     = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Urine Dipsticks", name: "urine_dipsticks" } do
+        locals: { legend: "Urine Dipsticks", name: "urine_dipsticks" } do
       = fd.simple_fields_for :urine_dipsticks, fd.object.urine_dipsticks do |fcm|
         table.no-stripes
           = render_input fcm, :blood
           = render_input fcm, :protein
 
     = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Other Investigations", name: "other_investigations" } do
+        locals: { legend: "Other Investigations", name: "other_investigations" } do
       = fd.simple_fields_for :other_investigations, fd.object.other_investigations do |fcm|
         = fcm.input :number_renal_arteries, collection: (1..5).to_a, input_html: { class: "small-input" }
         = fcm.input :sitting_blood_pressure, input_html: { class: "small-input" }
