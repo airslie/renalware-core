@@ -26,7 +26,12 @@ As a Rails developer we assume you have the following setup on your machine:
   ALTER USER <username> SUPERUSER;
   ```
 
-2. Setup the Renalware database
+2. Ensure you have the correct Ruby version installed (verify the version in the Gemfile) and setup your Ruby
+environment with your prefered Ruby version and Gemset management tool (i.e. RVM).
+
+3. Ensure bundler installed
+
+4. Setup the application
 
   ```
   bin/setup

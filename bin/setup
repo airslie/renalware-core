@@ -1,3 +1,5 @@
+bin/bundle install
+
 echo "Setting up demo database"
 
 bin/rake db:reset
