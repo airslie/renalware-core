@@ -59,7 +59,7 @@ end
 
 When(/^Clyde records a donor operation for Don$/) do
   create_donor_operation(
-    patient: @patty,
+    patient: @don,
     user: @clyde,
     performed_on: Time.zone.today
   )

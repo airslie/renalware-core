@@ -9,13 +9,7 @@ module World
 
       def valid_donor_operation_attributes
         {
-          performed_on: fake_date,
-          theatre_case_start_time: fake_time,
-          donor_kidney_removed_from_ice_at: fake_date_time,
-          operation_type: "kidney",
-          transplant_site: "somewhere",
-          kidney_perfused_with_blood_at: fake_date_time,
-          cold_ischaemic_time: fake_time
+          performed_on: fake_date
         }
       end
 
