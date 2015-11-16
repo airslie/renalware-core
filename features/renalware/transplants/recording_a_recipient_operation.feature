@@ -4,7 +4,7 @@ Feature: Recording the operation on a recipient
   The patient receives the organ during an operation.
 
   Background:
-    And Clyde is a clinician
+    Given Clyde is a clinician
     And Patty is a patient
 
   @web

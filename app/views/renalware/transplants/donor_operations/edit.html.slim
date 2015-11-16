@@ -1,0 +1,9 @@
+= render "record_header"
+
+.row
+  .columns.large-12
+    .document
+      = simple_form_for @donor_operation,
+          url: patient_transplants_donor_operation_path(@patient, @donor_operation),
+          wrapper: "horizontal_form" do |f|
+        = render 'form', f: f

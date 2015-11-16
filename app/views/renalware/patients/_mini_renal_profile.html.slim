@@ -1,9 +1,11 @@
 .renal-profile
   = link_to "ESRF", edit_patient_esrf_path(@patient)
-  = " "
+  | &nbsp;
   = @patient.esrf
-  = " "
+  | &nbsp;
   = link_to "Transplant info", patient_transplants_dashboard_path(@patient)
+  | &nbsp;
+  = link_to "Donation info", patient_transplants_donor_dashboard_path(@patient)
 
   br
   - if display_pd_menu(@patient.modalities.with_deleted)
