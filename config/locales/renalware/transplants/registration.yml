@@ -55,7 +55,3 @@ en:
         document:
           hla:
             type: Freetext entry (not parsed)
-      clinic_visit:
-        height: metres
-        weight: kg.
-
