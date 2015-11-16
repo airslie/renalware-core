@@ -51,7 +51,7 @@ Visit [http://localhost:3000](http://localhost:3000).
 1. Setup a test database
 
   ```
-  bin/rake db:create RAILS_ENV=test
+  RAILS_ENV=test bin/rake db:create
   bin/rake db:test:load
   ```
 
