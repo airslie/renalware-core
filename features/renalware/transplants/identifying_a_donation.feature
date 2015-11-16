@@ -15,7 +15,7 @@ Feature: Identifying a donation
   @web
   Scenario: A clinician recorded the donation for a live donor
     When Clyde records a donation for Don
-    Then Don has a donation
+    Then Don has a new donation
 
   @web
   Scenario: A clinician udpated the donation for a live donor

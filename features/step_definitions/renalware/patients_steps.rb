@@ -9,7 +9,7 @@ Given(/^Patty is a patient$/) do
   )
 end
 
-Given(/^Don is a donor$/) do
+Given(/^Don is a patient$/) do
   @don = Renalware::Patient.create!(
     nhs_number: "1234567890",
     family_name: "Don",
