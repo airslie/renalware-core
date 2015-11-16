@@ -5,7 +5,7 @@ Feature: Assessing (workup) a Living Donor
 
   Background:
     Given Clyde is a clinician
-    And Don is a donor
+    And Don is a patient
 
   @web
   Scenario: Create an assessment
