@@ -68,16 +68,10 @@ module World
 
       def create_donor_operation(user:, patient:, performed_on:)
         login_as user
-        visit patient_transplants_dashboard_path(patient)
+        visit patient_transplants_donor_dashboard_path(patient)
         click_on "Enter operation details"
 
-        select "Kidney only", from: "Operation Type"
         fill_in "Operation Date", with: performed_on
-        fill_in "Theatre Case Start Time", with: fake_time
-        fill_in "Donor Kidney Removed From Ice At", with: fake_time
-        fill_in "Transplant Site", with: "somewhere"
-        fill_in "Kidney Perfused With Blood At", with: fake_time
-        fill_in "Cold Ischaemic Time", with: fake_time
 
         within ".top" do
           click_on "Save"
@@ -86,12 +80,12 @@ module World
 
       def update_donor_operation(patient:, user:)
         login_as user
-        visit patient_transplants_dashboard_path(patient)
-        within_fieldset "Operations" do
+        visit patient_transplants_donor_dashboard_path(patient)
+        within_fieldset "Donor Operations" do
           click_on "Edit"
         end
 
-        select "Pancreas only", from: "Operation Type"
+        select "Both", from: "Kidney Side"
 
         within ".top" do
           click_on "Save"

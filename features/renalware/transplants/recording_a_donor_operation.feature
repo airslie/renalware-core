@@ -1,4 +1,3 @@
-@wip
 Feature: Recording the operation on a donor
 
   A patient requires the transplant of one or many organs: kidney, pancreas or liver.

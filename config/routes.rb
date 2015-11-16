@@ -70,12 +70,14 @@ Rails.application.routes.draw do
 
       namespace :transplants do
         resource :dashboard, only: :show
+        resource :donor_dashboard, only: :show
         resource :recipient_workup, except: :destroy
         resource :donor_workup, except: :destroy
         resource :registration, expect: :destroy do
           resources :statuses, controller: "registration_statuses"
         end
         resources :recipient_operations
+        resources :donor_operations
       end
     end
 
