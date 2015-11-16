@@ -13,7 +13,9 @@ function initDatepickersIn(container) {
 }
 
 function initDateTimepickersIn(container) {
-  initDatePicker(container, '.datetimepicker', {format: "dd-mm-yyyy hh:ii", pickTime: true});
+  initDatePicker(container, '.datetimepicker', {
+    format: "dd-mm-yyyy hh:ii", pickTime: true, minuteStep: 1
+  });
 }
 
 $(function() {
