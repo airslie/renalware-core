@@ -9,9 +9,9 @@
           .columns.small-12
             = f.input :date, as: :datetime_picker, input_html: { class: "small-input" }
             = f.input :clinic_type_id, input_html: { class: "small-input" },
-              collection: Renalware::ClinicType.all,
-              label_method: :name, value_method: :id,
-              include_blank: t(".clinic_type_prompt")
+                collection: Renalware::ClinicType.all,
+                label_method: :name, value_method: :id,
+                include_blank: t(".clinic_type_prompt")
 
       fieldset
         legend Observations
@@ -22,19 +22,19 @@
             = f.input :weight, input_html: { class: "small-input" }
           .columns.small-12
             = f.input :bp, label: "Blood Pressure",
-              placeholder: "eg. 110/70",
-              input_html: { class: "small-input" }
+                placeholder: "eg. 110/70",
+                input_html: { class: "small-input" }
 
         .row
           .columns.small-12
             = f.input :urine_blood,
-              collection: %i(neg trace),
-              input_html: { class: "small-input" }
+                collection: %i(neg trace),
+                input_html: { class: "small-input" }
 
           .columns.small-12
             = f.input :urine_protein,
-              collection: %i(neg trace),
-              input_html: { class: "small-input" }
+                collection: %i(neg trace),
+                input_html: { class: "small-input" }
 
       fieldset
         legend Notes
