@@ -51,14 +51,14 @@ Visit [http://localhost:3000](http://localhost:3000).
 1. Setup a test database
 
   ```
-  bundle exec rake db:create RAILS_ENV=test
-  bundle exec rake db:test:load
+  bin/rake db:create RAILS_ENV=test
+  bin/rake db:test:load
   ```
 
 2. Run the test suite
 
   ```
-  bundle exec rake
+  bin/rake
   ```
 
 Test coverage reports can be found in `coverage/`
@@ -72,11 +72,11 @@ configured in `.rspec` with `--backtrace` which will display the full backtrace.
 
 To run the acceptance tests without the UI:
 
-    bundle exec cucumber
+    bin/cucumber
 
 To run the acceptance tests with the UI:
 
-    TEST_DEPTH=web bundle exec cucumber
+    TEST_DEPTH=web bin/cucumber
 
 ## Deployment to staging and demo servers
 
