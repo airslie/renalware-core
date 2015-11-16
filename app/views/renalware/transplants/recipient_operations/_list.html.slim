@@ -12,17 +12,13 @@ fieldset.status-history
         table
           thead
             th
-            th Date
+            th Op Date
             th Type
-            th Op Nb
             th Recip Age
             th Donor Type
-            th Donor Age
-            th Donor CMV
-            th Recip CMV
             th Site
             th Failure Date
-            th Stent Rem Date
+            th Failure Cause
           tbody
             - @recipient_operations.each do |operation|
               tr
@@ -30,15 +26,11 @@ fieldset.status-history
                 td= link_to patient_transplants_recipient_operation_path(@patient, operation) do
                     = l operation.performed_on
                 td= operation.operation_type.text
-                td= operation.document.recipient.operation_number
                 td= operation.document.recipient.age
                 td= operation.document.donor.type.try(:text)
-                td= operation.document.donor.age
-                td= operation.document.donor.cmv_status
-                td= operation.document.recipient.cmv_status
                 td= operation.transplant_site
                 td= l operation.document.outcome.failed_on
-                th= l operation.document.outcome.stent_removed_on
+                td= operation.document.outcome.failure_cause
 
     .row
       .large-12.columns
