@@ -35,7 +35,7 @@ en:
         karnofsky: Karnofsky Score
         prisma: Frailty (Prisma) score
       renalware/transplants/recipient_workup_document/cervical_smear:
-        date: Cervical smear date
+        recorded_on: Cervical smear date
         result: Cervical smear result
       renalware/transplants/recipient_workup_document/examination:
         carotid_bruit: Carotid Bruit?
@@ -46,11 +46,11 @@ en:
         heart_sounds: Heart Sounds
         posterior_tibial_pulse: Posterior tibial pulse?
       renalware/transplants/recipient_workup_document/consent:
-        date: Consent Date
+        consented_on: Consent Date
         name: Who consented
         value: Transplant Consent
       renalware/transplants/recipient_workup_document/marginal_consent:
-        date: Marginal Consent Date
+        consented_on: Marginal Consent Date
         name: Who marginally consented
         value: Marginal consent?
       renalware/transplants/recipient_workup_document/education:

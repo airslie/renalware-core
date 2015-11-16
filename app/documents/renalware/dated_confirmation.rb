@@ -1,13 +1,13 @@
 module Renalware
   class DatedConfirmation < NestedAttribute
     attribute :status, enums: %i(yes no unknown)
-    attribute :date, Date
+    attribute :confirmed_on, Date
 
-    validates :date, timeliness: { type: :date, allow_blank: true }
-    validates :date, presence: true, if: "status.try(:yes?)"
+    validates :confirmed_on, timeliness: { type: :date, allow_blank: true }
+    validates :confirmed_on, presence: true, if: "status.try(:yes?)"
 
     def to_s
-      datestamp = date.present? ? "(#{I18n.l(date)})" : nil
+      datestamp = confirmed_on.present? ? "(#{I18n.l(confirmed_on)})" : nil
       [status.try(:text), datestamp].compact.join(" ")
     end
   end
