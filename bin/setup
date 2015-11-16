@@ -1,0 +1,17 @@
+bin/bundle install
+
+echo "Setting up demo database"
+
+bin/rake db:reset
+cp .env.example .env
+cp .rspec.example .rspec
+
+echo ""
+echo "---"
+echo "Setup completed successfully!"
+echo ""
+echo "IMPORTANT"
+echo ""
+echo "Please review the following configuration files:"
+echo "- .env"
+echo "- .rspec"
