@@ -43,7 +43,8 @@ ruby:
       = fd.simple_fields_for :transplant, fd.object.transplant do |fcm|
         table.no-stripes
           = render_input fcm, :blood_group
-          = fcm.input :nb_of_previous_grafts, input_html: { class: "small-input" }
+          = fcm.input :nb_of_previous_grafts, collection: 0..5, include_blank: false,
+            input_html: { class: "small-input" }
           = fcm.input :sens_status
 
     = render layout: "renalware/shared/fieldset",
