@@ -109,7 +109,7 @@ module World
 
       def set_transplant_registration_status(user:, patient:, status:, started_on:)
         login_as user
-        visit patient_transplants_dashboard_path(patient)
+        visit patient_transplants_recipient_dashboard_path(patient)
         within_fieldset "Status History" do
           click_on "Update Status"
         end
@@ -121,7 +121,7 @@ module World
 
       def update_transplant_registration_status(user:, patient:, status:, started_on:)
         login_as user
-        visit patient_transplants_dashboard_path(patient)
+        visit patient_transplants_recipient_dashboard_path(patient)
         within_fieldset "Status History" do
           find_link_in_row_with(text: status, link_label: "Edit").click
         end
@@ -132,7 +132,7 @@ module World
 
       def delete_transplant_registration_status(patient:, user:, status:)
         login_as user
-        visit patient_transplants_dashboard_path(patient)
+        visit patient_transplants_recipient_dashboard_path(patient)
         within_fieldset "Status History" do
           find_link_in_row_with(text: status, link_label: "Delete").click
         end

@@ -19,7 +19,7 @@ module Renalware
         @recipient_operation.attributes = operation_params
 
         if @recipient_operation.save
-          redirect_to patient_transplants_dashboard_path(@patient)
+          redirect_to patient_transplants_recipient_dashboard_path(@patient)
         else
           render :new
         end
@@ -36,7 +36,7 @@ module Renalware
         @recipient_operation.attributes = operation_params
 
         if @recipient_operation.save
-          redirect_to patient_transplants_dashboard_path(@patient)
+          redirect_to patient_transplants_recipient_dashboard_path(@patient)
         else
           render :edit
         end

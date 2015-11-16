@@ -12,7 +12,7 @@ module Renalware
         @status = @registration.add_status!(status_params)
 
         if @status.valid?
-          redirect_to patient_transplants_dashboard_path(@patient)
+          redirect_to patient_transplants_recipient_dashboard_path(@patient)
         else
           render :new
         end
@@ -27,7 +27,7 @@ module Renalware
         @status = @registration.update_status!(existing_status, status_params)
 
         if @status.valid?
-          redirect_to patient_transplants_dashboard_path(@patient)
+          redirect_to patient_transplants_recipient_dashboard_path(@patient)
         else
           render :edit
         end
@@ -37,7 +37,7 @@ module Renalware
         status = @registration.statuses.find(params[:id])
         @registration.delete_status!(status)
 
-        redirect_to patient_transplants_dashboard_path(@patient)
+        redirect_to patient_transplants_recipient_dashboard_path(@patient)
       end
 
       protected

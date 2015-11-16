@@ -74,7 +74,7 @@ module World
 
       def create_recipient_operation(user:, patient:, performed_on:)
         login_as user
-        visit patient_transplants_dashboard_path(patient)
+        visit patient_transplants_recipient_dashboard_path(patient)
         click_on "Enter operation details"
 
         select "Kidney only", from: "Operation Type"
@@ -92,7 +92,7 @@ module World
 
       def update_recipient_operation(patient:, user:)
         login_as user
-        visit patient_transplants_dashboard_path(patient)
+        visit patient_transplants_recipient_dashboard_path(patient)
         within_fieldset "Recipient Operations" do
           click_on "Edit"
         end

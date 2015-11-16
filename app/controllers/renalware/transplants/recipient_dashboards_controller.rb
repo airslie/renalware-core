@@ -1,6 +1,6 @@
 module Renalware
   module Transplants
-    class DashboardsController < BaseController
+    class RecipientDashboardsController < BaseController
       before_filter :load_patient
 
       def show
