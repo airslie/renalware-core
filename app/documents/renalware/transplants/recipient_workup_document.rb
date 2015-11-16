@@ -46,9 +46,9 @@ module Renalware
 
       class CervicalSmear < Document::Embedded
         attribute :result
-        attribute :date, Date
+        attribute :recorded_on, Date
 
-        validates :date, timeliness: { type: :date, allow_blank: true }
+        validates :recorded_on, timeliness: { type: :date, allow_blank: true }
       end
       attribute :cervical_smear, CervicalSmear
 
@@ -64,22 +64,22 @@ module Renalware
 
       class Consent < Document::Embedded
         attribute :value, enums: %i(full partial refused)
-        attribute :date, Date
+        attribute :consented_on, Date
         attribute :name
 
-        validates :date, timeliness: { type: :date, allow_blank: true }
-        validates :date, presence: true, if: "value.present?"
+        validates :consented_on, timeliness: { type: :date, allow_blank: true }
+        validates :consented_on, presence: true, if: "value.present?"
         validates :name, presence: true, if: "value.present?"
       end
       attribute :consent, Consent
 
       class MarginalConsent < Document::Embedded
         attribute :value, enums: %i(yes no unknown)
-        attribute :date, Date
+        attribute :consented_on, Date
         attribute :name
 
-        validates :date, timeliness: { type: :date, allow_blank: true }
-        validates :date, presence: true, if: "value.present?"
+        validates :consented_on, timeliness: { type: :date, allow_blank: true }
+        validates :consented_on, presence: true, if: "value.present?"
         validates :name, presence: true, if: "value.present?"
       end
       attribute :marginal_consent, MarginalConsent
