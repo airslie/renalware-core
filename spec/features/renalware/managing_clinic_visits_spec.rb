@@ -12,7 +12,7 @@ module Renalware
     scenario "Adding a clinic visit" do
       visit new_patient_clinic_visit_path(@patient)
 
-      fill_in "Date", with: "#{I18n.l(Date.parse("20-07-#{Date.current.year}"))} 10:45"
+      fill_in "Date", with: "20-07-#{Date.current.year} 10:45"
       select "Access", from: "Clinic type"
       fill_in "Height", with: "1.78"
       fill_in "Weight", with: "82.5"
@@ -21,8 +21,8 @@ module Renalware
       click_on "Save"
 
       within(".clinics tbody tr:first-child") do
-        within(".date_time") do
-          expect(page).to have_content("20/07/2015, 10:45")
+        within(".date-time") do
+          expect(page).to have_content("20/07/#{Date.current.year}, 10:45")
         end
         within(".bmi") do
           expect(page).to have_content("26.04")
