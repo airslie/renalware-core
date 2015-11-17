@@ -64,14 +64,16 @@ end
 When(/^Clyde records a donation for Don$/) do
   create_donation(
     patient: @don,
-    user: @clyde
+    user: @clyde,
+    status: "pending_workup"
   )
 end
 
 When(/^Clyde submits an erroneous donation$/) do
   create_donation(
     patient: @don,
-    user: @clyde
+    user: @clyde,
+    status: "invalid_state"
   )
 end
 

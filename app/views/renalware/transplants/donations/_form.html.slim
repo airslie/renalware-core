@@ -1,0 +1,24 @@
+ruby:
+  back_path = if f.object.new_record?
+    patient_transplants_donor_dashboard_path(@patient)
+  else
+    patient_transplants_donation_path(@patient)
+  end
+
+.row.top
+  .medium-6.columns
+    = f.submit "Save", class: "button"
+    span= " or "
+    = link_to "cancel", back_path
+
+.form-content
+  = render layout: "renalware/shared/fieldset",
+      locals: { legend: "Donation", name: "donation" } do
+    = f.input :status, input_html: { class: "small-input" }
+    = f.input :notes, input_html: { rows: 5 }
+
+.row
+  .large-12.columns
+    = f.submit 'Save', class: 'button'
+    span= " or "
+    = link_to 'cancel', back_path

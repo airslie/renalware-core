@@ -9,6 +9,7 @@ module World
 
       def valid_donation_attributes
         {
+          status: :pending_workup
         }
       end
 
@@ -24,10 +25,11 @@ module World
 
       # @section commands
       #
-      def create_donation(patient:, user:)
+      def create_donation(patient:, user:, status: nil)
         Renalware::Transplants::Donation.create(
           valid_donation_attributes.merge(
-            patient: patient
+            patient: patient,
+            status: status
           )
         )
       end
@@ -62,18 +64,15 @@ module World
     module Web
       include Domain
 
-      def create_donation(user:, patient:)
+      def create_donation(user:, patient:, status: nil)
         login_as user
-        visit patient_transplants_dashboard_path(patient)
-        click_on "Enter operation details"
+        visit patient_transplants_donor_dashboard_path(patient)
+        click_on "Enter donation"
 
-        select "Kidney only", from: "Operation Type"
-        fill_in "Operation Date", with: performed_on
-        fill_in "Theatre Case Start Time", with: fake_time
-        fill_in "Donor Kidney Removed From Ice At", with: fake_time
-        fill_in "Transplant Site", with: "somewhere"
-        fill_in "Kidney Perfused With Blood At", with: fake_time
-        fill_in "Cold Ischaemic Time", with: fake_time
+        begin
+          find("option[value='#{status}']").select_option
+        rescue Capybara::ElementNotFound
+        end
 
         within ".top" do
           click_on "Save"
@@ -82,12 +81,12 @@ module World
 
       def update_donation(patient:, user:)
         login_as user
-        visit patient_transplants_dashboard_path(patient)
-        within_fieldset "Operations" do
+        visit patient_transplants_donor_dashboard_path(patient)
+        within_fieldset "Donation" do
           click_on "Edit"
         end
 
-        select "Pancreas only", from: "Operation Type"
+        select "Working Up", from: "Status"
 
         within ".top" do
           click_on "Save"

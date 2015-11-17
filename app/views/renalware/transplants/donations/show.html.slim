@@ -1,0 +1,8 @@
+= render "record_header"
+
+- return unless @donation
+.document-view
+  = render "renalware/shared/attributes_group",
+    legend: "Donation", destination: "donation",
+    resource: @donation,
+    attributes: [:status, :notes]

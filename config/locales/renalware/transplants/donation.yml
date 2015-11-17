@@ -1,0 +1,20 @@
+# https://github.com/plataformatec/simple_form#i18n
+
+en:
+  # activerecord:
+  #   attributes:
+  #     renalware/transplants/donor_workup:
+  #       performed_at: Performed On
+  activemodel:
+    attributes:
+      renalware/transplants/donation:
+        status: Donation Status
+        notes: Notes
+
+  enumerize:
+    renalware/transplants/donation:
+      status:
+        pending_workup: Pending Workup
+        working_up: Working Up
+        paired: Paired
+        unsuitable: Unsuitable
