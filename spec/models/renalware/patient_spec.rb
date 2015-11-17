@@ -111,5 +111,15 @@ module Renalware
         end
       end
     end
+
+    describe "#current_modality" do
+      it "returns the most recent non-deleted modality" do
+        create(:modality, patient: subject, started_on: "2015-04-19")
+        create(:modality, patient: subject, started_on: "2015-04-20")
+        create(:modality, patient: subject, started_on: "2015-04-21", deleted_at: Time.now)
+
+        expect(subject.current_modality.started_on).to eq(Date.parse("2015-04-20"))
+      end
+    end
   end
 end
