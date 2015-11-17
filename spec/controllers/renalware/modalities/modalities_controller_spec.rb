@@ -65,6 +65,40 @@ module Renalware
 
           expect(response).to redirect_to(patient_modalities_path(@patient))
         end
+
+        context "and death modality" do
+          before do
+            death_modality_description = create(:modality_description, name: "Death")
+            post :create,
+              patient_id: @patient.to_param,
+              modality: {
+                description_id: death_modality_description.to_param,
+                started_on: "2015-04-22",
+                notes: "Death notes"
+              }
+          end
+
+          it "succeeds with redirect to update cause of death" do
+            expect(response).to redirect_to(edit_patient_death_path(@patient))
+          end
+        end
+
+        context "and live donor modality" do
+          before do
+            modality_description = create(:modality_description, name: "Live Donor")
+            post :create,
+              patient_id: @patient.to_param,
+              modality: {
+                description_id: modality_description.to_param,
+                started_on: "2015-04-22",
+                notes: "Live Donor notes"
+              }
+          end
+
+          it "succeeds with redirect to record the donation" do
+            expect(response).to redirect_to(edit_patient_transplants_donation_path(@patient))
+          end
+        end
       end
 
       context "with an invalid modality" do
@@ -75,23 +109,6 @@ module Renalware
             modality: { notes: "Notes" }
 
           expect(response).to be_success
-        end
-
-        context "and death modality" do
-          before do
-            death_modality_description = create(:modality_description, name: "Death")
-            post :create,
-            patient_id: @patient.to_param,
-            modality: {
-              description_id: death_modality_description.to_param,
-              started_on: "2015-04-22",
-              notes: "Death notes"
-            }
-          end
-
-          it "succeeds with redirect to update cause of death" do
-            expect(response).to redirect_to(edit_patient_death_path(@patient))
-          end
         end
       end
     end
