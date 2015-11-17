@@ -7,6 +7,8 @@
       | Donation&nbsp;
       = render "renalware/shared/last_update", record: @donation
 
-    dl.sub-nav
-      dd= link_to "View", patient_transplants_donation_path(@patient)
-      dd= link_to "Edit", edit_patient_transplants_donation_path(@patient)
+    - if @donation.persisted?
+      dl.sub-nav
+        dd= link_to "Donation Info", patient_transplants_donor_dashboard_path(@patient)
+        dd= link_to "View", patient_transplants_donation_path(@patient, @donation)
+        dd= link_to "Edit", edit_patient_transplants_donation_path(@patient, @donation)

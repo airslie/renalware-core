@@ -4,23 +4,39 @@ module Renalware
       before_filter :load_patient
 
       def show
-        @donation = Donation.for_patient(@patient).first_or_initialize
+        @donation = Donation.for_patient(@patient).find(params[:id])
         authorize @donation
+      end
 
-        redirect_to edit_patient_transplants_donation_path(@patient) if @donation.new_record?
+      def new
+        @donation = Donation.new
+        authorize @donation
+      end
+
+      def create
+        @donation = Donation.new(patient: @patient)
+        authorize @donation
+        @donation.attributes = donation_params
+
+        if @donation.save
+          redirect_to patient_transplants_donor_dashboard_path(@patient)
+        else
+          render :new
+        end
       end
 
       def edit
-        @donation = Donation.for_patient(@patient).first_or_initialize
+        @donation = Donation.for_patient(@patient).find(params[:id])
         authorize @donation
       end
 
       def update
-        @donation = Donation.for_patient(@patient).first_or_initialize
+        @donation = Donation.for_patient(@patient).find(params[:id])
         authorize @donation
+        @donation.attributes = donation_params
 
-        if @donation.update_attributes(donation_params)
-          redirect_to patient_transplants_donation_path(@patient)
+        if @donation.save
+          redirect_to patient_transplants_donor_dashboard_path(@patient)
         else
           render :edit
         end

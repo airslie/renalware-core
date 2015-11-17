@@ -2,7 +2,7 @@ ruby:
   back_path = if f.object.new_record?
     patient_transplants_donor_dashboard_path(@patient)
   else
-    patient_transplants_donation_path(@patient)
+    patient_transplants_donation_path(@patient, f.object)
   end
 
 .row.top
