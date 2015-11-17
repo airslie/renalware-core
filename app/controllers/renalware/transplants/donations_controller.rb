@@ -45,20 +45,22 @@ module Renalware
       private
 
       def donation_params
-        params.require(:transplants_donation)
-          .permit(attributes)
-          # .merge(document: document_attributes)
+        params.require(:transplants_donation).permit(attributes)
       end
 
       def attributes
         [
-          :status, :notes
+          :state,
+          :relationship_with_recipient,
+          :blood_group_compatibility,
+          :mismatch_grade,
+          :paired_pooled_donation,
+          :volunteered_on,
+          :first_seen_on,
+          :workup_completed_on,
+          :donated_on,
+          :notes
         ]
-      end
-
-      def document_attributes
-        params.require(:transplants_donation)
-         .fetch(:document, nil).try(:permit!)
       end
     end
   end

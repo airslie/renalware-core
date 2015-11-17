@@ -13,8 +13,19 @@ ruby:
 
 .form-content
   = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Donation", name: "donation" } do
-    = f.input :status, input_html: { class: "small-input" }
+      locals: { legend: "Recipient", name: "recipient" } do
+    = f.input :relationship_with_recipient
+    = f.input :blood_group_compatibility, as: :inline_radio_buttons
+    = f.input :mismatch_grade, input_html: { class: "small-input" }
+    = f.input :paired_pooled_donation
+
+  = render layout: "renalware/shared/fieldset",
+      locals: { legend: "Admin", name: "admin" } do
+    = f.input :state, input_html: { class: "small-input" }
+    = f.input :volunteered_on, as: :date_picker
+    = f.input :first_seen_on, as: :date_picker
+    = f.input :workup_completed_on, as: :date_picker
+    = f.input :donated_on, as: :date_picker
     = f.input :notes, input_html: { rows: 5 }
 
 .row

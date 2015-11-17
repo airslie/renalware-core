@@ -1303,7 +1303,15 @@ CREATE TABLE schema_migrations (
 CREATE TABLE transplants_donations (
     id integer NOT NULL,
     patient_id integer,
-    status character varying,
+    state character varying,
+    relationship_with_recipient character varying,
+    blood_group_compatibility character varying,
+    mismatch_grade character varying,
+    paired_pooled_donation character varying,
+    volunteered_on date,
+    first_seen_on date,
+    workup_completed_on date,
+    donated_on date,
     notes text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL

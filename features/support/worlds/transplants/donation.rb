@@ -9,7 +9,8 @@ module World
 
       def valid_donation_attributes
         {
-          status: :pending_workup
+          state: :volunteered,
+          relationship_with_recipient: :son_or_daughter
         }
       end
 
@@ -25,11 +26,11 @@ module World
 
       # @section commands
       #
-      def create_donation(patient:, user:, status: nil)
+      def create_donation(patient:, user:, state: nil)
         Renalware::Transplants::Donation.create(
           valid_donation_attributes.merge(
             patient: patient,
-            status: status
+            state: state
           )
         )
       end
@@ -64,13 +65,14 @@ module World
     module Web
       include Domain
 
-      def create_donation(user:, patient:, status: nil)
+      def create_donation(user:, patient:, state: nil)
         login_as user
         visit patient_transplants_donor_dashboard_path(patient)
         click_on "Enter donation"
 
         begin
-          find("option[value='#{status}']").select_option
+          find("option[value='#{state}']").select_option
+          select "Son or daughter", from: "Relationship With Recipient"
         rescue Capybara::ElementNotFound
         end
 
@@ -86,7 +88,7 @@ module World
           click_on "Edit"
         end
 
-        select "Working Up", from: "Status"
+        select "Seen in Clinic", from: "State"
 
         within ".top" do
           click_on "Save"

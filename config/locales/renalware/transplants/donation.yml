@@ -1,20 +1,41 @@
 # https://github.com/plataformatec/simple_form#i18n
 
 en:
-  # activerecord:
-  #   attributes:
-  #     renalware/transplants/donor_workup:
-  #       performed_at: Performed On
-  activemodel:
+  activerecord:
     attributes:
       renalware/transplants/donation:
-        status: Donation Status
+        state: State
+        relationship_with_recipient: Relationship With Recipient
+        blood_group_compatibility: Blood Group Compatibility
+        mismatch_grade: Mistmatch Grade
+        paired_pooled_donation: Paired Pooled Donation
         notes: Notes
 
   enumerize:
     renalware/transplants/donation:
-      status:
-        pending_workup: Pending Workup
-        working_up: Working Up
-        paired: Paired
+      relationship_with_recipient:
+        son_or_daughter: "Son or daughter"
+        mother_or_father: "Mother or father"
+        sibling_2_shared: "Sibling (2 shared haplotypes)"
+        sibling_1_shared: "Sibling (1 shared haplotype)"
+        sibling_0_shared: "Sibling (0 shared haplotypes)"
+        sibling:: "Sibling (genetic relationship unknown)"
+        monozygotic_twin: "Monozygotic (identical) twin"
+        dizygotic_twin: "Dizygotic (non-identical) twin"
+        other_living_related: "Other living related - please specify"
+        living_non_related_spouse: "Living non-related donor - spouse"
+        living_non_related_partner: "Living non-related donor - partner"
+        pooled_paired: "Pooled/paired donor"
+        altruistic_non_directed: "Altruistic non-directed donor"
+        other_living_non_related: "Other living non-related donor - please specify"
+      state:
+        volunteered: Volunteered
+        seen_in_clinic: Seen in Clinic
+        investigating: Investigations being done
+        handed_over: Handed over
         unsuitable: Unsuitable
+      paired_pooled_donation:
+        n_a: N/A
+        information_given: Information Given
+        consented: Consented
+        to_enroll_in_next_matching_run: To enrol in next matching run

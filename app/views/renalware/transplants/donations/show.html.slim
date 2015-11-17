@@ -3,6 +3,12 @@
 - return unless @donation
 .document-view
   = render "renalware/shared/attributes_group",
-    legend: "Donation", destination: "donation",
+    legend: "Recipient", destination: "recipient",
     resource: @donation,
-    attributes: [:status, :notes]
+    attributes: [:relationship_with_recipient, :blood_group_compatibility,
+      :mismatch_grade, :paired_pooled_donation]
+
+  = render "renalware/shared/attributes_group",
+    legend: "Admin", destination: "admin",
+    resource: @donation,
+    attributes: [:state, :volunteered_on, :first_seen_on, :workup_completed_on, :donated_on, :notes]
