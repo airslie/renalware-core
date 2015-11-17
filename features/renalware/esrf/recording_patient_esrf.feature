@@ -1,4 +1,4 @@
-Feature: A Doctor records a patient's esrf
+Feature: A Doctor records a patient's ESRF
 
 A patient has their end stage renal failure details recorded by a clinician
 
@@ -7,8 +7,8 @@ Background:
     And Patty is a patient
     And Clyde is a clinician
     And Clyde is logged in
-    And Clyde is on Patty's esrf summary
+    And Clyde is on Patty's ESRF summary
 
-Scenario: Clyde records Patty's esrf
-  When Clyde completes Patty's esrf from
-  Then Patty's esrf details should be updated
+Scenario: Clyde records Patty's ESRF
+  When Clyde completes Patty's ESRF from
+  Then Patty's ESRF details should be updated

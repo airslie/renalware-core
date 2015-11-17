@@ -4,20 +4,20 @@ Given(/^there are prd in the database$/) do
   end
 end
 
-Given(/^Clyde is on Patty's esrf summary$/) do
+Given(/^Clyde is on Patty's ESRF summary$/) do
   visit edit_patient_esrf_path(@patty)
 end
 
-When(/^Clyde completes Patty's esrf from$/) do
+When(/^Clyde completes Patty's ESRF from$/) do
   fill_in "Date", with: fake_date
   select "Cystinuria", from: "Primary Renal Diagnosis (PRD)"
 
   click_on "Save"
 end
 
-Then(/^Patty's esrf details should be updated$/) do
+Then(/^Patty's ESRF details should be updated$/) do
   within ".renal-profile" do
-    expect(page).to have_content(fake_date.to_date)
+    expect(page).to have_content(fake_date)
     expect(page).to have_content("Cystinuria")
   end
 end
