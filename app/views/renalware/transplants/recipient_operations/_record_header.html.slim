@@ -4,7 +4,7 @@
     = render "renalware/patients/mini_renal_profile", model: @patient
 
     h2
-      | Operation&nbsp;
+      | Recipient Operation&nbsp;
       = render "renalware/shared/last_update", record: @recipient_operation
 
     - if @recipient_operation.persisted?

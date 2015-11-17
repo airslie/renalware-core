@@ -15,7 +15,7 @@ Given(/^Don is a patient$/) do
     family_name: "Don",
     given_name: "TheDonor",
     local_patient_id: "123456",
-    sex: "F",
+    sex: "M",
     born_on: Time.zone.today
   )
 end

@@ -1,0 +1,49 @@
+ruby:
+  back_path = patient_transplants_donor_dashboard_path(@patient)
+
+.row.top
+  .medium-6.columns
+    = f.submit "Save", class: "button"
+    span= " or "
+    = link_to "cancel", back_path
+
+.form-content
+  = render layout: "renalware/shared/fieldset",
+      locals: { legend: "Operation", name: "operation" } do
+    = f.input :performed_on, as: :date_picker
+    = f.input :kidney_side, input_html: { class: "small-input" }
+    = f.input :operating_surgeon, input_html: { class: "small-input" }
+    = f.input :anaesthetist, input_html: { class: "small-input" }
+    = f.input :nephrectomy_type
+    = f.input :nephrectomy_type_other
+    = f.input :donor_splenectomy_peri_or_post_operatively,
+      as: :inline_radio_buttons
+    = f.input :notes, as: :text, input_html: { rows: 5 }
+
+  = f.simple_fields_for :document, f.object.document do |fd|
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Diagnosis", name: "diagnosis" } do
+      = fd.simple_fields_for :diagnosis, fd.object.diagnosis do |fcm|
+        table.no-stripes
+          = render_input fcm, :wound_infection
+          = render_input fcm, :deep_vein_thrombosis
+          = render_input fcm, :donor_pneumothorax_peri_or_post_operative
+          = render_input fcm, :pneumonia
+          = render_input fcm, :pulmonary_thrombo_embolism
+        = fcm.input :prescribed_medication_indicator, as: :inline_radio_buttons
+        = fcm.input :other_peri_or_post_operative_complications, as: :inline_radio_buttons
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Outcome", name: "outcome" } do
+      = fd.simple_fields_for :outcome, fd.object.outcome do |fcm|
+        = fcm.input :subsequent_operation_indicator, as: :inline_radio_buttons
+        = fcm.input :donor_returned_to_previous_general_activity_level, as: :inline_radio_buttons
+        = fcm.input :nb_months_to_return_to_previous_general_activity_level,
+          input_html: { class: "small-input" }
+
+
+.row
+  .large-12.columns
+    = f.submit 'Save', class: 'button'
+    span= " or "
+    = link_to 'cancel', back_path

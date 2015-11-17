@@ -18,6 +18,10 @@ Given(/^Patty has a recipient operation$/) do
   set_up_recipient_operation(@patty)
 end
 
+Given(/^Don has a donor operation$/) do
+  set_up_donor_operation(@don)
+end
+
 Given(/^Don has a donation$/) do
   set_up_donation(@don)
 end
@@ -71,6 +75,14 @@ When(/^Clyde submits an erroneous donation$/) do
   )
 end
 
+When(/^Clyde records a donor operation for Don$/) do
+  create_donor_operation(
+    patient: @don,
+    user: @clyde,
+    performed_on: Time.zone.today
+  )
+end
+
 When(/^Clyde submits an erroneous registration$/) do
   create_transplant_registration(
     patient: @patty,
@@ -82,6 +94,14 @@ end
 When(/^Clyde submits an erroneous recipient operation$/) do
   create_recipient_operation(
     patient: @patty,
+    user: @clyde,
+    performed_on: ""
+  )
+end
+
+When(/^Clyde submits an erroneous donor operation$/) do
+  create_donor_operation(
+    patient: @don,
     user: @clyde,
     performed_on: ""
   )
@@ -164,6 +184,10 @@ Then(/^Patty has a new recipient operation$/) do
   expect_recipient_operation_to_exist(@patty)
 end
 
+Then(/^Don has a new donor operation$/) do
+  expect_donor_operation_to_exist(@don)
+end
+
 Then(/^Don has a new donation$/) do
   expect_donation_to_exist(@don)
 end
@@ -180,6 +204,10 @@ Then(/^Clyde can update Patty's recipient operation$/) do
   expect_update_recipient_operation_to_succeed(patient: @patty, user: @clyde)
 end
 
+Then(/^Clyde can update Don's donor operation$/) do
+  expect_update_donor_operation_to_succeed(patient: @don, user: @clyde)
+end
+
 Then(/^Clyde can update Don's donation$/) do
   expect_update_donation_to_succeed(patient: @don, user: @clyde)
 end
@@ -194,6 +222,10 @@ end
 
 Then(/^the recipient operation is not accepted$/) do
   expect_recipient_operation_to_be_refused
+end
+
+Then(/^the donor operation is not accepted$/) do
+  expect_donor_operation_to_be_refused
 end
 
 Then(/^the donation is not accepted$/) do

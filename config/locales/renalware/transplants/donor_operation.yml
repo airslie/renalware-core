@@ -1,0 +1,56 @@
+# https://github.com/plataformatec/simple_form#i18n
+
+en:
+  activerecord:
+    attributes:
+      renalware/transplants/donor_operation:
+        anaesthetist: Anaesthetist
+        donor_splenectomy_peri_or_post_operatively: Donor splenectomy peri or post operatively
+        kidney_side: Kidney Side
+        nephrectomy_type: Type of Nephrectomy on donor
+        nephrectomy_type_other: Nephrectomy Type (other)
+        notes: Notes
+        operating_surgeon: Operating Surgeon
+        performed_on: Operation Date
+  activemodel:
+    attributes:
+      renalware/transplants/donor_operation_document/diagnosis:
+        deep_vein_thrombosis: Deep Vein Thrombosis
+        donor_pneumothorax_peri_or_post_operative: Donor Pneumothorax peri or post operative
+        other_peri_or_post_operative_complications: Other peri or post operative complications
+        pneumonia: Pneumonia
+        prescribed_medication_indicator: Antihypertensive drugs prescribed in the last 12 months
+        pulmonary_thrombo_embolism: Pulmonary Thrombo Embolism
+        wound_infection: Wound Infection
+      renalware/transplants/donor_operation_document/outcome:
+        donor_returned_to_previous_general_activity_level: Donor returned to previous levels of general activity
+        nb_months_to_return_to_previous_general_activity_level: Time after donation when previous levels attained
+        subsequent_operation_indicator: Requirement for re-operation
+
+  enumerize:
+    renalware/transplants/donor_operation:
+      operating_surgeon:
+        consultant: Consultant
+        fellow_senior_registrar: Fellow/Senior Registrar
+        other: Other
+      anaesthetist:
+        consultant: Consultant
+        fellow_senior_registrar: Fellow/Senior Registrar
+        other: Other
+      nephrectomy_type:
+        open_transperitoneal: Open operation - transperitoneal
+        open_loin_with_resection: Open operation - loin approach with rib resection
+        open_loin_without_resection: Open operation - loin approach without rib resection
+        open_extraperitoneal: Open operation - anterior approach extraperitoneal
+        laparoscropic_intra: Laparoscopic operation - intraperitoneal
+        laparoscropic_extra: Laparoscopic operation - extraperitoneal
+        other: Other (please specify)
+
+  simple_form:
+    hints:
+      transplants_donor_operation:
+        document:
+          outcome:
+            nb_months_to_return_to_previous_general_activity_level: |
+              The time <b>in months</b> after donation for previous levels of general activity to be regained.
+              If yes to Donor returned to previous levels of general activity
