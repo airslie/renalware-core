@@ -1,4 +1,3 @@
-@wip
 Feature: Identifying a donation
 
   A patient can act as a living donor for another patient.  The possible donation

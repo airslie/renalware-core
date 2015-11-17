@@ -38,7 +38,7 @@ module Renalware
           redirect_to edit_patient_death_path(@patient),
             warning: "Please make sure to update patient date of death and cause of death!"
         elsif @patient.modality_description.donation?
-          redirect_to edit_patient_transplants_donation_path(@patient),
+          redirect_to new_patient_transplants_donation_path(@patient),
             warning: "If you have the information on-hand, please enter the potential donation."
         else
           redirect_to patient_modalities_path(@patient),

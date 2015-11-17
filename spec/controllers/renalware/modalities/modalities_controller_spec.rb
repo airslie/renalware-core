@@ -96,7 +96,7 @@ module Renalware
           end
 
           it "succeeds with redirect to record the donation" do
-            expect(response).to redirect_to(edit_patient_transplants_donation_path(@patient))
+            expect(response).to redirect_to(new_patient_transplants_donation_path(@patient))
           end
         end
       end
