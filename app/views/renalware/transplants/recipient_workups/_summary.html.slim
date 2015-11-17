@@ -11,7 +11,7 @@ fieldset
         dt Last Update:
         dd
           - if version = @recipient_workup.versions.last
-            = timestamp version.created_at
+            = l version.created_at
             | &nbsp;by&nbsp;
             = who_did_it version
 
