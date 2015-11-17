@@ -30,7 +30,7 @@ module Renalware
       click_on "Save"
 
       within(".current-regime") do
-        expect(page).to have_content("Regime Start Date: 15/06/2015")
+        expect(page).to have_content("15-06-2015")
         expect(page).to have_content("CAPD 4 exchanges per day")
         expect(page).to have_content(
           "Bag type: Green–2.34,

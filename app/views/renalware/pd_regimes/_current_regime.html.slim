@@ -6,10 +6,10 @@ fieldset.current-regime
     .large-3.columns
       dl
         dt Regime Start Date:
-        dl= current.start_date
+        dl=l current.start_date
 
         dt Regime End Date:
-        dl= default_for_blank(current.end_date, 'Pending')
+        dl=default_for_blank((l current.end_date), 'Pending')
 
         dt Treatment:
         dl= current.treatment
