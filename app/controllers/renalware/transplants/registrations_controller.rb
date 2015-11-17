@@ -17,7 +17,7 @@ module Renalware
         @registration.statuses.first.by = current_user if @registration.new_record?
 
         if @registration.save
-          redirect_to patient_transplants_dashboard_path(@patient)
+          redirect_to patient_transplants_recipient_dashboard_path(@patient)
         else
           render :edit
         end

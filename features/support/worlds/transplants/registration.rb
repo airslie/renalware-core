@@ -85,7 +85,7 @@ module World
 
       def create_transplant_registration(user:, patient:, status:, started_on:)
         login_as user
-        visit patient_transplants_dashboard_path(patient)
+        visit patient_transplants_recipient_dashboard_path(patient)
         click_on "Enter registration details"
 
         select "Kidney only", from: "Transplant Type"
@@ -101,7 +101,7 @@ module World
 
       def update_transplant_registration(patient:, user:)
         login_as user
-        visit patient_transplants_dashboard_path(patient)
+        visit patient_transplants_recipient_dashboard_path(patient)
         within_fieldset "Transplant Wait List Registration" do
           click_on "Edit"
         end

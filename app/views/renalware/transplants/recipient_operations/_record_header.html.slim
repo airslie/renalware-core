@@ -9,7 +9,7 @@
 
     - if @recipient_operation.persisted?
       dl.sub-nav
-        dd= link_to "Transplant Info", patient_transplants_dashboard_path(@patient)
+        dd= link_to "Transplant Info", patient_transplants_recipient_dashboard_path(@patient)
         dd= link_to "View", patient_transplants_recipient_operation_path(@patient, @recipient_operation)
         dd= link_to "Edit", edit_patient_transplants_recipient_operation_path(@patient, @recipient_operation)
 
