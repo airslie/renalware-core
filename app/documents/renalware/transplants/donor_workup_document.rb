@@ -3,23 +3,6 @@ require "document/embedded"
 module Renalware
   module Transplants
     class DonorWorkupDocument < Document::Embedded
-      class Relationship < Document::Embedded
-        attribute :donor_recip_relationship,
-          enums: %i(
-            son_or_daughter mother_or_father sibling_2_shared
-            sibling_1_shared sibling_0_shared sibling
-            monozygotic_twin dizygotic_twin other_living_related
-            living_non_related_spouse living_non_related_partner
-            pooled_paired altruistic_non_directed other_living_non_related
-          )
-        attribute :relationship_other
-
-        validates :donor_recip_relationship, presence: true
-        validates :relationship_other, presence: true,
-          if: "donor_recip_relationship.try(:other_living_non_related?)"
-      end
-      attribute :relationship, Relationship
-
       class Comorbidities < Document::Embedded
         attribute :angina, DatedConfirmation
         attribute :myocardial_infarct, DatedConfirmation
@@ -88,9 +71,6 @@ module Renalware
         attribute :oral_gtt, DatedResult
       end
       attribute :other_investigations, OtherInvestigations
-
-      attribute :foo
-      attribute :bar
     end
   end
 end

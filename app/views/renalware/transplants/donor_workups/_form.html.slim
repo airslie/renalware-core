@@ -15,12 +15,6 @@ ruby:
   = f.simple_fields_for :document, f.object.document do |fd|
 
     = render layout: "renalware/shared/fieldset",
-        locals: { legend: "Donor-Recipient Relationship", name: "relationship" } do
-      = fd.simple_fields_for :relationship, fd.object.relationship do |fcm|
-        = fcm.input :donor_recip_relationship
-        = fcm.input :relationship_other
-
-    = render layout: "renalware/shared/fieldset",
         locals: { legend: "Co-morbidities", name: "comorbidities" } do
       = fd.simple_fields_for :comorbidities, fd.object.comorbidities do |fcm|
         table
