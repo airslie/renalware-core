@@ -4,7 +4,7 @@ module Renalware
       before_filter :load_patient
 
       def show
-        @donor_operations = DonorOperation.for_patient(@patient).ordered(:desc)
+        @donor_operations = DonorOperation.for_patient(@patient).reversed
       end
     end
   end

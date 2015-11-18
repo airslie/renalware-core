@@ -11,7 +11,7 @@ fieldset.status-history
           th By
           th Termination Date
         tbody
-          - @registration.statuses.ordered(:desc).each do |status|
+          - @registration.statuses.reversed.each do |status|
             tr
               td
                 = link_to "Edit",

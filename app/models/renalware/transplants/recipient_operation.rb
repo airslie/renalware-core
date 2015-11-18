@@ -10,7 +10,8 @@ module Renalware
 
       belongs_to :patient
 
-      scope :ordered, -> (direction=:desc) { order(performed_on: direction) }
+      scope :ordered, -> { order(performed_on: :asc) }
+      scope :reversed, -> { order(performed_on: :desc) }
 
       has_paper_trail class_name: "Renalware::Transplants::RecipientOperationVersion"
       has_document class_name: "RecipientOperationDocument"
