@@ -1,12 +1,12 @@
 module Renalware
   class DatedResult < NestedAttribute
     attribute :result
-    attribute :date, Date
+    attribute :recorded_on, Date
 
-    validates :date, timeliness: { type: :date, allow_blank: true }
+    validates :recorded_on, timeliness: { type: :date, allow_blank: true }
 
     def to_s
-      datestamp = date.present? ? "(#{I18n.l(date)})" : nil
+      datestamp = recorded_on.present? ? "(#{I18n.l(recorded_on)})" : nil
       [result, datestamp].compact.join(" ")
     end
   end

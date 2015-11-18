@@ -46,7 +46,7 @@ ruby:
         locals: { legend: "Cervical smear data (latest and historical)", name: "cervical" } do
       = fd.simple_fields_for :cervical_smear, fd.object.cervical_smear do |fcm|
         = fcm.input :result
-        = fcm.input :date, as: :date_picker
+        = fcm.input :recorded_on, as: :date_picker
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Examination", name: "examination" } do
@@ -77,12 +77,12 @@ ruby:
         locals: { legend: "Consent", name: "consent" } do
       = fd.simple_fields_for :consent, fd.object.consent do |fcm|
         = fcm.input :value, as: :inline_radio_buttons
-        = fcm.input :date, as: :date_picker
+        = fcm.input :consented_on, as: :date_picker
         = fcm.input :name
         hr
       = fd.simple_fields_for :marginal_consent, fd.object.marginal_consent do |fcm|
         = fcm.input :value, as: :inline_radio_buttons
-        = fcm.input :date, as: :date_picker
+        = fcm.input :consented_on, as: :date_picker
         = fcm.input :name
 
     = render layout: "renalware/shared/fieldset",

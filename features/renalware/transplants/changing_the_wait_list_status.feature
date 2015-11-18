@@ -3,7 +3,7 @@ Feature: Changing the wait list status
   Status changes to a wait list registration are recorded providing a historical log.
 
   Background:
-    And Clyde is a clinician
+    Given Clyde is a clinician
     And Chloe is a clinician
     And Patty is a patient
     And Patty is registered on the wait list with this status history

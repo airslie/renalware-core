@@ -1,53 +1,43 @@
 = render partial: "renalware/shared/errors", locals: {model: f.object}
 
 .simple_form
-  fieldset
-    legend Summary
-    .columns.small-5
-      = f.label :date, "Clinic date", class: "right"
-    .columns.small-7
-      = f.datetime_select :date, {}, class: "datetime"
-    .columns.small-5
-      = f.label :clinic_type_id, class: "right"
-    .columns.small-7
-      = f.collection_select :clinic_type_id, Renalware::ClinicType.all, :id, :name,
-          class: "datetime", prompt: t(".clinic_type_prompt")
-  p= t(".clinic_type_prompt")
+  .row
+    .large-12.columns
+      fieldset
+        legend Summary
+        .row
+          .columns.small-12
+            = f.input :date, as: :datetime_picker, input_html: { class: "small-input" }
+            = f.input :clinic_type_id, input_html: { class: "small-input" },
+                collection: Renalware::ClinicType.all,
+                label_method: :name, value_method: :id,
+                include_blank: t(".clinic_type_prompt")
 
-  fieldset
+      fieldset
+        legend Observations
+        .row
+          .columns.small-12
+            = f.input :height, input_html: { class: "small-input" }
+          .columns.small-12
+            = f.input :weight, input_html: { class: "small-input" }
+          .columns.small-12
+            = f.input :bp, label: "Blood Pressure",
+                placeholder: "eg. 110/70",
+                input_html: { class: "small-input" }
 
+        .row
+          .columns.small-12
+            = f.input :urine_blood,
+                collection: %i(neg trace),
+                input_html: { class: "small-input" }
 
-    legend Observations
-    .row
-      .columns.small-5
-          = f.label :height, class: "right"
-      .columns.small-7.field_with_hint
-          = f.text_field :height, class: "small-input"
-          span.hint metres
-    .row
-      .columns.small-5
-          = f.label :weight, class: "right"
-      .columns.small-7.field_with_hint
-          = f.text_field :weight, class: "small-input"
-          span.hint kg.
-    .row
-      .columns.small-5
-        = f.label :bp, "Blood Pressure", class: "right"
-      .columns.small-7
-        = text_field_tag "clinic_visit[bp]", @clinic_visit.bp, placeholder: "eg. 110/70", class: "small-input"
-    .row
-      .columns.small-5
-        = f.label :urine_blood, class: "right"
-      .columns.small-7
-        = f.select :urine_blood, %i(neg trace), {}, class: "small-input"
-    .row
-      .columns.small-5
-        = f.label :urine_protein, class: "right"
-      .columns.small-7
-        = f.select :urine_protein, %i(neg trace), {}, class: "small-input"
+          .columns.small-12
+            = f.input :urine_protein,
+                collection: %i(neg trace),
+                input_html: { class: "small-input" }
 
-  fieldset
-    legend Notes
-    .row
-      .columns.large-12
-        = f.text_area :notes, rows: 8
+      fieldset
+        legend Notes
+        .row
+          .columns.large-12
+            = f.input :notes, as: :text, label: false, input_html: { columns: 50, rows: 5 }
