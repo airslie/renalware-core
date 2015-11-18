@@ -6,7 +6,7 @@ module Renalware
       def show
         @donations = Donation.for_patient(@patient).ordered(:desc)
         @donor_workup = DonorWorkup.for_patient(@patient).first_or_initialize
-        @donor_operations = DonorOperation.for_patient(@patient).ordered(:desc)
+        @donor_operations = DonorOperation.for_patient(@patient).reversed
       end
     end
   end

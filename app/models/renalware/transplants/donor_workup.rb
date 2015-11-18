@@ -11,10 +11,6 @@ module Renalware
 
       has_paper_trail class_name: "Renalware::Transplants::DonorWorkupVersion"
       has_document class_name: "DonorWorkupDocument"
-
-      def self.policy_class
-        BasePolicy
-      end
     end
   end
 end

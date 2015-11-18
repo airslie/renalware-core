@@ -5,6 +5,10 @@ module Renalware
     describe RegistrationStatus do
       let(:clinician) { create(:user, :clinician) }
 
+      it { is_expected.to validate_presence_of(:description_id) }
+      it { is_expected.to validate_timeliness_of(:started_on) }
+      it { is_expected.to validate_timeliness_of(:terminated_on) }
+
       describe "#valid?" do
         let(:attributes) { {} }
         subject { build(:transplant_registration_status, attributes) }
