@@ -1,13 +1,13 @@
 Feature: Identifying a donation
 
-  A patient can act as a living donor for another patient.  The possible donation
+  A patient can act as a living donor for another patient, the recipient.  The possible donation
   is first recorded.  It is then assigned to a potential recipient.
 
   Rules:
 
   - the recipient does not have to be known at the time of the recording
   - if a donation is found unsuitable for a recipient, additional donations can be recorded
-    for other recipients
+    for that donor
 
   Background:
     And Clyde is a clinician
