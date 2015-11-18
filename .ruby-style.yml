@@ -383,7 +383,7 @@ Style/StringLiteralsInInterpolation:
   - double_quotes
 Style/SpaceAroundBlockParameters:
   Description: Checks the spacing inside and after block parameters pipes.
-  Enabled: true
+  Enabled: false
   EnforcedStyleInsidePipes: no_space
   SupportedStyles:
   - space
@@ -408,7 +408,7 @@ Style/SpaceInsideBlockBraces:
   Description: Checks that block braces have or don't have surrounding space. For
     blocks taking parameters, checks that the left brace has or doesn't have trailing
     space.
-  Enabled: true
+  Enabled: false
   EnforcedStyle: space
   SupportedStyles:
   - space
