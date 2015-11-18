@@ -1,6 +1,6 @@
 ruby:
   back_path = if f.object.new_record?
-    patient_clinical_summary_path(@patient)
+    patient_transplants_donor_dashboard_path(@patient)
   else
     patient_transplants_donor_workup_path(@patient)
   end
