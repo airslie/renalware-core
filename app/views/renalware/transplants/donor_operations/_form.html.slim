@@ -17,7 +17,7 @@ ruby:
     = f.input :nephrectomy_type
     = f.input :nephrectomy_type_other
     = f.input :donor_splenectomy_peri_or_post_operatively,
-      as: :inline_radio_buttons
+        as: :inline_radio_buttons
     = f.input :notes, as: :text, input_html: { rows: 5 }
 
   = f.simple_fields_for :document, f.object.document do |fd|
@@ -39,7 +39,7 @@ ruby:
         = fcm.input :subsequent_operation_indicator, as: :inline_radio_buttons
         = fcm.input :donor_returned_to_previous_general_activity_level, as: :inline_radio_buttons
         = fcm.input :nb_months_to_return_to_previous_general_activity_level,
-          input_html: { class: "small-input" }
+            input_html: { class: "small-input" }
 
 
 .row

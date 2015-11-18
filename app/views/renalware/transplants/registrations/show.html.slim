@@ -4,11 +4,11 @@
 .document-view
   - ["Codes", "CRF", "HLA", "Transplant", "Organs", "NHB Consent"].each do |group|
     = render "renalware/shared/documents/attributes_group",
-      group: @registration.document.public_send(group.parameterize('_')),
-      legend: group, destination: group.parameterize('_')
+        group: @registration.document.public_send(group.parameterize('_')),
+        legend: group, destination: group.parameterize('_')
 
   = render "renalware/shared/attributes_group",
-    legend: "Admin", destination: "admin",
-    resource: @registration,
-    attributes: %i(referred_on assessed_on contact notes)
+      legend: "Admin", destination: "admin",
+      resource: @registration,
+      attributes: %i(referred_on assessed_on contact notes)
 

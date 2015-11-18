@@ -24,7 +24,7 @@ ruby:
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Historical", name: "historical" } do
       = fd.simple_fields_for :historicals, fd.object.historicals,
-        wrapper: "two_columns_table_row" do |fcm|
+          wrapper: "two_columns_table_row" do |fcm|
         table
           = fcm.input :tb, as: :inline_radio_buttons
           = fcm.input :dvt, as: :inline_radio_buttons
