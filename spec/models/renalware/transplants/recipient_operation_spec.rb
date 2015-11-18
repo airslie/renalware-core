@@ -3,8 +3,6 @@ require "rails_helper"
 module Renalware
   module Transplants
     describe RecipientOperation do
-      let(:clinician) { create(:user, :clinician) }
-
       it { is_expected.to validate_presence_of(:performed_on) }
       it { is_expected.to validate_presence_of(:theatre_case_start_time) }
       it { is_expected.to validate_presence_of(:donor_kidney_removed_from_ice_at) }

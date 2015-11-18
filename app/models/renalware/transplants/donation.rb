@@ -11,7 +11,8 @@ module Renalware
 
       has_paper_trail class_name: "Renalware::Transplants::Version"
 
-      scope :ordered, -> (direction=:desc) { order(created_at: direction) }
+      scope :ordered, -> { order(created_at: :asc) }
+      scope :reversed, -> { order(created_at: :desc) }
 
       enumerize :state, in: %i(volunteered seen_in_clinic investigating handed_over unsuitable)
       enumerize :relationship_with_recipient, in: %i(
@@ -34,10 +35,6 @@ module Renalware
       validates :first_seen_on, timeliness: { type: :date, allow_blank: true }
       validates :workup_completed_on, timeliness: { type: :date, allow_blank: true }
       validates :donated_on, timeliness: { type: :date, allow_blank: true }
-
-      def self.policy_class
-        BasePolicy
-      end
     end
   end
 end

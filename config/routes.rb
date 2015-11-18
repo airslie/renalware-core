@@ -77,6 +77,8 @@ Rails.application.routes.draw do
         resource :donor_workup, only: [:show, :edit, :update]
         resources :donor_operations, expect: [:index, :destroy]
 
+        resources :donations, expect: [:index, :destroy]
+
         resource :registration, expect: [:index, :destroy] do
           resources :statuses, controller: "registration_statuses"
         end

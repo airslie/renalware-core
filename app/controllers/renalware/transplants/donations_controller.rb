@@ -5,17 +5,14 @@ module Renalware
 
       def show
         @donation = Donation.for_patient(@patient).find(params[:id])
-        authorize @donation
       end
 
       def new
         @donation = Donation.new
-        authorize @donation
       end
 
       def create
         @donation = Donation.new(patient: @patient)
-        authorize @donation
         @donation.attributes = donation_params
 
         if @donation.save
@@ -27,12 +24,10 @@ module Renalware
 
       def edit
         @donation = Donation.for_patient(@patient).find(params[:id])
-        authorize @donation
       end
 
       def update
         @donation = Donation.for_patient(@patient).find(params[:id])
-        authorize @donation
         @donation.attributes = donation_params
 
         if @donation.save
