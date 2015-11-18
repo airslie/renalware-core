@@ -22,7 +22,7 @@ module Renalware
 
       within(".clinics tbody tr:first-child") do
         within(".date-time") do
-          expect(page).to have_content("20/07/2015")
+          expect(page).to have_content("20-07-2015")
           expect(page).to have_content("10:45")
         end
         within(".bmi") do
