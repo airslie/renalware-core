@@ -18,10 +18,6 @@ module Renalware
 
       accepts_nested_attributes_for :statuses
 
-      def self.policy_class
-        BasePolicy
-      end
-
       # @section services
       #
       def add_status!(params)

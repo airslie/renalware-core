@@ -30,10 +30,6 @@ module Renalware
       validates :cold_ischaemic_time, timeliness: { type: :time }
 
       enumerize :operation_type, in: %i(kidney kidney_pancreas pancreas kidney_liver liver)
-
-      def self.policy_class
-        BasePolicy
-      end
     end
   end
 end
