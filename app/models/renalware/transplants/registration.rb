@@ -18,10 +18,6 @@ module Renalware
 
       accepts_nested_attributes_for :statuses
 
-      def self.policy_class
-        BasePolicy
-      end
-
       # @section services
       #
       def add_status!(params)
@@ -53,7 +49,7 @@ module Renalware
 
       def recompute_termination_dates!
         previous_started_on = nil
-        statuses.ordered(:desc).each do |status|
+        statuses.reversed.each do |status|
           status.update_column(:terminated_on, previous_started_on)
           previous_started_on = status.started_on
         end

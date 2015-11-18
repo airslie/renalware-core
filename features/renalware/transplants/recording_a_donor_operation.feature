@@ -1,7 +1,7 @@
 Feature: Recording the operation on a donor
 
   A patient requires the transplant of one or many organs: kidney, pancreas or liver.
-  The donor donates the organ during an operation.
+  The donor has an operation in order to donate the organ.
 
   Background:
     Given Clyde is a clinician

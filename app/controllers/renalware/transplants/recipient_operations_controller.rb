@@ -5,17 +5,14 @@ module Renalware
 
       def show
         @recipient_operation = RecipientOperation.for_patient(@patient).find(params[:id])
-        authorize @recipient_operation
       end
 
       def new
         @recipient_operation = RecipientOperation.new
-        authorize @recipient_operation
       end
 
       def create
         @recipient_operation = RecipientOperation.new(patient: @patient)
-        authorize @recipient_operation
         @recipient_operation.attributes = operation_params
 
         if @recipient_operation.save
@@ -27,12 +24,10 @@ module Renalware
 
       def edit
         @recipient_operation = RecipientOperation.for_patient(@patient).find(params[:id])
-        authorize @recipient_operation
       end
 
       def update
         @recipient_operation = RecipientOperation.for_patient(@patient).find(params[:id])
-        authorize @recipient_operation
         @recipient_operation.attributes = operation_params
 
         if @recipient_operation.save
