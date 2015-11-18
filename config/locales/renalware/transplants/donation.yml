@@ -6,6 +6,7 @@ en:
       renalware/transplants/donation:
         state: State
         relationship_with_recipient: Relationship With Recipient
+        relationship_with_recipient_other: Other Relationship (if required)
         blood_group_compatibility: Blood Group Compatibility
         mismatch_grade: Mistmatch Grade
         paired_pooled_donation: Paired Pooled Donation
@@ -27,7 +28,7 @@ en:
         living_non_related_partner: "Living non-related donor - partner"
         pooled_paired: "Pooled/paired donor"
         altruistic_non_directed: "Altruistic non-directed donor"
-        other_living_non_related: "Other living non-related donor - please specify"
+        other_living_non_related: "Other living non-related donor"
       state:
         volunteered: Volunteered
         seen_in_clinic: Seen in Clinic

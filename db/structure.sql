@@ -1305,6 +1305,7 @@ CREATE TABLE transplants_donations (
     patient_id integer,
     state character varying,
     relationship_with_recipient character varying,
+    relationship_with_recipient_other character varying,
     blood_group_compatibility character varying,
     mismatch_grade character varying,
     paired_pooled_donation character varying,

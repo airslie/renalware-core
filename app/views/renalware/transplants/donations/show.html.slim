@@ -5,8 +5,8 @@
   = render "renalware/shared/attributes_group",
     legend: "Recipient", destination: "recipient",
     resource: @donation,
-    attributes: [:relationship_with_recipient, :blood_group_compatibility,
-      :mismatch_grade, :paired_pooled_donation]
+    attributes: [:relationship_with_recipient, :relationship_with_recipient_other,
+      :blood_group_compatibility, :mismatch_grade, :paired_pooled_donation]
 
   = render "renalware/shared/attributes_group",
     legend: "Admin", destination: "admin",

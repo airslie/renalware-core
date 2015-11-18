@@ -7,7 +7,10 @@ fieldset
       dd
         i Unassigned
         br
-        = "(#{donation.relationship_with_recipient.text})"
+        - if donation.relationship_with_recipient_other.present?
+          = "(#{donation.relationship_with_recipient.text}: #{donation.relationship_with_recipient_other})"
+        - else
+          = "(#{donation.relationship_with_recipient.text})"
 
     .large-2.columns
       dt State:

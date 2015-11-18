@@ -52,6 +52,7 @@ module Renalware
         [
           :state,
           :relationship_with_recipient,
+          :relationship_with_recipient_other,
           :blood_group_compatibility,
           :mismatch_grade,
           :paired_pooled_donation,

@@ -5,6 +5,7 @@ class CreateTransplantsDonations < ActiveRecord::Migration
 
       t.string :state
       t.string :relationship_with_recipient
+      t.string :relationship_with_recipient_other
       t.string :blood_group_compatibility
       t.string :mismatch_grade
       t.string :paired_pooled_donation
