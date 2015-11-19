@@ -13,9 +13,7 @@ module Renalware
         select "CAPD (disconnect)", from: "modality-description-select"
         select "Haemodialysis To PD", from: "Type of Change"
         select "Patient / partner choice", from: "Reason for Change"
-        select "2015", from: "modality_started_on_1i"
-        select "April", from: "modality_started_on_2i"
-        select "17", from: "modality_started_on_3i"
+        fill_in "Started on", with: "17-04-2015"
         fill_in "Notes", with: "Adding modality for patient"
         click_button "Save"
       end

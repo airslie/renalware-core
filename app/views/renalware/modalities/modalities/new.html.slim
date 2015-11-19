@@ -6,38 +6,50 @@
   .large-12.columns
     = render partial: "renalware/shared/errors", locals: { model: @modality }
 
-.row
-  ul.no-bullet
-    = form_for @modality, as: :modality, url: patient_modalities_path(@patient) do |m|
+.modality-form
+  = simple_form_for @modality,
+      as: :modality,
+      url: patient_modalities_path(@patient),
+      wrapper: "horizontal_form" do |m|
+    .row
+      .large-12.columns
+        fieldset
+          legend New Modality
+          .row
+            .large-3.columns
+              .hide-death
+                = link_to "Renal Registry Reason for Change Codes", "#", id: "modal-reason-code", class: "button tiny mt"
+          .large-9.columns
 
-      .modality-form
+            ul.no-bullet
 
-        = m.hidden_field :id
+              li
+                = m.input :description_id,
+                    input_html: { id: "modality-description-select" },
+                    collection: Renalware::Modalities::Description.all,
+                    label_method: :name, value_method: :id
 
-        = m.hidden_field :patient_id
+              li.hide-death
+                = m.input :modal_change_type,
+                    label: "Type of Change",
+                    input_html: { class: "modal-change-type" },
+                    collection: [["Other", "Other"], ["Haemodialysis To PD", "HaemodialysisToPD"], ["PD To Haemodialysis", "PDToHaemodialysis"]]
 
-        li
-          = m.label :description_id, "Modality"
-          = m.collection_select :description_id, Renalware::Modalities::Description.all, :id, :name, {}, id: "modality-description-select"
+              li.hide-death
+                = m.input :reason_id,
+                    label: "Reason for Change",
+                    input_html: { class: "modality-reason-select" },
+                    collection: Renalware::Modalities::Reason.where(type: m.object.modal_change_type),
+                    label_method: :description, value_method: :id
 
-        li.hide-death
-          = m.label :modal_change_type, "Type of Change"
-          = m.select :modal_change_type, modal_change_options(m.object.modal_change_type), {}, class: "modal-change-type"
-        li.hide-death
-          = m.label :reason_id, "Reason for Change"
-          = m.collection_select :reason_id, modal_reasons_for(m.object.modal_change_type), :id, :description, {}, class: "modality-reason-select"
+              li
+                = m.input :started_on, as: :date_picker
 
-        li.hide-death
-          = link_to "Renal Registry Reason for Change Codes", "#", id: "modal-reason-code", class: "button tiny mt"
+              li.hide-death
+                = m.input :notes, as: :text, input_html: { rows: 5 }
 
-        li
-          = m.label :started_on, "Start Date"
-          = m.date_select(:started_on, {start_year: (1.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year]}, class: "datetime")
-
-        li.hide-death
-          = m.label :notes, "Notes"
-          = m.text_area(:notes, cols: 10, rows: 2)
-
+    .row
+      .large-12.columns
         = m.submit "Save", class: "button"
         span= " or "
         = link_to "cancel", patient_modalities_path(@patient)
