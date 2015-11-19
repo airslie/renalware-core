@@ -5,6 +5,8 @@
   "success_url": "/",
   "addons": ["heroku-postgresql:hobby-dev", "sendgrid"],
   "env": {
+    "DEMO": "1",
+    "RACK_ENV": "staging",
     "RAILS_ENV": "staging",
     "COOKIE_SECRET": {
       "generator": "secret"
@@ -15,6 +17,6 @@
     }
   },
   "scripts": {
-    "postdeploy": "bundle exec rake db:migrate"
+    "postdeploy": "bundle exec rake db:setup"
   }
 }
