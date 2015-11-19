@@ -14,7 +14,7 @@ module Renalware
 
 
       has_paper_trail class_name: "Renalware::Transplants::RegistrationVersion"
-      has_document class_name: "RegistrationDocument"
+      has_document class_name: "Renalware::Transplants::RegistrationDocument"
 
       accepts_nested_attributes_for :statuses
 
