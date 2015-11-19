@@ -1,4 +1,4 @@
-- header = "Peritonitis Episode - Diagnosed: #{@peritonitis_episode.diagnosis_date.strftime("%d/%m/%Y")}"
+- header = "Peritonitis Episode - Diagnosed: #{ l @peritonitis_episode.diagnosis_date }"
 = render layout: "renalware/pd/layout", locals: { header: header, patient: @patient } do
   .row
     p
@@ -13,9 +13,9 @@
         .large-2.columns
           dl
             dt Start
-            dl= @peritonitis_episode.treatment_start_date
+            dl= l @peritonitis_episode.treatment_start_date
             dt End
-            dl= @peritonitis_episode.treatment_end_date
+            dl= l @peritonitis_episode.treatment_end_date
 
         .large-4.columns
           dl

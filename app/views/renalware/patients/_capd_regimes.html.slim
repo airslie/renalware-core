@@ -20,10 +20,10 @@ table.capd-regimes
           = link_to "View", patient_pd_regime_path(@patient, r.id), class: "view-pd-regime"
 
         td valign="top"
-          = r.start_date
+          = l r.start_date
 
         td valign="top"
-          = default_for_blank(r.end_date, "Pending")
+          = default_for_blank_date(r.end_date, "Pending")
 
         td valign="top"
           = r.treatment
