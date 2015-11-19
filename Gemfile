@@ -64,7 +64,7 @@ group :test do
   gem 'webmock'
 end
 
-group :production do
+group :staging do
   gem 'rails_12factor'
   gem 'unicorn'
 end
