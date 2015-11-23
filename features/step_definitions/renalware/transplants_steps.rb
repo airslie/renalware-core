@@ -117,7 +117,6 @@ When(/^Clyde submits a pre\-dated registration$/) do
   )
 end
 
-
 When(/^Clyde sets the registration status to "(.*?)" and the start date to "(.*?)"$/) \
   do |status, started_on|
   set_transplant_registration_status(
@@ -155,6 +154,14 @@ When(/^Clyde deletes the "(.*?)" status change$/) do |status|
   delete_transplant_registration_status(
     patient: @patty,
     status: status,
+    user: @clyde
+  )
+end
+
+When(/^Clyde assigns Patty as a recipient for Don's donation$/) do
+  assign_recipient_to_donation(
+    patient: @don,
+    recipient: @patty,
     user: @clyde
   )
 end
@@ -232,6 +239,10 @@ end
 
 Then(/^the donation is not accepted$/) do
   expect_donation_to_be_refused
+end
+
+Then(/^the donation has Patty as a recipient$/) do
+  expect_transplant_donation_as_recipient(patient: @don, recipient: @patty)
 end
 
 Then(/^the transplant current status stays "(.*?)" since "(.*?)"$/) do |name, start_date|

@@ -38,9 +38,16 @@ module World
       def update_donation(patient:, user: nil)
         travel_to 1.hour.from_now
 
-        operation = donation_for(patient)
-        operation.update_attributes!(
+        donation = donation_for(patient)
+        donation.update_attributes!(
           updated_at: Time.zone.now
+        )
+      end
+
+      def assign_recipient_to_donation(patient:, recipient:, user: nil)
+        donation = donation_for(patient)
+        donation.update_attributes!(
+          recipient_id: recipient.id
         )
       end
 
@@ -52,12 +59,17 @@ module World
 
       def expect_update_donation_to_succeed(patient:, user:)
         update_donation(patient: patient, user: user)
-        operation = donation_for(patient)
-        expect(operation).to be_modified
+        donation = donation_for(patient)
+        expect(donation).to be_modified
       end
 
       def expect_donation_to_be_refused
         expect(Renalware::Transplants::Donation.count).to eq(0)
+      end
+
+      def expect_transplant_donation_as_recipient(patient:, recipient:)
+        donation = donation_for(patient)
+        expect(donation.recipient_id).to eq(recipient.id)
       end
     end
 
@@ -89,6 +101,21 @@ module World
         end
 
         select "Seen in Clinic", from: "State"
+
+        within ".top" do
+          click_on "Save"
+        end
+      end
+
+      def assign_recipient_to_donation(patient:, recipient:, user:)
+        login_as user
+        visit patient_transplants_donor_dashboard_path(patient)
+        within_fieldset "Donation" do
+          click_on "Edit"
+        end
+
+        fill_autocomplete "transplants_donation_recipient_unique_label",
+          with: "Patty", select: "Patty"
 
         within ".top" do
           click_on "Save"
