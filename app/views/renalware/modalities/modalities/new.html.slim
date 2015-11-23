@@ -33,7 +33,7 @@
                 = m.input :modal_change_type,
                     label: "Type of Change",
                     input_html: { class: "modal-change-type" },
-                    collection: [["Other", "Other"], ["Haemodialysis To PD", "HaemodialysisToPD"], ["PD To Haemodialysis", "PDToHaemodialysis"]]
+                    collection: Renalware::Modalities::ChangeType::OPTIONS
 
               li.hide-death
                 = m.input :reason_id,
