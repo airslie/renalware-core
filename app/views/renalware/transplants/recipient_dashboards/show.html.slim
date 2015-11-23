@@ -5,6 +5,7 @@
 
     h2 Transplant Info
 
+    = render "renalware/transplants/recipient_workups/summary"
     = render "renalware/transplants/registrations/summary"
     - if @registration.persisted?
       = render "renalware/transplants/registration_statuses/list"
