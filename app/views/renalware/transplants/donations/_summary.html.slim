@@ -5,7 +5,11 @@ fieldset
     .large-3.columns
       dt Recipient:
       dd
-        i Unassigned
+        - if donation.recipient.present?
+          = link_to donation.recipient.unique_label,
+              patient_transplants_recipient_dashboard_path(donation.recipient)
+        - else
+          i Unassigned
         br
         - if donation.relationship_with_recipient_other.present?
           = "(#{donation.relationship_with_recipient.text}: #{donation.relationship_with_recipient_other})"

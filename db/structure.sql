@@ -1303,8 +1303,9 @@ CREATE TABLE schema_migrations (
 CREATE TABLE transplants_donations (
     id integer NOT NULL,
     patient_id integer,
-    state character varying,
-    relationship_with_recipient character varying,
+    recipient_id integer,
+    state character varying NOT NULL,
+    relationship_with_recipient character varying NOT NULL,
     relationship_with_recipient_other character varying,
     blood_group_compatibility character varying,
     mismatch_grade character varying,
@@ -2809,6 +2810,13 @@ CREATE INDEX index_problems_on_deleted_at ON problems USING btree (deleted_at);
 --
 
 CREATE INDEX index_transplants_donations_on_patient_id ON transplants_donations USING btree (patient_id);
+
+
+--
+-- Name: index_transplants_donations_on_recipient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplants_donations_on_recipient_id ON transplants_donations USING btree (recipient_id);
 
 
 --

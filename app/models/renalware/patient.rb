@@ -54,6 +54,8 @@ module Renalware
     alias_attribute :first_name, :given_name
     alias_attribute :last_name,  :family_name
 
+    attr_reader :unique_label
+
     def self.policy_class
       BasePolicy
     end
@@ -81,6 +83,10 @@ module Renalware
       if self.current_modality.present?
         self.current_modality.description.death?
       end
+    end
+
+    def unique_label
+      "#{family_name}, #{given_name} (#{nhs_number})"
     end
 
     private

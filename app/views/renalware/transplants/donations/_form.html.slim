@@ -16,6 +16,12 @@ ruby:
       locals: { legend: "Recipient", name: "recipient" } do
     = f.input :relationship_with_recipient
     = f.input :relationship_with_recipient_other
+    = f.input :recipient_unique_label, input_html: { \
+        data: { \
+          autocomplete_source: search_patients_path, \
+          autocomplete_rel: "#transplants_donation_recipient_id" \
+        }}
+    = f.input :recipient_id, as: :hidden
     = f.input :blood_group_compatibility, as: :inline_radio_buttons
     = f.input :mismatch_grade, input_html: { class: "small-input" }
     = f.input :paired_pooled_donation

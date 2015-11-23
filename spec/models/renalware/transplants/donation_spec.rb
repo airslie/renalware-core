@@ -31,6 +31,17 @@ module Renalware
 
           it { is_expected.to_not be_valid }
         end
+
+        context "when assigning itself as a recipient" do
+          let(:attributes) {
+            {
+              patient_id: 1,
+              recipient_id: 1
+            }
+          }
+
+          it { is_expected.to_not be_valid }
+        end
       end
     end
   end

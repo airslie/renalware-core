@@ -2,13 +2,20 @@ module Renalware
   class PatientsController < BaseController
     include Renalware::Concerns::Pageable
 
-    skip_after_action :verify_authorized, only: :show
+    skip_after_action :verify_authorized, only: [:show, :search]
     before_action :prepare_paging, only: [:index]
     before_action :find_patient, only: [:show, :edit, :update]
 
     def index
       @patients = @patient_search.result.page(@page).per(@per_page)
       authorize @patients
+    end
+
+    def search
+      patient_search = Renalware::Patient.ransack("family_name_cont" => params[:term])
+      patient_search.sorts = ["family_name", "given_name"]
+      patients = patient_search.result.page(1).per(20)
+      render json: patients.as_json(only: :id, methods: :unique_label)
     end
 
     def new
