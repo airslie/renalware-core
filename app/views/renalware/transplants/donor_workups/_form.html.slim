@@ -1,6 +1,6 @@
 ruby:
   back_path = if f.object.new_record?
-    patient_clinical_summary_path(@patient)
+    patient_transplants_donor_dashboard_path(@patient)
   else
     patient_transplants_donor_workup_path(@patient)
   end
@@ -13,12 +13,6 @@ ruby:
 
 .form-content
   = f.simple_fields_for :document, f.object.document do |fd|
-
-    = render layout: "renalware/shared/fieldset",
-        locals: { legend: "Donor-Recipient Relationship", name: "relationship" } do
-      = fd.simple_fields_for :relationship, fd.object.relationship do |fcm|
-        = fcm.input :donor_recip_relationship
-        = fcm.input :relationship_other
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Co-morbidities", name: "comorbidities" } do

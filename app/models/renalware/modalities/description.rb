@@ -23,6 +23,9 @@ module Renalware
         PD_NAMES.include?(name)
       end
 
+      def donation?
+        name == "Live Donor"
+      end
     end
   end
 end

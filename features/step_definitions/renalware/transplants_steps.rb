@@ -22,6 +22,10 @@ Given(/^Don has a donor operation$/) do
   set_up_donor_operation(@don)
 end
 
+Given(/^Don has a donation$/) do
+  set_up_donation(@don)
+end
+
 # WHEN
 
 When(/^Clyde creates a donor workup for Don$/) do
@@ -54,6 +58,22 @@ When(/^Clyde records a recipient operation for Patty$/) do
     patient: @patty,
     user: @clyde,
     performed_on: Time.zone.today
+  )
+end
+
+When(/^Clyde records a donation for Don$/) do
+  create_donation(
+    patient: @don,
+    user: @clyde,
+    state: "volunteered"
+  )
+end
+
+When(/^Clyde submits an erroneous donation$/) do
+  create_donation(
+    patient: @don,
+    user: @clyde,
+    state: "invalid_state"
   )
 end
 
@@ -170,6 +190,10 @@ Then(/^Don has a new donor operation$/) do
   expect_donor_operation_to_exist(@don)
 end
 
+Then(/^Don has a new donation$/) do
+  expect_donation_to_exist(@don)
+end
+
 Then(/^the registration is not accepted$/) do
   expect_transplant_registration_to_be_refused
 end
@@ -186,6 +210,10 @@ Then(/^Clyde can update Don's donor operation$/) do
   expect_update_donor_operation_to_succeed(patient: @don, user: @clyde)
 end
 
+Then(/^Clyde can update Don's donation$/) do
+  expect_update_donation_to_succeed(patient: @don, user: @clyde)
+end
+
 Then(/^the registration status history is$/) do |table|
   expect_transplant_registration_status_history_to_match(patient: @patty, hashes: table.hashes)
 end
@@ -200,6 +228,10 @@ end
 
 Then(/^the donor operation is not accepted$/) do
   expect_donor_operation_to_be_refused
+end
+
+Then(/^the donation is not accepted$/) do
+  expect_donation_to_be_refused
 end
 
 Then(/^the transplant current status stays "(.*?)" since "(.*?)"$/) do |name, start_date|

@@ -35,8 +35,13 @@ module Renalware
 
       def handle_valid_modality
         if @patient.modality_description.death?
-          redirect_to edit_patient_death_path(@patient),
-            warning: "Please make sure to update patient date of death and cause of death!"
+          redirect_to edit_patient_death_path(@patient), flash: {
+              warning: "Please make sure to update patient date of death and cause of death!"
+            }
+        elsif @patient.modality_description.donation?
+          redirect_to new_patient_transplants_donation_path(@patient), flash: {
+              warning: "If you have the information on-hand, please enter the potential donation."
+            }
         else
           redirect_to patient_modalities_path(@patient),
             notice: "Modality successfully created"

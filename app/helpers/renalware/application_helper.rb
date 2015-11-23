@@ -52,13 +52,5 @@ module Renalware
     def pipe_separator
       "&nbsp;|&nbsp;".html_safe
     end
-
-    def timestamp(time)
-      I18n.l time, format: :long
-    end
-
-    def datestamp(date)
-      I18n.l date
-    end
   end
 end

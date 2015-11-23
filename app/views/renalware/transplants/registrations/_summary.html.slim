@@ -9,7 +9,7 @@ fieldset
           b= @registration.current_status
           br
           | since&nbsp;
-          = datestamp @registration.current_status.started_on
+          = l @registration.current_status.started_on
 
     .large-3.columns
       dl
@@ -21,7 +21,7 @@ fieldset
         dt Last Update:
         dd
           - if version = @registration.versions.last
-            = timestamp version.created_at
+            = l version.created_at
             | &nbsp;by&nbsp;
             = who_did_it version
 

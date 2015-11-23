@@ -1,0 +1,43 @@
+fieldset
+  legend Donation Summary
+
+  .row
+    .large-3.columns
+      dt Recipient:
+      dd
+        i Unassigned
+        br
+        - if donation.relationship_with_recipient_other.present?
+          = "(#{donation.relationship_with_recipient.text}: #{donation.relationship_with_recipient_other})"
+        - else
+          = "(#{donation.relationship_with_recipient.text})"
+
+    .large-2.columns
+      dt State:
+      dd= donation.state.text
+
+    .large-2.columns
+      dt Mismatch Grade:
+      dd= donation.mismatch_grade
+
+    .large-3.columns
+      dl
+        dt Last Update:
+        dd
+          - if version = donation.versions.last
+            = l version.created_at
+            br
+            | by&nbsp;
+            = who_did_it version
+
+    .large-2.columns
+      .right
+        = link_to "View", patient_transplants_donation_path(@patient, donation), class: "button tiny"
+        | &nbsp;
+        = link_to "Edit", edit_patient_transplants_donation_path(@patient, donation), class: "button tiny"
+
+  - if donation.notes.present?
+    .row
+      .large-12.columns
+        dt Notes:
+        dd= donation.notes

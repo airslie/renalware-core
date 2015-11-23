@@ -3,7 +3,8 @@
     = render "renalware/patients/patient_info_header", model: @patient
     = render "renalware/patients/mini_renal_profile", model: @patient
 
-    h2 Donation Info
+    h2 Transplant Donation Info
 
+    = render "renalware/transplants/donations/list"
     = render "renalware/transplants/donor_workups/summary"
     = render "renalware/transplants/donor_operations/list"

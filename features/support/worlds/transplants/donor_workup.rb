@@ -13,8 +13,10 @@ module World
         Renalware::Transplants::DonorWorkup.create!(
           patient: patient,
           document: {
-            relationship: {
-              donor_recip_relationship: "son_or_daughter"
+            comorbidities: {
+              angina: {
+                status: "unknown"
+              }
             }
           }
         )
@@ -32,9 +34,6 @@ module World
         workup = donor_workup_for(patient)
         workup.update_attributes!(
           document: {
-            relationship: {
-              donor_recip_relationship: "son_or_daughter"
-            },
             comorbidities: {
               angina: {
                 status: "no"
@@ -66,7 +65,6 @@ module World
         visit patient_clinical_summary_path(patient)
         click_on "Transplant Donor Workup"
 
-        select "Mother or father", from: "Relationship to Recipient"
         fill_in "Oral GTT", with: "66"
 
         within ".top" do

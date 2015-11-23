@@ -1,0 +1,17 @@
+- if @donations.empty?
+  fieldset.status-history
+    legend Donation Summary
+
+    .call-to-action
+      = link_to new_patient_transplants_donation_path(@patient) do
+        i.fa.fa-plus-circle
+        | Enter donation
+- else
+  - @donations.each do |donation|
+    = render "renalware/transplants/donations/summary", donation: donation
+
+  .row
+    .large-12.columns
+      .right
+        = link_to "Identify a New Recipient", new_patient_transplants_donation_path(@patient),
+            class: 'button tiny'

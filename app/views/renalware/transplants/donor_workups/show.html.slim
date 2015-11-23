@@ -3,10 +3,6 @@
 - return unless @workup
 .document-view
   = render "renalware/shared/documents/attributes_group",
-      group: @workup.document.relationship,
-      legend: "Donor-Recipient Relationship", destination: "relationship"
-
-  = render "renalware/shared/documents/attributes_group",
       group: @workup.document.comorbidities,
       legend: "Co-morbidities", destination: "comorbidities"
 
