@@ -1,0 +1,8 @@
+.row
+  .columns.large-12
+    = render "renalware/patients/patient_info_header", model: @patient
+    = render "renalware/patients/mini_renal_profile", model: @patient
+
+    h2 Donation Info
+
+    = render "renalware/transplants/donor_operations/list"

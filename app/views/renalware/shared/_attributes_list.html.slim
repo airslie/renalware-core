@@ -1,20 +1,29 @@
+ruby:
+  tuples = Array.wrap(attributes).map do |attribute|
+    label = resource.class.human_attribute_name(attribute)
+    value = resource.public_send(attribute)
+    html = case
+      when value.respond_to?(:nested_attribute?)
+        render(value)
+      when attribute =~ /_time$/
+        I18n.l value, format: :time
+      when value.respond_to?(:text)
+        value.text
+      when value.is_a?(Date)
+        I18n.l value
+      when value.is_a?(TrueClass)
+        "Yes"
+      when value.is_a?(FalseClass)
+        "No"
+      when
+        simple_format(value.to_s)
+      else
+        value
+    end
+    [label, html]
+  end
+
 dl
-  - Array.wrap(attributes).each do |attribute|
-    - value = resource.public_send(attribute)
-    dt
-      = resource.class.human_attribute_name attribute
-    dd
-      - if value.respond_to? :nested_attribute?
-        = render value
-      - elsif attribute =~ /_time$/
-        = I18n.l value, format: :time
-      - elsif value.respond_to? :text
-        = value.text
-      - elsif value.is_a? Date
-        = I18n.l value
-      - elsif value.is_a? TrueClass
-        | Yes
-      - elsif value.is_a? FalseClass
-        | No
-      - else
-        = simple_format value.to_s
+  - tuples.each do |label, html|
+    dt= label
+    dd= html

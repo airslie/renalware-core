@@ -27,7 +27,6 @@ module Renalware
 
       def load_registration
         @registration = Registration.for_patient(@patient).first_or_initialize
-        authorize @registration
       end
 
       def registration_params

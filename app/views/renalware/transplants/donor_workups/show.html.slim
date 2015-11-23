@@ -3,33 +3,33 @@
 - return unless @workup
 .document-view
   = render "renalware/shared/documents/attributes_group",
-    group: @workup.document.relationship,
-    legend: "Donor-Recipient Relationship", destination: "relationship"
+      group: @workup.document.relationship,
+      legend: "Donor-Recipient Relationship", destination: "relationship"
 
   = render "renalware/shared/documents/attributes_group",
-    group: @workup.document.comorbidities,
-    legend: "Co-morbidities", destination: "comorbidities"
+      group: @workup.document.comorbidities,
+      legend: "Co-morbidities", destination: "comorbidities"
 
   = render "renalware/shared/documents/attributes_group",
-    group: @workup.document.infections,
-    legend: "Virology/Bacteriology/Cytology", destination: "infections"
+      group: @workup.document.infections,
+      legend: "Virology/Bacteriology/Cytology", destination: "infections"
 
   = render "renalware/shared/documents/attributes_group",
-    group: @workup.document.imaging_and_scans,
-    legend: "Imaging and Scans", destination: "imaging_and_scans"
+      group: @workup.document.imaging_and_scans,
+      legend: "Imaging and Scans", destination: "imaging_and_scans"
 
   = render "renalware/shared/documents/attributes_group",
-    group: @workup.document.creatinine_clearance,
-    legend: "Creatinine Clearance", destination: "creatinine_clearance"
+      group: @workup.document.creatinine_clearance,
+      legend: "Creatinine Clearance", destination: "creatinine_clearance"
 
   = render "renalware/shared/documents/attributes_group",
-    group: @workup.document.glomerular_filtration_rate,
-    legend: "Glomerular Filtration Rate (GFR)", destination: "glomerular_filtration_rate"
+      group: @workup.document.glomerular_filtration_rate,
+      legend: "Glomerular Filtration Rate (GFR)", destination: "glomerular_filtration_rate"
 
   = render "renalware/shared/documents/attributes_group",
-    group: @workup.document.urine_dipsticks,
-    legend: "Urine Dipsticks", destination: "urine_dipsticks"
+      group: @workup.document.urine_dipsticks,
+      legend: "Urine Dipsticks", destination: "urine_dipsticks"
 
   = render "renalware/shared/documents/attributes_group",
-    group: @workup.document.other_investigations,
-    legend: "Other Investigations", destination: "other_investigations"
+      group: @workup.document.other_investigations,
+      legend: "Other Investigations", destination: "other_investigations"

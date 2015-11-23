@@ -1,0 +1,15 @@
+= render "record_header"
+
+- return unless @donor_operation
+.document-view
+  = render "renalware/shared/attributes_group",
+      legend: "Operation", destination: "operation",
+      resource: @donor_operation,
+      attributes: [:performed_on, :kidney_side, :operating_surgeon, :anaesthetist,
+        :nephrectomy_type, :nephrectomy_type_other,
+        :donor_splenectomy_peri_or_post_operatively, :notes]
+
+  - ["Diagnosis", "Outcome"].each do |group|
+    = render "renalware/shared/documents/attributes_group",
+        group: @donor_operation.document.public_send(group.parameterize('_')),
+        legend: group, destination: group.parameterize('_')

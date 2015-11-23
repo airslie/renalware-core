@@ -9,7 +9,7 @@ module Renalware
       let(:clinician) { create(:user, :clinician) }
       let(:status_description) { create(:transplant_registration_status_description) }
 
-      it { should accept_nested_attributes_for(:statuses) }
+      it { is_expected.to accept_nested_attributes_for(:statuses) }
 
       describe "#update_attributes" do
         context "when creating the registration" do

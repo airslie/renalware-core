@@ -10,7 +10,8 @@ module Renalware
 
       belongs_to :patient
 
-      scope :ordered, -> (direction=:desc) { order(performed_on: direction) }
+      scope :ordered, -> { order(performed_on: :asc) }
+      scope :reversed, -> { order(performed_on: :desc) }
 
       has_paper_trail class_name: "Renalware::Transplants::RecipientOperationVersion"
       has_document class_name: "Renalware::Transplants::RecipientOperationDocument"
@@ -29,10 +30,6 @@ module Renalware
       validates :cold_ischaemic_time, timeliness: { type: :time }
 
       enumerize :operation_type, in: %i(kidney kidney_pancreas pancreas kidney_liver liver)
-
-      def self.policy_class
-        BasePolicy
-      end
     end
   end
 end
