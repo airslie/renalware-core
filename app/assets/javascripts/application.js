@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui/core
+//= require jquery-ui/autocomplete
 //= require foundation
 //= require underscore
 //= require select2/js/select2.min
