@@ -4,12 +4,12 @@
     = render "renalware/patients/mini_renal_profile", model: @patient
 
     h2
-      | Donor Operation&nbsp;
+      | Donor Transplant Operation&nbsp;
       = render "renalware/shared/last_update", record: @donor_operation
 
     - if @donor_operation.persisted?
       dl.sub-nav
-        dd= link_to "Donation Info", patient_transplants_donor_dashboard_path(@patient)
+        dd= link_to "Transplant Donation Info", patient_transplants_donor_dashboard_path(@patient)
         dd= link_to "View", patient_transplants_donor_operation_path(@patient, @donor_operation)
         dd= link_to "Edit", edit_patient_transplants_donor_operation_path(@patient, @donor_operation)
 

@@ -74,7 +74,7 @@ Then(/^should see the new medication on the patient's clinical summary$/) do
     expect(page).to have_content("10mg")
     expect(page).to have_content("PO")
     expect(page).to have_content("Once daily")
-    expect(page).to have_content("02/03/#{Date.current.year - 1}")
+    expect(page).to have_content("02-03-#{Date.current.year - 1}")
   end
 
   #drug by search
@@ -83,7 +83,7 @@ Then(/^should see the new medication on the patient's clinical summary$/) do
     expect(page).to have_content("20mg")
     expect(page).to have_content("IV")
     expect(page).to have_content("Twice weekly")
-    expect(page).to have_content("02/02/#{Date.current.year}")
+    expect(page).to have_content("02-02-#{Date.current.year}")
   end
 end
 
@@ -96,7 +96,7 @@ Then(/^should see the new medication on their medications index\.$/) do
     expect(page).to have_content("10mg")
     expect(page).to have_content("PO")
     expect(page).to have_content("Once daily")
-    expect(page).to have_content("02/03/#{Date.current.year - 1}")
+    expect(page).to have_content("02-03-#{Date.current.year - 1}")
   end
 
   within(".drug-drug") do
@@ -105,6 +105,6 @@ Then(/^should see the new medication on their medications index\.$/) do
     expect(page).to have_content("20mg")
     expect(page).to have_content("IV")
     expect(page).to have_content("Twice weekly")
-    expect(page).to have_content("02/02/#{Date.current.year}")
+    expect(page).to have_content("02-02-#{Date.current.year}")
   end
 end

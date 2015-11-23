@@ -1,4 +1,4 @@
-- header = "Exit Site Infection - Diagnosed: #{@exit_site_infection.diagnosis_date.strftime("%d/%m/%Y")}"
+- header = "Exit Site Infection - Diagnosed: #{ l @exit_site_infection.diagnosis_date }"
 = render layout: "renalware/pd/layout", locals: { header: header, patient: @patient } do
   .row
     p

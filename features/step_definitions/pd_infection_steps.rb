@@ -63,9 +63,9 @@ Given(/^a patient has a recently recorded episode of peritonitis$/) do
 
   @peritonitis_episode_1 = FactoryGirl.create(:peritonitis_episode,
     patient: @patient_1,
-    diagnosis_date: "24/02/#{Date.current.year}",
-    treatment_start_date: "25/02/#{Date.current.year}",
-    treatment_end_date: "25/03/#{Date.current.year}",
+    diagnosis_date: "24-02-#{Date.current.year}",
+    treatment_start_date: "25-02-#{Date.current.year}",
+    treatment_end_date: "25-03-#{Date.current.year}",
     episode_type: @de_novo,
     catheter_removed: 1,
     line_break: 1,
@@ -86,7 +86,7 @@ end
 Given(/^a patient has a recently recorded exit site infection$/) do
   @exit_site_1 = FactoryGirl.create(:exit_site_infection,
     patient: @patient_1,
-    diagnosis_date: "01/01/#{Date.current.year}",
+    diagnosis_date: "01-01-#{Date.current.year}",
     treatment: "Typical treatment.",
     outcome: "Ok outcome.",
     notes: "review treatment in a 6 weeks."
@@ -97,9 +97,9 @@ Given(/^a patient has episodes of peritonitis$/) do
 
   @peritonitis_episode_2 = FactoryGirl.create(:peritonitis_episode,
     patient: @patient_1,
-    diagnosis_date: "20/12/#{Date.current.year}",
-    treatment_start_date: "21/12/#{Date.current.year}",
-    treatment_end_date: "25/01/#{Date.current.year}",
+    diagnosis_date: "20-12-#{Date.current.year}",
+    treatment_start_date: "21-12-#{Date.current.year}",
+    treatment_end_date: "25-01-#{Date.current.year}",
     episode_type: @relapsing,
     catheter_removed: 1,
     line_break: 1,
@@ -140,9 +140,9 @@ Given(/^a patient has episodes of peritonitis$/) do
 
   @peritonitis_episode_3 = FactoryGirl.create(:peritonitis_episode,
     patient: @patient_1,
-    diagnosis_date: "24/01/#{Date.current.year}",
-    treatment_start_date: "25/01/#{Date.current.year}",
-    treatment_end_date: "27/02/#{Date.current.year}",
+    diagnosis_date: "24-01-#{Date.current.year}",
+    treatment_start_date: "25-01-#{Date.current.year}",
+    treatment_end_date: "27-02-#{Date.current.year}",
     episode_type: @repeat,
     catheter_removed: 0,
     line_break: 1,
@@ -164,7 +164,7 @@ Given(/^a patient has episodes of peritonitis$/) do
       medication_route: @sc,
       frequency: "PID",
       notes: "with water",
-      start_date: "02/03/#{Date.current.year}",
+      start_date: "02-03-#{Date.current.year}",
       provider: 0,
       deleted_at: "NULL",
       created_at: "2015-02-03 18:21:04",
@@ -187,7 +187,7 @@ Given(/^a patient has exit site infections$/) do
 
   @exit_site_2 = FactoryGirl.create(:exit_site_infection,
     patient: @patient_1,
-    diagnosis_date: "25/01/#{Date.current.year}",
+    diagnosis_date: "25-01-#{Date.current.year}",
     treatment: "Received treatment for this exit site infection.",
     outcome: "Outcome for this exit site infection is not good.",
     notes: "Needs time for review.",
@@ -218,7 +218,7 @@ Given(/^a patient has exit site infections$/) do
 
   @exit_site_3 = FactoryGirl.create(:exit_site_infection,
     patient: @patient_1,
-    diagnosis_date: "26/01/#{Date.current.year}",
+    diagnosis_date: "26-01-#{Date.current.year}",
     treatment: "Received treatment for this second exit site infection.",
     outcome: "Outcome for this second exit site infection is not good.",
     notes: "Needs more time for review.",
@@ -230,7 +230,7 @@ Given(/^a patient has exit site infections$/) do
       medication_route: @iv,
       frequency: "BD",
       notes: "Review after 2 weeks",
-      start_date: "02/03/#{Date.current.year}",
+      start_date: "02-03-#{Date.current.year}",
       provider: 0,
       deleted_at: "NULL",
       created_at: "2015-02-03 18:21:04",
@@ -449,8 +449,8 @@ end
 Then(/^the recorded episode should be displayed on PD info page$/) do
 
   #dates
-  expect(page).to have_content("25/12/#{Date.current.year - 1}")
-  expect(page).to have_content("30/12/#{Date.current.year - 1}")
+  expect(page).to have_content("25-12-#{Date.current.year - 1}")
+  expect(page).to have_content("30-12-#{Date.current.year - 1}")
 
   #outcome
   expect(page).to have_content("De novo")
@@ -460,7 +460,7 @@ end
 Then(/^the recorded exit site infection should be displayed on PD info page$/) do
 
   #dates
-  expect(page).to have_content("01/01/#{Date.current.year}")
+  expect(page).to have_content("01-01-#{Date.current.year}")
 
   #outcome
   expect(page).to have_content("It is a good outcome.")
@@ -470,9 +470,9 @@ Then(/^the recorded exit site infection should be displayed on PD info page$/) d
 end
 
 Then(/^an episode of peritonitis can be viewed in more detail from the PD info page$/) do
-  expect(page).to have_content("24/01/#{Date.current.year}")
-  expect(page).to have_content("25/01/#{Date.current.year}")
-  expect(page).to have_content("27/02/#{Date.current.year}")
+  expect(page).to have_content("24-01-#{Date.current.year}")
+  expect(page).to have_content("25-01-#{Date.current.year}")
+  expect(page).to have_content("27-02-#{Date.current.year}")
   expect(page).to have_content("Misty")
   expect(page).to have_content("3000")
   expect(page).to have_content("25")
@@ -491,7 +491,7 @@ Then(/^an episode of peritonitis can be viewed in more detail from the PD info p
 end
 
 Then(/^an exit site infection can be viewed in more detail from the PD info page$/) do
-  expect(page).to have_content("26/01/#{Date.current.year}")
+  expect(page).to have_content("26-01-#{Date.current.year}")
   expect(page).to have_content("Received treatment for this second exit site infection.")
   expect(page).to have_content("Outcome for this second exit site infection is not good.")
   expect(page).to have_content("Needs more time for review.")
@@ -518,7 +518,7 @@ Then(/^the new medication should be displayed on the updated peritonitis form$/)
   expect(page).to have_content("5mg")
   expect(page).to have_content("IV")
   expect(page).to have_content("PID")
-  expect(page).to have_content("21/03/#{Date.current.year}")
+  expect(page).to have_content("21-03-#{Date.current.year}")
 end
 
 Then(/^the new medication should be displayed on the updated exit site form$/) do
@@ -528,7 +528,7 @@ Then(/^the new medication should be displayed on the updated exit site form$/) d
   expect(page).to have_content("10mg")
   expect(page).to have_content("PO")
   expect(page).to have_content("Twice a week")
-  expect(page).to have_content("10/04/#{Date.current.year}")
+  expect(page).to have_content("10-04-#{Date.current.year}")
 end
 
 Then(/^the recorded organism and sensitivity should be displayed on the updated peritonitis form$/) do

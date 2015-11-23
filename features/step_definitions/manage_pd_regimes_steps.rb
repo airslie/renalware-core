@@ -11,8 +11,8 @@ Given(/^a patient has existing CAPD Regimes$/) do
 
   @capd_regime_1 = FactoryGirl.create(:capd_regime,
     patient: @patient_1,
-    start_date: "05/03/2015",
-    end_date: "25/04/2015",
+    start_date: "05-03-2015",
+    end_date: "25-04-2015",
     treatment: "CAPD 4 exchanges per day",
     amino_acid_ml: 41,
     icodextrin_ml: 51,
@@ -32,8 +32,8 @@ Given(/^a patient has existing CAPD Regimes$/) do
 
   @capd_regime_2 = FactoryGirl.create(:capd_regime,
     patient: @patient_1,
-    start_date: "02/04/2015",
-    end_date: "21/05/2015",
+    start_date: "02-04-2015",
+    end_date: "21-05-2015",
     treatment: "CAPD 5 exchanges per day",
     amino_acid_ml: 42,
     icodextrin_ml: 52,
@@ -56,8 +56,8 @@ end
 Given(/^a patient has existing APD Regimes$/) do
   @apd_regime_1 = FactoryGirl.create(:apd_regime,
     patient: @patient_1,
-    start_date: "17/06/2015",
-    end_date: "21/07/2015",
+    start_date: "17-06-2015",
+    end_date: "21-07-2015",
     treatment: "APD Dry Day",
     amino_acid_ml: 46,
     icodextrin_ml: 56,
@@ -83,8 +83,8 @@ Given(/^a patient has existing APD Regimes$/) do
 
   @apd_regime_2 = FactoryGirl.create(:apd_regime,
     patient: @patient_1,
-    start_date: "20/03/2015",
-    end_date: "28/05/2015",
+    start_date: "20-03-2015",
+    end_date: "28-05-2015",
     treatment: "APD Wet Day",
     amino_acid_ml: 47,
     icodextrin_ml: 57,
@@ -219,8 +219,8 @@ end
 
 Then(/^I should see the new capd regime on the PD info page$/) do
   within("table.capd-regimes tbody tr:first-child") do
-    expect(page).to have_content("02/04/2015")
-    expect(page).to have_content("01/06/2015")
+    expect(page).to have_content("02-04-2015")
+    expect(page).to have_content("01-06-2015")
     expect(page).to have_content("CAPD 4 exchanges per day")
   end
 
@@ -240,8 +240,8 @@ end
 
 Then(/^I should see the new apd regime on the PD info page$/) do
   within("table.apd-regimes tbody tr:first-child") do
-    expect(page).to have_content("15/05/2015")
-    expect(page).to have_content("16/07/2015")
+    expect(page).to have_content("15-05-2015")
+    expect(page).to have_content("16-07-2015")
     expect(page).to have_content("APD Wet day with additional exchange")
   end
 
@@ -261,8 +261,8 @@ end
 
 Then(/^the new capd regime should be current$/) do
   within(".current-regime") do
-    expect(page).to have_content("02/04/2015")
-    expect(page).to have_content("01/06/2015")
+    expect(page).to have_content("02-04-2015")
+    expect(page).to have_content("01-06-2015")
     expect(page).to have_content("CAPD 4 exchanges per day")
     expect(page).to have_content("On additional HD?")
     expect(page).to have_content("Yes")
@@ -281,8 +281,8 @@ end
 
 Then(/^the new apd regime should be current$/) do
   within(".current-regime") do
-    expect(page).to have_content("15/05/2015")
-    expect(page).to have_content("16/07/2015")
+    expect(page).to have_content("15-05-2015")
+    expect(page).to have_content("16-07-2015")
     expect(page).to have_content("APD Wet day with additional exchange")
     expect(page).to have_content("On additional HD?")
     expect(page).to have_content("No")
@@ -307,19 +307,19 @@ end
 
 Then(/^I should see the updated capd regime on the PD info page$/) do
   within("table.capd-regimes tbody tr:first-child") do
-    expect(page).to have_content("03/05/2015")
+    expect(page).to have_content("03-05-2015")
   end
 end
 
 Then(/^I should see the updated apd regime on the PD info page$/) do
   within("table.apd-regimes tbody tr:first-child") do
-    expect(page).to have_content("30/08/2015")
+    expect(page).to have_content("30-08-2015")
   end
 end
 
 Then(/^I should see the chosen capd regime details$/) do
-  expect(page).to have_content("02/04/2015")
-  expect(page).to have_content("21/05/2015")
+  expect(page).to have_content("02-04-2015")
+  expect(page).to have_content("21-05-2015")
   expect(page).to have_content("Treatment:")
   expect(page).to have_content("CAPD 5 exchanges per day")
   expect(page).to have_content("On additional HD?")
@@ -339,9 +339,9 @@ end
 
 Then(/^I should see the chosen apd regime details$/) do
   expect(page).to have_content("Start")
-  expect(page).to have_content("20/03/2015")
+  expect(page).to have_content("20-03-2015")
   expect(page).to have_content("End")
-  expect(page).to have_content("28/05/2015")
+  expect(page).to have_content("28-05-2015")
   expect(page).to have_content("Treatment")
   expect(page).to have_content("APD Wet Day")
   expect(page).to have_content("On additional HD?")
