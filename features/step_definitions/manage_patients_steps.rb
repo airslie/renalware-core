@@ -68,17 +68,11 @@ When(/^I complete the add a new patient form$/) do
 
   select "White", from: "Ethnicity"
 
-  within "#patient_born_on_1i" do
-    select "1960"
-  end
-  within "#patient_born_on_2i" do
-    select "January"
-  end
-  within "#patient_born_on_3i" do
-    select "1"
-  end
+  fill_in "DoB", with: "01-01-1960"
 
-  uncheck "If under 18 years, is the recipient being treated in a paediatric unit?"
+  within("label", text: "If under 18 years, is the recipient being treated in a paediatric unit?") do
+    find(:xpath, "//label[@for='patient_paediatric_patient_indicator_false']").click
+  end
 
   within "#current_address" do
     @current_street_1 = Faker::Address.street_address

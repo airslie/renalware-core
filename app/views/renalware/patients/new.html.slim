@@ -4,7 +4,9 @@
   .large-12.columns
     = render partial: "renalware/shared/errors", locals: { model: @patient }
 
-    = form_for @patient, method: :post do |f|
+    = simple_form_for @patient,
+        wrapper: "horizontal_form" do |f|
+
       = render partial: "renalware/patients/form", locals: { patient: f }
 
       = submit_tag "Save", class: "button"
