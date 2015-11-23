@@ -17,6 +17,10 @@ module Renalware
       val.blank? ? msg : val
     end
 
+    def default_for_blank_date(date, msg)
+      date.blank? ? msg : l(date)
+    end
+
     def default_for_blank_units(val, unit, msg)
       val.blank? ? msg : "#{val} #{unit}"
     end
