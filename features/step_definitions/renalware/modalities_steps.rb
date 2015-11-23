@@ -24,10 +24,7 @@ When(/^I complete the modality form$/) do
 
   select "PD To Haemodialysis", from: "Type of Change"
   select "Reason One", from: "Reason for Change"
-
-  select "2014", from: "modality_started_on_1i"
-  select "December", from: "modality_started_on_2i"
-  select "1", from: "modality_started_on_3i"
+  fill_in "Started on", with: "01-12-2014"
 
   fill_in "Notes", with: "Needs wheel chair access"
 

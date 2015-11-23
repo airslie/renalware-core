@@ -8,9 +8,7 @@ When(/^I select death modality$/) do
     select "Death"
   end
 
-  select "2015", from: "modality_started_on_1i"
-  select "April", from: "modality_started_on_2i"
-  select "1", from: "modality_started_on_3i"
+  fill_in "Started on", with: "01-04-2015"
 
   click_on "Save"
 end
