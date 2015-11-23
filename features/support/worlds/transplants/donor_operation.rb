@@ -81,7 +81,7 @@ module World
       def update_donor_operation(patient:, user:)
         login_as user
         visit patient_transplants_donor_dashboard_path(patient)
-        within_fieldset "Donor Operations" do
+        within_fieldset "Donor Transplant Operations" do
           click_on "Edit"
         end
 
