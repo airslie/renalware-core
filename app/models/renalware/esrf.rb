@@ -8,7 +8,7 @@ module Renalware
     validates :diagnosed_on, presence: true
 
     def to_s
-      [diagnosed_on, prd_description].compact.join(" ")
+      [I18n.l(diagnosed_on), prd_description].compact.join(" ")
     end
   end
 end

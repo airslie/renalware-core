@@ -3,7 +3,7 @@ require "document/embedded"
 module Renalware
   module Transplants
     class DonorOperationDocument < Document::Embedded
-      class Diagnosis < Document::Embedded
+      class Complications < Document::Embedded
         attribute :wound_infection, DatedConfirmation
         attribute :deep_vein_thrombosis, DatedConfirmation
         attribute :donor_pneumothorax_peri_or_post_operative, DatedConfirmation
@@ -12,7 +12,7 @@ module Renalware
         attribute :prescribed_medication_indicator, enums: %i(yes no unknown)
         attribute :other_peri_or_post_operative_complications, enums: %i(yes no unknown)
       end
-      attribute :diagnosis, Diagnosis
+      attribute :diagnosis, Complications
 
       class Outcome < Document::Embedded
         attribute :subsequent_operation_indicator, enums: %i(yes no unknown)

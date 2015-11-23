@@ -22,7 +22,7 @@
       ul.no-bullet
         - @patient.medications.each do |p|
           li class="drug-#{drug_types_colour_tag(p.medicatable.drug_types)}"
-            = "#{p.medicatable.name}, #{p.dose}, #{p.medication_route.name} #{p.frequency}, #{p.start_date}"
+            = "#{p.medicatable.name}, #{p.dose}, #{p.medication_route.name} #{p.frequency}, #{l p.start_date}"
 
 .wide-screen
   .columns.large-12

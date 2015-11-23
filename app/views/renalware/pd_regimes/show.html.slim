@@ -14,10 +14,10 @@
 
           dd
             dt Start:
-            dl = @pd_regime.start_date
+            dl = l @pd_regime.start_date
 
             dt End:
-            dl= default_for_blank(@pd_regime.end_date, "Pending")
+            dl= default_for_blank_date(@pd_regime.end_date, "Pending")
 
             dt Treatment:
             dl= @pd_regime.treatment

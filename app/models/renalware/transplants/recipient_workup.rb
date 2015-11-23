@@ -10,7 +10,7 @@ module Renalware
       belongs_to :patient
 
       has_paper_trail class_name: "Renalware::Transplants::RecipientWorkupVersion"
-      has_document class_name: "RecipientWorkupDocument"
+      has_document class_name: "Renalware::Transplants::RecipientWorkupDocument"
     end
   end
 end

@@ -5,7 +5,7 @@ tr
     = link_to 'Edit', edit_patient_clinic_visit_path(patient_id: clinic_visit.patient.to_param, id: clinic_visit.to_param)
     = pipe_separator
     = link_to 'Delete', patient_clinic_visit_path(patient_id: clinic_visit.patient.to_param, id: clinic_visit.to_param), method: :delete
-  td= clinic_visit.date
+  td.date-time= l clinic_visit.date
   td.clinic-type= clinic_visit.clinic_type
   td.bmi= clinic_visit.bmi
   td.bp= clinic_visit.bp
