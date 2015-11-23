@@ -14,11 +14,10 @@ Feature: Set the patient's modality
     When I complete the modality form
     Then I should see a patient's modality on their clinical summary
 
-  @javascript
   Scenario: Doctor adds a death modality for a patient
     Given I choose to add a modality
     When I select death modality
     When I complete the cause of death form
     Then I should see the date of death and causes of death in the patient's demographics
       And I should see the patient on the death list
-      And I should see the patient's current modality set as death with set date
+      And I should see the patient's current modality set as death with start date

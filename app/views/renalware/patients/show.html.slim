@@ -35,10 +35,10 @@
         .large-3.columns
           dl
             dt Date of Birth:
-            dd= @patient.born_on
+            dd= l @patient.born_on
 
             dt Date of Death:
-            dd= @patient.died_on.blank? ? "N/A" : @patient.died_on
+            dd= default_for_blank_date(@patient.died_on, "N/A")
 
         .large-12.columns
           - if @patient.died_on.present?

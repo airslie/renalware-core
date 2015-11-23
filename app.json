@@ -1,0 +1,22 @@
+{
+  "name": "Renalware",
+  "description": "Renalware uses demographic, clinical, pathology, and nephrology datasets to improve patient care, undertake clinical and administrative audits and share data with external systems.",
+  "website": "http://www.airslie.com/renalware.html",
+  "success_url": "/",
+  "addons": ["heroku-postgresql:hobby-dev", "sendgrid"],
+  "env": {
+    "DEMO": "1",
+    "RACK_ENV": "staging",
+    "RAILS_ENV": "staging",
+    "COOKIE_SECRET": {
+      "generator": "secret"
+    },
+    "SETUP_BY": {
+            "description": "Who initiated this setup",
+            "value": "Nicholas Henry"
+    }
+  },
+  "scripts": {
+    "postdeploy": "bundle exec rake db:setup"
+  }
+}

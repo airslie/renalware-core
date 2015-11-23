@@ -17,9 +17,9 @@ table
             = pipe_separator
           = link_to "View", patient_peritonitis_episode_path(@patient, p.id), class: "view-pe", id: "view-pe-#{p.id}"
         td valign="top"
-          = p.diagnosis_date
+          = l p.diagnosis_date
         td valign="top"
-          = p.treatment_start_date
+          = l p.treatment_start_date
         td valign="top"
           = default_for_associated(p.episode_type, :term, "Unknown")
         td valign="top"
