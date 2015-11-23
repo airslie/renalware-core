@@ -55,7 +55,7 @@ module Document
   #     module Transplants
   #       class RecipientWorkup < ActiveRecord::Base
   #         include Document::Base
-  #         has_document class_name: "RecipientWorkupDocument"
+  #         has_document class_name: "Renalware::Transplants::RecipientWorkupDocument"
   #       end
   #     end
   #   end

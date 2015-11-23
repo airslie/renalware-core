@@ -14,7 +14,7 @@ module Renalware
       scope :reversed, -> { order(performed_on: :desc) }
 
       has_paper_trail class_name: "Renalware::Transplants::DonorOperationVersion"
-      has_document class_name: "DonorOperationDocument"
+      has_document class_name: "Renalware::Transplants::DonorOperationDocument"
 
       enumerize :kidney_side, in: %i(left right both)
       enumerize :operating_surgeon, in: %i(consultant fellow_senior_registrar other)
