@@ -70,8 +70,9 @@ When(/^I complete the add a new patient form$/) do
 
   fill_in "DoB", with: "01-01-1960"
 
-  within("label", text: "If under 18 years, is the recipient being treated in a paediatric unit?") do
-    find(:xpath, "//label[@for='patient_paediatric_patient_indicator_false']").click
+  within("label",
+    text: "If under 18 years, is the recipient being treated in a paediatric unit?") do
+      find(:xpath, "//label[@for='patient_paediatric_patient_indicator_false']").click
   end
 
   within "#current_address" do
