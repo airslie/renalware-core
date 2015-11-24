@@ -4,8 +4,8 @@ FactoryGirl.define do
   end
 
   factory :doctor, class: "Renalware::Doctor" do
-    first_name 'Donald'
-    last_name 'Good'
+    given_name 'Donald'
+    family_name 'Good'
     email 'donald.good@nhs.net'
     code { generate(:gp_code) }
     address
