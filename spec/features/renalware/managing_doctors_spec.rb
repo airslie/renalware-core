@@ -21,8 +21,8 @@ module Renalware
 
       click_on 'Add doctor'
 
-      fill_in 'First name', with: 'John'
-      fill_in 'Last name', with: 'Merrill'
+      fill_in 'Given name', with: 'John'
+      fill_in 'Family name', with: 'Merrill'
       fill_in 'Email', with: 'john.merrill@nhs.net'
       fill_in 'Code', with: 'GP12345'
       select 'GP', from: 'Practitioner type'
@@ -41,8 +41,8 @@ module Renalware
 
       click_on 'Add doctor'
 
-      fill_in 'First name', with: 'John'
-      fill_in 'Last name', with: 'Merrill'
+      fill_in 'Given name', with: 'John'
+      fill_in 'Family name', with: 'Merrill'
       fill_in 'Email', with: 'john.merrill@nhs.net'
       fill_in 'Code', with: 'GP12345'
       select 'GP', from: 'Practitioner type'
@@ -65,8 +65,8 @@ module Renalware
     scenario 'Submitting an invalid address' do
       visit new_doctor_path
 
-      fill_in 'First name', with: 'John'
-      fill_in 'Last name', with: 'Merrill'
+      fill_in 'Given name', with: 'John'
+      fill_in 'Family name', with: 'Merrill'
       fill_in 'Email', with: 'john.merrill@nhs.net'
       fill_in 'Code', with: 'GP12345'
       select 'GP', from: 'Practitioner type'
@@ -86,8 +86,8 @@ module Renalware
       visit new_doctor_path
       click_on 'Save'
 
-      expect(page).to have_content("First name can't be blank")
-      expect(page).to have_content("Last name can't be blank")
+      expect(page).to have_content("Given name can't be blank")
+      expect(page).to have_content("Family name can't be blank")
       expect(page).to have_content("Address or practice must be present")
     end
 
@@ -113,8 +113,8 @@ module Renalware
 
     scenario 'Deleting a Doctor' do
       doctor = create(:doctor,
-                      first_name: 'John',
-                      last_name: 'Merrill',
+                      given_name: 'John',
+                      family_name: 'Merrill',
                       email: 'john.merrill@nhs.net',
                       practices: [@athena_medical_centre])
 

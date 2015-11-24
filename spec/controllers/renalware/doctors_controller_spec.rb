@@ -42,8 +42,8 @@ module Renalware
         }
 
         @doctor_params = {
-          first_name: 'Lall',
-          last_name: 'Sawh',
+          given_name: 'Lall',
+          family_name: 'Sawh',
           email: 'lall.sawh@nhs.net',
           code: 'GP54321',
           practitioner_type: 'GP',
@@ -72,7 +72,7 @@ module Renalware
       it 'renders the form when unsuccessful' do
         expect_any_instance_of(DoctorService).to receive(:update!).and_return(false)
 
-        post :create, doctor: { first_name: 'Lall' }
+        post :create, doctor: { given_name: 'Lall' }
         expect(response).to render_template(:new)
       end
     end
@@ -83,11 +83,11 @@ module Renalware
       end
 
       it 'updates an existing Doctor' do
-        put :update, id: @doc.to_param, doctor: { first_name: 'James' }
-        expect(@doc.reload.first_name).to eq('James')
+        put :update, id: @doc.to_param, doctor: { given_name: 'James' }
+        expect(@doc.reload.given_name).to eq('James')
       end
       it 'redirects to the doctors index when successful' do
-        put :update, id: @doc.to_param, doctor: { first_name: 'James' }
+        put :update, id: @doc.to_param, doctor: { given_name: 'James' }
         expect(response).to redirect_to(doctors_path)
       end
     end

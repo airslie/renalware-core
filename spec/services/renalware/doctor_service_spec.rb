@@ -20,14 +20,14 @@ module Renalware
 
       context 'for an existing Doctor' do
         before do
-          @doctor = create(:doctor, first_name: 'John', last_name: 'Merrill')
+          @doctor = create(:doctor, given_name: 'John', family_name: 'Merrill')
         end
 
         it 'updates the existing record' do
           DoctorService.new(@doctor).update!(doctor_params)
 
-          expect(@doctor.reload.first_name).to eq('Barry')
-          expect(@doctor.last_name).to eq('Foster')
+          expect(@doctor.reload.given_name).to eq('Barry')
+          expect(@doctor.family_name).to eq('Foster')
         end
 
         it 'updates the existing practices' do
@@ -44,8 +44,8 @@ end
 
 def doctor_params
   {
-    first_name: 'Barry',
-    last_name: 'Foster',
+    given_name: 'Barry',
+    family_name: 'Foster',
     email: 'barry.foster@nhs.net',
     code: 'GP98765',
     practitioner_type: 'GP'

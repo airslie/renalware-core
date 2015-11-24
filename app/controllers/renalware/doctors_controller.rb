@@ -3,7 +3,7 @@ module Renalware
     include Renalware::Concerns::Pageable
 
     def index
-      @doctors = Doctor.order(:last_name).page(@page).per(@per_page)
+      @doctors = Doctor.order(:family_name).page(@page).per(@per_page)
       authorize @doctors
     end
 
@@ -51,7 +51,7 @@ module Renalware
 
     def doctor_params
       params.require(:doctor).permit(
-        :first_name, :last_name, :email, :practitioner_type, :code, practice_ids: [],
+        :given_name, :family_name, :email, :practitioner_type, :code, practice_ids: [],
         address_attributes: [
           :id, :street_1, :street_2, :city, :county, :postcode, :country
         ]
