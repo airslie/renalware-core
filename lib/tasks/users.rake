@@ -16,8 +16,8 @@ end
 
 def default_super_admin_attrs
   {
-    first_name: 'Super',
-    last_name: 'Admin',
+    given_name: 'Super',
+    family_name: 'Admin',
     username: 'superadmin',
     email: 'superadmin@renalware.net',
     password: 'supersecret',
@@ -29,8 +29,8 @@ end
 
 def demo_admin_user_attrs
   {
-    first_name: 'Admin',
-    last_name: 'User',
+    given_name: 'Admin',
+    family_name: 'User',
     username: 'adminuser',
     email: 'adminuser@renalware.net',
     password: 'renalware',
@@ -43,8 +43,8 @@ end
 namespace :users do
   desc 'Add a new User to Renalware.'
   task add_user: :environment do
-    first_name = get_stdin('First name', 'Super')
-    last_name = get_stdin('Last name', 'Admin')
+    given_name = get_stdin('Given name', 'Super')
+    family_name = get_stdin('Family name', 'Admin')
     username = get_stdin('Username', 'superadmin')
     email = get_stdin('Email', 'superadmin@renalware.net')
     password = get_stdin('Password', 'supersecret', false)
@@ -60,13 +60,13 @@ namespace :users do
 
     if password == confirm_password
       Renalware::User.find_or_create_by!(username: username) do |u|
-        u.first_name = first_name
-        u.last_name = last_name
+        u.given_name = given_name
+        u.family_name = family_name
         u.email = email
         u.password = password
         u.approved = true
         u.roles = [role]
-        u.signature = "#{first_name} #{last_name}"
+        u.signature = "#{given_name} #{family_name}"
       end
     else
       raise 'Passwords do not match'
