@@ -20,7 +20,15 @@ module Renalware
 
       def configure_sign_up_parameters
         devise_parameter_sanitizer.for(:sign_up) do |u|
-          u.permit(:given_name, :family_name, :username, :email, :password, :password_confirmation, :remember_me)
+          u.permit(
+            :given_name,
+            :family_name,
+            :username,
+            :email,
+            :password,
+            :password_confirmation,
+            :remember_me
+          )
         end
       end
 
