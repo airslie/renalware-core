@@ -5,8 +5,8 @@ module Renalware
     include Personable
 
     validates :username, presence: true, uniqueness: true
-    validates_presence_of :first_name
-    validates_presence_of :last_name
+    validates_presence_of :given_name
+    validates_presence_of :family_name
     validate :approval_with_roles, on: :update
     validates_presence_of :professional_position, on: :update, unless: :super_admin_update
     validates_presence_of :signature, on: :update, unless: :super_admin_update
@@ -34,8 +34,5 @@ module Renalware
       end
     end
 
-    def name
-      [first_name, last_name].compact.join(" ")
-    end
   end
 end
