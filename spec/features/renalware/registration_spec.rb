@@ -5,7 +5,7 @@ module Renalware
     scenario 'A user registers giving incomplete information' do
       visit new_user_registration_path
 
-      fill_in 'First name', with: 'John'
+      fill_in 'Given name', with: 'John'
       fill_in 'Username', with: 'SmithJ'
 
       click_on 'Sign up'
@@ -13,7 +13,7 @@ module Renalware
       within('.error-messages') do
         expect(page).to have_content("Email can't be blank")
         expect(page).to have_content("Password can't be blank")
-        expect(page).to have_content("Last name can't be blank")
+        expect(page).to have_content("Family name can't be blank")
       end
     end
 
@@ -22,8 +22,8 @@ module Renalware
 
       visit new_user_registration_path
 
-      fill_in 'First name', with: 'Aneurin'
-      fill_in 'Last name', with: 'Bevan'
+      fill_in 'Given name', with: 'Aneurin'
+      fill_in 'Family name', with: 'Bevan'
       fill_in 'Username', with: 'BevanA'
       fill_in 'Email', with: 'aneurin.bevan@nhs.net'
       fill_in 'Password', with: 'supersecret'
@@ -39,8 +39,8 @@ module Renalware
 
       visit new_user_registration_path
 
-      fill_in 'First name', with: 'Aneurin'
-      fill_in 'Last name', with: 'Bevan'
+      fill_in 'Given name', with: 'Aneurin'
+      fill_in 'Family name', with: 'Bevan'
       fill_in 'Username', with: 'BevanA'
       fill_in 'Email', with: 'aneurin.bevan@nhs.net'
       fill_in 'Password', with: 'supersecret'
@@ -54,8 +54,8 @@ module Renalware
     scenario 'A user registers giving required information' do
       visit new_user_registration_path
 
-      fill_in 'First name', with: 'Aneurin'
-      fill_in 'Last name', with: 'Bevan'
+      fill_in 'Given name', with: 'Aneurin'
+      fill_in 'Family name', with: 'Bevan'
       fill_in 'Username', with: 'BevanA'
       fill_in 'Email', with: 'aneurin.bevan@nhs.net'
       fill_in 'Password', with: 'supersecret'

@@ -78,12 +78,12 @@ ruby:
       = fd.simple_fields_for :consent, fd.object.consent do |fcm|
         = fcm.input :value, as: :inline_radio_buttons
         = fcm.input :consented_on, as: :date_picker
-        = fcm.input :name
+        = fcm.input :full_name
         hr
       = fd.simple_fields_for :marginal_consent, fd.object.marginal_consent do |fcm|
         = fcm.input :value, as: :inline_radio_buttons
         = fcm.input :consented_on, as: :date_picker
-        = fcm.input :name
+        = fcm.input :full_name
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "HLA Data", name: "hla" } do

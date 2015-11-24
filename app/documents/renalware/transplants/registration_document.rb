@@ -36,11 +36,11 @@ module Renalware
       class Consent < Document::Embedded
         attribute :value, enums: %i(yes no unknown)
         attribute :consented_on, Date
-        attribute :name
+        attribute :full_name
 
         validates :consented_on, timeliness: { type: :date, allow_blank: true }
         validates :consented_on, presence: true, if: "value.present?"
-        validates :name, presence: true, if: "value.present?"
+        validates :full_name, presence: true, if: "value.present?"
       end
       attribute :nhb_consent, Consent
 

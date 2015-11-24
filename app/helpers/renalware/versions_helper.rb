@@ -4,7 +4,7 @@ module Renalware
       if model.whodunnit
         user_id = model.whodunnit.to_i
         if user = User.find_by(id: user_id)
-          user.name
+          user.full_name
         else
           "User #{user_id}"
         end

@@ -26,7 +26,7 @@ module World
             description: description,
             started_on: row[:start_date],
             terminated_on: row[:termination_date],
-            created_by_id: Renalware::User.find_by(first_name: row[:by]).id,
+            created_by_id: Renalware::User.find_by(given_name: row[:by]).id,
           )
         end
         @initial_statuses_count = registration.statuses.count
@@ -65,7 +65,7 @@ module World
         statuses = transplant_registration_for(patient).reload.statuses.map do |s|
           { status: s.description.name,
             start_date: I18n.l(s.started_on),
-            by: s.updated_by.first_name,
+            by: s.updated_by.given_name,
             termination_date: (s.terminated_on ? I18n.l(s.terminated_on) : "")
           }.with_indifferent_access
         end
@@ -88,7 +88,7 @@ module World
             termination_date: (s.terminated_on ? I18n.l(s.terminated_on) : "")
           }
           if hashes.first[:by].present?
-            hash[:by] = s.updated_by.first_name
+            hash[:by] = s.updated_by.given_name
           end
           hash.with_indifferent_access
         end
