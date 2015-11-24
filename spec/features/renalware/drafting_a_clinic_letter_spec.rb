@@ -5,7 +5,7 @@ module Renalware
 
     background do
       create(:letter_description, text: 'Clinic letter')
-      create(:user, first_name: "Aneurin", last_name: "Bevan", signature: "Aneurin Bevan")
+      create(:user, given_name: "Aneurin", family_name: "Bevan", signature: "Aneurin Bevan")
       @doctor = create(:doctor)
       @practice = create(:practice)
       @doctor.practices << @practice

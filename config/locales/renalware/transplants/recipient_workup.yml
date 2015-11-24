@@ -47,11 +47,11 @@ en:
         posterior_tibial_pulse: Posterior tibial pulse?
       renalware/transplants/recipient_workup_document/consent:
         consented_on: Consent Date
-        name: Who consented
+        full_name: Who consented
         value: Transplant Consent
       renalware/transplants/recipient_workup_document/marginal_consent:
         consented_on: Marginal Consent Date
-        name: Who marginally consented
+        full_name: Who marginally consented
         value: Marginal consent?
       renalware/transplants/recipient_workup_document/education:
         cancer: Cancer Risks
@@ -90,4 +90,4 @@ en:
             smoking:
               status: Includes former as well as current smokers
           consent:
-            name: Your name or the person who consented
+            full_name: Your name or the person who consented

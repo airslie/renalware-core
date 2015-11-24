@@ -1,7 +1,7 @@
 Given(/^(.*?) is a clinician$/) do |name|
   user = Renalware::User.create!(
-    first_name: name,
-    last_name: "The Clinician",
+    given_name: name,
+    family_name: "The Clinician",
     username: name,
     email: "#{name}@renalware.com",
     password: "supersecret",

@@ -51,9 +51,6 @@ module Renalware
 
     scope :dead, -> { where.not(died_on: nil) }
 
-    alias_attribute :first_name, :given_name
-    alias_attribute :last_name,  :family_name
-
     def self.policy_class
       BasePolicy
     end

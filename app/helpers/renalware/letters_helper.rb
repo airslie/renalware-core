@@ -48,7 +48,7 @@ module Renalware
     def salutation(letter)
       case letter.recipient
       when 'doctor'
-        "Dear Dr. #{letter.patient.doctor.last_name}"
+        "Dear Dr. #{letter.patient.doctor.family_name}"
       when 'patient'
         "Dear #{letter.patient.full_name}"
       end
