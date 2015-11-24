@@ -1,8 +1,8 @@
 class CreateDoctors < ActiveRecord::Migration
   def change
     create_table :doctors do |t|
-      t.string  :first_name
-      t.string  :last_name
+      t.string  :given_name
+      t.string  :family_name
       t.string  :email
       t.string  :code
       t.integer :address_id
