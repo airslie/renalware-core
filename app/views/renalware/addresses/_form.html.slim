@@ -1,24 +1,19 @@
 ul.no-bullet
   li
-    = a.label :street_1
-    = a.text_field :street_1
+    = a.input :street_1
 
   li
-    = a.label :street_2
-    = a.text_field :street_2
+    = a.input :street_2
 
   li
-    = a.label :city
-    = a.text_field :city
+    = a.input :city
 
   li
-    = a.label :county
-    = a.text_field :county
+    = a.input :county
 
   li
-    = a.label :postcode
-    = a.text_field :postcode
+    = a.input :postcode
 
   li
-    = a.label :country
-    = a.select :country, Renalware::Country.all.map(&:name)
+    = a.input :country,
+        collection: Renalware::Country.all.map(&:name)

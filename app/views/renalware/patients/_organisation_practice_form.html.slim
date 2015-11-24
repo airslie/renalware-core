@@ -1,16 +1,12 @@
 ul.no-bullet
   li
-    = patient.label :gp_practice_code, "GP Practice Code"
-    = patient.text_field :gp_practice_code
+    = patient.input :gp_practice_code, label: "GP Practice Code"
 
   li
-    = patient.label :pct_org_code, "PCT Organisation Code"
-    = patient.text_field :pct_org_code
+    = patient.input :pct_org_code, label: "PCT Organisation Code"
 
   li
-    = patient.label :hospital_centre_code, "Hospital Centre Code"
-    = patient.text_field :hospital_centre_code
+    = patient.input :hospital_centre_code, label: "Hospital Centre Code"
 
   li
-    = patient.label :primary_esrf_centre, "Primary ESRF Centre"
-    = patient.text_field :primary_esrf_centre
+    = patient.input :primary_esrf_centre, label: "Primary ESRF Centre"

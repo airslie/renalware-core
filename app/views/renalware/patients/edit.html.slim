@@ -5,7 +5,9 @@
 .row
   .large-12.columns
 
-    = form_for @patient, method: :put do |f|
+    = simple_form_for @patient,
+        wrapper: "horizontal_form" do |f|
+
       = render partial: "renalware/patients/form", locals: { patient: f }
 
       = submit_tag "Update", class: "button"

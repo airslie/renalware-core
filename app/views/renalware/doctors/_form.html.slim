@@ -32,6 +32,6 @@ hr
   a#address-form-toggle href='#address-form' class='button tiny' Alternative address
 
   fieldset#address-form style='display:none'
-    = f.fields_for :address_attributes do |a|
+    = f.simple_fields_for :address_attributes do |a|
       = a.hidden_field :id
       = render partial: 'renalware/addresses/form', locals: { a: a }
