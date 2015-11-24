@@ -73,8 +73,8 @@ module Renalware
   practice = Practice.first
 
   doctor = Doctor.find_or_create_by!(code: 'GP912837465') do |doc|
-    doc.first_name = 'John'
-    doc.last_name = 'Merrill'
+    doc.given_name = 'John'
+    doc.family_name = 'Merrill'
     doc.email = 'john.merrill@nhs.net'
     doc.practitioner_type = 'GP'
     doc.practices << practice

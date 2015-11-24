@@ -8,8 +8,8 @@ module Renalware
     #superadmin
     username = "super#{sitecode}"
       Renalware::User.find_or_create_by!(username: username) do |u|
-        u.first_name = site
-        u.last_name = 'Superuser'
+        u.given_name = site
+        u.family_name = 'Superuser'
         u.email = "#{username}@#{sitecode}.trust.uk"
         u.password = 'renalware'
         u.approved = true
@@ -20,8 +20,8 @@ module Renalware
     #admin
     username = "#{sitecode}admin"
       Renalware::User.find_or_create_by!(username: username) do |u|
-        u.first_name = site
-        u.last_name = 'Admin'
+        u.given_name = site
+        u.family_name = 'Admin'
         u.email = "#{username}@#{sitecode}.trust.uk"
         u.password = 'renalware'
         u.approved = true
@@ -33,8 +33,8 @@ module Renalware
     #clinician
     username = "#{sitecode}doc"
       Renalware::User.find_or_create_by!(username: username) do |u|
-        u.first_name = 'Doctor'
-        u.last_name = site
+        u.given_name = 'Doctor'
+        u.family_name = site
         u.email = "#{username}@#{sitecode}.trust.uk"
         u.password = 'renalware'
         u.approved = true
@@ -46,8 +46,8 @@ module Renalware
     #nurse NB same role as doc
     username = "#{sitecode}nurse"
       Renalware::User.find_or_create_by!(username: username) do |u|
-        u.first_name = site
-        u.last_name = 'Nurse'
+        u.given_name = site
+        u.family_name = 'Nurse'
         u.email = "#{username}@#{sitecode}.trust.uk"
         u.password = 'renalware'
         u.approved = true
@@ -59,8 +59,8 @@ module Renalware
     #guest i.e. readonly
     username = "#{sitecode}guest"
       Renalware::User.find_or_create_by!(username: username) do |u|
-        u.first_name = site
-        u.last_name = 'Guest'
+        u.given_name = site
+        u.family_name = 'Guest'
         u.email = "#{username}@#{sitecode}.trust.uk"
         u.password = 'renalware'
         u.approved = true
