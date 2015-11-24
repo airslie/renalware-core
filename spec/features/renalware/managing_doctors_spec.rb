@@ -92,7 +92,7 @@ module Renalware
     end
 
     scenario "Editing an existing Doctor" do
-      doctor = create(:doctor, email: "do.good@nhs.net", practices: [@athena_medical_centre])
+      create(:doctor, email: "do.good@nhs.net", practices: [@athena_medical_centre])
 
       visit doctors_path
 
@@ -112,11 +112,11 @@ module Renalware
     end
 
     scenario "Deleting a Doctor" do
-      doctor = create(:doctor,
-                      given_name: "John",
-                      family_name: "Merrill",
-                      email: "john.merrill@nhs.net",
-                      practices: [@athena_medical_centre])
+      create(:doctor,
+        given_name: "John",
+        family_name: "Merrill",
+        email: "john.merrill@nhs.net",
+        practices: [@athena_medical_centre])
 
       visit doctors_path
 
