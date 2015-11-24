@@ -53,5 +53,5 @@ def doctor_params
 end
 
 def address_params
-  {street_1: "123 South Street", postcode: "N1 1NN"}
+  { street_1: "123 South Street", postcode: "N1 1NN" }
 end
