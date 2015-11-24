@@ -187,8 +187,8 @@ ALTER SEQUENCE clinic_visits_id_seq OWNED BY clinic_visits.id;
 
 CREATE TABLE doctors (
     id integer NOT NULL,
-    first_name character varying,
-    last_name character varying,
+    given_name character varying,
+    family_name character varying,
     email character varying,
     code character varying,
     address_id integer,
@@ -1816,8 +1816,8 @@ CREATE TABLE users (
     updated_at timestamp without time zone,
     approved boolean DEFAULT false,
     username character varying,
-    first_name character varying,
-    last_name character varying,
+    given_name character varying,
+    family_name character varying,
     last_activity_at timestamp without time zone,
     expired_at timestamp without time zone,
     professional_position character varying,
