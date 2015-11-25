@@ -1,7 +1,8 @@
-h1#patient-header-info
-  = "#{@patient.to_s(:full_name)} - "
-  = "KCH: #{@patient.local_patient_id}, "
-  = "Age: #{@patient.age}, "
-  = "#{@patient.sex}, "
-  = "DoB: #{l @patient.born_on}, "
-  = "#{@patient.current_modality.blank? || @patient.current_modality.new_record? ? "No Modal" : @patient.current_modality.description.name}"
+#patient-header
+  h1
+    = "#{@patient.to_s(:full_name)} - "
+    = "KCH: #{@patient.local_patient_id}, "
+    = "Age: #{@patient.age}, "
+    = "#{@patient.sex}, "
+    = "DoB: #{l @patient.born_on}, "
+    = "#{@patient.current_modality.blank? || @patient.current_modality.new_record? ? "No Modal" : @patient.current_modality.description.name}"
