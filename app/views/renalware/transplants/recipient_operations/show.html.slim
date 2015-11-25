@@ -1,15 +1,14 @@
-= render "record_header"
+= render layout: "renalware/patients/layout", locals: { title: "Transplant Recipient Operation" } do
+  - return unless @recipient_operation
+  .document-view
+    = render "renalware/shared/attributes_group",
+        legend: "Operation", destination: "operation",
+        resource: @recipient_operation,
+        attributes: [:performed_on, :theatre_case_start_time, :donor_kidney_removed_from_ice_at,
+          :kidney_perfused_with_blood_at, :operation_type, :transplant_site,
+          :cold_ischaemic_time, :notes]
 
-- return unless @recipient_operation
-.document-view
-  = render "renalware/shared/attributes_group",
-      legend: "Operation", destination: "operation",
-      resource: @recipient_operation,
-      attributes: [:performed_on, :theatre_case_start_time, :donor_kidney_removed_from_ice_at,
-        :kidney_perfused_with_blood_at, :operation_type, :transplant_site,
-        :cold_ischaemic_time, :notes]
-
-  - ["Kidney", "Recipient", "Donor", "DSA", "BKV", "Outcome"].each do |group|
-    = render "renalware/shared/documents/attributes_group",
-        group: @recipient_operation.document.public_send(group.parameterize('_')),
-        legend: group, destination: group.parameterize('_')
+    - ["Kidney", "Recipient", "Donor", "DSA", "BKV", "Outcome"].each do |group|
+      = render "renalware/shared/documents/attributes_group",
+          group: @recipient_operation.document.public_send(group.parameterize('_')),
+          legend: group, destination: group.parameterize('_')
