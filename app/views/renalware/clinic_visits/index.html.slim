@@ -1,16 +1,15 @@
-.wide-screen
-  .columns.large-12
-    = render "header"
+= render layout: "renalware/patients/layout", locals: { title: "Clinic Visits" } do
+  .wide-screen
+    .row
+      table.clinics
+        thead
+          tr
+            th
+            th Date
+            th Clinic Type
+            th BMI
+            th BP
+            th Created by
 
-    table.clinics
-      thead
-        tr
-          th
-          th Date
-          th Clinic Type
-          th BMI
-          th BP
-          th Created by
-
-      tbody
-        = render @clinic_visits
+        tbody
+          = render @clinic_visits
