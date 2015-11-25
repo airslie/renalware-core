@@ -7,15 +7,11 @@ ul.side-nav
   li= link_to "Events (#{Renalware::Events::Event.for_patient(@patient).count})", patient_events_path(@patient), title: "Patient Events"
   li= link_to "Clinic Visits (#{@patient.clinic_visits.length})", patient_clinic_visits_path(@patient), title: "Clinic Visits"
   li= link_to "Letters (#{@patient.letters.length})", patient_letters_path(@patient), title: "Letters"
-
-p Regimes
-
-ul.side-nav
+  li.divider
+  li.heading Regimes
   li= link_to_if display_pd_menu(@patient.modalities.with_deleted), "PD", patient_pd_summary_path(@patient)
-  li= link_to_if false, "HD", "#"
-
-p Transplants
-
-ul.side-nav
+  li= link_to_if true, "HD", "#"
+  li.divider
+  li.heading Transplants
   li= link_to "Recipient Summary", patient_transplants_recipient_dashboard_path(@patient)
   li= link_to "Donor Summary", patient_transplants_donor_dashboard_path(@patient)
