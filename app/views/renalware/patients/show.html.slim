@@ -1,89 +1,86 @@
-.wide-screen
-  .columns.large-12
-    = render "record_header"
+= render layout: "layout", locals: { title: "Demographics" } do
+  #patient-demographics
+    .row
+      .large-12.columns
+        = field_set_tag do
+          legend Patient Demographics
 
-#patient-demographics
-  .row
-    .large-12.columns
-      = field_set_tag do
-        legend Patient Demographics
-
-        .large-3.columns
-          dl
-            dt NHS Number:
-            dd= @patient.nhs_number
-
-            dt Local Patient ID:
-            dd= @patient.local_patient_id
-
-        .large-3.columns
-          dl
-            dt Last Name:
-            dd= @patient.family_name
-
-            dt First Name:
-            dd= @patient.given_name
-
-        .large-3.columns
-          dl
-            dt Sex:
-            dd= @patient.sex
-
-            dt Ethnicity:
-            dd= default_for_associated(@patient.ethnicity, :name, 'Unspecified')
-
-        .large-3.columns
-          dl
-            dt Date of Birth:
-            dd= l @patient.born_on
-
-            dt Date of Death:
-            dd= default_for_blank_date(@patient.died_on, "N/A")
-
-        .large-12.columns
-          - if @patient.died_on.present?
+          .large-3.columns
             dl
-              dt First cause of Death:
-              dd= @patient.first_edta_code.death_cause
+              dt NHS Number:
+              dd= @patient.nhs_number
 
-              dt Second cause of Death:
-              dd= default_for_associated(@patient.second_edta_code, :death_cause, 'N/A')
+              dt Local Patient ID:
+              dd= @patient.local_patient_id
 
-            = link_to "Update Causes of Death", edit_patient_death_path(@patient), {class: "update-death button tiny mt"}
+          .large-3.columns
+            dl
+              dt Last Name:
+              dd= @patient.family_name
 
-        .large-12.columns
+              dt First Name:
+              dd= @patient.given_name
+
+          .large-3.columns
+            dl
+              dt Sex:
+              dd= @patient.sex
+
+              dt Ethnicity:
+              dd= default_for_associated(@patient.ethnicity, :name, 'Unspecified')
+
+          .large-3.columns
+            dl
+              dt Date of Birth:
+              dd= l @patient.born_on
+
+              dt Date of Death:
+              dd= default_for_blank_date(@patient.died_on, "N/A")
+
+          .large-12.columns
+            - if @patient.died_on.present?
+              dl
+                dt First cause of Death:
+                dd= @patient.first_edta_code.death_cause
+
+                dt Second cause of Death:
+                dd= default_for_associated(@patient.second_edta_code, :death_cause, 'N/A')
+
+              = link_to "Update Causes of Death", edit_patient_death_path(@patient), {class: "update-death button tiny mt"}
+
+          .large-12.columns
+            dl
+              dt Paediatric Patient:
+              dd= yes_no(@patient.paediatric_patient_indicator)
+
+    .row
+      .large-4.columns
+        = field_set_tag do
+          legend Organisation/Practice
+
           dl
-            dt Paediatric Patient:
-            dd= yes_no(@patient.paediatric_patient_indicator)
+            dt GP Practice Code:
+            dd= @patient.gp_practice_code
 
-  .row
-    .large-4.columns
-      = field_set_tag do
-        legend Organisation/Practice
-
-        dl
-          dt GP Practice Code:
-          dd= @patient.gp_practice_code
-
-        dl
-          dt PCT Organisation Code:
-          dd= @patient.pct_org_code
+          dl
+            dt PCT Organisation Code:
+            dd= @patient.pct_org_code
 
 
-        dl
-          dt Hospital Centre Code:
-          dd= @patient.hospital_centre_code
+          dl
+            dt Hospital Centre Code:
+            dd= @patient.hospital_centre_code
 
-        dl
-          dt Primary ESRF Centre:
-          dd= @patient.primary_esrf_centre
+          dl
+            dt Primary ESRF Centre:
+            dd= @patient.primary_esrf_centre
 
-    .large-4.columns
-      = field_set_tag do
-        legend Current Address
-        = render @patient.current_address if @patient.current_address
+      .large-4.columns
+        = field_set_tag do
+          legend Current Address
+          = render @patient.current_address if @patient.current_address
 
-    .large-4.columns
-      = field_set_tag do
-        legend Address at Diagnosis
-        = render @patient.address_at_diagnosis if @patient.address_at_diagnosis
+      .large-4.columns
+        = field_set_tag do
+          legend Address at Diagnosis
+          = render @patient.address_at_diagnosis if @patient.address_at_diagnosis
