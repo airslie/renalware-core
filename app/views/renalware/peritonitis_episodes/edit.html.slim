@@ -1,4 +1,4 @@
-= render layout: "renalware/pd/layout", locals: { header: "Peritonitis Episode", patient: @patient } do
+= render layout: "renalware/patients/layout", locals: { title: "Peritonitis Episode" } do
   .row
     .large-12.columns
       = render partial: "renalware/shared/errors", locals: { model: @peritonitis_episode }

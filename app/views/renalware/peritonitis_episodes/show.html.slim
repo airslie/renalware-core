@@ -1,5 +1,5 @@
-- header = "Peritonitis Episode - Diagnosed: #{ l @peritonitis_episode.diagnosis_date }"
-= render layout: "renalware/pd/layout", locals: { header: header, patient: @patient } do
+- title = "Peritonitis Episode - Diagnosed: #{ l @peritonitis_episode.diagnosis_date }"
+= render layout: "renalware/patients/layout", locals: { title: title } do
   .row
     p
       = "Last Updated: #{@peritonitis_episode.updated_at}"

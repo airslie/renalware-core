@@ -1,10 +1,13 @@
 .row
-  .columns.large-12
-    = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
+  .large-12.columns
+    = render partial: "renalware/patients/header", locals: { model: @patient }
+  .large-2.columns
+    = render partial: "renalware/patients/sub_nav", locals: { model: @patient }
+  .large-10.columns
     = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
 
     h2= title
 
     = render partial: "navigation"
 
-= yield
+    = yield

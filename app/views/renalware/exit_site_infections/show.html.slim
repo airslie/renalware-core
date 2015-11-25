@@ -1,5 +1,5 @@
-- header = "Exit Site Infection - Diagnosed: #{ l @exit_site_infection.diagnosis_date }"
-= render layout: "renalware/pd/layout", locals: { header: header, patient: @patient } do
+- title = "Exit Site Infection - Diagnosed: #{ l @exit_site_infection.diagnosis_date }"
+= render layout: "renalware/patients/layout", locals: { title: title } do
   .row
     p
       = "Last Updated: #{@exit_site_infection.updated_at}"

@@ -1,4 +1,4 @@
-= render layout: "renalware/pd/layout", locals: { header: "PD Info", patient: @patient } do
+= render layout: "renalware/patients/layout", locals: { title: "PD Summary" } do
   .row
     = render partial: 'renalware/pd_regimes/current_regime' unless @current_regime.nil?
 
