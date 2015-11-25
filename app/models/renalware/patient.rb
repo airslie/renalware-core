@@ -44,6 +44,8 @@ module Renalware
     validates :born_on, presence: true
     validate :validate_sex
 
+    validates :born_on, timeliness: { type: :date }
+
     with_options if: :current_modality_death?, on: :update do |death|
       death.validates :died_on, presence: true
       death.validates :first_edta_code_id, presence: true
