@@ -1,19 +1,18 @@
-.wide-screen
-  .columns.large-12
-    = render "header"
-
-  table
-    thead
-      tr
-        th Modality Code
-        th Notes
-        th Start Date
-        th Termination Date
-
-    tbody
-      - @modalities.each do |modality|
+= render layout: "renalware/patients/layout", locals: { title: "Modality History" } do
+  .wide-screen
+    .columns.large-12
+    table
+      thead
         tr
-          td= modality.description.name
-          td= modality.notes
-          td= l modality.started_on
-          td= l modality.ended_on
+          th Modality Code
+          th Notes
+          th Start Date
+          th Termination Date
+
+      tbody
+        - @modalities.each do |modality|
+          tr
+            td= modality.description.name
+            td= modality.notes
+            td= l modality.started_on
+            td= l modality.ended_on
