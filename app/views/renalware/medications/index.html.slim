@@ -1,8 +1,8 @@
 = render layout: "renalware/patients/layout", locals: { title: "Modality History" } do
-  .large-12.columns
+  .row
     = render partial: "renalware/shared/errors", locals: { model: @patient }
 
-  .wide-screen
+  .row
     = nested_form_for @patient, url: patient_medications_batch_path(@patient) do |f|
       = f.fields_for :medications do |pm|
 

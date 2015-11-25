@@ -1,5 +1,5 @@
 = render layout: "renalware/pd/layout", locals: { header: "PD Info", patient: @patient } do
-  .wide-screen
+  .row
     = render partial: 'renalware/pd_regimes/current_regime' unless @current_regime.nil?
 
     h6= "CAPD Regimes (#{@capd_regimes.length})"

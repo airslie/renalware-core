@@ -1,14 +1,13 @@
 = render layout: "renalware/patients/layout", locals: { title: "Letters" } do
-  .wide-screen
-    .row
-      table.letters
-        thead
-          tr
-            th
-            th Author
-            th Description
-            th State
-            th Last updated
+  .row
+    table.letters
+      thead
+        tr
+          th
+          th Author
+          th Description
+          th State
+          th Last updated
 
-        tbody
-          = render @letters
+      tbody
+        = render @letters

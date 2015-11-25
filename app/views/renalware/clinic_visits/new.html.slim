@@ -1,12 +1,11 @@
 = render layout: "renalware/patients/layout", locals: { title: "Clinic Visits" } do
-  .wide-screen
-    .row
-      = simple_form_for [@patient, @clinic_visit],
-          url: patient_clinic_visits_path(@patient),
-          wrapper: "horizontal_form" do |f|
+  .row
+    = simple_form_for [@patient, @clinic_visit],
+        url: patient_clinic_visits_path(@patient),
+        wrapper: "horizontal_form" do |f|
 
-        = render partial: "form", locals: { f: f }
+      = render partial: "form", locals: { f: f }
 
-        = f.submit "Save", class: "button"
-        span= " or "
-        = link_to "cancel", patient_clinic_visits_path(@patient)
+      = f.submit "Save", class: "button"
+      span= " or "
+      = link_to "cancel", patient_clinic_visits_path(@patient)

@@ -1,5 +1,5 @@
 = render layout: "renalware/patients/layout", locals: { title: "Problems" } do
-  .wide-screen
+  .row
     = form_for @patient, url: patient_problems_batch_path(@patient) do |f|
       = f.fields_for :problems do |pb|
         - if pb.object.versions.any?
