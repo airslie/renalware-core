@@ -1,28 +1,26 @@
-.wide-screen
-  .columns.large-12
-    = render "header"
+= render layout: "renalware/patients/layout", locals: { title: "Events" } do
+  .wide-screen
+    .row
+      = render partial: "renalware/shared/errors", locals: { model: @event }
 
-  .row
-    = render partial: "renalware/shared/errors", locals: { model: @event }
+      = simple_form_for @event,
+          url: patient_events_path(@patient, @event),
+          wrapper: "horizontal_form" do |f|
 
-    = simple_form_for @event,
-        url: patient_events_path(@patient, @event),
-        wrapper: "horizontal_form" do |f|
+        .row
+          .large-12.columns
+            fieldset
+              legend New Event
+              .large-9.columns
+                = f.input :date_time, as: :datetime_picker
+                = f.input :event_type_id,
+                  collection: Renalware::Events::Type.all,
+                  label_method: :name, value_method: :id
+                = f.input :description
+                = f.input :notes, as: :text, input_html: { rows: 5 }
 
-      .row
-        .large-12.columns
-          fieldset
-            legend New Event
-            .large-9.columns
-              = f.input :date_time, as: :datetime_picker
-              = f.input :event_type_id,
-                collection: Renalware::Events::Type.all,
-                label_method: :name, value_method: :id
-              = f.input :description
-              = f.input :notes, as: :text, input_html: { rows: 5 }
-
-      .row
-        .large-12.columns
-          = submit_tag "Save", class: "button"
-          span= " or "
-          = link_to "Cancel", patient_events_path(@patient)
+        .row
+          .large-12.columns
+            = submit_tag "Save", class: "button"
+            span= " or "
+            = link_to "Cancel", patient_events_path(@patient)
