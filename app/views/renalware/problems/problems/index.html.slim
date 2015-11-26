@@ -12,6 +12,6 @@
             = render partial: "renalware/problems/problems/problem", locals: { pb: pb }
 
         - unless current_user.read_only?
-          = f.submit "Save Problems", class: "button mt"
+          = f.submit "Save Problems", class: "button"
           span= " or "
         = link_to "cancel", patient_clinical_summary_path(@patient)
