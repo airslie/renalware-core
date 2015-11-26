@@ -1,10 +1,9 @@
 - title = "Peritonitis Episode - Diagnosed: #{ l @peritonitis_episode.diagnosis_date }"
 = render layout: "renalware/patients/layout", locals: { title: title } do
-  .row
-    p
-      = "Last Updated: #{@peritonitis_episode.updated_at}"
-      = pipe_separator
-      = link_to "Edit", edit_patient_peritonitis_episode_path(@patient, @peritonitis_episode.id)
+  p
+    = "Last Updated: #{@peritonitis_episode.updated_at}"
+    = pipe_separator
+    = link_to "Edit", edit_patient_peritonitis_episode_path(@patient, @peritonitis_episode.id)
 
   .row
     .large-6.columns
