@@ -38,20 +38,12 @@ end
 
 When(/^I complete the cause of death form$/) do
 
-  within "#patient_died_on_3i" do
-    select '22'
-  end
-  within "#patient_died_on_2i" do
-    select 'September'
-  end
-  within "#patient_died_on_1i" do
-    select '2014'
-  end
+  fill_in "Date of Death", with: "22-09-2014"
 
   select "Death cause one", :from => "EDTA Cause of Death (1)"
   select "Death cause two", :from => "EDTA Cause of Death (2)"
 
-  fill_in "Notes/Details", :with => "Heart stopped"
+  fill_in "Notes", :with => "Heart stopped"
 
   click_on "Save Cause of Death"
 end
