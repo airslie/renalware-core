@@ -1,40 +1,40 @@
-= render "header"
+.row
+  = render "header"
 
 .row
-  .columns.large-12
-    table
-      thead
-        tr
-          th
-          th Manufacturer
-          th Description
-          th Glucose (g/l)
-          th Amino acid
-          th Icodextrin
-          th Low GDP
-          th Low Na
-          th Sodium (mmole/l)
-          th Lactate (mmole/l)
-          th Bicarbonate (mmole/l)
-          th Calcium (mmole/l)
-          th Magnesium (mmole/l)
+  table
+    thead
+      tr
+        th
+        th Manufacturer
+        th Description
+        th Glucose (g/l)
+        th Amino acid
+        th Icodextrin
+        th Low GDP
+        th Low Na
+        th Sodium (mmole/l)
+        th Lactate (mmole/l)
+        th Bicarbonate (mmole/l)
+        th Calcium (mmole/l)
+        th Magnesium (mmole/l)
 
-      tbody
-        - @bag_types.each do |bt|
-          tr
-            td
-              = link_to "Edit", edit_bag_type_path(bt.id), id: "edit-bag-type-#{bt.id}"
-              = pipe_separator
-              = link_to "Delete", bag_type_path(bt.id), method: :delete , id: "delete-bag-type-#{bt.id}", data: { confirm: I18n.t("prompts.confirm_delete") }
-              td= bt.manufacturer
-              td= bt.description
-              td= bt.glucose_grams_per_litre
-              td= yes_no(bt.amino_acid)
-              td= yes_no(bt.icodextrin)
-              td= yes_no(bt.low_glucose_degradation)
-              td= yes_no(bt.low_sodium)
-              td= bt.sodium_mmole_l
-              td= bt.lactate_mmole_l
-              td= bt.bicarbonate_mmole_l
-              td= bt.calcium_mmole_l
-              td= bt.magnesium_mmole_l
+    tbody
+      - @bag_types.each do |bt|
+        tr
+          td
+            = link_to "Edit", edit_bag_type_path(bt.id), id: "edit-bag-type-#{bt.id}"
+            = pipe_separator
+            = link_to "Delete", bag_type_path(bt.id), method: :delete , id: "delete-bag-type-#{bt.id}", data: { confirm: I18n.t("prompts.confirm_delete") }
+            td= bt.manufacturer
+            td= bt.description
+            td= bt.glucose_grams_per_litre
+            td= yes_no(bt.amino_acid)
+            td= yes_no(bt.icodextrin)
+            td= yes_no(bt.low_glucose_degradation)
+            td= yes_no(bt.low_sodium)
+            td= bt.sodium_mmole_l
+            td= bt.lactate_mmole_l
+            td= bt.bicarbonate_mmole_l
+            td= bt.calcium_mmole_l
+            td= bt.magnesium_mmole_l
