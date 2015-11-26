@@ -83,21 +83,21 @@ To run the acceptance tests with the UI:
 
     TEST_DEPTH=web bin/cucumber
 
-## Deployment to staging and demo servers
+## Deployment to demo server
 
-Heroku hosts staging and demo servers.
+Heroku hosts our demo server.
 
 Setup the remote repository:
 
     heroku login
-    heroku git:remote -a renalware
+    heroku git:remote -a renalware-demo
 
 To deploy:
 
     git push heroku master
     heroku open
 
-The app is available at http://renalware.herokuapp.com. It is password protected:
+The app is available at http://renalware-demo.herokuapp.com. It is password protected:
 
     username: renalware
     password: lister
