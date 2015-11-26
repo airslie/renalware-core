@@ -1,32 +1,22 @@
-.large-12.columns
-  = field_set_tag do
-    legend Additional exchanges
+.row
+  .large-12.columns
+    = field_set_tag "Additional exchanges" do
+      = r.label :last_fill_ml, 'Last Fill (ml)'
+      = r.text_field :last_fill_ml
 
-    = r.label :last_fill_ml, 'Last Fill (ml)'
-    = r.text_field :last_fill_ml
+      = r.check_box :add_manual_exchange
+      = r.label :add_manual_exchange, 'Additional manual exchange'
 
-    = r.check_box :add_manual_exchange
-    = r.label :add_manual_exchange, 'Additional manual exchange'
+    = field_set_tag "Tidal" do
+      = r.check_box :tidal_indicator
+      = r.label :tidal_indicator, 'Has tidal?'
 
-  = field_set_tag do
-    legend Tidal
+      = r.label :tidal_percentage, 'Tidal (%)'
+      = r.select :tidal_percentage, tidal_options, { prompt: "Please select from options" }, class: "pd-regime-tidal-percentage-select"
 
-    = r.check_box :tidal_indicator
-    = r.label :tidal_indicator, 'Has tidal?'
+    = field_set_tag "Additional APD Info" do
+      = r.label :no_cycles_per_apd, 'Number of cycles per APD session'
+      = r.text_field :no_cycles_per_apd
 
-    = r.label :tidal_percentage, 'Tidal (%)'
-    = r.select :tidal_percentage, tidal_options, { prompt: "Please select from options" }, class: "pd-regime-tidal-percentage-select"
-
-  = field_set_tag do
-    legend Additional APD Info:
-
-    = r.label :no_cycles_per_apd, 'Number of cycles per APD session'
-    = r.text_field :no_cycles_per_apd
-
-    = r.label :overnight_pd_ml, 'Overnight PD volume on APD (ml)'
-    = r.text_field :overnight_pd_ml
-
-
-
-
-
+      = r.label :overnight_pd_ml, 'Overnight PD volume on APD (ml)'
+      = r.text_field :overnight_pd_ml
