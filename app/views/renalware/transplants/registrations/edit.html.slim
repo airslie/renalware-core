@@ -1,9 +1,7 @@
 = render layout: "renalware/patients/layout", locals: { title: "Transplant Wait List Registration" } do
-  .row
-    .columns.large-12
-      .document
-        = simple_form_for @registration,
-            url: patient_transplants_registration_path(@patient),
-            method: :patch,
-            wrapper: "horizontal_form" do |f|
-          = render 'form', f: f
+  .document
+    = simple_form_for @registration,
+        url: patient_transplants_registration_path(@patient),
+        method: :patch,
+        wrapper: "horizontal_form" do |f|
+      = render 'form', f: f

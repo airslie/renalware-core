@@ -62,8 +62,8 @@ module World
 
       def create_donor_workup(user:, patient:)
         login_as user
-        visit patient_clinical_summary_path(patient)
-        click_on "Transplant Donor Workup"
+        visit patient_transplants_donor_dashboard_path(patient)
+        click_on "Enter workup"
 
         fill_in "Oral GTT", with: "66"
 
@@ -74,8 +74,7 @@ module World
 
       def update_donor_workup(patient:, user:)
         login_as user
-        visit patient_clinical_summary_path(patient)
-        click_on "Transplant Donor Workup"
+        visit patient_transplants_donor_workup_path(patient)
         click_on "Edit"
 
         fill_in "Calculated Clearance", with: "193"

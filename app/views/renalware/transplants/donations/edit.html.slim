@@ -1,9 +1,7 @@
 = render layout: "renalware/patients/layout", locals: { title: "Transplant Donation" } do
-  .row
-    .columns.large-12
-      .document
-        = simple_form_for @donation,
-            url: patient_transplants_donation_path(@patient, @donation),
-            method: :patch,
-            wrapper: "horizontal_form" do |f|
-          = render 'form', f: f
+  .document
+    = simple_form_for @donation,
+        url: patient_transplants_donation_path(@patient, @donation),
+        method: :patch,
+        wrapper: "horizontal_form" do |f|
+      = render 'form', f: f

@@ -1,6 +1,4 @@
-= render layout: "renalware/patients/layout", locals: { title: "Transplant Donation Info" } do
-  .row
-    .columns.large-12
-      = render "renalware/transplants/donations/list"
-      = render "renalware/transplants/donor_workups/summary"
-      = render "renalware/transplants/donor_operations/list"
+= render layout: "renalware/patients/layout", locals: { title: "Transplant Donation Summary" } do
+  = render "renalware/transplants/donations/list"
+  = render "renalware/transplants/donor_workups/summary"
+  = render "renalware/transplants/donor_operations/list"
