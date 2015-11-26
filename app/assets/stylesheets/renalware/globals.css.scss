@@ -17,18 +17,6 @@ h1.brand-name {
   padding-left: 0.7em;
 }
 
-table tr th.col-width-date{
-  width: 5.5rem;
-}
-
-table tr th.col-width-9{
-  width: 9rem;
-}
-
-table tr th.col-width-13{
-  width: 13rem;
-}
-
 fieldset {
   padding: 1em;
 
@@ -42,29 +30,10 @@ fieldset {
   }
 }
 
-table {
-  table-layout: fixed;
-  .column-6-width {
-    width: 6%;
-  }
-  .column-9-width {
-    width: 8.5%;
-  }
-}
-
-th, td {
-  overflow: hidden;
-}
-
 p {
   padding: 0 0.5em 0 0.5em;
   margin: 0 0 0.5em 0;
 }
-
-ul.bullet-number {
-  list-style-type: decimal;
-  text-align: left;
- }
 
 .page-title {
   color: #008cba;
@@ -148,33 +117,6 @@ h5 {
 
 .alert_text {
   color: red;
-}
-
-.document-view {
-  dl {
-    width: 100%;
-    overflow: hidden;
-
-    dt {
-      clear: both;
-      float: left;
-      width: 41%;
-      padding: 0 1em 0 0;
-      margin: 0;
-      text-align: right;
-    }
-    dd {
-      float: left;
-      width: 59%;
-      padding: 0;
-      margin: 0;
-
-      p {
-        padding: 0;
-        margin: 0;
-      }
-    }
-  }
 }
 
 span.note {

@@ -6,6 +6,32 @@ table {
   width: 50%;
 }
 
+table tr th.col-width-date{
+  width: 5.5rem;
+}
+
+table tr th.col-width-9{
+  width: 9rem;
+}
+
+table tr th.col-width-13{
+  width: 13rem;
+}
+
+table {
+  table-layout: fixed;
+  .column-6-width {
+    width: 6%;
+  }
+  .column-9-width {
+    width: 8.5%;
+  }
+}
+
+th, td {
+  overflow: hidden;
+}
+
 @media screen and (max-width: 1000px) {
 
   table.responsive {
