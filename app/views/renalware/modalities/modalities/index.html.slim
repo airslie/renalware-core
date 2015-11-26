@@ -1,17 +1,16 @@
 = render layout: "renalware/patients/layout", locals: { title: "Modality History" } do
-  .row
-    table
-      thead
-        tr
-          th Modality Code
-          th Notes
-          th Start Date
-          th Termination Date
+  table
+    thead
+      tr
+        th Modality Code
+        th Notes
+        th Start Date
+        th Termination Date
 
-      tbody
-        - @modalities.each do |modality|
-          tr
-            td= modality.description.name
-            td= modality.notes
-            td= l modality.started_on
-            td= l modality.ended_on
+    tbody
+      - @modalities.each do |modality|
+        tr
+          td= modality.description.name
+          td= modality.notes
+          td= l modality.started_on
+          td= l modality.ended_on
