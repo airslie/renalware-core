@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
- $('#modality-code-select').change(function() {
+  $('#modality-code-select').change(function() {
 
     var selectedModal = $('#modality-code-select option:selected').text();
 
@@ -11,5 +11,4 @@ $(document).ready(function(){
     }
 
   });
-
 });
