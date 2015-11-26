@@ -1,15 +1,10 @@
 - title = "#{capd_apd_title(@pd_regime.type)} Regime"
 = render layout: "renalware/patients/layout", locals: { title: title } do
-  .row
-    .large-12.columns
-      = render partial: "renalware/shared/errors", locals: { model: @pd_regime }
+  = render partial: "renalware/shared/errors", locals: { model: @pd_regime }
 
-  .row
-    = nested_form_for [@patient, @pd_regime], as: :pd_regime do |r|
-      .row
-        = render partial: 'renalware/pd_regimes/form', locals: { r: r }
+  = nested_form_for [@patient, @pd_regime], as: :pd_regime do |r|
+    = render partial: 'renalware/pd_regimes/form', locals: { r: r }
 
-      .large-12.columns.button-padding
-        = submit_tag "Save", class: "button"
-        span= " or "
-        = link_to "cancel", patient_pd_summary_path(@patient)
+    = submit_tag "Save", class: "button"
+    span= " or "
+    = link_to "cancel", patient_pd_summary_path(@patient)

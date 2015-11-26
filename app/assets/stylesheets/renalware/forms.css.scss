@@ -12,6 +12,19 @@ form {
   }
 }
 
+fieldset {
+  padding: 1em;
+
+  dt {
+    font-weight: normal;
+    color: rgb(153, 153, 153);
+  }
+
+  .button {
+    margin-bottom: 0;
+  }
+}
+
 .document form {
   .form-content {
     max-width: 960px;

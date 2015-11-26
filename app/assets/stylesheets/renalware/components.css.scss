@@ -1,0 +1,18 @@
+.flash-message {
+  position: relative;
+  top: 1.5em;
+  z-index: 1;
+}
+
+.call-to-action {
+  text-align: center;
+  i {
+    display: block;
+    font-size: 5em;
+  }
+}
+
+.section-underliner {
+  border-bottom: rgb(221, 221, 221) solid 0.1em;
+  margin: 0.5em;
+}
