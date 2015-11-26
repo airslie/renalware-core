@@ -1,8 +1,6 @@
 = render layout: "layout", locals: { title: "Demographics" } do
   #patient-demographics
-    = field_set_tag do
-      legend Patient Demographics
-
+    = field_set_tag "Patient Demographics" do
       .row
         .large-3.columns
           dl
@@ -57,9 +55,7 @@
 
     .row
       .large-4.columns
-        = field_set_tag do
-          legend Organisation/Practice
-
+        = field_set_tag "Organisation/Practice" do
           dl
             dt GP Practice Code:
             dd= @patient.gp_practice_code
@@ -67,7 +63,6 @@
           dl
             dt PCT Organisation Code:
             dd= @patient.pct_org_code
-
 
           dl
             dt Hospital Centre Code:
@@ -78,11 +73,9 @@
             dd= @patient.primary_esrf_centre
 
       .large-4.columns
-        = field_set_tag do
-          legend Current Address
+        = field_set_tag "Current Address" do
           = render @patient.current_address if @patient.current_address
 
       .large-4.columns
-        = field_set_tag do
-          legend Address at Diagnosis
+        = field_set_tag "Address at Diagnosis" do
           = render @patient.address_at_diagnosis if @patient.address_at_diagnosis
