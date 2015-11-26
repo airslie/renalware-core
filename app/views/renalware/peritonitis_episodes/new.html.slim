@@ -1,15 +1,9 @@
 = render layout: "renalware/patients/layout", locals: { title: "Peritonitis Episode", patient: @patient } do
-  .row
-    .large-12.columns
-      = render partial: "renalware/shared/errors", locals: { model: @peritonitis_episode }
+  = render partial: "renalware/shared/errors", locals: { model: @peritonitis_episode }
 
-  .row
-    .large-12.columns
-      = nested_form_for [@patient, @peritonitis_episode] do |pe|
-        .row
-          = render partial: 'renalware/peritonitis_episodes/form', locals: { pe: pe }
+  = nested_form_for [@patient, @peritonitis_episode] do |pe|
+    = render partial: 'renalware/peritonitis_episodes/form', locals: { pe: pe }
 
-        .row.button-padding
-          = submit_tag "Save", class: "button"
-          span= " or "
-          = link_to "cancel", patient_pd_summary_path(@patient)
+    = submit_tag "Save", class: "button"
+    span= " or "
+    = link_to "cancel", patient_pd_summary_path(@patient)

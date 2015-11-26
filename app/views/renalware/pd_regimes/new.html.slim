@@ -5,7 +5,6 @@
   = nested_form_for [@patient, @pd_regime], as: :pd_regime do |r|
     = render partial: 'renalware/pd_regimes/form', locals: { r: r }
 
-    .large-12.columns
-      = submit_tag "Save", class: "button"
-      span= " or "
-      = link_to "cancel", patient_pd_summary_path(@patient)
+    = submit_tag "Save", class: "button"
+    span= " or "
+    = link_to "cancel", patient_pd_summary_path(@patient)
