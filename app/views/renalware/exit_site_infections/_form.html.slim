@@ -23,7 +23,7 @@
       = render partial: 'renalware/infection_organisms/forms', locals: { io: io }
 
     .large-12.columns
-      = es.link_to_add 'Record a new organism and sensitivity', :infection_organisms, class: 'add-organism-sensitivity right mt'
+      = es.link_to_add 'Record a new organism and sensitivity', :infection_organisms, class: 'add-organism-sensitivity right'
 
 .row
   .large-12.columns
@@ -33,7 +33,7 @@
     = render partial: 'renalware/medications/medication_forms', locals: { object: es }
 
     .large-12.columns
-      = es.link_to_add 'Add a new medication', :medications, model_object: Renalware::Medication.exit_site, class: 'add-medication right mt'
+      = es.link_to_add 'Add a new medication', :medications, model_object: Renalware::Medication.exit_site, class: 'add-medication right'
 
 .row
   = field_set_tag "Comments" do
