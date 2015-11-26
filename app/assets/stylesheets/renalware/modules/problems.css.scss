@@ -1,22 +1,5 @@
-.accordion dd > a.problem {
-  background-color: #ffffff;
-  padding: 0;
-}
-
-.a-problem {
-  background-color: #F8F8F8;
-  margin: 0.5em;
-  border-radius: 0.5em;
-  padding: 0.5em;
-}
-
-.remove-problem.fi-x {
-  display: block;
-  width: 20px;
-  height: 20px;
-  z-index: 100;
-}
-
-dl.problem-history {
-  left: 0.9em;
+table#problems {
+  td.options {
+    width: 10em;
+  }
 }

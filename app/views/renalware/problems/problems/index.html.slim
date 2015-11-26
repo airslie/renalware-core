@@ -1,15 +1,27 @@
 = render layout: "renalware/patients/layout", locals: { title: "Problems" } do
-  = form_for @patient, url: patient_problems_batch_path(@patient) do |f|
-     = f.fields_for :problems do |pb|
-       - if pb.object.versions.any?
-         = render "versions", object: pb.object, versions: pb.object.versions
+  - if !current_user.read_only? && params[:add_problem].present?
+    = simple_form_for @problem, url: patient_problems_path(@patient), wrapper: :horizontal_form do |f|
+        = field_set_tag "New problem" do
+          .row
+            .large-6.columns
+              = f.input :description
+            .large-6.columns
+              = f.button :button, "Save", class: "tiny"
+              span= " or "
+              = link_to "cancel", patient_problems_path(@patient)
 
-       - if pb.object.new_record?
-         = render partial: "renalware/problems/problems/new", locals: { pb: pb }
-       - else
-         = render partial: "renalware/problems/problems/problem", locals: { pb: pb }
-
-     - unless current_user.read_only?
-       = f.submit "Save Problems", class: "button"
-       span= " or "
-     = link_to "cancel", patient_clinical_summary_path(@patient)
+  table#problems.manual-stripes
+    thead
+      tr
+        td.options
+        td Description
+        td Recorded on
+    tbody
+      - @problems.reject(&:new_record?).each do |problem|
+        tr.problem
+          td
+            = link_to "Edit", edit_patient_problem_path(@patient, problem)
+            = pipe_separator
+            = link_to "Terminate", patient_problem_path(@patient, problem), method: :delete, data: { confirm: 'Are you sure?' }
+          td= problem.description
+          td= l problem.updated_at.to_date

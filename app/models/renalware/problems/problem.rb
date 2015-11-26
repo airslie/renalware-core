@@ -6,14 +6,11 @@ module Renalware
       include PatientScope
 
       acts_as_paranoid
-
       has_paper_trail class_name: "Renalware::Problems::ProblemVersion"
 
       belongs_to :patient
 
-      def self.reject_if_proc
-        Proc.new { |attrs| attrs[:description].blank? }
-      end
+      validates :description, presence: true
 
       def full_description
         description

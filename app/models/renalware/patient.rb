@@ -34,8 +34,6 @@ module Renalware
     accepts_nested_attributes_for :current_address
     accepts_nested_attributes_for :address_at_diagnosis
     accepts_nested_attributes_for :medications, allow_destroy: true
-    accepts_nested_attributes_for :problems, allow_destroy: true,
-      reject_if: Problems::Problem.reject_if_proc
 
     validates :nhs_number, presence: true, length: { minimum: 10, maximum: 10 }, uniqueness: true
     validates :family_name, presence: true

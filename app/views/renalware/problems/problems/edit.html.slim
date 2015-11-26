@@ -1,0 +1,25 @@
+= render layout: "renalware/patients/layout", locals: { title: "Problems" } do
+  = simple_form_for @problem, url: patient_problem_path(@patient, @problem), wrapper: :horizontal_form do |f|
+    = field_set_tag "Edit problem" do
+      = f.input :description
+      .row
+        .large-9.large-offset-3.columns
+          = f.button :button, "Save", class: "tiny"
+          span= " or "
+          = link_to "cancel", patient_problems_path(@patient)
+
+  h2 History
+  - @problem.versions.map(&:reify).compact.tap do |problems|
+    - if problems.empty?
+      p There are no revisions for this problem.
+    - else
+      - problems.each do |problem|
+        table
+          thead
+            tr
+              th Description
+              th Recorded at
+          tbody
+            tr
+              td= problem.description
+              td= l problem.created_at
