@@ -38,7 +38,14 @@
 
       .row
         .large-12.columns
-          - if @patient.died_on.present?
+          dl
+            dt Paediatric Patient:
+            dd= yes_no(@patient.paediatric_patient_indicator)
+
+    - if @patient.died_on.present?
+      .row
+        .large-12.columns
+          = field_set_tag "Death Record" do
             dl
               dt First cause of Death:
               dd= @patient.first_edta_code.death_cause
@@ -46,13 +53,7 @@
               dt Second cause of Death:
               dd= default_for_associated(@patient.second_edta_code, :death_cause, 'N/A')
 
-            = link_to "Update Causes of Death", edit_patient_death_path(@patient), {class: "update-death button tiny mt"}
-
-      .row
-        .large-12.columns
-          dl
-            dt Paediatric Patient:
-            dd= yes_no(@patient.paediatric_patient_indicator)
+            = link_to "Update Death Record", edit_patient_death_path(@patient)
 
     .row
       .large-4.columns
