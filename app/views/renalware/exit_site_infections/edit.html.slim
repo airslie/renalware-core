@@ -1,16 +1,9 @@
 = render layout: "renalware/patients/layout", locals: { title: "Exit Site Infection" } do
-  .row
-    .large-12.columns
-      = render partial: "renalware/shared/errors", locals: { model: @exit_site_infection }
+  = render partial: "renalware/shared/errors", locals: { model: @exit_site_infection }
 
-  .row
-    .large-12.columns
-      = nested_form_for [@patient, @exit_site_infection], method: :put do |es|
+  = nested_form_for [@patient, @exit_site_infection], method: :put do |es|
+    = render partial: "renalware/exit_site_infections/form", locals: { es: es }
 
-        .row
-          = render partial: "renalware/exit_site_infections/form", locals: { es: es }
-
-        .row.button-padding
-          = submit_tag "Save", class: "button"
-          span= " or "
-          = link_to "cancel", patient_exit_site_infection_path(@patient, @exit_site_infection.id)
+    = submit_tag "Save", class: "button"
+    span= " or "
+    = link_to "cancel", patient_exit_site_infection_path(@patient, @exit_site_infection.id)
