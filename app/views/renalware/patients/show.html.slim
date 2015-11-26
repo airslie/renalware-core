@@ -1,57 +1,58 @@
 = render layout: "layout", locals: { title: "Demographics" } do
   #patient-demographics
-    .row
-      .large-12.columns
-        = field_set_tag do
-          legend Patient Demographics
+    = field_set_tag do
+      legend Patient Demographics
 
-          .large-3.columns
+      .row
+        .large-3.columns
+          dl
+            dt NHS Number:
+            dd= @patient.nhs_number
+
+            dt Local Patient ID:
+            dd= @patient.local_patient_id
+
+        .large-3.columns
+          dl
+            dt Last Name:
+            dd= @patient.family_name
+
+            dt First Name:
+            dd= @patient.given_name
+
+        .large-3.columns
+          dl
+            dt Sex:
+            dd= @patient.sex
+
+            dt Ethnicity:
+            dd= default_for_associated(@patient.ethnicity, :name, 'Unspecified')
+
+        .large-3.columns
+          dl
+            dt Date of Birth:
+            dd= l @patient.born_on
+
+            dt Date of Death:
+            dd= default_for_blank_date(@patient.died_on, "N/A")
+
+      .row
+        .large-12.columns
+          - if @patient.died_on.present?
             dl
-              dt NHS Number:
-              dd= @patient.nhs_number
+              dt First cause of Death:
+              dd= @patient.first_edta_code.death_cause
 
-              dt Local Patient ID:
-              dd= @patient.local_patient_id
+              dt Second cause of Death:
+              dd= default_for_associated(@patient.second_edta_code, :death_cause, 'N/A')
 
-          .large-3.columns
-            dl
-              dt Last Name:
-              dd= @patient.family_name
+            = link_to "Update Causes of Death", edit_patient_death_path(@patient), {class: "update-death button tiny mt"}
 
-              dt First Name:
-              dd= @patient.given_name
-
-          .large-3.columns
-            dl
-              dt Sex:
-              dd= @patient.sex
-
-              dt Ethnicity:
-              dd= default_for_associated(@patient.ethnicity, :name, 'Unspecified')
-
-          .large-3.columns
-            dl
-              dt Date of Birth:
-              dd= l @patient.born_on
-
-              dt Date of Death:
-              dd= default_for_blank_date(@patient.died_on, "N/A")
-
-          .large-12.columns
-            - if @patient.died_on.present?
-              dl
-                dt First cause of Death:
-                dd= @patient.first_edta_code.death_cause
-
-                dt Second cause of Death:
-                dd= default_for_associated(@patient.second_edta_code, :death_cause, 'N/A')
-
-              = link_to "Update Causes of Death", edit_patient_death_path(@patient), {class: "update-death button tiny mt"}
-
-          .large-12.columns
-            dl
-              dt Paediatric Patient:
-              dd= yes_no(@patient.paediatric_patient_indicator)
+      .row
+        .large-12.columns
+          dl
+            dt Paediatric Patient:
+            dd= yes_no(@patient.paediatric_patient_indicator)
 
     .row
       .large-4.columns
