@@ -1,14 +1,50 @@
 = render layout: "renalware/patients/layout", locals: { title: "PD Summary" } do
   = render partial: 'renalware/pd_regimes/current_regime' unless @current_regime.nil?
 
-  h6= "CAPD Regimes (#{@capd_regimes.length})"
-  = render partial: 'renalware/patients/capd_regimes'
+  = field_set_tag "CAPD Regimes (#{@capd_regimes.length})" do
+    - if @capd_regimes.empty?
+      .call-to-action
+        = link_to new_patient_pd_regime_path(@patient, type: "CAPDRegime") do
+          i.fa.fa-plus-circle
+          | Enter CAPD Regime
+    - else
+      = render partial: "renalware/patients/capd_regimes"
+      .right
+        = link_to "Add CAPD Regime", new_patient_pd_regime_path(@patient, type: "CAPDRegime"),
+            class: 'button tiny'
 
-  h6= "APD Regimes (#{@apd_regimes.length})"
-  = render partial: 'renalware/patients/apd_regimes'
+  = field_set_tag "APD Regimes (#{@apd_regimes.length})" do
+    - if @apd_regimes.empty?
+      .call-to-action
+        = link_to new_patient_pd_regime_path(@patient, type: "APDRegime") do
+          i.fa.fa-plus-circle
+          | Enter APD Regime
+    - else
+      = render partial: "renalware/patients/apd_regimes"
+      .right
+        = link_to "Add APD Regime", new_patient_pd_regime_path(@patient, type: "APDRegime"),
+            class: 'button tiny'
 
-  h6= "Peritonitis Episodes (#{@peritonitis_episodes.length})"
-  = render partial: "renalware/patients/peritonitis_episodes"
+  = field_set_tag "Peritonitis Episodes (#{@peritonitis_episodes.length})" do
+    - if @peritonitis_episodes.empty?
+      .call-to-action
+        = link_to new_patient_peritonitis_episode_path(@patient) do
+          i.fa.fa-plus-circle
+          | Enter Peritonitis Episode
+    - else
+      = render partial: "renalware/patients/peritonitis_episodes"
+      .right
+        = link_to "Add Peritonitis Episode", new_patient_peritonitis_episode_path(@patient),
+            class: 'button tiny'
 
-  h6= "Exit Site Infections (#{@exit_site_infections.length})"
-  = render partial: "renalware/patients/exit_site_infections"
+  = field_set_tag "Exit Site Infections (#{@exit_site_infections.length})"
+    - if @exit_site_infections.empty?
+      .call-to-action
+        = link_to new_patient_exit_site_infection_path(@patient) do
+          i.fa.fa-plus-circle
+          | Enter Exit Site Infection
+    - else
+      = render partial: "renalware/patients/exit_site_infections"
+      .right
+        = link_to "Add Exit Site Infection", new_patient_exit_site_infection_path(@patient),
+            class: 'button tiny'
