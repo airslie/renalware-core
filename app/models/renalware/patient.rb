@@ -48,6 +48,7 @@ module Renalware
 
     with_options if: :current_modality_death?, on: :update do |death|
       death.validates :died_on, presence: true
+      death.validates :died_on, timeliness: { type: :date }
       death.validates :first_edta_code_id, presence: true
     end
 

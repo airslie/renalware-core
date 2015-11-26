@@ -1,33 +1,36 @@
-.row
-  .columns.large-12
-    = render partial: "renalware/patients/header", locals: { model: @patient }
-    = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
+= render layout: "renalware/patients/layout", locals: { title: "Demographics" } do
 
-.row
-  .columns.large-12
-    h5 Cause of Death
+  .row
+    .large-12.columns
+      = render partial: "renalware/shared/errors", locals: { model: @patient }
 
-.row
-  .large-12.columns
+      = simple_form_for @patient,
+          url: patient_death_path(@patient),
+          wrapper: "horizontal_form" do |f|
+        .row
+          .large-12.columns
+            fieldset
+              legend Cause of Death
+              .large-9.columns
+                = f.input :died_on, as: :date_picker, label: "Date of Death"
 
-    = render partial: "renalware/shared/errors", locals: { model: @patient }
+                = f.input :first_edta_code_id,
+                    label: "EDTA Cause of Death (1)",
+                    collection: Renalware::EdtaCode.all,
+                    label_method: :death_cause,
+                    value_method: :id,
+                    include_blank: "Select 1st cause of death"
 
-.row
-  .large-12.columns
-    = form_for @patient, url: patient_death_path(@patient) do |f|
+                = f.input :second_edta_code_id,
+                    label: "EDTA Cause of Death (2)",
+                    collection: Renalware::EdtaCode.all,
+                    label_method: :death_cause,
+                    value_method: :id,
+                    include_blank: "Select 2nd cause of death"
 
-      = f.label :died_on, "Date of Death"
-      = f.date_select(:died_on, {start_year: (1.years.ago).year, end_year: Time.now.year, order: [:day, :month, :year], include_blank: true}, class: "datetime")
+                = f.input :death_notes, label: "Notes",
+                    as: :text, input_html: { rows: 5 }
 
-      = f.label :first_edta_code_id, "EDTA Cause of Death (1)"
-      = f.collection_select :first_edta_code_id, Renalware::EdtaCode.all, :id, :death_cause, {prompt: "Select 1st cause of death", include_blank: true}, class: "edta-select"
+        = submit_tag "Save Cause of Death", class: "button tiny right save"
 
-      = f.label :second_edta_code_id, "EDTA Cause of Death (2)"
-      = f.collection_select :second_edta_code_id, Renalware::EdtaCode.all, :id, :death_cause, {prompt: "Select 2nd cause of death", include_blank: true}, class: "edta-select"
-
-      = f.label :death_notes, "Notes/Details"
-      = f.text_field :death_notes
-
-      = submit_tag "Save Cause of Death", class: "button tiny right save"
-
-      = link_to "Cancel", new_patient_modality_path(@patient), class: "button tiny left cancel"
+        = link_to "Cancel", new_patient_modality_path(@patient), class: "button tiny left cancel"
