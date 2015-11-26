@@ -1,3 +1,7 @@
+.accordion .accordion-navigation > .content, .accordion dd > .content {
+  padding: 0;
+}
+
 .accordion .accordion-navigation > a, .accordion dd > a {
   background: #FFFFFF;
   font-size: 0.9em;
