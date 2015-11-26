@@ -1,35 +1,11 @@
 = render layout: "renalware/patients/layout", locals: { title: "Clinical Summary" } do
   .row
     .columns.large-6
-      = field_set_tag do
-        legend = link_to "#{@patient.problems.length} Problems", patient_problems_path(@patient)
-
-        ul.no-bullet
-          - @patient.problems.each do |p|
-            li
-              = "#{p.full_description}, #{p.created_at.to_date}"
+      = render "problems", problems: @patient.problems
 
     .columns.large-6
-      = field_set_tag do
-        legend= link_to "#{@patient.medications.length} Current Medications", patient_medications_path(@patient)
-
-        ul.no-bullet
-          - @patient.medications.each do |p|
-            li class="drug-#{drug_types_colour_tag(p.medicatable.drug_types)}"
-              = "#{p.medicatable.name}, #{p.dose}, #{p.medication_route.name} #{p.frequency}, #{l p.start_date}"
+      = render "medications", medications: @patient.medications
 
   .row
     .columns.large-12
-      = field_set_tag do
-        legend= link_to "#{@events.size} Patient Events", patient_events_path(@patient)
-
-        ul.no-bullet
-          - @events.each do |event|
-            li
-              dl.accordion(data-accordion)
-                dd.accordion-navigation
-                  a.fi-plus.fi-minus.toggle-info id="patient-event-toggle-info-#{event.id}" href="#patient-event-notes-#{event.id}"
-                    = "#{event.date_time}, #{event.event_type.name} - #{event.description}"
-
-                  .patient-event.content id="patient-event-notes-#{event.id}"
-                    = event.notes
+      = render "events", events: @events
