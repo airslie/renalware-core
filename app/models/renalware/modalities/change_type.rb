@@ -3,12 +3,12 @@ module Renalware
     class ChangeType
       OPTIONS = {
         "Other" => "other",
-        "Haemodialysis To PD" => "haemodialysis_to_pd",
-        "PD To Haemodialysis" => "pd_to_haemodialysis"
+        "HaemodialysisToPD" => "Haemodialysis To PD",
+        "PDToHaemodialysis" => "PD To Haemodialysis"
       }
 
       def self.to_a
-        OPTIONS.to_a
+        OPTIONS.invert.to_a
       end
     end
   end
