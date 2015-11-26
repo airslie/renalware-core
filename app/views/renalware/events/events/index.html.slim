@@ -1,11 +1,10 @@
 = render layout: "renalware/patients/layout", locals: { title: "Events" } do
-  .row
-    table
-      thead
-        th Added
-        th Event Type
-        th Description
-        th Date/Time
+  table
+    thead
+      th Added
+      th Event Type
+      th Description
+      th Date/Time
 
-      tbody
-        = render @events
+    tbody
+      = render @events
