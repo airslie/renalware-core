@@ -28,7 +28,7 @@
                   = m.input :modal_change_type,
                       label: "Type of Change",
                       input_html: { class: "modal-change-type" },
-                      collection: Renalware::Modalities::ChangeType::OPTIONS
+                      collection: Renalware::Modalities::ChangeType.to_a
 
                 li.hide-death
                   = m.input :reason_id,
