@@ -1,6 +1,6 @@
 Given(/^there are edta causes of death in the database$/) do
-  FactoryGirl.create(:edta_code, code: 100, :death_cause => "Death cause one")
-  FactoryGirl.create(:edta_code, code: 200, :death_cause => "Death cause two")
+  FactoryGirl.create(:edta_code, code: 100, death_cause: "Death cause one")
+  FactoryGirl.create(:edta_code, code: 200, death_cause: "Death cause two")
 end
 
 When(/^I select death modality$/) do
@@ -40,10 +40,10 @@ When(/^I complete the cause of death form$/) do
 
   fill_in "Date of Death", with: "22-09-2014"
 
-  select "Death cause one", :from => "EDTA Cause of Death (1)"
-  select "Death cause two", :from => "EDTA Cause of Death (2)"
+  select "Death cause one", from: "EDTA Cause of Death (1)"
+  select "Death cause two", from: "EDTA Cause of Death (2)"
 
-  fill_in "Notes", :with => "Heart stopped"
+  fill_in "Notes", with: "Heart stopped"
 
   click_on "Save Cause of Death"
 end
