@@ -78,8 +78,8 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # Set a password while we're still in 'development' e.g. for our eyes only
+  # Set a password for staging environments
   config.middleware.use '::Rack::Auth::Basic' do |u, p|
-    [u, p] == ["renalware", "kidney175@stones?"]
+    [u, p] == [ENV["AUTH_USER"], ENV["AUTH_PASSWORD"]]
   end
 end

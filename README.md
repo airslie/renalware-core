@@ -100,4 +100,4 @@ To deploy:
 The app is available at http://renalware.herokuapp.com. It is password protected:
 
     username: renalware
-    password: kidney175@stones?
+    password: lister
