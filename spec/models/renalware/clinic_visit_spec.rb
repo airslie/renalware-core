@@ -10,6 +10,8 @@ module Renalware
     it { should validate_presence_of :diastolic_bp }
     it { should validate_presence_of :clinic_type }
 
+    it { is_expected.to validate_timeliness_of(:date) }
+
 
     describe 'bmi' do
       subject { create(:clinic_visit, height: 1.7, weight: 82.5) }

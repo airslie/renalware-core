@@ -1,4 +1,8 @@
 = render layout: "renalware/patients/layout", locals: { title: "ESRF Summary" } do
+
+  .row
+    = render partial: "renalware/shared/errors", locals: { model: @esrf }
+
   .row
     = simple_form_for @esrf,
       url: patient_esrf_path(@patient),
