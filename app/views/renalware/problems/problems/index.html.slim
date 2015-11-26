@@ -1,16 +1,17 @@
 = render layout: "renalware/patients/layout", locals: { title: "Problems" } do
   .row
-    = form_for @patient, url: patient_problems_batch_path(@patient) do |f|
-      = f.fields_for :problems do |pb|
-        - if pb.object.versions.any?
-          = render "versions", object: pb.object, versions: pb.object.versions
+    .large-12.columns
+      = form_for @patient, url: patient_problems_batch_path(@patient) do |f|
+        = f.fields_for :problems do |pb|
+          - if pb.object.versions.any?
+            = render "versions", object: pb.object, versions: pb.object.versions
 
-        - if pb.object.new_record?
-          = render partial: "renalware/problems/problems/new", locals: { pb: pb }
-        - else
-          = render partial: "renalware/problems/problems/problem", locals: { pb: pb }
+          - if pb.object.new_record?
+            = render partial: "renalware/problems/problems/new", locals: { pb: pb }
+          - else
+            = render partial: "renalware/problems/problems/problem", locals: { pb: pb }
 
-      - unless current_user.read_only?
-        = f.submit "Save Problems", class: "button mt"
-        span= " or "
-      = link_to "cancel", patient_clinical_summary_path(@patient)
+        - unless current_user.read_only?
+          = f.submit "Save Problems", class: "button mt"
+          span= " or "
+        = link_to "cancel", patient_clinical_summary_path(@patient)
