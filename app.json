@@ -8,6 +8,8 @@
     "DEMO": "1",
     "RACK_ENV": "staging",
     "RAILS_ENV": "staging",
+    "AUTH_USER": "renalware",
+    "AUTH_PASSWORD": "lister",
     "COOKIE_SECRET": {
       "generator": "secret"
     },
