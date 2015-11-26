@@ -1,13 +1,9 @@
-.wide-screen
-  .columns.large-12
-    = render "record_header"
+= render layout: "layout", locals: { title: "Demographics" } do
+  #patient-demographics
+    = field_set_tag do
+      legend Patient Demographics
 
-#patient-demographics
-  .row
-    .large-12.columns
-      = field_set_tag do
-        legend Patient Demographics
-
+      .row
         .large-3.columns
           dl
             dt NHS Number:
@@ -40,6 +36,7 @@
             dt Date of Death:
             dd= default_for_blank_date(@patient.died_on, "N/A")
 
+      .row
         .large-12.columns
           - if @patient.died_on.present?
             dl
@@ -51,39 +48,40 @@
 
             = link_to "Update Causes of Death", edit_patient_death_path(@patient), {class: "update-death button tiny mt"}
 
+      .row
         .large-12.columns
           dl
             dt Paediatric Patient:
             dd= yes_no(@patient.paediatric_patient_indicator)
 
-  .row
-    .large-4.columns
-      = field_set_tag do
-        legend Organisation/Practice
+    .row
+      .large-4.columns
+        = field_set_tag do
+          legend Organisation/Practice
 
-        dl
-          dt GP Practice Code:
-          dd= @patient.gp_practice_code
+          dl
+            dt GP Practice Code:
+            dd= @patient.gp_practice_code
 
-        dl
-          dt PCT Organisation Code:
-          dd= @patient.pct_org_code
+          dl
+            dt PCT Organisation Code:
+            dd= @patient.pct_org_code
 
 
-        dl
-          dt Hospital Centre Code:
-          dd= @patient.hospital_centre_code
+          dl
+            dt Hospital Centre Code:
+            dd= @patient.hospital_centre_code
 
-        dl
-          dt Primary ESRF Centre:
-          dd= @patient.primary_esrf_centre
+          dl
+            dt Primary ESRF Centre:
+            dd= @patient.primary_esrf_centre
 
-    .large-4.columns
-      = field_set_tag do
-        legend Current Address
-        = render @patient.current_address if @patient.current_address
+      .large-4.columns
+        = field_set_tag do
+          legend Current Address
+          = render @patient.current_address if @patient.current_address
 
-    .large-4.columns
-      = field_set_tag do
-        legend Address at Diagnosis
-        = render @patient.address_at_diagnosis if @patient.address_at_diagnosis
+      .large-4.columns
+        = field_set_tag do
+          legend Address at Diagnosis
+          = render @patient.address_at_diagnosis if @patient.address_at_diagnosis

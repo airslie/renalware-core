@@ -106,7 +106,7 @@ When(/^submit the update form$/) do
 end
 
 Then(/^I should see the new patient's recorded details$/) do
-  within("#patient-header-info") do
+  within("#patient-header") do
      expect(page).to have_content("KCH: Z999994")
      expect(page).to have_content("Male")
   end

@@ -1,14 +1,11 @@
-= render "header"
+.row
+  = render "header"
+  = render partial: "renalware/shared/errors", locals: { model: @bag_type }
 
 .row
-  .large-12.columns
-    = render partial: "renalware/shared/errors", locals: { model: @bag_type }
+  = form_for @bag_type, as: :bag_type, method: :put, url: bag_type_path(@bag_type) do |bt|
+    = render partial: "renalware/bag_types/form", locals: { bt: bt }
 
-.row
-  .large-12.columns
-    = form_for @bag_type, as: :bag_type, method: :put, url: bag_type_path(@bag_type) do |bt|
-      = render partial: "renalware/bag_types/form", locals: { bt: bt }
-
-      = submit_tag "Update", class: "button"
-      span= " or "
-      = link_to "Cancel", bag_types_path
+    = submit_tag "Update", class: "button"
+    span= " or "
+    = link_to "Cancel", bag_types_path

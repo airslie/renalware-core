@@ -1,9 +1,6 @@
-= render "record_header"
-
-.row
-  .columns.large-12
-    .document
-      = simple_form_for @donor_operation,
-          url: patient_transplants_donor_operations_path(@patient),
-          wrapper: "horizontal_form" do |f|
-        = render 'form', f: f
+= render layout: "renalware/patients/layout", locals: { title: "Transplant Donor Operation" } do
+  .document
+    = simple_form_for @donor_operation,
+        url: patient_transplants_donor_operations_path(@patient),
+        wrapper: "horizontal_form" do |f|
+      = render 'form', f: f

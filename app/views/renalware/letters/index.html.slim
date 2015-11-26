@@ -1,15 +1,12 @@
-.wide-screen
-  .columns.large-12
-    = render "header"
+= render layout: "renalware/patients/layout", locals: { title: "Letters" } do
+  table.letters
+    thead
+      tr
+        th
+        th Author
+        th Description
+        th State
+        th Last updated
 
-    table.letters
-      thead
-        tr
-          th
-          th Author
-          th Description
-          th State
-          th Last updated
-
-      tbody
-        = render @letters
+    tbody
+      = render @letters

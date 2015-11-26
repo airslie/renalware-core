@@ -1,0 +1,7 @@
+p= render "renalware/shared/last_update", record: @workup
+
+dl.sub-nav
+  dd= link_to "View", patient_transplants_recipient_workup_path(@patient)
+  dd= link_to "Edit", edit_patient_transplants_recipient_workup_path(@patient)
+
+= render "sections_nav"

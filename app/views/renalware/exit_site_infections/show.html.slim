@@ -1,10 +1,9 @@
-- header = "Exit Site Infection - Diagnosed: #{ l @exit_site_infection.diagnosis_date }"
-= render layout: "renalware/pd/layout", locals: { header: header, patient: @patient } do
-  .row
-    p
-      = "Last Updated: #{@exit_site_infection.updated_at}"
-      = pipe_separator
-      = link_to "Edit", edit_patient_exit_site_infection_path(@patient, @exit_site_infection.id)
+- title = "Exit Site Infection - Diagnosed: #{ l @exit_site_infection.diagnosis_date }"
+= render layout: "renalware/patients/layout", locals: { title: title } do
+  p
+    = "Last Updated: #{@exit_site_infection.updated_at}"
+    = pipe_separator
+    = link_to "Edit", edit_patient_exit_site_infection_path(@patient, @exit_site_infection.id)
 
   .row
     .large-6.columns

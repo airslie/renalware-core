@@ -1,24 +1,24 @@
-= render "record_header"
+= render layout: "renalware/patients/layout", locals: { title: "Transplant Recipient Workup" } do
 
-- if @workup
-  .document-view
-    - ["Comorbidities", "Historicals", "Scores"].each do |group|
+  - if @workup
+    .document-view
+      - ["Comorbidities", "Historicals", "Scores"].each do |group|
+        = render "renalware/shared/documents/attributes_group",
+            group: @workup.document.public_send(group.parameterize('_')),
+            legend: group, destination: group.parameterize('_')
+
       = render "renalware/shared/documents/attributes_group",
-          group: @workup.document.public_send(group.parameterize('_')),
-          legend: group, destination: group.parameterize('_')
+          group: @workup.document.cervical_smear,
+          legend: "Cervical smear data (latest and historical)", destination: "cervical"
 
-    = render "renalware/shared/documents/attributes_group",
-        group: @workup.document.cervical_smear,
-        legend: "Cervical smear data (latest and historical)", destination: "cervical"
+      - ["Examination", "Education", "Consent"].each do |group|
+        = render "renalware/shared/documents/attributes_group",
+            group: @workup.document.public_send(group.parameterize('_')),
+            legend: group, destination: group.parameterize('_')
 
-    - ["Examination", "Education", "Consent"].each do |group|
-      = render "renalware/shared/documents/attributes_group",
-          group: @workup.document.public_send(group.parameterize('_')),
-          legend: group, destination: group.parameterize('_')
-
-    .row data-magellan-destination="hla"
-      .columns.large-12
-        a name="hla"
-        = field_set_tag do
-          legend HLA Data
-          = simple_format @workup.document.hla_data
+      .row data-magellan-destination="hla"
+        .columns.large-12
+          a name="hla"
+          = field_set_tag do
+            legend HLA Data
+            = simple_format @workup.document.hla_data

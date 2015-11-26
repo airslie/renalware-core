@@ -1,5 +1,5 @@
-- header = "#{capd_apd_title(@pd_regime.type)} Regime"
-= render layout: "renalware/pd/layout", locals: { header: header, patient: @patient } do
+- title = "#{capd_apd_title(@pd_regime.type)} Regime"
+= render layout: "renalware/patients/layout", locals: { title: title } do
   .row
     .large-12.columns
       = render partial: "renalware/shared/errors", locals: { model: @pd_regime }

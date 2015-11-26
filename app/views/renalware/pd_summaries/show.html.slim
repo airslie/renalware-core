@@ -1,15 +1,14 @@
-= render layout: "renalware/pd/layout", locals: { header: "PD Info", patient: @patient } do
-  .wide-screen
-    = render partial: 'renalware/pd_regimes/current_regime' unless @current_regime.nil?
+= render layout: "renalware/patients/layout", locals: { title: "PD Summary" } do
+  = render partial: 'renalware/pd_regimes/current_regime' unless @current_regime.nil?
 
-    h6= "CAPD Regimes (#{@capd_regimes.length})"
-    = render partial: 'renalware/patients/capd_regimes'
+  h6= "CAPD Regimes (#{@capd_regimes.length})"
+  = render partial: 'renalware/patients/capd_regimes'
 
-    h6= "APD Regimes (#{@apd_regimes.length})"
-    = render partial: 'renalware/patients/apd_regimes'
+  h6= "APD Regimes (#{@apd_regimes.length})"
+  = render partial: 'renalware/patients/apd_regimes'
 
-    h6= "Peritonitis Episodes (#{@peritonitis_episodes.length})"
-    = render partial: "renalware/patients/peritonitis_episodes"
+  h6= "Peritonitis Episodes (#{@peritonitis_episodes.length})"
+  = render partial: "renalware/patients/peritonitis_episodes"
 
-    h6= "Exit Site Infections (#{@exit_site_infections.length})"
-    = render partial: "renalware/patients/exit_site_infections"
+  h6= "Exit Site Infections (#{@exit_site_infections.length})"
+  = render partial: "renalware/patients/exit_site_infections"

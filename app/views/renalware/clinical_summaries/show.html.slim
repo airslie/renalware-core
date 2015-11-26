@@ -1,41 +1,35 @@
-.wide-screen
-  .columns.large-12
-    = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
-    = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
+= render layout: "renalware/patients/layout", locals: { title: "Clinical Summary" } do
+  .row
+    .columns.large-6
+      = field_set_tag do
+        legend = link_to "#{@patient.problems.length} Problems", patient_problems_path(@patient)
 
-    h2 Clinical Summary
+        ul.no-bullet
+          - @patient.problems.each do |p|
+            li
+              = "#{p.full_description}, #{p.created_at.to_date}"
 
-.wide-screen
-  .columns.large-6
-    = field_set_tag do
-      legend = link_to "#{@patient.problems.length} Problems", patient_problems_path(@patient)
+    .columns.large-6
+      = field_set_tag do
+        legend= link_to "#{@patient.medications.length} Current Medications", patient_medications_path(@patient)
 
-      ul.no-bullet
-        - @patient.problems.each do |p|
-          li
-            = "#{p.full_description}, #{p.created_at.to_date}"
+        ul.no-bullet
+          - @patient.medications.each do |p|
+            li class="drug-#{drug_types_colour_tag(p.medicatable.drug_types)}"
+              = "#{p.medicatable.name}, #{p.dose}, #{p.medication_route.name} #{p.frequency}, #{l p.start_date}"
 
-  .columns.large-6
-    = field_set_tag do
-      legend= link_to "#{@patient.medications.length} Current Medications", patient_medications_path(@patient)
+  .row
+    .columns.large-12
+      = field_set_tag do
+        legend= link_to "#{@events.size} Patient Events", patient_events_path(@patient)
 
-      ul.no-bullet
-        - @patient.medications.each do |p|
-          li class="drug-#{drug_types_colour_tag(p.medicatable.drug_types)}"
-            = "#{p.medicatable.name}, #{p.dose}, #{p.medication_route.name} #{p.frequency}, #{l p.start_date}"
+        ul.no-bullet
+          - @events.each do |event|
+            li
+              dl.accordion(data-accordion)
+                dd.accordion-navigation
+                  a.fi-plus.fi-minus.toggle-info id="patient-event-toggle-info-#{event.id}" href="#patient-event-notes-#{event.id}"
+                    = "#{event.date_time}, #{event.event_type.name} - #{event.description}"
 
-.wide-screen
-  .columns.large-12
-    = field_set_tag do
-      legend= link_to "#{@events.size} Patient Events", patient_events_path(@patient)
-
-      ul.no-bullet
-        - @events.each do |event|
-          li
-            dl.accordion(data-accordion)
-              dd.accordion-navigation
-                a.fi-plus.fi-minus.toggle-info id="patient-event-toggle-info-#{event.id}" href="#patient-event-notes-#{event.id}"
-                  = "#{event.date_time}, #{event.event_type.name} - #{event.description}"
-
-                .patient-event.content id="patient-event-notes-#{event.id}"
-                  = event.notes
+                  .patient-event.content id="patient-event-notes-#{event.id}"
+                    = event.notes
