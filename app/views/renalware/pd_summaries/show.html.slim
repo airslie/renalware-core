@@ -1,14 +1,14 @@
 = render layout: "renalware/patients/layout", locals: { title: "PD Summary" } do
   = render partial: 'renalware/pd_regimes/current_regime' unless @current_regime.nil?
 
-  h6= "CAPD Regimes (#{@capd_regimes.length})"
-  = render partial: 'renalware/patients/capd_regimes'
+  = field_set_tag "CAPD Regimes (#{@capd_regimes.length})" do
+    = render partial: 'renalware/patients/capd_regimes'
 
-  h6= "APD Regimes (#{@apd_regimes.length})"
-  = render partial: 'renalware/patients/apd_regimes'
+  = field_set_tag "APD Regimes (#{@apd_regimes.length})" do
+    = render partial: 'renalware/patients/apd_regimes'
 
-  h6= "Peritonitis Episodes (#{@peritonitis_episodes.length})"
-  = render partial: "renalware/patients/peritonitis_episodes"
+  = field_set_tag "Peritonitis Episodes (#{@peritonitis_episodes.length})" do
+    = render partial: "renalware/patients/peritonitis_episodes"
 
-  h6= "Exit Site Infections (#{@exit_site_infections.length})"
-  = render partial: "renalware/patients/exit_site_infections"
+  = field_set_tag "Exit Site Infections (#{@exit_site_infections.length})"
+    = render partial: "renalware/patients/exit_site_infections"
