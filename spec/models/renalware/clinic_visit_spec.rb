@@ -8,7 +8,7 @@ module Renalware
     it { should validate_presence_of :weight }
     it { should validate_presence_of :systolic_bp }
     it { should validate_presence_of :diastolic_bp }
-    it { should validate_presence_of :clinic_type }
+    it { should validate_presence_of :clinic }
 
     it { is_expected.to validate_timeliness_of(:date) }
 
