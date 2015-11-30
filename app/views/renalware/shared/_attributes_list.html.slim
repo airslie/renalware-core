@@ -16,11 +16,9 @@ ruby:
       when value.is_a?(FalseClass)
         "No"
       when value.is_a?(Renalware::Patient)
-        value.unique_label
-      when
-        simple_format(value.to_s)
+        value.to_s(:reversed_full_name_with_nhs)
       else
-        value
+        simple_format(value.to_s)
     end
     [label, html]
   end

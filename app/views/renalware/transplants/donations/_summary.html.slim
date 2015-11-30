@@ -6,7 +6,7 @@ fieldset
       dt Recipient:
       dd
         - if donation.recipient.present?
-          = link_to donation.recipient.unique_label,
+          = link_to donation.recipient.to_s(:reversed_full_name_with_nhs),
               patient_transplants_recipient_dashboard_path(donation.recipient)
         - else
           i Unassigned
@@ -44,4 +44,5 @@ fieldset
     .row
       .large-12.columns
         dt Notes:
-        dd= donation.notes
+        dd
+          = simple_format donation.notes

@@ -86,7 +86,7 @@ module Renalware
     end
 
     def unique_label
-      "#{family_name}, #{given_name} (#{nhs_number})"
+      to_s(:reversed_full_name_with_nhs)
     end
 
     private
