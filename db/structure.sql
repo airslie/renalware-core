@@ -71,9 +71,9 @@ ALTER SEQUENCE addresses_id_seq OWNED BY addresses.id;
 
 CREATE TABLE bag_types (
     id integer NOT NULL,
-    manufacturer character varying,
-    description character varying,
-    glucose_grams_per_litre numeric(4,1),
+    manufacturer character varying NOT NULL,
+    description character varying NOT NULL,
+    glucose_grams_per_litre numeric(4,1) NOT NULL,
     amino_acid boolean,
     icodextrin boolean,
     low_glucose_degradation boolean,
@@ -277,7 +277,7 @@ ALTER SEQUENCE drug_types_id_seq OWNED BY drug_types.id;
 
 CREATE TABLE drugs (
     id integer NOT NULL,
-    name character varying,
+    name character varying NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -376,7 +376,7 @@ ALTER SEQUENCE episode_types_id_seq OWNED BY episode_types.id;
 CREATE TABLE esrf (
     id integer NOT NULL,
     patient_id integer,
-    diagnosed_on date,
+    diagnosed_on date NOT NULL,
     prd_description_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -439,10 +439,10 @@ ALTER SEQUENCE ethnicities_id_seq OWNED BY ethnicities.id;
 
 CREATE TABLE event_types (
     id integer NOT NULL,
+    name character varying NOT NULL,
+    deleted_at timestamp without time zone,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    name character varying,
-    deleted_at timestamp without time zone
+    updated_at timestamp without time zone
 );
 
 
@@ -471,13 +471,13 @@ ALTER SEQUENCE event_types_id_seq OWNED BY event_types.id;
 
 CREATE TABLE events (
     id integer NOT NULL,
-    date_time timestamp without time zone,
+    patient_id integer NOT NULL,
+    date_time timestamp without time zone NOT NULL,
+    event_type_id integer,
     description character varying,
     notes text,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    event_type_id integer,
-    patient_id integer
+    updated_at timestamp without time zone
 );
 
 
@@ -507,7 +507,7 @@ ALTER SEQUENCE events_id_seq OWNED BY events.id;
 CREATE TABLE exit_site_infections (
     id integer NOT NULL,
     patient_id integer,
-    diagnosis_date date,
+    diagnosis_date date NOT NULL,
     treatment text,
     outcome text,
     notes text,
@@ -751,21 +751,21 @@ ALTER SEQUENCE medication_versions_id_seq OWNED BY medication_versions.id;
 
 CREATE TABLE medications (
     id integer NOT NULL,
-    patient_id integer,
-    medicatable_id integer,
-    medicatable_type character varying,
+    patient_id integer NOT NULL,
+    medicatable_id integer NOT NULL,
+    medicatable_type character varying NOT NULL,
     treatable_id integer,
     treatable_type character varying,
-    dose character varying,
-    medication_route_id integer,
-    frequency character varying,
+    dose character varying NOT NULL,
+    medication_route_id integer NOT NULL,
+    frequency character varying NOT NULL,
     notes text,
-    start_date date,
+    start_date date NOT NULL,
     end_date date,
-    provider integer,
+    provider integer NOT NULL,
     deleted_at timestamp without time zone,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -794,12 +794,12 @@ ALTER SEQUENCE medications_id_seq OWNED BY medications.id;
 
 CREATE TABLE modalities (
     id integer NOT NULL,
-    patient_id integer,
-    description_id integer,
+    patient_id integer NOT NULL,
+    description_id integer NOT NULL,
     reason_id integer,
     modal_change_type character varying,
     notes text,
-    started_on date,
+    started_on date NOT NULL,
     ended_on date,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone,
@@ -932,11 +932,11 @@ ALTER SEQUENCE organism_codes_id_seq OWNED BY organism_codes.id;
 
 CREATE TABLE patients (
     id integer NOT NULL,
-    nhs_number character varying,
+    nhs_number character varying NOT NULL,
     local_patient_id character varying,
-    family_name character varying,
-    given_name character varying,
-    born_on date,
+    family_name character varying NOT NULL,
+    given_name character varying NOT NULL,
+    born_on date NOT NULL,
     paediatric_patient_indicator boolean,
     sex character varying,
     ethnicity_id integer,
@@ -983,8 +983,8 @@ ALTER SEQUENCE patients_id_seq OWNED BY patients.id;
 CREATE TABLE pd_regime_bags (
     id integer NOT NULL,
     pd_regime_id integer,
-    bag_type_id integer,
-    volume integer,
+    bag_type_id integer NOT NULL,
+    volume integer NOT NULL,
     per_week integer,
     monday boolean,
     tuesday boolean,
@@ -1024,9 +1024,9 @@ ALTER SEQUENCE pd_regime_bags_id_seq OWNED BY pd_regime_bags.id;
 CREATE TABLE pd_regimes (
     id integer NOT NULL,
     patient_id integer,
-    start_date date,
+    start_date date NOT NULL,
     end_date date,
-    treatment character varying,
+    treatment character varying NOT NULL,
     type character varying,
     glucose_ml_percent_1_36 integer,
     glucose_ml_percent_2_27 integer,
@@ -1071,7 +1071,7 @@ ALTER SEQUENCE pd_regimes_id_seq OWNED BY pd_regimes.id;
 CREATE TABLE peritonitis_episodes (
     id integer NOT NULL,
     patient_id integer,
-    diagnosis_date date,
+    diagnosis_date date NOT NULL,
     treatment_start_date date,
     treatment_end_date date,
     episode_type_id integer,
@@ -1117,9 +1117,9 @@ ALTER SEQUENCE peritonitis_episodes_id_seq OWNED BY peritonitis_episodes.id;
 
 CREATE TABLE practices (
     id integer NOT NULL,
-    name character varying,
+    name character varying NOT NULL,
     email character varying,
-    code character varying,
+    code character varying NOT NULL,
     address_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -1813,16 +1813,17 @@ CREATE TABLE users (
     last_sign_in_at timestamp without time zone,
     current_sign_in_ip inet,
     last_sign_in_ip inet,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    approved boolean DEFAULT false,
-    username character varying,
-    given_name character varying,
-    family_name character varying,
+    username character varying NOT NULL,
+    given_name character varying NOT NULL,
+    family_name character varying NOT NULL,
+    signature character varying,
     last_activity_at timestamp without time zone,
+    datetime timestamp without time zone,
     expired_at timestamp without time zone,
     professional_position character varying,
-    signature character varying
+    approved boolean DEFAULT false,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -3104,19 +3105,11 @@ INSERT INTO schema_migrations (version) VALUES ('20141024111716');
 
 INSERT INTO schema_migrations (version) VALUES ('20141030174624');
 
-INSERT INTO schema_migrations (version) VALUES ('20141030180107');
-
-INSERT INTO schema_migrations (version) VALUES ('20141030183859');
-
 INSERT INTO schema_migrations (version) VALUES ('20141104150240');
-
-INSERT INTO schema_migrations (version) VALUES ('20141105153315');
 
 INSERT INTO schema_migrations (version) VALUES ('20141107145549');
 
 INSERT INTO schema_migrations (version) VALUES ('20141107145615');
-
-INSERT INTO schema_migrations (version) VALUES ('20141124152845');
 
 INSERT INTO schema_migrations (version) VALUES ('20141208160813');
 
@@ -3162,29 +3155,17 @@ INSERT INTO schema_migrations (version) VALUES ('20150317151009');
 
 INSERT INTO schema_migrations (version) VALUES ('20150514113239');
 
-INSERT INTO schema_migrations (version) VALUES ('20150514145145');
-
 INSERT INTO schema_migrations (version) VALUES ('20150515154952');
 
 INSERT INTO schema_migrations (version) VALUES ('20150515155052');
 
-INSERT INTO schema_migrations (version) VALUES ('20150519150307');
-
-INSERT INTO schema_migrations (version) VALUES ('20150520085606');
-
 INSERT INTO schema_migrations (version) VALUES ('20150602151910');
-
-INSERT INTO schema_migrations (version) VALUES ('20150603105219');
 
 INSERT INTO schema_migrations (version) VALUES ('20150605095934');
 
 INSERT INTO schema_migrations (version) VALUES ('20150605151945');
 
 INSERT INTO schema_migrations (version) VALUES ('20150608093002');
-
-INSERT INTO schema_migrations (version) VALUES ('20150619134623');
-
-INSERT INTO schema_migrations (version) VALUES ('20150619150714');
 
 INSERT INTO schema_migrations (version) VALUES ('20150623083220');
 
