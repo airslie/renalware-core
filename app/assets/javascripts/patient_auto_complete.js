@@ -11,7 +11,7 @@ $(document).ready(function() {
           success: function(data) {
             var list = $.map(data, function(patient) {
               return {
-                label: patient.unique_label,
+                label: patient.label,
                 id: patient.id
               };
             });

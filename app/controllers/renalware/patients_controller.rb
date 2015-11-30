@@ -12,10 +12,8 @@ module Renalware
     end
 
     def search
-      patient_search = Renalware::Patient.ransack("family_name_cont" => params[:term])
-      patient_search.sorts = ["family_name", "given_name"]
-      patients = patient_search.result.page(1).per(20)
-      render json: patients.as_json(only: :id, methods: :unique_label)
+      query = Patients::SearchQuery.new(term: params[:term])
+      render json: query.call.to_json
     end
 
     def new
