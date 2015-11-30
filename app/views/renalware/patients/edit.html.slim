@@ -1,13 +1,8 @@
-.wide-screen
-  .columns.large-12
-    = render "record_header"
+= render layout: "layout", locals: { title: "Demographics" } do
+  = simple_form_for @patient, wrapper: "horizontal_form" do |f|
 
-.row
-  .large-12.columns
+    = render partial: "renalware/patients/form", locals: { patient: f }
 
-    = form_for @patient, method: :put do |f|
-      = render partial: "renalware/patients/form", locals: { patient: f }
-
-      = submit_tag "Update", class: "button"
-      span= " or "
-      = link_to "Cancel", patient_path(@patient)
+    = submit_tag "Update", class: "button"
+    span= " or "
+    = link_to "Cancel", patient_path(@patient)

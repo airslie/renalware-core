@@ -75,3 +75,15 @@ dd.patient-name {
 .sub-nav.fixed {
   left: auto;
 }
+
+.patient-side-nav {
+  background-color: #FAFAFA;
+  ul.side-nav li a {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  li.divider {
+    border-top-color: #E6E6E6;
+  }
+}

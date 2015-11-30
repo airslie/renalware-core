@@ -1,8 +1,0 @@
-= render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
-= render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
-
-h2 Patient Events
-
-dl.sub-nav
-  dd= link_to 'List', patient_events_path(@patient)
-  dd= link_to 'Add event', new_patient_event_path(@patient)

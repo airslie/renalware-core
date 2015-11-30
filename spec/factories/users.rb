@@ -8,8 +8,8 @@ FactoryGirl.define do
   end
 
   factory :user, class: "Renalware::User" do
-    first_name { Faker::Name.first_name }
-    last_name { Faker::Name.last_name }
+    given_name { Faker::Name.first_name }
+    family_name { Faker::Name.last_name }
     username
     email
     password 'supersecret'
@@ -41,8 +41,8 @@ FactoryGirl.define do
       end
     end
     trait :clinician do
-      first_name "Aneurin"
-      last_name "Bevan"
+      given_name "Aneurin"
+      family_name "Bevan"
       signature "Aneurin Bevan"
 
       after(:create) do |user|

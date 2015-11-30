@@ -1,4 +1,4 @@
-= render "header"
+= render "index_header"
 
 .row
   table#patients
@@ -15,5 +15,4 @@
     tbody
       = render @patients
 
-.row
   = paginate @patients

@@ -63,7 +63,7 @@ ruby:
       = fd.simple_fields_for :nhb_consent, fd.object.nhb_consent do |fcm|
         = fcm.input :value, as: :inline_radio_buttons
         = fcm.input :consented_on, as: :date_picker
-        = fcm.input :name
+        = fcm.input :full_name
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Admin", name: "admin" } do

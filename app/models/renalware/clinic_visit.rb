@@ -13,6 +13,8 @@ module Renalware
     validates_presence_of :systolic_bp
     validates_presence_of :diastolic_bp
 
+    validates :date, timeliness: { type: :date }
+
     def bmi
       ((weight / height) / height).round(2)
     end

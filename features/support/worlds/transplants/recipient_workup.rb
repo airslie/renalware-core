@@ -53,8 +53,8 @@ module World
 
       def create_recipient_workup(user:, patient:)
         login_as user
-        visit patient_clinical_summary_path(patient)
-        click_on "Transplant Recipient Workup"
+        visit patient_transplants_recipient_dashboard_path(patient)
+        click_on "Enter workup"
 
         fill_in "Karnofsky Score", with: "66"
 
@@ -65,8 +65,7 @@ module World
 
       def update_workup(patient:, user:)
         login_as user
-        visit patient_clinical_summary_path(patient)
-        click_on "Transplant Recipient Workup"
+        visit patient_transplants_recipient_workup_path(patient)
         click_on "Edit"
 
         fill_in "Cervical smear result", with: "193"

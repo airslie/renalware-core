@@ -12,14 +12,12 @@ html lang="en"
     = csrf_meta_tag
 
   body
-    #wrapper.big-wrapper
+    #wrapper
 
     = render partial: 'renalware/navigation/main'
-
     = render partial: 'renalware/shared/flash_messages'
 
     .main-content
-
       = yield
 
     = javascript_include_tag "application"

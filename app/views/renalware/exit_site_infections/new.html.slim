@@ -1,17 +1,9 @@
-= render layout: "renalware/pd/layout", locals: { header: "Exit Site Infection", patient: @patient } do
+= render layout: "renalware/patients/layout", locals: { title: "Exit Site Infection" } do
+  = render partial: "renalware/shared/errors", locals: { model: @exit_site_infection }
 
-.row
-  .large-12.columns
-    = render partial: "renalware/shared/errors", locals: { model: @exit_site_infection }
+  = nested_form_for [@patient, @exit_site_infection] do |es|
+    = render partial: 'renalware/exit_site_infections/form', locals: { es: es }
 
-.row
-  .large-12.columns
-    = nested_form_for [@patient, @exit_site_infection] do |es|
-
-      .row
-        = render partial: 'renalware/exit_site_infections/form', locals: { es: es }
-
-      .row.button-padding
-        = submit_tag "Save", class: "button"
-        span= " or "
-        = link_to "cancel", patient_pd_summary_path(@patient)
+    = submit_tag "Save", class: "button"
+    span= " or "
+    = link_to "cancel", patient_pd_summary_path(@patient)

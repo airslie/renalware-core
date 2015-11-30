@@ -4,7 +4,7 @@ module Renalware
 
     included do
       class_eval do
-        validates_presence_of :first_name, :last_name
+        validates_presence_of :given_name, :family_name
       end
 
       def full_name
@@ -16,9 +16,9 @@ module Renalware
       def to_s(format=nil)
         case format
         when :full_name
-          "#{first_name} #{last_name}"
-        when :last_first
-          "#{last_name}, #{first_name}"
+          "#{given_name} #{family_name}"
+        when :reversed_full_name
+          "#{family_name}, #{given_name}"
         else
           orig_to_s
         end

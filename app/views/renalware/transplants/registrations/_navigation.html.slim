@@ -1,0 +1,8 @@
+p= render "renalware/shared/last_update", record: @registration
+
+dl.sub-nav
+  dd= link_to "Transplant Info", patient_transplants_recipient_dashboard_path(@patient)
+  dd= link_to "View", patient_transplants_registration_path(@patient)
+  dd= link_to "Edit", edit_patient_transplants_registration_path(@patient)
+
+= render "sections_nav"

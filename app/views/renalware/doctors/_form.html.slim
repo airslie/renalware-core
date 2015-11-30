@@ -1,12 +1,12 @@
 = render partial: 'renalware/shared/errors', locals: { model: f.object }
 
 .row
-  = f.label :first_name
-  = f.text_field :first_name
+  = f.label :given_name
+  = f.text_field :given_name
 
 .row
-  = f.label :last_name
-  = f.text_field :last_name
+  = f.label :family_name
+  = f.text_field :family_name
 
 .row
   = f.label :email
@@ -32,6 +32,6 @@ hr
   a#address-form-toggle href='#address-form' class='button tiny' Alternative address
 
   fieldset#address-form style='display:none'
-    = f.fields_for :address_attributes do |a|
+    = f.simple_fields_for :address_attributes do |a|
       = a.hidden_field :id
       = render partial: 'renalware/addresses/form', locals: { a: a }

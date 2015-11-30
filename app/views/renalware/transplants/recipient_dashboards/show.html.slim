@@ -1,13 +1,7 @@
-.row
-  .columns.large-12
-    = render "renalware/patients/patient_info_header", model: @patient
-    = render "renalware/patients/mini_renal_profile", model: @patient
+= render layout: "renalware/patients/layout", locals: { title: "Transplant Summary" } do
+  = render "renalware/transplants/recipient_workups/summary"
+  = render "renalware/transplants/registrations/summary"
+  - if @registration.persisted?
+    = render "renalware/transplants/registration_statuses/list"
 
-    h2 Transplant Info
-
-    = render "renalware/transplants/recipient_workups/summary"
-    = render "renalware/transplants/registrations/summary"
-    - if @registration.persisted?
-      = render "renalware/transplants/registration_statuses/list"
-
-    = render "renalware/transplants/recipient_operations/list"
+  = render "renalware/transplants/recipient_operations/list"

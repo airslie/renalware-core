@@ -19,6 +19,9 @@ module Renalware
 
     it { should validate_presence_of :born_on }
 
+    it { is_expected.to validate_timeliness_of(:born_on) }
+    it { is_expected.to validate_timeliness_of(:died_on) }
+
     subject { create(:patient) }
 
     describe "#valid?" do

@@ -7,7 +7,7 @@ module Renalware
       login_as_clinician
     end
 
-    let(:author) { User.find_by(first_name: "Aneurin") }
+    let(:author) { User.find_by(given_name: "Aneurin") }
 
     scenario 'A simple letter' do
       create(:letter, patient: @patient, author: author)

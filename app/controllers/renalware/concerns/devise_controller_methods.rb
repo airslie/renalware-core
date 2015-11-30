@@ -20,7 +20,15 @@ module Renalware
 
       def configure_sign_up_parameters
         devise_parameter_sanitizer.for(:sign_up) do |u|
-          u.permit(:first_name, :last_name, :username, :email, :password, :password_confirmation, :remember_me)
+          u.permit(
+            :given_name,
+            :family_name,
+            :username,
+            :email,
+            :password,
+            :password_confirmation,
+            :remember_me
+          )
         end
       end
 
@@ -30,7 +38,7 @@ module Renalware
 
       def configure_account_update_parameters
         devise_parameter_sanitizer.for(:account_update) do |u|
-          u.permit(:first_name, :last_name, :username, :email, :password,
+          u.permit(:given_name, :family_name, :username, :email, :password,
                    :password_confirmation, :current_password,
                    :professional_position, :signature)
         end

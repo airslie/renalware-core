@@ -3,53 +3,49 @@
     = field_set_tag do
       legend
         | Patient Demographics
-      .row
-        .large-4.columns
-          ul.no-bullet
-            li
-              = patient.label :nhs_number, "NHS Number"
-              = patient.text_field :nhs_number
+      .large-9.columns
+        ul.no-bullet
+          li
+            = patient.input :nhs_number, label: "NHS Number"
 
-            li
-              = patient.label :local_patient_id, "Local Patient ID"
-              = patient.text_field :local_patient_id
+          li
+            = patient.input :local_patient_id, label: "Local Patient ID"
 
-        .large-4.columns
-          ul.no-bullet
-            li
-              = patient.label :family_name
-              = patient.text_field :family_name
+          li
+            = patient.input :family_name
 
-            li
-              = patient.label :given_name
-              = patient.text_field :given_name
+          li
+            = patient.input :given_name
 
-        .large-4.columns
-          ul.no-bullet
-            li
-              = patient.label :sex, "Sex"
-              = patient.collection_select(:sex, Renalware::Gender.all, :code, :name, { prompt: "Please select gender" })
+          li
+            = patient.input :sex,
+                collection: Renalware::Gender.all,
+                placeholder: "Please select gender",
+                label_method: :name, value_method: :code,
+                include_blank: "Please select gender"
 
-            li
-              = patient.label :ethnicity_id, "Ethnicity"
-              = patient.collection_select(:ethnicity_id, Renalware::Ethnicity.all, :id, :name, { prompt: "Please select ethnicity" })
+          li
+            = patient.input :ethnicity_id,
+                collection: Renalware::Ethnicity.all,
+                label_method: :name, value_method: :id,
+                include_blank: "Please select ethnicity"
 
-        .large-6.columns
-          = patient.label :born_on, "DoB"
-          = patient.date_select(:born_on, {start_year: (100.years.ago).year, end_year: Time.now.year , order: [:day, :month, :year]}, class: "dob")
+          li
+            = patient.input :born_on, as: :date_picker, label: "DoB"
 
-        .large-12.columns
-          = patient.check_box :paediatric_patient_indicator
-          = patient.label :paediatric_patient_indicator
+          li
+            = patient.input :paediatric_patient_indicator,
+                as: :inline_radio_buttons,
+                label: "If under 18 years, is the recipient being treated in a paediatric unit?"
 
-      - if @patient.persisted?
-        .row
-          .section-underliner
-        .row
-          .large-12.columns
-            | To enter date of death please set 'Death' modality:
-            | &nbsp;
-            = link_to "Change Modal", new_patient_modality_path(@patient), title: "Patient Modality", class: "death-update"
+        - if @patient.persisted?
+          .row
+            .section-underliner
+          .row
+            .large-12.columns
+              | To enter date of death please set 'Death' modality:
+              | &nbsp;
+              = link_to "Change Modal", new_patient_modality_path(@patient), title: "Patient Modality", class: "death-update"
 
   .large-4.columns
     = field_set_tag do
@@ -59,7 +55,7 @@
       = render partial: 'organisation_practice_form', locals: { patient: patient }
 
   .large-4.columns
-    = patient.fields_for :current_address_attributes, patient.object.current_address do |a|
+    = patient.simple_fields_for :current_address_attributes, patient.object.current_address do |a|
       fieldset id="current_address"
         legend
           | Current Address
@@ -67,7 +63,7 @@
         = render partial: 'renalware/addresses/form', locals: { a: a }
 
   .large-4.columns
-    = patient.fields_for :address_at_diagnosis_attributes, patient.object.address_at_diagnosis do |a|
+    = patient.simple_fields_for :address_at_diagnosis_attributes, patient.object.address_at_diagnosis do |a|
       fieldset id="address_at_diagnosis"
         legend
           | Address at Diagnosis

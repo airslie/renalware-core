@@ -44,15 +44,15 @@ module Renalware
     validates :born_on, presence: true
     validate :validate_sex
 
+    validates :born_on, timeliness: { type: :date }
+
     with_options if: :current_modality_death?, on: :update do |death|
       death.validates :died_on, presence: true
+      death.validates :died_on, timeliness: { type: :date }
       death.validates :first_edta_code_id, presence: true
     end
 
     scope :dead, -> { where.not(died_on: nil) }
-
-    alias_attribute :first_name, :given_name
-    alias_attribute :last_name,  :family_name
 
     attr_reader :unique_label
 

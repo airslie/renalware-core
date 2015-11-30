@@ -1,17 +1,16 @@
-.wide-screen
-  .columns.large-12
-    = render partial: "renalware/patients/patient_info_header", locals: { model: @patient }
-    = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
+= render layout: "renalware/patients/layout", locals: { title: "ESRF Summary" } do
 
-    h1 ESRF Summary
+  .row
+    = render partial: "renalware/shared/errors", locals: { model: @esrf }
 
-.row
-  = simple_form_for @esrf,
-    url: patient_esrf_path(@patient),
-    method: :patch,
-    wrapper: "horizontal_form"  do |f|
-    = render partial: "form", locals: { f: f, prd_descriptions: @prd_descriptions }
+  .row
+    .large-10.columns
+      = simple_form_for @esrf,
+          url: patient_esrf_path(@patient),
+          method: :patch,
+          wrapper: "horizontal_form"  do |f|
+        = render partial: "form", locals: { f: f, prd_descriptions: @prd_descriptions }
 
-    = submit_tag "Save", class: "button"
-    span= " or "
-    = link_to "cancel", patient_clinical_summary_path(@patient)
+        = submit_tag "Save", class: "button"
+        span= " or "
+        = link_to "cancel", patient_clinical_summary_path(@patient)

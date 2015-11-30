@@ -182,7 +182,7 @@ When(/^I choose to edit and update the form for a capd regime$/) do
   select "May", from: "pd_regime_end_date_2i"
   select "3", from: "pd_regime_end_date_3i"
 
-  click_on "Update CAPD Regime"
+  click_on "Update"
 end
 
 When(/^I choose to edit and update the form for a apd regime$/) do
@@ -198,7 +198,7 @@ When(/^I choose to edit and update the form for a apd regime$/) do
 
   check "Additional manual exchange"
 
-  click_on "Update APD Regime"
+  click_on "Update"
 end
 
 When(/^I choose to view a capd regime$/) do

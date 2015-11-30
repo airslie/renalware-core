@@ -1,14 +1,13 @@
-= render "record_header"
+= render layout: "renalware/patients/layout", locals: { title: "Transplant Donation" } do
+  - return unless @donation
+  .document-view
+    = render "renalware/shared/attributes_group",
+        legend: "Recipient", destination: "recipient",
+        resource: @donation,
+        attributes: [:relationship_with_recipient, :relationship_with_recipient_other,
+          :blood_group_compatibility, :mismatch_grade, :paired_pooled_donation]
 
-- return unless @donation
-.document-view
-  = render "renalware/shared/attributes_group",
-      legend: "Recipient", destination: "recipient",
-      resource: @donation,
-      attributes: [:relationship_with_recipient, :relationship_with_recipient_other,
-        :recipient, :blood_group_compatibility, :mismatch_grade, :paired_pooled_donation]
-
-  = render "renalware/shared/attributes_group",
-      legend: "Admin", destination: "admin",
-      resource: @donation,
-      attributes: [:state, :volunteered_on, :first_seen_on, :workup_completed_on, :donated_on, :notes]
+    = render "renalware/shared/attributes_group",
+        legend: "Admin", destination: "admin",
+        resource: @donation,
+        attributes: [:state, :volunteered_on, :first_seen_on, :workup_completed_on, :donated_on, :notes]
