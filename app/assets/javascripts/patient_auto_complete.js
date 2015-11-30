@@ -5,17 +5,23 @@ $(document).ready(function() {
     $(this).autocomplete({
       minLength: 2,
       source: function(request,response) {
-        var path = url + "?term=" + request.term
-        $.getJSON(path, function(data) {
-          var list = $.map(data, function(patient) {
-            return {
-              label: patient.unique_label,
-              value: patient.unique_label,
-              id: patient.id
-            };
-          });
-          response(list);
-        })
+        $.ajax({
+          url: url,
+          data: { term: request.term },
+          success: function(data) {
+            var list = $.map(data, function(patient) {
+              return {
+                label: patient.unique_label,
+                id: patient.id
+              };
+            });
+            response(list);
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            var msg = "An error occurred.  Please contact an administrator.";
+            response({ label: msg, id: 0});
+          }
+        });
       },
       search: function(event, ui) {
         $(target).val("");
