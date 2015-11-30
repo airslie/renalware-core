@@ -5,7 +5,8 @@ $(document).ready(function() {
     $(this).autocomplete({
       minLength: 2,
       source: function(request,response) {
-        $.getJSON(url+"?term="+request.term, function(data) {
+        var path = url + "?term=" + request.term
+        $.getJSON(path, function(data) {
           var list = $.map(data, function(patient) {
             return {
               label: patient.unique_label,

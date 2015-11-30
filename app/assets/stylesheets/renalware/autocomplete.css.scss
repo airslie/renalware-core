@@ -1,0 +1,5 @@
+input[type='text'].ui-autocomplete-loading {
+  background-image: asset-url('ajax-loader.gif');
+  background-repeat: no-repeat;
+  background-position: 98% center;
+}
