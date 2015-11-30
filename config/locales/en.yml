@@ -1,4 +1,6 @@
 en:
+  :true: "Yes"
+  :false: "No"
   enums:
     provider:
       gp: GP
