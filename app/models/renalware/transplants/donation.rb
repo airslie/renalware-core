@@ -14,6 +14,7 @@ module Renalware
 
       scope :ordered, -> { order(created_at: :asc) }
       scope :reversed, -> { order(created_at: :desc) }
+      scope :for_recipient, -> (recipient) { where(recipient_id: recipient.id) }
 
       enumerize :state, in: %i(volunteered seen_in_clinic investigating handed_over unsuitable)
       enumerize :relationship_with_recipient, in: %i(
