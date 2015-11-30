@@ -98,7 +98,7 @@ module Renalware
     user = User.first
     clinic_visit = ClinicVisit.find_or_create_by!(
       patient: rabbit,
-      clinic_type: ClinicType.order("RANDOM()").first,
+      clinic: Clinic.order("RANDOM()").first,
       height: 1.25,
       weight: 55 + n,
       systolic_bp: 110 + n,

@@ -109,37 +109,6 @@ ALTER SEQUENCE bag_types_id_seq OWNED BY bag_types.id;
 
 
 --
--- Name: clinic_types; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE clinic_types (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: clinic_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE clinic_types_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: clinic_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE clinic_types_id_seq OWNED BY clinic_types.id;
-
-
---
 -- Name: clinic_visits; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -158,7 +127,7 @@ CREATE TABLE clinic_visits (
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    clinic_type_id integer NOT NULL
+    clinic_id integer NOT NULL
 );
 
 
@@ -179,6 +148,37 @@ CREATE SEQUENCE clinic_visits_id_seq
 --
 
 ALTER SEQUENCE clinic_visits_id_seq OWNED BY clinic_visits.id;
+
+
+--
+-- Name: clinics; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE clinics (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: clinics_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE clinics_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: clinics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE clinics_id_seq OWNED BY clinics.id;
 
 
 --
@@ -1897,14 +1897,14 @@ ALTER TABLE ONLY bag_types ALTER COLUMN id SET DEFAULT nextval('bag_types_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY clinic_types ALTER COLUMN id SET DEFAULT nextval('clinic_types_id_seq'::regclass);
+ALTER TABLE ONLY clinic_visits ALTER COLUMN id SET DEFAULT nextval('clinic_visits_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY clinic_visits ALTER COLUMN id SET DEFAULT nextval('clinic_visits_id_seq'::regclass);
+ALTER TABLE ONLY clinics ALTER COLUMN id SET DEFAULT nextval('clinics_id_seq'::regclass);
 
 
 --
@@ -2246,19 +2246,19 @@ ALTER TABLE ONLY bag_types
 
 
 --
--- Name: clinic_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY clinic_types
-    ADD CONSTRAINT clinic_types_pkey PRIMARY KEY (id);
-
-
---
 -- Name: clinic_visits_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY clinic_visits
     ADD CONSTRAINT clinic_visits_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: clinics_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY clinics
+    ADD CONSTRAINT clinics_pkey PRIMARY KEY (id);
 
 
 --
@@ -2995,14 +2995,6 @@ ALTER TABLE ONLY transplants_donor_workups
 
 
 --
--- Name: fk_rails_1f56ee2c91; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY clinic_visits
-    ADD CONSTRAINT fk_rails_1f56ee2c91 FOREIGN KEY (clinic_type_id) REFERENCES clinic_types(id);
-
-
---
 -- Name: fk_rails_6de0aa89c3; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3048,6 +3040,14 @@ ALTER TABLE ONLY transplants_registration_statuses
 
 ALTER TABLE ONLY transplants_registration_statuses
     ADD CONSTRAINT fk_rails_b298a0b037 FOREIGN KEY (registration_id) REFERENCES transplants_registrations(id);
+
+
+--
+-- Name: fk_rails_b844dc9537; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinic_visits
+    ADD CONSTRAINT fk_rails_b844dc9537 FOREIGN KEY (clinic_id) REFERENCES clinics(id);
 
 
 --

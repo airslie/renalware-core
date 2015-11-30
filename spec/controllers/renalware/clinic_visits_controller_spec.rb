@@ -3,7 +3,7 @@ require 'rails_helper'
 module Renalware
   describe ClinicVisitsController, type: :controller do
 
-    let(:clinic_type) { create(:clinic_type) }
+    let(:clinic) { create(:clinic) }
     let(:patient) { create(:patient) }
     let!(:clinic_visit) { create(:clinic_visit, patient: patient) }
 
@@ -35,7 +35,7 @@ module Renalware
       before do
         post :create, patient_id: patient.to_param, clinic_visit: {
           date: Time.now,
-          clinic_type_id: clinic_type,
+          clinic_id: clinic,
           height: 1725, weight: 89.2, bp: '110/78',
           urine_blood: 'neg', urine_protein: 'neg',
           notes: 'Nothing unusual' }
