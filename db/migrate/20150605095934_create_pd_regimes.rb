@@ -1,10 +1,10 @@
 class CreatePDRegimes < ActiveRecord::Migration
   def change
     create_table :pd_regimes do |t|
-      t.integer :patient,  foreign_key: true
+      t.integer :patient,  null: false, foreign_key: true
       t.date :start_date,  null: false
       t.date :end_date
-      t.string :treatment, null: false
+      t.string :treatment,    null: false
       t.string :type
       t.integer :glucose_ml_percent_1_36
       t.integer :glucose_ml_percent_2_27
