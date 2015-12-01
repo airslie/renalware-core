@@ -22,12 +22,23 @@ module Renalware
         it { is_expected.to be_valid }
 
         context "given relationship is other and relationship is not supplied" do
-          let(:attributes) {
+          let(:attributes) do
             {
               state: :other_living_non_related,
               relationship_with_recipient_other: nil
             }
-          }
+          end
+
+          it { is_expected.to_not be_valid }
+        end
+
+        context "when assigning itself as a recipient" do
+          let(:attributes) do
+            {
+              patient_id: 1,
+              recipient_id: 1
+            }
+          end
 
           it { is_expected.to_not be_valid }
         end

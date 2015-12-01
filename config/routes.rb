@@ -46,6 +46,10 @@ Rails.application.routes.draw do
         get :apd_regime
       end
 
+      collection do
+        get :search
+      end
+
       resource :clinical_summary, only: :show
       resource :death, only: [:edit, :update]
       resource :esrf, only: [:edit, :update], controller: "esrf"

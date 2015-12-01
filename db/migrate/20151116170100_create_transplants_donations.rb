@@ -3,8 +3,9 @@ class CreateTransplantsDonations < ActiveRecord::Migration
     create_table :transplants_donations do |t|
       t.belongs_to :patient, index: true, foreign_key: true
 
-      t.string :state
-      t.string :relationship_with_recipient
+      t.integer :recipient_id
+      t.string :state, null: false
+      t.string :relationship_with_recipient, null: false
       t.string :relationship_with_recipient_other
       t.string :blood_group_compatibility
       t.string :mismatch_grade
@@ -17,5 +18,7 @@ class CreateTransplantsDonations < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
+    add_index :transplants_donations, :recipient_id
   end
 end

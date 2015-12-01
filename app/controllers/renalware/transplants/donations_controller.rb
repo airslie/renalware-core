@@ -46,6 +46,7 @@ module Renalware
       def attributes
         [
           :state,
+          :recipient_id,
           :relationship_with_recipient,
           :relationship_with_recipient_other,
           :blood_group_compatibility,

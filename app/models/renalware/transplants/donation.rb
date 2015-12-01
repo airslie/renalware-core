@@ -8,6 +8,7 @@ module Renalware
       extend Enumerize
 
       belongs_to :patient
+      belongs_to :recipient, class_name: "Patient", foreign_key: "recipient_id"
 
       has_paper_trail class_name: "Renalware::Transplants::Version"
 
@@ -35,6 +36,15 @@ module Renalware
       validates :first_seen_on, timeliness: { type: :date, allow_blank: true }
       validates :workup_completed_on, timeliness: { type: :date, allow_blank: true }
       validates :donated_on, timeliness: { type: :date, allow_blank: true }
+      validate :validate_recipient
+
+      private
+
+      def validate_recipient
+        if recipient_id.present? && (recipient_id == patient_id)
+          errors.add(:recipient_id, :invalid)
+        end
+      end
     end
   end
 end

@@ -2,13 +2,18 @@ module Renalware
   class PatientsController < BaseController
     include Renalware::Concerns::Pageable
 
-    skip_after_action :verify_authorized, only: :show
+    skip_after_action :verify_authorized, only: [:show, :search]
     before_action :prepare_paging, only: [:index]
     before_action :find_patient, only: [:show, :edit, :update]
 
     def index
       @patients = @patient_search.result.page(@page).per(@per_page)
       authorize @patients
+    end
+
+    def search
+      query = Patients::SearchQuery.new(term: params[:term])
+      render json: query.call.to_json
     end
 
     def new

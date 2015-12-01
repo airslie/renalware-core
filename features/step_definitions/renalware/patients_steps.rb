@@ -11,10 +11,10 @@ end
 
 Given(/^Don is a patient$/) do
   @don = Renalware::Patient.create!(
-    nhs_number: "1234567890",
+    nhs_number: "1234567891",
     family_name: "Don",
     given_name: "TheDonor",
-    local_patient_id: "123456",
+    local_patient_id: "123457",
     sex: "M",
     born_on: Time.zone.today
   )

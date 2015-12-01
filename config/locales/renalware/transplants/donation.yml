@@ -7,6 +7,7 @@ en:
         state: State
         relationship_with_recipient: Relationship With Recipient
         relationship_with_recipient_other: Other Relationship (if required)
+        recipient: Recipient
         blood_group_compatibility: Blood Group Compatibility
         mismatch_grade: Mistmatch Grade
         paired_pooled_donation: Paired Pooled Donation

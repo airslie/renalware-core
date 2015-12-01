@@ -27,3 +27,10 @@ Feature: Identifying a donation
   Scenario: A clinician submitted an erroneous donation for a live donor
     When Clyde submits an erroneous donation
     Then the donation is not accepted
+
+  @web @javascript
+  Scenario: A clinician assigned a recipient to a donation
+    Given Don has a donation
+    And Patty is a patient
+    When Clyde assigns Patty as a recipient for Don's donation
+    Then the donation has Patty as a recipient
