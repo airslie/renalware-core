@@ -1,7 +1,7 @@
 dl.accordion.right.columns.large-6.problem-history(data-accordion)
   dd.accordion-navigation
     a.fi-plus.fi-minus.toggle-info.problem-history-link href="#history-list-#{object.id}"
-      | View history of active problem
+      | View history
 
     .content id="history-list-#{object.id}"
       - versions.map(&:reify).compact.reverse.each do |p|
