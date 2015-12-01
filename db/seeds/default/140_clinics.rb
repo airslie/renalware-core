@@ -1,5 +1,5 @@
 module Renalware
-  log "--------------------Adding ClinicTypes--------------------"
+  log "--------------------Adding Clinics--------------------"
   [
     "Access",
     "AKI",
@@ -17,6 +17,6 @@ module Renalware
     "Walk-in",
     "Woolwich Outreach"
   ].each do |name|
-    ClinicType.find_or_create_by!(name: name)
+    Clinic.find_or_create_by!(name: name)
   end
 end

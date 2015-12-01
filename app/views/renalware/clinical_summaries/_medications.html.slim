@@ -1,0 +1,16 @@
+= field_set_tag do
+  legend= link_to "Current Medications (#{medications.length})", patient_medications_path(@patient)
+
+  - if medications.empty?
+    .call-to-action
+      = link_to patient_medications_path(@patient) do
+        i.fa.fa-plus-circle
+        | Enter medication
+  - else
+    ul.no-bullet
+      - medications.each do |medication|
+        li class="drug-#{drug_types_colour_tag(medication.medicatable.drug_types)}"
+          = "#{medication.medicatable.name},"
+          = "#{medication.dose},"
+          = "#{medication.medication_route.name} #{medication.frequency},"
+          = "#{l medication.start_date}"
