@@ -1,8 +1,8 @@
 class CreatePeritonitisEpisodes < ActiveRecord::Migration
   def change
     create_table :peritonitis_episodes do |t|
-      t.references :patient,           foreign_key: true
-      t.date :diagnosis_date,          null: false
+      t.references :patient,            null: false, foreign_key: true
+      t.date :diagnosis_date,        null: false
       t.date :treatment_start_date
       t.date :treatment_end_date
       t.references :episode_type,      foreign_key: true

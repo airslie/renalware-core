@@ -13,6 +13,7 @@ module Renalware
     accepts_nested_attributes_for :medications, allow_destroy: true
     accepts_nested_attributes_for :infection_organisms, allow_destroy: true
 
+    validates :patient, presence: true
     validates :diagnosis_date, presence: true
 
   end
