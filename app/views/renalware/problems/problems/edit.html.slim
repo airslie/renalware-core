@@ -13,13 +13,13 @@
     - if problems.empty?
       p There are no revisions for this problem.
     - else
-      - problems.each do |problem|
         table
           thead
             tr
               th Description
               th Recorded at
-          tbody
-            tr
-              td= problem.description
-              td= l problem.created_at
+          - problems.each do |problem|
+            tbody
+              tr
+                td= problem.description
+                td= l problem.updated_at
