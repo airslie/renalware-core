@@ -3,7 +3,7 @@ module Presenter
     begin
       klass = "#{value.class.name}Presenter".constantize
       klass.send(:new, value)
-    rescue
+    rescue NameError
       value.to_s
     end
   end
