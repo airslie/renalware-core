@@ -13,7 +13,7 @@ fieldset.status-history
           - @donations.each do |donation|
             tr
               td= link_to patient_transplants_donor_dashboard_path(donation.patient) do
-                  = donation.patient.unique_label
+                  = donation.patient.to_s(:reversed_full_name_with_nhs)
               td
                 = donation.relationship_with_recipient.try(:text)
                 - if donation.relationship_with_recipient_other.present?
