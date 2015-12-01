@@ -26,14 +26,14 @@ ruby:
       = fd.simple_fields_for :kidney, fd.object.kidney do |fcm|
         = fcm.input :side, input_html: { class: "small-input" }
         = fcm.input :asyst
-        = fcm.input :age, input_html: { class: "small-input" }
+        = render_input fcm, :age
         = fcm.input :weight, input_html: { class: "small-input" }
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Recipient", name: "recipient" } do
       = fd.simple_fields_for :recipient, fd.object.recipient do |fcm|
         = fcm.input :operation_number, input_html: { class: "small-input" }
-        = fcm.input :age, input_html: { class: "small-input" }
+        = render_input fcm, :age
         = fcm.input :last_dialysis_on, as: :date_picker
         = fcm.input :cmv_status, input_html: { class: "small-input" }
         = render_input fcm, :blood_group
@@ -44,7 +44,7 @@ ruby:
         = fcm.input :type, input_html: { class: "small-input" }
         = fcm.input :gender, input_html: { class: "small-input" }
         = fcm.input :born_on, as: :date_picker
-        = fcm.input :age, input_html: { class: "small-input" }
+        = render_input fcm, :age
         = fcm.input :cause_of_death
         = fcm.input :hla
         = fcm.input :hla_mismatch
