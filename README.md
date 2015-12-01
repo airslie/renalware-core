@@ -101,3 +101,22 @@ The app is available at http://renalware-demo.herokuapp.com. It is password prot
 
     username: renalware
     password: lister
+
+## Deployment to staging server
+
+Heroku hosts our demo server.
+
+Setup the remote repository:
+
+    heroku login
+    heroku git:remote -a renalware-staging -r staging
+
+To deploy:
+
+    git push stating master
+    heroku open
+
+The app is available at http://renalware-staging.herokuapp.com. It is password protected:
+
+    username: renalware
+    password: lister
