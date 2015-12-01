@@ -1,7 +1,7 @@
 require_dependency "renalware"
 
 module Renalware
-  class ClinicType < ActiveRecord::Base
+  class Clinic < ActiveRecord::Base
     validates :name, presence: true
 
     def to_s

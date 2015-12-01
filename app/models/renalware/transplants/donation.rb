@@ -39,10 +39,6 @@ module Renalware
       validates :donated_on, timeliness: { type: :date, allow_blank: true }
       validate :validate_recipient
 
-      def recipient_unique_label
-        recipient.try(:unique_label)
-      end
-
       private
 
       def validate_recipient

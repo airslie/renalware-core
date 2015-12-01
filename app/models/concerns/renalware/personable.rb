@@ -19,6 +19,8 @@ module Renalware
           "#{given_name} #{family_name}"
         when :reversed_full_name
           "#{family_name}, #{given_name}"
+        when :reversed_full_name_with_nhs
+          "#{family_name}, #{given_name} (#{nhs_number})"
         else
           orig_to_s
         end

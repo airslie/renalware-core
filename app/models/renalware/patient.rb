@@ -54,8 +54,6 @@ module Renalware
 
     scope :dead, -> { where.not(died_on: nil) }
 
-    attr_reader :unique_label
-
     def self.policy_class
       BasePolicy
     end
@@ -83,10 +81,6 @@ module Renalware
       if self.current_modality.present?
         self.current_modality.description.death?
       end
-    end
-
-    def unique_label
-      "#{family_name}, #{given_name} (#{nhs_number})"
     end
 
     private

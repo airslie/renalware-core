@@ -16,11 +16,18 @@ ruby:
       locals: { legend: "Recipient", name: "recipient" } do
     = f.input :relationship_with_recipient
     = f.input :relationship_with_recipient_other
-    = f.input :recipient_unique_label, input_html: { \
-        data: { \
-          autocomplete_source: search_patients_path, \
-          autocomplete_rel: "#transplants_donation_recipient_id" \
-        }}
+    .row
+      .small-5.columns
+        = label_tag f.object.class.human_attribute_name(:recipient),
+            nil, class: "right inline"
+      .small-7.columns
+        = text_field_tag 'recipient_auto_complete', \
+            f.object.recipient.try(:to_s, :reversed_full_name_with_nhs),
+            data: { \
+              autocomplete_source: search_patients_path, \
+              autocomplete_rel: "#transplants_donation_recipient_id" \
+            },
+            placeholder: "Start entering the last name (min. 2 characters)"
     = f.input :recipient_id, as: :hidden
     = f.input :blood_group_compatibility, as: :inline_radio_buttons
     = f.input :mismatch_grade, input_html: { class: "small-input" }

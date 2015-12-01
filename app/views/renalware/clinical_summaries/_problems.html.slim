@@ -1,0 +1,12 @@
+= field_set_tag do
+  legend= link_to "Problems (#{problems.length})", patient_problems_path(@patient)
+
+  - if problems.empty?
+    .call-to-action
+      = link_to patient_problems_path(@patient) do
+        i.fa.fa-plus-circle
+        | Enter problem
+  - else
+    ul.no-bullet
+      - problems.each do |problem|
+        li= "#{problem.full_description}, #{l problem.created_at.to_date}"

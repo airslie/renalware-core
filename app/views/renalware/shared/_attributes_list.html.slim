@@ -2,25 +2,10 @@ ruby:
   tuples = Array.wrap(attributes).map do |attribute|
     label = resource.class.human_attribute_name(attribute)
     value = resource.public_send(attribute)
-    html = case
-      when value.respond_to?(:nested_attribute?)
-        render(value)
-      when attribute =~ /_time$/
-        I18n.l value, format: :time
-      when value.respond_to?(:text)
-        value.text
-      when value.is_a?(Date)
-        I18n.l value
-      when value.is_a?(TrueClass)
-        "Yes"
-      when value.is_a?(FalseClass)
-        "No"
-      when value.is_a?(Renalware::Patient)
-        value.unique_label
-      when
-        simple_format(value.to_s)
-      else
-        value
+    html = if value.respond_to?(:nested_attribute?)
+      render(value)
+    else
+      Presenter.for(value).to_s
     end
     [label, html]
   end

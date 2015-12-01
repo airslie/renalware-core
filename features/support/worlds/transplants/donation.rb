@@ -114,7 +114,7 @@ module World
           click_on "Edit"
         end
 
-        fill_autocomplete "transplants_donation_recipient_unique_label",
+        fill_autocomplete "recipient_auto_complete",
           with: "Patty", select: "Patty"
 
         within ".top" do
