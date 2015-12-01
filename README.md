@@ -113,8 +113,13 @@ Setup the remote repository:
 
 To deploy:
 
-    git push stating master
+    git push staging master
     heroku open
+
+To reset the database:
+
+    heroku pg:reset DATABASE -a renalware-staging
+    heroku run rake db:migrate db:seed -a renalware-staging
 
 The app is available at http://renalware-staging.herokuapp.com. It is password protected:
 
