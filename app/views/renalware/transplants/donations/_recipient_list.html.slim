@@ -1,0 +1,22 @@
+fieldset.status-history
+  legend Potential Live Donors
+
+  - return if @donations.empty?
+  .row
+    .large-12.columns
+      table
+        thead
+          th Name
+          th Relation
+          th State
+        tbody
+          - @donations.each do |donation|
+            tr
+              td= link_to patient_transplants_donor_dashboard_path(donation.patient) do
+                  = donation.patient.unique_label
+              td
+                = donation.relationship_with_recipient.try(:text)
+                - if donation.relationship_with_recipient_other.present?
+                  br
+                  = "(#{donation.relationship_with_recipient_other})"
+              td= donation.state.try(:text)
