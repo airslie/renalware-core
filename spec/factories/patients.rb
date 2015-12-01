@@ -24,7 +24,7 @@ FactoryGirl.define do
 
     trait :with_problems do
       after(:create) do |patient|
-        3.times { patient.problems << create(:problem) }
+        3.times { create(:problem, patient: patient) }
       end
     end
     trait :with_meds do
