@@ -8,7 +8,7 @@ module Renalware
       # Allows add and remove form submissions for a nested collection
       #
       # @params
-      # collection - the nested collection where items are added or removed
+      # nested - the nested collection where items are added or removed
       # default_action - the update or save action wrapped in a proc
       # build_attrs - attributes to pass to collection#build when adding to the collection
       #
@@ -16,7 +16,7 @@ module Renalware
         if (actions = params[:actions]).present?
           if actions.key?(:remove)
             index = actions[:remove].keys.first.to_i
-            nested.delete(nested[index])
+            nested.destroy(nested[index])
           else
             nested.build(build_attrs)
           end
