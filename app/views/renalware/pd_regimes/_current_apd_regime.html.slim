@@ -1,33 +1,34 @@
-.large-6.columns
-  ul.no-bullet
-    li
-      b Last Fill:
-      | &nbsp;
-      = "#{current.last_fill_ml} ml"
+.row
+  .large-6.columns
+    ul.no-bullet
+      li
+        b Last Fill:
+        | &nbsp;
+        = "#{current.last_fill_ml} ml"
 
-    li
-      b Additional manual exchange?:
-      | &nbsp;
-      = yes_no(current.add_manual_exchange)
+      li
+        b Additional manual exchange?:
+        | &nbsp;
+        = yes_no(current.add_manual_exchange)
 
-    li
-      b Tidal?:
-      | &nbsp;
-      = yes_no(current.tidal_indicator)
+      li
+        b Tidal?:
+        | &nbsp;
+        = yes_no(current.tidal_indicator)
 
-    li
-      b Tidal:
-      | &nbsp;
-      = "#{current.tidal_percentage} %"
+      li
+        b Tidal:
+        | &nbsp;
+        = "#{current.tidal_percentage} %"
 
-.large-6.columns
-  ul.no-bullet
-    li
-      b Number of cycles per APD session:
-      | &nbsp;
-      = current.no_cycles_per_apd
+  .large-6.columns
+    ul.no-bullet
+      li
+        b Number of cycles per APD session:
+        | &nbsp;
+        = current.no_cycles_per_apd
 
-    li
-      b Overnight PD volume on APD:
-      | &nbsp;
-      = "#{current.overnight_pd_ml} ml"
+      li
+        b Overnight PD volume on APD:
+        | &nbsp;
+        = "#{current.overnight_pd_ml} ml"
