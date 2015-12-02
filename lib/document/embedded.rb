@@ -126,7 +126,7 @@ module Document
       else
         enums = options[:enums]
         if enums == :from_localization
-          enums = I18n.t(name, scope: "enumerize.#{self.model_name.i18n_key}").keys
+          enums = I18n.t(name, scope: "enumerize.#{self.model_name.i18n_key}", cascade: true).keys
         end
       end
       super(name, type, options)
