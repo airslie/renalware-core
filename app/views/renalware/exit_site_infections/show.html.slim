@@ -1,41 +1,32 @@
-- title = "Exit Site Infection - Diagnosed: #{ l @exit_site_infection.diagnosis_date }"
+- title = "PD - Exit Site Infection"
 = render layout: "renalware/patients/layout", locals: { title: title } do
-  p
-    = "Last Updated: #{@exit_site_infection.updated_at}"
-    = pipe_separator
-    = link_to "Edit", edit_patient_exit_site_infection_path(@patient, @exit_site_infection.id)
 
-  .row
-    .large-6.columns
-      fieldset
-        legend Outcome
+  = field_set_tag "Infection" do
+    dl
+      .row
+        .large-6.columns
+          dt Diagnosed:
+          dd= l @exit_site_infection.diagnosis_date
 
-        p= @exit_site_infection.outcome
+        .large-6.columns
+          dt Last Updated:
+          dd= l @exit_site_infection.updated_at
 
-    .large-6.columns
-        fieldset
-          legend Organisms/Sensitivity
+      .row
+        .large-12.columns
+          dt Outcome:
+          dd= @exit_site_infection.outcome
 
-          ul.table-data-list
-            = organisms_and_sensitivities(@exit_site_infection.infection_organisms)
+          dt Treatment:
+          dd= @exit_site_infection.treatment
 
-  .row
-    .large-6.columns
-        fieldset
-          legend Treatment
+  = field_set_tag "Organisms/Sensitivity" do
+    ul.table-data-list
+      = organisms_and_sensitivities(@exit_site_infection.infection_organisms)
 
-          p= @exit_site_infection.treatment
+  = field_set_tag "Antibiotics/Routes" do
+    ul.table-data-list
+      = medication_and_route(@exit_site_infection.medications)
 
-    .large-6.columns
-        fieldset
-          legend Antibiotics/Routes
-
-          ul.table-data-list
-            = medication_and_route(@exit_site_infection.medications)
-
-  .row
-    .large-6.columns
-        fieldset
-          legend Exit Site Infection Notes
-
-          p= @exit_site_infection.notes
+  = field_set_tag "Notes" do
+    p= @exit_site_infection.notes
