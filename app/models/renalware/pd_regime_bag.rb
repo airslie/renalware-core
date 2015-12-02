@@ -6,7 +6,7 @@ module Renalware
     belongs_to :bag_type
     belongs_to :pd_regime
 
-    validates :bag_type_id, presence: true
+    validates :bag_type, presence: true
     validates :volume, presence: true
 
     validates :volume, numericality: { allow_nil: true, greater_than_or_equal_to: 100, less_than_or_equal_to: 10000 }
