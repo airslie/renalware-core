@@ -42,14 +42,27 @@ ruby:
         locals: { legend: "Donor", name: "donor" } do
       = fd.simple_fields_for :donor, fd.object.donor do |fcm|
         = fcm.input :type, input_html: { class: "small-input" }
+        = fcm.input :ukt_donor_number, input_html: { class: "small-input" }
+        = fcm.input :ukt_notified_at, as: :datetime_picker
         = fcm.input :gender, input_html: { class: "small-input" }
+        = fcm.input :ethnic_category, input_html: { class: "small-input" }
         = fcm.input :born_on, as: :date_picker
         = render_input fcm, :age
-        = fcm.input :cause_of_death
         = fcm.input :hla
         = fcm.input :hla_mismatch
         = fcm.input :cmv_status, input_html: { class: "small-input" }
         = render_input fcm, :blood_group
+        = fcm.input :blood_group_rhesus, input_html: { class: "small-input" }
+        = fcm.input :organ_donor_register_checked, as: :inline_radio_buttons
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Cadaveric Donor", name: "cadaveric_donor" } do
+      = fd.simple_fields_for :cadaveric_donor, fd.object.cadaveric_donor do |fcm|
+        = fcm.input :cadaveric_donor_type, input_html: { class: "small-input" }
+        = fcm.input :death_certified_at, as: :datetime_picker
+        = fcm.input :ukt_cause_of_death
+        = fcm.input :warm_ischaemic_time_in_minutes, input_html: { class: "small-input" }
+
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "DSA", name: "dsa" } do
