@@ -31,7 +31,7 @@ module Renalware
         attribute :ukt_notified_at, DateTime
         attribute :type, enums: %i(live_related cadaver non_heart_beating live_unrelated)
         attribute :gender, enums: %i(male female)
-        attribute :ethnic_category
+        attribute :ethnic_category, enums: :from_localization
         attribute :born_on, Date
         attribute :age, Age
         attribute :hla
