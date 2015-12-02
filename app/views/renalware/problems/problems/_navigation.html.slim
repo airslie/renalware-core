@@ -1,1 +1,3 @@
-// no navigation
+dl.sub-nav
+  dd= link_to "View", patient_problems_path(@patient)
+  dd= link_to "Add problem", patient_problems_path(@patient, add_problem: 1)

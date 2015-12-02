@@ -69,7 +69,7 @@ Rails.application.routes.draw do
       resources :pd_regimes, only: [:new, :create, :edit, :update, :show]
       resources :peritonitis_episodes, only: [:new, :create, :show, :edit, :update]
 
-      resources :problems, only: :index, controller: "problems/problems"
+      resources :problems, controller: "problems/problems"
       patch "problems", to: "problems/problems#update", as: "problems_batch"
 
       namespace :transplants do
