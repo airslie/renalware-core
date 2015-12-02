@@ -43,6 +43,7 @@ en:
         cadaveric_donor_type: Cadaveric Donor Type
         death_certified_at: Date and Time of Certification of Death
         ukt_cause_of_death: UKT Donor's Cause of Death
+        ukt_cause_of_death_other: UKT Donor's Cause of Death (other)
         warm_ischaemic_time_in_minutes: Total Warm Ischaemic Time (in minutes)
       renalware/transplants/recipient_operation_document/dsa:
         notes: Notes
