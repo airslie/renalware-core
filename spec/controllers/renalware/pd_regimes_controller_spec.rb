@@ -24,7 +24,6 @@ module Renalware
     describe 'GET #new' do
       it 'renders the new template' do
         get :new, patient_id: @patient.id
-
         expect(response).to render_template('new')
       end
     end
@@ -166,7 +165,7 @@ module Renalware
 
       context 'remove bag' do
         it 'removes a bag from the unsaved CAPD Regime' do
-          @capd_regime.pd_regime_bags << create(:pd_regime_bag)
+          create(:pd_regime_bag, pd_regime: @capd_regime)
           put :update,
           id: @capd_regime.id,
           patient_id: @patient.id,
