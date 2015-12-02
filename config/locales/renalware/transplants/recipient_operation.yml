@@ -24,7 +24,7 @@ en:
         blood_group: Blood Group
         cmv_status: CMV Status
         last_dialysis_on: Last Dialysis Date
-        operation_number: Transplant Operation Nb
+        operation_number: Transplant Operation No
       renalware/transplants/recipient_operation_document/donor:
         age: Age
         blood_group: Blood Group
