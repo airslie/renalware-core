@@ -77,7 +77,7 @@ module Renalware
             patient_id: @patient.id,
             actions: { add_bag: "Add Bag" },
             pd_regime: { type: "Renalware::CAPDRegime",
-              start_date: Date.today,
+              start_date: Time.zone.today,
               treatment: "CAPD 3 exchanges per day" }
           }.to change(PDRegime, :count).by(0)
 
@@ -91,9 +91,13 @@ module Renalware
           patient_id: @patient.id,
           actions: { remove: { "0" => "Remove" } },
           pd_regime: { type: "Renalware::CAPDRegime",
-            start_date: Date.today,
+            start_date: Time.zone.today,
             treatment: "CAPD 4 exchanges per day",
-            pd_regime_bags_attributes: [{ bag_type_id:"100", volume:"2", per_week:"1", monday:true }]
+            pd_regime_bags_attributes: [
+              {
+                bag_type_id:"100", volume:"2", per_week:"1", monday:true
+              }
+            ]
           }
 
           expect(assigns(:pd_regime).pd_regime_bags.size).to eq(0)
@@ -154,7 +158,7 @@ module Renalware
             patient_id: @patient.id,
             actions: { add_bag: "Add Bag" },
             pd_regime: { type: "Renalware::CAPDRegime",
-              start_date: Date.today,
+              start_date: Time.zone.today,
               treatment: "CAPD 3 exchanges per day"
             }
           }.to change(PDRegime, :count).by(0)
@@ -175,7 +179,7 @@ module Renalware
             patient_id: @patient.id,
             actions: { remove: { "0" => "Remove" } },
             pd_regime: { type: "Renalware::CAPDRegime",
-              start_date: Date.today,
+              start_date: Time.zone.today,
               treatment: "CAPD 3 exchanges per day"
             }
 
