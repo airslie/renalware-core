@@ -1,6 +1,8 @@
+require 'document/enum'
+
 module Renalware
   class DatedConfirmation < NestedAttribute
-    attribute :status, enums: %i(yes no unknown)
+    attribute :status, Document::Enum, enums: %i(yes no unknown)
     attribute :confirmed_on, Date
 
     validates :confirmed_on, timeliness: { type: :date, allow_blank: true }

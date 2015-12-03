@@ -1,6 +1,6 @@
 module Renalware
   class DatedTest < NestedAttribute
-    attribute :result, enums: %i(negative positive not_done)
+    attribute :result, Document::Enum, enums: %i(negative positive not_done)
     attribute :recorded_on, Date
 
     validates :recorded_on, timeliness: { type: :date, allow_blank: true }

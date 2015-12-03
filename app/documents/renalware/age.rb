@@ -1,7 +1,9 @@
+require 'document/enum'
+
 module Renalware
   class Age < NestedAttribute
     attribute :amount, Integer
-    attribute :unit, enums: %i(years months)
+    attribute :unit, Document::Enum, enums: %i(years months)
 
     validate :validate_unit
 

@@ -1,3 +1,5 @@
+require 'document/attribute_initializer'
+
 module Document
   # This concern wraps the logic for embedding document in an active record object.
   # The document fields are stored in a jsonb column. The database migration
@@ -114,18 +116,16 @@ module Document
       options = args.extract_options!
       name, type = *args
 
-      options = merge_nested_attribute_default_option(type, options)
-      super(name, type, options)
-
-      configure_enums(name, options)
-      add_nested_attribute_validation(name, type)
+      AttributeInitializer.determine_initializer(self, name, type, options)
+        .call do |name, type, options|
+          super(name, type, options)
+        end
     end
 
     # Returns a list of the Virtus attributes in the model
     def self.attributes_list
       attribute_set.entries.map(&:name)
     end
-
 
     @@methods_to_ignore = []
 
@@ -153,41 +153,6 @@ module Document
     # Don't raise exception if known missing attribute
     def method_missing(method_sym, *arguments, &block)
       super unless @@methods_to_ignore.include? method_sym
-    end
-
-    private
-
-    def self.is_nested_attribute?(type)
-      type && type.included_modules.include?(ActiveModel::Model)
-    end
-
-    def self.merge_nested_attribute_default_option(type, options)
-      return options unless is_nested_attribute?(type)
-      options.reverse_merge(default: type.public_send(:new))
-    end
-
-    def self.add_nested_attribute_validation(name, type)
-      return unless is_nested_attribute?(type)
-
-      # Add validation
-      validate "#{name}_valid".to_sym
-
-      # Validation method
-      define_method("#{name}_valid".to_sym) do
-        errors.add(name.to_sym, :invalid) if public_send(name).invalid?
-      end
-    end
-
-    def self.configure_enums(name, options)
-      enums = options[:enums]
-      return if enums.blank?
-
-      if enums == :from_localization
-        list = I18n.t(name, scope: "enumerize.#{self.model_name.i18n_key}", cascade: true).keys
-        enumerize name, in: list
-      else
-        enumerize name, in: enums
-      end
     end
   end
 end

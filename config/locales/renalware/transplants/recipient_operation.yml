@@ -112,6 +112,10 @@ en:
         other_ethnic_mixed_white_orig: "Other ethnic / mixed white orig"
         other_ethnic_other_mixed_orig: "Other ethnic / other mixed orig"
     renalware/transplants/recipient_operation_document/cadaveric_donor:
+      cadaveric_donor_type:
+        heart_beating: Heart Beating
+        non_heart_beating: Non-Heart Beating
+        domino: Domino
       ukt_cause_of_death:
         acute_blood_loss: "Acute blood loss/hypovolaemia"
         alcohol_poisoning: "Alcohol poisoning"
