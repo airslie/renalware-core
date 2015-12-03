@@ -1,7 +1,7 @@
-require 'document/attribute_initializer/base'
-require 'document/attribute_initializer/simple'
-require 'document/attribute_initializer/active_model'
-require 'document/attribute_initializer/enum'
+require "document/attribute_initializer/base"
+require "document/attribute_initializer/simple"
+require "document/attribute_initializer/active_model"
+require "document/attribute_initializer/enum"
 
 module Document
   module AttributeInitializer

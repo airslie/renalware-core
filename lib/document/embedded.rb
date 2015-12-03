@@ -1,4 +1,4 @@
-require 'document/attribute_initializer'
+require "document/attribute_initializer"
 
 module Document
   # This concern wraps the logic for embedding document in an active record object.

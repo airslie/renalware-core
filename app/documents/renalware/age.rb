@@ -1,4 +1,4 @@
-require 'document/enum'
+require "document/enum"
 
 module Renalware
   class Age < NestedAttribute

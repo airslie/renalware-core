@@ -1,5 +1,5 @@
 require "document/embedded"
-require 'document/enum'
+require "document/enum"
 
 module Renalware
   module Transplants

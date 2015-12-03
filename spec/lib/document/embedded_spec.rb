@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 require "document/enum"
 
 module Document
@@ -13,7 +13,7 @@ module Document
       end
     end
 
-    describe '.attribute' do
+    describe ".attribute" do
       context "with Enum type" do
         context "with given enums" do
           it "gets the enum values from the option :enums" do
