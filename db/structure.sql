@@ -1482,6 +1482,39 @@ ALTER SEQUENCE transplants_donor_workups_id_seq OWNED BY transplants_donor_worku
 
 
 --
+-- Name: transplants_recipient_followups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE transplants_recipient_followups (
+    id integer NOT NULL,
+    operation_id integer,
+    notes text,
+    document jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: transplants_recipient_followups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE transplants_recipient_followups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transplants_recipient_followups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE transplants_recipient_followups_id_seq OWNED BY transplants_recipient_followups.id;
+
+
+--
 -- Name: transplants_recipient_operation_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2157,6 +2190,13 @@ ALTER TABLE ONLY transplants_donor_workups ALTER COLUMN id SET DEFAULT nextval('
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY transplants_recipient_followups ALTER COLUMN id SET DEFAULT nextval('transplants_recipient_followups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY transplants_recipient_operation_versions ALTER COLUMN id SET DEFAULT nextval('transplants_recipient_operation_versions_id_seq'::regclass);
 
 
@@ -2543,6 +2583,14 @@ ALTER TABLE ONLY transplants_donor_workups
 
 
 --
+-- Name: transplants_recipient_followups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY transplants_recipient_followups
+    ADD CONSTRAINT transplants_recipient_followups_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: transplants_recipient_operation_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2845,6 +2893,20 @@ CREATE INDEX index_transplants_donor_workups_on_document ON transplants_donor_wo
 --
 
 CREATE INDEX index_transplants_donor_workups_on_patient_id ON transplants_donor_workups USING btree (patient_id);
+
+
+--
+-- Name: index_transplants_recipient_followups_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplants_recipient_followups_on_document ON transplants_recipient_followups USING gin (document);
+
+
+--
+-- Name: index_transplants_recipient_followups_on_operation_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplants_recipient_followups_on_operation_id ON transplants_recipient_followups USING btree (operation_id);
 
 
 --
@@ -3231,4 +3293,6 @@ INSERT INTO schema_migrations (version) VALUES ('20151116111700');
 INSERT INTO schema_migrations (version) VALUES ('20151116170100');
 
 INSERT INTO schema_migrations (version) VALUES ('20151116170200');
+
+INSERT INTO schema_migrations (version) VALUES ('201512036170200');
 

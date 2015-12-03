@@ -1,0 +1,27 @@
+# https://github.com/plataformatec/simple_form#i18n
+
+en:
+  activemodel:
+    attributes:
+      renalware/transplants/recipient_followup_document:
+        acute_rejection_biopsy_proven: Acute rejection biopsy proven indicator
+        cardiovascular_complications: Cardiovascular complications post transplant
+        malignancy_within_first_12_months: Malignancy within first 12 months following transplant
+        malignancy_within_first_3_months: Malignancy within first 3 months following transplant
+        primary_or_reccurent_renal_disease: Primary or recurrent renal disease developed
+        primary_or_reccurent_renal_disease_diagnosed_on: Date of Primary or recurrent renal disease diagnosis
+        recipient_pregnancy: Recipient pregnancy
+        transplant_failed: Transplant failed
+        transplant_failed_on: Date of transplant failure
+        transplant_failure_cause: Cause of transplant failure
+
+  enumerize:
+    renalware/transplants/recipient_followup_document:
+      cardiovascular_complications:
+        myocardial_infact: Myocardial Infarct
+        peripheral_vascular_disease: Peripheral vascular disease
+        stroke: Stroke
+        transient_ischaemic_attack: Transient ischaemic attack
+
+
+
