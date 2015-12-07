@@ -1,6 +1,14 @@
 # https://github.com/plataformatec/simple_form#i18n
 
 en:
+  activerecord:
+    attributes:
+      renalware/transplants/recipient_followup:
+        stent_removed_on: Stent Removed On
+        transplant_failed: Transplant Failed
+        transplant_failed_on: Date of Transplant Failure
+        transplant_failure_cause_code: Cause of Transplant Failure
+        transplant_failure_cause_other: Cause of Transplant Failure (other)
   activemodel:
     attributes:
       renalware/transplants/recipient_followup_document:
@@ -11,17 +19,15 @@ en:
         primary_or_reccurent_renal_disease: Primary or recurrent renal disease developed
         primary_or_reccurent_renal_disease_diagnosed_on: Date of Primary or recurrent renal disease diagnosis
         recipient_pregnancy: Recipient pregnancy
-        transplant_failed: Transplant failed
-        transplant_failed_on: Date of transplant failure
-        transplant_failure_cause: Cause of transplant failure
-
-  enumerize:
-    renalware/transplants/recipient_followup_document:
-      cardiovascular_complications:
+      renalware/transplants/recipient_followup_document/cardiovascular_complication:
         myocardial_infact: Myocardial Infarct
         peripheral_vascular_disease: Peripheral vascular disease
         stroke: Stroke
         transient_ischaemic_attack: Transient ischaemic attack
+
+  enumerize:
+    renalware/transplants/recipient_followup_document:
+      cardiovascular_complications:
 
 
 

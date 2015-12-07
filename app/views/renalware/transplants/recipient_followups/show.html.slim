@@ -1,0 +1,19 @@
+- datestamp = l @recipient_followup.operation.performed_on
+= render layout: "renalware/patients/layout",
+    locals: { title: "Transplant Recipient Operation (#{datestamp}) Followup" } do
+  - return unless @recipient_followup
+  .document-view
+    = render "renalware/shared/attributes_group",
+        legend: "Transplant Failure", destination: "transplant_failure",
+        resource: @recipient_followup,
+        attributes: [:stent_removed_on, :transplant_failed, :transplant_failed_on,
+          :transplant_failure_cause_description, :transplant_failure_cause_other]
+
+    = render "renalware/shared/documents/attributes_group",
+        group: @recipient_followup.document.cardiovascular_complication,
+        legend: "Cardiovascular Complication", destination: "cardiovascular_complication"
+
+    = render "renalware/shared/attributes_group",
+        legend: "Admin", destination: "admin",
+        resource: @recipient_followup,
+        attributes: [:notes]

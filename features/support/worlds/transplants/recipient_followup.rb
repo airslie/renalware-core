@@ -9,6 +9,8 @@ module World
 
       def valid_recipient_followup_attributes
         {
+          stent_removed_on: Date.today,
+          transplant_failed: false
         }
       end
 
@@ -60,32 +62,30 @@ module World
     module Web
       include Domain
 
-      def create_recipient_operation(user:, operation:, performed_on:)
+      def create_recipient_followup(operation:, user:)
         login_as user
-        visit operation_transplants_recipient_dashboard_path(operation)
-        click_on "Enter operation details"
+        visit patient_transplants_recipient_dashboard_path(operation.patient)
+        within_fieldset "Recipient Operations" do
+          click_on "Enter details"
+        end
 
-        select "Kidney only", from: "Operation Type"
-        fill_in "Operation Date", with: performed_on
-        fill_in "Theatre Case Start Time", with: fake_time
-        fill_in "Donor Kidney Removed From Ice At", with: fake_time
-        fill_in "Transplant Site", with: "somewhere"
-        fill_in "Kidney Perfused With Blood At", with: fake_time
-        fill_in "Cold Ischaemic Time", with: fake_time
+        fill_in "Stent Removed On", with: valid_recipient_followup_attributes[:stent_removed_on]
 
         within ".top" do
           click_on "Save"
         end
       end
 
-      def update_recipient_operation(operation:, user:)
+      def update_recipient_followup(operation:, user: nil)
         login_as user
-        visit operation_transplants_recipient_dashboard_path(operation)
+        visit patient_transplants_recipient_dashboard_path(operation.patient)
         within_fieldset "Recipient Operations" do
-          click_on "Edit"
+          click_on "Update"
         end
 
-        select "Pancreas only", from: "Operation Type"
+        within ".transplants_recipient_followup_transplant_failed" do
+          choose "No"
+        end
 
         within ".top" do
           click_on "Save"

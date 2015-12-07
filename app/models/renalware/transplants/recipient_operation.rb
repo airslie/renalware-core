@@ -10,6 +10,8 @@ module Renalware
 
       belongs_to :patient
 
+      has_one :followup, class_name: "RecipientFollowup", foreign_key: "operation_id"
+
       scope :ordered, -> { order(performed_on: :asc) }
       scope :reversed, -> { order(performed_on: :desc) }
 

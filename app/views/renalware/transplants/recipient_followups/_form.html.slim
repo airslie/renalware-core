@@ -1,0 +1,52 @@
+ruby:
+  back_path = patient_transplants_recipient_dashboard_path(@patient)
+
+.row.top
+  .medium-6.columns
+    = f.submit "Save", class: "button"
+    span= " or "
+    = link_to "cancel", back_path
+
+.form-content
+  = f.simple_fields_for :document, f.object.document do |fd|
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Transplant Failure", name: "transplant_failure" } do
+      = f.input :stent_removed_on, as: :date_picker
+      = f.input :transplant_failed, as: :inline_radio_buttons
+      = f.input :transplant_failed_on, as: :date_picker
+      = f.input :transplant_failure_cause_code, as: :grouped_select,
+            collection: Renalware::Transplants::FailureCauseDescriptionGroup.all,
+            group_method: :ordered_descriptions,
+            group_label_method: :name,
+            value_method: :code
+      = f.input :transplant_failure_cause_other
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Complication", name: "complication" } do
+      = fd.simple_fields_for :cardiovascular_complication, fd.object.cardiovascular_complication do |fcm|
+        table
+          = render_input fcm, :myocardial_infact
+          = render_input fcm, :peripheral_vascular_disease
+          = render_input fcm, :stroke
+          = render_input fcm, :transient_ischaemic_attack
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Observations", name: "observation" } do
+      table
+        = render_input fd, :malignancy_within_first_3_months
+        = render_input fd, :malignancy_within_first_12_months
+        = render_input fd, :acute_rejection_biopsy_proven
+        = render_input fd, :primary_or_reccurent_renal_disease
+      = fd.input :primary_or_reccurent_renal_disease_diagnosed_on, as: :date_picker
+
+  = render layout: "renalware/shared/fieldset",
+      locals: { legend: "Admin", name: "admin" } do
+    = f.input :notes, as: :text, input_html: { rows: 5 }
+
+
+.row
+  .large-12.columns
+    = f.submit 'Save', class: 'button'
+    span= " or "
+    = link_to 'cancel', back_path

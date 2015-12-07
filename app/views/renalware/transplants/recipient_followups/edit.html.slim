@@ -1,0 +1,7 @@
+= render layout: "renalware/patients/layout",
+    locals: { title: "Transplant Recipient Operation Followup" } do
+  .document
+    = simple_form_for @recipient_followup,
+        url: patient_transplants_recipient_operation_followup_path(@patient, @recipient_followup.operation),
+        wrapper: "horizontal_form" do |f|
+      = render 'form', f: f
