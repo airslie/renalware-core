@@ -16,7 +16,7 @@ en:
     attributes:
       renalware/transplants/recipient_operation_document/kidney:
         age: Age
-        asyst: Asyst
+        asyst: Asystolic
         side: Side
         weight: Weight
       renalware/transplants/recipient_operation_document/recipient:

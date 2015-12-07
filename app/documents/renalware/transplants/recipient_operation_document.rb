@@ -6,7 +6,7 @@ module Renalware
 
       class Kidney < Document::Embedded
         attribute :side, enums: %i(left right both)
-        attribute :asyst
+        attribute :asystolic, enums: %i(yes no)
         attribute :age, Age
         attribute :weight, Float
 
