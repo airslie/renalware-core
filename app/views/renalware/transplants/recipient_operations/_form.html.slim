@@ -17,6 +17,7 @@ ruby:
     = f.input :operation_type, input_html: { class: "small-input" }
     = f.input :transplant_site, input_html: { class: "small-input" }
     = f.input :cold_ischaemic_time, as: :simple_time, input_html: { class: "small-input" }
+    = f.input :warm_ischaemic_time, as: :simple_time, input_html: { class: "small-input" }
     = f.input :notes, as: :text, input_html: { rows: 5 }
 
   = f.simple_fields_for :document, f.object.document do |fd|
@@ -57,7 +58,6 @@ ruby:
         = fcm.input :death_certified_at, as: :datetime_picker
         = fcm.input :ukt_cause_of_death
         = fcm.input :ukt_cause_of_death_other
-        = fcm.input :warm_ischaemic_time_in_minutes, input_html: { class: "small-input" }
 
 
     = render layout: "renalware/shared/fieldset",

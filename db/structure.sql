@@ -1530,6 +1530,7 @@ CREATE TABLE transplants_recipient_operations (
     transplant_site character varying NOT NULL,
     kidney_perfused_with_blood_at timestamp without time zone NOT NULL,
     cold_ischaemic_time time without time zone NOT NULL,
+    warm_ischaemic_time time without time zone NOT NULL,
     notes text,
     document jsonb,
     created_at timestamp without time zone NOT NULL,

@@ -12,6 +12,7 @@ en:
         performed_on: Operation Date
         theatre_case_start_time: Theatre Case Start Time
         transplant_site: Transplant Site
+        warm_ischaemic_time: Warm Ischaemic Time
   activemodel:
     attributes:
       renalware/transplants/recipient_operation_document/recipient:
@@ -42,7 +43,6 @@ en:
         death_certified_at: Date and Time of Certification of Death
         ukt_cause_of_death: UKT Donor's Cause of Death
         ukt_cause_of_death_other: UKT Donor's Cause of Death (other)
-        warm_ischaemic_time_in_minutes: Total Warm Ischaemic Time (in minutes)
       renalware/transplants/recipient_operation_document/dsa:
         notes: Notes
         results: Results
