@@ -8,7 +8,7 @@ module Renalware
         attribute :side, enums: %i(left right both)
         attribute :asystolic, enums: %i(yes no)
         attribute :age, Age
-        attribute :weight, Float
+        attribute :weight, Integer
 
         validates :weight, numericality: { allow_blank: true }
       end

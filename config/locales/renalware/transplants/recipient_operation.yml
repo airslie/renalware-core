@@ -18,7 +18,7 @@ en:
         age: Age
         asyst: Asystolic
         side: Side
-        weight: Weight
+        weight: Weight (g)
       renalware/transplants/recipient_operation_document/recipient:
         age:
         blood_group: Blood Group
