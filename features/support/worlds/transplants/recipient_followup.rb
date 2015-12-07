@@ -9,7 +9,7 @@ module World
 
       def valid_recipient_followup_attributes
         {
-          stent_removed_on: Date.today,
+          stent_removed_on: Time.zone.today,
           transplant_failed: false
         }
       end
