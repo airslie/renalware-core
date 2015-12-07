@@ -5,12 +5,6 @@ module Renalware
     class RecipientOperationDocument < Document::Embedded
 
       class Kidney < Document::Embedded
-        attribute :side, enums: %i(left right both)
-        attribute :asystolic, enums: %i(yes no)
-        attribute :age, Age
-        attribute :weight, Integer
-
-        validates :weight, numericality: { allow_blank: true }
       end
       attribute :kidney, Kidney
 
@@ -40,6 +34,11 @@ module Renalware
         attribute :blood_group, BloodGroup
         attribute :blood_group_rhesus, enums: %i(positive negative)
         attribute :organ_donor_register_checked, enums: %i(yes no)
+        attribute :kidney_side, enums: %i(left right both)
+        attribute :asystolic, enums: %i(yes no)
+        attribute :kidney_weight, Integer
+
+        validates :kidney_weight, numericality: { allow_blank: true }
 
         validates :born_on, timeliness: { type: :date, allow_blank: true }
         validates :ukt_notified_at, timeliness: { type: :datetime, allow_blank: true }

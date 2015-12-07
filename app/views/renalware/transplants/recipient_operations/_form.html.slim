@@ -22,14 +22,6 @@ ruby:
   = f.simple_fields_for :document, f.object.document do |fd|
 
     = render layout: "renalware/shared/fieldset",
-        locals: { legend: "Kidney", name: "kidney" } do
-      = fd.simple_fields_for :kidney, fd.object.kidney do |fcm|
-        = fcm.input :side, input_html: { class: "small-input" }
-        = fcm.input :asystolic, as: :inline_radio_buttons
-        = render_input fcm, :age
-        = fcm.input :weight, input_html: { class: "small-input" }
-
-    = render layout: "renalware/shared/fieldset",
         locals: { legend: "Recipient", name: "recipient" } do
       = fd.simple_fields_for :recipient, fd.object.recipient do |fcm|
         = fcm.input :operation_number, input_html: { class: "small-input" }
@@ -54,6 +46,9 @@ ruby:
         = render_input fcm, :blood_group
         = fcm.input :blood_group_rhesus, input_html: { class: "small-input" }
         = fcm.input :organ_donor_register_checked, as: :inline_radio_buttons
+        = fcm.input :kidney_side, input_html: { class: "small-input" }
+        = fcm.input :asystolic, as: :inline_radio_buttons
+        = fcm.input :kidney_weight, input_html: { class: "small-input" }
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Cadaveric Donor", name: "cadaveric_donor" } do

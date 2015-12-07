@@ -14,11 +14,6 @@ en:
         transplant_site: Transplant Site
   activemodel:
     attributes:
-      renalware/transplants/recipient_operation_document/kidney:
-        age: Age
-        asyst: Asystolic
-        side: Side
-        weight: Weight (g)
       renalware/transplants/recipient_operation_document/recipient:
         age:
         blood_group: Blood Group
@@ -27,6 +22,7 @@ en:
         operation_number: Transplant Operation No
       renalware/transplants/recipient_operation_document/donor:
         age: Age
+        asystolic: Asystolic
         blood_group: Blood Group
         blood_group_rhesus: Blood Group Rhesus
         born_on: Birthdate
@@ -35,6 +31,8 @@ en:
         gender: Gender
         hla: HLA
         hla_mismatch: HLA Mismatch
+        kidney_side: Kidney Side
+        kidney_weight: Kidney Weight (g)
         organ_donor_register_checked: Organ Donor Register Checked
         type: Donor Type
         ukt_donor_number: UKT Donor Number
