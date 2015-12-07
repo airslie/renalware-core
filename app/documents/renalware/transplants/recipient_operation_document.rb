@@ -59,23 +59,23 @@ module Renalware
       end
       attribute :cadaveric_donor, CadavericDonor
 
-      class DSA < Document::Embedded
+      class DonorSpecificAntibodies < Document::Embedded
         attribute :tested_on, Date
         attribute :results
         attribute :notes
 
         validates :tested_on, timeliness: { type: :date, allow_blank: true }
       end
-      attribute :dsa, DSA
+      attribute :donor_specific_antibodies, DonorSpecificAntibodies
 
-      class BKV < Document::Embedded
+      class BKVirus < Document::Embedded
         attribute :tested_on, Date
         attribute :results
         attribute :notes
 
         validates :tested_on, timeliness: { type: :date, allow_blank: true }
       end
-      attribute :bkv, BKV
+      attribute :bk_virus, BKVirus
 
       class Outcome < Document::Embedded
         attribute :transplant_failed, enums: %i(yes no)

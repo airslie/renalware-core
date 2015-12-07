@@ -43,11 +43,11 @@ en:
         death_certified_at: Date and Time of Certification of Death
         ukt_cause_of_death: UKT Donor's Cause of Death
         ukt_cause_of_death_other: UKT Donor's Cause of Death (other)
-      renalware/transplants/recipient_operation_document/dsa:
+      renalware/transplants/recipient_operation_document/donor_specific_antibodies:
         notes: Notes
         results: Results
         tested_on: Test Date
-      renalware/transplants/recipient_operation_document/bkv:
+      renalware/transplants/recipient_operation_document/bk_virus:
         notes: Notes
         results: Results
         tested_on: Test Date
