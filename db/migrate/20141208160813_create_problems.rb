@@ -1,7 +1,7 @@
 class CreateProblems < ActiveRecord::Migration
   def change
     create_table :problems do |t|
-      t.integer :patient_id, null: false
+      t.references :patient, null: false, foreign_key: true
       t.string :description, null: false
       t.date :date
       t.datetime :deleted_at
