@@ -23,7 +23,7 @@ module Renalware
 
     describe "GET #new" do
       it "renders the new template" do
-        get :new, patient_id: @patient.id
+        get :new, patient_id: @patient
         expect(response).to render_template("new")
       end
     end
@@ -32,7 +32,7 @@ module Renalware
       context "with valid attributes" do
         it "creates a new CAPD Regime" do
           expect { post :create,
-            patient_id: @patient.id,
+            patient_id: @patient,
             pd_regime: {
               type: "Renalware::CAPDRegime",
               start_date: "01/02/2015",
@@ -59,7 +59,7 @@ module Renalware
         it "creates a new CAPD Regime" do
           expect {
             post :create,
-            patient_id: @patient.id,
+            patient_id: @patient,
             pd_regime: { type: "Renalware::CAPDRegime",
               start_date: nil,
               treatment: nil
@@ -74,7 +74,7 @@ module Renalware
         it "adds a bag to the unsaved CAPD Regime" do
           expect {
             post :create,
-            patient_id: @patient.id,
+            patient_id: @patient,
             actions: { add_bag: "Add Bag" },
             pd_regime: { type: "Renalware::CAPDRegime",
               start_date: Time.zone.today,
@@ -88,7 +88,7 @@ module Renalware
       context "remove bag" do
         it "removes a bag from the unsaved CAPD Regime" do
           post :create,
-          patient_id: @patient.id,
+          patient_id: @patient,
           actions: { remove: { "0" => "Remove" } },
           pd_regime: { type: "Renalware::CAPDRegime",
             start_date: Time.zone.today,
@@ -107,7 +107,7 @@ module Renalware
 
     describe "GET show" do
       it "responds with success" do
-        get :show, id: @capd_regime.id, patient_id: @patient.id
+        get :show, id: @capd_regime.id, patient_id: @patient
         expect(response).to have_http_status(:success)
       end
     end
@@ -116,7 +116,7 @@ module Renalware
       it "responds with success" do
         get :edit,
         id: @capd_regime.id,
-        patient_id: @patient.id
+        patient_id: @patient
         expect(response).to have_http_status(:success)
       end
     end
@@ -126,7 +126,7 @@ module Renalware
         it "updates a CAPD Regime" do
           put :update,
           id: @capd_regime.id,
-          patient_id: @patient.id,
+          patient_id: @patient,
           pd_regime: { type: "Renalware::CAPDRegime",
             start_date: "15/02/2015",
             treatment: "CAPD 5 exchanges per day"
@@ -140,7 +140,7 @@ module Renalware
         it "update a CAPD Regime" do
           put :update,
           id: @capd_regime.id,
-          patient_id: @patient.id,
+          patient_id: @patient,
           pd_regime: { type: "Renalware::CAPDRegime",
             start_date: nil,
             treatment: nil
@@ -155,7 +155,7 @@ module Renalware
           expect {
             put :update,
             id: @capd_regime.id,
-            patient_id: @patient.id,
+            patient_id: @patient,
             actions: { add_bag: "Add Bag" },
             pd_regime: { type: "Renalware::CAPDRegime",
               start_date: Time.zone.today,
@@ -176,7 +176,7 @@ module Renalware
         it "removes a bag from the unsaved CAPD Regime" do
           put :update,
             id: @capd_regime.id,
-            patient_id: @patient.id,
+            patient_id: @patient,
             actions: { remove: { "0" => "Remove" } },
             pd_regime: { type: "Renalware::CAPDRegime",
               start_date: Time.zone.today,
