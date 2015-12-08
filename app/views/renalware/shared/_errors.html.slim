@@ -1,6 +1,7 @@
 - if model.errors.any?
-  .row.large-12.columns
-    ul.error-messages
-      - model.errors.full_messages.each do |msg|
-        li
-          = msg
+  .row
+    .large-12.columns
+      ul.error-messages
+        - model.errors.full_messages.each do |msg|
+          li
+            = msg

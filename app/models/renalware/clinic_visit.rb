@@ -6,12 +6,8 @@ module Renalware
     belongs_to :clinic
     has_many :clinic_letters
 
-    validates_presence_of :clinic
     validates_presence_of :date
-    validates_presence_of :height
-    validates_presence_of :weight
-    validates_presence_of :systolic_bp
-    validates_presence_of :diastolic_bp
+    validates_presence_of :clinic
 
     validates :date, timeliness: { type: :date }
 
