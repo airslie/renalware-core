@@ -15,7 +15,8 @@ module World
           operation_type: "kidney",
           transplant_site: "somewhere",
           kidney_perfused_with_blood_at: fake_date_time,
-          cold_ischaemic_time: fake_time
+          cold_ischaemic_time: fake_time,
+          warm_ischaemic_time: fake_time
         }
       end
 
