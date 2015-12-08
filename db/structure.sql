@@ -375,7 +375,7 @@ ALTER SEQUENCE episode_types_id_seq OWNED BY episode_types.id;
 
 CREATE TABLE esrf (
     id integer NOT NULL,
-    patient_id integer,
+    patient_id integer NOT NULL,
     diagnosed_on date NOT NULL,
     prd_description_id integer,
     created_at timestamp without time zone,
@@ -506,7 +506,7 @@ ALTER SEQUENCE events_id_seq OWNED BY events.id;
 
 CREATE TABLE exit_site_infections (
     id integer NOT NULL,
-    patient_id integer,
+    patient_id integer NOT NULL,
     diagnosis_date date NOT NULL,
     treatment text,
     outcome text,
@@ -573,7 +573,7 @@ ALTER SEQUENCE fluid_descriptions_id_seq OWNED BY fluid_descriptions.id;
 
 CREATE TABLE infection_organisms (
     id integer NOT NULL,
-    organism_code_id integer,
+    organism_code_id integer NOT NULL,
     sensitivity text,
     infectable_id integer,
     infectable_type character varying,
@@ -982,7 +982,7 @@ ALTER SEQUENCE patients_id_seq OWNED BY patients.id;
 
 CREATE TABLE pd_regime_bags (
     id integer NOT NULL,
-    pd_regime_id integer,
+    pd_regime_id integer NOT NULL,
     bag_type_id integer NOT NULL,
     volume integer NOT NULL,
     per_week integer,
@@ -1023,7 +1023,7 @@ ALTER SEQUENCE pd_regime_bags_id_seq OWNED BY pd_regime_bags.id;
 
 CREATE TABLE pd_regimes (
     id integer NOT NULL,
-    patient_id integer,
+    patient_id integer NOT NULL,
     start_date date NOT NULL,
     end_date date,
     treatment character varying NOT NULL,
@@ -1070,7 +1070,7 @@ ALTER SEQUENCE pd_regimes_id_seq OWNED BY pd_regimes.id;
 
 CREATE TABLE peritonitis_episodes (
     id integer NOT NULL,
-    patient_id integer,
+    patient_id integer NOT NULL,
     diagnosis_date date NOT NULL,
     treatment_start_date date,
     treatment_end_date date,
@@ -1218,8 +1218,8 @@ ALTER SEQUENCE problem_versions_id_seq OWNED BY problem_versions.id;
 
 CREATE TABLE problems (
     id integer NOT NULL,
-    patient_id integer,
-    description character varying,
+    patient_id integer NOT NULL,
+    description character varying NOT NULL,
     date date,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone,
@@ -2786,6 +2786,20 @@ CREATE INDEX index_medications_on_treatable_type_and_treatable_id ON medications
 
 
 --
+-- Name: index_modalities_on_description_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_modalities_on_description_id ON modalities USING btree (description_id);
+
+
+--
+-- Name: index_modalities_on_reason_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_modalities_on_reason_id ON modalities USING btree (reason_id);
+
+
+--
 -- Name: index_patients_on_doctor_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2996,6 +3010,14 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
+-- Name: fk_rails_09038afd60; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY esrf
+    ADD CONSTRAINT fk_rails_09038afd60 FOREIGN KEY (prd_description_id) REFERENCES prd_descriptions(id);
+
+
+--
 -- Name: fk_rails_15ecb734e1; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3004,11 +3026,75 @@ ALTER TABLE ONLY transplants_donor_workups
 
 
 --
+-- Name: fk_rails_19e44d1a17; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY exit_site_infections
+    ADD CONSTRAINT fk_rails_19e44d1a17 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_1b2a92c9db; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY medications
+    ADD CONSTRAINT fk_rails_1b2a92c9db FOREIGN KEY (medication_route_id) REFERENCES medication_routes(id);
+
+
+--
+-- Name: fk_rails_3bafe36805; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY drug_types_drugs
+    ADD CONSTRAINT fk_rails_3bafe36805 FOREIGN KEY (drug_type_id) REFERENCES drug_types(id);
+
+
+--
+-- Name: fk_rails_479ad00a52; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY problems
+    ADD CONSTRAINT fk_rails_479ad00a52 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_5b0a83b134; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY peritonitis_episodes
+    ADD CONSTRAINT fk_rails_5b0a83b134 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_5b44e541da; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patients
+    ADD CONSTRAINT fk_rails_5b44e541da FOREIGN KEY (ethnicity_id) REFERENCES ethnicities(id);
+
+
+--
 -- Name: fk_rails_6de0aa89c3; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplants_recipient_operations
     ADD CONSTRAINT fk_rails_6de0aa89c3 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_7417eaaf12; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY peritonitis_episodes
+    ADD CONSTRAINT fk_rails_7417eaaf12 FOREIGN KEY (fluid_description_id) REFERENCES fluid_descriptions(id);
+
+
+--
+-- Name: fk_rails_75f14fef31; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY events
+    ADD CONSTRAINT fk_rails_75f14fef31 FOREIGN KEY (event_type_id) REFERENCES event_types(id);
 
 
 --
@@ -3028,6 +3114,30 @@ ALTER TABLE ONLY letters
 
 
 --
+-- Name: fk_rails_7fc38a9bf8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY esrf
+    ADD CONSTRAINT fk_rails_7fc38a9bf8 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_827f19d76a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY medications
+    ADD CONSTRAINT fk_rails_827f19d76a FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_835a74cb28; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_regime_bags
+    ADD CONSTRAINT fk_rails_835a74cb28 FOREIGN KEY (pd_regime_id) REFERENCES pd_regimes(id);
+
+
+--
 -- Name: fk_rails_8d07edb903; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3041,6 +3151,22 @@ ALTER TABLE ONLY transplants_donations
 
 ALTER TABLE ONLY transplants_registration_statuses
     ADD CONSTRAINT fk_rails_9646f7f1b0 FOREIGN KEY (description_id) REFERENCES transplants_registration_status_descriptions(id);
+
+
+--
+-- Name: fk_rails_a70920e237; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_regimes
+    ADD CONSTRAINT fk_rails_a70920e237 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_abf7d47e4f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY infection_organisms
+    ADD CONSTRAINT fk_rails_abf7d47e4f FOREIGN KEY (organism_code_id) REFERENCES organism_codes(id);
 
 
 --
@@ -3068,11 +3194,51 @@ ALTER TABLE ONLY letters
 
 
 --
+-- Name: fk_rails_dd3ffca9b8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY practices
+    ADD CONSTRAINT fk_rails_dd3ffca9b8 FOREIGN KEY (address_id) REFERENCES addresses(id);
+
+
+--
+-- Name: fk_rails_de0d26811a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_regime_bags
+    ADD CONSTRAINT fk_rails_de0d26811a FOREIGN KEY (bag_type_id) REFERENCES bag_types(id);
+
+
+--
+-- Name: fk_rails_e1899a68af; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY events
+    ADD CONSTRAINT fk_rails_e1899a68af FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_e62bb4757f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY modalities
+    ADD CONSTRAINT fk_rails_e62bb4757f FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: fk_rails_e6d1b83a79; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letters
     ADD CONSTRAINT fk_rails_e6d1b83a79 FOREIGN KEY (recipient_address_id) REFERENCES addresses(id);
+
+
+--
+-- Name: fk_rails_e6f46cbf1d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY modalities
+    ADD CONSTRAINT fk_rails_e6f46cbf1d FOREIGN KEY (description_id) REFERENCES modality_descriptions(id);
 
 
 --
@@ -3092,22 +3258,48 @@ ALTER TABLE ONLY transplants_recipient_workups
 
 
 --
+-- Name: fk_rails_f8ed99dfda; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY drug_types_drugs
+    ADD CONSTRAINT fk_rails_f8ed99dfda FOREIGN KEY (drug_id) REFERENCES drugs(id);
+
+
+--
+-- Name: fk_rails_fdd6deae10; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY peritonitis_episodes
+    ADD CONSTRAINT fk_rails_fdd6deae10 FOREIGN KEY (episode_type_id) REFERENCES episode_types(id);
+
+
+--
+-- Name: fk_rails_fe4a4d8319; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY modalities
+    ADD CONSTRAINT fk_rails_fe4a4d8319 FOREIGN KEY (reason_id) REFERENCES modality_reasons(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO "$user",public;
 
+INSERT INTO schema_migrations (version) VALUES ('20141004150240');
+
 INSERT INTO schema_migrations (version) VALUES ('20141020170329');
 
 INSERT INTO schema_migrations (version) VALUES ('20141023111038');
 
+INSERT INTO schema_migrations (version) VALUES ('20141024111715');
+
 INSERT INTO schema_migrations (version) VALUES ('20141024111716');
 
-INSERT INTO schema_migrations (version) VALUES ('20141030174624');
-
-INSERT INTO schema_migrations (version) VALUES ('20141104150240');
-
 INSERT INTO schema_migrations (version) VALUES ('20141107145549');
+
+INSERT INTO schema_migrations (version) VALUES ('20141107145614');
 
 INSERT INTO schema_migrations (version) VALUES ('20141107145615');
 
@@ -3115,15 +3307,15 @@ INSERT INTO schema_migrations (version) VALUES ('20141208160813');
 
 INSERT INTO schema_migrations (version) VALUES ('20141222110119');
 
-INSERT INTO schema_migrations (version) VALUES ('20141223165855');
+INSERT INTO schema_migrations (version) VALUES ('20141223135723');
 
-INSERT INTO schema_migrations (version) VALUES ('20141229135723');
+INSERT INTO schema_migrations (version) VALUES ('20141223135724');
 
 INSERT INTO schema_migrations (version) VALUES ('20150102095659');
 
-INSERT INTO schema_migrations (version) VALUES ('20150109152145');
+INSERT INTO schema_migrations (version) VALUES ('20150109113417');
 
-INSERT INTO schema_migrations (version) VALUES ('20150112113417');
+INSERT INTO schema_migrations (version) VALUES ('20150109152145');
 
 INSERT INTO schema_migrations (version) VALUES ('20150119160039');
 
@@ -3135,23 +3327,21 @@ INSERT INTO schema_migrations (version) VALUES ('20150206115827');
 
 INSERT INTO schema_migrations (version) VALUES ('20150206174242');
 
+INSERT INTO schema_migrations (version) VALUES ('20150213103855');
+
+INSERT INTO schema_migrations (version) VALUES ('20150213103856');
+
 INSERT INTO schema_migrations (version) VALUES ('20150213103857');
 
 INSERT INTO schema_migrations (version) VALUES ('20150224140027');
 
 INSERT INTO schema_migrations (version) VALUES ('20150302171638');
 
-INSERT INTO schema_migrations (version) VALUES ('20150304173609');
-
 INSERT INTO schema_migrations (version) VALUES ('20150312112909');
 
 INSERT INTO schema_migrations (version) VALUES ('20150312113937');
 
 INSERT INTO schema_migrations (version) VALUES ('20150313124325');
-
-INSERT INTO schema_migrations (version) VALUES ('20150317095034');
-
-INSERT INTO schema_migrations (version) VALUES ('20150317151009');
 
 INSERT INTO schema_migrations (version) VALUES ('20150514113239');
 
