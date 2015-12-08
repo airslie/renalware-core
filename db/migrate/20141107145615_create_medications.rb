@@ -1,22 +1,18 @@
 class CreateMedications < ActiveRecord::Migration
-  def up
+  def change
     create_table :medications do |t|
-      t.integer :patient_id
-      t.references :medicatable, polymorphic: true, index: true
-      t.references :treatable, polymorphic: true, index: true
-      t.string :dose
-      t.integer :medication_route_id
-      t.string :frequency
+      t.references :patient,           null: false, foreign_key: true
+      t.references :medicatable,       polymorphic: true, index: true, null: false
+      t.references :treatable,         polymorphic: true, index: true
+      t.string :dose,                  null: false
+      t.references :medication_route,  null: false, foreign_key: true
+      t.string :frequency,             null: false
       t.text :notes
-      t.date :start_date
+      t.date :start_date,              null: false
       t.date :end_date
-      t.integer :provider
+      t.integer :provider,             null: false
       t.datetime :deleted_at
-      t.timestamps
+      t.timestamps null: false
     end
-  end
-
-  def down
-    drop_table :medications
   end
 end
