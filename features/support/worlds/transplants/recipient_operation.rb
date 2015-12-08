@@ -85,6 +85,7 @@ module World
         fill_in "Transplant Site", with: "somewhere"
         fill_in "Kidney Perfused With Blood At", with: fake_time
         fill_in "Cold Ischaemic Time", with: fake_time
+        fill_in "Warm Ischaemic Time", with: fake_time
 
         within ".top" do
           click_on "Save"
