@@ -15,7 +15,7 @@ FactoryGirl.define do
     born_on "01/01/1988"
     paediatric_patient_indicator "0"
     sex "M"
-    ethnicity_id 1
+    ethnicity
     died_on nil
     first_edta_code_id nil
     association :current_address, factory: :address
