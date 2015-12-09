@@ -4,7 +4,7 @@ en:
   activerecord:
     attributes:
       renalware/transplants/recipient_followup:
-        stent_removed_on: Stent Removed On
+        stent_removed_on: Stent Removal Date
         transplant_failed: Transplant Failed
         transplant_failed_on: Date of Transplant Failure
         transplant_failure_cause_code: Cause of Transplant Failure
