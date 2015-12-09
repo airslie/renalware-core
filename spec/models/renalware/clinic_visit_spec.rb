@@ -3,15 +3,11 @@ require 'rails_helper'
 module Renalware
   describe ClinicVisit, type: :model do
     it { should belong_to :patient }
+
     it { should validate_presence_of :date }
-    it { should validate_presence_of :height }
-    it { should validate_presence_of :weight }
-    it { should validate_presence_of :systolic_bp }
-    it { should validate_presence_of :diastolic_bp }
     it { should validate_presence_of :clinic }
 
     it { is_expected.to validate_timeliness_of(:date) }
-
 
     describe 'bmi' do
       subject { create(:clinic_visit, height: 1.7, weight: 82.5) }

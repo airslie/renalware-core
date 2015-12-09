@@ -1,9 +1,9 @@
 class CreateBagTypes < ActiveRecord::Migration
   def change
     create_table :bag_types do |t|
-      t.string :manufacturer
-      t.string :description
-      t.decimal :glucose_grams_per_litre, precision: 4, scale: 1
+      t.string :manufacturer, null: false
+      t.string :description,  null: false
+      t.decimal :glucose_grams_per_litre, precision: 4, scale: 1,  null: false
       t.boolean :amino_acid
       t.boolean :icodextrin
       t.boolean :low_glucose_degradation

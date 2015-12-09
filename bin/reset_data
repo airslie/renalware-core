@@ -1,6 +1,6 @@
 #!/bin/sh
 
 echo 'Resetting & seeding db'
-rake db:reset
+rake db:migrate:reset db:seed
 
 echo 'Done'

@@ -1,15 +1,29 @@
-fieldset
-  legend APD
+= field_set_tag "APD" do
   dd
-    dt Last fill:
-    dl= "#{@pd_regime.last_fill_ml} ml"
-    dt Additional manual exchange?:
-    dl= yes_no(@pd_regime.add_manual_exchange)
-    dt Has tidal?:
-    dl= yes_no(@pd_regime.tidal_indicator)
-    dt Tidal:
-    dl= "#{@pd_regime.tidal_percentage} %"
-    dt Number of cycles per APD session:
-    dl= @pd_regime.no_cycles_per_apd
-    dt Overnight PD volume on APD:
-    dl= "#{@pd_regime.overnight_pd_ml} ml"
+    /* force field set to render correctly */
+    dt
+    .row
+      .large-4.columns
+        dt Last fill:
+        dl= "#{@pd_regime.last_fill_ml} ml"
+
+      .large-4.columns
+        dt Additional manual exchange?:
+        dl= yes_no(@pd_regime.add_manual_exchange)
+
+      .large-4.columns
+        dt Has tidal?:
+        dl= yes_no(@pd_regime.tidal_indicator)
+
+    .row
+      .large-4.columns
+        dt Tidal:
+        dl= "#{@pd_regime.tidal_percentage} %"
+
+      .large-4.columns
+        dt Number of cycles per APD session:
+        dl= @pd_regime.no_cycles_per_apd
+
+      .large-4.columns
+        dt Overnight PD volume on APD:
+        dl= "#{@pd_regime.overnight_pd_ml} ml"

@@ -1,14 +1,14 @@
 class CreatePatients < ActiveRecord::Migration
   def change
     create_table :patients do |t|
-      t.string :nhs_number
+      t.string :nhs_number,       null: false
       t.string :local_patient_id
-      t.string :family_name
-      t.string :given_name
-      t.date :born_on
+      t.string :family_name,      null: false
+      t.string :given_name,       null: false
+      t.date :born_on,            null: false
       t.boolean :paediatric_patient_indicator
       t.string :sex
-      t.integer :ethnicity_id
+      t.references :ethnicity,    foreign_key: true
       t.integer :current_address_id
       t.integer :address_at_diagnosis_id
       t.string :gp_practice_code

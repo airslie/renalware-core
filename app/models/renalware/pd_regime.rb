@@ -14,6 +14,7 @@ module Renalware
 
     scope :current, -> { order('created_at DESC').limit(1) }
 
+    validates :patient, presence: true
     validates :start_date, presence: true
     validates :treatment, presence: true
 

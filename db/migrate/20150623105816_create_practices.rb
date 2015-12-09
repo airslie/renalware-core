@@ -1,10 +1,10 @@
 class CreatePractices < ActiveRecord::Migration
   def change
     create_table :practices do |t|
-      t.string :name
+      t.string :name,        null: false
       t.string :email
-      t.string :code
-      t.integer :address_id, null: false
+      t.string :code,        null: false
+      t.references :address, null: false, foreign_key: true
 
       t.timestamps null: false
     end

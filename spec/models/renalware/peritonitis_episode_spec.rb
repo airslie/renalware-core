@@ -17,6 +17,7 @@ module Renalware
     it { should accept_nested_attributes_for(:medications) }
     it { should accept_nested_attributes_for(:infection_organisms) }
 
+    it { should validate_presence_of :patient }
     it { should validate_presence_of :diagnosis_date }
 
     describe "peritonitis episode" do
