@@ -9,6 +9,7 @@ module Renalware
       extend Enumerize
 
       belongs_to :patient
+      has_one :followup, class_name: "RecipientFollowup", foreign_key: "operation_id"
 
       before_validation :compute_age
 
