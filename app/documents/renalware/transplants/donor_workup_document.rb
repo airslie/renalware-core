@@ -4,20 +4,20 @@ module Renalware
   module Transplants
     class DonorWorkupDocument < Document::Embedded
       class Comorbidities < Document::Embedded
-        attribute :angina, DatedConfirmation
-        attribute :myocardial_infarct, DatedConfirmation
-        attribute :coronary_artery_bypass_graft, DatedConfirmation
-        attribute :heart_failure, DatedConfirmation
-        attribute :smoking, DatedConfirmation
-        attribute :chronic_obstr_pulm_dis, DatedConfirmation
-        attribute :cvd_or_stroke, DatedConfirmation
-        attribute :diabetes, DatedConfirmation
-        attribute :malignancy, DatedConfirmation
-        attribute :liver_disease, DatedConfirmation
-        attribute :claudication, DatedConfirmation
-        attribute :ischaemic_neuropathic_ulcers, DatedConfirmation
-        attribute :non_coronary_angioplasty, DatedConfirmation
-        attribute :amputation_for_pvd, DatedConfirmation
+        attribute :angina, YearDatedConfirmation
+        attribute :myocardial_infarct, YearDatedConfirmation
+        attribute :coronary_artery_bypass_graft, YearDatedConfirmation
+        attribute :heart_failure, YearDatedConfirmation
+        attribute :smoking, YearDatedConfirmation
+        attribute :chronic_obstr_pulm_dis, YearDatedConfirmation
+        attribute :cvd_or_stroke, YearDatedConfirmation
+        attribute :diabetes, YearDatedConfirmation
+        attribute :malignancy, YearDatedConfirmation
+        attribute :liver_disease, YearDatedConfirmation
+        attribute :claudication, YearDatedConfirmation
+        attribute :ischaemic_neuropathic_ulcers, YearDatedConfirmation
+        attribute :non_coronary_angioplasty, YearDatedConfirmation
+        attribute :amputation_for_pvd, YearDatedConfirmation
       end
       attribute :comorbidities, Comorbidities
 

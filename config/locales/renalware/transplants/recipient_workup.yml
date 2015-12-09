@@ -86,7 +86,7 @@ en:
         document:
           comorbidities:
             angina:
-              status: For comorbidities enter date diagnosed at right if YES
+              status: For comorbidities enter year diagnosed at right if YES
             smoking:
               status: Includes former as well as current smokers
           consent:

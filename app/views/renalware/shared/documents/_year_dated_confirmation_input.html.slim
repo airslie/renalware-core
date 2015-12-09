@@ -1,0 +1,8 @@
+= f.simple_fields_for attribute, f.object.public_send(attribute) do |fd|
+  tr
+    td= fd.label :status, f.object.class.human_attribute_name(attribute)
+    td= fd.input :status, as: :inline_radio_buttons,
+        label: false, wrapper: "vertical_form"
+    td= fd.input :confirmed_on_year, label: false, wrapper: "vertical_form",
+          collection: (1900..Time.zone.today.year).to_a.reverse,
+          input_html: { class: "tiny-input" }
