@@ -138,4 +138,9 @@ module Renalware
     {organism_code_id: 33, sensitivity: "+++", infectable_id: 1, infectable_type: "Renalware::PeritonitisEpisode"},
     {organism_code_id: 4, sensitivity: "unknown", infectable_id: 1, infectable_type: "Renalware::ExitSiteInfection"}
   ])
+
+  log '--------------------Assign Live Donor modality to Jessica RABBIT-------------------'
+  patient = Patient.find_by(local_patient_id: "Z100002")
+  description = Modalities::Description.find_by(code: "livedonor")
+  patient.set_modality(description: description, started_on: 1.month.ago)
 end
