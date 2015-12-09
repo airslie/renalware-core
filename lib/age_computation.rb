@@ -1,6 +1,6 @@
 # Borrowed from https://gist.github.com/amydoesntlai/74eb9aef1ea4b535f8fe
 
-require 'date'
+require "date"
 
 DAYS_IN_MONTH  = [nil, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
@@ -34,8 +34,8 @@ def birthday_age(birth_date, current_date)
 
   # Error-handling for future date
   if years < 0
-    years, months, days = 0, 0, 0
+    years = months = days = 0
   end
 
-  {years: years, months: months, days: days}
+  { years: years, months: months, days: days }
 end
