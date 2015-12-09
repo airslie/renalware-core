@@ -366,7 +366,7 @@ end
 When(/^a patient selects an episode of peritonitis view$/) do
   visit patient_pd_summary_path(@patient_1)
 
-  find("#view-pe-2").click
+  find("tr:nth-child(2) td .view-pe").click
 end
 
 When(/^a patient selects an exit site infection to view$/) do

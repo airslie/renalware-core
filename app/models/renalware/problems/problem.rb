@@ -10,7 +10,12 @@ module Renalware
 
       belongs_to :patient
 
+      validates :patient, presence: true
       validates :description, presence: true
+
+      def self.reject_if_proc
+        Proc.new { |attrs| attrs[:description].blank? }
+      end
 
       def full_description
         description

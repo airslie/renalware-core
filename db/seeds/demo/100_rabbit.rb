@@ -30,7 +30,7 @@ module Renalware
     logcount += 1
     Modalities::Modality.find_or_create_by!(
       patient_id: rabbit.to_param,
-      description_id: row['modality_code_id'],
+      description_id: row['description'],
       reason_id: row['reason_id']) do |mod|
         mod.modal_change_type   = row['modal_change_type']
         mod.started_on          = row['started_on']
