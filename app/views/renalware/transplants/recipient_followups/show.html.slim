@@ -7,7 +7,8 @@
         legend: "Transplant Failure", destination: "transplant_failure",
         resource: @recipient_followup,
         attributes: [:stent_removed_on, :transplant_failed, :transplant_failed_on,
-          :transplant_failure_cause_description, :transplant_failure_cause_other]
+          :transplant_failure_cause_description, :transplant_failure_cause_other,
+          :transplant_failure_notes]
 
     = render "renalware/shared/documents/attributes_group",
         group: @recipient_followup.document.cardiovascular_complication,

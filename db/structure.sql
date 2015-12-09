@@ -1519,7 +1519,7 @@ ALTER SEQUENCE transplants_failure_cause_description_groups_id_seq OWNED BY tran
 CREATE TABLE transplants_failure_cause_descriptions (
     id integer NOT NULL,
     group_id integer,
-    code character varying,
+    code character varying NOT NULL,
     name character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -1558,6 +1558,7 @@ CREATE TABLE transplants_recipient_followups (
     transplant_failed_on date,
     transplant_failure_cause_code character varying,
     transplant_failure_cause_other character varying,
+    transplant_failure_notes text,
     document jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -2999,7 +3000,7 @@ CREATE INDEX index_transplants_donor_workups_on_patient_id ON transplants_donor_
 -- Name: index_transplants_failure_cause_descriptions_on_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_transplants_failure_cause_descriptions_on_code ON transplants_failure_cause_descriptions USING btree (code);
+CREATE UNIQUE INDEX index_transplants_failure_cause_descriptions_on_code ON transplants_failure_cause_descriptions USING btree (code);
 
 
 --
@@ -3169,6 +3170,14 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 ALTER TABLE ONLY transplants_donor_workups
     ADD CONSTRAINT fk_rails_15ecb734e1 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_4f79966d1c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplants_recipient_followups
+    ADD CONSTRAINT fk_rails_4f79966d1c FOREIGN KEY (transplant_failure_cause_code) REFERENCES transplants_failure_cause_descriptions(code);
 
 
 --
@@ -3401,9 +3410,9 @@ INSERT INTO schema_migrations (version) VALUES ('20151116170100');
 
 INSERT INTO schema_migrations (version) VALUES ('20151116170200');
 
-INSERT INTO schema_migrations (version) VALUES ('20151203617020');
-
 INSERT INTO schema_migrations (version) VALUES ('20151207163303');
 
 INSERT INTO schema_migrations (version) VALUES ('20151207163304');
+
+INSERT INTO schema_migrations (version) VALUES ('20151207167020');
 

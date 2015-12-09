@@ -58,6 +58,7 @@ module Renalware
           :transplant_failed_on,
           :transplant_failure_cause_code,
           :transplant_failure_cause_other,
+          :transplant_failure_notes,
           document: []
         ]
       end

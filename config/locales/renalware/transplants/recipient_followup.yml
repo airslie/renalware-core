@@ -9,6 +9,7 @@ en:
         transplant_failed_on: Date of Transplant Failure
         transplant_failure_cause_code: Cause of Transplant Failure
         transplant_failure_cause_other: Cause of Transplant Failure (other)
+        transplant_failure_notes: Transplant Failure Notes
   activemodel:
     attributes:
       renalware/transplants/recipient_followup_document:

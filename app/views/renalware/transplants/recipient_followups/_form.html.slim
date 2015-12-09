@@ -21,6 +21,7 @@ ruby:
             group_label_method: :name,
             value_method: :code
       = f.input :transplant_failure_cause_other
+      = f.input :transplant_failure_notes
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Complication", name: "complication" } do
