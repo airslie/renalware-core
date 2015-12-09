@@ -10,7 +10,7 @@ module Renalware
 
       belongs_to :patient
 
-      has_one :followup, class_name: "RecipientFollowup", foreign_key: "operation_id"
+      before_validation :compute_age
 
       scope :ordered, -> { order(performed_on: :asc) }
       scope :reversed, -> { order(performed_on: :desc) }
@@ -25,11 +25,13 @@ module Renalware
       validates :operation_type, presence: true
       validates :transplant_site, presence: true
       validates :cold_ischaemic_time, presence: true
+      validates :warm_ischaemic_time, presence: true
 
       validates :donor_kidney_removed_from_ice_at, timeliness: { type: :datetime }
       validates :kidney_perfused_with_blood_at, timeliness: { type: :datetime }
       validates :theatre_case_start_time, timeliness: { type: :time }
       validates :cold_ischaemic_time, timeliness: { type: :time }
+      validates :warm_ischaemic_time, timeliness: { type: :time }
 
       enumerize :operation_type, in: %i(kidney kidney_pancreas pancreas kidney_liver liver)
 
@@ -38,7 +40,19 @@ module Renalware
       end
 
       def cold_ischaemic_time
+        # For presentation purposes
         TimeOfDay.new(read_attribute(:cold_ischaemic_time))
+      end
+
+      def warm_ischaemic_time
+        # For presentation purposes
+        TimeOfDay.new(read_attribute(:warm_ischaemic_time))
+      end
+
+      private
+
+      def compute_age
+        document.donor.age.set_from_dates(document.donor.born_on, performed_on)
       end
     end
   end

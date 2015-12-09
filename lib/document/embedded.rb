@@ -113,21 +113,12 @@ module Document
     def self.attribute(*args)
       options = args.extract_options!
       name, type = *args
-      if type && type.included_modules.include?(ActiveModel::Model)
-        options.reverse_merge!(default: type.public_send(:new))
 
-        # Add validation
-        validate "#{name}_valid".to_sym
-
-        # Validation method
-        define_method("#{name}_valid".to_sym) do
-          errors.add(name.to_sym, :invalid) if public_send(name).invalid?
-        end
-      else
-        enums = options[:enums]
-      end
+      options = merge_nested_attribute_default_option(type, options)
       super(name, type, options)
-      enumerize name, in: enums if enums
+
+      configure_enums(name, options)
+      add_nested_attribute_validation(name, type)
     end
 
     # Returns a list of the Virtus attributes in the model
@@ -162,6 +153,41 @@ module Document
     # Don't raise exception if known missing attribute
     def method_missing(method_sym, *arguments, &block)
       super unless @@methods_to_ignore.include? method_sym
+    end
+
+    private
+
+    def self.is_nested_attribute?(type)
+      type && type.included_modules.include?(ActiveModel::Model)
+    end
+
+    def self.merge_nested_attribute_default_option(type, options)
+      return options unless is_nested_attribute?(type)
+      options.reverse_merge(default: type.public_send(:new))
+    end
+
+    def self.add_nested_attribute_validation(name, type)
+      return unless is_nested_attribute?(type)
+
+      # Add validation
+      validate "#{name}_valid".to_sym
+
+      # Validation method
+      define_method("#{name}_valid".to_sym) do
+        errors.add(name.to_sym, :invalid) if public_send(name).invalid?
+      end
+    end
+
+    def self.configure_enums(name, options)
+      enums = options[:enums]
+      return if enums.blank?
+
+      if enums == :from_localization
+        list = I18n.t(name, scope: "enumerize.#{self.model_name.i18n_key}", cascade: true).keys
+        enumerize name, in: list
+      else
+        enumerize name, in: enums
+      end
     end
   end
 end

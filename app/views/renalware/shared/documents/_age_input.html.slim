@@ -1,0 +1,11 @@
+= f.simple_fields_for attribute, f.object.public_send(attribute) do |fd|
+  .row
+    .small-3.columns
+      = fd.label :age, f.object.class.human_attribute_name(attribute), class: 'right inline'
+    .small-1.columns
+      = fd.input :amount, as: :integer,
+          label: false, wrapper: "vertical_form"
+    .small-8.columns
+      = fd.input :unit, include_blank: false,
+          input_html: { class: "tiny-input" },
+          label: false, wrapper: "vertical_form"
