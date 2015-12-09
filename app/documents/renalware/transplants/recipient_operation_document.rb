@@ -4,10 +4,6 @@ module Renalware
   module Transplants
     class RecipientOperationDocument < Document::Embedded
 
-      class Kidney < Document::Embedded
-      end
-      attribute :kidney, Kidney
-
       class Recipient < Document::Embedded
         attribute :operation_number, Integer
         attribute :age, Age
