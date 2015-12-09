@@ -1,0 +1,14 @@
+= simple_form_for infection_organism, url: url, html: { class: local_assigns[:form_class] },
+    wrapper: :horizontal_form, remote: true do |f|
+
+  = f.input :organism_code_id, collection: Renalware::OrganismCode.all,
+    value_method: :id, label_method: :name, label: "Organism",
+    prompt: "Please select organism found for this infection", class: "organism-select"
+
+  = f.input :sensitivity, as: :text, input_html: { cols: 50, rows: 3 }
+
+  .row
+    .large-offset-3.large-7.columns
+      = f.button :submit, "Save", class: :tiny
+      span= " or "
+      = link_to "cancel", infection_organisms_path(infectable), remote: true

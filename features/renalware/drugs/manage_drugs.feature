@@ -2,9 +2,6 @@ Feature: An admin manages the drugs list
 
   Background:
     Given that I'm logged in
-      And there are drugs in the database
-      And there are drug types in the database
-      And existing drugs have been assigned drug types
 
     Scenario: An admin adds a new drug to the drugs list
       Given that I'm on the add a new drug page

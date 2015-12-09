@@ -1,0 +1,3 @@
+$("#infection-organisms").html("<%= escape_javascript(
+  render "table", infectable: @infectable, infection_organisms: @infection_organisms
+) %>");
