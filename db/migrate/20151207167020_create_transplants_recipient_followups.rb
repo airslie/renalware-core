@@ -19,6 +19,8 @@ class CreateTransplantsRecipientFollowups < ActiveRecord::Migration
     add_index :transplants_recipient_followups, :operation_id
     add_index :transplants_recipient_followups, :document, using: :gin
 
+    add_foreign_key :transplants_recipient_followups, :transplants_recipient_operations,
+      column: :operation_id
     add_foreign_key :transplants_recipient_followups, :transplants_failure_cause_descriptions,
       column: :transplant_failure_cause_code, primary_key: :code
   end

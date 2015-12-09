@@ -3173,6 +3173,14 @@ ALTER TABLE ONLY transplants_donor_workups
 
 
 --
+-- Name: fk_rails_1882d19c4e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplants_recipient_followups
+    ADD CONSTRAINT fk_rails_1882d19c4e FOREIGN KEY (operation_id) REFERENCES transplants_recipient_operations(id);
+
+
+--
 -- Name: fk_rails_4f79966d1c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 

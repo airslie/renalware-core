@@ -69,7 +69,7 @@ module World
           click_on "Enter details"
         end
 
-        fill_in "Stent Removed On", with: valid_recipient_followup_attributes[:stent_removed_on]
+        fill_in "Stent Removal Date", with: valid_recipient_followup_attributes[:stent_removed_on]
 
         within ".top" do
           click_on "Save"
