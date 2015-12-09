@@ -6,24 +6,28 @@ module Renalware
     let(:birthdate) { Date.parse("2013/01/01") }
     let(:now) { Time.zone.today }
 
-    subject { Age.new(amount: 11, unit: :years) }
+    subject { Age.new }
 
     describe "#set_from_dates" do
       context "birthdate is blank" do
         let(:birthdate) { nil }
 
+        subject { Age.new(amount: 11, unit: :years) }
+
         it "does not modify the age" do
           subject.set_from_dates(birthdate, now)
-          expect(subject.amount).to be_nil
+          expect(subject.amount).to eq(11)
         end
       end
 
       context "datestamp is blank" do
         let(:now) { nil }
 
+        subject { Age.new(amount: 11, unit: :years) }
+
         it "does not modify the age" do
           subject.set_from_dates(birthdate, now)
-          expect(subject.amount).to be_nil
+          expect(subject.amount).to eq(11)
         end
       end
 

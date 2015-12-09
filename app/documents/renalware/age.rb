@@ -21,9 +21,6 @@ module Renalware
           self.amount = age[:years] * 12 + age[:months]
           self.unit = :months
         end
-      else
-        self.amount = nil
-        self.unit = nil
       end
     end
 
