@@ -152,3 +152,10 @@ en:
         trauma_rta_pushbike: "Trauma RTA - pushbike"
         trauma_rta_unknown: "Trauma RTA - unknown type"
         unknown: "Unknown"
+
+  simple_form:
+    hints:
+      transplants_recipient_operation:
+        document:
+          donor:
+            born_on: Age will be computed if you provide a date

@@ -10,6 +10,8 @@ module Renalware
 
       belongs_to :patient
 
+      before_validation :compute_age
+
       scope :ordered, -> { order(performed_on: :asc) }
       scope :reversed, -> { order(performed_on: :desc) }
 
@@ -45,6 +47,12 @@ module Renalware
       def warm_ischaemic_time
         # For presentation purposes
         TimeOfDay.new(read_attribute(:warm_ischaemic_time))
+      end
+
+      private
+
+      def compute_age
+        document.donor.age.set_from_dates(document.donor.born_on, performed_on)
       end
     end
   end
