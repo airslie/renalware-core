@@ -1,5 +1,6 @@
 require_dependency "renalware/transplants"
 require "document/base"
+require "age_computation"
 
 module Renalware
   module Transplants
@@ -10,7 +11,7 @@ module Renalware
 
       belongs_to :patient
 
-      before_validation :compute_age
+      before_validation :compute_donor_age
 
       scope :ordered, -> { order(performed_on: :asc) }
       scope :reversed, -> { order(performed_on: :desc) }
@@ -49,9 +50,15 @@ module Renalware
         TimeOfDay.new(read_attribute(:warm_ischaemic_time))
       end
 
+      def recipient_age_at_operation
+        @recipient_age_at_operation ||= Age.new.tap do |age|
+          age.set_from_dates(patient.born_on, performed_on)
+        end
+      end
+
       private
 
-      def compute_age
+      def compute_donor_age
         document.donor.age.set_from_dates(document.donor.born_on, performed_on)
       end
     end
