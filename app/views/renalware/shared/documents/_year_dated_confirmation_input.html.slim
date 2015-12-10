@@ -4,5 +4,5 @@
     td= fd.input :status, as: :inline_radio_buttons,
         label: false, wrapper: "vertical_form"
     td= fd.input :confirmed_on_year, label: false, wrapper: "vertical_form",
-          collection: (1900..Time.zone.today.year).to_a.reverse,
+          collection: Renalware::YearDatedConfirmation.valid_years.reverse,
           input_html: { class: "tiny-input" }
