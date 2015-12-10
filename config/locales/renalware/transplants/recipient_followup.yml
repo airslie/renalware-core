@@ -18,7 +18,6 @@ en:
         malignancy_within_first_12_months: Malignancy within first 12 months following transplant
         malignancy_within_first_3_months: Malignancy within first 3 months following transplant
         primary_or_reccurent_renal_disease: Primary or recurrent renal disease developed
-        primary_or_reccurent_renal_disease_diagnosed_on: Date of Primary or recurrent renal disease diagnosis
         recipient_pregnancy: Recipient pregnancy
       renalware/transplants/recipient_followup_document/cardiovascular_complication:
         myocardial_infact: Myocardial Infarct

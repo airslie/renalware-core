@@ -16,10 +16,6 @@ module Renalware
       attribute :recipient_pregnancy, DatedConfirmation
       attribute :acute_rejection_biopsy_proven, DatedConfirmation
       attribute :primary_or_reccurent_renal_disease, DatedConfirmation
-      attribute :primary_or_reccurent_renal_disease_diagnosed_on, Date
-
-      validates :primary_or_reccurent_renal_disease_diagnosed_on,
-        timeliness: { type: :date, allow_blank: true }
     end
   end
 end

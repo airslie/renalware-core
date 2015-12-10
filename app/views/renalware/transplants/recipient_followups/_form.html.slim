@@ -40,7 +40,6 @@ ruby:
         = render_input fd, :recipient_pregnancy
         = render_input fd, :acute_rejection_biopsy_proven
         = render_input fd, :primary_or_reccurent_renal_disease
-      = fd.input :primary_or_reccurent_renal_disease_diagnosed_on, as: :date_picker
 
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Admin", name: "admin" } do
