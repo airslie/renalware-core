@@ -24,7 +24,7 @@ ruby:
       = f.input :transplant_failure_notes, input_html: { rows: 5 }
 
     = render layout: "renalware/shared/fieldset",
-        locals: { legend: "Complication", name: "complication" } do
+        locals: { legend: "Cardiovascular Complication", name: "cardiovascular_complication" } do
       = fd.simple_fields_for :cardiovascular_complication, fd.object.cardiovascular_complication do |fcm|
         table
           = render_input fcm, :myocardial_infact

@@ -15,6 +15,15 @@
         legend: "Cardiovascular Complication", destination: "cardiovascular_complication"
 
     = render "renalware/shared/attributes_group",
+        legend: "Observations", destination: "observations",
+        resource: @recipient_followup.document,
+        attributes: [:malignancy_within_first_3_months,
+          :malignancy_within_first_12_months, :acute_rejection_biopsy_proven,
+          :recipient_pregnancy,
+          :primary_or_reccurent_renal_disease,
+          :primary_or_reccurent_renal_disease_diagnosed_on]
+
+    = render "renalware/shared/attributes_group",
         legend: "Admin", destination: "admin",
         resource: @recipient_followup,
         attributes: [:notes]
