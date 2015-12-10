@@ -4,7 +4,7 @@ module Renalware
     attribute :confirmed_on_year, Integer
 
     validates :confirmed_on_year, numericality: { allow_blank: true, only_integer: true }
-    validates :confirmed_on_year, presence: true, if: "status.try(:yes?)"
+    validates :confirmed_on_year, presence: true, if: ->(o) { o.status.try(:yes?) }
 
     def to_s
       datestamp = confirmed_on_year.present? ? "(#{confirmed_on_year})" : nil

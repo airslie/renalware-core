@@ -68,8 +68,8 @@ module Renalware
         attribute :full_name
 
         validates :consented_on, timeliness: { type: :date, allow_blank: true }
-        validates :consented_on, presence: true, if: "value.present?"
-        validates :full_name, presence: true, if: "value.present?"
+        validates :consented_on, presence: true, if: ->(o) { o.value.present? }
+        validates :full_name, presence: true, if: ->(o) { o.value.present? }
       end
       attribute :consent, Consent
 
@@ -79,8 +79,8 @@ module Renalware
         attribute :full_name
 
         validates :consented_on, timeliness: { type: :date, allow_blank: true }
-        validates :consented_on, presence: true, if: "value.present?"
-        validates :full_name, presence: true, if: "value.present?"
+        validates :consented_on, presence: true, if: ->(o) { o.value.present? }
+        validates :full_name, presence: true, if: ->(o) { o.value.present? }
       end
       attribute :marginal_consent, MarginalConsent
 

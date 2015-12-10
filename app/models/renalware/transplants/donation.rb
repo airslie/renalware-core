@@ -32,7 +32,7 @@ module Renalware
       validates :state, presence: true
       validates :relationship_with_recipient, presence: true
       validates :relationship_with_recipient_other, presence: true,
-        if: "relationship_with_recipient.try(:other_living_non_related?)"
+        if: ->(o) { o.relationship_with_recipient.try(:other_living_non_related?) }
       validates :volunteered_on, timeliness: { type: :date, allow_blank: true }
       validates :first_seen_on, timeliness: { type: :date, allow_blank: true }
       validates :workup_completed_on, timeliness: { type: :date, allow_blank: true }
