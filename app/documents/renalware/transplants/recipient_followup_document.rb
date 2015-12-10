@@ -15,7 +15,7 @@ module Renalware
       attribute :malignancy_within_first_12_months, DatedConfirmation
       attribute :recipient_pregnancy, DatedConfirmation
       attribute :acute_rejection_biopsy_proven, DatedConfirmation
-      attribute :primary_or_reccurent_renal_disease, DatedConfirmation
+      attribute :primary_or_recurrent_renal_disease, DatedConfirmation
     end
   end
 end
