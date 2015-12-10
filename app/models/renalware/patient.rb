@@ -81,6 +81,12 @@ module Renalware
       end
     end
 
+    def current_modality_live_donor?
+      if self.current_modality.present?
+        self.current_modality.description.donation?
+      end
+    end
+
     private
 
     def validate_sex

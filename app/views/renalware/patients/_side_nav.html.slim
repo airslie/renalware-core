@@ -15,5 +15,7 @@ ul.side-nav
   li= link_to_if true, "HD", "#"
   li.divider
   li.heading Transplants
-  li= link_to "Recipient Summary", patient_transplants_recipient_dashboard_path(@patient)
-  li= link_to "Donor Summary", patient_transplants_donor_dashboard_path(@patient)
+  - if @patient.current_modality_live_donor?
+    li= link_to "Donor Summary", patient_transplants_donor_dashboard_path(@patient)
+  - else
+    li= link_to "Recipient Summary", patient_transplants_recipient_dashboard_path(@patient)
