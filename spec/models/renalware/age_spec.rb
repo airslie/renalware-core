@@ -8,6 +8,17 @@ module Renalware
 
     subject { Age.new }
 
+    describe "#valid?" do
+      context "born in the last 3 years" do
+        it "returns false if age unit is :months" do
+          subject.amount = 2
+          subject.unit = :years
+
+          expect(subject).to_not be_valid
+        end
+      end
+    end
+
     describe "#set_from_dates" do
       context "birthdate is blank" do
         let(:birthdate) { nil }

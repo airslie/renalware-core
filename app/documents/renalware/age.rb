@@ -29,7 +29,7 @@ module Renalware
     def validate_unit
       return unless amount.present?
       if amount.to_i < 3 && unit.to_sym != :months
-        errors.add(:unit, "Please enter age in amount of months")
+        errors.add(:unit, :invalid_unit)
       end
     end
   end
