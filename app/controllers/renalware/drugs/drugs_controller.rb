@@ -21,8 +21,6 @@ module Renalware
       def new
         @drug = Drug.new
         authorize @drug
-
-        @drug_types = Type.all
       end
 
       def create
@@ -51,8 +49,6 @@ module Renalware
       def edit
         @drug = Drug.find(params[:id])
         authorize @drug
-
-        @drug_types = Type.all
       end
 
       def update
