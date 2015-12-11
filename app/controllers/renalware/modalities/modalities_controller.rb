@@ -44,7 +44,7 @@ module Renalware
             }
         else
           redirect_to patient_modalities_path(@patient),
-            notice: "Modality successfully created"
+            notice: t(".success", model_name: "modality")
         end
       end
     end
