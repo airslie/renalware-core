@@ -17,7 +17,7 @@ module Renalware
 
         if @modality_description.save
           redirect_to modalities_descriptions_path,
-            notice: "You have successfully added a new modality."
+            notice: t(".success", model_name: "modality description")
         else
           render :new
         end
@@ -31,7 +31,7 @@ module Renalware
       def update
         if @modality_description.update(modality_description_params)
           redirect_to modalities_descriptions_path,
-            notice: "You have successfully updated a modality"
+            notice: t(".success", model_name: "modality description")
         else
           render :edit
         end
@@ -39,7 +39,8 @@ module Renalware
 
       def destroy
         authorize Description.destroy(params[:id])
-        redirect_to modalities_descriptions_path, notice: "You have successfully removed a modality."
+        redirect_to modalities_descriptions_path,
+          notice: t(".success", model_name: "modality description")
       end
 
       private
