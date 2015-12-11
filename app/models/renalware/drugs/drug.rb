@@ -7,6 +7,7 @@ module Renalware
 
       has_and_belongs_to_many :drug_types, class_name: "Type",
         association_foreign_key: :drug_type_id
+      scope :ordered, -> { order(:name) }
 
       validates :name, presence: true
 

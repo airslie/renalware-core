@@ -1,0 +1,19 @@
+table
+  thead
+    tr
+      td
+      td Medication
+      td Route
+  tbody
+    - medications.each do |medication|
+      tr
+        td
+          = link_to "Edit", edit_medication_path(medication), remote: true
+          = pipe_separator
+          = link_to "Terminate", medication_path(medication), method: :delete,
+              remote: true, data: { confirm: "Are you sure?" }
+        td= medication.medicatable.name
+        td= medication.medication_route.name == 'Route: Other (Please specify in notes)' ? medication.medication_route.full_name : medication.medication_route.name
+
+.right
+  = link_to "Add Medication", new_medication_path(treatable), remote: true, class: %i(button tiny)

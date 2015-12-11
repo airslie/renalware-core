@@ -1,0 +1,4 @@
+$("#infection").html("<%= escape_javascript(
+  render "form", patient: @patient, exit_site_infection: @exit_site_infection
+) %>");
+initDatepickersIn("#infection");

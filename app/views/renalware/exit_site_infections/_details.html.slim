@@ -1,0 +1,24 @@
+#infection
+  dl
+    .row
+      .large-6.columns
+        dt Diagnosed:
+        dd= l exit_site_infection.diagnosis_date
+
+      .large-6.columns
+        dt Last Updated:
+        dd= l exit_site_infection.updated_at
+
+    .row
+      .large-12.columns
+        dt Outcome:
+        dd= exit_site_infection.outcome
+
+        dt Treatment:
+        dd= exit_site_infection.treatment
+
+        dt Notes:
+        dd= exit_site_infection.notes
+
+    .right
+      = link_to "Edit", edit_patient_exit_site_infection_path(patient, exit_site_infection), remote: true, class: %i(button tiny)

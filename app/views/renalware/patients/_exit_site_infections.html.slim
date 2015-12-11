@@ -11,8 +11,6 @@ table.responsive
       tr valign="top"
         td valign="top"
           - unless current_user.read_only?
-            = link_to "Update", edit_patient_exit_site_infection_path(@patient, e.id), class: "update-es-infection", id: "update-es-infection-#{e.id}"
-            = pipe_separator
           = link_to "View", patient_exit_site_infection_path(@patient, e.id), class: "view-es-infection", id: "view-es-infection-#{e.id}"
         td valign="top"
           = l e.diagnosis_date

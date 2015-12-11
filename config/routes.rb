@@ -35,6 +35,10 @@ Rails.application.routes.draw do
     namespace :events do
       resources :types, except: :show
     end
+
+    resources :infection_organisms
+    resources :medications, controller: :polymorphic_medications
+
     namespace :modalities do
       resources :descriptions, except: [:show]
       resources :reasons, only: [:index]

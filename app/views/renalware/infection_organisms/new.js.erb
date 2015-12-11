@@ -1,0 +1,5 @@
+$("#infection-organisms").html("<%= escape_javascript(
+  render "form", infection_organism: @infection_organism,
+    infectable: @infectable,
+    url: infection_organisms_path(@infectable)
+) %>");

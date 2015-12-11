@@ -8,5 +8,8 @@ module Renalware
       scope: [:infectable_id, :infectable_type]
     }, presence: true
 
+    def to_s
+      organism_code.name
+    end
   end
 end
