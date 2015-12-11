@@ -17,7 +17,8 @@ module Renalware
         @problem = @patient.problems.find(params[:id])
 
         if @problem.update(problem_params)
-          redirect_to patient_problems_path(@patient), notice: "Problem successfully updated."
+          redirect_to patient_problems_path(@patient),
+            notice: t(".success", model_name: "problem")
         else
           flash[:error] = "Please provide a description."
           render :edit
@@ -29,7 +30,8 @@ module Renalware
         @problem = @patient.problems.new(problem_params)
 
         if @problem.save
-          redirect_to patient_problems_url(@patient), notice: "Problem successfully created."
+          redirect_to patient_problems_url(@patient),
+            notice: t(".success", model_name: "problem")
         else
           flash[:error] = "Please provide a description."
           render :index
@@ -41,7 +43,7 @@ module Renalware
         @problem.destroy
 
         redirect_to patient_problems_path(@patient),
-          notice: "The problem was successfully terminated."
+          notice: t(".success", model_name: "problem")
       end
 
       private
