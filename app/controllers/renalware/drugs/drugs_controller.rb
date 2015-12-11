@@ -28,7 +28,8 @@ module Renalware
         authorize @drug
 
         if @drug.save
-          redirect_to drugs_drugs_path, notice: "You have successfully added a new drug."
+          redirect_to drugs_drugs_path,
+            notice: t(".success", model_name: "drug")
         else
           render :new
         end
@@ -56,7 +57,8 @@ module Renalware
         authorize @drug
 
         if @drug.update(drug_params)
-          redirect_to drugs_drugs_path, notice: "You have successfully updated a drug"
+          redirect_to drugs_drugs_path,
+            notice: t(".success", model_name: "drug")
         else
           render :edit
         end
@@ -65,13 +67,16 @@ module Renalware
       def destroy
         authorize Drug.destroy(params[:id])
 
-        redirect_to drugs_drugs_path, notice: "You have successfully removed a drug."
+        redirect_to drugs_drugs_path,
+          notice: t(".success", model_name: "drug")
       end
 
       private
 
       def drug_params
-        params.require(:drugs_drug).permit(:name, :deleted_at, :drug_type_ids => [])
+        params.require(:drugs_drug).permit(
+          :name, :deleted_at, :drug_type_ids => []
+        )
       end
 
       def prepare_drugs_search
