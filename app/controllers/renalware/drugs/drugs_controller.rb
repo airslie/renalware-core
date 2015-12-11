@@ -75,7 +75,7 @@ module Renalware
 
       def drug_params
         params.require(:drugs_drug).permit(
-          :name, :deleted_at, :drug_type_ids => []
+          :name, :deleted_at, drug_type_ids: []
         )
       end
 
