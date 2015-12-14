@@ -16,8 +16,8 @@ ruby:
     = f.input :kidney_perfused_with_blood_at, as: :datetime_picker
     = f.input :operation_type, input_html: { class: "small-input" }
     = f.input :transplant_site, input_html: { class: "small-input" }
-    = f.input :cold_ischaemic_time, as: :simple_time, input_html: { class: "small-input" }
-    = f.input :warm_ischaemic_time, as: :simple_time, input_html: { class: "small-input" }
+    = f.input :cold_ischaemic_time_formatted, as: :string, input_html: { class: "small-input" }
+    = f.input :warm_ischaemic_time_formatted, as: :string, input_html: { class: "small-input" }
     = f.input :notes, as: :text, input_html: { rows: 5 }
 
   = f.simple_fields_for :document, f.object.document do |fd|
