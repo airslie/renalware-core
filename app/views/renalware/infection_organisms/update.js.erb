@@ -1,0 +1,12 @@
+<% if @infection_organism.valid? %>
+  $("#infection-organisms").html("<%= escape_javascript(
+    render "table", infectable: @infectable, infection_organisms: @infectable.infection_organisms
+  ) %>");
+
+<% else %>
+  $("<%=j dom_id(@infection_organism, "#edit")%>").replaceWith("<%= escape_javascript(
+    render "form", infection_organism: @infection_organism,
+      url: infection_organism_path(@infection_organism)
+   ) %>");
+
+<% end %>

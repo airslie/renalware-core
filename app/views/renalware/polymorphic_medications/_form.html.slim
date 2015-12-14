@@ -1,0 +1,61 @@
+= simple_form_for medication, url: url,
+    html: { class: local_assigns[:form_class] }, remote: true, wrapper: :horizontal_form do |f|
+
+  .med-form.content id=("edit-meds-#{f.object.id}" )
+    - if f.object.treatable_type == "Renalware::PeritonitisEpisode"
+      = render partial: 'renalware/medications/peritonitis', locals: { pm: f }
+
+    - elsif f.object.treatable_type == "Renalware::ExitSiteInfection"
+      = render partial: 'renalware/medications/exit_site', locals: { pm: f }
+
+    - else
+
+      .medication-type-field
+        = label_tag :medication_switch, "Medication Type"
+        = select_tag :medication_switch, drug_select_options, { prompt: "Select drug by category/type or use the search option below", include_blank: true, class: "medication-type-select" }
+
+      /! Search all drugs
+      .standard
+        = label_tag :drug_search, "Drug"
+        = text_field_tag :drug_search, medicatable_name(f.object), class: "find_drug #{ highlight_validation_fail(f.object, :medicatable_id) }", placeholder: "Search drug by name or type"
+
+        ul.drug-results.no-bullet
+
+        = f.hidden_field :medicatable_id, class: "selected-medicatable-id"
+        = f.hidden_field :medicatable_type, value: "Renalware::Drugs::Drug", class: "selected-medicatable-type"
+
+      /! Show only when selecting drugs by category/type.
+      .drug-by-select
+        = label_tag :drug_select, "Select Drug"
+        = select_tag :drug_select, @selected_drugs, class: "drug-select"
+
+    /! Same for both
+    = f.label :dose
+    = f.text_field :dose
+
+    = f.label :medication_route_id, "Route"
+    = f.collection_select :medication_route_id, Renalware::MedicationRoute.all, :id, :name, { prompt: "Please select route of administration" }, class: "medication-route-select }"
+
+    = f.label :frequency, "Frequency & Duration"
+    = f.text_field :frequency
+
+    = f.label :notes
+    = f.text_area :notes, cols: 50, rows: 6
+
+    = f.input :start_date, as: :date_picker, label: "Prescribed on"
+    = f.input :end_date, as: :date_picker, label: "Terminated on"
+
+    = f.label :provider
+
+    - Renalware::Medication.providers.keys.map do |p|
+      ul.no-bullet.provider
+
+        li
+          = f.radio_button :provider, p, class: "provider-#{p}", checked: default_provider(p)
+        li
+          = f.label :provider, I18n.t("enums.provider.#{p}")
+  .row
+    .large-offset-3.large-7.columns
+      = f.button :submit, "Save", class: :tiny
+      span= " or "
+      = link_to "cancel", medications_path(treatable), remote: true

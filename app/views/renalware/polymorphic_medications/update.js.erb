@@ -1,0 +1,12 @@
+<% if @medication.valid? %>
+  $("#medications").html("<%= escape_javascript(
+    render "table", treatable: @treatable, medications: @treatable.medications
+  ) %>");
+
+<% else %>
+  $("<%= dom_id(@medication, "#edit")%>").replaceWith("<%= escape_javascript(
+    render "form", medication: @medication, url: medication_path(@medication)
+   ) %>");
+  initDatepickersIn("#medications");
+
+<% end %>

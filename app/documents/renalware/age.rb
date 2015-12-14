@@ -1,35 +1,43 @@
-require "age_computation"
+require "age_calculator"
 
 module Renalware
   class Age < NestedAttribute
+    AGE_IN_MONTHS_THRESHOLD = 3 # If below this number of years, age must be in months
+
     attribute :amount, Integer
     attribute :unit, enums: %i(years months)
 
     validate :validate_unit
 
-    def to_s
-      amount.present? ? "#{amount} #{unit.try(:text)}" : ""
+    def self.age_in_months_threshold
+      AGE_IN_MONTHS_THRESHOLD
     end
 
-    def set_from_dates(born_on, current_date)
-      if current_date.present? && born_on.present?
-        age = birthday_age(born_on, current_date)
-        if age[:years] >= 3
-          self.amount = age[:years]
-          self.unit = :years
-        else
-          self.amount = age[:years] * 12 + age[:months]
-          self.unit = :months
+    def self.new_from(years:, months:, days: nil)
+      new.tap do |age|
+        if years && months
+          if years < age_in_months_threshold
+            age.amount = years * 12 + months
+            age.unit = :months
+          else
+            age.amount = years
+            age.unit = :years
+          end
         end
       end
+    end
+
+    def to_s
+      amount.present? ? "#{amount} #{unit.try(:text)}" : ""
     end
 
     private
 
     def validate_unit
       return unless amount.present?
-      if amount.to_i < 3 && unit.to_sym != :months
-        errors.add(:unit, "Please enter age in amount of months")
+
+      if amount < Age.age_in_months_threshold && unit.to_sym != :months
+        errors.add(:unit, :invalid_unit)
       end
     end
   end

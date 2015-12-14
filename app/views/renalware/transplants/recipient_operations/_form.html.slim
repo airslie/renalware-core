@@ -26,7 +26,6 @@ ruby:
         locals: { legend: "Recipient", name: "recipient" } do
       = fd.simple_fields_for :recipient, fd.object.recipient do |fcm|
         = fcm.input :operation_number, input_html: { class: "small-input" }
-        = render_input fcm, :age
         = fcm.input :last_dialysis_on, as: :date_picker
         = fcm.input :cmv_status, input_html: { class: "small-input" }
         = render_input fcm, :blood_group

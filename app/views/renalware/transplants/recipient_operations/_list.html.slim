@@ -27,7 +27,7 @@ fieldset.status-history
                 td= link_to patient_transplants_recipient_operation_path(@patient, operation) do
                     = l operation.performed_on
                 td= operation.operation_type.text
-                td= operation.document.recipient.age
+                td= operation.recipient_age_at_operation
                 td= operation.document.donor.type.try(:text)
                 td= operation.transplant_site
                 - if operation.followup

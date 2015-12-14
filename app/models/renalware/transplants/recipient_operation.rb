@@ -1,5 +1,6 @@
 require_dependency "renalware/transplants"
 require "document/base"
+require "renalware/automatic_age_calculator"
 
 module Renalware
   module Transplants
@@ -11,7 +12,7 @@ module Renalware
       belongs_to :patient
       has_one :followup, class_name: "RecipientFollowup", foreign_key: "operation_id"
 
-      before_validation :compute_age
+      before_validation :compute_donor_age
 
       scope :ordered, -> { order(performed_on: :asc) }
       scope :reversed, -> { order(performed_on: :desc) }
@@ -50,10 +51,21 @@ module Renalware
         TimeOfDay.new(read_attribute(:warm_ischaemic_time))
       end
 
+      def recipient_age_at_operation
+        @recipient_age_at_operation ||=
+          AutomaticAgeCalculator.new(
+            Age.new,
+            born_on: patient.born_on, age_on_date: performed_on
+          ).compute
+      end
+
       private
 
-      def compute_age
-        document.donor.age.set_from_dates(document.donor.born_on, performed_on)
+      def compute_donor_age
+        document.donor.age = AutomaticAgeCalculator.new(
+          document.donor.age,
+          born_on: document.donor.born_on, age_on_date: performed_on
+        ).compute
       end
     end
   end

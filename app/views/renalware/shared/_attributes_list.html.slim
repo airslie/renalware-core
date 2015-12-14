@@ -1,7 +1,7 @@
 ruby:
   tuples = Array.wrap(attributes).map do |attribute|
-    label = resource.class.human_attribute_name(attribute)
-    value = resource.public_send(attribute)
+    label = model.class.human_attribute_name(attribute)
+    value = model.public_send(attribute)
     html = if value.respond_to?(:nested_attribute?)
       render(value)
     else
@@ -10,7 +10,6 @@ ruby:
     [label, html]
   end
 
-dl
-  - tuples.each do |label, html|
-    dt= label
-    dd= html
+- tuples.each do |label, html|
+  dt= label
+  dd= html

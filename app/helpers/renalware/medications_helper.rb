@@ -1,5 +1,12 @@
 module Renalware
   module MedicationsHelper
+    def medications_path(treatable)
+      super(treatable_type: treatable.class.to_s, treatable_id: treatable.id)
+    end
+
+    def new_medication_path(treatable)
+      super(treatable_type: treatable.class.to_s, treatable_id: treatable.id)
+    end
 
     def medicatable_name(medication)
       if medication.medicatable.present?
@@ -24,6 +31,5 @@ module Renalware
     def default_provider(provider)
       provider == 'gp' ? 'checked' : nil
     end
-
   end
 end

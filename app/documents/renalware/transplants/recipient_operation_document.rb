@@ -6,7 +6,6 @@ module Renalware
 
       class Recipient < Document::Embedded
         attribute :operation_number, Integer
-        attribute :age, Age
         attribute :last_dialysis_on, Date
         attribute :cmv_status, enums: %i(unknown positive negative)
         attribute :blood_group, BloodGroup

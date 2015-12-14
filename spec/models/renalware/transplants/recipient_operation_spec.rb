@@ -1,4 +1,6 @@
 require "rails_helper"
+require "age_calculator"
+require "renalware/automatic_age_calculator"
 
 module Renalware
   module Transplants
@@ -20,10 +22,16 @@ module Renalware
       subject { build(:transplant_recipient_operation) }
 
       describe "#before_validation" do
-        it "computes the age" do
-          expect(subject.document.donor.age).to receive(:set_from_dates)
-            .with(subject.document.donor.born_on, subject.performed_on)
+        let(:calculator) { double.as_null_object }
+        let(:age) { Age.new }
+
+        it "computes the age of the donor" do
+          expect(Renalware::AutomaticAgeCalculator).to receive(:new).and_return(calculator)
+          expect(calculator).to receive(:compute).and_return(age)
+
           subject.valid?
+
+          expect(subject.document.donor.age).to eq(age)
         end
       end
     end

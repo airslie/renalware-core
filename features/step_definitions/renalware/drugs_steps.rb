@@ -39,7 +39,8 @@ Given(/^that I'm on the add a new drug page$/) do
 end
 
 Given(/^that I choose to edit a drug$/) do
-  visit edit_drugs_drug_path(@vancomycin)
+  @edited_drug = Renalware::Drugs::Drug.first!
+  visit edit_drugs_drug_path(@edited_drug)
 end
 
 Given(/^I am on the drugs index$/) do
@@ -60,15 +61,17 @@ When(/^I complete the form for editing a drug$/) do
 end
 
 When(/^I choose to soft delete a drug$/) do
-  find("##{@vancomycin.id}-drug").click
+  @deleted_drug = Renalware::Drugs::Drug.ordered.first!
+  find("##{@deleted_drug.id}-drug").click
 end
 
 Then(/^I should see the new drug on the drugs list$/) do
-  expect(page).to have_content("I am a new drug")
+  drug = Renalware::Drugs::Drug.find_by(name: "I am a new drug")
+  expect(drug).to be_present
 end
 
 Then(/^I should see the updated drug on the drugs list$/) do
-  expect(page).to have_content("I am an edited drug")
+  expect(@edited_drug.reload.name).to eq("I am an edited drug")
 end
 
 Then(/^I should see the drug removed from the drugs list$/) do
