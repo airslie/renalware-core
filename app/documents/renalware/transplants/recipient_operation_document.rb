@@ -5,19 +5,8 @@ module Renalware
   module Transplants
     class RecipientOperationDocument < Document::Embedded
 
-      class Kidney < Document::Embedded
-        attribute :side, Document::Enum, enums: %i(left right both)
-        attribute :asyst
-        attribute :age, Age
-        attribute :weight, Float
-
-        validates :weight, numericality: { allow_blank: true }
-      end
-      attribute :kidney, Kidney
-
       class Recipient < Document::Embedded
         attribute :operation_number, Integer
-        attribute :age, Age
         attribute :last_dialysis_on, Date
         attribute :cmv_status, Document::Enum, enums: %i(unknown positive negative)
         attribute :blood_group, BloodGroup
@@ -41,6 +30,11 @@ module Renalware
         attribute :blood_group, BloodGroup
         attribute :blood_group_rhesus, Document::Enum, enums: %i(positive negative)
         attribute :organ_donor_register_checked, Document::Enum, enums: %i(yes no)
+        attribute :kidney_side, Document::Enum, enums: %i(left right both)
+        attribute :asystolic, Document::Enum, enums: %i(yes no)
+        attribute :kidney_weight, Integer
+
+        validates :kidney_weight, numericality: { allow_blank: true }
 
         validates :born_on, timeliness: { type: :date, allow_blank: true }
         validates :ukt_notified_at, timeliness: { type: :datetime, allow_blank: true }
@@ -61,35 +55,23 @@ module Renalware
       end
       attribute :cadaveric_donor, CadavericDonor
 
-      class DSA < Document::Embedded
+      class DonorSpecificAntibodies < Document::Embedded
         attribute :tested_on, Date
         attribute :results
         attribute :notes
 
         validates :tested_on, timeliness: { type: :date, allow_blank: true }
       end
-      attribute :dsa, DSA
+      attribute :donor_specific_antibodies, DonorSpecificAntibodies
 
-      class BKV < Document::Embedded
+      class BKVirus < Document::Embedded
         attribute :tested_on, Date
         attribute :results
         attribute :notes
 
         validates :tested_on, timeliness: { type: :date, allow_blank: true }
       end
-      attribute :bkv, BKV
-
-      class Outcome < Document::Embedded
-        attribute :transplant_failed, Document::Enum, enums: %i(yes no)
-        attribute :failed_on, Date
-        attribute :failure_cause
-        attribute :failure_description
-        attribute :stent_removed_on, Date
-
-        validates :failed_on, timeliness: { type: :date, allow_blank: true }
-        validates :stent_removed_on, timeliness: { type: :date, allow_blank: true }
-      end
-      attribute :outcome, Outcome
+      attribute :bk_virus, BKVirus
     end
   end
 end

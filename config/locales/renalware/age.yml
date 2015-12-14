@@ -1,0 +1,14 @@
+en:
+  activemodel:
+    errors:
+      models:
+        renalware/age:
+          attributes:
+            unit:
+              invalid_unit: Please enter age in amount of months
+
+  enumerize:
+    renalware/age:
+      unit:
+        months: months
+        years: years

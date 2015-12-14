@@ -17,10 +17,10 @@ ruby:
     = f.input :relationship_with_recipient
     = f.input :relationship_with_recipient_other
     .row
-      .small-5.columns
+      .small-3.columns
         = label_tag f.object.class.human_attribute_name(:recipient),
             nil, class: "right inline"
-      .small-7.columns
+      .small-9.columns
         = text_field_tag 'recipient_auto_complete', \
             f.object.recipient.try(:to_s, :reversed_full_name_with_nhs),
             data: { \

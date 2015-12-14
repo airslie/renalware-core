@@ -1,4 +1,4 @@
-# Renalware
+Renalware
 
 Renalware uses demographic, clinical, pathology, and nephrology datasets to improve patient care,
 undertake clinical and administrative audits and share data with external systems.
@@ -104,7 +104,7 @@ The app is available at http://renalware-demo.herokuapp.com. It is password prot
 
 ## Deployment to staging server
 
-Heroku hosts our demo server.
+Heroku hosts our demo server, and acceptance apps.
 
 Setup the remote repository:
 
@@ -120,6 +120,10 @@ To reset the database:
 
     heroku pg:reset DATABASE -a renalware-staging
     heroku run rake db:migrate db:seed -a renalware-staging
+
+Note: you might have to restart the dyno to pick-up the new database structure:
+
+    heroku restart -a renalware-staging
 
 The app is available at http://renalware-staging.herokuapp.com. It is password protected:
 

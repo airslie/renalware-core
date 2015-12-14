@@ -35,6 +35,10 @@ Rails.application.routes.draw do
     namespace :events do
       resources :types, except: :show
     end
+
+    resources :infection_organisms
+    resources :medications, controller: :polymorphic_medications
+
     namespace :modalities do
       resources :descriptions, except: [:show]
       resources :reasons, only: [:index]
@@ -75,7 +79,9 @@ Rails.application.routes.draw do
       namespace :transplants do
         resource :recipient_dashboard, only: :show
         resource :recipient_workup, only: [:show, :edit, :update]
-        resources :recipient_operations, expect: [:index, :destroy]
+        resources :recipient_operations, expect: [:index, :destroy] do
+          resource :followup, controller: "recipient_followups"
+        end
 
         resource :donor_dashboard, only: :show
         resource :donor_workup, only: [:show, :edit, :update]

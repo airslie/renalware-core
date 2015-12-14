@@ -2,17 +2,14 @@ begin
   require "database_cleaner"
   require "database_cleaner/cucumber"
 
+  # TODO: NJH add comment why this here
   # exceptions = %w(
   #   bag_types
-  #   drugs
-  #   drug_types
-  #   drug_types_drugs
   #   edta_codes
   #   episode_types
   #   event_types
   #   etchnicities
   #   fluid_description
-  #   medication_routes
   #   modality_codes
   #   modality_reasons
   #   organism_codes
@@ -22,6 +19,11 @@ begin
   # )
 
   exceptions = %w(
+    drugs
+    drug_types
+    drug_types_drugs
+    medication_routes
+    organism_codes
     transplants_registration_status_descriptions
   )
 

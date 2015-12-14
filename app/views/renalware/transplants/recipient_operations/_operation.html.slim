@@ -1,0 +1,16 @@
+ruby:
+  models = { recipient_operation => [:performed_on,
+    :theatre_case_start_time,
+    :donor_kidney_removed_from_ice_at,
+    :kidney_perfused_with_blood_at,
+    :operation_type,
+    :transplant_site,
+    :cold_ischaemic_time,
+    :warm_ischaemic_time,
+    :notes]
+  }
+
+= render "renalware/shared/attributes_group",
+    legend: "Operation", destination: "operation",
+    models: models
+

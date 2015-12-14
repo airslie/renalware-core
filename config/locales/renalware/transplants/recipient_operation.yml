@@ -12,21 +12,18 @@ en:
         performed_on: Operation Date
         theatre_case_start_time: Theatre Case Start Time
         transplant_site: Transplant Site
+        warm_ischaemic_time: Warm Ischaemic Time
+        recipient_age_at_operation: Age
   activemodel:
     attributes:
-      renalware/transplants/recipient_operation_document/kidney:
-        age: Age
-        asyst: Asyst
-        side: Side
-        weight: Weight
       renalware/transplants/recipient_operation_document/recipient:
-        age:
         blood_group: Blood Group
         cmv_status: CMV Status
         last_dialysis_on: Last Dialysis Date
         operation_number: Transplant Operation No
       renalware/transplants/recipient_operation_document/donor:
         age: Age
+        asystolic: Asystolic
         blood_group: Blood Group
         blood_group_rhesus: Blood Group Rhesus
         born_on: Birthdate
@@ -35,6 +32,8 @@ en:
         gender: Gender
         hla: HLA
         hla_mismatch: HLA Mismatch
+        kidney_side: Kidney Side
+        kidney_weight: Kidney Weight (g)
         organ_donor_register_checked: Organ Donor Register Checked
         type: Donor Type
         ukt_donor_number: UKT Donor Number
@@ -44,12 +43,11 @@ en:
         death_certified_at: Date and Time of Certification of Death
         ukt_cause_of_death: UKT Donor's Cause of Death
         ukt_cause_of_death_other: UKT Donor's Cause of Death (other)
-        warm_ischaemic_time_in_minutes: Total Warm Ischaemic Time (in minutes)
-      renalware/transplants/recipient_operation_document/dsa:
+      renalware/transplants/recipient_operation_document/donor_specific_antibodies:
         notes: Notes
         results: Results
         tested_on: Test Date
-      renalware/transplants/recipient_operation_document/bkv:
+      renalware/transplants/recipient_operation_document/bk_virus:
         notes: Notes
         results: Results
         tested_on: Test Date
@@ -158,3 +156,10 @@ en:
         trauma_rta_pushbike: "Trauma RTA - pushbike"
         trauma_rta_unknown: "Trauma RTA - unknown type"
         unknown: "Unknown"
+
+  simple_form:
+    hints:
+      transplants_recipient_operation:
+        document:
+          donor:
+            born_on: Age will be computed if you provide a date

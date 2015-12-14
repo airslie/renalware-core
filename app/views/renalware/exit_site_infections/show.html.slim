@@ -2,31 +2,14 @@
 = render layout: "renalware/patients/layout", locals: { title: title } do
 
   = field_set_tag "Infection" do
-    dl
-      .row
-        .large-6.columns
-          dt Diagnosed:
-          dd= l @exit_site_infection.diagnosis_date
-
-        .large-6.columns
-          dt Last Updated:
-          dd= l @exit_site_infection.updated_at
-
-      .row
-        .large-12.columns
-          dt Outcome:
-          dd= @exit_site_infection.outcome
-
-          dt Treatment:
-          dd= @exit_site_infection.treatment
+    = render "details", patient: @patient, exit_site_infection: @exit_site_infection
 
   = field_set_tag "Organisms/Sensitivity" do
-    ul.table-data-list
-      = organisms_and_sensitivities(@exit_site_infection.infection_organisms)
+    = render "renalware/infection_organisms/index",
+        infectable: @exit_site_infection,
+        infection_organisms: @exit_site_infection.infection_organisms
 
   = field_set_tag "Antibiotics/Routes" do
-    ul.table-data-list
-      = medication_and_route(@exit_site_infection.medications)
-
-  = field_set_tag "Notes" do
-    p= @exit_site_infection.notes
+    = render "renalware/polymorphic_medications/index",
+        treatable: @exit_site_infection,
+        medications: @exit_site_infection.medications

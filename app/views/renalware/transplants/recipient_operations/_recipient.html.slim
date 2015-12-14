@@ -1,0 +1,10 @@
+ruby:
+  recipient = recipient_operation.document.recipient
+  recipient_models = {
+    recipient_operation => [:recipient_age_at_operation],
+    recipient            => recipient.class.attributes_list
+  }
+
+= render "renalware/shared/attributes_group",
+    legend: "Recipient", destination: "recipient",
+    models: recipient_models
