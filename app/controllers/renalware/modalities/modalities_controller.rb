@@ -20,6 +20,7 @@ module Renalware
         if @modality.valid?
           handle_valid_modality
         else
+          flash[:error] = t(".failed", model_name: "modality")
           render :new
         end
       end
