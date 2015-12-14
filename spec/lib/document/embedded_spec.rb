@@ -10,14 +10,19 @@ module Document
         def self.name
           "Document::Foo"
         end
+
+        attribute :codes
       end
     end
 
     describe ".attribute" do
       context "with Enum type" do
         context "with given enums" do
-          it "gets the enum values from the option :enums" do
+          before do
             @klass.attribute :codes, Enum, enums: %i(one two three)
+          end
+
+          it "gets the enum values from the option :enums" do
             expect(@klass.codes.values).to eq(%i(one two three))
           end
         end
@@ -33,12 +38,14 @@ module Document
                     three: three
             EOF
           end
-
-          it "gets the enum values from I18n" do
+          before do
             with_translations(:"en-GB", translations) do
               @klass.attribute :codes, Enum
-              expect(@klass.codes.values).to eq(%i(one two three))
             end
+          end
+
+          it "gets the enum values from I18n" do
+            expect(@klass.codes.values).to eq(%i(one two three))
           end
         end
       end
@@ -53,28 +60,27 @@ module Document
             class Nested < Document::Embedded
               attribute :value
             end
+            attribute :nested, Nested
           end
         end
 
         let(:instance) { @klass.new }
 
         it "adds validation on the nested model" do
-          @klass.attribute :nested, Nested
-
           expect(instance).to receive(:nested_valid)
           instance.valid?
         end
 
-        context "with default value" do
-          it "adds a default value" do
-            @klass.attribute :nested, Nested
+        it "adds a default value" do
+          expect(instance.nested).to be_a(Nested)
+        end
 
-            expect(instance.nested).to be_a(Nested)
+        context "with default value" do
+          before do
+            @klass.attribute :nested, Nested, default: Nested.new(value: 1)
           end
 
           it "keeps the default value given" do
-            @klass.attribute :nested, Nested, default: Nested.new(value: 1)
-
             expect(instance.nested.value).to eq(1)
           end
         end
