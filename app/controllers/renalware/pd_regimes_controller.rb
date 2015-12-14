@@ -13,7 +13,8 @@ module Renalware
     def create
       @pd_regime = @patient.pd_regimes.new(pd_regime_params)
       if perform_action(pd_regime_bags, Proc.new { @pd_regime.save }, pd_regime: @pd_regime)
-        redirect_to patient_pd_summary_path(@patient), notice: "You have successfully added a PD Regime."
+        redirect_to patient_pd_summary_path(@patient),
+          notice: t(".success", model_name: "PD regime")
       else
         render :new
       end
@@ -21,7 +22,8 @@ module Renalware
 
     def update
       if perform_action(pd_regime_bags, Proc.new { @pd_regime.update(pd_regime_params) }, pd_regime: @pd_regime)
-        redirect_to patient_pd_summary_path(@patient), notice: "You have successfully updated a PD Regime."
+        redirect_to patient_pd_summary_path(@patient),
+          notice: t(".success", model_name: "PD regime")
       else
         render :edit
       end
