@@ -1556,7 +1556,7 @@ CREATE TABLE transplants_recipient_followups (
     stent_removed_on date,
     transplant_failed boolean,
     transplant_failed_on date,
-    transplant_failure_cause_code character varying,
+    transplant_failure_cause_description_id integer,
     transplant_failure_cause_other character varying,
     transplant_failure_notes text,
     document jsonb,
@@ -3220,6 +3220,14 @@ ALTER TABLE ONLY medications
 
 
 --
+-- Name: fk_rails_2e34a9e03d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplants_failure_cause_descriptions
+    ADD CONSTRAINT fk_rails_2e34a9e03d FOREIGN KEY (group_id) REFERENCES transplants_failure_cause_description_groups(id);
+
+
+--
 -- Name: fk_rails_3bafe36805; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3236,11 +3244,11 @@ ALTER TABLE ONLY problems
 
 
 --
--- Name: fk_rails_4f79966d1c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_4a82546fd1; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplants_recipient_followups
-    ADD CONSTRAINT fk_rails_4f79966d1c FOREIGN KEY (transplant_failure_cause_code) REFERENCES transplants_failure_cause_descriptions(code);
+    ADD CONSTRAINT fk_rails_4a82546fd1 FOREIGN KEY (transplant_failure_cause_description_id) REFERENCES transplants_failure_cause_descriptions(id);
 
 
 --

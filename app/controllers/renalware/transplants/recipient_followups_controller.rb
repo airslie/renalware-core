@@ -56,7 +56,7 @@ module Renalware
           :stent_removed_on,
           :transplant_failed,
           :transplant_failed_on,
-          :transplant_failure_cause_code,
+          :transplant_failure_cause_description_id,
           :transplant_failure_cause_other,
           :transplant_failure_notes,
           document: []

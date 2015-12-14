@@ -7,7 +7,7 @@ en:
         stent_removed_on: Stent Removal Date
         transplant_failed: Transplant Failed
         transplant_failed_on: Date of Transplant Failure
-        transplant_failure_cause_code: Cause of Transplant Failure
+        transplant_failure_cause_description_id: Cause of Transplant Failure
         transplant_failure_cause_other: Cause of Transplant Failure (other)
         transplant_failure_notes: Transplant Failure Notes
   activemodel:

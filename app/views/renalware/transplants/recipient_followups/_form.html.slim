@@ -15,11 +15,11 @@ ruby:
       = f.input :stent_removed_on, as: :date_picker
       = f.input :transplant_failed, as: :inline_radio_buttons
       = f.input :transplant_failed_on, as: :date_picker
-      = f.input :transplant_failure_cause_code, as: :grouped_select,
-            collection: Renalware::Transplants::FailureCauseDescriptionGroup.all,
-            group_method: :ordered_descriptions,
-            group_label_method: :name,
-            value_method: :code
+      = f.input :transplant_failure_cause_description_id, as: :grouped_select,
+          collection: Renalware::Transplants::FailureCauseDescriptionGroup.all,
+          group_method: :ordered_descriptions,
+          group_label_method: :name,
+          value_method: :id
       = f.input :transplant_failure_cause_other
       = f.input :transplant_failure_notes, input_html: { rows: 5 }
 
