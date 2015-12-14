@@ -6,7 +6,7 @@
 
     = render "recipient", recipient_operation: @recipient_operation
 
-    - ["Donor", "Cadaveric Donor", "Donor Specific Antibodies", "BK Virus", "Outcome"].each do |group|
+    - ["Donor", "Cadaveric Donor", "Donor Specific Antibodies", "BK Virus"].each do |group|
       = render "renalware/shared/documents/attributes_group",
           group: @recipient_operation.document.public_send(group.parameterize('_')),
           legend: group, destination: group.parameterize('_')

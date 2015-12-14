@@ -7,25 +7,21 @@ fieldset.status-history
         i.fa.fa-plus-circle
         | Enter operation details
   - else
-    .row
-      .large-12.columns
-        table
-          thead
-            th
-            th Op Date
-            th Kidney Side
-            th Type of Nephrectomy on donor
-          tbody
-            - @donor_operations.each do |operation|
-              tr
-                td= link_to "Edit", edit_patient_transplants_donor_operation_path(@patient, operation)
-                td= link_to patient_transplants_donor_operation_path(@patient, operation) do
-                    = l operation.performed_on
-                td= operation.kidney_side.try(:text)
-                td= operation.nephrectomy_type.try(:text)
+    table
+      thead
+        th
+        th Op Date
+        th Kidney Side
+        th Type of Nephrectomy on donor
+      tbody
+        - @donor_operations.each do |operation|
+          tr
+            td= link_to "Edit", edit_patient_transplants_donor_operation_path(@patient, operation)
+            td= link_to patient_transplants_donor_operation_path(@patient, operation) do
+                = l operation.performed_on
+            td= operation.kidney_side.try(:text)
+            td= operation.nephrectomy_type.try(:text)
 
-    .row
-      .large-12.columns
-        .right
-          = link_to "Add an operation", new_patient_transplants_donor_operation_path(@patient),
-            class: 'button tiny'
+    .right
+      = link_to "Add an operation", new_patient_transplants_donor_operation_path(@patient),
+        class: 'button tiny'

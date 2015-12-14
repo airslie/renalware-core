@@ -73,16 +73,6 @@ ruby:
         = fcm.input :results
         = fcm.input :notes, as: :text, input_html: { rows: 2 }
 
-    = render layout: "renalware/shared/fieldset",
-        locals: { legend: "Outcome", name: "outcome" } do
-      = fd.simple_fields_for :outcome, fd.object.outcome do |fcm|
-        = fcm.input :transplant_failed, as: :inline_radio_buttons
-        = fcm.input :failed_on, as: :date_picker
-        = fcm.input :failure_cause
-        = fcm.input :failure_description
-        = fcm.input :stent_removed_on, as: :date_picker
-
-
 .row
   .large-12.columns
     = f.submit 'Save', class: 'button'

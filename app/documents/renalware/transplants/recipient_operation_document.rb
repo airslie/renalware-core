@@ -4,10 +4,6 @@ module Renalware
   module Transplants
     class RecipientOperationDocument < Document::Embedded
 
-      class Kidney < Document::Embedded
-      end
-      attribute :kidney, Kidney
-
       class Recipient < Document::Embedded
         attribute :operation_number, Integer
         attribute :last_dialysis_on, Date
@@ -75,18 +71,6 @@ module Renalware
         validates :tested_on, timeliness: { type: :date, allow_blank: true }
       end
       attribute :bk_virus, BKVirus
-
-      class Outcome < Document::Embedded
-        attribute :transplant_failed, enums: %i(yes no)
-        attribute :failed_on, Date
-        attribute :failure_cause
-        attribute :failure_description
-        attribute :stent_removed_on, Date
-
-        validates :failed_on, timeliness: { type: :date, allow_blank: true }
-        validates :stent_removed_on, timeliness: { type: :date, allow_blank: true }
-      end
-      attribute :outcome, Outcome
     end
   end
 end
