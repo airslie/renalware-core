@@ -10,7 +10,7 @@ module Renalware
       authorize @patient
       if @patient.update(medication_params)
         redirect_to patient_medications_path(@patient),
-          notice: "You have successfully updated a patient's medications."
+          notice: t(".success", model_name: "medication")
       else
         render :index
       end
