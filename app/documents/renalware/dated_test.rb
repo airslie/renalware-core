@@ -1,3 +1,5 @@
+require "document/enum"
+
 module Renalware
   class DatedTest < NestedAttribute
     attribute :result, Document::Enum, enums: %i(negative positive not_done)

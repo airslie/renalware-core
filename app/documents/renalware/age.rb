@@ -1,3 +1,4 @@
+require "document/enum"
 require "age_calculator"
 
 module Renalware
