@@ -18,6 +18,7 @@ module Renalware
           redirect_to events_types_path,
             notice: t(".success", model_name: "event type")
         else
+          flash[:error] = t(".failed", model_name: "event type")
           render :new
         end
       end
@@ -32,6 +33,7 @@ module Renalware
           redirect_to events_types_path,
             notice: t(".success", model_name: "event type")
         else
+          flash[:error] = t(".failed", model_name: "event type")
           render :edit
         end
       end
