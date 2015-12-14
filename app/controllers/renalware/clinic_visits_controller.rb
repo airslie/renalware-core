@@ -14,6 +14,7 @@ module Renalware
 
     def create
       @clinic_visit = @patient.clinic_visits.new(clinic_visit_params)
+
       if @clinic_visit.save
         redirect_to patient_clinic_visits_path(@patient)
       else
@@ -34,7 +35,7 @@ module Renalware
     def destroy
       @clinic_visit.destroy
       redirect_to patient_clinic_visits_path(@patient),
-        notice: "Patient's clinic visit successfully deleted"
+        notice: t(".success", model_name: "clinic visit")
     end
 
     private
