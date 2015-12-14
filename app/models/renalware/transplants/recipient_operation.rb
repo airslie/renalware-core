@@ -1,6 +1,6 @@
 require_dependency "renalware/transplants"
 require "document/base"
-require "age_computation"
+require "renalware/automatic_age_calculator"
 
 module Renalware
   module Transplants
@@ -51,15 +51,20 @@ module Renalware
       end
 
       def recipient_age_at_operation
-        @recipient_age_at_operation ||= Age.new.tap do |age|
-          age.set_from_dates(patient.born_on, performed_on)
-        end
+        @recipient_age_at_operation ||=
+          AutomaticAgeCalculator.new(
+            Age.new,
+            born_on: patient.born_on, age_on_date: performed_on
+          ).compute
       end
 
       private
 
       def compute_donor_age
-        document.donor.age.set_from_dates(document.donor.born_on, performed_on)
+        document.donor.age = AutomaticAgeCalculator.new(
+          document.donor.age,
+          born_on: document.donor.born_on, age_on_date: performed_on
+        ).compute
       end
     end
   end
