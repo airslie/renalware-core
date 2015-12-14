@@ -38,7 +38,8 @@ module Renalware
     def destroy
       authorize Doctor.destroy(params[:id])
 
-      redirect_to doctors_path, notice: "Doctor successfully deleted"
+      redirect_to doctors_path,
+        notice: t(".success", model_name: "doctor")
     end
     private
 
