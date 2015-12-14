@@ -17,23 +17,15 @@ ruby:
     = f.input :operation_type, input_html: { class: "small-input" }
     = f.input :transplant_site, input_html: { class: "small-input" }
     = f.input :cold_ischaemic_time, as: :simple_time, input_html: { class: "small-input" }
+    = f.input :warm_ischaemic_time, as: :simple_time, input_html: { class: "small-input" }
     = f.input :notes, as: :text, input_html: { rows: 5 }
 
   = f.simple_fields_for :document, f.object.document do |fd|
 
     = render layout: "renalware/shared/fieldset",
-        locals: { legend: "Kidney", name: "kidney" } do
-      = fd.simple_fields_for :kidney, fd.object.kidney do |fcm|
-        = fcm.input :side, input_html: { class: "small-input" }
-        = fcm.input :asyst
-        = fcm.input :age, input_html: { class: "small-input" }
-        = fcm.input :weight, input_html: { class: "small-input" }
-
-    = render layout: "renalware/shared/fieldset",
         locals: { legend: "Recipient", name: "recipient" } do
       = fd.simple_fields_for :recipient, fd.object.recipient do |fcm|
         = fcm.input :operation_number, input_html: { class: "small-input" }
-        = fcm.input :age, input_html: { class: "small-input" }
         = fcm.input :last_dialysis_on, as: :date_picker
         = fcm.input :cmv_status, input_html: { class: "small-input" }
         = render_input fcm, :blood_group
@@ -42,25 +34,41 @@ ruby:
         locals: { legend: "Donor", name: "donor" } do
       = fd.simple_fields_for :donor, fd.object.donor do |fcm|
         = fcm.input :type, input_html: { class: "small-input" }
+        = fcm.input :ukt_donor_number, input_html: { class: "small-input" }
+        = fcm.input :ukt_notified_at, as: :datetime_picker
         = fcm.input :gender, input_html: { class: "small-input" }
+        = fcm.input :ethnic_category
         = fcm.input :born_on, as: :date_picker
-        = fcm.input :age, input_html: { class: "small-input" }
-        = fcm.input :cause_of_death
+        = render_input fcm, :age
         = fcm.input :hla
         = fcm.input :hla_mismatch
         = fcm.input :cmv_status, input_html: { class: "small-input" }
         = render_input fcm, :blood_group
+        = fcm.input :blood_group_rhesus, input_html: { class: "small-input" }
+        = fcm.input :organ_donor_register_checked, as: :inline_radio_buttons
+        = fcm.input :kidney_side, input_html: { class: "small-input" }
+        = fcm.input :asystolic, as: :inline_radio_buttons
+        = fcm.input :kidney_weight, input_html: { class: "small-input" }
 
     = render layout: "renalware/shared/fieldset",
-        locals: { legend: "DSA", name: "dsa" } do
-      = fd.simple_fields_for :dsa, fd.object.dsa do |fcm|
+        locals: { legend: "Cadaveric Donor", name: "cadaveric_donor" } do
+      = fd.simple_fields_for :cadaveric_donor, fd.object.cadaveric_donor do |fcm|
+        = fcm.input :cadaveric_donor_type, input_html: { class: "small-input" }
+        = fcm.input :death_certified_at, as: :datetime_picker
+        = fcm.input :ukt_cause_of_death
+        = fcm.input :ukt_cause_of_death_other
+
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Donor Specific Antibodies", name: "donor_specific_antibodies" } do
+      = fd.simple_fields_for :donor_specific_antibodies, fd.object.donor_specific_antibodies do |fcm|
         = fcm.input :tested_on, as: :date_picker
         = fcm.input :results
         = fcm.input :notes, as: :text, input_html: { rows: 2 }
 
     = render layout: "renalware/shared/fieldset",
-        locals: { legend: "BKV", name: "bkv" } do
-      = fd.simple_fields_for :bkv, fd.object.bkv do |fcm|
+        locals: { legend: "BK Virus", name: "bk_virus" } do
+      = fd.simple_fields_for :bk_virus, fd.object.bk_virus do |fcm|
         = fcm.input :tested_on, as: :date_picker
         = fcm.input :results
         = fcm.input :notes, as: :text, input_html: { rows: 2 }
