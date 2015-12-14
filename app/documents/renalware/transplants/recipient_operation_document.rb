@@ -51,7 +51,7 @@ module Renalware
         validates :death_certified_at, timeliness: { type: :datetime, allow_blank: true }
         validates :warm_ischaemic_time_in_minutes, numericality: { allow_blank: true }
         validates :ukt_cause_of_death_other, presence: true,
-          if: "ukt_cause_of_death.try(:text) =~ /specify/"
+          if: ->(o) { o.ukt_cause_of_death.try(:text) =~ /specify/ }
       end
       attribute :cadaveric_donor, CadavericDonor
 
