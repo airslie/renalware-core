@@ -4,7 +4,7 @@
   .document-view
     = render "renalware/shared/attributes_group",
         legend: "Operation", destination: "operation",
-        resources: { @donor_operation => [:performed_on, :kidney_side, :operating_surgeon, :anaesthetist,
+        models: { @donor_operation => [:performed_on, :kidney_side, :operating_surgeon, :anaesthetist,
           :nephrectomy_type, :nephrectomy_type_other,
           :donor_splenectomy_peri_or_post_operatively, :notes] }
 

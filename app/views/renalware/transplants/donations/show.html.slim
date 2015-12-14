@@ -3,9 +3,9 @@
   .document-view
     = render "renalware/shared/attributes_group",
         legend: "Recipient", destination: "recipient",
-        resources: { @donation => [:recipient, :relationship_with_recipient, :relationship_with_recipient_other,
+        models: { @donation => [:recipient, :relationship_with_recipient, :relationship_with_recipient_other,
           :blood_group_compatibility, :mismatch_grade, :paired_pooled_donation] }
 
     = render "renalware/shared/attributes_group",
         legend: "Admin", destination: "admin",
-        resources: { @donation => [:state, :volunteered_on, :first_seen_on, :workup_completed_on, :donated_on, :notes] }
+        models: { @donation => [:state, :volunteered_on, :first_seen_on, :workup_completed_on, :donated_on, :notes] }

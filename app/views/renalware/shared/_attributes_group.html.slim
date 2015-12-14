@@ -1,5 +1,5 @@
 = render layout: "renalware/shared/magellan_block",
     locals: { destination: destination, legend: legend } do
   dl
-    - resources.each do |resource, attributes|
-      = render "renalware/shared/attributes_list", resource: resource, attributes: attributes
+    - models.each do |model, attributes|
+      = render "renalware/shared/attributes_list", model: model, attributes: attributes

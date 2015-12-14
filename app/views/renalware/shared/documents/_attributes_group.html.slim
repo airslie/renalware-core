@@ -1,6 +1,6 @@
 ruby:
-  resource = group
+  model = group
   attributes = group.class.attributes_list
 
 = render "renalware/shared/attributes_group",
-    destination: destination, legend: legend, resources: { resource => attributes }
+    destination: destination, legend: legend, models: { model => attributes }
