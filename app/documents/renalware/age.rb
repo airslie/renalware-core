@@ -5,7 +5,7 @@ module Renalware
     AGE_IN_MONTHS_THRESHOLD = 3 # If below this number of years, age must be in months
 
     attribute :amount, Integer
-    attribute :unit, enums: %i(years months)
+    attribute :unit, Document::Enum, enums: %i(years months)
 
     validate :validate_unit
 

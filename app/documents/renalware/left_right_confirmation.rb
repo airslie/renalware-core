@@ -1,6 +1,8 @@
+require "document/enum"
+
 module Renalware
   class LeftRightConfirmation < NestedAttribute
-    attribute :left, enums: %i(yes no)
-    attribute :right, enums: %i(yes no)
+    attribute :left, Document::Enum, enums: %i(yes no)
+    attribute :right, Document::Enum, enums: %i(yes no)
   end
 end

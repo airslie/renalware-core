@@ -1,4 +1,5 @@
 require "document/embedded"
+require "document/enum"
 
 module Renalware
   module Transplants
@@ -7,7 +8,7 @@ module Renalware
       class Recipient < Document::Embedded
         attribute :operation_number, Integer
         attribute :last_dialysis_on, Date
-        attribute :cmv_status, enums: %i(unknown positive negative)
+        attribute :cmv_status, Document::Enum, enums: %i(unknown positive negative)
         attribute :blood_group, BloodGroup
 
         validates :operation_number, numericality: { allow_blank: true, only_integer: true }
@@ -18,19 +19,19 @@ module Renalware
       class Donor < Document::Embedded
         attribute :ukt_donor_number
         attribute :ukt_notified_at, DateTime
-        attribute :type, enums: %i(live_related cadaver non_heart_beating live_unrelated)
-        attribute :gender, enums: %i(male female)
-        attribute :ethnic_category, enums: :from_localization
+        attribute :type, Document::Enum
+        attribute :gender, Document::Enum, enums: %i(male female)
+        attribute :ethnic_category, Document::Enum
         attribute :born_on, Date
         attribute :age, Age
         attribute :hla
         attribute :hla_mismatch
-        attribute :cmv_status, enums: %i(unknown positive negative)
+        attribute :cmv_status, Document::Enum, enums: %i(unknown positive negative)
         attribute :blood_group, BloodGroup
-        attribute :blood_group_rhesus, enums: %i(positive negative)
-        attribute :organ_donor_register_checked, enums: %i(yes no)
-        attribute :kidney_side, enums: %i(left right both)
-        attribute :asystolic, enums: %i(yes no)
+        attribute :blood_group_rhesus, Document::Enum, enums: %i(positive negative)
+        attribute :organ_donor_register_checked, Document::Enum, enums: %i(yes no)
+        attribute :kidney_side, Document::Enum, enums: %i(left right both)
+        attribute :asystolic, Document::Enum, enums: %i(yes no)
         attribute :kidney_weight, Integer
 
         validates :kidney_weight, numericality: { allow_blank: true }
@@ -41,9 +42,9 @@ module Renalware
       attribute :donor, Donor
 
       class CadavericDonor < Document::Embedded
-        attribute :cadaveric_donor_type, enums: %i(heart_beating non_heart_beating domino)
+        attribute :cadaveric_donor_type, Document::Enum
         attribute :death_certified_at, DateTime
-        attribute :ukt_cause_of_death, enums: :from_localization
+        attribute :ukt_cause_of_death, Document::Enum
         attribute :ukt_cause_of_death_other
         attribute :warm_ischaemic_time_in_minutes, Integer
 

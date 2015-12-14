@@ -1,4 +1,5 @@
 require "document/embedded"
+require "document/enum"
 
 module Renalware
   module Transplants
@@ -42,7 +43,7 @@ module Renalware
       attribute :imaging_and_scans, ImagingAndScans
 
       class CreatinineClearance < Document::Embedded
-        attribute :clearance_type, enums: %w(cockroft_gault schwartz other)
+        attribute :clearance_type, Document::Enum, enums: %w(cockroft_gault schwartz other)
         attribute :clearance, DatedResult
         attribute :measured_clearance, DatedResult
       end
