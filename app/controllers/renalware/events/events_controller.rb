@@ -16,6 +16,7 @@ module Renalware
           redirect_to patient_events_path(@patient),
             notice: t(".success", model_name: "event")
         else
+          flash[:error] = t(".failed", model_name: "event")
           render :new
         end
       end
