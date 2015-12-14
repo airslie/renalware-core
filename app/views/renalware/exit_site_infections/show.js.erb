@@ -1,0 +1,3 @@
+$("#infection").replaceWith("<%= escape_javascript(
+  render "details", patient: @patient, exit_site_infection: @exit_site_infection
+) %>");

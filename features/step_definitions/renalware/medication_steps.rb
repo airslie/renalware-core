@@ -18,7 +18,7 @@ end
 
 When(/^complete the medication form by drug type select$/) do
   select "ESA", :from => "Medication Type"
-  select "Blue", :from => "Select Drug"
+  select "Epoetin Alfa (Eprex) Syringe [ESA]", :from => "Select Drug"
   fill_in "Dose", :with => "10mg"
   select "PO", :from =>  "Route"
   fill_in "Frequency & Duration", :with => "Once daily"
@@ -43,7 +43,7 @@ When(/^complete the medication form by drug search$/) do
     expect(page).to have_css("li", :text => "Amoxicillin")
   end
 
-  page.find("#drug-5").click
+  page.find(".drug-results :last-child").click
 
   fill_in "Dose", :with => "20mg"
   select "IV", :from =>  "Route"
@@ -70,7 +70,7 @@ Then(/^should see the new medication on the patient's clinical summary$/) do
 
   #drug by select
   within(".drug-esa") do
-    expect(page).to have_content("Blue")
+    expect(page).to have_content("Epoetin Alfa")
     expect(page).to have_content("10mg")
     expect(page).to have_content("PO")
     expect(page).to have_content("Once daily")
@@ -92,7 +92,7 @@ Then(/^should see the new medication on their medications index\.$/) do
 
   within(".drug-esa") do
     expect(page).to have_content("ESA")
-    expect(page).to have_content("Blue")
+    expect(page).to have_content("Epoetin Alfa")
     expect(page).to have_content("10mg")
     expect(page).to have_content("PO")
     expect(page).to have_content("Once daily")
