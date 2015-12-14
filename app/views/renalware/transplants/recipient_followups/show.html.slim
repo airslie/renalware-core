@@ -2,6 +2,7 @@
 = render layout: "renalware/patients/layout",
     locals: { title: "Transplant Recipient Operation (#{datestamp}) Followup" } do
   - return unless @recipient_followup
+
   .document-view
     = render "renalware/shared/attributes_group",
         legend: "Transplant Failure", destination: "transplant_failure",

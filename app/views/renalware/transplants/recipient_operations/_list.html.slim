@@ -7,47 +7,42 @@ fieldset.status-history
         i.fa.fa-plus-circle
         | Enter operation details
   - else
-    .row
-      .large-12.columns
-        table
-          thead
-            th
-            th Op Date
-            th Type
-            th Recip Age
-            th Donor Type
-            th Site
-            th Failure Date
-            th Failure Cause
-            th Followup
-          tbody
-            - @recipient_operations.each do |operation|
-              tr
-                td= link_to "Edit", edit_patient_transplants_recipient_operation_path(@patient, operation)
-                td= link_to patient_transplants_recipient_operation_path(@patient, operation) do
-                    = l operation.performed_on
-                td= operation.operation_type.text
-                td= operation.recipient_age_at_operation
-                td= operation.document.donor.type.try(:text)
-                td= operation.transplant_site
-                - if operation.followup
-                  td= l operation.followup.transplant_failed_on
-                  td= operation.followup.transplant_failure_cause_description
-                - else
-                  td
-                  td
-                td
-                  - if operation.followup
-                    = link_to "View", patient_transplants_recipient_operation_followup_path(@patient, operation)
-                    = pipe_separator
-                    = link_to "Update", edit_patient_transplants_recipient_operation_followup_path(@patient, operation)
-                  - else
-                    - url = new_patient_transplants_recipient_operation_followup_path(@patient, operation)
-                    = link_to "Enter details", url
+    table
+      thead
+        th
+        th Op Date
+        th Type
+        th Recip Age
+        th Donor Type
+        th Site
+        th Failure Date
+        th Failure Cause
+        th Followup
+      tbody
+        - @recipient_operations.each do |operation|
+          tr
+            td= link_to "Edit", edit_patient_transplants_recipient_operation_path(@patient, operation)
+            td= link_to patient_transplants_recipient_operation_path(@patient, operation) do
+                = l operation.performed_on
+            td= operation.operation_type.text
+            td= operation.recipient_age_at_operation
+            td= operation.document.donor.type.try(:text)
+            td= operation.transplant_site
+            - if operation.followup
+              td= l operation.followup.transplant_failed_on
+              td= operation.followup.transplant_failure_cause_description
+              td
+                = link_to "View", patient_transplants_recipient_operation_followup_path(@patient, operation)
+                = pipe_separator
+                = link_to "Update", edit_patient_transplants_recipient_operation_followup_path(@patient, operation)
+            - else
+              td
+              td
+              td
+                - url = new_patient_transplants_recipient_operation_followup_path(@patient, operation)
+                = link_to "Enter details", url
 
 
-    .row
-      .large-12.columns
-        .right
-          = link_to "Add an operation", new_patient_transplants_recipient_operation_path(@patient),
-            class: 'button tiny'
+    .right
+      = link_to "Add an operation", new_patient_transplants_recipient_operation_path(@patient),
+        class: 'button tiny'
