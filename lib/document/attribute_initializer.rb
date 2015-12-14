@@ -1,5 +1,4 @@
 require "document/attribute_initializer/base"
-require "document/attribute_initializer/simple"
 require "document/attribute_initializer/active_model"
 require "document/attribute_initializer/enum"
 
@@ -13,7 +12,7 @@ module Document
       when type && type.included_modules.include?(::ActiveModel::Model)
         AttributeInitializer::ActiveModel
       else
-        AttributeInitializer::Simple
+        AttributeInitializer::Base
       end
       initializer_class.new(klass, name, type, options)
     end
