@@ -8,11 +8,11 @@ module Renalware
 
       describe "#valid?" do
         let(:attributes) { {} }
-        subject {
+        subject do
           RecipientFollowup.new(
             attributes_for(:transplant_recipient_followup).merge(attributes)
           )
-        }
+        end
 
         it { is_expected.to be_valid }
 
