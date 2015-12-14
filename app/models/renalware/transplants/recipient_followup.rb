@@ -17,6 +17,11 @@ module Renalware
 
       validates :stent_removed_on, timeliness: { type: :date, allow_blank: true }
       validates :transplant_failed_on, timeliness: { type: :date, allow_blank: true }
+      validates :transplant_failed_on, presence: true, if: ->(o) { o.transplant_failed }
+      validates :transplant_failure_cause_description_id, presence: true,
+        if: ->(o) { o.transplant_failed }
+      validates :transplant_failure_cause_other, presence: true,
+        if: ->(o) { o.transplant_failure_cause_description.try(:name) == "Other" }
 
       def self.for_operation(operation)
         where(operation: operation)
