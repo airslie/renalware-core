@@ -41,7 +41,7 @@ module Renalware
       protected
 
       def load_operation
-        @operation = RecipientOperation.find params[:recipient_operation_id]
+        @operation = RecipientOperation.find(params[:recipient_operation_id])
       end
 
       def followup_attributes
