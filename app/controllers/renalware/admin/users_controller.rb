@@ -16,9 +16,10 @@ module Renalware
       load_user
 
       if user_service.update_and_notify!(service_params)
-        redirect_to admin_users_path, notice: "#{@user.username} updated"
+        redirect_to admin_users_path,
+          notice: t(".success", model_name: "user")
       else
-        flash[:error] = "#{@user.username} could not be updated"
+        flash[:error] = t(".failed", model_name: "user")
         render :edit
       end
     end
