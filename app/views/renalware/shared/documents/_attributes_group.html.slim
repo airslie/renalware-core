@@ -1,5 +1,6 @@
-= render layout: "renalware/shared/magellan_block",
-  locals: { destination: destination, legend: legend } do
-  - Array.wrap(group).each do |group|
-    = render "renalware/shared/attributes_list",
-      resource: group, attributes: group.class.attributes_list
+ruby:
+  model = group
+  attributes = group.class.attributes_list
+
+= render "renalware/shared/attributes_group",
+    destination: destination, legend: legend, models: { model => attributes }

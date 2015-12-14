@@ -16,6 +16,8 @@ module Document
     included do
       class_eval do
         validate :document_valid
+
+        before_save :serialize_document
       end
 
       def document
@@ -23,12 +25,16 @@ module Document
       end
 
       def document=(attributes)
-        @document = nil
         filtered_attributes = filter_date_params(attributes)
-        write_attribute(:document, document_class.new(filtered_attributes).to_json)
+        @document = document_class.new(filtered_attributes)
+        serialize_document
       end
 
-      protected
+      private
+
+      def serialize_document
+        write_attribute(:document, document.to_json)
+      end
 
       def filter_date_params(params)
         params = (params ? params.dup : {}) # DISCUSS: not sure if that slows down form processing?

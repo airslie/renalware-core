@@ -18,7 +18,6 @@ module Renalware
     has_many :problems, class_name: "Problems::Problem"
     has_many :medications
     has_many :drugs, :through => :medications, :source => :medicatable, :source_type => "Drugs::Drug"
-    has_many :exit_site_infections, :through => :medications, :source => :treatable, :source_type => "ExitSiteInfection"
     has_many :peritonitis_episodes, :through => :medications, :source => :treatable, :source_type => "PeritonitisEpisode"
     has_many :medication_routes, :through => :medications
     has_many :modalities, class_name: "Modalities::Modality"
@@ -78,6 +77,12 @@ module Renalware
     def current_modality_death?
       if self.current_modality.present?
         self.current_modality.description.death?
+      end
+    end
+
+    def current_modality_live_donor?
+      if self.current_modality.present?
+        self.current_modality.description.donation?
       end
     end
 

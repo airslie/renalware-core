@@ -1,0 +1,12 @@
+<% if @exit_site_infection.valid? %>
+  $("#infection").replaceWith("<%= escape_javascript(
+    render "details", patient: @patient, exit_site_infection: @exit_site_infection
+  ) %>");
+
+<% else %>
+  $("<%= dom_id(@exit_site_infection, "#edit")%>").replaceWith("<%= escape_javascript(
+    render "form", patient: @patient, exit_site_infection: @exit_site_infection
+  ) %>");
+  initDatepickersIn("#infection");
+
+<% end %>

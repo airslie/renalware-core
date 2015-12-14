@@ -1,3 +1,5 @@
+require "document/attribute_initializer"
+
 module Document
   # This concern wraps the logic for embedding document in an active record object.
   # The document fields are stored in a jsonb column. The database migration
@@ -113,28 +115,17 @@ module Document
     def self.attribute(*args)
       options = args.extract_options!
       name, type = *args
-      if type && type.included_modules.include?(ActiveModel::Model)
-        options.reverse_merge!(default: type.public_send(:new))
 
-        # Add validation
-        validate "#{name}_valid".to_sym
-
-        # Validation method
-        define_method("#{name}_valid".to_sym) do
-          errors.add(name.to_sym, :invalid) if public_send(name).invalid?
+      AttributeInitializer.determine_initializer(self, name, type, options)
+        .call do |name, type, options|
+          super(name, type, options)
         end
-      else
-        enums = options[:enums]
-      end
-      super(name, type, options)
-      enumerize name, in: enums if enums
     end
 
     # Returns a list of the Virtus attributes in the model
     def self.attributes_list
       attribute_set.entries.map(&:name)
     end
-
 
     @@methods_to_ignore = []
 

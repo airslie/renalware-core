@@ -1,0 +1,19 @@
+table
+  thead
+    tr
+      td
+      td Organism
+      td Sensitivity
+  tbody
+    - infection_organisms.each do |infection_organism|
+      tr
+        td
+          = link_to "Edit", edit_infection_organism_path(infection_organism), remote: true
+          = pipe_separator
+          = link_to "Terminate", infection_organism_path(infection_organism),
+              method: :delete, remote: true, data: { confirm: "Are you sure?" }
+        td= infection_organism
+        td= infection_organism.sensitivity
+
+.right
+  = link_to "Add Infection Organism", new_infection_organism_path(infectable), remote: true, class: %i(button tiny)

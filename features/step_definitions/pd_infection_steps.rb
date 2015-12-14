@@ -115,10 +115,10 @@ Given(/^a patient has episodes of peritonitis$/) do
     notes: "Has problems getting rid of infection.",
     medications_attributes: [
       patient: @patient_1,
-      medicatable: @amoxicillin,
+      medicatable: Renalware::Drugs::Drug.find_by!(name: "Amoxicillin Suspension"),
       treatable: @peritonitis_episode_2,
       dose: "20mg",
-      medication_route: @po,
+      medication_route: Renalware::MedicationRoute.find_by!(name: "PO"),
       frequency: "daily",
       notes: "with food",
       start_date: "02/03/#{Date.current.year}",
@@ -130,7 +130,7 @@ Given(/^a patient has episodes of peritonitis$/) do
   )
 
   @infection_organism_1 = FactoryGirl.create(:infection_organism,
-    organism_code: @mrsa,
+    organism_code: Renalware::OrganismCode.find_by(name: "MRSA"),
     sensitivity: "Sensitive to MRSA.",
     created_at: "2015-03-03 15:30:00",
     updated_at: "2015-03-05 15:30:00"
@@ -158,10 +158,10 @@ Given(/^a patient has episodes of peritonitis$/) do
     notes: "Needs pain management.",
     medications_attributes: [
       patient: @patient_1,
-      medicatable: @penicillin,
+      medicatable: Renalware::Drugs::Drug.find_by!(name: "Ciprofloxacin Suspension"),
       treatable: @peritonitis_episode_3,
       dose: "50mg",
-      medication_route: @sc,
+      medication_route: Renalware::MedicationRoute.find_by!(name: "SC"),
       frequency: "PID",
       notes: "with water",
       start_date: "02-03-#{Date.current.year}",
@@ -173,7 +173,7 @@ Given(/^a patient has episodes of peritonitis$/) do
   )
 
   @infection_organism_2 = FactoryGirl.create(:infection_organism,
-    organism_code: @strep,
+    organism_code: Renalware::OrganismCode.find_by!(name: "Strep"),
     sensitivity: "Sensitive to strep.",
     created_at: "2015-03-03 15:30:00",
     updated_at: "2015-03-05 15:30:00"
@@ -310,7 +310,7 @@ When(/^the Clinician records the episode of peritonitis$/) do
   # Add an medication
   click_on "Add a new medication"
 
-  select "Rifampin", from: "Select Drug (common peritonitis drugs listed at the top)",
+  select "Amoxicillin Suspension", from: "Select Drug (common peritonitis drugs listed at the top)",
     match: :first
   fill_in "Dose", with: "2mg"
   select "SC", from: "Route"
@@ -396,7 +396,7 @@ When(/^they add a medication to this episode of peritonitis$/) do
 
   click_on "Add a new medication"
 
-  select "Penicillin", from: "Select Drug (common peritonitis drugs listed at the top)",
+  select "Amoxicillin Suspension", from: "Select Drug (common peritonitis drugs listed at the top)",
     match: :first
   fill_in "Dose", with: "5mg"
   select "IV", from: "Route"
@@ -482,7 +482,7 @@ Then(/^an episode of peritonitis can be viewed in more detail from the PD info p
   expect(page).to have_content("Needs pain management.")
 
   #medication/route
-  expect(page).to have_content("Penicillin")
+  expect(page).to have_content("Ciprofloxacin")
   expect(page).to have_content("SC")
 
   #organism/sensitivity
@@ -514,7 +514,7 @@ end
 Then(/^the new medication should be displayed on the updated peritonitis form$/) do
   visit edit_patient_peritonitis_episode_path(@patient_1, @peritonitis_episode_1.id)
 
-  expect(page).to have_content("Penicillin")
+  expect(page).to have_content("Amoxicillin Suspension")
   expect(page).to have_content("5mg")
   expect(page).to have_content("IV")
   expect(page).to have_content("PID")

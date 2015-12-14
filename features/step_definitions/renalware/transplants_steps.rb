@@ -15,7 +15,7 @@ Given(/^Patty is registered on the wait list with this status history$/) do |tab
 end
 
 Given(/^Patty has a recipient operation$/) do
-  set_up_recipient_operation(@patty)
+  @operation = set_up_recipient_operation(@patty)
 end
 
 Given(/^Don has a donor operation$/) do
@@ -24,6 +24,11 @@ end
 
 Given(/^Don has a donation$/) do
   set_up_donation(@don)
+end
+
+Given(/^Patty has a recipient operation followup$/) do
+  @operation = set_up_recipient_operation(@patty)
+  @followup = set_up_recipient_followup(@operation)
 end
 
 # WHEN
@@ -166,6 +171,17 @@ When(/^Clyde assigns Patty as a recipient for Don's donation$/) do
   )
 end
 
+When(/^Clyde creates a recipient operation followup for Patty$/) do
+  create_recipient_followup(
+    operation: @operation,
+    user: @clyde
+  )
+end
+
+When(/^Clyde updates a recipient operation followup for Patty$/) do
+  update_recipient_followup(operation: @operation, user: @clyde)
+end
+
 # THEN
 
 Then(/^Patty's recipient workup exists$/) do
@@ -260,4 +276,12 @@ end
 
 Then(/^the current status was set by Clyde$/) do
   expect_transplant_registration_current_status_by_to_be(patient: @patty, user: @clyde)
+end
+
+Then(/^Patty's recipient operation followup workup exists$/) do
+  expect_recipient_followup_to_exist(@operation)
+end
+
+Then(/^Clyde can update Patty's a recipient operation followup$/) do
+  expect_update_recipient_followup_to_succeed(operation: @operation, user: @clyde)
 end
