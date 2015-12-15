@@ -1,6 +1,7 @@
+- return unless @registration
+
 = render layout: "renalware/patients/layout", locals: { title: "Transplant Wait List Registration" } do
 
-- return unless @registration
   .document-view
     - ["Codes", "CRF", "HLA", "Transplant", "Organs", "NHB Consent"].each do |group|
       = render "renalware/shared/documents/attributes_group",
@@ -9,6 +10,5 @@
 
     = render "renalware/shared/attributes_group",
         legend: "Admin", destination: "admin",
-        model: @registration,
-        attributes: %i(referred_on assessed_on contact notes)
+        models: { @registration => %i(referred_on assessed_on contact notes) }
 
