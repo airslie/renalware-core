@@ -13,7 +13,7 @@ module Renalware
       scope :ordered, -> { order(performed_on: :asc) }
       scope :reversed, -> { order(performed_on: :desc) }
 
-      has_paper_trail class_name: "Renalware::Transplants::DonorOperationVersion"
+      has_paper_trail class_name: "Renalware::Transplants::Version"
       has_document class_name: "Renalware::Transplants::DonorOperationDocument"
 
       enumerize :kidney_side, in: %i(left right both)

@@ -17,7 +17,7 @@ module Renalware
       scope :ordered, -> { order(performed_on: :asc) }
       scope :reversed, -> { order(performed_on: :desc) }
 
-      has_paper_trail class_name: "Renalware::Transplants::RecipientOperationVersion"
+      has_paper_trail class_name: "Renalware::Transplants::Version"
       has_document class_name: "Renalware::Transplants::RecipientOperationDocument"
 
       validates :performed_on, presence: true

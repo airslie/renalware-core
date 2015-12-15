@@ -6,7 +6,7 @@ module Renalware
       include PatientScope
 
       acts_as_paranoid
-      has_paper_trail class_name: "Renalware::Problems::ProblemVersion"
+      has_paper_trail class_name: "Renalware::Problems::Version"
 
       belongs_to :patient
 
