@@ -10,3 +10,4 @@ test:
         environment:
           RAILS_ENV: test
           TEST_DEPTH: web
+    - bundle exec bin/reset_data
