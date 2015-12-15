@@ -1178,41 +1178,6 @@ ALTER SEQUENCE prd_descriptions_id_seq OWNED BY prd_descriptions.id;
 
 
 --
--- Name: problem_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE problem_versions (
-    id integer NOT NULL,
-    item_type character varying NOT NULL,
-    item_id integer NOT NULL,
-    event character varying NOT NULL,
-    whodunnit character varying,
-    object jsonb,
-    object_changes jsonb,
-    created_at timestamp without time zone
-);
-
-
---
--- Name: problem_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE problem_versions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: problem_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE problem_versions_id_seq OWNED BY problem_versions.id;
-
-
---
 -- Name: problems; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1244,6 +1209,41 @@ CREATE SEQUENCE problems_id_seq
 --
 
 ALTER SEQUENCE problems_id_seq OWNED BY problems.id;
+
+
+--
+-- Name: problems_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE problems_versions (
+    id integer NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: problems_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE problems_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: problems_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE problems_versions_id_seq OWNED BY problems_versions.id;
 
 
 --
@@ -1340,41 +1340,6 @@ ALTER SEQUENCE transplants_donations_id_seq OWNED BY transplants_donations.id;
 
 
 --
--- Name: transplants_donor_operation_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE transplants_donor_operation_versions (
-    id integer NOT NULL,
-    item_type character varying NOT NULL,
-    item_id integer NOT NULL,
-    event character varying NOT NULL,
-    whodunnit character varying,
-    object jsonb,
-    object_changes jsonb,
-    created_at timestamp without time zone
-);
-
-
---
--- Name: transplants_donor_operation_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE transplants_donor_operation_versions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: transplants_donor_operation_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE transplants_donor_operation_versions_id_seq OWNED BY transplants_donor_operation_versions.id;
-
-
---
 -- Name: transplants_donor_operations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1412,41 +1377,6 @@ CREATE SEQUENCE transplants_donor_operations_id_seq
 --
 
 ALTER SEQUENCE transplants_donor_operations_id_seq OWNED BY transplants_donor_operations.id;
-
-
---
--- Name: transplants_donor_workup_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE transplants_donor_workup_versions (
-    id integer NOT NULL,
-    item_type character varying NOT NULL,
-    item_id integer NOT NULL,
-    event character varying NOT NULL,
-    whodunnit character varying,
-    object jsonb,
-    object_changes jsonb,
-    created_at timestamp without time zone
-);
-
-
---
--- Name: transplants_donor_workup_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE transplants_donor_workup_versions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: transplants_donor_workup_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE transplants_donor_workup_versions_id_seq OWNED BY transplants_donor_workup_versions.id;
 
 
 --
@@ -1585,41 +1515,6 @@ ALTER SEQUENCE transplants_recipient_followups_id_seq OWNED BY transplants_recip
 
 
 --
--- Name: transplants_recipient_operation_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE transplants_recipient_operation_versions (
-    id integer NOT NULL,
-    item_type character varying NOT NULL,
-    item_id integer NOT NULL,
-    event character varying NOT NULL,
-    whodunnit character varying,
-    object jsonb,
-    object_changes jsonb,
-    created_at timestamp without time zone
-);
-
-
---
--- Name: transplants_recipient_operation_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE transplants_recipient_operation_versions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: transplants_recipient_operation_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE transplants_recipient_operation_versions_id_seq OWNED BY transplants_recipient_operation_versions.id;
-
-
---
 -- Name: transplants_recipient_operations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1658,41 +1553,6 @@ CREATE SEQUENCE transplants_recipient_operations_id_seq
 --
 
 ALTER SEQUENCE transplants_recipient_operations_id_seq OWNED BY transplants_recipient_operations.id;
-
-
---
--- Name: transplants_recipient_workup_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE transplants_recipient_workup_versions (
-    id integer NOT NULL,
-    item_type character varying NOT NULL,
-    item_id integer NOT NULL,
-    event character varying NOT NULL,
-    whodunnit character varying,
-    object jsonb,
-    object_changes jsonb,
-    created_at timestamp without time zone
-);
-
-
---
--- Name: transplants_recipient_workup_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE transplants_recipient_workup_versions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: transplants_recipient_workup_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE transplants_recipient_workup_versions_id_seq OWNED BY transplants_recipient_workup_versions.id;
 
 
 --
@@ -1793,41 +1653,6 @@ CREATE SEQUENCE transplants_registration_statuses_id_seq
 --
 
 ALTER SEQUENCE transplants_registration_statuses_id_seq OWNED BY transplants_registration_statuses.id;
-
-
---
--- Name: transplants_registration_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE transplants_registration_versions (
-    id integer NOT NULL,
-    item_type character varying NOT NULL,
-    item_id integer NOT NULL,
-    event character varying NOT NULL,
-    whodunnit character varying,
-    object jsonb,
-    object_changes jsonb,
-    created_at timestamp without time zone
-);
-
-
---
--- Name: transplants_registration_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE transplants_registration_versions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: transplants_registration_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE transplants_registration_versions_id_seq OWNED BY transplants_registration_versions.id;
 
 
 --
@@ -2206,14 +2031,14 @@ ALTER TABLE ONLY prd_descriptions ALTER COLUMN id SET DEFAULT nextval('prd_descr
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY problem_versions ALTER COLUMN id SET DEFAULT nextval('problem_versions_id_seq'::regclass);
+ALTER TABLE ONLY problems ALTER COLUMN id SET DEFAULT nextval('problems_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY problems ALTER COLUMN id SET DEFAULT nextval('problems_id_seq'::regclass);
+ALTER TABLE ONLY problems_versions ALTER COLUMN id SET DEFAULT nextval('problems_versions_id_seq'::regclass);
 
 
 --
@@ -2234,21 +2059,7 @@ ALTER TABLE ONLY transplants_donations ALTER COLUMN id SET DEFAULT nextval('tran
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY transplants_donor_operation_versions ALTER COLUMN id SET DEFAULT nextval('transplants_donor_operation_versions_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY transplants_donor_operations ALTER COLUMN id SET DEFAULT nextval('transplants_donor_operations_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY transplants_donor_workup_versions ALTER COLUMN id SET DEFAULT nextval('transplants_donor_workup_versions_id_seq'::regclass);
 
 
 --
@@ -2283,21 +2094,7 @@ ALTER TABLE ONLY transplants_recipient_followups ALTER COLUMN id SET DEFAULT nex
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY transplants_recipient_operation_versions ALTER COLUMN id SET DEFAULT nextval('transplants_recipient_operation_versions_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY transplants_recipient_operations ALTER COLUMN id SET DEFAULT nextval('transplants_recipient_operations_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY transplants_recipient_workup_versions ALTER COLUMN id SET DEFAULT nextval('transplants_recipient_workup_versions_id_seq'::regclass);
 
 
 --
@@ -2319,13 +2116,6 @@ ALTER TABLE ONLY transplants_registration_status_descriptions ALTER COLUMN id SE
 --
 
 ALTER TABLE ONLY transplants_registration_statuses ALTER COLUMN id SET DEFAULT nextval('transplants_registration_statuses_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY transplants_registration_versions ALTER COLUMN id SET DEFAULT nextval('transplants_registration_versions_id_seq'::regclass);
 
 
 --
@@ -2605,19 +2395,19 @@ ALTER TABLE ONLY prd_descriptions
 
 
 --
--- Name: problem_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY problem_versions
-    ADD CONSTRAINT problem_versions_pkey PRIMARY KEY (id);
-
-
---
 -- Name: problems_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY problems
     ADD CONSTRAINT problems_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: problems_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY problems_versions
+    ADD CONSTRAINT problems_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -2637,27 +2427,11 @@ ALTER TABLE ONLY transplants_donations
 
 
 --
--- Name: transplants_donor_operation_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY transplants_donor_operation_versions
-    ADD CONSTRAINT transplants_donor_operation_versions_pkey PRIMARY KEY (id);
-
-
---
 -- Name: transplants_donor_operations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY transplants_donor_operations
     ADD CONSTRAINT transplants_donor_operations_pkey PRIMARY KEY (id);
-
-
---
--- Name: transplants_donor_workup_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY transplants_donor_workup_versions
-    ADD CONSTRAINT transplants_donor_workup_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -2693,27 +2467,11 @@ ALTER TABLE ONLY transplants_recipient_followups
 
 
 --
--- Name: transplants_recipient_operation_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY transplants_recipient_operation_versions
-    ADD CONSTRAINT transplants_recipient_operation_versions_pkey PRIMARY KEY (id);
-
-
---
 -- Name: transplants_recipient_operations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY transplants_recipient_operations
     ADD CONSTRAINT transplants_recipient_operations_pkey PRIMARY KEY (id);
-
-
---
--- Name: transplants_recipient_workup_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY transplants_recipient_workup_versions
-    ADD CONSTRAINT transplants_recipient_workup_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -2738,14 +2496,6 @@ ALTER TABLE ONLY transplants_registration_status_descriptions
 
 ALTER TABLE ONLY transplants_registration_statuses
     ADD CONSTRAINT transplants_registration_statuses_pkey PRIMARY KEY (id);
-
-
---
--- Name: transplants_registration_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY transplants_registration_versions
-    ADD CONSTRAINT transplants_registration_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -2778,13 +2528,6 @@ ALTER TABLE ONLY users
 
 ALTER TABLE ONLY versions
     ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
-
-
---
--- Name: donor_workup_versions_type_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX donor_workup_versions_type_id ON transplants_donor_workup_versions USING btree (item_type, item_id);
 
 
 --
@@ -2956,17 +2699,17 @@ CREATE INDEX index_patients_on_doctor_id ON patients USING btree (doctor_id);
 
 
 --
--- Name: index_problem_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_problem_versions_on_item_type_and_item_id ON problem_versions USING btree (item_type, item_id);
-
-
---
 -- Name: index_problems_on_deleted_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_problems_on_deleted_at ON problems USING btree (deleted_at);
+
+
+--
+-- Name: index_problems_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_problems_versions_on_item_type_and_item_id ON problems_versions USING btree (item_type, item_id);
 
 
 --
@@ -3138,38 +2881,10 @@ CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (it
 
 
 --
--- Name: tx_donor_operation_versions_type_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX tx_donor_operation_versions_type_id ON transplants_donor_operation_versions USING btree (item_type, item_id);
-
-
---
--- Name: tx_rec_operation_versions_type_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX tx_rec_operation_versions_type_id ON transplants_recipient_operation_versions USING btree (item_type, item_id);
-
-
---
--- Name: tx_registration_versions_type_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX tx_registration_versions_type_id ON transplants_registration_versions USING btree (item_type, item_id);
-
-
---
 -- Name: tx_versions_type_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX tx_versions_type_id ON transplants_versions USING btree (item_type, item_id);
-
-
---
--- Name: tx_workup_versions_type_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX tx_workup_versions_type_id ON transplants_recipient_workup_versions USING btree (item_type, item_id);
 
 
 --
@@ -3569,15 +3284,9 @@ INSERT INTO schema_migrations (version) VALUES ('20150903143922');
 
 INSERT INTO schema_migrations (version) VALUES ('20150923201215');
 
-INSERT INTO schema_migrations (version) VALUES ('20150925133903');
-
 INSERT INTO schema_migrations (version) VALUES ('20151014205537');
 
-INSERT INTO schema_migrations (version) VALUES ('20151014210052');
-
 INSERT INTO schema_migrations (version) VALUES ('20151021194419');
-
-INSERT INTO schema_migrations (version) VALUES ('20151021194622');
 
 INSERT INTO schema_migrations (version) VALUES ('20151022184845');
 
@@ -3587,11 +3296,7 @@ INSERT INTO schema_migrations (version) VALUES ('20151103210628');
 
 INSERT INTO schema_migrations (version) VALUES ('20151111194419');
 
-INSERT INTO schema_migrations (version) VALUES ('20151111194420');
-
 INSERT INTO schema_migrations (version) VALUES ('20151116111600');
-
-INSERT INTO schema_migrations (version) VALUES ('20151116111700');
 
 INSERT INTO schema_migrations (version) VALUES ('20151116170100');
 
