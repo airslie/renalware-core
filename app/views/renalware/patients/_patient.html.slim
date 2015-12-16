@@ -1,5 +1,6 @@
 tr
-  td= link_to "Demographics", patient_path(patient), title: "Demographics"
+  td= link_to "Admin", patient_path(patient), title: "Admin"
+  td= link_to "Clinical Summary", patient_clinical_summary_path(patient), title: "Clinical Summary"
   td.full-name= patient.to_s
   td= patient.nhs_number
   td= patient.local_patient_id
