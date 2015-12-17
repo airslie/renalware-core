@@ -1,7 +1,7 @@
 require "rails_helper"
 
 module Renalware::Drugs
-  RSpec.describe DrugsController, :type => :controller do
+  RSpec.describe DrugsController, type: :controller do
 
     describe "DELETE to destroy" do
       it "returns http success" do
@@ -60,7 +60,7 @@ module Renalware::Drugs
 
       context "with pagination params" do
         it "assigns paging variables" do
-          get :index,  {q: {name_cont: "cillin"}, page: "2", per_page: "50"}
+          get :index,  { q: { name_cont: "cillin" }, page: "2", per_page: "50" }
 
           expect(assigns(:page)).to eq("2")
           expect(assigns(:per_page)).to eq("50")
