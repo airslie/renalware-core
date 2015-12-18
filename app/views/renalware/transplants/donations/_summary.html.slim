@@ -6,7 +6,7 @@ fieldset
       dt Recipient:
       dd
         - if donation.recipient.present?
-          = link_to donation.recipient.to_s(:reversed_full_name_with_nhs),
+          = link_to donation.recipient.to_s(:long),
               patient_transplants_recipient_dashboard_path(donation.recipient)
         - else
           i Unassigned

@@ -15,7 +15,7 @@ module Renalware
           .map do |patient|
             {
               id: patient.id,
-              label: patient.to_s(:reversed_full_name_with_nhs)
+              label: patient.to_s(:long)
             }
           end
       end

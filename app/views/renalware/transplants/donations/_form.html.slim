@@ -22,7 +22,7 @@ ruby:
             nil, class: "right inline"
       .small-9.columns
         = text_field_tag 'recipient_auto_complete', \
-            f.object.recipient.try(:to_s, :reversed_full_name_with_nhs),
+            f.object.recipient.try(:to_s, :long),
             data: { \
               autocomplete_source: search_patients_path, \
               autocomplete_rel: "#transplants_donation_recipient_id" \
