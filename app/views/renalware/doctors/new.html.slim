@@ -3,7 +3,7 @@
 
 .row
   .large-6.columns
-    = form_for @doctor, as: :doctor do |f|
+    = simple_form_for @doctor, as: :doctor do |f|
       = render partial: 'form', locals: { f: f }
       = f.submit 'Save', class: 'button'
       span= " or "
