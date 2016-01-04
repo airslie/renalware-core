@@ -5,10 +5,6 @@ module Renalware
       current_page?(action: 'author', author_id: letter.author.to_param)
     end
 
-    def descriptions_options(selected)
-      options_from_collection_for_select(LetterDescription.all, :id, :text, selected)
-    end
-
     def authors_options
       options_from_collection_for_select(User.author, :id, :full_name)
     end
