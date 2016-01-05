@@ -9,6 +9,7 @@ module Renalware
       @practice = create(:practice)
       @doctor.practices << @practice
       @patient = create(:patient, doctor: @doctor, practice: @practice)
+      @letter = create(:letter, patient: @patient)
 
       login_as_clinician
       visit new_patient_letter_path(patient_id: @patient.to_param)
@@ -58,6 +59,18 @@ module Renalware
       fill_in "Body", with: "Dear Dr. Goode, I am pleased to inform you that the latest clinic appointment went extremely well"
 
       click_on "Save"
+
+      within("table.letters tbody tr:first-child") do
+        expect(page).to have_content("review")
+      end
+    end
+
+    scenario "edit a letter" do
+      visit edit_patient_letter_path(@patient, @letter)
+
+      select "review", from: "Status"
+
+      click_on "Update"
 
       within("table.letters tbody tr:first-child") do
         expect(page).to have_content("review")
