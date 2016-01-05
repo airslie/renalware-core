@@ -11,6 +11,9 @@ module Renalware
       render 'renalware/letters/new'
     end
 
+    def edit
+    end
+
     private
 
     def load_letter
