@@ -33,10 +33,14 @@ module Renalware
       @letter = BaseLetter.find(params[:id])
     end
 
+    def edit
+      @letter = letter_class.find(params[:id])
+      authorize @letter
+    end
+
     def update
       @letter = letter_class.find(params[:id])
       authorize @letter
-
       if service.update!(full_params)
         redirect_to patient_letters_path(@patient)
       else
