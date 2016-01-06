@@ -38,8 +38,6 @@ module World
 
         operation = donor_followup_for(operation)
         operation.update_attributes!(
-          document: {
-          },
           updated_at: Time.zone.now
         )
       end

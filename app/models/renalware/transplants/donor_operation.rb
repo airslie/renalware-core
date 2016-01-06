@@ -9,6 +9,7 @@ module Renalware
       extend Enumerize
 
       belongs_to :patient
+      has_one :followup, class_name: "DonorFollowup", foreign_key: "operation_id"
 
       scope :ordered, -> { order(performed_on: :asc) }
       scope :reversed, -> { order(performed_on: :desc) }

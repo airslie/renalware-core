@@ -1347,10 +1347,12 @@ CREATE TABLE transplants_donor_followups (
     id integer NOT NULL,
     operation_id integer,
     notes text,
-    last_seen_on date,
     followed_up boolean,
     ukt_center_code character varying,
-    document jsonb,
+    last_seen_on date,
+    lost_to_followup boolean,
+    transferred_for_followup boolean,
+    dead_on date,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -2775,13 +2777,6 @@ CREATE INDEX index_transplants_donations_on_patient_id ON transplants_donations 
 --
 
 CREATE INDEX index_transplants_donations_on_recipient_id ON transplants_donations USING btree (recipient_id);
-
-
---
--- Name: index_transplants_donor_followups_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_transplants_donor_followups_on_document ON transplants_donor_followups USING gin (document);
 
 
 --
