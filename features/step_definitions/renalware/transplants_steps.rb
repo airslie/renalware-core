@@ -19,7 +19,7 @@ Given(/^Patty has a recipient operation$/) do
 end
 
 Given(/^Don has a donor operation$/) do
-  set_up_donor_operation(@don)
+  @operation = set_up_donor_operation(@don)
 end
 
 Given(/^Don has a donation$/) do
@@ -29,6 +29,11 @@ end
 Given(/^Patty has a recipient operation followup$/) do
   @operation = set_up_recipient_operation(@patty)
   @followup = set_up_recipient_followup(@operation)
+end
+
+Given(/^Don has a donor operation followup$/) do
+  @operation = set_up_donor_operation(@don)
+  @followup = set_up_donor_followup(@operation)
 end
 
 # WHEN
@@ -182,6 +187,17 @@ When(/^Clyde updates a recipient operation followup for Patty$/) do
   update_recipient_followup(operation: @operation, user: @clyde)
 end
 
+When(/^Clyde creates a donor operation followup for Don$/) do
+  create_donor_followup(
+    operation: @operation,
+    user: @don
+  )
+end
+
+When(/^Clyde updates a donor operation followup for Don$/) do
+  update_donor_followup(operation: @operation, user: @don)
+end
+
 # THEN
 
 Then(/^Patty's recipient workup exists$/) do
@@ -282,6 +298,14 @@ Then(/^Patty's recipient operation followup workup exists$/) do
   expect_recipient_followup_to_exist(@operation)
 end
 
-Then(/^Clyde can update Patty's a recipient operation followup$/) do
+Then(/^Don's donor operation followup workup exists$/) do
+  expect_donor_followup_to_exist(@operation)
+end
+
+Then(/^Clyde can update Patty's recipient operation followup$/) do
   expect_update_recipient_followup_to_succeed(operation: @operation, user: @clyde)
+end
+
+Then(/^Clyde can update Don's donor operation followup$/) do
+  expect_update_donor_followup_to_succeed(operation: @operation, user: @don)
 end
