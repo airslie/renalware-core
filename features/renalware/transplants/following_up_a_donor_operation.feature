@@ -1,4 +1,3 @@
-@wip
 Feature: Following-up a donor operation
 
   After a transplant operation, a clinician follows up with the donor and needs
