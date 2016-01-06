@@ -19,6 +19,7 @@ module LoginMacros
     else # features
       login_as user
     end
+    @current_user = user
     user
   end
 
