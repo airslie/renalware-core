@@ -23,7 +23,7 @@ module Renalware
       private
 
       def search
-        @search ||= Patient.ransack(family_name_cont: term).tap do |s|
+        @search ||= Patient.search(family_name_cont: term).tap do |s|
           s.sorts = ["family_name", "given_name"]
         end
       end
