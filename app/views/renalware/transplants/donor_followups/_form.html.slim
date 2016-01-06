@@ -1,0 +1,26 @@
+ruby:
+  back_path = patient_transplants_donor_dashboard_path(@patient)
+
+.row.top
+  .medium-6.columns
+    = f.submit "Save", class: "button"
+    span= " or "
+    = link_to "cancel", back_path
+
+.form-content
+  = render layout: "renalware/shared/fieldset",
+      locals: { legend: "Admin", name: "admin" } do
+    = f.input :followed_up, as: :inline_radio_buttons
+    = f.input :last_seen_on, as: :date_picker
+    = f.input :ukt_center_code
+    = f.input :lost_to_followup, as: :inline_radio_buttons
+    = f.input :transferred_for_followup, as: :inline_radio_buttons
+    = f.input :dead_on, as: :date_picker
+
+    = f.input :notes, as: :text, input_html: { rows: 5 }
+
+.row
+  .large-12.columns
+    = f.submit 'Save', class: 'button'
+    span= " or "
+    = link_to 'cancel', back_path

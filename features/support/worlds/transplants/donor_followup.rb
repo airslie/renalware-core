@@ -62,25 +62,25 @@ module World
       def create_donor_followup(operation:, user:)
         login_as user
         visit patient_transplants_donor_dashboard_path(operation.patient)
-        within_fieldset "Donor Operations" do
+        within_fieldset "Donor Transplant Operations" do
           click_on "Enter details"
         end
 
-        fill_in "Stent Removal Date", with: valid_donor_followup_attributes[:stent_removed_on]
+        fill_in "Last Seen Date", with: valid_donor_followup_attributes[:last_seen_on]
 
         within ".top" do
           click_on "Save"
         end
       end
 
-      def update_donor_followup(operation:, user: nil)
+      def update_donor_followup(operation:, user:)
         login_as user
         visit patient_transplants_donor_dashboard_path(operation.patient)
-        within_fieldset "Donor Operations" do
+        within_fieldset "Donor Transplant Operations" do
           click_on "Update"
         end
 
-        within ".transplants_donor_followup_transplant_failed" do
+        within ".transplants_donor_followup_lost_to_followup" do
           choose "No"
         end
 

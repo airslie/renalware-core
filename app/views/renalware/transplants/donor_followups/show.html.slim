@@ -1,0 +1,12 @@
+- datestamp = l @donor_followup.operation.performed_on
+= render layout: "renalware/patients/layout",
+    locals: { title: "Transplant Donor Operation (#{datestamp}) Followup" } do
+  - return unless @donor_followup
+
+  .document-view
+    = render "renalware/shared/attributes_group",
+        legend: "Admin", destination: "admin",
+        models: { @donor_followup => [:followed_up, :last_seen_on, :ukt_center_code,
+          :lost_to_followup, :transferred_for_followup,
+          :dead_on, :notes] }
+

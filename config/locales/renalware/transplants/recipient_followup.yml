@@ -24,10 +24,3 @@ en:
         peripheral_vascular_disease: Peripheral vascular disease
         stroke: Stroke
         transient_ischaemic_attack: Transient ischaemic attack
-
-  enumerize:
-    renalware/transplants/recipient_followup_document:
-      cardiovascular_complications:
-
-
-

@@ -190,12 +190,12 @@ end
 When(/^Clyde creates a donor operation followup for Don$/) do
   create_donor_followup(
     operation: @operation,
-    user: @don
+    user: @clyde
   )
 end
 
 When(/^Clyde updates a donor operation followup for Don$/) do
-  update_donor_followup(operation: @operation, user: @don)
+  update_donor_followup(operation: @operation, user: @clyde)
 end
 
 # THEN
@@ -307,5 +307,5 @@ Then(/^Clyde can update Patty's recipient operation followup$/) do
 end
 
 Then(/^Clyde can update Don's donor operation followup$/) do
-  expect_update_donor_followup_to_succeed(operation: @operation, user: @don)
+  expect_update_donor_followup_to_succeed(operation: @operation, user: @clyde)
 end

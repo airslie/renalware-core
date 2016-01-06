@@ -76,7 +76,7 @@ module World
         end
       end
 
-      def update_recipient_followup(operation:, user: nil)
+      def update_recipient_followup(operation:, user:)
         login_as user
         visit patient_transplants_recipient_dashboard_path(operation.patient)
         within_fieldset "Recipient Operations" do
