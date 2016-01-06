@@ -55,7 +55,9 @@ Given(/^I am on the add a new patient page$/) do
 end
 
 Given(/^I've selected the patient from the search results$/) do
-  click_on "Demographics"
+  within "#patients" do
+    click_on "Admin"
+  end
 end
 
 When(/^I complete the add a new patient form$/) do
