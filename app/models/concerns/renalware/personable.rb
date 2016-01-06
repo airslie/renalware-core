@@ -8,21 +8,15 @@ module Renalware
       end
 
       def full_name
-        to_s(:full_name)
+        "#{given_name} #{family_name}"
       end
 
-      alias_method :orig_to_s, :to_s
-
-      def to_s(format=nil)
+      def to_s(format=:default)
         case format
-        when :full_name
-          "#{given_name} #{family_name}"
-        when :reversed_full_name
+        when :default
           "#{family_name}, #{given_name}"
-        when :reversed_full_name_with_nhs
+        when :long
           "#{family_name}, #{given_name} (#{nhs_number})"
-        else
-          orig_to_s
         end
       end
     end

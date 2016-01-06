@@ -21,13 +21,10 @@ shared_examples_for "Personable" do
   describe "to_s" do
     let(:instance) { subject.new(given_name: "Aneurin", family_name: "Bevan") }
     it "accepts the :full_name format" do
-      expect(instance.to_s(:full_name)).to eq("Aneurin Bevan")
+      expect(instance.full_name).to eq("Aneurin Bevan")
     end
-    it "accepts the :reversed_full_name format" do
-      expect(instance.to_s(:reversed_full_name)).to eq("Bevan, Aneurin")
-    end
-    it "defaults to Class#to_s" do
-      expect(instance.to_s).to eq(instance.orig_to_s)
+    it "accepts the :default format" do
+      expect(instance.to_s).to eq("Bevan, Aneurin")
     end
   end
 end
