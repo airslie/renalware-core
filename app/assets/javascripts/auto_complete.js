@@ -4,6 +4,7 @@ $(document).ready(function() {
     var target = $(this).data("autocomplete-rel");
     $(this).autocomplete({
       minLength: 2,
+      autoFocus: true,
       source: function(request,response) {
         $.ajax({
           url: url,
