@@ -38,7 +38,7 @@ $(document).ready(function(){
     var $hdPdTable = $('<table><caption>Haemodialysis to PD</caption><thead><tr><th>RR Code</th><th>Reason for Change</th></tr></thead><tbody id="hd-pd"></tbody></table>');
     var $pdHdTable = $('<table><caption>PD to Haemodialysis</caption><thead><tr><th>RR Code</th><th>Reason for Change</th></tr></thead><tbody id="pd-hd"></tbody></table>');
 
-    $bigModal.attr('id','big-modal').appendTo('div#wrapper');
+    $bigModal.attr('id','big-modal').appendTo('div#modals-wrapper');
     $smallModal.attr('id','small-modal').appendTo('div#big-modal');
     $modalHolder.appendTo('div#small-modal');
     $hdPdTable.appendTo('div#modal-holder');
