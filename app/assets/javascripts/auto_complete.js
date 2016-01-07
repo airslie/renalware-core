@@ -31,4 +31,9 @@ $(document).ready(function() {
       }
     });
   });
+
+  $(document).on("click", "[data-clear-value-on-click]", function() {
+    var target = $(this).data("clear-value-on-click");
+    $(target).val("");
+  })
 });
