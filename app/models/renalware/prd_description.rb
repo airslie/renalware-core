@@ -3,7 +3,7 @@ module Renalware
     scope :ordered, -> { order(:id) }
 
     def to_s
-      term
+      "#{term} [#{code}]"
     end
   end
 end

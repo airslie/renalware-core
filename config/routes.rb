@@ -95,6 +95,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :prd_descriptions, only: [:search] do
+      collection do
+        get :search
+      end
+    end
+
     resources :snomed, only: [:index]
   end
 end
