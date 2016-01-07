@@ -5,10 +5,6 @@ module Renalware
       current_page?(action: 'author', author_id: letter.author.to_param)
     end
 
-    def authors_options
-      options_from_collection_for_select(User.author, :id, :full_name)
-    end
-
     def clinic_dates_options(patient)
       options_from_collection_for_select(Clinic.where(patient: patient), :id, :date)
     end
