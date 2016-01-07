@@ -1,7 +1,7 @@
 = render partial: "renalware/shared/errors", locals: {model: f.object}
 
 = hidden_field_tag :letter_type, @letter.short_type
-= f.hidden_field :clinic_visit_id if @letter.clinic_letter?
+= f.input :clinic_visit_id, as: :hidden if @letter.clinic_letter?
 
 .row
   .columns.large-12
@@ -9,27 +9,35 @@
     = field_set_tag "Header" do
       .row
         .columns.large-10.inline
-          = f.label :letter_description_id, "Description"
-          = f.select :letter_description_id,
-              descriptions_options(@letter.letter_description_id),
+          = f.association :letter_description,
+              label: "Description",
+              collection: Renalware::LetterDescription.all, selected: @letter.letter_description_id,
+              value_method: :id,
+              label_method: :text,
               include_blank: true,
               prompt: "Select a letter description"
 
         .columns.large-2.inline
-          = f.label :state, "Status"
-          = f.select :state, [:draft, :review]
+          = f.input :state, label: "Status",
+              collection: [:draft, :review]
 
       .row
         .columns.large-4.inline
-          = f.label :author_id
-          = f.select :author_id, authors_options
+          = f.association :author,
+              collection: Renalware::User.author,
+              value_method: :id,
+              label_method: :full_name
 
 = field_set_tag "Recipient" do
-  = f.radio_button :recipient, "doctor", class: "inline", disabled: !@patient.doctor.present?
-  = f.label :recipient, "Doctor"
+  = f.input :recipient, as: :inline_radio_buttons,
+      collection: [["Doctor", "doctor"]],
+      label: false,
+      disabled: !@patient.doctor.present?
 
-  = f.radio_button :recipient, "patient", class: "inline", disabled: !@patient.current_address.present?
-  = f.label :recipient, "Patient"
+  = f.input :recipient, as: :inline_radio_buttons,
+      collection: [["Patient", "patient"]],
+      label: false,
+      disabled: !@patient.current_address.present?
 
   = radio_button_tag "letter[recipient]", "other", @patient.doctor.nil? && @patient.current_address.nil?, class: "inline"
   = f.label :recipient, "Other"
@@ -46,8 +54,9 @@
 .row
   .columns.large-12
     = field_set_tag "Message" do
-      = f.label :body, "Body"
-      = f.text_area :body, rows: 15
+      = f.input :body, as: :text,
+          input_html: { rows: 15 },
+          label: "Body"
 
 - if @letter.author.present?
   .row
