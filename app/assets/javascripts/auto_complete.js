@@ -1,4 +1,17 @@
 $(document).ready(function() {
+
+  $.ui.autocomplete.prototype._renderItem = function (ul, item) {
+    var t = String(item.value).replace(
+      new RegExp(this.term, "gi"),
+      "<span class='ui-state-highlight'>$&</span>"
+    );
+    return $("<li></li>")
+      .data("item.autocomplete", item)
+      .append("<a>" + t + "</a>")
+      .appendTo(ul);
+  };
+
+
   $("[data-autocomplete-source]").each(function() {
     var url = $(this).data("autocomplete-source");
     var target = $(this).data("autocomplete-rel");
