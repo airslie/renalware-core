@@ -9,8 +9,10 @@ Given(/^Clyde is on Patty's ESRF summary$/) do
 end
 
 When(/^Clyde completes Patty's ESRF from$/) do
-  fill_in "Date", with: fake_date
-  select "Cystinuria", from: "Primary Renal Diagnosis (PRD)"
+  fill_in "ESRF Date", with: fake_date
+
+  fill_autocomplete "prd_description_auto_complete",
+    with: "Cystinuria", select: "Cystinuria"
 
   click_on "Save"
 end

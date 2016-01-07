@@ -9,6 +9,7 @@ Background:
     And Clyde is logged in
     And Clyde is on Patty's ESRF summary
 
+@javascript
 Scenario: Clyde records Patty's ESRF
   When Clyde completes Patty's ESRF from
   Then Patty's ESRF details should be updated
