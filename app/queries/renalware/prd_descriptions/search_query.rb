@@ -3,7 +3,7 @@ module Renalware
     class SearchQuery
       attr_reader :term, :page, :per_page
 
-      def initialize(term:, page: 1, per_page: 20)
+      def initialize(term:, page: 1, per_page: 50)
         @term = term
         @page = page
         @per_page = per_page
