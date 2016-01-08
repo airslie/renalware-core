@@ -3,7 +3,7 @@
   = render partial: "renalware/shared/errors", locals: { model: @bag_type }
 
 .row
-  = form_for @bag_type, method: :post do |bt|
+  = simple_form_for @bag_type, method: :post do |bt|
     = render partial: "renalware/bag_types/form", locals: { bt: bt }
 
     = submit_tag "Save", class: "button"
