@@ -2,6 +2,14 @@ module Renalware
   class Duration
     attr_reader :seconds
 
+    class Minute
+      def self.to_seconds(value);  value * 60; end
+    end
+
+    class Hour
+      def self.to_seconds(value); value * Minute.to_seconds(60); end
+    end
+
     def initialize(seconds)
       @seconds = seconds
     end
@@ -10,11 +18,12 @@ module Renalware
       Duration.new(to_seconds(value))
     end
 
+    # Returns the duration in hours and minutes format: "hh:mm"
     def to_s
       return "" if @seconds.nil?
 
-      hours, seconds = @seconds.divmod(3600)
-      minutes = seconds / 60
+      hours, seconds = @seconds.divmod(Hour.to_seconds(1))
+      minutes = seconds / Minute.to_seconds(1)
       sprintf("%d:%02d", hours, minutes)
     end
 
@@ -23,11 +32,12 @@ module Renalware
     def self.to_seconds(string)
       return nil if string.blank?
 
+      # Expected format: "hh:mm"
       if string =~ /:/
         hours, minutes = string.split(":")
-        (hours.to_i * 60 * 60) + (minutes.to_i * 60)
+        Hour.to_seconds(hours.to_i) + Minute.to_seconds(minutes.to_i)
       else
-        string.to_i * 60
+        Minute.to_seconds(string.to_i)
       end
     end
   end

@@ -24,6 +24,10 @@ module Renalware
       it "keeps a nil value" do
         expect(subject.from_string("").seconds).to be_nil
       end
+
+      it "drops the seconds if provided" do
+        expect(subject.from_string("0:10:10").seconds).to eq(600)
+      end
     end
 
     describe "#to_s" do
