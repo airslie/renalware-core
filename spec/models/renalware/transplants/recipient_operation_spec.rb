@@ -37,13 +37,13 @@ module Renalware
       describe "#cold_ischaemic_time_formatted=" do
         it "stores duration in seconds" do
           subject.cold_ischaemic_time_formatted = "1:01"
-          expect(subject.cold_ischaemic_time).to eq(3600+60)
+          expect(subject.cold_ischaemic_time).to eq(3600 + 60)
         end
       end
 
       describe "#cold_ischaemic_time_formatted" do
         it "returns formatted duration in hh:mm" do
-          subject.cold_ischaemic_time = 3600+60
+          subject.cold_ischaemic_time = 3600 + 60
           expect(subject.cold_ischaemic_time_formatted).to eq("1:01")
         end
       end
@@ -51,13 +51,13 @@ module Renalware
       describe "#warm_ischaemic_time_formatted=" do
         it "stores duration in seconds" do
           subject.warm_ischaemic_time_formatted = "1:01"
-          expect(subject.warm_ischaemic_time).to eq(3600+60)
+          expect(subject.warm_ischaemic_time).to eq(3600 + 60)
         end
       end
 
       describe "#warm_ischaemic_time_formatted" do
         it "returns formatted duration in hh:mm" do
-          subject.warm_ischaemic_time = 3600+60
+          subject.warm_ischaemic_time = 3600 + 60
           expect(subject.warm_ischaemic_time_formatted).to eq("1:01")
         end
       end

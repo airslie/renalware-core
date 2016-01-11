@@ -50,7 +50,7 @@ module Renalware
       end
 
       def cold_ischaemic_time_formatted=(value)
-        self.cold_ischaemic_time = Duration.new(value).in_seconds
+        self.cold_ischaemic_time = Duration.from_string(value).seconds
       end
 
       def warm_ischaemic_time_formatted
@@ -59,7 +59,7 @@ module Renalware
       end
 
       def warm_ischaemic_time_formatted=(value)
-        self.warm_ischaemic_time = Duration.new(value).in_seconds
+        self.warm_ischaemic_time = Duration.from_string(value).seconds
       end
 
       def recipient_age_at_operation

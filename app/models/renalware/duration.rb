@@ -1,15 +1,17 @@
 module Renalware
   class Duration
-    def initialize(value)
-      @seconds = value.is_a?(::String) ? to_seconds(value) : value
+    attr_reader :seconds
+
+    def initialize(seconds)
+      @seconds = seconds
     end
 
-    def in_seconds
-      @seconds
+    def self.from_string(value)
+      Duration.new(to_seconds(value))
     end
 
     def to_s
-      return nil if @seconds.nil?
+      return "" if @seconds.nil?
 
       hours, seconds = @seconds.divmod(3600)
       minutes = seconds / 60
@@ -18,15 +20,14 @@ module Renalware
 
     private
 
-    def to_seconds(data)
-      return if data.blank?
+    def self.to_seconds(string)
+      return nil if string.blank?
 
-      value = data.to_s
-      if value =~ /:/
-        hours, minutes = value.split(":")
-        hours.to_i * 60 * 60 + minutes.to_i * 60
+      if string =~ /:/
+        hours, minutes = string.split(":")
+        (hours.to_i * 60 * 60) + (minutes.to_i * 60)
       else
-        value.to_i * 60
+        string.to_i * 60
       end
     end
   end
