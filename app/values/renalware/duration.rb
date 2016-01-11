@@ -32,10 +32,10 @@ module Renalware
     def self.to_seconds(string)
       return nil if string.blank?
 
-      # Expected format: "hh:mm"
-      if string =~ /:/
-        hours, minutes = string.split(":")
-        Hour.to_seconds(hours) + Minute.to_seconds(minutes)
+      case string
+      when /(?<hours>\d+):(?<minutes>\d{2})/ # "hh:mm"
+        match = $LAST_MATCH_INFO
+        Hour.to_seconds(match[:hours]) + Minute.to_seconds(match[:minutes])
       else
         Minute.to_seconds(string)
       end
