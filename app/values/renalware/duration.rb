@@ -3,11 +3,11 @@ module Renalware
     attr_reader :seconds
 
     class Minute
-      def self.to_seconds(value);  value * 60; end
+      def self.to_seconds(value);  value.to_i * 60; end
     end
 
     class Hour
-      def self.to_seconds(value); value * Minute.to_seconds(60); end
+      def self.to_seconds(value); value.to_i * Minute.to_seconds(60); end
     end
 
     def initialize(seconds)
@@ -35,9 +35,9 @@ module Renalware
       # Expected format: "hh:mm"
       if string =~ /:/
         hours, minutes = string.split(":")
-        Hour.to_seconds(hours.to_i) + Minute.to_seconds(minutes.to_i)
+        Hour.to_seconds(hours) + Minute.to_seconds(minutes)
       else
-        Minute.to_seconds(string.to_i)
+        Minute.to_seconds(string)
       end
     end
   end
