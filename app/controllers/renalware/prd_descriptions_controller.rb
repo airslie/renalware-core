@@ -3,8 +3,7 @@ module Renalware
     skip_after_action :verify_authorized, only: [:search]
 
     def search
-      query = PRDDescriptions::SearchQuery.new(term: params[:term])
-      render json: query.call.to_json
+      @prd_descriptions = PRDDescriptions::SearchQuery.new(term: params[:term]).call
     end
   end
 end

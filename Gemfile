@@ -26,6 +26,7 @@ gem 'enumerize'
 gem 'validates_timeliness'
 gem 'pundit'
 gem 'font-awesome-rails' # See icons here: https://fortawesome.github.io/Font-Awesome/icons/
+gem 'jbuilder'
 
 source 'https://rails-assets.org' do
   # https://github.com/najlepsiwebdesigner/foundation-datepicker

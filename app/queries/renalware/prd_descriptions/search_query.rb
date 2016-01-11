@@ -10,14 +10,7 @@ module Renalware
       end
 
       def call
-        search.result.page(page).per(per_page)
-          .select(fields)
-          .map do |description|
-            {
-              id: description.id,
-              label: description.to_s
-            }
-          end
+        search.result.page(page).per(per_page).select(fields)
       end
 
       private
