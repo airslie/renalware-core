@@ -11,15 +11,16 @@ ruby:
     span= " or "
     = link_to "cancel", back_path
 
-.form-content
+.form-content2
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Recipient", name: "recipient" } do
     = f.input :relationship_with_recipient
     = f.input :relationship_with_recipient_other
     .row
       .small-3.columns
-        = label_tag f.object.class.human_attribute_name(:recipient),
-            nil, class: "right inline"
+        = label_tag 'recipient_auto_complete',
+            f.object.class.human_attribute_name(:recipient),
+            class: "right inline"
       .small-9.columns
         = text_field_tag 'recipient_auto_complete', \
             f.object.recipient.try(:to_s, :long),
@@ -27,6 +28,7 @@ ruby:
               autocomplete_source: search_patients_path, \
               autocomplete_rel: "#transplants_donation_recipient_id" \
             },
+            spellcheck: false,
             placeholder: "Start entering the last name (min. 2 characters)"
     = f.input :recipient_id, as: :hidden
     = f.input :blood_group_compatibility, as: :inline_radio_buttons

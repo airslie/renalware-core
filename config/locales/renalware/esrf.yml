@@ -1,0 +1,6 @@
+en:
+  activerecord:
+    attributes:
+      renalware/esrf:
+        prd_description: Primary Renal Diagnosis (PRD)
+        diagnosed_on: ESRF Date

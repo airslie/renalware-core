@@ -4,12 +4,12 @@
     = render partial: "renalware/shared/errors", locals: { model: @esrf }
 
   .row
-    .large-10.columns
+    .large-12.columns
       = simple_form_for @esrf,
           url: patient_esrf_path(@patient),
           method: :patch,
           wrapper: "horizontal_form"  do |f|
-        = render partial: "form", locals: { f: f, prd_descriptions: @prd_descriptions }
+        = render "form", f: f
 
         = submit_tag "Save", class: "button"
         span= " or "

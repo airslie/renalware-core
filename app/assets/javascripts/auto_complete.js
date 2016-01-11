@@ -1,9 +1,23 @@
 $(document).ready(function() {
+
+  $.ui.autocomplete.prototype._renderItem = function (ul, item) {
+    var t = String(item.value).replace(
+      new RegExp(this.term, "gi"),
+      "<span class='ui-state-highlight'>$&</span>"
+    );
+    return $("<li></li>")
+      .data("item.autocomplete", item)
+      .append("<a>" + t + "</a>")
+      .appendTo(ul);
+  };
+
+
   $("[data-autocomplete-source]").each(function() {
     var url = $(this).data("autocomplete-source");
     var target = $(this).data("autocomplete-rel");
     $(this).autocomplete({
       minLength: 2,
+      autoFocus: true,
       source: function(request,response) {
         $.ajax({
           url: url,
@@ -31,4 +45,9 @@ $(document).ready(function() {
       }
     });
   });
+
+  $(document).on("click", "[data-clear-value-on-click]", function() {
+    var target = $(this).data("clear-value-on-click");
+    $(target).val("");
+  })
 });

@@ -3,3 +3,13 @@ input[type='text'].ui-autocomplete-loading {
   background-repeat: no-repeat;
   background-position: 98% center;
 }
+
+.ui-widget.ui-autocomplete {
+  font-size: 0.9em;
+}
+
+.ui-menu.ui-autocomplete .ui-menu-item {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;
+}
