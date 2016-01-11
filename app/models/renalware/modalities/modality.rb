@@ -10,9 +10,10 @@ module Renalware
       belongs_to :patient
       belongs_to :reason, class_name: "Reason"
 
-      scope :ordered, -> { order(ended_on: :desc) }
+      scope :ordered, -> { order(ended_on: :desc, updated_at: :desc) }
 
-      scope :last_started_on, -> { order(started_on: :desc).with_deleted.where(ended_on: nil) }
+      scope :started_on_reversed, -> { order(started_on: :desc, updated_at: :desc) }
+      scope :last_started_on, -> { started_on_reversed.with_deleted.where(ended_on: nil) }
 
       validates :patient, presence: true
       validates :started_on, presence: true
@@ -41,7 +42,7 @@ module Renalware
 
       def started_later_than_previous?
         if previous_modality = patient.modalities.last_started_on.first
-          started_on.present? && started_on > previous_modality.started_on
+          started_on.present? && started_on >= previous_modality.started_on
         else
           true
         end

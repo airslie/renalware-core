@@ -27,7 +27,8 @@ module Renalware
 
         context "given start date is later than previous start date" do
           subject do
-            build(:modality,
+            build(
+              :modality,
               patient: patients_modality.patient,
               started_on: Date.parse("2015-05-01")
             )
@@ -39,9 +40,25 @@ module Renalware
           end
         end
 
+        context "given start date is the same as the previous start date" do
+          subject do
+            build(
+              :modality,
+              patient: patients_modality.patient,
+              started_on: Date.parse("2015-04-01")
+            )
+          end
+
+          it "has a valid start date" do
+            subject.valid?
+            expect(subject.errors[:started_on]).to be_empty
+          end
+        end
+
         context "given start date is not later than previous start date" do
           subject do
-            build(:modality,
+            build(
+              :modality,
               patient: patients_modality.patient,
               started_on: Date.parse("2015-03-21")
             )
