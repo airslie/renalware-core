@@ -9,8 +9,8 @@ class CreateTransplantsRecipientOperations < ActiveRecord::Migration
       t.string :operation_type, null: false
       t.string :transplant_site, null: false
       t.datetime :kidney_perfused_with_blood_at, null: false
-      t.time :cold_ischaemic_time, null: false
-      t.time :warm_ischaemic_time, null: false
+      t.integer :cold_ischaemic_time, null: false
+      t.integer :warm_ischaemic_time, null: false
       t.text :notes
 
       t.jsonb :document

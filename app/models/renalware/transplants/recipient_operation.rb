@@ -20,20 +20,23 @@ module Renalware
       has_paper_trail class_name: "Renalware::Transplants::Version"
       has_document class_name: "Renalware::Transplants::RecipientOperationDocument"
 
+      attr_accessor :cold_ischaemic_time_formatted
+      attr_accessor :warm_ischaemic_time_formatted
+
       validates :performed_on, presence: true
       validates :theatre_case_start_time, presence: true
       validates :donor_kidney_removed_from_ice_at, presence: true
       validates :kidney_perfused_with_blood_at, presence: true
       validates :operation_type, presence: true
       validates :transplant_site, presence: true
-      validates :cold_ischaemic_time, presence: true
-      validates :warm_ischaemic_time, presence: true
+      validates :cold_ischaemic_time_formatted, presence: true
+      validates :warm_ischaemic_time_formatted, presence: true
 
       validates :donor_kidney_removed_from_ice_at, timeliness: { type: :datetime }
       validates :kidney_perfused_with_blood_at, timeliness: { type: :datetime }
       validates :theatre_case_start_time, timeliness: { type: :time }
-      validates :cold_ischaemic_time, timeliness: { type: :time }
-      validates :warm_ischaemic_time, timeliness: { type: :time }
+      # validates :cold_ischaemic_time, timeliness: { type: :time }
+      # validates :warm_ischaemic_time, timeliness: { type: :time }
 
       enumerize :operation_type, in: %i(kidney kidney_pancreas pancreas kidney_liver liver)
 
@@ -41,14 +44,22 @@ module Renalware
         TimeOfDay.new(read_attribute(:theatre_case_start_time))
       end
 
-      def cold_ischaemic_time
+      def cold_ischaemic_time_formatted
         # For presentation purposes
-        TimeOfDay.new(read_attribute(:cold_ischaemic_time))
+        Duration.new(read_attribute(:cold_ischaemic_time)).to_s
       end
 
-      def warm_ischaemic_time
+      def cold_ischaemic_time_formatted=(value)
+        self.cold_ischaemic_time = Duration.from_string(value).seconds
+      end
+
+      def warm_ischaemic_time_formatted
         # For presentation purposes
-        TimeOfDay.new(read_attribute(:warm_ischaemic_time))
+        Duration.new(read_attribute(:warm_ischaemic_time)).to_s
+      end
+
+      def warm_ischaemic_time_formatted=(value)
+        self.warm_ischaemic_time = Duration.from_string(value).seconds
       end
 
       def recipient_age_at_operation
