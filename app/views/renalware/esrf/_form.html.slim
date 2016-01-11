@@ -15,7 +15,7 @@
         .row.collapse
           .small-11.columns
             = text_field_tag 'prd_description_auto_complete', \
-                f.object.prd_description.try(:to_s),
+                f.object.prd_description.to_s,
                 data: { \
                   autocomplete_source: search_prd_descriptions_path, \
                   autocomplete_rel: "#esrf_prd_description_id" \
