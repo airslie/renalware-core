@@ -1,5 +1,4 @@
 require 'rails_helper'
-require_dependency "models/renalware/concerns/personable"
 
 module Renalware
   describe User, type: :model do

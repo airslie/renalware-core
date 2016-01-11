@@ -1,13 +1,13 @@
 module Renalware
   class UserPolicy < BasePolicy
     def update?
-      !user_updates_itself?
+      super && !user_update_self?
     end
 
     private
 
-    def user_updates_itself?
-      record.id == user.id
+    def user_update_self?
+      record == user
     end
   end
 end

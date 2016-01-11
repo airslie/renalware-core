@@ -20,7 +20,6 @@ module LoginMacros
       login_as user
     end
     @current_user = user
-    user
   end
 
   alias_method :login_as_super_admin, :login_user
