@@ -20,7 +20,7 @@ module Renalware
           redirect_to patient_problems_path(@patient),
             notice: t(".success", model_name: "problem")
         else
-          flash[:error] = "Please provide a description."
+          flash[:error] = t(".failed", model_name: "problem")
           render :edit
         end
       end
@@ -33,7 +33,7 @@ module Renalware
           redirect_to patient_problems_url(@patient),
             notice: t(".success", model_name: "problem")
         else
-          flash[:error] = "Please provide a description."
+          flash[:error] = t(".failed", model_name: "problem")
           render :index
         end
       end
