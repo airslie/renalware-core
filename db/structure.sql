@@ -1345,7 +1345,7 @@ ALTER SEQUENCE transplants_donations_id_seq OWNED BY transplants_donations.id;
 
 CREATE TABLE transplants_donor_followups (
     id integer NOT NULL,
-    operation_id integer,
+    operation_id integer NOT NULL,
     notes text,
     followed_up boolean,
     ukt_center_code character varying,
@@ -1519,7 +1519,7 @@ ALTER SEQUENCE transplants_failure_cause_descriptions_id_seq OWNED BY transplant
 
 CREATE TABLE transplants_recipient_followups (
     id integer NOT NULL,
-    operation_id integer,
+    operation_id integer NOT NULL,
     notes text,
     stent_removed_on date,
     transplant_failed boolean,

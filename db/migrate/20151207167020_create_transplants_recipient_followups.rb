@@ -1,7 +1,7 @@
 class CreateTransplantsRecipientFollowups < ActiveRecord::Migration
   def change
     create_table :transplants_recipient_followups do |t|
-      t.integer :operation_id
+      t.integer :operation_id, null: false
       t.text :notes
 
       t.date :stent_removed_on
