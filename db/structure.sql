@@ -1702,6 +1702,7 @@ CREATE TABLE transplants_registrations (
     patient_id integer,
     referred_on date,
     assessed_on date,
+    enterred_on date,
     contact text,
     notes text,
     document jsonb,

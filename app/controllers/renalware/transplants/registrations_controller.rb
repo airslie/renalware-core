@@ -37,7 +37,7 @@ module Renalware
 
       def attributes
         [
-          :referred_on, :assessed_on, :contact, :notes,
+          :referred_on, :assessed_on, :enterred_on, :contact, :notes,
           statuses_attributes: [:started_on, :description_id],
           document: []
         ]

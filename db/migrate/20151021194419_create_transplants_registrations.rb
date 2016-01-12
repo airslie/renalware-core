@@ -5,6 +5,7 @@ class CreateTransplantsRegistrations < ActiveRecord::Migration
 
       t.date :referred_on
       t.date :assessed_on
+      t.date :enterred_on
       t.text :contact
       t.text :notes
 
