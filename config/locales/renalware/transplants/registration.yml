@@ -6,6 +6,7 @@ en:
       renalware/transplants/registration:
         assessed_on: Assessment Date
         contact: Wait List Contact
+        enterred_on: Wait List Entry Date
         notes: Notes
         referred_on: Referral Date
   activemodel:
