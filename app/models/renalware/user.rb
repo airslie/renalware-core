@@ -19,7 +19,7 @@ module Renalware
     attr_accessor :super_admin_update
 
     def self.policy_class
-      BasePolicy
+      UserPolicy
     end
 
     def self.ransackable_scopes(_auth_object = nil)

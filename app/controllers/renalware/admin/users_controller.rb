@@ -1,8 +1,6 @@
 module Renalware
   class Admin::UsersController < BaseController
 
-    before_filter :load_user, only: [:edit, :update]
-
     def index
       @search = User.search(params[:q])
       @users = @search.result(distinct: true)
@@ -10,7 +8,13 @@ module Renalware
       authorize @users
     end
 
+    def edit
+      load_user
+    end
+
     def update
+      load_user
+
       if user_service.update_and_notify!(service_params)
         redirect_to admin_users_path, notice: "#{@user.username} updated"
       else
