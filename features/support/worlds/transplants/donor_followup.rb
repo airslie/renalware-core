@@ -4,7 +4,7 @@ module World
       # @section helpers
       #
       def donor_followup_for(operation)
-        Renalware::Transplants::DonorFollowup.for_operation(operation).first_or_initialize
+        operation.followup
       end
 
       def valid_donor_followup_attributes
@@ -45,7 +45,7 @@ module World
       # @section expectations
       #
       def expect_donor_followup_to_exist(operation)
-        expect(Renalware::Transplants::DonorFollowup.for_operation(operation)).to be_present
+        expect(operation.followup).to be_present
       end
 
       def expect_update_donor_followup_to_succeed(operation:, user:)

@@ -22,10 +22,6 @@ module Renalware
         if: ->(o) { o.transplant_failed }
       validates :transplant_failure_cause_other, presence: true,
         if: ->(o) { o.transplant_failure_cause_description.try(:name) == "Other" }
-
-      def self.for_operation(operation)
-        where(operation: operation)
-      end
     end
   end
 end

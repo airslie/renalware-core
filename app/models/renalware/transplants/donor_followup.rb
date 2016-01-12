@@ -10,10 +10,6 @@ module Renalware
 
       validates :last_seen_on, timeliness: { type: :date, allow_blank: true }
       validates :dead_on, timeliness: { type: :date, allow_blank: true }
-
-      def self.for_operation(operation)
-        where(operation: operation)
-      end
     end
   end
 end
