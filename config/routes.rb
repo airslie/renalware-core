@@ -85,7 +85,9 @@ Rails.application.routes.draw do
 
         resource :donor_dashboard, only: :show
         resource :donor_workup, only: [:show, :edit, :update]
-        resources :donor_operations, expect: [:index, :destroy]
+        resources :donor_operations, expect: [:index, :destroy] do
+          resource :followup, controller: "donor_followups"
+        end
 
         resources :donations, expect: [:index, :destroy]
 

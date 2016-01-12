@@ -16,4 +16,4 @@ Feature: Following-up a recipient operation
   @web
   Scenario: A clinician updated a followup for a recipient's operation
     Given Patty has a recipient operation followup
-    Then Clyde can update Patty's a recipient operation followup
+    Then Clyde can update Patty's recipient operation followup

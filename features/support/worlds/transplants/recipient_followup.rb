@@ -4,7 +4,7 @@ module World
       # @section helpers
       #
       def recipient_followup_for(operation)
-        Renalware::Transplants::RecipientFollowup.for_operation(operation).first_or_initialize
+        operation.followup
       end
 
       def valid_recipient_followup_attributes
@@ -48,7 +48,7 @@ module World
       # @section expectations
       #
       def expect_recipient_followup_to_exist(operation)
-        expect(Renalware::Transplants::RecipientFollowup.for_operation(operation)).to be_present
+        expect(operation.followup).to be_present
       end
 
       def expect_update_recipient_followup_to_succeed(operation:, user:)
@@ -76,7 +76,7 @@ module World
         end
       end
 
-      def update_recipient_followup(operation:, user: nil)
+      def update_recipient_followup(operation:, user:)
         login_as user
         visit patient_transplants_recipient_dashboard_path(operation.patient)
         within_fieldset "Recipient Operations" do

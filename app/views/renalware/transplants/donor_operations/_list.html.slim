@@ -13,6 +13,8 @@ fieldset.status-history
         th Op Date
         th Kidney Side
         th Type of Nephrectomy on donor
+        th Last Seen On
+        th Followup
       tbody
         - @donor_operations.each do |operation|
           tr
@@ -21,6 +23,17 @@ fieldset.status-history
                 = l operation.performed_on
             td= operation.kidney_side.try(:text)
             td= operation.nephrectomy_type.try(:text)
+            - if operation.followup
+              td= l operation.followup.last_seen_on
+              td
+                = link_to "View", patient_transplants_donor_operation_followup_path(@patient, operation)
+                = pipe_separator
+                = link_to "Update", edit_patient_transplants_donor_operation_followup_path(@patient, operation)
+            - else
+              td
+              td
+                - url = new_patient_transplants_donor_operation_followup_path(@patient, operation)
+                = link_to "Enter details", url
 
     .right
       = link_to "Add an operation", new_patient_transplants_donor_operation_path(@patient),

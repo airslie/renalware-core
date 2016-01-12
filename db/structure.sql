@@ -1340,6 +1340,44 @@ ALTER SEQUENCE transplants_donations_id_seq OWNED BY transplants_donations.id;
 
 
 --
+-- Name: transplants_donor_followups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE transplants_donor_followups (
+    id integer NOT NULL,
+    operation_id integer NOT NULL,
+    notes text,
+    followed_up boolean,
+    ukt_center_code character varying,
+    last_seen_on date,
+    lost_to_followup boolean,
+    transferred_for_followup boolean,
+    dead_on date,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: transplants_donor_followups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE transplants_donor_followups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transplants_donor_followups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE transplants_donor_followups_id_seq OWNED BY transplants_donor_followups.id;
+
+
+--
 -- Name: transplants_donor_operations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1481,7 +1519,7 @@ ALTER SEQUENCE transplants_failure_cause_descriptions_id_seq OWNED BY transplant
 
 CREATE TABLE transplants_recipient_followups (
     id integer NOT NULL,
-    operation_id integer,
+    operation_id integer NOT NULL,
     notes text,
     stent_removed_on date,
     transplant_failed boolean,
@@ -2059,6 +2097,13 @@ ALTER TABLE ONLY transplants_donations ALTER COLUMN id SET DEFAULT nextval('tran
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY transplants_donor_followups ALTER COLUMN id SET DEFAULT nextval('transplants_donor_followups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY transplants_donor_operations ALTER COLUMN id SET DEFAULT nextval('transplants_donor_operations_id_seq'::regclass);
 
 
@@ -2427,6 +2472,14 @@ ALTER TABLE ONLY transplants_donations
 
 
 --
+-- Name: transplants_donor_followups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY transplants_donor_followups
+    ADD CONSTRAINT transplants_donor_followups_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: transplants_donor_operations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2727,6 +2780,13 @@ CREATE INDEX index_transplants_donations_on_recipient_id ON transplants_donation
 
 
 --
+-- Name: index_transplants_donor_followups_on_operation_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplants_donor_followups_on_operation_id ON transplants_donor_followups USING btree (operation_id);
+
+
+--
 -- Name: index_transplants_donor_operations_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2980,6 +3040,14 @@ ALTER TABLE ONLY peritonitis_episodes
 
 ALTER TABLE ONLY patients
     ADD CONSTRAINT fk_rails_5b44e541da FOREIGN KEY (ethnicity_id) REFERENCES ethnicities(id);
+
+
+--
+-- Name: fk_rails_5ba03b9685; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplants_donor_followups
+    ADD CONSTRAINT fk_rails_5ba03b9685 FOREIGN KEY (operation_id) REFERENCES transplants_donor_operations(id);
 
 
 --
@@ -3307,4 +3375,6 @@ INSERT INTO schema_migrations (version) VALUES ('20151207163303');
 INSERT INTO schema_migrations (version) VALUES ('20151207163304');
 
 INSERT INTO schema_migrations (version) VALUES ('20151207167020');
+
+INSERT INTO schema_migrations (version) VALUES ('20160106167020');
 
