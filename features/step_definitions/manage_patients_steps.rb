@@ -78,21 +78,21 @@ When(/^I complete the add a new patient form$/) do
   end
 
   within "#current_address" do
-    @current_street_1 = Faker::Address.street_address
+    @current_street_1 = FFaker::Address.street_address
     fill_in "Street 1", with: @current_street_1
-    fill_in "Street 2", with: Faker::Address.secondary_address
-    fill_in "City", with: Faker::Address.city
-    fill_in "County", with: Faker::AddressUK.county
-    fill_in "Postcode", with: Faker::AddressUK.postcode
+    fill_in "Street 2", with: FFaker::Address.secondary_address
+    fill_in "City", with: FFaker::Address.city
+    fill_in "County", with: FFaker::AddressUK.county
+    fill_in "Postcode", with: FFaker::AddressUK.postcode
   end
 
   within "#address_at_diagnosis" do
-    @address_diagnosis_street_1 = Faker::Address.street_address
+    @address_diagnosis_street_1 = FFaker::Address.street_address
     fill_in "Street 1", with: @address_diagnosis_street_1
-    fill_in "Street 2", with: Faker::Address.secondary_address
-    fill_in "City", with: Faker::Address.city
-    fill_in "County", with: Faker::AddressUK.county
-    fill_in "Postcode", with: Faker::AddressUK.postcode
+    fill_in "Street 2", with: FFaker::Address.secondary_address
+    fill_in "City", with: FFaker::Address.city
+    fill_in "County", with: FFaker::AddressUK.county
+    fill_in "Postcode", with: FFaker::AddressUK.postcode
   end
 
   click_on "Save"
