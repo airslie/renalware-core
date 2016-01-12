@@ -18,8 +18,10 @@ module Renalware
         @workup = RecipientWorkup.for_patient(@patient).first_or_initialize
 
         if @workup.update_attributes workup_params
-          redirect_to patient_transplants_recipient_workup_path(@patient)
+          redirect_to patient_transplants_recipient_workup_path(@patient),
+            notice: t(".success", model_name: "recipient work up")
         else
+          flash[:error] = t(".failed", model_name: "recipient work up")
           render :edit
         end
       end
