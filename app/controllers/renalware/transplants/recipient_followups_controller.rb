@@ -17,8 +17,10 @@ module Renalware
         @recipient_followup.attributes = followup_attributes
 
         if @recipient_followup.save
-          redirect_to patient_transplants_recipient_dashboard_path(@patient)
+          redirect_to patient_transplants_recipient_dashboard_path(@patient),
+            notice: t(".success", model_name: "recipient follow up")
         else
+          flash[:error] = t(".failed", model_name: "recipient follow up")
           render :new
         end
       end
@@ -32,8 +34,10 @@ module Renalware
         @recipient_followup.attributes = followup_attributes
 
         if @recipient_followup.save
-          redirect_to patient_transplants_recipient_dashboard_path(@patient)
+          redirect_to patient_transplants_recipient_dashboard_path(@patient),
+            notice: t(".success", model_name: "recipient follow up")
         else
+          flash[:error] = t(".failed", model_name: "recipient follow up")
           render :edit
         end
       end
