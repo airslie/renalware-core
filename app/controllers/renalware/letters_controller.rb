@@ -22,9 +22,10 @@ module Renalware
       @letter.patient = @patient
 
       if service.update!(full_params)
-        redirect_to patient_letters_path(@patient)
+        redirect_to patient_letters_path(@patient),
+          notice: t(".success", model_name: "letter")
       else
-        flash[:error] = 'Failed to save letter'
+        flash[:error] = t(".failed", model_name: "letter")
         render :new
       end
     end
@@ -42,9 +43,10 @@ module Renalware
       @letter = letter_class.find(params[:id])
       authorize @letter
       if service.update!(full_params)
-        redirect_to patient_letters_path(@patient)
+        redirect_to patient_letters_path(@patient),
+          notice: t(".success", model_name: "letter")
       else
-        flash[:error] = 'Failed to update letter'
+        flash[:error] = t(".failed", model_name: "letter")
         render :edit
       end
     end
