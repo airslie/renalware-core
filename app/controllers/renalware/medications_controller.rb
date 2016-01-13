@@ -12,6 +12,7 @@ module Renalware
         redirect_to patient_medications_path(@patient),
           notice: t(".success", model_name: "medication")
       else
+        flash[:error] = t(".failed", model_name: "medication")
         render :index
       end
     end
