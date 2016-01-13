@@ -16,6 +16,7 @@ module Renalware
         redirect_to patient_pd_summary_path(@patient),
           notice: t(".success", model_name: "PD regime")
       else
+        flash[:error] = t(".failed", model_name: "PD regime")
         render :new
       end
     end
@@ -25,6 +26,7 @@ module Renalware
         redirect_to patient_pd_summary_path(@patient),
           notice: t(".success", model_name: "PD regime")
       else
+        flash[:error] = t(".failed", model_name: "PD regime")
         render :edit
       end
     end
