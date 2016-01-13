@@ -19,18 +19,20 @@ module Renalware
 
     def create
       if service.update!(doctor_params)
-        redirect_to doctors_path
+        redirect_to doctors_path,
+          notice: t(".success", model_name: "doctor")
       else
-        flash[:error] = "Failed to create new Doctor"
+        flash[:error] = t(".failed", model_name: "doctor")
         render :new
       end
     end
 
     def update
       if service.update!(doctor_params)
-        redirect_to doctors_path
+        redirect_to doctors_path,
+          notice: t(".success", model_name: "doctor")
       else
-        flash[:error] = "Failed to update Doctor"
+        flash[:error] = t(".failed", model_name: "doctor")
         render :edit
       end
     end
