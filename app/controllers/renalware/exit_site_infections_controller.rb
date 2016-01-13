@@ -19,6 +19,7 @@ module Renalware
         redirect_to patient_exit_site_infection_path(@patient, @exit_site_infection),
           notice: t(".success", model_name: "exit site infection")
       else
+        flash[:error] = t(".failed", model_name: "exit site infection")
         render :new
       end
     end
