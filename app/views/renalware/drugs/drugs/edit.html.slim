@@ -4,7 +4,7 @@
 
 .row
   .large-6.columns
-    = simple_form_for @drug, method: :put, url: drugs_drug_path(@drug) do |f|
+    = simple_form_for @drug do |f|
       = render partial: "form", locals: { f: f }
 
       = submit_tag "Update", class: "button"
