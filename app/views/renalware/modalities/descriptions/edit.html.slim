@@ -4,7 +4,7 @@
 
 .row
   .large-6.columns
-    = simple_form_for @modality_description, method: :put do |m|
+    = simple_form_for @modality_description do |m|
       = render partial: "form", locals: { m: m }
       = submit_tag "Update", class: "button"
       span= " or "
