@@ -1631,6 +1631,7 @@ ALTER SEQUENCE transplants_recipient_workups_id_seq OWNED BY transplants_recipie
 
 CREATE TABLE transplants_registration_status_descriptions (
     id integer NOT NULL,
+    code character varying NOT NULL,
     name character varying,
     "position" integer DEFAULT 0,
     created_at timestamp without time zone NOT NULL,
@@ -2862,6 +2863,13 @@ CREATE INDEX index_transplants_recipient_workups_on_document ON transplants_reci
 --
 
 CREATE INDEX index_transplants_recipient_workups_on_patient_id ON transplants_recipient_workups USING btree (patient_id);
+
+
+--
+-- Name: index_transplants_registration_status_descriptions_on_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplants_registration_status_descriptions_on_code ON transplants_registration_status_descriptions USING btree (code);
 
 
 --
