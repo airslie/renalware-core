@@ -25,8 +25,7 @@
                 include_blank: "Please select gender"
 
           li
-            = patient.input :ethnicity_id,
-                collection: Renalware::Ethnicity.all,
+            = patient.association :ethnicity,
                 label_method: :name, value_method: :id,
                 include_blank: "Please select ethnicity"
 
