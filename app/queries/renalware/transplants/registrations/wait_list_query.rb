@@ -4,7 +4,8 @@ module Renalware
       class WaitListQuery
         attr_reader :term, :page, :per_page
 
-        def initialize(quick_filter:, page: 1, per_page: 50)
+        def initialize(q:, quick_filter:, page: 1, per_page: 50)
+          @q = q || {}
           @quick_filter = quick_filter.to_sym
           @page = page
           @per_page = per_page
@@ -14,15 +15,16 @@ module Renalware
           search.result.page(page).per(per_page)
         end
 
-        private
-
         def search
           @search ||= begin
-            QueryableRegistration.search(query_for_filter(@quick_filter)).tap do |s|
-              s.sorts = ["patient_last_name, patient_first_name"]
+            query = query_for_filter(@quick_filter).merge(@q)
+            QueryableRegistration.search(query).tap do |s|
+              s.sorts = ["patient_family_name, patient_given_name"]
             end
           end
         end
+
+        private
 
         def query_for_filter(filter)
           case filter
@@ -48,6 +50,18 @@ module Renalware
           scope :nhb_consent_eq, -> (enum = "yes") {
             where("document @> ?", { nhb_consent: { value: enum } }.to_json )
           }
+
+          ransacker :uk_transplant_centre_code do
+            Arel.sql("document -> 'codes' ->> 'uk_transplant_centre_code'")
+          end
+
+          ransacker :crf_highest_value do
+            Arel.sql("document -> 'crf' -> 'highest' ->> 'result'")
+          end
+
+          ransacker :crf_latest_value do
+            Arel.sql("document -> 'crf' -> 'latest' ->> 'result'")
+          end
 
           private
 
