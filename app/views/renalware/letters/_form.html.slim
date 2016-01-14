@@ -32,12 +32,12 @@
   = f.input :recipient, as: :inline_radio_buttons,
       collection: [["Doctor", "doctor"]],
       label: false,
-      disabled: !@patient.doctor.present?
+      disabled: @patient.doctor.nil?
 
   = f.input :recipient, as: :inline_radio_buttons,
       collection: [["Patient", "patient"]],
       label: false,
-      disabled: !@patient.current_address.present?
+      disabled: @patient.current_address.nil?
 
   = radio_button_tag "letter[recipient]", "other", @patient.doctor.nil? && @patient.current_address.nil?, class: "inline"
   = f.label :recipient, "Other"
