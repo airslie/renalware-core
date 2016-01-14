@@ -9,6 +9,7 @@ en:
         donor_kidney_removed_from_ice_at: Donor Kidney Removed From Ice At
         kidney_perfused_with_blood_at: Kidney Perfused With Blood At
         hospital: Transplant Site
+        hospital_id: Transplant Site
         notes: Notes
         operation_type: Operation Type
         performed_on: Operation Date

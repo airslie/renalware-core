@@ -7,10 +7,11 @@ FactoryGirl.define do
     donor_kidney_removed_from_ice_at  1.week.ago
     kidney_perfused_with_blood_at     1.week.ago
     operation_type                    :kidney
-    transplant_site                   "KCH"
     cold_ischaemic_time               "00:45"
     warm_ischaemic_time               "00:12"
 
     document { {} }
+
+    association :hospital, factory: :hospital
   end
 end

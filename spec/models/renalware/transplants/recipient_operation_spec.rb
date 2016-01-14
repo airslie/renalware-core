@@ -10,7 +10,7 @@ module Renalware
       it { is_expected.to validate_presence_of(:donor_kidney_removed_from_ice_at) }
       it { is_expected.to validate_presence_of(:kidney_perfused_with_blood_at) }
       it { is_expected.to validate_presence_of(:operation_type) }
-      it { is_expected.to validate_presence_of(:transplant_site) }
+      it { is_expected.to validate_presence_of(:hospital_id) }
       it { is_expected.to validate_presence_of(:cold_ischaemic_time_formatted) }
       it { is_expected.to validate_presence_of(:warm_ischaemic_time_formatted) }
 
