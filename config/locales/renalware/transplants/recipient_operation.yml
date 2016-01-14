@@ -8,11 +8,11 @@ en:
         cold_ischaemic_time_formatted: Cold Ischaemic Time
         donor_kidney_removed_from_ice_at: Donor Kidney Removed From Ice At
         kidney_perfused_with_blood_at: Kidney Perfused With Blood At
+        hospital: Transplant Site
         notes: Notes
         operation_type: Operation Type
         performed_on: Operation Date
         theatre_case_start_time: Theatre Case Start Time
-        transplant_site: Transplant Site
         warm_ischaemic_time: Warm Ischaemic Time (seconds)
         warm_ischaemic_time_formatted: Warm Ischaemic Time
         recipient_age_at_operation: Age
