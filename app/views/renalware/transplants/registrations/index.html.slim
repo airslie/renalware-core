@@ -1,19 +1,26 @@
+ruby:
+  filters = {
+    active: "Active",
+    suspended: "Suspended",
+    active_and_suspended: "Active & Suspended",
+    working_up: "Working Up",
+    nhb_consent: "NHB Consent"
+  }
+
 .row
   h1 Transplant Wait List Registrations
+  h2.print-only= filters[params[:filter].to_sym]
 
 .row
   dl.sub-nav
-    = sub_nav_item "Active", params.merge(filter: "active")
-    = sub_nav_item "Suspended", params.merge(filter: "suspended")
-    = sub_nav_item "Active & Suspended", params.merge(filter: "active_and_suspended")
-    = sub_nav_item "Working Up", params.merge(filter: "working_up")
-    = sub_nav_item "NHB Consent", params.merge(filter: "nhb_consent")
+    - filters.each do |key, label|
+      = sub_nav_item label, params.merge(filter: key)
 
 .row
   table.report
     thead
       tr
-        th Action
+        th.noprint Action
         th= sort_link(@q, :patient_family_name, "Patient")
         th KCH No
         th= sort_link(@q, :patient_born_on, "Age")
