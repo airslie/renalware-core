@@ -2,6 +2,7 @@ module Renalware
   class Hospital < ActiveRecord::Base
     scope :ordered, -> { order(:name) }
     scope :active, -> { where(active: true) }
+    scope :performing_transplant, -> { active.where(is_transplant_site: true) }
 
     validates :code, presence: true
     validates :name, presence: true
