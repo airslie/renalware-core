@@ -4,11 +4,11 @@ module Renalware
       class WaitListQuery
         attr_reader :term, :page, :per_page
 
-        def initialize(q: nil, quick_filter:, page: 1, per_page: 50)
-          @q = q || {}
+        def initialize(quick_filter:, page: 1, per_page: 50, q: nil)
           @quick_filter = quick_filter.to_sym
           @page = page
           @per_page = per_page
+          @q = q || {}
         end
 
         def call
