@@ -29,5 +29,5 @@ hr
 
   fieldset#address-form style='display:none'
     = f.simple_fields_for :address_attributes do |a|
-      = a.hidden_field :id
+      = a.input :id, as: :hidden
       = render partial: 'renalware/addresses/form', locals: { a: a }
