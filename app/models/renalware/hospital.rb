@@ -7,7 +7,11 @@ module Renalware
     validates :name, presence: true
 
     def to_s
-      name
+      if location.present?
+        "#{name} (#{location})"
+      else
+        name
+      end
     end
   end
 end
