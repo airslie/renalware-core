@@ -1,10 +1,10 @@
-require 'rails_helper'
+require "rails_helper"
 
 module Renalware
   module Transplants
     module Registrations
       describe WaitListQuery, type: :model do
-        describe 'call' do
+        describe "call" do
           subject { WaitListQuery.new(quick_filter: filter) }
 
           before do
@@ -52,7 +52,7 @@ module Renalware
             before do
               reg = Renalware::Transplants::Registration.first
               reg.document.nhb_consent.value = :yes
-              reg.document.nhb_consent.consented_on = Date.today
+              reg.document.nhb_consent.consented_on = Time.zone.today
               reg.document.nhb_consent.full_name = "Someone"
               reg.save!
             end

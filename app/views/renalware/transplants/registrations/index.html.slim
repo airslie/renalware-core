@@ -52,7 +52,7 @@
           td= I18n.l registration.patient.esrf.diagnosed_on
           td= registration.document.nhb_consent.value.text
           td= I18n.l registration.enterred_on
-          td= (Date.today - registration.enterred_on) if registration.enterred_on
+          td= (Time.zone.today - registration.enterred_on) if registration.enterred_on
           td= registration.document.transplant.blood_group
           td= registration.document.crf.highest.result
           td= I18n.l registration.document.crf.highest.recorded_on
