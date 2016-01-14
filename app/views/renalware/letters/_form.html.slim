@@ -11,7 +11,7 @@
         .columns.large-10.inline
           = f.association :letter_description,
               label: "Description",
-              collection: Renalware::LetterDescription.all, selected: @letter.letter_description_id,
+              selected: @letter.letter_description_id,
               value_method: :id,
               label_method: :text,
               include_blank: true,
