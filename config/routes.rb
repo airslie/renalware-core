@@ -103,6 +103,10 @@ Rails.application.routes.draw do
       end
     end
 
+    namespace :transplants do
+      resources :registrations, only: :index
+    end
+
     resources :snomed, only: [:index]
   end
 end

@@ -1,0 +1,64 @@
+.row
+  h1 Transplant Wait List Registrations
+
+.row
+  dl.sub-nav
+    = sub_nav_item "Active", transplants_registrations_path(filter: "active")
+    = sub_nav_item "Suspended", transplants_registrations_path(filter: "suspended")
+    = sub_nav_item "Active & Suspended", transplants_registrations_path(filter: "active_and_suspended")
+    = sub_nav_item "Working Up", transplants_registrations_path(filter: "working_up")
+    = sub_nav_item "NHB Consent", transplants_registrations_path(filter: "nhb_consent")
+
+.row
+  table.report
+    thead
+      tr
+        th Action
+        th Patient
+        th KCH No
+        th Age
+        th Sex
+        th Modal
+        th Site
+        th ESRF Date
+        th NHB Cons?
+        th Entry Date
+        th DOL
+        th BldGrp
+        th CRF high
+        th CRF high date
+        th CRF late
+        th CRF late date
+        th Sens (CRF>60)
+        th PrevOps
+        th Tx Type
+
+
+    tbody
+      - @registrations.each do |registration|
+        tr
+          td
+            = link_to "Clin&nbsp;Summ".html_safe, patient_clinical_summary_path(registration.patient)
+            = pipe_separator
+            = link_to "Admin", patient_path(registration.patient)
+            = pipe_separator
+            = link_to "Tx&nbsp;Status".html_safe, patient_transplants_recipient_dashboard_path(registration.patient)
+          td.full-name= registration.patient.to_s
+          td= registration.patient.local_patient_id
+          td= registration.patient.age
+          td= registration.patient.sex.code
+          td= registration.patient.current_modality.to_s
+          td= registration.document.codes.uk_transplant_centre_code
+          td= I18n.l registration.patient.esrf.diagnosed_on
+          td= registration.document.nhb_consent.value.text
+          td= I18n.l registration.enterred_on
+          td= (Date.today - registration.enterred_on) if registration.enterred_on
+          td= registration.document.transplant.blood_group
+          td= registration.document.crf.highest.result
+          td= I18n.l registration.document.crf.highest.recorded_on
+          td= registration.document.crf.latest.result
+          td= I18n.l registration.document.crf.latest.recorded_on
+          td= (registration.document.crf.latest.result.to_i > 60 ? "Sens" : "Unsens")
+          td= registration.document.transplant.nb_of_previous_grafts
+          td= registration.document.organs.transplant_type.text
+

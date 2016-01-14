@@ -28,6 +28,15 @@ table {
   }
 }
 
+table.report {
+  table-layout: auto;
+
+  th, td {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
 th, td {
   overflow: hidden;
 }
