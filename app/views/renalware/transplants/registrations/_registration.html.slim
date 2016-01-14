@@ -1,25 +1,28 @@
 tr
   td.noprint
-    = link_to "Clin&nbsp;Summ".html_safe, patient_clinical_summary_path(registration.patient)
-    = pipe_separator
-    = link_to "Admin", patient_path(registration.patient)
-    = pipe_separator
     = link_to "Tx&nbsp;Status".html_safe, patient_transplants_recipient_dashboard_path(registration.patient)
-  td.full-name= registration.patient.to_s
+  td.full-name
+    = link_to registration.patient.to_s, patient_clinical_summary_path(registration.patient)
   td= registration.patient.local_patient_id
   td= registration.patient.age
   td= registration.patient.sex.code
   td= registration.patient.current_modality.to_s
   td= registration.document.codes.uk_transplant_centre_code
-  td= I18n.l registration.patient.esrf.diagnosed_on if registration.patient.esrf
+  td
+    - if registration.patient.esrf
+      = I18n.l registration.patient.esrf.diagnosed_on
   td= registration.document.nhb_consent.value.try(:text)
   td= I18n.l registration.enterred_on
-  td= (Time.zone.today - registration.enterred_on) if registration.enterred_on
+  td
+    - if registration.enterred_on
+      = (Time.zone.today - registration.enterred_on).to_i
   td= registration.document.transplant.blood_group
   td= registration.document.crf.highest.result
   td= I18n.l registration.document.crf.highest.recorded_on
   td= registration.document.crf.latest.result
   td= I18n.l registration.document.crf.latest.recorded_on
-  td= (registration.document.crf.latest.result.to_i > 60 ? "Sens" : "Unsens") if registration.document.crf.latest.result.present?
+  td
+    - if registration.document.crf.latest.result.present?
+      = (registration.document.crf.latest.result.to_i > 60 ? "Sens" : "Unsens")
   td= registration.document.transplant.nb_of_previous_grafts
   td= registration.document.organs.transplant_type.try(:text)

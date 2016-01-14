@@ -20,7 +20,7 @@ ruby:
   table.report
     thead
       tr
-        th.noprint Action
+        th.noprint
         th= sort_link(@q, :patient_family_name, "Patient")
         th KCH No
         th= sort_link(@q, :patient_born_on, "Age")
@@ -31,13 +31,13 @@ ruby:
         th NHB Cons?
         th= sort_link(@q, :enterred_on, "Entry Date")
         th DOL
-        th BldGrp
+        th Bld Grp
         th= sort_link(@q, :crf_highest_value, "CRF high")
         th CRF high date
         th= sort_link(@q, :crf_latest_value, "CRF latest")
         th CRF latest date
         th Sens (CRF>60)
-        th PrevOps
+        th Prev Ops
         th Tx Type
 
 
