@@ -568,6 +568,40 @@ ALTER SEQUENCE fluid_descriptions_id_seq OWNED BY fluid_descriptions.id;
 
 
 --
+-- Name: hospitals; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE hospitals (
+    id integer NOT NULL,
+    code character varying NOT NULL,
+    name character varying NOT NULL,
+    location character varying,
+    active boolean,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hospitals_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE hospitals_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hospitals_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE hospitals_id_seq OWNED BY hospitals.id;
+
+
+--
 -- Name: infection_organisms; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1958,6 +1992,13 @@ ALTER TABLE ONLY fluid_descriptions ALTER COLUMN id SET DEFAULT nextval('fluid_d
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY hospitals ALTER COLUMN id SET DEFAULT nextval('hospitals_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY infection_organisms ALTER COLUMN id SET DEFAULT nextval('infection_organisms_id_seq'::regclass);
 
 
@@ -2313,6 +2354,14 @@ ALTER TABLE ONLY fluid_descriptions
 
 
 --
+-- Name: hospitals_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY hospitals
+    ADD CONSTRAINT hospitals_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: infection_organisms_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2631,6 +2680,13 @@ CREATE INDEX index_doctors_practices ON doctors_practices USING btree (doctor_id
 --
 
 CREATE UNIQUE INDEX index_drug_types_drugs_on_drug_id_and_drug_type_id ON drug_types_drugs USING btree (drug_id, drug_type_id);
+
+
+--
+-- Name: index_hospitals_on_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hospitals_on_code ON hospitals USING btree (code);
 
 
 --
@@ -3378,4 +3434,6 @@ INSERT INTO schema_migrations (version) VALUES ('20151207163304');
 INSERT INTO schema_migrations (version) VALUES ('20151207167020');
 
 INSERT INTO schema_migrations (version) VALUES ('20160106167020');
+
+INSERT INTO schema_migrations (version) VALUES ('20160114183740');
 
