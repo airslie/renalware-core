@@ -16,7 +16,29 @@ FactoryGirl.define do
         create(
           :transplant_registration_status,
           registration_id: registration.id,
-          started_on: 7.day.ago
+          started_on: 7.days.ago
+        )
+      end
+    end
+
+    trait :in_status do
+      transient do
+        status "active"
+      end
+
+      after(:create) do |registration, evaluator|
+        create(
+          :transplant_registration_status,
+          registration_id: registration.id,
+          started_on: 7.days.ago,
+          description: create(:transplant_registration_status_description,
+            name: evaluator.status.humanize, code: evaluator.status)
+        )
+        create(
+          :transplant_registration_status,
+          registration_id: registration.id,
+          started_on: 10.days.ago,
+          terminated_on: 7.days.ago
         )
       end
     end
