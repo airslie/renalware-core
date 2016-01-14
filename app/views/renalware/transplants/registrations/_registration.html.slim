@@ -11,8 +11,8 @@ tr
   td= registration.patient.sex.code
   td= registration.patient.current_modality.to_s
   td= registration.document.codes.uk_transplant_centre_code
-  td= I18n.l registration.patient.esrf.diagnosed_on
-  td= registration.document.nhb_consent.value.text
+  td= I18n.l registration.patient.esrf.diagnosed_on if registration.patient.esrf
+  td= registration.document.nhb_consent.value.try(:text)
   td= I18n.l registration.enterred_on
   td= (Time.zone.today - registration.enterred_on) if registration.enterred_on
   td= registration.document.transplant.blood_group
@@ -20,6 +20,6 @@ tr
   td= I18n.l registration.document.crf.highest.recorded_on
   td= registration.document.crf.latest.result
   td= I18n.l registration.document.crf.latest.recorded_on
-  td= (registration.document.crf.latest.result.to_i > 60 ? "Sens" : "Unsens")
+  td= (registration.document.crf.latest.result.to_i > 60 ? "Sens" : "Unsens") if registration.document.crf.latest.result.present?
   td= registration.document.transplant.nb_of_previous_grafts
-  td= registration.document.organs.transplant_type.text
+  td= registration.document.organs.transplant_type.try(:text)
