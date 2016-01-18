@@ -319,6 +319,5 @@ Then(/^Clyde can update Don's donor operation followup$/) do
 end
 
 Then(/^Clyde sees these wait list registrations$/) do |table|
-  # table is a Cucumber::Ast::Table
   expect_wait_list_registrations_to_be(table.hashes)
 end
