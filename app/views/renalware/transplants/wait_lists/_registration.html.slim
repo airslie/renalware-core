@@ -16,7 +16,7 @@ tr
   td
     - if registration.enterred_on
       = (Time.zone.today - registration.enterred_on).to_i
-  td= registration.document.transplant.blood_group
+  td= registration.document.transplant.blood_group.to_s
   td= registration.document.crf.highest.result
   td= I18n.l registration.document.crf.highest.recorded_on
   td= registration.document.crf.latest.result
