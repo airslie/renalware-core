@@ -4,8 +4,8 @@ module World
       find(:xpath, "//tr[td[contains(.,'#{text}')]]/td/a", text: link_label)
     end
 
-    def kings_hospital
-      Renalware::Hospital.find_by code: "RJZ"
+    def transplant_hospital
+      Renalware::Hospital.find_by(is_transplant_site: true)
     end
   end
 end
