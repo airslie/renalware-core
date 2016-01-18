@@ -82,7 +82,7 @@ module World
         fill_in "Operation Date", with: performed_on
         fill_in "Theatre Case Start Time", with: fake_time
         fill_in "Donor Kidney Removed From Ice At", with: fake_time
-        select "King's College Hospital", from: "Transplant Site"
+        select "Barts and The London Hospital", from: "Transplant Site"
         fill_in "Kidney Perfused With Blood At", with: fake_time
         fill_in "Cold Ischaemic Time", with: fake_time
         fill_in "Warm Ischaemic Time", with: fake_time
