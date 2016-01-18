@@ -11,7 +11,7 @@ module Renalware
       @invalid_patient_med = FactoryGirl.build(
                               :medication,
                               patient: @patient,
-                              medicatable_id: nil,
+                              drug: nil,
                               dose: nil,
                               medication_route_id: nil,
                               frequency: nil,
@@ -21,8 +21,7 @@ module Renalware
       @valid_patient_med = FactoryGirl.build(
                             :medication,
                             patient: @patient,
-                            medicatable: @amoxicillin,
-                            medicatable_type: 'Renalware::Drugs::Drug',
+                            drug: @amoxicillin,
                             dose: '23mg',
                             medication_route: @med_route,
                             frequency: 'PID',
@@ -30,28 +29,28 @@ module Renalware
                             provider: 0)
     end
 
-    describe 'medicatable_name' do
-      context 'medicatable present' do
+    describe 'drug_name' do
+      context 'drug present' do
         it 'should return name' do
           patient_medication = FactoryGirl.build_stubbed(
             :medication,
             patient: @patient,
-            medicatable: @blue_pill
+            drug: @blue_pill
             )
 
-          expect(medicatable_name(patient_medication)).to eq(patient_medication.medicatable.name)
+          expect(drug_name(patient_medication)).to eq(patient_medication.drug.name)
         end
       end
 
-      context 'medicatable not present' do
+      context 'drug not present' do
         it 'should not return name' do
           patient_medication = FactoryGirl.build_stubbed(
             :medication,
             patient: @patient,
-            medicatable: nil
+            drug: nil
             )
 
-          expect(medicatable_name(patient_medication)).to eq(nil)
+          expect(drug_name(patient_medication)).to eq(nil)
         end
       end
     end
@@ -60,14 +59,14 @@ module Renalware
       context 'with errors' do
         it 'should apply hightlight' do
           @invalid_patient_med.save
-          expect(highlight_validation_fail(@invalid_patient_med, :medicatable_id)).to eq('field_with_errors')
+          expect(highlight_validation_fail(@invalid_patient_med, :drug_id)).to eq('field_with_errors')
         end
       end
 
       context 'with no errors' do
         it 'should not apply highlight' do
           @valid_patient_med.save
-          expect(highlight_validation_fail(@valid_patient_med, :medicatable)).to eq(nil)
+          expect(highlight_validation_fail(@valid_patient_med, :drug_id)).to eq(nil)
         end
       end
     end

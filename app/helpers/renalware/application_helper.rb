@@ -29,7 +29,7 @@ module Renalware
       if med_route.blank?
         "No medication prescribed"
       else
-        safe_join(med_route.map { |m| "<li>#{m.medicatable.name} - #{m.medication_route.name == 'Route: Other (Please specify in notes)' ? m.medication_route.full_name : m.medication_route.name }</li>".html_safe })
+        safe_join(med_route.map { |m| "<li>#{m.drug.name} - #{m.medication_route.name == 'Route: Other (Please specify in notes)' ? m.medication_route.full_name : m.medication_route.name }</li>".html_safe })
       end
     end
 
