@@ -5,7 +5,9 @@ module Renalware
       before_filter :load_registration
 
       def index
-        query = Registrations::WaitListQuery.new(quick_filter: params[:filter], q: params[:q])
+        query = Registrations::WaitListQuery.new(
+          quick_filter: params[:filter], q: params[:q], page: params[:page]
+        )
         @registrations = query.call
         @q = query.search
         authorize @registrations

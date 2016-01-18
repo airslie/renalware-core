@@ -45,3 +45,5 @@ ruby:
       - @registrations.each do |registration|
         = render "registration", registration: registration
 
+
+  = paginate @registrations
