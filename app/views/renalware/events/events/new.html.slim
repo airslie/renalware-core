@@ -8,8 +8,7 @@
           wrapper: "horizontal_form" do |f|
 
         = f.input :date_time, as: :datetime_picker
-        = f.input :event_type_id,
-            collection: Renalware::Events::Type.all,
+        = f.association :event_type,
             label_method: :name, value_method: :id
         = f.input :description
         = f.input :notes, as: :text, input_html: { rows: 5 }

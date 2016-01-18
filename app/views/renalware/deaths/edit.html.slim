@@ -14,16 +14,14 @@
               .large-9.columns
                 = f.input :died_on, as: :date_picker, label: "Date of Death"
 
-                = f.input :first_edta_code_id,
+                = f.association :first_edta_code,
                     label: "EDTA Cause of Death (1)",
-                    collection: Renalware::EdtaCode.all,
                     label_method: :death_cause,
                     value_method: :id,
                     include_blank: "Select 1st cause of death"
 
-                = f.input :second_edta_code_id,
+                = f.association :second_edta_code,
                     label: "EDTA Cause of Death (2)",
-                    collection: Renalware::EdtaCode.all,
                     label_method: :death_cause,
                     value_method: :id,
                     include_blank: "Select 2nd cause of death"

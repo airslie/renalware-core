@@ -10,9 +10,8 @@
         .large-9.columns
           = field_set_tag "New Modality"
 
-              = m.input :description_id,
+              = m.association :description,
                   input_html: { id: "modality-description-select" },
-                  collection: Renalware::Modalities::Description.all,
                   label_method: :name, value_method: :id
 
               .hide-death

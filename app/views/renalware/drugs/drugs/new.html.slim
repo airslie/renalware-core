@@ -4,7 +4,7 @@
 
 .row
   .large-6.columns
-    = form_for @drug, method: :post, url: drugs_drugs_path(@drug) do |f|
+    = simple_form_for @drug do |f|
 
       = render partial: "form", locals: { f: f }
 
