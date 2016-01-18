@@ -155,7 +155,7 @@ module World
 
       def view_wait_list_registrations(filter:, user:)
         login_as user
-        visit transplants_registrations_path(filter: filter)
+        visit transplants_wait_list_path(filter: filter)
       end
 
       def expect_wait_list_registrations_to_be(hashes)

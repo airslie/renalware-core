@@ -104,7 +104,7 @@ Rails.application.routes.draw do
     end
 
     namespace :transplants do
-      resources :registrations, only: :index
+      resource :wait_list, only: :show
     end
 
     resources :snomed, only: [:index]
