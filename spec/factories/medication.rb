@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :medication, class: "Renalware::Medication" do |medication|
     patient
-    association :medicatable, factory: :drug
+    drug
     treatable_id nil
     treatable_type nil
     dose "20mg"
