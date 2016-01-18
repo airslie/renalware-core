@@ -41,8 +41,8 @@ module Renalware
           :id, :organism_code_id, :sensitivity, :infectable_id, :infectable_type
         ],
         medications_attributes: [
-          :id, :patient_id, :treatable_id, :treatable_type, :medicatable_id,
-          :medicatable_type, :dose, :medication_route_id, :frequency, :notes,
+          :id, :patient_id, :treatable_id, :treatable_type, :drug_id,
+          :dose, :medication_route_id, :frequency, :notes,
           :start_date, :end_date, :provider, :_destroy
         ]
       )
