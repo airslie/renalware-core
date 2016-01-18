@@ -5,6 +5,7 @@ class CreateHospitals < ActiveRecord::Migration
       t.string :name, null: false
       t.string :location
       t.boolean :active
+      t.boolean :is_transplant_site, default: false
 
       t.timestamps null: false
     end

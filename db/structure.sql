@@ -577,6 +577,7 @@ CREATE TABLE hospitals (
     name character varying NOT NULL,
     location character varying,
     active boolean,
+    is_transplant_site boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -1597,7 +1598,7 @@ CREATE TABLE transplants_recipient_operations (
     theatre_case_start_time time without time zone NOT NULL,
     donor_kidney_removed_from_ice_at timestamp without time zone NOT NULL,
     operation_type character varying NOT NULL,
-    transplant_site character varying NOT NULL,
+    hospital_id integer NOT NULL,
     kidney_perfused_with_blood_at timestamp without time zone NOT NULL,
     cold_ischaemic_time integer NOT NULL,
     warm_ischaemic_time integer NOT NULL,
@@ -3180,6 +3181,14 @@ ALTER TABLE ONLY transplants_donations
 
 
 --
+-- Name: fk_rails_8d91269935; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplants_recipient_operations
+    ADD CONSTRAINT fk_rails_8d91269935 FOREIGN KEY (hospital_id) REFERENCES hospitals(id);
+
+
+--
 -- Name: fk_rails_9646f7f1b0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3419,6 +3428,8 @@ INSERT INTO schema_migrations (version) VALUES ('20151022190252');
 
 INSERT INTO schema_migrations (version) VALUES ('20151103210628');
 
+INSERT INTO schema_migrations (version) VALUES ('20151104183740');
+
 INSERT INTO schema_migrations (version) VALUES ('20151111194419');
 
 INSERT INTO schema_migrations (version) VALUES ('20151116111600');
@@ -3434,6 +3445,4 @@ INSERT INTO schema_migrations (version) VALUES ('20151207163304');
 INSERT INTO schema_migrations (version) VALUES ('20151207167020');
 
 INSERT INTO schema_migrations (version) VALUES ('20160106167020');
-
-INSERT INTO schema_migrations (version) VALUES ('20160114183740');
 
