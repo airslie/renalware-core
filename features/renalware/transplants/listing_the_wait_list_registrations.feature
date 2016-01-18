@@ -1,7 +1,7 @@
 @wip
 Feature: Listing the wait list registrations
 
-  System users must have a way to quickly see a list of the patients on
+  Doctors must have a way to quickly see a list of the patients on
   the transplant wait list.
 
   The list can be filtered by a status or a combination of statuses, or by a document attribute.
