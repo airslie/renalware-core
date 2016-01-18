@@ -21,21 +21,21 @@ en:
       renalware/exit_site_infection/infection_organisms:
         organism_code: Organism
       renalware/patient/medications:
-        medicatable_id: Medication to be administered
+        drug: Medication to be administered
         dose: Medication's dose
         medication_route_id: Medication's route
         frequency: "Medication's frequency & duration"
         start_date: "Medication's prescribed date"
         provider: Medication's provider
       renalware/peritonitis_episode/medications:
-        medicatable_id: Medication to be administered
+        drug: Medication to be administered
         dose: Medication's dose
         medication_route_id: Medication's route
         frequency: "Medication's frequency & duration"
         start_date: "Medication's prescribed date"
         provider: Medication's provider
       renalware/exit_site_infection/medications:
-        medicatable_id: Medication to be administered
+        drug: Medication to be administered
         dose: Medication's dose
         medication_route_id: Medication's route
         frequency: "Medication's frequency & duration"
