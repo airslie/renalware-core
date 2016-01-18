@@ -1,4 +1,3 @@
-@wip
 Feature: Listing the wait list registrations
 
   Doctors must have a way to quickly see a list of the patients on
