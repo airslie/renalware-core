@@ -18,14 +18,14 @@ end
 
 When(/^records the organism for the infection$/) do
   record_organism_for(
-    patient: @patty,
+    infectable: @patty.exit_site_infections.last!,
     organism_name: "Acineobactor"
   )
 end
 
 Given(/^recorded the organism for the infection$/) do
   record_organism_for(
-    patient: @patty,
+    infectable: @patty.exit_site_infections.last!,
     organism_name: "Acineobactor"
   )
 end
@@ -67,7 +67,7 @@ Given(/^Patty is being treated for an exit site infection$/) do
   )
 
   record_organism_for(
-    patient: @patty,
+    infectable: @patty.exit_site_infections.last!,
     organism_name: "Acineobactor"
   )
 

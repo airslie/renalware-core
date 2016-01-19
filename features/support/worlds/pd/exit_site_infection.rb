@@ -16,13 +16,6 @@ module World
         infection.update!(diagnosis_date: diagnosed_on)
       end
 
-      def record_organism_for(patient:, organism_name:)
-        code = Renalware::OrganismCode.find_by!(name: organism_name)
-        infection = patient.exit_site_infections.last!
-
-        infection.infection_organisms.create!(organism_code: code)
-      end
-
       def revise_organism_for(patient:, sensitivity:)
         infection = patient.exit_site_infections.last!
         organism = infection.infection_organisms.last!
@@ -118,18 +111,6 @@ module World
         end
         fill_in "Diagnosed on", with: diagnosed_on
         click_on "Save"
-
-        wait_for_ajax
-      end
-
-      def record_organism_for(patient:, organism_name:)
-        click_link "Add Infection Organism"
-        wait_for_ajax
-
-        within "#new_infection_organism" do
-          select(organism_name, from: "Organism")
-          click_on "Save"
-        end
 
         wait_for_ajax
       end
