@@ -29,16 +29,15 @@ module Renalware
       if med_route.blank?
         "No medication prescribed"
       else
+        other_route = "Route: Other (Please specify in notes)"
         safe_join(
           med_route.map do |m|
             "<li>
-              #{m.drug.name} - #{
-                if m.medication_route.name == 'Route: Other (Please specify in notes)'
-                  m.medication_route.full_name
-                else
-                  m.medication_route.name
-                end
-              }
+                #{m.drug.name} - #{if m.medication_route.name == other_route
+                    m.medication_route.full_name
+                  else
+                    m.medication_route.name
+                  end}
             </li>".html_safe
           end
         )
@@ -49,9 +48,10 @@ module Renalware
       if infection_organisms.blank?
         "Unknown"
       else
-        safe_join(infection_organisms.map { |io|
+        safe_join(
+          infection_organisms.map do |io|
             "<li>#{io.organism_code.name} - #{io.sensitivity}</li>".html_safe
-          }
+          end
         )
       end
     end
