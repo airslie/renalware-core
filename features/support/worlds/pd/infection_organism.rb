@@ -14,6 +14,14 @@ module World
 
         organism.update!(sensitivity: sensitivity)
       end
+
+      def terminate_organism_for(infectable:, user:)
+        organism = infectable.infection_organisms.last!
+
+        organism.destroy
+
+        expect(infectable.infection_organisms).to be_empty
+      end
     end
 
     module Web
@@ -40,6 +48,15 @@ module World
         fill_in "Sensitivity", with: sensitivity
         click_on "Save"
         wait_for_ajax
+      end
+
+      def terminate_organism_for(infectable:, user:)
+        within "#infection-organisms" do
+          click_on "Terminate"
+          wait_for_ajax
+        end
+
+        expect(infectable.infection_organisms).to be_empty
       end
     end
   end
