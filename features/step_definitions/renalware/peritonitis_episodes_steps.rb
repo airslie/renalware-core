@@ -47,3 +47,23 @@ When(/^records the medication for the episode$/) do
     provider: "GP"
   )
 end
+
+Then(/^Clyde can revise the peritonitis episode$/) do
+  revise_peritonitis_episode_for(
+    patient: @patty,
+    user: @clyde,
+    diagnosed_on: Date.current - 10.day
+  )
+
+  revise_organism_for(
+    infectable: @patty.peritonitis_episodes.last!,
+    sensitivity: "Lorem ipsum."
+  )
+
+  revise_medication_for(
+    treatable: @patty.peritonitis_episodes.last!,
+    drug_name: "Cefotaxime Injection"
+  )
+
+  expect_peritonitis_episodes_revisions_recorded(patient: @patty)
+end
