@@ -6,6 +6,7 @@ module Renalware
       include Accountable
 
       belongs_to :description, class_name: "RegistrationStatusDescription"
+      belongs_to :registration
 
       scope :ordered, -> { order(started_on: :asc) }
       scope :reversed, -> { order(started_on: :desc) }

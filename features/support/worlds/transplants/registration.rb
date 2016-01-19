@@ -22,17 +22,33 @@ module World
         )
       end
 
-      def set_up_patient_on_wait_list(patient)
+      def set_up_patient_on_wait_list(patient, status="Active")
         Renalware::Transplants::Registration.create!(
           patient: patient,
           statuses_attributes: {
             "0": {
               started_on: "03-11-2015",
-              description_id: registration_status_description_named("Active").id,
+              description_id: registration_status_description_named(status).id,
               by: Renalware::User.first
             }
           }
         )
+      end
+
+      def set_up_wait_list_registrations(table)
+        table.hashes.each do |row|
+          patient_name = row[:patient]
+          status = row[:status]
+          patient = Renalware::Patient.create!(
+            family_name: patient_name.split(",").first.strip,
+            given_name: patient_name.split(",").last.strip,
+            nhs_number: rand(10000000).to_s.rjust(10, "1234567890"),
+            local_patient_id: rand(10000).to_s.rjust(6, "Z99999"),
+            sex: "M",
+            born_on: Time.zone.today
+          )
+          set_up_patient_on_wait_list(patient, status)
+        end
       end
 
       # @section commands
@@ -48,6 +64,12 @@ module World
               by: user
             }
           }
+        )
+      end
+
+      def view_wait_list_registrations(filter:, user: nil)
+        @query = Renalware::Transplants::Registrations::WaitListQuery.new(
+          quick_filter: filter
         )
       end
 
@@ -76,6 +98,22 @@ module World
 
       def expect_transplant_registration_to_be_refused
         expect(Renalware::Transplants::Registration.count).to eq(0)
+      end
+
+      def expect_wait_list_registrations_to_be(hashes)
+        registrations = @query.call
+        expect(registrations.size).to eq(hashes.size)
+
+        entries = registrations.map do |r|
+          hash = {
+            patient: r.patient.to_s,
+            status: r.current_status.description.name
+          }
+          hash.with_indifferent_access
+        end
+        hashes.each do |row|
+          expect(entries).to include(row)
+        end
       end
     end
 
@@ -113,6 +151,17 @@ module World
         end
 
         have_content("Pancreas only")
+      end
+
+      def view_wait_list_registrations(filter:, user:)
+        login_as user
+        visit transplants_wait_list_path(filter: filter)
+      end
+
+      def expect_wait_list_registrations_to_be(hashes)
+        hashes.each do |row|
+          expect(page.body).to have_content(row[:patient])
+        end
       end
     end
   end
