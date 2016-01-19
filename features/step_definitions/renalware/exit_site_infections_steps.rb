@@ -91,7 +91,7 @@ Then(/^Clyde can revise the exist site infection$/) do
   )
 
   revise_organism_for(
-    patient: @patty,
+    infectable: @patty.exit_site_infections.last!,
     sensitivity: "Lorem ipsum."
   )
 

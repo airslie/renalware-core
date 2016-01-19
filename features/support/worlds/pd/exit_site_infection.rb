@@ -16,9 +16,8 @@ module World
         infection.update!(diagnosis_date: diagnosed_on)
       end
 
-      def revise_organism_for(patient:, sensitivity:)
-        infection = patient.exit_site_infections.last!
-        organism = infection.infection_organisms.last!
+      def revise_organism_for(infectable:, sensitivity:)
+        organism = infectable.infection_organisms.last!
 
         organism.update!(sensitivity: sensitivity)
       end
@@ -98,13 +97,13 @@ module World
         wait_for_ajax
       end
 
-      def revise_organism_for(patient:, sensitivity:)
+      def revise_organism_for(infectable:, sensitivity:)
         within "#infection-organisms" do
           click_on "Edit"
         end
+
         fill_in "Sensitivity", with: sensitivity
         click_on "Save"
-
         wait_for_ajax
       end
 
