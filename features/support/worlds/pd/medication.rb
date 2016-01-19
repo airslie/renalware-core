@@ -18,6 +18,13 @@ module World
           provider: provider.downcase
         )
       end
+
+      def revise_medication_for(treatable:, drug_name:)
+        drug = Renalware::Drugs::Drug.find_by!(name: drug_name)
+        medication = treatable.medications.last!
+
+        medication.update!(drug: drug)
+      end
     end
 
     module Web
@@ -39,6 +46,16 @@ module World
           click_on "Save"
           wait_for_ajax
         end
+      end
+
+      def revise_medication_for(treatable:, drug_name:)
+        within "#medications" do
+          click_on "Edit"
+        end
+
+        select(drug_name, from: "Select Drug")
+        click_on "Save"
+        wait_for_ajax
       end
     end
   end

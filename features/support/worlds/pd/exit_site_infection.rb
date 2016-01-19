@@ -16,13 +16,6 @@ module World
         infection.update!(diagnosis_date: diagnosed_on)
       end
 
-      def revise_medication_for(treatable:, drug_name:)
-        drug = Renalware::Drugs::Drug.find_by!(name: drug_name)
-        medication = treatable.medications.last!
-
-        medication.update!(drug: drug)
-      end
-
       def terminate_organism_for(patient:, user:)
         infection = patient.exit_site_infections.last!
         organism = infection.infection_organisms.last!
@@ -87,16 +80,6 @@ module World
         fill_in "Diagnosed on", with: diagnosed_on
         click_on "Save"
 
-        wait_for_ajax
-      end
-
-      def revise_medication_for(treatable:, drug_name:)
-        within "#medications" do
-          click_on "Edit"
-        end
-
-        select(drug_name, from: "Select Drug")
-        click_on "Save"
         wait_for_ajax
       end
 
