@@ -39,7 +39,7 @@ module Renalware
 
           @medication_one = FactoryGirl.create(:medication,
             patient: @patient,
-            medicatable: @amoxicillin,
+            drug: @amoxicillin,
             treatable: @pe,
             dose: "20mg",
             medication_route: @po,
@@ -51,7 +51,7 @@ module Renalware
 
           @medication_two = FactoryGirl.create(:medication,
             patient: @patient,
-            medicatable: @penicillin,
+            drug: @penicillin,
             treatable: @pe,
             dose: "20mg",
             medication_route: @iv,

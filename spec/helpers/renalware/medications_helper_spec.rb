@@ -59,14 +59,14 @@ module Renalware
       context 'with errors' do
         it 'should apply hightlight' do
           @invalid_patient_med.save
-          expect(highlight_validation_fail(@invalid_patient_med, :drug_id)).to eq('field_with_errors')
+          expect(highlight_validation_fail(@invalid_patient_med, :drug)).to eq('field_with_errors')
         end
       end
 
       context 'with no errors' do
         it 'should not apply highlight' do
           @valid_patient_med.save
-          expect(highlight_validation_fail(@valid_patient_med, :drug_id)).to eq(nil)
+          expect(highlight_validation_fail(@valid_patient_med, :drug)).to eq(nil)
         end
       end
     end
