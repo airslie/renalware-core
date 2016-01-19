@@ -14,8 +14,9 @@ module Renalware
         @event = new_event_for_patient(event_params)
         if @event.save
           redirect_to patient_events_path(@patient),
-            notice: "You have successfully added a patient event."
+            notice: t(".success", model_name: "event")
         else
+          flash[:error] = t(".failed", model_name: "event")
           render :new
         end
       end

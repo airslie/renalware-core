@@ -11,7 +11,8 @@ module Renalware
       @esrf = ESRF.find_or_initialize_by(patient: @patient)
 
       if @esrf.update_attributes(esrf_params)
-        redirect_to patient_clinical_summary_path(@patient), notice: t(".success")
+        redirect_to patient_clinical_summary_path(@patient),
+          notice: t(".success", model_name: "esrf")
       else
         render :edit
       end

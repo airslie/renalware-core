@@ -20,6 +20,7 @@ module Renalware
         if @modality.valid?
           handle_valid_modality
         else
+          flash[:error] = t(".failed", model_name: "modality")
           render :new
         end
       end
@@ -44,7 +45,7 @@ module Renalware
             }
         else
           redirect_to patient_modalities_path(@patient),
-            notice: "Modality successfully created"
+            notice: t(".success", model_name: "modality")
         end
       end
     end

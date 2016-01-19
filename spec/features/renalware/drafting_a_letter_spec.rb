@@ -36,7 +36,7 @@ module Renalware
 
       click_on "Save"
 
-      expect(page).to have_content("Failed to save letter")
+      expect(page).to have_content("You have failed to add a new letter")
       expect(page).to have_content("Letter description can't be blank")
     end
 
