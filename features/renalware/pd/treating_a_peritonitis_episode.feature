@@ -10,4 +10,4 @@ Feature: Treating a peritonitis episode
     When Clyde records a peritonitis episode for Patty
     And records the organism for the episode
     And records the medication for the episode
-    Then an exit site infection is recorded for Patty
+    Then a peritonitis episode is recorded for Patty
