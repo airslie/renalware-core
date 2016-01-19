@@ -18,7 +18,8 @@ module Renalware
     has_many :problems, class_name: "Problems::Problem"
     has_many :medications
     has_many :drugs, through: :medications
-    has_many :peritonitis_episodes, through: :medications, source: :treatable, source_type: "PeritonitisEpisode"
+    has_many :peritonitis_episodes, through: :medications,
+      source: :treatable, source_type: "PeritonitisEpisode"
     has_many :medication_routes, through: :medications
     has_many :modalities, class_name: "Modalities::Modality"
     has_many :pd_regimes
@@ -27,7 +28,8 @@ module Renalware
 
     has_one :current_modality, -> { order(started_on: :desc).where(deleted_at: nil) },
       class_name: "Modalities::Modality"
-    has_one :modality_description, through: :current_modality, class_name: "Modalities::Description", source: :description
+    has_one :modality_description, through: :current_modality,
+      class_name: "Modalities::Description", source: :description
     has_one :esrf
 
     accepts_nested_attributes_for :current_address
