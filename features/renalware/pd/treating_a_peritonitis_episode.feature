@@ -16,3 +16,9 @@ Feature: Treating a peritonitis episode
   Scenario: A clinician revised a peritonitis episode
     Given Patty is being treated for a peritonitis episode
     Then Clyde can revise the peritonitis episode
+
+  @web @javascript
+  Scenario: A clinician terminated an organism for a peritonitis episode
+    Given Clyde recorded a peritonitis episode for Patty
+    And recorded the organism for the episode
+    Then Clyde can terminate the organism for the episode
