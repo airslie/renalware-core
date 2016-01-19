@@ -17,12 +17,11 @@
       /! Search all drugs
       .standard
         = label_tag :drug_search, "Drug"
-        = text_field_tag :drug_search, medicatable_name(f.object), class: "find_drug #{ highlight_validation_fail(f.object, :medicatable_id) }", placeholder: "Search drug by name or type"
+        = text_field_tag :drug_search, drug_name(f.object), class: "find_drug #{ highlight_validation_fail(f.object, :drug) }", placeholder: "Search drug by name or type"
 
         ul.drug-results.no-bullet
 
-        = f.hidden_field :medicatable_id, class: "selected-medicatable-id"
-        = f.hidden_field :medicatable_type, value: "Renalware::Drugs::Drug", class: "selected-medicatable-type"
+        = f.hidden_field :drug_id, class: "selected-medicatable-id"
 
       /! Show only when selecting drugs by category/type.
       .drug-by-select

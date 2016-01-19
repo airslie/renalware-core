@@ -787,8 +787,7 @@ ALTER SEQUENCE medication_versions_id_seq OWNED BY medication_versions.id;
 CREATE TABLE medications (
     id integer NOT NULL,
     patient_id integer NOT NULL,
-    medicatable_id integer NOT NULL,
-    medicatable_type character varying NOT NULL,
+    drug_id integer NOT NULL,
     treatable_id integer,
     treatable_type character varying,
     dose character varying NOT NULL,
@@ -2775,13 +2774,6 @@ CREATE INDEX index_medications_on_deleted_at ON medications USING btree (deleted
 
 
 --
--- Name: index_medications_on_medicatable_type_and_medicatable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_medications_on_medicatable_type_and_medicatable_id ON medications USING btree (medicatable_type, medicatable_id);
-
-
---
 -- Name: index_medications_on_treatable_type_and_treatable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -3082,6 +3074,14 @@ ALTER TABLE ONLY problems
 
 ALTER TABLE ONLY transplants_recipient_followups
     ADD CONSTRAINT fk_rails_4a82546fd1 FOREIGN KEY (transplant_failure_cause_description_id) REFERENCES transplants_failure_cause_descriptions(id);
+
+
+--
+-- Name: fk_rails_537ced9729; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY medications
+    ADD CONSTRAINT fk_rails_537ced9729 FOREIGN KEY (drug_id) REFERENCES drugs(id);
 
 
 --

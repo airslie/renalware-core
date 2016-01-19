@@ -8,9 +8,9 @@ module Renalware
       super(treatable_type: treatable.class.to_s, treatable_id: treatable.id)
     end
 
-    def medicatable_name(medication)
-      if medication.medicatable.present?
-        medication.medicatable.name
+    def drug_name(medication)
+      if medication.drug.present?
+        medication.drug.name
       else
         nil
       end

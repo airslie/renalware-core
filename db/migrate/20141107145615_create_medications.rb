@@ -2,7 +2,7 @@ class CreateMedications < ActiveRecord::Migration
   def change
     create_table :medications do |t|
       t.references :patient,           null: false, foreign_key: true
-      t.references :medicatable,       polymorphic: true, index: true, null: false
+      t.references :drug,              null: false, foreign_key: true
       t.references :treatable,         polymorphic: true, index: true
       t.string :dose,                  null: false
       t.references :medication_route,  null: false, foreign_key: true

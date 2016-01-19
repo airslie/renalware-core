@@ -38,7 +38,7 @@ module World
 
         infection.medications.create!(
           patient: patient,
-          medicatable: drug,
+          drug: drug,
           dose: dose,
           medication_route: route,
           frequency: frequency,
@@ -52,7 +52,7 @@ module World
         infection = patient.exit_site_infections.last!
         medication = infection.medications.last!
 
-        medication.update!(medicatable: drug)
+        medication.update!(drug: drug)
       end
 
       def terminate_organism_for(patient:, user:)
