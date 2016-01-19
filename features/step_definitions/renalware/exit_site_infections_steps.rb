@@ -32,7 +32,7 @@ end
 
 Given(/^recorded the medication for the infection$/) do
   record_medication_for(
-    patient: @patty,
+    treatable: @patty.exit_site_infections.last!,
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
     route_name: "PO",
@@ -44,7 +44,7 @@ end
 
 When(/^records the medication for the infection$/) do
   record_medication_for(
-    patient: @patty,
+    treatable: @patty.exit_site_infections.last!,
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
     route_name: "PO",
@@ -72,7 +72,7 @@ Given(/^Patty is being treated for an exit site infection$/) do
   )
 
   record_medication_for(
-    patient: @patty,
+    treatable: @patty.exit_site_infections.last!,
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
     route_name: "PO",

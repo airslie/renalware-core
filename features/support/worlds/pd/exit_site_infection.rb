@@ -23,14 +23,13 @@ module World
         organism.update!(sensitivity: sensitivity)
       end
 
-      def record_medication_for(patient:, drug_name:, dose:,
+      def record_medication_for(treatable:, drug_name:, dose:,
                                route_name:, frequency:, starts_on:, provider:)
         drug = Renalware::Drugs::Drug.find_by!(name: drug_name)
         route = Renalware::MedicationRoute.find_by!(name: route_name)
-        infection = patient.exit_site_infections.last!
 
-        infection.medications.create!(
-          patient: patient,
+        treatable.medications.create!(
+          patient: treatable.patient,
           drug: drug,
           dose: dose,
           medication_route: route,
@@ -125,7 +124,7 @@ module World
         wait_for_ajax
       end
 
-      def record_medication_for(patient:, drug_name:, dose:, route_name:,
+      def record_medication_for(treatable:, drug_name:, dose:, route_name:,
                                 frequency:, starts_on:, provider:)
         click_link "Add Medication"
         wait_for_ajax
@@ -137,9 +136,8 @@ module World
           fill_in "Frequency", with: frequency
           fill_in "Prescribed on", with: starts_on
           click_on "Save"
+          wait_for_ajax
         end
-
-        wait_for_ajax
       end
 
       def revise_medication_for(patient:, drug_name:)
