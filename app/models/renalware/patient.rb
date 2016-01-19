@@ -5,11 +5,11 @@ module Renalware
 
     serialize :sex, Gender
 
-    belongs_to :current_address, :class_name => "Address", :foreign_key => :current_address_id
-    belongs_to :address_at_diagnosis, :class_name => "Address", :foreign_key => :address_at_diagnosis_id
+    belongs_to :current_address, class_name: "Address", foreign_key: :current_address_id
+    belongs_to :address_at_diagnosis, class_name: "Address", foreign_key: :address_at_diagnosis_id
     belongs_to :ethnicity
-    belongs_to :first_edta_code, :class_name => "EdtaCode", :foreign_key => :first_edta_code_id
-    belongs_to :second_edta_code, :class_name => "EdtaCode", :foreign_key => :second_edta_code_id
+    belongs_to :first_edta_code, class_name: "EdtaCode", foreign_key: :first_edta_code_id
+    belongs_to :second_edta_code, class_name: "EdtaCode", foreign_key: :second_edta_code_id
     belongs_to :doctor
     belongs_to :practice
 
@@ -17,9 +17,9 @@ module Renalware
     has_many :peritonitis_episodes
     has_many :problems, class_name: "Problems::Problem"
     has_many :medications
-    has_many :drugs, :through => :medications
-    has_many :peritonitis_episodes, :through => :medications, :source => :treatable, :source_type => "PeritonitisEpisode"
-    has_many :medication_routes, :through => :medications
+    has_many :drugs, through: :medications
+    has_many :peritonitis_episodes, through: :medications, source: :treatable, source_type: "PeritonitisEpisode"
+    has_many :medication_routes, through: :medications
     has_many :modalities, class_name: "Modalities::Modality"
     has_many :pd_regimes
     has_many :letters, class_name: 'Renalware::BaseLetter'
