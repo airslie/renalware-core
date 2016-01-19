@@ -22,3 +22,9 @@ Feature: Treating a peritonitis episode
     Given Clyde recorded a peritonitis episode for Patty
     And recorded the organism for the episode
     Then Clyde can terminate the organism for the episode
+
+  @web @javascript
+  Scenario: A clinician terminated a medication for a peritonitis episode
+    Given Clyde recorded a peritonitis episode for Patty
+    And recorded the medication for the episode
+    Then Clyde can terminate the medication for the episode
