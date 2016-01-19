@@ -103,7 +103,7 @@ Then(/^Clyde can revise the exist site infection$/) do
   expect_exit_site_infections_revisions_recorded(patient: @patty)
 end
 
-Then(/^Clyde can terminate the organism$/) do
+Then(/^Clyde can terminate the organism for the infection$/) do
   terminate_organism_for(patient: @patty, user: @clyde)
 end
 
