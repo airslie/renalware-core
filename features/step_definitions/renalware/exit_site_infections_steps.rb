@@ -96,7 +96,7 @@ Then(/^Clyde can revise the exist site infection$/) do
   )
 
   revise_medication_for(
-    patient: @patty,
+    treatable: @patty.exit_site_infections.last!,
     drug_name: "Cefotaxime Injection"
   )
 

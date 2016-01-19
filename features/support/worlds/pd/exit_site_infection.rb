@@ -16,10 +16,9 @@ module World
         infection.update!(diagnosis_date: diagnosed_on)
       end
 
-      def revise_medication_for(patient:, drug_name:)
+      def revise_medication_for(treatable:, drug_name:)
         drug = Renalware::Drugs::Drug.find_by!(name: drug_name)
-        infection = patient.exit_site_infections.last!
-        medication = infection.medications.last!
+        medication = treatable.medications.last!
 
         medication.update!(drug: drug)
       end
@@ -91,7 +90,7 @@ module World
         wait_for_ajax
       end
 
-      def revise_medication_for(patient:, drug_name:)
+      def revise_medication_for(treatable:, drug_name:)
         within "#medications" do
           click_on "Edit"
         end
