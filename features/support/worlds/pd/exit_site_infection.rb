@@ -16,13 +16,12 @@ module World
         infection.update!(diagnosis_date: diagnosed_on)
       end
 
-      def terminate_organism_for(patient:, user:)
-        infection = patient.exit_site_infections.last!
-        organism = infection.infection_organisms.last!
+      def terminate_organism_for(infectable:, user:)
+        organism = infectable.infection_organisms.last!
 
         organism.destroy
 
-        expect(infection.infection_organisms).to be_empty
+        expect(infectable.infection_organisms).to be_empty
       end
 
       def terminate_medication_for(patient:, user:)
@@ -95,14 +94,13 @@ module World
         expect(medication).to be_deleted
       end
 
-      def terminate_organism_for(patient:, user:)
+      def terminate_organism_for(infectable:, user:)
         within "#infection-organisms" do
           click_on "Terminate"
         end
         wait_for_ajax
 
-        infection = patient.exit_site_infections.last!
-        expect(infection.infection_organisms).to be_empty
+        expect(infectable.infection_organisms).to be_empty
       end
     end
   end

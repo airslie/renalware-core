@@ -104,7 +104,10 @@ Then(/^Clyde can revise the exist site infection$/) do
 end
 
 Then(/^Clyde can terminate the organism for the infection$/) do
-  terminate_organism_for(patient: @patty, user: @clyde)
+  terminate_organism_for(
+    infectable: @patty.exit_site_infections.last!,
+    user: @clyde
+  )
 end
 
 Then(/^Clyde can terminate the medication$/) do
