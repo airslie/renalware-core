@@ -8,6 +8,12 @@ module World
 
         infectable.infection_organisms.create!(organism_code: code)
       end
+
+      def revise_organism_for(infectable:, sensitivity:)
+        organism = infectable.infection_organisms.last!
+
+        organism.update!(sensitivity: sensitivity)
+      end
     end
 
     module Web
@@ -24,6 +30,16 @@ module World
           click_on "Save"
           wait_for_ajax
         end
+      end
+
+      def revise_organism_for(infectable:, sensitivity:)
+        within "#infection-organisms" do
+          click_on "Edit"
+        end
+
+        fill_in "Sensitivity", with: sensitivity
+        click_on "Save"
+        wait_for_ajax
       end
     end
   end

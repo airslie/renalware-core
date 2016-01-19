@@ -16,12 +16,6 @@ module World
         infection.update!(diagnosis_date: diagnosed_on)
       end
 
-      def revise_organism_for(infectable:, sensitivity:)
-        organism = infectable.infection_organisms.last!
-
-        organism.update!(sensitivity: sensitivity)
-      end
-
       def revise_medication_for(patient:, drug_name:)
         drug = Renalware::Drugs::Drug.find_by!(name: drug_name)
         infection = patient.exit_site_infections.last!
@@ -94,16 +88,6 @@ module World
         fill_in "Diagnosed on", with: diagnosed_on
         click_on "Save"
 
-        wait_for_ajax
-      end
-
-      def revise_organism_for(infectable:, sensitivity:)
-        within "#infection-organisms" do
-          click_on "Edit"
-        end
-
-        fill_in "Sensitivity", with: sensitivity
-        click_on "Save"
         wait_for_ajax
       end
 
