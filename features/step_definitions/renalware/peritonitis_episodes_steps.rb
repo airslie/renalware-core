@@ -82,3 +82,10 @@ Then(/^Clyde can revise the peritonitis episode$/) do
 
   expect_peritonitis_episodes_revisions_recorded(patient: @patty)
 end
+
+Then(/^Clyde can terminate the organism for the episode$/) do
+  terminate_organism_for(
+    infectable: @patty.peritonitis_episodes.last!,
+    user: @clyde
+  )
+end
