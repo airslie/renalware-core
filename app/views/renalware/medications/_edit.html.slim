@@ -1,8 +1,8 @@
 .large-12.columns
   dl.accordion(data-accordion)
     dd.accordion-navigation.med-form
-      a.fi-plus.fi-minus  href="#edit-meds-#{pm.object.id}" class="drug-#{drug_types_colour_tag(pm.object.medicatable.drug_types)}"
-        = "#{drug_types_tag(pm.object.medicatable.drug_types)}: #{pm.object.medicatable.name}, #{pm.object.dose}, #{pm.object.medication_route.name}, #{pm.object.frequency}, #{l pm.object.start_date}"
+      a.fi-plus.fi-minus  href="#edit-meds-#{pm.object.id}" class="drug-#{drug_types_colour_tag(pm.object.drug.drug_types)}"
+        = "#{drug_types_tag(pm.object.drug.drug_types)}: #{pm.object.drug.name}, #{pm.object.dose}, #{pm.object.medication_route.name}, #{pm.object.frequency}, #{l pm.object.start_date}"
 
         .right.edit Edit
       .columns.large-12.meds-form  id="edit-meds-#{pm.object.id}" data-index=0 class="#{validation_fail(pm.object)}"

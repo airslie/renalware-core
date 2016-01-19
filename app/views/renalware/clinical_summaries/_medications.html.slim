@@ -9,8 +9,8 @@
   - else
     ul.no-bullet
       - medications.each do |medication|
-        li class="drug-#{drug_types_colour_tag(medication.medicatable.drug_types)}"
-          = "#{medication.medicatable.name},"
+        li class="drug-#{drug_types_colour_tag(medication.drug.drug_types)}"
+          = "#{medication.drug.name},"
           = "#{medication.dose},"
           = "#{medication.medication_route.name} #{medication.frequency},"
           = "#{l medication.start_date}"
