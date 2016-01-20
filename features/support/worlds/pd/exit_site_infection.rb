@@ -16,7 +16,7 @@ module World
         infection.update!(diagnosis_date: diagnosed_on)
       end
 
-      # @ section expectations
+      # @section expectations
       #
       def expect_exit_site_infection_to_recorded(patient:)
         exit_site_infection = patient.exit_site_infections.last
@@ -42,7 +42,7 @@ module World
     module Web
       include Domain
 
-      # @ section commands
+      # @section commands
       #
       def record_exit_site_infection_for(patient:, user:, diagnosed_on:, outcome:)
         login_as user
