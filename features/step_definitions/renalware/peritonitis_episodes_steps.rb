@@ -101,3 +101,10 @@ Then(/^Clyde can terminate the organism for the episode$/) do
     user: @clyde
   )
 end
+
+Then(/^Clyde can terminate the medication for the episode$/) do
+  terminate_medication_for(
+    treatable: @patty.peritonitis_episodes.last!,
+    user: @clyde
+  )
+end
