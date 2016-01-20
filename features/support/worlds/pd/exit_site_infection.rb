@@ -16,13 +16,6 @@ module World
         infection.update!(diagnosis_date: diagnosed_on)
       end
 
-      def terminate_medication_for(treatable:, user:)
-        medication = treatable.medications.last!
-
-        medication.destroy
-        expect(medication).to be_deleted
-      end
-
       # @ section expectations
       #
       def expect_exit_site_infection_to_recorded(patient:)
@@ -71,17 +64,6 @@ module World
         click_on "Save"
 
         wait_for_ajax
-      end
-
-      def terminate_medication_for(treatable:, user:)
-        within "#medications" do
-          click_on "Terminate"
-        end
-        wait_for_ajax
-
-        medication = treatable.medications.with_deleted.last!
-
-        expect(medication).to be_deleted
       end
     end
   end

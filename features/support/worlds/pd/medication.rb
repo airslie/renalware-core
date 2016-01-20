@@ -25,6 +25,13 @@ module World
 
         medication.update!(drug: drug)
       end
+
+      def terminate_medication_for(treatable:, user:)
+        medication = treatable.medications.last!
+
+        medication.destroy
+        expect(medication).to be_deleted
+      end
     end
 
     module Web
@@ -57,6 +64,17 @@ module World
         click_on "Save"
         wait_for_ajax
       end
+    end
+
+    def terminate_medication_for(treatable:, user:)
+      within "#medications" do
+        click_on "Terminate"
+      end
+      wait_for_ajax
+
+      medication = treatable.medications.with_deleted.last!
+
+      expect(medication).to be_deleted
     end
   end
 end
