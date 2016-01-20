@@ -1,7 +1,13 @@
 module World
   module PD::ExitSiteInfection
     module Domain
-      # @ section commands
+      # @section helpers
+      #
+      def infection_for(patient)
+        patient.exit_site_infections.last!
+      end
+
+      # @section commands
       #
       def record_exit_site_infection_for(patient:, user:, diagnosed_on:, outcome:)
         patient.exit_site_infections.create(
