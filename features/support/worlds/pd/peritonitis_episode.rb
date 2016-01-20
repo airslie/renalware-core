@@ -1,6 +1,12 @@
 module World
   module PD::PeritonitisEpisode
     module Domain
+      # @section helpers
+      #
+      def episode_for(patient)
+        patient.peritonitis_episodes.last!
+      end
+
       # @section commands
       #
       def record_peritonitis_episode_for(patient:, user:, diagnosed_on:)

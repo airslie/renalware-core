@@ -6,12 +6,12 @@ Given(/^Patty is being treated for a peritonitis episode$/) do
   )
 
   record_organism_for(
-    infectable: @patty.peritonitis_episodes.last!,
+    infectable: episode_for(@patty),
     organism_name: "Acineobactor"
   )
 
   record_medication_for(
-    treatable: @patty.peritonitis_episodes.last!,
+    treatable: episode_for(@patty),
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
     route_name: "PO",
@@ -31,14 +31,14 @@ end
 
 Given(/^recorded the organism for the episode$/) do
   record_organism_for(
-    infectable: @patty.peritonitis_episodes.last!,
+    infectable: episode_for(@patty),
     organism_name: "Acineobactor"
   )
 end
 
 Given(/^recorded the medication for the episode$/) do
   record_medication_for(
-    treatable: @patty.peritonitis_episodes.last!,
+    treatable: episode_for(@patty),
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
     route_name: "PO",
@@ -58,14 +58,14 @@ end
 
 When(/^records the organism for the episode$/) do
   record_organism_for(
-    infectable: @patty.peritonitis_episodes.last!,
+    infectable: episode_for(@patty),
     organism_name: "Acineobactor"
   )
 end
 
 When(/^records the medication for the episode$/) do
   record_medication_for(
-    treatable: @patty.peritonitis_episodes.last!,
+    treatable: episode_for(@patty),
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
     route_name: "PO",
@@ -83,12 +83,12 @@ Then(/^Clyde can revise the peritonitis episode$/) do
   )
 
   revise_organism_for(
-    infectable: @patty.peritonitis_episodes.last!,
+    infectable: episode_for(@patty),
     sensitivity: "Lorem ipsum."
   )
 
   revise_medication_for(
-    treatable: @patty.peritonitis_episodes.last!,
+    treatable: episode_for(@patty),
     drug_name: "Cefotaxime Injection"
   )
 
@@ -97,14 +97,14 @@ end
 
 Then(/^Clyde can terminate the organism for the episode$/) do
   terminate_organism_for(
-    infectable: @patty.peritonitis_episodes.last!,
+    infectable: episode_for(@patty),
     user: @clyde
   )
 end
 
 Then(/^Clyde can terminate the medication for the episode$/) do
   terminate_medication_for(
-    treatable: @patty.peritonitis_episodes.last!,
+    treatable: episode_for(@patty),
     user: @clyde
   )
 end
