@@ -75,6 +75,10 @@ When(/^records the medication for the episode$/) do
   )
 end
 
+Then(/^a peritonitis episode is recorded for Patty$/) do
+  expect_peritonitis_episode_to_be_recorded(patient: @patty)
+end
+
 Then(/^Clyde can revise the peritonitis episode$/) do
   revise_peritonitis_episode_for(
     patient: @patty,

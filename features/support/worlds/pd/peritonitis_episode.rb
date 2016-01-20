@@ -23,6 +23,16 @@ module World
 
       # @section expectations
       #
+      def expect_peritonitis_episode_to_be_recorded(patient:)
+        episode = episode_for(patient)
+        organism = episode.infection_organisms.last
+        medication = episode.medications.last
+
+        expect(episode).to be_present
+        expect(organism).to be_present
+        expect(medication).to be_present
+      end
+
       def expect_peritonitis_episodes_revisions_recorded(patient:)
         exit_site_infection = patient.peritonitis_episodes.last!
         organism = exit_site_infection.infection_organisms.last!
