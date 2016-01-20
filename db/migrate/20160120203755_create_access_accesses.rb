@@ -1,4 +1,4 @@
-class CreateAccessesAccesses < ActiveRecord::Migration
+class CreateAccessAccesses < ActiveRecord::Migration
   def change
     create_table :access_accesses do |t|
       t.references :source, polymorphic: true, index: true, null: false

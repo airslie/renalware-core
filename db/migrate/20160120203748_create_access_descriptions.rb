@@ -1,6 +1,6 @@
-class CreateAccessesSites < ActiveRecord::Migration
+class CreateAccessDescriptions < ActiveRecord::Migration
   def change
-    create_table :access_sites do |t|
+    create_table :access_descriptions do |t|
       t.string :code
       t.string :name
 
