@@ -1,7 +1,7 @@
 module World
   module PD::PeritonitisEpisode
     module Domain
-      # @ section commands
+      # @section commands
       #
       def record_peritonitis_episode_for(patient:, user:, diagnosed_on:)
         patient.peritonitis_episodes.create!(
@@ -15,6 +15,8 @@ module World
         episode.update!(diagnosis_date: diagnosed_on)
       end
 
+      # @section expectations
+      #
       def expect_peritonitis_episodes_revisions_recorded(patient:)
         exit_site_infection = patient.peritonitis_episodes.last!
         organism = exit_site_infection.infection_organisms.last!
