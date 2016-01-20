@@ -110,6 +110,6 @@ Then(/^Clyde can terminate the organism for the infection$/) do
   )
 end
 
-Then(/^Clyde can terminate the medication$/) do
+Then(/^Clyde can terminate the medication for the infection$/) do
   terminate_medication_for(treatable: @patty.exit_site_infections.last!, user: @clyde)
 end
