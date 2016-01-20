@@ -198,7 +198,7 @@ GEM
     multi_xml (0.5.5)
     nenv (0.2.0)
     nested_form (0.3.2)
-    nokogiri (1.6.7.1)
+    nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     notiffany (0.0.7)
       nenv (~> 0.1)
