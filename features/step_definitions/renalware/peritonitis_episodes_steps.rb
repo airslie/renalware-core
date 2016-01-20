@@ -36,6 +36,18 @@ Given(/^recorded the organism for the episode$/) do
   )
 end
 
+Given(/^recorded the medication for the episode$/) do
+  record_medication_for(
+    treatable: @patty.peritonitis_episodes.last!,
+    drug_name: "Ciprofloxacin Infusion",
+    dose: "100 ml",
+    route_name: "PO",
+    frequency: "once a day",
+    starts_on: "10-10-2015",
+    provider: "GP"
+  )
+end
+
 When(/^Clyde records a peritonitis episode for Patty$/) do
   record_peritonitis_episode_for(
     patient: @patty,
