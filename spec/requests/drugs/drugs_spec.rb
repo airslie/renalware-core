@@ -29,7 +29,7 @@ RSpec.describe "Configuring Drugs", type: :request do
 
     context "given invalid attributes" do
       it "responds with form" do
-        attributes = {name: ""}
+        attributes = { name: "" }
 
         post drugs_drugs_path, drugs_drug: attributes
 
@@ -66,7 +66,7 @@ RSpec.describe "Configuring Drugs", type: :request do
       create(:drug, name: ":target_drug_name:")
       create(:drug, name: ":another_drug_name:")
 
-      get drugs_drugs_path, q: {name_cont: "target"}
+      get drugs_drugs_path, q: { name_cont: "target" }
 
       expect(response).to have_http_status(:success)
       expect(response.body).to match(":target_drug_name:")
@@ -85,7 +85,7 @@ RSpec.describe "Configuring Drugs", type: :request do
   describe "PATCH update" do
     context "given valid attributes" do
       it "updates a record" do
-        attributes = {name: "My Edited Drug"}
+        attributes = { name: "My Edited Drug" }
 
         patch drugs_drug_path(drug), drugs_drug: attributes
 
@@ -100,7 +100,7 @@ RSpec.describe "Configuring Drugs", type: :request do
 
     context "given invalid attributes" do
       it "responds with a form" do
-        attributes = {name: ""}
+        attributes = { name: "" }
 
         patch drugs_drug_path(drug), drugs_drug: attributes
 
