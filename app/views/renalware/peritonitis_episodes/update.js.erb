@@ -1,4 +1,4 @@
-var el = <%= "#" + dom_id(@peritonitis_episode) %>
+var el = "<%= "#" + dom_id(@peritonitis_episode) %>";
 <% if @peritonitis_episode.valid? %>
   $(el).replaceWith("<%= escape_javascript(
     render "details", patient: @patient, peritonitis_episode: @peritonitis_episode
