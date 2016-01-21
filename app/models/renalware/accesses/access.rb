@@ -7,10 +7,9 @@ module Renalware
       belongs_to :description, class_name: "Description"
       belongs_to :site, class_name: "Site"
 
-      validates :source_type, presence: true
-      validates :source_id, presence: true
-      validates :description_id, presence: true
-      validates :site_id, presence: true
+      validates :source, presence: true
+      validates :description, presence: true
+      validates :site, presence: true
       validates :side, presence: true
     end
   end
