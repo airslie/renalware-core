@@ -1,3 +1,5 @@
+require_dependency "renalware/hospitals"
+
 module Renalware
   module Hospitals
     class Unit < ActiveRecord::Base
@@ -12,6 +14,10 @@ module Renalware
       validates :unit_type, presence: true
 
       enumerize :unit_type, in: %i(hospital satellite home)
+
+      def self.policy_class
+        BasePolicy
+      end
     end
   end
 end

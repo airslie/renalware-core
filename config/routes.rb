@@ -36,6 +36,10 @@ Rails.application.routes.draw do
       resources :types, except: :show
     end
 
+    namespace :hospitals do
+      resources :units, except: :show
+    end
+
     resources :infection_organisms
     resources :medications, controller: :polymorphic_medications
 
