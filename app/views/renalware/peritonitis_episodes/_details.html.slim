@@ -1,21 +1,26 @@
-.row
-  dl
-    dt Last Updated:
-    dd= peritonitis_episode.updated_at
+= content_tag_for(:div, peritonitis_episode) do
+  .row
+    dl
+      dt Last Updated:
+      dd= peritonitis_episode.updated_at
 
-.row
-  dl
-    .large-6.columns
-      dt Start
-      dl= l peritonitis_episode.treatment_start_date
-    .large-6.columns
-      dt End
-      dl= l peritonitis_episode.treatment_end_date
+  .row
+    dl
+      .large-6.columns
+        dt Start
+        dl= l peritonitis_episode.treatment_start_date
+      .large-6.columns
+        dt End
+        dl= l peritonitis_episode.treatment_end_date
 
-  dl
-    .large-6.columns
-      dt Episode Type
-      dl = default_for_associated(peritonitis_episode.episode_type, :term, "Unknown")
-    .large-6.columns
-      dt Catheter Removed
-      dl= yes_no(peritonitis_episode.catheter_removed)
+    dl
+      .large-6.columns
+        dt Episode Type
+        dl = default_for_associated(peritonitis_episode.episode_type, :term, "Unknown")
+      .large-6.columns
+        dt Catheter Removed
+        dl= yes_no(peritonitis_episode.catheter_removed)
+
+
+  .right
+    = link_to "Edit", edit_patient_peritonitis_episode_path(patient, peritonitis_episode), remote: true, class: %i(button tiny)

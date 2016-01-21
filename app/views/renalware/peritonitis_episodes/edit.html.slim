@@ -1,9 +1,0 @@
-= render layout: "renalware/patients/layout", locals: { title: "Peritonitis Episode" } do
-  = render partial: "renalware/shared/errors", locals: { model: @peritonitis_episode }
-
-  = nested_form_for [@patient, @peritonitis_episode], method: :put do |pe|
-    = render partial: "renalware/peritonitis_episodes/form", locals: { pe: pe }
-
-    = submit_tag "Save", class: "button"
-    span= " or "
-    = link_to "cancel", patient_peritonitis_episode_path(@patient, @peritonitis_episode.id)

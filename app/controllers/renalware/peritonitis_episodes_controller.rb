@@ -20,14 +20,12 @@ module Renalware
       end
     end
 
+    def edit
+      render
+    end
+
     def update
-      if @peritonitis_episode.update(peritonitis_episode_params)
-        redirect_to patient_peritonitis_episode_path(@patient, @peritonitis_episode),
-          notice: t(".success", model_name: "peritonitis episode")
-      else
-        flash[:error] = t(".failed", model_name: "peritonitis episode")
-        render :edit
-      end
+      @peritonitis_episode.update(peritonitis_episode_params)
     end
 
     private

@@ -57,6 +57,19 @@ module World
         click_on "Save"
       end
 
+      def revise_peritonitis_episode_for(patient:, user:, diagnosed_on:)
+        login_as user
+
+        episode = episode_for(patient)
+        visit patient_peritonitis_episode_path(patient, episode)
+        within "#" + dom_id(episode) do
+          click_on "Edit"
+          fill_in "Diagnosed on", with: diagnosed_on
+          click_on "Save"
+          wait_for_ajax
+        end
+      end
+
       def peritonitis_episode_drug_selector
         -> (drug_name) {
           find("select#medication_drug_id optgroup[label='Peritonitis']")

@@ -1,8 +1,8 @@
 = render layout: "renalware/patients/layout", locals: { title: "Peritonitis Episode", patient: @patient } do
   = render partial: "renalware/shared/errors", locals: { model: @peritonitis_episode }
 
-  = simple_nested_form_for [@patient, @peritonitis_episode] do |pe|
-    = render partial: 'renalware/peritonitis_episodes/form', locals: { pe: pe }
+  = simple_nested_form_for [@patient, @peritonitis_episode] do |f|
+    = render partial: 'renalware/peritonitis_episodes/fields', locals: { f: f }
 
     = submit_tag "Save", class: "button"
     span= " or "
