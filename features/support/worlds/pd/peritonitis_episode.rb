@@ -21,6 +21,8 @@ module World
         episode.update!(diagnosis_date: diagnosed_on)
       end
 
+      def peritonitis_episode_drug_selector; end
+
       # @section expectations
       #
       def expect_peritonitis_episode_to_be_recorded(patient:)
