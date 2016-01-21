@@ -12,9 +12,9 @@ li.has-dropdown
         = link_to "PD Bags", bag_types_path
       li
         = link_to "Doctors", doctors_path
-      li
-        = link_to "Hospital Units", hospitals_units_path
 
     - if current_user_is_admin?
       li
         = link_to 'Users', admin_users_path
+      li
+        = link_to "Hospital Units", hospitals_units_path
