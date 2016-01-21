@@ -32,6 +32,10 @@ module Renalware
         end
       end
 
+      def to_s
+        description.name
+      end
+
       private
 
       def validate_modality_starts_later_than_previous

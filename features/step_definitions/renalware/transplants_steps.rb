@@ -36,6 +36,10 @@ Given(/^Don has a donor operation followup$/) do
   @followup = set_up_donor_followup(@operation)
 end
 
+Given(/^These patients are on the transplant wait list$/) do |table|
+  set_up_wait_list_registrations(table)
+end
+
 # WHEN
 
 When(/^Clyde creates a donor workup for Don$/) do
@@ -198,6 +202,10 @@ When(/^Clyde updates a donor operation followup for Don$/) do
   update_donor_followup(operation: @operation, user: @clyde)
 end
 
+When(/^Clyde views the list of active wait list registrations$/) do
+  view_wait_list_registrations(filter: :active, user: @clyde)
+end
+
 # THEN
 
 Then(/^Patty's recipient workup exists$/) do
@@ -308,4 +316,8 @@ end
 
 Then(/^Clyde can update Don's donor operation followup$/) do
   expect_update_donor_followup_to_succeed(operation: @operation, user: @clyde)
+end
+
+Then(/^Clyde sees these wait list registrations$/) do |table|
+  expect_wait_list_registrations_to_be(table.hashes)
 end

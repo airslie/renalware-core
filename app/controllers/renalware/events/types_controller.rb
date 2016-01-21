@@ -16,8 +16,9 @@ module Renalware
 
         if @event_type.save
           redirect_to events_types_path,
-            notice: "You have successfully added a new patient event type."
+            notice: t(".success", model_name: "event type")
         else
+          flash[:error] = t(".failed", model_name: "event type")
           render :new
         end
       end
@@ -30,8 +31,9 @@ module Renalware
       def update
         if @event_type.update(event_params)
           redirect_to events_types_path,
-            notice: "You have successfully updated patient event type"
+            notice: t(".success", model_name: "event type")
         else
+          flash[:error] = t(".failed", model_name: "event type")
           render :edit
         end
       end
@@ -39,7 +41,7 @@ module Renalware
       def destroy
         authorize Type.destroy(params[:id])
         redirect_to events_types_path,
-          notice: "You have successfully removed a patient event type."
+          notice: t(".success", model_name: "event type")
       end
 
       private

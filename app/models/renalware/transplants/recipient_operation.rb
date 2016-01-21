@@ -10,6 +10,7 @@ module Renalware
       extend Enumerize
 
       belongs_to :patient
+      belongs_to :hospital
       has_one :followup, class_name: "RecipientFollowup", foreign_key: "operation_id"
 
       before_validation :compute_donor_age
@@ -28,7 +29,7 @@ module Renalware
       validates :donor_kidney_removed_from_ice_at, presence: true
       validates :kidney_perfused_with_blood_at, presence: true
       validates :operation_type, presence: true
-      validates :transplant_site, presence: true
+      validates :hospital_id, presence: true
       validates :cold_ischaemic_time_formatted, presence: true
       validates :warm_ischaemic_time_formatted, presence: true
 

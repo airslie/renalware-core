@@ -25,7 +25,7 @@ module Renalware
 
           @medication_one = FactoryGirl.create(:medication,
             patient: @patient,
-            medicatable: @cephradine,
+            drug: @cephradine,
             treatable: @es,
             dose: "20mg",
             medication_route: @im,
@@ -37,7 +37,7 @@ module Renalware
 
           @medication_two = FactoryGirl.create(:medication,
             patient: @patient,
-            medicatable: @dicloxacillin,
+            drug: @dicloxacillin,
             treatable: @es,
             dose: "20mg",
             medication_route: @sc,

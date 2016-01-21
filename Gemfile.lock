@@ -11,11 +11,11 @@ GIT
 
 GIT
   remote: https://github.com/phatworx/devise_security_extension.git
-  revision: 16211c95b5f32a4dd691b24b2688c41184c76a9a
+  revision: 6fbf95fb262135584c1dae7a7756867c95a69752
   specs:
     devise_security_extension (0.10.0)
       devise (>= 3.0.0, < 4.0)
-      rails (>= 3.2.6, < 5.0)
+      railties (>= 3.2.6, < 5.0)
 
 GEM
   remote: https://rubygems.org/
@@ -40,6 +40,8 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    active_type (0.4.3)
+      activerecord (>= 3.2)
     activejob (4.2.5)
       activesupport (= 4.2.5)
       globalid (>= 0.3.0)
@@ -106,7 +108,7 @@ GEM
     debugger-linecache (1.2.0)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
-    devise (3.4.1)
+    devise (3.5.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -124,7 +126,7 @@ GEM
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
-    ffaker (1.25.0)
+    ffaker (2.1.0)
     ffi (1.9.10)
     font-awesome-rails (4.4.0.0)
       railties (>= 3.2, < 5.0)
@@ -196,7 +198,7 @@ GEM
     multi_xml (0.5.5)
     nenv (0.2.0)
     nested_form (0.3.2)
-    nokogiri (1.6.7.1)
+    nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     notiffany (0.0.7)
       nenv (~> 0.1)
@@ -265,15 +267,15 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (2.0.0)
     raindrops (0.13.0)
-    rake (10.4.2)
+    rake (10.5.0)
     rb-fsevent (0.9.5)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
     rdoc (4.1.2)
       json (~> 1.4)
     request_store (1.2.0)
-    responders (2.1.0)
-      railties (>= 4.2.0, < 5)
+    responders (2.1.1)
+      railties (>= 4.2.0, < 5.1)
     rspec (3.1.0)
       rspec-core (~> 3.1.0)
       rspec-expectations (~> 3.1.0)
@@ -370,7 +372,7 @@ GEM
       coercible (~> 1.0)
       descendants_tracker (~> 0.0, >= 0.0.3)
       equalizer (~> 0.0, >= 0.0.9)
-    warden (1.2.3)
+    warden (1.2.4)
       rack (>= 1.0)
     web-console (2.2.1)
       activemodel (>= 4.0)
@@ -390,11 +392,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_type
   bundler-audit
   capybara (= 2.4.4)
   cucumber-rails
   database_cleaner
-  devise (~> 3.4.1)
+  devise
   devise_security_extension!
   enumerize
   factory_girl_rails (~> 4.0)

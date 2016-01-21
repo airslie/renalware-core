@@ -115,7 +115,7 @@ Given(/^a patient has episodes of peritonitis$/) do
     notes: "Has problems getting rid of infection.",
     medications_attributes: [
       patient: @patient_1,
-      medicatable: Renalware::Drugs::Drug.find_by!(name: "Amoxicillin Suspension"),
+      drug: Renalware::Drugs::Drug.find_by!(name: "Amoxicillin Suspension"),
       treatable: @peritonitis_episode_2,
       dose: "20mg",
       medication_route: Renalware::MedicationRoute.find_by!(name: "PO"),
@@ -158,7 +158,7 @@ Given(/^a patient has episodes of peritonitis$/) do
     notes: "Needs pain management.",
     medications_attributes: [
       patient: @patient_1,
-      medicatable: Renalware::Drugs::Drug.find_by!(name: "Ciprofloxacin Suspension"),
+      drug: Renalware::Drugs::Drug.find_by!(name: "Ciprofloxacin Suspension"),
       treatable: @peritonitis_episode_3,
       dose: "50mg",
       medication_route: Renalware::MedicationRoute.find_by!(name: "SC"),
@@ -193,7 +193,7 @@ Given(/^a patient has exit site infections$/) do
     notes: "Needs time for review.",
     medications_attributes: [
       patient: @patient_1,
-      medicatable: @dicloxacillin,
+      drug: @dicloxacillin,
       treatable: @exit_site_2,
       dose: "10mg",
       medication_route: @im,
@@ -224,7 +224,7 @@ Given(/^a patient has exit site infections$/) do
     notes: "Needs more time for review.",
     medications_attributes: [
       patient: @patient_1,
-      medicatable: @rifampin,
+      drug: @rifampin,
       treatable: @exit_site_3,
       dose: "30mg",
       medication_route: @iv,

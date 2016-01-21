@@ -17,7 +17,7 @@ module Renalware
     scenario 'viewing patient medications' do
       visit patient_medications_path(@patient)
 
-      expect(page).to have_content(@patient.medications.last.medicatable.name)
+      expect(page).to have_content(@patient.medications.last.drug.name)
       expect(page).not_to have_link('Add a new medication')
     end
   end

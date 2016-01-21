@@ -8,11 +8,11 @@ module Renalware
 
     def update
       authorize @patient
-
       if @patient.update(medication_params)
         redirect_to patient_medications_path(@patient),
-          notice: "You have successfully updated a patient's medications."
+          notice: t(".success", model_name: "medication")
       else
+        flash[:error] = t(".failed", model_name: "medication")
         render :index
       end
     end
@@ -22,7 +22,7 @@ module Renalware
     def medication_params
       params.require(:patient).permit(
         medications_attributes: [
-          :id, :medicatable_id, :medicatable_type, :dose, :medication_route_id,
+          :id, :drug_id, :dose, :medication_route_id,
           :frequency, :notes, :start_date, :end_date, :provider, :_destroy
         ]
       )

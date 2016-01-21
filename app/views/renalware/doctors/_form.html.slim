@@ -1,24 +1,20 @@
 = render partial: 'renalware/shared/errors', locals: { model: f.object }
 
 .row
-  = f.label :given_name
-  = f.text_field :given_name
+  = f.input :given_name
 
 .row
-  = f.label :family_name
-  = f.text_field :family_name
+  = f.input :family_name
 
 .row
-  = f.label :email
-  = f.text_field :email
+  = f.input :email
 
 .row
-  = f.label :code
-  = f.text_field :code
+  = f.input :code
 
 .row
-  = f.label :practitioner_type
-  = f.select :practitioner_type, options_for_select(['GP', 'Other'])
+  = f.input :practitioner_type,
+      collection: ['GP', 'Other']
 
 .row
   = label_tag 'doctor[practice_ids]', 'Practices'
@@ -33,5 +29,5 @@ hr
 
   fieldset#address-form style='display:none'
     = f.simple_fields_for :address_attributes do |a|
-      = a.hidden_field :id
+      = a.input :id, as: :hidden
       = render partial: 'renalware/addresses/form', locals: { a: a }

@@ -3,6 +3,7 @@ section.top-bar-section
 
   ul.right.large-2.columns
     li.divider
+    = render partial: "renalware/navigation/renal"
     = render partial: "renalware/navigation/patients_admin"
     - if current_user_is_admin?
       li.divider

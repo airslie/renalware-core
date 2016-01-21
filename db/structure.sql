@@ -30,6 +30,105 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: access_accesses; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE access_accesses (
+    id integer NOT NULL,
+    source_id integer NOT NULL,
+    source_type character varying NOT NULL,
+    description_id integer NOT NULL,
+    site_id integer NOT NULL,
+    side character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: access_accesses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE access_accesses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: access_accesses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE access_accesses_id_seq OWNED BY access_accesses.id;
+
+
+--
+-- Name: access_descriptions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE access_descriptions (
+    id integer NOT NULL,
+    code character varying,
+    name character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: access_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE access_descriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: access_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE access_descriptions_id_seq OWNED BY access_descriptions.id;
+
+
+--
+-- Name: access_sites; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE access_sites (
+    id integer NOT NULL,
+    code character varying,
+    name character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: access_sites_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE access_sites_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: access_sites_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE access_sites_id_seq OWNED BY access_sites.id;
+
+
+--
 -- Name: addresses; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -577,6 +676,7 @@ CREATE TABLE hospitals (
     name character varying NOT NULL,
     location character varying,
     active boolean,
+    is_transplant_site boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -786,8 +886,7 @@ ALTER SEQUENCE medication_versions_id_seq OWNED BY medication_versions.id;
 CREATE TABLE medications (
     id integer NOT NULL,
     patient_id integer NOT NULL,
-    medicatable_id integer NOT NULL,
-    medicatable_type character varying NOT NULL,
+    drug_id integer NOT NULL,
     treatable_id integer,
     treatable_type character varying,
     dose character varying NOT NULL,
@@ -1597,7 +1696,7 @@ CREATE TABLE transplants_recipient_operations (
     theatre_case_start_time time without time zone NOT NULL,
     donor_kidney_removed_from_ice_at timestamp without time zone NOT NULL,
     operation_type character varying NOT NULL,
-    transplant_site character varying NOT NULL,
+    hospital_id integer NOT NULL,
     kidney_perfused_with_blood_at timestamp without time zone NOT NULL,
     cold_ischaemic_time integer NOT NULL,
     warm_ischaemic_time integer NOT NULL,
@@ -1882,6 +1981,27 @@ CREATE SEQUENCE versions_id_seq
 --
 
 ALTER SEQUENCE versions_id_seq OWNED BY versions.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_accesses ALTER COLUMN id SET DEFAULT nextval('access_accesses_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_descriptions ALTER COLUMN id SET DEFAULT nextval('access_descriptions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_sites ALTER COLUMN id SET DEFAULT nextval('access_sites_id_seq'::regclass);
 
 
 --
@@ -2232,6 +2352,30 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 --
 
 ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq'::regclass);
+
+
+--
+-- Name: access_accesses_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY access_accesses
+    ADD CONSTRAINT access_accesses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: access_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY access_descriptions
+    ADD CONSTRAINT access_descriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: access_sites_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY access_sites
+    ADD CONSTRAINT access_sites_pkey PRIMARY KEY (id);
 
 
 --
@@ -2635,6 +2779,27 @@ ALTER TABLE ONLY versions
 
 
 --
+-- Name: index_access_accesses_on_description_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_access_accesses_on_description_id ON access_accesses USING btree (description_id);
+
+
+--
+-- Name: index_access_accesses_on_site_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_access_accesses_on_site_id ON access_accesses USING btree (site_id);
+
+
+--
+-- Name: index_access_accesses_on_source_type_and_source_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_access_accesses_on_source_type_and_source_id ON access_accesses USING btree (source_type, source_id);
+
+
+--
 -- Name: index_bag_types_on_deleted_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2772,13 +2937,6 @@ CREATE INDEX index_medication_versions_on_item_type_and_item_id ON medication_ve
 --
 
 CREATE INDEX index_medications_on_deleted_at ON medications USING btree (deleted_at);
-
-
---
--- Name: index_medications_on_medicatable_type_and_medicatable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_medications_on_medicatable_type_and_medicatable_id ON medications USING btree (medicatable_type, medicatable_id);
 
 
 --
@@ -3060,6 +3218,14 @@ ALTER TABLE ONLY medications
 
 
 --
+-- Name: fk_rails_2bc758ca0f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_accesses
+    ADD CONSTRAINT fk_rails_2bc758ca0f FOREIGN KEY (site_id) REFERENCES access_sites(id);
+
+
+--
 -- Name: fk_rails_2e34a9e03d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3089,6 +3255,14 @@ ALTER TABLE ONLY problems
 
 ALTER TABLE ONLY transplants_recipient_followups
     ADD CONSTRAINT fk_rails_4a82546fd1 FOREIGN KEY (transplant_failure_cause_description_id) REFERENCES transplants_failure_cause_descriptions(id);
+
+
+--
+-- Name: fk_rails_537ced9729; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY medications
+    ADD CONSTRAINT fk_rails_537ced9729 FOREIGN KEY (drug_id) REFERENCES drugs(id);
 
 
 --
@@ -3185,6 +3359,22 @@ ALTER TABLE ONLY pd_regime_bags
 
 ALTER TABLE ONLY transplants_donations
     ADD CONSTRAINT fk_rails_8d07edb903 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_8d91269935; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplants_recipient_operations
+    ADD CONSTRAINT fk_rails_8d91269935 FOREIGN KEY (hospital_id) REFERENCES hospitals(id);
+
+
+--
+-- Name: fk_rails_95191c0b7e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_accesses
+    ADD CONSTRAINT fk_rails_95191c0b7e FOREIGN KEY (description_id) REFERENCES access_descriptions(id);
 
 
 --
@@ -3427,6 +3617,8 @@ INSERT INTO schema_migrations (version) VALUES ('20151022190252');
 
 INSERT INTO schema_migrations (version) VALUES ('20151103210628');
 
+INSERT INTO schema_migrations (version) VALUES ('20151104183740');
+
 INSERT INTO schema_migrations (version) VALUES ('20151111194419');
 
 INSERT INTO schema_migrations (version) VALUES ('20151116111600');
@@ -3443,5 +3635,9 @@ INSERT INTO schema_migrations (version) VALUES ('20151207167020');
 
 INSERT INTO schema_migrations (version) VALUES ('20160106167020');
 
-INSERT INTO schema_migrations (version) VALUES ('20160114183740');
+INSERT INTO schema_migrations (version) VALUES ('20160120203748');
+
+INSERT INTO schema_migrations (version) VALUES ('20160120203754');
+
+INSERT INTO schema_migrations (version) VALUES ('20160120203755');
 

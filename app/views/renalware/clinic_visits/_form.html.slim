@@ -8,8 +8,7 @@
         .row
           .columns.small-12
             = f.input :date, as: :datetime_picker, input_html: { class: "small-input" }
-            = f.input :clinic_id, input_html: { class: "small-input" },
-                collection: Renalware::Clinic.all,
+            = f.association :clinic, input_html: { class: "small-input" },
                 label_method: :name, value_method: :id,
                 include_blank: t(".clinic_prompt")
 

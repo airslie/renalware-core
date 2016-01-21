@@ -1,6 +1,16 @@
 # From: https://raw.githubusercontent.com/svenfuchs/rails-i18n/master/rails/locale/en-GB.yml
 ---
 en-GB:
+  renalware:
+    create:
+      success: You have successfully added a new %{model_name}.
+      failed: You have failed to add a new %{model_name}.
+    update:
+      success: You have successfully updated this %{model_name}.
+      failed: You have failed to update this %{model_name}.
+    destroy:
+      success: You have successfully removed this %{model_name}.
+      failed: You have failed to remove this %{model_name}.
   date:
     abbr_day_names:
     - Sun

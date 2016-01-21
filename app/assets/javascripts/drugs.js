@@ -95,7 +95,7 @@ $(document).ready(function(){
     var $bullet = $(e.currentTarget);
     var $medForm = $bullet.closest('.med-form');
     var drugId = $bullet.data('drug-id');
-    $medForm.find('.selected-medicatable-id').val(drugId);
+    $medForm.find('.selected-drug-id').val(drugId);
 
     // Show the selected drug
     $medForm.find('.find_drug').val($bullet.html());
@@ -109,14 +109,14 @@ $(document).ready(function(){
     var delay = 1000;
     setTimeout(function(){
       var selectedDrug = $medForm.find('.drug-select').val();
-      $medForm.find('.selected-medicatable-id').val(selectedDrug);
+      $medForm.find('.selected-drug-id').val(selectedDrug);
     }, delay);
 
     $('.drug-select').change(function(e) {
       var $bullet = $(e.currentTarget);
       var $medForm = $bullet.closest('.med-form');
       var selectedDrug = $medForm.find('.drug-select').val();
-      $medForm.find('.selected-medicatable-id').val(selectedDrug);
+      $medForm.find('.selected-drug-id').val(selectedDrug);
     });
 
   });

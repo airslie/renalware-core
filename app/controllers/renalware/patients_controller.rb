@@ -26,8 +26,10 @@ module Renalware
       authorize @patient
 
       if @patient.save
-        redirect_to patient_path(@patient), notice: "You have successfully added a new patient."
+        redirect_to patient_path(@patient),
+          notice: t(".success", model_name: "patient")
       else
+        flash[:error] = t(".failed", model_name: "patient")
         render :new
       end
     end
@@ -39,8 +41,9 @@ module Renalware
     def update
       if @patient.update(patient_params)
         redirect_to patient_clinical_summary_path(@patient),
-          notice: "You have successfully updated a patient's demographics"
+          notice: t(".success", model_name: "patient")
       else
+        flash[:error] = t(".failed", model_name: "patient")
         render :edit
       end
     end

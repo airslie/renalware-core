@@ -16,8 +16,10 @@ module Renalware
         @donor_operation.attributes = operation_params
 
         if @donor_operation.save
-          redirect_to patient_transplants_donor_dashboard_path(@patient)
+          redirect_to patient_transplants_donor_dashboard_path(@patient),
+            notice: t(".success", model_name: "donor operation")
         else
+          flash[:error] = t(".failed", model_name: "donor operation")
           render :new
         end
       end
@@ -31,8 +33,10 @@ module Renalware
         @donor_operation.attributes = operation_params
 
         if @donor_operation.save
-          redirect_to patient_transplants_donor_dashboard_path(@patient)
+          redirect_to patient_transplants_donor_dashboard_path(@patient),
+            notice: t(".success", model_name: "donor operation")
         else
+          flash[:error] = t(".failed", model_name: "donor operation")
           render :edit
         end
       end

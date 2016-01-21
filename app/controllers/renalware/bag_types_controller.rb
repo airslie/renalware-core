@@ -14,8 +14,10 @@ module Renalware
       authorize @bag_type
 
       if @bag_type.save
-        redirect_to bag_types_path, notice: "You have successfully created a new bag type."
+        redirect_to bag_types_path,
+          notice: t(".success", model_name: "bag type")
       else
+        flash[:error] = t(".failed", model_name: "bag type")
         render :new
       end
     end
@@ -28,8 +30,10 @@ module Renalware
 
     def update
       if @bag_type.update(bag_type_params)
-        redirect_to bag_types_path, notice: "You have successfully updated a bag type"
+        redirect_to bag_types_path,
+          notice: t(".success", model_name: "bag type")
       else
+        flash[:error] = t(".failed", model_name: "bag type")
         render :edit
       end
     end
@@ -37,7 +41,8 @@ module Renalware
     def destroy
       authorize BagType.destroy(params[:id])
 
-      redirect_to bag_types_path, notice: "You have successfully removed a bag type."
+      redirect_to bag_types_path,
+        notice: t(".success", model_name: "bag type")
     end
 
     private

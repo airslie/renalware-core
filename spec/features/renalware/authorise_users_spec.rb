@@ -26,7 +26,7 @@ module Renalware
       click_on 'Approve'
 
       expect(current_path).to eq(admin_users_path)
-      expect(page).to have_content(/renalwareuser-\d+ updated/)
+      expect(page).to have_content("You have successfully updated this user.")
       expect(@unapproved.reload).to be_approved
       expect(@unapproved.roles).to match_array([@clinician_role])
     end
@@ -41,7 +41,7 @@ module Renalware
 
       expect(current_path).to eq(admin_user_path(@unapproved))
       expect(@unapproved.reload).not_to be_approved
-      expect(page).to have_content(/renalwareuser-\d+ could not be updated/)
+      expect(page).to have_content("You have failed to update this user.")
       expect(page).to have_content(/approved users must have a role/)
     end
 
@@ -53,7 +53,7 @@ module Renalware
       click_on 'Update'
 
       expect(current_path).to eq(admin_user_path(@approved))
-      expect(page).to have_content(/renalwareuser-\d+ could not be updated/)
+      expect(page).to have_content("You have failed to update this user.")
       expect(page).to have_content(/approved users must have a role/)
     end
 
@@ -67,7 +67,7 @@ module Renalware
       click_on 'Update'
 
       expect(current_path).to eq(admin_users_path)
-      expect(page).to have_content(/renalwareuser-\d+ updated/)
+      expect(page).to have_content("You have successfully updated this")
       expect(@approved.reload).to be_approved
       expect(@approved.roles).to include(@clinician_role)
     end
@@ -82,7 +82,7 @@ module Renalware
       click_on 'Update'
 
       expect(current_path).to eq(admin_users_path)
-      expect(page).to have_content(/renalwareuser-\d+ updated/)
+      expect(page).to have_content("You have successfully updated this")
       expect(@expired.reload.expired_at).to be_nil
 
       click_link 'Inactive'

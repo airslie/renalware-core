@@ -1,8 +1,7 @@
-= f.label :name, "Drug Name"
-= f.text_field :name
+= f.input :name, label: "Drug Name"
 
 h6
   | Select categories/types for this drug:
 
 .row
-  = f.collection_check_boxes :drug_type_ids, @drug_types, :id, :name
+  = f.collection_check_boxes :drug_type_ids, Renalware::Drugs::Type.all, :id, :name

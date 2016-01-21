@@ -17,8 +17,10 @@ module Renalware
         @registration.statuses.first.by = current_user if @registration.new_record?
 
         if @registration.save
-          redirect_to patient_transplants_recipient_dashboard_path(@patient)
+          redirect_to patient_transplants_recipient_dashboard_path(@patient),
+            notice: t(".success", model_name: "registration")
         else
+          flash[:error] = t(".failed", model_name: "registration")
           render :edit
         end
       end

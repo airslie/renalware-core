@@ -7,7 +7,7 @@ class CreateTransplantsRecipientOperations < ActiveRecord::Migration
       t.time :theatre_case_start_time, null: false
       t.datetime :donor_kidney_removed_from_ice_at, null: false
       t.string :operation_type, null: false
-      t.string :transplant_site, null: false
+      t.references :hospital, foreign_key: true, null: false
       t.datetime :kidney_perfused_with_blood_at, null: false
       t.integer :cold_ischaemic_time, null: false
       t.integer :warm_ischaemic_time, null: false

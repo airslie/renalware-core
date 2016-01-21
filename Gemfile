@@ -15,7 +15,7 @@ gem 'paper_trail', '~> 4.0.0'
 gem 'paranoia', '~> 2.0'
 gem 'ransack', git: 'https://github.com/activerecord-hackery/ransack.git'
 gem 'kaminari', '~> 0.15.1'
-gem 'devise', '~> 3.4.1'
+gem 'devise'
 gem 'devise_security_extension', git: 'https://github.com/phatworx/devise_security_extension.git'
 gem 'nested_form', '~> 0.3.2'
 gem 'slim-rails'
@@ -27,6 +27,7 @@ gem 'validates_timeliness'
 gem 'pundit'
 gem 'font-awesome-rails' # See icons here: https://fortawesome.github.io/Font-Awesome/icons/
 gem 'jbuilder'
+gem 'active_type'
 
 source 'https://rails-assets.org' do
   # https://github.com/najlepsiwebdesigner/foundation-datepicker

@@ -14,19 +14,22 @@ module Renalware
 
     def create
       @clinic_visit = @patient.clinic_visits.new(clinic_visit_params)
+
       if @clinic_visit.save
-        redirect_to patient_clinic_visits_path(@patient)
+        redirect_to patient_clinic_visits_path(@patient),
+          notice: t(".success", model_name: "clinic visit")
       else
-        flash[:error] = 'Failed to save clinic'
+        flash[:error] = t(".failed", model_name: "clinic visit")
         render :new
       end
     end
 
     def update
       if @clinic_visit.update_attributes(clinic_visit_params)
-        redirect_to patient_clinic_visits_path(@patient)
+        redirect_to patient_clinic_visits_path(@patient),
+          notice: t(".success", model_name: "clinic visit")
       else
-        flash[:error] = 'Failed to update clinic'
+        flash[:error] = t(".failed", model_name: "clinic visit")
         render :new
       end
     end
@@ -34,7 +37,7 @@ module Renalware
     def destroy
       @clinic_visit.destroy
       redirect_to patient_clinic_visits_path(@patient),
-        notice: "Patient's clinic visit successfully deleted"
+        notice: t(".success", model_name: "clinic visit")
     end
 
     private

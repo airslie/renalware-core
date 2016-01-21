@@ -10,6 +10,7 @@ module Renalware
       hospital.name = row["name"]
       hospital.location = row["location"]
       hospital.active = true
+      hospital.is_transplant_site = (row["is_transplant_site"] == "1")
     end
   end
 

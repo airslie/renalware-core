@@ -7,13 +7,13 @@ module Renalware
     has_paper_trail class_name: 'Renalware::MedicationVersion'
 
     belongs_to :patient
-    belongs_to :medicatable, polymorphic: true
+    belongs_to :drug, class_name: "Renalware::Drugs::Drug"
     belongs_to :treatable, polymorphic: true
     belongs_to :medication_route
 
     validates :patient, presence: true
 
-    validates :medicatable_id, presence: true
+    validates :drug, presence: true
     validates :dose, presence: true
     validates :medication_route_id, presence: true
     validates :frequency, presence: true
@@ -24,7 +24,7 @@ module Renalware
 
     def formatted
       [].tap { |ary|
-        ary << medicatable.name if medicatable.present?
+        ary << drug.name if drug.present?
         ary << dose
         ary << medication_route.name if medication_route.present?
         ary << frequency
