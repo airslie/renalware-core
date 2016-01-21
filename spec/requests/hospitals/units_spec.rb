@@ -16,7 +16,7 @@ RSpec.describe "Managing Hospital Units", type: :request do
     context "given valid attributes" do
       it "creates a new record" do
         attributes = attributes_for(:hospital_unit)
-          .merge(hospital_centre_id: hospital_centre.id)
+                      .merge(hospital_centre_id: hospital_centre.id)
         post hospitals_units_path, hospitals_unit: attributes
 
         expect(response).to have_http_status(:redirect)
