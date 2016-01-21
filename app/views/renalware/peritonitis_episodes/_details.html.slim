@@ -1,11 +1,6 @@
 = content_tag_for(:div, peritonitis_episode) do
   .row
     dl
-      dt Last Updated:
-      dd= peritonitis_episode.updated_at
-
-  .row
-    dl
       .large-6.columns
         dt Start
         dl= l peritonitis_episode.treatment_start_date
@@ -21,6 +16,11 @@
         dt Catheter Removed
         dl= yes_no(peritonitis_episode.catheter_removed)
 
+  .row
+    dl
+      .large-6.columns
+        dt Last Updated:
+        dd= l peritonitis_episode.updated_at
 
   .right
     = link_to "Edit", edit_patient_peritonitis_episode_path(patient, peritonitis_episode), remote: true, class: %i(button tiny)
