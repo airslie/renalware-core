@@ -1,4 +1,3 @@
-@wip
 Feature: Treating a peritonitis episode
 
   Background:
