@@ -1,4 +1,4 @@
-"hospital_code","unit_code","name","renal_registry_code","unit_type"
+"hospital_centre_code","unit_code","name","renal_registry_code","unit_type"
 "RJZ","DSU","King's Dulwich Satell","9RJZ","satellite"
 "RJZ","Dart","Dartford","RN7","hospital"
 "RJZ","KRU","Kings Main Dialysis Unit","RJZ","hospital"

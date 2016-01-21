@@ -1,7 +1,7 @@
 class CreateHospitalUnits < ActiveRecord::Migration
   def change
     create_table :hospital_units do |t|
-      t.belongs_to :hospital, index: true, foreign_key: true, null: false
+      t.references :hospital_centre, foreign_key: true, null: false
       t.string :name, null: false
       t.string :unit_code, null: false
       t.string :renal_registry_code, null: false
