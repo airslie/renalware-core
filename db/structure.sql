@@ -70,8 +70,8 @@ ALTER SEQUENCE access_accesses_id_seq OWNED BY access_accesses.id;
 
 CREATE TABLE access_descriptions (
     id integer NOT NULL,
-    code character varying,
-    name character varying,
+    code character varying NOT NULL,
+    name character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -102,8 +102,8 @@ ALTER SEQUENCE access_descriptions_id_seq OWNED BY access_descriptions.id;
 
 CREATE TABLE access_sites (
     id integer NOT NULL,
-    code character varying,
-    name character varying,
+    code character varying NOT NULL,
+    name character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -664,6 +664,42 @@ CREATE SEQUENCE fluid_descriptions_id_seq
 --
 
 ALTER SEQUENCE fluid_descriptions_id_seq OWNED BY fluid_descriptions.id;
+
+
+--
+-- Name: hospital_units; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE hospital_units (
+    id integer NOT NULL,
+    hospital_id integer NOT NULL,
+    name character varying NOT NULL,
+    unit_code character varying NOT NULL,
+    renal_registry_code character varying NOT NULL,
+    unit_type character varying NOT NULL,
+    is_hd_site boolean DEFAULT false,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hospital_units_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE hospital_units_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hospital_units_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE hospital_units_id_seq OWNED BY hospital_units.id;
 
 
 --
@@ -2113,6 +2149,13 @@ ALTER TABLE ONLY fluid_descriptions ALTER COLUMN id SET DEFAULT nextval('fluid_d
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY hospital_units ALTER COLUMN id SET DEFAULT nextval('hospital_units_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY hospitals ALTER COLUMN id SET DEFAULT nextval('hospitals_id_seq'::regclass);
 
 
@@ -2499,6 +2542,14 @@ ALTER TABLE ONLY fluid_descriptions
 
 
 --
+-- Name: hospital_units_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY hospital_units
+    ADD CONSTRAINT hospital_units_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: hospitals_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2846,6 +2897,13 @@ CREATE INDEX index_doctors_practices ON doctors_practices USING btree (doctor_id
 --
 
 CREATE UNIQUE INDEX index_drug_types_drugs_on_drug_id_and_drug_type_id ON drug_types_drugs USING btree (drug_id, drug_type_id);
+
+
+--
+-- Name: index_hospital_units_on_hospital_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hospital_units_on_hospital_id ON hospital_units USING btree (hospital_id);
 
 
 --
@@ -3354,6 +3412,14 @@ ALTER TABLE ONLY pd_regime_bags
 
 
 --
+-- Name: fk_rails_8542af6eb6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hospital_units
+    ADD CONSTRAINT fk_rails_8542af6eb6 FOREIGN KEY (hospital_id) REFERENCES hospitals(id);
+
+
+--
 -- Name: fk_rails_8d07edb903; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3634,6 +3700,8 @@ INSERT INTO schema_migrations (version) VALUES ('20151207163304');
 INSERT INTO schema_migrations (version) VALUES ('20151207167020');
 
 INSERT INTO schema_migrations (version) VALUES ('20160106167020');
+
+INSERT INTO schema_migrations (version) VALUES ('20160114222043');
 
 INSERT INTO schema_migrations (version) VALUES ('20160120203748');
 
