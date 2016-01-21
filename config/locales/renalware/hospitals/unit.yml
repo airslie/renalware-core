@@ -9,4 +9,4 @@ en:
         unit_code: Unit Code
         renal_registry_code: NRD Code
         unit_type: Unit Type
-        is_hd_site: Can perform transplants
+        is_hd_site: Can provide HD treatments?
