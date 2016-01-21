@@ -18,21 +18,21 @@ end
 
 When(/^records the organism for the infection$/) do
   record_organism_for(
-    patient: @patty,
+    infectable: infection_for(@patty),
     organism_name: "Acineobactor"
   )
 end
 
 Given(/^recorded the organism for the infection$/) do
   record_organism_for(
-    patient: @patty,
+    infectable: infection_for(@patty),
     organism_name: "Acineobactor"
   )
 end
 
 Given(/^recorded the medication for the infection$/) do
   record_medication_for(
-    patient: @patty,
+    treatable: infection_for(@patty),
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
     route_name: "PO",
@@ -44,7 +44,7 @@ end
 
 When(/^records the medication for the infection$/) do
   record_medication_for(
-    patient: @patty,
+    treatable: infection_for(@patty),
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
     route_name: "PO",
@@ -67,12 +67,12 @@ Given(/^Patty is being treated for an exit site infection$/) do
   )
 
   record_organism_for(
-    patient: @patty,
+    infectable: infection_for(@patty),
     organism_name: "Acineobactor"
   )
 
   record_medication_for(
-    patient: @patty,
+    treatable: infection_for(@patty),
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
     route_name: "PO",
@@ -91,22 +91,28 @@ Then(/^Clyde can revise the exist site infection$/) do
   )
 
   revise_organism_for(
-    patient: @patty,
+    infectable: infection_for(@patty),
     sensitivity: "Lorem ipsum."
   )
 
   revise_medication_for(
-    patient: @patty,
+    treatable: infection_for(@patty),
     drug_name: "Cefotaxime Injection"
   )
 
   expect_exit_site_infections_revisions_recorded(patient: @patty)
 end
 
-Then(/^Clyde can terminate the organism$/) do
-  terminate_organism_for(patient: @patty, user: @clyde)
+Then(/^Clyde can terminate the organism for the infection$/) do
+  terminate_organism_for(
+    infectable: infection_for(@patty),
+    user: @clyde
+  )
 end
 
-Then(/^Clyde can terminate the medication$/) do
-  terminate_medication_for(patient: @patty, user: @clyde)
+Then(/^Clyde can terminate the medication for the infection$/) do
+  terminate_medication_for(
+    treatable: infection_for(@patty),
+    user: @clyde
+  )
 end

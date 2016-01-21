@@ -12,9 +12,6 @@ table
     - @peritonitis_episodes.each do |p|
       tr valign="top"
         td valign="top"
-          - unless current_user.read_only?
-            = link_to "Update", edit_patient_peritonitis_episode_path(@patient, p.id), class: "update-pe", id: "update-pe-#{p.id}"
-            = pipe_separator
           = link_to "View", patient_peritonitis_episode_path(@patient, p.id), class: "view-pe", id: "view-pe-#{p.id}"
         td valign="top"
           = l p.diagnosis_date
