@@ -27,25 +27,25 @@
     .large-6.columns
       = field_set_tag "White Cell Count" do
         ul
-          li Total: #{default_for_blank_units(@peritonitis_episode.white_cell_total, "x 10\u2079", "N/A")}
-          li Neutro: #{default_for_blank_units(@peritonitis_episode.white_cell_neutro, "%", "N/A")}
-          li Lympho: #{default_for_blank_units(@peritonitis_episode.white_cell_lympho, "%", "N/A")}
-          li Degen: #{default_for_blank_units(@peritonitis_episode.white_cell_degen, "%", "N/A")}
-          li Other: #{default_for_blank_units(@peritonitis_episode.white_cell_other, "%", "N/A")}
+          li Total: #{default_for_blank_units(peritonitis_episode.white_cell_total, "x 10\u2079", "N/A")}
+          li Neutro: #{default_for_blank_units(peritonitis_episode.white_cell_neutro, "%", "N/A")}
+          li Lympho: #{default_for_blank_units(peritonitis_episode.white_cell_lympho, "%", "N/A")}
+          li Degen: #{default_for_blank_units(peritonitis_episode.white_cell_degen, "%", "N/A")}
+          li Other: #{default_for_blank_units(peritonitis_episode.white_cell_other, "%", "N/A")}
 
     .large-6.columns
       = field_set_tag "Causes/Symptoms" do
         ul.table-data-list
-          li Line Break: #{yes_no(@peritonitis_episode.line_break)}
-          li Exit Site Infection: #{yes_no(@peritonitis_episode.exit_site_infection)}
-          li Diarrhoea: #{yes_no(@peritonitis_episode.diarrhoea)}
-          li Abdominal Pain: #{yes_no(@peritonitis_episode.abdominal_pain)}
-          li Fluid Description: #{default_for_associated(@peritonitis_episode.fluid_description, :description, "N/A")}
+          li Line Break: #{yes_no(peritonitis_episode.line_break)}
+          li Exit Site Infection: #{yes_no(peritonitis_episode.exit_site_infection)}
+          li Diarrhoea: #{yes_no(peritonitis_episode.diarrhoea)}
+          li Abdominal Pain: #{yes_no(peritonitis_episode.abdominal_pain)}
+          li Fluid Description: #{default_for_associated(peritonitis_episode.fluid_description, :description, "N/A")}
 
   .row
     .large-12.columns
       = field_set_tag "Peritonitis Episode Notes" do
-        p= @peritonitis_episode.notes
+        p= peritonitis_episode.notes
 
   .right
     = link_to "Edit", edit_patient_peritonitis_episode_path(patient, peritonitis_episode), remote: true, class: %i(button tiny)
