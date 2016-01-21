@@ -1,6 +1,7 @@
+@wip
 Feature: Planning an HD treatment
 
-  A clinician plans an HD treatment for a patient buy recording a profile and a set
+  A clinician plans an HD treatment for a patient by recording a profile and a set
   of preferences.
 
   Background:
@@ -10,7 +11,7 @@ Feature: Planning an HD treatment
   @web
   Scenario: A clinician recorded the HD preferences of a patient
     When Clyde records the HD preferences of Patty
-    Then Patty has HD preferences
+    Then Patty has new HD preferences
 
   @web
   Scenario: A clinician udpated the HD preferences of a patient
