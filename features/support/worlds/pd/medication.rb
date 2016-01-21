@@ -64,19 +64,19 @@ module World
       def revise_medication_for(treatable:, drug_name:)
         within "#medications" do
           click_on "Edit"
-        end
 
-        select(drug_name, from: "Select Drug")
-        click_on "Save"
-        wait_for_ajax
+          select(drug_name, from: "Select Drug")
+          click_on "Save"
+          wait_for_ajax
+        end
       end
     end
 
     def terminate_medication_for(treatable:, user:)
       within "#medications" do
         click_on "Terminate"
+        wait_for_ajax
       end
-      wait_for_ajax
 
       medication = treatable.medications.with_deleted.last!
 

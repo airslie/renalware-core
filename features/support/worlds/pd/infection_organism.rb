@@ -43,11 +43,11 @@ module World
       def revise_organism_for(infectable:, sensitivity:)
         within "#infection-organisms" do
           click_on "Edit"
-        end
 
-        fill_in "Sensitivity", with: sensitivity
-        click_on "Save"
-        wait_for_ajax
+          fill_in "Sensitivity", with: sensitivity
+          click_on "Save"
+          wait_for_ajax
+        end
       end
 
       def terminate_organism_for(infectable:, user:)

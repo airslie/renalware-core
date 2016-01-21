@@ -65,11 +65,10 @@ module World
         visit patient_exit_site_infection_path(patient, infection_for(patient))
         within "#infection" do
           click_on "Edit"
+          fill_in "Diagnosed on", with: diagnosed_on
+          click_on "Save"
+          wait_for_ajax
         end
-        fill_in "Diagnosed on", with: diagnosed_on
-        click_on "Save"
-
-        wait_for_ajax
       end
     end
   end
