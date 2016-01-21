@@ -1,6 +1,6 @@
-class CreateHospitals < ActiveRecord::Migration
+class CreateHospitalCentres < ActiveRecord::Migration
   def change
-    create_table :hospitals do |t|
+    create_table :hospital_centres do |t|
       t.string :code, index: true, null: false
       t.string :name, null: false
       t.string :location
