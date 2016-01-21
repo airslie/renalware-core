@@ -43,5 +43,26 @@ module World
         expect(medication.created_at).not_to eq(medication.updated_at)
       end
     end
+
+    module Web
+      include Domain
+
+      # @section commands
+      #
+      def record_peritonitis_episode_for(patient:, user:, diagnosed_on:)
+        login_as user
+
+        visit new_patient_peritonitis_episode_path(patient)
+        fill_in "Diagnosed on", with: diagnosed_on
+        click_on "Save"
+      end
+
+      def peritonitis_episode_drug_selector
+        -> (drug_name) {
+          find("select#medication_drug_id optgroup[label='Peritonitis']")
+            .find(:option, text: drug_name).select_option
+        }
+      end
+    end
   end
 end

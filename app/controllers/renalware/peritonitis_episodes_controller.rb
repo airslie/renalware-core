@@ -12,7 +12,7 @@ module Renalware
       @peritonitis_episode = PeritonitisEpisode.new(peritonitis_episode_params)
       @peritonitis_episode.patient_id = @patient.id
       if @peritonitis_episode.save
-        redirect_to patient_pd_summary_path(@patient),
+        redirect_to patient_peritonitis_episode_path(@patient, @peritonitis_episode),
           notice: t(".success", model_name: "peritonitis episode")
       else
         flash[:error] = t(".failed", model_name: "peritonitis episode")

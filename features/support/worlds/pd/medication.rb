@@ -4,7 +4,7 @@ module World
       # @ section commands
       #
       def record_medication_for(treatable:, drug_name:, dose:,
-                               route_name:, frequency:, starts_on:, provider:)
+        route_name:, frequency:, starts_on:, provider:, **_)
         drug = Renalware::Drugs::Drug.find_by!(name: drug_name)
         route = Renalware::MedicationRoute.find_by!(name: route_name)
 
@@ -40,12 +40,14 @@ module World
       # @ section commands
       #
       def record_medication_for(treatable:, drug_name:, dose:, route_name:,
-                                frequency:, starts_on:, provider:)
+        frequency:, starts_on:, provider:,
+        drug_selector: default_medication_drug_selector)
+
         click_link "Add Medication"
         wait_for_ajax
 
         within "#new_medication" do
-          select(drug_name, from: "Select Drug")
+          drug_selector.call(drug_name)
           fill_in "Dose", with: dose
           select(route_name, from: "Route")
           fill_in "Frequency", with: frequency
@@ -53,6 +55,10 @@ module World
           click_on "Save"
           wait_for_ajax
         end
+      end
+
+      def default_medication_drug_selector
+        -> (drug_name) { select(drug_name, from: "Select Drug") }
       end
 
       def revise_medication_for(treatable:, drug_name:)
