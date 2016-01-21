@@ -12,6 +12,6 @@ FactoryGirl.define do
 
     document { {} }
 
-    association :hospital, factory: :hospital
+    association :hospital_centre, factory: :hospital_centre
   end
 end

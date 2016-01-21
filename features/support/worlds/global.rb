@@ -5,7 +5,7 @@ module World
     end
 
     def transplant_hospital
-      Renalware::Hospital.find_by(is_transplant_site: true)
+      Renalware::Hospitals::Centre.find_by(is_transplant_site: true)
     end
   end
 end

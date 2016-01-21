@@ -22,7 +22,7 @@ begin
     drugs
     drug_types
     drug_types_drugs
-    hospitals
+    hospital_centres
     medication_routes
     organism_codes
     transplants_registration_status_descriptions
