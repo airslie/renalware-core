@@ -1,4 +1,4 @@
-require_dependency 'renalware/hospitals'
+require_dependency "renalware/hospitals"
 
 module Renalware
   module Hospitals
