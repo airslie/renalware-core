@@ -41,7 +41,7 @@ module Renalware
     end
 
     def load_peritonitis_episode
-      @peritonitis_episode = PeritonitisEpisode.find(params[:id])
+      @peritonitis_episode = PeritonitisEpisode.for_patient(@patient).find(params[:id])
     end
   end
 end
