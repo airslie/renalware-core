@@ -62,7 +62,7 @@ module World
       def revise_exit_site_infection_for(patient:, user:, diagnosed_on:)
         login_as user
 
-        visit patient_exit_site_infection_path(patient, patient.exit_site_infections.last!)
+        visit patient_exit_site_infection_path(patient, infection_for(patient))
         within "#infection" do
           click_on "Edit"
         end
