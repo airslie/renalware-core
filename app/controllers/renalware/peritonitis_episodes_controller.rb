@@ -36,15 +36,7 @@ module Renalware
         :episode_type_id, :catheter_removed, :line_break, :exit_site_infection,
         :diarrhoea, :abdominal_pain, :fluid_description_id, :white_cell_total,
         :white_cell_neutro, :white_cell_lympho, :white_cell_degen,
-        :white_cell_other, :notes,
-        infection_organisms_attributes: [
-          :id, :organism_code_id, :sensitivity, :infectable_id, :infectable_type
-        ],
-        medications_attributes: [
-          :id, :patient_id, :treatable_id, :treatable_type, :drug_id,
-          :dose, :medication_route_id, :frequency, :notes,
-          :start_date, :end_date, :provider, :_destroy
-        ]
+        :white_cell_other, :notes
       )
     end
 
