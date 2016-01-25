@@ -1,7 +1,11 @@
 Given(/^there are medication routes in the database$/) do
-  @medication_routes = [["PO", "Per Oral"], ["IV", "Intravenous"], ["SC", "Subcutaneous"], ["IM", "Intramuscular"], ["Other (Please specify in notes)", "Other (Refer to notes)"]]
+  @medication_routes = [
+    ["PO", "Per Oral"], ["IV", "Intravenous"],
+    ["SC", "Subcutaneous"], ["IM", "Intramuscular"],
+    ["Other (Please specify in notes)", "Other (Refer to notes)"]
+  ]
   @medication_routes.map! do |mroute|
-    Renalware::MedicationRoute.create!(:name => mroute[0], :full_name => mroute[1])
+    Renalware::MedicationRoute.create!(name: mroute[0], full_name: mroute[1])
   end
 
   @po = @medication_routes[0]
@@ -12,21 +16,22 @@ Given(/^there are medication routes in the database$/) do
 end
 
 When(/^they add a medication$/) do
-  visit patient_medications_path(@patient_1, treatable_type: @patient_1.class, treatable_id: @patient_1.id)
+  visit patient_medications_path(@patient_1,
+    treatable_type: @patient_1.class, treatable_id: @patient_1.id)
 
   click_on "Add medication"
 end
 
 When(/^complete the medication form by drug type select$/) do
-  select "ESA", :from => "Medication Type"
-  select "Epoetin Alfa (Eprex) Syringe [ESA]", :from => "Select Drug"
-  fill_in "Dose", :with => "10mg"
-  select "PO", :from =>  "Route"
-  fill_in "Frequency & Duration", :with => "Once daily"
-  fill_in "Notes", :with => "Review in six weeks"
+  select "ESA", from: "Medication Type"
+  select "Epoetin Alfa (Eprex) Syringe [ESA]", from: "Select Drug"
+  fill_in "Dose", with: "10mg"
+  select "PO", from:  "Route"
+  fill_in "Frequency & Duration", with: "Once daily"
+  fill_in "Notes", with: "Review in six weeks"
 
   within("#new-form fieldset .row .med-form") do
-    select_date("2 March #{Date.current.year - 1}", from: 'Prescribed On')
+    select_date("2 March #{Date.current.year - 1}", from: "Prescribed On")
   end
 
   click_on "Save Medication"
@@ -37,21 +42,21 @@ When(/^complete the medication form by drug search$/) do
   visit patient_medications_path(@patient_1)
   click_link "Add a new medication"
 
-  fill_in "Drug", :with => "amo"
+  fill_in "Drug", with: "amo"
 
   page.execute_script %Q( $('#drug_search').trigger('keydown'); )
-  within('.drug-results') do
-    expect(page).to have_css("li", :text => "Amoxicillin")
+  within(".drug-results") do
+    expect(page).to have_css("li", text: "Amoxicillin")
   end
 
   page.find(".drug-results :last-child").click
 
-  fill_in "Dose", :with => "20mg"
-  select "IV", :from =>  "Route"
-  fill_in "Frequency & Duration", :with => "Twice weekly"
-  fill_in "Notes", :with => "Review in two weeks."
+  fill_in "Dose", with: "20mg"
+  select "IV", from: "Route"
+  fill_in "Frequency & Duration", with: "Twice weekly"
+  fill_in "Notes", with: "Review in two weeks."
 
-  select_date("2 February #{Date.current.year}", from: 'Prescribed On')
+  select_date("2 February #{Date.current.year}", from: "Prescribed On")
 
   find(:xpath, ".//*[@value='hospital']").set(true)
 

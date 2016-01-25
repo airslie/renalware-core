@@ -91,7 +91,8 @@ module World
       def record_medication_for_patient(patient:, user:, **args)
         login_as user
 
-        visit patient_medications_path(patient, treatable_type: patient.class, treatable_id: patient.id)
+        visit patient_medications_path(patient,
+          treatable_type: patient.class, treatable_id: patient.id)
 
         record_medication_for(patient: patient, **args)
       end
