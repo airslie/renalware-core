@@ -19,6 +19,10 @@ module World
         )
       end
 
+      def record_medication_for_patient(user:, **args)
+        record_medication_for(args)
+      end
+
       def revise_medication_for(patient:, drug_name:)
         drug = Renalware::Drugs::Drug.find_by!(name: drug_name)
         medication = patient.medications.last!
@@ -69,8 +73,19 @@ module World
         end
       end
 
+      def record_medication_for_patient(patient:, user:, **args)
+        login_as user
+
+        visit patient_medications_path(patient, treatable_type: patient.class, treatable_id: patient.id)
+
+        record_medication_for(patient: patient, **args)
+      end
+
       def default_medication_drug_selector
-        -> (drug_name) { select(drug_name, from: "Select Drug") }
+        -> (drug_name, drug_type="Antibiotic") do
+          select(drug_type, from: "Medication Type")
+          select(drug_name, from: "Select Drug")
+        end
       end
 
       def revise_medication_for(patient:, drug_name:)

@@ -5,6 +5,7 @@ Feature: Recording a medication
     Given Clyde is a clinician
     And Patty is a patient
 
+  @web @javascript
   Scenario: A clinician recorded the medication for a patient
     When Clyde records the medication for Patty
     Then the medication is recorded for Patty

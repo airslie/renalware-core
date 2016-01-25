@@ -11,7 +11,8 @@ Given(/^Patty has a medication recorded$/) do
 end
 
 When(/^Clyde records the medication for Patty$/) do
-  record_medication_for(
+  record_medication_for_patient(
+    user: @clyde,
     patient: @patty,
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",

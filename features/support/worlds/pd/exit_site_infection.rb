@@ -22,6 +22,10 @@ module World
         infection.update!(diagnosis_date: diagnosed_on)
       end
 
+      def exit_site_infection_medication_drug_selector
+        nil
+      end
+
       # @section expectations
       #
       def expect_exit_site_infection_to_recorded(patient:)
@@ -69,6 +73,10 @@ module World
           click_on "Save"
           wait_for_ajax
         end
+      end
+
+      def exit_site_infection_medication_drug_selector
+        -> (drug_name) { select(drug_name, from: "Select Drug") }
       end
     end
   end

@@ -1,0 +1,7 @@
+= render layout: "renalware/patients/layout", locals: { title: "Medications" } do
+  = render partial: "renalware/shared/errors", locals: { model: @patient }
+
+  = render "index",
+      patient: @patient,
+      treatable: @patient,
+      medications: @patient.medications

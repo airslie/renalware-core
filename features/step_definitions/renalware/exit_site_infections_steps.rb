@@ -39,7 +39,8 @@ Given(/^recorded the medication for the infection$/) do
     route_name: "PO",
     frequency: "once a day",
     starts_on: "10-10-2015",
-    provider: "GP"
+    provider: "GP",
+    drug_selector: exit_site_infection_drug_selector
   )
 end
 
@@ -52,7 +53,8 @@ When(/^records the medication for the infection$/) do
     route_name: "PO",
     frequency: "once a day",
     starts_on: "10-10-2015",
-    provider: "GP"
+    provider: "GP",
+    drug_selector: exit_site_infection_drug_selector
   )
 end
 
@@ -81,8 +83,8 @@ Given(/^Patty is being treated for an exit site infection$/) do
     route_name: "PO",
     frequency: "once a day",
     starts_on: "10-10-2015",
-    provider: "GP"
-
+    provider: "GP",
+    drug_selector: exit_site_infection_drug_selector
   )
 end
 
