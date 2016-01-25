@@ -12,8 +12,9 @@ Given(/^there are medication routes in the database$/) do
 end
 
 When(/^they add a medication$/) do
-  visit patient_medications_path(@patient_1)
-  click_link "Add a new medication"
+  visit patient_medications_path(@patient_1, treatable_type: @patient_1.class, treatable_id: @patient_1.id)
+
+  click_on "Add medication"
 end
 
 When(/^complete the medication form by drug type select$/) do
