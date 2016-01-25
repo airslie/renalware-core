@@ -3,10 +3,10 @@ module Renalware
   # have been converted over to this controller
   #
   class PolymorphicMedicationsController < BaseController
+    before_action :load_patient
+
     def index
       @treatable = treatable_class.find(treatable_id)
-
-      authorize @treatable.patient
 
       @medications = @treatable.medications
     end
@@ -14,33 +14,25 @@ module Renalware
     def new
       @treatable = treatable_class.find(treatable_id)
 
-      authorize @treatable.patient
-
       @medication = Medication.new(treatable: @treatable)
     end
 
     def create
       @treatable = treatable_class.find(params[:treatable_id])
 
-      authorize patient = @treatable.patient
-
       @medication = @treatable.medications.create(
-        medication_params.merge(patient: patient)
+        medication_params.merge(patient: @patient)
       )
     end
 
     def edit
       @medication = Medication.find(params[:id])
       @treatable = @medication.treatable
-
-      authorize @treatable.patient
     end
 
     def update
       @medication = Medication.find(params[:id])
       @treatable = @medication.treatable
-
-      authorize @treatable.patient
 
       @medication.update(medication_params)
     end
@@ -49,8 +41,6 @@ module Renalware
       @medication = Medication.find(params[:id])
       @treatable = @medication.treatable
       @medications = @treatable.medications
-
-      authorize @treatable.patient
 
       @medication.destroy!
     end

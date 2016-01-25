@@ -57,4 +57,4 @@
     .large-offset-3.large-7.columns
       = f.button :submit, "Save", class: :tiny
       span= " or "
-      = link_to "cancel", medications_path(treatable), remote: true
+      = link_to "cancel", patient_medications_path(patient, treatable), remote: true

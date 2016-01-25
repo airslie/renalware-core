@@ -1,11 +1,13 @@
 module Renalware
   module MedicationsHelper
-    def medications_path(treatable)
-      super(treatable_type: treatable.class.to_s, treatable_id: treatable.id)
+    def patient_medications_path(patient, treatable=nil)
+      treatable ||= patient
+      super(patient, treatable_type: treatable.class.to_s, treatable_id: treatable.id)
     end
 
-    def new_medication_path(treatable)
-      super(treatable_type: treatable.class.to_s, treatable_id: treatable.id)
+    def new_patient_medication_path(patient, treatable=nil)
+      treatable ||= patient
+      super(patient, treatable_type: treatable.class.to_s, treatable_id: treatable.id)
     end
 
     def drug_name(medication)

@@ -11,5 +11,6 @@
 
   = field_set_tag "Antibiotics/Routes" do
     = render "renalware/polymorphic_medications/index",
+        patient: @patient,
         treatable: @exit_site_infection,
         medications: @exit_site_infection.medications

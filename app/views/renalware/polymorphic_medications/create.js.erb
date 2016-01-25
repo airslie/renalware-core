@@ -1,13 +1,14 @@
 <% if @medication.valid? %>
   $("#medications").html("<%= escape_javascript(
-    render "table", treatable: @treatable, medications: @treatable.medications
+    render "table", patient: @patient, treatable: @treatable, medications: @treatable.medications
   ) %>");
 
 <% else %>
   $("<%= dom_id(@medication, "#new")%>").replaceWith("<%= escape_javascript(
     render "form", medication: @medication,
+      patient: @patient,
       treatable: @treatable,
-      url: medications_path(@treatable)
+      url: patient_medications_path(@patient, @treatable)
   ) %>");
 
 <% end %>
