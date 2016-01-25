@@ -9,3 +9,7 @@ When(/^Clyde records the medication for Patty$/) do
     provider: "GP"
   )
 end
+
+Then(/^the medication is recorded for Patty$/) do
+  expect_medication_to_be_recorded(patient: @patty)
+end

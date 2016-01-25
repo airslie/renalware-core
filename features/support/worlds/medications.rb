@@ -32,6 +32,12 @@ module World
         medication.destroy
         expect(medication).to be_deleted
       end
+
+      def expect_medication_to_be_recorded(patient:)
+        medication = patient.medications.last!
+
+        expect(medication).to be_present
+      end
     end
 
     module Web
