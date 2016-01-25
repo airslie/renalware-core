@@ -22,7 +22,7 @@ module World
         infection.update!(diagnosis_date: diagnosed_on)
       end
 
-      def exit_site_infection_medication_drug_selector
+      def exit_site_infection_drug_selector
         nil
       end
 
@@ -75,7 +75,7 @@ module World
         end
       end
 
-      def exit_site_infection_medication_drug_selector
+      def exit_site_infection_drug_selector
         -> (drug_name) { select(drug_name, from: "Select Drug") }
       end
     end

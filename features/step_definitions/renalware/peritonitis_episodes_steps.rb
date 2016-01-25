@@ -99,7 +99,8 @@ Then(/^Clyde can revise the peritonitis episode$/) do
 
   revise_medication_for(
     patient: @patty,
-    drug_name: "Cefotaxime Injection"
+    drug_name: "Cefotaxime Injection",
+    drug_selector: peritonitis_episode_drug_selector
   )
 
   expect_peritonitis_episodes_revisions_recorded(patient: @patty)

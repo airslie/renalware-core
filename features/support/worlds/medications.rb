@@ -23,7 +23,9 @@ module World
         record_medication_for(args)
       end
 
-      def revise_medication_for(patient:, drug_name:)
+      def revise_medication_for(patient:, drug_name:,
+        drug_selector: default_medication_drug_selector)
+
         drug = Renalware::Drugs::Drug.find_by!(name: drug_name)
         medication = patient.medications.last!
 
@@ -88,11 +90,13 @@ module World
         end
       end
 
-      def revise_medication_for(patient:, drug_name:)
+      def revise_medication_for(patient:, drug_name:,
+        drug_selector: default_medication_drug_selector)
+
         within "#medications" do
           click_on "Edit"
 
-          select(drug_name, from: "Select Drug")
+          drug_selector.call(drug_name)
           click_on "Save"
           wait_for_ajax
         end

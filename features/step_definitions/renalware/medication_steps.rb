@@ -1,5 +1,6 @@
 Given(/^Patty has a medication recorded$/) do
-  record_medication_for(
+  record_medication_for_patient(
+    user: @clyde,
     patient: @patty,
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
@@ -30,7 +31,7 @@ end
 Then(/^Clyde can revise the medication$/) do
   revise_medication_for(
     patient: @patty,
-    drug_name: "Cefotaxime Injection"
+    drug_name: "Cefuroxime Injection"
   )
 
   expect_medication_to_be_revised(patient: @patty)
