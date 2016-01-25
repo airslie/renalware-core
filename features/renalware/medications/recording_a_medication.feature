@@ -1,15 +1,15 @@
+@wip
 Feature: Recording a medication
 
   Background:
     Given Clyde is a clinician
     And Patty is a patient
 
-  @wip
   Scenario: Doctor recorded the medication for a patient
     When Clyde records the medication for Patty
     Then the medication is recorded for Patty
 
-  @javascript @wip @legacy
+  @javascript @legacy
   Scenario: Doctor adds a medication for a patient
     Given that I'm logged in
       And there are ethnicities in the database
