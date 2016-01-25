@@ -9,6 +9,10 @@ Feature: Recording a medication
     When Clyde records the medication for Patty
     Then the medication is recorded for Patty
 
+  Scenario: A clinician revised the medication for a patient
+    Given Patty has a medication recorded
+    Then Clyde can revise the medication
+
   @javascript @legacy
   Scenario: Doctor adds a medication for a patient
     Given that I'm logged in

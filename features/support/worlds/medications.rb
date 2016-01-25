@@ -38,6 +38,12 @@ module World
 
         expect(medication).to be_present
       end
+
+      def expect_medication_to_be_revised(patient:)
+        medication = patient.medications.last!
+
+        expect(medication.created_at).not_to eq(medication.updated_at)
+      end
     end
 
     module Web
