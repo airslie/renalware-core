@@ -15,6 +15,7 @@ Feature: Recording a medication
     Given Patty has a medication recorded
     Then Clyde can revise the medication
 
+  @web @javascript
   Scenario: A clinician terminated a medication for a patient
     Given Patty has a medication recorded
     Then Clyde can terminate the medication for the patient
