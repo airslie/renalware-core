@@ -1,6 +1,10 @@
 module World
   module Medications
     module Domain
+      # @section helpers
+      #
+      def default_medication_drug_selector; end
+
       # @ section commands
       #
       def record_medication_for(patient:, treatable: nil, drug_name:, dose:,
@@ -55,6 +59,15 @@ module World
     module Web
       include Domain
 
+      # @section helpers
+      #
+      def default_medication_drug_selector
+        -> (drug_name, drug_type="Antibiotic") do
+          select(drug_type, from: "Medication Type")
+          select(drug_name, from: "Select Drug")
+        end
+      end
+
       # @ section commands
       #
       def record_medication_for(patient:, treatable: nil, drug_name:, dose:, route_name:,
@@ -81,13 +94,6 @@ module World
         visit patient_medications_path(patient, treatable_type: patient.class, treatable_id: patient.id)
 
         record_medication_for(patient: patient, **args)
-      end
-
-      def default_medication_drug_selector
-        -> (drug_name, drug_type="Antibiotic") do
-          select(drug_type, from: "Medication Type")
-          select(drug_name, from: "Select Drug")
-        end
       end
 
       def revise_medication_for(patient:, drug_name:,
