@@ -32,6 +32,7 @@ end
 
 Given(/^recorded the medication for the infection$/) do
   record_medication_for(
+    patient: @patty,
     treatable: infection_for(@patty),
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
@@ -44,6 +45,7 @@ end
 
 When(/^records the medication for the infection$/) do
   record_medication_for(
+    patient: @patty,
     treatable: infection_for(@patty),
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
@@ -72,6 +74,7 @@ Given(/^Patty is being treated for an exit site infection$/) do
   )
 
   record_medication_for(
+    patient: @patty,
     treatable: infection_for(@patty),
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
@@ -96,7 +99,7 @@ Then(/^Clyde can revise the exist site infection$/) do
   )
 
   revise_medication_for(
-    treatable: infection_for(@patty),
+    patient: @patty,
     drug_name: "Cefotaxime Injection"
   )
 
@@ -112,7 +115,7 @@ end
 
 Then(/^Clyde can terminate the medication for the infection$/) do
   terminate_medication_for(
-    treatable: infection_for(@patty),
+    patient: @patty,
     user: @clyde
   )
 end

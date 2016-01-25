@@ -1,15 +1,15 @@
 module World
-  module PD::Medication
+  module Medications
     module Domain
       # @ section commands
       #
-      def record_medication_for(treatable:, drug_name:, dose:,
+      def record_medication_for(patient:, treatable: nil, drug_name:, dose:,
         route_name:, frequency:, starts_on:, provider:, **_)
         drug = Renalware::Drugs::Drug.find_by!(name: drug_name)
         route = Renalware::MedicationRoute.find_by!(name: route_name)
 
-        treatable.medications.create!(
-          patient: treatable.patient,
+        patient.medications.create!(
+          treatable: treatable,
           drug: drug,
           dose: dose,
           medication_route: route,
@@ -19,15 +19,15 @@ module World
         )
       end
 
-      def revise_medication_for(treatable:, drug_name:)
+      def revise_medication_for(patient:, drug_name:)
         drug = Renalware::Drugs::Drug.find_by!(name: drug_name)
-        medication = treatable.medications.last!
+        medication = patient.medications.last!
 
         medication.update!(drug: drug)
       end
 
-      def terminate_medication_for(treatable:, user:)
-        medication = treatable.medications.last!
+      def terminate_medication_for(patient:, user:)
+        medication = patient.medications.last!
 
         medication.destroy
         expect(medication).to be_deleted
@@ -39,7 +39,7 @@ module World
 
       # @ section commands
       #
-      def record_medication_for(treatable:, drug_name:, dose:, route_name:,
+      def record_medication_for(patient:, treatable: nil, drug_name:, dose:, route_name:,
         frequency:, starts_on:, provider:,
         drug_selector: default_medication_drug_selector)
 
@@ -61,7 +61,7 @@ module World
         -> (drug_name) { select(drug_name, from: "Select Drug") }
       end
 
-      def revise_medication_for(treatable:, drug_name:)
+      def revise_medication_for(patient:, drug_name:)
         within "#medications" do
           click_on "Edit"
 
@@ -72,13 +72,13 @@ module World
       end
     end
 
-    def terminate_medication_for(treatable:, user:)
+    def terminate_medication_for(patient:, user:)
       within "#medications" do
         click_on "Terminate"
         wait_for_ajax
       end
 
-      medication = treatable.medications.with_deleted.last!
+      medication = patient.medications.with_deleted.last!
 
       expect(medication).to be_deleted
     end
