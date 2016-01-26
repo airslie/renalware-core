@@ -29,30 +29,23 @@
         = select_tag :drug_select, @selected_drugs, class: "drug-select"
 
     /! Same for both
-    = f.label :dose
-    = f.text_field :dose
+    = f.input :dose
 
-    = f.label :medication_route_id, "Route"
-    = f.collection_select :medication_route_id, Renalware::MedicationRoute.all, :id, :name, { prompt: "Please select route of administration" }, class: "medication-route-select }"
+    = f.association :medication_route, collection: Renalware::MedicationRoute.all,
+        label_method: :name,
+        prompt: "Please select route of administration",
+        html_input: { class: "medication-route-select" },
+        label: "Route"
 
-    = f.label :frequency, "Frequency & Duration"
-    = f.text_field :frequency
-
-    = f.label :notes
-    = f.text_area :notes, cols: 50, rows: 6
-
+    = f.input :frequency, label: "Frequency & Duration"
+    = f.input :notes
     = f.input :start_date, as: :date_picker, label: "Prescribed on"
     = f.input :end_date, as: :date_picker, label: "Terminated on"
 
-    = f.label :provider
+    = f.input :provider, collection: Renalware::Medication.providers.keys,
+        as: :radio_buttons, checked: Renalware::Medication.providers.keys.first,
+        label_method: -> (attr) { " " + I18n.t("enums.provider.#{attr}") }
 
-    - Renalware::Medication.providers.keys.map do |p|
-      ul.no-bullet.provider
-
-        li
-          = f.radio_button :provider, p, class: "provider-#{p}", checked: default_provider(p)
-        li
-          = f.label :provider, I18n.t("enums.provider.#{p}")
   .row
     .large-offset-3.large-7.columns
       = f.button :submit, "Save", class: :tiny
