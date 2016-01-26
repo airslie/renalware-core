@@ -20,7 +20,7 @@ module Renalware
     validates :start_date, presence: true
     validates :provider, presence: true
 
-    enum provider: %i(gp hospital home_delivery)
+    enum provider: Provider.codes
 
     def formatted
       [].tap { |ary|

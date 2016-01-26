@@ -42,8 +42,8 @@
     = f.input :start_date, as: :date_picker, label: "Prescribed on"
     = f.input :end_date, as: :date_picker, label: "Terminated on"
 
-    = f.input :provider, collection: Renalware::Medication.providers.keys,
-        as: :radio_buttons, checked: Renalware::Medication.providers.keys.first,
+    = f.input :provider, collection: Renalware::Provider.codes,
+        as: :radio_buttons, checked: Renalware::Provider.first,
         label_method: -> (attr) { " " + I18n.t("enums.provider.#{attr}") }
 
   .row
