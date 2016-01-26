@@ -1,3 +1,65 @@
+Given(/^there are PD bag types in the database$/) do
+  @bag_type_13_6 = FactoryGirl.create(:bag_type,
+    manufacturer: "Sunshine Brand",
+    description: "Blue–1.36",
+    glucose_grams_per_litre: 13.6,
+    amino_acid: false,
+    icodextrin: true,
+    low_glucose_degradation: false,
+    low_sodium: true,
+    sodium_mmole_l: 2,
+    lactate_mmole_l: 3,
+    bicarbonate_mmole_l: 59,
+    calcium_mmole_l: 3.21,
+    magnesium_mmole_l: 6.55
+  )
+
+  @bag_type_22_7 = FactoryGirl.create(:bag_type,
+    manufacturer: "Rainbow Brand",
+    description: "Red–2.27",
+    glucose_grams_per_litre: 22.7,
+    amino_acid: true,
+    icodextrin: true,
+    low_glucose_degradation: false,
+    low_sodium: true,
+    sodium_mmole_l: 7,
+    lactate_mmole_l: 5,
+    bicarbonate_mmole_l: 38,
+    calcium_mmole_l: 4.22,
+    magnesium_mmole_l: 2.35
+  )
+
+  @bag_type_38_6 = FactoryGirl.create(:bag_type,
+    manufacturer: "Unicorn Brand",
+    description: "Green–3.86",
+    glucose_grams_per_litre: 38.6,
+    amino_acid: true,
+    icodextrin: false,
+    low_glucose_degradation: false,
+    low_sodium: true,
+    sodium_mmole_l: 3,
+    lactate_mmole_l: 7,
+    bicarbonate_mmole_l: 26,
+    calcium_mmole_l: 8.28,
+    magnesium_mmole_l: 1.45
+  )
+
+  @bag_type_other = FactoryGirl.create(:bag_type,
+    manufacturer: "Lucky Brand",
+    description: "Orange–5.35",
+    glucose_grams_per_litre: 26.8,
+    amino_acid: true,
+    icodextrin: true,
+    low_glucose_degradation: false,
+    low_sodium: false,
+    sodium_mmole_l: 9,
+    lactate_mmole_l: 10,
+    bicarbonate_mmole_l: 18,
+    calcium_mmole_l: 6.27,
+    magnesium_mmole_l: 3.46
+  )
+end
+
 Given(/^a patient has PD$/) do
   FactoryGirl.create(:modality, patient: @patient_1, description: @modal_pd)
 
