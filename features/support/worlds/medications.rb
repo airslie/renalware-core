@@ -64,7 +64,7 @@ module World
       def default_medication_drug_selector
         -> (drug_name, drug_type="Antibiotic") do
           select(drug_type, from: "Medication Type")
-          select(drug_name, from: "Select Drug")
+          select(drug_name, from: "Drug")
         end
       end
 

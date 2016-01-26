@@ -1,3 +1,6 @@
 .select-exit-site-drug
-  = f.label :drug_id, "Select Drug (exit site drugs only)"
-  = f.collection_select :drug_id, Renalware::Drugs::Drug.for(:peritonitis), :id, :name, { prompt: "Please select drug used to treat this exit site infection" }, class: "exit-site-drug-select"
+  = f.association :drug, collection: Renalware::Drugs::Drug.for(:peritonitis),
+      as: :select,
+      label_method: :name,
+      prompt: "Please select drug (exit site drugs only)",
+      input_html: { class: "exit-site-drug-select" }

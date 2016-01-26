@@ -76,7 +76,7 @@ module World
       end
 
       def exit_site_infection_drug_selector
-        -> (drug_name) { select(drug_name, from: "Select Drug") }
+        -> (drug_name) { select(drug_name, from: "Drug") }
       end
     end
   end
