@@ -1,15 +1,14 @@
+ruby:
+  drug_select_partials = Hash.new("default").tap do |h|
+    h["Renalware::PeritonitisEpisode"] = "peritonitis_episode"
+    h["Renalware::ExitSiteInfection"] = "exit_site_infection"
+  end
+
 = simple_form_for medication, url: url,
     html: { class: local_assigns[:form_class] }, remote: true, wrapper: :horizontal_form do |f|
 
   .med-form.content id=("edit-meds-#{f.object.id}" )
-    - if f.object.treatable_type == "Renalware::PeritonitisEpisode"
-      = render "renalware/medications/drug_select/peritonitis_episode_fields", f: f
-
-    - elsif f.object.treatable_type == "Renalware::ExitSiteInfection"
-      = render "renalware/medications/drug_select/exit_site_fields", f: f
-
-    - else
-      = render "renalware/medications/drug_select/default_fields", f: f
+    = render "renalware/medications/drug_select/#{drug_select_partials[f.object.treatable_type]}_fields", f: f
 
     = f.input :dose
     = f.association :medication_route, collection: Renalware::MedicationRoute.all,
