@@ -11,20 +11,16 @@
     - else
       = render "renalware/medications/drug_select/default_fields", f: f
 
-    /! Same for both
     = f.input :dose
-
     = f.association :medication_route, collection: Renalware::MedicationRoute.all,
         label_method: :name,
         prompt: "Please select route of administration",
         html_input: { class: "medication-route-select" },
         label: "Route"
-
     = f.input :frequency, label: "Frequency & Duration"
     = f.input :notes
     = f.input :start_date, as: :date_picker, label: "Prescribed on"
     = f.input :end_date, as: :date_picker, label: "Terminated on"
-
     = f.input :provider, collection: Renalware::Provider.codes,
         as: :radio_buttons, checked: Renalware::Provider.first,
         label_method: -> (attr) { " " + I18n.t("enums.provider.#{attr}") }
