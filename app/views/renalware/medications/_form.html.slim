@@ -3,10 +3,10 @@
 
   .med-form.content id=("edit-meds-#{f.object.id}" )
     - if f.object.treatable_type == "Renalware::PeritonitisEpisode"
-      = render partial: "renalware/medications/drug_select/peritonitis_fields", locals: { pm: f }
+      = render partial: "renalware/medications/drug_select/peritonitis_fields", locals: { f: f }
 
     - elsif f.object.treatable_type == "Renalware::ExitSiteInfection"
-      = render partial: "renalware/medications/drug_select/exit_site_fields", locals: { pm: f }
+      = render partial: "renalware/medications/drug_select/exit_site_fields", locals: { f: f }
 
     - else
       = render partial: "renalware/medications/drug_select/default_fields", locals: { f: f }

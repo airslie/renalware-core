@@ -1,3 +1,3 @@
 .select-peritonitis-drug
-  = pm.label :drug_id, "Select Drug (common peritonitis drugs listed at the top)"
-  = pm.grouped_collection_select(:drug_id, Renalware::Drugs::Type.for(:peritonitis, :antibiotic), :drugs, :name, :id, :name)
+  = f.label :drug_id, "Select Drug (common peritonitis drugs listed at the top)"
+  = f.grouped_collection_select(:drug_id, Renalware::Drugs::Type.for(:peritonitis, :antibiotic), :drugs, :name, :id, :name)
