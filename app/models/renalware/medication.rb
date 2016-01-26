@@ -15,7 +15,7 @@ module Renalware
 
     validates :drug, presence: true
     validates :dose, presence: true
-    validates :medication_route_id, presence: true
+    validates :medication_route, presence: true
     validates :frequency, presence: true
     validates :start_date, presence: true
     validates :provider, presence: true

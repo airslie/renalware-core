@@ -1,8 +1,5 @@
 module Renalware
-  # TODO: merge into medications controller when other dependencies
-  # have been converted over to this controller
-  #
-  class PolymorphicMedicationsController < BaseController
+  class MedicationsController < BaseController
     before_action :load_patient
 
     def index
