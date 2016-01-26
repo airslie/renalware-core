@@ -21,6 +21,7 @@ module Renalware
       @valid_patient_med = FactoryGirl.build(
                             :medication,
                             patient: @patient,
+                            treatable: @patient,
                             drug: @amoxicillin,
                             dose: "23mg",
                             medication_route: @med_route,

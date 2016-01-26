@@ -4,6 +4,7 @@ require './spec/support/login_macros'
 module Renalware
   RSpec.describe Medication, :type => :model do
     it { should validate_presence_of :patient }
+    it { should validate_presence_of :treatable }
     it { should validate_presence_of(:drug) }
     it { should validate_presence_of(:dose) }
     it { should validate_presence_of(:medication_route) }

@@ -12,7 +12,7 @@ module Renalware
     belongs_to :medication_route
 
     validates :patient, presence: true
-
+    validates :treatable, presence: true
     validates :drug, presence: true
     validates :dose, presence: true
     validates :medication_route, presence: true

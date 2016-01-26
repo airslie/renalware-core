@@ -13,7 +13,7 @@ module World
         route = Renalware::MedicationRoute.find_by!(name: route_name)
 
         patient.medications.create!(
-          treatable: treatable,
+          treatable: treatable || patient,
           drug: drug,
           dose: dose,
           medication_route: route,

@@ -11,5 +11,7 @@ FactoryGirl.define do
     provider 0
     start_date "25/02/#{Date.current.year}"
     deleted_at "NULL"
+
+    before(:create) { |medication| medication.treatable ||= medication.patient }
   end
 end
