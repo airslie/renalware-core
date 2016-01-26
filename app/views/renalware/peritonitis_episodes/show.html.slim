@@ -10,6 +10,7 @@
         infection_organisms: @peritonitis_episode.infection_organisms
 
   = field_set_tag "antibiotics/routes" do
-    = render "renalware/polymorphic_medications/index",
+    = render "renalware/medications/index",
+        patient: @patient,
         treatable: @peritonitis_episode,
         medications: @peritonitis_episode.medications

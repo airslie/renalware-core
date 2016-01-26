@@ -11,6 +11,7 @@ Given(/^Patty is being treated for a peritonitis episode$/) do
   )
 
   record_medication_for(
+    patient: @patty,
     treatable: episode_for(@patty),
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
@@ -39,6 +40,7 @@ end
 
 Given(/^recorded the medication for the episode$/) do
   record_medication_for(
+    patient: @patty,
     treatable: episode_for(@patty),
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
@@ -67,6 +69,7 @@ end
 
 When(/^records the medication for the episode$/) do
   record_medication_for(
+    patient: @patty,
     treatable: episode_for(@patty),
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
@@ -95,8 +98,9 @@ Then(/^Clyde can revise the peritonitis episode$/) do
   )
 
   revise_medication_for(
-    treatable: episode_for(@patty),
-    drug_name: "Cefotaxime Injection"
+    patient: @patty,
+    drug_name: "Cefotaxime Injection",
+    drug_selector: peritonitis_episode_drug_selector
   )
 
   expect_peritonitis_episodes_revisions_recorded(patient: @patty)
@@ -111,7 +115,7 @@ end
 
 Then(/^Clyde can terminate the medication for the episode$/) do
   terminate_medication_for(
-    treatable: episode_for(@patty),
+    patient: @patty,
     user: @clyde
   )
 end

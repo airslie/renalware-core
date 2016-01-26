@@ -1,1 +1,3 @@
-// no navigation
+dl.sub-nav
+  dd= link_to "View", patient_medications_path(@patient)
+  dd= link_to "Add medication", new_patient_medication_path(@patient), remote: true

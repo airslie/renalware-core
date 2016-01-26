@@ -1,7 +1,0 @@
-= object.fields_for :medications do |pm|
-
-  = render partial: 'renalware/medications/medication', locals: { pm: pm } unless pm.object.new_record?
-
-  #medications
-    = render partial: 'renalware/medications/new', locals: { pm: pm } if pm.object.new_record?
-
