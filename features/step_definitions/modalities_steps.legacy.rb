@@ -19,7 +19,7 @@ end
 When(/^I complete the modality form$/) do
 
   within "#modality-description-select" do
-    select "Modal One"
+    select "Other"
   end
 
   select "PD To Haemodialysis", from: "Type of Change"
@@ -32,21 +32,5 @@ When(/^I complete the modality form$/) do
 end
 
 Then(/^I should see a patient's modality on their clinical summary$/) do
-   expect(page).to have_content("Modal One")
-end
-
-
-Given(/^there are modality codes in the database$/) do
-  @modal_descriptions = [
-    ["Modal One", "modelone"],
-    ["Modal Two", "modeltwo"],
-    ["PD Modality", "pdmodality"],
-    ["Death", "death"]
-  ]
-  @modal_descriptions.map! {|d| FactoryGirl.create(:modality_description, name: d[0], code: d[1])}
-
-  @modal_one = @modal_descriptions[0]
-  @modal_two = @modal_descriptions[1]
-  @modal_pd = @modal_descriptions[2]
-  @modal_death = @modal_descriptions[3]
+   expect(page).to have_content("Other")
 end

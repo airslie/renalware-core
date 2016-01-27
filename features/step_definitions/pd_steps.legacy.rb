@@ -61,7 +61,8 @@ Given(/^there are PD bag types in the database$/) do
 end
 
 Given(/^a patient has PD$/) do
-  FactoryGirl.create(:modality, patient: @patient_1, description: @modal_pd)
+  description = Renalware::Modalities::Description.find_by!(code: "PD_APD")
+  FactoryGirl.create(:modality, patient: @patient_1, description: description)
 
   visit patient_pd_summary_path(@patient_1)
 end
