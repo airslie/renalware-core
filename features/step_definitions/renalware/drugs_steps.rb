@@ -34,50 +34,6 @@ Given(/^existing drugs have been assigned drug types$/) do
   @vancomycin.drug_types << @peritonitis
 end
 
-Given(/^that I'm on the add a new drug page$/) do
-  visit new_drugs_drug_path
-end
-
-Given(/^that I choose to edit a drug$/) do
-  @edited_drug = Renalware::Drugs::Drug.first!
-  visit edit_drugs_drug_path(@edited_drug)
-end
-
-Given(/^I am on the drugs index$/) do
-  visit drugs_drugs_path
-end
-
-When(/^I complete the form for a new drug$/) do
-  fill_in "Drug Name", with: "I am a new drug"
-  check "Antibiotic"
-  check "Immunosuppressant"
-  click_on "Save"
-end
-
-When(/^I complete the form for editing a drug$/) do
-  fill_in "Drug Name", with: "I am an edited drug"
-  uncheck('Peritonitis')
-  click_on "Update"
-end
-
-When(/^I choose to soft delete a drug$/) do
-  @deleted_drug = Renalware::Drugs::Drug.ordered.first!
-  find("##{@deleted_drug.id}-drug").click
-end
-
-Then(/^I should see the new drug on the drugs list$/) do
-  drug = Renalware::Drugs::Drug.find_by(name: "I am a new drug")
-  expect(drug).to be_present
-end
-
-Then(/^I should see the updated drug on the drugs list$/) do
-  expect(@edited_drug.reload.name).to eq("I am an edited drug")
-end
-
-Then(/^I should see the drug removed from the drugs list$/) do
-  expect(page).to have_no_content("Vancomycin")
-end
-
 When(/^I search for a drug by name$/) do
   fill_in "Drug", :with => "Red"
 end
