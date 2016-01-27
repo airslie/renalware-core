@@ -1,6 +1,6 @@
-class CreateTransplantsRecipientOperations < ActiveRecord::Migration
+class CreateTransplantRecipientOperations < ActiveRecord::Migration
   def change
-    create_table :transplants_recipient_operations do |t|
+    create_table :transplant_recipient_operations do |t|
       t.belongs_to :patient, index: true, foreign_key: true
 
       t.date :performed_on, null: false
@@ -18,6 +18,6 @@ class CreateTransplantsRecipientOperations < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index :transplants_recipient_operations, :document, using: :gin
+    add_index :transplant_recipient_operations, :document, using: :gin
   end
 end

@@ -1,6 +1,6 @@
-class CreateTransplantsDonorFollowups < ActiveRecord::Migration
+class CreateTransplantDonorFollowups < ActiveRecord::Migration
   def change
-    create_table :transplants_donor_followups do |t|
+    create_table :transplant_donor_followups do |t|
       t.integer :operation_id, null: false
       t.text :notes
 
@@ -14,9 +14,9 @@ class CreateTransplantsDonorFollowups < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index :transplants_donor_followups, :operation_id
+    add_index :transplant_donor_followups, :operation_id
 
-    add_foreign_key :transplants_donor_followups, :transplants_donor_operations,
+    add_foreign_key :transplant_donor_followups, :transplant_donor_operations,
       column: :operation_id
   end
 end
