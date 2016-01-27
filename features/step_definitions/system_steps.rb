@@ -1,3 +1,7 @@
+Given(/^Clyde is logged in$/) do
+  login_as @clyde
+end
+
 Given(/^(.*?) is a clinician$/) do |name|
   user = Renalware::User.create!(
     given_name: name,

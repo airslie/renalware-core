@@ -1,7 +1,3 @@
-Given(/^Clyde is logged in$/) do
-  login_as @clyde
-end
-
 Given(/^Clyde is on Patty's event index$/) do
   visit patient_events_path(@patty)
 end
