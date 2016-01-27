@@ -1,9 +1,3 @@
-Given(/^there are prd in the database$/) do
-  %w(Oligomeganephronia Cystinuria Xanthinuria).each do |term|
-    instance_variable_set(:"@#{term.downcase}", FactoryGirl.create(:prd_description, term: term))
-  end
-end
-
 Given(/^Clyde is on Patty's ESRF summary$/) do
   visit edit_patient_esrf_path(@patty)
 end

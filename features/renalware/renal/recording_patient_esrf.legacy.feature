@@ -3,8 +3,7 @@ Feature: A Doctor records a patient's ESRF
   A patient has their end stage renal failure details recorded by a clinician
 
   Background:
-    Given there are prd in the database
-    And Patty is a patient
+    Given Patty is a patient
     And Clyde is a clinician
     And Clyde is logged in
 

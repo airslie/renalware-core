@@ -8,7 +8,6 @@ begin
   #   episode_types
   #   fluid_description
   #   organism_codes
-  #   prd_descriptions
   #   roles
   #   transplants_registration_status_descriptions
   # )
@@ -25,6 +24,7 @@ begin
     modality_descriptions
     modality_reasons
     organism_codes
+    prd_descriptions
     transplant_registration_status_descriptions
   )
 
