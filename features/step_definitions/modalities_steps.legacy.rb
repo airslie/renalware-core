@@ -3,7 +3,6 @@ Given(/^I choose to add a modality$/) do
 end
 
 When(/^I complete the modality form$/) do
-
   within "#modality-description-select" do
     select "Other"
   end
