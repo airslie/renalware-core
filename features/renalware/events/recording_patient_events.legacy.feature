@@ -5,9 +5,9 @@ Background:
     And Patty is a patient
     And Clyde is a clinician
     And Clyde is logged in
-    And Clyde is on Patty's event index
 
 Scenario: Clyde records an event for Patty
+  Given Clyde is on Patty's event index
   When Clyde chooses to add an event
     And records Patty's event
   Then Clyde should see Patty's new event on the clinical summary
