@@ -1430,10 +1430,10 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: transplants_donations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: transplant_donations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE transplants_donations (
+CREATE TABLE transplant_donations (
     id integer NOT NULL,
     patient_id integer,
     recipient_id integer,
@@ -1454,10 +1454,10 @@ CREATE TABLE transplants_donations (
 
 
 --
--- Name: transplants_donations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: transplant_donations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE transplants_donations_id_seq
+CREATE SEQUENCE transplant_donations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1466,17 +1466,17 @@ CREATE SEQUENCE transplants_donations_id_seq
 
 
 --
--- Name: transplants_donations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: transplant_donations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE transplants_donations_id_seq OWNED BY transplants_donations.id;
+ALTER SEQUENCE transplant_donations_id_seq OWNED BY transplant_donations.id;
 
 
 --
--- Name: transplants_donor_followups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: transplant_donor_followups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE transplants_donor_followups (
+CREATE TABLE transplant_donor_followups (
     id integer NOT NULL,
     operation_id integer NOT NULL,
     notes text,
@@ -1492,10 +1492,10 @@ CREATE TABLE transplants_donor_followups (
 
 
 --
--- Name: transplants_donor_followups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: transplant_donor_followups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE transplants_donor_followups_id_seq
+CREATE SEQUENCE transplant_donor_followups_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1504,17 +1504,17 @@ CREATE SEQUENCE transplants_donor_followups_id_seq
 
 
 --
--- Name: transplants_donor_followups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: transplant_donor_followups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE transplants_donor_followups_id_seq OWNED BY transplants_donor_followups.id;
+ALTER SEQUENCE transplant_donor_followups_id_seq OWNED BY transplant_donor_followups.id;
 
 
 --
--- Name: transplants_donor_operations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: transplant_donor_operations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE transplants_donor_operations (
+CREATE TABLE transplant_donor_operations (
     id integer NOT NULL,
     patient_id integer,
     performed_on date NOT NULL,
@@ -1532,10 +1532,10 @@ CREATE TABLE transplants_donor_operations (
 
 
 --
--- Name: transplants_donor_operations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: transplant_donor_operations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE transplants_donor_operations_id_seq
+CREATE SEQUENCE transplant_donor_operations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1544,17 +1544,17 @@ CREATE SEQUENCE transplants_donor_operations_id_seq
 
 
 --
--- Name: transplants_donor_operations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: transplant_donor_operations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE transplants_donor_operations_id_seq OWNED BY transplants_donor_operations.id;
+ALTER SEQUENCE transplant_donor_operations_id_seq OWNED BY transplant_donor_operations.id;
 
 
 --
--- Name: transplants_donor_workups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: transplant_donor_workups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE transplants_donor_workups (
+CREATE TABLE transplant_donor_workups (
     id integer NOT NULL,
     patient_id integer,
     document jsonb,
@@ -1564,10 +1564,10 @@ CREATE TABLE transplants_donor_workups (
 
 
 --
--- Name: transplants_donor_workups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: transplant_donor_workups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE transplants_donor_workups_id_seq
+CREATE SEQUENCE transplant_donor_workups_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1576,17 +1576,17 @@ CREATE SEQUENCE transplants_donor_workups_id_seq
 
 
 --
--- Name: transplants_donor_workups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: transplant_donor_workups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE transplants_donor_workups_id_seq OWNED BY transplants_donor_workups.id;
+ALTER SEQUENCE transplant_donor_workups_id_seq OWNED BY transplant_donor_workups.id;
 
 
 --
--- Name: transplants_failure_cause_description_groups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: transplant_failure_cause_description_groups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE transplants_failure_cause_description_groups (
+CREATE TABLE transplant_failure_cause_description_groups (
     id integer NOT NULL,
     name character varying,
     created_at timestamp without time zone NOT NULL,
@@ -1595,10 +1595,10 @@ CREATE TABLE transplants_failure_cause_description_groups (
 
 
 --
--- Name: transplants_failure_cause_description_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: transplant_failure_cause_description_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE transplants_failure_cause_description_groups_id_seq
+CREATE SEQUENCE transplant_failure_cause_description_groups_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1607,17 +1607,17 @@ CREATE SEQUENCE transplants_failure_cause_description_groups_id_seq
 
 
 --
--- Name: transplants_failure_cause_description_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: transplant_failure_cause_description_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE transplants_failure_cause_description_groups_id_seq OWNED BY transplants_failure_cause_description_groups.id;
+ALTER SEQUENCE transplant_failure_cause_description_groups_id_seq OWNED BY transplant_failure_cause_description_groups.id;
 
 
 --
--- Name: transplants_failure_cause_descriptions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: transplant_failure_cause_descriptions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE transplants_failure_cause_descriptions (
+CREATE TABLE transplant_failure_cause_descriptions (
     id integer NOT NULL,
     group_id integer,
     code character varying NOT NULL,
@@ -1628,10 +1628,10 @@ CREATE TABLE transplants_failure_cause_descriptions (
 
 
 --
--- Name: transplants_failure_cause_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: transplant_failure_cause_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE transplants_failure_cause_descriptions_id_seq
+CREATE SEQUENCE transplant_failure_cause_descriptions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1640,17 +1640,17 @@ CREATE SEQUENCE transplants_failure_cause_descriptions_id_seq
 
 
 --
--- Name: transplants_failure_cause_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: transplant_failure_cause_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE transplants_failure_cause_descriptions_id_seq OWNED BY transplants_failure_cause_descriptions.id;
+ALTER SEQUENCE transplant_failure_cause_descriptions_id_seq OWNED BY transplant_failure_cause_descriptions.id;
 
 
 --
--- Name: transplants_recipient_followups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: transplant_recipient_followups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE transplants_recipient_followups (
+CREATE TABLE transplant_recipient_followups (
     id integer NOT NULL,
     operation_id integer NOT NULL,
     notes text,
@@ -1667,10 +1667,10 @@ CREATE TABLE transplants_recipient_followups (
 
 
 --
--- Name: transplants_recipient_followups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: transplant_recipient_followups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE transplants_recipient_followups_id_seq
+CREATE SEQUENCE transplant_recipient_followups_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1679,17 +1679,17 @@ CREATE SEQUENCE transplants_recipient_followups_id_seq
 
 
 --
--- Name: transplants_recipient_followups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: transplant_recipient_followups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE transplants_recipient_followups_id_seq OWNED BY transplants_recipient_followups.id;
+ALTER SEQUENCE transplant_recipient_followups_id_seq OWNED BY transplant_recipient_followups.id;
 
 
 --
--- Name: transplants_recipient_operations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: transplant_recipient_operations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE transplants_recipient_operations (
+CREATE TABLE transplant_recipient_operations (
     id integer NOT NULL,
     patient_id integer,
     performed_on date NOT NULL,
@@ -1708,10 +1708,10 @@ CREATE TABLE transplants_recipient_operations (
 
 
 --
--- Name: transplants_recipient_operations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: transplant_recipient_operations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE transplants_recipient_operations_id_seq
+CREATE SEQUENCE transplant_recipient_operations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1720,17 +1720,17 @@ CREATE SEQUENCE transplants_recipient_operations_id_seq
 
 
 --
--- Name: transplants_recipient_operations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: transplant_recipient_operations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE transplants_recipient_operations_id_seq OWNED BY transplants_recipient_operations.id;
+ALTER SEQUENCE transplant_recipient_operations_id_seq OWNED BY transplant_recipient_operations.id;
 
 
 --
--- Name: transplants_recipient_workups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: transplant_recipient_workups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE transplants_recipient_workups (
+CREATE TABLE transplant_recipient_workups (
     id integer NOT NULL,
     patient_id integer,
     document jsonb,
@@ -1740,10 +1740,10 @@ CREATE TABLE transplants_recipient_workups (
 
 
 --
--- Name: transplants_recipient_workups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: transplant_recipient_workups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE transplants_recipient_workups_id_seq
+CREATE SEQUENCE transplant_recipient_workups_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1752,17 +1752,17 @@ CREATE SEQUENCE transplants_recipient_workups_id_seq
 
 
 --
--- Name: transplants_recipient_workups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: transplant_recipient_workups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE transplants_recipient_workups_id_seq OWNED BY transplants_recipient_workups.id;
+ALTER SEQUENCE transplant_recipient_workups_id_seq OWNED BY transplant_recipient_workups.id;
 
 
 --
--- Name: transplants_registration_status_descriptions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: transplant_registration_status_descriptions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE transplants_registration_status_descriptions (
+CREATE TABLE transplant_registration_status_descriptions (
     id integer NOT NULL,
     code character varying NOT NULL,
     name character varying,
@@ -1773,10 +1773,10 @@ CREATE TABLE transplants_registration_status_descriptions (
 
 
 --
--- Name: transplants_registration_status_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: transplant_registration_status_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE transplants_registration_status_descriptions_id_seq
+CREATE SEQUENCE transplant_registration_status_descriptions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1785,17 +1785,17 @@ CREATE SEQUENCE transplants_registration_status_descriptions_id_seq
 
 
 --
--- Name: transplants_registration_status_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: transplant_registration_status_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE transplants_registration_status_descriptions_id_seq OWNED BY transplants_registration_status_descriptions.id;
+ALTER SEQUENCE transplant_registration_status_descriptions_id_seq OWNED BY transplant_registration_status_descriptions.id;
 
 
 --
--- Name: transplants_registration_statuses; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: transplant_registration_statuses; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE transplants_registration_statuses (
+CREATE TABLE transplant_registration_statuses (
     id integer NOT NULL,
     registration_id integer,
     description_id integer,
@@ -1809,10 +1809,10 @@ CREATE TABLE transplants_registration_statuses (
 
 
 --
--- Name: transplants_registration_statuses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: transplant_registration_statuses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE transplants_registration_statuses_id_seq
+CREATE SEQUENCE transplant_registration_statuses_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1821,17 +1821,17 @@ CREATE SEQUENCE transplants_registration_statuses_id_seq
 
 
 --
--- Name: transplants_registration_statuses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: transplant_registration_statuses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE transplants_registration_statuses_id_seq OWNED BY transplants_registration_statuses.id;
+ALTER SEQUENCE transplant_registration_statuses_id_seq OWNED BY transplant_registration_statuses.id;
 
 
 --
--- Name: transplants_registrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: transplant_registrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE transplants_registrations (
+CREATE TABLE transplant_registrations (
     id integer NOT NULL,
     patient_id integer,
     referred_on date,
@@ -1846,10 +1846,10 @@ CREATE TABLE transplants_registrations (
 
 
 --
--- Name: transplants_registrations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: transplant_registrations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE transplants_registrations_id_seq
+CREATE SEQUENCE transplant_registrations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1858,17 +1858,17 @@ CREATE SEQUENCE transplants_registrations_id_seq
 
 
 --
--- Name: transplants_registrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: transplant_registrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE transplants_registrations_id_seq OWNED BY transplants_registrations.id;
+ALTER SEQUENCE transplant_registrations_id_seq OWNED BY transplant_registrations.id;
 
 
 --
--- Name: transplants_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: transplant_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE transplants_versions (
+CREATE TABLE transplant_versions (
     id integer NOT NULL,
     item_type character varying NOT NULL,
     item_id integer NOT NULL,
@@ -1881,10 +1881,10 @@ CREATE TABLE transplants_versions (
 
 
 --
--- Name: transplants_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: transplant_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE transplants_versions_id_seq
+CREATE SEQUENCE transplant_versions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1893,10 +1893,10 @@ CREATE SEQUENCE transplants_versions_id_seq
 
 
 --
--- Name: transplants_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: transplant_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE transplants_versions_id_seq OWNED BY transplants_versions.id;
+ALTER SEQUENCE transplant_versions_id_seq OWNED BY transplant_versions.id;
 
 
 --
@@ -2253,91 +2253,91 @@ ALTER TABLE ONLY roles ALTER COLUMN id SET DEFAULT nextval('roles_id_seq'::regcl
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY transplants_donations ALTER COLUMN id SET DEFAULT nextval('transplants_donations_id_seq'::regclass);
+ALTER TABLE ONLY transplant_donations ALTER COLUMN id SET DEFAULT nextval('transplant_donations_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY transplants_donor_followups ALTER COLUMN id SET DEFAULT nextval('transplants_donor_followups_id_seq'::regclass);
+ALTER TABLE ONLY transplant_donor_followups ALTER COLUMN id SET DEFAULT nextval('transplant_donor_followups_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY transplants_donor_operations ALTER COLUMN id SET DEFAULT nextval('transplants_donor_operations_id_seq'::regclass);
+ALTER TABLE ONLY transplant_donor_operations ALTER COLUMN id SET DEFAULT nextval('transplant_donor_operations_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY transplants_donor_workups ALTER COLUMN id SET DEFAULT nextval('transplants_donor_workups_id_seq'::regclass);
+ALTER TABLE ONLY transplant_donor_workups ALTER COLUMN id SET DEFAULT nextval('transplant_donor_workups_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY transplants_failure_cause_description_groups ALTER COLUMN id SET DEFAULT nextval('transplants_failure_cause_description_groups_id_seq'::regclass);
+ALTER TABLE ONLY transplant_failure_cause_description_groups ALTER COLUMN id SET DEFAULT nextval('transplant_failure_cause_description_groups_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY transplants_failure_cause_descriptions ALTER COLUMN id SET DEFAULT nextval('transplants_failure_cause_descriptions_id_seq'::regclass);
+ALTER TABLE ONLY transplant_failure_cause_descriptions ALTER COLUMN id SET DEFAULT nextval('transplant_failure_cause_descriptions_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY transplants_recipient_followups ALTER COLUMN id SET DEFAULT nextval('transplants_recipient_followups_id_seq'::regclass);
+ALTER TABLE ONLY transplant_recipient_followups ALTER COLUMN id SET DEFAULT nextval('transplant_recipient_followups_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY transplants_recipient_operations ALTER COLUMN id SET DEFAULT nextval('transplants_recipient_operations_id_seq'::regclass);
+ALTER TABLE ONLY transplant_recipient_operations ALTER COLUMN id SET DEFAULT nextval('transplant_recipient_operations_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY transplants_recipient_workups ALTER COLUMN id SET DEFAULT nextval('transplants_recipient_workups_id_seq'::regclass);
+ALTER TABLE ONLY transplant_recipient_workups ALTER COLUMN id SET DEFAULT nextval('transplant_recipient_workups_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY transplants_registration_status_descriptions ALTER COLUMN id SET DEFAULT nextval('transplants_registration_status_descriptions_id_seq'::regclass);
+ALTER TABLE ONLY transplant_registration_status_descriptions ALTER COLUMN id SET DEFAULT nextval('transplant_registration_status_descriptions_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY transplants_registration_statuses ALTER COLUMN id SET DEFAULT nextval('transplants_registration_statuses_id_seq'::regclass);
+ALTER TABLE ONLY transplant_registration_statuses ALTER COLUMN id SET DEFAULT nextval('transplant_registration_statuses_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY transplants_registrations ALTER COLUMN id SET DEFAULT nextval('transplants_registrations_id_seq'::regclass);
+ALTER TABLE ONLY transplant_registrations ALTER COLUMN id SET DEFAULT nextval('transplant_registrations_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY transplants_versions ALTER COLUMN id SET DEFAULT nextval('transplants_versions_id_seq'::regclass);
+ALTER TABLE ONLY transplant_versions ALTER COLUMN id SET DEFAULT nextval('transplant_versions_id_seq'::regclass);
 
 
 --
@@ -2659,107 +2659,107 @@ ALTER TABLE ONLY roles
 
 
 --
--- Name: transplants_donations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: transplant_donations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY transplants_donations
-    ADD CONSTRAINT transplants_donations_pkey PRIMARY KEY (id);
-
-
---
--- Name: transplants_donor_followups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY transplants_donor_followups
-    ADD CONSTRAINT transplants_donor_followups_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY transplant_donations
+    ADD CONSTRAINT transplant_donations_pkey PRIMARY KEY (id);
 
 
 --
--- Name: transplants_donor_operations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: transplant_donor_followups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY transplants_donor_operations
-    ADD CONSTRAINT transplants_donor_operations_pkey PRIMARY KEY (id);
-
-
---
--- Name: transplants_donor_workups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY transplants_donor_workups
-    ADD CONSTRAINT transplants_donor_workups_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY transplant_donor_followups
+    ADD CONSTRAINT transplant_donor_followups_pkey PRIMARY KEY (id);
 
 
 --
--- Name: transplants_failure_cause_description_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: transplant_donor_operations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY transplants_failure_cause_description_groups
-    ADD CONSTRAINT transplants_failure_cause_description_groups_pkey PRIMARY KEY (id);
-
-
---
--- Name: transplants_failure_cause_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY transplants_failure_cause_descriptions
-    ADD CONSTRAINT transplants_failure_cause_descriptions_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY transplant_donor_operations
+    ADD CONSTRAINT transplant_donor_operations_pkey PRIMARY KEY (id);
 
 
 --
--- Name: transplants_recipient_followups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: transplant_donor_workups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY transplants_recipient_followups
-    ADD CONSTRAINT transplants_recipient_followups_pkey PRIMARY KEY (id);
-
-
---
--- Name: transplants_recipient_operations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY transplants_recipient_operations
-    ADD CONSTRAINT transplants_recipient_operations_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY transplant_donor_workups
+    ADD CONSTRAINT transplant_donor_workups_pkey PRIMARY KEY (id);
 
 
 --
--- Name: transplants_recipient_workups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: transplant_failure_cause_description_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY transplants_recipient_workups
-    ADD CONSTRAINT transplants_recipient_workups_pkey PRIMARY KEY (id);
-
-
---
--- Name: transplants_registration_status_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY transplants_registration_status_descriptions
-    ADD CONSTRAINT transplants_registration_status_descriptions_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY transplant_failure_cause_description_groups
+    ADD CONSTRAINT transplant_failure_cause_description_groups_pkey PRIMARY KEY (id);
 
 
 --
--- Name: transplants_registration_statuses_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: transplant_failure_cause_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY transplants_registration_statuses
-    ADD CONSTRAINT transplants_registration_statuses_pkey PRIMARY KEY (id);
-
-
---
--- Name: transplants_registrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY transplants_registrations
-    ADD CONSTRAINT transplants_registrations_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY transplant_failure_cause_descriptions
+    ADD CONSTRAINT transplant_failure_cause_descriptions_pkey PRIMARY KEY (id);
 
 
 --
--- Name: transplants_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: transplant_recipient_followups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY transplants_versions
-    ADD CONSTRAINT transplants_versions_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY transplant_recipient_followups
+    ADD CONSTRAINT transplant_recipient_followups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: transplant_recipient_operations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY transplant_recipient_operations
+    ADD CONSTRAINT transplant_recipient_operations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: transplant_recipient_workups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY transplant_recipient_workups
+    ADD CONSTRAINT transplant_recipient_workups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: transplant_registration_status_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY transplant_registration_status_descriptions
+    ADD CONSTRAINT transplant_registration_status_descriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: transplant_registration_statuses_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY transplant_registration_statuses
+    ADD CONSTRAINT transplant_registration_statuses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: transplant_registrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY transplant_registrations
+    ADD CONSTRAINT transplant_registrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: transplant_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY transplant_versions
+    ADD CONSTRAINT transplant_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -2982,136 +2982,136 @@ CREATE INDEX index_problems_versions_on_item_type_and_item_id ON problems_versio
 
 
 --
--- Name: index_transplants_donations_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_transplant_donations_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_transplants_donations_on_patient_id ON transplants_donations USING btree (patient_id);
-
-
---
--- Name: index_transplants_donations_on_recipient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_transplants_donations_on_recipient_id ON transplants_donations USING btree (recipient_id);
+CREATE INDEX index_transplant_donations_on_patient_id ON transplant_donations USING btree (patient_id);
 
 
 --
--- Name: index_transplants_donor_followups_on_operation_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_transplant_donations_on_recipient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_transplants_donor_followups_on_operation_id ON transplants_donor_followups USING btree (operation_id);
-
-
---
--- Name: index_transplants_donor_operations_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_transplants_donor_operations_on_document ON transplants_donor_operations USING gin (document);
+CREATE INDEX index_transplant_donations_on_recipient_id ON transplant_donations USING btree (recipient_id);
 
 
 --
--- Name: index_transplants_donor_operations_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_transplant_donor_followups_on_operation_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_transplants_donor_operations_on_patient_id ON transplants_donor_operations USING btree (patient_id);
-
-
---
--- Name: index_transplants_donor_workups_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_transplants_donor_workups_on_document ON transplants_donor_workups USING gin (document);
+CREATE INDEX index_transplant_donor_followups_on_operation_id ON transplant_donor_followups USING btree (operation_id);
 
 
 --
--- Name: index_transplants_donor_workups_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_transplant_donor_operations_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_transplants_donor_workups_on_patient_id ON transplants_donor_workups USING btree (patient_id);
-
-
---
--- Name: index_transplants_failure_cause_descriptions_on_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_transplants_failure_cause_descriptions_on_code ON transplants_failure_cause_descriptions USING btree (code);
+CREATE INDEX index_transplant_donor_operations_on_document ON transplant_donor_operations USING gin (document);
 
 
 --
--- Name: index_transplants_recipient_followups_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_transplant_donor_operations_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_transplants_recipient_followups_on_document ON transplants_recipient_followups USING gin (document);
-
-
---
--- Name: index_transplants_recipient_followups_on_operation_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_transplants_recipient_followups_on_operation_id ON transplants_recipient_followups USING btree (operation_id);
+CREATE INDEX index_transplant_donor_operations_on_patient_id ON transplant_donor_operations USING btree (patient_id);
 
 
 --
--- Name: index_transplants_recipient_operations_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_transplant_donor_workups_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_transplants_recipient_operations_on_document ON transplants_recipient_operations USING gin (document);
-
-
---
--- Name: index_transplants_recipient_operations_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_transplants_recipient_operations_on_patient_id ON transplants_recipient_operations USING btree (patient_id);
+CREATE INDEX index_transplant_donor_workups_on_document ON transplant_donor_workups USING gin (document);
 
 
 --
--- Name: index_transplants_recipient_workups_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_transplant_donor_workups_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_transplants_recipient_workups_on_document ON transplants_recipient_workups USING gin (document);
-
-
---
--- Name: index_transplants_recipient_workups_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_transplants_recipient_workups_on_patient_id ON transplants_recipient_workups USING btree (patient_id);
+CREATE INDEX index_transplant_donor_workups_on_patient_id ON transplant_donor_workups USING btree (patient_id);
 
 
 --
--- Name: index_transplants_registration_status_descriptions_on_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_transplant_failure_cause_descriptions_on_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_transplants_registration_status_descriptions_on_code ON transplants_registration_status_descriptions USING btree (code);
-
-
---
--- Name: index_transplants_registration_statuses_on_description_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_transplants_registration_statuses_on_description_id ON transplants_registration_statuses USING btree (description_id);
+CREATE UNIQUE INDEX index_transplant_failure_cause_descriptions_on_code ON transplant_failure_cause_descriptions USING btree (code);
 
 
 --
--- Name: index_transplants_registration_statuses_on_registration_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_transplant_recipient_followups_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_transplants_registration_statuses_on_registration_id ON transplants_registration_statuses USING btree (registration_id);
-
-
---
--- Name: index_transplants_registrations_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_transplants_registrations_on_document ON transplants_registrations USING gin (document);
+CREATE INDEX index_transplant_recipient_followups_on_document ON transplant_recipient_followups USING gin (document);
 
 
 --
--- Name: index_transplants_registrations_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_transplant_recipient_followups_on_operation_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_transplants_registrations_on_patient_id ON transplants_registrations USING btree (patient_id);
+CREATE INDEX index_transplant_recipient_followups_on_operation_id ON transplant_recipient_followups USING btree (operation_id);
+
+
+--
+-- Name: index_transplant_recipient_operations_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplant_recipient_operations_on_document ON transplant_recipient_operations USING gin (document);
+
+
+--
+-- Name: index_transplant_recipient_operations_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplant_recipient_operations_on_patient_id ON transplant_recipient_operations USING btree (patient_id);
+
+
+--
+-- Name: index_transplant_recipient_workups_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplant_recipient_workups_on_document ON transplant_recipient_workups USING gin (document);
+
+
+--
+-- Name: index_transplant_recipient_workups_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplant_recipient_workups_on_patient_id ON transplant_recipient_workups USING btree (patient_id);
+
+
+--
+-- Name: index_transplant_registration_status_descriptions_on_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplant_registration_status_descriptions_on_code ON transplant_registration_status_descriptions USING btree (code);
+
+
+--
+-- Name: index_transplant_registration_statuses_on_description_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplant_registration_statuses_on_description_id ON transplant_registration_statuses USING btree (description_id);
+
+
+--
+-- Name: index_transplant_registration_statuses_on_registration_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplant_registration_statuses_on_registration_id ON transplant_registration_statuses USING btree (registration_id);
+
+
+--
+-- Name: index_transplant_registrations_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplant_registrations_on_document ON transplant_registrations USING gin (document);
+
+
+--
+-- Name: index_transplant_registrations_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_transplant_registrations_on_patient_id ON transplant_registrations USING btree (patient_id);
 
 
 --
@@ -3167,7 +3167,7 @@ CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (it
 -- Name: tx_versions_type_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX tx_versions_type_id ON transplants_versions USING btree (item_type, item_id);
+CREATE INDEX tx_versions_type_id ON transplant_versions USING btree (item_type, item_id);
 
 
 --
@@ -3186,19 +3186,11 @@ ALTER TABLE ONLY esrf
 
 
 --
--- Name: fk_rails_15ecb734e1; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_0b66891291; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY transplants_donor_workups
-    ADD CONSTRAINT fk_rails_15ecb734e1 FOREIGN KEY (patient_id) REFERENCES patients(id);
-
-
---
--- Name: fk_rails_1882d19c4e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY transplants_recipient_followups
-    ADD CONSTRAINT fk_rails_1882d19c4e FOREIGN KEY (operation_id) REFERENCES transplants_recipient_operations(id);
+ALTER TABLE ONLY transplant_donations
+    ADD CONSTRAINT fk_rails_0b66891291 FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -3226,11 +3218,35 @@ ALTER TABLE ONLY access_accesses
 
 
 --
--- Name: fk_rails_2e34a9e03d; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_32f4ff205a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY transplants_failure_cause_descriptions
-    ADD CONSTRAINT fk_rails_2e34a9e03d FOREIGN KEY (group_id) REFERENCES transplants_failure_cause_description_groups(id);
+ALTER TABLE ONLY transplant_registration_statuses
+    ADD CONSTRAINT fk_rails_32f4ff205a FOREIGN KEY (registration_id) REFERENCES transplant_registrations(id);
+
+
+--
+-- Name: fk_rails_33f3612955; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplant_registrations
+    ADD CONSTRAINT fk_rails_33f3612955 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_36cb307ab5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplant_registration_statuses
+    ADD CONSTRAINT fk_rails_36cb307ab5 FOREIGN KEY (description_id) REFERENCES transplant_registration_status_descriptions(id);
+
+
+--
+-- Name: fk_rails_3a852d1667; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplant_recipient_operations
+    ADD CONSTRAINT fk_rails_3a852d1667 FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -3250,19 +3266,19 @@ ALTER TABLE ONLY problems
 
 
 --
--- Name: fk_rails_4a82546fd1; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY transplants_recipient_followups
-    ADD CONSTRAINT fk_rails_4a82546fd1 FOREIGN KEY (transplant_failure_cause_description_id) REFERENCES transplants_failure_cause_descriptions(id);
-
-
---
 -- Name: fk_rails_537ced9729; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY medications
     ADD CONSTRAINT fk_rails_537ced9729 FOREIGN KEY (drug_id) REFERENCES drugs(id);
+
+
+--
+-- Name: fk_rails_571a3cadda; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplant_recipient_workups
+    ADD CONSTRAINT fk_rails_571a3cadda FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -3282,27 +3298,11 @@ ALTER TABLE ONLY patients
 
 
 --
--- Name: fk_rails_5ba03b9685; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_6893ba0593; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY transplants_donor_followups
-    ADD CONSTRAINT fk_rails_5ba03b9685 FOREIGN KEY (operation_id) REFERENCES transplants_donor_operations(id);
-
-
---
--- Name: fk_rails_5cec617c65; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY transplants_recipient_operations
-    ADD CONSTRAINT fk_rails_5cec617c65 FOREIGN KEY (hospital_centre_id) REFERENCES hospital_centres(id);
-
-
---
--- Name: fk_rails_6de0aa89c3; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY transplants_recipient_operations
-    ADD CONSTRAINT fk_rails_6de0aa89c3 FOREIGN KEY (patient_id) REFERENCES patients(id);
+ALTER TABLE ONLY transplant_recipient_followups
+    ADD CONSTRAINT fk_rails_6893ba0593 FOREIGN KEY (transplant_failure_cause_description_id) REFERENCES transplant_failure_cause_descriptions(id);
 
 
 --
@@ -3322,11 +3322,11 @@ ALTER TABLE ONLY events
 
 
 --
--- Name: fk_rails_7a34c78c5d; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_78dc63040c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY transplants_donor_operations
-    ADD CONSTRAINT fk_rails_7a34c78c5d FOREIGN KEY (patient_id) REFERENCES patients(id);
+ALTER TABLE ONLY transplant_recipient_followups
+    ADD CONSTRAINT fk_rails_78dc63040c FOREIGN KEY (operation_id) REFERENCES transplant_recipient_operations(id);
 
 
 --
@@ -3362,11 +3362,19 @@ ALTER TABLE ONLY pd_regime_bags
 
 
 --
--- Name: fk_rails_8d07edb903; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_9183cb4170; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY transplants_donations
-    ADD CONSTRAINT fk_rails_8d07edb903 FOREIGN KEY (patient_id) REFERENCES patients(id);
+ALTER TABLE ONLY transplant_failure_cause_descriptions
+    ADD CONSTRAINT fk_rails_9183cb4170 FOREIGN KEY (group_id) REFERENCES transplant_failure_cause_description_groups(id);
+
+
+--
+-- Name: fk_rails_93dc1108f3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplant_donor_workups
+    ADD CONSTRAINT fk_rails_93dc1108f3 FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -3375,14 +3383,6 @@ ALTER TABLE ONLY transplants_donations
 
 ALTER TABLE ONLY access_accesses
     ADD CONSTRAINT fk_rails_95191c0b7e FOREIGN KEY (description_id) REFERENCES access_descriptions(id);
-
-
---
--- Name: fk_rails_9646f7f1b0; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY transplants_registration_statuses
-    ADD CONSTRAINT fk_rails_9646f7f1b0 FOREIGN KEY (description_id) REFERENCES transplants_registration_status_descriptions(id);
 
 
 --
@@ -3402,11 +3402,11 @@ ALTER TABLE ONLY infection_organisms
 
 
 --
--- Name: fk_rails_b298a0b037; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_b6ee03185c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY transplants_registration_statuses
-    ADD CONSTRAINT fk_rails_b298a0b037 FOREIGN KEY (registration_id) REFERENCES transplants_registrations(id);
+ALTER TABLE ONLY transplant_donor_operations
+    ADD CONSTRAINT fk_rails_b6ee03185c FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -3415,6 +3415,14 @@ ALTER TABLE ONLY transplants_registration_statuses
 
 ALTER TABLE ONLY clinic_visits
     ADD CONSTRAINT fk_rails_b844dc9537 FOREIGN KEY (clinic_id) REFERENCES clinics(id);
+
+
+--
+-- Name: fk_rails_c75064199c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplant_donor_followups
+    ADD CONSTRAINT fk_rails_c75064199c FOREIGN KEY (operation_id) REFERENCES transplant_donor_operations(id);
 
 
 --
@@ -3450,6 +3458,14 @@ ALTER TABLE ONLY events
 
 
 --
+-- Name: fk_rails_e41edf9bc0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplant_recipient_operations
+    ADD CONSTRAINT fk_rails_e41edf9bc0 FOREIGN KEY (hospital_centre_id) REFERENCES hospital_centres(id);
+
+
+--
 -- Name: fk_rails_e62bb4757f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3471,22 +3487,6 @@ ALTER TABLE ONLY letters
 
 ALTER TABLE ONLY modalities
     ADD CONSTRAINT fk_rails_e6f46cbf1d FOREIGN KEY (description_id) REFERENCES modality_descriptions(id);
-
-
---
--- Name: fk_rails_f1ec17170e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY transplants_registrations
-    ADD CONSTRAINT fk_rails_f1ec17170e FOREIGN KEY (patient_id) REFERENCES patients(id);
-
-
---
--- Name: fk_rails_f38bf6647a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY transplants_recipient_workups
-    ADD CONSTRAINT fk_rails_f38bf6647a FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
