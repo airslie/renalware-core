@@ -8,7 +8,6 @@ begin
   #   edta_codes
   #   episode_types
   #   event_types
-  #   etchnicities
   #   fluid_description
   #   modality_codes
   #   modality_reasons
@@ -22,6 +21,7 @@ begin
     drugs
     drug_types
     drug_types_drugs
+    ethnicities
     hospital_centres
     medication_routes
     organism_codes

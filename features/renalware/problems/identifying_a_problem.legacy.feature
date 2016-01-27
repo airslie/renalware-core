@@ -2,7 +2,6 @@ Feature: Identifying a problem
 
 Background:
   Given that I'm logged in
-    And there are ethnicities in the database
     And some patients who need renal treatment
     And they are on a patient's clinical summary
 

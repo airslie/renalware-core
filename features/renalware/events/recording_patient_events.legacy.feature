@@ -1,8 +1,7 @@
 Feature: A Doctor records a patient event
 
 Background:
-  Given there are ethnicities in the database
-    And there are modality codes in the database
+  Given there are modality codes in the database
     And there are modality reasons in the database
     And there are edta causes of death in the database
     And there are existing event types in the database
