@@ -44,8 +44,8 @@ module Renalware
         class QueryableRegistration < ActiveType::Record[Registration]
           scope :current_status_in, -> (codes = %w(active)) {
             joins(statuses: :description)
-              .where(transplants_registration_statuses: { terminated_on: nil })
-              .where(transplants_registration_status_descriptions: { code: codes })
+              .where(transplant_registration_statuses: { terminated_on: nil })
+              .where(transplant_registration_status_descriptions: { code: codes })
           }
           scope :nhb_consent_eq, -> (enum = "yes") {
             where("document @> ?", { nhb_consent: { value: enum } }.to_json )
