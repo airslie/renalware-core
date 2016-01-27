@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Transplants Registration Statuses--------------------'
+  log '--------------------Adding Transplant Registration Statuses--------------------'
 
   statuses = [
     [:active, "Active"],
