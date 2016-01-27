@@ -24,8 +24,8 @@ Then(/^I should see the date of death and causes of death in the patient's demog
   visit patient_path(@patient_1)
 
   expect(page).to have_content("22-09-2014")
-  expect(page).to have_content("Death cause one")
-  expect(page).to have_content("Death cause two")
+  expect(page).to have_content("Dementia")
+  expect(page).to have_content("Cachexia")
 end
 
 Then(/^I should see the patient on the death list$/) do
@@ -40,8 +40,8 @@ When(/^I complete the cause of death form$/) do
 
   fill_in "Date of Death", with: "22-09-2014"
 
-  select "Death cause one", from: "EDTA Cause of Death (1)"
-  select "Death cause two", from: "EDTA Cause of Death (2)"
+  select "Dementia", from: "EDTA Cause of Death (1)"
+  select "Cachexia", from: "EDTA Cause of Death (2)"
 
   fill_in "Notes", with: "Heart stopped"
 

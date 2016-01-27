@@ -5,7 +5,6 @@ begin
   # TODO: NJH add comment why this here
   # exceptions = %w(
   #   bag_types
-  #   edta_codes
   #   episode_types
   #   fluid_description
   #   organism_codes
@@ -18,6 +17,7 @@ begin
     drugs
     drug_types
     drug_types_drugs
+    edta_codes
     ethnicities
     event_types
     hospital_centres
