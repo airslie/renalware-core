@@ -33,13 +33,3 @@ Given(/^existing drugs have been assigned drug types$/) do
   @vancomycin.drug_types << @antibiotic
   @vancomycin.drug_types << @peritonitis
 end
-
-When(/^I search for a drug by name$/) do
-  fill_in "Drug", :with => "Red"
-end
-
-Then(/^they should see the list of drugs listed in the dropdown$/) do
-  within(".drug-results") do
-    expect(page).to have_css("li", :text => "Red")
-  end
-end
