@@ -39,3 +39,7 @@ Given(/^some patients who need renal treatment$/) do
     hospital_centre_code: "999"
   )
 end
+
+Given(/^they are on a patient's clinical summary$/) do
+  visit patient_clinical_summary_path(@patient_1)
+end
