@@ -7,7 +7,6 @@ begin
   #   bag_types
   #   edta_codes
   #   episode_types
-  #   event_types
   #   fluid_description
   #   organism_codes
   #   prd_descriptions
@@ -20,6 +19,7 @@ begin
     drug_types
     drug_types_drugs
     ethnicities
+    event_types
     hospital_centres
     medication_routes
     modality_descriptions
