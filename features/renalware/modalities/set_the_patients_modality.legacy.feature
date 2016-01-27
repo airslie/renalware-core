@@ -2,7 +2,6 @@ Feature: Set the patient's modality
 
   Background:
     Given that I'm logged in
-      And there are modality reasons in the database
       And there are edta causes of death in the database
       And some patients who need renal treatment
 

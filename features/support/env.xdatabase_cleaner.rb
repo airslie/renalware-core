@@ -9,7 +9,6 @@ begin
   #   episode_types
   #   event_types
   #   fluid_description
-  #   modality_reasons
   #   organism_codes
   #   prd_descriptions
   #   roles
@@ -24,6 +23,7 @@ begin
     hospital_centres
     medication_routes
     modality_descriptions
+    modality_reasons
     organism_codes
     transplant_registration_status_descriptions
   )
