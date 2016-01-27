@@ -1,15 +1,5 @@
-Given(/^that I'm logged in$/) do
-  @user ||= FactoryGirl.create(:user, :approved, :super_admin)
-  login_as @user
-end
-
 Given(/^I am on the patients list$/) do
   visit patients_path
-end
-
-Given(/^there are ethnicities in the database$/) do
-  @ethnicities = ["White", "Black", "Asian"]
-  @ethnicities.map! { |e| Renalware::Ethnicity.create!(name: e) }
 end
 
 Given(/^some patients who need renal treatment$/) do
