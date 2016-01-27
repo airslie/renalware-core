@@ -1,4 +1,3 @@
-@legacy
 Feature: A Clinician manages a patient's PD regimes
 
   Background:
