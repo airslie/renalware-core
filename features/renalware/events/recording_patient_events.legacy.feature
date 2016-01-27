@@ -8,8 +8,6 @@ Background:
     And Clyde is on Patty's event index
 
 Scenario: Clyde records an event for Patty
-  Note: Event also known as an "encounter"
-
   When Clyde chooses to add an event
     And records Patty's event
   Then Clyde should see Patty's new event on the clinical summary
