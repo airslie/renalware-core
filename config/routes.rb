@@ -106,5 +106,13 @@ Rails.application.routes.draw do
     end
 
     resources :snomed, only: [:index]
+
+    namespace :system do
+      resources :email_templates, only: :index
+    end
   end
+
+  # enable mail previews in all environments
+  get "/rails/mailers" => "rails/mailers#index"
+  get "/rails/mailers/*path" => "rails/mailers#preview"
 end
