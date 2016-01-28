@@ -4,7 +4,6 @@ begin
 
   # TODO: NJH add comment why this here
   # exceptions = %w(
-  #   bag_types
   #   episode_types
   #   fluid_description
   #   organism_codes
@@ -13,6 +12,7 @@ begin
   # )
 
   exceptions = %w(
+    bag_types
     drugs
     drug_types
     drug_types_drugs

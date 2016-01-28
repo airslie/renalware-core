@@ -2,7 +2,6 @@ Feature: A Clinician manages a patient's PD regimes
 
   Background:
     Given that I'm logged in
-      And there are PD bag types in the database
       And some patients who need renal treatment
       And a patient has PD
 

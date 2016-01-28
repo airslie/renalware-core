@@ -1,65 +1,3 @@
-Given(/^there are PD bag types in the database$/) do
-  @bag_type_13_6 = FactoryGirl.create(:bag_type,
-    manufacturer: "Sunshine Brand",
-    description: "Blue–1.36",
-    glucose_grams_per_litre: 13.6,
-    amino_acid: false,
-    icodextrin: true,
-    low_glucose_degradation: false,
-    low_sodium: true,
-    sodium_mmole_l: 2,
-    lactate_mmole_l: 3,
-    bicarbonate_mmole_l: 59,
-    calcium_mmole_l: 3.21,
-    magnesium_mmole_l: 6.55
-  )
-
-  @bag_type_22_7 = FactoryGirl.create(:bag_type,
-    manufacturer: "Rainbow Brand",
-    description: "Red–2.27",
-    glucose_grams_per_litre: 22.7,
-    amino_acid: true,
-    icodextrin: true,
-    low_glucose_degradation: false,
-    low_sodium: true,
-    sodium_mmole_l: 7,
-    lactate_mmole_l: 5,
-    bicarbonate_mmole_l: 38,
-    calcium_mmole_l: 4.22,
-    magnesium_mmole_l: 2.35
-  )
-
-  @bag_type_38_6 = FactoryGirl.create(:bag_type,
-    manufacturer: "Unicorn Brand",
-    description: "Green–3.86",
-    glucose_grams_per_litre: 38.6,
-    amino_acid: true,
-    icodextrin: false,
-    low_glucose_degradation: false,
-    low_sodium: true,
-    sodium_mmole_l: 3,
-    lactate_mmole_l: 7,
-    bicarbonate_mmole_l: 26,
-    calcium_mmole_l: 8.28,
-    magnesium_mmole_l: 1.45
-  )
-
-  @bag_type_other = FactoryGirl.create(:bag_type,
-    manufacturer: "Lucky Brand",
-    description: "Orange–5.35",
-    glucose_grams_per_litre: 26.8,
-    amino_acid: true,
-    icodextrin: true,
-    low_glucose_degradation: false,
-    low_sodium: false,
-    sodium_mmole_l: 9,
-    lactate_mmole_l: 10,
-    bicarbonate_mmole_l: 18,
-    calcium_mmole_l: 6.27,
-    magnesium_mmole_l: 3.46
-  )
-end
-
 Given(/^a patient has PD$/) do
   description = Renalware::Modalities::Description.find_by!(code: "PD_APD")
   FactoryGirl.create(:modality, patient: @patient_1, description: description)
@@ -76,7 +14,9 @@ Given(/^I choose to record a new apd regime$/) do
 end
 
 Given(/^a patient has existing CAPD Regimes$/) do
-  @bag_type = FactoryGirl.create(:bag_type)
+  bag_type = Renalware::BagType.find_by!(
+    manufacturer: "Baxter", description: "Nutrineal PD4 (Blue)"
+  )
 
   @capd_regime_1 = FactoryGirl.create(:capd_regime,
     patient: @patient_1,
@@ -87,7 +27,7 @@ Given(/^a patient has existing CAPD Regimes$/) do
     icodextrin_ml: 51,
     add_hd: false,
     pd_regime_bags_attributes: [
-      bag_type: @bag_type_13_6,
+      bag_type: bag_type,
       volume: 600,
       sunday: true,
       monday: true,
@@ -99,6 +39,9 @@ Given(/^a patient has existing CAPD Regimes$/) do
     ]
   )
 
+  bag_type = Renalware::BagType.find_by!(
+    manufacturer: "Baxter", description: "Extraneal (Icodextrin 7.5%) (Purple)"
+  )
   @capd_regime_2 = FactoryGirl.create(:capd_regime,
     patient: @patient_1,
     start_date: "02-04-2015",
@@ -108,7 +51,7 @@ Given(/^a patient has existing CAPD Regimes$/) do
     icodextrin_ml: 52,
     add_hd: false,
     pd_regime_bags_attributes: [
-      bag_type: @bag_type_13_6,
+      bag_type: bag_type,
       volume: 600,
       sunday: true,
       monday: true,
@@ -123,6 +66,10 @@ Given(/^a patient has existing CAPD Regimes$/) do
 end
 
 Given(/^a patient has existing APD Regimes$/) do
+  bag_type = Renalware::BagType.find_by!(
+    manufacturer: "Baxter", description: "Nutrineal PD4 (Blue)"
+  )
+
   @apd_regime_1 = FactoryGirl.create(:apd_regime,
     patient: @patient_1,
     start_date: "17-06-2015",
@@ -138,7 +85,7 @@ Given(/^a patient has existing APD Regimes$/) do
     no_cycles_per_apd: 3,
     overnight_pd_ml: 7600,
     pd_regime_bags_attributes: [
-      bag_type: @bag_type_22_7,
+      bag_type: bag_type,
       volume: 600,
       sunday: true,
       monday: true,
@@ -148,6 +95,10 @@ Given(/^a patient has existing APD Regimes$/) do
       friday: true,
       saturday: true
     ]
+  )
+
+  bag_type = Renalware::BagType.find_by!(
+    manufacturer: "Baxter", description: "Extraneal (Icodextrin 7.5%) (Purple)"
   )
 
   @apd_regime_2 = FactoryGirl.create(:apd_regime,
@@ -165,7 +116,7 @@ Given(/^a patient has existing APD Regimes$/) do
     no_cycles_per_apd: 4,
     overnight_pd_ml: 7800,
     pd_regime_bags_attributes: [
-      bag_type: @bag_type_38_6,
+      bag_type: bag_type,
       volume: 2000,
       sunday: true,
       monday: false,
@@ -194,7 +145,7 @@ When(/^I complete the form for a capd regime$/) do
 
   find("input.add-bag").click
 
-  select("Sunshine Brand Blue–1.36", from: "Bag Type")
+  select("Baxter Nutrineal PD4 (Blue)", from: "Bag Type")
 
   select("2500", from: "Volume (ml)")
 
@@ -217,7 +168,7 @@ When(/^I complete the form for a apd regime$/) do
 
   find("input.add-bag").click
 
-  select("Unicorn Brand Green–3.86", from: "Bag Type")
+  select("Baxter Nutrineal PD4 (Blue)", from: "Bag Type")
   select("4000", from: "Volume (ml)")
   uncheck "Tuesday"
   uncheck "Wednesday"
@@ -295,7 +246,7 @@ Then(/^I should see the new capd regime on the PD info page$/) do
 
   #average daily glucose
   within("table.capd-regimes tbody tr:first-child td:nth-child(5)") do
-    expect(page).to have_content("1786")
+    expect(page).to have_content("0")
   end
 
   within("table.capd-regimes tbody tr:first-child td:nth-child(6)") do
@@ -324,7 +275,7 @@ Then(/^I should see the new apd regime on the PD info page$/) do
   end
 
   within("table.apd-regimes tbody tr:first-child td:nth-child(7)") do
-    expect(page).to have_content("171")
+    expect(page).to have_content("0")
   end
 end
 
@@ -337,13 +288,13 @@ Then(/^the new capd regime should be current$/) do
     expect(page).to have_content("Yes")
 
     #average daily glucose
-    expect(page).to have_content("1.36 % 1786 ml")
+    expect(page).to have_content("1.36 % 0 ml")
     expect(page).to have_content("2.27 % 0 ml")
     expect(page).to have_content("3.86 % 0 ml")
 
     #pd regime bags
     expect(page).to have_content(
-      "Bag type: Blue–1.36, Volume: 2500ml, No. per week: 5, Days: Sun, Mon, Wed, Thu, Fri"
+      "Bag type: Nutrineal PD4 (Blue), Volume: 2500ml, No. per week: 5, Days: Sun, Mon, Wed, Thu, Fri"
     )
   end
 end
@@ -358,11 +309,11 @@ Then(/^the new apd regime should be current$/) do
 
     expect(page).to have_content("1.36 % 0 ml")
     expect(page).to have_content("2.27 % 0 ml")
-    expect(page).to have_content("3.86 % 1714 ml")
+    expect(page).to have_content("3.86 % 0 ml")
 
     #pd regime bags
     expect(page).to have_content(
-      "Bag type: Green–3.86, Volume: 4000ml, No. per week: 3, Days: Sun, Mon, Thu"
+      "Nutrineal PD4 (Blue), Volume: 4000ml, No. per week: 3, Days: Sun, Mon, Thu"
     )
 
     expect(page).to have_content("Last Fill: 520")
@@ -397,11 +348,11 @@ Then(/^I should see the chosen capd regime details$/) do
   #saved bag for this regime:
   #bag 1
   expect(page).to have_content(
-    "Bag type: Blue–1.36, Volume: 600ml, No. per week: 6, Days: Sun, Mon, Wed, Thu, Fri, Sat"
+    "Bag type: Extraneal (Icodextrin 7.5%) (Purple), Volume: 600ml, No. per week: 6, Days: Sun, Mon, Wed, Thu, Fri, Sat"
   )
 
   #average daily glucose calculated from bags
-  expect(page).to have_content("1.36% 514 ml")
+  expect(page).to have_content("1.36% 0 ml")
   expect(page).to have_content("2.27% 0 ml")
   expect(page).to have_content("3.86% 0 ml")
 end
@@ -429,12 +380,12 @@ Then(/^I should see the chosen apd regime details$/) do
   #saved bag for this regime:
   #bag 1
   expect(page).to have_content(
-    "Bag type: Green–3.86, Volume: 2000ml, No. per week: 5, Days: Sun, Tue, Wed, Thu, Sat"
+    "Bag type: Extraneal (Icodextrin 7.5%) (Purple), Volume: 2000ml, No. per week: 5, Days: Sun, Tue, Wed, Thu, Sat"
   )
 
   #average daily glucose calculated from bags
   expect(page).to have_content("1.36% 0 ml")
   expect(page).to have_content("2.27% 0 ml")
-  expect(page).to have_content("3.86% 1429 ml")
+  expect(page).to have_content("3.86% 0 ml")
 end
 
