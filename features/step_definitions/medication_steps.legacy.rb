@@ -1,20 +1,3 @@
-Given(/^there are medication routes in the database$/) do
-  @medication_routes = [
-    ["PO", "Per Oral"], ["IV", "Intravenous"],
-    ["SC", "Subcutaneous"], ["IM", "Intramuscular"],
-    ["Other (Please specify in notes)", "Other (Refer to notes)"]
-  ]
-  @medication_routes.map! do |mroute|
-    Renalware::MedicationRoute.create!(name: mroute[0], full_name: mroute[1])
-  end
-
-  @po = @medication_routes[0]
-  @iv = @medication_routes[1]
-  @sc = @medication_routes[2]
-  @im = @medication_routes[3]
-  @other_med_route = @medication_routes[4]
-end
-
 When(/^they add a medication$/) do
   visit patient_medications_path(@patient_1,
     treatable_type: @patient_1.class, treatable_id: @patient_1.id)

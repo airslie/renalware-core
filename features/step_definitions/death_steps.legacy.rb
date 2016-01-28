@@ -1,8 +1,3 @@
-Given(/^there are edta causes of death in the database$/) do
-  FactoryGirl.create(:edta_code, code: 100, death_cause: "Death cause one")
-  FactoryGirl.create(:edta_code, code: 200, death_cause: "Death cause two")
-end
-
 When(/^I select death modality$/) do
   within "#modality-description-select" do
     select "Death"
