@@ -5,7 +5,8 @@ module Renalware
     def index
       @treatable = treatable_class.find(treatable_id)
 
-      @medications = @treatable.medications
+      @q = medications_query
+      @medications = @q.result
     end
 
     def new
@@ -62,6 +63,12 @@ module Renalware
 
     def treatable_id
       params.fetch(:treatable_id)
+    end
+
+    def medications_query
+      @treatable.medications.search(params[:q]).tap do | query|
+        query.sorts = ["start_date desc"] if query.sorts.empty?
+      end
     end
   end
 end
