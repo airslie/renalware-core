@@ -3,10 +3,6 @@ require './spec/support/login_macros'
 
 module Renalware
   RSpec.describe PDRegimeBag, type: :model do
-
-    it { should belong_to :bag_type }
-    it { should belong_to :pd_regime }
-
     it { should validate_presence_of :bag_type }
     it { should validate_presence_of :volume }
 

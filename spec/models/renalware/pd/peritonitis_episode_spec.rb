@@ -4,19 +4,6 @@ module Renalware
   RSpec.describe PeritonitisEpisode, :type => :model do
     include DrugsSpecHelper
 
-    it { should belong_to(:patient) }
-    it { should belong_to(:episode_type) }
-    it { should belong_to(:fluid_description) }
-
-    it { should have_many(:medications) }
-    it { should have_many(:medication_routes).through(:medications) }
-    it { should have_many(:patients).through(:medications) }
-    it { should have_many(:infection_organisms) }
-    it { should have_many(:organism_codes).through(:infection_organisms) }
-
-    it { should accept_nested_attributes_for(:medications) }
-    it { should accept_nested_attributes_for(:infection_organisms) }
-
     it { should validate_presence_of :patient }
     it { should validate_presence_of :diagnosis_date }
 

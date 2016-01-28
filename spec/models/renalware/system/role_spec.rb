@@ -2,8 +2,6 @@ require 'rails_helper'
 
 module Renalware
   describe Role, type: :model do
-    it { should have_and_belong_to_many :users }
-
     describe ".fetch" do
       context "given an empty collection of id's" do
         it "returns none" do

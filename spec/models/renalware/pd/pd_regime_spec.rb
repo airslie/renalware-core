@@ -3,12 +3,6 @@ require './spec/support/login_macros'
 
 module Renalware
   RSpec.describe PDRegime, type: :model do
-
-    it { should belong_to :patient }
-
-    it { should have_many :pd_regime_bags }
-    it { should have_many(:bag_types).through(:pd_regime_bags) }
-
     it { should validate_presence_of :patient }
     it { should validate_presence_of :start_date }
     it { should validate_presence_of :treatment }
