@@ -16,3 +16,8 @@ li.has-dropdown
     - if current_user_is_admin?
       li
         = link_to 'Users', admin_users_path
+      li
+        = link_to 'Preview Approval Emails', "rails/mailers/renalware/admin/user_mailer/approval"
+      li
+        = link_to 'Preview Unexpiry Emails', "rails/mailers/renalware/admin/user_mailer/unexpiry"
+
