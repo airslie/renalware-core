@@ -737,6 +737,42 @@ ALTER SEQUENCE hospital_centres_id_seq OWNED BY hospital_centres.id;
 
 
 --
+-- Name: hospital_units; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE hospital_units (
+    id integer NOT NULL,
+    hospital_centre_id integer NOT NULL,
+    name character varying NOT NULL,
+    unit_code character varying NOT NULL,
+    renal_registry_code character varying NOT NULL,
+    unit_type character varying NOT NULL,
+    is_hd_site boolean DEFAULT false,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hospital_units_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE hospital_units_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hospital_units_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE hospital_units_id_seq OWNED BY hospital_units.id;
+
+
+--
 -- Name: infection_organisms; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2162,6 +2198,13 @@ ALTER TABLE ONLY hospital_centres ALTER COLUMN id SET DEFAULT nextval('hospital_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY hospital_units ALTER COLUMN id SET DEFAULT nextval('hospital_units_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY infection_organisms ALTER COLUMN id SET DEFAULT nextval('infection_organisms_id_seq'::regclass);
 
 
@@ -2554,6 +2597,14 @@ ALTER TABLE ONLY hd_preference_sets
 
 ALTER TABLE ONLY hospital_centres
     ADD CONSTRAINT hospital_centres_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hospital_units_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY hospital_units
+    ADD CONSTRAINT hospital_units_pkey PRIMARY KEY (id);
 
 
 --
@@ -3412,6 +3463,14 @@ ALTER TABLE ONLY pd_regime_bags
 
 
 --
+-- Name: fk_rails_8f3a7fc1c7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hospital_units
+    ADD CONSTRAINT fk_rails_8f3a7fc1c7 FOREIGN KEY (hospital_centre_id) REFERENCES hospital_centres(id);
+
+
+--
 -- Name: fk_rails_9183cb4170; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3692,6 +3751,8 @@ INSERT INTO schema_migrations (version) VALUES ('20151207163304');
 INSERT INTO schema_migrations (version) VALUES ('20151207167020');
 
 INSERT INTO schema_migrations (version) VALUES ('20160106167020');
+
+INSERT INTO schema_migrations (version) VALUES ('20160114222043');
 
 INSERT INTO schema_migrations (version) VALUES ('20160120203748');
 

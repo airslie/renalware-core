@@ -11,3 +11,4 @@ admin:
   - Renalware::Modality::Description
   - Renalware::OrganismCode
   - Renalware::PRDDescription
+  - Renalware::Hospitals::Unit

@@ -1,0 +1,28 @@
+.row
+  = render 'header'
+
+.row
+  table.auto-layout
+    thead
+      tr
+        th
+        th Code
+        th Name
+        th Hospital Centre
+        th Type
+        th NRD Code
+        th HD Site?
+    tbody
+      - @hospital_units.each do |t|
+        tr
+          td
+            = link_to "Edit", edit_hospitals_unit_path(t.id)
+            = pipe_separator
+            = link_to "Delete", hospitals_unit_path(t.id), id: "#{t.id}-pet", method: :delete,
+              data: {confirm: I18n.t("prompts.confirm_delete") }
+          td= t.unit_code
+          td= t.name
+          td= t.hospital_centre
+          td= t.unit_type.text
+          td= t.renal_registry_code
+          td= yes_no t.is_hd_site
