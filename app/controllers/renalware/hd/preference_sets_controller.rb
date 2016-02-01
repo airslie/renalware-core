@@ -22,7 +22,9 @@ module Renalware
       private
 
       def preference_set_params
-        params.require(:hd_preference_set).permit(:schedule, :other_schedule, :hospital_unit_id)
+        params.require(:hd_preference_set).permit(
+          :schedule, :other_schedule, :hospital_unit_id, :entered_on, :notes
+        )
       end
     end
   end

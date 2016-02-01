@@ -17,6 +17,7 @@ module Renalware
       validates :patient, presence: true
       validates :other_schedule, presence: true,
           if: ->(o) { o.schedule.try(:text) =~ /specify/ }
+      validates :entered_on, timeliness: { type: :date, allow_blank: true }
     end
   end
 end
