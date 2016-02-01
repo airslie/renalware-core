@@ -7,10 +7,11 @@ fieldset
         dl
           dt Schedule:
           dd
-            - if @preference_set.schedule.other?
-              = @preference_set.other_schedule
-            - else
-              = @preference_set.schedule.text
+            - if @preference_set.schedule
+              - if @preference_set.schedule.other?
+                = @preference_set.other_schedule
+              - else
+                = @preference_set.schedule.text
 
       .large-3.columns
         dl
