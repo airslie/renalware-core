@@ -1,0 +1,15 @@
+en:
+  activerecord:
+    renalware/hd/preference_set:
+      schedule: Schedule
+      other_schedule: Other Schedule
+  enumerize:
+    renalware/hd/preference_set:
+      schedule:
+        mon_wed_fri_am: "Mon, Wed, Fri AM"
+        mon_wed_fri_pm: "Mon, Wed, Fri PM"
+        mon_wed_fri_eve: "Mon, Wed, Fri Evening"
+        tue_thu_sat_am: "Tue, Thu, Sat AM"
+        tue_thu_sat_pm: "Tue, Thu, Sat PM"
+        tue_thu_sat_eve: "Tue, Thu, Sat Evening"
+        other: "Other (specify)"

@@ -12,7 +12,7 @@ module World
       def set_up_hd_preferences_for(patient)
         Renalware::Hd::PreferenceSet.create!(
           patient: patient,
-          schedule: "MonWedFri PM"
+          schedule: :mon_wed_fri_am
         )
       end
 
@@ -52,7 +52,7 @@ module World
         visit patient_hd_dashboard_path(patient)
         click_on "Enter preferences"
 
-        fill_in "Schedule", with: "MonWedFri PM"
+        select "Mon, Wed, Fri AM", from: "Schedule"
 
         click_on "Save"
       end
@@ -62,7 +62,7 @@ module World
         visit patient_hd_dashboard_path(patient)
         click_on "Edit"
 
-        fill_in "Schedule", with: "MonWedFri AM"
+        select "Mon, Wed, Fri PM", from: "Schedule"
 
         click_on "Save"
       end

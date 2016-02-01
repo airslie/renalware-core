@@ -4,8 +4,13 @@ ruby:
 .form-content
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Preferences", name: "preferences" } do
-    = f.input :schedule
-    = f.input :other_schedule
+    = f.input :schedule, input_html: { class: "small-input" }
+    = f.input :other_schedule, input_html: { class: "small-input" }
+    = f.association :hospital_unit,
+        as: :grouped_select,
+        group_method: :hd_sites,
+        collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
+        label_method: :to_s
 
 .row
   .large-12.columns
