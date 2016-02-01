@@ -10,6 +10,7 @@ module Renalware
       validates :code, presence: true
 
       PD_NAMES = ["PD-APD", "PD-CAPD", "PD Rest on HD", "PD-Assisted APD", "PD-PrePD"]
+      HD_NAMES = ["Home HD", "Unit HD", "HD Ward", "HD-ARF", "PD-PrePD"]
 
       def self.policy_class
         BasePolicy
@@ -21,6 +22,10 @@ module Renalware
 
       def pd_modality?
         PD_NAMES.include?(name)
+      end
+
+      def hd_modality?
+        HD_NAMES.include?(name)
       end
 
       def donation?

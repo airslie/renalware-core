@@ -667,6 +667,41 @@ ALTER SEQUENCE fluid_descriptions_id_seq OWNED BY fluid_descriptions.id;
 
 
 --
+-- Name: hd_preference_sets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE hd_preference_sets (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    schedule character varying,
+    other_schedule character varying,
+    entered_on date,
+    notes text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hd_preference_sets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE hd_preference_sets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_preference_sets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE hd_preference_sets_id_seq OWNED BY hd_preference_sets.id;
+
+
+--
 -- Name: hospital_centres; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2113,6 +2148,13 @@ ALTER TABLE ONLY fluid_descriptions ALTER COLUMN id SET DEFAULT nextval('fluid_d
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY hd_preference_sets ALTER COLUMN id SET DEFAULT nextval('hd_preference_sets_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY hospital_centres ALTER COLUMN id SET DEFAULT nextval('hospital_centres_id_seq'::regclass);
 
 
@@ -2496,6 +2538,14 @@ ALTER TABLE ONLY exit_site_infections
 
 ALTER TABLE ONLY fluid_descriptions
     ADD CONSTRAINT fluid_descriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_preference_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY hd_preference_sets
+    ADD CONSTRAINT hd_preference_sets_pkey PRIMARY KEY (id);
 
 
 --
@@ -3402,6 +3452,14 @@ ALTER TABLE ONLY infection_organisms
 
 
 --
+-- Name: fk_rails_ac8e970c42; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_preference_sets
+    ADD CONSTRAINT fk_rails_ac8e970c42 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: fk_rails_b6ee03185c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3640,4 +3698,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160120203748');
 INSERT INTO schema_migrations (version) VALUES ('20160120203754');
 
 INSERT INTO schema_migrations (version) VALUES ('20160120203755');
+
+INSERT INTO schema_migrations (version) VALUES ('20160121175712');
 

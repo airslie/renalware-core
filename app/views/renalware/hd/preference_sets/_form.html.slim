@@ -1,0 +1,14 @@
+ruby:
+  back_path = patient_hd_dashboard_path(@patient)
+
+.form-content
+  = render layout: "renalware/shared/fieldset",
+      locals: { legend: "Preferences", name: "preferences" } do
+    = f.input :schedule
+    = f.input :other_schedule
+
+.row
+  .large-12.columns
+    = f.submit 'Save', class: 'button'
+    span= " or "
+    = link_to 'cancel', back_path

@@ -1,5 +1,5 @@
 module Renalware
-  module HD
+  module Hd
     def self.table_name_prefix
       "hd_"
     end

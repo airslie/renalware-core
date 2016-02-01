@@ -1,25 +1,17 @@
-Given(/^Patty has an HD profile$/) do
-  pending # express the regexp above with the code you wish you had
+Given(/^Patty has HD preferences$/) do
+  set_up_hd_preferences_for(@patty)
 end
 
 
-When(/^Clyde records an HD profile for Patty$/) do
-  pending # express the regexp above with the code you wish you had
-end
-
-When(/^Clyde submits an erroneous HD profile$/) do
-  pending # express the regexp above with the code you wish you had
+When(/^Clyde records the HD preferences of Patty$/) do
+  create_hd_preferences(patient: @patty, user: @clyde)
 end
 
 
-Then(/^Patty has a new HD profile$/) do
-  pending # express the regexp above with the code you wish you had
+Then(/^Patty has new HD preferences$/) do
+  expect_hd_preferences_to_exist(@patty)
 end
 
-Then(/^Clyde can update Patty's HD profile$/) do
-  pending # express the regexp above with the code you wish you had
-end
-
-Then(/^the HD profile is not accepted$/) do
-  pending # express the regexp above with the code you wish you had
+Then(/^Clyde can update Patty's HD preferences$/) do
+  update_hd_preferences(patient: @patty, user: @clyde)
 end

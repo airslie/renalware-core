@@ -8,5 +8,9 @@ module Renalware
       patient_modalities.map { |m|m.description.pd_modality? }.include? true
     end
 
+    def display_hd_menu(patient_modalities)
+      patient_modalities.map { |m|m.description.hd_modality? }.include? true
+    end
+
   end
 end

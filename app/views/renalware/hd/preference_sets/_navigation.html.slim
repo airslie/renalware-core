@@ -1,0 +1,4 @@
+- if @preference_set.persisted?
+  dl.sub-nav
+    dd= link_to "HD Summary", patient_hd_dashboard_path(@patient)
+    dd= link_to "Edit", edit_patient_hd_preference_set_path(@patient, @preference_set)
