@@ -27,7 +27,7 @@ fieldset.status-history
             td= operation.operation_type.text
             td= operation.recipient_age_at_operation
             td= operation.document.donor.type.try(:text)
-            td= operation.hospital
+            td= operation.hospital_centre
             - if operation.followup
               td= l operation.followup.transplant_failed_on
               td= operation.followup.transplant_failure_cause_description

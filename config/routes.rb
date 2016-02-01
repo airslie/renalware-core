@@ -37,7 +37,6 @@ Rails.application.routes.draw do
     end
 
     resources :infection_organisms
-    resources :medications, controller: :polymorphic_medications
 
     namespace :modalities do
       resources :descriptions, except: [:show]
@@ -66,8 +65,7 @@ Rails.application.routes.draw do
       resources :exit_site_infections, only: [:new, :create, :show, :edit, :update]
       resources :letters
 
-      resources :medications, only: :index
-      patch "medications", to: "medications#update", as: "medications_batch"
+      resources :medications
 
       resources :modalities, only: [:new, :create, :index], controller: "modalities/modalities"
       resources :pd_regimes, only: [:new, :create, :edit, :update, :show]
@@ -108,5 +106,13 @@ Rails.application.routes.draw do
     end
 
     resources :snomed, only: [:index]
+
+    namespace :system do
+      resources :email_templates, only: :index
+    end
   end
+
+  # enable mail previews in all environments
+  get "/rails/mailers" => "rails/mailers#index"
+  get "/rails/mailers/*path" => "rails/mailers#preview"
 end

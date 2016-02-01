@@ -13,7 +13,7 @@ module World
           theatre_case_start_time: fake_time,
           donor_kidney_removed_from_ice_at: fake_date_time,
           operation_type: "kidney",
-          hospital: transplant_hospital,
+          hospital_centre: transplant_hospital,
           kidney_perfused_with_blood_at: fake_date_time,
           cold_ischaemic_time: fake_time,
           warm_ischaemic_time: fake_time

@@ -10,6 +10,7 @@
         infection_organisms: @exit_site_infection.infection_organisms
 
   = field_set_tag "Antibiotics/Routes" do
-    = render "renalware/polymorphic_medications/index",
+    = render "renalware/medications/index",
+        patient: @patient,
         treatable: @exit_site_infection,
         medications: @exit_site_infection.medications

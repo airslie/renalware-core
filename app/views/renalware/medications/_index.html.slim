@@ -1,0 +1,12 @@
+#medications
+  = render "renalware/medications/table",
+      patient: patient,
+      treatable: treatable,
+      medications: medications
+
+= render "renalware/medications/form",
+    patient: patient,
+    treatable: treatable,
+    medication: Renalware::Medication.new(treatable: treatable),
+    url: patient_medications_path(patient, treatable),
+    form_class: :hidden

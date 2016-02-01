@@ -15,8 +15,8 @@ ruby:
     = f.input :donor_kidney_removed_from_ice_at, as: :datetime_picker
     = f.input :kidney_perfused_with_blood_at, as: :datetime_picker
     = f.input :operation_type, input_html: { class: "small-input" }
-    = f.association :hospital,
-        collection: Renalware::Hospital.performing_transplant.ordered, label_method: :to_s
+    = f.association :hospital_centre,
+        collection: Renalware::Hospitals::Centre.performing_transplant.ordered, label_method: :to_s
     = f.input :cold_ischaemic_time_formatted, as: :string, input_html: { class: "small-input" }
     = f.input :warm_ischaemic_time_formatted, as: :string, input_html: { class: "small-input" }
     = f.input :notes, as: :text, input_html: { rows: 5 }

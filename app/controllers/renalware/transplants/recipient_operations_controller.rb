@@ -53,7 +53,7 @@ module Renalware
         [
           :performed_on, :theatre_case_start_time,
           :donor_kidney_removed_from_ice_at, :kidney_perfused_with_blood_at,
-          :operation_type, :hospital_id,
+          :operation_type, :hospital_centre_id,
           :cold_ischaemic_time_formatted, :warm_ischaemic_time_formatted, :notes,
           :transplant_failed, :failed_on, :failure_cause, :failure_description, :stent_removed_on,
           document: []
