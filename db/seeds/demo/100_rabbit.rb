@@ -143,4 +143,12 @@ module Renalware
   patient = Patient.find_by(local_patient_id: "Z100002")
   description = Modalities::Description.find_by(code: "livedonor")
   patient.set_modality(description: description, started_on: 1.month.ago)
+
+  log '--------------------Assign Unit HD modality to Francois RABBIT-------------------'
+  patient = Patient.find_by(local_patient_id: "Z100003")
+  description = Modalities::Description.find_by(code: "HD_unit")
+  patient.set_modality(description: description, started_on: 1.week.ago)
+
+  log '--------------------Assign some HD preferences to Francois RABBIT-------------------'
+  preference_set = Hd::PreferenceSet.create!(patient: patient, schedule: "mon_wed_fri_am", entered_on: 1.week.ago.to_date)
 end

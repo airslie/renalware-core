@@ -672,8 +672,8 @@ ALTER SEQUENCE fluid_descriptions_id_seq OWNED BY fluid_descriptions.id;
 
 CREATE TABLE hd_preference_sets (
     id integer NOT NULL,
+    patient_id integer NOT NULL,
     hospital_unit_id integer,
-    patient_id integer,
     schedule character varying,
     other_schedule character varying,
     entered_on date,
