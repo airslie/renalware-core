@@ -1,0 +1,6 @@
+$("#medications").html("<%= escape_javascript(
+  render "form", patient: @patient, medication: @medication,
+    treatable: @treatable,
+    url: patient_medication_path(@patient, @medication)
+) %>");
+initDatepickersIn("#medications");

@@ -1,0 +1,57 @@
+.peritonitis-form
+  = field_set_tag "Dates" do
+     = f.input :diagnosis_date, as: :date_picker, label: "Diagnosed on"
+     = f.input :treatment_start_date, as: :date_picker, label: "Treatment start on"
+     = f.input :treatment_end_date, as: :date_picker, label: "Treatment end on"
+
+  .row
+    .large-12.columns
+      = field_set_tag "Outcome" do
+        = f.label :episode_type_id
+        = f.collection_select :episode_type_id, Renalware::EpisodeType.all, :id, :term, { prompt: "Please select episode type" }, class: "episode-type_select"
+
+        = f.check_box :catheter_removed
+        = f.label :catheter_removed
+
+  .row
+    .large-12.columns
+      = field_set_tag "Causes/Symptoms" do
+        = f.check_box :line_break
+        = f.label :line_break
+
+        = f.check_box :exit_site_infection
+        = f.label :exit_site_infection
+
+        = f.check_box :diarrhoea
+        = f.label :diarrhoea
+
+        = f.check_box :abdominal_pain
+        = f.label :abdominal_pain
+
+        = f.label :fluid_description_id
+        = f.collection_select :fluid_description_id, Renalware::FluidDescription.all, :id, :description, { prompt: "Please select description that best describes fluid" }, class: "episode-type_select"
+
+  .row
+    .large-12.columns
+      = field_set_tag "White Cell Count" do
+        .large-4.columns
+          = f.label :white_cell_total, "White Cell Total (x10\u2079)"
+          = f.text_field :white_cell_total
+        .large-2.columns
+          = f.label :white_cell_neutro, "Neutro (%)"
+          = f.text_field :white_cell_neutro
+        .large-2.columns
+          = f.label :white_cell_lympho, "Lympho (%)"
+          = f.text_field :white_cell_lympho
+        .large-2.columns
+          = f.label :white_cell_degen, "Degen (%)"
+          = f.text_field :white_cell_degen
+        .large-2.columns
+          = f.label :white_cell_other, "Other (%)"
+          = f.text_field :white_cell_other
+
+  .row
+    .large-12.columns
+      = field_set_tag "Comments" do
+        = f.label :notes, "Episode notes"
+        = f.text_area :notes, cols: 50, rows: 6

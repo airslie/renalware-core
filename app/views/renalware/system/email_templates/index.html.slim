@@ -1,0 +1,12 @@
+.row
+  .large-12.columns
+    h2 System Email Templates
+
+    p Listed below are previews of the email templates sent by this application.
+
+    dl
+      dt= link_to 'User Approval Email', "/rails/mailers/renalware/admin/user_mailer/approval"
+      dd Sent when an administrator approves a user's registration.
+
+      dt= link_to 'User Reactivated Email', "/rails/mailers/renalware/admin/user_mailer/unexpiry"
+      dd Sent when an administrator reactivates a deactivated user.

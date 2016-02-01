@@ -1,0 +1,5 @@
+var el = "<%= "#" + dom_id(@peritonitis_episode) %>";
+$(el).html("<%= escape_javascript(
+  render "form", patient: @patient, peritonitis_episode: @peritonitis_episode
+) %>");
+initDatepickersIn(el);

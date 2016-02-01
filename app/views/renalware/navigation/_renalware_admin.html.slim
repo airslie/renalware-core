@@ -18,3 +18,6 @@ li.has-dropdown
         = link_to 'Users', admin_users_path
       li
         = link_to "Hospital Units", hospitals_units_path
+    - unless Rails.env.production?
+      li
+        = link_to "Email Templates", system_email_templates_path

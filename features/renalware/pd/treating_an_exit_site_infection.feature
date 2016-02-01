@@ -20,10 +20,10 @@ Feature: Treating an exit site an infection
   Scenario: A clinician terminated an organism for an exit site infection
     Given Clyde recorded an exit site infection for Patty
     And recorded the organism for the infection
-    Then Clyde can terminate the organism
+    Then Clyde can terminate the organism for the infection
 
   @web @javascript
   Scenario: A clinician terminated a medication for an exit site infection
     Given Clyde recorded an exit site infection for Patty
     And recorded the medication for the infection
-    Then Clyde can terminate the medication
+    Then Clyde can terminate the medication for the infection

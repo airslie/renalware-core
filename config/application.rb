@@ -31,5 +31,7 @@ module Renalware
     config.i18n.fallbacks =[:en]
 
     config.active_record.schema_format = :sql
+
+    config.action_mailer.preview_path = Rails.root.join("app", "mailers", "previews")
   end
 end

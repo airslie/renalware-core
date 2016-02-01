@@ -1,5 +1,0 @@
-.select-exit-site-drug
-  = pm.label :drug_id, "Select Drug (exit site drugs only)"
-  = pm.collection_select :drug_id, Renalware::Drugs::Drug.for(:peritonitis), :id, :name, { prompt: "Please select drug used to treat this exit site infection" }, class: "exit-site-drug-select"
-
-  = pm.hidden_field :medicatable_type, value: "Renalware::Drugs::Drug", class: "selected-drug-type"

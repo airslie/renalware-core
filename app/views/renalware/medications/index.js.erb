@@ -1,0 +1,3 @@
+$("#medications").html("<%= escape_javascript(
+  render "table", patient: @patient, treatable: @treatable, medications: @medications
+) %>");

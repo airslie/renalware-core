@@ -12,15 +12,15 @@ module Renalware
     belongs_to :medication_route
 
     validates :patient, presence: true
-
+    validates :treatable, presence: true
     validates :drug, presence: true
     validates :dose, presence: true
-    validates :medication_route_id, presence: true
+    validates :medication_route, presence: true
     validates :frequency, presence: true
     validates :start_date, presence: true
     validates :provider, presence: true
 
-    enum provider: %i(gp hospital home_delivery)
+    enum provider: Provider.codes
 
     def formatted
       [].tap { |ary|

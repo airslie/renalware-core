@@ -2,58 +2,15 @@
 = render layout: "renalware/patients/layout", locals: { title: title } do
 
   = field_set_tag "Episode" do
-    dl
-      dt Last Updated:
-      dd= @peritonitis_episode.updated_at
-
-  = field_set_tag "Treatment" do
-    .row
-      dl
-        .large-6.columns
-          dt Start
-          dl= l @peritonitis_episode.treatment_start_date
-        .large-6.columns
-          dt End
-          dl= l @peritonitis_episode.treatment_end_date
-
-      dl
-        .large-6.columns
-          dt Episode Type
-          dl = default_for_associated(@peritonitis_episode.episode_type, :term, "Unknown")
-        .large-6.columns
-          dt Catheter Removed
-          dl= yes_no(@peritonitis_episode.catheter_removed)
+    = render "details", patient: @patient, peritonitis_episode: @peritonitis_episode
 
   = field_set_tag "Organisms/Sensitivity" do
-    ul.table-data-list
-      = organisms_and_sensitivities(@peritonitis_episode.infection_organisms)
+    = render "renalware/infection_organisms/index",
+        infectable: @peritonitis_episode,
+        infection_organisms: @peritonitis_episode.infection_organisms
 
-  .row
-    .large-6.columns
-      = field_set_tag "White Cell Count" do
-        ul
-          li= "Total: #{default_for_blank_units(@peritonitis_episode.white_cell_total, "x 10\u2079", "N/A")}"
-          li= "Neutro: #{default_for_blank_units(@peritonitis_episode.white_cell_neutro, "%", "N/A")}"
-          li= "Lympho: #{default_for_blank_units(@peritonitis_episode.white_cell_lympho, "%", "N/A")}"
-          li= "Degen: #{default_for_blank_units(@peritonitis_episode.white_cell_degen, "%", "N/A")}"
-          li= "Other: #{default_for_blank_units(@peritonitis_episode.white_cell_other, "%", "N/A")}"
-
-    .large-6.columns
-      = field_set_tag "Causes/Symptoms" do
-        ul.table-data-list
-          li= "Line Break: #{yes_no(@peritonitis_episode.line_break)}"
-          li= "Exit Site Infection: #{yes_no(@peritonitis_episode.exit_site_infection)}"
-          li= "Diarrhoea: #{yes_no(@peritonitis_episode.diarrhoea)}"
-          li= "Abdominal Pain: #{yes_no(@peritonitis_episode.abdominal_pain)}"
-          li= "Fluid Description: #{default_for_associated(@peritonitis_episode.fluid_description, :description, "N/A")}"
-
-  .row
-    .large-6.columns
-      = field_set_tag "Antibiotics/Routes" do
-        ul.table-data-list
-          = medication_and_route(@peritonitis_episode.medications)
-
-  .row
-    .large-12.columns
-      = field_set_tag "Peritonitis Episode Notes" do
-        p= @peritonitis_episode.notes
+  = field_set_tag "antibiotics/routes" do
+    = render "renalware/medications/index",
+        patient: @patient,
+        treatable: @peritonitis_episode,
+        medications: @peritonitis_episode.medications

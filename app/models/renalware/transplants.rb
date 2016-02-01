@@ -1,7 +1,7 @@
 module Renalware
   module Transplants
     def self.table_name_prefix
-      "transplants_"
+      "transplant_"
     end
   end
 end
