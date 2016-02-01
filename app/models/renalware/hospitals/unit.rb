@@ -15,8 +15,15 @@ module Renalware
 
       enumerize :unit_type, in: %i(hospital satellite home)
 
+      scope :ordered, -> { order(:name) }
+      scope :hd_sites, -> { where(is_hd_site: true) }
+
       def self.policy_class
         BasePolicy
+      end
+
+      def to_s
+        "#{name} (#{unit_code})"
       end
     end
   end
