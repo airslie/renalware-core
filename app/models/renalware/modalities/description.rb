@@ -9,8 +9,8 @@ module Renalware
       validates :name, presence: true
       validates :code, presence: true
 
-      PD_NAMES = ["PD-APD", "PD-CAPD", "PD Rest on HD", "PD-Assisted APD", "PD-PrePD"]
-      HD_NAMES = ["Home HD", "Unit HD", "HD Ward", "HD-ARF", "PD-PrePD"]
+      PD_NAMES = ["PD-APD", "PD-CAPD", "PD Rest on HD", "PD-Assisted APD", "PD-PrePD"].freeze
+      HD_NAMES = ["Home HD", "Unit HD", "HD Ward", "HD-ARF", "PD-PrePD"].freeze
 
       def self.policy_class
         BasePolicy
