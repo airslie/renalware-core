@@ -667,42 +667,6 @@ ALTER SEQUENCE fluid_descriptions_id_seq OWNED BY fluid_descriptions.id;
 
 
 --
--- Name: hd_preference_sets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE hd_preference_sets (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    hospital_unit_id integer,
-    schedule character varying,
-    other_schedule character varying,
-    entered_on date,
-    notes text,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: hd_preference_sets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE hd_preference_sets_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: hd_preference_sets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE hd_preference_sets_id_seq OWNED BY hd_preference_sets.id;
-
-
---
 -- Name: hd_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2220,13 +2184,6 @@ ALTER TABLE ONLY fluid_descriptions ALTER COLUMN id SET DEFAULT nextval('fluid_d
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY hd_preference_sets ALTER COLUMN id SET DEFAULT nextval('hd_preference_sets_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY hd_versions ALTER COLUMN id SET DEFAULT nextval('hd_versions_id_seq'::regclass);
 
 
@@ -2627,14 +2584,6 @@ ALTER TABLE ONLY fluid_descriptions
 
 
 --
--- Name: hd_preference_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY hd_preference_sets
-    ADD CONSTRAINT hd_preference_sets_pkey PRIMARY KEY (id);
-
-
---
 -- Name: hd_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -3005,20 +2954,6 @@ CREATE INDEX index_doctors_practices ON doctors_practices USING btree (doctor_id
 --
 
 CREATE UNIQUE INDEX index_drug_types_drugs_on_drug_id_and_drug_type_id ON drug_types_drugs USING btree (drug_id, drug_type_id);
-
-
---
--- Name: index_hd_preference_sets_on_hospital_unit_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_hd_preference_sets_on_hospital_unit_id ON hd_preference_sets USING btree (hospital_unit_id);
-
-
---
--- Name: index_hd_preference_sets_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_hd_preference_sets_on_patient_id ON hd_preference_sets USING btree (patient_id);
 
 
 --
@@ -3583,14 +3518,6 @@ ALTER TABLE ONLY infection_organisms
 
 
 --
--- Name: fk_rails_ac8e970c42; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY hd_preference_sets
-    ADD CONSTRAINT fk_rails_ac8e970c42 FOREIGN KEY (patient_id) REFERENCES patients(id);
-
-
---
 -- Name: fk_rails_b6ee03185c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3676,14 +3603,6 @@ ALTER TABLE ONLY letters
 
 ALTER TABLE ONLY modalities
     ADD CONSTRAINT fk_rails_e6f46cbf1d FOREIGN KEY (description_id) REFERENCES modality_descriptions(id);
-
-
---
--- Name: fk_rails_f0bcae6feb; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY hd_preference_sets
-    ADD CONSTRAINT fk_rails_f0bcae6feb FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
 
 
 --
@@ -3841,6 +3760,4 @@ INSERT INTO schema_migrations (version) VALUES ('20160120203754');
 INSERT INTO schema_migrations (version) VALUES ('20160120203755');
 
 INSERT INTO schema_migrations (version) VALUES ('20160121175711');
-
-INSERT INTO schema_migrations (version) VALUES ('20160121175712');
 
