@@ -1,4 +1,3 @@
-@wip
 Feature: Planning an HD treatment
 
   A clinician plans an HD treatment for a patient by recording a profile and a set
