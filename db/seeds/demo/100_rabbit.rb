@@ -96,7 +96,7 @@ module Renalware
   log '--------------------Adding ClinicVisits for Roger RABBIT-------------------'
   5.times do |n|
     user = User.first
-    clinic_visit = ClinicVisit.find_or_create_by!(
+    clinic_visit = ClinicVisit.find_or_initialize_by(
       patient: rabbit,
       clinic: Clinic.order("RANDOM()").first,
       height: 1.25,
@@ -104,10 +104,9 @@ module Renalware
       systolic_bp: 110 + n,
       diastolic_bp: 68 + n,
       date: n.days.ago.change({ hour: (10 + (2 * n)), min: 0 }),
-    ) do |cv|
-      cv.by = user
-      cv.updated_by = user
-    end
+    )
+    clinic_visit.by = user
+    clinic_visit.save!
 
     rabbit.clinic_visits << clinic_visit
   end
@@ -151,7 +150,58 @@ module Renalware
   patient.set_modality(description: description, started_on: 1.week.ago)
 
   log '--------------------Assign some HD preferences to Francois RABBIT-------------------'
-  preference_set = HD::PreferenceSet.create!(patient: patient, schedule: "mon_wed_fri_am", entered_on: 1.week.ago.to_date)
+  preference_set = HD::PreferenceSet.find_or_initialize_by(patient: patient)
+  preference_set.attributes = { schedule: "mon_wed_fri_am", entered_on: 1.week.ago.to_date }
+  preference_set.save!
 
-  log '--------------------Assign some HD preferences to Francois RABBIT-------------------'
+  log '--------------------Assign an HD profile to Francois RABBIT-------------------'
+  profile = HD::Profile.find_or_initialize_by(patient: patient)
+  profile.attributes = {
+    schedule: "mon_wed_fri_am",
+    prescribed_time: 150,
+    prescribed_on: 1.week.ago.to_date,
+    prescriber: User.first,
+    named_nurse: User.last,
+    transport_decider: User.first,
+    document: {
+      dialysis: {
+        hd_type: :hd,
+        cannulation_type: "cath",
+        needle_size: "44",
+        single_needle: :yes,
+        dialysate: :a7,
+        flow_rate: 300,
+        blood_flow: 400,
+        dialyser: "FX80",
+        potassium: 2,
+        calcium: 1.5,
+        temperature: 36.0,
+        bicarbonate: 35,
+        has_sodium_profiling: :no,
+        sodium_first_half: 137,
+        sodium_second_half: 145
+      },
+      anticoagulant: {
+        type: :heparin,
+        loading_dose: 45,
+        hourly_dose: 66,
+        stop_time: "0:45",
+      },
+      drugs: {
+        on_esa: :no,
+        on_iron: :no,
+        on_warfarin: :no
+      },
+      transport: {
+        has_transport: :yes,
+        type: :taxi,
+        decided_on: 2.days.ago.to_date,
+      },
+      care_level: {
+        required: :no,
+        assessed_on: 3.days.ago.to_date
+      }
+    }
+  }
+  profile.save!
 end
