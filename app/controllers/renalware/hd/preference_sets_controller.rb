@@ -1,5 +1,5 @@
 module Renalware
-  module Hd
+  module HD
     class PreferenceSetsController < BaseController
       before_filter :load_patient
 

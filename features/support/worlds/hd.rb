@@ -1,5 +1,5 @@
 module World
-  module Hd
+  module HD
   end
 end
 

@@ -1,7 +1,7 @@
 require_dependency "renalware/hd"
 
 module Renalware
-  module Hd
+  module HD
     class PreferenceSet < ActiveRecord::Base
       include PatientScope
       extend Enumerize
@@ -12,7 +12,7 @@ module Renalware
       enumerize :schedule,
         in: I18n.t(:schedule, scope: "enumerize.#{model_name.i18n_key}", cascade: true).keys
 
-      has_paper_trail class_name: "Renalware::Hd::Version"
+      has_paper_trail class_name: "Renalware::HD::Version"
 
       validates :patient, presence: true
       validates :other_schedule, presence: true,

@@ -1,16 +1,16 @@
 module World
-  module Hd::PreferenceSet
+  module HD::PreferenceSet
     module Domain
       # @section helpers
       #
       def hd_preference_set_for(patient)
-        Renalware::Hd::PreferenceSet.for_patient(patient).first_or_initialize
+        Renalware::HD::PreferenceSet.for_patient(patient).first_or_initialize
       end
 
       # @section set-ups
       #
       def set_up_hd_preferences_for(patient)
-        Renalware::Hd::PreferenceSet.create!(
+        Renalware::HD::PreferenceSet.create!(
           patient: patient,
           schedule: :mon_wed_fri_am
         )
@@ -34,11 +34,11 @@ module World
       # @section expectations
       #
       def expect_hd_preferences_to_exist(patient)
-        expect(Renalware::Hd::PreferenceSet.for_patient(patient)).to be_present
+        expect(Renalware::HD::PreferenceSet.for_patient(patient)).to be_present
       end
 
       def expect_workup_to_be_modified(patient)
-        workup = Renalware::Hd::PreferenceSet.for_patient(patient).first
+        workup = Renalware::HD::PreferenceSet.for_patient(patient).first
         expect(workup).to be_modified
       end
     end

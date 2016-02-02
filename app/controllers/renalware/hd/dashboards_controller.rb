@@ -1,5 +1,5 @@
 module Renalware
-  module Hd
+  module HD
     class DashboardsController < BaseController
       before_filter :load_patient
 

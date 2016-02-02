@@ -1,7 +1,7 @@
 require "rails_helper"
 
 module Renalware
-  module Hd
+  module HD
     RSpec.describe PreferenceSet, type: :model do
       it { is_expected.to validate_presence_of(:patient) }
       it { is_expected.to validate_timeliness_of(:entered_on) }
