@@ -157,6 +157,7 @@ module Renalware
   log '--------------------Assign an HD profile to Francois RABBIT-------------------'
   profile = HD::Profile.find_or_initialize_by(patient: patient)
   profile.attributes = {
+    hospital_unit: Hospitals::Unit.hd_sites.first,
     schedule: "mon_wed_fri_am",
     prescribed_time: 150,
     prescribed_on: 1.week.ago.to_date,
