@@ -106,6 +106,7 @@ module Renalware
       date: n.days.ago.change({ hour: (10 + (2 * n)), min: 0 }),
     ) do |cv|
       cv.by = user
+      cv.updated_by = user
     end
 
     rabbit.clinic_visits << clinic_visit
@@ -151,4 +152,6 @@ module Renalware
 
   log '--------------------Assign some HD preferences to Francois RABBIT-------------------'
   preference_set = HD::PreferenceSet.create!(patient: patient, schedule: "mon_wed_fri_am", entered_on: 1.week.ago.to_date)
+
+  log '--------------------Assign some HD preferences to Francois RABBIT-------------------'
 end
