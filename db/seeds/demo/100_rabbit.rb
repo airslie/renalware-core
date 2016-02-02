@@ -150,5 +150,5 @@ module Renalware
   patient.set_modality(description: description, started_on: 1.week.ago)
 
   log '--------------------Assign some HD preferences to Francois RABBIT-------------------'
-  preference_set = Hd::PreferenceSet.create!(patient: patient, schedule: "mon_wed_fri_am", entered_on: 1.week.ago.to_date)
+  preference_set = HD::PreferenceSet.create!(patient: patient, schedule: "mon_wed_fri_am", entered_on: 1.week.ago.to_date)
 end
