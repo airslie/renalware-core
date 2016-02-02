@@ -5,6 +5,7 @@ module Renalware
 
       def show
         @preference_set = PreferenceSet.for_patient(@patient).first_or_initialize
+        @profile = Profile.for_patient(@patient).first_or_initialize
       end
     end
   end

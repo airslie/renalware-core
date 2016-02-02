@@ -1,4 +1,4 @@
-class CreateHdProfiles < ActiveRecord::Migration
+class CreateHDProfiles < ActiveRecord::Migration
   def change
     create_table :hd_profiles do |t|
       t.belongs_to :patient, index: true, foreign_key: true
@@ -6,8 +6,8 @@ class CreateHdProfiles < ActiveRecord::Migration
 
       t.string :schedule
       t.string :other_schedule
-      t.string :prescribed_duration
-      t.string :prescribed_on
+      t.integer :prescribed_time
+      t.date :prescribed_on
 
       t.jsonb :document
 

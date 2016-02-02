@@ -712,12 +712,8 @@ CREATE TABLE hd_profiles (
     hospital_unit_id integer,
     schedule character varying,
     other_schedule character varying,
-<<<<<<< HEAD
-    prescribed_duration character varying,
-=======
     prescribed_time integer,
->>>>>>> master
-    prescribed_on character varying,
+    prescribed_on date,
     document jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,

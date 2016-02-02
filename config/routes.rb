@@ -71,6 +71,7 @@ Rails.application.routes.draw do
       namespace :hd do
         resource :dashboard, only: :show
         resource :preference_set, only: [:edit, :update]
+        resource :profile, only: [:show, :edit, :update]
       end
 
       resources :letters

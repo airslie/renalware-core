@@ -1,0 +1,7 @@
+- if @profile.persisted?
+  dl.sub-nav
+    dd= link_to "HD Summary", patient_hd_dashboard_path(@patient)
+    dd= link_to "View", patient_hd_profile_path(@patient, @profile)
+    dd= link_to "Edit", edit_patient_hd_profile_path(@patient, @profile)
+
+= render "sections_nav"

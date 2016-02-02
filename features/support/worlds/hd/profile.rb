@@ -74,24 +74,31 @@ module World
     module Web
       include Domain
 
-      def create_hd_profile(user:, patient:)
+      def create_hd_profile(user:, patient:, prescriber:)
         login_as user
         visit patient_hd_dashboard_path(patient)
         click_on "Enter profile"
 
         select "Mon, Wed, Fri AM", from: "Schedule"
+        select prescriber.full_name, from: "Prescriber" if prescriber
+        select "300", from: "Flow Rate"
 
-        click_on "Save"
+        within ".top" do
+          click_on "Save"
+        end
       end
 
-      def update_hd_profile(patient:, user:)
+      def update_hd_profile(patient:, user:, prescriber: nil)
         login_as user
         visit patient_hd_dashboard_path(patient)
         click_on "Edit"
 
         select "Mon, Wed, Fri PM", from: "Schedule"
+        select "400", from: "Flow Rate"
 
-        click_on "Save"
+        within ".top" do
+          click_on "Save"
+        end
       end
     end
   end

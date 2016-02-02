@@ -1,0 +1,15 @@
+ruby:
+  sections = [
+    ["Admin", "admin"],
+    ["Prescription", "prescription"],
+    ["Dialysis", "dialysis"],
+    ["Anticoagulant", "anticoagulant"],
+    ["Drugs", "drugs"],
+    ["Transport", "transport"],
+    ["Care Level", "care_Level"]
+  ]
+
+dl.sub-nav data-magellan-expedition="fixed"
+  - sections.each do |title, target|
+    dd data-magellan-arrival="#{target}"
+      = link_to title, "#"+target

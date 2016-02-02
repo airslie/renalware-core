@@ -17,17 +17,17 @@ Feature: Planning an HD treatment
     Given Patty has HD preferences
     Then Clyde can update Patty's HD preferences
 
-  @web @wip
+  @web
   Scenario: A clinician recorded an HD profile for a patient
     When Clyde records an HD profile for Patty
     Then Patty has a new HD profile
 
-  @web @wip
+  @web
   Scenario: A clinician udpated the HD profile of a patient
     Given Patty has an HD profile
     Then Clyde can update Patty's HD profile
 
-  @web @wip
+  @web
   Scenario: A clinician submitted an erroneous HD profile for a patient
     When Clyde submits an erroneous HD profile
     Then the HD profile is not accepted

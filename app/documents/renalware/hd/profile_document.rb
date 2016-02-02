@@ -4,7 +4,7 @@ require "document/enum"
 module Renalware
   module HD
     class ProfileDocument < Document::Embedded
-      class Procedure < Document::Embedded
+      class Dialysis < Document::Embedded
         attribute :hd_type, Document::Enum, enums: %i(hd hdf_pre hdf_post)
         attribute :cannulation_type
         attribute :needle_size
@@ -12,10 +12,7 @@ module Renalware
         attribute :dialysate, Document::Enum, enums: %i(a7 a10 a17 a27)
         attribute :flow_rate, Integer
         attribute :blood_flow, Integer
-      end
-      attribute :procedure, Procedure
-
-      class Dialysis < Document::Embedded
+        attribute :dialyser
         attribute :potassium, Integer
         attribute :calcium, Float
         attribute :temperature, Float
@@ -23,9 +20,8 @@ module Renalware
         attribute :has_sodium_profiling, Document::Enum, enums: %i(yes no)
         attribute :sodium_first_half, Integer
         attribute :sodium_second_half, Integer
-        attribute :anticoagulant_type, Document::Enum, enums: %i(heparin enoxyparin warfarin none)
       end
-      attribute :dialisys, Dialysis
+      attribute :dialysis, Dialysis
 
       class Anticoagulant < Document::Embedded
         attribute :type, Document::Enum, enums: %i(heparin enoxyparin warfarin none)
@@ -40,7 +36,7 @@ module Renalware
         attribute :on_iron, Document::Enum, enums: %i(yes no unknown)
         attribute :on_warfarin, Document::Enum, enums: %i(yes no unknown)
       end
-      attribute :patient, Drugs
+      attribute :drugs, Drugs
 
       class Transport < Document::Embedded
         attribute :has_transport, Document::Enum, enums: %i(yes no unknown)
