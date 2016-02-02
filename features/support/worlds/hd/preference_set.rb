@@ -25,8 +25,8 @@ module World
       def update_hd_preferences(patient:, user: nil)
         travel_to 1.hour.from_now
 
-        workup = hd_preference_set_for(patient)
-        workup.update_attributes!(
+        set = hd_preference_set_for(patient)
+        set.update_attributes!(
           updated_at: Time.zone.now
         )
       end
@@ -35,11 +35,6 @@ module World
       #
       def expect_hd_preferences_to_exist(patient)
         expect(Renalware::HD::PreferenceSet.for_patient(patient)).to be_present
-      end
-
-      def expect_workup_to_be_modified(patient)
-        workup = Renalware::HD::PreferenceSet.for_patient(patient).first
-        expect(workup).to be_modified
       end
     end
 

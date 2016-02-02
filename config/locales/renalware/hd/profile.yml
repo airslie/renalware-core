@@ -1,0 +1,26 @@
+en:
+  activerecord:
+    renalware/hd/profile:
+      schedule: Schedule
+      other_schedule: Other Schedule
+  activemodel:
+    attributes:
+      renalware/hd/profile_document/transport:
+        type: Transport Type
+  enumerize:
+    renalware/hd/profile:
+      schedule:
+        mon_wed_fri_am: "Mon, Wed, Fri AM"
+        mon_wed_fri_pm: "Mon, Wed, Fri PM"
+        mon_wed_fri_eve: "Mon, Wed, Fri Evening"
+        tue_thu_sat_am: "Tue, Thu, Sat AM"
+        tue_thu_sat_pm: "Tue, Thu, Sat PM"
+        tue_thu_sat_eve: "Tue, Thu, Sat Evening"
+        other: "Other (specify)"
+    renalware/hd/profile_document/transport:
+      type:
+        ambulance_wheelchair: Ambulance (wheelchair)
+        ambulance_2_man_crew: Ambulance (2 man crew)
+        car: Car
+        taxi: Taxi
+        none: None
