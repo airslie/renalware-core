@@ -11,7 +11,7 @@ module Renalware
       end
 
       def create
-        @cannulation_type = CannulationType.new(event_params)
+        @cannulation_type = CannulationType.new(cannulation_type_params)
         authorize @cannulation_type
 
         if @cannulation_type.save
@@ -29,7 +29,7 @@ module Renalware
       end
 
       def update
-        if @cannulation_type.update(event_params)
+        if @cannulation_type.update(cannulation_type_params)
           redirect_to hd_cannulation_types_path,
             notice: t(".success", model_name: "cannulation type")
         else
@@ -46,7 +46,7 @@ module Renalware
 
       private
 
-      def event_params
+      def cannulation_type_params
         params.require(:hd_cannulation_type).permit(:name)
       end
 
