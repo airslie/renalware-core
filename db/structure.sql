@@ -673,6 +673,7 @@ ALTER SEQUENCE fluid_descriptions_id_seq OWNED BY fluid_descriptions.id;
 CREATE TABLE hd_cannulation_types (
     id integer NOT NULL,
     name character varying NOT NULL,
+    deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -705,6 +706,7 @@ CREATE TABLE hd_dialysers (
     id integer NOT NULL,
     "group" character varying NOT NULL,
     name character varying NOT NULL,
+    deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
