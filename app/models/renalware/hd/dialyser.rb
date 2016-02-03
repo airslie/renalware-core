@@ -6,7 +6,7 @@ module Renalware
       validates :group, presence: true
       validates :name, presence: true
 
-      scope :ordered, -> { order(:name) }
+      scope :ordered, -> { order(:group, :name) }
 
       def self.policy_class
         BasePolicy

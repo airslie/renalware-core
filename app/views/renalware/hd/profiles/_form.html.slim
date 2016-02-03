@@ -39,13 +39,16 @@ ruby:
         locals: { legend: "Dialysis", name: "dialysis" } do
       = fd.simple_fields_for :dialysis, fd.object.dialysis do |fcm|
         = fcm.input :hd_type, as: :inline_radio_buttons
-        = fcm.input :cannulation_type, input_html: { class: "small-input" }
+        = fcm.input :cannulation_type, input_html: { class: "small-input" },
+            collection: Renalware::HD::CannulationType.ordered, value_method: :name
         = fcm.input :needle_size, input_html: { class: "small-input" }
         = fcm.input :single_needle, as: :inline_radio_buttons
         = fcm.input :dialysate, as: :inline_radio_buttons
         = fcm.input :flow_rate, collection: (100..800).step(100).to_a, input_html: { class: "small-input" }
         = fcm.input :blood_flow, collection: (50..400).step(50).to_a, input_html: { class: "small-input" }
-        = fcm.input :dialyser
+        = fcm.input :dialyser, as: :grouped_select, input_html: { class: "small-input" },
+            collection: Renalware::HD::Dialyser.ordered.group_by(&:group), group_method: :last,
+            label_method: :name, value_method: :name
         = fcm.input :potassium, collection: (1..4), input_html: { class: "small-input" }
         = fcm.input :calcium, collection: ["1.0", "1.35", "1.5"], input_html: { class: "small-input" }
         = fcm.input :temperature, collection: ["35.0", "35.5", "36.0", "37.0"], input_html: { class: "small-input" }
