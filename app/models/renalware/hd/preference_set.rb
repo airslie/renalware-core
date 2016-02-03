@@ -21,7 +21,7 @@ module Renalware
       delegate :hospital_centre, to: :hospital_unit, allow_nil: true
 
       def preferred_schedule
-        sched = other_schedule_selected? ? other_schedule : schedule.try(:text)
+        other_schedule_selected? ? other_schedule : schedule.try(:text)
       end
 
       private
