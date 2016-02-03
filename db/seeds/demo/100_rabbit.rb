@@ -167,13 +167,13 @@ module Renalware
     document: {
       dialysis: {
         hd_type: :hd,
-        cannulation_type: "cath",
+        cannulation_type: "Buttonhole",
         needle_size: "44",
         single_needle: :yes,
         dialysate: :a7,
         flow_rate: 300,
         blood_flow: 400,
-        dialyser: "FX80",
+        dialyser: "FX CorDiax 120",
         potassium: 2,
         calcium: 1.5,
         temperature: 36.0,
