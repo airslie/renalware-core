@@ -1,12 +1,1 @@
-.row
-  = render "header"
-  = render partial: "renalware/shared/errors", locals: { model: @cannulation_type }
-
-.row
-  .large-6.columns
-    = simple_form_for @cannulation_type do |f|
-      = render "form", f: f
-
-      = submit_tag "Save", class: "button"
-      span= " or "
-      = link_to "cancel", hd_cannulation_types_path
+= render "form"
