@@ -1,0 +1,20 @@
+.row
+  = render 'header'
+
+.row
+  table.auto-layout
+    thead
+      tr
+        th
+        th Group
+        th Name
+    tbody
+      - @dialysers.each do |t|
+        tr
+          td
+            = link_to "Edit", edit_hd_dialyser_path(t.id)
+            = pipe_separator
+            = link_to "Delete", hd_dialyser_path(t.id), id: "#{t.id}-pet", method: :delete,
+              data: {confirm: I18n.t("prompts.confirm_delete") }
+          td= t.group
+          td= t.name

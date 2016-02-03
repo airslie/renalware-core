@@ -698,6 +698,38 @@ ALTER SEQUENCE hd_cannulation_types_id_seq OWNED BY hd_cannulation_types.id;
 
 
 --
+-- Name: hd_dialysers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE hd_dialysers (
+    id integer NOT NULL,
+    "group" character varying NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hd_dialysers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE hd_dialysers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_dialysers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE hd_dialysers_id_seq OWNED BY hd_dialysers.id;
+
+
+--
 -- Name: hd_preference_sets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2298,6 +2330,13 @@ ALTER TABLE ONLY hd_cannulation_types ALTER COLUMN id SET DEFAULT nextval('hd_ca
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY hd_dialysers ALTER COLUMN id SET DEFAULT nextval('hd_dialysers_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY hd_preference_sets ALTER COLUMN id SET DEFAULT nextval('hd_preference_sets_id_seq'::regclass);
 
 
@@ -2717,6 +2756,14 @@ ALTER TABLE ONLY fluid_descriptions
 
 ALTER TABLE ONLY hd_cannulation_types
     ADD CONSTRAINT hd_cannulation_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_dialysers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY hd_dialysers
+    ADD CONSTRAINT hd_dialysers_pkey PRIMARY KEY (id);
 
 
 --
@@ -4030,4 +4077,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160121175712');
 INSERT INTO schema_migrations (version) VALUES ('20160202152252');
 
 INSERT INTO schema_migrations (version) VALUES ('20160203160040');
+
+INSERT INTO schema_migrations (version) VALUES ('20160203160041');
 
