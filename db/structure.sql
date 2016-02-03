@@ -667,6 +667,37 @@ ALTER SEQUENCE fluid_descriptions_id_seq OWNED BY fluid_descriptions.id;
 
 
 --
+-- Name: hd_cannulation_types; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE hd_cannulation_types (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hd_cannulation_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE hd_cannulation_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_cannulation_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE hd_cannulation_types_id_seq OWNED BY hd_cannulation_types.id;
+
+
+--
 -- Name: hd_preference_sets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2260,6 +2291,13 @@ ALTER TABLE ONLY fluid_descriptions ALTER COLUMN id SET DEFAULT nextval('fluid_d
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY hd_cannulation_types ALTER COLUMN id SET DEFAULT nextval('hd_cannulation_types_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY hd_preference_sets ALTER COLUMN id SET DEFAULT nextval('hd_preference_sets_id_seq'::regclass);
 
 
@@ -2671,6 +2709,14 @@ ALTER TABLE ONLY exit_site_infections
 
 ALTER TABLE ONLY fluid_descriptions
     ADD CONSTRAINT fluid_descriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_cannulation_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY hd_cannulation_types
+    ADD CONSTRAINT hd_cannulation_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -3982,4 +4028,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160121175711');
 INSERT INTO schema_migrations (version) VALUES ('20160121175712');
 
 INSERT INTO schema_migrations (version) VALUES ('20160202152252');
+
+INSERT INTO schema_migrations (version) VALUES ('20160203160040');
 

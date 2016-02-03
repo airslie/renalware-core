@@ -36,6 +36,10 @@ Rails.application.routes.draw do
       resources :types, except: :show
     end
 
+    namespace :hd do
+      resources :cannulation_types, except: :show
+    end
+
     namespace :hospitals do
       resources :units, except: :show
     end
