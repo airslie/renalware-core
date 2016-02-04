@@ -1,7 +1,12 @@
 fieldset
   legend Preferences
 
-  - if @preference_set.persisted?
+  - if @preference_set.new_record?
+    .call-to-action
+      = link_to edit_patient_hd_preference_set_path(@patient) do
+        i.fa.fa-plus-circle
+        | Enter preferences
+  - else
     .row
       .large-3.columns
         dl
@@ -40,8 +45,3 @@ fieldset
               = l version.created_at
               | &nbsp;by&nbsp;
               = who_did_it version
-  - else
-    .call-to-action
-      = link_to edit_patient_hd_preference_set_path(@patient) do
-        i.fa.fa-plus-circle
-        | Enter preferences

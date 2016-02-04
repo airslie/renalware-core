@@ -2,7 +2,12 @@ fieldset
   legend Recipient Workup
 
   .row
-    - if @recipient_workup.persisted?
+    - if @recipient_workup.new_record?
+      .call-to-action
+        = link_to edit_patient_transplants_recipient_workup_path(@patient) do
+          i.fa.fa-plus-circle
+          | Enter workup
+    - else
       .large-3.columns
 
       .large-3.columns
@@ -21,8 +26,3 @@ fieldset
           = link_to "View", patient_transplants_recipient_workup_path(@patient), class: "button tiny"
           | &nbsp;
           = link_to "Edit", edit_patient_transplants_recipient_workup_path(@patient), class: "button tiny"
-    - else
-      .call-to-action
-        = link_to edit_patient_transplants_recipient_workup_path(@patient) do
-          i.fa.fa-plus-circle
-          | Enter workup
