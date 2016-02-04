@@ -4,6 +4,7 @@ module Renalware
   module HD
     class PreferenceSet < ActiveRecord::Base
       include PatientScope
+      include Accountable
       extend Enumerize
 
       belongs_to :patient

@@ -9,6 +9,9 @@ class CreateHDProfiles < ActiveRecord::Migration
       t.integer :prescribed_time
       t.date :prescribed_on
 
+      t.belongs_to :created_by, index: true, null: false
+      t.belongs_to :updated_by, index: true, null: false
+
       t.jsonb :document
 
       t.timestamps null: false

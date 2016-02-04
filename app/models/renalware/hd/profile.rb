@@ -7,6 +7,7 @@ module Renalware
       include Document::Base
       include PatientScope
       include HasSchedule
+      include Accountable
 
       belongs_to :patient
       belongs_to :hospital_unit, class_name: "Hospitals::Unit"

@@ -9,17 +9,18 @@ module World
 
       # @section set-ups
       #
-      def set_up_hd_preferences_for(patient)
+      def set_up_hd_preferences_for(patient, user:)
         Renalware::HD::PreferenceSet.create!(
           patient: patient,
-          schedule: :mon_wed_fri_am
+          schedule: :mon_wed_fri_am,
+          by: user
         )
       end
 
       # @section commands
       #
-      def create_hd_preferences(user: nil, patient:)
-        set_up_hd_preferences_for(patient)
+      def create_hd_preferences(user:, patient:)
+        set_up_hd_preferences_for(patient, user: user)
       end
 
       def update_hd_preferences(patient:, user: nil)
@@ -27,7 +28,9 @@ module World
 
         set = hd_preference_set_for(patient)
         set.update_attributes!(
-          updated_at: Time.zone.now
+          schedule: :mon_wed_fri_pm,
+          updated_at: Time.zone.now,
+          by: user
         )
       end
 

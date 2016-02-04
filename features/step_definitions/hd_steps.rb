@@ -1,5 +1,5 @@
 Given(/^Patty has HD preferences$/) do
-  set_up_hd_preferences_for(@patty)
+  set_up_hd_preferences_for(@patty, user: @clyde)
 end
 
 Given(/^Patty has an HD profile$/) do

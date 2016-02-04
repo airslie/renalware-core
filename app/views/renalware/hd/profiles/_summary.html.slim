@@ -43,7 +43,6 @@ fieldset
         dl
           dt Last Update:
           dd
-            - if version = @profile.versions.last
-              = l version.created_at
-              | &nbsp;by&nbsp;
-              = who_did_it version
+            = l @profile.updated_at
+            | &nbsp;by&nbsp;
+            = @profile.updated_by.to_s

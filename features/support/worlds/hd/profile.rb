@@ -24,7 +24,8 @@ module World
         Renalware::HD::Profile.create!(
           valid_profile_attributes.merge(
             patient: patient,
-            prescriber: prescriber
+            prescriber: prescriber,
+            by: prescriber
           )
         )
       end
@@ -35,17 +36,19 @@ module World
         Renalware::HD::Profile.create(
           valid_profile_attributes.merge(
             patient: patient,
-            prescriber: prescriber
+            prescriber: prescriber,
+            by: prescriber
           )
         )
       end
 
-      def update_hd_profile(patient:, user: nil)
+      def update_hd_profile(patient:, user:)
         travel_to 1.hour.from_now
 
         profile = hd_profile_for(patient)
         profile.update_attributes!(
           updated_at: Time.zone.now,
+          by: user,
           document: {
             transport: {
               type: :taxi

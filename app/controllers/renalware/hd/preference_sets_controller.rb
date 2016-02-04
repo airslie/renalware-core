@@ -21,10 +21,14 @@ module Renalware
 
       private
 
+      def attributes
+        [:schedule, :other_schedule, :hospital_unit_id, :entered_on, :notes]
+      end
+
       def preference_set_params
-        params.require(:hd_preference_set).permit(
-          :schedule, :other_schedule, :hospital_unit_id, :entered_on, :notes
-        )
+        params.require(:hd_preference_set)
+          .permit(attributes)
+          .merge(by: current_user)
       end
     end
   end

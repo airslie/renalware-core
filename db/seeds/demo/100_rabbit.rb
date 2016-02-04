@@ -151,12 +151,13 @@ module Renalware
 
   log '--------------------Assign some HD preferences to Francois RABBIT-------------------'
   preference_set = HD::PreferenceSet.find_or_initialize_by(patient: patient)
-  preference_set.attributes = { schedule: "mon_wed_fri_am", entered_on: 1.week.ago.to_date }
+  preference_set.attributes = { schedule: "mon_wed_fri_am", entered_on: 1.week.ago.to_date, by: User.first }
   preference_set.save!
 
   log '--------------------Assign an HD profile to Francois RABBIT-------------------'
   profile = HD::Profile.find_or_initialize_by(patient: patient)
   profile.attributes = {
+    by: User.first,
     hospital_unit: Hospitals::Unit.hd_sites.first,
     schedule: "mon_wed_fri_am",
     prescribed_time: 150,

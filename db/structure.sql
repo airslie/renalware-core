@@ -743,6 +743,8 @@ CREATE TABLE hd_preference_sets (
     other_schedule character varying,
     entered_on date,
     notes text,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -779,6 +781,8 @@ CREATE TABLE hd_profiles (
     other_schedule character varying,
     prescribed_time integer,
     prescribed_on date,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
     document jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -3158,6 +3162,13 @@ CREATE UNIQUE INDEX index_drug_types_drugs_on_drug_id_and_drug_type_id ON drug_t
 
 
 --
+-- Name: index_hd_preference_sets_on_created_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hd_preference_sets_on_created_by_id ON hd_preference_sets USING btree (created_by_id);
+
+
+--
 -- Name: index_hd_preference_sets_on_hospital_unit_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -3169,6 +3180,20 @@ CREATE INDEX index_hd_preference_sets_on_hospital_unit_id ON hd_preference_sets 
 --
 
 CREATE INDEX index_hd_preference_sets_on_patient_id ON hd_preference_sets USING btree (patient_id);
+
+
+--
+-- Name: index_hd_preference_sets_on_updated_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hd_preference_sets_on_updated_by_id ON hd_preference_sets USING btree (updated_by_id);
+
+
+--
+-- Name: index_hd_profiles_on_created_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hd_profiles_on_created_by_id ON hd_profiles USING btree (created_by_id);
 
 
 --
@@ -3211,6 +3236,13 @@ CREATE INDEX index_hd_profiles_on_prescriber_id ON hd_profiles USING btree (pres
 --
 
 CREATE INDEX index_hd_profiles_on_transport_decider_id ON hd_profiles USING btree (transport_decider_id);
+
+
+--
+-- Name: index_hd_profiles_on_updated_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hd_profiles_on_updated_by_id ON hd_profiles USING btree (updated_by_id);
 
 
 --

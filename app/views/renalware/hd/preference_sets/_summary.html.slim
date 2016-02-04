@@ -41,7 +41,6 @@ fieldset
         dl
           dt Last Update:
           dd
-            - if version = @preference_set.versions.last
-              = l version.created_at
-              | &nbsp;by&nbsp;
-              = who_did_it version
+            = l @preference_set.updated_at
+            | &nbsp;by&nbsp;
+            = @preference_set.updated_by.to_s
