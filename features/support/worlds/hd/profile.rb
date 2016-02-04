@@ -84,7 +84,7 @@ module World
         select "300", from: "Flow Rate"
 
         within ".top" do
-          click_on "Save"
+          click_on "Create"
         end
       end
 

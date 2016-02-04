@@ -49,7 +49,7 @@ module World
 
         select "Mon, Wed, Fri AM", from: "Schedule"
 
-        click_on "Save"
+        click_on "Create"
       end
 
       def update_hd_preferences(patient:, user:)
