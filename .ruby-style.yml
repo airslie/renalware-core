@@ -8,7 +8,7 @@ AllCops:
 Style/CollectionMethods:
   Description: Preferred collection methods.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#map-find-select-reduce-size
-  Enabled: true
+  Enabled: false
   PreferredMethods:
     collect: map
     collect!: map!
@@ -58,7 +58,7 @@ Style/PercentLiteralDelimiters:
 Style/PredicateName:
   Description: Check the names of predicate methods.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#bool-methods-qmark
-  Enabled: true
+  Enabled: false
   NamePrefix:
   - is_
   - has_
@@ -111,7 +111,7 @@ Style/StringLiterals:
 Style/StringLiteralsInInterpolation:
   Description: Checks if uses of quotes inside expressions in interpolated strings
     match the configured preference.
-  Enabled: true
+  Enabled: false
   EnforcedStyle: single_quotes
   SupportedStyles:
   - single_quotes
@@ -232,7 +232,7 @@ Style/WhenThen:
   Enabled: false
 Lint/EachWithObjectArgument:
   Description: Check for immutable argument given to each_with_object.
-  Enabled: true
+  Enabled: false
 Lint/HandleExceptions:
   Description: Don't suppress exception.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#dont-hide-exceptions
@@ -243,3 +243,32 @@ Lint/LiteralInCondition:
 Lint/LiteralInInterpolation:
   Description: Checks for literals used in interpolation.
   Enabled: false
+
+# Renalware add-ons
+Style/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: space
+  EnforcedStyleForEmptyBraces: no_space
+  SupportedStyles:
+    - space
+    - no_spacees EnforcedStyle if there is a conflict.
+  SpaceBeforeBlockParameters: true
+  Enabled: true
+Metrics/LineLength:
+  Max: 100
+  # To make it possible to copy or click on URIs in the code, we allow lines
+  # containing a URI to be longer than Max.
+  AllowHeredoc: true
+  AllowURI: true
+  URISchemes:
+    - http
+    - https
+  Enabled: true
+Style/HashSyntax:
+  EnforcedStyle: ruby19
+  SupportedStyles:
+    - ruby19
+    - ruby19_no_mixed_keys
+    - hash_rockets
+# Force hashes that have a symbol value to use hash rockets
+  UseHashRocketsWithSymbolValues: false
+  Enabled: true
