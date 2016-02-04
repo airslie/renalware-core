@@ -1,13 +1,6 @@
 ruby:
   back_path = patient_hd_dashboard_path(@patient)
 
-  if @preference_set.hospital_unit.present?
-    hospital_unit_hint = "Preference: #{@preference_set.hospital_unit.to_s}"
-  end
-  if @preference_set.preferred_schedule.present?
-    schedule_hint = "Preference: #{@preference_set.preferred_schedule}"
-  end
-
 .row.top
   .medium-6.columns
     = f.button :submit
@@ -24,8 +17,8 @@ ruby:
           group_method: :hd_sites,
           collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
           label_method: :to_s,
-          hint: hospital_unit_hint
-      = f.input :schedule, input_html: { class: "small-input" }, hint: schedule_hint
+          hint: f.object.hospital_unit_hint
+      = f.input :schedule, input_html: { class: "small-input" }, hint: f.object.schedule_hint
       = f.input :other_schedule, input_html: { class: "small-input" }
       = f.association :named_nurse, collection: Renalware::User.ordered, label_method: :full_name
 
