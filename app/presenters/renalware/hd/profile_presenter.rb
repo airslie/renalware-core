@@ -15,15 +15,15 @@ module Renalware
       end
 
       def schedule_hint
-        if preference_set.preferred_schedule.present?
-          "Preference: #{@preference_set.preferred_schedule}"
-        end
+        return if preference_set.preferred_schedule.blank?
+
+        "Preference: #{@preference_set.preferred_schedule}"
       end
 
       def current_schedule
-        if schedule
-          schedule.other? ? other_schedule : schedule.text
-        end
+        return if schedule.blank?
+
+        schedule.other? ? other_schedule : schedule.text
       end
     end
   end

@@ -33,8 +33,7 @@ Style/SpaceInsideHashLiteralBraces:
   EnforcedStyleForEmptyBraces: no_space
   SupportedStyles:
     - space
-    - no_spacees EnforcedStyle if there is a conflict.
-  SpaceBeforeBlockParameters: true
+    - no_space
   Enabled: true
 Metrics/LineLength:
   Max: 100

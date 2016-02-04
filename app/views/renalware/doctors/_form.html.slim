@@ -13,8 +13,8 @@
           collection: ['GP', 'Other']
       = label_tag 'doctor[practice_ids]', 'Practices'
       = select_tag 'doctor[practice_ids]',
-        practices_options_for_select(f.object),
-        { include_hidden: false, multiple: true }
+          practices_options_for_select(f.object),
+          { include_hidden: false, multiple: true }
 
       hr
 

@@ -13,6 +13,6 @@
           td
             = link_to "Edit", edit_hd_cannulation_type_path(t.id)
             = pipe_separator
-            = link_to "Delete", hd_cannulation_type_path(t.id), RecipientFollowupmethod: :delete,
-                data: {confirm: I18n.t("prompts.confirm_delete") }
+            = link_to "Delete", hd_cannulation_type_path(t.id), method: :delete,
+                data: { confirm: I18n.t("prompts.confirm_delete") }
           td= t.name
