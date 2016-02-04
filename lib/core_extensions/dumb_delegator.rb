@@ -1,10 +1,9 @@
 class DumbDelegator
-
   # Handle public_send correctly when ActionView calls this method
   # Reference: https://github.com/stevenharman/dumb_delegator/issues/9
   #
   def public_send(method, *args, &block)
-    if self.respond_to?(method)
+    if respond_to?(method)
       __send__(method, *args, &block)
     else
       __getobj__.public_send(method, *args, &block)

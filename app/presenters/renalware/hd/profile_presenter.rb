@@ -10,9 +10,8 @@ module Renalware
 
       def hospital_unit_hint
         if preference_set.hospital_unit.present?
-          "Preference: #{@preference_set.hospital_unit.to_s}"
+          "Preference: #{@preference_set.hospital_unit}"
         end
-
       end
 
       def schedule_hint
