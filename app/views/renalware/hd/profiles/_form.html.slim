@@ -33,22 +33,22 @@ ruby:
       = fd.simple_fields_for :dialysis, fd.object.dialysis do |fcm|
         = fcm.input :hd_type, as: :inline_radio_buttons
         = fcm.input :cannulation_type, input_html: { class: "small-input" },
-            collection: Renalware::HD::CannulationType.ordered, value_method: :name
+            collection: fcm.object.class.cannulation_types, value_method: :name
         = fcm.input :needle_size, input_html: { class: "small-input" }
         = fcm.input :single_needle, as: :inline_radio_buttons
         = fcm.input :dialysate, as: :inline_radio_buttons
-        = fcm.input :flow_rate, collection: (100..800).step(100).to_a, input_html: { class: "small-input" }
-        = fcm.input :blood_flow, collection: (50..400).step(50).to_a, input_html: { class: "small-input" }
+        = fcm.input :flow_rate, collection: fcm.object.class.flow_rates, input_html: { class: "small-input" }
+        = fcm.input :blood_flow, collection: fcm.object.class.blood_flows, input_html: { class: "small-input" }
         = fcm.input :dialyser, as: :grouped_select, input_html: { class: "small-input" },
-            collection: Renalware::HD::Dialyser.ordered.group_by(&:group), group_method: :last,
+            collection: fcm.object.class.dialysers.group_by(&:group), group_method: :last,
             label_method: :name, value_method: :name
-        = fcm.input :potassium, collection: (1..4), input_html: { class: "small-input" }
-        = fcm.input :calcium, collection: ["1.0", "1.35", "1.5"], input_html: { class: "small-input" }
-        = fcm.input :temperature, collection: ["35.0", "35.5", "36.0", "37.0"], input_html: { class: "small-input" }
-        = fcm.input :bicarbonate, collection: (30..40).step(5).to_a, input_html: { class: "small-input" }
+        = fcm.input :potassium, collection: fcm.object.class.potassium_levels, input_html: { class: "small-input" }
+        = fcm.input :calcium, collection: fcm.object.class.calcium_levels, input_html: { class: "small-input" }
+        = fcm.input :temperature, collection: fcm.object.class.temperature_levels, input_html: { class: "small-input" }
+        = fcm.input :bicarbonate, collection: fcm.object.class.bicarbonate_levels, input_html: { class: "small-input" }
         = fcm.input :has_sodium_profiling, as: :inline_radio_buttons
-        = fcm.input :sodium_first_half, collection: [136, 137, 138, 140, 145], input_html: { class: "small-input" }
-        = fcm.input :sodium_second_half, collection: [136, 137, 138, 140, 145], input_html: { class: "small-input" }
+        = fcm.input :sodium_first_half, collection: fcm.object.class.sodium_levels, input_html: { class: "small-input" }
+        = fcm.input :sodium_second_half, collection: fcm.object.class.sodium_levels, input_html: { class: "small-input" }
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Anticoagulant", name: "anticoagulant" } do
