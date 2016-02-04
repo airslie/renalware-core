@@ -2,9 +2,21 @@ Given(/^Patty has HD preferences$/) do
   set_up_hd_preferences_for(@patty)
 end
 
+Given(/^Patty has a HD profile$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Given(/^Patty has a HD session$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
 
 When(/^Clyde records the HD preferences of Patty$/) do
   create_hd_preferences(patient: @patty, user: @clyde)
+end
+
+When(/^Nathalie records the pre\-session observations for Patty$/) do
+  pending # express the regexp above with the code you wish you had
 end
 
 
@@ -14,4 +26,12 @@ end
 
 Then(/^Clyde can update Patty's HD preferences$/) do
   update_hd_preferences(patient: @patty, user: @clyde)
+end
+
+Then(/^Patty has a new HD session$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^Nathalie can update Patty's HD session$/) do
+  pending # express the regexp above with the code you wish you had
 end
