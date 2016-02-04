@@ -5,7 +5,7 @@
   .document-view
     = render "renalware/shared/attributes_group",
         legend: "Admin", destination: "admin",
-        models: { @profile => [:hospital_centre, :hospital_unit, :schedule, :other_schedule, :named_nurse] }
+        models: { @profile => [:hospital_centre, :hospital_unit, :current_schedule, :named_nurse] }
 
     = render "renalware/shared/attributes_group",
         legend: "Prescription", destination: "prescription",

@@ -4,7 +4,8 @@ module Renalware
       before_filter :load_patient
 
       def show
-        @profile = Profile.for_patient(@patient).first
+        profile = Profile.for_patient(@patient).first
+        @profile = ProfilePresenter.new(profile)
       end
 
       def edit
