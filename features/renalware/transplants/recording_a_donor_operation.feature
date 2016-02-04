@@ -13,7 +13,7 @@ Feature: Recording the operation on a donor
     Then Don has a new donor operation
 
   @web
-  Scenario: A clinician udpated a transplant operation on a donor
+  Scenario: A clinician updated a transplant operation on a donor
     Given Don has a donor operation
     Then Clyde can update Don's donor operation
 
