@@ -2,6 +2,8 @@ AllCops:
   Exclude:
     - "vendor/**/*"
     - "db/schema.rb"
+    - "db/seeds/*"
+    - "db/migrate/*"
   UseCache: false
 Style/CollectionMethods:
   Description: Preferred collection methods.
@@ -17,7 +19,7 @@ Style/DotPosition:
   Description: Checks the position of the dot in multi-line method calls.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#consistent-multi-line-chains
   Enabled: true
-  EnforcedStyle: trailing
+  EnforcedStyle: leading
   SupportedStyles:
   - leading
   - trailing
@@ -35,7 +37,7 @@ Style/IfUnlessModifier:
   Description: Favor modifier if/unless usage when you have a single-line body.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#if-as-a-modifier
   Enabled: false
-  MaxLineLength: 80
+  MaxLineLength: 100
 Style/OptionHash:
   Description: Don't use option hashes when you can use keyword arguments.
   Enabled: false
