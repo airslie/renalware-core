@@ -1,7 +1,17 @@
-= f.input :name, label: "Drug Name"
-
-h6
-  | Select categories/types for this drug:
+.row
+  = render "header"
+  = render partial: "renalware/shared/errors", locals: { model: @drug }
 
 .row
-  = f.collection_check_boxes :drug_type_ids, Renalware::Drugs::Type.all, :id, :name
+  .large-6.columns
+    = simple_form_for @drug do |f|
+      = f.input :name, label: "Drug Name"
+
+      h6
+        | Select categories/types for this drug:
+
+      = f.collection_check_boxes :drug_type_ids, Renalware::Drugs::Type.all, :id, :name
+
+      = f.button :submit
+      span= " or "
+      = link_to "cancel", drugs_drugs_path

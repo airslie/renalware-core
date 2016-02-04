@@ -1,13 +1,1 @@
-.row
-  = render "header"
-  = render partial: "renalware/shared/errors", locals: { model: @drug }
-
-.row
-  .large-6.columns
-    = simple_form_for @drug do |f|
-
-      = render partial: "form", locals: { f: f }
-
-      = submit_tag "Save", class: "button"
-      span= " or "
-      = link_to "cancel", drugs_drugs_path
+= render "form"

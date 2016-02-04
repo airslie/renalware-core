@@ -1,5 +1,16 @@
-= m.input :name, label: "Modal Name"
-= m.input :code, label: "Modal Code"
+.row
+  = render 'header'
+  = render partial: "renalware/shared/errors", locals: { model: @modality_description }
+
+.row
+  .large-6.columns
+    = simple_form_for @modality_description do |f|
+      = f.input :name, label: "Modal Name"
+      = f.input :code, label: "Modal Code"
+
+      = f.button :submit
+      span= " or "
+      = link_to "Cancel", modalities_descriptions_path
 
 
 
