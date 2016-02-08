@@ -13,6 +13,7 @@ begin
     event_types
     fluid_description
     hospital_centres
+    hospital_units
     medication_routes
     modality_descriptions
     modality_reasons

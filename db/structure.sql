@@ -812,6 +812,49 @@ ALTER SEQUENCE hd_profiles_id_seq OWNED BY hd_profiles.id;
 
 
 --
+-- Name: hd_sessions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE hd_sessions (
+    id integer NOT NULL,
+    patient_id integer,
+    hospital_unit_id integer,
+    modality_description_id integer,
+    performed_on date NOT NULL,
+    start_time time without time zone NOT NULL,
+    end_time time without time zone,
+    duration integer,
+    notes text,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    document jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    signed_on_by_id integer,
+    signed_off_by_id integer
+);
+
+
+--
+-- Name: hd_sessions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE hd_sessions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE hd_sessions_id_seq OWNED BY hd_sessions.id;
+
+
+--
 -- Name: hd_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2357,6 +2400,13 @@ ALTER TABLE ONLY hd_profiles ALTER COLUMN id SET DEFAULT nextval('hd_profiles_id
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY hd_sessions ALTER COLUMN id SET DEFAULT nextval('hd_sessions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY hd_versions ALTER COLUMN id SET DEFAULT nextval('hd_versions_id_seq'::regclass);
 
 
@@ -2786,6 +2836,14 @@ ALTER TABLE ONLY hd_preference_sets
 
 ALTER TABLE ONLY hd_profiles
     ADD CONSTRAINT hd_profiles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY hd_sessions
+    ADD CONSTRAINT hd_sessions_pkey PRIMARY KEY (id);
 
 
 --
@@ -3246,6 +3304,62 @@ CREATE INDEX index_hd_profiles_on_updated_by_id ON hd_profiles USING btree (upda
 
 
 --
+-- Name: index_hd_sessions_on_created_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hd_sessions_on_created_by_id ON hd_sessions USING btree (created_by_id);
+
+
+--
+-- Name: index_hd_sessions_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hd_sessions_on_document ON hd_sessions USING gin (document);
+
+
+--
+-- Name: index_hd_sessions_on_hospital_unit_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hd_sessions_on_hospital_unit_id ON hd_sessions USING btree (hospital_unit_id);
+
+
+--
+-- Name: index_hd_sessions_on_modality_description_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hd_sessions_on_modality_description_id ON hd_sessions USING btree (modality_description_id);
+
+
+--
+-- Name: index_hd_sessions_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hd_sessions_on_patient_id ON hd_sessions USING btree (patient_id);
+
+
+--
+-- Name: index_hd_sessions_on_signed_off_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hd_sessions_on_signed_off_by_id ON hd_sessions USING btree (signed_off_by_id);
+
+
+--
+-- Name: index_hd_sessions_on_signed_on_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hd_sessions_on_signed_on_by_id ON hd_sessions USING btree (signed_on_by_id);
+
+
+--
+-- Name: index_hd_sessions_on_updated_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hd_sessions_on_updated_by_id ON hd_sessions USING btree (updated_by_id);
+
+
+--
 -- Name: index_hospital_centres_on_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -3663,6 +3777,14 @@ ALTER TABLE ONLY drug_types_drugs
 
 
 --
+-- Name: fk_rails_3e0f147311; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_sessions
+    ADD CONSTRAINT fk_rails_3e0f147311 FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
+
+
+--
 -- Name: fk_rails_479ad00a52; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3716,6 +3838,14 @@ ALTER TABLE ONLY transplant_recipient_followups
 
 ALTER TABLE ONLY peritonitis_episodes
     ADD CONSTRAINT fk_rails_7417eaaf12 FOREIGN KEY (fluid_description_id) REFERENCES fluid_descriptions(id);
+
+
+--
+-- Name: fk_rails_751ed7515f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_sessions
+    ADD CONSTRAINT fk_rails_751ed7515f FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -3807,6 +3937,14 @@ ALTER TABLE ONLY access_accesses
 
 
 --
+-- Name: fk_rails_a3afae15cb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_sessions
+    ADD CONSTRAINT fk_rails_a3afae15cb FOREIGN KEY (modality_description_id) REFERENCES modality_descriptions(id);
+
+
+--
 -- Name: fk_rails_a70920e237; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3844,6 +3982,14 @@ ALTER TABLE ONLY transplant_donor_operations
 
 ALTER TABLE ONLY clinic_visits
     ADD CONSTRAINT fk_rails_b844dc9537 FOREIGN KEY (clinic_id) REFERENCES clinics(id);
+
+
+--
+-- Name: fk_rails_bd995b497c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_sessions
+    ADD CONSTRAINT fk_rails_bd995b497c FOREIGN KEY (signed_on_by_id) REFERENCES users(id);
 
 
 --
@@ -3900,6 +4046,14 @@ ALTER TABLE ONLY pd_regime_bags
 
 ALTER TABLE ONLY events
     ADD CONSTRAINT fk_rails_e1899a68af FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_e32b0e0494; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_sessions
+    ADD CONSTRAINT fk_rails_e32b0e0494 FOREIGN KEY (signed_off_by_id) REFERENCES users(id);
 
 
 --
@@ -4113,4 +4267,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160202152252');
 INSERT INTO schema_migrations (version) VALUES ('20160203160040');
 
 INSERT INTO schema_migrations (version) VALUES ('20160203160041');
+
+INSERT INTO schema_migrations (version) VALUES ('20160208153327');
 

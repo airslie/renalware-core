@@ -7,7 +7,7 @@ Given(/^Patty has a HD profile$/) do
 end
 
 Given(/^Patty has a HD session$/) do
-  pending # express the regexp above with the code you wish you had
+  set_up_hd_session_for(@patty, user: Renalware::User.first)
 end
 
 
@@ -18,12 +18,17 @@ end
 When(/^Clyde records an HD profile for Patty$/) do
   create_hd_profile(patient: @patty, user: @clyde, prescriber: @clyde)
 end
-When(/^Nathalie records the pre\-session observations for Patty$/) do
-  pending # express the regexp above with the code you wish you had
-end
 
 When(/^Clyde submits an erroneous HD profile$/) do
   create_hd_profile(patient: @patty, user: @clyde, prescriber: nil)
+end
+
+When(/^Nathalie records the pre\-session observations for Patty$/) do
+  create_hd_session(patient: @patty, user: @nathalie)
+end
+
+When(/^Nathalie submits an erroneous HD session$/) do
+  create_hd_session(patient: @patty, user: nil)
 end
 
 
@@ -48,9 +53,13 @@ Then(/^the HD profile is not accepted$/) do
 end
 
 Then(/^Patty has a new HD session$/) do
-  pending # express the regexp above with the code you wish you had
+  expect_hd_session_to_exist(@patty)
 end
 
 Then(/^Nathalie can update Patty's HD session$/) do
-  pending # express the regexp above with the code you wish you had
+  update_hd_session(patient: @patty, user: @nathalie)
+end
+
+Then(/^the HD session is not accepted$/) do
+  expect_hd_session_to_be_refused
 end

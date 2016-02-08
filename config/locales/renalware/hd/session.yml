@@ -1,0 +1,31 @@
+en:
+  activerecord:
+    renalware/hd/session:
+      performed_on: Session Date
+      hospital_unit: Hospital Unit
+      hospital_centre: Hospital Centre
+
+  enumerize:
+    renalware/hd/session_document/info:
+      dialysis_fluid_used:
+        ca: Ca
+        hco3: HCO3
+        k: K
+        glucose: Glucose
+        n: N
+    renalware/hd/session_document/complications:
+      access_site_status:
+        clean_and_dry: Clean and Dry
+        slight_erythema: Slight Erythema
+        erythema: Erythema
+        purulent: Purulent
+
+  simple_form:
+    hints:
+      hd_session:
+        prescribed_time: in minutes
+        document:
+          info:
+            flow_rate: ml/hr
+            machine_urr: "%"
+
