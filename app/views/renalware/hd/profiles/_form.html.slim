@@ -1,0 +1,88 @@
+ruby:
+  back_path = patient_hd_dashboard_path(@patient)
+
+.row.top
+  .medium-6.columns
+    = f.button :submit
+    span= " or "
+    = link_to "cancel", back_path
+
+.form-content
+  = f.simple_fields_for :document, f.object.document do |fd|
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Admin", name: "admin" } do
+      = f.association :hospital_unit,
+          as: :grouped_select,
+          group_method: :hd_sites,
+          collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
+          label_method: :to_s,
+          hint: f.object.hospital_unit_hint
+      = f.input :schedule, input_html: { class: "small-input" }, hint: f.object.schedule_hint
+      = f.input :other_schedule, input_html: { class: "small-input" }
+      = f.association :named_nurse, collection: Renalware::User.ordered, label_method: :full_name
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Prescription", name: "prescription" } do
+      = f.input :prescribed_time, input_html: { class: "small-input" }
+      = f.input :prescribed_on, as: :date_picker
+      = f.association :prescriber, collection: Renalware::User.ordered, label_method: :full_name
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Dialysis", name: "dialysis" } do
+      = fd.simple_fields_for :dialysis, fd.object.dialysis do |fcm|
+        = fcm.input :hd_type, as: :inline_radio_buttons
+        = fcm.input :cannulation_type, input_html: { class: "small-input" },
+            collection: fcm.object.class.cannulation_types, value_method: :name
+        = fcm.input :needle_size, input_html: { class: "small-input" }
+        = fcm.input :single_needle, as: :inline_radio_buttons
+        = fcm.input :dialysate, as: :inline_radio_buttons
+        = fcm.input :flow_rate, collection: fcm.object.class.flow_rates, input_html: { class: "small-input" }
+        = fcm.input :blood_flow, collection: fcm.object.class.blood_flows, input_html: { class: "small-input" }
+        = fcm.input :dialyser, as: :grouped_select, input_html: { class: "small-input" },
+            collection: fcm.object.class.dialysers.group_by(&:group), group_method: :last,
+            label_method: :name, value_method: :name
+        = fcm.input :potassium, collection: fcm.object.class.potassium_levels, input_html: { class: "small-input" }
+        = fcm.input :calcium, collection: fcm.object.class.calcium_levels, input_html: { class: "small-input" }
+        = fcm.input :temperature, collection: fcm.object.class.temperature_levels, input_html: { class: "small-input" }
+        = fcm.input :bicarbonate, collection: fcm.object.class.bicarbonate_levels, input_html: { class: "small-input" }
+        = fcm.input :has_sodium_profiling, as: :inline_radio_buttons
+        = fcm.input :sodium_first_half, collection: fcm.object.class.sodium_levels, input_html: { class: "small-input" }
+        = fcm.input :sodium_second_half, collection: fcm.object.class.sodium_levels, input_html: { class: "small-input" }
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Anticoagulant", name: "anticoagulant" } do
+      = fd.simple_fields_for :anticoagulant, fd.object.anticoagulant do |fcm|
+        = fcm.input :type, input_html: { class: "small-input" }
+        = fcm.input :loading_dose, input_html: { class: "small-input" }
+        = fcm.input :hourly_dose, input_html: { class: "small-input" }
+        = fcm.input :stop_time, input_html: { class: "small-input" }
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Drugs", name: "drugs" } do
+      = fd.simple_fields_for :drugs, fd.object.drugs do |fcm|
+        = fcm.input :on_esa, as: :inline_radio_buttons
+        = fcm.input :on_iron, as: :inline_radio_buttons
+        = fcm.input :on_warfarin, as: :inline_radio_buttons
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Transport", name: "transport" } do
+      = fd.simple_fields_for :transport, fd.object.transport do |fcm|
+        = fcm.input :has_transport, as: :inline_radio_buttons
+        = fcm.input :type, input_html: { class: "small-input" }
+        = fcm.input :decided_on, as: :date_picker
+      = f.association :transport_decider, collection: Renalware::User.ordered, label_method: :full_name
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Care Level", name: "care_level" } do
+      = fd.simple_fields_for :care_level, fd.object.care_level do |fcm|
+        table
+          = fcm.input :required, as: :inline_radio_buttons
+          = fcm.input :assessed_on, as: :date_picker
+
+
+.row
+  .large-12.columns
+    = f.button :submit
+    span= " or "
+    = link_to 'cancel', back_path

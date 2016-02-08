@@ -8,6 +8,9 @@ class CreateHDPreferenceSets < ActiveRecord::Migration
       t.date :entered_on
       t.text :notes
 
+      t.belongs_to :created_by, index: true, null: false
+      t.belongs_to :updated_by, index: true, null: false
+
       t.timestamps null: false
     end
   end

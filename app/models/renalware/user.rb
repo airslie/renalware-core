@@ -14,6 +14,7 @@ module Renalware
     scope :unapproved, -> { where(approved: [nil, false]) }
     scope :inactive, -> { where('last_activity_at IS NOT NULL AND last_activity_at < ?', expire_after.ago) }
     scope :author, -> { where.not(signature: nil) }
+    scope :ordered, -> { order(:given_name, :family_name) }
 
     # Non-persistent attribute to signify an update by an admin (bypassing some validations)
     attr_accessor :super_admin_update

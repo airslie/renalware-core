@@ -1,0 +1,14 @@
+.row
+  = render "header"
+  = render partial: "renalware/shared/errors", locals: { model: @dialyser }
+
+.row
+  .large-6.columns
+    = simple_form_for @dialyser do |f|
+      = f.input :group
+      = f.input :name
+
+      = f.button :submit
+      span= " or "
+      = link_to "cancel", hd_dialysers_path
+

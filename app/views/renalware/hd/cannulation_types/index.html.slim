@@ -1,0 +1,18 @@
+.row
+  = render 'header'
+
+.row
+  table.auto-layout
+    thead
+      tr
+        th
+        th Name
+    tbody
+      - @cannulation_types.each do |t|
+        tr
+          td
+            = link_to "Edit", edit_hd_cannulation_type_path(t.id)
+            = pipe_separator
+            = link_to "Delete", hd_cannulation_type_path(t.id), method: :delete,
+                data: { confirm: I18n.t("prompts.confirm_delete") }
+          td= t.name

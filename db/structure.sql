@@ -667,6 +667,71 @@ ALTER SEQUENCE fluid_descriptions_id_seq OWNED BY fluid_descriptions.id;
 
 
 --
+-- Name: hd_cannulation_types; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE hd_cannulation_types (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hd_cannulation_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE hd_cannulation_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_cannulation_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE hd_cannulation_types_id_seq OWNED BY hd_cannulation_types.id;
+
+
+--
+-- Name: hd_dialysers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE hd_dialysers (
+    id integer NOT NULL,
+    "group" character varying NOT NULL,
+    name character varying NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hd_dialysers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE hd_dialysers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_dialysers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE hd_dialysers_id_seq OWNED BY hd_dialysers.id;
+
+
+--
 -- Name: hd_preference_sets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -678,6 +743,8 @@ CREATE TABLE hd_preference_sets (
     other_schedule character varying,
     entered_on date,
     notes text,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -713,7 +780,9 @@ CREATE TABLE hd_profiles (
     schedule character varying,
     other_schedule character varying,
     prescribed_time integer,
-    prescribed_on character varying,
+    prescribed_on date,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
     document jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -2260,6 +2329,20 @@ ALTER TABLE ONLY fluid_descriptions ALTER COLUMN id SET DEFAULT nextval('fluid_d
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY hd_cannulation_types ALTER COLUMN id SET DEFAULT nextval('hd_cannulation_types_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_dialysers ALTER COLUMN id SET DEFAULT nextval('hd_dialysers_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY hd_preference_sets ALTER COLUMN id SET DEFAULT nextval('hd_preference_sets_id_seq'::regclass);
 
 
@@ -2674,6 +2757,22 @@ ALTER TABLE ONLY fluid_descriptions
 
 
 --
+-- Name: hd_cannulation_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY hd_cannulation_types
+    ADD CONSTRAINT hd_cannulation_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_dialysers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY hd_dialysers
+    ADD CONSTRAINT hd_dialysers_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: hd_preference_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -3063,6 +3162,13 @@ CREATE UNIQUE INDEX index_drug_types_drugs_on_drug_id_and_drug_type_id ON drug_t
 
 
 --
+-- Name: index_hd_preference_sets_on_created_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hd_preference_sets_on_created_by_id ON hd_preference_sets USING btree (created_by_id);
+
+
+--
 -- Name: index_hd_preference_sets_on_hospital_unit_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -3074,6 +3180,20 @@ CREATE INDEX index_hd_preference_sets_on_hospital_unit_id ON hd_preference_sets 
 --
 
 CREATE INDEX index_hd_preference_sets_on_patient_id ON hd_preference_sets USING btree (patient_id);
+
+
+--
+-- Name: index_hd_preference_sets_on_updated_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hd_preference_sets_on_updated_by_id ON hd_preference_sets USING btree (updated_by_id);
+
+
+--
+-- Name: index_hd_profiles_on_created_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hd_profiles_on_created_by_id ON hd_profiles USING btree (created_by_id);
 
 
 --
@@ -3116,6 +3236,13 @@ CREATE INDEX index_hd_profiles_on_prescriber_id ON hd_profiles USING btree (pres
 --
 
 CREATE INDEX index_hd_profiles_on_transport_decider_id ON hd_profiles USING btree (transport_decider_id);
+
+
+--
+-- Name: index_hd_profiles_on_updated_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hd_profiles_on_updated_by_id ON hd_profiles USING btree (updated_by_id);
 
 
 --
@@ -3982,4 +4109,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160121175711');
 INSERT INTO schema_migrations (version) VALUES ('20160121175712');
 
 INSERT INTO schema_migrations (version) VALUES ('20160202152252');
+
+INSERT INTO schema_migrations (version) VALUES ('20160203160040');
+
+INSERT INTO schema_migrations (version) VALUES ('20160203160041');
 

@@ -1,0 +1,25 @@
+= render layout: "renalware/patients/layout",
+    locals: { title: "HD Profile" } do
+  - return unless @profile
+
+  .document-view
+    = render "renalware/shared/attributes_group",
+        legend: "Admin", destination: "admin",
+        models: { @profile => [:hospital_centre, :hospital_unit, :current_schedule, :named_nurse] }
+
+    = render "renalware/shared/attributes_group",
+        legend: "Prescription", destination: "prescription",
+        models: { @profile => [:prescribed_time, :prescribed_on, :prescriber] }
+
+    - ["Dialysis", "Anticoagulant", "Drugs"].each do |group|
+      = render "renalware/shared/documents/attributes_group",
+          group: @profile.document.public_send(group.parameterize('_')),
+          legend: group, destination: group.parameterize('_')
+
+    = render "renalware/shared/attributes_group",
+        legend: "Transport", destination: "transport",
+        models: { @profile.document.transport => [:has_transport, :type, :decided_on ], @profile => [:transport_decider] }
+
+    = render "renalware/shared/documents/attributes_group",
+        group: @profile.document.care_level,
+        legend: "Care Level", destination: "care_lebel"

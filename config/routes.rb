@@ -36,6 +36,11 @@ Rails.application.routes.draw do
       resources :types, except: :show
     end
 
+    namespace :hd do
+      resources :cannulation_types, except: :show
+      resources :dialysers, except: :show
+    end
+
     namespace :hospitals do
       resources :units, except: :show
     end
@@ -71,6 +76,7 @@ Rails.application.routes.draw do
       namespace :hd do
         resource :dashboard, only: :show
         resource :preference_set, only: [:edit, :update]
+        resource :profile, only: [:show, :edit, :update]
       end
 
       resources :letters

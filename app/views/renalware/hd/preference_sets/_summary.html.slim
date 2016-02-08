@@ -1,7 +1,12 @@
 fieldset
   legend Preferences
 
-  - if @preference_set.persisted?
+  - if @preference_set.new_record?
+    .call-to-action
+      = link_to edit_patient_hd_preference_set_path(@patient) do
+        i.fa.fa-plus-circle
+        | Enter preferences
+  - else
     .row
       .large-3.columns
         dl
@@ -15,13 +20,13 @@ fieldset
 
       .large-3.columns
         dl
-          dt Unit:
-          dd= @preference_set.hospital_unit
+          dt Hospital Centre:
+          dd= @preference_set.hospital_centre
 
       .large-4.columns
         dl
-          dt Entered On:
-          dd= @preference_set.entered_on
+          dt Unit:
+          dd= @preference_set.hospital_unit
 
       .large-2.columns
         .right
@@ -36,12 +41,6 @@ fieldset
         dl
           dt Last Update:
           dd
-            - if version = @preference_set.versions.last
-              = l version.created_at
-              | &nbsp;by&nbsp;
-              = who_did_it version
-  - else
-    .call-to-action
-      = link_to edit_patient_hd_preference_set_path(@patient) do
-        i.fa.fa-plus-circle
-        | Enter preferences
+            = l @preference_set.updated_at
+            | &nbsp;by&nbsp;
+            = @preference_set.updated_by.to_s
