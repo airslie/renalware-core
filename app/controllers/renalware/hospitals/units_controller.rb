@@ -1,4 +1,4 @@
-require_dependency "renalware/events"
+require_dependency "renalware/hospitals"
 
 module Renalware
   module Hospitals
@@ -11,7 +11,7 @@ module Renalware
       end
 
       def create
-        @hospital_unit = Unit.new(event_params)
+        @hospital_unit = Unit.new(hospital_unit_params)
         authorize @hospital_unit
 
         if @hospital_unit.save
@@ -29,7 +29,7 @@ module Renalware
       end
 
       def update
-        if @hospital_unit.update(event_params)
+        if @hospital_unit.update(hospital_unit_params)
           redirect_to hospitals_units_path,
             notice: t(".success", model_name: "hospital unit")
         else
@@ -46,7 +46,7 @@ module Renalware
 
       private
 
-      def event_params
+      def hospital_unit_params
         params.require(:hospitals_unit).permit(
           :name, :unit_code, :renal_registry_code, :unit_type, :is_hd_site, :hospital_centre_id
         )

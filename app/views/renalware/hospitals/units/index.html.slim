@@ -18,7 +18,7 @@
           td
             = link_to "Edit", edit_hospitals_unit_path(t.id)
             = pipe_separator
-            = link_to "Delete", hospitals_unit_path(t.id), id: "#{t.id}-pet", method: :delete,
+            = link_to "Delete", hospitals_unit_path(t.id), RecipientFollowupmethod: :delete,
               data: {confirm: I18n.t("prompts.confirm_delete") }
           td= t.unit_code
           td= t.name

@@ -1,10 +1,1 @@
-.row
-  = render "header"
-
-.row
-  .large-6.columns
-    = simple_form_for @doctor do |f|
-      = render partial: 'form', locals: { f: f }
-      = f.submit 'Update', class: 'button'
-      span= " or "
-      = link_to "cancel", doctors_path
+= render "form"

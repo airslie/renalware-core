@@ -26,7 +26,7 @@ module World
             description: description,
             started_on: row[:start_date],
             terminated_on: row[:termination_date],
-            created_by_id: Renalware::User.find_by(given_name: row[:by]).id,
+            by: Renalware::User.find_by(given_name: row[:by])
           )
         end
         @initial_statuses_count = registration.statuses.count

@@ -1,11 +1,1 @@
-.row
-  = render 'header'
-  = render partial: "renalware/shared/errors", locals: { model: @modality_description }
-
-.row
-  .large-6.columns
-    = simple_form_for @modality_description do |m|
-      = render partial: "form", locals: { m: m }
-      = submit_tag "Update", class: "button"
-      span= " or "
-      = link_to "Cancel", modalities_descriptions_path
+ = render "form"

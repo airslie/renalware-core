@@ -107,8 +107,6 @@ module Renalware
     ) do |cv|
       cv.by = user
     end
-
-    rabbit.clinic_visits << clinic_visit
   end
 
   log '--------------------Adding Medications for Roger RABBIT-------------------'
@@ -150,5 +148,60 @@ module Renalware
   patient.set_modality(description: description, started_on: 1.week.ago)
 
   log '--------------------Assign some HD preferences to Francois RABBIT-------------------'
-  preference_set = HD::PreferenceSet.create!(patient: patient, schedule: "mon_wed_fri_am", entered_on: 1.week.ago.to_date)
+  preference_set = HD::PreferenceSet.find_or_initialize_by(patient: patient)
+  preference_set.attributes = { schedule: "mon_wed_fri_am", entered_on: 1.week.ago.to_date, by: User.first }
+  preference_set.save!
+
+  log '--------------------Assign an HD profile to Francois RABBIT-------------------'
+  profile = HD::Profile.find_or_initialize_by(patient: patient)
+  profile.attributes = {
+    by: User.first,
+    hospital_unit: Hospitals::Unit.hd_sites.first,
+    schedule: "mon_wed_fri_am",
+    prescribed_time: 150,
+    prescribed_on: 1.week.ago.to_date,
+    prescriber: User.first,
+    named_nurse: User.last,
+    transport_decider: User.first,
+    document: {
+      dialysis: {
+        hd_type: :hd,
+        cannulation_type: "Buttonhole",
+        needle_size: "44",
+        single_needle: :yes,
+        dialysate: :a7,
+        flow_rate: 300,
+        blood_flow: 400,
+        dialyser: "FX CorDiax 120",
+        potassium: 2,
+        calcium: 1.5,
+        temperature: 36.0,
+        bicarbonate: 35,
+        has_sodium_profiling: :no,
+        sodium_first_half: 137,
+        sodium_second_half: 145
+      },
+      anticoagulant: {
+        type: :heparin,
+        loading_dose: 45,
+        hourly_dose: 66,
+        stop_time: "0:45",
+      },
+      drugs: {
+        on_esa: :no,
+        on_iron: :no,
+        on_warfarin: :no
+      },
+      transport: {
+        has_transport: :yes,
+        type: :taxi,
+        decided_on: 2.days.ago.to_date,
+      },
+      care_level: {
+        required: :no,
+        assessed_on: 3.days.ago.to_date
+      }
+    }
+  }
+  profile.save!
 end

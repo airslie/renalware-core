@@ -1,21 +1,21 @@
 ul.side-nav
   li.heading General
-  li= link_to "Demographics", patient_path(@patient)
-  li= link_to "Clinical Summary", patient_clinical_summary_path(@patient)
-  li= link_to "Renal Summary", edit_patient_esrf_path(@patient)
-  li= link_to "Modals", patient_modalities_path(@patient)
-  li= link_to "Problems (#{Renalware::Problems::Problem.for_patient(@patient).count})", patient_problems_path(@patient)
-  li= link_to "Medications (#{@patient.medications.length})", patient_medications_path(@patient)
-  li= link_to "Events (#{Renalware::Events::Event.for_patient(@patient).count})", patient_events_path(@patient)
-  li= link_to "Clinic Visits (#{@patient.clinic_visits.length})", patient_clinic_visits_path(@patient)
-  li= link_to "Letters (#{@patient.letters.length})", patient_letters_path(@patient)
+  li.link= link_to "Demographics", patient_path(@patient)
+  li.link= link_to "Clinical Summary", patient_clinical_summary_path(@patient)
+  li.link= link_to "Renal Summary", edit_patient_esrf_path(@patient)
+  li.link= link_to "Modals", patient_modalities_path(@patient)
+  li.link= link_to "Problems (#{Renalware::Problems::Problem.for_patient(@patient).count})", patient_problems_path(@patient)
+  li.link= link_to "Medications (#{@patient.medications.length})", patient_medications_path(@patient)
+  li.link= link_to "Events (#{Renalware::Events::Event.for_patient(@patient).count})", patient_events_path(@patient)
+  li.link= link_to "Clinic Visits (#{@patient.clinic_visits.length})", patient_clinic_visits_path(@patient)
+  li.link= link_to "Letters (#{@patient.letters.length})", patient_letters_path(@patient)
   li.divider
   li.heading Regimes
-  li= link_to_if display_pd_menu(@patient.modalities.with_deleted), "PD", patient_pd_summary_path(@patient)
-  li= link_to_if display_hd_menu(@patient.modalities.with_deleted), "HD", patient_hd_dashboard_path(@patient)
+  li.link= link_to_if display_pd_menu(@patient.modalities.with_deleted), "PD", patient_pd_summary_path(@patient)
+  li.link= link_to_if display_hd_menu(@patient.modalities.with_deleted), "HD", patient_hd_dashboard_path(@patient)
   li.divider
   li.heading Transplants
   - if @patient.current_modality_live_donor?
-    li= link_to "Donor Summary", patient_transplants_donor_dashboard_path(@patient)
+    li.link= link_to "Donor Summary", patient_transplants_donor_dashboard_path(@patient)
   - else
-    li= link_to "Recipient Summary", patient_transplants_recipient_dashboard_path(@patient)
+    li.link= link_to "Recipient Summary", patient_transplants_recipient_dashboard_path(@patient)

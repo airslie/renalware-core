@@ -2,7 +2,12 @@ fieldset
   legend Transplant Wait List Registration
 
   .row
-    - if @registration.persisted?
+    - if @registration.new_record?
+      .call-to-action
+        = link_to edit_patient_transplants_registration_path(@patient) do
+          i.fa.fa-plus-circle
+          | Enter registration details
+    - else
       .large-3.columns
         dl
           dt Status:
@@ -31,8 +36,3 @@ fieldset
           = link_to "View", patient_transplants_registration_path(@patient), class: "button tiny"
           | &nbsp;
           = link_to "Edit", edit_patient_transplants_registration_path(@patient), class: "button tiny"
-    - else
-      .call-to-action
-        = link_to edit_patient_transplants_registration_path(@patient) do
-          i.fa.fa-plus-circle
-          | Enter registration details

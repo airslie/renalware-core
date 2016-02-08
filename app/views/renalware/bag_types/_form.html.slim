@@ -1,39 +1,48 @@
 .row
+  = render "header"
+  = render partial: "renalware/shared/errors", locals: { model: @bag_type }
+
+.row
   .large-6.columns
-    = bt.input :id, as: :hidden unless bt.object.new_record?
+    = simple_form_for @bag_type do |f|
+      = f.input :id, as: :hidden unless f.object.new_record?
 
-    = bt.input :manufacturer,
-        collection: manufacturer_options,
-        prompt: "Please select from options",
-        input_html: { class: "manufacturer-select" }
+      = f.input :manufacturer,
+          collection: manufacturer_options,
+          prompt: "Please select from options",
+          input_html: { class: "manufacturer-select" }
 
-    = bt.input :description
+      = f.input :description
 
-    = bt.input :glucose_grams_per_litre,
-        label: "Glucose content (g/l)"
+      = f.input :glucose_grams_per_litre,
+          label: "Glucose content (g/l)"
 
-    ul.no-bullet
-      li
-        = bt.input :amino_acid, as: :boolean,
-            label: "Contains amino acid soln?"
-      li
-        = bt.input :icodextrin, as: :boolean,
-            label: "Contains icodextrin soln?"
+      ul.no-bullet
+        li
+          = f.input :amino_acid, as: :boolean,
+              label: "Contains amino acid soln?"
+        li
+          = f.input :icodextrin, as: :boolean,
+              label: "Contains icodextrin soln?"
 
-      li
-        = bt.input :low_glucose_degradation, as: :boolean,
-            label: "Low glucose degradation product (GDP)"
+        li
+          = f.input :low_glucose_degradation, as: :boolean,
+              label: "Low glucose degradation product (GDP)"
 
-      li
-        = bt.input :low_sodium, as: :boolean,
-            label: "Low sodium solution"
+        li
+          = f.input :low_sodium, as: :boolean,
+              label: "Low sodium solution"
 
-    = bt.input :sodium_mmole_l, label: "Sodium content (mmole/l)"
+      = f.input :sodium_mmole_l, label: "Sodium content (mmole/l)"
 
-    = bt.input :lactate_mmole_l, label: "Lactate content (mmole/l)"
+      = f.input :lactate_mmole_l, label: "Lactate content (mmole/l)"
 
-    = bt.input :bicarbonate_mmole_l, label: "Bicarbonate content (mmole/l)"
+      = f.input :bicarbonate_mmole_l, label: "Bicarbonate content (mmole/l)"
 
-    = bt.input :calcium_mmole_l, label: "Calcium content (mmole/l)"
+      = f.input :calcium_mmole_l, label: "Calcium content (mmole/l)"
 
-    = bt.input :magnesium_mmole_l, label: "Magnesium content (mmole/l)"
+      = f.input :magnesium_mmole_l, label: "Magnesium content (mmole/l)"
+
+      = f.button :submit
+      span= " or "
+      = link_to "Cancel", bag_types_path

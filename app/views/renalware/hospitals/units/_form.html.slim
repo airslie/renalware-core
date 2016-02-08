@@ -1,6 +1,17 @@
-= f.association :hospital_centre, collection: Renalware::Hospitals::Centre.ordered
-= f.input :unit_code
-= f.input :name
-= f.input :renal_registry_code
-= f.input :unit_type
-= f.input :is_hd_site
+.row
+  = render 'header'
+  = render partial: "renalware/shared/errors", locals: { model: @hospital_unit }
+
+.row
+  .large-6.columns
+    = simple_form_for @hospital_unit do |f|
+      = f.association :hospital_centre, collection: Renalware::Hospitals::Centre.ordered
+      = f.input :unit_code
+      = f.input :name
+      = f.input :renal_registry_code
+      = f.input :unit_type
+      = f.input :is_hd_site
+
+      = f.button :submit
+      span= " or "
+      = link_to "cancel", hospitals_units_path

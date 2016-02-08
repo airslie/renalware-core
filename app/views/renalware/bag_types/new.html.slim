@@ -1,11 +1,1 @@
-.row
-  = render "header"
-  = render partial: "renalware/shared/errors", locals: { model: @bag_type }
-
-.row
-  = simple_form_for @bag_type do |bt|
-    = render partial: "renalware/bag_types/form", locals: { bt: bt }
-
-    = submit_tag "Save", class: "button"
-    span= " or "
-    = link_to "cancel", patients_path
+= render "form"

@@ -9,25 +9,28 @@ module World
 
       # @section set-ups
       #
-      def set_up_hd_preferences_for(patient)
+      def set_up_hd_preferences_for(patient, user:)
         Renalware::HD::PreferenceSet.create!(
           patient: patient,
-          schedule: :mon_wed_fri_am
+          schedule: :mon_wed_fri_am,
+          by: user
         )
       end
 
       # @section commands
       #
-      def create_hd_preferences(user: nil, patient:)
-        set_up_hd_preferences_for(patient)
+      def create_hd_preferences(user:, patient:)
+        set_up_hd_preferences_for(patient, user: user)
       end
 
       def update_hd_preferences(patient:, user: nil)
         travel_to 1.hour.from_now
 
-        workup = hd_preference_set_for(patient)
-        workup.update_attributes!(
-          updated_at: Time.zone.now
+        set = hd_preference_set_for(patient)
+        set.update_attributes!(
+          schedule: :mon_wed_fri_pm,
+          updated_at: Time.zone.now,
+          by: user
         )
       end
 
@@ -35,11 +38,6 @@ module World
       #
       def expect_hd_preferences_to_exist(patient)
         expect(Renalware::HD::PreferenceSet.for_patient(patient)).to be_present
-      end
-
-      def expect_workup_to_be_modified(patient)
-        workup = Renalware::HD::PreferenceSet.for_patient(patient).first
-        expect(workup).to be_modified
       end
     end
 
@@ -54,7 +52,7 @@ module World
 
         select "Mon, Wed, Fri AM", from: "Schedule"
 
-        click_on "Save"
+        click_on "Create"
       end
 
       def update_hd_preferences(patient:, user:)
