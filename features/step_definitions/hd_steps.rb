@@ -3,7 +3,7 @@ Given(/^Patty has HD preferences$/) do
 end
 
 Given(/^Patty has a HD profile$/) do
-  pending # express the regexp above with the code you wish you had
+  set_up_hd_profile_for(@patty, prescriber: Renalware::User.first)
 end
 
 Given(/^Patty has a HD session$/) do

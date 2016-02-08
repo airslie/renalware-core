@@ -20,7 +20,7 @@ module World
 
       # @section set-ups
       #
-      def set_up_hd_profile_for(patient, prescriber)
+      def set_up_hd_profile_for(patient, prescriber:)
         Renalware::HD::Profile.create!(
           valid_profile_attributes.merge(
             patient: patient,
