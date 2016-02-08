@@ -18,6 +18,22 @@ function initDateTimepickersIn(container) {
   });
 }
 
+function initClockpickersIn(container) {
+  var elem = ".clockpicker";
+  var pickerOptions = {
+    placement: "right", align: "left", donetext: "Set", autoclose: "true"
+  };
+
+  $(container + ' ' + elem).clockpicker(pickerOptions);
+
+  $(container + ' ' + elem + '-wrapper .prefix i').on('click', function() {
+    // FIXME: does not work, although the picker is found.
+    $(this).closest(elem + '-wrapper')
+      .find(elem)
+      .clockpicker("show");
+  });
+}
+
 $(function() {
   if ($('small.error').length > 0) {
     $('html, body').animate({
@@ -27,4 +43,5 @@ $(function() {
 
   initDatepickersIn("body");
   initDateTimepickersIn("body");
+  initClockpickersIn("body");
 });

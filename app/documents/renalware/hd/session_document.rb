@@ -31,7 +31,7 @@ module Renalware
       class Dialysis < Document::Embedded
         attribute :arterial_pressure, Integer
         attribute :venous_pressure, Integer
-        attribute :fluid_remove, Float
+        attribute :fluid_removed, Float
         attribute :blood_flow, Integer
         attribute :flow_rate, Integer
         attribute :machine_urr, Integer
@@ -39,11 +39,12 @@ module Renalware
         attribute :litres_processed, Float
 
         def self.flow_rates; (100..800).step(100); end
+        def self.blood_flows; (50..400).step(50); end
 
         validates :machine_urr, inclusion: { in: 0..100, allow_blank: true }
         validates :machine_ktv, inclusion: { in: (0.2..3.5), allow_blank: true }
       end
-      attribute :Dialysis
+      attribute :dialysis, Dialysis
 
       class HDF < Document::Embedded
         attribute :subs_fluid_pct, Integer

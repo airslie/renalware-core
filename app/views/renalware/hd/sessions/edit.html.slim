@@ -1,0 +1,6 @@
+= render layout: "renalware/patients/layout", locals: { title: "Transplant Recipient Operation" } do
+  .document
+    = simple_form_for @session,
+        url: patient_hd_session_path(@patient, @session),
+        wrapper: "horizontal_form" do |f|
+      = render 'form', f: f

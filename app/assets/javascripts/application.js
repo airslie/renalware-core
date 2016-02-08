@@ -19,6 +19,7 @@
 //= require select2/js/select2.min
 //= require jquery_nested_form
 //= require foundation-datepicker
+//= require clockpicker
 //= require_tree .
 
 $(function(){ $(document).foundation(); });

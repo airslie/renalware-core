@@ -16,6 +16,7 @@
  *= require foundation-datepicker
  *= require jquery-ui/core
  *= require jquery-ui/autocomplete
+ *= require clockpicker
  *= require_tree ./lib
  *= require_tree ./renalware
  */

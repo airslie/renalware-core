@@ -24,11 +24,11 @@ When(/^Clyde submits an erroneous HD profile$/) do
 end
 
 When(/^Nathalie records the pre\-session observations for Patty$/) do
-  create_hd_session(patient: @patty, user: @nathalie)
+  create_hd_session(patient: @patty, user: @nathalie, performed_on: Time.zone.today)
 end
 
 When(/^Nathalie submits an erroneous HD session$/) do
-  create_hd_session(patient: @patty, user: nil)
+  create_hd_session(patient: @patty, user: @nathalie, performed_on: nil)
 end
 
 

@@ -7,6 +7,7 @@ module Renalware
         profile = Profile.for_patient(@patient).first_or_initialize
         @preference_set = PreferenceSet.for_patient(@patient).first_or_initialize
         @profile = ProfilePresenter.new(profile, preference_set: @preference_set)
+        @sessions = Session.for_patient(@patient).ordered
       end
     end
   end

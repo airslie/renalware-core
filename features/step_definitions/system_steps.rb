@@ -24,6 +24,6 @@ Given(/^(.*?) is a nurse$/) do |name|
     password: "supersecret",
     approved: true,
   )
-  user.roles << Renalware::Role.find_or_create_by(name: "nurse")
+  user.roles << Renalware::Role.find_or_create_by(name: "clinician")
   instance_variable_set("@"+name.downcase, user)
 end

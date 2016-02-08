@@ -18,5 +18,6 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "PD"
   inflect.acronym "CAPD"
   inflect.acronym "APD"
+  inflect.acronym "HDF"
   inflect.acronym "HD"
 end
