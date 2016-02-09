@@ -4,8 +4,16 @@
 
   .document-view
     = render "renalware/shared/attributes_group",
-        legend: "Session Info", destination: "info",
-        models: { @session => [:performed_on, :modality_description, :hospital_unit, :start_time, :end_time, :signed_on_by, :signed_off_by], @session.document.info => @session.document.info.class.attributes_list }
+        legend: "Sign-In", destination: "signin",
+        models: { @session => [:performed_on, :modality_description, :hospital_unit, :start_time, :signed_on_by] }
+
+    = render "renalware/shared/attributes_group",
+        legend: "Sign-Off", destination: "signoff",
+        models: { @session => [:end_time, :duration, :signed_off_by] }
+
+    = render "renalware/shared/documents/attributes_group",
+        group: @session.document.info,
+        legend: "Session Info", destination: "info"
 
     = render "renalware/shared/documents/attributes_group",
         group: @session.document.observations_before,

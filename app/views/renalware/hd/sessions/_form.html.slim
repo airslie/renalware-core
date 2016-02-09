@@ -11,7 +11,7 @@ ruby:
   = f.simple_fields_for :document, f.object.document do |fd|
 
     = render layout: "renalware/shared/fieldset",
-        locals: { legend: "Session Info", name: "info" } do
+        locals: { legend: "Sign-In", name: "signin" } do
       = f.input :performed_on, as: :date_picker
       = f.association :hospital_unit,
           as: :grouped_select,
@@ -21,11 +21,17 @@ ruby:
       = f.input :start_time, as: :clock_picker
       = f.association :signed_on_by, collection: Renalware::User.ordered, label_method: :full_name
 
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Sign-Off", name: "signoff" } do
+
+      = f.input :end_time, as: :clock_picker
+      = f.association :signed_off_by, collection: Renalware::User.ordered, label_method: :full_name
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Session Info", name: "info" } do
+
       = fd.simple_fields_for :info, fd.object.info do |fcm|
         = fcm.input :hd_type, as: :inline_radio_buttons
-
-        hr
-
         = fcm.input :access_type, input_html: { class: "small-input" }
         = fcm.input :access_side, input_html: { class: "small-input" }
         = fcm.input :access_site, input_html: { class: "small-input" }
@@ -35,10 +41,6 @@ ruby:
         = fcm.input :lines_reversed, as: :inline_radio_buttons
         = fcm.input :machine_no, input_html: { class: "small-input" }
         = fcm.input :dialysis_fluid_used, input_html: { class: "small-input" }
-
-      = f.input :end_time, as: :clock_picker
-      = f.association :signed_off_by, collection: Renalware::User.ordered, label_method: :full_name
-
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Pre-Dialysis Observations", name: "before" } do
