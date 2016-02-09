@@ -52,6 +52,14 @@ en:
         had_headache: Had headcache?
         had_chest_pain: Had chest pain?
         had_alteplase_urokinase: Had alteplase urokinase?
+    errors:
+      models:
+        renalware/hd/session_document/dialysis:
+          attributes:
+            machine_ktv:
+              inclusion: must be between 0.2 and 3.5
+            machine_urr:
+              inclusion: must be between 0 and 100
 
   enumerize:
     renalware/hd/session_document/info:
