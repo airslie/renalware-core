@@ -18,6 +18,7 @@ module Renalware
       has_paper_trail class_name: "Renalware::HD::Version"
 
       before_create :assign_modality
+      before_save :compute_duration
 
       scope :ordered, -> () { order(performed_on: :desc) }
 
@@ -39,14 +40,20 @@ module Renalware
         signed_off_by.present? && end_time.present?
       end
 
-      def duration
-        end_time.present? ? (end_time - start_time).to_i/60 : nil
-      end
-
       private
 
       def assign_modality
         self.modality_description = patient.modality_description
+      end
+
+      def compute_duration
+        if start_time_changed? || end_time_changed?
+          if start_time.nil? || end_time.nil?
+            self.duration = nil
+          else
+            self.duration = (end_time - start_time).to_i/60
+          end
+        end
       end
     end
   end
