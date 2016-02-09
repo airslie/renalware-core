@@ -96,7 +96,7 @@ module World
         login_as user
         visit patient_hd_dashboard_path(patient)
         within_fieldset "HD Sessions" do
-          click_on "Edit"
+          click_on "Sign Off"
         end
 
         fill_in "Session End Time", with: "16:00"
