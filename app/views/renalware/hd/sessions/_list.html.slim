@@ -13,6 +13,7 @@ fieldset.status-history
         th Date
         th From
         th To
+        th Dur. (min)
         th Site
         th Sign On
         th Sign Off
@@ -20,18 +21,16 @@ fieldset.status-history
       tbody
         - @sessions.each do |session|
           tr
-            td= link_to "Edit", edit_patient_hd_session_path(@patient, session)
+            td= link_to edit_patient_hd_session_path(@patient, session) do
+              = session.signed_off? ? "Edit" : "Sign Off"
             td= link_to patient_hd_session_path(@patient, session) do
                 = l session.performed_on
             td= l session.start_time, format: :time
             td= l session.end_time, format: :time
+            td= session.duration
             td= session.hospital_unit
             td= session.signed_on_by
-            - if session.signed_off?
-              td= session.signed_off_by
-            - else
-              td= link_to "Sign Off", edit_patient_hd_session_path(@patient, session)
-
+            td= session.signed_off_by
 
     .right
       = link_to "Add a session", new_patient_hd_session_path(@patient),

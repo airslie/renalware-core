@@ -9,6 +9,7 @@ en:
       start_time: Session Start Time
       end_time: Session End Time
       hd_type: HD Type
+      modality_description: Modality
   activemodel:
     attributes:
       renalware/hd/session_document/info:
