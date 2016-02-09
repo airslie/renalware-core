@@ -27,7 +27,11 @@ fieldset.status-history
             td= l session.end_time, format: :time
             td= session.hospital_unit
             td= session.signed_on_by
-            td= session.signed_off_by
+            - if session.signed_off?
+              td= session.signed_off_by
+            - else
+              td= link_to "Sign Off", edit_patient_hd_session_path(@patient, session)
+
 
     .right
       = link_to "Add a session", new_patient_hd_session_path(@patient),

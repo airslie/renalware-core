@@ -43,6 +43,10 @@ module Renalware
         session.signed_on_by = current_user
         session
       end
+
+      def signed_off?
+        signed_off_by.present? && end_time.present?
+      end
     end
   end
 end
