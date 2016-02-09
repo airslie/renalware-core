@@ -7,7 +7,7 @@ Given(/^Patty has an HD profile$/) do
 end
 
 Given(/^Patty has a dry weight entry$/) do
-  pending # express the regexp above with the code you wish you had
+  set_up_hd_dry_weight_for(@patty, @clyde)
 end
 
 
@@ -24,11 +24,11 @@ When(/^Clyde submits an erroneous HD profile$/) do
 end
 
 When(/^Clyde records the dry weight for Patty$/) do
-  pending # express the regexp above with the code you wish you had
+  create_hd_dry_weight(patient: @patty, user: @clyde, assessor: @clyde)
 end
 
 When(/^Clyde submits an erroneous dry weight$/) do
-  pending # express the regexp above with the code you wish you had
+  create_hd_dry_weight(patient: @patty, user: @clyde, assessor: nil)
 end
 
 
@@ -53,13 +53,13 @@ Then(/^the HD profile is not accepted$/) do
 end
 
 Then(/^Patty has a new dry weight$/) do
-  pending # express the regexp above with the code you wish you had
+  expect_hd_dry_weight_to_exist(@patty)
 end
 
 Then(/^Clyde can update Patty's dry weight entry$/) do
-  pending # express the regexp above with the code you wish you had
+  update_hd_dry_weight(patient: @patty, user: @clyde)
 end
 
 Then(/^the dry weight is not accepted$/) do
-  pending # express the regexp above with the code you wish you had
+  expect_hd_dry_weight_to_be_refused
 end
