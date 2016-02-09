@@ -77,7 +77,7 @@ Rails.application.routes.draw do
         resource :dashboard, only: :show
         resource :preference_set, only: [:edit, :update]
         resource :profile, only: [:show, :edit, :update]
-        resources :sessions, except: [:index, :destroy]
+        resources :sessions, except: [:destroy]
       end
 
       resources :letters

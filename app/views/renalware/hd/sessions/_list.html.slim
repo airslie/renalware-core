@@ -1,5 +1,5 @@
 fieldset.status-history
-  legend HD Sessions
+  legend Latest HD Sessions
 
   - if @sessions.empty?
     .call-to-action
@@ -20,18 +20,21 @@ fieldset.status-history
 
       tbody
         - @sessions.each do |session|
-          tr
+          = content_tag(:tr, class: session.ongoing_css_class) do
             td= link_to edit_patient_hd_session_path(@patient, session) do
               = session.signed_off? ? "Edit" : "Sign Off"
             td= link_to patient_hd_session_path(@patient, session) do
-                = l session.performed_on
-            td= l session.start_time, format: :time
-            td= l session.end_time, format: :time
+                = session.performed_on
+            td= session.start_time
+            td= session.end_time
             td= session.duration
             td= session.hospital_unit
             td= session.signed_on_by
             td= session.signed_off_by
 
     .right
-      = link_to "Add a session", new_patient_hd_session_path(@patient),
+      = link_to "Add a Session", new_patient_hd_session_path(@patient),
+        class: 'button tiny'
+      | &nbsp;
+      = link_to "View All", patient_hd_sessions_path(@patient),
         class: 'button tiny'

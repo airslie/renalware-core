@@ -79,7 +79,7 @@ module World
       def create_hd_session(user:, patient:, performed_on:)
         login_as user
         visit patient_hd_dashboard_path(patient)
-        within_fieldset "HD Sessions" do
+        within_fieldset "Latest HD Sessions" do
           click_on "Add a session"
         end
 
@@ -95,7 +95,7 @@ module World
       def update_hd_session(patient:, user:)
         login_as user
         visit patient_hd_dashboard_path(patient)
-        within_fieldset "HD Sessions" do
+        within_fieldset "Latest HD Sessions" do
           click_on "Sign Off"
         end
 

@@ -3,6 +3,12 @@ module Renalware
     class SessionsController < BaseController
       before_filter :load_patient
 
+      def index
+        @sessions = Session.for_patient(@patient).ordered.map do |session|
+          SessionPresenter.new(session)
+        end
+      end
+
       def show
         session = Session.for_patient(@patient).find(params[:id])
         @session = SessionPresenter.new(session)

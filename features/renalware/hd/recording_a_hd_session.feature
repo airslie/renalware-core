@@ -1,3 +1,4 @@
+@wip
 Feature: Recording a HD session
 
   A nurse records HD session observations at the start and the end of a session.

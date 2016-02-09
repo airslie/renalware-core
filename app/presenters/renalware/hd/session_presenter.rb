@@ -7,6 +7,14 @@ module Renalware
         super(session)
       end
 
+      def ongoing_css_class
+        signed_off? ? "done" : "active"
+      end
+
+      def performed_on
+        ::I18n.l(super)
+      end
+
       def start_time
         ::I18n.l(super, format: :time)
       end

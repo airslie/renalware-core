@@ -1,7 +1,0 @@
-- if @session.persisted?
-  dl.sub-nav
-    dd= link_to "HD Summary", patient_hd_dashboard_path(@patient)
-    dd= link_to "View", patient_hd_session_path(@patient, @session)
-    dd= link_to "Edit", edit_patient_hd_session_path(@patient, @session)
-
-= render "sections_nav"

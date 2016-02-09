@@ -1,4 +1,6 @@
 = render layout: "renalware/patients/layout", locals: { title: "HD Session" } do
+  = render "session_nav"
+
   .document
     = simple_form_for @session,
         url: patient_hd_sessions_path(@patient),

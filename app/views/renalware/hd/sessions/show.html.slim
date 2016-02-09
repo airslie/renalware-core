@@ -2,6 +2,8 @@
     locals: { title: "HD Session" } do
   - return unless @session
 
+  = render "session_nav"
+
   .document-view
     = render "renalware/shared/attributes_group",
         legend: "Sign-In", destination: "signin",
