@@ -7,7 +7,7 @@ module Renalware
       class Info < Document::Embedded
         attribute :hd_type, Document::Enum, enums: %i(hd hdf_pre hdf_post)
         attribute :access_type
-        attribute :access_side
+        attribute :access_side, Document::Enum, enums: %i(left right)
         attribute :access_site
         attribute :is_access_first_use, Document::Enum, enums: %i(yes no)
         attribute :fistula_plus_line, Document::Enum, enums: %i(yes no)
