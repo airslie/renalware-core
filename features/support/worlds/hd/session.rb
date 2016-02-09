@@ -62,11 +62,6 @@ module World
         expect(Renalware::HD::Session.for_patient(patient)).to be_present
       end
 
-      # def expect_hd_session_to_be_modified(patient)
-      #   profile = Renalware::HD::Session.for_patient(patient).first
-      #   expect(profile).to be_modified
-      # end
-
       def expect_hd_session_to_be_refused
         expect(Renalware::HD::Session.count).to eq(0)
       end
