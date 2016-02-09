@@ -4,12 +4,12 @@ module Renalware
       before_filter :load_patient
 
       def show
-        @session = Session.for_patient(@patient).find(params[:id])
+        session = Session.for_patient(@patient).find(params[:id])
+        @session = SessionPresenter.new(session)
       end
 
       def new
-        session = Session.new_for_patient(@patient, current_user: current_user)
-        @session = SessionPresenter.new(session)
+        @session = Session.new_for_patient(@patient, current_user: current_user)
       end
 
       def create
@@ -26,8 +26,7 @@ module Renalware
       end
 
       def edit
-        session = Session.for_patient(@patient).find(params[:id])
-        @session = SessionPresenter.new(session)
+        @session = Session.for_patient(@patient).find(params[:id])
       end
 
       def update

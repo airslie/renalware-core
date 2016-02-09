@@ -1,0 +1,25 @@
+= render layout: "renalware/patients/layout",
+    locals: { title: "HD Session" } do
+  - return unless @session
+
+  .document-view
+    = render "renalware/shared/attributes_group",
+        legend: "Session Info", destination: "info",
+        models: { @session => [:performed_on, :hospital_unit, :start_time, :end_time, :signed_on_by, :signed_off_by], @session.document.info => @session.document.info.class.attributes_list }
+
+    = render "renalware/shared/documents/attributes_group",
+        group: @session.document.observations_before,
+        legend: "Pre-Dialysis Observations", destination: "before"
+
+    = render "renalware/shared/documents/attributes_group",
+        group: @session.document.observations_after,
+        legend: "Post-Dialysis Observations", destination: "after"
+
+    - ["Dialysis", "HDF"].each do |group|
+      = render "renalware/shared/documents/attributes_group",
+          group: @session.document.public_send(group.parameterize('_')),
+          legend: group, destination: group.parameterize('_')
+
+    = render "renalware/shared/attributes_group",
+        legend: "Notes/Complications", destination: "complications",
+        models: { @session.document.complications => @session.document.complications.class.attributes_list, @session => [:notes]  }
