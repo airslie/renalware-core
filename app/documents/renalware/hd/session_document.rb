@@ -56,15 +56,15 @@ module Renalware
 
       class Complications < Document::Embedded
         attribute :access_site_status, Document::Enum
-        attribute :was_dressing_changed, Document::Enum, enums: %i(yes no)
-        attribute :had_mrsa_swab, Document::Enum, enums: %i(yes no)
-        attribute :had_mssa_swab, Document::Enum, enums: %i(yes no)
-        attribute :had_intradialytic_hypotension, Document::Enum, enums: %i(yes no)
-        attribute :had_saline_administration, Document::Enum, enums: %i(yes no)
-        attribute :had_cramps, Document::Enum, enums: %i(yes no)
-        attribute :had_headache, Document::Enum, enums: %i(yes no)
-        attribute :had_chest_pain, Document::Enum, enums: %i(yes no)
-        attribute :had_alteplase_urokinase, Document::Enum, enums: %i(yes no)
+        attribute :was_dressing_changed, Document::Enum, enums: %i(yes no), default: :no
+        attribute :had_mrsa_swab, Document::Enum, enums: %i(yes no), default: :no
+        attribute :had_mssa_swab, Document::Enum, enums: %i(yes no), default: :no
+        attribute :had_intradialytic_hypotension, Document::Enum, enums: %i(yes no), default: :no
+        attribute :had_saline_administration, Document::Enum, enums: %i(yes no), default: :no
+        attribute :had_cramps, Document::Enum, enums: %i(yes no), default: :no
+        attribute :had_headache, Document::Enum, enums: %i(yes no), default: :no
+        attribute :had_chest_pain, Document::Enum, enums: %i(yes no), default: :no
+        attribute :had_alteplase_urokinase, Document::Enum, enums: %i(yes no), default: :no
       end
       attribute :complications, Complications
     end
