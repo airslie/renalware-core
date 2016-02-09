@@ -36,13 +36,16 @@ module Renalware
       delegate :hospital_centre, to: :hospital_unit, allow_nil: true
 
       def self.new_for_patient(patient, current_user:)
-        session = new
+        session = new(
+          performed_on: Time.zone.today,
+          signed_on_by: current_user,
+          start_time: Time.zone.now.change(min: (Time.zone.now.min/5)*5)
+        )
         Profile.for_patient(patient).first.tap do |profile|
           session.hospital_unit = profile.hospital_unit
           session.document.info.hd_type = profile.document.dialysis.hd_type
         end
-        session.performed_on = Time.zone.today
-        session.signed_on_by = current_user
+
         session
       end
 
