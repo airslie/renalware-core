@@ -6,7 +6,6 @@ module Renalware
     class Session < ActiveRecord::Base
       include Document::Base
       include PatientScope
-      include OrderedScope
       include Accountable
 
       belongs_to :patient
@@ -17,6 +16,8 @@ module Renalware
 
       has_document class_name: "Renalware::HD::SessionDocument"
       has_paper_trail class_name: "Renalware::HD::Version"
+
+      scope :ordered, -> () { order(performed_on: :desc) }
 
       validates :patient, presence: true
       validates :hospital_unit, presence: true
