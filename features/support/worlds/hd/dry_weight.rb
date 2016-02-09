@@ -28,12 +28,13 @@ module World
 
       # @section commands
       #
-      def create_hd_dry_weight(user: nil, patient:, assessor:)
+      def create_hd_dry_weight(user: nil, patient:, assessed_on:)
         Renalware::HD::DryWeight.create(
           valid_dry_weight_attributes.merge(
             patient: patient,
-            assessor: assessor,
-            by: assessor
+            assessor: user,
+            assessed_on: assessed_on,
+            by: user
           )
         )
       end
@@ -68,27 +69,25 @@ module World
     module Web
       include Domain
 
-      def create_hd_dry_weight(user:, patient:, assessor:)
+      def create_hd_dry_weight(user:, patient:, assessed_on:)
         login_as user
         visit patient_hd_dashboard_path(patient)
-        click_on "Enter profile"
+        click_on "Add a dry weight"
 
-        select "Mon, Wed, Fri AM", from: "Schedule"
-        select assessor.full_name, from: "Prescriber" if assessor
-        select "300", from: "Flow Rate"
+        fill_in "Dry Weight", with: 98
+        fill_in "Assessment Date", with: assessed_on
 
         within ".top" do
           click_on "Create"
         end
       end
 
-      def update_hd_dry_weight(patient:, user:, assessor: nil)
+      def update_hd_dry_weight(patient:, user:)
         login_as user
         visit patient_hd_dashboard_path(patient)
         click_on "Edit"
 
-        select "Mon, Wed, Fri PM", from: "Schedule"
-        select "400", from: "Flow Rate"
+        fill_in "Dry Weight", with: 95
 
         within ".top" do
           click_on "Save"

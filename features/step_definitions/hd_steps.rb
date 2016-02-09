@@ -24,11 +24,11 @@ When(/^Clyde submits an erroneous HD profile$/) do
 end
 
 When(/^Clyde records the dry weight for Patty$/) do
-  create_hd_dry_weight(patient: @patty, user: @clyde, assessor: @clyde)
+  create_hd_dry_weight(patient: @patty, user: @clyde, assessed_on: Time.zone.today)
 end
 
 When(/^Clyde submits an erroneous dry weight$/) do
-  create_hd_dry_weight(patient: @patty, user: @clyde, assessor: nil)
+  create_hd_dry_weight(patient: @patty, user: @clyde, assessed_on: nil)
 end
 
 

@@ -1,0 +1,30 @@
+fieldset.hd-dry_weights
+  legend Latest Dry Weights
+
+  - if @dry_weights.empty?
+    .call-to-action
+      = link_to new_patient_hd_dry_weight_path(@patient) do
+        i.fa.fa-plus-circle
+        | Add a dry weight
+  - else
+    table.auto-layout
+      thead
+        th
+        th Date
+        th Weight (kg)
+        th Assessor
+
+      tbody
+        - @dry_weights.each do |dry_weight|
+          tr
+            td= link_to "Edit", edit_patient_hd_dry_weight_path(@patient, dry_weight)
+            td= dry_weight.assessed_on
+            td= dry_weight.weight
+            td= dry_weight.assessor
+
+    .right
+      = link_to "Add a Weight", new_patient_hd_dry_weight_path(@patient),
+        class: 'button tiny'
+      | &nbsp;
+      = link_to "View All", patient_hd_dry_weights_path(@patient),
+        class: 'button tiny'
