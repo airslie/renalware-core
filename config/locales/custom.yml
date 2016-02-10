@@ -1,0 +1,16 @@
+en:
+  renalware:
+    create:
+      success: You have successfully added a new %{model_name}.
+      failed: You have failed to add a new %{model_name}.
+    update:
+      success: You have successfully updated this %{model_name}.
+      failed: You have failed to update this %{model_name}.
+    destroy:
+      success: You have successfully removed this %{model_name}.
+      failed: You have failed to remove this %{model_name}.
+    esrf:
+      update:
+        success: Successfully updated.
+      form:
+        prd_prompt: Please select primary renal diagnosis

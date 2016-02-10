@@ -31,6 +31,10 @@ module Renalware
       def donation?
         name == "Live Donor"
       end
+
+      def to_s
+        name
+      end
     end
   end
 end

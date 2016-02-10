@@ -1,4 +1,3 @@
-@wip
 Feature: Recording the dry weight
 
   A clinician periodically records the dry weight of a patient.

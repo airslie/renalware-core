@@ -13,7 +13,7 @@ Feature: Recording the operation on a recipient
     Then Patty has a new recipient operation
 
   @web
-  Scenario: A clinician udpated a transplant operation on a recipient
+  Scenario: A clinician updated a transplant operation on a recipient
     Given Patty has a recipient operation
     Then Clyde can update Patty's recipient operation
 

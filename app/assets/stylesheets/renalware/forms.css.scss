@@ -13,6 +13,9 @@ form {
   .tiny-input {
     max-width: 125px !important;
   }
+  .very-tiny-input {
+    max-width: 75px !important;
+  }
 }
 
 fieldset {
@@ -37,6 +40,13 @@ fieldset {
   .datepicker-wrapper,
   .datetimepicker-wrapper, {
     max-width: 250px !important;
+    i {
+      font-size: 1.5rem;
+    }
+  }
+
+  .clockpicker-wrapper {
+    max-width: 120px !important;
     i {
       font-size: 1.5rem;
     }

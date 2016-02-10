@@ -33,6 +33,7 @@ gem 'dumb_delegator'
 source 'https://rails-assets.org' do
   # https://github.com/najlepsiwebdesigner/foundation-datepicker
   gem 'rails-assets-foundation-datepicker'
+  gem 'rails-assets-clockpicker'
 end
 
 group :development do

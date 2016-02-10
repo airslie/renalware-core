@@ -1,0 +1,104 @@
+ruby:
+  back_path = patient_hd_dashboard_path(@patient)
+
+.row.top
+  .medium-6.columns
+    = f.button :submit
+    span= " or "
+    = link_to "cancel", back_path
+
+.form-content
+  = f.simple_fields_for :document, f.object.document do |fd|
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Sign-In", name: "signin" } do
+      = f.input :performed_on, as: :date_picker
+      = f.association :hospital_unit,
+          as: :grouped_select,
+          group_method: :hd_sites,
+          collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
+          label_method: :to_s
+      = f.input :start_time, as: :clock_picker
+      = f.association :signed_on_by, collection: Renalware::User.ordered, label_method: :full_name
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Sign-Off", name: "signoff" } do
+
+      = f.input :end_time, as: :clock_picker
+      = f.association :signed_off_by, collection: Renalware::User.ordered, label_method: :full_name
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Session Info", name: "info" } do
+
+      = fd.simple_fields_for :info, fd.object.info do |fcm|
+        = fcm.input :hd_type, as: :inline_radio_buttons
+        = fcm.input :access_type, as: :select, value_method: :name,
+            collection: Renalware::Accesses::Description.ordered, input_html: { class: "small-input" }
+        = fcm.input :access_side, input_html: { class: "small-input" }
+        = fcm.input :access_site, as: :select, value_method: :name,
+            collection: Renalware::Accesses::Site.ordered
+        = fcm.input :is_access_first_use, as: :inline_radio_buttons
+        = fcm.input :fistula_plus_line, as: :inline_radio_buttons
+        = fcm.input :single_needle, as: :inline_radio_buttons
+        = fcm.input :lines_reversed, as: :inline_radio_buttons
+        = fcm.input :machine_no, input_html: { class: "small-input" }
+        = fcm.input :dialysis_fluid_used, input_html: { class: "small-input" }
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Pre-Dialysis Observations", name: "before" } do
+      = fd.simple_fields_for :observations_before, fd.object.observations_before do |fcm|
+        = fcm.input :weight, input_html: { class: "small-input" }
+        = fcm.input :pulse, input_html: { class: "small-input" }
+        = render_input fcm, :blood_pressure
+        = fcm.input :temperature, input_html: { class: "small-input" }
+        = fcm.input :bm_stix, input_html: { class: "small-input" }
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Post-Dialysis Observations", name: "after" } do
+      = fd.simple_fields_for :observations_after, fd.object.observations_after do |fcm|
+        = fcm.input :weight, input_html: { class: "small-input" }
+        = fcm.input :pulse, input_html: { class: "small-input" }
+        = render_input fcm, :blood_pressure
+        = fcm.input :temperature, input_html: { class: "small-input" }
+        = fcm.input :bm_stix, input_html: { class: "small-input" }
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Dialysis", name: "dialysis" } do
+      = fd.simple_fields_for :dialysis, fd.object.dialysis do |fcm|
+        = fcm.input :arterial_pressure, input_html: { class: "small-input" }
+        = fcm.input :venous_pressure, input_html: { class: "small-input" }
+        = fcm.input :fluid_removed, input_html: { class: "small-input" }
+        = fcm.input :flow_rate, collection: fcm.object.class.flow_rates, input_html: { class: "small-input" }
+        = fcm.input :blood_flow, collection: fcm.object.class.blood_flows, input_html: { class: "small-input" }
+        = fcm.input :machine_urr, input_html: { class: "small-input" }
+        = fcm.input :machine_ktv, input_html: { class: "small-input" }
+        = fcm.input :litres_processed, input_html: { class: "small-input" }
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "HDF", name: "hdf" } do
+      = fd.simple_fields_for :hdf, fd.object.hdf do |fcm|
+        = fcm.input :subs_fluid_pct, input_html: { class: "small-input" }
+        = fcm.input :subs_goal, input_html: { class: "small-input" }
+        = fcm.input :subs_rate, input_html: { class: "small-input" }
+        = fcm.input :subs_volume, input_html: { class: "small-input" }
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Notes/Complications", name: "complications" } do
+      = fd.simple_fields_for :complications, fd.object.complications do |fcm|
+        = fcm.input :access_site_status, input_html: { class: "small-input" }
+        = fcm.input :was_dressing_changed, as: :inline_radio_buttons
+        = fcm.input :had_mrsa_swab, as: :inline_radio_buttons
+        = fcm.input :had_mssa_swab, as: :inline_radio_buttons
+        = fcm.input :had_intradialytic_hypotension, as: :inline_radio_buttons
+        = fcm.input :had_saline_administration, as: :inline_radio_buttons
+        = fcm.input :had_cramps, as: :inline_radio_buttons
+        = fcm.input :had_headache, as: :inline_radio_buttons
+        = fcm.input :had_chest_pain, as: :inline_radio_buttons
+        = fcm.input :had_alteplase_urokinase, as: :inline_radio_buttons
+        = f.input :notes, as: :text, input_html: { rows: 5 }
+
+.row
+  .large-12.columns
+    = f.button :submit
+    span= " or "
+    = link_to 'cancel', back_path

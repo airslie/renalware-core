@@ -20,7 +20,7 @@ module World
 
       # @section set-ups
       #
-      def set_up_hd_profile_for(patient, prescriber)
+      def set_up_hd_profile_for(patient, prescriber:)
         Renalware::HD::Profile.create!(
           valid_profile_attributes.merge(
             patient: patient,
@@ -61,11 +61,6 @@ module World
       #
       def expect_hd_profile_to_exist(patient)
         expect(Renalware::HD::Profile.for_patient(patient)).to be_present
-      end
-
-      def expect_hd_profile_to_be_modified(patient)
-        profile = Renalware::HD::Profile.for_patient(patient).first
-        expect(profile).to be_modified
       end
 
       def expect_hd_profile_to_be_refused

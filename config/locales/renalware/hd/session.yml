@@ -1,0 +1,88 @@
+en:
+  activerecord:
+    renalware/hd/session:
+      performed_on: Session Date
+      hospital_unit: Hospital Unit
+      hospital_centre: Hospital Centre
+      signed_on_by: Signed On By
+      signed_off_by: Signed Off By
+      start_time: Session Start Time
+      end_time: Session End Time
+      hd_type: HD Type
+      modality_description: Modality
+  activemodel:
+    attributes:
+      renalware/hd/session_document/info:
+        access_type: Access Type Used
+        access_side: Access Side Used
+        access_site: Access Site Used
+        is_access_first_use: Is access first use?
+        fistula_plus_line: "1 + 1?"
+        single_needle: "Single Needle?"
+        lines_reversed: "Lines Reversed?"
+        machine_no: Machine No
+        dialysis_fluid_used: Dialysis Fluid Used
+      renalware/hd/session_document/observations:
+        weight: Weight
+        pulse: Pulse
+        blood_pressure: Blood Pressure
+        temperature: Temperature
+        bm_stix: BM Stix
+      renalware/hd/session_document/dialysis:
+        arterial_pressure: Arterial Pressure
+        venous_pressure: Venous pressure
+        fluid_removed: Fluid Removed
+        blood_flow: Blood Flow Rate
+        flow_rate: Dialysate Flow Rate
+        machine_urr: Machine URR
+        machine_ktv: Machine KTV
+        litres_processed: Litres Processed
+      renalware/hd/session_document/hdf:
+        subs_fluid_pct: Subs Fluid Percentage
+        subs_goal: Subs Goal
+        subs_rate: Subs Goal
+        subs_volume: Subs Volume
+      renalware/hd/session_document/complications:
+        access_site_status: Access Site Status
+        was_dressing_changed: Was dressing changed?
+        had_mrsa_swab: Had MRSA swab?
+        had_mssa_swab: Had MSSA swab?
+        had_intradialytic_hypotension: Had intradialytic hypotension?
+        had_saline_administration: Had saline administration?
+        had_cramps: Had cramps?
+        had_headache: Had headcache?
+        had_chest_pain: Had chest pain?
+        had_alteplase_urokinase: Had alteplase urokinase?
+    errors:
+      models:
+        renalware/hd/session_document/dialysis:
+          attributes:
+            machine_ktv:
+              inclusion: must be between 0.2 and 3.5
+            machine_urr:
+              inclusion: must be between 0 and 100
+
+  enumerize:
+    renalware/hd/session_document/info:
+      dialysis_fluid_used:
+        ca: Ca
+        hco3: HCO3
+        k: K
+        glucose: Glucose
+        n: N
+    renalware/hd/session_document/complications:
+      access_site_status:
+        clean_and_dry: Clean and Dry
+        slight_erythema: Slight Erythema
+        erythema: Erythema
+        purulent: Purulent
+
+  simple_form:
+    hints:
+      hd_session:
+        prescribed_time: in minutes
+        document:
+          info:
+            flow_rate: ml/hr
+            machine_urr: "%"
+

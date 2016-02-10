@@ -1,0 +1,40 @@
+fieldset.hd-sessions
+  legend Latest HD Sessions
+
+  - if @sessions.empty?
+    .call-to-action
+      = link_to new_patient_hd_session_path(@patient) do
+        i.fa.fa-plus-circle
+        | Add a session
+  - else
+    table.auto-layout
+      thead
+        th
+        th Date
+        th From
+        th To
+        th Dur. (min)
+        th Site
+        th Sign On
+        th Sign Off
+
+      tbody
+        - @sessions.each do |session|
+          = content_tag(:tr, class: session.ongoing_css_class) do
+            td= link_to edit_patient_hd_session_path(@patient, session) do
+              = session.signed_off? ? "Edit" : "Sign Off"
+            td= link_to patient_hd_session_path(@patient, session) do
+                = session.performed_on
+            td= session.start_time
+            td= session.end_time
+            td= session.duration
+            td= session.hospital_unit
+            td= session.signed_on_by
+            td= session.signed_off_by
+
+    .right
+      = link_to "Add a Session", new_patient_hd_session_path(@patient),
+        class: 'button tiny'
+      | &nbsp;
+      = link_to "View All", patient_hd_sessions_path(@patient),
+        class: 'button tiny'
