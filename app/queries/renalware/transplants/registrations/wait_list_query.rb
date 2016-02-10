@@ -2,8 +2,6 @@ module Renalware
   module Transplants
     module Registrations
       class WaitListQuery
-        attr_reader :term, :page, :per_page
-
         def initialize(quick_filter:, q: nil)
           @quick_filter = quick_filter.to_sym
           @q = q || {}
