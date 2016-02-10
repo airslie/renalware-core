@@ -8,6 +8,7 @@ module Renalware
         @preference_set = PreferenceSet.for_patient(@patient).first_or_initialize
         @profile = ProfilePresenter.new(profile, preference_set: @preference_set)
         @sessions = SessionsCollectionPresenter.new(@patient).latest
+        @dry_weights = DryWeightsCollectionPresenter.new(@patient).latest
       end
     end
   end

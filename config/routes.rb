@@ -78,6 +78,7 @@ Rails.application.routes.draw do
         resource :preference_set, only: [:edit, :update]
         resource :profile, only: [:show, :edit, :update]
         resources :sessions, except: [:destroy]
+        resources :dry_weights, except: [:show, :destroy]
       end
 
       resources :letters

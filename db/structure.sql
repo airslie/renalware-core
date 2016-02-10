@@ -732,6 +732,42 @@ ALTER SEQUENCE hd_dialysers_id_seq OWNED BY hd_dialysers.id;
 
 
 --
+-- Name: hd_dry_weights; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE hd_dry_weights (
+    id integer NOT NULL,
+    patient_id integer,
+    weight double precision NOT NULL,
+    assessed_on date NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    assessor_id integer NOT NULL
+);
+
+
+--
+-- Name: hd_dry_weights_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE hd_dry_weights_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_dry_weights_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE hd_dry_weights_id_seq OWNED BY hd_dry_weights.id;
+
+
+--
 -- Name: hd_preference_sets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2386,6 +2422,13 @@ ALTER TABLE ONLY hd_dialysers ALTER COLUMN id SET DEFAULT nextval('hd_dialysers_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY hd_dry_weights ALTER COLUMN id SET DEFAULT nextval('hd_dry_weights_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY hd_preference_sets ALTER COLUMN id SET DEFAULT nextval('hd_preference_sets_id_seq'::regclass);
 
 
@@ -2823,6 +2866,14 @@ ALTER TABLE ONLY hd_dialysers
 
 
 --
+-- Name: hd_dry_weights_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY hd_dry_weights
+    ADD CONSTRAINT hd_dry_weights_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: hd_preference_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -3217,6 +3268,34 @@ CREATE INDEX index_doctors_practices ON doctors_practices USING btree (doctor_id
 --
 
 CREATE UNIQUE INDEX index_drug_types_drugs_on_drug_id_and_drug_type_id ON drug_types_drugs USING btree (drug_id, drug_type_id);
+
+
+--
+-- Name: index_hd_dry_weights_on_assessor_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hd_dry_weights_on_assessor_id ON hd_dry_weights USING btree (assessor_id);
+
+
+--
+-- Name: index_hd_dry_weights_on_created_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hd_dry_weights_on_created_by_id ON hd_dry_weights USING btree (created_by_id);
+
+
+--
+-- Name: index_hd_dry_weights_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hd_dry_weights_on_patient_id ON hd_dry_weights USING btree (patient_id);
+
+
+--
+-- Name: index_hd_dry_weights_on_updated_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_hd_dry_weights_on_updated_by_id ON hd_dry_weights USING btree (updated_by_id);
 
 
 --
@@ -3734,6 +3813,22 @@ ALTER TABLE ONLY medications
 
 ALTER TABLE ONLY access_accesses
     ADD CONSTRAINT fk_rails_2bc758ca0f FOREIGN KEY (site_id) REFERENCES access_sites(id);
+
+
+--
+-- Name: fk_rails_31546389ab; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_dry_weights
+    ADD CONSTRAINT fk_rails_31546389ab FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_324e505f46; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_dry_weights
+    ADD CONSTRAINT fk_rails_324e505f46 FOREIGN KEY (assessor_id) REFERENCES users(id);
 
 
 --
@@ -4269,4 +4364,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160203160040');
 INSERT INTO schema_migrations (version) VALUES ('20160203160041');
 
 INSERT INTO schema_migrations (version) VALUES ('20160208153327');
+
+INSERT INTO schema_migrations (version) VALUES ('20160209203446');
 

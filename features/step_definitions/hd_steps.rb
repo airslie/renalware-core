@@ -10,6 +10,10 @@ Given(/^Patty has a HD session$/) do
   set_up_hd_session_for(@patty, user: Renalware::User.first)
 end
 
+Given(/^Patty has a dry weight entry$/) do
+  set_up_hd_dry_weight_for(@patty, @clyde)
+end
+
 
 When(/^Clyde records the HD preferences of Patty$/) do
   create_hd_preferences(patient: @patty, user: @clyde)
@@ -27,8 +31,16 @@ When(/^Nathalie records the pre\-session observations for Patty$/) do
   create_hd_session(patient: @patty, user: @nathalie, performed_on: Time.zone.today)
 end
 
+When(/^Clyde records the dry weight for Patty$/) do
+  create_hd_dry_weight(patient: @patty, user: @clyde, assessed_on: Time.zone.today)
+end
+
 When(/^Nathalie submits an erroneous HD session$/) do
   create_hd_session(patient: @patty, user: @nathalie, performed_on: nil)
+end
+
+When(/^Clyde submits an erroneous dry weight$/) do
+  create_hd_dry_weight(patient: @patty, user: @clyde, assessed_on: nil)
 end
 
 
@@ -62,4 +74,16 @@ end
 
 Then(/^the HD session is not accepted$/) do
   expect_hd_session_to_be_refused
+end
+
+Then(/^Patty has a new dry weight$/) do
+  expect_hd_dry_weight_to_exist(@patty)
+end
+
+Then(/^Clyde can update Patty's dry weight entry$/) do
+  update_hd_dry_weight(patient: @patty, user: @clyde)
+end
+
+Then(/^the dry weight is not accepted$/) do
+  expect_hd_dry_weight_to_be_refused
 end
