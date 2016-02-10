@@ -1,0 +1,8 @@
+= render layout: "renalware/patients/layout", locals: { title: "Dry Weight" } do
+  = render "dry_weight_nav"
+
+  .document
+    = simple_form_for @dry_weight,
+        url: patient_hd_dry_weight_path(@patient, @dry_weight),
+        wrapper: "horizontal_form" do |f|
+      = render 'form', f: f

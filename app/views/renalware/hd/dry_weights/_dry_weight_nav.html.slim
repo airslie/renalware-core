@@ -1,0 +1,4 @@
+- if @dry_weight.persisted?
+  dl.sub-nav
+    dd= link_to "HD Summary", patient_hd_dashboard_path(@patient)
+    dd= link_to "Edit", edit_patient_hd_dry_weight_path(@patient, @dry_weight)
