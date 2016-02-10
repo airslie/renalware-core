@@ -4,7 +4,9 @@ module Renalware
       before_filter :load_patient
 
       def index
-        @sessions = SessionsCollectionPresenter.new(@patient).find_all
+        query = Sessions::PatientQuery.new(patient: @patient, q: params[:q])
+        @sessions = query.call.page(params[:page]).per(15)
+        @q = query.search
       end
 
       def show

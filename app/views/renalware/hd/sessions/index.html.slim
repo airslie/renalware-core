@@ -1,3 +1,29 @@
 = render layout: "renalware/patients/layout", locals: { title: "HD Sessions" } do
-  .document
-    p To be implemented
+  .document.hd-sessions
+    table.auto-layout
+      thead
+        th
+        th= sort_link(@q, :performed_on, "Date")
+        th From
+        th To
+        th= sort_link(@q, :duration, "Dur. (min)")
+        th Site
+        th Sign On
+        th Sign Off
+
+      tbody
+        - @sessions.each do |raw_session|
+          - session = Renalware::HD::SessionPresenter.new(raw_session)
+          = content_tag(:tr, class: session.ongoing_css_class) do
+            td= link_to edit_patient_hd_session_path(@patient, session) do
+              = session.signed_off? ? "Edit" : "Sign Off"
+            td= link_to patient_hd_session_path(@patient, session) do
+                = session.performed_on
+            td= session.start_time
+            td= session.end_time
+            td= session.duration
+            td= session.hospital_unit
+            td= session.signed_on_by
+            td= session.signed_off_by
+
+    = paginate @sessions
