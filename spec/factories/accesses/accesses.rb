@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :access,
     class: Renalware::Accesses::Access do
-    description { create(:access_description) }
+    type { create(:access_type) }
     site { create(:access_site) }
     side "R"
   end

@@ -1,6 +1,6 @@
 module Renalware
   module Accesses
-    class Description < ActiveRecord::Base
+    class Type < ActiveRecord::Base
       validates :code, presence: true
       validates :name, presence: true
 
