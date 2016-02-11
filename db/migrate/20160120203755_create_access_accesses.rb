@@ -8,6 +8,7 @@ class CreateAccessAccesses < ActiveRecord::Migration
       t.date :terminated_on
       t.references :type, null: false
       t.references :site, null: false
+      t.references :plan
       t.string :side
 
       t.belongs_to :created_by, index: true, null: false
@@ -21,5 +22,6 @@ class CreateAccessAccesses < ActiveRecord::Migration
 
     add_foreign_key :access_accesses, :access_types, column: :type_id
     add_foreign_key :access_accesses, :access_sites, column: :site_id
+    add_foreign_key :access_accesses, :access_plans, column: :plan_id
   end
 end

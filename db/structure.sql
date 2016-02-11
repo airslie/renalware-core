@@ -41,7 +41,7 @@ CREATE TABLE access_accesses (
     terminated_on date,
     type_id integer NOT NULL,
     site_id integer NOT NULL,
-    plan_id integer NOT NULL,
+    plan_id integer,
     side character varying,
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
@@ -77,6 +77,7 @@ ALTER SEQUENCE access_accesses_id_seq OWNED BY access_accesses.id;
 CREATE TABLE access_plans (
     id integer NOT NULL,
     name character varying NOT NULL,
+    deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -163,6 +164,41 @@ CREATE SEQUENCE access_types_id_seq
 --
 
 ALTER SEQUENCE access_types_id_seq OWNED BY access_types.id;
+
+
+--
+-- Name: access_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE access_versions (
+    id integer NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: access_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE access_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: access_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE access_versions_id_seq OWNED BY access_versions.id;
 
 
 --
@@ -2347,6 +2383,13 @@ ALTER TABLE ONLY access_types ALTER COLUMN id SET DEFAULT nextval('access_types_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY access_versions ALTER COLUMN id SET DEFAULT nextval('access_versions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY addresses ALTER COLUMN id SET DEFAULT nextval('addresses_id_seq'::regclass);
 
 
@@ -2779,6 +2822,14 @@ ALTER TABLE ONLY access_sites
 
 ALTER TABLE ONLY access_types
     ADD CONSTRAINT access_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: access_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY access_versions
+    ADD CONSTRAINT access_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -3243,6 +3294,13 @@ ALTER TABLE ONLY users
 
 ALTER TABLE ONLY versions
     ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: access_versions_type_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX access_versions_type_id ON access_versions USING btree (item_type, item_id);
 
 
 --
@@ -4429,6 +4487,8 @@ INSERT INTO schema_migrations (version) VALUES ('20151207167020');
 INSERT INTO schema_migrations (version) VALUES ('20160106167020');
 
 INSERT INTO schema_migrations (version) VALUES ('20160114222043');
+
+INSERT INTO schema_migrations (version) VALUES ('20160120203747');
 
 INSERT INTO schema_migrations (version) VALUES ('20160120203748');
 
