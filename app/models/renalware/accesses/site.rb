@@ -1,3 +1,5 @@
+require_dependency "renalware/accesses"
+
 module Renalware
   module Accesses
     class Site < ActiveRecord::Base
