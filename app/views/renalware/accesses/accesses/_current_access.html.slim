@@ -21,8 +21,8 @@ fieldset
 
     .large-3.columns
       dl
-        dt Decided By:
-        dd= @current_access.decided_by
+        dt Formed On:
+        dd= @current_access.formed_on
 
     .large-2.columns
       .right
@@ -33,15 +33,10 @@ fieldset
   .row
     .large-2.columns
       dl
-        dt Formed On:
-        dd= @current_access.formed_on
-
-    .large-2.columns
-      dl
         dt Start Date:
         dd= @current_access.started_on
 
-    .large-3.columns
+    .large-5.columns
       dl
         dt Plan:
         dd= @current_access.plan_decision
