@@ -4,12 +4,14 @@ class CreateAccessAccesses < ActiveRecord::Migration
       t.belongs_to :patient, index: true, foreign_key: true
 
       t.date :formed_on
+      t.date :planned_on
       t.date :started_on
       t.date :terminated_on
       t.references :type, null: false
       t.references :site, null: false
       t.references :plan
       t.string :side
+      t.text :notes
 
       t.belongs_to :created_by, index: true, null: false
       t.belongs_to :updated_by, index: true, null: false
