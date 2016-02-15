@@ -14,6 +14,10 @@ Given(/^Patty has a dry weight entry$/) do
   set_up_hd_dry_weight_for(@patty, @clyde)
 end
 
+Given(/^These patients have these HD sessions$/) do |table|
+  set_up_hd_sessions(table)
+end
+
 
 When(/^Clyde records the HD preferences of Patty$/) do
   create_hd_preferences(patient: @patty, user: @clyde)
@@ -41,6 +45,10 @@ end
 
 When(/^Clyde submits an erroneous dry weight$/) do
   create_hd_dry_weight(patient: @patty, user: @clyde, assessed_on: nil)
+end
+
+When(/^Clyde views the list of ongoing HD sessions$/) do
+  view_ongoing_hd_sessions(user: @clyde)
 end
 
 
@@ -86,4 +94,8 @@ end
 
 Then(/^the dry weight is not accepted$/) do
   expect_hd_dry_weight_to_be_refused
+end
+
+Then(/^Clyde sees these HD sessions$/) do |table|
+  expect_hd_sessions_to_be(table.hashes)
 end

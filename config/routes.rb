@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     namespace :hd do
       resources :cannulation_types, except: :show
       resources :dialysers, except: :show
+      resource :ongoing_sessions_list, only: :show
     end
 
     namespace :hospitals do

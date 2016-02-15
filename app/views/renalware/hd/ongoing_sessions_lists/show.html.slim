@@ -1,0 +1,38 @@
+.row
+  h1 Ongoing HD Sessions
+
+.row
+  = search_form_for @q, url: hd_ongoing_sessions_list_path do |f|
+    .row
+      .large-4.columns
+        = f.grouped_collection_select :hospital_unit_id_eq,
+            Renalware::Hospitals::Centre.with_hd_sites.ordered,
+            :hd_sites, :to_s, :id, :to_s,
+            include_blank: "-- All Units --"
+      .large-8.columns
+        = f.submit 'Filter', class: 'button tiny'
+
+.row
+  table.report
+    thead
+      tr
+        th.noprint
+        th= sort_link(@q, :patient_family_name, "Patient")
+        th KCH No
+        th= sort_link(@q, :patient_born_on, "Age")
+        th= sort_link(@q, :patient_sex, "Sex")
+        th Current Modal
+
+        th= sort_link(@q, :hospital_unit_name, "Unit")
+        th= sort_link(@q, :performed_on, "Date")
+        th= sort_link(@q, :start_time, "Start Time")
+        th= sort_link(@q, :end_time, "End Time")
+        td= sort_link(@q, :signed_on_by_family_name, "Signed On By")
+        td= sort_link(@q, :signed_off_by_family_name, "Signed Off By")
+
+    tbody
+      - @sessions.each do |session|
+        = render "session", session: session
+
+
+  = paginate @sessions

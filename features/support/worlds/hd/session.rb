@@ -30,6 +30,18 @@ module World
         )
       end
 
+      def set_up_hd_sessions(table)
+        table.hashes.each do |row|
+          signed_on_by = find_or_create_user(given_name: row[:signed_on_by], role: "clinician")
+          signed_off_by = find_or_create_user(given_name: row[:signed_off_by], role: "clinician")
+          patient = create_patient(full_name: row[:patient])
+
+          session = set_up_hd_session_for(patient, user: signed_on_by)
+          session.signed_off_by = signed_off_by
+          session.save!
+        end
+      end
+
       # @section commands
       #
       def create_hd_session(patient:, user:, performed_on:)
@@ -56,6 +68,10 @@ module World
         )
       end
 
+      def view_ongoing_hd_sessions(user: nil)
+        @query = Renalware::HD::Sessions::OngoingQuery.new()
+      end
+
       # @section expectations
       #
       def expect_hd_session_to_exist(patient)
@@ -64,6 +80,23 @@ module World
 
       def expect_hd_session_to_be_refused
         expect(Renalware::HD::Session.count).to eq(0)
+      end
+
+      def expect_hd_sessions_to_be(hashes)
+        sessions = @query.call
+        expect(sessions.size).to eq(hashes.size)
+
+        entries = sessions.map do |session|
+          hash = {
+            patient: session.patient.to_s,
+            signed_on_by: session.signed_on_by.given_name,
+            signed_off_by: (session.signed_off_by.try(:given_name) || "")
+          }
+          hash.with_indifferent_access
+        end
+        hashes.each do |row|
+          expect(entries).to include(row)
+        end
       end
     end
 
@@ -98,6 +131,17 @@ module World
 
         within ".top" do
           click_on "Save"
+        end
+      end
+
+      def view_ongoing_hd_sessions(user:)
+        login_as user
+        visit hd_ongoing_sessions_list_path
+      end
+
+      def expect_hd_sessions_to_be(hashes)
+        hashes.each do |row|
+          expect(page.body).to have_content(row[:patient])
         end
       end
     end

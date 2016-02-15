@@ -5,10 +5,6 @@ module Renalware
         @patient = patient
       end
 
-      def find_all
-        present(patient_sessions)
-      end
-
       def latest
         present(patient_sessions.limit(10))
       end
