@@ -7,6 +7,10 @@ module Renalware
       validates :name, presence: true
 
       scope :ordered, -> () { order(:name) }
+
+      def to_s
+        name
+      end
     end
   end
 end

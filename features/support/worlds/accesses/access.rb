@@ -64,16 +64,16 @@ module World
     module Web
       include Domain
 
-      def create_access(user:, patient:, performed_on:)
+      def create_access(user:, patient:, site:)
         login_as user
-        visit patient_hd_dashboard_path(patient)
-        within_fieldset "Latest Accesses Accesss" do
-          click_on "Add a session"
+        visit patient_accesses_dashboard_path(patient)
+        within_fieldset "Accesses List" do
+          click_on "Add an access"
         end
 
-        fill_in "Access Start Time", with: "13:00"
-        select hd_unit.to_s, from: "Hospital Unit"
-        fill_in "Access Date", with: I18n.l(performed_on)
+        select "Vein loop", from: "Access Type"
+        select site, from: "Access Site"
+        select "Right", from: "Access Side"
 
         within ".top" do
           click_on "Create"
@@ -82,12 +82,12 @@ module World
 
       def update_access(patient:, user:)
         login_as user
-        visit patient_hd_dashboard_path(patient)
-        within_fieldset "Latest Accesses Accesss" do
-          click_on "Sign Off"
+        visit patient_accesses_dashboard_path(patient)
+        within_fieldset "Accesses List" do
+          click_on "Edit"
         end
 
-        fill_in "Access End Time", with: "16:00"
+        select "Left", from: "Access Side"
 
         within ".top" do
           click_on "Save"

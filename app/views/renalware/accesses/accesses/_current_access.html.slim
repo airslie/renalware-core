@@ -1,0 +1,63 @@
+- return if @current_access.blank?
+
+fieldset
+  legend Current Access
+
+  .row
+    .large-3.columns
+      dl
+        dt Type:
+        dd= @current_access.type
+
+    .large-2.columns
+      dl
+        dt Site:
+        dd= @current_access.site
+
+    .large-2.columns
+      dl
+        dt Side:
+        dd= @current_access.side
+
+    .large-3.columns
+      dl
+        dt Decided By:
+        dd= @current_access.decided_by
+
+    .large-2.columns
+      .right
+        = link_to "View", patient_accesses_access_path(@patient, @current_access), class: "button tiny"
+        | &nbsp;
+        = link_to "Edit", edit_patient_accesses_access_path(@patient, @current_access), class: "button tiny"
+
+  .row
+    .large-3.columns
+      dl
+        dt Formed On:
+        dd= @current_access.formed_on
+
+    .large-2.columns
+      dl
+        dt Start Date:
+        dd= @current_access.started_on
+
+    .large-2.columns
+      dl
+        dt Plan:
+        dd= @current_access.plan
+
+    .large-5.columns
+      dl
+        dt Last Assessment:
+        dd
+
+  .row
+    .large-7.columns
+      dl
+        dt Notes:
+        dd= simple_format @current_access.notes
+
+    .large-5.columns
+      dl
+        dt Next Surveillance:
+        dd

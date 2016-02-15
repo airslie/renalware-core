@@ -1,0 +1,8 @@
+= render layout: "renalware/patients/layout", locals: { title: "New Access" } do
+  = render "access_nav"
+
+  .document
+    = simple_form_for @access,
+        url: patient_accesses_accesses_path(@patient),
+        wrapper: "horizontal_form" do |f|
+      = render 'form', f: f
