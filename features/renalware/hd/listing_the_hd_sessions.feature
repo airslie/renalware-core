@@ -1,4 +1,3 @@
-@wip
 Feature: Listing the HD sessions
 
   Nurses must have a way to quickly see the ongoing HD sessions (not signed off).
