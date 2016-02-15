@@ -9,7 +9,7 @@ ul.side-nav
   li.link= link_to "Events (#{Renalware::Events::Event.for_patient(@patient).count})", patient_events_path(@patient)
   li.link= link_to "Clinic Visits (#{@patient.clinic_visits.length})", patient_clinic_visits_path(@patient)
   li.link= link_to "Letters (#{@patient.letters.length})", patient_letters_path(@patient)
-  li.link= link_to "Access Summary", patient_accesses_dashboard_path(@patient)
+  li.link= link_to "Access Plan (#{Renalware::Accesses::Access.for_patient(@patient).count})", patient_accesses_dashboard_path(@patient)
   li.divider
   li.heading Regimes
   li.link= link_to_if display_pd_menu(@patient.modalities.with_deleted), "PD", patient_pd_summary_path(@patient)

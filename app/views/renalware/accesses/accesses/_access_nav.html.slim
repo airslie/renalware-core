@@ -1,5 +1,5 @@
 - if @access.persisted?
   dl.sub-nav
-    dd= link_to "Access Summary", patient_accesses_dashboard_path(@patient)
+    dd= link_to "Access Plan", patient_accesses_dashboard_path(@patient)
     dd= link_to "View", patient_accesses_access_path(@patient, @access)
     dd= link_to "Edit", edit_patient_accesses_access_path(@patient, @access)

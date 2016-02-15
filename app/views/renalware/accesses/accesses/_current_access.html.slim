@@ -4,7 +4,7 @@ fieldset
   legend Current Access
 
   .row
-    .large-3.columns
+    .large-2.columns
       dl
         dt Type:
         dd= @current_access.type
@@ -14,7 +14,7 @@ fieldset
         dt Site:
         dd= @current_access.site
 
-    .large-2.columns
+    .large-3.columns
       dl
         dt Side:
         dd= @current_access.side
@@ -31,7 +31,7 @@ fieldset
         = link_to "Edit", edit_patient_accesses_access_path(@patient, @current_access), class: "button tiny"
 
   .row
-    .large-3.columns
+    .large-2.columns
       dl
         dt Formed On:
         dd= @current_access.formed_on
@@ -41,7 +41,7 @@ fieldset
         dt Start Date:
         dd= @current_access.started_on
 
-    .large-2.columns
+    .large-3.columns
       dl
         dt Plan:
         dd= @current_access.plan
