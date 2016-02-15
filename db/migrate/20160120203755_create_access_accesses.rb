@@ -3,14 +3,14 @@ class CreateAccessAccesses < ActiveRecord::Migration
     create_table :access_accesses do |t|
       t.belongs_to :patient, index: true, foreign_key: true
 
-      t.date :formed_on
+      t.date :formed_on, null: false
       t.date :planned_on
       t.date :started_on
       t.date :terminated_on
       t.references :type, null: false
       t.references :site, null: false
       t.references :plan
-      t.string :side
+      t.string :side, null: false
       t.text :notes
 
       t.belongs_to :created_by, index: true, null: false

@@ -71,6 +71,7 @@ module World
           click_on "Add an access"
         end
 
+        fill_in "Formed On", with: I18n.l(Time.zone.today)
         select "Vein loop", from: "Access Type"
         select site, from: "Access Site"
         select "Right", from: "Access Side"

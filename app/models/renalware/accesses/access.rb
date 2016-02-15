@@ -20,7 +20,8 @@ module Renalware
       validates :type, presence: true
       validates :site, presence: true
       validates :side, presence: true
-      validates :formed_on, timeliness: { type: :date, allow_blank: true }
+      validates :formed_on, presence: true
+      validates :formed_on, timeliness: { type: :date, allow_blank: false }
       validates :started_on, timeliness: { type: :date, allow_blank: true }
       validates :terminated_on, timeliness: { type: :date, allow_blank: true }
       validates :planned_on, timeliness: { type: :date, allow_blank: true }
