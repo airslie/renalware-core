@@ -17,8 +17,16 @@ module Renalware
         ::I18n.l(super)
       end
 
+      def planned_on
+        ::I18n.l(super)
+      end
+
       def side
         super.try(:text)
+      end
+
+      def plan_decision
+        "#{plan}<br/>(#{planned_on} by #{decided_by})".html_safe
       end
     end
   end

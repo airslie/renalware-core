@@ -15,7 +15,7 @@ fieldset.hd-accesses
         th
         th Formed On
         th Start Date
-        th End Date
+        th Term. Date
         th Type
         th Site
         th Side
@@ -35,7 +35,7 @@ fieldset.hd-accesses
             td= access.type
             td= access.site
             td= access.side
-            td= access.plan
+            td= access.plan_decision
 
     .right
       = link_to "Add an Access", new_patient_accesses_access_path(@patient),

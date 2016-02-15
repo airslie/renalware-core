@@ -3,8 +3,8 @@ en:
     renalware/accesses/access:
       formed_on: Formed On
       started_on: Start Date
-      terminated_on: Term Date
-      planned_on: Planned Date
+      terminated_on: Termination Date
+      planned_on: Plan Date
       decided_by: Decided By
       type: Access Type
       side: Access Side
