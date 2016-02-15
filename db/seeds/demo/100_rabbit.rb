@@ -233,9 +233,9 @@ module Renalware
   users = User.limit(3).to_a
   Accesses::Access.create!(
     patient: patient,
-    formed_on: 1.week.ago,
-    planned_on: 5.days.ago,
-    started_on: 3.days.ago,
+    formed_on: 3.months.ago,
+    planned_on: (3.months.ago + 5.days),
+    started_on: 1.month.ago,
     type: Accesses::Type.all.sample,
     site: Accesses::Site.all.sample,
     side: Accesses::Access.side.values.sample,
@@ -247,14 +247,27 @@ module Renalware
 
   Accesses::Access.create!(
     patient: patient,
-    formed_on: 8.weeks.ago,
-    planned_on: 7.weeks.ago,
-    started_on: (7.weeks.ago + 1.day),
-    terminated_on: 5.days.ago,
+    formed_on: 6.months.ago,
+    planned_on: (6.months.ago + 5.days),
+    started_on: 4.month.ago,
+    terminated_on: 1.month.ago,
     type: Accesses::Type.all.sample,
     site: Accesses::Site.all.sample,
     side: Accesses::Access.side.values.sample,
     plan: Accesses::Plan.all.sample,
+    decided_by: users.sample,
+    notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    by: users.sample
+  )
+
+  Accesses::Access.create!(
+    patient: patient,
+    formed_on: 1.week.ago,
+    planned_on: 2.weeks.ago,
+    type: Accesses::Type.all.sample,
+    site: Accesses::Site.all.sample,
+    side: Accesses::Access.side.values.sample,
+    plan: Accesses::Plan.where(name: "Fistula/graft maturing").first,
     decided_by: users.sample,
     notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     by: users.sample
