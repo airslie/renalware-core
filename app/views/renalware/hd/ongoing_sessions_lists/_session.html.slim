@@ -1,0 +1,18 @@
+tr
+  td.noprint
+    = link_to "Sign-Off", edit_patient_hd_session_path(session.patient, session)
+    = pipe_separator
+    = link_to "HD Summary".html_safe, patient_hd_dashboard_path(session.patient)
+  td.full-name
+    = link_to session.patient.to_s, patient_clinical_summary_path(session.patient)
+  td= session.patient.local_patient_id
+  td= session.patient.age
+  td= session.patient.sex.code
+  td= session.patient.current_modality.to_s
+
+  td= session.hospital_unit
+  td= l session.performed_on
+  td= l(session.start_time, format: :time)
+  td= l(session.end_time, format: :time)
+  td= session.signed_on_by
+  td= session.signed_off_by
