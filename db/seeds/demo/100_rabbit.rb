@@ -227,4 +227,36 @@ module Renalware
     end
     session.save!
   end
+
+  log '--------------------Assign HD accesses to Francois RABBIT-------------------'
+  Accesses::Access.for_patient(patient).destroy_all
+  users = User.limit(3).to_a
+  Accesses::Access.create!(
+    patient: patient,
+    formed_on: 1.week.ago,
+    planned_on: 5.days.ago,
+    started_on: 3.days.ago,
+    type: Accesses::Type.all.sample,
+    site: Accesses::Site.all.sample,
+    side: Accesses::Access.side.values.sample,
+    plan: Accesses::Plan.all.sample,
+    decided_by: users.sample,
+    notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    by: users.sample
+  )
+
+  Accesses::Access.create!(
+    patient: patient,
+    formed_on: 8.weeks.ago,
+    planned_on: 7.weeks.ago,
+    started_on: (7.weeks.ago + 1.day),
+    terminated_on: 5.days.ago,
+    type: Accesses::Type.all.sample,
+    site: Accesses::Site.all.sample,
+    side: Accesses::Access.side.values.sample,
+    plan: Accesses::Plan.all.sample,
+    decided_by: users.sample,
+    notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    by: users.sample
+  )
 end
