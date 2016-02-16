@@ -9,23 +9,26 @@ ruby:
 
 .form-content
   = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Plan", name: "plan" } do
+      locals: { legend: "Access Profile", name: "profile" } do
 
     = f.association :type,
         collection: Renalware::Accesses::Type.ordered, input_html: { class: "small-input" }
     = f.association :site,
         collection: Renalware::Accesses::Site.ordered, input_html: { class: "small-input" }
     = f.input :side, input_html: { class: "small-input" }
+    = f.input :formed_on, as: :date_picker
+    = f.input :started_on, as: :date_picker
+    = f.input :terminated_on, as: :date_picker
+
+  = render layout: "renalware/shared/fieldset",
+      locals: { legend: "Access Plan", name: "plan" } do
     = f.association :plan,
         collection: Renalware::Accesses::Plan.ordered
     = f.input :planned_on, as: :date_picker
     = f.association :decided_by, collection: Renalware::User.ordered, label_method: :full_name
 
   = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Admin", name: "admin" } do
-    = f.input :formed_on, as: :date_picker
-    = f.input :started_on, as: :date_picker
-    = f.input :terminated_on, as: :date_picker
+      locals: { legend: "Admin", name: "notes" } do
     = f.input :notes, as: :text, input_html: { rows: 5 }
 
 .row
