@@ -3,7 +3,7 @@ module World
     module Domain
       # @section helpers
       #
-      def access_for(patient)
+      def profile_for(patient)
         Renalware::Accesses::Profile.for_patient(patient).first_or_initialize
       end
 
@@ -41,8 +41,8 @@ module World
       def update_access_profile(patient:, user:)
         travel_to 1.hour.from_now
 
-        access = access_for(patient)
-        access.update_attributes!(
+        profile = profile_for(patient)
+        profile.update_attributes!(
           updated_at: Time.zone.now,
           started_on: Time.zone.today,
           by: user
