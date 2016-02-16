@@ -1,0 +1,35 @@
+ruby:
+  back_path = patient_accesses_dashboard_path(@patient)
+
+.row.top
+  .medium-6.columns
+    = f.button :submit
+    span= " or "
+    = link_to "cancel", back_path
+
+.form-content
+  = render layout: "renalware/shared/fieldset",
+      locals: { legend: "Access Procedure", name: "procedure" } do
+
+    = f.input :performed_on, as: :date_picker
+    = f.association :performed_by, collection: Renalware::User.ordered, label_method: :full_name
+    = f.association :type,
+        collection: Renalware::Accesses::Type.ordered, input_html: { class: "small-input" }
+    = f.association :site,
+        collection: Renalware::Accesses::Site.ordered, input_html: { class: "small-input" }
+    = f.input :side, input_html: { class: "small-input" }
+    = f.input :notes, as: :text, input_html: { rows: 5 }
+    = f.input :catheter_make, input_html: { class: "small-input" }
+    = f.input :catheter_lot_no, input_html: { class: "small-input" }
+
+  = render layout: "renalware/shared/fieldset",
+      locals: { legend: "Follow-up", name: "followup" } do
+    = f.input :outcome, as: :text, input_html: { rows: 5 }
+    = f.input :first_used_on, as: :date_picker
+    = f.input :failed_on, as: :date_picker
+
+.row
+  .large-12.columns
+    = f.button :submit
+    span= " or "
+    = link_to 'cancel', back_path

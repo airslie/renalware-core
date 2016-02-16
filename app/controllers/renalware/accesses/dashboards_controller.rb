@@ -7,6 +7,7 @@ module Renalware
         current_profile = Profile.current_for_patient(@patient)
         @current_profile = ProfilePresenter.new(current_profile)
         @profiles = Profile.for_patient(@patient).ordered - [@current_profile]
+        @procedures = Procedure.for_patient(@patient).ordered
       end
     end
   end

@@ -1,0 +1,5 @@
+- if @procedure.persisted?
+  dl.sub-nav
+    dd= link_to "Access Summary", patient_accesses_dashboard_path(@patient)
+    dd= link_to "View", patient_accesses_procedure_path(@patient, @procedure)
+    dd= link_to "Edit", edit_patient_accesses_procedure_path(@patient, @procedure)

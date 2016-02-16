@@ -228,17 +228,45 @@ module Renalware
     session.save!
   end
 
-  log '--------------------Assign HD accesses to Francois RABBIT-------------------'
-  Accesses::Profile.for_patient(patient).destroy_all
+  log '--------------------Assign Access procedure to Francois RABBIT-------------------'
+  Accesses::Procedure.for_patient(patient).destroy_all
   users = User.limit(3).to_a
-  Accesses::Profile.create!(
+  procedure1 = Accesses::Procedure.create!(
     patient: patient,
-    formed_on: 3.months.ago,
-    planned_on: (3.months.ago + 5.days),
-    started_on: 1.month.ago,
+    performed_on: 6.months.ago,
     type: Accesses::Type.all.sample,
     site: Accesses::Site.all.sample,
     side: Accesses::Profile.side.values.sample,
+    performed_by: users.sample,
+    notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    outcome: "Perfect",
+    by: users.sample
+  )
+  procedure2 = Accesses::Procedure.create!(
+    patient: patient,
+    performed_on: 3.months.ago,
+    type: Accesses::Type.all.sample,
+    site: Accesses::Site.all.sample,
+    side: Accesses::Profile.side.values.sample,
+    performed_by: users.sample,
+    notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    outcome: "Perfect",
+    by: users.sample
+  )
+
+  log '--------------------Assign Access profiles to Francois RABBIT-------------------'
+  Accesses::Profile.for_patient(patient).destroy_all
+  users = User.limit(3).to_a
+
+  Accesses::Profile.create!(
+    patient: patient,
+    formed_on: procedure1.performed_on,
+    planned_on: (procedure1.performed_on + 5.days),
+    started_on: (procedure1.performed_on - 2.months),
+    terminated_on: 1.month.ago,
+    type: procedure1.type,
+    site: procedure1.site,
+    side: procedure1.side,
     plan: Accesses::Plan.all.sample,
     decided_by: users.sample,
     notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -247,13 +275,12 @@ module Renalware
 
   Accesses::Profile.create!(
     patient: patient,
-    formed_on: 6.months.ago,
-    planned_on: (6.months.ago + 5.days),
-    started_on: 4.month.ago,
-    terminated_on: 1.month.ago,
-    type: Accesses::Type.all.sample,
-    site: Accesses::Site.all.sample,
-    side: Accesses::Profile.side.values.sample,
+    formed_on: procedure2.performed_on,
+    planned_on: (procedure2.performed_on + 5.days),
+    started_on: (procedure2.performed_on - 2.months),
+    type: procedure2.type,
+    site: procedure2.site,
+    side: procedure2.side,
     plan: Accesses::Plan.all.sample,
     decided_by: users.sample,
     notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
