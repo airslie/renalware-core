@@ -1,0 +1,60 @@
+- return if @current_profile.blank?
+
+fieldset
+  legend Current Access Profile
+
+  .row
+    .large-2.columns
+      dl
+        dt Formed On:
+        dd= @current_profile.formed_on
+
+    .large-4.columns
+      dl
+        dt Type:
+        dd= @current_profile.type
+
+    .large-2.columns
+      dl
+        dt Site:
+        dd= @current_profile.site
+
+    .large-2.columns
+      dl
+        dt Side:
+        dd= @current_profile.side
+
+
+    .large-2.columns
+      .right
+        = link_to "View", patient_accesses_profile_path(@patient, @current_profile), class: "button tiny"
+        | &nbsp;
+        = link_to "Edit", edit_patient_accesses_profile_path(@patient, @current_profile), class: "button tiny"
+
+  .row
+    .large-2.columns
+      dl
+        dt Start Date:
+        dd= @current_profile.started_on
+
+    .large-4.columns
+      dl
+        dt Plan:
+        dd= @current_profile.plan
+
+    .large-2.columns
+      dl
+        dt Plan Date:
+        dd= @current_profile.planned_on
+
+    .large-4.columns
+      dl
+        dt Decision By:
+        dd= @current_profile.decided_by
+
+
+  .row
+    .large-12.columns
+      dl
+        dt Notes:
+        dd= simple_format @current_profile.notes

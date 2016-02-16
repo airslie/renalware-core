@@ -1,4 +1,4 @@
-require_dependency "renalware/transplants"
+require_dependency "renalware/hd"
 
 module Renalware
   module HD

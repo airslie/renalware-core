@@ -82,6 +82,11 @@ Rails.application.routes.draw do
         resources :dry_weights, except: [:show, :destroy]
       end
 
+      namespace :accesses do
+        resource :dashboard, only: :show
+        resources :profiles, except: [:index, :destroy]
+      end
+
       resources :letters
 
       resources :medications

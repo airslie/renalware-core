@@ -3,6 +3,9 @@ begin
   require "database_cleaner/cucumber"
 
   exceptions = %w(
+    access_types
+    access_sites
+    access_plans
     bag_types
     drugs
     drug_types

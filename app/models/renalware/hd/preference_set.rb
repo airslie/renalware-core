@@ -6,7 +6,6 @@ module Renalware
       include PatientScope
       include Accountable
       include HasSchedule
-      extend Enumerize
 
       belongs_to :patient
       belongs_to :hospital_unit, class_name: "Hospitals::Unit"

@@ -33,7 +33,7 @@ ruby:
       = fd.simple_fields_for :info, fd.object.info do |fcm|
         = fcm.input :hd_type, as: :inline_radio_buttons
         = fcm.input :access_type, as: :select, value_method: :name,
-            collection: Renalware::Accesses::Description.ordered, input_html: { class: "small-input" }
+            collection: Renalware::Accesses::Type.ordered, input_html: { class: "small-input" }
         = fcm.input :access_side, input_html: { class: "small-input" }
         = fcm.input :access_site, as: :select, value_method: :name,
             collection: Renalware::Accesses::Site.ordered

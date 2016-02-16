@@ -1,0 +1,39 @@
+fieldset.access-profiles
+  legend Access Profile History
+
+  - if @profiles.empty?
+    .call-to-action
+      = link_to new_patient_accesses_profile_path(@patient) do
+        i.fa.fa-plus-circle
+        | Add an Access Profile
+  - else
+    table.auto-layout
+      thead
+        th
+        th Formed On
+        th Start Date
+        th Term. Date
+        th Type
+        th Site
+        th Side
+        th Plan
+
+      tbody
+        - @profiles.each do |raw_access|
+          - profile = Renalware::Accesses::ProfilePresenter.new(raw_access)
+          tr
+            td
+              = link_to "View", patient_accesses_profile_path(@patient, profile)
+              = pipe_separator
+              = link_to "Edit", edit_patient_accesses_profile_path(@patient, profile)
+            td= profile.formed_on
+            td= profile.started_on
+            td= profile.terminated_on
+            td= profile.type
+            td= profile.site
+            td= profile.side
+            td= profile.plan_decision
+
+    .right
+      = link_to "Add an Access Profile", new_patient_accesses_profile_path(@patient),
+        class: 'button tiny'
