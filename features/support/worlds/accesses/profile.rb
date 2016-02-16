@@ -1,13 +1,13 @@
 module World
-  module Accesses::Access
+  module Accesses::Profile
     module Domain
       # @section helpers
       #
       def access_for(patient)
-        Renalware::Accesses::Access.for_patient(patient).first_or_initialize
+        Renalware::Accesses::Profile.for_patient(patient).first_or_initialize
       end
 
-      def valid_access_attributes(patient)
+      def valid_access_profile_attributes(patient)
         {
           patient: patient,
           formed_on: Time.zone.today,
@@ -18,9 +18,9 @@ module World
 
       # @section set-ups
       #
-      def set_up_access_for(patient, user:)
-        Renalware::Accesses::Access.create!(
-          valid_access_attributes(patient).merge(
+      def set_up_access_profile_for(patient, user:)
+        Renalware::Accesses::Profile.create!(
+          valid_access_profile_attributes(patient).merge(
             site: Renalware::Accesses::Site.first,
             by: user
           )
@@ -29,16 +29,16 @@ module World
 
       # @section commands
       #
-      def create_access(patient:, user:, site:)
-        Renalware::Accesses::Access.create(
-          valid_access_attributes(patient).merge(
+      def create_access_profile(patient:, user:, site:)
+        Renalware::Accesses::Profile.create(
+          valid_access_profile_attributes(patient).merge(
             site: site,
             by: user
           )
         )
       end
 
-      def update_access(patient:, user:)
+      def update_access_profile(patient:, user:)
         travel_to 1.hour.from_now
 
         access = access_for(patient)
@@ -51,12 +51,12 @@ module World
 
       # @section expectations
       #
-      def expect_access_to_exist(patient)
-        expect(Renalware::Accesses::Access.for_patient(patient)).to be_present
+      def expect_access_profile_to_exist(patient)
+        expect(Renalware::Accesses::Profile.for_patient(patient)).to be_present
       end
 
-      def expect_access_to_be_refused
-        expect(Renalware::Accesses::Access.count).to eq(0)
+      def expect_access_profile_to_be_refused
+        expect(Renalware::Accesses::Profile.count).to eq(0)
       end
     end
 
@@ -64,11 +64,11 @@ module World
     module Web
       include Domain
 
-      def create_access(user:, patient:, site:)
+      def create_access_profile(user:, patient:, site:)
         login_as user
         visit patient_accesses_dashboard_path(patient)
-        within_fieldset "Accesses List" do
-          click_on "Add an access"
+        within_fieldset "Access Profile History" do
+          click_on "Add an Access Profile"
         end
 
         fill_in "Formed On", with: I18n.l(Time.zone.today)
@@ -81,11 +81,11 @@ module World
         end
       end
 
-      def update_access(patient:, user:)
+      def update_access_profile(patient:, user:)
         login_as user
         visit patient_accesses_dashboard_path(patient)
-        within_fieldset "Accesses List" do
-          click_on "Edit"
+        within_fieldset "Access Profile History" do
+         click_on "Edit"
         end
 
         select "Left", from: "Access Side"

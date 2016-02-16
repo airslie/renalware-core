@@ -4,9 +4,9 @@ module Renalware
       before_filter :load_patient
 
       def show
-        current_access = Access.current_for_patient(@patient)
-        @current_access = AccessPresenter.new(current_access)
-        @accesses = Access.for_patient(@patient).ordered - [@current_access]
+        current_profile = Profile.current_for_patient(@patient)
+        @current_profile = ProfilePresenter.new(current_profile)
+        @profiles = Profile.for_patient(@patient).ordered - [@current_profile]
       end
     end
   end

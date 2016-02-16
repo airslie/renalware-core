@@ -2,7 +2,7 @@ require_dependency "renalware/accesses"
 
 module Renalware
   module Accesses
-    class Access < ActiveRecord::Base
+    class Profile < ActiveRecord::Base
       include PatientScope
       include Accountable
       extend Enumerize
@@ -21,6 +21,8 @@ module Renalware
       validates :site, presence: true
       validates :side, presence: true
       validates :formed_on, presence: true
+      validates :planned_on, presence: true, if: :plan
+      validates :decided_by, presence: true, if: :plan
       validates :formed_on, timeliness: { type: :date, allow_blank: false }
       validates :started_on, timeliness: { type: :date, allow_blank: true }
       validates :terminated_on, timeliness: { type: :date, allow_blank: true }

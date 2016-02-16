@@ -1,6 +1,6 @@
 en:
   activerecord:
-    renalware/accesses/access:
+    renalware/accesses/profile:
       formed_on: Formed On
       started_on: Start Date
       terminated_on: Termination Date

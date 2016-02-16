@@ -229,23 +229,23 @@ module Renalware
   end
 
   log '--------------------Assign HD accesses to Francois RABBIT-------------------'
-  Accesses::Access.for_patient(patient).destroy_all
+  Accesses::Profile.for_patient(patient).destroy_all
   users = User.limit(3).to_a
-  Accesses::Access.create!(
+  Accesses::Profile.create!(
     patient: patient,
     formed_on: 3.months.ago,
     planned_on: (3.months.ago + 5.days),
     started_on: 1.month.ago,
     type: Accesses::Type.all.sample,
     site: Accesses::Site.all.sample,
-    side: Accesses::Access.side.values.sample,
+    side: Accesses::Profile.side.values.sample,
     plan: Accesses::Plan.all.sample,
     decided_by: users.sample,
     notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     by: users.sample
   )
 
-  Accesses::Access.create!(
+  Accesses::Profile.create!(
     patient: patient,
     formed_on: 6.months.ago,
     planned_on: (6.months.ago + 5.days),
@@ -253,20 +253,20 @@ module Renalware
     terminated_on: 1.month.ago,
     type: Accesses::Type.all.sample,
     site: Accesses::Site.all.sample,
-    side: Accesses::Access.side.values.sample,
+    side: Accesses::Profile.side.values.sample,
     plan: Accesses::Plan.all.sample,
     decided_by: users.sample,
     notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     by: users.sample
   )
 
-  Accesses::Access.create!(
+  Accesses::Profile.create!(
     patient: patient,
     formed_on: 1.week.ago,
     planned_on: 2.weeks.ago,
     type: Accesses::Type.all.sample,
     site: Accesses::Site.all.sample,
-    side: Accesses::Access.side.values.sample,
+    side: Accesses::Profile.side.values.sample,
     plan: Accesses::Plan.where(name: "Fistula/graft maturing").first,
     decided_by: users.sample,
     notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",

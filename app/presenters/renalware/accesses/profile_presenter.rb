@@ -1,6 +1,6 @@
 module Renalware
   module Accesses
-    class AccessPresenter < DumbDelegator
+    class ProfilePresenter < DumbDelegator
       def initialize(access)
         super(access)
       end
@@ -26,7 +26,9 @@ module Renalware
       end
 
       def plan_decision
-        "#{plan}<br/>(#{planned_on} by #{decided_by})".html_safe
+        if plan.present?
+          "#{plan}<br/>(#{planned_on} by #{decided_by})".html_safe
+        end
       end
     end
   end

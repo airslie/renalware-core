@@ -1,0 +1,10 @@
+= render layout: "renalware/patients/layout",
+    locals: { title: "Access" } do
+  - return unless @profile
+
+  = render "profile_nav"
+
+  .document-view
+    = render "renalware/shared/attributes_group",
+        legend: "Access Profile", destination: "details",
+        models: { @profile => [:formed_on, :started_on, :terminated_on, :type, :site, :side, :plan, :planned_on, :decided_by, :notes] }

@@ -30,49 +30,6 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: access_accesses; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE access_accesses (
-    id integer NOT NULL,
-    patient_id integer,
-    formed_on date,
-    planned_on date,
-    started_on date,
-    terminated_on date,
-    type_id integer NOT NULL,
-    site_id integer NOT NULL,
-    plan_id integer,
-    side character varying,
-    notes text,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    decided_by_id integer
-);
-
-
---
--- Name: access_accesses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE access_accesses_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: access_accesses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE access_accesses_id_seq OWNED BY access_accesses.id;
-
-
---
 -- Name: access_plans; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -102,6 +59,49 @@ CREATE SEQUENCE access_plans_id_seq
 --
 
 ALTER SEQUENCE access_plans_id_seq OWNED BY access_plans.id;
+
+
+--
+-- Name: access_profiles; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE access_profiles (
+    id integer NOT NULL,
+    patient_id integer,
+    formed_on date NOT NULL,
+    planned_on date,
+    started_on date,
+    terminated_on date,
+    type_id integer NOT NULL,
+    site_id integer NOT NULL,
+    plan_id integer,
+    side character varying NOT NULL,
+    notes text,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    decided_by_id integer
+);
+
+
+--
+-- Name: access_profiles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE access_profiles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: access_profiles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE access_profiles_id_seq OWNED BY access_profiles.id;
 
 
 --
@@ -2357,14 +2357,14 @@ ALTER SEQUENCE versions_id_seq OWNED BY versions.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY access_accesses ALTER COLUMN id SET DEFAULT nextval('access_accesses_id_seq'::regclass);
+ALTER TABLE ONLY access_plans ALTER COLUMN id SET DEFAULT nextval('access_plans_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY access_plans ALTER COLUMN id SET DEFAULT nextval('access_plans_id_seq'::regclass);
+ALTER TABLE ONLY access_profiles ALTER COLUMN id SET DEFAULT nextval('access_profiles_id_seq'::regclass);
 
 
 --
@@ -2795,19 +2795,19 @@ ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq':
 
 
 --
--- Name: access_accesses_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY access_accesses
-    ADD CONSTRAINT access_accesses_pkey PRIMARY KEY (id);
-
-
---
 -- Name: access_plans_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY access_plans
     ADD CONSTRAINT access_plans_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: access_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY access_profiles
+    ADD CONSTRAINT access_profiles_pkey PRIMARY KEY (id);
 
 
 --
@@ -3313,31 +3313,31 @@ CREATE INDEX hd_versions_type_id ON hd_versions USING btree (item_type, item_id)
 
 
 --
--- Name: index_access_accesses_on_created_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_access_profiles_on_created_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_access_accesses_on_created_by_id ON access_accesses USING btree (created_by_id);
-
-
---
--- Name: index_access_accesses_on_decided_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_access_accesses_on_decided_by_id ON access_accesses USING btree (decided_by_id);
+CREATE INDEX index_access_profiles_on_created_by_id ON access_profiles USING btree (created_by_id);
 
 
 --
--- Name: index_access_accesses_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_access_profiles_on_decided_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_access_accesses_on_patient_id ON access_accesses USING btree (patient_id);
+CREATE INDEX index_access_profiles_on_decided_by_id ON access_profiles USING btree (decided_by_id);
 
 
 --
--- Name: index_access_accesses_on_updated_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_access_profiles_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_access_accesses_on_updated_by_id ON access_accesses USING btree (updated_by_id);
+CREATE INDEX index_access_profiles_on_patient_id ON access_profiles USING btree (patient_id);
+
+
+--
+-- Name: index_access_profiles_on_updated_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_access_profiles_on_updated_by_id ON access_profiles USING btree (updated_by_id);
 
 
 --
@@ -3911,6 +3911,14 @@ ALTER TABLE ONLY transplant_donations
 
 
 --
+-- Name: fk_rails_18650a2566; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_profiles
+    ADD CONSTRAINT fk_rails_18650a2566 FOREIGN KEY (site_id) REFERENCES access_sites(id);
+
+
+--
 -- Name: fk_rails_19e44d1a17; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3924,22 +3932,6 @@ ALTER TABLE ONLY exit_site_infections
 
 ALTER TABLE ONLY medications
     ADD CONSTRAINT fk_rails_1b2a92c9db FOREIGN KEY (medication_route_id) REFERENCES medication_routes(id);
-
-
---
--- Name: fk_rails_1c6e9b0606; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY access_accesses
-    ADD CONSTRAINT fk_rails_1c6e9b0606 FOREIGN KEY (decided_by_id) REFERENCES users(id);
-
-
---
--- Name: fk_rails_2bc758ca0f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY access_accesses
-    ADD CONSTRAINT fk_rails_2bc758ca0f FOREIGN KEY (site_id) REFERENCES access_sites(id);
 
 
 --
@@ -4012,14 +4004,6 @@ ALTER TABLE ONLY hd_sessions
 
 ALTER TABLE ONLY problems
     ADD CONSTRAINT fk_rails_479ad00a52 FOREIGN KEY (patient_id) REFERENCES patients(id);
-
-
---
--- Name: fk_rails_50d9c67ee9; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY access_accesses
-    ADD CONSTRAINT fk_rails_50d9c67ee9 FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -4135,6 +4119,14 @@ ALTER TABLE ONLY hd_profiles
 
 
 --
+-- Name: fk_rails_8d75e5423f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_profiles
+    ADD CONSTRAINT fk_rails_8d75e5423f FOREIGN KEY (decided_by_id) REFERENCES users(id);
+
+
+--
 -- Name: fk_rails_8f3a7fc1c7; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4191,6 +4183,14 @@ ALTER TABLE ONLY hd_preference_sets
 
 
 --
+-- Name: fk_rails_acbcae03df; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_profiles
+    ADD CONSTRAINT fk_rails_acbcae03df FOREIGN KEY (type_id) REFERENCES access_types(id);
+
+
+--
 -- Name: fk_rails_b6ee03185c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4207,19 +4207,19 @@ ALTER TABLE ONLY clinic_visits
 
 
 --
--- Name: fk_rails_bcb2891934; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY access_accesses
-    ADD CONSTRAINT fk_rails_bcb2891934 FOREIGN KEY (type_id) REFERENCES access_types(id);
-
-
---
 -- Name: fk_rails_bd995b497c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_sessions
     ADD CONSTRAINT fk_rails_bd995b497c FOREIGN KEY (signed_on_by_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_c367d368e6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_profiles
+    ADD CONSTRAINT fk_rails_c367d368e6 FOREIGN KEY (plan_id) REFERENCES access_plans(id);
 
 
 --
@@ -4247,11 +4247,11 @@ ALTER TABLE ONLY letters
 
 
 --
--- Name: fk_rails_cddca0e0ba; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_d04ba97fc5; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY access_accesses
-    ADD CONSTRAINT fk_rails_cddca0e0ba FOREIGN KEY (plan_id) REFERENCES access_plans(id);
+ALTER TABLE ONLY access_profiles
+    ADD CONSTRAINT fk_rails_d04ba97fc5 FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --

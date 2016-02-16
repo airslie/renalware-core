@@ -1,6 +1,6 @@
-class CreateAccessAccesses < ActiveRecord::Migration
+class CreateAccessProfiles < ActiveRecord::Migration
   def change
-    create_table :access_accesses do |t|
+    create_table :access_profiles do |t|
       t.belongs_to :patient, index: true, foreign_key: true
 
       t.date :formed_on, null: false
@@ -19,11 +19,11 @@ class CreateAccessAccesses < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_reference :access_accesses, :decided_by, references: :users, index: true
-    add_foreign_key :access_accesses, :users, column: :decided_by_id
+    add_reference :access_profiles, :decided_by, references: :users, index: true
+    add_foreign_key :access_profiles, :users, column: :decided_by_id
 
-    add_foreign_key :access_accesses, :access_types, column: :type_id
-    add_foreign_key :access_accesses, :access_sites, column: :site_id
-    add_foreign_key :access_accesses, :access_plans, column: :plan_id
+    add_foreign_key :access_profiles, :access_types, column: :type_id
+    add_foreign_key :access_profiles, :access_sites, column: :site_id
+    add_foreign_key :access_profiles, :access_plans, column: :plan_id
   end
 end

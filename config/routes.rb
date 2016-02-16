@@ -84,7 +84,7 @@ Rails.application.routes.draw do
 
       namespace :accesses do
         resource :dashboard, only: :show
-        resources :accesses, except: [:index, :destroy]
+        resources :profiles, except: [:index, :destroy]
       end
 
       resources :letters
