@@ -1,0 +1,37 @@
+en:
+  activerecord:
+    renalware/accesses/assessment:
+      performed_on: Performed On
+      procedure_on: Procedure Date
+      failed_on: Failure Date
+      type: Access Type
+      side: Access Side
+      site: Access Site
+      comments: Comments
+
+  activemodel:
+    renalware/accesses/assessment_document/test:
+      method: Method
+      flow_feed_artery: Flow Feed Artery
+      has_art_stenosis:  Artery Stenosis?
+      art_stenosis_notes: Artery Stenosis Notes
+      has_ven_stenosis: Venous Stenosis?
+      ven_stenosis_notes: Venous Stenosis Notes
+      has_residual_stenosis: Residual Stenosis?
+    renalware/accesses/assessment_document/test:
+      next_surveillance_due: Next Surveillance Due
+      rx_decision: Rx Decision
+
+  enumerize:
+    renalware/accesses/assessment:
+      method:
+        hand_doppler: Hand Doppler - Access Nurse
+        vascular_technician_doppler: Vascular Technician Doppler
+        vascular_laboratory: Vascular Laboratory
+      next_surveillance:
+        routine_6_monthly: Routine 6 Monthly
+        routine_3_monthly: Routine 3 Monthly
+        routine_monthly: Routine Monthly
+        vascular_lab_6_monthly: Vascular Lab 6 Monthly
+        vascular_lab_3_monthly: Vascular Lab 3 Monthly
+        vascular_lab_monthly: Vascular Lab Monthly

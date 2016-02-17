@@ -30,6 +30,46 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: access_assessments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE access_assessments (
+    id integer NOT NULL,
+    patient_id integer,
+    type_id integer NOT NULL,
+    site_id integer NOT NULL,
+    side character varying NOT NULL,
+    performed_on date NOT NULL,
+    procedure_on date,
+    comments text,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    document jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: access_assessments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE access_assessments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: access_assessments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE access_assessments_id_seq OWNED BY access_assessments.id;
+
+
+--
 -- Name: access_plans; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -83,7 +123,7 @@ CREATE TABLE access_procedures (
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    performed_by_id integer
+    performed_by_id integer NOT NULL
 );
 
 
@@ -2402,6 +2442,13 @@ ALTER SEQUENCE versions_id_seq OWNED BY versions.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY access_assessments ALTER COLUMN id SET DEFAULT nextval('access_assessments_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY access_plans ALTER COLUMN id SET DEFAULT nextval('access_plans_id_seq'::regclass);
 
 
@@ -2844,6 +2891,14 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 --
 
 ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq'::regclass);
+
+
+--
+-- Name: access_assessments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY access_assessments
+    ADD CONSTRAINT access_assessments_pkey PRIMARY KEY (id);
 
 
 --
@@ -3370,6 +3425,34 @@ CREATE INDEX access_versions_type_id ON access_versions USING btree (item_type, 
 --
 
 CREATE INDEX hd_versions_type_id ON hd_versions USING btree (item_type, item_id);
+
+
+--
+-- Name: index_access_assessments_on_created_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_access_assessments_on_created_by_id ON access_assessments USING btree (created_by_id);
+
+
+--
+-- Name: index_access_assessments_on_document; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_access_assessments_on_document ON access_assessments USING gin (document);
+
+
+--
+-- Name: index_access_assessments_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_access_assessments_on_patient_id ON access_assessments USING btree (patient_id);
+
+
+--
+-- Name: index_access_assessments_on_updated_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_access_assessments_on_updated_by_id ON access_assessments USING btree (updated_by_id);
 
 
 --
@@ -4103,6 +4186,14 @@ ALTER TABLE ONLY problems
 
 
 --
+-- Name: fk_rails_506a7ce21d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_assessments
+    ADD CONSTRAINT fk_rails_506a7ce21d FOREIGN KEY (type_id) REFERENCES access_types(id);
+
+
+--
 -- Name: fk_rails_537ced9729; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4132,6 +4223,14 @@ ALTER TABLE ONLY peritonitis_episodes
 
 ALTER TABLE ONLY patients
     ADD CONSTRAINT fk_rails_5b44e541da FOREIGN KEY (ethnicity_id) REFERENCES ethnicities(id);
+
+
+--
+-- Name: fk_rails_604fdf3a9e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_assessments
+    ADD CONSTRAINT fk_rails_604fdf3a9e FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -4439,6 +4538,14 @@ ALTER TABLE ONLY modalities
 
 
 --
+-- Name: fk_rails_e97e417b7d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_assessments
+    ADD CONSTRAINT fk_rails_e97e417b7d FOREIGN KEY (site_id) REFERENCES access_sites(id);
+
+
+--
 -- Name: fk_rails_eb5294f3df; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4621,6 +4728,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160120203754');
 INSERT INTO schema_migrations (version) VALUES ('20160120203755');
 
 INSERT INTO schema_migrations (version) VALUES ('20160120213000');
+
+INSERT INTO schema_migrations (version) VALUES ('20160120213001');
 
 INSERT INTO schema_migrations (version) VALUES ('20160121175711');
 
