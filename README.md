@@ -129,3 +129,5 @@ The app is available at http://renalware-staging.herokuapp.com. It is password p
 
     username: renalware
     password: lister
+
+Review app: if the automatic deployment fails, there is no known solution for it.
