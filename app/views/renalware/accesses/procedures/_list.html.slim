@@ -1,0 +1,39 @@
+fieldset.access-procedures
+  legend Procedure History
+
+  - if @procedures.empty?
+    .call-to-action
+      = link_to new_patient_accesses_procedure_path(@patient) do
+        i.fa.fa-plus-circle
+        | Add an Access Procedure
+  - else
+    table.auto-layout
+      thead
+        th
+        th Performed On
+        th Type
+        th Site
+        th Side
+        th Performed By
+        th First Use
+        th Outcome
+
+      tbody
+        - @procedures.each do |object|
+          - procedure = Renalware::Accesses::ProcedurePresenter.new(object)
+          tr
+            td
+              = link_to "View", patient_accesses_procedure_path(@patient, procedure)
+              = pipe_separator
+              = link_to "Edit", edit_patient_accesses_procedure_path(@patient, procedure)
+            td= procedure.performed_on
+            td= procedure.type
+            td= procedure.site
+            td= procedure.side
+            td= procedure.performed_by
+            td= procedure.first_used_on
+            td= procedure.outcome
+
+    .right
+      = link_to "Add an Access Procedure", new_patient_accesses_procedure_path(@patient),
+        class: 'button tiny'

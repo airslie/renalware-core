@@ -62,6 +62,51 @@ ALTER SEQUENCE access_plans_id_seq OWNED BY access_plans.id;
 
 
 --
+-- Name: access_procedures; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE access_procedures (
+    id integer NOT NULL,
+    patient_id integer,
+    type_id integer NOT NULL,
+    site_id integer NOT NULL,
+    side character varying NOT NULL,
+    performed_on date NOT NULL,
+    first_procedure boolean,
+    catheter_make character varying,
+    catheter_lot_no character varying,
+    outcome text,
+    notes text,
+    first_used_on date,
+    failed_on date,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    performed_by_id integer
+);
+
+
+--
+-- Name: access_procedures_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE access_procedures_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: access_procedures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE access_procedures_id_seq OWNED BY access_procedures.id;
+
+
+--
 -- Name: access_profiles; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2364,6 +2409,13 @@ ALTER TABLE ONLY access_plans ALTER COLUMN id SET DEFAULT nextval('access_plans_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY access_procedures ALTER COLUMN id SET DEFAULT nextval('access_procedures_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY access_profiles ALTER COLUMN id SET DEFAULT nextval('access_profiles_id_seq'::regclass);
 
 
@@ -2800,6 +2852,14 @@ ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq':
 
 ALTER TABLE ONLY access_plans
     ADD CONSTRAINT access_plans_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: access_procedures_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY access_procedures
+    ADD CONSTRAINT access_procedures_pkey PRIMARY KEY (id);
 
 
 --
@@ -3310,6 +3370,34 @@ CREATE INDEX access_versions_type_id ON access_versions USING btree (item_type, 
 --
 
 CREATE INDEX hd_versions_type_id ON hd_versions USING btree (item_type, item_id);
+
+
+--
+-- Name: index_access_procedures_on_created_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_access_procedures_on_created_by_id ON access_procedures USING btree (created_by_id);
+
+
+--
+-- Name: index_access_procedures_on_patient_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_access_procedures_on_patient_id ON access_procedures USING btree (patient_id);
+
+
+--
+-- Name: index_access_procedures_on_performed_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_access_procedures_on_performed_by_id ON access_procedures USING btree (performed_by_id);
+
+
+--
+-- Name: index_access_procedures_on_updated_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_access_procedures_on_updated_by_id ON access_procedures USING btree (updated_by_id);
 
 
 --
@@ -3911,6 +3999,14 @@ ALTER TABLE ONLY transplant_donations
 
 
 --
+-- Name: fk_rails_11c7f6fec3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_procedures
+    ADD CONSTRAINT fk_rails_11c7f6fec3 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: fk_rails_18650a2566; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4151,6 +4247,14 @@ ALTER TABLE ONLY transplant_donor_workups
 
 
 --
+-- Name: fk_rails_9dbbc5bfd0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_procedures
+    ADD CONSTRAINT fk_rails_9dbbc5bfd0 FOREIGN KEY (type_id) REFERENCES access_types(id);
+
+
+--
 -- Name: fk_rails_a3afae15cb; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4279,6 +4383,14 @@ ALTER TABLE ONLY pd_regime_bags
 
 
 --
+-- Name: fk_rails_df8ecd8ea9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_procedures
+    ADD CONSTRAINT fk_rails_df8ecd8ea9 FOREIGN KEY (performed_by_id) REFERENCES users(id);
+
+
+--
 -- Name: fk_rails_e1899a68af; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4332,6 +4444,14 @@ ALTER TABLE ONLY modalities
 
 ALTER TABLE ONLY hd_profiles
     ADD CONSTRAINT fk_rails_eb5294f3df FOREIGN KEY (prescriber_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_ed137a641b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_procedures
+    ADD CONSTRAINT fk_rails_ed137a641b FOREIGN KEY (site_id) REFERENCES access_sites(id);
 
 
 --
@@ -4499,6 +4619,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160120203753');
 INSERT INTO schema_migrations (version) VALUES ('20160120203754');
 
 INSERT INTO schema_migrations (version) VALUES ('20160120203755');
+
+INSERT INTO schema_migrations (version) VALUES ('20160120213000');
 
 INSERT INTO schema_migrations (version) VALUES ('20160121175711');
 
