@@ -1,4 +1,3 @@
-@wip
 Feature: Recording an access procedure for a patient
 
   A clinician records an access procedure for a patient.
