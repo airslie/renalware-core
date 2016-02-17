@@ -15,11 +15,12 @@ fieldset.access-procedures
         th Site
         th Side
         th Performed By
+        th First Use
         th Outcome
 
       tbody
         - @procedures.each do |object|
-          - procedure = Renalware::Accesses::ProfilePresenter.new(object)
+          - procedure = Renalware::Accesses::ProcedurePresenter.new(object)
           tr
             td
               = link_to "View", patient_accesses_procedure_path(@patient, procedure)
@@ -30,6 +31,7 @@ fieldset.access-procedures
             td= procedure.site
             td= procedure.side
             td= procedure.performed_by
+            td= procedure.first_used_on
             td= procedure.outcome
 
     .right
