@@ -17,8 +17,18 @@ module Renalware
           start_time: Time.zone.now.change(min: (Time.zone.now.min/5)*5)
         )
         Profile.for_patient(patient).first.tap do |profile|
-          session.hospital_unit = profile.hospital_unit
-          session.document.info.hd_type = profile.document.dialysis.hd_type
+          if profile
+            session.hospital_unit = profile.hospital_unit
+            session.document.info.hd_type = profile.document.dialysis.hd_type
+          end
+        end
+
+        Accesses::Profile.current_for_patient(patient).tap do |profile|
+          if profile
+            session.document.info.access_type = profile.type.name
+            session.document.info.access_site = profile.site.name
+            session.document.info.access_side = profile.side
+          end
         end
 
         session
