@@ -1,8 +1,9 @@
 en:
   activerecord:
-    renalware/hd/preference_set:
-      schedule: Schedule
-      other_schedule: Other Schedule
+    attributes:
+      renalware/hd/preference_set:
+        schedule: Schedule
+        other_schedule: Other Schedule
   enumerize:
     renalware/hd/preference_set:
       schedule:

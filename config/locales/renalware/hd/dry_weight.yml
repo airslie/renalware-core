@@ -1,5 +1,6 @@
 en:
   activerecord:
-    renalware/hd/dry_weight:
-      weight: Dry Weight
-      assessed_on: Assessment Date
+    attributes:
+      renalware/hd/dry_weight:
+        weight: Dry Weight
+        assessed_on: Assessment Date

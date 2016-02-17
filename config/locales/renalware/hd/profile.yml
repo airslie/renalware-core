@@ -1,14 +1,15 @@
 en:
   activerecord:
-    renalware/hd/profile:
-      schedule: Schedule
-      other_schedule: Other Schedule
-      transport_decider: Transport Decider
-      named_nurse: Named Nurse
-      prescribed_time: Prescribed Time on HD
-      prescribed_on: Prescription Date
-      hospital_unit: Hospital Unit
-      hospital_centre: Hospital Centre
+    attributes:
+      renalware/hd/profile:
+        schedule: Schedule
+        other_schedule: Other Schedule
+        transport_decider: Transport Decider
+        named_nurse: Named Nurse
+        prescribed_time: Prescribed Time on HD
+        prescribed_on: Prescription Date
+        hospital_unit: Hospital Unit
+        hospital_centre: Hospital Centre
   activemodel:
     attributes:
       renalware/hd/profile_document/dialysis:

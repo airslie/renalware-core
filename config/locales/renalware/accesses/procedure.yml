@@ -1,14 +1,15 @@
 en:
   activerecord:
-    renalware/accesses/procedure:
-      performed_on: Performed On
-      first_used_on: First Use Date
-      failed_on: Failure Date
-      performed_by: Performed By
-      type: Access Type
-      side: Access Side
-      site: Access Site
-      notes: Notes
-      outcome: Outcome
-      catheter_make: Catheter Make
-      catheter_lot_no: Catheter Lot No
+    attributes:
+      renalware/accesses/procedure:
+        performed_on: Performed On
+        first_used_on: First Use Date
+        failed_on: Failure Date
+        performed_by: Performed By
+        type: Access Type
+        side: Access Side
+        site: Access Site
+        notes: Notes
+        outcome: Outcome
+        catheter_make: Catheter Make
+        catheter_lot_no: Catheter Lot No

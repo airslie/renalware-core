@@ -1,15 +1,16 @@
 en:
   activerecord:
-    renalware/hd/session:
-      performed_on: Session Date
-      hospital_unit: Hospital Unit
-      hospital_centre: Hospital Centre
-      signed_on_by: Signed On By
-      signed_off_by: Signed Off By
-      start_time: Session Start Time
-      end_time: Session End Time
-      hd_type: HD Type
-      modality_description: Modality
+    attributes:
+      renalware/hd/session:
+        performed_on: Session Date
+        hospital_unit: Hospital Unit
+        hospital_centre: Hospital Centre
+        signed_on_by: Signed On By
+        signed_off_by: Signed Off By
+        start_time: Session Start Time
+        end_time: Session End Time
+        hd_type: HD Type
+        modality_description: Modality
   activemodel:
     attributes:
       renalware/hd/session_document/info:
