@@ -299,4 +299,61 @@ module Renalware
     notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     by: users.sample
   )
+
+  log '--------------------Assign Access assessments to Francois RABBIT-------------------'
+  Accesses::Assessment.for_patient(patient).destroy_all
+  Accesses::Assessment.create!(
+    patient: patient,
+    performed_on: procedure1.performed_on + 1.month,
+    procedure_on: procedure1.performed_on,
+    type: procedure1.type,
+    site: procedure1.site,
+    side: procedure1.side,
+    comments: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    by: users.sample,
+    document: {
+      test: {
+        method: :hand_doppler,
+        flow_feed_artery: "abcdef" ,
+        has_art_stenosis: :no,
+        art_stenosis_notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        has_ven_stenosis: :yes,
+        ven_stenosis_notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        has_residual_stenosis: :no,
+        outcome: :green
+      },
+      admin: {
+        next_surveillance_due: :routine_monthly,
+        rx_decision: "Continue"
+      }
+    }
+  )
+
+  Accesses::Assessment.create!(
+    patient: patient,
+    performed_on: procedure2.performed_on + 1.month,
+    procedure_on: procedure2.performed_on,
+    type: procedure2.type,
+    site: procedure2.site,
+    side: procedure2.side,
+    comments: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    by: users.sample,
+    document: {
+      test: {
+        method: :hand_doppler,
+        flow_feed_artery: "abcdef" ,
+        has_art_stenosis: :no,
+        art_stenosis_notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        has_ven_stenosis: :yes,
+        ven_stenosis_notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        has_residual_stenosis: :no,
+        outcome: :green
+      },
+      admin: {
+        next_surveillance_due: :routine_monthly,
+        rx_decision: "Continue"
+      }
+    }
+  )
+
 end

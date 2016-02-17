@@ -1,4 +1,3 @@
-@wip
 Feature: Recording an access assessment for a patient
 
   A clinician records an access assessment for a patient.

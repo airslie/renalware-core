@@ -12,6 +12,7 @@ module Renalware
         attribute :has_ven_stenosis, Document::Enum, enums: %i(yes no)
         attribute :ven_stenosis_notes
         attribute :has_residual_stenosis, Document::Enum, enums: %i(yes no)
+        attribute :outcome, Document::Enum
       end
       attribute :test, Test
 
