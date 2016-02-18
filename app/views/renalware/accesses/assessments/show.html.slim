@@ -7,7 +7,7 @@
   .document-view
     = render "renalware/shared/attributes_group",
         legend: "Results & Observations", destination: "results",
-        models: { @assessment => [:performed_on, :type, :site, :side], @assessment.document.test => @assessment.document.test.class.attributes_list }
+        models: { @assessment => [:performed_on, :type, :site, :side], @assessment.document.results => @assessment.document.results.class.attributes_list }
 
     = render "renalware/shared/attributes_group",
         legend: "Management Plans", destination: "plans",
