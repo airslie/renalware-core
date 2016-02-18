@@ -1,0 +1,13 @@
+<% if @note.valid? %>
+  $("#problem-notes").html("<%= escape_javascript(
+    render "table", problem: @problem, notes: @problem.notes
+  ) %>");
+
+<% else %>
+  $("<%= dom_id(@note, "#new")%>").replaceWith("<%= escape_javascript(
+    render "form", note: @note,
+      problem: @problem,
+      url: patient_problem_notes_path(@patient, @problem)
+   ) %>");
+
+<% end %>

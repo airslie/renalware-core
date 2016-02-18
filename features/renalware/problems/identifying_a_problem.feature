@@ -1,4 +1,3 @@
-@wip
 Feature: Identifying a problem
 
   Background:
@@ -8,15 +7,15 @@ Feature: Identifying a problem
   @web @javascript
   Scenario: A clinician identified a problem
     When Clyde records a problem for Patty
-    # And records a note for the problem
+    And records a note for the problem
     Then a problem is recorded for Patty
 
-  @web @javascript
+  @web
   Scenario: A clinician revised a peritonitis episode
     Given Clyde recorded a problem for Patty
     Then Clyde can revise the problem
 
-  # @web @javascript
-  # Scenario: A clinician added a note to a problem
-  #   Given Clyde recorded a problem for Patty
-  #   Then Clyde can add a note to the problem
+  @web @javascript
+  Scenario: A clinician added a note to a problem
+    Given Clyde recorded a problem for Patty
+    Then Clyde can add a note to the problem

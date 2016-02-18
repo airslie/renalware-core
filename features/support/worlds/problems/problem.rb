@@ -27,13 +27,13 @@ module World
 
       # @section expectations
       #
-      def expect_problem_to_recorded(patient:)
+      def expect_problem_to_be_recorded(patient:)
         problem = patient.problems.last
 
         expect(problem).to be_present
       end
 
-      def expect_problem_revisions_recorded(patient:)
+      def expect_problem_revisions_to_be_recorded(patient:)
         problem = patient.problems.last!
 
         expect(problem.created_at).not_to eq(problem.updated_at)

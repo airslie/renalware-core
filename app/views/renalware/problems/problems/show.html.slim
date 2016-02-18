@@ -3,7 +3,7 @@
   = field_set_tag "Problem" do
     = render "details", patient: @patient, problem: @problem
 
-  = field_set_tag "Notes" do
+  = render "renalware/problems/notes/list"
 
   = field_set_tag "Problem History" do
     - @problem.versions.map(&:reify).compact.tap do |problems|

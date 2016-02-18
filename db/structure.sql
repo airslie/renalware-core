@@ -1766,10 +1766,46 @@ ALTER SEQUENCE prd_descriptions_id_seq OWNED BY prd_descriptions.id;
 
 
 --
--- Name: problems; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: problem_notes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE problems (
+CREATE TABLE problem_notes (
+    id integer NOT NULL,
+    problem_id integer,
+    description text NOT NULL,
+    show_in_letter boolean,
+    show_in_clinical_summary boolean,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: problem_notes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE problem_notes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: problem_notes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE problem_notes_id_seq OWNED BY problem_notes.id;
+
+
+--
+-- Name: problem_problems; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE problem_problems (
     id integer NOT NULL,
     patient_id integer NOT NULL,
     description character varying NOT NULL,
@@ -1781,10 +1817,10 @@ CREATE TABLE problems (
 
 
 --
--- Name: problems_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: problem_problems_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE problems_id_seq
+CREATE SEQUENCE problem_problems_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1793,17 +1829,17 @@ CREATE SEQUENCE problems_id_seq
 
 
 --
--- Name: problems_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: problem_problems_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE problems_id_seq OWNED BY problems.id;
+ALTER SEQUENCE problem_problems_id_seq OWNED BY problem_problems.id;
 
 
 --
--- Name: problems_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: problem_versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE problems_versions (
+CREATE TABLE problem_versions (
     id integer NOT NULL,
     item_type character varying NOT NULL,
     item_id integer NOT NULL,
@@ -1816,10 +1852,10 @@ CREATE TABLE problems_versions (
 
 
 --
--- Name: problems_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: problem_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE problems_versions_id_seq
+CREATE SEQUENCE problem_versions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1828,10 +1864,10 @@ CREATE SEQUENCE problems_versions_id_seq
 
 
 --
--- Name: problems_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: problem_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE problems_versions_id_seq OWNED BY problems_versions.id;
+ALTER SEQUENCE problem_versions_id_seq OWNED BY problem_versions.id;
 
 
 --
@@ -2771,14 +2807,21 @@ ALTER TABLE ONLY prd_descriptions ALTER COLUMN id SET DEFAULT nextval('prd_descr
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY problems ALTER COLUMN id SET DEFAULT nextval('problems_id_seq'::regclass);
+ALTER TABLE ONLY problem_notes ALTER COLUMN id SET DEFAULT nextval('problem_notes_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY problems_versions ALTER COLUMN id SET DEFAULT nextval('problems_versions_id_seq'::regclass);
+ALTER TABLE ONLY problem_problems ALTER COLUMN id SET DEFAULT nextval('problem_problems_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY problem_versions ALTER COLUMN id SET DEFAULT nextval('problem_versions_id_seq'::regclass);
 
 
 --
@@ -3270,19 +3313,27 @@ ALTER TABLE ONLY prd_descriptions
 
 
 --
--- Name: problems_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: problem_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY problems
-    ADD CONSTRAINT problems_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY problem_notes
+    ADD CONSTRAINT problem_notes_pkey PRIMARY KEY (id);
 
 
 --
--- Name: problems_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: problem_problems_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY problems_versions
-    ADD CONSTRAINT problems_versions_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY problem_problems
+    ADD CONSTRAINT problem_problems_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: problem_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY problem_versions
+    ADD CONSTRAINT problem_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -3848,17 +3899,38 @@ CREATE INDEX index_patients_on_doctor_id ON patients USING btree (doctor_id);
 
 
 --
--- Name: index_problems_on_deleted_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_problem_notes_on_created_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_problems_on_deleted_at ON problems USING btree (deleted_at);
+CREATE INDEX index_problem_notes_on_created_by_id ON problem_notes USING btree (created_by_id);
 
 
 --
--- Name: index_problems_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_problem_notes_on_problem_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_problems_versions_on_item_type_and_item_id ON problems_versions USING btree (item_type, item_id);
+CREATE INDEX index_problem_notes_on_problem_id ON problem_notes USING btree (problem_id);
+
+
+--
+-- Name: index_problem_notes_on_updated_by_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_problem_notes_on_updated_by_id ON problem_notes USING btree (updated_by_id);
+
+
+--
+-- Name: index_problem_problems_on_deleted_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_problem_problems_on_deleted_at ON problem_problems USING btree (deleted_at);
+
+
+--
+-- Name: index_problem_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_problem_versions_on_item_type_and_item_id ON problem_versions USING btree (item_type, item_id);
 
 
 --
@@ -4178,14 +4250,6 @@ ALTER TABLE ONLY hd_sessions
 
 
 --
--- Name: fk_rails_479ad00a52; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY problems
-    ADD CONSTRAINT fk_rails_479ad00a52 FOREIGN KEY (patient_id) REFERENCES patients(id);
-
-
---
 -- Name: fk_rails_506a7ce21d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4239,6 +4303,14 @@ ALTER TABLE ONLY access_assessments
 
 ALTER TABLE ONLY transplant_recipient_followups
     ADD CONSTRAINT fk_rails_6893ba0593 FOREIGN KEY (transplant_failure_cause_description_id) REFERENCES transplant_failure_cause_descriptions(id);
+
+
+--
+-- Name: fk_rails_6a44f3907b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY problem_notes
+    ADD CONSTRAINT fk_rails_6a44f3907b FOREIGN KEY (problem_id) REFERENCES problem_problems(id);
 
 
 --
@@ -4562,6 +4634,14 @@ ALTER TABLE ONLY access_procedures
 
 
 --
+-- Name: fk_rails_edf3902cb0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY problem_problems
+    ADD CONSTRAINT fk_rails_edf3902cb0 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: fk_rails_f0bcae6feb; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4636,8 +4716,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150120155952');
 INSERT INTO schema_migrations (version) VALUES ('20150203161438');
 
 INSERT INTO schema_migrations (version) VALUES ('20150206115827');
-
-INSERT INTO schema_migrations (version) VALUES ('20150206174242');
 
 INSERT INTO schema_migrations (version) VALUES ('20150213103855');
 
@@ -4744,4 +4822,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160203160041');
 INSERT INTO schema_migrations (version) VALUES ('20160208153327');
 
 INSERT INTO schema_migrations (version) VALUES ('20160209203446');
+
+INSERT INTO schema_migrations (version) VALUES ('20160218220145');
 

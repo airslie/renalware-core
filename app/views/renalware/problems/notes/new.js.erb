@@ -1,0 +1,6 @@
+$("#problem-notes").html("<%= escape_javascript(
+  render "form", note: @note,
+    problem: @problem,
+    url: patient_problem_notes_path(@patient, @problem)
+) %>");
+$("#problems_note_description").focus();

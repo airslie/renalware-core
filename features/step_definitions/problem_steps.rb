@@ -8,12 +8,15 @@ When(/^Clyde records a problem for Patty$/) do
 end
 
 When(/^records a note for the problem$/) do
-  pending # express the regexp above with the code you wish you had
+  problem = problem_for(@patty)
+  record_problem_note_for(problem: problem, user: @clyde)
 end
 
 
 Then(/^a problem is recorded for Patty$/) do
-  expect_problem_to_recorded(patient: @patty)
+  expect_problem_to_be_recorded(patient: @patty)
+  problem = problem_for(@patty)
+  expect_problem_note_to_be_recorded(problem: problem)
 end
 
 Then(/^Clyde can revise the problem$/) do
@@ -23,9 +26,11 @@ Then(/^Clyde can revise the problem$/) do
     description: "something else"
   )
 
-  expect_problem_revisions_recorded(patient: @patty)
+  expect_problem_revisions_to_be_recorded(patient: @patty)
 end
 
 Then(/^Clyde can add a note to the problem$/) do
-  pending # express the regexp above with the code you wish you had
+  problem = problem_for(@patty)
+  record_problem_note_for(problem: problem, user: @clyde)
+  expect_problem_note_to_be_recorded(problem: problem)
 end

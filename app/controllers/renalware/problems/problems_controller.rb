@@ -10,6 +10,7 @@ module Renalware
 
       def show
         @problem = @patient.problems.find(params[:id])
+        @notes = @problem.notes.ordered
         render
       end
 
