@@ -98,7 +98,6 @@ Rails.application.routes.draw do
       resources :peritonitis_episodes, only: [:new, :create, :show, :edit, :update]
 
       resources :problems, controller: "problems/problems"
-      patch "problems", to: "problems/problems#update", as: "problems_batch"
 
       namespace :transplants do
         resource :recipient_dashboard, only: :show

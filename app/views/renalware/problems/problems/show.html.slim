@@ -1,0 +1,22 @@
+= render layout: "renalware/patients/layout", locals: { title: "Problem" } do
+
+  = field_set_tag "Problem" do
+    = render "details", patient: @patient, problem: @problem
+
+  = field_set_tag "Notes" do
+
+  = field_set_tag "Problem History" do
+    - @problem.versions.map(&:reify).compact.tap do |problems|
+      - if problems.empty?
+        p There are no revisions for this problem.
+      - else
+          table
+            thead
+              tr
+                th Description
+                th Recorded at
+            - problems.each do |problem|
+              tbody
+                tr
+                  td= problem.description
+                  td= l problem.updated_at

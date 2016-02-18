@@ -8,6 +8,11 @@ module Renalware
         @problems = @patient.problems
       end
 
+      def show
+        @problem = @patient.problems.find(params[:id])
+        render
+      end
+
       def edit
         @problem = @patient.problems.find(params[:id])
         render

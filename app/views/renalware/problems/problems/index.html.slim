@@ -20,6 +20,8 @@
       - @problems.reject(&:new_record?).each do |problem|
         tr.problem
           td
+            = link_to "View", patient_problem_path(@patient, problem)
+            = pipe_separator
             = link_to "Edit", edit_patient_problem_path(@patient, problem)
             = pipe_separator
             = link_to "Terminate", patient_problem_path(@patient, problem), method: :delete, data: { confirm: 'Are you sure?' }
