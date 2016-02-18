@@ -14,7 +14,7 @@ module World
           type: Renalware::Accesses::Type.first,
           side: :left,
           document: {
-            test: {
+            results: {
               method: :hand_doppler
             }
           }
@@ -76,7 +76,7 @@ module World
           click_on "Add an Access Assessment"
         end
 
-        fill_in "Performed On", with: I18n.l(Time.zone.today)
+        fill_in "Performed", with: I18n.l(Time.zone.today)
         select "Vein loop", from: "Access Type"
         select site, from: "Access Site"
         select "Right", from: "Access Side"
