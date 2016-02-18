@@ -2,7 +2,7 @@ en:
   activerecord:
     attributes:
       renalware/accesses/assessment:
-        performed_on: Performed On
+        performed_on: Performed
         procedure_on: Procedure Date
         failed_on: Failure Date
         type: Access Type
@@ -12,7 +12,7 @@ en:
 
   activemodel:
     attributes:
-      renalware/accesses/assessment_document/test:
+      renalware/accesses/assessment_document/results:
         method: Method
         flow_feed_artery: Flow Feed Artery
         has_art_stenosis: "Artery Stenosis?"
@@ -21,11 +21,11 @@ en:
         ven_stenosis_notes: Venous Stenosis Notes
         has_residual_stenosis: "Residual Stenosis?"
       renalware/accesses/assessment_document/admin:
-        next_surveillance_due: Next Surveillance Due
-        rx_decision: Rx Decision
+        next_surveillance: Next Surveillance
+        decision: Decision
 
   enumerize:
-    renalware/accesses/assessment_document/test:
+    renalware/accesses/assessment_document/results:
       method:
         hand_doppler: Hand Doppler - Access Nurse
         vascular_technician_doppler: Vascular Technician Doppler
@@ -35,7 +35,7 @@ en:
         amber: Amber (Some anxiety)
         red: Red (Severe)
     renalware/accesses/assessment_document/admin:
-      next_surveillance_due:
+      next_surveillance:
         routine_6_monthly: Routine 6 Monthly
         routine_3_monthly: Routine 3 Monthly
         routine_monthly: Routine Monthly

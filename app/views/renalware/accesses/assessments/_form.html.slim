@@ -10,7 +10,7 @@ ruby:
 .form-content
   = f.simple_fields_for :document, f.object.document do |fd|
     = render layout: "renalware/shared/fieldset",
-        locals: { legend: "Test", name: "test" } do
+        locals: { legend: "Results & Observations", name: "results" } do
 
       = f.input :performed_on, as: :date_picker
       = f.association :type,
@@ -19,7 +19,7 @@ ruby:
           collection: Renalware::Accesses::Site.ordered, input_html: { class: "small-input" }
       = f.input :side, input_html: { class: "small-input" }
 
-      = fd.simple_fields_for :test, fd.object.test do |fcm|
+      = fd.simple_fields_for :results, fd.object.results do |fcm|
         = fcm.input :method, input_html: { class: "small-input" }
         = fcm.input :flow_feed_artery
         = fcm.input :has_art_stenosis, as: :inline_radio_buttons
@@ -31,10 +31,10 @@ ruby:
 
 
     = render layout: "renalware/shared/fieldset",
-        locals: { legend: "Admin", name: "admin" } do
+        locals: { legend: "Management Plans", name: "plans" } do
       = fd.simple_fields_for :admin, fd.object.admin do |fcm|
-        = fcm.input :next_surveillance_due, input_html: { class: "small-input" }
-        = fcm.input :rx_decision
+        = fcm.input :next_surveillance, input_html: { class: "small-input" }
+        = fcm.input :decision
       = f.input :comments, as: :text, input_html: { rows: 5 }
 
   .row

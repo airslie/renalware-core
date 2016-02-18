@@ -15,8 +15,8 @@ fieldset.access-assessments
         th Site
         th Side
         th Outcome
-        th Rx Decision
-        th Next Surveillance Due
+        th Decision
+        th Next Surveillance
 
       tbody
         - @assessments.each do |object|
@@ -31,8 +31,8 @@ fieldset.access-assessments
             td= assessment.site
             td= assessment.side
             td= assessment.outcome
-            td= assessment.rx_decision
-            td= assessment.next_surveillance_due
+            td= assessment.decision
+            td= assessment.next_surveillance
 
     .right
       = link_to "Add an Access Assessment", new_patient_accesses_assessment_path(@patient),

@@ -18,15 +18,15 @@ module Renalware
       end
 
       def outcome
-        document.test.outcome.try(:text)
+        document.results.outcome.try(:text)
       end
 
-      def next_surveillance_due
-        document.admin.next_surveillance_due.try(:text)
+      def next_surveillance
+        document.admin.next_surveillance.try(:text)
       end
 
-      def rx_decision
-        document.admin.rx_decision
+      def decision
+        document.admin.decision
       end
     end
   end

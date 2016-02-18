@@ -312,7 +312,7 @@ module Renalware
     comments: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     by: users.sample,
     document: {
-      test: {
+      results: {
         method: :hand_doppler,
         flow_feed_artery: "abcdef" ,
         has_art_stenosis: :no,
@@ -323,8 +323,8 @@ module Renalware
         outcome: :green
       },
       admin: {
-        next_surveillance_due: :routine_monthly,
-        rx_decision: "Continue"
+        next_surveillance: :routine_monthly,
+        decision: "Continue"
       }
     }
   )
@@ -339,7 +339,7 @@ module Renalware
     comments: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     by: users.sample,
     document: {
-      test: {
+      results: {
         method: :hand_doppler,
         flow_feed_artery: "abcdef" ,
         has_art_stenosis: :no,
@@ -350,8 +350,8 @@ module Renalware
         outcome: :green
       },
       admin: {
-        next_surveillance_due: :routine_monthly,
-        rx_decision: "Continue"
+        next_surveillance: :routine_monthly,
+        decision: "Continue"
       }
     }
   )
