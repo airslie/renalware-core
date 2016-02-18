@@ -1,0 +1,39 @@
+fieldset.access-assessments
+  legend Assessment History
+
+  - if @assessments.empty?
+    .call-to-action
+      = link_to new_patient_accesses_assessment_path(@patient) do
+        i.fa.fa-plus-circle
+        | Add an Access Assessment
+  - else
+    table.auto-layout
+      thead
+        th
+        th Performed
+        th Type
+        th Site
+        th Side
+        th Outcome
+        th Decision
+        th Next Surveillance
+
+      tbody
+        - @assessments.each do |object|
+          - assessment = Renalware::Accesses::AssessmentPresenter.new(object)
+          tr
+            td
+              = link_to "View", patient_accesses_assessment_path(@patient, assessment)
+              = pipe_separator
+              = link_to "Edit", edit_patient_accesses_assessment_path(@patient, assessment)
+            td= assessment.performed_on
+            td= assessment.type
+            td= assessment.site
+            td= assessment.side
+            td= assessment.outcome
+            td= assessment.decision
+            td= assessment.next_surveillance
+
+    .right
+      = link_to "Add an Access Assessment", new_patient_accesses_assessment_path(@patient),
+        class: 'button tiny'

@@ -1,10 +1,6 @@
 # https://github.com/plataformatec/simple_form#i18n
 
 en:
-  # activerecord:
-  #   attributes:
-  #     renalware/transplants/recipient_workup:
-  #       performed_at: Performed On
   activemodel:
     attributes:
       renalware/transplants/recipient_workup_document:

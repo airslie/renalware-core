@@ -1,0 +1,5 @@
+- if @assessment.persisted?
+  dl.sub-nav
+    dd= link_to "Access Summary", patient_accesses_dashboard_path(@patient)
+    dd= link_to "View", patient_accesses_assessment_path(@patient, @assessment)
+    dd= link_to "Edit", edit_patient_accesses_assessment_path(@patient, @assessment)

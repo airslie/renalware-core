@@ -1,0 +1,44 @@
+ruby:
+  back_path = patient_accesses_dashboard_path(@patient)
+
+.row.top
+  .medium-6.columns
+    = f.button :submit
+    span= " or "
+    = link_to "cancel", back_path
+
+.form-content
+  = f.simple_fields_for :document, f.object.document do |fd|
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Results & Observations", name: "results" } do
+
+      = f.input :performed_on, as: :date_picker
+      = f.association :type,
+          collection: Renalware::Accesses::Type.ordered, input_html: { class: "small-input" }
+      = f.association :site,
+          collection: Renalware::Accesses::Site.ordered, input_html: { class: "small-input" }
+      = f.input :side, input_html: { class: "small-input" }
+
+      = fd.simple_fields_for :results, fd.object.results do |fcm|
+        = fcm.input :method, input_html: { class: "small-input" }
+        = fcm.input :flow_feed_artery
+        = fcm.input :has_art_stenosis, as: :inline_radio_buttons
+        = fcm.input :art_stenosis_notes, as: :text, input_html: { rows: 5 }
+        = fcm.input :has_ven_stenosis, as: :inline_radio_buttons
+        = fcm.input :ven_stenosis_notes, as: :text, input_html: { rows: 5 }
+        = fcm.input :has_residual_stenosis, as: :inline_radio_buttons
+        = fcm.input :outcome, input_html: { class: "small-input" }
+
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Management Plans", name: "plans" } do
+      = fd.simple_fields_for :admin, fd.object.admin do |fcm|
+        = fcm.input :next_surveillance, input_html: { class: "small-input" }
+        = fcm.input :decision
+      = f.input :comments, as: :text, input_html: { rows: 5 }
+
+  .row
+    .large-12.columns
+      = f.button :submit
+      span= " or "
+      = link_to 'cancel', back_path
