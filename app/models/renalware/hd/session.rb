@@ -1,5 +1,6 @@
 require_dependency "renalware/hd"
 require "document/base"
+require "duration_calculator"
 
 module Renalware
   module HD
@@ -20,7 +21,7 @@ module Renalware
       before_create :assign_modality
       before_save :compute_duration
 
-      scope :ordered, -> () { order(performed_on: :desc) }
+      scope :ordered, -> { order(performed_on: :desc) }
 
       validates :patient, presence: true
       validates :hospital_unit, presence: true
@@ -47,13 +48,9 @@ module Renalware
       end
 
       def compute_duration
-        if start_time_changed? || end_time_changed?
-          if start_time.nil? || end_time.nil?
-            self.duration = nil
-          else
-            self.duration = (end_time - start_time).to_i/60
-          end
-        end
+        return unless start_time_changed? || end_time_changed?
+
+        self.duration = DurationCalculator.in_minutes(start_time, end_time)
       end
     end
   end

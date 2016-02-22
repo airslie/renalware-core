@@ -17,6 +17,7 @@ module Document
       class_eval do
         validate :document_valid
 
+        after_initialize :initialize_document, if: :new_record?
         before_save :serialize_document
       end
 
@@ -31,6 +32,10 @@ module Document
       end
 
       private
+
+      def initialize_document
+        write_attribute(:document, {}.to_json)
+      end
 
       def serialize_document
         write_attribute(:document, document.to_json)
