@@ -50,6 +50,8 @@ module Renalware
       @medications = @treatable.medications
 
       @medication.destroy!
+
+      render "index"
     end
 
     private
