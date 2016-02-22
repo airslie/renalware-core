@@ -1,10 +1,12 @@
-= simple_form_for note, url: url, html: { class: local_assigns[:form_class] },
-    wrapper: :horizontal_form, remote: true do |f|
+.document
+  = simple_form_for note, url: url,
+      wrapper: :horizontal_form, remote: true do |f|
 
-  = f.input :description, as: :text, input_html: { cols: 50, rows: 3 }
+    = f.input :description, as: :text, input_html: { cols: 50, rows: 3 }
+    = f.input :show_in_letter, as: :inline_radio_buttons
 
-  .row
-    .large-offset-3.large-7.columns
-      = f.button :submit, "Save", class: :tiny
-      span= " or "
-      = link_to "cancel", patient_problem_notes_path(problem.patient, problem), remote: true
+    .row
+      .large-offset-3.large-7.columns
+        = f.button :submit, "Save", class: :tiny
+        span= " or "
+        = link_to "cancel", patient_problem_notes_path(problem.patient, problem), remote: true

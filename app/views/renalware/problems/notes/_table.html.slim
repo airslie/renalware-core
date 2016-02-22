@@ -7,6 +7,7 @@
   table.auto-layout
     thead
       th Description
+      th Show in letter
       th Recorded By
       th Recorded On
 
@@ -14,6 +15,7 @@
       - notes.each do |note|
         tr
           td= note.description
+          td= yes_no note.show_in_letter
           td= note.updated_by
           td= l note.updated_at
 

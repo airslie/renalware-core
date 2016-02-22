@@ -12,6 +12,7 @@ module World
       def record_problem_note_for(problem:, user:)
         problem.notes.create(
           description: "outcome",
+          show_in_letter: true,
           by: user
         )
       end
@@ -42,7 +43,8 @@ module World
           find("a", text: "Add a note").trigger("click")
           wait_for_ajax
 
-          fill_in "Description", with: "this is something"
+          fill_in "Text", with: "this is something"
+          choose "Yes"
           click_on "Save"
           wait_for_ajax
         end
