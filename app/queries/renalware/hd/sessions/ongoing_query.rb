@@ -17,7 +17,7 @@ module Renalware
         private
 
         class QueryableSession < ActiveType::Record[Session]
-          scope :ongoing, -> () {
+          scope :ongoing, -> {
             where.not(signed_on_by_id: nil)
               .where(signed_off_by_id: nil)
           }

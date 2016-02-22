@@ -5,8 +5,6 @@ FactoryGirl.define do
     performed_on                      1.week.ago
     start_time                        "11:00"
 
-    document { {} }
-
     association :hospital_unit, factory: :hospital_unit
     association :signed_on_by, factory: :user
   end

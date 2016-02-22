@@ -10,8 +10,6 @@ FactoryGirl.define do
     cold_ischaemic_time               "00:45"
     warm_ischaemic_time               "00:12"
 
-    document { {} }
-
     association :hospital_centre, factory: :hospital_centre
   end
 end
