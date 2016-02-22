@@ -13,14 +13,23 @@ module Renalware
       @treatable = treatable_class.find(treatable_id)
 
       @medication = Medication.new(treatable: @treatable)
+
+      render "form", locals: { url: patient_medications_path(@patient, @treatable) }
     end
 
     def create
       @treatable = treatable_class.find(params[:treatable_id])
 
-      @medication = @patient.medications.create(
+      @medication = @patient.medications.build(
         medication_params.merge(treatable: @treatable)
       )
+
+      if @medication.save
+        @medications = @treatable.medications
+        render "index"
+      else
+        render "form_error"
+      end
     end
 
     def edit
