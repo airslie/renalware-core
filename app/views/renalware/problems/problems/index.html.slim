@@ -10,7 +10,7 @@
               span= " or "
               = link_to "cancel", patient_problems_path(@patient)
 
-  table#problems.manual-stripes
+  table#problems.manual-stripes.auto-layout
     thead
       tr
         td.options
@@ -25,5 +25,9 @@
             = link_to "Edit", edit_patient_problem_path(@patient, problem)
             = pipe_separator
             = link_to "Terminate", patient_problem_path(@patient, problem), method: :delete, data: { confirm: 'Are you sure?' }
-          td= problem.description
+          td
+            = problem.description
+            ol
+              - problem.notes.each do |note|
+                li= note.description
           td= l problem.updated_at.to_date
