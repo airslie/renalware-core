@@ -5,7 +5,6 @@ module Renalware
   module Accesses
     class Assessment < ActiveRecord::Base
       include Document::Base
-      include PatientScope
       include Accountable
       extend Enumerize
 

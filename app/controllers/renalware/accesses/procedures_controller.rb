@@ -7,17 +7,16 @@ module Renalware
       end
 
       def show
-        procedure = Procedure.for_patient(@patient).find(params[:id])
+        procedure = @patient.procedures.find(params[:id])
         @procedure = ProcedurePresenter.new(procedure)
       end
 
       def new
-        @procedure = Procedure.new(patient: @patient, by: current_user)
+        @procedure = @patient.procedures.new(by: current_user)
       end
 
       def create
-        @procedure = Procedure.new(patient: @patient)
-        @procedure.attributes = procedure_params
+        @procedure = @patient.procedures.new(procedure_params)
 
         if @procedure.save
           redirect_to patient_accesses_dashboard_path(@patient),
@@ -29,14 +28,13 @@ module Renalware
       end
 
       def edit
-        @procedure = Procedure.for_patient(@patient).find(params[:id])
+        @procedure = @patient.procedures.find(params[:id])
       end
 
       def update
-        @procedure = Procedure.for_patient(@patient).find(params[:id])
-        @procedure.attributes = procedure_params
+        @procedure = @patient.procedures.find(params[:id])
 
-        if @procedure.save
+        if @procedure.update(procedure_params)
           redirect_to patient_accesses_dashboard_path(@patient),
             notice: t(".success", model_name: "Access procedure")
         else

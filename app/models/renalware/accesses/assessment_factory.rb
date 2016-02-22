@@ -10,19 +10,25 @@ module Renalware
       end
 
       def build
-        assessment = Assessment.new(
+        assessment = build_assessment
+        apply_default_access(assessment)
+        assessment
+      end
+
+      private
+
+      def build_assessment
+        @patient.assessments.new(
           performed_on: Time.zone.today
         )
+      end
 
-        Accesses::Profile.current_for_patient(patient).tap do |profile|
-          if profile
-            assessment.type = profile.type
-            assessment.site = profile.site
-            assessment.side = profile.side
-          end
+      def apply_default_access(assessment)
+        if profile = @patient.current_profile
+          assessment.type = profile.type
+          assessment.site = profile.site
+          assessment.side = profile.side
         end
-
-        assessment
       end
     end
   end

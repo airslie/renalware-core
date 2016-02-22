@@ -7,17 +7,16 @@ module Renalware
       end
 
       def show
-        profile = Profile.for_patient(@patient).find(params[:id])
+        profile = @patient.profiles.find(params[:id])
         @profile = ProfilePresenter.new(profile)
       end
 
       def new
-        @profile = Profile.new(patient: @patient, by: current_user)
+        @profile = @patient.profiles.new(by: current_user)
       end
 
       def create
-        @profile = Profile.new(patient: @patient)
-        @profile.attributes = profile_params
+        @profile = @patient.profiles.new(profile_params)
 
         if @profile.save
           redirect_to patient_accesses_dashboard_path(@patient),
@@ -29,14 +28,13 @@ module Renalware
       end
 
       def edit
-        @profile = Profile.for_patient(@patient).find(params[:id])
+        @profile = @patient.profiles.find(params[:id])
       end
 
       def update
-        @profile = Profile.for_patient(@patient).find(params[:id])
-        @profile.attributes = profile_params
+        @profile = @patient.profiles.find(params[:id])
 
-        if @profile.save
+        if @profile.update(profile_params)
           redirect_to patient_accesses_dashboard_path(@patient),
             notice: t(".success", model_name: "Access profile")
         else

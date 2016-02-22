@@ -4,12 +4,12 @@ module World
       # @section helpers
       #
       def profile_for(patient)
-        Renalware::Accesses::Profile.for_patient(patient).first_or_initialize
+        patient = accesses_patient(patient)
+        patient.profiles.first_or_initialize
       end
 
-      def valid_access_profile_attributes(patient)
+      def valid_access_profile_attributes
         {
-          patient: patient,
           formed_on: Time.zone.today,
           type: Renalware::Accesses::Type.first,
           side: :left
@@ -19,8 +19,9 @@ module World
       # @section set-ups
       #
       def set_up_access_profile_for(patient, user:)
-        Renalware::Accesses::Profile.create!(
-          valid_access_profile_attributes(patient).merge(
+        patient = accesses_patient(patient)
+        patient.profiles.create!(
+          valid_access_profile_attributes.merge(
             site: Renalware::Accesses::Site.first,
             by: user
           )
@@ -30,8 +31,9 @@ module World
       # @section commands
       #
       def create_access_profile(patient:, user:, site:)
-        Renalware::Accesses::Profile.create(
-          valid_access_profile_attributes(patient).merge(
+        patient = accesses_patient(patient)
+        patient.profiles.create(
+          valid_access_profile_attributes.merge(
             site: site,
             by: user
           )
@@ -52,7 +54,8 @@ module World
       # @section expectations
       #
       def expect_access_profile_to_exist(patient)
-        expect(Renalware::Accesses::Profile.for_patient(patient)).to be_present
+        patient = accesses_patient(patient)
+        expect(patient.profiles).to be_present
       end
 
       def expect_access_profile_to_be_refused
