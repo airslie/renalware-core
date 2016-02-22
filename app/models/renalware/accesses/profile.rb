@@ -14,7 +14,7 @@ module Renalware
 
       has_paper_trail class_name: "Renalware::Accesses::Version"
 
-      scope :ordered, -> () { order(formed_on: :desc) }
+      scope :ordered, -> { order(formed_on: :desc) }
       scope :current, -> { where(
         "started_on <= :date AND (terminated_on IS NULL OR terminated_on > :date)",
         date: Time.zone.today) }
