@@ -1,6 +1,6 @@
 module Renalware
   module HD
-    class OngoingSessionsListsController < BaseController
+    class OngoingSessionsController < BaseController
       def show
         query = Sessions::OngoingQuery.new(q: params[:q])
         @sessions = query.call.page(params[:page]).per(15)
