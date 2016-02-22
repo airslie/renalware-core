@@ -2,6 +2,8 @@ module Renalware
   class MedicationsController < BaseController
     before_action :load_patient
 
+    include MedicationsHelper
+
     def index
       @treatable = treatable_class.find(treatable_id)
 
@@ -28,20 +30,27 @@ module Renalware
         @medications = @treatable.medications
         render "index"
       else
-        render "form_error"
+        render "form_error", locals: { url: patient_medications_path(@patient, @treatable) }
       end
     end
 
     def edit
       @medication = Medication.find(params[:id])
       @treatable = @medication.treatable
+
+      render "form", locals: { url: patient_medication_path(@patient, @medication) }
     end
 
     def update
       @medication = Medication.find(params[:id])
       @treatable = @medication.treatable
 
-      @medication.update(medication_params)
+      if @medication.update(medication_params)
+        @medications = @treatable.medications
+        render "index"
+      else
+        render "form_error", locals: { url: patient_medication_path(@patient, @medication) }
+      end
     end
 
     def destroy
