@@ -5,7 +5,7 @@ ruby:
   end
 
 = simple_form_for medication, url: url,
-    html: { class: [local_assigns[:form_class], "medication-form"] },
+    html: { class: "medication-form" },
     remote: true, wrapper: :horizontal_form do |f|
 
   .med-form.content id=("edit-meds-#{f.object.id}" )
