@@ -106,9 +106,8 @@ module Renalware
 
     def medication_params
       params.require(:medication).permit(
-        :drug_id,
-        :dose, :medication_route_id, :frequency, :notes,
-        :start_date, :end_date, :provider
+        :drug_id, :dose, :medication_route_id, :frequency,
+        :notes, :start_date, :end_date, :provider
       )
     end
 
