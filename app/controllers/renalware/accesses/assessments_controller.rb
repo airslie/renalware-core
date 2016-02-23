@@ -7,7 +7,7 @@ module Renalware
       end
 
       def show
-        assessment = Assessment.for_patient(@patient).find(params[:id])
+        assessment = @patient.assessments.find(params[:id])
         @assessment = AssessmentPresenter.new(assessment)
       end
 
@@ -16,8 +16,7 @@ module Renalware
       end
 
       def create
-        @assessment = Assessment.new(patient: @patient)
-        @assessment.attributes = assessment_params
+        @assessment = @patient.assessments.new(assessment_params)
 
         if @assessment.save
           redirect_to patient_accesses_dashboard_path(@patient),
@@ -29,14 +28,13 @@ module Renalware
       end
 
       def edit
-        @assessment = Assessment.for_patient(@patient).find(params[:id])
+        @assessment = @patient.assessments.find(params[:id])
       end
 
       def update
-        @assessment = Assessment.for_patient(@patient).find(params[:id])
-        @assessment.attributes = assessment_params
+        @assessment = @patient.assessments.find(params[:id])
 
-        if @assessment.save
+        if @assessment.update(assessment_params)
           redirect_to patient_accesses_dashboard_path(@patient),
             notice: t(".success", model_name: "Access assessment")
         else

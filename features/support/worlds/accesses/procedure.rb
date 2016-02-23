@@ -4,12 +4,12 @@ module World
       # @section helpers
       #
       def procedure_for(patient)
-        Renalware::Accesses::Procedure.for_patient(patient).first_or_initialize
+        patient = accesses_patient(patient)
+        patient.procedures.first_or_initialize
       end
 
-      def valid_access_procedure_attributes(patient)
+      def valid_access_procedure_attributes
         {
-          patient: patient,
           performed_on: Time.zone.today,
           type: Renalware::Accesses::Type.first,
           performed_by: Renalware::User.first,
@@ -20,8 +20,9 @@ module World
       # @section set-ups
       #
       def set_up_access_procedure_for(patient, user:)
-        Renalware::Accesses::Procedure.create!(
-          valid_access_procedure_attributes(patient).merge(
+        patient = accesses_patient(patient)
+        patient.procedures.create!(
+          valid_access_procedure_attributes.merge(
             site: Renalware::Accesses::Site.first,
             by: user
           )
@@ -31,8 +32,9 @@ module World
       # @section commands
       #
       def create_access_procedure(patient:, user:, site:)
-        Renalware::Accesses::Procedure.create(
-          valid_access_procedure_attributes(patient).merge(
+        patient = accesses_patient(patient)
+        patient.procedures.create(
+          valid_access_procedure_attributes.merge(
             site: site,
             by: user
           )
@@ -53,7 +55,8 @@ module World
       # @section expectations
       #
       def expect_access_procedure_to_exist(patient)
-        expect(Renalware::Accesses::Procedure.for_patient(patient)).to be_present
+        patient = accesses_patient(patient)
+        expect(patient.procedures).to be_present
       end
 
       def expect_access_procedure_to_be_refused

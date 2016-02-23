@@ -4,12 +4,12 @@ module World
       # @section helpers
       #
       def assessment_for(patient)
-        Renalware::Accesses::Assessment.for_patient(patient).first_or_initialize
+        patient = accesses_patient(patient)
+        patient.assessments.first_or_initialize
       end
 
-      def valid_access_assessment_attributes(patient)
+      def valid_access_assessment_attributes
         {
-          patient: patient,
           performed_on: Time.zone.today,
           type: Renalware::Accesses::Type.first,
           side: :left,
@@ -24,8 +24,9 @@ module World
       # @section set-ups
       #
       def set_up_access_assessment_for(patient, user:)
-        Renalware::Accesses::Assessment.create!(
-          valid_access_assessment_attributes(patient).merge(
+        patient = accesses_patient(patient)
+        patient.assessments.create!(
+          valid_access_assessment_attributes.merge(
             site: Renalware::Accesses::Site.first,
             by: user
           )
@@ -35,8 +36,9 @@ module World
       # @section commands
       #
       def create_access_assessment(patient:, user:, site:)
-        Renalware::Accesses::Assessment.create(
-          valid_access_assessment_attributes(patient).merge(
+        patient = accesses_patient(patient)
+        patient.assessments.create(
+          valid_access_assessment_attributes.merge(
             site: site,
             by: user
           )
@@ -57,7 +59,8 @@ module World
       # @section expectations
       #
       def expect_access_assessment_to_exist(patient)
-        expect(Renalware::Accesses::Assessment.for_patient(patient)).to be_present
+        patient = accesses_patient(patient)
+        expect(patient.assessments).to be_present
       end
 
       def expect_access_assessment_to_be_refused

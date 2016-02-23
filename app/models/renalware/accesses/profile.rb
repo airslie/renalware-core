@@ -3,7 +3,6 @@ require_dependency "renalware/accesses"
 module Renalware
   module Accesses
     class Profile < ActiveRecord::Base
-      include PatientScope
       include Accountable
       extend Enumerize
 
@@ -16,6 +15,18 @@ module Renalware
       has_paper_trail class_name: "Renalware::Accesses::Version"
 
       scope :ordered, -> { order(formed_on: :desc) }
+      scope :current, -> {
+        where(<<-SQL.squish, date: Time.zone.today)
+          started_on <= :date AND
+          (terminated_on IS NULL OR terminated_on > :date)
+        SQL
+      }
+      scope :past_and_future, -> {
+        where(<<-SQL.squish, date: Time.zone.today)
+          (started_on > :date OR started_on IS NULL) OR
+          (terminated_on IS NOT NULL AND terminated_on <= :date)
+        SQL
+      }
 
       validates :type, presence: true
       validates :site, presence: true
@@ -29,13 +40,6 @@ module Renalware
       validates :planned_on, timeliness: { type: :date, allow_blank: true }
 
       enumerize :side, in: %i(left right)
-
-      def self.current_for_patient(patient)
-        for_patient(patient).where(
-          "started_on <= :date AND (terminated_on IS NULL OR terminated_on > :date)",
-          date: Time.zone.today
-        ).first
-      end
     end
   end
 end
