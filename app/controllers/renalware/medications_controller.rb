@@ -14,12 +14,12 @@ module Renalware
     def new
       @treatable = treatable_class.find(treatable_id)
 
-      @medication = Medication.new(treatable: @treatable)
+      medication = Medication.new(treatable: @treatable)
 
       render "form", locals: {
         patient: @patient,
         treatable: @treatable,
-        medication: @medication,
+        medication: medication,
         url: patient_medications_path(@patient, @treatable)
       }
     end
@@ -27,11 +27,11 @@ module Renalware
     def create
       @treatable = treatable_class.find(params[:treatable_id])
 
-      @medication = @patient.medications.build(
+      medication = @patient.medications.build(
         medication_params.merge(treatable: @treatable)
       )
 
-      if @medication.save
+      if medication.save
         render "index", locals: {
           query: @q,
           patient: @patient,
@@ -42,29 +42,29 @@ module Renalware
         render "form", locals: {
           patient: @patient,
           treatable: @treatable,
-          medication: @medication,
-          url: patient_medications_path(@patient, @treatable)
+          medication: medication,
+          url: patient_medications_path(@patient, treatable)
         }
       end
     end
 
     def edit
-      @medication = Medication.find(params[:id])
-      @treatable = @medication.treatable
+      medication = Medication.find(params[:id])
+      @treatable = medication.treatable
 
       render "form", locals: {
         patient: @patient,
         treatable: @treatable,
-        medication: @medication,
-        url: patient_medication_path(@patient, @medication)
+        medication: medication,
+        url: patient_medication_path(@patient, medication)
       }
     end
 
     def update
-      @medication = Medication.find(params[:id])
-      @treatable = @medication.treatable
+      medication = Medication.find(params[:id])
+      @treatable = medication.treatable
 
-      if @medication.update(medication_params)
+      if medication.update(medication_params)
         render "index", locals: {
           query: @q,
           patient: @patient,
@@ -72,7 +72,12 @@ module Renalware
           medications: medications_query.result
         }
       else
-        render "form", locals: { url: patient_medication_path(@patient, @medication) }
+        render "form", locals: {
+          patient: @patient,
+          treatable: @treatable,
+          medication: medication,
+          url: patient_medication_path(@patient, medication)
+        }
       end
     end
 
