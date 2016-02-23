@@ -1,7 +1,7 @@
 $("#medications").html("<%= escape_javascript(
-  render "form", medication: @medication,
-                 patient: @patient,
-                 treatable: @treatable,
+  render "form", medication: medication,
+                 patient: patient,
+                 treatable: treatable,
                  url: url
 ) %>");
 

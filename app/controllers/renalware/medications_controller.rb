@@ -16,7 +16,12 @@ module Renalware
 
       @medication = Medication.new(treatable: @treatable)
 
-      render "form", locals: { url: patient_medications_path(@patient, @treatable) }
+      render "form", locals: {
+        patient: @patient,
+        treatable: @treatable,
+        medication: @medication,
+        url: patient_medications_path(@patient, @treatable)
+      }
     end
 
     def create
@@ -36,7 +41,12 @@ module Renalware
           medications: @medications
         }
       else
-        render "form", locals: { url: patient_medications_path(@patient, @treatable) }
+        render "form", locals: {
+          patient: @patient,
+          treatable: @treatable,
+          medication: @medication,
+          url: patient_medications_path(@patient, @treatable)
+        }
       end
     end
 
@@ -44,7 +54,12 @@ module Renalware
       @medication = Medication.find(params[:id])
       @treatable = @medication.treatable
 
-      render "form", locals: { url: patient_medication_path(@patient, @medication) }
+      render "form", locals: {
+        patient: @patient,
+        treatable: @treatable,
+        medication: @medication,
+        url: patient_medication_path(@patient, @medication)
+      }
     end
 
     def update
