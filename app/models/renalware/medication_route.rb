@@ -7,5 +7,8 @@ module Renalware
     has_many :peritonitis_episodes, through: :medications,
       source: :treatable, source_type: "PeritonitisEpisode"
 
+    def other?
+      code == "Other"
+    end
   end
 end

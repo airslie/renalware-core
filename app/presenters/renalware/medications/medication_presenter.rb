@@ -4,8 +4,8 @@ module Renalware
   module Medications
     class MedicationPresenter < DumbDelegator
       def route_name
-        if medication_route.name == 'Route: Other (Please specify in notes)'
-          medication_route.full_name
+        if medication_route.other?
+          "Route: Other (Refer to medication notes)"
         else
           medication_route.name
         end
