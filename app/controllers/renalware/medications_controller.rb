@@ -127,7 +127,7 @@ module Renalware
 
     def build_query
       @query ||= @treatable.medications.search(params[:q]).tap do | query|
-        query.sorts = ["start_date desc"] if query.sorts.empty?
+        query.sorts = [Medication.default_search_order] if query.sorts.empty?
       end
     end
 

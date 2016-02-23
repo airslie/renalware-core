@@ -22,6 +22,12 @@ module Renalware
 
     enum provider: Provider.codes
 
+    scope :ordered, -> { order(default_search_order) }
+
+    def self.default_search_order
+      "start_date desc"
+    end
+
     def formatted
       [].tap { |ary|
         ary << drug.name if drug.present?
