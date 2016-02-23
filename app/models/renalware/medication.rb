@@ -28,6 +28,14 @@ module Renalware
       "start_date desc"
     end
 
+    def self.peritonitis
+      self.new(treatable_type: 'Renalware::PeritonitisEpisode')
+    end
+
+    def self.exit_site
+      self.new(treatable_type: 'Renalware::ExitSiteInfection')
+    end
+
     def formatted
       [].tap { |ary|
         ary << drug.name if drug.present?
@@ -37,14 +45,5 @@ module Renalware
         ary << start_date
       }.compact.join(', ')
     end
-
-    def self.peritonitis
-      self.new(treatable_type: 'Renalware::PeritonitisEpisode')
-    end
-
-    def self.exit_site
-      self.new(treatable_type: 'Renalware::ExitSiteInfection')
-    end
-
   end
 end
