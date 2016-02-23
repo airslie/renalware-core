@@ -32,14 +32,14 @@ module Renalware
     end
 
     def edit
-      medication = Medication.find(params[:id])
+      medication = @patient.medications.find(params[:id])
       @treatable = medication.treatable
 
       render_form(medication, url: patient_medication_path(@patient, medication))
     end
 
     def update
-      medication = Medication.find(params[:id])
+      medication = @patient.medications.find(params[:id])
       @treatable = medication.treatable
 
       if medication.update(medication_params)
@@ -50,7 +50,7 @@ module Renalware
     end
 
     def destroy
-      medication = Medication.find(params[:id])
+      medication = @patient.medications.find(params[:id])
       @treatable = medication.treatable
 
       medication.destroy!
