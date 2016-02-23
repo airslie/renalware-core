@@ -30,7 +30,7 @@ module Renalware
         @medications = @treatable.medications
         render "index"
       else
-        render "form_error", locals: { url: patient_medications_path(@patient, @treatable) }
+        render "form", locals: { url: patient_medications_path(@patient, @treatable) }
       end
     end
 
@@ -49,7 +49,7 @@ module Renalware
         @medications = @treatable.medications
         render "index"
       else
-        render "form_error", locals: { url: patient_medication_path(@patient, @medication) }
+        render "form", locals: { url: patient_medication_path(@patient, @medication) }
       end
     end
 
