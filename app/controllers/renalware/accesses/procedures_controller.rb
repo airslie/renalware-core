@@ -3,9 +3,6 @@ module Renalware
     class ProceduresController < BaseController
       before_filter :load_patient
 
-      def index
-      end
-
       def show
         procedure = @patient.procedures.find(params[:id])
         @procedure = ProcedurePresenter.new(procedure)
