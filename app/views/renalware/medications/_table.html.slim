@@ -21,7 +21,7 @@ table.auto-layout
         td= medication.drug_types
         td= medication.dose
         td= medication.frequency
-        td= medication.medication_route.name == 'Route: Other (Please specify in notes)' ? medication.medication_route.full_name : medication.medication_route.name
+        td= medication.route_name
         td= medication.provider
         td= medication.start_date
 
