@@ -28,7 +28,13 @@ module Renalware
 
       if @medication.save
         @medications = medications_query.result
-        render "index"
+
+        render "index", locals: {
+          query: @q,
+          patient: @patient,
+          treatable: @treatable,
+          medications: @medications
+        }
       else
         render "form", locals: { url: patient_medications_path(@patient, @treatable) }
       end
@@ -47,7 +53,13 @@ module Renalware
 
       if @medication.update(medication_params)
         @medications = medications_query.result
-        render "index"
+
+        render "index", locals: {
+          query: @q,
+          patient: @patient,
+          treatable: @treatable,
+          medications: @medications
+        }
       else
         render "form", locals: { url: patient_medication_path(@patient, @medication) }
       end
