@@ -11,6 +11,7 @@ ruby:
   .med-form.content id=("edit-meds-#{f.object.id}" )
     = render "renalware/medications/drug_select/#{drug_select_partials[f.object.treatable_type]}_fields", f: f
 
+    = hidden_field_tag :treatable_type, treatable.class.name
     = f.input :dose
     = f.association :medication_route, collection: Renalware::MedicationRoute.all,
         label_method: :name,

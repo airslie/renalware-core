@@ -37,7 +37,7 @@ module Renalware
 
       if medication.save
         render "index", locals: {
-          query: @q,
+          query: medications_query,
           patient: @patient,
           treatable: @treatable,
           medications: medications
@@ -70,7 +70,7 @@ module Renalware
 
       if medication.update(medication_params)
         render "index", locals: {
-          query: @q,
+          query: medications_query,
           patient: @patient,
           treatable: @treatable,
           medications: medications
@@ -91,7 +91,7 @@ module Renalware
 
       @treatable = medication.treatable
       render "index", locals: {
-        query: @q,
+        query: medications_query,
         patient: @patient,
         treatable: @treatable,
         medications: medications
@@ -120,13 +120,19 @@ module Renalware
     end
 
     def medications_query
-      @treatable.medications.search(params[:q]).tap do | query|
+      return unless treatable_class == Renalware::Patient
+
+      build_query
+    end
+
+    def build_query
+      @query ||= @treatable.medications.search(params[:q]).tap do | query|
         query.sorts = ["start_date desc"] if query.sorts.empty?
       end
     end
 
     def medications
-      medications_query.result
+      build_query.result
     end
   end
 end
