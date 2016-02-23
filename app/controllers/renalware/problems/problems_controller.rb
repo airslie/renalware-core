@@ -11,12 +11,10 @@ module Renalware
       def show
         @problem = @patient.problems.find(params[:id])
         @notes = @problem.notes.ordered
-        render
       end
 
       def edit
         @problem = @patient.problems.find(params[:id])
-        render
       end
 
       def update
