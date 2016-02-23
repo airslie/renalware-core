@@ -1,10 +1,6 @@
 module Renalware
   module Accesses
     class AssessmentPresenter < DumbDelegator
-      def initialize(object)
-        super(object)
-      end
-
       def performed_on
         ::I18n.l(super)
       end
