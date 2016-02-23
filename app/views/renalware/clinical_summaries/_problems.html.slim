@@ -9,4 +9,6 @@
   - else
     ul.no-bullet
       - problems.each do |problem|
-        li= "#{problem.full_description}, #{l problem.created_at.to_date}"
+        li
+          = link_to problem.full_description, patient_problem_path(problem.patient, problem)
+          = ", #{l problem.created_at.to_date}"

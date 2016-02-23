@@ -60,7 +60,7 @@ module World
         profile = hd_session_for(patient)
         profile.update_attributes!(
           updated_at: Time.zone.now,
-          end_time: Time.zone.now,
+          end_time: profile.start_time + 1.minute,
           signed_off_by: user,
           by: user,
           document: {

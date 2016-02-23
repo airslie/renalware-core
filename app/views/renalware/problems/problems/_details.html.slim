@@ -1,0 +1,14 @@
+= content_tag_for(:div, problem) do
+  .row
+    .large-8.columns
+      dl
+        dt Description:
+        dd= problem.description
+
+    .large-4.columns
+      dl
+        dt Recorded On:
+        dd= l problem.updated_at
+
+  .right
+    = link_to "Edit", edit_patient_problem_path(patient, problem), class: %i(button tiny)

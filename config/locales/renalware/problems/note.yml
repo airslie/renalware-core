@@ -1,0 +1,5 @@
+en:
+  activerecord:
+    attributes:
+      renalware/problems/note:
+        description: Text

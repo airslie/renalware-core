@@ -1,5 +1,11 @@
 table#problems {
-  td.options {
-    width: 10em;
+  td {
+    vertical-align: top;
+
+    ol {
+      list-style-type: lower-latin;
+      font-size: 1em;
+      margin-bottom: 0;
+    }
   }
 }

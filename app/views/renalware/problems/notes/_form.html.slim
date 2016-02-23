@@ -1,0 +1,11 @@
+.document
+  = simple_form_for note, url: url,
+      wrapper: :horizontal_form, remote: true do |f|
+
+    = f.input :description, as: :text, input_html: { cols: 50, rows: 3 }
+
+    .row
+      .large-offset-3.large-7.columns
+        = f.button :submit, "Save", class: :tiny
+        span= " or "
+        = link_to "cancel", patient_problem_notes_path(problem.patient, problem), remote: true

@@ -9,6 +9,7 @@ module Renalware
       has_paper_trail class_name: "Renalware::Problems::Version"
 
       belongs_to :patient
+      has_many :notes, dependent: :destroy
 
       validates :patient, presence: true
       validates :description, presence: true
