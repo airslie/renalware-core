@@ -7,8 +7,12 @@ module Renalware
     def index
       @treatable = treatable_class.find(treatable_id)
 
-      @q = medications_query
-      @medications = @q.result
+      render locals: {
+        query: medications_query,
+        patient: @patient,
+        treatable: @treatable,
+        medications: medications_query.result
+      }
     end
 
     def new
