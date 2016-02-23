@@ -3,9 +3,6 @@ module Renalware
     class AssessmentsController < BaseController
       before_filter :load_patient
 
-      def index
-      end
-
       def show
         assessment = @patient.assessments.find(params[:id])
         @assessment = AssessmentPresenter.new(assessment)

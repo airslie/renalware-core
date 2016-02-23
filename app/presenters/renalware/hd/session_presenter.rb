@@ -3,10 +3,6 @@ module Renalware
     class SessionPresenter < DumbDelegator
       attr_reader :preference_set
 
-      def initialize(session)
-        super(session)
-      end
-
       def ongoing_css_class
         signed_off? ? "done" : "active"
       end

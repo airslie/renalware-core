@@ -1,10 +1,6 @@
 module Renalware
   module Accesses
     class ProfilePresenter < DumbDelegator
-      def initialize(object)
-        super(object)
-      end
-
       def formed_on
         ::I18n.l(super)
       end
