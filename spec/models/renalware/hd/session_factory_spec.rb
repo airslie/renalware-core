@@ -9,7 +9,7 @@ module Renalware
       subject { SessionFactory.new(patient: patient, user: user) }
 
       describe "#build" do
-        it "applies default to the session" do
+        it "applies defaults to the session" do
           travel_to Time.zone.parse("2004-11-24 01:04:44")
 
           session = subject.build
