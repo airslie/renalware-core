@@ -14,7 +14,7 @@ module Renalware
 
       has_paper_trail class_name: "Renalware::Accesses::Version"
 
-      scope :ordered, -> () { order(performed_on: :desc) }
+      scope :ordered, -> { order(performed_on: :desc) }
 
       validates :type, presence: true
       validates :site, presence: true

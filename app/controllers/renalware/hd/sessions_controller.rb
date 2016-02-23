@@ -5,7 +5,8 @@ module Renalware
 
       def index
         query = Sessions::PatientQuery.new(patient: @patient, q: params[:q])
-        @sessions = query.call.page(params[:page]).per(15)
+        sessions = query.call.page(params[:page]).per(15)
+        @sessions = CollectionPresenter.new(sessions, SessionPresenter)
         @q = query.search
       end
 
