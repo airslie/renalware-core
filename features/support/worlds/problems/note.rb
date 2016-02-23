@@ -43,7 +43,6 @@ module World
           wait_for_ajax
 
           fill_in "Text", with: "this is something"
-          choose "Yes"
           click_on "Save"
           wait_for_ajax
         end
