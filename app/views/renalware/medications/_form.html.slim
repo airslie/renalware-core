@@ -5,11 +5,13 @@ ruby:
   end
 
 = simple_form_for medication, url: url,
-    html: { class: local_assigns[:form_class] }, remote: true, wrapper: :horizontal_form do |f|
+    html: { class: [local_assigns[:form_class], "medication-form"] },
+    remote: true, wrapper: :horizontal_form do |f|
 
   .med-form.content id=("edit-meds-#{f.object.id}" )
     = render "renalware/medications/drug_select/#{drug_select_partials[f.object.treatable_type]}_fields", f: f
 
+    = hidden_field_tag :treatable_type, treatable.class.name
     = f.input :dose
     = f.association :medication_route, collection: Renalware::MedicationRoute.all,
         label_method: :name,
