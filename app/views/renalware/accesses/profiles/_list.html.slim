@@ -19,8 +19,7 @@ fieldset.access-profiles
         th Plan
 
       tbody
-        - @profiles.each do |object|
-          - profile = Renalware::Accesses::ProfilePresenter.new(object)
+        - @profiles.each do |profile|
           tr
             td
               = link_to "View", patient_accesses_profile_path(@patient, profile)

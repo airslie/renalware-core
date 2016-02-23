@@ -19,8 +19,7 @@ fieldset.access-procedures
         th Outcome
 
       tbody
-        - @procedures.each do |object|
-          - procedure = Renalware::Accesses::ProcedurePresenter.new(object)
+        - @procedures.each do |procedure|
           tr
             td
               = link_to "View", patient_accesses_procedure_path(@patient, procedure)
