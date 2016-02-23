@@ -3,4 +3,3 @@ en:
     attributes:
       renalware/problems/note:
         description: Text
-        show_in_letter: Show In Letter?

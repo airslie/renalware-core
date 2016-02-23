@@ -12,7 +12,6 @@ module World
       def record_problem_note_for(problem:, user:)
         problem.notes.create(
           description: "outcome",
-          show_in_letter: true,
           by: user
         )
       end

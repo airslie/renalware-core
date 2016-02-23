@@ -3,7 +3,6 @@ class CreateProblemNotes < ActiveRecord::Migration
     create_table :problem_notes do |t|
       t.belongs_to :problem, index: true
       t.text :description, null: false
-      t.boolean :show_in_letter, null: false
 
       t.belongs_to :created_by, index: true, null: false
       t.belongs_to :updated_by, index: true, null: false

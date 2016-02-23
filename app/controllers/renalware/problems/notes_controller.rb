@@ -26,7 +26,7 @@ module Renalware
       private
 
       def notes_params
-        params.require(:problems_note).permit(:description, :show_in_letter).merge(by: current_user)
+        params.require(:problems_note).permit(:description).merge(by: current_user)
       end
     end
   end

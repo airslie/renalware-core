@@ -10,7 +10,6 @@ module Renalware
       scope :ordered, ->() { order(created_at: :asc) }
 
       validates :description, presence: true
-      validates :show_in_letter, presence: true
     end
   end
 end
