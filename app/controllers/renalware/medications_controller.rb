@@ -87,7 +87,12 @@ module Renalware
       @medication.destroy!
 
       @medications = medications_query.result
-      render "index"
+      render "index", locals: {
+        query: @q,
+        patient: @patient,
+        treatable: @treatable,
+        medications: @medications
+      }
     end
 
     private
