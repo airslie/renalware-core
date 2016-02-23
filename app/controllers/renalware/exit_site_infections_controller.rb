@@ -1,3 +1,5 @@
+require_dependency "collection_presenter"
+
 module Renalware
   class ExitSiteInfectionsController < BaseController
 
@@ -5,7 +7,10 @@ module Renalware
     before_action :load_exit_site_infection, only: [:show, :edit, :update]
 
     def show
-      render
+      @medications = CollectionPresenter.new(
+        @exit_site_infection.medications.ordered,
+        Medications::MedicationPresenter
+      )
     end
 
     def new

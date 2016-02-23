@@ -1,8 +1,17 @@
+require_dependency "collection_presenter"
+
 module Renalware
   class PeritonitisEpisodesController < BaseController
 
     before_action :load_patient, :except => [:index, :destroy]
     before_action :load_peritonitis_episode, :only => [:show, :edit, :update]
+
+    def show
+      @medications = CollectionPresenter.new(
+        @peritonitis_episode.medications.ordered,
+        Medications::MedicationPresenter
+      )
+    end
 
     def new
       @peritonitis_episode = PeritonitisEpisode.new
