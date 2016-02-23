@@ -31,7 +31,7 @@ module Renalware
     def create
       @treatable = treatable_class.find(treatable_id)
 
-      medication = @patient.medications.build(
+      medication = @patient.medications.new(
         medication_params.merge(treatable: @treatable)
       )
 
