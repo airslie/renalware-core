@@ -11,7 +11,7 @@ module Renalware
         query: medications_query,
         patient: @patient,
         treatable: @treatable,
-        medications: medications_query.result
+        medications: medications
       }
     end
 
@@ -40,7 +40,7 @@ module Renalware
           query: @q,
           patient: @patient,
           treatable: @treatable,
-          medications: medications_query.result
+          medications: medications
         }
       else
         render "form", locals: {
@@ -73,7 +73,7 @@ module Renalware
           query: @q,
           patient: @patient,
           treatable: @treatable,
-          medications: medications_query.result
+          medications: medications
         }
       else
         render "form", locals: {
@@ -94,7 +94,7 @@ module Renalware
         query: @q,
         patient: @patient,
         treatable: @treatable,
-        medications: medications_query.result
+        medications: medications
       }
     end
 
@@ -124,6 +124,10 @@ module Renalware
       @treatable.medications.search(params[:q]).tap do | query|
         query.sorts = ["start_date desc"] if query.sorts.empty?
       end
+    end
+
+    def medications
+      medications_query.result
     end
   end
 end
