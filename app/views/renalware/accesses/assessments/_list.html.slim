@@ -19,8 +19,7 @@ fieldset.access-assessments
         th Next Surveillance
 
       tbody
-        - @assessments.each do |object|
-          - assessment = Renalware::Accesses::AssessmentPresenter.new(object)
+        - @assessments.each do |assessment|
           tr
             td
               = link_to "View", patient_accesses_assessment_path(@patient, assessment)
