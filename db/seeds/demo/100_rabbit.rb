@@ -22,6 +22,29 @@ module Renalware
 
   log "#{logcount} Problems seeded"
 
+  log '--------------------Adding Problem Notes for Roger RABBIT--------------------'
+
+  rabbit = Patient.find_by(family_name: 'RABBIT', given_name: 'Roger')
+  problem_ids = Problems::Problem.where(patient_id: rabbit.id).pluck(:id)
+  users = User.limit(3).to_a
+
+  file_path = File.join(demo_path, 'rabbit_problem_notes.csv')
+  logcount=0
+
+  CSV.foreach(file_path, headers: true) do |row|
+    description = row['description']
+    problem_index = row['problem_index'].to_i
+    logcount += 1
+    Problems::Note.find_or_create_by!(
+      problem_id: problem_ids[problem_index],
+      description: description
+    ) do |note|
+      note.by = users.sample
+    end
+  end
+
+  log "#{logcount} Problem Notes seeded"
+
   log '--------------------Adding Modalities for Roger RABBIT---------------------'
 
   file_path = File.join(demo_path, 'rabbit_modalities.csv')
