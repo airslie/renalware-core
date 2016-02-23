@@ -1,4 +1,5 @@
-require_dependency 'renalware'
+require_dependency "renalware"
+
 module Renalware
   module XHRHelper
     def refresh(el, partial:, locals:)

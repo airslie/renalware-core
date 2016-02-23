@@ -43,7 +43,7 @@ module Renalware
         ary << medication_route.name if medication_route.present?
         ary << frequency
         ary << start_date
-      }.compact.join(', ')
+      }.compact.join(", ")
     end
   end
 end
