@@ -1,6 +1,7 @@
 Feature: Recording an access profile for a patient
 
-  A clinician records an access profile for a patient.
+  A clinician records an access profile for a patient for tracking the
+  information about the access to eventually be used during a HD session.
 
   Background:
     Given Clyde is a clinician
