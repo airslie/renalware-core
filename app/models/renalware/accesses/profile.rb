@@ -15,12 +15,18 @@ module Renalware
       has_paper_trail class_name: "Renalware::Accesses::Version"
 
       scope :ordered, -> { order(formed_on: :desc) }
-      scope :current, -> { where(
-        "started_on <= :date AND (terminated_on IS NULL OR terminated_on > :date)",
-        date: Time.zone.today) }
-      scope :past_and_future, -> { where(
-        "started_on > :date OR started_on IS NULL OR (terminated_on IS NOT NULL AND terminated_on <= :date)",
-        date: Time.zone.today) }
+      scope :current, -> {
+        where(<<-SQL.squish, date: Time.zone.today)
+          started_on <= :date AND
+          (terminated_on IS NULL OR terminated_on > :date)
+        SQL
+      }
+      scope :past_and_future, -> {
+        where(<<-SQL.squish, date: Time.zone.today)
+          (started_on > :date OR started_on IS NULL) OR
+          (terminated_on IS NOT NULL AND terminated_on <= :date)
+        SQL
+      }
 
       validates :type, presence: true
       validates :site, presence: true
