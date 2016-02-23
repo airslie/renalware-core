@@ -1,8 +1,8 @@
 module Renalware
   class MedicationsController < BaseController
-    before_action :load_patient
-
     include MedicationsHelper
+
+    before_action :load_patient
 
     def index
       @treatable = treatable_class.find(treatable_id)
