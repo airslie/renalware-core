@@ -1,48 +1,78 @@
 module Renalware
   class MedicationsController < BaseController
+    include MedicationsHelper
+
     before_action :load_patient
 
     def index
       @treatable = treatable_class.find(treatable_id)
 
-      @medications = @treatable.medications
+      render_index
     end
 
     def new
       @treatable = treatable_class.find(treatable_id)
+      medication = Medication.new(treatable: @treatable)
 
-      @medication = Medication.new(treatable: @treatable)
+      render_form(medication, url: patient_medications_path(@patient, @treatable))
     end
 
     def create
-      @treatable = treatable_class.find(params[:treatable_id])
+      @treatable = treatable_class.find(treatable_id)
 
-      @medication = @patient.medications.create(
+      medication = @patient.medications.new(
         medication_params.merge(treatable: @treatable)
       )
+
+      if medication.save
+        render_index
+      else
+        render_form(medication, url: patient_medications_path(@patient, @treatable))
+      end
     end
 
     def edit
-      @medication = Medication.find(params[:id])
-      @treatable = @medication.treatable
+      medication = @patient.medications.find(params[:id])
+      @treatable = medication.treatable
+
+      render_form(medication, url: patient_medication_path(@patient, medication))
     end
 
     def update
-      @medication = Medication.find(params[:id])
-      @treatable = @medication.treatable
+      medication = @patient.medications.find(params[:id])
+      @treatable = medication.treatable
 
-      @medication.update(medication_params)
+      if medication.update(medication_params)
+        render_index
+      else
+        render_form(medication, url: patient_medication_path(@patient, medication))
+      end
     end
 
     def destroy
-      @medication = Medication.find(params[:id])
-      @treatable = @medication.treatable
-      @medications = @treatable.medications
+      medication = @patient.medications.find(params[:id])
+      @treatable = medication.treatable
 
-      @medication.destroy!
+      medication.destroy!
+
+      render_index
     end
 
     private
+
+    def render_index
+      render "index", locals: {
+        query: medications_query, patient: @patient,
+        treatable: @treatable, medications: medications
+      }
+    end
+
+    def render_form(medication, url:)
+      render "form", locals: {
+        patient: @patient, treatable: @treatable,
+        medication: medication, url: url
+      }
+    end
 
     def treatable_class
       @treatable_class ||= treatable_type.singularize.classify.constantize
@@ -50,9 +80,8 @@ module Renalware
 
     def medication_params
       params.require(:medication).permit(
-        :drug_id,
-        :dose, :medication_route_id, :frequency, :notes,
-        :start_date, :end_date, :provider
+        :drug_id, :dose, :medication_route_id, :frequency,
+        :notes, :start_date, :end_date, :provider
       )
     end
 
@@ -62,6 +91,16 @@ module Renalware
 
     def treatable_id
       params.fetch(:treatable_id)
+    end
+
+    def medications_query
+      @medications_query ||= @treatable.medications.search(params[:q]).tap do | query|
+        query.sorts = [Medication.default_search_order] if query.sorts.empty?
+      end
+    end
+
+    def medications
+      medications_query.result
     end
   end
 end

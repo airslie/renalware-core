@@ -1,3 +1,1 @@
-$("#medications").html("<%= escape_javascript(
-  render "table", patient: @patient, treatable: @treatable, medications: @medications
-) %>");
+<%= refresh("#medications", partial: "table", locals: local_assigns) %>

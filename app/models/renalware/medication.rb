@@ -22,14 +22,10 @@ module Renalware
 
     enum provider: Provider.codes
 
-    def formatted
-      [].tap { |ary|
-        ary << drug.name if drug.present?
-        ary << dose
-        ary << medication_route.name if medication_route.present?
-        ary << frequency
-        ary << start_date
-      }.compact.join(', ')
+    scope :ordered, -> { order(default_search_order) }
+
+    def self.default_search_order
+      "start_date desc"
     end
 
     def self.peritonitis
@@ -40,5 +36,14 @@ module Renalware
       self.new(treatable_type: 'Renalware::ExitSiteInfection')
     end
 
+    def formatted
+      [].tap { |ary|
+        ary << drug.name if drug.present?
+        ary << dose
+        ary << medication_route.name if medication_route.present?
+        ary << frequency
+        ary << start_date
+      }.compact.join(", ")
+    end
   end
 end

@@ -10,6 +10,14 @@ module Renalware
       super(patient, treatable_type: treatable.class.to_s, treatable_id: treatable.id)
     end
 
+    def medication_sort_link(treatable, query, attribute, label, *args)
+      if treatable.class == Renalware::Patient
+        sort_link(query, attribute, label, *args)
+      else
+        label
+      end
+    end
+
     def drug_name(medication)
       if medication.drug.present?
         medication.drug.name

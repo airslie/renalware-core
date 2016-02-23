@@ -1,9 +1,14 @@
-table
+table.auto-layout
   thead
     tr
-      td
-      td Medication
-      td Route
+      th
+      th= medication_sort_link(treatable, query, :drug_name, "Medication")
+      th Drug Type
+      th Dose
+      th Frequency
+      th Route
+      th Provider
+      th= medication_sort_link(treatable, query, :start_date, "Prescribed on")
   tbody
     - medications.each do |medication|
       tr
@@ -13,7 +18,12 @@ table
           = link_to "Terminate", patient_medication_path(patient, medication), method: :delete,
               remote: true, data: { confirm: "Are you sure?" }
         td= medication.drug.name
+        td= medication.drug.drug_types.map(&:name).join(", ")
+        td= medication.dose
+        td= medication.frequency
         td= medication.medication_route.name == 'Route: Other (Please specify in notes)' ? medication.medication_route.full_name : medication.medication_route.name
+        td= I18n.t("enums.provider.#{medication.provider}")
+        td= medication.start_date
 
 .right
   = link_to "Add Medication", new_patient_medication_path(patient, treatable), remote: true, class: %i(button tiny)
