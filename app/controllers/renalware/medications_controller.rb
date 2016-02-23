@@ -7,25 +7,14 @@ module Renalware
     def index
       @treatable = treatable_class.find(treatable_id)
 
-      render locals: {
-        query: medications_query,
-        patient: @patient,
-        treatable: @treatable,
-        medications: medications
-      }
+      render_index
     end
 
     def new
       @treatable = treatable_class.find(treatable_id)
-
       medication = Medication.new(treatable: @treatable)
 
-      render "form", locals: {
-        patient: @patient,
-        treatable: @treatable,
-        medication: medication,
-        url: patient_medications_path(@patient, @treatable)
-      }
+      render_form(medication, url: patient_medications_path(@patient, @treatable))
     end
 
     def create
@@ -36,19 +25,9 @@ module Renalware
       )
 
       if medication.save
-        render "index", locals: {
-          query: medications_query,
-          patient: @patient,
-          treatable: @treatable,
-          medications: medications
-        }
+        render_index
       else
-        render "form", locals: {
-          patient: @patient,
-          treatable: @treatable,
-          medication: medication,
-          url: patient_medications_path(@patient, treatable)
-        }
+        render_form(medication, url: patient_medications_path(@patient, @treatable))
       end
     end
 
@@ -56,12 +35,7 @@ module Renalware
       medication = Medication.find(params[:id])
       @treatable = medication.treatable
 
-      render "form", locals: {
-        patient: @patient,
-        treatable: @treatable,
-        medication: medication,
-        url: patient_medication_path(@patient, medication)
-      }
+      render_form(medication, url: patient_medication_path(@patient, medication))
     end
 
     def update
@@ -69,36 +43,36 @@ module Renalware
       @treatable = medication.treatable
 
       if medication.update(medication_params)
-        render "index", locals: {
-          query: medications_query,
-          patient: @patient,
-          treatable: @treatable,
-          medications: medications
-        }
+        render_index
       else
-        render "form", locals: {
-          patient: @patient,
-          treatable: @treatable,
-          medication: medication,
-          url: patient_medication_path(@patient, medication)
-        }
+        render_form(medication, url: patient_medication_path(@patient, medication))
       end
     end
 
     def destroy
       medication = Medication.find(params[:id])
+      @treatable = medication.treatable
+
       medication.destroy!
 
-      @treatable = medication.treatable
-      render "index", locals: {
-        query: medications_query,
-        patient: @patient,
-        treatable: @treatable,
-        medications: medications
-      }
+      render_index
     end
 
     private
+
+    def render_index
+      render "index", locals: {
+        query: medications_query, patient: @patient,
+        treatable: @treatable, medications: medications
+      }
+    end
+
+    def render_form(medication, url:)
+      render "form", locals: {
+        patient: @patient, treatable: @treatable,
+        medication: medication, url: url
+      }
+    end
 
     def treatable_class
       @treatable_class ||= treatable_type.singularize.classify.constantize
