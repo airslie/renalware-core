@@ -1777,7 +1777,6 @@ CREATE TABLE problem_notes (
     id integer NOT NULL,
     problem_id integer,
     description text NOT NULL,
-    show_in_letter boolean NOT NULL,
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,

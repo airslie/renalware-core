@@ -51,7 +51,7 @@ module Renalware
           if start_time.nil? || end_time.nil?
             self.duration = nil
           else
-            self.duration = (end_time - start_time).to_i/60
+            self.duration = (end_time - start_time).to_i / 60
           end
         end
       end
