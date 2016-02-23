@@ -94,19 +94,13 @@ module Renalware
     end
 
     def medications_query
-      return unless treatable_class == Renalware::Patient
-
-      build_query
-    end
-
-    def build_query
-      @query ||= @treatable.medications.search(params[:q]).tap do | query|
+      @medications_query ||= @treatable.medications.search(params[:q]).tap do | query|
         query.sorts = [Medication.default_search_order] if query.sorts.empty?
       end
     end
 
     def medications
-      build_query.result
+      medications_query.result
     end
   end
 end

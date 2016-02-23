@@ -2,13 +2,13 @@ table.auto-layout
   thead
     tr
       th
-      th= sort_link(query, :drug_name, "Medication")
+      th= medication_sort_link(treatable, query, :drug_name, "Medication")
       th Drug Type
       th Dose
       th Frequency
       th Route
       th Provider
-      th= sort_link(query, :start_date, "Prescribed on")
+      th= medication_sort_link(treatable, query, :start_date, "Prescribed on")
   tbody
     - medications.each do |medication|
       tr
