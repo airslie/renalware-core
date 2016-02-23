@@ -1,3 +1,5 @@
+require_dependency "collection_presenter"
+
 module Renalware
   class MedicationsController < BaseController
     include MedicationsHelper
@@ -100,7 +102,7 @@ module Renalware
     end
 
     def medications
-      medications_query.result
+      CollectionPresenter.new(medications_query.result, Medications::MedicationPresenter)
     end
   end
 end

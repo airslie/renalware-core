@@ -18,7 +18,7 @@ table.auto-layout
           = link_to "Terminate", patient_medication_path(patient, medication), method: :delete,
               remote: true, data: { confirm: "Are you sure?" }
         td= medication.drug.name
-        td= medication.drug.drug_types.map(&:name).join(", ")
+        td= medication.drug_types
         td= medication.dose
         td= medication.frequency
         td= medication.medication_route.name == 'Route: Other (Please specify in notes)' ? medication.medication_route.full_name : medication.medication_route.name
