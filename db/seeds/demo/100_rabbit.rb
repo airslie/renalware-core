@@ -252,10 +252,10 @@ module Renalware
   end
 
   log '--------------------Assign Access procedure to Francois RABBIT-------------------'
-  Accesses::Procedure.for_patient(patient).destroy_all
+  patient = ActiveType.cast(Patient.find_by(local_patient_id: "Z100003"), Accesses::Patient)
+  patient.procedures.destroy_all
   users = User.limit(3).to_a
-  procedure1 = Accesses::Procedure.create!(
-    patient: patient,
+  procedure1 = patient.procedures.create!(
     performed_on: 6.months.ago,
     type: Accesses::Type.all.sample,
     site: Accesses::Site.all.sample,
@@ -265,8 +265,7 @@ module Renalware
     outcome: "Perfect",
     by: users.sample
   )
-  procedure2 = Accesses::Procedure.create!(
-    patient: patient,
+  procedure2 = patient.procedures.create!(
     performed_on: 3.months.ago,
     type: Accesses::Type.all.sample,
     site: Accesses::Site.all.sample,
@@ -278,11 +277,11 @@ module Renalware
   )
 
   log '--------------------Assign Access profiles to Francois RABBIT-------------------'
-  Accesses::Profile.for_patient(patient).destroy_all
+  patient = ActiveType.cast(Patient.find_by(local_patient_id: "Z100003"), Accesses::Patient)
+  patient.profiles.destroy_all
   users = User.limit(3).to_a
 
-  Accesses::Profile.create!(
-    patient: patient,
+  patient.profiles.create!(
     formed_on: procedure1.performed_on,
     planned_on: (procedure1.performed_on + 5.days),
     started_on: (procedure1.performed_on - 2.months),
@@ -296,7 +295,7 @@ module Renalware
     by: users.sample
   )
 
-  Accesses::Profile.create!(
+  patient.profiles.create!(
     patient: patient,
     formed_on: procedure2.performed_on,
     planned_on: (procedure2.performed_on + 5.days),
@@ -310,7 +309,7 @@ module Renalware
     by: users.sample
   )
 
-  Accesses::Profile.create!(
+  patient.profiles.create!(
     patient: patient,
     formed_on: 1.week.ago,
     planned_on: 2.weeks.ago,
@@ -324,8 +323,9 @@ module Renalware
   )
 
   log '--------------------Assign Access assessments to Francois RABBIT-------------------'
-  Accesses::Assessment.for_patient(patient).destroy_all
-  Accesses::Assessment.create!(
+  patient = ActiveType.cast(Patient.find_by(local_patient_id: "Z100003"), Accesses::Patient)
+  patient.assessments.destroy_all
+  patient.assessments.create!(
     patient: patient,
     performed_on: procedure1.performed_on + 1.month,
     procedure_on: procedure1.performed_on,
@@ -352,7 +352,7 @@ module Renalware
     }
   )
 
-  Accesses::Assessment.create!(
+  patient.assessments.create!(
     patient: patient,
     performed_on: procedure2.performed_on + 1.month,
     procedure_on: procedure2.performed_on,
