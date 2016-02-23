@@ -32,13 +32,11 @@ module Renalware
       )
 
       if @medication.save
-        @medications = medications_query.result
-
         render "index", locals: {
           query: @q,
           patient: @patient,
           treatable: @treatable,
-          medications: @medications
+          medications: medications_query.result
         }
       else
         render "form", locals: {
@@ -67,13 +65,11 @@ module Renalware
       @treatable = @medication.treatable
 
       if @medication.update(medication_params)
-        @medications = medications_query.result
-
         render "index", locals: {
           query: @q,
           patient: @patient,
           treatable: @treatable,
-          medications: @medications
+          medications: medications_query.result
         }
       else
         render "form", locals: { url: patient_medication_path(@patient, @medication) }
@@ -81,17 +77,15 @@ module Renalware
     end
 
     def destroy
-      @medication = Medication.find(params[:id])
-      @treatable = @medication.treatable
+      medication = Medication.find(params[:id])
+      medication.destroy!
 
-      @medication.destroy!
-
-      @medications = medications_query.result
+      @treatable = medication.treatable
       render "index", locals: {
         query: @q,
         patient: @patient,
         treatable: @treatable,
-        medications: @medications
+        medications: medications_query.result
       }
     end
 
