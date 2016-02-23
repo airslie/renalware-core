@@ -1,3 +1,1 @@
-$("#medications").html("<%= escape_javascript(
-  render "table", query: query, patient: patient, treatable: treatable, medications: medications
-) %>");
+$("#medications").html("<%= escape_javascript(render "table", local_assigns) %>");
