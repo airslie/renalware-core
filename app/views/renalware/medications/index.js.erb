@@ -1,1 +1,1 @@
-$("#medications").html("<%= escape_javascript(render "table", local_assigns) %>");
+<%= refresh("#medications", partial: "table", locals: local_assigns) %>
