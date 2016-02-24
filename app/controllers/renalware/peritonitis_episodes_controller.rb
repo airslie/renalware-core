@@ -1,5 +1,3 @@
-require_dependency "collection_presenter"
-
 module Renalware
   class PeritonitisEpisodesController < BaseController
     include PresenterHelper
