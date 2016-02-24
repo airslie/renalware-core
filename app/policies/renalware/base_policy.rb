@@ -47,6 +47,10 @@ module Renalware
       create?
     end
 
+    def sort?
+      create?
+    end
+
     private
 
     attr_reader :permission_configuration

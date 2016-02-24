@@ -1,0 +1,12 @@
+.sortables {
+  .handle {
+    cursor: ns-resize;
+  }
+}
+
+.ui-sortable-placeholder {
+  td {
+    border-top: 3px solid black !important;
+  }
+  visibility: visible !important;
+}

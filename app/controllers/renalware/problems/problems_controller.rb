@@ -51,6 +51,12 @@ module Renalware
           notice: t(".success", model_name: "problem")
       end
 
+      def sort
+        ids = params[:problems_problem]
+        Problem.sort(ids)
+        render json: ids
+      end
+
       private
 
       def problem_params
