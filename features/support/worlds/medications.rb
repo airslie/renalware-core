@@ -8,9 +8,9 @@ module World
       # @ section commands
       #
       def record_medication_for(patient:, treatable: nil, drug_name:, dose:,
-        route_name:, frequency:, starts_on:, provider:, **_)
+        route_code:, frequency:, starts_on:, provider:, **_)
         drug = Renalware::Drugs::Drug.find_by!(name: drug_name)
-        route = Renalware::MedicationRoute.find_by!(name: route_name)
+        route = Renalware::MedicationRoute.find_by!(code: route_code)
 
         patient.medications.create!(
           treatable: treatable || patient,
@@ -70,7 +70,7 @@ module World
 
       # @ section commands
       #
-      def record_medication_for(patient:, treatable: nil, drug_name:, dose:, route_name:,
+      def record_medication_for(patient:, treatable: nil, drug_name:, dose:, route_code:,
         frequency:, starts_on:, provider:,
         drug_selector: default_medication_drug_selector)
 
@@ -80,7 +80,7 @@ module World
         within "#new_medication" do
           drug_selector.call(drug_name)
           fill_in "Dose", with: dose
-          select(route_name, from: "Route")
+          select(route_code, from: "Route")
           fill_in "Frequency", with: frequency
           fill_in "Prescribed on", with: starts_on
           click_on "Save"
