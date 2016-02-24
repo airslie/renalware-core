@@ -3,4 +3,4 @@ en:
     routes:
       form:
         prompt:
-          other: "Other (Please specify in notes)"
+          other: "Other (Please specify in Route Description below)"

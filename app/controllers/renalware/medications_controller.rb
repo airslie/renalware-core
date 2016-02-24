@@ -107,7 +107,7 @@ module Renalware
     end
 
     def medication_routes
-      Renalware::MedicationRoute.all
+      CollectionPresenter.new(MedicationRoute.all, Medications::RouteFormPresenter)
     end
   end
 end
