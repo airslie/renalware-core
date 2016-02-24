@@ -1,10 +1,15 @@
 en:
   simple_form:
+    labels:
+      medication:
+        medication_route: Route
     hints:
       medication:
         route_description: required only if above is "Other"
+    prompts:
+      medication:
+        medication_route: Please select route of administration
 
-en:
   activerecord:
     errors:
       models:
