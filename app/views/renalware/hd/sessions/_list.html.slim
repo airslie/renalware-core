@@ -1,7 +1,7 @@
 fieldset.hd-sessions
   legend Latest HD Sessions
 
-  - if @sessions.empty?
+  - if sessions.empty?
     .call-to-action
       = link_to new_patient_hd_session_path(@patient) do
         i.fa.fa-plus-circle
@@ -19,7 +19,7 @@ fieldset.hd-sessions
         th Sign Off
 
       tbody
-        - @sessions.each do |session|
+        - sessions.each do |session|
           = content_tag(:tr, class: session.ongoing_css_class) do
             td= link_to edit_patient_hd_session_path(@patient, session) do
               = session.signed_off? ? "Edit" : "Sign Off"
