@@ -16,7 +16,6 @@ ruby:
     = f.association :medication_route, collection: medication_routes,
         label_method: :code,
         prompt: "Please select route of administration",
-        html_input: { class: "medication-route-select" },
         label: "Route"
     = f.input :route_description, label: "Route Description"
     = f.input :frequency, label: "Frequency & Duration"
