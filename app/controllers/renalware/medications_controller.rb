@@ -98,9 +98,15 @@ module Renalware
     end
 
     def medications_query
-      @medications_query ||= @treatable.medications.search(params[:q]).tap do | query|
-        query.sorts = [Medication.default_search_order] if query.sorts.empty?
-      end
+      @medications_query ||= @treatable.medications
+                                       .search(params[:q])
+                                       .tap { |q| assign_default_sort(q) }
+    end
+
+    def assign_default_sort(query)
+      return unless query.sorts.empty?
+
+      query.sorts = [Medication.default_search_order]
     end
 
     def medications
