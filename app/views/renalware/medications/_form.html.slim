@@ -15,7 +15,7 @@ ruby:
     = f.association :medication_route, collection: medication_routes,
         label_method: :code, prompt: :translate
     = f.input :route_description
-    = f.input :frequency, label: "Frequency & Duration"
+    = f.input :frequency
     = f.input :notes
     = f.input :start_date, as: :date_picker
     = f.input :end_date, as: :date_picker
