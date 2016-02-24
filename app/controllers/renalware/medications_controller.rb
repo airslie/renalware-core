@@ -66,14 +66,15 @@ module Renalware
       render "index", locals: {
         query: medications_query, patient: @patient,
         treatable: Medications::TreatablePresenter.new(@treatable),
-        medications: medications
+        medications: CollectionPresenter.new(medications, Medications::MedicationPresenter)
       }
     end
 
     def render_form(medication, url:)
       render "form", locals: {
         patient: @patient, treatable: @treatable,
-        medication: medication, medication_routes: medication_routes,
+        medication: medication,
+        medication_routes: CollectionPresenter.new(medication_routes, Medications::RouteFormPresenter),
         url: url
       }
     end
@@ -104,11 +105,11 @@ module Renalware
     end
 
     def medications
-      CollectionPresenter.new(medications_query.result, Medications::MedicationPresenter)
+      medications_query.result
     end
 
     def medication_routes
-      CollectionPresenter.new(MedicationRoute.all, Medications::RouteFormPresenter)
+      MedicationRoute.all
     end
   end
 end
