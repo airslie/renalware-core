@@ -1,5 +1,4 @@
 require 'rails_helper'
-require './spec/support/login_macros'
 
 module Renalware
   RSpec.describe Medication, :type => :model do
