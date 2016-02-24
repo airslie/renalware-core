@@ -1,8 +1,5 @@
 en:
   simple_form:
-    labels:
-      medication:
-        medication_route: Route
     hints:
       medication:
         route_description: required only if above is "Other"
@@ -11,6 +8,9 @@ en:
         medication_route: Please select route of administration
 
   activerecord:
+    attributes:
+      renalware/medication:
+        medication_route: Route
     errors:
       models:
         renalware/medication:
