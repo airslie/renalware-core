@@ -1350,6 +1350,7 @@ CREATE TABLE medications (
     treatable_type character varying NOT NULL,
     dose character varying NOT NULL,
     medication_route_id integer NOT NULL,
+    route_description character varying,
     frequency character varying NOT NULL,
     notes text,
     start_date date NOT NULL,

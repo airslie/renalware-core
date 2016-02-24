@@ -4,11 +4,7 @@ module Renalware
   module Medications
     class MedicationPresenter < DumbDelegator
       def route_name
-        ::I18n.t(
-          medication_route.code.downcase,
-          scope: "medications.routes.form.prompt",
-          default: medication_route.name
-        )
+        medication_route.other? ? route_description : medication_route.name
       end
 
       def drug_types

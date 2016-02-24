@@ -6,6 +6,7 @@ class CreateMedications < ActiveRecord::Migration
       t.references :treatable,         polymorphic: true, index: true, null: false
       t.string :dose,                  null: false
       t.references :medication_route,  null: false, foreign_key: true
+      t.string :route_description
       t.string :frequency,             null: false
       t.text :notes
       t.date :start_date,              null: false

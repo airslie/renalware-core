@@ -19,6 +19,7 @@ module Renalware
     validates :frequency, presence: true
     validates :start_date, presence: true
     validates :provider, presence: true
+    validate :constrain_route_description
 
     enum provider: Provider.codes
 
@@ -44,6 +45,19 @@ module Renalware
         ary << frequency
         ary << start_date
       }.compact.join(", ")
+    end
+
+    private
+
+    def constrain_route_description
+      return unless medication_route
+
+      case
+      when medication_route.other? && route_description.empty?
+        errors.add(:route_description, "can't be blank")
+      when !medication_route.other? && route_description.present?
+        errors.add(:route_description, "can't be present when a route has been selected")
+      end
     end
   end
 end

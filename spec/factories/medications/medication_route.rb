@@ -3,4 +3,9 @@ FactoryGirl.define do
     code "PO"
     name "Per Oral"
   end
+
+  trait :other do
+    code "Other"
+    name "Other"
+  end
 end
