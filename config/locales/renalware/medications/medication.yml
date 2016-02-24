@@ -11,6 +11,8 @@ en:
     attributes:
       renalware/medication:
         medication_route: Route
+        start_date: "Prescribed on"
+        end_date: "Terminated on"
     errors:
       models:
         renalware/medication:
