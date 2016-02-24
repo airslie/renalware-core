@@ -54,9 +54,9 @@ module Renalware
 
       case
       when medication_route.other? && !route_description.present?
-        errors.add(:route_description, "can't be blank")
+        errors.add(:route_description, :blank)
       when !medication_route.other? && route_description.present?
-        errors.add(:route_description, "can't be present when a route has been selected")
+        errors.add(:route_description, :not_other)
       end
     end
   end

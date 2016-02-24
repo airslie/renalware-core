@@ -3,3 +3,12 @@ en:
     hints:
       medication:
         route_description: required only if above is "Other"
+
+en:
+  activerecord:
+    errors:
+      models:
+        renalware/medication:
+          attributes:
+            route_description:
+              not_other: can't be present when a route has been selected
