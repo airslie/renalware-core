@@ -99,6 +99,7 @@ module Renalware
 
     def medications_query
       @medications_query ||= @treatable.medications
+                                       .includes(:drug)
                                        .search(params[:q])
                                        .tap { |q| assign_default_sort(q) }
     end
