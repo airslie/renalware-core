@@ -1,7 +1,7 @@
 = render layout: "renalware/patients/layout", locals: { title: "Clinical Summary" } do
   .row
     .columns.large-6
-      = render "problems", problems: @patient.problems
+      = render "problems", problems: @patient.problems.ordered
 
     .columns.large-6
       = render "medications", medications: @patient.medications

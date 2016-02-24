@@ -1809,6 +1809,7 @@ ALTER SEQUENCE problem_notes_id_seq OWNED BY problem_notes.id;
 
 CREATE TABLE problem_problems (
     id integer NOT NULL,
+    "position" integer DEFAULT 0,
     patient_id integer NOT NULL,
     description character varying NOT NULL,
     date date,

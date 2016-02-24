@@ -5,7 +5,7 @@ module Renalware
 
       def index
         @problem = Problem.new
-        @problems = @patient.problems
+        @problems = @patient.problems.ordered
       end
 
       def show
@@ -32,6 +32,7 @@ module Renalware
       def create
         @problems = @patient.problems
         @problem = @patient.problems.new(problem_params)
+        @problem.position = @patient.problems.maximum(position) + 10
 
         if @problem.save
           redirect_to patient_problems_url(@patient),
