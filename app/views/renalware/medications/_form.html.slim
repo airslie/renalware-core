@@ -4,8 +4,7 @@ ruby:
     h["Renalware::ExitSiteInfection"] = "exit_site_infection"
   end
 
-= simple_form_for medication, url: url,
-    html: { class: "medication-form" },
+= simple_form_for medication, url: url, html: { class: "medication-form" },
     remote: true, wrapper: :horizontal_form do |f|
 
   .med-form.content id=("edit-meds-#{f.object.id}" )
