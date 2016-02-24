@@ -136,7 +136,7 @@ module World
 
       def view_ongoing_hd_sessions(user:)
         login_as user
-        visit hd_ongoing_sessions_list_path
+        visit hd_ongoing_sessions_path
       end
 
       def expect_hd_sessions_to_be(hashes)

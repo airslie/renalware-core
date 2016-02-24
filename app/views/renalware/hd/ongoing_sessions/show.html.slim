@@ -2,7 +2,7 @@
   h1 Ongoing HD Sessions
 
 .row
-  = search_form_for @q, url: hd_ongoing_sessions_list_path do |f|
+  = search_form_for @q, url: hd_ongoing_sessions_path do |f|
     .row
       .large-4.columns
         = f.grouped_collection_select :hospital_unit_id_eq,

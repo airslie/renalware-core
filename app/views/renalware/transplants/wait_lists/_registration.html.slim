@@ -6,7 +6,7 @@ tr
   td= registration.patient.local_patient_id
   td= registration.patient.age
   td= registration.patient.sex.code
-  td= registration.patient.current_modality.to_s
+  td= registration.patient.current_modality
   td= registration.document.codes.uk_transplant_centre_code
   td
     - if registration.patient.esrf
