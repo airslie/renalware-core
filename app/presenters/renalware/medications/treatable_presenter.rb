@@ -4,7 +4,7 @@ module Renalware
   module Medications
     class TreatablePresenter < DumbDelegator
       def sortable?
-        __getobj__.class == Patient
+        is_a?(Patient)
       end
     end
   end
