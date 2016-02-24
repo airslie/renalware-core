@@ -3,6 +3,7 @@ require_dependency "collection_presenter"
 module Renalware
   class MedicationsController < BaseController
     include MedicationsHelper
+    include PresenterHelper
 
     before_action :load_patient
 
@@ -66,7 +67,7 @@ module Renalware
       render "index", locals: {
         query: medications_query, patient: @patient,
         treatable: Medications::TreatablePresenter.new(@treatable),
-        medications: CollectionPresenter.new(medications, Medications::MedicationPresenter)
+        medications: present(medications, Medications::MedicationPresenter)
       }
     end
 
@@ -74,7 +75,7 @@ module Renalware
       render "form", locals: {
         patient: @patient, treatable: @treatable,
         medication: medication,
-        medication_routes: CollectionPresenter.new(medication_routes, Medications::RouteFormPresenter),
+        medication_routes: present(medication_routes, Medications::RouteFormPresenter),
         url: url
       }
     end
