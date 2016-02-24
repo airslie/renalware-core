@@ -8,7 +8,6 @@
 module CoreExtensions
   module ActiveRecord
     module Sort
-      # Call things that should be called on the Class itself, such as named scopes, associations, ...
       def self.included( base )
         base.extend ClassMethods
 
@@ -18,14 +17,14 @@ module CoreExtensions
       module ClassMethods
         def sort(ids)
           ids.each_with_index do |id, index|
-            where(id: id).update_all(['position=?', index+1])
+            where(id: id).update_all(["position=?", index + 1])
           end
         end
       end
 
       def set_position
         if respond_to? :position
-          self.position = (self.class.where('position < 99999').maximum(:position) || 0) + 1
+          self.position = (self.class.where("position < 99999").maximum(:position) || 0) + 1
         end
       end
     end
