@@ -1,0 +1,5 @@
+en:
+  simple_form:
+    hints:
+      medication:
+        route_description: required only if above is "Other"
