@@ -64,7 +64,7 @@ module Renalware
     def render_index
       render "index", locals: {
         query: medications_query, patient: @patient,
-        treatable: Medications::TreatablePresenter.new(@treatable),
+        treatable: present(@treatable, Medications::TreatablePresenter),
         medications: present(medications, Medications::MedicationPresenter)
       }
     end

@@ -10,7 +10,7 @@ module Renalware
         @exit_site_infection.medications.ordered,
         Medications::MedicationPresenter
       )
-      @treatable = Medications::TreatablePresenter.new(@exit_site_infection)
+      @treatable = present(@exit_site_infection, Medications::TreatablePresenter)
     end
 
     def new

@@ -10,7 +10,7 @@ module Renalware
         @peritonitis_episode.medications.ordered,
         Medications::MedicationPresenter
       )
-      @treatable = Medications::TreatablePresenter.new(@peritonitis_episode)
+      @treatable = present(@peritonitis_episode, Medications::TreatablePresenter)
     end
 
     def new
