@@ -11,7 +11,7 @@ module Renalware
     end
 
     def medication_sort_link(treatable, query, attribute, label, *args)
-      if treatable.class == Renalware::Patient
+      if treatable.sortable?
         sort_link(query, attribute, label, *args)
       else
         label

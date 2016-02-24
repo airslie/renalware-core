@@ -11,6 +11,7 @@ module Renalware
         @exit_site_infection.medications.ordered,
         Medications::MedicationPresenter
       )
+      @treatable = Medications::TreatablePresenter.new(@exit_site_infection)
     end
 
     def new

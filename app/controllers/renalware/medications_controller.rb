@@ -7,7 +7,7 @@ module Renalware
     before_action :load_patient
 
     def index
-      @treatable = treatable_class.find(treatable_id)
+      @treatable = Medications::TreatablePresenter.new(treatable_class.find(treatable_id))
 
       render_index
     end

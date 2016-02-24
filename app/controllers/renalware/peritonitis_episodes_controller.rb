@@ -11,6 +11,7 @@ module Renalware
         @peritonitis_episode.medications.ordered,
         Medications::MedicationPresenter
       )
+      @treatable = Medications::TreatablePresenter.new(@peritonitis_episode)
     end
 
     def new
