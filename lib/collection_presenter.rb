@@ -15,7 +15,7 @@ class CollectionPresenter
   end
 
   def to_a
-    @decorated_collection
+    @decorated_collection.to_a
   end
 
   def method_missing(method, *args, &block)
