@@ -73,6 +73,7 @@ module Renalware
       render "form", locals: {
         patient: @patient, treatable: @treatable,
         medication: medication,
+        provider_codes: Provider.codes,
         medication_routes: present(medication_routes, Medications::RouteFormPresenter),
         url: url
       }

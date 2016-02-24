@@ -19,9 +19,9 @@ ruby:
     = f.input :notes
     = f.input :start_date, as: :date_picker
     = f.input :end_date, as: :date_picker
-    = f.input :provider, collection: Renalware::Provider.codes,
-        as: :radio_buttons, checked: Renalware::Provider.first,
-        label_method: -> (attr) { " " + I18n.t(attr, scope: "enums.provider") }
+    = f.input :provider, collection: provider_codes,
+        as: :radio_buttons, checked: provider_codes.first,
+        label_method: -> (code) { " " + I18n.t(code, scope: "enums.provider") }
 
   .row
     .large-offset-3.large-7.columns
