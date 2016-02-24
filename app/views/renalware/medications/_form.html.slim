@@ -13,7 +13,7 @@ ruby:
 
     = hidden_field_tag :treatable_type, treatable.class.name
     = f.input :dose
-    = f.association :medication_route, collection: Renalware::MedicationRoute.all,
+    = f.association :medication_route, collection: medication_routes,
         label_method: :code,
         prompt: "Please select route of administration",
         html_input: { class: "medication-route-select" },

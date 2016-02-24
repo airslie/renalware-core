@@ -72,7 +72,8 @@ module Renalware
     def render_form(medication, url:)
       render "form", locals: {
         patient: @patient, treatable: @treatable,
-        medication: medication, url: url
+        medication: medication, medication_routes: medication_routes,
+        url: url
       }
     end
 
@@ -103,6 +104,10 @@ module Renalware
 
     def medications
       CollectionPresenter.new(medications_query.result, Medications::MedicationPresenter)
+    end
+
+    def medication_routes
+      Renalware::MedicationRoute.all
     end
   end
 end
