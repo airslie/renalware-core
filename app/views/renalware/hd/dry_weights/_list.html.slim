@@ -16,11 +16,7 @@ fieldset.hd-dry_weights
 
       tbody
         - @dry_weights.each do |dry_weight|
-          tr
-            td= link_to "Edit", edit_patient_hd_dry_weight_path(@patient, dry_weight)
-            td= dry_weight.assessed_on
-            td= dry_weight.weight
-            td= dry_weight.assessor
+          = render "renalware/hd/dry_weights/row", dry_weight: dry_weight
 
     .right
       = link_to "Add a Weight", new_patient_hd_dry_weight_path(@patient),

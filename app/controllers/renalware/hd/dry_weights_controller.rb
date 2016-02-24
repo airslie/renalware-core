@@ -1,10 +1,15 @@
+require "collection_presenter"
+
 module Renalware
   module HD
     class DryWeightsController < BaseController
       before_filter :load_patient
 
       def index
-        @dry_weights = DryWeightsCollectionPresenter.new(@patient).find_all
+        query = DryWeights::PatientQuery.new(patient: @patient, q: params[:q])
+        dry_weights = query.call.page(params[:page]).per(15)
+        @dry_weights = CollectionPresenter.new(dry_weights, DryWeightPresenter)
+        @q = query.search
       end
 
       def show
