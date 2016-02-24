@@ -21,7 +21,7 @@ ruby:
     = f.input :end_date, as: :date_picker
     = f.input :provider, collection: Renalware::Provider.codes,
         as: :radio_buttons, checked: Renalware::Provider.first,
-        label_method: -> (attr) { " " + I18n.t("enums.provider.#{attr}") }
+        label_method: -> (attr) { " " + I18n.t(attr, scope: "enums.provider") }
 
   .row
     .large-offset-3.large-7.columns
