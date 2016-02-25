@@ -2,9 +2,9 @@ module Renalware
   module HD
     module DryWeights
       class PatientQuery
-        def initialize(patient:, q: nil)
+        def initialize(patient:, filters_and_sorts: nil)
           @patient = patient
-          @q = (q || {}).reverse_merge!(s: "assessed_on desc")
+          @search_params = (filters_and_sorts || {}).reverse_merge!(s: "assessed_on desc")
         end
 
         def call
@@ -12,7 +12,7 @@ module Renalware
         end
 
         def search
-          @search ||= DryWeight.where(patient: @patient).search(@q)
+          @search ||= DryWeight.where(patient: @patient).search(@search_params)
         end
       end
     end
