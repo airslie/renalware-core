@@ -4,7 +4,7 @@ module Renalware
       class PatientQuery
         def initialize(patient:, q: nil)
           @patient = patient
-          @q = q || { s: "assessed_on desc" }
+          @q = (q || {}).reverse_merge!(s: "assessed_on desc")
         end
 
         def call
@@ -12,15 +12,7 @@ module Renalware
         end
 
         def search
-          @search ||= QueryableDryWeight.for_patient(@patient).search(@q)
-        end
-
-        private
-
-        class QueryableDryWeight < ActiveType::Record[DryWeight]
-          scope :for_patient, -> (patient) {
-            where(patient: patient)
-          }
+          @search ||= DryWeight.where(patient: @patient).search(@q)
         end
       end
     end

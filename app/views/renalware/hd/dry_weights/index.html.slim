@@ -3,8 +3,8 @@
     table.auto-layout
       thead
         th
-        th= sort_link(@q, :assessed_on, "Date")
-        th= sort_link(@q, :weight, "Weight (kg)")
+        th= sort_link(@query.search, :assessed_on, "Date")
+        th= sort_link(@query.search, :weight, "Weight (kg)")
         th Assessor
 
       tbody
