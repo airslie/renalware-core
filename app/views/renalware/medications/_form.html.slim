@@ -20,7 +20,7 @@ ruby:
     = f.input :start_date, as: :date_picker
     = f.input :end_date, as: :date_picker
     = f.input :provider, collection: provider_codes, as: :radio_buttons,
-        checked: provider_codes.first
+        label_method: :to_label, checked: provider_codes.first
 
   .row
     .large-offset-3.large-7.columns

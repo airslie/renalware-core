@@ -1,8 +1,8 @@
 module Renalware
   module Medications
     class ProviderCodePresenter < DumbDelegator
-      def to_s
-        " " + ::I18n.t(super, scope: "enums.provider")
+      def to_label
+        " " + ::I18n.t(to_s, scope: "enums.provider")
       end
     end
   end
