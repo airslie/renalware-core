@@ -1,7 +1,7 @@
 fieldset
   legend HD Profile
 
-  - if @profile.new_record?
+  - if profile.new_record?
     .call-to-action
       = link_to edit_patient_hd_profile_path(@patient) do
         i.fa.fa-plus-circle
@@ -11,17 +11,17 @@ fieldset
       .large-3.columns
         dl
           dt Schedule:
-          dd= @profile.current_schedule
+          dd= profile.current_schedule
 
       .large-3.columns
         dl
           dt Hospital Centre:
-          dd= @profile.hospital_centre
+          dd= profile.hospital_centre
 
       .large-4.columns
         dl
           dt Unit:
-          dd= @profile.hospital_unit
+          dd= profile.hospital_unit
 
       .large-2.columns
         .right
@@ -32,17 +32,17 @@ fieldset
       .large-3.columns
         dl
           dt HD Type:
-          dd= @profile.document.dialysis.hd_type.try(:text)
+          dd= profile.document.dialysis.hd_type.try(:text)
 
       .large-3.columns
         dl
           dt Named Nurse:
-          dd= @profile.named_nurse
+          dd= profile.named_nurse
 
       .large-6.columns
         dl
           dt Last Update:
           dd
-            = l @profile.updated_at
+            = l profile.updated_at
             | &nbsp;by&nbsp;
-            = @profile.updated_by.to_s
+            = profile.updated_by.to_s

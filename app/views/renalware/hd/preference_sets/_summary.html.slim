@@ -1,7 +1,7 @@
 fieldset
   legend Preferences
 
-  - if @preference_set.new_record?
+  - if preference_set.new_record?
     .call-to-action
       = link_to edit_patient_hd_preference_set_path(@patient) do
         i.fa.fa-plus-circle
@@ -12,21 +12,21 @@ fieldset
         dl
           dt Schedule:
           dd
-            - if @preference_set.schedule
-              - if @preference_set.schedule.other?
-                = @preference_set.other_schedule
+            - if preference_set.schedule
+              - if preference_set.schedule.other?
+                = preference_set.other_schedule
               - else
-                = @preference_set.schedule.text
+                = preference_set.schedule.text
 
       .large-3.columns
         dl
           dt Hospital Centre:
-          dd= @preference_set.hospital_centre
+          dd= preference_set.hospital_centre
 
       .large-4.columns
         dl
           dt Unit:
-          dd= @preference_set.hospital_unit
+          dd= preference_set.hospital_unit
 
       .large-2.columns
         .right
@@ -35,12 +35,12 @@ fieldset
       .large-6.columns
         dl
           dt Notes:
-          dd= simple_format @preference_set.notes
+          dd= simple_format preference_set.notes
 
       .large-6.columns
         dl
           dt Last Update:
           dd
-            = l @preference_set.updated_at
+            = l preference_set.updated_at
             | &nbsp;by&nbsp;
-            = @preference_set.updated_by.to_s
+            = preference_set.updated_by.to_s
