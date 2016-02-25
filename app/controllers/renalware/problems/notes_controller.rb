@@ -4,29 +4,47 @@ module Renalware
       before_action :load_patient
 
       def index
-        @problem = @patient.problems.find(params[:problem_id])
-        @notes = @problem.notes.ordered
+        load_problem
+        render_index
       end
 
       def new
-        @problem = @patient.problems.find(params[:problem_id])
-        @note = @problem.notes.new
-
-        authorize @patient
+        load_problem
+        note = @problem.notes.new
+        render_form(note, url: patient_problem_notes_path(@patient, @problem))
       end
 
       def create
-        @problem = @patient.problems.find(params[:problem_id])
+        load_problem
+        note = @problem.notes.create(notes_params)
 
-        authorize @patient
-
-        @note = @problem.notes.create(notes_params)
+        if note.save
+          render_index
+        else
+          render_form(note, url: patient_problem_notes_path(@patient, @problem))
+        end
       end
 
       private
 
+      def load_problem
+        @problem = @patient.problems.find(params[:problem_id])
+      end
+
+      def render_index
+        render "index", locals: { problem: @problem, notes: notes }
+      end
+
+      def render_form(note, url:)
+        render "form", locals: { problem: @problem, note: note, url: url }
+      end
+
       def notes_params
         params.require(:problems_note).permit(:description).merge(by: current_user)
+      end
+
+      def notes
+        @notes ||= @problem.notes.ordered
       end
     end
   end

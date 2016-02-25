@@ -7,7 +7,6 @@
   table.auto-layout
     thead
       th Description
-      th Show in letter
       th Recorded By
       th Recorded On
 
@@ -18,6 +17,7 @@
           td= note.updated_by
           td= l note.updated_at
 
-  .right
-    = link_to "Add a note", new_patient_problem_note_path(problem.patient, problem), remote: true,
-      class: 'button tiny'
+  #new-note-area
+    .right
+      = link_to "Add a note", new_patient_problem_note_path(problem.patient, problem),
+          remote: true, class: 'button tiny'
