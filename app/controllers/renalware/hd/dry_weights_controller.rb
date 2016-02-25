@@ -4,7 +4,8 @@ module Renalware
       before_filter :load_patient
 
       def index
-        @dry_weights = DryWeightsCollectionPresenter.new(@patient).find_all
+        dry_weights = DryWeight.for_patient(@patient).ordered
+        @dry_weights = CollectionPresenter.new(dry_weights, DryWeightPresenter)
       end
 
       def show
