@@ -48,7 +48,7 @@ module Renalware
     end
 
     def sort?
-      create?
+      update?
     end
 
     private

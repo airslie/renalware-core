@@ -8,7 +8,7 @@
 module CoreExtensions
   module ActiveRecord
     module Sort
-      def self.included( base )
+      def self.included(base)
         base.extend ClassMethods
 
         base.before_create :set_position
@@ -23,9 +23,8 @@ module CoreExtensions
       end
 
       def set_position
-        if respond_to? :position
-          self.position = (self.class.where("position < 99999").maximum(:position) || 0) + 1
-        end
+        return unless respond_to?(:position)
+        self.position = (self.class.where("position < 99999").maximum(:position) || 0) + 1
       end
     end
   end
