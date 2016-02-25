@@ -74,7 +74,7 @@ module Renalware
         patient: @patient, treatable: @treatable,
         medication: medication,
         provider_codes: present(Provider.codes, Medications::ProviderCodePresenter),
-        medication_routes: present(medication_routes, Medications::RouteFormPresenter),
+        medication_routes: present(MedicationRoute.all, Medications::RouteFormPresenter),
         url: url
       }
     end
@@ -99,15 +99,11 @@ module Renalware
     end
 
     def medications_query
-      @medications_query||= Medications::TreatableMedicationsQuery.new(treatable: @treatable, search_params: params[:q])
+      @medications_query ||= Medications::TreatableMedicationsQuery.new(treatable: @treatable, search_params: params[:q])
     end
 
     def medications
       medications_query.call
-    end
-
-    def medication_routes
-      MedicationRoute.all
     end
   end
 end
