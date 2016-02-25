@@ -1,5 +1,5 @@
 = render layout: "renalware/patients/layout", locals: { title: "HD Summary" } do
-  = render "renalware/hd/profiles/summary"
-  = render "renalware/hd/preference_sets/summary"
-  = render "renalware/hd/sessions/list"
-  = render "renalware/hd/dry_weights/list"
+  = render "renalware/hd/profiles/summary", profile: profile
+  = render "renalware/hd/preference_sets/summary", preference_set: preference_set
+  = render "renalware/hd/sessions/list", sessions: sessions
+  = render "renalware/hd/dry_weights/list", dry_weights: dry_weights
