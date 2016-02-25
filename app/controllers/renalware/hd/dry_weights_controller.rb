@@ -6,7 +6,7 @@ module Renalware
       before_filter :load_patient
 
       def index
-        @query = DryWeights::PatientQuery.new(patient: @patient, search_params: params[:q])
+        @query = PatientDryWeightsQuery.new(patient: @patient, search_params: params[:q])
         dry_weights = @query.call.page(params[:page]).per(15)
 
         render locals: {
