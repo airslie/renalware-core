@@ -1,3 +1,14 @@
 = render layout: "renalware/patients/layout", locals: { title: "HD Dry Weights" } do
-  .document
-    p To be implemented
+  .document.hd-sessions
+    table.auto-layout
+      thead
+        th
+        th= sort_link(search, :assessed_on, "Date")
+        th= sort_link(search, :weight, "Weight (kg)")
+        th Assessor
+
+      tbody
+        - dry_weights.each do |dry_weight|
+          = render "row", dry_weight: dry_weight
+
+    = paginate dry_weights
