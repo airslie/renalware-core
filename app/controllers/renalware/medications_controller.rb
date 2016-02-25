@@ -63,7 +63,7 @@ module Renalware
 
     def render_index
       render "index", locals: {
-        query: medications_query, patient: @patient,
+        query: medications_query.search, patient: @patient,
         treatable: present(@treatable, Medications::TreatablePresenter),
         medications: present(medications, Medications::MedicationPresenter)
       }
@@ -99,20 +99,11 @@ module Renalware
     end
 
     def medications_query
-      @medications_query ||= @treatable.medications
-                                       .includes(:drug)
-                                       .search(params[:q])
-                                       .tap { |q| assign_default_sort(q) }
-    end
-
-    def assign_default_sort(query)
-      return unless query.sorts.empty?
-
-      query.sorts = [Medication.default_search_order]
+      @medications_query||= Medications::TreatableMedicationsQuery.new(treatable: @treatable, search_params: params[:q])
     end
 
     def medications
-      medications_query.result
+      medications_query.call
     end
 
     def medication_routes
