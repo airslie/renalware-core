@@ -103,7 +103,7 @@ module Renalware
     end
 
     def medications
-      medications_query.call
+      medications_query.call.includes(:drug)
     end
   end
 end
