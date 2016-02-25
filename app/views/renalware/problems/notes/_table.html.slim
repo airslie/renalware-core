@@ -1,8 +1,9 @@
 - if notes.empty?
-  .call-to-action
-    = link_to new_patient_problem_note_path(problem.patient, problem), remote: true do
-      i.fa.fa-plus-circle
-      | Add a note
+  #new-note-area
+    .call-to-action
+      = link_to new_patient_problem_note_path(problem.patient, problem), remote: true do
+        i.fa.fa-plus-circle
+        | Add a note
 - else
   table.auto-layout
     thead
