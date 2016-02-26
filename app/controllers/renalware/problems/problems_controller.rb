@@ -5,7 +5,7 @@ module Renalware
 
       def index
         @problem = Problem.new
-        @problems = @patient.problems
+        @problems = @patient.problems.ordered
       end
 
       def show
@@ -48,6 +48,12 @@ module Renalware
 
         redirect_to patient_problems_path(@patient),
           notice: t(".success", model_name: "problem")
+      end
+
+      def sort
+        ids = params[:problems_problem]
+        Problem.sort(ids)
+        render json: ids
       end
 
       private

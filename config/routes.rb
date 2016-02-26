@@ -98,6 +98,7 @@ Rails.application.routes.draw do
       resources :peritonitis_episodes, only: [:new, :create, :show, :edit, :update]
 
       resources :problems, controller: "problems/problems" do
+        post :sort, on: :collection
         resources :notes, only: [:index, :new, :create], controller: "problems/notes"
       end
 

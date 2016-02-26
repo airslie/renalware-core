@@ -13,7 +13,7 @@ module Renalware
       fill_in "Description", with: "a description"
       click_on "Save"
 
-      expect(page).to have_css(".problem", text: "a description")
+      expect(page).to have_css(".problems_problem", text: "a description")
       expect(@patient.problems.last.description).to eq("a description")
     end
 

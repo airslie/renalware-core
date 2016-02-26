@@ -1809,6 +1809,7 @@ ALTER SEQUENCE problem_notes_id_seq OWNED BY problem_notes.id;
 
 CREATE TABLE problem_problems (
     id integer NOT NULL,
+    "position" integer DEFAULT 0 NOT NULL,
     patient_id integer NOT NULL,
     description character varying NOT NULL,
     date date,
@@ -3926,6 +3927,13 @@ CREATE INDEX index_problem_notes_on_updated_by_id ON problem_notes USING btree (
 --
 
 CREATE INDEX index_problem_problems_on_deleted_at ON problem_problems USING btree (deleted_at);
+
+
+--
+-- Name: index_problem_problems_on_position; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_problem_problems_on_position ON problem_problems USING btree ("position");
 
 
 --

@@ -7,17 +7,20 @@ module Renalware
   file_path = File.join(demo_path, 'rabbit_problems.csv')
   logcount=0
 
+  Problems::Problem.where(patient_id: rabbit.id).destroy_all
+
   CSV.foreach(file_path, headers: true) do |row|
     randwk = randweeks.sample
     date = Time.now - randwk.weeks
     description = row['description']
     log "   ... adding #{description} from #{date}"
     logcount += 1
-    Problems::Problem.find_or_create_by!(
+    Problems::Problem.create!(
       patient_id: rabbit.to_param,
-      description: description) do |problem|
-        problem.date = date
-      end
+      description: description,
+      date: date,
+      position: logcount
+    )
   end
 
   log "#{logcount} Problems seeded"

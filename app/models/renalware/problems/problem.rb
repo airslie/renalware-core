@@ -11,6 +11,8 @@ module Renalware
       belongs_to :patient
       has_many :notes, dependent: :destroy
 
+      scope :ordered, -> { order(position: :asc) }
+
       validates :patient, presence: true
       validates :description, presence: true
 
