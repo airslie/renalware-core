@@ -1,11 +1,16 @@
 module Renalware
   class ExitSiteInfectionsController < BaseController
+    include PresenterHelper
 
     before_action :load_patient, only: [:new, :create, :show, :edit, :update]
     before_action :load_exit_site_infection, only: [:show, :edit, :update]
 
     def show
-      render
+      @medications = present(
+        @exit_site_infection.medications.ordered,
+        Medications::MedicationPresenter
+      )
+      @treatable = present(@exit_site_infection, Medications::TreatablePresenter)
     end
 
     def new

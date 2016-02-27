@@ -1,6 +1,7 @@
 module Renalware
   class MedicationsController < BaseController
     include MedicationsHelper
+    include PresenterHelper
 
     before_action :load_patient
 
@@ -62,15 +63,19 @@ module Renalware
 
     def render_index
       render "index", locals: {
-        query: medications_query, patient: @patient,
-        treatable: @treatable, medications: medications
+        search: medications_query.search, patient: @patient,
+        treatable: present(@treatable, Medications::TreatablePresenter),
+        medications: present(medications, Medications::MedicationPresenter)
       }
     end
 
     def render_form(medication, url:)
       render "form", locals: {
         patient: @patient, treatable: @treatable,
-        medication: medication, url: url
+        medication: medication,
+        provider_codes: present(Provider.codes, Medications::ProviderCodePresenter),
+        medication_routes: present(MedicationRoute.all, Medications::RouteFormPresenter),
+        url: url
       }
     end
 
@@ -80,7 +85,7 @@ module Renalware
 
     def medication_params
       params.require(:medication).permit(
-        :drug_id, :dose, :medication_route_id, :frequency,
+        :drug_id, :dose, :medication_route_id, :frequency, :route_description,
         :notes, :start_date, :end_date, :provider
       )
     end
@@ -94,13 +99,11 @@ module Renalware
     end
 
     def medications_query
-      @medications_query ||= @treatable.medications.search(params[:q]).tap do | query|
-        query.sorts = [Medication.default_search_order] if query.sorts.empty?
-      end
+      @medications_query ||= Medications::TreatableMedicationsQuery.new(treatable: @treatable, search_params: params[:q])
     end
 
     def medications
-      medications_query.result
+      medications_query.call.includes(:drug)
     end
   end
 end

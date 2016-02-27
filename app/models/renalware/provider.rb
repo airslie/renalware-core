@@ -5,9 +5,5 @@ module Renalware
     def self.codes
       %i(gp hospital home_delivery)
     end
-
-    def self.first
-      codes.first
-    end
   end
 end

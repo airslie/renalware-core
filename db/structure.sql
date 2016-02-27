@@ -1276,8 +1276,8 @@ ALTER SEQUENCE letters_id_seq OWNED BY letters.id;
 
 CREATE TABLE medication_routes (
     id integer NOT NULL,
-    name character varying,
-    full_name character varying,
+    code character varying NOT NULL,
+    name character varying NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -1350,6 +1350,7 @@ CREATE TABLE medications (
     treatable_type character varying NOT NULL,
     dose character varying NOT NULL,
     medication_route_id integer NOT NULL,
+    route_description character varying,
     frequency character varying NOT NULL,
     notes text,
     start_date date NOT NULL,

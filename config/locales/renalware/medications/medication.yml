@@ -1,0 +1,22 @@
+en:
+  simple_form:
+    hints:
+      medication:
+        route_description: required only if above is "Other"
+    prompts:
+      medication:
+        medication_route: Please select route of administration
+
+  activerecord:
+    attributes:
+      renalware/medication:
+        medication_route: Route
+        start_date: "Prescribed on"
+        end_date: "Terminated on"
+        frequency: "Frequency & Duration"
+    errors:
+      models:
+        renalware/medication:
+          attributes:
+            route_description:
+              not_other: can't be present when a route has been selected

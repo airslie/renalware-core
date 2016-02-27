@@ -4,7 +4,7 @@ Given(/^Patty has a medication recorded$/) do
     patient: @patty,
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
-    route_name: "PO",
+    route_code: "PO",
     frequency: "once a day",
     starts_on: "10-10-2015",
     provider: "GP"
@@ -17,7 +17,7 @@ When(/^Clyde records the medication for Patty$/) do
     patient: @patty,
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
-    route_name: "PO",
+    route_code: "PO",
     frequency: "once a day",
     starts_on: "10-10-2015",
     provider: "GP"

@@ -1,6 +1,2 @@
 = render layout: "renalware/patients/layout", locals: { title: "Medications" } do
-  = render "index",
-      query: query,
-      patient: patient,
-      treatable: treatable,
-      medications: medications
+  = render "index", local_assigns

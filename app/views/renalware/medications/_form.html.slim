@@ -4,8 +4,7 @@ ruby:
     h["Renalware::ExitSiteInfection"] = "exit_site_infection"
   end
 
-= simple_form_for medication, url: url,
-    html: { class: [local_assigns[:form_class], "medication-form"] },
+= simple_form_for medication, url: url, html: { class: "medication-form" },
     remote: true, wrapper: :horizontal_form do |f|
 
   .med-form.content id=("edit-meds-#{f.object.id}" )
@@ -13,18 +12,15 @@ ruby:
 
     = hidden_field_tag :treatable_type, treatable.class.name
     = f.input :dose
-    = f.association :medication_route, collection: Renalware::MedicationRoute.all,
-        label_method: :name,
-        prompt: "Please select route of administration",
-        html_input: { class: "medication-route-select" },
-        label: "Route"
-    = f.input :frequency, label: "Frequency & Duration"
+    = f.association :medication_route, collection: medication_routes,
+        label_method: :code, prompt: :translate
+    = f.input :route_description
+    = f.input :frequency
     = f.input :notes
-    = f.input :start_date, as: :date_picker, label: "Prescribed on"
-    = f.input :end_date, as: :date_picker, label: "Terminated on"
-    = f.input :provider, collection: Renalware::Provider.codes,
-        as: :radio_buttons, checked: Renalware::Provider.first,
-        label_method: -> (attr) { " " + I18n.t("enums.provider.#{attr}") }
+    = f.input :start_date, as: :date_picker
+    = f.input :end_date, as: :date_picker
+    = f.input :provider, collection: provider_codes, as: :radio_buttons,
+        label_method: :to_label, checked: provider_codes.first
 
   .row
     .large-offset-3.large-7.columns

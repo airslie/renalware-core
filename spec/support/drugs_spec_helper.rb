@@ -23,9 +23,9 @@ module DrugsSpecHelper
       "Other" => "Other (Refer to notes)"
     }
 
-    medication_routes.map do |name, fullname|
-      route = create(:medication_route, name: name, full_name: fullname)
-      instance_variable_set(:"@#{name.downcase}", route)
+    medication_routes.map do |code, name|
+      route = create(:medication_route, code: code, name: name)
+      instance_variable_set(:"@#{code.downcase}", route)
     end
   end
 

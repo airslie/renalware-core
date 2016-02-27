@@ -11,7 +11,7 @@
 
   = field_set_tag "Antibiotics/Routes" do
     = render "renalware/medications/index",
-        query: nil,
+        search: nil,
         patient: @patient,
-        treatable: @exit_site_infection,
-        medications: @exit_site_infection.medications.ordered
+        treatable: @treatable,
+        medications: @medications

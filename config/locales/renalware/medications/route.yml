@@ -1,0 +1,6 @@
+en:
+  medications:
+    routes:
+      form:
+        prompt:
+          other: "Other (Please specify in Route Description below)"
