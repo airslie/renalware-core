@@ -801,6 +801,38 @@ ALTER SEQUENCE exit_site_infections_id_seq OWNED BY exit_site_infections.id;
 
 
 --
+-- Name: feed_messages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE feed_messages (
+    id integer NOT NULL,
+    event_code character varying NOT NULL,
+    body text NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: feed_messages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE feed_messages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feed_messages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE feed_messages_id_seq OWNED BY feed_messages.id;
+
+
+--
 -- Name: fluid_descriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2696,6 +2728,13 @@ ALTER TABLE ONLY exit_site_infections ALTER COLUMN id SET DEFAULT nextval('exit_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY feed_messages ALTER COLUMN id SET DEFAULT nextval('feed_messages_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY fluid_descriptions ALTER COLUMN id SET DEFAULT nextval('fluid_descriptions_id_seq'::regclass);
 
 
@@ -3187,6 +3226,14 @@ ALTER TABLE ONLY events
 
 ALTER TABLE ONLY exit_site_infections
     ADD CONSTRAINT exit_site_infections_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feed_messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY feed_messages
+    ADD CONSTRAINT feed_messages_pkey PRIMARY KEY (id);
 
 
 --
@@ -4932,6 +4979,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160208153327');
 INSERT INTO schema_migrations (version) VALUES ('20160209203446');
 
 INSERT INTO schema_migrations (version) VALUES ('20160218220145');
+
+INSERT INTO schema_migrations (version) VALUES ('20160302192055');
 
 INSERT INTO schema_migrations (version) VALUES ('20160314181446');
 
