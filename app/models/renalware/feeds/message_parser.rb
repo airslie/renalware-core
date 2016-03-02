@@ -7,8 +7,8 @@ module Renalware
         new.parse(raw_message)
       end
 
-      def parse(raw_message)
-        Message.new
+      def parse(message_string)
+        MessageWrapper.new(message_string)
       end
     end
   end
