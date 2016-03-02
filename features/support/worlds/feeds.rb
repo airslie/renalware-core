@@ -6,8 +6,7 @@ module World
       end
 
       def process_message(message_payload)
-        message = Renalware::Feeds::Message.for(message_payload)
-        message.save
+        Renalware::Feeds::MessagePersister.call(message_payload)
       end
 
       def expect_message_to_be_recorded(message)
