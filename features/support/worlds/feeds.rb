@@ -7,6 +7,7 @@ module World
 
       def process_message(message_payload)
        Renalware::Feeds::MessagePersister.new.call(message_payload)
+       command = Renalware::Pathology::MessageCommandParser.new.parse(message_payload)
       end
 
       def expect_message_to_be_recorded(message)
