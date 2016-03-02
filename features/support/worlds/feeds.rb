@@ -2,11 +2,11 @@ module World
   module Feeds
     module Domain
       def parse_message(raw_message)
-        Renalware::Feeds::MessageParser.parse(raw_message)
+        Renalware::Feeds::MessageParser.new.parse(raw_message)
       end
 
       def process_message(message_payload)
-        Renalware::Feeds::MessagePersister.call(message_payload)
+       Renalware::Feeds::MessagePersister.new.call(message_payload)
       end
 
       def expect_message_to_be_recorded(message)
