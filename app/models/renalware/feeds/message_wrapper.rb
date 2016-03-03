@@ -6,27 +6,40 @@ module Renalware
     class MessageWrapper < SimpleDelegator
       def initialize(message_string)
         @message_string = message_string
-        @message = ::HL7::Message.new(message_string.lines)
-
-        super(@message)
+        super(::HL7::Message.new(message_string.lines))
       end
 
       class ObservationRequest < SimpleDelegator
+        def initialize(observation_request_segment, observations_segments)
+          @observations_segments = observations_segments
+          super(observation_request_segment)
+        end
+
+        def observations
+          @observations_segments.map { |segment| Observation.new(segment) }
+        end
+
         def ordering_provider
-          self[:OBR].ordering_provider
+          super
         end
 
         def placer_order_number
-          self[:OBR].placer_order_number.split("^").first
+          super.split("^").first
         end
 
         def observation_date_time
-          self[:OBR].observation_date
+          observation_date
+        end
+      end
+
+      class Observation < SimpleDelegator
+        def comment
+          observation_value
         end
       end
 
       def observation_request
-        ObservationRequest.new(@message)
+        ObservationRequest.new(self[:OBR], self[:OBX])
       end
 
       def type
