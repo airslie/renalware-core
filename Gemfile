@@ -53,7 +53,7 @@ group :development, :test do
   gem 'poltergeist'
   gem 'pry-byebug'
   gem 'quiet_assets'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.4.0'
   gem 'rspec-expectations'
   gem 'rspec-html-matchers'
   gem 'shoulda-matchers'
