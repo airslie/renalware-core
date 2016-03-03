@@ -5,14 +5,22 @@ module Renalware::Pathology
     describe "#parse" do
       let(:message_payload) {
         double(:message_payload,
-          observation_request: double(ordering_provider: "::name::")
+          observation_request: double(
+            ordering_provider: "::name::",
+            placer_order_number: "::pcs code::"
+          )
         )
       }
 
       it "transfers attributes from the message payload to the params" do
         params = subject.parse(message_payload)
 
-        expect(params).to include({observation_request: {requestor_name: "::name::"}})
+        expect(params).to eq({
+          observation_request: {
+            requestor_name: "::name::",
+            pcs_code: "::pcs code::"
+          }
+        })
       end
     end
   end

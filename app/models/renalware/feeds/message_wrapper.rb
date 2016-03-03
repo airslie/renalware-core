@@ -15,6 +15,10 @@ module Renalware
         def ordering_provider
           self[:OBR].ordering_provider
         end
+
+        def placer_order_number
+          self[:OBR].placer_order_number.split("^").first
+        end
       end
 
       def observation_request

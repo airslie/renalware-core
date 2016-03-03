@@ -8,7 +8,7 @@ MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
 PID|||Z999990^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
 PV1||Inpatient|NIBC^^^^^^^^|||||MID^KINGS MIDWIVES||||||||||NHS|HXF888888^^^Visit Number|||||||||
 ORC|RE|^PCS|09B0099478^LA||CM||||200911111841|||MID^KINGS MIDWIVES|||||||
-OBR|1|^PCS|09B0099478^LA|FBC^FULL BLOOD COUNT^MB||200911111841|200911111841|||||||200911111841|B^Blood|MID^KINGS MIDWIVES||09B0099478||||200911121646||HM|F||||||||||||||||||
+OBR|1|123456^PCS|09B0099478^LA|FBC^FULL BLOOD COUNT^MB||200911111841|200911111841|||||||200911111841|B^Blood|MID^KINGS MIDWIVES||09B0099478||||200911121646||HM|F||||||||||||||||||
 OBX|1|TX|WBC^WBC^MB||6.09||||||F|||200911112026||BBKA^Kenneth AMENYAH|
 OBX|2|TX|RBC^RBC^MB||4.00||||||F|||200911112026||BBKA^Kenneth AMENYAH|
 OBX|3|TX|HB^Hb^MB||11.8||||||F|||200911112026||BBKA^Kenneth AMENYAH|
@@ -35,16 +35,12 @@ OBX|17|TX|BASO^Basophils^MB||  0.02||||||F|||200911121646||BHISVC01^BHI Authchec
         expect(message).to be_a(MessageWrapper)
       end
 
-      it "assigns the event code to the message" do
+      it "assigns the attributes to the message", :aggregate_failures do
         message = subject.parse(raw_message)
 
         expect(message.type).to eq("ORU^R01")
-      end
-
-      it "assigns the ordering provider of the observation to the message" do
-        message = subject.parse(raw_message)
-
         expect(message.observation_request.ordering_provider).to eq("MID^KINGS MIDWIVES")
+        expect(message.observation_request.placer_order_number).to eq("123456")
       end
 
       it "assigns the payload to the message" do
