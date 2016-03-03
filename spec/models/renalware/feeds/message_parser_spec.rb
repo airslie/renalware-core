@@ -41,6 +41,7 @@ OBX|17|TX|BASO^Basophils^MB||  0.02||||||F|||200911121646||BHISVC01^BHI Authchec
         expect(message.type).to eq("ORU^R01")
         expect(message.observation_request.ordering_provider).to eq("MID^KINGS MIDWIVES")
         expect(message.observation_request.placer_order_number).to eq("123456")
+        expect(message.observation_request.observation_date_time).to eq("200911111841")
       end
 
       it "assigns the payload to the message" do

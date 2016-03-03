@@ -7,7 +7,8 @@ module Renalware::Pathology
         double(:message_payload,
           observation_request: double(
             ordering_provider: "::name::",
-            placer_order_number: "::pcs code::"
+            placer_order_number: "::pcs code::",
+            observation_date_time: "200911111841"
           )
         )
       }
@@ -18,7 +19,8 @@ module Renalware::Pathology
         expect(params).to eq({
           observation_request: {
             requestor_name: "::name::",
-            pcs_code: "::pcs code::"
+            pcs_code: "::pcs code::",
+            observed_at: "2009-11-11 18:41:00 -0500"
           }
         })
       end
