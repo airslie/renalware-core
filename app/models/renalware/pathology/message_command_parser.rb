@@ -7,7 +7,7 @@ module Renalware
 
       def parse(message_payload)
         Command.new(
-          message_payload.requester_name
+          message_payload.observation_request.ordering_provider
         )
       end
     end

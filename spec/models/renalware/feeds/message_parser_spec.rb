@@ -41,6 +41,12 @@ OBX|17|TX|BASO^Basophils^MB||  0.02||||||F|||200911121646||BHISVC01^BHI Authchec
         expect(message.type).to eq("ORU^R01")
       end
 
+      it "assigns the ordering provider of the observation to the message" do
+        message = subject.parse(raw_message)
+
+        expect(message.observation_request.ordering_provider).to eq("MID^KINGS MIDWIVES")
+      end
+
       it "assigns the payload to the message" do
         message = subject.parse(raw_message)
 
