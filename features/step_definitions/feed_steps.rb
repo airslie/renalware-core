@@ -3,7 +3,7 @@ Given(/^the following HL7 message:$/) do |raw_message|
 end
 
 When(/^the message is processed$/) do
-  process_message(@message)
+  process_message(@message.to_s)
 end
 
 When(/^the HL7 message is recorded$/) do

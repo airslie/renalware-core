@@ -5,10 +5,8 @@ module World
         Renalware::Feeds::MessageParser.new.parse(raw_message)
       end
 
-      def process_message(message_payload)
-       Renalware::Feeds::MessagePersister.new.call(message_payload)
-       params = Renalware::Pathology::MessageParamParser.new.parse(message_payload)
-       Renalware::Pathology::CreateObservations.new.call(params)
+      def process_message(raw_message)
+        Renalware::Feeds::MessageProcessor.new.call(raw_message)
       end
 
       def expect_message_to_be_recorded(message)
