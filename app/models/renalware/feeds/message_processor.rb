@@ -5,10 +5,10 @@ module Renalware
     class MessageProcessor
       def call(raw_message)
         begin
-           message_payload = Renalware::Feeds::MessageParser.new.parse(raw_message)
-           Renalware::Feeds::MessagePersister.new.call(message_payload)
-           params = Renalware::Pathology::MessageParamParser.new.parse(message_payload)
-           Renalware::Pathology::CreateObservations.new.call(params)
+           message_payload = MessageParser.new.parse(raw_message)
+           MessagePersister.new.call(message_payload)
+           params = Pathology::MessageParamParser.new.parse(message_payload)
+           Pathology::CreateObservations.new.call(params)
         rescue Exception => error
           # TODO: Add notifier
           raise error
