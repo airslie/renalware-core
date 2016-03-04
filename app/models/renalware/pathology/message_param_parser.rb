@@ -4,24 +4,33 @@ module Renalware
   module Pathology
     class MessageParamParser
       def parse(message_payload)
-        params = {
+        request = message_payload.observation_request
+
+        observations_params = build_observations_params(request.observations)
+        build_observation_request_params(request, observations_params)
+      end
+
+      private
+
+      def build_observation_request_params(request, observations_params)
+        {
           observation_request: {
-            requestor_name: message_payload.observation_request.ordering_provider,
-            pcs_code: message_payload.observation_request.placer_order_number,
-            observed_at: Time.parse(message_payload.observation_request.date_time).to_s,
-            observation_attributes: []
+            requestor_name: request.ordering_provider,
+            pcs_code: request.placer_order_number,
+            observed_at: Time.parse(request.date_time).to_s,
+            observation_attributes: observations_params
           }
         }
+      end
 
-        message_payload.observation_request.observations.each do |observation|
-          params[:observation_request][:observation_attributes] << {
+      def build_observations_params(observations)
+        observations.map do |observation|
+          {
             observed_at: Time.parse(observation.date_time).to_s,
             value: observation.value,
             comment: observation.comment
           }
         end
-
-        params
       end
     end
   end
