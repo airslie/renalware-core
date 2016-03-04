@@ -6,7 +6,8 @@ module Renalware::Pathology
       it "creates the request and related observations", :aggregate_failures do
         params = {}
         params[:observation_request] = attributes_for(:pathology_observation_request)
-        params[:observation_request][:observations_attributes] = [attributes_for(:pathology_observation)]
+        params[:observation_request][:observations_attributes] =
+          [attributes_for(:pathology_observation)]
 
         subject.call(params)
 
