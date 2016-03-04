@@ -8,7 +8,14 @@ module Renalware::Pathology
           observation_request: double(
             ordering_provider: "::name::",
             placer_order_number: "::pcs code::",
-            date_time: "200911111841"
+            date_time: "200911111841",
+            observations: [
+              double(
+                date_time: "200911112026",
+                value: "::value::",
+                comment: "::comment::"
+              )
+            ]
           )
         )
       }
@@ -20,7 +27,12 @@ module Renalware::Pathology
           observation_request: {
             requestor_name: "::name::",
             pcs_code: "::pcs code::",
-            observed_at: "2009-11-11 18:41:00 -0500"
+            observed_at: "2009-11-11 18:41:00 -0500",
+            observation_attributes: [
+              observed_at: "2009-11-11 20:26:00 -0500",
+              value: "::value::",
+              comment: "::comment::"
+            ]
           }
         })
       end
