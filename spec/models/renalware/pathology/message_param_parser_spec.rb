@@ -30,7 +30,7 @@ module Renalware::Pathology
             observed_at: "2009-11-11 18:41:00 -0500",
             observation_attributes: [
               observed_at: "2009-11-11 20:26:00 -0500",
-              value: "::value::",
+              result: "::value::",
               comment: "::comment::"
             ]
           }

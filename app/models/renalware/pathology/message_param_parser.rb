@@ -27,7 +27,7 @@ module Renalware
         observations.map do |observation|
           {
             observed_at: Time.parse(observation.date_time).to_s,
-            value: observation.value,
+            result: observation.value,
             comment: observation.comment
           }
         end
