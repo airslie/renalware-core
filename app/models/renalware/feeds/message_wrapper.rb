@@ -40,6 +40,10 @@ module Renalware
         def observation_date_time
           observation_date
         end
+
+        def value
+          observation_value
+        end
       end
 
       def observation_request
