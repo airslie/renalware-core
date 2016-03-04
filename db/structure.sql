@@ -1619,6 +1619,74 @@ ALTER SEQUENCE organism_codes_id_seq OWNED BY organism_codes.id;
 
 
 --
+-- Name: pathology_observation_requests; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_observation_requests (
+    id integer NOT NULL,
+    pcs_code character varying,
+    requestor_name character varying,
+    observed_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pathology_observation_requests_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pathology_observation_requests_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_observation_requests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pathology_observation_requests_id_seq OWNED BY pathology_observation_requests.id;
+
+
+--
+-- Name: pathology_observations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_observations (
+    id integer NOT NULL,
+    request_id integer,
+    result character varying,
+    comment text,
+    observed_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    request_id_id integer
+);
+
+
+--
+-- Name: pathology_observations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pathology_observations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_observations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pathology_observations_id_seq OWNED BY pathology_observations.id;
+
+
+--
 -- Name: patients; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2889,6 +2957,20 @@ ALTER TABLE ONLY organism_codes ALTER COLUMN id SET DEFAULT nextval('organism_co
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY pathology_observation_requests ALTER COLUMN id SET DEFAULT nextval('pathology_observation_requests_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observations ALTER COLUMN id SET DEFAULT nextval('pathology_observations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY patients ALTER COLUMN id SET DEFAULT nextval('patients_id_seq'::regclass);
 
 
@@ -3410,6 +3492,22 @@ ALTER TABLE ONLY modality_reasons
 
 ALTER TABLE ONLY organism_codes
     ADD CONSTRAINT organism_codes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_observation_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observation_requests
+    ADD CONSTRAINT pathology_observation_requests_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_observations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observations
+    ADD CONSTRAINT pathology_observations_pkey PRIMARY KEY (id);
 
 
 --
@@ -4040,6 +4138,13 @@ CREATE INDEX index_modalities_on_reason_id ON modalities USING btree (reason_id)
 
 
 --
+-- Name: index_pathology_observations_on_request_id_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pathology_observations_on_request_id_id ON pathology_observations USING btree (request_id_id);
+
+
+--
 -- Name: index_patients_on_doctor_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4482,6 +4587,14 @@ ALTER TABLE ONLY transplant_recipient_followups
 
 ALTER TABLE ONLY problem_notes
     ADD CONSTRAINT fk_rails_6a44f3907b FOREIGN KEY (problem_id) REFERENCES problem_problems(id);
+
+
+--
+-- Name: fk_rails_70ef87ad18; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observations
+    ADD CONSTRAINT fk_rails_70ef87ad18 FOREIGN KEY (request_id) REFERENCES pathology_observation_requests(id);
 
 
 --
@@ -4981,6 +5094,10 @@ INSERT INTO schema_migrations (version) VALUES ('20160209203446');
 INSERT INTO schema_migrations (version) VALUES ('20160218220145');
 
 INSERT INTO schema_migrations (version) VALUES ('20160302192055');
+
+INSERT INTO schema_migrations (version) VALUES ('20160304151449');
+
+INSERT INTO schema_migrations (version) VALUES ('20160304151540');
 
 INSERT INTO schema_migrations (version) VALUES ('20160314181446');
 

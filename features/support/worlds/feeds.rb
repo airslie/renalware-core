@@ -8,6 +8,7 @@ module World
       def process_message(message_payload)
        Renalware::Feeds::MessagePersister.new.call(message_payload)
        params = Renalware::Pathology::MessageParamParser.new.parse(message_payload)
+       Renalware::Pathology::CreateObservations.new.call(params)
       end
 
       def expect_message_to_be_recorded(message)
