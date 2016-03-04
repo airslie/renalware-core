@@ -30,7 +30,7 @@ gem 'jbuilder'
 gem 'active_type'
 gem 'dumb_delegator'
 gem 'ruby-hl7', '~> 1.1.0'
-
+gem 'delayed_job_active_record'
 
 source 'https://rails-assets.org' do
   # https://github.com/najlepsiwebdesigner/foundation-datepicker

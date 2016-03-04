@@ -447,6 +447,45 @@ ALTER SEQUENCE clinics_id_seq OWNED BY clinics.id;
 
 
 --
+-- Name: delayed_jobs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE delayed_jobs (
+    id integer NOT NULL,
+    priority integer DEFAULT 0 NOT NULL,
+    attempts integer DEFAULT 0 NOT NULL,
+    handler text NOT NULL,
+    last_error text,
+    run_at timestamp without time zone,
+    locked_at timestamp without time zone,
+    failed_at timestamp without time zone,
+    locked_by character varying,
+    queue character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: delayed_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE delayed_jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: delayed_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE delayed_jobs_id_seq OWNED BY delayed_jobs.id;
+
+
+--
 -- Name: doctors; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2726,6 +2765,13 @@ ALTER TABLE ONLY clinics ALTER COLUMN id SET DEFAULT nextval('clinics_id_seq'::r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY doctors ALTER COLUMN id SET DEFAULT nextval('doctors_id_seq'::regclass);
 
 
@@ -3231,6 +3277,14 @@ ALTER TABLE ONLY clinics
 
 
 --
+-- Name: delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY delayed_jobs
+    ADD CONSTRAINT delayed_jobs_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: doctors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3715,6 +3769,13 @@ ALTER TABLE ONLY versions
 --
 
 CREATE INDEX access_versions_type_id ON access_versions USING btree (item_type, item_id);
+
+
+--
+-- Name: delayed_jobs_priority; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delayed_jobs_priority ON delayed_jobs USING btree (priority, run_at);
 
 
 --
@@ -5098,6 +5159,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160302192055');
 INSERT INTO schema_migrations (version) VALUES ('20160304151449');
 
 INSERT INTO schema_migrations (version) VALUES ('20160304151540');
+
+INSERT INTO schema_migrations (version) VALUES ('20160304162205');
 
 INSERT INTO schema_migrations (version) VALUES ('20160314181446');
 
