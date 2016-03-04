@@ -28,7 +28,7 @@ module Renalware::Pathology
             requestor_name: "::name::",
             pcs_code: "::pcs code::",
             observed_at: "2009-11-11 18:41:00 -0500",
-            observation_attributes: [
+            observations_attributes: [
               observed_at: "2009-11-11 20:26:00 -0500",
               result: "::value::",
               comment: "::comment::"

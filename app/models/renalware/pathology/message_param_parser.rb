@@ -18,7 +18,7 @@ module Renalware
             requestor_name: request.ordering_provider,
             pcs_code: request.placer_order_number,
             observed_at: Time.parse(request.date_time).to_s,
-            observation_attributes: observations_params
+            observations_attributes: observations_params
           }
         }
       end
