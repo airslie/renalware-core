@@ -27,7 +27,7 @@ module Renalware
           super.split("^").first
         end
 
-        def observation_date_time
+        def date_time
           observation_date
         end
       end
@@ -37,7 +37,7 @@ module Renalware
           observation_value
         end
 
-        def observation_date_time
+        def date_time
           observation_date
         end
 

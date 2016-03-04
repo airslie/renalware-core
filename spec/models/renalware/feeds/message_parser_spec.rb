@@ -41,9 +41,9 @@ OBX|17|TX|BASO^Basophils^MB||  0.02||||||F|||200911121646||BHISVC01^BHI Authchec
         expect(message.type).to eq("ORU^R01")
         expect(message.observation_request.ordering_provider).to eq("MID^KINGS MIDWIVES")
         expect(message.observation_request.placer_order_number).to eq("123456")
-        expect(message.observation_request.observation_date_time).to eq("200911111841")
+        expect(message.observation_request.date_time).to eq("200911111841")
         expect(message.observation_request.observations.first.comment).to eq("6.09")
-        expect(message.observation_request.observations.first.observation_date_time).to eq("200911112026")
+        expect(message.observation_request.observations.first.date_time).to eq("200911112026")
         expect(message.observation_request.observations.first.value).to eq("6.09")
       end
 

@@ -8,7 +8,7 @@ module Renalware::Pathology
           observation_request: double(
             ordering_provider: "::name::",
             placer_order_number: "::pcs code::",
-            observation_date_time: "200911111841"
+            date_time: "200911111841"
           )
         )
       }
