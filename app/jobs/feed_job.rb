@@ -1,5 +1,3 @@
-require_dependency 'renalware/feeds'
-
 # To create outside of Rails, insert into the `delayed_jobs` table:
 #
 #     handler: {see example.yml}
