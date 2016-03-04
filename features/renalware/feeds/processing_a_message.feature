@@ -1,4 +1,4 @@
-Feature: Persisting a message
+Feature: Processing a message
 
   @wip
   Scenario: An HL7 message was received
