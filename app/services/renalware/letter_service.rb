@@ -16,7 +16,7 @@ module Renalware
 
       raise 'Invalid recipient type' unless RECIPIENT_TYPES.include?(recipient)
 
-      update_description(params[:letter_description_id])
+      update_description(params[:description_id])
       update_recipient_address
       update_letter(params)
       letter.save
@@ -28,9 +28,9 @@ module Renalware
       letter.attributes = params
     end
 
-    def update_description(letter_description_id)
-      if letter_description_id.present?
-        letter.letter_description = LetterDescription.find(letter_description_id.to_i)
+    def update_description(description_id)
+      if description_id.present?
+        letter.description = Letters::Description.find(description_id.to_i)
       end
     end
 

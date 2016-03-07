@@ -9,9 +9,9 @@
     = field_set_tag "Header" do
       .row
         .columns.large-10.inline
-          = f.association :letter_description,
+          = f.association :description,
               label: "Description",
-              selected: @letter.letter_description_id,
+              selected: @letter.description_id,
               value_method: :id,
               label_method: :text,
               include_blank: true,

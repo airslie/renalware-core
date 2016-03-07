@@ -11,16 +11,16 @@
     .columns.large-4
       | To: #{recipients(@letter).first}, CC: #{recipients(@letter).last}
     .columns.large-4
-      | Title: #{@letter.letter_description.text}
+      | Title: #{@letter.description.text}
 
-    - if @letter.is_a? Renalware::ClinicLetter
+    - if @letter.is_a? Renalware::Letters::ClinicLetter
       .columns.large-4
         | Clinic date: #{@letter.clinic_visit.date}
 
 hr
 
 .letter-preview-body
-  - if @letter.is_a? Renalware::ClinicLetter
+  - if @letter.is_a? Renalware::Letters::ClinicLetter
     .row
       = patient_problems(@letter)
       = patient_medications(@letter)

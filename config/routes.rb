@@ -13,12 +13,12 @@ Rails.application.routes.draw do
     end
 
 
-    get "authors/:author_id/letters", to: "letters#author", as: "author_letters"
+    get "authors/:author_id/letters", to: "letters/letters#author", as: "author_letters"
 
     resources :bag_types, except: [:show]
 
     resources :clinic_visits do
-      resources :letters, controller: "clinic_letters", only: [:new, :edit]
+      resources :letters, controller: "letters/clinic_letters", only: [:new, :edit]
     end
 
     resources :deaths, only: :index, as: :patient_deaths
@@ -89,7 +89,9 @@ Rails.application.routes.draw do
         resources :profiles, except: [:index, :destroy]
       end
 
-      resources :letters
+      namespace :letters do
+        resources :letters
+      end
 
       resources :medications
 

@@ -1,58 +1,60 @@
 require 'rails_helper'
 
 module Renalware
-  describe LettersController, type: :controller do
-    before do
-      @patient = create(:patient)
-    end
-
-    describe 'GET new' do
+  module Letters
+    describe LettersController, type: :controller do
       before do
-        get :new, { patient_id: @patient.to_param, type: 'ClinicLetter' }
+        @patient = create(:patient)
       end
 
-      it 'responds with success' do
-        expect(response).to have_http_status(:success)
+      describe 'GET new' do
+        before do
+          get :new, { patient_id: @patient.to_param, type: 'ClinicLetter' }
+        end
+
+        it 'responds with success' do
+          expect(response).to have_http_status(:success)
+        end
+
+        it 'assigns the current patient to the letter' do
+          expect(assigns(:letter)).not_to be_nil
+          expect(assigns(:letter).patient).to eq(@patient)
+        end
       end
 
-      it 'assigns the current patient to the letter' do
-        expect(assigns(:letter)).not_to be_nil
-        expect(assigns(:letter).patient).to eq(@patient)
-      end
-    end
+      describe 'GET index' do
+        before do
+          create(:letter, patient: @patient)
+          get :index, { patient_id: @patient.to_param }
+        end
 
-    describe 'GET index' do
-      before do
-        create(:letter, patient: @patient)
-        get :index, { patient_id: @patient.to_param }
-      end
+        it 'responds with success' do
+          expect(response).to have_http_status(:success)
+        end
 
-      it 'responds with success' do
-        expect(response).to have_http_status(:success)
-      end
-
-      it 'assigns @letters' do
-        expect(assigns(:letters)).not_to be_nil
-        expect(assigns(:letters).first).to be_a(BaseLetter)
-        expect(assigns(:letters).first.patient).to eq(@patient)
-      end
-    end
-
-    describe 'GET author' do
-      before do
-        @author = create(:user, :author)
-        create(:letter, author: @author)
-        get :author, { author_id: @author.to_param }
+        it 'assigns @letters' do
+          expect(assigns(:letters)).not_to be_nil
+          expect(assigns(:letters).first).to be_a(BaseLetter)
+          expect(assigns(:letters).first.patient).to eq(@patient)
+        end
       end
 
-      it 'responds with success' do
-        expect(response).to have_http_status(:success)
-      end
+      describe 'GET author' do
+        before do
+          @author = create(:user, :author)
+          create(:letter, author: @author)
+          get :author, { author_id: @author.to_param }
+        end
 
-      it 'assigns letters' do
-        expect(assigns(:letters)).not_to be_nil
-        expect(assigns(:letters).first).to be_a(BaseLetter)
-        expect(assigns(:letters).first.author).to eq(@author)
+        it 'responds with success' do
+          expect(response).to have_http_status(:success)
+        end
+
+        it 'assigns letters' do
+          expect(assigns(:letters)).not_to be_nil
+          expect(assigns(:letters).first).to be_a(BaseLetter)
+          expect(assigns(:letters).first.author).to eq(@author)
+        end
       end
     end
   end

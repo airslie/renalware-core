@@ -7,7 +7,7 @@ module Renalware
     end
 
     def self.valid_classes
-      @types.map { |t| "Renalware::#{t}" }
+      @types.map { |t| "Renalware::Letters::#{t}" }
     end
 
     included do
@@ -20,7 +20,7 @@ module Renalware
     end
 
     def short_type
-      model_name.name.gsub(/Renalware::/, '')
+      model_name.name.gsub(/Renalware::Letters::/, '')
     end
   end
 end

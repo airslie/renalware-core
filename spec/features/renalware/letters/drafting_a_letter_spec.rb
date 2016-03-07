@@ -12,7 +12,7 @@ module Renalware
       @letter = create(:letter, patient: @patient)
 
       login_as_clinician
-      visit new_patient_letter_path(patient_id: @patient.to_param)
+      visit new_patient_letters_letter_path(patient_id: @patient.to_param)
     end
 
     scenario "a valid letter" do
@@ -22,7 +22,7 @@ module Renalware
 
       click_on "Save"
 
-      expect(current_path).to eq(patient_letters_path(@patient))
+      expect(current_path).to eq(patient_letters_letters_path(@patient))
 
       within("table.letters tbody tr:first-child") do
         expect(page).to have_content("Aneurin Bevan")
@@ -37,7 +37,7 @@ module Renalware
       click_on "Save"
 
       expect(page).to have_content("You have failed to add a new letter")
-      expect(page).to have_content("Letter description can't be blank")
+      expect(page).to have_content("Description can't be blank")
     end
 
     scenario "a letter to a recipient other than the doctor or patient" do
@@ -49,7 +49,7 @@ module Renalware
 
       expect { click_on "Save" }.to change(Address, :count).by(1)
 
-      expect(current_path).to eq(patient_letters_path(@patient))
+      expect(current_path).to eq(patient_letters_letters_path(@patient))
     end
 
     scenario "a letter sent for review" do
@@ -66,7 +66,7 @@ module Renalware
     end
 
     scenario "edit a letter" do
-      visit edit_patient_letter_path(@patient, @letter)
+      visit edit_patient_letters_letter_path(@patient, @letter)
 
       select "review", from: "Status"
 

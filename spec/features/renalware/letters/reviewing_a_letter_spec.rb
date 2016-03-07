@@ -19,7 +19,7 @@ module Renalware
 
       click_on "Update"
 
-      expect(current_path).to eq(patient_letters_path(@patient))
+      expect(current_path).to eq(patient_letters_letters_path(@patient))
       within(".letters tbody tr:first-child") do
         expect(page).to have_content("Biopsy Letter")
       end
