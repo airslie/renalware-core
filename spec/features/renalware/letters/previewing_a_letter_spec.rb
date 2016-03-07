@@ -11,7 +11,7 @@ module Renalware
 
     scenario 'A simple letter' do
       create(:letter, patient: @patient, author: author)
-      visit patient_letters_path(@patient)
+      visit patient_letters_letters_path(@patient)
 
       within('.letters tbody tr:first-child') do
         click_on 'Preview'
@@ -20,7 +20,7 @@ module Renalware
       within('.letter-preview-header') do
         expect(page).to have_content('Status: DRAFT')
         expect(page).to have_content('To: Donald Good, CC: Jack Jones')
-        # TODO: this is the factory LetterDescription, it should have letter type traits
+        # TODO: this is the factory Letters::Description, it should have letter type traits
         expect(page).to have_content('Title: Clinic letter')
       end
 
@@ -34,7 +34,7 @@ module Renalware
 
     scenario 'A clinic letter' do
       create(:clinic_letter, patient: @patient, author: author)
-      visit patient_letters_path(@patient)
+      visit patient_letters_letters_path(@patient)
 
       within('.letters tbody tr:first-child') do
         click_on 'Preview'

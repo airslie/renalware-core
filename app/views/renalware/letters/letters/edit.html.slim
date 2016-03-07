@@ -2,7 +2,7 @@
   .row
     .large-12.columns
       = simple_form_for [@patient, @letter], as: :letter,
-        url: patient_letter_path(patient_id: @patient.to_param, id: @letter.to_param) do |f|
+        url: patient_letters_letter_path(patient_id: @patient.to_param, id: @letter.to_param) do |f|
 
-        = render partial: 'renalware/letters/form', locals: { f: f }
+        = render partial: 'renalware/letters/letters/form', locals: { f: f }
         = f.submit 'Update', class: 'button save'
