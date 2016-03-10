@@ -28,8 +28,4 @@ FactoryGirl.define do
     #   letter_type "simple"
     # end
   end
-
-  # factory :clinic_letter, class: "Renalware::Letters::ClinicLetter", parent: :letter do
-  #   clinic_visit
-  # end
 end

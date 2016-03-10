@@ -13,20 +13,9 @@
     .columns.large-4
       | Title: #{@letter.description.text}
 
-    - if @letter.is_a? Renalware::Letters::ClinicLetter
-      .columns.large-4
-        | Clinic date: #{@letter.clinic_visit.date}
-
 hr
 
 .letter-preview-body
-  - if @letter.is_a? Renalware::Letters::ClinicLetter
-    .row
-      = patient_problems(@letter)
-      = patient_medications(@letter)
-
-    p
-
   .row
     = salutation(@letter)
     br
