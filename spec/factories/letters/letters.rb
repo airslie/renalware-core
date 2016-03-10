@@ -3,7 +3,7 @@ FactoryGirl.define do
     patient
     issued_on Time.zone.today
     state "draft"
-    body "I met with Mrs. Brown last Tuesay and I am pleased to report a marked improvement in her condition."
+    body "I am pleased to report a marked improvement in her condition."
     # signature "Dr. D.O. Good"
 
     association :author, factory: [:user, :author]
