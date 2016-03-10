@@ -1,0 +1,23 @@
+en:
+  activerecord:
+    attributes:
+      renalware/letters/letter:
+        issued_on: Date
+        author: Author
+        description: Description
+        salutation: Salutation
+        body: Message
+        state: State
+        notes: Internal Notes
+
+  enumerize:
+    renalware/letters/letter:
+      state:
+        draft: Draft
+        ready_for_review: Typed (for review)
+        archived: Archived
+
+  simple_form:
+    hints:
+      letters_letter:
+        notes: These notes will not appear on the letter

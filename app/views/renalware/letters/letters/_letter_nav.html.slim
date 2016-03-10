@@ -1,0 +1,4 @@
+- if @letter.persisted?
+  dl.sub-nav
+    dd= link_to "Preview", patient_letters_letter_path(@patient, @letter)
+    dd= link_to "Edit", edit_patient_letters_letter_path(@patient, @letter)

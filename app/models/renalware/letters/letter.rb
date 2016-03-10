@@ -2,7 +2,25 @@ require_dependency "renalware/letters"
 
 module Renalware
   module Letters
-    class Letter < BaseLetter
+    class Letter < ActiveRecord::Base
+      include LetterType
+      include Accountable
+      extend Enumerize
+
+      belongs_to :author, class_name: 'User'
+      belongs_to :patient
+
+      enumerize :state, in: %i(draft ready_for_review archived)
+
+      validates :author, presence: true
+      validates :patient, presence: true
+      validates :state, presence: true
+      validates :issued_on, presence: true
+      validates :description, presence: true
+
+      def self.policy_class
+        LetterPolicy
+      end
     end
   end
 end

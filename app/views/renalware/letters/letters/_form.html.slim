@@ -1,65 +1,40 @@
-= render partial: "renalware/shared/errors", locals: {model: f.object}
+ruby:
+  back_path = patient_letters_letters_path(@patient)
 
-= hidden_field_tag :letter_type, @letter.short_type
-= f.input :clinic_visit_id, as: :hidden if @letter.clinic_letter?
+.row.top
+  .medium-6.columns
+    = f.button :submit
+    span= " or "
+    = link_to "cancel", back_path
 
-.row
-  .columns.large-12
-    h5= letter_info(@letter)
-    = field_set_tag "Header" do
-      .row
-        .columns.large-10.inline
-          = f.association :description,
-              label: "Description",
-              selected: @letter.description_id,
-              value_method: :id,
-              label_method: :text,
-              include_blank: true,
-              prompt: "Select a letter description"
+.form-content
+  = render layout: "renalware/shared/fieldset",
+      locals: { legend: "Header", name: "header" } do
+    = f.input :description, \
+        input_html: { \
+          data: { \
+            autocomplete_source: search_letters_descriptions_path, \
+            autocomplete_rel: "#description_id" \
+          },
+          placeholder: "Start entering the description (min. 2 characters)", \
+          spellcheck: false, \
+          class: "clear-autocomplete" \
+        }
+    = hidden_field_tag "description_id"
+    = f.input :issued_on, as: :date_picker
+    = f.association :author, collection: Renalware::User.ordered, label_method: :full_name
 
-        .columns.large-2.inline
-          = f.input :state, label: "Status",
-              collection: [:draft, :review]
+  = render layout: "renalware/shared/fieldset",
+      locals: { legend: "Message", name: "message" } do
+    = f.input :salutation
+    = f.input :body, as: :text, input_html: { rows: 15 }
 
-      .row
-        .columns.large-4.inline
-          = f.association :author,
-              collection: Renalware::User.author,
-              value_method: :id,
-              label_method: :full_name
-
-= field_set_tag "Recipient" do
-  = f.input :recipient, as: :inline_radio_buttons,
-      collection: [["Doctor", "doctor"]],
-      label: false,
-      disabled: @patient.doctor.nil?
-
-  = f.input :recipient, as: :inline_radio_buttons,
-      collection: [["Patient", "patient"]],
-      label: false,
-      disabled: @patient.current_address.nil?
-
-  = radio_button_tag "letter[recipient]", "other", @patient.doctor.nil? && @patient.current_address.nil?, class: "inline"
-  = f.label :recipient, "Other"
-
-  = text_area_tag "other_recipient_address", recipient_address(@letter), rows: 3, disabled: @letter.recipient != "other", placeholder: "Alternative recipient address"
-
-- if @letter.clinic_letter?
-  .row
-    .columns.large-12
-      = field_set_tag "Clinical Summary" do
-        = patient_problems(@letter)
-        = patient_medications(@letter)
+  = render layout: "renalware/shared/fieldset",
+      locals: { legend: "Admin", name: "admin" } do
+    = f.input :notes, as: :text, input_html: { rows: 4 }
 
 .row
-  .columns.large-12
-    = field_set_tag "Message" do
-      = f.input :body, as: :text,
-          input_html: { rows: 15 },
-          label: "Body"
-
-- if @letter.author.present?
-  .row
-    .12-large.columns
-      = field_set_tag "Signature" do
-        p= @letter.author.signature
+  .large-12.columns
+    = f.button :submit
+    span= " or "
+    = link_to 'cancel', back_path
