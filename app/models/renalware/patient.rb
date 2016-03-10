@@ -21,7 +21,6 @@ module Renalware
     has_many :medication_routes, through: :medications
     has_many :modalities, class_name: "Modalities::Modality"
     has_many :pd_regimes
-    has_many :letters, class_name: "Renalware::Letters::BaseLetter"
     has_many :clinic_visits
 
     has_one :current_modality, -> { order(started_on: :desc).where(deleted_at: nil) },
