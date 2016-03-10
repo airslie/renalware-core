@@ -1,6 +1,6 @@
 module Renalware
   module Accesses
-    class ProceduresController < BaseController
+    class ProceduresController < Accesses::BaseController
       before_filter :load_patient
 
       def show

@@ -2,7 +2,7 @@ require "collection_presenter"
 
 module Renalware
   module Accesses
-    class DashboardsController < BaseController
+    class DashboardsController < Accesses::BaseController
       before_filter :load_patient
 
       def show

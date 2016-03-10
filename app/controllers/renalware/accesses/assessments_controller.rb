@@ -1,6 +1,6 @@
 module Renalware
   module Accesses
-    class AssessmentsController < BaseController
+    class AssessmentsController < Accesses::BaseController
       before_filter :load_patient
 
       def show
