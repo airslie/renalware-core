@@ -15,7 +15,10 @@ class CreateLetters < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_reference :letter_letters, :author, references: :users, index: true
+    add_reference :letter_letters, :letterhead, references: :letter_letterheads, index: true, null: false
+    add_foreign_key :letter_letters, :letter_letterheads, column: :letterhead_id
+
+    add_reference :letter_letters, :author, references: :users, index: true, null: false
     add_foreign_key :letter_letters, :users, column: :author_id
   end
 end

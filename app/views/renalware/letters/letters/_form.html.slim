@@ -10,6 +10,7 @@ ruby:
 .form-content
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Header", name: "header" } do
+    = f.association :letterhead
     = f.input :description, \
         input_html: { \
           data: { \

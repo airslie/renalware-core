@@ -10,6 +10,7 @@ module World
 
       def valid_simple_letter_attributes(patient)
         {
+          letterhead: Renalware::Letters::Letterhead.first,
           patient: patient,
           issued_on: Time.zone.today,
           description: "Foo bar"
@@ -32,7 +33,7 @@ module World
       #
       def create_simple_letter(patient:, user:, issued_on:)
         patient = letters_patient(patient)
-        patient.letters.create!(
+        patient.letters.create(
           valid_simple_letter_attributes(patient).merge(
             issued_on: issued_on,
             author: user,
@@ -74,9 +75,11 @@ module World
         visit patient_letters_letters_path(patient)
         click_on "Add simple letter"
 
-        fill_in "Date", with: I18n.l(issued_on)
+        attributes = valid_simple_letter_attributes(patient)
+        fill_in "Date", with: I18n.l(attributes[:issued_on]) if issued_on.present?
+        select attributes[:letterhead].name, from: "Letterhead"
         select user.full_name, from: "Author"
-        fill_in "Description", with: "This is a description"
+        fill_in "Description", with: attributes[:description]
 
         within ".top" do
           click_on "Create"

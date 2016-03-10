@@ -17,6 +17,7 @@ begin
     fluid_description
     hospital_centres
     hospital_units
+    letter_letterheads
     medication_routes
     modality_descriptions
     modality_reasons

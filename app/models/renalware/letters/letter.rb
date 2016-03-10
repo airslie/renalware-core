@@ -9,9 +9,11 @@ module Renalware
 
       belongs_to :author, class_name: "User"
       belongs_to :patient
+      belongs_to :letterhead
 
       enumerize :state, in: %i(draft ready_for_review archived)
 
+      validates :letterhead, presence: true
       validates :author, presence: true
       validates :patient, presence: true
       validates :state, presence: true

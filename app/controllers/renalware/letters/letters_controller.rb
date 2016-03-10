@@ -71,7 +71,7 @@ module Renalware
 
       def attributes
         [
-          :author_id, :description, :issued_on,
+          :letterhead_id, :author_id, :description, :issued_on,
           :salutation, :body, :notes
         ]
       end
