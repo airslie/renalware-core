@@ -58,7 +58,8 @@ module Renalware
     # private
 
     # def patient_history_element(title, items)
-    #   content_tag(:div, content_tag(:h6, title) + content_tag(:ul, items), class: 'columns inline large-6')
+    #   content_tag(:div, content_tag(:h6, title) + content_tag(:ul, items),
+    #    class: 'columns inline large-6')
     # end
 
     # def medication_list_item(medication)

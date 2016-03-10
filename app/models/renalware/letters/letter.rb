@@ -7,7 +7,7 @@ module Renalware
       include Accountable
       extend Enumerize
 
-      belongs_to :author, class_name: 'User'
+      belongs_to :author, class_name: "User"
       belongs_to :patient
 
       enumerize :state, in: %i(draft ready_for_review archived)
