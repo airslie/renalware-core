@@ -1,7 +1,7 @@
 require "rails_helper"
 
 module Renalware::Feeds
-  RSpec.describe MessagePersister do
+  RSpec.describe PersistMessage do
     describe "#call" do
       let(:message_payload) { spy(:message_payload) }
 

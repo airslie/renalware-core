@@ -23,7 +23,7 @@ module Renalware
         end
 
         def persist_message(message_payload)
-          MessagePersister.new.call(message_payload)
+          PersistMessage.new.call(message_payload)
         end
 
         def parse_pathology_params(message_payload)
