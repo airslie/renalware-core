@@ -42,7 +42,9 @@ Then(/^Patty has a new simple letter for herself$/) do
 end
 
 Then(/^Patty has a new simple letter for John Doe in London$/) do
-  expect_simple_letter_to_exist(@patty, recipient_type: :other, recipient: { name: "John Doe", city: "London"} )
+  expect_simple_letter_to_exist(@patty, recipient_type: :other,
+    recipient: { name: "John Doe", city: "London" }
+  )
 end
 
 Then(/^Nathalie can update Patty's simple letter$/) do
