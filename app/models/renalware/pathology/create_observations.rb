@@ -4,7 +4,9 @@ module Renalware
   module Pathology
     class CreateObservations
       def call(params)
-        ObservationRequest.create!(params[:observation_request])
+        observation_params = params.fetch(:observation_request)
+
+        ObservationRequest.create!(observation_params)
       end
     end
   end
