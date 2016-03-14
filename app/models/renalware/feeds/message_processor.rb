@@ -7,8 +7,8 @@ module Renalware
          message_payload = parse_message(raw_message)
          persist_message(message_payload)
 
-         params = parse_pathology_params(message_payload)
-         create_observations(params)
+         pathology_params = parse_pathology_params(message_payload)
+         create_observations(pathology_params)
 
       rescue Exception => error
         notify_exception(error)
