@@ -20,7 +20,7 @@ module Renalware::Patients
 
         expect(params).to eq({
           patient: {
-            hospital_number: "::internal id::",
+            local_patient_id: "::internal id::",
             family_name: "::family name::",
             given_name: "::given name::",
             sex: "F",

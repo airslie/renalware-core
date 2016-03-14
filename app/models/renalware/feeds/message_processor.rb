@@ -8,6 +8,8 @@ module Renalware
          persist_message(message_payload)
 
          patient_params = parse_patient_params(message_payload)
+         create_patient(patient_params)
+
          pathology_params = parse_pathology_params(message_payload)
          create_observations(pathology_params)
 
@@ -40,6 +42,10 @@ module Renalware
 
       def parse_patient_params(message_payload)
         Patients::MessageParamParser.new.parse(message_payload)
+      end
+
+      def create_patient(params)
+        Patients::CreatePatient.new.call(params)
       end
     end
   end
