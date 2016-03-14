@@ -35,16 +35,22 @@ OBX|17|TX|BASO^Basophils^MB||  0.02||||||F|||200911121646||BHISVC01^BHI Authchec
         expect(message).to be_a(MessageWrapper)
       end
 
-      it "assigns the attributes to the message", :aggregate_failures do
+      it "assigs the type to the message" do
         message = subject.parse(raw_message)
 
         expect(message.type).to eq("ORU^R01")
-        expect(message.observation_request.ordering_provider).to eq("MID^KINGS MIDWIVES")
-        expect(message.observation_request.placer_order_number).to eq("123456")
-        expect(message.observation_request.date_time).to eq("200911111841")
-        expect(message.observation_request.observations.first.comment).to eq("6.09")
-        expect(message.observation_request.observations.first.date_time).to eq("200911112026")
-        expect(message.observation_request.observations.first.value).to eq("6.09")
+      end
+
+      it "assigns the observation request attributes to the message", :aggregate_failures do
+        message = subject.parse(raw_message)
+
+        observation_request = message.observation_request
+        expect(observation_request.ordering_provider).to eq("MID^KINGS MIDWIVES")
+        expect(observation_request.placer_order_number).to eq("123456")
+        expect(observation_request.date_time).to eq("200911111841")
+        expect(observation_request.observations.first.comment).to eq("6.09")
+        expect(observation_request.observations.first.date_time).to eq("200911112026")
+        expect(observation_request.observations.first.value).to eq("6.09")
       end
 
       it "assigns the payload to the message" do
