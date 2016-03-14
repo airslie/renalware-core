@@ -5,7 +5,7 @@ class CreateLettersLetterheads < ActiveRecord::Migration
       t.string :unit_info, null: false
       t.string :trust_name, null: false
       t.string :trust_caption, null: false
-      t.text :site_info_html
+      t.text :site_info
 
       t.timestamps null: false
     end

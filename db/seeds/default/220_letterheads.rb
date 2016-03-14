@@ -11,7 +11,7 @@ module Renalware
     letterhead.unit_info = row["unitinfo"]
     letterhead.trust_name = row["trustname"]
     letterhead.trust_caption = row["trustcaption"]
-    letterhead.site_info_html = row["siteinfohtml"]
+    letterhead.site_info = row["siteinfohtml"]
     letterhead.save!
   end
 

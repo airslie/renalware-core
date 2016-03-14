@@ -1235,7 +1235,7 @@ CREATE TABLE letter_letterheads (
     unit_info character varying NOT NULL,
     trust_name character varying NOT NULL,
     trust_caption character varying NOT NULL,
-    site_info_html text,
+    site_info text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
