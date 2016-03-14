@@ -1,6 +1,8 @@
 class CreateAddresses < ActiveRecord::Migration
   def change
     create_table :addresses do |t|
+      t.string :addressable_type
+      t.integer :addressable_id
       t.string :street_1
       t.string :street_2
       t.string :county
@@ -9,5 +11,7 @@ class CreateAddresses < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :addresses, [:addressable_type, :addressable_id]
   end
 end

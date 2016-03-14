@@ -24,7 +24,7 @@ module World
         patient.letters.create!(
           valid_simple_letter_attributes(patient).merge(
             author: user,
-            recipient_type: :patient,
+            recipient_attributes: { source_type: "Renalware::Patient", source_id: patient.id },
             by: user
           )
         )
@@ -34,22 +34,41 @@ module World
       #
       def create_simple_letter(patient:, user:, issued_on:, recipient_type:, recipient_info: nil)
         patient = letters_patient(patient)
-        if recipient_info.present?
-          recipient = Renalware::Letters::Recipient.new(name: recipient_info[:name])
-          recipient.build_address(
-            city: recipient_info[:city],
-            street_1: "1 Main St"
-          )
+
+        recipient_person = case recipient_type
+          when :patient
+            patient
+          when :doctor
+            patient.doctor
+          else
+            nil
         end
-        patient.letters.create(
-          valid_simple_letter_attributes(patient).merge(
-            issued_on: issued_on,
-            author: user,
-            recipient_type: recipient_type,
-            recipient: recipient,
-            by: user
-          )
+
+        if recipient_info.present?
+          recipient_attributes = {
+            source_type: recipient_person.class.name,
+            source_id: recipient_person.try(:id),
+            name: recipient_info[:name],
+            address_attributes: {
+              city: recipient_info[:city],
+              street_1: "1 Main St"
+            }
+          }
+        else
+          recipient_attributes = {
+            source_type: recipient_person.class.name,
+            source_id: recipient_person.try(:id),
+          }
+        end
+
+        patient_attributes = valid_simple_letter_attributes(patient).merge(
+          issued_on: issued_on,
+          author: user,
+          by: user,
+          recipient_attributes: recipient_attributes
         )
+
+        patient.letters.create(patient_attributes)
       end
 
       def update_simple_letter(patient:, user:)
@@ -70,8 +89,15 @@ module World
         patient = letters_patient(patient)
         expect(patient.letters).to be_present
         letter = patient.letters.first
-        expect(letter.recipient_type).to eq(recipient_type)
-        if recipient_type == :other
+
+        case recipient_type
+          when :doctor
+            expect(letter.recipient.source).to be_a(Renalware::Doctor)
+          when :patient
+            expect(letter.recipient.source).to be_a(Renalware::Patient)
+        end
+
+        if recipient_type.blank?
           expect(letter.recipient.name).to eq(recipient[:name])
           expect(letter.recipient.address.city).to eq(recipient[:city])
         end

@@ -4,10 +4,10 @@ module Renalware
   module Letters
     class Recipient < ActiveRecord::Base
       belongs_to :letter
-      belongs_to :address
+      has_one :address, as: :addressable
+      belongs_to :source, polymorphic: true
 
-      validates :name, presence: true
-      validates :address, presence: true
+      accepts_nested_attributes_for :address
     end
   end
 end

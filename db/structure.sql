@@ -298,6 +298,8 @@ ALTER SEQUENCE access_versions_id_seq OWNED BY access_versions.id;
 
 CREATE TABLE addresses (
     id integer NOT NULL,
+    addressable_type character varying,
+    addressable_id integer,
     street_1 character varying,
     street_2 character varying,
     county character varying,
@@ -1267,7 +1269,6 @@ ALTER SEQUENCE letter_letterheads_id_seq OWNED BY letter_letterheads.id;
 CREATE TABLE letter_letters (
     id integer NOT NULL,
     patient_id integer,
-    recipient_type character varying NOT NULL,
     state character varying DEFAULT 'draft'::character varying NOT NULL,
     issued_on date NOT NULL,
     description character varying,
@@ -1308,8 +1309,9 @@ ALTER SEQUENCE letter_letters_id_seq OWNED BY letter_letters.id;
 
 CREATE TABLE letter_recipients (
     id integer NOT NULL,
+    source_type character varying,
+    source_id integer,
     name character varying,
-    address_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     letter_id integer NOT NULL
@@ -3662,6 +3664,13 @@ CREATE INDEX index_access_profiles_on_updated_by_id ON access_profiles USING btr
 
 
 --
+-- Name: index_addresses_on_addressable_type_and_addressable_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_addresses_on_addressable_type_and_addressable_id ON addresses USING btree (addressable_type, addressable_id);
+
+
+--
 -- Name: index_bag_types_on_deleted_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3935,17 +3944,17 @@ CREATE INDEX index_letter_letters_on_updated_by_id ON letter_letters USING btree
 
 
 --
--- Name: index_letter_recipients_on_address_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_letter_recipients_on_address_id ON letter_recipients USING btree (address_id);
-
-
---
 -- Name: index_letter_recipients_on_letter_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_letter_recipients_on_letter_id ON letter_recipients USING btree (letter_id);
+
+
+--
+-- Name: index_letter_recipients_on_source_type_and_source_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_letter_recipients_on_source_type_and_source_id ON letter_recipients USING btree (source_type, source_id);
 
 
 --
@@ -4770,14 +4779,6 @@ ALTER TABLE ONLY peritonitis_episodes
 
 ALTER TABLE ONLY modalities
     ADD CONSTRAINT fk_rails_fe4a4d8319 FOREIGN KEY (reason_id) REFERENCES modality_reasons(id);
-
-
---
--- Name: fk_rails_fe707a788f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY letter_recipients
-    ADD CONSTRAINT fk_rails_fe707a788f FOREIGN KEY (address_id) REFERENCES addresses(id);
 
 
 --
