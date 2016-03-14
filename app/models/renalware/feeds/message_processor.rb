@@ -15,28 +15,28 @@ module Renalware
           notify_exception(error)
           raise error
         end
+      end
 
-        private
+      private
 
-        def parse_message(raw_message)
-          MessageParser.new.parse(raw_message)
-        end
+      def parse_message(raw_message)
+        MessageParser.new.parse(raw_message)
+      end
 
-        def persist_message(message_payload)
-          PersistMessage.new.call(message_payload)
-        end
+      def persist_message(message_payload)
+        PersistMessage.new.call(message_payload)
+      end
 
-        def parse_pathology_params(message_payload)
-          Pathology::MessageParamParser.new.parse(message_payload)
-        end
+      def parse_pathology_params(message_payload)
+        Pathology::MessageParamParser.new.parse(message_payload)
+      end
 
-        def create_observations(params)
-          Pathology::CreateObservations.new.call(params)
-        end
+      def create_observations(params)
+        Pathology::CreateObservations.new.call(params)
+      end
 
-        def notify_exception(error)
-          # TODO: Add notifier
-        end
+      def notify_exception(error)
+        # TODO: Add notifier
       end
     end
   end
