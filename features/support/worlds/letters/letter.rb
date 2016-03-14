@@ -24,6 +24,7 @@ module World
         patient.letters.create!(
           valid_simple_letter_attributes(patient).merge(
             author: user,
+            recipient_type: :patient,
             by: user
           )
         )
@@ -31,12 +32,21 @@ module World
 
       # @section commands
       #
-      def create_simple_letter(patient:, user:, issued_on:)
+      def create_simple_letter(patient:, user:, issued_on:, recipient_type:, recipient_info: nil)
         patient = letters_patient(patient)
+        if recipient_info.present?
+          recipient = Renalware::Letters::Recipient.new(name: recipient_info[:name])
+          recipient.build_address(
+            city: recipient_info[:city],
+            street_1: "1 Main St"
+          )
+        end
         patient.letters.create(
           valid_simple_letter_attributes(patient).merge(
             issued_on: issued_on,
             author: user,
+            recipient_type: recipient_type,
+            recipient: recipient,
             by: user
           )
         )
@@ -56,9 +66,15 @@ module World
 
       # @section expectations
       #
-      def expect_simple_letter_to_exist(patient)
+      def expect_simple_letter_to_exist(patient, recipient_type:, recipient: nil)
         patient = letters_patient(patient)
         expect(patient.letters).to be_present
+        letter = patient.letters.first
+        expect(letter.recipient_type).to eq(recipient_type)
+        if recipient_type == :other
+          expect(letter.recipient.name).to eq(recipient[:name])
+          expect(letter.recipient.address.city).to eq(recipient[:city])
+        end
       end
 
       def expect_simple_letter_to_be_refused

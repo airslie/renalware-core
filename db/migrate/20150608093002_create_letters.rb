@@ -2,6 +2,7 @@ class CreateLetters < ActiveRecord::Migration
   def change
     create_table :letter_letters do |t|
       t.belongs_to :patient, index: true
+      t.string :recipient_type, null: false
       t.string :state, null: false, default: 'draft'
       t.date :issued_on, null: false
       t.string :description
