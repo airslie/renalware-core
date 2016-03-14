@@ -1,6 +1,8 @@
-= render layout: "renalware/patients/layout", locals: { title: "Letters" } do
-  .row
-    .large-12.columns
-      = simple_form_for [@patient, @letter], as: :letter, url: patient_letters_letters_path(@patient) do |f|
-        = render partial: 'renalware/letters/letters/form', locals: { f: f }
-        = f.submit 'Save', class: 'button'
+= render layout: "renalware/patients/layout", locals: { title: "New Simple Letter" } do
+  = render "letter_nav"
+
+  .document
+    = simple_form_for @letter,
+        url: patient_letters_letters_path(@patient),
+        wrapper: "horizontal_form" do |f|
+      = render 'form', f: f

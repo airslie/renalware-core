@@ -1,6 +1,6 @@
 module Renalware
   module Accesses
-    class ProfilesController < BaseController
+    class ProfilesController < Accesses::BaseController
       before_filter :load_patient
 
       def show

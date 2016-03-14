@@ -53,6 +53,14 @@ Rails.application.routes.draw do
       resources :reasons, only: [:index]
     end
 
+    namespace :letters do
+      resources :descriptions, only: :search do
+        collection do
+          get :search
+        end
+      end
+    end
+
     resources :patients, except: [:destroy] do
       member do
         get :capd_regime

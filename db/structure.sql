@@ -1226,28 +1226,59 @@ ALTER SEQUENCE letter_descriptions_id_seq OWNED BY letter_descriptions.id;
 
 
 --
+-- Name: letter_letterheads; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE letter_letterheads (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    unit_info character varying NOT NULL,
+    trust_name character varying NOT NULL,
+    trust_caption character varying NOT NULL,
+    site_info text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: letter_letterheads_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE letter_letterheads_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: letter_letterheads_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE letter_letterheads_id_seq OWNED BY letter_letterheads.id;
+
+
+--
 -- Name: letter_letters; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE letter_letters (
     id integer NOT NULL,
-    state character varying DEFAULT 'draft'::character varying NOT NULL,
-    type character varying NOT NULL,
-    problems text,
-    medications text,
-    body text,
-    signature character varying,
-    recipient character varying DEFAULT 'doctor'::character varying NOT NULL,
-    additional_recipients character varying,
-    doctor_id integer,
     patient_id integer,
-    clinic_visit_id integer,
+    state character varying DEFAULT 'draft'::character varying NOT NULL,
+    issued_on date NOT NULL,
+    description character varying,
+    salutation character varying,
+    body text,
+    notes text,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    description_id integer,
-    author_id integer,
-    reviewer_id integer,
-    recipient_address_id integer
+    letterhead_id integer NOT NULL,
+    author_id integer NOT NULL
 );
 
 
@@ -2713,6 +2744,13 @@ ALTER TABLE ONLY letter_descriptions ALTER COLUMN id SET DEFAULT nextval('letter
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY letter_letterheads ALTER COLUMN id SET DEFAULT nextval('letter_letterheads_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY letter_letters ALTER COLUMN id SET DEFAULT nextval('letter_letters_id_seq'::regclass);
 
 
@@ -3202,6 +3240,14 @@ ALTER TABLE ONLY infection_organisms
 
 ALTER TABLE ONLY letter_descriptions
     ADD CONSTRAINT letter_descriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: letter_letterheads_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY letter_letterheads
+    ADD CONSTRAINT letter_letterheads_pkey PRIMARY KEY (id);
 
 
 --
@@ -3812,24 +3858,17 @@ CREATE INDEX index_letter_letters_on_author_id ON letter_letters USING btree (au
 
 
 --
--- Name: index_letter_letters_on_clinic_visit_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_letter_letters_on_created_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_letter_letters_on_clinic_visit_id ON letter_letters USING btree (clinic_visit_id);
-
-
---
--- Name: index_letter_letters_on_description_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_letter_letters_on_description_id ON letter_letters USING btree (description_id);
+CREATE INDEX index_letter_letters_on_created_by_id ON letter_letters USING btree (created_by_id);
 
 
 --
--- Name: index_letter_letters_on_doctor_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_letter_letters_on_letterhead_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_letter_letters_on_doctor_id ON letter_letters USING btree (doctor_id);
+CREATE INDEX index_letter_letters_on_letterhead_id ON letter_letters USING btree (letterhead_id);
 
 
 --
@@ -3840,24 +3879,10 @@ CREATE INDEX index_letter_letters_on_patient_id ON letter_letters USING btree (p
 
 
 --
--- Name: index_letter_letters_on_recipient_address_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_letter_letters_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_letter_letters_on_recipient_address_id ON letter_letters USING btree (recipient_address_id);
-
-
---
--- Name: index_letter_letters_on_reviewer_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_letter_letters_on_reviewer_id ON letter_letters USING btree (reviewer_id);
-
-
---
--- Name: index_letter_letters_on_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_letter_letters_on_type ON letter_letters USING btree (type);
+CREATE INDEX index_letter_letters_on_updated_by_id ON letter_letters USING btree (updated_by_id);
 
 
 --
@@ -4229,19 +4254,19 @@ ALTER TABLE ONLY transplant_registrations
 
 
 --
--- Name: fk_rails_35ef6b3aea; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY letter_letters
-    ADD CONSTRAINT fk_rails_35ef6b3aea FOREIGN KEY (description_id) REFERENCES letter_descriptions(id);
-
-
---
 -- Name: fk_rails_36cb307ab5; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_registration_statuses
     ADD CONSTRAINT fk_rails_36cb307ab5 FOREIGN KEY (description_id) REFERENCES transplant_registration_status_descriptions(id);
+
+
+--
+-- Name: fk_rails_39983ddc03; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY letter_letters
+    ADD CONSTRAINT fk_rails_39983ddc03 FOREIGN KEY (letterhead_id) REFERENCES letter_letterheads(id);
 
 
 --
@@ -4338,14 +4363,6 @@ ALTER TABLE ONLY transplant_recipient_followups
 
 ALTER TABLE ONLY problem_notes
     ADD CONSTRAINT fk_rails_6a44f3907b FOREIGN KEY (problem_id) REFERENCES problem_problems(id);
-
-
---
--- Name: fk_rails_7163514bcf; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY letter_letters
-    ADD CONSTRAINT fk_rails_7163514bcf FOREIGN KEY (recipient_address_id) REFERENCES addresses(id);
 
 
 --
@@ -4522,14 +4539,6 @@ ALTER TABLE ONLY hd_sessions
 
 ALTER TABLE ONLY access_profiles
     ADD CONSTRAINT fk_rails_c367d368e6 FOREIGN KEY (plan_id) REFERENCES access_plans(id);
-
-
---
--- Name: fk_rails_c550fe8154; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY letter_letters
-    ADD CONSTRAINT fk_rails_c550fe8154 FOREIGN KEY (reviewer_id) REFERENCES users(id);
 
 
 --
@@ -4764,6 +4773,8 @@ INSERT INTO schema_migrations (version) VALUES ('20150605095934');
 
 INSERT INTO schema_migrations (version) VALUES ('20150605151945');
 
+INSERT INTO schema_migrations (version) VALUES ('20150608093000');
+
 INSERT INTO schema_migrations (version) VALUES ('20150608093001');
 
 INSERT INTO schema_migrations (version) VALUES ('20150608093002');
@@ -4779,8 +4790,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150702084036');
 INSERT INTO schema_migrations (version) VALUES ('20150709152737');
 
 INSERT INTO schema_migrations (version) VALUES ('20150717093153');
-
-INSERT INTO schema_migrations (version) VALUES ('20150903143922');
 
 INSERT INTO schema_migrations (version) VALUES ('20150923201215');
 

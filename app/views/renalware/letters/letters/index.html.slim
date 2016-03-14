@@ -1,12 +1,15 @@
 = render layout: "renalware/patients/layout", locals: { title: "Letters" } do
-  table.letters
+  table.auto-layout
     thead
       tr
         th
+        th Type
+        th Date
         th Author
+        th Recipient
         th Description
         th State
-        th Last updated
+        th Last Update
 
     tbody
       = render @letters
