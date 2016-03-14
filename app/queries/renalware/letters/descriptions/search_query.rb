@@ -5,7 +5,7 @@ module Renalware
         attr_reader :term, :page, :per_page
 
         def initialize(term)
-          @search_params = { q: { text_cont: term} }
+          @search_params = { q: { text_cont: term } }
           @search_params.reverse_merge!(s: "text asc")
         end
 
