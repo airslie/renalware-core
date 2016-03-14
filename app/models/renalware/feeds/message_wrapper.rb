@@ -2,7 +2,6 @@ require_dependency "renalware/feeds"
 
 module Renalware
   module Feeds
-    # ObservationResultMessage
     class MessageWrapper < SimpleDelegator
       def initialize(message_string)
         @message_string = message_string
@@ -48,6 +47,46 @@ module Renalware
 
       def observation_request
         ObservationRequest.new(self[:OBR], self[:OBX])
+      end
+
+      class PatientIdentification < SimpleDelegator
+        def internal_id
+          patient_id_list.split("^").first
+        end
+
+        def external_id
+          patient_id
+        end
+
+        def name
+          Name.new(patient_name)
+        end
+
+        def family_name
+          patient_name[0]
+        end
+
+        def given_name
+          patient_name[1]
+        end
+
+        def sex
+          admin_sex
+        end
+
+        def dob
+          patient_dob
+        end
+
+        private
+
+        def patient_name
+          super.split("^")
+        end
+      end
+
+      def patient_identification
+        PatientIdentification.new(self[:PID])
       end
 
       def type

@@ -41,16 +41,32 @@ OBX|17|TX|BASO^Basophils^MB||  0.02||||||F|||200911121646||BHISVC01^BHI Authchec
         expect(message.type).to eq("ORU^R01")
       end
 
+      it "assigns the patient identification attributes to the message", :aggregate_failures do
+        message = subject.parse(raw_message)
+
+        expect(message.type).to eq("ORU^R01")
+
+        message.patient_identification.tap do |pi|
+          expect(pi.internal_id).to eq("Z999990")
+          expect(pi.external_id).to eq("")
+          expect(pi.family_name).to eq("RABBIT")
+          expect(pi.given_name).to eq("JESSICA")
+          expect(pi.sex).to eq("F")
+          expect(pi.dob).to eq("19880924")
+        end
+      end
+
       it "assigns the observation request attributes to the message", :aggregate_failures do
         message = subject.parse(raw_message)
 
-        observation_request = message.observation_request
-        expect(observation_request.ordering_provider).to eq("MID^KINGS MIDWIVES")
-        expect(observation_request.placer_order_number).to eq("123456")
-        expect(observation_request.date_time).to eq("200911111841")
-        expect(observation_request.observations.first.comment).to eq("6.09")
-        expect(observation_request.observations.first.date_time).to eq("200911112026")
-        expect(observation_request.observations.first.value).to eq("6.09")
+        message.observation_request.tap do |obr|
+          expect(obr.ordering_provider).to eq("MID^KINGS MIDWIVES")
+          expect(obr.placer_order_number).to eq("123456")
+          expect(obr.date_time).to eq("200911111841")
+          expect(obr.observations.first.comment).to eq("6.09")
+          expect(obr.observations.first.date_time).to eq("200911112026")
+          expect(obr.observations.first.value).to eq("6.09")
+        end
       end
 
       it "assigns the payload to the message" do

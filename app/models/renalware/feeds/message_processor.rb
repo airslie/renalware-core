@@ -7,6 +7,7 @@ module Renalware
          message_payload = parse_message(raw_message)
          persist_message(message_payload)
 
+         patient_params = parse_patient_params(message_payload)
          pathology_params = parse_pathology_params(message_payload)
          create_observations(pathology_params)
 
@@ -35,6 +36,10 @@ module Renalware
 
       def notify_exception(error)
         # TODO: Add notifier
+      end
+
+      def parse_patient_params(message_payload)
+        Patients::MessageParamParser.new.parse(message_payload)
       end
     end
   end
