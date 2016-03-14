@@ -1,9 +1,10 @@
 Feature: Writing a simple letter
 
-  An author writes a letter to one of three possible recipients: the patient's doctor,
-  the patient itself or someone else.
+  To officially inform the patient and/or other interested parties about
+  their clinical status, an author writes a letter.
 
-  A description must be selected.
+  Most of the time, letters are written after a clinic visit.  But a simple
+  letter can be written at any point in time.
 
   Background:
     Given Nathalie is a nurse
