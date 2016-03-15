@@ -1,8 +1,8 @@
 class CreatePatients < ActiveRecord::Migration
   def change
     create_table :patients do |t|
-      t.string :nhs_number,       null: false
-      t.string :local_patient_id
+      t.string :nhs_number
+      t.string :local_patient_id, null: false
       t.string :family_name,      null: false
       t.string :given_name,       null: false
       t.date :born_on,            null: false
