@@ -93,6 +93,10 @@ module Renalware
         self[:MSH].message_type
       end
 
+      def header_id
+        self[:MSH].message_control_id
+      end
+
       def to_s
         @message_string
       end

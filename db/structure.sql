@@ -846,6 +846,7 @@ ALTER SEQUENCE exit_site_infections_id_seq OWNED BY exit_site_infections.id;
 CREATE TABLE feed_messages (
     id integer NOT NULL,
     event_code character varying NOT NULL,
+    header_id character varying NOT NULL,
     body text NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL

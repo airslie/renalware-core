@@ -35,10 +35,16 @@ OBX|17|TX|BASO^Basophils^MB||  0.02||||||F|||200911121646||BHISVC01^BHI Authchec
         expect(message).to be_a(MessageWrapper)
       end
 
-      it "assigs the type to the message" do
+      it "assigns the type to the message" do
         message = subject.parse(raw_message)
 
         expect(message.type).to eq("ORU^R01")
+      end
+
+      it "assigns the header ID to the message" do
+        message = subject.parse(raw_message)
+
+        expect(message.header_id).to eq("1258271")
       end
 
       it "assigns the patient identification attributes to the message", :aggregate_failures do
