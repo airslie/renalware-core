@@ -7,7 +7,7 @@ module Renalware
       before_filter :load_patient
 
       def index
-        @letters = @patient.letters
+        @letters = CollectionPresenter.new(@patient.letters, LetterPresenter)
       end
 
       def new
@@ -29,7 +29,7 @@ module Renalware
       end
 
       def show
-        @letter = @patient.letters.find(params[:id])
+        @letter = LetterPresenter.new(@patient.letters.find(params[:id]))
       end
 
       def edit

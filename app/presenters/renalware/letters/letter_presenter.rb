@@ -2,17 +2,9 @@ require_dependency "renalware/medications"
 
 module Renalware
   module Letters
-    class Letter < DumbDelegator
+    class LetterPresenter < DumbDelegator
       def recipient
-
-      end
-
-      def drug_types
-        drug.drug_types.map(&:name).join(", ")
-      end
-
-      def provider
-        ::I18n.t(super, scope: "enums.provider")
+        @_recipient ||= RecipientPresenter.new(super)
       end
     end
   end
