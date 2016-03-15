@@ -20,7 +20,7 @@ module Renalware
             description_id: request_description.id,
             requestor_name: request.ordering_provider,
             pcs_code: request.placer_order_number,
-            observed_at: Time.parse(request.date_time).to_s,
+            observed_at: Time.zone.parse(request.date_time).to_s,
             observations_attributes: observations_params
           }
         }
@@ -32,7 +32,7 @@ module Renalware
 
           {
             description_id: observation_description.id,
-            observed_at: Time.parse(observation.date_time).to_s,
+            observed_at: Time.zone.parse(observation.date_time).to_s,
             result: observation.value,
             comment: observation.comment
           }
