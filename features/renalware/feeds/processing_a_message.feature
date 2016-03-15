@@ -47,20 +47,6 @@ OBR|1|^PCS|09B0099478^LA|FBC^FULL BLOOD COUNT^MB||200911111841|200911111841|||||
 OBX|1|TX|WBC^WBC^MB||6.09||||||F|||200911112026||BBKA^Kenneth AMENYAH|
 OBX|2|TX|RBC^RBC^MB||4.00||||||F|||200911112026||BBKA^Kenneth AMENYAH|
 OBX|3|TX|HB^Hb^MB||11.8||||||F|||200911112026||BBKA^Kenneth AMENYAH|
-OBX|4|TX|PCV^PCV^MB||0.344||||||F|||200911112026||BBKA^Kenneth AMENYAH|
-OBX|5|TX|MCV^MCV^MB||85.9||||||F|||200911112026||BBKA^Kenneth AMENYAH|
-OBX|6|TX|MCH^MCH^MB||29.5||||||F|||200911112026||BBKA^Kenneth AMENYAH|
-OBX|7|TX|MCHC^MCHC^MB||34.4||||||F|||200911112026||BBKA^Kenneth AMENYAH|
-OBX|8|TX|RDW^RDW^MB||13.3||||||F|||200911112026||BBKA^Kenneth AMENYAH|
-OBX|9|TX|PLT^PLT^MB||259||||||F|||200911112026||BBKA^Kenneth AMENYAH|
-OBX|10|TX|MPV^Mean Platelet Volume^MB||8.3||||||F|||200911112026||BBKA^Kenneth AMENYAH|
-OBX|11|TX|NRBC^Machine NRBC^MB||<0.2%||||||F|||200911112026||BBKA^Kenneth AMENYAH|
-OBX|12|TX|HYPO^% HYPO^MB||0.2||||||F|||200911112026||BBKA^Kenneth AMENYAH|
-OBX|13|TX|NEUT^Neutrophil Count^MB||  3.16||||||F|||200911121646||BHISVC01^BHI Authchecker|
-OBX|14|TX|LYM^Lymphocyte Count^MB||  2.32||||||F|||200911121646||BHISVC01^BHI Authchecker|
-OBX|15|TX|MON^Monocyte Count^MB||  0.44||||||F|||200911121646||BHISVC01^BHI Authchecker|
-OBX|16|TX|EOS^Eosinophil Count^MB||  0.15||||||F|||200911121646||BHISVC01^BHI Authchecker|
-OBX|17|TX|BASO^Basophils^MB||  0.02||||||F|||200911121646||BHISVC01^BHI Authchecker|
 """
     When the message is processed
     Then the HL7 message is recorded
@@ -76,3 +62,8 @@ OBX|17|TX|BASO^Basophils^MB||  0.02||||||F|||200911121646||BHISVC01^BHI Authchec
       | pcs_code         |                           |
       | requestor_name   | MID^KINGS MIDWIVES        |
       | observed_at      | 2009-11-11 18:41:00 +0000 |
+    And an observations are created with the following attributes:
+      | description | result | comment | observed_at               |
+      | WBC         | 6.09   | 6.09    | 2009-11-11 20:26:00 +0000 |
+      | RBC         | 4.00   | 4.00    | 2009-11-11 20:26:00 +0000 |
+      | HB          | 11.8   | 11.8    | 2009-11-11 20:26:00 +0000 |
