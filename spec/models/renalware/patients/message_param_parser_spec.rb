@@ -7,6 +7,7 @@ module Renalware::Patients
         double(:message_payload,
           patient_identification: double(
             internal_id: "::internal id::",
+            external_id: "::external id::",
             family_name: "::family name::",
             given_name: "::given name::",
             sex: "F",
@@ -20,6 +21,7 @@ module Renalware::Patients
 
         expect(params).to eq({
           patient: {
+            nhs_number: "::external id::",
             local_patient_id: "::internal id::",
             family_name: "::family name::",
             given_name: "::given name::",

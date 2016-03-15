@@ -8,6 +8,7 @@ module Renalware
 
         {
           patient: {
+            nhs_number: pi.external_id,
             local_patient_id: pi.internal_id,
             family_name: pi.family_name,
             given_name: pi.given_name,

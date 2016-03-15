@@ -11,7 +11,7 @@ module Renalware
       end
 
       def create_patient_if_not_exist(patient_params, local_patient_id)
-        ::Renalware::Patient.create_with(patient_params.merge(nhs_number: "TO-ADD-123"))
+        ::Renalware::Patient.create_with(patient_params)
                             .find_or_create_by!(local_patient_id: local_patient_id)
       end
     end

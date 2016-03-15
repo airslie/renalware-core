@@ -15,6 +15,7 @@ module Renalware::Patients
         before do
           create(:patient, local_patient_id: "SAME-12345")
         end
+
         it "does not create the patient" do
           params = {patient: attributes_for(:patient).merge(local_patient_id: "SAME-12345")}
 
