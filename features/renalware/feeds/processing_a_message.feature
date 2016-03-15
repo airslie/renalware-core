@@ -63,4 +63,11 @@ OBX|16|TX|EOS^Eosinophil Count^MB||  0.15||||||F|||200911121646||BHISVC01^BHI Au
 OBX|17|TX|BASO^Basophils^MB||  0.02||||||F|||200911121646||BHISVC01^BHI Authchecker|
 """
     When the message is processed
-    And the HL7 message is recorded
+    Then the HL7 message is recorded
+    And the patient is created with the following attributes:
+      | nhs_number       |            |
+      | local_patient_id | Z999990    |
+      | family_name      | RABBIT     |
+      | given_name       | JESSICA    |
+      | sex              | Female     |
+      | born_on          | 1988-09-24 |
