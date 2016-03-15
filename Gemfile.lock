@@ -249,6 +249,7 @@ GEM
       rails-assets-jquery (>= 1.7)
     rails-assets-foundation-datepicker (1.5.0)
     rails-assets-jquery (2.2.0)
+    rails-assets-select2 (4.0.2)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.7)
@@ -430,6 +431,7 @@ DEPENDENCIES
   rails (~> 4.2.5.2)
   rails-assets-clockpicker!
   rails-assets-foundation-datepicker!
+  rails-assets-select2!
   rails_12factor
   ransack!
   rspec-expectations

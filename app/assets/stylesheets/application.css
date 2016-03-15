@@ -11,13 +11,13 @@
  * file per style scope.
  *
  *= require_self
- *= require select2/css/select2.min
  *= require font-awesome
  *= require foundation-datepicker
  *= require jquery-ui/core
  *= require jquery-ui/autocomplete
  *= require jquery-ui/sortable
  *= require clockpicker
+ *= require select2
  *= require_tree ./lib
  *= require_tree ./renalware
  */

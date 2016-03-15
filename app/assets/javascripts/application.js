@@ -18,7 +18,7 @@
 //= require jquery-ui/effect-highlight
 //= require foundation
 //= require underscore
-//= require select2/js/select2.min
+//= require select2
 //= require jquery_nested_form
 //= require foundation-datepicker
 //= require clockpicker
