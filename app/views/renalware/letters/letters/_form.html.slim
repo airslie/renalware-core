@@ -25,6 +25,28 @@ ruby:
     = f.input :issued_on, as: :date_picker
     = f.association :author, collection: Renalware::User.ordered, label_method: :full_name
 
+    = f.simple_fields_for :recipient do |ff|
+      = ff.input :source_type, as: :radio_buttons, collection: recipient_sources(f.object)
+      = ff.input :source_id, as: :hidden
+      = ff.input :id, as: :hidden
+
+      .row
+        .small-offset-3.small-9.columns
+          fieldset#other-address(style="display: none")
+            = ff.input :name, wrapper: "vertical_form"
+            = ff.simple_fields_for :address, wrapper: "vertical_form" do |fa|
+              = fa.input :id, as: :hidden
+              = fa.input :street_1
+              = fa.input :street_2
+              .row
+                .small-6.columns
+                  = fa.input :city
+                  = fa.input :postcode
+                .small-6.columns
+                  = fa.input :county
+                  = fa.input :country, as: :string
+
+
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Message", name: "message" } do
     = f.input :salutation
@@ -34,7 +56,7 @@ ruby:
       locals: { legend: "Admin", name: "admin" } do
     = f.input :notes, as: :text, input_html: { rows: 4 }
 
-.row
+.row.bottom
   .large-12.columns
     = f.button :submit
     span= " or "

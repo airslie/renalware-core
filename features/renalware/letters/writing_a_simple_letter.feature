@@ -1,4 +1,3 @@
-@wip
 Feature: Writing a simple letter
 
   To officially inform the patient and/or other interested parties about
@@ -21,7 +20,7 @@ Feature: Writing a simple letter
     When Nathalie drafts a simple letter for Patty addressed to herself
     Then Patty has a new simple letter for herself
 
-  @web
+  @web @javascript
   Scenario: A nurse drafted a simple letter of a patient for John Doe in London
     When Nathalie drafts a simple letter for Patty addressed to John Doe in London
     Then Patty has a new simple letter for John Doe in London

@@ -1,0 +1,5 @@
+en:
+  activerecord:
+    attributes:
+      renalware/letters/recipient:
+        source_type: Recipient

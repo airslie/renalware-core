@@ -1,0 +1,10 @@
+en:
+  activerecord:
+    attributes:
+      renalware/address:
+        street_1: Line 1
+        street_2: Line 2
+        city: City
+        county: County
+        postcode: Postal Code
+        country: Country

@@ -91,10 +91,10 @@ module World
         letter = patient.letters.first
 
         case recipient_type
-          when :doctor
-            expect(letter.recipient.source).to be_a(Renalware::Doctor)
-          when :patient
-            expect(letter.recipient.source).to be_a(Renalware::Patient)
+        when :doctor
+          expect(letter.recipient.source).to be_a(Renalware::Doctor)
+        when :patient
+          expect(letter.recipient.source).to be_a(Renalware::Patient)
         end
 
         if recipient_type.blank?
@@ -112,7 +112,7 @@ module World
     module Web
       include Domain
 
-      def create_simple_letter(user:, patient:, issued_on:)
+      def create_simple_letter(patient:, user:, issued_on:, recipient_type:, recipient_info: nil)
         login_as user
         visit patient_letters_letters_path(patient)
         click_on "Add simple letter"
@@ -123,7 +123,19 @@ module World
         select user.full_name, from: "Author"
         fill_in "Description", with: attributes[:description]
 
-        within ".top" do
+        case recipient_type
+        when :patient
+          choose("letters_letter_recipient_attributes_source_type_renalwarepatient")
+        when :doctor
+          choose("letters_letter_recipient_attributes_source_type_renalwaredoctor")
+        else
+          choose("Postal Address Below")
+          fill_in "Name", with: recipient_info[:name]
+          fill_in "Line 1", with: "1 Main st"
+          fill_in "City", with: recipient_info[:city]
+        end
+
+        within ".bottom" do
           click_on "Create"
         end
       end
@@ -135,7 +147,7 @@ module World
 
         select user.full_name, from: "Author"
 
-        within ".top" do
+        within ".bottom" do
           click_on "Save"
         end
       end
