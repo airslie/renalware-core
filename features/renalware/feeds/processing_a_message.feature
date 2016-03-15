@@ -71,3 +71,8 @@ OBX|17|TX|BASO^Basophils^MB||  0.02||||||F|||200911121646||BHISVC01^BHI Authchec
       | given_name       | JESSICA    |
       | sex              | Female     |
       | born_on          | 1988-09-24 |
+    And an observation request is created with the following attributes:
+      | description      | FBC                       |
+      | pcs_code         |                           |
+      | requestor_name   | MID^KINGS MIDWIVES        |
+      | observed_at      | 2009-11-11 18:41:00 +0000 |
