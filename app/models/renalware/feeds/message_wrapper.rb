@@ -32,6 +32,9 @@ module Renalware
       end
 
       class Observation < SimpleDelegator
+        def identifier
+          observation_id.split("^").first
+        end
         def comment
           observation_value
         end

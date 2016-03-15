@@ -1659,6 +1659,35 @@ ALTER SEQUENCE organism_codes_id_seq OWNED BY organism_codes.id;
 
 
 --
+-- Name: pathology_observation_descriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_observation_descriptions (
+    id integer NOT NULL,
+    code character varying NOT NULL
+);
+
+
+--
+-- Name: pathology_observation_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pathology_observation_descriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_observation_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pathology_observation_descriptions_id_seq OWNED BY pathology_observation_descriptions.id;
+
+
+--
 -- Name: pathology_observation_requests; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1703,6 +1732,7 @@ CREATE TABLE pathology_observations (
     observed_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
+    description_id integer,
     request_id integer
 );
 
@@ -3004,6 +3034,13 @@ ALTER TABLE ONLY organism_codes ALTER COLUMN id SET DEFAULT nextval('organism_co
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY pathology_observation_descriptions ALTER COLUMN id SET DEFAULT nextval('pathology_observation_descriptions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY pathology_observation_requests ALTER COLUMN id SET DEFAULT nextval('pathology_observation_requests_id_seq'::regclass);
 
 
@@ -3547,6 +3584,14 @@ ALTER TABLE ONLY modality_reasons
 
 ALTER TABLE ONLY organism_codes
     ADD CONSTRAINT organism_codes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_observation_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observation_descriptions
+    ADD CONSTRAINT pathology_observation_descriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -4204,6 +4249,13 @@ CREATE INDEX index_modalities_on_reason_id ON modalities USING btree (reason_id)
 --
 
 CREATE INDEX index_pathology_observation_requests_on_patient_id ON pathology_observation_requests USING btree (patient_id);
+
+
+--
+-- Name: index_pathology_observations_on_description_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pathology_observations_on_description_id ON pathology_observations USING btree (description_id);
 
 
 --
@@ -4891,6 +4943,14 @@ ALTER TABLE ONLY pathology_observation_requests
 
 
 --
+-- Name: fk_rails_dc1b1799e7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observations
+    ADD CONSTRAINT fk_rails_dc1b1799e7 FOREIGN KEY (description_id) REFERENCES pathology_observation_descriptions(id);
+
+
+--
 -- Name: fk_rails_dd3ffca9b8; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5171,6 +5231,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160209203446');
 INSERT INTO schema_migrations (version) VALUES ('20160218220145');
 
 INSERT INTO schema_migrations (version) VALUES ('20160302192055');
+
+INSERT INTO schema_migrations (version) VALUES ('20160303151540');
 
 INSERT INTO schema_migrations (version) VALUES ('20160304151449');
 

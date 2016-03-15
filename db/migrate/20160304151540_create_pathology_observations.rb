@@ -8,6 +8,9 @@ class CreatePathologyObservations < ActiveRecord::Migration
       t.timestamps null: false
     end
 
+    add_reference :pathology_observations, :description, references: :pathology_observation_descriptions, index: true
+    add_foreign_key :pathology_observations, :pathology_observation_descriptions, column: :description_id
+
     add_reference :pathology_observations, :request, references: :pathology_observation_requests, index: true
     add_foreign_key :pathology_observations, :pathology_observation_requests, column: :request_id
   end

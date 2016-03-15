@@ -26,7 +26,10 @@ module Renalware
 
       def build_observations_params(observations)
         observations.map do |observation|
+          observation_description = find_observation_description(observation.identifier)
+
           {
+            description_id: observation_description.id,
             observed_at: Time.parse(observation.date_time).to_s,
             result: observation.value,
             comment: observation.comment
@@ -35,9 +38,18 @@ module Renalware
       end
 
       def build_patient_params(patient_identification, params)
-        patient = Patient.find_by!(local_patient_id: patient_identification.internal_id)
-        params[:patient_id] = patient.id
-        params
+        params.tap do |p|
+          patient = find_patient(patient_identification.internal_id)
+          p[:patient_id] = patient.id
+        end
+      end
+
+      def find_observation_description(code)
+        ObservationDescription.find_by!(code: code)
+      end
+
+      def find_patient(local_patient_id)
+        Patient.find_by!(local_patient_id: local_patient_id)
       end
     end
   end

@@ -4,6 +4,7 @@ module Renalware::Pathology
   RSpec.describe MessageParamParser do
     describe "#parse" do
       let(:patient) { create(:patient) }
+      let(:observation_description) { create(:pathology_observation_description) }
 
       let(:message_payload) {
         double(:message_payload,
@@ -14,6 +15,7 @@ module Renalware::Pathology
             date_time: "200911111841",
             observations: [
               double(
+                identifier: observation_description.code,
                 date_time: "200911112026",
                 value: "::value::",
                 comment: "::comment::"
@@ -33,6 +35,7 @@ module Renalware::Pathology
             pcs_code: "::pcs code::",
             observed_at: "2009-11-11 18:41:00 -0500",
             observations_attributes: [
+              description_id: observation_description.id,
               observed_at: "2009-11-11 20:26:00 -0500",
               result: "::value::",
               comment: "::comment::"

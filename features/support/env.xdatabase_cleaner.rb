@@ -22,6 +22,7 @@ begin
     modality_descriptions
     modality_reasons
     organism_codes
+    pathology_observation_descriptions
     prd_descriptions
     roles
     transplant_registration_status_descriptions

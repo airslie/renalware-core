@@ -69,9 +69,13 @@ OBX|17|TX|BASO^Basophils^MB||  0.02||||||F|||200911121646||BHISVC01^BHI Authchec
           expect(obr.ordering_provider).to eq("MID^KINGS MIDWIVES")
           expect(obr.placer_order_number).to eq("123456")
           expect(obr.date_time).to eq("200911111841")
-          expect(obr.observations.first.comment).to eq("6.09")
-          expect(obr.observations.first.date_time).to eq("200911112026")
-          expect(obr.observations.first.value).to eq("6.09")
+        end
+
+        message.observation_request.observations.first.tap do |obs|
+          expect(obs.identifier).to eq("WBC")
+          expect(obs.comment).to eq("6.09")
+          expect(obs.date_time).to eq("200911112026")
+          expect(obs.value).to eq("6.09")
         end
       end
 
