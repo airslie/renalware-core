@@ -1698,7 +1698,8 @@ CREATE TABLE pathology_observation_requests (
     observed_at timestamp without time zone,
     patient_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    description_id integer NOT NULL
 );
 
 
@@ -1732,7 +1733,7 @@ CREATE TABLE pathology_observations (
     observed_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    description_id integer,
+    description_id integer NOT NULL,
     request_id integer
 );
 
@@ -1754,6 +1755,35 @@ CREATE SEQUENCE pathology_observations_id_seq
 --
 
 ALTER SEQUENCE pathology_observations_id_seq OWNED BY pathology_observations.id;
+
+
+--
+-- Name: pathology_request_descriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_request_descriptions (
+    id integer NOT NULL,
+    code character varying NOT NULL
+);
+
+
+--
+-- Name: pathology_request_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pathology_request_descriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_request_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pathology_request_descriptions_id_seq OWNED BY pathology_request_descriptions.id;
 
 
 --
@@ -3055,6 +3085,13 @@ ALTER TABLE ONLY pathology_observations ALTER COLUMN id SET DEFAULT nextval('pat
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY pathology_request_descriptions ALTER COLUMN id SET DEFAULT nextval('pathology_request_descriptions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY patients ALTER COLUMN id SET DEFAULT nextval('patients_id_seq'::regclass);
 
 
@@ -3608,6 +3645,14 @@ ALTER TABLE ONLY pathology_observation_requests
 
 ALTER TABLE ONLY pathology_observations
     ADD CONSTRAINT pathology_observations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_request_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_request_descriptions
+    ADD CONSTRAINT pathology_request_descriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -4245,6 +4290,13 @@ CREATE INDEX index_modalities_on_reason_id ON modalities USING btree (reason_id)
 
 
 --
+-- Name: index_pathology_observation_requests_on_description_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pathology_observation_requests_on_description_id ON pathology_observation_requests USING btree (description_id);
+
+
+--
 -- Name: index_pathology_observation_requests_on_patient_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4508,6 +4560,14 @@ CREATE INDEX tx_versions_type_id ON transplant_versions USING btree (item_type, 
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: fk_rails_050f679712; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observation_requests
+    ADD CONSTRAINT fk_rails_050f679712 FOREIGN KEY (description_id) REFERENCES pathology_request_descriptions(id);
 
 
 --
@@ -5231,6 +5291,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160209203446');
 INSERT INTO schema_migrations (version) VALUES ('20160218220145');
 
 INSERT INTO schema_migrations (version) VALUES ('20160302192055');
+
+INSERT INTO schema_migrations (version) VALUES ('20160303151449');
 
 INSERT INTO schema_migrations (version) VALUES ('20160303151540');
 

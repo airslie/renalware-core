@@ -14,8 +14,10 @@ module Renalware
       private
 
       def build_observation_request_params(request, observations_params)
+        request_description = find_request_description(request.identifier)
         {
           observation_request: {
+            description_id: request_description.id,
             requestor_name: request.ordering_provider,
             pcs_code: request.placer_order_number,
             observed_at: Time.parse(request.date_time).to_s,
@@ -42,6 +44,10 @@ module Renalware
           patient = find_patient(patient_identification.internal_id)
           p[:patient_id] = patient.id
         end
+      end
+
+      def find_request_description(code)
+        RequestDescription.find_by!(code: code)
       end
 
       def find_observation_description(code)

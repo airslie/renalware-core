@@ -66,6 +66,7 @@ OBX|17|TX|BASO^Basophils^MB||  0.02||||||F|||200911121646||BHISVC01^BHI Authchec
         message = subject.parse(raw_message)
 
         message.observation_request.tap do |obr|
+          expect(obr.identifier).to eq("FBC")
           expect(obr.ordering_provider).to eq("MID^KINGS MIDWIVES")
           expect(obr.placer_order_number).to eq("123456")
           expect(obr.date_time).to eq("200911111841")

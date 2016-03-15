@@ -14,6 +14,10 @@ module Renalware
           super(observation_request_segment)
         end
 
+        def identifier
+          universal_service_id.split("^").first
+        end
+
         def observations
           @observations_segments.map { |segment| Observation.new(segment) }
         end
