@@ -1698,13 +1698,12 @@ ALTER SEQUENCE pathology_observation_requests_id_seq OWNED BY pathology_observat
 
 CREATE TABLE pathology_observations (
     id integer NOT NULL,
-    request_id integer,
     result character varying,
     comment text,
     observed_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    request_id_id integer
+    request_id integer
 );
 
 
@@ -4208,10 +4207,10 @@ CREATE INDEX index_pathology_observation_requests_on_patient_id ON pathology_obs
 
 
 --
--- Name: index_pathology_observations_on_request_id_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_pathology_observations_on_request_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_pathology_observations_on_request_id_id ON pathology_observations USING btree (request_id_id);
+CREATE INDEX index_pathology_observations_on_request_id ON pathology_observations USING btree (request_id);
 
 
 --

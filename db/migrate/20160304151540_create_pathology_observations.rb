@@ -1,7 +1,6 @@
 class CreatePathologyObservations < ActiveRecord::Migration
   def change
     create_table :pathology_observations do |t|
-      t.integer :request_id
       t.string :result
       t.text :comment
       t.datetime :observed_at
@@ -9,7 +8,7 @@ class CreatePathologyObservations < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_reference :pathology_observations, :request_id, references: :pathology_observation_requests, index: true
+    add_reference :pathology_observations, :request, references: :pathology_observation_requests, index: true
     add_foreign_key :pathology_observations, :pathology_observation_requests, column: :request_id
   end
 end
