@@ -3,8 +3,11 @@ require "rails_helper"
 module Renalware::Pathology
   RSpec.describe MessageParamParser do
     describe "#parse" do
+      let(:patient) { create(:patient) }
+
       let(:message_payload) {
         double(:message_payload,
+          patient_identification: double(internal_id: patient.local_patient_id),
           observation_request: double(
             ordering_provider: "::name::",
             placer_order_number: "::pcs code::",
@@ -24,6 +27,7 @@ module Renalware::Pathology
         params = subject.parse(message_payload)
 
         expect(params).to eq({
+          patient_id: patient.id,
           observation_request: {
             requestor_name: "::name::",
             pcs_code: "::pcs code::",

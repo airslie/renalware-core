@@ -1666,6 +1666,7 @@ CREATE TABLE pathology_observation_requests (
     pcs_code character varying,
     requestor_name character varying,
     observed_at timestamp without time zone,
+    patient_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -4199,6 +4200,13 @@ CREATE INDEX index_modalities_on_reason_id ON modalities USING btree (reason_id)
 
 
 --
+-- Name: index_pathology_observation_requests_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pathology_observation_requests_on_patient_id ON pathology_observation_requests USING btree (patient_id);
+
+
+--
 -- Name: index_pathology_observations_on_request_id_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4872,6 +4880,14 @@ ALTER TABLE ONLY access_profiles
 
 ALTER TABLE ONLY hd_profiles
     ADD CONSTRAINT fk_rails_d92d27629e FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_db5255e417; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observation_requests
+    ADD CONSTRAINT fk_rails_db5255e417 FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --

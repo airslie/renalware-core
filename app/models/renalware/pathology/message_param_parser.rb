@@ -7,7 +7,8 @@ module Renalware
         request = message_payload.observation_request
 
         observations_params = build_observations_params(request.observations)
-        build_observation_request_params(request, observations_params)
+        request_params = build_observation_request_params(request, observations_params)
+        build_patient_params(message_payload.patient_identification, request_params)
       end
 
       private
@@ -31,6 +32,12 @@ module Renalware
             comment: observation.comment
           }
         end
+      end
+
+      def build_patient_params(patient_identification, params)
+        patient = Patient.find_by!(local_patient_id: patient_identification.internal_id)
+        params[:patient_id] = patient.id
+        params
       end
     end
   end

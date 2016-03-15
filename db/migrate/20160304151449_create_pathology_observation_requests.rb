@@ -4,6 +4,7 @@ class CreatePathologyObservationRequests < ActiveRecord::Migration
       t.string :pcs_code
       t.string :requestor_name
       t.datetime :observed_at
+      t.belongs_to :patient, index: true, foreign_key: true
 
       t.timestamps null: false
     end
