@@ -5,7 +5,9 @@ module Renalware::Pathology
     describe "#call" do
       it "creates the request and related observations", :aggregate_failures do
         patient = pathology_patient(create(:patient))
-        params = build_params(patient)
+        request_description = create(:pathology_request_description)
+        observation_description = create(:pathology_observation_description)
+        params = build_params(patient, request_description, observation_description)
 
         subject.call(params)
 
@@ -13,12 +15,16 @@ module Renalware::Pathology
         expect(patient.observations.count).to eq(1)
       end
 
-      def build_params(patient)
+      def build_params(patient, request_description, observation_description)
+        request_attrs = attributes_for(:pathology_observation_request)
+          .merge(description_id: request_description.id)
+        observation_attrs = attributes_for(:pathology_observation)
+          .merge(description_id: observation_description.id)
+
         Hash.new.tap do |params|
           params[:patient_id] = patient.id
-          params[:observation_request] = attributes_for(:pathology_observation_request)
-          params[:observation_request][:observations_attributes] =
-            [attributes_for(:pathology_observation)]
+          params[:observation_request] = request_attrs
+          params[:observation_request][:observations_attributes] = [observation_attrs]
         end
       end
 

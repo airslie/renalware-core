@@ -4,6 +4,7 @@ module Renalware
   module Pathology
     class ObservationRequest < ActiveRecord::Base
       has_many :observations, foreign_key: :request_id
+      belongs_to :description, class_name: "RequestDescription"
 
       accepts_nested_attributes_for :observations
     end
