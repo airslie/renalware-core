@@ -1,5 +1,40 @@
 Feature: Processing a message
 
+  "Health Level-7 or HL7 refers to a set of international standards for
+  transfer of clinical and administrative data between software applications
+  used by various healthcare providers" -- Wikipedia
+
+  HL7 messages are structured using the following format:
+
+  - segments, one per line
+  - fields delimetered by `|`
+  - components delimetered by `^`
+  - sub components delimitered by `&`
+
+  References:
+
+  - https://corepointhealth.com/resource-center/hl7-resources
+  - http://en.wikipedia.org/wiki/Health_Level_7#HL7_version_2.x
+
+  An HL7 message is processed, extracting the pathology results to inform doctors
+  about physiological parameters of the patient under their care. An HL7 message
+  is sent containing the observation results on completion of the set of observations.
+
+  HL7 messages related to pathology contain:
+
+  - a patient identification
+  - an observation request
+  - multiple observation results
+
+  After an HL7 message is processed the following records are created:
+  - the raw message for future debugging processes
+  - the patient if they don't already exist
+  - the observation request
+  - the observation results related to that request
+
+  Note, this implementation assumes only pathology messages are being sent to the
+  application and does not filter other message types.
+
   @wip
   Scenario: An HL7 message was received
     Given the following HL7 message:
