@@ -18,6 +18,10 @@ module Renalware
       BasePolicy
     end
 
+    def current_address
+      address || practice_address
+    end
+
     def practice_address
       practices.first.try(:address)
     end

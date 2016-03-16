@@ -10,7 +10,10 @@ module Renalware
       accepts_nested_attributes_for :address, reject_if: :address_not_needed?, allow_destroy: true
 
       after_initialize :apply_defaults, if: :new_record?
-      before_save :assign_doctor_or_patient
+
+      def to_s
+        name
+      end
 
       private
 
@@ -20,15 +23,6 @@ module Renalware
 
       def apply_defaults
         self.source_type ||= Doctor.name
-      end
-
-      def assign_doctor_or_patient
-        case source_type
-        when "Renalware::Doctor"
-          self.source_id = letter.patient.doctor_id
-        when "Renalware::Patient"
-          self.source_id = letter.patient_id
-        end
       end
     end
   end

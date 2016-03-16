@@ -5,26 +5,25 @@ end
 
 When(/^Nathalie drafts a simple letter for Patty addressed to her doctor$/) do
   create_simple_letter(patient: @patty, user: @nathalie, issued_on: Time.zone.today,
-    recipient_type: :doctor
+    recipient: @patty.doctor
   )
 end
 
 When(/^Nathalie drafts a simple letter for Patty addressed to herself$/) do
   create_simple_letter(patient: @patty, user: @nathalie, issued_on: Time.zone.today,
-    recipient_type: :patient
+    recipient: @patty
   )
 end
 
 When(/^Nathalie drafts a simple letter for Patty addressed to John Doe in London$/) do
   create_simple_letter(patient: @patty, user: @nathalie, issued_on: Time.zone.today,
-    recipient_type: :other,
     recipient: { name: "John Doe", city: "London" }
   )
 end
 
 When(/^Nathalie submits an erroneous simple letter$/) do
   create_simple_letter(patient: @patty, user: @nathalie, issued_on: nil,
-    recipient_type: :patient
+    recipient: @patty
   )
 end
 

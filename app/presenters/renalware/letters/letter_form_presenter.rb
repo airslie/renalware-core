@@ -1,4 +1,4 @@
-require_dependency "renalware/medications"
+require_dependency "renalware/letters"
 
 module Renalware
   module Letters

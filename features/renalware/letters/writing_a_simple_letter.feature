@@ -10,20 +10,16 @@ Feature: Writing a simple letter
     Given Nathalie is a nurse
     And Patty is a patient
 
-  @web
-  Scenario: A nurse drafted a simple letter to the patient's doctor
-    When Nathalie drafts a simple letter for Patty addressed to her doctor
-    Then Patty has a new simple letter for her doctor
-
-  @web
-  Scenario: A nurse drafted a simple letter to the patient
-    When Nathalie drafts a simple letter for Patty addressed to herself
-    Then Patty has a new simple letter for herself
-
   @web @javascript
-  Scenario: A nurse drafted a simple letter to a manual postal address
-    When Nathalie drafts a simple letter for Patty addressed to John Doe in London
-    Then Patty has a new simple letter for John Doe in London
+  Scenario Outline: A nurse drafted a simple letter
+    When Nathalie drafts a simple letter for Patty addressed to <recipient>
+    Then Patty has a new simple letter for <recipient>
+
+    Examples:
+      | recipient          |
+      | her doctor         |
+      | herself            |
+      | John Doe in London |
 
   @web
   Scenario: A nurse updated a simple letter

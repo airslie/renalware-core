@@ -17,9 +17,10 @@ module Renalware
       end
 
       def create
-        @letter = @patient.letters.new(letter_params)
+        @letter = LetterFormPresenter.new(@patient.letters.new(letter_params))
 
         if @letter.save
+          refresh_letter(@letter)
           redirect_to patient_letters_letters_path(@patient),
             notice: t(".success", model_name: "Letter")
         else
@@ -36,11 +37,13 @@ module Renalware
         @letter = LetterFormPresenter.new(@patient.letters.find(params[:id]))
         @letter.build_recipient if @letter.recipient.blank?
         @letter.recipient.build_address if @letter.recipient.address.blank?
+        refresh_letter(@letter)
       end
 
       def update
-        @letter = @patient.letters.find(params[:id])
+        @letter = LetterFormPresenter.new(@patient.letters.find(params[:id]))
         if @letter.update(letter_params)
+          refresh_letter(@letter)
           redirect_to patient_letters_letters_path(@patient),
             notice: t(".success", model_name: "Letter")
         else
@@ -52,10 +55,9 @@ module Renalware
       private
 
       def letter_params
-        decorate(params)
+        params
           .require(:letters_letter)
           .permit(attributes)
-          .remove_address_if_not_needed
           .merge(by: current_user)
       end
 
@@ -72,17 +74,8 @@ module Renalware
         ]
       end
 
-      def decorate(params)
-        AddressCleaning.new(params)
-      end
-
-      class AddressCleaning < SmartDelegator
-        def remove_address_if_not_needed
-          if @object[:recipient_attributes][:source_type].present?
-            @object[:recipient_attributes][:address_attributes][:_destroy] = "1"
-          end
-          @object
-        end
+      def refresh_letter(letter)
+        RefreshLetter.new(letter).call
       end
     end
   end

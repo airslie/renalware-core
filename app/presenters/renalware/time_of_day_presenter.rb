@@ -1,3 +1,5 @@
+require_dependency "renalware"
+
 module Renalware
   class Renalware::TimeOfDayPresenter < SimpleDelegator
     def to_s

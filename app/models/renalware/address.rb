@@ -13,14 +13,13 @@ module Renalware
       'United Kingdom' == country
     end
 
-    alias_method :orig_to_s, :to_s
-
-    def to_s(*fields)
-      if fields.any?
-        fields.map { |f| send(f) }.reject(&:blank?).join(", ")
-      else
-        orig_to_s
-      end
+    def copy_from(source)
+      self.street_1 = source.street_1
+      self.street_2 = source.street_2
+      self.city = source.city
+      self.county = source.county
+      self.postcode = source.postcode
+      self.country = source.country
     end
   end
 end

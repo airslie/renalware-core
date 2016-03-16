@@ -1,8 +1,10 @@
+require_dependency "renalware"
+
 module Renalware
   class PatientPresenter < SimpleDelegator
     def address_line
       if current_address
-        current_address.to_s(:street_1, :street_2, :city, :county, :postcode, :country)
+        AddressPresenter.new(current_address).on_one_line
       end
     end
 

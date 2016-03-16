@@ -32,40 +32,14 @@ module World
 
       # @section commands
       #
-      def create_simple_letter(patient:, user:, issued_on:, recipient_type:, recipient: nil)
+      def create_simple_letter(patient:, user:, issued_on:, recipient:)
         patient = letters_patient(patient)
-
-        recipient_person = case recipient_type
-          when :patient
-            patient
-          when :doctor
-            patient.doctor
-          else
-            nil
-        end
-
-        if recipient_person.present?
-          recipient_attributes = {
-            source_type: recipient_person.class.name,
-            source_id: recipient_person.try(:id),
-          }
-        else
-          recipient_attributes = {
-            source_type: nil,
-            source_id: nil,
-            name: recipient[:name],
-            address_attributes: {
-              city: recipient[:city],
-              street_1: "1 Main St"
-            }
-          }
-        end
 
         letter_attributes = valid_simple_letter_attributes(patient).merge(
           issued_on: issued_on,
           author: user,
           by: user,
-          recipient_attributes: recipient_attributes
+          recipient_attributes: build_recipient_attributes(recipient)
         )
 
         patient.letters.create(letter_attributes)
@@ -105,13 +79,34 @@ module World
       def expect_simple_letter_to_be_refused
         expect(Renalware::Letters::Letter.count).to eq(0)
       end
+
+      private
+
+      def build_recipient_attributes(recipient)
+        if recipient.is_a? ActiveRecord::Base
+          recipient_attributes = {
+            source_type: recipient.class.name,
+            source_id: recipient.id
+          }
+        else
+          recipient_attributes = {
+            source_type: nil,
+            source_id: nil,
+            name: recipient[:name],
+            address_attributes: {
+              city: recipient[:city],
+              street_1: "1 Main St"
+            }
+          }
+        end
+      end
     end
 
 
     module Web
       include Domain
 
-      def create_simple_letter(patient:, user:, issued_on:, recipient_type:, recipient: nil)
+      def create_simple_letter(patient:, user:, issued_on:, recipient:)
         login_as user
         visit patient_letters_letters_path(patient)
         click_on "Add simple letter"
@@ -122,10 +117,10 @@ module World
         select user.full_name, from: "Author"
         fill_in "Description", with: attributes[:description]
 
-        case recipient_type
-        when :patient
+        case recipient
+        when Renalware::Patient
           choose("letters_letter_recipient_attributes_source_type_renalwarepatient")
-        when :doctor
+        when Renalware::Doctor
           choose("letters_letter_recipient_attributes_source_type_renalwaredoctor")
         else
           choose("Postal Address Below")
