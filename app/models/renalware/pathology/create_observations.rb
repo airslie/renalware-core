@@ -5,14 +5,14 @@ module Renalware
     class CreateObservations
       def call(params)
         observation_params = params.fetch(:observation_request)
-        patient = fetch_patient(params.fetch(:patient_id))
+        patient = find_patient(params.fetch(:patient_id))
 
         patient.observation_requests.create!(observation_params)
       end
 
       private
 
-      def fetch_patient(id)
+      def find_patient(id)
         ::Renalware::Pathology::Patient.find(id)
       end
     end
