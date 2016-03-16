@@ -1,22 +1,32 @@
 module World
   module Pathology
     module Domain
-      def expect_observation_request_to_be_created(expected_attributes)
+      def expect_observation_request_to_be_created(attrs)
         observation_request = find_last_observation_request
 
-        expect_attributes(observation_request, expected_attributes)
+        expect_attributes_to_match(observation_request, attrs)
       end
 
-      def expect_observations_to_be_created(expected_rows)
+      def expect_observations_to_be_created(rows)
         observation_request = find_last_observation_request
 
-        expect(observation_request.observations.count).to eq(expected_rows.size)
+        expect(observation_request.observations.count).to eq(rows.size)
+        expect_rows_to_match(observation_request.observations, rows)
+      end
 
-        expected_rows.each do |expected_attributes|
-          description_code = expected_attributes.fetch("description")
-          observation = find_observation(observation_request.observations, description_code)
+      def expect_rows_to_match(observations, rows)
+        rows.each do |attrs|
+          description_code = attrs.fetch("description")
+          observation = find_observation(observations, description_code)
 
-          expect_attributes(observation, expected_attributes)
+          expect_attributes_to_match(observation, attrs)
+        end
+      end
+
+      def expect_attributes_to_match(record, expected_attrs)
+        expected_attrs.each do |attr_name, expected_value|
+          actual_value = record.send(attr_name).to_s
+          expect(actual_value).to eq(expected_value)
         end
       end
 
@@ -26,13 +36,6 @@ module World
 
       def find_observation(observations, description_code)
         observations.find { |obs| obs.description.code == description_code }
-      end
-
-      def expect_attributes(record, expected_attributes)
-        expected_attributes.each do |attribute_name, expected_value|
-          actual_value = record.send(attribute_name).to_s
-          expect(actual_value).to eq(expected_value)
-        end
       end
     end
   end
