@@ -13,9 +13,9 @@ module Renalware
          pathology_params = parse_pathology_params(message_payload)
          create_observations(pathology_params)
 
-      rescue Exception => error
-        notify_exception(error)
-        raise error
+      rescue StandardError => exception
+        notify_exception(exception)
+        raise exception
       end
 
       private
@@ -36,8 +36,8 @@ module Renalware
         Pathology::CreateObservations.new.call(params)
       end
 
-      def notify_exception(error)
-        # TODO: Add notifier
+      def notify_exception(exception)
+        ExceptionNotifier.new.notify(exception)
       end
 
       def parse_patient_params(message_payload)
