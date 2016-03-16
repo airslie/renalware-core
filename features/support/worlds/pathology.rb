@@ -35,7 +35,7 @@ module World
       end
 
       def find_observation(observations, description_code)
-        observations.find { |obs| obs.description.code == description_code }
+        observations.detect { |obs| obs.description.code == description_code }
       end
     end
   end
