@@ -32,7 +32,7 @@ OBX|17|TX|BASO^Basophils^MB||  0.02||||||F|||200911121646||BHISVC01^BHI Authchec
       it "returns a message" do
         message = subject.parse(raw_message)
 
-        expect(message).to be_a(MessageWrapper)
+        expect(message).to be_a(HL7Wrapper)
       end
 
       it "assigns the type to the message" do

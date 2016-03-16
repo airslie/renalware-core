@@ -2,7 +2,7 @@ require_dependency "renalware/feeds"
 
 module Renalware
   module Feeds
-    class MessageWrapper < SimpleDelegator
+    class HL7Message < SimpleDelegator
       def initialize(message_string)
         @message_string = message_string
         super(::HL7::Message.new(message_string.lines))
