@@ -15,6 +15,7 @@ module Renalware
 
       def build_observation_request_params(request, observations_params)
         request_description = find_request_description(request.identifier)
+
         {
           observation_request: {
             description_id: request_description.id,
