@@ -25,7 +25,7 @@ module World
 
       def expect_attributes_to_match(record, expected_attrs)
         expected_attrs.each do |attr_name, expected_value|
-          actual_value = record.send(attr_name).to_s
+          actual_value = record.public_send(attr_name).to_s
           expect(actual_value).to eq(expected_value)
         end
       end
