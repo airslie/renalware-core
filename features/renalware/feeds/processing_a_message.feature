@@ -35,7 +35,6 @@ Feature: Processing a message
   Note, this implementation assumes only pathology messages are being sent to the
   application and does not filter other message types.
 
-  @wip
   Scenario: An HL7 message was received
     Given the following HL7 message:
 """
