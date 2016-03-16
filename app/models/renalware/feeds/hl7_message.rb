@@ -19,7 +19,7 @@ module Renalware
         end
 
         def observations
-          @observations_segments.map { |segment| Observation.new(segment) }
+          Array(@observations_segments).map { |segment| Observation.new(segment) }
         end
 
         def ordering_provider
