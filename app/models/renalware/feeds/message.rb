@@ -7,7 +7,7 @@ module Renalware
       validates :body, presence: true
 
       def to_s
-        @body
+        body
       end
     end
   end
