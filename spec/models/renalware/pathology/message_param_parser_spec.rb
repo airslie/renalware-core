@@ -36,10 +36,10 @@ module Renalware::Pathology
             description_id: request_description.id,
             requestor_name: "::name::",
             pcs_code: "::pcs code::",
-            observed_at: "2009-11-11 18:41:00 -0500",
+            observed_at: "2009-11-11 18:41:00 +0000",
             observations_attributes: [
               description_id: observation_description.id,
-              observed_at: "2009-11-11 20:26:00 -0500",
+              observed_at: "2009-11-11 20:26:00 +0000",
               result: "::value::",
               comment: "::comment::"
             ]
