@@ -17,5 +17,9 @@ module Renalware
     def self.policy_class
       BasePolicy
     end
+
+    def practice_address
+      practices.first.try(:address)
+    end
   end
 end
