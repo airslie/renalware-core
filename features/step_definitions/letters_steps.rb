@@ -18,7 +18,7 @@ end
 When(/^Nathalie drafts a simple letter for Patty addressed to John Doe in London$/) do
   create_simple_letter(patient: @patty, user: @nathalie, issued_on: Time.zone.today,
     recipient_type: :other,
-    recipient_info: { name: "John Doe", city: "London" }
+    recipient: { name: "John Doe", city: "London" }
   )
 end
 

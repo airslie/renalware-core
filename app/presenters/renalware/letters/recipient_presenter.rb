@@ -4,11 +4,7 @@ module Renalware
   module Letters
     class RecipientPresenter < DumbDelegator
       def to_s
-        if source
-          source.full_name
-        else
-          name
-        end
+        source.present? ? source.full_name : name
       end
     end
   end

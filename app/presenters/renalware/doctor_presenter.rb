@@ -6,9 +6,7 @@ module Renalware
     end
 
     def practice_address
-      if practice = practices.first
-        practice.address
-      end
+      practices.first.try(:address)
     end
   end
 end

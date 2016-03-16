@@ -32,7 +32,7 @@ module World
 
       # @section commands
       #
-      def create_simple_letter(patient:, user:, issued_on:, recipient_type:, recipient_info: nil)
+      def create_simple_letter(patient:, user:, issued_on:, recipient_type:, recipient: nil)
         patient = letters_patient(patient)
 
         recipient_person = case recipient_type
@@ -44,31 +44,31 @@ module World
             nil
         end
 
-        if recipient_info.present?
+        if recipient_person.present?
           recipient_attributes = {
             source_type: recipient_person.class.name,
             source_id: recipient_person.try(:id),
-            name: recipient_info[:name],
-            address_attributes: {
-              city: recipient_info[:city],
-              street_1: "1 Main St"
-            }
           }
         else
           recipient_attributes = {
-            source_type: recipient_person.class.name,
-            source_id: recipient_person.try(:id),
+            source_type: nil,
+            source_id: nil,
+            name: recipient[:name],
+            address_attributes: {
+              city: recipient[:city],
+              street_1: "1 Main St"
+            }
           }
         end
 
-        patient_attributes = valid_simple_letter_attributes(patient).merge(
+        letter_attributes = valid_simple_letter_attributes(patient).merge(
           issued_on: issued_on,
           author: user,
           by: user,
           recipient_attributes: recipient_attributes
         )
 
-        patient.letters.create(patient_attributes)
+        patient.letters.create(letter_attributes)
       end
 
       def update_simple_letter(patient:, user:)
@@ -87,17 +87,16 @@ module World
       #
       def expect_simple_letter_to_exist(patient, recipient_type:, recipient: nil)
         patient = letters_patient(patient)
-        expect(patient.letters).to be_present
         letter = patient.letters.first
+
+        expect(letter).to be_present
 
         case recipient_type
         when :doctor
           expect(letter.recipient.source).to be_a(Renalware::Doctor)
         when :patient
           expect(letter.recipient.source).to be_a(Renalware::Patient)
-        end
-
-        if recipient_type.blank?
+        else
           expect(letter.recipient.name).to eq(recipient[:name])
           expect(letter.recipient.address.city).to eq(recipient[:city])
         end
@@ -112,7 +111,7 @@ module World
     module Web
       include Domain
 
-      def create_simple_letter(patient:, user:, issued_on:, recipient_type:, recipient_info: nil)
+      def create_simple_letter(patient:, user:, issued_on:, recipient_type:, recipient: nil)
         login_as user
         visit patient_letters_letters_path(patient)
         click_on "Add simple letter"
@@ -130,9 +129,9 @@ module World
           choose("letters_letter_recipient_attributes_source_type_renalwaredoctor")
         else
           choose("Postal Address Below")
-          fill_in "Name", with: recipient_info[:name]
+          fill_in "Name", with: recipient[:name]
           fill_in "Line 1", with: "1 Main st"
-          fill_in "City", with: recipient_info[:city]
+          fill_in "City", with: recipient[:city]
         end
 
         within ".bottom" do
