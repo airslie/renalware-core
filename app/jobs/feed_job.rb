@@ -1,7 +1,7 @@
 # To create outside of Rails, insert a row with values for the following columns
 # into the `delayed_jobs` table:
 #
-#     handler: {see example.yml}
+#     handler: {see h7_message_example.yml}
 #     run_at: {current_time}
 #
 # Notes:
