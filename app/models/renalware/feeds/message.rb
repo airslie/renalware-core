@@ -6,6 +6,7 @@ module Renalware
     # debugging purposes.
     #
     class Message < ActiveRecord::Base
+      validates :header_id, presence: true
       validates :event_code, presence: true
       validates :body, presence: true
 
