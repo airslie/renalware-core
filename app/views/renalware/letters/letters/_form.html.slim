@@ -26,7 +26,7 @@ ruby:
     = f.association :author, collection: Renalware::User.ordered, label_method: :full_name
 
     = f.simple_fields_for :recipient do |ff|
-      = ff.input :source_type, as: :radio_buttons, collection: recipient_sources(f.object)
+      = ff.input :source_type, as: :radio_buttons, collection: f.object.recipient_sources
       = ff.input :source_id, as: :hidden
       = ff.input :id, as: :hidden
 

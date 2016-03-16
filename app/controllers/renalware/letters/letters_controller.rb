@@ -11,7 +11,7 @@ module Renalware
       end
 
       def new
-        @letter = @patient.letters.new
+        @letter = LetterFormPresenter.new(@patient.letters.new)
         @letter.build_recipient
         @letter.recipient.build_address
       end
@@ -33,7 +33,7 @@ module Renalware
       end
 
       def edit
-        @letter = @patient.letters.find(params[:id])
+        @letter = LetterFormPresenter.new(@patient.letters.find(params[:id]))
         @letter.build_recipient if @letter.recipient.blank?
         @letter.recipient.build_address if @letter.recipient.address.blank?
       end
