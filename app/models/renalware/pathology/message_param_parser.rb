@@ -21,7 +21,7 @@ module Renalware
             description_id: request_description.id,
             requestor_name: request.ordering_provider,
             pcs_code: request.placer_order_number,
-            observed_at: Time.zone.parse(request.date_time).to_s,
+            observed_at: parse_time(request.date_time),
             observations_attributes: observations_params
           }
         }
@@ -33,7 +33,7 @@ module Renalware
 
           {
             description_id: observation_description.id,
-            observed_at: Time.zone.parse(observation.date_time).to_s,
+            observed_at: parse_time(observation.date_time),
             result: observation.value,
             comment: observation.comment
           }
@@ -57,6 +57,10 @@ module Renalware
 
       def find_patient(local_patient_id)
         Patient.find_by!(local_patient_id: local_patient_id)
+      end
+
+      def parse_time(string)
+        Time.zone.parse(string).to_s
       end
     end
   end
