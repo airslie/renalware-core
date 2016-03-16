@@ -2,6 +2,12 @@ require_dependency "renalware/feeds"
 
 module Renalware
   module Feeds
+    # Responsible for representing an HL7 message. Fields can be queried via
+    # chained method calls. For example, accessing the patient identifier field
+    # in the PID segment can be accessed by calling:
+    #
+    #   HL7Message.new(raw_message).patient_identification.internal_id
+    #
     class HL7Message < SimpleDelegator
       def initialize(message_string)
         @message_string = message_string

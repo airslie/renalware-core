@@ -2,6 +2,9 @@ require_dependency "renalware/feeds"
 
 module Renalware
   module Feeds
+    # Responsible for co-ordinating the processing sequences of a raw
+    # HL7 message.
+    #
     class MessageProcessor
       def call(raw_message)
          message_payload = parse_message(raw_message)

@@ -2,6 +2,9 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
+    # Responsible for transforming an HL7 message payload into a params hash
+    # that can be persisted by ObservationRequest.
+    #
     class MessageParamParser
       def parse(message_payload)
         request = message_payload.observation_request

@@ -2,6 +2,9 @@ require_dependency "renalware/feeds"
 
 module Renalware
   module Feeds
+    # Responsible for persisting the raw message. Useful for audit and
+    # debugging purposes.
+    #
     class Message < ActiveRecord::Base
       validates :event_code, presence: true
       validates :body, presence: true

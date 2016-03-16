@@ -2,6 +2,9 @@ require_dependency "renalware/patients"
 
 module Renalware
   module Patients
+    # Responsible for transforming an HL7 message payload into a params hash
+    # that can be persisted by Patient.
+    #
     class MessageParamParser
       def parse(message_payload)
         pi = message_payload.patient_identification
