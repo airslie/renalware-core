@@ -1694,9 +1694,9 @@ ALTER SEQUENCE pathology_observation_descriptions_id_seq OWNED BY pathology_obse
 CREATE TABLE pathology_observation_requests (
     id integer NOT NULL,
     pcs_code character varying,
-    requestor_name character varying,
-    observed_at timestamp without time zone,
-    patient_id integer,
+    requestor_name character varying NOT NULL,
+    observed_at timestamp without time zone NOT NULL,
+    patient_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     description_id integer NOT NULL
@@ -1728,9 +1728,9 @@ ALTER SEQUENCE pathology_observation_requests_id_seq OWNED BY pathology_observat
 
 CREATE TABLE pathology_observations (
     id integer NOT NULL,
-    result character varying,
+    result character varying NOT NULL,
     comment text,
-    observed_at timestamp without time zone,
+    observed_at timestamp without time zone NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     description_id integer NOT NULL,

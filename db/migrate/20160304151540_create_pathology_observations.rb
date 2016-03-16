@@ -1,9 +1,9 @@
 class CreatePathologyObservations < ActiveRecord::Migration
   def change
     create_table :pathology_observations do |t|
-      t.string :result
+      t.string :result, null: false
       t.text :comment
-      t.datetime :observed_at
+      t.datetime :observed_at, null: false
 
       t.timestamps null: false
     end
