@@ -10,6 +10,14 @@ module Renalware
       it { is_expected.to validate_presence_of(:state) }
       it { is_expected.to validate_presence_of(:main_recipient) }
       it { is_expected.to validate_presence_of(:description) }
+
+      describe ".new" do
+        it "applies defaults" do
+          letter = subject.class.new
+
+          expect(letter.main_recipient.source_type).to eq("Renalware::Doctor")
+        end
+      end
     end
   end
 end

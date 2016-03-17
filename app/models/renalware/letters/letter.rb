@@ -26,6 +26,16 @@ module Renalware
       def self.policy_class
         LetterPolicy
       end
+
+      private
+
+      def apply_defaults
+        add_doctor_as_default_main_recipient
+      end
+
+      def add_doctor_as_default_main_recipient
+        build_main_recipient(source_type: Doctor.name) if main_recipient.blank?
+      end
     end
   end
 end
