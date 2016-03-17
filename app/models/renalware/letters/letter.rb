@@ -10,8 +10,12 @@ module Renalware
       belongs_to :patient
       belongs_to :letterhead
       has_one :main_recipient
+      has_many :cc_recipients
+
+      after_initialize :apply_defaults, if: :new_record?
 
       accepts_nested_attributes_for :main_recipient
+      accepts_nested_attributes_for :cc_recipients
 
       enumerize :state, in: %i(draft ready_for_review archived)
 

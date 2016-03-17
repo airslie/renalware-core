@@ -32,14 +32,15 @@ module World
 
       # @section commands
       #
-      def create_simple_letter(patient:, user:, issued_on:, recipient:)
+      def create_simple_letter(patient:, user:, issued_on:, recipient:, ccs: nil)
         patient = letters_patient(patient)
 
         letter_attributes = valid_simple_letter_attributes(patient).merge(
           issued_on: issued_on,
           author: user,
           by: user,
-          main_recipient_attributes: build_main_recipient_attributes(recipient)
+          main_recipient_attributes: build_main_recipient_attributes(recipient),
+          cc_recipients_attributes: build_cc_recipients_attributes(ccs)
         )
 
         patient.letters.create(letter_attributes)
@@ -59,17 +60,15 @@ module World
 
       # @section expectations
       #
-      def expect_simple_letter_to_exist(patient, recipient_type:, recipient: nil)
+      def expect_simple_letter_to_exist(patient, recipient:)
         patient = letters_patient(patient)
         letter = patient.letters.first
 
         expect(letter).to be_present
 
-        case recipient_type
-        when :doctor
-          expect(letter.main_recipient.source).to be_a(Renalware::Doctor)
-        when :patient
-          expect(letter.main_recipient.source).to be_a(Renalware::Patient)
+        if recipient.is_a? ActiveRecord::Base
+          expect(letter.main_recipient.source_type).to eq(recipient.class.name)
+          expect(letter.main_recipient.source_id).to eq(recipient.id)
         else
           expect(letter.main_recipient.name).to eq(recipient[:name])
           expect(letter.main_recipient.address.city).to eq(recipient[:city])
@@ -80,9 +79,28 @@ module World
         expect(Renalware::Letters::Letter.count).to eq(0)
       end
 
+      def expect_simple_letter_to_have_ccs(patient, ccs:)
+        patient = letters_patient(patient)
+        letter = patient.letters.first
+
+        expect(letter.cc_recipients.size).to eq(ccs.size)
+      end
+
       private
 
       def build_main_recipient_attributes(recipient)
+        build_recipient_attributes(recipient)
+      end
+
+      def build_cc_recipients_attributes(recipients)
+        return [] if recipients.blank?
+
+        recipients.map do |recipient|
+          build_recipient_attributes(recipient)
+        end
+      end
+
+      def build_recipient_attributes(recipient)
         if recipient.is_a? ActiveRecord::Base
           {
             source_type: recipient.class.name,
@@ -106,7 +124,7 @@ module World
     module Web
       include Domain
 
-      def create_simple_letter(patient:, user:, issued_on:, recipient:)
+      def create_simple_letter(patient:, user:, issued_on:, recipient:, ccs:)
         login_as user
         visit patient_letters_letters_path(patient)
         click_on "Add simple letter"
