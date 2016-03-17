@@ -1,5 +1,6 @@
 require_dependency "renalware"
 require_dependency "renalware/feeds"
+require "subscription_registry"
 
 module Renalware
   module Pathology
@@ -14,7 +15,7 @@ module Renalware
     end
 
     def configure
-      Feeds.subscribe_to_message_processor(MessageListener)
+      SubscriptionRegistry.instance.register(Feeds::MessageProcessor, MessageListener)
     end
   end
 end

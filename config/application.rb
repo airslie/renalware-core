@@ -33,7 +33,5 @@ module Renalware
     config.active_record.schema_format = :sql
 
     config.action_mailer.preview_path = Rails.root.join("app", "mailers", "previews")
-
-    config.x.renalware.message_processor_listeners = []
   end
 end
