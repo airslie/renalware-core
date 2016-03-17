@@ -5,7 +5,8 @@ Given(/^Patty is a patient$/) do
     given_name: "ThePatient",
     local_patient_id: "123456",
     sex: "F",
-    born_on: Time.zone.today
+    born_on: Time.zone.today,
+    doctor: doctor
   )
 end
 
@@ -16,6 +17,7 @@ Given(/^Don is a patient$/) do
     given_name: "TheDonor",
     local_patient_id: "123457",
     sex: "M",
-    born_on: Time.zone.today
+    born_on: Time.zone.today,
+    doctor: doctor
   )
 end

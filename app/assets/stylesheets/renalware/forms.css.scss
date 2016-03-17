@@ -29,6 +29,18 @@ fieldset {
   .button {
     margin-bottom: 0;
   }
+
+  .radio {
+    input.radio_buttons {
+      margin-right: 5px;
+    }
+
+    address {
+      display: inline;
+      color: #AAA;
+      font-size: 0.9em;
+    }
+  }
 }
 
 .document form,

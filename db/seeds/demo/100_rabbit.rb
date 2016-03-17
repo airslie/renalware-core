@@ -390,7 +390,11 @@ module Renalware
   patient.letters.create!(
     issued_on: 1.day.ago,
     description: Renalware::Letters::Description.first.text,
-    salutation: "Dear Mr Rabbit",
+    salutation: "Dear Dr Runner",
+    recipient_attributes: {
+      source_type: "Renalware::Patient",
+      source_id: patient.id
+    },
     body: "Maecenas faucibus mollis interdum. Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur blandit tempus porttitor. Maecenas sed diam eget risus varius blandit sit amet non magna. Sed posuere consectetur est at lobortis.",
     notes: "Waiting on lab results.",
     letterhead: Renalware::Letters::Letterhead.first,
@@ -402,6 +406,10 @@ module Renalware
     state: :ready_for_review,
     issued_on: 3.days.ago,
     description: Renalware::Letters::Description.last.text,
+    recipient_attributes: {
+      source_type: "Renalware::Patient",
+      source_id: patient.id
+    },
     salutation: "Dear Mr Rabbit",
     body: "Maecenas faucibus mollis interdum. Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur blandit tempus porttitor. Maecenas sed diam eget risus varius blandit sit amet non magna. Sed posuere consectetur est at lobortis.",
     letterhead: Renalware::Letters::Letterhead.last,
@@ -413,6 +421,10 @@ module Renalware
     state: :archived,
     issued_on: 10.days.ago,
     description: Renalware::Letters::Description.last.text,
+    recipient_attributes: {
+      source_type: "Renalware::Patient",
+      source_id: patient.id
+    },
     salutation: "Dear Mr Rabbit",
     body: "Maecenas faucibus mollis interdum. Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur blandit tempus porttitor. Maecenas sed diam eget risus varius blandit sit amet non magna. Sed posuere consectetur est at lobortis.",
     letterhead: Renalware::Letters::Letterhead.last,

@@ -4,7 +4,7 @@ module Renalware
   module Letters
     class DescriptionsController < ActionController::Base
       def search
-        query = Letters::Descriptions::SearchQuery.new(term: params[:term])
+        query = Letters::Descriptions::SearchQuery.new(params[:term])
         render json: DescriptionAutocompleteResponse.to_json(query.call)
       end
 

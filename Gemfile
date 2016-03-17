@@ -34,6 +34,7 @@ source 'https://rails-assets.org' do
   # https://github.com/najlepsiwebdesigner/foundation-datepicker
   gem 'rails-assets-foundation-datepicker'
   gem 'rails-assets-clockpicker'
+  gem 'rails-assets-select2'
 end
 
 group :development do

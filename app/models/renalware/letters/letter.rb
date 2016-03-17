@@ -9,6 +9,9 @@ module Renalware
       belongs_to :author, class_name: "User"
       belongs_to :patient
       belongs_to :letterhead
+      has_one :recipient
+
+      accepts_nested_attributes_for :recipient
 
       enumerize :state, in: %i(draft ready_for_review archived)
 
@@ -18,6 +21,7 @@ module Renalware
       validates :state, presence: true
       validates :issued_on, presence: true
       validates :description, presence: true
+      validates :recipient, presence: true
 
       def self.policy_class
         LetterPolicy

@@ -1,4 +1,5 @@
 require_dependency "renalware/letters"
+require "smart_delegator"
 
 module Renalware
   module Letters
@@ -6,17 +7,20 @@ module Renalware
       before_filter :load_patient
 
       def index
-        @letters = @patient.letters
+        @letters = CollectionPresenter.new(@patient.letters, LetterPresenter)
       end
 
       def new
-        @letter = @patient.letters.new
+        @letter = LetterFormPresenter.new(@patient.letters.new)
+        @letter.build_recipient
+        @letter.recipient.build_address
       end
 
       def create
-        @letter = @patient.letters.new(letter_params)
+        @letter = LetterFormPresenter.new(@patient.letters.new(letter_params))
 
         if @letter.save
+          refresh_letter(@letter)
           redirect_to patient_letters_letters_path(@patient),
             notice: t(".success", model_name: "Letter")
         else
@@ -26,16 +30,20 @@ module Renalware
       end
 
       def show
-        @letter = @patient.letters.find(params[:id])
+        @letter = LetterPresenter.new(@patient.letters.find(params[:id]))
       end
 
       def edit
-        @letter = @patient.letters.find(params[:id])
+        @letter = LetterFormPresenter.new(@patient.letters.find(params[:id]))
+        @letter.build_recipient if @letter.recipient.blank?
+        @letter.recipient.build_address if @letter.recipient.address.blank?
+        refresh_letter(@letter)
       end
 
       def update
-        @letter = @patient.letters.find(params[:id])
+        @letter = LetterFormPresenter.new(@patient.letters.find(params[:id]))
         if @letter.update(letter_params)
+          refresh_letter(@letter)
           redirect_to patient_letters_letters_path(@patient),
             notice: t(".success", model_name: "Letter")
         else
@@ -47,7 +55,8 @@ module Renalware
       private
 
       def letter_params
-        params.require(:letters_letter)
+        params
+          .require(:letters_letter)
           .permit(attributes)
           .merge(by: current_user)
       end
@@ -55,8 +64,18 @@ module Renalware
       def attributes
         [
           :letterhead_id, :author_id, :description, :issued_on,
-          :salutation, :body, :notes
+          :salutation, :body, :notes,
+          recipient_attributes: [
+            :id, :name, :source_type, :source_id,
+            address_attributes: [
+              :id, :street_1, :street_2, :city, :county, :postcode, :country, :_destroy
+            ]
+          ]
         ]
+      end
+
+      def refresh_letter(letter)
+        RefreshLetter.new(letter).call
       end
     end
   end

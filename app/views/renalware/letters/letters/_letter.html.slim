@@ -3,10 +3,10 @@ tr
     = link_to 'Preview', patient_letters_letter_path(letter.patient, letter)
     = pipe_separator
     = link_to 'Edit', edit_patient_letters_letter_path(letter.patient, letter)
-  td= letter.class.name
+  td Simple Letter
   td= l letter.issued_on
   td= letter.author
-  td
+  td= letter.recipient_name
   td= letter.description
   td= letter.state.text
   td= l letter.updated_at

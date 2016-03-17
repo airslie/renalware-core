@@ -24,6 +24,7 @@ module World
         patient.letters.create!(
           valid_simple_letter_attributes(patient).merge(
             author: user,
+            recipient_attributes: { source_type: "Renalware::Patient", source_id: patient.id },
             by: user
           )
         )
@@ -31,15 +32,17 @@ module World
 
       # @section commands
       #
-      def create_simple_letter(patient:, user:, issued_on:)
+      def create_simple_letter(patient:, user:, issued_on:, recipient:)
         patient = letters_patient(patient)
-        patient.letters.create(
-          valid_simple_letter_attributes(patient).merge(
-            issued_on: issued_on,
-            author: user,
-            by: user
-          )
+
+        letter_attributes = valid_simple_letter_attributes(patient).merge(
+          issued_on: issued_on,
+          author: user,
+          by: user,
+          recipient_attributes: build_recipient_attributes(recipient)
         )
+
+        patient.letters.create(letter_attributes)
       end
 
       def update_simple_letter(patient:, user:)
@@ -56,13 +59,46 @@ module World
 
       # @section expectations
       #
-      def expect_simple_letter_to_exist(patient)
+      def expect_simple_letter_to_exist(patient, recipient_type:, recipient: nil)
         patient = letters_patient(patient)
-        expect(patient.letters).to be_present
+        letter = patient.letters.first
+
+        expect(letter).to be_present
+
+        case recipient_type
+        when :doctor
+          expect(letter.recipient.source).to be_a(Renalware::Doctor)
+        when :patient
+          expect(letter.recipient.source).to be_a(Renalware::Patient)
+        else
+          expect(letter.recipient.name).to eq(recipient[:name])
+          expect(letter.recipient.address.city).to eq(recipient[:city])
+        end
       end
 
       def expect_simple_letter_to_be_refused
         expect(Renalware::Letters::Letter.count).to eq(0)
+      end
+
+      private
+
+      def build_recipient_attributes(recipient)
+        if recipient.is_a? ActiveRecord::Base
+          recipient_attributes = {
+            source_type: recipient.class.name,
+            source_id: recipient.id
+          }
+        else
+          recipient_attributes = {
+            source_type: nil,
+            source_id: nil,
+            name: recipient[:name],
+            address_attributes: {
+              city: recipient[:city],
+              street_1: "1 Main St"
+            }
+          }
+        end
       end
     end
 
@@ -70,7 +106,7 @@ module World
     module Web
       include Domain
 
-      def create_simple_letter(user:, patient:, issued_on:)
+      def create_simple_letter(patient:, user:, issued_on:, recipient:)
         login_as user
         visit patient_letters_letters_path(patient)
         click_on "Add simple letter"
@@ -81,7 +117,19 @@ module World
         select user.full_name, from: "Author"
         fill_in "Description", with: attributes[:description]
 
-        within ".top" do
+        case recipient
+        when Renalware::Patient
+          choose("letters_letter_recipient_attributes_source_type_renalwarepatient")
+        when Renalware::Doctor
+          choose("letters_letter_recipient_attributes_source_type_renalwaredoctor")
+        else
+          choose("Postal Address Below")
+          fill_in "Name", with: recipient[:name]
+          fill_in "Line 1", with: "1 Main st"
+          fill_in "City", with: recipient[:city]
+        end
+
+        within ".bottom" do
           click_on "Create"
         end
       end
@@ -93,7 +141,7 @@ module World
 
         select user.full_name, from: "Author"
 
-        within ".top" do
+        within ".bottom" do
           click_on "Save"
         end
       end

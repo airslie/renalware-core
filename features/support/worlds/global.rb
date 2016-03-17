@@ -40,5 +40,9 @@ module World
         born_on: Time.zone.today
       )
     end
+
+    def doctor
+      @doctor ||= FactoryGirl.create(:doctor)
+    end
   end
 end
