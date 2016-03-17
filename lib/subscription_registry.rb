@@ -27,7 +27,7 @@ class SubscriptionRegistry
   include Singleton
 
   def register(broadcaster_class, listener_class)
-    fetch_key(broadcaster_class.name).add listener_class.name
+    fetch_key(broadcaster_class.name).add(listener_class.name)
   end
 
   def subscribe_listeners_to(broadcaster_instance)
