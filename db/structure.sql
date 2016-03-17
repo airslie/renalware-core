@@ -1610,6 +1610,7 @@ CREATE TABLE patients (
     first_edta_code_id integer,
     second_edta_code_id integer,
     death_notes text,
+    cc_on_all_letters boolean DEFAULT true,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     practice_id integer,
