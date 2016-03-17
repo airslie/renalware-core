@@ -6,7 +6,7 @@ module World
       end
 
       def process_message(raw_message)
-        Renalware::Feeds::MessageProcessor.new.call(raw_message)
+        Renalware::Feeds.message_processor.call(raw_message)
       end
 
       def expect_message_to_be_recorded(message)

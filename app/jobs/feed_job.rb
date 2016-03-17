@@ -11,6 +11,6 @@
 #
 FeedJob = Struct.new(:raw_message) do
   def perform
-    Renalware::Feeds::MessageProcessor.new.call(raw_message)
+    Renalware::Feeds.message_processor.call(raw_message)
   end
 end

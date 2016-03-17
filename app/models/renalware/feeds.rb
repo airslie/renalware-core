@@ -2,8 +2,14 @@ require_dependency "renalware"
 
 module Renalware
   module Feeds
-    def self.table_name_prefix
+    module_function
+
+    def table_name_prefix
       "feed_"
+    end
+
+    def message_processor
+      Renalware::Feeds::MessageProcessor.new
     end
   end
 end
