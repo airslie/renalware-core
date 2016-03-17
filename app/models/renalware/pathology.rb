@@ -1,13 +1,20 @@
 require_dependency "renalware"
+require_dependency "renalware/feeds"
 
 module Renalware
   module Pathology
-    def self.table_name_prefix
+    module_function
+
+    def table_name_prefix
       "pathology_"
     end
 
-    def self.cast_patient(patient)
+    def cast_patient(patient)
       ActiveType.cast(patient, ::Renalware::Pathology::Patient)
+    end
+
+    def configure
+      Feeds.subscribe_to_message_processor(MessageListener)
     end
   end
 end
