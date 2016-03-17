@@ -19,7 +19,7 @@ require "set"
 #
 #    SubscriptionRegistry.instance.register(OtherModule::Broadcaster, Listener)
 #
-# Then in the other module, subscribe to those listeners.
+# Then in the other module, subscribe listeners registred above to the broadcaster.
 #
 #    broadcaster = SubscriptionRegistry.instance.subscribe_listeners_to(Broadcaster.new)
 #
