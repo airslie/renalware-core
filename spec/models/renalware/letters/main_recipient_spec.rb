@@ -2,7 +2,7 @@ require "rails_helper"
 
 module Renalware
   module Letters
-    RSpec.describe Recipient, type: :model do
+    RSpec.describe MainRecipient, type: :model do
       describe ".new" do
         it "applies defaults" do
           recipient = subject.class.new

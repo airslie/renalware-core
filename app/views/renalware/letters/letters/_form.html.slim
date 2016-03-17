@@ -25,8 +25,10 @@ ruby:
     = f.input :issued_on, as: :date_picker
     = f.association :author, collection: Renalware::User.ordered, label_method: :full_name
 
-    = f.simple_fields_for :recipient do |ff|
-      = ff.input :source_type, as: :radio_buttons, collection: f.object.recipient_sources
+    = f.simple_fields_for :main_recipient do |ff|
+      = ff.input :source_type, as: :radio_buttons,
+          collection: f.object.main_recipient_sources,
+          input_html: { class: 'recipient-source-picker' }
       = ff.input :source_id, as: :hidden
       = ff.input :id, as: :hidden
 

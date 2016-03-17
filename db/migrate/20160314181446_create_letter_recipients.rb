@@ -1,6 +1,7 @@
 class CreateLetterRecipients < ActiveRecord::Migration
   def change
     create_table :letter_recipients do |t|
+      t.string :type
       t.string :source_type
       t.integer :source_id
       t.string :name
@@ -12,5 +13,6 @@ class CreateLetterRecipients < ActiveRecord::Migration
     add_foreign_key :letter_recipients, :letter_letters, column: :letter_id
 
     add_index :letter_recipients, [:source_type, :source_id]
+    add_index :letter_recipients, [:type, :id]
   end
 end

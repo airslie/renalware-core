@@ -8,13 +8,13 @@ module Renalware
       end
 
       def call
-        refresh_recipient
+        refresh_main_recipient
       end
 
       private
 
-      def refresh_recipient
-        RefreshRecipient.new(letter.recipient).call
+      def refresh_main_recipient
+        RefreshMainRecipient.new(letter.main_recipient).call
       end
     end
   end

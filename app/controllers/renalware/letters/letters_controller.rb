@@ -12,8 +12,8 @@ module Renalware
 
       def new
         @letter = LetterFormPresenter.new(@patient.letters.new)
-        @letter.build_recipient
-        @letter.recipient.build_address
+        @letter.build_main_recipient
+        @letter.main_recipient.build_address
       end
 
       def create
@@ -35,8 +35,8 @@ module Renalware
 
       def edit
         @letter = LetterFormPresenter.new(@patient.letters.find(params[:id]))
-        @letter.build_recipient if @letter.recipient.blank?
-        @letter.recipient.build_address if @letter.recipient.address.blank?
+        @letter.build_main_recipient if @letter.main_recipient.blank?
+        @letter.main_recipient.build_address if @letter.main_recipient.address.blank?
         refresh_letter(@letter)
       end
 
@@ -65,7 +65,7 @@ module Renalware
         [
           :letterhead_id, :author_id, :description, :issued_on,
           :salutation, :body, :notes,
-          recipient_attributes: [
+          main_recipient_attributes: [
             :id, :name, :source_type, :source_id,
             address_attributes: [
               :id, :street_1, :street_2, :city, :county, :postcode, :country, :_destroy

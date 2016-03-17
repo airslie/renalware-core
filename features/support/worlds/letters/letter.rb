@@ -24,7 +24,7 @@ module World
         patient.letters.create!(
           valid_simple_letter_attributes(patient).merge(
             author: user,
-            recipient_attributes: { source_type: "Renalware::Patient", source_id: patient.id },
+            main_recipient_attributes: { source_type: "Renalware::Patient", source_id: patient.id },
             by: user
           )
         )
@@ -39,7 +39,7 @@ module World
           issued_on: issued_on,
           author: user,
           by: user,
-          recipient_attributes: build_recipient_attributes(recipient)
+          main_recipient_attributes: build_main_recipient_attributes(recipient)
         )
 
         patient.letters.create(letter_attributes)
@@ -67,12 +67,12 @@ module World
 
         case recipient_type
         when :doctor
-          expect(letter.recipient.source).to be_a(Renalware::Doctor)
+          expect(letter.main_recipient.source).to be_a(Renalware::Doctor)
         when :patient
-          expect(letter.recipient.source).to be_a(Renalware::Patient)
+          expect(letter.main_recipient.source).to be_a(Renalware::Patient)
         else
-          expect(letter.recipient.name).to eq(recipient[:name])
-          expect(letter.recipient.address.city).to eq(recipient[:city])
+          expect(letter.main_recipient.name).to eq(recipient[:name])
+          expect(letter.main_recipient.address.city).to eq(recipient[:city])
         end
       end
 
@@ -82,14 +82,14 @@ module World
 
       private
 
-      def build_recipient_attributes(recipient)
+      def build_main_recipient_attributes(recipient)
         if recipient.is_a? ActiveRecord::Base
-          recipient_attributes = {
+          {
             source_type: recipient.class.name,
             source_id: recipient.id
           }
         else
-          recipient_attributes = {
+          {
             source_type: nil,
             source_id: nil,
             name: recipient[:name],
@@ -119,9 +119,9 @@ module World
 
         case recipient
         when Renalware::Patient
-          choose("letters_letter_recipient_attributes_source_type_renalwarepatient")
+          choose("letters_letter_main_recipient_attributes_source_type_renalwarepatient")
         when Renalware::Doctor
-          choose("letters_letter_recipient_attributes_source_type_renalwaredoctor")
+          choose("letters_letter_main_recipient_attributes_source_type_renalwaredoctor")
         else
           choose("Postal Address Below")
           fill_in "Name", with: recipient[:name]

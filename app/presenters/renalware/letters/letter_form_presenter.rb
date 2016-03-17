@@ -3,7 +3,7 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class LetterFormPresenter < DumbDelegator
-      def recipient_sources
+      def main_recipient_sources
         [].tap do |collection|
           collection << doctor_source if patient.doctor.present?
           collection << patient_source
