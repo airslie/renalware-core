@@ -3,10 +3,10 @@ require_dependency "renalware"
 module Renalware
   class AddressPresenter < SimpleDelegator
     def on_one_line
-      [street_1, street_2, city, county, postcode, country].reject(&:blank?).join(", ")
+      to_s
     end
 
-    def street_1_and_postcode
+    def short
       [street_1, postcode].reject(&:blank?).join(", ")
     end
   end

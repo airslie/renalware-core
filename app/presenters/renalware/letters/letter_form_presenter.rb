@@ -4,13 +4,11 @@ module Renalware
   module Letters
     class LetterFormPresenter < DumbDelegator
       def recipient_sources
-        collection = []
-
-        collection << doctor_source if patient.doctor.present?
-        collection << patient_source
-        collection << manual_address_source
-
-        collection
+        [].tap do |collection|
+          collection << doctor_source if patient.doctor.present?
+          collection << patient_source
+          collection << manual_address_source
+        end
       end
 
       def patient

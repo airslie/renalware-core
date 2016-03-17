@@ -15,6 +15,11 @@ module Renalware
         name
       end
 
+      def copy_address!(address)
+        build_address if address.blank?
+        address.copy_from(address).save!
+      end
+
       private
 
       def address_not_needed?

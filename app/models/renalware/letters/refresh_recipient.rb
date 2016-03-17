@@ -35,19 +35,20 @@ module Renalware
       def assign_doctor_or_patient
         case recipient.source_type
         when "Renalware::Doctor"
-          recipient.source_id = doctor.id
-          recipient.name = doctor.full_name
+          assign_recipient_attributes(doctor)
         when "Renalware::Patient"
-          recipient.source_id = patient.id
-          recipient.name = patient.full_name
+          assign_recipient_attributes(patient)
         end
       end
 
+      def assign_recipient_attributes(source)
+        recipient.source_id = source.id
+        recipient.name = source.full_name
+      end
+
       def copy_source_address
-        if source.present? && source.current_address.present?
-          recipient.build_address if recipient.address.blank?
-          recipient.address.copy_from(source.current_address)
-          recipient.address.save!
+        if source.try(:current_address).present?
+          recipient.copy_address!(source.current_address)
         end
       end
     end

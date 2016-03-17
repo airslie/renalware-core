@@ -20,6 +20,11 @@ module Renalware
       self.county = source.county
       self.postcode = source.postcode
       self.country = source.country
+      self
+    end
+
+    def to_s
+      [street_1, street_2, city, county, postcode, country].reject(&:blank?).join(", ")
     end
   end
 end

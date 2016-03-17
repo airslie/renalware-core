@@ -1,6 +1,15 @@
 # This class delegates method calls to the given object.
-# If the returned value if an instance of the delegated object,
-# the smart delegator will return an instance of itself.
+# If the returned value is an instance of the original object,
+# the smart delegator will return a new instance of itself with
+# the original object.
+#
+# This is in contrast to SimpleDelegator which will return the
+# original object.
+#
+# The chart below demonstrates the difference:
+#
+#    `mymessage` -> SimpleDelegator -> OriginalObject -> invokes `mymessage` returning self -> returns OriginalObject
+#    `mymessage` -> SmartDelegator  -> OriginalObject -> invokes `mymessage` returning self -> returns SmartDelegator decorating OriginalObject
 class SmartDelegator
 
   attr_reader :object
