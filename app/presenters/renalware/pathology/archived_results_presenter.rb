@@ -19,7 +19,9 @@ module Renalware
       private
 
       def results
-        @results ||= grouped.map { |observed_at, observation_attrs| present_attrs(observed_at, observation_attrs) }
+        @results ||= grouped.map do |observed_at, observation_attrs|
+          present_attrs(observed_at, observation_attrs)
+        end
       end
 
       def grouped
@@ -27,7 +29,7 @@ module Renalware
       end
 
       def present_attrs(observed_at, observations)
-        attrs = {"observed_on" => I18n.l(observed_at) }
+        attrs = { "observed_on" => I18n.l(observed_at) }
 
         @observation_descriptions.each_with_object(attrs) do |description|
           observation = observations.detect { |observation| observation.description == description }

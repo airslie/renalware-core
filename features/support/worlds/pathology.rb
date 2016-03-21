@@ -12,7 +12,7 @@ module World
           result = attrs.fetch("result")
           observed_at = Time.zone.parse(attrs.fetch("observed_at"))
 
-          {description: description, result: result, observed_at: observed_at}
+          { description: description, result: result, observed_at: observed_at }
         }
 
         Renalware::Pathology::ObservationRequest.create!(
