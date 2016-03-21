@@ -1,6 +1,31 @@
 module World
   module Pathology
     module Domain
+      # @section commands
+
+      def record_observations(patient:, observations_attributes:)
+        patient = Renalware::Pathology.cast_patient(patient)
+
+        observations_attributes.map! {|attrs|
+          code = attrs.fetch("code")
+          description = Renalware::Pathology::ObservationDescription.find_by(code: code)
+          result = attrs.fetch("result")
+          observed_at = Time.zone.parse(attrs.fetch("observed_at"))
+
+          {description: description, result: result, observed_at: observed_at}
+        }
+
+        Renalware::Pathology::ObservationRequest.create!(
+          patient: patient,
+          requestor_name: "KCH",
+          requested_at: Time.zone.now,
+          description: Renalware::Pathology::RequestDescription.first!,
+          observations_attributes: observations_attributes
+        )
+      end
+
+      # @section expectations
+      #
       def expect_observation_request_to_be_created(attrs)
         observation_request = find_last_observation_request
 
@@ -29,6 +54,17 @@ module World
           expect(actual_value).to eq(expected_value)
         end
       end
+
+      def expect_pathology_result_report(patient:, rows:)
+        patient = Renalware::Pathology.cast_patient(patient)
+
+        query = Renalware::Pathology::ArchivedResultsQuery.new(patient: patient).call
+        presenter = Renalware::Pathology::ArchivedResultsPresenter.new(query)
+
+        expect(presenter.to_a).to match_array(rows)
+      end
+
+      private
 
       def find_last_observation_request
         Renalware::Pathology::ObservationRequest.includes(observations: :description).last!

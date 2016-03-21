@@ -7,7 +7,8 @@ Feature: Viewing archived pathology results for a patient
   Scenario: Multiple observation results recorded
     Given Patty is a patient
     And the following observations were recorded
-      | WBC         | 6.09   |         | 2009-11-11 20:26:00 +0000 |
+      | code | result | observed_at         |
+      | WBC  | 6.09   | 2009-11-11 20:26:00 |
     Then the doctor views the following archived pathology result report:
-      | date       | WBC  |
-      | 2009-11-11 | 6.09 |
+      | observed_at | WBC  |
+      | 11-11-2009  | 6.09 |
