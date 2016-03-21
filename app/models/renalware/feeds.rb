@@ -10,7 +10,8 @@ module Renalware
     end
 
     def message_processor
-      @message_processor ||= SubscriptionRegistry.instance
+      @message_processor ||= SubscriptionRegistry
+        .instance
         .subscribe_listeners_to(MessageProcessor.new)
     end
   end
