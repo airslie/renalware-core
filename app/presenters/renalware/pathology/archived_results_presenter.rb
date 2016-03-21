@@ -3,9 +3,9 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class ArchivedResultsPresenter
-      def initialize(query, observation_description_codes)
+      def initialize(query, observation_descriptions)
         @query = query
-        @observation_description_codes = observation_description_codes
+        @observation_descriptions = observation_descriptions
       end
 
       def to_a
@@ -17,9 +17,9 @@ module Renalware
       def present_attrs(observed_at, observations)
         attrs = {"observed_on" => I18n.l(observed_at) }
 
-        @observation_description_codes.each_with_object(attrs) do |code|
-          observation = observations.detect { |observation| observation.description.code == code }
-          attrs[code] = observation.try!(:result).to_s
+        @observation_descriptions.each_with_object(attrs) do |description|
+          observation = observations.detect { |observation| observation.description == description }
+          attrs[description.code] = observation.try!(:result).to_s
         end
       end
 

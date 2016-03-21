@@ -59,9 +59,10 @@ module World
         patient = Renalware::Pathology.cast_patient(patient)
 
         query = Renalware::Pathology::ArchivedResultsQuery.new(patient: patient).call
-        _first, *observation_description_codes = rows.first.keys
+        _first, *codes = rows.first.keys
+        observation_descriptions = Renalware::Pathology::ObservationDescription.for(codes)
         presenter = Renalware::Pathology::ArchivedResultsPresenter.new(
-          query, observation_description_codes
+          query, observation_descriptions
         )
 
         expect(presenter.to_a).to match_array(rows)
