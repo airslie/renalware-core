@@ -112,6 +112,10 @@ Rails.application.routes.draw do
         resources :notes, only: [:index, :new, :create], controller: "problems/notes"
       end
 
+      namespace :pathology do
+        resources :observations, only: :index
+      end
+
       namespace :transplants do
         resource :recipient_dashboard, only: :show
         resource :recipient_workup, only: [:show, :edit, :update]
