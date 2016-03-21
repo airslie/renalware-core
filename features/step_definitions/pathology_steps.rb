@@ -1,0 +1,7 @@
+Then(/^an observation request is created with the following attributes:$/) do |table|
+  expect_observation_request_to_be_created(table.rows_hash)
+end
+
+Then(/^an observations are created with the following attributes:$/) do |table|
+  expect_observations_to_be_created(table.hashes)
+end

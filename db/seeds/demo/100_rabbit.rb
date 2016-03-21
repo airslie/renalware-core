@@ -432,4 +432,22 @@ module Renalware
     by: users.sample
   )
 
+  log '--------------------Adding Pathology Observations to Roger RABBIT-------------------'
+
+  pathology_rabbit = Pathology.cast_patient(rabbit)
+  request_description = Pathology::RequestDescription.first!
+  observation_description = Pathology::ObservationDescription.first!
+
+  request = pathology_rabbit.observation_requests.create!(
+    description: request_description,
+    pcs_code: "ABC",
+    observed_at: Time.zone.now,
+    requestor_name: "Seed",
+  )
+
+  request.observations.create!(
+    description: observation_description,
+    result: "6.6",
+    observed_at: Time.zone.now
+  )
 end
