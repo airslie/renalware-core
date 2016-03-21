@@ -53,14 +53,14 @@ module Renalware::Feeds
 
           message.observation_request.tap do |obr|
             expect(obr.identifier).to eq("FBC")
-            expect(obr.ordering_provider).to eq("MID^KINGS MIDWIVES")
+            expect(obr.ordering_provider_name).to eq("KINGS MIDWIVES")
             expect(obr.placer_order_number).to eq("123456")
             expect(obr.date_time).to eq("200911111841")
           end
 
           message.observation_request.observations.first.tap do |obs|
             expect(obs.identifier).to eq("WBC")
-            expect(obs.comment).to eq("6.09")
+            expect(obs.comment).to eq("")
             expect(obs.date_time).to eq("200911112026")
             expect(obs.value).to eq("6.09")
           end

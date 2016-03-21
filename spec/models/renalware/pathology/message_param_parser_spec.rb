@@ -12,7 +12,7 @@ module Renalware::Pathology
           patient_identification: double(internal_id: patient.local_patient_id),
           observation_request: double(
             identifier: request_description.code,
-            ordering_provider: "::name::",
+            ordering_provider_name: "::name::",
             placer_order_number: "::pcs code::",
             date_time: "200911111841",
             observations: [
@@ -35,8 +35,8 @@ module Renalware::Pathology
           observation_request: {
             description_id: request_description.id,
             requestor_name: "::name::",
-            pcs_code: "::pcs code::",
-            observed_at: "2009-11-11 18:41:00 +0000",
+            requestor_order_number: "::pcs code::",
+            requested_at: "2009-11-11 18:41:00 +0000",
             observations_attributes: [
               description_id: observation_description.id,
               observed_at: "2009-11-11 20:26:00 +0000",

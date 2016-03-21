@@ -11,7 +11,7 @@ module Renalware
 
       validates :patient, presence: true
       validates :requestor_name, presence: true
-      validates :observed_at, presence: true
+      validates :requested_at, presence: true
     end
   end
 end

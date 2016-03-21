@@ -57,10 +57,10 @@ OBX|3|TX|HB^Hb^MB||11.8||||||F|||200911112026||BBKA^Kenneth AMENYAH|
       | sex              | Female     |
       | born_on          | 1988-09-24 |
     And an observation request is created with the following attributes:
-      | description      | FBC                       |
-      | pcs_code         | B33J9WXEHF                |
-      | requestor_name   | MID^KINGS MIDWIVES        |
-      | observed_at      | 2009-11-11 18:41:00 +0000 |
+      | description            | FBC                       |
+      | requestor_order_number | B33J9WXEHF                |
+      | requestor_name         | KINGS MIDWIVES            |
+      | requested_at           | 2009-11-11 18:41:00 +0000 |
     And an observations are created with the following attributes:
       | description | result | comment | observed_at               |
       | WBC         | 6.09   |         | 2009-11-11 20:26:00 +0000 |

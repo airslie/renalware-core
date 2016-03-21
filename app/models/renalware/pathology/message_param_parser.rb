@@ -22,9 +22,9 @@ module Renalware
         {
           observation_request: {
             description_id: request_description.id,
-            requestor_name: request.ordering_provider,
-            pcs_code: request.placer_order_number,
-            observed_at: parse_time(request.date_time),
+            requestor_name: request.ordering_provider_name,
+            requestor_order_number: request.placer_order_number,
+            requested_at: parse_time(request.date_time),
             observations_attributes: observations_params
           }
         }

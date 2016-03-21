@@ -28,8 +28,8 @@ module Renalware
           Array(@observations_segments).map { |segment| Observation.new(segment) }
         end
 
-        def ordering_provider
-          super
+        def ordering_provider_name
+          ordering_provider.last
         end
 
         def placer_order_number
@@ -38,6 +38,12 @@ module Renalware
 
         def date_time
           observation_date
+        end
+
+        private
+
+        def ordering_provider
+          super.split("^")
         end
       end
 
