@@ -440,8 +440,8 @@ module Renalware
 
   request = pathology_rabbit.observation_requests.create!(
     description: request_description,
-    pcs_code: "ABC",
-    observed_at: Time.zone.now,
+    requestor_order_number: "ABC",
+    requested_at: Time.zone.now,
     requestor_name: "Seed",
   )
 
