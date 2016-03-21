@@ -46,8 +46,9 @@ module Renalware
           observation_id.split("^").first
         end
 
+        # TODO: Implement comment extraction
         def comment
-          observation_value
+          ""
         end
 
         def date_time
