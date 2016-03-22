@@ -21,11 +21,11 @@ module Renalware
 
       def description_codes
         [
-          "AFP","ALB","ALT","AL","AMY","ALP","ASM","AST","B12","BIL","CAL", "CCA",
-          "CHOL","CK","CRCL","CRE","CRP","CU","CYA","ESRR","FER","FIB","FOL","GGT",
-          "GLO","BGLU","HBA","HBAI","HB","BIC","HCO3","HDL","HYPO","LYM","NEUT","PHOS",
-          "RETA","POT","LDL","MCH", "MCV","MG","NA","PGLU","PLT","PTHI","TP","TRIG",
-          "TSH","URAT","UREP","URE","URR"," WBC","ACRA","PCRAT"
+          "HBG", "MCV", "MCH", "RETA", "HYPO", "WBC", "LYM", "NEUT", "PLT",
+          "ESR", "CRP", "FER", "FOL", "B12", "URE", "CRE", "EGFR", "NA", "POT",
+          "BIC", "CCA", "PHOS", "PTHI", "TP", "GLO", "ALB", "URAT", "BIL",
+          "ALT", "AST", "ALP", "GGT", "BGLU", "HBA", "HBAI", "CHOL", "HDL",
+          "LDL", "TRIG", "TSH", "CK", "URR", "CRCL", "UREP", "AL"
         ]
       end
     end
