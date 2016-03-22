@@ -78,5 +78,17 @@ module World
         observations.detect { |obs| obs.description.code == description_code }
       end
     end
+
+    module Web
+      include Domain
+
+      def expect_pathology_result_report(user:, patient:, rows:)
+        login_as user
+
+        visit patient_pathology_observations_path(patient)
+
+        expect(page).to have_selector("table#observations tr", count: 4)
+      end
+    end
   end
 end
