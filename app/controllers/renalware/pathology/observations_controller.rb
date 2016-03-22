@@ -6,11 +6,15 @@ module Renalware
       before_filter :load_patient
 
       def index
-        observations = ArchivedResultsQuery.new(patient: @patient).call
+        query = ArchivedResultsQuery.new(patient: @patient)
+        observations = query.call
         observation_descriptions = ObservationDescription.for(description_codes)
         presenter = ArchivedResultsPresenter.new(observations, observation_descriptions)
 
-        render :index, locals: { rows: presenter.rows.to_a }
+        render :index, locals: {
+          rows: presenter.rows.to_a,
+          number_of_records: query.limit
+        }
       end
 
       private

@@ -1,4 +1,5 @@
 = render layout: "renalware/patients/layout", locals: { title: "Archived Pathology Results" } do
+  p #{number_of_records} archived results displayed. Hover over row header for investigation name.
   table#observations
     - rows.each do |row|
       - header, *values = row

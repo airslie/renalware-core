@@ -23,6 +23,8 @@ module Renalware
     # Although there are three observations returned, there are only 2 unique dates.
     #
     class ArchivedResultsQuery
+      attr_reader :limit
+
       def initialize(patient:, limit: 20)
         @patient = patient
         @limit = limit
