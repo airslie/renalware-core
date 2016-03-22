@@ -11,5 +11,5 @@ Given(/^the following observations were recorded$/) do |table|
 end
 
 Then(/^the doctor views the following archived pathology result report:$/) do |table|
-  expect_pathology_result_report(user: @nathalie, patient: @patty, rows: table.hashes)
+  expect_pathology_result_report(user: @nathalie, patient: @patty, rows: table.raw)
 end

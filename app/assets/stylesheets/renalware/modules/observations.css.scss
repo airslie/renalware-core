@@ -1,9 +1,23 @@
 table#observations {
-  td.hgb {
+  border-collapse: collapse;
+  white-space: nowrap;
+  width: auto;
+
+  tr.hgb td {
     background-color : #fc9;
   }
 
-  td.cre, td.ure, td.pot {
+  tr.cre td, tr.ure td, tr.pot td {
     background-color : #cf9;
+  }
+
+  tr.even, tr.alt, tr:nth-of-type(even) {
+    background-color: #fff;
+  }
+
+  td {
+    border: 1px solid #ddd;
+    font-size: 0.75em;
+    padding: 3px;
   }
 }

@@ -1,13 +1,9 @@
 = render layout: "renalware/patients/layout", locals: { title: "Archived Pathology Results" } do
   table#observations
-    thead
-      tr
-        th Date
-        - presenter.observation_descriptions.each do |description|
-          th= description
-    tbody
-      - presenter.rows.each do |row|
-        tr
-          - row.each do |code, value|
-            td class=code.downcase
-              = value
+    - rows.each do |row|
+      - header, *values = row
+      tr class= header.downcase
+        td
+          = header
+        - values.each do |cell|
+          td= cell

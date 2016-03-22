@@ -55,17 +55,17 @@ module World
         end
       end
 
-      def expect_pathology_result_report(patient:, rows:)
+      def expect_pathology_result_report(user:, patient:, rows:)
         patient = Renalware::Pathology.cast_patient(patient)
 
         query = Renalware::Pathology::ArchivedResultsQuery.new(patient: patient).call
-        _first, *codes = rows.first.keys
+        codes = rows.slice(2..-1).map(&:first)
         observation_descriptions = Renalware::Pathology::ObservationDescription.for(codes)
         presenter = Renalware::Pathology::ArchivedResultsPresenter.new(
           query, observation_descriptions
         )
 
-        expect(presenter.to_a).to match_array(rows)
+        expect(presenter.rows.to_a).to match_array(rows)
       end
 
       private
@@ -87,7 +87,7 @@ module World
 
         visit patient_pathology_observations_path(patient)
 
-        expect(page).to have_selector("table#observations tr", count: 4)
+        expect(page).to have_selector("table#observations tr:first-child td", count: 4)
       end
     end
   end
