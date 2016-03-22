@@ -5,7 +5,7 @@ ul.side-nav
   li.link= link_to "Renal Summary", edit_patient_esrf_path(@patient)
   li.link= link_to "Modals", patient_modalities_path(@patient)
   li.link= link_to "Problems (#{Renalware::Problems::Problem.for_patient(@patient).count})", patient_problems_path(@patient)
-  li.link= link_to "Pathology (#{Renalware::Pathology.cast_patient(@patient).observations.count})", patient_pathology_observations_path(@patient)
+  li.link= link_to "Pathology (#{Renalware::Pathology.cast_patient(@patient).observation_requests.count})", patient_pathology_observations_path(@patient)
   li.link= link_to "Medications (#{@patient.medications.length})", patient_medications_path(@patient)
   li.link= link_to "Events (#{Renalware::Events::Event.for_patient(@patient).count})", patient_events_path(@patient)
   li.link= link_to "Clinic Visits (#{@patient.clinic_visits.length})", patient_clinic_visits_path(@patient)
