@@ -3,10 +3,11 @@
     thead
       tr
         th Date
-        - observation_descriptions.each do |description|
+        - presenter.observation_descriptions.each do |description|
           th= description
     tbody
-      - results.rows.each do |row|
+      - presenter.rows.each do |row|
         tr
-          - row.each do |attr|
-            td= attr
+          - row.each do |code, value|
+            td class=code.downcase
+              = value

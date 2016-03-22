@@ -10,10 +10,7 @@ module Renalware
         observation_descriptions = ObservationDescription.for(description_codes.take(10))
         presenter = ArchivedResultsPresenter.new(query, observation_descriptions)
 
-        render :index, locals: {
-          results: presenter,
-          observation_descriptions: observation_descriptions
-        }
+        render :index, locals: { presenter: presenter }
       end
 
       private

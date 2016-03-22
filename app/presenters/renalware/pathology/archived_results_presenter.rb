@@ -8,8 +8,10 @@ module Renalware
         @observation_descriptions = observation_descriptions
       end
 
+      attr_reader :observation_descriptions
+
       def rows
-        results.map(&:values)
+        results
       end
 
       def to_a
