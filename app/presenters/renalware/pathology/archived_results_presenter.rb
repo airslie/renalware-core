@@ -4,9 +4,12 @@ require 'hash_collection'
 module Renalware
   module Pathology
     class ArchivedResultsPresenter
-      def initialize(observations, observation_descriptions)
+      attr_reader :limit
+
+      def initialize(observations, observation_descriptions, limit)
         @observations = observations
         @observation_descriptions = observation_descriptions
+        @limit = limit
       end
 
       # @return [HashCollection] an array of hashes representing observation results

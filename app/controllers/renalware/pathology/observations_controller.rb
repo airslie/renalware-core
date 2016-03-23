@@ -6,14 +6,11 @@ module Renalware
       before_filter :load_patient
 
       def index
-        observed_at_date_range = DetermineDateRangeQuery.new(patient: @patient).call
-        observations = ObservationsWithinDateRangeQuery.new(patient: @patient, date_range: observed_at_date_range).call
-        observation_descriptions = ObservationDescription.for(description_codes)
-        presenter = ArchivedResultsPresenter.new(observations, observation_descriptions)
+        presenter = ViewObservations.new(@patient, description_codes).call
 
         render :index, locals: {
           rows: presenter.rows.to_a,
-          number_of_records: DetermineDateRangeQuery.new(patient: @patient).limit
+          number_of_records: presenter.limit
         }
       end
 

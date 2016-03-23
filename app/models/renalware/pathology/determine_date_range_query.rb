@@ -8,7 +8,7 @@ module Renalware
     class DetermineDateRangeQuery
       attr_reader :limit
 
-      def initialize(patient:, limit: 20)
+      def initialize(patient:, limit:)
         @patient = patient
         @limit = limit
       end
