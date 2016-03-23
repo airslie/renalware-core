@@ -62,7 +62,7 @@ module World
         codes = extract_description_codes(rows)
 
         presenter = Renalware::Pathology::ViewObservations.new(patient, codes).call
-        presentation = ArrayStringifier.new(presenter.rows).to_a
+        presentation = ArrayStringifier.new(presenter).to_a
 
         expect(presentation).to match_array(rows)
       end

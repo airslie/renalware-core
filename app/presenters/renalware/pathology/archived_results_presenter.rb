@@ -26,6 +26,10 @@ module Renalware
         @rows ||= HashCollection.new(build_rows)
       end
 
+      def to_a
+        rows.to_a
+      end
+
       private
 
       def build_rows

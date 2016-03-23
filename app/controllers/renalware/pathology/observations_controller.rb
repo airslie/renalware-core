@@ -9,7 +9,7 @@ module Renalware
         presenter = ViewObservations.new(@patient, description_codes).call
 
         render :index, locals: {
-          rows: presenter.rows.to_a,
+          rows: presenter.to_a,
           number_of_records: presenter.limit
         }
       end
