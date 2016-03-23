@@ -1,3 +1,5 @@
+require 'array_stringifier'
+
 module World
   module Pathology
     module Domain
@@ -57,14 +59,19 @@ module World
 
       def expect_pathology_result_report(user:, patient:, rows:)
         patient = Renalware::Pathology.cast_patient(patient)
-        codes = rows.slice(2..-1).map(&:first)
+        codes = extract_description_codes(rows)
 
         presenter = Renalware::Pathology::ViewObservations.new(patient, codes).call
+        presentation = ArrayStringifier.new(presenter.rows).to_a
 
-        expect(presenter.rows.to_a).to match_array(rows)
+        expect(presentation).to match_array(rows)
       end
 
       private
+
+      def extract_description_codes(rows)
+        rows.slice(2..-1).map(&:first)
+      end
 
       def find_last_observation_request
         Renalware::Pathology::ObservationRequest.includes(observations: :description).last!

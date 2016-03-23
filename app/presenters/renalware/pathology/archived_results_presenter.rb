@@ -18,9 +18,9 @@ module Renalware
       # Example:
       #
       #     [
-      #       {"year"=>"2009", "date"=>"13/11", "WBC"=>"",     "HB"=>"2.00", "AL"=>"", "RBC"=>""},
-      #       {"year"=>"2009", "date"=>"12/11", "WBC"=>"5.09", "HB"=>"",     "AL"=>"", "RBC"=>"3.00"},
-      #       {"year"=>"2009", "date"=>"11/11", "WBC"=>"6.09", "HB"=>"",     "AL"=>"", "RBC"=>"4.00"}
+      #       {"year"=>"2009", "date"=>"13/11", ObservationDescription.new(code: "HB") =>"2", ObservationDescription.new(code: "AL")=>"", ObservationDescription.new(code: "RBC")=>""},
+      #       {"year"=>"2009", "date"=>"12/11", ObservationDescription.new(code: "HB") =>"",  ObservationDescription.new(code: "AL")=>"", ObservationDescription.new(code: "RBC")=>"3"},
+      #       {"year"=>"2009", "date"=>"11/11", ObservationDescription.new(code: "HB") =>"",  ObservationDescription.new(code: "AL")=>"", ObservationDescription.new(code: "RBC")=>"4"}
       #     ]
       def rows
         @rows ||= HashCollection.new(build_rows)
@@ -56,14 +56,14 @@ module Renalware
         #
         # Example:
         #
-        #     {"year"=>"2009", "date"=>"13/11", "WBC"=>"", "HB"=>"2.00", "AL"=>"", "RBC"=>""}
+        # {"year"=>"2009", "date"=>"11/11", ObservationDescription.new(code: "HB") =>"", ObservationDescription.new(code: "HB")=>"", ObservationDescription.new(code: "RBC")=>"4"}
         #
         def call
           attrs = build_date_header
 
           @descriptions.each_with_object(attrs) do |description|
             result = find_observation_result_by_description(description)
-            attrs[description.code] = result
+            attrs[HeaderPresenter.new(description)] = result
           end
         end
 
@@ -77,8 +77,8 @@ module Renalware
         #
         def build_date_header
           {
-            "year" => @observed_on.year.to_s,
-            "date" => "#{@observed_on.day}/#{@observed_on.month}"
+            HeaderPresenter.new("year") => @observed_on.year.to_s,
+            HeaderPresenter.new("date") => "#{@observed_on.day}/#{@observed_on.month}"
           }
         end
 
@@ -89,6 +89,30 @@ module Renalware
         def find_observation_result_by_description(description)
           observation = @observations.detect { |observation| observation.description == description }
           observation.try!(:result).to_s
+        end
+      end
+
+      # Responsible for decorating header items with presentation methods
+      #
+      class HeaderPresenter < SimpleDelegator
+        def title
+           to_s
+        end
+
+        def html_class
+          to_s.downcase
+        end
+
+        # Overriding specifically for hash lookup
+        #
+        def eql?(other)
+          to_s == other.to_s
+        end
+      end
+
+      class ObservationDescriptionHeaderPresenter < HeaderPresenter
+        def title
+          name
         end
       end
     end

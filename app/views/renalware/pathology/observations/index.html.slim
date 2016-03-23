@@ -3,7 +3,7 @@
   table#observations
     - rows.each do |row|
       - header, *values = row
-      tr class= header.downcase
+      tr class= header.html_class title= header.title
         td
           = header
         - values.each do |cell|
