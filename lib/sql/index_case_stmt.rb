@@ -26,7 +26,7 @@ module SQL
         clauses << "WHEN '#{item}' THEN #{index}"
       end
 
-      "CASE #{@column} #{clauses.join} END"
+      "CASE #{@column} #{clauses.join(" ")} END"
     end
   end
 end
