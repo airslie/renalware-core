@@ -18,7 +18,7 @@ module Renalware
 
       def description_codes
         [
-          "HBG", "MCV", "MCH", "RETA", "HYPO", "WBC", "LYM", "NEUT", "PLT",
+          "HGB", "MCV", "MCH", "RETA", "HYPO", "WBC", "LYM", "NEUT", "PLT",
           "ESR", "CRP", "FER", "FOL", "B12", "URE", "CRE", "EGFR", "NA", "POT",
           "BIC", "CCA", "PHOS", "PTHI", "TP", "GLO", "ALB", "URAT", "BIL",
           "ALT", "AST", "ALP", "GGT", "BGLU", "HBA", "HBAI", "CHOL", "HDL",
