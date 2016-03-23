@@ -1,4 +1,4 @@
-require 'array_stringifier'
+require "array_stringifier"
 
 module World
   module Pathology

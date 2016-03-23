@@ -1,5 +1,5 @@
 require_dependency "renalware/pathology"
-require 'hash_collection'
+require "hash_collection"
 
 module Renalware
   module Pathology
