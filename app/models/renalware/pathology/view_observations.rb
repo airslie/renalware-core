@@ -10,24 +10,32 @@ module Renalware
       end
 
       def call
-        observed_at_date_range = determine_date_range_for_observations
-        observations = find_observations_within_date_range(observed_at_date_range)
         descriptions = find_observation_descriptions
+        observations_for_descriptions = find_observations_for_descriptions(descriptions)
+        date_range = determine_date_range_for_observations(observations_for_descriptions)
+        observations = filter_observations_within_date_range(observations_for_descriptions, date_range)
         presenter = present_observations(observations, descriptions)
       end
 
       private
 
-      def determine_date_range_for_observations
-        DetermineDateRangeQuery.new(patient: @patient, limit: @limit).call
-      end
-
-      def find_observations_within_date_range(date_range)
-        ObservationsWithinDateRangeQuery.new(patient: @patient, date_range: date_range).call
-      end
-
       def find_observation_descriptions
         ObservationDescription.for(@description_codes)
+      end
+
+      def find_observations_for_descriptions(descriptions)
+        ObservationsForDescriptionsQuery.new(
+          relation: @patient.observations.ordered,
+          descriptions: descriptions
+        ).call
+      end
+
+      def determine_date_range_for_observations(observations)
+        DetermineDateRangeQuery.new(relation: observations, limit: @limit).call
+      end
+
+      def filter_observations_within_date_range(observations, date_range)
+        ObservationsWithinDateRangeQuery.new(relation: observations, date_range: date_range).call
       end
 
       def present_observations(observations, descriptions)

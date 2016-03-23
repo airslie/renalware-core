@@ -9,7 +9,7 @@ module Renalware
 
           create_observations_observed_at(patient, "2014-01-01", "2016-01-01", "2015-01-01", "2016-01-01", "2013-01-1")
 
-          query = DetermineDateRangeQuery.new(patient: patient, limit: 3)
+          query = DetermineDateRangeQuery.new(limit: 3)
           range = query.call
 
           expect(range).to eq(Range.new("2014-01-01", "2016-01-01"))
