@@ -38,15 +38,7 @@ module Renalware
       private
 
       def determine_date_range_within_limit
-        values = @patient
-          .observations
-          .ordered
-          .distinct(:observed_at)
-          .limit(@limit)
-          .pluck(:observed_at)
-          .reverse
-
-        Range.new(values.first, values.last)
+        DetermineDateRangeQuery.new(patient: @patient, limit: @limit).call
       end
 
       def find_observations_within_range(range)
