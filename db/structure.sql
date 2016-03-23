@@ -1664,7 +1664,8 @@ ALTER SEQUENCE organism_codes_id_seq OWNED BY organism_codes.id;
 
 CREATE TABLE pathology_observation_descriptions (
     id integer NOT NULL,
-    code character varying NOT NULL
+    code character varying NOT NULL,
+    name character varying
 );
 
 
