@@ -7,12 +7,17 @@ module Renalware
         it "returns the observation for the specified range" do
           patient = create_patient
 
-          create_observations_observed_at(patient, "2014-01-01", "2016-01-01", "2015-01-01", "2016-01-01", "2013-01-1")
+          create_observations_observed_at(
+            patient, "2014-01-01", "2016-01-01", "2015-01-01", "2016-01-01", "2013-01-1"
+          )
 
-          query = ObservationsWithinDateRangeQuery.new(date_range: Range.new("2014-01-01", "2016-01-01"))
+          query = ObservationsWithinDateRangeQuery.new(
+            date_range: Range.new("2014-01-01", "2016-01-01")
+          )
           records = query.call
 
-          expect(records.map(&extract_observed_on)).to match_array(["2016-01-01", "2016-01-01", "2015-01-01", "2014-01-01"])
+          expect(records.map(&extract_observed_on)).to \
+            match_array(["2016-01-01", "2016-01-01", "2015-01-01", "2014-01-01"])
         end
       end
 
