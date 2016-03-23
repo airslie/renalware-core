@@ -436,7 +436,6 @@ module Renalware
 
   pathology_rabbit = Pathology.cast_patient(rabbit)
   request_description = Pathology::RequestDescription.first!
-  observation_description = Pathology::ObservationDescription.first!
 
   request = pathology_rabbit.observation_requests.create!(
     description: request_description,
@@ -445,9 +444,31 @@ module Renalware
     requestor_name: "Seed",
   )
 
+  observation_description = Pathology::ObservationDescription.find_by!(code: "HGB")
   request.observations.create!(
     description: observation_description,
     result: "6.6",
-    observed_at: Time.zone.now
+    observed_at: Time.zone.now - 3.days
+  )
+
+  observation_description = Pathology::ObservationDescription.find_by!(code: "URE")
+  request.observations.create!(
+    description: observation_description,
+    result: "3.0",
+    observed_at: Time.zone.now - 3.days
+  )
+
+  observation_description = Pathology::ObservationDescription.find_by!(code: "URE")
+  request.observations.create!(
+    description: observation_description,
+    result: "3.0",
+    observed_at: Time.zone.now - 6.days
+  )
+
+  observation_description = Pathology::ObservationDescription.find_by!(code: "CRE")
+  request.observations.create!(
+    description: observation_description,
+    result: "2.0",
+    observed_at: Time.zone.now - 4.days
   )
 end
