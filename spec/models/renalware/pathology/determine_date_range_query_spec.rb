@@ -2,22 +2,18 @@ require "rails_helper"
 
 module Renalware
   module Pathology
-    RSpec.describe ArchivedResultsQuery do
+    RSpec.describe DetermineDateRangeQuery do
       describe "#call" do
-        it "return the most recent observations for the specified limit" do
+        it "returns the range for the specified limit" do
           patient = create_patient
 
           create_observations_observed_at(patient, "2014-01-01", "2016-01-01", "2015-01-01", "2016-01-01", "2013-01-1")
 
-          query = ArchivedResultsQuery.new(patient: patient, limit: 3)
-          records = query.call
+          query = DetermineDateRangeQuery.new(patient: patient, limit: 3)
+          range = query.call
 
-          expect(records.map(&extract_observed_on)).to match(["2016-01-01", "2016-01-01", "2015-01-01", "2014-01-01"])
+          expect(range).to eq(Range.new("2014-01-01", "2016-01-01"))
         end
-      end
-
-      def extract_observed_on
-        ->(record) { record.observed_at.strftime("%Y-%m-%d") }
       end
 
       def create_patient

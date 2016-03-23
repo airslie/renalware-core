@@ -58,11 +58,12 @@ module World
       def expect_pathology_result_report(user:, patient:, rows:)
         patient = Renalware::Pathology.cast_patient(patient)
 
-        query = Renalware::Pathology::ArchivedResultsQuery.new(patient: patient).call
+        observed_at_date_range = Renalware::Pathology::DetermineDateRangeQuery.new(patient: patient).call
+        observations = Renalware::Pathology::ObservationsWithinDateRangeQuery.new(patient: patient, date_range: observed_at_date_range).call
         codes = rows.slice(2..-1).map(&:first)
         observation_descriptions = Renalware::Pathology::ObservationDescription.for(codes)
         presenter = Renalware::Pathology::ArchivedResultsPresenter.new(
-          query, observation_descriptions
+          observations, observation_descriptions
         )
 
         expect(presenter.rows.to_a).to match_array(rows)

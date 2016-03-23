@@ -2,7 +2,12 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
+    # Responsible for finding the date range of a patient's observations
+    # for the specified limit.
+    #
     class DetermineDateRangeQuery
+      attr_reader :limit
+
       def initialize(patient:, limit: 20)
         @patient = patient
         @limit = limit
