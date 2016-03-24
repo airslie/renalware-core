@@ -18,7 +18,7 @@ module Renalware
     end
 
     def create
-      if service.update!(doctor_params)
+      if update_doctor.call(doctor_params)
         redirect_to doctors_path,
           notice: t(".success", model_name: "doctor")
       else
@@ -28,7 +28,7 @@ module Renalware
     end
 
     def update
-      if service.update!(doctor_params)
+      if update_doctor.call(doctor_params)
         redirect_to doctors_path,
           notice: t(".success", model_name: "doctor")
       else
@@ -43,13 +43,14 @@ module Renalware
       redirect_to doctors_path,
         notice: t(".success", model_name: "doctor")
     end
+
     private
 
-    def service
+    def update_doctor
       @doctor = Doctor.find_or_initialize_by(id: params[:id])
       authorize @doctor
 
-      DoctorService.new(@doctor)
+      UpdateDoctor.new(@doctor)
     end
 
     def doctor_params
