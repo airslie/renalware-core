@@ -67,7 +67,7 @@ module Renalware
 
           @descriptions.each_with_object(attrs) do |description|
             result = find_observation_result_by_description(description)
-            attrs[HeaderPresenter.new(description)] = result
+            attrs[ObservationDescriptionHeaderPresenter.new(description)] = result
           end
         end
 
