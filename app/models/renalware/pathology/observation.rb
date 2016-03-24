@@ -9,6 +9,8 @@ module Renalware
       validates :description, presence: true
       validates :result, presence: true
       validates :observed_at, presence: true
+
+      scope :ordered, -> { order(observed_at: :desc) }
     end
   end
 end

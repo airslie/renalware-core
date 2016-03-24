@@ -1,6 +1,33 @@
+require "array_stringifier"
+
 module World
   module Pathology
     module Domain
+      # @section commands
+
+      def record_observations(patient:, observations_attributes:)
+        patient = Renalware::Pathology.cast_patient(patient)
+
+        observations_attributes.map! {|attrs|
+          code = attrs.fetch("code")
+          description = Renalware::Pathology::ObservationDescription.find_by(code: code)
+          result = attrs.fetch("result")
+          observed_at = Time.zone.parse(attrs.fetch("observed_at"))
+
+          { description: description, result: result, observed_at: observed_at }
+        }
+
+        Renalware::Pathology::ObservationRequest.create!(
+          patient: patient,
+          requestor_name: "KCH",
+          requested_at: Time.zone.now,
+          description: Renalware::Pathology::RequestDescription.first!,
+          observations_attributes: observations_attributes
+        )
+      end
+
+      # @section expectations
+      #
       def expect_observation_request_to_be_created(attrs)
         observation_request = find_last_observation_request
 
@@ -30,12 +57,40 @@ module World
         end
       end
 
+      def expect_pathology_result_report(user:, patient:, rows:)
+        patient = Renalware::Pathology.cast_patient(patient)
+        codes = extract_description_codes(rows)
+
+        presenter = Renalware::Pathology::ViewObservations.new(patient, codes).call
+        presentation = ArrayStringifier.new(presenter).to_a
+
+        expect(presentation).to match_array(rows)
+      end
+
+      private
+
+      def extract_description_codes(rows)
+        rows.slice(2..-1).map(&:first)
+      end
+
       def find_last_observation_request
         Renalware::Pathology::ObservationRequest.includes(observations: :description).last!
       end
 
       def find_observation(observations, description_code)
         observations.detect { |obs| obs.description.code == description_code }
+      end
+    end
+
+    module Web
+      include Domain
+
+      def expect_pathology_result_report(user:, patient:, rows:)
+        login_as user
+
+        visit patient_pathology_observations_path(patient)
+
+        expect(page).to have_selector("table#observations tr:first-child td", count: 4)
       end
     end
   end
