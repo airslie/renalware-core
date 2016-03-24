@@ -1,10 +1,10 @@
 module Renalware
-  class DoctorService
+  class UpdateDoctor
     def initialize(doctor=Doctor.new)
       @doctor = doctor
     end
 
-    def update!(params)
+    def call(params)
       update_practices(params.delete(:practice_ids))
       update_doctor(params)
       @doctor.save

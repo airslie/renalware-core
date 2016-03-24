@@ -1,5 +1,5 @@
 module Renalware
-  class Admin::UserService
+  class UpdateUser
 
     attr_reader :delivery_method, :notifications, :notifier, :user
 
@@ -11,7 +11,7 @@ module Renalware
       @delivery_method = :deliver_now
     end
 
-    def update_and_notify!(params)
+    def call(params)
       update!(params) && notify!
     end
 
