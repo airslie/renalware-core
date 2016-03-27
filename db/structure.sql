@@ -1760,7 +1760,8 @@ ALTER SEQUENCE pathology_observations_id_seq OWNED BY pathology_observations.id;
 
 CREATE TABLE pathology_request_descriptions (
     id integer NOT NULL,
-    code character varying NOT NULL
+    code character varying NOT NULL,
+    name character varying
 );
 
 
@@ -5300,4 +5301,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160304151540');
 INSERT INTO schema_migrations (version) VALUES ('20160304162205');
 
 INSERT INTO schema_migrations (version) VALUES ('20160314181446');
+
+INSERT INTO schema_migrations (version) VALUES ('20160327221550');
 
