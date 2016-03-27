@@ -1,49 +1,20 @@
 module Renalware
-  log '--------------------Adding Rabbit Pathology Results--------------------'
+  log '--------------------Adding Rabbit Pathology Requests (OBR)--------------------'
   rabbit = Patient.find_by(family_name: 'RABBIT', given_name: 'Roger')
   pathology_rabbit = Pathology.cast_patient(rabbit)
-  request_description = Pathology::RequestDescription.first!
 
   logcount=0
-  CSV.foreach(File.join(demo_path, 'rabbit_pathology.csv'), headers: true) do |row|
+  CSV.foreach(File.join(demo_path, 'rabbit_pathology_obr.csv'), headers: true) do |row|
+    #id,"order_no","requestor_name","requested_at",patient_id,"created_at","description"
     logcount += 1
-    requested_at = Time.zone.now - logcount.months
+    request_description = Pathology::RequestDescription.find_by!(code: row['description'])
     request = pathology_rabbit.observation_requests.create!(
       description: request_description,
-      requestor_order_number: "ABC#{logcount}",
-      requested_at: requested_at,
-      requestor_name: "Clinician ID #{logcount}",
-    )
-    #"HGB","WBC","LYM","NEUT","PLT","ESR","CRP","URE","CRE","NA","POT"
-
-    observation_description = Pathology::ObservationDescription.find_by!(code: "HGB")
-    request.observations.create!(
-      description: observation_description,
-      result: row['HGB'],
-      observed_at: requested_at - 1.days
-    )
-
-    observation_description = Pathology::ObservationDescription.find_by!(code: "URE")
-    request.observations.create!(
-      description: observation_description,
-      result: row['URE'],
-      observed_at: requested_at - 1.days
-    )
-
-    observation_description = Pathology::ObservationDescription.find_by!(code: "WBC")
-    request.observations.create!(
-      description: observation_description,
-      result: row['WBC'],
-      observed_at: requested_at - 1.days
-    )
-
-    observation_description = Pathology::ObservationDescription.find_by!(code: "CRE")
-    request.observations.create!(
-      description: observation_description,
-      result: row['CRE'],
-      observed_at: requested_at - 1.days
+      requestor_order_number: row['order_no'],
+      requested_at: row['requested_at'],
+      requestor_name: row['requestor_name']
     )
   end
 
-  log "#{logcount} Path Results seeded"
+  log "#{logcount} Path Requests seeded"
 end
