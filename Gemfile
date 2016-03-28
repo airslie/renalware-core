@@ -29,6 +29,7 @@ gem 'font-awesome-rails' # See icons here: https://fortawesome.github.io/Font-Aw
 gem 'jbuilder'
 gem 'active_type'
 gem 'dumb_delegator'
+gem 'cocoon'
 
 source 'https://rails-assets.org' do
   # https://github.com/najlepsiwebdesigner/foundation-datepicker

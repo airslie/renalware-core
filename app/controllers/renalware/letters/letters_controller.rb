@@ -12,7 +12,6 @@ module Renalware
 
       def new
         @letter = LetterFormPresenter.new(@patient.letters.new)
-        @letter.build_main_recipient
         @letter.main_recipient.build_address
       end
 
@@ -67,6 +66,12 @@ module Renalware
           :salutation, :body, :notes,
           main_recipient_attributes: [
             :id, :name, :source_type, :source_id,
+            address_attributes: [
+              :id, :street_1, :street_2, :city, :county, :postcode, :country, :_destroy
+            ]
+          ],
+          cc_recipients_attributes: [
+            :id, :name, :source_type, :source_id, :_destroy,
             address_attributes: [
               :id, :street_1, :street_2, :city, :county, :postcode, :country, :_destroy
             ]

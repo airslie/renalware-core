@@ -15,7 +15,7 @@ module Renalware
       after_initialize :apply_defaults, if: :new_record?
 
       accepts_nested_attributes_for :main_recipient
-      accepts_nested_attributes_for :cc_recipients
+      accepts_nested_attributes_for :cc_recipients, reject_if: :all_blank, allow_destroy: true
 
       enumerize :state, in: %i(draft ready_for_review archived)
 
@@ -35,10 +35,16 @@ module Renalware
 
       def apply_defaults
         add_doctor_as_default_main_recipient
+        # assign_ccs_placeholders
       end
 
       def add_doctor_as_default_main_recipient
         build_main_recipient(source_type: Doctor.name) if main_recipient.blank?
+      end
+
+      def assign_ccs_placeholders
+        cc_recipients.build(source_type: Doctor.name)
+        cc_recipients.build(source_type: Patient.name)
       end
     end
   end

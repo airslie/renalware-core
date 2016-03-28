@@ -124,7 +124,7 @@ module World
     module Web
       include Domain
 
-      def create_simple_letter(patient:, user:, issued_on:, recipient:, ccs:)
+      def create_simple_letter(patient:, user:, issued_on:, recipient:, ccs: nil)
         login_as user
         visit patient_letters_letters_path(patient)
         click_on "Add simple letter"
@@ -145,6 +145,17 @@ module World
           fill_in "Name", with: recipient[:name]
           fill_in "Line 1", with: "1 Main st"
           fill_in "City", with: recipient[:city]
+        end
+
+        if ccs.present?
+          ccs.each_with_index do |cc, index|
+            find(".call-to-action").click
+            within(:xpath, "(//div[@class=\"nested-fields\"])[#{index+1}]") do
+              fill_in "Name", with: cc[:name]
+              fill_in "Line 1", with: "1 Main st"
+              fill_in "City", with: cc[:city]
+            end
+          end
         end
 
         within ".bottom" do

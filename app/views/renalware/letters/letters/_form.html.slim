@@ -25,31 +25,32 @@ ruby:
     = f.input :issued_on, as: :date_picker
     = f.association :author, collection: Renalware::User.ordered, label_method: :full_name
 
-    = f.simple_fields_for :main_recipient do |ff|
-      = ff.input :source_type, as: :radio_buttons,
+    = f.simple_fields_for :main_recipient do |fmr|
+      = fmr.input :source_type, as: :radio_buttons,
           collection: f.object.main_recipient_sources,
           input_html: { class: 'recipient-source-picker' }
-      = ff.input :source_id, as: :hidden
-      = ff.input :id, as: :hidden
+      = fmr.input :source_id, as: :hidden
+      = fmr.input :id, as: :hidden
 
       .row
         .small-offset-3.small-9.columns
           fieldset#other-address(style="display: none")
-            = ff.input :name, wrapper: "vertical_form"
-            = ff.simple_fields_for :address, wrapper: "vertical_form" do |fa|
-              = fa.input :id, as: :hidden
-              = fa.input :street_1
-              = fa.input :street_2
-              .row
-                .small-6.columns
-                  = fa.input :city
-                .small-6.columns
-                  = fa.input :county
-              .row
-                .small-6.columns
-                  = fa.input :postcode
-                .small-6.columns
-                  = fa.input :country, as: :string
+            = render "form_recipient", f: fmr
+
+
+  = render layout: "renalware/shared/fieldset",
+      locals: { legend: "Additional CCs", name: "ccs" } do
+
+    .small-offset-3.small-9.columns
+      #letter-ccs
+        = f.simple_fields_for :cc_recipients do |ff|
+          = render 'cc_recipient_fields', f: ff
+
+      .call-to-action
+        = link_to_add_association f, :cc_recipients,
+            data: { association_insertion_node: "#letter-ccs", association_insertion_method: "append" } do
+            i.fa.fa-plus-circle
+            | Add CC
 
 
   = render layout: "renalware/shared/fieldset",
