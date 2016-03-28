@@ -6,8 +6,12 @@ class AgeCalculator
 
   DAYS_IN_MONTH  = [nil, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
-  # This method returns the person's age based on the given current date.
-  # The age is in number of years, month and days (hash).
+  # Calulates the an age based on the given current date.
+  #
+  # @param birth_date Date
+  # @param current_date Date
+  # @return [Hash] containing the year, month and day
+  #
   def self.compute(birth_date, current_date)
     borrowed_month = false
 
