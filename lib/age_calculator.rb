@@ -12,7 +12,7 @@ class AgeCalculator
   # @param current_date Date
   # @return [Hash] containing the year, month and day
   #
-  def self.compute(birth_date, current_date)
+  def compute(birth_date, current_date)
     borrowed_month = false
 
     # Get days for this year
