@@ -15,8 +15,6 @@ module Renalware
           @search ||= QueryableSession.for_patient(@patient).search(@q)
         end
 
-        private
-
         class QueryableSession < ActiveType::Record[Session]
           scope :for_patient, -> (patient) {
             where(patient: patient)

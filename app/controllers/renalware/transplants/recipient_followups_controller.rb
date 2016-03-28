@@ -49,7 +49,8 @@ module Renalware
       end
 
       def followup_attributes
-        params.require(:transplants_recipient_followup)
+        params
+          .require(:transplants_recipient_followup)
           .permit(attributes)
           .merge(document: document_attributes)
       end
@@ -68,8 +69,10 @@ module Renalware
       end
 
       def document_attributes
-        params.require(:transplants_recipient_followup)
-         .fetch(:document, nil).try(:permit!)
+        params
+          .require(:transplants_recipient_followup)
+          .fetch(:document, nil)
+          .try(:permit!)
       end
     end
   end

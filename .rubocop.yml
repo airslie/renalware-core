@@ -1,5 +1,6 @@
 AllCops:
-  DisabledByDefault: true
+  TargetRubyVersion: 2.3
+  # DisabledByDefault: true
 
 #################### Lint ################################
 
@@ -1153,4 +1154,7 @@ Style/WhileUntilModifier:
 Style/WordArray:
   Description: 'Use %w or %W for arrays of words.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#percent-w'
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
   Enabled: false

@@ -43,7 +43,8 @@ module Renalware
       protected
 
       def profile_params
-        params.require(:accesses_profile)
+        params
+          .require(:accesses_profile)
           .permit(attributes)
           .merge(by: current_user)
       end

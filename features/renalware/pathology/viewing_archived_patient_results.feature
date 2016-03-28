@@ -3,7 +3,7 @@ Feature: Viewing archived pathology results for a patient
   A doctor views the archived pathology results for a patient to determine
   trends in physiological parameters over time.
 
-  @wip @web
+  @web
   Scenario: Multiple observation results recorded
     Given Patty is a patient
     And Nathalie is a nurse

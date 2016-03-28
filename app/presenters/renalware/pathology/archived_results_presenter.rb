@@ -91,9 +91,7 @@ module Renalware
         #                  if none is found, a blank string is returned.
         #
         def find_observation_result_by_description(description)
-          observation = @observations.detect do |observation|
-            observation.description == description
-          end
+          observation = @observations.detect { |o| o.description == description }
           observation.try!(:result).to_s
         end
       end

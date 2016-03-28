@@ -28,7 +28,7 @@ module Renalware
       end
 
       def apply_profile(session)
-        if profile = Profile.for_patient(patient).first
+        if (profile = Profile.for_patient(patient).first)
           session.hospital_unit = profile.hospital_unit
           session.document.info.hd_type = profile.document.dialysis.hd_type
         end
@@ -36,7 +36,7 @@ module Renalware
 
       def set_default_access(session)
         accesses_patient = ActiveType.cast(patient, Renalware::Accesses::Patient)
-        if profile = accesses_patient.current_profile
+        if (profile = accesses_patient.current_profile)
           session.document.info.access_type = profile.type.name
           session.document.info.access_site = profile.site.name
           session.document.info.access_side = profile.side

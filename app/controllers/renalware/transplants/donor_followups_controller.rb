@@ -45,7 +45,8 @@ module Renalware
       end
 
       def followup_attributes
-        params.require(:transplants_donor_followup)
+        params
+          .require(:transplants_donor_followup)
           .permit(attributes)
       end
 

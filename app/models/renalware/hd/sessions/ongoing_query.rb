@@ -14,8 +14,6 @@ module Renalware
           @search ||= QueryableSession.ongoing.search(@q)
         end
 
-        private
-
         class QueryableSession < ActiveType::Record[Session]
           scope :ongoing, -> {
             where.not(signed_on_by_id: nil)

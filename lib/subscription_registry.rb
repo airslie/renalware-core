@@ -31,7 +31,7 @@ class SubscriptionRegistry
   end
 
   def subscribe_listeners_to(broadcaster_instance)
-    broadcaster_instance.tap { |processor| subscribe_listeners(broadcaster_instance) }
+    broadcaster_instance.tap { subscribe_listeners(broadcaster_instance) }
   end
 
   private

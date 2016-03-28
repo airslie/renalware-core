@@ -26,7 +26,8 @@ module Renalware
       end
 
       def preference_set_params
-        params.require(:hd_preference_set)
+        params
+          .require(:hd_preference_set)
           .permit(attributes)
           .merge(by: current_user)
       end

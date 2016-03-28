@@ -43,7 +43,8 @@ module Renalware
       protected
 
       def procedure_params
-        params.require(:accesses_procedure)
+        params
+          .require(:accesses_procedure)
           .permit(attributes)
           .merge(by: current_user)
       end

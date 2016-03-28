@@ -14,7 +14,7 @@ module Renalware
         observations_for_descriptions = find_observations_for_descriptions(descriptions)
         date_range = determine_date_range_for_observations(observations_for_descriptions)
         observations = filter_observations_within_date_range(observations_for_descriptions, date_range)
-        presenter = present_observations(observations, descriptions)
+        present_observations(observations, descriptions)
       end
 
       private

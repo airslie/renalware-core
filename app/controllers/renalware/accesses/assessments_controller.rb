@@ -43,7 +43,8 @@ module Renalware
       protected
 
       def assessment_params
-        params.require(:accesses_assessment)
+        params
+          .require(:accesses_assessment)
           .permit(attributes)
           .merge(document: document_attributes, by: current_user)
       end
@@ -59,8 +60,9 @@ module Renalware
       end
 
       def document_attributes
-        params.require(:accesses_assessment)
-         .fetch(:document, nil).try(:permit!)
+        params
+          .require(:accesses_assessment)
+          .fetch(:document, nil).try(:permit!)
       end
     end
   end

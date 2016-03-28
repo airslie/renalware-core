@@ -31,7 +31,7 @@ function initSortables() {
       }
     }).disableSelection();
   }
-};
+}
 
 $(function() {
   initSortables();

@@ -113,10 +113,11 @@ module Document
     #   attribute :gender, enums: %i(male female)
     #
     def self.attribute(*args)
-      options = args.extract_options!
-      name, type = *args
+      attr_options = args.extract_options!
+      attr_name, attr_type = *args
 
-      AttributeInitializer.determine_initializer(self, name, type, options)
+      AttributeInitializer
+        .determine_initializer(self, attr_name, attr_type, attr_options)
         .call do |name, type, options|
           super(name, type, options)
         end

@@ -10,7 +10,8 @@ module Renalware
       end
 
       def call
-        search.result.page(page).per(per_page)
+        search
+          .result.page(page).per(per_page)
           .select(fields)
           .map do |patient|
             {

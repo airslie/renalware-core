@@ -9,8 +9,6 @@ module Renalware
         Permission.new(:read_only, :read, :all) ]
     end
 
-    private
-
     def self.admin_models
       admin_only_models + clinical_models
     end
