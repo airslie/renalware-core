@@ -83,6 +83,13 @@ To run the acceptance tests with the UI:
 
     TEST_DEPTH=web bin/cucumber
 
+## Code Quaility
+
+Code quality can be analyzed using by running `codeclimate anaylze`. To setup
+CodeClimate locally read the setup instructions:
+
+    https://github.com/codeclimate/codeclimate
+
 ## Deployment to demo server
 
 Heroku hosts our demo server.
