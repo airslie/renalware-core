@@ -1,5 +1,5 @@
 // Define the global Renalware namespace if not already defined.
-var Renalware = typeof Renalware == 'undefined' ? {} : Renalware;
+var Renalware = typeof Renalware === 'undefined' ? {} : Renalware;
 
 // Define the Renalware.PdRegimes closure.
 Renalware.PdRegimes = (function () {
