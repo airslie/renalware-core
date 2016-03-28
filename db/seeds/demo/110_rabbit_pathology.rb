@@ -24,14 +24,14 @@ module Renalware
 
   logcount=0
   CSV.foreach(File.join(demo_path, 'rabbit_pathology_obx.csv'), headers: true) do |row|
-  #id,"result","comment","observed_at","created_at","description",request_id
+  #id,"result","description",request_id
     logcount += 1
     observation_description = Pathology::ObservationDescription.find_by!(code: row['description'])
     request = Pathology::ObservationRequest.find(row['request_id'])
     request.observations.create!(
       description: observation_description,
       result: row['result'],
-      observed_at: request.requested_at - 12.hours
+      observed_at: request.requested_at - 9.hours
     )
   end
 
