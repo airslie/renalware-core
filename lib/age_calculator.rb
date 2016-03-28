@@ -3,10 +3,7 @@
 require "date"
 
 class AgeCalculator
-
-  DAYS_IN_MONTH  = [nil, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-
-  # Calulates the an age based on the given current date.
+  # Calculates the an age based on the given current date.
   #
   # @param birth_date Date
   # @param current_date Date
@@ -15,18 +12,13 @@ class AgeCalculator
   def compute(birth_date, current_date)
     borrowed_month = false
 
-    # Get days for this year
-    if current_date.to_date.leap?
-      DAYS_IN_MONTH[2] = 29
-    end
-
     days   = current_date.day - birth_date.day
     months = current_date.month - birth_date.month
     years  = current_date.year - birth_date.year
 
     if days < 0
       # subtract month, get positive # for day
-      days = DAYS_IN_MONTH[birth_date.month] - birth_date.day + current_date.day
+      days = Time.days_in_month(birth_date.month) - birth_date.day + current_date.day
       months -= 1
       borrowed_month = true
     end
@@ -45,5 +37,4 @@ class AgeCalculator
 
     { years: years, months: months, days: days }
   end
-
 end
