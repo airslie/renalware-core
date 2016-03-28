@@ -1,5 +1,5 @@
 class DatePickerInput < SimpleForm::Inputs::StringInput
-  def input(wrapper_options)
+  def input(_wrapper_options)
     template.content_tag(:div, class: "row collapse #{class_name}-wrapper") do
       template.concat prefix_column
       template.concat input_column

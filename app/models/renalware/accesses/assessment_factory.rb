@@ -24,7 +24,7 @@ module Renalware
       end
 
       def apply_default_access(assessment)
-        if profile = @patient.current_profile
+        if (profile = @patient.current_profile)
           assessment.type = profile.type
           assessment.site = profile.site
           assessment.side = profile.side

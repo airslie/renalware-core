@@ -5,7 +5,7 @@ module Renalware
   module Transplants
     class RecipientWorkupDocument < Document::Embedded
 
-      CONFIRMATION = %i(yes no)
+      CONFIRMATION = %i(yes no).freeze
 
       class Comorbidities < Document::Embedded
         attribute :angina, YearDatedConfirmation

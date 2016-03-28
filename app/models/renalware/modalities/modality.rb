@@ -45,7 +45,7 @@ module Renalware
       end
 
       def started_later_than_previous?
-        if previous_modality = patient.modalities.last_started_on.first
+        if (previous_modality = patient.modalities.last_started_on.first)
           started_on.present? && started_on >= previous_modality.started_on
         else
           true

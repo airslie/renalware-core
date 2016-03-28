@@ -61,9 +61,9 @@ module Renalware
             Arel.sql("document -> 'crf' -> 'latest' ->> 'result'")
           end
 
-          private
+          private_class_method :ransackable_scopes
 
-          def self.ransackable_scopes(auth_object = nil)
+          def self.ransackable_scopes(_auth_object = nil)
             %i(nhb_consent_eq current_status_in)
           end
         end

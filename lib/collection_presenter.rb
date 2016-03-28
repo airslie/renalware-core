@@ -1,5 +1,5 @@
 class CollectionPresenter
-  def initialize(original_collection, presenter_class = nil, &block)
+  def initialize(original_collection, presenter_class = nil)
     @original_collection = original_collection
 
     @decorated_collection ||= Enumerator.new do |yielder|

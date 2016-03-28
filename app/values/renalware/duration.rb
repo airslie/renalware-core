@@ -27,8 +27,6 @@ module Renalware
       sprintf("%d:%02d", hours, minutes)
     end
 
-    private
-
     def self.to_seconds(string)
       return nil if string.blank?
 
@@ -40,5 +38,7 @@ module Renalware
         Minute.to_seconds(string)
       end
     end
+
+    private_class_method :to_seconds
   end
 end

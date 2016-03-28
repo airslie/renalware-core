@@ -52,7 +52,8 @@ module Renalware
       protected
 
       def session_params
-        params.require(:hd_session)
+        params
+          .require(:hd_session)
           .permit(attributes)
           .merge(document: document_attributes, by: current_user)
       end
@@ -67,8 +68,10 @@ module Renalware
       end
 
       def document_attributes
-        params.require(:hd_session)
-         .fetch(:document, nil).try(:permit!)
+        params
+          .require(:hd_session)
+          .fetch(:document, nil)
+          .try(:permit!)
       end
     end
   end

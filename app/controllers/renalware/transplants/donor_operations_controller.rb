@@ -44,7 +44,8 @@ module Renalware
       protected
 
       def operation_params
-        params.require(:transplants_donor_operation)
+        params
+          .require(:transplants_donor_operation)
           .permit(attributes)
           .merge(document: document_attributes)
       end
@@ -59,8 +60,10 @@ module Renalware
       end
 
       def document_attributes
-        params.require(:transplants_donor_operation)
-         .fetch(:document, nil).try(:permit!)
+        params
+          .require(:transplants_donor_operation)
+          .fetch(:document, nil)
+          .try(:permit!)
       end
     end
   end

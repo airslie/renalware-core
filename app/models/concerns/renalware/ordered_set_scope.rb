@@ -2,7 +2,7 @@ module Renalware
   module OrderedSetScope
     extend ActiveSupport::Concern
 
-   class_methods do
+    class_methods do
       # Produces a scope that orders a relation based on a attribue and the
       # order of the values.
       #

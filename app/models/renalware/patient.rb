@@ -66,7 +66,7 @@ module Renalware
     # @section services
 
     def set_modality(attrs)
-      new_modality = if current_modality.present?
+      if current_modality.present?
         current_modality.transfer!(attrs)
       else
         modalities.create(attrs)
