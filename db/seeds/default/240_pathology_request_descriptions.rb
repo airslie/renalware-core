@@ -6,7 +6,7 @@ module Renalware
   logcount=0
   CSV.foreach(file_path, headers: true) do |row|
     logcount += 1
-    Pathology::RequestDescription.find_or_create_by!(code: row["code"])
+    Pathology::RequestDescription.find_or_create_by!(code: row["code"], name: row["name"])
   end
 
   log "#{logcount} Pathology Request Descriptions seeded"
