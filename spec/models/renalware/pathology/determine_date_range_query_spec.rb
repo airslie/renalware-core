@@ -12,10 +12,14 @@ module Renalware
           )
 
           query = DetermineDateRangeQuery.new(limit: 3)
-          range = query.call
+          relation = query.call
 
-          expect(range).to eq(Range.new("2014-01-01", "2016-01-01"))
+          expect(relation.map(&observed_at)).to eq(["2016-01-01", "2016-01-01", "2015-01-01"])
         end
+      end
+
+      def observed_at
+        -> (observation) { observation.observed_at.to_date.strftime("%Y-%m-%d") }
       end
 
       def create_patient
