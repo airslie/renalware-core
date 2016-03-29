@@ -31,12 +31,9 @@ module Renalware
       end
 
       def determine_date_range_for_observations(observations)
-        relation = DetermineDateRangeQuery.new(relation: observations, limit: @limit).call
-        build_range(relation.pluck(:observed_at).reverse)
-      end
-
-      def build_range(values)
-        Range.new(values.first, values.last)
+        relation = ObservationDateRange.new(
+          DetermineDateRangeQuery.new(relation: observations, limit: @limit)
+        ).call
       end
 
       def filter_observations_within_date_range(observations, date_range)
