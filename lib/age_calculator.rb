@@ -10,12 +10,11 @@ class AgeCalculator
   # @return [Hash] containing the year, month and day
   #
   def compute(birth_date, current_date)
-    borrowed_month = false
-
     days   = current_date.day - birth_date.day
     months = current_date.month - birth_date.month
     years  = current_date.year - birth_date.year
 
+    borrowed_month = false
     if days < 0
       # subtract month, get positive # for day
       days = Time.days_in_month(birth_date.month) - birth_date.day + current_date.day
