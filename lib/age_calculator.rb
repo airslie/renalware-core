@@ -3,7 +3,7 @@
 require "date"
 
 class AgeCalculator
-  # Calculates the an age based on the given current date.
+  # Calculates an age based on the given current date.
   #
   # @param birth_date Date
   # @param current_date Date
