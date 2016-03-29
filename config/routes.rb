@@ -113,7 +113,7 @@ Rails.application.routes.draw do
       end
 
       namespace :pathology do
-        resources :observations, only: :index
+        get "observations/recent", to: "recent_observations#index", as: "recent_observations"
       end
 
       namespace :transplants do

@@ -2,7 +2,7 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
-    class ObservationsController < Pathology::BaseController
+    class RecentObservationsController < Pathology::BaseController
       before_filter :load_patient
 
       def index

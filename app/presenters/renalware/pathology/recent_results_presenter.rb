@@ -3,11 +3,11 @@ require "hash_collection"
 
 module Renalware
   module Pathology
-    class ResultsArchivePresenter
+    class RecentResultsPresenter
       attr_reader :limit
 
-      def initialize(results_archive, limit)
-        @results_archive = results_archive
+      def initialize(results, limit)
+        @results = results
         @limit = limit
       end
 
@@ -26,7 +26,7 @@ module Renalware
       #     ]
       #
       def rows
-        @rows ||= HashCollection.new(present_results(@results_archive.to_a))
+        @rows ||= HashCollection.new(present_results(@results.to_a))
       end
 
       def to_a

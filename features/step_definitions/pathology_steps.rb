@@ -10,6 +10,7 @@ Given(/^the following observations were recorded$/) do |table|
   record_observations(patient: @patty, observations_attributes: table.hashes)
 end
 
-Then(/^the doctor views the following archived pathology result report:$/) do |table|
+Then(/^the doctor views the following recents observation results:$/) do |table|
+  expect_pathology_recent_observations(user: @nathalie, patient: @patty, rows: table.raw)
   expect_pathology_result_report(user: @nathalie, patient: @patty, rows: table.raw)
 end

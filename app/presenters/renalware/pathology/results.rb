@@ -1,9 +1,8 @@
 require_dependency "renalware/pathology"
-require "hash_collection"
 
 module Renalware
   module Pathology
-    class ResultsArchive
+    class Results
       def initialize(observations, observation_descriptions)
         @observations = observations
         @observation_descriptions = observation_descriptions

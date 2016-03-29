@@ -41,11 +41,11 @@ module Renalware
       end
 
       def build_results_archive(observations, descriptions)
-        ResultsArchive.new(observations, descriptions)
+        Results.new(observations, descriptions)
       end
 
       def present(results_archive)
-        ResultsArchivePresenter.new(results_archive, @limit)
+        RecentResultsPresenter.new(results_archive, @limit)
       end
     end
   end
