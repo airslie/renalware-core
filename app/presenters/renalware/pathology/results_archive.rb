@@ -46,7 +46,7 @@ module Renalware
             attrs[description] = find_observation_result_by_description(description)
           end
 
-          {@observed_on => descriptions}
+          { @observed_on => descriptions }
         end
 
         private
