@@ -67,6 +67,10 @@ module World
         expect(presentation).to match_array(rows)
       end
 
+      def expect_pathology_historical_observations(user:, patient:, rows:)
+        expect([]).to match(rows)
+      end
+
       private
 
       def extract_description_codes(rows)
