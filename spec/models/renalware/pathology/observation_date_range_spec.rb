@@ -10,10 +10,8 @@ module Renalware
             patient, "2014-01-01", "2016-01-01", "2015-01-01", "2016-01-01", "2013-01-1"
           )
 
-          range = ObservationDateRange.new.call
           expected_range = Range.new(Time.zone.parse("2013-01-01"), Time.zone.parse("2016-01-01"))
-
-          expect(range).to eq(expected_range)
+          expect(subject.call).to eq(expected_range)
         end
       end
 
