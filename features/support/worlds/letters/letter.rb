@@ -21,13 +21,14 @@ module World
       #
       def set_up_simple_letter_for(patient, user:)
         patient = letters_patient(patient)
-        patient.letters.create!(
+        result = Renalware::Letters::DraftLetter.new(patient.letters.build).call(
           valid_simple_letter_attributes(patient).merge(
             author: user,
             main_recipient_attributes: { source_type: "Renalware::Patient", source_id: patient.id },
             by: user
           )
         )
+        raise "Letter creation failed!" unless result
       end
 
       # @section commands
@@ -42,15 +43,14 @@ module World
           main_recipient_attributes: build_main_recipient_attributes(recipient),
           cc_recipients_attributes: build_cc_recipients_attributes(ccs)
         )
-
-        patient.letters.create(letter_attributes)
+        Renalware::Letters::DraftLetter.new(patient.letters.build).call(letter_attributes)
       end
 
       def update_simple_letter(patient:, user:)
         travel_to 1.hour.from_now
 
         letter = simple_letter_for(patient)
-        letter.update_attributes!(
+        Renalware::Letters::DraftLetter.new(letter).call(
           updated_at: Time.zone.now,
           issued_on: (letter.issued_on + 1.day),
           author: user,

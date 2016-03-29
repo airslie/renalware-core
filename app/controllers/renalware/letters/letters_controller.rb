@@ -16,9 +16,10 @@ module Renalware
       end
 
       def create
-        @letter = LetterFormPresenter.new(@patient.letters.new(letter_params))
+        letter = Renalware::Letters::DraftLetter.new(@patient.letters.new).call(letter_params)
+        @letter = LetterFormPresenter.new(letter)
 
-        if @letter.save
+        if @letter.valid?
           refresh_letter(@letter)
           redirect_to patient_letters_letters_path(@patient),
             notice: t(".success", model_name: "Letter")
@@ -40,8 +41,11 @@ module Renalware
       end
 
       def update
-        @letter = LetterFormPresenter.new(@patient.letters.find(params[:id]))
-        if @letter.update(letter_params)
+        letter = @patient.letters.find(params[:id])
+        letter = Renalware::Letters::DraftLetter.new(letter).call(letter_params)
+        @letter = LetterFormPresenter.new(letter)
+
+        if @letter.valid?
           refresh_letter(@letter)
           redirect_to patient_letters_letters_path(@patient),
             notice: t(".success", model_name: "Letter")

@@ -8,7 +8,7 @@ module Renalware
 
       describe "#call" do
         context "when source is a doctor" do
-          let(:letter) { create(:letter_to_doctor) }
+          let(:letter) { create(:letter, :to_doctor) }
 
           it "copies the doctor's name and current address" do
             expect_main_recipient_refreshed(letter.patient.doctor)
@@ -16,7 +16,7 @@ module Renalware
         end
 
         context "when source is the patient" do
-          let(:letter) { create(:letter_to_patient) }
+          let(:letter) { create(:letter, :to_patient) }
 
           it "copies the doctor's name and current address" do
             expect_main_recipient_refreshed(letter.patient)

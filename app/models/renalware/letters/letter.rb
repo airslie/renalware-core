@@ -10,7 +10,7 @@ module Renalware
       belongs_to :patient
       belongs_to :letterhead
       has_one :main_recipient
-      has_many :cc_recipients
+      has_many :cc_recipients, dependent: :destroy
 
       after_initialize :apply_defaults, if: :new_record?
 

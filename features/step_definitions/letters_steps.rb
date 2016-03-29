@@ -2,6 +2,10 @@ Given(/^Patty has a letter$/) do
   set_up_simple_letter_for(@patty, user: @nathalie)
 end
 
+Given(/^Patty accepted to be CCd on all letters$/) do
+  @patty.update_attribute(:cc_on_all_letters, true)
+end
+
 
 When(/^Nathalie drafts a letter for Patty to "(.*?)" with "(.*?)" in CC$/) do |rec, ccs|
   map = {
