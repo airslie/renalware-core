@@ -15,7 +15,7 @@ Feature: Viewing historical pathology observation results for a patient
       | MCV  | 3.00   | 2009-11-12 12:00:00 |
       | WBC  | 2.00   | 2009-11-13 12:00:00 |
     Then the doctor views the following historical observation results:
-      | observed_on | HGB  | MCV  | WBC  |
+      | date        | HGB  | MCV  | WBC  |
       | 13-11-2009  |      |      | 2.00 |
       | 12-11-2009  | 5.09 | 3.00 |      |
       | 11-11-2009  | 6.09 | 4.00 |      |
