@@ -60,8 +60,9 @@ module World
       def expect_pathology_recent_observations(user:, patient:, rows:)
         patient = Renalware::Pathology.cast_patient(patient)
         codes = extract_description_codes(rows)
+        descriptions = Renalware::Pathology::ObservationDescription.for(codes)
 
-        presenter = Renalware::Pathology::ViewRecentObservations.new(patient, codes).call
+        presenter = Renalware::Pathology::ViewRecentObservations.new(patient, descriptions: descriptions).call
         presentation = ArrayStringifier.new(presenter).to_a
 
         expect(presentation).to match_array(rows)
@@ -70,8 +71,9 @@ module World
       def expect_pathology_historical_observations(user:, patient:, rows:)
         patient = Renalware::Pathology.cast_patient(patient)
         codes = rows.first[1..-1]
+        descriptions = Renalware::Pathology::ObservationDescription.for(codes)
 
-        presenter = Renalware::Pathology::ViewHistoricalObservations.new(patient, codes).call
+        presenter = Renalware::Pathology::ViewHistoricalObservations.new(patient, descriptions: descriptions).call
         presentation = ArrayStringifier.new(presenter).to_a
 
         expect(presentation).to match_array(rows)

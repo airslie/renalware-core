@@ -3,31 +3,26 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class ViewRecentObservations
-      def initialize(patient, description_codes, limit: 20)
+      def initialize(patient, descriptions: RelevantObservationDescription.all, limit: 20)
         @patient = patient
-        @description_codes = description_codes
+        @descriptions = descriptions
         @limit = limit
       end
 
       def call
-        descriptions = find_observation_descriptions
-        observations_for_descriptions = find_observations_for_descriptions(descriptions)
+        observations_for_descriptions = find_observations_for_descriptions
         date_range = determine_date_range_for_observations(observations_for_descriptions)
         observations = filter_observations_within_date_range(observations_for_descriptions, date_range)
-        results_archive = build_results_archive(observations, descriptions)
+        results_archive = build_results_archive(observations)
         present(results_archive)
       end
 
       private
 
-      def find_observation_descriptions
-        ObservationDescription.for(@description_codes)
-      end
-
-      def find_observations_for_descriptions(descriptions)
+      def find_observations_for_descriptions
         ObservationsForDescriptionsQuery.new(
           relation: @patient.observations.ordered,
-          descriptions: descriptions
+          descriptions: @descriptions
         ).call
       end
 
@@ -40,8 +35,8 @@ module Renalware
         ObservationsWithinDateRangeQuery.new(relation: observations, date_range: date_range).call
       end
 
-      def build_results_archive(observations, descriptions)
-        RecentResults.new(observations, descriptions)
+      def build_results_archive(observations)
+        RecentResults.new(observations, @descriptions)
       end
 
       def present(results_archive)

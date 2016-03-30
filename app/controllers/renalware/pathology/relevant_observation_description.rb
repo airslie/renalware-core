@@ -6,7 +6,11 @@ module Renalware
     # are relevant to pathology in the renal care domain
     #
     class RelevantObservationDescription
-      def to_a
+      def self.all
+        ObservationDescription.for(codes)
+      end
+
+      def self.codes
         %w(
           HGB MCV MCH RETA HYPO WBC LYM NEUT PLT
           ESR CRP FER FOL B12 URE CRE EGFR NA POT

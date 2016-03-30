@@ -6,18 +6,12 @@ module Renalware
       before_filter :load_patient
 
       def index
-        presenter = ViewHistoricalObservations.new(@patient, description_codes).call
+        presenter = ViewHistoricalObservations.new(@patient).call
 
         render :index, locals: {
           rows: presenter.to_a,
           number_of_records: presenter.limit
         }
-      end
-
-      private
-
-      def description_codes
-        RelevantObservationDescription.new.to_a
       end
     end
   end
