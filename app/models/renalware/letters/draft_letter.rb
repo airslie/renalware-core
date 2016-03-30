@@ -37,7 +37,7 @@ module Renalware
       end
 
       def remove_automatic_ccs
-        @letter.cc_recipients = @letter.cc_recipients.find_all { |r| r.source == nil }
+        @letter.cc_recipients = @letter.cc_recipients.select { |r| r.source == nil }
       end
 
       def add_patient_as_cc

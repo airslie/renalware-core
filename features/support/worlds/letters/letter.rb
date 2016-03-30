@@ -150,7 +150,7 @@ module World
         if ccs.present?
           ccs.each_with_index do |cc, index|
             find(".call-to-action").click
-            within(:xpath, "(//div[@class=\"nested-fields\"])[#{index+1}]") do
+            within(:xpath, "(//div[@class=\"nested-fields\"])[#{index + 1}]") do
               fill_in "Name", with: cc[:name]
               fill_in "Line 1", with: "1 Main st"
               fill_in "City", with: cc[:city]

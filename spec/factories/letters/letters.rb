@@ -44,7 +44,9 @@ FactoryGirl.define do
 
     trait :to_someone_else do
       after(:build) do |letter|
-        letter.main_recipient = build(:letter_main_recipient, source: nil, name: "John Doe", address: build(:address))
+        letter.main_recipient = build(:letter_main_recipient, source: nil,
+          name: "John Doe", address: build(:address)
+        )
       end
       after(:create) do |letter|
         letter.cc_recipients = [
