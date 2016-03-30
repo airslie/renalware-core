@@ -3,6 +3,8 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class RecentResults
+      attr_reader :observation_descriptions
+
       def initialize(observations, observation_descriptions)
         @observations = observations
         @observation_descriptions = observation_descriptions
