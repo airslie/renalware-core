@@ -1,0 +1,10 @@
+= render layout: "renalware/patients/layout", locals: { title: "Archived Pathology Results" } do
+  - if rows.empty?
+    p No results available for this patient.
+
+  - else
+    table#observations
+      - rows.each do |row|
+        tr
+          - row.each do |cell|
+            td= cell

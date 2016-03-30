@@ -102,6 +102,14 @@ module World
 
         expect(page).to have_selector("table#observations tr:first-child td", count: 4)
       end
+
+      def expect_pathology_historical_observations(user:, patient:, rows:)
+        login_as user
+
+        visit patient_pathology_historical_observations_path(patient)
+
+        expect(page).to have_selector("table#observations tr", count: rows.size)
+      end
     end
   end
 end

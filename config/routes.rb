@@ -114,6 +114,7 @@ Rails.application.routes.draw do
 
       namespace :pathology do
         get "observations/recent", to: "recent_observations#index", as: "recent_observations"
+        get "observations/historical", to: "historical_observations#index", as: "historical_observations"
       end
 
       namespace :transplants do
