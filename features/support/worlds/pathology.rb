@@ -68,7 +68,13 @@ module World
       end
 
       def expect_pathology_historical_observations(user:, patient:, rows:)
-        expect([]).to match(rows)
+        patient = Renalware::Pathology.cast_patient(patient)
+        codes = rows.first[1..-1]
+
+        presenter = Renalware::Pathology::ViewHistoricalObservations.new(patient, codes).call
+        presentation = ArrayStringifier.new(presenter).to_a
+
+        expect(presentation).to match_array(rows)
       end
 
       private
