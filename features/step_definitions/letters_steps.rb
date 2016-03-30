@@ -49,7 +49,7 @@ end
 
 Then(/^Patty's letter has "(.*?)" in CC$/) do |ccs|
   cc_recipients = ccs.split(",").map do |cc|
-    case cc
+    case cc.strip
     when "herself"
       @patty
     when "her doctor"

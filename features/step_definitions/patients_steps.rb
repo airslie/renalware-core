@@ -8,6 +8,10 @@ Given(/^Patty is a patient$/) do
     born_on: Time.zone.today,
     doctor: doctor
   )
+  @patty.create_current_address(
+    street_1: "1 Main St",
+    city: "London"
+  )
 end
 
 Given(/^Don is a patient$/) do
@@ -19,5 +23,9 @@ Given(/^Don is a patient$/) do
     sex: "M",
     born_on: Time.zone.today,
     doctor: doctor
+  )
+  @don.create_current_address(
+    street_1: "2 Main St",
+    city: "London"
   )
 end

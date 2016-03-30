@@ -16,84 +16,93 @@ module Renalware
             expect(subject.call(attributes)).to be_a(Renalware::Letters::Letter)
           end
 
-          it "saves the letter" do
-            letter.issued_on += 1.day
+          context "with an invalid letter" do
+            it "does not assign the CCs if the letter is invalid" do
+              letter.issued_on = nil
 
-            subject.call(attributes)
-
-            expect(letter.errors).to be_blank
-            expect(letter).to be_persisted
-          end
-
-          it "does not assign the CCs if the letter is invalid" do
-            letter.issued_on = nil
-
-            expect {
-              subject.call(attributes)
-            }.to_not change {
-              letter.cc_recipients.size
-            }
-          end
-
-          context "when recipient is the patient" do
-            let(:letter_trait) { :to_patient }
-
-            it "adds the doctor as a CC recipient" do
-              subject.call(attributes)
-
-              expect(letter.cc_recipients.count).to eq(1)
-              expect(letter.cc_recipients.first.source.id).to eq(letter.patient.doctor.id)
+              expect {
+                subject.call(attributes)
+              }.to_not change {
+                letter.cc_recipients.size
+              }
             end
           end
 
-          context "when recipient is the doctor" do
-            let(:letter_trait) { :to_doctor }
+          context "with a valid letter" do
+            it "saves the letter" do
+              letter.issued_on += 1.day
 
-            context "when patient opted to be CCd on all letters" do
-              before do
-                letter.patient.cc_on_all_letters = true
-              end
+              subject.call(attributes)
 
-              it "adds the patient as a CC recipient" do
+              expect(letter.errors).to be_blank
+              expect(letter).to be_persisted
+            end
+
+            it "refreshes the dynamic data in the letter" do
+              expect(RefreshLetter).to receive(:new).and_return(double.as_null_object)
+
+              subject.call(attributes)
+            end
+
+            context "when recipient is the patient" do
+              let(:letter_trait) { :to_patient }
+
+              it "adds the doctor as a CC recipient" do
                 subject.call(attributes)
 
                 expect(letter.cc_recipients.count).to eq(1)
-                expect(letter.cc_recipients.first.source.id).to eq(letter.patient.id)
+                expect(letter.cc_recipients.first.source.id).to eq(letter.patient.doctor.id)
               end
             end
 
-            context "when patient did not opt to be CCd on all letters" do
-              before do
-                letter.patient.cc_on_all_letters = false
+            context "when recipient is the doctor" do
+              let(:letter_trait) { :to_doctor }
+
+              context "when patient opted to be CCd on all letters" do
+                before do
+                  letter.patient.cc_on_all_letters = true
+                end
+
+                it "adds the patient as a CC recipient" do
+                  subject.call(attributes)
+
+                  expect(letter.cc_recipients.count).to eq(1)
+                  expect(letter.cc_recipients.first.source.id).to eq(letter.patient.id)
+                end
               end
 
-              it "does not add the patient as a CC recipient" do
-                subject.call(attributes)
+              context "when patient did not opt to be CCd on all letters" do
+                before do
+                  letter.patient.cc_on_all_letters = false
+                end
 
-                expect(letter.cc_recipients.count).to eq(0)
+                it "does not add the patient as a CC recipient" do
+                  subject.call(attributes)
+
+                  expect(letter.cc_recipients.count).to eq(0)
+                end
+              end
+            end
+
+            context "when recipient is someone else" do
+              let(:letter_trait) { :to_someone_else }
+
+              context "when patient opted to be CCd on all letters" do
+                before do
+                  letter.patient.cc_on_all_letters = true
+                end
+
+                it "adds the patient and the doctor as CC recipients" do
+                  subject.call(attributes)
+
+                  expect(letter.cc_recipients.count).to eq(2)
+                  sources = letter.cc_recipients.map(&:source)
+                  expect(sources).to include(letter.patient)
+                  expect(sources).to include(letter.patient.doctor)
+                end
               end
             end
           end
-
-          context "when recipient is someone else" do
-            let(:letter_trait) { :to_someone_else }
-
-            context "when patient opted to be CCd on all letters" do
-              before do
-                letter.patient.cc_on_all_letters = true
-              end
-
-              it "adds the patient and the doctor as CC recipients" do
-                subject.call(attributes)
-
-                expect(letter.cc_recipients.count).to eq(2)
-                sources = letter.cc_recipients.map(&:source)
-                expect(sources).to include(letter.patient)
-                expect(sources).to include(letter.patient.doctor)
-              end
-            end
-          end
-
         end
       end
 

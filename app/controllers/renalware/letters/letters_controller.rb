@@ -20,7 +20,6 @@ module Renalware
         @letter = LetterFormPresenter.new(letter)
 
         if @letter.valid?
-          refresh_letter(@letter)
           redirect_to patient_letters_letters_path(@patient),
             notice: t(".success", model_name: "Letter")
         else
@@ -46,7 +45,6 @@ module Renalware
         @letter = LetterFormPresenter.new(letter)
 
         if @letter.valid?
-          refresh_letter(@letter)
           redirect_to patient_letters_letters_path(@patient),
             notice: t(".success", model_name: "Letter")
         else

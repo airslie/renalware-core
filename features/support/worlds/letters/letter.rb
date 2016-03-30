@@ -69,6 +69,7 @@ module World
         if recipient.is_a? ActiveRecord::Base
           expect(letter.main_recipient.source_type).to eq(recipient.class.name)
           expect(letter.main_recipient.source_id).to eq(recipient.id)
+          expect(letter.main_recipient.address.city).to eq(recipient.current_address.city)
         else
           expect(letter.main_recipient.name).to eq(recipient[:name])
           expect(letter.main_recipient.address.city).to eq(recipient[:city])
@@ -84,6 +85,20 @@ module World
         letter = patient.letters.first
 
         expect(letter.cc_recipients.size).to eq(ccs.size)
+
+        ccs_map = ccs.map do |cc|
+          if cc.is_a? ActiveRecord::Base
+            [cc.class.name, cc.id, cc.current_address.city]
+          else
+            [nil, nil, cc[:city]]
+          end
+        end
+
+        cc_recipients_map = letter.cc_recipients.map do |cc|
+          [cc.source_type, cc.source_id, cc.address.city]
+        end
+
+        expect(ccs_map).to match_array(cc_recipients_map)
       end
 
       private
