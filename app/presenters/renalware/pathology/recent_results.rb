@@ -2,10 +2,14 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
-    class Results
+    class RecentResults
       def initialize(observations, observation_descriptions)
         @observations = observations
         @observation_descriptions = observation_descriptions
+      end
+
+      def map(&block)
+        to_a.map(&block)
       end
 
       def to_a
