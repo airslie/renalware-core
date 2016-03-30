@@ -2,7 +2,7 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
-    class ViewObservations
+    class ViewRecentObservations
       def initialize(patient, description_codes, limit: 20)
         @patient = patient
         @description_codes = description_codes
