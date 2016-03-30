@@ -34,8 +34,8 @@ module Renalware
       private
 
       def present_results(results_archive)
-        rows = build_body
         header = build_header
+        rows = build_body
         rows.unshift(header)
       end
 
@@ -53,7 +53,6 @@ module Renalware
 
           observed_on = DatePresenter.new(observed_on)
           observations = observations.map { |o| ObservationPresenter.new(o) }
-
 
           [observed_on, *observations]
         end
