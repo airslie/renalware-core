@@ -34,11 +34,61 @@ module Renalware
       private
 
       def present_results(results_archive)
-        rows = @results.map do |observations_by_date|
-          [I18n.l(observations_by_date.keys.first), *observations_by_date.values.first]
+        rows = build_body
+        header = build_header
+        rows.unshift(header)
+      end
+
+      def build_header
+        descriptions = @results.observation_descriptions.map {|d| HeaderPresenter.new(d) }
+        observed_on = HeaderPresenter.new("date")
+
+        [observed_on, *descriptions]
+      end
+
+      def build_body
+        @results.map do |observations_by_date|
+          observed_on = observations_by_date.keys.first
+          observations = observations_by_date.values.first
+
+          observed_on = DatePresenter.new(observed_on)
+          observations = observations.map { |o| ObservationPresenter.new(o) }
+
+
+          [observed_on, *observations]
+        end
+      end
+
+      # Responsible for decorating header items with presentation methods
+      #
+      class HeaderPresenter < SimpleDelegator
+        def title
+           to_s
         end
 
-        rows.unshift(["observed_on", *@results.observation_descriptions.map(&:code)])
+        def html_class
+          to_s.downcase
+        end
+      end
+
+      # Reponsible for decorating observations
+      #
+      class ObservationPresenter < HeaderPresenter
+        def html_class
+          description.to_s.downcase
+        end
+      end
+
+      # Responsible for decorating dates with presentation methods
+      #
+      class DatePresenter < HeaderPresenter
+        def to_s
+          I18n.l(self)
+        end
+
+        def html_class
+          "date"
+        end
       end
     end
   end

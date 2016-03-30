@@ -3,11 +3,11 @@ table#observations {
   white-space: nowrap;
   width: auto;
 
-  tr.hgb td {
+  td.hgb {
     background-color : #fc9;
   }
 
-  tr.cre td, tr.ure td, tr.pot td {
+  td.cre, td.ure, td.pot {
     background-color : #cf9;
   }
 

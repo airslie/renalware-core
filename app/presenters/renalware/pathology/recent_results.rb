@@ -47,7 +47,7 @@ module Renalware
         #
         def call
           descriptions = @descriptions.each_with_object({}) do |description, attrs|
-            attrs[description] = find_observation_result_by_description(description)
+            attrs[description] = find_observation_result_by_description(description) || null_observation_for_description(description)
           end
 
           { @observed_on => descriptions }
@@ -60,8 +60,11 @@ module Renalware
         #                       if none is found, a nil returned.
         #
         def find_observation_result_by_description(description)
-          observation = @observations.detect { |o| o.description == description }
-          observation.try!(:result)
+          @observations.detect { |o| o.description == description }
+        end
+
+        def null_observation_for_description(description)
+          Observation.new(description: description, result: "")
         end
       end
     end

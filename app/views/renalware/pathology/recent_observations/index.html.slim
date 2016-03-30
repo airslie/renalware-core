@@ -8,8 +8,9 @@
     table#observations
       - rows.each do |row|
         - header, *values = row
-        tr class= header.html_class title= header.title
-          td
+        tr
+          td title= header.title
             = header
-          - values.each do |cell|
-            td= cell
+            - values.each do |cell|
+              td class= cell.html_class
+                = cell

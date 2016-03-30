@@ -55,8 +55,8 @@ module Renalware
       #
       def present_dates(observed_on)
         {
-          HeaderPresenter.new("year") => observed_on.year.to_s,
-          HeaderPresenter.new("date") => "#{observed_on.day}/#{observed_on.month}"
+          HeaderPresenter.new("year") => DatePresenter.new(observed_on.year.to_s),
+          HeaderPresenter.new("date") => DatePresenter.new("#{observed_on.day}/#{observed_on.month}")
         }
       end
 
@@ -66,7 +66,7 @@ module Renalware
       #
       def present_observations(observations_by_desc)
         observations_by_desc.each_with_object({}) do |(desc, observations), memo|
-          memo[ObservationDescriptionHeaderPresenter.new(desc)] = observations
+          memo[ObservationDescriptionHeaderPresenter.new(desc)] = ObservationPresenter.new(observations)
         end
       end
 
@@ -78,7 +78,7 @@ module Renalware
         end
 
         def html_class
-          to_s.downcase
+          ""
         end
 
         # Overriding specifically for hash lookup
@@ -91,6 +91,26 @@ module Renalware
       class ObservationDescriptionHeaderPresenter < HeaderPresenter
         def title
           name
+        end
+
+        def html_class
+          description.to_s.downcase
+        end
+      end
+
+      # Responsible for decorating dates with presentation methods
+      #
+      class DatePresenter < HeaderPresenter
+        def html_class
+          "date"
+        end
+      end
+
+      # Reponsible for decorating observations
+      #
+      class ObservationPresenter < HeaderPresenter
+        def html_class
+          description.to_s.downcase
         end
       end
     end
