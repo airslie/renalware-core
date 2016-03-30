@@ -31,6 +31,10 @@ module Renalware
         LetterPolicy
       end
 
+      def manual_cc_recipients
+        cc_recipients.select { |cc| !cc.automatic? }
+      end
+
       private
 
       def apply_defaults
