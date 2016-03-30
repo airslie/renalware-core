@@ -10,7 +10,7 @@ module Renalware
       accepts_nested_attributes_for :address, reject_if: :address_not_needed?, allow_destroy: true
 
       def to_s
-        name
+        [name, address].compact.map(&:to_s).join(", ")
       end
 
       def copy_address!(source_address)
