@@ -11,8 +11,8 @@ module Renalware
 
       def call
         observations_for_descriptions = find_observations_for_descriptions
-        results_archive = build_results_archive(observations_for_descriptions)
-        present(results_archive)
+        results = build_results(observations_for_descriptions)
+        present(results)
       end
 
       private
@@ -24,7 +24,7 @@ module Renalware
         ).call
       end
 
-      def build_results_archive(observations)
+      def build_results(observations)
         HistoricalResults.new(observations, @descriptions)
       end
 
