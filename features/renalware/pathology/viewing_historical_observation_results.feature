@@ -18,4 +18,4 @@ Feature: Viewing historical pathology observation results for a patient
       | observed_on | HGB  | MCV  | WBC  |
       | 13-11-2009  |      |      | 2.00 |
       | 12-11-2009  | 5.09 | 3.00 |      |
-      | 11-11-2009  | 6.09 | 4.0  |      |
+      | 11-11-2009  | 6.09 | 4.00 |      |
