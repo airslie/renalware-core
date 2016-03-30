@@ -11,9 +11,7 @@ module Renalware
 
       def call
         observations_for_descriptions = find_observations_for_descriptions
-        date_range = determine_date_range_for_observations(observations_for_descriptions)
-        observations = filter_observations_within_date_range(observations_for_descriptions, date_range)
-        results_archive = build_results_archive(observations)
+        results_archive = build_results_archive(observations_for_descriptions)
         present(results_archive)
       end
 
@@ -24,15 +22,6 @@ module Renalware
           relation: @patient.observations.ordered,
           descriptions: @descriptions
         ).call
-      end
-
-      def determine_date_range_for_observations(observations)
-        observations = DetermineDateRangeQuery.new(relation: observations, limit: @limit).call
-        ObservationDateRange.new(relation: observations).call
-      end
-
-      def filter_observations_within_date_range(observations, date_range)
-        ObservationsWithinDateRangeQuery.new(relation: observations, date_range: date_range).call
       end
 
       def build_results_archive(observations)
