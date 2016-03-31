@@ -1,0 +1,15 @@
+= render layout: "renalware/patients/layout", locals: { title: "Archived Pathology Results" } do
+  - if rows.present?
+
+    p Most recent pathology results (max #{number_of_records} displayed). Hover over row header for investigation name.
+
+    table#observations
+      - rows.each do |row|
+        - header, *values = row
+        tr class= header.html_class title= header.title
+          td
+            = header
+          - values.each do |cell|
+            td= cell
+  - else
+    p No results available for this patient.

@@ -33,7 +33,7 @@ module Renalware
     accepts_nested_attributes_for :address_at_diagnosis
     accepts_nested_attributes_for :medications, allow_destroy: true
 
-    validates :nhs_number, presence: true, length: { minimum: 10, maximum: 10 }, uniqueness: true
+    validates :nhs_number, length: { minimum: 10, maximum: 10 }, uniqueness: true, allow_blank: true
     validates :family_name, presence: true
     validates :given_name, presence: true
     validates :local_patient_id, presence: true, uniqueness: true
@@ -66,7 +66,7 @@ module Renalware
     # @section services
 
     def set_modality(attrs)
-      new_modality = if current_modality.present?
+      if current_modality.present?
         current_modality.transfer!(attrs)
       else
         modalities.create(attrs)

@@ -61,7 +61,8 @@ module Renalware
       protected
 
       def dry_weight_params
-        params.require(:hd_dry_weight)
+        params
+          .require(:hd_dry_weight)
           .permit(attributes)
           .merge(by: current_user)
       end

@@ -31,7 +31,8 @@ module Renalware
       private
 
       def profile_params
-        params.require(:hd_profile)
+        params
+          .require(:hd_profile)
           .permit(attributes)
           .merge(document: document_attributes, by: current_user)
       end
@@ -46,7 +47,8 @@ module Renalware
       end
 
       def document_attributes
-        params.require(:hd_profile)
+        params
+          .require(:hd_profile)
           .fetch(:document, nil).try(:permit!)
       end
     end

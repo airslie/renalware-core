@@ -29,6 +29,9 @@ gem 'font-awesome-rails' # See icons here: https://fortawesome.github.io/Font-Aw
 gem 'jbuilder'
 gem 'active_type'
 gem 'dumb_delegator'
+gem 'ruby-hl7', '~> 1.1.0'
+gem 'delayed_job_active_record'
+gem 'wisper', '2.0.0.rc1'
 gem 'cocoon'
 
 source 'https://rails-assets.org' do

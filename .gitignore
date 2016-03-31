@@ -27,3 +27,4 @@ capybara-*.html
 /tmp
 
 capybara*.html
+.vimrc

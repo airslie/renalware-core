@@ -11,7 +11,7 @@ module Renalware
 
     def monospace(value, width=5)
       content_tag(:span, class: "monospaced") do
-        concat ("%#{width}s" % value).gsub(/ /, "&nbsp;").html_safe
+        concat("%#{width}s" % value).gsub(/ /, "&nbsp;").html_safe
       end
     end
   end

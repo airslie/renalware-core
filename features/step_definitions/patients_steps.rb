@@ -29,3 +29,7 @@ Given(/^Don is a patient$/) do
     city: "London"
   )
 end
+
+Then(/^the patient is created with the following attributes:$/) do |table|
+  expect_patient_to_be_created(table.rows_hash)
+end

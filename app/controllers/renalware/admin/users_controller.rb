@@ -15,7 +15,7 @@ module Renalware
     def update
       load_user
 
-      if user_service.update_and_notify!(service_params)
+      if update_user.call(update_params)
         redirect_to admin_users_path,
           notice: t(".success", model_name: "user")
       else
@@ -31,7 +31,7 @@ module Renalware
       authorize @user
     end
 
-    def service_params
+    def update_params
       roles = fetch_roles(user_params[:role_ids])
       user_params.merge(roles: roles)
     end
@@ -44,8 +44,8 @@ module Renalware
       Role.fetch(role_ids)
     end
 
-    def user_service
-      @service ||= Admin::UserService.new(@user)
+    def update_user
+      @service ||= UpdateUser.new(@user)
     end
   end
 end

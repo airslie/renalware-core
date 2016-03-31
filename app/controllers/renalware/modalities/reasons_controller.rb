@@ -10,7 +10,7 @@ module Renalware
         @reason_pd_hd = PDToHaemodialysis.all
 
         type = params[:modal_change_type] ?
-          "Renalware::Modalities::#{(params[:modal_change_type]).camelize}" : nil
+          "Renalware::Modalities::#{params[:modal_change_type].camelize}" : nil
         @modality_reason_select = Reason.where(type: type)
 
         respond_to do |format|

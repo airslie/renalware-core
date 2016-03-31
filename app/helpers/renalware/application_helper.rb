@@ -32,12 +32,13 @@ module Renalware
         other_route = "Route: Other (Please specify in notes)"
         safe_join(
           med_route.map do |m|
+            route = if m.medication_route.name == other_route
+                      m.medication_route.full_name
+                    else
+                      m.medication_route.name
+                    end
             "<li>
-                #{m.drug.name} - #{if m.medication_route.name == other_route
-                    m.medication_route.full_name
-                  else
-                    m.medication_route.name
-                  end}
+                #{m.drug.name} - #{route}
             </li>".html_safe
           end
         )

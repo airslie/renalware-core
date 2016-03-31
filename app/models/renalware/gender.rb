@@ -7,7 +7,7 @@ module Renalware
       "M" => "Male",
       "F" => "Female",
       "NS" => "Not Specified"
-    }
+    }.freeze
 
     def self.all
       DATA.map {|code, _| self.new(code) }

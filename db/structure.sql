@@ -447,6 +447,45 @@ ALTER SEQUENCE clinics_id_seq OWNED BY clinics.id;
 
 
 --
+-- Name: delayed_jobs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE delayed_jobs (
+    id integer NOT NULL,
+    priority integer DEFAULT 0 NOT NULL,
+    attempts integer DEFAULT 0 NOT NULL,
+    handler text NOT NULL,
+    last_error text,
+    run_at timestamp without time zone,
+    locked_at timestamp without time zone,
+    failed_at timestamp without time zone,
+    locked_by character varying,
+    queue character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: delayed_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE delayed_jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: delayed_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE delayed_jobs_id_seq OWNED BY delayed_jobs.id;
+
+
+--
 -- Name: doctors; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -798,6 +837,39 @@ CREATE SEQUENCE exit_site_infections_id_seq
 --
 
 ALTER SEQUENCE exit_site_infections_id_seq OWNED BY exit_site_infections.id;
+
+
+--
+-- Name: feed_messages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE feed_messages (
+    id integer NOT NULL,
+    event_code character varying NOT NULL,
+    header_id character varying NOT NULL,
+    body text NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: feed_messages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE feed_messages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: feed_messages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE feed_messages_id_seq OWNED BY feed_messages.id;
 
 
 --
@@ -1588,13 +1660,143 @@ ALTER SEQUENCE organism_codes_id_seq OWNED BY organism_codes.id;
 
 
 --
+-- Name: pathology_observation_descriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_observation_descriptions (
+    id integer NOT NULL,
+    code character varying NOT NULL,
+    name character varying
+);
+
+
+--
+-- Name: pathology_observation_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pathology_observation_descriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_observation_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pathology_observation_descriptions_id_seq OWNED BY pathology_observation_descriptions.id;
+
+
+--
+-- Name: pathology_observation_requests; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_observation_requests (
+    id integer NOT NULL,
+    requestor_order_number character varying,
+    requestor_name character varying NOT NULL,
+    requested_at timestamp without time zone NOT NULL,
+    patient_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    description_id integer NOT NULL
+);
+
+
+--
+-- Name: pathology_observation_requests_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pathology_observation_requests_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_observation_requests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pathology_observation_requests_id_seq OWNED BY pathology_observation_requests.id;
+
+
+--
+-- Name: pathology_observations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_observations (
+    id integer NOT NULL,
+    result character varying NOT NULL,
+    comment text,
+    observed_at timestamp without time zone NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    description_id integer NOT NULL,
+    request_id integer
+);
+
+
+--
+-- Name: pathology_observations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pathology_observations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_observations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pathology_observations_id_seq OWNED BY pathology_observations.id;
+
+
+--
+-- Name: pathology_request_descriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_request_descriptions (
+    id integer NOT NULL,
+    code character varying NOT NULL,
+    name character varying
+);
+
+
+--
+-- Name: pathology_request_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pathology_request_descriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_request_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pathology_request_descriptions_id_seq OWNED BY pathology_request_descriptions.id;
+
+
+--
 -- Name: patients; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE patients (
     id integer NOT NULL,
-    nhs_number character varying NOT NULL,
-    local_patient_id character varying,
+    nhs_number character varying,
+    local_patient_id character varying NOT NULL,
     family_name character varying NOT NULL,
     given_name character varying NOT NULL,
     born_on date NOT NULL,
@@ -2628,6 +2830,13 @@ ALTER TABLE ONLY clinics ALTER COLUMN id SET DEFAULT nextval('clinics_id_seq'::r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY doctors ALTER COLUMN id SET DEFAULT nextval('doctors_id_seq'::regclass);
 
 
@@ -2692,6 +2901,13 @@ ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::reg
 --
 
 ALTER TABLE ONLY exit_site_infections ALTER COLUMN id SET DEFAULT nextval('exit_site_infections_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY feed_messages ALTER COLUMN id SET DEFAULT nextval('feed_messages_id_seq'::regclass);
 
 
 --
@@ -2846,6 +3062,34 @@ ALTER TABLE ONLY modality_reasons ALTER COLUMN id SET DEFAULT nextval('modality_
 --
 
 ALTER TABLE ONLY organism_codes ALTER COLUMN id SET DEFAULT nextval('organism_codes_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observation_descriptions ALTER COLUMN id SET DEFAULT nextval('pathology_observation_descriptions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observation_requests ALTER COLUMN id SET DEFAULT nextval('pathology_observation_requests_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observations ALTER COLUMN id SET DEFAULT nextval('pathology_observations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_request_descriptions ALTER COLUMN id SET DEFAULT nextval('pathology_request_descriptions_id_seq'::regclass);
 
 
 --
@@ -3112,6 +3356,14 @@ ALTER TABLE ONLY clinics
 
 
 --
+-- Name: delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY delayed_jobs
+    ADD CONSTRAINT delayed_jobs_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: doctors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3189,6 +3441,14 @@ ALTER TABLE ONLY events
 
 ALTER TABLE ONLY exit_site_infections
     ADD CONSTRAINT exit_site_infections_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feed_messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY feed_messages
+    ADD CONSTRAINT feed_messages_pkey PRIMARY KEY (id);
 
 
 --
@@ -3365,6 +3625,38 @@ ALTER TABLE ONLY modality_reasons
 
 ALTER TABLE ONLY organism_codes
     ADD CONSTRAINT organism_codes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_observation_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observation_descriptions
+    ADD CONSTRAINT pathology_observation_descriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_observation_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observation_requests
+    ADD CONSTRAINT pathology_observation_requests_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_observations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observations
+    ADD CONSTRAINT pathology_observations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_request_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_request_descriptions
+    ADD CONSTRAINT pathology_request_descriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -3572,6 +3864,13 @@ ALTER TABLE ONLY versions
 --
 
 CREATE INDEX access_versions_type_id ON access_versions USING btree (item_type, item_id);
+
+
+--
+-- Name: delayed_jobs_priority; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delayed_jobs_priority ON delayed_jobs USING btree (priority, run_at);
 
 
 --
@@ -4002,6 +4301,34 @@ CREATE INDEX index_modalities_on_reason_id ON modalities USING btree (reason_id)
 
 
 --
+-- Name: index_pathology_observation_requests_on_description_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pathology_observation_requests_on_description_id ON pathology_observation_requests USING btree (description_id);
+
+
+--
+-- Name: index_pathology_observation_requests_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pathology_observation_requests_on_patient_id ON pathology_observation_requests USING btree (patient_id);
+
+
+--
+-- Name: index_pathology_observations_on_description_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pathology_observations_on_description_id ON pathology_observations USING btree (description_id);
+
+
+--
+-- Name: index_pathology_observations_on_request_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pathology_observations_on_request_id ON pathology_observations USING btree (request_id);
+
+
+--
 -- Name: index_patients_on_doctor_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4247,6 +4574,14 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
+-- Name: fk_rails_050f679712; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observation_requests
+    ADD CONSTRAINT fk_rails_050f679712 FOREIGN KEY (description_id) REFERENCES pathology_request_descriptions(id);
+
+
+--
 -- Name: fk_rails_09038afd60; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4444,6 +4779,14 @@ ALTER TABLE ONLY transplant_recipient_followups
 
 ALTER TABLE ONLY problem_notes
     ADD CONSTRAINT fk_rails_6a44f3907b FOREIGN KEY (problem_id) REFERENCES problem_problems(id);
+
+
+--
+-- Name: fk_rails_70ef87ad18; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observations
+    ADD CONSTRAINT fk_rails_70ef87ad18 FOREIGN KEY (request_id) REFERENCES pathology_observation_requests(id);
 
 
 --
@@ -4660,6 +5003,22 @@ ALTER TABLE ONLY access_profiles
 
 ALTER TABLE ONLY hd_profiles
     ADD CONSTRAINT fk_rails_d92d27629e FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_db5255e417; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observation_requests
+    ADD CONSTRAINT fk_rails_db5255e417 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_dc1b1799e7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_observations
+    ADD CONSTRAINT fk_rails_dc1b1799e7 FOREIGN KEY (description_id) REFERENCES pathology_observation_descriptions(id);
 
 
 --
@@ -4942,5 +5301,19 @@ INSERT INTO schema_migrations (version) VALUES ('20160209203446');
 
 INSERT INTO schema_migrations (version) VALUES ('20160218220145');
 
+INSERT INTO schema_migrations (version) VALUES ('20160302192055');
+
+INSERT INTO schema_migrations (version) VALUES ('20160303151449');
+
+INSERT INTO schema_migrations (version) VALUES ('20160303151540');
+
+INSERT INTO schema_migrations (version) VALUES ('20160304151449');
+
+INSERT INTO schema_migrations (version) VALUES ('20160304151540');
+
+INSERT INTO schema_migrations (version) VALUES ('20160304162205');
+
 INSERT INTO schema_migrations (version) VALUES ('20160314181446');
+
+INSERT INTO schema_migrations (version) VALUES ('20160327221550');
 

@@ -6,7 +6,12 @@ module Document
   module AttributeInitializer
 
     def self.determine_initializer(klass, name, type, options)
-      initializer_class = case
+      initializer_class = build_class(type)
+      initializer_class.new(klass, name, type, options)
+    end
+
+    def self.build_class(type)
+      case
       when type == Document::Enum
         AttributeInitializer::Enum
       when type && type.included_modules.include?(::ActiveModel::Model)
@@ -14,8 +19,8 @@ module Document
       else
         AttributeInitializer::Base
       end
-      initializer_class.new(klass, name, type, options)
     end
 
+    private_class_method :build_class
   end
 end

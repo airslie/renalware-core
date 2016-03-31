@@ -13,7 +13,7 @@ module Renalware
     end
 
     class_methods do
-      def ransackable_scopes(auth=nil)
+      def ransackable_scopes(_auth=nil)
         %i(identity_match)
       end
 
