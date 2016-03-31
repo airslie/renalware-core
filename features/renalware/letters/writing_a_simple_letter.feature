@@ -1,3 +1,4 @@
+@wip
 Feature: Writing a letter
 
   To officially inform the patient and/or other interested parties about
@@ -9,19 +10,21 @@ Feature: Writing a letter
   Background:
     Given Nathalie is a nurse
     And Patty is a patient
+    And Doug is Patty's doctor
 
   @web @javascript
   Scenario Outline: A nurse drafted a letter
     Given Patty accepted to be CCd on all letters
-    When Nathalie drafts a letter for Patty to "<recipient>" with "<ccs>" in CC
-    Then Patty has a new letter for "<recipient>"
-    And Patty's letter has "<all_ccs>" in CC
+    When Nathalie drafts a letter for Patty to "<recipient>" with "<manual_ccs>"
+    Then "<recipient>" will receive the letter
+    And all "<ccs>" will also receive the letter
 
     Examples:
-      | recipient          | ccs                | all_ccs                     |
-      | her doctor         | John Doe in London | herself, John Doe in London |
-      | herself            |                    | her doctor                  |
-      | John Doe in London |                    | herself, her doctor         |
+      | recipient      | manual_ccs                  | ccs                                |
+      | Doug           | John in London              | Patty, John in London              |
+      | Doug           | John in London, Kate in Ely | Patty, John in London, Kate in Ely |
+      | Patty          |                             | Doug                               |
+      | John in London |                             | Patty, Doug                        |
 
   @web
   Scenario: A nurse updated a letter

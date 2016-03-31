@@ -8,6 +8,15 @@ module World
         patient.letters.first_or_initialize
       end
 
+      def letter_recipients_map
+        {
+          "Patty" => @patty,
+          "Doug" => @patty.doctor,
+          "John in London" => { name: "John", city: "London" },
+          "Kate in Ely" => { name: "Kate", city: "Ely" }
+        }
+      end
+
       def valid_simple_letter_attributes(patient)
         {
           letterhead: Renalware::Letters::Letterhead.first,
