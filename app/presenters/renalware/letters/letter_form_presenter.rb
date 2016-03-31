@@ -19,6 +19,15 @@ module Renalware
         DoctorPresenter.new(patient.doctor)
       end
 
+      def patient_cc_hint
+        if patient.cc_on_all_letters
+          "If not the recipient, the patient <b>will be CCd</b> on the letter.".html_safe
+        else
+          "If not the recipient, the patient <b>will NOT be CCd</b> on the letter.  "+
+          "This can be changed in the patients profile.".html_safe
+        end
+      end
+
       private
 
       def doctor_source
