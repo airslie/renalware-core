@@ -1795,8 +1795,8 @@ ALTER SEQUENCE pathology_request_descriptions_id_seq OWNED BY pathology_request_
 
 CREATE TABLE patients (
     id integer NOT NULL,
-    nhs_number character varying,
-    local_patient_id character varying NOT NULL,
+    nhs_number character varying NOT NULL,
+    local_patient_id character varying,
     family_name character varying NOT NULL,
     given_name character varying NOT NULL,
     born_on date NOT NULL,
