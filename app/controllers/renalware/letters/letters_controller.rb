@@ -15,7 +15,7 @@ module Renalware
       end
 
       def create
-        letter = Renalware::Letters::DraftLetter.new(@patient.letters.new).call(letter_params)
+        letter = DraftLetter.new(@patient.letters.new).call(letter_params)
         @letter = LetterFormPresenter.new(letter)
 
         if @letter.persisted?
@@ -38,7 +38,7 @@ module Renalware
 
       def update
         letter = @patient.letters.find(params[:id])
-        letter = Renalware::Letters::DraftLetter.new(letter).call(letter_params)
+        letter = DraftLetter.new(letter).call(letter_params)
         @letter = LetterFormPresenter.new(letter)
 
         if @letter.valid?
