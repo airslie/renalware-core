@@ -1,4 +1,3 @@
-@wip
 Feature: Writing a letter
 
   To officially inform the patient and/or other interested parties about
