@@ -36,7 +36,7 @@ module Renalware
       end
 
       def build_results(observations)
-        RecentResults.new(observations, @descriptions)
+        Results.new(observations, @descriptions)
       end
 
       def present(results_archive)

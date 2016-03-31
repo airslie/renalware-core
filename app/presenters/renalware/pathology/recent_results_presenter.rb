@@ -26,7 +26,7 @@ module Renalware
       #     ]
       #
       def rows
-        @rows ||= HashCollection.new(present_results(@results.to_a))
+        @rows ||= build_header + build_body
       end
 
       def to_a
@@ -35,39 +35,39 @@ module Renalware
 
       private
 
-      def present_results(results_archive)
-        results_archive.map do |results|
-          observed_on, observations_by_description = results.keys.first, results.values.first
-
-          presented_dates = present_dates(observed_on)
-          presented_observations = present_observations(observations_by_description)
-          presented_dates.merge(presented_observations)
-        end
+      def build_header
+        presentation = []
+        presentation << [HeaderPresenter.new("year"), *build_years]
+        presentation << [HeaderPresenter.new("date"), *build_dates]
       end
 
-      # @param  [Date] a date representing the date the observation was observed on
-      # @return [Hash] a hash representing the date observations were recorded
-      #                with keys decorated with HeadPresenter
-      #
-      # Example:
-      #
-      #     {"year"=>"2009", "date"=>"13/11"}
-      #
-      def present_dates(observed_on)
-        {
-          HeaderPresenter.new("year") => DatePresenter.new(observed_on.year.to_s),
-          HeaderPresenter.new("date") => DatePresenter.new("#{observed_on.day}/#{observed_on.month}")
-        }
+      def build_years
+        result_dates.map { |date| DatePresenter.new(date.year.to_s) }
       end
 
-      # @param  [Hash] a hash containing the observations keyed by observation description
-      # @return [Hash] returns the hash with the keys decorated with
-      #                ObservationDescriptionHeaderPresenter
-      #
-      def present_observations(observations_by_desc)
-        observations_by_desc.each_with_object({}) do |(desc, observations), memo|
-          memo[ObservationDescriptionHeaderPresenter.new(desc)] = ObservationPresenter.new(observations)
-        end
+      def build_dates
+        result_dates.map { |date| DatePresenter.new("#{date.day}/#{date.month}") }
+      end
+
+      def result_dates
+        @results.map(&:keys).flatten
+      end
+
+      def build_body
+        @results.observation_descriptions.map { |description| build_row(description) }
+      end
+
+      def build_row(description)
+        observations = build_observations_for_description(description)
+        [ObservationDescriptionHeaderPresenter.new(description), *observations]
+      end
+
+      def build_observations_for_description(description)
+        @results
+          .map(&:values)
+          .flatten
+          .select { |obs| obs.description == description }
+          .map { |obs| ObservationPresenter.new(obs) }
       end
 
       # Responsible for decorating header items with presentation methods

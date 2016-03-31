@@ -2,7 +2,7 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
-    class HistoricalResults
+    class Results
       attr_reader :observation_descriptions
 
       def initialize(observations, observation_descriptions)
