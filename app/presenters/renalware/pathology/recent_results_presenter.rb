@@ -11,29 +11,33 @@ module Renalware
         @limit = limit
       end
 
-      # @return [HashCollection] an array of hashes representing observation results
-      #                          by date
+      # @return [Array] see example below for composition of array
       #
       # Example:
       #
       #     [
-      #       {"year"=>"2009", "date"=>"13/11", ObservationDescription.new(code: "HB") =>"2",
-      #         ObservationDescription.new(code: "AL")=>""},
-      #       {"year"=>"2009", "date"=>"12/11", ObservationDescription.new(code: "HB") =>"",
-      #         ObservationDescription.new(code: "AL")=>""},
-      #       {"year"=>"2009", "date"=>"11/11", ObservationDescription.new(code: "HB") =>"",
-      #         ObservationDescription.new(code: "AL")=>""}
+      #       ["year", "2009", "2009"],
+      #       ["date", "13/11", "12/11"],
+      #       [ObservationDescription.new(code: "HGB"), Observation.new(result: "4"), Observation.new(result: nil)],
+      #       [ObservationDescription.new(code: "MCV"), Observation.new(result: nil), Observation.new(result: "6")],
+      #       [ObservationDescription.new(code: "WBC"), Observation.new(result: "2"), Observation.new(result: "3")],
       #     ]
       #
-      def rows
-        @rows ||= build_header + build_body
+      def present
+        @presentation ||= present_results
       end
 
       def to_a
-        rows.to_a
+        present
       end
 
       private
+
+      def present_results
+        build_header + build_body
+      end
+
+      # @section header
 
       def build_header
         presentation = []
@@ -53,6 +57,8 @@ module Renalware
         @results.map(&:keys).flatten
       end
 
+      # @section body
+
       def build_body
         @results.observation_descriptions.map { |description| build_row(description) }
       end
@@ -70,8 +76,8 @@ module Renalware
           .map { |obs| ObservationPresenter.new(obs) }
       end
 
-      # Responsible for decorating header items with presentation methods
-      #
+      # @section presenters
+
       class HeaderPresenter < SimpleDelegator
         def title
            to_s
@@ -79,12 +85,6 @@ module Renalware
 
         def html_class
           ""
-        end
-
-        # Overriding specifically for hash lookup
-        #
-        def eql?(other)
-          to_s == other.to_s
         end
       end
 
@@ -98,19 +98,9 @@ module Renalware
         end
       end
 
-      # Responsible for decorating dates with presentation methods
-      #
       class DatePresenter < HeaderPresenter
         def html_class
           "date"
-        end
-      end
-
-      # Reponsible for decorating observations
-      #
-      class ObservationPresenter < HeaderPresenter
-        def html_class
-          description.to_s.downcase
         end
       end
     end

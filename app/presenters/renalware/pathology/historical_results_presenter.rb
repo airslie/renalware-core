@@ -1,5 +1,4 @@
 require_dependency "renalware/pathology"
-require "hash_collection"
 
 module Renalware
   module Pathology
@@ -11,8 +10,7 @@ module Renalware
         @limit = limit
       end
 
-      # @return [Array] an array of observations prefixed by a header
-      #                          by date
+      # @return [Array] see example below for composition of array
       #
       # Example:
       #
@@ -23,43 +21,60 @@ module Renalware
       #       [Date.parse("2011-10-10")], nil, Observation.new(result: "4")],
       #     ]
       #
-      def rows
-        @rows ||= present_results(@results)
+      def present
+        @presentation ||= present_results
       end
 
       def to_a
-        rows
+        present
       end
 
       private
 
-      def present_results(results_archive)
-        header = build_header
-        rows = build_body
-        rows.unshift(header)
+      def present_results
+        build_header + build_body
       end
+
+      # @section header
 
       def build_header
-        descriptions = @results.observation_descriptions.map {|d| HeaderPresenter.new(d) }
-        observed_on = HeaderPresenter.new("date")
-
-        [observed_on, *descriptions]
+        presentation = []
+        presentation << [build_date_cell, *build_descriptions]
       end
+
+      def build_date_cell
+        HeaderPresenter.new("date")
+      end
+
+      def build_descriptions
+        @results.observation_descriptions.map {|d| HeaderPresenter.new(d) }
+      end
+
+      # @section body
 
       def build_body
-        @results.map do |observations_by_date|
-          observed_on = observations_by_date.keys.first
-          observations = observations_by_date.values.first
-
-          observed_on = DatePresenter.new(observed_on)
-          observations = observations.map { |o| ObservationPresenter.new(o) }
-
-          [observed_on, *observations]
-        end
+        @results.map { |observations_by_date| build_row(observations_by_date) }
       end
 
-      # Responsible for decorating header items with presentation methods
-      #
+      def build_row(observations_by_date)
+        observed_on = build_date(observations_by_date)
+        observations = build_observations(observations_by_date)
+
+        [observed_on, *observations]
+      end
+
+      def build_date(observations_by_date)
+        observed_on = observations_by_date.keys.first
+        DatePresenter.new(observed_on)
+      end
+
+      def build_observations(observations_by_date)
+        observations = observations_by_date.values.first
+        observations.map { |observation| ObservationPresenter.new(observation) }
+      end
+
+      # @section presenters
+
       class HeaderPresenter < SimpleDelegator
         def title
            to_s
@@ -70,16 +85,6 @@ module Renalware
         end
       end
 
-      # Reponsible for decorating observations
-      #
-      class ObservationPresenter < HeaderPresenter
-        def html_class
-          description.to_s.downcase
-        end
-      end
-
-      # Responsible for decorating dates with presentation methods
-      #
       class DatePresenter < HeaderPresenter
         def to_s
           I18n.l(self)
