@@ -16,22 +16,6 @@ module Renalware
 
       private
 
-      def letter
-        main_recipient.letter
-      end
-
-      def patient
-        letter.patient
-      end
-
-      def doctor
-        patient.doctor
-      end
-
-      def source
-        main_recipient.source
-      end
-
       def assign_doctor_or_patient
         case main_recipient.source_type
         when "Renalware::Doctor"
@@ -50,6 +34,22 @@ module Renalware
         if source.try(:current_address).present?
           main_recipient.copy_address!(source.current_address)
         end
+      end
+
+      def letter
+        main_recipient.letter
+      end
+
+      def patient
+        letter.patient
+      end
+
+      def doctor
+        patient.doctor
+      end
+
+      def source
+        main_recipient.source
       end
     end
   end

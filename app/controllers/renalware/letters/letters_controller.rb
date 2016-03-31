@@ -12,14 +12,13 @@ module Renalware
 
       def new
         @letter = LetterFormPresenter.new(@patient.letters.new)
-        @letter.main_recipient.build_address
       end
 
       def create
         letter = Renalware::Letters::DraftLetter.new(@patient.letters.new).call(letter_params)
         @letter = LetterFormPresenter.new(letter)
 
-        if @letter.valid?
+        if @letter.persisted?
           redirect_to patient_letters_letters_path(@patient),
             notice: t(".success", model_name: "Letter")
         else
@@ -34,8 +33,6 @@ module Renalware
 
       def edit
         @letter = LetterFormPresenter.new(@patient.letters.find(params[:id]))
-        @letter.build_main_recipient if @letter.main_recipient.blank?
-        @letter.main_recipient.build_address if @letter.main_recipient.address.blank?
         refresh_letter(@letter)
       end
 

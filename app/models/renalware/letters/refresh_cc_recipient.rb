@@ -9,20 +9,18 @@ module Renalware
 
       def call
         copy_source_address
-
-        cc_recipient.save
       end
 
       private
-
-      def source
-        cc_recipient.source
-      end
 
       def copy_source_address
         if source.try(:current_address).present?
           cc_recipient.copy_address!(source.current_address)
         end
+      end
+
+      def source
+        cc_recipient.source
       end
     end
   end

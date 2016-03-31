@@ -1,7 +1,7 @@
 class CreateLetterRecipients < ActiveRecord::Migration
   def change
     create_table :letter_recipients do |t|
-      t.string :type
+      t.string :type, null: false
       t.string :source_type
       t.integer :source_id
       t.string :name
