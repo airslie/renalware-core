@@ -44,12 +44,12 @@ module Renalware
       end
 
       def add_patient_as_cc
-        return if letter.main_recipient.is_patient?
+        return if letter.main_recipient.patient?
         add_source_as_cc(letter.patient) if letter.patient.cc_on_all_letters
       end
 
       def add_doctor_as_cc
-        return if letter.main_recipient.is_doctor?
+        return if letter.main_recipient.doctor?
         add_source_as_cc(letter.patient.doctor)
       end
 
