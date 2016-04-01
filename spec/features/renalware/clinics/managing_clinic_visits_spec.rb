@@ -3,7 +3,7 @@ require "rails_helper"
 module Renalware
   feature "Managing clinic visits" do
     background do
-      @patient = create(:patient)
+      @patient = Renalware::Clinics.cast_patient(create(:patient))
       create(:clinic, name: "Access")
       create(:clinic, name: "Anaemia")
       login_as_clinician
@@ -64,7 +64,6 @@ module Renalware
           expect(page).to have_content("Anaemia")
         end
       end
-
     end
   end
 end
