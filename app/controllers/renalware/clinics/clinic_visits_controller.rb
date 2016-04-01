@@ -45,7 +45,7 @@ module Renalware
 
       def load_patient
         super
-        @patient = ActiveType.cast(@patient, ::Renalware::Clinics::Patient)
+        @patient = Renalware::Clinics.cast_patient(@patient)
       end
 
       def clinic_visit_params
