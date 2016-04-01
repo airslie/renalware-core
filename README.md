@@ -8,9 +8,10 @@ undertake clinical and administrative audits and share data with external system
 As a Rails developer we assume you have the following setup on your machine:
 
 * Git
-* Postgres
+* Postgres (9.5)
 * Heroku Toolbelt (with a Heroku Account)
 * a ruby version manager (e.g. RVM)
+* a js runtime (i.e. nodejs) required by the [uglifier gem](https://github.com/lautis/uglifier#installation)
 
 1. Setup a Postgres user with a password, for development purposes this can be your system login.
 
@@ -52,6 +53,8 @@ Foreman uses a Procfile to start all the components that we need for the app (se
 Visit [http://localhost:3000](http://localhost:3000).
 
 ## Run the tests
+
+Ensure you have phantomjs installed in order to run the feature & integration specs.
 
 1. Setup a test database
 
