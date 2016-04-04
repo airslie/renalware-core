@@ -122,9 +122,9 @@ module Renalware
   log '--------------------Adding ClinicVisits for Roger RABBIT-------------------'
   5.times do |n|
     user = User.first
-    clinic_visit = ClinicVisit.find_or_create_by!(
+    clinic_visit = Clinics::ClinicVisit.find_or_create_by!(
       patient: rabbit,
-      clinic: Clinic.order("RANDOM()").first,
+      clinic: Clinics::Clinic.order("RANDOM()").first,
       height: 1.25,
       weight: 55 + n,
       systolic_bp: 110 + n,
