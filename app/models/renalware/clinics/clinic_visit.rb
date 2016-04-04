@@ -21,7 +21,7 @@ module Renalware
       end
 
       def bp=(val)
-        self.systolic_bp, self.diastolic_bp = val.split('/')
+        self.systolic_bp, self.diastolic_bp = val.split("/")
       end
     end
   end
