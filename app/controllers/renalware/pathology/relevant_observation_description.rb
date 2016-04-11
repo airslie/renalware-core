@@ -12,7 +12,7 @@ module Renalware
 
       def self.codes
         %w(
-          HGB MCV MCH RETA HYPO WBC LYM NEUT PLT
+          HGB MCV MCH HYPO WBC LYM NEUT PLT RETA
           ESR CRP FER FOL B12 URE CRE EGFR NA POT
           BIC CCA PHOS PTHI TP GLO ALB URAT BIL
           ALT AST ALP GGT BGLU HBA HBAI CHOL HDL
