@@ -3,17 +3,20 @@
     p No results available for this patient.
 
   - else
-    - header, *body = rows
-    table#observations
-      thead
-        tr
-          - header.each do |cell|
-            th class= cell.html_class title= cell.title
-              = cell
+    p.hint Hover over table then scroll horizontally to view older results.
 
-      tbody
-      - body.each do |row|
-        tr
-          - row.each do |cell|
-            td class= cell.html_class
-              = cell
+    div.embedded-scroll
+      - header, *body = rows
+      table#observations
+        thead
+          tr
+            - header.each do |cell|
+              th class= cell.html_class title= cell.title
+                = cell
+
+        tbody
+        - body.each do |row|
+          tr
+            - row.each do |cell|
+              td class= cell.html_class
+                = cell
