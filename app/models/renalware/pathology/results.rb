@@ -48,7 +48,8 @@ module Renalware
         #
         def call
           observations = @descriptions.map do |description|
-            find_observation_result_by_description(description) || null_observation_for_description(description)
+            find_observation_result_by_description(description) ||
+              null_observation_for_description(description)
           end
 
           { @observed_on => observations }
