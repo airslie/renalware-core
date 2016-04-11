@@ -8,8 +8,8 @@ module World
           clinic = Renalware::Clinics::Clinic.last
           patient = Renalware::Clinics.cast_patient(patient)
           Renalware::Clinics::ClinicVisit.create(
-            patient: patient, 
-            clinic: clinic, 
+            patient: patient,
+            clinic: clinic,
             date: Time.now,
             height: 1.7,
             weight: 71,
@@ -52,6 +52,10 @@ module World
           expect(clinic_visit.height).to eq(1.71)
           expect(clinic_visit.weight).to eq(75)
         end
+      end
+
+      module Web
+        include Domain
       end
     end
   end
