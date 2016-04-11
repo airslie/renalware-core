@@ -3,9 +3,10 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class ViewHistoricalObservations
-      def initialize(patient, descriptions: RelevantObservationDescription.all, limit: 20)
+      def initialize(patient, descriptions: nil, observations: nil, limit: 20)
         @patient = patient
-        @descriptions = descriptions
+        @descriptions = descriptions || default_descriptions
+        @observations = observations || default_observations
         @limit = limit
       end
 
@@ -19,7 +20,7 @@ module Renalware
 
       def find_observations_for_descriptions
         ObservationsForDescriptionsQuery.new(
-          relation: @patient.observations.ordered,
+          relation: @observations,
           descriptions: @descriptions
         ).call
       end
@@ -30,6 +31,14 @@ module Renalware
 
       def present(results_archive)
         HistoricalResultsPresenter.new(results_archive, @limit)
+      end
+
+      def default_descriptions
+        RelevantObservationDescription.all
+      end
+
+      def default_observations
+        @patient.observations.ordered
       end
     end
   end
