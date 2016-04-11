@@ -4,7 +4,7 @@ end
 
 Given(/^Clyde is on Patty's edit clinic visit page$/) do
   visit edit_patient_clinic_visit_path(
-    patient_id: @patty.id, 
+    patient_id: @patty.id,
     id: @clinic_visit.id
   )
 end
@@ -24,11 +24,11 @@ When(/^Clyde chooses to add a clinic visit$/) do
 end
 
 When(/^records Patty's clinic visit$/) do
-  record_clinic_visit
+  @clinic_visit = record_clinic_visit(@patty, @clyde)
 end
 
 When(/^Clyde updates Patty's clinic visit$/) do
-  update_clinic_visit
+  update_clinic_visit(@clinic_visit)
 end
 
 Then(/^Patty's clinic visit should exist$/) do

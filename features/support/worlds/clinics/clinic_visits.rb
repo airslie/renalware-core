@@ -20,6 +20,17 @@ module World
           )
         end
 
+        def record_clinic_visit(patient, user)
+          create_clinic_visit(patient, user)
+        end
+
+        def update_clinic_visit(clinic_visit)
+          clinic_visit.update_attributes(
+            height: 1.71,
+            weight: 75.0
+          )
+        end
+
         # @section expectations
         #
         def expect_clinic_visit_to_exist(patient)
@@ -38,7 +49,7 @@ module World
       module Web
         include Domain
 
-        def record_clinic_visit
+        def record_clinic_visit(patient, user)
           fill_in "Date", with: "20-07-2015 10:45"
           select "Access", from: "Clinic"
           fill_in "Height", with: "1.78"
