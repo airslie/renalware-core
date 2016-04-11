@@ -3,10 +3,16 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class ViewHistoricalObservations
-      def initialize(patient, descriptions: nil, observations: nil, limit: 20)
+      def initialize(
+            patient,
+            descriptions: default_descriptions,
+            observations: Observation.all,
+            limit: 20
+        )
+
         @patient = patient
-        @descriptions = descriptions || default_descriptions
-        @observations = observations || default_observations
+        @descriptions = default_descriptions
+        @observations = default_observations.merge(observations)
         @limit = limit
       end
 
