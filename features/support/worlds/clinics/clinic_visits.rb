@@ -24,10 +24,13 @@ module World
           create_clinic_visit(patient, user)
         end
 
-        def update_clinic_visit(clinic_visit)
+        def update_clinic_visit(clinic_visit, user)
+          clinic = Renalware::Clinics::Clinic.find(2)
           clinic_visit.update_attributes(
+            clinic: clinic,
             height: 1.71,
-            weight: 75.0
+            weight: 75.0,
+            by: user
           )
         end
 
@@ -59,7 +62,7 @@ module World
           click_on "Save"
         end
 
-        def update_clinic_visit
+        def update_clinic_visit(clinic_visit, user)
           select "AKI", from: "Clinic"
           fill_in "Height", with: "1.71"
           fill_in "Weight", with: "75"

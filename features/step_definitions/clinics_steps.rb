@@ -28,7 +28,7 @@ When(/^records Patty's clinic visit$/) do
 end
 
 When(/^Clyde updates Patty's clinic visit$/) do
-  update_clinic_visit(@clinic_visit)
+  update_clinic_visit(@clinic_visit, @clyde)
 end
 
 Then(/^Patty's clinic visit should exist$/) do
