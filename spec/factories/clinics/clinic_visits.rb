@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :clinic_visit, class: "Renalware::ClinicVisit" do
+  factory :clinic_visit, class: "Renalware::Clinics::ClinicVisit" do
     patient
     date Time.now
     height 1725
