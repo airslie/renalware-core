@@ -1,6 +1,12 @@
 AllCops:
   TargetRubyVersion: 2.3
-  # DisabledByDefault: true
+  Exclude:
+    - "vendor/**/*"
+    - "db/schema.rb"
+    - "db/seeds/*"
+    - "db/migrate/*"
+  UseCache: false
+  DisabledByDefault: true
 
 #################### Lint ################################
 
@@ -232,9 +238,13 @@ Metrics/CyclomaticComplexity:
   Enabled: true
 
 Metrics/LineLength:
-  Description: 'Limit lines to 80 characters.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#80-character-limits'
-  Enabled: false
+  Max: 100
+  AllowHeredoc: true
+  AllowURI: true
+  URISchemes:
+    - http
+    - https
+  Enabled: true
 
 Metrics/MethodLength:
   Description: 'Avoid methods longer than 30 lines of code.'
@@ -539,9 +549,13 @@ Style/Documentation:
   Enabled: false
 
 Style/DotPosition:
-  Description: 'Checks the position of the dot in multi-line method calls.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#consistent-multi-line-chains'
-  Enabled: false
+  Description: Checks the position of the dot in multi-line method calls.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#consistent-multi-line-chains
+  Enabled: true
+  EnforcedStyle: leading
+  SupportedStyles:
+  - leading
+  - trailing
 
 Style/DoubleNegation:
   Description: 'Checks for uses of double negation (!!).'
@@ -654,11 +668,14 @@ Style/GuardClause:
   Enabled: false
 
 Style/HashSyntax:
-  Description: >-
-                 Prefer Ruby 1.9 hash syntax { a: 1, b: 2 } over 1.8 syntax
-                 { :a => 1, :b => 2 }.
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#hash-literals'
-  Enabled: false
+  EnforcedStyle: ruby19
+  SupportedStyles:
+    - ruby19
+    - ruby19_no_mixed_keys
+    - hash_rockets
+# Force hashes that have a symbol value to use hash rockets
+  UseHashRocketsWithSymbolValues: false
+  Enabled: true
 
 Style/IfUnlessModifier:
   Description: >-
@@ -1022,9 +1039,12 @@ Style/SpaceInsideBrackets:
   Enabled: false
 
 Style/SpaceInsideHashLiteralBraces:
-  Description: "Use spaces inside hash literal braces - or don't."
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#spaces-operators'
-  Enabled: false
+  EnforcedStyle: space
+  EnforcedStyleForEmptyBraces: no_space
+  SupportedStyles:
+    - space
+    - no_space
+  Enabled: true
 
 Style/SpaceInsideParens:
   Description: 'No spaces after ( or before ).'
@@ -1047,9 +1067,13 @@ Style/SpecialGlobalVars:
   Enabled: false
 
 Style/StringLiterals:
-  Description: 'Checks if uses of quotes match the configured preference.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#consistent-string-literals'
-  Enabled: false
+  Description: Checks if uses of quotes match the configured preference.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#consistent-string-literals
+  Enabled: true
+  EnforcedStyle: double_quotes
+  SupportedStyles:
+  - single_quotes
+  - double_quotes
 
 Style/StringLiteralsInInterpolation:
   Description: >-
