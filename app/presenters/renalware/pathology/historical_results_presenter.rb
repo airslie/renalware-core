@@ -2,7 +2,7 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
-    class HistoricalResultsPresenter
+    class HistoricalResultsPresenter < ResultsPresenter
       def self.build(results, limit, paginator)
         new(results, limit, paginator)
       end
@@ -27,18 +27,10 @@ module Renalware
       #     ]
       #
       def present
-        @presentation ||= present_results
-      end
-
-      def to_a
-        present
+        super
       end
 
       private
-
-      def present_results
-        build_header + build_body
-      end
 
       # @section header
 

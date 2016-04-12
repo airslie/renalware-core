@@ -3,19 +3,7 @@ require "hash_collection"
 
 module Renalware
   module Pathology
-    class RecentResultsPresenter
-      def self.build(results, limit, paginator)
-        new(results, limit, paginator)
-      end
-
-      attr_reader :limit, :paginator
-
-      def initialize(results, limit, paginator)
-        @results = results
-        @limit = limit
-        @paginator = paginator
-      end
-
+    class RecentResultsPresenter < ResultsPresenter
       # @return [Array] see example below for composition of array
       #
       # Example:
@@ -29,18 +17,10 @@ module Renalware
       #     ]
       #
       def present
-        @presentation ||= present_results
-      end
-
-      def to_a
-        present
+        super
       end
 
       private
-
-      def present_results
-        build_header + build_body
-      end
 
       # @section header
 
