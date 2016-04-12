@@ -3,15 +3,16 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class HistoricalResultsPresenter
-      def self.build(results, limit)
-        new(results, limit)
+      def self.build(results, limit, paginator)
+        new(results, limit, paginator)
       end
 
-      attr_reader :limit
+      attr_reader :limit, :paginator
 
-      def initialize(results, limit)
+      def initialize(results, limit, paginator)
         @results = results
         @limit = limit
+        @paginator = paginator
       end
 
       # @return [Array] see example below for composition of array

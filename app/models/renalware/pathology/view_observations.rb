@@ -18,7 +18,7 @@ module Renalware
         date_range = build_date_range(paginated_date_series)
         observations = filter_observations_within_date_range(observations_for_descriptions, date_range)
         results = build_results(observations)
-        present(results)
+        present(results, paginated_date_series)
       end
 
       private
@@ -50,8 +50,8 @@ module Renalware
         Results.new(observations.ordered, @descriptions)
       end
 
-      def present(results_archive)
-        @presenter_factory.build(results_archive, @limit)
+      def present(results_archive, paginator)
+        @presenter_factory.build(results_archive, @limit, paginator)
       end
 
       def default_observations
