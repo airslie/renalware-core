@@ -6,15 +6,15 @@ module Renalware
       describe "#call" do
         it "returns the range for the specified limit" do
           patient = create_patient
-
           create_observations_observed_at(
             patient, "2014-01-01", "2016-01-01", "2015-01-01", "2016-01-01", "2013-01-01"
           )
 
           query = DetermineObservationDateSeries.new
-          date_series = query.call
+          actual_series = query.call
 
-          expect(date_series).to eq([date("2016-01-01"), date("2015-01-01"), date("2014-01-01"), date("2013-01-01")])
+          expected_series = [date("2016-01-01"), date("2015-01-01"), date("2014-01-01"), date("2013-01-01")]
+          expect(actual_series).to eq(expected_series)
         end
       end
 

@@ -4,7 +4,8 @@ module Renalware
   module Pathology
     class ViewRecentObservationsFactory
       def build(patient, descriptions: default_descriptions)
-        ViewObservations.new(patient, descriptions: descriptions, presenter_factory: RecentResultsPresenter)
+        ViewObservations.new(
+          patient, descriptions: descriptions, presenter_factory: RecentResultsPresenter)
       end
 
       private
