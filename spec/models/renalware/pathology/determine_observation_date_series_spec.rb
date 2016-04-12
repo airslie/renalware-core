@@ -2,24 +2,24 @@ require "rails_helper"
 
 module Renalware
   module Pathology
-    RSpec.describe DetermineDateRangeQuery do
+    RSpec.describe DetermineObservationDateSeries do
       describe "#call" do
         it "returns the range for the specified limit" do
           patient = create_patient
 
           create_observations_observed_at(
-            patient, "2014-01-01", "2016-01-01", "2015-01-01", "2016-01-01", "2013-01-1"
+            patient, "2014-01-01", "2016-01-01", "2015-01-01", "2016-01-01", "2013-01-01"
           )
 
-          query = DetermineDateRangeQuery.new(limit: 3)
-          relation = query.call
+          query = DetermineObservationDateSeries.new
+          date_series = query.call
 
-          expect(relation.map(&observed_at)).to eq(["2016-01-01", "2016-01-01", "2015-01-01"])
+          expect(date_series).to eq([date("2016-01-01"), date("2015-01-01"), date("2014-01-01"), date("2013-01-01")])
         end
       end
 
-      def observed_at
-        -> (observation) { observation.observed_at.to_date.strftime("%Y-%m-%d") }
+      def date(string)
+        Date.parse(string)
       end
 
       def create_patient

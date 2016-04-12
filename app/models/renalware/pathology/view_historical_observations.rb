@@ -11,14 +11,15 @@ module Renalware
         )
 
         @patient = patient
-        @descriptions = default_descriptions
+        @descriptions = descriptions
         @observations = default_observations.merge(observations)
         @limit = limit
       end
 
       def call
         observations_for_descriptions = find_observations_for_descriptions
-        date_range = determine_date_range_for_observations(observations_for_descriptions)
+        observation_date_series = determine_observation_date_series(observations_for_descriptions)
+        date_range = build_date_range(observation_date_series)
         observations = filter_observations_within_date_range(observations_for_descriptions, date_range)
         results = build_results(observations)
         present(results)
@@ -33,9 +34,12 @@ module Renalware
         ).call
       end
 
-      def determine_date_range_for_observations(observations)
-        observations = DetermineDateRangeQuery.new(relation: observations, limit: @limit).call
-        ObservationDateRange.new(relation: observations).call
+      def determine_observation_date_series(observations)
+        DetermineObservationDateSeries.new(relation: observations).call
+      end
+
+      def build_date_range(date_series)
+        ObservationDateRange.build(date_series.reverse)
       end
 
       def filter_observations_within_date_range(observations, date_range)
@@ -43,7 +47,7 @@ module Renalware
       end
 
       def build_results(observations)
-        Results.new(observations, @descriptions)
+        Results.new(observations.ordered, @descriptions)
       end
 
       def present(results_archive)
@@ -55,7 +59,7 @@ module Renalware
       end
 
       def default_observations
-        @patient.observations.ordered
+        @patient.observations
       end
     end
   end

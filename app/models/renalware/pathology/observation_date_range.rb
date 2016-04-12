@@ -5,18 +5,8 @@ module Renalware
     # Responsible for converting a relation Observation to a range
     #
     class ObservationDateRange
-      def initialize(relation: Observation.ordered)
-        @relation = relation
-      end
-
-      def call
-        build_range(@relation.pluck(:observed_at).reverse)
-      end
-
-      private
-
-      def build_range(values)
-        Range.new(values.first, values.last)
+      def self.build(values)
+        Range.new(values.first, values.last + 1.day)
       end
     end
   end
