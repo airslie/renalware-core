@@ -1,4 +1,4 @@
-Feature: A Doctor edits an exisitng clinic visit for a patient
+Feature: Recording a clinic visit
 
   Background:
     Given Patty is a patient
@@ -9,10 +9,14 @@ Feature: A Doctor edits an exisitng clinic visit for a patient
         | 1  | Access  |
         | 2  | AKI     |
         | 3  | Anaemia |
-      And Patty has a clinic visit
 
   @web
-  Scenario: Clyde edits one of Patty's clinic visits
-    Given Clyde is on Patty's edit clinic visit page
+  Scenario: A clinician created a clinic visit for a patient
+    When Clyde records Patty's clinic visit
+    Then Patty's clinic visit should exist
+
+  @web
+  Scenario: A clinician updated a clinic visit for a patient
+    Given Patty has a clinic visit
     When Clyde updates Patty's clinic visit
     Then Patty's clinic visit should be updated
