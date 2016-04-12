@@ -5,7 +5,7 @@ module World
         # @section commands
         #
         def create_clinic_visit(patient, user)
-          clinic = Renalware::Clinics::Clinic.last
+          clinic = Renalware::Clinics::Clinic.find(1)
           patient = Renalware::Clinics.cast_patient(patient)
           Renalware::Clinics::ClinicVisit.create(
             patient: patient,

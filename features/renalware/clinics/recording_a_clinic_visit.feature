@@ -4,11 +4,6 @@ Feature: Recording a clinic visit
     Given Patty is a patient
       And Clyde is a clinician
       And Clyde is logged in
-      And Clinics
-        | id | name    |
-        | 1  | Access  |
-        | 2  | AKI     |
-        | 3  | Anaemia |
 
   @web
   Scenario: A clinician created a clinic visit for a patient
