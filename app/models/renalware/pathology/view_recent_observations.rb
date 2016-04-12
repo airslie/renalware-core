@@ -16,10 +16,11 @@ module Renalware
         @limit = limit
       end
 
-      def call
+      def call(params={})
         observations_for_descriptions = find_observations_for_descriptions
         observation_date_series = determine_observation_date_series(observations_for_descriptions)
-        date_range = build_date_range(observation_date_series)
+        paginated_date_series = paginate(observation_date_series, params)
+        date_range = build_date_range(paginated_date_series)
         observations = filter_observations_within_date_range(observations_for_descriptions, date_range)
         results = build_results(observations)
         present(results)
@@ -36,6 +37,10 @@ module Renalware
 
       def determine_observation_date_series(observations)
         DetermineObservationDateSeries.new(relation: observations).call
+      end
+
+      def paginate(array, params)
+        Kaminari.paginate_array(array).page(params[:page]).per(@limit)
       end
 
       def build_date_range(date_series)
