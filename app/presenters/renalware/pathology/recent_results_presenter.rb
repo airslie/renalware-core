@@ -4,6 +4,10 @@ require "hash_collection"
 module Renalware
   module Pathology
     class RecentResultsPresenter
+      def self.build(results, limit)
+        new(results, limit)
+      end
+
       attr_reader :limit
 
       def initialize(results, limit)

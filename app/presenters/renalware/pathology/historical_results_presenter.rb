@@ -3,6 +3,10 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class HistoricalResultsPresenter
+      def self.build(results, limit)
+        new(results, limit)
+      end
+
       attr_reader :limit
 
       def initialize(results, limit)

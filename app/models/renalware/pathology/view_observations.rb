@@ -2,17 +2,12 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
-    class ViewHistoricalObservations
-      def initialize(
-            patient,
-            descriptions: default_descriptions,
-            observations: Observation.all,
-            limit: 20
-        )
-
+    class ViewObservations
+      def initialize(patient, presenter_factory:, descriptions:, limit: 20)
         @patient = patient
+        @presenter_factory = presenter_factory
         @descriptions = descriptions
-        @observations = default_observations.merge(observations)
+        @observations = default_observations
         @limit = limit
       end
 
@@ -56,11 +51,7 @@ module Renalware
       end
 
       def present(results_archive)
-        HistoricalResultsPresenter.new(results_archive, @limit)
-      end
-
-      def default_descriptions
-        RelevantObservationDescription.all
+        @presenter_factory.build(results_archive, @limit)
       end
 
       def default_observations
