@@ -16,7 +16,7 @@ module Renalware
         observation_date_series = determine_observation_date_series(observations_for_descriptions)
         paginated_date_series = paginate(observation_date_series, params)
         date_range = build_date_range(paginated_date_series)
-        observations = filter_observations_within_date_range(observations_for_descriptions, date_range)
+        observations = filter_within_date_range(observations_for_descriptions, date_range)
         results = build_results(observations)
         present(results, paginated_date_series)
       end
@@ -25,9 +25,7 @@ module Renalware
 
       def find_observations_for_descriptions
         ObservationsForDescriptionsQuery.new(
-          relation: @observations,
-          descriptions: @descriptions
-        ).call
+          relation: @observations, descriptions: @descriptions).call
       end
 
       def determine_observation_date_series(observations)
@@ -42,8 +40,9 @@ module Renalware
         ObservationDateRange.build(date_series.reverse)
       end
 
-      def filter_observations_within_date_range(observations, date_range)
-        ObservationsWithinDateRangeQuery.new(relation: observations, date_range: date_range).call
+      def filter_within_date_range(observations, date_range)
+        ObservationsWithinDateRangeQuery.new(
+          relation: observations, date_range: date_range).call
       end
 
       def build_results(observations)

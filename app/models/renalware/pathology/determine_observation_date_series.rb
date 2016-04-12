@@ -10,6 +10,8 @@ module Renalware
         @relation = relation
       end
 
+      # @return Array: e.g. [Date.parse("2010-01-01"), Date.parse("2010-01-02"), Date.parse("2010-01-03")]
+      #
       def call
         @relation
           .order("DATE(observed_at) DESC")
