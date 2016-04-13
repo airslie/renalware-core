@@ -40,6 +40,12 @@ module World
         expect(observation_request.observations.count).to eq(rows.size)
         expect_rows_to_match(observation_request.observations, rows)
       end
+      def expect_observations_to_be_created(rows)
+        observation_request = find_last_observation_request
+
+        expect(observation_request.observations.count).to eq(rows.size)
+        expect_rows_to_match(observation_request.observations, rows)
+      end
 
       def expect_rows_to_match(observations, rows)
         rows.each do |attrs|
@@ -78,6 +84,20 @@ module World
 
         presenter = Renalware::Pathology::HistoricalObservationResults::Presenter.new
         service = Renalware::Pathology::ViewObservationResults.new(
+          patient.observations, presenter, descriptions: descriptions)
+        service.call
+        view = ArrayStringifier.new(presenter.view_model).to_a
+
+        expect(view).to match_array(rows)
+      end
+
+      def expect_pathology_current_observations(user:, patient:, rows:)
+        patient = Renalware::Pathology.cast_patient(patient)
+        codes = extract_description_codes(rows)
+        descriptions = Renalware::Pathology::ObservationDescription.for(codes)
+
+        presenter = Renalware::Pathology::SimplePresenter.new
+        service = Renalware::Pathology::ViewCurrentObservationResults.new(
           patient.observations, presenter, descriptions: descriptions)
         service.call
         view = ArrayStringifier.new(presenter.view_model).to_a
