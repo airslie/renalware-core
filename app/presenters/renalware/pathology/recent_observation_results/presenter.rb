@@ -5,7 +5,7 @@ module Renalware
   module Pathology
     # Reponsible for building the view model for recent observation results.
     #
-    class RecentResultsPresenter < ResultsPresenter
+    class RecentObservationResults::Presenter < ResultsPresenter
       # @return [Array] see example below for composition of array
       #
       # Example:

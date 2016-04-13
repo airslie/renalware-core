@@ -4,7 +4,7 @@ module Renalware
   module Pathology
     # Responsible for rendering a HTML table to format historical observation results.
     #
-    class HTMLHistoricalTableView < SimpleDelegator
+    class HistoricalObservationResults::HTMLTableView < SimpleDelegator
       def render(view_model)
         header, *body = view_model
 

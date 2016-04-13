@@ -4,7 +4,7 @@ module Renalware
   module Pathology
     # Reponsible for rendering a HTML table for recent observation results.
     #
-    class HTMLRecentTableView < SimpleDelegator
+    class RecentObservationResults::TableView < SimpleDelegator
       def render(view_model)
         content_tag(:table, id: "observations") do
           format_body(view_model)

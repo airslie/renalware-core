@@ -62,8 +62,8 @@ module World
         codes = extract_description_codes(rows)
         descriptions = Renalware::Pathology::ObservationDescription.for(codes)
 
-        presenter = Renalware::Pathology::RecentResultsPresenter.new
-        service = Renalware::Pathology::ViewObservations.new(
+        presenter = Renalware::Pathology::RecentObservationResults::Presenter.new
+        service = Renalware::Pathology::ViewObservationResults.new(
           patient.observations, presenter, descriptions: descriptions)
         service.call
         view = ArrayStringifier.new(presenter.view_model).to_a
@@ -76,8 +76,8 @@ module World
         codes = rows.first[1..-1]
         descriptions = Renalware::Pathology::ObservationDescription.for(codes)
 
-        presenter = Renalware::Pathology::HistoricalResultsPresenter.new
-        service = Renalware::Pathology::ViewObservations.new(
+        presenter = Renalware::Pathology::HistoricalObservationResults::Presenter.new
+        service = Renalware::Pathology::ViewObservationResults.new(
           patient.observations, presenter, descriptions: descriptions)
         service.call
         view = ArrayStringifier.new(presenter.view_model).to_a
