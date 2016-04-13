@@ -21,7 +21,7 @@ module Renalware
           content_tag(:thead) do
             content_tag(:tr) do
               cells.each do |cell|
-                concat(content_tag(:th, cell, class: cell.html_class, title: cell.title))
+                concat(format_header_cell(cell))
               end
             end
           end
@@ -29,18 +29,22 @@ module Renalware
 
         def format_body(rows)
           content_tag(:body) do
-            rows.each do |row|
+            rows.each do |cell|
               concat(content_tag(:tr) do
-                row.each do |cell|
-                  concat(content_tag(:td, cell, class: cell.html_class))
+                cell.each do |cell|
+                  concat(format_body_cell(cell))
                 end
               end)
             end
           end
         end
 
-        def h
-          @context
+        def format_header_cell(cell)
+          content_tag(:th, cell, class: cell.html_class, title: cell.title)
+        end
+
+        def format_body_cell(cell)
+          content_tag(:td, cell, class: cell.html_class)
         end
       end
 
