@@ -7,9 +7,9 @@ module Renalware
         new(results, paginator)
       end
 
-      attr_reader :limit, :paginator
+      attr_reader :paginator
 
-      def initialize(results, limit, paginator)
+      def initialize(results, paginator)
         @results = results
         @paginator = paginator
       end

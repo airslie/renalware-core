@@ -6,7 +6,9 @@ module Renalware
       before_filter :load_patient
 
       def index
-        presenter = ViewHistoricalObservationsFactory.new.build(@patient).call(params)
+        presenter = ViewHistoricalObservationsFactory.new
+          .build(@patient.observations)
+          .call(params)
 
         render :index, locals: {
           rows: presenter.present,

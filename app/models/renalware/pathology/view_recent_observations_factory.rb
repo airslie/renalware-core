@@ -3,9 +3,11 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class ViewRecentObservationsFactory
-      def build(patient, descriptions: default_descriptions)
-        ViewObservations.new(
-          patient, descriptions: descriptions, presenter_factory: RecentResultsPresenter)
+      def build(observations, descriptions: default_descriptions)
+        ViewObservations.new(observations,
+          descriptions: descriptions,
+          presenter_factory: RecentResultsPresenter
+        )
       end
 
       private

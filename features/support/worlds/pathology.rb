@@ -63,7 +63,7 @@ module World
         descriptions = Renalware::Pathology::ObservationDescription.for(codes)
 
         presenter = Renalware::Pathology::ViewRecentObservationsFactory.new
-          .build(patient, descriptions: descriptions).call
+          .build(patient.observations, descriptions: descriptions).call
         presentation = ArrayStringifier.new(presenter).to_a
 
         expect(presentation).to match_array(rows)
@@ -75,7 +75,7 @@ module World
         descriptions = Renalware::Pathology::ObservationDescription.for(codes)
 
         presenter = Renalware::Pathology::ViewHistoricalObservationsFactory.new
-          .build(patient, descriptions: descriptions).call
+          .build(patient.observations, descriptions: descriptions).call
         presentation = ArrayStringifier.new(presenter).to_a
 
         expect(presentation).to match_array(rows)
