@@ -34,7 +34,7 @@ module Renalware
       end
 
       def build_descriptions
-        @results.observation_descriptions.map {|description| HeaderPresenter.new(d) }
+        @results.observation_descriptions.map {|description| HeaderPresenter.new(description) }
       end
 
       # @section body
