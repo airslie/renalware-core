@@ -3,15 +3,14 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class ResultsPresenter
-      def self.build(results, limit, paginator)
-        new(results, limit, paginator)
+      def self.build(results, paginator)
+        new(results, paginator)
       end
 
       attr_reader :limit, :paginator
 
       def initialize(results, limit, paginator)
         @results = results
-        @limit = limit
         @paginator = paginator
       end
 
