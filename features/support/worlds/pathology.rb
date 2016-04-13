@@ -62,11 +62,13 @@ module World
         codes = extract_description_codes(rows)
         descriptions = Renalware::Pathology::ObservationDescription.for(codes)
 
-        presenter = Renalware::Pathology::ViewRecentObservationsFactory.new
-          .build(patient.observations, descriptions: descriptions).call
-        presentation = ArrayStringifier.new(presenter).to_a
+        presenter = Renalware::Pathology::RecentResultsPresenter.new
+        service = Renalware::Pathology::ViewObservations.new(
+          patient.observations, presenter, descriptions: descriptions)
+        service.call
+        view = ArrayStringifier.new(presenter.view_model).to_a
 
-        expect(presentation).to match_array(rows)
+        expect(view).to match_array(rows)
       end
 
       def expect_pathology_historical_observations(user:, patient:, rows:)
@@ -74,11 +76,13 @@ module World
         codes = rows.first[1..-1]
         descriptions = Renalware::Pathology::ObservationDescription.for(codes)
 
-        presenter = Renalware::Pathology::ViewHistoricalObservationsFactory.new
-          .build(patient.observations, descriptions: descriptions).call
-        presentation = ArrayStringifier.new(presenter).to_a
+        presenter = Renalware::Pathology::HistoricalResultsPresenter.new
+        service = Renalware::Pathology::ViewObservations.new(
+          patient.observations, presenter, descriptions: descriptions)
+        service.call
+        view = ArrayStringifier.new(presenter.view_model).to_a
 
-        expect(presentation).to match_array(rows)
+        expect(view).to match_array(rows)
       end
 
       private

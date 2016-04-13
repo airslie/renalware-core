@@ -2,20 +2,17 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
+    # An abstract class representing the responsibility of building the
+    # view model for Observation results.
+    #
     class ResultsPresenter
-      def self.build(results, paginator)
-        new(results, paginator)
-      end
-
       attr_reader :paginator
+      attr_reader :view_model
 
-      def initialize(results, paginator)
+      def present(results, paginator)
         @results = results
         @paginator = paginator
-      end
-
-      def present
-        @presentation ||= present_results
+        @view_model = build_view_model
       end
 
       def to_a
@@ -24,7 +21,7 @@ module Renalware
 
       private
 
-      def present_results
+      def build_view_model
         build_header + build_body
       end
 

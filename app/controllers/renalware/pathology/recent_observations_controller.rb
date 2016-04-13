@@ -6,12 +6,12 @@ module Renalware
       before_filter :load_patient
 
       def index
-        presenter = ViewRecentObservationsFactory.new
-          .build(@patient.observations)
-          .call(params)
+        presenter = RecentResultsPresenter.new
+        service = ViewObservations.new(@patient.observations, presenter)
+        service.call(params)
 
         render :index, locals: {
-          rows: presenter.present,
+          rows: presenter.view_model,
           paginator: presenter.paginator,
           table: HTMLRecentTableView.new(self.view_context)
         }

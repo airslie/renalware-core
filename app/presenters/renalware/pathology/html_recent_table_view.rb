@@ -2,10 +2,12 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
+    # Reponsible for rendering a HTML table for recent observation results.
+    #
     class HTMLRecentTableView < SimpleDelegator
-      def render(rows)
+      def render(view_model)
         content_tag(:table, id: "observations") do
-          format_body(rows)
+          format_body(view_model)
         end
       end
 

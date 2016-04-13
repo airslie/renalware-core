@@ -2,6 +2,8 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
+    # Reponsible for building the view model for historical observation results.
+    #
     class HistoricalResultsPresenter < ResultsPresenter
       # @return [Array] see example below for composition of array
       #
@@ -14,7 +16,7 @@ module Renalware
       #       [Date.parse("2011-10-10")], nil, Observation.new(result: "4")],
       #     ]
       #
-      def present
+      def present(*args)
         super
       end
 

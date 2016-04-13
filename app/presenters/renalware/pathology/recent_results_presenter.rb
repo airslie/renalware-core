@@ -3,6 +3,8 @@ require "hash_collection"
 
 module Renalware
   module Pathology
+    # Reponsible for building the view model for recent observation results.
+    #
     class RecentResultsPresenter < ResultsPresenter
       # @return [Array] see example below for composition of array
       #
@@ -16,7 +18,7 @@ module Renalware
       #       [ObservationDescription.new(code: "WBC"), Observation.new(result: "2"), Observation.new(result: "3")],
       #     ]
       #
-      def present
+      def present(*args)
         super
       end
 

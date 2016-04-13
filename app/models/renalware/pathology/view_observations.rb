@@ -3,10 +3,10 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class ViewObservations
-      def initialize(observations, presenter_factory:, descriptions:)
-        @presenter_factory = presenter_factory
-        @descriptions = descriptions
+      def initialize(observations, presenter, descriptions: default_descriptions)
         @observations = observations
+        @descriptions = descriptions
+        @presenter = presenter
       end
 
       def call(params={})
@@ -48,7 +48,11 @@ module Renalware
       end
 
       def present(results_archive, paginator)
-        @presenter_factory.build(results_archive, paginator)
+        @presenter.present(results_archive, paginator)
+      end
+
+      def default_descriptions
+        RelevantObservationDescription.all
       end
     end
   end

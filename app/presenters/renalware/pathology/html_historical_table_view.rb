@@ -2,9 +2,11 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
+    # Responsible for rendering a HTML table to format historical observation results.
+    #
     class HTMLHistoricalTableView < SimpleDelegator
-      def render(rows)
-        header, *body = rows
+      def render(view_model)
+        header, *body = view_model
 
         content_tag(:table, id: "observations") do
           concat(format_header(header))
