@@ -15,10 +15,6 @@ module Renalware
         @view_model = build_view_model
       end
 
-      def to_a
-        present
-      end
-
       private
 
       def build_view_model
