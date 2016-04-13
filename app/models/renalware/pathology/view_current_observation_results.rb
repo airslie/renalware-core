@@ -10,11 +10,17 @@ module Renalware
       end
 
       def call(params={})
-        results = []
+        results = find_current_observations_for_descriptions
         present(results)
       end
 
       private
+
+      def find_current_observations_for_descriptions
+        CurrentObservationsForDescriptionsQuery
+          .new(relation: @observations, descriptions: @descriptions)
+          .call
+      end
 
       def present(results)
         @presenter.present(results)

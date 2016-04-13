@@ -65,7 +65,7 @@ module World
 
       def expect_pathology_recent_observations(user:, patient:, rows:)
         patient = Renalware::Pathology.cast_patient(patient)
-        codes = extract_description_codes(rows)
+        codes = rows.slice(2..-1).map(&:first)
         descriptions = Renalware::Pathology::ObservationDescription.for(codes)
 
         presenter = Renalware::Pathology::RecentObservationResults::Presenter.new
@@ -93,10 +93,10 @@ module World
 
       def expect_pathology_current_observations(user:, patient:, rows:)
         patient = Renalware::Pathology.cast_patient(patient)
-        codes = extract_description_codes(rows)
+        codes = rows.map {|row| row.first }[1..-1]
         descriptions = Renalware::Pathology::ObservationDescription.for(codes)
 
-        presenter = Renalware::Pathology::SimplePresenter.new
+        presenter = Renalware::Pathology::CurrentObservationResults::Presenter.new
         service = Renalware::Pathology::ViewCurrentObservationResults.new(
           patient.observations, presenter, descriptions: descriptions)
         service.call
@@ -106,10 +106,6 @@ module World
       end
 
       private
-
-      def extract_description_codes(rows)
-        rows.slice(2..-1).map(&:first)
-      end
 
       def find_last_observation_request
         Renalware::Pathology::ObservationRequest.includes(observations: :description).last!
