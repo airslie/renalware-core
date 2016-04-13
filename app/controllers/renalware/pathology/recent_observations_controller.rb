@@ -10,7 +10,7 @@ module Renalware
 
         render :index, locals: {
           rows: presenter.present,
-          number_of_records: presenter.limit,
+          paginator: presenter.paginator,
           table: HTMLRecentTableView.new(self.view_context)
         }
       end
