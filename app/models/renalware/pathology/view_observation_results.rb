@@ -2,6 +2,9 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
+    # An application service responsible for co-ordinating the querying of
+    # observations and the building of the observation results view model.
+    #
     class ViewObservationResults
       def initialize(observations, presenter, descriptions: default_descriptions)
         @observations = observations

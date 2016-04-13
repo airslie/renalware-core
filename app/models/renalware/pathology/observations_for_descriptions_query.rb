@@ -2,9 +2,9 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
+    # Responsible for finding Observations for the specified descriptions.
+    #
     class ObservationsForDescriptionsQuery
-      # Reponsible for finding Observations for the specified descriptions
-      #
       def initialize(relation: Observation.all, descriptions: ObservationDescription.all)
         @relation = relation
         @descriptions = descriptions

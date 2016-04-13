@@ -2,6 +2,8 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
+    # A view model representing the aggregation of observations by date.
+    #
     class Results
       attr_reader :observation_descriptions
 
@@ -62,7 +64,7 @@ module Renalware
         #                       if none is found, a nil returned.
         #
         def find_observation_result_by_description(description)
-          @observations.detect { |o| o.description == description }
+          @observations.detect { |observation| observation.description == description }
         end
 
         def null_observation_for_description(description)
