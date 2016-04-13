@@ -5,13 +5,9 @@ module Renalware
     class RecentObservationsController < Pathology::BaseController
       before_filter :load_patient
 
-      class HTMLRecentTableView
-        def initialize(context)
-          @context = context
-        end
-
+      class HTMLRecentTableView < SimpleDelegator
         def render(rows)
-          h.content_tag(:table, id: "observations") do
+          content_tag(:table, id: "observations") do
             format_body(rows)
           end
         end
@@ -21,19 +17,15 @@ module Renalware
         def format_body(rows)
          rows.each do |row|
            header, *values = row
-           h.concat(h.content_tag(:tr) do
-              h.content_tag(:td, title: header.title) do
-                h.concat(header)
+           concat(content_tag(:tr) do
+              content_tag(:td, title: header.title) do
+                concat(header)
                 values.each do |cell|
-                  h.concat(h.content_tag(:td, cell, class: cell.html_class))
+                  concat(content_tag(:td, cell, class: cell.html_class))
                 end
               end
            end)
          end
-        end
-
-        def h
-          @context
         end
       end
 
