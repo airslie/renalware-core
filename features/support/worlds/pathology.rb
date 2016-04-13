@@ -134,6 +134,14 @@ module World
 
         expect(page).to have_selector("table#observations tr", count: rows.size)
       end
+
+      def expect_pathology_current_observations(user:, patient:, rows:)
+        login_as user
+
+        visit patient_pathology_current_observations_path(patient)
+
+        expect(page).to have_selector("table#observations tr", count: rows.size)
+      end
     end
   end
 end
