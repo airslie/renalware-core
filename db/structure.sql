@@ -1764,7 +1764,7 @@ ALTER SEQUENCE pathology_observations_id_seq OWNED BY pathology_observations.id;
 
 CREATE TABLE pathology_request_algorithm_global_rules (
     id integer NOT NULL,
-    request character varying NOT NULL,
+    observation_description_id integer NOT NULL,
     regime character varying NOT NULL,
     param_type character varying,
     param_identifier character varying,

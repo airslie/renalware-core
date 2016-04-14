@@ -8,7 +8,7 @@ module Renalware
 
         GROUPS = ["Nephrology", "LCC", "PD", "HD", "TP", "Donor Screen", "Donor Clinic"]
 
-        validates :request, presence: true
+        validates :observation_description_id, presence: true
         validates :regime, presence: true, inclusion: { in: GROUPS }
       end
     end

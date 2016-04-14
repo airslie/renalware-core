@@ -1,7 +1,7 @@
-class CreatePathologyRequestAlgorithmRules < ActiveRecord::Migration
+class CreatePathologyRequestAlgorithmGlobalRules < ActiveRecord::Migration
   def change
     create_table :pathology_request_algorithm_global_rules do |t|
-      t.string :request, null: false
+      t.integer :observation_description_id, null: false
       t.string :regime, null: false
       t.string :param_type
       t.string :param_identifier
