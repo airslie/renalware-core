@@ -15,39 +15,38 @@ Feature: Determine tests based on global rules
   | Monthly   | if tested < 28 days ago then don't test |
 
   Background:
-    Given there exist the following request algorithm rules:
-      | id               | 1                   |
-      | request          | vitamin B12 Serum   |
-      | group            | Nephrology          |
-      | param_type       | ObservationResultLT |
-      | param_identifier | 429                 |
-      | param_value      | 100                 |
-      | frequency        | <frequency>         |
+    Given there exist the following global rules:
+      | id                         | 1                   |
+      | observation_description_id | 152                 |
+      | regime                     | 'HD'                |
+      | param_type                 | ObservationResultLT |
+      | param_identifier           | 765                 |
+      | param_comparison_value     | 100                 |
+      | frequency                  | <frequency>         |
 
   Scenario Outline:
 
     Given Patty is a patient
-    And Patty is in regime <regime>
     And Patty has an observation result value of <observation_result>
     And Patty was last tested for vitamin B12 Serum <last_tested>
-    When the global pathology algorithm is ran for Patty
+    When the global pathology algorithm is ran for Patty in regime <regime>
     Then the required pathology should includes the test <test_required>
 
     Examples:
       | regime     | frequency | observation_result | last_tested | test_required |
-      | Nephrology | Once      | 99                 | nil         | yes           |
-      | Nephrology | Once      | 100                | nil         | no            |
+      | Nephrology | Once      | 99                 |             | yes           |
+      #| Nephrology | Once      | 100                |             | no            |
       | Nephrology | Once      | 99                 | 5 days ago  | no            |
-      | Nephrology | Once      | 100                | 5 days ago  | no            |
+      #| Nephrology | Once      | 100                | 5 days ago  | no            |
 
-      | Nephrology | Always    | 99                 | nil         | yes           |
-      | Nephrology | Always    | 100                | nil         | no            |
-      | Nephrology | Always    | 99                 | 5 days ago  | yes           |
-      | Nephrology | Always    | 100                | 5 days ago  | no            |
+      #| Nephrology | Always    | 99                 | nil         | yes           |
+      #| Nephrology | Always    | 100                | nil         | no            |
+      #| Nephrology | Always    | 99                 | 5 days ago  | yes           |
+      #| Nephrology | Always    | 100                | 5 days ago  | no            |
 
-      | Nephrology | Weekly    | 99                 | nil         | yes           |
-      | Nephrology | Weekly    | 100                | nil         | no            |
-      | Nephrology | Weekly    | 99                 | 5 days ago  | no            |
-      | Nephrology | Weekly    | 100                | 5 days ago  | no            |
-      | Nephrology | Weekly    | 99                 | 7 days ago  | yes           |
-      | Nephrology | Weekly    | 100                | 7 days ago  | no            |
+      #| Nephrology | Weekly    | 99                 | nil         | yes           |
+      #| Nephrology | Weekly    | 100                | nil         | no            |
+      #| Nephrology | Weekly    | 99                 | 5 days ago  | no            |
+      #| Nephrology | Weekly    | 100                | 5 days ago  | no            |
+      #| Nephrology | Weekly    | 99                 | 7 days ago  | yes           |
+      #| Nephrology | Weekly    | 100                | 7 days ago  | no            |
