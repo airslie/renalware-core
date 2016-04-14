@@ -11,9 +11,7 @@ module Renalware
     end
 
     scenario "with javascript enabled", js: true do
-      select "15", from: "pd_regime_start_date_3i"
-      select "June", from: "pd_regime_start_date_2i"
-      select "2015", from: "pd_regime_start_date_1i"
+      fill_in "Start date", with: "15/06/2015"
 
       click_on "Add Bag"
 
