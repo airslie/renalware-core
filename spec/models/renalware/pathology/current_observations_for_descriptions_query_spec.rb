@@ -6,14 +6,16 @@ module Renalware
   module Pathology
     RSpec.describe CurrentObservationsForDescriptionsQuery do
       describe "#call" do
+        let(:patient) { create_patient }
+
         it "returns observations for the specified descriptions" do
-          patient = create_patient
 
           descriptions = create_descriptions("target-1", "exclude", "target-2")
           create_observations(patient, descriptions)
           target_descriptions = filter_targeted_descriptions(descriptions)
 
-          query = CurrentObservationsForDescriptionsQuery.new(descriptions: target_descriptions)
+          query = CurrentObservationsForDescriptionsQuery.new(
+            patient: patient, descriptions: target_descriptions)
           results = query.call
 
           expect(results.map(&description_names)).to match_array(["target-1", "target-2"])
@@ -22,19 +24,20 @@ module Renalware
         it "returns the null observations for descriptions not yet observed" do
           missing_descriptions = add_descriptions_not_observed_for_patient("missing-1", "missing-2")
 
-          query = CurrentObservationsForDescriptionsQuery.new(descriptions: missing_descriptions)
+          query = CurrentObservationsForDescriptionsQuery.new(
+            patient: patient, descriptions: missing_descriptions)
           results = query.call
 
           expect(results.map(&description_names)).to match_array(["missing-1", "missing-2"])
         end
 
         it "returns the unique observation for the specified description" do
-          patient = create_patient
           descriptions = create_descriptions("target-1")
           create_observations(patient, descriptions)
           create_observations(patient, descriptions)
 
-          query = CurrentObservationsForDescriptionsQuery.new(descriptions: descriptions)
+          query = CurrentObservationsForDescriptionsQuery.new(
+            patient: patient, descriptions: descriptions)
           results = query.call
 
           expect(results.map(&description_names)).to match_array(["target-1"])

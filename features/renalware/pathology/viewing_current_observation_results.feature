@@ -18,4 +18,5 @@ Feature: Viewing current pathology observation results for a patient
       | description | result | date       |
       | HGB         | 5.09   | 12-11-2009 |
       | MCV         | 3.00   | 12-11-2009 |
+      | AL          |        |            |
       | WBC         | 2.00   | 13-11-2009 |

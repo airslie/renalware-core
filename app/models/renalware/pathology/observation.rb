@@ -13,7 +13,7 @@ module Renalware
       scope :ordered, -> { order(observed_at: :desc) }
 
       def to_s
-        result
+        result.to_s
       end
     end
   end

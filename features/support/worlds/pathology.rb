@@ -98,7 +98,7 @@ module World
 
         presenter = Renalware::Pathology::CurrentObservationResults::Presenter.new
         service = Renalware::Pathology::ViewCurrentObservationResults.new(
-          patient.observations, presenter, descriptions: descriptions)
+          patient, presenter, descriptions: descriptions)
         service.call
         view = ArrayStringifier.new(presenter.view_model).to_a
 

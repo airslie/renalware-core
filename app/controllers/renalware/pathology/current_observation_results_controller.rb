@@ -8,7 +8,7 @@ module Renalware
       def index
         table_view = CurrentObservationResults::HTMLTableView.new(self.view_context)
         presenter = CurrentObservationResults::Presenter.new
-        service = ViewCurrentObservationResults.new(@patient.observations, presenter)
+        service = ViewCurrentObservationResults.new(@patient, presenter)
         service.call
 
         render :index, locals: {

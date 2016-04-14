@@ -43,7 +43,7 @@ module Renalware
       end
 
       def format_body_cell(cell)
-        content_tag(:td, cell)
+        content_tag(:td, cell.content)
       end
     end
   end

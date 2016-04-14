@@ -3,8 +3,8 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class ViewCurrentObservationResults
-      def initialize(observations, presenter, descriptions: default_descriptions)
-        @observations = observations
+      def initialize(patient, presenter, descriptions: default_descriptions)
+        @patient = patient
         @descriptions = descriptions
         @presenter = presenter
       end
@@ -18,7 +18,7 @@ module Renalware
 
       def find_current_observations_for_descriptions
         CurrentObservationsForDescriptionsQuery
-          .new(relation: @observations, descriptions: @descriptions)
+          .new(patient: @patient, descriptions: @descriptions)
           .call
       end
 
