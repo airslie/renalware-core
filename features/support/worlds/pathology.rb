@@ -57,7 +57,7 @@ module World
         end
       end
 
-      def expect_pathology_result_report(user:, patient:, rows:)
+      def expect_pathology_result_report(_user:, patient:, rows:)
         patient = Renalware::Pathology.cast_patient(patient)
         codes = extract_description_codes(rows)
 
@@ -85,7 +85,7 @@ module World
     module Web
       include Domain
 
-      def expect_pathology_result_report(user:, patient:, rows:)
+      def expect_pathology_result_report(user:, patient:, _rows:)
         login_as user
 
         visit patient_pathology_observations_path(patient)
