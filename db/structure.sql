@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.1
--- Dumped by pg_dump version 9.5.1
+-- Dumped from database version 9.5.2
+-- Dumped by pg_dump version 9.5.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1759,6 +1759,40 @@ ALTER SEQUENCE pathology_observations_id_seq OWNED BY pathology_observations.id;
 
 
 --
+-- Name: pathology_request_algorithm_global_rules; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_request_algorithm_global_rules (
+    id integer NOT NULL,
+    request character varying NOT NULL,
+    regime character varying NOT NULL,
+    param_type character varying,
+    param_identifier character varying,
+    param_comparison_value character varying,
+    frequency timestamp without time zone
+);
+
+
+--
+-- Name: pathology_request_algorithm_global_rules_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pathology_request_algorithm_global_rules_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_request_algorithm_global_rules_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pathology_request_algorithm_global_rules_id_seq OWNED BY pathology_request_algorithm_global_rules.id;
+
+
+--
 -- Name: pathology_request_descriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3087,6 +3121,13 @@ ALTER TABLE ONLY pathology_observations ALTER COLUMN id SET DEFAULT nextval('pat
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY pathology_request_algorithm_global_rules ALTER COLUMN id SET DEFAULT nextval('pathology_request_algorithm_global_rules_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY pathology_request_descriptions ALTER COLUMN id SET DEFAULT nextval('pathology_request_descriptions_id_seq'::regclass);
 
 
@@ -3647,6 +3688,14 @@ ALTER TABLE ONLY pathology_observation_requests
 
 ALTER TABLE ONLY pathology_observations
     ADD CONSTRAINT pathology_observations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_request_algorithm_global_rules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_request_algorithm_global_rules
+    ADD CONSTRAINT pathology_request_algorithm_global_rules_pkey PRIMARY KEY (id);
 
 
 --
@@ -5307,4 +5356,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160304162205');
 INSERT INTO schema_migrations (version) VALUES ('20160314181446');
 
 INSERT INTO schema_migrations (version) VALUES ('20160327221550');
+
+INSERT INTO schema_migrations (version) VALUES ('20160412123106');
 
