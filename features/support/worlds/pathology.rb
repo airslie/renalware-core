@@ -40,12 +40,6 @@ module World
         expect(observation_request.observations.count).to eq(rows.size)
         expect_rows_to_match(observation_request.observations, rows)
       end
-      def expect_observations_to_be_created(rows)
-        observation_request = find_last_observation_request
-
-        expect(observation_request.observations.count).to eq(rows.size)
-        expect_rows_to_match(observation_request.observations, rows)
-      end
 
       def expect_rows_to_match(observations, rows)
         rows.each do |attrs|

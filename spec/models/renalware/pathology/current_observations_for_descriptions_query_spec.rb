@@ -1,7 +1,5 @@
 require "rails_helper"
 
-require_dependency 'renalware/pathology'
-
 module Renalware
   module Pathology
     RSpec.describe CurrentObservationsForDescriptionsQuery do

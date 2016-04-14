@@ -35,7 +35,7 @@ module Renalware
           .order("pathology_observation_descriptions.id")
           .ordered
           .where(["pathology_observation_requests.patient_id = ? OR pathology_observation_requests.patient_id IS NULL", @patient.id])
-          .where(pathology_observation_descriptions: {id: @descriptions})
+          .where(pathology_observation_descriptions: { id: @descriptions })
       end
     end
   end

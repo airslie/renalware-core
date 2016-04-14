@@ -9,7 +9,7 @@ module Renalware
         @presenter = presenter
       end
 
-      def call(params={})
+      def call(_params={})
         results = find_current_observations_for_descriptions
         present(results)
       end
