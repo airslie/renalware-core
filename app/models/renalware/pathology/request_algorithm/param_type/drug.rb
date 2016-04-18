@@ -11,7 +11,11 @@ module Renalware
           end
 
           def patient_requires_test?
-            @patient.drugs.count { |drug| drug.id == @param_id } > 0
+            @patient.drugs.include?(drug)
+          end
+
+          def drug
+            @drug ||= Renalware::Drugs::Drug.find(@param_id)
           end
         end
       end

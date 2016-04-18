@@ -11,31 +11,15 @@ module Renalware
         end
 
         def required_pathology
-          required_pathology = []
-
-          # TODO: Make this work
-
-          required_pathology
+          rules
+            .select do |rule|
+              GlobalRuleDecider.new(@patient, rule).observation_required?
+            end
+            .map { |rule| rule.observation_description_id }
+            .uniq
         end
 
         private
-
-        def patient_requires_test?(rule)
-          return true unless rule.has_param?
-
-          param_type_class =
-            "::Renalware::Pathology::RequestAlgorithm::ParamType::#{rule.param_type}"
-            .constantize
-
-          param_type_class
-            .new(
-              @patient,
-              rule.param_id,
-              rule.param_comparison_operator,
-              rule.param_comparison_value
-            )
-            .patient_requires_test?
-        end
 
         def rules
           GlobalRule.where(regime: @regime)
