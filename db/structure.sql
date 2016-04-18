@@ -1770,7 +1770,7 @@ CREATE TABLE pathology_request_algorithm_global_rules (
     param_id character varying,
     param_comparison_operator character varying,
     param_comparison_value character varying,
-    frequency timestamp without time zone
+    frequency character varying
 );
 
 

@@ -7,7 +7,7 @@ class CreatePathologyRequestAlgorithmGlobalRules < ActiveRecord::Migration
       t.string :param_id
       t.string :param_comparison_operator
       t.string :param_comparison_value
-      t.datetime :frequency
+      t.string :frequency
     end
   end
 end
