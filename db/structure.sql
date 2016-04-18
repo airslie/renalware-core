@@ -1767,7 +1767,8 @@ CREATE TABLE pathology_request_algorithm_global_rules (
     observation_description_id integer NOT NULL,
     regime character varying NOT NULL,
     param_type character varying,
-    param_identifier character varying,
+    param_id character varying,
+    param_comparison_operator character varying,
     param_comparison_value character varying,
     frequency timestamp without time zone
 );

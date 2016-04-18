@@ -21,6 +21,8 @@ module Renalware
         private
 
         def patient_requires_test?(rule)
+          return true unless rule.has_param?
+
           param_type_class =
             "::Renalware::Pathology::RequestAlgorithm::ParamType::#{rule.param_type}"
             .constantize

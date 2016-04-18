@@ -13,6 +13,10 @@ module Renalware
         validates :regime, presence: true, inclusion: { in: REGIMES }
         validates :param_comparison_operator, inclusion:
           { in: PARAM_COMPARISON_OPERATORS, allow_nil: true }
+
+        def has_param?
+          param_type.present?
+        end
       end
     end
   end
