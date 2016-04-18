@@ -1,5 +1,5 @@
 Given(/^there exist the following global rules:$/) do |table|
-  @rule = Renalware::Pathology::RequestAlgorithm::GlobalRule.create(table.rows_hash)
+  @rule = Renalware::Pathology::RequestAlgorithm::GlobalRule.create!(table.rows_hash)
 end
 
 Given(/^Patty has an observation result value of (\d+)$/) do |result|
@@ -13,7 +13,7 @@ Given(/^Patty has an observation result value of (\d+)$/) do |result|
   )
   Renalware::Pathology::Observation.create(
     request_id: observation_request.id,
-    description_id: @rule.param_identifier,
+    description_id: @rule.param_id,
     observed_at: Time.now,
     result: result
   )
@@ -39,7 +39,6 @@ Given(/^Patty was last tested for vitamin B12 Serum (\d+) days ago$/) do |days|
     result: 0
   )
 end
-
 
 When(/^the global pathology algorithm is ran for Patty in regime (.*)$/) do |regime|
   @request_algorithm = Renalware::Pathology::RequestAlgorithm::Global.new(@patty, regime)

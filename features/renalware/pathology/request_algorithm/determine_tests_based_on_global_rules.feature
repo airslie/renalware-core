@@ -16,13 +16,14 @@ Feature: Determine tests based on global rules
 
   Background:
     Given there exist the following global rules:
-      | id                         | 1                   |
-      | observation_description_id | 152                 |
-      | regime                     | 'HD'                |
-      | param_type                 | ObservationResultLT |
-      | param_identifier           | 765                 |
-      | param_comparison_value     | 100                 |
-      | frequency                  | <frequency>         |
+      | id                         | 1                 |
+      | observation_description_id | 152               |
+      | regime                     | Nephrology        |
+      | param_type                 | ObservationResult |
+      | param_id                   | 765               |
+      | param_comparison_operator  | <                 |
+      | param_comparison_value     | 100               |
+      | frequency                  | <frequency>       |
 
   Scenario Outline:
 
@@ -36,7 +37,7 @@ Feature: Determine tests based on global rules
       | regime     | frequency | observation_result | last_tested | test_required |
       | Nephrology | Once      | 99                 |             | yes           |
       #| Nephrology | Once      | 100                |             | no            |
-      | Nephrology | Once      | 99                 | 5 days ago  | no            |
+      #| Nephrology | Once      | 99                 | 5 days ago  | no            |
       #| Nephrology | Once      | 100                | 5 days ago  | no            |
 
       #| Nephrology | Always    | 99                 | nil         | yes           |

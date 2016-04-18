@@ -4,10 +4,10 @@ module Renalware
   module Pathology
     class RequestAlgorithm
       class Global
-        def initialize(patient, group)
-          raise ArgumentError unless GlobalRule::GROUPS.include?(group)
+        def initialize(patient, regime)
+          raise ArgumentError unless GlobalRule::REGIMES.include?(regime)
           @patient = patient
-          @group = group
+          @regime = regime
         end
 
         def required_pathology
@@ -22,15 +22,21 @@ module Renalware
 
         def patient_requires_test?(rule)
           param_type_class =
-            "::Renalware::Pathology::RequestAlgorithm::ParamType::#{rule.param_type}".constantize
+            "::Renalware::Pathology::RequestAlgorithm::ParamType::#{rule.param_type}"
+            .constantize
 
           param_type_class
-            .new(@patient, rule.param_identifier, rule.param_value)
+            .new(
+              @patient,
+              rule.param_id,
+              rule.param_comparison_operator,
+              rule.param_comparison_value
+            )
             .patient_requires_test?
         end
 
         def rules
-          GlobalRule.where(group: @group)
+          GlobalRule.where(regime: @regime)
         end
       end
     end

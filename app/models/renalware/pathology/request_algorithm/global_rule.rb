@@ -6,10 +6,13 @@ module Renalware
       class GlobalRule < ActiveRecord::Base
         self.table_name = "pathology_request_algorithm_global_rules"
 
-        GROUPS = ["Nephrology", "LCC", "PD", "HD", "TP", "Donor Screen", "Donor Clinic"]
+        REGIMES = ["Nephrology", "LCC", "PD", "HD", "TP", "Donor Screen", "Donor Clinic"]
+        PARAM_COMPARISON_OPERATORS = ["==", ">", "<", ">=", "<=", "include?"]
 
         validates :observation_description_id, presence: true
-        validates :regime, presence: true, inclusion: { in: GROUPS }
+        validates :regime, presence: true, inclusion: { in: REGIMES }
+        validates :param_comparison_operator, inclusion:
+          { in: PARAM_COMPARISON_OPERATORS, allow_nil: true }
       end
     end
   end

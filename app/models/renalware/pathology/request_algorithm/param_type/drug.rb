@@ -4,14 +4,14 @@ module Renalware
   module Pathology
     class RequestAlgorithm
       module ParamType
-        class MedicationIncludesDrugId
-          def initialize(patient, drug_id, _param_value)
+        class Drug
+          def initialize(patient, param_id, _param_comparison_operator, _param_comparison_value)
             @patient = patient
-            @drug_id = drug_id.to_i
+            @param_id = param_id.to_i
           end
 
           def patient_requires_test?
-            @patient.drugs.count { |drug| drug.id == @drug_id } > 0
+            @patient.drugs.count { |drug| drug.id == @param_id } > 0
           end
         end
       end

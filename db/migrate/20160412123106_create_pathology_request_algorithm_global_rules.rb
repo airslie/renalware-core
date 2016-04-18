@@ -4,7 +4,8 @@ class CreatePathologyRequestAlgorithmGlobalRules < ActiveRecord::Migration
       t.integer :observation_description_id, null: false
       t.string :regime, null: false
       t.string :param_type
-      t.string :param_identifier
+      t.string :param_id
+      t.string :param_comparison_operator
       t.string :param_comparison_value
       t.datetime :frequency
     end
