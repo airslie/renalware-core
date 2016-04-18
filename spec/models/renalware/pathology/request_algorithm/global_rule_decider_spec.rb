@@ -3,7 +3,7 @@ require "rails_helper"
 describe Renalware::Pathology::RequestAlgorithm::GlobalRuleDecider do
   let(:patient) { create(:patient) }
   let(:observation_description_id) { rand(100) }
-  let(:frequency) { 'Always' }
+  let(:frequency) { "Always" }
   let(:global_rule) do
     create(
       :pathology_request_algorithm_global_rule,
@@ -97,12 +97,14 @@ describe Renalware::Pathology::RequestAlgorithm::GlobalRuleDecider do
         let(:frequency) { "Weekly" }
 
         context "last_observed_at 6 days ago" do
-          let(:observed_at) { Time.new(2016, 4, 12, 0, 0, 0, "+01:00") } # Tuesday 12th April (23:59)
+          # Tuesday 12th April (23:59)
+          let(:observed_at) { Time.new(2016, 4, 12, 0, 0, 0, "+01:00") }
           it { is_expected.to eq(false) }
         end
 
         context "last_observed_at 7 days ago" do
-          let(:observed_at) { Time.new(2016, 4, 11, 23, 59, 0, "+01:00") } # Monday 11th April (00:00)
+          # Monday 11th April (00:00)
+          let(:observed_at) { Time.new(2016, 4, 11, 23, 59, 0, "+01:00") }
           it { is_expected.to eq(true) }
         end
       end
@@ -111,12 +113,14 @@ describe Renalware::Pathology::RequestAlgorithm::GlobalRuleDecider do
         let(:frequency) { "Monthly" }
 
         context "last_observed_at 27 days ago" do
-          let(:observed_at) { Time.new(2016, 3, 22, 0, 0, 0, "+01:00") } # Tuesday 22nd March (23:59)
+          # Tuesday 22nd March (23:59)
+          let(:observed_at) { Time.new(2016, 3, 22, 0, 0, 0, "+01:00") }
           it { is_expected.to eq(false) }
         end
 
         context "last_observed_at 28 days ago" do
-          let(:observed_at) { Time.new(2016, 3, 21, 23, 59, 0, "+01:00") } # Monday 21rst March (00:00)
+          # Monday 21rst March (00:00)
+          let(:observed_at) { Time.new(2016, 3, 21, 23, 59, 0, "+01:00") }
           it { is_expected.to eq(true) }
         end
       end

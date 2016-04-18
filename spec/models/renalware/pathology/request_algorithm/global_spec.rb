@@ -2,12 +2,12 @@ require "rails_helper"
 
 describe Renalware::Pathology::RequestAlgorithm::Global do
   let(:patient) { create(:patient) }
-  let(:regime) { 'Nephrology' }
+  let(:regime) { "Nephrology" }
   let(:global_algorithm) { described_class.new(patient, regime) }
 
-  describe '#initialize' do
-    context 'with regime param not in the array of accepted values' do
-      let(:regime) { 'NOT A VALID REGIME' }
+  describe "#initialize" do
+    context "with regime param not in the array of accepted values" do
+      let(:regime) { "NOT A VALID REGIME" }
 
       subject { global_algorithm }
 
@@ -31,11 +31,16 @@ describe Renalware::Pathology::RequestAlgorithm::Global do
     end
     let(:global_rules) { [global_rule_1, global_rule_2] }
 
-    let(:global_rule_decider_1) { double(Renalware::Pathology::RequestAlgorithm::GlobalRuleDecider) }
-    let(:global_rule_decider_2) { double(Renalware::Pathology::RequestAlgorithm::GlobalRuleDecider) }
+    let(:global_rule_decider_1) do
+      double(Renalware::Pathology::RequestAlgorithm::GlobalRuleDecider)
+    end
+    let(:global_rule_decider_2) do
+      double(Renalware::Pathology::RequestAlgorithm::GlobalRuleDecider)
+    end
 
     before do
-      allow(Renalware::Pathology::RequestAlgorithm::GlobalRule).to receive(:where).and_return(global_rules)
+      allow(Renalware::Pathology::RequestAlgorithm::GlobalRule).to receive(:where)
+        .and_return(global_rules)
       allow(Renalware::Pathology::RequestAlgorithm::GlobalRuleDecider).to receive(:new)
         .and_return(global_rule_decider_1, global_rule_decider_2)
       allow(global_rule_decider_1).to receive(:observation_required?).and_return(true)
