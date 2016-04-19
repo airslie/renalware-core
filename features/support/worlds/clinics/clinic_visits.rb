@@ -5,7 +5,7 @@ module World
         # @section commands
         #
         def create_clinic_visit(patient, user)
-          clinic = Renalware::Clinics::Clinic.find_by(name: 'Access')
+          clinic = Renalware::Clinics::Clinic.find_by(name: "Access")
           patient = Renalware::Clinics.cast_patient(patient)
           Renalware::Clinics::ClinicVisit.create(
             patient: patient,
@@ -25,7 +25,7 @@ module World
         end
 
         def update_clinic_visit(clinic_visit, _patient, user)
-          clinic = Renalware::Clinics::Clinic.find_by(name: 'AKI')
+          clinic = Renalware::Clinics::Clinic.find_by(name: "AKI")
           clinic_visit.update_attributes(
             clinic: clinic,
             height: 1.71,
