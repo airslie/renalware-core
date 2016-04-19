@@ -13,7 +13,7 @@ describe Renalware::Pathology::RequestAlgorithm::ParamType::ObservationResult do
     )
   end
 
-  let(:param_comparison_operator) { '<' }
+  let(:param_comparison_operator) { "<" }
   let(:param_comparison_value) { 100 }
   let(:observation_result) do
     described_class.new(
@@ -24,8 +24,8 @@ describe Renalware::Pathology::RequestAlgorithm::ParamType::ObservationResult do
     )
   end
 
-  describe '#initialize' do
-    let(:param_comparison_operator) { 'NOT A VALID OPERATOR' }
+  describe "#initialize" do
+    let(:param_comparison_operator) { "NOT A VALID OPERATOR" }
 
     subject { observation_result }
 

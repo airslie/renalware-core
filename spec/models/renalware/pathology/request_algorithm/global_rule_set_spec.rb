@@ -12,7 +12,7 @@ describe Renalware::Pathology::RequestAlgorithm::GlobalRuleSet do
       .in_array(described_class::FREQUENCIES)
   end
 
-  let(:frequency) { 'Always' }
+  let(:frequency) { "Always" }
   let(:global_rule_set) do
     create(
       :pathology_request_algorithm_global_rule_set,

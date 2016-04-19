@@ -9,7 +9,7 @@ describe Renalware::Pathology::RequestAlgorithm::ParamType::Drug do
     described_class.new(
       patient,
       drug.id,
-      'include?',
+      "include?",
       nil
     )
   end
