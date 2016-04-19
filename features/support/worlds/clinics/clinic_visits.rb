@@ -43,7 +43,9 @@ module World
 
         def expect_clinic_visit_to_be_updated(clinic_visit)
           clinic_visit = Renalware::Clinics::ClinicVisit.find(clinic_visit.id)
-          expect(clinic_visit.clinic_id).to eq(2)
+          expected_clinic = Renalware::Clinics::Clinic.find_by(name: "AKI")
+
+          expect(clinic_visit.clinic_id).to eq(expected_clinic.id)
           expect(clinic_visit.height).to eq(1.71)
           expect(clinic_visit.weight).to eq(75)
         end
