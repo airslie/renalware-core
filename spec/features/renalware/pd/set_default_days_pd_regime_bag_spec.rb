@@ -31,9 +31,7 @@ module Renalware
     scenario "when creating a new pd regime bag, some days are deselected" do
       visit new_patient_pd_regime_path(@patient, type: "CAPDRegime")
 
-      select "2015", from: "pd_regime_start_date_1i"
-      select "May", from: "pd_regime_start_date_2i"
-      select "25", from: "pd_regime_start_date_3i"
+      fill_in "Start date", with: "25/05/2015"
 
       select "CAPD 3 exchanges per day", from: "Treatment"
 

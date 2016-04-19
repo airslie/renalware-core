@@ -131,13 +131,8 @@ Given(/^a patient has existing APD Regimes$/) do
 end
 
 When(/^I complete the form for a capd regime$/) do
-  select "2015", from: "pd_regime_start_date_1i"
-  select "April", from: "pd_regime_start_date_2i"
-  select "2", from: "pd_regime_start_date_3i"
-
-  select "2015", from: "pd_regime_end_date_1i"
-  select "June", from: "pd_regime_end_date_2i"
-  select "1", from: "pd_regime_end_date_3i"
+  fill_in "Start date", with: "02/04/2015"
+  fill_in "End date", with: "01/06/2015"
 
   select("CAPD 4 exchanges per day", from: "Treatment")
 
@@ -156,13 +151,8 @@ When(/^I complete the form for a capd regime$/) do
 end
 
 When(/^I complete the form for a apd regime$/) do
-  select "2015", from: "pd_regime_start_date_1i"
-  select "May", from: "pd_regime_start_date_2i"
-  select "15", from: "pd_regime_start_date_3i"
-
-  select "2015", from: "pd_regime_end_date_1i"
-  select "July", from: "pd_regime_end_date_2i"
-  select "16", from: "pd_regime_end_date_3i"
+  fill_in "Start date", with: "15/05/2015"
+  fill_in "End date", with: "16/07/2015"
 
   select("APD Wet day with additional exchange", from: "Treatment")
 
@@ -198,9 +188,7 @@ When(/^I choose to edit and update the form for a capd regime$/) do
     click_link("Update")
   end
 
-  select "2015", from: "pd_regime_end_date_1i"
-  select "May", from: "pd_regime_end_date_2i"
-  select "3", from: "pd_regime_end_date_3i"
+  fill_in "End date", with: "03/05/2015"
 
   click_on "Update"
 end
@@ -212,9 +200,7 @@ When(/^I choose to edit and update the form for a apd regime$/) do
     click_link("Update")
   end
 
-  select "2015", from: "pd_regime_end_date_1i"
-  select "August", from: "pd_regime_end_date_2i"
-  select "30", from: "pd_regime_end_date_3i"
+  fill_in "End date", with: "30/08/2015"
 
   check "Additional manual exchange"
 
