@@ -15,14 +15,17 @@ Feature: Determine tests based on global rules
   | Monthly   | if tested < 28 days ago then don't test |
 
   Scenario Outline:
-    Given there exist the following global rules:
-      | id                         | 1                 |
+    Given there exists the following global rules:
+      | id                        | 1                 |
+      | global_rule_set_id        | 2                 |
+      | param_type                | ObservationResult |
+      | param_id                  | 765               |
+      | param_comparison_operator | <                 |
+      | param_comparison_value    | 100               |
+    And there exists the following global rule sets:
+      | id                         | 2                 |
       | observation_description_id | 152               |
       | regime                     | Nephrology        |
-      | param_type                 | ObservationResult |
-      | param_id                   | 765               |
-      | param_comparison_operator  | <                 |
-      | param_comparison_value     | 100               |
       | frequency                  | <frequency>       |
     And Patty is a patient
     And Patty has an observation result value of <observation_result>

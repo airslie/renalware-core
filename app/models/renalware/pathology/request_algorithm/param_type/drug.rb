@@ -14,6 +14,8 @@ module Renalware
             @patient.drugs.include?(drug)
           end
 
+          private
+
           def drug
             @drug ||= Renalware::Drugs::Drug.find(@param_id)
           end

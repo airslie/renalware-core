@@ -1,5 +1,9 @@
-Given(/^there exist the following global rules:$/) do |table|
+Given(/^there exists the following global rules:$/) do |table|
   @rule = Renalware::Pathology::RequestAlgorithm::GlobalRule.create!(table.rows_hash)
+end
+
+Given(/^there exists the following global rule sets:$/) do |table|
+  @rule_set = Renalware::Pathology::RequestAlgorithm::GlobalRuleSet.create!(table.rows_hash)
 end
 
 Given(/^Patty has an observation result value of (\d+)$/) do |result|

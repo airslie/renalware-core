@@ -2,23 +2,29 @@ require "rails_helper"
 
 describe Renalware::Pathology::RequestAlgorithm::GlobalRule do
   it { is_expected.to be_an ActiveRecord::Base }
-
-  it { is_expected.to validate_presence_of(:observation_description_id) }
-  it { is_expected.to validate_presence_of(:regime) }
-  it do
-    is_expected.to validate_inclusion_of(:regime)
-      .in_array(described_class::REGIMES)
-  end
+  it { is_expected.to validate_presence_of(:global_rule_set_id) }
   it do
     is_expected.to validate_inclusion_of(:param_comparison_operator)
       .in_array(described_class::PARAM_COMPARISON_OPERATORS)
   end
 
-  describe "#has_param?" do
-    let(:global_rule) { create(:pathology_request_algorithm_global_rule) }
+  let(:global_rule) { create(:pathology_request_algorithm_global_rule) }
 
-    subject { global_rule.has_param? }
+  describe "#required_for_patient?" do
+    let(:patient) { create(:patient) }
+    let(:param_type_obj) do
+      double(Renalware::Pathology::RequestAlgorithm::ParamType::ObservationResult)
+    end
+    let(:patient_requires_test) { double }
 
-    it { is_expected.to eq(true) }
+    before do
+      allow(Renalware::Pathology::RequestAlgorithm::ParamType::ObservationResult).to receive(:new)
+        .and_return(param_type_obj)
+      allow(param_type_obj).to receive(:patient_requires_test?).and_return(patient_requires_test)
+    end
+
+    subject! { global_rule.required_for_patient?(patient) }
+
+    it { is_expected.to eq(patient_requires_test) }
   end
 end

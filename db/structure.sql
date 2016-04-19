@@ -1759,18 +1759,47 @@ ALTER SEQUENCE pathology_observations_id_seq OWNED BY pathology_observations.id;
 
 
 --
+-- Name: pathology_request_algorithm_global_rule_sets; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_request_algorithm_global_rule_sets (
+    id integer NOT NULL,
+    regime character varying NOT NULL,
+    observation_description_id integer NOT NULL,
+    frequency character varying NOT NULL
+);
+
+
+--
+-- Name: pathology_request_algorithm_global_rule_sets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pathology_request_algorithm_global_rule_sets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_request_algorithm_global_rule_sets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pathology_request_algorithm_global_rule_sets_id_seq OWNED BY pathology_request_algorithm_global_rule_sets.id;
+
+
+--
 -- Name: pathology_request_algorithm_global_rules; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE pathology_request_algorithm_global_rules (
     id integer NOT NULL,
-    observation_description_id integer NOT NULL,
-    regime character varying NOT NULL,
+    global_rule_set_id integer NOT NULL,
     param_type character varying,
     param_id character varying,
     param_comparison_operator character varying,
-    param_comparison_value character varying,
-    frequency character varying
+    param_comparison_value character varying
 );
 
 
@@ -3122,6 +3151,13 @@ ALTER TABLE ONLY pathology_observations ALTER COLUMN id SET DEFAULT nextval('pat
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY pathology_request_algorithm_global_rule_sets ALTER COLUMN id SET DEFAULT nextval('pathology_request_algorithm_global_rule_sets_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY pathology_request_algorithm_global_rules ALTER COLUMN id SET DEFAULT nextval('pathology_request_algorithm_global_rules_id_seq'::regclass);
 
 
@@ -3689,6 +3725,14 @@ ALTER TABLE ONLY pathology_observation_requests
 
 ALTER TABLE ONLY pathology_observations
     ADD CONSTRAINT pathology_observations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_request_algorithm_global_rule_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_request_algorithm_global_rule_sets
+    ADD CONSTRAINT pathology_request_algorithm_global_rule_sets_pkey PRIMARY KEY (id);
 
 
 --
@@ -5359,4 +5403,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160314181446');
 INSERT INTO schema_migrations (version) VALUES ('20160327221550');
 
 INSERT INTO schema_migrations (version) VALUES ('20160412123106');
+
+INSERT INTO schema_migrations (version) VALUES ('20160419132410');
 

@@ -16,54 +16,76 @@ describe Renalware::Pathology::RequestAlgorithm::Global do
   end
 
   describe "#required_pathology" do
-    let(:observation_description_id) { rand(100) }
-    let(:global_rule_1) do
-      create(
-        :pathology_request_algorithm_global_rule,
-        observation_description_id: observation_description_id
-      )
-    end
-    let(:global_rule_2) do
-      create(
-        :pathology_request_algorithm_global_rule,
-        observation_description_id: observation_description_id
-      )
-    end
-    let(:global_rules) { [global_rule_1, global_rule_2] }
-
-    let(:global_rule_decider_1) do
-      double(Renalware::Pathology::RequestAlgorithm::GlobalRuleDecider)
-    end
-    let(:global_rule_decider_2) do
-      double(Renalware::Pathology::RequestAlgorithm::GlobalRuleDecider)
-    end
+    let(:global_rule_set) { create(:pathology_request_algorithm_global_rule_set) }
 
     before do
-      allow(Renalware::Pathology::RequestAlgorithm::GlobalRule).to receive(:where)
-        .and_return(global_rules)
-      allow(Renalware::Pathology::RequestAlgorithm::GlobalRuleDecider).to receive(:new)
-        .and_return(global_rule_decider_1, global_rule_decider_2)
-      allow(global_rule_decider_1).to receive(:observation_required?).and_return(true)
-      allow(global_rule_decider_2).to receive(:observation_required?).and_return(true)
+      allow(Renalware::Pathology::RequestAlgorithm::GlobalRuleSet).to receive(:where)
+        .and_return([global_rule_set])
+      allow(global_rule_set).to receive(:required_for_patient?).and_return(global_rule_set_required)
+      allow(global_rule_set).to receive(:rules).and_return(global_rules)
     end
 
-    subject! { global_algorithm.required_pathology }
+    context "a rule_set with no rules" do
+      let(:global_rules) { [] }
 
-    it do
-      expect(Renalware::Pathology::RequestAlgorithm::GlobalRule).to have_received(:where)
-        .with(regime: regime)
-    end
-    it do
-      expect(Renalware::Pathology::RequestAlgorithm::GlobalRuleDecider).to have_received(:new)
-        .with(patient, global_rule_1)
-    end
-    it do
-      expect(Renalware::Pathology::RequestAlgorithm::GlobalRuleDecider).to have_received(:new)
-        .with(patient, global_rule_2)
-    end
-    it { expect(global_rule_decider_1).to have_received(:observation_required?) }
-    it { expect(global_rule_decider_2).to have_received(:observation_required?) }
+      subject! { global_algorithm.required_pathology }
 
-    it { is_expected.to eq([observation_description_id])}
+      context "rule set required" do
+        let(:global_rule_set_required) { true }
+        it { is_expected.to eq([global_rule_set.observation_description_id])}
+      end
+
+      context "rule set required" do
+        let(:global_rule_set_required) { false }
+        it { is_expected.to eq([])}
+      end
+    end
+
+    context "a rule_set with multiple rules" do
+      let(:global_rule_1) do
+        create(
+          :pathology_request_algorithm_global_rule,
+          global_rule_set_id: global_rule_set.id
+        )
+      end
+      let(:global_rule_2) do
+        create(
+          :pathology_request_algorithm_global_rule,
+          global_rule_set_id: global_rule_set.id
+        )
+      end
+      let(:global_rules) { [global_rule_1, global_rule_2] }
+
+      before do
+        allow(global_rule_1).to receive(:required_for_patient?).and_return(global_rule_1_required)
+        allow(global_rule_2).to receive(:required_for_patient?).and_return(global_rule_2_required)
+      end
+
+      subject! { global_algorithm.required_pathology }
+
+      context "rule_set required and all rules required" do
+        let(:global_rule_set_required) { true }
+        let(:global_rule_1_required) { true }
+        let(:global_rule_2_required) { true }
+
+        it { is_expected.to eq([global_rule_set.observation_description_id])}
+      end
+
+      context "rule_set required and some rules required" do
+        let(:global_rule_set_required) { true }
+        let(:global_rule_1_required) { true }
+        let(:global_rule_2_required) { false }
+
+        it { is_expected.to eq([])}
+      end
+
+      context "rule_set not required and rules required" do
+        let(:global_rule_set_required) { false }
+        let(:global_rule_1_required) { true }
+        let(:global_rule_2_required) { true }
+
+        it { is_expected.to eq([])}
+      end
+    end
   end
 end
