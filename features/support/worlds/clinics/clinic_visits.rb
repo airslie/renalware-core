@@ -5,7 +5,7 @@ module World
         # @section commands
         #
         def create_clinic_visit(patient, user)
-          clinic = Renalware::Clinics::Clinic.find(1)
+          clinic = Renalware::Clinics::Clinic.find_by(name: 'Access')
           patient = Renalware::Clinics.cast_patient(patient)
           Renalware::Clinics::ClinicVisit.create(
             patient: patient,
@@ -24,8 +24,8 @@ module World
           create_clinic_visit(patient, user)
         end
 
-        def update_clinic_visit(clinic_visit, user)
-          clinic = Renalware::Clinics::Clinic.find(2)
+        def update_clinic_visit(clinic_visit, _patient, user)
+          clinic = Renalware::Clinics::Clinic.find_by(name: 'AKI')
           clinic_visit.update_attributes(
             clinic: clinic,
             height: 1.71,
@@ -52,7 +52,9 @@ module World
       module Web
         include Domain
 
-        def record_clinic_visit(_patient, _user)
+        def record_clinic_visit(patient, _user)
+          visit new_patient_clinic_visit_path(patient_id: patient.id)
+
           fill_in "Date", with: "20-07-2015 10:45"
           select "Access", from: "Clinic"
           fill_in "Height", with: "1.78"
@@ -62,7 +64,11 @@ module World
           click_on "Save"
         end
 
-        def update_clinic_visit(_clinic_visit, _user)
+        def update_clinic_visit(clinic_visit, patient, _user)
+          visit edit_patient_clinic_visit_path(
+            patient_id: patient.id,
+            id: clinic_visit.id
+          )
           select "AKI", from: "Clinic"
           fill_in "Height", with: "1.71"
           fill_in "Weight", with: "75"
