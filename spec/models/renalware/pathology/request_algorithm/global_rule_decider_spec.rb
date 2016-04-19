@@ -73,7 +73,7 @@ describe Renalware::Pathology::RequestAlgorithm::GlobalRuleDecider do
     end
 
     context "last_observation is not nil" do
-      let(:date_today) { Date.parse('2016-04-18')} # Monday 18th April (12:30)
+      let(:date_today) { Date.parse("2016-04-18")} # Monday 18th April (12:30)
       let(:observed_at) { Time.new(2016, 4, 17, 12, 30, 0, "+01:00") } # Sunday 17th April (12:30)
 
       let(:last_observation) do
