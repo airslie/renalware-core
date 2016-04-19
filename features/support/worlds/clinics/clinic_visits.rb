@@ -52,7 +52,7 @@ module World
       module Web
         include Domain
 
-        def record_clinic_visit(patient, user)
+        def record_clinic_visit(_patient, _user)
           fill_in "Date", with: "20-07-2015 10:45"
           select "Access", from: "Clinic"
           fill_in "Height", with: "1.78"
@@ -62,7 +62,7 @@ module World
           click_on "Save"
         end
 
-        def update_clinic_visit(clinic_visit, user)
+        def update_clinic_visit(_clinic_visit, _user)
           select "AKI", from: "Clinic"
           fill_in "Height", with: "1.71"
           fill_in "Weight", with: "75"

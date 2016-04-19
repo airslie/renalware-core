@@ -17,9 +17,12 @@ module Renalware
       # Example:
       #
       #     [
-      #       {"year"=>"2009", "date"=>"13/11", ObservationDescription.new(code: "HB") =>"2", ObservationDescription.new(code: "AL")=>""},
-      #       {"year"=>"2009", "date"=>"12/11", ObservationDescription.new(code: "HB") =>"",  ObservationDescription.new(code: "AL")=>""},
-      #       {"year"=>"2009", "date"=>"11/11", ObservationDescription.new(code: "HB") =>"",  ObservationDescription.new(code: "AL")=>""}
+      #       {"year"=>"2009", "date"=>"13/11", ObservationDescription.new(code: "HB") =>"2",
+      #         ObservationDescription.new(code: "AL")=>""},
+      #       {"year"=>"2009", "date"=>"12/11", ObservationDescription.new(code: "HB") =>"",
+      #         ObservationDescription.new(code: "AL")=>""},
+      #       {"year"=>"2009", "date"=>"11/11", ObservationDescription.new(code: "HB") =>"",
+      #         ObservationDescription.new(code: "AL")=>""}
       #     ]
       #
       def rows
@@ -58,7 +61,8 @@ module Renalware
       end
 
       # @param  [Hash] a hash containing the observations keyed by observation description
-      # @return [Hash] returns the hash with the keys decorated with ObservationDescriptionHeaderPresenter
+      # @return [Hash] returns the hash with the keys decorated with
+      #                ObservationDescriptionHeaderPresenter
       #
       def present_observations(observations_by_desc)
         observations_by_desc.each_with_object({}) do |(desc, observations), memo|

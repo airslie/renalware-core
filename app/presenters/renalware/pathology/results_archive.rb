@@ -39,7 +39,8 @@ module Renalware
         #
         # Example:
         #
-        # {Date.parse("2016-10-10") => {ObservationDescription.new(code: "HB") =>"", ObservationDescription.new(code: "RBC")=>"4"}}
+        # {Date.parse("2016-10-10") => {ObservationDescription.new(code: "HB") =>"",
+        #   ObservationDescription.new(code: "RBC")=>"4"}}
         #
         def call
           descriptions = @descriptions.each_with_object({}) do |description, attrs|
