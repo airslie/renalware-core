@@ -1,4 +1,4 @@
-Feature: Determine tests based on global rules
+Feature: Determine tests based on global rule sets and a single rule
 
   The global pathology algorithm checks if there are any rules which apply to the patient and lists the required tests accordingly.
 
@@ -15,7 +15,7 @@ Feature: Determine tests based on global rules
   | Monthly   | if tested < 28 days ago then don't test |
 
   Scenario Outline:
-    Given there exists the following global rules:
+    Given there exists the following global rule:
       | id                        | 1                 |
       | global_rule_set_id        | 2                 |
       | param_type                | ObservationResult |
