@@ -4,6 +4,8 @@ module Renalware
   module Pathology
     class RequestAlgorithm
       class GlobalRuleSet < ActiveRecord::Base
+        include FrequencyMethods
+
         self.table_name = "pathology_request_algorithm_global_rule_sets"
 
         REGIMES = ["Nephrology", "LCC", "PD", "HD", "TP", "Donor Screen", "Donor Clinic"]
@@ -22,16 +24,7 @@ module Renalware
 
           days_ago_observed = Date.today - last_observation.observed_at.to_date
 
-          # TODO: Implement other frequency types (3Monthly, Yearly etc.)
-          if frequency == "Always"
-            true
-          elsif frequency == "Once"
-            false
-          elsif frequency == "Weekly"
-            days_ago_observed >= 7
-          elsif frequency == "Monthly"
-            days_ago_observed >= 28
-          end
+          required_from_frequency?(frequency, days_ago_observed)
         end
 
         private

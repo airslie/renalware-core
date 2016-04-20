@@ -4,6 +4,8 @@ module Renalware
   module Pathology
     class RequestAlgorithm
       class PatientRule < ActiveRecord::Base
+        include FrequencyMethods
+
         self.table_name = "pathology_request_algorithm_patient_rules"
 
         FREQUENCIES = ["Always", "Once", "Weekly", "Monthly"]
@@ -28,18 +30,6 @@ module Renalware
         end
 
         private
-
-        def required_from_frequency?(frequency, days_ago_observed)
-          if frequency == "Always"
-            true
-          elsif frequency == "Once"
-            false
-          elsif frequency == "Weekly"
-            days_ago_observed >= 7
-          elsif frequency == "Monthly"
-            days_ago_observed >= 28
-          end
-        end
 
         def today_within_range?
           return true unless start_date.present? && end_date.present?
