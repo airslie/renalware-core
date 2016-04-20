@@ -8,6 +8,8 @@ module Renalware
 
         PARAM_COMPARISON_OPERATORS = ["==", ">", "<", ">=", "<=", "include?"]
 
+        belongs_to :global_rule_set
+
         validates :global_rule_set_id, presence: true
         validates :param_comparison_operator, inclusion:
           { in: PARAM_COMPARISON_OPERATORS, allow_nil: true }

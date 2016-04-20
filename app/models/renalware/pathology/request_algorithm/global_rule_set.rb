@@ -10,6 +10,7 @@ module Renalware
         FREQUENCIES = ["Always", "Once", "Weekly", "Monthly"]
 
         has_many :rules, class_name: "GlobalRule"
+        belongs_to :observation_description
 
         validates :observation_description_id, presence: true
         validates :regime, presence: true, inclusion: { in: REGIMES }
