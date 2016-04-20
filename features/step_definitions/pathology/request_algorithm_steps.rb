@@ -21,7 +21,7 @@ Given(/^Patty has an observation result value of (\d+)$/) do |result|
   else
     description_id =
       @rules
-        .find { |rule| rule.param_type = 'ObservationResult' }
+        .detect { |rule| rule.param_type = "ObservationResult" }
         .param_id
   end
 
