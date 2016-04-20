@@ -6,6 +6,8 @@ Feature: Determine tests based on patient rules
 
   Its possible the clinician may define a patient specific test which has already been determined as required by the global rules algorithm, in which case its up to the clinician to decide what to do.
 
+  The last_tested_at column is updated every time the test instruction is printed.
+
   Scenario Outline:
 
     Given Patty is a patient
@@ -20,23 +22,23 @@ Feature: Determine tests based on patient rules
       | last_tested_at        | <last_tested_at>    |
     And the current date is within the patient rule's start/end date range <within_range>
     When the patient pathology algorithm is ran for Patty
-    Then the required pathology should includes the test <test_required>
+    Then the required patient pathology should includes the test <test_required>
 
     Examples:
       | frequency | last_tested_at | within_range | test_required |
-      | Always    | nil            | yes          | yes           |
+      | Always    |                | yes          | yes           |
       | Always    | 1 week ago     | yes          | yes           |
-      | Once      | nil            | yes          | yes           |
+      | Once      |                | yes          | yes           |
       | Once      | 1 week ago     | yes          | no            |
-      | Weekly    | nil            | yes          | yes           |
+      | Weekly    |                | yes          | yes           |
       | Weekly    | 6 days ago     | yes          | no            |
       | Weekly    | 7 days ago     | yes          | yes           |
 
-      | Always    | nil            | no           | no            |
+      | Always    |                | no           | no            |
       | Always    | 1 week ago     | no           | no            |
-      | Once      | nil            | no           | no            |
+      | Once      |                | no           | no            |
       | Once      | 1 week ago     | no           | no            |
-      | Weekly    | nil            | no           | no            |
+      | Weekly    |                | no           | no            |
       | Weekly    | 6 days ago     | no           | no            |
       | Weekly    | 7 days ago     | no           | no            |
 

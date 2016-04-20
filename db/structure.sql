@@ -1823,6 +1823,43 @@ ALTER SEQUENCE pathology_request_algorithm_global_rules_id_seq OWNED BY patholog
 
 
 --
+-- Name: pathology_request_algorithm_patient_rules; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_request_algorithm_patient_rules (
+    id integer NOT NULL,
+    lab character varying,
+    test_description text,
+    sample_number_bottles integer,
+    sample_type character varying,
+    frequency character varying,
+    patient_id integer,
+    last_tested_at timestamp without time zone,
+    start_date date,
+    end_date date
+);
+
+
+--
+-- Name: pathology_request_algorithm_patient_rules_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pathology_request_algorithm_patient_rules_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_request_algorithm_patient_rules_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pathology_request_algorithm_patient_rules_id_seq OWNED BY pathology_request_algorithm_patient_rules.id;
+
+
+--
 -- Name: pathology_request_descriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3165,6 +3202,13 @@ ALTER TABLE ONLY pathology_request_algorithm_global_rules ALTER COLUMN id SET DE
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY pathology_request_algorithm_patient_rules ALTER COLUMN id SET DEFAULT nextval('pathology_request_algorithm_patient_rules_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY pathology_request_descriptions ALTER COLUMN id SET DEFAULT nextval('pathology_request_descriptions_id_seq'::regclass);
 
 
@@ -3741,6 +3785,14 @@ ALTER TABLE ONLY pathology_request_algorithm_global_rule_sets
 
 ALTER TABLE ONLY pathology_request_algorithm_global_rules
     ADD CONSTRAINT pathology_request_algorithm_global_rules_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_request_algorithm_patient_rules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_request_algorithm_patient_rules
+    ADD CONSTRAINT pathology_request_algorithm_patient_rules_pkey PRIMARY KEY (id);
 
 
 --
@@ -5405,4 +5457,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160327221550');
 INSERT INTO schema_migrations (version) VALUES ('20160412123106');
 
 INSERT INTO schema_migrations (version) VALUES ('20160419132410');
+
+INSERT INTO schema_migrations (version) VALUES ('20160420132524');
 
