@@ -4,27 +4,37 @@ Feature: Determine tests based on observation result rule type
 
   Otherwise if observation.result >= rule.param_value then the test should not be required for the patient.
 
-  Background:
-    Given there exist the following request algorithm global rules:
-      | id               | 1                   |
-      | request          | vitamin B12 Serum   |
-      | group            | Nephrology          |
-      | param_type       | ObservationResultLT |
-      | param_identifier | 429                 |
-      | param_value      | <param_value>       |
-      | frequency        | Once                |
-
   Scenario Outline:
-
-    Given Patty is a patient
-    And Clyde is a clinician
+    Given there exists the following global rule:
+      | id                        | 1                           |
+      | global_rule_set_id        | 2                           |
+      | param_type                | ObservationResult           |
+      | param_id                  | 765                         |
+      | param_comparison_operator | <param_comparison_operator> |
+      | param_comparison_value    | <param_comparison_value>    |
+    And there exists the following global rule sets:
+      | id                         | 2          |
+      | observation_description_id | 152        |
+      | regime                     | Nephrology |
+      | frequency                  | Always     |
+    And Patty is a patient
     And Patty has an observation result value of <observation_result>
-    When Clyde prints the blood test request form for Patty
-    Then the blood test form includes the test <test_required>
+    When the global pathology algorithm is ran for Patty in regime Nephrology
+    Then the required pathology should includes the test <test_required>
 
-  Examples:
+    Examples:
+      | observation_result | param_comparison_operator | param_comparison_value | test_required |
+      | 99                 | <                         | 100                    | yes           |
+      | 100                | <                         | 100                    | no            |
 
-    | observation_result | param_value | test_required |
-    | 99                 | 100         | yes           |
-    | 100                | 100         | no            |
+      | 99                 | >                         | 100                    | no            |
+      | 100                | >                         | 100                    | no            |
 
+      | 99                 | <=                        | 100                    | yes           |
+      | 100                | <=                        | 100                    | yes           |
+
+      | 99                 | >=                        | 100                    | no            |
+      | 100                | >=                        | 100                    | yes           |
+
+      | 99                 | ==                        | 100                    | no            |
+      | 100                | ==                        | 100                    | yes           |
