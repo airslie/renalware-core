@@ -1,0 +1,3 @@
+"global_rule_set_id","param_type","param_id","param_comparison_operator","param_comparison_value"
+"1","ObservationResult","429","<","100"
+"2","Drug","185","include?",

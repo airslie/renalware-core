@@ -1795,13 +1795,11 @@ ALTER SEQUENCE pathology_request_algorithm_global_rule_sets_id_seq OWNED BY path
 
 CREATE TABLE pathology_request_algorithm_global_rules (
     id integer NOT NULL,
-    observation_description_id integer NOT NULL,
-    regime character varying NOT NULL,
+    global_rule_set_id integer NOT NULL,
     param_type character varying,
     param_id character varying,
     param_comparison_operator character varying,
-    param_comparison_value character varying,
-    frequency character varying
+    param_comparison_value character varying
 );
 
 
