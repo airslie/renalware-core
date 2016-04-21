@@ -1,5 +1,5 @@
 Given(/^there exists the following global rule:$/) do |table|
-  @rule = Renalware::Pathology::RequestAlgorithm::GlobalRule.create!(table.rows_hash)
+  @rule = create_global_rule(table.rows_hash)
 end
 
 Given(/^there exists the following global rules:$/) do |table|
@@ -7,12 +7,12 @@ Given(/^there exists the following global rules:$/) do |table|
   @rules = []
   table.rows.each do |row|
     params = Hash[table.headers.zip(row)]
-    @rules << Renalware::Pathology::RequestAlgorithm::GlobalRule.create!(params)
+    @rules << create_global_rule(params)
   end
 end
 
 Given(/^there exists the following global rule sets:$/) do |table|
-  @rule_set = Renalware::Pathology::RequestAlgorithm::GlobalRuleSet.create!(table.rows_hash)
+  @rule_set = create_global_rule_set(table.rows_hash)
 end
 
 Given(/^Patty has an observation result value of (\d+)$/) do |result|
@@ -79,19 +79,7 @@ Given(/^Patty is currently on drug with id=(\d+) (yes|no)$/) do |drug_id, perscr
 end
 
 Given(/^Patty has a patient rule:$/) do |table|
-  params = table.rows_hash
-
-  # Convert "5 days ago" to a Time object
-  last_tested_matches =
-    params["last_tested_at"]
-    .match(/^(?<num>\d+) (?<time_unit>day|days|week|weeks) ago$/)
-
-  if last_tested_matches
-    params["last_tested_at"] =
-      Time.now - last_tested_matches[:num].to_i.send(last_tested_matches[:time_unit].to_sym)
-  end
-
-  @patient_rule = Renalware::Pathology::RequestAlgorithm::PatientRule.create!(params)
+  @patient_rule = create_patient_rule(table.rows_hash)
 end
 
 Given(/^the current date is within the patient rule's start\/end date range yes$/) do
@@ -108,11 +96,16 @@ Given(/^the current date is within the patient rule's start\/end date range no$/
   )end
 
 When(/^the global pathology algorithm is ran for Patty in regime (.*)$/) do |regime|
-  @global_algorithm = Renalware::Pathology::RequestAlgorithm::Global.new(@patty, regime)
+  @global_algorithm = run_global_algorithm(@patty, regime)
 end
 
 When(/^the patient pathology algorithm is ran for Patty$/) do
-  @patient_algorithm = Renalware::Pathology::RequestAlgorithm::Patient.new(@patty)
+  @patient_algorithm = run_patient_algorithm(@patty)
+end
+
+When(/^Clyde views the list of required pathology for Patty in regime (.*)$/) do |regime|
+  @global_algorithm = run_global_algorithm(@patty, regime)
+  @patient_algorithm = run_patient_algorithm(@patty)
 end
 
 Then(/^the required pathology should includes the test no$/) do
@@ -129,4 +122,12 @@ end
 
 Then(/^the required patient pathology should includes the test yes$/) do
   expect(@patient_algorithm.required_pathology).to eq([@patient_rule])
+end
+
+Then(/^Clyde sees these observations from the global algorithm$/) do |table|
+  expect_observations_from_global(@global_algorithm, table)
+end
+
+Then(/^Clyde sees these observations from the patient algorithm$/) do |table|
+  expect_observations_from_patient(@patient_algorithm, table)
 end

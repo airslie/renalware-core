@@ -95,3 +95,5 @@ module World
     end
   end
 end
+
+Dir[Rails.root.join("features/support/worlds/pathology/*.rb")].each { |f| require f }
