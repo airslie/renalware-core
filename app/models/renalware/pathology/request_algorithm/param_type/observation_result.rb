@@ -17,15 +17,19 @@ module Renalware
           end
 
           def patient_requires_test?
+            return true if observation_result.nil?
             observation_result.send(@param_comparison_operator.to_sym, @param_comparison_value)
           end
 
           private
 
           def observation_result
-            @observation_result ||=
-              @patient.observations.where(description_id: @param_id).order(observed_at: :desc)
-              .limit(1).first.result.to_i
+            @observation_result ||= begin
+              observation = @patient.observations.where(description_id: @param_id)
+                .order(observed_at: :desc).limit(1).first
+
+              observation.result.to_i if observation.present?
+            end
           end
         end
       end
