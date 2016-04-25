@@ -42,7 +42,7 @@ describe Renalware::Pathology::RequestAlgorithm::ParamType::ObservationResult do
 
     subject! { observation_result.patient_requires_test? }
 
-    it { expect(observation_result).to have_received(:observation_result) }
+    it { expect(observation_result).to have_received(:observation_result).twice }
     it do
       expect(observation).to have_received(:send)
         .with(param_comparison_operator.to_sym, param_comparison_value)
