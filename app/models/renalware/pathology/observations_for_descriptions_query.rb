@@ -13,6 +13,7 @@ module Renalware
       def call
         @relation
           .joins(:description)
+          .preload(:description)
           .where(description: @descriptions)
       end
     end
