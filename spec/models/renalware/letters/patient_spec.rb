@@ -3,7 +3,7 @@ require_dependency "models/renalware/concerns/personable"
 
 module Renalware
   module Letters
-    describe Patient, :type => :model do
+    describe Patient, type: :model do
       let(:patient) { create(:letter_patient) }
       let(:letter) { build(:letter, patient: patient) }
 
