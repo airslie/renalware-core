@@ -18,7 +18,7 @@ module Renalware
 
       def to_a
         observations_by_date.map do |observed_on, observations_of_the_same_date|
-          build_row(observed_on, observations_of_the_same_date, @observation_descriptions)
+          build_row(observed_on, observations_of_the_same_date, observation_descriptions)
         end
       end
 
