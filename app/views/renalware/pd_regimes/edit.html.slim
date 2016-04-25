@@ -1,5 +1,5 @@
 = render layout: "renalware/patients/layout", locals: { title: "PD Regime" } do
-  = nested_form_for [@patient, @pd_regime], as: :pd_regime, method: :put do |r|
+  = simple_nested_form_for [@patient, @pd_regime], as: :pd_regime, method: :put do |r|
     h4= "Edit #{capd_apd_title(r.object.type)} Regime"
 
     = render partial: 'renalware/pd_regimes/form', locals: { r: r }

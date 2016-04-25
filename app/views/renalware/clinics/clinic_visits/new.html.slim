@@ -1,5 +1,6 @@
 = render layout: "renalware/patients/layout", locals: { title: "Clinic Visits" } do
   = simple_form_for [@patient, @clinic_visit],
+      as: :clinic_visit,
       url: patient_clinic_visits_path(@patient),
       wrapper: "horizontal_form" do |f|
 

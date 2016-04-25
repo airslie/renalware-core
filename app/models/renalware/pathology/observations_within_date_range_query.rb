@@ -6,8 +6,6 @@ module Renalware
     # with in a specified date range.
     #
     class ObservationsWithinDateRangeQuery
-      attr_reader :limit
-
       def initialize(relation: Observation, date_range:)
         @relation = relation
         @date_range = date_range

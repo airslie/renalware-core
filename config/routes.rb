@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
     resources :bag_types, except: [:show]
 
-    resources :clinic_visits do
+    resources :clinic_visits, controller: "clinics/clinic_visits" do
       resources :letters, controller: "letters/clinic_letters", only: [:new, :edit]
     end
 
@@ -78,7 +78,7 @@ Rails.application.routes.draw do
 
       resources :apd_regimes, controller: "pd_regimes", type: "ApdRegime"
       resources :capd_regimes, controller: "pd_regimes", type: "CapdRegime"
-      resources :clinic_visits
+      resources :clinic_visits, controller: "clinics/clinic_visits"
       resources :events, only: [:new, :create, :index], controller: "events/events"
       resources :exit_site_infections, only: [:new, :create, :show, :edit, :update]
 

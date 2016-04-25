@@ -2,7 +2,7 @@ scss:
   enabled: false
 
 ruby:
-  config_file: .ruby-style.yml
+  config_file: .rubocop.yml
 
 javascript:
   enabled: false
