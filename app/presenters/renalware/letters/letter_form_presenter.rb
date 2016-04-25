@@ -20,11 +20,11 @@ module Renalware
       end
 
       def patient_cc_hint
+        scope = "renalware.letters.hints.cc_hint"
         if patient.cc_on_all_letters
-          "If not the recipient, the patient <b>will be CCd</b> on the letter.".html_safe
+          ::I18n.t("cc_on_all_letters", scope: scope).html_safe
         else
-          "If not the recipient, the patient <b>will NOT be CCd</b> on the letter.  "+
-          "This can be changed in the patients profile.".html_safe
+          ::I18n.t("not_cc_on_all_letters", scope: scope).html_safe
         end
       end
 
