@@ -22,7 +22,7 @@ module Renalware
       end
 
       def assign_source(source)
-        main_recipient.source_id = source.id
+        main_recipient.source = source
         main_recipient.name = source.full_name
       end
 
