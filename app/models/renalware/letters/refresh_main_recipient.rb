@@ -8,7 +8,7 @@ module Renalware
       end
 
       def call
-        assign_doctor_or_patient
+        set_doctor_or_patient_as_source
         copy_source_address
 
         main_recipient.save
@@ -16,16 +16,12 @@ module Renalware
 
       private
 
-      def assign_doctor_or_patient
-        case main_recipient.source_type
-        when "Renalware::Doctor"
-          assign_main_recipient_attributes(doctor)
-        when "Renalware::Patient"
-          assign_main_recipient_attributes(patient)
-        end
+      def set_doctor_or_patient_as_source
+        assign_source(doctor) if main_recipient.doctor?
+        assign_source(patient) if main_recipient.patient?
       end
 
-      def assign_main_recipient_attributes(source)
+      def assign_source(source)
         main_recipient.source_id = source.id
         main_recipient.name = source.full_name
       end
