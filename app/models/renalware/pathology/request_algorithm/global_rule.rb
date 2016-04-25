@@ -2,7 +2,7 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
-    class RequestAlgorithm
+    module RequestAlgorithm
       class GlobalRule < ActiveRecord::Base
         self.table_name = "pathology_request_algorithm_global_rules"
 

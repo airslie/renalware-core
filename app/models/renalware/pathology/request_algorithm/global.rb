@@ -2,7 +2,7 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
-    class RequestAlgorithm
+    module RequestAlgorithm
       class Global
         def initialize(patient, regime)
           raise ArgumentError unless GlobalRuleSet::REGIMES.include?(regime)

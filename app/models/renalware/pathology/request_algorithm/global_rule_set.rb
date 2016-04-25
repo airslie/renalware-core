@@ -2,7 +2,7 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
-    class RequestAlgorithm
+    module RequestAlgorithm
       class GlobalRuleSet < ActiveRecord::Base
         include FrequencyMethods
 

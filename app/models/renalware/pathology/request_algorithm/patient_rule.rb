@@ -2,7 +2,7 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
-    class RequestAlgorithm
+    module RequestAlgorithm
       class PatientRule < ActiveRecord::Base
         include FrequencyMethods
 
@@ -24,8 +24,6 @@ module Renalware
 
           days_ago_observed = Date.today - last_tested_at.to_date
 
-          # TODO: Move this to a concern to DRY up this and the GlobalRuleSet model
-          # TODO: Implement other frequency types (3Monthly, Yearly etc.)
           required_from_frequency?(frequency, days_ago_observed)
         end
 

@@ -2,7 +2,7 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
-    class RequestAlgorithm
+    module RequestAlgorithm
       class Patient
         def initialize(patient)
           @patient = ::Renalware::Pathology.cast_patient(patient)

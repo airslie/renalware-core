@@ -2,7 +2,7 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
-    class RequestAlgorithm
+    module RequestAlgorithm
       module ParamType
         class Drug
           def initialize(patient, param_id, _param_comparison_operator, _param_comparison_value)
