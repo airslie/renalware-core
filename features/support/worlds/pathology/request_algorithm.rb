@@ -38,7 +38,7 @@ module World
 
         # @section expectations
         #
-        def expect_observations_from_global(algorithm, observations_table)
+        def expect_observations_from_global(_algorithm, observations_table)
           observations_table.rows.each do |row|
             expect(@global_algorithm.required_pathology).to include(row.first.to_i)
           end

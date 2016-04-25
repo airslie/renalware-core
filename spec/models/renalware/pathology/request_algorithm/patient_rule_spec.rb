@@ -27,7 +27,7 @@ describe Renalware::Pathology::RequestAlgorithm::PatientRule do
   end
 
   describe "#required_for_patient?" do
-    context 'not within range of start/end date' do
+    context "not within range of start/end date" do
       before do
         allow(patient_rule).to receive(:today_within_range?).and_return(false)
       end
@@ -37,19 +37,19 @@ describe Renalware::Pathology::RequestAlgorithm::PatientRule do
       it { is_expected.to eq(false) }
     end
 
-    context 'within range of start/end date' do
+    context "within range of start/end date" do
       before do
         allow(patient_rule).to receive(:today_within_range?).and_return(true)
       end
 
-      context 'last_tested_at nil' do
+      context "last_tested_at nil" do
         subject! { patient_rule.required? }
         it { is_expected.to eq(true) }
       end
 
-      context 'last_tested_at not nil' do
-        let(:date_today) { Date.parse('2016-04-20') }
-        let(:last_tested_at) { Date.parse('2016-04-19') }
+      context "last_tested_at not nil" do
+        let(:date_today) { Date.parse("2016-04-20") }
+        let(:last_tested_at) { Date.parse("2016-04-19") }
         let(:required_from_frequency) { double }
 
         before do
@@ -70,14 +70,14 @@ describe Renalware::Pathology::RequestAlgorithm::PatientRule do
     end
   end
 
-  describe '#today_within_range?' do
-    context 'start/end date not present' do
+  describe "#today_within_range?" do
+    context "start/end date not present" do
       subject { patient_rule.send(:today_within_range?) }
 
       it { is_expected.to eq(true) }
     end
 
-    context 'start/end date present and within range' do
+    context "start/end date present and within range" do
       let(:start_date) { Date.today - 1.day }
       let(:end_date) { Date.today + 1.day }
 
@@ -86,7 +86,7 @@ describe Renalware::Pathology::RequestAlgorithm::PatientRule do
       it { is_expected.to eq(true) }
     end
 
-    context 'start/end date present and not within range' do
+    context "start/end date present and not within range" do
       let(:start_date) { Date.today - 1.day }
       let(:end_date) { Date.today - 2.days }
 
