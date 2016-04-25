@@ -23,7 +23,7 @@ module Renalware
             pathology_observations.*,
             pathology_observation_descriptions.code AS description_code,
             pathology_observation_descriptions.name AS description_name
-           SQL
+          SQL
           .joins(<<-SQL)
             LEFT JOIN pathology_observation_requests
             ON pathology_observations.request_id = pathology_observation_requests.id
