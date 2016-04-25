@@ -15,13 +15,11 @@ module Renalware
       private
 
       def refresh_main_recipient
-        RefreshMainRecipient.new(letter.main_recipient).call
+        letter.main_recipient.refresh!
       end
 
       def refresh_cc_recipients
-        letter.cc_recipients.each do |cc_recipient|
-          RefreshCCRecipient.new(cc_recipient).call
-        end
+        letter.cc_recipients.each { |cc| cc.refresh! }
       end
     end
   end

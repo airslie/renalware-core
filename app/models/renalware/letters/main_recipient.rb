@@ -10,6 +10,10 @@ module Renalware
       def patient?
         source_type == "Renalware::Patient"
       end
+
+      def refresh!
+        RefreshMainRecipient.new(self).call
+      end
     end
   end
 end
