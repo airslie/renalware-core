@@ -21,7 +21,7 @@ module Renalware
 
       def add_patient_as_cc
         return if letter.main_recipient.patient?
-        add_source_as_cc(letter.patient) if letter.patient.cc_on_all_letters
+        add_source_as_cc(letter.patient) if patient.cc_on_letter?(letter)
       end
 
       def add_doctor_as_cc
@@ -32,6 +32,10 @@ module Renalware
       def add_source_as_cc(source)
         recipient ||= letter.cc_recipients.build(source: source)
         recipient.name = source.full_name
+      end
+
+      def patient
+        letter.patient
       end
     end
   end

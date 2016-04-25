@@ -28,7 +28,7 @@ module Renalware
 
             context "when patient opted to be CCd on all letters" do
               before do
-                letter.patient.cc_on_all_letters = true
+                allow(letter.patient).to receive(:cc_on_letter?).and_return(true)
               end
 
               it "adds the patient as a CC recipient" do
@@ -41,7 +41,7 @@ module Renalware
 
             context "when patient did not opt to be CCd on all letters" do
               before do
-                letter.patient.cc_on_all_letters = false
+                allow(letter.patient).to receive(:cc_on_letter?).and_return(false)
               end
 
               it "does not add the patient as a CC recipient" do
