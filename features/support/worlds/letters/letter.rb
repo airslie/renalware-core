@@ -76,8 +76,7 @@ module World
         expect(letter).to be_present
 
         if recipient.is_a? ActiveRecord::Base
-          expect(letter.main_recipient.source_type).to eq(recipient.class.name)
-          expect(letter.main_recipient.source_id).to eq(recipient.id)
+          expect(letter.main_recipient.source).to eq(recipient)
           expect(letter.main_recipient.address.city).to eq(recipient.current_address.city)
         else
           expect(letter.main_recipient.name).to eq(recipient[:name])
