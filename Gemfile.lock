@@ -83,6 +83,7 @@ GEM
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
     cliver (0.3.2)
+    cocoon (1.2.9)
     coderay (1.1.0)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
@@ -412,6 +413,7 @@ DEPENDENCIES
   active_type
   bundler-audit
   capybara (= 2.4.4)
+  cocoon
   cucumber-rails
   database_cleaner
   delayed_job_active_record

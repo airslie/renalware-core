@@ -1,0 +1,16 @@
+- f.object.build_address if f.object.address.blank?
+= f.input :name, wrapper: "vertical_form"
+= f.simple_fields_for :address, wrapper: "vertical_form" do |fa|
+  = fa.input :id, as: :hidden
+  = fa.input :street_1
+  = fa.input :street_2
+  .row
+    .small-6.columns
+      = fa.input :city
+    .small-6.columns
+      = fa.input :county
+  .row
+    .small-6.columns
+      = fa.input :postcode
+    .small-6.columns
+      = fa.input :country, as: :string

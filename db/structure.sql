@@ -1381,6 +1381,7 @@ ALTER SEQUENCE letter_letters_id_seq OWNED BY letter_letters.id;
 
 CREATE TABLE letter_recipients (
     id integer NOT NULL,
+    type character varying NOT NULL,
     source_type character varying,
     source_id integer,
     name character varying,
@@ -1812,6 +1813,7 @@ CREATE TABLE patients (
     first_edta_code_id integer,
     second_edta_code_id integer,
     death_notes text,
+    cc_on_all_letters boolean DEFAULT true,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     practice_id integer,
@@ -4254,6 +4256,13 @@ CREATE INDEX index_letter_recipients_on_letter_id ON letter_recipients USING btr
 --
 
 CREATE INDEX index_letter_recipients_on_source_type_and_source_id ON letter_recipients USING btree (source_type, source_id);
+
+
+--
+-- Name: index_letter_recipients_on_type_and_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_letter_recipients_on_type_and_id ON letter_recipients USING btree (type, id);
 
 
 --

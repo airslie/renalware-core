@@ -3,8 +3,8 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class LetterPresenter < DumbDelegator
-      def recipient_name
-        recipient.name || ""
+      def main_recipient_name
+        main_recipient.to_s || ""
       end
     end
   end

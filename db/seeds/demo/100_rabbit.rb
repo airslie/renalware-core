@@ -387,11 +387,11 @@ module Renalware
   patient.letters.destroy_all
   users = User.limit(3).to_a
 
-  patient.letters.create!(
+  letter = patient.letters.create!(
     issued_on: 1.day.ago,
     description: Renalware::Letters::Description.first.text,
     salutation: "Dear Dr Runner",
-    recipient_attributes: {
+    main_recipient_attributes: {
       source_type: "Renalware::Patient",
       source_id: patient.id
     },
@@ -401,12 +401,13 @@ module Renalware
     author: users.sample,
     by: users.sample
   )
+  Letters::RefreshLetter.new(letter).call
 
-  patient.letters.create!(
+  letter = patient.letters.create!(
     state: :ready_for_review,
     issued_on: 3.days.ago,
     description: Renalware::Letters::Description.last.text,
-    recipient_attributes: {
+    main_recipient_attributes: {
       source_type: "Renalware::Patient",
       source_id: patient.id
     },
@@ -416,12 +417,13 @@ module Renalware
     author: users.sample,
     by: users.sample
   )
+  Letters::RefreshLetter.new(letter).call
 
-  patient.letters.create!(
+  letter = patient.letters.create!(
     state: :archived,
     issued_on: 10.days.ago,
     description: Renalware::Letters::Description.last.text,
-    recipient_attributes: {
+    main_recipient_attributes: {
       source_type: "Renalware::Patient",
       source_id: patient.id
     },
@@ -431,5 +433,6 @@ module Renalware
     author: users.sample,
     by: users.sample
   )
+  Letters::RefreshLetter.new(letter).call
 
 end

@@ -1,4 +1,5 @@
-Feature: Writing a simple letter
+@wip
+Feature: Writing a letter
 
   To officially inform the patient and/or other interested parties about
   their clinical status, an author writes a letter.
@@ -9,24 +10,28 @@ Feature: Writing a simple letter
   Background:
     Given Nathalie is a nurse
     And Patty is a patient
+    And Doug is Patty's doctor
 
   @web @javascript
-  Scenario Outline: A nurse drafted a simple letter
-    When Nathalie drafts a simple letter for Patty addressed to <recipient>
-    Then Patty has a new simple letter for <recipient>
+  Scenario Outline: A nurse drafted a letter
+    Given Patty accepted to be CCd on all letters
+    When Nathalie drafts a letter for Patty to "<recipient>" with "<manual_ccs>"
+    Then "<recipient>" will receive the letter
+    And all "<ccs>" will also receive the letter
 
     Examples:
-      | recipient          |
-      | her doctor         |
-      | herself            |
-      | John Doe in London |
+      | recipient      | manual_ccs                  | ccs                                |
+      | Doug           | John in London              | Patty, John in London              |
+      | Doug           | John in London, Kate in Ely | Patty, John in London, Kate in Ely |
+      | Patty          |                             | Doug                               |
+      | John in London |                             | Patty, Doug                        |
 
   @web
-  Scenario: A nurse updated a simple letter
-    Given Patty has a simple letter
-    Then Nathalie can update Patty's simple letter
+  Scenario: A nurse updated a letter
+    Given Patty has a letter
+    Then Nathalie can update Patty's letter
 
   @web
-  Scenario: A nurse submitted an erroneous simple letter
-    When Nathalie submits an erroneous simple letter
-    Then the simple letter is not accepted
+  Scenario: A nurse submitted an erroneous letter
+    When Nathalie submits an erroneous letter
+    Then the letter is not accepted

@@ -22,4 +22,5 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "HD"
   inflect.acronym "XHR"
   inflect.acronym "HL7"
+  inflect.acronym "CC"
 end

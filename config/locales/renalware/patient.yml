@@ -1,0 +1,5 @@
+en:
+  activerecord:
+    attributes:
+      renalware/patient:
+        cc_on_all_letters: CC on all letters

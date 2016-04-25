@@ -1,0 +1,4 @@
+FactoryGirl.define do
+  factory :letter_patient, class: "Renalware::Letters::Patient", parent: :patient do
+  end
+end

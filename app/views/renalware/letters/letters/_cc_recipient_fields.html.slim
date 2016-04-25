@@ -1,0 +1,7 @@
+.nested-fields
+  .row
+    fieldset
+      = render "form_recipient", f: f
+
+    .right
+      = link_to_remove_association "Remove", f, class: "button tiny"

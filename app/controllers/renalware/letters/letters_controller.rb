@@ -11,19 +11,17 @@ module Renalware
       end
 
       def new
-        @letter = LetterFormPresenter.new(@patient.letters.new)
-        @letter.build_recipient
-        @letter.recipient.build_address
+        @letter = LetterFormPresenter.new(LetterFactory.new(@patient).build)
       end
 
       def create
-        @letter = LetterFormPresenter.new(@patient.letters.new(letter_params))
+        letter = DraftLetter.new(LetterFactory.new(@patient).build).call(letter_params)
 
-        if @letter.save
-          refresh_letter(@letter)
+        if letter.persisted?
           redirect_to patient_letters_letters_path(@patient),
             notice: t(".success", model_name: "Letter")
         else
+          @letter = LetterFormPresenter.new(letter)
           flash[:error] = t(".failed", model_name: "Letter")
           render :new
         end
@@ -35,18 +33,18 @@ module Renalware
 
       def edit
         @letter = LetterFormPresenter.new(@patient.letters.find(params[:id]))
-        @letter.build_recipient if @letter.recipient.blank?
-        @letter.recipient.build_address if @letter.recipient.address.blank?
-        refresh_letter(@letter)
+        refresh_letter(@letter) # Remove when wisper is used
       end
 
       def update
-        @letter = LetterFormPresenter.new(@patient.letters.find(params[:id]))
-        if @letter.update(letter_params)
-          refresh_letter(@letter)
+        letter = @patient.letters.find(params[:id])
+        letter = DraftLetter.new(letter).call(letter_params)
+
+        if letter.valid?
           redirect_to patient_letters_letters_path(@patient),
             notice: t(".success", model_name: "Letter")
         else
+          @letter = LetterFormPresenter.new(letter)
           flash[:error] = t(".failed", model_name: "Letter")
           render :edit
         end
@@ -65,13 +63,27 @@ module Renalware
         [
           :letterhead_id, :author_id, :description, :issued_on,
           :salutation, :body, :notes,
-          recipient_attributes: [
-            :id, :name, :source_type, :source_id,
-            address_attributes: [
-              :id, :street_1, :street_2, :city, :county, :postcode, :country, :_destroy
-            ]
-          ]
+          main_recipient_attributes: main_recipient_attributes,
+          cc_recipients_attributes: cc_recipients_attributes
         ]
+      end
+
+      def main_recipient_attributes
+        [
+          :id, :name, :source_type, :source_id,
+          address_attributes: address_attributes
+        ]
+      end
+
+      def cc_recipients_attributes
+        [
+          :id, :name, :source_type, :source_id, :_destroy,
+          address_attributes: address_attributes
+        ]
+      end
+
+      def address_attributes
+        [:id, :street_1, :street_2, :city, :county, :postcode, :country, :_destroy]
       end
 
       def refresh_letter(letter)

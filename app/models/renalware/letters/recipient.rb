@@ -9,25 +9,19 @@ module Renalware
 
       accepts_nested_attributes_for :address, reject_if: :address_not_needed?, allow_destroy: true
 
-      after_initialize :apply_defaults, if: :new_record?
-
       def to_s
-        name
+        [name, address].compact.map(&:to_s).join(", ")
       end
 
-      def copy_address!(address)
+      def copy_address!(source_address)
         build_address if address.blank?
-        address.copy_from(address).save!
+        address.copy_from(source_address).save!
       end
 
       private
 
       def address_not_needed?
         source_type.present?
-      end
-
-      def apply_defaults
-        self.source_type ||= Doctor.name
       end
     end
   end
