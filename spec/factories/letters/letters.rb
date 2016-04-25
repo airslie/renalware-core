@@ -12,10 +12,6 @@ FactoryGirl.define do
     association :created_by, factory: :user
     association :updated_by, factory: :user
 
-    after(:build) do |letter|
-      letter.main_recipient = build(:letter_main_recipient)
-    end
-
     trait(:ready_for_review) do
       state "ready_for_review"
     end
