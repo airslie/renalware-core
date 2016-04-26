@@ -1,7 +1,4 @@
 dependencies:
-  pre:
-    - echo Y | rvm @global do gem uninstall --force bundler
-    - gem install bundler -v '1.10.6'
   post:
     - bundle exec bundle-audit update && bundle exec bundle-audit check
 
