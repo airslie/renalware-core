@@ -13,7 +13,7 @@ module Renalware
       sample_type: row["sample_type"],
       frequency: row["frequency"],
       patient_id: row["patient_id"],
-      last_tested_at: row["last_tested_at"],
+      last_observed_at: row["last_observed_at"],
       start_date: row["start_date"],
       end_date: row["end_date"]
     )
