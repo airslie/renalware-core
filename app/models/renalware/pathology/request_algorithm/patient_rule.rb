@@ -20,9 +20,9 @@ module Renalware
 
         def required?
           return false unless today_within_range?
-          return true if last_tested_at.nil?
+          return true if last_observed_at.nil?
 
-          days_ago_observed = Date.today - last_tested_at.to_date
+          days_ago_observed = Date.today - last_observed_at.to_date
 
           required_from_frequency?(frequency, days_ago_observed)
         end
