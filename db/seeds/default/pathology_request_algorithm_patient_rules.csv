@@ -1,2 +1,2 @@
-"lab","test_description","sample_number_bottles","sample_type","frequency","patient_id","last_tested_at","start_date","end_date"
+"lab","test_description","sample_number_bottles","sample_type","frequency","patient_id","last_observed_at","start_date","end_date"
 "Biochem","Test for antibodies","1","...","Always","1",,,,

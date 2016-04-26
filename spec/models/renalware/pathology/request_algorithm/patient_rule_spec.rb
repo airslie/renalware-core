@@ -13,14 +13,14 @@ describe Renalware::Pathology::RequestAlgorithm::PatientRule do
   end
 
   let(:patient) { Renalware::Pathology.cast_patient(create(:patient)) }
-  let(:last_tested_at) { nil }
+  let(:last_observed_at) { nil }
   let(:start_date) { nil }
   let(:end_date) { nil }
   let(:patient_rule) do
     create(
       :pathology_request_algorithm_patient_rule,
       patient: patient,
-      last_tested_at: last_tested_at,
+      last_observed_at: last_observed_at,
       start_date: start_date,
       end_date: end_date
     )
@@ -42,14 +42,14 @@ describe Renalware::Pathology::RequestAlgorithm::PatientRule do
         allow(patient_rule).to receive(:today_within_range?).and_return(true)
       end
 
-      context "last_tested_at nil" do
+      context "last_observed_at nil" do
         subject! { patient_rule.required? }
         it { is_expected.to eq(true) }
       end
 
-      context "last_tested_at not nil" do
+      context "last_observed_at not nil" do
         let(:date_today) { Date.parse("2016-04-20") }
-        let(:last_tested_at) { Date.parse("2016-04-19") }
+        let(:last_observed_at) { Date.parse("2016-04-19") }
         let(:required_from_frequency) { double }
 
         before do

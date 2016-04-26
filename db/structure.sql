@@ -1834,7 +1834,7 @@ CREATE TABLE pathology_request_algorithm_patient_rules (
     sample_type character varying,
     frequency character varying,
     patient_id integer,
-    last_tested_at timestamp without time zone,
+    last_observed_at timestamp without time zone,
     start_date date,
     end_date date
 );
@@ -5459,4 +5459,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160412123106');
 INSERT INTO schema_migrations (version) VALUES ('20160419132410');
 
 INSERT INTO schema_migrations (version) VALUES ('20160420132524');
+
+INSERT INTO schema_migrations (version) VALUES ('20160426093341');
 

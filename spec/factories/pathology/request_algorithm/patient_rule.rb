@@ -7,7 +7,7 @@ FactoryGirl.define do
       sample_number_bottles 1
       sample_type nil
       frequency %w(Once Always Weekly Monthly).sample
-      last_tested_at nil
+      last_observed_at nil
       start_date nil
       end_date nil
   end
