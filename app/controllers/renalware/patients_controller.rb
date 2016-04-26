@@ -39,7 +39,7 @@ module Renalware
     end
 
     def update
-      if @patient.update(patient_params)
+      if UpdatePatient.new.call(@patient.id, patient_params)
         redirect_to patient_clinical_summary_path(@patient),
           notice: t(".success", model_name: "patient")
       else
