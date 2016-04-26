@@ -19,7 +19,7 @@ Given(/^Patty has observed an ([A-Z0-9]+) value of (\d+)$/) do |code, result|
   record_observations(
     patient: @patty,
     observations_attributes: [
-      { 'code' => code, 'result' => result, 'observed_at' => Date.today.to_s }
+      { "code" => code, "result" => result, "observed_at" => Date.today.to_s }
     ]
   )
 end
@@ -33,7 +33,7 @@ Given(/^Patty was last tested for ([A-Z0-9]+) (\d+) days ago$/) do |code, days|
   record_observations(
     patient: @patty,
     observations_attributes: [
-      { 'code' => code, 'result' => rand(100), 'observed_at' => observed_at.to_s }
+      { "code" => code, "result" => rand(100), "observed_at" => observed_at.to_s }
     ]
   )
 end
