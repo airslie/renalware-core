@@ -8,13 +8,30 @@ module Renalware
       def render(view_model)
         header, *body = view_model
 
-        content_tag(:table, id: "observations") do
-          concat(format_header(header))
-          concat(format_body(body))
+        content_tag(:div) do
+          slice_size =  calculate_slice_size(body.size)
+          body.each_slice(slice_size) do |partial_body|
+            concat(build_table(header, partial_body))
+          end
         end
       end
 
       private
+
+      def calculate_slice_size(number)
+        (number.to_f / number_of_columns).ceil
+      end
+
+      def number_of_columns
+       3
+      end
+
+      def build_table(header, body)
+        content_tag(:table, id: "observations", class: "current-observations") do
+          concat(format_header(header))
+          concat(format_body(body))
+        end
+      end
 
       def format_header(cells)
         content_tag(:thead) do
