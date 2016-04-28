@@ -13,9 +13,9 @@ module Renalware
         doctor = find_doctor(doctor_id)
 
         if doctor.update(params)
-          broadcast(:doctor_updated, doctor)
+          broadcast(:update_doctor_successful, doctor)
         else
-          broadcast(:doctor_update_failed, doctor)
+          broadcast(:update_doctor_failed, doctor)
         end
       end
 

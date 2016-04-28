@@ -12,12 +12,12 @@ module Renalware
         allow(RefreshRecipient).to receive(:build).and_return(service_double)
       end
 
-      describe "#patient_updated" do
+      describe "#update_patient_successful" do
         shared_examples_for "PendingLetter" do
           it "refreshes the recipient" do
             expect(service_double).to receive(:call)
 
-            subject.patient_updated(patient.reload)
+            subject.update_patient_successful(patient.reload)
           end
         end
 
@@ -25,7 +25,7 @@ module Renalware
           it "refreshes the recipient" do
             expect(service_double).to_not receive(:call)
 
-            subject.patient_updated(patient.reload)
+            subject.update_patient_successful(patient.reload)
           end
         end
 

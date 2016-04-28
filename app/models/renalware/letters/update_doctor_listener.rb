@@ -3,7 +3,7 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class UpdateDoctorListener
-      def doctor_updated(doctor)
+      def update_doctor_successful(doctor)
         letter_doctor = Letters.cast_doctor(doctor)
         refresh_pending_letters(letter_doctor)
       end

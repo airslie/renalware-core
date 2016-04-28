@@ -13,9 +13,9 @@ module Renalware
         patient = find_patient(patient_id)
 
         if patient.update(params)
-          broadcast(:patient_updated, patient)
+          broadcast(:update_patient_successful, patient)
         else
-          broadcast(:patient_update_failed, patient)
+          broadcast(:update_patient_failed, patient)
         end
       end
 

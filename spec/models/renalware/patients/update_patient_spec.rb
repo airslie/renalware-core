@@ -14,26 +14,28 @@ module Renalware::Patients
           expect(patient.reload.given_name).to eq("RABBIT")
         end
 
-        it " broadcasts :patient_updated" do
-          expect_subject_to_broadcast(:patient_updated, instance_of(Renalware::Patient))
+        it "notifies a listener the patient was updated successfully" do
+          listener = spy(:listener)
+          subject.subscribe(listener)
 
           subject.call(patient.id, params)
+
+          expect(listener).to have_received(:update_patient_successful).with(instance_of(Renalware::Patient))
         end
       end
 
       context "give invalid patient attributes" do
         let(:params) { attributes_for(:patient, given_name: nil) }
 
-        it " broadcasts :patient_update_failed" do
-          expect_subject_to_broadcast(:patient_update_failed, instance_of(Renalware::Patient))
+        it "notifies a listener the patient update failed" do
+          listener = spy(:listener)
+          subject.subscribe(listener)
 
           subject.call(patient.id, params)
+
+          expect(listener).to have_received(:update_patient_failed).with(instance_of(Renalware::Patient))
         end
       end
-    end
-
-    def expect_subject_to_broadcast(*args)
-      expect(subject).to receive(:broadcast).with(*args)
     end
   end
 end

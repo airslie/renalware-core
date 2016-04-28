@@ -16,10 +16,13 @@ module Renalware
             expect(letter).to be_persisted
           end
 
-          it "broadcasts :persist_letter_successful" do
-            expect_subject_to_broadcast(:persist_letter_successful, instance_of(Letter))
+          it "notifies a listener the letter was persisted successfully" do
+            listener = spy(:listener)
+            subject.subscribe(listener)
 
             subject.call(letter)
+
+            expect(listener).to have_received(:persist_letter_successful).with(instance_of(Letter))
           end
         end
 
@@ -31,10 +34,6 @@ module Renalware
             }.to raise_error(ActiveRecord::RecordInvalid)
           end
         end
-      end
-
-      def expect_subject_to_broadcast(*args)
-        expect(subject).to receive(:broadcast).with(*args)
       end
     end
   end

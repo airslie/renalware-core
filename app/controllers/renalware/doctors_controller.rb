@@ -34,12 +34,12 @@ module Renalware
     def update
       service = Doctors::UpdateDoctor.build
 
-      service.on(:doctor_updated) do |doctor|
+      service.on(:update_doctor_successful) do |doctor|
         redirect_to doctors_path,
           notice: t(".success", model_name: "doctor")
       end
 
-      service.on(:doctor_update_failed) do |doctor|
+      service.on(:update_doctor_failed) do |doctor|
         @doctor = doctor
         flash[:error] = t(".failed", model_name: "doctor")
         render action: :edit

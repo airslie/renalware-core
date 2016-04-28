@@ -25,34 +25,36 @@ module Renalware
         end
 
         context "when letter is persisted" do
-          it "broadcasts :revise_letter_successfull" do
+          it "notifies a listener the letter was revised successfully" do
             stub_persistancy
 
-            expect_subject_to_broadcast(:revise_letter_successful, instance_of(Letter))
+            listener = spy(:listener)
+            subject.subscribe(listener)
 
             subject.call(patient, letter.id)
+
+            expect(listener).to have_received(:revise_letter_successful).with(instance_of(Letter))
           end
         end
 
         context "when letter cannot be persisted" do
-          it "broadcasts :revise_letter_failed" do
+          it "notifies a listener the revising the letter failed" do
             service = double
             allow(service).to receive(:call).and_raise(ActiveRecord::RecordInvalid.new(Letter.new))
             allow(PersistLetter).to receive(:build).and_return(service)
 
-            expect_subject_to_broadcast(:revise_letter_failed, instance_of(Letter))
+            listener = spy(:listener)
+            subject.subscribe(listener)
 
             subject.call(patient, letter.id)
+
+            expect(listener).to have_received(:revise_letter_failed).with(instance_of(Letter))
           end
         end
       end
 
       def stub_persistancy
         allow(PersistLetter).to receive(:build).and_return(double.as_null_object)
-      end
-
-      def expect_subject_to_broadcast(*args)
-        expect(subject).to receive(:broadcast).with(*args)
       end
     end
   end
