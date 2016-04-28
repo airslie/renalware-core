@@ -15,7 +15,7 @@ module Renalware
     end
 
     def edit
-      render
+      render_form(@doctor, :edit)
     end
 
     def create
@@ -32,20 +32,10 @@ module Renalware
     end
 
     def update
-      service = Doctors::UpdateDoctor.build
-
-      service.on(:update_doctor_successful) do |doctor|
-        redirect_to doctors_path,
-          notice: t(".success", model_name: "doctor")
-      end
-
-      service.on(:update_doctor_failed) do |doctor|
-        @doctor = doctor
-        flash[:error] = t(".failed", model_name: "doctor")
-        render action: :edit
-      end
-
-      service.call(@doctor.id, doctor_params)
+      Doctors::UpdateDoctor.build
+        .on(:update_doctor_successful) { redirect_to_doctors_list }
+        .on(:update_doctor_failed) { |doctor| render_form(doctor, :edit) }
+        .call(@doctor.id, doctor_params)
     end
 
     def destroy
@@ -60,6 +50,17 @@ module Renalware
     def find_doctor
       @doctor = Doctor.find_or_initialize_by(id: params[:id])
       authorize @doctor
+    end
+
+    def redirect_to_doctors_list
+      redirect_to doctors_path,
+        notice: t(".success", model_name: "doctor")
+    end
+
+    def render_form(doctor, action)
+      @doctor = doctor
+      flash[:error] = t(".failed", model_name: "doctor")
+      render action
     end
 
     def doctor_params

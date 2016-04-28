@@ -35,24 +35,14 @@ module Renalware
     end
 
     def edit
-      render
+      render_form(@patient, :edit)
     end
 
     def update
-      service = Patients::UpdatePatient.build
-
-      service.on(:update_patient_successful) do |patient|
-        redirect_to patient_clinical_summary_path(patient),
-          notice: t(".success", model_name: "patient")
-      end
-
-      service.on(:update_patient_failed) do |patient|
-        @patient = patient
-        flash[:error] = t(".failed", model_name: "patient")
-        render action: :edit
-      end
-
-      service.call(@patient.id, patient_params)
+      Patients::UpdatePatient.build
+        .on(:update_patient_successful) { |patient| redirect_to_clinical_summary(patient) }
+        .on(:update_patient_failed) { |patient| render_form(patient, :edit) }
+        .call(@patient.id, patient_params)
     end
 
     private
@@ -74,6 +64,17 @@ module Renalware
     def find_patient
       @patient = Patient.find(params[:id])
       authorize @patient
+    end
+
+    def redirect_to_clinical_summary(patient)
+      redirect_to patient_clinical_summary_path(patient),
+        notice: t(".success", model_name: "patient")
+    end
+
+    def render_form(patient, action)
+      @patient = patient
+      flash[:error] = t(".failed", model_name: "patient")
+      render action
     end
   end
 end
