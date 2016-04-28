@@ -1,25 +1,22 @@
 Feature: Determining observations required based on patient rules
 
-  The patient pathology algorithm determines if there were any patient specific observations added that apply to the patient based on the current date and the time of the last observation.
+  The patient pathology algorithm determines the required patient-specific observations for a patient based on the current date and the time of the last observation for that patient.
 
-  The patient_rules tables contains rules which are specific to a patient and will be printed in the form under a separate section. These are rules for tests are defined by the clinician in a text field "test_description".
+  Unlike global rules, patient rules are created for a specific patient. They are printed in the form under a separate section. A clinician defines patient rules labelling them with a free-form description.
 
-  Its possible the clinician may define a patient specific test which has already been determined as required by the global rules algorithm, in which case its up to the clinician to decide what to do.
+  The clinical will determine if an observation is required when a patient-specific rule conflicts with a global rule.
 
-  The last_observed_at column is updated every time the test instruction is printed.
+  When the clinician prints the test instructions, the last_observed_at timestamp for the rule is updated.
 
   Scenario Outline:
 
     Given Patty is a patient
     And Patty has a patient rule:
       | lab                   | Biochem             |
-      | test_description      | Test for antibodies |
-      | sample_number_bottles | 1                   |
-      | sample_type           | ...                 |
+      | test_description      | Test for HepB       |
       | frequency             | <frequency>         |
-      | patient               | Patty               |
       | last_observed_at      | <last_observed_at>  |
-    And the current date is between the start/end dates <within_range>
+    And the current date is between the rule's start/end dates <within_range>
     When the patient pathology algorithm is run for Patty
     Then it is determined the patient's observation is <determination>
 

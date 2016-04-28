@@ -1,40 +1,69 @@
-require "array_stringifier"
-
 module World
   module Pathology
     module RequestAlgorithm
       module Domain
-        # @section commands
+        # @section helpers
+        #
 
-        def create_patient_rule(params)
-          # Convert "5 days ago" to a Time object
-          last_tested_matches =
-            params["last_observed_at"]
-            .match(/^(?<num>\d+) (?<time_unit>day|days|week|weeks) ago$/)
+        # Convert "5 days ago" to a Time object
+        def str_to_time(last_observed_at)
+          last_tested_matches = last_observed_at.match(/^(?<num>\d+) (?<time_unit>day|days|week|weeks) ago$/)
 
           if last_tested_matches
-            params["last_observed_at"] =
-              Time.now - last_tested_matches[:num].to_i.send(last_tested_matches[:time_unit].to_sym)
+            last_tested_matches[:num].to_i.public_send(last_tested_matches[:time_unit]).ago
           end
+        end
 
-          params["patient"] = Renalware::Pathology::Patient.find_by(family_name: params["patient"])
+        # @section commands
+        #
+        def create_patient_rule(params)
+          params['last_observed_at'] = str_to_time(params["last_observed_at"])
+          params['patient'] = Renalware::Pathology.cast_patient(params['patient'])
 
           Renalware::Pathology::RequestAlgorithm::PatientRule.create!(params)
         end
 
+        def update_patient_rule_start_end_dates(patient_rule, within_rage)
+          params =
+            if within_rage == "yes"
+              {
+                start_date: Date.today - 1.days,
+                end_date: Date.today + 1.days
+              }
+            else
+              {
+                start_date: Date.today - 2.days,
+                end_date: Date.today - 1.days
+              }
+            end
+
+            patient_rule.update_attributes!(params)
+        end
+
         def create_global_rule(params)
-          if params["param_type"] == "ObservationResult"
-            observation_description =
-              Renalware::Pathology::ObservationDescription.find_by(code: params["param_id"])
+          param_id =
+            case params["type"]
+              when "ObservationResult" then
+                Renalware::Pathology::ObservationDescription.find_by(code: params["id"]).id
+              when "Drug" then
+                Renalware::Drugs::Drug.find_by(name: params["id"]).id
+            end
 
-            params["param_id"] = observation_description.id
-          elsif params["param_type"] == "Drug"
-            drug = Renalware::Drugs::Drug.find_by(name: params["param_id"])
+          Renalware::Pathology::RequestAlgorithm::GlobalRule.create!(
+            global_rule_set_id: params['global_rule_set_id'],
+            param_type: params['type'],
+            param_id: param_id,
+            param_comparison_operator: params['operator'],
+            param_comparison_value: params['value']
+          )
+        end
 
-            params["param_id"] = drug.id
+        def create_global_rules_from_table(table)
+          table.rows.map do |row|
+            params = Hash[table.headers.zip(row)]
+            params['global_rule_set_id'] = @rule_set.id
+            create_global_rule(params)
           end
-
-          Renalware::Pathology::RequestAlgorithm::GlobalRule.create!(params)
         end
 
         def create_global_rule_set(params)
@@ -50,24 +79,24 @@ module World
         end
 
         def run_global_algorithm(patient, regime)
-          Renalware::Pathology::RequestAlgorithm::Global.new(patient, regime)
+          Renalware::Pathology::RequestAlgorithm::Global.new(patient, regime).required_pathology
         end
 
         def run_patient_algorithm(patient)
-          Renalware::Pathology::RequestAlgorithm::Patient.new(patient)
+          Renalware::Pathology::RequestAlgorithm::Patient.new(patient).required_pathology
         end
 
         # @section expectations
         #
-        def expect_observations_from_global(_algorithm, observations_table)
+        def expect_observations_from_global(required_global_observations, observations_table)
           observations_table.rows.each do |row|
-            expect(@global_algorithm.required_pathology).to include(row.first.to_i)
+            expect(required_global_observations).to include(row.first.to_i)
           end
         end
 
-        def expect_observations_from_patient(algorithm, observations_table)
+        def expect_observations_from_patient(required_patient_observations, observations_table)
           observations_table.rows.each do |row|
-            expect(algorithm.required_pathology.map(&:id)).to include(row.first.to_i)
+            expect(required_patient_observations.map(&:id)).to include(row.first.to_i)
           end
         end
       end

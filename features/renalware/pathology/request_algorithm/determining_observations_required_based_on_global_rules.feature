@@ -1,109 +1,120 @@
 Feature: Determining observations required based on global rules
 
-  The global pathology algorithm determines which observations are required for a patient.
+  The global pathology algorithm determines the required observations for a patient.
 
-  The determination is made by a set of rules where each rule decides whether or not an observation is required for a patient given the parameters.
+  The algorithm consists of a set of global and patient rules. By applying a given parameter to a rule, the rule decides if an observation is required.
 
-  A rule for an observation can be based on multiple parameters i.e. rules can be have the form "if A and B then observe C" and also "if A or B then observe C".
+  A global rule can apply multiple parameters using different boolean logic operators:
+  - if A and B then observe C
+  - if A or B then observe C
 
-  Scenario Outline: Determining based only on the date of the last observation and the regime.
+  Background:
+    Given Patty is a patient
+
+  Scenario Outline: The required observations were determined based on the regime.
+
+     This scenario encodes the following rule as an example:
+
+     Test for Vitamin B12 Serum
+       if the patient is in Nephrology
+       and the patient was last tested a week ago or longer.
+
+     Given the global rule sets:
+       | observation_description_code | B12         |
+       | regime                       | Nephrology  |
+       | frequency                    | Always      |
+     When the global pathology algorithm is run for Patty in regime <regime>
+     Then it is determined the observation is <determination>
+
+     Examples:
+       | regime     | determination |
+       | Nephrology | required      |
+       | HD         | not required  |
+
+  Scenario Outline: The required observations were determined based on the date of the last observation and the frequency.
+
+     This scenario encodes the following rule as an example:
+
+     Test for Vitamin B12 Serum
+       if the patient is in Nephrology
+       and the patient was last tested a week ago or longer.
+
+     Given the global rule sets:
+       | observation_description_code | B12         |
+       | regime                       | Nephrology  |
+       | frequency                    | <frequency> |
+     And Patty was last tested for B12 <last_observed>
+     When the global pathology algorithm is run for Patty in regime Nephrology
+     Then it is determined the observation is <determination>
+
+     Examples:
+       | frequency | last_observed | determination |
+       | Once      |               | required      |
+       | Once      | 5 days ago    | not required  |
+       | Always    |               | required      |
+       | Always    | 5 days ago    | required      |
+       | Weekly    |               | required      |
+       | Weekly    | 5 days ago    | not required  |
+       | Weekly    | 7 days ago    | required      |
+
+  Scenario Outline: The required observations were determined based on the date of the last observation, the frequency and a single parameter.
 
     This scenario encodes the following rule as an example:
 
     Test for Vitatim B12 Serum
       if the patient is in Nephrology
-      and the patient was lasted test a week ago or longer.
+      and the patient was last tested a week ago or longer
+      and the patient has an observation result for HGB less than 100.
 
     Given the global rule sets:
-      | id                           | 2           |
       | observation_description_code | B12         |
       | regime                       | Nephrology  |
       | frequency                    | <frequency> |
-    And Patty is a patient
+    And the rule set contains these rules:
+      | type              | id  | operator | value |
+      | ObservationResult | HGB | <        | 100   |
+    And Patty has observed an HGB value of <observation_result>
     And Patty was last tested for B12 <last_observed>
     When the global pathology algorithm is run for Patty in regime Nephrology
     Then it is determined the observation is <determination>
 
     Examples:
-      | frequency | last_observed | determination |
-      | Once      |               | required      |
-      | Once      | 5 days ago    | not required  |
-      | Always    |               | required      |
-      | Always    | 5 days ago    | required      |
-      | Weekly    |               | required      |
-      | Weekly    | 5 days ago    | not required  |
-      | Weekly    | 7 days ago    | required      |
+      | frequency | observation_result | last_observed | determination |
+      | Once      | 99                 |               | required      |
+      | Once      | 100                |               | not required  |
+      | Once      | 99                 | 5 days ago    | not required  |
+      | Once      | 100                | 5 days ago    | not required  |
 
-  Scenario Outline: Determining based on date of the last observation, regime and a single parameter.
+      | Always    | 99                 |               | required      |
+      | Always    | 100                |               | not required  |
+      | Always    | 99                 | 5 days ago    | required      |
+      | Always    | 100                | 5 days ago    | not required  |
 
-    This scenario encodes the following rule as an example:
+      | Weekly    | 99                 |               | required      |
+      | Weekly    | 100                |               | not required  |
+      | Weekly    | 99                 | 5 days ago    | not required  |
+      | Weekly    | 100                | 5 days ago    | not required  |
+      | Weekly    | 99                 | 7 days ago    | required      |
+      | Weekly    | 100                | 7 days ago    | not required  |
 
-    Test for Vitatim B12 Serum
-      if the patient is in Nephrology
-      and the patient was lasted test a week ago or longer
-      and the patient has an observation result for HGB less than 100.
-
-    Given the global rule:
-      | id                        | 1                 |
-      | global_rule_set_id        | 2                 |
-      | param_type                | ObservationResult |
-      | param_id                  | HGB               |
-      | param_comparison_operator | <                 |
-      | param_comparison_value    | 100               |
-    And the global rule sets:
-      | id                           | 2           |
-      | observation_description_code | B12         |
-      | regime                       | Nephrology  |
-      | frequency                    | <frequency> |
-    And Patty is a patient
-    And Patty has observed an HGB value of <observation_result>
-    And Patty was last tested for B12 <last_observed>
-    When the global pathology algorithm is run for Patty in regime <regime>
-    Then it is determined the observation is <determination>
-
-    Examples:
-      | regime     | frequency | observation_result | last_observed | determination |
-      | Nephrology | Once      | 99                 |               | required      |
-      | Nephrology | Once      | 100                |               | not required  |
-      | Nephrology | Once      | 99                 | 5 days ago    | not required  |
-      | Nephrology | Once      | 100                | 5 days ago    | not required  |
-
-      | Nephrology | Always    | 99                 |               | required      |
-      | Nephrology | Always    | 100                |               | not required  |
-      | Nephrology | Always    | 99                 | 5 days ago    | required      |
-      | Nephrology | Always    | 100                | 5 days ago    | not required  |
-
-      | Nephrology | Weekly    | 99                 |               | required      |
-      | Nephrology | Weekly    | 100                |               | not required  |
-      | Nephrology | Weekly    | 99                 | 5 days ago    | not required  |
-      | Nephrology | Weekly    | 100                | 5 days ago    | not required  |
-      | Nephrology | Weekly    | 99                 | 7 days ago    | required      |
-      | Nephrology | Weekly    | 100                | 7 days ago    | not required  |
-
-  Scenario Outline: Determining based on multiple required parameters.
+  Scenario Outline: The required observations were determined based on multiple parameters.
 
     Test for Vitatim B12 Serum
       if the patient is in Nephrology
-      and the patient was lasted test a week ago or longer
+      and the patient was last tested a week ago or longer
       and the patient has an observation result for HGB less than 100
-      and the patient is currently on the drug Ephedrine Tablet.
+      and the patient is currently prescribed Ephedrine Tablet.
 
-    Given the global rules:
-      | id                        | 3                 | 4                |
-      | global_rule_set_id        | 2                 | 2                |
-      | param_type                | ObservationResult | Drug             |
-      | param_id                  | HGB               | Ephedrine Tablet |
-      | param_comparison_operator | <                 | include?         |
-      | param_comparison_value    | 100               |                  |
-
-    And the global rule sets:
-      | id                           | 2          |
+    Given the global rule sets:
       | observation_description_code | B12        |
       | regime                       | Nephrology |
       | frequency                    | Always     |
-    And Patty is a patient
+    And the rule set contains these rules:
+      | type              | id               | operator | value |
+      | ObservationResult | HGB              | <        | 100   |
+      | Drug              | Ephedrine Tablet | include? |       |
     And Patty has observed an HGB value of <observation_result>
-    And Patty is currently on the drug Ephedrine Tablet <drug_perscribed>
+    And Patty is currently prescribed Ephedrine Tablet <drug_perscribed>
     When the global pathology algorithm is run for Patty in regime Nephrology
     Then it is determined the observation is <determination>
 
