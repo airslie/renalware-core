@@ -33,13 +33,13 @@ module World
 
         letter_attributes = valid_simple_letter_attributes(patient).merge(
           author: user,
-          main_recipient_attributes: { source_type: "Renalware::Patient", source_id: patient.id },
+          main_recipient_attributes: { source: patient },
           by: user
         )
 
         Renalware::Letters::DraftLetter.build
           .on(:draft_letter_successful) { |letter| return letter }
-          .on(:draft_letter_failed) { |letter| raise "Letter creation failed!" }
+          .on(:draft_letter_failed) { raise "Letter creation failed!" }
           .call(patient, letter_attributes)
       end
 
@@ -65,20 +65,16 @@ module World
       def update_simple_letter(patient:, user:)
         patient = letters_patient(patient)
 
-        travel_to 1.hour.from_now
-
-        letter = simple_letter_for(patient)
+        existing_letter = simple_letter_for(patient)
         letter_attributes = {
-          updated_at: Time.zone.now,
-          issued_on: (letter.issued_on + 1.day),
-          author: user,
+          body: "updated body",
           by: user
         }
 
         Renalware::Letters::ReviseLetter.build
           .on(:revise_letter_successful) { |letter| return letter }
           .on(:revise_letter_failed) { |letter| return letter }
-          .call(patient, letter.id, letter_attributes)
+          .call(patient, existing_letter.id, letter_attributes)
       end
 
       # @section expectations
@@ -124,7 +120,8 @@ module World
       end
 
       def expect_letter_to_be_addressed_to(letter:, address_attributes:)
-        expect(letter.main_recipient.address.attributes.symbolize_keys).to include(address_attributes)
+        attributes = letter.main_recipient.address.attributes.symbolize_keys
+        expect(attributes).to include(address_attributes)
       end
 
       private

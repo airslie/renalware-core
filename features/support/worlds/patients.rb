@@ -1,7 +1,7 @@
 module World
   module Patients
     module Domain
-      def update_patient_address(patient:, current_address_attributes: {})
+      def update_patient_address(patient:, current_address_attributes:)
         params = {
           current_address_attributes: current_address_attributes
         }
