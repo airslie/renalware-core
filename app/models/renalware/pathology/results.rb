@@ -1,17 +1,24 @@
 require_dependency "renalware/pathology"
-require "hash_collection"
 
 module Renalware
   module Pathology
-    class ResultsArchive
+    # A view model representing the aggregation of observations by date.
+    #
+    class Results
+      attr_reader :observation_descriptions
+
       def initialize(observations, observation_descriptions)
         @observations = observations
         @observation_descriptions = observation_descriptions
       end
 
+      def map(&block)
+        to_a.map(&block)
+      end
+
       def to_a
         observations_by_date.map do |observed_on, observations_of_the_same_date|
-          build_row(observed_on, observations_of_the_same_date, @observation_descriptions)
+          build_row(observed_on, observations_of_the_same_date, observation_descriptions)
         end
       end
 
@@ -39,15 +46,15 @@ module Renalware
         #
         # Example:
         #
-        # {Date.parse("2016-10-10") => {ObservationDescription.new(code: "HB") =>"",
-        #   ObservationDescription.new(code: "RBC")=>"4"}}
+        # {Date.parse("2016-10-10") => [Observation.new(result: ""), Observation.new(result: "4")]}
         #
         def call
-          descriptions = @descriptions.each_with_object({}) do |description, attrs|
-            attrs[description] = find_observation_result_by_description(description)
+          observations = @descriptions.map do |description|
+            find_observation_result_by_description(description) ||
+              null_observation_for_description(description)
           end
 
-          { @observed_on => descriptions }
+          { @observed_on => observations }
         end
 
         private
@@ -57,8 +64,11 @@ module Renalware
         #                       if none is found, a nil returned.
         #
         def find_observation_result_by_description(description)
-          observation = @observations.detect { |o| o.description == description }
-          observation.try!(:result)
+          @observations.detect { |observation| observation.description == description }
+        end
+
+        def null_observation_for_description(description)
+          Observation.new(description: description, result: "")
         end
       end
     end

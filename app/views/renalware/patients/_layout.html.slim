@@ -8,6 +8,6 @@
 
     h2= title
 
-    = render partial: "navigation"
+    = render partial: local_assigns[:navigation_partial] || "navigation"
 
     = yield

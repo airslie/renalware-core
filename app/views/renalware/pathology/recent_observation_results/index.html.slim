@@ -1,0 +1,9 @@
+- opts = { title: "Archived Pathology Results", navigation_partial: "renalware/pathology/navigation" }
+= render layout: "renalware/patients/layout", locals: opts do
+  - if rows.empty?
+    p No results available for this patient.
+
+  - else
+    p.hint Most recent pathology results (max #{paginator.limit_value} displayed). Hover over row header for investigation name.
+
+    = table.render(rows)
