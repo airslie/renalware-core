@@ -11,7 +11,8 @@ module Renalware
 
       def call(_params={})
         results = find_current_observations_for_descriptions
-        present(results)
+        sorted_results = sort_results(results)
+        present(sorted_results)
       end
 
       private
@@ -20,6 +21,12 @@ module Renalware
         CurrentObservationsForDescriptionsQuery
           .new(patient: @patient, descriptions: @descriptions)
           .call
+      end
+
+      def sort_results(results)
+        @descriptions.map do |description|
+          results.detect {|result| result.description_code == description.code }
+        end
       end
 
       def present(results)
