@@ -12,7 +12,6 @@ module Renalware
           it "saves the letter" do
             subject.call(letter)
 
-            expect(letter.errors).to be_blank
             expect(letter).to be_persisted
           end
 

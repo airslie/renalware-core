@@ -5,7 +5,7 @@ module Renalware
     RSpec.describe AssignAutomaticCCs, type: :model do
       include LettersSpecHelper
 
-      describe ".call" do
+      describe "#call" do
         let(:attributes) { letter.attributes.merge(by: letter.author) }
 
         context "when recipient is the patient" do
@@ -30,7 +30,7 @@ module Renalware
               subject.call(letter)
 
               expect(letter.cc_recipients.size).to eq(1)
-              expect(letter.cc_recipients.first.source.id).to eq(letter.patient.id)
+              expect(letter.cc_recipients.first.source).to eq(letter.patient)
             end
           end
 
@@ -42,7 +42,7 @@ module Renalware
             it "does not add the patient as a CC recipient" do
               subject.call(letter)
 
-              expect(letter.cc_recipients.size).to eq(0)
+              expect(letter.cc_recipients).to be_empty
             end
           end
         end
