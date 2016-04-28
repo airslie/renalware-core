@@ -2,7 +2,7 @@ require_dependency "renalware/letters"
 
 module Renalware
   module Letters
-    class AssignAutomaticCcs
+    class AssignAutomaticCCs
       attr_reader :letter
 
       def self.build
