@@ -4,8 +4,10 @@ require_dependency "models/renalware/concerns/personable"
 module Renalware
   module Letters
     describe Patient, type: :model do
+      include LettersSpecHelper
+
       let(:patient) { create(:letter_patient) }
-      let(:letter) { build(:letter, patient: patient) }
+      let(:letter) { build_letter_to(:patient, patient: patient) }
 
       describe "#cc_on_letter?" do
         it "returns true if option is set in its profile" do
@@ -22,7 +24,7 @@ module Renalware
 
         it "returns false if letter of another patient" do
           patient.cc_on_all_letters = true
-          letter = build(:letter)
+          letter = build_letter_to(:patient)
 
           expect(patient.cc_on_letter?(letter)).to be_falsy
         end

@@ -3,6 +3,8 @@ require "rails_helper"
 module Renalware
   module Letters
     RSpec.describe UpdatePatientListener, type: :model do
+      include LettersSpecHelper
+
       let(:patient) { letter.patient }
       let(:service_double) { double(call: true) }
 
@@ -13,7 +15,7 @@ module Renalware
       describe "#patient_updated" do
         shared_examples_for "PendingLetter" do
           it "refreshes the recipient" do
-            expect(service_double).to receive(:call).with(recipient)
+            expect(service_double).to receive(:call)
 
             subject.patient_updated(patient.reload)
           end
@@ -50,12 +52,6 @@ module Renalware
             end
           end
         end
-      end
-
-      def create_persisted_letter(trait, letter_state)
-        letter = build(:letter, trait, letter_state)
-        PersistLetter.build.call(letter)
-        letter
       end
     end
   end

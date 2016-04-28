@@ -3,7 +3,9 @@ require "rails_helper"
 module Renalware
   module Letters
     RSpec.describe ReviseLetter, type: :model do
-      let(:letter) { create(:letter, :to_patient) }
+      include LettersSpecHelper
+
+      let(:letter) { create_letter_to(:patient) }
       let(:patient) { letter.patient }
 
       describe ".call" do

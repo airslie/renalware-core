@@ -23,37 +23,5 @@ FactoryGirl.define do
     trait(:archived) do
       state "archived"
     end
-
-    trait :to_doctor do
-      after(:build) do |letter|
-        letter.main_recipient = build(:letter_main_recipient, source_type: "Renalware::Doctor")
-      end
-      after(:create) do |letter|
-        letter.cc_recipients = [build(:letter_cc_recipient, source: letter.patient)]
-      end
-    end
-
-    trait :to_patient do
-      after(:build) do |letter|
-        letter.main_recipient = build(:letter_main_recipient, source_type: "Renalware::Patient")
-      end
-      after(:create) do |letter|
-        letter.cc_recipients = [build(:letter_cc_recipient, source: letter.patient.doctor)]
-      end
-    end
-
-    trait :to_someone_else do
-      after(:build) do |letter|
-        letter.main_recipient = build(:letter_main_recipient, source: nil,
-          name: "John Doe", address: build(:address)
-        )
-      end
-      after(:create) do |letter|
-        letter.cc_recipients = [
-          build(:letter_cc_recipient, source: letter.patient.doctor),
-          build(:letter_cc_recipient, source: letter.patient)
-        ]
-      end
-    end
   end
 end

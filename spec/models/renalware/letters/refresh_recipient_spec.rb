@@ -3,7 +3,9 @@ require "rails_helper"
 module Renalware
   module Letters
     RSpec.describe RefreshRecipient, type: :model do
-      let(:letter) { create(:letter, :to_patient) }
+      include LettersSpecHelper
+
+      let(:letter) { create_letter_to(:patient) }
       let!(:recipient) { create(:letter_recipient, letter: letter, source_type: source.class.name) }
 
       shared_examples_for "Recipient" do

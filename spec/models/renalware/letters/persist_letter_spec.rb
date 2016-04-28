@@ -3,7 +3,9 @@ require "rails_helper"
 module Renalware
   module Letters
     RSpec.describe PersistLetter, type: :model do
-      let(:letter) { build(:letter, :to_patient) }
+      include LettersSpecHelper
+
+      let(:letter) { build_letter_to(:patient) }
 
       describe ".call" do
         context "with a valid letter" do
