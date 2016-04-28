@@ -9,9 +9,11 @@ module Renalware
         @patient = patient
       end
 
-      def build
-        patient.letters.new.tap do |letter|
-          letter.build_main_recipient(source_type: Doctor.name) if letter.main_recipient.blank?
+      def build(params={})
+        patient.letters.new(params).tap do |letter|
+          if letter.main_recipient.blank?
+            letter.build_main_recipient(source_type: Renalware::Doctor.name)
+          end
         end
       end
     end

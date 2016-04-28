@@ -5,6 +5,7 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'shoulda/matchers'
 require 'pundit/rspec'
+require 'wisper/rspec/matchers'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -54,4 +55,5 @@ RSpec.configure do |config|
   config.include Select2SpecHelper, type: :feature
   config.include SelectDateSpecHelper, type: :feature
   config.include ActiveSupport::Testing::TimeHelpers
+  config.include(Wisper::RSpec::BroadcastMatcher)
 end

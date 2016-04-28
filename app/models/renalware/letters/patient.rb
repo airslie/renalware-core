@@ -3,6 +3,8 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class Patient < ActiveType::Record[Renalware::Patient]
+      include ActsAsLetterRecipient
+
       has_many :letters
 
       def cc_on_letter?(letter)

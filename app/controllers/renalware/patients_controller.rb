@@ -39,13 +39,20 @@ module Renalware
     end
 
     def update
-      if UpdatePatient.new.call(@patient.id, patient_params)
-        redirect_to patient_clinical_summary_path(@patient),
+      service = Patients::UpdatePatient.build
+
+      service.on(:patient_updated) do |patient|
+        redirect_to patient_clinical_summary_path(patient),
           notice: t(".success", model_name: "patient")
-      else
-        flash[:error] = t(".failed", model_name: "patient")
-        render :edit
       end
+
+      service.on(:patient_update_failed) do |patient|
+        @patient = patient
+        flash[:error] = t(".failed", model_name: "patient")
+        render action: :edit
+      end
+
+      service.call(@patient.id, patient_params)
     end
 
     private

@@ -12,6 +12,10 @@ FactoryGirl.define do
     association :created_by, factory: :user
     association :updated_by, factory: :user
 
+    trait(:draft) do
+      state "draft"
+    end
+
     trait(:ready_for_review) do
       state "ready_for_review"
     end

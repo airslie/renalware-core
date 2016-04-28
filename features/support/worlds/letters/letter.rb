@@ -30,14 +30,17 @@ module World
       #
       def set_up_simple_letter_for(patient, user:)
         patient = letters_patient(patient)
-        result = Renalware::Letters::DraftLetter.new(patient.letters.build).call(
-          valid_simple_letter_attributes(patient).merge(
-            author: user,
-            main_recipient_attributes: { source_type: "Renalware::Patient", source_id: patient.id },
-            by: user
-          )
+
+        letter_attributes = valid_simple_letter_attributes(patient).merge(
+          author: user,
+          main_recipient_attributes: { source_type: "Renalware::Patient", source_id: patient.id },
+          by: user
         )
-        raise "Letter creation failed!" unless result
+
+        Renalware::Letters::DraftLetter.build
+          .on(:draft_letter_successful) { |letter| return letter }
+          .on(:draft_letter_failed) { |letter| raise "Letter creation failed!" }
+          .call(patient, letter_attributes)
       end
 
       # @section commands
@@ -52,19 +55,30 @@ module World
           main_recipient_attributes: build_main_recipient_attributes(recipient),
           cc_recipients_attributes: build_cc_recipients_attributes(ccs)
         )
-        Renalware::Letters::DraftLetter.new(patient.letters.build).call(letter_attributes)
+
+        Renalware::Letters::DraftLetter.build
+          .on(:draft_letter_successful) { |letter| return letter }
+          .on(:draft_letter_failed) { |letter| return letter }
+          .call(patient, letter_attributes)
       end
 
       def update_simple_letter(patient:, user:)
+        patient = letters_patient(patient)
+
         travel_to 1.hour.from_now
 
         letter = simple_letter_for(patient)
-        Renalware::Letters::DraftLetter.new(letter).call(
+        letter_attributes = {
           updated_at: Time.zone.now,
           issued_on: (letter.issued_on + 1.day),
           author: user,
           by: user
-        )
+        }
+
+        Renalware::Letters::ReviseLetter.build
+          .on(:revise_letter_successful) { |letter| return letter }
+          .on(:revise_letter_failed) { |letter| return letter }
+          .call(patient, letter.id, letter_attributes)
       end
 
       # @section expectations
@@ -107,6 +121,10 @@ module World
         end
 
         expect(ccs_map).to match_array(cc_recipients_map)
+      end
+
+      def expect_letter_to_be_addressed_to(letter:, address_attributes:)
+        expect(letter.main_recipient.address.attributes.symbolize_keys).to include(address_attributes)
       end
 
       private

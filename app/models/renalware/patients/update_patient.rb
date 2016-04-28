@@ -3,10 +3,20 @@ require_dependency "renalware/patients"
 module Renalware
   module Patients
     class UpdatePatient
+      include Wisper::Publisher
+
+      def self.build
+        SubscriptionRegistry.instance.subscribe_listeners_to(self.new)
+      end
+
       def call(patient_id, params)
         patient = find_patient(patient_id)
 
-        patient.update(params)
+        if patient.update(params)
+          broadcast(:patient_updated, patient)
+        else
+          broadcast(:patient_update_failed, patient)
+        end
       end
 
       private

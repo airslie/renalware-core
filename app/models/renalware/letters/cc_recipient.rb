@@ -6,10 +6,6 @@ module Renalware
       def automatic?
         source_type.present?
       end
-
-      def refresh!
-        RefreshCCRecipient.new(self).call
-      end
     end
   end
 end

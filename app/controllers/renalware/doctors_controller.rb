@@ -2,6 +2,8 @@ module Renalware
   class DoctorsController < BaseController
     include Renalware::Concerns::Pageable
 
+    before_action :find_doctor, only: [:edit, :update]
+
     def index
       @doctors = Doctor.order(:family_name).page(@page).per(@per_page)
       authorize @doctors
@@ -13,12 +15,14 @@ module Renalware
     end
 
     def edit
-      @doctor = Doctor.find(params[:id])
-      authorize @doctor
+      render
     end
 
     def create
-      if update_doctor.call(doctor_params)
+      @doctor = Doctor.new(doctor_params)
+      authorize @doctor
+
+      if @doctor.save
         redirect_to doctors_path,
           notice: t(".success", model_name: "doctor")
       else
@@ -28,13 +32,20 @@ module Renalware
     end
 
     def update
-      if update_doctor.call(doctor_params)
+      service = Doctors::UpdateDoctor.build
+
+      service.on(:doctor_updated) do |doctor|
         redirect_to doctors_path,
           notice: t(".success", model_name: "doctor")
-      else
-        flash[:error] = t(".failed", model_name: "doctor")
-        render :edit
       end
+
+      service.on(:doctor_update_failed) do |doctor|
+        @doctor = doctor
+        flash[:error] = t(".failed", model_name: "doctor")
+        render action: :edit
+      end
+
+      service.call(@doctor.id, doctor_params)
     end
 
     def destroy
@@ -46,11 +57,9 @@ module Renalware
 
     private
 
-    def update_doctor
+    def find_doctor
       @doctor = Doctor.find_or_initialize_by(id: params[:id])
       authorize @doctor
-
-      UpdateDoctor.new(@doctor)
     end
 
     def doctor_params

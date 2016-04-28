@@ -2,15 +2,16 @@ require "rails_helper"
 
 module Renalware
   module Letters
-    RSpec.describe DraftLetter, type: :model do
-      let(:patient) { create(:letter_patient, cc_on_all_letters: false) }
+    RSpec.describe ReviseLetter, type: :model do
+      let(:letter) { create(:letter, :to_patient) }
+      let(:patient) { letter.patient }
 
       describe ".call" do
-        it "sets up the letter" do
+        it "assigns attributes to the letter" do
           stub_persistancy
 
-          subject.call(patient, description: "Foo")
-            .on(:draft_letter_successfull) do |letter|
+          subject.call(patient, letter.id, description: "Foo")
+            .on(:revise_letter_successfull) do |letter|
               expect(letter.description).to eq("Foo")
             end
         end
@@ -18,28 +19,28 @@ module Renalware
         it "persists the letter" do
           expect(PersistLetter).to receive(:build).and_return(double.as_null_object)
 
-          subject.call(patient)
+          subject.call(patient, letter.id)
         end
 
         context "when letter is persisted" do
-          it "broadcasts :draft_letter_successfull" do
+          it "broadcasts :revise_letter_successfull" do
             stub_persistancy
 
-            expect_subject_to_broadcast(:draft_letter_successful, instance_of(Letter))
+            expect_subject_to_broadcast(:revise_letter_successful, instance_of(Letter))
 
-            subject.call(patient)
+            subject.call(patient, letter.id)
           end
         end
 
         context "when letter cannot be persisted" do
-          it "broadcasts :draft_letter_failed" do
+          it "broadcasts :revise_letter_failed" do
             service = double
             allow(service).to receive(:call).and_raise(ActiveRecord::RecordInvalid.new(Letter.new))
             allow(PersistLetter).to receive(:build).and_return(service)
 
-            expect_subject_to_broadcast(:draft_letter_failed, instance_of(Letter))
+            expect_subject_to_broadcast(:revise_letter_failed, instance_of(Letter))
 
-            subject.call(patient)
+            subject.call(patient, letter.id)
           end
         end
       end

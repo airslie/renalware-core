@@ -11,6 +11,7 @@ module Renalware
       belongs_to :letterhead
       has_one :main_recipient
       has_many :cc_recipients, dependent: :destroy
+      has_many :recipients, dependent: :destroy
 
       accepts_nested_attributes_for :main_recipient
       accepts_nested_attributes_for :cc_recipients, reject_if: :all_blank, allow_destroy: true
@@ -37,6 +38,10 @@ module Renalware
 
       def manual_cc_recipients
         cc_recipients.select { |cc| !cc.automatic? }
+      end
+
+      def refresh!
+        RefreshLetter.new(self).call
       end
     end
   end

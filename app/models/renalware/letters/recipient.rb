@@ -7,21 +7,45 @@ module Renalware
       belongs_to :source, polymorphic: true
       has_one :address, as: :addressable
 
-      accepts_nested_attributes_for :address, reject_if: :address_not_needed?, allow_destroy: true
+      accepts_nested_attributes_for :address, reject_if: :from_source?, allow_destroy: true
+
+      scope :with_source, -> { where.not(source_type: nil) }
 
       def to_s
         [name, address].compact.map(&:to_s).join(", ")
       end
 
-      def copy_address!(source_address)
-        build_address if address.blank?
-        address.copy_from(source_address).save!
+      def manual?
+        # Note: if the recipient does not have a source, it is a "manually typed" recipient
+        # Otherwise, it is either a Doctor or a Patient
+        source_type.blank?
       end
 
-      private
+      def from_source?
+        !manual?
+      end
 
-      def address_not_needed?
-        source_type.present?
+      def doctor?
+        source_type == "Renalware::Doctor"
+      end
+
+      def patient?
+        source_type == "Renalware::Patient"
+      end
+
+      def assign_source!
+        return if manual?
+
+        case
+        when patient?
+          self.source = letter.patient
+        when doctor?
+          self.source = letter.patient.doctor
+        else
+          raise "Unknown source_type #{source_type}"
+        end
+
+        save
       end
     end
   end
