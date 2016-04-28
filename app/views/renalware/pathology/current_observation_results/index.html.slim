@@ -1,2 +1,3 @@
-= render layout: "renalware/patients/layout", locals: { title: "Current Pathology Results" } do
+- opts = { title: "Current Pathology Results", navigation_partial: "renalware/pathology/navigation" }
+= render layout: "renalware/patients/layout", locals: opts do
   = table.render(rows)

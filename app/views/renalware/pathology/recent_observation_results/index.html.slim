@@ -1,4 +1,5 @@
-= render layout: "renalware/patients/layout", locals: { title: "Archived Pathology Results" } do
+- opts = { title: "Archived Pathology Results", navigation_partial: "renalware/pathology/navigation" }
+= render layout: "renalware/patients/layout", locals: opts do
   - if rows.empty?
     p No results available for this patient.
 
