@@ -387,7 +387,7 @@ module Renalware
   patient.letters.destroy_all
   users = User.limit(3).to_a
 
-  letter = Letters::DraftLetter.new.call(patient.letters.new,
+  letter = Letters::DraftLetter.build.call(patient,
     issued_on: 1.day.ago,
     description: Renalware::Letters::Description.first.text,
     salutation: "Dear Dr Runner",
@@ -402,7 +402,7 @@ module Renalware
     by: users.sample
   )
 
-  letter = Letters::DraftLetter.new.call(patient.letters.new,
+  letter = Letters::DraftLetter.build.call(patient,
     state: :ready_for_review,
     issued_on: 3.days.ago,
     description: Renalware::Letters::Description.last.text,
@@ -417,7 +417,7 @@ module Renalware
     by: users.sample
   )
 
-  letter = Letters::DraftLetter.new.call(patient.letters.new,
+  letter = Letters::DraftLetter.build.call(patient,
     state: :archived,
     issued_on: 10.days.ago,
     description: Renalware::Letters::Description.last.text,
