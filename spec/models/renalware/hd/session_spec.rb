@@ -25,8 +25,8 @@ module Renalware
 
         context "when end_time is prior to start_time" do
           it "is not valid" do
-            session.start_time = 1.hour.ago
-            session.end_time = 2.hours.ago
+            session.start_time = Time.zone.parse("2016-04-28 12:00")
+            session.end_time = Time.zone.parse("2016-04-28 11:00")
             expect(session).to_not be_valid
           end
         end
