@@ -44,7 +44,7 @@ module Renalware
       end
 
       def add_source_as_cc(source)
-        recipient = letter.cc_recipients.create!(source: source, name: source.full_name)
+        letter.cc_recipients.create!(source: source, name: source.full_name)
       end
 
       def patient

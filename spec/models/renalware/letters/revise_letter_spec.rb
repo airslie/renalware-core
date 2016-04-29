@@ -32,20 +32,25 @@ module Renalware
 
             subject.call(patient, letter.id)
 
-            expect(listener).to have_received(:revise_letter_successful).with(instance_of(Letter))
+            expect(listener)
+              .to have_received(:revise_letter_successful)
+              .with(instance_of(Letter))
           end
         end
 
         context "when letter cannot be persisted" do
           it "notifies a listener the revising the letter failed" do
-            allow(persist_letter).to receive(:call).and_raise(ActiveRecord::RecordInvalid.new(Letter.new))
+            allow(persist_letter).to receive(:call)
+              .and_raise(ActiveRecord::RecordInvalid.new(Letter.new))
 
             listener = spy(:listener)
             subject.subscribe(listener)
 
             subject.call(patient, letter.id)
 
-            expect(listener).to have_received(:revise_letter_failed).with(instance_of(Letter))
+            expect(listener)
+              .to have_received(:revise_letter_failed)
+                .with(instance_of(Letter))
           end
         end
       end

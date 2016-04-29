@@ -51,6 +51,9 @@ Then(/^all "(.*?)" will also receive the letter$/) do |ccs|
 end
 
 Then(/^Patty's pending letter is addressed to her new address$/) do
-  expect_letter_to_be_addressed_to(letter: @letter, address_attributes: { street_1: "new street 1" })
+  expect_letter_to_be_addressed_to(
+    letter: @letter,
+    address_attributes: { street_1: "new street 1" }
+  )
 end
 

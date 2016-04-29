@@ -20,7 +20,9 @@ module Renalware::Doctors
 
           subject.call(doctor.id, params)
 
-          expect(listener).to have_received(:update_doctor_successful).with(instance_of(Renalware::Doctor))
+          expect(listener)
+            .to have_received(:update_doctor_successful)
+            .with(instance_of(Renalware::Doctor))
         end
       end
 
@@ -33,7 +35,9 @@ module Renalware::Doctors
 
           subject.call(doctor.id, params)
 
-          expect(listener).to have_received(:update_doctor_failed).with(instance_of(Renalware::Doctor))
+          expect(listener)
+            .to have_received(:update_doctor_failed)
+            .with(instance_of(Renalware::Doctor))
         end
       end
     end
