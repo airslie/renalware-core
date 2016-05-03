@@ -6,6 +6,8 @@ module Renalware
       module FrequencyMethods
         extend ActiveSupport::Concern
 
+        FREQUENCIES = ["Always", "Once", "Weekly", "Monthly"]
+
         private
 
         # NOTE: This method assumes days_ago_observed > 0

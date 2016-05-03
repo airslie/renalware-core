@@ -9,7 +9,6 @@ module Renalware
         self.table_name = "pathology_request_algorithm_global_rule_sets"
 
         REGIMES = ["Nephrology", "LCC", "PD", "HD", "TP", "Donor Screen", "Donor Clinic"]
-        FREQUENCIES = ["Always", "Once", "Weekly", "Monthly"]
 
         has_many :rules, class_name: "GlobalRule"
         belongs_to :observation_description

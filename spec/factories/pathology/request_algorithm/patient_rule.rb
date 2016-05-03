@@ -6,7 +6,7 @@ FactoryGirl.define do
       test_description "Test for HepB"
       sample_number_bottles 1
       sample_type nil
-      frequency %w(Once Always Weekly Monthly).sample
+      frequency Renalware::Pathology::RequestAlgorithm::PatientRule::FREQUENCIES.sample
       last_observed_at nil
       start_date nil
       end_date nil

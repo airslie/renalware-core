@@ -8,8 +8,6 @@ module Renalware
 
         self.table_name = "pathology_request_algorithm_patient_rules"
 
-        FREQUENCIES = ["Always", "Once", "Weekly", "Monthly"]
-
         belongs_to :patient, class_name: "::Renalware::Pathology::Patient"
 
         validates :lab, presence: true

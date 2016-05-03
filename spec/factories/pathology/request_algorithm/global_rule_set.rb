@@ -3,6 +3,6 @@ FactoryGirl.define do
     class: "Renalware::Pathology::RequestAlgorithm::GlobalRuleSet" do
       association :observation_description, factory: :pathology_observation_description
       regime "Nephrology"
-      frequency %w(Once Always Weekly Monthly).sample
+      frequency Renalware::Pathology::RequestAlgorithm::GlobalRuleSet::FREQUENCIES.sample
   end
 end
