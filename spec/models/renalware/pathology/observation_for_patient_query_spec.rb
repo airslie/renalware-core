@@ -31,7 +31,6 @@ describe Renalware::Pathology::ObservationForPatientQuery do
     end
     let!(:observation_3) { create(:pathology_observation, request: observation_request_2) }
 
-
     subject { query.call }
 
     it { is_expected.to eq(observation_1) }

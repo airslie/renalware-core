@@ -8,8 +8,6 @@ module Renalware
 
         FREQUENCIES = ["Always", "Once", "Weekly", "Monthly"]
 
-        private
-
         # NOTE: This method assumes days_ago_observed > 0
         def required_from_frequency?(frequency, days_ago_observed)
           case frequency

@@ -13,7 +13,7 @@ module Renalware
         has_many :rules, class_name: "GlobalRule"
         belongs_to :observation_description
 
-        validates :observation_description_id, presence: true
+        validates :observation_description, presence: true
         validates :regime, presence: true, inclusion: { in: REGIMES }
         validates :frequency, presence: true, inclusion: { in: FREQUENCIES }
 

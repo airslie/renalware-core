@@ -45,13 +45,13 @@ describe Renalware::Pathology::RequestAlgorithm::Global do
       let(:global_rule_1) do
         create(
           :pathology_request_algorithm_global_rule,
-          global_rule_set_id: global_rule_set.id
+          global_rule_set: global_rule_set
         )
       end
       let(:global_rule_2) do
         create(
           :pathology_request_algorithm_global_rule,
-          global_rule_set_id: global_rule_set.id
+          global_rule_set: global_rule_set
         )
       end
       let(:global_rules) { [global_rule_1, global_rule_2] }
