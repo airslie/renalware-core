@@ -13,7 +13,7 @@ module Renalware
         def required_pathology
           rule_sets
             .select { |rule_set| observation_required?(rule_set) }
-            .map { |rule_set| rule_set.observation_description_id }
+            .map { |rule_set| rule_set.observation_description }
             .uniq
         end
 

@@ -32,7 +32,7 @@ describe Renalware::Pathology::RequestAlgorithm::Global do
 
       context "rule set required" do
         let(:global_rule_set_required) { true }
-        it { is_expected.to eq([global_rule_set.observation_description_id])}
+        it { is_expected.to eq([global_rule_set.observation_description])}
       end
 
       context "rule set required" do
@@ -68,7 +68,7 @@ describe Renalware::Pathology::RequestAlgorithm::Global do
         let(:global_rule_1_required) { true }
         let(:global_rule_2_required) { true }
 
-        it { is_expected.to eq([global_rule_set.observation_description_id])}
+        it { is_expected.to eq([global_rule_set.observation_description])}
       end
 
       context "rule_set required and some rules required" do

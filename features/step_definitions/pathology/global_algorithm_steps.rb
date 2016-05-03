@@ -50,7 +50,7 @@ end
 Then(/^it is determined the observation is (required|not required)$/) do |determined|
   if determined == "required"
     expect(@required_global_observations).to eq(
-      [@rule_set.observation_description_id]
+      [@rule_set.observation_description]
     )
   else
     expect(@required_global_observations).to eq([])
