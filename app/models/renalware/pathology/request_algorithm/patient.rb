@@ -9,7 +9,7 @@ module Renalware
         end
 
         def required_pathology
-          @patient.patient_rules.select { |rule| rule.required? }
+          @patient.rules.select { |rule| rule.required? }
         end
       end
     end

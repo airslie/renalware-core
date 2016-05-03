@@ -25,8 +25,7 @@ module Renalware
 
           def observation_result
             @observation_result ||= begin
-              observation = @patient.observations.where(description_id: @param_id)
-                .order(observed_at: :desc).limit(1).first
+              observation = ObservationForPatientQuery.new(@patient, @param_id).call
 
               observation.result.to_i if observation.present?
             end

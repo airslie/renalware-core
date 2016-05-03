@@ -4,14 +4,7 @@ describe Renalware::Pathology::RequestAlgorithm::ParamType::ObservationResult do
   let!(:patient) { Renalware::Pathology.cast_patient(create(:patient)) }
   let!(:observation_description) { create(:pathology_observation_description) }
   let!(:observation_request) { create(:pathology_observation_request, patient: patient) }
-  let!(:observation) do
-    create(
-      :pathology_observation,
-      request: observation_request,
-      description: observation_description,
-      observed_at: Time.now - 1.week
-    )
-  end
+  let(:result) { 99 }
 
   let(:param_comparison_operator) { "<" }
   let(:param_comparison_value) { 100 }
@@ -33,26 +26,38 @@ describe Renalware::Pathology::RequestAlgorithm::ParamType::ObservationResult do
   end
 
   describe "#patient_requires_test?" do
-    let(:patient_requires_test) { double }
+    context "observation_result exists" do
+      let!(:observation) do
+        create(
+          :pathology_observation,
+          request: observation_request,
+          description: observation_description,
+          observed_at: Time.now - 1.week,
+          result: result
+        )
+      end
 
-    before do
-      allow(observation_result).to receive(:observation_result).and_return(observation)
-      allow(observation).to receive(:send).and_return(patient_requires_test)
+      context "result is less than 100" do
+        subject! { observation_result.patient_requires_test? }
+
+        it { is_expected.to eq(true) }
+      end
+
+      context "result is not less than 100" do
+        let(:result) { 100 }
+
+        subject! { observation_result.patient_requires_test? }
+
+        it { is_expected.to eq(false) }
+      end
     end
 
-    subject! { observation_result.patient_requires_test? }
+    context "observation_result does not exist" do
+      let(:observation) { nil }
 
-    it { expect(observation_result).to have_received(:observation_result).twice }
-    it do
-      expect(observation).to have_received(:send)
-        .with(param_comparison_operator.to_sym, param_comparison_value)
+      subject! { observation_result.patient_requires_test? }
+
+      it { is_expected.to eq(true) }
     end
-    it { is_expected.to eq(patient_requires_test) }
-  end
-
-  describe "#observation_result" do
-    subject { observation_result.send(:observation_result) }
-
-    it { is_expected.to eq(observation.result.to_i) }
   end
 end
