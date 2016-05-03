@@ -5023,6 +5023,14 @@ ALTER TABLE ONLY transplant_donor_workups
 
 
 --
+-- Name: fk_rails_9bc5d6970e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_request_algorithm_global_rule_sets
+    ADD CONSTRAINT fk_rails_9bc5d6970e FOREIGN KEY (observation_description_id) REFERENCES pathology_observation_descriptions(id);
+
+
+--
 -- Name: fk_rails_9c76b7ba29; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5079,11 +5087,27 @@ ALTER TABLE ONLY access_profiles
 
 
 --
+-- Name: fk_rails_b13e09c8a3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_request_algorithm_patient_rules
+    ADD CONSTRAINT fk_rails_b13e09c8a3 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: fk_rails_b6ee03185c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_donor_operations
     ADD CONSTRAINT fk_rails_b6ee03185c FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_b77918cf71; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_request_algorithm_global_rules
+    ADD CONSTRAINT fk_rails_b77918cf71 FOREIGN KEY (global_rule_set_id) REFERENCES pathology_request_algorithm_global_rule_sets(id);
 
 
 --
@@ -5461,4 +5485,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160419132410');
 INSERT INTO schema_migrations (version) VALUES ('20160420132524');
 
 INSERT INTO schema_migrations (version) VALUES ('20160426093341');
+
+INSERT INTO schema_migrations (version) VALUES ('20160503113814');
 

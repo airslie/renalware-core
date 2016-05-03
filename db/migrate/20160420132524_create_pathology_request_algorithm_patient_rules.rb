@@ -11,5 +11,6 @@ class CreatePathologyRequestAlgorithmPatientRules < ActiveRecord::Migration
       t.date :start_date
       t.date :end_date
     end
+    add_foreign_key :pathology_request_algorithm_patient_rules, :patients
   end
 end
