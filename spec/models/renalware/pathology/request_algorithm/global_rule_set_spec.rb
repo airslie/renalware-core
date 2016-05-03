@@ -25,7 +25,9 @@ describe Renalware::Pathology::RequestAlgorithm::GlobalRuleSet do
     let!(:patient) { create(:patient) }
     let(:pathology_patient) { Renalware::Pathology.cast_patient(patient) }
     let!(:observation_description) { create(:pathology_observation_description) }
-    let!(:observation_request) { create(:pathology_observation_request, patient: pathology_patient) }
+    let!(:observation_request) do
+      create(:pathology_observation_request, patient: pathology_patient)
+    end
 
     subject { global_rule_set.required_for_patient?(patient) }
 

@@ -15,7 +15,7 @@ Given(/^Patty has observed an ([A-Z0-9]+) value of (\d+)$/) do |code, result|
   )
 end
 
-Given(/^Patty was last tested for ([A-Z0-9]+)(\s|\s(\d+) days ago)$/) do |code, time_ago, days|
+Given(/^Patty was last tested for ([A-Z0-9]+)(\s|\s(\d+) days ago)$/) do |code, _time_ago, days|
   if days.present?
     observed_at = (Time.now - days.days).to_date
     record_observations(

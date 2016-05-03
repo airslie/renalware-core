@@ -7,7 +7,8 @@ module World
 
         # Convert "5 days ago" to a Time object
         def str_to_time(last_observed_at)
-          last_tested_matches = last_observed_at.match(/^(?<num>\d+) (?<time_unit>day|days|week|weeks) ago$/)
+          last_tested_matches =
+            last_observed_at.match(/^(?<num>\d+) (?<time_unit>day|days|week|weeks) ago$/)
 
           if last_tested_matches
             last_tested_matches[:num].to_i.public_send(last_tested_matches[:time_unit]).ago
@@ -17,8 +18,8 @@ module World
         # @section commands
         #
         def create_patient_rule(params)
-          params['last_observed_at'] = str_to_time(params["last_observed_at"])
-          params['patient'] = Renalware::Pathology.cast_patient(params['patient'])
+          params["last_observed_at"] = str_to_time(params["last_observed_at"])
+          params["patient"] = Renalware::Pathology.cast_patient(params["patient"])
 
           Renalware::Pathology::RequestAlgorithm::PatientRule.create!(params)
         end
@@ -50,18 +51,18 @@ module World
             end
 
           Renalware::Pathology::RequestAlgorithm::GlobalRule.create!(
-            global_rule_set_id: params['global_rule_set_id'],
-            param_type: params['type'],
+            global_rule_set_id: params["global_rule_set_id"],
+            param_type: params["type"],
             param_id: param_id,
-            param_comparison_operator: params['operator'],
-            param_comparison_value: params['value']
+            param_comparison_operator: params["operator"],
+            param_comparison_value: params["value"]
           )
         end
 
         def create_global_rules_from_table(table)
           table.rows.map do |row|
             params = Hash[table.headers.zip(row)]
-            params['global_rule_set_id'] = @rule_set.id
+            params["global_rule_set_id"] = @rule_set.id
             create_global_rule(params)
           end
         end

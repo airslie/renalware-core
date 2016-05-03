@@ -1,6 +1,6 @@
 Given(/^Patty has a patient rule:$/) do |table|
   @patient_rule = create_patient_rule(
-    table.rows_hash.merge('patient' => @patty)
+    table.rows_hash.merge("patient" => @patty)
   )
 end
 
