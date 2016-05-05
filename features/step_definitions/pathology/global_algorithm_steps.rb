@@ -44,15 +44,15 @@ Given(/^Patty is currently prescribed Ephedrine Tablet (yes|no)$/) do |perscribe
 end
 
 When(/^the global pathology algorithm is run for Patty in regime (.*)$/) do |regime|
-  @required_global_observations = run_global_algorithm(@patty, regime)
+  @required_request_descriptions = run_global_algorithm(@patty, regime)
 end
 
 Then(/^it is determined the observation is (required|not required)$/) do |determined|
   if determined == "required"
-    expect(@required_global_observations).to eq(
-      [@rule_set.observation_description]
+    expect(@required_request_descriptions).to eq(
+      [@rule_set.request_description]
     )
   else
-    expect(@required_global_observations).to eq([])
+    expect(@required_request_descriptions).to eq([])
   end
 end

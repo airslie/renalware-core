@@ -11,9 +11,9 @@ module Renalware
         REGIMES = ["Nephrology", "LCC", "PD", "HD", "TP", "Donor Screen", "Donor Clinic"]
 
         has_many :rules, class_name: "GlobalRule"
-        belongs_to :observation_description
+        belongs_to :request_description
 
-        validates :observation_description, presence: true
+        validates :request_description, presence: true
         validates :regime, presence: true, inclusion: { in: REGIMES }
         validates :frequency, presence: true, inclusion: { in: FREQUENCIES }
 
@@ -27,9 +27,9 @@ module Renalware
           def initialize(rule_set, patient)
             @rule_set = rule_set
             @patient = patient
-            @last_observation = ObservationForPatientQuery.new(
+            @last_observation = ObservationForPatientRequestDescriptionQuery.new(
               Renalware::Pathology.cast_patient(patient),
-              rule_set.observation_description_id
+              rule_set.request_description_id
             ).call
           end
 

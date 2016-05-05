@@ -2,9 +2,12 @@ Feature: Determining observations required based on an observation result rule t
 
   A rule with rule_type "ObservationResult" makes a numerical comparison on a patient's observation_result with a given value.
 
+  Background:
+    Given request description B12 requires observation description B12
+
   Scenario Outline:
     Given the global rule sets:
-      | observation_description_code | B12        |
+      | request_description_code     | B12        |
       | regime                       | Nephrology |
       | frequency                    | Always     |
     And the rule set contains these rules:

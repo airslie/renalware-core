@@ -68,14 +68,14 @@ module World
         end
 
         def create_global_rule_set(params)
-          observation_description =
-            Renalware::Pathology::ObservationDescription.find_by(
-              code: params["observation_description_code"]
+          request_description =
+            Renalware::Pathology::RequestDescription.find_by(
+              code: params["request_description_code"]
             )
-          params["observation_description_id"] = observation_description.id
+          params["request_description_id"] = request_description.id
 
           Renalware::Pathology::RequestAlgorithm::GlobalRuleSet.create!(
-            params.except("observation_description_code")
+            params.except("request_description_code")
           )
         end
 

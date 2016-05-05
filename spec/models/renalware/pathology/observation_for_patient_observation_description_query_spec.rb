@@ -1,10 +1,10 @@
 require "rails_helper"
 
-describe Renalware::Pathology::ObservationForPatientQuery do
+describe Renalware::Pathology::ObservationForPatientObservationDescriptionQuery do
   let!(:patient) { Renalware::Pathology.cast_patient(create(:patient)) }
   let!(:observation_description) { create(:pathology_observation_description) }
   subject do
-    Renalware::Pathology::ObservationForPatientQuery.new(
+    Renalware::Pathology::ObservationForPatientObservationDescriptionQuery.new(
       patient,
       observation_description.id
     )

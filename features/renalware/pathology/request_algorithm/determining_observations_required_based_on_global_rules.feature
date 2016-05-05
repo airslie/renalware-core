@@ -10,6 +10,7 @@ Feature: Determining observations required based on global rules
 
   Background:
     Given Patty is a patient
+    And request description B12 requires observation description B12
 
   Scenario Outline: The required observations were determined based on the regime.
 
@@ -20,7 +21,7 @@ Feature: Determining observations required based on global rules
        and the patient was last tested a week ago or longer.
 
      Given the global rule sets:
-       | observation_description_code | B12         |
+       | request_description_code     | B12         |
        | regime                       | Nephrology  |
        | frequency                    | Always      |
      When the global pathology algorithm is run for Patty in regime <regime>
@@ -40,7 +41,7 @@ Feature: Determining observations required based on global rules
        and the patient was last tested a week ago or longer.
 
      Given the global rule sets:
-       | observation_description_code | B12         |
+       | request_description_code     | B12         |
        | regime                       | Nephrology  |
        | frequency                    | <frequency> |
      And Patty was last tested for B12 <last_observed>
@@ -67,7 +68,7 @@ Feature: Determining observations required based on global rules
       and the patient has an observation result for HGB less than 100.
 
     Given the global rule sets:
-      | observation_description_code | B12         |
+      | request_description_code     | B12         |
       | regime                       | Nephrology  |
       | frequency                    | <frequency> |
     And the rule set contains these rules:
@@ -106,7 +107,7 @@ Feature: Determining observations required based on global rules
       and the patient is currently prescribed Ephedrine Tablet.
 
     Given the global rule sets:
-      | observation_description_code | B12        |
+      | request_description_code     | B12        |
       | regime                       | Nephrology |
       | frequency                    | Always     |
     And the rule set contains these rules:

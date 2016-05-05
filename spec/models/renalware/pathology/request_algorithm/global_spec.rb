@@ -26,6 +26,6 @@ describe Renalware::Pathology::RequestAlgorithm::Global do
       allow(rule_set_2).to receive(:required_for_patient?).and_return(false)
     end
 
-    it { expect(subject.required_pathology).to eq([rule_set_1.observation_description]) }
+    it { expect(subject.required_pathology).to eq([rule_set_1.request_description]) }
   end
 end
