@@ -1765,7 +1765,7 @@ ALTER SEQUENCE pathology_observations_id_seq OWNED BY pathology_observations.id;
 CREATE TABLE pathology_request_algorithm_global_rule_sets (
     id integer NOT NULL,
     regime character varying NOT NULL,
-    observation_description_id integer NOT NULL,
+    request_description_id integer NOT NULL,
     frequency character varying NOT NULL
 );
 
@@ -5032,14 +5032,6 @@ ALTER TABLE ONLY transplant_donor_workups
 
 
 --
--- Name: fk_rails_9bc5d6970e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY pathology_request_algorithm_global_rule_sets
-    ADD CONSTRAINT fk_rails_9bc5d6970e FOREIGN KEY (observation_description_id) REFERENCES pathology_observation_descriptions(id);
-
-
---
 -- Name: fk_rails_9c76b7ba29; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5237,6 +5229,14 @@ ALTER TABLE ONLY hd_sessions
 
 ALTER TABLE ONLY transplant_recipient_operations
     ADD CONSTRAINT fk_rails_e41edf9bc0 FOREIGN KEY (hospital_centre_id) REFERENCES hospital_centres(id);
+
+
+--
+-- Name: fk_rails_e53c500fcd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_request_algorithm_global_rule_sets
+    ADD CONSTRAINT fk_rails_e53c500fcd FOREIGN KEY (request_description_id) REFERENCES pathology_request_descriptions(id);
 
 
 --
@@ -5498,4 +5498,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160426093341');
 INSERT INTO schema_migrations (version) VALUES ('20160503113814');
 
 INSERT INTO schema_migrations (version) VALUES ('20160505142813');
+
+INSERT INTO schema_migrations (version) VALUES ('20160505151102');
 
