@@ -2,13 +2,13 @@ require "rails_helper"
 
 describe Renalware::Pathology::RequestAlgorithm::GlobalRule do
 
+  subject { create(:pathology_request_algorithm_global_rule) }
+
   it { is_expected.to validate_presence_of(:global_rule_set) }
   it do
     is_expected.to validate_inclusion_of(:param_comparison_operator)
       .in_array(Renalware::Pathology::RequestAlgorithm::GlobalRule::PARAM_COMPARISON_OPERATORS)
   end
-
-  let(:global_rule) { create(:pathology_request_algorithm_global_rule) }
 
   describe "#required_for_patient?" do
     let(:patient) { create(:patient) }
@@ -23,8 +23,6 @@ describe Renalware::Pathology::RequestAlgorithm::GlobalRule do
       allow(param_type_obj).to receive(:patient_requires_test?).and_return(patient_requires_test)
     end
 
-    subject! { global_rule.required_for_patient?(patient) }
-
-    it { is_expected.to eq(patient_requires_test) }
+    it { expect(subject.required_for_patient?(patient)).to eq(patient_requires_test) }
   end
 end

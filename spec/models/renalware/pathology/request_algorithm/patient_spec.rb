@@ -11,7 +11,7 @@ describe Renalware::Pathology::RequestAlgorithm::Patient do
     create(:pathology_request_algorithm_patient_rule, patient: pathology_patient)
   end
   let(:rules) { [patient_rule_1, patient_rule_2] }
-  let(:patient_algorithm) { Renalware::Pathology::RequestAlgorithm::Patient.new(patient) }
+  subject { Renalware::Pathology::RequestAlgorithm::Patient.new(patient) }
 
   describe "#required_pathology" do
     before do
@@ -21,8 +21,6 @@ describe Renalware::Pathology::RequestAlgorithm::Patient do
       allow(patient_rule_2).to receive(:required?).and_return(false)
     end
 
-    subject { patient_algorithm.required_pathology }
-
-    it { is_expected.to eq([patient_rule_1]) }
+    it { expect(subject.required_pathology).to eq([patient_rule_1]) }
   end
 end

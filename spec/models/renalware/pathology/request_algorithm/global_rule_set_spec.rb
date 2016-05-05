@@ -1,6 +1,19 @@
 require "rails_helper"
 
 describe Renalware::Pathology::RequestAlgorithm::GlobalRuleSet do
+  let(:frequency) { "Once" }
+  let(:rules) { [] }
+  let!(:observation_description) { create(:pathology_observation_description) }
+
+  subject do
+    build(
+      :pathology_request_algorithm_global_rule_set,
+      frequency: frequency,
+      observation_description_id: observation_description.id,
+      rules: rules
+    )
+  end
+
   it { is_expected.to validate_presence_of(:observation_description) }
   it { is_expected.to validate_presence_of(:regime) }
   it do
@@ -12,21 +25,9 @@ describe Renalware::Pathology::RequestAlgorithm::GlobalRuleSet do
       .in_array(Renalware::Pathology::RequestAlgorithm::GlobalRuleSet::FREQUENCIES)
   end
 
-  let(:frequency) { "Once" }
-  let(:rules) { [] }
-  let(:global_rule_set) do
-    build(
-      :pathology_request_algorithm_global_rule_set,
-      frequency: frequency,
-      observation_description_id: observation_description.id,
-      rules: rules
-    )
-  end
-
   describe "#required_for_patient?" do
     let!(:patient) { create(:patient) }
     let(:pathology_patient) { Renalware::Pathology.cast_patient(patient) }
-    let!(:observation_description) { create(:pathology_observation_description) }
     let!(:observation_request) do
       create(:pathology_observation_request, patient: pathology_patient)
     end
@@ -54,10 +55,8 @@ describe Renalware::Pathology::RequestAlgorithm::GlobalRuleSet do
         allow(observation_query).to receive(:call).and_return(last_observation)
       end
 
-      subject { global_rule_set.required_for_patient?(patient) }
-
       context "last observation is nil" do
-        it { is_expected.to eq(true) }
+        it { expect(subject.required_for_patient?(patient)).to eq(true) }
       end
 
       context "last observation is not nil" do
@@ -70,7 +69,7 @@ describe Renalware::Pathology::RequestAlgorithm::GlobalRuleSet do
           )
         end
 
-        it { is_expected.to eq(false) }
+        it { expect(subject.required_for_patient?(patient)).to eq(false) }
       end
     end
 
@@ -78,18 +77,14 @@ describe Renalware::Pathology::RequestAlgorithm::GlobalRuleSet do
       let(:rule_1_required) { false }
       let(:rule_2_required) { true }
 
-      subject { global_rule_set.required_for_patient?(patient) }
-
-      it { is_expected.to eq(false) }
+      it { expect(subject.required_for_patient?(patient)).to eq(false) }
     end
 
     context "no rules required" do
       let(:rule_1_required) { false }
       let(:rule_2_required) { false }
 
-      subject { global_rule_set.required_for_patient?(patient) }
-
-      it { is_expected.to eq(false) }
+      it { expect(subject.required_for_patient?(patient)).to eq(false) }
     end
   end
 end

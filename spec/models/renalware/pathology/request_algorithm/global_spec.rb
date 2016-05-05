@@ -3,13 +3,12 @@ require "rails_helper"
 describe Renalware::Pathology::RequestAlgorithm::Global do
   let(:patient) { create(:patient) }
   let(:regime) { "Nephrology" }
-  let(:global_algorithm) { Renalware::Pathology::RequestAlgorithm::Global.new(patient, regime) }
+
+  subject { Renalware::Pathology::RequestAlgorithm::Global.new(patient, regime) }
 
   describe "#initialize" do
     context "with regime param not in the array of accepted values" do
       let(:regime) { "NOT A VALID REGIME" }
-
-      subject { global_algorithm }
 
       it { expect{ subject }.to raise_error ArgumentError }
     end
@@ -27,8 +26,6 @@ describe Renalware::Pathology::RequestAlgorithm::Global do
       allow(rule_set_2).to receive(:required_for_patient?).and_return(false)
     end
 
-    subject { global_algorithm.required_pathology }
-
-    it { is_expected.to eq([rule_set_1.observation_description]) }
+    it { expect(subject.required_pathology).to eq([rule_set_1.observation_description]) }
   end
 end

@@ -3,7 +3,7 @@ require "rails_helper"
 describe Renalware::Pathology::ObservationForPatientQuery do
   let!(:patient) { Renalware::Pathology.cast_patient(create(:patient)) }
   let!(:observation_description) { create(:pathology_observation_description) }
-  let(:query) do
+  subject do
     Renalware::Pathology::ObservationForPatientQuery.new(
       patient,
       observation_description.id
@@ -31,8 +31,6 @@ describe Renalware::Pathology::ObservationForPatientQuery do
     end
     let!(:observation_3) { create(:pathology_observation, request: observation_request_2) }
 
-    subject { query.call }
-
-    it { is_expected.to eq(observation_1) }
+    it { expect(subject.call).to eq(observation_1) }
   end
 end

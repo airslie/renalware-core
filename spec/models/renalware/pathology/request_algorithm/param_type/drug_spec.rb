@@ -5,8 +5,8 @@ describe Renalware::Pathology::RequestAlgorithm::ParamType::Drug do
   let!(:drug) { create(:drug) }
   let!(:medication) { create(:medication, patient: patient, drug: drug) }
 
-  let(:param_type) do
-    described_class.new(
+  subject do
+    Renalware::Pathology::RequestAlgorithm::ParamType::Drug.new(
       patient,
       drug.id,
       "include?",
@@ -15,8 +15,6 @@ describe Renalware::Pathology::RequestAlgorithm::ParamType::Drug do
   end
 
   describe "#patient_requires_test?" do
-    subject { param_type.patient_requires_test? }
-
-    it { is_expected.to eq(true) }
+    it { expect(subject.patient_requires_test?).to eq(true) }
   end
 end

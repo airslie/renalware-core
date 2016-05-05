@@ -16,7 +16,7 @@ describe Renalware::Pathology::RequestAlgorithm::PatientRule do
   let(:last_observed_at) { nil }
   let(:start_date) { nil }
   let(:end_date) { nil }
-  let(:patient_rule) do
+  subject do
     create(
       :pathology_request_algorithm_patient_rule,
       patient: patient,
@@ -29,22 +29,19 @@ describe Renalware::Pathology::RequestAlgorithm::PatientRule do
   describe "#required_for_patient?" do
     context "not within range of start/end date" do
       before do
-        allow(patient_rule).to receive(:today_within_range?).and_return(false)
+        allow(subject).to receive(:today_within_range?).and_return(false)
       end
 
-      subject! { patient_rule.required? }
-
-      it { is_expected.to eq(false) }
+      it { expect(subject.required?).to eq(false) }
     end
 
     context "within range of start/end date" do
       before do
-        allow(patient_rule).to receive(:today_within_range?).and_return(true)
+        allow(subject).to receive(:today_within_range?).and_return(true)
       end
 
       context "last_observed_at nil" do
-        subject! { patient_rule.required? }
-        it { is_expected.to eq(true) }
+        it { expect(subject.required?).to eq(true) }
       end
 
       context "last_observed_at not nil" do
@@ -54,45 +51,21 @@ describe Renalware::Pathology::RequestAlgorithm::PatientRule do
 
         before do
           allow(Date).to receive(:today).and_return(date_today)
-          allow(patient_rule).to receive(:required_from_frequency?)
+          allow(subject).to receive(:required_from_frequency?)
             .and_return(required_from_frequency)
         end
 
-        subject! { patient_rule.required? }
-
-        it { expect(Date).to have_received(:today) }
         it do
-          expect(patient_rule).to have_received(:required_from_frequency?)
-            .with(patient_rule.frequency, 1)
+          subject.required?
+          expect(Date).to have_received(:today)
         end
-        it { is_expected.to eq(required_from_frequency) }
+        it do
+          subject.required?
+          expect(subject).to have_received(:required_from_frequency?)
+            .with(subject.frequency, 1)
+        end
+        it { expect(subject.required?).to eq(required_from_frequency) }
       end
-    end
-  end
-
-  describe "#today_within_range?" do
-    context "start/end date not present" do
-      subject { patient_rule.send(:today_within_range?) }
-
-      it { is_expected.to eq(true) }
-    end
-
-    context "start/end date present and within range" do
-      let(:start_date) { Date.today - 1.day }
-      let(:end_date) { Date.today + 1.day }
-
-      subject { patient_rule.send(:today_within_range?) }
-
-      it { is_expected.to eq(true) }
-    end
-
-    context "start/end date present and not within range" do
-      let(:start_date) { Date.today - 1.day }
-      let(:end_date) { Date.today - 2.days }
-
-      subject { patient_rule.send(:today_within_range?) }
-
-      it { is_expected.to eq(false) }
     end
   end
 end
