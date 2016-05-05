@@ -9,7 +9,7 @@ describe Renalware::Pathology::RequestAlgorithm::ParamType::ObservationResult do
   let(:param_comparison_operator) { "<" }
   let(:param_comparison_value) { 100 }
   let(:observation_result) do
-    described_class.new(
+    Renalware::Pathology::RequestAlgorithm::ParamType::ObservationResult.new(
       patient,
       observation_description.id,
       param_comparison_operator,

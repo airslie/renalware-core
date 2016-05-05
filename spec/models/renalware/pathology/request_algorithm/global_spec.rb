@@ -3,7 +3,7 @@ require "rails_helper"
 describe Renalware::Pathology::RequestAlgorithm::Global do
   let(:patient) { create(:patient) }
   let(:regime) { "Nephrology" }
-  let(:global_algorithm) { described_class.new(patient, regime) }
+  let(:global_algorithm) { Renalware::Pathology::RequestAlgorithm::Global.new(patient, regime) }
 
   describe "#initialize" do
     context "with regime param not in the array of accepted values" do

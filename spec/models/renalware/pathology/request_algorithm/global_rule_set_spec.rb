@@ -3,8 +3,14 @@ require "rails_helper"
 describe Renalware::Pathology::RequestAlgorithm::GlobalRuleSet do
   it { is_expected.to validate_presence_of(:observation_description) }
   it { is_expected.to validate_presence_of(:regime) }
-  it { is_expected.to validate_inclusion_of(:regime).in_array(described_class::REGIMES) }
-  it { is_expected.to validate_inclusion_of(:frequency).in_array(described_class::FREQUENCIES) }
+  it do
+    is_expected.to validate_inclusion_of(:regime)
+      .in_array(Renalware::Pathology::RequestAlgorithm::GlobalRuleSet::REGIMES)
+  end
+  it do
+    is_expected.to validate_inclusion_of(:frequency)
+      .in_array(Renalware::Pathology::RequestAlgorithm::GlobalRuleSet::FREQUENCIES)
+  end
 
   let(:frequency) { "Once" }
   let(:rules) { [] }

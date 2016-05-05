@@ -11,7 +11,7 @@ describe Renalware::Pathology::RequestAlgorithm::Patient do
     create(:pathology_request_algorithm_patient_rule, patient: pathology_patient)
   end
   let(:rules) { [patient_rule_1, patient_rule_2] }
-  let(:patient_algorithm) { described_class.new(patient) }
+  let(:patient_algorithm) { Renalware::Pathology::RequestAlgorithm::Patient.new(patient) }
 
   describe "#required_pathology" do
     before do

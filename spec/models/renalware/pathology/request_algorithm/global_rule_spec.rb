@@ -5,7 +5,7 @@ describe Renalware::Pathology::RequestAlgorithm::GlobalRule do
   it { is_expected.to validate_presence_of(:global_rule_set) }
   it do
     is_expected.to validate_inclusion_of(:param_comparison_operator)
-      .in_array(described_class::PARAM_COMPARISON_OPERATORS)
+      .in_array(Renalware::Pathology::RequestAlgorithm::GlobalRule::PARAM_COMPARISON_OPERATORS)
   end
 
   let(:global_rule) { create(:pathology_request_algorithm_global_rule) }
