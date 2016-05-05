@@ -1866,7 +1866,8 @@ ALTER SEQUENCE pathology_request_algorithm_patient_rules_id_seq OWNED BY patholo
 CREATE TABLE pathology_request_descriptions (
     id integer NOT NULL,
     code character varying NOT NULL,
-    name character varying
+    name character varying,
+    required_observation_description_id integer
 );
 
 
@@ -4823,6 +4824,14 @@ ALTER TABLE ONLY letter_letters
 
 
 --
+-- Name: fk_rails_39da21b3fe; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_request_descriptions
+    ADD CONSTRAINT fk_rails_39da21b3fe FOREIGN KEY (required_observation_description_id) REFERENCES pathology_observation_descriptions(id);
+
+
+--
 -- Name: fk_rails_3a852d1667; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5487,4 +5496,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160420132524');
 INSERT INTO schema_migrations (version) VALUES ('20160426093341');
 
 INSERT INTO schema_migrations (version) VALUES ('20160503113814');
+
+INSERT INTO schema_migrations (version) VALUES ('20160505142813');
 
