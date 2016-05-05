@@ -28,13 +28,13 @@ module World
           params =
             if within_rage == "yes"
               {
-                start_date: Date.today - 1.days,
-                end_date: Date.today + 1.days
+                start_date: Date.current - 1.days,
+                end_date: Date.current + 1.days
               }
             else
               {
-                start_date: Date.today - 2.days,
-                end_date: Date.today - 1.days
+                start_date: Date.current - 2.days,
+                end_date: Date.current - 1.days
               }
             end
 

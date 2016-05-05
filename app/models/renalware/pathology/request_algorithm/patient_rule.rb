@@ -20,7 +20,7 @@ module Renalware
           return false unless today_within_range?
           return true if last_observed_at.nil?
 
-          days_ago_observed = Date.today - last_observed_at.to_date
+          days_ago_observed = Date.current - last_observed_at.to_date
 
           required_from_frequency?(frequency, days_ago_observed)
         end
@@ -29,7 +29,7 @@ module Renalware
 
         def today_within_range?
           return true unless start_date.present? && end_date.present?
-          Date.today.between?(start_date.to_date, end_date.to_date)
+          Date.current.between?(start_date.to_date, end_date.to_date)
         end
       end
     end

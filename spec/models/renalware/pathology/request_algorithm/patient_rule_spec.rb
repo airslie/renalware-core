@@ -50,14 +50,14 @@ describe Renalware::Pathology::RequestAlgorithm::PatientRule do
         let(:required_from_frequency) { double }
 
         before do
-          allow(Date).to receive(:today).and_return(date_today)
+          allow(Date).to receive(:current).and_return(date_today)
           allow(subject).to receive(:required_from_frequency?)
             .and_return(required_from_frequency)
         end
 
         it do
           subject.required?
-          expect(Date).to have_received(:today)
+          expect(Date).to have_received(:current)
         end
         it do
           subject.required?

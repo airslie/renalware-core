@@ -48,7 +48,7 @@ module Renalware
           end
 
           def required_from_last_observation?
-            days_ago_observed = Date.today - @last_observation.observed_at.to_date
+            days_ago_observed = Date.current - @last_observation.observed_at.to_date
             required_from_frequency?(@rule_set.frequency, days_ago_observed)
           end
         end

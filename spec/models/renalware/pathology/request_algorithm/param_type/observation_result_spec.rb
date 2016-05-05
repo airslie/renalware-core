@@ -30,7 +30,7 @@ describe Renalware::Pathology::RequestAlgorithm::ParamType::ObservationResult do
           :pathology_observation,
           request: observation_request,
           description: observation_description,
-          observed_at: Time.now - 1.week,
+          observed_at: Time.current - 1.week,
           result: result
         )
       end

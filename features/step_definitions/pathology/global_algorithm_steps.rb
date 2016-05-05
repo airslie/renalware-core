@@ -10,14 +10,14 @@ Given(/^Patty has observed an ([A-Z0-9]+) value of (\d+)$/) do |code, result|
   record_observations(
     patient: @patty,
     observations_attributes: [
-      { "code" => code, "result" => result, "observed_at" => Date.today.to_s }
+      { "code" => code, "result" => result, "observed_at" => Date.current.to_s }
     ]
   )
 end
 
 Given(/^Patty was last tested for ([A-Z0-9]+)(\s|\s(\d+) days ago)$/) do |code, _time_ago, days|
   if days.present?
-    observed_at = (Time.now - days.days).to_date
+    observed_at = (Time.current - days.days).to_date
     record_observations(
       patient: @patty,
       observations_attributes: [
@@ -36,7 +36,7 @@ Given(/^Patty is currently prescribed Ephedrine Tablet (yes|no)$/) do |perscribe
       medication_route: route,
       dose: "20mg",
       frequency: "daily",
-      start_date: Time.now - 1.week,
+      start_date: Time.current - 1.week,
       provider: 0,
       treatable: @patty
     )
