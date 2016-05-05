@@ -27,8 +27,10 @@ module Renalware
           def initialize(rule_set, patient)
             @rule_set = rule_set
             @patient = patient
-            @last_observation =
-              ObservationForPatientQuery.new(patient, rule_set.observation_description_id).call
+            @last_observation = ObservationForPatientQuery.new(
+              Renalware::Pathology.cast_patient(patient),
+              rule_set.observation_description_id
+            ).call
           end
 
           def call
