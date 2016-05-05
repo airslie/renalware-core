@@ -16,76 +16,19 @@ describe Renalware::Pathology::RequestAlgorithm::Global do
   end
 
   describe "#required_pathology" do
-    let(:global_rule_set) { create(:pathology_request_algorithm_global_rule_set) }
+    let(:rule_set_1) { create(:pathology_request_algorithm_global_rule_set) }
+    let(:rule_set_2) { create(:pathology_request_algorithm_global_rule_set) }
+    let(:rule_sets) { [rule_set_1, rule_set_2] }
 
     before do
       allow(Renalware::Pathology::RequestAlgorithm::GlobalRuleSet).to receive(:where)
-        .and_return([global_rule_set])
-      allow(global_rule_set).to receive(:required_for_patient?).and_return(global_rule_set_required)
-      allow(global_rule_set).to receive(:rules).and_return(global_rules)
+        .and_return(rule_sets)
+      allow(rule_set_1).to receive(:required_for_patient?).and_return(true)
+      allow(rule_set_2).to receive(:required_for_patient?).and_return(false)
     end
 
-    context "a rule_set with no rules" do
-      let(:global_rules) { [] }
+    subject { global_algorithm.required_pathology }
 
-      subject! { global_algorithm.required_pathology }
-
-      context "rule set required" do
-        let(:global_rule_set_required) { true }
-        it { is_expected.to eq([global_rule_set.observation_description])}
-      end
-
-      context "rule set required" do
-        let(:global_rule_set_required) { false }
-        it { is_expected.to eq([])}
-      end
-    end
-
-    context "a rule_set with multiple rules" do
-      let(:global_rule_1) do
-        create(
-          :pathology_request_algorithm_global_rule,
-          global_rule_set: global_rule_set
-        )
-      end
-      let(:global_rule_2) do
-        create(
-          :pathology_request_algorithm_global_rule,
-          global_rule_set: global_rule_set
-        )
-      end
-      let(:global_rules) { [global_rule_1, global_rule_2] }
-
-      before do
-        allow(global_rule_1).to receive(:required_for_patient?).and_return(global_rule_1_required)
-        allow(global_rule_2).to receive(:required_for_patient?).and_return(global_rule_2_required)
-      end
-
-      subject! { global_algorithm.required_pathology }
-
-      context "rule_set required and all rules required" do
-        let(:global_rule_set_required) { true }
-        let(:global_rule_1_required) { true }
-        let(:global_rule_2_required) { true }
-
-        it { is_expected.to eq([global_rule_set.observation_description])}
-      end
-
-      context "rule_set required and some rules required" do
-        let(:global_rule_set_required) { true }
-        let(:global_rule_1_required) { true }
-        let(:global_rule_2_required) { false }
-
-        it { is_expected.to eq([])}
-      end
-
-      context "rule_set not required and rules required" do
-        let(:global_rule_set_required) { false }
-        let(:global_rule_1_required) { true }
-        let(:global_rule_2_required) { true }
-
-        it { is_expected.to eq([])}
-      end
-    end
+    it { is_expected.to eq([rule_set_1.observation_description]) }
   end
 end

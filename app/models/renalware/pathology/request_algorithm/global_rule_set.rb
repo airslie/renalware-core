@@ -18,14 +18,37 @@ module Renalware
         validates :frequency, presence: true, inclusion: { in: FREQUENCIES }
 
         def required_for_patient?(patient)
-          last_observation =
-            ObservationForPatientQuery.new(patient, observation_description_id).call
+          PatientDecisionQuery.new(self, patient).call
+        end
 
-          return true if last_observation.nil?
+        class PatientDecisionQuery
+          include FrequencyMethods
 
-          days_ago_observed = Date.today - last_observation.observed_at.to_date
+          def initialize(rule_set, patient)
+            @rule_set = rule_set
+            @patient = patient
+            @last_observation =
+              ObservationForPatientQuery.new(patient, rule_set.observation_description_id).call
+          end
 
-          required_from_frequency?(frequency, days_ago_observed)
+          def call
+            return false unless required_from_rules?
+            return true if @last_observation.nil?
+            required_from_last_observation?
+          end
+
+          private
+
+          def required_from_rules?
+            @rule_set.rules
+              .map { |rule| rule.required_for_patient?(@patient) }
+              .all?
+          end
+
+          def required_from_last_observation?
+            days_ago_observed = Date.today - @last_observation.observed_at.to_date
+            required_from_frequency?(@rule_set.frequency, days_ago_observed)
+          end
         end
       end
     end
