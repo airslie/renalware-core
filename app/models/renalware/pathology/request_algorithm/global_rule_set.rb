@@ -27,6 +27,10 @@ module Renalware
           def initialize(rule_set, patient)
             @rule_set = rule_set
             @patient = patient
+            @last_request = RequestForPatientRequestDescriptionQuery.new(
+              Renalware::Pathology.cast_patient(patient),
+              rule_set.request_description_id
+            ).call
             @last_observation = ObservationForPatientRequestDescriptionQuery.new(
               Renalware::Pathology.cast_patient(patient),
               rule_set.request_description_id
@@ -34,12 +38,21 @@ module Renalware
           end
 
           def call
+            return false if request_still_being_processed?
             return false unless required_from_rules?
-            return true if @last_observation.nil?
             required_from_last_observation?
           end
 
           private
+
+          def request_still_being_processed?
+            expiration_days = @rule_set.request_description.expiration_days
+
+            return false if @last_request.nil? || expiration_days.nil? || @last_observation.present?
+
+            days_ago_observed = Date.current - @last_request.requested_at.to_date
+            days_ago_observed < expiration_days
+          end
 
           def required_from_rules?
             @rule_set.rules
@@ -48,6 +61,12 @@ module Renalware
           end
 
           def required_from_last_observation?
+            if @rule_set.frequency == 'Once' && @last_request.present? && @last_observation.nil?
+              return false
+            elsif @last_observation.nil?
+              return true
+            end
+
             days_ago_observed = Date.current - @last_observation.observed_at.to_date
             required_from_frequency?(@rule_set.frequency, days_ago_observed)
           end

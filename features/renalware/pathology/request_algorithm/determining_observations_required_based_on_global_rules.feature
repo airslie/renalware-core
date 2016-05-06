@@ -10,18 +10,19 @@ Feature: Determining observations required based on global rules
 
   Background:
     Given Patty is a patient
-    And request description B12 requires observation description B12
+
+    And request description BFF requires observation description B12
 
   Scenario Outline: The required observations were determined based on the regime.
 
      This scenario encodes the following rule as an example:
 
-     Test for Vitamin B12 Serum
+     Test for B12/FOLATE/FERRITIN (Code: BFF)
        if the patient is in Nephrology
        and the patient was last tested a week ago or longer.
 
      Given the global rule sets:
-       | request_description_code     | B12         |
+       | request_description_code     | BFF         |
        | regime                       | Nephrology  |
        | frequency                    | Always      |
      When the global pathology algorithm is run for Patty in regime <regime>
@@ -36,12 +37,12 @@ Feature: Determining observations required based on global rules
 
      This scenario encodes the following rule as an example:
 
-     Test for Vitamin B12 Serum
+     Test for B12/FOLATE/FERRITIN (Code: BFF)
        if the patient is in Nephrology
        and the patient was last tested a week ago or longer.
 
      Given the global rule sets:
-       | request_description_code     | B12         |
+       | request_description_code     | BFF         |
        | regime                       | Nephrology  |
        | frequency                    | <frequency> |
      And Patty was last tested for B12 <last_observed>
@@ -62,13 +63,13 @@ Feature: Determining observations required based on global rules
 
     This scenario encodes the following rule as an example:
 
-    Test for Vitatim B12 Serum
+    Test for B12/FOLATE/FERRITIN (Code: BFF)
       if the patient is in Nephrology
       and the patient was last tested a week ago or longer
       and the patient has an observation result for HGB less than 100.
 
     Given the global rule sets:
-      | request_description_code     | B12         |
+      | request_description_code     | BFF         |
       | regime                       | Nephrology  |
       | frequency                    | <frequency> |
     And the rule set contains these rules:
@@ -100,14 +101,14 @@ Feature: Determining observations required based on global rules
 
   Scenario Outline: The required observations were determined based on multiple parameters.
 
-    Test for Vitatim B12 Serum
+    Test for B12/FOLATE/FERRITIN (Code: BFF)
       if the patient is in Nephrology
       and the patient was last tested a week ago or longer
       and the patient has an observation result for HGB less than 100
       and the patient is currently prescribed Ephedrine Tablet.
 
     Given the global rule sets:
-      | request_description_code     | B12        |
+      | request_description_code     | BFF        |
       | regime                       | Nephrology |
       | frequency                    | Always     |
     And the rule set contains these rules:
@@ -125,3 +126,36 @@ Feature: Determining observations required based on global rules
       | 99                 | no              | not required  |
       | 100                | yes             | not required  |
       | 100                | no              | not required  |
+
+  Scenario Outline: The required observations were determined based on the date of the last request and request expiration.
+
+    This scenario encodes the following rule as an example:
+
+    Test for B12/FOLATE/FERRITIN (Code: BFF)
+      if the patient is in Nephrology
+      and the pathology results take up to 1 week to be received by Renalware.
+
+    Given the request description BFF has an expiration of 7 days
+    And request description BFF requires observation description B12
+    And the global rule sets:
+      | request_description_code     | BFF          |
+      | regime                       | Nephrology   |
+      | frequency                    | <frequency>  |
+    And a BFF test was requested for Patty <last_requested>
+    And a B12 test was observed for Patty <last_observed>
+    When the global pathology algorithm is run for Patty in regime Nephrology
+    Then it is determined the observation is <determination>
+
+    Examples:
+      | frequency | last_requested | last_observed | determination |
+      | Always    |                |               | required      |
+      | Always    | 6 days ago     |               | not required  |
+      | Always    | 7 days ago     |               | required      |
+      | Always    | 6 days ago     | 1 days ago    | required      |
+      | Always    | 7 days ago     | 1 days ago    | required      |
+
+      | Once      |                |               | required      |
+      | Once      | 6 days ago     |               | not required  |
+      | Once      | 7 days ago     |               | not required  |
+      | Once      | 6 days ago     | 1 days ago    | not required  |
+      | Once      | 7 days ago     | 1 days ago    | not required  |
