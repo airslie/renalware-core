@@ -1764,9 +1764,9 @@ ALTER SEQUENCE pathology_observations_id_seq OWNED BY pathology_observations.id;
 
 CREATE TABLE pathology_request_algorithm_global_rule_sets (
     id integer NOT NULL,
-    regime character varying NOT NULL,
-    observation_description_id integer NOT NULL,
-    frequency character varying NOT NULL
+    request_description_id integer NOT NULL,
+    frequency character varying NOT NULL,
+    clinic_id integer
 );
 
 
@@ -1866,7 +1866,9 @@ ALTER SEQUENCE pathology_request_algorithm_patient_rules_id_seq OWNED BY patholo
 CREATE TABLE pathology_request_descriptions (
     id integer NOT NULL,
     code character varying NOT NULL,
-    name character varying
+    name character varying,
+    required_observation_description_id integer,
+    expiration_days integer
 );
 
 
@@ -4823,6 +4825,14 @@ ALTER TABLE ONLY letter_letters
 
 
 --
+-- Name: fk_rails_39da21b3fe; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_request_descriptions
+    ADD CONSTRAINT fk_rails_39da21b3fe FOREIGN KEY (required_observation_description_id) REFERENCES pathology_observation_descriptions(id);
+
+
+--
 -- Name: fk_rails_3a852d1667; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4844,6 +4854,14 @@ ALTER TABLE ONLY drug_types_drugs
 
 ALTER TABLE ONLY hd_sessions
     ADD CONSTRAINT fk_rails_3e0f147311 FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
+
+
+--
+-- Name: fk_rails_40e23de825; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_request_algorithm_global_rule_sets
+    ADD CONSTRAINT fk_rails_40e23de825 FOREIGN KEY (clinic_id) REFERENCES clinics(id);
 
 
 --
@@ -5020,14 +5038,6 @@ ALTER TABLE ONLY transplant_failure_cause_descriptions
 
 ALTER TABLE ONLY transplant_donor_workups
     ADD CONSTRAINT fk_rails_93dc1108f3 FOREIGN KEY (patient_id) REFERENCES patients(id);
-
-
---
--- Name: fk_rails_9bc5d6970e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY pathology_request_algorithm_global_rule_sets
-    ADD CONSTRAINT fk_rails_9bc5d6970e FOREIGN KEY (observation_description_id) REFERENCES pathology_observation_descriptions(id);
 
 
 --
@@ -5228,6 +5238,14 @@ ALTER TABLE ONLY hd_sessions
 
 ALTER TABLE ONLY transplant_recipient_operations
     ADD CONSTRAINT fk_rails_e41edf9bc0 FOREIGN KEY (hospital_centre_id) REFERENCES hospital_centres(id);
+
+
+--
+-- Name: fk_rails_e53c500fcd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_request_algorithm_global_rule_sets
+    ADD CONSTRAINT fk_rails_e53c500fcd FOREIGN KEY (request_description_id) REFERENCES pathology_request_descriptions(id);
 
 
 --
@@ -5487,4 +5505,12 @@ INSERT INTO schema_migrations (version) VALUES ('20160420132524');
 INSERT INTO schema_migrations (version) VALUES ('20160426093341');
 
 INSERT INTO schema_migrations (version) VALUES ('20160503113814');
+
+INSERT INTO schema_migrations (version) VALUES ('20160505142813');
+
+INSERT INTO schema_migrations (version) VALUES ('20160505151102');
+
+INSERT INTO schema_migrations (version) VALUES ('20160506104710');
+
+INSERT INTO schema_migrations (version) VALUES ('20160506151356');
 

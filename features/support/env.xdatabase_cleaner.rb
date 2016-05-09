@@ -7,6 +7,7 @@ begin
     access_sites
     access_plans
     bag_types
+    clinics
     drugs
     drug_types
     drug_types_drugs
