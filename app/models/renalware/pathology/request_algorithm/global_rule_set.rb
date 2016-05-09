@@ -8,13 +8,12 @@ module Renalware
 
         self.table_name = "pathology_request_algorithm_global_rule_sets"
 
-        REGIMES = ["Nephrology", "LCC", "PD", "HD", "TP", "Donor Screen", "Donor Clinic"]
-
         has_many :rules, class_name: "GlobalRule"
         belongs_to :request_description
+        belongs_to :clinic, class_name: "Clinics::Clinic"
 
         validates :request_description, presence: true
-        validates :regime, presence: true, inclusion: { in: REGIMES }
+        validates :clinic, presence: true
         validates :frequency, presence: true, inclusion: { in: FREQUENCIES }
 
         def required_for_patient?(patient)

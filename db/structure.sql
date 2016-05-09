@@ -1764,9 +1764,9 @@ ALTER SEQUENCE pathology_observations_id_seq OWNED BY pathology_observations.id;
 
 CREATE TABLE pathology_request_algorithm_global_rule_sets (
     id integer NOT NULL,
-    regime character varying NOT NULL,
     request_description_id integer NOT NULL,
-    frequency character varying NOT NULL
+    frequency character varying NOT NULL,
+    clinic_id integer
 );
 
 
@@ -4857,6 +4857,14 @@ ALTER TABLE ONLY hd_sessions
 
 
 --
+-- Name: fk_rails_40e23de825; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_request_algorithm_global_rule_sets
+    ADD CONSTRAINT fk_rails_40e23de825 FOREIGN KEY (clinic_id) REFERENCES clinics(id);
+
+
+--
 -- Name: fk_rails_506a7ce21d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5503,4 +5511,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160505142813');
 INSERT INTO schema_migrations (version) VALUES ('20160505151102');
 
 INSERT INTO schema_migrations (version) VALUES ('20160506104710');
+
+INSERT INTO schema_migrations (version) VALUES ('20160506151356');
 

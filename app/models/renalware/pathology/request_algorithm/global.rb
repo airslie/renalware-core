@@ -4,10 +4,9 @@ module Renalware
   module Pathology
     module RequestAlgorithm
       class Global
-        def initialize(patient, regime)
-          raise ArgumentError unless GlobalRuleSet::REGIMES.include?(regime)
+        def initialize(patient, clinic)
           @patient = patient
-          @regime = regime
+          @clinic = clinic
         end
 
         def required_pathology
@@ -20,7 +19,7 @@ module Renalware
         private
 
         def rule_sets
-          GlobalRuleSet.where(regime: @regime)
+          GlobalRuleSet.where(clinic: @clinic)
         end
       end
     end

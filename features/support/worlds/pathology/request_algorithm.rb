@@ -74,13 +74,19 @@ module World
             )
           params["request_description_id"] = request_description.id
 
+          clinic =
+            Renalware::Clinics::Clinic.find_by(
+              name: params["clinic"]
+            )
+          params["clinic"] = clinic
+
           Renalware::Pathology::RequestAlgorithm::GlobalRuleSet.create!(
             params.except("request_description_code")
           )
         end
 
-        def run_global_algorithm(patient, regime)
-          Renalware::Pathology::RequestAlgorithm::Global.new(patient, regime).required_pathology
+        def run_global_algorithm(patient, clinic)
+          Renalware::Pathology::RequestAlgorithm::Global.new(patient, clinic).required_pathology
         end
 
         def run_patient_algorithm(patient)
