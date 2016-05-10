@@ -2,7 +2,7 @@ require "rails_helper"
 
 module Renalware
   module Letters
-    RSpec.describe AssignAutomaticCCs, type: :model do
+    RSpec.describe AssignCounterpartCCs, type: :model do
       include LettersSpecHelper
 
       describe "#call" do

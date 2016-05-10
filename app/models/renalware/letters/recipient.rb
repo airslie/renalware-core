@@ -34,6 +34,10 @@ module Renalware
       def patient?
         person_role.patient?
       end
+
+      def outsider?
+        person_role.outsider?
+      end
     end
   end
 end

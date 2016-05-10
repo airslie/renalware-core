@@ -42,10 +42,6 @@ module Renalware
       def outsider_cc_recipients
         cc_recipients.select { |cc| cc.person_role.outsider? }
       end
-
-      def refresh!
-        RefreshLetter.new(self).call
-      end
     end
   end
 end

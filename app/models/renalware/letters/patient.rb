@@ -8,7 +8,7 @@ module Renalware
       has_many :letters
 
       def cc_on_letter?(letter)
-        letter.patient == self && cc_on_all_letters?
+        letter.patient == self && cc_on_all_letters? && !letter.main_recipient.patient?
       end
     end
   end

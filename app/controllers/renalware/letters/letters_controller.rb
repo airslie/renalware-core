@@ -16,9 +16,17 @@ module Renalware
 
       def create
         DraftLetter.build
-          .on(:draft_letter_successful) { redirect_to_letters_list(@patient) }
-          .on(:draft_letter_failed) { |letter| render_form(letter, :new) }
+          .subscribe(self)
           .call(@patient, letter_params)
+      end
+
+      def draft_letter_successful(letter)
+        redirect_to_letters_list(@patient)
+      end
+
+      def draft_letter_failed(letter)
+        flash[:error] = t(".failed", model_name: "Letter")
+        render_form(letter, :new)
       end
 
       def show
@@ -31,9 +39,17 @@ module Renalware
 
       def update
         ReviseLetter.build
-          .on(:revise_letter_successful) { redirect_to_letters_list(@patient) }
-          .on(:revise_letter_failed) { |letter| render_form(letter, :edit) }
+          .subscribe(self)
           .call(@patient, params[:id], letter_params)
+      end
+
+      def revise_letter_successful(letter)
+        redirect_to_letters_list(@patient)
+      end
+
+      def revise_letter_failed(letter)
+        flash[:error] = t(".failed", model_name: "Letter")
+        render_form(letter, :edit)
       end
 
       private
@@ -45,7 +61,6 @@ module Renalware
 
       def render_form(letter, action)
         @letter = LetterFormPresenter.new(letter)
-        flash[:error] = t(".failed", model_name: "Letter")
         render action
       end
 

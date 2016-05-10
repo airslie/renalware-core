@@ -6,11 +6,11 @@ module Renalware
       "letter_"
     end
 
-    def cast_patient(patient)
+    def self.cast_patient(patient)
       ActiveType.cast(patient, ::Renalware::Letters::Patient)
     end
 
-    def cast_doctor(doctor)
+    def self.cast_doctor(doctor)
       ActiveType.cast(doctor, ::Renalware::Letters::Doctor)
     end
   end

@@ -7,7 +7,7 @@ module Renalware
 
       def self.build
         self.new.on(:persist_letter_successful) do |letter|
-          AssignAutomaticCCs.build.call(letter)
+          AssignCounterpartCCs.build.call(letter)
         end
       end
 
