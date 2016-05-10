@@ -1984,7 +1984,6 @@ CREATE TABLE practices (
     name character varying NOT NULL,
     email character varying,
     code character varying NOT NULL,
-    address_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -5005,14 +5004,6 @@ ALTER TABLE ONLY pathology_observation_requests
 
 ALTER TABLE ONLY pathology_observations
     ADD CONSTRAINT fk_rails_dc1b1799e7 FOREIGN KEY (description_id) REFERENCES pathology_observation_descriptions(id);
-
-
---
--- Name: fk_rails_dd3ffca9b8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY practices
-    ADD CONSTRAINT fk_rails_dd3ffca9b8 FOREIGN KEY (address_id) REFERENCES addresses(id);
 
 
 --
