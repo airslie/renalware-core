@@ -45,7 +45,7 @@ module Renalware
     end
 
     def update_patient_successful(patient)
-      redirect_to_clinical_summary(patient)
+      redirect_to_patient_demographics(patient)
     end
 
     def update_patient_failed(patient)
@@ -74,8 +74,8 @@ module Renalware
       authorize @patient
     end
 
-    def redirect_to_clinical_summary(patient)
-      redirect_to patient_clinical_summary_path(patient),
+    def redirect_to_patient_demographics(patient)
+      redirect_to patient_path(patient),
         notice: t(".success", model_name: "patient")
     end
 
