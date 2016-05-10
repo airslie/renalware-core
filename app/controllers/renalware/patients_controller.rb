@@ -61,10 +61,10 @@ module Renalware
         :ethnicity_id, :born_on, :paediatric_patient_indicator,
         :gp_practice_code, :pct_org_code, :hospital_centre_code, :primary_esrf_centre,
         current_address_attributes: [
-          :street_1, :street_2, :county, :country, :city, :postcode
+          :name, :street_1, :street_2, :county, :country, :city, :postcode
         ],
         address_at_diagnosis_attributes: [
-          :street_1, :street_2, :county, :country, :city, :postcode
+          :name, :street_1, :street_2, :county, :country, :city, :postcode
         ]
       )
     end
