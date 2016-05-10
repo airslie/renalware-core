@@ -33,8 +33,8 @@ module LettersSpecHelper
     letter.save!
 
     if letter.state.archived?
-      letter.recipients.each do |recipient|
-        recipient.create_address attributes_for(:address)
+      letter.recipients.each do |r|
+        r.create_address attributes_for(:address)
       end
     end
 
