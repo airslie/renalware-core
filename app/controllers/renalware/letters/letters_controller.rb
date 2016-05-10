@@ -95,7 +95,10 @@ module Renalware
       end
 
       def address_attributes
-        [:id, :name, :street_1, :street_2, :city, :county, :postcode, :country, :_destroy]
+        [
+          :id, :name, :organisation_name, :street_1, :street_2, :city, :county,
+          :postcode, :country, :_destroy
+        ]
       end
     end
   end

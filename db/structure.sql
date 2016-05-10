@@ -308,7 +308,8 @@ CREATE TABLE addresses (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     country character varying,
-    name character varying
+    name character varying,
+    organisation_name character varying
 );
 
 
@@ -5303,4 +5304,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160314181446');
 INSERT INTO schema_migrations (version) VALUES ('20160327221550');
 
 INSERT INTO schema_migrations (version) VALUES ('20160509171244');
+
+INSERT INTO schema_migrations (version) VALUES ('20160510155932');
 
