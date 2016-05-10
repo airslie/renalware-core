@@ -33,9 +33,17 @@ module Renalware
 
     def update
       Doctors::UpdateDoctor.build
-        .on(:update_doctor_successful) { redirect_to_doctors_list }
-        .on(:update_doctor_failed) { |doctor| render_form(doctor, :edit) }
+        .subscribe(self)
         .call(@doctor.id, doctor_params)
+    end
+
+    def update_doctor_successful(_doctor)
+      redirect_to_doctors_list
+    end
+
+    def update_doctor_failed(doctor)
+      flash[:error] = t(".failed", model_name: "doctor")
+      render_form(doctor, :edit)
     end
 
     def destroy
@@ -53,13 +61,11 @@ module Renalware
     end
 
     def redirect_to_doctors_list
-      redirect_to doctors_path,
-        notice: t(".success", model_name: "doctor")
+      redirect_to doctors_path, notice: t(".success", model_name: "doctor")
     end
 
     def render_form(doctor, action)
       @doctor = doctor
-      flash[:error] = t(".failed", model_name: "doctor")
       render action
     end
 

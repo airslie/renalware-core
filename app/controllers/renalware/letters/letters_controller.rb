@@ -20,7 +20,7 @@ module Renalware
           .call(@patient, letter_params)
       end
 
-      def draft_letter_successful(letter)
+      def draft_letter_successful(_letter)
         redirect_to_letters_list(@patient)
       end
 
@@ -43,7 +43,7 @@ module Renalware
           .call(@patient, params[:id], letter_params)
       end
 
-      def revise_letter_successful(letter)
+      def revise_letter_successful(_letter)
         redirect_to_letters_list(@patient)
       end
 

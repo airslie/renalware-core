@@ -10,12 +10,14 @@ module Renalware
       end
 
       def call(doctor_id, params)
-        doctor = find_doctor(doctor_id)
+        @doctor = find_doctor(doctor_id)
 
-        if doctor.update(params)
-          broadcast(:update_doctor_successful, doctor)
+        @doctor.attributes = params
+
+        if @doctor.save
+          broadcast(:update_doctor_successful, @doctor)
         else
-          broadcast(:update_doctor_failed, doctor)
+          broadcast(:update_doctor_failed, @doctor)
         end
       end
 

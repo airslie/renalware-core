@@ -40,9 +40,17 @@ module Renalware
 
     def update
       Patients::UpdatePatient.build
-        .on(:update_patient_successful) { |patient| redirect_to_clinical_summary(patient) }
-        .on(:update_patient_failed) { |patient| render_form(patient, :edit) }
+        .subscribe(self)
         .call(@patient.id, patient_params)
+    end
+
+    def update_patient_successful(patient)
+      redirect_to_clinical_summary(patient)
+    end
+
+    def update_patient_failed(patient)
+      flash[:error] = t(".failed", model_name: "patient")
+      render_form(patient, :edit)
     end
 
     private
@@ -73,7 +81,6 @@ module Renalware
 
     def render_form(patient, action)
       @patient = patient
-      flash[:error] = t(".failed", model_name: "patient")
       render action
     end
   end

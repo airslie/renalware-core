@@ -4,17 +4,15 @@ module Renalware
   module Letters
     class RecipientPresenter < DumbDelegator
       def address
-        if archived?
-          super
+        return super if archived?
+
+        case person_role
+        when "patient"
+          letter.patient.current_address
+        when "doctor"
+          letter.patient.doctor.current_address
         else
-          case person_role
-          when "patient"
-            letter.patient.current_address
-          when "doctor"
-            letter.patient.doctor.current_address
-          else
-            super
-          end
+          super
         end
       end
 
