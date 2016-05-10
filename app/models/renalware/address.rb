@@ -5,7 +5,8 @@ module Renalware
 
     def self.reject_if_blank
       Proc.new do |attrs|
-        !%i(name organisation_name street_1 street_2 city county postcode).map{|a| attrs[a].blank?}.include?(false)
+        %w(name organisation_name street_1 street_2 city county postcode)
+          .all? { |a| attrs[a].blank? }
       end
     end
 
@@ -26,7 +27,8 @@ module Renalware
     end
 
     def to_s
-      [name, organisation_name, street_1, street_2, city, county, postcode, country].reject(&:blank?).join(", ")
+      [name, organisation_name, street_1, street_2, city, county, postcode, country]
+        .reject(&:blank?).join(", ")
     end
   end
 end

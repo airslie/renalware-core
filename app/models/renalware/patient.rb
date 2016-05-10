@@ -29,7 +29,7 @@ module Renalware
     has_one :esrf
 
     accepts_nested_attributes_for :current_address
-    accepts_nested_attributes_for :address_at_diagnosis
+    accepts_nested_attributes_for :address_at_diagnosis, reject_if: Address.reject_if_blank
     accepts_nested_attributes_for :medications, allow_destroy: true
 
     validates :nhs_number, length: { minimum: 10, maximum: 10 }, uniqueness: true, allow_blank: true
