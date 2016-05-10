@@ -7,8 +7,9 @@
     = patient.input :family_name, input_html: { class: "small-input" }
     = patient.input :given_name, input_html: { class: "small-input" }
     = patient.input :sex,
-        collection: Renalware::Gender.all,
+        selected: patient.object.sex.code,
         placeholder: "Please select gender",
+        collection: Renalware::Gender.all,
         label_method: :name, value_method: :code,
         include_blank: "Please select gender", input_html: { class: "small-input" }
     = patient.association :ethnicity,
@@ -47,6 +48,7 @@
           = render partial: 'renalware/addresses/form', locals: { a: a }
 
     .large-6.columns
+      - patient.object.build_address_at_diagnosis if patient.object.address_at_diagnosis.blank?
       = patient.simple_fields_for :address_at_diagnosis_attributes, patient.object.address_at_diagnosis do |a|
         fieldset id="address_at_diagnosis"
           legend
