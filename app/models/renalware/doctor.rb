@@ -23,7 +23,9 @@ module Renalware
     end
 
     def practice_address
-      practices.first.try(:address)
+      address = practices.first.try(:address)
+      address.name = "Dr #{full_name}" if address.present?
+      address
     end
   end
 end
