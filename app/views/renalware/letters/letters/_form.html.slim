@@ -26,10 +26,9 @@ ruby:
     = f.association :author, collection: Renalware::User.ordered, label_method: :full_name
 
     = f.simple_fields_for :main_recipient do |fmr|
-      = fmr.input :source_type, as: :radio_buttons,
+      = fmr.input :person_role, as: :radio_buttons,
           collection: f.object.main_recipient_sources,
-          input_html: { class: 'recipient-source-picker' }, hint: f.object.patient_cc_hint
-      = fmr.input :source_id, as: :hidden
+          input_html: { class: 'recipient-person-role-picker' }, hint: f.object.patient_cc_hint
       = fmr.input :id, as: :hidden
 
       .row
@@ -43,7 +42,7 @@ ruby:
 
     .small-offset-3.small-9.columns
       #letter-ccs
-        = f.simple_fields_for :cc_recipients, f.object.manual_cc_recipients do |ff|
+        = f.simple_fields_for :cc_recipients, f.object.outsider_cc_recipients do |ff|
           = render 'cc_recipient_fields', f: ff
 
       .call-to-action

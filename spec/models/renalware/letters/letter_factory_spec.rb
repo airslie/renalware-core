@@ -11,7 +11,7 @@ module Renalware
         it "sets the patients doctor as the main recipient" do
           letter = subject.build
 
-          expect(letter.main_recipient.source_type).to eq("Renalware::Doctor")
+          expect(letter.main_recipient.person_role).to eq("doctor")
         end
       end
     end

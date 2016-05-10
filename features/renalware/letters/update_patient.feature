@@ -1,4 +1,3 @@
-@wip
 Feature: Updating a patient
 
   When the address of a patient changes, the pending letters (not archived)

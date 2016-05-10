@@ -52,7 +52,7 @@ end
 
 Then(/^Patty's pending letter is addressed to her new address$/) do
   expect_letter_to_be_addressed_to(
-    letter: @letter,
+    letter: @letter.reload,
     address_attributes: { street_1: "new street 1" }
   )
 end

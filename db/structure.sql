@@ -307,7 +307,8 @@ CREATE TABLE addresses (
     postcode character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    country character varying
+    country character varying,
+    name character varying
 );
 
 
@@ -1381,10 +1382,8 @@ ALTER SEQUENCE letter_letters_id_seq OWNED BY letter_letters.id;
 
 CREATE TABLE letter_recipients (
     id integer NOT NULL,
-    type character varying NOT NULL,
-    source_type character varying,
-    source_id integer,
-    name character varying,
+    role character varying,
+    person_role character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     letter_id integer NOT NULL
@@ -4252,20 +4251,6 @@ CREATE INDEX index_letter_recipients_on_letter_id ON letter_recipients USING btr
 
 
 --
--- Name: index_letter_recipients_on_source_type_and_source_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_letter_recipients_on_source_type_and_source_id ON letter_recipients USING btree (source_type, source_id);
-
-
---
--- Name: index_letter_recipients_on_type_and_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_letter_recipients_on_type_and_id ON letter_recipients USING btree (type, id);
-
-
---
 -- Name: index_medication_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5316,4 +5301,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160304162205');
 INSERT INTO schema_migrations (version) VALUES ('20160314181446');
 
 INSERT INTO schema_migrations (version) VALUES ('20160327221550');
+
+INSERT INTO schema_migrations (version) VALUES ('20160509161939');
+
+INSERT INTO schema_migrations (version) VALUES ('20160509171244');
 

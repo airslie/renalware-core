@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :letter_main_recipient, class: "Renalware::Letters::MainRecipient" do
-    name "John Doe"
+  factory :letter_main_recipient, class: "Renalware::Letters::Recipient" do
+    role "main"
   end
 end

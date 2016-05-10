@@ -12,7 +12,7 @@ module Renalware
       def build(params={})
         patient.letters.new(params).tap do |letter|
           if letter.main_recipient.blank?
-            letter.build_main_recipient(source_type: Renalware::Doctor.name)
+            letter.build_main_recipient(person_role: :doctor)
           end
         end
       end

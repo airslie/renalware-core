@@ -2,6 +2,7 @@ en:
   activerecord:
     attributes:
       renalware/address:
+        name: Name
         street_1: Line 1
         street_2: Line 2
         city: City

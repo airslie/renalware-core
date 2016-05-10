@@ -14,6 +14,7 @@ module Renalware
     end
 
     def copy_from(source)
+      self.name = source.name
       self.street_1 = source.street_1
       self.street_2 = source.street_2
       self.city = source.city
@@ -24,7 +25,7 @@ module Renalware
     end
 
     def to_s
-      [street_1, street_2, city, county, postcode, country].reject(&:blank?).join(", ")
+      [name, street_1, street_2, city, county, postcode, country].reject(&:blank?).join(", ")
     end
   end
 end

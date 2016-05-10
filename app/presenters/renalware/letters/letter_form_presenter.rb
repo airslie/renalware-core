@@ -32,16 +32,16 @@ module Renalware
 
       def doctor_source
         label = "Doctor <address>#{doctor.full_name}, #{doctor.address_line}</address>".html_safe
-        [label, "Renalware::Doctor"]
+        [label, "doctor"]
       end
 
       def patient_source
         label = "Patient <address>#{patient.full_name}, #{patient.address_line}</address>".html_safe
-        [label, "Renalware::Patient"]
+        [label, "patient"]
       end
 
       def manual_address_source
-        ["Postal Address Below", ""]
+        ["Postal Address Below", "outsider"]
       end
     end
   end

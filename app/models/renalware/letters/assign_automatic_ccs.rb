@@ -12,15 +12,15 @@ module Renalware
       def call(letter)
         @letter = letter
 
-        remove_automatic_ccs
+        keep_outsiders_only
         add_patient_as_cc if !sent_to_patient?
         add_doctor_as_cc if !sent_to_doctor?
       end
 
       private
 
-      def remove_automatic_ccs
-        letter.cc_recipients = letter.manual_cc_recipients
+      def keep_outsiders_only
+        letter.cc_recipients = letter.outsider_cc_recipients
       end
 
       def sent_to_doctor?
@@ -36,15 +36,15 @@ module Renalware
       end
 
       def add_patient_as_cc
-        add_source_as_cc(letter.patient) if patient.cc_on_letter?(letter)
+        add_cc_for_role("patient") if patient.cc_on_letter?(letter)
       end
 
       def add_doctor_as_cc
-        add_source_as_cc(letter.patient.doctor)
+        add_cc_for_role("doctor")
       end
 
-      def add_source_as_cc(source)
-        letter.cc_recipients.create!(source: source, name: source.full_name)
+      def add_cc_for_role(role)
+        letter.cc_recipients.create!(person_role: role)
       end
 
       def patient

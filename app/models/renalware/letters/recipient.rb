@@ -3,49 +3,36 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class Recipient < ActiveRecord::Base
+      extend Enumerize
+
       belongs_to :letter
-      belongs_to :source, polymorphic: true
       has_one :address, as: :addressable
 
-      accepts_nested_attributes_for :address, reject_if: :from_source?, allow_destroy: true
+      enumerize :role, in: %i(main cc)
+      enumerize :person_role, in: %i(patient doctor outsider)
 
-      scope :with_source, -> { where.not(source_type: nil) }
+      accepts_nested_attributes_for :address, reject_if: :insider?, allow_destroy: true
+
+      delegate :state, to: :letter
 
       def to_s
-        [name, address].compact.map(&:to_s).join(", ")
+        address.to_s
       end
 
-      def manual?
-        # Note: if the recipient does not have a source, it is a "manually typed" recipient
-        # Otherwise, it is either a Doctor or a Patient
-        source_type.blank?
+      def archived?
+        state.archived?
       end
 
-      def from_source?
-        !manual?
+      def insider?
+        doctor? || patient?
       end
 
       def doctor?
-        source_type == "Renalware::Doctor"
+        person_role.doctor?
       end
 
       def patient?
-        source_type == "Renalware::Patient"
-      end
-
-      def assign_source!
-        return if manual?
-
-        case
-        when patient?
-          self.source = letter.patient
-        when doctor?
-          self.source = letter.patient.doctor
-        else
-          raise "Unknown source_type #{source_type}"
-        end
-
-        save
+        person_role.patient?
       end
     end
   end

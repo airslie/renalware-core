@@ -112,6 +112,7 @@ module Renalware
 
   log '--------------------Adding Address for Roger RABBIT-------------------'
   rabbit.current_address = Address.find_or_create_by!(
+    name: "M. Roger Rabbit",
     street_1: '123 South Street',
     city: 'Toontown',
     postcode: 'TT1 1HD',
@@ -388,12 +389,12 @@ module Renalware
   users = User.limit(3).to_a
 
   letter = Letters::DraftLetter.build.call(patient,
+    state: :draft,
     issued_on: 1.day.ago,
     description: Renalware::Letters::Description.first.text,
     salutation: "Dear Dr Runner",
     main_recipient_attributes: {
-      source_type: "Renalware::Patient",
-      source_id: patient.id
+      person_role: "doctor"
     },
     body: "Maecenas faucibus mollis interdum. Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur blandit tempus porttitor. Maecenas sed diam eget risus varius blandit sit amet non magna. Sed posuere consectetur est at lobortis.",
     notes: "Waiting on lab results.",
@@ -407,8 +408,7 @@ module Renalware
     issued_on: 3.days.ago,
     description: Renalware::Letters::Description.last.text,
     main_recipient_attributes: {
-      source_type: "Renalware::Patient",
-      source_id: patient.id
+      person_role: "patient"
     },
     salutation: "Dear Mr Rabbit",
     body: "Maecenas faucibus mollis interdum. Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur blandit tempus porttitor. Maecenas sed diam eget risus varius blandit sit amet non magna. Sed posuere consectetur est at lobortis.",
@@ -422,8 +422,7 @@ module Renalware
     issued_on: 10.days.ago,
     description: Renalware::Letters::Description.last.text,
     main_recipient_attributes: {
-      source_type: "Renalware::Patient",
-      source_id: patient.id
+      person_role: "patient"
     },
     salutation: "Dear Mr Rabbit",
     body: "Maecenas faucibus mollis interdum. Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur blandit tempus porttitor. Maecenas sed diam eget risus varius blandit sit amet non magna. Sed posuere consectetur est at lobortis.",

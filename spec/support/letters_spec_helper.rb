@@ -4,12 +4,12 @@ module LettersSpecHelper
 
     case recipient
     when :patient
-      letter.main_recipient = build(:letter_main_recipient, source_type: "Renalware::Patient")
+      letter.main_recipient = build(:letter_main_recipient, person_role: "patient")
     when :doctor
-      letter.main_recipient = build(:letter_main_recipient, source_type: "Renalware::Doctor")
+      letter.main_recipient = build(:letter_main_recipient, person_role: "doctor")
     else
-      letter.main_recipient = build(:letter_main_recipient, source: nil,
-        name: "John Doe", address: build(:address)
+      letter.main_recipient = build(:letter_main_recipient, person_role: "outsider",
+        address: build(:address)
       )
     end
     letter
@@ -20,17 +20,24 @@ module LettersSpecHelper
 
     case recipient
     when :patient
-      letter.cc_recipients = [build(:letter_cc_recipient, source: letter.patient.doctor)]
+      letter.cc_recipients = [build(:letter_cc_recipient, person_role: "doctor")]
     when :doctor
-      letter.cc_recipients = [build(:letter_cc_recipient, source: letter.patient)]
+      letter.cc_recipients = [build(:letter_cc_recipient, person_role: "patient")]
     else
       letter.cc_recipients = [
-        build(:letter_cc_recipient, source: letter.patient.doctor),
-        build(:letter_cc_recipient, source: letter.patient)
+        build(:letter_cc_recipient, person_role: "doctor"),
+        build(:letter_cc_recipient, person_role: "patient")
       ]
     end
 
     letter.save!
+
+    if letter.state.archived?
+      letter.recipients.each do |recipient|
+        recipient.create_address attributes_for(:address)
+      end
+    end
+
     letter
   end
 

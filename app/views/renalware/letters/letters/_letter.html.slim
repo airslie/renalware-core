@@ -6,7 +6,7 @@ tr
   td Simple Letter
   td= l letter.issued_on
   td= letter.author
-  td= letter.main_recipient_name
+  td= letter.main_recipient.to_s
   td= letter.description
   td= letter.state.text
   td= l letter.updated_at

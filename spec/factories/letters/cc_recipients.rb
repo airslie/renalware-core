@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :letter_cc_recipient, class: "Renalware::Letters::CCRecipient" do
-    name "John Doe"
+  factory :letter_cc_recipient, class: "Renalware::Letters::Recipient" do
+    role "cc"
   end
 end

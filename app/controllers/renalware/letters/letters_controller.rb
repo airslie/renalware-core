@@ -67,20 +67,20 @@ module Renalware
 
       def main_recipient_attributes
         [
-          :id, :name, :source_type, :source_id,
+          :id, :person_role,
           address_attributes: address_attributes
         ]
       end
 
       def cc_recipients_attributes
         [
-          :id, :name, :source_type, :source_id, :_destroy,
+          :id, :person_role, :_destroy,
           address_attributes: address_attributes
         ]
       end
 
       def address_attributes
-        [:id, :street_1, :street_2, :city, :county, :postcode, :country, :_destroy]
+        [:id, :name, :street_1, :street_2, :city, :county, :postcode, :country, :_destroy]
       end
     end
   end

@@ -14,7 +14,7 @@ module Renalware
           it "adds the doctor as a CC recipient" do
             subject.call(letter)
             expect(letter.cc_recipients.size).to eq(1)
-            expect(letter.cc_recipients.first.source.id).to eq(letter.patient.doctor.id)
+            expect(letter.cc_recipients.first.person_role).to eq("doctor")
           end
         end
 
@@ -30,7 +30,7 @@ module Renalware
               subject.call(letter)
 
               expect(letter.cc_recipients.size).to eq(1)
-              expect(letter.cc_recipients.first.source).to eq(letter.patient)
+              expect(letter.cc_recipients.first.person_role).to eq("patient")
             end
           end
 
@@ -59,9 +59,9 @@ module Renalware
               subject.call(letter)
 
               expect(letter.cc_recipients.size).to eq(2)
-              sources = letter.cc_recipients.map(&:source)
-              expect(sources).to include(letter.patient)
-              expect(sources).to include(letter.patient.doctor)
+              person_roles = letter.cc_recipients.map(&:person_role)
+              expect(person_roles).to include("patient")
+              expect(person_roles).to include("doctor")
             end
           end
         end
