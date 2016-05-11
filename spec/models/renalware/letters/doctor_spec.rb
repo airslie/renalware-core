@@ -8,9 +8,9 @@ module Renalware
       subject(:doctor) { build(:letter_doctor) }
 
       describe "#cc_on_letter?" do
-        let(:patient) { build(:letter_patient, doctor: doctor) }
-
         context "given the doctor is assigned to the patient" do
+          let(:patient) { build(:letter_patient, doctor: doctor) }
+
           context "and the patient is the main recipient" do
             let(:letter) { build_letter(to: :patient, patient: patient) }
 
@@ -32,9 +32,8 @@ module Renalware
 
         context "given the patient is assigned to another doctor" do
           let(:other_doctor) { build(:letter_doctor) }
+          let(:patient) { build(:letter_patient, doctor: other_doctor) }
           let(:letter) { build_letter(to: :patient, patient: patient) }
-
-          before { patient.doctor = other_doctor }
 
           it { expect(doctor.cc_on_letter?(letter)).to be_falsy }
         end

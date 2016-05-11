@@ -62,6 +62,10 @@ module Renalware
       )
     end
 
+    def assigned_to_doctor?(doctor)
+      self.doctor == doctor
+    end
+
     # @section services
 
     def set_modality(attrs)

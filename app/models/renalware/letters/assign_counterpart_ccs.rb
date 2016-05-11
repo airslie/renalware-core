@@ -17,11 +17,11 @@ module Renalware
       private
 
       def apply(roles)
-        remove_irrelevent_cc_recipients(roles)
+        remove_irrelevent_counterpart_ccs(roles)
         add_counterpart_ccs(roles)
       end
 
-      def remove_irrelevent_cc_recipients(roles)
+      def remove_irrelevent_counterpart_ccs(roles)
         allowed_roles = roles + ["other"]
         cc_recipients.each do |cc|
           delete_cc_if_not_in_roles(cc, allowed_roles)
