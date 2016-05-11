@@ -68,11 +68,10 @@ module Renalware
           end
         end
 
-        context "given an existing letter is revised and now sent to the patient instead of the doctor" do
+        context "given the main recipient is changed from doctor to patient" do
           let(:letter) { create_letter(to: :doctor, patient: patient) }
 
           before do
-            expect(letter.cc_recipients.first.person_role).to eq("patient")
             letter.main_recipient.person_role = :patient
             letter.by = letter.author
           end
@@ -82,6 +81,7 @@ module Renalware
 
             letter.save!
             letter.reload
+
             expect(letter.cc_recipients.size).to eq(1)
             expect(letter.cc_recipients.first.person_role).to eq("doctor")
           end
