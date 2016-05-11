@@ -11,13 +11,17 @@ module Renalware
       enumerize :role, in: %i(main cc)
       enumerize :person_role, in: %i(patient doctor other)
 
-      accepts_nested_attributes_for :address, reject_if: -> { !other? }, allow_destroy: true
+      accepts_nested_attributes_for :address, allow_destroy: true, reject_if: :patient_or_doctor?
 
       delegate :state, to: :letter
       delegate :doctor?, :patient?, :other?, to: :person_role
 
       def to_s
         address.to_s
+      end
+
+      def patient_or_doctor?
+        patient? || doctor?
       end
 
       def archived?
