@@ -1,0 +1,16 @@
+- opts = { title: "Investigations", navigation_partial: "renalware/pathology/navigation" }
+= render layout: "renalware/patients/layout", locals: opts do
+  table
+    thead
+      tr
+        th Requested on
+        th Code
+        th Name
+    tbody
+      - @observation_requests.each do |observation_request|
+        tr
+          td= l observation_request.requested_at
+          td= observation_request.description.code
+          td= observation_request.description.name
+
+  = paginate @observation_requests
