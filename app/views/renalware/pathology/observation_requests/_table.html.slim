@@ -1,0 +1,14 @@
+table data-behaviour="highlight"
+  thead
+    tr
+      th Requested on
+      th Code
+      th Name
+  tbody
+    - observation_requests.each do |observation_request|
+      tr
+        td= l observation_request.requested_at
+        td= link_to observation_request.description.code, patient_pathology_observation_request_path(patient, observation_request), remote: true
+        td= observation_request.description.name
+
+= paginate observation_requests
