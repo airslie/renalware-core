@@ -4,9 +4,7 @@ RSpec.describe "Patient's Observation Requests", type: :request do
   let(:patient) { create(:pathology_patient) }
 
   describe "GET index" do
-    before do
-      create(:pathology_observation_request, patient: patient)
-    end
+    before { create(:pathology_observation_request, patient: patient) }
 
     it "responds with a list" do
       get patient_pathology_observation_requests_path(patient_id: patient.id)
