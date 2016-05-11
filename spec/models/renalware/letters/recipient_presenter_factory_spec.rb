@@ -5,37 +5,21 @@ module Renalware
     RSpec.describe RecipientPresenterFactory, type: :model do
       include LettersSpecHelper
 
-      subject(:main_recipient) { RecipientPresenterFactory.new(letter.main_recipient) }
+      subject(:presenter_factory) { RecipientPresenterFactory }
 
       let(:patient) { build(:letter_patient) }
 
-      describe "#address" do
-        context "in state draft" do
-          let(:letter) { build_letter(to: :patient, patient: patient, state: :draft) }
+      describe ".new" do
+        Letter.state.values.each do |state|
+          context "given the letter is in state #{state}" do
+            let(:letter) { build_letter(to: :patient, patient: patient, state: state) }
 
-          it "returns the address of the person" do
-            expect(main_recipient.address).to eq(letter.patient.current_address)
-          end
-        end
+            it "returns the presenter class for the #{state} state" do
+              presenter = presenter_factory.new(letter.main_recipient)
 
-        context "in state ready_for_review" do
-          let(:letter) { build_letter(to: :patient, patient: patient, state: :ready_for_review) }
-
-          it "returns the address of the person" do
-            expect(main_recipient.address).to eq(letter.patient.current_address)
-          end
-        end
-
-        context "in state archived" do
-          let!(:letter) { build_letter(to: :patient, patient: patient, state: :archived) }
-
-          before do
-            letter.patient.current_address.update_attributes!(street_1: "NEW STREET")
-          end
-
-          it "returns the address of the person" do
-            expect(main_recipient.address).to_not eq(letter.patient.current_address)
-            expect(main_recipient.address).to eq(letter.main_recipient.address)
+              presenter_class = RecipientPresenter.const_get(state.classify)
+              expect(presenter).to be_a(presenter_class)
+            end
           end
         end
       end
