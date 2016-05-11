@@ -12,7 +12,6 @@ module Renalware
 
         !letter.main_recipient.patient?
       end
-
     end
   end
 end

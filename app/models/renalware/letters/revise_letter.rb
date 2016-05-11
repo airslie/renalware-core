@@ -6,19 +6,16 @@ module Renalware
       include Wisper::Publisher
 
       def self.build
-        self.new(PersistLetter.build)
-      end
-
-      def initialize(persist_letter)
-        @persist_letter = persist_letter
+        self.new
       end
 
       def call(patient, letter_id, params={})
         letter = patient.letters.find(letter_id)
-        letter.attributes = params
 
         patient.transaction do
-          @persist_letter.call(letter)
+          letter.attributes = params
+          letter.assign_counterpart_ccs
+          letter.save!
         end
         broadcast(:revise_letter_successful, letter)
       rescue ActiveRecord::RecordInvalid

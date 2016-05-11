@@ -40,6 +40,10 @@ module Renalware
       def outsider_cc_recipients
         cc_recipients.select { |cc| cc.person_role.outsider? }
       end
+
+      def assign_counterpart_ccs
+        AssignCounterpartCCs.new(self).call
+      end
     end
   end
 end
