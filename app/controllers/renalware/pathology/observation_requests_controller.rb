@@ -13,6 +13,14 @@ module Renalware
 
         render locals: {observation_requests: observation_requests, patient: @patient}
       end
+
+      def show
+        observation_request = @patient.observation_requests
+          .includes(:description, observations: :description)
+          .find(params[:id])
+
+        render locals: {observation_request: observation_request, patient: @patient}
+      end
     end
   end
 end

@@ -14,4 +14,16 @@ RSpec.describe "Patient's Observation Requests", type: :request do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe "GET show" do
+    let(:observation_request) { create(:pathology_observation_request, patient: patient) }
+
+    before { create(:pathology_observation, request: observation_request) }
+
+    it "responds with details" do
+      get patient_pathology_observation_request_path(patient_id: patient.id, id: observation_request.id)
+
+      expect(response).to have_http_status(:success)
+    end
+  end
 end
