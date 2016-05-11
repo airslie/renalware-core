@@ -3,7 +3,7 @@ require "rails_helper"
 module Renalware
   module Letters
     RSpec.describe LetterFactory, type: :model do
-      let(:patient) { ActiveType.cast(create(:patient), Letters::Patient) }
+      let(:patient) { build(:letter_patient) }
 
       subject { LetterFactory.new(patient) }
 

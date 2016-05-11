@@ -1,26 +1,27 @@
 module LettersSpecHelper
-  def build_letter_to(recipient, *args)
-    letter = build(:letter, *args)
+  def build_letter(to:, patient:, **args)
+    letter = build(:letter, **args)
+    letter.patient = patient
 
     letter.patient.doctor ||= build(:letter_doctor)
 
-    case recipient
+    case to
     when :patient
-      letter.main_recipient = build(:letter_recipient, :main, person_role: "patient")
+      attributes = { person_role: "patient" }
     when :doctor
-      letter.main_recipient = build(:letter_recipient, :main, person_role: "doctor")
+      attributes = { person_role: "doctor" }
     else
-      letter.main_recipient = build(:letter_recipient, :main, person_role: "other",
-        address: build(:address)
-      )
+      attributes = { person_role: "other", address: build(:address) }
     end
+    letter.main_recipient = build(:letter_recipient, :main, attributes)
+
     letter
   end
 
-  def create_letter_to(recipient, *args)
-    letter = build_letter_to(recipient, *args)
+  def create_letter(to:, **args)
+    letter = build_letter(to: to, **args)
 
-    case recipient
+    case to
     when :patient
       letter.cc_recipients = [build(:letter_recipient, :cc, person_role: "doctor")]
     when :doctor
@@ -40,12 +41,6 @@ module LettersSpecHelper
       end
     end
 
-    letter
-  end
-
-  def create_persisted_letter(recipient, *args)
-    letter = build_letter_to(recipient, *args)
-    Renalware::Letters::PersistLetter.build.call(letter)
     letter
   end
 end

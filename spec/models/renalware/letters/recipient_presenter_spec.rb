@@ -7,9 +7,11 @@ module Renalware
 
       subject(:main_recipient) { RecipientPresenter.new(letter.main_recipient) }
 
+      let(:patient) { build(:letter_patient) }
+
       describe "#address" do
         context "in state draft" do
-          let(:letter) { create_letter_to(:patient, state: :draft) }
+          let(:letter) { build_letter(to: :patient, patient: patient, state: :draft) }
 
           it "returns the address of the person" do
             expect(main_recipient.address).to eq(letter.patient.current_address)
@@ -17,7 +19,7 @@ module Renalware
         end
 
         context "in state ready_for_review" do
-          let(:letter) { create_letter_to(:patient, state: :ready_for_review) }
+          let(:letter) { build_letter(to: :patient, patient: patient, state: :ready_for_review) }
 
           it "returns the address of the person" do
             expect(main_recipient.address).to eq(letter.patient.current_address)
@@ -25,7 +27,7 @@ module Renalware
         end
 
         context "in state archived" do
-          let!(:letter) { create_letter_to(:patient, state: :archived) }
+          let!(:letter) { build_letter(to: :patient, patient: patient, state: :archived) }
 
           before do
             letter.patient.current_address.update_attributes!(street_1: "NEW STREET")

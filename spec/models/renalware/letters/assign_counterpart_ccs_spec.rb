@@ -7,9 +7,11 @@ module Renalware
 
       subject { AssignCounterpartCCs.new(letter) }
 
+      let(:patient) { build(:letter_patient) }
+
       describe "#call" do
         context "given the recipient is the patient" do
-          let(:letter) { build_letter_to(:patient) }
+          let(:letter) { build_letter(to: :patient, patient: patient) }
 
           it "adds the doctor as a CC recipient" do
             subject.call
@@ -19,7 +21,7 @@ module Renalware
         end
 
         context "given the recipient is the doctor" do
-          let(:letter) { build_letter_to(:doctor) }
+          let(:letter) { build_letter(to: :doctor, patient: patient) }
 
           context "given the patient opted to be CCd on all letters" do
             before do
@@ -48,7 +50,7 @@ module Renalware
         end
 
         context "given the recipient is someone else" do
-          let(:letter) { build_letter_to(:someone_else) }
+          let(:letter) { build_letter(to: :other, patient: patient) }
 
           context "given the patient opted to be CCd on all letters" do
             before do
@@ -67,7 +69,7 @@ module Renalware
         end
 
         context "given an existing letter is revised and now sent to the patient instead of the doctor" do
-          let(:letter) { create_letter_to(:doctor) }
+          let(:letter) { create_letter(to: :doctor, patient: patient) }
 
           before do
             expect(letter.cc_recipients.first.person_role).to eq("patient")
