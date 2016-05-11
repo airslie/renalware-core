@@ -3,5 +3,5 @@ table
     - observations.each do |observation|
       - observation.description.tap do |description|
         tr title=description.name
-          th= description
+          th= description.code
           td= observation.result
