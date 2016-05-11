@@ -6,13 +6,13 @@ module Renalware
     describe Doctor, type: :model do
       include LettersSpecHelper
 
-      subject(:doctor) { Letters.cast_doctor(patient.doctor) }
+      subject(:doctor) { create(:letter_doctor) }
 
       describe "#cc_on_letter?" do
-        let(:patient) { create(:letter_patient) }
+        let(:patient) { create(:letter_patient, doctor: doctor) }
 
         context "given the letter is for another doctor" do
-          let(:other_doctor) { build(:doctor) }
+          let(:other_doctor) { build(:letter_doctor) }
           let(:other_patient) { build(:letter_patient, doctor: other_doctor) }
           let(:letter) { build_letter_to(:other_patient, patient: other_patient) }
 

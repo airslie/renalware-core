@@ -2,6 +2,8 @@ module LettersSpecHelper
   def build_letter_to(recipient, *args)
     letter = build(:letter, *args)
 
+    letter.patient.doctor ||= build(:letter_doctor)
+
     case recipient
     when :patient
       letter.main_recipient = build(:letter_recipient, :main, person_role: "patient")
