@@ -10,9 +10,9 @@ module Renalware
       belongs_to :patient
       belongs_to :letterhead
       has_one :main_recipient, -> { where(role: "main") },
-        class_name: "Renalware::Letters::Recipient", inverse_of: :letter
+        class_name: "Recipient", inverse_of: :letter
       has_many :cc_recipients, -> { where(role: "cc") },
-        class_name: "Renalware::Letters::Recipient", dependent: :destroy, inverse_of: :letter
+        class_name: "Recipient", dependent: :destroy, inverse_of: :letter
       has_many :recipients, dependent: :destroy
 
 
@@ -33,10 +33,8 @@ module Renalware
         LetterPolicy
       end
 
-      def self.build(attributes={})
-        new(attributes).tap do |letter|
-          letter.build_main_recipient(person_role: :doctor) if letter.main_recipient.blank?
-        end
+      def subject?(other_patient)
+        patient == other_patient
       end
 
       def outsider_cc_recipients

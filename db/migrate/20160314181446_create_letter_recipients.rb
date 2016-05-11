@@ -1,8 +1,8 @@
 class CreateLetterRecipients < ActiveRecord::Migration
   def change
     create_table :letter_recipients do |t|
-      t.string :role
-      t.string :person_role
+      t.string :role, null: false
+      t.string :person_role, null: false
 
       t.timestamps null: false
     end

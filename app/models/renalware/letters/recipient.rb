@@ -15,6 +15,9 @@ module Renalware
 
       delegate :state, to: :letter
 
+
+      delegate :doctor?, :patient?, :outsider?, to: :person_role
+
       def to_s
         address.to_s
       end
@@ -25,18 +28,6 @@ module Renalware
 
       def insider?
         doctor? || patient?
-      end
-
-      def doctor?
-        person_role.doctor?
-      end
-
-      def patient?
-        person_role.patient?
-      end
-
-      def outsider?
-        person_role.outsider?
       end
     end
   end

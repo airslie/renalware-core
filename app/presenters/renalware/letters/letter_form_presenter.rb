@@ -3,11 +3,11 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class LetterFormPresenter < DumbDelegator
-      def main_recipient_sources
+      def person_roles
         [].tap do |collection|
-          collection << doctor_source if patient.doctor.present?
-          collection << patient_source
-          collection << manual_address_source
+          collection << doctor_role if patient.doctor.present?
+          collection << patient_role
+          collection << other_role
         end
       end
 
@@ -30,17 +30,17 @@ module Renalware
 
       private
 
-      def doctor_source
+      def doctor_role
         label = "Doctor <address>#{doctor.full_name}, #{doctor.address_line}</address>".html_safe
         [label, "doctor"]
       end
 
-      def patient_source
+      def patient_role
         label = "Patient <address>#{patient.full_name}, #{patient.address_line}</address>".html_safe
         [label, "patient"]
       end
 
-      def manual_address_source
+      def other_role
         ["Postal Address Below", "outsider"]
       end
     end

@@ -1,8 +1,7 @@
 .nested-fields
   .row
     fieldset
-      - f.object.person_role = :outsider
-      = f.input :person_role, as: :hidden
+      = f.input :person_role, as: :hidden, input_html: { value: "outsider" }
       = render "form_recipient", f: f
 
     .right

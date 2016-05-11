@@ -27,7 +27,7 @@ ruby:
 
     = f.simple_fields_for :main_recipient do |fmr|
       = fmr.input :person_role, as: :radio_buttons,
-          collection: f.object.main_recipient_sources,
+          collection: f.object.person_roles,
           input_html: { class: 'recipient-person-role-picker' }, hint: f.object.patient_cc_hint
       = fmr.input :id, as: :hidden
 
