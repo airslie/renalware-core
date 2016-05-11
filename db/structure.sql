@@ -1383,8 +1383,8 @@ ALTER SEQUENCE letter_letters_id_seq OWNED BY letter_letters.id;
 
 CREATE TABLE letter_recipients (
     id integer NOT NULL,
-    role character varying,
-    person_role character varying,
+    role character varying NOT NULL,
+    person_role character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     letter_id integer NOT NULL
