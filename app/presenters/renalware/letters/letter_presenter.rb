@@ -9,11 +9,10 @@ module Renalware
       end
 
       def cc_recipients
-        ::CollectionPresenter.new(super, RecipientPresenter)
-      end
-
-      def recipients
-        ::CollectionPresenter.new(super, RecipientPresenter)
+        @cc_recipients_with_counterparts ||= begin
+          assign_counterpart_ccs
+          ::CollectionPresenter.new(super, RecipientPresenter)
+        end
       end
     end
   end

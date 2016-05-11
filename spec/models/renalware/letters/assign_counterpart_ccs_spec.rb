@@ -69,18 +69,16 @@ module Renalware
         end
 
         context "given the main recipient is changed from doctor to patient" do
-          let(:letter) { create_letter(to: :doctor, patient: patient) }
+          let(:letter) { build_letter(to: :doctor, patient: patient) }
 
           before do
+            letter.cc_recipients.build(person_role: :patient)
             letter.main_recipient.person_role = :patient
             letter.by = letter.author
           end
 
           it "sets the doctor as the only CC recipient" do
             subject.call
-
-            letter.save!
-            letter.reload
 
             expect(letter.cc_recipients.size).to eq(1)
             expect(letter.cc_recipients.first.person_role).to eq("doctor")

@@ -17,11 +17,11 @@ module Renalware
       private
 
       def apply(roles)
-        remove_futile_roles(roles)
-        add_missing_roles(roles)
+        remove_irrelevent_cc_recipients(roles)
+        add_counterpart_ccs(roles)
       end
 
-      def remove_futile_roles(roles)
+      def remove_irrelevent_cc_recipients(roles)
         allowed_roles = roles + ["other"]
         cc_recipients.each do |cc|
           delete_cc_if_not_in_roles(cc, allowed_roles)
@@ -32,7 +32,7 @@ module Renalware
         cc_recipients.delete(cc) unless roles.include?(cc.person_role)
       end
 
-      def add_missing_roles(roles)
+      def add_counterpart_ccs(roles)
         existing_roles = cc_recipients.map(&:person_role)
         missing_roles = roles - existing_roles
         missing_roles.each do |role|

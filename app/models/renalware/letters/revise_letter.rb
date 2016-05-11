@@ -11,12 +11,7 @@ module Renalware
 
       def call(patient, letter_id, params={})
         letter = patient.letters.find(letter_id)
-
-        patient.transaction do
-          letter.attributes = params
-          letter.assign_counterpart_ccs
-          letter.save!
-        end
+        letter.update!(params)
         broadcast(:revise_letter_successful, letter)
       rescue ActiveRecord::RecordInvalid
         broadcast(:revise_letter_failed, letter)

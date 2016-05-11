@@ -11,11 +11,7 @@ module Renalware
 
       def call(patient, params={})
         letter = LetterFactory.new(patient).build(params)
-
-        patient.transaction do
-          letter.assign_counterpart_ccs
-          letter.save!
-        end
+        letter.save!
         broadcast(:draft_letter_successful, letter)
       rescue ActiveRecord::RecordInvalid
         broadcast(:draft_letter_failed, letter)
