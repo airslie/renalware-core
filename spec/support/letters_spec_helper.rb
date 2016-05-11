@@ -10,7 +10,7 @@ module LettersSpecHelper
     when :doctor
       letter.main_recipient = build(:letter_recipient, :main, person_role: "doctor")
     else
-      letter.main_recipient = build(:letter_recipient, :main, person_role: "outsider",
+      letter.main_recipient = build(:letter_recipient, :main, person_role: "other",
         address: build(:address)
       )
     end

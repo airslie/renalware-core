@@ -114,7 +114,7 @@ module World
           elsif cc.is_a? Renalware::Doctor
             ["doctor", cc.current_address.city]
           else
-            ["outsider", cc[:city]]
+            ["other", cc[:city]]
           end
         end
 
@@ -153,7 +153,7 @@ module World
           { person_role: "patient" }
         else
           {
-            person_role: "outsider",
+            person_role: "other",
             address_attributes: {
               name: recipient[:name],
               city: recipient[:city],

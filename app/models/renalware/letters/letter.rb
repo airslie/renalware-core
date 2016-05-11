@@ -37,8 +37,8 @@ module Renalware
         patient == other_patient
       end
 
-      def outsider_cc_recipients
-        cc_recipients.select { |cc| cc.person_role.outsider? }
+      def other_cc_recipients
+        cc_recipients.select { |cc| cc.person_role.other? }
       end
 
       def assign_counterpart_ccs

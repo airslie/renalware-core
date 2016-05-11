@@ -9,14 +9,12 @@ module Renalware
       has_one :address, as: :addressable
 
       enumerize :role, in: %i(main cc)
-      enumerize :person_role, in: %i(patient doctor outsider)
+      enumerize :person_role, in: %i(patient doctor other)
 
-      accepts_nested_attributes_for :address, reject_if: :insider?, allow_destroy: true
+      accepts_nested_attributes_for :address, reject_if: -> { !other? }, allow_destroy: true
 
       delegate :state, to: :letter
-
-
-      delegate :doctor?, :patient?, :outsider?, to: :person_role
+      delegate :doctor?, :patient?, :other?, to: :person_role
 
       def to_s
         address.to_s
@@ -24,10 +22,6 @@ module Renalware
 
       def archived?
         state.archived?
-      end
-
-      def insider?
-        doctor? || patient?
       end
     end
   end

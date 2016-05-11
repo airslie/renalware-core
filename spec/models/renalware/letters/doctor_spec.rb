@@ -32,7 +32,7 @@ module Renalware
         end
 
         context "given the letter is for someone else" do
-          let(:letter) { build_letter_to(:outsider, patient: patient) }
+          let(:letter) { build_letter_to(:other, patient: patient) }
 
           it { expect(doctor.cc_on_letter?(letter)).to be_truthy }
         end

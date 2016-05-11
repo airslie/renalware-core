@@ -22,7 +22,7 @@ module Renalware
       end
 
       def remove_futile_roles(roles)
-        allowed_roles = roles + ["outsider"]
+        allowed_roles = roles + ["other"]
         cc_recipients.each do |cc|
           delete_cc_if_not_in_roles(cc, allowed_roles)
         end
