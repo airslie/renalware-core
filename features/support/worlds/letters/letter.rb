@@ -30,14 +30,17 @@ module World
       #
       def set_up_simple_letter_for(patient, user:)
         patient = letters_patient(patient)
-        result = Renalware::Letters::DraftLetter.new(patient.letters.build).call(
-          valid_simple_letter_attributes(patient).merge(
-            author: user,
-            main_recipient_attributes: { source_type: "Renalware::Patient", source_id: patient.id },
-            by: user
-          )
+
+        letter_attributes = valid_simple_letter_attributes(patient).merge(
+          author: user,
+          main_recipient_attributes: { person_role: "patient" },
+          by: user
         )
-        raise "Letter creation failed!" unless result
+
+        Renalware::Letters::DraftLetter.build
+          .on(:draft_letter_successful) { |letter| return letter }
+          .on(:draft_letter_failed) { raise "Letter creation failed!" }
+          .call(patient, letter_attributes)
       end
 
       # @section commands
@@ -52,35 +55,46 @@ module World
           main_recipient_attributes: build_main_recipient_attributes(recipient),
           cc_recipients_attributes: build_cc_recipients_attributes(ccs)
         )
-        Renalware::Letters::DraftLetter.new(patient.letters.build).call(letter_attributes)
+
+        Renalware::Letters::DraftLetter.build
+          .on(:draft_letter_successful) { |letter| return letter }
+          .on(:draft_letter_failed) { |letter| return letter }
+          .call(patient, letter_attributes)
       end
 
       def update_simple_letter(patient:, user:)
-        travel_to 1.hour.from_now
+        patient = letters_patient(patient)
 
-        letter = simple_letter_for(patient)
-        Renalware::Letters::DraftLetter.new(letter).call(
-          updated_at: Time.zone.now,
-          issued_on: (letter.issued_on + 1.day),
-          author: user,
+        existing_letter = simple_letter_for(patient)
+        letter_attributes = {
+          body: "updated body",
           by: user
-        )
+        }
+
+        Renalware::Letters::ReviseLetter.build
+          .on(:revise_letter_successful) { |letter| return letter }
+          .on(:revise_letter_failed) { |letter| return letter }
+          .call(patient, existing_letter.id, letter_attributes)
       end
 
       # @section expectations
       #
       def expect_simple_letter_to_exist(patient, recipient:)
         patient = letters_patient(patient)
-        letter = patient.letters.first
 
+        letter = patient.letters.first
         expect(letter).to be_present
 
-        if recipient.is_a? ActiveRecord::Base
-          expect(letter.main_recipient.source).to eq(recipient)
-          expect(letter.main_recipient.address.city).to eq(recipient.current_address.city)
+        main_recipient = Renalware::Letters::LetterPresenter.new(letter).main_recipient
+        if recipient.is_a? Renalware::Patient
+          expect(main_recipient.person_role).to eq("patient")
+          expect(main_recipient.address.city).to eq(recipient.current_address.city)
+        elsif recipient.is_a? Renalware::Doctor
+          expect(main_recipient.person_role).to eq("doctor")
+          expect(main_recipient.address.city).to eq(recipient.current_address.city)
         else
-          expect(letter.main_recipient.name).to eq(recipient[:name])
-          expect(letter.main_recipient.address.city).to eq(recipient[:city])
+          expect(main_recipient.address.name).to eq(recipient[:name])
+          expect(main_recipient.address.city).to eq(recipient[:city])
         end
       end
 
@@ -90,23 +104,31 @@ module World
 
       def expect_simple_letter_to_have_ccs(patient, ccs:)
         patient = letters_patient(patient)
-        letter = patient.letters.first
+        letter = Renalware::Letters::LetterPresenter.new(patient.letters.first)
 
         expect(letter.cc_recipients.size).to eq(ccs.size)
 
         ccs_map = ccs.map do |cc|
-          if cc.is_a? ActiveRecord::Base
-            [cc.class.name, cc.id, cc.current_address.city]
+          if cc.is_a? Renalware::Patient
+            ["patient", cc.current_address.city]
+          elsif cc.is_a? Renalware::Doctor
+            ["doctor", cc.current_address.city]
           else
-            [nil, nil, cc[:city]]
+            ["other", cc[:city]]
           end
         end
 
         cc_recipients_map = letter.cc_recipients.map do |cc|
-          [cc.source_type, cc.source_id, cc.address.city]
+          [cc.person_role, cc.address.city]
         end
 
         expect(ccs_map).to match_array(cc_recipients_map)
+      end
+
+      def expect_letter_to_be_addressed_to(letter:, address_attributes:)
+        letter = Renalware::Letters::LetterPresenter.new(letter)
+        attributes = letter.main_recipient.address.attributes.symbolize_keys
+        expect(attributes).to include(address_attributes)
       end
 
       private
@@ -124,17 +146,16 @@ module World
       end
 
       def build_recipient_attributes(recipient)
-        if recipient.is_a? ActiveRecord::Base
-          {
-            source_type: recipient.class.name,
-            source_id: recipient.id
-          }
+        case recipient
+        when Renalware::Doctor
+          { person_role: "doctor" }
+        when Renalware::Patient
+          { person_role: "patient" }
         else
           {
-            source_type: nil,
-            source_id: nil,
-            name: recipient[:name],
+            person_role: "other",
             address_attributes: {
+              name: recipient[:name],
               city: recipient[:city],
               street_1: "1 Main St"
             }
@@ -160,9 +181,9 @@ module World
 
         case recipient
         when Renalware::Patient
-          choose("letters_letter_main_recipient_attributes_source_type_renalwarepatient")
+          choose("letters_letter_main_recipient_attributes_person_role_patient")
         when Renalware::Doctor
-          choose("letters_letter_main_recipient_attributes_source_type_renalwaredoctor")
+          choose("letters_letter_main_recipient_attributes_person_role_doctor")
         else
           choose("Postal Address Below")
           fill_in "Name", with: recipient[:name]

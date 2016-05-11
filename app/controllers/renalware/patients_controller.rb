@@ -35,17 +35,22 @@ module Renalware
     end
 
     def edit
-      render
+      render_form(@patient, :edit)
     end
 
     def update
-      if @patient.update(patient_params)
-        redirect_to patient_clinical_summary_path(@patient),
-          notice: t(".success", model_name: "patient")
-      else
-        flash[:error] = t(".failed", model_name: "patient")
-        render :edit
-      end
+      Patients::UpdatePatient.build
+        .subscribe(self)
+        .call(@patient.id, patient_params)
+    end
+
+    def update_patient_successful(patient)
+      redirect_to_patient_demographics(patient)
+    end
+
+    def update_patient_failed(patient)
+      flash[:error] = t(".failed", model_name: "patient")
+      render_form(patient, :edit)
     end
 
     private
@@ -53,13 +58,13 @@ module Renalware
     def patient_params
       params.require(:patient).permit(
         :nhs_number, :local_patient_id, :family_name, :given_name, :sex,
-        :ethnicity_id, :born_on, :paediatric_patient_indicator,
+        :ethnicity_id, :born_on, :paediatric_patient_indicator, :cc_on_all_letters,
         :gp_practice_code, :pct_org_code, :hospital_centre_code, :primary_esrf_centre,
         current_address_attributes: [
-          :street_1, :street_2, :county, :country, :city, :postcode
+          :name, :organisation_name, :street_1, :street_2, :county, :country, :city, :postcode
         ],
         address_at_diagnosis_attributes: [
-          :street_1, :street_2, :county, :country, :city, :postcode
+          :name, :organisation_name, :street_1, :street_2, :county, :country, :city, :postcode
         ]
       )
     end
@@ -67,6 +72,16 @@ module Renalware
     def find_patient
       @patient = Patient.find(params[:id])
       authorize @patient
+    end
+
+    def redirect_to_patient_demographics(patient)
+      redirect_to patient_path(patient),
+        notice: t(".success", model_name: "patient")
+    end
+
+    def render_form(patient, action)
+      @patient = patient
+      render action
     end
   end
 end

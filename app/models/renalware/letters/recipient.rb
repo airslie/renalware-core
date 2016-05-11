@@ -3,25 +3,29 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class Recipient < ActiveRecord::Base
+      extend Enumerize
+
       belongs_to :letter
-      belongs_to :source, polymorphic: true
       has_one :address, as: :addressable
 
-      accepts_nested_attributes_for :address, reject_if: :address_not_needed?, allow_destroy: true
+      enumerize :role, in: %i(main cc)
+      enumerize :person_role, in: %i(patient doctor other)
+
+      accepts_nested_attributes_for :address, allow_destroy: true, reject_if: :patient_or_doctor?
+
+      delegate :state, to: :letter
+      delegate :doctor?, :patient?, :other?, to: :person_role
 
       def to_s
-        [name, address].compact.map(&:to_s).join(", ")
+        address.to_s
       end
 
-      def copy_address!(source_address)
-        build_address if address.blank?
-        address.copy_from(source_address).save!
+      def patient_or_doctor?
+        patient? || doctor?
       end
 
-      private
-
-      def address_not_needed?
-        source_type.present?
+      def archived?
+        state.archived?
       end
     end
   end

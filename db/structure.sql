@@ -307,7 +307,9 @@ CREATE TABLE addresses (
     postcode character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    country character varying
+    country character varying,
+    name character varying,
+    organisation_name character varying
 );
 
 
@@ -1381,10 +1383,8 @@ ALTER SEQUENCE letter_letters_id_seq OWNED BY letter_letters.id;
 
 CREATE TABLE letter_recipients (
     id integer NOT NULL,
-    type character varying NOT NULL,
-    source_type character varying,
-    source_id integer,
-    name character varying,
+    role character varying NOT NULL,
+    person_role character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     letter_id integer NOT NULL
@@ -1984,7 +1984,6 @@ CREATE TABLE practices (
     name character varying NOT NULL,
     email character varying,
     code character varying NOT NULL,
-    address_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -4252,20 +4251,6 @@ CREATE INDEX index_letter_recipients_on_letter_id ON letter_recipients USING btr
 
 
 --
--- Name: index_letter_recipients_on_source_type_and_source_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_letter_recipients_on_source_type_and_source_id ON letter_recipients USING btree (source_type, source_id);
-
-
---
--- Name: index_letter_recipients_on_type_and_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_letter_recipients_on_type_and_id ON letter_recipients USING btree (type, id);
-
-
---
 -- Name: index_medication_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5022,14 +5007,6 @@ ALTER TABLE ONLY pathology_observations
 
 
 --
--- Name: fk_rails_dd3ffca9b8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY practices
-    ADD CONSTRAINT fk_rails_dd3ffca9b8 FOREIGN KEY (address_id) REFERENCES addresses(id);
-
-
---
 -- Name: fk_rails_de0d26811a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5316,4 +5293,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160304162205');
 INSERT INTO schema_migrations (version) VALUES ('20160314181446');
 
 INSERT INTO schema_migrations (version) VALUES ('20160327221550');
+
+INSERT INTO schema_migrations (version) VALUES ('20160509171244');
+
+INSERT INTO schema_migrations (version) VALUES ('20160510155932');
 

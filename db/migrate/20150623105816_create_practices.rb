@@ -4,7 +4,6 @@ class CreatePractices < ActiveRecord::Migration
       t.string :name,        null: false
       t.string :email
       t.string :code,        null: false
-      t.references :address, null: false, foreign_key: true
 
       t.timestamps null: false
     end

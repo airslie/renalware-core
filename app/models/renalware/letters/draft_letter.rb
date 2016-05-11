@@ -3,43 +3,20 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class DraftLetter
-      attr_reader :letter
+      include Wisper::Publisher
 
-      def initialize(letter)
-        @letter = letter
+      def self.build
+        self.new
       end
 
-      def call(attributes)
-        assign_letter_attributes(attributes)
-        if valid_letter?
-          assign_automatic_cc_recipients
-          save_letter
-          refresh_dynamic_data_in_letter
-        end
-        letter
-      end
-
-      private
-
-      def assign_letter_attributes(attributes)
-        AssignLetterAttributes.new(letter).call(attributes)
-      end
-
-      def assign_automatic_cc_recipients
-        AssignAutomaticRecipients.new(letter).call
-      end
-
-      def refresh_dynamic_data_in_letter
-        RefreshLetter.new(letter).call
-      end
-
-      def valid_letter?
-        letter.valid?
-      end
-
-      def save_letter
-        letter.save
+      def call(patient, params={})
+        letter = LetterFactory.new(patient).build(params)
+        letter.save!
+        broadcast(:draft_letter_successful, letter)
+      rescue ActiveRecord::RecordInvalid
+        broadcast(:draft_letter_failed, letter)
       end
     end
   end
 end
+

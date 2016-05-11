@@ -4,9 +4,13 @@ module Renalware
   module Letters
     class Patient < ActiveType::Record[Renalware::Patient]
       has_many :letters
+      belongs_to :doctor, class_name: "Renalware::Letters::Doctor"
 
       def cc_on_letter?(letter)
-        letter.patient == self && cc_on_all_letters?
+        return false unless letter.subject?(self)
+        return false unless cc_on_all_letters?
+
+        !letter.main_recipient.patient?
       end
     end
   end

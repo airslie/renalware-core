@@ -4,27 +4,40 @@ require_dependency "models/renalware/concerns/personable"
 module Renalware
   module Letters
     describe Patient, type: :model do
-      let(:patient) { create(:letter_patient) }
-      let(:letter) { build(:letter, patient: patient) }
+      include LettersSpecHelper
+
+      subject(:patient) { build(:letter_patient) }
 
       describe "#cc_on_letter?" do
-        it "returns true if option is set in its profile" do
-          patient.cc_on_all_letters = true
+        context "given the letter belongs to the patient" do
+          context "and the patient is the main recipient" do
+            let(:letter) { build_letter(to: :patient, patient: patient) }
 
-          expect(patient.cc_on_letter?(letter)).to be_truthy
+            it { expect(patient.cc_on_letter?(letter)).to be_falsy }
+          end
+
+          context "and the doctor is the main recipient" do
+            let(:letter) { build_letter(to: :doctor, patient: patient) }
+
+            context "and patient requested to be CCd on all letters" do
+              before { patient.cc_on_all_letters = true }
+
+              it { expect(patient.cc_on_letter?(letter)).to be_truthy }
+            end
+
+            context "and patient did not request to be CCd on all letters" do
+              before { patient.cc_on_all_letters = false }
+
+              it { expect(patient.cc_on_letter?(letter)).to be_falsy }
+            end
+          end
         end
 
-        it "returns false if option not set in its profile" do
-          patient.cc_on_all_letters = false
+        context "given the letter belongs to another patient" do
+          let(:another_patient) { build(:letter_patient) }
+          let(:letter) { build_letter(to: :patient, patient: another_patient) }
 
-          expect(patient.cc_on_letter?(letter)).to be_falsy
-        end
-
-        it "returns false if letter of another patient" do
-          patient.cc_on_all_letters = true
-          letter = build(:letter)
-
-          expect(patient.cc_on_letter?(letter)).to be_falsy
+          it { expect(patient.cc_on_letter?(letter)).to be_falsy }
         end
       end
     end

@@ -9,8 +9,12 @@ module Renalware
       belongs_to :author, class_name: "User"
       belongs_to :patient
       belongs_to :letterhead
-      has_one :main_recipient
-      has_many :cc_recipients, dependent: :destroy
+      has_one :main_recipient, -> { where(role: "main") },
+        class_name: "Recipient", inverse_of: :letter
+      has_many :cc_recipients, -> { where(role: "cc") },
+        class_name: "Recipient", dependent: :destroy, inverse_of: :letter
+      has_many :recipients, dependent: :destroy
+
 
       accepts_nested_attributes_for :main_recipient
       accepts_nested_attributes_for :cc_recipients, reject_if: :all_blank, allow_destroy: true
@@ -29,14 +33,16 @@ module Renalware
         LetterPolicy
       end
 
-      def self.build(attributes={})
-        new(attributes).tap do |letter|
-          letter.build_main_recipient(source_type: Doctor.name) if letter.main_recipient.blank?
-        end
+      def subject?(other_patient)
+        patient == other_patient
       end
 
-      def manual_cc_recipients
-        cc_recipients.select { |cc| !cc.automatic? }
+      def other_cc_recipients
+        cc_recipients.select { |cc| cc.person_role.other? }
+      end
+
+      def assign_counterpart_ccs
+        AssignCounterpartCCs.new(self).call
       end
     end
   end
