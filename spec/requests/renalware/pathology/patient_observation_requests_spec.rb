@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Patient's Observation Requests", type: :request do
-  let(:patient) { Renalware::Pathology.cast_patient(create(:patient)) }
+  let(:patient) { create(:pathology_patient) }
 
   describe "GET index" do
     before do
