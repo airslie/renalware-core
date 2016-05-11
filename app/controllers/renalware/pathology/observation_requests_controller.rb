@@ -11,7 +11,7 @@ module Renalware
           .includes(:description)
           .ordered
 
-        render locals: {observation_requests: observation_requests, patient: @patient}
+        render locals: { observation_requests: observation_requests, patient: @patient }
       end
 
       def show
@@ -19,7 +19,7 @@ module Renalware
           .includes(:description, observations: :description)
           .find(params[:id])
 
-        render locals: {observation_request: observation_request, patient: @patient}
+        render locals: { observation_request: observation_request, patient: @patient }
       end
     end
   end
