@@ -1,0 +1,12 @@
+- opts = { title: "Historical Pathology Results", navigation_partial: "renalware/pathology/navigation" }
+= render layout: "renalware/patients/layout", locals: opts do
+  - if rows.empty?
+    p No results available for this patient.
+
+  - else
+    p.hint Hover over table then scroll horizontally to view more results.
+
+    div.embedded-scroll
+      = table.render(rows)
+
+    = paginate paginator

@@ -113,7 +113,9 @@ Rails.application.routes.draw do
       end
 
       namespace :pathology do
-        resources :observations, only: :index
+        get "observations/current", to: "current_observation_results#index", as: "current_observations"
+        get "observations/recent", to: "recent_observation_results#index", as: "recent_observations"
+        get "observations/historical", to: "historical_observation_results#index", as: "historical_observations"
       end
 
       namespace :transplants do
