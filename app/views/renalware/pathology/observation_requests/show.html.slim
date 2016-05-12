@@ -1,3 +1,3 @@
 - opts = { title: "Investigation: #{observation_request.description} - #{observation_request.description.name}", navigation_partial: "renalware/pathology/navigation" }
 = render layout: "renalware/patients/layout", locals: opts do
-  = render "renalware/pathology/observations/table", observations: observation_request.observations
+  = render "renalware/pathology/observations/table", patient: patient, observations: observation_request.observations

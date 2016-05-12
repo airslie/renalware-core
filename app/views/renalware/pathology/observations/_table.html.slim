@@ -1,7 +1,13 @@
 table
+  thead
+    tr
+      th Code
+      th Name
+      th Result
   tbody
     - observations.each do |observation|
-      - observation.description.tap do |description|
-        tr title=description.name
-          th= description.code
+        tr
+          - description = observation.description
+          td= description.code
+          td= link_to description.name, patient_pathology_observations_path(patient, description)
           td= observation.result
