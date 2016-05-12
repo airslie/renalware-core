@@ -2,6 +2,7 @@ class CreateLetterLetterheads < ActiveRecord::Migration
   def change
     create_table :letter_letterheads do |t|
       t.string :name, null: false
+      t.string :site_code, null: false
       t.string :unit_info, null: false
       t.string :trust_name, null: false
       t.string :trust_caption, null: false
