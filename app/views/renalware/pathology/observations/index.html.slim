@@ -1,0 +1,19 @@
+- opts = { title: "Observation History: #{description.name}", navigation_partial: "renalware/pathology/navigation" }
+= render layout: "renalware/patients/layout", locals: opts do
+  - if observations.empty?
+    p No observations of "#{description.name}" available for this patient.
+
+  - else
+    #observations
+      table
+        thead
+          tr
+            th Requested at
+            th Result
+        tbody
+          - observations.each do |observation|
+            tr
+              td= l observation.request.requested_at
+              td= observation.result
+
+    = paginate observations
