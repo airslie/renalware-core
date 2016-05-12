@@ -26,7 +26,7 @@ module Renalware
         u.password = 'renalware'
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :admin)]
-        u.signature = "#{site} Admin"
+        u.signature = "Dr #{site} Admin, MRCP"
       end
     log "---#{username} created!"
 
