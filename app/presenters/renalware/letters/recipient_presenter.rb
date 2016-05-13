@@ -12,22 +12,22 @@ module Renalware
       end
 
       def address
-        ::Renalware::AddressPresenter.new(address_for_person_role || super)
+        ::Renalware::AddressPresenter.new(address_for_person_role(super))
       end
 
-      def address_for_person_role
+      def address_for_person_role(address)
         address
       end
 
       class Draft < RecipientPresenter
-        def address_for_person_role
+        def address_for_person_role(address)
           case person_role
           when "patient"
             letter.patient.current_address
           when "doctor"
             letter.patient.doctor.current_address
           else
-            nil
+            address
           end
         end
       end
