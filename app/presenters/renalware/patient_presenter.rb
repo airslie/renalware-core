@@ -5,7 +5,7 @@ module Renalware
     def address_line
       return if current_address.blank?
 
-      AddressPresenter.new(current_address).on_one_line
+      AddressPresenter.new(current_address).on_one_line_without_name
     end
 
     def to_s

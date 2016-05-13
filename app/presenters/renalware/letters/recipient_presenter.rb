@@ -4,18 +4,30 @@ module Renalware
   module Letters
     class RecipientPresenter < SimpleDelegator
       def to_s
-        address.to_s
+        address.in_a_block
+      end
+
+      def address_line
+        address.on_one_line
+      end
+
+      def address
+        ::Renalware::AddressPresenter.new(address_for_person_role || super)
+      end
+
+      def address_for_person_role
+        address
       end
 
       class Draft < RecipientPresenter
-        def address
+        def address_for_person_role
           case person_role
           when "patient"
             letter.patient.current_address
           when "doctor"
             letter.patient.doctor.current_address
           else
-            super
+            nil
           end
         end
       end
