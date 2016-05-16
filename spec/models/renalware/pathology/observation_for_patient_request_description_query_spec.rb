@@ -10,7 +10,7 @@ describe Renalware::Pathology::ObservationForPatientRequestDescriptionQuery do
     )
   end
 
-  subject do
+  subject(:query) do
     Renalware::Pathology::ObservationForPatientRequestDescriptionQuery.new(
       patient,
       request_description
@@ -26,8 +26,10 @@ describe Renalware::Pathology::ObservationForPatientRequestDescriptionQuery do
     end
     let!(:unrelated_observation) { create(:pathology_observation) }
 
+    subject(:query_result) { query.call }
+
     it "returns the most recent observation for the specified request description" do
-      expect(subject.call).to eq(most_recent_observation)
+      expect(query_result).to eq(most_recent_observation)
     end
   end
 end

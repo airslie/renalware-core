@@ -1,11 +1,5 @@
 require "rails_helper"
 
-RSpec::Matchers.define :be_required? do |expected|
-  match do |actual|
-    actual.patient_requires_test? == expected
-  end
-end
-
 describe Renalware::Pathology::RequestAlgorithm::ParamType::ObservationResult do
   let!(:patient) { Renalware::Pathology.cast_patient(create(:patient)) }
   let!(:observation_description) { create(:pathology_observation_description) }
@@ -50,18 +44,18 @@ describe Renalware::Pathology::RequestAlgorithm::ParamType::ObservationResult do
       context "given the patient's observation result is less than 100" do
         let(:result) { 99 }
 
-        it { expect(param_type).to be_required?(true) }
+        it { expect(param_type).to be_required }
       end
 
       context "given the patient's observation result is more than or equal to 100" do
         let(:result) { 100 }
 
-        it { expect(param_type).to be_required?(false) }
+        it { expect(param_type).not_to be_required }
       end
     end
 
     context "given the observation does not exist for the patient" do
-      it { expect(param_type).to be_required?(true) }
+      it { expect(param_type).to be_required }
     end
   end
 end

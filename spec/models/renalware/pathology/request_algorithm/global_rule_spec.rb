@@ -14,7 +14,7 @@ describe Renalware::Pathology::RequestAlgorithm::GlobalRule do
 
     subject(:rule_required?) { rule.required_for_patient?(patient) }
 
-    it { expect(rule_required?).to eq(true) }
+    it { expect(rule_required?).to be_truthy }
   end
 end
 

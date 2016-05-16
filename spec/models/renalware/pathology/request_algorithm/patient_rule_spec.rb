@@ -1,8 +1,6 @@
 require "rails_helper"
 
 describe Renalware::Pathology::RequestAlgorithm::PatientRule do
-  it { is_expected.to be_an ActiveRecord::Base }
-
   it { is_expected.to validate_presence_of(:lab) }
   it { is_expected.to validate_presence_of(:test_description) }
   it { is_expected.to validate_presence_of(:frequency) }
