@@ -5,10 +5,10 @@ module Renalware
     module RequestAlgorithm
       class Patient
         def initialize(patient)
-          @patient = ::Renalware::Pathology.cast_patient(patient)
+          @patient = patient
         end
 
-        def required_pathology
+        def determine_required_tests
           @patient.rules.select { |rule| rule.required? }
         end
       end

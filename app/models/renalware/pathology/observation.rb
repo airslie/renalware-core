@@ -11,6 +11,10 @@ module Renalware
       validates :observed_at, presence: true
 
       scope :ordered, -> { order(observed_at: :desc) }
+
+      def observed_on
+        observed_at.to_date
+      end
     end
   end
 end

@@ -17,19 +17,25 @@ module Renalware
         validates :patient_id, presence: true
 
         def required?
-          return false unless today_within_range?
+          today = Date.current
+
+          return false unless today_within_range?(today)
           return true if last_observed_at.nil?
 
-          days_ago_observed = Date.current - last_observed_at.to_date
+          days_ago_observed = today - last_observed_at.to_date
 
-          required_from_frequency?(frequency, days_ago_observed)
+          frequency_model.exceeds?(days_ago_observed)
         end
 
         private
 
-        def today_within_range?
+        def frequency_model
+          "Renalware::Pathology::RequestAlgorithm::Frequency::#{frequency}".constantize
+        end
+
+        def today_within_range?(today)
           return true unless start_date.present? && end_date.present?
-          Date.current.between?(start_date.to_date, end_date.to_date)
+          today.between?(start_date.to_date, end_date.to_date)
         end
       end
     end

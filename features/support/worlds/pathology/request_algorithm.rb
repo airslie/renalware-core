@@ -86,11 +86,11 @@ module World
         end
 
         def run_global_algorithm(patient, clinic)
-          Renalware::Pathology::RequestAlgorithm::Global.new(patient, clinic).required_pathology
+          Renalware::Pathology::RequestAlgorithm::Global.new(patient, clinic).determine_required_request_descriptions
         end
 
         def run_patient_algorithm(patient)
-          Renalware::Pathology::RequestAlgorithm::Patient.new(patient).required_pathology
+          Renalware::Pathology::RequestAlgorithm::Patient.new(patient).determine_required_tests
         end
 
         # @section expectations

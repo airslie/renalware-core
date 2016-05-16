@@ -1,55 +1,67 @@
 require "rails_helper"
 
+RSpec::Matchers.define :be_required? do |expected|
+  match do |actual|
+    actual.patient_requires_test? == expected
+  end
+end
+
 describe Renalware::Pathology::RequestAlgorithm::ParamType::ObservationResult do
   let!(:patient) { Renalware::Pathology.cast_patient(create(:patient)) }
   let!(:observation_description) { create(:pathology_observation_description) }
-  let!(:observation_request) { create(:pathology_observation_request, patient: patient) }
-  let(:result) { 99 }
-
-  let(:param_comparison_operator) { "<" }
-  let(:param_comparison_value) { 100 }
-  subject do
-    Renalware::Pathology::RequestAlgorithm::ParamType::ObservationResult.new(
-      patient,
-      observation_description.id,
-      param_comparison_operator,
-      param_comparison_value
-    )
-  end
 
   describe "#initialize" do
-    let(:param_comparison_operator) { "NOT A VALID OPERATOR" }
+    context "given the operator is invalid" do
+      subject(:param_type) do
+        Renalware::Pathology::RequestAlgorithm::ParamType::ObservationResult.new(
+          patient,
+          observation_description.id,
+          "NOT A VALID OPERATOR",
+          100
+        )
+      end
 
-    it { expect{ subject }.to raise_error(ArgumentError) }
+      it { expect{ param_type }.to raise_error(ArgumentError) }
+    end
   end
 
   describe "#patient_requires_test?" do
-    context "observation exists" do
+    let!(:observation_request) { create(:pathology_observation_request, patient: patient) }
+
+    subject(:param_type) do
+      Renalware::Pathology::RequestAlgorithm::ParamType::ObservationResult.new(
+        patient,
+        observation_description.id,
+        "<",
+        100
+      )
+    end
+
+    context "given the observation exists for the patient" do
       let!(:observation) do
         create(
           :pathology_observation,
           request: observation_request,
           description: observation_description,
-          observed_at: Time.current - 1.week,
           result: result
         )
       end
 
-      context "result is less than 100" do
-        it { expect(subject.patient_requires_test?).to eq(true) }
+      context "given the patient's observation result is less than 100" do
+        let(:result) { 99 }
+
+        it { expect(param_type).to be_required?(true) }
       end
 
-      context "result is not less than 100" do
+      context "given the patient's observation result is more than or equal to 100" do
         let(:result) { 100 }
 
-        it { expect(subject.patient_requires_test?).to eq(false) }
+        it { expect(param_type).to be_required?(false) }
       end
     end
 
-    context "observation does not exist" do
-      let(:observation) { nil }
-
-      it { expect(subject.patient_requires_test?).to eq(true) }
+    context "given the observation does not exist for the patient" do
+      it { expect(param_type).to be_required?(true) }
     end
   end
 end

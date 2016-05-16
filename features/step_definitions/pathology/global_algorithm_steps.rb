@@ -45,7 +45,8 @@ end
 
 When(/^the global pathology algorithm is run for Patty in clinic (.*)$/) do |clinic_name|
   clinic = Renalware::Clinics::Clinic.find_by(name: clinic_name)
-  @required_request_descriptions = run_global_algorithm(@patty, clinic)
+  patty_pathology = Renalware::Pathology.cast_patient(@patty)
+  @required_request_descriptions = run_global_algorithm(patty_pathology, clinic)
 end
 
 Then(/^it is determined the observation is (required|not required)$/) do |determined|

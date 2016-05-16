@@ -3,9 +3,9 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class ObservationForPatientRequestDescriptionQuery
-      def initialize(patient, request_description_id)
+      def initialize(patient, request_description)
         @patient = patient
-        request_description = Renalware::Pathology::RequestDescription.find(request_description_id)
+        request_description = RequestDescription.find(request_description.id)
         @observation_description_id = request_description.required_observation_description_id
       end
 

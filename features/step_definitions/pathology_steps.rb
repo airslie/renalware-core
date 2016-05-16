@@ -1,7 +1,9 @@
 # TODO: Remove this once we have this column populated in the DB seeds
 Given(/^request description ([\d\w]+) requires observation description ([\d\w]+)$/) do |request_code, description_code|
-  observation_description = Renalware::Pathology::ObservationDescription.find_by(code: description_code)
+  observation_description =
+    Renalware::Pathology::ObservationDescription.find_by(code: description_code)
   request_description = Renalware::Pathology::RequestDescription.find_by(code: request_code)
+
   unless request_description.required_observation_description_id.present?
     request_description.update_attributes!(
       required_observation_description_id: observation_description.id

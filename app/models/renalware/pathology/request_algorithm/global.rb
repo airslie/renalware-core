@@ -9,7 +9,7 @@ module Renalware
           @clinic = clinic
         end
 
-        def required_pathology
+        def determine_required_request_descriptions
           rule_sets
             .select { |rule_set| rule_set.required_for_patient?(@patient) }
             .map { |rule_set| rule_set.request_description }
@@ -19,7 +19,7 @@ module Renalware
         private
 
         def rule_sets
-          GlobalRuleSet.where(clinic: @clinic)
+          GlobalRuleSet.for_clinic(@clinic)
         end
       end
     end

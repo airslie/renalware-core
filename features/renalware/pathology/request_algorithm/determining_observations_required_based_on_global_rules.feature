@@ -12,7 +12,7 @@ Feature: Determining observations required based on global rules
     Given Patty is a patient
     And request description BFF requires observation description B12
 
-  Scenario Outline: The required observations were determined based on the regime.
+  Scenario Outline: The required observations were determined based on the clinic.
 
      This scenario encodes the following rule as an example:
 
@@ -135,7 +135,6 @@ Feature: Determining observations required based on global rules
       and the pathology results take up to 1 week to be received by Renalware.
 
     Given the request description BFF has an expiration of 7 days
-    And request description BFF requires observation description B12
     And the global rule sets:
       | request_description_code     | BFF          |
       | clinic                       | Access       |

@@ -12,6 +12,10 @@ module Renalware
       validates :patient, presence: true
       validates :requestor_name, presence: true
       validates :requested_at, presence: true
+
+      def requested_on
+        requested_at.to_date
+      end
     end
   end
 end

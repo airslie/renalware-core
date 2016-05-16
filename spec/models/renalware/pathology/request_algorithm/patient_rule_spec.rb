@@ -13,58 +13,46 @@ describe Renalware::Pathology::RequestAlgorithm::PatientRule do
   end
 
   let(:patient) { Renalware::Pathology.cast_patient(create(:patient)) }
-  let(:last_observed_at) { nil }
-  let(:start_date) { nil }
-  let(:end_date) { nil }
-  subject do
+
+  subject(:patient_rule) do
     create(
       :pathology_request_algorithm_patient_rule,
       patient: patient,
-      last_observed_at: last_observed_at,
-      start_date: start_date,
-      end_date: end_date
+      start_date: Date.parse("2016-04-19"),
+      end_date: Date.parse("2016-04-21"),
+      frequency: "Always"
     )
   end
 
   describe "#required_for_patient?" do
-    context "not within range of start/end date" do
+    context "given today is not within the patient_rule's start/end date range" do
       before do
-        allow(subject).to receive(:today_within_range?).and_return(false)
+        allow(Date).to receive(:current).and_return(Date.parse("2016-04-22"))
+        patient_rule.last_observed_at = nil
       end
 
-      it { expect(subject.required?).to eq(false) }
+      it { expect(patient_rule).not_to be_required }
     end
 
-    context "within range of start/end date" do
+    context "given today is within the patient_rule's start/end date range" do
       before do
-        allow(subject).to receive(:today_within_range?).and_return(true)
+        allow(Date).to receive(:current).and_return(Date.parse("2016-04-20"))
       end
 
-      context "last_observed_at nil" do
-        it { expect(subject.required?).to eq(true) }
-      end
-
-      context "last_observed_at not nil" do
-        let(:date_today) { Date.parse("2016-04-20") }
-        let(:last_observed_at) { Date.parse("2016-04-19") }
-        let(:required_from_frequency) { double }
-
+      context "given the patient was not previously observed" do
         before do
-          allow(Date).to receive(:current).and_return(date_today)
-          allow(subject).to receive(:required_from_frequency?)
-            .and_return(required_from_frequency)
+          patient_rule.last_observed_at = nil
         end
 
-        it do
-          subject.required?
-          expect(Date).to have_received(:current)
+        it { expect(patient_rule).to be_required }
+      end
+
+      context "given the patient was previously observed" do
+        before do
+          patient_rule.last_observed_at = Date.parse("2016-04-19")
         end
-        it do
-          subject.required?
-          expect(subject).to have_received(:required_from_frequency?)
-            .with(subject.frequency, 1)
-        end
-        it { expect(subject.required?).to eq(required_from_frequency) }
+
+        it { expect(patient_rule).to be_required }
       end
     end
   end

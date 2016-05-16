@@ -1,26 +1,33 @@
 require "rails_helper"
 
 describe Renalware::Pathology::RequestAlgorithm::Patient do
-  let(:patient) { create(:patient) }
+  let(:patient) { build(:patient) }
   let(:pathology_patient) { Renalware::Pathology.cast_patient(patient) }
 
-  let(:patient_rule_1) do
-    create(:pathology_request_algorithm_patient_rule, patient: pathology_patient)
+  let(:required_rule) do
+    build(:pathology_request_algorithm_patient_rule, patient: pathology_patient)
   end
-  let(:patient_rule_2) do
-    create(:pathology_request_algorithm_patient_rule, patient: pathology_patient)
+  let(:not_required_rule) do
+    build(:pathology_request_algorithm_patient_rule, patient: pathology_patient)
   end
-  let(:rules) { [patient_rule_1, patient_rule_2] }
-  subject { Renalware::Pathology::RequestAlgorithm::Patient.new(patient) }
+  let(:rules) { [required_rule, not_required_rule] }
 
-  describe "#required_pathology" do
+  subject(:patient_algorithm) do
+    Renalware::Pathology::RequestAlgorithm::Patient.new(pathology_patient)
+  end
+
+  describe "#determine_required_tests" do
     before do
       allow(Renalware::Pathology).to receive(:cast_patient).and_return(pathology_patient)
       allow(pathology_patient).to receive(:rules).and_return(rules)
-      allow(patient_rule_1).to receive(:required?).and_return(true)
-      allow(patient_rule_2).to receive(:required?).and_return(false)
+      allow(required_rule).to receive(:required?).and_return(true)
+      allow(not_required_rule).to receive(:required?).and_return(false)
     end
 
-    it { expect(subject.required_pathology).to eq([patient_rule_1]) }
+    subject(:required_tests) { patient_algorithm.determine_required_tests }
+
+    it "returns the required rules" do
+      expect(required_tests).to eq([required_rule])
+    end
   end
 end

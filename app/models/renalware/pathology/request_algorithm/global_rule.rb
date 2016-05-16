@@ -4,8 +4,6 @@ module Renalware
   module Pathology
     module RequestAlgorithm
       class GlobalRule < ActiveRecord::Base
-        self.table_name = "pathology_request_algorithm_global_rules"
-
         PARAM_COMPARISON_OPERATORS = ["==", ">", "<", ">=", "<=", "include?"]
 
         belongs_to :global_rule_set

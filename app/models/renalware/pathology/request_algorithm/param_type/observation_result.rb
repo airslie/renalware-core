@@ -10,7 +10,7 @@ module Renalware
               raise ArgumentError
             end
 
-            @patient = Renalware::Pathology.cast_patient(patient)
+            @patient = patient
             @param_id = param_id.to_i
             @param_comparison_operator = param_comparison_operator
             @param_comparison_value = param_comparison_value.to_i
@@ -28,10 +28,15 @@ module Renalware
 
               observation =
                 ::Renalware::Pathology::ObservationForPatientObservationDescriptionQuery
-                  .new(@patient, @param_id).call
+                  .new(@patient, observation_description).call
 
               observation.result.to_i if observation.present?
             end
+          end
+
+          def observation_description
+            @observation_description ||=
+              Renalware::Pathology::ObservationDescription.new(id: @param_id)
           end
         end
       end
