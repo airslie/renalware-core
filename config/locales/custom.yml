@@ -14,3 +14,10 @@ en:
         success: Successfully updated.
       form:
         prd_prompt: Please select primary renal diagnosis
+    letters:
+      hints:
+        cc_hint:
+          cc_on_all_letters: "If not the recipient, the patient <b>will be CCd</b> on the letter."
+          not_cc_on_all_letters: |
+            If not the recipient, the patient <b>will NOT be CCd</b> on the letter.
+            This can be changed in the patients profile.

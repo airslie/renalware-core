@@ -4,20 +4,22 @@
       | Status: #{@letter.state.upcase}
     .columns.large-4
       | Author: #{@letter.author.full_name}
-    .columns.large-4
-      | Letter type: #{@letter.title}
 
   .row
     .columns.large-4
-      | To: #{recipients(@letter).first}, CC: #{recipients(@letter).last}
+      | To: #{@letter.main_recipient.to_s}
+      br
+      | CC:
+      - @letter.cc_recipients.each do |cc|
+        p= cc
     .columns.large-4
-      | Title: #{@letter.description.text}
+      | Title: #{@letter.description}
 
 hr
 
 .letter-preview-body
   .row
-    = salutation(@letter)
+    = @letter.salutation
     br
     = @letter.body
 

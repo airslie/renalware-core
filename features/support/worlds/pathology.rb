@@ -80,21 +80,49 @@ module World
         end
       end
 
-      def expect_pathology_result_report(user:, patient:, rows:)
+      def expect_pathology_recent_observations(user:, patient:, rows:)
         patient = Renalware::Pathology.cast_patient(patient)
-        codes = extract_description_codes(rows)
+        codes = rows.slice(2..-1).map(&:first)
+        descriptions = Renalware::Pathology::ObservationDescription.for(codes)
 
-        presenter = Renalware::Pathology::ViewObservations.new(patient, codes).call
-        presentation = ArrayStringifier.new(presenter).to_a
+        presenter = Renalware::Pathology::RecentObservationResults::Presenter.new
+        service = Renalware::Pathology::ViewObservationResults.new(
+          patient.observations, presenter, descriptions: descriptions)
+        service.call
+        view = ArrayStringifier.new(presenter.view_model).to_a
 
-        expect(presentation).to match_array(rows)
+        expect(view).to match_array(rows)
+      end
+
+      def expect_pathology_historical_observations(user:, patient:, rows:)
+        patient = Renalware::Pathology.cast_patient(patient)
+        codes = rows.first[1..-1]
+        descriptions = Renalware::Pathology::ObservationDescription.for(codes)
+
+        presenter = Renalware::Pathology::HistoricalObservationResults::Presenter.new
+        service = Renalware::Pathology::ViewObservationResults.new(
+          patient.observations, presenter, descriptions: descriptions)
+        service.call
+        view = ArrayStringifier.new(presenter.view_model).to_a
+
+        expect(view).to match_array(rows)
+      end
+
+      def expect_pathology_current_observations(user:, patient:, rows:)
+        patient = Renalware::Pathology.cast_patient(patient)
+        codes = rows.map {|row| row.first }[1..-1]
+        descriptions = Renalware::Pathology::ObservationDescription.for(codes)
+
+        presenter = Renalware::Pathology::CurrentObservationResults::Presenter.new
+        service = Renalware::Pathology::ViewCurrentObservationResults.new(
+          patient, presenter, descriptions: descriptions)
+        service.call
+        view = ArrayStringifier.new(presenter.view_model).to_a
+
+        expect(view).to match_array(rows)
       end
 
       private
-
-      def extract_description_codes(rows)
-        rows.slice(2..-1).map(&:first)
-      end
 
       def find_last_observation_request
         Renalware::Pathology::ObservationRequest.includes(observations: :description).last!
@@ -108,12 +136,28 @@ module World
     module Web
       include Domain
 
-      def expect_pathology_result_report(user:, patient:, rows:)
+      def expect_pathology_recent_observations(user:, patient:, rows:)
         login_as user
 
-        visit patient_pathology_observations_path(patient)
+        visit patient_pathology_recent_observations_path(patient)
 
         expect(page).to have_selector("table#observations tr:first-child td", count: 4)
+      end
+
+      def expect_pathology_historical_observations(user:, patient:, rows:)
+        login_as user
+
+        visit patient_pathology_historical_observations_path(patient)
+
+        expect(page).to have_selector("table#observations tr", count: rows.size)
+      end
+
+      def expect_pathology_current_observations(user:, patient:, rows:)
+        login_as user
+
+        visit patient_pathology_current_observations_path(patient)
+
+        expect(page).to have_selector("table#observations tr", count: rows.size)
       end
     end
   end

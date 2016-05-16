@@ -31,9 +31,7 @@ module Renalware
 
       select "CAPD 3 exchanges per day", from: "Treatment"
 
-      select "2015", from: "pd_regime_start_date_1i"
-      select "April", from: "pd_regime_start_date_2i"
-      select "18", from: "pd_regime_start_date_3i"
+      fill_in "Start date", with: "18/04/2015"
 
       #bag 1
       find("a.add-bag").click

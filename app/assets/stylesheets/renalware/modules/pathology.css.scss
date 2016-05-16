@@ -1,0 +1,32 @@
+table#observations {
+  border-collapse: collapse;
+  white-space: nowrap;
+  width: auto;
+
+  td.hgb {
+    background-color : #fc9;
+  }
+
+  td.cre, td.ure, td.pot {
+    background-color : #cf9;
+  }
+
+  tr.even, tr.alt, tr:nth-of-type(even) {
+    background-color: #fff;
+  }
+
+  td {
+    border: 1px solid #ddd;
+    font-size: 0.75em;
+    padding: 3px;
+  }
+}
+
+.current-observations {
+  float: left;
+  margin-right: 1em;
+}
+
+#observation-requests {
+  height: 30em;
+}

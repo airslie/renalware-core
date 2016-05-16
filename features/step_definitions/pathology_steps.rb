@@ -52,3 +52,15 @@ end
 Then(/^the doctor views the following archived pathology result report:$/) do |table|
   expect_pathology_result_report(user: @nathalie, patient: @patty, rows: table.raw)
 end
+
+Then(/^the doctor views the following recents observation results:$/) do |table|
+  expect_pathology_recent_observations(user: @nathalie, patient: @patty, rows: table.raw)
+end
+
+Then(/^the doctor views the following historical observation results:$/) do |table|
+  expect_pathology_historical_observations(user: @nathalie, patient: @patty, rows: table.raw)
+end
+
+Then(/^the doctor views the following current observation results:$/) do |table|
+  expect_pathology_current_observations(user: @nathalie, patient: @patty, rows: table.raw)
+end

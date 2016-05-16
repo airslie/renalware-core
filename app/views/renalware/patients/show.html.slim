@@ -35,10 +35,15 @@
             dd= default_for_blank_date(@patient.died_on, "N/A")
 
       .row
-        .large-12.columns
+        .large-3.columns
           dl
             dt Paediatric Patient:
             dd= yes_no(@patient.paediatric_patient_indicator)
+
+        .large-9.columns
+          dl
+            dt CC on all letters:
+            dd= yes_no(@patient.cc_on_all_letters)
 
     - if @patient.died_on.present?
       .row

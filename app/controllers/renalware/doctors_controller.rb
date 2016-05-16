@@ -2,6 +2,8 @@ module Renalware
   class DoctorsController < BaseController
     include Renalware::Concerns::Pageable
 
+    before_action :find_doctor, only: [:edit, :update]
+
     def index
       @doctors = Doctor.order(:family_name).page(@page).per(@per_page)
       authorize @doctors
@@ -13,12 +15,14 @@ module Renalware
     end
 
     def edit
-      @doctor = Doctor.find(params[:id])
-      authorize @doctor
+      render_form(@doctor, :edit)
     end
 
     def create
-      if update_doctor.call(doctor_params)
+      @doctor = Doctor.new(doctor_params)
+      authorize @doctor
+
+      if @doctor.save
         redirect_to doctors_path,
           notice: t(".success", model_name: "doctor")
       else
@@ -28,13 +32,18 @@ module Renalware
     end
 
     def update
-      if update_doctor.call(doctor_params)
-        redirect_to doctors_path,
-          notice: t(".success", model_name: "doctor")
-      else
-        flash[:error] = t(".failed", model_name: "doctor")
-        render :edit
-      end
+      Doctors::UpdateDoctor.build
+        .subscribe(self)
+        .call(@doctor.id, doctor_params)
+    end
+
+    def update_doctor_successful(_doctor)
+      redirect_to_doctors_list
+    end
+
+    def update_doctor_failed(doctor)
+      flash[:error] = t(".failed", model_name: "doctor")
+      render_form(doctor, :edit)
     end
 
     def destroy
@@ -46,18 +55,25 @@ module Renalware
 
     private
 
-    def update_doctor
+    def find_doctor
       @doctor = Doctor.find_or_initialize_by(id: params[:id])
       authorize @doctor
+    end
 
-      UpdateDoctor.new(@doctor)
+    def redirect_to_doctors_list
+      redirect_to doctors_path, notice: t(".success", model_name: "doctor")
+    end
+
+    def render_form(doctor, action)
+      @doctor = doctor
+      render action
     end
 
     def doctor_params
       params.require(:doctor).permit(
         :given_name, :family_name, :email, :practitioner_type, :code, practice_ids: [],
         address_attributes: [
-          :id, :street_1, :street_2, :city, :county, :postcode, :country
+          :id, :name, :organisation_name, :street_1, :street_2, :city, :county, :postcode, :country
         ]
       )
     end

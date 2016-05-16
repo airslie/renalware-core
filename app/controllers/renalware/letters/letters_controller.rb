@@ -11,22 +11,22 @@ module Renalware
       end
 
       def new
-        @letter = LetterFormPresenter.new(@patient.letters.new)
-        @letter.build_recipient
-        @letter.recipient.build_address
+        render_form(LetterFactory.new(@patient).build, :new)
       end
 
       def create
-        @letter = LetterFormPresenter.new(@patient.letters.new(letter_params))
+        DraftLetter.build
+          .subscribe(self)
+          .call(@patient, letter_params)
+      end
 
-        if @letter.save
-          refresh_letter(@letter)
-          redirect_to patient_letters_letters_path(@patient),
-            notice: t(".success", model_name: "Letter")
-        else
-          flash[:error] = t(".failed", model_name: "Letter")
-          render :new
-        end
+      def draft_letter_successful(_letter)
+        redirect_to_letters_list(@patient)
+      end
+
+      def draft_letter_failed(letter)
+        flash[:error] = t(".failed", model_name: "Letter")
+        render_form(letter, :new)
       end
 
       def show
@@ -34,25 +34,35 @@ module Renalware
       end
 
       def edit
-        @letter = LetterFormPresenter.new(@patient.letters.find(params[:id]))
-        @letter.build_recipient if @letter.recipient.blank?
-        @letter.recipient.build_address if @letter.recipient.address.blank?
-        refresh_letter(@letter)
+        render_form(@patient.letters.find(params[:id]), :edit)
       end
 
       def update
-        @letter = LetterFormPresenter.new(@patient.letters.find(params[:id]))
-        if @letter.update(letter_params)
-          refresh_letter(@letter)
-          redirect_to patient_letters_letters_path(@patient),
-            notice: t(".success", model_name: "Letter")
-        else
-          flash[:error] = t(".failed", model_name: "Letter")
-          render :edit
-        end
+        ReviseLetter.build
+          .subscribe(self)
+          .call(@patient, params[:id], letter_params)
+      end
+
+      def revise_letter_successful(_letter)
+        redirect_to_letters_list(@patient)
+      end
+
+      def revise_letter_failed(letter)
+        flash[:error] = t(".failed", model_name: "Letter")
+        render_form(letter, :edit)
       end
 
       private
+
+      def redirect_to_letters_list(patient)
+        redirect_to patient_letters_letters_path(patient),
+          notice: t(".success", model_name: "Letter")
+      end
+
+      def render_form(letter, action)
+        @letter = LetterFormPresenter.new(letter)
+        render action
+      end
 
       def letter_params
         params
@@ -65,17 +75,30 @@ module Renalware
         [
           :letterhead_id, :author_id, :description, :issued_on,
           :salutation, :body, :notes,
-          recipient_attributes: [
-            :id, :name, :source_type, :source_id,
-            address_attributes: [
-              :id, :street_1, :street_2, :city, :county, :postcode, :country, :_destroy
-            ]
-          ]
+          main_recipient_attributes: main_recipient_attributes,
+          cc_recipients_attributes: cc_recipients_attributes
         ]
       end
 
-      def refresh_letter(letter)
-        RefreshLetter.new(letter).call
+      def main_recipient_attributes
+        [
+          :id, :person_role,
+          address_attributes: address_attributes
+        ]
+      end
+
+      def cc_recipients_attributes
+        [
+          :id, :person_role, :_destroy,
+          address_attributes: address_attributes
+        ]
+      end
+
+      def address_attributes
+        [
+          :id, :name, :organisation_name, :street_1, :street_2, :city, :county,
+          :postcode, :country, :_destroy
+        ]
       end
     end
   end

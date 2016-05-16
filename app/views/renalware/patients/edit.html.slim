@@ -1,8 +1,10 @@
-= render layout: "layout", locals: { title: "Demographics" } do
-  = simple_form_for @patient, wrapper: "horizontal_form" do |f|
+= render layout: "renalware/patients/layout", locals: { title: "Demographics" } do
 
-    = render partial: "renalware/patients/form", locals: { patient: f }
+  .document
+    = simple_form_for @patient, wrapper: "horizontal_form" do |f|
 
-    = submit_tag "Update", class: "button"
-    span= " or "
-    = link_to "Cancel", patient_path(@patient)
+      = render "renalware/patients/form", patient: f
+
+      = submit_tag "Update", class: "button"
+      span= " or "
+      = link_to "Cancel", patient_path(@patient)

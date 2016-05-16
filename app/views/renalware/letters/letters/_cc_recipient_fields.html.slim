@@ -1,0 +1,8 @@
+.nested-fields
+  .row
+    fieldset
+      = f.input :person_role, as: :hidden, input_html: { value: "other" }
+      = render "form_recipient", f: f
+
+    .right
+      = link_to_remove_association "Remove", f, class: "button tiny"

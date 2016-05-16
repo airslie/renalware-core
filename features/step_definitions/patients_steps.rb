@@ -8,6 +8,10 @@ Given(/^Patty is a patient$/) do
     born_on: Time.zone.today,
     doctor: doctor
   )
+  @patty.create_current_address(
+    street_1: "1 Main St",
+    city: "London"
+  )
 end
 
 Given(/^Don is a patient$/) do
@@ -20,6 +24,14 @@ Given(/^Don is a patient$/) do
     born_on: Time.zone.today,
     doctor: doctor
   )
+  @don.create_current_address(
+    street_1: "2 Main St",
+    city: "London"
+  )
+end
+
+Given(/^Doug is Patty's doctor$/) do
+  @doug = @patty.doctor
 end
 
 Then(/^the patient is created with the following attributes:$/) do |table|

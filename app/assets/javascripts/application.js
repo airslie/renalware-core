@@ -22,6 +22,7 @@
 //= require jquery_nested_form
 //= require foundation-datepicker
 //= require clockpicker
+//= require cocoon
 //= require_tree .
 
 $(function(){ $(document).foundation(); });

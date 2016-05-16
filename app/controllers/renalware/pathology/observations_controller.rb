@@ -6,30 +6,24 @@ module Renalware
       before_filter :load_patient
 
       def index
-        presenter = ViewObservations.new(@patient, description_codes).call
+        description = find_description
+        observations = find_observations_for_description(description)
 
-        render :index, locals: {
-          rows: presenter.to_a,
-          number_of_records: presenter.limit
-        }
+        render locals: { patient: @patient, observations: observations, description: description }
       end
 
       private
 
-      class ArchivedObservationDescription
-        def to_a
-          %w(
-            HGB MCV MCH HYPO WBC LYM NEUT PLT RETA
-            ESR CRP FER FOL B12 URE CRE EGFR NA POT
-            BIC CCA PHOS PTHI TP GLO ALB URAT BIL
-            ALT AST ALP GGT BGLU HBA HBAI CHOL HDL
-            LDL TRIG TSH CK URR CRCL UREP AL
-          )
-        end
+      def find_description
+        ObservationDescription.find(params[:description_id])
       end
 
-      def description_codes
-        ArchivedObservationDescription.new.to_a
+      def find_observations_for_description(description)
+        @patient.observations
+          .page(params[:page])
+          .includes(:request)
+          .for_description(description)
+          .ordered
       end
     end
   end

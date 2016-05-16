@@ -13,6 +13,8 @@ module Renalware
       validates :requestor_name, presence: true
       validates :requested_at, presence: true
 
+      scope :ordered, -> { order(requested_at: :desc) }
+
       def requested_on
         requested_at.to_date
       end

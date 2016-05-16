@@ -2,11 +2,11 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
-    # Responsible for finding the most recent observations results
-    # with in a specified date range.
+    # Responsible for finding the most recent observations results with in
+    # the specified date range.
     #
     class ObservationsWithinDateRangeQuery
-      def initialize(relation: Observation, date_range:)
+      def initialize(relation: Observation.all, date_range:)
         @relation = relation
         @date_range = date_range
       end

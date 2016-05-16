@@ -2,7 +2,7 @@
 = render layout: "renalware/patients/layout", locals: { title: title } do
   = render partial: "renalware/shared/errors", locals: { model: @pd_regime }
 
-  = nested_form_for [@patient, @pd_regime], as: :pd_regime do |r|
+  = simple_nested_form_for [@patient, @pd_regime], as: :pd_regime do |r|
     = render partial: 'renalware/pd_regimes/form', locals: { r: r }
 
     = submit_tag "Save", class: "button"

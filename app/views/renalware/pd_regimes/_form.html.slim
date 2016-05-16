@@ -3,10 +3,8 @@
 = field_set_tag "PD Regime" do
   = r.label :treatment, 'Treatment'
   = r.select :treatment, capd_apd_scope(r.object.type), { :prompt => "Please select from options" }, :class => "pd-regime-treatment-select"
-  = r.label :start_date, "Start Date"
-  = r.date_select(:start_date, { start_year: (1.year.ago).year, end_year: (1.year.since).year , order: [:day, :month, :year] }, class: "datetime")
-  = r.label :end_date, "End Date"
-  = r.date_select(:end_date, { include_blank: true, start_year: (1.years.ago).year, end_year: (1.year.since).year, order: [:day, :month, :year] }, class: "datetime")
+  = r.input :start_date, as: :date_picker
+  = r.input :end_date, as: :date_picker
 
   p
     = r.check_box :add_hd

@@ -18,6 +18,10 @@ class CollectionPresenter
     @decorated_collection.to_a
   end
 
+  def size
+    to_ary.size
+  end
+
   def method_missing(method, *args, &block)
     if @decorated_collection.respond_to?(method)
       @decorated_collection.public_send(method, *args, &block)

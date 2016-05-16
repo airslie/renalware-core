@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.0'
+ruby '2.3.1'
 
 gem 'rails', '~> 4.2.5.2'
 gem 'pg', '~> 0.18.1'
@@ -32,6 +32,7 @@ gem 'dumb_delegator'
 gem 'ruby-hl7', '~> 1.1.0'
 gem 'delayed_job_active_record'
 gem 'wisper', '2.0.0.rc1'
+gem 'cocoon'
 
 source 'https://rails-assets.org' do
   # https://github.com/najlepsiwebdesigner/foundation-datepicker

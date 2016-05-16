@@ -1,0 +1,17 @@
+- opts = { title: "Investigations", navigation_partial: "renalware/pathology/navigation" }
+= render layout: "renalware/patients/layout", locals: opts do
+  - if observation_requests.empty?
+    p No investigations available for this patient.
+
+  - else
+    p.hint Hover over table then scroll vertically to view more results.
+    .row
+      #observation-requests.large-6.columns.embedded-scroll
+        = render "table", observation_requests: observation_requests, patient: patient
+
+      .large-6.columns
+        #observations
+          table
+            tbody
+              tr
+                td Select an investigation on the left to view observations
