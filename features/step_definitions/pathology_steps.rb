@@ -1,5 +1,7 @@
 # TODO: Remove this once we have this column populated in the DB seeds
-Given(/^request description ([\d\w]+) requires observation description ([\d\w]+)$/) do |request_code, description_code|
+observation_required_regex =
+  /^request description ([\d\w]+) requires observation description ([\d\w]+)$/
+Given(observation_required_regex) do |request_code, description_code|
   observation_description =
     Renalware::Pathology::ObservationDescription.find_by(code: description_code)
   request_description = Renalware::Pathology::RequestDescription.find_by(code: request_code)
@@ -12,7 +14,9 @@ Given(/^request description ([\d\w]+) requires observation description ([\d\w]+)
 end
 
 # TODO: Remove this once we have this column populated in the DB seeds
-Given(/^the request description ([\d\w]+) has an expiration of (\d+) days$/) do |request_code, expiration_days|
+request_description_expiration_regex =
+  /^the request description ([\d\w]+) has an expiration of (\d+) days$/
+Given(request_description_expiration_regex) do |request_code, expiration_days|
   request_description = Renalware::Pathology::RequestDescription.find_by(code: request_code)
   request_description.update_attributes!(
     expiration_days: expiration_days
