@@ -25,7 +25,7 @@ describe Renalware::Pathology::RequestAlgorithm::PatientRule do
   describe "#required_for_patient?" do
     context "given today is not within the patient_rule's start/end date range" do
       before do
-        allow(Date).to receive(:current).and_return(Date.parse("2016-04-22"))
+        allow(Date).to receive(:current).and_return(Date.parse("2016-04-22")).once
         patient_rule.last_observed_at = nil
       end
 
@@ -34,7 +34,7 @@ describe Renalware::Pathology::RequestAlgorithm::PatientRule do
 
     context "given today is within the patient_rule's start/end date range" do
       before do
-        allow(Date).to receive(:current).and_return(Date.parse("2016-04-20"))
+        allow(Date).to receive(:current).and_return(Date.parse("2016-04-20")).once
       end
 
       context "given the patient was not previously observed" do

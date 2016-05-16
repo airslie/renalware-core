@@ -12,19 +12,21 @@ module Renalware
 
           # NOTE: Decide if a rule_set applies to a patient
           def call
-            return false if request_still_being_processed?
+            today = Date.current
+
+            return false if request_still_being_processed?(today)
             return false unless required_from_rules?
-            required_from_last_observation?
+            required_from_last_observation?(today)
           end
 
           private
 
-          def request_still_being_processed?
+          def request_still_being_processed?(today)
             expiration_days = @rule_set.request_description.expiration_days
 
             return false if last_request.nil? || expiration_days.nil? || last_observation.present?
 
-            days_ago_observed = Date.current - last_request.requested_on
+            days_ago_observed = today - last_request.requested_on
             days_ago_observed < expiration_days
           end
 
@@ -34,14 +36,14 @@ module Renalware
               .all?
           end
 
-          def required_from_last_observation?
+          def required_from_last_observation?(today)
             if @rule_set.frequency == "Once" && last_request.present? && last_observation.nil?
               return false
             elsif last_observation.nil?
               return true
             end
 
-            days_ago_observed = Date.current - last_observation.observed_on
+            days_ago_observed = today - last_observation.observed_on
 
             frequency_model.exceeds?(days_ago_observed)
           end
