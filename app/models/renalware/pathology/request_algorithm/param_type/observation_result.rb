@@ -16,7 +16,7 @@ module Renalware
             @param_comparison_value = param_comparison_value.to_i
           end
 
-          def patient_requires_test?
+          def required?
             return true if observation_result.nil?
             observation_result.send(@param_comparison_operator.to_sym, @param_comparison_value)
           end

@@ -21,7 +21,7 @@ end
 class Renalware::Pathology::RequestAlgorithm::ParamType::Fake
   def initialize(*_args); end
 
-  def patient_requires_test?
+  def required?
     true
   end
 end

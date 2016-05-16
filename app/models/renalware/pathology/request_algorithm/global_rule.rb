@@ -24,7 +24,7 @@ module Renalware
               param_comparison_operator,
               param_comparison_value
             )
-            .patient_requires_test?
+            .required?
         end
       end
     end

@@ -10,7 +10,7 @@ module Renalware
             @param_id = param_id.to_i
           end
 
-          def patient_requires_test?
+          def required?
             @patient.drugs.include?(drug)
           end
 
