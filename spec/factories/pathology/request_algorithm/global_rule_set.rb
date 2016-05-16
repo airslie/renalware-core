@@ -3,6 +3,6 @@ FactoryGirl.define do
     class: "Renalware::Pathology::RequestAlgorithm::GlobalRuleSet" do
       association :request_description, factory: :pathology_request_description
       association :clinic, factory: :clinic
-      frequency Renalware::Pathology::RequestAlgorithm::GlobalRuleSet::FREQUENCIES.sample
+      frequency Renalware::Pathology::RequestAlgorithm::FREQUENCIES.sample
   end
 end

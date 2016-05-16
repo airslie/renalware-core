@@ -4,8 +4,6 @@ module Renalware
   module Pathology
     module RequestAlgorithm
       class GlobalRuleSet < ActiveRecord::Base
-        include FrequencyMethods
-
         has_many :rules, class_name: "GlobalRule"
         belongs_to :request_description
         belongs_to :clinic, class_name: "Clinics::Clinic"

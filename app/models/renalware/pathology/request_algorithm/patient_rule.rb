@@ -4,8 +4,6 @@ module Renalware
   module Pathology
     module RequestAlgorithm
       class PatientRule < ActiveRecord::Base
-        include FrequencyMethods
-
         self.table_name = "pathology_request_algorithm_patient_rules"
 
         belongs_to :patient, class_name: "::Renalware::Pathology::Patient"

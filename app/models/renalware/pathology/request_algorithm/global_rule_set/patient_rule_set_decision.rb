@@ -3,8 +3,6 @@ module Renalware
     module RequestAlgorithm
       class GlobalRuleSet
         class PatientRuleSetDecision
-          include FrequencyMethods
-
           def initialize(patient, rule_set)
             @rule_set = rule_set
             @patient = patient

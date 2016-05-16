@@ -7,7 +7,7 @@ describe Renalware::Pathology::RequestAlgorithm::PatientRule do
   it { is_expected.to validate_presence_of(:patient_id) }
   it do
     is_expected.to validate_inclusion_of(:frequency)
-      .in_array(Renalware::Pathology::RequestAlgorithm::PatientRule::FREQUENCIES)
+      .in_array(Renalware::Pathology::RequestAlgorithm::FREQUENCIES)
   end
 
   let(:patient) { Renalware::Pathology.cast_patient(create(:patient)) }
