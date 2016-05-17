@@ -26,6 +26,29 @@ module World
         )
       end
 
+      def create_request(patient:, description_code: , requested_at:)
+        patient = Renalware::Pathology.cast_patient(patient)
+        description = Renalware::Pathology::RequestDescription.find_by(code: description_code)
+
+        Renalware::Pathology::ObservationRequest.create!(
+          patient: patient,
+          requestor_name: "KCH",
+          requested_at: requested_at,
+          description: description,
+        )
+      end
+
+      def create_observation(request:, description_code:, observed_at:)
+        description = Renalware::Pathology::ObservationDescription.find_by(code: description_code)
+
+        Renalware::Pathology::Observation.create!(
+          request: request,
+          description: description,
+          observed_at: observed_at,
+          result: "100"
+        )
+      end
+
       # @section expectations
       #
       def expect_observation_request_to_be_created(attrs)
@@ -139,3 +162,5 @@ module World
     end
   end
 end
+
+Dir[Rails.root.join("features/support/worlds/pathology/*.rb")].each { |f| require f }
