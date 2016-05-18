@@ -20,6 +20,7 @@ module World
         def create_patient_rule(params)
           params["last_observed_at"] = str_to_time(params["last_observed_at"])
           params["patient"] = Renalware::Pathology.cast_patient(params["patient"])
+          params["lab"] = Renalware::Pathology::Lab.find_by(name: params["lab"])
 
           Renalware::Pathology::RequestAlgorithm::PatientRule.create!(params)
         end
