@@ -10,7 +10,7 @@ module Renalware
 
         validates :request_description, presence: true
         validates :clinic, presence: true
-        validates :frequency, presence: true, inclusion: { in: FREQUENCIES }
+        validates :frequency_type, presence: true, inclusion: { in: FREQUENCIES }
 
         scope :for_clinic, -> (clinic) { where(clinic: clinic) }
 

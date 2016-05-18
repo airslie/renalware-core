@@ -10,8 +10,8 @@ module Renalware
 
         validates :lab, presence: true
         validates :test_description, presence: true
-        validates :frequency, presence: true
-        validates :frequency, inclusion: { in: FREQUENCIES, allow_nil: true }
+        validates :frequency_type, presence: true
+        validates :frequency_type, inclusion: { in: FREQUENCIES, allow_nil: true }
         validates :patient_id, presence: true
 
         def required?
@@ -28,7 +28,7 @@ module Renalware
         private
 
         def frequency_model
-          "Renalware::Pathology::RequestAlgorithm::Frequency::#{frequency}".constantize
+          "Renalware::Pathology::RequestAlgorithm::Frequency::#{frequency_type}".constantize
         end
 
         def today_within_range?(today)
