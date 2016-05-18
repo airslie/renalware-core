@@ -1660,6 +1660,35 @@ ALTER SEQUENCE organism_codes_id_seq OWNED BY organism_codes.id;
 
 
 --
+-- Name: pathology_labs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_labs (
+    id integer NOT NULL,
+    name character varying
+);
+
+
+--
+-- Name: pathology_labs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pathology_labs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_labs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pathology_labs_id_seq OWNED BY pathology_labs.id;
+
+
+--
 -- Name: pathology_observation_descriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1829,7 +1858,6 @@ ALTER SEQUENCE pathology_request_algorithm_global_rules_id_seq OWNED BY patholog
 
 CREATE TABLE pathology_request_algorithm_patient_rules (
     id integer NOT NULL,
-    lab character varying,
     test_description text,
     sample_number_bottles integer,
     sample_type character varying,
@@ -1837,7 +1865,8 @@ CREATE TABLE pathology_request_algorithm_patient_rules (
     patient_id integer,
     last_observed_at timestamp without time zone,
     start_date date,
-    end_date date
+    end_date date,
+    lab_id integer
 );
 
 
@@ -1869,7 +1898,8 @@ CREATE TABLE pathology_request_descriptions (
     code character varying NOT NULL,
     name character varying,
     required_observation_description_id integer,
-    expiration_days integer
+    expiration_days integer,
+    lab_id integer
 );
 
 
@@ -3170,6 +3200,13 @@ ALTER TABLE ONLY organism_codes ALTER COLUMN id SET DEFAULT nextval('organism_co
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY pathology_labs ALTER COLUMN id SET DEFAULT nextval('pathology_labs_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY pathology_observation_descriptions ALTER COLUMN id SET DEFAULT nextval('pathology_observation_descriptions_id_seq'::regclass);
 
 
@@ -3748,6 +3785,14 @@ ALTER TABLE ONLY modality_reasons
 
 ALTER TABLE ONLY organism_codes
     ADD CONSTRAINT organism_codes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_labs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_labs
+    ADD CONSTRAINT pathology_labs_pkey PRIMARY KEY (id);
 
 
 --
@@ -4747,6 +4792,14 @@ ALTER TABLE ONLY access_procedures
 
 
 --
+-- Name: fk_rails_15f58845a2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_request_algorithm_patient_rules
+    ADD CONSTRAINT fk_rails_15f58845a2 FOREIGN KEY (lab_id) REFERENCES pathology_labs(id);
+
+
+--
 -- Name: fk_rails_18650a2566; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5048,6 +5101,14 @@ ALTER TABLE ONLY letter_recipients
 
 ALTER TABLE ONLY access_procedures
     ADD CONSTRAINT fk_rails_9dbbc5bfd0 FOREIGN KEY (type_id) REFERENCES access_types(id);
+
+
+--
+-- Name: fk_rails_a0b9cd97fe; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_request_descriptions
+    ADD CONSTRAINT fk_rails_a0b9cd97fe FOREIGN KEY (lab_id) REFERENCES pathology_labs(id);
 
 
 --
@@ -5500,6 +5561,13 @@ INSERT INTO schema_migrations (version) VALUES ('20160506104710');
 
 INSERT INTO schema_migrations (version) VALUES ('20160506151356');
 
+INSERT INTO schema_migrations (version) VALUES ('20160509134401');
+
+INSERT INTO schema_migrations (version) VALUES ('20160509134929');
+
+INSERT INTO schema_migrations (version) VALUES ('20160509151927');
+
 INSERT INTO schema_migrations (version) VALUES ('20160509171244');
 
 INSERT INTO schema_migrations (version) VALUES ('20160510155932');
+
