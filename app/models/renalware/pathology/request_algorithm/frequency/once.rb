@@ -4,7 +4,8 @@ module Renalware
   module Pathology
     module RequestAlgorithm
       module Frequency
-        # NOTE: This assumes that the last_observation exists
+        # NOTE: The Frequency module will only be called if there was a previous observation
+        # so an observation is never required if this method gets called.
         class Once < Base
           def self.exceeds?(_days)
             false
