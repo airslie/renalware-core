@@ -1,47 +1,9 @@
 module World
   module Pathology
-    module RequestAlgorithm
+    module GlobalAlgorithm
       module Domain
-        # @section helpers
-        #
-
-        # Convert "5 days ago" to a Time object
-        def str_to_time(last_observed_at)
-          last_tested_matches =
-            last_observed_at.match(/^(?<num>\d+) (?<time_unit>day|days|week|weeks) ago$/)
-
-          if last_tested_matches
-            last_tested_matches[:num].to_i.public_send(last_tested_matches[:time_unit]).ago
-          end
-        end
-
         # @section commands
         #
-        def create_patient_rule(params)
-          params["last_observed_at"] = str_to_time(params["last_observed_at"])
-          params["patient"] = Renalware::Pathology.cast_patient(params["patient"])
-          params["lab"] = Renalware::Pathology::Lab.find_by(name: params["lab"])
-
-          Renalware::Pathology::RequestAlgorithm::PatientRule.create!(params)
-        end
-
-        def update_patient_rule_start_end_dates(patient_rule, within_rage)
-          params =
-            if within_rage == "yes"
-              {
-                start_date: Date.current - 1.days,
-                end_date: Date.current + 1.days
-              }
-            else
-              {
-                start_date: Date.current - 2.days,
-                end_date: Date.current - 1.days
-              }
-            end
-
-            patient_rule.update_attributes!(params)
-        end
-
         def create_global_rule(params)
           param_id =
             case params["type"]
@@ -86,13 +48,12 @@ module World
           )
         end
 
-        def run_global_algorithm(patient, clinic)
-          Renalware::Pathology::RequestAlgorithm::Global.new(patient, clinic)
-            .determine_required_request_descriptions
-        end
+        def run_global_algorithm(patient, _clinician, clinic_name)
+          pathology_patient = Renalware::Pathology.cast_patient(patient)
+          clinic = Renalware::Clinics::Clinic.find_by(name: clinic_name)
 
-        def run_patient_algorithm(patient)
-          Renalware::Pathology::RequestAlgorithm::Patient.new(patient).determine_required_tests
+          Renalware::Pathology::RequestAlgorithm::Global.new(pathology_patient, clinic)
+            .determine_required_request_descriptions
         end
 
         # @section expectations
@@ -102,11 +63,28 @@ module World
             expect(required_global_observations).to include(row.first.to_i)
           end
         end
+      end
 
-        def expect_observations_from_patient(required_patient_observations, observations_table)
-          observations_table.rows.each do |row|
-            expect(required_patient_observations.map(&:id)).to include(row.first.to_i)
-          end
+      module Web
+        include Domain
+
+        def run_global_algorithm(patient, clinician, regime)
+          login_as clinician
+
+          visit patient_pathology_required_observations_path(
+            patient_id: patient.id,
+            regime: regime
+          )
+
+          find_by_id("global_pathology")
+            .all("tr")
+            .map do |row|
+              row.all("th, td").map { |cell| cell.text.strip }
+            end
+        end
+
+        def expect_observations_from_global(required_global_observations, observations_table)
+          expect(required_global_observations).to eq(observations_table.raw)
         end
       end
     end
