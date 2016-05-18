@@ -21,9 +21,9 @@ Feature: Determining observations required based on global rules
        and the patient was last tested a week ago or longer.
 
      Given the global rule sets:
-       | request_description_code     | BFF         |
-       | clinic                       | Access      |
-       | frequency                    | Always      |
+       | request_description_code | BFF    |
+       | clinic                   | Access |
+       | frequency_type           | Always |
      When the global pathology algorithm is run for Patty in clinic <clinic>
      Then it is determined the observation is <determination>
 
@@ -41,22 +41,22 @@ Feature: Determining observations required based on global rules
        and the patient was last tested a week ago or longer.
 
      Given the global rule sets:
-       | request_description_code | BFF         |
-       | clinic                   | Access      |
-       | frequency                | <frequency> |
+       | request_description_code | BFF              |
+       | clinic                   | Access           |
+       | frequency_type           | <frequency_type> |
      And Patty was last tested for B12 <last_observed>
      When the global pathology algorithm is run for Patty in clinic Access
      Then it is determined the observation is <determination>
 
      Examples:
-       | frequency | last_observed | determination |
-       | Once      |               | required      |
-       | Once      | 5 days ago    | not required  |
-       | Always    |               | required      |
-       | Always    | 5 days ago    | required      |
-       | Weekly    |               | required      |
-       | Weekly    | 5 days ago    | not required  |
-       | Weekly    | 7 days ago    | required      |
+       | frequency_type | last_observed | determination |
+       | Once           |               | required      |
+       | Once           | 5 days ago    | not required  |
+       | Always         |               | required      |
+       | Always         | 5 days ago    | required      |
+       | Weekly         |               | required      |
+       | Weekly         | 5 days ago    | not required  |
+       | Weekly         | 7 days ago    | required      |
 
   Scenario Outline: The required observations were determined based on the date of the last observation, the frequency and a single parameter.
 
@@ -68,9 +68,9 @@ Feature: Determining observations required based on global rules
       and the patient has an observation result for HGB less than 100.
 
     Given the global rule sets:
-      | request_description_code | BFF         |
-      | clinic                   | Access      |
-      | frequency                | <frequency> |
+      | request_description_code | BFF              |
+      | clinic                   | Access           |
+      | frequency_type           | <frequency_type> |
     And the rule set contains these rules:
       | type              | id  | operator | value |
       | ObservationResult | HGB | <        | 100   |
@@ -80,23 +80,23 @@ Feature: Determining observations required based on global rules
     Then it is determined the observation is <determination>
 
     Examples:
-      | frequency | observation_result | last_observed | determination |
-      | Once      | 99                 |               | required      |
-      | Once      | 100                |               | not required  |
-      | Once      | 99                 | 5 days ago    | not required  |
-      | Once      | 100                | 5 days ago    | not required  |
+      | frequency_type | observation_result | last_observed | determination |
+      | Once           | 99                 |               | required      |
+      | Once           | 100                |               | not required  |
+      | Once           | 99                 | 5 days ago    | not required  |
+      | Once           | 100                | 5 days ago    | not required  |
 
-      | Always    | 99                 |               | required      |
-      | Always    | 100                |               | not required  |
-      | Always    | 99                 | 5 days ago    | required      |
-      | Always    | 100                | 5 days ago    | not required  |
+      | Always         | 99                 |               | required      |
+      | Always         | 100                |               | not required  |
+      | Always         | 99                 | 5 days ago    | required      |
+      | Always         | 100                | 5 days ago    | not required  |
 
-      | Weekly    | 99                 |               | required      |
-      | Weekly    | 100                |               | not required  |
-      | Weekly    | 99                 | 5 days ago    | not required  |
-      | Weekly    | 100                | 5 days ago    | not required  |
-      | Weekly    | 99                 | 7 days ago    | required      |
-      | Weekly    | 100                | 7 days ago    | not required  |
+      | Weekly         | 99                 |               | required      |
+      | Weekly         | 100                |               | not required  |
+      | Weekly         | 99                 | 5 days ago    | not required  |
+      | Weekly         | 100                | 5 days ago    | not required  |
+      | Weekly         | 99                 | 7 days ago    | required      |
+      | Weekly         | 100                | 7 days ago    | not required  |
 
   Scenario Outline: The required observations were determined based on multiple parameters.
 
@@ -109,7 +109,7 @@ Feature: Determining observations required based on global rules
     Given the global rule sets:
       | request_description_code | BFF    |
       | clinic                   | Access |
-      | frequency                | Always |
+      | frequency_type           | Always |
     And the rule set contains these rules:
       | type              | id               | operator | value |
       | ObservationResult | HGB              | <        | 100   |
@@ -136,24 +136,24 @@ Feature: Determining observations required based on global rules
 
     Given the request description BFF has an expiration of 7 days
     And the global rule sets:
-      | request_description_code     | BFF          |
-      | clinic                       | Access       |
-      | frequency                    | <frequency>  |
+      | request_description_code | BFF              |
+      | clinic                   | Access           |
+      | frequency_type           | <frequency_type> |
     And a BFF test was requested for Patty <last_requested>
     And a B12 test was observed for Patty <last_observed>
     When the global pathology algorithm is run for Patty in clinic Access
     Then it is determined the observation is <determination>
 
     Examples:
-      | frequency | last_requested | last_observed | determination |
-      | Always    |                |               | required      |
-      | Always    | 6 days ago     |               | not required  |
-      | Always    | 7 days ago     |               | required      |
-      | Always    | 6 days ago     | 1 days ago    | required      |
-      | Always    | 7 days ago     | 1 days ago    | required      |
+      | frequency_type | last_requested | last_observed | determination |
+      | Always         |                |               | required      |
+      | Always         | 6 days ago     |               | not required  |
+      | Always         | 7 days ago     |               | required      |
+      | Always         | 6 days ago     | 1 days ago    | required      |
+      | Always         | 7 days ago     | 1 days ago    | required      |
 
-      | Once      |                |               | required      |
-      | Once      | 6 days ago     |               | not required  |
-      | Once      | 7 days ago     |               | not required  |
-      | Once      | 6 days ago     | 1 days ago    | not required  |
-      | Once      | 7 days ago     | 1 days ago    | not required  |
+      | Once           |                |               | required      |
+      | Once           | 6 days ago     |               | not required  |
+      | Once           | 7 days ago     |               | not required  |
+      | Once           | 6 days ago     | 1 days ago    | not required  |
+      | Once           | 7 days ago     | 1 days ago    | not required  |
