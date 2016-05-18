@@ -35,7 +35,7 @@ module Renalware
           end
 
           def required_from_last_observation?(date)
-            if @rule_set.frequency_type == "Once" && last_request.present? && last_observation.nil?
+            if @rule_set.frequency.once? && last_request.present? && last_observation.nil?
               return false
             elsif last_observation.nil?
               return true
@@ -43,7 +43,7 @@ module Renalware
 
             days_ago_observed = date - last_observation.observed_on
 
-            frequency_model.exceeds?(days_ago_observed)
+            @rule_set.frequency.exceeds?(days_ago_observed)
           end
 
           def last_observation
@@ -60,10 +60,6 @@ module Renalware
                 @patient,
                 @rule_set.request_description
               ).call
-          end
-
-          def frequency_model
-            "Renalware::Pathology::RequestAlgorithm::Frequency::#{@rule_set.frequency_type}".constantize
           end
         end
       end

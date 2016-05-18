@@ -5,7 +5,7 @@ module Renalware
     module RequestAlgorithm
       module Frequency
         class Monthly < Base
-          def self.exceeds?(days)
+          def exceeds?(days)
             days >= 28
           end
         end

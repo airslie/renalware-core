@@ -5,7 +5,7 @@ module Renalware
     module RequestAlgorithm
       module Frequency
         class Always < Base
-          def self.exceeds?(_days)
+          def exceeds?(_days)
             true
           end
         end

@@ -5,7 +5,7 @@ module Renalware
     module RequestAlgorithm
       module Frequency
         class Weekly < Base
-          def self.exceeds?(days)
+          def exceeds?(days)
             days >= 7
           end
         end

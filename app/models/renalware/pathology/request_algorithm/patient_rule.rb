@@ -4,14 +4,14 @@ module Renalware
   module Pathology
     module RequestAlgorithm
       class PatientRule < ActiveRecord::Base
+        include FrequencyMethods
+
         self.table_name = "pathology_request_algorithm_patient_rules"
 
         belongs_to :patient, class_name: "::Renalware::Pathology::Patient"
 
         validates :lab, presence: true
         validates :test_description, presence: true
-        validates :frequency_type, presence: true
-        validates :frequency_type, inclusion: { in: FREQUENCIES, allow_nil: true }
         validates :patient_id, presence: true
 
         def required?
@@ -22,14 +22,10 @@ module Renalware
 
           days_ago_observed = today - last_observed_at.to_date
 
-          frequency_model.exceeds?(days_ago_observed)
+          frequency.exceeds?(days_ago_observed)
         end
 
         private
-
-        def frequency_model
-          "Renalware::Pathology::RequestAlgorithm::Frequency::#{frequency_type}".constantize
-        end
 
         def today_within_range?(today)
           return true unless start_date.present? && end_date.present?

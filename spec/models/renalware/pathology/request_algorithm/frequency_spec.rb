@@ -5,25 +5,39 @@ module Renalware
     module RequestAlgorithm
       module Frequency
         describe Once do
-          describe ".exceeds?" do
-            subject(:exceeds?) { Once.exceeds?(1) }
+          subject(:frequency) { Once.new }
+
+          describe "#exceeds?" do
+            subject(:exceeds?) { frequency.exceeds?(1) }
 
             it { expect(exceeds?).to be_falsey }
+          end
+
+          describe "#once?" do
+            it { expect(frequency.once?).to be_truthy }
           end
         end
 
         describe Always do
-          describe ".exceeds?" do
-            subject(:exceeds?) { Always.exceeds?(1) }
+          subject(:frequency) { Always.new }
+
+          describe "#exceeds?" do
+            subject(:exceeds?) { frequency.exceeds?(1) }
 
             it { expect(exceeds?).to be_truthy }
+          end
+
+          describe "#once?" do
+            it { expect(frequency.once?).to be_falsey }
           end
         end
 
         describe Weekly do
-          subject(:exceeds?) { Weekly.exceeds?(days_ago) }
+          subject(:frequency) { Weekly.new }
 
-          describe ".exceeds?" do
+          describe "#exceeds?" do
+            subject(:exceeds?) { frequency.exceeds?(days_ago) }
+
             context "given the days ago is 6" do
               let(:days_ago) { 6 }
 
@@ -36,11 +50,17 @@ module Renalware
               it { expect(exceeds?).to be_truthy }
             end
           end
+
+          describe "#once?" do
+            it { expect(frequency.once?).to be_falsey }
+          end
         end
 
         describe Monthly do
-          describe ".exceeds?" do
-            subject(:exceeds?) { Monthly.exceeds?(days_ago) }
+          subject(:frequency) { Monthly.new }
+
+          describe "#exceeds?" do
+            subject(:exceeds?) { frequency.exceeds?(days_ago) }
 
             context "given the days ago is 27" do
               let(:days_ago) { 27 }
@@ -53,6 +73,10 @@ module Renalware
 
               it { expect(exceeds?).to be_truthy }
             end
+          end
+
+          describe "#once?" do
+            it { expect(frequency.once?).to be_falsey }
           end
         end
       end
