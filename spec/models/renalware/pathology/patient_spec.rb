@@ -10,7 +10,8 @@ describe Renalware::Pathology::Patient do
 
     before do
       allow(Renalware::Pathology::RequestAlgorithm::Global).to receive(:new).and_return(algorithm)
-      allow(algorithm).to receive(:determine_required_request_descriptions).and_return(request_descriptions)
+      allow(algorithm).to receive(:determine_required_request_descriptions)
+        .and_return(request_descriptions)
     end
 
     subject(:required_request_descriptions) { patient.required_observation_requests(clinic) }
