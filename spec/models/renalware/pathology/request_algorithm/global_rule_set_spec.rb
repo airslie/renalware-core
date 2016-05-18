@@ -4,7 +4,7 @@ describe Renalware::Pathology::RequestAlgorithm::GlobalRuleSet do
   it { is_expected.to validate_presence_of(:request_description) }
   it { is_expected.to validate_presence_of(:clinic) }
   it do
-    is_expected.to validate_inclusion_of(:frequency)
+    is_expected.to validate_inclusion_of(:frequency_type)
       .in_array(Renalware::Pathology::RequestAlgorithm::FREQUENCIES)
   end
 
@@ -19,7 +19,7 @@ describe Renalware::Pathology::RequestAlgorithm::GlobalRuleSet do
   subject(:rule_set) do
     build(
       :pathology_request_algorithm_global_rule_set,
-      frequency: "Once",
+      frequency_type: "Once",
       request_description: request_description
     )
   end

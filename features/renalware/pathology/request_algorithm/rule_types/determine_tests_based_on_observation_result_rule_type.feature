@@ -9,7 +9,7 @@ Feature: Determining observations required based on an observation result rule t
     Given the global rule sets:
       | request_description_code     | BFF        |
       | clinic                       | Access     |
-      | frequency                    | Always     |
+      | frequency_type               | Always     |
     And the rule set contains these rules:
       | type              | id  | operator   | value   |
       | ObservationResult | HGB | <operator> | <value> |

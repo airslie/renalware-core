@@ -4,7 +4,7 @@ module Renalware
   module Pathology
     module RequestAlgorithm
       class Frequency::Always < Frequency
-        def self.exceeds?(_days)
+        def exceeds?(_days)
           true
         end
       end
