@@ -1766,7 +1766,7 @@ ALTER SEQUENCE pathology_observations_id_seq OWNED BY pathology_observations.id;
 CREATE TABLE pathology_request_algorithm_global_rule_sets (
     id integer NOT NULL,
     request_description_id integer NOT NULL,
-    frequency character varying NOT NULL,
+    frequency_type character varying NOT NULL,
     clinic_id integer
 );
 
@@ -1833,7 +1833,7 @@ CREATE TABLE pathology_request_algorithm_patient_rules (
     test_description text,
     sample_number_bottles integer,
     sample_type character varying,
-    frequency character varying,
+    frequency_type character varying,
     patient_id integer,
     last_observed_at timestamp without time zone,
     start_date date,
@@ -5503,3 +5503,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160506151356');
 INSERT INTO schema_migrations (version) VALUES ('20160509171244');
 
 INSERT INTO schema_migrations (version) VALUES ('20160510155932');
+
+INSERT INTO schema_migrations (version) VALUES ('20160518110836');
+
+INSERT INTO schema_migrations (version) VALUES ('20160518111325');
+

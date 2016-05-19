@@ -3,56 +3,64 @@ require "rails_helper"
 module Renalware
   module Pathology
     module RequestAlgorithm
-      module Frequency
+      class Frequency
         describe Once do
-          describe ".exceeds?" do
-            subject(:exceeds?) { Once.exceeds?(1) }
+          subject(:frequency) { Once.new }
 
-            it { expect(exceeds?).to be_falsey }
+          describe "#exceeds?" do
+            it { expect(frequency.exceeds?(1)).to be_falsey }
+          end
+
+          describe "#once?" do
+            it { expect(frequency.once?).to be_truthy }
           end
         end
 
         describe Always do
-          describe ".exceeds?" do
-            subject(:exceeds?) { Always.exceeds?(1) }
+          subject(:frequency) { Always.new }
 
-            it { expect(exceeds?).to be_truthy }
+          describe "#exceeds?" do
+            it { expect(frequency.exceeds?(1)).to be_truthy }
+          end
+
+          describe "#once?" do
+            it { expect(frequency.once?).to be_falsey }
           end
         end
 
         describe Weekly do
-          subject(:exceeds?) { Weekly.exceeds?(days_ago) }
+          subject(:frequency) { Weekly.new }
 
-          describe ".exceeds?" do
+          describe "#exceeds?" do
             context "given the days ago is 6" do
-              let(:days_ago) { 6 }
-
-              it { expect(exceeds?).to be_falsey }
+              it { expect(frequency.exceeds?(6)).to be_falsey }
             end
 
             context "given the days ago is 7" do
-              let(:days_ago) { 7 }
-
-              it { expect(exceeds?).to be_truthy }
+              it { expect(frequency.exceeds?(7)).to be_truthy }
             end
+          end
+
+          describe "#once?" do
+            it { expect(frequency.once?).to be_falsey }
           end
         end
 
         describe Monthly do
-          describe ".exceeds?" do
-            subject(:exceeds?) { Monthly.exceeds?(days_ago) }
+          subject(:frequency) { Monthly.new }
 
+          describe "#exceeds?" do
             context "given the days ago is 27" do
-              let(:days_ago) { 27 }
-
-              it { expect(exceeds?).to be_falsey }
+              it { expect(frequency.exceeds?(27)).to be_falsey }
             end
 
             context "given the days ago is 28" do
-              let(:days_ago) { 28 }
-
-              it { expect(exceeds?).to be_truthy }
+              it { expect(frequency.exceeds?(28)).to be_truthy }
             end
+          end
+
+          describe "#once?" do
+            it { expect(frequency.once?).to be_falsey }
           end
         end
       end
