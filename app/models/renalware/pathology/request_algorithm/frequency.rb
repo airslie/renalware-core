@@ -7,6 +7,10 @@ module Renalware
         def exceeds?(_days)
           raise NotImplementedError
         end
+
+        def once?
+          false
+        end
       end
     end
   end
