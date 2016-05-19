@@ -3,9 +3,13 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     module RequestAlgorithm
-      class Frequency::Always < Frequency
+      class Frequency
         def exceeds?(_days)
-          true
+          raise NotImplementedError
+        end
+
+        def once?
+          false
         end
       end
     end
