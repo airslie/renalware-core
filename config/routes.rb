@@ -142,6 +142,10 @@ Rails.application.routes.draw do
       end
     end
 
+    namespace :pathology do
+      resources :forms, only: :index
+    end
+
     resources :prd_descriptions, only: [:search] do
       collection do
         get :search

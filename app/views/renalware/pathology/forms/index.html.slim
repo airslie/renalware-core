@@ -1,0 +1,55 @@
+- @patients.each do |patient|
+  - if patient.has_tests_required?
+    .row
+      h4 Pathology Request Listing
+
+      table
+        tr
+          td.header_cell Patient Name:
+          td = patient.full_name.upcase
+          td.header_cell Date:
+          td = Date.current.strftime("%d/%m/%Y")
+        tr
+          td.header_cell DOB:
+          td = patient.born_on.strftime("%d/%m/%Y")
+          td.header_cell Consultant:
+          td = @form_settings.doctor.full_name
+        tr
+          td.header_cell Clinical Detail:
+          td = @form_settings.clinic.name
+          td.header_cell Contact:
+          td = @form_settings.clinic.name
+        tr
+          td.header_cell
+          td
+          td.header_cell Bleep/Tel No:
+          td = @form_settings.telephone
+
+    .row.full_height
+      .border_box_half.columns.full_height
+        - if patient.has_global_requests?
+          - patient.global_requests_by_lab.each do |lab_name, request_descriptions|
+            p
+              | ======== #{lab_name} ========
+            - request_descriptions.each do |request_description|
+              p = request_description.name.downcase.titleize
+        - else
+          p No tests required.
+      .large-6.columns
+        .row
+          .large-12.columns
+            p
+              h3 HIGH RISK
+        .row
+          .large-12.columns.with_border.full_height
+            b Patient Specific Tests:
+            - if patient.has_patient_requests?
+              - patient.patient_requests_by_lab.each do |lab_name, patient_rules|
+                p
+                  | ======== #{lab_name} ========
+                - patient_rules.each do |patient_rule|
+                  p = patient_rule.test_description
+            - else
+              p No tests required.
+
+    hr.page_break
