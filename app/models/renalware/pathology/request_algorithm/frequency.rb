@@ -1,4 +1,4 @@
-require_dependency "renalware/pathology"
+require_dependency "renalware/pathology/request_algorithm"
 
 module Renalware
   module Pathology
