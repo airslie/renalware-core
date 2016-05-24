@@ -1,0 +1,41 @@
+.row
+  h4 #{resource}'s Profile
+
+  = form_for(resource,
+    as: resource_name,
+    url: registration_path(resource_name),
+    html: { method: :put }) do |f|
+
+    = custom_devise_error_messages!
+
+    .field.large-8.small-6
+      label Email
+      = f.email_field :email, autofocus: true
+
+    - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+      div Currently waiting confirmation for: #{resource.unconfirmed_email}
+
+    .field.large-8.small-6
+      label Password <i>(leave blank if you don't want to change it)</i>
+      = f.password_field :password, autocomplete: "off"
+
+    .field.large-8.small-6
+      label Password confirmation
+      = f.password_field :password_confirmation, autocomplete: "off"
+
+    .field.large-8.small-6
+      label Current password <i>(we need your current password to confirm your changes)</i>
+      = f.password_field :current_password, autocomplete: "off"
+
+    .field.large-8.small-6
+      label Professional position
+      = f.text_field :professional_position
+
+    .field.large-8.small-6
+      label Signature <i>(appears in letters, e.g. "Dr Jane Smith, MRCP")</i>
+      = f.text_field :signature
+
+    .actions
+      = f.submit "Update", class: 'button save'
+
+    = link_to "Back", :back
