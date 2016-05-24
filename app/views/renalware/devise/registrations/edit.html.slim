@@ -17,7 +17,8 @@
         div Currently waiting confirmation for: #{resource.unconfirmed_email}
 
       .field.large-8.small-6
-        label Password <i>(leave blank if you don't want to change it)</i>
+        label Password
+        <i>(leave blank if you don't want to change it)</i>
         = f.password_field :password, autocomplete: "off"
 
       .field.large-8.small-6
@@ -25,7 +26,8 @@
         = f.password_field :password_confirmation, autocomplete: "off"
 
       .field.large-8.small-6
-        label Current password <i>(we need your current password to confirm your changes)</i>
+        label Current password
+        <i>(we need your current password to confirm your changes)</i>
         = f.password_field :current_password, autocomplete: "off"
 
       .field.large-8.small-6
@@ -33,7 +35,8 @@
         = f.text_field :professional_position
 
       .field.large-8.small-6
-        label Signature <i>(appears in letters, e.g. "Dr Jane Smith, MRCP")</i>
+        label Signature
+        <i>(appears in letters, e.g. "Dr Jane Smith, MRCP")</i>
         = f.text_field :signature
 
       .actions
