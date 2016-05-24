@@ -18,8 +18,6 @@ module Renalware
         __getobj__.address
       end
 
-      public
-
       class Draft < RecipientPresenter
         private
 
