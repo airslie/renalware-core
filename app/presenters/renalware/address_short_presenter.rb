@@ -1,7 +1,7 @@
-require_dependency "renalware"
+require_dependency "renalware/address_presenter"
 
 module Renalware
-  class AddressShortPresenter < SimpleDelegator
+  class AddressShortPresenter < AddressPresenter
     def short
       presentable_attrs
         .reject(&:blank?)

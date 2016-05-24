@@ -1,16 +1,16 @@
-require_dependency "renalware"
+require_dependency "renalware/address_presenter"
 
 module Renalware
-  class AddressBlockPresenter < SimpleDelegator
-    def to_html
-      presentable_attrs
-        .map(&:to_s)
-        .reject(&:blank?)
-        .join("<br>")
-        .html_safe
+  class AddressBlockPresenter < AddressPresenter
+    def to_s
+      super.html_safe
     end
 
     private
+
+    def join_arg
+      "<br>"
+    end
 
     def presentable_attrs
       [
@@ -19,7 +19,7 @@ module Renalware
         street_1,
         street_2,
         [city, county, postcode].reject(&:blank?).join(", "),
-        ::Renalware::CountryPresenter.new(country)
+        country
       ]
     end
   end

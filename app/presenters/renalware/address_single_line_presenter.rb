@@ -1,14 +1,7 @@
-require_dependency "renalware"
+require_dependency "renalware/address_presenter"
 
 module Renalware
-  class AddressSingleLinePresenter < SimpleDelegator
-    def to_s
-      presentable_attrs
-        .map(&:to_s)
-        .reject(&:blank?)
-        .join(", ")
-    end
-
+  class AddressSingleLinePresenter < AddressPresenter
     private
 
     def presentable_attrs
@@ -18,7 +11,7 @@ module Renalware
         city,
         county,
         postcode,
-        ::Renalware::CountryPresenter.new(country)
+        country
       ]
     end
   end
