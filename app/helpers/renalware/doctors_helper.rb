@@ -13,7 +13,7 @@ module Renalware
     private
 
     def format_address(address)
-      AddressPresenter.new(address).short
+      ::Renalware::AddressShortPresenter.new(address)
     end
 
     def practices_list(practices)
