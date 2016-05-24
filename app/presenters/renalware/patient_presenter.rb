@@ -4,7 +4,7 @@ require_dependency "renalware/address_presenter/single_line"
 module Renalware
   class PatientPresenter < SimpleDelegator
     def address
-      ::Renalware::AddressPresenter::SingleLine.new(current_address)
+      AddressPresenter::SingleLine.new(current_address)
     end
 
     def to_s
