@@ -1,15 +1,15 @@
 require_dependency "renalware/letters"
-require_dependency "renalware/address_presenter/block"
+require_dependency "renalware/address_presenter"
 
 module Renalware
   module Letters
     class RecipientPresenter < SimpleDelegator
       def to_s
-        ::Renalware::AddressPresenter::Block.new(address_for_person_role).to_s
+        AddressPresenter::Block.new(address_for_person_role).to_s
       end
 
       def address
-        ::Renalware::AddressPresenter.new(address_for_person_role)
+        AddressPresenter.new(address_for_person_role)
       end
 
       private

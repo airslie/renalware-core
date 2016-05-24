@@ -1,3 +1,5 @@
+require_dependency "renalware"
+
 module Renalware
   module DoctorsHelper
     def practices_options_for_select(doctor)
@@ -13,7 +15,7 @@ module Renalware
     private
 
     def format_address(address)
-      ::Renalware::AddressPresenter::Short.new(address)
+      AddressPresenter::Short.new(address)
     end
 
     def practices_list(practices)
