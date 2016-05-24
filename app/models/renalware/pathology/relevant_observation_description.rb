@@ -16,7 +16,7 @@ module Renalware
           CRP FER FOL B12 URE CRE EGFR NA POT BIC
           CCA PHOS PTHI TP GLO ALB URAT BIL ALT AST
           ALP GGT BGLU HBA HBAI CHOL HDL LDL TRIG TSH
-          CK URR CRCL UREP AL
+          CK URR UREP AL
         )
       end
     end
