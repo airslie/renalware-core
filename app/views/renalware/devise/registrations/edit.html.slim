@@ -10,32 +10,32 @@
       = custom_devise_error_messages!
 
       .field.large-8.small-6
-        label Email
+        = f.label :email
         = f.email_field :email, autofocus: true
 
       - if devise_mapping.confirmable? && resource.pending_reconfirmation?
         div Currently waiting confirmation for: #{resource.unconfirmed_email}
 
       .field.large-8.small-6
-        label Password
+        = f.label :password
         <i>(leave blank if you don't want to change it)</i>
         = f.password_field :password, autocomplete: "off"
 
       .field.large-8.small-6
-        label Password confirmation
+        = f.label :password_confirmation
         = f.password_field :password_confirmation, autocomplete: "off"
 
       .field.large-8.small-6
-        label Current password
+        = f.label :current_password
         <i>(we need your current password to confirm your changes)</i>
         = f.password_field :current_password, autocomplete: "off"
 
       .field.large-8.small-6
-        label Professional position
+        = f.label :professional_position
         = f.text_field :professional_position
 
       .field.large-8.small-6
-        label Signature
+        = f.label :signature
         <i>(appears in letters, e.g. "Dr Jane Smith, MRCP")</i>
         = f.text_field :signature
 
