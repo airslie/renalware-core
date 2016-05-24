@@ -1,8 +1,10 @@
 require_dependency "renalware"
 
 module Renalware
-  class AddressPresenter < SimpleDelegator
+  class AddressPresenter < DumbDelegator
     def to_s
+      return "" unless __getobj__.present?
+
       presentable_attrs
         .map(&:to_s)
         .reject(&:blank?)

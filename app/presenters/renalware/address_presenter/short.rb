@@ -1,13 +1,7 @@
 require_dependency "renalware/address_presenter"
 
 module Renalware
-  class AddressShortPresenter < AddressPresenter
-    def short
-      presentable_attrs
-        .reject(&:blank?)
-        .join(", ")
-    end
-
+  class AddressPresenter::Short < AddressPresenter
     private
 
     def presentable_attrs

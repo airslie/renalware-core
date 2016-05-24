@@ -1,7 +1,7 @@
 require_dependency "renalware/address_presenter"
 
 module Renalware
-  class AddressSingleLinePresenter < AddressPresenter
+  class AddressPresenter::SingleLine < AddressPresenter
     private
 
     def presentable_attrs

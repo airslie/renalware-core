@@ -2,8 +2,8 @@ require_dependency "renalware"
 
 module Renalware
   class DoctorPresenter < SimpleDelegator
-    def address_line
-      Renalware::AddressPresenter.new(address || practice_address).on_one_line
+    def address
+      Renalware::AddressPresenter.new(super || practice_address).to_s
     end
   end
 end

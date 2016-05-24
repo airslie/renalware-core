@@ -1,11 +1,10 @@
 require_dependency "renalware"
+require_dependency "renalware/address_presenter/single_line"
 
 module Renalware
   class PatientPresenter < SimpleDelegator
-    def address_line
-      return if current_address.blank?
-
-      ::Renalware::AddressSingleLinePresenter.new(current_address)
+    def address
+      ::Renalware::AddressPresenter::SingleLine.new(current_address)
     end
 
     def to_s

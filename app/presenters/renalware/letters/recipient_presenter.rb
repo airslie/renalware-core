@@ -1,33 +1,36 @@
 require_dependency "renalware/letters"
+require_dependency "renalware/address_presenter/block"
 
 module Renalware
   module Letters
     class RecipientPresenter < SimpleDelegator
       def to_s
-        ::Renalware::AddressBlockPresenter.new(address_for_person_role(super)).to_s
-      end
-
-      def address_line
-        address.to_s
+        ::Renalware::AddressPresenter::Block.new(address_for_person_role).to_s
       end
 
       def address
-        ::Renalware::AddressPresenter.new(address_for_person_role(super))
+        ::Renalware::AddressPresenter.new(address_for_person_role)
       end
 
-      def address_for_person_role(address)
-        address
+      private
+
+      def address_for_person_role
+        __getobj__.address
       end
+
+      public
 
       class Draft < RecipientPresenter
-        def address_for_person_role(address)
+        private
+
+        def address_for_person_role
           case person_role
           when "patient"
             letter.patient.current_address
           when "doctor"
             letter.patient.doctor.current_address
           else
-            address
+            __getobj__.address
           end
         end
       end
