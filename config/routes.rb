@@ -12,7 +12,6 @@ Rails.application.routes.draw do
       resources :users
     end
 
-
     get "authors/:author_id/letters", to: "letters/letters#author", as: "author_letters"
 
     resources :bag_types, except: [:show]
@@ -147,15 +146,17 @@ Rails.application.routes.draw do
       end
     end
 
-    namespace :transplants do
-      resource :wait_list, only: :show
-    end
-
     resources :snomed, only: [:index]
 
     namespace :system do
       resources :email_templates, only: :index
     end
+
+    namespace :transplants do
+      resource :wait_list, only: :show
+    end
+
+    resource :dashboard, only: :show
   end
 
   # enable mail previews in all environments
