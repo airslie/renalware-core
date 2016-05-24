@@ -27,7 +27,7 @@ module Renalware
       end
 
       def format_body(rows)
-        content_tag(:body) do
+        content_tag(:tbody) do
           rows.each do |row|
             concat(content_tag(:tr) do
               row.each do |cell|
