@@ -2,8 +2,8 @@ require_dependency "renalware/address_presenter"
 
 module Renalware
   class AddressPresenter::Block < AddressPresenter
-    def to_s
-      super.html_safe
+    def to_html
+      to_s.html_safe
     end
 
     private
