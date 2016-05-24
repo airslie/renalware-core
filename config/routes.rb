@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   }
 
   scope module: "renalware" do
-    root to: "patients#index"
+    root to: "dashboards#show"
 
     namespace :admin do
       resources :users
