@@ -21,5 +21,9 @@ module World
         Renalware::Patient.find_by(local_patient_id: local_id)
       end
     end
+
+    module Web
+      include Domain
+    end
   end
 end

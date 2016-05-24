@@ -1308,6 +1308,7 @@ ALTER SEQUENCE letter_descriptions_id_seq OWNED BY letter_descriptions.id;
 CREATE TABLE letter_letterheads (
     id integer NOT NULL,
     name character varying NOT NULL,
+    site_code character varying NOT NULL,
     unit_info character varying NOT NULL,
     trust_name character varying NOT NULL,
     trust_caption character varying NOT NULL,
