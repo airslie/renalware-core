@@ -10,11 +10,11 @@ class DumbDelegator < ::BasicObject
     end
   end
 
-  def try(*a, &b)
+  def try(*_a, &_b)
     raise "Cannot call #try on a BasicObject"
   end
 
-  def try!(*a, &b)
+  def try!(*_a, &_b)
     raise "Cannot call #try! on a BasicObject"
   end
 
