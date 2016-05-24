@@ -4,7 +4,7 @@ module Renalware
   module Letters
     class RecipientPresenter < SimpleDelegator
       def to_s
-        address.in_a_block
+        ::Renalware::AddressBlockPresenter.new(address_for_person_role(super)).to_html
       end
 
       def address_line
