@@ -12,7 +12,7 @@ module Renalware
     end
 
     def country
-      ::Renalware::CountryPresenter.new(super)
+      CountryPresenter.new(super)
     end
 
     private
