@@ -19,12 +19,9 @@ module Renalware
       accepts_nested_attributes_for :main_recipient
       accepts_nested_attributes_for :cc_recipients, reject_if: :all_blank, allow_destroy: true
 
-      enumerize :state, in: %i(draft ready_for_review archived)
-
       validates :letterhead, presence: true
       validates :author, presence: true
       validates :patient, presence: true
-      validates :state, presence: true
       validates :issued_on, presence: true
       validates :description, presence: true
       validates :main_recipient, presence: true
@@ -41,8 +38,12 @@ module Renalware
         cc_recipients.select { |cc| cc.person_role.other? }
       end
 
-      def assign_counterpart_ccs
-        AssignCounterpartCCs.new(self).call
+      def determine_counterpart_ccs
+        DetermineCounterpartCCs.new(self).call
+      end
+
+      def state
+        raise NotImplementedError
       end
     end
   end

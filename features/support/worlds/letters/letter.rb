@@ -181,9 +181,9 @@ module World
 
         case recipient
         when Renalware::Patient
-          choose("letters_letter_main_recipient_attributes_person_role_patient")
+          choose("letters_letter_draft_main_recipient_attributes_person_role_patient")
         when Renalware::Doctor
-          choose("letters_letter_main_recipient_attributes_person_role_doctor")
+          choose("letters_letter_draft_main_recipient_attributes_person_role_doctor")
         else
           choose("Postal Address Below")
           fill_in "Name", with: recipient[:name]
