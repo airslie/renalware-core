@@ -4,7 +4,7 @@ module Renalware
   module Letters
     class Letter::Typed < Letter
       def state
-        "ready_for_review"
+        "typed"
       end
     end
   end

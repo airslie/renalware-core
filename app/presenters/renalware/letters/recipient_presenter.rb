@@ -36,7 +36,7 @@ module Renalware
         end
       end
 
-      class ReadyForReview < Draft
+      class Typed < Draft
       end
 
       class Archived < RecipientPresenter
