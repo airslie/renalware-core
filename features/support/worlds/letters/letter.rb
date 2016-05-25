@@ -56,10 +56,7 @@ module World
           cc_recipients_attributes: build_cc_recipients_attributes(ccs)
         )
 
-        Renalware::Letters::DraftLetter.build
-          .on(:draft_letter_successful) { |letter| return letter }
-          .on(:draft_letter_failed) { |letter| return letter }
-          .call(patient, letter_attributes)
+        Renalware::Letters::DraftLetter.build.call(patient, letter_attributes)
       end
 
       def update_simple_letter(patient:, user:)
@@ -71,10 +68,7 @@ module World
           by: user
         }
 
-        Renalware::Letters::ReviseLetter.build
-          .on(:revise_letter_successful) { |letter| return letter }
-          .on(:revise_letter_failed) { |letter| return letter }
-          .call(patient, existing_letter.id, letter_attributes)
+        Renalware::Letters::ReviseLetter.build.call(patient, existing_letter.id, letter_attributes)
       end
 
       # @section expectations

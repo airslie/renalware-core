@@ -10,6 +10,10 @@ module Renalware
       def state
         "draft"
       end
+
+      def typed!
+        self.becomes!(Typed)
+      end
     end
   end
 end

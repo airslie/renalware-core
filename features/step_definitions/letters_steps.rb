@@ -30,6 +30,10 @@ When(/^Nathalie updates Patty's address$/) do
   update_patient_address(patient: @patty, current_address_attributes: { street_1: "new street 1" })
 end
 
+When(/^Nathalie marks the letter typed$/) do
+  @letter = set_up_simple_letter_for(@patty, user: @nathalie)
+  @letter.typed!
+end
 
 Then(/^"(.*?)" will receive the letter$/) do |recipient|
   expect_simple_letter_to_exist(@patty, recipient: letter_recipients_map.fetch(recipient))
@@ -57,3 +61,6 @@ Then(/^Patty's pending letter is addressed to her new address$/) do
   )
 end
 
+Then(/^Doug can review the letter$/) do
+  Renalware::Letters.cast_doctor(@doug).reviewable_letters.include?(@letter)
+end
