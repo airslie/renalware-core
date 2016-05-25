@@ -15,7 +15,6 @@ module Renalware
         class_name: "Recipient", dependent: :destroy, inverse_of: :letter
       has_many :recipients, dependent: :destroy
 
-
       accepts_nested_attributes_for :main_recipient
       accepts_nested_attributes_for :cc_recipients, reject_if: :all_blank, allow_destroy: true
 
