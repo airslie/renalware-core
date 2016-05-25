@@ -10,7 +10,7 @@ module Renalware
       let(:patient) { build(:letter_patient) }
 
       describe ".new" do
-        %w(draft ready_for_review archived).each do |state|
+        %w(draft typed archived).each do |state|
           context "given the letter is in state #{state}" do
             let(:letter) { build_letter(to: :patient, patient: patient) }
 
