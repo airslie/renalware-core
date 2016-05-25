@@ -25,10 +25,10 @@ module Renalware
         private
 
         def address_for_person_role
-          case person_role
-          when "patient"
+          case
+          when patient?
             letter.patient.current_address
-          when "doctor"
+          when doctor?
             letter.patient.doctor.current_address
           else
             __getobj__.address
