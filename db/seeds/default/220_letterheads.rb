@@ -8,6 +8,7 @@ module Renalware
     logcount += 1
     name = "(#{row["sitecode"]}) #{row["unitinfo"]}"
     letterhead = Letters::Letterhead.find_or_initialize_by(name: name)
+    letterhead.site_code = row["sitecode"]
     letterhead.unit_info = row["unitinfo"]
     letterhead.trust_name = row["trustname"]
     letterhead.trust_caption = row["trustcaption"]

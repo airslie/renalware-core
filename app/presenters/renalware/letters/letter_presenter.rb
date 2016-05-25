@@ -4,8 +4,12 @@ require "collection_presenter"
 module Renalware
   module Letters
     class LetterPresenter < DumbDelegator
+      def patient
+        @patient_presenter ||= PatientPresenter.new(super)
+      end
+
       def main_recipient
-        RecipientPresenterFactory.new(super)
+        @main_recipient_presenter ||= RecipientPresenterFactory.new(super)
       end
 
       def cc_recipients
@@ -13,6 +17,17 @@ module Renalware
           assign_counterpart_ccs
           ::CollectionPresenter.new(super, RecipientPresenterFactory)
         end
+      end
+
+      def description
+        "(#{letterhead.site_code}) #{super}"
+      end
+
+      def electronic_signature
+        [
+          "ELECTRONICALLY SIGNED BY #{author.full_name}",
+          "on #{::I18n.l updated_at}"
+        ].join("<br>").html_safe
       end
     end
   end
