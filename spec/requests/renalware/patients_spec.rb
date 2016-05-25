@@ -20,6 +20,10 @@ RSpec.describe "Managing patients", type: :request do
         expect(response).to have_http_status(:redirect)
         expect(Renalware::Patient.exists?(attributes)).to be_truthy
 
+        created_patient = Renalware::Patient.find_by(attributes)
+        expect(created_patient.created_by).to eq(@current_user)
+        expect(created_patient.updated_by).to eq(@current_user)
+
         follow_redirect!
 
         expect(response).to have_http_status(:success)
@@ -52,6 +56,9 @@ RSpec.describe "Managing patients", type: :request do
 
         expect(response).to have_http_status(:redirect)
         expect(Renalware::Patient.exists?(attributes)).to be_truthy
+
+        created_patient = Renalware::Patient.find_by(attributes)
+        expect(created_patient.updated_by).to eq(@current_user)
 
         follow_redirect!
 
