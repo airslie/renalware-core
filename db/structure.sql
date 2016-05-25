@@ -1920,7 +1920,9 @@ CREATE TABLE patients (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     practice_id integer,
-    doctor_id integer
+    doctor_id integer,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL
 );
 
 
@@ -4462,10 +4464,24 @@ CREATE INDEX index_pathology_observations_on_request_id ON pathology_observation
 
 
 --
+-- Name: index_patients_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_created_by_id ON patients USING btree (created_by_id);
+
+
+--
 -- Name: index_patients_on_doctor_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_patients_on_doctor_id ON patients USING btree (doctor_id);
+
+
+--
+-- Name: index_patients_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_updated_by_id ON patients USING btree (updated_by_id);
 
 
 --
@@ -5507,4 +5523,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160510155932');
 INSERT INTO schema_migrations (version) VALUES ('20160518110836');
 
 INSERT INTO schema_migrations (version) VALUES ('20160518111325');
+
+INSERT INTO schema_migrations (version) VALUES ('20160524171947');
 
