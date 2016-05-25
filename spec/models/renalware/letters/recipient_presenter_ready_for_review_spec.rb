@@ -2,10 +2,10 @@ require "rails_helper"
 
 module Renalware
   module Letters
-    RSpec.describe RecipientPresenter::ReadyForReview, type: :model do
+    RSpec.describe RecipientPresenter::Typed, type: :model do
       include LettersSpecHelper
 
-      subject(:presenter) { RecipientPresenter::Draft.new(recipient) }
+      subject(:presenter) { RecipientPresenter::Typed.new(recipient) }
 
       let(:patient) { build(:letter_patient) }
       let(:recipient) { letter.main_recipient }
