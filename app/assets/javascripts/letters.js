@@ -12,7 +12,7 @@ Renalware.Letters = (function() {
   };
 
   var bindOnLetterRecipientTypeChange = function() {
-    $("form.edit_letters_letter, form.new_letters_letter").change(hideOrShowOtherAddress);
+    $("#letter-form").change(hideOrShowOtherAddress);
   };
 
   return {

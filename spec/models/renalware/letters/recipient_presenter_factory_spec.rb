@@ -10,9 +10,11 @@ module Renalware
       let(:patient) { build(:letter_patient) }
 
       describe ".new" do
-        Letter.state.values.each do |state|
+        %w(draft ready_for_review archived).each do |state|
           context "given the letter is in state #{state}" do
-            let(:letter) { build_letter(to: :patient, patient: patient, state: state) }
+            let(:letter) { build_letter(to: :patient, patient: patient) }
+
+            before { allow(letter).to receive(:state).and_return(state) }
 
             it "returns the presenter class for the #{state} state" do
               presenter = presenter_factory.new(letter.main_recipient)

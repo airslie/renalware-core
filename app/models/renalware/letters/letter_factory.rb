@@ -10,7 +10,8 @@ module Renalware
       end
 
       def build(params={})
-        patient.letters.new(params).tap do |letter|
+        Letter::Draft.new(params).tap do |letter|
+          letter.patient = patient
           include_doctor_as_default_main_recipient(letter)
         end
       end

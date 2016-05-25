@@ -65,7 +65,7 @@ module Renalware
 
       def letter_params
         params
-          .require(:letters_letter)
+          .require(:letters_letter_draft)
           .permit(attributes)
           .merge(by: current_user)
       end

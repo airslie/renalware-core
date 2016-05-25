@@ -1344,7 +1344,7 @@ ALTER SEQUENCE letter_letterheads_id_seq OWNED BY letter_letterheads.id;
 CREATE TABLE letter_letters (
     id integer NOT NULL,
     patient_id integer,
-    state character varying DEFAULT 'draft'::character varying NOT NULL,
+    type character varying NOT NULL,
     issued_on date NOT NULL,
     description character varying,
     salutation character varying,

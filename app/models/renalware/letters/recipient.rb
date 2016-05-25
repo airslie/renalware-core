@@ -25,7 +25,7 @@ module Renalware
       end
 
       def archived?
-        state.archived?
+        state == "archived"
       end
     end
   end
