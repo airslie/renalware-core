@@ -14,8 +14,8 @@ module Renalware
 
       def cc_recipients
         @cc_recipients_with_counterparts ||= begin
-          assign_counterpart_ccs
-          ::CollectionPresenter.new(super, RecipientPresenterFactory)
+          ccs = super + determine_counterpart_ccs
+          ::CollectionPresenter.new(ccs, RecipientPresenterFactory)
         end
       end
 

@@ -38,8 +38,8 @@ module Renalware
         cc_recipients.select { |cc| cc.person_role.other? }
       end
 
-      def assign_counterpart_ccs
-        AssignCounterpartCCs.new(self).call
+      def determine_counterpart_ccs
+        DetermineCounterpartCCs.new(self).call
       end
 
       def state
