@@ -6,10 +6,6 @@ module Renalware
       def self.policy_class
         TypedLetterPolicy
       end
-
-      def state
-        "typed"
-      end
     end
   end
 end

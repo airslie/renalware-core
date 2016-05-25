@@ -7,10 +7,6 @@ module Renalware
         DraftLetterPolicy
       end
 
-      def state
-        "draft"
-      end
-
       def typed!
         self.becomes!(Typed)
       end

@@ -28,16 +28,20 @@ module Renalware
       STATES = %w{draft typed archived}
 
       STATES.each do |state|
-        scope state, -> { where(type: "Renalware::Letters::Letter::#{state.classify}") }
+        scope state, -> { where(type: "#{self.name}::#{state.classify}") }
       end
-      scope :reviewable, -> { where(type: "Renalware::Letters::Letter::Typed" ) }
-
-      def self.policy_class
-        LetterPolicy
-      end
+      scope :reviewable, -> { where(type: "#{self.name}::#{Typed.name.demodulize}") }
 
       def self.states
         STATES
+      end
+
+      def state
+        self.class.name.demodulize.downcase
+      end
+
+      def self.policy_class
+        LetterPolicy
       end
 
       def subject?(other_patient)
@@ -50,10 +54,6 @@ module Renalware
 
       def determine_counterpart_ccs
         DetermineCounterpartCCs.new(self).call
-      end
-
-      def state
-        raise NotImplementedError
       end
     end
   end
