@@ -25,20 +25,9 @@ module Renalware
       validates :description, presence: true
       validates :main_recipient, presence: true
 
-      STATES = %w{draft typed archived}
-
-      STATES.each do |state|
-        scope state, -> { where(type: "#{self.name}::#{state.classify}") }
-      end
-      scope :reviewable, -> { where(type: "#{self.name}::#{Typed.name.demodulize}") }
-
-      def self.states
-        STATES
-      end
-
-      def state
-        self.class.name.demodulize.downcase
-      end
+      include ExplicitStateModel
+      has_states :draft, :typed, :archived
+      state_scope :reviewable, :typed
 
       def self.policy_class
         LetterPolicy
