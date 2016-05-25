@@ -1923,7 +1923,13 @@ CREATE TABLE patients (
     practice_id integer,
     doctor_id integer,
     created_by_id integer,
-    updated_by_id integer
+    updated_by_id integer,
+    title character varying,
+    suffix character varying,
+    marital_status character varying,
+    telephone1 character varying,
+    telephone2 character varying,
+    email character varying
 );
 
 
@@ -5526,4 +5532,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160518110836');
 INSERT INTO schema_migrations (version) VALUES ('20160518111325');
 
 INSERT INTO schema_migrations (version) VALUES ('20160524171947');
+
+INSERT INTO schema_migrations (version) VALUES ('20160525124151');
 

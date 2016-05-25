@@ -21,6 +21,8 @@ module Renalware
     it { is_expected.to validate_timeliness_of(:born_on) }
     it { is_expected.to validate_timeliness_of(:died_on) }
 
+    it { is_expected.to validate_inclusion_of(:marital_status).in_array(Patient::MARITAL_STATUSES) }
+
     subject { create(:patient) }
 
     describe "#valid?" do

@@ -4,6 +4,8 @@ module Renalware
     include Personable
     include Accountable
 
+    MARITAL_STATUSES = %w( Married Single Divorced Widowed )
+
     serialize :sex, Gender
 
     belongs_to :current_address, class_name: "Address", foreign_key: :current_address_id
@@ -39,8 +41,9 @@ module Renalware
     validates :local_patient_id, presence: true, uniqueness: true
     validates :born_on, presence: true
     validate :validate_sex
-
     validates :born_on, timeliness: { type: :date }
+    validates :marital_status, inclusion: { in: MARITAL_STATUSES, allow_blank: true }
+    validates :email, email: true, allow_blank: true
 
     with_options if: :current_modality_death?, on: :update do |death|
       death.validates :died_on, presence: true

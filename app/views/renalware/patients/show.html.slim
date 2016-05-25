@@ -12,11 +12,17 @@
 
         .large-3.columns
           dl
+            dt Title
+            dd= @patient.title
+
             dt Last Name:
             dd= @patient.family_name
 
             dt First Name:
             dd= @patient.given_name
+
+            dt Suffix
+            dd= @patient.suffix
 
         .large-3.columns
           dl
@@ -25,6 +31,9 @@
 
             dt Ethnicity:
             dd= default_for_associated(@patient.ethnicity, :name, 'Unspecified')
+
+            dt Marital Status
+            dd= @patient.marital_status
 
         .large-3.columns
           dl
@@ -60,6 +69,29 @@
 
     .row
       .large-4.columns
+        = field_set_tag "Contact Details" do
+          dl
+            dt Email
+            dd= @patient.email
+
+          dl
+            dt Telephone1
+            dd= @patient.telephone1
+
+          dl
+            dt Telephone2
+            dd= @patient.telephone2
+
+      .large-4.columns
+        = field_set_tag "Current Address" do
+          = render @patient.current_address if @patient.current_address
+
+      .large-4.columns
+        = field_set_tag "Address at Diagnosis" do
+          = render @patient.address_at_diagnosis if @patient.address_at_diagnosis
+
+    .row
+      .large-4.columns
         = field_set_tag "Organisation/Practice" do
           dl
             dt GP Practice Code:
@@ -76,11 +108,3 @@
           dl
             dt Primary ESRF Centre:
             dd= @patient.primary_esrf_centre
-
-      .large-4.columns
-        = field_set_tag "Current Address" do
-          = render @patient.current_address if @patient.current_address
-
-      .large-4.columns
-        = field_set_tag "Address at Diagnosis" do
-          = render @patient.address_at_diagnosis if @patient.address_at_diagnosis
