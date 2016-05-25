@@ -34,7 +34,7 @@ module Renalware
       end
 
       def edit
-        render_form(@patient.letters.find(params[:id]), :edit)
+        render_form(@patient.draft_letters.find(params[:id]), :edit)
       end
 
       def update
