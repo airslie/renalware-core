@@ -27,6 +27,11 @@ module Renalware
 
       STATES = %w{draft typed archived}
 
+      STATES.each do |state|
+        scope state, -> { where(type: "Renalware::Letters::Letter::#{state.classify}") }
+      end
+      scope :reviewable, -> { where(type: "Renalware::Letters::Letter::Typed" ) }
+
       def self.policy_class
         LetterPolicy
       end

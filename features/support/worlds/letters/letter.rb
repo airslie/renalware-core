@@ -71,6 +71,14 @@ module World
         Renalware::Letters::ReviseLetter.build.call(patient, existing_letter.id, letter_attributes)
       end
 
+      def mark_draft_as_typed(patient:, user:)
+        draft_letter = simple_letter_for(patient)
+
+        typed_letter = draft_letter.typed!
+        typed_letter.by = user
+        typed_letter.save!
+      end
+
       # @section expectations
       #
       def expect_simple_letter_to_exist(patient, recipient:)
