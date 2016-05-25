@@ -8,14 +8,6 @@ module Renalware
   module Letters
     class DetermineCounterpartCCs < SimpleDelegator
       def call
-        roles = []
-        roles << "patient" if patient.cc_on_letter?(self)
-        roles << "doctor" if patient.doctor.cc_on_letter?(self)
-
-        apply(roles)
-      end
-
-      def call
         counterpart_css = []
         counterpart_css << build_recipient("patient") if patient.cc_on_letter?(self)
         counterpart_css << build_recipient("doctor") if patient.doctor.cc_on_letter?(self)
