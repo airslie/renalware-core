@@ -1922,8 +1922,8 @@ CREATE TABLE patients (
     updated_at timestamp without time zone,
     practice_id integer,
     doctor_id integer,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL
+    created_by_id integer,
+    updated_by_id integer
 );
 
 
