@@ -1,8 +1,9 @@
 tr
   td
     = link_to 'Preview', patient_letters_letter_path(letter.patient, letter)
-    = pipe_separator
-    = link_to 'Edit', edit_patient_letters_letter_path(letter.patient, letter)
+    - if policy(letter).update?
+      = pipe_separator
+      = link_to 'Edit', edit_patient_letters_letter_path(letter.patient, letter)
   td Simple Letter
   td= l letter.issued_on
   td= letter.author
