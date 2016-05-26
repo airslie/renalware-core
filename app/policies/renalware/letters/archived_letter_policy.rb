@@ -6,6 +6,10 @@ module Renalware
       def update?
         false
       end
+
+      def mark_as_typed?
+        false
+      end
     end
   end
 end
