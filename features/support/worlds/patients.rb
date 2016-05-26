@@ -4,7 +4,7 @@ module World
       def update_patient_address(patient:, current_address_attributes:)
         patient.update!(
           current_address_attributes: current_address_attributes,
-          by: Renalware::User.find_system_user
+          by: Renalware::SystemUser.find
         )
       end
 

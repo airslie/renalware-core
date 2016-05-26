@@ -3,7 +3,7 @@ require "rails_helper"
 module Renalware::Patients
   RSpec.describe MessageParamParser do
     describe "#parse" do
-      let!(:system_user) { create(:user, username: ::Renalware::User::SYSTEM_USERNAME) }
+      let!(:system_user) { create(:user, username: ::Renalware::SystemUser.username) }
       let(:message_payload) {
         double(:message_payload,
           patient_identification: double(

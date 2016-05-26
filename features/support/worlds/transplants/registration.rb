@@ -46,7 +46,7 @@ module World
             local_patient_id: rand(10000).to_s.rjust(6, "Z99999"),
             sex: "M",
             born_on: Time.zone.today,
-            by: Renalware::User.find_system_user
+            by: Renalware::SystemUser.find
           )
           set_up_patient_on_wait_list(patient, status)
         end

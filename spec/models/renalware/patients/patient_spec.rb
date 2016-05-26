@@ -46,7 +46,7 @@ module Renalware
     end
 
     describe "#update" do
-      let!(:user) { create(:user) }
+      let(:user) { create(:user) }
 
       context "given _destroy is specified within nested attributes" do
         let(:medication) { FactoryGirl.create(:medication, patient: subject) }
@@ -73,7 +73,7 @@ module Renalware
     end
 
     describe "#sex" do
-      let!(:user) { create(:user) }
+      let(:user) { create(:user) }
 
       it "serializes gender" do
         expect(subject.sex).to be_a Gender

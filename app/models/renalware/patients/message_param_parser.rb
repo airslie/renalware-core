@@ -25,7 +25,7 @@ module Renalware
       private
 
       def system_user
-        Renalware::User.find_system_user
+        ::Renalware::SystemUser.find
       end
     end
   end
