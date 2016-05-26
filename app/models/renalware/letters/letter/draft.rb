@@ -12,9 +12,7 @@ module Renalware
       end
 
       def typed!(by:)
-        self.becomes!(Typed).tap do |letter|
-          letter.by = by
-        end
+        becomes!(Typed).tap { |letter| letter.by = by }
       end
     end
   end
