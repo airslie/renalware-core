@@ -16,6 +16,8 @@ module Renalware
     scope :author, -> { where.not(signature: nil) }
     scope :ordered, -> { order(:given_name, :family_name) }
 
+    SYSTEM_USERNAME = "systemuser"
+
     # Non-persistent attribute to signify an update by an admin (bypassing some validations)
     attr_accessor :super_admin_update
 
@@ -25,6 +27,10 @@ module Renalware
 
     def self.ransackable_scopes(_auth_object = nil)
       %i(unapproved inactive)
+    end
+
+    def self.find_system_user
+      find_by(username: SYSTEM_USERNAME)
     end
 
     # @section custom validation methods

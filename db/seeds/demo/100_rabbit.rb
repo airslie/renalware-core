@@ -97,6 +97,7 @@ module Renalware
 
   log '--------------------Adding Doctor for Roger RABBIT---------------------'
   practice = Practice.first
+  system_user = User.find_system_user
 
   doctor = Doctor.find_or_create_by!(code: 'GP912837465') do |doc|
     doc.given_name = 'John'
@@ -108,6 +109,7 @@ module Renalware
 
   rabbit.doctor = doctor
   rabbit.practice = practice
+  rabbit.by = system_user
   rabbit.save!
 
   log '--------------------Adding Address for Roger RABBIT-------------------'
@@ -118,6 +120,7 @@ module Renalware
     postcode: 'TT1 1HD',
     country: 'United Kingdom'
     )
+  rabbit.by = system_user
   rabbit.save!
 
   log '--------------------Adding ClinicVisits for Roger RABBIT-------------------'
@@ -398,8 +401,8 @@ module Renalware
     Yours sincerely
     TEXT
 
-  Letters::DraftLetter.build.call(patient,
-    state: :draft,
+  Letters::Letter::Draft.create!(
+    patient: patient,
     issued_on: 1.day.ago,
     description: Renalware::Letters::Description.first.text,
     salutation: "Dear Dr Runner",
@@ -413,8 +416,8 @@ module Renalware
     by: users.sample
   )
 
-  Letters::DraftLetter.build.call(patient,
-    state: :ready_for_review,
+  Letters::Letter::Typed.create!(
+    patient: patient,
     issued_on: 3.days.ago,
     description: Renalware::Letters::Description.last.text,
     main_recipient_attributes: {
@@ -427,28 +430,27 @@ module Renalware
     by: users.sample
   )
 
-  Letters::DraftLetter.build
-    .on(:draft_letter_successful) { |letter|
-      letter.main_recipient.build_address.tap do |address|
-        address.copy_from(letter.patient.current_address)
-        address.save!
-      end
-      recipient = letter.cc_recipients.create(person_role: "doctor")
-      recipient.build_address.tap do |address|
-        address.copy_from(letter.patient.doctor.current_address)
-        address.save!
-      end
-    }.call(patient,
-      state: :archived,
-      issued_on: 10.days.ago,
-      description: Renalware::Letters::Description.last.text,
-      main_recipient_attributes: {
-        person_role: "patient"
-      },
-      salutation: "Dear Mr Rabbit",
-      body: letter_body,
-      letterhead: Renalware::Letters::Letterhead.last,
-      author: users.sample,
-      by: users.sample
-    )
+  archived_letter = Letters::Letter::Archived.create!(
+    patient: patient,
+    issued_on: 10.days.ago,
+    description: Renalware::Letters::Description.last.text,
+    main_recipient_attributes: {
+      person_role: "patient"
+    },
+    salutation: "Dear Mr Rabbit",
+    body: letter_body,
+    letterhead: Renalware::Letters::Letterhead.last,
+    author: users.sample,
+    by: users.sample
+  )
+
+  archived_letter.main_recipient.build_address.tap do |address|
+    address.copy_from(archived_letter.patient.current_address)
+    address.save!
+  end
+  recipient = archived_letter.cc_recipients.create(person_role: "doctor")
+  recipient.build_address.tap do |address|
+    address.copy_from(archived_letter.patient.doctor.current_address)
+    address.save!
+  end
 end

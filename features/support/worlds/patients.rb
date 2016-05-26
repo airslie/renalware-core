@@ -2,10 +2,10 @@ module World
   module Patients
     module Domain
       def update_patient_address(patient:, current_address_attributes:)
-        params = {
-          current_address_attributes: current_address_attributes
-        }
-        Renalware::Patients::UpdatePatient.build.call(patient.id, params)
+        patient.update!(
+          current_address_attributes: current_address_attributes,
+          by: Renalware::User.find_system_user
+        )
       end
 
       def expect_patient_to_be_created(expected_attributes)

@@ -20,12 +20,14 @@ module Renalware
         address.to_s
       end
 
-      def patient_or_doctor?
-        patient? || doctor?
+      def archived?
+        state == "archived"
       end
 
-      def archived?
-        state.archived?
+      private
+
+      def patient_or_doctor?
+        patient? || doctor?
       end
     end
   end
