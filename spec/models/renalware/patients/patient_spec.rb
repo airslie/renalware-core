@@ -66,7 +66,8 @@ module Renalware
         subject!{ create(:patient) }
 
         it "should still retain patient details" do
-          expect { subject.update(died_on: "2015-02-25", by: user) }.to change(Patient, :count).by(0)
+          expect { subject.update(died_on: "2015-02-25", by: user) }
+            .to change(Patient, :count).by(0)
         end
       end
     end

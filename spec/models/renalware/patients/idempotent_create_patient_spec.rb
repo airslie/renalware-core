@@ -19,7 +19,9 @@ module Renalware::Patients
         end
 
         it "does not create the patient" do
-          params = { patient: attributes_for(:patient).merge(local_patient_id: "SAME-12345", by: user) }
+          params = {
+            patient: attributes_for(:patient).merge(local_patient_id: "SAME-12345", by: user)
+          }
 
           expect{subject.call(params)}.not_to change{::Renalware::Patient.count}
         end
