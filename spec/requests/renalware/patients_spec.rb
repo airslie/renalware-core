@@ -59,8 +59,8 @@ RSpec.describe "Managing patients", type: :request do
 
         follow_redirect!
 
-        created_patient = Renalware::Patient.find_by(attributes)
-        expect(created_patient.updated_by).to eq(@current_user)
+        updated_patient = Renalware::Patient.find_by(attributes)
+        expect(updated_patient.updated_by).to eq(@current_user)
 
         expect(response).to have_http_status(:success)
       end
