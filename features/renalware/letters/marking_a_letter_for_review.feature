@@ -10,7 +10,6 @@ Feature: Marking a letter for review
     And Patty is a patient
     And Doug is Patty's doctor
 
-  @wip
   Scenario: A nurse marked the letter typed
     Given Patty has a letter
     When Nathalie marks the letter typed
