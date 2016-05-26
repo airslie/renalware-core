@@ -74,8 +74,7 @@ module World
       def mark_draft_as_typed(patient:, user:)
         draft_letter = simple_letter_for(patient)
 
-        typed_letter = draft_letter.typed!
-        typed_letter.by = user
+        typed_letter = draft_letter.typed!(by: user)
         typed_letter.save!
       end
 

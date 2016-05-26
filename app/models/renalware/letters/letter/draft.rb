@@ -7,8 +7,10 @@ module Renalware
         DraftLetterPolicy
       end
 
-      def typed!
-        self.becomes!(Typed)
+      def typed!(by: by)
+        self.becomes!(Typed).tap do |letter|
+          letter.by = by
+        end
       end
     end
   end
