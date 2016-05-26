@@ -1,7 +1,6 @@
 require "rails_helper"
 
-module Renalware
-
+module Renalware::Letters
   describe LetterPolicy, type: :policy do
 
     subject { described_class }

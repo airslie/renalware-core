@@ -26,10 +26,6 @@ module Renalware
       validates :description, presence: true
       validates :main_recipient, presence: true
 
-      def self.policy_class
-        LetterPolicy
-      end
-
       def subject?(other_patient)
         patient == other_patient
       end
