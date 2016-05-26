@@ -2,7 +2,7 @@ require_dependency "renalware/patient"
 
 module Renalware
   module Patients
-    class CreatePatient
+    class IdempotentCreatePatient
       def call(params)
         patient_params = params.fetch(:patient)
         local_patient_id = patient_params.fetch(:local_patient_id)

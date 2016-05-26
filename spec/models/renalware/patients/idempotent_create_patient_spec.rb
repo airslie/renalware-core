@@ -1,7 +1,7 @@
 require "rails_helper"
 
 module Renalware::Patients
-  RSpec.describe CreatePatient do
+  RSpec.describe IdempotentCreatePatient do
     describe "#call" do
       context "given a patient does not have the same hospital number" do
         it "creates the patient" do
