@@ -46,14 +46,16 @@ module Renalware
       end
 
       def recipient_presenter_class
-        raise NotImplementedError
+        RecipientPresenter
       end
+
+      # @section sub-classes
 
       class Draft < LetterPresenter
         private
 
         def recipient_presenter_class
-          RecipientPresenter::Draft
+          RecipientPresenter::WithCurrentAddress
         end
       end
 
@@ -61,19 +63,13 @@ module Renalware
         private
 
         def recipient_presenter_class
-          RecipientPresenter::Typed
+          RecipientPresenter::WithCurrentAddress
         end
       end
 
       class Archived < LetterPresenter
         def view_label
           "View"
-        end
-
-        private
-
-        def recipient_presenter_class
-          RecipientPresenter::Archived
         end
       end
     end
