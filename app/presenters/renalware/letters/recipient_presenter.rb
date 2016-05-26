@@ -3,7 +3,7 @@ require_dependency "renalware/address_presenter"
 
 module Renalware
   module Letters
-    class RecipientPresenter < SimpleDelegator
+    class RecipientPresenter < DumbDelegator
       # We don't rely on `to_s` in this case as the string will not be marked as
       # HTML save if we leave it to be implicitly called in the template.
       #
