@@ -25,8 +25,8 @@ module World
           password: "supersecret",
           approved: true,
         )
-        user.roles << Renalware::Role.find_or_create_by(name: role)
       end
+      user.roles << Renalware::Role.find_or_create_by(name: role) unless user.roles.any?
       user
     end
 
