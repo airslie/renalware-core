@@ -7,6 +7,10 @@ module Renalware
         DraftLetterPolicy
       end
 
+      def revise(params)
+        self.attributes = params
+      end
+
       def typed!(by:)
         self.becomes!(Typed).tap do |letter|
           letter.by = by
