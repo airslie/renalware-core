@@ -2,16 +2,7 @@
   .row
     .columns.large-6
       p Status: #{@letter.state.upcase}
-      p
-        - if policy(@letter).update?
-          = link_to "Edit", edit_patient_letters_letter_path(@letter.patient, @letter),
-              class: "button tiny"
-          = pipe_separator
-        - if policy(@letter).mark_as_typed?
-          = button_to "Mark as Typed", patient_letters_letter_typed_path(@letter.patient, @letter),
-              class: "button tiny", data: { confirm: "Are you sure?" }
-        = pipe_separator
-        = link_to 'back to list', patient_letters_letters_path(@letter.patient)
+      div= render "actions", letter: @letter
 
     .columns.large-6
       p Notes:
