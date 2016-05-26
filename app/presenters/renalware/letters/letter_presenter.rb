@@ -8,6 +8,10 @@ module Renalware
         @patient_presenter ||= PatientPresenter.new(super)
       end
 
+      def main_recipient
+        @main_recipient_presenter ||= recipient_presenter_class.new(super)
+      end
+
       def cc_recipients
         @cc_recipients_with_counterparts ||= begin
           recipients = build_cc_recipients
@@ -37,47 +41,39 @@ module Renalware
         __getobj__.cc_recipients + determine_counterpart_ccs
       end
 
-      def present_cc_recipients(_recipients)
+      def present_cc_recipients(recipients)
+        ::CollectionPresenter.new(recipients, recipient_presenter_class)
+      end
+
+      def recipient_presenter_class
         raise NotImplementedError
       end
 
       class Draft < LetterPresenter
-        def main_recipient
-          @main_recipient_presenter ||= RecipientPresenter::Draft.new(super)
-        end
-
         private
 
-        def present_cc_recipients(recipients)
-          ::CollectionPresenter.new(recipients, RecipientPresenter::Draft)
+        def recipient_presenter_class
+          RecipientPresenter::Draft
         end
       end
 
       class Typed < LetterPresenter
-        def main_recipient
-          @main_recipient_presenter ||= RecipientPresenter::Typed.new(super)
-        end
-
         private
 
-        def present_cc_recipients(recipients)
-          ::CollectionPresenter.new(recipients, RecipientPresenter::Typed)
+        def recipient_presenter_class
+          RecipientPresenter::Typed
         end
       end
 
       class Archived < LetterPresenter
-        def main_recipient
-          @main_recipient_presenter ||= RecipientPresenter::Archived.new(super)
-        end
-
         def view_label
           "View"
         end
 
         private
 
-        def present_cc_recipients(recipients)
-          ::CollectionPresenter.new(recipients, RecipientPresenter::Archived)
+        def recipient_presenter_class
+          RecipientPresenter::Archived
         end
       end
     end
