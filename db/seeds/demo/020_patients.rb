@@ -2,6 +2,8 @@ module Renalware
   log '--------------------Adding Patients--------------------'
   file_path = Rails.root.join(demo_path, 'patients.csv')
 
+  system_user = User.find_system_user
+
   demo_nhsno = 1234567890
   logcount=0
   CSV.foreach(file_path, headers: true) do |row|
@@ -16,6 +18,7 @@ module Renalware
       patient.born_on = row['born_on']
       patient.nhs_number = demo_nhsno
       patient.created_at = row['created_at']
+      patient.by = system_user
     end
   end
 

@@ -19,6 +19,8 @@ FactoryGirl.define do
     died_on nil
     first_edta_code_id nil
     association :current_address, factory: :address
+    association :created_by,  factory: :user
+    association :updated_by,  factory: :user
 
     trait :with_problems do
       after(:create) do |patient|

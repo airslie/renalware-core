@@ -97,6 +97,7 @@ module Renalware
 
   log '--------------------Adding Doctor for Roger RABBIT---------------------'
   practice = Practice.first
+  system_user = User.find_system_user
 
   doctor = Doctor.find_or_create_by!(code: 'GP912837465') do |doc|
     doc.given_name = 'John'
@@ -108,6 +109,7 @@ module Renalware
 
   rabbit.doctor = doctor
   rabbit.practice = practice
+  rabbit.by = system_user
   rabbit.save!
 
   log '--------------------Adding Address for Roger RABBIT-------------------'
@@ -118,6 +120,7 @@ module Renalware
     postcode: 'TT1 1HD',
     country: 'United Kingdom'
     )
+  rabbit.by = system_user
   rabbit.save!
 
   log '--------------------Adding ClinicVisits for Roger RABBIT-------------------'

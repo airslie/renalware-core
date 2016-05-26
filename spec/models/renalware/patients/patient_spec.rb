@@ -46,14 +46,16 @@ module Renalware
     end
 
     describe "#update" do
-      describe "given _destroy is specified within nested attributes" do
+      let!(:user) { create(:user) }
+
+      context "given _destroy is specified within nested attributes" do
         let(:medication) { FactoryGirl.create(:medication, patient: subject) }
         let(:medication_attributes) do
           {"0" => { id: medication.id, dose: "a lot", _destroy: "1" } }
         end
 
         it "soft deletes the associated record" do
-          subject.update(medications_attributes: medication_attributes)
+          subject.update(medications_attributes: medication_attributes, by: user)
 
           expect(subject.medications.with_deleted.first).to eq(medication)
           expect(subject.medications.with_deleted.first.deleted_at).not_to be nil
@@ -64,18 +66,21 @@ module Renalware
         subject!{ create(:patient) }
 
         it "should still retain patient details" do
-          expect { subject.update(died_on: "2015-02-25") }.to change(Patient, :count).by(0)
+          expect { subject.update(died_on: "2015-02-25", by: user) }.to change(Patient, :count).by(0)
         end
       end
     end
 
     describe "#sex" do
+      let!(:user) { create(:user) }
+
       it "serializes gender" do
         expect(subject.sex).to be_a Gender
       end
 
       it "deserializes gender" do
         subject.sex = Gender.new("F")
+        subject.by = user
         subject.save! and subject.reload
 
         expect(subject.sex.code).to eq "F"
