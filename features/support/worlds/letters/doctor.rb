@@ -11,5 +11,9 @@ module World
         expect(result).to be_truthy
       end
     end
+
+    module Web
+      include Domain
+    end
   end
 end

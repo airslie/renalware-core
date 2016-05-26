@@ -219,6 +219,15 @@ module World
           click_on "Save"
         end
       end
+
+      def mark_draft_as_typed(patient:, user:)
+        login_as user
+        existing_letter = simple_letter_for(patient)
+
+        visit patient_letters_letter_path(patient, existing_letter)
+
+        click_on "Mark as Typed"
+      end
     end
   end
 end
