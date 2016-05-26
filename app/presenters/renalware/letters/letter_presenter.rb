@@ -30,6 +30,10 @@ module Renalware
         ].join("<br>").html_safe
       end
 
+      def view_label
+        "Preview"
+      end
+
       private
 
       # Include the counterpart cc recipients (i.e. patient and/or doctor)
@@ -39,6 +43,16 @@ module Renalware
 
       def present_cc_recipients(recipients)
         ::CollectionPresenter.new(recipients, RecipientPresenterFactory)
+      end
+
+      class Draft < LetterPresenter
+      end
+      class Typed < LetterPresenter
+      end
+      class Archived < LetterPresenter
+        def view_label
+          "View"
+        end
       end
     end
   end

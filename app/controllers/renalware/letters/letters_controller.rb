@@ -7,7 +7,7 @@ module Renalware
       before_filter :load_patient
 
       def index
-        @letters = CollectionPresenter.new(@patient.letters, LetterPresenter)
+        @letters = CollectionPresenter.new(@patient.letters, LetterPresenterFactory)
       end
 
       def new
