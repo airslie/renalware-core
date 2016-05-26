@@ -10,7 +10,7 @@ module Renalware
       end
 
       def call
-        :Renalware::Patient.create_with(patient_params)
+        ::Renalware::Patient.create_with(patient_params)
                             .find_or_create_by!(local_patient_id: local_patient_id)
       end
 
@@ -27,7 +27,7 @@ module Renalware
       end
 
       def system_user
-        ::Renalwar::SystemUser.find
+        ::Renalware::SystemUser.find
       end
     end
   end
