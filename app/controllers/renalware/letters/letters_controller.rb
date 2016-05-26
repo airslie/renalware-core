@@ -30,7 +30,7 @@ module Renalware
       end
 
       def show
-        @letter = LetterPresenter.new(@patient.letters.find(params[:id]))
+        @letter = LetterPresenterFactory.new(@patient.letters.find(params[:id]))
       end
 
       def edit

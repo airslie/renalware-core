@@ -13,7 +13,6 @@ module Renalware
 
       accepts_nested_attributes_for :address, allow_destroy: true, reject_if: :patient_or_doctor?
 
-      delegate :state, to: :letter
       delegate :doctor?, :patient?, :other?, to: :person_role
 
       def to_s
