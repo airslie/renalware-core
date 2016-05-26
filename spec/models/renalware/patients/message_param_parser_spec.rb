@@ -3,7 +3,6 @@ require "rails_helper"
 module Renalware::Patients
   RSpec.describe MessageParamParser do
     describe "#parse" do
-      let!(:system_user) { create(:user, username: ::Renalware::SystemUser.username) }
       let(:message_payload) {
         double(:message_payload,
           patient_identification: double(
@@ -27,8 +26,7 @@ module Renalware::Patients
             family_name: "::family name::",
             given_name: "::given name::",
             sex: "F",
-            born_on: "1988-09-24",
-            by: system_user
+            born_on: "1988-09-24"
           }
         })
       end
