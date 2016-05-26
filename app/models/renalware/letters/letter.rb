@@ -33,6 +33,10 @@ module Renalware
         LetterPolicy
       end
 
+      def doctor
+        patient.doctor
+      end
+
       def subject?(other_patient)
         patient == other_patient
       end

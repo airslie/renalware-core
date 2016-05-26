@@ -36,7 +36,7 @@ module Renalware
           when patient?
             letter.patient.current_address
           when doctor?
-            letter.patient.doctor.current_address
+            letter.doctor.current_address
           else
             __getobj__.address
           end
