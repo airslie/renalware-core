@@ -5,5 +5,5 @@
 - if policy(letter).mark_as_typed?
   = button_to "Mark as Typed", patient_letters_letter_typed_path(letter.patient, letter),
       form_class: "inline", class: "button tiny", data: { confirm: "Are you sure?" }
-= pipe_separator
+  = pipe_separator
 = link_to 'back to list', patient_letters_letters_path(letter.patient)
