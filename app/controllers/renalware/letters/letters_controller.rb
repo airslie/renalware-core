@@ -1,5 +1,4 @@
 require_dependency "renalware/letters"
-require "smart_delegator"
 
 module Renalware
   module Letters
