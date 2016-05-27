@@ -7,6 +7,8 @@ module Renalware
 
     enumerize :marital_status, in: %i(married single divorced widowed)
 
+    include Document::Base
+
     serialize :sex, Gender
 
     has_one :current_address, as: :addressable, class_name: "Address"
@@ -31,6 +33,8 @@ module Renalware
       class_name: "Modalities::Modality"
     has_one :modality_description, through: :current_modality,
       class_name: "Modalities::Description", source: :description
+
+    has_document class_name: "Renalware::PatientDocument"
 
     accepts_nested_attributes_for :current_address
     accepts_nested_attributes_for :medications, allow_destroy: true

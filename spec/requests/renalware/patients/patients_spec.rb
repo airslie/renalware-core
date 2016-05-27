@@ -1,5 +1,14 @@
 require "rails_helper"
 
+RSpec::Matchers.define :match_document do |expected|
+  match do |actual|
+    expected.each do |key, value|
+      return false if actual.send(key.to_sym) != expected[key]
+    end
+    true
+  end
+end
+
 RSpec.describe "Managing patients", type: :request do
   let(:patient) { create(:patient) }
 
@@ -15,9 +24,18 @@ RSpec.describe "Managing patients", type: :request do
     context "given valid attributes" do
       let(:religion) { create(:patients_religion) }
       let(:language) { create(:patients_language) }
+
+      let(:document) do
+        {
+          interpreter_notes: "asfdasfd",
+          admin_notes: "zxcvzxvczcxv",
+          special_needs_notes: "qwerwqerqwer",
+        }
+      end
+
       let(:patient_attributes) do
         attributes_for(:patient).merge(
-          religion_id: religion.id, language_id: language.id
+          religion_id: religion.id, language_id: language.id, document: document
         )
       end
 
@@ -30,6 +48,9 @@ RSpec.describe "Managing patients", type: :request do
         created_patient = Renalware::Patient.find_by(patient_attributes)
         expect(created_patient.created_by).to eq(@current_user)
         expect(created_patient.updated_by).to eq(@current_user)
+
+        created_patient = Renalware::Patient.find_by(attributes)
+        expect(created_patient.document).to match_document(document)
 
         follow_redirect!
 

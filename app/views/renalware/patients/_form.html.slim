@@ -48,10 +48,21 @@
           = link_to "Change Modal", new_patient_modality_path(@patient), title: "Patient Modality", class: "death-update"
 
 .form-content
-  = field_set_tag do
-    legend Organisation/Practice
+  .row
+    .large-6.columns
+      = field_set_tag do
+        legend Organisation/Practice
 
-    = render partial: 'organisation_practice_form', locals: { patient: patient }
+        = render partial: 'organisation_practice_form', locals: { patient: patient }
+
+    .large-6.columns
+      = field_set_tag do
+        legend Notes
+
+        = patient.simple_fields_for :document, patient.object.document do |patient_doc|
+          = patient_doc.input :interpreter_notes
+          = patient_doc.input :admin_notes
+          = patient_doc.input :special_needs_notes
 
 .form-content
   = patient.simple_fields_for :current_address_attributes, patient.object.current_address do |a|

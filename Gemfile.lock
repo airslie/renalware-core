@@ -48,6 +48,10 @@ GEM
     activemodel (4.2.6)
       activesupport (= 4.2.6)
       builder (~> 3.1)
+    activemodel-associations (0.1.2)
+      activemodel (< 5)
+      activerecord (< 5)
+      activesupport (< 5)
     activerecord (4.2.6)
       activemodel (= 4.2.6)
       activesupport (= 4.2.6)
@@ -415,6 +419,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_type
+  activemodel-associations
   bundler-audit
   capybara (= 2.4.4)
   cocoon

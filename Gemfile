@@ -35,6 +35,7 @@ gem 'wisper', '2.0.0.rc1'
 gem 'cocoon'
 gem 'email_validator'
 gem 'nokogiri', '~> 1.6.8'
+gem 'activemodel-associations'
 
 source 'https://rails-assets.org' do
   # https://github.com/najlepsiwebdesigner/foundation-datepicker

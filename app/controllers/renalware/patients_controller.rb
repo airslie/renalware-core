@@ -62,12 +62,16 @@ module Renalware
         :ethnicity_id, :born_on, :paediatric_patient_indicator, :cc_on_all_letters,
         :gp_practice_code, :pct_org_code, :hospital_centre_code, :primary_esrf_centre,
         :title, :suffix, :marital_status, :telephone1, :telephone2, :email, :religion_id,
-        :language_id, address_attributes: address_params
+        :language_id, address_attributes: address_params, document: document_params
       ]
     end
 
     def address_params
       [:name, :organisation_name, :street_1, :street_2, :county, :country, :city, :postcode]
+    end
+
+    def document_params
+      [:interpreter_notes, :admin_notes, :special_needs_notes]
     end
 
     def find_patient
