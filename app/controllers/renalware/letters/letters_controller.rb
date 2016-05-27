@@ -7,7 +7,7 @@ module Renalware
       before_filter :load_patient
 
       def index
-        @letters = CollectionPresenter.new(@patient.letters, LetterPresenterFactory)
+        render :index, locals: { letters: present_letters(@patient.letters) }
       end
 
       def new
@@ -30,7 +30,7 @@ module Renalware
       end
 
       def show
-        @letter = LetterPresenterFactory.new(@patient.letters.find(params[:id]))
+        @letter = present_letter(@patient.letters.find(params[:id]))
       end
 
       def edit
@@ -53,6 +53,14 @@ module Renalware
       end
 
       private
+
+      def present_letters(letters)
+        CollectionPresenter.new(@patient.letters, LetterPresenterFactory)
+      end
+
+      def present_letter(letter)
+        LetterPresenterFactory.new(letter)
+      end
 
       def redirect_to_letter_show(patient, letter)
         redirect_to patient_letters_letter_path(patient, letter)
