@@ -9,6 +9,7 @@ module Renalware
         self.table_name = "pathology_request_algorithm_patient_rules"
 
         belongs_to :patient, class_name: "::Renalware::Pathology::Patient"
+        belongs_to :lab, class_name: "::Renalware::Pathology::Lab"
 
         validates :lab, presence: true
         validates :test_description, presence: true

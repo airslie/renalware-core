@@ -23,6 +23,7 @@ begin
     modality_descriptions
     modality_reasons
     organism_codes
+    pathology_labs
     pathology_observation_descriptions
     pathology_request_descriptions
     prd_descriptions
