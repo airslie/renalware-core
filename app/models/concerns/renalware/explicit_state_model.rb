@@ -69,8 +69,6 @@ module Renalware
         end
       end
 
-      private
-
       def state_class_name(name)
         const_get(name.to_s.classify)
       end

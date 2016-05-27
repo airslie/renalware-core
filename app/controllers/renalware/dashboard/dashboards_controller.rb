@@ -13,7 +13,7 @@ module Renalware
       private
 
       def find_letters
-        author.letters
+        author.letters.pending.reverse
       end
 
       def present_letters(letters)

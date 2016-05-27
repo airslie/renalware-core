@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "User's Dashboard", type: :request do
-  let!(:letter) { create_letter }
+  before { create_letters }
 
   describe "GET show" do
     it "responds with the dashboard page" do
@@ -11,9 +11,12 @@ RSpec.describe "User's Dashboard", type: :request do
     end
   end
 
-  def create_letter
+  def create_letters
     patient = build(:letter_patient)
     recipient = build(:letter_recipient, :main, person_role: "patient")
     create(:draft_letter, patient: patient, author: @current_user, main_recipient: recipient)
+
+    recipient = build(:letter_recipient, :main, person_role: "patient")
+    create(:typed_letter, patient: patient, author: @current_user, main_recipient: recipient)
   end
 end
