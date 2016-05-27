@@ -6,8 +6,10 @@ module Renalware
   logcount=0
   CSV.foreach(file_path, headers: true) do |row|
     logcount += 1
+    lab = Pathology::Lab.find_by(name: row["lab"])
+
     Pathology::RequestAlgorithm::PatientRule.find_or_create_by!(
-      lab: row["lab"],
+      lab: lab,
       test_description: row["test_description"],
       sample_number_bottles: row["sample_number_bottles"],
       sample_type: row["sample_type"],

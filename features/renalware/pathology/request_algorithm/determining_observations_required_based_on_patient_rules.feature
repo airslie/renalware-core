@@ -12,7 +12,7 @@ Feature: Determining observations required based on patient rules
 
     Given Patty is a patient
     And Patty has a patient rule:
-      | lab                   | Biochem             |
+      | lab                   | Biochemistry        |
       | test_description      | Test for HepB       |
       | frequency_type        | <frequency_type>    |
       | last_observed_at      | <last_observed_at>  |
@@ -37,5 +37,3 @@ Feature: Determining observations required based on patient rules
       | Weekly         |                  | no           | not required  |
       | Weekly         | 6 days ago       | no           | not required  |
       | Weekly         | 7 days ago       | no           | not required  |
-
-
