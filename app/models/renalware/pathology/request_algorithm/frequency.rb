@@ -11,6 +11,10 @@ module Renalware
         def once?
           false
         end
+
+        def to_s
+          self.class.name.demodulize
+        end
       end
     end
   end
