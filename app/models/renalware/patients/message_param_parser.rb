@@ -16,7 +16,7 @@ module Renalware
             family_name: pi.family_name,
             given_name: pi.given_name,
             sex: pi.sex,
-            born_on: Date.parse(pi.dob).to_s,
+            born_on: Date.parse(pi.dob).to_s
           }
         }
       end

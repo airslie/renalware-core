@@ -3,9 +3,10 @@
     .columns.large-6
       p Status: #{@letter.state.upcase}
       p
-        = link_to "Edit", edit_patient_letters_letter_path(@letter.patient, @letter),
-            class: "button tiny"
-        | &nbsp;
+        - if policy(@letter).update?
+          = link_to "Edit", edit_patient_letters_letter_path(@letter.patient, @letter),
+              class: "button tiny"
+          = pipe_separator
         = link_to 'back to list', patient_letters_letters_path(@letter.patient)
 
     .columns.large-6

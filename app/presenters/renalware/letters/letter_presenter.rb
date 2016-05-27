@@ -9,7 +9,7 @@ module Renalware
       end
 
       def main_recipient
-        @main_recipient_presenter ||= RecipientPresenterFactory.new(super)
+        @main_recipient_presenter ||= recipient_presenter_class.new(super)
       end
 
       def cc_recipients
@@ -30,6 +30,10 @@ module Renalware
         ].join("<br>").html_safe
       end
 
+      def view_label
+        "Preview"
+      end
+
       private
 
       # Include the counterpart cc recipients (i.e. patient and/or doctor)
@@ -38,7 +42,35 @@ module Renalware
       end
 
       def present_cc_recipients(recipients)
-        ::CollectionPresenter.new(recipients, RecipientPresenterFactory)
+        ::CollectionPresenter.new(recipients, recipient_presenter_class)
+      end
+
+      def recipient_presenter_class
+        RecipientPresenter
+      end
+
+      # @section sub-classes
+
+      class Draft < LetterPresenter
+        private
+
+        def recipient_presenter_class
+          RecipientPresenter::WithCurrentAddress
+        end
+      end
+
+      class Typed < LetterPresenter
+        private
+
+        def recipient_presenter_class
+          RecipientPresenter::WithCurrentAddress
+        end
+      end
+
+      class Archived < LetterPresenter
+        def view_label
+          "View"
+        end
       end
     end
   end

@@ -5,29 +5,16 @@ module Renalware
     class IdempotentCreatePatient
       attr_reader :params
 
-      def initialize(params)
-        @params = params
+      def initialize(user)
+        @user = user
       end
 
-      def call
+      def call(params)
+        patient_params = params.fetch(:patient).merge(by: @user)
+        local_patient_id = patient_params.fetch(:local_patient_id)
+
         ::Renalware::Patient.create_with(patient_params)
                             .find_or_create_by!(local_patient_id: local_patient_id)
-      end
-
-      private
-
-      def patient_params
-        patient_params = params.fetch(:patient)
-        patient_params.merge!(by: system_user) unless patient_params[:by].present?
-        patient_params
-      end
-
-      def local_patient_id
-        params.fetch(:patient).fetch(:local_patient_id)
-      end
-
-      def system_user
-        ::Renalware::SystemUser.find
       end
     end
   end
