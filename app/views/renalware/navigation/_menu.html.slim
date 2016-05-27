@@ -6,11 +6,10 @@ section.top-bar-section
     = render partial: "renalware/navigation/renal"
     = render partial: "renalware/navigation/patients_admin"
     - if current_user_is_admin?
-      li.divider
       = render partial: "renalware/navigation/renalware_admin"
     li.divider
+    = render partial: "renalware/navigation/dashboard"
     = render partial: "renalware/navigation/user_admin"
-    li.divider
     = render partial: "renalware/navigation/sign_out"
     li.divider
     = render partial: "renalware/navigation/help_items"
