@@ -61,6 +61,7 @@ module Renalware
         :nhs_number, :local_patient_id, :family_name, :given_name, :sex,
         :ethnicity_id, :born_on, :paediatric_patient_indicator, :cc_on_all_letters,
         :gp_practice_code, :pct_org_code, :hospital_centre_code, :primary_esrf_centre,
+        :title, :suffix, :marital_status, :telephone1, :telephone2, :email,
         current_address_attributes: [
           :name, :organisation_name, :street_1, :street_2, :county, :country, :city, :postcode
         ],

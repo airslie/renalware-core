@@ -33,6 +33,7 @@ gem 'ruby-hl7', '~> 1.1.0'
 gem 'delayed_job_active_record'
 gem 'wisper', '2.0.0.rc1'
 gem 'cocoon'
+gem 'email_validator'
 
 source 'https://rails-assets.org' do
   # https://github.com/najlepsiwebdesigner/foundation-datepicker

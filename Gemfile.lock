@@ -121,6 +121,8 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     dumb_delegator (0.8.0)
+    email_validator (1.6.0)
+      activemodel
     enumerize (1.0.0)
       activesupport (>= 3.2)
     equalizer (0.0.11)
@@ -420,6 +422,7 @@ DEPENDENCIES
   devise
   devise_security_extension!
   dumb_delegator
+  email_validator
   enumerize
   factory_girl_rails (~> 4.0)
   ffaker
@@ -472,5 +475,8 @@ DEPENDENCIES
   webmock
   wisper (= 2.0.0.rc1)
 
+RUBY VERSION
+   ruby 2.3.1p112
+
 BUNDLED WITH
-   1.11.2
+   1.12.3
