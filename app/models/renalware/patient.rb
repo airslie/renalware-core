@@ -2,6 +2,7 @@ module Renalware
   class Patient < ActiveRecord::Base
     include PatientsRansackHelper
     include Personable
+    include Accountable
 
     serialize :sex, Gender
 
