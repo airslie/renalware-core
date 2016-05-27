@@ -1,10 +1,9 @@
-.row
-  .large-12.columns
-    h1= title
+.row.header
+  h1= title
 
 .row
   .large-2.columns.patient-side-nav
-    = render partial: "side_nav", locals: {}
+    = render partial: "renalware/dashboard/dashboards/side_nav", locals: {}
   .large-10.columns
     .row
       .large-12.columns
