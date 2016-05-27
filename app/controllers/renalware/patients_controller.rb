@@ -17,7 +17,7 @@ module Renalware
     end
 
     def new
-      @patient = Patient.new(by: current_user)
+      @patient = Patient.new
       authorize @patient
     end
 
