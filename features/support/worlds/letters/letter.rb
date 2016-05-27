@@ -56,10 +56,7 @@ module World
           cc_recipients_attributes: build_cc_recipients_attributes(ccs)
         )
 
-        Renalware::Letters::DraftLetter.build
-          .on(:draft_letter_successful) { |letter| return letter }
-          .on(:draft_letter_failed) { |letter| return letter }
-          .call(patient, letter_attributes)
+        Renalware::Letters::DraftLetter.build.call(patient, letter_attributes)
       end
 
       def update_simple_letter(patient:, user:)
@@ -71,10 +68,14 @@ module World
           by: user
         }
 
-        Renalware::Letters::ReviseLetter.build
-          .on(:revise_letter_successful) { |letter| return letter }
-          .on(:revise_letter_failed) { |letter| return letter }
-          .call(patient, existing_letter.id, letter_attributes)
+        Renalware::Letters::ReviseLetter.build.call(patient, existing_letter.id, letter_attributes)
+      end
+
+      def mark_draft_as_typed(patient:, user:)
+        draft_letter = simple_letter_for(patient)
+
+        typed_letter = draft_letter.typed!(by: user)
+        typed_letter.save!
       end
 
       # @section expectations
@@ -217,6 +218,15 @@ module World
         within ".bottom" do
           click_on "Save"
         end
+      end
+
+      def mark_draft_as_typed(patient:, user:)
+        login_as user
+        existing_letter = simple_letter_for(patient)
+
+        visit patient_letters_letter_path(patient, existing_letter)
+
+        click_on "Mark as Typed"
       end
     end
   end

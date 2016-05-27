@@ -97,7 +97,9 @@ Rails.application.routes.draw do
       end
 
       namespace :letters do
-        resources :letters
+        resources :letters do
+          resource :typed, only: :create
+        end
       end
 
       resources :medications

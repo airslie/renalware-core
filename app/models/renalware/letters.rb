@@ -10,5 +10,13 @@ module Renalware
     def self.cast_author(user)
       ActiveType.cast(user, Author)
     end
+
+    def self.cast_patient(patient)
+      ActiveType.cast(patient, ::Renalware::Letters::Patient)
+    end
+
+    def self.cast_doctor(doctor)
+      ActiveType.cast(doctor, ::Renalware::Letters::Doctor)
+    end
   end
 end
