@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec::Matchers.define :match_document do |expected|
   match do |actual|
     expected.each do |key, value|
-      return false if actual.send(key.to_sym) != expected[key]
+      return false if actual.send(key.to_sym) != value
     end
     true
   end
