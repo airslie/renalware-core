@@ -2,7 +2,7 @@ module Renalware
   log '--------------------Adding Patients--------------------'
   file_path = Rails.root.join(demo_path, 'patients.csv')
 
-  system_user = User.find_system_user
+  system_user = SystemUser.find
 
   demo_nhsno = 1234567890
   logcount=0

@@ -97,7 +97,7 @@ module Renalware
 
   log '--------------------Adding Doctor for Roger RABBIT---------------------'
   practice = Practice.first
-  system_user = User.find_system_user
+  system_user = SystemUser.find
 
   doctor = Doctor.find_or_create_by!(code: 'GP912837465') do |doc|
     doc.given_name = 'John'

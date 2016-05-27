@@ -15,7 +15,7 @@ module Renalware
       end
 
       def create_patient(params)
-        IdempotentCreatePatient.new.call(params)
+        IdempotentCreatePatient.new(params).call
       end
     end
   end

@@ -16,8 +16,6 @@ module Renalware
     scope :author, -> { where.not(signature: nil) }
     scope :ordered, -> { order(:given_name, :family_name) }
 
-    SYSTEM_USERNAME = "systemuser"
-
     # Non-persistent attribute to signify an update by an admin (bypassing some validations)
     attr_accessor :super_admin_update
 
@@ -29,10 +27,6 @@ module Renalware
       %i(unapproved inactive)
     end
 
-    def self.find_system_user
-      find_by(username: SYSTEM_USERNAME)
-    end
-
     # @section custom validation methods
     #
     def approval_with_roles
@@ -40,6 +34,5 @@ module Renalware
         errors.add(:approved, 'approved users must have a role')
       end
     end
-
   end
 end
