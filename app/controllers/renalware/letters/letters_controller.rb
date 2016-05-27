@@ -55,7 +55,7 @@ module Renalware
       private
 
       def present_letters(letters)
-        CollectionPresenter.new(@patient.letters, LetterPresenterFactory)
+        CollectionPresenter.new(letters, LetterPresenterFactory)
       end
 
       def present_letter(letter)
