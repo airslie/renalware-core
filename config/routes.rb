@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   }
 
   scope module: "renalware" do
-    root to: "dashboards#show"
+    root to: "dashboard/dashboards#show"
 
     namespace :admin do
       resources :users
@@ -156,7 +156,7 @@ Rails.application.routes.draw do
       resource :wait_list, only: :show
     end
 
-    resource :dashboard, only: :show
+    resource :dashboard, only: :show, controller: "dashboard/dashboards"
   end
 
   # enable mail previews in all environments
