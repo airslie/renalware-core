@@ -5,7 +5,8 @@ module Renalware
     class MessageListener
       def message_processed(message_payload)
         patient_params = parse_patient_params(message_payload)
-        create_patient(patient_params)
+        system_user = find_system_user
+        create_patient(patient_params, system_user)
       end
 
       private
@@ -14,8 +15,12 @@ module Renalware
         MessageParamParser.new.parse(message_payload)
       end
 
-      def create_patient(params)
-        IdempotentCreatePatient.new.call(params)
+      def create_patient(params, user)
+        IdempotentCreatePatient.new(user).call(params)
+      end
+
+      def find_system_user
+        SystemUser.find
       end
     end
   end

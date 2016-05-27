@@ -29,6 +29,7 @@ begin
     prd_descriptions
     roles
     transplant_registration_status_descriptions
+    users
   )
 
   DatabaseCleaner.strategy = :truncation, { except: exceptions }

@@ -11,7 +11,8 @@ Given(/^Patty is a patient$/) do
       name: "Patty ThePatient",
       street_1: "1 Main St",
       city: "London"
-    }
+    },
+    by: Renalware::SystemUser.find
   )
 end
 
@@ -23,7 +24,8 @@ Given(/^Don is a patient$/) do
     local_patient_id: "123457",
     sex: "M",
     born_on: Time.zone.today,
-    doctor: doctor
+    doctor: doctor,
+    by: Renalware::SystemUser.find
   )
   @don.create_current_address(
     street_1: "2 Main St",
