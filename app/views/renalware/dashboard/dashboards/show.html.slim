@@ -1,2 +1,3 @@
 = render layout: "layout", locals: { user: user, title: "#{user.username}'s Dashboard" } do
-  h4 Dashboard Content Coming soon
+  h4 Draft Letters
+  = render "renalware/letters/letters/table", letters: letters
