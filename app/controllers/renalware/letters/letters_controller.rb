@@ -7,7 +7,7 @@ module Renalware
       before_filter :load_patient
 
       def index
-        @letters = CollectionPresenter.new(@patient.letters, LetterPresenter)
+        @letters = CollectionPresenter.new(@patient.letters, LetterPresenterFactory)
       end
 
       def new
@@ -20,8 +20,8 @@ module Renalware
           .call(@patient, letter_params)
       end
 
-      def draft_letter_successful(_letter)
-        redirect_to_letters_list(@patient)
+      def draft_letter_successful(letter)
+        redirect_to_letter_show(@patient, letter)
       end
 
       def draft_letter_failed(letter)
@@ -30,11 +30,11 @@ module Renalware
       end
 
       def show
-        @letter = LetterPresenter.new(@patient.letters.find(params[:id]))
+        @letter = LetterPresenterFactory.new(@patient.letters.find(params[:id]))
       end
 
       def edit
-        render_form(@patient.letters.find(params[:id]), :edit)
+        render_form(@patient.draft_letters.find(params[:id]), :edit)
       end
 
       def update
@@ -43,8 +43,8 @@ module Renalware
           .call(@patient, params[:id], letter_params)
       end
 
-      def revise_letter_successful(_letter)
-        redirect_to_letters_list(@patient)
+      def revise_letter_successful(letter)
+        redirect_to_letter_show(@patient, letter)
       end
 
       def revise_letter_failed(letter)
@@ -54,9 +54,8 @@ module Renalware
 
       private
 
-      def redirect_to_letters_list(patient)
-        redirect_to patient_letters_letters_path(patient),
-          notice: t(".success", model_name: "Letter")
+      def redirect_to_letter_show(patient, letter)
+        redirect_to patient_letters_letter_path(patient, letter)
       end
 
       def render_form(letter, action)
@@ -66,7 +65,7 @@ module Renalware
 
       def letter_params
         params
-          .require(:letters_letter)
+          .require(:letters_letter_draft)
           .permit(attributes)
           .merge(by: current_user)
       end

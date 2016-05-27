@@ -1308,6 +1308,7 @@ ALTER SEQUENCE letter_descriptions_id_seq OWNED BY letter_descriptions.id;
 CREATE TABLE letter_letterheads (
     id integer NOT NULL,
     name character varying NOT NULL,
+    site_code character varying NOT NULL,
     unit_info character varying NOT NULL,
     trust_name character varying NOT NULL,
     trust_caption character varying NOT NULL,
@@ -1343,7 +1344,7 @@ ALTER SEQUENCE letter_letterheads_id_seq OWNED BY letter_letterheads.id;
 CREATE TABLE letter_letters (
     id integer NOT NULL,
     patient_id integer,
-    state character varying DEFAULT 'draft'::character varying NOT NULL,
+    type character varying NOT NULL,
     issued_on date NOT NULL,
     description character varying,
     salutation character varying,
@@ -1795,7 +1796,7 @@ ALTER SEQUENCE pathology_observations_id_seq OWNED BY pathology_observations.id;
 CREATE TABLE pathology_request_algorithm_global_rule_sets (
     id integer NOT NULL,
     request_description_id integer NOT NULL,
-    frequency character varying NOT NULL,
+    frequency_type character varying NOT NULL,
     clinic_id integer
 );
 
@@ -1861,7 +1862,7 @@ CREATE TABLE pathology_request_algorithm_patient_rules (
     test_description text,
     sample_number_bottles integer,
     sample_type character varying,
-    frequency character varying,
+    frequency_type character varying,
     patient_id integer,
     last_observed_at timestamp without time zone,
     start_date date,
@@ -5570,4 +5571,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160509151927');
 INSERT INTO schema_migrations (version) VALUES ('20160509171244');
 
 INSERT INTO schema_migrations (version) VALUES ('20160510155932');
+
+INSERT INTO schema_migrations (version) VALUES ('20160518110836');
+
+INSERT INTO schema_migrations (version) VALUES ('20160518111325');
 

@@ -3,10 +3,10 @@ require "rails_helper"
 describe Renalware::Pathology::RequestAlgorithm::PatientRule do
   it { is_expected.to validate_presence_of(:lab) }
   it { is_expected.to validate_presence_of(:test_description) }
-  it { is_expected.to validate_presence_of(:frequency) }
+  it { is_expected.to validate_presence_of(:frequency_type) }
   it { is_expected.to validate_presence_of(:patient_id) }
   it do
-    is_expected.to validate_inclusion_of(:frequency)
+    is_expected.to validate_inclusion_of(:frequency_type)
       .in_array(Renalware::Pathology::RequestAlgorithm::FREQUENCIES)
   end
 
@@ -18,7 +18,7 @@ describe Renalware::Pathology::RequestAlgorithm::PatientRule do
       patient: patient,
       start_date: Date.parse("2016-04-19"),
       end_date: Date.parse("2016-04-21"),
-      frequency: "Always"
+      frequency_type: "Always"
     )
   end
 

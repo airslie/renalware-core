@@ -9,6 +9,13 @@ module Renalware
       "NS" => "Not Specified"
     }.freeze
 
+    SALUTATIONS = {
+      "NK" => "",
+      "M" => "Mr",
+      "F" => "Mme",
+      "NS" => ""
+    }.freeze
+
     def self.all
       DATA.map {|code, _| self.new(code) }
     end
@@ -37,6 +44,10 @@ module Renalware
 
     def name
       DATA[@code]
+    end
+
+    def salutation
+      SALUTATIONS[@code]
     end
 
     # @section coercions

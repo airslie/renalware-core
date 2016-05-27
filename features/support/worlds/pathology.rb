@@ -157,7 +157,8 @@ module World
 
         visit patient_pathology_current_observations_path(patient)
 
-        expect(page).to have_selector("table#observations tr", count: rows.size)
+        number_of_observation_descriptions = Renalware::Pathology::RelevantObservationDescription.codes.size
+        expect(page).to have_selector("table.current-observations tbody tr", count: number_of_observation_descriptions)
       end
     end
   end

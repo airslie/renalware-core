@@ -1,4 +1,4 @@
-"id","clinic","request_description_id","frequency"
+"id","clinic","request_description_id","frequency_type"
 "1","Transplant","71","Always"
 "2","Transplant","114","Always"
 "3","Transplant","57","Always"
