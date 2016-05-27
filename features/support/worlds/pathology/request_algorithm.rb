@@ -20,7 +20,7 @@ module World
         def create_patient_rule(params)
           params["last_observed_at"] = str_to_time(params["last_observed_at"])
           params["patient"] = Renalware::Pathology.cast_patient(params["patient"])
-          params["lab"] = Renalware::Pathology::Lab.find_by(name: params["lab"])
+          params["lab"] = Renalware::Pathology::Lab.find_by!(name: params["lab"])
 
           Renalware::Pathology::RequestAlgorithm::PatientRule.create!(params)
         end
@@ -46,9 +46,9 @@ module World
           param_id =
             case params["type"]
               when "ObservationResult" then
-                Renalware::Pathology::ObservationDescription.find_by(code: params["id"]).id
+                Renalware::Pathology::ObservationDescription.find_by!(code: params["id"]).id
               when "Drug" then
-                Renalware::Drugs::Drug.find_by(name: params["id"]).id
+                Renalware::Drugs::Drug.find_by!(name: params["id"]).id
             end
 
           Renalware::Pathology::RequestAlgorithm::GlobalRule.create!(
@@ -70,13 +70,13 @@ module World
 
         def create_global_rule_set(params)
           request_description =
-            Renalware::Pathology::RequestDescription.find_by(
+            Renalware::Pathology::RequestDescription.find_by!(
               code: params["request_description_code"]
             )
           params["request_description_id"] = request_description.id
 
           clinic =
-            Renalware::Clinics::Clinic.find_by(
+            Renalware::Clinics::Clinic.find_by!(
               name: params["clinic"]
             )
           params["clinic"] = clinic

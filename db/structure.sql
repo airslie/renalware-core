@@ -1666,7 +1666,7 @@ ALTER SEQUENCE organism_codes_id_seq OWNED BY organism_codes.id;
 
 CREATE TABLE pathology_labs (
     id integer NOT NULL,
-    name character varying
+    name character varying NOT NULL
 );
 
 
