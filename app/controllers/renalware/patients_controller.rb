@@ -71,7 +71,13 @@ module Renalware
     end
 
     def document_params
-      [:interpreter_notes, :admin_notes, :special_needs_notes]
+      [
+        :interpreter_notes, :admin_notes, :special_needs_notes, next_of_kin: [
+          :name, :telephone, address: [
+            :name, :organisation_name, :street_1, :street_2, :city, :county, :postcode, :country
+          ]
+        ]
+      ]
     end
 
     def find_patient

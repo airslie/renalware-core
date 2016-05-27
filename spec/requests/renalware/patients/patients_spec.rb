@@ -2,10 +2,7 @@ require "rails_helper"
 
 RSpec::Matchers.define :match_document do |expected|
   match do |actual|
-    expected.each do |key, value|
-      return false if actual.send(key.to_sym) != value
-    end
-    true
+    actual.as_json == expected.as_json
   end
 end
 
@@ -30,6 +27,13 @@ RSpec.describe "Managing patients", type: :request do
           interpreter_notes: "asfdasfd",
           admin_notes: "zxcvzxvczcxv",
           special_needs_notes: "qwerwqerqwer",
+          next_of_kin: {
+            name: "Joe Smith",
+            telephone: "0123123",
+            address: attributes_for(:address).merge(
+              name: nil, organisation_name: nil, street_2: nil, city: nil, county: nil
+            )
+          }
         }
       end
 
