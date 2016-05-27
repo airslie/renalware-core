@@ -22,11 +22,7 @@
         label_method: :name, value_method: :id,
         include_blank: "Please select ethnicity",
         input_html: { class: "small-input" }
-    = patient.input :marital_status,
-        placeholder: "Please select marital status",
-        collection: Renalware::Patient::MARITAL_STATUSES,
-        include_blank: "Please select marital status",
-        input_html: { class: "small-input" }
+    = patient.input :marital_status, include_blank: "Please select marital status", input_html: { class: "small-input" }
     = patient.input :born_on, as: :date_picker, label: "DoB"
     = patient.input :paediatric_patient_indicator,
         as: :inline_radio_buttons,

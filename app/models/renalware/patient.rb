@@ -3,8 +3,9 @@ module Renalware
     include PatientsRansackHelper
     include Personable
     include Accountable
+    extend Enumerize
 
-    MARITAL_STATUSES = %w( Married Single Divorced Widowed )
+    enumerize :marital_status, in: %i(married single divorced widowed)
 
     serialize :sex, Gender
 
@@ -42,7 +43,6 @@ module Renalware
     validates :born_on, presence: true
     validate :validate_sex
     validates :born_on, timeliness: { type: :date }
-    validates :marital_status, inclusion: { in: MARITAL_STATUSES, allow_blank: true }
     validates :email, email: true, allow_blank: true
 
     with_options if: :current_modality_death?, on: :update do |death|
