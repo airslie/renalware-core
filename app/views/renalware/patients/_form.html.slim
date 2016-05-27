@@ -70,3 +70,14 @@
       legend Current Address
 
       = render partial: 'renalware/addresses/form', locals: { a: a }
+
+.form-content
+  .row
+    .large-6.columns
+      = field_set_tag do
+        legend Next of Kin
+
+        = patient.simple_fields_for :document, patient.object.document do |patient_doc|
+          = patient_doc.simple_fields_for :next_of_kin, patient.object.document.next_of_kin do |next_of_kin_doc|
+            = next_of_kin_doc.input :name
+            = next_of_kin_doc.input :telephone

@@ -11,7 +11,7 @@ module Renalware
       attribute :name, String
       attribute :telephone, String
 
-      class Address < Document::Embedded
+      class Address < NestedAttribute
         attribute :name, String
         attribute :organisation_name, String
         attribute :street_1, String
