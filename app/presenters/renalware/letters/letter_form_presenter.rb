@@ -31,12 +31,12 @@ module Renalware
       private
 
       def doctor_role
-        label = "Doctor <address>#{doctor.full_name}, #{doctor.address_line}</address>".html_safe
+        label = "Doctor <address>#{doctor.full_name}, #{doctor.address}</address>".html_safe
         [label, "doctor"]
       end
 
       def patient_role
-        label = "Patient <address>#{patient.full_name}, #{patient.address_line}</address>".html_safe
+        label = "Patient <address>#{patient.full_name}, #{patient.address}</address>".html_safe
         [label, "patient"]
       end
 

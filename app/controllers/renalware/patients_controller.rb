@@ -39,18 +39,12 @@ module Renalware
     end
 
     def update
-      Patients::UpdatePatient.build
-        .subscribe(self)
-        .call(@patient.id, patient_params)
-    end
-
-    def update_patient_successful(patient)
-      redirect_to_patient_demographics(patient)
-    end
-
-    def update_patient_failed(patient)
-      flash[:error] = t(".failed", model_name: "patient")
-      render_form(patient, :edit)
+      if @patient.update(patient_params)
+        redirect_to_patient_demographics(@patient)
+      else
+        flash[:error] = t(".failed", model_name: "patient")
+        render_form(@patient, :edit)
+      end
     end
 
     private
