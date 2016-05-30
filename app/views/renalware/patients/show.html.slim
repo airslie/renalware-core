@@ -111,43 +111,6 @@
             dd= @patient.primary_esrf_centre
 
       .large-4.columns
-        = field_set_tag "Next of Kin" do
-          dl
-            dt Name:
-            dd= @patient.document.next_of_kin.name
-
-          dl
-            dt Telephone:
-            dd= @patient.document.next_of_kin.telephone
-
-          b Next of Kin Address
-
-          dl
-            dt Name:
-            dd= @patient.document.next_of_kin.address.name
-
-            dt Organisation name:
-            dd= @patient.document.next_of_kin.address.organisation_name
-
-            dt Street 1:
-            dd= @patient.document.next_of_kin.address.street_1
-
-            dt Street 2:
-            dd= @patient.document.next_of_kin.address.street_2
-
-            dt City:
-            dd= @patient.document.next_of_kin.address.city
-
-            dt County:
-            dd= @patient.document.next_of_kin.address.county
-
-            dt Postcode:
-            dd= @patient.document.next_of_kin.address.postcode
-
-            dt Country:
-            dd= @patient.document.next_of_kin.address.country
-
-      .large-4.columns
         = field_set_tag "Referral" do
           dl
             dt Referring Physician Name:
@@ -164,3 +127,46 @@
           dl
             dt Referral Notes:
             dd= @patient.document.referral.referral_notes
+
+    .row
+      .large-4.columns
+        = field_set_tag "Next of Kin" do
+          dl
+            dt Name:
+            dd= @patient.document.next_of_kin.name
+
+          dl
+            dt Telephone:
+            dd= @patient.document.next_of_kin.telephone
+
+          b Next of Kin Address
+
+          = render partial: "renalware/addresses/address", locals: { address: @patient.document.next_of_kin.address }
+
+      .large-4.columns
+        = field_set_tag "Pharmacist" do
+          dl
+            dt Name:
+            dd= @patient.document.pharmacist.name
+
+          dl
+            dt Telephone:
+            dd= @patient.document.pharmacist.telephone
+
+          b Pharmacist Address
+
+          = render partial: "renalware/addresses/address", locals: { address: @patient.document.pharmacist.address }
+
+      .large-4.columns
+        = field_set_tag "Distinct Nurse" do
+          dl
+            dt Name:
+            dd= @patient.document.distinct_nurse.name
+
+          dl
+            dt Telephone:
+            dd= @patient.document.distinct_nurse.telephone
+
+          b Distinct Nurse Address
+
+          = render partial: "renalware/addresses/address", locals: { address: @patient.document.distinct_nurse.address }

@@ -1,5 +1,17 @@
 require "rails_helper"
 
+def generate_address_attributes
+  attributes_for(:address)
+    .merge(
+        name: Faker::Name.name,
+        organisation_name: Faker::Company.name,
+        street_2: Faker::Address.street_name,
+        city: Faker::Address.city,
+        county: Faker::Address.state,
+        country: Faker::Address.country
+      )
+end
+
 RSpec::Matchers.define :match_document do |expected|
   match do |actual|
     actual.as_json == expected.as_json
@@ -30,20 +42,23 @@ RSpec.describe "Managing patients", type: :request do
           next_of_kin: {
             name: Faker::Name.name,
             telephone: Faker::PhoneNumber.phone_number,
-            address: attributes_for(:address).merge(
-              name: Faker::Name.name,
-              organisation_name: Faker::Company.name,
-              street_2: Faker::Address.street_name,
-              city: Faker::Address.city,
-              county: Faker::Address.state,
-              country: Faker::Address.country
-            )
+            address: generate_address_attributes
           },
           referral: {
             referring_physician_name: Faker::Name.name,
             referral_date: Faker::Date.backward(14),
             referral_type: "Unknown",
             referral_notes: Faker::Lorem.sentence
+          },
+          pharmacist: {
+            name: Faker::Name.name,
+            telephone: Faker::PhoneNumber.phone_number,
+            address: generate_address_attributes
+          },
+          distinct_nurse: {
+            name: Faker::Name.name,
+            telephone: Faker::PhoneNumber.phone_number,
+            address: generate_address_attributes
           }
         }
       end
