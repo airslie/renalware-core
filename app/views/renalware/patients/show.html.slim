@@ -33,10 +33,10 @@
             dd= default_for_associated(@patient.ethnicity, :name, 'Unspecified')
 
             dt Religion
-            dd= @patient.religion.name
+            dd= default_for_associated(@patient.religion, :name, 'Unspecified')
 
             dt Language
-            dd= @patient.language.name
+            dd= default_for_associated(@patient.language, :name, 'Unspecified')
 
             dt Marital Status
             dd= @patient.marital_status
