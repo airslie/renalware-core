@@ -3,7 +3,7 @@ require "document/enum"
 
 module Renalware
   class PatientDocument < Document::Embedded
-    class Address < NestedAttribute
+    class Address < Document::Embedded
       attribute :name, String
       attribute :organisation_name, String
       attribute :street_1, String
