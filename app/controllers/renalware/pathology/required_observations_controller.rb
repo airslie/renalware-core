@@ -9,7 +9,7 @@ module Renalware
           global_pathology = @patient.required_observation_requests(clinic)
           global_pathology.sort! { |a,b| a.lab.name <=> b.lab.name }
           patient_pathology = @patient.required_patient_pathology
-          clinics = Renalware::Clinics::Clinic.all
+          clinics = Renalware::Clinics::Clinic.all.order(name: :asc)
 
           render :index, locals: {
             global_pathology: global_pathology,
