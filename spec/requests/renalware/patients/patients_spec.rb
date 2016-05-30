@@ -36,9 +36,9 @@ RSpec.describe "Managing patients", type: :request do
 
       let(:document) do
         {
-          interpreter_notes: "asfdasfd",
-          admin_notes: "zxcvzxvczcxv",
-          special_needs_notes: "qwerwqerqwer",
+          interpreter_notes: Faker::Lorem.sentence,
+          admin_notes: Faker::Lorem.sentence,
+          special_needs_notes: Faker::Lorem.sentence,
           next_of_kin: {
             name: Faker::Name.name,
             telephone: Faker::PhoneNumber.phone_number,
