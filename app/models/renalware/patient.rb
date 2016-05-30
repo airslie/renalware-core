@@ -16,6 +16,8 @@ module Renalware
     belongs_to :second_edta_code, class_name: "EdtaCode", foreign_key: :second_edta_code_id
     belongs_to :doctor
     belongs_to :practice
+    belongs_to :religion, class_name: "Patients::Religion"
+    belongs_to :language, class_name: "Patients::Language"
 
     has_many :exit_site_infections
     has_many :peritonitis_episodes

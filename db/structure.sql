@@ -1988,7 +1988,9 @@ CREATE TABLE patients (
     marital_status character varying,
     telephone1 character varying,
     telephone2 character varying,
-    email character varying
+    email character varying,
+    religion_id integer,
+    language_id integer
 );
 
 
@@ -4863,6 +4865,22 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
+-- Name: fk_rails_01ec61436d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patients
+    ADD CONSTRAINT fk_rails_01ec61436d FOREIGN KEY (religion_id) REFERENCES religions(id);
+
+
+--
+-- Name: fk_rails_042462eeb9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patients
+    ADD CONSTRAINT fk_rails_042462eeb9 FOREIGN KEY (language_id) REFERENCES languages(id);
+
+
+--
 -- Name: fk_rails_050f679712; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5693,4 +5711,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160525124151');
 INSERT INTO schema_migrations (version) VALUES ('20160530162708');
 
 INSERT INTO schema_migrations (version) VALUES ('20160530162720');
+
+INSERT INTO schema_migrations (version) VALUES ('20160530170058');
 
