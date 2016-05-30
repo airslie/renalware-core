@@ -1271,6 +1271,35 @@ ALTER SEQUENCE infection_organisms_id_seq OWNED BY infection_organisms.id;
 
 
 --
+-- Name: languages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE languages (
+    id integer NOT NULL,
+    name character varying NOT NULL
+);
+
+
+--
+-- Name: languages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE languages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: languages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE languages_id_seq OWNED BY languages.id;
+
+
+--
 -- Name: letter_descriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2287,6 +2316,35 @@ ALTER SEQUENCE problem_versions_id_seq OWNED BY problem_versions.id;
 
 
 --
+-- Name: religions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE religions (
+    id integer NOT NULL,
+    name character varying NOT NULL
+);
+
+
+--
+-- Name: religions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE religions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: religions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE religions_id_seq OWNED BY religions.id;
+
+
+--
 -- Name: roles; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3132,6 +3190,13 @@ ALTER TABLE ONLY infection_organisms ALTER COLUMN id SET DEFAULT nextval('infect
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY languages ALTER COLUMN id SET DEFAULT nextval('languages_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY letter_descriptions ALTER COLUMN id SET DEFAULT nextval('letter_descriptions_id_seq'::regclass);
 
 
@@ -3322,6 +3387,13 @@ ALTER TABLE ONLY problem_problems ALTER COLUMN id SET DEFAULT nextval('problem_p
 --
 
 ALTER TABLE ONLY problem_versions ALTER COLUMN id SET DEFAULT nextval('problem_versions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY religions ALTER COLUMN id SET DEFAULT nextval('religions_id_seq'::regclass);
 
 
 --
@@ -3709,6 +3781,14 @@ ALTER TABLE ONLY infection_organisms
 
 
 --
+-- Name: languages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY languages
+    ADD CONSTRAINT languages_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: letter_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3930,6 +4010,14 @@ ALTER TABLE ONLY problem_problems
 
 ALTER TABLE ONLY problem_versions
     ADD CONSTRAINT problem_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: religions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY religions
+    ADD CONSTRAINT religions_pkey PRIMARY KEY (id);
 
 
 --
@@ -5601,4 +5689,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160518111325');
 INSERT INTO schema_migrations (version) VALUES ('20160524171947');
 
 INSERT INTO schema_migrations (version) VALUES ('20160525124151');
+
+INSERT INTO schema_migrations (version) VALUES ('20160530162708');
+
+INSERT INTO schema_migrations (version) VALUES ('20160530162720');
 
