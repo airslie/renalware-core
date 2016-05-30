@@ -78,7 +78,7 @@ module World
         end
 
         def expect_observations_from_patient(algorithm, observations_table)
-          expect(algorithm).to eq(observations_table.transpose.raw)
+          expect(algorithm).to eq(observations_table.raw)
         end
       end
     end
