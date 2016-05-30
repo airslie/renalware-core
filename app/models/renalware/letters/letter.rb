@@ -29,6 +29,9 @@ module Renalware
       has_states :draft, :typed, :archived
       state_scope :reviewable, :typed
 
+      scope :pending, -> { where(type: [state_class_name(:draft), state_class_name(:typed)]) }
+      scope :reverse, -> { order(updated_at: :desc) }
+
       def self.policy_class
         LetterPolicy
       end
