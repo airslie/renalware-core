@@ -63,12 +63,6 @@ RSpec.describe "Managing patients", type: :request do
         }
       end
 
-      let(:patient_attributes) do
-        attributes_for(:patient).merge(
-          religion_id: religion.id, language_id: language.id, document: document
-        )
-      end
-
       it "creates a new record" do
         post patients_path, patient: patient_attributes
 
