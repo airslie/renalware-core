@@ -31,7 +31,12 @@ RSpec.describe "Managing patients", type: :request do
             name: "Joe Smith",
             telephone: "0123123",
             address: attributes_for(:address).merge(
-              name: nil, organisation_name: nil, street_2: nil, city: nil, county: nil
+              name: "asdf",
+              organisation_name: "asdfasdf",
+              street_2: "xxx",
+              city: "lkjl",
+              county: "uiouoi",
+              country: "uiouoxi"
             )
           }
         }

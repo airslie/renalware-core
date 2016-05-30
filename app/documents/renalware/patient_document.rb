@@ -19,6 +19,7 @@ module Renalware
         attribute :city, String
         attribute :county, String
         attribute :postcode, String
+        attribute :country, String
       end
       attribute :address, Address
     end
