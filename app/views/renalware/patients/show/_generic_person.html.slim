@@ -1,0 +1,11 @@
+= field_set_tag title do
+  dl
+    dt Name:
+    dd= person.name
+
+  dl
+    dt Telephone:
+    dd= person.telephone
+
+  b #{title} Address
+  = render partial: "renalware/addresses/address", locals: { address: person.address }

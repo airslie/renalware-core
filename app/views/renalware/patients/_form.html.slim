@@ -74,25 +74,14 @@
 .form-content
   .row
     .large-6.columns
-      = field_set_tag do
-        legend Next of Kin
-
-        = patient.simple_fields_for :document, patient.object.document do |patient_doc|
-
-          = patient_doc.simple_fields_for :next_of_kin, patient.object.document.next_of_kin do |next_of_kin_doc|
-            = next_of_kin_doc.input :name
-            = next_of_kin_doc.input :telephone
-
-            b Next of Kin Address:
-            = next_of_kin_doc.simple_fields_for :address, patient.object.document.next_of_kin.address do |address_doc|
-              = render partial: 'renalware/addresses/form', locals: { a: address_doc }
+      = render partial: 'renalware/patients/generic_person_form_fields',
+          locals: { patient: patient, title: "Next of Kin", document_attribute: :next_of_kin }
 
     .large-6.columns
       = field_set_tag do
         legend Referral
 
         = patient.simple_fields_for :document, patient.object.document do |patient_doc|
-
           = patient_doc.simple_fields_for :referral, patient.object.document.referral do |referral_doc|
             = referral_doc.input :referring_physician_name
             = referral_doc.input :referral_date, as: :date_picker
@@ -102,29 +91,9 @@
 .form-content
   .row
     .large-6.columns
-      = field_set_tag do
-        legend Pharmacist
-
-        = patient.simple_fields_for :document, patient.object.document do |patient_doc|
-
-          = patient_doc.simple_fields_for :pharmacist, patient.object.document.pharmacist do |pharmacist_doc|
-            = pharmacist_doc.input :name
-            = pharmacist_doc.input :telephone
-
-            b Pharmacist Address:
-            = pharmacist_doc.simple_fields_for :address, patient.object.document.pharmacist.address do |address_doc|
-              = render partial: 'renalware/addresses/form', locals: { a: address_doc }
+      = render partial: 'renalware/patients/generic_person_form_fields',
+          locals: { patient: patient, title: "Pharmacist", document_attribute: :pharmacist }
 
     .large-6.columns
-      = field_set_tag do
-        legend Distinct Nurse
-
-        = patient.simple_fields_for :document, patient.object.document do |patient_doc|
-
-          = patient_doc.simple_fields_for :distinct_nurse, patient.object.document.distinct_nurse do |distinct_nurse_doc|
-            = distinct_nurse_doc.input :name
-            = distinct_nurse_doc.input :telephone
-
-            b Distinct Nurse Address:
-            = distinct_nurse_doc.simple_fields_for :address, patient.object.document.distinct_nurse.address do |address_doc|
-              = render partial: 'renalware/addresses/form', locals: { a: address_doc }
+      = render partial: 'renalware/patients/generic_person_form_fields',
+          locals: { patient: patient, title: "Distinct Nurse", document_attribute: :distinct_nurse }

@@ -10,17 +10,6 @@ module Renalware
     class NextOfKin < Document::Embedded
       attribute :name, String
       attribute :telephone, String
-
-      class Address < NestedAttribute
-        attribute :name, String
-        attribute :organisation_name, String
-        attribute :street_1, String
-        attribute :street_2, String
-        attribute :city, String
-        attribute :county, String
-        attribute :postcode, String
-        attribute :country, String
-      end
       attribute :address, Address
     end
     attribute :next_of_kin, NextOfKin
@@ -28,17 +17,6 @@ module Renalware
     class Pharmacist < Document::Embedded
       attribute :name, String
       attribute :telephone, String
-
-      class Address < NestedAttribute
-        attribute :name, String
-        attribute :organisation_name, String
-        attribute :street_1, String
-        attribute :street_2, String
-        attribute :city, String
-        attribute :county, String
-        attribute :postcode, String
-        attribute :country, String
-      end
       attribute :address, Address
     end
     attribute :pharmacist, Pharmacist
@@ -46,21 +24,9 @@ module Renalware
     class DistinctNurse < Document::Embedded
       attribute :name, String
       attribute :telephone, String
-
-      class Address < NestedAttribute
-        attribute :name, String
-        attribute :organisation_name, String
-        attribute :street_1, String
-        attribute :street_2, String
-        attribute :city, String
-        attribute :county, String
-        attribute :postcode, String
-        attribute :country, String
-      end
       attribute :address, Address
     end
     attribute :distinct_nurse, DistinctNurse
-
 
     class Referral < Document::Embedded
       attribute :referring_physician_name, String
