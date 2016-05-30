@@ -55,7 +55,7 @@ module World
         #
         def expect_observations_from_patient(required_patient_observations, observations_table)
           observations_table.rows.each do |row|
-            expect(required_patient_observations.map(&:id)).to include(row.first.to_i)
+            expect(required_patient_observations.map(&:test_description)).to include(row[1])
           end
         end
       end

@@ -67,5 +67,5 @@ Then(/^Clyde sees these request descriptions from the global algorithm$/) do |ta
 end
 
 Then(/^Clyde sees these observations from the patient algorithm$/) do |table|
-  expect_observations_from_patient(@required_patient_observations, table)
+  expect_observations_from_patient(@required_patient_observations, table.transpose)
 end
