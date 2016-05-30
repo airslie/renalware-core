@@ -28,15 +28,15 @@ RSpec.describe "Managing patients", type: :request do
           admin_notes: "zxcvzxvczcxv",
           special_needs_notes: "qwerwqerqwer",
           next_of_kin: {
-            name: "Joe Smith",
-            telephone: "0123123",
+            name: Faker::Name.name,
+            telephone: Faker::PhoneNumber.phone_number,
             address: attributes_for(:address).merge(
-              name: "asdf",
-              organisation_name: "asdfasdf",
-              street_2: "xxx",
-              city: "lkjl",
-              county: "uiouoi",
-              country: "uiouoxi"
+              name: Faker::Name.name,
+              organisation_name: Faker::Company.name,
+              street_2: Faker::Address.street_name,
+              city: Faker::Address.city,
+              county: Faker::Address.state,
+              country: Faker::Address.country
             )
           }
         }
