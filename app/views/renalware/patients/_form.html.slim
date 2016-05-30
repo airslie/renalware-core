@@ -78,6 +78,17 @@
         legend Next of Kin
 
         = patient.simple_fields_for :document, patient.object.document do |patient_doc|
+
           = patient_doc.simple_fields_for :next_of_kin, patient.object.document.next_of_kin do |next_of_kin_doc|
             = next_of_kin_doc.input :name
             = next_of_kin_doc.input :telephone
+
+            b Next of Kin Address:
+            = next_of_kin_doc.simple_fields_for :address, patient.object.document.next_of_kin.address do |address_doc|
+              = address_doc.input :name
+              = address_doc.input :organisation_name
+              = address_doc.input :street_1
+              = address_doc.input :street_2
+              = address_doc.input :city
+              = address_doc.input :county
+              = address_doc.input :postcode
