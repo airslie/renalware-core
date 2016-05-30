@@ -38,6 +38,12 @@ RSpec.describe "Managing patients", type: :request do
               county: Faker::Address.state,
               country: Faker::Address.country
             )
+          },
+          referral: {
+            referring_physician_name: Faker::Name.name,
+            referral_date: Faker::Date.backward(14),
+            referral_type: "Unknown",
+            referral_notes: Faker::Lorem.sentence
           }
         }
       end

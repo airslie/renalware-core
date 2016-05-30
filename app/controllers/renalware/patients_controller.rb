@@ -76,7 +76,8 @@ module Renalware
           :name, :telephone, address: [
             :name, :organisation_name, :street_1, :street_2, :city, :county, :postcode, :country
           ]
-        ]
+        ],
+        referral: [:referring_physician_name, :referral_date, :referral_type, :referral_notes]
       ]
     end
 

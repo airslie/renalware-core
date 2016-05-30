@@ -86,3 +86,15 @@
             b Next of Kin Address:
             = next_of_kin_doc.simple_fields_for :address, patient.object.document.next_of_kin.address do |address_doc|
               = render partial: 'renalware/addresses/form', locals: { a: address_doc }
+
+    .large-6.columns
+      = field_set_tag do
+        legend Referral
+
+        = patient.simple_fields_for :document, patient.object.document do |patient_doc|
+
+          = patient_doc.simple_fields_for :referral, patient.object.document.referral do |referral_doc|
+            = referral_doc.input :referring_physician_name
+            = referral_doc.input :referral_date, as: :date_picker
+            = referral_doc.input :referral_type
+            = referral_doc.input :referral_notes

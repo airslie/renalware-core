@@ -24,5 +24,13 @@ module Renalware
       attribute :address, Address
     end
     attribute :next_of_kin, NextOfKin
+
+    class Referral < Document::Embedded
+      attribute :referring_physician_name, String
+      attribute :referral_date, Date
+      attribute :referral_type, String
+      attribute :referral_notes, String
+    end
+    attribute :referral, Referral
   end
 end

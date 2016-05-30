@@ -146,3 +146,21 @@
 
             dt Country:
             dd= @patient.document.next_of_kin.address.country
+
+      .large-4.columns
+        = field_set_tag "Referral" do
+          dl
+            dt Referring Physician Name:
+            dd= @patient.document.referral.referring_physician_name
+
+          dl
+            dt Referral Date:
+            dd= @patient.document.referral.referral_date
+
+          dl
+            dt Referral Type:
+            dd= @patient.document.referral.referral_type
+
+          dl
+            dt Referral Notes:
+            dd= @patient.document.referral.referral_notes
