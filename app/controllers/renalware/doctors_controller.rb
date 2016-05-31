@@ -71,7 +71,7 @@ module Renalware
 
     def doctor_params
       params.require(:doctor).permit(
-        :given_name, :family_name, :email, :practitioner_type, :code, practice_ids: [],
+        :given_name, :family_name, :email, :practitioner_type, :code, :telephone, practice_ids: [],
         address_attributes: [
           :id, :name, :organisation_name, :street_1, :street_2, :city, :county, :postcode, :country
         ]

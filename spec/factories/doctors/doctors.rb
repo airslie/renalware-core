@@ -7,6 +7,7 @@ FactoryGirl.define do
     given_name "Donald"
     family_name "Good"
     email "donald.good@nhs.net"
+    telephone "0203593082"
     code { generate(:gp_code) }
     address
     practitioner_type "GP"
