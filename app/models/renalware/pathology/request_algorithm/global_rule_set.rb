@@ -13,6 +13,10 @@ module Renalware
         validates :clinic, presence: true
 
         scope :for_clinic, -> (clinic) { where(clinic: clinic) }
+        scope :ordered, -> do
+          includes(request_description: :lab)
+            .order("pathology_labs.name ASC, pathology_request_descriptions.code ASC")
+        end
 
         def required_for_patient?(patient)
           PatientRuleSetDecision.new(patient, self).call

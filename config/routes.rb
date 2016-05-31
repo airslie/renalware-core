@@ -119,6 +119,7 @@ Rails.application.routes.draw do
         get "observations/historical", to: "historical_observation_results#index", as: "historical_observations"
         resources :observation_requests, only: [:index, :show]
         get "descriptions/:description_id/observations", to: "observations#index", as: "observations"
+        resources :required_observations, only: :index
       end
 
       namespace :transplants do

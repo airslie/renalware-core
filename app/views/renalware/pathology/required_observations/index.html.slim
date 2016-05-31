@@ -1,0 +1,60 @@
+- opts = { title: "Required Observations", navigation_partial: "renalware/pathology/navigation" }
+= render layout: "renalware/patients/layout", locals: opts do
+  .row
+    = form_tag(patient_pathology_required_observations_path(patient_id: @patient.id), method: :get) do
+      .large-2.columns
+        = select_tag "clinic_id", options_from_collection_for_select(clinics, 'id', 'name', clinic.id)
+      .large-10.columns
+        = submit_tag "Change Clinic", class: "button tiny"
+
+  .row
+    .large-12.columns
+      - if global_pathology.empty?
+        p No observation requests are required.
+
+      - else
+        p The following observation requests are required for this patient.
+
+        table#global_pathology
+          thead
+            tr
+              th Code
+              th Lab
+              th Name
+          tbody
+          - global_pathology.each do |request_description|
+            tr
+              td = request_description.code
+              td = request_description.lab.name
+              td = request_description.name
+
+  .row
+    .large-12.columns
+      - if patient_pathology.empty?
+        p No patient specific observations are required.
+
+      - else
+        p The following patient specific observations are required for this patient.
+
+        table#patient_pathology
+          thead
+            tr
+              th Lab
+              th Description
+              th Sample # Bottles
+              th Sample Type
+              th Frequency
+              th Last Observed
+              th Start Date
+              th End Date
+          tbody
+          - patient_pathology.each do |patient_rule|
+            tr
+              td = patient_rule.lab.name
+              td = patient_rule.test_description
+              td = patient_rule.sample_number_bottles
+              td = patient_rule.sample_type
+              td = patient_rule.frequency
+              td = patient_rule.last_observed_at
+              td = patient_rule.start_date
+              td = patient_rule.end_date
