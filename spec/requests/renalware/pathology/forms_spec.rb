@@ -12,7 +12,7 @@ describe "Viewing required observations" do
     let!(:global_rule_set) do
       create(
         :pathology_request_algorithm_global_rule_set,
-        frequency: "Always",
+        frequency_type: "Always",
         clinic: clinic,
         request_description: request_description
       )
