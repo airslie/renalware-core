@@ -8,7 +8,7 @@ module Renalware
       def index
           global_pathology = @patient.required_observation_requests(clinic)
           patient_pathology = @patient.required_patient_pathology
-          clinics = Renalware::Clinics::Clinic.all.order(name: :asc)
+          clinics = Renalware::Clinics::Clinic.ordered
 
           render :index, locals: {
             global_pathology: global_pathology,
