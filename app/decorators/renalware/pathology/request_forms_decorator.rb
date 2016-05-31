@@ -2,7 +2,7 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
-    class RequestFormsPresenter < SimpleDelegator
+    class RequestFormsDecorator < SimpleDelegator
       def initialize(patient, clinic)
         @clinic = clinic
         super(patient)

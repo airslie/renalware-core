@@ -8,7 +8,7 @@ module Renalware
 
       def index
         patients =
-          Renalware::Pathology::RequestFormsPresenter.wrap(@patients, form_params.clinic)
+          Renalware::Pathology::RequestFormsDecorator.wrap(@patients, form_params.clinic)
 
         render :index, locals: {
           form_params: form_params,
