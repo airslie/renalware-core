@@ -3,7 +3,7 @@ class AddReligionAndLanguageToPatients < ActiveRecord::Migration
     add_column :patients, :religion_id, :integer
     add_column :patients, :language_id, :integer
 
-    add_foreign_key :patients, :religions
-    add_foreign_key :patients, :languages
+    add_foreign_key :patients, :patient_religions, column: :religion_id
+    add_foreign_key :patients, :patient_languages, column: :language_id
   end
 end

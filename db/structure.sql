@@ -1271,35 +1271,6 @@ ALTER SEQUENCE infection_organisms_id_seq OWNED BY infection_organisms.id;
 
 
 --
--- Name: languages; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE languages (
-    id integer NOT NULL,
-    name character varying NOT NULL
-);
-
-
---
--- Name: languages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE languages_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: languages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE languages_id_seq OWNED BY languages.id;
-
-
---
 -- Name: letter_descriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1953,6 +1924,64 @@ ALTER SEQUENCE pathology_request_descriptions_id_seq OWNED BY pathology_request_
 
 
 --
+-- Name: patient_languages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE patient_languages (
+    id integer NOT NULL,
+    name character varying NOT NULL
+);
+
+
+--
+-- Name: patient_languages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE patient_languages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_languages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE patient_languages_id_seq OWNED BY patient_languages.id;
+
+
+--
+-- Name: patient_religions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE patient_religions (
+    id integer NOT NULL,
+    name character varying NOT NULL
+);
+
+
+--
+-- Name: patient_religions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE patient_religions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_religions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE patient_religions_id_seq OWNED BY patient_religions.id;
+
+
+--
 -- Name: patients; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2315,35 +2344,6 @@ CREATE SEQUENCE problem_versions_id_seq
 --
 
 ALTER SEQUENCE problem_versions_id_seq OWNED BY problem_versions.id;
-
-
---
--- Name: religions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE religions (
-    id integer NOT NULL,
-    name character varying NOT NULL
-);
-
-
---
--- Name: religions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE religions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: religions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE religions_id_seq OWNED BY religions.id;
 
 
 --
@@ -3192,13 +3192,6 @@ ALTER TABLE ONLY infection_organisms ALTER COLUMN id SET DEFAULT nextval('infect
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY languages ALTER COLUMN id SET DEFAULT nextval('languages_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY letter_descriptions ALTER COLUMN id SET DEFAULT nextval('letter_descriptions_id_seq'::regclass);
 
 
@@ -3332,6 +3325,20 @@ ALTER TABLE ONLY pathology_request_descriptions ALTER COLUMN id SET DEFAULT next
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY patient_languages ALTER COLUMN id SET DEFAULT nextval('patient_languages_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_religions ALTER COLUMN id SET DEFAULT nextval('patient_religions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY patients ALTER COLUMN id SET DEFAULT nextval('patients_id_seq'::regclass);
 
 
@@ -3389,13 +3396,6 @@ ALTER TABLE ONLY problem_problems ALTER COLUMN id SET DEFAULT nextval('problem_p
 --
 
 ALTER TABLE ONLY problem_versions ALTER COLUMN id SET DEFAULT nextval('problem_versions_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY religions ALTER COLUMN id SET DEFAULT nextval('religions_id_seq'::regclass);
 
 
 --
@@ -3783,14 +3783,6 @@ ALTER TABLE ONLY infection_organisms
 
 
 --
--- Name: languages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY languages
-    ADD CONSTRAINT languages_pkey PRIMARY KEY (id);
-
-
---
 -- Name: letter_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3943,6 +3935,22 @@ ALTER TABLE ONLY pathology_request_descriptions
 
 
 --
+-- Name: patient_languages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_languages
+    ADD CONSTRAINT patient_languages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: patient_religions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_religions
+    ADD CONSTRAINT patient_religions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: patients_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4012,14 +4020,6 @@ ALTER TABLE ONLY problem_problems
 
 ALTER TABLE ONLY problem_versions
     ADD CONSTRAINT problem_versions_pkey PRIMARY KEY (id);
-
-
---
--- Name: religions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY religions
-    ADD CONSTRAINT religions_pkey PRIMARY KEY (id);
 
 
 --
@@ -4869,7 +4869,7 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 --
 
 ALTER TABLE ONLY patients
-    ADD CONSTRAINT fk_rails_01ec61436d FOREIGN KEY (religion_id) REFERENCES religions(id);
+    ADD CONSTRAINT fk_rails_01ec61436d FOREIGN KEY (religion_id) REFERENCES patient_religions(id);
 
 
 --
@@ -4877,7 +4877,7 @@ ALTER TABLE ONLY patients
 --
 
 ALTER TABLE ONLY patients
-    ADD CONSTRAINT fk_rails_042462eeb9 FOREIGN KEY (language_id) REFERENCES languages(id);
+    ADD CONSTRAINT fk_rails_042462eeb9 FOREIGN KEY (language_id) REFERENCES patient_languages(id);
 
 
 --
