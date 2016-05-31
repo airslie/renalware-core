@@ -1,4 +1,4 @@
-- @patients.each do |patient|
+- patients.each do |patient|
   - if patient.has_tests_required?
     .row
       h4 Pathology Request Listing
@@ -13,17 +13,17 @@
           td.header_cell DOB:
           td = patient.born_on.strftime("%d/%m/%Y")
           td.header_cell Consultant:
-          td = @form_settings.doctor.full_name
+          td = form_params.doctor.full_name
         tr
           td.header_cell Clinical Detail:
-          td = @form_settings.clinic.name
+          td = form_params.clinic.name
           td.header_cell Contact:
-          td = @form_settings.clinic.name
+          td = form_params.clinic.name
         tr
           td.header_cell
           td
           td.header_cell Bleep/Tel No:
-          td = @form_settings.telephone
+          td = form_params.telephone
 
     .row.full_height
       .border_box_half.columns.full_height
