@@ -1,3 +1,5 @@
+require_dependency "renalware/patients"
+
 module Renalware
   module Patients
     class Religion < ActiveRecord::Base
