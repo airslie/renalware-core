@@ -1924,6 +1924,64 @@ ALTER SEQUENCE pathology_request_descriptions_id_seq OWNED BY pathology_request_
 
 
 --
+-- Name: patient_languages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE patient_languages (
+    id integer NOT NULL,
+    name character varying NOT NULL
+);
+
+
+--
+-- Name: patient_languages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE patient_languages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_languages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE patient_languages_id_seq OWNED BY patient_languages.id;
+
+
+--
+-- Name: patient_religions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE patient_religions (
+    id integer NOT NULL,
+    name character varying NOT NULL
+);
+
+
+--
+-- Name: patient_religions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE patient_religions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_religions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE patient_religions_id_seq OWNED BY patient_religions.id;
+
+
+--
 -- Name: patients; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1959,7 +2017,9 @@ CREATE TABLE patients (
     marital_status character varying,
     telephone1 character varying,
     telephone2 character varying,
-    email character varying
+    email character varying,
+    religion_id integer,
+    language_id integer
 );
 
 
@@ -3265,6 +3325,20 @@ ALTER TABLE ONLY pathology_request_descriptions ALTER COLUMN id SET DEFAULT next
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY patient_languages ALTER COLUMN id SET DEFAULT nextval('patient_languages_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_religions ALTER COLUMN id SET DEFAULT nextval('patient_religions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY patients ALTER COLUMN id SET DEFAULT nextval('patients_id_seq'::regclass);
 
 
@@ -3858,6 +3932,22 @@ ALTER TABLE ONLY pathology_request_algorithm_patient_rules
 
 ALTER TABLE ONLY pathology_request_descriptions
     ADD CONSTRAINT pathology_request_descriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: patient_languages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_languages
+    ADD CONSTRAINT patient_languages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: patient_religions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_religions
+    ADD CONSTRAINT patient_religions_pkey PRIMARY KEY (id);
 
 
 --
@@ -4775,6 +4865,22 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
+-- Name: fk_rails_01ec61436d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patients
+    ADD CONSTRAINT fk_rails_01ec61436d FOREIGN KEY (religion_id) REFERENCES patient_religions(id);
+
+
+--
+-- Name: fk_rails_042462eeb9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patients
+    ADD CONSTRAINT fk_rails_042462eeb9 FOREIGN KEY (language_id) REFERENCES patient_languages(id);
+
+
+--
 -- Name: fk_rails_050f679712; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5601,4 +5707,10 @@ INSERT INTO schema_migrations (version) VALUES ('20160518111325');
 INSERT INTO schema_migrations (version) VALUES ('20160524171947');
 
 INSERT INTO schema_migrations (version) VALUES ('20160525124151');
+
+INSERT INTO schema_migrations (version) VALUES ('20160530162708');
+
+INSERT INTO schema_migrations (version) VALUES ('20160530162720');
+
+INSERT INTO schema_migrations (version) VALUES ('20160530170058');
 

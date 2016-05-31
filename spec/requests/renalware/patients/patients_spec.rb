@@ -13,14 +13,21 @@ RSpec.describe "Managing patients", type: :request do
 
   describe "POST create" do
     context "given valid attributes" do
+      let(:religion) { create(:patients_religion) }
+      let(:language) { create(:patients_language) }
+      let(:patient_attributes) do
+        attributes_for(:patient).merge(
+          religion_id: religion.id, language_id: language.id
+        )
+      end
+
       it "creates a new record" do
-        attributes = attributes_for(:patient)
-        post patients_path, patient: attributes
+        post patients_path, patient: patient_attributes
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::Patient.exists?(attributes)).to be_truthy
+        expect(Renalware::Patient.exists?(patient_attributes)).to be_truthy
 
-        created_patient = Renalware::Patient.find_by(attributes)
+        created_patient = Renalware::Patient.find_by(patient_attributes)
         expect(created_patient.created_by).to eq(@current_user)
         expect(created_patient.updated_by).to eq(@current_user)
 

@@ -22,6 +22,14 @@
         label_method: :name, value_method: :id,
         include_blank: "Please select ethnicity",
         input_html: { class: "small-input" }
+    = patient.association :religion,
+        label_method: :name, value_method: :id,
+        include_blank: "Please select religion",
+        input_html: { class: "small-input" }
+    = patient.association :language,
+        label_method: :name, value_method: :id,
+        include_blank: "Please select language",
+        input_html: { class: "small-input" }
     = patient.input :marital_status, include_blank: "Please select marital status", input_html: { class: "small-input" }
     = patient.input :born_on, as: :date_picker, label: "DoB"
     = patient.input :paediatric_patient_indicator,
