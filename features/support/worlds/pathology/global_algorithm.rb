@@ -77,11 +77,7 @@ module World
             regime: regime
           )
 
-          find_by_id("global_pathology")
-            .all("tr")
-            .map do |row|
-              row.all("th, td").map { |cell| cell.text.strip }
-            end
+          html_table_to_array("global_pathology")
         end
 
         def expect_observations_from_global(required_global_observations, observations_table)

@@ -70,11 +70,7 @@ module World
             patient_id: patient.id
           )
 
-          find_by_id("patient_pathology")
-            .all("tr")
-            .map do |row|
-              row.all("th, td").map { |cell| cell.text.strip }
-            end
+          html_table_to_array("patient_pathology")
         end
 
         def expect_observations_from_patient(algorithm, observations_table)

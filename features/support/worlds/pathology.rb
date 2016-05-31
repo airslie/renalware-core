@@ -136,6 +136,14 @@ module World
     module Web
       include Domain
 
+      def html_table_to_array(table_id)
+        find_by_id(table_id)
+          .all("tr")
+          .map do |row|
+            row.all("th, td").map { |cell| cell.text.strip }
+          end
+      end
+
       def expect_pathology_recent_observations(user:, patient:, rows:)
         login_as user
 
