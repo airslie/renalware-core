@@ -3,6 +3,21 @@ require "array_stringifier"
 module World
   module Pathology
     module Domain
+      # @section helpers
+      #
+
+      # Convert "5 days ago" to a Time object
+      def str_to_time(last_observed_at)
+        return nil if last_observed_at.nil?
+
+        last_tested_matches =
+          last_observed_at.match(/^(?<num>\d+) (?<time_unit>day|days|week|weeks) ago$/)
+
+        if last_tested_matches
+          last_tested_matches[:num].to_i.public_send(last_tested_matches[:time_unit]).ago
+        end
+      end
+
       # @section commands
 
       def record_observations(patient:, observations_attributes:)
