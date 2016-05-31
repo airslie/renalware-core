@@ -8,9 +8,9 @@ module World
           param_id =
             case params["type"]
               when "ObservationResult" then
-                Renalware::Pathology::ObservationDescription.find_by(code: params["id"]).id
+                Renalware::Pathology::ObservationDescription.find_by!(code: params["id"]).id
               when "Drug" then
-                Renalware::Drugs::Drug.find_by(name: params["id"]).id
+                Renalware::Drugs::Drug.find_by!(name: params["id"]).id
             end
 
           Renalware::Pathology::RequestAlgorithm::GlobalRule.create!(
@@ -32,13 +32,13 @@ module World
 
         def create_global_rule_set(params)
           request_description =
-            Renalware::Pathology::RequestDescription.find_by(
+            Renalware::Pathology::RequestDescription.find_by!(
               code: params["request_description_code"]
             )
           params["request_description_id"] = request_description.id
 
           clinic =
-            Renalware::Clinics::Clinic.find_by(
+            Renalware::Clinics::Clinic.find_by!(
               name: params["clinic"]
             )
           params["clinic"] = clinic
@@ -60,7 +60,8 @@ module World
         #
         def expect_observations_from_global(required_global_observations, observations_table)
           observations_table.rows.each do |row|
-            expect(required_global_observations).to include(row.first.to_i)
+            request_description = Renalware::Pathology::RequestDescription.find_by!(code: row.first)
+            expect(required_global_observations).to include(request_description)
           end
         end
       end
@@ -76,11 +77,7 @@ module World
             regime: regime
           )
 
-          find_by_id("global_pathology")
-            .all("tr")
-            .map do |row|
-              row.all("th, td").map { |cell| cell.text.strip }
-            end
+          html_table_to_array("global_pathology")
         end
 
         def expect_observations_from_global(required_global_observations, observations_table)

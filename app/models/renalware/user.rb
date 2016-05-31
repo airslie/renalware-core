@@ -34,6 +34,5 @@ module Renalware
         errors.add(:approved, 'approved users must have a role')
       end
     end
-
   end
 end

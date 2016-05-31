@@ -1,6 +1,6 @@
 module LettersSpecHelper
   def build_letter(to:, patient:, **args)
-    letter = build(:letter, **args)
+    letter = build(:draft_letter, **args)
     letter.patient = patient
 
     letter.patient.doctor ||= build(:letter_doctor)

@@ -4,17 +4,33 @@
 
     = patient.input :nhs_number, label: "NHS Number", input_html: { class: "small-input" }
     = patient.input :local_patient_id, label: "Local Patient ID", input_html: { class: "small-input" }
+    = patient.input :title, input_html: { class: "very-tiny-input" }
     = patient.input :family_name, input_html: { class: "small-input" }
     = patient.input :given_name, input_html: { class: "small-input" }
+    = patient.input :suffix, input_html: { class: "very-tiny-input" }
+    = patient.input :email, input_html: { class: "small-input" }
+    = patient.input :telephone1, input_html: { class: "small-input" }
+    = patient.input :telephone2, input_html: { class: "small-input" }
     = patient.input :sex,
         selected: patient.object.sex.code,
         placeholder: "Please select gender",
         collection: Renalware::Gender.all,
         label_method: :name, value_method: :code,
-        include_blank: "Please select gender", input_html: { class: "small-input" }
+        include_blank: "Please select gender",
+        input_html: { class: "small-input" }
     = patient.association :ethnicity,
         label_method: :name, value_method: :id,
-        include_blank: "Please select ethnicity"
+        include_blank: "Please select ethnicity",
+        input_html: { class: "small-input" }
+    = patient.association :religion,
+        label_method: :name, value_method: :id,
+        include_blank: "Please select religion",
+        input_html: { class: "small-input" }
+    = patient.association :language,
+        label_method: :name, value_method: :id,
+        include_blank: "Please select language",
+        input_html: { class: "small-input" }
+    = patient.input :marital_status, include_blank: "Please select marital status", input_html: { class: "small-input" }
     = patient.input :born_on, as: :date_picker, label: "DoB"
     = patient.input :paediatric_patient_indicator,
         as: :inline_radio_buttons,

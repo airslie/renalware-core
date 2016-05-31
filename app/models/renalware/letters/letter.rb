@@ -15,22 +15,29 @@ module Renalware
         class_name: "Recipient", dependent: :destroy, inverse_of: :letter
       has_many :recipients, dependent: :destroy
 
-
       accepts_nested_attributes_for :main_recipient
       accepts_nested_attributes_for :cc_recipients, reject_if: :all_blank, allow_destroy: true
-
-      enumerize :state, in: %i(draft ready_for_review archived)
 
       validates :letterhead, presence: true
       validates :author, presence: true
       validates :patient, presence: true
-      validates :state, presence: true
       validates :issued_on, presence: true
       validates :description, presence: true
       validates :main_recipient, presence: true
 
+      include ExplicitStateModel
+      has_states :draft, :typed, :archived
+      state_scope :reviewable, :typed
+
+      scope :pending, -> { where(type: [state_class_name(:draft), state_class_name(:typed)]) }
+      scope :reverse, -> { order(updated_at: :desc) }
+
       def self.policy_class
         LetterPolicy
+      end
+
+      def doctor
+        patient.doctor
       end
 
       def subject?(other_patient)
@@ -41,8 +48,8 @@ module Renalware
         cc_recipients.select { |cc| cc.person_role.other? }
       end
 
-      def assign_counterpart_ccs
-        AssignCounterpartCCs.new(self).call
+      def determine_counterpart_ccs
+        DetermineCounterpartCCs.new(self).call
       end
     end
   end

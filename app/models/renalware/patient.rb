@@ -2,6 +2,10 @@ module Renalware
   class Patient < ActiveRecord::Base
     include PatientsRansackHelper
     include Personable
+    include Accountable
+    extend Enumerize
+
+    enumerize :marital_status, in: %i(married single divorced widowed)
 
     serialize :sex, Gender
 
@@ -12,6 +16,8 @@ module Renalware
     belongs_to :second_edta_code, class_name: "EdtaCode", foreign_key: :second_edta_code_id
     belongs_to :doctor
     belongs_to :practice
+    belongs_to :religion, class_name: "Patients::Religion"
+    belongs_to :language, class_name: "Patients::Language"
 
     has_many :exit_site_infections
     has_many :peritonitis_episodes
@@ -38,8 +44,8 @@ module Renalware
     validates :local_patient_id, presence: true, uniqueness: true
     validates :born_on, presence: true
     validate :validate_sex
-
     validates :born_on, timeliness: { type: :date }
+    validates :email, email: true, allow_blank: true
 
     with_options if: :current_modality_death?, on: :update do |death|
       death.validates :died_on, presence: true

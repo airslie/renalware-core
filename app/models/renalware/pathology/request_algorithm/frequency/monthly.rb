@@ -1,13 +1,11 @@
-require_dependency "renalware/pathology"
+require_dependency "renalware/pathology/request_algorithm/frequency"
 
 module Renalware
   module Pathology
     module RequestAlgorithm
-      module Frequency
-        class Monthly < Base
-          def self.exceeds?(days)
-            days >= 28
-          end
+      class Frequency::Monthly < Frequency
+        def exceeds?(days)
+          days >= 28
         end
       end
     end

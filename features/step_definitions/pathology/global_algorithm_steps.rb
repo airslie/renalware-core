@@ -15,9 +15,9 @@ Given(/^Patty has observed an ([A-Z0-9]+) value of (\d+)$/) do |code, result|
   )
 end
 
-Given(/^Patty was last tested for ([A-Z0-9]+)(\s|\s(\d+) days ago)$/) do |code, _time_ago, days|
-  if days.present?
-    observed_at = (Time.current - days.days).to_date
+Given(/^Patty was last tested for ([A-Z0-9]+) (.*)$/) do |code, time_ago|
+  if time_ago.present?
+    observed_at = str_to_time(time_ago).to_date
     record_observations(
       patient: @patty,
       observations_attributes: [
@@ -67,5 +67,5 @@ Then(/^Clyde sees these request descriptions from the global algorithm$/) do |ta
 end
 
 Then(/^Clyde sees these observations from the patient algorithm$/) do |table|
-  expect_observations_from_patient(@required_patient_observations, table)
+  expect_observations_from_patient(@required_patient_observations, table.transpose)
 end

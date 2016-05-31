@@ -2,10 +2,10 @@ module World
   module Patients
     module Domain
       def update_patient_address(patient:, current_address_attributes:)
-        params = {
-          current_address_attributes: current_address_attributes
-        }
-        Renalware::Patients::UpdatePatient.build.call(patient.id, params)
+        patient.update!(
+          current_address_attributes: current_address_attributes,
+          by: Renalware::SystemUser.find
+        )
       end
 
       def expect_patient_to_be_created(expected_attributes)
@@ -20,6 +20,10 @@ module World
       def fetch_patient_by_local_id(local_id)
         Renalware::Patient.find_by(local_patient_id: local_id)
       end
+    end
+
+    module Web
+      include Domain
     end
   end
 end

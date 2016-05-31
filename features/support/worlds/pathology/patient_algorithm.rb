@@ -2,21 +2,6 @@ module World
   module Pathology
     module PatientAlgorithm
       module Domain
-        # @section helpers
-        #
-
-        # Convert "5 days ago" to a Time object
-        def str_to_time(last_observed_at)
-          return nil if last_observed_at.nil?
-
-          last_tested_matches =
-            last_observed_at.match(/^(?<num>\d+) (?<time_unit>day|days|week|weeks) ago$/)
-
-          if last_tested_matches
-            last_tested_matches[:num].to_i.public_send(last_tested_matches[:time_unit]).ago
-          end
-        end
-
         # @section commands
         #
         def create_patient_rule(params)
@@ -55,7 +40,7 @@ module World
         #
         def expect_observations_from_patient(required_patient_observations, observations_table)
           observations_table.rows.each do |row|
-            expect(required_patient_observations.map(&:id)).to include(row.first.to_i)
+            expect(required_patient_observations.map(&:test_description)).to include(row[1])
           end
         end
       end
@@ -70,15 +55,11 @@ module World
             patient_id: patient.id
           )
 
-          find_by_id("patient_pathology")
-            .all("tr")
-            .map do |row|
-              row.all("th, td").map { |cell| cell.text.strip }
-            end
+          html_table_to_array("patient_pathology")
         end
 
         def expect_observations_from_patient(algorithm, observations_table)
-          expect(algorithm).to eq(observations_table.transpose.raw)
+          expect(algorithm).to eq(observations_table.raw)
         end
       end
     end

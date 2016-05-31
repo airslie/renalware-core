@@ -6,18 +6,18 @@ Feature: Viewing required pathology for a patient
 
   Background:
     Given the global rule sets:
-      | request_description_code | BFF         |
-      | clinic                   | Access      |
-      | frequency                | Always      |
+      | request_description_code | BFF    |
+      | clinic                   | Access |
+      | frequency_type           | Always |
     And the rule set contains these rules:
       | type              | id  | operator | value |
       | ObservationResult | HGB | <        | 100   |
     And Patty is a patient
     And Patty has observed an HGB value of 99
     And Patty has a patient rule:
-      | lab                   | Biochemistry        |
-      | test_description      | Test for HepB       |
-      | frequency             | Always              |
+      | lab              | Biochemistry  |
+      | test_description | Test for HepB |
+      | frequency_type   | Always        |
 
   @web
   Scenario:
