@@ -500,7 +500,8 @@ CREATE TABLE doctors (
     address_id integer,
     practitioner_type character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    telephone character varying
 );
 
 
@@ -5713,4 +5714,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160530162708');
 INSERT INTO schema_migrations (version) VALUES ('20160530162720');
 
 INSERT INTO schema_migrations (version) VALUES ('20160530170058');
+
+INSERT INTO schema_migrations (version) VALUES ('20160531141853');
 
