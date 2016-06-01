@@ -24,7 +24,7 @@ ruby:
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Prescription", name: "prescription" } do
-      = f.input :prescribed_time, input_html: { class: "small-input" }
+      = f.input :prescribed_time, collection: f.object.class.prescribed_times, input_html: { class: "small-input" }
       = f.input :prescribed_on, as: :date_picker
       = f.association :prescriber, collection: Renalware::User.ordered, label_method: :full_name
 
