@@ -8,6 +8,7 @@ begin
     access_plans
     bag_types
     clinics
+    doctors
     drugs
     drug_types
     drug_types_drugs
@@ -23,6 +24,7 @@ begin
     modality_descriptions
     modality_reasons
     organism_codes
+    practices
     pathology_labs
     pathology_observation_descriptions
     pathology_request_descriptions
