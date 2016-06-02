@@ -1,0 +1,875 @@
+full_blood_count:
+  id: 1
+  code: FBC
+  name: FULL BLOOD COUNT
+  lab_id: 5
+prean_sickle_screen:
+  id: 2
+  code: PRE
+  name: PREAN SICKLE SCREEN
+  lab_id: 7
+renal_liver_bone_urea:
+  id: 3
+  code: RLBU
+  name: RENAL/LIVER/BONE/UREA
+  lab_id: 7
+magnesium:
+  id: 4
+  code: MG
+  name: MAGNESIUM
+  lab_id: 7
+creactive_protein:
+  id: 5
+  code: CRP
+  name: C-REACTIVE PROTEIN
+  lab_id: 2
+coagulation_screen:
+  id: 6
+  code: COAG
+  name: COAGULATION SCREEN
+  lab_id: 7
+sickle_+_thal_scre:
+  id: 7
+  code: STS
+  name: SICKLE + THAL SCRE
+  lab_id: 7
+diabetic_profile:
+  id: 8
+  code: DIAB
+  name: DIABETIC PROFILE
+  lab_id: 7
+bone_profile:
+  id: 9
+  code: BONE
+  name: BONE PROFILE
+  lab_id: 7
+u+e+urea:
+  id: 10
+  code: EUC
+  name: U+E+UREA
+  lab_id: 7
+liver_profile:
+  id: 11
+  code: LFT
+  name: LIVER PROFILE
+  lab_id: 2
+sickle_solubility_test:
+  id: 12
+  code: SOL
+  name: SICKLE SOLUBILITY TEST
+  lab_id: 7
+thyroid_function_tests:
+  id: 13
+  code: TFT
+  name: THYROID FUNCTION TESTS
+  lab_id: 7
+faecal_calprotectin:
+  id: 14
+  code: FCAL
+  name: FAECAL CALPROTECTIN
+  lab_id: 7
+ca125:
+  id: 15
+  code: C125
+  name: CA125
+  lab_id: 7
+b12_folate_ferritin:
+  id: 16
+  code: BFF
+  name: B12/FOLATE/FERRITIN
+  lab_id: 3
+lipid_profile:
+  id: 17
+  code: LPRO
+  name: LIPID PROFILE
+  lab_id: 7
+inr:
+  id: 18
+  code: INR
+  name: INR
+  lab_id: 7
+inr_warfarin:
+  id: 19
+  code: INRW
+  name: INR (WARFARIN)
+  lab_id: 7
+urine_albuminecreat_ratio:
+  id: 20
+  code: ACR
+  name: URINE ALBUMINECREAT RATIO
+  lab_id: 7
+urine_protein_creat_ratio:
+  id: 21
+  code: PCR
+  name: URINE PROTEIN/CREAT RATIO
+  lab_id: 7
+antenatal_sickle_thal:
+  id: 22
+  code: ANT
+  name: ANTENATAL SICKLE/THAL
+  lab_id: 7
+malaria:
+  id: 23
+  code: MAL
+  name: MALARIA
+  lab_id: 7
+film_comment:
+  id: 24
+  code: FILM
+  name: FILM COMMENT
+  lab_id: 7
+reticulocyte_count:
+  id: 25
+  code: RET
+  name: RETICULOCYTE COUNT
+  lab_id: 7
+parasite_stage:
+  id: 26
+  code: PARS
+  name: PARASITE STAGE
+  lab_id: 7
+serum_electrophoresis_grp:
+  id: 27
+  code: SEP
+  name: SERUM ELECTROPHORESIS GRP
+  lab_id: 7
+amylase:
+  id: 28
+  code: AMY
+  name: AMYLASE
+  lab_id: 7
+troponin_i:
+  id: 29
+  code: TROP
+  name: TROPONIN I
+  lab_id: 7
+ferritin:
+  id: 30
+  code: FER
+  name: FERRITIN
+  lab_id: 7
+caeruloplasmin:
+  id: 31
+  code: CAER
+  name: CAERULOPLASMIN
+  lab_id: 7
+tobramycin_random:
+  id: 32
+  code: TOB
+  name: TOBRAMYCIN (RANDOM)
+  lab_id: 7
+renal_liver_urea:
+  id: 33
+  code: RLU
+  name: RENAL/LIVER/UREA
+  lab_id: 7
+renal_profile_+_urea:
+  id: 34
+  code: RENU
+  name: RENAL PROFILE + UREA
+  lab_id: 7
+tsh:
+  id: 35
+  code: TSH
+  name: TSH
+  lab_id: 7
+free_thyroxine:
+  id: 36
+  code: FT4
+  name: FREE THYROXINE
+  lab_id: 7
+b12_folate:
+  id: 37
+  code: BF
+  name: B12/FOLATE
+  lab_id: 7
+bicarbonate:
+  id: 38
+  code: BIC
+  name: BICARBONATE
+  lab_id: 2
+ectopic_pregnancy_profile:
+  id: 39
+  code: ECT
+  name: ECTOPIC PREGNANCY PROFILE
+  lab_id: 7
+gentamicin_random:
+  id: 40
+  code: GEN
+  name: GENTAMICIN (RANDOM)
+  lab_id: 7
+gentamicin_trough:
+  id: 41
+  code: GENT
+  name: GENTAMICIN (TROUGH)
+  lab_id: 7
+tobramycin_trough:
+  id: 42
+  code: TOBT
+  name: TOBRAMYCIN (TROUGH)
+  lab_id: 7
+testosterone:
+  id: 43
+  code: TEST
+  name: TESTOSTERONE
+  lab_id: 7
+urine_drug_screen:
+  id: 44
+  code: UDS
+  name: URINE DRUG SCREEN
+  lab_id: 7
+opiate_confirmation:
+  id: 45
+  code: OPIC
+  name: OPIATE CONFIRMATION
+  lab_id: 7
+aptr_heparin:
+  id: 46
+  code: APTH
+  name: APTR (HEPARIN)
+  lab_id: 7
+thrombin_time:
+  id: 47
+  code: TT
+  name: THROMBIN TIME
+  lab_id: 7
+psa:
+  id: 48
+  code: PSA
+  name: PSA
+  lab_id: 7
+cea:
+  id: 49
+  code: CEA
+  name: CEA
+  lab_id: 7
+plasma_glucose:
+  id: 50
+  code: PGLU
+  name: PLASMA GLUCOSE
+  lab_id: 7
+clauss_fibrinogen:
+  id: 51
+  code: CFIB
+  name: CLAUSS FIBRINOGEN
+  lab_id: 7
+hba1c:
+  id: 52
+  code: HBA1
+  name: HBA1C
+  lab_id: 7
+piu_gluc._tolerance_test:
+  id: 53
+  code: PGTT
+  name: PIU GLUC. TOLERANCE TEST
+  lab_id: 7
+ldh:
+  id: 54
+  code: LDH
+  name: LDH
+  lab_id: 7
+haemoglobin_s%_group:
+  id: 55
+  code: HBS
+  name: HAEMOGLOBIN S% (GROUP)
+  lab_id: 7
+renal_profile:
+  id: 56
+  code: REN
+  name: RENAL PROFILE
+  lab_id: 7
+u+e:
+  id: 57
+  code: EC
+  name: U+E
+  lab_id: 2
+urate:
+  id: 58
+  code: URAT
+  name: URATE
+  lab_id: 7
+full_lipid_profile:
+  id: 59
+  code: FLIP
+  name: FULL LIPID PROFILE
+  lab_id: 7
+urine_osmolality:
+  id: 60
+  code: UOSM
+  name: URINE OSMOLALITY
+  lab_id: 7
+haptoglobin:
+  id: 61
+  code: HAPT
+  name: HAPTOGLOBIN
+  lab_id: 7
+conj._bilirubin:
+  id: 62
+  code: CBIL
+  name: CONJ. BILIRUBIN
+  lab_id: 7
+gonadotrophins:
+  id: 63
+  code: GON
+  name: GONADOTROPHINS
+  lab_id: 7
+androgen_profile:
+  id: 64
+  code: ANDR
+  name: ANDROGEN PROFILE
+  lab_id: 7
+oestradiol:
+  id: 65
+  code: OE2
+  name: OESTRADIOL
+  lab_id: 7
+hcg:
+  id: 66
+  code: HCG
+  name: HCG
+  lab_id: 7
+parathyroid_hormone:
+  id: 67
+  code: PTHI
+  name: PARATHYROID HORMONE
+  lab_id: 7
+renal_liver_profile:
+  id: 68
+  code: RL
+  name: RENAL/LIVER PROFILE
+  lab_id: 7
+osmolality_serum:
+  id: 69
+  code: POSM
+  name: OSMOLALITY (SERUM)
+  lab_id: 7
+afp:
+  id: 70
+  code: AFP
+  name: AFP
+  lab_id: 7
+vitamin_b12:
+  id: 71
+  code: B12
+  name: VITAMIN B12
+  lab_id: 7
+ck:
+  id: 72
+  code: CK
+  name: CK
+  lab_id: 7
+faecal_occult_blood:
+  id: 73
+  code: FOB
+  name: FAECAL OCCULT BLOOD
+  lab_id: 7
+renal_liver_bone:
+  id: 74
+  code: RLB
+  name: RENAL/LIVER/BONE
+  lab_id: 7
+cortisol:
+  id: 75
+  code: CORT
+  name: CORTISOL
+  lab_id: 7
+vancomycin_trough:
+  id: 76
+  code: VANT
+  name: VANCOMYCIN (TROUGH)
+  lab_id: 7
+free_t3:
+  id: 77
+  code: FT3
+  name: FREE T3
+  lab_id: 7
+prolactin:
+  id: 78
+  code: PROL
+  name: PROLACTIN
+  lab_id: 7
+progesterone:
+  id: 79
+  code: PROG
+  name: PROGESTERONE
+  lab_id: 7
+iron:
+  id: 80
+  code: FE
+  name: IRON
+  lab_id: 7
+esr:
+  id: 81
+  code: ESR
+  name: ESR
+  lab_id: 7
+vancomycin_random:
+  id: 82
+  code: VAN
+  name: VANCOMYCIN (RANDOM)
+  lab_id: 7
+amikacin_peak:
+  id: 83
+  code: AMKP
+  name: AMIKACIN (PEAK)
+  lab_id: 7
+amikacin_random:
+  id: 84
+  code: AMK
+  name: AMIKACIN (RANDOM)
+  lab_id: 7
+renal_bone_urea_profile:
+  id: 85
+  code: RBU
+  name: RENAL/BONE/UREA PROFILE
+  lab_id: 7
+blood_ethanol:
+  id: 86
+  code: ETB
+  name: BLOOD ETHANOL
+  lab_id: 7
+urine_sodium_pot_random:
+  id: 87
+  code: UNAK
+  name: URINE SODIUM/POT (RANDOM)
+  lab_id: 7
+alt:
+  id: 88
+  code: ALT
+  name: ALT
+  lab_id: 7
+folate:
+  id: 89
+  code: FOL
+  name: FOLATE
+  lab_id: 7
+cystatin_c:
+  id: 90
+  code: CYSC
+  name: CYSTATIN C
+  lab_id: 7
+alpha1antitrypsin:
+  id: 91
+  code: AAT
+  name: ALPHA-1-ANTITRYPSIN
+  lab_id: 7
+cholesterol:
+  id: 92
+  code: CHOL
+  name: CHOLESTEROL
+  lab_id: 7
+capd_adequacy_test:
+  id: 93
+  code: CAPD
+  name: CAPD ADEQUACY TEST
+  lab_id: 7
+aptr_50_50:
+  id: 94
+  code: AP50
+  name: APTR 50/50
+  lab_id: 7
+opiates:
+  id: 95
+  code: OPIA
+  name: OPIATES
+  lab_id: 7
+phenytoin:
+  id: 96
+  code: PHNY
+  name: PHENYTOIN
+  lab_id: 7
+bone_marrow_report:
+  id: 97
+  code: BMH
+  name: BONE MARROW REPORT
+  lab_id: 7
+inr_50_50:
+  id: 98
+  code: IN50
+  name: INR 50/50
+  lab_id: 7
+prolaction_x5_dilution:
+  id: 99
+  code: PRX5
+  name: PROLACTION (X5 DILUTION)
+  lab_id: 7
+growth_hormone:
+  id: 100
+  code: GH
+  name: GROWTH HORMONE
+  lab_id: 7
+igf1:
+  id: 101
+  code: IGF1
+  name: IGF-1
+  lab_id: 7
+igfbp3:
+  id: 102
+  code: BP3
+  name: IGF-BP3
+  lab_id: 7
+urine_tot._protein_24hr:
+  id: 103
+  code: UPRT
+  name: URINE TOT. PROTEIN (24HR)
+  lab_id: 7
+bound_oestradiol:
+  id: 104
+  code: BOE2
+  name: BOUND OESTRADIOL
+  lab_id: 7
+csf_glucose:
+  id: 105
+  code: CGLU
+  name: CSF GLUCOSE
+  lab_id: 7
+urine_calcium_24hr:
+  id: 106
+  code: UCAT
+  name: URINE CALCIUM (24HR)
+  lab_id: 7
+urine_phosphate_24hr:
+  id: 107
+  code: UPHT
+  name: URINE PHOSPHATE (24HR)
+  lab_id: 7
+a1csf_protein:
+  id: 108
+  code: CPRO
+  name: A1CSF PROTEIN
+  lab_id: 7
+fluid_amylase:
+  id: 109
+  code: FAMY
+  name: FLUID AMYLASE
+  lab_id: 7
+fluid_cea:
+  id: 110
+  code: FCEA
+  name: FLUID CEA
+  lab_id: 7
+ddimer:
+  id: 111
+  code: DD
+  name: D-DIMER
+  lab_id: 7
+creatinine:
+  id: 112
+  code: CRE
+  name: CREATININE
+  lab_id: 7
+allergen_grade:
+  id: 113
+  code: IGRD
+  name: ALLERGEN GRADE
+  lab_id: 7
+urine_creatinine_24hr:
+  id: 114
+  code: UCRT
+  name: URINE CREATININE (24HR)
+  lab_id: 1
+urine_urate_24hr:
+  id: 115
+  code: UUAT
+  name: URINE URATE (24HR)
+  lab_id: 7
+vitamin_d:
+  id: 116
+  code: VITD
+  name: VITAMIN D
+  lab_id: 7
+insulin_stress_test:
+  id: 117
+  code: DF02
+  name: INSULIN STRESS TEST
+  lab_id: 7
+endocrine_gtt_gh_only:
+  id: 118
+  code: DF01
+  name: ENDOCRINE GTT GH ONLY
+  lab_id: 7
+glucagon_trh_lhrh_syn:
+  id: 119
+  code: DF18
+  name: GLUCAGON TRH LHRH SYN
+  lab_id: 7
+glucose_tolerance_test:
+  id: 120
+  code: GTT
+  name: GLUCOSE TOLERANCE TEST
+  lab_id: 7
+vitamin_e:
+  id: 121
+  code: VITE
+  name: VITAMIN E
+  lab_id: 7
+vitamin_a:
+  id: 122
+  code: VITA
+  name: VITAMIN A
+  lab_id: 7
+chloride:
+  id: 123
+  code: CL
+  name: CHLORIDE
+  lab_id: 7
+24hr_urine_5hiaa:
+  id: 124
+  code: 5H24
+  name: 24HR URINE 5HIAA
+  lab_id: 7
+urinalysis_screen:
+  id: 125
+  code: STIX
+  name: URINALYSIS SCREEN
+  lab_id: 7
+pnh_test:
+  id: 126
+  code: PNH
+  name: PNH TEST
+  lab_id: 7
+plasma_lactate:
+  id: 127
+  code: LAC
+  name: PLASMA LACTATE
+  lab_id: 7
+total_bilirubin:
+  id: 128
+  code: BIL
+  name: TOTAL BILIRUBIN
+  lab_id: 7
+markers_not_done:
+  id: 129
+  code: BMFR
+  name: MARKERS NOT DONE
+  lab_id: 7
+lithium:
+  id: 130
+  code: LI
+  name: LITHIUM
+  lab_id: 7
+serum_copper_+_caer:
+  id: 131
+  code: CUCP
+  name: SERUM COPPER + CAER
+  lab_id: 7
+glucagon_test_adult_glu:
+  id: 132
+  code: DF13
+  name: GLUCAGON TEST ADULT -GLU
+  lab_id: 7
+peritoneal_equil_test:
+  id: 133
+  code: PET
+  name: PERITONEAL EQUIL TEST
+  lab_id: 7
+octeotride_challenge:
+  id: 134
+  code: DF27
+  name: OCTEOTRIDE CHALLENGE
+  lab_id: 7
+ace:
+  id: 135
+  code: ACE
+  name: ACE
+  lab_id: 7
+carb_def_glycoprotein:
+  id: 136
+  code: CDG
+  name: CARB DEF GLYCOPROTEIN
+  lab_id: 7
+hit_screen:
+  id: 137
+  code: HIT
+  name: HIT SCREEN
+  lab_id: 7
+carbamazepine:
+  id: 138
+  code: CARB
+  name: CARBAMAZEPINE
+  lab_id: 7
+cyclosporin_a:
+  id: 139
+  code: CYA
+  name: CYCLOSPORIN A
+  lab_id: 3
+arterial_blood_gases:
+  id: 140
+  code: ABG
+  name: ARTERIAL BLOOD GASES
+  lab_id: 7
+valproate:
+  id: 141
+  code: VALP
+  name: VALPROATE
+  lab_id: 7
+amikacin_trough:
+  id: 142
+  code: AMKT
+  name: AMIKACIN (TROUGH)
+  lab_id: 7
+mark1:
+  id: 143
+  code: MK1
+  name: MARK1
+  lab_id: 7
+gamma_gt:
+  id: 144
+  code: GGT
+  name: GAMMA GT
+  lab_id: 2
+glandular_fever_test:
+  id: 145
+  code: GFH
+  name: GLANDULAR FEVER TEST
+  lab_id: 7
+short_synacthen_test:
+  id: 146
+  code: DF09
+  name: SHORT SYNACTHEN TEST
+  lab_id: 7
+csf_oligoclonal_banding:
+  id: 147
+  code: COGB
+  name: CSF OLIGOCLONAL BANDING
+  lab_id: 7
+cannulated_prl_test:
+  id: 148
+  code: DF11
+  name: CANNULATED PRL TEST
+  lab_id: 7
+acth:
+  id: 149
+  code: ACTH
+  name: ACTH
+  lab_id: 7
+aptr_seconds:
+  id: 150
+  code: APTR
+  name: APTR SECONDS
+  lab_id: 7
+liver_bone:
+  id: 151
+  code: LB
+  name: LIVER/BONE
+  lab_id: 7
+ast:
+  id: 152
+  code: AST
+  name: AST
+  lab_id: 7
+plasma_viscosity_sent:
+  id: 153
+  code: PVIS
+  name: PLASMA VISCOSITY SENT
+  lab_id: 7
+complement_c3_+_c4:
+  id: 154
+  code: COMP
+  name: COMPLEMENT (C3 + C4)
+  lab_id: 7
+anti_dsdna_antibodies:
+  id: 155
+  code: DNA
+  name: ANTI DSDNA ANTIBODIES
+  lab_id: 7
+ena_screen:
+  id: 156
+  code: ENAS
+  name: ENA SCREEN
+  lab_id: 7
+rheumatoid_factor:
+  id: 157
+  code: RF
+  name: RHEUMATOID FACTOR
+  lab_id: 7
+ccp_antibodies:
+  id: 158
+  code: CCP
+  name: CCP ANTIBODIES
+  lab_id: 7
+immunoglobulins_gam:
+  id: 159
+  code: IGS
+  name: IMMUNOGLOBULINS GAM
+  lab_id: 7
+glomeru_basement_memb_abs:
+  id: 160
+  code: GBM
+  name: GLOMERU BASEMENT MEMB ABS
+  lab_id: 7
+anti_thyroid_peroxdase_ab:
+  id: 161
+  code: TPO
+  name: ANTI THYROID PEROXDASE AB
+  lab_id: 7
+coeliac_screen:
+  id: 162
+  code: COEL
+  name: COELIAC SCREEN
+  lab_id: 7
+autoantibodies_group:
+  id: 163
+  code: AAB
+  name: AUTOANTIBODIES GROUP
+  lab_id: 7
+serum_free_light_chains:
+  id: 164
+  code: SFLC
+  name: SERUM FREE LIGHT CHAINS
+  lab_id: 7
+mini2:
+  id: 165
+  code: MIN2
+  name: MINI2
+  lab_id: 7
+myeloma_markers:
+  id: 166
+  code: MYMO
+  name: MYELOMA MARKERS
+  lab_id: 7
+calcium:
+  id: 167
+  code: CAL
+  name: CALCIUM
+  lab_id: 7
+calcium_corrected:
+  id: 168
+  code: CCA
+  name: CALCIUM (CORRECTED)
+  lab_id: 7
+pregnancy_diabetes_glucos:
+  id: 169
+  code: PDSG
+  name: PREGNANCY DIABETES GLUCOS
+  lab_id: 7
+digoxin:
+  id: 170
+  code: DIG
+  name: DIGOXIN
+  lab_id: 7
+plasma_ammonia:
+  id: 171
+  code: AMM
+  name: PLASMA AMMONIA
+  lab_id: 7
+fluid_bilirubin:
+  id: 172
+  code: FBIL
+  name: FLUID BILIRUBIN
+  lab_id: 7
+g6pd_screen:
+  id: 173
+  code: G6SC
+  name: G6PD SCREEN
+  lab_id: 7
+heparin_screen:
+  id: 174
+  code: HEP
+  name: HEPARIN SCREEN
+  lab_id: 7
+red_cell_folate:
+  id: 175
+  code: RCF
+  name: RED CELL FOLATE
+  lab_id: 7

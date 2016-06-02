@@ -1,0 +1,12 @@
+rejection:
+  id: 1
+  name: Rejection
+intrinsic_renal_disease:
+  id: 2
+  name: Intrinsic renal disease
+technical:
+  id: 3
+  name: Technical
+other:
+  id: 4
+  name: Other

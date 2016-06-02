@@ -1,0 +1,303 @@
+english:
+  id: 1
+  name: English
+other:
+  id: 2
+  name: Other
+akan:
+  id: 3
+  name: Akan
+amharic:
+  id: 4
+  name: Amharic
+arabic:
+  id: 5
+  name: Arabic
+assamese:
+  id: 6
+  name: Assamese
+awadhi:
+  id: 7
+  name: Awadhi
+azerbaijani:
+  id: 8
+  name: Azerbaijani
+balochi:
+  id: 9
+  name: Balochi
+belarusian:
+  id: 10
+  name: Belarusian
+bengali:
+  id: 11
+  name: Bengali
+bhojpuri:
+  id: 12
+  name: Bhojpuri
+burmese:
+  id: 13
+  name: Burmese
+cebuano_visayan:
+  id: 14
+  name: Cebuano (Visayan)
+chewa:
+  id: 15
+  name: Chewa
+chhattisgarhi:
+  id: 16
+  name: Chhattisgarhi
+chittagonian:
+  id: 17
+  name: Chittagonian
+czech:
+  id: 18
+  name: Czech
+deccan:
+  id: 19
+  name: Deccan
+dhundhari:
+  id: 20
+  name: Dhundhari
+dutch:
+  id: 21
+  name: Dutch
+eastern_min:
+  id: 22
+  name: Eastern Min
+french:
+  id: 23
+  name: French
+fula:
+  id: 24
+  name: Fula
+gan_chinese:
+  id: 25
+  name: Gan Chinese
+german:
+  id: 26
+  name: German
+greek:
+  id: 27
+  name: Greek
+gujarati:
+  id: 28
+  name: Gujarati
+haitian_creole:
+  id: 29
+  name: Haitian Creole
+hakka:
+  id: 30
+  name: Hakka
+haryanvi:
+  id: 31
+  name: Haryanvi
+hausa:
+  id: 32
+  name: Hausa
+hiligaynon:
+  id: 33
+  name: Hiligaynon
+hindi:
+  id: 34
+  name: Hindi
+hmong:
+  id: 35
+  name: Hmong
+hungarian:
+  id: 36
+  name: Hungarian
+igbo:
+  id: 37
+  name: Igbo
+ilocano:
+  id: 38
+  name: Ilocano
+italian:
+  id: 39
+  name: Italian
+japanese:
+  id: 40
+  name: Japanese
+javanese:
+  id: 41
+  name: Javanese
+jin:
+  id: 42
+  name: Jin
+kannada:
+  id: 43
+  name: Kannada
+kazakh:
+  id: 44
+  name: Kazakh
+khmer:
+  id: 45
+  name: Khmer
+kinyarwanda:
+  id: 46
+  name: Kinyarwanda
+kirundi:
+  id: 47
+  name: Kirundi
+konkani:
+  id: 48
+  name: Konkani
+korean:
+  id: 49
+  name: Korean
+kurdish:
+  id: 50
+  name: Kurdish
+madurese:
+  id: 51
+  name: Madurese
+magahi:
+  id: 52
+  name: Magahi
+maithili:
+  id: 53
+  name: Maithili
+malagasy:
+  id: 54
+  name: Malagasy
+malay_indonesian:
+  id: 55
+  name: Malay/Indonesian
+malayalam:
+  id: 56
+  name: Malayalam
+mandarin:
+  id: 57
+  name: Mandarin
+marathi:
+  id: 58
+  name: Marathi
+marwari:
+  id: 59
+  name: Marwari
+mossi:
+  id: 60
+  name: Mossi
+nepali:
+  id: 61
+  name: Nepali
+northern_min:
+  id: 62
+  name: Northern Min
+odia_oriya:
+  id: 63
+  name: Odia (Oriya)
+oromo:
+  id: 64
+  name: Oromo
+pashto:
+  id: 65
+  name: Pashto
+persian:
+  id: 66
+  name: Persian
+polish:
+  id: 67
+  name: Polish
+portuguese:
+  id: 68
+  name: Portuguese
+punjabi:
+  id: 69
+  name: Punjabi
+quechua:
+  id: 70
+  name: Quechua
+romanian:
+  id: 71
+  name: Romanian
+russian:
+  id: 72
+  name: Russian
+saraiki:
+  id: 73
+  name: Saraiki
+serbocroatian:
+  id: 74
+  name: Serbo-Croatian
+shona:
+  id: 75
+  name: Shona
+sindhi:
+  id: 76
+  name: Sindhi
+sinhalese:
+  id: 77
+  name: Sinhalese
+somali:
+  id: 78
+  name: Somali
+southern_min:
+  id: 79
+  name: Southern Min
+spanish:
+  id: 80
+  name: Spanish
+sundanese:
+  id: 81
+  name: Sundanese
+swedish:
+  id: 82
+  name: Swedish
+sylheti:
+  id: 83
+  name: Sylheti
+tagalog:
+  id: 84
+  name: Tagalog
+tamil:
+  id: 85
+  name: Tamil
+telugu:
+  id: 86
+  name: Telugu
+thai:
+  id: 87
+  name: Thai
+turkish:
+  id: 88
+  name: Turkish
+turkmen:
+  id: 89
+  name: Turkmen
+ukrainian:
+  id: 90
+  name: Ukrainian
+urdu:
+  id: 91
+  name: Urdu
+uyghur:
+  id: 92
+  name: Uyghur
+uzbek:
+  id: 93
+  name: Uzbek
+vietnamese:
+  id: 94
+  name: Vietnamese
+wu_inc._shanghainese:
+  id: 95
+  name: Wu (inc. Shanghainese)
+xhosa:
+  id: 96
+  name: Xhosa
+xiang_hunnanese:
+  id: 97
+  name: Xiang (Hunnanese)
+yoruba:
+  id: 98
+  name: Yoruba
+yue_cantonese:
+  id: 99
+  name: Yue (Cantonese)
+zhuang:
+  id: 100
+  name: Zhuang
+zulu:
+  id: 101
+  name: Zulu

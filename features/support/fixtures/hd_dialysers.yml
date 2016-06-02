@@ -1,0 +1,21 @@
+polyflux_140h:
+  name: Polyflux 140H
+  group: Polyflux
+fx_cordiax_120:
+  name: FX CorDiax 120
+  group: FX CorDiax
+fx_cordiax_100:
+  name: FX CorDiax 100
+  group: FX CorDiax
+fx_cordiax_80:
+  name: FX CorDiax 80
+  group: FX CorDiax
+fx_cordiax_60:
+  name: FX CorDiax 60
+  group: FX CorDiax
+fx10:
+  name: FX10
+  group: FX
+fx8:
+  name: FX8
+  group: FX

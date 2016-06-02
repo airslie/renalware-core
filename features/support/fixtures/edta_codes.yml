@@ -1,0 +1,219 @@
+cause_of_death_uncertain/not_determined:
+  code: 0
+  death_cause: Cause of death uncertain/not determined
+
+myocardial_ischaemia_and_infarction:
+  code: 11
+  death_cause: Myocardial ischaemia and infarction
+
+hyperkalaemia:
+  code: 12
+  death_cause: Hyperkalaemia
+
+haemorrhagic_pericarditis:
+  code: 13
+  death_cause: Haemorrhagic pericarditis
+
+other_causes_of_cardiac_failure:
+  code: 14
+  death_cause: Other causes of cardiac failure
+
+cardiac_arrest/sudden_death;_other_cause_or_unknown:
+  code: 15
+  death_cause: Cardiac arrest/sudden death; other cause or unknown
+
+hypertensive_cardiac_failure:
+  code: 16
+  death_cause: Hypertensive cardiac failure
+
+hypokalaemia:
+  code: 17
+  death_cause: Hypokalaemia
+
+fluid_overload/pulmonary_oedema:
+  code: 18
+  death_cause: Fluid overload/pulmonary oedema
+
+pulmonary_embolus:
+  code: 21
+  death_cause: Pulmonary embolus
+
+cerebro-vascular_accident,_other_cause_or_unspecified:
+  code: 22
+  death_cause: Cerebro-vascular accident, other cause or unspecified
+
+gastro-intestinal_haemorrhage_(digestive):
+  code: 23
+  death_cause: Gastro-intestinal haemorrhage (digestive)
+
+haemorrhage_from_graft_site:
+  code: 24
+  death_cause: Haemorrhage from graft site
+
+hameorrhage_from_vascular_access_or_dialysis_circuit:
+  code: 25
+  death_cause: Hameorrhage from vascular access or dialysis circuit
+
+haemorrhage_from_ruptured_vascular_aneurysm_(not_code_22_or_23):
+  code: 26
+  death_cause: Haemorrhage from ruptured vascular aneurysm (not code 22 or 23)
+
+haemorrhage_from_surgery_(not_codes_23,24,26):
+  code: 27
+  death_cause: Haemorrhage from surgery (not codes 23,24,26)
+
+other_haemorrhage,_(not_codes_23-27):
+  code: 28
+  death_cause: Other haemorrhage, (not codes 23-27)
+
+mesenteric_infarction:
+  code: 29
+  death_cause: Mesenteric infarction
+
+pulmonary_infection_bacterial_(not_code_73):
+  code: 31
+  death_cause: Pulmonary infection bacterial (not code 73)
+
+pulmonary_infection_(viral):
+  code: 32
+  death_cause: Pulmonary infection (viral)
+
+pulmonary_infection_(fungal_or_protozoal;_parasitic):
+  code: 33
+  death_cause: Pulmonary infection (fungal or protozoal; parasitic)
+
+infections_elsewhere_except_viral_hepatitis:
+  code: 34
+  death_cause: Infections elsewhere except viral hepatitis
+
+septicaemia:
+  code: 35
+  death_cause: Septicaemia
+
+tuberculosis_(lung):
+  code: 36
+  death_cause: Tuberculosis (lung)
+
+tuberculosis_(elsewhere):
+  code: 37
+  death_cause: Tuberculosis (elsewhere)
+
+generalized_viral_infection:
+  code: 38
+  death_cause: Generalized viral infection
+
+peritonitis_(all_causes_except_for_peritoneal_dialysis):
+  code: 39
+  death_cause: Peritonitis (all causes except for Peritoneal Dialysis)
+
+liver_disease_due_to_hepatitis_b_virus:
+  code: 41
+  death_cause: Liver disease due to hepatitis B virus
+
+liver_disease_due_to_other_viral_hepatitis:
+  code: 42
+  death_cause: Liver disease due to other viral hepatitis
+
+liver_disease_due_to_drug_toxicity:
+  code: 43
+  death_cause: Liver disease due to drug toxicity
+
+cirrhosis_-_not_viral_(alcoholic_or_other_cause):
+  code: 44
+  death_cause: Cirrhosis - not viral (alcoholic or other cause)
+
+cystic_liver_disease:
+  code: 45
+  death_cause: Cystic liver disease
+
+liver_failure_-_cause_unknown:
+  code: 46
+  death_cause: Liver failure - cause unknown
+
+patient_refused_further_treatment_for_esrf:
+  code: 51
+  death_cause: Patient refused further treatment for ESRF
+
+suicide:
+  code: 52
+  death_cause: Suicide
+
+esrf_treatment_ceased_for_any_other_reason:
+  code: 53
+  death_cause: ESRF treatment ceased for any other reason
+
+esrf_treatment_withdrawn_for_medical_reasons:
+  code: 54
+  death_cause: ESRF treatment withdrawn for medical reasons
+
+uraemia_caused_by_graft_failure:
+  code: 61
+  death_cause: Uraemia caused by graft failure
+
+pancreatitis:
+  code: 62
+  death_cause: Pancreatitis
+
+bone_marrow_depression_(aplasia):
+  code: 63
+  death_cause: Bone marrow depression (Aplasia)
+
+cachexia:
+  code: 64
+  death_cause: Cachexia
+
+malignant_disease_in_patient_treated_by_immunosuppressive_therapy:
+  code: 66
+  death_cause: Malignant disease in patient treated by immunosuppressive therapy
+
+malignant_disease:_solid_tumors_except_those_of_66:
+  code: 67
+  death_cause: "Malignant disease: solid tumors except those of 66"
+
+malignant_disease:_lymphoproliferative_disorders_(except_66):
+  code: 68
+  death_cause: "Malignant disease: lymphoproliferative disorders (Except 66)"
+
+dementia:
+  code: 69
+  death_cause: Dementia
+
+peritonitis_(sclerosing,_with_peritoneal_dialysis):
+  code: 70
+  death_cause: Peritonitis (sclerosing, with peritoneal dialysis)
+
+perforation_of_peptic_ulcer:
+  code: 71
+  death_cause: Perforation of peptic ulcer
+
+perforation_of_colon:
+  code: 72
+  death_cause: Perforation of colon
+
+chronic_obstructive_pulmonary_disease:
+  code: 73
+  death_cause: Chronic obstructive pulmonary disease
+
+accident_related_to_esrf_treatment_(not_25):
+  code: 81
+  death_cause: Accident related to ESRF treatment (not 25)
+
+accident_unrelated_to_esrf_treatment:
+  code: 82
+  death_cause: Accident unrelated to ESRF treatment
+
+other_identified_cause_of_death:
+  code: 99
+  death_cause: Other identified cause of death
+
+peritonitis_(bacterial,_with_peritoneal_dialysis):
+  code: 100
+  death_cause: Peritonitis (bacterial, with peritoneal dialysis)
+
+peritonitis_(fungal,_with_peritoneal_dialysis):
+  code: 101
+  death_cause: Peritonitis (fungal, with peritoneal dialysis)
+
+peritonitis_(due_to_other_cause,_with_peritoneal_dialysis):
+  code: 102
+  death_cause: Peritonitis (due to other cause, with peritoneal dialysis)

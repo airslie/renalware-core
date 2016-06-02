@@ -1,0 +1,160 @@
+read1:
+  read_code: READ1
+  name: Acineobactor
+
+read2:
+  read_code: READ2
+  name: Bacillis
+
+read3:
+  read_code: READ3
+  name: Bacteroides
+
+read4:
+  read_code: READ4
+  name: Campylobactor
+
+read5:
+  read_code: READ5
+  name: Candida Albicans
+
+read6:
+  read_code: READ6
+  name: Chryseomonas luteola
+
+read7:
+  read_code: READ7
+  name: Citrobactor species
+
+read8:
+  read_code: READ8
+  name: Coliforms
+
+read9:
+  read_code: READ9
+  name: Corynebacterium
+
+read10:
+  read_code: READ10
+  name: Diptheroids
+
+read11:
+  read_code: READ11
+  name: E.Coli
+
+read12:
+  read_code: READ12
+  name: Enterobacter
+
+read13:
+  read_code: READ13
+  name: Enterococcus faecalis
+
+read14:
+  read_code: READ14
+  name: Escherichia sp
+
+read15:
+  read_code: READ15
+  name: Gram Neg rods
+
+read16:
+  read_code: READ16
+  name: Gram Pos cocci
+
+read17:
+  read_code: READ17
+  name: Gram Pos Rods
+
+read18:
+  read_code: READ18
+  name: Klebsiella
+
+read19:
+  read_code: READ19
+  name: Lactococcus
+
+read20:
+  read_code: READ20
+  name: Lymphocytes
+
+read21:
+  read_code: READ21
+  name: Morganella morganii
+
+read22:
+  read_code: READ22
+  name: MRSA
+
+read23:
+  read_code: READ23
+  name: pantoea species
+
+read24:
+  read_code: READ24
+  name: Proteus
+
+read25:
+  read_code: READ25
+  name: Pseudomonas
+
+read26:
+  read_code: READ26
+  name: Pus +++
+
+read27:
+  read_code: READ27
+  name: Pus cells
+
+read28:
+  read_code: READ28
+  name: Pus cells no growth
+
+read29:
+  read_code: READ29
+  name: Scanty Candida
+
+read30:
+  read_code: READ30
+  name: Scanty Diptheroids
+
+read31:
+  read_code: READ31
+  name: Scanty enterobacter
+
+read32:
+  read_code: READ32
+  name: Scanty Escherichia vulneris
+
+read33:
+  read_code: READ33
+  name: Staph aureus
+
+read34:
+  read_code: READ34
+  name: Staph epi
+
+read35:
+  read_code: READ35
+  name: Staph haemolyticus
+
+read36:
+  read_code: READ36
+  name: Strep
+
+read37:
+  read_code: READ37
+  name: Streptococcus mitis
+
+read38:
+  read_code: READ38
+  name: Streptococcus salivarious
+
+read39:
+  read_code: READ39
+  name: Streptococcus sp
+
+read40:
+  read_code: READ40
+  name: Viradans Strep
+

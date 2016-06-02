@@ -1,0 +1,21 @@
+nontunnelled_line:
+  code: 01
+  name: Non-tunnelled line
+tunnelled_line:
+  code: 02
+  name: Tunnelled Line
+arteriovenous_fistula_avf:
+  code: 03
+  name: Arteriovenous fistula (AVF)
+arteriovenous_graft_avg:
+  code: 04
+  name: Arteriovenous graft (AVG)
+vein_loop:
+  code: 05
+  name: Vein loop
+pd_catheter:
+  code: 06
+  name: PD catheter
+pd_catheter_temp:
+  code: 07
+  name: PD catheter temp

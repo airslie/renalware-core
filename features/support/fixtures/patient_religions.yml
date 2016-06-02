@@ -1,0 +1,24 @@
+buddhist:
+  id: 1
+  name: Buddhist
+christian:
+  id: 2
+  name: Christian
+hindu:
+  id: 3
+  name: Hindu
+muslim:
+  id: 4
+  name: Muslim
+jewish:
+  id: 5
+  name: Jewish
+secular:
+  id: 6
+  name: Secular
+sikh:
+  id: 7
+  name: Sikh
+other:
+  id: 8
+  name: Other
