@@ -1,0 +1,11 @@
+super_admin:
+  name: super admin
+
+admin:
+  name: admin
+
+clinician:
+  name: clinician
+
+read_only:
+  name: read_only

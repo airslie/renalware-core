@@ -1,0 +1,15 @@
+cefuroxime:
+  name: Cefuroxime Injection
+  drug_types: antibiotic
+
+cefotaxime:
+  name: Cefotaxime Injection
+  drug_types: peritonitis
+
+ciprofloxacin:
+  name: Ciprofloxacin Infusion
+  drug_types: antibiotic, peritonitis
+
+ephedrine:
+  name: Ephedrine Tablet
+

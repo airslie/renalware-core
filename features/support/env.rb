@@ -33,3 +33,17 @@ Capybara.default_wait_time = 5 # in seconds
 # recommended as it will mask a lot of errors for you!
 #
 ActionController::Base.allow_rescue = false
+
+Cucumber::Rails::World.use_transactional_fixtures
+
+table_model_map = {
+  drugs: Renalware::Drugs::Drug,
+  drug_types: Renalware::Drugs::Type,
+  roles: Renalware::Role,
+}
+
+#Seed the DB
+ActiveRecord::FixtureSet.reset_cache
+fixtures_folder = File.join(Rails.root, 'features', 'support', 'fixtures')
+fixtures = Dir[File.join(fixtures_folder, '*.yml')].map {|f| File.basename(f, '.yml') }
+ActiveRecord::FixtureSet.create_fixtures(fixtures_folder, fixtures, table_model_map)

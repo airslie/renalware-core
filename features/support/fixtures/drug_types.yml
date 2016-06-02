@@ -1,0 +1,19 @@
+antibiotic:
+  name: Antibiotic
+  code: antibiotic
+
+esa:
+  name: ESA
+  code: esa
+
+immunosuppressant:
+  name: Immunosuppressant
+  code: immunosuppressant
+
+peritonitis:
+  name: Peritonitis
+  code: peritonitis
+
+controlled:
+  name: Controlled
+  code: controlled
