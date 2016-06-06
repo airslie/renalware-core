@@ -1,0 +1,102 @@
+access_clinic:
+  name: Access clinic
+
+anaemia_clinic:
+  name: Anaemia clinic
+
+capd_clinic:
+  name: CAPD clinic
+
+capd_nurses_clinic:
+  name: CAPD Nurses clinic
+
+counsellor_meeting:
+  name: Counsellor Meeting
+
+dartford_outreach_clinic:
+  name: Dartford Outreach Clinic
+
+dietitians_clinic:
+  name: Dietitians clinic
+
+email:
+  name: Email
+
+general_nephrology_clinic:
+  name: General Nephrology Clinic
+
+haemodialysis_clinic:
+  name: Haemodialysis clinic
+
+home_haemodialysis_clinic:
+  name: Home Haemodialysis clinic
+
+iron_clinic:
+  name: Iron clinic
+
+low_clearance_clinic:
+  name: Low Clearance clinic
+
+mdm_diabetes:
+  name: MDM--Diabetes
+
+mdm_liver_renal_virology:
+  name: MDM--Liver Renal Virology
+
+mdm_radiology:
+  name: MDM--Radiology
+
+mdm_renal_biopsy:
+  name: MDM--Renal Biopsy
+
+mdm_renal_sickle:
+  name: MDM--Renal Sickle
+
+meeting_with_family:
+  name: Meeting with family
+
+physiotherapist:
+  name: Physiotherapist
+
+plasma_exchange:
+  name: Plasma Exchange
+
+research_visit:
+  name: Research visit
+
+result_review:
+  name: Result Review
+
+social_worker:
+  name: Social Worker
+
+telephone_call:
+  name: Telephone call
+
+transplant_clinic:
+  name: Transplant clinic
+
+tx_coordination:
+  name: Tx Coordination
+
+walk-in_clinic:
+  name: Walk-in clinic
+
+ward_round:
+  name: Ward round
+
+woolwich_outreach_clinic:
+  name: Woolwich Outreach Clinic
+
+
+
+
+
+
+
+
+
+
+
+
+

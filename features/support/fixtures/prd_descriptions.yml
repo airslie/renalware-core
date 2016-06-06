@@ -1,0 +1,819 @@
+3749:
+  code: 3749
+  term: Glomerulonephritis--no histology
+1003:
+  code: 1003
+  term: Adult nephrotic syndrome--no histology
+1019:
+  code: 1019
+  term: Nephrotic syndrome of childhood--steroid sensitive--no histology
+3604:
+  code: 3604
+  term: Nephrotic syndrome of childhood--steroid resistant--no histology
+3615:
+  code: 3615
+  term: Nephrotic syndrome of childhood--no trial of steroids--no histology
+1026:
+  code: 1026
+  term: Congenital nephrotic syndrome (CNS)--no histology
+1035:
+  code: 1035
+  term: Congenital nephrotic syndrome (CNS)--Finnish type--no histology
+1042:
+  code: 1042
+  term: Congenital nephrotic syndrome (CNS)--Finnish type--histologically proven
+1057:
+  code: 1057
+  term: Congenital nephrotic syndrome (CNS)--diffuse mesangial sclerosis
+1061:
+  code: 1061
+  term: Congenital nephrotic syndrome (CNS)--focal segmental glomerulosclerosis (FSGS)
+1074:
+  code: 1074
+  term: Denys-Drash syndrome
+1088:
+  code: 1088
+  term: Congenital nephrotic syndrome (CNS)--congenital infection
+1090:
+  code: 1090
+  term: Minimal change nephropathy--no histology
+1100:
+  code: 1100
+  term: Minimal change nephropathy--histologically proven
+1116:
+  code: 1116
+  term: IgA nephropathy--no histology
+1128:
+  code: 1128
+  term: IgA nephropathy--histologically proven
+1137:
+  code: 1137
+  term: Familial IgA nephropathy--no histology
+1144:
+  code: 1144
+  term: Familial IgA nephropathy--histologically proven
+1159:
+  code: 1159
+  term: IgA nephropathy secondary to liver cirrhosis--no histology
+1163:
+  code: 1163
+  term: IgA nephropathy secondary to liver cirrhosis--histologically proven
+1171:
+  code: 1171
+  term: IgM--associated nephropathy
+1185:
+  code: 1185
+  term: Membranous nephropathy--idiopathic
+1192:
+  code: 1192
+  term: Membranous nephropathy--malignancy associated
+1205:
+  code: 1205
+  term: Membranous nephropathy--drug induced
+1214:
+  code: 1214
+  term: Membranous nephropathy--infection associated
+1222:
+  code: 1222
+  term: Mesangiocapillary glomerulonephritis type 1
+1233:
+  code: 1233
+  term: Mesangiocapillary glomerulonephritis type 2 (dense deposit disease)
+1246:
+  code: 1246
+  term: Mesangiocapillary glomerulonephritis type 3
+1251:
+  code: 1251
+  term: Idiopathic rapidly progressive (crescentic) glomerulonephritis
+1267:
+  code: 1267
+  term: Primary focal segmental glomerulosclerosis (FSGS)
+1279:
+  code: 1279
+  term: Familial focal segmental glomerulosclerosis (FSGS)--autosomal recessive--no histology
+1280:
+  code: 1280
+  term: Familial focal segmental glomerulosclerosis (FSGS)--autosomal recessive--histologically proven
+1298:
+  code: 1298
+  term: Familial focal segmental glomerulosclerosis (FSGS)--autosomal dominant--no histology
+1308:
+  code: 1308
+  term: Familial focal segmental glomerulosclerosis (FSGS)--autosomal dominant--histologically proven
+1312:
+  code: 1312
+  term: Focal segmental glomerulosclerosis (FSGS) secondary to obesity--no histology
+1320:
+  code: 1320
+  term: Focal segmental glomerulosclerosis (FSGS) secondary to obesity--histologically proven
+1331:
+  code: 1331
+  term: Diffuse endocapillary glomerulonephritis
+1349:
+  code: 1349
+  term: Mesangial proliferative glomerulonephritis
+1354:
+  code: 1354
+  term: Focal and segmental proliferative glomerulonephritis
+1365:
+  code: 1365
+  term: Glomerulonephritis--secondary to other systemic disease
+1377:
+  code: 1377
+  term: Glomerulonephritis--histologically indeterminate
+1383:
+  code: 1383
+  term: Systemic vasculitis--ANCA negative--histologically proven
+1396:
+  code: 1396
+  term: Systemic vasculitis--ANCA positive--no histology
+1401:
+  code: 1401
+  term: Granulomatosis with polyangiitis--no histology
+1417:
+  code: 1417
+  term: Granulomatosis with polyangiitis--histologically proven
+1429:
+  code: 1429
+  term: Microscopic polyangiitis--histologically proven
+1438:
+  code: 1438
+  term: Churg-Strauss syndrome--no histology
+1440:
+  code: 1440
+  term: Churg-Strauss syndrome--histologically proven
+1455:
+  code: 1455
+  term: Polyarteritis nodosa
+1464:
+  code: 1464
+  term: Anti-Glomerular basement membrane (GBM) disease/Goodpasture's syndrome--no histology
+1472:
+  code: 1472
+  term: Anti-Glomerular basement membrane (GBM) disease/Goodpasture's syndrome--histologically proven
+1486:
+  code: 1486
+  term: Systemic lupus erythematosus/nephritis--no histology
+1493:
+  code: 1493
+  term: Systemic lupus erythematosus/nephritis--histologically proven
+1504:
+  code: 1504
+  term: Henoch-Schoenlein purpura/nephritis--no histology
+1515:
+  code: 1515
+  term: Henoch-Schoenlein purpura/nephritis--histologically proven
+1527:
+  code: 1527
+  term: Renal scleroderma/systemic sclerosis--no histology
+1536:
+  code: 1536
+  term: Renal scleroderma/systemic sclerosis--histologically proven
+1543:
+  code: 1543
+  term: Essential mixed cryoglobulinaemia--no histology
+1558:
+  code: 1558
+  term: Essential mixed cryoglobulinaemia--histologically proven
+1562:
+  code: 1562
+  term: Cryoglobulinaemia secondary to hepatitis C--no histology
+1570:
+  code: 1570
+  term: Cryoglobulinaemia secondary to hepatitis C--histologically proven
+1589:
+  code: 1589
+  term: Cryoglobulinaemia secondary to systemic disease--no histology
+1591:
+  code: 1591
+  term: Cryoglobulinaemia secondary to systemic disease--histologically proven
+1602:
+  code: 1602
+  term: Primary reflux nephropathy--sporadic
+1618:
+  code: 1618
+  term: Familial reflux nephropathy
+1625:
+  code: 1625
+  term: Congenital dysplasia/hypoplasia
+1639:
+  code: 1639
+  term: Multicystic dysplastic kidneys
+1641:
+  code: 1641
+  term: Dysplasia due to fetal ACE-inhibitor exposure
+3627:
+  code: 3627
+  term: Renal cysts and diabetes syndrome
+1656:
+  code: 1656
+  term: Glomerulocystic disease
+1660:
+  code: 1660
+  term: Congenital pelvi-ureteric junction obstruction
+1673:
+  code: 1673
+  term: Congenital vesico-ureteric junction obstruction
+1687:
+  code: 1687
+  term: Posterior urethral valves
+1694:
+  code: 1694
+  term: Syndrome of agenesis of abdominal muscles--prune belly syndrome
+1706:
+  code: 1706
+  term: Congenital neurogenic bladder
+1710:
+  code: 1710
+  term: Bladder exstrophy
+1723:
+  code: 1723
+  term: Megacystis-megaureter
+1734:
+  code: 1734
+  term: Oligomeganephronia
+1747:
+  code: 1747
+  term: Renal papillary necrosis--cause unknown
+1752:
+  code: 1752
+  term: Acquired obstructive uropathy/nephropathy
+1768:
+  code: 1768
+  term: Acquired obstructive nephropathy due to neurogenic bladder
+1775:
+  code: 1775
+  term: Obstructive nephropathy due to prostatic hypertrophy
+1781:
+  code: 1781
+  term: Obstructive nephropathy due to prostate cancer
+1799:
+  code: 1799
+  term: Obstructive nephropathy due to bladder cancer
+1809:
+  code: 1809
+  term: Obstructive nephropathy due to other malignancies
+1813:
+  code: 1813
+  term: Idiopathic retroperitoneal fibrosis
+1821:
+  code: 1821
+  term: Retroperitoneal fibrosis secondary to malignancies
+3689:
+  code: 3689
+  term: Retroperitoneal fibrosis secondary to drugs
+3670:
+  code: 3670
+  term: Retroperitoneal fibrosis secondary to peri-aortitis
+1832:
+  code: 1832
+  term: Calculus nephropathy/urolithiasis
+1845:
+  code: 1845
+  term: Calcium oxalate urolithiasis
+1850:
+  code: 1850
+  term: Enteric hyperoxaluria
+1866:
+  code: 1866
+  term: Magnesium ammonium phosphate (struvite) urolithiasis
+1878:
+  code: 1878
+  term: Uric acid urolithiasis
+1884:
+  code: 1884
+  term: Tubulointerstitial nephritis--no histology
+1897:
+  code: 1897
+  term: Tubulointerstitial nephritis--histologically proven
+1907:
+  code: 1907
+  term: Familial interstitial nephropathy--no histology
+1911:
+  code: 1911
+  term: Familial interstitial nephropathy--histologically proven
+1924:
+  code: 1924
+  term: Tubulointerstitial nephritis associated with autoimmune disease--no histology
+1930:
+  code: 1930
+  term: Tubulointerstitial nephritis associated with autoimmune disease--histologically proven
+1948:
+  code: 1948
+  term: Tubulointerstitial nephritis with uveitis (TINU)--no histology
+1953:
+  code: 1953
+  term: Tubulointerstitial nephritis with uveitis (TINU)--histologically proven
+1969:
+  code: 1969
+  term: Renal sarcoidosis--no histology
+1976:
+  code: 1976
+  term: Renal sarcoidosis--histologically proven
+1982:
+  code: 1982
+  term: Aristolochic acid nephropathy (Balkan/Chinese herb/endemic nephropathy)--no histology
+1995:
+  code: 1995
+  term: Aristolochic acid nephropathy (Balkan/Chinese herb/endemic nephropathy)--histologically proven
+2005:
+  code: 2005
+  term: Drug-induced tubulointerstitial nephritis--no histology
+2014:
+  code: 2014
+  term: Drug-induced tubulointerstitial nephritis--histologically proven
+2022:
+  code: 2022
+  term: Nephropathy due to analgesic drugs--no histology
+2033:
+  code: 2033
+  term: Nephropathy due to analgesic drugs--histologically proven
+2046:
+  code: 2046
+  term: Nephropathy due to ciclosporin--no histology
+2051:
+  code: 2051
+  term: Nephropathy due to ciclosporin--histologically proven
+2067:
+  code: 2067
+  term: Nephropathy due to tacrolimus--no histology
+2079:
+  code: 2079
+  term: Nephropathy due to tacrolimus--histologically proven
+2080:
+  code: 2080
+  term: Nephropathy due to aminoglycosides--no histology
+2098:
+  code: 2098
+  term: Nephropathy due to aminoglycosides--histologically proven
+2108:
+  code: 2108
+  term: Nephropathy due to amphotericin--no histology
+2112:
+  code: 2112
+  term: Nephropathy due to amphotericin--histologically proven
+2120:
+  code: 2120
+  term: Nephropathy due to cisplatin--no histology
+2131:
+  code: 2131
+  term: Nephropathy due to cisplatin--histologically proven
+2149:
+  code: 2149
+  term: Nephropathy due to lithium--no histology
+2154:
+  code: 2154
+  term: Nephropathy due to lithium--histologically proven
+2165:
+  code: 2165
+  term: Lead induced nephropathy--no histology
+2177:
+  code: 2177
+  term: Lead induced nephropathy--histologically proven
+2183:
+  code: 2183
+  term: Acute urate nephropathy--no histology
+2196:
+  code: 2196
+  term: Acute urate nephropathy--histologically proven
+3636:
+  code: 3636
+  term: Chronic urate nephropathy--no histology
+2203:
+  code: 2203
+  term: Chronic urate nephropathy--histologically proven
+3662:
+  code: 3662
+  term: Hypercalcaemic nephropathy
+2219:
+  code: 2219
+  term: Radiation nephritis
+2226:
+  code: 2226
+  term: Renal/perinephric abscess
+2235:
+  code: 2235
+  term: Renal tuberculosis
+2242:
+  code: 2242
+  term: Leptospirosis
+2257:
+  code: 2257
+  term: Hantavirus nephropathy
+2261:
+  code: 2261
+  term: Xanthogranulomatous pyelonephritis
+2274:
+  code: 2274
+  term: Nephropathy related to HIV--no histology
+2288:
+  code: 2288
+  term: Nephropathy related to HIV--histologically proven
+2290:
+  code: 2290
+  term: Schistosomiasis
+2300:
+  code: 2300
+  term: Other specific infection
+2316:
+  code: 2316
+  term: Diabetic nephropathy in type I diabetes--no histology
+2328:
+  code: 2328
+  term: Diabetic nephropathy in type I diabetes--histologically proven
+2337:
+  code: 2337
+  term: Diabetic nephropathy in type II diabetes--no histology
+2344:
+  code: 2344
+  term: Diabetic nephropathy in type II diabetes--histologically proven
+2359:
+  code: 2359
+  term: Chronic hypertensive nephropathy--no histology
+2363:
+  code: 2363
+  term: Chronic hypertensive nephropathy--histologically proven
+2371:
+  code: 2371
+  term: Malignant hypertensive nephropathy/accelerated hypertensive nephropathy--no histology
+2385:
+  code: 2385
+  term: Malignant hypertensive nephropathy/accelerated hypertensive nephropathy--histologically proven
+2392:
+  code: 2392
+  term: Ageing kidney--no histology
+2407:
+  code: 2407
+  term: Ischaemic nephropathy--no histology
+2411:
+  code: 2411
+  term: Ischaemic nephropathy/microvascular disease--histologically proven
+2424:
+  code: 2424
+  term: Renal artery stenosis
+2430:
+  code: 2430
+  term: Atheroembolic renal disease--no histology
+2448:
+  code: 2448
+  term: Atheroembolic renal disease--histologically proven
+2453:
+  code: 2453
+  term: Fibromuscular dysplasia of renal artery
+2469:
+  code: 2469
+  term: Renal arterial thrombosis/occlusion
+2476:
+  code: 2476
+  term: Renal vein thrombosis
+2482:
+  code: 2482
+  term: Cardiorenal syndrome
+2495:
+  code: 2495
+  term: Hepatorenal syndrome
+2509:
+  code: 2509
+  term: Renal amyloidosis
+2513:
+  code: 2513
+  term: AA amyloid secondary to chronic inflammation
+2521:
+  code: 2521
+  term: AL amyloid secondary to plasma cell dyscrasia
+2532:
+  code: 2532
+  term: Familial amyloid secondary to protein mutations--no histology
+2545:
+  code: 2545
+  term: Familial amyloid secondary to protein mutations--histologically proven
+2550:
+  code: 2550
+  term: Familial AA amyloid secondary to familial Mediterranean fever/TRAPS (Hibernian fever)--no histology
+2566:
+  code: 2566
+  term: Familial AA amyloid secondary to familial Mediterranean fever/TRAPS (Hibernian fever)--histologically proven
+2578:
+  code: 2578
+  term: Myeloma kidney--no histology
+2584:
+  code: 2584
+  term: Myeloma cast nephropathy--histologically proven
+2597:
+  code: 2597
+  term: Light chain deposition disease
+2606:
+  code: 2606
+  term: Immunotactoid/fibrillary nephropathy
+2610:
+  code: 2610
+  term: Haemolytic uraemic syndrome (HUS)--diarrhoea associated
+2623:
+  code: 2623
+  term: Atypical haemolytic uraemic syndrome (HUS)--diarrhoea negative
+2634:
+  code: 2634
+  term: Thrombotic thrombocytopenic purpura (TTP)
+2647:
+  code: 2647
+  term: Haemolytic uraemic syndrome (HUS) secondary to systemic disease
+2652:
+  code: 2652
+  term: Congenital haemolytic uraemic syndrome (HUS)
+2668:
+  code: 2668
+  term: Familial haemolytic uraemic syndrome (HUS)
+2675:
+  code: 2675
+  term: Familial thrombotic thrombocytopenic purpura (TTP)
+2681:
+  code: 2681
+  term: Nephropathy due to pre-eclampsia/eclampsia
+2699:
+  code: 2699
+  term: Sickle cell nephropathy--no histology
+2702:
+  code: 2702
+  term: Sickle cell nephropathy--histologically proven
+2718:
+  code: 2718
+  term: Autosomal dominant (AD) polycystic kidney disease
+2725:
+  code: 2725
+  term: Autosomal dominant (AD) polycystic kidney disease type I
+2739:
+  code: 2739
+  term: Autosomal dominant (AD) polycystic kidney disease type II
+2741:
+  code: 2741
+  term: Autosomal recessive (AR) polycystic kidney disease
+2756:
+  code: 2756
+  term: Alport syndrome--no histology
+2760:
+  code: 2760
+  term: Alport syndrome--histologically proven
+2773:
+  code: 2773
+  term: Benign familial haematuria
+2787:
+  code: 2787
+  term: Thin basement membrane disease
+2794:
+  code: 2794
+  term: Cystic kidney disease
+2804:
+  code: 2804
+  term: Medullary cystic kidney disease type I
+2815:
+  code: 2815
+  term: Medullary cystic kidney disease type II
+2827:
+  code: 2827
+  term: Uromodulin-associated nephropathy (familial juvenile hyperuricaemic nephropathy)
+2836:
+  code: 2836
+  term: Nephronophthisis
+2843:
+  code: 2843
+  term: Nephronophthisis--type 1 (juvenile type)
+2858:
+  code: 2858
+  term: Nephronophthisis--type 2 (infantile type)
+2862:
+  code: 2862
+  term: Nephronophthisis--type 3 (adolescent type)
+2870:
+  code: 2870
+  term: Nephronophthisis--type 4 (juvenile type)
+2889:
+  code: 2889
+  term: Nephronophthisis--type 5
+2891:
+  code: 2891
+  term: Nephronophthisis--type 6
+2901:
+  code: 2901
+  term: Primary Fanconi syndrome
+2917:
+  code: 2917
+  term: Tubular disorder as part of inherited metabolic diseases
+2929:
+  code: 2929
+  term: Dent disease
+2938:
+  code: 2938
+  term: Lowe syndrome (oculocerebrorenal syndrome)
+2940:
+  code: 2940
+  term: Inherited aminoaciduria
+2955:
+  code: 2955
+  term: Cystinuria
+2964:
+  code: 2964
+  term: Cystinosis
+2972:
+  code: 2972
+  term: Inherited renal glycosuria
+2986:
+  code: 2986
+  term: Hypophosphataemic rickets X-linked (XL)
+2993:
+  code: 2993
+  term: Hypophosphataemic rickets autosomal recessive (AR)
+3000:
+  code: 3000
+  term: Primary renal tubular acidosis (RTA)
+3016:
+  code: 3016
+  term: Proximal renal tubular acidosis (RTA)--type II
+3028:
+  code: 3028
+  term: Distal renal tubular acidosis (RTA)--type I
+3037:
+  code: 3037
+  term: Distal renal tubular acidosis with sensorineural deafness--gene mutations
+3044:
+  code: 3044
+  term: Nephrogenic diabetes insipidus
+3059:
+  code: 3059
+  term: Lesch Nyhan syndrome--hypoxanthine guanine phosphoribosyl transferase deficiency
+3063:
+  code: 3063
+  term: Phosphoribosyl pyrophosphate synthetase (PRPPS) superactivity
+3071:
+  code: 3071
+  term: Alagille syndrome
+3085:
+  code: 3085
+  term: Bartter syndrome
+3092:
+  code: 3092
+  term: Gitelman syndrome
+3102:
+  code: 3102
+  term: Liddle syndrome
+3118:
+  code: 3118
+  term: Apparent mineralocorticoid excess
+3125:
+  code: 3125
+  term: Glucocorticoid suppressible hyperaldosteronism
+3139:
+  code: 3139
+  term: Inherited/genetic diabetes mellitus type II
+3141:
+  code: 3141
+  term: Pseudohypoaldosteronism type 1
+3156:
+  code: 3156
+  term: Pseudohypoaldosteronism type 2 (Gordon syndrome)
+3160:
+  code: 3160
+  term: Familial hypocalciuric hypercalcaemia
+3173:
+  code: 3173
+  term: Familial hypercalciuric hypocalcaemia
+3187:
+  code: 3187
+  term: Familial hypomagnesaemia
+3194:
+  code: 3194
+  term: Primary hyperoxaluria
+3207:
+  code: 3207
+  term: Primary hyperoxaluria type I
+3211:
+  code: 3211
+  term: Primary hyperoxaluria type II
+3731:
+  code: 3731
+  term: Primary hyperoxaluria type III
+3224:
+  code: 3224
+  term: Fabry disease--no histology
+3230:
+  code: 3230
+  term: Fabry disease--histologically proven
+3248:
+  code: 3248
+  term: Xanthinuria
+3253:
+  code: 3253
+  term: Nail-patella syndrome
+3269:
+  code: 3269
+  term: Rubinstein-Taybi syndrome
+3276:
+  code: 3276
+  term: Tuberous sclerosis
+3282:
+  code: 3282
+  term: Von Hippel-Lindau disease
+3295:
+  code: 3295
+  term: Medullary sponge kidneys
+3305:
+  code: 3305
+  term: Horse-shoe kidney
+3314:
+  code: 3314
+  term: Frasier syndrome
+3658:
+  code: 3658
+  term: Renal coloboma syndrome
+3322:
+  code: 3322
+  term: Branchio-oto-renal syndrome
+3333:
+  code: 3333
+  term: Williams syndrome
+3346:
+  code: 3346
+  term: Townes-Brocks syndrome
+3351:
+  code: 3351
+  term: Lawrence-Moon-Biedl/Bardet-Biedl syndrome
+3367:
+  code: 3367
+  term: Mitochondrial cytopathy
+3379:
+  code: 3379
+  term: Familial nephropathy
+3380:
+  code: 3380
+  term: Acute kidney injury
+3398:
+  code: 3398
+  term: Acute kidney injury due to hypovolaemia
+3403:
+  code: 3403
+  term: Acute kidney injury due to circulatory failure
+3419:
+  code: 3419
+  term: Acute kidney injury due to sepsis
+3426:
+  code: 3426
+  term: Acute kidney injury due to rhabdomyolysis
+3435:
+  code: 3435
+  term: Acute kidney injury due to nephrotoxicity
+3442:
+  code: 3442
+  term: Acute cortical necrosis
+3457:
+  code: 3457
+  term: Acute pyelonephritis
+3461:
+  code: 3461
+  term: Kidney tumour
+3474:
+  code: 3474
+  term: Renal cell carcinoma--histologically proven
+3488:
+  code: 3488
+  term: Transitional cell carcinoma--histologically proven
+3490:
+  code: 3490
+  term: Wilms tumour--histologically proven
+3501:
+  code: 3501
+  term: Mesoblastic nephroma--histologically proven
+3517:
+  code: 3517
+  term: Single kidney identified in adulthood
+3529:
+  code: 3529
+  term: Chronic kidney disease (CKD)/chronic renal failure (CRF) caused by tumour nephrectomy
+3538:
+  code: 3538
+  term: Chronic kidney disease (CKD)/chronic renal failure (CRF) due to traumatic loss of kidney
+3540:
+  code: 3540
+  term: Chronic kidney disease (CKD)/chronic renal failure (CRF) due to donor nephrectomy
+3555:
+  code: 3555
+  term: Chronic kidney disease (CKD)/chronic renal failure (CRF)--aetiology uncertain/unknown--no histology
+3564:
+  code: 3564
+  term: Chronic kidney disease (CKD)/chronic renal failure (CRF)--aetiology uncertain/unknown--histologically proven
+3572:
+  code: 3572
+  term: Haematuria and proteinuria--no histology
+3712:
+  code: 3712
+  term: Isolated haematuria--no histology
+3720:
+  code: 3720
+  term: Isolated proteinuria--no histology
+3643:
+  code: 3643
+  term: Chronic renal failure due to systemic infection
+3691:
+  code: 3691
+  term: Renal failure
+3708:
+  code: 3708
+  term: Chronic renal failure

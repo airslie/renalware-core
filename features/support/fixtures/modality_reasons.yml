@@ -1,0 +1,95 @@
+201:
+  rr_code: 201,
+  type: "Renalware::Modalities::PDToHaemodialysis"
+  description: "Patient/partner choice"
+
+202:
+  rr_code: 202,
+  type: "Renalware::Modalities::PDToHaemodialysis"
+  description: "Loss of supporting partner"
+
+203:
+  rr_code: 203,
+  type: "Renalware::Modalities::PDToHaemodialysis"
+  description: "Other change of personal circumstances"
+
+204:
+  rr_code: 204,
+  type: "Renalware::Modalities::PDToHaemodialysis"
+  description: "Inability to perform PD"
+
+205:
+  rr_code: 205,
+  type: "Renalware::Modalities::PDToHaemodialysis"
+  description: "Other reasons"
+
+211:
+  rr_code: 211,
+  type: "Renalware::Modalities::PDToHaemodialysis"
+  description: "Frequent/Recurrent peritonitis with or without loss of UF"
+
+212:
+  rr_code: 212,
+  type: "Renalware::Modalities::PDToHaemodialysis"
+  description: "Unresolving peritonitis"
+
+213:
+  rr_code: 213,
+  type: "Renalware::Modalities::PDToHaemodialysis"
+  description: "Catheter loss through exit site infection"
+
+214:
+  rr_code: 214,
+  type: "Renalware::Modalities::PDToHaemodialysis"
+  description: "Loss of UF"
+
+215:
+  rr_code: 215,
+  type: "Renalware::Modalities::PDToHaemodialysis"
+  description: "Inadequate clearance"
+
+216:
+  rr_code: 216,
+  type: "Renalware::Modalities::PDToHaemodialysis"
+  description: "Abdominal surgery or complications"
+
+221:
+  rr_code: 221,
+  type: "Renalware::Modalities::HaemodialysisToPD"
+  description: "Patient/partner choice"
+
+222:
+  rr_code: 222,
+  type: "Renalware::Modalities::HaemodialysisToPD"
+  description: "Loss of supporting partner"
+
+223:
+  rr_code: 223,
+  type: "Renalware::Modalities::HaemodialysisToPD"
+  description: "Other change of personal circumstances"
+
+224:
+  rr_code: 224,
+  type: "Renalware::Modalities::HaemodialysisToPD"
+  description: "Lack of HD facilities"
+
+225:
+  rr_code: 225,
+  type: "Renalware::Modalities::HaemodialysisToPD"
+  description: "Other reasons"
+
+231:
+  rr_code: 231,
+  type: "Renalware::Modalities::HaemodialysisToPD"
+  description: "Loss of vascular access"
+
+232:
+  rr_code: 232,
+  type: "Renalware::Modalities::HaemodialysisToPD"
+  description: "Haemodynamic instability"
+
+233:
+  rr_code: 233,
+  type: "Renalware::Modalities::HaemodialysisToPD"
+  description: "Elective after temporary HD"
+

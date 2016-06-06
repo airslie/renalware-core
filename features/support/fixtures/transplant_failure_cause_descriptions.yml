@@ -1,0 +1,120 @@
+hyperacute_rejection:
+  group_id: 1
+  code: 10
+  name: Hyperacute rejection
+non_viable_transplant_kidney:
+  group_id: 1
+  code: 11
+  name: Non viable transplant kidney
+primary_non_function_of_transplant_kidney:
+  group_id: 1
+  code: 12
+  name: Primary non function of transplant kidney
+acute_rejection:
+  group_id: 1
+  code: 13
+  name: Acute rejection
+chronic_allograft_nephropathy:
+  group_id: 1
+  code: 14
+  name: Chronic allograft nephropathy
+rejection_following_withdrawal_of_immunosuppression__non_compliance:
+  group_id: 1
+  code: 15
+  name: Rejection following withdrawal of immunosuppression - non compliance
+rejection_following_withdrawal_of_immunosuppression__medical_reason:
+  group_id: 1
+  code: 16
+  name: Rejection following withdrawal of immunosuppression - medical reason
+de_novo_glomerulonephritis:
+  group_id: 2
+  code: 20
+  name: De novo glomerulonephritis
+interstitial_nephritis__viral__bkv:
+  group_id: 2
+  code: 21
+  name: Interstitial nephritis - viral - BKV
+interstitial_nephritis__viral__other:
+  group_id: 2
+  code: 22
+  name: Interstitial nephritis - viral - other
+interstitial_nephritis__drug_induced:
+  group_id: 2
+  code: 23
+  name: Interstitial nephritis - drug induced
+interstitial_nephritis__other:
+  group_id: 2
+  code: 24
+  name: Interstitial nephritis - other
+transplant_pyelonephritis:
+  group_id: 2
+  code: 25
+  name: Transplant pyelonephritis
+calcineurin_inhibitor_nephrotoxicity:
+  group_id: 2
+  code: 26
+  name: Calcineurin inhibitor nephrotoxicity
+non_calcineurin_inhibitor_drug_toxicity:
+  group_id: 2
+  code: 27
+  name: Non calcineurin inhibitor drug toxicity
+recurrent_primary_renal_disease:
+  group_id: 2
+  code: 28
+  name: Recurrent primary renal disease
+obstruction_of_transplant_kidney:
+  group_id: 3
+  code: 40
+  name: Obstruction of transplant kidney
+transplant_arterial_thrombosis:
+  group_id: 3
+  code: 41
+  name: Transplant arterial thrombosis
+transplant_venous_thrombosis:
+  group_id: 3
+  code: 42
+  name: Transplant venous thrombosis
+transplant_infarction__cause_unknown:
+  group_id: 3
+  code: 43
+  name: Transplant infarction - cause unknown
+transplant_renal_artery_stenosis:
+  group_id: 3
+  code: 44
+  name: Transplant renal artery stenosis
+surgical_removal_of_transplant:
+  group_id: 3
+  code: 45
+  name: Surgical removal of transplant
+surgical_trauma_to_transplant:
+  group_id: 3
+  code: 46
+  name: Surgical trauma to transplant
+non_surgical_trauma_to_transplant_kidney:
+  group_id: 3
+  code: 47
+  name: Non surgical trauma to transplant kidney
+haemorrhage_post_transplant_biopsy:
+  group_id: 3
+  code: 48
+  name: Haemorrhage post transplant biopsy
+malignant_disease_of_the_transplant_kidney_ureter:
+  group_id: 4
+  code: 70
+  name: Malignant disease of the transplant kidney/ureter
+malignant_disease__other:
+  group_id: 4
+  code: 71
+  name: Malignant disease - other
+death_with_functioning_graft:
+  group_id: 4
+  code: 90
+  name: Death with functioning graft
+other:
+  group_id: 4
+  code: 98
+  name: Other
+unknown:
+  group_id: 4
+  code: 99
+  name: Unknown

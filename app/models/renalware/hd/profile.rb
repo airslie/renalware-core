@@ -22,6 +22,8 @@ module Renalware
       validates :prescriber, presence: true
 
       delegate :hospital_centre, to: :hospital_unit, allow_nil: true
+
+      def self.prescribed_times; (0..360).step(15); end
     end
   end
 end

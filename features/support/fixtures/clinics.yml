@@ -1,0 +1,30 @@
+access:
+  name: Access
+aki:
+  name: AKI
+anaemia:
+  name: Anaemia
+capd:
+  name: CAPD
+capd_nurses:
+  name: CAPD Nurses
+dartford_outreach:
+  name: Dartford Outreach
+dietitians:
+  name: Dietitians
+general_nephrology:
+  name: General Nephrology
+haemodialysis:
+  name: Haemodialysis
+home_haemodialysis:
+  name: Home Haemodialysis
+iron:
+  name: Iron
+low_clearance:
+  name: Low Clearance
+transplant:
+  name: Transplant
+walk_in:
+  name: Walk-in
+woolwich_outreach:
+  name: Woolwich Outreach

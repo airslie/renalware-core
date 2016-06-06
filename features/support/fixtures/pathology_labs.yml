@@ -1,0 +1,21 @@
+urine_biochem:
+  id: 1
+  name: Urine Biochem
+biochemistry_tp:
+  id: 2
+  name: Biochemistry (TP)
+biochemistry:
+  id: 3
+  name: Biochemistry
+microbiology:
+  id: 4
+  name: Microbiology
+haemotology:
+  id: 5
+  name: Haemotology
+virology:
+  id: 6
+  name: Virology
+lab:_unknown:
+  id: 7
+  name: "Lab: Unknown"

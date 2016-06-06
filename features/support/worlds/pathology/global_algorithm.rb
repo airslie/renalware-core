@@ -69,12 +69,13 @@ module World
       module Web
         include Domain
 
-        def run_global_algorithm(patient, clinician, regime)
+        def run_global_algorithm(patient, clinician, clinic_name)
           login_as clinician
+          clinic = Renalware::Clinics::Clinic.find_by(name: clinic_name)
 
           visit patient_pathology_required_observations_path(
             patient_id: patient.id,
-            regime: regime
+            clinic_id: clinic.id
           )
 
           html_table_to_array("global_pathology")
