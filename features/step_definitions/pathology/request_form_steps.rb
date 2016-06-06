@@ -8,8 +8,7 @@ When(/^Clyde selects clinic (.*)$/) do |clinic_name|
 end
 
 When(/^Clyde selects doctor ([A-Za-z]+) ([A-Za-z]+)$/) do |given_name, family_name|
-  #byebug
-  #doctor = Renalware::Doctor.find_by()
+  doctor = Renalware::Doctor.find_by(given_name: given_name, family_name: family_name)
 end
 
 When(/^Clyde selects telephone number (\d+)$/) do |arg1|

@@ -8,8 +8,7 @@ Feature: Viewing the request form for a patient
   The doctor, telephone number & clinic fields on the form should be changeable.
 
   Background:
-    Given John Merrill is a doctor with telephone number 123
-    And the global rule sets:
+    Given the global rule sets:
       | request_description_code | BFF    |
       | clinic                   | Access |
       | frequency_type           | Always |
