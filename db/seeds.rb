@@ -6,9 +6,7 @@ end
 
 log "--------------------Seeding Database--------------"
 
-unless Rails.env.test?
-  require_relative "./seeds/default/seeds.rb"
-  require_relative "./seeds/demo/seeds.rb" if ENV["DEMO"] || Rails.env.development?
-end
+require_relative "./seeds/default/seeds.rb"
+require_relative "./seeds/demo/seeds.rb" if ENV["DEMO"] || Rails.env.development?
 
 log "--------------------Database seeding complete!----------"
