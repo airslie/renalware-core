@@ -1,12 +1,12 @@
 = render layout: "renalware/patients/layout", locals: { title: "ESRF Summary" } do
 
   .row
-    = render partial: "renalware/shared/errors", locals: { model: @esrf }
+    = render partial: "renalware/shared/errors", locals: { model: @profile }
 
   .row
     .large-12.columns
-      = simple_form_for @esrf,
-          url: patient_esrf_path(@patient),
+      = simple_form_for @profile,
+          url: patient_renal_profile_path(@patient),
           method: :patch,
           wrapper: "horizontal_form"  do |f|
         = render "form", f: f

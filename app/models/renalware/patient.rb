@@ -32,7 +32,6 @@ module Renalware
       class_name: "Modalities::Modality"
     has_one :modality_description, through: :current_modality,
       class_name: "Modalities::Description", source: :description
-    has_one :esrf
 
     accepts_nested_attributes_for :current_address
     accepts_nested_attributes_for :address_at_diagnosis, reject_if: Address.reject_if_blank

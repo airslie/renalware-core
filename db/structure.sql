@@ -675,39 +675,6 @@ ALTER SEQUENCE episode_types_id_seq OWNED BY episode_types.id;
 
 
 --
--- Name: esrf; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE esrf (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    diagnosed_on date NOT NULL,
-    prd_description_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: esrf_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE esrf_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: esrf_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE esrf_id_seq OWNED BY esrf.id;
-
-
---
 -- Name: ethnicities; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2346,6 +2313,39 @@ ALTER SEQUENCE problem_versions_id_seq OWNED BY problem_versions.id;
 
 
 --
+-- Name: renal_profiles; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE renal_profiles (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    diagnosed_on date NOT NULL,
+    prd_description_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: renal_profiles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE renal_profiles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: renal_profiles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE renal_profiles_id_seq OWNED BY renal_profiles.id;
+
+
+--
 -- Name: roles; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3072,13 +3072,6 @@ ALTER TABLE ONLY episode_types ALTER COLUMN id SET DEFAULT nextval('episode_type
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY esrf ALTER COLUMN id SET DEFAULT nextval('esrf_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY ethnicities ALTER COLUMN id SET DEFAULT nextval('ethnicities_id_seq'::regclass);
 
 
@@ -3401,6 +3394,13 @@ ALTER TABLE ONLY problem_versions ALTER COLUMN id SET DEFAULT nextval('problem_v
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY renal_profiles ALTER COLUMN id SET DEFAULT nextval('renal_profiles_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY roles ALTER COLUMN id SET DEFAULT nextval('roles_id_seq'::regclass);
 
 
@@ -3643,14 +3643,6 @@ ALTER TABLE ONLY edta_codes
 
 ALTER TABLE ONLY episode_types
     ADD CONSTRAINT episode_types_pkey PRIMARY KEY (id);
-
-
---
--- Name: esrf_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY esrf
-    ADD CONSTRAINT esrf_pkey PRIMARY KEY (id);
 
 
 --
@@ -4019,6 +4011,14 @@ ALTER TABLE ONLY problem_problems
 
 ALTER TABLE ONLY problem_versions
     ADD CONSTRAINT problem_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: renal_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_profiles
+    ADD CONSTRAINT renal_profiles_pkey PRIMARY KEY (id);
 
 
 --
@@ -4888,14 +4888,6 @@ ALTER TABLE ONLY pathology_observation_requests
 
 
 --
--- Name: fk_rails_09038afd60; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY esrf
-    ADD CONSTRAINT fk_rails_09038afd60 FOREIGN KEY (prd_description_id) REFERENCES prd_descriptions(id);
-
-
---
 -- Name: fk_rails_0aab25a07c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5056,6 +5048,14 @@ ALTER TABLE ONLY medications
 
 
 --
+-- Name: fk_rails_568750244e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_profiles
+    ADD CONSTRAINT fk_rails_568750244e FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: fk_rails_571a3cadda; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5149,14 +5149,6 @@ ALTER TABLE ONLY events
 
 ALTER TABLE ONLY transplant_recipient_followups
     ADD CONSTRAINT fk_rails_78dc63040c FOREIGN KEY (operation_id) REFERENCES transplant_recipient_operations(id);
-
-
---
--- Name: fk_rails_7fc38a9bf8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY esrf
-    ADD CONSTRAINT fk_rails_7fc38a9bf8 FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -5341,6 +5333,14 @@ ALTER TABLE ONLY transplant_donor_followups
 
 ALTER TABLE ONLY hd_profiles
     ADD CONSTRAINT fk_rails_c89b2174e9 FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
+
+
+--
+-- Name: fk_rails_cd10bc0ddf; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_profiles
+    ADD CONSTRAINT fk_rails_cd10bc0ddf FOREIGN KEY (prd_description_id) REFERENCES prd_descriptions(id);
 
 
 --
