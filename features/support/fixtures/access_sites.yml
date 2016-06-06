@@ -1,0 +1,51 @@
+radiocephalic_snuff_box:
+  code: 01
+  name: Radio-cephalic Snuff box
+radiocephalic_wrist:
+  code: 02
+  name: Radio-cephalic wrist
+brachiocephalic:
+  code: 03
+  name: Brachio-cephalic
+brachiobasilic:
+  code: 04
+  name: Brachio-basilic
+ulnacephalic:
+  code: 05
+  name: Ulna-cephalic
+radioulnar:
+  code: 06
+  name: Radio-ulnar
+popliteallong_saphenous:
+  code: 07
+  name: Popliteal-long saphenous
+forearm_nos:
+  code: 08
+  name: Forearm NOS
+intenal_jugular_line:
+  code: 09
+  name: Intenal jugular line
+subclavian_line:
+  code: 10
+  name: Subclavian line
+axillary_vein_line:
+  code: 11
+  name: Axillary vein line
+femoral_vein_line:
+  code: 12
+  name: Femoral vein line
+brachiobasilic_a_transposition:
+  code: 13
+  name: Brachio-basilic & transposition
+popliteallong_saphenous_a_transposition:
+  code: 14
+  name: Popliteal-long saphenous & transposition
+thigh_nos:
+  code: 15
+  name: Thigh NOS
+ankle:
+  code: 16
+  name: Ankle
+other:
+  code: 88
+  name: Other

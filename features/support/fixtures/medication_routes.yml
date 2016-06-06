@@ -1,0 +1,15 @@
+po:
+  code: "PO"
+  name: "Per Oral"
+iv:
+  code: "IV"
+  name: "Intravenous"
+sc:
+  code: "SC"
+  name: "Subcutaneous"
+im:
+  code: "IM"
+  name: "Intramuscular"
+other:
+  code: "Other"
+  name: "Other"

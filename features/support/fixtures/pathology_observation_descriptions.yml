@@ -1,0 +1,183 @@
+AL:
+  code: "AL"
+  name: "Serum Aluminium"
+
+ALB:
+  code: "ALB"
+  name: "Albumin"
+
+ALP:
+  code: "ALP"
+  name: "Alk Phosph (ALP)"
+
+ALT:
+  code: "ALT"
+  name: "ALT"
+
+AST:
+  code: "AST"
+  name: "AST"
+
+B12:
+  code: "B12"
+  name: "Vitamin B12"
+
+BGLU:
+  code: "BGLU"
+  name: "Blood Glucose"
+
+BIC:
+  code: "BIC"
+  name: "Bicarbonate"
+
+BIL:
+  code: "BIL"
+  name: "Total Bilirubin"
+
+CCA:
+  code: "CCA"
+  name: "Corrected Calc"
+
+CHOL:
+  code: "CHOL"
+  name: "Cholesterol"
+
+CK:
+  code: "CK"
+  name: "CK"
+
+CRE:
+  code: "CRE"
+  name: "Creatinine"
+
+CRP:
+  code: "CRP"
+  name: "C-Reactive Protein"
+
+EGFR:
+  code: "EGFR"
+  name: "eGFR / 1.73 m2"
+
+ESR:
+  code: "ESR"
+  name: "ESR"
+
+FER:
+  code: "FER"
+  name: "Ferritin"
+
+FOL:
+  code: "FOL"
+  name: "Folate"
+
+GGT:
+  code: "GGT"
+  name: "Gamma GT"
+
+GLO:
+  code: "GLO"
+  name: "Globulin"
+
+HB:
+  code: "HB"
+  name: "HGB"
+
+HBA:
+  code: "HBA"
+  name: "HbA1c (DCCT)"
+
+HBAI:
+  code: "HBAI"
+  name: "HbA1c (IFCC)"
+
+HDL:
+  code: "HDL"
+  name: "HDL Chol"
+
+HGB:
+  code: "HGB"
+  name: "HGB"
+
+HYPO:
+  code: "HYPO"
+  name: "% HYPO"
+
+LDL:
+  code: "LDL"
+  name: "LDL Chol"
+
+LYM:
+  code: "LYM"
+  name: "Lymphocytes"
+
+MCH:
+  code: "MCH"
+  name: "MCH"
+
+MCV:
+  code: "MCV"
+  name: "MCV"
+
+NA:
+  code: "NA"
+  name: "Sodium"
+
+NEUT:
+  code: "NEUT"
+  name: "Neutrophils"
+
+PHOS:
+  code: "PHOS"
+  name: "Phosphate"
+
+PLT:
+  code: "PLT"
+  name: "PLT"
+
+POT:
+  code: "POT"
+  name: "Potassium"
+
+PTHI:
+  code: "PTHI"
+  name: "PTH"
+
+RBC:
+  code: "RBC"
+  name: "RBC"
+
+RETA:
+  code: "RETA"
+  name: "Abs Retic Count"
+
+TP:
+  code: "TP"
+  name: "Total Protein"
+
+TRIG:
+  code: "TRIG"
+  name: "Triglycerides"
+
+TSH:
+  code: "TSH"
+  name: "TSH"
+
+URAT:
+  code: "URAT"
+  name: "Urate"
+
+URE:
+  code: "URE"
+  name: "Urea"
+
+UREP:
+  code: "UREP"
+  name: "Urea (post dial)"
+
+URR:
+  code: "URR"
+  name: "URR"
+
+WBC:
+  code: "WBC"
+  name: "WBC"

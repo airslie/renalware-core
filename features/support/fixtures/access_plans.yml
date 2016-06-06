@@ -1,0 +1,24 @@
+continue_dialysis_via_line:
+  name: Continue dialysis via line
+continue_with_fistula_graft:
+  name: Continue with fistula/graft
+continue_with_fistula__line_in_situ:
+  name: Continue with fistula -- line in situ
+fistula_graft_maturing:
+  name: Fistula/graft maturing
+fistula_graft_requires_imaging_intervention:
+  name: Fistula/graft requires imaging/intervention
+for_pd__awaiting_catheter:
+  name: For PD -- awaiting catheter
+for_pd__catheter_in_situ:
+  name: For PD -- catheter in situ
+waiting_for_2nd_stage_avf:
+  name: Waiting for 2nd stage AVF
+waiting_for_access_clinic:
+  name: Waiting for access clinic
+waiting_for_theatre_date:
+  name: Waiting for theatre date
+fistula_made_hard_to_needle:
+  name: Fistula made – hard to needle
+return_to_peritoneal_dialysis:
+  name: Return to peritoneal dialysis

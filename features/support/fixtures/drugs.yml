@@ -1,0 +1,16 @@
+cefuroxime:
+  id: 452
+  name: Cefuroxime Injection
+
+cefotaxime:
+  id: 442
+  name: Cefotaxime Injection
+
+ciprofloxacin:
+  id: 525
+  name: Ciprofloxacin Infusion
+
+ephedrine:
+  id: 880
+  name: Ephedrine Tablet
+

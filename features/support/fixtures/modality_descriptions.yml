@@ -1,0 +1,100 @@
+arf:
+  code: ARF
+  name: ARF
+
+death:
+  code: death
+  name: Death
+
+diabetic:
+  code: diabetic
+  name: Renal/Diabetic
+
+filtration:
+  code: filtration
+  name: Filtration
+
+hd_home:
+  code: HD_home
+  name: Home HD
+
+hd_unit:
+  code: HD_unit
+  name: Unit HD
+
+hd_ward:
+  code: HD_ward
+  name: HD Ward
+
+hd_holiday:
+  code: HD_holiday
+  name: Holiday Patient
+
+lowclear:
+  code: lowclear
+  name: Low Clearance
+
+medical:
+  code: medical
+  name: Medical
+
+nephrology:
+  code: nephrology
+  name: Nephrology
+
+other:
+  code: other
+  name: Other
+
+pd_apd:
+  code: PD_APD
+  name: PD-APD
+
+pd_capd:
+  code: PD_CAPD
+  name: PD-CAPD
+
+pd_rest_hd:
+  code: PD_rest_HD
+  name: PD Rest on HD
+
+referral:
+  code: referral
+  name: Referral
+
+transferout:
+  code: transferout
+  name: Transfer Out
+
+tx_first:
+  code: Tx_first
+  name: First year Tx
+
+livedonor:
+  code: livedonor
+  name: Live Donor
+
+tx_subs:
+  code: Tx_subs
+  name: Sub Year Tx
+
+hd_arf:
+  code: HD_ARF
+  name: HD-ARF
+
+sharedcare:
+  code: sharedcare
+  name: Shared Care
+
+pd_assistedapd:
+  code: PD_assistedAPD
+  name: PD-Assisted APD
+
+pd_prepd:
+  code: PD_prePD
+  name: PD-PrePD
+
+heartfailure:
+  code: heartfailure
+  name: Heart Failure
+

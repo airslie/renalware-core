@@ -1,0 +1,56 @@
+active:
+  code: active
+  name: Active
+  position: 1
+suspended:
+  code: suspended
+  name: Suspended
+  position: 2
+transplanted:
+  code: transplanted
+  name: Transplanted
+  position: 3
+live_transplanted:
+  code: live_transplanted
+  name: Live transplanted
+  position: 4
+off_by_patient:
+  code: off_by_patient
+  name: Off by patient request
+  position: 5
+not_eligible:
+  code: not_eligible
+  name: Not eligible for NHS Tx
+  position: 6
+unfit_reconsider:
+  code: unfit_reconsider
+  name: Unfit (not listed -- reconsider)
+  position: 7
+unfit_permanent:
+  code: unfit_permanent
+  name: Unfit (not listed -- permanent)
+  position: 8
+working_up:
+  code: working_up
+  name: X - working up
+  position: 9
+working_up_lrf:
+  code: working_up_lrf
+  name: X - working up LRF
+  position: 10
+not_for_work_up:
+  code: not_for_work_up
+  name: Not for work up - eGFR too high
+  position: 11
+workup_complete:
+  code: workup_complete
+  name: Workup complete - low creat
+  position: 12
+transfer_out:
+  code: transfer_out
+  name: Transfer Out
+  position: 13
+died:
+  code: died
+  name: Died
+  position: 14
