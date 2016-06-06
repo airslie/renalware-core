@@ -553,9 +553,7 @@ CREATE TABLE drug_types (
 
 CREATE TABLE drug_types_drugs (
     drug_id integer,
-    drug_type_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    drug_type_id integer
 );
 
 
