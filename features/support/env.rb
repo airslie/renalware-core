@@ -69,7 +69,8 @@ table_model_map = {
   roles: Renalware::Role,
   transplant_failure_cause_description_groups: Renalware::Transplants::FailureCauseDescriptionGroup,
   transplant_failure_cause_descriptions: Renalware::Transplants::FailureCauseDescription,
-  transplant_registration_status_descriptions: Renalware::Transplants::RegistrationStatusDescription,
+  transplant_registration_status_descriptions:
+    Renalware::Transplants::RegistrationStatusDescription,
   users: Renalware::User,
 }
 
