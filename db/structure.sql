@@ -305,8 +305,8 @@ CREATE TABLE addresses (
     county character varying,
     city character varying,
     postcode character varying,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     country character varying,
     name character varying,
     organisation_name character varying
@@ -584,8 +584,8 @@ CREATE TABLE drugs (
     id integer NOT NULL,
     name character varying NOT NULL,
     deleted_at timestamp without time zone,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -617,8 +617,8 @@ CREATE TABLE edta_codes (
     code integer,
     death_cause character varying,
     deleted_at timestamp without time zone,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -683,8 +683,8 @@ CREATE TABLE esrf (
     patient_id integer NOT NULL,
     diagnosed_on date NOT NULL,
     prd_description_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -714,8 +714,8 @@ ALTER SEQUENCE esrf_id_seq OWNED BY esrf.id;
 CREATE TABLE ethnicities (
     id integer NOT NULL,
     name character varying,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -746,8 +746,8 @@ CREATE TABLE event_types (
     id integer NOT NULL,
     name character varying NOT NULL,
     deleted_at timestamp without time zone,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -781,8 +781,8 @@ CREATE TABLE events (
     event_type_id integer,
     description character varying,
     notes text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -1535,8 +1535,8 @@ CREATE TABLE modalities (
     started_on date NOT NULL,
     ended_on date,
     deleted_at timestamp without time zone,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -1568,8 +1568,8 @@ CREATE TABLE modality_descriptions (
     code character varying NOT NULL,
     name character varying NOT NULL,
     deleted_at timestamp without time zone,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -1602,8 +1602,8 @@ CREATE TABLE modality_reasons (
     rr_code integer,
     description character varying,
     deleted_at timestamp without time zone,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -2005,8 +2005,8 @@ CREATE TABLE patients (
     second_edta_code_id integer,
     death_notes text,
     cc_on_all_letters boolean DEFAULT true,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     practice_id integer,
     doctor_id integer,
     created_by_id integer NOT NULL,
@@ -2217,8 +2217,8 @@ CREATE TABLE prd_descriptions (
     id integer NOT NULL,
     code character varying,
     term character varying,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -2286,8 +2286,8 @@ CREATE TABLE problem_problems (
     description character varying NOT NULL,
     date date,
     deleted_at timestamp without time zone,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -2352,8 +2352,8 @@ ALTER SEQUENCE problem_versions_id_seq OWNED BY problem_versions.id;
 CREATE TABLE roles (
     id integer NOT NULL,
     name character varying,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 

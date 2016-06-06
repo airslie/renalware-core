@@ -3,7 +3,7 @@ class CreateEventTypes < ActiveRecord::Migration
     create_table :event_types do |t|
       t.string :name, null: false
       t.datetime :deleted_at
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

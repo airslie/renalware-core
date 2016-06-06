@@ -20,7 +20,7 @@ class CreatePatients < ActiveRecord::Migration
       t.integer :second_edta_code_id
       t.text :death_notes
       t.boolean :cc_on_all_letters, default: true
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

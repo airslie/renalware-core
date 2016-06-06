@@ -9,7 +9,7 @@ class CreateModalities < ActiveRecord::Migration
       t.date :started_on,          null: false
       t.date :ended_on
       t.datetime :deleted_at
-      t.timestamps
+      t.timestamps null: false
     end
     add_foreign_key :modalities,
       :modality_descriptions, column: :description_id
