@@ -38,7 +38,6 @@ ActionController::Base.allow_rescue = false
 table_model_map = {
   drugs: Renalware::Drugs::Drug,
   drug_types: Renalware::Drugs::Type,
-  roles: Renalware::Role,
   event_types: Renalware::Events::Type,
   ethnicities: Renalware::Ethnicity,
   modality_descriptions: Renalware::Modalities::Description,
