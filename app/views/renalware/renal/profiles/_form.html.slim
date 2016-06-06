@@ -1,4 +1,4 @@
-.esrf-info-form
+.profile-info-form
 
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Diagnosis", name: "diagnosis" } do
@@ -18,7 +18,7 @@
                 f.object.prd_description.to_s,
                 data: { \
                   autocomplete_source: search_prd_descriptions_path, \
-                  autocomplete_rel: "#esrf_prd_description_id" \
+                  autocomplete_rel: "#renal_profile_prd_description_id" \
                 },
                 placeholder: "Start entering the diagnosis or PRD code (min. 2 characters)",
                 spellcheck: false,

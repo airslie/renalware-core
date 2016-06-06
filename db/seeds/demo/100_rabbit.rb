@@ -147,8 +147,8 @@ module Renalware
     {patient_id: 1, drug_id: 126, treatable_id: 1, treatable_type: "Renalware::PeritonitisEpisode", dose: "100 mg", medication_route_id: 1, frequency: "tid for 7d", start_date: "2015-09-14", end_date: "2015-09-21", provider: 0}
   ])
 
-  log '--------------------Adding ESRF Info for Roger RABBIT-------------------'
-  ESRF.create([
+  log '--------------------Adding Renal Profile for Roger RABBIT-------------------'
+  Renal::Profile.create([
     {patient_id: 1, diagnosed_on: "2015-05-05", prd_description_id: 109}
   ])
 
