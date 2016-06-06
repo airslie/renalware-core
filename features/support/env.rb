@@ -68,7 +68,9 @@ table_model_map = {
   pathology_request_descriptions: Renalware::Pathology::RequestDescription,
   users: Renalware::User,
   patient_religions: Renalware::Patients::Religion,
-  patient_languages: Renalware::Patients::Language
+  patient_languages: Renalware::Patients::Language,
+  addresses: Renalware::Address,
+  practices: Renalware::Practice
 }
 
 Before do

@@ -1,0 +1,52 @@
+sw1h_9hp:
+  addressable_type: Renalware::Practice
+  addressable_id: 1
+  street_1: 2-4 OLD QUEEN STREET
+  street_2:
+  county:
+  city: LONDON
+  postcode: SW1H 9HP
+  created_at: 2016-06-06 15:07:32 +0100
+  updated_at: 2016-06-06 15:07:32 +0100
+  country:
+  name:
+  organisation_name:
+sw18_3hs:
+  addressable_type: Renalware::Practice
+  addressable_id: 2
+  street_1: PO BOX 757, HEATHFIELD RD
+  street_2: WANSDSWORTH
+  county:
+  city: LONDON
+  postcode: SW18 3HS
+  created_at: 2016-06-06 15:07:32 +0100
+  updated_at: 2016-06-06 15:07:32 +0100
+  country:
+  name:
+  organisation_name:
+se8_4bg:
+  addressable_type: Renalware::Practice
+  addressable_id: 3
+  street_1: STANLEY STREET
+  street_2:
+  county:
+  city: LONDON
+  postcode: SE8 4BG
+  created_at: 2016-06-06 15:07:32 +0100
+  updated_at: 2016-06-06 15:07:32 +0100
+  country:
+  name:
+  organisation_name:
+nw1_0pe:
+  addressable_type: Renalware::Practice
+  addressable_id: 4
+  street_1: 4 ST PANCRAS WAY
+  street_2: CAMDEN
+  county:
+  city: LONDON
+  postcode: NW1 0PE
+  created_at: 2016-06-06 15:07:32 +0100
+  updated_at: 2016-06-06 15:07:32 +0100
+  country:
+  name:
+  organisation_name:
