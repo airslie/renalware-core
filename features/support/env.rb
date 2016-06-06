@@ -71,11 +71,11 @@ table_model_map = {
   patient_languages: Renalware::Patients::Language
 }
 
-Before do
-  ActiveRecord::FixtureSet.reset_cache
-  fixtures_folder = File.join(Rails.root, "features", "support", "fixtures")
-  fixtures = Dir[File.join(fixtures_folder, "*.yml")].map {|f| File.basename(f, ".yml") }
-  ActiveRecord::FixtureSet.create_fixtures(fixtures_folder, fixtures, table_model_map)
-end
+Cucumber::Rails::World.use_transactional_fixtures
+ActiveRecord::FixtureSet.reset_cache
+fixtures_folder = File.join(Rails.root, "features", "support", "fixtures")
+fixtures = Dir[File.join(fixtures_folder, '*.yml')].map {|f| File.basename(f, '.yml') }
+ActiveRecord::FixtureSet.create_fixtures(fixtures_folder, fixtures, table_model_map)
+
 
 puts "Database fixtures loaded."
