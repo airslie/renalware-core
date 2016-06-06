@@ -1960,7 +1960,6 @@ CREATE TABLE patients (
     paediatric_patient_indicator boolean,
     sex character varying,
     ethnicity_id integer,
-    current_address_id integer,
     address_at_diagnosis_id integer,
     gp_practice_code character varying,
     pct_org_code character varying,

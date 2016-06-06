@@ -9,7 +9,7 @@ module Renalware
 
     serialize :sex, Gender
 
-    belongs_to :current_address, class_name: "Address", foreign_key: :current_address_id
+    has_one :current_address, as: :addressable, class_name: "Address"
     belongs_to :address_at_diagnosis, class_name: "Address", foreign_key: :address_at_diagnosis_id
     belongs_to :ethnicity
     belongs_to :first_edta_code, class_name: "EdtaCode", foreign_key: :first_edta_code_id
