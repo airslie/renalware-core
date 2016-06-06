@@ -1899,7 +1899,7 @@ CREATE TABLE pathology_request_descriptions (
     name character varying,
     required_observation_description_id integer,
     expiration_days integer,
-    lab_id integer
+    lab_id integer NOT NULL
 );
 
 
