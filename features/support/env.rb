@@ -38,7 +38,6 @@ ActionController::Base.allow_rescue = false
 table_model_map = {
   drugs: Renalware::Drugs::Drug,
   drug_types: Renalware::Drugs::Type,
-  roles: Renalware::Role,
   event_types: Renalware::Events::Type,
   ethnicities: Renalware::Ethnicity,
   modality_descriptions: Renalware::Modalities::Description,
@@ -64,7 +63,7 @@ table_model_map = {
   hd_dialysers: Renalware::HD::Dialyser,
   letter_letterheads: Renalware::Letters::Letterhead,
   pathology_observation_descriptions: Renalware::Pathology::ObservationDescription,
-  pathology_lab: Renalware::Pathology::Lab,
+  pathology_labs: Renalware::Pathology::Lab,
   pathology_request_descriptions: Renalware::Pathology::RequestDescription,
   users: Renalware::User,
   patient_religions: Renalware::Patients::Religion,
