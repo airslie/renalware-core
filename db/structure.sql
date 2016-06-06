@@ -497,7 +497,6 @@ CREATE TABLE doctors (
     family_name character varying,
     email character varying,
     code character varying,
-    address_id integer,
     practitioner_type character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
