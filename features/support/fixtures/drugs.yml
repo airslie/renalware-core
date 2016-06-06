@@ -8,7 +8,7 @@ cefotaxime:
 
 ciprofloxacin:
   name: Ciprofloxacin Infusion
-  drug_types: antibiotic
+  drug_types: antibiotic, peritonitis
 
 ephedrine:
   name: Ephedrine Tablet
