@@ -6,7 +6,7 @@ class CreateProblemProblems < ActiveRecord::Migration
       t.string :description, null: false
       t.date :date
       t.datetime :deleted_at, index: true
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

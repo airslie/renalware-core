@@ -4,7 +4,7 @@ class CreateESRF < ActiveRecord::Migration
       t.references :patient,         null: false, foreign_key: true
       t.date :diagnosed_on,          null: false
       t.references :prd_description, foreign_key: true
-      t.timestamps null: true
+      t.timestamps null: false
     end
   end
 end
