@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.3.1'
 
-gem 'rails', '~> 4.2.5.2'
+gem 'rails', '~> 4.2.6'
 gem 'pg', '~> 0.18.1'
 gem 'foundation-rails'
 gem 'jquery-rails'

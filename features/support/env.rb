@@ -36,41 +36,42 @@ ActionController::Base.allow_rescue = false
 
 # Load the test fixtures to the database
 table_model_map = {
-  drugs: Renalware::Drugs::Drug,
-  drug_types: Renalware::Drugs::Type,
-  roles: Renalware::Role,
-  event_types: Renalware::Events::Type,
-  ethnicities: Renalware::Ethnicity,
-  modality_descriptions: Renalware::Modalities::Description,
-  edta_codes: Renalware::EdtaCode,
-  prd_descriptions: Renalware::PRDDescription,
-  organism_codes: Renalware::OrganismCode,
-  modality_reasons: Renalware::Modalities::Reason,
-  medication_routes: Renalware::MedicationRoute,
-  episode_types: Renalware::EpisodeType,
-  fluid_descriptions: Renalware::FluidDescription,
-  bag_types: Renalware::BagType,
-  clinics: Renalware::Clinics::Clinic,
-  transplant_registration_status_descriptions:
-    Renalware::Transplants::RegistrationStatusDescription,
-  transplant_failure_cause_description_groups: Renalware::Transplants::FailureCauseDescriptionGroup,
-  transplant_failure_cause_descriptions: Renalware::Transplants::FailureCauseDescription,
+  access_plans: Renalware::Accesses::Plan,
   access_sites: Renalware::Accesses::Site,
   access_types: Renalware::Accesses::Type,
-  access_plans: Renalware::Accesses::Plan,
-  hospital_centres: Renalware::Hospitals::Centre,
-  hospital_units: Renalware::Hospitals::Unit,
+  addresses: Renalware::Address,
+  bag_types: Renalware::BagType,
+  clinics: Renalware::Clinics::Clinic,
+  doctors: Renalware::Doctor,
+  drug_types: Renalware::Drugs::Type,
+  drugs: Renalware::Drugs::Drug,
+  edta_codes: Renalware::EdtaCode,
+  episode_types: Renalware::EpisodeType,
+  ethnicities: Renalware::Ethnicity,
+  event_types: Renalware::Events::Type,
+  fluid_descriptions: Renalware::FluidDescription,
   hd_cannulation_types: Renalware::HD::CannulationType,
   hd_dialysers: Renalware::HD::Dialyser,
+  hospital_centres: Renalware::Hospitals::Centre,
+  hospital_units: Renalware::Hospitals::Unit,
   letter_letterheads: Renalware::Letters::Letterhead,
-  pathology_observation_descriptions: Renalware::Pathology::ObservationDescription,
+  medication_routes: Renalware::MedicationRoute,
+  modality_descriptions: Renalware::Modalities::Description,
+  modality_reasons: Renalware::Modalities::Reason,
+  organism_codes: Renalware::OrganismCode,
   pathology_lab: Renalware::Pathology::Lab,
+  pathology_observation_descriptions: Renalware::Pathology::ObservationDescription,
   pathology_request_descriptions: Renalware::Pathology::RequestDescription,
-  users: Renalware::User,
-  patient_religions: Renalware::Patients::Religion,
   patient_languages: Renalware::Patients::Language,
-  addresses: Renalware::Address,
-  practices: Renalware::Practice
+  patient_religions: Renalware::Patients::Religion,
+  practices: Renalware::Practice,
+  prd_descriptions: Renalware::PRDDescription,
+  roles: Renalware::Role,
+  transplant_failure_cause_description_groups: Renalware::Transplants::FailureCauseDescriptionGroup,
+  transplant_failure_cause_descriptions: Renalware::Transplants::FailureCauseDescription,
+  transplant_registration_status_descriptions:
+    Renalware::Transplants::RegistrationStatusDescription,
+  users: Renalware::User,
 }
 
 Before do
@@ -81,3 +82,4 @@ Before do
 end
 
 puts "Database fixtures loaded."
+

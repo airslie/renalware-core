@@ -3,28 +3,22 @@ emmett:
   family_name: Eichmann
   email: Eichmann.Emmett@nhs.net
   code: GP116218744
-  address_id: 1
   practitioner_type: GP
-  created_at: 2016-06-06 15:07:32 +0100
-  updated_at: 2016-06-06 15:07:32 +0100
   telephone: 07123321
+  address: nw2_1dz
 clay:
   given_name: Clay
   family_name: Haag
   email: Haag.Clay@nhs.net
   code: GP204446681
-  address_id: 2
   practitioner_type: GP
-  created_at: 2016-06-06 15:07:32 +0100
-  updated_at: 2016-06-06 15:07:32 +0100
   telephone: 07456654
+  address: e7_8qp
 levi:
   given_name: Levi
   family_name: Considine
   email: Considine.Levi@nhs.net
   code: GP064622031
-  address_id: 3
   practitioner_type: GP
-  created_at: 2016-06-06 15:07:32 +0100
-  updated_at: 2016-06-06 15:07:32 +0100
   telephone: 020394291
+  address: e5_0qr
