@@ -8,7 +8,6 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :county
       t.string :city
       t.string :postcode
-      t.string :type
 
       t.timestamps null: false
     end

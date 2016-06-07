@@ -305,7 +305,6 @@ CREATE TABLE addresses (
     county character varying,
     city character varying,
     postcode character varying,
-    type character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     country character varying,
