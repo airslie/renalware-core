@@ -5,6 +5,7 @@ module Renalware
     class FormsController < Pathology::BaseController
       layout "renalware/layouts/printable"
       before_filter :load_patients
+      before_filter :authorize_patients
 
       def index
         form_params = FormParamsDecorator.new(params)
@@ -21,10 +22,13 @@ module Renalware
       private
 
       def load_patients
-        @patients = Pathology::Patient.where(
-          id: params[:patient_ids].split(",")
+        @patients = Pathology::Patient.find(
+          params[:patient_ids].split(",")
         )
-        authorize @patients
+      end
+
+      def authorize_patients
+        @patients.each { |patient| authorize patient }
       end
     end
   end
