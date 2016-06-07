@@ -5,7 +5,7 @@ class CreateModalityReasons < ActiveRecord::Migration
       t.integer :rr_code
       t.string :description
       t.datetime :deleted_at
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

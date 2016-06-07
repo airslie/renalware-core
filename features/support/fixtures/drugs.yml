@@ -1,16 +1,15 @@
 cefuroxime:
-  id: 452
   name: Cefuroxime Injection
+  drug_types: antibiotic
 
 cefotaxime:
-  id: 442
   name: Cefotaxime Injection
+  drug_types: peritonitis
 
 ciprofloxacin:
-  id: 525
   name: Ciprofloxacin Infusion
+  drug_types: antibiotic, peritonitis
 
 ephedrine:
-  id: 880
   name: Ephedrine Tablet
-
+  drug_types: peritonitis

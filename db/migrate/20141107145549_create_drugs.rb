@@ -3,7 +3,7 @@ class CreateDrugs < ActiveRecord::Migration
     create_table :drugs do |t|
       t.string :name, null: false
       t.datetime :deleted_at
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

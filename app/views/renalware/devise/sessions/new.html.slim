@@ -1,5 +1,9 @@
-.row.small-6.large-4
+.row.small-8.large-12
   h3 Log in to Renalware
+
+  .alert-box.warning NOTICE: This system contains patient clinical records. All information is highly confidential and must be treated as such. All data must be used with the Data Protection Act and related legislation and in compliance with security policies governing use of this system. Unauthorised, illegal or improper use may result in disciplinary action and civil or criminal prosecution. By continuing to access this system you agree that such access and use is subject to the foregoing.
+
+.row.small-6.large-3
 
   = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
     = f.input :username, input_html: { autofocus: true }, required: false
