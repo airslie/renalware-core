@@ -3,7 +3,7 @@
     .row
       h4 Pathology Request Listing
 
-      table
+      table[id="patient_#{patient.id}_summary"]
         tr
           td.header_cell Patient Name:
           td = patient.full_name.upcase

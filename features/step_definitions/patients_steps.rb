@@ -5,7 +5,7 @@ Given(/^Patty is a patient$/) do
     given_name: "ThePatient",
     local_patient_id: "123456",
     sex: "F",
-    born_on: Time.zone.today,
+    born_on: Date.new(1961, 12, 25),
     doctor: doctor,
     current_address_attributes: {
       name: "Patty ThePatient",

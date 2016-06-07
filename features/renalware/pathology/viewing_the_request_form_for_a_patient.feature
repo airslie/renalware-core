@@ -9,9 +9,9 @@ Feature: Viewing the request form for a patient
 
   Background:
     Given the global rule sets:
-      | request_description_code | BFF    |
-      | clinic                   | Access |
-      | frequency_type           | Always |
+      | request_description_code | BFF        |
+      | clinic                   | Transplant |
+      | frequency_type           | Always     |
     And the rule set contains these rules:
       | type              | id  | operator | value |
       | ObservationResult | HGB | <        | 100   |
@@ -23,14 +23,25 @@ Feature: Viewing the request form for a patient
       | frequency_type   | Always        |
 
   @web
-  Scenario:
+  Scenario: Clyde views the form without request any specific form details
     Given Clyde is a clinician
     When Clyde views the pathology request form for Patty
-    And Clyde selects clinic Access
-    And Clyde selects doctor John Merrill
-    And Clyde selects telephone number 07921838959
     Then Clyde sees these details at the top of the form
-    | Patient Name:    | ThePatient Patty | Date:         | TODAYS_DATE  |
-    | DOB:             | 01/01/1926       | Consultant:   | John Merrill |
-    | Clinical Detail: | Access           | Contact:      | Transplant   |
-    |                  |                  | Bleep/Tel No: | 07921838959  |
+      | Patient Name:    | THEPATIENT PATTY | Date:         | TODAYS_DATE     |
+      | DOB:             | 25/12/1961       | Consultant:   | Emmett Eichmann |
+      | Clinical Detail: | AKI              | Contact:      | AKI             |
+      |                  |                  | Bleep/Tel No: | 1877713         |
+    And Clyde sees this patient specific test: Test for HepB
+
+  @web
+  Scenario: Clyde views the form and requests specific form details
+    Given Clyde is a clinician
+    When Clyde enters clinic Transplant
+    And Clyde enters doctor Emmett Eichmann
+    And Clyde enters telephone number 7921838959
+    And Clyde views the pathology request form for Patty
+    Then Clyde sees these details at the top of the form
+      | Patient Name:    | THEPATIENT PATTY | Date:         | TODAYS_DATE     |
+      | DOB:             | 25/12/1961       | Consultant:   | Emmett Eichmann |
+      | Clinical Detail: | Transplant       | Contact:      | Transplant      |
+      |                  |                  | Bleep/Tel No: | 7921838959     |

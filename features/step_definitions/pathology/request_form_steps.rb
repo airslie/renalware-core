@@ -1,22 +1,52 @@
-When(/^Clyde views the pathology request form for Patty$/) do
-  @url_params = { patient_ids: @patty.id }
-end
-
-When(/^Clyde selects clinic (.*)$/) do |clinic_name|
-  clinic = Renalware::Clinics::Clinic.find_by(name: clinic_name)
+When(/^Clyde enters clinic (.*)$/) do |clinic_name|
+  @url_params = {} unless @url_params.present?
+  clinic = Renalware::Clinics::Clinic.find_by!(name: clinic_name)
   @url_params.merge!(clinic_id: clinic.id)
 end
 
-When(/^Clyde selects doctor ([A-Za-z]+) ([A-Za-z]+)$/) do |given_name, family_name|
-  doctor = Renalware::Doctor.find_by(given_name: given_name, family_name: family_name)
+When(/^Clyde enters doctor ([A-Za-z]+) ([A-Za-z]+)$/) do |given_name, family_name|
+  @url_params = {} unless @url_params.present?
+  doctor = Renalware::Doctor.find_by!(given_name: given_name, family_name: family_name)
+  @url_params.merge!(doctor_id: doctor.id)
 end
 
-When(/^Clyde selects telephone number (\d+)$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+When(/^Clyde enters telephone number (\d*)$/) do |telephone|
+  @url_params = {} unless @url_params.present?
+  @url_params.merge!(telephone: telephone)
+end
+
+When(/^Clyde views the pathology request form for Patty$/) do
+  login_as @clyde
+
+  @url_params = {} unless @url_params.present?
+
+  @url_params.merge!(patient_ids: @patty.id)
+  url = pathology_forms_path(@url_params)
+
+  visit url
 end
 
 Then(/^Clyde sees these details at the top of the form$/) do |table|
-  # table is a Cucumber::Ast::Table
-  pending # express the regexp above with the code you wish you had
-  # url = pathology_forms_path
+  html_table =
+    find_by_id("patient_#{@patty.id}_summary")
+      .all("tr")
+      .map do |row|
+        row.all("th, td").map { |cell| cell.text.strip }
+      end
+
+  expected_table = table.raw.map do |row|
+    row.map do |cell|
+      if cell == "TODAYS_DATE"
+        Date.current.strftime("%d/%m/%Y")
+      else
+        cell
+      end
+    end
+  end
+
+  expect(html_table).to eq(expected_table)
+end
+
+Then(/^Clyde sees this patient specific test: (.*)$/) do |string|
+  expect(page).to have_content(string)
 end
