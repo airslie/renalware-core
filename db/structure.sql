@@ -298,8 +298,8 @@ ALTER SEQUENCE access_versions_id_seq OWNED BY access_versions.id;
 
 CREATE TABLE addresses (
     id integer NOT NULL,
-    addressable_type character varying,
-    addressable_id integer,
+    addressable_type character varying NOT NULL,
+    addressable_id integer NOT NULL,
     street_1 character varying,
     street_2 character varying,
     county character varying,

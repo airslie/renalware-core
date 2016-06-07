@@ -3,7 +3,7 @@ module World
     module Domain
       def update_patient_address(patient:, current_address_attributes:)
         patient.update!(
-          current_address_attributes: current_address_attributes,
+          current_address_attributes: current_address_attributes.merge(id: patient.current_address.id),
           by: Renalware::SystemUser.find
         )
       end

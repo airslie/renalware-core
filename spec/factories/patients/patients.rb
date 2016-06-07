@@ -18,9 +18,15 @@ FactoryGirl.define do
     ethnicity
     died_on nil
     first_edta_code_id nil
-    association :current_address, factory: :address
     association :created_by, factory: :user
     association :updated_by, factory: :user
+
+    # ensures addressable_type and addressable_id work is assigned, using
+    # FactoryGirl's simple assoc method does not work
+    #
+    before(:create) do |patient|
+      patient.build_current_address(attributes_for(:address))
+    end
 
     trait :with_problems do
       after(:create) do |patient|
