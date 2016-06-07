@@ -8,10 +8,10 @@
           td.header_cell Patient Name:
           td = patient.full_name.upcase
           td.header_cell Date:
-          td = Date.current.strftime("%d/%m/%Y")
+          td  = I18n.l Date.current
         tr
           td.header_cell DOB:
-          td = patient.born_on.strftime("%d/%m/%Y")
+          td = I18n.l patient.born_on
           td.header_cell Consultant:
           td = form_params.doctor.full_name
         tr

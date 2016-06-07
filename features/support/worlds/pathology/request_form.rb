@@ -48,7 +48,7 @@ module World
           expected_table = expected_table.raw.map do |row|
             row.map do |cell|
               if cell == "TODAYS_DATE"
-                Date.current.strftime("%d/%m/%Y")
+                I18n.l Date.current
               else
                 cell
               end

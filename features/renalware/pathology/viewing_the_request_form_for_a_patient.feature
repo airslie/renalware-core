@@ -30,7 +30,7 @@ Feature: Viewing the request form for a patient
     When Clyde views the pathology request form for Patty
     Then Clyde sees these details at the top of the form
       | Patient Name:    | THEPATIENT PATTY | Date:         | TODAYS_DATE      |
-      | DOB:             | 25/12/1961       | Consultant:   | Aaron Aaronofsky |
+      | DOB:             | 25-12-1961       | Consultant:   | Aaron Aaronofsky |
       | Clinical Detail: | AKI              | Contact:      | AKI              |
       |                  |                  | Bleep/Tel No: | 203123123        |
     And Clyde sees this patient specific test: Test for HepB
@@ -44,7 +44,7 @@ Feature: Viewing the request form for a patient
     And Clyde views the pathology request form for Patty
     Then Clyde sees these details at the top of the form
       | Patient Name:    | THEPATIENT PATTY | Date:         | TODAYS_DATE   |
-      | DOB:             | 25/12/1961       | Consultant:   | Zoe Zimmerman |
+      | DOB:             | 25-12-1961       | Consultant:   | Zoe Zimmerman |
       | Clinical Detail: | Transplant       | Contact:      | Transplant    |
       |                  |                  | Bleep/Tel No: | 7921838959    |
     And Clyde sees this patient specific test: Test for HepB
@@ -58,7 +58,7 @@ Feature: Viewing the request form for a patient
     And Clyde views the pathology request form for Patty
     Then Clyde sees these details at the top of the form
       | Patient Name:    | THEPATIENT PATTY | Date:         | TODAYS_DATE      |
-      | DOB:             | 25/12/1961       | Consultant:   | Aaron Aaronofsky |
+      | DOB:             | 25-12-1961       | Consultant:   | Aaron Aaronofsky |
       | Clinical Detail: | Transplant       | Contact:      | Transplant       |
       |                  |                  | Bleep/Tel No: | 123              |
     And Clyde sees this patient specific test: Test for HepB
