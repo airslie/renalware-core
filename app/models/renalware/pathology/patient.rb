@@ -7,6 +7,8 @@ module Renalware
       has_many :observations, through: :observation_requests
       has_many :rules, class_name: "RequestAlgorithm::PatientRule"
 
+      scope :find_by_patient_ids, -> (patient_ids) { where(id: patient_ids) }
+
       def required_observation_requests(clinic)
         RequestAlgorithm::Global.new(self, clinic).determine_required_request_descriptions
       end
