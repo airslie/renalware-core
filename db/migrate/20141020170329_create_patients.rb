@@ -9,7 +9,6 @@ class CreatePatients < ActiveRecord::Migration
       t.boolean :paediatric_patient_indicator
       t.string :sex
       t.references :ethnicity,    foreign_key: true
-      t.integer :address_at_diagnosis_id
       t.string :gp_practice_code
       t.string :pct_org_code
       t.string :hospital_centre_code
