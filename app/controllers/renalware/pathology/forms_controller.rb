@@ -7,13 +7,14 @@ module Renalware
       before_filter :load_patients
 
       def index
+        form_params =
+          Renalware::Pathology::FormParamsDecorator.new(params)
         patients =
           Renalware::Pathology::RequestFormsDecorator.wrap(@patients, form_params.clinic)
 
         render :index, locals: {
           form_params: form_params,
           patients: patients,
-          patient_ids: patients.map(&:id).join(","),
           doctors: Renalware::Doctor.ordered,
           clinics: Renalware::Clinics::Clinic.ordered
         }
@@ -22,12 +23,10 @@ module Renalware
       private
 
       def load_patients
-        @patients = Renalware::Pathology::Patient.where(id: params[:patient_ids].split(","))
+        @patients = Renalware::Pathology::Patient.find_by_patient_ids(
+          params[:patient_ids].split(",")
+        )
         authorize @patients
-      end
-
-      def form_params
-        @form_params ||= Renalware::Pathology::FormParamsDecorator.new(params)
       end
     end
   end
