@@ -1,7 +1,22 @@
 module World
   module Pathology
     module GlobalAlgorithm
+      module Domain
+        # @section commands
+        #
+        def set_url_params(url_params, new_param); end
+        def get_pathology_request_form(clinician, url_params, patient_ids); end
+
+        # @section expectations
+        #
+        def expect_patient_summary_to_match_table(patient_id, expected_table); end
+        def expect_patient_specific_test(test_description); end
+        def expect_no_request_descriptions_required; end
+        def expect_request_description_required(request_description_code); end
+      end
+
       module Web
+        include Domain
         # @section commands
         #
         def set_url_params(url_params, new_param)
@@ -41,6 +56,14 @@ module World
           end
 
           expect(table_from_html).to eq(expected_table)
+        end
+
+        def expect_patient_specific_test(test_description)
+          expect(page).to have_content(test_description)
+        end
+
+        def expect_no_request_descriptions_required
+          expect(page).to have_content("No tests required.")
         end
 
         def expect_request_description_required(request_description_code)

@@ -20,12 +20,12 @@ Then(/^Clyde sees these details at the top of the form$/) do |table|
   expect_patient_summary_to_match_table(@patty.id, table)
 end
 
-Then(/^Clyde sees this patient specific test: (.*)$/) do |string|
-  expect(page).to have_content(string)
+Then(/^Clyde sees this patient specific test: (.*)$/) do |test_description|
+  expect_patient_specific_test(test_description)
 end
 
 Then(/^Clyde sees no global tests required$/) do
-  expect(page).to have_content("No tests required.")
+  expect_no_request_descriptions_required
 end
 
 Then(/^Clyde sees the request description ([A-Z0-9]+) required$/) do |request_description_code|
