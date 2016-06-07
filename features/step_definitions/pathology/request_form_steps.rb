@@ -50,3 +50,13 @@ end
 Then(/^Clyde sees this patient specific test: (.*)$/) do |string|
   expect(page).to have_content(string)
 end
+
+Then(/^Clyde sees no global tests required$/) do
+  expect(page).to have_content("No tests required.")
+end
+
+Then(/^Clyde sees the request description ([A-Z0-9]+) required$/) do |request_description_code|
+  request_description =
+    Renalware::Pathology::RequestDescription.find_by(code: request_description_code)
+  expect(page.text.downcase).to include(request_description.name.downcase)
+end

@@ -34,6 +34,7 @@ Feature: Viewing the request form for a patient
       | Clinical Detail: | AKI              | Contact:      | AKI              |
       |                  |                  | Bleep/Tel No: | 203123123        |
     And Clyde sees this patient specific test: Test for HepB
+    And Clyde sees no global tests required
 
   @web
   Scenario: Clyde views the form and requests a specific doctor
@@ -47,6 +48,7 @@ Feature: Viewing the request form for a patient
       | Clinical Detail: | Transplant       | Contact:      | Transplant    |
       |                  |                  | Bleep/Tel No: | 7921838959    |
     And Clyde sees this patient specific test: Test for HepB
+    And Clyde sees the request description BFF required
 
   @web
   Scenario: Clyde views the form and requests specific telephone number & clinic
@@ -60,3 +62,4 @@ Feature: Viewing the request form for a patient
       | Clinical Detail: | Transplant       | Contact:      | Transplant       |
       |                  |                  | Bleep/Tel No: | 123              |
     And Clyde sees this patient specific test: Test for HepB
+    And Clyde sees the request description BFF required
