@@ -8,7 +8,9 @@ Feature: Viewing the request form for a patient
   The doctor, telephone number & clinic fields on the form should be changeable.
 
   Background:
-    Given the global rule sets:
+    Given Aaron Aaronofsky is a doctor with telephone number: 0203123123
+    And Zoe Zimmerman is a doctor with telephone number: 7921838959
+    And the global rule sets:
       | request_description_code | BFF        |
       | clinic                   | Transplant |
       | frequency_type           | Always     |
@@ -22,26 +24,25 @@ Feature: Viewing the request form for a patient
       | test_description | Test for HepB |
       | frequency_type   | Always        |
 
-  @web
-  Scenario: Clyde views the form without request any specific form details
-    Given Clyde is a clinician
-    When Clyde views the pathology request form for Patty
-    Then Clyde sees these details at the top of the form
-      | Patient Name:    | THEPATIENT PATTY | Date:         | TODAYS_DATE     |
-      | DOB:             | 25/12/1961       | Consultant:   | Emmett Eichmann |
-      | Clinical Detail: | AKI              | Contact:      | AKI             |
-      |                  |                  | Bleep/Tel No: | 1877713         |
-    And Clyde sees this patient specific test: Test for HepB
+  #@web
+  #Scenario: Clyde views the form without request any specific form details
+  #  Given Clyde is a clinician
+  #  When Clyde views the pathology request form for Patty
+  #  Then Clyde sees these details at the top of the form
+  #    | Patient Name:    | THEPATIENT PATTY | Date:         | TODAYS_DATE      |
+  #    | DOB:             | 25/12/1961       | Consultant:   | Aaron Aaronofsky |
+  #    | Clinical Detail: | AKI              | Contact:      | AKI              |
+  #    |                  |                  | Bleep/Tel No: | 0203123123       |
+  #  And Clyde sees this patient specific test: Test for HepB
 
   @web
   Scenario: Clyde views the form and requests specific form details
     Given Clyde is a clinician
     When Clyde enters clinic Transplant
-    And Clyde enters doctor Emmett Eichmann
-    And Clyde enters telephone number 7921838959
+    And Clyde enters doctor Zoe Zimmerman
     And Clyde views the pathology request form for Patty
     Then Clyde sees these details at the top of the form
-      | Patient Name:    | THEPATIENT PATTY | Date:         | TODAYS_DATE     |
-      | DOB:             | 25/12/1961       | Consultant:   | Emmett Eichmann |
-      | Clinical Detail: | Transplant       | Contact:      | Transplant      |
-      |                  |                  | Bleep/Tel No: | 7921838959     |
+      | Patient Name:    | THEPATIENT PATTY | Date:         | TODAYS_DATE   |
+      | DOB:             | 25/12/1961       | Consultant:   | Zoe Zimmerman |
+      | Clinical Detail: | Transplant       | Contact:      | Transplant    |
+      |                  |                  | Bleep/Tel No: | 7921838959    |
