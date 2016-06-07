@@ -72,7 +72,6 @@ Rails.application.routes.draw do
 
       resource :clinical_summary, only: :show
       resource :death, only: [:edit, :update]
-      resource :esrf, only: [:edit, :update], controller: "esrf"
       resource :pd_summary, only: :show
 
       resources :apd_regimes, controller: "pd_regimes", type: "ApdRegime"
@@ -80,6 +79,10 @@ Rails.application.routes.draw do
       resources :clinic_visits, controller: "clinics/clinic_visits"
       resources :events, only: [:new, :create, :index], controller: "events/events"
       resources :exit_site_infections, only: [:new, :create, :show, :edit, :update]
+
+      namespace :renal do
+        resource :profile, only: [:edit, :update]
+      end
 
       namespace :hd do
         resource :dashboard, only: :show

@@ -6,7 +6,7 @@ class CreateEvents < ActiveRecord::Migration
       t.references :event_type, foreign_key: true
       t.string :description
       t.text :notes
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

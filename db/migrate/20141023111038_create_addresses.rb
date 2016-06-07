@@ -9,7 +9,7 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :city
       t.string :postcode
 
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :addresses, [:addressable_type, :addressable_id]

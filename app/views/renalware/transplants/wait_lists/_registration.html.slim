@@ -9,8 +9,10 @@ tr
   td= registration.patient.current_modality
   td= registration.document.codes.uk_transplant_centre_code
   td
-    - if registration.patient.esrf
-      = I18n.l registration.patient.esrf.diagnosed_on
+    -# TODO: Temp until we add a transplant/patient
+    - Renalware::Renal.cast_patient(registration.patient).tap do |patient|
+      - if diagnosed_on = patient.profile.try(:diagnosed_on)
+        = I18n.l diagnosed_on
   td= registration.document.nhb_consent.value.try(:text)
   td= I18n.l registration.enterred_on
   td
