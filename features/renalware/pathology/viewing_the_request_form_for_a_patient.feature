@@ -25,19 +25,7 @@ Feature: Viewing the request form for a patient
       | frequency_type   | Always        |
 
   @web
-  Scenario: A clinician viewed the form without requesting any specific form details
-    Given Clyde is a clinician
-    When Clyde views the pathology request form for Patty
-    Then Clyde sees these details at the top of the form
-      | Patient Name:    | THEPATIENT PATTY | Date:         | 12-10-2016       |
-      | DOB:             | 25-12-1961       | Consultant:   | Aaron Aaronofsky |
-      | Clinical Detail: | AKI              | Contact:      | AKI              |
-      |                  |                  | Bleep/Tel No: | 203123123        |
-    And Clyde sees this patient specific test: Test for HepB
-    And Clyde sees no global tests required
-
-  @web
-  Scenario: A clinician viewed the form and requested a specific doctor
+  Scenario: A clinician viewed the form and requested a specific doctor and clinic
     Given Clyde is a clinician
     When Clyde enters clinic Transplant
     And Clyde enters doctor Zoe Zimmerman
@@ -51,14 +39,15 @@ Feature: Viewing the request form for a patient
     And Clyde sees the request description BFF required
 
   @web
-  Scenario: A clinician viewed the form and requested a specific telephone number and clinic
+  Scenario: A clinician viewed the form and requested a specific doctor, clinic and telephone number
     Given Clyde is a clinician
     When Clyde enters clinic Transplant
+    And Clyde enters doctor Zoe Zimmerman
     And Clyde enters telephone number 123
     And Clyde views the pathology request form for Patty
     Then Clyde sees these details at the top of the form
       | Patient Name:    | THEPATIENT PATTY | Date:         | 12-10-2016       |
-      | DOB:             | 25-12-1961       | Consultant:   | Aaron Aaronofsky |
+      | DOB:             | 25-12-1961       | Consultant:   | Zoe Zimmerman    |
       | Clinical Detail: | Transplant       | Contact:      | Transplant       |
       |                  |                  | Bleep/Tel No: | 123              |
     And Clyde sees this patient specific test: Test for HepB
