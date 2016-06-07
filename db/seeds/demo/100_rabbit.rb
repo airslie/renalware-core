@@ -113,7 +113,7 @@ module Renalware
   rabbit.save!
 
   log '--------------------Adding Address for Roger RABBIT-------------------'
-  rabbit.current_address = Address.find_or_create_by!(
+  rabbit.build_current_address(
     name: "M. Roger Rabbit",
     street_1: '123 South Street',
     city: 'Toontown',

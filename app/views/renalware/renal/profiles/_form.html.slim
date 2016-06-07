@@ -27,3 +27,9 @@
             span.postfix
               = link_to 'Clear', '#', data: { clear_value_on_click: ".clear-autocomplete" }
 
+    - f.object.build_address_at_diagnosis if f.object.address_at_diagnosis.blank?
+    = f.simple_fields_for :address_at_diagnosis_attributes, f.object.address_at_diagnosis do |a|
+      fieldset id="address_at_diagnosis"
+        legend Address at Diagnosis
+        = render partial: 'renalware/addresses/form', locals: { a: a }
+

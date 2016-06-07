@@ -9,8 +9,13 @@ FactoryGirl.define do
     email "donald.good@nhs.net"
     telephone "0203593082"
     code { generate(:gp_code) }
-    address
     practitioner_type "GP"
-  end
 
+    # ensures addressable_type and addressable_id work is assigned, using
+    # FactoryGirl's simple assoc method does not work
+    #
+    before(:create) do |doctor|
+      doctor.build_address(attributes_for(:address))
+    end
+  end
 end

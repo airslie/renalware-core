@@ -93,11 +93,6 @@
           = render @patient.current_address if @patient.current_address
 
       .large-4.columns
-        = field_set_tag "Address at Diagnosis" do
-          = render @patient.address_at_diagnosis if @patient.address_at_diagnosis
-
-    .row
-      .large-4.columns
         = field_set_tag "Organisation/Practice" do
           dl
             dt GP Practice Code:
