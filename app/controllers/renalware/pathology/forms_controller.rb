@@ -8,8 +8,8 @@ module Renalware
       before_filter :authorize_patients
 
       def index
-        form_params = FormParamsDecorator.new(params)
-        patients = RequestFormsDecorator.wrap(@patients, form_params.clinic)
+        form_params = Forms::ParamsPresenter.new(params)
+        patients = Forms::PatientPresenter.wrap(@patients, form_params.clinic)
 
         render :index, locals: {
           form_params: form_params,
