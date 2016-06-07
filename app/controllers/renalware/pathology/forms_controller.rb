@@ -21,9 +21,7 @@ module Renalware
       private
 
       def load_patients
-        @patients = Pathology::Patient.find(
-          params[:patient_ids].split(",")
-        )
+        @patients = Pathology::Patient.find(params[:patient_ids])
         authorize Renalware::Patient
       end
     end

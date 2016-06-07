@@ -13,7 +13,7 @@ When(/^Clyde enters telephone number (\d*)$/) do |telephone|
 end
 
 When(/^Clyde views the pathology request form for Patty$/) do
-  get_pathology_request_form(@clyde, @url_params, @patty.id)
+  get_pathology_request_form(@clyde, @url_params, [@patty.id])
 end
 
 Then(/^Clyde sees these details at the top of the form$/) do |table|
