@@ -1,6 +1,10 @@
 Feature: Viewing the request form for a patient
 
-  A clinician views a list of global & patient observations required for a patient in the CRS format.
+  A clinician views the list of global & patient observations required for a patient in a specific format
+  so that the form can be printed and given to a pathology department for processing.
+
+  The observations will then be made by the pathologist and eventually Renalware will receive the observation
+  results from the HL7 feed.
 
   The observations are grouped by the specified lab and listed alphabetically.
 

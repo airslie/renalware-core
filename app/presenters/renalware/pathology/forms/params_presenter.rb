@@ -4,16 +4,22 @@ module Renalware
   module Pathology
     module Forms
       class ParamsPresenter < SimpleDelegator
+        def initialize(params, doctors, clinics)
+          @doctors = doctors.index_by(&:id)
+          @clinics = clinics.index_by(&:id)
+          super(params)
+        end
+
         def telephone
           params[:telephone] || doctor.telephone
         end
 
         def doctor
-          @doctor ||= Renalware::Doctor.find(params[:doctor_id])
+          @doctors[params[:doctor_id].to_i]
         end
 
         def clinic
-          @clinic ||= Renalware::Clinics::Clinic.find(params[:clinic_id])
+          @clinics[params[:clinic_id].to_i]
         end
 
         private
