@@ -63,18 +63,18 @@ RSpec.describe "Managing patients", type: :request do
         }
       end
 
+     let(:attributes) { attributes_for(:patient) }
+
       it "creates a new record" do
-        post patients_path, patient: patient_attributes
+        post patients_path, patient: attributes.merge(document: document)
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::Patient.exists?(patient_attributes)).to be_truthy
-
-        created_patient = Renalware::Patient.find_by(patient_attributes)
-        expect(created_patient.created_by).to eq(@current_user)
-        expect(created_patient.updated_by).to eq(@current_user)
+        expect(Renalware::Patient.exists?(attributes)).to be_truthy
 
         created_patient = Renalware::Patient.find_by(attributes)
         expect(created_patient.document).to match_document(document)
+        expect(created_patient.created_by).to eq(@current_user)
+        expect(created_patient.updated_by).to eq(@current_user)
 
         follow_redirect!
 
