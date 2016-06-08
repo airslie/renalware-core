@@ -5350,6 +5350,14 @@ ALTER TABLE ONLY access_profiles
 
 
 --
+-- Name: fk_rails_d05a674fc9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinics
+    ADD CONSTRAINT fk_rails_d05a674fc9 FOREIGN KEY (doctor_id) REFERENCES doctors(id);
+
+
+--
 -- Name: fk_rails_d92d27629e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
