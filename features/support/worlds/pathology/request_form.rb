@@ -4,7 +4,7 @@ module World
       module Domain
         # @section commands
         #
-        def generate_pathology_request_form(form_parameters);
+        def generate_pathology_request_form(_clinician, form_parameters)
           family_name = form_parameters.fetch("patient")
           patient = Renalware::Patient.find_by!(family_name: family_name)
           patient = Renalware::Pathology.cast_patient(patient)
@@ -65,7 +65,7 @@ module World
         # @section commands
         #
 
-        def generate_pathology_request_form(form_parameters)
+        def generate_pathology_request_form(clinician, form_parameters)
           clinic_name = form_parameters.fetch("clinic")
           clinic = Renalware::Clinics::Clinic.find_by!(name: clinic_name)
 
@@ -77,7 +77,7 @@ module World
           family_name = form_parameters.fetch("patient")
           patient = Renalware::Patient.find_by!(family_name: family_name)
 
-          login_as @clyde
+          login_as clinician
           visit pathology_forms_path({
             clinic_id: clinic,
             doctor_id: doctor,

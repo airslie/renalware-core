@@ -1,5 +1,5 @@
 When(/^Clyde generates a request form with the following:$/) do |table|
-  @presenter = generate_pathology_request_form(table.rows_hash)
+  @presenter = generate_pathology_request_form(@clyde, table.rows_hash)
 end
 
 Then(/^Clyde sees these details at the top of the form$/) do |table|
