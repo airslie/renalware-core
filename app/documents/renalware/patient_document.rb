@@ -7,6 +7,17 @@ module Renalware
     attribute :admin_notes, String
     attribute :special_needs_notes, String
 
+    class Address < Document::Embedded
+      attribute :name, String
+      attribute :organisation_name, String
+      attribute :street_1, String
+      attribute :street_2, String
+      attribute :city, String
+      attribute :county, String
+      attribute :postcode, String
+      attribute :country, String
+    end
+
     class NextOfKin < Document::Embedded
       attribute :name, String
       attribute :telephone, String
