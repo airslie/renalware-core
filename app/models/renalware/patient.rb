@@ -1,13 +1,15 @@
+require_dependency "renalware"
+require "document/base"
+
 module Renalware
   class Patient < ActiveRecord::Base
     include PatientsRansackHelper
     include Personable
     include Accountable
+    include Document::Base
     extend Enumerize
 
     enumerize :marital_status, in: %i(married single divorced widowed)
-
-    include Document::Base
 
     serialize :sex, Gender
 
