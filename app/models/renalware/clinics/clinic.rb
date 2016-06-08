@@ -7,6 +7,8 @@ module Renalware
 
       scope :ordered, -> { order(name: :asc) }
 
+      belongs_to :doctor, class_name: "Renalware::Doctor"
+
       def to_s
         name
       end
