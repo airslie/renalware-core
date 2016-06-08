@@ -4,14 +4,36 @@ module World
       module Domain
         # @section commands
         #
-        def generate_pathology_request_form(form_parameters); end
+        def generate_pathology_request_form(form_parameters);
+          family_name = form_parameters.fetch("patient")
+          patient = Renalware::Patient.find_by!(family_name: family_name)
+          patient = Renalware::Pathology.cast_patient(patient)
+
+          clinic_name = form_parameters.fetch("clinic")
+          @clinic = Renalware::Clinics::Clinic.find_by!(name: clinic_name)
+
+          given_name, family_name = form_parameters.fetch("doctor").split(" ")
+          @doctor = Renalware::Doctor.find_by!(given_name: given_name, family_name: family_name)
+
+          @doctors = Renalware::Doctor.ordered
+          @clinics = Renalware::Clinics::Clinic.ordered
+
+          form_params = Renalware::Pathology::Forms::ParamsPresenter.new({clinic_id: @clinic.id, doctor_id: @doctor.id}, @doctors, @clinics)
+          @patient = Renalware::Pathology::Forms::PatientPresenter.new(patient, form_params.clinic)
+        end
 
         # @section expectations
         #
         def expect_patient_summary_to_match_table(patient_id, expected_table); end
         def expect_patient_specific_test(test_description); end
         def expect_no_request_descriptions_required; end
-        def expect_request_description_required(request_description_code); end
+        def expect_request_description_required(request_description_code)
+          expected_request_description =
+            Renalware::Pathology::RequestDescription.find_by(code: request_description_code)
+          @patient.global_requests_by_lab.each do |lab_name, request_descriptions|
+            expect(expected_request_description).to eq(expected_request_description)
+          end
+        end
       end
 
       module Web
