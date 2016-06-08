@@ -54,21 +54,8 @@
     = render partial: 'organisation_practice_form', locals: { patient: patient }
 
 .form-content
-  .row
-    .large-6.columns
-      = patient.simple_fields_for :current_address_attributes, patient.object.current_address do |a|
-        fieldset id="current_address"
-          legend
-            | Current Address
+  = patient.simple_fields_for :current_address_attributes, patient.object.current_address do |a|
+    fieldset id="current_address"
+      legend Current Address
 
-          = render partial: 'renalware/addresses/form', locals: { a: a }
-
-    .large-6.columns
-      - patient.object.build_address_at_diagnosis if patient.object.address_at_diagnosis.blank?
-      = patient.simple_fields_for :address_at_diagnosis_attributes, patient.object.address_at_diagnosis do |a|
-        fieldset id="address_at_diagnosis"
-          legend
-            | Address at Diagnosis
-
-          = render partial: 'renalware/addresses/form', locals: { a: a }
-
+      = render partial: 'renalware/addresses/form', locals: { a: a }

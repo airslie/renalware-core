@@ -2,7 +2,7 @@ ul.side-nav
   li.heading General
   li.link= link_to "Demographics", patient_path(@patient)
   li.link= link_to "Clinical Summary", patient_clinical_summary_path(@patient)
-  li.link= link_to "Renal Summary", edit_patient_renal_profile_path(@patient)
+  li.link= link_to "Renal Profile", edit_patient_renal_profile_path(@patient)
   li.link= link_to "Modals", patient_modalities_path(@patient)
   li.link= link_to "Problems (#{Renalware::Problems::Problem.for_patient(@patient).count})", patient_problems_path(@patient)
   li.link= link_to "Pathology (#{Renalware::Pathology.cast_patient(@patient).observation_requests.count})", patient_pathology_current_observations_path(@patient)

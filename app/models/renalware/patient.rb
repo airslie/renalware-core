@@ -9,8 +9,7 @@ module Renalware
 
     serialize :sex, Gender
 
-    belongs_to :current_address, class_name: "Address", foreign_key: :current_address_id
-    belongs_to :address_at_diagnosis, class_name: "Address", foreign_key: :address_at_diagnosis_id
+    has_one :current_address, as: :addressable, class_name: "Address"
     belongs_to :ethnicity
     belongs_to :first_edta_code, class_name: "EdtaCode", foreign_key: :first_edta_code_id
     belongs_to :second_edta_code, class_name: "EdtaCode", foreign_key: :second_edta_code_id
@@ -34,7 +33,6 @@ module Renalware
       class_name: "Modalities::Description", source: :description
 
     accepts_nested_attributes_for :current_address
-    accepts_nested_attributes_for :address_at_diagnosis, reject_if: Address.reject_if_blank
     accepts_nested_attributes_for :medications, allow_destroy: true
 
     validates :nhs_number, length: { minimum: 10, maximum: 10 }, uniqueness: true, allow_blank: true

@@ -1,7 +1,7 @@
 = render layout: "layout", locals: { user: user, title: "#{user.username}'s Dashboard" } do
   h4 Pending Letters
   - if letters.present?
-    = render "renalware/letters/letters/table", letters: letters
+    = render "renalware/dashboard/letters/table", letters: letters
   - else
     p There are currently no "draft" or "typed" letters.
 

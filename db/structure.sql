@@ -298,8 +298,8 @@ ALTER SEQUENCE access_versions_id_seq OWNED BY access_versions.id;
 
 CREATE TABLE addresses (
     id integer NOT NULL,
-    addressable_type character varying,
-    addressable_id integer,
+    addressable_type character varying NOT NULL,
+    addressable_id integer NOT NULL,
     street_1 character varying,
     street_2 character varying,
     county character varying,
@@ -497,7 +497,6 @@ CREATE TABLE doctors (
     family_name character varying,
     email character varying,
     code character varying,
-    address_id integer,
     practitioner_type character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -1961,8 +1960,6 @@ CREATE TABLE patients (
     paediatric_patient_indicator boolean,
     sex character varying,
     ethnicity_id integer,
-    current_address_id integer,
-    address_at_diagnosis_id integer,
     gp_practice_code character varying,
     pct_org_code character varying,
     hospital_centre_code character varying,
