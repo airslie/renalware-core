@@ -26,7 +26,10 @@ module World
         #
         def expect_patient_summary_to_match_table(patient_id, expected_table); end
         def expect_patient_specific_test(test_description); end
-        def expect_no_request_descriptions_required; end
+        def expect_no_request_descriptions_required
+          expect(@patient).not_to have_patient_requests
+        end
+
         def expect_request_description_required(request_description_code)
           expected_request_description =
             Renalware::Pathology::RequestDescription.find_by(code: request_description_code)
