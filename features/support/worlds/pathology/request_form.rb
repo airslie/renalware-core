@@ -4,8 +4,7 @@ module World
       module Domain
         # @section commands
         #
-        def set_url_params(url_params, new_param); end
-        def get_pathology_request_form(clinician, url_params, patient_ids); end
+        def generate_pathology_request_form(form_parameters); end
 
         # @section expectations
         #
@@ -19,20 +18,21 @@ module World
         include Domain
         # @section commands
         #
-        def set_url_params(url_params, new_param)
-          url_params = {} unless url_params.present?
-          url_params.merge(new_param)
-        end
 
-        def get_pathology_request_form(clinician, url_params, patient_ids)
-          login_as clinician
+        def generate_pathology_request_form(form_parameters)
+          clinic_name = form_parameters.fetch("clinic")
+          clinic = Renalware::Clinics::Clinic.find_by!(name: clinic_name)
 
-          url_params = {} unless url_params.present?
+          given_name, family_name = form_parameters.fetch("doctor").split(" ")
+          doctor = Renalware::Doctor.find_by!(given_name: given_name, family_name: family_name)
 
-          url_params.merge!(patient_ids: patient_ids)
-          url = pathology_forms_path(url_params)
+          telephone_number = form_parameters["telephone_number"]
 
-          visit url
+          family_name = form_parameters.fetch("patient")
+          patient = Renalware::Patient.find_by!(family_name: family_name)
+
+          login_as @clyde
+          visit pathology_forms_path({clinic_id: clinic, doctor_id: doctor, telephone: telephone_number, patient_ids: [patient.id]})
         end
 
         # @section expectations

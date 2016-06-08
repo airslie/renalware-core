@@ -31,9 +31,10 @@ Feature: Viewing the request form for a patient
   @web
   Scenario: A clinician viewed the form and requested a specific doctor and clinic
     Given Clyde is a clinician
-    When Clyde enters clinic Transplant
-    And Clyde enters doctor Zoe Zimmerman
-    And Clyde views the pathology request form for Patty
+    When Clyde generates a request form with the following:
+      | clinic  | Transplant    |
+      | doctor  | Zoe Zimmerman |
+      | patient | Patty         |
     Then Clyde sees these details at the top of the form
       | Patient Name:    | THEPATIENT PATTY | Date:         | 12-10-2016    |
       | DOB:             | 25-12-1961       | Consultant:   | Zoe Zimmerman |
@@ -45,10 +46,11 @@ Feature: Viewing the request form for a patient
   @web
   Scenario: A clinician viewed the form and requested a specific doctor, clinic and telephone number
     Given Clyde is a clinician
-    When Clyde enters clinic Transplant
-    And Clyde enters doctor Zoe Zimmerman
-    And Clyde enters telephone number 123
-    And Clyde views the pathology request form for Patty
+    When Clyde generates a request form with the following:
+      | clinic           | Transplant    |
+      | doctor           | Zoe Zimmerman |
+      | patient          | Patty         |
+      | telephone_number | 123           |
     Then Clyde sees these details at the top of the form
       | Patient Name:    | THEPATIENT PATTY | Date:         | 12-10-2016       |
       | DOB:             | 25-12-1961       | Consultant:   | Zoe Zimmerman    |
