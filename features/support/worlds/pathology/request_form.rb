@@ -18,14 +18,18 @@ module World
           doctors = Renalware::Doctor.ordered
           clinics = Renalware::Clinics::Clinic.ordered
 
-          form_params = Renalware::Pathology::Forms::ParamsPresenter.new({clinic_id: clinic.id, doctor_id: doctor.id}, doctors, clinics)
+          form_params = Renalware::Pathology::Forms::ParamsPresenter.new(
+            { clinic_id: clinic.id, doctor_id: doctor.id }, doctors, clinics
+          )
           Renalware::Pathology::Forms::PatientPresenter.new(patient, form_params.clinic)
         end
 
         # @section expectations
         #
         def expect_patient_summary_to_match_table(presenter, patient, expected_table)
-          # TODO: We refactor presenters to make this work, it seems we need the following a single presenter representing the form:
+          # TODO: We refactor presenters to make this work, it seems we need the following a
+          # single presenter representing the form:
+          #
           # presenter = Forms::RequestFormPresenter.new(patient, clinic, doctor, telephone_number: telephone_number)
           # expect(presenter.patient_name).to eq(table.rows_hash["patient_name"])
           #
@@ -33,7 +37,7 @@ module World
         end
 
         def expect_patient_specific_test(presenter, test_description)
-          presenter.patient_requests_by_lab.each do |lab_name, patient_rules|
+          presenter.patient_requests_by_lab.each do |_lab_name, patient_rules|
             patient_rules.each do |patient_rule|
               expect(patient_rule.test_description).to eq(test_description)
             end
@@ -74,7 +78,12 @@ module World
           patient = Renalware::Patient.find_by!(family_name: family_name)
 
           login_as @clyde
-          visit pathology_forms_path({clinic_id: clinic, doctor_id: doctor, telephone: telephone_number, patient_ids: [patient.id]})
+          visit pathology_forms_path({
+            clinic_id: clinic,
+            doctor_id: doctor,
+            telephone: telephone_number,
+            patient_ids: [patient.id]
+          })
         end
 
         # @section expectations
