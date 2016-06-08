@@ -1981,6 +1981,7 @@ CREATE TABLE patients (
     telephone1 character varying,
     telephone2 character varying,
     email character varying,
+    document jsonb,
     religion_id integer,
     language_id integer
 );
@@ -4616,6 +4617,13 @@ CREATE INDEX index_patients_on_doctor_id ON patients USING btree (doctor_id);
 
 
 --
+-- Name: index_patients_on_document; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_document ON patients USING gin (document);
+
+
+--
 -- Name: index_patients_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5703,6 +5711,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160518111325');
 INSERT INTO schema_migrations (version) VALUES ('20160524171947');
 
 INSERT INTO schema_migrations (version) VALUES ('20160525124151');
+
+INSERT INTO schema_migrations (version) VALUES ('20160527104432');
 
 INSERT INTO schema_migrations (version) VALUES ('20160530162708');
 

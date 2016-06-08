@@ -13,21 +13,17 @@ RSpec.describe "Managing patients", type: :request do
 
   describe "POST create" do
     context "given valid attributes" do
-      let(:religion) { create(:patients_religion) }
-      let(:language) { create(:patients_language) }
-      let(:patient_attributes) do
-        attributes_for(:patient).merge(
-          religion_id: religion.id, language_id: language.id
-        )
-      end
-
       it "creates a new record" do
-        post patients_path, patient: patient_attributes
+        attributes = attributes_for(:patient)
+        document = build_document
+
+        post patients_path, patient: attributes.merge(document: document)
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::Patient.exists?(patient_attributes)).to be_truthy
+        expect(Renalware::Patient.exists?(attributes)).to be_truthy
 
-        created_patient = Renalware::Patient.find_by(patient_attributes)
+        created_patient = Renalware::Patient.find_by(attributes)
+        expect(created_patient.document).to match_document(document)
         expect(created_patient.created_by).to eq(@current_user)
         expect(created_patient.updated_by).to eq(@current_user)
 
@@ -84,5 +80,46 @@ RSpec.describe "Managing patients", type: :request do
         expect(response).to have_http_status(:success)
       end
     end
+  end
+
+  def build_document
+    {
+      interpreter_notes: Faker::Lorem.sentence,
+      admin_notes: Faker::Lorem.sentence,
+      special_needs_notes: Faker::Lorem.sentence,
+      next_of_kin: {
+        name: Faker::Name.name,
+        telephone: Faker::PhoneNumber.phone_number,
+        address: address_attributes
+      },
+      referral: {
+        referring_physician_name: Faker::Name.name,
+        referral_date: Faker::Date.backward(14),
+        referral_type: "Unknown",
+        referral_notes: Faker::Lorem.sentence
+      },
+      pharmacist: {
+        name: Faker::Name.name,
+        telephone: Faker::PhoneNumber.phone_number,
+        address: address_attributes
+      },
+      distinct_nurse: {
+        name: Faker::Name.name,
+        telephone: Faker::PhoneNumber.phone_number,
+        address: address_attributes
+      }
+    }
+  end
+
+  def address_attributes
+    attributes_for(:address)
+      .merge(
+          name: Faker::Name.name,
+          organisation_name: Faker::Company.name,
+          street_2: Faker::Address.street_name,
+          city: Faker::Address.city,
+          county: Faker::Address.state,
+          country: Faker::Address.country
+        )
   end
 end

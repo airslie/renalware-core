@@ -1,0 +1,12 @@
+= field_set_tag do
+  legend #{title}
+
+  = patient.simple_fields_for :document, patient.object.document do |patient_doc|
+
+    = patient_doc.simple_fields_for document_attribute, patient.object.document.send(document_attribute) do |person_doc|
+      = person_doc.input :name
+      = person_doc.input :telephone
+
+      b Address:
+      = person_doc.simple_fields_for :address, patient.object.document.send(document_attribute).address do |address_doc|
+        = render partial: 'renalware/addresses/form', locals: { a: address_doc }
