@@ -7,6 +7,6 @@
       = person_doc.input :name
       = person_doc.input :telephone
 
-      b #{title} Address:
+      b Address:
       = person_doc.simple_fields_for :address, patient.object.document.send(document_attribute).address do |address_doc|
         = render partial: 'renalware/addresses/form', locals: { a: address_doc }
