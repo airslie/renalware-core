@@ -14,6 +14,8 @@ module Renalware
     validates_uniqueness_of :code
     validates_presence_of :practitioner_type
 
+    scope :ordered, -> { order(family_name: :asc) }
+
     def self.policy_class
       BasePolicy
     end
