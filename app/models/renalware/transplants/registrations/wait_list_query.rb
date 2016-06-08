@@ -46,7 +46,10 @@ module Renalware
               .where(transplant_registration_status_descriptions: { code: codes })
           }
           scope :nhb_consent_eq, -> (enum = "yes") {
-            where("transplant_registrations.document @> ?", { nhb_consent: { value: enum } }.to_json )
+            where(
+              "transplant_registrations.document @> ?",
+              { nhb_consent: { value: enum } }.to_json
+            )
           }
 
           ransacker :uk_transplant_centre_code do
