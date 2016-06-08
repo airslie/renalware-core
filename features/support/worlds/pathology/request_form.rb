@@ -25,7 +25,15 @@ module World
         # @section expectations
         #
         def expect_patient_summary_to_match_table(patient_id, expected_table); end
-        def expect_patient_specific_test(test_description); end
+
+        def expect_patient_specific_test(test_description)
+          @patient.patient_requests_by_lab.each do |lab_name, patient_rules|
+            patient_rules.each do |patient_rule|
+              expect(patient_rule.test_description).to eq(test_description)
+            end
+          end
+        end
+
         def expect_no_request_descriptions_required
           expect(@patient).not_to have_patient_requests
         end
