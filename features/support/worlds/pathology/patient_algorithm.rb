@@ -5,11 +5,17 @@ module World
         # @section commands
         #
         def create_patient_rule(params)
-          params["last_observed_at"] = str_to_time(params["last_observed_at"])
-          params["patient"] = Renalware::Pathology.cast_patient(params["patient"])
-          params["lab"] = Renalware::Pathology::Lab.find_by(name: params["lab"])
+          rule_params = params.except(:last_observed_at, :patient, :lab).merge(
+            last_observed_at: str_to_time(params[:last_observed_at]),
+            patient: Renalware::Pathology.cast_patient(params[:patient]),
+            lab: Renalware::Pathology::Lab.find_by(name: params[:lab])
+          )
 
-          Renalware::Pathology::RequestAlgorithm::PatientRule.create!(params)
+          Renalware::Pathology::RequestAlgorithm::PatientRule.create!(rule_params)
+        end
+
+        def record_patient_rule(_clinician, params)
+          create_patient_rule(params)
         end
 
         def update_patient_rule_start_end_dates(patient_rule, within_rage)
@@ -43,10 +49,37 @@ module World
             expect(required_patient_observations.map(&:test_description)).to include(row[1])
           end
         end
+
+        def expect_patient_rules_on_patient(patient, patient_rule_attributes)
+          pathology_patient = Renalware::Pathology.cast_patient(patient)
+          expect(pathology_patient.rules.count).to eq(1)
+
+          patient_rule_attributes[:patient] = Renalware::Pathology.cast_patient(patient_rule_attributes[:patient])
+          rule = pathology_patient.rules.first
+
+          expect(rule).to have_attributes(patient_rule_attributes.except(:lab))
+          expect(rule.lab.name).to eq(patient_rule_attributes[:lab])
+        end
       end
 
       module Web
         include Domain
+
+        def record_patient_rule(clinician, params)
+          login_as clinician
+
+          visit new_patient_pathology_patient_rule_path(patient_id: params[:patient].id)
+
+          select params[:lab], from: "Lab"
+          fill_in "Test description", with: params[:test_description]
+          select params[:sample_number_bottles], from: "Sample number bottles"
+          fill_in "Sample type", with: params[:sample_type]
+          select params[:frequency_type], from: "Frequency"
+          fill_in "Start date", with: I18n.l(params[:start_date])
+          fill_in "End date", with: I18n.l(params[:end_date])
+
+          click_on "Save"
+        end
 
         def run_patient_algorithm(patient, clinician)
           login_as clinician

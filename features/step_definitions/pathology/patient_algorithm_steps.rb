@@ -1,6 +1,6 @@
 Given(/^Patty has a patient rule:$/) do |table|
   @patient_rule = create_patient_rule(
-    table.rows_hash.merge("patient" => @patty)
+    table.rows_hash.merge(patient: @patty)
   )
 end
 
@@ -9,13 +9,19 @@ Given(/^the current date is between the rule's start\/end dates (yes|no)$/) do |
 end
 
 When(/^Clyde records a new patient rule for Patty$/) do
-  record_patient_rule(
-    @clyde,
+  @patient_rule_attributes = {
     patient: @patty,
-    lab: "Biochem",
+    lab: "Biochemistry",
     test_description: "Test for HepBsAb",
     sample_number_bottles: 1,
-    frequency: "Always"
+    frequency_type: "Always",
+    start_date: Date.current,
+    end_date: Date.current + 1.week,
+  }
+
+  record_patient_rule(
+    @clyde,
+    @patient_rule_attributes
   )
 end
 
@@ -32,5 +38,5 @@ Then(/^it is determined the patient's observation is (required|not required)$/) 
 end
 
 Then(/^Patty has a new patient rule$/) do
-  expect_patient_rules_on_patient(@patty)
+  expect_patient_rules_on_patient(@patty, @patient_rule_attributes)
 end

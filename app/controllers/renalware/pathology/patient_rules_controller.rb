@@ -6,9 +6,13 @@ module Renalware
       before_filter :load_patient
 
       def new
-        @frequencies = RequestAlgorithm::PatientRule::FREQUENCIES
-        @labs = Lab.all.order(name: :asc)
-        @patient_rule = RequestAlgorithm::PatientRule.new(patient: @patient)
+        frequencies = RequestAlgorithm::FREQUENCIES
+        labs = Lab.ordered
+        patient_rule = RequestAlgorithm::PatientRule.new(patient: @patient)
+
+        render :new, locals: {
+          frequencies: frequencies, labs: labs, patient_rule: patient_rule
+        }
       end
 
       def create
@@ -33,7 +37,7 @@ module Renalware
             :test_description,
             :sample_number_bottles,
             :sample_type,
-            :frequency,
+            :frequency_type,
             :start_date,
             :end_date
           )

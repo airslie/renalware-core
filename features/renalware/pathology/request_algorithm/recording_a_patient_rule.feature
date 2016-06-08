@@ -2,8 +2,6 @@ Feature: Recording a patient rule
 
   A clinician should be able add a patient specific rule for an observation.
 
-  Background:
-
   @web
   Scenario:
     Given Patty is a patient

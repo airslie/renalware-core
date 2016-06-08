@@ -1,20 +1,20 @@
 = render layout: "renalware/patients/layout", locals: { title: "Patient Rule" } do
-  = render partial: "renalware/shared/errors", locals: { model: @patient_rule }
+  = render partial: "renalware/shared/errors", locals: { model: patient_rule }
 
   .row
     .large-8.columns
-      = simple_form_for @patient_rule,
-          url: patient_pathology_patient_rules_path(@patient, @patient_rule),
+      = simple_form_for patient_rule,
+          url: patient_pathology_patient_rules_path(@patient, patient_rule),
           wrapper: "horizontal_form" do |f|
 
-        = f.input :patient_id, as: :hidden
-        = f.input :lab_id, collection: @labs
-        = f.input :test_description, as: :text
-        = f.input :sample_number_bottles, collection: 0..10
-        = f.input :sample_type
-        = f.input :frequency, collection: @frequencies
-        = f.input :start_date, as: :date_picker
-        = f.input :end_date, as: :date_picker
+        = f.input :patient_id, as: :hidden, input_html: { class: "small-input" }
+        = f.input :lab_id, collection: labs, input_html: { class: "small-input" }
+        = f.input :test_description, as: :text, input_html: { class: "small-input" }
+        = f.input :sample_number_bottles, collection: 0..10, input_html: { class: "small-input" }
+        = f.input :sample_type, input_html: { class: "small-input" }
+        = f.input :frequency_type, collection: frequencies, input_html: { class: "small-input" }
+        = f.input :start_date, as: :date_picker, input_html: { class: "small-input" }
+        = f.input :end_date, as: :date_picker, input_html: { class: "small-input" }
 
         = submit_tag "Save", class: "button"
         span= " or "
