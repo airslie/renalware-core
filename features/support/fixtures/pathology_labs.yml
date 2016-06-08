@@ -1,0 +1,14 @@
+urine_biochem:
+  name: Urine Biochem
+biochemistry_tp:
+  name: Biochemistry (TP)
+biochemistry:
+  name: Biochemistry
+microbiology:
+  name: Microbiology
+haemotology:
+  name: Haemotology
+virology:
+  name: Virology
+lab:_unknown:
+  name: "Lab: Unknown"

@@ -4,7 +4,7 @@
   .large-2.columns.patient-side-nav
     = render partial: "renalware/patients/side_nav", locals: { model: @patient }
   .large-10.columns
-    = render partial: "renalware/patients/mini_renal_profile", locals: { model: @patient }
+    = render partial: "renalware/renal/profiles/mini", locals: { patient: @patient }
 
     h2= title
 

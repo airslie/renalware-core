@@ -19,7 +19,7 @@ module Renalware
         private
 
         def rule_sets
-          GlobalRuleSet.for_clinic(@clinic)
+          GlobalRuleSet.for_clinic(@clinic).ordered
         end
       end
     end

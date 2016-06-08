@@ -1,0 +1,63 @@
+king's_dulwich_satell:
+  hospital_centre: king's_college_hospital
+  name: King's Dulwich Satell
+  unit_code: DSU
+  renal_registry_code: 9RJZ
+  unit_type: satellite
+  is_hd_site: true
+dartford:
+  hospital_centre: king's_college_hospital
+  name: Dartford
+  unit_code: Dart
+  renal_registry_code: RN7
+  unit_type: hospital
+  is_hd_site: true
+kings_main_dialysis_unit:
+  hospital_centre: king's_college_hospital
+  name: Kings Main Dialysis Unit
+  unit_code: KRU
+  renal_registry_code: RJZ
+  unit_type: hospital
+  is_hd_site: true
+london_bridge:
+  hospital_centre: king's_college_hospital
+  name: London Bridge
+  unit_code: LB
+  renal_registry_code: 8CJ06
+  unit_type: satellite
+  is_hd_site: true
+queen_elizabeth:
+  hospital_centre: king's_college_hospital
+  name: Queen Elizabeth
+  unit_code: QE
+  renal_registry_code: RG222
+  unit_type: satellite
+  is_hd_site: true
+princess_royal_univ_hosp_pruh:
+  hospital_centre: king's_college_hospital
+  name: Princess Royal Univ Hosp (PRUH)
+  unit_code: PRUH
+  renal_registry_code: 99RJZ
+  unit_type: satellite
+  is_hd_site: true
+kings_hd_ward:
+  hospital_centre: king's_college_hospital
+  name: Kings HD Ward
+  unit_code: ward
+  renal_registry_code: RJZ
+  unit_type: hospital
+  is_hd_site: true
+home_hd:
+  hospital_centre: king's_college_hospital
+  name: Home HD
+  unit_code: home
+  renal_registry_code: RJZ
+  unit_type: home
+  is_hd_site: true
+dulwich_mobile_unit:
+  hospital_centre: king's_college_hospital
+  name: Dulwich Mobile Unit
+  unit_code: DSU-mob
+  renal_registry_code: 9RJZ
+  unit_type: satellite
+  is_hd_site: true

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.3.1'
 
-gem 'rails', '~> 4.2.5.2'
+gem 'rails', '~> 4.2.6'
 gem 'pg', '~> 0.18.1'
 gem 'foundation-rails'
 gem 'jquery-rails'
@@ -33,6 +33,8 @@ gem 'ruby-hl7', '~> 1.1.0'
 gem 'delayed_job_active_record'
 gem 'wisper', '2.0.0.rc1'
 gem 'cocoon'
+gem 'email_validator'
+gem 'nokogiri', '~> 1.6.8'
 
 source 'https://rails-assets.org' do
   # https://github.com/najlepsiwebdesigner/foundation-datepicker

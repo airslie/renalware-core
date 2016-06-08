@@ -1,29 +1,71 @@
-.letter-preview-header
+.letter-preview-admin
   .row
-    .columns.large-4
-      | Status: #{@letter.state.upcase}
-    .columns.large-4
-      | Author: #{@letter.author.full_name}
+    .columns.large-6
+      p Status: #{@letter.state.upcase}
+      div= render "actions", letter: @letter
 
-  .row
-    .columns.large-4
-      | To: #{@letter.main_recipient.to_s}
-      br
-      | CC:
-      - @letter.cc_recipients.each do |cc|
-        p= cc
-    .columns.large-4
-      | Title: #{@letter.description}
+    .columns.large-6
+      p Notes:
+      = simple_format @letter.notes
 
-hr
+.letter-preview
+  .letter-preview-header
+    .row
+      .columns.large-6
+        p.unit-info=raw @letter.letterhead.unit_info
 
-.letter-preview-body
-  .row
-    = @letter.salutation
-    br
-    = @letter.body
+        p.letter-description-block
+          = l @letter.issued_on
+          br
+          span.letter-description= @letter.description
 
-  .row
-    = @letter.author.signature
-    br
-    = @letter.author.professional_position
+        p.letter-private Private and confidential
+
+        p.letter-address= @letter.main_recipient.to_html
+
+      .columns.large-6
+        .letter-unit-block
+          p.trust-name
+            =raw @letter.letterhead.trust_name
+            span.nhs-logo= image_tag("NHS-Black.jpg", size: "82x33")
+          p.trust-caption= @letter.letterhead.trust_caption
+
+          .site-info-html
+            p=raw @letter.letterhead.site_info
+
+
+  .letter-preview-body
+    .row
+      .columns.large-12
+        p.letter-salutation= @letter.salutation
+
+        p.patient-status
+          = render "patient_summary", patient: @letter.patient
+
+    .row
+      .columns.large-12
+        .letter-body
+          = simple_format @letter.body
+
+    .row
+      .columns.large-12
+        .letter-signature
+          p.letter-electronic-signature
+            = @letter.electronic_signature
+
+          p.letter-author-signature
+            span.author-name= @letter.author.signature
+            br
+            = @letter.author.professional_position
+
+  .letter-footer
+
+    .row
+      .columns.large-12
+        .letters-ccs
+          h3 cc:
+
+          p.letter-private Private and confidential
+
+          - @letter.cc_recipients.each do |cc|
+            p.letter-address= cc.to_html

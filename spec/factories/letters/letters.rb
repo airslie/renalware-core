@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :letter, class: "Renalware::Letters::Letter" do
     issued_on Time.zone.today
-    state "draft"
     description "This is a custom description"
     body "I am pleased to report a marked improvement in her condition."
 
@@ -10,5 +9,14 @@ FactoryGirl.define do
 
     association :created_by, factory: :user
     association :updated_by, factory: :user
+  end
+
+  factory :draft_letter, class: "Renalware::Letters::Letter::Draft", parent: :letter do
+  end
+
+  factory :typed_letter, class: "Renalware::Letters::Letter::Typed", parent: :letter do
+  end
+
+  factory :archived_letter, class: "Renalware::Letters::Letter::Archived", parent: :letter do
   end
 end

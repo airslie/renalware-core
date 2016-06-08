@@ -3,7 +3,7 @@ Feature: Viewing current pathology observation results for a patient
   A doctor views the current pathology observation results for a patient to
   determine their health status.
 
-  @wip @web
+  @web
   Scenario: Multiple observation results recorded
     Given Patty is a patient
     And Nathalie is a nurse

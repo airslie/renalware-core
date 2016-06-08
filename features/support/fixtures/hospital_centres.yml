@@ -1,0 +1,504 @@
+aberdeen_royal_infirmary:
+  code: SNC01
+  name: Aberdeen Royal Infirmary
+  location: Aberdeen
+  active: true
+  is_transplant_site: false
+monklands_hospital:
+  code: SLC01
+  name: Monklands Hospital
+  location: Airdrie
+  active: true
+  is_transplant_site: false
+antrim_hospital:
+  code: 24027
+  name: Antrim Hospital
+  location: Antrim
+  active: true
+  is_transplant_site: false
+ysbyty_gwynedd:
+  code: RQBAU
+  name: Ysbyty Gwynedd
+  location: Bangor
+  active: true
+  is_transplant_site: false
+basildon_hospital:
+  code: RDDH0
+  name: Basildon Hospital
+  location: Basildon
+  active: true
+  is_transplant_site: false
+belfast_city_hospital:
+  code: 2020
+  name: Belfast City Hospital
+  location: Belfast
+  active: true
+  is_transplant_site: true
+royal_belfast_hospital_for_sick_children:
+  code: 11023
+  name: Royal Belfast Hospital for Sick Children
+  location: Belfast
+  active: true
+  is_transplant_site: false
+ulster_hospital:
+  code: 7021
+  name: Ulster Hospital
+  location: Belfast
+  active: true
+  is_transplant_site: false
+birmingham_childrens_hospital:
+  code: RQ3
+  name: Birmingham Childrens Hospital
+  location: Birmingham
+  active: true
+  is_transplant_site: false
+heartlands_hospital:
+  code: RL7
+  name: Heartlands Hospital
+  location: Birmingham
+  active: true
+  is_transplant_site: false
+queen_elizabeth_hospital:
+  code: RRK02
+  name: Queen Elizabeth Hospital
+  location: Birmingham
+  active: true
+  is_transplant_site: true
+st_lukes_hospital:
+  code: RAE05
+  name: St Lukes Hospital
+  location: Bradford
+  active: true
+  is_transplant_site: false
+royal_sussex_county_hospital:
+  code: RGU01
+  name: Royal Sussex County Hospital
+  location: Brighton
+  active: true
+  is_transplant_site: false
+bristol_royal_hospital_for_children:
+  code: RA723
+  name: Bristol Royal Hospital for Children
+  location: Bristol
+  active: true
+  is_transplant_site: false
+southmead_hospital:
+  code: REE01
+  name: Southmead Hospital
+  location: Bristol
+  active: true
+  is_transplant_site: true
+addenbrookes_hospital:
+  code: RGT01
+  name: Addenbrookes Hospital
+  location: Cambridge
+  active: true
+  is_transplant_site: true
+kent_a_canterbury_hospital:
+  code: RVVKC
+  name: Kent & Canterbury Hospital
+  location: Canterbury
+  active: true
+  is_transplant_site: false
+children's_kidney_centre__uhw:
+  code: RWM51
+  name: Children's Kidney Centre - UHW
+  location: Cardiff
+  active: true
+  is_transplant_site: false
+university_hospital_of_wales:
+  code: RRBBV
+  name: University Hospital of Wales
+  location: Cardiff
+  active: true
+  is_transplant_site: true
+cumberland_infirmary:
+  code: RLGAY
+  name: Cumberland Infirmary
+  location: Carlisle
+  active: true
+  is_transplant_site: false
+st_helier_hospital:
+  code: RAZ
+  name: St Helier Hospital
+  location: Carshalton
+  active: true
+  is_transplant_site: false
+broomfield_hospital:
+  code: RQ8L0
+  name: Broomfield Hospital
+  location: Chelmsford
+  active: true
+  is_transplant_site: false
+colchester_general_hospital:
+  code: RDEE4
+  name: Colchester General Hospital
+  location: Colchester
+  active: true
+  is_transplant_site: false
+university_hospital_coventry_a_warwick:
+  code: RKB01
+  name: University Hospital Coventry & Warwick
+  location: Coventry
+  active: true
+  is_transplant_site: false
+royal_derby_hospital:
+  code: RFPFG
+  name: Royal Derby Hospital
+  location: Derby
+  active: true
+  is_transplant_site: false
+doncaster_royal_infirmary:
+  code: RP5
+  name: Doncaster Royal Infirmary
+  location: Doncaster
+  active: true
+  is_transplant_site: false
+dorset_county_hospital:
+  code: RBD01
+  name: Dorset County Hospital
+  location: Dorchester
+  active: true
+  is_transplant_site: false
+russells_hall_hospital:
+  code: RNA03
+  name: Russells Hall Hospital
+  location: Dudley
+  active: true
+  is_transplant_site: false
+dumfries_a_galloway_royal_infirmary:
+  code: SYC02
+  name: Dumfries & Galloway Royal Infirmary
+  location: Dumfries
+  active: true
+  is_transplant_site: false
+ninewells_hospital:
+  code: STC01
+  name: Ninewells Hospital
+  location: Dundee
+  active: true
+  is_transplant_site: false
+royal_infirmary_of_edinburgh:
+  code: SSC02
+  name: Royal Infirmary of Edinburgh
+  location: Edinburgh
+  active: true
+  is_transplant_site: true
+royal_devon_and_exeter_hospital:
+  code: RH8
+  name: Royal Devon and Exeter Hospital
+  location: Exeter
+  active: true
+  is_transplant_site: false
+western_infirmary:
+  code: SGC04
+  name: Western Infirmary
+  location: Glasgow
+  active: true
+  is_transplant_site: true
+royal_hospital_for_sick_children:
+  code: SGC02
+  name: Royal Hospital for Sick Children
+  location: Glasgow
+  active: true
+  is_transplant_site: false
+gloucestershire_royal_hospital:
+  code: RH641
+  name: Gloucestershire Royal Hospital
+  location: Gloucester
+  active: true
+  is_transplant_site: false
+hull_royal_infirmary:
+  code: RF201
+  name: Hull Royal Infirmary
+  location: Hull
+  active: true
+  is_transplant_site: false
+raigmore_hospital:
+  code: SHC01
+  name: Raigmore Hospital
+  location: Inverness
+  active: true
+  is_transplant_site: false
+ipswich_hospital:
+  code: RGQ02
+  name: Ipswich Hospital
+  location: Ipswich
+  active: true
+  is_transplant_site: false
+university_hospital_crosshouse:
+  code: SAC02
+  name: University Hospital Crosshouse
+  location: Kilmarnock
+  active: true
+  is_transplant_site: false
+victoria_hospital:
+  code: SFC01
+  name: Victoria Hospital
+  location: Kirkcaldy
+  active: true
+  is_transplant_site: false
+leeds_children's_hospital:
+  code: 99RQR13
+  name: Leeds Children's Hospital
+  location: Leeds
+  active: true
+  is_transplant_site: false
+st_james's_university_hospital:
+  code: RQR13
+  name: St James's University Hospital
+  location: Leeds
+  active: true
+  is_transplant_site: true
+leicester_general_hospital:
+  code: RFBAK
+  name: Leicester General Hospital
+  location: Leicester
+  active: true
+  is_transplant_site: true
+aintree_university_hospital:
+  code: RW402
+  name: Aintree University Hospital
+  location: Liverpool
+  active: true
+  is_transplant_site: false
+alder_hey_childrens_hospital:
+  code: RBS25
+  name: Alder Hey Childrens Hospital
+  location: Liverpool
+  active: true
+  is_transplant_site: false
+royal_liverpool_university_hospital:
+  code: RQ617
+  name: Royal Liverpool University Hospital
+  location: Liverpool
+  active: true
+  is_transplant_site: true
+barts_and_the_london_hospital:
+  code: RNJ00
+  name: Barts and The London Hospital
+  location: London
+  active: true
+  is_transplant_site: true
+evelina_children's_hospital_guys_a_st_thomas':
+  code: RJ122
+  name: Evelina Children's Hospital (Guys & St Thomas')
+  location: London
+  active: true
+  is_transplant_site: false
+great_ormond_street_hospital_for_children:
+  code: RP4
+  name: Great Ormond Street Hospital for Children
+  location: London
+  active: true
+  is_transplant_site: false
+guy's_and_st_thomas's_hospital:
+  code: RJ121
+  name: Guy's and St Thomas's Hospital
+  location: London
+  active: true
+  is_transplant_site: true
+king's_college_hospital:
+  code: RJZ
+  name: King's College Hospital
+  location: London
+  active: true
+  is_transplant_site: false
+royal_free_hospital:
+  code: RAL01
+  name: Royal Free Hospital
+  location: London
+  active: true
+  is_transplant_site: true
+st_george's_hospital:
+  code: RJ701
+  name: St George's Hospital
+  location: London
+  active: true
+  is_transplant_site: true
+west_london__hammersmith_hospital:
+  code: RQN02
+  name: West London - Hammersmith Hospital
+  location: London
+  active: true
+  is_transplant_site: true
+manchester_royal_infirmary:
+  code: RM574
+  name: Manchester Royal Infirmary
+  location: Manchester
+  active: true
+  is_transplant_site: true
+royal_manchester_children's_hospital:
+  code: RW3RM
+  name: Royal Manchester Children's Hospital
+  location: Manchester
+  active: true
+  is_transplant_site: false
+james_cook_university_hospital:
+  code: RCJAT
+  name: James Cook University Hospital
+  location: Middlesbrough
+  active: true
+  is_transplant_site: false
+freeman_hospital_a_royal_victoria_infirmary:
+  code: RTD01
+  name: Freeman Hospital & Royal Victoria Infirmary
+  location: Newcastle
+  active: true
+  is_transplant_site: true
+the_great_north_childrens_hospital:
+  code: RTD02
+  name: The Great North Childrens Hospital
+  location: Newcastle
+  active: true
+  is_transplant_site: false
+daisy_hill_hospital__southern_trust:
+  code: 33020
+  name: Daisy Hill Hospital  (Southern Trust)
+  location: Newry
+  active: true
+  is_transplant_site: false
+norfolk_a_norwich_university_hospital:
+  code: RM102
+  name: Norfolk & Norwich University Hospital
+  location: Norwich
+  active: true
+  is_transplant_site: false
+nottingham_childrens_hospital__queens_medical_centre:
+  code: 99RCSLB
+  name: Nottingham Childrens Hospital  (Queens Medical Centre)
+  location: Nottingham
+  active: true
+  is_transplant_site: false
+nottingham_city_hospital:
+  code: RCSLB
+  name: Nottingham City Hospital
+  location: Nottingham
+  active: true
+  is_transplant_site: true
+tyrone_county_hospital__western_trust:
+  code: 45021
+  name: Tyrone County Hospital  (Western Trust)
+  location: Omagh
+  active: true
+  is_transplant_site: false
+john_radcliffe_hospital:
+  code: RNX02
+  name: John Radcliffe Hospital
+  location: Oxford
+  active: true
+  is_transplant_site: true
+derriford_hospital:
+  code: RK950
+  name: Derriford Hospital
+  location: Plymouth
+  active: true
+  is_transplant_site: true
+queen_alexandra_hospital:
+  code: RHU02
+  name: Queen Alexandra Hospital
+  location: Portsmouth
+  active: true
+  is_transplant_site: true
+royal_preston_hospital:
+  code: RMF01
+  name: Royal Preston Hospital
+  location: Preston
+  active: true
+  is_transplant_site: false
+royal_berkshire_hospital:
+  code: RHW01
+  name: Royal Berkshire Hospital
+  location: Reading
+  active: true
+  is_transplant_site: false
+ysbyty_glan_clwyd:
+  code: RKGA1
+  name: Ysbyty Glan Clwyd
+  location: Rhyl
+  active: true
+  is_transplant_site: false
+salford_royal_hospital:
+  code: RM301
+  name: Salford Royal Hospital
+  location: Salford
+  active: true
+  is_transplant_site: false
+northern_general_hospital:
+  code: RK7CC
+  name: Northern General Hospital
+  location: Sheffield
+  active: true
+  is_transplant_site: true
+royal_shrewsbury_hospital:
+  code: RLZ01
+  name: Royal Shrewsbury Hospital
+  location: Shrewsbury
+  active: true
+  is_transplant_site: false
+southampton_childrens_hospital:
+  code: RHM02
+  name: Southampton Childrens Hospital
+  location: Southampton
+  active: true
+  is_transplant_site: false
+southend_hospital:
+  code: RAJ01
+  name: Southend Hospital
+  location: Southend-on-Sea
+  active: true
+  is_transplant_site: false
+lister_hospital:
+  code: RAQ01
+  name: Lister Hospital
+  location: Stevenage
+  active: true
+  is_transplant_site: false
+university_hospital_of_north_staffordshire:
+  code: RJE01
+  name: University Hospital of North Staffordshire
+  location: Stoke-on-Trent
+  active: true
+  is_transplant_site: false
+sunderland_royal_hospital:
+  code: RLNGH
+  name: Sunderland Royal Hospital
+  location: Sunderland
+  active: true
+  is_transplant_site: false
+morriston_hospital:
+  code: RQHC7
+  name: Morriston Hospital
+  location: Swansea
+  active: true
+  is_transplant_site: false
+royal_cornwall_hospital_treliske:
+  code: REF12
+  name: Royal Cornwall Hospital (Treliske)
+  location: Truro
+  active: true
+  is_transplant_site: false
+arrowe_park_hospital:
+  code: RBL14
+  name: Arrowe Park Hospital
+  location: Wirral
+  active: true
+  is_transplant_site: false
+new_cross_hospital:
+  code: RL403
+  name: New Cross Hospital
+  location: Wolverhampton
+  active: true
+  is_transplant_site: false
+wrexham_maelor_hospital:
+  code: RKHA4
+  name: Wrexham Maelor Hospital
+  location: Wrexham
+  active: true
+  is_transplant_site: false
+york_district_general_hospital:
+  code: RCB55
+  name: York District General Hospital
+  location: York
+  active: true
+  is_transplant_site: false

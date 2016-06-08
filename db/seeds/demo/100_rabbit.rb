@@ -97,6 +97,7 @@ module Renalware
 
   log '--------------------Adding Doctor for Roger RABBIT---------------------'
   practice = Practice.first
+  system_user = SystemUser.find
 
   doctor = Doctor.find_or_create_by!(code: 'GP912837465') do |doc|
     doc.given_name = 'John'
@@ -108,16 +109,18 @@ module Renalware
 
   rabbit.doctor = doctor
   rabbit.practice = practice
+  rabbit.by = system_user
   rabbit.save!
 
   log '--------------------Adding Address for Roger RABBIT-------------------'
-  rabbit.current_address = Address.find_or_create_by!(
+  rabbit.build_current_address(
     name: "M. Roger Rabbit",
     street_1: '123 South Street',
     city: 'Toontown',
     postcode: 'TT1 1HD',
     country: 'United Kingdom'
     )
+  rabbit.by = system_user
   rabbit.save!
 
   log '--------------------Adding ClinicVisits for Roger RABBIT-------------------'
@@ -144,8 +147,8 @@ module Renalware
     {patient_id: 1, drug_id: 126, treatable_id: 1, treatable_type: "Renalware::PeritonitisEpisode", dose: "100 mg", medication_route_id: 1, frequency: "tid for 7d", start_date: "2015-09-14", end_date: "2015-09-21", provider: 0}
   ])
 
-  log '--------------------Adding ESRF Info for Roger RABBIT-------------------'
-  ESRF.create([
+  log '--------------------Adding Renal Profile for Roger RABBIT-------------------'
+  Renal::Profile.create([
     {patient_id: 1, diagnosed_on: "2015-05-05", prd_description_id: 109}
   ])
 
@@ -388,47 +391,66 @@ module Renalware
   patient.letters.destroy_all
   users = User.limit(3).to_a
 
-  letter = Letters::DraftLetter.build.call(patient,
-    state: :draft,
+  letter_body = <<-TEXT
+    Cras justo odio, dapibus ac facilisis in, egestas eget quam. Curabitur blandit tempus porttitor. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit. Nulla vitae elit libero, a pharetra augue. Nulla vitae elit libero, a pharetra augue.
+
+    Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Sed posuere consectetur est at lobortis. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Curabitur blandit tempus porttitor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Etiam porta sem malesuada magna mollis euismod. Donec ullamcorper nulla non metus auctor fringilla.
+
+    Yours sincerely
+    TEXT
+
+  Letters::Letter::Draft.create!(
+    patient: patient,
     issued_on: 1.day.ago,
     description: Renalware::Letters::Description.first.text,
     salutation: "Dear Dr Runner",
     main_recipient_attributes: {
       person_role: "doctor"
     },
-    body: "Maecenas faucibus mollis interdum. Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur blandit tempus porttitor. Maecenas sed diam eget risus varius blandit sit amet non magna. Sed posuere consectetur est at lobortis.",
+    body: letter_body,
     notes: "Waiting on lab results.",
     letterhead: Renalware::Letters::Letterhead.first,
     author: users.sample,
     by: users.sample
   )
 
-  letter = Letters::DraftLetter.build.call(patient,
-    state: :ready_for_review,
+  Letters::Letter::Typed.create!(
+    patient: patient,
     issued_on: 3.days.ago,
     description: Renalware::Letters::Description.last.text,
     main_recipient_attributes: {
       person_role: "patient"
     },
     salutation: "Dear Mr Rabbit",
-    body: "Maecenas faucibus mollis interdum. Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur blandit tempus porttitor. Maecenas sed diam eget risus varius blandit sit amet non magna. Sed posuere consectetur est at lobortis.",
+    body: letter_body,
     letterhead: Renalware::Letters::Letterhead.last,
     author: users.sample,
     by: users.sample
   )
 
-  letter = Letters::DraftLetter.build.call(patient,
-    state: :archived,
+  archived_letter = Letters::Letter::Archived.create!(
+    patient: patient,
     issued_on: 10.days.ago,
     description: Renalware::Letters::Description.last.text,
     main_recipient_attributes: {
       person_role: "patient"
     },
     salutation: "Dear Mr Rabbit",
-    body: "Maecenas faucibus mollis interdum. Maecenas sed diam eget risus varius blandit sit amet non magna. Curabitur blandit tempus porttitor. Maecenas sed diam eget risus varius blandit sit amet non magna. Sed posuere consectetur est at lobortis.",
+    body: letter_body,
     letterhead: Renalware::Letters::Letterhead.last,
     author: users.sample,
     by: users.sample
   )
-  # TODO: archive the letter
+
+  archived_letter.main_recipient.build_address.tap do |address|
+    address.copy_from(archived_letter.patient.current_address)
+    address.save!
+  end
+  recipient = archived_letter.cc_recipients.create(person_role: "doctor")
+  recipient.build_address.tap do |address|
+    address.copy_from(archived_letter.patient.doctor.current_address)
+    address.save!
+  end
 end

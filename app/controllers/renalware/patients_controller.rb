@@ -39,34 +39,35 @@ module Renalware
     end
 
     def update
-      Patients::UpdatePatient.build
-        .subscribe(self)
-        .call(@patient.id, patient_params)
-    end
-
-    def update_patient_successful(patient)
-      redirect_to_patient_demographics(patient)
-    end
-
-    def update_patient_failed(patient)
-      flash[:error] = t(".failed", model_name: "patient")
-      render_form(patient, :edit)
+      if @patient.update(patient_params)
+        redirect_to_patient_demographics(@patient)
+      else
+        flash[:error] = t(".failed", model_name: "patient")
+        render_form(@patient, :edit)
+      end
     end
 
     private
 
     def patient_params
-      params.require(:patient).permit(
+      params
+        .require(:patient)
+        .permit(patient_attributes)
+        .merge(by: current_user)
+    end
+
+    def patient_attributes
+      [
         :nhs_number, :local_patient_id, :family_name, :given_name, :sex,
         :ethnicity_id, :born_on, :paediatric_patient_indicator, :cc_on_all_letters,
         :gp_practice_code, :pct_org_code, :hospital_centre_code, :primary_esrf_centre,
-        current_address_attributes: [
-          :name, :organisation_name, :street_1, :street_2, :county, :country, :city, :postcode
-        ],
-        address_at_diagnosis_attributes: [
-          :name, :organisation_name, :street_1, :street_2, :county, :country, :city, :postcode
-        ]
-      )
+        :title, :suffix, :marital_status, :telephone1, :telephone2, :email, :religion_id,
+        :language_id, address_attributes: address_params
+      ]
+    end
+
+    def address_params
+      [:name, :organisation_name, :street_1, :street_2, :county, :country, :city, :postcode]
     end
 
     def find_patient

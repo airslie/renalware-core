@@ -1,0 +1,221 @@
+0:
+  manufacturer: Baxter
+  description: Dianeal PD2 1.36% (Yellow)
+  glucose_grams_per_litre: 13.6
+  amino_acid: false
+  icodextrin: false
+  low_glucose_degradation: false
+  low_sodium: false
+  sodium_mmole_l: 132
+  lactate_mmole_l: 40
+  bicarbonate_mmole_l: 0
+  calcium_mmole_l: 1.75
+  magnesium_mmole_l: 0.25
+1:
+  manufacturer: Baxter
+  description: Dianeal PD2 2.27% (Green)
+  glucose_grams_per_litre: 22.7
+  amino_acid: false
+  icodextrin: false
+  low_glucose_degradation: false
+  low_sodium: false
+  sodium_mmole_l: 132
+  lactate_mmole_l: 40
+  bicarbonate_mmole_l: 0
+  calcium_mmole_l: 1.75
+  magnesium_mmole_l: 0.25
+2:
+  manufacturer: Baxter
+  description: Dianeal PD2 3.86% (Red)
+  glucose_grams_per_litre: 38.6
+  amino_acid: false
+  icodextrin: false
+  low_glucose_degradation: false
+  low_sodium: false
+  sodium_mmole_l: 132
+  lactate_mmole_l: 40
+  bicarbonate_mmole_l: 0
+  calcium_mmole_l: 1.75
+  magnesium_mmole_l: 0.25
+3:
+  manufacturer: Baxter
+  description: Dianeal PD4 1.36% (Yellow)
+  glucose_grams_per_litre: 13.6
+  amino_acid: false
+  icodextrin: false
+  low_glucose_degradation: false
+  low_sodium: false
+  sodium_mmole_l: 132
+  lactate_mmole_l: 40
+  bicarbonate_mmole_l: 0
+  calcium_mmole_l: 1.25
+  magnesium_mmole_l: 0.25
+4:
+  manufacturer: Baxter
+  description: Dianeal PD4 2.27% (Green)
+  glucose_grams_per_litre: 22.7
+  amino_acid: false
+  icodextrin: false
+  low_glucose_degradation: false
+  low_sodium: false
+  sodium_mmole_l: 132
+  lactate_mmole_l: 40
+  bicarbonate_mmole_l: 0
+  calcium_mmole_l: 1.25
+  magnesium_mmole_l: 0.25
+5:
+  manufacturer: Baxter
+  description: Dianeal PD4 3.86% (Red)
+  glucose_grams_per_litre: 38.6
+  amino_acid: false
+  icodextrin: false
+  low_glucose_degradation: false
+  low_sodium: false
+  sodium_mmole_l: 132
+  lactate_mmole_l: 40
+  bicarbonate_mmole_l: 0
+  calcium_mmole_l: 1.25
+  magnesium_mmole_l: 0.25
+6:
+  manufacturer: Baxter
+  description: Nutrineal PD4 (Blue)
+  glucose_grams_per_litre: 0.0
+  amino_acid: true
+  icodextrin: false
+  low_glucose_degradation: false
+  low_sodium: false
+  sodium_mmole_l: 132
+  lactate_mmole_l: 40
+  bicarbonate_mmole_l: 0
+  calcium_mmole_l: 1.25
+  magnesium_mmole_l: 0.25
+7:
+  manufacturer: Baxter
+  description: Extraneal (Icodextrin 7.5%) (Purple)
+  glucose_grams_per_litre: 0.0
+  amino_acid: false
+  icodextrin: true
+  low_glucose_degradation: false
+  low_sodium: false
+  sodium_mmole_l: 133
+  lactate_mmole_l: 40
+  bicarbonate_mmole_l: 0
+  calcium_mmole_l: 1.75
+  magnesium_mmole_l: 0.25
+8:
+  manufacturer: Fresenius
+  description: Balance 1.5% Calcium 1.25 (Yellow)
+  glucose_grams_per_litre: 15.0
+  amino_acid: false
+  icodextrin: false
+  low_glucose_degradation: false
+  low_sodium: false
+  sodium_mmole_l: 134
+  lactate_mmole_l: 34
+  bicarbonate_mmole_l: 0
+  calcium_mmole_l: 1.25
+  magnesium_mmole_l: 0.5
+9:
+  manufacturer: Fresenius
+  description: Balance 2.3% Calcium 1.25 (Green)
+  glucose_grams_per_litre: 23.0
+  amino_acid: false
+  icodextrin: false
+  low_glucose_degradation: false
+  low_sodium: false
+  sodium_mmole_l: 134
+  lactate_mmole_l: 34
+  bicarbonate_mmole_l: 0
+  calcium_mmole_l: 1.25
+  magnesium_mmole_l: 0.5
+10:
+  manufacturer: Fresenius
+  description: Balance 4.25% Calcium 1.25 (Red)
+  glucose_grams_per_litre: 42.5
+  amino_acid: false
+  icodextrin: false
+  low_glucose_degradation: false
+  low_sodium: false
+  sodium_mmole_l: 134
+  lactate_mmole_l: 34
+  bicarbonate_mmole_l: 0
+  calcium_mmole_l: 1.25
+  magnesium_mmole_l: 0.5
+11:
+  manufacturer: Fresenius
+  description: Balance 1.5% Calcium 1.75 (Yellow)
+  glucose_grams_per_litre: 15.0
+  amino_acid: false
+  icodextrin: false
+  low_glucose_degradation: false
+  low_sodium: false
+  sodium_mmole_l: 134
+  lactate_mmole_l: 34
+  bicarbonate_mmole_l: 0
+  calcium_mmole_l: 1.75
+  magnesium_mmole_l: 0.5
+12:
+  manufacturer: Fresenius
+  description: Balance 2.3% Calcium 1.75 (Green)
+  glucose_grams_per_litre: 23.0
+  amino_acid: false
+  icodextrin: false
+  low_glucose_degradation: false
+  low_sodium: false
+  sodium_mmole_l: 134
+  lactate_mmole_l: 34
+  bicarbonate_mmole_l: 0
+  calcium_mmole_l: 1.75
+  magnesium_mmole_l: 0.5
+13:
+  manufacturer: Fresenius
+  description: Balance 4.25% Calcium 1.75 (Red)
+  glucose_grams_per_litre: 42.5
+  amino_acid: false
+  icodextrin: false
+  low_glucose_degradation: false
+  low_sodium: false
+  sodium_mmole_l: 134
+  lactate_mmole_l: 34
+  bicarbonate_mmole_l: 0
+  calcium_mmole_l: 1.75
+  magnesium_mmole_l: 0.5
+14:
+  manufacturer: Fresenius
+  description: bicaVera 1.5% Calcium 1.75 (Yellow)
+  glucose_grams_per_litre: 15.0
+  amino_acid: false
+  icodextrin: false
+  low_glucose_degradation: true
+  low_sodium: false
+  sodium_mmole_l: 134
+  lactate_mmole_l: 0
+  bicarbonate_mmole_l: 34
+  calcium_mmole_l: 1.75
+  magnesium_mmole_l: 0.5
+15:
+  manufacturer: Fresenius
+  description: bicaVera 2.3% Calcium 1.75 (Green)
+  glucose_grams_per_litre: 23.0
+  amino_acid: false
+  icodextrin: false
+  low_glucose_degradation: true
+  low_sodium: false
+  sodium_mmole_l: 134
+  lactate_mmole_l: 0
+  bicarbonate_mmole_l: 34
+  calcium_mmole_l: 1.75
+  magnesium_mmole_l: 0.5
+16:
+  manufacturer: Fresenius
+  description: bicaVera 4.25% Calcium 1.75 (Red)
+  glucose_grams_per_litre: 42.5
+  amino_acid: false
+  icodextrin: false
+  low_glucose_degradation: true
+  low_sodium: false
+  sodium_mmole_l: 134
+  lactate_mmole_l: 0
+  bicarbonate_mmole_l: 34
+  calcium_mmole_l: 1.75
+  magnesium_mmole_l: 0.5

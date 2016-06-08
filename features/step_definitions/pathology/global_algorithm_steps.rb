@@ -15,9 +15,9 @@ Given(/^Patty has observed an ([A-Z0-9]+) value of (\d+)$/) do |code, result|
   )
 end
 
-Given(/^Patty was last tested for ([A-Z0-9]+)(\s|\s(\d+) days ago)$/) do |code, _time_ago, days|
-  if days.present?
-    observed_at = (Time.current - days.days).to_date
+Given(/^Patty was last tested for ([A-Z0-9]+) (.*)$/) do |code, time_ago|
+  if time_ago.present?
+    observed_at = str_to_time(time_ago).to_date
     record_observations(
       patient: @patty,
       observations_attributes: [
@@ -44,9 +44,12 @@ Given(/^Patty is currently prescribed Ephedrine Tablet (yes|no)$/) do |perscribe
 end
 
 When(/^the global pathology algorithm is run for Patty in clinic (.*)$/) do |clinic_name|
-  clinic = Renalware::Clinics::Clinic.find_by(name: clinic_name)
-  patty_pathology = Renalware::Pathology.cast_patient(@patty)
-  @required_request_descriptions = run_global_algorithm(patty_pathology, clinic)
+  @required_request_descriptions = run_global_algorithm(@patty, @clyde, clinic_name)
+end
+
+When(/^Clyde views the list of required pathology for Patty in clinic (.*)$/) do |clinic_name|
+  @required_request_descriptions = run_global_algorithm(@patty, @clyde, clinic_name)
+  @required_patient_observations = run_patient_algorithm(@patty, @clyde)
 end
 
 Then(/^it is determined the observation is (required|not required)$/) do |determined|
@@ -57,4 +60,12 @@ Then(/^it is determined the observation is (required|not required)$/) do |determ
   else
     expect(@required_request_descriptions).to eq([])
   end
+end
+
+Then(/^Clyde sees these request descriptions from the global algorithm$/) do |table|
+  expect_observations_from_global(@required_request_descriptions, table)
+end
+
+Then(/^Clyde sees these observations from the patient algorithm$/) do |table|
+  expect_observations_from_patient(@required_patient_observations, table.transpose)
 end

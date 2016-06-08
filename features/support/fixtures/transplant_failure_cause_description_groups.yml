@@ -1,0 +1,8 @@
+rejection:
+  name: Rejection
+intrinsic_renal_disease:
+  name: Intrinsic renal disease
+technical:
+  name: Technical
+other:
+  name: Other

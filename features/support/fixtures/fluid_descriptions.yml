@@ -1,0 +1,8 @@
+clear:
+  description: "Clear"
+misty:
+  description: "Misty"
+cloudy:
+  description: "Cloudy"
+pea_soup:
+  description: "Pea Soup"

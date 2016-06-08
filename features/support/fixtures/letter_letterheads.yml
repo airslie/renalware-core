@@ -1,0 +1,36 @@
+kch_the_renal_unit:
+  name: (KCH) THE RENAL UNIT
+  site_code: KCH
+  unit_info: THE RENAL UNIT
+  trust_name: King&rsquo;s College Hospital
+  trust_caption: NHS Foundation Trust
+  site_info: "Renal Administration<br> King&rsquo;s College Hospital<br> Bessemer Road<br> London SE5 9RS<br> <b>Appointments</b>: 020 3299 6244<br> <b>Fax</b>: 020 3299 6472<br> <b>Switchboard</b>: 020 3299 9000<br> <b>GP Email Advice</b>: kch-tr.renal@nhs.net"
+dvh_nephrology_outreach_clinic:
+  name: (DVH) NEPHROLOGY OUTREACH CLINIC
+  site_code: DVH
+  unit_info: NEPHROLOGY OUTREACH CLINIC
+  trust_name: Dartford and Gravesham
+  trust_caption: NHS Trust
+  site_info: "Darent Valley Hospital<br> Darenth Wood Road<br> Dartford<br> Kent DA2 8DA<br> Tel: 01322 428417<br> Fax: 01322 428415<br> Website: <span class='link'>www.dvh.nhs.uk</span>"
+qeh_nephrology_outreach_clinic:
+  name: (QEH) NEPHROLOGY OUTREACH CLINIC
+  site_code: QEH
+  unit_info: NEPHROLOGY OUTREACH CLINIC
+  trust_name: Lewisham and Greenwich
+  trust_caption: NHS Trust
+  site_info: "<b>Dr Hugh Cairns &middot; Dr Satish Jayawardene <br> Dr Sapna Shah &middot; Dr Robert Elias</b><br><br> Queen Elizabeth Hospital<br> Stadium Road<br> Woolwich<br> London SE18 4QH<br> <b>Direct Telephone</b>: 0208 836 6000 <br> <b>Fax Number</b>: 0208 836 5576<br> <b>GP Email Advice</b>: kch-tr.renal@nhs.net<br> <b>www.lewishamandgreenwich.nhs.uk</b> "
+test_nephrology_outreach_clinic:
+  name: (test) NEPHROLOGY OUTREACH CLINIC
+  site_code: test
+  unit_info: NEPHROLOGY OUTREACH CLINIC
+  trust_name: Southwark Healthcare
+  trust_caption: NHS Trust
+  site_info: "<b>Dr Hugh Cairns &middot; Dr Satish Jayawardene &middot; Dr Sapna Shah</b><br><br> Queen Elizabeth Hospital<br> Stadium Road<br> Woolwich<br> London SE18 4QH<br> <b>Direct Telephone</b>: 0208 836 6000 x6936<br> <b>Fax Number</b>: 0208 836 5576<br> <b>GP Email Advice</b>: kch-tr.renal@nhs.net<br> "
+pruh_nephrology_outreach_clinic:
+  name: (PRUH) NEPHROLOGY OUTREACH CLINIC
+  site_code: PRUH
+  unit_info: NEPHROLOGY OUTREACH CLINIC
+  trust_name: King&rsquo;s College Hospital
+  trust_caption: NHS Foundation Trust
+  site_info: "<b>Dr Satish Jayawardene &middot; Dr Paul Donohoe</b><br><br> Princess Royal University Hospital<br> Farnborough Common<br> Orpington<br> KENT BR6 8ND<br> <b>Direct Telephone</b>: 02032996951 <br> <b>Fax Number</b>: 0203 299 6472<br> <b>GP Email Advice</b>: kch-tr.renal@nhs.net<br> "
+

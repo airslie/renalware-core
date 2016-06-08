@@ -3,7 +3,7 @@ module Renalware
     include Personable
     include ActiveModel::Validations
 
-    belongs_to :address
+    has_one :address, as: :addressable
     has_and_belongs_to_many :practices
     has_many :patients
 
@@ -13,6 +13,8 @@ module Renalware
     validates_with DoctorEmailValidator
     validates_uniqueness_of :code
     validates_presence_of :practitioner_type
+
+    scope :ordered, -> { order(family_name: :asc) }
 
     def self.policy_class
       BasePolicy

@@ -5,7 +5,6 @@ class CreateDoctors < ActiveRecord::Migration
       t.string  :family_name
       t.string  :email
       t.string  :code
-      t.integer :address_id
       t.string  :practitioner_type, null: false
       t.timestamps null: false
     end

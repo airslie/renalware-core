@@ -1,0 +1,35 @@
+.profile-info-form
+
+  = render layout: "renalware/shared/fieldset",
+      locals: { legend: "Diagnosis", name: "diagnosis" } do
+
+    = f.input :diagnosed_on, as: :date_picker
+    = f.input :prd_description_id, input_html: { class: "clear-autocomplete" }, as: :hidden
+
+    .row
+      .small-3.columns
+        = label_tag 'prd_description_auto_complete',
+            f.object.class.human_attribute_name(:prd_description),
+            class: "right inline"
+      .small-9.columns
+        .row.collapse
+          .small-11.columns
+            = text_field_tag 'prd_description_auto_complete', \
+                f.object.prd_description.to_s,
+                data: { \
+                  autocomplete_source: search_prd_descriptions_path, \
+                  autocomplete_rel: "#renal_profile_prd_description_id" \
+                },
+                placeholder: "Start entering the diagnosis or PRD code (min. 2 characters)",
+                spellcheck: false,
+                class: "clear-autocomplete"
+          .small-1.columns
+            span.postfix
+              = link_to 'Clear', '#', data: { clear_value_on_click: ".clear-autocomplete" }
+
+    - f.object.build_address_at_diagnosis if f.object.address_at_diagnosis.blank?
+    = f.simple_fields_for :address_at_diagnosis_attributes, f.object.address_at_diagnosis do |a|
+      fieldset id="address_at_diagnosis"
+        legend Address at Diagnosis
+        = render partial: 'renalware/addresses/form', locals: { a: a }
+

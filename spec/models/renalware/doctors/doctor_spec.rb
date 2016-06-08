@@ -19,7 +19,12 @@ module Renalware
 
       context "when doctor does not have an alternate address" do
         let(:practice) { create(:practice) }
-        subject(:doctor) { create(:doctor, address: nil, practices: [practice]) }
+        subject(:doctor) { create(:doctor, practices: [practice]) }
+
+        before do
+          doctor.address.delete
+          doctor.reload
+        end
 
         it "returns the address of the first practice" do
           expect(doctor.current_address).to eq(practice.address)

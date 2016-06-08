@@ -1,0 +1,202 @@
+english:
+  name: English
+other:
+  name: Other
+akan:
+  name: Akan
+amharic:
+  name: Amharic
+arabic:
+  name: Arabic
+assamese:
+  name: Assamese
+awadhi:
+  name: Awadhi
+azerbaijani:
+  name: Azerbaijani
+balochi:
+  name: Balochi
+belarusian:
+  name: Belarusian
+bengali:
+  name: Bengali
+bhojpuri:
+  name: Bhojpuri
+burmese:
+  name: Burmese
+cebuano_visayan:
+  name: Cebuano (Visayan)
+chewa:
+  name: Chewa
+chhattisgarhi:
+  name: Chhattisgarhi
+chittagonian:
+  name: Chittagonian
+czech:
+  name: Czech
+deccan:
+  name: Deccan
+dhundhari:
+  name: Dhundhari
+dutch:
+  name: Dutch
+eastern_min:
+  name: Eastern Min
+french:
+  name: French
+fula:
+  name: Fula
+gan_chinese:
+  name: Gan Chinese
+german:
+  name: German
+greek:
+  name: Greek
+gujarati:
+  name: Gujarati
+haitian_creole:
+  name: Haitian Creole
+hakka:
+  name: Hakka
+haryanvi:
+  name: Haryanvi
+hausa:
+  name: Hausa
+hiligaynon:
+  name: Hiligaynon
+hindi:
+  name: Hindi
+hmong:
+  name: Hmong
+hungarian:
+  name: Hungarian
+igbo:
+  name: Igbo
+ilocano:
+  name: Ilocano
+italian:
+  name: Italian
+japanese:
+  name: Japanese
+javanese:
+  name: Javanese
+jin:
+  name: Jin
+kannada:
+  name: Kannada
+kazakh:
+  name: Kazakh
+khmer:
+  name: Khmer
+kinyarwanda:
+  name: Kinyarwanda
+kirundi:
+  name: Kirundi
+konkani:
+  name: Konkani
+korean:
+  name: Korean
+kurdish:
+  name: Kurdish
+madurese:
+  name: Madurese
+magahi:
+  name: Magahi
+maithili:
+  name: Maithili
+malagasy:
+  name: Malagasy
+malay_indonesian:
+  name: Malay/Indonesian
+malayalam:
+  name: Malayalam
+mandarin:
+  name: Mandarin
+marathi:
+  name: Marathi
+marwari:
+  name: Marwari
+mossi:
+  name: Mossi
+nepali:
+  name: Nepali
+northern_min:
+  name: Northern Min
+odia_oriya:
+  name: Odia (Oriya)
+oromo:
+  name: Oromo
+pashto:
+  name: Pashto
+persian:
+  name: Persian
+polish:
+  name: Polish
+portuguese:
+  name: Portuguese
+punjabi:
+  name: Punjabi
+quechua:
+  name: Quechua
+romanian:
+  name: Romanian
+russian:
+  name: Russian
+saraiki:
+  name: Saraiki
+serbocroatian:
+  name: Serbo-Croatian
+shona:
+  name: Shona
+sindhi:
+  name: Sindhi
+sinhalese:
+  name: Sinhalese
+somali:
+  name: Somali
+southern_min:
+  name: Southern Min
+spanish:
+  name: Spanish
+sundanese:
+  name: Sundanese
+swedish:
+  name: Swedish
+sylheti:
+  name: Sylheti
+tagalog:
+  name: Tagalog
+tamil:
+  name: Tamil
+telugu:
+  name: Telugu
+thai:
+  name: Thai
+turkish:
+  name: Turkish
+turkmen:
+  name: Turkmen
+ukrainian:
+  name: Ukrainian
+urdu:
+  name: Urdu
+uyghur:
+  name: Uyghur
+uzbek:
+  name: Uzbek
+vietnamese:
+  name: Vietnamese
+wu_inc._shanghainese:
+  name: Wu (inc. Shanghainese)
+xhosa:
+  name: Xhosa
+xiang_hunnanese:
+  name: Xiang (Hunnanese)
+yoruba:
+  name: Yoruba
+yue_cantonese:
+  name: Yue (Cantonese)
+zhuang:
+  name: Zhuang
+zulu:
+  name: Zulu

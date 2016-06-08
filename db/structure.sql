@@ -298,15 +298,15 @@ ALTER SEQUENCE access_versions_id_seq OWNED BY access_versions.id;
 
 CREATE TABLE addresses (
     id integer NOT NULL,
-    addressable_type character varying,
-    addressable_id integer,
+    addressable_type character varying NOT NULL,
+    addressable_id integer NOT NULL,
     street_1 character varying,
     street_2 character varying,
     county character varying,
     city character varying,
     postcode character varying,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     country character varying,
     name character varying,
     organisation_name character varying
@@ -497,10 +497,10 @@ CREATE TABLE doctors (
     family_name character varying,
     email character varying,
     code character varying,
-    address_id integer,
     practitioner_type character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    telephone character varying
 );
 
 
@@ -552,9 +552,7 @@ CREATE TABLE drug_types (
 
 CREATE TABLE drug_types_drugs (
     drug_id integer,
-    drug_type_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    drug_type_id integer
 );
 
 
@@ -585,8 +583,8 @@ CREATE TABLE drugs (
     id integer NOT NULL,
     name character varying NOT NULL,
     deleted_at timestamp without time zone,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -618,8 +616,8 @@ CREATE TABLE edta_codes (
     code integer,
     death_cause character varying,
     deleted_at timestamp without time zone,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -676,47 +674,14 @@ ALTER SEQUENCE episode_types_id_seq OWNED BY episode_types.id;
 
 
 --
--- Name: esrf; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE esrf (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    diagnosed_on date NOT NULL,
-    prd_description_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
---
--- Name: esrf_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE esrf_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: esrf_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE esrf_id_seq OWNED BY esrf.id;
-
-
---
 -- Name: ethnicities; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE ethnicities (
     id integer NOT NULL,
     name character varying,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -747,8 +712,8 @@ CREATE TABLE event_types (
     id integer NOT NULL,
     name character varying NOT NULL,
     deleted_at timestamp without time zone,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -782,8 +747,8 @@ CREATE TABLE events (
     event_type_id integer,
     description character varying,
     notes text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -1308,6 +1273,7 @@ ALTER SEQUENCE letter_descriptions_id_seq OWNED BY letter_descriptions.id;
 CREATE TABLE letter_letterheads (
     id integer NOT NULL,
     name character varying NOT NULL,
+    site_code character varying NOT NULL,
     unit_info character varying NOT NULL,
     trust_name character varying NOT NULL,
     trust_caption character varying NOT NULL,
@@ -1343,7 +1309,7 @@ ALTER SEQUENCE letter_letterheads_id_seq OWNED BY letter_letterheads.id;
 CREATE TABLE letter_letters (
     id integer NOT NULL,
     patient_id integer,
-    state character varying DEFAULT 'draft'::character varying NOT NULL,
+    type character varying NOT NULL,
     issued_on date NOT NULL,
     description character varying,
     salutation character varying,
@@ -1535,8 +1501,8 @@ CREATE TABLE modalities (
     started_on date NOT NULL,
     ended_on date,
     deleted_at timestamp without time zone,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -1568,8 +1534,8 @@ CREATE TABLE modality_descriptions (
     code character varying NOT NULL,
     name character varying NOT NULL,
     deleted_at timestamp without time zone,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -1602,8 +1568,8 @@ CREATE TABLE modality_reasons (
     rr_code integer,
     description character varying,
     deleted_at timestamp without time zone,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -1665,7 +1631,7 @@ ALTER SEQUENCE organism_codes_id_seq OWNED BY organism_codes.id;
 
 CREATE TABLE pathology_labs (
     id integer NOT NULL,
-    name character varying
+    name character varying NOT NULL
 );
 
 
@@ -1795,7 +1761,7 @@ ALTER SEQUENCE pathology_observations_id_seq OWNED BY pathology_observations.id;
 CREATE TABLE pathology_request_algorithm_global_rule_sets (
     id integer NOT NULL,
     request_description_id integer NOT NULL,
-    frequency character varying NOT NULL,
+    frequency_type character varying NOT NULL,
     clinic_id integer
 );
 
@@ -1861,7 +1827,7 @@ CREATE TABLE pathology_request_algorithm_patient_rules (
     test_description text,
     sample_number_bottles integer,
     sample_type character varying,
-    frequency character varying,
+    frequency_type character varying,
     patient_id integer,
     last_observed_at timestamp without time zone,
     start_date date,
@@ -1899,7 +1865,7 @@ CREATE TABLE pathology_request_descriptions (
     name character varying,
     required_observation_description_id integer,
     expiration_days integer,
-    lab_id integer
+    lab_id integer NOT NULL
 );
 
 
@@ -1923,6 +1889,64 @@ ALTER SEQUENCE pathology_request_descriptions_id_seq OWNED BY pathology_request_
 
 
 --
+-- Name: patient_languages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE patient_languages (
+    id integer NOT NULL,
+    name character varying NOT NULL
+);
+
+
+--
+-- Name: patient_languages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE patient_languages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_languages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE patient_languages_id_seq OWNED BY patient_languages.id;
+
+
+--
+-- Name: patient_religions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE patient_religions (
+    id integer NOT NULL,
+    name character varying NOT NULL
+);
+
+
+--
+-- Name: patient_religions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE patient_religions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_religions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE patient_religions_id_seq OWNED BY patient_religions.id;
+
+
+--
 -- Name: patients; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1936,8 +1960,6 @@ CREATE TABLE patients (
     paediatric_patient_indicator boolean,
     sex character varying,
     ethnicity_id integer,
-    current_address_id integer,
-    address_at_diagnosis_id integer,
     gp_practice_code character varying,
     pct_org_code character varying,
     hospital_centre_code character varying,
@@ -1947,10 +1969,20 @@ CREATE TABLE patients (
     second_edta_code_id integer,
     death_notes text,
     cc_on_all_letters boolean DEFAULT true,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     practice_id integer,
-    doctor_id integer
+    doctor_id integer,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    title character varying,
+    suffix character varying,
+    marital_status character varying,
+    telephone1 character varying,
+    telephone2 character varying,
+    email character varying,
+    religion_id integer,
+    language_id integer
 );
 
 
@@ -2149,8 +2181,8 @@ CREATE TABLE prd_descriptions (
     id integer NOT NULL,
     code character varying,
     term character varying,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -2218,8 +2250,8 @@ CREATE TABLE problem_problems (
     description character varying NOT NULL,
     date date,
     deleted_at timestamp without time zone,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -2278,14 +2310,47 @@ ALTER SEQUENCE problem_versions_id_seq OWNED BY problem_versions.id;
 
 
 --
+-- Name: renal_profiles; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE renal_profiles (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    diagnosed_on date NOT NULL,
+    prd_description_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: renal_profiles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE renal_profiles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: renal_profiles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE renal_profiles_id_seq OWNED BY renal_profiles.id;
+
+
+--
 -- Name: roles; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE roles (
     id integer NOT NULL,
     name character varying,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -3004,13 +3069,6 @@ ALTER TABLE ONLY episode_types ALTER COLUMN id SET DEFAULT nextval('episode_type
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY esrf ALTER COLUMN id SET DEFAULT nextval('esrf_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY ethnicities ALTER COLUMN id SET DEFAULT nextval('ethnicities_id_seq'::regclass);
 
 
@@ -3256,6 +3314,20 @@ ALTER TABLE ONLY pathology_request_descriptions ALTER COLUMN id SET DEFAULT next
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY patient_languages ALTER COLUMN id SET DEFAULT nextval('patient_languages_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_religions ALTER COLUMN id SET DEFAULT nextval('patient_religions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY patients ALTER COLUMN id SET DEFAULT nextval('patients_id_seq'::regclass);
 
 
@@ -3313,6 +3385,13 @@ ALTER TABLE ONLY problem_problems ALTER COLUMN id SET DEFAULT nextval('problem_p
 --
 
 ALTER TABLE ONLY problem_versions ALTER COLUMN id SET DEFAULT nextval('problem_versions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_profiles ALTER COLUMN id SET DEFAULT nextval('renal_profiles_id_seq'::regclass);
 
 
 --
@@ -3561,14 +3640,6 @@ ALTER TABLE ONLY edta_codes
 
 ALTER TABLE ONLY episode_types
     ADD CONSTRAINT episode_types_pkey PRIMARY KEY (id);
-
-
---
--- Name: esrf_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY esrf
-    ADD CONSTRAINT esrf_pkey PRIMARY KEY (id);
 
 
 --
@@ -3852,6 +3923,22 @@ ALTER TABLE ONLY pathology_request_descriptions
 
 
 --
+-- Name: patient_languages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_languages
+    ADD CONSTRAINT patient_languages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: patient_religions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_religions
+    ADD CONSTRAINT patient_religions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: patients_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3921,6 +4008,14 @@ ALTER TABLE ONLY problem_problems
 
 ALTER TABLE ONLY problem_versions
     ADD CONSTRAINT problem_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: renal_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_profiles
+    ADD CONSTRAINT renal_profiles_pkey PRIMARY KEY (id);
 
 
 --
@@ -4507,10 +4602,24 @@ CREATE INDEX index_pathology_observations_on_request_id ON pathology_observation
 
 
 --
+-- Name: index_patients_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_created_by_id ON patients USING btree (created_by_id);
+
+
+--
 -- Name: index_patients_on_doctor_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_patients_on_doctor_id ON patients USING btree (doctor_id);
+
+
+--
+-- Name: index_patients_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_updated_by_id ON patients USING btree (updated_by_id);
 
 
 --
@@ -4752,19 +4861,27 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
+-- Name: fk_rails_01ec61436d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patients
+    ADD CONSTRAINT fk_rails_01ec61436d FOREIGN KEY (religion_id) REFERENCES patient_religions(id);
+
+
+--
+-- Name: fk_rails_042462eeb9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patients
+    ADD CONSTRAINT fk_rails_042462eeb9 FOREIGN KEY (language_id) REFERENCES patient_languages(id);
+
+
+--
 -- Name: fk_rails_050f679712; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_observation_requests
     ADD CONSTRAINT fk_rails_050f679712 FOREIGN KEY (description_id) REFERENCES pathology_request_descriptions(id);
-
-
---
--- Name: fk_rails_09038afd60; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY esrf
-    ADD CONSTRAINT fk_rails_09038afd60 FOREIGN KEY (prd_description_id) REFERENCES prd_descriptions(id);
 
 
 --
@@ -4928,6 +5045,14 @@ ALTER TABLE ONLY medications
 
 
 --
+-- Name: fk_rails_568750244e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_profiles
+    ADD CONSTRAINT fk_rails_568750244e FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: fk_rails_571a3cadda; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5021,14 +5146,6 @@ ALTER TABLE ONLY events
 
 ALTER TABLE ONLY transplant_recipient_followups
     ADD CONSTRAINT fk_rails_78dc63040c FOREIGN KEY (operation_id) REFERENCES transplant_recipient_operations(id);
-
-
---
--- Name: fk_rails_7fc38a9bf8; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY esrf
-    ADD CONSTRAINT fk_rails_7fc38a9bf8 FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -5213,6 +5330,14 @@ ALTER TABLE ONLY transplant_donor_followups
 
 ALTER TABLE ONLY hd_profiles
     ADD CONSTRAINT fk_rails_c89b2174e9 FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
+
+
+--
+-- Name: fk_rails_cd10bc0ddf; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_profiles
+    ADD CONSTRAINT fk_rails_cd10bc0ddf FOREIGN KEY (prd_description_id) REFERENCES prd_descriptions(id);
 
 
 --
@@ -5570,4 +5695,20 @@ INSERT INTO schema_migrations (version) VALUES ('20160509151927');
 INSERT INTO schema_migrations (version) VALUES ('20160509171244');
 
 INSERT INTO schema_migrations (version) VALUES ('20160510155932');
+
+INSERT INTO schema_migrations (version) VALUES ('20160518110836');
+
+INSERT INTO schema_migrations (version) VALUES ('20160518111325');
+
+INSERT INTO schema_migrations (version) VALUES ('20160524171947');
+
+INSERT INTO schema_migrations (version) VALUES ('20160525124151');
+
+INSERT INTO schema_migrations (version) VALUES ('20160530162708');
+
+INSERT INTO schema_migrations (version) VALUES ('20160530162720');
+
+INSERT INTO schema_migrations (version) VALUES ('20160530170058');
+
+INSERT INTO schema_migrations (version) VALUES ('20160531141853');
 

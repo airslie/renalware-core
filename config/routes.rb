@@ -6,12 +6,11 @@ Rails.application.routes.draw do
   }
 
   scope module: "renalware" do
-    root to: "patients#index"
+    root to: "dashboard/dashboards#show"
 
     namespace :admin do
       resources :users
     end
-
 
     get "authors/:author_id/letters", to: "letters/letters#author", as: "author_letters"
 
@@ -73,7 +72,6 @@ Rails.application.routes.draw do
 
       resource :clinical_summary, only: :show
       resource :death, only: [:edit, :update]
-      resource :esrf, only: [:edit, :update], controller: "esrf"
       resource :pd_summary, only: :show
 
       resources :apd_regimes, controller: "pd_regimes", type: "ApdRegime"
@@ -81,6 +79,10 @@ Rails.application.routes.draw do
       resources :clinic_visits, controller: "clinics/clinic_visits"
       resources :events, only: [:new, :create, :index], controller: "events/events"
       resources :exit_site_infections, only: [:new, :create, :show, :edit, :update]
+
+      namespace :renal do
+        resource :profile, only: [:edit, :update]
+      end
 
       namespace :hd do
         resource :dashboard, only: :show
@@ -98,7 +100,9 @@ Rails.application.routes.draw do
       end
 
       namespace :letters do
-        resources :letters
+        resources :letters do
+          resource :typed, only: :create
+        end
       end
 
       resources :medications
@@ -119,6 +123,7 @@ Rails.application.routes.draw do
         resources :observation_requests, only: [:index, :show]
         resources :patient_rules, only: [:new, :create]
         get "descriptions/:description_id/observations", to: "observations#index", as: "observations"
+        resources :required_observations, only: :index
       end
 
       namespace :transplants do
@@ -142,14 +147,14 @@ Rails.application.routes.draw do
       end
     end
 
+    namespace :pathology do
+      resources :forms, only: :index
+    end
+
     resources :prd_descriptions, only: [:search] do
       collection do
         get :search
       end
-    end
-
-    namespace :transplants do
-      resource :wait_list, only: :show
     end
 
     resources :snomed, only: [:index]
@@ -157,6 +162,12 @@ Rails.application.routes.draw do
     namespace :system do
       resources :email_templates, only: :index
     end
+
+    namespace :transplants do
+      resource :wait_list, only: :show
+    end
+
+    resource :dashboard, only: :show, controller: "dashboard/dashboards"
   end
 
   # enable mail previews in all environments

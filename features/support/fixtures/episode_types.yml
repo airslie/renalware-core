@@ -1,0 +1,28 @@
+de_novo:
+  term: "De novo"
+  definition: "First infection."
+
+recurrent:
+  term: "Recurrent"
+  definition: "An episode that occurs within 4 weeks of completion of therapy of a prior episode but with a different organism."
+
+relapsing:
+  term: "Relapsing"
+  definition: " An episode that occurs within 4 weeks of completion of therapy of a prior episode with the same organism or 1 sterile episode."
+
+repeat:
+  term: "Repeat"
+  definition: "An episode that occurs more than 4 weeks after completion of therapy of a prior episode with the same organism."
+
+refractory:
+  term: "Refractory"
+  definition: "Failure of the effluent to clear after 5 days of appropriate antibiotics."
+
+catheter_related:
+  term: "Catheter-related"
+  definition: "Peritonitis in conjunction with an exit-site or tunnel infection with the same organism or 1 site."
+
+other:
+  term: "Other"
+  definition: "Refer to notes."
+

@@ -2,16 +2,21 @@ module Renalware
   class Patient < ActiveRecord::Base
     include PatientsRansackHelper
     include Personable
+    include Accountable
+    extend Enumerize
+
+    enumerize :marital_status, in: %i(married single divorced widowed)
 
     serialize :sex, Gender
 
-    belongs_to :current_address, class_name: "Address", foreign_key: :current_address_id
-    belongs_to :address_at_diagnosis, class_name: "Address", foreign_key: :address_at_diagnosis_id
+    has_one :current_address, as: :addressable, class_name: "Address"
     belongs_to :ethnicity
     belongs_to :first_edta_code, class_name: "EdtaCode", foreign_key: :first_edta_code_id
     belongs_to :second_edta_code, class_name: "EdtaCode", foreign_key: :second_edta_code_id
     belongs_to :doctor
     belongs_to :practice
+    belongs_to :religion, class_name: "Patients::Religion"
+    belongs_to :language, class_name: "Patients::Language"
 
     has_many :exit_site_infections
     has_many :peritonitis_episodes
@@ -26,10 +31,8 @@ module Renalware
       class_name: "Modalities::Modality"
     has_one :modality_description, through: :current_modality,
       class_name: "Modalities::Description", source: :description
-    has_one :esrf
 
     accepts_nested_attributes_for :current_address
-    accepts_nested_attributes_for :address_at_diagnosis, reject_if: Address.reject_if_blank
     accepts_nested_attributes_for :medications, allow_destroy: true
 
     validates :nhs_number, length: { minimum: 10, maximum: 10 }, uniqueness: true, allow_blank: true
@@ -38,8 +41,8 @@ module Renalware
     validates :local_patient_id, presence: true, uniqueness: true
     validates :born_on, presence: true
     validate :validate_sex
-
     validates :born_on, timeliness: { type: :date }
+    validates :email, email: true, allow_blank: true
 
     with_options if: :current_modality_death?, on: :update do |death|
       death.validates :died_on, presence: true

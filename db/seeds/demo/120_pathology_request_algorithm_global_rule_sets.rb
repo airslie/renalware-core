@@ -12,7 +12,7 @@ module Renalware
       id: row["id"],
       clinic: clinic,
       request_description_id: row["request_description_id"],
-      frequency: row["frequency"]
+      frequency_type: row["frequency_type"]
     )
   end
 

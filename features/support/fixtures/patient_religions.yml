@@ -1,0 +1,16 @@
+buddhist:
+  name: Buddhist
+christian:
+  name: Christian
+hindu:
+  name: Hindu
+muslim:
+  name: Muslim
+jewish:
+  name: Jewish
+secular:
+  name: Secular
+sikh:
+  name: Sikh
+other:
+  name: Other

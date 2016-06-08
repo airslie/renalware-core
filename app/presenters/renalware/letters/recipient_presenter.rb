@@ -1,29 +1,46 @@
 require_dependency "renalware/letters"
+require_dependency "renalware/address_presenter"
 
 module Renalware
   module Letters
-    class RecipientPresenter < SimpleDelegator
-      def to_s
-        address.to_s
+    class RecipientPresenter < DumbDelegator
+      # We don't rely on `to_s` in this case as the string will not be marked as
+      # HTML save if we leave it to be implicitly called in the template.
+      #
+      def to_html
+        AddressPresenter::Block.new(address_for_person_role).to_html
       end
 
-      class Draft < RecipientPresenter
-        def address
-          case person_role
-          when "patient"
+      def address
+        AddressPresenter.new(address_for_person_role)
+      end
+
+      private
+
+      def address_for_person_role
+        __getobj__.address
+      end
+
+      # @section sub-classes
+
+      # The address for a recipient such as a doctor or a patient are denormalized
+      # and stored with the recipient when the letter is archived. Before the
+      # letter is archived, we display the current address directly from the
+      # appropriate models ensuring the most recent address is presented.
+      #
+      class WithCurrentAddress < RecipientPresenter
+        private
+
+        def address_for_person_role
+          case
+          when patient?
             letter.patient.current_address
-          when "doctor"
-            letter.patient.doctor.current_address
+          when doctor?
+            letter.doctor.current_address
           else
-            super
+            __getobj__.address
           end
         end
-      end
-
-      class ReadyForReview < Draft
-      end
-
-      class Archived < RecipientPresenter
       end
     end
   end

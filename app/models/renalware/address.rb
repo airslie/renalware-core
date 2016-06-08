@@ -3,6 +3,8 @@ module Renalware
     validates_presence_of :street_1
     validates_with AddressValidator
 
+    belongs_to :addressable, polymorphic: true
+
     def self.reject_if_blank
       Proc.new do |attrs|
         %w(name organisation_name street_1 street_2 city county postcode)

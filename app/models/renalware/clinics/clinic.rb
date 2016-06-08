@@ -5,9 +5,11 @@ module Renalware
     class Clinic < ActiveRecord::Base
       validates :name, presence: true
 
+      scope :ordered, -> { order(name: :asc) }
+
       def to_s
         name
       end
     end
-  end 
+  end
 end

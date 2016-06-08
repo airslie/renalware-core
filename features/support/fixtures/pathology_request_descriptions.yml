@@ -1,0 +1,700 @@
+full_blood_count:
+  code: FBC
+  name: FULL BLOOD COUNT
+  lab: haemotology
+prean_sickle_screen:
+  code: PRE
+  name: PREAN SICKLE SCREEN
+  lab: lab_unknown
+renal_liver_bone_urea:
+  code: RLBU
+  name: RENAL/LIVER/BONE/UREA
+  lab: lab_unknown
+magnesium:
+  code: MG
+  name: MAGNESIUM
+  lab: lab_unknown
+creactive_protein:
+  code: CRP
+  name: C-REACTIVE PROTEIN
+  lab: biochemistry_tp
+coagulation_screen:
+  code: COAG
+  name: COAGULATION SCREEN
+  lab: lab_unknown
+sickle_+_thal_scre:
+  code: STS
+  name: SICKLE + THAL SCRE
+  lab: lab_unknown
+diabetic_profile:
+  code: DIAB
+  name: DIABETIC PROFILE
+  lab: lab_unknown
+bone_profile:
+  code: BONE
+  name: BONE PROFILE
+  lab: lab_unknown
+u+e+urea:
+  code: EUC
+  name: U+E+UREA
+  lab: lab_unknown
+liver_profile:
+  code: LFT
+  name: LIVER PROFILE
+  lab: biochemistry_tp
+sickle_solubility_test:
+  code: SOL
+  name: SICKLE SOLUBILITY TEST
+  lab: lab_unknown
+thyroid_function_tests:
+  code: TFT
+  name: THYROID FUNCTION TESTS
+  lab: lab_unknown
+faecal_calprotectin:
+  code: FCAL
+  name: FAECAL CALPROTECTIN
+  lab: lab_unknown
+ca125:
+  code: C125
+  name: CA125
+  lab: lab_unknown
+b12_folate_ferritin:
+  code: BFF
+  name: B12/FOLATE/FERRITIN
+  lab: biochemistry
+lipid_profile:
+  code: LPRO
+  name: LIPID PROFILE
+  lab: lab_unknown
+inr:
+  code: INR
+  name: INR
+  lab: lab_unknown
+inr_warfarin:
+  code: INRW
+  name: INR (WARFARIN)
+  lab: lab_unknown
+urine_albuminecreat_ratio:
+  code: ACR
+  name: URINE ALBUMINECREAT RATIO
+  lab: lab_unknown
+urine_protein_creat_ratio:
+  code: PCR
+  name: URINE PROTEIN/CREAT RATIO
+  lab: lab_unknown
+antenatal_sickle_thal:
+  code: ANT
+  name: ANTENATAL SICKLE/THAL
+  lab: lab_unknown
+malaria:
+  code: MAL
+  name: MALARIA
+  lab: lab_unknown
+film_comment:
+  code: FILM
+  name: FILM COMMENT
+  lab: lab_unknown
+reticulocyte_count:
+  code: RET
+  name: RETICULOCYTE COUNT
+  lab: lab_unknown
+parasite_stage:
+  code: PARS
+  name: PARASITE STAGE
+  lab: lab_unknown
+serum_electrophoresis_grp:
+  code: SEP
+  name: SERUM ELECTROPHORESIS GRP
+  lab: lab_unknown
+amylase:
+  code: AMY
+  name: AMYLASE
+  lab: lab_unknown
+troponin_i:
+  code: TROP
+  name: TROPONIN I
+  lab: lab_unknown
+ferritin:
+  code: FER
+  name: FERRITIN
+  lab: lab_unknown
+caeruloplasmin:
+  code: CAER
+  name: CAERULOPLASMIN
+  lab: lab_unknown
+tobramycin_random:
+  code: TOB
+  name: TOBRAMYCIN (RANDOM)
+  lab: lab_unknown
+renal_liver_urea:
+  code: RLU
+  name: RENAL/LIVER/UREA
+  lab: lab_unknown
+renal_profile_+_urea:
+  code: RENU
+  name: RENAL PROFILE + UREA
+  lab: lab_unknown
+tsh:
+  code: TSH
+  name: TSH
+  lab: lab_unknown
+free_thyroxine:
+  code: FT4
+  name: FREE THYROXINE
+  lab: lab_unknown
+b12_folate:
+  code: BF
+  name: B12/FOLATE
+  lab: lab_unknown
+bicarbonate:
+  code: BIC
+  name: BICARBONATE
+  lab: biochemistry_tp
+ectopic_pregnancy_profile:
+  code: ECT
+  name: ECTOPIC PREGNANCY PROFILE
+  lab: lab_unknown
+gentamicin_random:
+  code: GEN
+  name: GENTAMICIN (RANDOM)
+  lab: lab_unknown
+gentamicin_trough:
+  code: GENT
+  name: GENTAMICIN (TROUGH)
+  lab: lab_unknown
+tobramycin_trough:
+  code: TOBT
+  name: TOBRAMYCIN (TROUGH)
+  lab: lab_unknown
+testosterone:
+  code: TEST
+  name: TESTOSTERONE
+  lab: lab_unknown
+urine_drug_screen:
+  code: UDS
+  name: URINE DRUG SCREEN
+  lab: lab_unknown
+opiate_confirmation:
+  code: OPIC
+  name: OPIATE CONFIRMATION
+  lab: lab_unknown
+aptr_heparin:
+  code: APTH
+  name: APTR (HEPARIN)
+  lab: lab_unknown
+thrombin_time:
+  code: TT
+  name: THROMBIN TIME
+  lab: lab_unknown
+psa:
+  code: PSA
+  name: PSA
+  lab: lab_unknown
+cea:
+  code: CEA
+  name: CEA
+  lab: lab_unknown
+plasma_glucose:
+  code: PGLU
+  name: PLASMA GLUCOSE
+  lab: lab_unknown
+clauss_fibrinogen:
+  code: CFIB
+  name: CLAUSS FIBRINOGEN
+  lab: lab_unknown
+hba1c:
+  code: HBA1
+  name: HBA1C
+  lab: lab_unknown
+piu_gluc._tolerance_test:
+  code: PGTT
+  name: PIU GLUC. TOLERANCE TEST
+  lab: lab_unknown
+ldh:
+  code: LDH
+  name: LDH
+  lab: lab_unknown
+haemoglobin_s%_group:
+  code: HBS
+  name: HAEMOGLOBIN S% (GROUP)
+  lab: lab_unknown
+renal_profile:
+  code: REN
+  name: RENAL PROFILE
+  lab: lab_unknown
+u+e:
+  code: EC
+  name: U+E
+  lab: biochemistry_tp
+urate:
+  code: URAT
+  name: URATE
+  lab: lab_unknown
+full_lipid_profile:
+  code: FLIP
+  name: FULL LIPID PROFILE
+  lab: lab_unknown
+urine_osmolality:
+  code: UOSM
+  name: URINE OSMOLALITY
+  lab: lab_unknown
+haptoglobin:
+  code: HAPT
+  name: HAPTOGLOBIN
+  lab: lab_unknown
+conj._bilirubin:
+  code: CBIL
+  name: CONJ. BILIRUBIN
+  lab: lab_unknown
+gonadotrophins:
+  code: GON
+  name: GONADOTROPHINS
+  lab: lab_unknown
+androgen_profile:
+  code: ANDR
+  name: ANDROGEN PROFILE
+  lab: lab_unknown
+oestradiol:
+  code: OE2
+  name: OESTRADIOL
+  lab: lab_unknown
+hcg:
+  code: HCG
+  name: HCG
+  lab: lab_unknown
+parathyroid_hormone:
+  code: PTHI
+  name: PARATHYROID HORMONE
+  lab: lab_unknown
+renal_liver_profile:
+  code: RL
+  name: RENAL/LIVER PROFILE
+  lab: lab_unknown
+osmolality_serum:
+  code: POSM
+  name: OSMOLALITY (SERUM)
+  lab: lab_unknown
+afp:
+  code: AFP
+  name: AFP
+  lab: lab_unknown
+vitamin_b12:
+  code: B12
+  name: VITAMIN B12
+  lab: lab_unknown
+ck:
+  code: CK
+  name: CK
+  lab: lab_unknown
+faecal_occult_blood:
+  code: FOB
+  name: FAECAL OCCULT BLOOD
+  lab: lab_unknown
+renal_liver_bone:
+  code: RLB
+  name: RENAL/LIVER/BONE
+  lab: lab_unknown
+cortisol:
+  code: CORT
+  name: CORTISOL
+  lab: lab_unknown
+vancomycin_trough:
+  code: VANT
+  name: VANCOMYCIN (TROUGH)
+  lab: lab_unknown
+free_t3:
+  code: FT3
+  name: FREE T3
+  lab: lab_unknown
+prolactin:
+  code: PROL
+  name: PROLACTIN
+  lab: lab_unknown
+progesterone:
+  code: PROG
+  name: PROGESTERONE
+  lab: lab_unknown
+iron:
+  code: FE
+  name: IRON
+  lab: lab_unknown
+esr:
+  code: ESR
+  name: ESR
+  lab: lab_unknown
+vancomycin_random:
+  code: VAN
+  name: VANCOMYCIN (RANDOM)
+  lab: lab_unknown
+amikacin_peak:
+  code: AMKP
+  name: AMIKACIN (PEAK)
+  lab: lab_unknown
+amikacin_random:
+  code: AMK
+  name: AMIKACIN (RANDOM)
+  lab: lab_unknown
+renal_bone_urea_profile:
+  code: RBU
+  name: RENAL/BONE/UREA PROFILE
+  lab: lab_unknown
+blood_ethanol:
+  code: ETB
+  name: BLOOD ETHANOL
+  lab: lab_unknown
+urine_sodium_pot_random:
+  code: UNAK
+  name: URINE SODIUM/POT (RANDOM)
+  lab: lab_unknown
+alt:
+  code: ALT
+  name: ALT
+  lab: lab_unknown
+folate:
+  code: FOL
+  name: FOLATE
+  lab: lab_unknown
+cystatin_c:
+  code: CYSC
+  name: CYSTATIN C
+  lab: lab_unknown
+alpha1antitrypsin:
+  code: AAT
+  name: ALPHA-1-ANTITRYPSIN
+  lab: lab_unknown
+cholesterol:
+  code: CHOL
+  name: CHOLESTEROL
+  lab: lab_unknown
+capd_adequacy_test:
+  code: CAPD
+  name: CAPD ADEQUACY TEST
+  lab: lab_unknown
+aptr_50_50:
+  code: AP50
+  name: APTR 50/50
+  lab: lab_unknown
+opiates:
+  code: OPIA
+  name: OPIATES
+  lab: lab_unknown
+phenytoin:
+  code: PHNY
+  name: PHENYTOIN
+  lab: lab_unknown
+bone_marrow_report:
+  code: BMH
+  name: BONE MARROW REPORT
+  lab: lab_unknown
+inr_50_50:
+  code: IN50
+  name: INR 50/50
+  lab: lab_unknown
+prolaction_x5_dilution:
+  code: PRX5
+  name: PROLACTION (X5 DILUTION)
+  lab: lab_unknown
+growth_hormone:
+  code: GH
+  name: GROWTH HORMONE
+  lab: lab_unknown
+igf1:
+  code: IGF1
+  name: IGF-1
+  lab: lab_unknown
+igfbp3:
+  code: BP3
+  name: IGF-BP3
+  lab: lab_unknown
+urine_tot._protein_24hr:
+  code: UPRT
+  name: URINE TOT. PROTEIN (24HR)
+  lab: lab_unknown
+bound_oestradiol:
+  code: BOE2
+  name: BOUND OESTRADIOL
+  lab: lab_unknown
+csf_glucose:
+  code: CGLU
+  name: CSF GLUCOSE
+  lab: lab_unknown
+urine_calcium_24hr:
+  code: UCAT
+  name: URINE CALCIUM (24HR)
+  lab: lab_unknown
+urine_phosphate_24hr:
+  code: UPHT
+  name: URINE PHOSPHATE (24HR)
+  lab: lab_unknown
+a1csf_protein:
+  code: CPRO
+  name: A1CSF PROTEIN
+  lab: lab_unknown
+fluid_amylase:
+  code: FAMY
+  name: FLUID AMYLASE
+  lab: lab_unknown
+fluid_cea:
+  code: FCEA
+  name: FLUID CEA
+  lab: lab_unknown
+ddimer:
+  code: DD
+  name: D-DIMER
+  lab: lab_unknown
+creatinine:
+  code: CRE
+  name: CREATININE
+  lab: lab_unknown
+allergen_grade:
+  code: IGRD
+  name: ALLERGEN GRADE
+  lab: lab_unknown
+urine_creatinine_24hr:
+  code: UCRT
+  name: URINE CREATININE (24HR)
+  lab: urine_biochem
+urine_urate_24hr:
+  code: UUAT
+  name: URINE URATE (24HR)
+  lab: lab_unknown
+vitamin_d:
+  code: VITD
+  name: VITAMIN D
+  lab: lab_unknown
+insulin_stress_test:
+  code: DF02
+  name: INSULIN STRESS TEST
+  lab: lab_unknown
+endocrine_gtt_gh_only:
+  code: DF01
+  name: ENDOCRINE GTT GH ONLY
+  lab: lab_unknown
+glucagon_trh_lhrh_syn:
+  code: DF18
+  name: GLUCAGON TRH LHRH SYN
+  lab: lab_unknown
+glucose_tolerance_test:
+  code: GTT
+  name: GLUCOSE TOLERANCE TEST
+  lab: lab_unknown
+vitamin_e:
+  code: VITE
+  name: VITAMIN E
+  lab: lab_unknown
+vitamin_a:
+  code: VITA
+  name: VITAMIN A
+  lab: lab_unknown
+chloride:
+  code: CL
+  name: CHLORIDE
+  lab: lab_unknown
+24hr_urine_5hiaa:
+  code: 5H24
+  name: 24HR URINE 5HIAA
+  lab: lab_unknown
+urinalysis_screen:
+  code: STIX
+  name: URINALYSIS SCREEN
+  lab: lab_unknown
+pnh_test:
+  code: PNH
+  name: PNH TEST
+  lab: lab_unknown
+plasma_lactate:
+  code: LAC
+  name: PLASMA LACTATE
+  lab: lab_unknown
+total_bilirubin:
+  code: BIL
+  name: TOTAL BILIRUBIN
+  lab: lab_unknown
+markers_not_done:
+  code: BMFR
+  name: MARKERS NOT DONE
+  lab: lab_unknown
+lithium:
+  code: LI
+  name: LITHIUM
+  lab: lab_unknown
+serum_copper_+_caer:
+  code: CUCP
+  name: SERUM COPPER + CAER
+  lab: lab_unknown
+glucagon_test_adult_glu:
+  code: DF13
+  name: GLUCAGON TEST ADULT -GLU
+  lab: lab_unknown
+peritoneal_equil_test:
+  code: PET
+  name: PERITONEAL EQUIL TEST
+  lab: lab_unknown
+octeotride_challenge:
+  code: DF27
+  name: OCTEOTRIDE CHALLENGE
+  lab: lab_unknown
+ace:
+  code: ACE
+  name: ACE
+  lab: lab_unknown
+carb_def_glycoprotein:
+  code: CDG
+  name: CARB DEF GLYCOPROTEIN
+  lab: lab_unknown
+hit_screen:
+  code: HIT
+  name: HIT SCREEN
+  lab: lab_unknown
+carbamazepine:
+  code: CARB
+  name: CARBAMAZEPINE
+  lab: lab_unknown
+cyclosporin_a:
+  code: CYA
+  name: CYCLOSPORIN A
+  lab: biochemistry
+arterial_blood_gases:
+  code: ABG
+  name: ARTERIAL BLOOD GASES
+  lab: lab_unknown
+valproate:
+  code: VALP
+  name: VALPROATE
+  lab: lab_unknown
+amikacin_trough:
+  code: AMKT
+  name: AMIKACIN (TROUGH)
+  lab: lab_unknown
+mark1:
+  code: MK1
+  name: MARK1
+  lab: lab_unknown
+gamma_gt:
+  code: GGT
+  name: GAMMA GT
+  lab: biochemistry_tp
+glandular_fever_test:
+  code: GFH
+  name: GLANDULAR FEVER TEST
+  lab: lab_unknown
+short_synacthen_test:
+  code: DF09
+  name: SHORT SYNACTHEN TEST
+  lab: lab_unknown
+csf_oligoclonal_banding:
+  code: COGB
+  name: CSF OLIGOCLONAL BANDING
+  lab: lab_unknown
+cannulated_prl_test:
+  code: DF11
+  name: CANNULATED PRL TEST
+  lab: lab_unknown
+acth:
+  code: ACTH
+  name: ACTH
+  lab: lab_unknown
+aptr_seconds:
+  code: APTR
+  name: APTR SECONDS
+  lab: lab_unknown
+liver_bone:
+  code: LB
+  name: LIVER/BONE
+  lab: lab_unknown
+ast:
+  code: AST
+  name: AST
+  lab: lab_unknown
+plasma_viscosity_sent:
+  code: PVIS
+  name: PLASMA VISCOSITY SENT
+  lab: lab_unknown
+complement_c3_+_c4:
+  code: COMP
+  name: COMPLEMENT (C3 + C4)
+  lab: lab_unknown
+anti_dsdna_antibodies:
+  code: DNA
+  name: ANTI DSDNA ANTIBODIES
+  lab: lab_unknown
+ena_screen:
+  code: ENAS
+  name: ENA SCREEN
+  lab: lab_unknown
+rheumatoid_factor:
+  code: RF
+  name: RHEUMATOID FACTOR
+  lab: lab_unknown
+ccp_antibodies:
+  code: CCP
+  name: CCP ANTIBODIES
+  lab: lab_unknown
+immunoglobulins_gam:
+  code: IGS
+  name: IMMUNOGLOBULINS GAM
+  lab: lab_unknown
+glomeru_basement_memb_abs:
+  code: GBM
+  name: GLOMERU BASEMENT MEMB ABS
+  lab: lab_unknown
+anti_thyroid_peroxdase_ab:
+  code: TPO
+  name: ANTI THYROID PEROXDASE AB
+  lab: lab_unknown
+coeliac_screen:
+  code: COEL
+  name: COELIAC SCREEN
+  lab: lab_unknown
+autoantibodies_group:
+  code: AAB
+  name: AUTOANTIBODIES GROUP
+  lab: lab_unknown
+serum_free_light_chains:
+  code: SFLC
+  name: SERUM FREE LIGHT CHAINS
+  lab: lab_unknown
+mini2:
+  code: MIN2
+  name: MINI2
+  lab: lab_unknown
+myeloma_markers:
+  code: MYMO
+  name: MYELOMA MARKERS
+  lab: lab_unknown
+calcium:
+  code: CAL
+  name: CALCIUM
+  lab: lab_unknown
+calcium_corrected:
+  code: CCA
+  name: CALCIUM (CORRECTED)
+  lab: lab_unknown
+pregnancy_diabetes_glucos:
+  code: PDSG
+  name: PREGNANCY DIABETES GLUCOS
+  lab: lab_unknown
+digoxin:
+  code: DIG
+  name: DIGOXIN
+  lab: lab_unknown
+plasma_ammonia:
+  code: AMM
+  name: PLASMA AMMONIA
+  lab: lab_unknown
+fluid_bilirubin:
+  code: FBIL
+  name: FLUID BILIRUBIN
+  lab: lab_unknown
+g6pd_screen:
+  code: G6SC
+  name: G6PD SCREEN
+  lab: lab_unknown
+heparin_screen:
+  code: HEP
+  name: HEPARIN SCREEN
+  lab: lab_unknown
+red_cell_folate:
+  code: RCF
+  name: RED CELL FOLATE
+  lab: lab_unknown

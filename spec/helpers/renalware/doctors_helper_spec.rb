@@ -24,7 +24,7 @@ module Renalware
         doctor = build_stubbed(:doctor, address: address)
         actual = practices_or_address(doctor)
 
-        expect(actual).to match("#{address.street_1}, #{address.postcode}")
+        expect(actual.to_s).to match("#{address.street_1}, #{address.postcode}")
       end
 
       it 'formats the practice names when present' do

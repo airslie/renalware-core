@@ -20,8 +20,7 @@ When(/^Clyde records a new patient rule for Patty$/) do
 end
 
 When(/^the patient pathology algorithm is run for Patty$/) do
-  patty_pathology = Renalware::Pathology.cast_patient(@patty)
-  @required_patient_observations = run_patient_algorithm(patty_pathology)
+  @required_patient_observations = run_patient_algorithm(@patty, @clyde)
 end
 
 Then(/^it is determined the patient's observation is (required|not required)$/) do |determined|
