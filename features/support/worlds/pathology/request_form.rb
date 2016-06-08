@@ -48,8 +48,10 @@ module World
           expected_request_description =
             Renalware::Pathology::RequestDescription.find_by(code: request_description_code)
 
-          presenter.global_requests_by_lab.each do |lab_name, request_descriptions|
-            expect(expected_request_description).to eq(expected_request_description)
+          presenter.global_requests_by_lab.each do |_lab_name, request_descriptions|
+            request_descriptions.each do |request_description|
+              expect(request_description).to eq(expected_request_description)
+            end
           end
         end
       end
