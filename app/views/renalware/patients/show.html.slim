@@ -36,12 +36,12 @@
         = render partial: "renalware/patients/show/referral", locals: { patient: @patient }
 
       .large-4.columns
-        = render partial: "renalware/patients/show/generic_person", locals: { title: "Next of Kin", person: @patient.document.next_of_kin }
+        = render partial: "renalware/patients/show/person", locals: { title: "Next of Kin", person: @patient.document.next_of_kin }
 
     .row
 
       .large-4.columns
-        = render partial: "renalware/patients/show/generic_person", locals: { title: "Pharmacist", person: @patient.document.pharmacist }
+        = render partial: "renalware/patients/show/person", locals: { title: "Pharmacist", person: @patient.document.pharmacist }
 
       .large-4.columns
-        = render partial: "renalware/patients/show/generic_person", locals: { title: "Distinct Nurse", person: @patient.document.distinct_nurse }
+        = render partial: "renalware/patients/show/person", locals: { title: "Distinct Nurse", person: @patient.document.distinct_nurse }
