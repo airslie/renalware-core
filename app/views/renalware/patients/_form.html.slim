@@ -74,7 +74,7 @@
 .form-content
   .row
     .large-6.columns
-      = render partial: 'renalware/patients/generic_person_form_fields',
+      = render partial: 'renalware/patients/person_form_fields',
           locals: { patient: patient, title: "Next of Kin", document_attribute: :next_of_kin }
 
     .large-6.columns
@@ -91,9 +91,9 @@
 .form-content
   .row
     .large-6.columns
-      = render partial: 'renalware/patients/generic_person_form_fields',
+      = render partial: 'renalware/patients/person_form_fields',
           locals: { patient: patient, title: "Pharmacist", document_attribute: :pharmacist }
 
     .large-6.columns
-      = render partial: 'renalware/patients/generic_person_form_fields',
+      = render partial: 'renalware/patients/person_form_fields',
           locals: { patient: patient, title: "Distinct Nurse", document_attribute: :distinct_nurse }
