@@ -3,7 +3,7 @@ When(/^Clyde generates a request form with the following:$/) do |table|
 end
 
 Then(/^Clyde sees these details at the top of the form$/) do |table|
-  expect_patient_summary_to_match_table(@presenter, @patty.id, table)
+  expect_patient_summary_to_match_table(@presenter, @patty, table)
 end
 
 Then(/^Clyde sees this patient specific test: (.*)$/) do |test_description|

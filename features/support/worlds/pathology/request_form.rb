@@ -24,7 +24,7 @@ module World
 
         # @section expectations
         #
-        def expect_patient_summary_to_match_table(presenter, patient_id, expected_table)
+        def expect_patient_summary_to_match_table(presenter, patient, expected_table)
           # TODO: We refactor presenters to make this work, it seems we need the following a single presenter representing the form:
           # presenter = Forms::RequestFormPresenter.new(patient, clinic, doctor, telephone_number: telephone_number)
           # expect(presenter.patient_name).to eq(table.rows_hash["patient_name"])
@@ -77,9 +77,9 @@ module World
 
         # @section expectations
         #
-        def expect_patient_summary_to_match_table(_presenter, patient_id, expected_table)
+        def expect_patient_summary_to_match_table(_presenter, patient, expected_table)
           table_from_html =
-            find_by_id("patient_#{patient_id}_summary")
+            find_by_id("patient_#{patient.id}_summary")
               .all("tr")
               .map do |row|
                 row.all("th, td").map { |cell| cell.text.strip }
