@@ -1,0 +1,13 @@
+tr
+  td
+    = link_to letter.view_label, patient_letters_letter_path(letter.patient, letter)
+    - if policy(letter).update?
+      = pipe_separator
+      = link_to 'Edit', edit_patient_letters_letter_path(letter.patient, letter)
+  td Simple Letter
+  td= l letter.issued_on
+  td= letter.author
+  td= link_to letter.patient, patient_path(letter.patient)
+  td= letter.description
+  td= letter.state
+  td= l letter.updated_at

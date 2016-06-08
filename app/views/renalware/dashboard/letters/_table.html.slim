@@ -1,0 +1,14 @@
+table.auto-layout
+  thead
+    tr
+      th
+      th Type
+      th Date
+      th Author
+      th Patient
+      th Description
+      th State
+      th Last Update
+
+  tbody
+    = render partial: "renalware/dashboard/letters/letter", collection: letters
