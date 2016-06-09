@@ -62,7 +62,7 @@ module World
         private
 
         def find_request_form_for_patient(request_forms, patient)
-          request_forms.find do |request_form|
+          request_forms.detect do |request_form|
             request_form.patient.id == patient.id
           end
         end
