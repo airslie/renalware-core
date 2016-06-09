@@ -32,12 +32,12 @@ module Renalware
     end
     attribute :pharmacist, Pharmacist
 
-    class DistinctNurse < Document::Embedded
+    class DistrictNurse < Document::Embedded
       attribute :name, String
       attribute :telephone, String
       attribute :address, Address
     end
-    attribute :distinct_nurse, DistinctNurse
+    attribute :district_nurse, DistrictNurse
 
     class Referral < Document::Embedded
       attribute :referring_physician_name, String

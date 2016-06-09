@@ -103,7 +103,7 @@ RSpec.describe "Managing patients", type: :request do
         telephone: Faker::PhoneNumber.phone_number,
         address: address_attributes
       },
-      distinct_nurse: {
+      district_nurse: {
         name: Faker::Name.name,
         telephone: Faker::PhoneNumber.phone_number,
         address: address_attributes
