@@ -8,7 +8,6 @@
           url: patient_pathology_patient_rules_path(@patient, patient_rule),
           wrapper: "horizontal_form" do |f|
 
-        = f.input :patient_id, as: :hidden, input_html: { class: "small-input" }
         = f.input :lab_id, collection: labs, input_html: { class: "small-input" }
         = f.input :test_description, as: :text, input_html: { class: "small-input" }
         = f.input :sample_number_bottles, collection: 0..10, input_html: { class: "small-input" }
