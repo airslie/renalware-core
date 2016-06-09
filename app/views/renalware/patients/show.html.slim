@@ -1,111 +1,28 @@
 = render layout: "layout", locals: { title: "Demographics" } do
   #patient-demographics
-    = field_set_tag "Patient Demographics" do
-      .row
-        .large-3.columns
-          dl
-            dt NHS Number:
-            dd= @patient.nhs_number
-
-            dt Local Patient ID:
-            dd= @patient.local_patient_id
-
-        .large-3.columns
-          dl
-            dt Title
-            dd= @patient.title
-
-            dt Last Name:
-            dd= @patient.family_name
-
-            dt First Name:
-            dd= @patient.given_name
-
-            dt Suffix
-            dd= @patient.suffix
-
-        .large-3.columns
-          dl
-            dt Sex:
-            dd= @patient.sex
-
-            dt Ethnicity:
-            dd= default_for_associated(@patient.ethnicity, :name, 'Unspecified')
-
-            dt Religion
-            dd= default_for_associated(@patient.religion, :name, 'Unspecified')
-
-            dt Language
-            dd= default_for_associated(@patient.language, :name, 'Unspecified')
-
-            dt Marital Status
-            dd= @patient.marital_status
-
-        .large-3.columns
-          dl
-            dt Date of Birth:
-            dd= l @patient.born_on
-
-            dt Date of Death:
-            dd= default_for_blank_date(@patient.died_on, "N/A")
-
-      .row
-        .large-3.columns
-          dl
-            dt Paediatric Patient:
-            dd= yes_no(@patient.paediatric_patient_indicator)
-
-        .large-9.columns
-          dl
-            dt CC on all letters:
-            dd= yes_no(@patient.cc_on_all_letters)
-
-    - if @patient.died_on.present?
-      .row
-        .large-12.columns
-          = field_set_tag "Death Record" do
-            dl
-              dt First cause of Death:
-              dd= @patient.first_edta_code.death_cause
-
-              dt Second cause of Death:
-              dd= default_for_associated(@patient.second_edta_code, :death_cause, 'N/A')
-
-            = link_to "Update Death Record", edit_patient_death_path(@patient)
+    = render partial: "renalware/patients/show/patient_demographics", locals: { patient: @patient }
 
     .row
       .large-4.columns
-        = field_set_tag "Contact Details" do
-          dl
-            dt Email
-            dd= @patient.email
-
-          dl
-            dt Telephone1
-            dd= @patient.telephone1
-
-          dl
-            dt Telephone2
-            dd= @patient.telephone2
+        = render partial: "renalware/patients/show/contact_details", locals: { patient: @patient }
 
       .large-4.columns
         = field_set_tag "Current Address" do
           = render @patient.current_address if @patient.current_address
 
       .large-4.columns
-        = field_set_tag "Organisation/Practice" do
-          dl
-            dt GP Practice Code:
-            dd= @patient.gp_practice_code
+        = render partial: "renalware/patients/show/organisation_practice", locals: { patient: @patient }
 
-          dl
-            dt PCT Organisation Code:
-            dd= @patient.pct_org_code
+    .row
+      .large-4.columns
+        = render partial: "renalware/patients/show/referral", locals: { patient: @patient }
 
-          dl
-            dt Hospital Centre Code:
-            dd= @patient.hospital_centre_code
+      .large-4.columns
+        = render partial: "renalware/patients/show/person", locals: { title: "Next of Kin", person: @patient.document.next_of_kin }
 
-          dl
-            dt Primary ESRF Centre:
-            dd= @patient.primary_esrf_centre
+      .large-4.columns
+        = render partial: "renalware/patients/show/person", locals: { title: "Pharmacist", person: @patient.document.pharmacist }
+    .row
+
+      .large-12.columns
+        = render partial: "renalware/patients/show/person", locals: { title: "District Nurse", person: @patient.document.distinct_nurse }

@@ -53,6 +53,7 @@ module Renalware
       params
         .require(:patient)
         .permit(patient_attributes)
+        .merge(document: document_attributes)
         .merge(by: current_user)
     end
 
@@ -68,6 +69,13 @@ module Renalware
 
     def address_params
       [:name, :organisation_name, :street_1, :street_2, :county, :country, :city, :postcode]
+    end
+
+    def document_attributes
+      params
+        .require(:patient)
+        .fetch(:document, nil)
+        .try(:permit!)
     end
 
     def find_patient
