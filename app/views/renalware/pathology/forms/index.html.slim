@@ -1,34 +1,34 @@
-- patients.each do |patient|
-  - if patient.has_tests_required?
+- request_forms.each do |request_form|
+  - if request_form.has_tests_required?
     .row
       h4 Pathology Request Listing
 
-      table[id="patient_#{patient.id}_summary"]
+      table[id="patient_#{request_form.patient.id}_summary"]
         tr
           td.header_cell Patient Name:
-          td = patient.full_name.upcase
+          td data-role="patient_name" = request_form.patient_name
           td.header_cell Date:
-          td  = I18n.l Date.current
+          td data-role="date"  = request_form.date
         tr
           td.header_cell DOB:
-          td = I18n.l patient.born_on
+          td data-role="date_of_birth" = request_form.date_of_birth
           td.header_cell Consultant:
-          td = form_params.doctor.full_name
+          td data-role="consultant" = request_form.consultant
         tr
           td.header_cell Clinical Detail:
-          td = form_params.clinic.name
+          td data-role="clinical_detail" = request_form.clinical_detail
           td.header_cell Contact:
-          td = form_params.clinic.name
+          td data-role="contact" = request_form.contact
         tr
           td.header_cell
           td
           td.header_cell Bleep/Tel No:
-          td = form_params.telephone
+          td data-role="telephone" = request_form.telephone
 
     .row.full_height
       .border_box_half.columns.full_height
-        - if patient.has_global_requests?
-          - patient.global_requests_by_lab.each do |lab_name, request_descriptions|
+        - if request_form.has_global_requests?
+          - request_form.global_requests_by_lab.each do |lab_name, request_descriptions|
             p
               | ======== #{lab_name} ========
             - request_descriptions.each do |request_description|
@@ -43,8 +43,8 @@
         .row
           .large-12.columns.with_border.full_height
             b Patient Specific Tests:
-            - if patient.has_patient_requests?
-              - patient.patient_requests_by_lab.each do |lab_name, patient_rules|
+            - if request_form.has_patient_requests?
+              - request_form.patient_requests_by_lab.each do |lab_name, patient_rules|
                 p
                   | ======== #{lab_name} ========
                 - patient_rules.each do |patient_rule|

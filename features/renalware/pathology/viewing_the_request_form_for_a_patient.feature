@@ -36,10 +36,13 @@ Feature: Viewing the request form for a patient
       | doctor  | Zoe Zimmerman |
       | patient | Patty         |
     Then Clyde sees these details at the top of the form
-      | Patient Name:    | THEPATIENT PATTY | Date:         | 12-10-2016    |
-      | DOB:             | 25-12-1961       | Consultant:   | Zoe Zimmerman |
-      | Clinical Detail: | Transplant       | Contact:      | Transplant    |
-      |                  |                  | Bleep/Tel No: | 7921838959    |
+      | patient_name     | THEPATIENT PATTY |
+      | date             | 12-10-2016       |
+      | date_of_birth    | 25-12-1961       |
+      | consultant       | Zoe Zimmerman    |
+      | clinical_detail  | Transplant       |
+      | contact          | Transplant       |
+      | telephone        | 7921838959       |
     And Clyde sees this patient specific test: Test for HepB
     And Clyde sees the request description BFF required
 
@@ -50,11 +53,14 @@ Feature: Viewing the request form for a patient
       | clinic           | Transplant    |
       | doctor           | Zoe Zimmerman |
       | patient          | Patty         |
-      | telephone_number | 123           |
+      | telephone        | 123           |
     Then Clyde sees these details at the top of the form
-      | Patient Name:    | THEPATIENT PATTY | Date:         | 12-10-2016       |
-      | DOB:             | 25-12-1961       | Consultant:   | Zoe Zimmerman    |
-      | Clinical Detail: | Transplant       | Contact:      | Transplant       |
-      |                  |                  | Bleep/Tel No: | 123              |
+      | patient_name     | THEPATIENT PATTY |
+      | date             | 12-10-2016       |
+      | date_of_birth    | 25-12-1961       |
+      | consultant       | Zoe Zimmerman    |
+      | clinical_detail  | Transplant       |
+      | contact          | Transplant       |
+      | telephone        | 123              |
     And Clyde sees this patient specific test: Test for HepB
     And Clyde sees the request description BFF required
