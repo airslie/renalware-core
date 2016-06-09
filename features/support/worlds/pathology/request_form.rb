@@ -14,8 +14,8 @@ module World
           telephone = form_parameters["telephone"]
 
           patient_names = form_parameters.fetch("patients").split(", ")
-          patients = patient_names.map do |family_name|
-            Renalware::Pathology::Patient.find_by!(family_name: family_name)
+          patients = patient_names.map do |patient_family_name|
+            Renalware::Pathology::Patient.find_by!(family_name: patient_family_name)
           end
 
           [patients, clinic, doctor, telephone]
@@ -110,7 +110,9 @@ module World
         # TODO: Make these methods work when the page has multiple request forms
         def expect_patient_summary_to_match_table(_request_forms, patient, expected_table)
           expected_table.rows_hash.each do |key, expected_value|
-            value_in_web = find("//div[data-patient-id='#{patient.id}'][data-role='form_summary']//td[data-role='#{key}']").text
+            xpath =
+              "//div[data-patient-id='#{patient.id}'][data-role='form_summary']//td[data-role='#{key}']"
+            value_in_web = find(xpath).text
             expect(value_in_web).to eq(expected_value)
           end
         end
