@@ -5,7 +5,7 @@ describe Renalware::Pathology::RequestAlgorithm::GlobalRuleSet do
   it { is_expected.to validate_presence_of(:clinic) }
   it do
     is_expected.to validate_inclusion_of(:frequency_type)
-      .in_array(Renalware::Pathology::RequestAlgorithm::FREQUENCIES)
+      .in_array(Renalware::Pathology::RequestAlgorithm::Frequency.all)
   end
 
   let!(:observation_description) { create(:pathology_observation_description) }

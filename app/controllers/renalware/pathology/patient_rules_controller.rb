@@ -6,7 +6,7 @@ module Renalware
       before_filter :load_patient
 
       def new
-        frequencies = RequestAlgorithm::FREQUENCIES
+        frequencies = RequestAlgorithm::Frequency.all
         labs = Lab.ordered
         patient_rule = RequestAlgorithm::PatientRule.new(patient: @patient)
 
