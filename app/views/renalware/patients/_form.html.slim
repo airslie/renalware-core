@@ -48,10 +48,21 @@
           = link_to "Change Modal", new_patient_modality_path(@patient), title: "Patient Modality", class: "death-update"
 
 .form-content
-  = field_set_tag do
-    legend Organisation/Practice
+  .row
+    .large-6.columns
+      = field_set_tag do
+        legend Organisation/Practice
 
-    = render partial: 'organisation_practice_form', locals: { patient: patient }
+        = render partial: 'organisation_practice_form', locals: { patient: patient }
+
+    .large-6.columns
+      = field_set_tag do
+        legend Notes
+
+        = patient.simple_fields_for :document, patient.object.document do |patient_doc|
+          = patient_doc.input :interpreter_notes
+          = patient_doc.input :admin_notes
+          = patient_doc.input :special_needs_notes
 
 .form-content
   = patient.simple_fields_for :current_address_attributes, patient.object.current_address do |a|
@@ -59,3 +70,30 @@
       legend Current Address
 
       = render partial: 'renalware/addresses/form', locals: { a: a }
+
+.form-content
+  .row
+    .large-6.columns
+      = render partial: 'renalware/patients/person_form_fields',
+          locals: { patient: patient, title: "Next of Kin", document_attribute: :next_of_kin }
+
+    .large-6.columns
+      = field_set_tag do
+        legend Referral
+
+        = patient.simple_fields_for :document, patient.object.document do |patient_doc|
+          = patient_doc.simple_fields_for :referral, patient.object.document.referral do |referral_doc|
+            = referral_doc.input :referring_physician_name
+            = referral_doc.input :referral_date, as: :date_picker
+            = referral_doc.input :referral_type
+            = referral_doc.input :referral_notes
+
+.form-content
+  .row
+    .large-6.columns
+      = render partial: 'renalware/patients/person_form_fields',
+          locals: { patient: patient, title: "Pharmacist", document_attribute: :pharmacist }
+
+    .large-6.columns
+      = render partial: 'renalware/patients/person_form_fields',
+          locals: { patient: patient, title: "District Nurse", document_attribute: :distinct_nurse }

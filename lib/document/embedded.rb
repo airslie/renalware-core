@@ -91,7 +91,7 @@ module Document
   #
   # Then in a form, you simply use the form builder fields_for helper:
   #
-  #   = f.simple_fields_for :document do |fd|
+  #   = f.simple_fields_for :document, f.object.document do |fd|
   #     = fd.input :hx_tb, as: :boolean
   #     = fd.input :hx_dvt, as: :boolean
   #     = fd.input :cervical_date, as: :date

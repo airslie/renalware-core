@@ -46,19 +46,22 @@ module Renalware
               .where(transplant_registration_status_descriptions: { code: codes })
           }
           scope :nhb_consent_eq, -> (enum = "yes") {
-            where("document @> ?", { nhb_consent: { value: enum } }.to_json )
+            where(
+              "transplant_registrations.document @> ?",
+              { nhb_consent: { value: enum } }.to_json
+            )
           }
 
           ransacker :uk_transplant_centre_code do
-            Arel.sql("document -> 'codes' ->> 'uk_transplant_centre_code'")
+            Arel.sql("transplant_registrations.document -> 'codes' ->> 'uk_transplant_centre_code'")
           end
 
           ransacker :crf_highest_value do
-            Arel.sql("document -> 'crf' -> 'highest' ->> 'result'")
+            Arel.sql("transplant_registrations.document -> 'crf' -> 'highest' ->> 'result'")
           end
 
           ransacker :crf_latest_value do
-            Arel.sql("document -> 'crf' -> 'latest' ->> 'result'")
+            Arel.sql("transplant_registrations.document -> 'crf' -> 'latest' ->> 'result'")
           end
 
           private_class_method :ransackable_scopes
