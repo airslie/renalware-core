@@ -25,4 +25,4 @@
     .row
 
       .large-12.columns
-        = render partial: "renalware/patients/show/person", locals: { title: "District Nurse", person: @patient.document.distinct_nurse }
+        = render partial: "renalware/patients/show/person", locals: { title: "District Nurse", person: @patient.document.district_nurse }
