@@ -5,7 +5,6 @@ module Renalware
     class RequestFormPresenter
       attr_reader :patient, :clinic, :doctor, :telephone
 
-
       def initialize(patient, clinic, doctor, options = {})
         @patient = patient
         @clinic = clinic
