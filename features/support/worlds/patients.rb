@@ -20,6 +20,10 @@ module World
       def fetch_patient_by_local_id(local_id)
         Renalware::Patient.find_by(local_patient_id: local_id)
       end
+
+      def get_patient(patient_name)
+        instance_variable_get("@#{patient_name.downcase}".to_sym)
+      end
     end
 
     module Web
