@@ -1,9 +1,9 @@
 - request_forms.each do |request_form|
   - if request_form.has_tests_required?
-    .row
+    .row data-role="form_summary" data-patient-id="#{request_form.patient.id}"
       h4 Pathology Request Listing
 
-      table[id="patient_#{request_form.patient.id}_summary"]
+      table
         tr
           td.header_cell Patient Name:
           td data-role="patient_name" = request_form.patient_name
@@ -25,7 +25,7 @@
           td.header_cell Bleep/Tel No:
           td data-role="telephone" = request_form.telephone
 
-    .row.full_height
+    .row.full_height data-role="form_pathology" data-patient-id="#{request_form.patient.id}"
       .border_box_half.columns.full_height
         - if request_form.has_global_requests?
           - request_form.global_requests_by_lab.each do |lab_name, request_descriptions|
