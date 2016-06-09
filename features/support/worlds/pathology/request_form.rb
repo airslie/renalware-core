@@ -115,21 +115,21 @@ module World
           end
         end
 
-        def expect_patient_specific_test(_request_forms, patient, test_description)
-          request_form = find_request_form_for_patient(_request_forms, patient)
+        def expect_patient_specific_test(request_forms, patient, test_description)
+          request_form = find_request_form_for_patient(request_forms, patient)
 
           expect(request_form).to include(test_description)
         end
 
-        def expect_no_request_descriptions_required(_request_forms, patient)
-          request_form = find_request_form_for_patient(_request_forms, patient)
+        def expect_no_request_descriptions_required(request_forms, patient)
+          request_form = find_request_form_for_patient(request_forms, patient)
 
           expect(request_form).to include("No tests required.")
 
         end
 
-        def expect_request_description_required(_request_forms, patient, request_description_code)
-          request_form = find_request_form_for_patient(_request_forms, patient)
+        def expect_request_description_required(request_forms, patient, request_description_code)
+          request_form = find_request_form_for_patient(request_forms, patient)
           request_description =
             Renalware::Pathology::RequestDescription.find_by(code: request_description_code)
 
