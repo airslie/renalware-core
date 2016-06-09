@@ -1,7 +1,3 @@
-def get_patient(patient_name)
-  instance_variable_get("@#{patient_name.downcase}".to_sym)
-end
-
 Given(/^the rule set contains these rules:$/) do |table|
   @rules = create_global_rules_from_table(table)
 end

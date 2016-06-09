@@ -49,38 +49,37 @@ module World
           end
         end
 
-        def expect_no_request_descriptions_required(request_forms, patient)
-          request_form = find_request_form_for_patient(request_forms, patient)
-
-          expect(request_form).not_to have_patient_requests
-        end
-
         def expect_request_description_required(request_forms, patient, expected_request_description_code)
-          patient_request_descriptions, expected_request_description =
-            parse_request_description_params(request_forms, patient, expected_request_description_code)
-
-          expect(patient_request_descriptions).to include(expected_request_description)
-        end
-
-        def expect_request_description_not_required(request_forms, patient, expected_request_description_code)
-          patient_request_descriptions, expected_request_description =
-            parse_request_description_params(request_forms, patient, expected_request_description_code)
-
-          expect(patient_request_descriptions).not_to include(expected_request_description)
-        end
-
-
-        private
-
-        def parse_request_description_params(request_forms, patient, expected_request_description_code)
           request_form = find_request_form_for_patient(request_forms, patient)
           patient_request_descriptions = request_form.global_requests_by_lab.values.flatten
 
           expected_request_description =
             Renalware::Pathology::RequestDescription.find_by!(code: expected_request_description_code)
 
-          [patient_request_descriptions, expected_request_description]
+          expect(patient_request_descriptions).to include(expected_request_description)
         end
+
+        def expect_no_request_descriptions_required(request_forms, patient)
+          request_form = find_request_form_for_patient(request_forms, patient)
+          required_request_descriptions = request_form.global_requests_by_lab.values.flatten
+
+          expect(required_request_descriptions.count).to eq(0)
+        end
+
+        def expect_pathology_form(request_forms, patient, expected_pathology)
+          request_description = expected_pathology[:global_pathology]
+          patient_test = expected_pathology[:patient_pathology]
+
+          if expected_pathology[:global_pathology].present?
+            expect_request_description_required(request_forms, patient, request_description)
+          else
+            expect_no_request_descriptions_required(request_forms, patient)
+          end
+
+          expect_patient_specific_test(request_forms, patient, patient_test)
+        end
+
+        private
 
         def find_request_form_for_patient(request_forms, patient)
           request_forms.detect do |request_form|
@@ -107,7 +106,6 @@ module World
 
         # @section expectations
         #
-        # TODO: Make these methods work when the page has multiple request forms
         def expect_patient_summary_to_match_table(_request_forms, patient, expected_table)
           expected_table.rows_hash.each do |key, expected_value|
             xpath =
@@ -123,7 +121,7 @@ module World
           expect(request_form).to include(test_description)
         end
 
-        def expect_request_description_not_required(_request_forms, patient, expected_request_description_code)
+        def expect_no_request_descriptions_required(_request_forms, patient)
           request_form = find_request_form_for_patient(_request_forms, patient)
 
           expect(request_form).to include("No tests required.")

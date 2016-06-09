@@ -11,8 +11,7 @@ Feature: Generating pathology request forms
   The doctor, telephone number & clinic fields on the form are changeable.
 
   Background:
-    Given Aaron Aaronofsky is a doctor with telephone number: 203123123
-    And Zoe Zimmerman is a doctor with telephone number: 7921838959
+    Given Zoe Zimmerman is a doctor with telephone number: 7921838959
     And the date today is 12-10-2016
     And the global rule sets:
       | request_description_code | BFF        |
@@ -35,7 +34,7 @@ Feature: Generating pathology request forms
       | frequency_type   | Always        |
 
   @web
-  Scenario: A clinician generated the forms for a single patient and request a specific doctor and clinic
+  Scenario: A clinician generated the forms for a single patient and requests a specific doctor and clinic
     Given Clyde is a clinician
     When Clyde generates a set of request forms with the following:
       | clinic   | Transplant    |
@@ -49,11 +48,12 @@ Feature: Generating pathology request forms
       | clinical_detail  | Transplant       |
       | contact          | Transplant       |
       | telephone        | 7921838959       |
-    And Clyde sees this patient specific test for Patty: Test for HepB
-    And Clyde sees the request description BFF required for Patty
+    And Clyde sees the following pathology requirements for Patty:
+      | global_pathology  | BFF           |
+      | patient_pathology | Test for HepB |
 
   @web
-  Scenario: A clinician generated the forms for a single patient and request a specific doctor, clinic and telephone number
+  Scenario: A clinician generated the forms for a single patient and requests a specific doctor, clinic and telephone number
     Given Clyde is a clinician
     When Clyde generates a set of request forms with the following:
       | clinic    | Transplant    |
@@ -68,11 +68,12 @@ Feature: Generating pathology request forms
       | clinical_detail | Transplant       |
       | contact         | Transplant       |
       | telephone       | 123              |
-    And Clyde sees this patient specific test for Patty: Test for HepB
-    And Clyde sees the request description BFF required for Patty
+    And Clyde sees the following pathology requirements for Patty:
+      | global_pathology  | BFF           |
+      | patient_pathology | Test for HepB |
 
   @web
-  Scenario: A clinician generated the forms for multiple patient and request a specific doctor, clinic and telephone number
+  Scenario: A clinician generated the forms for multiple patient and requests a specific doctor, clinic and telephone number
     Given Clyde is a clinician
     When Clyde generates a set of request forms with the following:
       | clinic    | Transplant    |
@@ -87,8 +88,9 @@ Feature: Generating pathology request forms
       | clinical_detail | Transplant       |
       | contact         | Transplant       |
       | telephone       | 123              |
-    And Clyde sees this patient specific test for Patty: Test for HepB
-    And Clyde sees the request description BFF required for Patty
+    And Clyde sees the following pathology requirements for Patty:
+      | global_pathology  | BFF           |
+      | patient_pathology | Test for HepB |
     And Clyde sees these details at the top of Don's form
       | patient_name    | THEDONOR DON     |
       | date            | 12-10-2016       |
@@ -97,5 +99,6 @@ Feature: Generating pathology request forms
       | clinical_detail | Transplant       |
       | contact         | Transplant       |
       | telephone       | 123              |
-    And Clyde sees this patient specific test for Don: Test for HIV
-    And Clyde does not see the request description BFF required for Don
+    And Clyde sees the following pathology requirements for Don:
+      | global_pathology  |              |
+      | patient_pathology | Test for HIV |

@@ -1,7 +1,3 @@
-def get_patient(patient_name)
-  instance_variable_get("@#{patient_name.downcase}".to_sym)
-end
-
 Given(/^(\w+) has a patient rule:$/) do |patient_name, table|
   patient = get_patient(patient_name)
   @patient_rule = create_patient_rule(

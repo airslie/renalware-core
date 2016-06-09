@@ -1,3 +1,7 @@
+def get_patient(patient_name)
+  instance_variable_get("@#{patient_name.downcase}".to_sym)
+end
+
 Given(/^Patty is a patient$/) do
   @patty = Renalware::Patient.create!(
     nhs_number: "1234567890",
