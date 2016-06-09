@@ -1,6 +1,7 @@
 Feature: Recording a patient rule
 
-  A clinician should be able add a patient specific rule for an observation.
+  A clinician adds a "free text" pathology request rule for a patient to the database. The rule is used
+  by the pathology request algorithm and includes a free text description of the test that is to be carried out.
 
   @web
   Scenario:
