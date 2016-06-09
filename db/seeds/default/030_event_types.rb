@@ -9,5 +9,5 @@ module Renalware
     Events::Type.find_or_create_by!(name: row['eventtype'])
   end
 
-  log "#{logcount} EventTypes seeded"
+  log "#{logcount} Event Types seeded"
 end

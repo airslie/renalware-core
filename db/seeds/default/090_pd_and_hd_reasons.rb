@@ -1,6 +1,6 @@
 module Renalware
   module Modalities
-    log "--------------------Adding PDToHaemodialysis--------------------"
+    log "--------------------Adding PD To Haemodialysis--------------------"
 
     PDToHaemodialysis.find_or_create_by!(rr_code: 201, description: "Patient/partner choice")
     PDToHaemodialysis.find_or_create_by!(rr_code: 202, description: "Loss of supporting partner")
@@ -14,7 +14,7 @@ module Renalware
     PDToHaemodialysis.find_or_create_by!(rr_code: 215, description: "Inadequate clearance")
     PDToHaemodialysis.find_or_create_by!(rr_code: 216, description: "Abdominal surgery or complications")
 
-    log "--------------------Adding HaemodialysisToPD--------------------"
+    log "--------------------Adding Haemodialysis To PD--------------------"
 
     HaemodialysisToPD.find_or_create_by!(rr_code: 221, description: "Patient/partner choice")
     HaemodialysisToPD.find_or_create_by!(rr_code: 222, description: "Loss of supporting partner")
