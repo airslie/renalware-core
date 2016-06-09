@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding BagTypes--------------------'
+  log '--------------------Adding PD Bag Types--------------------'
   file_path = File.join(default_path, 'bag_types.csv')
 
   logcount=0
@@ -21,5 +21,5 @@ module Renalware
     )
   end
 
-  log "#{logcount} BagTypes seeded"
+  log "#{logcount} Bag Types seeded"
 end

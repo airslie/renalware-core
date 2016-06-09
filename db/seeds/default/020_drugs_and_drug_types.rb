@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding DrugTypes--------------------'
+  log '--------------------Adding Drug Types--------------------'
 
   %w(Antibiotic ESA Immunosuppressant Peritonitis Controlled).each_with_index do |drug_type, index|
     Drugs::Type.find_or_create_by!(code: drug_type.downcase) do |type|
@@ -31,7 +31,7 @@ module Renalware
 
   log "#{logcount} Drugs seeded"
 
-  log '--------------------Assigning DrugTypes to Drugs--------------------'
+  log '--------------------Assigning Drug Types to Drugs--------------------'
 
   file_path = File.join(default_path, 'drug_drug_types.csv')
 
@@ -43,5 +43,5 @@ module Renalware
     drug.drug_types << drug_type unless drug.drug_types.include?(drug_type)
   end
 
-  log "#{logcount} DrugTypes assigned"
+  log "#{logcount} Drug Types assigned"
 end
