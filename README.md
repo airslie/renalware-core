@@ -84,7 +84,7 @@ To run the acceptance tests without the UI:
 
 To run the acceptance tests with the UI:
 
-    TEST_DEPTH=web bin/cucumber
+    TEST_DEPTH=web bin/cucumber --tags @web
 
 ## Code Quaility
 
