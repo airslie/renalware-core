@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding FluidDescriptions--------------------'
+  log '--------------------Adding Peritonitis Fluid Descriptions--------------------'
 
   FluidDescription.find_or_create_by!(description: "Clear")
   FluidDescription.find_or_create_by!(description: "Misty")
