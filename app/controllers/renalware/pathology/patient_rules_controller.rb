@@ -6,28 +6,31 @@ module Renalware
       before_filter :load_patient
 
       def new
-        frequencies = RequestAlgorithm::Frequency.all
-        labs = Lab.ordered
         patient_rule = RequestAlgorithm::PatientRule.new(patient: @patient)
 
-        render :new, locals: {
-          frequencies: frequencies, labs: labs, patient_rule: patient_rule
-        }
+        render :new, locals: new_page_locals.merge(patient_rule: patient_rule)
       end
 
       def create
-        @patient_rule = RequestAlgorithm::PatientRule.new(patient_rule_params)
+        patient_rule = @patient.rules.new(patient_rule_params)
 
-        if @patient_rule.save
+        if patient_rule.save
           redirect_to patient_pathology_required_observations_path(@patient),
             notice: t(".success", model_name: "patient_rule")
         else
           flash[:error] = t(".failed", model_name: "patient_rule")
-          render :new
+          render :new, locals: new_page_locals.merge(patient_rule: patient_rule)
         end
       end
 
       private
+
+      def new_page_locals
+        {
+          frequencies: RequestAlgorithm::Frequency.all,
+          labs: Lab.ordered
+        }
+      end
 
       def patient_rule_params
         params.require(:pathology_request_algorithm_patient_rule)

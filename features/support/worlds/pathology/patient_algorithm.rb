@@ -11,7 +11,7 @@ module World
             lab: Renalware::Pathology::Lab.find_by(name: params[:lab])
           )
 
-          Renalware::Pathology::RequestAlgorithm::PatientRule.create!(rule_params)
+          Renalware::Pathology::RequestAlgorithm::PatientRule.create(rule_params)
         end
 
         def record_patient_rule(_clinician, params)
@@ -61,6 +61,10 @@ module World
 
           expect(rule).to have_attributes(patient_rule_attributes.except(:lab))
           expect(rule.lab.name).to eq(patient_rule_attributes[:lab])
+        end
+
+        def expect_patient_rule_to_be_refused(patient, patient_rule_attributes)
+          expect(patient.rules.count).to eq(0)
         end
       end
 

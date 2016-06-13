@@ -30,6 +30,20 @@ When(/^the patient pathology algorithm is run for Patty$/) do
   @required_patient_observations = run_patient_algorithm(@patty, @clyde)
 end
 
+When(/^Clyde submits an erroneous patient rule for Patty$/) do
+  @patient_rule_attributes = {
+    patient: @patty,
+    lab: "Biochemistry",
+    test_description: "",
+    frequency_type: "Always",
+  }
+
+  record_patient_rule(
+    @clyde,
+    @patient_rule_attributes
+  )
+end
+
 Then(/^it is determined the patient's observation is (required|not required)$/) do |determined|
   if determined == "required"
     expect(@required_patient_observations).to eq([@patient_rule])
@@ -40,4 +54,8 @@ end
 
 Then(/^Patty has a new patient rule$/) do
   expect_patient_rules_on_patient(@patty, @patient_rule_attributes)
+end
+
+Then(/^the patient rule is not accepted$/) do
+  #expect_patient_rule_to_be_refused(@patty, @patient_rule_attributes)
 end
