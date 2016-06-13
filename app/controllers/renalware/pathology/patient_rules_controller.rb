@@ -6,9 +6,9 @@ module Renalware
       before_filter :load_patient
 
       def new
-        patient_rule = RequestAlgorithm::PatientRule.new(patient: @patient)
+        patient_rule = @patient.rules.new
 
-        render :new, locals: new_page_locals.merge(patient_rule: patient_rule)
+        render_new(patient_rule)
       end
 
       def create
@@ -19,17 +19,26 @@ module Renalware
             notice: t(".success", model_name: "patient_rule")
         else
           flash[:error] = t(".failed", model_name: "patient_rule")
-          render :new, locals: new_page_locals.merge(patient_rule: patient_rule)
+          render_new(patient_rule)
         end
       end
 
       private
 
-      def new_page_locals
-        {
-          frequencies: RequestAlgorithm::Frequency.all,
-          labs: Lab.ordered
-        }
+      def render_new(patient_rule)
+         render :new, locals: {
+            patient_rule: patient_rule,
+            frequencies: find_frequencies,
+            labs: find_labs
+          }
+      end
+
+      def find_frequencies
+        RequestAlgorithm::Frequency.all
+      end
+
+      def find_labs
+        Lab.ordered
       end
 
       def patient_rule_params
