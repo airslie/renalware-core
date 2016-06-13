@@ -19,7 +19,7 @@ module Renalware
   ].each do |name|
     Clinics::Clinic.find_or_create_by!(
       name: name,
-      user: Renalware::SystemUser.find
+      consultant: SystemUser.find
     )
   end
 end
