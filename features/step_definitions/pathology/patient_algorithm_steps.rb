@@ -57,5 +57,5 @@ Then(/^Patty has a new patient rule$/) do
 end
 
 Then(/^the patient rule is not accepted$/) do
-  #expect_patient_rule_to_be_refused(@patty, @patient_rule_attributes)
+  expect_patient_rule_to_be_refused(@patty, @patient_rule_attributes)
 end

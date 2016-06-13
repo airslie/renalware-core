@@ -11,10 +11,10 @@ Feature: Recording a patient rule
     Given Patty is a patient
     And Clyde is a clinician
 
-  #@web
-  #Scenario: A clinician recorded a new patient rule
-  #  When Clyde records a new patient rule for Patty
-  #  Then Patty has a new patient rule
+  @web
+  Scenario: A clinician recorded a new patient rule
+    When Clyde records a new patient rule for Patty
+    Then Patty has a new patient rule
 
   @web
   Scenario: A clinician submitted an erroneous patient rule

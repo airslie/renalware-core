@@ -64,7 +64,8 @@ module World
         end
 
         def expect_patient_rule_to_be_refused(patient, patient_rule_attributes)
-          expect(patient.rules.count).to eq(0)
+          pathology_patient = Renalware::Pathology.cast_patient(patient)
+          expect(pathology_patient.rules.count).to eq(0)
         end
       end
 
