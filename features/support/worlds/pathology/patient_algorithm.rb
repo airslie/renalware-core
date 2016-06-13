@@ -56,11 +56,7 @@ module World
           pathology_patient = Renalware::Pathology.cast_patient(patient)
           expect(pathology_patient.rules.count).to eq(1)
 
-          patient_rule_attributes[:patient] = Renalware::Pathology.cast_patient(
-            patient_rule_attributes[:patient]
-          )
           rule = pathology_patient.rules.first
-
           expect(rule).to have_attributes(patient_rule_attributes.except(:lab))
           expect(rule.lab.name).to eq(patient_rule_attributes[:lab])
         end

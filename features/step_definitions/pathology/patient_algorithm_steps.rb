@@ -12,7 +12,6 @@ end
 
 When(/^Clyde records a new patient rule for Patty$/) do
   @patient_rule_attributes = {
-    patient: @patty,
     lab: "Biochemistry",
     test_description: "Test for HepBsAb",
     sample_number_bottles: 1,
@@ -34,7 +33,6 @@ end
 
 When(/^Clyde submits an erroneous patient rule for Patty$/) do
   @patient_rule_attributes = {
-    patient: @patty,
     lab: "Biochemistry",
     test_description: "",
     frequency_type: "Always",
