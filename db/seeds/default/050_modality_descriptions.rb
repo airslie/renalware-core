@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding ModalityDescriptions--------------------'
+  log '--------------------Adding Modality Codes & Descriptions--------------------'
 
   file_path = File.join(default_path, 'modality_descriptions.csv')
 
@@ -11,5 +11,5 @@ module Renalware
     end
   end
 
-  log "#{logcount} ModalityCodes seeded"
+  log "#{logcount} Modality Codes seeded"
 end

@@ -6,9 +6,10 @@ Given(/^the global rule sets:$/) do |table|
   @rule_set = create_global_rule_set(table.rows_hash)
 end
 
-Given(/^Patty has observed an ([A-Z0-9]+) value of (\d+)$/) do |code, result|
+Given(/^(\w+) has observed an ([A-Z0-9]+) value of (\d+)$/) do |patient_name, code, result|
+  patient = get_patient(patient_name)
   record_observations(
-    patient: @patty,
+    patient: patient,
     observations_attributes: [
       { "code" => code, "result" => result, "observed_at" => Date.current.to_s }
     ]

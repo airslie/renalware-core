@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding EdtaCodes--------------------'
+  log '--------------------Adding EDTA Causes of Death codes--------------------'
 
   file_path = File.join(default_path, 'edta_codes.csv')
 
@@ -11,5 +11,5 @@ module Renalware
     end
   end
 
-  log "#{logcount} EdtaCodes seeded"
+  log "#{logcount} EDTA Death Causes seeded"
 end

@@ -14,15 +14,14 @@
         = render partial: "renalware/patients/show/organisation_practice", locals: { patient: @patient }
 
     .row
-      .large-4.columns
+      .large-3.columns
         = render partial: "renalware/patients/show/referral", locals: { patient: @patient }
 
-      .large-4.columns
+      .large-3.columns
         = render partial: "renalware/patients/show/person", locals: { title: "Next of Kin", person: @patient.document.next_of_kin }
 
-      .large-4.columns
+      .large-3.columns
         = render partial: "renalware/patients/show/person", locals: { title: "Pharmacist", person: @patient.document.pharmacist }
-    .row
 
-      .large-12.columns
-        = render partial: "renalware/patients/show/person", locals: { title: "District Nurse", person: @patient.document.distinct_nurse }
+      .large-3.columns
+        = render partial: "renalware/patients/show/person", locals: { title: "District Nurse", person: @patient.document.district_nurse }
