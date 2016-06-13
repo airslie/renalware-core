@@ -340,7 +340,7 @@ CREATE TABLE appointments (
     id integer NOT NULL,
     starts_at timestamp without time zone NOT NULL,
     patient_id integer NOT NULL,
-    doctor_id integer NOT NULL,
+    user_id integer NOT NULL,
     clinic_id integer NOT NULL
 );
 
