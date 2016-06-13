@@ -5276,6 +5276,14 @@ ALTER TABLE ONLY access_procedures
 
 
 --
+-- Name: fk_rails_9e31213785; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY appointments
+    ADD CONSTRAINT fk_rails_9e31213785 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
 -- Name: fk_rails_a0b9cd97fe; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5372,6 +5380,14 @@ ALTER TABLE ONLY access_profiles
 
 
 --
+-- Name: fk_rails_c63da04ab4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY appointments
+    ADD CONSTRAINT fk_rails_c63da04ab4 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: fk_rails_c75064199c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5441,6 +5457,14 @@ ALTER TABLE ONLY pd_regime_bags
 
 ALTER TABLE ONLY access_procedures
     ADD CONSTRAINT fk_rails_df8ecd8ea9 FOREIGN KEY (performed_by_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_e048c6d191; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY appointments
+    ADD CONSTRAINT fk_rails_e048c6d191 FOREIGN KEY (clinic_id) REFERENCES clinics(id);
 
 
 --
