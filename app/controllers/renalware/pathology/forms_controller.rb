@@ -7,17 +7,14 @@ module Renalware
       before_filter :load_patients
 
       def index
-        doctors = Doctor.ordered
-        clinics = Clinics::Clinic.ordered
-        form_params = Forms::ParamsPresenter.new(params, doctors, clinics)
-        patients = Forms::PatientPresenter.wrap(@patients, form_params.clinic)
+        doctor = Doctor.find(params[:doctor_id])
+        clinic = Clinics::Clinic.find(params[:clinic_id])
 
-        render :index, locals: {
-          form_params: form_params,
-          patients: patients,
-          doctors: doctors,
-          clinics: clinics
-        }
+        request_forms = RequestFormPresenter.wrap(
+          @patients, clinic, doctor, params.slice(:telephone)
+        )
+
+        render :index, locals: { request_forms: request_forms }
       end
 
       private

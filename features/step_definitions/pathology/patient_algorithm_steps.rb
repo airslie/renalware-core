@@ -1,6 +1,7 @@
-Given(/^Patty has a patient rule:$/) do |table|
+Given(/^(\w+) has a patient rule:$/) do |patient_name, table|
+  patient = get_patient(patient_name)
   @patient_rule = create_patient_rule(
-    table.rows_hash.merge("patient" => @patty)
+    table.rows_hash.merge("patient" => patient)
   )
 end
 
