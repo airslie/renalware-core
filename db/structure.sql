@@ -333,6 +333,38 @@ ALTER SEQUENCE addresses_id_seq OWNED BY addresses.id;
 
 
 --
+-- Name: appointments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE appointments (
+    id integer NOT NULL,
+    starts_at timestamp without time zone NOT NULL,
+    patient_id integer NOT NULL,
+    doctor_id integer NOT NULL,
+    clinic_id integer NOT NULL
+);
+
+
+--
+-- Name: appointments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE appointments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: appointments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE appointments_id_seq OWNED BY appointments.id;
+
+
+--
 -- Name: bag_types; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3007,6 +3039,13 @@ ALTER TABLE ONLY addresses ALTER COLUMN id SET DEFAULT nextval('addresses_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY appointments ALTER COLUMN id SET DEFAULT nextval('appointments_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY bag_types ALTER COLUMN id SET DEFAULT nextval('bag_types_id_seq'::regclass);
 
 
@@ -3569,6 +3608,14 @@ ALTER TABLE ONLY access_versions
 
 ALTER TABLE ONLY addresses
     ADD CONSTRAINT addresses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: appointments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY appointments
+    ADD CONSTRAINT appointments_pkey PRIMARY KEY (id);
 
 
 --
@@ -5683,6 +5730,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160419132410');
 INSERT INTO schema_migrations (version) VALUES ('20160420132524');
 
 INSERT INTO schema_migrations (version) VALUES ('20160426093341');
+
+INSERT INTO schema_migrations (version) VALUES ('20160426112409');
 
 INSERT INTO schema_migrations (version) VALUES ('20160503113814');
 
