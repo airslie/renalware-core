@@ -426,7 +426,7 @@ CREATE TABLE clinics (
     name character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    doctor_id integer
+    user_id integer NOT NULL
 );
 
 
@@ -5350,14 +5350,6 @@ ALTER TABLE ONLY access_profiles
 
 
 --
--- Name: fk_rails_d05a674fc9; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY clinics
-    ADD CONSTRAINT fk_rails_d05a674fc9 FOREIGN KEY (doctor_id) REFERENCES doctors(id);
-
-
---
 -- Name: fk_rails_d92d27629e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5475,6 +5467,14 @@ ALTER TABLE ONLY access_procedures
 
 ALTER TABLE ONLY problem_problems
     ADD CONSTRAINT fk_rails_edf3902cb0 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_f0adc9d29e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinics
+    ADD CONSTRAINT fk_rails_f0adc9d29e FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -5721,5 +5721,5 @@ INSERT INTO schema_migrations (version) VALUES ('20160530170058');
 
 INSERT INTO schema_migrations (version) VALUES ('20160531141853');
 
-INSERT INTO schema_migrations (version) VALUES ('20160608130458');
+INSERT INTO schema_migrations (version) VALUES ('20160613120910');
 
