@@ -8,7 +8,7 @@ module Renalware
 
         included do
           validates :frequency_type, presence: true
-          validates :frequency_type, inclusion: { in: Frequency.all, allow_nil: true }
+          validates :frequency_type, inclusion: { in: Frequency.all_names, allow_nil: true }
         end
 
         def frequency

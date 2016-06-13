@@ -34,7 +34,7 @@ module Renalware
       end
 
       def find_frequencies
-        RequestAlgorithm::Frequency.all
+        RequestAlgorithm::Frequency.all_names
       end
 
       def find_labs
