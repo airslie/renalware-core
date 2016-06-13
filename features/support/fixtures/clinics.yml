@@ -1,45 +1,45 @@
 access:
   name: Access
-  user: systemuser
+  consultant: systemuser
 aki:
   name: AKI
-  user: systemuser
+  consultant: systemuser
 anaemia:
   name: Anaemia
-  user: systemuser
+  consultant: systemuser
 capd:
   name: CAPD
-  user: systemuser
+  consultant: systemuser
 capd_nurses:
   name: CAPD Nurses
-  user: systemuser
+  consultant: systemuser
 dartford_outreach:
   name: Dartford Outreach
-  user: systemuser
+  consultant: systemuser
 dietitians:
   name: Dietitians
-  user: systemuser
+  consultant: systemuser
 general_nephrology:
   name: General Nephrology
-  user: systemuser
+  consultant: systemuser
 haemodialysis:
   name: Haemodialysis
-  user: systemuser
+  consultant: systemuser
 home_haemodialysis:
   name: Home Haemodialysis
-  user: systemuser
+  consultant: systemuser
 iron:
   name: Iron
-  user: systemuser
+  consultant: systemuser
 low_clearance:
   name: Low Clearance
-  user: systemuser
+  consultant: systemuser
 transplant:
   name: Transplant
-  user: systemuser
+  consultant: systemuser
 walk_in:
   name: Walk-in
-  user: systemuser
+  consultant: systemuser
 woolwich_outreach:
   name: Woolwich Outreach
-  user: systemuser
+  consultant: systemuser
