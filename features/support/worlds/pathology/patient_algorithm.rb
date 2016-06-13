@@ -4,18 +4,20 @@ module World
       module Domain
         # @section commands
         #
-        def create_patient_rule(params)
-          rule_params = params.except(:last_observed_at, :patient, :lab).merge(
-            last_observed_at: str_to_time(params[:last_observed_at]),
-            patient: Renalware::Pathology.cast_patient(params[:patient]),
-            lab: Renalware::Pathology::Lab.find_by(name: params[:lab])
-          )
+        def create_patient_rule(patient, params)
+          rule_params = params
+            .except(:last_observed_at, :patient, :lab)
+            .merge(
+              last_observed_at: str_to_time(params[:last_observed_at]),
+              lab: Renalware::Pathology::Lab.find_by!(name: params[:lab])
+            )
 
-          Renalware::Pathology::RequestAlgorithm::PatientRule.create(rule_params)
+          pathology_patient = Renalware::Pathology.cast_patient(patient)
+          pathology_patient.rules.create(rule_params)
         end
 
-        def record_patient_rule(_clinician, params)
-          create_patient_rule(params)
+        def record_patient_rule(patient, _clinician, params)
+          create_patient_rule(patient, params)
         end
 
         def update_patient_rule_start_end_dates(patient_rule, within_rage)
@@ -72,10 +74,10 @@ module World
       module Web
         include Domain
 
-        def record_patient_rule(clinician, params)
+        def record_patient_rule(patient, clinician, params)
           login_as clinician
 
-          visit new_patient_pathology_patient_rule_path(patient_id: params[:patient].id)
+          visit new_patient_pathology_patient_rule_path(patient_id: patient.id)
 
           select params[:lab], from: "Lab"
           fill_in "Test description", with: params[:test_description]

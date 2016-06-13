@@ -1,7 +1,8 @@
 Given(/^(\w+) has a patient rule:$/) do |patient_name, table|
   patient = get_patient(patient_name)
   @patient_rule = create_patient_rule(
-    table.rows_hash.merge(patient: patient)
+    patient,
+    table.rows_hash
   )
 end
 
@@ -21,6 +22,7 @@ When(/^Clyde records a new patient rule for Patty$/) do
   }
 
   record_patient_rule(
+    @patty,
     @clyde,
     @patient_rule_attributes
   )
@@ -39,6 +41,7 @@ When(/^Clyde submits an erroneous patient rule for Patty$/) do
   }
 
   record_patient_rule(
+    @patty,
     @clyde,
     @patient_rule_attributes
   )
