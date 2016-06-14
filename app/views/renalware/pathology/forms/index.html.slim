@@ -1,3 +1,32 @@
+.row
+  h4 Pathology Request CRS Form Preview
+.row
+  .large-4.columns
+    = form_tag pathology_forms_path, method: :get do
+      - patient_ids.each do |patient_id|
+        = hidden_field_tag "patient_ids[]", patient_id
+      .row
+        .large-6.columns
+          label Consultant User ID:
+        .large-6.columns
+          = select_tag :user_id, options_from_collection_for_select(@users, :id, :full_name, @user.id), include_blank: true
+      .row
+        .large-6.columns
+          label Clinic:
+        .large-6.columns
+          = select_tag :clinic_id, options_from_collection_for_select(@clinics, :id, :name, @clinic.id), include_blank: true
+      .row
+        .large-6.columns
+          label Telephone #:
+        .large-6.columns
+          = text_field_tag :telephone, telephone
+      .row
+        .large-3.offset-9.columns
+          = submit_tag "Update Forms", class: "button"
+
+hr.page_break
+
+.row
 - request_forms.each do |request_form|
   - if request_form.has_tests_required?
     .row data-role="form_summary" data-patient-id="#{request_form.patient.id}"

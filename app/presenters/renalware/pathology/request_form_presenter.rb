@@ -3,18 +3,18 @@ require_dependency "renalware"
 module Renalware
   module Pathology
     class RequestFormPresenter
-      attr_reader :patient, :clinic, :doctor, :telephone
+      attr_reader :patient, :clinic, :consultant, :telephone
 
-      def initialize(patient, clinic, doctor, options = {})
+      def initialize(patient, clinic, consultant, options = {})
         @patient = patient
         @clinic = clinic
-        @doctor = doctor
-        @telephone = options[:telephone] || doctor.telephone
+        @consultant = consultant
+        @telephone = options[:telephone] # TODO: Add a telephone number on the users table
       end
 
-      def self.wrap(patients, clinic, doctor, options = {})
+      def self.wrap(patients, clinic, consultant, options = {})
         patients.map do |patient|
-          new(patient, clinic, doctor, options)
+          new(patient, clinic, consultant, options)
         end
       end
 
@@ -31,7 +31,7 @@ module Renalware
       end
 
       def consultant
-        @doctor.full_name
+        @consultant.full_name
       end
 
       def clinical_detail
