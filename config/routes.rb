@@ -121,6 +121,7 @@ Rails.application.routes.draw do
         get "observations/recent", to: "recent_observation_results#index", as: "recent_observations"
         get "observations/historical", to: "historical_observation_results#index", as: "historical_observations"
         resources :observation_requests, only: [:index, :show]
+        resources :patient_rules, only: [:new, :create]
         get "descriptions/:description_id/observations", to: "observations#index", as: "observations"
         resources :required_observations, only: :index
       end
