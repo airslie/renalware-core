@@ -18,9 +18,6 @@ module Renalware
         @search ||= QueryableAppointment.ransack(@q)
       end
 
-      private
-
-
       class QueryableAppointment < ActiveType::Record[Appointment]
         ransacker :starts_at, type: :date do
           Arel.sql("DATE(starts_at)")
