@@ -37,7 +37,7 @@ Given(/^Doug is Patty's doctor$/) do
   @doug = @patty.doctor
 end
 
-Given(/^there exists the following patients:$/) do |table|
+Given(/^the following patients:$/) do |table|
   table.raw.flatten.each do |patient_name|
     given_name, family_name = patient_name.split(" ")
 

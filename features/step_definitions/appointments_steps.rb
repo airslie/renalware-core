@@ -1,4 +1,4 @@
-Given(/^there exists the following appointments$/) do |table|
+Given(/^the following appointments:$/) do |table|
   table.hashes.each do |row|
     create_appointment(row)
   end
@@ -24,6 +24,6 @@ When(/^Clyde filters the list by date to (\d+\-\d+\-\d+)$/) do |date|
   @appointments = view_appointments(@clyde, q: { starts_at_eq: date })
 end
 
-Then(/^Clyde should see these appointments$/) do |table|
+Then(/^Clyde should see these appointments:$/) do |table|
   expect_appointments_to_match(@appointments, table.hashes)
 end

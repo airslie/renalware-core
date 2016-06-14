@@ -9,11 +9,13 @@ module World
           starts_at_time = table_row["starts_at_time"].split(":")
           starts_at = starts_at.change(hour: starts_at_time[0], min: starts_at_time[1])
 
-          patient_names = table_row["patient"].split(" ")
-          user_names = table_row["user"].split(" ")
+          patient_given_name, patient_family_name = table_row["patient"].split(" ")
+          user_given_name, user_family_name = table_row["user"].split(" ")
 
-          patient = Renalware::Clinics::Patient.find_by!(given_name: patient_names[0], family_name: patient_names[1])
-          user = Renalware::User.find_by!(given_name: user_names[0],family_name: user_names[1])
+          patient = Renalware::Clinics::Patient.find_by!(
+            given_name: patient_given_name, family_name: patient_family_name
+          )
+          user = Renalware::User.find_by!(given_name: user_given_name,family_name: user_family_name)
           clinic = Renalware::Clinics::Clinic.find_by!(name: table_row["clinic"])
 
           Renalware::Clinics::Appointment.create!(
@@ -25,9 +27,9 @@ module World
         end
 
         def view_appointments(_clinician, params = {})
-          query_params = params.fetch(:q, {}).merge(page: 1, per_page: 25)
+          query_params = params.fetch(:q, {})
 
-          Renalware::Clinics::FindAppointmentsQuery.new(query_params).appointments
+          Renalware::Clinics::AppointmentQuery.new(query_params).call
         end
 
         # @section expectations
