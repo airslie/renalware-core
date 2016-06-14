@@ -17,6 +17,9 @@ module Renalware
     "Walk-in",
     "Woolwich Outreach"
   ].each do |name|
-    Clinics::Clinic.find_or_create_by!(name: name)
+    Clinics::Clinic.find_or_create_by!(
+      name: name,
+      consultant: SystemUser.find
+    )
   end
 end

@@ -15,6 +15,10 @@ module Renalware
         def to_s
           self.class.name.demodulize
         end
+
+        def self.all_names
+          %w(Always Monthly Once Weekly)
+        end
       end
     end
   end
