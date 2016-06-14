@@ -333,38 +333,6 @@ ALTER SEQUENCE addresses_id_seq OWNED BY addresses.id;
 
 
 --
--- Name: appointments; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE appointments (
-    id integer NOT NULL,
-    starts_at timestamp without time zone NOT NULL,
-    patient_id integer NOT NULL,
-    user_id integer NOT NULL,
-    clinic_id integer NOT NULL
-);
-
-
---
--- Name: appointments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE appointments_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: appointments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE appointments_id_seq OWNED BY appointments.id;
-
-
---
 -- Name: bag_types; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -460,6 +428,38 @@ CREATE TABLE clinics (
     updated_at timestamp without time zone NOT NULL,
     user_id integer NOT NULL
 );
+
+
+--
+-- Name: clinics_appointments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE clinics_appointments (
+    id integer NOT NULL,
+    starts_at timestamp without time zone NOT NULL,
+    patient_id integer NOT NULL,
+    user_id integer NOT NULL,
+    clinic_id integer NOT NULL
+);
+
+
+--
+-- Name: clinics_appointments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE clinics_appointments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: clinics_appointments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE clinics_appointments_id_seq OWNED BY clinics_appointments.id;
 
 
 --
@@ -3040,13 +3040,6 @@ ALTER TABLE ONLY addresses ALTER COLUMN id SET DEFAULT nextval('addresses_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY appointments ALTER COLUMN id SET DEFAULT nextval('appointments_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY bag_types ALTER COLUMN id SET DEFAULT nextval('bag_types_id_seq'::regclass);
 
 
@@ -3062,6 +3055,13 @@ ALTER TABLE ONLY clinic_visits ALTER COLUMN id SET DEFAULT nextval('clinic_visit
 --
 
 ALTER TABLE ONLY clinics ALTER COLUMN id SET DEFAULT nextval('clinics_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinics_appointments ALTER COLUMN id SET DEFAULT nextval('clinics_appointments_id_seq'::regclass);
 
 
 --
@@ -3612,14 +3612,6 @@ ALTER TABLE ONLY addresses
 
 
 --
--- Name: appointments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY appointments
-    ADD CONSTRAINT appointments_pkey PRIMARY KEY (id);
-
-
---
 -- Name: bag_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3633,6 +3625,14 @@ ALTER TABLE ONLY bag_types
 
 ALTER TABLE ONLY clinic_visits
     ADD CONSTRAINT clinic_visits_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: clinics_appointments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinics_appointments
+    ADD CONSTRAINT clinics_appointments_pkey PRIMARY KEY (id);
 
 
 --
@@ -5245,6 +5245,14 @@ ALTER TABLE ONLY hospital_units
 
 
 --
+-- Name: fk_rails_909dcaaf3d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinics_appointments
+    ADD CONSTRAINT fk_rails_909dcaaf3d FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: fk_rails_9183cb4170; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5274,14 +5282,6 @@ ALTER TABLE ONLY letter_recipients
 
 ALTER TABLE ONLY access_procedures
     ADD CONSTRAINT fk_rails_9dbbc5bfd0 FOREIGN KEY (type_id) REFERENCES access_types(id);
-
-
---
--- Name: fk_rails_9e31213785; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY appointments
-    ADD CONSTRAINT fk_rails_9e31213785 FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -5357,6 +5357,14 @@ ALTER TABLE ONLY pathology_request_algorithm_global_rules
 
 
 --
+-- Name: fk_rails_b7cc8fd5dd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinics_appointments
+    ADD CONSTRAINT fk_rails_b7cc8fd5dd FOREIGN KEY (clinic_id) REFERENCES clinics(id);
+
+
+--
 -- Name: fk_rails_b844dc9537; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5378,14 +5386,6 @@ ALTER TABLE ONLY hd_sessions
 
 ALTER TABLE ONLY access_profiles
     ADD CONSTRAINT fk_rails_c367d368e6 FOREIGN KEY (plan_id) REFERENCES access_plans(id);
-
-
---
--- Name: fk_rails_c63da04ab4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY appointments
-    ADD CONSTRAINT fk_rails_c63da04ab4 FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -5461,11 +5461,11 @@ ALTER TABLE ONLY access_procedures
 
 
 --
--- Name: fk_rails_e048c6d191; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_e03d4a27ce; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY appointments
-    ADD CONSTRAINT fk_rails_e048c6d191 FOREIGN KEY (clinic_id) REFERENCES clinics(id);
+ALTER TABLE ONLY clinics_appointments
+    ADD CONSTRAINT fk_rails_e03d4a27ce FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
