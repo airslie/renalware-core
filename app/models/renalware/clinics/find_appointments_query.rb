@@ -6,15 +6,15 @@ module Renalware
       attr_reader :appointments, :query
 
       def initialize(query_params)
-        @query = Renalware::Clinics::Appointment.ransack(query_params, page, per_page)
+        @query = Renalware::Clinics::Appointment.ransack(query_params)
         apply_default_sorting
 
         @appointments =
           @query
             .result
             .includes(:user, :patient, :clinic)
-            .page(page)
-            .per(per_page)
+            .page(query_params[:page])
+            .per(query_params[:per_page])
       end
 
       private

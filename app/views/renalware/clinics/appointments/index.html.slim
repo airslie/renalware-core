@@ -1,7 +1,7 @@
 .row
   h1 Upcoming Clinic Visit Appointments
 
-= simple_form_for @query,
+= simple_form_for query,
     as: :q,
     url: appointments_path,
     method: :get do |f|
@@ -9,9 +9,9 @@
     .large-3.columns
       = f.input :starts_at_eq, as: :date_picker, label: "Date"
     .large-3.columns
-      = f.input :clinic_id_eq, collection: @clinics, label: "Clinic"
+      = f.input :clinic_id_eq, collection: clinics, label: "Clinic"
     .large-3.columns
-      = f.input :user_id_eq, collection: @users, label: "User"
+      = f.input :user_id_eq, collection: users, label: "User"
     .large-3.columns
       = f.submit "Filter", class: "button"
 
@@ -19,14 +19,14 @@
   table#appointments
     thead
       tr
-        th = sort_link(@query, :starts_at, "Date", default_order: :asc)
+        th = sort_link(query, :starts_at, "Date", default_order: :asc)
         th = Time
-        th = sort_link(@query, :patient_family_name, "Patient", default_order: :asc)
-        th = sort_link(@query, :clinic_name, "Clinic", default_order: :asc)
-        th = sort_link(@query, :user_family_name, "User", default_order: :asc)
+        th = sort_link(query, :patient_family_name, "Patient", default_order: :asc)
+        th = sort_link(query, :clinic_name, "Clinic", default_order: :asc)
+        th = sort_link(query, :user_family_name, "User", default_order: :asc)
 
     tbody
-      - @appointments.each do |appointment|
+      - appointments.each do |appointment|
         tr
           td = I18n.l appointment.starts_on
           td = appointment.start_time
@@ -34,4 +34,4 @@
           td = appointment.clinic.name
           td = appointment.user.full_name
 
-  = paginate @appointments
+  = paginate appointments
