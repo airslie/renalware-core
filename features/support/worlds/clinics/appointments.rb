@@ -5,7 +5,7 @@ module World
         # @section commands
         #
         def create_appointment(table_row)
-          starts_at = Time.strptime(table_row["starts_at_date"], "%d-%m-%Y")
+          starts_at = Time.strptime(table_row["starts_at_date"], "%d-%m-%Y").in_time_zone
           starts_at_time = table_row["starts_at_time"].split(":")
           starts_at = starts_at.change(hour: starts_at_time[0], min: starts_at_time[1])
 
