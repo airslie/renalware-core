@@ -16,9 +16,9 @@ module Renalware
 
         if patient_rule.save
           redirect_to patient_pathology_required_observations_path(@patient),
-            notice: t(".success", model_name: "patient_rule")
+            notice: t(".success", model_name: "Patient Rule")
         else
-          flash[:error] = t(".failed", model_name: "patient_rule")
+          flash[:error] = t(".failed", model_name: "Patient Rule")
           render_new(patient_rule)
         end
       end
@@ -42,7 +42,8 @@ module Renalware
       end
 
       def patient_rule_params
-        params.require(:pathology_request_algorithm_patient_rule)
+        params
+          .require(:pathology_request_algorithm_patient_rule)
           .permit(
             :patient_id,
             :lab_id,
