@@ -1,6 +1,10 @@
+require_dependency "renalware/clinics"
+
 module Renalware
   module Clinics
     class Appointment < ActiveRecord::Base
+      self.table_name = :clinics_appointments
+
       belongs_to :patient
       belongs_to :clinic
       belongs_to :user
@@ -12,11 +16,11 @@ module Renalware
 
       validates :starts_at, timeliness: { type: :datetime }
 
-      def date
-        starts_at.strftime(I18n.t("date.formats.default"))
+      def starts_on
+        starts_at.to_date
       end
 
-      def time
+      def start_time
         starts_at.strftime("%H:%M")
       end
     end
