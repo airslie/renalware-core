@@ -16,6 +16,10 @@ module Renalware
 
       validates :starts_at, timeliness: { type: :datetime }
 
+      ransacker :starts_at, type: :date do
+        Arel.sql("DATE(starts_at)")
+      end
+
       def starts_on
         starts_at.to_date
       end
