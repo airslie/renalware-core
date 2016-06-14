@@ -1,4 +1,4 @@
-require_dependency "renalware/drugs"
+require_dependency "renalware/clinics"
 
 module Renalware
   module Clinics

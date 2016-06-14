@@ -1,3 +1,5 @@
+require_dependency "renalware/clinics"
+
 module Renalware
   module Clinics
     class AppointmentsController < BaseController
@@ -6,13 +8,14 @@ module Renalware
       before_action :prepare_paging, only: [:index]
 
       def index
-        appointments_finder = FindAppointmentsQuery.new(query_params)
+        appointments_query = AppointmentQuery.new(query_params)
+        appointments = appointments_query.call.page(@page).per(@per_page)
 
-        authorize appointments_finder.appointments
+        authorize appointments
 
         render :index, locals: {
-          appointments: appointments_finder.appointments,
-          query: appointments_finder.query,
+          appointments: appointments,
+          query: appointments_query.search,
           clinics: Renalware::Clinics::Clinic.ordered,
           users: Renalware::User.ordered
         }
