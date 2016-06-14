@@ -16,8 +16,8 @@ module Renalware
         render :index, locals: {
           appointments: appointments,
           query: appointments_query.search,
-          clinics: Renalware::Clinics::Clinic.ordered,
-          users: Renalware::User.ordered
+          clinics: Clinic.ordered,
+          users: User.ordered
         }
       end
 
