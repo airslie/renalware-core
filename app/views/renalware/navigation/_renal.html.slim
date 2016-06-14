@@ -2,6 +2,8 @@ li.has-dropdown
   = link_to "Renal", '#'
   ul.dropdown
     li
+      = link_to "Appointments", appointments_path
+    li
       = link_to "Tx Wait List", transplants_wait_list_path(filter: "active")
     li
       = link_to "Ongoing HD Sessions", hd_ongoing_sessions_path
