@@ -6,7 +6,7 @@ module Renalware
       layout "renalware/layouts/printable"
       before_filter :load_patients
 
-      def index
+      def create
         doctor = Doctor.find(params[:doctor_id])
         clinic = Clinics::Clinic.find(params[:clinic_id])
 
@@ -14,7 +14,7 @@ module Renalware
           @patients, clinic, doctor, params.slice(:telephone)
         )
 
-        render :index, locals: { request_forms: request_forms }
+        render :create, locals: { request_forms: request_forms }
       end
 
       private
