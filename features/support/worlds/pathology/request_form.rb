@@ -24,9 +24,14 @@ module World
         def generate_pathology_request_forms(_clinician, form_parameters)
           patients, clinic, user, telephone = extract_request_form_params(form_parameters)
 
-          Renalware::Pathology::RequestFormPresenter.wrap(
-            patients, clinic, user, telephone: telephone
+          request_form_options = Renalware::Pathology::RequestAlgorithm::RequestFormOptions.new(
+            patient_ids: patients.map(&:id),
+            clinic_id: clinic.id,
+            user_id: user.id,
+            telephone: telephone
           )
+
+          Renalware::Pathology::RequestFormPresenter.wrap(patients, request_form_options)
         end
 
         # @section expectations
@@ -35,6 +40,8 @@ module World
           request_form = find_request_form_for_patient(request_forms, patient)
 
           expected_table.rows_hash.each do |key, expected_value|
+            expected_value = nil if expected_value.blank?
+
             expect(request_form.send(key.to_sym)).to eq(expected_value)
           end
         end
@@ -96,12 +103,14 @@ module World
           patients, clinic, user, telephone = extract_request_form_params(form_parameters)
 
           login_as clinician
-          visit pathology_forms_path({
-            clinic_id: clinic,
-            user_id: user,
-            telephone: telephone,
-            patient_ids: patients
-          })
+          visit pathology_forms_path(
+            request_form_options: {
+              clinic_id: clinic,
+              user_id: user,
+              telephone: telephone,
+              patient_ids: patients
+            }
+          )
         end
 
         # @section expectations

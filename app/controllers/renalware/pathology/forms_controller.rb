@@ -5,56 +5,30 @@ module Renalware
     class FormsController < Pathology::BaseController
       layout "renalware/layouts/printable"
       before_filter :load_patients
-      before_filter :load_users, only: :index
-      before_filter :load_clinics, only: :index
 
       def index
+        request_form_options = RequestAlgorithm::RequestFormOptions.new(request_form_params)
         request_forms = RequestFormPresenter.wrap(
-          @patients, @clinic, @user, params.slice(:telephone)
+          @patients, request_form_options
         )
 
         render :index, locals: {
+          request_form_options: request_form_options,
           request_forms: request_forms,
-          user: @user,
-          clinic: @clinic,
-          telephone: request_forms.first.telephone,
-          users: @users,
-          clinics: @clinics,
-          patients: @patients
         }
       end
 
       private
 
-      def load_users
-        @users = User.ordered
-        @user = find_user
-      end
-
-      def find_user
-        if params[:user_id].present?
-          User.find(params[:user_id])
-        else
-          @users.first
-        end
-      end
-
-      def load_clinics
-        @clinics = Clinics::Clinic.ordered
-        @clinic = find_clinic
-      end
-
-      def find_clinic
-        if params[:clinic_id].present?
-          @clinic = Clinics::Clinic.find(params[:clinic_id])
-        else
-          @clinics.first
-        end
-      end
-
       def load_patients
-        @patients = Pathology::Patient.find(params[:patient_ids])
+        @patients = Pathology::Patient.find(request_form_params[:patient_ids])
         authorize Renalware::Patient
+      end
+
+      def request_form_params
+        params
+          .require(:request_form_options)
+          .permit(:user_id, :clinic_id, :telephone, patient_ids: [])
       end
     end
   end

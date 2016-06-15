@@ -5,16 +5,16 @@ module Renalware
     class RequestFormPresenter
       attr_reader :patient, :clinic, :consultant, :telephone
 
-      def initialize(patient, clinic, consultant, options = {})
+      def initialize(patient, options)
         @patient = patient
-        @clinic = clinic
-        @consultant = consultant
-        @telephone = options[:telephone] # TODO: Add a telephone number on the users table
+        @clinic = options.clinic
+        @consultant = options.user
+        @telephone = options.telephone
       end
 
-      def self.wrap(patients, clinic, consultant, options = {})
+      def self.wrap(patients, options)
         patients.map do |patient|
-          new(patient, clinic, consultant, options)
+          new(patient, options)
         end
       end
 
