@@ -34,7 +34,7 @@ Feature: Generating pathology request forms
       | test_description | Test for HIV  |
       | frequency_type   | Always        |
 
-  @wip
+  @web
   Scenario: A clinician generated the forms for a single patient and requests a specific doctor and clinic
     Given Clyde is a clinician
     When Clyde generates a set of request forms with the following:
@@ -48,7 +48,7 @@ Feature: Generating pathology request forms
       | consultant       | Zoe Zimmerman    |
       | clinical_detail  | Transplant       |
       | contact          | Transplant       |
-      | telephone        | 7921838959       |
+      | telephone        |                  |
     And Clyde sees the following pathology requirements for Patty:
       | global_pathology  | BFF           |
       | patient_pathology | Test for HepB |
