@@ -37,6 +37,21 @@ Given(/^Doug is Patty's doctor$/) do
   @doug = @patty.doctor
 end
 
+Given(/^the following patients:$/) do |table|
+  table.raw.flatten.each do |patient_name|
+    given_name, family_name = patient_name.split(" ")
+
+    Renalware::Patient.create!(
+      family_name: family_name,
+      given_name: given_name,
+      local_patient_id: SecureRandom.uuid,
+      sex: "M",
+      born_on: Date.new(1989, 1, 1),
+      by: Renalware::SystemUser.find
+    )
+  end
+end
+
 Then(/^the patient is created with the following attributes:$/) do |table|
   expect_patient_to_be_created(table.rows_hash)
 end
