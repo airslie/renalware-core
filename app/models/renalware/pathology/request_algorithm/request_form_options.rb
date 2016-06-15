@@ -26,10 +26,6 @@ module Renalware
             end
         end
 
-        def default_user
-          all_users.first
-        end
-
         def clinic_id
           clinic.id
         end
@@ -43,16 +39,22 @@ module Renalware
             end
         end
 
-        def default_clinic
-          all_clinics.first
-        end
-
         def all_users
           @all_users ||= User.ordered
         end
 
         def all_clinics
           @all_clinics ||= Clinics::Clinic.ordered
+        end
+
+        private
+
+        def default_user
+          all_users.first
+        end
+
+        def default_clinic
+          all_clinics.first
         end
       end
     end
