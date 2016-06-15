@@ -7,21 +7,28 @@ module Renalware
       before_filter :load_patients
 
       def index
-        doctor = Doctor.find(params[:doctor_id])
-        clinic = Clinics::Clinic.find(params[:clinic_id])
-
+        request_form_options = RequestAlgorithm::RequestFormOptions.new(request_form_params)
         request_forms = RequestFormPresenter.wrap(
-          @patients, clinic, doctor, params.slice(:telephone)
+          @patients, request_form_options
         )
 
-        render :index, locals: { request_forms: request_forms }
+        render :index, locals: {
+          request_form_options: request_form_options,
+          request_forms: request_forms,
+        }
       end
 
       private
 
       def load_patients
-        @patients = Pathology::Patient.find(params[:patient_ids])
+        @patients = Pathology::Patient.find(request_form_params[:patient_ids])
         authorize Renalware::Patient
+      end
+
+      def request_form_params
+        params
+          .require(:request_form_options)
+          .permit(:user_id, :clinic_id, :telephone, patient_ids: [])
       end
     end
   end

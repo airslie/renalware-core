@@ -11,7 +11,8 @@ Feature: Generating pathology request forms
   The doctor, telephone number & clinic fields on the form are changeable.
 
   Background:
-    Given Zoe Zimmerman is a doctor with telephone number: 7921838959
+    Given the following users:
+      | Zoe Zimmerman |
     And the date today is 12-10-2016
     And the global rule sets:
       | request_description_code | BFF        |
@@ -38,7 +39,7 @@ Feature: Generating pathology request forms
     Given Clyde is a clinician
     When Clyde generates a set of request forms with the following:
       | clinic   | Transplant    |
-      | doctor   | Zoe Zimmerman |
+      | user     | Zoe Zimmerman |
       | patients | Patty         |
     Then Clyde sees these details at the top of Patty's form
       | patient_name     | THEPATIENT PATTY |
@@ -47,7 +48,7 @@ Feature: Generating pathology request forms
       | consultant       | Zoe Zimmerman    |
       | clinical_detail  | Transplant       |
       | contact          | Transplant       |
-      | telephone        | 7921838959       |
+      | telephone        |                  |
     And Clyde sees the following pathology requirements for Patty:
       | global_pathology  | BFF           |
       | patient_pathology | Test for HepB |
@@ -57,7 +58,7 @@ Feature: Generating pathology request forms
     Given Clyde is a clinician
     When Clyde generates a set of request forms with the following:
       | clinic    | Transplant    |
-      | doctor    | Zoe Zimmerman |
+      | user      | Zoe Zimmerman |
       | patients  | Patty         |
       | telephone | 123           |
     Then Clyde sees these details at the top of Patty's form
@@ -77,7 +78,7 @@ Feature: Generating pathology request forms
     Given Clyde is a clinician
     When Clyde generates a set of request forms with the following:
       | clinic    | Transplant    |
-      | doctor    | Zoe Zimmerman |
+      | user      | Zoe Zimmerman |
       | patients  | Patty, Don    |
       | telephone | 123           |
     Then Clyde sees these details at the top of Patty's form
