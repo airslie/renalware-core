@@ -20,7 +20,7 @@ module Renalware
           telephone: request_forms.first.telephone,
           users: @users,
           clinics: @clinics,
-          patient_ids: @patients.map(&:id).uniq
+          patients: @patients
         }
       end
 

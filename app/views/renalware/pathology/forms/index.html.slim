@@ -3,8 +3,8 @@
 .row
   .large-4.columns
     = form_tag pathology_forms_path, method: :get do
-      - patient_ids.each do |patient_id|
-        = hidden_field_tag "patient_ids[]", patient_id
+      - patients.each do |patient|
+        = hidden_field_tag "patient_ids[]", patient.id
       .row
         .large-6.columns
           label Consultant User ID:
