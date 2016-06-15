@@ -1,3 +1,18 @@
+.row
+  h4 Pathology Request CRS Form Preview
+
+.row
+  .large-4.columns
+    = simple_form_for request_form_options, url: pathology_forms_path, as: :request_form_options, method: :get do |f|
+      = f.input :patient_ids, as: :hidden_array
+      = f.input :clinic_id, collection: request_form_options.all_clinics, input_html: { class: "small-input" }
+      = f.input :user_id, collection: request_form_options.all_users, label_method: :full_name, input_html: { class: "small-input" }
+      = f.input :telephone, input_html: { class: "small-input" }
+      = f.button :submit, "Update Forms"
+
+hr.page_break
+
+.row
 - request_forms.each do |request_form|
   - if request_form.has_tests_required?
     .row data-role="form_summary" data-patient-id="#{request_form.patient.id}"
