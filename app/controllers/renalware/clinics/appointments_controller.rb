@@ -10,7 +10,7 @@ module Renalware
       def index
         appointments_query = AppointmentQuery.new(query_params)
         appointments = appointments_query.call.page(@page).per(@per_page)
-        patient_ids = appointments.map(&:patient_id)
+        patient_ids = appointments.map(&:patient_id).uniq
 
         authorize appointments
 
