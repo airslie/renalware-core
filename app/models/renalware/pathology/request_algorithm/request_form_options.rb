@@ -4,7 +4,7 @@ module Renalware
   module Pathology
     module RequestAlgorithm
       class RequestFormOptions
-        attr_reader :user, :clinic, :telephone, :patient_ids
+        attr_reader :telephone, :patient_ids
 
         def initialize(params)
           @params = params
