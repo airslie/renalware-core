@@ -35,6 +35,13 @@ module World
           Renalware::Pathology::RequestFormPresenter.wrap(patients, request_form_options)
         end
 
+        def generate_request_forms_for_appointments(_clinician, appointments)
+          generate_request_forms_for_single_patient(
+            _clinician,
+            patients: appointments.map(&:patient)
+          )
+        end
+
         def update_request_form_user(user_full_name)
           update_request_form_option(user: user_full_name)
         end
