@@ -4,16 +4,23 @@ module World
       module Domain
         # @section commands
         #
-        def extract_request_form_params(form_parameters)
-          clinic_name = form_parameters.fetch("clinic")
-          clinic = Renalware::Clinics::Clinic.find_by!(name: clinic_name)
+        def extract_request_form_params(form_params)
+          clinic_name = form_params[:clinic]
+          clinic =
+            if clinic_name.present?
+              Renalware::Clinics::Clinic.find_by!(name: clinic_name)
+            end
 
-          given_name, family_name = form_parameters.fetch("user").split(" ")
-          user = Renalware::User.find_by!(given_name: given_name, family_name: family_name)
+          user_names = form_params[:user]
+          user =
+            if user_names.present?
+              given_name, family_name = user_names.split(" ")
+              Renalware::User.find_by(given_name: given_name, family_name: family_name)
+            end
 
-          telephone = form_parameters["telephone"]
+          telephone = form_params[:telephone]
 
-          patient_names = form_parameters.fetch("patients").split(", ")
+          patient_names = form_params.fetch(:patients).split(", ")
           patients = patient_names.map do |patient_family_name|
             Renalware::Pathology::Patient.find_by!(family_name: patient_family_name)
           end
@@ -21,15 +28,23 @@ module World
           [patients, clinic, user, telephone]
         end
 
-        def generate_pathology_request_forms(_clinician, form_parameters)
-          patients, clinic, user, telephone = extract_request_form_params(form_parameters)
+        def generate_request_forms_for_single_patient(_clinician, params)
+          raw_request_form_options = overwrite_or_create_raw_request_form_options(params)
+          request_form_options, patients = generate_request_form_options(raw_request_form_options)
 
-          request_form_options = Renalware::Pathology::RequestAlgorithm::RequestFormOptions.new(
-            patient_ids: patients.map(&:id),
-            clinic_id: clinic.id,
-            user_id: user.id,
-            telephone: telephone
-          )
+          Renalware::Pathology::RequestFormPresenter.wrap(patients, request_form_options)
+        end
+
+        def update_request_form_user(user_full_name)
+          raw_request_form_options = overwrite_or_create_raw_request_form_options(user: user_full_name)
+          request_form_options, patients = generate_request_form_options(raw_request_form_options)
+
+          Renalware::Pathology::RequestFormPresenter.wrap(patients, request_form_options)
+        end
+
+        def update_request_form_clinic(clinic_name)
+          raw_request_form_options = overwrite_or_create_raw_request_form_options(clinic: clinic_name)
+          request_form_options, patients = generate_request_form_options(raw_request_form_options)
 
           Renalware::Pathology::RequestFormPresenter.wrap(patients, request_form_options)
         end
@@ -88,6 +103,29 @@ module World
 
         private
 
+        def overwrite_or_create_raw_request_form_options(params)
+          if defined? @raw_request_form_options
+            params.each do |key,value|
+              @raw_request_form_options[key] = value
+            end
+          else
+            @raw_request_form_options = params
+          end
+
+          @raw_request_form_options
+        end
+
+        def generate_request_form_options(raw_request_form_options)
+          patients, clinic, user, telephone = extract_request_form_params(raw_request_form_options)
+
+          options = { patient_ids: patients.map(&:id) }
+          options[:clinic_id] = clinic.id if clinic.present?
+          options[:user_id] = user.id if user.present?
+          options[:telephone] = telephone if telephone.present?
+
+          [Renalware::Pathology::RequestAlgorithm::RequestFormOptions.new(options), patients]
+        end
+
         def find_request_form_for_patient(request_forms, patient)
           request_forms.detect do |request_form|
             request_form.patient.id == patient.id
@@ -99,18 +137,27 @@ module World
         include Domain
         # @section commands
         #
-        def generate_pathology_request_forms(clinician, form_parameters)
-          patients, clinic, user, telephone = extract_request_form_params(form_parameters)
+        def generate_request_forms_for_single_patient(clinician, params)
+          patients, clinic, user, telephone = extract_request_form_params(params)
 
           login_as clinician
-          visit pathology_forms_path(
-            request_form_options: {
-              clinic_id: clinic,
-              user_id: user,
-              telephone: telephone,
-              patient_ids: patients
-            }
-          )
+
+          visit patient_pathology_required_observations_path(patient_id: patients.first.id)
+
+          click_on "Generate Forms"
+          expect(page).to have_text("Pathology Request CRS Form Preview")
+        end
+
+        def update_request_form_user(user_full_name)
+          select user_full_name, from: "User"
+
+          click_on "Update Forms"
+        end
+
+        def update_request_form_clinic(clinic_name)
+          select clinic_name, from: "Clinic"
+
+          click_on "Update Forms"
         end
 
         # @section expectations

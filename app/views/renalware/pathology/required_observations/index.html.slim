@@ -4,7 +4,7 @@
     .large-4.columns
       .row
         .large-12.columns
-          label Clinic:
+          label for="clinic_id" Clinic
           = form_tag(patient_pathology_required_observations_path(patient_id: @patient.id), method: :get) do
             = select_tag "clinic_id",
                 options_from_collection_for_select(clinics, 'id', 'name', clinic.id),
