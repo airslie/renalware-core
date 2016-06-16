@@ -24,6 +24,10 @@
         = label_tag element_id, role.name.humanize
 
     .row
+      .large-2.columns
+        = f.input :telephone, input_html: { class: "input small" }
+
+    .row
       - msg = @user.approved? ? "Update" : "Approve"
       = f.submit msg, class: "button"
       span= " or "
