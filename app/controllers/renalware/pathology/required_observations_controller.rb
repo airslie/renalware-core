@@ -30,7 +30,7 @@ module Renalware
           if params[:clinic_id].present?
             Renalware::Clinics::Clinic.find(params[:clinic_id])
           else
-            Renalware::Clinics::Clinic.first
+            Renalware::Clinics::Clinic.ordered.first
           end
         end
       end
