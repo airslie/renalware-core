@@ -1,11 +1,20 @@
 - opts = { title: "Required Observations", navigation_partial: "renalware/pathology/navigation" }
 = render layout: "renalware/patients/layout", locals: opts do
   .row
-    = form_tag(patient_pathology_required_observations_path(patient_id: @patient.id), method: :get) do
-      .large-2.columns
-        = select_tag "clinic_id", options_from_collection_for_select(clinics, 'id', 'name', clinic.id)
-      .large-10.columns
-        = submit_tag "Change Clinic", class: "button tiny"
+    .large-4.columns
+      .row
+        .large-12.columns
+          label Clinic:
+          = form_tag(patient_pathology_required_observations_path(patient_id: @patient.id), method: :get) do
+            = select_tag "clinic_id",
+                options_from_collection_for_select(clinics, 'id', 'name', clinic.id),
+                onchange: raw("this.form.submit();")
+      .row
+        .large-12.columns
+          = simple_form_for request_form_options, url: pathology_forms_path, as: :request_form_options do |f|
+            = f.input :patient_ids, as: :hidden_array
+            = f.input :clinic_id, as: :hidden
+            = f.button :submit, "Generate Forms", class: "button tiny"
 
   .row
     .large-12.columns
