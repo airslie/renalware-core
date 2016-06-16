@@ -10,6 +10,10 @@ When(/^Clyde chooses the clinic (\w+)$/) do |clinic_name|
   @request_forms = update_request_form_clinic(clinic_name)
 end
 
+When(/^Clyde chooses the telephone number (\d+)$/) do |telephone|
+  @request_forms = update_request_form_telephone(telephone)
+end
+
 Then(/^Clyde sees these details at the top of (\w+)'s form$/) do |patient_name, table|
   patient = get_patient(patient_name)
   expect_patient_summary_to_match_table(@request_forms, patient, table)

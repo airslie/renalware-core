@@ -36,17 +36,15 @@ module World
         end
 
         def update_request_form_user(user_full_name)
-          raw_request_form_options = overwrite_or_create_raw_request_form_options(user: user_full_name)
-          request_form_options, patients = generate_request_form_options(raw_request_form_options)
-
-          Renalware::Pathology::RequestFormPresenter.wrap(patients, request_form_options)
+          update_request_form_option(user: user_full_name)
         end
 
         def update_request_form_clinic(clinic_name)
-          raw_request_form_options = overwrite_or_create_raw_request_form_options(clinic: clinic_name)
-          request_form_options, patients = generate_request_form_options(raw_request_form_options)
+          update_request_form_option(clinic: clinic_name)
+        end
 
-          Renalware::Pathology::RequestFormPresenter.wrap(patients, request_form_options)
+        def update_request_form_telephone(telephone)
+          update_request_form_option(telephone: telephone)
         end
 
         # @section expectations
@@ -57,7 +55,7 @@ module World
           expected_table.rows_hash.each do |key, expected_value|
             expected_value = nil if expected_value.blank?
 
-            expect(request_form.send(key.to_sym)).to eq(expected_value)
+            expect(request_form.send(key.to_sym).to_s).to eq(expected_value.to_s)
           end
         end
 
@@ -102,6 +100,13 @@ module World
         end
 
         private
+
+        def update_request_form_option(option_hash)
+          raw_request_form_options = overwrite_or_create_raw_request_form_options(option_hash)
+          request_form_options, patients = generate_request_form_options(raw_request_form_options)
+
+          Renalware::Pathology::RequestFormPresenter.wrap(patients, request_form_options)
+        end
 
         def overwrite_or_create_raw_request_form_options(params)
           if defined? @raw_request_form_options
@@ -150,13 +155,16 @@ module World
 
         def update_request_form_user(user_full_name)
           select user_full_name, from: "User"
-
           click_on "Update Forms"
         end
 
         def update_request_form_clinic(clinic_name)
           select clinic_name, from: "Clinic"
+          click_on "Update Forms"
+        end
 
+        def update_request_form_telephone(telephone)
+          fill_in "Telephone", with: telephone
           click_on "Update Forms"
         end
 

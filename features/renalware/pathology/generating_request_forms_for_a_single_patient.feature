@@ -52,6 +52,7 @@ Feature: Generating request forms for a single patient
     When Clyde generates the request form for Patty
     And Clyde chooses the consultant Zoe Zimmerman
     And Clyde chooses the clinic Transplant
+    And Clyde chooses the telephone number 7983123123
     Then Clyde sees these details at the top of Patty's form
       | patient_name    | THEPATIENT PATTY |
       | date            | 12-10-2016       |
@@ -59,7 +60,7 @@ Feature: Generating request forms for a single patient
       | consultant      | Zoe Zimmerman    |
       | clinical_detail | Transplant       |
       | contact         | Transplant       |
-      | telephone       |                  |
+      | telephone       | 7983123123       |
     And Clyde sees the following pathology requirements for Patty:
       | global_pathology  | BFF           |
       | patient_pathology | Test for HepB |
