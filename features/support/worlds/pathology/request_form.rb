@@ -138,7 +138,7 @@ module World
         # @section commands
         #
         def generate_request_forms_for_single_patient(clinician, params)
-          patients, clinic, user, telephone = extract_request_form_params(params)
+          patients, _clinic, _user, _telephone = extract_request_form_params(params)
 
           login_as clinician
 
