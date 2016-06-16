@@ -7,8 +7,8 @@ module Renalware
         attr_reader :telephone, :patient_ids
 
         def initialize(params)
-          @requested_user_id = params[:user_id]
           @requested_clinic_id = params[:clinic_id]
+          @requested_user_id = params[:user_id] || clinic.consultant
           @telephone  = params[:telephone] || user.telephone
           @patient_ids = params[:patient_ids]
         end
