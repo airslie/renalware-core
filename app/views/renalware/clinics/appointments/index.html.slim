@@ -16,14 +16,6 @@
       = f.submit "Filter", class: "button"
 
 .row
-    b Pathology Request Forms:
-    = form_tag pathology_forms_path, method: :post do |f|
-      - patient_ids.each do |patient_id|
-        = hidden_field_tag "request_form_options[patient_ids][]", patient_id
-
-      = submit_tag "Generate for all patients in this list (including all pages)", class: "button"
-
-.row
   table#appointments
     thead
       tr
