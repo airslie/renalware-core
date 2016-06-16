@@ -9,8 +9,7 @@ module Renalware
         def initialize(params)
           @requested_user_id = params[:user_id]
           @requested_clinic_id = params[:clinic_id]
-          # TODO: Add a telephone number on the users table and make this the default option
-          @telephone  = params[:telephone]
+          @telephone  = params[:telephone] || user.telephone
           @patient_ids = params[:patient_ids]
         end
 
