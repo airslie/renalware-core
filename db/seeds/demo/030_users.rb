@@ -40,6 +40,7 @@ module Renalware
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :clinician)]
         u.signature = "Dr #{site}"
+        u.telephone = Faker::PhoneNumber.phone_number
       end
     log "---#{username} created!"
 
