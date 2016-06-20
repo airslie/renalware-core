@@ -1,6 +1,8 @@
+require "document/enum"
+
 module Renalware
   class YearDatedConfirmation < NestedAttribute
-    attribute :status, enums: %i(yes no unknown)
+    attribute :status, Document::Enum, enums: %i(yes no unknown)
     attribute :confirmed_on_year, Integer
 
     validates :confirmed_on_year, numericality: { allow_blank: true, only_integer: true }
