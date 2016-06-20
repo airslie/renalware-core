@@ -1,5 +1,5 @@
 When(/^Clyde bookmarks (\w+) (\w+)$/) do |patient_given_name, patient_family_name|
-  record_bookmark(@clyde, patient_given_name, patient_family_name)
+  bookmark_patient(@clyde, patient_given_name, patient_family_name)
 end
 
 Then(/^the following patients appear in Clyde's bookmarked patient list:$/) do |table|
