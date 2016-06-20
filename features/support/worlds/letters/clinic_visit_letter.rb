@@ -70,7 +70,7 @@ module World
     module Web
       include Domain
 
-      def create_clinic_visit_letter(patient:, visit: nil, user:, issued_on:)
+      def create_clinic_visit_letter(patient:, user:, issued_on:)
         login_as user
         visit patient_clinic_visits_path(patient)
         click_on "Create Letter"
@@ -86,7 +86,7 @@ module World
         end
       end
 
-      def update_clinic_visit_letter(patient:, visit: nil, user:)
+      def update_clinic_visit_letter(patient:, user:)
         login_as user
         visit patient_clinic_visits_path(patient)
         click_on "Preview Letter"
