@@ -22,3 +22,11 @@ ul.side-nav
     li.link= link_to "Donor Summary", patient_transplants_donor_dashboard_path(@patient)
   - else
     li.link= link_to "Recipient Summary", patient_transplants_recipient_dashboard_path(@patient)
+  li.divider
+  li.heading Bookmark
+  - if @patient_is_bookmarked
+    = simple_form_for @patient.bookmarks.new, url: patient_bookmarks_path(patient_id: @patient.id), method: :delete do |f|
+      li.ink = link_to "Remove from Bookmarks", "#", data: { behaviour: "submit" }
+  - else
+    = simple_form_for @patient.bookmarks.new, url: patient_bookmarks_path(patient_id: @patient.id) do |f|
+      li.link= link_to "Bookmark this patient", "#", data: { behaviour: "submit" }
