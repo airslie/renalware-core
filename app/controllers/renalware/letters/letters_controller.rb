@@ -73,8 +73,8 @@ module Renalware
 
       def load_event
         @event = nil
-        if id = params[:clinic_visit_id]
-          @event = Clinics::ClinicVisit.find(id)
+        if params[:clinic_visit_id]
+          @event = Clinics::ClinicVisit.find(params[:clinic_visit_id])
         end
       end
 

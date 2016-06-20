@@ -66,7 +66,7 @@ module World
     module Web
       include Domain
 
-      def create_clinic_visit_letter(patient:, visit:, user:, issued_on:, recipient:, ccs: nil)
+      def create_clinic_visit_letter(patient:, visit: nil, user:, issued_on:)
         login_as user
         visit patient_clinic_visits_path(patient)
         click_on "Create Letter"
@@ -77,35 +77,12 @@ module World
         select user.full_name, from: "Author"
         fill_in "Description", with: attributes[:description]
 
-        case recipient
-        when Renalware::Patient
-          choose("letters_letter_draft_main_recipient_attributes_person_role_patient")
-        when Renalware::Doctor
-          choose("letters_letter_draft_main_recipient_attributes_person_role_doctor")
-        else
-          choose("Postal Address Below")
-          fill_in "Name", with: recipient[:name]
-          fill_in "Line 1", with: "1 Main st"
-          fill_in "City", with: recipient[:city]
-        end
-
-        if ccs.present?
-          ccs.each_with_index do |cc, index|
-            find(".call-to-action").click
-            within(".nested-fields:nth-child(#{index + 1})") do
-              fill_in "Name", with: cc[:name]
-              fill_in "Line 1", with: "1 Main st"
-              fill_in "City", with: cc[:city]
-            end
-          end
-        end
-
         within ".bottom" do
           click_on "Create"
         end
       end
 
-      def update_clinic_visit_letter(patient:, visit:, user:)
+      def update_clinic_visit_letter(patient:, visit: nil, user:)
         login_as user
         visit patient_clinic_visits_path(patient)
         click_on "Preview Letter"
