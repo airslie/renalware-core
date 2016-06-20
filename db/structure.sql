@@ -2350,7 +2350,8 @@ ALTER SEQUENCE problem_versions_id_seq OWNED BY problem_versions.id;
 CREATE TABLE renal_profiles (
     id integer NOT NULL,
     patient_id integer NOT NULL,
-    diagnosed_on date NOT NULL,
+    esrf_on date,
+    first_seen_on date,
     prd_description_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL

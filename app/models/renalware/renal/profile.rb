@@ -8,13 +8,13 @@ module Renalware
       has_one :address_at_diagnosis, as: :addressable, class_name: "Address"
 
       validates :patient, presence: true
-      validates :diagnosed_on, presence: true
-      validates :diagnosed_on, timeliness: { type: :date }
+      validates :esrf_on, timeliness: { type: :date, allow_nil: true }
+      validates :first_seen_on, timeliness: { type: :date, allow_nil: true }
 
       accepts_nested_attributes_for :address_at_diagnosis, reject_if: Address.reject_if_blank
 
       def to_s
-        [I18n.l(diagnosed_on), prd_description].compact.join(" ")
+        [I18n.l(esrf_on), prd_description].compact.join(" ")
       end
     end
   end
