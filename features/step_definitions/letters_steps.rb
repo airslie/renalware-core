@@ -32,13 +32,13 @@ end
 
 When(/^Nathalie drafts a clinic letter for Patty$/) do
   create_clinic_visit_letter(patient: @patty, visit: @clinic_visit, user: @nathalie,
-    issued_on: Time.zone.today, recipient: @patty, ccs: nil
+    issued_on: Time.zone.today
   )
 end
 
 When(/^Nathalie submits an erroneous clinic visit letter$/) do
   create_clinic_visit_letter(patient: @patty, visit: @clinic_visit, user: @nathalie,
-    issued_on: nil, recipient: @patty, ccs: nil
+    issued_on: nil
   )
 end
 

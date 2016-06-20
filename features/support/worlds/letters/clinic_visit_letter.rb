@@ -28,16 +28,14 @@ module World
 
       # @section commands
       #
-      def create_clinic_visit_letter(patient:, visit:, user:, issued_on:, recipient:, ccs: nil)
+      def create_clinic_visit_letter(patient:, visit:, user:, issued_on:)
         patient = letters_patient(patient)
 
         letter_attributes = valid_simple_letter_attributes(patient).merge(
           event: visit,
           issued_on: issued_on,
           author: user,
-          by: user,
-          main_recipient_attributes: build_main_recipient_attributes(recipient),
-          cc_recipients_attributes: build_cc_recipients_attributes(ccs)
+          by: user
         )
 
         Renalware::Letters::DraftLetter.build.call(patient, letter_attributes)
