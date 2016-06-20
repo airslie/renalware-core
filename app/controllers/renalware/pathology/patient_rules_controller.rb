@@ -4,6 +4,7 @@ module Renalware
   module Pathology
     class PatientRulesController < Pathology::BaseController
       before_filter :load_patient
+      before_filter :load_bookmark
 
       def new
         patient_rule = @patient.rules.new

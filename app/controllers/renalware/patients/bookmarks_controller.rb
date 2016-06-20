@@ -2,6 +2,7 @@ module Renalware
   module Patients
     class BookmarksController < BaseController
       before_action :load_patient
+      before_action :load_bookmark
 
       def create
         patient = Renalware::Patient.find(params[:patient_id])

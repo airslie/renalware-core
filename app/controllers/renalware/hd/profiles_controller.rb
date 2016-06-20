@@ -2,6 +2,7 @@ module Renalware
   module HD
     class ProfilesController < BaseController
       before_filter :load_patient
+      before_filter :load_bookmark
 
       def show
         profile = Profile.for_patient(@patient).first

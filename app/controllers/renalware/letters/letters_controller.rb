@@ -4,6 +4,7 @@ module Renalware
   module Letters
     class LettersController < Letters::BaseController
       before_filter :load_patient
+      before_filter :load_bookmark
 
       def index
         render :index, locals: { letters: present_letters(@patient.letters) }

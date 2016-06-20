@@ -3,6 +3,7 @@ module Renalware
     include PresenterHelper
 
     before_action :load_patient, :except => [:index, :destroy]
+    before_action :load_bookmark, :except => [:index, :destroy]
     before_action :load_peritonitis_episode, :only => [:show, :edit, :update]
 
     def show

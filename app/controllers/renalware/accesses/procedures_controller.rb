@@ -2,6 +2,7 @@ module Renalware
   module Accesses
     class ProceduresController < Accesses::BaseController
       before_filter :load_patient
+      before_filter :load_bookmark
 
       def show
         procedure = @patient.procedures.find(params[:id])

@@ -2,6 +2,7 @@ module Renalware
   module Transplants
     class RecipientOperationsController < BaseController
       before_filter :load_patient
+      before_filter :load_bookmark
 
       def show
         @recipient_operation = RecipientOperation.for_patient(@patient).find(params[:id])

@@ -4,6 +4,7 @@ module Renalware
   module Events
     class EventsController < BaseController
       before_action :load_patient, only: [:new, :create, :index]
+      before_action :load_bookmark, only: [:new, :create, :index]
 
       def new
         @event = new_event_for_patient

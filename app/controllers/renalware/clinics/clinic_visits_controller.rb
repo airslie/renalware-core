@@ -3,6 +3,7 @@ module Renalware
     class ClinicVisitsController < BaseController
 
       before_filter :load_patient
+      before_filter :load_bookmark
       before_filter :load_clinic_visit, only: [:edit, :update, :destroy]
 
       def index

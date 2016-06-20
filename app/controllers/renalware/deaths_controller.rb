@@ -1,6 +1,7 @@
 module Renalware
   class DeathsController < BaseController
     before_action :load_patient, only: [:edit, :update]
+    before_action :load_bookmark, only: [:edit, :update]
 
     def index
       @patients = Patient.dead

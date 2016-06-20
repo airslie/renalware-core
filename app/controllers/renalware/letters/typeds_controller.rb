@@ -4,6 +4,7 @@ module Renalware
   module Letters
     class TypedsController < Letters::BaseController
       before_filter :load_patient
+      before_filter :load_bookmark
 
       def create
         letter = @patient.letters.draft.find(params[:letter_id])

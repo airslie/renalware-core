@@ -2,6 +2,7 @@ module Renalware
   module HD
     class SessionsController < BaseController
       before_filter :load_patient
+      before_filter :load_bookmark
 
       def index
         query = Sessions::PatientQuery.new(patient: @patient, q: params[:q])

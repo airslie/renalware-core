@@ -5,6 +5,7 @@ module Renalware
     skip_after_action :verify_authorized, only: [:show, :search]
     before_action :prepare_paging, only: [:index]
     before_action :load_patient, only: [:show, :edit, :update]
+    before_action :load_bookmark, only: [:show, :edit, :update]
 
     def index
       @patients = @patient_search.result.page(@page).per(@per_page)

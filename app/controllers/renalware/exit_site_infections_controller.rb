@@ -3,6 +3,7 @@ module Renalware
     include PresenterHelper
 
     before_action :load_patient, only: [:new, :create, :show, :edit, :update]
+    before_action :load_bookmark, only: [:new, :create, :show, :edit, :update]
     before_action :load_exit_site_infection, only: [:show, :edit, :update]
 
     def show

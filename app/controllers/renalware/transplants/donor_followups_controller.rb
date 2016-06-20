@@ -2,6 +2,7 @@ module Renalware
   module Transplants
     class DonorFollowupsController < BaseController
       before_filter :load_patient
+      before_filter :load_bookmark
       before_filter :load_operation
 
       def show

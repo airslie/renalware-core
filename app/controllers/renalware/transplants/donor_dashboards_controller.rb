@@ -2,6 +2,7 @@ module Renalware
   module Transplants
     class DonorDashboardsController < BaseController
       before_filter :load_patient
+      before_filter :load_bookmark
 
       def show
         @donations = Donation.for_patient(@patient).reversed

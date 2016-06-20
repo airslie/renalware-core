@@ -3,6 +3,7 @@ module Renalware
     class RecipientWorkupsController < BaseController
 
       before_filter :load_patient
+      before_filter :load_bookmark
 
       def show
         @workup = RecipientWorkup.for_patient(@patient).first_or_initialize
