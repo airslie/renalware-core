@@ -6,6 +6,7 @@ module Renalware
       include Accountable
       extend Enumerize
 
+      belongs_to :event, polymorphic: true
       belongs_to :author, class_name: "User"
       belongs_to :patient
       belongs_to :letterhead

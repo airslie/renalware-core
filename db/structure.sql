@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.2
--- Dumped by pg_dump version 9.5.2
+-- Dumped from database version 9.5.1
+-- Dumped by pg_dump version 9.5.1
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1341,6 +1341,8 @@ ALTER SEQUENCE letter_letterheads_id_seq OWNED BY letter_letterheads.id;
 
 CREATE TABLE letter_letters (
     id integer NOT NULL,
+    event_type character varying,
+    event_id integer,
     patient_id integer,
     type character varying NOT NULL,
     issued_on date NOT NULL,
@@ -4557,6 +4559,13 @@ CREATE INDEX index_letter_letters_on_author_id ON letter_letters USING btree (au
 --
 
 CREATE INDEX index_letter_letters_on_created_by_id ON letter_letters USING btree (created_by_id);
+
+
+--
+-- Name: index_letter_letters_on_event_type_and_event_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_letter_letters_on_event_type_and_event_id ON letter_letters USING btree (event_type, event_id);
 
 
 --
