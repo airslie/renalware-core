@@ -3,7 +3,6 @@ Feature: Recording a clinic visit
   Background:
     Given Patty is a patient
       And Clyde is a clinician
-      And Clyde is logged in
 
   @web
   Scenario: A clinician created a clinic visit for a patient
