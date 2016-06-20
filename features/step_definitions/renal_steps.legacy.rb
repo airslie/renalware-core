@@ -3,7 +3,7 @@ Given(/^Clyde has Patty's renal profile$/) do
 end
 
 When(/^Clyde submits Patty's ESRF details$/) do
-  fill_in "ESRF Date", with: fake_date
+  fill_in "ESRF on", with: fake_date
 
   fill_autocomplete "prd_description_auto_complete",
     with: "Cystinuria", select: "Cystinuria"
