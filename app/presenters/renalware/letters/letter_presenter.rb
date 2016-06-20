@@ -4,6 +4,15 @@ require "collection_presenter"
 module Renalware
   module Letters
     class LetterPresenter < DumbDelegator
+      def type
+        case event_type
+        when "Renalware::Clinics::ClinicVisit"
+          "Clinic Visit"
+        else
+          "Simple"
+        end
+      end
+
       def patient
         @patient_presenter ||= PatientPresenter.new(super)
       end
