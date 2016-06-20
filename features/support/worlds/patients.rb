@@ -31,3 +31,5 @@ module World
     end
   end
 end
+
+Dir[Rails.root.join("features/support/worlds/patients/*.rb")].each { |f| require f }
