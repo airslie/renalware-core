@@ -8,6 +8,8 @@ ruby:
     = link_to "cancel", back_path
 
 .form-content
+  = render f.object.event if f.object.event.present?
+
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Header", name: "header" } do
     = f.input :event_type, as: :hidden
