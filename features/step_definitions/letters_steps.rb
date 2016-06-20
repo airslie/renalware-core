@@ -11,7 +11,7 @@ Given(/^Patty is the main recipient on a pending letter$/) do
 end
 
 Given(/^Patty has a letter for a clinic visit$/) do
-  @letter = set_up_clinic_visit_letter_for(@patty, visit: @clinic_visit, user: @nathalie)
+  @letter = set_up_clinic_visit_letter_for(@patty, user: @nathalie)
 end
 
 
@@ -31,15 +31,11 @@ When(/^Nathalie submits an erroneous letter$/) do
 end
 
 When(/^Nathalie drafts a clinic letter for Patty$/) do
-  create_clinic_visit_letter(patient: @patty, visit: @clinic_visit, user: @nathalie,
-    issued_on: Time.zone.today
-  )
+  create_clinic_visit_letter(patient: @patty, user: @nathalie, issued_on: Time.zone.today)
 end
 
 When(/^Nathalie submits an erroneous clinic visit letter$/) do
-  create_clinic_visit_letter(patient: @patty, visit: @clinic_visit, user: @nathalie,
-    issued_on: nil
-  )
+  create_clinic_visit_letter(patient: @patty, user: @nathalie, issued_on: nil)
 end
 
 When(/^Nathalie updates Patty's address$/) do
@@ -60,7 +56,7 @@ Then(/^Nathalie can update Patty's letter$/) do
 end
 
 Then(/^Nathalie can update Patty's clinic visit letter$/) do
-  update_clinic_visit_letter(patient: @patty, visit: @clinic_visit, user: @nathalie)
+  update_clinic_visit_letter(patient: @patty, user: @nathalie)
 end
 
 Then(/^the letter is not accepted$/) do
@@ -86,5 +82,5 @@ Then(/^Doug can review the letter$/) do
 end
 
 Then(/^the clinic visit has a letter$/) do
-  expect_clinic_visit_letter_to_exist(visit: @clinic_visit)
+  expect_clinic_visit_letter_to_exist(patient: @patty)
 end

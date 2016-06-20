@@ -10,8 +10,9 @@ module World
 
       # @section set-ups
       #
-      def set_up_clinic_visit_letter_for(patient, visit:, user:)
+      def set_up_clinic_visit_letter_for(patient, user:)
         patient = letters_patient(patient)
+        visit = clinic_visit_for(patient)
 
         letter_attributes = valid_simple_letter_attributes(patient).merge(
           event: visit,
@@ -28,7 +29,8 @@ module World
 
       # @section commands
       #
-      def create_clinic_visit_letter(patient:, visit:, user:, issued_on:)
+      def create_clinic_visit_letter(patient:, user:, issued_on:)
+        visit = clinic_visit_for(patient)
         patient = letters_patient(patient)
 
         letter_attributes = valid_simple_letter_attributes(patient).merge(
@@ -41,8 +43,9 @@ module World
         Renalware::Letters::DraftLetter.build.call(patient, letter_attributes)
       end
 
-      def update_clinic_visit_letter(patient: nil, visit:, user:)
+      def update_clinic_visit_letter(patient: nil, user:)
         patient = letters_patient(patient)
+        visit = clinic_visit_for(patient)
 
         existing_letter = clinic_visit_letter_for(visit)
         letter_attributes = {
@@ -55,7 +58,8 @@ module World
 
       # @section expectations
       #
-      def expect_clinic_visit_letter_to_exist(visit:)
+      def expect_clinic_visit_letter_to_exist(patient:)
+        visit = clinic_visit_for(patient)
         letter = clinic_visit_letter_for(visit)
 
         expect(letter).to be_present

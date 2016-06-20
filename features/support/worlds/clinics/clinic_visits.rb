@@ -2,6 +2,13 @@ module World
   module Clinics
     module ClinicVisits
       module Domain
+        # @section helpers
+        #
+        def clinic_visit_for(patient)
+          patient = clinics_patient(patient)
+          patient.clinic_visits.first
+        end
+
         # @section commands
         #
         def create_clinic_visit(patient, user)
