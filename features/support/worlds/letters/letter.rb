@@ -99,7 +99,7 @@ module World
         end
       end
 
-      def expect_simple_letter_to_be_refused
+      def expect_letter_to_be_refused
         expect(Renalware::Letters::Letter.count).to eq(0)
       end
 

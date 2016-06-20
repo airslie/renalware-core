@@ -43,7 +43,7 @@ Then(/^Nathalie can update Patty's letter$/) do
 end
 
 Then(/^the letter is not accepted$/) do
-  expect_simple_letter_to_be_refused
+  expect_letter_to_be_refused
 end
 
 Then(/^all "(.*?)" will also receive the letter$/) do |ccs|
