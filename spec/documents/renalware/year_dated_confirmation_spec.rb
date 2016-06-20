@@ -2,13 +2,13 @@ require "rails_helper"
 
 module Renalware
   describe YearDatedConfirmation, type: :model do
-    subject(:year_dated_confirmation) { YearDatedConfirmation.new(status: "yes", confirmed_on_year: 2015) }
+    subject(:year_dated_confirmation) {
+      YearDatedConfirmation.new(status: "yes", confirmed_on_year: 2015)
+    }
 
     describe "#to_s" do
       context "given a completed confirmation" do
-        it {
-          expect(year_dated_confirmation.to_s).to eq("Yes (2015)")
-        }
+        it { expect(year_dated_confirmation.to_s).to eq("Yes (2015)") }
       end
 
       context "given year is missing" do
