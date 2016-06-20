@@ -2952,8 +2952,7 @@ CREATE TABLE users (
     professional_position character varying,
     approved boolean DEFAULT false,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    telephone character varying
+    updated_at timestamp without time zone
 );
 
 
@@ -5851,8 +5850,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160530170058');
 INSERT INTO schema_migrations (version) VALUES ('20160531141853');
 
 INSERT INTO schema_migrations (version) VALUES ('20160613120910');
-
-INSERT INTO schema_migrations (version) VALUES ('20160616163622');
 
 INSERT INTO schema_migrations (version) VALUES ('20160620131148');
 
