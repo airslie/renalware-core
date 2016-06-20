@@ -4,8 +4,7 @@ module Renalware
   module Pathology
     class FormsController < Pathology::BaseController
       layout "renalware/layouts/printable"
-      before_filter :load_patient
-      before_filter :load_bookmarks
+      before_filter :load_patients
 
       def index
         request_form_options = RequestAlgorithm::RequestFormOptions.new(request_form_params)
