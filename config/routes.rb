@@ -14,12 +14,12 @@ Rails.application.routes.draw do
 
     get "authors/:author_id/letters", to: "letters/letters#author", as: "author_letters"
 
+    resources :bag_types, except: [:show]
+
     resources :appointments, controller: "clinics/appointments", only: [:index]
     resources :clinic_visits, controller: "clinics/clinic_visits" do
       resources :letters, controller: "letters/clinic_letters", only: [:new, :edit]
     end
-
-    resources :bag_types, except: [:show]
 
     resources :deaths, only: :index, as: :patient_deaths
     resources :doctors
