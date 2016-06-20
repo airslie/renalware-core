@@ -54,7 +54,9 @@ module World
       module Web
         include Domain
 
-        def record_clinic_visit(patient, _user)
+        def record_clinic_visit(patient, user)
+          login_as user
+
           visit new_patient_clinic_visit_path(patient_id: patient.id)
 
           fill_in "Date", with: "20-07-2015 10:45"
@@ -66,7 +68,9 @@ module World
           click_on "Save"
         end
 
-        def update_clinic_visit(clinic_visit, patient, _user)
+        def update_clinic_visit(clinic_visit, patient, user)
+          login_as user
+
           visit edit_patient_clinic_visit_path(
             patient_id: patient.id,
             id: clinic_visit.id
