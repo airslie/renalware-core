@@ -10,7 +10,8 @@ module Renalware
       end
 
       def new
-        render_form(LetterFactory.new(@patient).build, :new)
+        load_event
+        render_form(LetterFactory.new(@patient).build(event: @event), :new)
       end
 
       def create
@@ -70,6 +71,13 @@ module Renalware
         render action
       end
 
+      def load_event
+        @event = nil
+        if id = params[:clinic_visit_id]
+          @event = Clinics::ClinicVisit.find(id)
+        end
+      end
+
       def letter_params
         params
           .require(:letters_letter_draft)
@@ -79,6 +87,7 @@ module Renalware
 
       def attributes
         [
+          :event_type, :event_id,
           :letterhead_id, :author_id, :description, :issued_on,
           :salutation, :body, :notes,
           main_recipient_attributes: main_recipient_attributes,

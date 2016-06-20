@@ -110,7 +110,8 @@ module World
       def update_clinic_visit_letter(patient:, visit:, user:)
         login_as user
         visit patient_clinic_visits_path(patient)
-        click_on "Edit letter"
+        click_on "Preview Letter"
+        click_on "Edit"
 
         select user.full_name, from: "Author"
 
