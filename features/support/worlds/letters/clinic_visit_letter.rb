@@ -55,7 +55,7 @@ module World
 
       # @section expectations
       #
-      def expect_clinic_visit_letter_to_exist(patient: nil, visit:)
+      def expect_clinic_visit_letter_to_exist(visit:)
         letter = clinic_visit_letter_for(visit)
 
         expect(letter).to be_present

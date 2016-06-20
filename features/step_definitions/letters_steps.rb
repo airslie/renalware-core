@@ -86,5 +86,5 @@ Then(/^Doug can review the letter$/) do
 end
 
 Then(/^the clinic visit has a letter$/) do
-  expect_clinic_visit_letter_to_exist(patient: @patty, visit: @clinic_visit)
+  expect_clinic_visit_letter_to_exist(visit: @clinic_visit)
 end
