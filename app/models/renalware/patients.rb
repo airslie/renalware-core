@@ -13,5 +13,9 @@ module Renalware
     def configure
       SubscriptionRegistry.instance.register(Feeds::MessageProcessor, MessageListener)
     end
+
+    def cast_user(user)
+      ActiveType.cast(user, ::Renalware::Patients::User)
+    end
   end
 end
