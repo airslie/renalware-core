@@ -13,9 +13,20 @@ module World
         # @section commands
         #
         def record_bookmark(user, patient_given_name, patient_family_name)
-          patient = find_patient(patient_given_name, patient_family_name)
+          create_bookmark(user, patient_given_name, patient_family_name)
+        end
 
+        def create_bookmark(user, patient_given_name, patient_family_name)
+          patient = find_patient(patient_given_name, patient_family_name)
           Renalware::Patients::Bookmark.create!(user: user, patient: patient)
+        end
+
+        def delete_bookmark(user, patient_given_name, patient_family_name)
+          patient = find_patient(patient_given_name, patient_family_name)
+          user = Renalware::Patients.cast_user(user)
+
+          bookmark = user.bookmarks.find_by(patient: patient)
+          bookmark.destroy
         end
 
         # @section expectations
@@ -37,6 +48,19 @@ module World
           visit patient_path(id: patient.id)
 
           find("a", text: "Bookmark this patient").trigger("click")
+          wait_for_ajax
+
+          expect(page).to have_content("You have successfully added a new bookmark.")
+        end
+
+        def delete_bookmark(user, patient_given_name, patient_family_name)
+          login_as user
+
+          patient = find_patient(patient_given_name, patient_family_name)
+
+          visit patient_path(id: patient.id)
+
+          find("a", text: "Remove from Bookmarks").trigger("click")
           wait_for_ajax
 
           expect(page).to have_content("You have successfully added a new bookmark.")
