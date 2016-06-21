@@ -90,7 +90,7 @@ module World
         end
 
         def find_requested_clinic(clinic_name)
-           if clinic_name.present?
+          if clinic_name.present?
             Renalware::Clinics::Clinic.find_by!(name: clinic_name)
           end
         end
