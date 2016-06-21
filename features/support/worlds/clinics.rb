@@ -1,7 +1,7 @@
 module World
   module Clinics
     def clinics_patient(patient)
-      ActiveType.cast(patient, Renalware::Clinics::Patient)
+      Renalware::Clinics::cast_patient(patient)
     end
   end
 end

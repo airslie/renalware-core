@@ -8,23 +8,41 @@ module World
         visit.letter
       end
 
+      def seed_letter(patient, attributes)
+        Renalware::Letters::DraftLetter.build
+          .on(:draft_letter_successful) { |letter| return letter }
+          .on(:draft_letter_failed) { raise "Letter creation failed!" }
+          .call(patient, attributes)
+      end
+
+      def draft_letter(patient, attributes)
+        Renalware::Letters::DraftLetter.build
+          .call(patient, attributes)
+      end
+
+      def revise_letter(patient, letter, attributes)
+        Renalware::Letters::ReviseLetter.build
+          .call(patient, letter.id, attributes)
+      end
+
+      def build_clinic_visit_letter_attributes(patient, visit, issued_on, user)
+        valid_simple_letter_attributes(patient).merge(
+          event: visit,
+          issued_on: issued_on,
+          author: user,
+          by: user
+        )
+      end
+
       # @section set-ups
       #
       def seed_clinic_visit_letter_for(patient, user:)
         patient = letters_patient(patient)
         visit = clinic_visit_for(patient)
 
-        letter_attributes = valid_simple_letter_attributes(patient).merge(
-          event: visit,
-          author: user,
-          main_recipient_attributes: { person_role: "patient" },
-          by: user
-        )
+        letter_attributes = build_clinic_visit_letter_attributes(patient, visit, Date.today, user)
 
-        Renalware::Letters::DraftLetter.build
-          .on(:draft_letter_successful) { |letter| return letter }
-          .on(:draft_letter_failed) { raise "Letter creation failed!" }
-          .call(patient, letter_attributes)
+        seed_letter(patient, letter_attributes)
       end
 
       # @section commands
@@ -33,27 +51,17 @@ module World
         visit = clinic_visit_for(patient)
         patient = letters_patient(patient)
 
-        letter_attributes = valid_simple_letter_attributes(patient).merge(
-          event: visit,
-          issued_on: issued_on,
-          author: user,
-          by: user
-        )
+        letter_attributes = build_clinic_visit_letter_attributes(patient, visit, issued_on, user)
 
-        Renalware::Letters::DraftLetter.build.call(patient, letter_attributes)
+        draft_letter(patient, letter_attributes)
       end
 
       def revise_clinic_visit_letter(patient: nil, user:)
         patient = letters_patient(patient)
         visit = clinic_visit_for(patient)
+        letter = clinic_visit_letter_for(visit)
 
-        existing_letter = clinic_visit_letter_for(visit)
-        letter_attributes = {
-          body: "updated body",
-          by: user
-        }
-
-        Renalware::Letters::ReviseLetter.build.call(patient, existing_letter.id, letter_attributes)
+        revise_letter(patient, letter, body: "updated body", by: user)
       end
 
       # @section expectations
