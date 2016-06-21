@@ -4,8 +4,8 @@ module Renalware
       has_many :bookmarks
       has_many :patients, through: :bookmarks
 
-      def has_bookmarked?(patient)
-        patients.include?(patient)
+      def bookmark_for_patient(patient)
+        bookmarks.where(patient: patient)
       end
     end
   end

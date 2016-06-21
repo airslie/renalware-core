@@ -6,7 +6,7 @@ Given(/^Clyde has the following patients bookmarked:$/) do |table|
 end
 
 When(/^Clyde bookmarks (\w+) (\w+)$/) do |patient_given_name, patient_family_name|
-  record_bookmark(@clyde, patient_given_name, patient_family_name)
+  bookmark_patient(@clyde, patient_given_name, patient_family_name)
 end
 
 When(/^Clyde deletes the bookmark for (\w+) (\w+)$/) do |patient_given_name, patient_family_name|

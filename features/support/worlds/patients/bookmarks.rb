@@ -12,7 +12,7 @@ module World
 
         # @section commands
         #
-        def record_bookmark(user, patient_given_name, patient_family_name)
+        def bookmark_patient(user, patient_given_name, patient_family_name)
           create_bookmark(user, patient_given_name, patient_family_name)
         end
 
@@ -40,7 +40,7 @@ module World
       module Web
         include Domain
 
-        def record_bookmark(user, patient_given_name, patient_family_name)
+        def bookmark_patient(user, patient_given_name, patient_family_name)
           login_as user
 
           patient = find_patient(patient_given_name, patient_family_name)
