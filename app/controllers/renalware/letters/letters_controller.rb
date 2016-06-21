@@ -72,13 +72,8 @@ module Renalware
       end
 
       def find_event
-        if event_type.present?
-          event_class.for_patient(@patient).find(event_id)
-        end
-      end
-
-      def clinics_patient
-        Clinics.cast_patient(@patient)
+        return unless event_type.present?
+        event_class.for_patient(@patient).find(event_id)
       end
 
       def event_class
