@@ -48,9 +48,8 @@ module World
           visit patient_path(id: patient.id)
 
           find("a", text: "Bookmark this patient").trigger("click")
-          wait_for_ajax
 
-          expect(page).to have_content("You have successfully added a new bookmark.")
+          expect(page).to have_css("div.success")
         end
 
         def delete_bookmark(user, patient_given_name, patient_family_name)
