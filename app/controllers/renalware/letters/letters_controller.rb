@@ -10,14 +10,21 @@ module Renalware
       end
 
       def new
-        letter = LetterFactory.new(@patient).build(event: find_event)
+        letter = LetterFactory.new(@patient).build(
+          event_type: event_type,
+          event_id: event_id
+        )
         render_form(letter, :new)
       end
 
       def create
+        attributes = letter_params.merge(
+          event_type: event_type,
+          event_id: event_id
+        )
         DraftLetter.build
           .subscribe(self)
-          .call(@patient, letter_params.merge(event: find_event))
+          .call(@patient, attributes)
       end
 
       def draft_letter_successful(letter)
@@ -69,11 +76,6 @@ module Renalware
       def render_form(letter, action)
         @letter = LetterFormPresenter.new(letter)
         render action
-      end
-
-      def find_event
-        return unless event_type.present?
-        event_class.for_patient(@patient).find(event_id)
       end
 
       def event_class

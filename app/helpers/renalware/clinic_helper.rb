@@ -7,7 +7,7 @@ module Renalware
       else
         link_to("Draft Letter", new_patient_letters_letter_path(
           @patient,
-          event_type: clinic_visit.class.name.to_s, event_id: clinic_visit.id
+          event_type: visit.class.name.to_s, event_id: clinic_visit.id
         ))
       end
     end
