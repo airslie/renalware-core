@@ -33,26 +33,12 @@ Feature: Generating request forms for a single patient
       | frequency_type   | Always        |
 
   @web
-  Scenario: A clinician generated the forms for a single patient
-    When Clyde generates the request form for Patty
-    Then Clyde sees these details at the top of Patty's form
-      | patient_name    | THEPATIENT PATTY |
-      | date            | 12-10-2016       |
-      | date_of_birth   | 25-12-1961       |
-      | consultant      | Aaron Aaronofsky |
-      | clinical_detail | Access           |
-      | contact         | Access           |
-      | telephone       |                  |
-    And Clyde sees the following pathology requirements for Patty:
-      | global_pathology  |               |
-      | patient_pathology | Test for HepB |
-
-  @web
   Scenario: A clinician generated the forms for a single patient and requests a specific doctor, clinic and telephone number
-    When Clyde generates the request form for Patty
-    And Clyde chooses the consultant Zoe Zimmerman
-    And Clyde chooses the clinic Transplant
-    And Clyde chooses the telephone number 7983123123
+    When Clyde generates the request form for Patty with the following parameters:
+     | param      | value         |
+     | user       | Zoe Zimmerman |
+     | clinic     | Transplant    |
+     | telephone  | 7983123123    |
     Then Clyde sees these details at the top of Patty's form
       | patient_name    | THEPATIENT PATTY |
       | date            | 12-10-2016       |

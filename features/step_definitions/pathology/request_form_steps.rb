@@ -14,6 +14,15 @@ When(/^Clyde chooses the telephone number (\d+)$/) do |telephone|
   @request_forms = update_request_form_telephone(telephone)
 end
 
+When(/^Clyde generates the request form for (\w+) with the following parameters:$/) do |patient_name, table|
+  params =
+    Hash[table.rows]
+      .merge(patients: [patient_name])
+      .with_indifferent_access
+
+  @request_forms = generate_request_forms_for_single_patient(@clyde, params)
+end
+
 Then(/^Clyde sees these details at the top of (\w+)'s form$/) do |patient_name, table|
   patient = get_patient(patient_name)
   expect_patient_summary_to_match_table(@request_forms, patient, table)
