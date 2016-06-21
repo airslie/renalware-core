@@ -41,11 +41,7 @@ module World
         include Domain
 
         def bookmark_patient(user, patient_given_name, patient_family_name)
-          login_as user
-
-          patient = find_patient(patient_given_name, patient_family_name)
-
-          visit patient_path(id: patient.id)
+          login_and_visit_patient(user, patient_given_name, patient_family_name)
 
           find("a", text: "Bookmark this patient").trigger("click")
 
@@ -53,16 +49,19 @@ module World
         end
 
         def delete_bookmark(user, patient_given_name, patient_family_name)
+          login_and_visit_patient(user, patient_given_name, patient_family_name)
+
+          find("a", text: "Remove from bookmarks").trigger("click")
+
+          expect(page).to have_css("div.success")
+        end
+
+        private
+
+        def login_and_visit_patient(user, patient_given_name, patient_family_name)
           login_as user
-
           patient = find_patient(patient_given_name, patient_family_name)
-
           visit patient_path(id: patient.id)
-
-          find("a", text: "Remove from Bookmarks").trigger("click")
-          wait_for_ajax
-
-          expect(page).to have_content("You have successfully added a new bookmark.")
         end
       end
     end
