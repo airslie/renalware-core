@@ -4,7 +4,6 @@ module Renalware
   module Pathology
     class RecentObservationResultsController < Pathology::BaseController
       before_filter :load_patient
-      before_filter :load_bookmark
 
       def index
         table_view = RecentObservationResults::HTMLTableView.new(self.view_context)

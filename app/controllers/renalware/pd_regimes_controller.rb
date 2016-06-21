@@ -3,7 +3,6 @@ module Renalware
     include Renalware::Concerns::NestedActionsControllerMethods
 
     before_action :load_patient
-    before_action :load_bookmark
     before_action :find_pd_regime, only: [:edit, :update, :show]
 
     def new

@@ -4,7 +4,6 @@ module Renalware
   module Pathology
     class ObservationsController < Pathology::BaseController
       before_filter :load_patient
-      before_filter :load_bookmark
 
       def index
         description = find_description

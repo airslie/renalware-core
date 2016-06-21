@@ -2,7 +2,6 @@ module Renalware
   module Transplants
     class DonorOperationsController < BaseController
       before_filter :load_patient
-      before_filter :load_bookmark
 
       def show
         @donor_operation = DonorOperation.for_patient(@patient).find(params[:id])

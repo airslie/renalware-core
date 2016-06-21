@@ -6,7 +6,6 @@ module Renalware
     class ProfilesController < BaseController
 
       before_action :load_patient
-      before_action :load_bookmark
 
       def edit
         @profile = find_profile

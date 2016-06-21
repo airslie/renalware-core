@@ -4,7 +4,6 @@ module Renalware
   module Pathology
     class RequiredObservationsController < Pathology::BaseController
       before_filter :load_patient
-      before_filter :load_bookmark
 
       def index
           global_pathology = @patient.required_observation_requests(clinic)

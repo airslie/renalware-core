@@ -2,7 +2,6 @@ module Renalware
   module Problems
     class NotesController < BaseController
       before_action :load_patient
-      before_action :load_bookmark
 
       def index
         load_problem

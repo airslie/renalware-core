@@ -4,7 +4,6 @@ module Renalware
   module Accesses
     class DashboardsController < Accesses::BaseController
       before_filter :load_patient
-      before_filter :load_bookmark
 
       def show
         procedures = @patient.procedures.ordered

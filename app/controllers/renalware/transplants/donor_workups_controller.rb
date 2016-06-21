@@ -2,7 +2,6 @@ module Renalware
   module Transplants
     class DonorWorkupsController < BaseController
       before_filter :load_patient
-      before_filter :load_bookmark
 
       def show
         @workup = DonorWorkup.for_patient(@patient).first_or_initialize

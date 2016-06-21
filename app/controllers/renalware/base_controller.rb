@@ -24,10 +24,9 @@ module Renalware
 
     def load_patient(patient_id = params[:patient_id])
       @patient = Patient.find(patient_id)
-      authorize @patient
-    end
 
-    def load_bookmark
+      authorize @patient
+
       user = Renalware::Patients.cast_user(current_user)
       @bookmark = user.bookmark_for_patient(@patient)
     end

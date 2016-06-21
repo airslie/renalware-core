@@ -2,7 +2,6 @@ module Renalware
   module Accesses
     class ProfilesController < Accesses::BaseController
       before_filter :load_patient
-      before_filter :load_bookmark
 
       def show
         profile = @patient.profiles.find(params[:id])

@@ -2,7 +2,6 @@ module Renalware
   module HD
     class PreferenceSetsController < BaseController
       before_filter :load_patient
-      before_filter :load_bookmark
 
       def edit
         @preference_set = PreferenceSet.for_patient(@patient).first_or_initialize

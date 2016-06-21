@@ -4,7 +4,6 @@ module Renalware
   module HD
     class DryWeightsController < BaseController
       before_filter :load_patient
-      before_filter :load_bookmark
 
       def index
         @query = PatientDryWeightsQuery.new(patient: @patient, search_params: params[:q])

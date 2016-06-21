@@ -4,7 +4,6 @@ module Renalware
   module HD
     class DashboardsController < BaseController
       before_filter :load_patient
-      before_filter :load_bookmark
 
       def show
         preference_set = PreferenceSet.for_patient(@patient).first_or_initialize

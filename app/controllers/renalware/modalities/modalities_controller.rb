@@ -5,7 +5,6 @@ module Renalware
     class ModalitiesController < BaseController
 
       before_filter :load_patient
-      before_filter :load_bookmark
 
       def new
         @modality = Modality.new(patient: @patient)

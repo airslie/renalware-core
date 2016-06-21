@@ -4,7 +4,6 @@ module Renalware
     include PresenterHelper
 
     before_action :load_patient
-    before_action :load_bookmark
 
     def index
       @treatable = treatable_class.find(treatable_id)
