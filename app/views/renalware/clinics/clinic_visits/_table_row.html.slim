@@ -1,6 +1,6 @@
 tr
   td
-    = link_to_create_or_edit_clinic_visit_letter(@patient, clinic_visit)
+    = link_to_clinic_visit_letter(@patient, clinic_visit)
     = pipe_separator
     = link_to 'Edit', edit_patient_clinic_visit_path(patient_id: clinic_visit.patient.to_param, id: clinic_visit.to_param)
     = pipe_separator
