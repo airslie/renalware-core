@@ -6,7 +6,7 @@ module World
         #
         def clinic_visit_for(patient)
           patient = clinics_patient(patient)
-          patient.clinic_visits.first
+          patient.clinic_visits.first!
         end
 
         # @section commands
