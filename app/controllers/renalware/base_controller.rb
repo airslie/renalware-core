@@ -26,9 +26,6 @@ module Renalware
       @patient = Patient.find(patient_id)
 
       authorize @patient
-
-      user = Renalware::Patients.cast_user(current_user)
-      @bookmark = user.bookmark_for_patient(@patient)
     end
 
     def user_not_authorized

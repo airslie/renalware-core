@@ -24,7 +24,7 @@ ul.side-nav
     li.link= link_to "Recipient Summary", patient_transplants_recipient_dashboard_path(@patient)
   li.divider
   li.heading Options
-  - if @bookmark.present?
+  - if find_user_bookmark_for_patient(@patient).present?
     / TODO: Have a "Remove bookmark" link
   - else
     = simple_form_for @patient.bookmarks.new, url: patient_bookmarks_path(patient_id: @patient.id) do |f|

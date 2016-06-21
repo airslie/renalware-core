@@ -12,5 +12,9 @@ module Renalware
       patient_modalities.map { |m|m.description.hd_modality? }.include? true
     end
 
+    def find_user_bookmark_for_patient(patient)
+      user = Renalware::Patients.cast_user(current_user)
+      @bookmark = user.bookmark_for_patient(patient)
+    end
   end
 end
