@@ -149,7 +149,7 @@ Rails.application.routes.draw do
     end
 
     namespace :pathology do
-      resources :forms, only: :index
+      resources :forms, only: :create
     end
 
     resources :prd_descriptions, only: [:search] do
