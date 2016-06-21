@@ -18,9 +18,5 @@ module Renalware
     def self.cast_doctor(doctor)
       ActiveType.cast(doctor, ::Renalware::Letters::Doctor)
     end
-
-    def self.cast_clinic_visit(clinic_visit)
-      ActiveType.cast(clinic_visit, ::Renalware::Letters::ClinicVisit)
-    end
   end
 end

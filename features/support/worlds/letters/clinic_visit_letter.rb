@@ -4,8 +4,7 @@ module World
       # @section helpers
       #
       def clinic_visit_letter_for(visit)
-        visit = letters_clinic_visit(visit)
-        visit.letter
+        Renalware::Letters::Letter.for_event(visit)
       end
 
       def seed_letter(patient, attributes)

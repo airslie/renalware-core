@@ -37,6 +37,10 @@ module Renalware
         LetterPolicy
       end
 
+      def self.for_event(event)
+        where(event: event).first
+      end
+
       def doctor
         patient.doctor
       end

@@ -3,10 +3,6 @@ module World
     def letters_patient(patient)
       ActiveType.cast(patient, Renalware::Letters::Patient)
     end
-
-    def letters_clinic_visit(clinic_visit)
-      ActiveType.cast(clinic_visit, Renalware::Letters::ClinicVisit)
-    end
   end
 end
 

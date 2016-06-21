@@ -5,7 +5,13 @@ module Renalware
   module Letters
     class LetterPresenter < DumbDelegator
       def event
-        super || UnknownEvent.new
+        @letter_event ||=
+          case super
+          when Clinics::ClinicVisit
+            ClinicVisitEvent.new(super)
+          else
+            UnknownEvent.new
+          end
       end
 
       def type
