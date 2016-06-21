@@ -41,6 +41,16 @@ module Renalware
         where(event: event).first
       end
 
+      def event
+        @letter_event ||=
+          case super
+          when Clinics::ClinicVisit
+            ClinicVisitEvent.new(super)
+          else
+            UnknownEvent.new
+          end
+      end
+
       def doctor
         patient.doctor
       end
