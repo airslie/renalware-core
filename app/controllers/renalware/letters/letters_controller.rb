@@ -73,7 +73,7 @@ module Renalware
 
       def find_event
         if params[:clinic_visit_id]
-          ClinicVisit.for_patient(@patient).find(params[:clinic_visit_id])
+          Clinics::ClinicVisit.for_patient(@patient).find(params[:clinic_visit_id])
         end
       end
 
