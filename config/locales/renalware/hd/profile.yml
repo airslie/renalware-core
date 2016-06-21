@@ -72,8 +72,8 @@ en:
         prescribed_time: in minutes
         document:
           dialysis:
-            flow_rate: ml/hr TO CONFIRM
-            blood_flow: ml/hr TO CONFIRM
+            flow_rate: ml/min
+            blood_flow: ml/min
           anticoagulant:
             stop_time: hh:mm
 

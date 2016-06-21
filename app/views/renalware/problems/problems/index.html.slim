@@ -21,9 +21,7 @@
       - @problems.reject(&:new_record?).each do |problem|
         = content_tag_for(:tr, problem, class: "sortable") do
           td
-            = link_to "View", patient_problem_path(@patient, problem)
-            = pipe_separator
-            = link_to "Edit", edit_patient_problem_path(@patient, problem)
+            = link_to "Edit", patient_problem_path(@patient, problem)
             = pipe_separator
             = link_to "Terminate", patient_problem_path(@patient, problem), method: :delete, data: { confirm: 'Are you sure?' }
           td
