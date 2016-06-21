@@ -1,4 +1,5 @@
 require_dependency "renalware/pathology"
+require "sql/index_case_stmt"
 
 module Renalware
   module Pathology
