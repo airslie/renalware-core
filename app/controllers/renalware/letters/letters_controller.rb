@@ -10,8 +10,8 @@ module Renalware
       end
 
       def new
-        load_event
-        render_form(LetterFactory.new(@patient).build(event: @event), :new)
+        letter = LetterFactory.new(@patient).build(event: find_event)
+        render_form(letter, :new)
       end
 
       def create
@@ -71,10 +71,9 @@ module Renalware
         render action
       end
 
-      def load_event
-        @event = nil
+      def find_event
         if params[:clinic_visit_id]
-          @event = Clinics::ClinicVisit.find(params[:clinic_visit_id])
+          ClinicVisit.for_patient(@patient).find(params[:clinic_visit_id])
         end
       end
 
