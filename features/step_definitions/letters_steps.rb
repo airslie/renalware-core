@@ -11,7 +11,7 @@ Given(/^Patty is the main recipient on a pending letter$/) do
 end
 
 Given(/^a letter for Patty's clinical visit was recorded$/) do
-  @letter = set_up_clinic_visit_letter_for(@patty, user: @nathalie)
+  @letter = seed_clinic_visit_letter_for(@patty, user: @nathalie)
 end
 
 

@@ -10,7 +10,7 @@ module World
 
       # @section set-ups
       #
-      def set_up_clinic_visit_letter_for(patient, user:)
+      def seed_clinic_visit_letter_for(patient, user:)
         patient = letters_patient(patient)
         visit = clinic_visit_for(patient)
 
