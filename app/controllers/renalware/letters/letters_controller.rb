@@ -17,7 +17,7 @@ module Renalware
       def create
         DraftLetter.build
           .subscribe(self)
-          .call(@patient, letter_params)
+          .call(@patient, letter_params.merge(event: find_event))
       end
 
       def draft_letter_successful(letter)
@@ -72,9 +72,25 @@ module Renalware
       end
 
       def find_event
-        if params[:clinic_visit_id]
-          Clinics::ClinicVisit.for_patient(@patient).find(params[:clinic_visit_id])
+        if event_type.present?
+          event_class.for_patient(@patient).find(event_id)
         end
+      end
+
+      def clinics_patient
+        Clinics.cast_patient(@patient)
+      end
+
+      def event_class
+        @event_class ||= event_type.singularize.classify.constantize
+      end
+
+      def event_type
+        params.fetch(:event_type, nil)
+      end
+
+      def event_id
+        params.fetch(:event_id, nil)
       end
 
       def letter_params

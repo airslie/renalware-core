@@ -12,9 +12,6 @@ ruby:
 
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Header", name: "header" } do
-    = f.input :event_type, as: :hidden
-    = f.input :event_id, as: :hidden
-
     = f.association :letterhead
     = f.input :description, \
         input_html: { \

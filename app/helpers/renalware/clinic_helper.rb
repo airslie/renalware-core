@@ -5,7 +5,10 @@ module Renalware
       if visit.letter.present?
         link_to "Preview Letter", patient_letters_letter_path(patient, visit.letter)
       else
-        path = new_patient_letters_letter_path(@patient, clinic_visit_id: visit.id)
+        path = new_patient_letters_letter_path(
+          @patient,
+          event_type: clinic_visit.class.name.to_s, event_id: clinic_visit.id
+        )
         link_to "Create Letter", path
       end
     end

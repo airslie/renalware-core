@@ -3,6 +3,6 @@
 
   .document
     = simple_form_for @letter,
-      url: patient_letters_letters_path(@patient),
+      url: patient_letters_letters_path(@patient, @letter.event),
         wrapper: "horizontal_form", html: {id: "letter-form"} do |f|
       = render 'form', f: f
