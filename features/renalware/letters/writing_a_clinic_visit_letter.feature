@@ -16,7 +16,7 @@ Feature: Writing a clinic visit letter
 
   @web
   Scenario: A doctor revised a clinic visit letter
-    Given a letter for Patty's clinical visit was recorded
+    Given a letter for Patty's clinical visit was drafted
     Then Doug can revise Patty's clinic visit letter
 
   @web

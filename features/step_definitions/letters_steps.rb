@@ -10,7 +10,7 @@ Given(/^Patty is the main recipient on a pending letter$/) do
   @letter = set_up_simple_letter_for(@patty, user: @nathalie)
 end
 
-Given(/^a letter for Patty's clinical visit was recorded$/) do
+Given(/^a letter for Patty's clinical visit was drafted$/) do
   @letter = seed_clinic_visit_letter_for(@patty, user: @nathalie)
 end
 
