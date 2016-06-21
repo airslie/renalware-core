@@ -5,7 +5,7 @@ module Renalware
   module Letters
     class LetterPresenter < DumbDelegator
       def type
-        event.to_s
+        letter_event.to_s
       end
 
       def patient
