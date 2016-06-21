@@ -7,7 +7,12 @@ module Renalware
       before_filter :load_patients
 
       def create
-        request_form_options = RequestAlgorithm::RequestFormOptions.new(parsed_request_form_params)
+        request_form_options = RequestAlgorithm::RequestFormOptions.new(
+          clinic: find_clinic,
+          patients: find_patients,
+          user: find_user,
+          telephone: request_form_params[:telephone]
+        )
 
         request_forms = RequestFormPresenter.wrap(
           @patients, request_form_options
@@ -30,22 +35,20 @@ module Renalware
         authorize Renalware::Patient
       end
 
-      def parsed_request_form_params
-        parsed_request_form_params = request_form_params.slice(:telephone)
-
-        if request_form_params[:user_id].present?
-          parsed_request_form_params[:user] = User.find(request_form_params[:user_id])
-        end
-
+      def find_clinic
         if request_form_params[:clinic_id].present?
-          parsed_request_form_params[:clinic] =
-            Clinics::Clinic.find(request_form_params[:clinic_id])
+          Clinics::Clinic.find(request_form_params[:clinic_id])
         end
+      end
 
-        parsed_request_form_params[:patients] =
-          Renalware::Patient.find(request_form_params[:patient_ids])
+      def find_patients
+        Renalware::Patient.find(request_form_params[:patient_ids])
+      end
 
-        parsed_request_form_params
+      def find_user
+        if request_form_params[:user_id].present?
+          User.find(request_form_params[:user_id])
+        end
       end
 
       def request_form_params
