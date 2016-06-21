@@ -81,7 +81,7 @@ module World
       def draft_clinic_visit_letter(patient:, user:, issued_on:)
         login_as user
         visit patient_clinic_visits_path(patient)
-        click_on "Create Letter"
+        click_on "Draft Letter"
 
         attributes = valid_simple_letter_attributes(patient)
         fill_in "Date", with: I18n.l(attributes[:issued_on]) if issued_on.present?

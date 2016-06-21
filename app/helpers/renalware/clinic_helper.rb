@@ -9,7 +9,7 @@ module Renalware
           @patient,
           event_type: clinic_visit.class.name.to_s, event_id: clinic_visit.id
         )
-        link_to "Create Letter", path
+        link_to "Draft Letter", path
       end
     end
   end
