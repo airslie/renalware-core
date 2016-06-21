@@ -43,7 +43,7 @@ module World
         Renalware::Letters::DraftLetter.build.call(patient, letter_attributes)
       end
 
-      def update_clinic_visit_letter(patient: nil, user:)
+      def revise_clinic_visit_letter(patient: nil, user:)
         patient = letters_patient(patient)
         visit = clinic_visit_for(patient)
 
@@ -86,7 +86,7 @@ module World
         end
       end
 
-      def update_clinic_visit_letter(patient:, user:)
+      def revise_clinic_visit_letter(patient:, user:)
         login_as user
         visit patient_clinic_visits_path(patient)
         click_on "Preview Letter"

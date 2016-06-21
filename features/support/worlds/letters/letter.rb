@@ -59,7 +59,7 @@ module World
         Renalware::Letters::DraftLetter.build.call(patient, letter_attributes)
       end
 
-      def update_simple_letter(patient:, user:)
+      def revise_simple_letter(patient:, user:)
         patient = letters_patient(patient)
 
         existing_letter = simple_letter_for(patient)
@@ -208,7 +208,7 @@ module World
         end
       end
 
-      def update_simple_letter(patient:, user:)
+      def revise_simple_letter(patient:, user:)
         login_as user
         visit patient_letters_letters_path(patient)
         click_on "Edit"

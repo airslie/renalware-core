@@ -10,16 +10,16 @@ Feature: Writing a clinic visit letter
     And Patty has a clinic visit
 
   @web
-  Scenario: A nurse drafted a letter
-    When Nathalie drafts a clinic letter for Patty
-    Then the clinic visit has a letter
+  Scenario: A doctor drafted a clinic visit letter
+    When Doug drafts a clinic letter for Patty
+    Then a letter for Patty's clinical visit is drafted
 
   @web
-  Scenario: A nurse updated a letter
-    Given Patty has a letter for a clinic visit
-    Then Nathalie can update Patty's clinic visit letter
+  Scenario: A doctor revised a clinic visit letter
+    Given a letter for Patty's clinical visit was recorded
+    Then Doug can revise Patty's clinic visit letter
 
   @web
-  Scenario: A nurse submitted an erroneous letter
-    When Nathalie submits an erroneous clinic visit letter
-    Then the letter is not accepted
+  Scenario: A doctor drafted an erroneous clinic visit letter
+    When Doug drafts an erroneous clinic visit letter
+    Then the letter is not drafted
