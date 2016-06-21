@@ -20,8 +20,12 @@ module Renalware
 
       private
 
+      # NOTE: Preserve the order of the id's given in the params
       def load_patients
-        @patients = Pathology::Patient.find(request_form_params[:patient_ids])
+        patient_ids = request_form_params[:patient_ids].map(&:to_i)
+        patients_hash = Pathology::Patient.find(patient_ids).index_by(&:id)
+
+        @patients = patient_ids.map { |id| patients_hash[id] }
         authorize Renalware::Patient
       end
 
