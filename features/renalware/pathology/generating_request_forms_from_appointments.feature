@@ -29,7 +29,6 @@ Feature: Generating request forms from appointments
 
   @web
   Scenario: A clinician generated the forms for all appointments listed
-    Given Clyde is a clinician
     When Clyde views the list of appointments
     And Clyde generates the request forms for the appointments
     Then Clyde sees the requests forms for these patients:
@@ -39,7 +38,6 @@ Feature: Generating request forms from appointments
 
   @web
   Scenario: A clinician changed the order of appointments and generated the forms for all appointments listed
-    Given Clyde is a clinician
     When Clyde views the list of appointments
     And Clyde sorts the list by user
     And Clyde generates the request forms for the appointments
