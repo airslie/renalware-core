@@ -24,6 +24,10 @@ module Renalware
       def bp=(val)
         self.systolic_bp, self.diastolic_bp = val.split("/")
       end
+
+      def to_s
+        "Clinic Visit"
+      end
     end
   end
 end
