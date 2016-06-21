@@ -19,13 +19,13 @@ When(/^Nathalie drafts a letter for Patty to "(.*?)" with "(.*?)"$/) do |rec, cc
   recipient = letter_recipients_map.fetch(rec)
   cc_recipients = ccs.split(",").map { |cc| letter_recipients_map.fetch(cc.strip) }
 
-  create_simple_letter(patient: @patty, user: @nathalie, issued_on: Time.zone.today,
+  draft_simple_letter(patient: @patty, user: @nathalie, issued_on: Time.zone.today,
     recipient: recipient, ccs: cc_recipients
   )
 end
 
 When(/^Nathalie submits an erroneous letter$/) do
-  create_simple_letter(patient: @patty, user: @nathalie, issued_on: nil,
+  draft_simple_letter(patient: @patty, user: @nathalie, issued_on: nil,
     recipient: @patty
   )
 end

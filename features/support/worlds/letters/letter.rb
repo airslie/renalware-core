@@ -45,7 +45,7 @@ module World
 
       # @section commands
       #
-      def create_simple_letter(patient:, user:, issued_on:, recipient:, ccs: nil)
+      def draft_simple_letter(patient:, user:, issued_on:, recipient:, ccs: nil)
         patient = letters_patient(patient)
 
         letter_attributes = valid_simple_letter_attributes(patient).merge(
@@ -169,7 +169,7 @@ module World
     module Web
       include Domain
 
-      def create_simple_letter(patient:, user:, issued_on:, recipient:, ccs: nil)
+      def draft_simple_letter(patient:, user:, issued_on:, recipient:, ccs: nil)
         login_as user
         visit patient_letters_letters_path(patient)
         click_on "Add Letter"
