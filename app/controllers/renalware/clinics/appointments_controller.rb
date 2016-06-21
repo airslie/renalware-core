@@ -12,7 +12,7 @@ module Renalware
         appointments = appointments_query.call.page(@page).per(@per_page)
         request_form_options =
           Renalware::Pathology::RequestAlgorithm::RequestFormOptions.new(
-            patient_ids: appointments.map(&:patient_id).uniq
+            patients: appointments.map(&:patient).uniq
           )
 
         authorize appointments

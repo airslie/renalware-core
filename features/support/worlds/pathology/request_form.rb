@@ -1,34 +1,14 @@
 module World
   module Pathology
-    module GlobalAlgorithm
+    module RequestForm
       module Domain
         # @section helpers
         #
         def extract_request_form_params(form_params)
-          clinic_name = form_params[:clinic]
-          clinic =
-            if clinic_name.present?
-              Renalware::Clinics::Clinic.find_by!(name: clinic_name)
-            end
-
-          user_names = form_params[:user]
-          user =
-            if user_names.present?
-              given_name, family_name = user_names.split(" ")
-              Renalware::User.find_by(given_name: given_name, family_name: family_name)
-            end
-
+          clinic = find_requested_clinic(form_params[:clinic])
+          user = find_requested_user(form_params[:user])
+          patients = find_requested_patients(form_params[:patients])
           telephone = form_params[:telephone]
-
-          patients =
-            if form_params[:patients].first.is_a? String
-              patient_names = form_params[:patients].split(", ")
-              patient_names.map do |patient_family_name|
-                Renalware::Pathology::Patient.find_by!(family_name: patient_family_name)
-              end
-            else
-              form_params[:patients]
-            end
 
           [patients, clinic, user, telephone]
         end
@@ -38,9 +18,9 @@ module World
         def generate_request_forms_for_single_patient(_clinician, params)
           patients, clinic, user, telephone = extract_request_form_params(params)
 
-          options = { patient_ids: patients.map(&:id) }
-          options[:clinic_id] = clinic.id if clinic.present?
-          options[:user_id] = user.id if user.present?
+          options = { patients: patients }
+          options[:clinic] = clinic if clinic.present?
+          options[:user] = user if user.present?
           options[:telephone] = telephone if telephone.present?
 
           request_form_options =
@@ -120,6 +100,29 @@ module World
         def find_request_form_for_patient(request_forms, patient)
           request_forms.detect do |request_form|
             request_form.patient.id == patient.id
+          end
+        end
+
+        def find_requested_clinic(clinic_name)
+          if clinic_name.present?
+            Renalware::Clinics::Clinic.find_by!(name: clinic_name)
+          end
+        end
+
+        def find_requested_user(user_names)
+          if user_names.present?
+            given_name, family_name = user_names.split(" ")
+            Renalware::User.find_by(given_name: given_name, family_name: family_name)
+          end
+        end
+
+        def find_requested_patients(patients)
+          if patients.first.is_a? String
+            patients.split(", ").map do |patient_family_name|
+              Renalware::Pathology::Patient.find_by!(family_name: patient_family_name)
+            end
+          else
+            patients
           end
         end
       end
