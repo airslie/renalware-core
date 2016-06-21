@@ -33,9 +33,9 @@ module World
         def generate_request_forms_for_single_patient(_clinician, params)
           patients, clinic, user, telephone = extract_request_form_params(params)
 
-          options = { patient_ids: patients.map(&:id) }
-          options[:clinic_id] = clinic.id if clinic.present?
-          options[:user_id] = user.id if user.present?
+          options = { patients: patients }
+          options[:clinic] = clinic if clinic.present?
+          options[:user] = user if user.present?
           options[:telephone] = telephone if telephone.present?
 
           request_form_options =

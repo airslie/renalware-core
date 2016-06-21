@@ -10,8 +10,8 @@ module Renalware
           patient_pathology = @patient.required_patient_pathology
           clinics = Renalware::Clinics::Clinic.ordered
           request_form_options = RequestAlgorithm::RequestFormOptions.new(
-            patient_ids: [@patient.id],
-            clinic_id: clinic.id
+            patients: Array(@patient),
+            clinic: clinic
           )
 
           render :index, locals: {
