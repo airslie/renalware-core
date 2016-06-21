@@ -49,9 +49,9 @@ module World
           Renalware::Pathology::RequestFormPresenter.wrap(patients, request_form_options)
         end
 
-        def generate_request_forms_for_appointments(_clinician, appointments)
+        def generate_request_forms_for_appointments(clinician, appointments)
           generate_request_forms_for_single_patient(
-            _clinician,
+            clinician,
             patients: appointments.map(&:patient)
           )
         end
@@ -142,7 +142,7 @@ module World
           update_request_form_telephone(telephone)  if telephone.present?
         end
 
-        def generate_request_forms_for_appointments(clinician, appointments)
+        def generate_request_forms_for_appointments(_clinician, _appointments)
           click_on "Generate request forms"
         end
 
