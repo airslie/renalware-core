@@ -17,9 +17,7 @@ Rails.application.routes.draw do
     resources :bag_types, except: [:show]
 
     resources :appointments, controller: "clinics/appointments", only: [:index]
-    resources :clinic_visits, controller: "clinics/clinic_visits" do
-      resources :letters, controller: "letters/clinic_letters", only: [:new, :edit]
-    end
+    resources :clinic_visits, controller: "clinics/clinic_visits"
 
     resources :deaths, only: :index, as: :patient_deaths
     resources :doctors
