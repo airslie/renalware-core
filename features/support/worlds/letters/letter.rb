@@ -180,6 +180,15 @@ module World
         select user.full_name, from: "Author"
         fill_in "Description", with: attributes[:description]
 
+        fill_recipient(recipient)
+        fill_ccs(ccs)
+
+        within ".bottom" do
+          click_on "Create"
+        end
+      end
+
+      def fill_recipient(recipient)
         case recipient
         when Renalware::Patient
           choose("letters_letter_draft_main_recipient_attributes_person_role_patient")
@@ -191,7 +200,9 @@ module World
           fill_in "Line 1", with: "1 Main st"
           fill_in "City", with: recipient[:city]
         end
+      end
 
+      def fill_ccs(ccs)
         if ccs.present?
           ccs.each_with_index do |cc, index|
             find(".call-to-action").click
@@ -201,10 +212,6 @@ module World
               fill_in "City", with: cc[:city]
             end
           end
-        end
-
-        within ".bottom" do
-          click_on "Create"
         end
       end
 
