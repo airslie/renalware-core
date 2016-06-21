@@ -31,11 +31,11 @@ When(/^Nathalie submits an erroneous letter$/) do
 end
 
 When(/^Nathalie drafts a clinic letter for Patty$/) do
-  create_clinic_visit_letter(patient: @patty, user: @nathalie, issued_on: Time.zone.today)
+  draft_clinic_visit_letter(patient: @patty, user: @nathalie, issued_on: Time.zone.today)
 end
 
 When(/^Nathalie submits an erroneous clinic visit letter$/) do
-  create_clinic_visit_letter(patient: @patty, user: @nathalie, issued_on: nil)
+  draft_clinic_visit_letter(patient: @patty, user: @nathalie, issued_on: nil)
 end
 
 When(/^Nathalie updates Patty's address$/) do

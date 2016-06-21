@@ -29,7 +29,7 @@ module World
 
       # @section commands
       #
-      def create_clinic_visit_letter(patient:, user:, issued_on:)
+      def draft_clinic_visit_letter(patient:, user:, issued_on:)
         visit = clinic_visit_for(patient)
         patient = letters_patient(patient)
 
@@ -70,7 +70,7 @@ module World
     module Web
       include Domain
 
-      def create_clinic_visit_letter(patient:, user:, issued_on:)
+      def draft_clinic_visit_letter(patient:, user:, issued_on:)
         login_as user
         visit patient_clinic_visits_path(patient)
         click_on "Create Letter"
