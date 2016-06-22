@@ -25,7 +25,7 @@ module World
       #
 
       def record_medication_for(**args)
-        record_medication_for(args)
+        seed_medication_for(args)
       end
 
       def record_medication_for_patient(user:, **args)
