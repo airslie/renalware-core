@@ -1,6 +1,5 @@
 Given(/^Patty has a medication recorded|Patty has current medications$/) do
-  record_medication_for_patient(
-    user: @clyde,
+  seed_medication_for(
     patient: @patty,
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
