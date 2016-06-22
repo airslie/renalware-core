@@ -4,7 +4,7 @@ tr
     - if policy(letter).update?
       = pipe_separator
       = link_to 'Edit', edit_patient_letters_letter_path(letter.patient, letter)
-  td Simple Letter
+  td= letter.type
   td= l letter.issued_on
   td= letter.author
   td= letter.main_recipient.address
