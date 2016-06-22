@@ -10,14 +10,19 @@ module Renalware
       def index
         appointments_query = AppointmentQuery.new(query_params)
         appointments = appointments_query.call.page(@page).per(@per_page)
-
         authorize appointments
+
+        request_form_options =
+          Renalware::Pathology::RequestAlgorithm::RequestFormOptions.new(
+            patients: appointments.map(&:patient).uniq
+          )
 
         render :index, locals: {
           appointments: appointments,
           query: appointments_query.search,
           clinics: Clinic.ordered,
-          users: User.ordered
+          users: User.ordered,
+          request_form_options: request_form_options
         }
       end
 

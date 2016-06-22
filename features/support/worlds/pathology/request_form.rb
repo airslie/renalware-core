@@ -29,6 +29,13 @@ module World
           Renalware::Pathology::RequestFormPresenter.wrap(patients, request_form_options)
         end
 
+        def generate_request_forms_for_appointments(clinician, appointments)
+          generate_request_forms_for_single_patient(
+            clinician,
+            patients: appointments.map(&:patient)
+          )
+        end
+
         # @section expectations
         #
         def expect_patient_summary_to_match_table(request_forms, patient, expected_table)
@@ -81,6 +88,13 @@ module World
           expect_patient_specific_test(request_forms, patient, patient_test)
         end
 
+        def expect_pathology_forms_for_patients(request_forms, patients)
+          request_forms_names = request_forms.map { |request_form| request_form.patient.full_name }
+          patient_names = patients.map(&:full_name)
+
+          expect(request_forms_names).to eq(patient_names)
+        end
+
         private
 
         def find_request_form_for_patient(request_forms, patient)
@@ -102,9 +116,13 @@ module World
           end
         end
 
-        def find_requested_patients(patient_names)
-          patient_names.split(", ").map do |patient_family_name|
-            Renalware::Pathology::Patient.find_by!(family_name: patient_family_name)
+        def find_requested_patients(patients)
+          if patients.first.is_a? String
+            patients.split(", ").map do |patient_family_name|
+              Renalware::Pathology::Patient.find_by!(family_name: patient_family_name)
+            end
+          else
+            patients
           end
         end
       end
@@ -125,6 +143,10 @@ module World
           update_request_form_clinic(clinic.name) if clinic.present?
           update_request_form_user(user.full_name) if user.present?
           update_request_form_telephone(telephone)  if telephone.present?
+        end
+
+        def generate_request_forms_for_appointments(_clinician, _appointments)
+          click_on "Generate request forms"
         end
 
         # @section expectations
@@ -148,7 +170,6 @@ module World
           request_form = find_request_form_for_patient(request_forms, patient)
 
           expect(request_form).to include("No tests required.")
-
         end
 
         def expect_request_description_required(request_forms, patient, request_description_code)
@@ -157,6 +178,14 @@ module World
             Renalware::Pathology::RequestDescription.find_by(code: request_description_code)
 
           expect(request_form.downcase).to include(request_description.name.downcase)
+        end
+
+        def expect_pathology_forms_for_patients(request_forms, patients)
+          patients.each do |patient|
+            request_form = find_request_form_for_patient(request_forms, patient)
+
+            expect(request_form.present?).to be_truthy
+          end
         end
 
         private
