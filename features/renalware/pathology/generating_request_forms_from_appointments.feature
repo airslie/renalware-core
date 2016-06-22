@@ -7,7 +7,6 @@ Feature: Generating request forms from appointments
 
   Background:
     Given Clyde is a clinician
-    And Clyde is logged in
     And the date today is 07-06-2016
     And the following appointments:
       | starts_at_date | starts_at_time | patient            | user            | clinic |
