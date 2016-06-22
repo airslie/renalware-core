@@ -1,0 +1,13 @@
+table.auto-layout
+  thead
+    tr
+      th
+      th Name
+      th Local Patient ID
+      th Age
+      th Sex
+      th Modality
+      th Date Bookmarked
+
+  tbody
+    = render partial: "renalware/dashboard/bookmarks/bookmark", collection: bookmarks

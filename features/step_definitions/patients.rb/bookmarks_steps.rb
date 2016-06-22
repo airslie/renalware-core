@@ -1,5 +1,5 @@
 Given(/^Clyde has the following patients bookmarked:$/) do |table|
-  patients = table.raw.flatten.map do |patient_name|
+  table.raw.flatten.map do |patient_name|
     given_name, family_name = patient_name.split(" ")
     create_bookmark(@clyde, given_name, family_name)
   end

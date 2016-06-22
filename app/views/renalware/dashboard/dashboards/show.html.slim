@@ -5,3 +5,8 @@
   - else
     p There are currently no "draft" or "typed" letters.
 
+  h4 Bookmarked Patients
+  - if bookmarks.present?
+    = render "renalware/dashboard/bookmarks/table", bookmarks: bookmarks
+  - else
+    p There are currently no bookmarked patients.
