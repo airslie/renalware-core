@@ -1,6 +1,12 @@
 module World
   module Patients
     module Domain
+      def find_patient_by_name(given_name, family_name)
+        Renalware::Patient.find_by!(
+          given_name: given_name, family_name: family_name
+        )
+      end
+
       def update_patient_address(patient:, current_address_attributes:)
         patient.update!(
           current_address_attributes: current_address_attributes.merge(id: patient.current_address.id),
@@ -31,3 +37,5 @@ module World
     end
   end
 end
+
+Dir[Rails.root.join("features/support/worlds/patients/*.rb")].each { |f| require f }

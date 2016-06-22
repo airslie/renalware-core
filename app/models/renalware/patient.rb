@@ -30,6 +30,7 @@ module Renalware
     has_many :medication_routes, through: :medications
     has_many :modalities, class_name: "Modalities::Modality"
     has_many :pd_regimes
+    has_many :bookmarks, class_name: "Patients::Bookmark"
 
     has_one :current_modality, -> { order(started_on: :desc).where(deleted_at: nil) },
       class_name: "Modalities::Modality"

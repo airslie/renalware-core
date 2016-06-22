@@ -1924,6 +1924,36 @@ ALTER SEQUENCE pathology_request_descriptions_id_seq OWNED BY pathology_request_
 
 
 --
+-- Name: patient_bookmarks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE patient_bookmarks (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+--
+-- Name: patient_bookmarks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE patient_bookmarks_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_bookmarks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE patient_bookmarks_id_seq OWNED BY patient_bookmarks.id;
+
+
+--
 -- Name: patient_languages; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3358,6 +3388,13 @@ ALTER TABLE ONLY pathology_request_descriptions ALTER COLUMN id SET DEFAULT next
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY patient_bookmarks ALTER COLUMN id SET DEFAULT nextval('patient_bookmarks_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY patient_languages ALTER COLUMN id SET DEFAULT nextval('patient_languages_id_seq'::regclass);
 
 
@@ -3972,6 +4009,14 @@ ALTER TABLE ONLY pathology_request_algorithm_patient_rules
 
 ALTER TABLE ONLY pathology_request_descriptions
     ADD CONSTRAINT pathology_request_descriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: patient_bookmarks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_bookmarks
+    ADD CONSTRAINT patient_bookmarks_pkey PRIMARY KEY (id);
 
 
 --
@@ -4658,6 +4703,13 @@ CREATE INDEX index_pathology_observations_on_description_id ON pathology_observa
 --
 
 CREATE INDEX index_pathology_observations_on_request_id ON pathology_observations USING btree (request_id);
+
+
+--
+-- Name: index_patient_bookmarks_on_patient_id_and_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_patient_bookmarks_on_patient_id_and_user_id ON patient_bookmarks USING btree (patient_id, user_id);
 
 
 --
@@ -5815,4 +5867,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160530170058');
 INSERT INTO schema_migrations (version) VALUES ('20160531141853');
 
 INSERT INTO schema_migrations (version) VALUES ('20160613120910');
+
+INSERT INTO schema_migrations (version) VALUES ('20160620131148');
 
