@@ -5,7 +5,10 @@ module World
         # @section commands
         #
         def create_appointment(table_row)
-          starts_at = parse_date_time_for_appointment(table_row["starts_at_date"], table_row["starts_at_time"])
+          starts_at = parse_date_time_for_appointment(
+            table_row["starts_at_date"],
+            table_row["starts_at_time"]
+          )
           user = find_or_create_user_for_appointment(table_row["user"])
           clinic = find_or_create_clinic_for_appointment(table_row["clinic"])
           patient = find_or_create_patient_for_appointment(table_row["patient"])
