@@ -8,11 +8,13 @@ Feature: Writing a clinic visit letter
     And Patty is a patient
     And Doug is Patty's doctor
     And Patty has a clinic visit
+    And Patty has current medications
 
-  @web
+  @web @wip
   Scenario: A doctor drafted a clinic visit letter
     When Doug drafts a clinic letter for Patty
     Then a letter for Patty's clinical visit is drafted
+    And the letter lists Patty's current medications
 
   @web
   Scenario: A doctor revised a clinic visit letter
