@@ -34,7 +34,7 @@ en-GB:
     - Saturday
     formats:
       default: "%d-%m-%Y"
-      long: "%d %B, %Y"
+      long: "%a %e %b %Y"
       short: "%d %b"
     month_names:
     -
