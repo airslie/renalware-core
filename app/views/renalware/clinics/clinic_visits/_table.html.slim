@@ -1,0 +1,12 @@
+table.clinics.auto-layout
+  thead
+    tr
+      th
+      th Date
+      th Clinic Type
+      th BMI
+      th BP
+      th Created by
+
+  tbody
+    = render partial: "renalware/clinics/clinic_visits/table_row", collection: clinic_visits, as: :clinic_visit

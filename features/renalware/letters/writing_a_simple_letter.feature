@@ -26,11 +26,11 @@ Feature: Writing a letter
       | John in London |                             | Patty, Doug                        |
 
   @web
-  Scenario: A nurse updated a letter
+  Scenario: A nurse revised a letter
     Given Patty has a letter
-    Then Nathalie can update Patty's letter
+    Then Nathalie can revise Patty's letter
 
   @web
-  Scenario: A nurse submitted an erroneous letter
-    When Nathalie submits an erroneous letter
-    Then the letter is not accepted
+  Scenario: A nurse drafted an erroneous letter
+    When Nathalie drafts an erroneous letter
+    Then the letter is not drafted

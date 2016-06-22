@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.2
--- Dumped by pg_dump version 9.5.2
+-- Dumped from database version 9.5.1
+-- Dumped by pg_dump version 9.5.1
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1341,6 +1341,8 @@ ALTER SEQUENCE letter_letterheads_id_seq OWNED BY letter_letterheads.id;
 
 CREATE TABLE letter_letters (
     id integer NOT NULL,
+    event_type character varying,
+    event_id integer,
     patient_id integer,
     type character varying NOT NULL,
     issued_on date NOT NULL,
@@ -2380,7 +2382,8 @@ ALTER SEQUENCE problem_versions_id_seq OWNED BY problem_versions.id;
 CREATE TABLE renal_profiles (
     id integer NOT NULL,
     patient_id integer NOT NULL,
-    diagnosed_on date NOT NULL,
+    esrf_on date,
+    first_seen_on date,
     prd_description_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -4605,6 +4608,13 @@ CREATE INDEX index_letter_letters_on_created_by_id ON letter_letters USING btree
 
 
 --
+-- Name: index_letter_letters_on_event_type_and_event_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_letter_letters_on_event_type_and_event_id ON letter_letters USING btree (event_type, event_id);
+
+
+--
 -- Name: index_letter_letters_on_letterhead_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4693,6 +4703,13 @@ CREATE INDEX index_pathology_observations_on_description_id ON pathology_observa
 --
 
 CREATE INDEX index_pathology_observations_on_request_id ON pathology_observations USING btree (request_id);
+
+
+--
+-- Name: index_patient_bookmarks_on_patient_id_and_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_patient_bookmarks_on_patient_id_and_user_id ON patient_bookmarks USING btree (patient_id, user_id);
 
 
 --

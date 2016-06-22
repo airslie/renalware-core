@@ -16,9 +16,16 @@
       = f.submit "Filter", class: "button"
 
 .row
+  .large-12.columns
+    = simple_form_for request_form_options, url: pathology_forms_path, as: :request_form_options do |f|
+      = f.input :patient_ids, as: :hidden_array
+      = f.button :submit, "Generate request forms", class: "button tiny"
+
+.row
   table#appointments
     thead
       tr
+        th Generate request form?
         th = sort_link(query, :starts_at, "Date", default_order: :asc)
         th = Time
         th = sort_link(query, :patient_family_name, "Patient", default_order: :asc)
@@ -28,6 +35,7 @@
     tbody
       - appointments.each do |appointment|
         tr
+          td = check_box_tag nil, appointment.patient.id, true, class: "patient_checkbox"
           td = I18n.l appointment.starts_on
           td = appointment.start_time
           td = link_to appointment.patient.full_name, patient_path(id: appointment.patient.id)

@@ -10,13 +10,15 @@ module Renalware
       end
 
       def new
-        render_form(LetterFactory.new(@patient).build, :new)
+        letter = LetterFactory.new(@patient).build(event: find_event)
+        render_form(letter, :new)
       end
 
       def create
+        attributes = letter_params.merge(event: find_event)
         DraftLetter.build
           .subscribe(self)
-          .call(@patient, letter_params)
+          .call(@patient, attributes)
       end
 
       def draft_letter_successful(letter)
@@ -70,6 +72,23 @@ module Renalware
         render action
       end
 
+      def find_event
+        return unless event_type.present?
+        event_class.for_patient(@patient).find(event_id)
+      end
+
+      def event_class
+        @event_class ||= event_type.singularize.classify.constantize
+      end
+
+      def event_type
+        params.fetch(:event_type, nil)
+      end
+
+      def event_id
+        params.fetch(:event_id, nil)
+      end
+
       def letter_params
         params
           .require(:letters_letter_draft)
@@ -79,6 +98,7 @@ module Renalware
 
       def attributes
         [
+          :event_type, :event_id,
           :letterhead_id, :author_id, :description, :issued_on,
           :salutation, :body, :notes,
           main_recipient_attributes: main_recipient_attributes,
