@@ -45,9 +45,9 @@ module Renalware
         @letter_event ||=
           case event
           when Clinics::ClinicVisit
-            ClinicVisitEvent.new(event)
+            Event::ClinicVisit.new(event)
           else
-            UnknownEvent.new
+            Event::Unknown.new(nil)
           end
       end
 

@@ -1,8 +1,8 @@
-require_dependency "renalware/letters"
+require_dependency "renalware/letters/event"
 
 module Renalware
   module Letters
-    class UnknownEvent
+    class Event::Unknown < Event
       def description
       end
 
