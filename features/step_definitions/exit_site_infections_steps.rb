@@ -75,7 +75,7 @@ Given(/^Patty is being treated for an exit site infection$/) do
     organism_name: "Acineobactor"
   )
 
-  record_medication_for(
+  seed_medication_for(
     patient: @patty,
     treatable: infection_for(@patty),
     drug_name: "Ciprofloxacin Infusion",
@@ -102,6 +102,7 @@ Then(/^Clyde can revise the exist site infection$/) do
 
   revise_medication_for(
     patient: @patty,
+    user: @user,
     drug_name: "Cefotaxime Injection",
     drug_selector: exit_site_infection_drug_selector
   )

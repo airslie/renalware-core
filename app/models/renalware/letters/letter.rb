@@ -41,14 +41,13 @@ module Renalware
         where(event: event).first
       end
 
+      EVENTS_MAP = {
+        Clinics::ClinicVisit => Event::ClinicVisit,
+        NilClass => Event::Unknown
+      }
+
       def letter_event
-        @letter_event ||=
-          case event
-          when Clinics::ClinicVisit
-            ClinicVisitEvent.new(event)
-          else
-            UnknownEvent.new
-          end
+        @letter_event ||= EVENTS_MAP.fetch(event.class).new(event)
       end
 
       def doctor

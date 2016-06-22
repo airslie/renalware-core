@@ -84,3 +84,7 @@ end
 Then(/^a letter for Patty's clinical visit is drafted$/) do
   expect_clinic_visit_letter_to_exist(patient: @patty)
 end
+
+Then(/^the letter lists Patty's current medications$/) do
+  expect_letter_to_list_current_medications(patient: @patty)
+end
