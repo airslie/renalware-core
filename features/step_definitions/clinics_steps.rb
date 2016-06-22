@@ -9,7 +9,7 @@ Given(/^Patty has a clinic visit$/) do
 end
 
 When(/^Clyde records Patty's clinic visit$/) do
-  @clinic_visit = create_clinic_visit(@patty, @clyde)
+  @clinic_visit = record_clinic_visit(@patty, @clyde)
 end
 
 When(/^Clyde updates Patty's clinic visit$/) do
