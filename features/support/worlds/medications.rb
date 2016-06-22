@@ -32,7 +32,7 @@ module World
         record_medication_for(args)
       end
 
-      def revise_medication_for(patient:, drug_name:,
+      def revise_medication_for(patient:, user:, drug_name:,
         drug_selector: default_medication_drug_selector)
 
         drug = Renalware::Drugs::Drug.find_by!(name: drug_name)
@@ -102,8 +102,13 @@ module World
         record_medication_for(patient: patient, **args)
       end
 
-      def revise_medication_for(patient:, drug_name:,
+      def revise_medication_for(patient:, user:, drug_name:,
         drug_selector: default_medication_drug_selector)
+
+        login_as user
+
+        visit patient_medications_path(patient,
+          treatable_type: patient.class, treatable_id: patient.id)
 
         within "#medications" do
           click_on "Edit"

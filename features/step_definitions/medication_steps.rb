@@ -30,6 +30,7 @@ end
 Then(/^Clyde can revise the medication$/) do
   revise_medication_for(
     patient: @patty,
+    user: @clyde,
     drug_name: "Cefuroxime Injection"
   )
 
