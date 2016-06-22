@@ -11,7 +11,7 @@ module World
           )
           user = find_or_create_user_for_appointment(table_row["user"])
           clinic = find_or_create_clinic_for_appointment(table_row["clinic"])
-          patient = find_or_create_patient_for_appointment(table_row["patient"])
+          patient = find_or_create_patient_by_name(table_row["patient"])
 
           Renalware::Clinics::Appointment.create!(
             starts_at: starts_at,
@@ -47,42 +47,36 @@ module World
           date.change(hour: time_arr[0], min: time_arr[1])
         end
 
-        def find_or_create_patient_for_appointment(patient_full_name)
+        def find_or_create_patient_by_name(patient_full_name)
           given_name, family_name = patient_full_name.split(" ")
-          patient = Renalware::Clinics::Patient.find_by(
-            given_name: given_name, family_name: family_name
-          )
 
-          return patient if patient.present?
-
-          Renalware::Clinics::Patient.create!(
-            family_name: family_name,
+          Renalware::Clinics::Patient.find_or_create_by!(
             given_name: given_name,
-            local_patient_id: SecureRandom.uuid,
-            sex: "M",
-            born_on: Date.new(1989, 1, 1),
-            by: Renalware::SystemUser.find
-          )
+            family_name: family_name
+          ) do |patient|
+            patient.local_patient_id = SecureRandom.uuid
+            patient.sex = "M"
+            patient.born_on = Date.new(1989, 1, 1)
+            patient.by = Renalware::SystemUser.find
+          end
         end
 
         def find_or_create_clinic_for_appointment(clinic_name)
-          Renalware::Clinics::Clinic.find_by!(name: clinic_name)
+          Renalware::Clinics::Clinic.find_or_create_by!(name: clinic_name)
         end
 
         def find_or_create_user_for_appointment(user_full_name)
           given_name, family_name = user_full_name.split(" ")
-          user = Renalware::User.find_by(given_name: given_name,family_name: family_name)
 
-          return user if user.present?
-
-          Renalware::User.create!(
-            family_name: family_name,
+          Renalware::User.find_or_create_by!(
             given_name: given_name,
-            email: "#{given_name}.#{family_name}@renalware.net",
-            username: "#{given_name}_#{family_name}",
-            approved: true,
-            password: "supersecret"
-          )
+            family_name: family_name
+          ) do |user|
+            user.email = "#{given_name}.#{family_name}@renalware.net"
+            user.username = "#{given_name}_#{family_name}"
+            user.approved = true
+            user.password = "supersecret"
+          end
         end
       end
 
