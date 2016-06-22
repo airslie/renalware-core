@@ -1,4 +1,4 @@
-Given(/^Patty has a medication recorded$/) do
+Given(/^Patty has a medication recorded|Patty has current medications$/) do
   record_medication_for_patient(
     user: @clyde,
     patient: @patty,

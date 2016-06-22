@@ -42,6 +42,10 @@ module Renalware
         "Preview"
       end
 
+      def current_medications
+        Part::CurrentMedications.new(patient)
+      end
+
       private
 
       # Include the counterpart cc recipients (i.e. patient and/or doctor)

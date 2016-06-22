@@ -71,8 +71,15 @@ module World
 
         expect(letter).to be_present
       end
-    end
 
+      def expect_letter_to_list_current_medications(patient: patient)
+        visit = clinic_visit_for(patient)
+        letter = clinic_visit_letter_for(visit)
+
+        letter = Renalware::Letters::LetterPresenterFactory.new(letter)
+        expect(letter.current_medications).to be_present
+      end
+    end
 
     module Web
       include Domain
