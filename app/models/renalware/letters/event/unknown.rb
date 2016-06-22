@@ -6,10 +6,6 @@ module Renalware
       def description
       end
 
-      def part_classes
-        []
-      end
-
       def to_s
         "Simple"
       end

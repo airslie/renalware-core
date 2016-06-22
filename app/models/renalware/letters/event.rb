@@ -8,7 +8,7 @@ module Renalware
       end
 
       def part_classes
-        []
+        {}
       end
 
       def to_s
