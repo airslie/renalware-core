@@ -44,7 +44,8 @@ Then(/^Clyde sees the following pathology requirements for (\w+):$/) do |patient
 end
 
 Then(/^Clyde sees the requests forms for these patients:$/) do |table|
-  patients = table.raw.flatten.map do |patient_full_name|
+  #byebug
+  patients = table.rows.map do |patient_full_name, user_full_name|
     given_name, family_name = patient_full_name.split(" ")
     Renalware::Pathology::Patient.find_by(given_name: given_name, family_name: family_name)
   end

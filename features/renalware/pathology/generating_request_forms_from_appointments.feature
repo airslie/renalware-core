@@ -23,6 +23,7 @@ Feature: Generating request forms from appointments
   Scenario: A clinician generated the forms for all appointments listed
     When Clyde generates the request forms for the appointments
     Then Clyde sees the requests forms for these patients:
+      | patient            |
       | Ibiere Elliott     |
       | Wendy Sears        |
       | Rochelle Hinsberry |
@@ -31,6 +32,7 @@ Feature: Generating request forms from appointments
   Scenario: A clinician changed the order of appointments and generated the forms for all appointments listed
     When Clyde generates the request forms for the appointments sorted by user
     Then Clyde sees the requests forms for these patients:
-      | Rochelle Hinsberry |
-      | Ibiere Elliott     |
-      | Wendy Sears        |
+      | patient            | user            |
+      | Rochelle Hinsberry | Levi Considine  |
+      | Ibiere Elliott     | Emmett Eichmann |
+      | Wendy Sears        | Clay Haag       |
