@@ -1,0 +1,7 @@
+ul.letter-list.inline
+  li= inline_observation("BP", clinical_observations.bp)
+  li= inline_observation("Weight", clinical_observations.weight, "kg")
+  li= inline_observation("Height", clinical_observations.height, "m")
+  li= inline_observation("BMI", clinical_observations.bmi)
+  li= inline_observation("Urine Blood", clinical_observations.urine_blood)
+  li= inline_observation("Urine Protein", clinical_observations.urine_protein)
