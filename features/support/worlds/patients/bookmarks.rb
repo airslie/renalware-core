@@ -13,6 +13,7 @@ module World
         # @section commands
         #
         def bookmark_patient(user, patient_given_name, patient_family_name)
+          user = Renalware::Patients.cast_user(user)
           patient = find_patient(patient_given_name, patient_family_name)
 
           Renalware::Patients::Bookmark.create!(user: user, patient: patient)
