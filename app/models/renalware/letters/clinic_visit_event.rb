@@ -8,9 +8,9 @@ module Renalware
       end
 
       def part_classes
-        [
-          Part::CurrentMedications
-        ]
+        {
+          current_medications: Part::CurrentMedications
+        }
       end
 
       def to_s
