@@ -12,6 +12,10 @@ module Renalware
         @patient_presenter ||= PatientPresenter.new(super)
       end
 
+      def event_description
+        letter_event.description
+      end
+
       def main_recipient
         @main_recipient_presenter ||= recipient_presenter_class.new(super)
       end
