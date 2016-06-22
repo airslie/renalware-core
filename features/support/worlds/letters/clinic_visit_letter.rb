@@ -72,7 +72,7 @@ module World
         expect(letter).to be_present
       end
 
-      def expect_letter_to_list_current_medications(patient: patient)
+      def expect_letter_to_list_current_medications(patient:)
         visit = clinic_visit_for(patient)
         letter = clinic_visit_letter_for(visit)
 
@@ -113,7 +113,7 @@ module World
         end
       end
 
-      def expect_letter_to_list_current_medications(patient: patient)
+      def expect_letter_to_list_current_medications(patient:)
         visit patient_clinic_visits_path(patient)
         click_on "Preview Letter"
 
