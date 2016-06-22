@@ -112,6 +112,15 @@ module World
           click_on "Save"
         end
       end
+
+      def expect_letter_to_list_current_medications(patient: patient)
+        visit patient_clinic_visits_path(patient)
+        click_on "Preview Letter"
+
+        patient.medications.each do |medication|
+          expect(page.body).to include(medication.drug.name)
+        end
+      end
     end
   end
 end

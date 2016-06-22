@@ -42,6 +42,10 @@ module Renalware
         "Preview"
       end
 
+      def parts
+        [current_medications]
+      end
+
       def current_medications
         Part::CurrentMedications.new(patient)
       end
