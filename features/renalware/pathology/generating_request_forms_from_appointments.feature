@@ -9,14 +9,6 @@ Feature: Generating request forms from appointments
     Given Clyde is a clinician
     And Clyde is logged in
     And the date today is 07-06-2016
-    And the following patients:
-      | Ibiere Elliott     |
-      | Rochelle Hinsberry |
-      | Wendy Sears        |
-    And the following users:
-      | Emmett Eichmann |
-      | Clay Haag       |
-      | Levi Considine  |
     And the following appointments:
       | starts_at_date | starts_at_time | patient            | user            | clinic |
       | 07-06-2016     | 10:30          | Ibiere Elliott     | Emmett Eichmann | Access |
@@ -29,8 +21,7 @@ Feature: Generating request forms from appointments
 
   @web
   Scenario: A clinician generated the forms for all appointments listed
-    When Clyde views the list of appointments
-    And Clyde generates the request forms for the appointments
+    When Clyde generates the request forms for the appointments
     Then Clyde sees the requests forms for these patients:
       | Ibiere Elliott     |
       | Wendy Sears        |
@@ -38,11 +29,8 @@ Feature: Generating request forms from appointments
 
   @web
   Scenario: A clinician changed the order of appointments and generated the forms for all appointments listed
-    When Clyde views the list of appointments
-    And Clyde sorts the list by user
-    And Clyde generates the request forms for the appointments
+    When Clyde generates the request forms for the appointments sorted by user
     Then Clyde sees the requests forms for these patients:
       | Rochelle Hinsberry |
       | Ibiere Elliott     |
       | Wendy Sears        |
-
