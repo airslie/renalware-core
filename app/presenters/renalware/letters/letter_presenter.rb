@@ -43,11 +43,11 @@ module Renalware
       end
 
       def parts
-        letter_event.part_classes.values.map {|part_class| part_class.new(patient) }
+        letter_event.part_classes.values.map {|part_class| part_class.new(patient, letter_event) }
       end
 
       def part_for(part_name)
-        letter_event.part_classes[part_name].new(patient)
+        letter_event.part_classes[part_name].new(patient, letter_event)
       end
 
       private
