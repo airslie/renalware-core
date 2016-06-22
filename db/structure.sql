@@ -4696,6 +4696,13 @@ CREATE INDEX index_pathology_observations_on_request_id ON pathology_observation
 
 
 --
+-- Name: index_patient_bookmarks_on_patient_id_and_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_patient_bookmarks_on_patient_id_and_user_id ON patient_bookmarks USING btree (patient_id, user_id);
+
+
+--
 -- Name: index_patients_on_created_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
