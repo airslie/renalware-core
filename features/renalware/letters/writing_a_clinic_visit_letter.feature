@@ -10,7 +10,7 @@ Feature: Writing a clinic visit letter
     And Patty has a clinic visit
     And Patty has current medications
 
-  @web @wip
+  @web
   Scenario: A doctor drafted a clinic visit letter
     When Doug drafts a clinic letter for Patty
     Then a letter for Patty's clinical visit is drafted
