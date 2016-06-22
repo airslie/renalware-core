@@ -43,7 +43,7 @@ module Renalware
       end
 
       def parts
-        [current_medications]
+        letter_event.part_classes.map {|part_class| part_class.new(patient) }
       end
 
       def current_medications
