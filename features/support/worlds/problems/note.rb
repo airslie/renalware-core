@@ -16,10 +16,6 @@ module World
         )
       end
 
-      def problem_drug_selector
-        nil
-      end
-
       # @section expectations
       #
       def expect_problem_note_to_be_recorded(problem:)
