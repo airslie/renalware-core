@@ -4,6 +4,15 @@ en:
       form:
         clinic_prompt: Select clinic type
 
+  enumerize:
+    renalware/clinics/clinic_visit:
+      urine_blood:
+        neg: "-"
+        trace: "+"
+      urine_protein:
+        neg: "-"
+        trace: "+"
+
   simple_form:
     hints:
       clinic_visit:
