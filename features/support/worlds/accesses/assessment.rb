@@ -23,7 +23,7 @@ module World
 
       # @section set-ups
       #
-      def set_up_access_assessment_for(patient, user:)
+      def seed_access_assessment_for(patient, user:)
         patient = accesses_patient(patient)
         patient.assessments.create!(
           valid_access_assessment_attributes.merge(

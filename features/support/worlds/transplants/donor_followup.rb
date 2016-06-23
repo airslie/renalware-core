@@ -15,7 +15,7 @@ module World
 
       # @section set-ups
       #
-      def set_up_donor_followup(operation)
+      def seed_donor_followup(operation)
         Renalware::Transplants::DonorFollowup.create!(
           valid_donor_followup_attributes.merge(
             operation: operation

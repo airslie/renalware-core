@@ -1,13 +1,13 @@
 Given(/^Patty has a recorded access profile$/) do
-  set_up_access_profile_for(@patty, user: Renalware::User.first)
+  seed_access_profile_for(@patty, user: Renalware::User.first)
 end
 
 Given(/^Patty has a recorded access procedure$/) do
-  set_up_access_procedure_for(@patty, user: Renalware::User.first)
+  seed_access_procedure_for(@patty, user: Renalware::User.first)
 end
 
 Given(/^Patty has a recorded access assessment$/) do
-  set_up_access_assessment_for(@patty, user: Renalware::User.first)
+  seed_access_assessment_for(@patty, user: Renalware::User.first)
 end
 
 

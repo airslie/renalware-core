@@ -18,7 +18,7 @@ module World
 
       # @section set-ups
       #
-      def set_up_access_profile_for(patient, user:)
+      def seed_access_profile_for(patient, user:)
         patient = accesses_patient(patient)
         patient.profiles.create!(
           valid_access_profile_attributes.merge(

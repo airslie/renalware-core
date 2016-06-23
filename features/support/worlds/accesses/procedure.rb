@@ -19,7 +19,7 @@ module World
 
       # @section set-ups
       #
-      def set_up_access_procedure_for(patient, user:)
+      def seed_access_procedure_for(patient, user:)
         patient = accesses_patient(patient)
         patient.procedures.create!(
           valid_access_procedure_attributes.merge(

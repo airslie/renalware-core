@@ -9,7 +9,7 @@ module World
 
       # @section set-ups
       #
-      def set_up_doner_workup_for(patient)
+      def seed_doner_workup_for(patient)
         Renalware::Transplants::DonorWorkup.create!(
           patient: patient,
           document: {
@@ -25,7 +25,7 @@ module World
       # @section commands
       #
       def create_donor_workup(user: nil, patient:)
-        set_up_doner_workup_for(patient)
+        seed_doner_workup_for(patient)
       end
 
       def update_donor_workup(patient:, user: nil)

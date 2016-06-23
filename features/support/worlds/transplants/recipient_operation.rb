@@ -22,7 +22,7 @@ module World
 
       # @section set-ups
       #
-      def set_up_recipient_operation(patient)
+      def seed_recipient_operation(patient)
         Renalware::Transplants::RecipientOperation.create!(
           valid_recipient_operation_attributes.merge(
             patient: patient,

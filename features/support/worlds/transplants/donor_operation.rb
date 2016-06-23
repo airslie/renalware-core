@@ -15,7 +15,7 @@ module World
 
       # @section set-ups
       #
-      def set_up_donor_operation(patient)
+      def seed_donor_operation(patient)
         Renalware::Transplants::DonorOperation.create!(
           valid_donor_operation_attributes.merge(
             patient: patient,

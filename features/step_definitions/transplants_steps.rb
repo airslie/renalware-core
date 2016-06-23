@@ -1,43 +1,43 @@
 Given(/^Patty has a recorded recipient workup$/) do
-  set_up_recipient_workup_for(@patty)
+  seed_recipient_workup_for(@patty)
 end
 
 Given(/^Don has a donor workup$/) do
-  set_up_doner_workup_for(@don)
+  seed_doner_workup_for(@don)
 end
 
 Given(/^Patty is registered on the wait list$/) do
-  set_up_patient_on_wait_list(@patty)
+  seed_patient_on_wait_list(@patty)
 end
 
 Given(/^Patty is registered on the wait list with this status history$/) do |table|
-  set_up_patient_wait_list_statuses(@patty, table)
+  seed_patient_wait_list_statuses(@patty, table)
 end
 
 Given(/^Patty has a recorded recipient operation$/) do
-  @operation = set_up_recipient_operation(@patty)
+  @operation = seed_recipient_operation(@patty)
 end
 
 Given(/^Don has a donor operation$/) do
-  @operation = set_up_donor_operation(@don)
+  @operation = seed_donor_operation(@don)
 end
 
 Given(/^Don has a donation$/) do
-  set_up_donation(@don)
+  seed_donation(@don)
 end
 
 Given(/^Patty has a recorded recipient operation followup$/) do
-  @operation = set_up_recipient_operation(@patty)
-  @followup = set_up_recipient_followup(@operation)
+  @operation = seed_recipient_operation(@patty)
+  @followup = seed_recipient_followup(@operation)
 end
 
 Given(/^Don has a donor operation followup$/) do
-  @operation = set_up_donor_operation(@don)
-  @followup = set_up_donor_followup(@operation)
+  @operation = seed_donor_operation(@don)
+  @followup = seed_donor_followup(@operation)
 end
 
 Given(/^These patients are on the transplant wait list$/) do |table|
-  set_up_wait_list_registrations(table)
+  seed_wait_list_registrations(table)
 end
 
 # WHEN

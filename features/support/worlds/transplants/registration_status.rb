@@ -16,7 +16,7 @@ module World
 
       # @section set-ups
       #
-      def set_up_patient_wait_list_statuses(patient, table)
+      def seed_patient_wait_list_statuses(patient, table)
         registration = Renalware::Transplants::Registration.create!(
           patient: patient
         )

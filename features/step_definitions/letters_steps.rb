@@ -1,5 +1,5 @@
 Given(/^Patty has a recorded letter$/) do
-  set_up_simple_letter_for(@patty, user: @nathalie)
+  seed_simple_letter_for(@patty, user: @nathalie)
 end
 
 Given(/^Patty accepted to be CCd on all letters$/) do
@@ -7,7 +7,7 @@ Given(/^Patty accepted to be CCd on all letters$/) do
 end
 
 Given(/^Patty is the main recipient on a pending letter$/) do
-  @letter = set_up_simple_letter_for(@patty, user: @nathalie)
+  @letter = seed_simple_letter_for(@patty, user: @nathalie)
 end
 
 Given(/^a letter for Patty's clinical visit was drafted$/) do

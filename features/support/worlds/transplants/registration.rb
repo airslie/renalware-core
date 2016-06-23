@@ -9,7 +9,7 @@ module World
 
       # @section set-ups
       #
-      def set_up_patient_on_wait_list(patient)
+      def seed_patient_on_wait_list(patient)
         Renalware::Transplants::Registration.create!(
           patient: patient,
           statuses_attributes: {
@@ -22,7 +22,7 @@ module World
         )
       end
 
-      def set_up_patient_on_wait_list(patient, status="Active")
+      def seed_patient_on_wait_list(patient, status="Active")
         Renalware::Transplants::Registration.create!(
           patient: patient,
           statuses_attributes: {
@@ -35,7 +35,7 @@ module World
         )
       end
 
-      def set_up_wait_list_registrations(table)
+      def seed_wait_list_registrations(table)
         table.hashes.each do |row|
           patient_name = row[:patient]
           status = row[:status]
@@ -48,7 +48,7 @@ module World
             born_on: Time.zone.today,
             by: Renalware::SystemUser.find
           )
-          set_up_patient_on_wait_list(patient, status)
+          seed_patient_on_wait_list(patient, status)
         end
       end
 
