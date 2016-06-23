@@ -1,8 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "User's Dashboard", type: :request do
+  let!(:patient) { create(:patient) }
   let(:patients_user) { Renalware::Patients.cast_user(@current_user) }
-  let!(:bookmark) { create(:patients_bookmark, user: patients_user) }
+  let!(:bookmark) { create(:patients_bookmark, user: patients_user, patient: patient) }
 
   before { create_letters }
 
