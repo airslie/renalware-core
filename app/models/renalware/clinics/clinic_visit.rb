@@ -14,8 +14,8 @@ module Renalware
 
       validates :date, timeliness: { type: :date }
 
-      enumerize :urine_blood, in: %i(neg trace)
-      enumerize :urine_protein, in: %i(neg trace)
+      enumerize :urine_blood, in: %i(neg trace very_low low medium high)
+      enumerize :urine_protein, in: %i(neg trace very_low low medium high)
 
       def bmi
         ((weight / height) / height).round(2)
