@@ -9,7 +9,7 @@ Feature: Writing a clinic visit letter
     And Doug is Patty's doctor
     And Patty has a clinic visit
     And Patty has current medications
-    And Patty has problems and notes
+    And Patty has recorded problems with notes
 
   @web
   Scenario: A doctor drafted a clinic visit letter
