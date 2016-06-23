@@ -7,6 +7,14 @@ module Renalware
         super(patient)
       end
     end
+
+    def inline_value(label, value, unit=nil)
+      [
+        content_tag(:strong, "#{label}: "),
+        value,
+        unit
+      ].flatten.join(" ").html_safe
+    end
   end
 end
 

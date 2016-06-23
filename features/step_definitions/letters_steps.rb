@@ -88,3 +88,7 @@ end
 Then(/^the letter lists Patty's current medications$/) do
   expect_letter_to_list_current_medications(patient: @patty)
 end
+
+Then(/^the letter lists Patty's clinical observations$/) do
+  expect_letter_to_list_clinical_observations(patient: @patty)
+end
