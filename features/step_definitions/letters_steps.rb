@@ -14,6 +14,9 @@ Given(/^a letter for Patty's clinical visit was drafted$/) do
   @letter = seed_clinic_visit_letter_for(@patty, user: @nathalie)
 end
 
+Given(/^Patty has completed pathology investigations relevant to the clinic letter$/) do
+  seed_observations_relevant_to_clinic_letter(patient: @patty)
+end
 
 When(/^Nathalie drafts a letter for Patty to "(.*?)" with "(.*?)"$/) do |rec, ccs|
   recipient = letter_recipients_map.fetch(rec)

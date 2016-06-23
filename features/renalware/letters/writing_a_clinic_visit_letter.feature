@@ -11,7 +11,7 @@ Feature: Writing a clinic visit letter
     And Patty has current medications
     And Patty has recorded problems with notes
     And Patty had pathology investigations completed in the past
-    And Patty has completed pathology investigations
+    And Patty has completed pathology investigations relevant to the clinic letter
 
   @web @wip
   Scenario: A doctor drafted a clinic visit letter

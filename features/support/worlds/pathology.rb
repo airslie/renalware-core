@@ -18,23 +18,6 @@ module World
         end
       end
 
-      def seed_some_observations(patient:)
-        patient = Renalware::Pathology.cast_patient(patient)
-
-        description = Renalware::Pathology::ObservationDescription.first!
-        observations_attributes = [
-          { description: description, result: 10, observed_at: 1.day.ago }
-        ]
-
-        Renalware::Pathology::ObservationRequest.create!(
-          patient: patient,
-          requestor_name: "KCH",
-          requested_at: Time.zone.now,
-          description: Renalware::Pathology::RequestDescription.first!,
-          observations_attributes: observations_attributes
-        )
-      end
-
       # @section commands
 
       def record_observations(patient:, observations_attributes:)

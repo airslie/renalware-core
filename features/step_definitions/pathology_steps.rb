@@ -45,10 +45,6 @@ Given(/^the following observations were recorded$/) do |table|
   record_observations(patient: @patty, observations_attributes: table.hashes)
 end
 
-Given(/^Patty has completed pathology investigations$/) do
-  seed_some_observations(patient: @patty)
-end
-
 Then(/^an observation request is created with the following attributes:$/) do |table|
   expect_observation_request_to_be_created(table.rows_hash)
 end

@@ -18,7 +18,8 @@ module Renalware
 
       def default_service(patient)
         presenter = Pathology::CurrentObservationResults::Presenter.new
-        Pathology::ViewCurrentObservationResults.new(patient, presenter)
+        descriptions = Letters::RelevantObservationDescription.all
+        Pathology::ViewCurrentObservationResults.new(patient, presenter, descriptions: descriptions)
       end
     end
   end
