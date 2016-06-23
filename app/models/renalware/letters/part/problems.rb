@@ -3,7 +3,7 @@ require "renalware/letters/part"
 module Renalware
   module Letters
     class Part::Problems < DumbDelegator
-      def initialize(patient, _event)
+      def initialize(patient, _event = Event::Unknown.new)
         @patient = patient
         super(patient.problems)
       end
