@@ -1,8 +1,8 @@
 .columns.large-12
   ul.letter-list.inline
-    li= inline_observation("BP", clinical_observations.bp)
-    li= inline_observation("Weight", clinical_observations.weight, "kg")
-    li= inline_observation("Height", clinical_observations.height, "m")
-    li= inline_observation("BMI", clinical_observations.bmi)
-    li= inline_observation("Urine Blood", clinical_observations.urine_blood.try!(:text))
-    li= inline_observation("Urine Protein", clinical_observations.urine_protein.try!(:text))
+    li= inline_value("BP", clinical_observations.bp)
+    li= inline_value("Weight", clinical_observations.weight, "kg")
+    li= inline_value("Height", clinical_observations.height, "m")
+    li= inline_value("BMI", clinical_observations.bmi)
+    li= inline_value("Urine Blood", clinical_observations.urine_blood.try!(:text))
+    li= inline_value("Urine Protein", clinical_observations.urine_protein.try!(:text))
