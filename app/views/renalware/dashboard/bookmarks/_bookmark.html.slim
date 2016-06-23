@@ -6,8 +6,7 @@ tr
   td= bookmark.patient.sex
   td= bookmark.patient.current_modality
   td= I18n.l bookmark.created_at
-  = simple_form_for bookmark,
-      url: bookmark_path(id: bookmark.id),
-      method: :delete do |f|
-    td= link_to "Remove", "#", data: { behaviour: "submit" }
+  td= render partial: "renalware/patients/bookmarks/delete_form",
+      locals: { bookmark: bookmark, link_text: "Remove" }
+
 
