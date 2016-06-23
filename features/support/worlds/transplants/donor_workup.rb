@@ -7,7 +7,7 @@ module World
         Renalware::Transplants::DonorWorkup.for_patient(patient).first_or_initialize
       end
 
-      # @section set-ups
+      # @section seeding
       #
       def seed_doner_workup_for(patient)
         Renalware::Transplants::DonorWorkup.create!(

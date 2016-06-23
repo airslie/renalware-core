@@ -14,7 +14,7 @@ module World
         }
       end
 
-      # @section set-ups
+      # @section seeding
       #
       def seed_hd_dry_weight_for(patient, assessor)
         Renalware::HD::DryWeight.create!(

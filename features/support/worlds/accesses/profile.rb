@@ -16,7 +16,7 @@ module World
         }
       end
 
-      # @section set-ups
+      # @section seeding
       #
       def seed_access_profile_for(patient, user:)
         patient = accesses_patient(patient)

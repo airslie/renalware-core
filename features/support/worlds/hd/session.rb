@@ -19,7 +19,7 @@ module World
         }
       end
 
-      # @section set-ups
+      # @section seeding
       #
       def seed_hd_session_for(patient, user:)
         Renalware::HD::Session.create!(

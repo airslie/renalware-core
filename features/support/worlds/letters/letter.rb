@@ -26,7 +26,7 @@ module World
         }
       end
 
-      # @section set-ups
+      # @section seeding
       #
       def seed_simple_letter_for(patient, user:)
         patient = letters_patient(patient)

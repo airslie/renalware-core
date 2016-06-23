@@ -7,7 +7,7 @@ module World
         Renalware::HD::PreferenceSet.for_patient(patient).first_or_initialize
       end
 
-      # @section set-ups
+      # @section seeding
       #
       def seed_hd_preferences_for(patient, user:)
         Renalware::HD::PreferenceSet.create!(

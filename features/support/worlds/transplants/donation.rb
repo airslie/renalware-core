@@ -14,7 +14,7 @@ module World
         }
       end
 
-      # @section set-ups
+      # @section seeding
       #
       def seed_donation(patient)
         Renalware::Transplants::Donation.create!(

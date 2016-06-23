@@ -14,7 +14,7 @@ module World
         registration.statuses.find_by description: description
       end
 
-      # @section set-ups
+      # @section seeding
       #
       def seed_patient_wait_list_statuses(patient, table)
         registration = Renalware::Transplants::Registration.create!(

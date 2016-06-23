@@ -20,7 +20,7 @@ module World
         }
       end
 
-      # @section set-ups
+      # @section seeding
       #
       def seed_recipient_operation(patient)
         Renalware::Transplants::RecipientOperation.create!(

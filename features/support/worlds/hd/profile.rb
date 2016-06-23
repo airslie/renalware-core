@@ -18,7 +18,7 @@ module World
         }
       end
 
-      # @section set-ups
+      # @section seeding
       #
       def seed_hd_profile_for(patient, prescriber:)
         Renalware::HD::Profile.create!(

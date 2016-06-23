@@ -7,7 +7,7 @@ module World
         Renalware::Transplants::Registration.for_patient(patient).first_or_initialize
       end
 
-      # @section set-ups
+      # @section seeding
       #
       def seed_patient_on_wait_list(patient)
         Renalware::Transplants::Registration.create!(

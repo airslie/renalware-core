@@ -13,7 +13,7 @@ module World
         }
       end
 
-      # @section set-ups
+      # @section seeding
       #
       def seed_donor_followup(operation)
         Renalware::Transplants::DonorFollowup.create!(
