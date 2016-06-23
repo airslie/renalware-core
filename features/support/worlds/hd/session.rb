@@ -19,9 +19,9 @@ module World
         }
       end
 
-      # @section set-ups
+      # @section seeding
       #
-      def set_up_hd_session_for(patient, user:)
+      def seed_hd_session_for(patient, user:)
         Renalware::HD::Session.create!(
           valid_session_attributes(patient).merge(
             signed_on_by: user,
@@ -30,13 +30,13 @@ module World
         )
       end
 
-      def set_up_hd_sessions(table)
+      def seed_hd_sessions(table)
         table.hashes.each do |row|
           signed_on_by = find_or_create_user(given_name: row[:signed_on_by], role: "clinician")
           signed_off_by = find_or_create_user(given_name: row[:signed_off_by], role: "clinician")
           patient = create_patient(full_name: row[:patient])
 
-          session = set_up_hd_session_for(patient, user: signed_on_by)
+          session = seed_hd_session_for(patient, user: signed_on_by)
           session.signed_off_by = signed_off_by
           session.save!
         end

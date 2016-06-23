@@ -13,7 +13,7 @@ Feature: Recording the dry weight
 
   @web
   Scenario: A clinician udpated the dry weight of a patient
-    Given Patty has a dry weight entry
+    Given Patty has a recorded dry weight entry
     Then Clyde can update Patty's dry weight entry
 
   @web

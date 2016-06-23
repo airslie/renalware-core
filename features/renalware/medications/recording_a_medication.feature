@@ -11,10 +11,10 @@ Feature: Recording a medication
 
   @web @javascript
   Scenario: A clinician revised the medication for a patient
-    Given Patty has a medication recorded
+    Given Patty has a recorded medication
     Then Clyde can revise the medication
 
   @web @javascript
   Scenario: A clinician terminated a medication for a patient
-    Given Patty has a medication recorded
+    Given Patty has a recorded medication
     Then Clyde can terminate the medication for the patient

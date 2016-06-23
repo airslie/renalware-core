@@ -33,7 +33,7 @@ module World
         )
       end
 
-      # @section set-ups
+      # @section seeding
       #
       def seed_clinic_visit_letter_for(patient, user:)
         patient = letters_patient(patient)

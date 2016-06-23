@@ -14,9 +14,9 @@ module World
         }
       end
 
-      # @section set-ups
+      # @section seeding
       #
-      def set_up_hd_dry_weight_for(patient, assessor)
+      def seed_hd_dry_weight_for(patient, assessor)
         Renalware::HD::DryWeight.create!(
           valid_dry_weight_attributes.merge(
             patient: patient,

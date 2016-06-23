@@ -18,9 +18,9 @@ module World
         }
       end
 
-      # @section set-ups
+      # @section seeding
       #
-      def set_up_hd_profile_for(patient, prescriber:)
+      def seed_hd_profile_for(patient, prescriber:)
         Renalware::HD::Profile.create!(
           valid_profile_attributes.merge(
             patient: patient,
