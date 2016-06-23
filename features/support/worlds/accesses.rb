@@ -1,7 +1,7 @@
 module World
   module Accesses
     def accesses_patient(patient)
-      ActiveType.cast(patient, Renalware::Accesses::Patient)
+      Renalware::Accesses.cast_patient(patient)
     end
   end
 end

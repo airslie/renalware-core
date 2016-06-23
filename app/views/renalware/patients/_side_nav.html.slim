@@ -9,9 +9,9 @@ ul.side-nav
   li.link= link_to "Medications (#{@patient.medications.length})", patient_medications_path(@patient)
   li.link= link_to "Events (#{Renalware::Events::Event.for_patient(@patient).count})", patient_events_path(@patient)
   / TODO: Use a helper method to handle the type casting of the patient model
-  li.link= link_to "Clinic Visits (#{ActiveType.cast(@patient, Renalware::Clinics::Patient).clinic_visits.length})", patient_clinic_visits_path(@patient)
-  li.link= link_to "Letters (#{ActiveType.cast(@patient, Renalware::Letters::Patient).letters.count})", patient_letters_letters_path(@patient)
-  li.link= link_to "Access Summary (#{ActiveType.cast(@patient, Renalware::Accesses::Patient).profiles.count})", patient_accesses_dashboard_path(@patient)
+  li.link= link_to "Clinic Visits (#{Renalware::Clinics.cast_patient(@patient).clinic_visits.length})", patient_clinic_visits_path(@patient)
+  li.link= link_to "Letters (#{Renalware::Letters.cast_patient(@patient).letters.count})", patient_letters_letters_path(@patient)
+  li.link= link_to "Access Summary (#{Renalware::Accesses.cast_patient(@patient).profiles.count})", patient_accesses_dashboard_path(@patient)
   li.divider
   li.heading Regimes
   li.link= link_to_if display_pd_menu(@patient.modalities.with_deleted), "PD", patient_pd_summary_path(@patient)

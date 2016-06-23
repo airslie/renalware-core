@@ -10,7 +10,7 @@ module Renalware
       "pathology_"
     end
 
-    def cast_patient(patient)
+    def self.cast_patient(patient)
       ActiveType.cast(patient, ::Renalware::Pathology::Patient)
     end
 
