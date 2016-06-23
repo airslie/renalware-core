@@ -71,7 +71,7 @@ module World
 
         def run_global_algorithm(patient, clinician, clinic_name)
           login_as clinician
-          save_and_open_page
+
           clinic = Renalware::Clinics::Clinic.find_by(name: clinic_name)
 
           visit patient_pathology_required_observations_path(

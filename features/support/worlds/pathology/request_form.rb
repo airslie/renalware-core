@@ -112,7 +112,10 @@ module World
         def find_requested_consultant(consultant_names)
           if consultant_names.present?
             given_name, family_name = consultant_names.split(" ")
-            Renalware::Pathology::Consultant.find_by(given_name: given_name, family_name: family_name)
+            Renalware::Pathology::Consultant.find_by(
+              given_name: given_name,
+              family_name: family_name
+            )
           end
         end
 
