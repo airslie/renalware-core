@@ -1,8 +1,13 @@
 tr
-  td= bookmark.patient.id
+  td= link_to "View", patient_path(id: bookmark.patient.id)
   td= bookmark.patient.full_name
   td= bookmark.patient.local_patient_id
   td= bookmark.patient.age
   td= bookmark.patient.sex
   td= bookmark.patient.current_modality
-  td TODO
+  td= I18n.l bookmark.created_at
+  = simple_form_for bookmark,
+      url: bookmark_path(id: bookmark.id),
+      method: :delete do |f|
+    td= link_to "Remove", "#", data: { behaviour: "submit" }
+

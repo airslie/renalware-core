@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.1
--- Dumped by pg_dump version 9.5.1
+-- Dumped from database version 9.5.2
+-- Dumped by pg_dump version 9.5.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1930,7 +1930,9 @@ ALTER SEQUENCE pathology_request_descriptions_id_seq OWNED BY pathology_request_
 CREATE TABLE patient_bookmarks (
     id integer NOT NULL,
     patient_id integer NOT NULL,
-    user_id integer NOT NULL
+    user_id integer NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -5869,4 +5871,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160531141853');
 INSERT INTO schema_migrations (version) VALUES ('20160613120910');
 
 INSERT INTO schema_migrations (version) VALUES ('20160620131148');
+
+INSERT INTO schema_migrations (version) VALUES ('20160622181057');
 
