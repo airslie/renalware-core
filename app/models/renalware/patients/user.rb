@@ -5,7 +5,7 @@ module Renalware
       has_many :patients, through: :bookmarks
 
       def bookmark_for_patient(patient)
-        bookmarks.where(patient: patient)
+        bookmarks.find_by(patient: patient)
       end
     end
   end
