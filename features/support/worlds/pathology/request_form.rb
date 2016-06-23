@@ -117,6 +117,8 @@ module World
         end
 
         def find_requested_patients(patients)
+          return unless patients.present?
+
           if patients.first.is_a? String
             patients.split(", ").map do |patient_family_name|
               Renalware::Pathology::Patient.find_by!(family_name: patient_family_name)
@@ -146,6 +148,10 @@ module World
         end
 
         def generate_request_forms_for_appointments(_clinician, _appointments, params)
+          _patients, clinic, _user, _telephone = extract_request_form_params(params)
+
+          select clinic.name, from: "Clinic"
+
           click_on "Generate request forms"
         end
 
