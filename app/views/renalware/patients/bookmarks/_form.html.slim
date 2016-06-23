@@ -1,0 +1,3 @@
+= simple_form_for patient.bookmarks.new,
+    url: patient_bookmarks_path(patient_id: patient.id) do |f|
+  k= link_to link_text, "#", data: { behaviour: "submit" }

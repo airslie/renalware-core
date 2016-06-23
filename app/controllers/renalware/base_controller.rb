@@ -22,8 +22,9 @@ module Renalware
       @patient_search.sorts = ["family_name", "given_name"]
     end
 
-    def load_patient
-      @patient = Patient.find(params[:patient_id])
+    def load_patient(patient_id = params[:patient_id])
+      @patient = Patient.find(patient_id)
+
       authorize @patient
     end
 

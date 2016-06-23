@@ -1,6 +1,8 @@
 class CreateLetters < ActiveRecord::Migration
   def change
     create_table :letter_letters do |t|
+      t.string :event_type
+      t.integer :event_id
       t.belongs_to :patient, index: true
       t.string :type, null: false
       t.date :issued_on, null: false
@@ -20,5 +22,7 @@ class CreateLetters < ActiveRecord::Migration
 
     add_reference :letter_letters, :author, references: :users, index: true, null: false
     add_foreign_key :letter_letters, :users, column: :author_id
+
+    add_index :letter_letters, [:event_type, :event_id]
   end
 end

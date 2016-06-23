@@ -7,10 +7,10 @@ module Renalware
         attr_reader :telephone, :patient_ids
 
         def initialize(params)
-          @requested_clinic_id = params[:clinic_id]
-          @requested_user_id = params[:user_id] || clinic.consultant
+          @requested_user = params[:user]
+          @requested_clinic = params[:clinic]
           @telephone  = params[:telephone] || user.telephone
-          @patient_ids = params[:patient_ids]
+          @patient_ids = params[:patients].map(&:id)
         end
 
         def user_id
@@ -40,16 +40,16 @@ module Renalware
         private
 
         def find_user
-          if @requested_user_id.present?
-            User.find(@requested_user_id)
+          if @requested_user.present?
+            @requested_user
           else
             default_user
           end
         end
 
         def find_clinic
-          if @requested_clinic_id.present?
-            Clinics::Clinic.find(@requested_clinic_id)
+          if @requested_clinic.present?
+            @requested_clinic
           else
             default_clinic
           end

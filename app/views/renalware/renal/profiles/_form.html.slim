@@ -3,7 +3,8 @@
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Diagnosis", name: "diagnosis" } do
 
-    = f.input :diagnosed_on, as: :date_picker
+    = f.input :esrf_on, as: :date_picker
+    = f.input :first_seen_on, as: :date_picker
     = f.input :prd_description_id, input_html: { class: "clear-autocomplete" }, as: :hidden
 
     .row

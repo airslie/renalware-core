@@ -4,8 +4,16 @@ require "collection_presenter"
 module Renalware
   module Letters
     class LetterPresenter < DumbDelegator
+      def type
+        letter_event.to_s
+      end
+
       def patient
         @patient_presenter ||= PatientPresenter.new(super)
+      end
+
+      def event_description
+        letter_event.description
       end
 
       def main_recipient
@@ -32,6 +40,14 @@ module Renalware
 
       def view_label
         "Preview"
+      end
+
+      def parts
+        letter_event.part_classes.values.map {|part_class| part_class.new(patient) }
+      end
+
+      def part_for(part_name)
+        letter_event.part_classes[part_name].new(patient)
       end
 
       private

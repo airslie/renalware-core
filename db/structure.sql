@@ -1341,6 +1341,8 @@ ALTER SEQUENCE letter_letterheads_id_seq OWNED BY letter_letterheads.id;
 
 CREATE TABLE letter_letters (
     id integer NOT NULL,
+    event_type character varying,
+    event_id integer,
     patient_id integer,
     type character varying NOT NULL,
     issued_on date NOT NULL,
@@ -1922,6 +1924,36 @@ ALTER SEQUENCE pathology_request_descriptions_id_seq OWNED BY pathology_request_
 
 
 --
+-- Name: patient_bookmarks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE patient_bookmarks (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+--
+-- Name: patient_bookmarks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE patient_bookmarks_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_bookmarks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE patient_bookmarks_id_seq OWNED BY patient_bookmarks.id;
+
+
+--
 -- Name: patient_languages; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2350,7 +2382,8 @@ ALTER SEQUENCE problem_versions_id_seq OWNED BY problem_versions.id;
 CREATE TABLE renal_profiles (
     id integer NOT NULL,
     patient_id integer NOT NULL,
-    diagnosed_on date NOT NULL,
+    esrf_on date,
+    first_seen_on date,
     prd_description_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -3356,6 +3389,13 @@ ALTER TABLE ONLY pathology_request_descriptions ALTER COLUMN id SET DEFAULT next
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY patient_bookmarks ALTER COLUMN id SET DEFAULT nextval('patient_bookmarks_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY patient_languages ALTER COLUMN id SET DEFAULT nextval('patient_languages_id_seq'::regclass);
 
 
@@ -3973,6 +4013,14 @@ ALTER TABLE ONLY pathology_request_descriptions
 
 
 --
+-- Name: patient_bookmarks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_bookmarks
+    ADD CONSTRAINT patient_bookmarks_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: patient_languages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4561,6 +4609,13 @@ CREATE INDEX index_letter_letters_on_created_by_id ON letter_letters USING btree
 
 
 --
+-- Name: index_letter_letters_on_event_type_and_event_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_letter_letters_on_event_type_and_event_id ON letter_letters USING btree (event_type, event_id);
+
+
+--
 -- Name: index_letter_letters_on_letterhead_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4649,6 +4704,13 @@ CREATE INDEX index_pathology_observations_on_description_id ON pathology_observa
 --
 
 CREATE INDEX index_pathology_observations_on_request_id ON pathology_observations USING btree (request_id);
+
+
+--
+-- Name: index_patient_bookmarks_on_patient_id_and_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_patient_bookmarks_on_patient_id_and_user_id ON patient_bookmarks USING btree (patient_id, user_id);
 
 
 --
@@ -5808,4 +5870,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160531141853');
 INSERT INTO schema_migrations (version) VALUES ('20160613120910');
 
 INSERT INTO schema_migrations (version) VALUES ('20160616163622');
+
+INSERT INTO schema_migrations (version) VALUES ('20160620131148');
 

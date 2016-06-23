@@ -45,7 +45,7 @@ module World
 
       # @section commands
       #
-      def create_simple_letter(patient:, user:, issued_on:, recipient:, ccs: nil)
+      def draft_simple_letter(patient:, user:, issued_on:, recipient:, ccs: nil)
         patient = letters_patient(patient)
 
         letter_attributes = valid_simple_letter_attributes(patient).merge(
@@ -59,7 +59,7 @@ module World
         Renalware::Letters::DraftLetter.build.call(patient, letter_attributes)
       end
 
-      def update_simple_letter(patient:, user:)
+      def revise_simple_letter(patient:, user:)
         patient = letters_patient(patient)
 
         existing_letter = simple_letter_for(patient)
@@ -99,7 +99,7 @@ module World
         end
       end
 
-      def expect_simple_letter_to_be_refused
+      def expect_letter_to_be_refused
         expect(Renalware::Letters::Letter.count).to eq(0)
       end
 
@@ -169,10 +169,10 @@ module World
     module Web
       include Domain
 
-      def create_simple_letter(patient:, user:, issued_on:, recipient:, ccs: nil)
+      def draft_simple_letter(patient:, user:, issued_on:, recipient:, ccs: nil)
         login_as user
         visit patient_letters_letters_path(patient)
-        click_on "Add simple letter"
+        click_on "Draft Letter"
 
         attributes = valid_simple_letter_attributes(patient)
         fill_in "Date", with: I18n.l(attributes[:issued_on]) if issued_on.present?
@@ -180,6 +180,15 @@ module World
         select user.full_name, from: "Author"
         fill_in "Description", with: attributes[:description]
 
+        fill_recipient(recipient)
+        fill_ccs(ccs)
+
+        within ".bottom" do
+          click_on "Create"
+        end
+      end
+
+      def fill_recipient(recipient)
         case recipient
         when Renalware::Patient
           choose("letters_letter_draft_main_recipient_attributes_person_role_patient")
@@ -191,7 +200,9 @@ module World
           fill_in "Line 1", with: "1 Main st"
           fill_in "City", with: recipient[:city]
         end
+      end
 
+      def fill_ccs(ccs)
         if ccs.present?
           ccs.each_with_index do |cc, index|
             find(".call-to-action").click
@@ -202,13 +213,9 @@ module World
             end
           end
         end
-
-        within ".bottom" do
-          click_on "Create"
-        end
       end
 
-      def update_simple_letter(patient:, user:)
+      def revise_simple_letter(patient:, user:)
         login_as user
         visit patient_letters_letters_path(patient)
         click_on "Edit"

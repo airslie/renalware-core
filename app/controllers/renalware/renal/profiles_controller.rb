@@ -27,7 +27,10 @@ module Renalware
       def profile_params
         params
           .require(:renal_profile)
-          .permit(:diagnosed_on, :prd_description_id, address_at_diagnosis_attributes: address_params)
+          .permit(
+            :esrf_on, :first_seen_on, :prd_description_id,
+            address_at_diagnosis_attributes: address_params
+          )
       end
 
       def address_params

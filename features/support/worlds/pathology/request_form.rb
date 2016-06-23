@@ -1,37 +1,39 @@
 module World
   module Pathology
-    module GlobalAlgorithm
+    module RequestForm
       module Domain
-        # @section commands
+        # @section helpers
         #
-        def extract_request_form_params(form_parameters)
-          clinic_name = form_parameters.fetch("clinic")
-          clinic = Renalware::Clinics::Clinic.find_by!(name: clinic_name)
-
-          given_name, family_name = form_parameters.fetch("user").split(" ")
-          user = Renalware::User.find_by!(given_name: given_name, family_name: family_name)
-
-          telephone = form_parameters["telephone"]
-
-          patient_names = form_parameters.fetch("patients").split(", ")
-          patients = patient_names.map do |patient_family_name|
-            Renalware::Pathology::Patient.find_by!(family_name: patient_family_name)
-          end
+        def extract_request_form_params(form_params)
+          clinic = find_requested_clinic(form_params[:clinic])
+          user = find_requested_user(form_params[:user])
+          patients = find_requested_patients(form_params[:patients])
+          telephone = form_params[:telephone]
 
           [patients, clinic, user, telephone]
         end
 
-        def generate_pathology_request_forms(_clinician, form_parameters)
-          patients, clinic, user, telephone = extract_request_form_params(form_parameters)
+        # @section commands
+        #
+        def generate_request_forms_for_single_patient(_clinician, params)
+          patients, clinic, user, telephone = extract_request_form_params(params)
 
-          request_form_options = Renalware::Pathology::RequestAlgorithm::RequestFormOptions.new(
-            patient_ids: patients.map(&:id),
-            clinic_id: clinic.id,
-            user_id: user.id,
-            telephone: telephone
-          )
+          options = { patients: patients }
+          options[:clinic] = clinic if clinic.present?
+          options[:user] = user if user.present?
+          options[:telephone] = telephone if telephone.present?
+
+          request_form_options =
+            Renalware::Pathology::RequestAlgorithm::RequestFormOptions.new(options)
 
           Renalware::Pathology::RequestFormPresenter.wrap(patients, request_form_options)
+        end
+
+        def generate_request_forms_for_appointments(clinician, appointments)
+          generate_request_forms_for_single_patient(
+            clinician,
+            patients: appointments.map(&:patient)
+          )
         end
 
         # @section expectations
@@ -42,7 +44,7 @@ module World
           expected_table.rows_hash.each do |key, expected_value|
             expected_value = nil if expected_value.blank?
 
-            expect(request_form.send(key.to_sym)).to eq(expected_value)
+            expect(request_form.send(key.to_sym).to_s).to eq(expected_value.to_s)
           end
         end
 
@@ -86,11 +88,41 @@ module World
           expect_patient_specific_test(request_forms, patient, patient_test)
         end
 
+        def expect_pathology_forms_for_patients(request_forms, patients)
+          request_forms_names = request_forms.map { |request_form| request_form.patient.full_name }
+          patient_names = patients.map(&:full_name)
+
+          expect(request_forms_names).to eq(patient_names)
+        end
+
         private
 
         def find_request_form_for_patient(request_forms, patient)
           request_forms.detect do |request_form|
             request_form.patient.id == patient.id
+          end
+        end
+
+        def find_requested_clinic(clinic_name)
+          if clinic_name.present?
+            Renalware::Clinics::Clinic.find_by!(name: clinic_name)
+          end
+        end
+
+        def find_requested_user(user_names)
+          if user_names.present?
+            given_name, family_name = user_names.split(" ")
+            Renalware::User.find_by(given_name: given_name, family_name: family_name)
+          end
+        end
+
+        def find_requested_patients(patients)
+          if patients.first.is_a? String
+            patients.split(", ").map do |patient_family_name|
+              Renalware::Pathology::Patient.find_by!(family_name: patient_family_name)
+            end
+          else
+            patients
           end
         end
       end
@@ -99,18 +131,22 @@ module World
         include Domain
         # @section commands
         #
-        def generate_pathology_request_forms(clinician, form_parameters)
-          patients, clinic, user, telephone = extract_request_form_params(form_parameters)
+        def generate_request_forms_for_single_patient(clinician, params)
+          patients, clinic, user, telephone = extract_request_form_params(params)
 
           login_as clinician
-          visit pathology_forms_path(
-            request_form_options: {
-              clinic_id: clinic,
-              user_id: user,
-              telephone: telephone,
-              patient_ids: patients
-            }
-          )
+
+          visit patient_pathology_required_observations_path(patient_id: patients.first.id)
+
+          click_on "Generate Forms"
+
+          update_request_form_clinic(clinic.name) if clinic.present?
+          update_request_form_user(user.full_name) if user.present?
+          update_request_form_telephone(telephone)  if telephone.present?
+        end
+
+        def generate_request_forms_for_appointments(_clinician, _appointments)
+          click_on "Generate request forms"
         end
 
         # @section expectations
@@ -134,7 +170,6 @@ module World
           request_form = find_request_form_for_patient(request_forms, patient)
 
           expect(request_form).to include("No tests required.")
-
         end
 
         def expect_request_description_required(request_forms, patient, request_description_code)
@@ -145,10 +180,33 @@ module World
           expect(request_form.downcase).to include(request_description.name.downcase)
         end
 
+        def expect_pathology_forms_for_patients(request_forms, patients)
+          patients.each do |patient|
+            request_form = find_request_form_for_patient(request_forms, patient)
+
+            expect(request_form.present?).to be_truthy
+          end
+        end
+
         private
 
         def find_request_form_for_patient(_request_forms, patient)
           find("div[data-patient-id='#{patient.id}'][data-role='form_pathology']").text
+        end
+
+        def update_request_form_user(user_full_name)
+          select user_full_name, from: "User"
+          click_on "Update Forms"
+        end
+
+        def update_request_form_clinic(clinic_name)
+          select clinic_name, from: "Clinic"
+          click_on "Update Forms"
+        end
+
+        def update_request_form_telephone(telephone)
+          fill_in "Telephone", with: telephone
+          click_on "Update Forms"
         end
       end
     end

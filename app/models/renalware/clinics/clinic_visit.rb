@@ -2,6 +2,7 @@ module Renalware
   module Clinics
     class ClinicVisit < ActiveRecord::Base
       include Accountable
+      include PatientScope
 
       belongs_to :patient
       belongs_to :clinic

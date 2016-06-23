@@ -3,4 +3,4 @@ en:
     attributes:
       renalware/renal/profile:
         prd_description: Primary Renal Diagnosis (PRD)
-        diagnosed_on: ESRF Date
+        esrf_on: ESRF Date

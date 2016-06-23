@@ -1,6 +1,5 @@
-Given(/^Patty has a medication recorded$/) do
-  record_medication_for_patient(
-    user: @clyde,
+Given(/^Patty has a medication recorded|Patty has current medications$/) do
+  seed_medication_for(
     patient: @patty,
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
@@ -31,6 +30,7 @@ end
 Then(/^Clyde can revise the medication$/) do
   revise_medication_for(
     patient: @patty,
+    user: @clyde,
     drug_name: "Cefuroxime Injection"
   )
 

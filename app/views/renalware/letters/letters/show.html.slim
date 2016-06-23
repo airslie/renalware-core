@@ -18,6 +18,8 @@
           = l @letter.issued_on
           br
           span.letter-description= @letter.description
+          br
+          = @letter.event_description
 
         p.letter-private Private and confidential
 
@@ -41,6 +43,9 @@
 
         p.patient-status
           = render "patient_summary", patient: @letter.patient
+
+    .row
+      = render @letter.parts
 
     .row
       .columns.large-12

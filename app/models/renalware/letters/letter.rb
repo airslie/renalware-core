@@ -6,6 +6,7 @@ module Renalware
       include Accountable
       extend Enumerize
 
+      belongs_to :event, polymorphic: true
       belongs_to :author, class_name: "User"
       belongs_to :patient
       belongs_to :letterhead
@@ -34,6 +35,19 @@ module Renalware
 
       def self.policy_class
         LetterPolicy
+      end
+
+      def self.for_event(event)
+        where(event: event).first
+      end
+
+      EVENTS_MAP = {
+        Clinics::ClinicVisit => Event::ClinicVisit,
+        NilClass => Event::Unknown
+      }
+
+      def letter_event
+        @letter_event ||= EVENTS_MAP.fetch(event.class).new(event)
       end
 
       def doctor

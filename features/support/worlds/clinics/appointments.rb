@@ -1,22 +1,17 @@
 module World
   module Clinics
-    module ClinicVisits
+    module Appointments
       module Domain
         # @section commands
         #
         def create_appointment(table_row)
-          starts_at = Time.strptime(table_row["starts_at_date"], "%d-%m-%Y").in_time_zone
-          starts_at_time = table_row["starts_at_time"].split(":")
-          starts_at = starts_at.change(hour: starts_at_time[0], min: starts_at_time[1])
-
-          patient_given_name, patient_family_name = table_row["patient"].split(" ")
-          user_given_name, user_family_name = table_row["user"].split(" ")
-
-          patient = Renalware::Clinics::Patient.find_by!(
-            given_name: patient_given_name, family_name: patient_family_name
+          starts_at = parse_date_time_for_appointment(
+            table_row["starts_at_date"],
+            table_row["starts_at_time"]
           )
-          user = Renalware::User.find_by!(given_name: user_given_name,family_name: user_family_name)
-          clinic = Renalware::Clinics::Clinic.find_by!(name: table_row["clinic"])
+          user = find_or_create_user_for_appointment(table_row["user"])
+          clinic = find_or_create_clinic_for_appointment(table_row["clinic"])
+          patient = find_or_create_patient_by_name(table_row["patient"])
 
           Renalware::Clinics::Appointment.create!(
             starts_at: starts_at,
@@ -42,6 +37,33 @@ module World
             expect(appointment.clinic.name).to eq(expected_appointment["clinic"])
           end
         end
+
+        private
+
+        def parse_date_time_for_appointment(date_str, time_str)
+          date = Time.strptime(date_str, "%d-%m-%Y").in_time_zone
+          time_arr = time_str.split(":")
+
+          date.change(hour: time_arr[0], min: time_arr[1])
+        end
+
+        def find_or_create_clinic_for_appointment(clinic_name)
+          Renalware::Clinics::Clinic.find_or_create_by!(name: clinic_name)
+        end
+
+        def find_or_create_user_for_appointment(user_full_name)
+          given_name, family_name = user_full_name.split(" ")
+
+          Renalware::User.find_or_create_by!(
+            given_name: given_name,
+            family_name: family_name
+          ) do |user|
+            user.email = "#{given_name}.#{family_name}@renalware.net"
+            user.username = "#{given_name}_#{family_name}"
+            user.approved = true
+            user.password = "supersecret"
+          end
+        end
       end
 
       module Web
@@ -63,11 +85,11 @@ module World
           appointments.shift # Remove column headers row
 
           appointments.zip(expected_appointments).each do |appointment, expected_appointment|
-            expect(appointment[0]).to eq(expected_appointment["date"])
-            expect(appointment[1]).to eq(expected_appointment["starts_at"])
-            expect(appointment[2]).to eq(expected_appointment["patient"])
-            expect(appointment[3]).to eq(expected_appointment["clinic"])
-            expect(appointment[4]).to eq(expected_appointment["user"])
+            expect(appointment[1]).to eq(expected_appointment["date"])
+            expect(appointment[2]).to eq(expected_appointment["starts_at"])
+            expect(appointment[3]).to eq(expected_appointment["patient"])
+            expect(appointment[4]).to eq(expected_appointment["clinic"])
+            expect(appointment[5]).to eq(expected_appointment["user"])
           end
         end
       end

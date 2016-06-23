@@ -1,6 +1,26 @@
 module World
   module Patients
     module Domain
+      def find_patient_by_name(given_name, family_name)
+        Renalware::Patient.find_by!(
+          given_name: given_name, family_name: family_name
+        )
+      end
+
+      def find_or_create_patient_by_name(patient_full_name)
+        given_name, family_name = patient_full_name.split(" ")
+
+        Renalware::Clinics::Patient.find_or_create_by!(
+          given_name: given_name,
+          family_name: family_name
+        ) do |patient|
+          patient.local_patient_id = SecureRandom.uuid
+          patient.sex = "M"
+          patient.born_on = Date.new(1989, 1, 1)
+          patient.by = Renalware::SystemUser.find
+        end
+      end
+
       def update_patient_address(patient:, current_address_attributes:)
         patient.update!(
           current_address_attributes: current_address_attributes.merge(id: patient.current_address.id),
@@ -31,3 +51,5 @@ module World
     end
   end
 end
+
+Dir[Rails.root.join("features/support/worlds/patients/*.rb")].each { |f| require f }

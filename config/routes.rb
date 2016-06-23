@@ -15,11 +15,10 @@ Rails.application.routes.draw do
     get "authors/:author_id/letters", to: "letters/letters#author", as: "author_letters"
 
     resources :bag_types, except: [:show]
+    resources :bookmarks, controller: "patients/bookmarks", only: :destroy
 
     resources :appointments, controller: "clinics/appointments", only: [:index]
-    resources :clinic_visits, controller: "clinics/clinic_visits" do
-      resources :letters, controller: "letters/clinic_letters", only: [:new, :edit]
-    end
+    resources :clinic_visits, controller: "clinics/clinic_visits"
 
     resources :deaths, only: :index, as: :patient_deaths
     resources :doctors
@@ -80,6 +79,7 @@ Rails.application.routes.draw do
       resources :clinic_visits, controller: "clinics/clinic_visits"
       resources :events, only: [:new, :create, :index], controller: "events/events"
       resources :exit_site_infections, only: [:new, :create, :show, :edit, :update]
+      resources :bookmarks, only: :create, controller: "patients/bookmarks"
 
       namespace :renal do
         resource :profile, only: [:edit, :update]
@@ -149,7 +149,7 @@ Rails.application.routes.draw do
     end
 
     namespace :pathology do
-      resources :forms, only: :index
+      resources :forms, only: :create
     end
 
     resources :prd_descriptions, only: [:search] do
