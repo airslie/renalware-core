@@ -2,7 +2,10 @@ p
   strong Recent Pathology Results
 
 p
-  - recent_pathology_results[1..-1].each do |observation|
-    - description, result, date = observation
-    span #{date}: #{description} #{result};
+  - recent_pathology_results[1..-1].each do |pathology_result|
+    - description, observation, date = pathology_result
+    - if observation.result.present?
+      span #{date}: #{description} #{observation.result};
+    - else
+      span &nbsp; #{description};
 
