@@ -1,16 +1,15 @@
 Given(/^Clyde has the following patients bookmarked:$/) do |table|
   patients = table.raw.flatten.map do |patient_name|
-    given_name, family_name = patient_name.split(" ")
-    create_bookmark(@clyde, given_name, family_name)
+    create_bookmark(@clyde, patient_name)
   end
 end
 
-When(/^Clyde bookmarks (\w+) (\w+)$/) do |patient_given_name, patient_family_name|
-  bookmark_patient(@clyde, patient_given_name, patient_family_name)
+When(/^Clyde bookmarks (\w+\s\w+)$/) do |patient_name|
+  bookmark_patient(@clyde, patient_name)
 end
 
-When(/^Clyde deletes the bookmark for (\w+) (\w+)$/) do |patient_given_name, patient_family_name|
-  delete_bookmark(@clyde, patient_given_name, patient_family_name)
+When(/^Clyde deletes the bookmark for (\w+\s\w+)$/) do |patient_name|
+  delete_bookmark(@clyde, patient_name)
 end
 
 

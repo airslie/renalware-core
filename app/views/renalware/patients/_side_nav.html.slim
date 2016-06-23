@@ -26,10 +26,8 @@ ul.side-nav
   li.heading Options
   - bookmark = find_user_bookmark_for_patient(@patient)
   - if bookmark.present?
-    = simple_form_for bookmark,
-        url: bookmark_path(id: bookmark.id),
-        method: :delete do |f|
-      li.link= link_to "Remove from bookmarks", "#", data: { behaviour: "submit" }
+    = render partial: "renalware/patients/bookmarks/delete_form",
+        locals: { bookmark: bookmark, link_text: "Remove from bookmarks" }
   - else
-    = simple_form_for @patient.bookmarks.new, url: patient_bookmarks_path(patient_id: @patient.id) do |f|
-      li.link= link_to "Bookmark this patient", "#", data: { behaviour: "submit" }
+    = render partial: "renalware/patients/bookmarks/form",
+        locals: { patient: @patient, link_text: "Bookmark this patient" }
