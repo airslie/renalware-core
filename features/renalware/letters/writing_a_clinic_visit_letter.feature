@@ -1,4 +1,3 @@
-@wip
 Feature: Writing a clinic visit letter
 
   To officially inform the patient and/or other interested parties about
@@ -10,7 +9,7 @@ Feature: Writing a clinic visit letter
     And Doug is Patty's doctor
     And Patty has a clinic visit
     And Patty has current medications
-    And Patty has problems
+    And Patty has problems and notes
 
   @web
   Scenario: A doctor drafted a clinic visit letter
@@ -18,7 +17,7 @@ Feature: Writing a clinic visit letter
     Then a letter for Patty's clinical visit is drafted
     And the letter lists Patty's current medications
     And the letter lists Patty's clinical observations
-    And the letter lists Patty's problems
+    And the letter lists Patty's problems and notes
 
   @web
   Scenario: A doctor revised a clinic visit letter

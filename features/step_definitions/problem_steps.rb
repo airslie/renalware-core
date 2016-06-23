@@ -2,8 +2,8 @@ Given(/^Clyde recorded a problem for Patty$/) do
   record_problem_for(patient: @patty, user: @clyde)
 end
 
-Given(/^Patty has problems$/) do
-  seed_problem_for(@patty)
+Given(/^Patty has problems and notes$/) do
+  seed_problem_for(@patty, Renalware::User.first)
 end
 
 

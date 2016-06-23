@@ -154,6 +154,7 @@ module World
 
         patient.problems.each do |problem|
           expect(page.body).to include(problem.description)
+          expect(page.body).to include(problem.notes.first.description)
         end
       end
     end
