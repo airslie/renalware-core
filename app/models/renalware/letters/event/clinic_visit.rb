@@ -9,10 +9,10 @@ module Renalware
 
       def part_classes
         {
-          current_medications: Part::CurrentMedications,
           problems: Part::Problems,
-          clinical_observations: Part::ClinicalObservations,
-          recent_pathology_results: Part::RecentPathologyResults
+          current_medications: Part::CurrentMedications,
+          recent_pathology_results: Part::RecentPathologyResults,
+          clinical_observations: Part::ClinicalObservations
         }
       end
 
