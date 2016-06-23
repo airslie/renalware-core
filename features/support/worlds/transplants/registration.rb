@@ -9,19 +9,6 @@ module World
 
       # @section seeding
       #
-      def seed_patient_on_wait_list(patient)
-        Renalware::Transplants::Registration.create!(
-          patient: patient,
-          statuses_attributes: {
-            "0": {
-              started_on: "03-11-2015",
-              description_id: registration_status_description_named("Active").id,
-              by: Renalware::User.first
-            }
-          }
-        )
-      end
-
       def seed_patient_on_wait_list(patient, status="Active")
         Renalware::Transplants::Registration.create!(
           patient: patient,
