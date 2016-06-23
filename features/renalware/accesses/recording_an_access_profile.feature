@@ -14,7 +14,7 @@ Feature: Recording an access profile for a patient
 
   @web
   Scenario: A clinician updated the access profile of a patient
-    Given Patty has an access profile
+    Given Patty has a recorded access profile
     Then Clyde can update Patty's access profile
 
   @web

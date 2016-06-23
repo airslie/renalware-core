@@ -14,7 +14,7 @@ Feature: Recording an access assessment for a patient
 
   @web
   Scenario: A clinician updated the access assessment of a patient
-    Given Patty has an access assessment
+    Given Patty has a recorded access assessment
     Then Clyde can update Patty's access assessment
 
   @web

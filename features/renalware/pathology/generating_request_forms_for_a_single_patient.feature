@@ -27,7 +27,7 @@ Feature: Generating request forms for a single patient
       | ObservationResult | HGB | <        | 100   |
     And Patty is a patient
     And Patty has observed an HGB value of 99
-    And Patty has a patient rule:
+    And Patty has a recorded patient rule:
       | lab              | Biochemistry  |
       | test_description | Test for HepB |
       | frequency_type   | Always        |

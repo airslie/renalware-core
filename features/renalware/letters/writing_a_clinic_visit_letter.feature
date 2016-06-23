@@ -7,7 +7,7 @@ Feature: Writing a clinic visit letter
     Given Nathalie is a nurse
     And Patty is a patient
     And Doug is Patty's doctor
-    And Patty has a clinic visit
+    And Patty has a recorded clinic visit
     And Patty has current medications
 
   @web

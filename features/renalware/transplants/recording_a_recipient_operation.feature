@@ -14,7 +14,7 @@ Feature: Recording the operation on a recipient
 
   @web
   Scenario: A clinician updated a transplant operation on a recipient
-    Given Patty has a recipient operation
+    Given Patty has a recorded recipient operation
     Then Clyde can update Patty's recipient operation
 
   @web

@@ -1,4 +1,4 @@
-Given(/^Patty has a letter$/) do
+Given(/^Patty has a recorded letter$/) do
   set_up_simple_letter_for(@patty, user: @nathalie)
 end
 

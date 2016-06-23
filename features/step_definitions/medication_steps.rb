@@ -1,4 +1,4 @@
-Given(/^Patty has a medication recorded|Patty has current medications$/) do
+Given(/^Patty has a recorded medication|Patty has current medications$/) do
   seed_medication_for(
     patient: @patty,
     drug_name: "Ciprofloxacin Infusion",

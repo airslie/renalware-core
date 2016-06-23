@@ -1,4 +1,4 @@
-Given(/^Patty has a recipient workup$/) do
+Given(/^Patty has a recorded recipient workup$/) do
   set_up_recipient_workup_for(@patty)
 end
 
@@ -14,7 +14,7 @@ Given(/^Patty is registered on the wait list with this status history$/) do |tab
   set_up_patient_wait_list_statuses(@patty, table)
 end
 
-Given(/^Patty has a recipient operation$/) do
+Given(/^Patty has a recorded recipient operation$/) do
   @operation = set_up_recipient_operation(@patty)
 end
 
@@ -26,7 +26,7 @@ Given(/^Don has a donation$/) do
   set_up_donation(@don)
 end
 
-Given(/^Patty has a recipient operation followup$/) do
+Given(/^Patty has a recorded recipient operation followup$/) do
   @operation = set_up_recipient_operation(@patty)
   @followup = set_up_recipient_followup(@operation)
 end
