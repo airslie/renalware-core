@@ -47,20 +47,6 @@ module World
           date.change(hour: time_arr[0], min: time_arr[1])
         end
 
-        def find_or_create_patient_by_name(patient_full_name)
-          given_name, family_name = patient_full_name.split(" ")
-
-          Renalware::Clinics::Patient.find_or_create_by!(
-            given_name: given_name,
-            family_name: family_name
-          ) do |patient|
-            patient.local_patient_id = SecureRandom.uuid
-            patient.sex = "M"
-            patient.born_on = Date.new(1989, 1, 1)
-            patient.by = Renalware::SystemUser.find
-          end
-        end
-
         def find_or_create_clinic_for_appointment(clinic_name)
           Renalware::Clinics::Clinic.find_or_create_by!(name: clinic_name)
         end

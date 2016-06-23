@@ -1,0 +1,4 @@
+= simple_form_for bookmark,
+    url: bookmark_path(id: bookmark.id),
+    method: :delete do |f|
+  = link_to link_text, "#", data: { behaviour: "submit" }
