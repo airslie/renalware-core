@@ -8,7 +8,7 @@ module Renalware
       end
     end
 
-    def inline_observation(label, value, unit=nil)
+    def inline_value(label, value, unit=nil)
       [
         content_tag(:strong, "#{label}: "),
         value,
