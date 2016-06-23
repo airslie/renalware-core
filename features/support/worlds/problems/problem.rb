@@ -7,12 +7,16 @@ module World
         patient.problems.last!
       end
 
-      # @section commands
-      #
-      def record_problem_for(patient:, user: nil)
+      def seed_problem_for(patient)
         patient.problems.create(
           description: "outcome"
         )
+      end
+
+      # @section commands
+      #
+      def record_problem_for(patient:, user: nil)
+        seed_problem_for(patient)
       end
 
       def revise_problem_for(patient:, user:, description:)

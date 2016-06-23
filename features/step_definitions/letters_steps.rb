@@ -92,3 +92,9 @@ end
 Then(/^the letter lists Patty's clinical observations$/) do
   expect_letter_to_list_clinical_observations(patient: @patty)
 end
+
+Then(/^the letter lists Patty's problems$/) do
+  expect_letter_to_list_problems(patient: @patty)
+end
+
+

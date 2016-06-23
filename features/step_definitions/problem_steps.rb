@@ -2,6 +2,10 @@ Given(/^Clyde recorded a problem for Patty$/) do
   record_problem_for(patient: @patty, user: @clyde)
 end
 
+Given(/^Patty has problems$/) do
+  seed_problem_for(@patty)
+end
+
 
 When(/^Clyde records a problem for Patty$/) do
   record_problem_for(patient: @patty, user: @clyde)

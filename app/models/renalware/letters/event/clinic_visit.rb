@@ -10,7 +10,8 @@ module Renalware
       def part_classes
         {
           current_medications: Part::CurrentMedications,
-          clinical_observations: Part::ClinicalObservations
+          clinical_observations: Part::ClinicalObservations,
+          problems: Part::Problems
         }
       end
 
