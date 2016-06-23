@@ -1,0 +1,6 @@
+p
+  strong Current Medications
+
+ul
+  - current_medications.each do |medication|
+    li= medication.drug.name

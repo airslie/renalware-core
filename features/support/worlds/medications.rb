@@ -5,9 +5,7 @@ module World
       #
       def default_medication_drug_selector; end
 
-      # @ section commands
-      #
-      def record_medication_for(patient:, treatable: nil, drug_name:, dose:,
+      def seed_medication_for(patient:, treatable: nil, drug_name:, dose:,
         route_code:, frequency:, starts_on:, provider:, **_)
         drug = Renalware::Drugs::Drug.find_by!(name: drug_name)
         route = Renalware::MedicationRoute.find_by!(code: route_code)
@@ -23,11 +21,18 @@ module World
         )
       end
 
+      # @ section commands
+      #
+
+      def record_medication_for(**args)
+        seed_medication_for(args)
+      end
+
       def record_medication_for_patient(user:, **args)
         record_medication_for(args)
       end
 
-      def revise_medication_for(patient:, drug_name:,
+      def revise_medication_for(patient:, user:, drug_name:,
         drug_selector: default_medication_drug_selector)
 
         drug = Renalware::Drugs::Drug.find_by!(name: drug_name)
@@ -88,7 +93,7 @@ module World
         end
       end
 
-      def record_medication_for_patient(patient:, user:, **args)
+      def record_medication_for_patient(user:, patient:, **args)
         login_as user
 
         visit patient_medications_path(patient,
@@ -97,8 +102,13 @@ module World
         record_medication_for(patient: patient, **args)
       end
 
-      def revise_medication_for(patient:, drug_name:,
+      def revise_medication_for(patient:, user:, drug_name:,
         drug_selector: default_medication_drug_selector)
+
+        login_as user
+
+        visit patient_medications_path(patient,
+          treatable_type: patient.class, treatable_id: patient.id)
 
         within "#medications" do
           click_on "Edit"

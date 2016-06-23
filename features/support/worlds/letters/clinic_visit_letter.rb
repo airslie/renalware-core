@@ -71,8 +71,15 @@ module World
 
         expect(letter).to be_present
       end
-    end
 
+      def expect_letter_to_list_current_medications(patient:)
+        visit = clinic_visit_for(patient)
+        letter = clinic_visit_letter_for(visit)
+
+        letter = Renalware::Letters::LetterPresenterFactory.new(letter)
+        expect(letter.part_for(:current_medications)).to be_present
+      end
+    end
 
     module Web
       include Domain
@@ -103,6 +110,15 @@ module World
 
         within ".bottom" do
           click_on "Save"
+        end
+      end
+
+      def expect_letter_to_list_current_medications(patient:)
+        visit patient_clinic_visits_path(patient)
+        click_on "Preview Letter"
+
+        patient.medications.each do |medication|
+          expect(page.body).to include(medication.drug.name)
         end
       end
     end

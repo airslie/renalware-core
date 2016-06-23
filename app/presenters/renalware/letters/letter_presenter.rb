@@ -42,6 +42,14 @@ module Renalware
         "Preview"
       end
 
+      def parts
+        letter_event.part_classes.values.map {|part_class| part_class.new(patient) }
+      end
+
+      def part_for(part_name)
+        letter_event.part_classes[part_name].new(patient)
+      end
+
       private
 
       # Include the counterpart cc recipients (i.e. patient and/or doctor)

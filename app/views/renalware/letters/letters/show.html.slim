@@ -45,6 +45,9 @@
           = render "patient_summary", patient: @letter.patient
 
     .row
+      = render @letter.parts
+
+    .row
       .columns.large-12
         .letter-body
           = simple_format @letter.body

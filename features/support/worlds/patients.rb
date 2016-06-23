@@ -7,6 +7,20 @@ module World
         )
       end
 
+      def find_or_create_patient_by_name(patient_full_name)
+        given_name, family_name = patient_full_name.split(" ")
+
+        Renalware::Clinics::Patient.find_or_create_by!(
+          given_name: given_name,
+          family_name: family_name
+        ) do |patient|
+          patient.local_patient_id = SecureRandom.uuid
+          patient.sex = "M"
+          patient.born_on = Date.new(1989, 1, 1)
+          patient.by = Renalware::SystemUser.find
+        end
+      end
+
       def update_patient_address(patient:, current_address_attributes:)
         patient.update!(
           current_address_attributes: current_address_attributes.merge(id: patient.current_address.id),

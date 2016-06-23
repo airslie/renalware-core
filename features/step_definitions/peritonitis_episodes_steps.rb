@@ -10,7 +10,7 @@ Given(/^Patty is being treated for a peritonitis episode$/) do
     organism_name: "Acineobactor"
   )
 
-  record_medication_for(
+  seed_medication_for(
     patient: @patty,
     treatable: episode_for(@patty),
     drug_name: "Ciprofloxacin Infusion",
@@ -99,6 +99,7 @@ Then(/^Clyde can revise the peritonitis episode$/) do
 
   revise_medication_for(
     patient: @patty,
+    user: @clyde,
     drug_name: "Cefotaxime Injection",
     drug_selector: peritonitis_episode_drug_selector
   )
