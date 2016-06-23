@@ -87,6 +87,14 @@ module World
         letter = Renalware::Letters::LetterPresenterFactory.new(letter)
         expect(letter.part_for(:clinical_observations)).to be_present
       end
+
+      def expect_letter_to_list_problems(patient:)
+        visit = clinic_visit_for(patient)
+        letter = clinic_visit_letter_for(visit)
+
+        letter = Renalware::Letters::LetterPresenterFactory.new(letter)
+        expect(letter.part_for(:problems)).to be_present
+      end
     end
 
     module Web
@@ -138,6 +146,16 @@ module World
         expect(page.body).to include(clinic_visit.height.to_s)
         expect(page.body).to include(clinic_visit.weight.to_s)
         expect(page.body).to include(clinic_visit.bp)
+      end
+
+      def expect_letter_to_list_problems(patient:)
+        visit patient_clinic_visits_path(patient)
+        click_on "Preview Letter"
+
+        patient.problems.each do |problem|
+          expect(page.body).to include(problem.description)
+          expect(page.body).to include(problem.notes.first.description)
+        end
       end
     end
   end

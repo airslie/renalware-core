@@ -7,12 +7,19 @@ module World
         patient.problems.last!
       end
 
+      def seed_problem_for(patient, user)
+        patient.problems.create(
+          description: "outcome",
+          notes: [
+            Renalware::Problems::Note.new(description: "note", by: user)
+          ]
+        )
+      end
+
       # @section commands
       #
       def record_problem_for(patient:, user: nil)
-        patient.problems.create(
-          description: "outcome"
-        )
+        seed_problem_for(patient, user)
       end
 
       def revise_problem_for(patient:, user:, description:)
