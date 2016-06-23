@@ -95,6 +95,13 @@ module World
         letter = Renalware::Letters::LetterPresenterFactory.new(letter)
         expect(letter.part_for(:problems)).to be_present
       end
+
+      def expect_letter_to_list_recent_pathology_results(patient:)
+        visit = clinic_visit_for(patient)
+        letter = clinic_visit_letter_for(visit)
+
+        expect(letter.part_for(:recent_pathology_results)).to be_present
+      end
     end
 
     module Web

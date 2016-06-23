@@ -97,4 +97,6 @@ Then(/^the letter lists Patty's problems and notes$/) do
   expect_letter_to_list_problems(patient: @patty)
 end
 
-
+Then(/^the letter lists Patty's recent pathology results$/) do
+  expect_letter_to_list_recent_pathology_results(patient: @patty)
+end

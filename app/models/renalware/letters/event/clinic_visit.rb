@@ -11,7 +11,8 @@ module Renalware
         {
           current_medications: Part::CurrentMedications,
           problems: Part::Problems,
-          clinical_observations: Part::ClinicalObservations
+          clinical_observations: Part::ClinicalObservations,
+          recent_pathology_results: Part::RecentPathologyResults
         }
       end
 
