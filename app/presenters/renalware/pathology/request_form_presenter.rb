@@ -8,7 +8,7 @@ module Renalware
       def initialize(patient, options)
         @patient = patient
         @clinic = options.clinic
-        @consultant = options.user
+        @consultant = options.consultant
         @telephone = options.telephone
       end
 

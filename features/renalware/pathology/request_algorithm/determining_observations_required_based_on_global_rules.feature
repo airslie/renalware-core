@@ -12,6 +12,7 @@ Feature: Determining observations required based on global rules
     Given Patty is a patient
     And request description BFF requires observation description B12
 
+  @wip
   Scenario Outline: The required observations were determined based on the clinic.
 
      This scenario encodes the following rule as an example:
@@ -51,13 +52,14 @@ Feature: Determining observations required based on global rules
      Examples:
        | frequency_type | last_observed | determination |
        | Once           |               | required      |
-       | Once           | 5 days ago    | not required  |
-       | Always         |               | required      |
-       | Always         | 5 days ago    | required      |
-       | Weekly         |               | required      |
-       | Weekly         | 5 days ago    | not required  |
-       | Weekly         | 7 days ago    | required      |
+       #| Once           | 5 days ago    | not required  |
+       #| Always         |               | required      |
+       #| Always         | 5 days ago    | required      |
+       #| Weekly         |               | required      |
+       #| Weekly         | 5 days ago    | not required  |
+       #| Weekly         | 7 days ago    | required      |
 
+  @wip
   Scenario Outline: The required observations were determined based on the date of the last observation, the frequency and a single parameter.
 
     This scenario encodes the following rule as an example:
@@ -98,6 +100,7 @@ Feature: Determining observations required based on global rules
       | Weekly         | 99                 | 7 days ago    | required      |
       | Weekly         | 100                | 7 days ago    | not required  |
 
+  @wip
   Scenario Outline: The required observations were determined based on multiple parameters.
 
     Test for B12/FOLATE/FERRITIN (Code: BFF)
@@ -126,6 +129,7 @@ Feature: Determining observations required based on global rules
       | 100                | yes             | not required  |
       | 100                | no              | not required  |
 
+  @wip
   Scenario Outline: The required observations were determined based on the date of the last request and request expiration.
 
     This scenario encodes the following rule as an example:

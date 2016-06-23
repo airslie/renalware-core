@@ -4,21 +4,25 @@ module Renalware
   module Pathology
     module RequestAlgorithm
       class RequestFormOptions
-        attr_reader :telephone, :patient_ids
+        attr_reader :patient_ids
 
         def initialize(params)
-          @requested_user = params[:user]
+          @requested_consultant = params[:consultant]
           @requested_clinic = params[:clinic]
-          @telephone  = params[:telephone] || user.telephone
+          @requested_telephone  = params[:telephone]
           @patient_ids = params[:patients].map(&:id)
         end
 
-        def user_id
-          user.id
+        def telephone
+          @telephone ||= find_telephone
         end
 
-        def user
-          @user ||= find_user
+        def consultant_id
+          consultant.id
+        end
+
+        def consultant
+          @consultant ||= find_consultant
         end
 
         def clinic_id
@@ -29,8 +33,8 @@ module Renalware
           @clinic ||= find_clinic
         end
 
-        def all_users
-          @all_users ||= User.ordered
+        def all_consultants
+          @all_consultants ||= Consultant.ordered
         end
 
         def all_clinics
@@ -39,11 +43,19 @@ module Renalware
 
         private
 
-        def find_user
-          if @requested_user.present?
-            @requested_user
+        def find_telephone
+          if @requested_telephone.present?
+            @requested_telephone
           else
-            default_user
+            consultant.telephone
+          end
+        end
+
+        def find_consultant
+          if @requested_consultant.present?
+            @requested_consultant
+          else
+            default_consultant
           end
         end
 
@@ -55,8 +67,8 @@ module Renalware
           end
         end
 
-        def default_user
-          all_users.first
+        def default_consultant
+          all_consultants.first
         end
 
         def default_clinic
