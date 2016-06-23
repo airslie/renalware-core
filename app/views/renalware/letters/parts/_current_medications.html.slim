@@ -4,4 +4,11 @@
 
     ul
       - current_medications.each do |medication|
-        li= medication.drug.name
+        li
+          = medication.drug.name
+          = blank_separator
+          = medication.dose
+          = blank_separator
+          = medication.medication_route.code
+          = blank_separator
+          = medication.frequency
