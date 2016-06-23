@@ -13,7 +13,7 @@ Feature: Writing a clinic visit letter
     And Patty had pathology investigations completed in the past
     And Patty has completed pathology investigations relevant to the clinic letter
 
-  @web @wip
+  @web
   Scenario: A doctor drafted a clinic visit letter
     When Doug drafts a clinic letter for Patty
     Then a letter for Patty's clinical visit is drafted
