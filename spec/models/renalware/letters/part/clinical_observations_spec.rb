@@ -9,30 +9,30 @@ module Renalware::Letters
       )
     }
     let(:patient) { double(:patient) }
-    subject(:clinical_observations_part) { Part::ClinicalObservations.new(patient, clinic_visit_event) }
+    subject(:part) { Part::ClinicalObservations.new(patient, clinic_visit_event) }
 
     it "delegates the height to the event" do
-      expect(clinical_observations_part.height).to eq(180.0)
+      expect(part.height).to eq(180.0)
     end
 
     it "delegates the weight to the event" do
-      expect(clinical_observations_part.weight).to eq(90.0)
+      expect(part.weight).to eq(90.0)
     end
 
     it "delegates the bp to the event" do
-      expect(clinical_observations_part.bp).to eq("110/70")
+      expect(part.bp).to eq("110/70")
     end
 
     it "delegates the bmi to the event" do
-      expect(clinical_observations_part.bmi).to eq(40.0)
+      expect(part.bmi).to eq(40.0)
     end
 
     it "delegates the urine_blood to the event" do
-      expect(clinical_observations_part.urine_blood).to eq("+")
+      expect(part.urine_blood).to eq("+")
     end
 
     it "delegates the urine_protein to the event" do
-      expect(clinical_observations_part.urine_protein).to eq("+")
+      expect(part.urine_protein).to eq("+")
     end
   end
 end
