@@ -13,7 +13,7 @@ module Renalware
       def self.codes
         %w(
           HGB PLT WBC WBC URE CRE POT NA BIC CCA PHOS
-          ALB BIL AST GGT ALP CHOL FER HBA
+          ALB BIL AST GGT ALP CHOL FER HBA BGLU EGFR PTHI
         )
       end
     end
