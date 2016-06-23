@@ -164,6 +164,19 @@ module World
           expect(page.body).to include(problem.notes.first.description)
         end
       end
+
+      def expect_letter_to_list_recent_pathology_results(patient:)
+        visit patient_clinic_visits_path(patient)
+        click_on "Preview Letter"
+
+        pathology_patient = Renalware::Pathology.cast_patient(patient)
+
+        expect(pathology_patient.observations).to be_present
+
+        pathology_patient.observations.each do |observation|
+          expect(page.body).to include(observation.to_s)
+        end
+      end
     end
   end
 end

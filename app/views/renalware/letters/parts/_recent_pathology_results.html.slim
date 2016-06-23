@@ -1,0 +1,7 @@
+p
+  strong Recent Pathology Results
+
+ul
+  - recent_pathology_results[1..-1].each do |observation|
+    - description, result, date = observation
+    li #{date}: #{description} #{result}

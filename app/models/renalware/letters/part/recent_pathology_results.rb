@@ -10,6 +10,10 @@ module Renalware
         super(service.call)
       end
 
+      def to_partial_path
+        "renalware/letters/parts/recent_pathology_results"
+      end
+
       private
 
       def default_service(patient)
