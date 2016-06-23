@@ -35,6 +35,24 @@ module World
 
       # @section seeding
       #
+      def seed_observations_relevant_to_clinic_letter(patient:)
+        patient = Renalware::Pathology.cast_patient(patient)
+
+        code = Renalware::Letters::RelevantObservationDescription.codes.first
+        description = Renalware::Pathology::ObservationDescription.find_by!(code: code)
+        observations_attributes = [
+          { description: description, result: 10, observed_at: 1.day.ago }
+        ]
+
+        Renalware::Pathology::ObservationRequest.create!(
+          patient: patient,
+          requestor_name: "KCH",
+          requested_at: Time.zone.now,
+          description: Renalware::Pathology::RequestDescription.first!,
+          observations_attributes: observations_attributes
+        )
+      end
+
       def seed_clinic_visit_letter_for(patient, user:)
         patient = letters_patient(patient)
         visit = clinic_visit_for(patient)
@@ -94,6 +112,14 @@ module World
 
         letter = Renalware::Letters::LetterPresenterFactory.new(letter)
         expect(letter.part_for(:problems)).to be_present
+      end
+
+      def expect_letter_to_list_recent_pathology_results(patient:)
+        visit = clinic_visit_for(patient)
+        letter = clinic_visit_letter_for(visit)
+
+        letter = Renalware::Letters::LetterPresenterFactory.new(letter)
+        expect(letter.part_for(:recent_pathology_results)).to be_present
       end
     end
 
@@ -155,6 +181,19 @@ module World
         patient.problems.each do |problem|
           expect(page.body).to include(problem.description)
           expect(page.body).to include(problem.notes.first.description)
+        end
+      end
+
+      def expect_letter_to_list_recent_pathology_results(patient:)
+        visit patient_clinic_visits_path(patient)
+        click_on "Preview Letter"
+
+        pathology_patient = Renalware::Pathology.cast_patient(patient)
+
+        expect(pathology_patient.observations).to be_present
+
+        pathology_patient.observations.each do |observation|
+          expect(page.body).to include(observation.to_s)
         end
       end
     end

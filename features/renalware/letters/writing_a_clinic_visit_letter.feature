@@ -10,6 +10,7 @@ Feature: Writing a clinic visit letter
     And Patty has a recorded clinic visit
     And Patty has current medications
     And Patty has recorded problems with notes
+    And Patty has completed pathology investigations relevant to the clinic letter
 
   @web
   Scenario: A doctor drafted a clinic visit letter
@@ -18,6 +19,7 @@ Feature: Writing a clinic visit letter
     And the letter lists Patty's current medications
     And the letter lists Patty's clinical observations
     And the letter lists Patty's problems and notes
+    And the letter lists Patty's recent pathology results
 
   @web
   Scenario: A doctor revised a clinic visit letter
