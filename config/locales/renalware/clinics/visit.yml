@@ -4,6 +4,12 @@ en:
       form:
         clinic_prompt: Select clinic type
 
+  activerecord:
+    attributes:
+      renalware/clinics/clinic_visit:
+        bp: "BP"
+        bmi: "BMI"
+
   enumerize:
     renalware/clinics/clinic_visit:
       urine_blood:
