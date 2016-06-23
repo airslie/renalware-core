@@ -68,5 +68,9 @@ module Renalware
     def pipe_separator
       "&nbsp;|&nbsp;".html_safe
     end
+
+    def blank_separator
+      "&nbsp;".html_safe
+    end
   end
 end
