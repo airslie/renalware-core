@@ -5,26 +5,47 @@ module World
       #
       def default_medication_drug_selector; end
 
+      def parse_time_string(time_string)
+        return nil unless time_string.present?
+
+        Time.new(*time_string.split("-").reverse.map(&:to_i))
+      end
+
       def seed_medication_for(patient:, treatable: nil, drug_name:, dose:,
-        route_code:, frequency:, starts_on:, provider:, **_)
+        route_code:, frequency:, starts_on:, provider:, deleted_at:, **_)
         drug = Renalware::Drugs::Drug.find_or_create_by!(name: drug_name)
         route = Renalware::MedicationRoute.find_by!(code: route_code)
 
-        patient.medications.create!(
+        medication_params = {
           treatable: treatable || patient,
           drug: drug,
           dose: dose,
           medication_route: route,
           frequency: frequency,
           start_date: starts_on,
-          provider: provider.downcase
-        )
+          provider: provider.downcase,
+        }
+
+        if deleted_at.present?
+          medication_params.merge!(
+            deleted_at: parse_time_string(deleted_at)
+          )
+        end
+
+        patient.medications.create!(medication_params)
       end
 
       # @ section commands
       #
       def view_medications_for(_clinician, patient)
+        current_medications =
+          ::Renalware::Medications::TreatableMedicationsQuery.new(treatable: patient)
+            .call.includes(:drug)
+        deleted_medications =
+          ::Renalware::Medications::TreatableDeletedMedicationsQuery.new(treatable: patient)
+            .call.includes(:drug)
 
+        [current_medications, deleted_medications]
       end
 
       def record_medication_for(**args)
@@ -61,6 +82,17 @@ module World
         medication = patient.medications.last!
 
         expect(medication.created_at).not_to eq(medication.updated_at)
+      end
+
+      def expect_current_medications_to_match(medications, expected_medications)
+        medications.zip(expected_medications).each do |actual, expected|
+          expect(actual.drug.name).to eq(expected['drug_name'])
+          expect(actual.dose).to eq(expected['dose'])
+          expect(actual.frequency).to eq(expected['frequency'])
+          expect(actual.medication_route.code).to eq(expected['route_code'])
+          expect(actual.provider).to eq(expected['provider'].downcase)
+          expect(actual.deleted_at).to eq(parse_time_string(expected['terminated_on']))
+        end
       end
     end
 
