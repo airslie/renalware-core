@@ -1,2 +1,17 @@
+b Current
 #medications
-  = render "renalware/medications/table", local_assigns
+  = render "renalware/medications/table",
+      patient: patient,
+      treatable: treatable,
+      medications: current_medications,
+      search: current_search,
+      include_terminated_column: false
+
+b Historical
+#historical_medications
+  = render "renalware/medications/table",
+      patient: patient,
+      treatable: treatable,
+      medications: historical_medications,
+      search: historical_search,
+      include_terminated_column: true

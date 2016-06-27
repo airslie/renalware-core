@@ -63,15 +63,19 @@ module Renalware
 
     def render_index
       render "index", locals: {
-        search: medications_query.search, patient: @patient,
+        patient: @patient,
         treatable: present(@treatable, Medications::TreatablePresenter),
-        medications: present(medications, Medications::MedicationPresenter)
+        current_search: medications_query.search,
+        current_medications: present(medications, Medications::MedicationPresenter),
+        historical_search: deleted_medications_query.search,
+        historical_medications: present(deleted_medications, Medications::MedicationPresenter)
       }
     end
 
     def render_form(medication, url:)
       render "form", locals: {
-        patient: @patient, treatable: @treatable,
+        patient: @patient,
+        treatable: @treatable,
         medication: medication,
         provider_codes: present(Provider.codes, Medications::ProviderCodePresenter),
         medication_routes: present(MedicationRoute.all, Medications::RouteFormPresenter),
@@ -99,11 +103,27 @@ module Renalware
     end
 
     def medications_query
-      @medications_query ||= Medications::TreatableMedicationsQuery.new(treatable: @treatable, search_params: params[:q])
+      @medications_query ||=
+        Medications::TreatableMedicationsQuery.new(
+          treatable: @treatable,
+          search_params: params[:q]
+        )
     end
 
     def medications
       medications_query.call.includes(:drug)
+    end
+
+    def deleted_medications_query
+      @deleted_medications_query ||=
+        Medications::TreatableDeletedMedicationsQuery.new(
+          treatable: @treatable,
+          search_params: params[:q]
+        )
+    end
+
+    def deleted_medications
+      deleted_medications_query.call.includes(:drug)
     end
   end
 end

@@ -9,6 +9,8 @@ table.auto-layout
       th Route
       th Provider
       th= sort_link_if(treatable.sortable?, search, :start_date, "Prescribed on")
+      - if include_terminated_column
+        th Terminated On
   tbody
     - medications.each do |medication|
       tr
@@ -24,6 +26,5 @@ table.auto-layout
         td= medication.route_name
         td= medication.provider
         td= medication.start_date
-
-.right
-  = link_to "Add Medication", new_patient_medication_path(patient, treatable), remote: true, class: %i(button tiny)
+        - if include_terminated_column
+          td= I18n.l medication.deleted_on
