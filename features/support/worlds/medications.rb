@@ -7,7 +7,7 @@ module World
 
       def seed_medication_for(patient:, treatable: nil, drug_name:, dose:,
         route_code:, frequency:, starts_on:, provider:, **_)
-        drug = Renalware::Drugs::Drug.find_by!(name: drug_name)
+        drug = Renalware::Drugs::Drug.find_or_create_by!(name: drug_name)
         route = Renalware::MedicationRoute.find_by!(code: route_code)
 
         patient.medications.create!(
@@ -23,6 +23,9 @@ module World
 
       # @ section commands
       #
+      def view_medications_for(_clinician, patient)
+
+      end
 
       def record_medication_for(**args)
         seed_medication_for(args)

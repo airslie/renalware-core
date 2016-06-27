@@ -10,6 +10,20 @@ Given(/^Patty has a recorded medication|Patty has current medications$/) do
   )
 end
 
+Given(/^Patty has medications:$/) do |table|
+  table.hashes.each do |row|
+    seed_medication_for(
+      patient: @patty,
+      drug_name: row[:drug_name],
+      dose: row[:dose],
+      route_code: row[:route_code],
+      frequency: row[:frequency],
+      starts_on: Time.now-1.month,
+      provider: row[:provider],
+    )
+  end
+end
+
 When(/^Clyde records the medication for Patty$/) do
   record_medication_for_patient(
     user: @clyde,
@@ -22,6 +36,11 @@ When(/^Clyde records the medication for Patty$/) do
     provider: "GP"
   )
 end
+
+When(/^Clyde views the list of medications for Patty$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
 
 Then(/^the medication is recorded for Patty$/) do
   expect_medication_to_be_recorded(patient: @patty)
