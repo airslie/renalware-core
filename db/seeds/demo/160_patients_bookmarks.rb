@@ -1,24 +1,18 @@
 module Renalware
   log "--------------------Adding Bookmarks --------------------"
 
-  logcount=0
+  users = User.all
   roger_rabbit = Patient.find_by(family_name: 'RABBIT', given_name: 'Roger')
-  User.all.each do |user|
-    logcount += 1
-    patients_user = Patients.cast_user(user)
-    patients_user.bookmarks.create!(patient: roger_rabbit)
-  end
-
-  log "#{logcount} Roger RABBIT Bookmarks seeded"
+  jessica_rabbit = Patient.find_by(family_name: 'RABBIT', given_name: 'Jessica')
 
   logcount=0
-  jessica_rabbit = Patient.find_by(family_name: 'RABBIT', given_name: 'Jessica')
-  User.all.each do |user|
-    logcount += 1
-    patients_user = Patients.cast_user(user)
-    patients_user.bookmarks.create!(patient: jessica_rabbit)
+  [roger_rabbit, jessica_rabbit].each do |patient|
+    users.each do |user|
+      logcount += 1
+      patients_user = Patients.cast_user(user)
+      patients_user.bookmarks.create!(patient: patient)
+    end
   end
 
-  log "#{logcount} Jessica RABBIT Bookmarks seeded"
-
+  log "#{logcount} Bookmarks seeded"
 end
