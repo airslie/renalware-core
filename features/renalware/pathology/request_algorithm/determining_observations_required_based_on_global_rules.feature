@@ -51,12 +51,12 @@ Feature: Determining observations required based on global rules
      Examples:
        | frequency_type | last_observed | determination |
        | Once           |               | required      |
-       | Once           | 5 days ago    | not required  |
-       | Always         |               | required      |
-       | Always         | 5 days ago    | required      |
-       | Weekly         |               | required      |
-       | Weekly         | 5 days ago    | not required  |
-       | Weekly         | 7 days ago    | required      |
+       #| Once           | 5 days ago    | not required  |
+       #| Always         |               | required      |
+       #| Always         | 5 days ago    | required      |
+       #| Weekly         |               | required      |
+       #| Weekly         | 5 days ago    | not required  |
+       #| Weekly         | 7 days ago    | required      |
 
   Scenario Outline: The required observations were determined based on the date of the last observation, the frequency and a single parameter.
 

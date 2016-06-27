@@ -37,7 +37,7 @@ module Renalware
     end
 
     def user_params
-      params.require(:user).permit(:approved, :unexpire, role_ids: [])
+      params.require(:user).permit(:approved, :unexpire, :telephone, role_ids: [])
     end
 
     def fetch_roles(role_ids)

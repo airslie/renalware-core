@@ -6,21 +6,21 @@ module World
         #
         def extract_request_form_params(form_params)
           clinic = find_requested_clinic(form_params[:clinic])
-          user = find_requested_user(form_params[:user])
+          consultant = find_requested_consultant(form_params[:consultant])
           patients = find_requested_patients(form_params[:patients])
           telephone = form_params[:telephone]
 
-          [patients, clinic, user, telephone]
+          [patients, clinic, consultant, telephone]
         end
 
         # @section commands
         #
         def generate_request_forms_for_single_patient(_clinician, params)
-          patients, clinic, user, telephone = extract_request_form_params(params)
+          patients, clinic, consultant, telephone = extract_request_form_params(params)
 
           options = { patients: patients }
           options[:clinic] = clinic if clinic.present?
-          options[:user] = user if user.present?
+          options[:consultant] = consultant if consultant.present?
           options[:telephone] = telephone if telephone.present?
 
           request_form_options =
@@ -104,16 +104,19 @@ module World
         end
 
         def find_requested_clinic(clinic_name)
-          if clinic_name.present?
-            Renalware::Clinics::Clinic.find_by!(name: clinic_name)
-          end
+          return unless clinic_name.present?
+
+          Renalware::Clinics::Clinic.find_by!(name: clinic_name)
         end
 
-        def find_requested_user(user_names)
-          if user_names.present?
-            given_name, family_name = user_names.split(" ")
-            Renalware::User.find_by(given_name: given_name, family_name: family_name)
-          end
+        def find_requested_consultant(consultant_names)
+          return unless consultant_names.present?
+
+          given_name, family_name = consultant_names.split(" ")
+          Renalware::Pathology::Consultant.find_by(
+            given_name: given_name,
+            family_name: family_name
+          )
         end
 
         def find_requested_patients(patients)
@@ -132,7 +135,7 @@ module World
         # @section commands
         #
         def generate_request_forms_for_single_patient(clinician, params)
-          patients, clinic, user, telephone = extract_request_form_params(params)
+          patients, clinic, consultant, telephone = extract_request_form_params(params)
 
           login_as clinician
 
@@ -141,7 +144,7 @@ module World
           click_on "Generate Forms"
 
           update_request_form_clinic(clinic.name) if clinic.present?
-          update_request_form_user(user.full_name) if user.present?
+          update_request_form_consultant(consultant.full_name) if consultant.present?
           update_request_form_telephone(telephone)  if telephone.present?
         end
 
@@ -194,8 +197,8 @@ module World
           find("div[data-patient-id='#{patient.id}'][data-role='form_pathology']").text
         end
 
-        def update_request_form_user(user_full_name)
-          select user_full_name, from: "User"
+        def update_request_form_consultant(consultant_full_name)
+          select consultant_full_name, from: "Consultant"
           click_on "Update Forms"
         end
 

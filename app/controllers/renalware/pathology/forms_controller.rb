@@ -10,7 +10,7 @@ module Renalware
         request_form_options = RequestAlgorithm::RequestFormOptions.new(
           clinic: find_clinic,
           patients: find_patients,
-          user: find_user,
+          consultant: find_consultant,
           telephone: request_form_params[:telephone]
         )
 
@@ -34,25 +34,25 @@ module Renalware
       end
 
       def find_clinic
-        if request_form_params[:clinic_id].present?
-          Clinics::Clinic.find(request_form_params[:clinic_id])
-        end
+        return unless request_form_params[:clinic_id].present?
+
+        Clinics::Clinic.find(request_form_params[:clinic_id])
       end
 
       def find_patients
         Renalware::Patient.find(request_form_params[:patient_ids])
       end
 
-      def find_user
-        if request_form_params[:user_id].present?
-          User.find(request_form_params[:user_id])
-        end
+      def find_consultant
+        return unless request_form_params[:consultant_id].present?
+
+        Consultant.find(request_form_params[:consultant_id])
       end
 
       def request_form_params
         params
           .require(:request_form_options)
-          .permit(:user_id, :clinic_id, :telephone, patient_ids: [])
+          .permit(:consultant_id, :clinic_id, :telephone, patient_ids: [])
       end
     end
   end
