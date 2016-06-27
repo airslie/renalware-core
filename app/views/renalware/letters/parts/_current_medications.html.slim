@@ -1,6 +1,14 @@
-p
-  strong Current Medications
+.columns.large-5
+  .letter-list
+    h3 Current Medications
 
-ul
-  - current_medications.each do |medication|
-    li= medication.drug.name
+    ul
+      - current_medications.each do |medication|
+        li
+          = medication.drug.name
+          = blank_separator
+          = medication.dose
+          = blank_separator
+          = medication.medication_route.code
+          = blank_separator
+          = medication.frequency

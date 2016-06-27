@@ -101,6 +101,23 @@
     li {
       line-height: 1.2em;
     }
+
+    &.inline {
+      display: block;
+      margin: 0;
+
+      li {
+        display: inline;
+        padding-right: 15px;
+      }
+    }
+
+    ol {
+      list-style-type: lower-latin;
+      font-size: 0.9em;
+      margin-bottom: 0;
+      margin-left: 30px;
+    }
   }
 
   .letter-allergies {

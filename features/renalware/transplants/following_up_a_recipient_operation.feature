@@ -6,7 +6,7 @@ Feature: Following-up a recipient operation
   Background:
     Given Clyde is a clinician
     And Patty is a patient
-    And Patty has a recipient operation
+    And Patty has a recorded recipient operation
 
   @web
   Scenario: A clinician created a followup for a recipient's operation
@@ -15,5 +15,5 @@ Feature: Following-up a recipient operation
 
   @web
   Scenario: A clinician updated a followup for a recipient's operation
-    Given Patty has a recipient operation followup
+    Given Patty has a recorded recipient operation followup
     Then Clyde can update Patty's recipient operation followup

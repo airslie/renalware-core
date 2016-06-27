@@ -1,5 +1,5 @@
-Given(/^Patty has a letter$/) do
-  set_up_simple_letter_for(@patty, user: @nathalie)
+Given(/^Patty has a recorded letter$/) do
+  seed_simple_letter_for(@patty, user: @nathalie)
 end
 
 Given(/^Patty accepted to be CCd on all letters$/) do
@@ -7,13 +7,16 @@ Given(/^Patty accepted to be CCd on all letters$/) do
 end
 
 Given(/^Patty is the main recipient on a pending letter$/) do
-  @letter = set_up_simple_letter_for(@patty, user: @nathalie)
+  @letter = seed_simple_letter_for(@patty, user: @nathalie)
 end
 
 Given(/^a letter for Patty's clinical visit was drafted$/) do
   @letter = seed_clinic_visit_letter_for(@patty, user: @nathalie)
 end
 
+Given(/^Patty has completed pathology investigations relevant to the clinic letter$/) do
+  seed_observations_relevant_to_clinic_letter(patient: @patty)
+end
 
 When(/^Nathalie drafts a letter for Patty to "(.*?)" with "(.*?)"$/) do |rec, ccs|
   recipient = letter_recipients_map.fetch(rec)
@@ -87,4 +90,16 @@ end
 
 Then(/^the letter lists Patty's current medications$/) do
   expect_letter_to_list_current_medications(patient: @patty)
+end
+
+Then(/^the letter lists Patty's clinical observations$/) do
+  expect_letter_to_list_clinical_observations(patient: @patty)
+end
+
+Then(/^the letter lists Patty's problems and notes$/) do
+  expect_letter_to_list_problems(patient: @patty)
+end
+
+Then(/^the letter lists Patty's recent pathology results$/) do
+  expect_letter_to_list_recent_pathology_results(patient: @patty)
 end

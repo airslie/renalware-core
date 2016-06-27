@@ -3,6 +3,7 @@ module Renalware
     class ClinicVisit < ActiveRecord::Base
       include Accountable
       include PatientScope
+      extend Enumerize
 
       belongs_to :patient
       belongs_to :clinic
@@ -12,6 +13,9 @@ module Renalware
       validates_presence_of :clinic
 
       validates :date, timeliness: { type: :date }
+
+      enumerize :urine_blood, in: %i(neg trace very_low low medium high)
+      enumerize :urine_protein, in: %i(neg trace very_low low medium high)
 
       def bmi
         ((weight / height) / height).round(2)

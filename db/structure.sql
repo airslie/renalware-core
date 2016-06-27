@@ -1930,7 +1930,9 @@ ALTER SEQUENCE pathology_request_descriptions_id_seq OWNED BY pathology_request_
 CREATE TABLE patient_bookmarks (
     id integer NOT NULL,
     patient_id integer NOT NULL,
-    user_id integer NOT NULL
+    user_id integer NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 

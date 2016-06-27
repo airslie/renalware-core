@@ -1,0 +1,11 @@
+.columns.large-7
+  .letter-list
+    h3 Problems
+
+    ul
+      - problems.ordered.each do |problem|
+        li= problem.description
+        - if problem.notes.present?
+          ol
+            - problem.notes.each do |note|
+              li= note.description

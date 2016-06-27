@@ -257,7 +257,7 @@ module Renalware
   end
 
   log '--------------------Assign Access procedure to Francois RABBIT-------------------'
-  patient = ActiveType.cast(Patient.find_by(local_patient_id: "Z100003"), Accesses::Patient)
+  patient = Accesses.cast_patient(Patient.find_by(local_patient_id: "Z100003"))
   patient.procedures.destroy_all
   users = User.limit(3).to_a
   procedure1 = patient.procedures.create!(
@@ -282,7 +282,7 @@ module Renalware
   )
 
   log '--------------------Assign Access profiles to Francois RABBIT-------------------'
-  patient = ActiveType.cast(Patient.find_by(local_patient_id: "Z100003"), Accesses::Patient)
+  patient = Accesses.cast_patient(Patient.find_by(local_patient_id: "Z100003"))
   patient.profiles.destroy_all
   users = User.limit(3).to_a
 
@@ -328,7 +328,7 @@ module Renalware
   )
 
   log '--------------------Assign Access assessments to Francois RABBIT-------------------'
-  patient = ActiveType.cast(Patient.find_by(local_patient_id: "Z100003"), Accesses::Patient)
+  patient = Accesses.cast_patient(Patient.find_by(local_patient_id: "Z100003"))
   patient.assessments.destroy_all
   patient.assessments.create!(
     patient: patient,
@@ -385,7 +385,8 @@ module Renalware
   )
 
   log '--------------------Assign Letters to Roger RABBIT-------------------'
-  patient = ActiveType.cast(Patient.find_by(local_patient_id: "Z100001"), Letters::Patient)
+  patient = Letters.cast_patient(Patient.find_by(local_patient_id: "Z100001"))
+  clinics_patient = Renalware::Clinics.cast_patient(patient)
   patient.letters.destroy_all
   users = User.limit(3).to_a
 
@@ -401,7 +402,7 @@ module Renalware
 
   Letters::Letter::Draft.create!(
     patient: patient,
-    issued_on: 1.day.ago,
+    issued_on: 2.days.ago,
     description: Renalware::Letters::Description.first.text,
     salutation: "Dear Dr Runner",
     main_recipient_attributes: {
@@ -409,6 +410,22 @@ module Renalware
     },
     body: letter_body,
     notes: "Waiting on lab results.",
+    letterhead: Renalware::Letters::Letterhead.first,
+    author: users.sample,
+    by: users.sample
+  )
+
+  Letters::Letter::Draft.create!(
+    patient: patient,
+    event: clinics_patient.clinic_visits.first,
+    issued_on: 1.day.ago,
+    description: Renalware::Letters::Description.first.text,
+    salutation: "Dear Mr Rabbit",
+    main_recipient_attributes: {
+      person_role: "patient"
+    },
+    body: letter_body,
+    notes: "You visited the clinic yesterday.",
     letterhead: Renalware::Letters::Letterhead.first,
     author: users.sample,
     by: users.sample

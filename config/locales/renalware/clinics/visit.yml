@@ -4,6 +4,29 @@ en:
       form:
         clinic_prompt: Select clinic type
 
+  activerecord:
+    attributes:
+      renalware/clinics/clinic_visit:
+        bp: "BP"
+        bmi: "BMI"
+
+  enumerize:
+    renalware/clinics/clinic_visit:
+      urine_blood:
+        neg: "Negative"
+        trace: "Trace"
+        very_low: "+"
+        low: "++"
+        medium: "+++"
+        high: "++++"
+      urine_protein:
+        neg: "Negative"
+        trace: "Trace"
+        very_low: "+"
+        low: "++"
+        medium: "+++"
+        high: "++++"
+
   simple_form:
     hints:
       clinic_visit:
