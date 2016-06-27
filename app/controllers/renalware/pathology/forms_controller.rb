@@ -34,9 +34,9 @@ module Renalware
       end
 
       def find_clinic
-        if request_form_params[:clinic_id].present?
-          Clinics::Clinic.find(request_form_params[:clinic_id])
-        end
+        return unless request_form_params[:clinic_id].present?
+
+        Clinics::Clinic.find(request_form_params[:clinic_id])
       end
 
       def find_patients
@@ -44,9 +44,9 @@ module Renalware
       end
 
       def find_consultant
-        if request_form_params[:consultant_id].present?
-          Consultant.find(request_form_params[:consultant_id])
-        end
+        return unless request_form_params[:consultant_id].present?
+
+        Consultant.find(request_form_params[:consultant_id])
       end
 
       def request_form_params

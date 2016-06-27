@@ -104,19 +104,19 @@ module World
         end
 
         def find_requested_clinic(clinic_name)
-          if clinic_name.present?
-            Renalware::Clinics::Clinic.find_by!(name: clinic_name)
-          end
+          return unless clinic_name.present?
+
+          Renalware::Clinics::Clinic.find_by!(name: clinic_name)
         end
 
         def find_requested_consultant(consultant_names)
-          if consultant_names.present?
-            given_name, family_name = consultant_names.split(" ")
-            Renalware::Pathology::Consultant.find_by(
-              given_name: given_name,
-              family_name: family_name
-            )
-          end
+          return unless consultant_names.present?
+
+          given_name, family_name = consultant_names.split(" ")
+          Renalware::Pathology::Consultant.find_by(
+            given_name: given_name,
+            family_name: family_name
+          )
         end
 
         def find_requested_patients(patients)
