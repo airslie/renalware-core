@@ -1,30 +1,35 @@
-table[class="auto-layout" id="#{id}"]
-  thead
-    tr
-      th
-      th= sort_link_if(treatable.sortable?, search, :drug_name, "Medication")
-      th Drug Type
-      th Dose
-      th Frequency
-      th Route
-      th Provider
-      th= sort_link_if(treatable.sortable?, search, :start_date, "Prescribed on")
-      - if include_terminated_column
-        th Terminated On
-  tbody
-    - medications.each do |medication|
+- if medications.any?
+  table[class="auto-layout" id="#{id}"]
+    thead
       tr
-        td
-          = link_to "Edit", edit_patient_medication_path(patient, medication), remote: true
-          = pipe_separator
-          = link_to "Terminate", patient_medication_path(patient, medication), method: :delete,
-              remote: true, data: { confirm: "Are you sure?" }
-        td= medication.drug.name
-        td= medication.drug_types
-        td= medication.dose
-        td= medication.frequency
-        td= medication.route_name
-        td= medication.provider
-        td= I18n.l medication.start_date
+        - unless medications.first.deleted?
+          th
+        th= sort_link_if(treatable.sortable?, search, :drug_name, "Medication")
+        th Drug Type
+        th Dose
+        th Frequency
+        th Route
+        th Provider
+        th Notes
+        th= sort_link_if(treatable.sortable?, search, :start_date, "Prescribed on")
         - if include_terminated_column
-          td= I18n.l medication.deleted_on
+          th Terminated On
+    tbody
+      - medications.each do |medication|
+        tr
+          - unless medication.deleted?
+            td
+              = link_to "Edit", edit_patient_medication_path(patient, medication), remote: true
+              = pipe_separator
+              = link_to "Terminate", patient_medication_path(patient, medication), method: :delete,
+                  remote: true, data: { confirm: "Are you sure?" }
+          td= medication.drug.name
+          td= medication.drug_types
+          td= medication.dose
+          td= medication.frequency
+          td= medication.route_name
+          td= medication.provider
+          td= medication.notes
+          td= I18n.l medication.start_date
+          - if include_terminated_column
+            td= I18n.l medication.deleted_on

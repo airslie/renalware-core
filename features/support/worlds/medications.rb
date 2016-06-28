@@ -188,11 +188,11 @@ module World
         actual_medications.zip(expected_medications).each do |actual, expected|
           expected_route = Renalware::MedicationRoute.find_by!(code: expected[:route_code])
 
-          expect(actual[1]).to eq(expected[:drug_name])
-          expect(actual[3]).to eq(expected[:dose])
-          expect(actual[4]).to eq(expected[:frequency])
-          expect(actual[5]).to eq(expected_route.name)
-          expect(actual[6]).to eq(expected[:provider])
+          expect(actual).to include(expected[:drug_name])
+          expect(actual).to include(expected[:dose])
+          expect(actual).to include(expected[:frequency])
+          expect(actual).to include(expected_route.name)
+          expect(actual).to include(expected[:provider])
         end
       end
     end
