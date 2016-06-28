@@ -27,9 +27,7 @@ module World
         }
 
         if deleted_at.present?
-          medication_params.merge!(
-            deleted_at: parse_time_string(deleted_at)
-          )
+          medication_params[:deleted_at] = parse_time_string(deleted_at)
         end
 
         patient.medications.create!(medication_params)
@@ -39,11 +37,16 @@ module World
       #
       def view_medications_for(_clinician, patient)
         current_medications =
-          ::Renalware::Medications::TreatableMedicationsQuery.new(treatable: patient)
-            .call.includes(:drug)
+          ::Renalware::Medications::TreatableMedicationsQuery
+            .new(treatable: patient)
+            .call
+            .includes(:drug)
+
         deleted_medications =
-          ::Renalware::Medications::TreatableDeletedMedicationsQuery.new(treatable: patient)
-            .call.includes(:drug)
+          ::Renalware::Medications::TreatableDeletedMedicationsQuery
+            .new(treatable: patient)
+            .call
+            .includes(:drug)
 
         [current_medications, deleted_medications]
       end
@@ -154,7 +157,7 @@ module World
         end
       end
 
-      def terminate_medication_for(patient:, user:)
+      def terminate_medication_for(patient:, _user:)
         within "#medications" do
           click_on "Terminate"
           wait_for_ajax
