@@ -23,7 +23,8 @@ module World
           medication_route: route,
           frequency: frequency,
           start_date: starts_on,
-          provider: provider.downcase
+          provider: provider.downcase,
+          by: Renalware::SystemUser.find
         }
 
         if deleted_at.present?

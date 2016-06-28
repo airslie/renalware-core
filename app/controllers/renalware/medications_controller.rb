@@ -22,7 +22,7 @@ module Renalware
       @treatable = treatable_class.find(treatable_id)
 
       medication = @patient.medications.new(
-        medication_params.merge(treatable: @treatable)
+        medication_params.merge(by: current_user, treatable: @treatable)
       )
 
       if medication.save
@@ -43,7 +43,7 @@ module Renalware
       medication = @patient.medications.find(params[:id])
       @treatable = medication.treatable
 
-      if medication.update(medication_params)
+      if medication.update(medication_params.merge(by: current_user))
         render_index
       else
         render_form(medication, url: patient_medication_path(@patient, medication))
