@@ -19,7 +19,7 @@ Given(/^Patty has medications:$/) do |table|
       dose: row[:dose],
       route_code: row[:route_code],
       frequency: row[:frequency],
-      starts_on: Time.now-1.month,
+      starts_on: Time.now - 1.month,
       provider: row[:provider],
       deleted_at: row[:terminated_on]
     )

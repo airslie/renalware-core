@@ -8,7 +8,7 @@ module World
       def parse_time_string(time_string)
         return nil unless time_string.present?
 
-        Time.new(*time_string.split("-").reverse.map(&:to_i))
+        Time.parse(time_string)
       end
 
       def seed_medication_for(patient:, treatable: nil, drug_name:, dose:,
