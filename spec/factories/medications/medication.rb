@@ -8,6 +8,8 @@ FactoryGirl.define do
     notes "with food"
     provider 0
     start_date 2.weeks.ago
+    association :created_by, factory: :user
+    association :updated_by, factory: :user
 
     before(:create) { |medication| medication.treatable ||= medication.patient }
 

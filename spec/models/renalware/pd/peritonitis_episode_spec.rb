@@ -11,9 +11,10 @@ module Renalware
 
       before do
         @patient = create(:patient)
-        @pe = FactoryGirl.build(:peritonitis_episode)
-        @mrsa = FactoryGirl.create(:organism_code, name: "MRSA")
-        @ecoli = FactoryGirl.create(:organism_code, name: "E.Coli")
+        @pe = build(:peritonitis_episode)
+        @mrsa = create(:organism_code, name: "MRSA")
+        @ecoli = create(:organism_code, name: "E.Coli")
+        @user = create(:user)
 
         load_drugs_by_type('Amoxicillin' => ['Antibiotic','Peritonitis'],
           'Penicillin' => ['Antibiotic','Peritonitis'])
@@ -24,7 +25,7 @@ module Renalware
       context "medications" do
         it "can be assigned many medications and organisms/sensitivities" do
 
-          @medication_one = FactoryGirl.create(:medication,
+          @medication_one = create(:medication,
             patient: @patient,
             drug: @amoxicillin,
             treatable: @pe,
@@ -33,10 +34,11 @@ module Renalware
             frequency: "daily",
             notes: "with food",
             start_date: "02/03/2015",
-            provider: 0
+            provider: 0,
+            by: @user
           )
 
-          @medication_two = FactoryGirl.create(:medication,
+          @medication_two = create(:medication,
             patient: @patient,
             drug: @penicillin,
             treatable: @pe,
@@ -45,7 +47,8 @@ module Renalware
             frequency: "daily",
             notes: "with food",
             start_date: "02/03/2015",
-            provider: 1
+            provider: 1,
+            by: @user
           )
 
           @pe.medications << @medication_one
