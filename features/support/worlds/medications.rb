@@ -52,7 +52,7 @@ module World
       end
 
       def record_medication_for(**args)
-        seed_medication_for(args)
+        seed_medication_for(args.merge(deleted_at: nil))
       end
 
       def record_medication_for_patient(user:, **args)
