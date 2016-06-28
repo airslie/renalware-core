@@ -2,11 +2,10 @@ tr
   td= link_to "View", patient_path(id: bookmark.patient.id)
   td= bookmark.patient.full_name
   td= bookmark.patient.local_patient_id
+  td= I18n.l bookmark.patient.born_on
   td= bookmark.patient.age
   td= bookmark.patient.sex
   td= bookmark.patient.current_modality
   td= I18n.l bookmark.created_at
   td= render partial: "renalware/patients/bookmarks/delete_form",
       locals: { bookmark: bookmark, link_text: "Remove" }
-
-
