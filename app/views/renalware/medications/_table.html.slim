@@ -25,6 +25,6 @@ table[class="auto-layout" id="#{id}"]
         td= medication.frequency
         td= medication.route_name
         td= medication.provider
-        td= medication.start_date
+        td= I18n.l medication.start_date
         - if include_terminated_column
           td= I18n.l medication.deleted_on
