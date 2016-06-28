@@ -19,7 +19,8 @@ Given(/^Patty is being treated for a peritonitis episode$/) do
     frequency: "once a day",
     starts_on: "10-10-2015",
     provider: "GP",
-    drug_selector: peritonitis_episode_drug_selector
+    drug_selector: peritonitis_episode_drug_selector,
+    deleted_at: nil
   )
 end
 

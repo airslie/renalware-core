@@ -116,7 +116,6 @@ module World
       def record_medication_for(patient:, treatable: nil, drug_name:, dose:, route_code:,
         frequency:, starts_on:, provider:,
         drug_selector: default_medication_drug_selector)
-
         click_link "Add Medication"
         wait_for_ajax
 
@@ -137,7 +136,7 @@ module World
         visit patient_medications_path(patient,
           treatable_type: patient.class, treatable_id: patient.id)
 
-        record_medication_for(patient: patient, **args)
+        record_medication_for(patient: patient, **args.except(:deleted_at))
       end
 
       def revise_medication_for(patient:, user:, drug_name:,
@@ -157,7 +156,12 @@ module World
         end
       end
 
-      def terminate_medication_for(patient:, _user:)
+      def terminate_medication_for(patient:, user:)
+        login_as user
+
+        visit patient_medications_path(patient,
+          treatable_type: patient.class, treatable_id: patient.id)
+
         within "#medications" do
           click_on "Terminate"
           wait_for_ajax
