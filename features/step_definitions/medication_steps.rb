@@ -41,7 +41,7 @@ When(/^Clyde records the medication for Patty$/) do
 end
 
 When(/^Clyde views the list of medications for Patty$/) do
-  @current_medications, @historical_medications = view_medications_for(@clyde, @patty)
+  @current_medications, @terminated_medications = view_medications_for(@clyde, @patty)
 end
 
 Then(/^the medication is recorded for Patty$/) do
@@ -70,5 +70,5 @@ Then(/^Clyde should see these current medications$/) do |table|
 end
 
 Then(/^Clyde should see these historical medications$/) do |table|
-  expect_current_medications_to_match(@historical_medications, table.hashes)
+  expect_current_medications_to_match(@terminated_medications, table.hashes)
 end

@@ -67,8 +67,8 @@ module Renalware
         treatable: present(@treatable, Medications::TreatablePresenter),
         current_search: medications_query.search,
         current_medications: present(medications, Medications::MedicationPresenter),
-        historical_search: deleted_medications_query.search,
-        historical_medications: present(deleted_medications, Medications::MedicationPresenter)
+        terminated_search: deleted_medications_query.search,
+        terminated_medications: present(deleted_medications, Medications::MedicationPresenter)
       }
     end
 
@@ -116,7 +116,7 @@ module Renalware
 
     def deleted_medications_query
       @deleted_medications_query ||=
-        Medications::TreatableDeletedMedicationsQuery.new(
+        Medications::TreatableTerminatedMedicationsQuery.new(
           treatable: @treatable,
           search_params: params[:q]
         )

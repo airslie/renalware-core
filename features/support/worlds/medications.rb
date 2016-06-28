@@ -38,17 +38,17 @@ module World
       def view_medications_for(_clinician, patient)
         current_medications =
           ::Renalware::Medications::TreatableMedicationsQuery
-            .new(treatable: patient)
-            .call
-            .includes(:drug)
+          .new(treatable: patient)
+          .call
+          .includes(:drug)
 
-        deleted_medications =
-          ::Renalware::Medications::TreatableDeletedMedicationsQuery
-            .new(treatable: patient)
-            .call
-            .includes(:drug)
+        terminated_medications =
+          ::Renalware::Medications::TreatableTerminatedMedicationsQuery
+          .new(treatable: patient)
+          .call
+          .includes(:drug)
 
-        [current_medications, deleted_medications]
+        [current_medications, terminated_medications]
       end
 
       def record_medication_for(**args)
@@ -179,9 +179,9 @@ module World
           treatable_type: patient.class, treatable_id: patient.id)
 
         current_medications = html_table_to_array("current_medications").drop(1)
-        historical_medications = html_table_to_array("historical_medications").drop(1)
+        terminated_medications = html_table_to_array("terminated_medications").drop(1)
 
-        [current_medications, historical_medications]
+        [current_medications, terminated_medications]
       end
 
       def expect_current_medications_to_match(actual_medications, expected_medications)

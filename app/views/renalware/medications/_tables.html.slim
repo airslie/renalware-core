@@ -7,14 +7,14 @@ b Current
       search: current_search,
       include_terminated_column: false
 
-- if defined? historical_medications
+- if defined? terminated_medications
   b Historical
   = render "renalware/medications/table",
-      id: "historical_medications",
+      id: "terminated_medications",
       patient: patient,
       treatable: treatable,
-      medications: historical_medications,
-      search: historical_search,
+      medications: terminated_medications,
+      search: terminated_search,
       include_terminated_column: true
 .right
   = link_to "Add Medication", new_patient_medication_path(patient, treatable), remote: true, class: %i(button tiny)
