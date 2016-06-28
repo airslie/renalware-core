@@ -6,7 +6,8 @@ Given(/^Patty has a recorded medication|Patty has current medications$/) do
     route_code: "PO",
     frequency: "once a day",
     starts_on: "10-10-2015",
-    provider: "GP"
+    provider: "GP",
+    deleted_at: nil
   )
 end
 
@@ -34,7 +35,8 @@ When(/^Clyde records the medication for Patty$/) do
     route_code: "PO",
     frequency: "once a day",
     starts_on: "10-10-2015",
-    provider: "GP"
+    provider: "GP",
+    deleted_at: nil
   )
 end
 

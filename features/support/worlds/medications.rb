@@ -84,14 +84,14 @@ module World
         expect(medication.created_at).not_to eq(medication.updated_at)
       end
 
-      def expect_current_medications_to_match(medications, expected_medications)
-        medications.zip(expected_medications).each do |actual, expected|
-          expect(actual.drug.name).to eq(expected['drug_name'])
-          expect(actual.dose).to eq(expected['dose'])
-          expect(actual.frequency).to eq(expected['frequency'])
-          expect(actual.medication_route.code).to eq(expected['route_code'])
-          expect(actual.provider).to eq(expected['provider'].downcase)
-          expect(actual.deleted_at).to eq(parse_time_string(expected['terminated_on']))
+      def expect_current_medications_to_match(actual_medications, expected_medications)
+        actual_medications.zip(expected_medications).each do |actual, expected|
+          expect(actual.drug.name).to eq(expected["drug_name"])
+          expect(actual.dose).to eq(expected["dose"])
+          expect(actual.frequency).to eq(expected["frequency"])
+          expect(actual.medication_route.code).to eq(expected["route_code"])
+          expect(actual.provider).to eq(expected["provider"].downcase)
+          expect(actual.deleted_at).to eq(parse_time_string(expected["terminated_on"]))
         end
       end
     end
@@ -153,17 +153,41 @@ module World
           wait_for_ajax
         end
       end
-    end
 
-    def terminate_medication_for(patient:, user:)
-      within "#medications" do
-        click_on "Terminate"
-        wait_for_ajax
+      def terminate_medication_for(patient:, user:)
+        within "#medications" do
+          click_on "Terminate"
+          wait_for_ajax
+        end
+
+        medication = patient.medications.with_deleted.last!
+
+        expect(medication).to be_deleted
       end
 
-      medication = patient.medications.with_deleted.last!
+      def view_medications_for(clinician, patient)
+        login_as clinician
 
-      expect(medication).to be_deleted
+        visit patient_medications_path(patient,
+          treatable_type: patient.class, treatable_id: patient.id)
+
+        current_medications = html_table_to_array("current_medications").drop(1)
+        historical_medications = html_table_to_array("historical_medications").drop(1)
+
+        [current_medications, historical_medications]
+      end
+
+      def expect_current_medications_to_match(actual_medications, expected_medications)
+        actual_medications.zip(expected_medications).each do |actual, expected|
+          expected_route = Renalware::MedicationRoute.find_by!(code: expected[:route_code])
+
+          expect(actual[1]).to eq(expected[:drug_name])
+          expect(actual[3]).to eq(expected[:dose])
+          expect(actual[4]).to eq(expected[:frequency])
+          expect(actual[5]).to eq(expected_route.name)
+          expect(actual[6]).to eq(expected[:provider])
+        end
+      end
     end
   end
 end
