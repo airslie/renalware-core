@@ -11,6 +11,12 @@ module Renalware
         drug.drug_types.map(&:name).join(", ")
       end
 
+      def deleted_on
+        return nil unless deleted_at.present?
+
+        deleted_at.to_date
+      end
+
       def provider
         ::I18n.t(super, scope: "enums.provider")
       end

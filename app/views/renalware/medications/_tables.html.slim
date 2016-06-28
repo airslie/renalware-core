@@ -1,0 +1,20 @@
+b Current
+= render "renalware/medications/table",
+      id: "current_medications",
+      patient: patient,
+      treatable: treatable,
+      medications: current_medications,
+      search: current_search,
+      include_terminated_column: false
+
+- if defined? terminated_medications
+  b Historical
+  = render "renalware/medications/table",
+      id: "terminated_medications",
+      patient: patient,
+      treatable: treatable,
+      medications: terminated_medications,
+      search: terminated_search,
+      include_terminated_column: true
+.right
+  = link_to "Add Medication", new_patient_medication_path(patient, treatable), remote: true, class: %i(button tiny)
