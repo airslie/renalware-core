@@ -1499,7 +1499,9 @@ CREATE TABLE medications (
     provider integer NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL
 );
 
 
@@ -4653,6 +4655,13 @@ CREATE INDEX index_medication_versions_on_item_type_and_item_id ON medication_ve
 
 
 --
+-- Name: index_medications_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_medications_on_created_by_id ON medications USING btree (created_by_id);
+
+
+--
 -- Name: index_medications_on_deleted_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4664,6 +4673,13 @@ CREATE INDEX index_medications_on_deleted_at ON medications USING btree (deleted
 --
 
 CREATE INDEX index_medications_on_treatable_type_and_treatable_id ON medications USING btree (treatable_type, treatable_id);
+
+
+--
+-- Name: index_medications_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_medications_on_updated_by_id ON medications USING btree (updated_by_id);
 
 
 --
@@ -5874,4 +5890,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160613120910');
 INSERT INTO schema_migrations (version) VALUES ('20160616163622');
 
 INSERT INTO schema_migrations (version) VALUES ('20160620131148');
+
+INSERT INTO schema_migrations (version) VALUES ('20160628141349');
 

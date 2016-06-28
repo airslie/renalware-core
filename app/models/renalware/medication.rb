@@ -1,5 +1,7 @@
 module Renalware
   class Medication < ActiveRecord::Base
+    include Accountable
+
     attr_accessor :drug_select
 
     acts_as_paranoid
