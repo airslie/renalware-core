@@ -66,7 +66,7 @@ module World
         drug = Renalware::Drugs::Drug.find_by!(name: drug_name)
         medication = patient.medications.last!
 
-        medication.update!(drug: drug)
+        medication.update!(drug: drug, by: Renalware::SystemUser.find)
       end
 
       def terminate_medication_for(patient:, user:)
