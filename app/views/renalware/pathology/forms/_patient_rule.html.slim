@@ -1,0 +1,8 @@
+p
+  = patient_rule.test_description
+  - if patient_rule.sample_type.present? && patient_rule.sample_number_bottles.present?
+    |  (#{patient_rule.sample_type}, #{patient_rule.sample_number_bottles_string})
+  - elsif patient_rule.sample_type.present?
+    |  (#{patient_rule.sample_type})
+  - elsif patient_rule.sample_number_bottles.present?
+    |  (#{patient_rule.sample_number_bottles_string})

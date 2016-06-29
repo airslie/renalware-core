@@ -65,13 +65,7 @@ hr.page_break
                 p
                   | ======== #{lab_name} ========
                 - patient_rules.each do |patient_rule|
-                  p
-                    | #{patient_rule.test_description}
-                    |  (#{patient_rule.sample_type}, #{patient_rule.sample_number_bottles}
-                    - if patient_rule.sample_number_bottles > 1
-                      |  bottles)
-                    - else
-                      |  bottle)
+                  = render "patient_rule", patient_rule: patient_rule
             - else
               p No tests required.
 
