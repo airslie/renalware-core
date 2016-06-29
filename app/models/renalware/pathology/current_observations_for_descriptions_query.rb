@@ -29,7 +29,7 @@ module Renalware
             ON pathology_observations.request_id = pathology_observation_requests.id
           SQL
           .joins(<<-SQL)
-            RIGHT JOIN pathology_observation_descriptions
+            LEFT JOIN pathology_observation_descriptions
             ON pathology_observations.description_id = pathology_observation_descriptions.id
           SQL
           .order("pathology_observation_descriptions.id")
