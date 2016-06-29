@@ -48,24 +48,6 @@ module Renalware
 
   log "#{logcount} Problem Notes seeded"
 
-  log '--------------------Adding Modalities for Roger RABBIT---------------------'
-
-  file_path = File.join(demo_path, 'rabbit_modalities.csv')
-  logcount=0
-  CSV.foreach(file_path, headers: true) do |row|
-    logcount += 1
-    Modalities::Modality.find_or_create_by!(
-      patient_id: rabbit.to_param,
-      description_id: row['description'],
-      reason_id: row['reason_id']) do |mod|
-        mod.modal_change_type   = row['modal_change_type']
-        mod.started_on          = row['started_on']
-        mod.ended_on            = row['ended_on']
-      end
-  end
-
-  log "#{logcount} Modalities seeded"
-
   log '--------------------Adding Events for Roger RABBIT--------------------'
 
   Events::Event.find_or_create_by!(
@@ -165,17 +147,8 @@ module Renalware
     {organism_code_id: 4, sensitivity: "unknown", infectable_id: 1, infectable_type: "Renalware::ExitSiteInfection"}
   ])
 
-  log '--------------------Assign Live Donor modality to Jessica RABBIT-------------------'
-  patient = Patient.find_by(local_patient_id: "Z100002")
-  description = Modalities::Description.find_by(code: "livedonor")
-  patient.set_modality(description: description, started_on: 1.month.ago)
-
-  log '--------------------Assign Unit HD modality to Francois RABBIT-------------------'
-  patient = Patient.find_by(local_patient_id: "Z100003")
-  description = Modalities::Description.find_by(code: "HD_unit")
-  patient.set_modality(description: description, started_on: 1.week.ago)
-
   log '--------------------Assign some HD preferences to Francois RABBIT-------------------'
+  patient = Patient.find_by(local_patient_id: "Z100003")
   preference_set = HD::PreferenceSet.find_or_initialize_by(patient: patient)
   preference_set.attributes = { schedule: "mon_wed_fri_am", entered_on: 1.week.ago.to_date, by: User.first }
   preference_set.save!
