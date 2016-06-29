@@ -80,4 +80,5 @@ end
 group :staging do
   gem 'rails_12factor'
   gem 'unicorn'
+  gem 'faker'
 end
