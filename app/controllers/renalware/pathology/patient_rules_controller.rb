@@ -23,14 +23,47 @@ module Renalware
         end
       end
 
+      def edit
+        patient_rule = @patient.rules.find(params[:id])
+
+        render_edit(patient_rule)
+      end
+
+      def update
+        patient_rule = @patient.rules.find(params[:id])
+
+        if patient_rule.update(patient_rule_params)
+          redirect_to patient_pathology_required_observations_path(@patient),
+            notice: t(".success", model_name: "patient rule")
+        else
+          flash[:error] = t(".failed", model_name: "patient rule")
+          render_edit(patient_rule)
+        end
+      end
+
+      def destroy
+        RequestAlgorithm::PatientRule.destroy(params[:id])
+
+        redirect_to patient_pathology_required_observations_path(@patient),
+          notice: t(".success", model_name: "patient rule")
+      end
+
       private
 
+      def render_edit(patient_rule)
+        render :edit, locals: {
+          patient_rule: patient_rule,
+          frequencies: find_frequencies,
+          labs: find_labs
+        }
+      end
+
       def render_new(patient_rule)
-         render :new, locals: {
-            patient_rule: patient_rule,
-            frequencies: find_frequencies,
-            labs: find_labs
-          }
+        render :new, locals: {
+          patient_rule: patient_rule,
+          frequencies: find_frequencies,
+          labs: find_labs
+        }
       end
 
       def find_frequencies

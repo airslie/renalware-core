@@ -56,6 +56,8 @@
               th Last Observed
               th Start Date
               th End Date
+              th
+              th
           tbody
           - patient_pathology.each do |patient_rule|
             tr
@@ -67,3 +69,8 @@
               td = patient_rule.last_observed_at
               td = patient_rule.start_date
               td = patient_rule.end_date
+              th = link_to "Edit",
+                    edit_patient_pathology_patient_rule_path(patient_id: @patient.id, id: patient_rule.id)
+              th = link_to "Delete",
+                    patient_pathology_patient_rule_path(patient_id: @patient.id, id: patient_rule.id),
+                    method: :delete
