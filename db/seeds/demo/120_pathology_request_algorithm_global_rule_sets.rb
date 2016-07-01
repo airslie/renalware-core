@@ -8,10 +8,14 @@ module Renalware
     logcount += 1
 
     clinic = ::Renalware::Clinics::Clinic.find_by(name: row["clinic"])
+    request_description = Pathology::RequestDescription.find_by(
+      code: row["request_description_code"]
+    )
+
     Pathology::RequestAlgorithm::GlobalRuleSet.find_or_create_by!(
       id: row["id"],
       clinic: clinic,
-      request_description_id: row["request_description_id"],
+      request_description: request_description,
       frequency_type: row["frequency_type"]
     )
   end

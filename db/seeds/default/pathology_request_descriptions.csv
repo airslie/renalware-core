@@ -1,176 +1,177 @@
-"code","name","lab"
-"FBC","FULL BLOOD COUNT","Haemotology"
-"PRE","PREAN SICKLE SCREEN","Lab: Unknown"
-"RLBU","RENAL/LIVER/BONE/UREA","Lab: Unknown"
-"MG","MAGNESIUM","Lab: Unknown"
-"CRP","C-REACTIVE PROTEIN","Biochemistry (TP)"
-"COAG","COAGULATION SCREEN","Lab: Unknown"
-"STS","SICKLE + THAL SCRE","Lab: Unknown"
-"DIAB","DIABETIC PROFILE","Lab: Unknown"
-"BONE","BONE PROFILE","Lab: Unknown"
-"EUC","U+E+UREA","Lab: Unknown"
-"LFT","LIVER PROFILE","Biochemistry (TP)"
-"SOL","SICKLE SOLUBILITY TEST","Lab: Unknown"
-"TFT","THYROID FUNCTION TESTS","Lab: Unknown"
-"FCAL","FAECAL CALPROTECTIN","Lab: Unknown"
-"C125","CA125","Lab: Unknown"
-"BFF","B12/FOLATE/FERRITIN","Biochemistry"
-"LPRO","LIPID PROFILE","Lab: Unknown"
-"INR","INR","Lab: Unknown"
-"INRW","INR (WARFARIN)","Lab: Unknown"
-"ACR","URINE ALBUMINECREAT RATIO","Lab: Unknown"
-"PCR","URINE PROTEIN/CREAT RATIO","Lab: Unknown"
-"ANT","ANTENATAL SICKLE/THAL","Lab: Unknown"
-"MAL","MALARIA","Lab: Unknown"
-"FILM","FILM COMMENT","Lab: Unknown"
-"RET","RETICULOCYTE COUNT","Lab: Unknown"
-"PARS","PARASITE STAGE","Lab: Unknown"
-"SEP","SERUM ELECTROPHORESIS GRP","Lab: Unknown"
-"AMY","AMYLASE","Lab: Unknown"
-"TROP","TROPONIN I","Lab: Unknown"
-"FER","FERRITIN","Lab: Unknown"
-"CAER","CAERULOPLASMIN","Lab: Unknown"
-"TOB","TOBRAMYCIN (RANDOM)","Lab: Unknown"
-"RLU","RENAL/LIVER/UREA","Lab: Unknown"
-"RENU","RENAL PROFILE + UREA","Lab: Unknown"
-"TSH","TSH","Lab: Unknown"
-"FT4","FREE THYROXINE","Lab: Unknown"
-"BF","B12/FOLATE","Lab: Unknown"
-"BIC","BICARBONATE","Biochemistry (TP)"
-"ECT","ECTOPIC PREGNANCY PROFILE","Lab: Unknown"
-"GEN","GENTAMICIN (RANDOM)","Lab: Unknown"
-"GENT","GENTAMICIN (TROUGH)","Lab: Unknown"
-"TOBT","TOBRAMYCIN (TROUGH)","Lab: Unknown"
-"TEST","TESTOSTERONE","Lab: Unknown"
-"UDS","URINE DRUG SCREEN","Lab: Unknown"
-"OPIC","OPIATE CONFIRMATION","Lab: Unknown"
-"APTH","APTR (HEPARIN)","Lab: Unknown"
-"TT","THROMBIN TIME","Lab: Unknown"
-"PSA","PSA","Lab: Unknown"
-"CEA","CEA","Lab: Unknown"
-"PGLU","PLASMA GLUCOSE","Lab: Unknown"
-"CFIB","CLAUSS FIBRINOGEN","Lab: Unknown"
-"HBA1","HBA1C","Lab: Unknown"
-"PGTT","PIU GLUC. TOLERANCE TEST","Lab: Unknown"
-"LDH","LDH","Lab: Unknown"
-"HBS","HAEMOGLOBIN S% (GROUP)","Lab: Unknown"
-"REN","RENAL PROFILE","Lab: Unknown"
-"EC","U+E","Biochemistry (TP)"
-"URAT","URATE","Lab: Unknown"
-"FLIP","FULL LIPID PROFILE","Lab: Unknown"
-"UOSM","URINE OSMOLALITY","Lab: Unknown"
-"HAPT","HAPTOGLOBIN","Lab: Unknown"
-"CBIL","CONJ. BILIRUBIN","Lab: Unknown"
-"GON","GONADOTROPHINS","Lab: Unknown"
-"ANDR","ANDROGEN PROFILE","Lab: Unknown"
-"OE2","OESTRADIOL","Lab: Unknown"
-"HCG","HCG","Lab: Unknown"
-"PTHI","PARATHYROID HORMONE","Lab: Unknown"
-"RL","RENAL/LIVER PROFILE","Lab: Unknown"
-"POSM","OSMOLALITY (SERUM)","Lab: Unknown"
-"AFP","AFP","Lab: Unknown"
-"B12","VITAMIN B12","Lab: Unknown"
-"CK","CK","Lab: Unknown"
-"FOB","FAECAL OCCULT BLOOD","Lab: Unknown"
-"RLB","RENAL/LIVER/BONE","Lab: Unknown"
-"CORT","CORTISOL","Lab: Unknown"
-"VANT","VANCOMYCIN (TROUGH)","Lab: Unknown"
-"FT3","FREE T3","Lab: Unknown"
-"PROL","PROLACTIN","Lab: Unknown"
-"PROG","PROGESTERONE","Lab: Unknown"
-"FE","IRON","Lab: Unknown"
-"ESR","ESR","Lab: Unknown"
-"VAN","VANCOMYCIN (RANDOM)","Lab: Unknown"
-"AMKP","AMIKACIN (PEAK)","Lab: Unknown"
-"AMK","AMIKACIN (RANDOM)","Lab: Unknown"
-"RBU","RENAL/BONE/UREA PROFILE","Lab: Unknown"
-"ETB","BLOOD ETHANOL","Lab: Unknown"
-"UNAK","URINE SODIUM/POT (RANDOM)","Lab: Unknown"
-"ALT","ALT","Lab: Unknown"
-"FOL","FOLATE","Lab: Unknown"
-"CYSC","CYSTATIN C","Lab: Unknown"
-"AAT","ALPHA-1-ANTITRYPSIN","Lab: Unknown"
-"CHOL","CHOLESTEROL","Lab: Unknown"
-"CAPD","CAPD ADEQUACY TEST","Lab: Unknown"
-"AP50","APTR 50/50","Lab: Unknown"
-"OPIA","OPIATES","Lab: Unknown"
-"PHNY","PHENYTOIN","Lab: Unknown"
-"BMH","BONE MARROW REPORT","Lab: Unknown"
-"IN50","INR 50/50","Lab: Unknown"
-"PRX5","PROLACTION (X5 DILUTION)","Lab: Unknown"
-"GH","GROWTH HORMONE","Lab: Unknown"
-"IGF1","IGF-1","Lab: Unknown"
-"BP3","IGF-BP3","Lab: Unknown"
-"UPRT","URINE TOT. PROTEIN (24HR)","Lab: Unknown"
-"BOE2","BOUND OESTRADIOL","Lab: Unknown"
-"CGLU","CSF GLUCOSE","Lab: Unknown"
-"UCAT","URINE CALCIUM (24HR)","Lab: Unknown"
-"UPHT","URINE PHOSPHATE (24HR)","Lab: Unknown"
-"CPRO","A1CSF PROTEIN","Lab: Unknown"
-"FAMY","FLUID AMYLASE","Lab: Unknown"
-"FCEA","FLUID CEA","Lab: Unknown"
-"DD","D-DIMER","Lab: Unknown"
-"CRE","CREATININE","Lab: Unknown"
-"IGRD","ALLERGEN GRADE","Lab: Unknown"
-"UCRT","URINE CREATININE (24HR)","Urine Biochem"
-"UUAT","URINE URATE (24HR)","Lab: Unknown"
-"VITD","VITAMIN D","Lab: Unknown"
-"DF02","INSULIN STRESS TEST","Lab: Unknown"
-"DF01","ENDOCRINE GTT GH ONLY","Lab: Unknown"
-"DF18","GLUCAGON TRH LHRH SYN","Lab: Unknown"
-"GTT","GLUCOSE TOLERANCE TEST","Lab: Unknown"
-"VITE","VITAMIN E","Lab: Unknown"
-"VITA","VITAMIN A","Lab: Unknown"
-"CL","CHLORIDE","Lab: Unknown"
-"5H24","24HR URINE 5HIAA","Lab: Unknown"
-"STIX","URINALYSIS SCREEN","Lab: Unknown"
-"PNH","PNH TEST","Lab: Unknown"
-"LAC","PLASMA LACTATE","Lab: Unknown"
-"BIL","TOTAL BILIRUBIN","Lab: Unknown"
-"BMFR","MARKERS NOT DONE","Lab: Unknown"
-"LI","LITHIUM","Lab: Unknown"
-"CUCP","SERUM COPPER + CAER","Lab: Unknown"
-"DF13","GLUCAGON TEST ADULT -GLU","Lab: Unknown"
-"PET","PERITONEAL EQUIL TEST","Lab: Unknown"
-"DF27","OCTEOTRIDE CHALLENGE","Lab: Unknown"
-"ACE","ACE","Lab: Unknown"
-"CDG","CARB DEF GLYCOPROTEIN","Lab: Unknown"
-"HIT","HIT SCREEN","Lab: Unknown"
-"CARB","CARBAMAZEPINE","Lab: Unknown"
-"CYA","CYCLOSPORIN A","Biochemistry"
-"ABG","ARTERIAL BLOOD GASES","Lab: Unknown"
-"VALP","VALPROATE","Lab: Unknown"
-"AMKT","AMIKACIN (TROUGH)","Lab: Unknown"
-"MK1","MARK1","Lab: Unknown"
-"GGT","GAMMA GT","Biochemistry (TP)"
-"GFH","GLANDULAR FEVER TEST","Lab: Unknown"
-"DF09","SHORT SYNACTHEN TEST","Lab: Unknown"
-"COGB","CSF OLIGOCLONAL BANDING","Lab: Unknown"
-"DF11","CANNULATED PRL TEST","Lab: Unknown"
-"ACTH","ACTH","Lab: Unknown"
-"APTR","APTR SECONDS","Lab: Unknown"
-"LB","LIVER/BONE","Lab: Unknown"
-"AST","AST","Lab: Unknown"
-"PVIS","PLASMA VISCOSITY SENT","Lab: Unknown"
-"COMP","COMPLEMENT (C3 + C4)","Lab: Unknown"
-"DNA","ANTI DSDNA ANTIBODIES","Lab: Unknown"
-"ENAS","ENA SCREEN","Lab: Unknown"
-"RF","RHEUMATOID FACTOR","Lab: Unknown"
-"CCP","CCP ANTIBODIES","Lab: Unknown"
-"IGS","IMMUNOGLOBULINS GAM","Lab: Unknown"
-"GBM","GLOMERU BASEMENT MEMB ABS","Lab: Unknown"
-"TPO","ANTI THYROID PEROXDASE AB","Lab: Unknown"
-"COEL","COELIAC SCREEN","Lab: Unknown"
-"AAB","AUTOANTIBODIES GROUP","Lab: Unknown"
-"SFLC","SERUM FREE LIGHT CHAINS","Lab: Unknown"
-"MIN2","MINI2","Lab: Unknown"
-"MYMO","MYELOMA MARKERS","Lab: Unknown"
-"CAL","CALCIUM","Lab: Unknown"
-"CCA","CALCIUM (CORRECTED)","Lab: Unknown"
-"PDSG","PREGNANCY DIABETES GLUCOS","Lab: Unknown"
-"DIG","DIGOXIN","Lab: Unknown"
-"AMM","PLASMA AMMONIA","Lab: Unknown"
-"FBIL","FLUID BILIRUBIN","Lab: Unknown"
-"G6SC","G6PD SCREEN","Lab: Unknown"
-"HEP","HEPARIN SCREEN","Lab: Unknown"
-"RCF","RED CELL FOLATE","Lab: Unknown"
+"code","name","lab","required_observation_description_code","expiration_days"
+"FBC","FULL BLOOD COUNT","Haematology","HGB",0
+"PRE","PREAN SICKLE SCREEN","Lab: Unknown",,0
+"RLBU","RENAL/LIVER/BONE/UREA","Lab: Unknown",,0
+"MG","MAGNESIUM","Lab: Unknown",,0
+"CRP","C-REACTIVE PROTEIN","Biochemistry",,0
+"COAG","COAGULATION SCREEN","Haematology","INR",0
+"STS","SICKLE + THAL SCRE","Haematology",,0
+"DIAB","DIABETIC PROFILE","Lab: Unknown",,0
+"BONE","BONE PROFILE","Biochemistry","ACAL",0
+"EUC","U+E+UREA","Biochemistry","CRE",0
+"LFT","LIVER PROFILE","Biochemistry","BIL",0
+"SOL","SICKLE SOLUBILITY TEST","Lab: Unknown",,0
+"TFT","THYROID FUNCTION TESTS","Biochemistry","TSH",7
+"FCAL","FAECAL CALPROTECTIN","Lab: Unknown",,0
+"C125","CA125","Lab: Unknown",,0
+"BFF","B12/FOLATE/FERRITIN","Biochemistry",,0
+"LPRO","LIPID PROFILE","Biochemistry",,0
+"INR","INR","Haematology",,0
+"INRW","INR (WARFARIN)","Haematology",,0
+"ACR","URINE ALBUMINECREAT RATIO","Lab: Unknown",,0
+"PCR","URINE PROTEIN/CREAT RATIO","Biochemistry","PCRA",0
+"ANT","ANTENATAL SICKLE/THAL","Lab: Unknown",,0
+"MAL","MALARIA","Lab: Unknown",,0
+"FILM","FILM COMMENT","Lab: Unknown",,0
+"RET","RETICULOCYTE COUNT","Haematology","RETP",0
+"PARS","PARASITE STAGE","Lab: Unknown",,0
+"SEP","SERUM ELECTROPHORESIS GRP","Lab: Unknown",,0
+"AMY","AMYLASE","Lab: Unknown",,0
+"TROP","TROPONIN I","Lab: Unknown",,0
+"FER","FERRITIN","Biochemistry","FER",7
+"CAER","CAERULOPLASMIN","Lab: Unknown",,0
+"TOB","TOBRAMYCIN (RANDOM)","Lab: Unknown",,0
+"RLU","RENAL/LIVER/UREA","Lab: Unknown",,0
+"RENU","RENAL PROFILE + UREA","Lab: Unknown",,0
+"TSH","TSH","Lab: Unknown",,0
+"FT4","FREE THYROXINE","Lab: Unknown",,0
+"BF","B12/FOLATE","Lab: Unknown",,0
+"BIC","BICARBONATE","Biochemistry","BIC",0
+"ECT","ECTOPIC PREGNANCY PROFILE","Lab: Unknown",,0
+"GEN","GENTAMICIN (RANDOM)","Lab: Unknown",,0
+"GENT","GENTAMICIN (TROUGH)","Lab: Unknown",,0
+"TOBT","TOBRAMYCIN (TROUGH)","Lab: Unknown",,0
+"TEST","TESTOSTERONE","Lab: Unknown",,0
+"UDS","URINE DRUG SCREEN","Lab: Unknown",,0
+"OPIC","OPIATE CONFIRMATION","Lab: Unknown",,0
+"APTH","APTR (HEPARIN)","Lab: Unknown",,0
+"TT","THROMBIN TIME","Lab: Unknown",,0
+"PSA","PSA","Biochemistry",,0
+"CEA","CEA","Lab: Unknown",,0
+"PGLU","PLASMA GLUCOSE","Biochemistry",,0
+"CFIB","CLAUSS FIBRINOGEN","Lab: Unknown",,0
+"HBA1","HBA1C","Biochemistry",,0
+"PGTT","PIU GLUC. TOLERANCE TEST","Lab: Unknown",,0
+"LDH","LDH","Lab: Unknown",,0
+"HBS","HAEMOGLOBIN S% (GROUP)","Lab: Unknown",,0
+"REN","RENAL PROFILE","Lab: Unknown",,0
+"EC","U+E","Biochemistry",,0
+"URAT","URATE","Biochemistry","URAT",0
+"FLIP","FULL LIPID PROFILE","Lab: Unknown",,0
+"UOSM","URINE OSMOLALITY","Lab: Unknown",,0
+"HAPT","HAPTOGLOBIN","Lab: Unknown",,0
+"CBIL","CONJ. BILIRUBIN","Lab: Unknown",,0
+"GON","GONADOTROPHINS","Lab: Unknown",,0
+"ANDR","ANDROGEN PROFILE","Lab: Unknown",,0
+"OE2","OESTRADIOL","Lab: Unknown",,0
+"HCG","HCG","Lab: Unknown",,0
+"PTHI","PARATHYROID HORMONE","Biochemistry","PTHI",7
+"RL","RENAL/LIVER PROFILE","Lab: Unknown",,0
+"POSM","OSMOLALITY (SERUM)","Lab: Unknown",,0
+"AFP","AFP","Lab: Unknown",,0
+"B12","VITAMIN B12","Lab: Unknown",,0
+"CK","CK","Lab: Unknown",,0
+"FOB","FAECAL OCCULT BLOOD","Lab: Unknown",,0
+"RLB","RENAL/LIVER/BONE","Lab: Unknown",,0
+"CORT","CORTISOL","Lab: Unknown",,0
+"VANT","VANCOMYCIN (TROUGH)","Lab: Unknown",,0
+"FT3","FREE T3","Lab: Unknown",,0
+"PROL","PROLACTIN","Lab: Unknown",,0
+"PROG","PROGESTERONE","Lab: Unknown",,0
+"FE","IRON","Lab: Unknown",,0
+"ESR","ESR","Haematology","ESR",0
+"VAN","VANCOMYCIN (RANDOM)","Lab: Unknown",,0
+"AMKP","AMIKACIN (PEAK)","Lab: Unknown",,0
+"AMK","AMIKACIN (RANDOM)","Lab: Unknown",,0
+"RBU","RENAL/BONE/UREA PROFILE","Lab: Unknown",,0
+"ETB","BLOOD ETHANOL","Lab: Unknown",,0
+"UNAK","URINE SODIUM/POT (RANDOM)","Lab: Unknown",,0
+"ALT","ALT","Lab: Unknown",,0
+"FOL","FOLATE","Biochemistry","FOL",7
+"CYSC","CYSTATIN C","Lab: Unknown",,0
+"AAT","ALPHA-1-ANTITRYPSIN","Lab: Unknown",,0
+"CHOL","CHOLESTEROL","Biochemistry","CHOL",0
+"CAPD","CAPD ADEQUACY TEST","Lab: Unknown",,0
+"AP50","APTR 50/50","Lab: Unknown",,0
+"OPIA","OPIATES","Lab: Unknown",,0
+"PHNY","PHENYTOIN","Lab: Unknown",,0
+"BMH","BONE MARROW REPORT","Lab: Unknown",,0
+"IN50","INR 50/50","Lab: Unknown",,0
+"PRX5","PROLACTION (X5 DILUTION)","Lab: Unknown",,0
+"GH","GROWTH HORMONE","Lab: Unknown",,0
+"IGF1","IGF-1","Lab: Unknown",,0
+"BP3","IGF-BP3","Lab: Unknown",,0
+"UPRT","URINE TOT. PROTEIN (24HR)","Lab: Unknown",,0
+"BOE2","BOUND OESTRADIOL","Lab: Unknown",,0
+"CGLU","CSF GLUCOSE","Lab: Unknown",,0
+"UCAT","URINE CALCIUM (24HR)","Lab: Unknown",,0
+"UPHT","URINE PHOSPHATE (24HR)","Lab: Unknown",,0
+"CPRO","A1CSF PROTEIN","Lab: Unknown",,0
+"FAMY","FLUID AMYLASE","Lab: Unknown",,0
+"FCEA","FLUID CEA","Lab: Unknown",,0
+"DD","D-DIMER","Lab: Unknown",,0
+"CRE","CREATININE","Lab: Unknown",,0
+"IGRD","ALLERGEN GRADE","Lab: Unknown",,0
+"UCRT","URINE CREATININE (24HR)","Urine Biochem",,0
+"UUAT","URINE URATE (24HR)","Lab: Unknown",,0
+"VITD","VITAMIN D","Biochemistry","VITD",7
+"DF02","INSULIN STRESS TEST","Lab: Unknown",,0
+"DF01","ENDOCRINE GTT GH ONLY","Lab: Unknown",,0
+"DF18","GLUCAGON TRH LHRH SYN","Lab: Unknown",,0
+"GTT","GLUCOSE TOLERANCE TEST","Lab: Unknown",,0
+"VITE","VITAMIN E","Lab: Unknown",,0
+"VITA","VITAMIN A","Lab: Unknown",,0
+"CL","CHLORIDE","Lab: Unknown",,0
+"5H24","24HR URINE 5HIAA","Lab: Unknown",,0
+"STIX","URINALYSIS SCREEN","Lab: Unknown",,0
+"PNH","PNH TEST","Lab: Unknown",,0
+"LAC","PLASMA LACTATE","Lab: Unknown",,0
+"BIL","TOTAL BILIRUBIN","Lab: Unknown",,0
+"BMFR","MARKERS NOT DONE","Lab: Unknown",,0
+"LI","LITHIUM","Lab: Unknown",,0
+"CUCP","SERUM COPPER + CAER","Lab: Unknown",,0
+"DF13","GLUCAGON TEST ADULT -GLU","Lab: Unknown",,0
+"PET","PERITONEAL EQUIL TEST","Lab: Unknown",,0
+"DF27","OCTEOTRIDE CHALLENGE","Lab: Unknown",,0
+"ACE","ACE","Lab: Unknown",,0
+"CDG","CARB DEF GLYCOPROTEIN","Lab: Unknown",,0
+"HIT","HIT SCREEN","Lab: Unknown",,0
+"CARB","CARBAMAZEPINE","Lab: Unknown",,0
+"CYA","CYCLOSPORIN A","Biochemistry","CYA",0
+"ABG","ARTERIAL BLOOD GASES","Lab: Unknown",,0
+"VALP","VALPROATE","Lab: Unknown",,0
+"AMKT","AMIKACIN (TROUGH)","Lab: Unknown",,0
+"MK1","MARK1","Lab: Unknown",,0
+"GGT","GAMMA GT","Biochemistry","GGT",0
+"GFH","GLANDULAR FEVER TEST","Lab: Unknown",,0
+"DF09","SHORT SYNACTHEN TEST","Lab: Unknown",,0
+"COGB","CSF OLIGOCLONAL BANDING","Lab: Unknown",,0
+"DF11","CANNULATED PRL TEST","Lab: Unknown",,0
+"ACTH","ACTH","Lab: Unknown",,0
+"APTR","APTR SECONDS","Lab: Unknown",,0
+"LB","LIVER/BONE","Lab: Unknown",,0
+"AST","AST","Biochemistry",,0
+"PVIS","PLASMA VISCOSITY SENT","Lab: Unknown",,0
+"COMP","COMPLEMENT (C3 + C4)","Biochemistry",,0
+"DNA","ANTI DSDNA ANTIBODIES","Immunology",,0
+"ENAS","ENA SCREEN","Lab: Unknown",,0
+"RF","RHEUMATOID FACTOR","Lab: Unknown",,0
+"CCP","CCP ANTIBODIES","Lab: Unknown",,0
+"IGS","IMMUNOGLOBULINS GAM","Lab: Unknown",,0
+"GBM","GLOMERU BASEMENT MEMB ABS","Lab: Unknown",,0
+"TPO","ANTI THYROID PEROXDASE AB","Lab: Unknown",,0
+"COEL","COELIAC SCREEN","Lab: Unknown",,0
+"AAB","AUTOANTIBODIES GROUP","Lab: Unknown",,0
+"SFLC","SERUM FREE LIGHT CHAINS","Lab: Unknown",,0
+"MIN2","MINI2","Lab: Unknown",,0
+"MYMO","MYELOMA MARKERS","Lab: Unknown",,0
+"CAL","CALCIUM","Lab: Unknown",,0
+"CCA","CALCIUM (CORRECTED)","Lab: Unknown",,0
+"PDSG","PREGNANCY DIABETES GLUCOS","Lab: Unknown",,0
+"DIG","DIGOXIN","Biochemistry","DIG",7
+"AMM","PLASMA AMMONIA","Lab: Unknown",,0
+"FBIL","FLUID BILIRUBIN","Lab: Unknown",,0
+"G6SC","G6PD SCREEN","Lab: Unknown",,0
+"HEP","HEPARIN SCREEN","Lab: Unknown",,0
+"RCF","RED CELL FOLATE","Lab: Unknown",,0
+"FRUC","Fructosamine Serum","Biochemistry","FRUC",7

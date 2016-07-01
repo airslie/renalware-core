@@ -23,7 +23,7 @@ module World
           medication_route: route,
           frequency: frequency,
           start_date: starts_on,
-          provider: provider.downcase,
+          provider: provider.downcase
         }
 
         if deleted_at.present?

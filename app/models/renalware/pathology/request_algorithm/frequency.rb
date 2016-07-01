@@ -17,7 +17,7 @@ module Renalware
         end
 
         def self.all_names
-          %w(Always Monthly Once Weekly)
+          %w(Always Monthly Once Weekly Yearly)
         end
       end
     end
