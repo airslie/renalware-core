@@ -13,3 +13,7 @@ ciprofloxacin:
 ephedrine:
   name: Ephedrine Tablet
   drug_types: peritonitis
+
+epoetin_beta:
+  name: Epoetin Beta
+  drug_types: esa
