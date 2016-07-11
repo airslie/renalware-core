@@ -10,8 +10,8 @@ module Renalware
     end
 
     def display_hd_menu?(patient)
-      patient_modalities = patient.modalities.with_deleted
-      patient_modalities.map { |m|m.description.hd_modality? }.include? true
+      hd_patient = Renalware::HD.cast_patient(@patient)
+      hd_patient.treated?
     end
 
     def find_user_bookmark_for_patient(patient)
