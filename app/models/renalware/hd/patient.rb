@@ -3,14 +3,8 @@ require_dependency "renalware/hd"
 module Renalware
   module HD
     class Patient < ActiveType::Record[Renalware::Patient]
-      MODALITY_NAMES = ["Home HD", "Unit HD", "HD Ward", "HD-ARF", "PD-PrePD"].freeze
-
       def treated?
-        modalities.with_deleted.any? { |modality| hd_modality?(modality.description) }
-      end
-
-      def hd_modality?(description)
-        MODALITY_NAMES.include?(description.name)
+        modalities.with_deleted.any? { |modality| HD::ModalityDescription.include?(modality.description) }
       end
     end
   end

@@ -1,9 +1,9 @@
-require_dependency "renalware/pd"
+require_dependency "renalware/hd"
 
 module Renalware
-  module PD
+  module HD
     class ModalityDescription < ActiveType::Record[Renalware::Modalities::Description]
-      NAMES = ["PD-APD", "PD-CAPD", "PD Rest on HD", "PD-Assisted APD", "PD-PrePD"].freeze
+      NAMES = ["Home HD", "Unit HD", "HD Ward", "HD-ARF", "PD-PrePD"].freeze
 
       def self.include?(record)
         NAMES.include?(record.name)
