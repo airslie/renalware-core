@@ -1,5 +1,5 @@
 module Renalware
-  class PDSummariesController < BaseController
+  class PDDashboardsController < BaseController
 
     skip_after_action :verify_authorized
 

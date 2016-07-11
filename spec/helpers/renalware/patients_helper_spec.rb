@@ -16,13 +16,13 @@ module Renalware
           @pd_modality = create(:modality, patient: @patient, description: @pd_capd, started_on: Date.parse("2015-05-01"))
           @patient.modalities << @pd_modality
 
-          expect(display_pd_menu(@patient.modalities.with_deleted)).to eq(true)
+          expect(display_pd_menu?(@patient)).to eq(true)
         end
       end
 
       context "patient has no history of PD" do
         it "should detect no PD" do
-          expect(display_pd_menu(@patient.modalities.with_deleted)).to eq(false)
+          expect(display_pd_menu?(@patient)).to eq(false)
         end
       end
 

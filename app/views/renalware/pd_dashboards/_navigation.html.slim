@@ -1,5 +1,5 @@
 dl.sub-nav
-  dd= link_to "PD Summary", patient_pd_summary_path(@patient)
+  dd= link_to "PD Summary", patient_pd_dashboard_path(@patient)
   dd= link_to "Add CAPD Regime", new_patient_pd_regime_path(@patient, type: 'CAPDRegime')
   dd= link_to "Add APD Regime", new_patient_pd_regime_path(@patient, type: 'APDRegime')
   dd= link_to "Add Peritonitis Episode", new_patient_peritonitis_episode_path(@patient)
