@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Patient's Dry Weights", type: :request do
-  let(:patient) { create(:patient) }
+  let(:patient) { create(:hd_patient) }
 
   describe "GET index" do
     before do

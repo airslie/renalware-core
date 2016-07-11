@@ -1,4 +1,4 @@
-require_dependency "renalware/hd"
+require_dependency "renalware/hd/base_controller"
 
 module Renalware
   module HD

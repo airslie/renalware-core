@@ -1,4 +1,5 @@
 require "collection_presenter"
+require_dependency "renalware/hd/base_controller"
 
 module Renalware
   module HD

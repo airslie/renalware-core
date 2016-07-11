@@ -4,6 +4,8 @@ module World
       # @section helpers
       #
       def donation_for(patient)
+        patient = transplant_patient(patient)
+
         Renalware::Transplants::Donation.for_patient(patient).first_or_initialize
       end
 
@@ -17,6 +19,8 @@ module World
       # @section seeding
       #
       def seed_donation(patient)
+        patient = transplant_patient(patient)
+
         Renalware::Transplants::Donation.create!(
           valid_donation_attributes.merge(
             patient: patient,
@@ -27,6 +31,8 @@ module World
       # @section commands
       #
       def create_donation(patient:, user:, state: nil)
+        patient = transplant_patient(patient)
+
         Renalware::Transplants::Donation.create(
           valid_donation_attributes.merge(
             patient: patient,

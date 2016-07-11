@@ -4,6 +4,8 @@ module World
       # @section helpers
       #
       def hd_session_for(patient)
+        patient = hd_patient(patient)
+
         Renalware::HD::Session.for_patient(patient).first_or_initialize
       end
 
@@ -22,6 +24,8 @@ module World
       # @section seeding
       #
       def seed_hd_session_for(patient, user:)
+        patient = hd_patient(patient)
+
         Renalware::HD::Session.create!(
           valid_session_attributes(patient).merge(
             signed_on_by: user,
@@ -45,6 +49,8 @@ module World
       # @section commands
       #
       def create_hd_session(patient:, user:, performed_on:)
+        patient = hd_patient(patient)
+
         Renalware::HD::Session.create(
           valid_session_attributes(patient).merge(
             performed_on: performed_on,

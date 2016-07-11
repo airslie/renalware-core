@@ -4,12 +4,16 @@ module World
       # @section helpers
       #
       def transplant_registration_for(patient)
+        patient = transplant_patient(patient)
+
         Renalware::Transplants::Registration.for_patient(patient).first_or_initialize
       end
 
       # @section seeding
       #
       def seed_patient_on_wait_list(patient, status="Active")
+        patient = transplant_patient(patient)
+
         Renalware::Transplants::Registration.create!(
           patient: patient,
           statuses_attributes: {
@@ -26,7 +30,7 @@ module World
         table.hashes.each do |row|
           patient_name = row[:patient]
           status = row[:status]
-          patient = Renalware::Patient.create!(
+          patient = Renalware::Transplants::Patient.create!(
             family_name: patient_name.split(",").first.strip,
             given_name: patient_name.split(",").last.strip,
             nhs_number: rand(10000000).to_s.rjust(10, "1234567890"),
@@ -42,6 +46,8 @@ module World
       # @section commands
       #
       def create_transplant_registration(user:, patient:, status:, started_on:)
+        patient = transplant_patient(patient)
+
         description = registration_status_description_named(status)
         Renalware::Transplants::Registration.create(
           patient: patient,

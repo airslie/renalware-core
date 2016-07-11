@@ -1,3 +1,5 @@
+require_dependency "renalware/hd/base_controller"
+
 module Renalware
   module HD
     class PreferenceSetsController < BaseController
