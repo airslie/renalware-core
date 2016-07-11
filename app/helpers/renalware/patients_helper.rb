@@ -5,8 +5,8 @@ module Renalware
     end
 
     def display_pd_menu?(patient)
-      patient_modalities = patient.modalities.with_deleted
-      patient_modalities.map { |m|m.description.pd_modality? }.include? true
+      pd_patient = Renalware::PD.cast_patient(@patient)
+      pd_patient.treated?
     end
 
     def display_hd_menu?(patient)
