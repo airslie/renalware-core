@@ -162,6 +162,11 @@ module World
         visit patient_medications_path(patient,
           treatable_type: patient.class, treatable_id: patient.id)
 
+        within "#medications" do
+          click_on "Terminate"
+          wait_for_ajax
+        end
+
         medication = patient.medications.with_deleted.last!
 
         expect(medication).to be_deleted
