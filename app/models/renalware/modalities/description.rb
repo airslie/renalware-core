@@ -17,10 +17,6 @@ module Renalware
         name == "Death"
       end
 
-      def donation?
-        name == "Live Donor"
-      end
-
       def to_s
         name
       end

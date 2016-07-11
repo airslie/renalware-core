@@ -18,7 +18,7 @@ ul.side-nav
   li.link= link_to_if display_hd_menu?(@patient), "HD", patient_hd_dashboard_path(@patient)
   li.divider
   li.heading Transplants
-  - if @patient.current_modality_live_donor?
+  - if Renalware::Transplants.cast_patient(@patient).donor?
     li.link= link_to "Donor Summary", patient_transplants_donor_dashboard_path(@patient)
   - else
     li.link= link_to "Recipient Summary", patient_transplants_recipient_dashboard_path(@patient)
