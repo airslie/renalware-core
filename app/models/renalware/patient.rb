@@ -87,15 +87,19 @@ module Renalware
     end
 
     def current_modality_death?
-      if self.current_modality.present?
-        self.current_modality.description.death?
-      end
+      return false unless current_modality.present?
+
+      deaths_modality_description(current_modality.description).death?
     end
 
     private
 
     def validate_sex
       errors.add(:sex, "is invalid option (#{sex.code})") unless sex.valid?
+    end
+
+    def deaths_modality_description(modality_description)
+      Deaths.cast_modality_description(modality_description)
     end
   end
 end

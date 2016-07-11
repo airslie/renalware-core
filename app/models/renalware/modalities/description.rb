@@ -13,10 +13,6 @@ module Renalware
         BasePolicy
       end
 
-      def death?
-        name == "Death"
-      end
-
       def to_s
         name
       end
