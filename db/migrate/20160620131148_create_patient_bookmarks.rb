@@ -3,7 +3,7 @@ class CreatePatientBookmarks < ActiveRecord::Migration
     create_table :patient_bookmarks do |t|
       t.integer :patient_id, null: false, foreign_key: true
       t.integer :user_id, null: false, foreign_key: true
-      t.timestamps
+      t.timestamps, null: false
     end
 
     add_index(:patient_bookmarks, [:patient_id, :user_id], unique: true)
