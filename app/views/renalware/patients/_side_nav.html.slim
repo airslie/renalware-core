@@ -14,8 +14,8 @@ ul.side-nav
   li.link= link_to "Access Summary (#{Renalware::Accesses.cast_patient(@patient).profiles.count})", patient_accesses_dashboard_path(@patient)
   li.divider
   li.heading Regimes
-  li.link= link_to_if display_pd_menu(@patient.modalities.with_deleted), "PD", patient_pd_summary_path(@patient)
-  li.link= link_to_if display_hd_menu(@patient.modalities.with_deleted), "HD", patient_hd_dashboard_path(@patient)
+  li.link= link_to_if display_pd_menu(@patient), "PD", patient_pd_summary_path(@patient)
+  li.link= link_to_if display_hd_menu(@patient), "HD", patient_hd_dashboard_path(@patient)
   li.divider
   li.heading Transplants
   - if @patient.current_modality_live_donor?

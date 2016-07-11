@@ -4,11 +4,13 @@ module Renalware
       med_type.blank? ? "drug" : med_type
     end
 
-    def display_pd_menu(patient_modalities)
+    def display_pd_menu(patient)
+      patient_modalities = patient.modalities.with_deleted
       patient_modalities.map { |m|m.description.pd_modality? }.include? true
     end
 
-    def display_hd_menu(patient_modalities)
+    def display_hd_menu(patient)
+      patient_modalities = patient.modalities.with_deleted
       patient_modalities.map { |m|m.description.hd_modality? }.include? true
     end
 
