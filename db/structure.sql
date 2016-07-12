@@ -1523,44 +1523,6 @@ ALTER SEQUENCE medications_id_seq OWNED BY medications.id;
 
 
 --
--- Name: modalities; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE modalities (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    description_id integer NOT NULL,
-    reason_id integer,
-    modal_change_type character varying,
-    notes text,
-    started_on date NOT NULL,
-    ended_on date,
-    deleted_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: modalities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE modalities_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: modalities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE modalities_id_seq OWNED BY modalities.id;
-
-
---
 -- Name: modality_descriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1591,6 +1553,44 @@ CREATE SEQUENCE modality_descriptions_id_seq
 --
 
 ALTER SEQUENCE modality_descriptions_id_seq OWNED BY modality_descriptions.id;
+
+
+--
+-- Name: modality_modalities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE modality_modalities (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    description_id integer NOT NULL,
+    reason_id integer,
+    modal_change_type character varying,
+    notes text,
+    started_on date NOT NULL,
+    ended_on date,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: modality_modalities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE modality_modalities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: modality_modalities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE modality_modalities_id_seq OWNED BY modality_modalities.id;
 
 
 --
@@ -3307,14 +3307,14 @@ ALTER TABLE ONLY medications ALTER COLUMN id SET DEFAULT nextval('medications_id
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY modalities ALTER COLUMN id SET DEFAULT nextval('modalities_id_seq'::regclass);
+ALTER TABLE ONLY modality_descriptions ALTER COLUMN id SET DEFAULT nextval('modality_descriptions_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY modality_descriptions ALTER COLUMN id SET DEFAULT nextval('modality_descriptions_id_seq'::regclass);
+ALTER TABLE ONLY modality_modalities ALTER COLUMN id SET DEFAULT nextval('modality_modalities_id_seq'::regclass);
 
 
 --
@@ -3919,19 +3919,19 @@ ALTER TABLE ONLY medications
 
 
 --
--- Name: modalities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY modalities
-    ADD CONSTRAINT modalities_pkey PRIMARY KEY (id);
-
-
---
 -- Name: modality_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY modality_descriptions
     ADD CONSTRAINT modality_descriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: modality_modalities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY modality_modalities
+    ADD CONSTRAINT modality_modalities_pkey PRIMARY KEY (id);
 
 
 --
@@ -4667,17 +4667,17 @@ CREATE INDEX index_medications_on_treatable_type_and_treatable_id ON medications
 
 
 --
--- Name: index_modalities_on_description_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_modality_modalities_on_description_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_modalities_on_description_id ON modalities USING btree (description_id);
+CREATE INDEX index_modality_modalities_on_description_id ON modality_modalities USING btree (description_id);
 
 
 --
--- Name: index_modalities_on_reason_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_modality_modalities_on_reason_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_modalities_on_reason_id ON modalities USING btree (reason_id);
+CREATE INDEX index_modality_modalities_on_reason_id ON modality_modalities USING btree (reason_id);
 
 
 --
@@ -4998,6 +4998,14 @@ ALTER TABLE ONLY patients
 
 
 --
+-- Name: fk_rails_0447199042; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY modality_modalities
+    ADD CONSTRAINT fk_rails_0447199042 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: fk_rails_050f679712; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5059,6 +5067,14 @@ ALTER TABLE ONLY exit_site_infections
 
 ALTER TABLE ONLY medications
     ADD CONSTRAINT fk_rails_1b2a92c9db FOREIGN KEY (medication_route_id) REFERENCES medication_routes(id);
+
+
+--
+-- Name: fk_rails_21e1b74109; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY modality_modalities
+    ADD CONSTRAINT fk_rails_21e1b74109 FOREIGN KEY (description_id) REFERENCES modality_descriptions(id);
 
 
 --
@@ -5446,6 +5462,14 @@ ALTER TABLE ONLY hd_sessions
 
 
 --
+-- Name: fk_rails_c31cea56ac; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY modality_modalities
+    ADD CONSTRAINT fk_rails_c31cea56ac FOREIGN KEY (reason_id) REFERENCES modality_reasons(id);
+
+
+--
 -- Name: fk_rails_c367d368e6; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5566,22 +5590,6 @@ ALTER TABLE ONLY pathology_request_algorithm_global_rule_sets
 
 
 --
--- Name: fk_rails_e62bb4757f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY modalities
-    ADD CONSTRAINT fk_rails_e62bb4757f FOREIGN KEY (patient_id) REFERENCES patients(id);
-
-
---
--- Name: fk_rails_e6f46cbf1d; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY modalities
-    ADD CONSTRAINT fk_rails_e6f46cbf1d FOREIGN KEY (description_id) REFERENCES modality_descriptions(id);
-
-
---
 -- Name: fk_rails_e97e417b7d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5643,14 +5651,6 @@ ALTER TABLE ONLY drug_types_drugs
 
 ALTER TABLE ONLY peritonitis_episodes
     ADD CONSTRAINT fk_rails_fdd6deae10 FOREIGN KEY (episode_type_id) REFERENCES episode_types(id);
-
-
---
--- Name: fk_rails_fe4a4d8319; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY modalities
-    ADD CONSTRAINT fk_rails_fe4a4d8319 FOREIGN KEY (reason_id) REFERENCES modality_reasons(id);
 
 
 --
