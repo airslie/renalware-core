@@ -4,9 +4,7 @@ module Renalware
   module Transplants
     class Patient < ActiveType::Record[Renalware::Patient]
       def donor?
-        modalities.with_deleted.any? do |modality|
-          Transplants.cast_modality_description(modality.description).donation?
-        end
+        modality_descriptions.exists?(type: "Renalware::Transplants::DonorModalityDescription")
       end
     end
   end

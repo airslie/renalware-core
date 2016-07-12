@@ -1,5 +1,3 @@
-require_dependency "renalware/modalities"
-require_dependency "renalware/transplants"
 require_dependency "renalware/deaths"
 
 module Renalware
@@ -37,11 +35,11 @@ module Renalware
       end
 
       def handle_valid_modality
-        if deaths_modality_description(@patient.modality_description).death?
+        if @patient.modality_description.is_a? Deaths::ModalityDescription
           redirect_to edit_patient_death_path(@patient), flash: {
               warning: "Please make sure to update patient date of death and cause of death!"
             }
-        elsif transplant_modality_description(@patient.modality_description).donation?
+        elsif @patient.modality_description.is_a? Transplants::DonorModalityDescription
           redirect_to new_patient_transplants_donation_path(@patient), flash: {
               warning: "If you have the information on-hand, please enter the potential donation."
             }
@@ -49,14 +47,6 @@ module Renalware
           redirect_to patient_modalities_path(@patient),
             notice: t(".success", model_name: "modality")
         end
-      end
-
-      def transplant_modality_description(modality_description)
-        Transplants.cast_modality_description(modality_description)
-      end
-
-      def deaths_modality_description(modality_description)
-        Deaths.cast_modality_description(modality_description)
       end
     end
   end

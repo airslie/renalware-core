@@ -1,11 +1,11 @@
 death:
-  system_code: death
   name: Death
+  type: Renalware::Deaths::ModalityDescription
 live_donor:
-  system_code: live_donor
   name: Live Donor
+  type: Renalware::Transplants::DonorModalityDescription
 other:
   name: Other
 pd_apd:
-  system_code: pd_apd
   name: PD APD
+  type: Renalware::PD::ModalityDescription

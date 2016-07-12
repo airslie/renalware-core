@@ -4,13 +4,7 @@ module Renalware
   module PD
     class Patient < ActiveType::Record[Renalware::Patient]
       def treated?
-        modalities.with_deleted.any? { |modality| pd_modality?(modality) }
-      end
-
-      private
-
-      def pd_modality?(modality)
-        ModalityDescription.include?(modality.description)
+        modality_descriptions.exists?(type: "Renalware::PD::ModalityDescription")
       end
     end
   end

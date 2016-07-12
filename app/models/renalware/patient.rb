@@ -29,6 +29,7 @@ module Renalware
     has_many :drugs, through: :medications
     has_many :medication_routes, through: :medications
     has_many :modalities, class_name: "Modalities::Modality"
+    has_many :modality_descriptions, class_name: "Modalities::Description", through: :modalities, source: :description
     has_many :pd_regimes
     has_many :bookmarks, class_name: "Patients::Bookmark"
 
@@ -89,17 +90,13 @@ module Renalware
     def current_modality_death?
       return false unless current_modality.present?
 
-      deaths_modality_description(current_modality.description).death?
+      current_modality.description.is_a?(Deaths::ModalityDescription)
     end
 
     private
 
     def validate_sex
       errors.add(:sex, "is invalid option (#{sex.code})") unless sex.valid?
-    end
-
-    def deaths_modality_description(modality_description)
-      Deaths.cast_modality_description(modality_description)
     end
   end
 end

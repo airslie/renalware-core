@@ -8,9 +8,5 @@ FactoryGirl.define do
     trait :ccpd_6_nights do
       name 'CCPD (<6 nights/wk)'
     end
-    trait :death do
-      system_code "death"
-      name 'Death'
-    end
   end
 end
