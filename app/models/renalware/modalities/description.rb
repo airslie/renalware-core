@@ -7,7 +7,6 @@ module Renalware
       acts_as_paranoid
 
       validates :name, presence: true
-      validates :code, presence: true
 
       def self.policy_class
         BasePolicy

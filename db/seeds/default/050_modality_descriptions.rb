@@ -3,17 +3,18 @@ module Renalware
   log "--------------------Adding #{sitecode} Modality Codes & Descriptions--------------------"
 
   file_path = File.join(default_path, 'modality_descriptions_barts.csv')
-
-  logcount=0
+  log_count = 0
   CSV.foreach(file_path, headers: true) do |row|
-    logcount += 1
-    modalcode = row['code']
-    modalname = row['name']
-    Modalities::Description.find_or_create_by!(code: modalcode) do |code|
-      code.name = modalname
+    log_count += 1
+    system_code = row['system_code']
+    modal_name = row['name']
+
+    Modalities::Description.find_or_create_by!(name: modal_name) do |description|
+      description.name = modal_name
+      description.system_code = system_code
     end
-    log "--#{modalcode}: #{modalname}"
+    log "--#{modal_name}"
   end
 
-  log "#{logcount} Modality Codes seeded"
+  log "#{log_count} Modality Codes seeded"
 end

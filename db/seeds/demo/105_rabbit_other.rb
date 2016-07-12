@@ -167,12 +167,12 @@ module Renalware
 
   log '--------------------Assign Live Donor modality to Jessica RABBIT-------------------'
   patient = Patient.find_by(local_patient_id: "Z100002")
-  description = Modalities::Description.find_by(code: "livedonor")
+  description = Modalities::Description.find_by(system_code: "live_donor")
   patient.set_modality(description: description, started_on: 1.month.ago)
 
   log '--------------------Assign Unit HD modality to Francois RABBIT-------------------'
   patient = Patient.find_by(local_patient_id: "Z100003")
-  description = Modalities::Description.find_by(code: "HD_unit")
+  description = Modalities::Description.find_by(system_code: "hd_unit")
   patient.set_modality(description: description, started_on: 1.week.ago)
 
   log '--------------------Assign some HD preferences to Francois RABBIT-------------------'

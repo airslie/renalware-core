@@ -1566,7 +1566,7 @@ ALTER SEQUENCE modalities_id_seq OWNED BY modalities.id;
 
 CREATE TABLE modality_descriptions (
     id integer NOT NULL,
-    code character varying NOT NULL,
+    system_code character varying,
     name character varying NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,

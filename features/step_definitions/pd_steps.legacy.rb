@@ -1,5 +1,5 @@
 Given(/^a patient has PD$/) do
-  description = Renalware::Modalities::Description.find_by!(code: "PD_APD")
+  description = Renalware::Modalities::Description.find_by!(system_code: "pd_apd")
   FactoryGirl.create(:modality, patient: @patient_1, description: description)
 
   visit patient_pd_dashboard_path(@patient_1)
