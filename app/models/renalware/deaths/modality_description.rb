@@ -2,10 +2,7 @@ require_dependency "renalware/deaths"
 
 module Renalware
   module Deaths
-    class ModalityDescription < ActiveType::Record[Renalware::Modalities::Description]
-      def death?
-        name == "Death"
-      end
+    class ModalityDescription < Modalities::Description
     end
   end
 end

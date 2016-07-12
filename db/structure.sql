@@ -1006,37 +1006,6 @@ ALTER SEQUENCE hd_dry_weights_id_seq OWNED BY hd_dry_weights.id;
 
 
 --
--- Name: hd_modality_descriptions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE hd_modality_descriptions (
-    id integer NOT NULL,
-    description_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: hd_modality_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE hd_modality_descriptions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: hd_modality_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE hd_modality_descriptions_id_seq OWNED BY hd_modality_descriptions.id;
-
-
---
 -- Name: hd_preference_sets; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1597,8 +1566,8 @@ ALTER SEQUENCE modalities_id_seq OWNED BY modalities.id;
 
 CREATE TABLE modality_descriptions (
     id integer NOT NULL,
-    system_code character varying,
     name character varying NOT NULL,
+    type character varying,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -2102,37 +2071,6 @@ CREATE SEQUENCE patients_id_seq
 --
 
 ALTER SEQUENCE patients_id_seq OWNED BY patients.id;
-
-
---
--- Name: pd_modality_descriptions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE pd_modality_descriptions (
-    id integer NOT NULL,
-    description_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: pd_modality_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE pd_modality_descriptions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: pd_modality_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE pd_modality_descriptions_id_seq OWNED BY pd_modality_descriptions.id;
 
 
 --
@@ -3271,13 +3209,6 @@ ALTER TABLE ONLY hd_dry_weights ALTER COLUMN id SET DEFAULT nextval('hd_dry_weig
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY hd_modality_descriptions ALTER COLUMN id SET DEFAULT nextval('hd_modality_descriptions_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY hd_preference_sets ALTER COLUMN id SET DEFAULT nextval('hd_preference_sets_id_seq'::regclass);
 
 
@@ -3482,13 +3413,6 @@ ALTER TABLE ONLY patient_religions ALTER COLUMN id SET DEFAULT nextval('patient_
 --
 
 ALTER TABLE ONLY patients ALTER COLUMN id SET DEFAULT nextval('patients_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY pd_modality_descriptions ALTER COLUMN id SET DEFAULT nextval('pd_modality_descriptions_id_seq'::regclass);
 
 
 --
@@ -3883,14 +3807,6 @@ ALTER TABLE ONLY hd_dry_weights
 
 
 --
--- Name: hd_modality_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY hd_modality_descriptions
-    ADD CONSTRAINT hd_modality_descriptions_pkey PRIMARY KEY (id);
-
-
---
 -- Name: hd_preference_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4128,14 +4044,6 @@ ALTER TABLE ONLY patient_religions
 
 ALTER TABLE ONLY patients
     ADD CONSTRAINT patients_pkey PRIMARY KEY (id);
-
-
---
--- Name: pd_modality_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY pd_modality_descriptions
-    ADD CONSTRAINT pd_modality_descriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -5362,14 +5270,6 @@ ALTER TABLE ONLY transplant_recipient_followups
 
 
 --
--- Name: fk_rails_81a82e55cd; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY pd_modality_descriptions
-    ADD CONSTRAINT fk_rails_81a82e55cd FOREIGN KEY (description_id) REFERENCES modality_descriptions(id);
-
-
---
 -- Name: fk_rails_827f19d76a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5431,14 +5331,6 @@ ALTER TABLE ONLY transplant_failure_cause_descriptions
 
 ALTER TABLE ONLY transplant_donor_workups
     ADD CONSTRAINT fk_rails_93dc1108f3 FOREIGN KEY (patient_id) REFERENCES patients(id);
-
-
---
--- Name: fk_rails_983db6a323; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY hd_modality_descriptions
-    ADD CONSTRAINT fk_rails_983db6a323 FOREIGN KEY (description_id) REFERENCES modality_descriptions(id);
 
 
 --
@@ -5982,8 +5874,4 @@ INSERT INTO schema_migrations (version) VALUES ('20160613120910');
 INSERT INTO schema_migrations (version) VALUES ('20160616163622');
 
 INSERT INTO schema_migrations (version) VALUES ('20160620131148');
-
-INSERT INTO schema_migrations (version) VALUES ('20160712160945');
-
-INSERT INTO schema_migrations (version) VALUES ('20160712164614');
 
