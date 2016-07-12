@@ -1,6 +1,6 @@
 module Renalware
   sitecode = 'BARTS'
-  log "--------------------Adding #{sitecode} Modality Codes & Descriptions--------------------"
+  log "--------------------Adding #{sitecode} Modality Descriptions--------------------"
 
   file_path = File.join(default_path, 'modality_descriptions_barts.csv')
   log_count = 0
@@ -17,4 +17,12 @@ module Renalware
   end
 
   log "#{log_count} Modality Codes seeded"
+
+  log "Link Modality Descriptions for PD"
+  # These are required to determine if a patient was treated with PD
+
+  %w(pd apd capd).each do |modality_system_code|
+    description = Modalities::Description.find_by!(system_code: modality_system_code)
+    PD::ModalityDescription.create!(description: description)
+  end
 end

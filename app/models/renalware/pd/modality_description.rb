@@ -2,11 +2,12 @@ require_dependency "renalware/pd"
 
 module Renalware
   module PD
-    class ModalityDescription < ActiveType::Record[Renalware::Modalities::Description]
-      NAMES = ["PD-APD", "PD-CAPD", "PD Rest on HD", "PD-Assisted APD", "PD-PrePD"].freeze
+    class ModalityDescription < ActiveRecord::Base
+      belongs_to :description, class_name: "Modalities::Description"
+      validates :description, presence: true
 
       def self.include?(record)
-        NAMES.include?(record.name)
+        pluck(:description_id).include?(record.id)
       end
     end
   end
