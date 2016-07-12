@@ -1,9 +1,5 @@
 module Renalware
-  module PatientsHelper
-    def med_color_tag(med_type)
-      med_type.blank? ? "drug" : med_type
-    end
-
+  module SideNavHelper
     def display_pd_menu?(patient)
       pd_patient = Renalware::PD.cast_patient(patient)
       pd_patient.treated?

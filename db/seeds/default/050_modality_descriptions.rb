@@ -1,19 +1,36 @@
 module Renalware
   sitecode = 'BARTS'
-  log "--------------------Adding #{sitecode} Modality Codes & Descriptions--------------------"
+  log "--------------------Adding #{sitecode} Modality Descriptions--------------------"
 
   file_path = File.join(default_path, 'modality_descriptions_barts.csv')
-
-  logcount=0
+  log_count = 0
   CSV.foreach(file_path, headers: true) do |row|
-    logcount += 1
-    modalcode = row['code']
-    modalname = row['name']
-    Modalities::Description.find_or_create_by!(code: modalcode) do |code|
-      code.name = modalname
+    log_count += 1
+    system_code = row['system_code']
+    modal_name = row['name']
+
+    Modalities::Description.find_or_create_by!(name: modal_name) do |description|
+      description.name = modal_name
+      description.system_code = system_code
     end
-    log "--#{modalcode}: #{modalname}"
+    log "--#{modal_name}"
   end
 
-  log "#{logcount} Modality Codes seeded"
+  log "#{log_count} Modality Codes seeded"
+
+  log "Link Modality Descriptions for PD"
+  # These are required to determine if a patient was treated with PD
+
+  %w(pd apd capd).each do |modality_system_code|
+    description = Modalities::Description.find_by!(system_code: modality_system_code)
+    PD::ModalityDescription.create!(description: description)
+  end
+
+  log "Link Modality Descriptions for HD"
+  # These are required to determine if a patient was treated with HD
+
+  %w(hd).each do |modality_system_code|
+    description = Modalities::Description.find_by!(system_code: modality_system_code)
+    HD::ModalityDescription.create!(description: description)
+  end
 end
