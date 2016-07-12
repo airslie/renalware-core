@@ -7,7 +7,7 @@ module Renalware
       validates :description, presence: true
 
       def self.include?(record)
-        pluck(:description_id).include?(record.id)
+        exists?(description: record)
       end
     end
   end
