@@ -4,12 +4,16 @@ module World
       # @section helpers
       #
       def recipient_workup_for(patient)
+        patient = transplant_patient(patient)
+
         Renalware::Transplants::RecipientWorkup.for_patient(patient).first_or_initialize
       end
 
       # @section seeding
       #
       def seed_recipient_workup_for(patient)
+        patient = transplant_patient(patient)
+
         Renalware::Transplants::RecipientWorkup.create!(
           patient: patient
         )

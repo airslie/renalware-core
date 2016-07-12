@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :transplant_recipient_operation, class: Renalware::Transplants::RecipientOperation do
-    patient
+    patient { build(:transplant_patient) }
 
     performed_on                      1.week.ago
     theatre_case_start_time           "11:00"

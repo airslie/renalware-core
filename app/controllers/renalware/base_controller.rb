@@ -23,7 +23,7 @@ module Renalware
     end
 
     def load_patient(patient_id = params[:patient_id])
-      @patient = Patient.find(patient_id)
+      @patient = Renalware::Patient.find(patient_id)
 
       authorize @patient
     end

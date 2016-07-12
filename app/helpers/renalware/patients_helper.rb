@@ -4,12 +4,14 @@ module Renalware
       med_type.blank? ? "drug" : med_type
     end
 
-    def display_pd_menu(patient_modalities)
-      patient_modalities.map { |m|m.description.pd_modality? }.include? true
+    def display_pd_menu?(patient)
+      pd_patient = Renalware::PD.cast_patient(patient)
+      pd_patient.treated?
     end
 
-    def display_hd_menu(patient_modalities)
-      patient_modalities.map { |m|m.description.hd_modality? }.include? true
+    def display_hd_menu?(patient)
+      hd_patient = Renalware::HD.cast_patient(patient)
+      hd_patient.treated?
     end
 
     def find_user_bookmark_for_patient(patient)

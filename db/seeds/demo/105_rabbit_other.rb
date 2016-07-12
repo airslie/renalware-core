@@ -176,12 +176,12 @@ module Renalware
   patient.set_modality(description: description, started_on: 1.week.ago)
 
   log '--------------------Assign some HD preferences to Francois RABBIT-------------------'
-  preference_set = HD::PreferenceSet.find_or_initialize_by(patient: patient)
+  preference_set = HD::PreferenceSet.find_or_initialize_by(patient: HD.cast_patient(patient))
   preference_set.attributes = { schedule: "mon_wed_fri_am", entered_on: 1.week.ago.to_date, by: User.first }
   preference_set.save!
 
   log '--------------------Assign an HD profile to Francois RABBIT-------------------'
-  profile = HD::Profile.find_or_initialize_by(patient: patient)
+  profile = HD::Profile.find_or_initialize_by(patient: HD.cast_patient(patient))
   profile.attributes = {
     by: User.first,
     hospital_unit: Hospitals::Unit.hd_sites.first,
@@ -240,7 +240,7 @@ module Renalware
   end_times = ["15:30", "15:45", "16:00"]
   20.times do |i|
     session = HD::Session.new(
-      patient: patient,
+      patient: HD.cast_patient(patient),
       hospital_unit: units.sample,
       performed_on: (i*2).days.ago,
       start_time: start_times.sample,

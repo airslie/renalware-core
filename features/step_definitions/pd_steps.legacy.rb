@@ -2,7 +2,7 @@ Given(/^a patient has PD$/) do
   description = Renalware::Modalities::Description.find_by!(code: "PD_APD")
   FactoryGirl.create(:modality, patient: @patient_1, description: description)
 
-  visit patient_pd_summary_path(@patient_1)
+  visit patient_pd_dashboard_path(@patient_1)
 end
 
 Given(/^I choose to record a new capd regime$/) do
@@ -182,7 +182,7 @@ When(/^I complete the form for a apd regime$/) do
 end
 
 When(/^I choose to edit and update the form for a capd regime$/) do
-  visit patient_pd_summary_path(@patient_1)
+  visit patient_pd_dashboard_path(@patient_1)
 
   within("table.capd-regimes tbody tr:first-child") do
     click_link("Update")
@@ -194,7 +194,7 @@ When(/^I choose to edit and update the form for a capd regime$/) do
 end
 
 When(/^I choose to edit and update the form for a apd regime$/) do
-  visit patient_pd_summary_path(@patient_1)
+  visit patient_pd_dashboard_path(@patient_1)
 
   within("table.apd-regimes tbody tr:first-child") do
     click_link("Update")
@@ -208,7 +208,7 @@ When(/^I choose to edit and update the form for a apd regime$/) do
 end
 
 When(/^I choose to view a capd regime$/) do
-  visit patient_pd_summary_path(@patient_1)
+  visit patient_pd_dashboard_path(@patient_1)
 
   within("table.capd-regimes tbody tr:nth-child(1)") do
     click_link("View")
@@ -216,7 +216,7 @@ When(/^I choose to view a capd regime$/) do
 end
 
 When(/^I choose to view a apd regime$/) do
-  visit patient_pd_summary_path(@patient_1)
+  visit patient_pd_dashboard_path(@patient_1)
 
   within("table.apd-regimes tbody tr:nth-child(1)") do
     click_link("View")

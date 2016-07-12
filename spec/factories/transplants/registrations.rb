@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :transplant_registration, class: Renalware::Transplants::Registration do
-    patient
+    patient { build(:transplant_patient) }
 
     trait :with_statuses do
       after(:create) do |registration|
@@ -10,7 +10,7 @@ FactoryGirl.define do
             :transplant_registration_status,
             registration: registration,
             started_on: start_date,
-            terminated_on: start_date+1.day
+            terminated_on: start_date + 1.day
           )
         end
         create(

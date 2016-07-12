@@ -4,6 +4,8 @@ module World
       # @section helpers
       #
       def hd_dry_weight_for(patient)
+        patient = hd_patient(patient)
+
         Renalware::HD::DryWeight.for_patient(patient).first_or_initialize
       end
 
@@ -17,6 +19,8 @@ module World
       # @section seeding
       #
       def seed_hd_dry_weight_for(patient, assessor)
+        patient = hd_patient(patient)
+
         Renalware::HD::DryWeight.create!(
           valid_dry_weight_attributes.merge(
             patient: patient,
@@ -29,6 +33,8 @@ module World
       # @section commands
       #
       def create_hd_dry_weight(user: nil, patient:, assessed_on:)
+        patient = hd_patient(patient)
+
         Renalware::HD::DryWeight.create(
           valid_dry_weight_attributes.merge(
             patient: patient,

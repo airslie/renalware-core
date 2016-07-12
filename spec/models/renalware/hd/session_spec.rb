@@ -14,8 +14,8 @@ module Renalware
       it { is_expected.to validate_timeliness_of(:end_time) }
 
       let(:nurse) { create(:user) }
-      let(:patient) { create(:patient) }
-      let(:session) { build(:hd_session, patient: patient, signed_on_by: nurse, by: nurse) }
+      let(:patient) { create(:hd_patient) }
+      subject(:session) { build(:hd_session, patient: patient, signed_on_by: nurse, by: nurse) }
 
       it "is valid" do
         expect(session).to be_valid
@@ -33,8 +33,7 @@ module Renalware
       end
 
       context "with a patient in a modality" do
-        let!(:modality) { create(:modality) }
-        let(:patient) { modality.patient }
+        let!(:modality) { create(:modality, patient: patient) }
 
         context "when creating the record" do
           it "associates the patient current modality" do

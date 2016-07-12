@@ -1,3 +1,5 @@
+require_dependency "renalware/transplants/base_controller"
+
 module Renalware
   module Transplants
     class RegistrationsController < BaseController
