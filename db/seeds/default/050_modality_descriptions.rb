@@ -25,4 +25,12 @@ module Renalware
     description = Modalities::Description.find_by!(system_code: modality_system_code)
     PD::ModalityDescription.create!(description: description)
   end
+
+  log "Link Modality Descriptions for HD"
+  # These are required to determine if a patient was treated with HD
+
+  %w(hd).each do |modality_system_code|
+    description = Modalities::Description.find_by!(system_code: modality_system_code)
+    HD::ModalityDescription.create!(description: description)
+  end
 end
