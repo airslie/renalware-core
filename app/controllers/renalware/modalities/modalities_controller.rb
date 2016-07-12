@@ -11,7 +11,7 @@ module Renalware
       end
 
       def index
-        @modalities = @patient.modalities.with_deleted.ordered
+        @modalities = @patient.modalities.ordered
       end
 
       def create

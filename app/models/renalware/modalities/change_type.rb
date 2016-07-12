@@ -1,3 +1,5 @@
+require_dependency "renalware/modalities"
+
 module Renalware
   module Modalities
     class ChangeType
