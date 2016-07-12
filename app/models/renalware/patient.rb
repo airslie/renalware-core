@@ -33,7 +33,7 @@ module Renalware
     has_many :pd_regimes
     has_many :bookmarks, class_name: "Patients::Bookmark"
 
-    has_one :current_modality, -> { order(started_on: :desc).where(deleted_at: nil) },
+    has_one :current_modality, -> { order(started_on: :desc).where(state: "current") },
       class_name: "Modalities::Modality"
     has_one :modality_description, through: :current_modality,
       class_name: "Modalities::Description", source: :description

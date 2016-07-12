@@ -8,7 +8,7 @@ class CreateModalities < ActiveRecord::Migration
       t.text :notes
       t.date :started_on,          null: false
       t.date :ended_on
-      t.datetime :deleted_at
+      t.string :state, null: false, default: "current"
       t.timestamps null: false
     end
     add_foreign_key :modality_modalities,

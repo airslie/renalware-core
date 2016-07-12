@@ -1568,7 +1568,7 @@ CREATE TABLE modality_modalities (
     notes text,
     started_on date NOT NULL,
     ended_on date,
-    deleted_at timestamp without time zone,
+    state character varying DEFAULT 'current'::character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
