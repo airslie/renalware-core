@@ -1,0 +1,16 @@
+.row
+  .columns
+    = search_form_for search, url: patient_medications_path(@patient) do |f|
+      = hidden_field_tag :treatable_id, treatable.id
+      = hidden_field_tag :treatable_type, treatable.class.to_s
+      = hidden_field_tag :filter, 1
+      fieldset
+        legend Filter
+        .columns.small-2
+          = f.label "Drug Type"
+        .columns.small-4
+          = f.select(:drug_drug_types_id_eq, options_from_collection_for_select(drug_types, "id", "name", search.drug_drug_types_id_eq), include_blank: true)
+        .columns.small-6
+          = f.button "Filter", class: "button tiny"
+          = " or "
+          = link_to "reset", patient_medications_path(@patient)

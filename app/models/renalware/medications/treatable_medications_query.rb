@@ -14,7 +14,7 @@ module Renalware
       end
 
       def search
-        @search ||= treatable_medications.search(@search_params)
+        treatable_medications.search(@search_params)
       end
 
       def treatable_medications
