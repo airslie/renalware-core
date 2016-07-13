@@ -5,13 +5,13 @@ module Renalware::Medications
 
     let(:treatable) { create(:patient) }
 
-    context "without a filter" do
+    context "given no filter" do
       let!(:current_medication) { create(:medication, patient: treatable, treatable: treatable) }
       let!(:terminated_medication) { create(:medication, :terminated, patient: treatable, treatable: treatable) }
 
       subject(:query) { TreatableMedicationsQuery.new(treatable: treatable) }
 
-      it "returns all current medications for a treatable target" do
+      it "returns current medications for a treatable target" do
         medications = query.call
 
         expect(medications).to include(current_medication)
@@ -19,22 +19,22 @@ module Renalware::Medications
       end
     end
 
-    context "with a filter for drug type" do
-      let(:target_drug_type) { create(:drug_type) }
-      let(:target_drug) { create(:drug, drug_types: [target_drug_type] ) }
-      let!(:target_medication) { create(:medication, patient: treatable, treatable: treatable, drug: target_drug) }
+    context "given a filter for a drug type" do
+      let!(:target_drug_type) { create(:drug_type) }
+      let!(:target_drug) { create(:drug, drug_types: [target_drug_type] ) }
+      let!(:target_medication) { create(:medication, notes: ":target medication:", patient: treatable, treatable: treatable, drug: target_drug) }
 
-      let(:other_drug_type) { create(:drug_type) }
-      let(:other_drug) { create(:drug, drug_types: [other_drug_type] ) }
-      let!(:other_medication) { create(:medication, patient: treatable, treatable: treatable, drug: other_drug) }
+      let!(:other_drug_type) { create(:drug_type) }
+      let!(:other_drug) { create(:drug, drug_types: [other_drug_type] ) }
+      let!(:other_medication) { create(:medication, notes: ":other medication:", patient: treatable, treatable: treatable, drug: other_drug) }
 
-      subject(:query) { TreatableMedicationsQuery.new(treatable: treatable) }
+      subject(:query) { TreatableMedicationsQuery.new(treatable: treatable, search_params: {drug_drug_types_id_eq: target_drug_type.id}) }
 
-      xit "returns the current medications matching the specified drug type" do
+      it "returns the current medications matching the specified drug type only" do
         medications = query.call
 
-        expect(medications).to include(target_medication)
-        expect(medications).not_to include(other_medication)
+        expect(medications.map(&:notes)).to include(target_medication.notes)
+        expect(medications.map(&:notes)).not_to include(other_medication.notes)
       end
     end
   end
