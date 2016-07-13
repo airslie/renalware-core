@@ -1,3 +1,4 @@
 = render layout: "renalware/patients/layout", locals: { title: "Medications" } do
-  = render "filter_form", search: current_search, drug_types: drug_types, treatable: treatable
+  - if params[:filter]
+    = render "filter_form", search: current_search, drug_types: drug_types, treatable: treatable
   = render "index", local_assigns

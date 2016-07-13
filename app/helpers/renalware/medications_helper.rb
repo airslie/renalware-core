@@ -1,8 +1,8 @@
 module Renalware
   module MedicationsHelper
-    def patient_medications_path(patient, treatable=nil)
+    def patient_medications_path(patient, treatable=nil, params={})
       treatable ||= patient
-      super(patient, treatable_type: treatable.class.to_s, treatable_id: treatable.id)
+      super(patient, params.merge(treatable_type: treatable.class.to_s, treatable_id: treatable.id))
     end
 
     def new_patient_medication_path(patient, treatable=nil)

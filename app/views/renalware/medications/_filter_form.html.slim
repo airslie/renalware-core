@@ -3,6 +3,7 @@
     = search_form_for search, url: patient_medications_path(@patient) do |f|
       = hidden_field_tag :treatable_id, treatable.id
       = hidden_field_tag :treatable_type, treatable.class.to_s
+      = hidden_field_tag :filter, 1
       fieldset
         legend Filter
         .columns.small-2
