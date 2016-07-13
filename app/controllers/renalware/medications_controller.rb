@@ -68,7 +68,8 @@ module Renalware
         current_search: medications_query.search,
         current_medications: present(medications, Medications::MedicationPresenter),
         terminated_search: terminated_medications_query.search,
-        terminated_medications: present(terminated_medications, Medications::MedicationPresenter)
+        terminated_medications: present(terminated_medications, Medications::MedicationPresenter),
+        drug_types: find_drug_types
       }
     end
 
@@ -124,6 +125,10 @@ module Renalware
 
     def terminated_medications
       terminated_medications_query.call.includes(:drug)
+    end
+
+    def find_drug_types
+      Drugs::Type.all
     end
   end
 end
