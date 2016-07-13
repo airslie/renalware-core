@@ -7,7 +7,7 @@ Given(/^Patty has a recorded medication|Patty has current medications$/) do
     frequency: "once a day",
     starts_on: "10-10-2015",
     provider: "GP",
-    deleted_at: nil
+    terminated_at: nil
   )
 end
 
@@ -21,7 +21,7 @@ Given(/^Patty has medications:$/) do |table|
       frequency: row[:frequency],
       starts_on: Time.now - 1.month,
       provider: row[:provider],
-      deleted_at: row[:terminated_on]
+      terminated_at: row[:terminated_on]
     )
   end
 end
@@ -36,7 +36,7 @@ When(/^Clyde records the medication for Patty$/) do
     frequency: "once a day",
     starts_on: "10-10-2015",
     provider: "GP",
-    deleted_at: nil
+    terminated_at: nil
   )
 end
 

@@ -12,7 +12,7 @@ class CreateMedications < ActiveRecord::Migration
       t.date :start_date,              null: false
       t.date :end_date
       t.integer :provider,             null: false
-      t.datetime :deleted_at
+      t.datetime :terminated_at
       t.timestamps null: false
     end
   end

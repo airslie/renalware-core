@@ -34,6 +34,6 @@
           td= I18n.l medication.start_date
           td= medication.created_by.full_name
           - if include_terminated_column
-            td= I18n.l medication.deleted_on
+            td= I18n.l medication.terminated_on
 - else
   p There are no medications in this list.

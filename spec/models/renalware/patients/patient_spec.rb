@@ -58,7 +58,7 @@ module Renalware
           subject.update(medications_attributes: medication_attributes, by: user)
 
           expect(subject.medications.with_deleted.first).to eq(medication)
-          expect(subject.medications.with_deleted.first.deleted_at).not_to be nil
+          expect(subject.medications.with_deleted.first.terminated_at).not_to be nil
         end
       end
 

@@ -11,10 +11,8 @@ module Renalware
         drug.drug_types.map(&:name).join(", ")
       end
 
-      def deleted_on
-        return nil unless deleted_at.present?
-
-        deleted_at.to_date
+      def terminated_on
+        terminated_at.try!(:to_date)
       end
 
       def provider

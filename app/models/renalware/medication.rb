@@ -4,7 +4,7 @@ module Renalware
 
     attr_accessor :drug_select
 
-    acts_as_paranoid
+    acts_as_paranoid column: "terminated_at"
 
     has_paper_trail class_name: 'Renalware::MedicationVersion'
 

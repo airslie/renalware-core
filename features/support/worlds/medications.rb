@@ -12,7 +12,7 @@ module World
       end
 
       def seed_medication_for(patient:, treatable: nil, drug_name:, dose:,
-        route_code:, frequency:, starts_on:, provider:, deleted_at:, **_)
+        route_code:, frequency:, starts_on:, provider:, terminated_at:, **_)
         drug = Renalware::Drugs::Drug.find_or_create_by!(name: drug_name)
         route = Renalware::MedicationRoute.find_by!(code: route_code)
 
@@ -27,8 +27,8 @@ module World
           by: Renalware::SystemUser.find
         }
 
-        if deleted_at.present?
-          medication_params[:deleted_at] = parse_time_string(deleted_at)
+        if terminated_at.present?
+          medication_params[:terminated_at] = parse_time_string(terminated_at)
         end
 
         patient.medications.create!(medication_params)
@@ -53,7 +53,7 @@ module World
       end
 
       def record_medication_for(**args)
-        seed_medication_for(args.merge(deleted_at: nil))
+        seed_medication_for(args.merge(terminated_at: nil))
       end
 
       def record_medication_for_patient(user:, **args)
@@ -95,7 +95,7 @@ module World
           expect(actual.frequency).to eq(expected["frequency"])
           expect(actual.medication_route.code).to eq(expected["route_code"])
           expect(actual.provider).to eq(expected["provider"].downcase)
-          expect(actual.deleted_at).to eq(parse_time_string(expected["terminated_on"]))
+          expect(actual.terminated_at).to eq(parse_time_string(expected["terminated_on"]))
         end
       end
     end
@@ -137,7 +137,7 @@ module World
         visit patient_medications_path(patient,
           treatable_type: patient.class, treatable_id: patient.id)
 
-        record_medication_for(patient: patient, **args.except(:deleted_at))
+        record_medication_for(patient: patient, **args.except(:terminated_at))
       end
 
       def revise_medication_for(patient:, user:, drug_name:,
