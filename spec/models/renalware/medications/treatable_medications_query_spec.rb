@@ -1,13 +1,17 @@
-require 'rails_helper'
+require "rails_helper"
 
 module Renalware::Medications
-  RSpec.describe TreatableMedicationsQuery, :type => :model do
+  RSpec.describe TreatableMedicationsQuery, type: :model do
 
     let(:treatable) { create(:patient) }
 
     context "given no filter" do
       let!(:current_medication) { create(:medication, patient: treatable, treatable: treatable) }
-      let!(:terminated_medication) { create(:medication, :terminated, patient: treatable, treatable: treatable) }
+      let!(:terminated_medication) do create(
+        :medication, :terminated,
+        patient: treatable, treatable: treatable
+      )
+      end
 
       subject(:query) { TreatableMedicationsQuery.new(treatable: treatable) }
 
@@ -20,15 +24,30 @@ module Renalware::Medications
     end
 
     context "given a filter for a drug type" do
-      let!(:target_drug_type) { create(:drug_type) }
-      let!(:target_drug) { create(:drug, drug_types: [target_drug_type] ) }
-      let!(:target_medication) { create(:medication, notes: ":target medication:", patient: treatable, treatable: treatable, drug: target_drug) }
+      let(:target_drug_type) { create(:drug_type) }
+      let(:target_drug) { create(:drug, drug_types: [target_drug_type]) }
+      let!(:target_medication) do
+        create(
+          :medication, notes: ":target medication:",
+          patient: treatable, treatable: treatable, drug: target_drug
+        )
+      end
 
-      let!(:other_drug_type) { create(:drug_type) }
-      let!(:other_drug) { create(:drug, drug_types: [other_drug_type] ) }
-      let!(:other_medication) { create(:medication, notes: ":other medication:", patient: treatable, treatable: treatable, drug: other_drug) }
+      let(:other_drug_type) { create(:drug_type) }
+      let(:other_drug)  { create(:drug, drug_types: [other_drug_type]) }
+      let!(:other_medication) do
+        create(
+          :medication, notes: ":other medication:",
+          patient: treatable, treatable: treatable, drug: other_drug
+        )
+      end
 
-      subject(:query) { TreatableMedicationsQuery.new(treatable: treatable, search_params: {drug_drug_types_id_eq: target_drug_type.id}) }
+      subject(:query) do
+        TreatableMedicationsQuery.new(
+          treatable: treatable,
+          search_params: { drug_drug_types_id_eq: target_drug_type.id }
+        )
+      end
 
       it "returns the current medications matching the specified drug type only" do
         medications = query.call
