@@ -23,7 +23,8 @@ module World
           medication_route: route,
           frequency: frequency,
           start_date: starts_on,
-          provider: provider.downcase
+          provider: provider.downcase,
+          by: Renalware::SystemUser.find
         }
 
         if deleted_at.present?
@@ -65,7 +66,7 @@ module World
         drug = Renalware::Drugs::Drug.find_by!(name: drug_name)
         medication = patient.medications.last!
 
-        medication.update!(drug: drug)
+        medication.update!(drug: drug, by: Renalware::SystemUser.find)
       end
 
       def terminate_medication_for(patient:, user:)

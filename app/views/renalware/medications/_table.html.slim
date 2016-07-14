@@ -12,6 +12,7 @@
         th Provider
         th Notes
         th= sort_link_if(treatable.sortable?, search, :start_date, "Prescribed on")
+        th Prescribed By
         - if include_terminated_column
           th Terminated On
     tbody
@@ -31,5 +32,8 @@
           td= medication.provider
           td= medication.notes
           td= I18n.l medication.start_date
+          td= medication.created_by.full_name
           - if include_terminated_column
             td= I18n.l medication.deleted_on
+- else
+  p There are no medications in this list.

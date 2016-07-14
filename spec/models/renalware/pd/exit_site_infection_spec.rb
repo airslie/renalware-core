@@ -10,9 +10,10 @@ module Renalware
     describe "exit site infection" do
       before do
         @patient = create(:patient)
-        @es = FactoryGirl.build(:exit_site_infection)
-        @lymphocytes = FactoryGirl.create(:organism_code, name: "Lymphocytes")
-        @proteus = FactoryGirl.create(:organism_code, name: "Proteus")
+        @es = build(:exit_site_infection)
+        @lymphocytes = create(:organism_code, name: "Lymphocytes")
+        @proteus = create(:organism_code, name: "Proteus")
+        @user = create(:user)
 
         load_drugs_by_type('Cephradine' => ['Antibiotic','Peritonitis'],
                            'Dicloxacillin' => ['Antibiotic','Peritonitis'])
@@ -23,7 +24,7 @@ module Renalware
       context "medications" do
         it "can be assigned many medications and organisms/sensitivities" do
 
-          @medication_one = FactoryGirl.create(:medication,
+          @medication_one = create(:medication,
             patient: @patient,
             drug: @cephradine,
             treatable: @es,
@@ -32,10 +33,11 @@ module Renalware
             frequency: "daily",
             notes: "with food",
             start_date: "02/03/2015",
-            provider: 1
+            provider: 1,
+            by: @user
           )
 
-          @medication_two = FactoryGirl.create(:medication,
+          @medication_two = create(:medication,
             patient: @patient,
             drug: @dicloxacillin,
             treatable: @es,
@@ -44,7 +46,8 @@ module Renalware
             frequency: "daily",
             notes: "with food",
             start_date: "02/03/2015",
-            provider: 1
+            provider: 1,
+            by: @user
           )
 
           @lymphocytes_sensitivity = @es.infection_organisms.build(organism_code: @lymphocytes, sensitivity: "Sensitive to Lymphocytes.")
