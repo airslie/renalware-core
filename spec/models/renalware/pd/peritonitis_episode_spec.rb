@@ -33,7 +33,7 @@ module Renalware
             medication_route: @po,
             frequency: "daily",
             notes: "with food",
-            start_date: "02/03/2015",
+            prescribed_on: "02/03/2015",
             provider: 0,
             by: @user
           )
@@ -46,7 +46,7 @@ module Renalware
             medication_route: @iv,
             frequency: "daily",
             notes: "with food",
-            start_date: "02/03/2015",
+            prescribed_on: "02/03/2015",
             provider: 1,
             by: @user
           )

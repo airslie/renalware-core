@@ -17,8 +17,8 @@ ruby:
     = f.input :route_description
     = f.input :frequency
     = f.input :notes
-    = f.input :start_date, as: :date_picker
-    = f.input :end_date, as: :date_picker
+    = f.input :prescribed_on, as: :date_picker
+    = f.input :terminated_on, as: :date_picker
     = f.input :provider, collection: provider_codes, as: :radio_buttons,
         label_method: :to_label, checked: provider_codes.first
 

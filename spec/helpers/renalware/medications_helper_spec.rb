@@ -15,7 +15,7 @@ module Renalware
                               dose: nil,
                               medication_route_id: nil,
                               frequency: nil,
-                              start_date: nil,
+                              prescribed_on: nil,
                               provider: nil)
 
       @valid_patient_med = FactoryGirl.build(
@@ -26,7 +26,7 @@ module Renalware
                             dose: "23mg",
                             medication_route: @med_route,
                             frequency: "PID",
-                            start_date: "02/10/2014",
+                            prescribed_on: "02/10/2014",
                             provider: 0)
     end
 

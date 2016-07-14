@@ -7,7 +7,7 @@ FactoryGirl.define do
     frequency "daily"
     notes "with food"
     provider 0
-    start_date 2.weeks.ago
+    prescribed_on 2.weeks.ago
     association :created_by, factory: :user
     association :updated_by, factory: :user
 
@@ -15,7 +15,7 @@ FactoryGirl.define do
 
     trait :terminated do
       state "terminated"
-      terminated_at 1.week.ago
+      terminated_on 1.week.ago
     end
   end
 end

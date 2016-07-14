@@ -5,20 +5,20 @@ module World
       #
       def default_medication_drug_selector; end
 
-      def parse_time_string(time_string)
+      def parse_date_string(time_string)
         return nil unless time_string.present?
 
-        Time.parse(time_string)
+        Date.parse(time_string)
       end
 
-      def determine_state(terminated_at)
-        terminated_at.present? ? "terminated" : "current"
+      def determine_state(terminated_on)
+        terminated_on.present? ? "terminated" : "current"
       end
 
       # @section seeds
       #
       def seed_medication_for(patient:, treatable: nil, drug_name:, dose:,
-        route_code:, frequency:, starts_on:, provider:, terminated_at:, **_)
+        route_code:, frequency:, prescribed_on:, provider:, terminated_on:, **_)
         drug = Renalware::Drugs::Drug.find_or_create_by!(name: drug_name)
         route = Renalware::MedicationRoute.find_by!(code: route_code)
 
@@ -28,10 +28,10 @@ module World
           dose: dose,
           medication_route: route,
           frequency: frequency,
-          start_date: starts_on,
+          prescribed_on: prescribed_on,
           provider: provider.downcase,
-          state: determine_state(terminated_at),
-          terminated_at: parse_time_string(terminated_at),
+          state: determine_state(terminated_on),
+          terminated_on: parse_date_string(terminated_on),
           by: Renalware::SystemUser.find
         )
       end
@@ -55,7 +55,7 @@ module World
       end
 
       def record_medication_for(**args)
-        seed_medication_for(args.merge(terminated_at: nil))
+        seed_medication_for(args.merge(terminated_on: nil))
       end
 
       def record_medication_for_patient(user:, **args)
@@ -97,7 +97,7 @@ module World
           expect(actual.frequency).to eq(expected["frequency"])
           expect(actual.medication_route.code).to eq(expected["route_code"])
           expect(actual.provider).to eq(expected["provider"].downcase)
-          expect(actual.terminated_at).to eq(parse_time_string(expected["terminated_on"]))
+          expect(actual.terminated_on).to eq(parse_date_string(expected["terminated_on"]))
         end
       end
     end
@@ -117,7 +117,7 @@ module World
       # @ section commands
       #
       def record_medication_for(patient:, treatable: nil, drug_name:, dose:, route_code:,
-        frequency:, starts_on:, provider:,
+        frequency:, prescribed_on:, provider:,
         drug_selector: default_medication_drug_selector)
         click_link "Add Medication"
         wait_for_ajax
@@ -127,7 +127,7 @@ module World
           fill_in "Dose", with: dose
           select(route_code, from: "Route")
           fill_in "Frequency", with: frequency
-          fill_in "Prescribed on", with: starts_on
+          fill_in "Prescribed on", with: prescribed_on
           click_on "Save"
           wait_for_ajax
         end
@@ -139,7 +139,7 @@ module World
         visit patient_medications_path(patient,
           treatable_type: patient.class, treatable_id: patient.id)
 
-        record_medication_for(patient: patient, **args.except(:terminated_at))
+        record_medication_for(patient: patient, **args.except(:terminated_on))
       end
 
       def revise_medication_for(patient:, user:, drug_name:,
