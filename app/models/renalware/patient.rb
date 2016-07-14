@@ -41,7 +41,6 @@ module Renalware
     has_document class_name: "Renalware::PatientDocument"
 
     accepts_nested_attributes_for :current_address
-    accepts_nested_attributes_for :medications, allow_destroy: true
 
     validates :nhs_number, length: { minimum: 10, maximum: 10 }, uniqueness: true, allow_blank: true
     validates :family_name, presence: true

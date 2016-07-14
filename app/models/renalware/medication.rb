@@ -4,8 +4,6 @@ module Renalware
 
     attr_accessor :drug_select
 
-    acts_as_paranoid column: "terminated_at"
-
     has_paper_trail class_name: 'Renalware::MedicationVersion'
 
     belongs_to :patient
@@ -26,6 +24,8 @@ module Renalware
     enum provider: Provider.codes
 
     scope :ordered, -> { order(default_search_order) }
+    scope :current, -> { where(state: "current") }
+    scope :terminated, -> { where(state: "terminated") }
 
     def self.default_search_order
       "start_date desc"
@@ -47,6 +47,21 @@ module Renalware
         ary << frequency
         ary << start_date
       }.compact.join(", ")
+    end
+
+    def terminate(by:)
+      self.by = by
+      self.state = "terminated"
+      self.terminated_at = Time.zone.now
+      self
+    end
+
+    def current?
+      self.state == "current"
+    end
+
+    def terminated?
+      self.state == "terminated"
     end
 
     private

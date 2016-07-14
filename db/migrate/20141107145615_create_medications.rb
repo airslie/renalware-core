@@ -12,6 +12,7 @@ class CreateMedications < ActiveRecord::Migration
       t.date :start_date,              null: false
       t.date :end_date
       t.integer :provider,             null: false
+      t.string :state, null: false, default: "current"
       t.datetime :terminated_at
       t.timestamps null: false
     end

@@ -14,6 +14,7 @@ FactoryGirl.define do
     before(:create) { |medication| medication.treatable ||= medication.patient }
 
     trait :terminated do
+      state "terminated"
       terminated_at 1.week.ago
     end
   end

@@ -2,9 +2,9 @@ require_dependency "renalware/medications"
 
 module Renalware
   module Medications
-    class TreatableTerminatedMedicationsQuery < TreatableMedicationsQuery
+    class TreatableHistoricalMedicationsQuery < TreatableMedicationsQuery
       def treatable_medications
-        @treatable.medications.only_deleted
+        @treatable.medications.terminated
       end
     end
   end

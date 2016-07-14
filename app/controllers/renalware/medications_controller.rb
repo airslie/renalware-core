@@ -54,7 +54,7 @@ module Renalware
       medication = @patient.medications.find(params[:id])
       @treatable = medication.treatable
 
-      medication.destroy!
+      medication.terminate(by: current_user).save!
 
       render_index
     end
@@ -67,8 +67,8 @@ module Renalware
         treatable: present(@treatable, Medications::TreatablePresenter),
         current_search: medications_query.search,
         current_medications: present(medications, Medications::MedicationPresenter),
-        terminated_search: terminated_medications_query.search,
-        terminated_medications: present(terminated_medications, Medications::MedicationPresenter),
+        historical_medications_search: historical_medications_query.search,
+        historical_medications: present(historical_medications, Medications::MedicationPresenter),
         drug_types: find_drug_types
       }
     end
@@ -115,16 +115,16 @@ module Renalware
       medications_query.call.includes(:drug)
     end
 
-    def terminated_medications_query
-      @terminated_medications_query ||=
-        Medications::TreatableTerminatedMedicationsQuery.new(
+    def historical_medications_query
+      @historical_medications_query ||=
+        Medications::TreatableHistoricalMedicationsQuery.new(
           treatable: @treatable,
           search_params: params[:q]
         )
     end
 
-    def terminated_medications
-      terminated_medications_query.call.includes(:drug)
+    def historical_medications
+      historical_medications_query.call.includes(:drug)
     end
 
     def find_drug_types

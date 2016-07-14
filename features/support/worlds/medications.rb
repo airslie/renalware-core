@@ -11,12 +11,18 @@ module World
         Time.parse(time_string)
       end
 
+      def determine_state(terminated_at)
+        terminated_at.present? ? "terminated" : "current"
+      end
+
+      # @section seeds
+      #
       def seed_medication_for(patient:, treatable: nil, drug_name:, dose:,
         route_code:, frequency:, starts_on:, provider:, terminated_at:, **_)
         drug = Renalware::Drugs::Drug.find_or_create_by!(name: drug_name)
         route = Renalware::MedicationRoute.find_by!(code: route_code)
 
-        medication_params = {
+        patient.medications.create!(
           treatable: treatable || patient,
           drug: drug,
           dose: dose,
@@ -24,14 +30,10 @@ module World
           frequency: frequency,
           start_date: starts_on,
           provider: provider.downcase,
+          state: determine_state(terminated_at),
+          terminated_at: parse_time_string(terminated_at),
           by: Renalware::SystemUser.find
-        }
-
-        if terminated_at.present?
-          medication_params[:terminated_at] = parse_time_string(terminated_at)
-        end
-
-        patient.medications.create!(medication_params)
+        )
       end
 
       # @ section commands
@@ -43,13 +45,13 @@ module World
           .call
           .includes(:drug)
 
-        terminated_medications =
-          ::Renalware::Medications::TreatableTerminatedMedicationsQuery
+        historical_medications =
+          ::Renalware::Medications::TreatableHistoricalMedicationsQuery
           .new(treatable: patient)
           .call
           .includes(:drug)
 
-        [current_medications, terminated_medications]
+        [current_medications, historical_medications]
       end
 
       def record_medication_for(**args)
@@ -72,8 +74,8 @@ module World
       def terminate_medication_for(patient:, user:)
         medication = patient.medications.last!
 
-        medication.destroy
-        expect(medication).to be_deleted
+        medication.terminate(by: user).save!
+        expect(medication).to be_terminated
       end
 
       def expect_medication_to_be_recorded(patient:)
@@ -168,9 +170,9 @@ module World
           wait_for_ajax
         end
 
-        medication = patient.medications.with_deleted.last!
+        medication = patient.medications.last!
 
-        expect(medication).to be_deleted
+        expect(medication).to be_terminated
       end
 
       def view_medications_for(clinician, patient)
@@ -179,10 +181,10 @@ module World
         visit patient_medications_path(patient,
           treatable_type: patient.class, treatable_id: patient.id)
 
-        current_medications = html_table_to_array("current_medications").drop(1)
-        terminated_medications = html_table_to_array("terminated_medications").drop(1)
+        current_medications = html_table_to_array("current-medications").drop(1)
+        historical_medications = html_table_to_array("historical-medications").drop(1)
 
-        [current_medications, terminated_medications]
+        [current_medications, historical_medications]
       end
 
       def expect_current_medications_to_match(actual_medications, expected_medications)
