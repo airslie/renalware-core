@@ -39,16 +39,6 @@ module Renalware
       self.new(treatable_type: 'Renalware::ExitSiteInfection')
     end
 
-    def formatted
-      [].tap { |ary|
-        ary << drug.name if drug.present?
-        ary << dose
-        ary << medication_route.name if medication_route.present?
-        ary << frequency
-        ary << start_date
-      }.compact.join(", ")
-    end
-
     def terminate(by:)
       self.by = by
       self.state = "terminated"
