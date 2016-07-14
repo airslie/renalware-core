@@ -145,9 +145,11 @@ module World
         visit patient_medications_path(patient,
           treatable_type: patient.class, treatable_id: patient.id)
 
-        within "#medications" do
+        within "#current-medications" do
           click_on "Edit"
+        end
 
+        within "#medications" do
           drug_selector.call(drug_name)
           click_on "Save"
           wait_for_ajax
@@ -160,7 +162,7 @@ module World
         visit patient_medications_path(patient,
           treatable_type: patient.class, treatable_id: patient.id)
 
-        within "#medications" do
+        within "#current-medications" do
           click_on "Terminate"
           wait_for_ajax
         end
