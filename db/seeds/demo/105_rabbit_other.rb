@@ -160,7 +160,7 @@ module Renalware
     {
       patient_id: 1, drug_id: 126, treatable_id: 1, treatable_type: "Renalware::PeritonitisEpisode",
       dose: "100 mg", medication_route_id: 1, frequency: "tid for 7d",
-      pescribed_on: "2015-09-21", provider: 0, by: barts_doc
+      prescribed_on: "2015-09-21", provider: 0, by: barts_doc
     }
   ])
 
