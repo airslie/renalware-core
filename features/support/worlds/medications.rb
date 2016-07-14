@@ -11,10 +11,6 @@ module World
         Date.parse(time_string)
       end
 
-      def determine_state(terminated_on)
-        terminated_on.present? ? "terminated" : "current"
-      end
-
       # @section seeds
       #
       def seed_medication_for(patient:, treatable: nil, drug_name:, dose:,
@@ -30,7 +26,6 @@ module World
           frequency: frequency,
           prescribed_on: prescribed_on,
           provider: provider.downcase,
-          state: determine_state(terminated_on),
           terminated_on: parse_date_string(terminated_on),
           by: Renalware::SystemUser.find
         )

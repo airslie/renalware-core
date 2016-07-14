@@ -24,8 +24,8 @@ module Renalware
     enum provider: Provider.codes
 
     scope :ordered, -> { order(default_search_order) }
-    scope :current, -> { where(state: "current") }
-    scope :terminated, -> { where(state: "terminated") }
+    scope :current, -> { where(terminated_on: nil) }
+    scope :terminated, -> { where("terminated_on IS NOT NULL") }
 
     def self.default_search_order
       "prescribed_on desc"
@@ -41,17 +41,16 @@ module Renalware
 
     def terminate(by:)
       self.by = by
-      self.state = "terminated"
       self.terminated_on = Date.current
       self
     end
 
     def current?
-      self.state == "current"
+      self.terminated_on.nil?
     end
 
     def terminated?
-      self.state == "terminated"
+      self.terminated_on.present?
     end
 
     private
