@@ -1,25 +1,21 @@
 require "rails_helper"
 
 module Renalware::Medications
-  RSpec.describe TreatableMedicationsQuery, type: :model do
+  RSpec.describe MedicationsQuery, type: :model do
 
-    let(:treatable) { create(:patient) }
+    let(:patient) { create(:patient) }
 
     context "given no filter" do
       let!(:current_medication) do
-        create(:medication, notes: ":current:", patient: treatable, treatable: treatable)
-      end
-      let!(:terminated_medication) do create(
-        :medication, :terminated, notes: ":terminated:", patient: treatable, treatable: treatable)
+        create(:medication, notes: ":current:", patient: patient, treatable: patient)
       end
 
-      subject(:query) { TreatableMedicationsQuery.new(treatable: treatable) }
+      subject(:query) { MedicationsQuery.new(relation: patient.medications) }
 
-      it "returns current medications for a treatable target" do
+      it "returns medications for a treatable target" do
         medications = query.call
 
         expect(medications.map(&:notes)).to include(current_medication.notes)
-        expect(medications.map(&:notes)).not_to include(terminated_medication.notes)
       end
     end
 
@@ -29,7 +25,7 @@ module Renalware::Medications
       let!(:target_medication) do
         create(
           :medication, notes: ":target:",
-          patient: treatable, treatable: treatable, drug: target_drug
+          patient: patient, treatable: patient, drug: target_drug
         )
       end
 
@@ -38,13 +34,13 @@ module Renalware::Medications
       let!(:other_medication) do
         create(
           :medication, notes: ":other:",
-          patient: treatable, treatable: treatable, drug: other_drug
+          patient: patient, treatable: patient, drug: other_drug
         )
       end
 
       subject(:query) do
-        TreatableMedicationsQuery.new(
-          treatable: treatable,
+        MedicationsQuery.new(
+          relation: patient.medications,
           search_params: { drug_drug_types_id_eq: target_drug_type.id }
         )
       end

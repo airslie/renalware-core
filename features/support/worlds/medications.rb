@@ -35,14 +35,14 @@ module World
       #
       def view_medications_for(_clinician, patient)
         current_medications =
-          ::Renalware::Medications::TreatableMedicationsQuery
-          .new(treatable: patient)
+          ::Renalware::Medications::MedicationsQuery
+          .new(relation: patient.medications.current)
           .call
           .includes(:drug)
 
         historical_medications =
-          ::Renalware::Medications::TreatableHistoricalMedicationsQuery
-          .new(treatable: patient)
+          ::Renalware::Medications::MedicationsQuery
+          .new(relation: patient.medications)
           .call
           .includes(:drug)
 
