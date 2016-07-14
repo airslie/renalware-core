@@ -8,7 +8,7 @@ module Renalware
     def show
       @events = Events::Event.for_patient(@patient)
       @problems = @patient.problems.ordered
-      @medications = @patient.medications.ordered
+      @medications = @patient.medications.current.ordered
     end
   end
 end
