@@ -1497,7 +1497,8 @@ CREATE TABLE medications (
     start_date date NOT NULL,
     end_date date,
     provider integer NOT NULL,
-    deleted_at timestamp without time zone,
+    state character varying DEFAULT 'current'::character varying NOT NULL,
+    terminated_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     created_by_id integer NOT NULL,
@@ -4662,10 +4663,10 @@ CREATE INDEX index_medications_on_created_by_id ON medications USING btree (crea
 
 
 --
--- Name: index_medications_on_deleted_at; Type: INDEX; Schema: public; Owner: -
+-- Name: index_medications_on_terminated_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_medications_on_deleted_at ON medications USING btree (deleted_at);
+CREATE INDEX index_medications_on_terminated_at ON medications USING btree (terminated_at);
 
 
 --

@@ -2,7 +2,7 @@
   table[class="auto-layout" id="#{id}"]
     thead
       tr
-        - unless medications.first.deleted?
+        - if medications.first.current?
           th
         th= sort_link_if(treatable.sortable?, search, :drug_name, "Medication")
         th Drug Type
@@ -18,7 +18,7 @@
     tbody
       - medications.each do |medication|
         tr
-          - unless medication.deleted?
+          - if medication.current?
             td
               = link_to "Edit", edit_patient_medication_path(patient, medication), remote: true
               = pipe_separator
@@ -34,6 +34,6 @@
           td= I18n.l medication.start_date
           td= medication.created_by.full_name
           - if include_terminated_column
-            td= I18n.l medication.deleted_on
+            td= I18n.l medication.terminated_on
 - else
   p There are no medications in this list.

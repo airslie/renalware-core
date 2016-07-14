@@ -14,11 +14,11 @@ module Renalware
       end
 
       def search
-        treatable_medications.search(@search_params)
+        @search ||= treatable_medications.search(@search_params)
       end
 
       def treatable_medications
-        @treatable.medications
+        @treatable.medications.current
       end
 
       private

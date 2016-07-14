@@ -48,20 +48,6 @@ module Renalware
     describe "#update" do
       let(:user) { create(:user) }
 
-      context "given _destroy is specified within nested attributes" do
-        let(:medication) { FactoryGirl.create(:medication, patient: subject) }
-        let(:medication_attributes) do
-          {"0" => { id: medication.id, dose: "a lot", _destroy: "1" } }
-        end
-
-        it "soft deletes the associated record" do
-          subject.update(medications_attributes: medication_attributes, by: user)
-
-          expect(subject.medications.with_deleted.first).to eq(medication)
-          expect(subject.medications.with_deleted.first.deleted_at).not_to be nil
-        end
-      end
-
       context "given #died_on is specified" do
         subject!{ create(:patient) }
 

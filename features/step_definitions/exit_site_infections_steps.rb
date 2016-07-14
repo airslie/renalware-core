@@ -85,7 +85,7 @@ Given(/^Patty is being treated for an exit site infection$/) do
     starts_on: "10-10-2015",
     provider: "GP",
     drug_selector: exit_site_infection_drug_selector,
-    deleted_at: nil
+    terminated_at: nil
   )
 end
 

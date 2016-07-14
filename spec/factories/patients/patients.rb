@@ -27,21 +27,5 @@ FactoryGirl.define do
     before(:create) do |patient|
       patient.build_current_address(attributes_for(:address))
     end
-
-    trait :with_problems do
-      after(:create) do |patient|
-        3.times { create(:problem, patient: patient) }
-      end
-    end
-    trait :with_meds do
-      after(:create) do |patient|
-        3.times { patient.medications << create(:medication, by: patient.created_by) }
-      end
-    end
-    trait :with_clinic_visits do
-      after(:create) do |patient|
-        3.times { |n| create(:clinic_visit, patient: patient, date: n.days.ago) }
-      end
-    end
   end
 end
