@@ -17,7 +17,7 @@ module Renalware
     validates :dose, presence: true
     validates :medication_route, presence: true
     validates :frequency, presence: true
-    validates :start_date, presence: true
+    validates :prescribed_on, presence: true
     validates :provider, presence: true
     validate :constrain_route_description
 
@@ -28,7 +28,7 @@ module Renalware
     scope :terminated, -> { where(state: "terminated") }
 
     def self.default_search_order
-      "start_date desc"
+      "prescribed_on desc"
     end
 
     def self.peritonitis
@@ -39,20 +39,10 @@ module Renalware
       self.new(treatable_type: 'Renalware::ExitSiteInfection')
     end
 
-    def formatted
-      [].tap { |ary|
-        ary << drug.name if drug.present?
-        ary << dose
-        ary << medication_route.name if medication_route.present?
-        ary << frequency
-        ary << start_date
-      }.compact.join(", ")
-    end
-
     def terminate(by:)
       self.by = by
       self.state = "terminated"
-      self.terminated_at = Time.zone.now
+      self.terminated_on = Date.current
       self
     end
 

@@ -9,11 +9,10 @@ class CreateMedications < ActiveRecord::Migration
       t.string :route_description
       t.string :frequency,             null: false
       t.text :notes
-      t.date :start_date,              null: false
-      t.date :end_date
+      t.date :prescribed_on,              null: false
+      t.date :terminated_on
       t.integer :provider,             null: false
       t.string :state, null: false, default: "current"
-      t.datetime :terminated_at
       t.timestamps null: false
     end
   end

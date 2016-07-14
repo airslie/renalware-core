@@ -5,9 +5,9 @@ Given(/^Patty has a recorded medication|Patty has current medications$/) do
     dose: "100 ml",
     route_code: "PO",
     frequency: "once a day",
-    starts_on: "10-10-2015",
+    prescribed_on: "10-10-2015",
     provider: "GP",
-    terminated_at: nil
+    terminated_on: nil
   )
 end
 
@@ -19,9 +19,9 @@ Given(/^Patty has medications:$/) do |table|
       dose: row[:dose],
       route_code: row[:route_code],
       frequency: row[:frequency],
-      starts_on: Time.now - 1.month,
+      prescribed_on: Time.now - 1.month,
       provider: row[:provider],
-      terminated_at: row[:terminated_on]
+      terminated_on: row[:terminated_on]
     )
   end
 end
@@ -34,9 +34,9 @@ When(/^Clyde records the medication for Patty$/) do
     dose: "100 ml",
     route_code: "PO",
     frequency: "once a day",
-    starts_on: "10-10-2015",
+    prescribed_on: "10-10-2015",
     provider: "GP",
-    terminated_at: nil
+    terminated_on: nil
   )
 end
 

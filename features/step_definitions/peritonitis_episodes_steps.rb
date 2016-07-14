@@ -17,10 +17,10 @@ Given(/^Patty is being treated for a peritonitis episode$/) do
     dose: "100 ml",
     route_code: "PO",
     frequency: "once a day",
-    starts_on: "10-10-2015",
+    prescribed_on: "10-10-2015",
     provider: "GP",
     drug_selector: peritonitis_episode_drug_selector,
-    terminated_at: nil
+    terminated_on: nil
   )
 end
 
@@ -47,7 +47,7 @@ Given(/^recorded the medication for the episode$/) do
     dose: "100 ml",
     route_code: "PO",
     frequency: "once a day",
-    starts_on: "10-10-2015",
+    prescribed_on: "10-10-2015",
     provider: "GP",
     drug_selector: peritonitis_episode_drug_selector
   )
@@ -76,7 +76,7 @@ When(/^records the medication for the episode$/) do
     dose: "100 ml",
     route_code: "PO",
     frequency: "once a day",
-    starts_on: "10-10-2015",
+    prescribed_on: "10-10-2015",
     provider: "GP",
     drug_selector: peritonitis_episode_drug_selector
   )

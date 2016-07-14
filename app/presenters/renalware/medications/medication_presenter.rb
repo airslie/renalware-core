@@ -11,10 +11,6 @@ module Renalware
         drug.drug_types.map(&:name).join(", ")
       end
 
-      def terminated_on
-        terminated_at.try!(:to_date)
-      end
-
       def provider
         ::I18n.t(super, scope: "enums.provider")
       end
