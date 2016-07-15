@@ -1,5 +1,5 @@
-Given(/^Patty has a recorded medication|Patty has current medications$/) do
-  seed_medication_for(
+Given(/^Patty has a recorded prescription|Patty has current prescriptions$/) do
+  seed_prescription_for(
     patient: @patty,
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
@@ -11,9 +11,9 @@ Given(/^Patty has a recorded medication|Patty has current medications$/) do
   )
 end
 
-Given(/^Patty has medications:$/) do |table|
+Given(/^Patty has the following prescriptions:$/) do |table|
   table.hashes.each do |row|
-    seed_medication_for(
+    seed_prescription_for(
       patient: @patty,
       drug_name: row[:drug_name],
       dose: row[:dose],
@@ -26,8 +26,8 @@ Given(/^Patty has medications:$/) do |table|
   end
 end
 
-When(/^Clyde records the medication for Patty$/) do
-  record_medication_for_patient(
+When(/^Clyde records the prescription for Patty$/) do
+  record_prescription_for_patient(
     user: @clyde,
     patient: @patty,
     drug_name: "Ciprofloxacin Infusion",
@@ -40,35 +40,35 @@ When(/^Clyde records the medication for Patty$/) do
   )
 end
 
-When(/^Clyde views the list of medications for Patty$/) do
-  @current_medications, @historical_medications = view_medications_for(@clyde, @patty)
+When(/^Clyde views the list of prescriptions for Patty$/) do
+  @current_prescriptions, @historical_prescriptions = view_prescriptions_for(@clyde, @patty)
 end
 
-Then(/^the medication is recorded for Patty$/) do
-  expect_medication_to_be_recorded(patient: @patty)
+Then(/^the prescription is recorded for Patty$/) do
+  expect_prescription_to_be_recorded(patient: @patty)
 end
 
-Then(/^Clyde can revise the medication$/) do
-  revise_medication_for(
+Then(/^Clyde can revise the prescription$/) do
+  revise_prescription_for(
     patient: @patty,
     user: @clyde,
     drug_name: "Cefuroxime Injection"
   )
 
-  expect_medication_to_be_revised(patient: @patty)
+  expect_prescription_to_be_revised(patient: @patty)
 end
 
-Then(/^Clyde can terminate the medication for the patient$/) do
-  terminate_medication_for(
+Then(/^Clyde can terminate the prescription for the patient$/) do
+  terminate_prescription_for(
     patient: @patty,
     user: @clyde
   )
 end
 
-Then(/^Clyde should see these current medications$/) do |table|
-  expect_current_medications_to_match(@current_medications, table.hashes)
+Then(/^Clyde should see these current prescriptions$/) do |table|
+  expect_current_prescriptions_to_match(@current_prescriptions, table.hashes)
 end
 
-Then(/^Clyde should see these historical medications$/) do |table|
-  expect_current_medications_to_match(@historical_medications, table.hashes)
+Then(/^Clyde should see these historical prescriptions$/) do |table|
+  expect_current_prescriptions_to_match(@historical_prescriptions, table.hashes)
 end

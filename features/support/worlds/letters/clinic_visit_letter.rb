@@ -90,12 +90,12 @@ module World
         expect(letter).to be_present
       end
 
-      def expect_letter_to_list_current_medications(patient:)
+      def expect_letter_to_list_current_prescriptions(patient:)
         visit = clinic_visit_for(patient)
         letter = clinic_visit_letter_for(visit)
 
         letter = Renalware::Letters::LetterPresenterFactory.new(letter)
-        expect(letter.part_for(:current_medications)).to be_present
+        expect(letter.part_for(:current_prescriptions)).to be_present
       end
 
       def expect_letter_to_list_clinical_observations(patient:)
@@ -155,12 +155,12 @@ module World
         end
       end
 
-      def expect_letter_to_list_current_medications(patient:)
+      def expect_letter_to_list_current_prescriptions(patient:)
         visit patient_clinic_visits_path(patient)
         click_on "Preview Letter"
 
-        patient.medications.each do |medication|
-          expect(page.body).to include(medication.drug.name)
+        patient.prescriptions.each do |prescription|
+          expect(page.body).to include(prescription.drug.name)
         end
       end
 

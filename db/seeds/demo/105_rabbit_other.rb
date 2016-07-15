@@ -139,9 +139,9 @@ module Renalware
     end
   end
 
-  log '--------------------Adding Medications for Roger RABBIT-------------------'
+  log '--------------------Adding Prescriptions for Roger RABBIT-------------------'
   barts_doc = User.find_by!(username: "bartsdoc")
-  Medication.create([
+  Prescription.create([
     {
       patient_id: 1, drug_id: 986, treatable_id: 1, treatable_type: "Renalware::Patient",
       dose: "50 mg", medication_route_id: 1, frequency: "bd for 7 days", prescribed_on: "2015-09-13",

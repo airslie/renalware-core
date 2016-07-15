@@ -1,10 +1,10 @@
 module Renalware
   class MedicationRoute < ActiveRecord::Base
-    has_many :medications
-    has_many :patients, through: :medications
-    has_many :exit_site_infections, through: :medications,
+    has_many :prescriptions
+    has_many :patients, through: :prescriptions
+    has_many :exit_site_infections, through: :prescriptions,
       source: :treatable, source_type: "ExitSiteInfection"
-    has_many :peritonitis_episodes, through: :medications,
+    has_many :peritonitis_episodes, through: :prescriptions,
       source: :treatable, source_type: "PeritonitisEpisode"
 
     def other?

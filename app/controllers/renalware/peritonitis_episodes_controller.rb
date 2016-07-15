@@ -6,9 +6,9 @@ module Renalware
     before_action :load_peritonitis_episode, :only => [:show, :edit, :update]
 
     def show
-      @medications = present(
-        @peritonitis_episode.medications.ordered,
-        Medications::MedicationPresenter
+      @prescriptions = present(
+        @peritonitis_episode.prescriptions.ordered,
+        Medications::PrescriptionPresenter
       )
       @treatable = present(@peritonitis_episode, Medications::TreatablePresenter)
     end

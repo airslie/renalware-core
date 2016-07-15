@@ -1445,85 +1445,6 @@ ALTER SEQUENCE medication_routes_id_seq OWNED BY medication_routes.id;
 
 
 --
--- Name: medication_versions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE medication_versions (
-    id integer NOT NULL,
-    item_type character varying NOT NULL,
-    item_id integer NOT NULL,
-    event character varying NOT NULL,
-    whodunnit character varying,
-    object jsonb,
-    object_changes jsonb,
-    created_at timestamp without time zone
-);
-
-
---
--- Name: medication_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE medication_versions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: medication_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE medication_versions_id_seq OWNED BY medication_versions.id;
-
-
---
--- Name: medications; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE medications (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    drug_id integer NOT NULL,
-    treatable_id integer NOT NULL,
-    treatable_type character varying NOT NULL,
-    dose character varying NOT NULL,
-    medication_route_id integer NOT NULL,
-    route_description character varying,
-    frequency character varying NOT NULL,
-    notes text,
-    prescribed_on date NOT NULL,
-    terminated_on date,
-    provider integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL
-);
-
-
---
--- Name: medications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE medications_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: medications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE medications_id_seq OWNED BY medications.id;
-
-
---
 -- Name: modality_descriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2272,6 +2193,85 @@ CREATE SEQUENCE prd_descriptions_id_seq
 --
 
 ALTER SEQUENCE prd_descriptions_id_seq OWNED BY prd_descriptions.id;
+
+
+--
+-- Name: prescription_versions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE prescription_versions (
+    id integer NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: prescription_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE prescription_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: prescription_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE prescription_versions_id_seq OWNED BY prescription_versions.id;
+
+
+--
+-- Name: prescriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE prescriptions (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    drug_id integer NOT NULL,
+    treatable_id integer NOT NULL,
+    treatable_type character varying NOT NULL,
+    dose character varying NOT NULL,
+    medication_route_id integer NOT NULL,
+    route_description character varying,
+    frequency character varying NOT NULL,
+    notes text,
+    prescribed_on date NOT NULL,
+    terminated_on date,
+    provider integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL
+);
+
+
+--
+-- Name: prescriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE prescriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: prescriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE prescriptions_id_seq OWNED BY prescriptions.id;
 
 
 --
@@ -3294,20 +3294,6 @@ ALTER TABLE ONLY medication_routes ALTER COLUMN id SET DEFAULT nextval('medicati
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY medication_versions ALTER COLUMN id SET DEFAULT nextval('medication_versions_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY medications ALTER COLUMN id SET DEFAULT nextval('medications_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY modality_descriptions ALTER COLUMN id SET DEFAULT nextval('modality_descriptions_id_seq'::regclass);
 
 
@@ -3449,6 +3435,20 @@ ALTER TABLE ONLY practices ALTER COLUMN id SET DEFAULT nextval('practices_id_seq
 --
 
 ALTER TABLE ONLY prd_descriptions ALTER COLUMN id SET DEFAULT nextval('prd_descriptions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY prescription_versions ALTER COLUMN id SET DEFAULT nextval('prescription_versions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY prescriptions ALTER COLUMN id SET DEFAULT nextval('prescriptions_id_seq'::regclass);
 
 
 --
@@ -3904,22 +3904,6 @@ ALTER TABLE ONLY medication_routes
 
 
 --
--- Name: medication_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY medication_versions
-    ADD CONSTRAINT medication_versions_pkey PRIMARY KEY (id);
-
-
---
--- Name: medications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY medications
-    ADD CONSTRAINT medications_pkey PRIMARY KEY (id);
-
-
---
 -- Name: modality_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4085,6 +4069,22 @@ ALTER TABLE ONLY practices
 
 ALTER TABLE ONLY prd_descriptions
     ADD CONSTRAINT prd_descriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: prescription_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY prescription_versions
+    ADD CONSTRAINT prescription_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: prescriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY prescriptions
+    ADD CONSTRAINT prescriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -4647,41 +4647,6 @@ CREATE INDEX index_letter_recipients_on_letter_id ON letter_recipients USING btr
 
 
 --
--- Name: index_medication_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_medication_versions_on_item_type_and_item_id ON medication_versions USING btree (item_type, item_id);
-
-
---
--- Name: index_medications_on_created_by_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_medications_on_created_by_id ON medications USING btree (created_by_id);
-
-
---
--- Name: index_medications_on_terminated_on; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_medications_on_terminated_on ON medications USING btree (terminated_on);
-
-
---
--- Name: index_medications_on_treatable_type_and_treatable_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_medications_on_treatable_type_and_treatable_id ON medications USING btree (treatable_type, treatable_id);
-
-
---
--- Name: index_medications_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_medications_on_updated_by_id ON medications USING btree (updated_by_id);
-
-
---
 -- Name: index_modality_modalities_on_description_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4756,6 +4721,41 @@ CREATE INDEX index_patients_on_document ON patients USING gin (document);
 --
 
 CREATE INDEX index_patients_on_updated_by_id ON patients USING btree (updated_by_id);
+
+
+--
+-- Name: index_prescription_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_prescription_versions_on_item_type_and_item_id ON prescription_versions USING btree (item_type, item_id);
+
+
+--
+-- Name: index_prescriptions_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_prescriptions_on_created_by_id ON prescriptions USING btree (created_by_id);
+
+
+--
+-- Name: index_prescriptions_on_terminated_on; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_prescriptions_on_terminated_on ON prescriptions USING btree (terminated_on);
+
+
+--
+-- Name: index_prescriptions_on_treatable_type_and_treatable_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_prescriptions_on_treatable_type_and_treatable_id ON prescriptions USING btree (treatable_type, treatable_id);
+
+
+--
+-- Name: index_prescriptions_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_prescriptions_on_updated_by_id ON prescriptions USING btree (updated_by_id);
 
 
 --
@@ -5029,6 +5029,14 @@ ALTER TABLE ONLY pathology_observation_requests
 
 
 --
+-- Name: fk_rails_0575a86d19; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY prescriptions
+    ADD CONSTRAINT fk_rails_0575a86d19 FOREIGN KEY (medication_route_id) REFERENCES medication_routes(id);
+
+
+--
 -- Name: fk_rails_0aab25a07c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5074,14 +5082,6 @@ ALTER TABLE ONLY access_profiles
 
 ALTER TABLE ONLY exit_site_infections
     ADD CONSTRAINT fk_rails_19e44d1a17 FOREIGN KEY (patient_id) REFERENCES patients(id);
-
-
---
--- Name: fk_rails_1b2a92c9db; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY medications
-    ADD CONSTRAINT fk_rails_1b2a92c9db FOREIGN KEY (medication_route_id) REFERENCES medication_routes(id);
 
 
 --
@@ -5189,14 +5189,6 @@ ALTER TABLE ONLY access_assessments
 
 
 --
--- Name: fk_rails_537ced9729; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY medications
-    ADD CONSTRAINT fk_rails_537ced9729 FOREIGN KEY (drug_id) REFERENCES drugs(id);
-
-
---
 -- Name: fk_rails_568750244e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5226,6 +5218,14 @@ ALTER TABLE ONLY peritonitis_episodes
 
 ALTER TABLE ONLY patients
     ADD CONSTRAINT fk_rails_5b44e541da FOREIGN KEY (ethnicity_id) REFERENCES ethnicities(id);
+
+
+--
+-- Name: fk_rails_5f0f840fd2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY prescriptions
+    ADD CONSTRAINT fk_rails_5f0f840fd2 FOREIGN KEY (drug_id) REFERENCES drugs(id);
 
 
 --
@@ -5298,14 +5298,6 @@ ALTER TABLE ONLY events
 
 ALTER TABLE ONLY transplant_recipient_followups
     ADD CONSTRAINT fk_rails_78dc63040c FOREIGN KEY (operation_id) REFERENCES transplant_recipient_operations(id);
-
-
---
--- Name: fk_rails_827f19d76a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY medications
-    ADD CONSTRAINT fk_rails_827f19d76a FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -5474,6 +5466,14 @@ ALTER TABLE ONLY clinic_visits
 
 ALTER TABLE ONLY hd_sessions
     ADD CONSTRAINT fk_rails_bd995b497c FOREIGN KEY (signed_on_by_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_bede94f0a0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY prescriptions
+    ADD CONSTRAINT fk_rails_bede94f0a0 FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --

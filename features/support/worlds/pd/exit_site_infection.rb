@@ -31,21 +31,21 @@ module World
       def expect_exit_site_infection_to_recorded(patient:)
         exit_site_infection = patient.exit_site_infections.last
         organism = exit_site_infection.infection_organisms.last
-        medication = exit_site_infection.medications.last
+        prescription = exit_site_infection.prescriptions.last
 
         expect(exit_site_infection).to be_present
         expect(organism).to be_present
-        expect(medication).to be_present
+        expect(prescription).to be_present
       end
 
       def expect_exit_site_infections_revisions_recorded(patient:)
         exit_site_infection = patient.exit_site_infections.last!
         organism = exit_site_infection.infection_organisms.last!
-        medication = exit_site_infection.medications.last!
+        prescription = exit_site_infection.prescriptions.last!
 
         expect(exit_site_infection.created_at).not_to eq(exit_site_infection.updated_at)
         expect(organism.created_at).not_to eq(organism.updated_at)
-        expect(medication.created_at).not_to eq(medication.updated_at)
+        expect(prescription.created_at).not_to eq(prescription.updated_at)
       end
     end
 
