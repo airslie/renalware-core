@@ -1497,7 +1497,6 @@ CREATE TABLE medications (
     prescribed_on date NOT NULL,
     terminated_on date,
     provider integer NOT NULL,
-    state character varying DEFAULT 'current'::character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     created_by_id integer NOT NULL,

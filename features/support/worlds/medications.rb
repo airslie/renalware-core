@@ -11,10 +11,6 @@ module World
         Date.parse(time_string)
       end
 
-      def determine_state(terminated_on)
-        terminated_on.present? ? "terminated" : "current"
-      end
-
       # @section seeds
       #
       def seed_medication_for(patient:, treatable: nil, drug_name:, dose:,
@@ -30,7 +26,6 @@ module World
           frequency: frequency,
           prescribed_on: prescribed_on,
           provider: provider.downcase,
-          state: determine_state(terminated_on),
           terminated_on: parse_date_string(terminated_on),
           by: Renalware::SystemUser.find
         )
@@ -40,14 +35,14 @@ module World
       #
       def view_medications_for(_clinician, patient)
         current_medications =
-          ::Renalware::Medications::TreatableMedicationsQuery
-          .new(treatable: patient)
+          ::Renalware::Medications::MedicationsQuery
+          .new(relation: patient.medications.current)
           .call
           .includes(:drug)
 
         historical_medications =
-          ::Renalware::Medications::TreatableHistoricalMedicationsQuery
-          .new(treatable: patient)
+          ::Renalware::Medications::MedicationsQuery
+          .new(relation: patient.medications)
           .call
           .includes(:drug)
 
@@ -150,9 +145,11 @@ module World
         visit patient_medications_path(patient,
           treatable_type: patient.class, treatable_id: patient.id)
 
-        within "#medications" do
+        within "#current-medications" do
           click_on "Edit"
+        end
 
+        within "#medications" do
           drug_selector.call(drug_name)
           click_on "Save"
           wait_for_ajax
@@ -165,7 +162,7 @@ module World
         visit patient_medications_path(patient,
           treatable_type: patient.class, treatable_id: patient.id)
 
-        within "#medications" do
+        within "#current-medications" do
           click_on "Terminate"
           wait_for_ajax
         end

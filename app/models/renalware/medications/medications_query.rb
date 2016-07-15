@@ -2,9 +2,9 @@ require_dependency "renalware/medications"
 
 module Renalware
   module Medications
-    class TreatableMedicationsQuery
-      def initialize(treatable:, search_params: nil)
-        @treatable = treatable
+    class MedicationsQuery
+      def initialize(relation:, search_params: nil)
+        @relation = relation
         @search_params = search_params || {}
         @search_params.reverse_merge!(s: default_search_order)
       end
@@ -14,11 +14,7 @@ module Renalware
       end
 
       def search
-        @search ||= treatable_medications.search(@search_params)
-      end
-
-      def treatable_medications
-        @treatable.medications.current
+        @search ||= @relation.search(@search_params)
       end
 
       private

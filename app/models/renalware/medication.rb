@@ -4,7 +4,7 @@ module Renalware
 
     attr_accessor :drug_select
 
-    has_paper_trail class_name: 'Renalware::MedicationVersion'
+    has_paper_trail class_name: "Renalware::MedicationVersion"
 
     belongs_to :patient
     belongs_to :drug, class_name: "Renalware::Drugs::Drug"
@@ -24,34 +24,34 @@ module Renalware
     enum provider: Provider.codes
 
     scope :ordered, -> { order(default_search_order) }
-    scope :current, -> { where(state: "current") }
-    scope :terminated, -> { where(state: "terminated") }
+    scope :current, -> (date = Date.current) {
+      where("terminated_on IS NULL OR terminated_on >= ?", date)
+    }
 
     def self.default_search_order
       "prescribed_on desc"
     end
 
     def self.peritonitis
-      self.new(treatable_type: 'Renalware::PeritonitisEpisode')
+      self.new(treatable_type: "Renalware::PeritonitisEpisode")
     end
 
     def self.exit_site
-      self.new(treatable_type: 'Renalware::ExitSiteInfection')
+      self.new(treatable_type: "Renalware::ExitSiteInfection")
     end
 
     def terminate(by:)
       self.by = by
-      self.state = "terminated"
       self.terminated_on = Date.current
       self
     end
 
-    def current?
-      self.state == "current"
+    def current?(date=Date.current)
+      self.terminated_on.nil? || self.terminated_on >= date
     end
 
     def terminated?
-      self.state == "terminated"
+      self.terminated_on.present?
     end
 
     private
