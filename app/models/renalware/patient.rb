@@ -25,9 +25,9 @@ module Renalware
     has_many :exit_site_infections
     has_many :peritonitis_episodes
     has_many :problems, class_name: "Problems::Problem"
-    has_many :medications
-    has_many :drugs, through: :medications
-    has_many :medication_routes, through: :medications
+    has_many :prescriptions
+    has_many :drugs, through: :prescriptions
+    has_many :medication_routes, through: :prescriptions
     has_many :modalities, class_name: "Modalities::Modality"
     has_many :modality_descriptions, class_name: "Modalities::Description", through: :modalities, source: :description
     has_many :pd_regimes

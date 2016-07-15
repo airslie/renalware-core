@@ -106,7 +106,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :medications
+      resources :prescriptions
 
       resources :modalities, only: [:new, :create, :index], controller: "modalities/modalities"
       resources :pd_regimes, only: [:new, :create, :edit, :update, :show]

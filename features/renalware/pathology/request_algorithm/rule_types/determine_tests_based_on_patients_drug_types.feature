@@ -12,7 +12,7 @@ Feature: Determining observations required based on patient's drug types
       | type     | id  | operator | value |
       | DrugType | ESA |          |       |
     And Patty is a patient
-    And Patty has medications:
+    And Patty has the following prescriptions:
       | drug_name    | dose   | frequency | route_code | provider | terminated_on |
       | Epoetin Beta | 100 mg | bd        | PO         | Hospital |               |
     When the global pathology algorithm is run for Patty in clinic Access

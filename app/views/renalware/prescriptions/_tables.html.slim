@@ -1,0 +1,20 @@
+b Current
+= render "renalware/prescriptions/table",
+      id: "current-prescriptions",
+      patient: patient,
+      treatable: treatable,
+      prescriptions: current_prescriptions,
+      search: current_search,
+      include_terminated_column: false
+hr
+- if defined? historical_prescriptions
+  b Historical
+  = render "renalware/prescriptions/table",
+      id: "historical-prescriptions",
+      patient: patient,
+      treatable: treatable,
+      prescriptions: historical_prescriptions,
+      search: historical_prescriptions_search,
+      include_terminated_column: true
+.right
+  = link_to "Add Prescription", new_patient_prescription_path(patient, treatable), remote: true, class: %i(button tiny)

@@ -21,10 +21,10 @@ module Renalware
         load_med_routes
       end
 
-      context "medications" do
-        it "can be assigned many medications and organisms/sensitivities" do
+      context "prescriptions" do
+        it "can be assigned many prescriptions and organisms/sensitivities" do
 
-          @medication_one = create(:medication,
+          @prescription_one = create(:prescription,
             patient: @patient,
             drug: @cephradine,
             treatable: @es,
@@ -37,7 +37,7 @@ module Renalware
             by: @user
           )
 
-          @medication_two = create(:medication,
+          @prescription_two = create(:prescription,
             patient: @patient,
             drug: @dicloxacillin,
             treatable: @es,
@@ -53,16 +53,16 @@ module Renalware
           @lymphocytes_sensitivity = @es.infection_organisms.build(organism_code: @lymphocytes, sensitivity: "Sensitive to Lymphocytes.")
           @proteus_sensitivity = @es.infection_organisms.build(organism_code: @proteus, sensitivity: "Sensitive to Proteus.")
 
-          @es.medications << @medication_one
-          @es.medications << @medication_two
+          @es.prescriptions << @prescription_one
+          @es.prescriptions << @prescription_two
 
           @es.save!
           @es.reload
 
-          expect(@es.medications.size).to eq(2)
+          expect(@es.prescriptions.size).to eq(2)
           expect(@es.infection_organisms.size).to eq(2)
 
-          expect(@es.medications).to match_array([@medication_two, @medication_one])
+          expect(@es.prescriptions).to match_array([@prescription_two, @prescription_one])
           expect(@es.infection_organisms).to match_array([@proteus_sensitivity, @lymphocytes_sensitivity])
 
           expect(@es).to be_valid

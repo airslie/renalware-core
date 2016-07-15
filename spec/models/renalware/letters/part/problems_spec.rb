@@ -5,7 +5,7 @@ module Renalware::Letters
     let(:patient) { double(:patient, problems: [:problem]) }
     subject(:part) { Part::Problems.new(patient) }
 
-    it "delegates to the patient's current medications"do
+    it "delegates to the patient's current prescriptions"do
       expect(part.to_a).to match([:problem])
     end
   end
