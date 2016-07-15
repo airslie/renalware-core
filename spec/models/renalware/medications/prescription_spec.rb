@@ -1,7 +1,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe Prescription, :type => :model do
+  RSpec.describe Prescription, type: :model do
     describe "validations" do
       it { should validate_presence_of :patient }
       it { should validate_presence_of :treatable }

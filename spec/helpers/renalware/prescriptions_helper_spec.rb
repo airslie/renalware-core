@@ -1,7 +1,7 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe PrescriptionsHelper, :type => :helper do
+  RSpec.describe PrescriptionsHelper, type: :helper do
     before do
       @patient = FactoryGirl.create(:patient)
       @med_route = FactoryGirl.create(:medication_route)
