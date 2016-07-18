@@ -72,7 +72,7 @@ Rails.application.routes.draw do
 
       resource :clinical_summary, only: :show
       resource :death, only: [:edit, :update]
-      resource :pd_summary, only: :show
+      resource :pd_dashboard, only: :show
 
       resources :apd_regimes, controller: "pd_regimes", type: "ApdRegime"
       resources :capd_regimes, controller: "pd_regimes", type: "CapdRegime"
@@ -106,7 +106,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :medications
+      resources :prescriptions, controller: "medications/prescriptions"
 
       resources :modalities, only: [:new, :create, :index], controller: "modalities/modalities"
       resources :pd_regimes, only: [:new, :create, :edit, :update, :show]

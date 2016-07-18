@@ -24,11 +24,12 @@ module Renalware
       end
 
       def sort_results(results)
-        @descriptions
-          .map do |description|
-            results.detect {|result| result.description_code == description.code }
-          end
-          .compact
+        @descriptions.map { |description| find_result_for_description(results, description) }
+                     .compact
+      end
+
+      def find_result_for_description(results, description)
+        results.detect {|result| result.description_code == description.code }
       end
 
       def present(results)

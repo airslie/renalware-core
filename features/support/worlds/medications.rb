@@ -5,96 +5,94 @@ module World
       #
       def default_medication_drug_selector; end
 
-      def parse_time_string(time_string)
+      def parse_date_string(time_string)
         return nil unless time_string.present?
 
-        Time.parse(time_string)
+        Date.parse(time_string)
       end
 
-      def seed_medication_for(patient:, treatable: nil, drug_name:, dose:,
-        route_code:, frequency:, starts_on:, provider:, deleted_at:, **_)
+      # @section seeds
+      #
+      def seed_prescription_for(patient:, treatable: nil, drug_name:, dose:,
+        route_code:, frequency:, prescribed_on:, provider:, terminated_on:, **_)
         drug = Renalware::Drugs::Drug.find_or_create_by!(name: drug_name)
-        route = Renalware::MedicationRoute.find_by!(code: route_code)
+        route = Renalware::Medications::MedicationRoute.find_by!(code: route_code)
 
-        medication_params = {
+        patient.prescriptions.create!(
           treatable: treatable || patient,
           drug: drug,
           dose: dose,
           medication_route: route,
           frequency: frequency,
-          start_date: starts_on,
-          provider: provider.downcase
-        }
-
-        if deleted_at.present?
-          medication_params[:deleted_at] = parse_time_string(deleted_at)
-        end
-
-        patient.medications.create!(medication_params)
+          prescribed_on: prescribed_on,
+          provider: provider.downcase,
+          terminated_on: parse_date_string(terminated_on),
+          by: Renalware::SystemUser.find
+        )
       end
 
       # @ section commands
       #
-      def view_medications_for(_clinician, patient)
-        current_medications =
-          ::Renalware::Medications::TreatableMedicationsQuery
-          .new(treatable: patient)
+      def view_prescriptions_for(_clinician, patient)
+        current_prescriptions =
+          ::Renalware::Medications::PrescriptionsQuery
+          .new(relation: patient.prescriptions.current)
           .call
           .includes(:drug)
 
-        terminated_medications =
-          ::Renalware::Medications::TreatableTerminatedMedicationsQuery
-          .new(treatable: patient)
+        historical_prescriptions =
+          ::Renalware::Medications::PrescriptionsQuery
+          .new(relation: patient.prescriptions)
           .call
           .includes(:drug)
 
-        [current_medications, terminated_medications]
+        [current_prescriptions, historical_prescriptions]
       end
 
-      def record_medication_for(**args)
-        seed_medication_for(args.merge(deleted_at: nil))
+      def record_prescription_for(**args)
+        seed_prescription_for(args.merge(terminated_on: nil))
       end
 
-      def record_medication_for_patient(user:, **args)
-        record_medication_for(args)
+      def record_prescription_for_patient(user:, **args)
+        record_prescription_for(args)
       end
 
-      def revise_medication_for(patient:, user:, drug_name:,
+      def revise_prescription_for(patient:, user:, drug_name:,
         drug_selector: default_medication_drug_selector)
 
         drug = Renalware::Drugs::Drug.find_by!(name: drug_name)
-        medication = patient.medications.last!
+        prescription = patient.prescriptions.last!
 
-        medication.update!(drug: drug)
+        prescription.update!(drug: drug, by: Renalware::SystemUser.find)
       end
 
-      def terminate_medication_for(patient:, user:)
-        medication = patient.medications.last!
+      def terminate_prescription_for(patient:, user:)
+        prescription = patient.prescriptions.last!
 
-        medication.destroy
-        expect(medication).to be_deleted
+        prescription.terminate(by: user).save!
+        expect(prescription).to be_terminated
       end
 
-      def expect_medication_to_be_recorded(patient:)
-        medication = patient.medications.last!
+      def expect_prescription_to_be_recorded(patient:)
+        prescription = patient.prescriptions.last!
 
-        expect(medication).to be_present
+        expect(prescription).to be_present
       end
 
-      def expect_medication_to_be_revised(patient:)
-        medication = patient.medications.last!
+      def expect_prescription_to_be_revised(patient:)
+        prescription = patient.prescriptions.last!
 
-        expect(medication.created_at).not_to eq(medication.updated_at)
+        expect(prescription.created_at).not_to eq(prescription.updated_at)
       end
 
-      def expect_current_medications_to_match(actual_medications, expected_medications)
-        actual_medications.zip(expected_medications).each do |actual, expected|
+      def expect_current_prescriptions_to_match(actual_prescriptions, expected_prescriptions)
+        actual_prescriptions.zip(expected_prescriptions).each do |actual, expected|
           expect(actual.drug.name).to eq(expected["drug_name"])
           expect(actual.dose).to eq(expected["dose"])
           expect(actual.frequency).to eq(expected["frequency"])
           expect(actual.medication_route.code).to eq(expected["route_code"])
           expect(actual.provider).to eq(expected["provider"].downcase)
-          expect(actual.deleted_at).to eq(parse_time_string(expected["terminated_on"]))
+          expect(actual.terminated_on).to eq(parse_date_string(expected["terminated_on"]))
         end
       end
     end
@@ -113,80 +111,79 @@ module World
 
       # @ section commands
       #
-      def record_medication_for(patient:, treatable: nil, drug_name:, dose:, route_code:,
-        frequency:, starts_on:, provider:,
+      def record_prescription_for(patient:, treatable: nil, drug_name:, dose:, route_code:,
+        frequency:, prescribed_on:, provider:, terminated_on: nil,
         drug_selector: default_medication_drug_selector)
-        click_link "Add Medication"
+        click_link "Add Prescription"
         wait_for_ajax
 
-        within "#new_medication" do
+        within "#new_medications_prescription" do
           drug_selector.call(drug_name)
           fill_in "Dose", with: dose
-          select(route_code, from: "Route")
+          select(route_code, from: "Medication route")
           fill_in "Frequency", with: frequency
-          fill_in "Prescribed on", with: starts_on
+          fill_in "Prescribed on", with: prescribed_on
           click_on "Save"
           wait_for_ajax
         end
       end
 
-      def record_medication_for_patient(user:, patient:, **args)
+      def record_prescription_for_patient(user:, patient:, **args)
         login_as user
 
-        visit patient_medications_path(patient,
+        visit patient_prescriptions_path(patient,
           treatable_type: patient.class, treatable_id: patient.id)
 
-        record_medication_for(patient: patient, **args.except(:deleted_at))
+        record_prescription_for(patient: patient, **args.except(:terminated_on))
       end
 
-      def revise_medication_for(patient:, user:, drug_name:,
+      def revise_prescription_for(patient:, user:, drug_name:,
         drug_selector: default_medication_drug_selector)
 
         login_as user
 
-        visit patient_medications_path(patient,
+        visit patient_prescriptions_path(patient,
           treatable_type: patient.class, treatable_id: patient.id)
 
-        within "#medications" do
+        within "#current-prescriptions" do
           click_on "Edit"
+        end
 
+        within "#prescriptions" do
           drug_selector.call(drug_name)
           click_on "Save"
           wait_for_ajax
         end
       end
 
-      def terminate_medication_for(patient:, user:)
-        login_as user
-
-        visit patient_medications_path(patient,
+      def terminate_perscriptions_path(patient,
           treatable_type: patient.class, treatable_id: patient.id)
 
-        within "#medications" do
+        within "#current-perscriptions" do
           click_on "Terminate"
           wait_for_ajax
         end
 
-        medication = patient.medications.with_deleted.last!
+        perscription = patient.perscriptions.last!
 
-        expect(medication).to be_deleted
+        expect(perscription).to be_terminated
       end
 
-      def view_medications_for(clinician, patient)
+      def view_perscriptions_for(clinician, patient)
         login_as clinician
 
-        visit patient_medications_path(patient,
+        visit patient_perscriptions_path(patient,
           treatable_type: patient.class, treatable_id: patient.id)
 
-        current_medications = html_table_to_array("current_medications").drop(1)
-        terminated_medications = html_table_to_array("terminated_medications").drop(1)
+        current_perscriptions = html_table_to_array("current-perscriptions").drop(1)
+        historical_perscriptions = html_table_to_array("historical-perscriptions").drop(1)
 
-        [current_medications, terminated_medications]
+        [current_perscriptions, historical_perscriptions]
       end
 
-      def expect_current_medications_to_match(actual_medications, expected_medications)
-        actual_medications.zip(expected_medications).each do |actual, expected|
-          expected_route = Renalware::MedicationRoute.find_by!(code: expected[:route_code])
+      def expect_current_perscriptions_to_match(actual_perscriptions, expected_perscriptions)
+        actual_perscriptions.zip(expected_perscriptions).each do |actual, expected|
+          expected_route = Renalware::Medications::MedicationRoute.find_by!(code: expected[:route_code])
 
           expect(actual).to include(expected[:drug_name])
           expect(actual).to include(expected[:dose])

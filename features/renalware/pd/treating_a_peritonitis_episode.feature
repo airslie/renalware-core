@@ -8,7 +8,7 @@ Feature: Treating a peritonitis episode
   Scenario: A clinician treated a peritonitis episode
     When Clyde records a peritonitis episode for Patty
     And records the organism for the episode
-    And records the medication for the episode
+    And records the prescription for the episode
     Then a peritonitis episode is recorded for Patty
 
   @web @javascript
@@ -23,7 +23,7 @@ Feature: Treating a peritonitis episode
     Then Clyde can terminate the organism for the episode
 
   @web @javascript
-  Scenario: A clinician terminated a medication for a peritonitis episode
+  Scenario: A clinician terminated a prescription for a peritonitis episode
     Given Clyde recorded a peritonitis episode for Patty
-    And recorded the medication for the episode
-    Then Clyde can terminate the medication for the episode
+    And recorded the prescription for the episode
+    Then Clyde can terminate the prescription for the episode

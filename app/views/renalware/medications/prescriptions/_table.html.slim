@@ -1,0 +1,39 @@
+- if prescriptions.any?
+  table[class="auto-layout" id="#{id}"]
+    thead
+      tr
+        th
+        th= sort_link_if(treatable.sortable?, search, :drug_name, "Prescription")
+        th Drug Type
+        th Dose
+        th Frequency
+        th Route
+        th Provider
+        th Notes
+        th= sort_link_if(treatable.sortable?, search, :prescribed_on, "Prescribed on")
+        th Prescribed By
+        - if include_terminated_column
+          th Terminated On
+    tbody
+      - prescriptions.each do |prescription|
+        tr
+          td
+            - if prescription.current?
+                = link_to "Edit", edit_patient_prescription_path(patient, prescription), remote: true
+            - unless prescription.terminated?
+                = pipe_separator
+                = link_to "Terminate", patient_prescription_path(patient, prescription), method: :delete,
+                    remote: true, data: { confirm: "Are you sure?" }
+          td= prescription.drug.name
+          td= prescription.drug_types
+          td= prescription.dose
+          td= prescription.frequency
+          td= prescription.route_name
+          td= prescription.provider
+          td= prescription.notes
+          td= I18n.l prescription.prescribed_on
+          td= prescription.created_by.full_name
+          - if include_terminated_column
+            td= I18n.l prescription.terminated_on
+- else
+  p There are no prescriptions in this list.

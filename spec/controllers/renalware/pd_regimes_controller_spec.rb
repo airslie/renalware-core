@@ -51,7 +51,7 @@ module Renalware
             }
           }.to change(PDRegime, :count).by(1)
 
-          expect(response).to redirect_to(patient_pd_summary_path(@patient))
+          expect(response).to redirect_to(patient_pd_dashboard_path(@patient))
         end
       end
 
@@ -132,7 +132,7 @@ module Renalware
             treatment: "CAPD 5 exchanges per day"
           }
 
-          expect(response).to redirect_to(patient_pd_summary_path(@patient))
+          expect(response).to redirect_to(patient_pd_dashboard_path(@patient))
         end
       end
 

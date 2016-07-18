@@ -6,9 +6,9 @@ module Renalware
     before_action :load_exit_site_infection, only: [:show, :edit, :update]
 
     def show
-      @medications = present(
-        @exit_site_infection.medications.ordered,
-        Medications::MedicationPresenter
+      @prescriptions = present(
+        @exit_site_infection.prescriptions.ordered,
+        Medications::PrescriptionPresenter
       )
       @treatable = present(@exit_site_infection, Medications::TreatablePresenter)
     end

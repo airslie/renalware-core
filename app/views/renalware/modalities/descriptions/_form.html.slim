@@ -5,8 +5,7 @@
 .row
   .large-6.columns
     = simple_form_for @modality_description do |f|
-      = f.input :name, label: "Modal Name"
-      = f.input :code, label: "Modal Code"
+      = f.input :name, label: "Name"
 
       = f.button :submit
       span= " or "

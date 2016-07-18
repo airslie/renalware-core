@@ -10,9 +10,10 @@ module Renalware
     describe "exit site infection" do
       before do
         @patient = create(:patient)
-        @es = FactoryGirl.build(:exit_site_infection)
-        @lymphocytes = FactoryGirl.create(:organism_code, name: "Lymphocytes")
-        @proteus = FactoryGirl.create(:organism_code, name: "Proteus")
+        @es = build(:exit_site_infection)
+        @lymphocytes = create(:organism_code, name: "Lymphocytes")
+        @proteus = create(:organism_code, name: "Proteus")
+        @user = create(:user)
 
         load_drugs_by_type('Cephradine' => ['Antibiotic','Peritonitis'],
                            'Dicloxacillin' => ['Antibiotic','Peritonitis'])
@@ -20,10 +21,10 @@ module Renalware
         load_med_routes
       end
 
-      context "medications" do
-        it "can be assigned many medications and organisms/sensitivities" do
+      context "prescriptions" do
+        it "can be assigned many prescriptions and organisms/sensitivities" do
 
-          @medication_one = FactoryGirl.create(:medication,
+          @prescription_one = create(:prescription,
             patient: @patient,
             drug: @cephradine,
             treatable: @es,
@@ -31,11 +32,12 @@ module Renalware
             medication_route: @im,
             frequency: "daily",
             notes: "with food",
-            start_date: "02/03/2015",
-            provider: 1
+            prescribed_on: "02/03/2015",
+            provider: 1,
+            by: @user
           )
 
-          @medication_two = FactoryGirl.create(:medication,
+          @prescription_two = create(:prescription,
             patient: @patient,
             drug: @dicloxacillin,
             treatable: @es,
@@ -43,23 +45,24 @@ module Renalware
             medication_route: @sc,
             frequency: "daily",
             notes: "with food",
-            start_date: "02/03/2015",
-            provider: 1
+            prescribed_on: "02/03/2015",
+            provider: 1,
+            by: @user
           )
 
           @lymphocytes_sensitivity = @es.infection_organisms.build(organism_code: @lymphocytes, sensitivity: "Sensitive to Lymphocytes.")
           @proteus_sensitivity = @es.infection_organisms.build(organism_code: @proteus, sensitivity: "Sensitive to Proteus.")
 
-          @es.medications << @medication_one
-          @es.medications << @medication_two
+          @es.prescriptions << @prescription_one
+          @es.prescriptions << @prescription_two
 
           @es.save!
           @es.reload
 
-          expect(@es.medications.size).to eq(2)
+          expect(@es.prescriptions.size).to eq(2)
           expect(@es.infection_organisms.size).to eq(2)
 
-          expect(@es.medications).to match_array([@medication_two, @medication_one])
+          expect(@es.prescriptions).to match_array([@prescription_two, @prescription_one])
           expect(@es.infection_organisms).to match_array([@proteus_sensitivity, @lymphocytes_sensitivity])
 
           expect(@es).to be_valid

@@ -4,7 +4,7 @@ module Renalware
   module HD
     RSpec.describe SessionFactory, type: :model do
       let(:user) { create(:user, :admin) }
-      let(:patient) { create(:patient) }
+      let(:patient) { create(:hd_patient) }
 
       subject { SessionFactory.new(patient: patient, user: user) }
 

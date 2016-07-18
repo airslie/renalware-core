@@ -139,12 +139,29 @@ module Renalware
     end
   end
 
-  log '--------------------Adding Medications for Roger RABBIT-------------------'
-  Medication.create([
-    {patient_id: 1, drug_id: 986, treatable_id: 1, treatable_type: "Renalware::Patient", dose: "50 mg", medication_route_id: 1, frequency: "bd for 7 days", start_date: "2015-09-13", end_date: "2015-09-20", provider: 0},
-    {patient_id: 1, drug_id: 183, treatable_id: 1, treatable_type: "Renalware::Patient", dose: "25 mg", medication_route_id: 1, frequency: "nocte", start_date: "2014-10-10", end_date: nil, provider: 0},
-    {patient_id: 1, drug_id: 269, treatable_id: 1, treatable_type: "Renalware::Patient", dose: "100 mg", medication_route_id: 1, frequency: "bd", start_date: "2015-06-16", end_date: nil, provider: 0},
-    {patient_id: 1, drug_id: 126, treatable_id: 1, treatable_type: "Renalware::PeritonitisEpisode", dose: "100 mg", medication_route_id: 1, frequency: "tid for 7d", start_date: "2015-09-14", end_date: "2015-09-21", provider: 0}
+  log '--------------------Adding Prescriptions for Roger RABBIT-------------------'
+  barts_doc = User.find_by!(username: "bartsdoc")
+  Prescription.create([
+    {
+      patient_id: 1, drug_id: 986, treatable_id: 1, treatable_type: "Renalware::Patient",
+      dose: "50 mg", medication_route_id: 1, frequency: "bd for 7 days", prescribed_on: "2015-09-13",
+      terminated_on: "2015-09-20", provider: 0, by: barts_doc
+    },
+    {
+      patient_id: 1, drug_id: 183, treatable_id: 1, treatable_type: "Renalware::Patient",
+      dose: "25 mg", medication_route_id: 1, frequency: "nocte", prescribed_on: "2014-10-10",
+      terminated_on: nil, provider: 0, by: barts_doc
+    },
+    {
+      patient_id: 1, drug_id: 269, treatable_id: 1, treatable_type: "Renalware::Patient",
+      dose: "100 mg", medication_route_id: 1, frequency: "bd", prescribed_on: "2015-06-16",
+      terminated_on: nil, provider: 0, by: barts_doc
+    },
+    {
+      patient_id: 1, drug_id: 126, treatable_id: 1, treatable_type: "Renalware::PeritonitisEpisode",
+      dose: "100 mg", medication_route_id: 1, frequency: "tid for 7d",
+      prescribed_on: "2015-09-21", provider: 0, by: barts_doc
+    }
   ])
 
   log '--------------------Adding Renal Profile for Roger RABBIT-------------------'
@@ -167,21 +184,21 @@ module Renalware
 
   log '--------------------Assign Live Donor modality to Jessica RABBIT-------------------'
   patient = Patient.find_by(local_patient_id: "Z100002")
-  description = Modalities::Description.find_by(code: "livedonor")
+  description = Transplants::DonorModalityDescription.first!
   patient.set_modality(description: description, started_on: 1.month.ago)
 
   log '--------------------Assign Unit HD modality to Francois RABBIT-------------------'
   patient = Patient.find_by(local_patient_id: "Z100003")
-  description = Modalities::Description.find_by(code: "HD_unit")
+  description = HD::ModalityDescription.first!
   patient.set_modality(description: description, started_on: 1.week.ago)
 
   log '--------------------Assign some HD preferences to Francois RABBIT-------------------'
-  preference_set = HD::PreferenceSet.find_or_initialize_by(patient: patient)
+  preference_set = HD::PreferenceSet.find_or_initialize_by(patient: HD.cast_patient(patient))
   preference_set.attributes = { schedule: "mon_wed_fri_am", entered_on: 1.week.ago.to_date, by: User.first }
   preference_set.save!
 
   log '--------------------Assign an HD profile to Francois RABBIT-------------------'
-  profile = HD::Profile.find_or_initialize_by(patient: patient)
+  profile = HD::Profile.find_or_initialize_by(patient: HD.cast_patient(patient))
   profile.attributes = {
     by: User.first,
     hospital_unit: Hospitals::Unit.hd_sites.first,
@@ -240,7 +257,7 @@ module Renalware
   end_times = ["15:30", "15:45", "16:00"]
   20.times do |i|
     session = HD::Session.new(
-      patient: patient,
+      patient: HD.cast_patient(patient),
       hospital_unit: units.sample,
       performed_on: (i*2).days.ago,
       start_time: start_times.sample,

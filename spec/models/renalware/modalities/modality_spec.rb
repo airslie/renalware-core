@@ -85,8 +85,8 @@ module Renalware
         expect(subject.ended_on).to eq(started_on)
       end
 
-      it "soft deletes the current modality" do
-        expect(subject.deleted_at).not_to be_nil
+      it "terminates the modality" do
+        expect(subject).to be_terminated
       end
 
       it "creates a valid modality" do

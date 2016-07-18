@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :medication_route, class: "Renalware::MedicationRoute" do
+  factory :medication_route, class: "Renalware::Medications::MedicationRoute" do
     code "PO"
     name "Per Oral"
   end
