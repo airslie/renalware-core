@@ -3,7 +3,9 @@ require "rails_helper"
 RSpec.describe "patient_rules Requests", type: :request do
   let!(:patient) { create(:pathology_patient) }
   let!(:lab) { create(:pathology_lab) }
-  let!(:patient_rule) { create(:pathology_request_algorithm_patient_rule, patient: patient, lab: lab) }
+  let!(:patient_rule) do
+    create(:pathology_request_algorithm_patient_rule, patient: patient, lab: lab)
+  end
   let!(:clinic) { create(:clinic) }
 
   describe "GET new" do
