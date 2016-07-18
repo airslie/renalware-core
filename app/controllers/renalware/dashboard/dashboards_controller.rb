@@ -7,10 +7,18 @@ module Renalware
 
       def show
         letters = find_letters
-        render :show, locals: { user: current_user, letters: present_letters(letters) }
+        render :show, locals: {
+          user: current_user,
+          letters: present_letters(letters),
+          bookmarks: find_bookmarks
+        }
       end
 
       private
+
+      def find_bookmarks
+        Patients.cast_user(current_user).bookmarks
+      end
 
       def find_letters
         author.letters.pending.reverse

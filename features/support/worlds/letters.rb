@@ -1,7 +1,7 @@
 module World
   module Letters
     def letters_patient(patient)
-      ActiveType.cast(patient, Renalware::Letters::Patient)
+     Renalware::Letters.cast_patient(patient)
     end
   end
 end

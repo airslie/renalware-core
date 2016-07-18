@@ -7,7 +7,7 @@ module Renalware
 
     before do
       @edta_code = FactoryGirl.create(:edta_code)
-      @modality_description = FactoryGirl.create(:modality_description, :death)
+      @modality_description = FactoryGirl.create(:death_modality_description)
       @patient_modality = FactoryGirl.create(:modality,
         patient_id: subject.id, description: @modality_description)
     end

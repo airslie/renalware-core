@@ -20,9 +20,11 @@ module World
         }
       end
 
-      # @section set-ups
+      # @section seeding
       #
-      def set_up_recipient_operation(patient)
+      def seed_recipient_operation(patient)
+        patient = transplant_patient(patient)
+
         Renalware::Transplants::RecipientOperation.create!(
           valid_recipient_operation_attributes.merge(
             patient: patient,
@@ -33,6 +35,8 @@ module World
       # @section commands
       #
       def create_recipient_operation(patient:, user:, performed_on:)
+        patient = transplant_patient(patient)
+
         Renalware::Transplants::RecipientOperation.create(
           valid_recipient_operation_attributes.merge(
             patient: patient,

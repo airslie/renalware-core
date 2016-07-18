@@ -1,4 +1,4 @@
-require_dependency "renalware"
+require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
@@ -8,7 +8,7 @@ module Renalware
       def initialize(patient, options)
         @patient = patient
         @clinic = options.clinic
-        @consultant = options.user
+        @consultant = options.consultant
         @telephone = options.telephone
       end
 
@@ -50,6 +50,7 @@ module Renalware
         @patient_requests_by_lab ||=
           @patient
             .required_patient_pathology
+            .map { |patient_rule| PatientRulePresenter.new(patient_rule) }
             .group_by { |patient_rule| patient_rule.lab.name }
       end
 

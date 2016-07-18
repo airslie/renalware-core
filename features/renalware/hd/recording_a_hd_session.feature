@@ -8,7 +8,7 @@ Feature: Recording a HD session
   Background:
     Given Nathalie is a nurse
     And Patty is a patient
-    And Patty has a HD profile
+    And Patty has a recorded HD profile
 
   @web
   Scenario: A nurse recorded the pre-session observations
@@ -17,7 +17,7 @@ Feature: Recording a HD session
 
   @web
   Scenario: A nurse updated the HD session of a patient
-    Given Patty has a HD session
+    Given Patty has a recorded HD session
     Then Nathalie can update Patty's HD session
 
   @web

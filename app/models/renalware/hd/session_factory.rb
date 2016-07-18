@@ -35,7 +35,7 @@ module Renalware
       end
 
       def set_default_access(session)
-        accesses_patient = ActiveType.cast(patient, Renalware::Accesses::Patient)
+        accesses_patient = Renalware::Accesses.cast_patient(patient)
         if (profile = accesses_patient.current_profile)
           session.document.info.access_type = profile.type.name
           session.document.info.access_site = profile.site.name

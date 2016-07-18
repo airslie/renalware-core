@@ -4,6 +4,8 @@ module World
       # @section helpers
       #
       def hd_profile_for(patient)
+        patient = hd_patient(patient)
+
         Renalware::HD::Profile.for_patient(patient).first_or_initialize
       end
 
@@ -18,9 +20,11 @@ module World
         }
       end
 
-      # @section set-ups
+      # @section seeding
       #
-      def set_up_hd_profile_for(patient, prescriber:)
+      def seed_hd_profile_for(patient, prescriber:)
+        patient = hd_patient(patient)
+
         Renalware::HD::Profile.create!(
           valid_profile_attributes.merge(
             patient: patient,
@@ -33,6 +37,8 @@ module World
       # @section commands
       #
       def create_hd_profile(user: nil, patient:, prescriber:)
+        patient = hd_patient(patient)
+
         Renalware::HD::Profile.create(
           valid_profile_attributes.merge(
             patient: patient,

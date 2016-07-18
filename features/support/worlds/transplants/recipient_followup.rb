@@ -14,9 +14,9 @@ module World
         }
       end
 
-      # @section set-ups
+      # @section seeding
       #
-      def set_up_recipient_followup(operation)
+      def seed_recipient_followup(operation)
         Renalware::Transplants::RecipientFollowup.create!(
           valid_recipient_followup_attributes.merge(
             operation: operation

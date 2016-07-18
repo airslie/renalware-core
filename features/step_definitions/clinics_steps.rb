@@ -4,7 +4,7 @@ Given(/^Clinics$/) do |clinics|
   end
 end
 
-Given(/^Patty has a clinic visit$/) do
+Given(/^Patty has a recorded clinic visit$/) do
   @clinic_visit = create_clinic_visit(@patty, Renalware::User.first)
 end
 

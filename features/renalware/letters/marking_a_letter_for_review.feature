@@ -11,6 +11,6 @@ Feature: Marking a letter for review
     And Doug is Patty's doctor
 
   Scenario: A nurse marked the letter typed
-    Given Patty has a letter
+    Given Patty has a recorded letter
     When Nathalie marks the letter typed
     Then Doug can review the letter

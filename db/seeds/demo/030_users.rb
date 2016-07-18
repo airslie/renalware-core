@@ -40,6 +40,7 @@ module Renalware
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :clinician)]
         u.signature = "Dr #{site}"
+        u.telephone = Faker::PhoneNumber.phone_number
       end
     log "---#{username} created!"
 
@@ -69,4 +70,17 @@ module Renalware
       end
     log "---#{username} created!"
   end
+  #for BLT demo use
+    username = "stanfan"
+      Renalware::User.find_or_create_by!(username: username) do |u|
+        u.given_name = 'Stanley'
+        u.family_name = 'Fan'
+        u.email = 'Fan.Stanley@bartsandthelondon.nhs.uk'
+        u.password = 'neverforget'
+        u.approved = true
+        u.roles = [Renalware::Role.find_by!(name: :super_admin)]
+        u.signature = 'Dr Stanley Fan'
+      end
+    log "---#{username} created!"
+
 end

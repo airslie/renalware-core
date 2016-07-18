@@ -5,6 +5,10 @@ FactoryGirl.define do
     association :reason, factory: :modality_reason
     started_on Date.parse("2015-04-01")
 
+    trait :terminated do
+      state "terminated"
+    end
+
     trait :pd_to_haemo do
       after(:create) do |instance|
         instance.reason = create(:pd_to_haemodialysis)

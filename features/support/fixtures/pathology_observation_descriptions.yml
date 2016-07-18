@@ -46,6 +46,10 @@ CK:
   code: "CK"
   name: "CK"
 
+CRCL:
+  code: "CRCL"
+  name: "Creatinine Clearance"
+
 CRE:
   code: "CRE"
   name: "Creatinine"

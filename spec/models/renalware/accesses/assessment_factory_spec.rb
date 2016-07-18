@@ -4,7 +4,7 @@ module Renalware
   module Accesses
     RSpec.describe AssessmentFactory, type: :model do
       let(:user) { create(:user, :admin) }
-      let(:patient) { ActiveType.cast(create(:patient), Accesses::Patient) }
+      let(:patient) { Accesses.cast_patient(create(:patient)) }
 
       subject { AssessmentFactory.new(patient: patient) }
 

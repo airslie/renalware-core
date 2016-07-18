@@ -11,7 +11,7 @@ Feature: Determining observations required based on patient rules
   Scenario Outline:
 
     Given Patty is a patient
-    And Patty has a patient rule:
+    And Patty has a recorded patient rule:
       | lab                   | Biochemistry        |
       | test_description      | Test for HepB       |
       | frequency_type        | <frequency_type>    |

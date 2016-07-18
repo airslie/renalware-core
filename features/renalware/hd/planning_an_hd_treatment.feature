@@ -14,7 +14,7 @@ Feature: Planning an HD treatment
 
   @web
   Scenario: A clinician updated the HD preferences of a patient
-    Given Patty has HD preferences
+    Given Patty has recorded HD preferences
     Then Clyde can update Patty's HD preferences
 
   @web
@@ -24,7 +24,7 @@ Feature: Planning an HD treatment
 
   @web
   Scenario: A clinician udpated the HD profile of a patient
-    Given Patty has a HD profile
+    Given Patty has a recorded HD profile
     Then Clyde can update Patty's HD profile
 
   @web

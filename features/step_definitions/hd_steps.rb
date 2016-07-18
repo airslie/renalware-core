@@ -1,21 +1,21 @@
-Given(/^Patty has HD preferences$/) do
-  set_up_hd_preferences_for(@patty, user: @clyde)
+Given(/^Patty has recorded HD preferences$/) do
+  seed_hd_preferences_for(@patty, user: @clyde)
 end
 
-Given(/^Patty has a HD profile$/) do
-  set_up_hd_profile_for(@patty, prescriber: Renalware::User.first)
+Given(/^Patty has a recorded HD profile$/) do
+  seed_hd_profile_for(@patty, prescriber: Renalware::User.first)
 end
 
-Given(/^Patty has a HD session$/) do
-  set_up_hd_session_for(@patty, user: Renalware::User.first)
+Given(/^Patty has a recorded HD session$/) do
+  seed_hd_session_for(@patty, user: Renalware::User.first)
 end
 
-Given(/^Patty has a dry weight entry$/) do
-  set_up_hd_dry_weight_for(@patty, @clyde)
+Given(/^Patty has a recorded dry weight entry$/) do
+  seed_hd_dry_weight_for(@patty, @clyde)
 end
 
 Given(/^These patients have these HD sessions$/) do |table|
-  set_up_hd_sessions(table)
+  seed_hd_sessions(table)
 end
 
 

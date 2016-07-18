@@ -14,8 +14,7 @@ module Renalware
         authorize bookmark
 
         bookmark.destroy
-        redirect_to patient_path(bookmark.patient_id),
-          notice: t(".success", model_name: "bookmark")
+        redirect_to :back, notice: t(".success", model_name: "bookmark")
       end
 
       private

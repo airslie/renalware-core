@@ -9,6 +9,7 @@
       th User
       th Login
       th Email
+      th Telephone #
       th Added
       th Approved
 
@@ -20,5 +21,6 @@
           td= user.to_s
           td= user.username
           td= user.email
+          td= user.telephone
           td= user.created_at
           td= user.approved?

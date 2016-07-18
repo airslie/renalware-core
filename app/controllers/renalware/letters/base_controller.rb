@@ -6,7 +6,7 @@ module Renalware
 
       def load_patient
         super
-        @patient = ActiveType.cast(@patient, Renalware::Letters::Patient)
+        @patient = Renalware::Letters.cast_patient(@patient)
       end
     end
   end

@@ -27,7 +27,7 @@ Feature: Generating request forms for a single patient
       | ObservationResult | HGB | <        | 100   |
     And Patty is a patient
     And Patty has observed an HGB value of 99
-    And Patty has a patient rule:
+    And Patty has a recorded patient rule:
       | lab              | Biochemistry  |
       | test_description | Test for HepB |
       | frequency_type   | Always        |
@@ -36,7 +36,7 @@ Feature: Generating request forms for a single patient
   Scenario: A clinician generated the forms for a single patient and requests a specific doctor, clinic and telephone number
     When Clyde generates the request form for Patty with the following parameters:
      | param      | value         |
-     | user       | Zoe Zimmerman |
+     | consultant | Zoe Zimmerman |
      | clinic     | Transplant    |
      | telephone  | 7983123123    |
     Then Clyde sees these details at the top of Patty's form

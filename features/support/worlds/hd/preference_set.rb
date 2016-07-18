@@ -4,12 +4,16 @@ module World
       # @section helpers
       #
       def hd_preference_set_for(patient)
+        patient = hd_patient(patient)
+
         Renalware::HD::PreferenceSet.for_patient(patient).first_or_initialize
       end
 
-      # @section set-ups
+      # @section seeding
       #
-      def set_up_hd_preferences_for(patient, user:)
+      def seed_hd_preferences_for(patient, user:)
+        patient = hd_patient(patient)
+
         Renalware::HD::PreferenceSet.create!(
           patient: patient,
           schedule: :mon_wed_fri_am,
@@ -20,7 +24,7 @@ module World
       # @section commands
       #
       def create_hd_preferences(user:, patient:)
-        set_up_hd_preferences_for(patient, user: user)
+        seed_hd_preferences_for(patient, user: user)
       end
 
       def update_hd_preferences(patient:, user: nil)

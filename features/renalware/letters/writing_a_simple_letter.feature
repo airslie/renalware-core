@@ -27,7 +27,7 @@ Feature: Writing a letter
 
   @web
   Scenario: A nurse revised a letter
-    Given Patty has a letter
+    Given Patty has a recorded letter
     Then Nathalie can revise Patty's letter
 
   @web

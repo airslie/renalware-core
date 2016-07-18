@@ -11,9 +11,10 @@ module Renalware
 
       before do
         @patient = create(:patient)
-        @pe = FactoryGirl.build(:peritonitis_episode)
-        @mrsa = FactoryGirl.create(:organism_code, name: "MRSA")
-        @ecoli = FactoryGirl.create(:organism_code, name: "E.Coli")
+        @pe = build(:peritonitis_episode)
+        @mrsa = create(:organism_code, name: "MRSA")
+        @ecoli = create(:organism_code, name: "E.Coli")
+        @user = create(:user)
 
         load_drugs_by_type('Amoxicillin' => ['Antibiotic','Peritonitis'],
           'Penicillin' => ['Antibiotic','Peritonitis'])
@@ -21,10 +22,10 @@ module Renalware
         load_med_routes
       end
 
-      context "medications" do
-        it "can be assigned many medications and organisms/sensitivities" do
+      context "prescriptions" do
+        it "can be assigned many prescriptions and organisms/sensitivities" do
 
-          @medication_one = FactoryGirl.create(:medication,
+          @prescription_one = create(:prescription,
             patient: @patient,
             drug: @amoxicillin,
             treatable: @pe,
@@ -32,11 +33,12 @@ module Renalware
             medication_route: @po,
             frequency: "daily",
             notes: "with food",
-            start_date: "02/03/2015",
-            provider: 0
+            prescribed_on: "02/03/2015",
+            provider: 0,
+            by: @user
           )
 
-          @medication_two = FactoryGirl.create(:medication,
+          @prescription_two = create(:prescription,
             patient: @patient,
             drug: @penicillin,
             treatable: @pe,
@@ -44,12 +46,13 @@ module Renalware
             medication_route: @iv,
             frequency: "daily",
             notes: "with food",
-            start_date: "02/03/2015",
-            provider: 1
+            prescribed_on: "02/03/2015",
+            provider: 1,
+            by: @user
           )
 
-          @pe.medications << @medication_one
-          @pe.medications << @medication_two
+          @pe.prescriptions << @prescription_one
+          @pe.prescriptions << @prescription_two
 
           @mrsa_sensitivity = @pe.infection_organisms.build(organism_code: @mrsa, sensitivity: "Sensitive to MRSA.")
           @ecoli_sensitivity = @pe.infection_organisms.build(organism_code: @ecoli, sensitivity: "Sensitive to E.Coli.")
@@ -57,10 +60,10 @@ module Renalware
           @pe.save!
           @pe.reload
 
-          expect(@pe.medications.size).to eq(2)
+          expect(@pe.prescriptions.size).to eq(2)
           expect(@pe.infection_organisms.size).to eq(2)
 
-          expect(@pe.medications).to match_array([@medication_two, @medication_one])
+          expect(@pe.prescriptions).to match_array([@prescription_two, @prescription_one])
           expect(@pe.infection_organisms).to match_array([@ecoli_sensitivity, @mrsa_sensitivity])
 
           expect(@pe).to be_valid

@@ -1,4 +1,4 @@
-Given(/^(\w+) has a patient rule:$/) do |patient_name, table|
+Given(/^(\w+) has a recorded patient rule:$/) do |patient_name, table|
   patient = get_patient(patient_name)
   @patient_rule = create_patient_rule(
     patient,

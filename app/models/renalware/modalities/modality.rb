@@ -4,8 +4,6 @@ module Renalware
   module Modalities
     class Modality < ActiveRecord::Base
 
-      acts_as_paranoid
-
       belongs_to :description, class_name: "Description"
       belongs_to :patient
       belongs_to :reason, class_name: "Reason"
@@ -13,7 +11,7 @@ module Renalware
       scope :ordered, -> { order(ended_on: :desc, updated_at: :desc) }
 
       scope :started_on_reversed, -> { order(started_on: :desc, updated_at: :desc) }
-      scope :last_started_on, -> { started_on_reversed.with_deleted.where(ended_on: nil) }
+      scope :last_started_on, -> { started_on_reversed.where(ended_on: nil) }
 
       validates :patient, presence: true
       validates :started_on, presence: true
@@ -36,6 +34,10 @@ module Renalware
         description.name
       end
 
+      def terminated?
+        state == "terminated"
+      end
+
       private
 
       def validate_modality_starts_later_than_previous
@@ -54,8 +56,8 @@ module Renalware
 
       def terminate!(successor)
         self.ended_on = successor.started_on
+        self.state = "terminated"
         save!
-        destroy!
       end
     end
   end

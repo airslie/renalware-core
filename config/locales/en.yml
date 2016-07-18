@@ -32,7 +32,7 @@ en:
         dose: Medication's dose
         medication_route_id: Medication's route
         frequency: "Medication's frequency & duration"
-        start_date: "Medication's prescribed date"
+        prescribed_on: "Medication's prescribed date"
         provider: Medication's provider
       renalware/peritonitis_episode/medications:
         drug: Medication to be administered

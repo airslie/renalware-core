@@ -4,7 +4,7 @@ module Renalware
   module HD
     RSpec.describe SessionFactory, type: :model do
       let(:user) { create(:user, :admin) }
-      let(:patient) { create(:patient) }
+      let(:patient) { create(:hd_patient) }
 
       subject { SessionFactory.new(patient: patient, user: user) }
 
@@ -31,7 +31,7 @@ module Renalware
         end
 
         context "with a current access" do
-          let(:accesses_patient) { ActiveType.cast(patient, Accesses::Patient) }
+          let(:accesses_patient) { Accesses.cast_patient(patient) }
           let!(:profile) { create(:access_profile, :current, patient: accesses_patient) }
 
           it "applies the access details from the current access" do

@@ -14,6 +14,6 @@ Feature: Assessing (workup) a Recipient
 
   @web
   Scenario: Update an assessment
-    Given Patty has a recipient workup
+    Given Patty has a recorded recipient workup
     When Clyde updates the assessment
     Then Patty's recipient workup gets updated

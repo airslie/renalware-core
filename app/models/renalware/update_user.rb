@@ -23,6 +23,7 @@ module Renalware
         approve if can_approve?(params)
         unexpire if can_unexpire?(params)
         authorise(params[:roles] || [])
+        user.telephone = params[:telephone]
         user.save!
       end
     rescue ActiveRecord::RecordInvalid

@@ -14,7 +14,7 @@ Feature: Recording an access procedure for a patient
 
   @web
   Scenario: A clinician updated the access procedure of a patient
-    Given Patty has an access procedure
+    Given Patty has a recorded access procedure
     Then Clyde can update Patty's access procedure
 
   @web

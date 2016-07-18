@@ -1,5 +1,5 @@
 Given(/^Clyde has the following patients bookmarked:$/) do |table|
-  patients = table.raw.flatten.map do |patient_name|
+  table.raw.flatten.map do |patient_name|
     create_bookmark(@clyde, patient_name)
   end
 end
@@ -11,7 +11,6 @@ end
 When(/^Clyde deletes the bookmark for (\w+\s\w+)$/) do |patient_name|
   delete_bookmark(@clyde, patient_name)
 end
-
 
 Then(/^the following patients appear in Clyde's bookmarked patient list:$/) do |table|
   patients = table.raw.flatten.map do |patient_name|
