@@ -4,7 +4,7 @@ module Renalware
   module Pathology
     class PatientRulePresenter < SimpleDelegator
       def to_s
-        str = test_description
+        str = test_description || ""
         str +=
           if sample_type.present? && sample_number_bottles.present?
             " (#{sample_type}, #{sample_number_bottles_string})"
@@ -12,6 +12,8 @@ module Renalware
             " (#{sample_type})"
           elsif sample_number_bottles.present?
             " (#{sample_number_bottles_string})"
+          else
+            ""
           end
         str
       end
