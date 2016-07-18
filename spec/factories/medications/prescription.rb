@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :prescription, class: "Renalware::Prescription" do
+  factory :prescription, class: "Renalware::Medications::Prescription" do
     patient
     drug
     dose "20mg"
