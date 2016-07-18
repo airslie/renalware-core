@@ -74,7 +74,7 @@ module World
 
       def peritonitis_episode_drug_selector
         -> (drug_name) do
-          find("select#prescription_drug_id optgroup[label='Peritonitis']")
+          find("select#medications_prescription_drug_id optgroup[label='Peritonitis']")
             .find(:option, text: drug_name).select_option
         end
       end

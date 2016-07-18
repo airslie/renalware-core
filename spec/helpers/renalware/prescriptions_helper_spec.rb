@@ -90,8 +90,8 @@ module Renalware
 
     describe "default_provider" do
       before do
-        @gp = Prescription.providers.keys[0]
-        @hospital = Prescription.providers.keys[1]
+        @gp = Medications::Prescription.providers.keys[0]
+        @hospital = Medications::Prescription.providers.keys[1]
       end
 
       context "is gp" do

@@ -4,7 +4,7 @@ module Renalware
 
     belongs_to :patient
 
-    has_many :prescriptions, as: :treatable
+    has_many :prescriptions, as: :treatable, class_name: "Renalware::Medications::Prescription"
     has_many :medication_routes, through: :prescriptions
     has_many :patients, through: :prescriptions, as: :treatable
     has_many :infection_organisms, as: :infectable
