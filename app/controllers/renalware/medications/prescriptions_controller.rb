@@ -65,11 +65,11 @@ module Renalware
       def render_index
         render "index", locals: {
           patient: @patient,
-          treatable: present(@treatable, Medications::TreatablePresenter),
+          treatable: present(@treatable, TreatablePresenter),
           current_search: current_prescriptions_query.search,
-          current_prescriptions: present(current_prescriptions, Medications::PrescriptionPresenter),
+          current_prescriptions: present(current_prescriptions, PrescriptionPresenter),
           historical_prescriptions_search: historical_prescriptions_query.search,
-          historical_prescriptions: present(historical_prescriptions, Medications::PrescriptionPresenter),
+          historical_prescriptions: present(historical_prescriptions, PrescriptionPresenter),
           drug_types: find_drug_types
         }
       end
@@ -79,8 +79,8 @@ module Renalware
           patient: @patient,
           treatable: @treatable,
           prescription: prescription,
-          provider_codes: present(Provider.codes, Medications::ProviderCodePresenter),
-          medication_routes: present(MedicationRoute.all, Medications::RouteFormPresenter),
+          provider_codes: present(Provider.codes, ProviderCodePresenter),
+          medication_routes: present(MedicationRoute.all, RouteFormPresenter),
           url: url
         }
       end
@@ -106,7 +106,7 @@ module Renalware
 
       def current_prescriptions_query
         @current_prescriptions_query ||=
-          Medications::PrescriptionsQuery.new(
+          PrescriptionsQuery.new(
             relation: @treatable.prescriptions.current,
             search_params: params[:q]
           )
@@ -118,7 +118,7 @@ module Renalware
 
       def historical_prescriptions_query
         @historical_prescriptions_query ||=
-          Medications::PrescriptionsQuery.new(
+          PrescriptionsQuery.new(
             relation: @treatable.prescriptions,
             search_params: params[:q]
           )
