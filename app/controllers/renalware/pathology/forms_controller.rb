@@ -9,7 +9,7 @@ module Renalware
       def create
         request_form_options = RequestAlgorithm::RequestFormOptions.new(
           clinic: find_clinic,
-          patients: find_patients,
+          patients: @patients,
           consultant: find_consultant,
           telephone: request_form_params[:telephone]
         )
@@ -37,10 +37,6 @@ module Renalware
         return unless request_form_params[:clinic_id].present?
 
         Clinics::Clinic.find(request_form_params[:clinic_id])
-      end
-
-      def find_patients
-        Renalware::Patient.find(request_form_params[:patient_ids])
       end
 
       def find_consultant
