@@ -6,7 +6,7 @@ module Renalware
       include ActionView::Helpers::TextHelper
 
       def to_s
-        (test_description || "") + sample_description
+        test_description.to_s + sample_description
       end
 
       private
