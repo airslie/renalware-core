@@ -30,7 +30,7 @@
         th = Time
         th = sort_link(query, :patient_family_name, "Patient", default_order: :asc)
         th = sort_link(query, :clinic_name, "Clinic", default_order: :asc)
-        th = sort_link(query, :user_family_name, "User", default_order: :asc)
+        th = sort_link(query, :user_family_name, "Consultant", default_order: :asc)
 
     tbody
       - appointments.each do |appointment|
