@@ -117,10 +117,10 @@ module World
         click_link "Add Prescription"
         wait_for_ajax
 
-        within "#new_prescription" do
+        within "#new_medications_prescription" do
           drug_selector.call(drug_name)
           fill_in "Dose", with: dose
-          select(route_code, from: "Route")
+          select(route_code, from: "Medication route")
           fill_in "Frequency", with: frequency
           fill_in "Prescribed on", with: prescribed_on
           click_on "Save"
