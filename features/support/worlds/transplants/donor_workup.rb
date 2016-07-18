@@ -4,13 +4,17 @@ module World
       # @section helpers
       #
       def donor_workup_for(patient)
+        patient = transplant_patient(patient)
+
         Renalware::Transplants::DonorWorkup.for_patient(patient).first_or_initialize
       end
 
       # @section seeding
       #
       def seed_doner_workup_for(patient)
+        patient = transplant_patient(patient)
         Renalware::Transplants::DonorWorkup.create!(
+
           patient: patient,
           document: {
             comorbidities: {

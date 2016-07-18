@@ -9,7 +9,7 @@ module Renalware::Pathology::RequestAlgorithm::ParamType
 
     describe "#required?" do
       context "given the patient is currently prescribed the drug" do
-        let!(:medication) { create(:medication, patient: patient, drug: drug) }
+        let!(:prescription) { create(:prescription, patient: patient, drug: drug) }
 
         it { expect(param_type).to be_required }
       end

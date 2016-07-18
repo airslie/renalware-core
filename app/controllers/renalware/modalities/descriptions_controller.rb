@@ -48,7 +48,7 @@ module Renalware
       private
 
       def modality_description_params
-        params.require(:modalities_description).permit(:name, :code, :site, :deleted_at)
+        params.require(:modalities_description).permit(:name, :code, :site)
       end
 
       def load_modality_description

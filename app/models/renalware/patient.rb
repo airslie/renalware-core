@@ -25,14 +25,15 @@ module Renalware
     has_many :exit_site_infections
     has_many :peritonitis_episodes
     has_many :problems, class_name: "Problems::Problem"
-    has_many :medications
-    has_many :drugs, through: :medications
-    has_many :medication_routes, through: :medications
+    has_many :prescriptions
+    has_many :drugs, through: :prescriptions
+    has_many :medication_routes, through: :prescriptions
     has_many :modalities, class_name: "Modalities::Modality"
+    has_many :modality_descriptions, class_name: "Modalities::Description", through: :modalities, source: :description
     has_many :pd_regimes
     has_many :bookmarks, class_name: "Patients::Bookmark"
 
-    has_one :current_modality, -> { order(started_on: :desc).where(deleted_at: nil) },
+    has_one :current_modality, -> { order(started_on: :desc).where(state: "current") },
       class_name: "Modalities::Modality"
     has_one :modality_description, through: :current_modality,
       class_name: "Modalities::Description", source: :description
@@ -40,7 +41,6 @@ module Renalware
     has_document class_name: "Renalware::PatientDocument"
 
     accepts_nested_attributes_for :current_address
-    accepts_nested_attributes_for :medications, allow_destroy: true
 
     validates :nhs_number, length: { minimum: 10, maximum: 10 }, uniqueness: true, allow_blank: true
     validates :family_name, presence: true
@@ -87,15 +87,9 @@ module Renalware
     end
 
     def current_modality_death?
-      if self.current_modality.present?
-        self.current_modality.description.death?
-      end
-    end
+      return false unless current_modality.present?
 
-    def current_modality_live_donor?
-      if self.current_modality.present?
-        self.current_modality.description.donation?
-      end
+      current_modality.description.is_a?(Deaths::ModalityDescription)
     end
 
     private

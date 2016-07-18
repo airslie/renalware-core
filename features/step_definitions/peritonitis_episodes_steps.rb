@@ -10,17 +10,17 @@ Given(/^Patty is being treated for a peritonitis episode$/) do
     organism_name: "Acineobactor"
   )
 
-  seed_medication_for(
+  seed_prescription_for(
     patient: @patty,
     treatable: episode_for(@patty),
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
     route_code: "PO",
     frequency: "once a day",
-    starts_on: "10-10-2015",
+    prescribed_on: "10-10-2015",
     provider: "GP",
     drug_selector: peritonitis_episode_drug_selector,
-    deleted_at: nil
+    terminated_on: nil
   )
 end
 
@@ -39,15 +39,15 @@ Given(/^recorded the organism for the episode$/) do
   )
 end
 
-Given(/^recorded the medication for the episode$/) do
-  record_medication_for(
+Given(/^recorded the prescription for the episode$/) do
+  record_prescription_for(
     patient: @patty,
     treatable: episode_for(@patty),
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
     route_code: "PO",
     frequency: "once a day",
-    starts_on: "10-10-2015",
+    prescribed_on: "10-10-2015",
     provider: "GP",
     drug_selector: peritonitis_episode_drug_selector
   )
@@ -68,15 +68,15 @@ When(/^records the organism for the episode$/) do
   )
 end
 
-When(/^records the medication for the episode$/) do
-  record_medication_for(
+When(/^records the prescription for the episode$/) do
+  record_prescription_for(
     patient: @patty,
     treatable: episode_for(@patty),
     drug_name: "Ciprofloxacin Infusion",
     dose: "100 ml",
     route_code: "PO",
     frequency: "once a day",
-    starts_on: "10-10-2015",
+    prescribed_on: "10-10-2015",
     provider: "GP",
     drug_selector: peritonitis_episode_drug_selector
   )
@@ -98,7 +98,7 @@ Then(/^Clyde can revise the peritonitis episode$/) do
     sensitivity: "Lorem ipsum."
   )
 
-  revise_medication_for(
+  revise_prescription_for(
     patient: @patty,
     user: @clyde,
     drug_name: "Cefotaxime Injection",
@@ -115,8 +115,8 @@ Then(/^Clyde can terminate the organism for the episode$/) do
   )
 end
 
-Then(/^Clyde can terminate the medication for the episode$/) do
-  terminate_medication_for(
+Then(/^Clyde can terminate the prescription for the episode$/) do
+  terminate_prescription_for(
     patient: @patty,
     user: @clyde
   )

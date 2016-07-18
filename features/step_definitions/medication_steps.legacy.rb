@@ -1,11 +1,11 @@
-When(/^they add a medication$/) do
-  visit patient_medications_path(@patient_1,
+When(/^they add a prescription$/) do
+  visit patient_prescriptions_path(@patient_1,
     treatable_type: @patient_1.class, treatable_id: @patient_1.id)
 
-  click_on "Add medication"
+  click_on "Add Prescription"
 end
 
-When(/^complete the medication form by drug type select$/) do
+When(/^complete the prescription form by drug type select$/) do
   select "ESA", from: "Medication Type"
   select "Epoetin Alfa (Eprex) Syringe [ESA]", from: "Select Drug"
   fill_in "Dose", with: "10mg"
@@ -21,9 +21,9 @@ When(/^complete the medication form by drug type select$/) do
 
 end
 
-When(/^complete the medication form by drug search$/) do
-  visit patient_medications_path(@patient_1)
-  click_link "Add a new medication"
+When(/^complete the prescription form by drug search$/) do
+  visit patient_prescriptions_path(@patient_1)
+  click_link "Add a new prescription"
 
   fill_in "Drug", with: "amo"
 
@@ -54,7 +54,7 @@ Then(/^they should see the new problems on the clinical summary$/) do
   expect(page).to have_content("Have abdominal pain, possibly kidney stones")
 end
 
-Then(/^should see the new medication on the patient's clinical summary$/) do
+Then(/^should see the new prescription on the patient's clinical summary$/) do
   visit patient_clinical_summary_path(@patient_1)
 
   #drug by select
@@ -76,8 +76,8 @@ Then(/^should see the new medication on the patient's clinical summary$/) do
   end
 end
 
-Then(/^should see the new medication on their medications index\.$/) do
-  visit patient_medications_path(@patient_1)
+Then(/^should see the new prescription on their prescriptions index\.$/) do
+  visit patient_prescriptions_path(@patient_1)
 
   within(".drug-esa") do
     expect(page).to have_content("ESA")

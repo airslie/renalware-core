@@ -23,7 +23,7 @@ module Renalware
 
       login_as_clinician
 
-      visit patient_pd_summary_path(@patient)
+      visit patient_pd_dashboard_path(@patient)
     end
 
     scenario "should return daily average volume (ml) for each concentration type" do

@@ -1,7 +1,7 @@
 - if @pd_regime.try(:new_record?)
-  = render "renalware/pd_summaries/navigation"
+  = render "renalware/pd_dashboards/navigation"
 - else
   dl.sub-nav
-    dd= link_to "PD Summary", patient_pd_summary_path(@patient)
+    dd= link_to "PD Summary", patient_pd_dashboard_path(@patient)
     dd= link_to "View Regime", patient_pd_regime_path(@patient, @pd_regime)
     dd= link_to "Edit Regime", edit_patient_pd_regime_path(@patient, @pd_regime)

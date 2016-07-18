@@ -8,7 +8,7 @@ module Renalware
   dates = (1..30).to_a
   50.times do |i|
     session = HD::Session.create!(
-      patient: patients.sample,
+      patient: HD.cast_patient(patients.sample),
       hospital_unit: units.sample,
       performed_on: dates.sample.days.ago,
       start_time: start_times.sample,
@@ -21,7 +21,7 @@ module Renalware
 
   20.times do |i|
     session = HD::Session.create!(
-      patient: patients.sample,
+      patient: HD.cast_patient(patients.sample),
       hospital_unit: units.sample,
       performed_on: dates.sample.days.ago,
       start_time: start_times.sample,

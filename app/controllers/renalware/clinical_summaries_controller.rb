@@ -3,9 +3,12 @@ module Renalware
 
     skip_after_action :verify_authorized
 
+    before_action :load_patient
+
     def show
-      @patient = Patient.find(params[:patient_id])
       @events = Events::Event.for_patient(@patient)
+      @problems = @patient.problems.ordered
+      @prescriptions = @patient.prescriptions.current.ordered
     end
   end
 end

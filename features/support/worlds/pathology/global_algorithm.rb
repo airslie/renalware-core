@@ -11,6 +11,8 @@ module World
                 Renalware::Pathology::ObservationDescription.find_by!(code: params["id"]).id
               when "Drug" then
                 Renalware::Drugs::Drug.find_by!(name: params["id"]).id
+              when "DrugType" then
+                Renalware::Drugs::Type.find_by!(name: params["id"]).id
             end
 
           Renalware::Pathology::RequestAlgorithm::GlobalRule.create!(
@@ -26,6 +28,8 @@ module World
           table.rows.map do |row|
             params = Hash[table.headers.zip(row)]
             params["global_rule_set_id"] = @rule_set.id
+            params["operator"] = nil unless params["operator"].present?
+            params["value"] = nil unless params["value"].present?
             create_global_rule(params)
           end
         end

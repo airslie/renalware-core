@@ -32,14 +32,15 @@ Given(/^Patty is currently prescribed Ephedrine Tablet (yes|no)$/) do |perscribe
   if perscribed == "yes"
     drug = Renalware::Drugs::Drug.find_by(name: "Ephedrine Tablet")
     route = Renalware::MedicationRoute.find_by(name: "Per Oral")
-    @patty.medications.create!(
+    @patty.prescriptions.create!(
       drug: drug,
       medication_route: route,
       dose: "20mg",
       frequency: "daily",
-      start_date: Time.current - 1.week,
+      prescribed_on: Time.current - 1.week,
       provider: 0,
-      treatable: @patty
+      treatable: @patty,
+      by: Renalware::SystemUser.find
     )
   end
 end
