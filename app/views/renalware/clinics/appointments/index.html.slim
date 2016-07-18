@@ -27,8 +27,11 @@
       tr
         th Generate request form?
         th = sort_link(query, :starts_at, "Date", default_order: :asc)
-        th = Time
+        th Time
         th = sort_link(query, :patient_family_name, "Patient", default_order: :asc)
+        th Patient Sex
+        th Patient Age
+        th Patient Modality
         th = sort_link(query, :clinic_name, "Clinic", default_order: :asc)
         th = sort_link(query, :user_family_name, "Consultant", default_order: :asc)
 
@@ -39,6 +42,9 @@
           td = I18n.l appointment.starts_on
           td = appointment.start_time
           td = link_to appointment.patient.full_name, patient_path(id: appointment.patient.id)
+          td = appointment.patient.sex
+          td = appointment.patient.age
+          td = appointment.patient.current_modality
           td = appointment.clinic.name
           td = appointment.user.full_name
 
