@@ -1,5 +1,5 @@
 b Current
-= render "renalware/prescriptions/table",
+= render "renalware/medications/prescriptions/table",
       id: "current-prescriptions",
       patient: patient,
       treatable: treatable,
@@ -9,7 +9,7 @@ b Current
 hr
 - if defined? historical_prescriptions
   b Historical
-  = render "renalware/prescriptions/table",
+  = render "renalware/medications/prescriptions/table",
       id: "historical-prescriptions",
       patient: patient,
       treatable: treatable,
