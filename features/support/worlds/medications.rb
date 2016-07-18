@@ -16,7 +16,7 @@ module World
       def seed_prescription_for(patient:, treatable: nil, drug_name:, dose:,
         route_code:, frequency:, prescribed_on:, provider:, terminated_on:, **_)
         drug = Renalware::Drugs::Drug.find_or_create_by!(name: drug_name)
-        route = Renalware::MedicationRoute.find_by!(code: route_code)
+        route = Renalware::Medications::MedicationRoute.find_by!(code: route_code)
 
         patient.prescriptions.create!(
           treatable: treatable || patient,
@@ -183,7 +183,7 @@ module World
 
       def expect_current_perscriptions_to_match(actual_perscriptions, expected_perscriptions)
         actual_perscriptions.zip(expected_perscriptions).each do |actual, expected|
-          expected_route = Renalware::MedicationRoute.find_by!(code: expected[:route_code])
+          expected_route = Renalware::Medications::MedicationRoute.find_by!(code: expected[:route_code])
 
           expect(actual).to include(expected[:drug_name])
           expect(actual).to include(expected[:dose])

@@ -90,7 +90,7 @@ module Renalware
       end
 
       def prescription_params
-        params.require(:prescription).permit(
+        params.require(:medications_prescription).permit(
           :drug_id, :dose, :medication_route_id, :frequency, :route_description,
           :notes, :prescribed_on, :terminated_on, :provider
         )

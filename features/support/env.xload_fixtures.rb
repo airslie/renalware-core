@@ -8,7 +8,7 @@ models = [
   Renalware::OrganismCode,
   Renalware::Modalities::Description,
   Renalware::Modalities::Reason,
-  Renalware::MedicationRoute,
+  Renalware::Medications::MedicationRoute,
   Renalware::EpisodeType,
   Renalware::FluidDescription,
   Renalware::BagType,
