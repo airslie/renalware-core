@@ -4,8 +4,11 @@ module Renalware
       before_action :load_patient
 
       def index
-        @problem = Problem.new
-        @problems = @patient.problems.ordered
+        render :index, locals: {
+          problem: Problem.new,
+          problems: @patient.problems.ordered,
+          terminated_problems: @patient.problems.only_deleted.ordered
+        }
       end
 
       def show
