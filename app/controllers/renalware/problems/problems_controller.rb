@@ -12,7 +12,7 @@ module Renalware
       end
 
       def show
-        @problem = @patient.problems.with_deleted.find(params[:id])
+        @problem = @patient.problems.with_archived.find(params[:id])
         @notes = @problem.notes.ordered
       end
 

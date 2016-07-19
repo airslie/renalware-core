@@ -16,6 +16,10 @@ module Renalware
       validates :patient, presence: true
       validates :description, presence: true
 
+      def self.with_archived
+        with_deleted
+      end
+
       def self.current
         all
       end
