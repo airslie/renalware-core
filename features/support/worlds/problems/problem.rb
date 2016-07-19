@@ -37,8 +37,8 @@ module World
       end
 
       def view_problems_list(patient, _clinician)
-        current_problems = patient.problems
-        archived_problems = patient.problems.only_deleted
+        current_problems = patient.problems.current
+        archived_problems = patient.problems.archived
 
         [current_problems, archived_problems]
       end
