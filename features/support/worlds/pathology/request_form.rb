@@ -153,9 +153,9 @@ module World
         def generate_request_forms_for_appointments(_clinician, _appointments, params)
           _patients, clinic, _user, _telephone = extract_request_form_params(params)
 
-          select clinic.name, from: "Clinic"
-
           click_on "Generate request forms"
+
+          update_request_form_clinic(clinic.name)
         end
 
         # @section expectations
