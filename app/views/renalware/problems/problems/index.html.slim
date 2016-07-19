@@ -11,7 +11,7 @@
               = link_to "cancel", patient_problems_path(@patient)
 
   b Current Problems
-  = render "renalware/problems/problems/current_table", problems: problems
+  = render "renalware/problems/problems/current_table", problems: current_problems
 
   b Archived Problems
-  = render "renalware/problems/problems/archived_table", problems: terminated_problems
+  = render "renalware/problems/problems/archived_table", problems: archived_problems

@@ -6,8 +6,8 @@ module Renalware
       def index
         render :index, locals: {
           problem: Problem.new,
-          problems: @patient.problems.ordered,
-          terminated_problems: @patient.problems.only_deleted.ordered
+          current_problems: @patient.problems.current.ordered,
+          archived_problems: @patient.problems.archived.ordered
         }
       end
 

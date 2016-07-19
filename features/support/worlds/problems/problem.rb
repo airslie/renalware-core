@@ -97,7 +97,7 @@ module World
 
         visit patient_problems_path(patient)
 
-        problems = html_table_to_array("problems")
+        problems = html_table_to_array("current_problems")
         terminated_problems = html_table_to_array("archived_problems")
 
         [problems, terminated_problems]
