@@ -6,7 +6,7 @@ table#current_problems.manual-stripes.auto-layout
       td Recorded on
       td
   = content_tag(:tbody, class: "sortables", data: { rel: sort_patient_problems_path(@patient) }) do
-    - problems.reject(&:new_record?).each do |problem|
+    - problems.each do |problem|
       = content_tag_for(:tr, problem, class: "sortable") do
         td
           = link_to "Edit", patient_problem_path(@patient, problem)
