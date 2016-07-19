@@ -36,7 +36,7 @@ module World
         nil
       end
 
-      def view_problems_list(patient, clinician)
+      def view_problems_list(patient, _clinician)
         problems = patient.problems
         terminated_problems = patient.problems.only_deleted
 
