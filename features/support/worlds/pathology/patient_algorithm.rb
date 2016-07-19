@@ -97,6 +97,10 @@ module World
         end
 
         def expect_observations_from_patient(algorithm, observations_table)
+          algorithm.map! do |row|
+            row[0..-3]  # NOTE: Remove the last two columns (Edit/Delete)
+          end
+
           expect(algorithm).to eq(observations_table.raw)
         end
       end

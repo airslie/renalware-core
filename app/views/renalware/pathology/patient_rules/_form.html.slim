@@ -1,0 +1,11 @@
+  = f.input :lab_id, collection: labs, input_html: { class: "small-input" }
+  = f.input :test_description, as: :text, input_html: { class: "small-input" }
+  = f.input :sample_number_bottles, collection: 0..10, input_html: { class: "small-input" }
+  = f.input :sample_type, input_html: { class: "small-input" }
+  = f.input :frequency_type, collection: frequencies, input_html: { class: "small-input" }
+  = f.input :start_date, as: :date_picker, input_html: { class: "small-input" }
+  = f.input :end_date, as: :date_picker, input_html: { class: "small-input" }
+
+  = submit_tag "Save", class: "button"
+  span= " or "
+  = link_to "Cancel", patient_pathology_required_observations_path(@patient)
