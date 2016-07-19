@@ -26,7 +26,7 @@ When(/^records a note for the problem$/) do
 end
 
 When(/^Clyde views the list of problems for Patty$/) do
-  @problems, @terminated_problems = view_problems_list(@patty, @clyde)
+  @current_problems, @archived_problems = view_problems_list(@patty, @clyde)
 end
 
 Then(/^a problem is recorded for Patty$/) do
@@ -52,9 +52,9 @@ Then(/^Clyde can add a note to the problem$/) do
 end
 
 Then(/^Clyde should see these current problems:$/) do |table|
-  expect_problems_to_match_table(@problems, table)
+  expect_problems_to_match_table(@current_problems, table)
 end
 
 Then(/^Clyde should see these archived problems:$/) do |table|
-  expect_problems_to_match_table(@terminated_problems, table)
+  expect_problems_to_match_table(@archived_problems, table)
 end

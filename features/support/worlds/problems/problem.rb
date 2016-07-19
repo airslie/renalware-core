@@ -37,10 +37,10 @@ module World
       end
 
       def view_problems_list(patient, _clinician)
-        problems = patient.problems
-        terminated_problems = patient.problems.only_deleted
+        current_problems = patient.problems
+        archived_problems = patient.problems.only_deleted
 
-        [problems, terminated_problems]
+        [current_problems, archived_problems]
       end
 
       # @section expectations
@@ -97,10 +97,10 @@ module World
 
         visit patient_problems_path(patient)
 
-        problems = html_table_to_array("current_problems")
-        terminated_problems = html_table_to_array("archived_problems")
+        current_problems = html_table_to_array("current_problems")
+        archived_problems = html_table_to_array("archived_problems")
 
-        [problems, terminated_problems]
+        [current_problems, archived_problems]
       end
 
       # @section expectations
