@@ -4,7 +4,7 @@ table#archived_problems.manual-stripes.auto-layout
       td.options
       td Description
       td Recorded on
-      td Terminated on
+      td Archived on
   = content_tag(:tbody, class: "sortables", data: { rel: sort_patient_problems_path(@patient) }) do
     - problems.each do |problem|
       = content_tag_for(:tr, problem, class: "sortable") do
