@@ -13,15 +13,22 @@ module Renalware
           consultant: find_consultant,
           telephone: request_form_params[:telephone]
         )
+        request_forms = RequestFormPresenter.wrap(@patients, request_form_options)
 
-        request_forms = RequestFormPresenter.wrap(
-          @patients, request_form_options
-        )
-
-        render :create, locals: {
+        local_vars = {
           request_form_options: request_form_options,
-          request_forms: request_forms,
+          request_forms: request_forms
         }
+
+        respond_to do |format|
+          format.html do
+            render :create, locals: local_vars
+          end
+          format.pdf do
+            render pdf: "renalware/pathology/forms/create",
+              locals: local_vars, show_as_html: true
+          end
+        end
       end
 
       private
