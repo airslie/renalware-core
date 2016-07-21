@@ -4,6 +4,7 @@ module Renalware
   module Medications
     class Prescription < ActiveRecord::Base
       include Accountable
+      extend Enumerize
 
       attr_accessor :drug_select
 
@@ -26,6 +27,8 @@ module Renalware
       validate :constrain_route_description
 
       enum provider: Provider.codes
+
+      enumerize :dose_unit, in: %i(ampoule capsule drop g iu mg microgram ml puff tab tablet unit)
 
       scope :ordered, -> { order(default_search_order) }
       scope :current, -> (date = Date.current) {
