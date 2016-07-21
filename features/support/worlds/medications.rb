@@ -112,15 +112,16 @@ module World
 
       # @ section commands
       #
-      def record_prescription_for(patient:, treatable: nil, drug_name:, dose:, route_code:,
-        frequency:, prescribed_on:, provider:, terminated_on: nil,
+      def record_prescription_for(patient:, treatable: nil, drug_name:, dose_amount:,
+        dose_unit:, route_code:, frequency:, prescribed_on:, provider:, terminated_on: nil,
         drug_selector: default_medication_drug_selector)
         click_link "Add Prescription"
         wait_for_ajax
 
         within "#new_medications_prescription" do
           drug_selector.call(drug_name)
-          fill_in "Dose", with: dose
+          fill_in "Dose amount", with: dose_amount
+          fill_in "Dose unit", with: dose_unit
           select(route_code, from: "Medication route")
           fill_in "Frequency", with: frequency
           fill_in "Prescribed on", with: prescribed_on
