@@ -7,7 +7,8 @@ module Renalware
         it { should validate_presence_of :patient }
         it { should validate_presence_of :treatable }
         it { should validate_presence_of(:drug) }
-        it { should validate_presence_of(:dose) }
+        it { should validate_presence_of(:dose_amount) }
+        it { should validate_presence_of(:dose_unit) }
         it { should validate_presence_of(:medication_route) }
         it { should validate_presence_of(:frequency) }
         it { should validate_presence_of(:prescribed_on) }
