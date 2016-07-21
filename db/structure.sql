@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.3
--- Dumped by pg_dump version 9.5.3
+-- Dumped from database version 9.5.2
+-- Dumped by pg_dump version 9.5.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2240,7 +2240,7 @@ CREATE TABLE prescriptions (
     drug_id integer NOT NULL,
     treatable_id integer NOT NULL,
     treatable_type character varying NOT NULL,
-    dose character varying NOT NULL,
+    dose_amount character varying NOT NULL,
     medication_route_id integer NOT NULL,
     route_description character varying,
     frequency character varying NOT NULL,
@@ -2251,7 +2251,8 @@ CREATE TABLE prescriptions (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL
+    updated_by_id integer NOT NULL,
+    dose_unit character varying
 );
 
 
@@ -5891,4 +5892,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160616163622');
 INSERT INTO schema_migrations (version) VALUES ('20160620131148');
 
 INSERT INTO schema_migrations (version) VALUES ('20160628141349');
+
+INSERT INTO schema_migrations (version) VALUES ('20160721090535');
 
