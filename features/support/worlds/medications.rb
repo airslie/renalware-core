@@ -13,15 +13,16 @@ module World
 
       # @section seeds
       #
-      def seed_prescription_for(patient:, treatable: nil, drug_name:, dose:,
-        route_code:, frequency:, prescribed_on:, provider:, terminated_on:, **_)
+      def seed_prescription_for(patient:, treatable: nil, drug_name:, dose_amount:,
+        dose_unit:, route_code:, frequency:, prescribed_on:, provider:, terminated_on:, **_)
         drug = Renalware::Drugs::Drug.find_or_create_by!(name: drug_name)
         route = Renalware::Medications::MedicationRoute.find_by!(code: route_code)
 
         patient.prescriptions.create!(
           treatable: treatable || patient,
           drug: drug,
-          dose: dose,
+          dose_amount: dose_amount,
+          dose_unit: dose_unit,
           medication_route: route,
           frequency: frequency,
           prescribed_on: prescribed_on,
