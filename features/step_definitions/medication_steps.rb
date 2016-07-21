@@ -44,6 +44,11 @@ When(/^Clyde views the list of prescriptions for Patty$/) do
   @current_prescriptions, @historical_prescriptions = view_prescriptions_for(@clyde, @patty)
 end
 
+When(/^Clyde updates the prescription for Patty with these changes:$/) do |table|
+  prescription = @patty.prescriptions.first
+  update_prescription(prescription, table.rows_hash)
+end
+
 Then(/^the prescription is recorded for Patty$/) do
   expect_prescription_to_be_recorded(patient: @patty)
 end
@@ -71,4 +76,10 @@ end
 
 Then(/^Clyde should see these historical prescriptions$/) do |table|
   expect_current_prescriptions_to_match(@historical_prescriptions, table.hashes)
+end
+
+Then(/^Patty should have the following prescriptions:$/) do |table|
+  table.hashes.each do |row|
+    expect_prescription_to_exist(@patty, row)
+  end
 end

@@ -73,6 +73,15 @@ module World
         expect(prescription).to be_terminated
       end
 
+      def update_prescription(prescription, params)
+        Renalware::Medications::UpdatePrescription.new(
+          prescription,
+          params.merge(by: Renalware::SystemUser.find)
+        ).call
+      end
+
+      # @ section expectations
+      #
       def expect_prescription_to_be_recorded(patient:)
         prescription = patient.prescriptions.last!
 
@@ -94,6 +103,22 @@ module World
           expect(actual.provider).to eq(expected["provider"].downcase)
           expect(actual.terminated_on).to eq(parse_date_string(expected["terminated_on"]))
         end
+      end
+
+      def expect_prescription_to_exist(patient, attributes)
+        drug = Renalware::Drugs::Drug.find_by(name: attributes[:drug_name])
+        medication_route = Renalware::Medications::MedicationRoute.find_by(code: attributes[:route_code])
+
+        prescription_exists = Renalware::Medications::Prescription.exists?(
+          patient: patient,
+          drug: drug,
+          dose: attributes[:dose],
+          medication_route: medication_route,
+          frequency: attributes[:frequency],
+          terminated_on: parse_date_string(attributes[:terminated_on])
+        )
+
+        expect(prescription_exists).to be_truthy
       end
     end
 
@@ -181,6 +206,8 @@ module World
         [current_perscriptions, historical_perscriptions]
       end
 
+      # @ section expectations
+      #
       def expect_current_perscriptions_to_match(actual_perscriptions, expected_perscriptions)
         actual_perscriptions.zip(expected_perscriptions).each do |actual, expected|
           expected_route = Renalware::Medications::MedicationRoute.find_by!(code: expected[:route_code])
