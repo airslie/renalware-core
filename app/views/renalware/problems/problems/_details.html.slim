@@ -11,4 +11,5 @@
         dd= l problem.updated_at
 
   .right
-    = link_to "Edit", edit_patient_problem_path(patient, problem), class: %i(button tiny)
+    - unless problem.archived?
+      = link_to "Edit", edit_patient_problem_path(patient, problem), class: %i(button tiny)

@@ -1,6 +1,6 @@
 = render layout: "renalware/patients/layout", locals: { title: "Problems" } do
   - if !current_user.read_only? && params[:add_problem].present?
-    = simple_form_for @problem, url: patient_problems_path(@patient), wrapper: :horizontal_form do |f|
+    = simple_form_for problem, url: patient_problems_path(@patient), wrapper: :horizontal_form do |f|
         = field_set_tag "New problem" do
           .row
             .large-6.columns
@@ -10,25 +10,8 @@
               span= " or "
               = link_to "cancel", patient_problems_path(@patient)
 
-  table#problems.manual-stripes.auto-layout
-    thead
-      tr
-        td.options
-        td Description
-        td Recorded on
-        td
-    = content_tag(:tbody, class: "sortables", data: { rel: sort_patient_problems_path(@patient) }) do
-      - @problems.reject(&:new_record?).each do |problem|
-        = content_tag_for(:tr, problem, class: "sortable") do
-          td
-            = link_to "Edit", patient_problem_path(@patient, problem)
-            = pipe_separator
-            = link_to "Terminate", patient_problem_path(@patient, problem), method: :delete, data: { confirm: 'Are you sure?' }
-          td
-            = problem.description
-            ol
-              - problem.notes.each do |note|
-                li= note.description
-          td= l problem.updated_at.to_date
-          td.handle
-            i.fa.fa-reorder
+  b Current Problems
+  = render "renalware/problems/problems/current_table", problems: current_problems
+
+  b Archived Problems
+  = render "renalware/problems/problems/archived_table", problems: archived_problems

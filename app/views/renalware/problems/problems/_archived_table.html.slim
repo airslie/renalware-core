@@ -1,0 +1,19 @@
+table#archived_problems.manual-stripes.auto-layout
+  thead
+    tr
+      td.options
+      td Description
+      td Recorded on
+      td Archived on
+  = content_tag(:tbody, class: "sortables", data: { rel: sort_patient_problems_path(@patient) }) do
+    - problems.each do |problem|
+      = content_tag_for(:tr, problem, class: "sortable") do
+        td
+          = link_to "View", patient_problem_path(@patient, problem)
+        td
+          = problem.description
+          ol
+            - problem.notes.each do |note|
+              li= note.description
+        td= l problem.updated_on
+        td= l problem.archived_on
