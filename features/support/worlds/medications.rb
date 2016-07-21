@@ -121,8 +121,8 @@ module World
         within "#new_medications_prescription" do
           drug_selector.call(drug_name)
           fill_in "Dose amount", with: dose_amount
-          fill_in "Dose unit", with: dose_unit
-          select(route_code, from: "Medication route")
+          select dose_unit, from: "Dose unit"
+          select route_code, from: "Medication route"
           fill_in "Frequency", with: frequency
           fill_in "Prescribed on", with: prescribed_on
           click_on "Save"
