@@ -17,7 +17,8 @@ module Renalware
       validates :patient, presence: true
       validates :treatable, presence: true
       validates :drug, presence: true
-      validates :dose, presence: true
+      validates :dose_amount, presence: true
+      validates :dose_unit, presence: true
       validates :medication_route, presence: true
       validates :frequency, presence: true
       validates :prescribed_on, presence: true
@@ -55,6 +56,10 @@ module Renalware
 
       def terminated?
         self.terminated_on.present?
+      end
+
+      def dose
+        "#{dose_amount} #{dose_unit}"
       end
 
       private
