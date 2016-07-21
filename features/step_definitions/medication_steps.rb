@@ -14,13 +14,13 @@ end
 
 Given(/^Patty has the following prescriptions:$/) do |table|
   table.hashes.each do |row|
-    dose = row[:dose].split(" ")
+    dose_amount, dose_unit = row[:dose].split(" ")
 
     seed_prescription_for(
       patient: @patty,
       drug_name: row[:drug_name],
-      dose_amount: dose[0],
-      dose_unit: dose[1],
+      dose_amount: dose_amount,
+      dose_unit: dose_unit,
       route_code: row[:route_code],
       frequency: row[:frequency],
       prescribed_on: Time.now - 1.month,

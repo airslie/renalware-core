@@ -2252,7 +2252,7 @@ CREATE TABLE prescriptions (
     updated_at timestamp without time zone NOT NULL,
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
-    dose_unit character varying
+    dose_unit character varying NOT NULL
 );
 
 
