@@ -104,8 +104,8 @@ Then(/^Clyde can revise the exist site infection$/) do
   revise_prescription_for(
     patient: @patty,
     user: @user,
-    drug_name: "Cefotaxime Injection",
-    drug_selector: exit_site_infection_drug_selector
+    drug_selector: exit_site_infection_drug_selector,
+    prescription_params: { drug_name: "Cefotaxime Injection" }
   )
 
   expect_exit_site_infections_revisions_recorded(patient: @patty)

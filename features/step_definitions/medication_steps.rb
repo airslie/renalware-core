@@ -45,8 +45,11 @@ When(/^Clyde views the list of prescriptions for Patty$/) do
 end
 
 When(/^Clyde updates the prescription for Patty with these changes:$/) do |table|
-  prescription = @patty.prescriptions.first
-  update_prescription(prescription, table.rows_hash)
+  revise_prescription_for(
+    patient: @patty,
+    user: @clyde,
+    prescription_params: table.rows_hash
+  )
 end
 
 Then(/^the prescription is recorded for Patty$/) do
@@ -57,7 +60,7 @@ Then(/^Clyde can revise the prescription$/) do
   revise_prescription_for(
     patient: @patty,
     user: @clyde,
-    drug_name: "Cefuroxime Injection"
+    prescription_params: { drug_name: "Cefuroxime Injection" }
   )
 
   expect_prescription_to_be_revised(patient: @patty)

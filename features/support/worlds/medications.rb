@@ -57,13 +57,25 @@ module World
         record_prescription_for(args)
       end
 
-      def revise_prescription_for(patient:, user:, drug_name:,
-        drug_selector: default_medication_drug_selector)
-
-        drug = Renalware::Drugs::Drug.find_by!(name: drug_name)
+      def revise_prescription_for(patient:, user:, drug_selector: default_medication_drug_selector,
+        prescription_params: {})
         prescription = patient.prescriptions.last!
 
-        prescription.update!(drug: drug, by: Renalware::SystemUser.find)
+        update_params = { by: Renalware::SystemUser.find }
+        prescription_params.each do |key, value|
+          case key
+            when :drug_name
+              drug = Renalware::Drugs::Drug.find_by!(name: value)
+              update_params.merge!(drug: drug)
+            else
+              update_params.merge!(key.to_sym => value)
+          end
+        end
+
+        Renalware::Medications::UpdatePrescription.new(
+          prescription,
+          update_params
+        ).call
       end
 
       def terminate_prescription_for(patient:, user:)
@@ -71,13 +83,6 @@ module World
 
         prescription.terminate(by: user).save!
         expect(prescription).to be_terminated
-      end
-
-      def update_prescription(prescription, params)
-        Renalware::Medications::UpdatePrescription.new(
-          prescription,
-          params.merge(by: Renalware::SystemUser.find)
-        ).call
       end
 
       # @ section expectations
@@ -89,9 +94,7 @@ module World
       end
 
       def expect_prescription_to_be_revised(patient:)
-        prescription = patient.prescriptions.last!
-
-        expect(prescription.created_at).not_to eq(prescription.updated_at)
+        expect(patient.prescriptions.count).to eq(2)
       end
 
       def expect_current_prescriptions_to_match(actual_prescriptions, expected_prescriptions)
@@ -107,7 +110,9 @@ module World
 
       def expect_prescription_to_exist(patient, attributes)
         drug = Renalware::Drugs::Drug.find_by(name: attributes[:drug_name])
-        medication_route = Renalware::Medications::MedicationRoute.find_by(code: attributes[:route_code])
+        medication_route = Renalware::Medications::MedicationRoute.find_by(
+          code: attributes[:route_code]
+        )
 
         prescription_exists = Renalware::Medications::Prescription.exists?(
           patient: patient,
@@ -162,9 +167,8 @@ module World
         record_prescription_for(patient: patient, **args.except(:terminated_on))
       end
 
-      def revise_prescription_for(patient:, user:, drug_name:,
-        drug_selector: default_medication_drug_selector)
-
+      def revise_prescription_for(patient:, user:, drug_selector: default_medication_drug_selector,
+        prescription_params: {})
         login_as user
 
         visit patient_prescriptions_path(patient,
@@ -175,7 +179,14 @@ module World
         end
 
         within "#prescriptions" do
-          drug_selector.call(drug_name)
+          prescription_params.each do |key, value|
+            case key
+              when :drug_name
+                drug_selector.call(value)
+              when :dose
+                fill_in "Dose", with: value
+            end
+          end
           click_on "Save"
           wait_for_ajax
         end
