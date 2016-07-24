@@ -44,7 +44,12 @@ module Renalware
         prescription = @patient.prescriptions.find(params[:id])
         @treatable = prescription.treatable
 
-        if prescription.update(prescription_params.merge(by: current_user))
+        updated = UpdatePrescription.new(
+          prescription,
+          prescription_params.merge(by: current_user)
+        ).call
+
+        if updated
           render_index
         else
           render_form(prescription, url: patient_prescription_path(@patient, prescription))

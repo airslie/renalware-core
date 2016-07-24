@@ -180,7 +180,7 @@ module World
 
         within "#prescriptions" do
           prescription_params.each do |key, value|
-            case key
+            case key.to_sym
               when :drug_name
                 drug_selector.call(value)
               when :dose
