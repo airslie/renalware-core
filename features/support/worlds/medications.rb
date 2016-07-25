@@ -72,10 +72,7 @@ module World
           end
         end
 
-        Renalware::Medications::UpdatePrescription.new(
-          prescription,
-          update_params
-        ).call
+        Renalware::Medications::RevisePrescription.new(prescription).call(update_params)
       end
 
       def terminate_prescription_for(patient:, user:)

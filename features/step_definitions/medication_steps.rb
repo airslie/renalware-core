@@ -44,7 +44,7 @@ When(/^Clyde views the list of prescriptions for Patty$/) do
   @current_prescriptions, @historical_prescriptions = view_prescriptions_for(@clyde, @patty)
 end
 
-When(/^Clyde updates the prescription for Patty with these changes:$/) do |table|
+When(/^Clyde revises the prescription for Patty with these changes:$/) do |table|
   revise_prescription_for(
     patient: @patty,
     user: @clyde,
