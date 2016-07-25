@@ -120,6 +120,9 @@ module World
         wait_for_ajax
 
         within "#new_medications_prescription" do
+          dose_unit = ::I18n.t(
+            dose_unit, scope: "enumerize.renalware.medications.prescription.dose_unit"
+          )
           drug_selector.call(drug_name)
           fill_in "Dose amount", with: dose_amount
           select dose_unit, from: "Dose unit"
