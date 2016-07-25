@@ -103,6 +103,7 @@ Rails.application.routes.draw do
       namespace :letters do
         resources :letters do
           resource :typed, only: :create
+          resource :archived, only: :create
         end
       end
 

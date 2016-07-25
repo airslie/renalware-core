@@ -6,4 +6,8 @@
   = button_to "Mark as Typed", patient_letters_letter_typed_path(letter.patient, letter),
       form_class: "inline", class: "button tiny", data: { confirm: "Are you sure?" }
   = blank_separator
+- if policy(letter).archive?
+  = button_to "Archive", patient_letters_letter_archived_path(letter.patient, letter),
+      form_class: "inline", class: "button tiny", data: { confirm: "Are you sure? You will not be able to modify the letter afterwards." }
+  = blank_separator
 = link_to 'back to list', patient_letters_letters_path(letter.patient)
