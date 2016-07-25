@@ -57,8 +57,8 @@ module World
         record_prescription_for(args)
       end
 
-      def revise_prescription_for(patient:, user:, drug_selector: default_medication_drug_selector,
-        prescription_params: {})
+      def revise_prescription_for(patient:, _user:,
+        _drug_selector: default_medication_drug_selector, prescription_params: {})
         prescription = patient.prescriptions.last!
 
         update_params = { by: Renalware::SystemUser.find }

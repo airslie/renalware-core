@@ -24,9 +24,9 @@ module Renalware
       def create_new_prescription
         new_attributes =
           prescription
-            .attributes
-            .except(*excluded_attributes)
-            .merge(prescribed_on: Date.current)
+          .attributes
+          .except(*excluded_attributes)
+          .merge(prescribed_on: Date.current)
 
         new_prescription = Renalware::Medications::Prescription.new(new_attributes)
         new_prescription.assign_attributes(params)
