@@ -25,7 +25,7 @@ module Renalware
                             treatable: @patient,
                             drug: @amoxicillin,
                             dose_amount: "23",
-                            dose_unit: "mg",
+                            dose_unit: "milligram",
                             medication_route: @med_route,
                             frequency: "PID",
                             prescribed_on: "02/10/2014",
