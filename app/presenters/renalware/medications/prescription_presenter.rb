@@ -14,6 +14,14 @@ module Renalware
       def provider
         ::I18n.t(super, scope: "enums.provider")
       end
+
+      def terminated_by
+        if terminated?
+          updated_by.full_name
+        else
+          ""
+        end
+      end
     end
   end
 end
