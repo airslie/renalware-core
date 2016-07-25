@@ -15,7 +15,7 @@ module Renalware
 
       click_on "Save"
 
-      expect(page).to have_content('PD regime must be assigned at least one bag')
+      expect(page).to have_content('Regime must be assigned at least one bag')
     end
   end
 end

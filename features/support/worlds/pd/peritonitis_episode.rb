@@ -54,7 +54,7 @@ module World
       def record_peritonitis_episode_for(patient:, user:, diagnosed_on:)
         login_as user
 
-        visit new_patient_peritonitis_episode_path(patient)
+        visit new_patient_pd_peritonitis_episode_path(patient)
         fill_in "Diagnosed on", with: diagnosed_on
         click_on "Save"
       end
@@ -63,7 +63,7 @@ module World
         login_as user
 
         episode = episode_for(patient)
-        visit patient_peritonitis_episode_path(patient, episode)
+        visit patient_pd_peritonitis_episode_path(patient, episode)
         within "#" + dom_id(episode) do
           click_on "Edit"
           fill_in "Diagnosed on", with: diagnosed_on

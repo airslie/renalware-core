@@ -5,7 +5,7 @@ module Renalware
   logcount=0
   CSV.foreach(file_path, headers: true) do |row|
     logcount += 1
-    BagType.find_or_create_by!(
+    PD::BagType.find_or_create_by!(
       description: row['description'],
       manufacturer: row['manufacturer'],
       glucose_grams_per_litre: row['glucose_grams_per_litre'],

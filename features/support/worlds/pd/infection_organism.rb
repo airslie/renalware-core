@@ -4,7 +4,7 @@ module World
       # @ section commands
       #
       def record_organism_for(infectable:, organism_name:)
-        code = Renalware::OrganismCode.find_by!(name: organism_name)
+        code = Renalware::PD::OrganismCode.find_by!(name: organism_name)
 
         infectable.infection_organisms.create!(organism_code: code)
       end
@@ -33,7 +33,7 @@ module World
         click_link "Add Infection Organism"
         wait_for_ajax
 
-        within "#new_infection_organism" do
+        within "#new_pd_infection_organism" do
           select(organism_name, from: "Organism")
           click_on "Save"
           wait_for_ajax

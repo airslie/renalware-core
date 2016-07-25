@@ -1,8 +1,0 @@
-= simple_form_for [patient, exit_site_infection], html: { class: local_assigns[:form_class] },
-    remote: true, wrapper: :horizontal_form do |f|
-  = render "fields", f: f
-  .row
-    .large-offset-3.large-7.columns
-      = f.button :submit, "Save", class: :tiny
-      span= " or "
-      = link_to "cancel", patient_exit_site_infection_path(patient, exit_site_infection), remote: true

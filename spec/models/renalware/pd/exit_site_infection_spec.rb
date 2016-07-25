@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Renalware
-  RSpec.describe ExitSiteInfection, :type => :model do
+  RSpec.describe PD::ExitSiteInfection, :type => :model do
     include DrugsSpecHelper
 
     it { should validate_presence_of :patient }

@@ -116,6 +116,7 @@ module World
       def record_prescription_for(patient:, treatable: nil, drug_name:, dose_amount:,
         dose_unit:, route_code:, frequency:, prescribed_on:, provider:, terminated_on: nil,
         drug_selector: default_medication_drug_selector)
+
         click_link "Add Prescription"
         wait_for_ajax
 

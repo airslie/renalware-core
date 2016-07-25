@@ -1,13 +1,13 @@
 require "rails_helper"
 
 module Renalware
-  RSpec.describe PDRegimesController, type: :controller do
+  RSpec.describe PD::RegimesController, type: :controller do
 
     before do
       @patient = create(:patient)
       @bag_type = create(:bag_type)
       @capd_regime = create(:capd_regime,
-                      pd_regime_bags_attributes: [
+                      regime_bags_attributes: [
                         bag_type: @bag_type,
                         volume: 600,
                         sunday: true,
@@ -34,10 +34,10 @@ module Renalware
           expect { post :create,
             patient_id: @patient,
             pd_regime: {
-              type: "Renalware::CAPDRegime",
+              type: "Renalware::PD::CAPDRegime",
               start_date: "01/02/2015",
               treatment: "CAPD 3 exchanges per day",
-              pd_regime_bags_attributes: [
+              regime_bags_attributes: [
                 bag_type_id: @bag_type.id,
                 volume: 600,
                 sunday: true,
@@ -49,7 +49,7 @@ module Renalware
                 saturday: true
               ]
             }
-          }.to change(PDRegime, :count).by(1)
+          }.to change(PD::Regime, :count).by(1)
 
           expect(response).to redirect_to(patient_pd_dashboard_path(@patient))
         end
@@ -60,11 +60,11 @@ module Renalware
           expect {
             post :create,
             patient_id: @patient,
-            pd_regime: { type: "Renalware::CAPDRegime",
+            pd_regime: { type: "Renalware::PD::CAPDRegime",
               start_date: nil,
               treatment: nil
             }
-          }.to change(PDRegime, :count).by(0)
+          }.to change(PD::Regime, :count).by(0)
 
           expect(response).to render_template(:new)
         end
@@ -76,12 +76,12 @@ module Renalware
             post :create,
             patient_id: @patient,
             actions: { add_bag: "Add Bag" },
-            pd_regime: { type: "Renalware::CAPDRegime",
+            pd_regime: { type: "Renalware::PD::CAPDRegime",
               start_date: Time.zone.today,
               treatment: "CAPD 3 exchanges per day" }
-          }.to change(PDRegime, :count).by(0)
+          }.to change(PD::Regime, :count).by(0)
 
-          expect(assigns(:pd_regime).pd_regime_bags.size).to eq(1)
+          expect(assigns(:pd_regime).regime_bags.size).to eq(1)
         end
       end
 
@@ -90,17 +90,17 @@ module Renalware
           post :create,
           patient_id: @patient,
           actions: { remove: { "0" => "Remove" } },
-          pd_regime: { type: "Renalware::CAPDRegime",
+          pd_regime: { type: "Renalware::PD::CAPDRegime",
             start_date: Time.zone.today,
             treatment: "CAPD 4 exchanges per day",
-            pd_regime_bags_attributes: [
+            regime_bags_attributes: [
               {
                 bag_type_id:"100", volume:"2", per_week:"1", monday:true
               }
             ]
           }
 
-          expect(assigns(:pd_regime).pd_regime_bags.size).to eq(0)
+          expect(assigns(:pd_regime).regime_bags.size).to eq(0)
         end
       end
     end
@@ -127,7 +127,7 @@ module Renalware
           put :update,
           id: @capd_regime.id,
           patient_id: @patient,
-          pd_regime: { type: "Renalware::CAPDRegime",
+          pd_regime: { type: "Renalware::PD:CAPDRegime",
             start_date: "15/02/2015",
             treatment: "CAPD 5 exchanges per day"
           }
@@ -141,7 +141,7 @@ module Renalware
           put :update,
           id: @capd_regime.id,
           patient_id: @patient,
-          pd_regime: { type: "Renalware::CAPDRegime",
+          pd_regime: { type: "Renalware::PD::CAPDRegime",
             start_date: nil,
             treatment: nil
           }
@@ -157,20 +157,20 @@ module Renalware
             id: @capd_regime.id,
             patient_id: @patient,
             actions: { add_bag: "Add Bag" },
-            pd_regime: { type: "Renalware::CAPDRegime",
+            pd_regime: { type: "Renalware::PD::CAPDRegime",
               start_date: Time.zone.today,
               treatment: "CAPD 3 exchanges per day"
             }
-          }.to change(PDRegime, :count).by(0)
+          }.to change(PD::Regime, :count).by(0)
 
-          expect(assigns(:pd_regime).pd_regime_bags.size).to eq(2)
+          expect(assigns(:pd_regime).regime_bags.size).to eq(2)
         end
       end
 
       context "remove bag" do
         before do
           # ensure regime has at least one bag
-          create(:pd_regime_bag, pd_regime: @capd_regime)
+          create(:pd_regime_bag, regime: @capd_regime)
         end
 
         it "removes a bag from the unsaved CAPD Regime" do
@@ -178,12 +178,12 @@ module Renalware
             id: @capd_regime.id,
             patient_id: @patient,
             actions: { remove: { "0" => "Remove" } },
-            pd_regime: { type: "Renalware::CAPDRegime",
+            pd_regime: { type: "Renalware::PD::CAPDRegime",
               start_date: Time.zone.today,
               treatment: "CAPD 3 exchanges per day"
             }
 
-          expect(assigns(:pd_regime).pd_regime_bags.size).to eq(1)
+          expect(assigns(:pd_regime).regime_bags.size).to eq(1)
         end
       end
     end
