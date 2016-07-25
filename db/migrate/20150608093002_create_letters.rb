@@ -10,6 +10,7 @@ class CreateLetters < ActiveRecord::Migration
       t.string :salutation
       t.text :body
       t.text :notes
+      t.text :archived_copy
 
       t.belongs_to :created_by, index: true, null: false
       t.belongs_to :updated_by, index: true, null: false

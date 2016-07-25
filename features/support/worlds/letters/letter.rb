@@ -78,6 +78,13 @@ module World
         typed_letter.save!
       end
 
+      def archive_letter(patient:, user:)
+        typed_letter = simple_letter_for(patient)
+
+        archived_letter = typed_letter.archive!(by: user)
+        archived_letter.save!
+      end
+
       # @section expectations
       #
       def expect_simple_letter_to_exist(patient, recipient:)
@@ -130,6 +137,27 @@ module World
         letter = Renalware::Letters::LetterPresenterFactory.new(letter)
         attributes = letter.main_recipient.address.attributes.symbolize_keys
         expect(attributes).to include(address_attributes)
+      end
+
+      def expect_letter_to_be_archived(patient:, user:)
+        letter = simple_letter_for(patient)
+        policy = letter.class.policy_class.new(user, letter)
+
+        expect(policy.archive?).to be_truthy
+      end
+
+      def expect_archived_letter(patient:)
+        letter = simple_letter_for(patient)
+
+        expect(letter.state).to eq("archived")
+        expect(letter.archived_copy).to_not be_empty
+      end
+
+      def expect_letter_to_not_be_modified(patient:, user:)
+        letter = simple_letter_for(patient)
+        policy = letter.class.policy_class.new(user, letter)
+
+        expect(policy.update?).to be_falsy
       end
 
       private

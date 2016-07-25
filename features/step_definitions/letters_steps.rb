@@ -18,6 +18,14 @@ Given(/^Patty has completed pathology investigations relevant to the clinic lett
   seed_observations_relevant_to_clinic_letter(patient: @patty)
 end
 
+Given(/^Patty has a typed letter$/) do
+  @doctor = find_or_create_user(given_name: "a_doctor", role: "clinician")
+
+  seed_simple_letter_for(@patty, user: @doctor)
+  mark_draft_as_typed(patient: @patty, user: @doctor)
+end
+
+
 When(/^Nathalie drafts a letter for Patty to "(.*?)" with "(.*?)"$/) do |rec, ccs|
   recipient = letter_recipients_map.fetch(rec)
   cc_recipients = ccs.split(",").map { |cc| letter_recipients_map.fetch(cc.strip) }
@@ -47,6 +55,10 @@ end
 
 When(/^Nathalie marks the letter typed$/) do
   mark_draft_as_typed(patient: @patty, user: @nathalie)
+end
+
+When(/^Doug archives the letter$/) do
+  archive_letter(patient: @patty, user: @doctor)
 end
 
 
@@ -102,4 +114,16 @@ end
 
 Then(/^the letter lists Patty's recent pathology results$/) do
   expect_letter_to_list_recent_pathology_results(patient: @patty)
+end
+
+Then(/^Doug can archive letter$/) do
+  expect_letter_to_be_archived(patient: @patty, user: @doctor)
+end
+
+Then(/^An archived copy of the letter is available$/) do
+  expect_archived_letter(patient: @patty)
+end
+
+Then(/^nobody can modify the letter$/) do
+  expect_letter_to_not_be_modified(patient: @patty, user: @doctor)
 end
