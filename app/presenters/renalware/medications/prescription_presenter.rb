@@ -14,6 +14,16 @@ module Renalware
       def provider
         ::I18n.t(super, scope: "enums.provider")
       end
+
+      def dose
+        "#{dose_amount} #{translated_dose_unit}"
+      end
+
+      private
+
+      def translated_dose_unit
+        ::I18n.t(dose_unit, scope: "enumerize.renalware.medications.prescription.dose_unit")
+      end
     end
   end
 end

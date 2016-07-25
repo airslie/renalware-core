@@ -22,17 +22,19 @@ en:
               not_other: can't be present when a route has been selected
 
   enumerize:
-    renalware/medications/prescription:
-      dose_unit:
-        ampoule: ampoule
-        capsule: capsule
-        drop: drop
-        g: g
-        iu: iu
-        mg: mg
-        microgram: microgram
-        ml: ml
-        puff: puff
-        tab: tab
-        tablet: tablet
-        unit: unit
+    renalware:
+      medications:
+        prescription:
+          dose_unit:
+            ampoule: ampoule
+            capsule: capsule
+            drop: drop
+            gram: g
+            international_unit: iu
+            microgram: microgram
+            milligram: mg
+            millilitre: ml
+            puff: puff
+            tab: tab
+            tablet: tablet
+            unit: unit

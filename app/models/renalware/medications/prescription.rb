@@ -28,7 +28,20 @@ module Renalware
 
       enum provider: Provider.codes
 
-      enumerize :dose_unit, in: %i(ampoule capsule drop g iu mg microgram ml puff tab tablet unit)
+      enumerize :dose_unit, in: %i(
+        ampoule
+        capsule
+        drop
+        gram
+        international_unit
+        microgram
+        milligram
+        millilitre
+        puff
+        tab
+        tablet
+        unit
+      ), i18n_scope: "enumerize.renalware.medications.prescription.dose_unit"
 
       scope :ordered, -> { order(default_search_order) }
       scope :current, -> (date = Date.current) {
@@ -59,10 +72,6 @@ module Renalware
 
       def terminated?
         self.terminated_on.present?
-      end
-
-      def dose
-        "#{dose_amount} #{dose_unit}"
       end
 
       private
