@@ -3,7 +3,7 @@ FactoryGirl.define do
     patient
     drug
     dose_amount "20"
-    dose_unit "mg"
+    dose_unit "milligram"
     medication_route
     frequency "daily"
     notes "with food"

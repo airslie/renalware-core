@@ -3,7 +3,7 @@ Given(/^Patty has a recorded prescription|Patty has current prescriptions$/) do
     patient: @patty,
     drug_name: "Ciprofloxacin Infusion",
     dose_amount: "100",
-    dose_unit: "ml",
+    dose_unit: "millilitre",
     route_code: "PO",
     frequency: "once a day",
     prescribed_on: "10-10-2015",
