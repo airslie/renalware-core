@@ -13,5 +13,5 @@ Feature: Archiving a letter
 
   Scenario: A doctor archived a letter
     When Doug archives the letter
-    Then An archived copy of the letter is available
+    Then an archived copy of the letter is available
     And nobody can modify the letter
