@@ -120,7 +120,7 @@ Then(/^Doug can archive letter$/) do
   expect_letter_to_be_archived(patient: @patty, user: @doctor)
 end
 
-Then(/^An archived copy of the letter is available$/) do
+Then(/^an archived copy of the letter is available$/) do
   expect_archived_letter(patient: @patty)
 end
 
