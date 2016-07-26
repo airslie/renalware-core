@@ -12,16 +12,15 @@ Rails.application.routes.draw do
       resources :users
     end
 
-    get "authors/:author_id/letters", to: "letters/letters#author", as: "author_letters"
-
-    resources :bag_types, except: [:show]
     resources :bookmarks, controller: "patients/bookmarks", only: :destroy
+    resource :dashboard, only: :show, controller: "dashboard/dashboards"
 
+    # Clinics
     resources :appointments, controller: "clinics/appointments", only: [:index]
     resources :clinic_visits, controller: "clinics/clinic_visits"
+    resources :doctors
 
     resources :deaths, only: :index, as: :patient_deaths
-    resources :doctors
 
     namespace :drugs do
       resources :drugs, except: :show do
@@ -45,8 +44,6 @@ Rails.application.routes.draw do
       resources :units, except: :show
     end
 
-    resources :infection_organisms
-
     namespace :modalities do
       resources :descriptions, except: [:show]
       resources :reasons, only: [:index]
@@ -59,31 +56,53 @@ Rails.application.routes.draw do
         end
       end
     end
+    get "authors/:author_id/letters", to: "letters/letters#author", as: "author_letters"
+
+    namespace :pathology do
+      resources :forms, only: :create
+    end
+
+    namespace :pd do
+      resources :bag_types, except: [:show]
+      resources :infection_organisms
+    end
+
+    resources :prd_descriptions, only: [:search] do
+      collection do
+        get :search
+      end
+    end
+
+    namespace :system do
+      resources :email_templates, only: :index
+    end
+
+    namespace :transplants do
+      resource :wait_list, only: :show
+    end
 
     resources :patients, except: [:destroy] do
-      member do
-        get :capd_regime
-        get :apd_regime
-      end
-
       collection do
         get :search
       end
 
       resource :clinical_summary, only: :show
       resource :death, only: [:edit, :update]
-      resource :pd_dashboard, only: :show
 
-      resources :apd_regimes, controller: "pd_regimes", type: "ApdRegime"
-      resources :capd_regimes, controller: "pd_regimes", type: "CapdRegime"
-      resources :clinic_visits, controller: "clinics/clinic_visits"
-      resources :events, only: [:new, :create, :index], controller: "events/events"
-      resources :exit_site_infections, only: [:new, :create, :show, :edit, :update]
       resources :bookmarks, only: :create, controller: "patients/bookmarks"
 
-      namespace :renal do
-        resource :profile, only: [:edit, :update]
+      namespace :accesses do
+        resource :dashboard, only: :show
+        resources :assessments, except: [:index, :destroy]
+        resources :procedures, except: [:index, :destroy]
+        resources :profiles, except: [:index, :destroy]
       end
+
+      # Clinics
+      resources :clinic_visits, controller: "clinics/clinic_visits"
+
+      # Events
+      resources :events, only: [:new, :create, :index], controller: "events/events"
 
       namespace :hd do
         resource :dashboard, only: :show
@@ -93,12 +112,8 @@ Rails.application.routes.draw do
         resources :dry_weights, except: [:show, :destroy]
       end
 
-      namespace :accesses do
-        resource :dashboard, only: :show
-        resources :assessments, except: [:index, :destroy]
-        resources :procedures, except: [:index, :destroy]
-        resources :profiles, except: [:index, :destroy]
-      end
+      # Medications
+      resources :prescriptions, controller: "medications/prescriptions"
 
       namespace :letters do
         resources :letters do
@@ -106,15 +121,24 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :prescriptions, controller: "medications/prescriptions"
+      namespace :renal do
+        resource :profile, only: [:edit, :update]
+      end
 
+      # Modalities
       resources :modalities, only: [:new, :create, :index], controller: "modalities/modalities"
-      resources :pd_regimes, only: [:new, :create, :edit, :update, :show]
-      resources :peritonitis_episodes, only: [:new, :create, :show, :edit, :update]
 
-      resources :problems, controller: "problems/problems" do
-        post :sort, on: :collection
-        resources :notes, only: [:index, :new, :create], controller: "problems/notes"
+      namespace :pd do
+        resource :dashboard, only: :show
+        resources :apd_regimes, controller: "regimes", type: "ApdRegime"
+        resources :capd_regimes, controller: "regimes", type: "CapdRegime"
+        resources :regimes, only: [:new, :create, :edit, :update, :show]
+        resources :peritonitis_episodes, only: [:new, :create, :show, :edit, :update]
+        resources :exit_site_infections, only: [:new, :create, :show, :edit, :update]
+      end
+      member do
+        get :capd_regime
+        get :apd_regime
       end
 
       namespace :pathology do
@@ -127,13 +151,13 @@ Rails.application.routes.draw do
         resources :required_observations, only: :index
       end
 
-      namespace :transplants do
-        resource :recipient_dashboard, only: :show
-        resource :recipient_workup, only: [:show, :edit, :update]
-        resources :recipient_operations, expect: [:index, :destroy] do
-          resource :followup, controller: "recipient_followups"
-        end
+      # Problems
+      resources :problems, controller: "problems/problems" do
+        post :sort, on: :collection
+        resources :notes, only: [:index, :new, :create], controller: "problems/notes"
+      end
 
+      namespace :transplants do
         resource :donor_dashboard, only: :show
         resource :donor_workup, only: [:show, :edit, :update]
         resources :donor_operations, expect: [:index, :destroy] do
@@ -141,34 +165,17 @@ Rails.application.routes.draw do
         end
 
         resources :donations, expect: [:index, :destroy]
+        resource :recipient_dashboard, only: :show
+        resource :recipient_workup, only: [:show, :edit, :update]
+        resources :recipient_operations, expect: [:index, :destroy] do
+          resource :followup, controller: "recipient_followups"
+        end
 
         resource :registration, expect: [:index, :destroy] do
           resources :statuses, controller: "registration_statuses"
         end
       end
     end
-
-    namespace :pathology do
-      resources :forms, only: :create
-    end
-
-    resources :prd_descriptions, only: [:search] do
-      collection do
-        get :search
-      end
-    end
-
-    resources :snomed, only: [:index]
-
-    namespace :system do
-      resources :email_templates, only: :index
-    end
-
-    namespace :transplants do
-      resource :wait_list, only: :show
-    end
-
-    resource :dashboard, only: :show, controller: "dashboard/dashboards"
   end
 
   # enable mail previews in all environments
