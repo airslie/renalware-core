@@ -149,7 +149,7 @@ module World
       def expect_archived_letter(patient:)
         letter = simple_letter_for(patient)
 
-        expect(letter.state).to eq("archived")
+        expect(letter).to be_archived
         expect(letter.archive).to be_present
       end
 
