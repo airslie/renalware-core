@@ -42,11 +42,7 @@ module World
         expect(exit_site_infection.created_at).not_to eq(exit_site_infection.updated_at)
         expect(organism.created_at).not_to eq(organism.updated_at)
 
-        prescriptions = exit_site_infection.prescriptions.order(created_at: :asc)
-
-        expect(prescriptions[0].terminated_on).to be_a(Date)
-        expect(prescriptions[1].terminated_on).to be_nil
-        expect(prescriptions[0].patient).to eq(prescriptions[1].patient)
+        expect_exit_site_prescriptions_to_be_revised(patient, exit_site_infection)
       end
     end
 
