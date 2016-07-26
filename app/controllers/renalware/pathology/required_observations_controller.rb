@@ -20,10 +20,6 @@ module Renalware
 
       private
 
-      def all_clinics
-        Renalware::Clinics::Clinic.ordered
-      end
-
       def clinic
         @clinic ||= begin
           if params[:clinic_id].present?
