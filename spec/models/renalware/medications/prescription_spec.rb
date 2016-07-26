@@ -45,18 +45,32 @@ module Renalware
       end
 
       describe "scopes" do
+        before do
+          create(:prescription, notes: ":expires_today:", terminated_on: "2010-01-02")
+          create(:prescription, notes: ":expired_yesteday:", terminated_on: "2010-01-01")
+          create(:prescription, notes: ":not_specified:")
+          create(:prescription, notes: ":expires_tomorrow:", terminated_on: "2010-01-03")
+        end
+
         describe ".current" do
+          subject(:prescriptions) { Prescription.current("2010-01-02") }
+
           it "returns prescriptions that terminate today or later, or not specified" do
-            create(:prescription, notes: ":expires_today:", terminated_on: "2010-01-02")
-            create(:prescription, notes: ":expired_yesteday:", terminated_on: "2010-01-01")
-            create(:prescription, notes: ":not_specified:")
-            create(:prescription, notes: ":expires_tomorrow:", terminated_on: "2010-01-03")
-
-            prescriptions = Prescription.current("2010-01-02")
-
             expect(prescriptions.map(&:notes)).to \
-              include(":expires_today:", ":expires_tomorrow:", ":not_specified:")
-            expect(prescriptions.map(&:notes)).not_to include(":expires_yesterday:")
+              include(":expires_tomorrow:", ":not_specified:")
+            expect(prescriptions.map(&:notes)).not_to \
+              include(":expires_today:", ":expires_yesterday:")
+          end
+        end
+
+        describe ".terminated" do
+          subject(:prescriptions) { Prescription.terminated("2010-01-02") }
+
+          it "returns prescriptions that terminate today or later, or not specified" do
+            expect(prescriptions.map(&:notes)).to \
+              include(":expires_today:", ":expired_yesteday:")
+            expect(prescriptions.map(&:notes)).not_to \
+              include(":expires_tomorrow:", ":not_specified:")
           end
         end
       end
