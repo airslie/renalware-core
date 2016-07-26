@@ -7,7 +7,7 @@ module Renalware
 
       def create
         letter = @patient.letters.draft.find(params[:letter_id])
-        typed_letter = letter.typed!(by: current_user)
+        typed_letter = letter.typed(by: current_user)
         typed_letter.save!
 
         redirect_to patient_letters_letter_path(@patient, typed_letter)

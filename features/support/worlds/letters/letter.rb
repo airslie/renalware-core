@@ -74,14 +74,14 @@ module World
       def mark_draft_as_typed(patient:, user:)
         draft_letter = simple_letter_for(patient)
 
-        typed_letter = draft_letter.typed!(by: user)
+        typed_letter = draft_letter.typed(by: user)
         typed_letter.save!
       end
 
       def archive_letter(patient:, user:)
         typed_letter = simple_letter_for(patient)
 
-        archived_letter = typed_letter.archive!(by: user)
+        archived_letter = typed_letter.archive(by: user)
         archived_letter.save!
       end
 
@@ -150,7 +150,7 @@ module World
         letter = simple_letter_for(patient)
 
         expect(letter.state).to eq("archived")
-        expect(letter.archived_copy).to_not be_empty
+        expect(letter.archived_copy).to be_present
       end
 
       def expect_letter_to_not_be_modified(patient:, user:)

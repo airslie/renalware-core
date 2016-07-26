@@ -7,7 +7,7 @@ module Renalware
         TypedLetterPolicy
       end
 
-      def archive!(by:)
+      def archive(by:)
         becomes!(Archived).tap do |letter|
           letter.by = by
           letter.archived_copy = "<div>Archive</div>"

@@ -7,7 +7,7 @@ module Renalware
 
       def create
         letter = @patient.letters.typed.find(params[:letter_id])
-        archived_letter = letter.archive!(by: current_user)
+        archived_letter = letter.archive(by: current_user)
         archived_letter.save!
 
         redirect_to patient_letters_letter_path(@patient, archived_letter)
