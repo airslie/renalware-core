@@ -9,7 +9,7 @@ module Renalware
           global_pathology = @patient.required_observation_requests(clinic)
           patient_pathology = @patient.required_patient_pathology
           clinics = Renalware::Clinics::Clinic.ordered
-          request_form_options = RequestAlgorithm::RequestFormOptions.new(
+          request_form_options = RequestAlgorithm::FormOptions.new(
             patients: Array(@patient),
             clinic: clinic
           )

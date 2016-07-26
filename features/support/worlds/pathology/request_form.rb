@@ -15,9 +15,9 @@ module World
 
         def build_request_forms(patients, options)
           request_form_options =
-            Renalware::Pathology::RequestAlgorithm::RequestFormOptions.new(options)
+            Renalware::Pathology::RequestAlgorithm::FormOptions.new(options)
 
-          Renalware::Pathology::RequestAlgorithm::FormsBuilder
+          Renalware::Pathology::RequestAlgorithm::FormsFactory
             .new(patients, request_form_options).build
         end
 

@@ -13,7 +13,7 @@ module Renalware
         authorize appointments
 
         request_form_options =
-          Renalware::Pathology::RequestAlgorithm::RequestFormOptions.new(
+          Renalware::Pathology::RequestAlgorithm::FormOptions.new(
             patients: appointments.map(&:patient).uniq
           )
 

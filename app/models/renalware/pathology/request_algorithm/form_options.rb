@@ -3,7 +3,7 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     module RequestAlgorithm
-      class RequestFormOptions
+      class FormOptions
         attr_reader :patient_ids
 
         def initialize(params)
