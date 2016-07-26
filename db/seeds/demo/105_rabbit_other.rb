@@ -144,22 +144,22 @@ module Renalware
   Medications::Prescription.create([
     {
       patient_id: 1, drug_id: 986, treatable_id: 1, treatable_type: "Renalware::Patient",
-      dose: "50 mg", medication_route_id: 1, frequency: "bd for 7 days", prescribed_on: "2015-09-13",
-      terminated_on: "2015-09-20", provider: 0, by: barts_doc
+      dose_amount: "50", dose_unit: "milligram", medication_route_id: 1, frequency: "bd for 7 days",
+      prescribed_on: "2015-09-13", terminated_on: "2015-09-20", provider: 0, by: barts_doc
     },
     {
       patient_id: 1, drug_id: 183, treatable_id: 1, treatable_type: "Renalware::Patient",
-      dose: "25 mg", medication_route_id: 1, frequency: "nocte", prescribed_on: "2014-10-10",
-      terminated_on: nil, provider: 0, by: barts_doc
+      dose_amount: "25", dose_unit: "milligram", medication_route_id: 1, frequency: "nocte",
+      prescribed_on: "2014-10-10", terminated_on: nil, provider: 0, by: barts_doc
     },
     {
       patient_id: 1, drug_id: 269, treatable_id: 1, treatable_type: "Renalware::Patient",
-      dose: "100 mg", medication_route_id: 1, frequency: "bd", prescribed_on: "2015-06-16",
-      terminated_on: nil, provider: 0, by: barts_doc
+      dose_amount: "100", dose_unit: "milligram", medication_route_id: 1, frequency: "bd",
+      prescribed_on: "2015-06-16", terminated_on: nil, provider: 0, by: barts_doc
     },
     {
       patient_id: 1, drug_id: 126, treatable_id: 1, treatable_type: "Renalware::PeritonitisEpisode",
-      dose: "100 mg", medication_route_id: 1, frequency: "tid for 7d",
+      dose_amount: "100", dose_unit: "milligram", medication_route_id: 1, frequency: "tid for 7d",
       prescribed_on: "2015-09-21", provider: 0, by: barts_doc
     }
   ])

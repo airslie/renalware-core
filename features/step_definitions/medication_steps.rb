@@ -2,7 +2,8 @@ Given(/^Patty has a recorded prescription|Patty has current prescriptions$/) do
   seed_prescription_for(
     patient: @patty,
     drug_name: "Ciprofloxacin Infusion",
-    dose: "100 ml",
+    dose_amount: "100",
+    dose_unit: "millilitre",
     route_code: "PO",
     frequency: "once a day",
     prescribed_on: "10-10-2015",
@@ -13,10 +14,13 @@ end
 
 Given(/^Patty has the following prescriptions:$/) do |table|
   table.hashes.each do |row|
+    dose_amount, dose_unit = row[:dose].split(" ")
+
     seed_prescription_for(
       patient: @patty,
       drug_name: row[:drug_name],
-      dose: row[:dose],
+      dose_amount: dose_amount,
+      dose_unit: dose_unit,
       route_code: row[:route_code],
       frequency: row[:frequency],
       prescribed_on: Time.now - 1.month,
@@ -31,7 +35,8 @@ When(/^Clyde records the prescription for Patty$/) do
     user: @clyde,
     patient: @patty,
     drug_name: "Ciprofloxacin Infusion",
-    dose: "100 ml",
+    dose_amount: "100",
+    dose_unit: "millilitre",
     route_code: "PO",
     frequency: "once a day",
     prescribed_on: "10-10-2015",

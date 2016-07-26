@@ -2,7 +2,8 @@ FactoryGirl.define do
   factory :prescription, class: "Renalware::Medications::Prescription" do
     patient
     drug
-    dose "20mg"
+    dose_amount "20"
+    dose_unit "milligram"
     medication_route
     frequency "daily"
     notes "with food"
