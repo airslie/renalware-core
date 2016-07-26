@@ -13,15 +13,16 @@ module World
 
       # @section seeds
       #
-      def seed_prescription_for(patient:, treatable: nil, drug_name:, dose:,
-        route_code:, frequency:, prescribed_on:, provider:, terminated_on:, **_)
+      def seed_prescription_for(patient:, treatable: nil, drug_name:, dose_amount:,
+        dose_unit:, route_code:, frequency:, prescribed_on:, provider:, terminated_on:, **_)
         drug = Renalware::Drugs::Drug.find_or_create_by!(name: drug_name)
         route = Renalware::Medications::MedicationRoute.find_by!(code: route_code)
 
         patient.prescriptions.create!(
           treatable: treatable || patient,
           drug: drug,
-          dose: dose,
+          dose_amount: dose_amount,
+          dose_unit: dose_unit,
           medication_route: route,
           frequency: frequency,
           prescribed_on: prescribed_on,
@@ -96,8 +97,9 @@ module World
 
       def expect_current_prescriptions_to_match(actual_prescriptions, expected_prescriptions)
         actual_prescriptions.zip(expected_prescriptions).each do |actual, expected|
+          prescription = Renalware::Medications::PrescriptionPresenter.new(actual)
           expect(actual.drug.name).to eq(expected["drug_name"])
-          expect(actual.dose).to eq(expected["dose"])
+          expect(prescription.dose).to eq(expected["dose"])
           expect(actual.frequency).to eq(expected["frequency"])
           expect(actual.medication_route.code).to eq(expected["route_code"])
           expect(actual.provider).to eq(expected["provider"].downcase)
@@ -138,16 +140,20 @@ module World
 
       # @ section commands
       #
-      def record_prescription_for(patient:, treatable: nil, drug_name:, dose:, route_code:,
-        frequency:, prescribed_on:, provider:, terminated_on: nil,
+      def record_prescription_for(patient:, treatable: nil, drug_name:, dose_amount:,
+        dose_unit:, route_code:, frequency:, prescribed_on:, provider:, terminated_on: nil,
         drug_selector: default_medication_drug_selector)
         click_link "Add Prescription"
         wait_for_ajax
 
         within "#new_medications_prescription" do
+          dose_unit = ::I18n.t(
+            dose_unit, scope: "enumerize.renalware.medications.prescription.dose_unit"
+          )
           drug_selector.call(drug_name)
-          fill_in "Dose", with: dose
-          select(route_code, from: "Medication route")
+          fill_in "Dose amount", with: dose_amount
+          select dose_unit, from: "Dose unit"
+          select route_code, from: "Medication route"
           fill_in "Frequency", with: frequency
           fill_in "Prescribed on", with: prescribed_on
           click_on "Save"

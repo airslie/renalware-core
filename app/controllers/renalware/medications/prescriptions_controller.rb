@@ -99,8 +99,8 @@ module Renalware
       end
 
       def prescription_attributes
-        %i(drug_id dose medication_route_id frequency route_description notes prescribed_on
-            terminated_on provider)
+        %i(drug_id dose_amount dose_unit medication_route_id frequency route_description
+          notes prescribed_on terminated_on provider)
       end
 
       def treatable_type

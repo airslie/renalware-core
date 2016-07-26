@@ -11,7 +11,8 @@ ruby:
     = render "renalware/medications/prescriptions/drug_select/#{drug_select_partials[f.object.treatable_type]}_fields", f: f
 
     = hidden_field_tag :treatable_type, treatable.class.name
-    = f.input :dose
+    = f.input :dose_amount
+    = f.input :dose_unit
     = f.association :medication_route, collection: medication_routes,
         label_method: :code, prompt: :translate
     = f.input :route_description

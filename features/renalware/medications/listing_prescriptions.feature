@@ -11,10 +11,10 @@ Feature: Listing prescriptions
   @web
   Scenario: A clinician views the list of current prescriptions
     Given Patty has the following prescriptions:
-      | drug_name              | dose   | frequency     | route_code | provider | terminated_on |
-      | Acarbose Tablet        | 100 mg | bd            | PO         | Hospital |               |
-      | Beta-Carotene Capsule  | 100mg  | bd            | SC         | GP       | 01-06-2016    |
-      | Flucloxacillin Capsule | 50 mg  | bd for 7 days | PO         | GP       |               |
+      | drug_name              | dose          | frequency     | route_code | provider | terminated_on |
+      | Acarbose Tablet        | 100 milligram | bd            | PO         | Hospital |               |
+      | Beta-Carotene Capsule  | 100 milligram | bd            | SC         | GP       | 01-06-2016    |
+      | Flucloxacillin Capsule | 50 milligram  | bd for 7 days | PO         | GP       |               |
     When Clyde views the list of prescriptions for Patty
     Then Clyde should see these current prescriptions
       | drug_name              | dose   | frequency     | route_code | provider | terminated_on |
@@ -23,5 +23,6 @@ Feature: Listing prescriptions
     And Clyde should see these historical prescriptions
       | drug_name              | dose   | frequency     | route_code | provider | terminated_on |
       | Acarbose Tablet        | 100 mg | bd            | PO         | Hospital |               |
-      | Beta-Carotene Capsule  | 100mg  | bd            | SC         | GP       | 01-06-2016    |
+      | Beta-Carotene Capsule  | 100 mg | bd            | SC         | GP       | 01-06-2016    |
       | Flucloxacillin Capsule | 50 mg  | bd for 7 days | PO         | GP       |               |
+
