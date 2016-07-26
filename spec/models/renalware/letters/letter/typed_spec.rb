@@ -15,7 +15,7 @@ module Renalware::Letters
 
       it "archives a copy of the letter" do
         letter = subject.archive(by: user)
-        expect(letter.archived_copy).to include(".letter-preview")
+        expect(letter.archived_copy).to include("<div>")
       end
     end
   end
