@@ -10,7 +10,7 @@ module Renalware
         archived_letter = letter.archive(by: current_user)
         archived_letter.save!
 
-        redirect_to patient_letters_letter_path(@patient, archived_letter)
+        redirect_to patient_letters_letter_path(@patient, archived_letter), notice: t(".success")
       end
     end
   end
