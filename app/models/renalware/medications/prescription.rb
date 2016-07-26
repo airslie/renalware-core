@@ -45,7 +45,10 @@ module Renalware
 
       scope :ordered, -> { order(default_search_order) }
       scope :current, -> (date = Date.current) {
-        where("terminated_on IS NULL OR terminated_on >= ?", date)
+        where("terminated_on IS NULL OR terminated_on > ?", date)
+      }
+      scope :terminated, -> (date = Date.current) {
+        where("terminated_on IS NOT NULL AND terminated_on <= ?", date)
       }
 
       def self.default_search_order
