@@ -64,10 +64,13 @@ module World
 
         update_params = { by: Renalware::SystemUser.find }
         prescription_params.each do |key, value|
-          case key
+          case key.to_sym
             when :drug_name
               drug = Renalware::Drugs::Drug.find_by!(name: value)
               update_params.merge!(drug: drug)
+            when :dose
+              dose_amount, dose_unit = value.split(" ")
+              update_params.merge!(dose_amount: dose_amount, dose_unit: dose_unit)
             else
               update_params.merge!(key.to_sym => value)
           end
@@ -112,11 +115,13 @@ module World
         medication_route = Renalware::Medications::MedicationRoute.find_by(
           code: attributes[:route_code]
         )
+        dose_amount, dose_unit = attributes[:dose].split(" ")
 
         prescription_exists = Renalware::Medications::Prescription.exists?(
           patient: patient,
           drug: drug,
-          dose: attributes[:dose],
+          dose_amount: dose_amount,
+          dose_unit: dose_unit,
           medication_route: medication_route,
           frequency: attributes[:frequency],
           terminated_on: parse_date_string(attributes[:terminated_on])
@@ -138,6 +143,14 @@ module World
         end
       end
 
+      def fill_in_dose(dose_amount, dose_unit)
+        dose_unit = ::I18n.t(
+          dose_unit, scope: "enumerize.renalware.medications.prescription.dose_unit"
+        )
+        fill_in "Dose amount", with: dose_amount
+        select dose_unit, from: "Dose unit"
+      end
+
       # @ section commands
       #
       def record_prescription_for(patient:, treatable: nil, drug_name:, dose_amount:,
@@ -147,12 +160,8 @@ module World
         wait_for_ajax
 
         within "#new_medications_prescription" do
-          dose_unit = ::I18n.t(
-            dose_unit, scope: "enumerize.renalware.medications.prescription.dose_unit"
-          )
           drug_selector.call(drug_name)
-          fill_in "Dose amount", with: dose_amount
-          select dose_unit, from: "Dose unit"
+          fill_in_dose(dose_amount, dose_unit)
           select route_code, from: "Medication route"
           fill_in "Frequency", with: frequency
           fill_in "Prescribed on", with: prescribed_on
@@ -187,7 +196,8 @@ module World
               when :drug_name
                 drug_selector.call(value)
               when :dose
-                fill_in "Dose", with: value
+                dose_amount, dose_unit = value.split(" ")
+                fill_in_dose(dose_amount, dose_unit)
             end
           end
           click_on "Save"

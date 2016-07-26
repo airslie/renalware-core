@@ -11,11 +11,11 @@ Feature: Revising a prescription
   @web @javascript
   Scenario: A clinician revises a prescription for a patient
     Given Patty has the following prescriptions:
-      | drug_name              | dose   | frequency     | route_code | provider | terminated_on |
-      | Acarbose Tablet        | 100 mg | bd            | PO         | Hospital |               |
+      | drug_name       | dose          | frequency | route_code | provider | terminated_on |
+      | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital |               |
     When Clyde revises the prescription for Patty with these changes:
-      | dose   | 200 mg |
+      | dose   | 200 milligram |
     Then Patty should have the following prescriptions:
-      | drug_name              | dose   | frequency     | route_code | provider | terminated_on |
-      | Acarbose Tablet        | 200 mg | bd            | PO         | Hospital |               |
-      | Acarbose Tablet        | 100 mg | bd            | PO         | Hospital | 12-10-2016    |
+      | drug_name       | dose          | frequency | route_code | provider | terminated_on |
+      | Acarbose Tablet | 200 milligram | bd        | PO         | Hospital |               |
+      | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital | 12-10-2016    |

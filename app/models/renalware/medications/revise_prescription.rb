@@ -32,8 +32,8 @@ module Renalware
       end
 
       def included_attributes
-        %w(patient_id drug_id treatable_id treatable_type dose medication_route_id
-          route_description frequency notes provider)
+        %w(patient_id drug_id treatable_id treatable_type dose_amount dose_unit
+          medication_route_id route_description frequency notes provider)
       end
     end
   end
