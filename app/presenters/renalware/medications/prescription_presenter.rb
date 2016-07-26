@@ -16,11 +16,8 @@ module Renalware
       end
 
       def terminated_by
-        if terminated?
-          updated_by.full_name
-        else
-          ""
-        end
+        updated_by.full_name if terminated?
+      end
 
       def dose
         "#{dose_amount} #{translated_dose_unit}"
