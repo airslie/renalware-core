@@ -13,6 +13,14 @@ module World
           [patients, clinic, consultant, telephone]
         end
 
+        def build_request_forms(patients, options)
+          request_form_options =
+            Renalware::Pathology::RequestAlgorithm::RequestFormOptions.new(options)
+
+          Renalware::Pathology::RequestAlgorithm::FormsBuilder
+            .new(patients, request_form_options).build
+        end
+
         # @section commands
         #
         def generate_request_forms_for_single_patient(_clinician, params)
@@ -23,15 +31,13 @@ module World
           options[:consultant] = consultant if consultant.present?
           options[:telephone] = telephone if telephone.present?
 
-          request_form_options =
-            Renalware::Pathology::RequestAlgorithm::RequestFormOptions.new(options)
-
-          Renalware::Pathology::RequestAlgorithm::FormsBuilder
-            .new(patients, request_form_options).build
+          build_request_forms(patients, options)
         end
 
         def generate_request_forms_for_appointments(clinician, appointments, params)
-          patients = appointments.map { |patient| Renalware::Pathology.cast_patient(patient) }
+          patients = appointments.map do |appointment|
+            Renalware::Pathology.cast_patient(appointment.patient)
+          end
           _patients, clinic, consultant, telephone = extract_request_form_params(params)
 
           options = { patients: patients }
@@ -39,11 +45,7 @@ module World
           options[:consultant] = consultant if consultant.present?
           options[:telephone] = telephone if telephone.present?
 
-          request_form_options =
-            Renalware::Pathology::RequestAlgorithm::RequestFormOptions.new(options)
-
-          Renalware::Pathology::RequestAlgorithm::FormsBuilder
-            .new(patients, request_form_options).build
+          build_request_forms(patients, options)
         end
 
         # @section expectations
