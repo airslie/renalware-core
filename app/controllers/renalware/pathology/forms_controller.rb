@@ -16,7 +16,7 @@ module Renalware
         forms = RequestAlgorithm::FormsFactory.new(@patients, form_options).build
 
         render :create, locals: {
-          request_form_options: options,
+          request_form_options: form_options,
           request_forms: forms,
         }
       end
