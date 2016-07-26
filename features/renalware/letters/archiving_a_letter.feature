@@ -1,10 +1,10 @@
 Feature: Archiving a letter
 
-  A letter is considered archived when is has been "reviewed" by the doctor.
-  When archived, a letter can no longer be edited, and will visually stay intact for years
-  to come for legal purposes.
+  A letter is archived when it has been "reviewed" by the doctor. An archived letter
+  cannot be modified, and the content and visual presentation are stored permanently
+  for legal purposes.
 
-  An archived letter can be viewed in a browser and downloaded as PDF.
+  An archived letter can be viewed in a browser and downloaded as a PDF.
 
   Background:
     Given Patty is a patient
