@@ -15,7 +15,7 @@ module Renalware
 
       accepts_nested_attributes_for :regime_bags, allow_destroy: true
 
-      scope :current, -> { order('created_at DESC').limit(1) }
+      scope :current, -> { order("created_at DESC").limit(1) }
 
       validates :patient, presence: true
       validates :start_date, presence: true
@@ -24,10 +24,14 @@ module Renalware
       validate :min_one_regime_bag
 
       with_options if: :type_apd? do |apd|
-        apd.validates :last_fill_ml, allow_nil: true, numericality: { greater_than_or_equal_to: 500, less_than_or_equal_to: 5000 }
-        apd.validates :tidal_percentage, allow_nil: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
-        apd.validates :no_cycles_per_apd, allow_nil: true, numericality: { greater_than_or_equal_to: 2, less_than_or_equal_to: 20 }
-        apd.validates :overnight_pd_ml, allow_nil: true, numericality: { greater_than_or_equal_to: 3000, less_than_or_equal_to: 25000 }
+        apd.validates :last_fill_ml, allow_nil: true, numericality:
+          { greater_than_or_equal_to: 500, less_than_or_equal_to: 5000 }
+        apd.validates :tidal_percentage, allow_nil: true, numericality:
+          { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
+        apd.validates :no_cycles_per_apd, allow_nil: true, numericality:
+          { greater_than_or_equal_to: 2, less_than_or_equal_to: 20 }
+        apd.validates :overnight_pd_ml, allow_nil: true, numericality:
+          { greater_than_or_equal_to: 3000, less_than_or_equal_to: 25000 }
       end
 
       def type_apd?
@@ -39,7 +43,7 @@ module Renalware
       private
 
       def min_one_regime_bag
-        errors.add(:regime, "must be assigned at least one bag") if regime_bags.size < 1
+        errors.add(:regime, "must be assigned at least one bag") if regime_bags.empty?
       end
 
       def match_bag_type

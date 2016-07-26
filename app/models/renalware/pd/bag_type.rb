@@ -11,14 +11,15 @@ module Renalware
       validates :description, presence: true
       validates :glucose_grams_per_litre, presence: true
 
-      validates :glucose_grams_per_litre, numericality: { allow_nil: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 50 }
+      validates :glucose_grams_per_litre, numericality:
+        { allow_nil: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 50 }
 
       def self.policy_class
         BasePolicy
       end
 
       def full_description
-        [manufacturer, description].join(' ')
+        [manufacturer, description].join(" ")
       end
     end
   end

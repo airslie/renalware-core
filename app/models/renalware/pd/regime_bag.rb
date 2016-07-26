@@ -12,7 +12,9 @@ module Renalware
       validates :bag_type, presence: true
       validates :volume, presence: true
 
-      validates :volume, numericality: { allow_nil: true, greater_than_or_equal_to: 100, less_than_or_equal_to: 10000 }
+      validates :volume, numericality: {
+        allow_nil: true, greater_than_or_equal_to: 100, less_than_or_equal_to: 10000
+      }
 
       validate :must_select_one_day
 
@@ -45,7 +47,9 @@ module Renalware
       end
 
       def must_select_one_day
-        errors.add(:days, 'must be assigned at least one day of the week') if self.days.count(false) == 7
+        return unless self.days.count(false) == 7
+
+        errors.add(:days, "must be assigned at least one day of the week")
       end
     end
   end

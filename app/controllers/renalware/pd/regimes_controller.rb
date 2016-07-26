@@ -25,7 +25,13 @@ module Renalware
       end
 
       def update
-        if perform_action(pd_regime_bags, Proc.new { @pd_regime.update(pd_regime_params) }, regime: @pd_regime)
+        action_performed = perform_action(
+          pd_regime_bags,
+          Proc.new { @pd_regime.update(pd_regime_params) },
+          regime: @pd_regime
+        )
+
+        if action_performed
           redirect_to patient_pd_dashboard_path(@patient),
             notice: t(".success", model_name: "PD regime")
         else

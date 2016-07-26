@@ -5,8 +5,8 @@ module Renalware
     class PeritonitisEpisodesController < BaseController
       include PresenterHelper
 
-      before_action :load_patient, :except => [:index, :destroy]
-      before_action :load_peritonitis_episode, :only => [:show, :edit, :update]
+      before_action :load_patient, except: [:index, :destroy]
+      before_action :load_peritonitis_episode, only: [:show, :edit, :update]
 
       def show
         @prescriptions = present(
