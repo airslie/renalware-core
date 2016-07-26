@@ -7,17 +7,17 @@ module Renalware
       before_filter :load_patients
 
       def create
-        options = RequestAlgorithm::FormOptions.new(
-          clinic: find_clinic,
+        form_options = RequestAlgorithm::FormOptions.new(
           patients: @patients,
+          clinic: find_clinic,
           consultant: find_consultant,
           telephone: request_form_params[:telephone]
         )
-        request_forms = RequestAlgorithm::FormsFactory.new(@patients, options).build
+        forms = RequestAlgorithm::FormsFactory.new(@patients, form_options).build
 
         render :create, locals: {
           request_form_options: options,
-          request_forms: request_forms,
+          request_forms: forms,
         }
       end
 

@@ -11,9 +11,7 @@ module Renalware
 
         def build
           @patients.map do |patient|
-            form = RequestAlgorithm::FormFactory.new(patient, @options).build
-
-            RequestFormPresenter.new(form)
+            RequestAlgorithm::FormFactory.new(patient, @options).build
           end
         end
       end

@@ -4,7 +4,7 @@ module Renalware
   module Pathology
     module RequestAlgorithm
       class Form
-        attr_reader :patient
+        attr_reader :patient, :global_requests, :patient_requests
 
         delegate :clinic, :consultant, :telephone, to: :@options
 

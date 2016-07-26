@@ -10,7 +10,9 @@ module Renalware
         end
 
         def build
-          Form.new(@patient, @options, global_requests, patient_requests)
+          RequestFormPresenter.new(
+            Form.new(@patient, @options, global_requests, patient_requests)
+          )
         end
 
         private

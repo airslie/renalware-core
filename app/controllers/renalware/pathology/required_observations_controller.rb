@@ -6,24 +6,23 @@ module Renalware
       before_filter :load_patient
 
       def index
-          global_pathology = @patient.required_observation_requests(clinic)
-          patient_pathology = @patient.required_patient_pathology
-          clinics = Renalware::Clinics::Clinic.ordered
-          request_form_options = RequestAlgorithm::FormOptions.new(
-            patients: Array(@patient),
-            clinic: clinic
-          )
+        form_options = RequestAlgorithm::FormOptions.new(
+          patients: Array(@patient),
+          clinic: clinic
+        )
+        form = RequestAlgorithm::FormFactory.new(@patient, form_options).build
 
-          render :index, locals: {
-            global_pathology: global_pathology,
-            patient_pathology: patient_pathology,
-            clinics: clinics,
-            clinic: clinic,
-            request_form_options: request_form_options
-          }
+        render :index, locals: {
+          request_form: form,
+          request_form_options: form_options
+        }
       end
 
       private
+
+      def all_clinics
+        Renalware::Clinics::Clinic.ordered
+      end
 
       def clinic
         @clinic ||= begin
