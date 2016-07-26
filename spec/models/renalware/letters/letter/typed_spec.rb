@@ -9,18 +9,18 @@ module Renalware::Letters
 
     describe "#archive" do
       it "archives the letter" do
-        letter = subject.archive(by: user)
-        expect(letter).to be_archived
+        archived_letter = letter.archive(by: user)
+        expect(archived_letter).to be_archived
       end
 
       it "archives the content" do
-        letter = subject.archive(by: user)
-        expect(letter.content).to include("<div>")
+        archived_letter = letter.archive(by: user)
+        expect(archived_letter.content).to include("<div>")
       end
 
       it "records who archived the letter" do
-        letter = subject.archive(by: user)
-        expect(letter.archived_by).to eq(user)
+        archived_letter = letter.archive(by: user)
+        expect(archived_letter.archived_by).to eq(user)
       end
     end
   end
