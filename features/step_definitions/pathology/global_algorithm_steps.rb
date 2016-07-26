@@ -35,7 +35,8 @@ Given(/^Patty is currently prescribed Ephedrine Tablet (yes|no)$/) do |perscribe
     @patty.prescriptions.create!(
       drug: drug,
       medication_route: route,
-      dose: "20mg",
+      dose_amount: "20",
+      dose_unit: "milligram",
       frequency: "daily",
       prescribed_on: Time.current - 1.week,
       provider: 0,

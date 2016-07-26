@@ -333,49 +333,6 @@ ALTER SEQUENCE addresses_id_seq OWNED BY addresses.id;
 
 
 --
--- Name: bag_types; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE bag_types (
-    id integer NOT NULL,
-    manufacturer character varying NOT NULL,
-    description character varying NOT NULL,
-    glucose_grams_per_litre numeric(4,1) NOT NULL,
-    amino_acid boolean,
-    icodextrin boolean,
-    low_glucose_degradation boolean,
-    low_sodium boolean,
-    sodium_mmole_l integer,
-    lactate_mmole_l integer,
-    bicarbonate_mmole_l integer,
-    calcium_mmole_l numeric(3,2),
-    magnesium_mmole_l numeric(3,2),
-    deleted_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: bag_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE bag_types_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: bag_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE bag_types_id_seq OWNED BY bag_types.id;
-
-
---
 -- Name: clinic_visits; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -674,39 +631,6 @@ ALTER SEQUENCE edta_codes_id_seq OWNED BY edta_codes.id;
 
 
 --
--- Name: episode_types; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE episode_types (
-    id integer NOT NULL,
-    term character varying,
-    definition character varying,
-    deleted_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: episode_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE episode_types_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: episode_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE episode_types_id_seq OWNED BY episode_types.id;
-
-
---
 -- Name: ethnicities; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -805,41 +729,6 @@ ALTER SEQUENCE events_id_seq OWNED BY events.id;
 
 
 --
--- Name: exit_site_infections; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE exit_site_infections (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    diagnosis_date date NOT NULL,
-    treatment text,
-    outcome text,
-    notes text,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: exit_site_infections_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE exit_site_infections_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: exit_site_infections_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE exit_site_infections_id_seq OWNED BY exit_site_infections.id;
-
-
---
 -- Name: feed_messages; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -870,38 +759,6 @@ CREATE SEQUENCE feed_messages_id_seq
 --
 
 ALTER SEQUENCE feed_messages_id_seq OWNED BY feed_messages.id;
-
-
---
--- Name: fluid_descriptions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE fluid_descriptions (
-    id integer NOT NULL,
-    description character varying,
-    deleted_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: fluid_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE fluid_descriptions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: fluid_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE fluid_descriptions_id_seq OWNED BY fluid_descriptions.id;
 
 
 --
@@ -1235,46 +1092,12 @@ ALTER SEQUENCE hospital_units_id_seq OWNED BY hospital_units.id;
 
 
 --
--- Name: infection_organisms; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE infection_organisms (
-    id integer NOT NULL,
-    organism_code_id integer NOT NULL,
-    sensitivity text,
-    infectable_id integer,
-    infectable_type character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: infection_organisms_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE infection_organisms_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: infection_organisms_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE infection_organisms_id_seq OWNED BY infection_organisms.id;
-
-
---
 -- Name: letter_archives; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE letter_archives (
     id integer NOT NULL,
-    content text,
+    content text NOT NULL,
     created_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -1383,7 +1206,6 @@ CREATE TABLE letter_letters (
     salutation character varying,
     body text,
     notes text,
-    archived_copy text,
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -1443,6 +1265,86 @@ CREATE SEQUENCE letter_recipients_id_seq
 --
 
 ALTER SEQUENCE letter_recipients_id_seq OWNED BY letter_recipients.id;
+
+
+--
+-- Name: medication_prescription_versions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE medication_prescription_versions (
+    id integer NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: medication_prescription_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE medication_prescription_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: medication_prescription_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE medication_prescription_versions_id_seq OWNED BY medication_prescription_versions.id;
+
+
+--
+-- Name: medication_prescriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE medication_prescriptions (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    drug_id integer NOT NULL,
+    treatable_id integer NOT NULL,
+    treatable_type character varying NOT NULL,
+    dose_amount character varying NOT NULL,
+    dose_unit character varying NOT NULL,
+    medication_route_id integer NOT NULL,
+    route_description character varying,
+    frequency character varying NOT NULL,
+    notes text,
+    prescribed_on date NOT NULL,
+    terminated_on date,
+    provider integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL
+);
+
+
+--
+-- Name: medication_prescriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE medication_prescriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: medication_prescriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE medication_prescriptions_id_seq OWNED BY medication_prescriptions.id;
 
 
 --
@@ -1581,39 +1483,6 @@ CREATE SEQUENCE modality_reasons_id_seq
 --
 
 ALTER SEQUENCE modality_reasons_id_seq OWNED BY modality_reasons.id;
-
-
---
--- Name: organism_codes; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE organism_codes (
-    id integer NOT NULL,
-    read_code character varying,
-    name character varying,
-    deleted_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: organism_codes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE organism_codes_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: organism_codes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE organism_codes_id_seq OWNED BY organism_codes.id;
 
 
 --
@@ -2030,12 +1899,269 @@ ALTER SEQUENCE patients_id_seq OWNED BY patients.id;
 
 
 --
+-- Name: pd_bag_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pd_bag_types (
+    id integer NOT NULL,
+    manufacturer character varying NOT NULL,
+    description character varying NOT NULL,
+    glucose_grams_per_litre numeric(4,1) NOT NULL,
+    amino_acid boolean,
+    icodextrin boolean,
+    low_glucose_degradation boolean,
+    low_sodium boolean,
+    sodium_mmole_l integer,
+    lactate_mmole_l integer,
+    bicarbonate_mmole_l integer,
+    calcium_mmole_l numeric(3,2),
+    magnesium_mmole_l numeric(3,2),
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pd_bag_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pd_bag_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pd_bag_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pd_bag_types_id_seq OWNED BY pd_bag_types.id;
+
+
+--
+-- Name: pd_episode_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pd_episode_types (
+    id integer NOT NULL,
+    term character varying,
+    definition character varying,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pd_episode_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pd_episode_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pd_episode_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pd_episode_types_id_seq OWNED BY pd_episode_types.id;
+
+
+--
+-- Name: pd_exit_site_infections; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pd_exit_site_infections (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    diagnosis_date date NOT NULL,
+    treatment text,
+    outcome text,
+    notes text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pd_exit_site_infections_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pd_exit_site_infections_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pd_exit_site_infections_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pd_exit_site_infections_id_seq OWNED BY pd_exit_site_infections.id;
+
+
+--
+-- Name: pd_fluid_descriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pd_fluid_descriptions (
+    id integer NOT NULL,
+    description character varying,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pd_fluid_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pd_fluid_descriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pd_fluid_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pd_fluid_descriptions_id_seq OWNED BY pd_fluid_descriptions.id;
+
+
+--
+-- Name: pd_infection_organisms; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pd_infection_organisms (
+    id integer NOT NULL,
+    organism_code_id integer NOT NULL,
+    sensitivity text,
+    infectable_id integer,
+    infectable_type character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pd_infection_organisms_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pd_infection_organisms_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pd_infection_organisms_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pd_infection_organisms_id_seq OWNED BY pd_infection_organisms.id;
+
+
+--
+-- Name: pd_organism_codes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pd_organism_codes (
+    id integer NOT NULL,
+    read_code character varying,
+    name character varying,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pd_organism_codes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pd_organism_codes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pd_organism_codes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pd_organism_codes_id_seq OWNED BY pd_organism_codes.id;
+
+
+--
+-- Name: pd_peritonitis_episodes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pd_peritonitis_episodes (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    diagnosis_date date NOT NULL,
+    treatment_start_date date,
+    treatment_end_date date,
+    episode_type_id integer,
+    catheter_removed boolean,
+    line_break boolean,
+    exit_site_infection boolean,
+    diarrhoea boolean,
+    abdominal_pain boolean,
+    fluid_description_id integer,
+    white_cell_total integer,
+    white_cell_neutro integer,
+    white_cell_lympho integer,
+    white_cell_degen integer,
+    white_cell_other integer,
+    notes text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pd_peritonitis_episodes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pd_peritonitis_episodes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pd_peritonitis_episodes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pd_peritonitis_episodes_id_seq OWNED BY pd_peritonitis_episodes.id;
+
+
+--
 -- Name: pd_regime_bags; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE pd_regime_bags (
     id integer NOT NULL,
-    pd_regime_id integer NOT NULL,
+    regime_id integer NOT NULL,
     bag_type_id integer NOT NULL,
     volume integer NOT NULL,
     per_week integer,
@@ -2118,53 +2244,6 @@ ALTER SEQUENCE pd_regimes_id_seq OWNED BY pd_regimes.id;
 
 
 --
--- Name: peritonitis_episodes; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE peritonitis_episodes (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    diagnosis_date date NOT NULL,
-    treatment_start_date date,
-    treatment_end_date date,
-    episode_type_id integer,
-    catheter_removed boolean,
-    line_break boolean,
-    exit_site_infection boolean,
-    diarrhoea boolean,
-    abdominal_pain boolean,
-    fluid_description_id integer,
-    white_cell_total integer,
-    white_cell_neutro integer,
-    white_cell_lympho integer,
-    white_cell_degen integer,
-    white_cell_other integer,
-    notes text,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: peritonitis_episodes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE peritonitis_episodes_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: peritonitis_episodes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE peritonitis_episodes_id_seq OWNED BY peritonitis_episodes.id;
-
-
---
 -- Name: practices; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2227,85 +2306,6 @@ CREATE SEQUENCE prd_descriptions_id_seq
 --
 
 ALTER SEQUENCE prd_descriptions_id_seq OWNED BY prd_descriptions.id;
-
-
---
--- Name: prescription_versions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE prescription_versions (
-    id integer NOT NULL,
-    item_type character varying NOT NULL,
-    item_id integer NOT NULL,
-    event character varying NOT NULL,
-    whodunnit character varying,
-    object jsonb,
-    object_changes jsonb,
-    created_at timestamp without time zone
-);
-
-
---
--- Name: prescription_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE prescription_versions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: prescription_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE prescription_versions_id_seq OWNED BY prescription_versions.id;
-
-
---
--- Name: prescriptions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE prescriptions (
-    id integer NOT NULL,
-    patient_id integer NOT NULL,
-    drug_id integer NOT NULL,
-    treatable_id integer NOT NULL,
-    treatable_type character varying NOT NULL,
-    dose character varying NOT NULL,
-    medication_route_id integer NOT NULL,
-    route_description character varying,
-    frequency character varying NOT NULL,
-    notes text,
-    prescribed_on date NOT NULL,
-    terminated_on date,
-    provider integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL
-);
-
-
---
--- Name: prescriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE prescriptions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: prescriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE prescriptions_id_seq OWNED BY prescriptions.id;
 
 
 --
@@ -3111,13 +3111,6 @@ ALTER TABLE ONLY addresses ALTER COLUMN id SET DEFAULT nextval('addresses_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY bag_types ALTER COLUMN id SET DEFAULT nextval('bag_types_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY clinic_visits ALTER COLUMN id SET DEFAULT nextval('clinic_visits_id_seq'::regclass);
 
 
@@ -3174,13 +3167,6 @@ ALTER TABLE ONLY edta_codes ALTER COLUMN id SET DEFAULT nextval('edta_codes_id_s
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY episode_types ALTER COLUMN id SET DEFAULT nextval('episode_types_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY ethnicities ALTER COLUMN id SET DEFAULT nextval('ethnicities_id_seq'::regclass);
 
 
@@ -3202,21 +3188,7 @@ ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::reg
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY exit_site_infections ALTER COLUMN id SET DEFAULT nextval('exit_site_infections_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY feed_messages ALTER COLUMN id SET DEFAULT nextval('feed_messages_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY fluid_descriptions ALTER COLUMN id SET DEFAULT nextval('fluid_descriptions_id_seq'::regclass);
 
 
 --
@@ -3286,13 +3258,6 @@ ALTER TABLE ONLY hospital_units ALTER COLUMN id SET DEFAULT nextval('hospital_un
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY infection_organisms ALTER COLUMN id SET DEFAULT nextval('infection_organisms_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY letter_archives ALTER COLUMN id SET DEFAULT nextval('letter_archives_id_seq'::regclass);
 
 
@@ -3328,6 +3293,20 @@ ALTER TABLE ONLY letter_recipients ALTER COLUMN id SET DEFAULT nextval('letter_r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY medication_prescription_versions ALTER COLUMN id SET DEFAULT nextval('medication_prescription_versions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY medication_prescriptions ALTER COLUMN id SET DEFAULT nextval('medication_prescriptions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY medication_routes ALTER COLUMN id SET DEFAULT nextval('medication_routes_id_seq'::regclass);
 
 
@@ -3350,13 +3329,6 @@ ALTER TABLE ONLY modality_modalities ALTER COLUMN id SET DEFAULT nextval('modali
 --
 
 ALTER TABLE ONLY modality_reasons ALTER COLUMN id SET DEFAULT nextval('modality_reasons_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY organism_codes ALTER COLUMN id SET DEFAULT nextval('organism_codes_id_seq'::regclass);
 
 
 --
@@ -3447,6 +3419,55 @@ ALTER TABLE ONLY patients ALTER COLUMN id SET DEFAULT nextval('patients_id_seq':
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY pd_bag_types ALTER COLUMN id SET DEFAULT nextval('pd_bag_types_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_episode_types ALTER COLUMN id SET DEFAULT nextval('pd_episode_types_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_exit_site_infections ALTER COLUMN id SET DEFAULT nextval('pd_exit_site_infections_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_fluid_descriptions ALTER COLUMN id SET DEFAULT nextval('pd_fluid_descriptions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_infection_organisms ALTER COLUMN id SET DEFAULT nextval('pd_infection_organisms_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_organism_codes ALTER COLUMN id SET DEFAULT nextval('pd_organism_codes_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_peritonitis_episodes ALTER COLUMN id SET DEFAULT nextval('pd_peritonitis_episodes_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY pd_regime_bags ALTER COLUMN id SET DEFAULT nextval('pd_regime_bags_id_seq'::regclass);
 
 
@@ -3461,13 +3482,6 @@ ALTER TABLE ONLY pd_regimes ALTER COLUMN id SET DEFAULT nextval('pd_regimes_id_s
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY peritonitis_episodes ALTER COLUMN id SET DEFAULT nextval('peritonitis_episodes_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY practices ALTER COLUMN id SET DEFAULT nextval('practices_id_seq'::regclass);
 
 
@@ -3476,20 +3490,6 @@ ALTER TABLE ONLY practices ALTER COLUMN id SET DEFAULT nextval('practices_id_seq
 --
 
 ALTER TABLE ONLY prd_descriptions ALTER COLUMN id SET DEFAULT nextval('prd_descriptions_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY prescription_versions ALTER COLUMN id SET DEFAULT nextval('prescription_versions_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY prescriptions ALTER COLUMN id SET DEFAULT nextval('prescriptions_id_seq'::regclass);
 
 
 --
@@ -3697,14 +3697,6 @@ ALTER TABLE ONLY addresses
 
 
 --
--- Name: bag_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bag_types
-    ADD CONSTRAINT bag_types_pkey PRIMARY KEY (id);
-
-
---
 -- Name: clinic_visits_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3769,14 +3761,6 @@ ALTER TABLE ONLY edta_codes
 
 
 --
--- Name: episode_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY episode_types
-    ADD CONSTRAINT episode_types_pkey PRIMARY KEY (id);
-
-
---
 -- Name: ethnicities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3801,27 +3785,11 @@ ALTER TABLE ONLY events
 
 
 --
--- Name: exit_site_infections_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY exit_site_infections
-    ADD CONSTRAINT exit_site_infections_pkey PRIMARY KEY (id);
-
-
---
 -- Name: feed_messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY feed_messages
     ADD CONSTRAINT feed_messages_pkey PRIMARY KEY (id);
-
-
---
--- Name: fluid_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY fluid_descriptions
-    ADD CONSTRAINT fluid_descriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -3897,14 +3865,6 @@ ALTER TABLE ONLY hospital_units
 
 
 --
--- Name: infection_organisms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY infection_organisms
-    ADD CONSTRAINT infection_organisms_pkey PRIMARY KEY (id);
-
-
---
 -- Name: letter_archives_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3945,6 +3905,22 @@ ALTER TABLE ONLY letter_recipients
 
 
 --
+-- Name: medication_prescription_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY medication_prescription_versions
+    ADD CONSTRAINT medication_prescription_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: medication_prescriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY medication_prescriptions
+    ADD CONSTRAINT medication_prescriptions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: medication_routes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3974,14 +3950,6 @@ ALTER TABLE ONLY modality_modalities
 
 ALTER TABLE ONLY modality_reasons
     ADD CONSTRAINT modality_reasons_pkey PRIMARY KEY (id);
-
-
---
--- Name: organism_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY organism_codes
-    ADD CONSTRAINT organism_codes_pkey PRIMARY KEY (id);
 
 
 --
@@ -4081,6 +4049,62 @@ ALTER TABLE ONLY patients
 
 
 --
+-- Name: pd_bag_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_bag_types
+    ADD CONSTRAINT pd_bag_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pd_episode_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_episode_types
+    ADD CONSTRAINT pd_episode_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pd_exit_site_infections_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_exit_site_infections
+    ADD CONSTRAINT pd_exit_site_infections_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pd_fluid_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_fluid_descriptions
+    ADD CONSTRAINT pd_fluid_descriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pd_infection_organisms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_infection_organisms
+    ADD CONSTRAINT pd_infection_organisms_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pd_organism_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_organism_codes
+    ADD CONSTRAINT pd_organism_codes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pd_peritonitis_episodes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_peritonitis_episodes
+    ADD CONSTRAINT pd_peritonitis_episodes_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: pd_regime_bags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4097,14 +4121,6 @@ ALTER TABLE ONLY pd_regimes
 
 
 --
--- Name: peritonitis_episodes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY peritonitis_episodes
-    ADD CONSTRAINT peritonitis_episodes_pkey PRIMARY KEY (id);
-
-
---
 -- Name: practices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4118,22 +4134,6 @@ ALTER TABLE ONLY practices
 
 ALTER TABLE ONLY prd_descriptions
     ADD CONSTRAINT prd_descriptions_pkey PRIMARY KEY (id);
-
-
---
--- Name: prescription_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY prescription_versions
-    ADD CONSTRAINT prescription_versions_pkey PRIMARY KEY (id);
-
-
---
--- Name: prescriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY prescriptions
-    ADD CONSTRAINT prescriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -4318,6 +4318,27 @@ CREATE INDEX hd_versions_type_id ON hd_versions USING btree (item_type, item_id)
 
 
 --
+-- Name: idx_infection_organisms; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX idx_infection_organisms ON pd_infection_organisms USING btree (organism_code_id, infectable_id, infectable_type);
+
+
+--
+-- Name: idx_infection_organisms_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_infection_organisms_type ON pd_infection_organisms USING btree (infectable_id, infectable_type);
+
+
+--
+-- Name: idx_medication_prescriptions_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_medication_prescriptions_type ON medication_prescriptions USING btree (treatable_id, treatable_type);
+
+
+--
 -- Name: index_access_assessments_on_created_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4406,13 +4427,6 @@ CREATE INDEX index_access_profiles_on_updated_by_id ON access_profiles USING btr
 --
 
 CREATE INDEX index_addresses_on_addressable_type_and_addressable_id ON addresses USING btree (addressable_type, addressable_id);
-
-
---
--- Name: index_bag_types_on_deleted_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_bag_types_on_deleted_at ON bag_types USING btree (deleted_at);
 
 
 --
@@ -4633,20 +4647,6 @@ CREATE INDEX index_hospital_centres_on_code ON hospital_centres USING btree (cod
 
 
 --
--- Name: index_infection_organisms; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_infection_organisms ON infection_organisms USING btree (organism_code_id, infectable_id, infectable_type);
-
-
---
--- Name: index_infection_organisms_on_infectable_type_and_infectable_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_infection_organisms_on_infectable_type_and_infectable_id ON infection_organisms USING btree (infectable_type, infectable_id);
-
-
---
 -- Name: index_letter_archives_on_created_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4707,6 +4707,34 @@ CREATE INDEX index_letter_letters_on_updated_by_id ON letter_letters USING btree
 --
 
 CREATE INDEX index_letter_recipients_on_letter_id ON letter_recipients USING btree (letter_id);
+
+
+--
+-- Name: index_medication_prescription_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_medication_prescription_versions_on_item_type_and_item_id ON medication_prescription_versions USING btree (item_type, item_id);
+
+
+--
+-- Name: index_medication_prescriptions_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_medication_prescriptions_on_created_by_id ON medication_prescriptions USING btree (created_by_id);
+
+
+--
+-- Name: index_medication_prescriptions_on_terminated_on; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_medication_prescriptions_on_terminated_on ON medication_prescriptions USING btree (terminated_on);
+
+
+--
+-- Name: index_medication_prescriptions_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_medication_prescriptions_on_updated_by_id ON medication_prescriptions USING btree (updated_by_id);
 
 
 --
@@ -4787,38 +4815,24 @@ CREATE INDEX index_patients_on_updated_by_id ON patients USING btree (updated_by
 
 
 --
--- Name: index_prescription_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_pd_bag_types_on_deleted_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_prescription_versions_on_item_type_and_item_id ON prescription_versions USING btree (item_type, item_id);
-
-
---
--- Name: index_prescriptions_on_created_by_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_prescriptions_on_created_by_id ON prescriptions USING btree (created_by_id);
+CREATE INDEX index_pd_bag_types_on_deleted_at ON pd_bag_types USING btree (deleted_at);
 
 
 --
--- Name: index_prescriptions_on_terminated_on; Type: INDEX; Schema: public; Owner: -
+-- Name: index_pd_peritonitis_episodes_on_episode_type_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_prescriptions_on_terminated_on ON prescriptions USING btree (terminated_on);
-
-
---
--- Name: index_prescriptions_on_treatable_type_and_treatable_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_prescriptions_on_treatable_type_and_treatable_id ON prescriptions USING btree (treatable_type, treatable_id);
+CREATE INDEX index_pd_peritonitis_episodes_on_episode_type_id ON pd_peritonitis_episodes USING btree (episode_type_id);
 
 
 --
--- Name: index_prescriptions_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_pd_peritonitis_episodes_on_fluid_description_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_prescriptions_on_updated_by_id ON prescriptions USING btree (updated_by_id);
+CREATE INDEX index_pd_peritonitis_episodes_on_fluid_description_id ON pd_peritonitis_episodes USING btree (fluid_description_id);
 
 
 --
@@ -5092,14 +5106,6 @@ ALTER TABLE ONLY pathology_observation_requests
 
 
 --
--- Name: fk_rails_0575a86d19; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY prescriptions
-    ADD CONSTRAINT fk_rails_0575a86d19 FOREIGN KEY (medication_route_id) REFERENCES medication_routes(id);
-
-
---
 -- Name: fk_rails_0aab25a07c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5132,6 +5138,14 @@ ALTER TABLE ONLY pathology_request_algorithm_patient_rules
 
 
 --
+-- Name: fk_rails_17327d4301; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY medication_prescriptions
+    ADD CONSTRAINT fk_rails_17327d4301 FOREIGN KEY (medication_route_id) REFERENCES medication_routes(id);
+
+
+--
 -- Name: fk_rails_18650a2566; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5140,19 +5154,27 @@ ALTER TABLE ONLY access_profiles
 
 
 --
--- Name: fk_rails_19e44d1a17; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY exit_site_infections
-    ADD CONSTRAINT fk_rails_19e44d1a17 FOREIGN KEY (patient_id) REFERENCES patients(id);
-
-
---
 -- Name: fk_rails_21e1b74109; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY modality_modalities
     ADD CONSTRAINT fk_rails_21e1b74109 FOREIGN KEY (description_id) REFERENCES modality_descriptions(id);
+
+
+--
+-- Name: fk_rails_25e627b557; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY medication_prescriptions
+    ADD CONSTRAINT fk_rails_25e627b557 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_2ae6a3ad59; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY medication_prescriptions
+    ADD CONSTRAINT fk_rails_2ae6a3ad59 FOREIGN KEY (drug_id) REFERENCES drugs(id);
 
 
 --
@@ -5268,27 +5290,11 @@ ALTER TABLE ONLY transplant_recipient_workups
 
 
 --
--- Name: fk_rails_5b0a83b134; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY peritonitis_episodes
-    ADD CONSTRAINT fk_rails_5b0a83b134 FOREIGN KEY (patient_id) REFERENCES patients(id);
-
-
---
 -- Name: fk_rails_5b44e541da; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patients
     ADD CONSTRAINT fk_rails_5b44e541da FOREIGN KEY (ethnicity_id) REFERENCES ethnicities(id);
-
-
---
--- Name: fk_rails_5f0f840fd2; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY prescriptions
-    ADD CONSTRAINT fk_rails_5f0f840fd2 FOREIGN KEY (drug_id) REFERENCES drugs(id);
 
 
 --
@@ -5332,14 +5338,6 @@ ALTER TABLE ONLY pathology_observations
 
 
 --
--- Name: fk_rails_7417eaaf12; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY peritonitis_episodes
-    ADD CONSTRAINT fk_rails_7417eaaf12 FOREIGN KEY (fluid_description_id) REFERENCES fluid_descriptions(id);
-
-
---
 -- Name: fk_rails_751ed7515f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5369,14 +5367,6 @@ ALTER TABLE ONLY transplant_recipient_followups
 
 ALTER TABLE ONLY letter_archives
     ADD CONSTRAINT fk_rails_7dc4363735 FOREIGN KEY (letter_id) REFERENCES letter_letters(id);
-
-
---
--- Name: fk_rails_835a74cb28; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY pd_regime_bags
-    ADD CONSTRAINT fk_rails_835a74cb28 FOREIGN KEY (pd_regime_id) REFERENCES pd_regimes(id);
 
 
 --
@@ -5428,6 +5418,14 @@ ALTER TABLE ONLY transplant_donor_workups
 
 
 --
+-- Name: fk_rails_9702c22886; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_exit_site_infections
+    ADD CONSTRAINT fk_rails_9702c22886 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: fk_rails_9c76b7ba29; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5468,14 +5466,6 @@ ALTER TABLE ONLY pd_regimes
 
 
 --
--- Name: fk_rails_abf7d47e4f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY infection_organisms
-    ADD CONSTRAINT fk_rails_abf7d47e4f FOREIGN KEY (organism_code_id) REFERENCES organism_codes(id);
-
-
---
 -- Name: fk_rails_ac8e970c42; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5489,6 +5479,14 @@ ALTER TABLE ONLY hd_preference_sets
 
 ALTER TABLE ONLY access_profiles
     ADD CONSTRAINT fk_rails_acbcae03df FOREIGN KEY (type_id) REFERENCES access_types(id);
+
+
+--
+-- Name: fk_rails_ae56e9fe7e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_peritonitis_episodes
+    ADD CONSTRAINT fk_rails_ae56e9fe7e FOREIGN KEY (episode_type_id) REFERENCES pd_episode_types(id);
 
 
 --
@@ -5540,14 +5538,6 @@ ALTER TABLE ONLY hd_sessions
 
 
 --
--- Name: fk_rails_bede94f0a0; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY prescriptions
-    ADD CONSTRAINT fk_rails_bede94f0a0 FOREIGN KEY (patient_id) REFERENCES patients(id);
-
-
---
 -- Name: fk_rails_c31cea56ac; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5577,6 +5567,14 @@ ALTER TABLE ONLY transplant_donor_followups
 
 ALTER TABLE ONLY hd_profiles
     ADD CONSTRAINT fk_rails_c89b2174e9 FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
+
+
+--
+-- Name: fk_rails_ca16ec591e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_regime_bags
+    ADD CONSTRAINT fk_rails_ca16ec591e FOREIGN KEY (regime_id) REFERENCES pd_regimes(id);
 
 
 --
@@ -5624,7 +5622,15 @@ ALTER TABLE ONLY pathology_observations
 --
 
 ALTER TABLE ONLY pd_regime_bags
-    ADD CONSTRAINT fk_rails_de0d26811a FOREIGN KEY (bag_type_id) REFERENCES bag_types(id);
+    ADD CONSTRAINT fk_rails_de0d26811a FOREIGN KEY (bag_type_id) REFERENCES pd_bag_types(id);
+
+
+--
+-- Name: fk_rails_df82011585; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_infection_organisms
+    ADD CONSTRAINT fk_rails_df82011585 FOREIGN KEY (organism_code_id) REFERENCES pd_organism_codes(id);
 
 
 --
@@ -5676,6 +5682,14 @@ ALTER TABLE ONLY pathology_request_algorithm_global_rule_sets
 
 
 --
+-- Name: fk_rails_e97a696dd5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_peritonitis_episodes
+    ADD CONSTRAINT fk_rails_e97a696dd5 FOREIGN KEY (fluid_description_id) REFERENCES pd_fluid_descriptions(id);
+
+
+--
 -- Name: fk_rails_e97e417b7d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5724,19 +5738,19 @@ ALTER TABLE ONLY hd_preference_sets
 
 
 --
+-- Name: fk_rails_f228a98e1b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_peritonitis_episodes
+    ADD CONSTRAINT fk_rails_f228a98e1b FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: fk_rails_f8ed99dfda; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY drug_types_drugs
     ADD CONSTRAINT fk_rails_f8ed99dfda FOREIGN KEY (drug_id) REFERENCES drugs(id);
-
-
---
--- Name: fk_rails_fdd6deae10; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY peritonitis_episodes
-    ADD CONSTRAINT fk_rails_fdd6deae10 FOREIGN KEY (episode_type_id) REFERENCES episode_types(id);
 
 
 --
@@ -5780,8 +5794,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150119160039');
 INSERT INTO schema_migrations (version) VALUES ('20150120155952');
 
 INSERT INTO schema_migrations (version) VALUES ('20150203161438');
-
-INSERT INTO schema_migrations (version) VALUES ('20150206115827');
 
 INSERT INTO schema_migrations (version) VALUES ('20150213103855');
 

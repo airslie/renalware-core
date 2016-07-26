@@ -1,6 +1,6 @@
 class CreateBagTypes < ActiveRecord::Migration
   def change
-    create_table :bag_types do |t|
+    create_table :pd_bag_types do |t|
       t.string :manufacturer, null: false
       t.string :description,  null: false
       t.decimal :glucose_grams_per_litre, precision: 4, scale: 1,  null: false
@@ -16,6 +16,6 @@ class CreateBagTypes < ActiveRecord::Migration
       t.datetime :deleted_at
       t.timestamps null: false
     end
-    add_index :bag_types, :deleted_at
+    add_index :pd_bag_types, :deleted_at
   end
 end

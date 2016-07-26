@@ -1,0 +1,26 @@
+table
+  thead
+    tr
+      th.col-width-9
+      th.col-width-date Diagnosed on
+      th.col-width-date Treatment Started on
+      th Episode Type
+      th Outcome
+      th.col-width-date Updated on
+
+  tbody
+    - @peritonitis_episodes.each do |p|
+      tr valign="top"
+        td valign="top"
+          = link_to "View", patient_pd_peritonitis_episode_path(@patient, p.id), class: "view-pe", id: "view-pe-#{p.id}"
+        td valign="top"
+          = l p.diagnosis_date
+        td valign="top"
+          = l p.treatment_start_date
+        td valign="top"
+          = default_for_associated(p.episode_type, :term, "Unknown")
+        td valign="top"
+          = "Catheter Removed: #{yes_no(p.catheter_removed)}"
+        td valign="top"
+          = p.updated_at.to_date
+

@@ -1,0 +1,10 @@
+= render layout: "renalware/patients/layout", locals: { title: "Exit Site Infection" } do
+  = render partial: "renalware/shared/errors", locals: { model: @exit_site_infection }
+
+  = field_set_tag "Infection" do
+    = simple_form_for [@patient, @exit_site_infection] do |f|
+      = render partial: 'renalware/pd/exit_site_infections/fields', locals: { f: f }
+
+      = submit_tag "Save", class: "button"
+      span= " or "
+      = link_to "cancel", patient_pd_dashboard_path(@patient)

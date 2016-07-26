@@ -1,9 +1,0 @@
-#new-organism-form
-  .large-12.columns
-    fieldset
-      legend New organism and sensitivity
-      .row
-        = io.link_to_remove "Remove", class: "button tiny right hide"
-
-      .row
-        = render partial: 'renalware/infection_organisms/fields', locals: { io: io }

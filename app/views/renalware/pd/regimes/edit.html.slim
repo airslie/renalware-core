@@ -1,0 +1,11 @@
+= render layout: "renalware/patients/layout", locals: { title: "PD Regime" } do
+  = simple_nested_form_for [@patient, @pd_regime], as: :pd_regime, method: :put do |r|
+    h4= "Edit #{capd_apd_title(r.object.type)} Regime"
+
+    = render partial: "renalware/pd/regimes/form", locals: { r: r }
+
+    .row
+      .large-12.columns
+        = submit_tag "Update", class: "button"
+        span= " or "
+        = link_to "Cancel", patient_pd_dashboard_path(@patient)

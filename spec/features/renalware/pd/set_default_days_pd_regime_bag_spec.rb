@@ -5,7 +5,7 @@ module Renalware
 
     background do
       @patient = create(:patient)
-      @pd_regime_bag_1 = PDRegimeBag.new
+      @pd_regime_bag_1 = PD::RegimeBag.new
       @pd_regime_bag_2 = build(:pd_regime_bag,
                           sunday: true,
                           monday: false,
@@ -29,7 +29,7 @@ module Renalware
     end
 
     scenario "when creating a new pd regime bag, some days are deselected" do
-      visit new_patient_pd_regime_path(@patient, type: "CAPDRegime")
+      visit new_patient_pd_regime_path(@patient, type: "PD::CAPDRegime")
 
       fill_in "Start date", with: "25/05/2015"
 
@@ -51,6 +51,5 @@ module Renalware
         expect(page).to have_content("Days: Sun, Mon, Wed, Fri, Sat")
       end
     end
-
   end
 end

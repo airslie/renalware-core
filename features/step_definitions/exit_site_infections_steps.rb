@@ -35,7 +35,8 @@ Given(/^recorded the prescription for the infection$/) do
     patient: @patty,
     treatable: infection_for(@patty),
     drug_name: "Ciprofloxacin Infusion",
-    dose: "100 ml",
+    dose_amount: "100",
+    dose_unit: "millilitre",
     route_code: "PO",
     frequency: "once a day",
     prescribed_on: "10-10-2015",
@@ -49,7 +50,8 @@ When(/^records the prescription for the infection$/) do
     patient: @patty,
     treatable: infection_for(@patty),
     drug_name: "Ciprofloxacin Infusion",
-    dose: "100 ml",
+    dose_amount: "100",
+    dose_unit: "millilitre",
     route_code: "PO",
     frequency: "once a day",
     prescribed_on: "10-10-2015",
@@ -79,7 +81,8 @@ Given(/^Patty is being treated for an exit site infection$/) do
     patient: @patty,
     treatable: infection_for(@patty),
     drug_name: "Ciprofloxacin Infusion",
-    dose: "100 ml",
+    dose_amount: "100",
+    dose_unit: "millilitre",
     route_code: "PO",
     frequency: "once a day",
     prescribed_on: "10-10-2015",
@@ -104,8 +107,8 @@ Then(/^Clyde can revise the exist site infection$/) do
   revise_prescription_for(
     patient: @patty,
     user: @user,
-    drug_name: "Cefotaxime Injection",
-    drug_selector: exit_site_infection_drug_selector
+    drug_selector: exit_site_infection_drug_selector,
+    prescription_params: { drug_name: "Cefotaxime Injection" }
   )
 
   expect_exit_site_infections_revisions_recorded(patient: @patty)

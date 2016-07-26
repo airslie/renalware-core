@@ -51,7 +51,7 @@ end
 
 group :development, :test do
   gem 'bundler-audit', require: false
-  gem 'capybara', '2.4.4'
+  gem 'capybara'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'factory_girl_rails', '~> 4.0'
