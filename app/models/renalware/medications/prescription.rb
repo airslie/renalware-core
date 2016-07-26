@@ -15,6 +15,9 @@ module Renalware
       belongs_to :treatable, polymorphic: true
       belongs_to :medication_route
 
+      has_one :termination, class_name: "PrescriptionTermination"
+      delegate :terminated_on, to: :termination, allow_nil: true
+
       validates :patient, presence: true
       validates :treatable, presence: true
       validates :drug, presence: true
@@ -45,10 +48,15 @@ module Renalware
 
       scope :ordered, -> { order(default_search_order) }
       scope :current, -> (date = Date.current) {
-        where("terminated_on IS NULL OR terminated_on > ?", date)
+        joins(<<-SQL)
+          LEFT OUTER JOIN medication_prescription_terminations pt
+            ON (medication_prescriptions.id = pt.prescription_id)
+        SQL
+          .where("terminated_on IS NULL OR terminated_on > ?", date)
       }
       scope :terminated, -> (date = Date.current) {
-        where("terminated_on IS NOT NULL AND terminated_on <= ?", date)
+        joins(:termination)
+          .where("terminated_on <= ?", date)
       }
 
       def self.default_search_order
@@ -63,10 +71,14 @@ module Renalware
         self.new(treatable_type: "Renalware::ExitSiteInfection")
       end
 
-      def terminate(by:)
-        self.by = by
-        self.terminated_on = Date.current
-        self
+      def terminated_by
+        return unless terminated?
+
+        termination.created_by
+      end
+
+      def terminate(by:, terminated_on: Date.current)
+        build_termination(by: by, terminated_on: terminated_on)
       end
 
       def current?(date=Date.current)

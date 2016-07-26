@@ -18,7 +18,9 @@ module World
         drug = Renalware::Drugs::Drug.find_or_create_by!(name: drug_name)
         route = Renalware::Medications::MedicationRoute.find_by!(code: route_code)
 
-        patient.prescriptions.create!(
+        user = Renalware::SystemUser.find
+
+        prescription = patient.prescriptions.create!(
           treatable: treatable || patient,
           drug: drug,
           dose_amount: dose_amount,
@@ -27,9 +29,14 @@ module World
           frequency: frequency,
           prescribed_on: prescribed_on,
           provider: provider.downcase,
-          terminated_on: parse_date_string(terminated_on),
-          by: Renalware::SystemUser.find
+          by: user
         )
+
+        if terminated_on = parse_date_string(terminated_on)
+          prescription
+            .terminate(by: user, terminated_on: terminated_on)
+            .save!
+        end
       end
 
       # @ section commands
@@ -125,8 +132,7 @@ module World
           dose_amount: dose_amount,
           dose_unit: dose_unit,
           medication_route: medication_route,
-          frequency: attributes[:frequency],
-          terminated_on: parse_date_string(attributes[:terminated_on])
+          frequency: attributes[:frequency]
         )
 
         expect(prescription_exists).to be_truthy
@@ -208,7 +214,10 @@ module World
         end
       end
 
-      def terminate_prescriptions_path(patient,
+      def terminate_prescription_for(patient:, user:)
+        login_as user
+
+        visit patient_prescriptions_path(patient,
           treatable_type: patient.class, treatable_id: patient.id)
 
         within "#current-prescriptions" do

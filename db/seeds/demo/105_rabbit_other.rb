@@ -139,31 +139,6 @@ module Renalware
     end
   end
 
-  log '--------------------Adding Prescriptions for Roger RABBIT-------------------'
-  barts_doc = User.find_by!(username: "bartsdoc")
-  Medications::Prescription.create([
-    {
-      patient_id: 1, drug_id: 986, treatable_id: 1, treatable_type: "Renalware::Patient",
-      dose_amount: "50", dose_unit: "milligram", medication_route_id: 1, frequency: "bd for 7 days",
-      prescribed_on: "2015-09-13", terminated_on: "2015-09-20", provider: 0, by: barts_doc
-    },
-    {
-      patient_id: 1, drug_id: 183, treatable_id: 1, treatable_type: "Renalware::Patient",
-      dose_amount: "25", dose_unit: "milligram", medication_route_id: 1, frequency: "nocte",
-      prescribed_on: "2014-10-10", terminated_on: nil, provider: 0, by: barts_doc
-    },
-    {
-      patient_id: 1, drug_id: 269, treatable_id: 1, treatable_type: "Renalware::Patient",
-      dose_amount: "100", dose_unit: "milligram", medication_route_id: 1, frequency: "bd",
-      prescribed_on: "2015-06-16", terminated_on: nil, provider: 0, by: barts_doc
-    },
-    {
-      patient_id: 1, drug_id: 126, treatable_id: 1, treatable_type: "Renalware::PD::PeritonitisEpisode",
-      dose_amount: "100", dose_unit: "milligram", medication_route_id: 1, frequency: "tid for 7d",
-      prescribed_on: "2015-09-21", provider: 0, by: barts_doc
-    }
-  ])
-
   log '--------------------Adding Renal Profile for Roger RABBIT-------------------'
   Renal::Profile.create!(patient_id: 1, esrf_on: "2015-05-05", prd_description_id: 109)
 
@@ -181,6 +156,31 @@ module Renalware
     {organism_code_id: 33, sensitivity: "+++", infectable_id: 1, infectable_type: "Renalware::PD::PeritonitisEpisode"},
     {organism_code_id: 4, sensitivity: "unknown", infectable_id: 1, infectable_type: "Renalware::PD::ExitSiteInfection"}
   ])
+
+  log '--------------------Adding Prescriptions for Roger RABBIT-------------------'
+  barts_doc = User.find_by!(username: "bartsdoc")
+  rabbit.prescriptions.create!(
+      drug_id: 183, treatable: rabbit,
+      dose_amount: "25", dose_unit: "milligram", medication_route_id: 1, frequency: "nocte",
+      prescribed_on: "2014-10-10", provider: 0, by: barts_doc
+  )
+  rabbit.prescriptions.create!(
+      drug_id: 269, treatable: rabbit,
+      dose_amount: "100", dose_unit: "milligram", medication_route_id: 1, frequency: "bd",
+      prescribed_on: "2015-06-16", provider: 0, by: barts_doc
+  )
+  rabbit.prescriptions.create!(
+    drug_id: 126, treatable: rabbit.peritonitis_episodes.first!,
+    dose_amount: "100", dose_unit: "milligram", medication_route_id: 1, frequency: "tid for 7d",
+    prescribed_on: "2015-09-21", provider: 0, by: barts_doc
+  )
+  rabbit.prescriptions.create!(
+    drug_id: 986, treatable: rabbit,
+    dose_amount: "50", dose_unit: "milligram", medication_route_id: 1, frequency: "bd for 7 days",
+    prescribed_on: "2015-09-13", provider: 0, by: barts_doc,
+    termination: Medications::PrescriptionTermination.new(terminated_on: "2015-09-20", by: barts_doc)
+  )
+
 
   log '--------------------Assign Live Donor modality to Jessica RABBIT-------------------'
   patient = Patient.find_by(local_patient_id: "Z100002")

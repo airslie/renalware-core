@@ -13,9 +13,5 @@ FactoryGirl.define do
     association :updated_by, factory: :user
 
     before(:create) { |prescription| prescription.treatable ||= prescription.patient }
-
-    trait :terminated do
-      terminated_on 1.week.ago
-    end
   end
 end

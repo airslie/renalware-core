@@ -11,7 +11,6 @@ class CreateMedicationPrescriptions < ActiveRecord::Migration
       t.string :frequency,             null: false
       t.text :notes
       t.date :prescribed_on,              null: false
-      t.date :terminated_on, index: true
       t.integer :provider,             null: false
       t.timestamps null: false
     end
