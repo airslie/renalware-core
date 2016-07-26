@@ -74,8 +74,15 @@ module World
       def mark_draft_as_typed(patient:, user:)
         draft_letter = simple_letter_for(patient)
 
-        typed_letter = draft_letter.typed!(by: user)
+        typed_letter = draft_letter.typed(by: user)
         typed_letter.save!
+      end
+
+      def archive_letter(patient:, user:)
+        typed_letter = simple_letter_for(patient)
+
+        archived_letter = typed_letter.archive(by: user)
+        archived_letter.save!
       end
 
       # @section expectations
@@ -130,6 +137,27 @@ module World
         letter = Renalware::Letters::LetterPresenterFactory.new(letter)
         attributes = letter.main_recipient.address.attributes.symbolize_keys
         expect(attributes).to include(address_attributes)
+      end
+
+      def expect_letter_to_be_archived(patient:, user:)
+        letter = simple_letter_for(patient)
+        policy = letter.class.policy_class.new(user, letter)
+
+        expect(policy.archive?).to be_truthy
+      end
+
+      def expect_archived_letter(patient:)
+        letter = simple_letter_for(patient)
+
+        expect(letter).to be_archived
+        expect(letter.archive).to be_present
+      end
+
+      def expect_letter_to_not_be_modified(patient:, user:)
+        letter = simple_letter_for(patient)
+        policy = letter.class.policy_class.new(user, letter)
+
+        expect(policy.update?).to be_falsy
       end
 
       private
@@ -234,6 +262,15 @@ module World
         visit patient_letters_letter_path(patient, existing_letter)
 
         click_on "Mark as Typed"
+      end
+
+      def archive_letter(patient:, user:)
+        login_as user
+        existing_letter = simple_letter_for(patient)
+
+        visit patient_letters_letter_path(patient, existing_letter)
+
+        click_on "Archive"
       end
     end
   end

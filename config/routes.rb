@@ -117,7 +117,8 @@ Rails.application.routes.draw do
 
       namespace :letters do
         resources :letters do
-          resource :typed, only: :create
+          resource :typed, controller: "typed_letters", only: :create
+          resource :archived, controller: "archived_letters", only: :create
         end
       end
 

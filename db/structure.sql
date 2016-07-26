@@ -1092,6 +1092,39 @@ ALTER SEQUENCE hospital_units_id_seq OWNED BY hospital_units.id;
 
 
 --
+-- Name: letter_archives; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE letter_archives (
+    id integer NOT NULL,
+    content text NOT NULL,
+    created_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    letter_id integer NOT NULL
+);
+
+
+--
+-- Name: letter_archives_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE letter_archives_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: letter_archives_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE letter_archives_id_seq OWNED BY letter_archives.id;
+
+
+--
 -- Name: letter_descriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3225,6 +3258,13 @@ ALTER TABLE ONLY hospital_units ALTER COLUMN id SET DEFAULT nextval('hospital_un
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY letter_archives ALTER COLUMN id SET DEFAULT nextval('letter_archives_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY letter_descriptions ALTER COLUMN id SET DEFAULT nextval('letter_descriptions_id_seq'::regclass);
 
 
@@ -3822,6 +3862,14 @@ ALTER TABLE ONLY hospital_centres
 
 ALTER TABLE ONLY hospital_units
     ADD CONSTRAINT hospital_units_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: letter_archives_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY letter_archives
+    ADD CONSTRAINT letter_archives_pkey PRIMARY KEY (id);
 
 
 --
@@ -4599,6 +4647,20 @@ CREATE INDEX index_hospital_centres_on_code ON hospital_centres USING btree (cod
 
 
 --
+-- Name: index_letter_archives_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_letter_archives_on_created_by_id ON letter_archives USING btree (created_by_id);
+
+
+--
+-- Name: index_letter_archives_on_letter_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_letter_archives_on_letter_id ON letter_archives USING btree (letter_id);
+
+
+--
 -- Name: index_letter_letters_on_author_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5300,6 +5362,14 @@ ALTER TABLE ONLY transplant_recipient_followups
 
 
 --
+-- Name: fk_rails_7dc4363735; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY letter_archives
+    ADD CONSTRAINT fk_rails_7dc4363735 FOREIGN KEY (letter_id) REFERENCES letter_letters(id);
+
+
+--
 -- Name: fk_rails_89630f47ee; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5904,4 +5974,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160616163622');
 INSERT INTO schema_migrations (version) VALUES ('20160620131148');
 
 INSERT INTO schema_migrations (version) VALUES ('20160628141349');
+
+INSERT INTO schema_migrations (version) VALUES ('20160726170852');
 

@@ -10,6 +10,10 @@ module Renalware
       def mark_as_typed?
         false
       end
+
+      def archive?
+        true
+      end
     end
   end
 end

@@ -14,3 +14,4 @@ Feature: Marking a letter for review
     Given Patty has a recorded letter
     When Nathalie marks the letter typed
     Then Doug can review the letter
+    And Doug can archive letter
