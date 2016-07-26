@@ -10,7 +10,8 @@ module Renalware
       def archive(by:)
         becomes!(Archived).tap do |letter|
           letter.by = by
-          letter.record_archive(by: by)
+          letter.build_archive(created_by: by)
+          letter.archive.content = "<div>Archive</div>"
         end
       end
     end

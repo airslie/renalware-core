@@ -5,13 +5,14 @@ module Renalware
     class Letter::Archived < Letter
       has_one :archive, foreign_key: "letter_id"
 
+      delegate :content, to: :archive
+
       def self.policy_class
         ArchivedLetterPolicy
       end
 
-      def record_archive(by: by)
-        build_archive(created_by: by)
-        archive.content = "<div>Archive</div>"
+      def archived_by
+        archive.created_by
       end
     end
   end

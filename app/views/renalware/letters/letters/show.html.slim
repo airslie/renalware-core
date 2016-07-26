@@ -9,6 +9,6 @@
       = simple_format @letter.notes
 
 - if @letter.archived?
-  =raw @letter.archived_copy
+  =raw @letter.content
 - else
   = render "preview", letter: @letter
