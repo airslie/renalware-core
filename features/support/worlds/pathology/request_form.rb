@@ -10,8 +10,6 @@ module World
           patients = find_requested_patients(form_params[:patients])
           telephone = form_params[:telephone]
 
-          patient_ids = patients.present? ? patients.map(&:id) : []
-
           params = {}
           if patients.present?
             params[:patients] = patients
