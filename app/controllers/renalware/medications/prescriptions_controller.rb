@@ -1,3 +1,5 @@
+require_dependency "renalware/medications"
+
 module Renalware
   module Medications
     class PrescriptionsController < BaseController
