@@ -13,12 +13,12 @@ module Renalware::Letters
 
     describe "#archive" do
       it "archives the letter" do
-        archived_letter = typed_letter.archive(by: user, renderer: DummyHTMLRenderer)
+        archived_letter = typed_letter.archive(by: user, presenter: DummyLetterPresenter.new)
         expect(archived_letter).to be_archived
       end
 
       it "records who archived the letter" do
-        archived_letter = typed_letter.archive(by: user, renderer: DummyHTMLRenderer)
+        archived_letter = typed_letter.archive(by: user, presenter: DummyLetterPresenter.new)
         expect(archived_letter.archived_by).to eq(user)
       end
 
@@ -38,8 +38,8 @@ module Renalware::Letters
       end
     end
 
-    class DummyHTMLRenderer
-      def call(letter)
+    class DummyLetterPresenter
+      def content
       end
     end
   end

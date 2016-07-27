@@ -8,7 +8,9 @@ module Renalware
       layout false
 
       def show
-        @letter = present_letter(@patient.letters.find(params[:letter_id]))
+        letter = @patient.letters.find(params[:letter_id])
+        content = present_letter(letter).content
+        render text: content
       end
 
       private
