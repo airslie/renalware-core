@@ -462,7 +462,7 @@ module Renalware
     by: users.sample
   )
 
-  archived_letter = Letters::Letter::Archived.create!(
+  letter = Letters::Letter::Typed.create!(
     patient: patient,
     issued_on: 10.days.ago,
     description: Renalware::Letters::Description.last.text,
@@ -475,6 +475,8 @@ module Renalware
     author: users.sample,
     by: users.sample
   )
+  archived_letter = letter.archive(by: User.first)
+  archived_letter.save!
 
   archived_letter.main_recipient.build_address.tap do |address|
     address.copy_from(archived_letter.patient.current_address)
