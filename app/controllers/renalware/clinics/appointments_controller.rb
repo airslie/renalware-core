@@ -12,10 +12,7 @@ module Renalware
         appointments = appointments_query.call.page(@page).per(@per_page)
         authorize appointments
 
-        request_form_options =
-          Renalware::Pathology::RequestAlgorithm::FormOptions.new(
-            patients: appointments.map(&:patient).uniq
-          )
+        request_form_options = build_params_for_simple_form(appointments)
 
         render :index, locals: {
           appointments: appointments,
@@ -27,6 +24,12 @@ module Renalware
       end
 
       private
+
+      def build_params_for_simple_form(appointments)
+        OpenStruct.new(
+          patient_ids: appointments.map(&:patient_id).uniq
+        )
+      end
 
       def query_params
         params

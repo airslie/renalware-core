@@ -4,21 +4,32 @@ module Renalware
   module Pathology
     module RequestAlgorithm
       class FormFactory
-        def initialize(patient, options)
+        def initialize(patient, params)
           @patient = patient
-          @options = options
+          @params = params
         end
 
         def build
           RequestFormPresenter.new(
-            Form.new(@patient, @options, global_requests, patient_requests)
+            Form.new(form_params)
           )
         end
 
         private
 
+        def form_params
+          {
+            patient: @patient,
+            global_requests: global_requests,
+            patient_requests: patient_requests,
+            clinic: @params[:clinic],
+            consultant: @params[:consultant],
+            telephone: @params[:telephone]
+          }
+        end
+
         def global_requests
-          @global_requests ||= @patient.required_observation_requests(clinic_for_algorithm)
+          @global_requests ||= @patient.required_observation_requests(@params[:clinic])
         end
 
         def patient_requests
@@ -26,10 +37,6 @@ module Renalware
             @patient
             .required_patient_pathology
             .map { |patient_rule| PatientRulePresenter.new(patient_rule) }
-        end
-
-        def clinic_for_algorithm
-          @options.clinic
         end
       end
     end

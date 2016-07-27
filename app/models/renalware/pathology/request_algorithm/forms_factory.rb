@@ -4,14 +4,14 @@ module Renalware
   module Pathology
     module RequestAlgorithm
       class FormsFactory
-        def initialize(patients, options)
+        def initialize(patients, params)
           @patients = patients
-          @options = options
+          @params = params
         end
 
         def build
           @patients.map do |patient|
-            FormFactory.new(patient, @options).build
+            FormFactory.new(patient, @params).build
           end
         end
       end

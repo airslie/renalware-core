@@ -3,7 +3,7 @@
 
 .row
   .large-4.columns
-    = simple_form_for request_form_options, url: pathology_forms_path, as: :request_form_options do |f|
+    = simple_form_for form_options, url: pathology_requests_request_previews_path, as: :form_options do |f|
       = f.input :patient_ids, as: :hidden_array
       = f.input :clinic_id, collection: all_clinics, input_html: { class: "small-input" }
       = f.input :consultant_id,
