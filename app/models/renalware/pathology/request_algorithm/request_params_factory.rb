@@ -3,7 +3,7 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     module RequestAlgorithm
-      class FormParamsFactory
+      class RequestParamsFactory
         def initialize(params)
           @params = params
         end

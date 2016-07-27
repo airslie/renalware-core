@@ -7,14 +7,14 @@ module Renalware
         before_filter :load_patients
 
         def create
-          form_params = RequestAlgorithm::FormParamsFactory.new(raw_form_params).build
-          request_forms = RequestAlgorithm::FormsFactory.new(@patients, form_params).build
+          request_params = RequestAlgorithm::RequestParamsFactory.new(raw_request_params).build
+          requests = RequestAlgorithm::RequestsFactory.new(@patients, request_params).build
 
           render :create,
             layout: "renalware/layouts/printable",
             locals:{
-              form_options: build_params_for_html_form(form_params),
-              request_forms: request_forms,
+              request_html_form_params: build_params_for_html_form(request_params),
+              requests: requests,
               all_clinics: all_clinics,
               all_consultants: all_consultants
             }
@@ -24,7 +24,7 @@ module Renalware
 
         def build_params_for_html_form(params)
           OpenStruct.new(
-            patient_ids: raw_form_params[:patient_ids],
+            patient_ids: raw_request_params[:patient_ids],
             clinic_id: params[:clinic].id,
             consultant_id: params[:consultant].id,
             telephone: params[:telephone]
@@ -41,14 +41,14 @@ module Renalware
 
         # NOTE: Preserve the order of the id's given in the params
         def load_patients
-          patient_ids = raw_form_params[:patient_ids].map(&:to_i)
+          patient_ids = raw_request_params[:patient_ids].map(&:to_i)
           @patients = Pathology::OrderedPatientQuery.new(patient_ids).call
           authorize Renalware::Patient
         end
 
-        def raw_form_params
+        def raw_request_params
           params
-            .fetch(:form_options, {})
+            .fetch(:request, {})
             .permit(
               :consultant_id,
               :clinic_id,

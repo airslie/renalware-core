@@ -3,7 +3,7 @@ require_dependency "renalware/pathology/request_algorithm"
 module Renalware
   module Pathology
     module RequestAlgorithm
-      class Form
+      class Request
         attr_reader :patient,
                     :global_requests,
                     :patient_requests,

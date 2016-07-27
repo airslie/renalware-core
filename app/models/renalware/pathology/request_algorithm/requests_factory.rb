@@ -3,7 +3,7 @@ require_dependency "renalware/pathology/request_algorithm"
 module Renalware
   module Pathology
     module RequestAlgorithm
-      class FormsFactory
+      class RequestsFactory
         def initialize(patients, params)
           @patients = patients
           @params = params
@@ -11,7 +11,7 @@ module Renalware
 
         def build
           @patients.map do |patient|
-            FormFactory.new(patient, @params).build
+            RequestFactory.new(patient, @params).build
           end
         end
       end

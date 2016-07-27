@@ -6,12 +6,12 @@ module Renalware
       before_filter :load_patient
 
       def index
-        form_params = RequestAlgorithm::FormParamsFactory.new(raw_form_params).build
-        request_form = RequestAlgorithm::FormFactory.new(@patient, form_params).build
+        request_params = RequestAlgorithm::RequestParamsFactory.new(raw_request_params).build
+        request = RequestAlgorithm::RequestFactory.new(@patient, request_params).build
 
         render :index, locals:{
-          form_options: build_params_for_html_form,
-          request_form: request_form,
+          request_html_form_params: build_params_for_html_form,
+          request: request,
           all_clinics: all_clinics,
         }
       end
@@ -21,13 +21,13 @@ module Renalware
       def build_params_for_html_form
         OpenStruct.new(
           patient_ids: [@patient.id],
-          clinic_id: raw_form_params[:clinic_id]
+          clinic_id: raw_request_params[:clinic_id]
         )
       end
 
-      def raw_form_params
+      def raw_request_params
         params
-          .fetch(:form_options, {})
+          .fetch(:request, {})
           .permit(:clinic_id)
       end
 
