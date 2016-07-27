@@ -55,15 +55,6 @@ module Renalware
         end
       end
 
-      def destroy
-        prescription = @patient.prescriptions.find(params[:id])
-        @treatable = prescription.treatable
-
-        prescription.terminate(by: current_user).save!
-
-        render_index
-      end
-
       private
 
       def render_index
