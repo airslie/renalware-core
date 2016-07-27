@@ -145,7 +145,11 @@ module World
         # @section commands
         #
         def generate_request_forms_for_single_patient(clinician, params)
-          patients, clinic, consultant, telephone = extract_request_form_params(params)
+          parsed_params = extract_request_form_params(params)
+          patients = parsed_params[:patients]
+          clinic = parsed_params[:clinic]
+          consultant = parsed_params[:consultant]
+          telephone = parsed_params[:telephone]
 
           login_as clinician
 
@@ -159,7 +163,8 @@ module World
         end
 
         def generate_request_forms_for_appointments(_clinician, _appointments, params)
-          _patients, clinic, _user, _telephone = extract_request_form_params(params)
+          parsed_params = extract_request_form_params(params)
+          clinic = parsed_params[:clinic]
 
           click_on "Generate request forms"
 
