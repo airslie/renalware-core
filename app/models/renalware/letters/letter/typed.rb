@@ -21,7 +21,7 @@ module Renalware
           presented_letter = LetterPresenterFactory.new(letter)
           context.render_to_string(
             partial: "/renalware/letters/formatted_letters/letter",
-            locals: { letter: presented_letter}
+            locals: { letter: presented_letter }
           )
         end
       end
