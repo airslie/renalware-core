@@ -10,12 +10,10 @@ module Renalware
           form_params = RequestAlgorithm::FormParamsFactory.new(raw_form_params).build
           request_forms = RequestAlgorithm::FormsFactory.new(@patients, form_params).build
 
-          form_options = build_params_for_simple_form(form_params)
-
           render :create,
             layout: "renalware/layouts/printable",
             locals:{
-              form_options: form_options,
+              form_options: build_params_for_html_form(form_params),
               request_forms: request_forms,
               all_clinics: all_clinics,
               all_consultants: all_consultants
@@ -24,7 +22,7 @@ module Renalware
 
         private
 
-        def build_params_for_simple_form(params)
+        def build_params_for_html_form(params)
           OpenStruct.new(
             patient_ids: raw_form_params[:patient_ids],
             clinic_id: params[:clinic].id,

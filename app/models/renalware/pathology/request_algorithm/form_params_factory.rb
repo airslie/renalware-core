@@ -31,9 +31,9 @@ module Renalware
         end
 
         def requested_clinic
-          if @params[:clinic_id].present?
-            Renalware::Clinics::Clinic.find(@params[:clinic_id])
-          end
+          return unless @params[:clinic_id].present?
+
+          Renalware::Clinics::Clinic.find(@params[:clinic_id])
         end
 
         def default_clinic
@@ -41,9 +41,9 @@ module Renalware
         end
 
         def requested_consultant
-          if @params[:consultant_id].present?
-            Renalware::Pathology::Consultant.find(@params[:consultant_id])
-          end
+          return unless @params[:consultant_id].present?
+
+          Renalware::Pathology::Consultant.find(@params[:consultant_id])
         end
 
         def default_consultant
