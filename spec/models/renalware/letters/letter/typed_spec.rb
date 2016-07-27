@@ -17,16 +17,18 @@ module Renalware::Letters
         expect(archived_letter).to be_archived
       end
 
-      it "records who archived the letter" do
-        archived_letter = typed_letter.archive(by: user, presenter: DummyLetterPresenter.new)
-        expect(archived_letter.archived_by).to eq(user)
-      end
-
       context "with persisted letter" do
         let(:doctor) { create(:letter_doctor) } # Doctor has to exist before saving a letter
 
         before do
           letter.save
+        end
+
+        it "records who archived the letter" do
+          user = create(:user)
+          archived_letter = typed_letter.archive(by: user)
+          archived_letter.save
+          expect(archived_letter.archived_by).to eq(user)
         end
 
         it "archives the content" do

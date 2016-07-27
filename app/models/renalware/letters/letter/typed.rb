@@ -10,10 +10,7 @@ module Renalware
       def archive(by:, presenter: default_presenter)
         becomes!(Archived).tap do |letter|
           letter.by = by
-          letter.build_archive(
-            created_by: by,
-            content: presenter.content
-          )
+          letter.build_archive(by: by, content: presenter.content)
         end
       end
 
