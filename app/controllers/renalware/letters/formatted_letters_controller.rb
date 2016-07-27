@@ -5,12 +5,11 @@ module Renalware
     class FormattedLettersController < Letters::BaseController
       before_filter :load_patient
 
-      layout false
+      layout "renalware/layouts/letter"
 
       def show
         letter = @patient.letters.find(params[:letter_id])
-        content = present_letter(letter).content
-        render text: content
+        @content = present_letter(letter).content
       end
 
       private
