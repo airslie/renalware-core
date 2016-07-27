@@ -117,7 +117,7 @@ Rails.application.routes.draw do
       namespace :medications do
         # TODO move above resource into namespace
         resources :prescriptions, only: [] do
-          resource :termination, only: [:create]
+          resource :termination, only: [:new, :create]
         end
       end
 

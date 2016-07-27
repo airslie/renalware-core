@@ -3,9 +3,18 @@ require_dependency "renalware/medications"
 module Renalware
   module Medications
     class TerminationsController < BaseController
+      include PrescriptionsHelper
       include PresenterHelper
 
       before_action :load_patient
+
+      def new
+        prescription = @patient.prescriptions.find(params[:prescription_id])
+        termination = prescription.build_termination
+        @treatable = treatable_class.find(treatable_id)
+
+        render_form(prescription, termination, url: patient_medications_prescription_termination_path(@patient, prescription, @treatable))
+      end
 
       def create
         prescription = @patient.prescriptions.find(params[:prescription_id])
@@ -17,6 +26,18 @@ module Renalware
       end
 
       private
+
+      def render_form(prescription, termination, url:)
+        render "form", locals: {
+          patient: @patient,
+          treatable: @treatable,
+          prescription: present(prescription, PrescriptionPresenter),
+          termination: termination,
+          provider_codes: present(Provider.codes, ProviderCodePresenter),
+          medication_routes: present(MedicationRoute.all, RouteFormPresenter),
+          url: url
+        }
+      end
 
       def render_index
         render "renalware/medications/prescriptions/index", locals: {

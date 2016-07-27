@@ -71,11 +71,15 @@ Then(/^Clyde can revise the prescription$/) do
   expect_prescription_to_be_revised(patient: @patty)
 end
 
-Then(/^Clyde can terminate the prescription for the patient$/) do
+When(/^Clyde terminates the prescription for the patient$/) do
   terminate_prescription_for(
     patient: @patty,
     user: @clyde
   )
+end
+
+Then(/^Clyde is recorded as the user who terminated the prescription$/) do
+  expect_prescription_to_be_terminated_by(@clyde, patient: @patty)
 end
 
 Then(/^Clyde should see these current prescriptions$/) do |table|

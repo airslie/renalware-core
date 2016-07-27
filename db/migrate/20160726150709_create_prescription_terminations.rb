@@ -2,6 +2,7 @@ class CreatePrescriptionTerminations < ActiveRecord::Migration
   def change
     create_table :medication_prescription_terminations do |t|
       t.date :terminated_on, null: false
+      t.text :notes
       t.references :prescription, index: true, null: false
       t.references :created_by, index: true, null: false
       t.references :updated_by, index: true, null: false

@@ -1275,6 +1275,7 @@ ALTER SEQUENCE letter_recipients_id_seq OWNED BY letter_recipients.id;
 CREATE TABLE medication_prescription_terminations (
     id integer NOT NULL,
     terminated_on date NOT NULL,
+    notes text,
     prescription_id integer NOT NULL,
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,

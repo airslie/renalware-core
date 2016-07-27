@@ -1,6 +1,8 @@
 module World
   module Medications
     module Domain
+      include Renalware::PrescriptionsHelper
+
       # @section helpers
       #
       def default_medication_drug_selector; end
@@ -90,7 +92,6 @@ module World
         prescription = patient.prescriptions.last!
 
         prescription.terminate(by: user).save!
-        expect(prescription).to be_terminated
       end
 
       # @ section expectations
@@ -136,6 +137,13 @@ module World
         )
 
         expect(prescription_exists).to be_truthy
+      end
+
+      def expect_prescription_to_be_terminated_by(user, patient: patient)
+        prescription = patient.prescriptions.last!
+
+        expect(prescription).to be_terminated
+        expect(prescription.terminated_by).to eq(user)
       end
     end
 
@@ -215,19 +223,21 @@ module World
       end
 
       def terminate_prescription_for(patient:, user:)
+        prescription = patient.prescriptions.last
+
         login_as user
 
-        visit patient_prescriptions_path(patient,
-          treatable_type: patient.class, treatable_id: patient.id)
+        visit patient_prescriptions_path(patient)
 
         within "#current-prescriptions" do
           click_on "Terminate"
           wait_for_ajax
         end
 
-        prescription = patient.prescriptions.last!
-
-        expect(prescription).to be_terminated
+        fill_in "Terminated on", with: I18n.l(Date.current)
+        fill_in "Notes", with: "This is completed."
+        click_on "Save"
+        wait_for_ajax
       end
 
       def view_prescriptions_for(clinician, patient)
