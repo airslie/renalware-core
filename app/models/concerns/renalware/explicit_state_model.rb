@@ -32,6 +32,7 @@ module Renalware
   #   Letter::Draft.create!
   #   draft_letter = Letter.draft.first!
   #   draft_letter.state # => "draft"
+  #   draft_letter.draft? # => true
   #   archived_letter = draft_letter.archive!
   #   archived_letter.save!
   #   archived_letter.state # => "archived"
@@ -51,7 +52,13 @@ module Renalware
       # Adds a ActiveRecord scopes for each state defined; e.g. `Letter.draft`
       #
       def has_states(*states)
-        states.each { |state| state_scope(state, state)}
+        states.each do |state|
+          state_scope(state, state)
+
+          define_method "#{state}?" do
+            send(:state) == state.to_s
+          end
+        end
       end
 
       # Allows for custom scope names, example:

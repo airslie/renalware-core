@@ -14,7 +14,7 @@ Given(/^I choose to record a new apd regime$/) do
 end
 
 Given(/^a patient has existing CAPD Regimes$/) do
-  bag_type = Renalware::BagType.find_by!(
+  bag_type = Renalware::PD::BagType.find_by!(
     manufacturer: "Baxter", description: "Nutrineal PD4 (Blue)"
   )
 
@@ -26,7 +26,7 @@ Given(/^a patient has existing CAPD Regimes$/) do
     amino_acid_ml: 41,
     icodextrin_ml: 51,
     add_hd: false,
-    pd_regime_bags_attributes: [
+    regime_bags_attributes: [
       bag_type: bag_type,
       volume: 600,
       sunday: true,
@@ -39,7 +39,7 @@ Given(/^a patient has existing CAPD Regimes$/) do
     ]
   )
 
-  bag_type = Renalware::BagType.find_by!(
+  bag_type = Renalware::PD::BagType.find_by!(
     manufacturer: "Baxter", description: "Extraneal (Icodextrin 7.5%) (Purple)"
   )
   @capd_regime_2 = FactoryGirl.create(:capd_regime,
@@ -50,7 +50,7 @@ Given(/^a patient has existing CAPD Regimes$/) do
     amino_acid_ml: 42,
     icodextrin_ml: 52,
     add_hd: false,
-    pd_regime_bags_attributes: [
+    regime_bags_attributes: [
       bag_type: bag_type,
       volume: 600,
       sunday: true,
@@ -66,7 +66,7 @@ Given(/^a patient has existing CAPD Regimes$/) do
 end
 
 Given(/^a patient has existing APD Regimes$/) do
-  bag_type = Renalware::BagType.find_by!(
+  bag_type = Renalware::PD::BagType.find_by!(
     manufacturer: "Baxter", description: "Nutrineal PD4 (Blue)"
   )
 
@@ -84,7 +84,7 @@ Given(/^a patient has existing APD Regimes$/) do
     tidal_percentage: 10,
     no_cycles_per_apd: 3,
     overnight_pd_ml: 7600,
-    pd_regime_bags_attributes: [
+    regime_bags_attributes: [
       bag_type: bag_type,
       volume: 600,
       sunday: true,
@@ -97,7 +97,7 @@ Given(/^a patient has existing APD Regimes$/) do
     ]
   )
 
-  bag_type = Renalware::BagType.find_by!(
+  bag_type = Renalware::PD::BagType.find_by!(
     manufacturer: "Baxter", description: "Extraneal (Icodextrin 7.5%) (Purple)"
   )
 
@@ -115,7 +115,7 @@ Given(/^a patient has existing APD Regimes$/) do
     tidal_percentage: nil,
     no_cycles_per_apd: 4,
     overnight_pd_ml: 7800,
-    pd_regime_bags_attributes: [
+    regime_bags_attributes: [
       bag_type: bag_type,
       volume: 2000,
       sunday: true,

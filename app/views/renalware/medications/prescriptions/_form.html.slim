@@ -1,7 +1,7 @@
 ruby:
   drug_select_partials = Hash.new("default").tap do |h|
-    h["Renalware::PeritonitisEpisode"] = "peritonitis_episode"
-    h["Renalware::ExitSiteInfection"] = "exit_site_infection"
+    h["Renalware::PD::PeritonitisEpisode"] = "peritonitis_episode"
+    h["Renalware::PD::ExitSiteInfection"] = "exit_site_infection"
   end
 
 = simple_form_for prescription, url: url, html: { class: "prescription-form" },

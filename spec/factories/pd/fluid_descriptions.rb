@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :fluid_description, class: "Renalware::FluidDescription" do
+  factory :fluid_description, class: "Renalware::PD::FluidDescription" do
     description "Clear"
   end
 
