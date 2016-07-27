@@ -11,6 +11,12 @@ module LettersSpecHelper
     letter
   end
 
+  def create_letter(**args)
+    letter = build_letter(args)
+    letter.save!
+    letter
+  end
+
   def build_main_recipient_attributes(to)
     case to
     when :patient

@@ -1,0 +1,255 @@
+scss:
+  html {
+    overflow: hidden;
+    font-family: Helvetica, Arial;
+  }
+
+  .addressee {
+    width: 50%;
+    float: left;
+  }
+
+  .letter {
+    margin: auto;
+    width: 960px;
+
+    p, ul, ol, dl, li, h3 {
+      font-size: 1em;
+    }
+
+    p {
+      padding: 0;
+      line-height: 1.2em;
+    }
+  }
+
+  @media print {
+    .letter {
+      margin: 0 20px;
+      padding: 0;
+      font-size: 0.8em;
+      width: auto;
+    }
+  }
+
+  .header {
+    .unit-info p {
+      margin-top: 0;
+      text-transform: uppercase;
+    }
+
+    .description-block {
+      margin: 20px 0 30px 0;
+
+      .description {
+        font-weight: bold;
+      }
+    }
+
+    .unit-block {
+      width: 50%;
+      float: right;
+
+      text-align: right;
+
+      .trust-name p {
+        font-size: 1.2em;
+        vertical-align: bottom;
+        margin: 0;
+      }
+
+      .trust-caption p {
+        font-size: 0.8em;
+        margin-top: 5px;
+      }
+
+      .nhs-logo {
+        height: 33px;
+        padding: 0;
+        margin: 0 0 0 10px;
+        display: inline-block;
+        vertical-align: bottom;
+      }
+
+      .site-info-html p {
+        font-size: 0.7em;
+      }
+    }
+
+    .private {
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .address {
+      margin: 20px 0 20px 0;
+    }
+  }
+
+  .body {
+    clear: both;
+    padding-top: 10px;
+
+    .salutation {
+      margin: 30px 0;
+    }
+
+    .patient-status {
+      font-weight: bold;
+      text-decoration: underline;
+      margin: 10px 0;
+    }
+
+    .list {
+      margin-bottom: 20px;
+
+      h3 {
+        font-size: 0.9em;
+        font-weight: bold;
+        margin-bottom: 0px;
+      }
+
+      ul {
+        padding-left: 20px;
+      }
+
+      ol {
+        list-style-type: lower-latin;
+        font-size: 0.9em;
+        margin-bottom: 0;
+        margin-left: 0;
+        padding-left: 30px;
+      }
+
+      li {
+        line-height: 1.2em;
+      }
+    }
+
+    .problems {
+      width: 60%;
+      float: left;
+    }
+
+    .prescriptions {
+      width: 40%;
+      float: right;
+    }
+
+    .observations {
+      clear: both;
+    }
+
+    .investigations {
+      clear: both;
+    }
+
+    ul.inline {
+      display: block;
+      padding: 0;
+      margin: 0;
+
+      li {
+        display: inline;
+        padding-right: 15px;
+      }
+    }
+
+    .allergies {
+      margin-bottom: 30px;
+    }
+
+    .message {
+      margin-top: 30px;
+
+      p {
+        margin-bottom: 15px;
+      }
+    }
+
+    .electronic-signature {
+      margin-bottom: 40px;
+    }
+
+    .author-signature {
+      .author-name {
+        font-weight: bold;
+      }
+      margin-bottom: 20px;
+    }
+
+  }
+
+  .footer {
+    .ccs {
+      h3 {
+        font-size: 1em;
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+.letter
+  .header
+    .addressee
+      .unit-info
+        p= letter.letterhead.unit_info
+
+      .description-block
+        p
+          = l letter.issued_on
+          br
+          span.description= letter.description
+          br
+          = letter.event_description
+
+      .private
+        p Private and confidential
+
+      .address
+        p= letter.main_recipient.to_html
+
+    .unit-block
+      .trust-name
+        p
+          =raw letter.letterhead.trust_name
+          span.nhs-logo= image_tag("NHS-Black.jpg", size: "82x33")
+      .trust-caption
+        p= letter.letterhead.trust_caption
+
+      .site-info-html
+        =raw letter.letterhead.site_info
+
+
+  .body
+    .salutation
+      p= letter.salutation
+
+    .patient-status
+      p= render "patient_summary", patient: letter.patient
+
+    = render letter.parts
+
+    .message
+      = simple_format letter.body
+
+    .signature
+      .electronic-signature
+        p= letter.electronic_signature
+
+      .author-signature
+        p
+          span.author-name= letter.author.signature
+          br
+          = letter.author.professional_position
+
+  .footer
+    .ccs
+      h3 cc:
+
+      .private
+        p Private and confidential
+
+      - letter.cc_recipients.each do |cc|
+        .address
+          p= cc.to_html

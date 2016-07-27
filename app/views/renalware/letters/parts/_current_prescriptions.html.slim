@@ -1,14 +1,13 @@
-.columns.large-5
-  .letter-list
-    h3 Current Prescriptions
+.list.prescriptions
+  h3 Current Prescriptions
 
-    ul
-      - current_prescriptions.each do |prescription|
-        li
-          = prescription.drug.name
-          = blank_separator
-          = prescription.dose
-          = blank_separator
-          = prescription.medication_route.code
-          = blank_separator
-          = prescription.frequency
+  ul
+    - current_prescriptions.each do |prescription|
+      li
+        = prescription.drug.name
+        = blank_separator
+        = prescription.dose
+        = blank_separator
+        = prescription.medication_route.code
+        = blank_separator
+        = prescription.frequency

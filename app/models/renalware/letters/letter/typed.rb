@@ -11,7 +11,7 @@ module Renalware
         becomes!(Archived).tap do |letter|
           letter.by = by
           letter.build_archive(created_by: by)
-          letter.archive.content = renderer.new.call(letter)
+          letter.archive.content = renderer.new.call(self)
         end
       end
 
@@ -20,7 +20,7 @@ module Renalware
           context = Renalware::Letters::LettersController.new()
           presented_letter = LetterPresenterFactory.new(letter)
           context.render_to_string(
-            partial: "/renalware/letters/letters/preview",
+            partial: "/renalware/letters/formatted_letters/letter",
             locals: { letter: presented_letter}
           )
         end

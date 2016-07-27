@@ -119,6 +119,7 @@ Rails.application.routes.draw do
         resources :letters do
           resource :typed, controller: "typed_letters", only: :create
           resource :archived, controller: "archived_letters", only: :create
+          resource :formatted, controller: "formatted_letters", only: :show
         end
       end
 
