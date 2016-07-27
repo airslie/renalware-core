@@ -22,7 +22,7 @@ RSpec.describe "Get formatted letter HTML content", type: :request do
       it "responds with the HTML" do
         get patient_letters_letter_formatted_path(patient_id: letter.patient, letter_id: letter)
         expect(response).to be_success
-        expect(response.body).to eq(letter.content)
+        expect(response.body).to include(letter.content)
       end
     end
   end
