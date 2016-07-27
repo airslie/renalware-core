@@ -10,20 +10,26 @@ module World
           patients = find_requested_patients(form_params[:patients])
           telephone = form_params[:telephone]
 
-          {
-            patients: patients,
-            clinic: clinic,
-            consultant: consultant,
-            telephone: telephone
-          }
+          patient_ids = patients.present? ? patients.map(&:id) : []
+
+          params = {}
+          if patients.present?
+            params[:patients] = patients
+            params[:patient_ids] = patients.map(&:id)
+          end
+
+          params[:clinic_id] = clinic.id if clinic.present?
+          params[:consultant_id] = consultant.id if consultant.present?
+          params[:telephone] = telephone if telephone.present?
+          params
         end
 
         def build_request_forms(patients, options)
-          request_form_options =
-            Renalware::Pathology::RequestAlgorithm::FormOptions.new(options)
+          request_params =
+            Renalware::Pathology::RequestAlgorithm::RequestParamsFactory.new(options).build
 
-          Renalware::Pathology::RequestAlgorithm::FormsFactory
-            .new(patients, request_form_options).build
+          Renalware::Pathology::RequestAlgorithm::RequestsFactory
+            .new(patients, request_params).build
         end
 
         # @section commands
@@ -145,11 +151,11 @@ module World
         # @section commands
         #
         def generate_request_forms_for_single_patient(clinician, params)
-          parsed_params = extract_request_form_params(params)
-          patients = parsed_params[:patients]
-          clinic = parsed_params[:clinic]
-          consultant = parsed_params[:consultant]
-          telephone = parsed_params[:telephone]
+          patients = find_requested_patients(params[:patients])
+          clinic = find_requested_clinic(params[:clinic])
+          consultant = find_requested_consultant(params[:consultant])
+          telephone = params[:telephone]
+
 
           login_as clinician
 
@@ -163,8 +169,7 @@ module World
         end
 
         def generate_request_forms_for_appointments(_clinician, _appointments, params)
-          parsed_params = extract_request_form_params(params)
-          clinic = parsed_params[:clinic]
+          clinic = find_requested_clinic(params[:clinic])
 
           click_on "Generate request forms"
 

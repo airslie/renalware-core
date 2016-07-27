@@ -125,10 +125,6 @@ Rails.application.routes.draw do
         resources :patient_rules
         get "descriptions/:description_id/observations", to: "observations#index", as: "observations"
         resources :required_observations, only: :index
-
-        namespace :requests do
-          resources :request_previews, only: :new
-        end
       end
 
       namespace :transplants do
