@@ -27,6 +27,18 @@ module Renalware
         def patient_requests_by_lab
           @patient_requests.group_by { |patient_rule| patient_rule.lab.name }
         end
+
+        def has_global_requests?
+          @global_requests.any?
+        end
+
+        def has_patient_requests?
+          @patient_requests.any?
+        end
+
+        def has_tests_required?
+          has_global_requests? || has_patient_requests?
+        end
       end
     end
   end

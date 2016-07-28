@@ -6,9 +6,11 @@ module Renalware
       class RequestPreviewsController < Pathology::BaseController
         before_filter :load_patients
 
+        # NOTE: This needs to be POST since params[:patient_ids] may exceed url char limit
         def create
           request_params = RequestAlgorithm::RequestParamsFactory.new(raw_request_params).build
           requests = RequestAlgorithm::RequestsFactory.new(@patients, request_params).build
+          requests = RequestPresenter.wrap(requests)
 
           render :create,
             layout: "renalware/layouts/printable",

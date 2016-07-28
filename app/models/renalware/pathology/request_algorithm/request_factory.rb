@@ -10,9 +10,7 @@ module Renalware
         end
 
         def build
-          RequestFormPresenter.new(
-            Request.new(request_params)
-          )
+          Request.new(request_params)
         end
 
         private
