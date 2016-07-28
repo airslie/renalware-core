@@ -1,5 +1,3 @@
-require "base64"
-
 module Renalware
   module LettersHelper
     def patient_letters_letters_path(patient, event=nil)
@@ -16,13 +14,6 @@ module Renalware
         value,
         unit
       ].flatten.join(" ").html_safe
-    end
-
-    def logo_image
-      logo_filename = File.join(Rails.root, "/app/assets/images/NHS-Black.jpg")
-      raw_data = File.read(logo_filename)
-      data = Base64.encode64(raw_data)
-      image_tag("data:image/jpeg;base64,#{data}", size: "82x33")
     end
   end
 end
