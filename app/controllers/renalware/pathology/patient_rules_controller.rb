@@ -76,7 +76,7 @@ module Renalware
 
       def patient_rule_params
         params
-          .require(:pathology_request_algorithm_patient_rule)
+          .require(:pathology_requests_patient_rule)
           .permit(
             :patient_id,
             :lab_id,
