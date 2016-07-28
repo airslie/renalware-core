@@ -42,7 +42,7 @@ module Renalware
       end
 
       def destroy
-        RequestAlgorithm::PatientRule.destroy(params[:id])
+        Requests::PatientRule.destroy(params[:id])
 
         redirect_to patient_pathology_required_observations_path(@patient),
           notice: t(".success", model_name: "patient rule")
@@ -67,7 +67,7 @@ module Renalware
       end
 
       def find_frequencies
-        RequestAlgorithm::Frequency.all_names
+        Requests::Frequency.all_names
       end
 
       def find_labs
@@ -76,7 +76,7 @@ module Renalware
 
       def patient_rule_params
         params
-          .require(:pathology_request_algorithm_patient_rule)
+          .require(:pathology_requests_patient_rule)
           .permit(
             :patient_id,
             :lab_id,

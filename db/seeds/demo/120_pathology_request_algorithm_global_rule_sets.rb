@@ -12,7 +12,7 @@ module Renalware
       code: row["request_description_code"]
     )
 
-    Pathology::RequestAlgorithm::GlobalRuleSet.find_or_create_by!(
+    Pathology::Requests::GlobalRuleSet.find_or_create_by!(
       id: row["id"],
       clinic: clinic,
       request_description: request_description,

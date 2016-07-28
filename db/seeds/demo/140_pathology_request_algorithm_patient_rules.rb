@@ -8,7 +8,7 @@ module Renalware
     logcount += 1
     lab = Pathology::Lab.find_by(name: row["lab"])
 
-    Pathology::RequestAlgorithm::PatientRule.find_or_create_by!(
+    Pathology::Requests::PatientRule.find_or_create_by!(
       lab: lab,
       test_description: row["test_description"],
       sample_number_bottles: row["sample_number_bottles"],

@@ -4,7 +4,7 @@ RSpec.describe "patient_rules Requests", type: :request do
   let!(:patient) { create(:pathology_patient) }
   let!(:lab) { create(:pathology_lab) }
   let!(:patient_rule) do
-    create(:pathology_request_algorithm_patient_rule, patient: patient, lab: lab)
+    create(:pathology_requests_patient_rule, patient: patient, lab: lab)
   end
   let!(:clinic) { create(:clinic) }
 
@@ -19,7 +19,7 @@ RSpec.describe "patient_rules Requests", type: :request do
   describe "POST create" do
     let(:url) { patient_pathology_patient_rules_path(patient_id: patient.id) }
     let(:patient_rule_attributes) do
-      attributes_for(:pathology_request_algorithm_patient_rule).merge(
+      attributes_for(:pathology_requests_patient_rule).merge(
         patient_id: patient.id,
         lab_id: lab.id
       )
@@ -27,11 +27,11 @@ RSpec.describe "patient_rules Requests", type: :request do
 
     context "given valid attributes" do
       let(:patient_rule_exists) do
-        Renalware::Pathology::RequestAlgorithm::PatientRule.exists?(patient_rule_attributes)
+        Renalware::Pathology::Requests::PatientRule.exists?(patient_rule_attributes)
       end
 
       it "creates a new record" do
-        post url, pathology_request_algorithm_patient_rule: patient_rule_attributes
+        post url, pathology_requests_patient_rule: patient_rule_attributes
 
         expect(response).to have_http_status(:redirect)
         expect(patient_rule_exists).to be_truthy
@@ -44,7 +44,7 @@ RSpec.describe "patient_rules Requests", type: :request do
 
     context "given invalid attributes" do
       it "responds with form" do
-        post url, pathology_request_algorithm_patient_rule: patient_rule_attributes.except(:lab_id)
+        post url, pathology_requests_patient_rule: patient_rule_attributes.except(:lab_id)
 
         expect(response).to have_http_status(:success)
       end
@@ -64,7 +64,7 @@ RSpec.describe "patient_rules Requests", type: :request do
 
     context "given valid attributes" do
       it "updates the patient rule" do
-        patch url, pathology_request_algorithm_patient_rule: { test_description: "Lorem Ipsum" }
+        patch url, pathology_requests_patient_rule: { test_description: "Lorem Ipsum" }
 
         expect(response).to have_http_status(:redirect)
 
@@ -76,7 +76,7 @@ RSpec.describe "patient_rules Requests", type: :request do
 
     context "given invalid attributes" do
       it "responds with form" do
-        patch url, pathology_request_algorithm_patient_rule: { test_description: nil }
+        patch url, pathology_requests_patient_rule: { test_description: nil }
 
         expect(response).to have_http_status(:success)
       end
@@ -85,7 +85,7 @@ RSpec.describe "patient_rules Requests", type: :request do
 
   describe "DELETE destroy" do
     let(:patient_rule_exists) do
-      Renalware::Pathology::RequestAlgorithm::PatientRule.exists?(id: patient_rule.id)
+      Renalware::Pathology::Requests::PatientRule.exists?(id: patient_rule.id)
     end
 
     it "deletes the patient rule" do
