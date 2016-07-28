@@ -45,6 +45,21 @@ When(/^Clyde records the prescription for Patty$/) do
   )
 end
 
+When(/^Clyde records the prescription for Patty with a termination date$/) do
+  record_prescription_for_patient(
+    user: @clyde,
+    patient: @patty,
+    drug_name: "Ciprofloxacin Infusion",
+    dose_amount: "100",
+    dose_unit: "millilitre",
+    route_code: "PO",
+    frequency: "once a day",
+    prescribed_on: "10-10-2015",
+    provider: "GP",
+    terminated_on: "20-10-2015"
+  )
+end
+
 When(/^Clyde views the list of prescriptions for Patty$/) do
   @current_prescriptions, @historical_prescriptions = view_prescriptions_for(@clyde, @patty)
 end

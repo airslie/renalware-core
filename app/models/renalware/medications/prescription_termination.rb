@@ -7,7 +7,6 @@ module Renalware
 
       belongs_to :prescription
 
-      validates :prescription, presence: true
       validates :terminated_on, presence: true
     end
   end

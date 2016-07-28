@@ -16,6 +16,8 @@ module Renalware
       belongs_to :medication_route
 
       has_one :termination, class_name: "PrescriptionTermination"
+      accepts_nested_attributes_for :termination, update_only: true,
+        reject_if: -> (attributes) { attributes['terminated_on'].blank? }
       delegate :terminated_on, to: :termination, allow_nil: true
 
       validates :patient, presence: true

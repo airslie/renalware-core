@@ -16,13 +16,13 @@ module World
       # @section seeds
       #
       def seed_prescription_for(patient:, treatable: nil, drug_name:, dose_amount:,
-        dose_unit:, route_code:, frequency:, prescribed_on:, provider:, terminated_on:, **_)
+        dose_unit:, route_code:, frequency:, prescribed_on:, provider:, terminated_on:, user: nil, **_)
         drug = Renalware::Drugs::Drug.find_or_create_by!(name: drug_name)
         route = Renalware::Medications::MedicationRoute.find_by!(code: route_code)
 
-        user = Renalware::SystemUser.find
+        user ||= Renalware::SystemUser.find
 
-        prescription = patient.prescriptions.create!(
+        prescription = patient.prescriptions.build(
           treatable: treatable || patient,
           drug: drug,
           dose_amount: dose_amount,
@@ -35,10 +35,10 @@ module World
         )
 
         if terminated_on = parse_date_string(terminated_on)
-          prescription
-            .terminate(by: user, terminated_on: terminated_on)
-            .save!
+          prescription.build_termination(by: user, terminated_on: terminated_on)
         end
+
+        prescription.save!
       end
 
       # @ section commands
@@ -60,10 +60,10 @@ module World
       end
 
       def record_prescription_for(**args)
-        seed_prescription_for(args.merge(terminated_on: nil))
+        seed_prescription_for(args.reverse_merge(terminated_on: nil))
       end
 
-      def record_prescription_for_patient(user:, **args)
+      def record_prescription_for_patient(**args)
         record_prescription_for(args)
       end
 
@@ -170,7 +170,7 @@ module World
       # @ section commands
       #
       def record_prescription_for(patient:, treatable: nil, drug_name:, dose_amount:,
-        dose_unit:, route_code:, frequency:, prescribed_on:, provider:, terminated_on: nil,
+        dose_unit:, route_code:, frequency:, prescribed_on:, provider:, terminated_on: "",
         drug_selector: default_medication_drug_selector)
 
         click_link "Add Prescription"
@@ -182,6 +182,7 @@ module World
           select route_code, from: "Medication route"
           fill_in "Frequency", with: frequency
           fill_in "Prescribed on", with: prescribed_on
+          fill_in "Terminated on", with: terminated_on
           click_on "Save"
           wait_for_ajax
         end
@@ -190,18 +191,16 @@ module World
       def record_prescription_for_patient(user:, patient:, **args)
         login_as user
 
-        visit patient_prescriptions_path(patient,
-          treatable_type: patient.class, treatable_id: patient.id)
+        visit patient_prescriptions_path(patient)
 
-        record_prescription_for(patient: patient, **args.except(:terminated_on))
+        record_prescription_for(patient: patient, **args)
       end
 
       def revise_prescription_for(patient:, user:, drug_selector: default_medication_drug_selector,
         prescription_params: {})
         login_as user
 
-        visit patient_prescriptions_path(patient,
-          treatable_type: patient.class, treatable_id: patient.id)
+        visit patient_prescriptions_path(patient)
 
         within "#current-prescriptions" do
           click_on "Edit"

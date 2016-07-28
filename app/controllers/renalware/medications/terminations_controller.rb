@@ -27,6 +27,13 @@ module Renalware
 
       private
 
+      def termination_params
+        params
+          .require(:medications_prescription_termination)
+          .permit(:terminated_on, :notes)
+          .merge(by: current_user)
+      end
+
       def render_form(prescription, termination, url:)
         render "form", locals: {
           patient: @patient,
