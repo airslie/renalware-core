@@ -19,7 +19,7 @@ Feature: Viewing required pathology for a patient
       | test_description | Test for HepB |
       | frequency_type   | Always        |
 
-  @web @wip
+  @web
   Scenario:
     Given Clyde is a clinician
     When Clyde views the list of required pathology for Patty in clinic Access
