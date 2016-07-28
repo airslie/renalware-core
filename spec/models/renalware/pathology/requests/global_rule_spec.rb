@@ -7,7 +7,7 @@ describe Renalware::Pathology::Requests::GlobalRule do
       .in_array(Renalware::Pathology::Requests::GlobalRule::PARAM_COMPARISON_OPERATORS)
   end
 
-  subject(:rule) { create(:pathology_request_algorithm_global_rule, param_type: "Fake") }
+  subject(:rule) { create(:pathology_requests_global_rule, param_type: "Fake") }
 
   describe "#required_for_patient?" do
     let(:patient) { create(:patient) }

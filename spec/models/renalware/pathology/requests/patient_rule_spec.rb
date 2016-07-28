@@ -14,7 +14,7 @@ describe Renalware::Pathology::Requests::PatientRule do
 
   subject(:patient_rule) do
     create(
-      :pathology_request_algorithm_patient_rule,
+      :pathology_requests_patient_rule,
       patient: patient,
       start_date: Date.parse("2016-04-19"),
       end_date: Date.parse("2016-04-21"),

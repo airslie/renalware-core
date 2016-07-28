@@ -5,10 +5,10 @@ describe Renalware::Pathology::Requests::Patient do
   let(:pathology_patient) { Renalware::Pathology.cast_patient(patient) }
 
   let(:required_rule) do
-    build(:pathology_request_algorithm_patient_rule, patient: pathology_patient)
+    build(:pathology_requests_patient_rule, patient: pathology_patient)
   end
   let(:not_required_rule) do
-    build(:pathology_request_algorithm_patient_rule, patient: pathology_patient)
+    build(:pathology_requests_patient_rule, patient: pathology_patient)
   end
   let(:rules) { [required_rule, not_required_rule] }
 

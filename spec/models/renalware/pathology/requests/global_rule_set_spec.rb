@@ -18,7 +18,7 @@ describe Renalware::Pathology::Requests::GlobalRuleSet do
 
   subject(:rule_set) do
     build(
-      :pathology_request_algorithm_global_rule_set,
+      :pathology_requests_global_rule_set,
       frequency_type: "Once",
       request_description: request_description
     )
@@ -30,8 +30,8 @@ describe Renalware::Pathology::Requests::GlobalRuleSet do
     let!(:observation_request) do
       create(:pathology_observation_request, patient: pathology_patient)
     end
-    let(:rule_1) { build(:pathology_request_algorithm_global_rule) }
-    let(:rule_2) { build(:pathology_request_algorithm_global_rule) }
+    let(:rule_1) { build(:pathology_requests_global_rule) }
+    let(:rule_2) { build(:pathology_requests_global_rule) }
 
     subject(:rule_set_required?) { rule_set.required_for_patient?(pathology_patient) }
 
