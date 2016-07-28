@@ -28,7 +28,7 @@ module World
 
           requests =
             Renalware::Pathology::RequestAlgorithm::RequestsFactory
-              .new(patients, request_params).build
+            .new(patients, request_params).build
 
           Renalware::Pathology::Requests::RequestPresenter.wrap(requests)
         end
