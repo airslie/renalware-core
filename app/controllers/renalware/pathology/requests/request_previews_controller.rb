@@ -43,9 +43,8 @@ module Renalware
 
         # NOTE: Preserve the order of the id's given in the params
         def load_patients
-          @patients = Pathology::OrderedPatientQuery.new(
-            raw_request_params[:patient_ids]
-          ).call
+          patient_ids = raw_request_params[:patient_ids]
+          @patients = Pathology::OrderedPatientQuery.new(patient_ids).call
           authorize Renalware::Patient
         end
 
