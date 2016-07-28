@@ -4,7 +4,7 @@ module Renalware
   module Pathology
     module Requests
       class RequestPresenter < SimpleDelegator
-        def self.wrap(requests)
+        def self.present(requests)
           requests.map { |request| new request }
         end
 

@@ -10,7 +10,7 @@ module Renalware
         def create
           request_params = RequestAlgorithm::RequestParamsFactory.new(raw_request_params).build
           requests = RequestAlgorithm::RequestsFactory.new(@patients, request_params).build
-          requests = RequestPresenter.wrap(requests)
+          requests = RequestPresenter.present(requests)
 
           render :create,
             layout: "renalware/layouts/printable",
@@ -43,7 +43,7 @@ module Renalware
 
         # NOTE: Preserve the order of the id's given in the params
         def load_patients
-          patient_ids = raw_request_params[:patient_ids].map(&:to_i)
+          patient_ids = raw_request_params[:patient_ids]
           @patients = Pathology::OrderedPatientQuery.new(patient_ids).call
           authorize Renalware::Patient
         end
