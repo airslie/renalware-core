@@ -177,6 +177,32 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    namespace :pathology do
+      resources :forms, only: :create
+
+      namespace :requests do
+        resources :request_previews
+      end
+    end
+
+    resources :prd_descriptions, only: [:search] do
+      collection do
+        get :search
+      end
+    end
+
+    resources :snomed, only: [:index]
+
+    namespace :system do
+      resources :email_templates, only: :index
+    end
+
+    namespace :transplants do
+      resource :wait_list, only: :show
+    end
+
+    resource :dashboard, only: :show, controller: "dashboard/dashboards"
   end
 
   # enable mail previews in all environments

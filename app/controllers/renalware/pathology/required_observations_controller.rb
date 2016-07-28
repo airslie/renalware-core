@@ -6,33 +6,33 @@ module Renalware
       before_filter :load_patient
 
       def index
-          global_pathology = @patient.required_observation_requests(clinic)
-          patient_pathology = @patient.required_patient_pathology
-          clinics = Renalware::Clinics::Clinic.ordered
-          request_form_options = RequestAlgorithm::RequestFormOptions.new(
-            patients: Array(@patient),
-            clinic: clinic
-          )
+        request_params = RequestAlgorithm::RequestParamsFactory.new(raw_request_params).build
+        request = RequestAlgorithm::RequestFactory.new(@patient, request_params).build
 
-          render :index, locals: {
-            global_pathology: global_pathology,
-            patient_pathology: patient_pathology,
-            clinics: clinics,
-            clinic: clinic,
-            request_form_options: request_form_options
-          }
+        render :index, locals:{
+          request_html_form_params: build_params_for_html_form,
+          request: request,
+          all_clinics: all_clinics,
+        }
       end
 
       private
 
-      def clinic
-        @clinic ||= begin
-          if params[:clinic_id].present?
-            Renalware::Clinics::Clinic.find(params[:clinic_id])
-          else
-            Renalware::Clinics::Clinic.ordered.first
-          end
-        end
+      def build_params_for_html_form
+        OpenStruct.new(
+          patient_ids: [@patient.id],
+          clinic_id: raw_request_params[:clinic_id]
+        )
+      end
+
+      def raw_request_params
+        params
+          .fetch(:request, {})
+          .permit(:clinic_id)
+      end
+
+      def all_clinics
+        Renalware::Clinics::Clinic.ordered
       end
     end
   end
