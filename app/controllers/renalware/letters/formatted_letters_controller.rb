@@ -35,7 +35,7 @@ module Renalware
           no_background: false,
           footer: {
             font_size: 8,
-            right: 'page [page] of [topage]'
+            right: "page [page] of [topage]"
           }
         }
       end

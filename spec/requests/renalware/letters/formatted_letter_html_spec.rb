@@ -14,7 +14,9 @@ RSpec.describe "Get formatted letter HTML content", type: :request do
       end
 
       it "responds with a PDF file" do
-        get patient_letters_letter_formatted_path(patient_id: letter.patient, letter_id: letter, format: "pdf")
+        get patient_letters_letter_formatted_path(
+          patient_id: letter.patient, letter_id: letter, format: "pdf"
+        )
         expect(response).to be_success
         expect(response["Content-Type"]).to eq("application/pdf")
       end
