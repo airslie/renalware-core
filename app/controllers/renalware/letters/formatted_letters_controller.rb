@@ -9,7 +9,8 @@ module Renalware
 
       def show
         letter = @patient.letters.find(params[:letter_id])
-        @content = present_letter(letter).content
+        @letter = present_letter(letter)
+        @content = @letter.content
 
         respond_to do |format|
           format.html
@@ -30,9 +31,6 @@ module Renalware
       def pdf_options
         {
           page_size: "A4",
-          background: true,
-          print_media_type: false,
-          no_background: false,
           layout: "renalware/layouts/letter",
           footer: {
             font_size: 8,
