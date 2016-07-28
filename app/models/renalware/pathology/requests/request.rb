@@ -3,13 +3,17 @@ require_dependency "renalware/pathology/requests"
 module Renalware
   module Pathology
     module Requests
-      class Request
+      class Request < ActiveRecord::Base
         attr_reader :patient,
                     :global_requests,
                     :patient_requests,
                     :clinic,
                     :consultant,
                     :telephone
+
+        belongs_to :patient, class_name: "::Renalware::Pathology::Patient"
+        belongs_to :clinic, class_name: "::Renalware::Clinics::Clinic"
+        belongs_to :consultant, class_name: "::Renalware::Pathology::consultant"
 
         def initialize(params)
           @patient = params[:patient]

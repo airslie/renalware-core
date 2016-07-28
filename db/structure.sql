@@ -1749,6 +1749,42 @@ ALTER SEQUENCE pathology_requests_patient_rules_id_seq OWNED BY pathology_reques
 
 
 --
+-- Name: pathology_requests_requests; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_requests_requests (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    clinic_id integer NOT NULL,
+    consultant_id integer NOT NULL,
+    telephone character varying NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pathology_requests_requests_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pathology_requests_requests_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_requests_requests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pathology_requests_requests_id_seq OWNED BY pathology_requests_requests.id;
+
+
+--
 -- Name: patient_bookmarks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3391,6 +3427,13 @@ ALTER TABLE ONLY pathology_requests_patient_rules ALTER COLUMN id SET DEFAULT ne
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY pathology_requests_requests ALTER COLUMN id SET DEFAULT nextval('pathology_requests_requests_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY patient_bookmarks ALTER COLUMN id SET DEFAULT nextval('patient_bookmarks_id_seq'::regclass);
 
 
@@ -4014,6 +4057,14 @@ ALTER TABLE ONLY pathology_requests_global_rules
 
 ALTER TABLE ONLY pathology_requests_patient_rules
     ADD CONSTRAINT pathology_requests_patient_rules_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_requests_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_requests_requests
+    ADD CONSTRAINT pathology_requests_requests_pkey PRIMARY KEY (id);
 
 
 --
@@ -5258,6 +5309,14 @@ ALTER TABLE ONLY hd_sessions
 
 
 --
+-- Name: fk_rails_3e725c96fc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_requests_requests
+    ADD CONSTRAINT fk_rails_3e725c96fc FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: fk_rails_40e23de825; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5303,6 +5362,14 @@ ALTER TABLE ONLY patients
 
 ALTER TABLE ONLY access_assessments
     ADD CONSTRAINT fk_rails_604fdf3a9e FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_617c726b94; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_requests_requests
+    ADD CONSTRAINT fk_rails_617c726b94 FOREIGN KEY (consultant_id) REFERENCES users(id);
 
 
 --
@@ -5463,6 +5530,14 @@ ALTER TABLE ONLY hd_sessions
 
 ALTER TABLE ONLY pd_regimes
     ADD CONSTRAINT fk_rails_a70920e237 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_a8d58d31e6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_requests_requests
+    ADD CONSTRAINT fk_rails_a8d58d31e6 FOREIGN KEY (clinic_id) REFERENCES clinics(id);
 
 
 --
@@ -5976,6 +6051,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160620131148');
 INSERT INTO schema_migrations (version) VALUES ('20160628141349');
 
 INSERT INTO schema_migrations (version) VALUES ('20160726170852');
+
+INSERT INTO schema_migrations (version) VALUES ('20160728094200');
 
 INSERT INTO schema_migrations (version) VALUES ('20160728103933');
 
