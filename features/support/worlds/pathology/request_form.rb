@@ -30,7 +30,7 @@ module World
             Renalware::Pathology::RequestAlgorithm::RequestsFactory
             .new(patients, request_params).build
 
-          Renalware::Pathology::Requests::RequestPresenter.wrap(requests)
+          Renalware::Pathology::Requests::RequestPresenter.present(requests)
         end
 
         # @section commands
