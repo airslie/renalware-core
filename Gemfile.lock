@@ -411,7 +411,10 @@ GEM
     websocket-driver (0.6.2)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    wicked_pdf (1.0.6)
     wisper (2.0.0.rc1)
+    wkhtmltopdf-binary (0.12.3)
+    wkhtmltopdf-heroku (2.12.3.0)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -482,7 +485,10 @@ DEPENDENCIES
   virtus
   web-console (~> 2.0)
   webmock
+  wicked_pdf
   wisper (= 2.0.0.rc1)
+  wkhtmltopdf-binary
+  wkhtmltopdf-heroku
 
 RUBY VERSION
    ruby 2.3.1p112

@@ -36,6 +36,8 @@ gem 'cocoon'
 gem 'email_validator'
 gem 'nokogiri', '~> 1.6.8'
 gem 'activemodel-associations'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
 source 'https://rails-assets.org' do
   # https://github.com/najlepsiwebdesigner/foundation-datepicker
@@ -81,4 +83,5 @@ group :staging do
   gem 'rails_12factor'
   gem 'unicorn'
   gem 'faker'
+  gem "wkhtmltopdf-heroku"
 end
