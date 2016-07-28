@@ -15,7 +15,7 @@ module World
                 Renalware::Drugs::Type.find_by!(name: params["id"]).id
             end
 
-          Renalware::Pathology::RequestAlgorithm::GlobalRule.create!(
+          Renalware::Pathology::Requests::GlobalRule.create!(
             global_rule_set_id: params["global_rule_set_id"],
             param_type: params["type"],
             param_id: param_id,
@@ -47,7 +47,7 @@ module World
             )
           params["clinic"] = clinic
 
-          Renalware::Pathology::RequestAlgorithm::GlobalRuleSet.create!(
+          Renalware::Pathology::Requests::GlobalRuleSet.create!(
             params.except("request_description_code")
           )
         end
@@ -56,7 +56,7 @@ module World
           pathology_patient = Renalware::Pathology.cast_patient(patient)
           clinic = Renalware::Clinics::Clinic.find_by(name: clinic_name)
 
-          Renalware::Pathology::RequestAlgorithm::Global.new(pathology_patient, clinic)
+          Renalware::Pathology::Requests::Global.new(pathology_patient, clinic)
             .determine_required_request_descriptions
         end
 

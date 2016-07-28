@@ -24,10 +24,10 @@ module World
 
         def build_request_forms(patients, options)
           request_params =
-            Renalware::Pathology::RequestAlgorithm::RequestParamsFactory.new(options).build
+            Renalware::Pathology::Requests::RequestParamsFactory.new(options).build
 
           requests =
-            Renalware::Pathology::RequestAlgorithm::RequestsFactory
+            Renalware::Pathology::Requests::RequestsFactory
             .new(patients, request_params).build
 
           Renalware::Pathology::Requests::RequestPresenter.wrap(requests)
