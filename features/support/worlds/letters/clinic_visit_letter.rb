@@ -159,7 +159,7 @@ module World
         visit patient_clinic_visits_path(patient)
         click_on "Preview Letter"
 
-        visit find("iframe")[:src]
+        visit_iframe_content
 
         patient.prescriptions.each do |prescription|
           expect(page.body).to include(prescription.drug.name)
@@ -170,7 +170,7 @@ module World
         visit patient_clinic_visits_path(patient)
         click_on "Preview Letter"
 
-        visit find("iframe")[:src]
+        visit_iframe_content
 
         clinic_visit = clinic_visit_for(patient)
         expect(page.body).to include(clinic_visit.height.to_s)
@@ -182,7 +182,7 @@ module World
         visit patient_clinic_visits_path(patient)
         click_on "Preview Letter"
 
-        visit find("iframe")[:src]
+        visit_iframe_content
 
         patient.problems.each do |problem|
           expect(page.body).to include(problem.description)
@@ -194,7 +194,7 @@ module World
         visit patient_clinic_visits_path(patient)
         click_on "Preview Letter"
 
-        visit find("iframe")[:src]
+        visit_iframe_content
 
         pathology_patient = Renalware::Pathology.cast_patient(patient)
 
@@ -203,6 +203,10 @@ module World
         pathology_patient.observations.each do |observation|
           expect(page.body).to include(observation.to_s)
         end
+      end
+
+      def visit_iframe_content
+        visit find("iframe")[:src]
       end
     end
   end
