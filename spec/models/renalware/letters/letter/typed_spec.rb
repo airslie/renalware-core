@@ -12,8 +12,10 @@ module Renalware::Letters
     subject(:typed_letter) { letter.becomes(Letter::Typed) }
 
     describe "#archive" do
+      let(:presenter) { double(:presenter).as_null_object }
+
       it "archives the letter" do
-        archived_letter = typed_letter.archive(by: user, presenter: DummyLetterPresenter.new)
+        archived_letter = typed_letter.archive(by: user, presenter: presenter)
         expect(archived_letter).to be_archived
       end
 
@@ -37,11 +39,6 @@ module Renalware::Letters
           expect(archived_letter.content).to include(patient.full_name)
           expect(archived_letter.content).to include(doctor.address.street_1)
         end
-      end
-    end
-
-    class DummyLetterPresenter
-      def content
       end
     end
   end
