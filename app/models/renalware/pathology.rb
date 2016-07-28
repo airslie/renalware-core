@@ -14,6 +14,10 @@ module Renalware
       ActiveType.cast(patient, ::Renalware::Pathology::Patient)
     end
 
+    def self.cast_user_to_consultant(user)
+      ActiveType.cast(user, ::Renalware::Pathology::Consultant)
+    end
+
     def configure
       SubscriptionRegistry.instance.register(Feeds::MessageProcessor, MessageListener)
     end

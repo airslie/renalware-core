@@ -4,24 +4,14 @@ module Renalware
   module Pathology
     module Requests
       class Request < ActiveRecord::Base
-        attr_reader :patient,
-                    :global_requests,
-                    :patient_requests,
-                    :clinic,
-                    :consultant,
-                    :telephone
+        include Accountable
 
         belongs_to :patient, class_name: "::Renalware::Pathology::Patient"
         belongs_to :clinic, class_name: "::Renalware::Clinics::Clinic"
-        belongs_to :consultant, class_name: "::Renalware::Pathology::consultant"
+        belongs_to :consultant, class_name: "::Renalware::Pathology::Consultant"
 
-        def initialize(params)
-          @patient = params[:patient]
-          @global_requests = params[:global_requests]
-          @patient_requests = params[:patient_requests]
-          @clinic = params[:clinic]
-          @consultant = params[:consultant]
-          @telephone = params[:telephone]
+        def print
+
         end
 
         def global_requests_by_lab

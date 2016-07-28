@@ -1,3 +1,29 @@
+Given(/^Patty has a request form generated:$/) do |table|
+  params = table.rows_hash
+
+  patient = Renalware::Pathology.cast_patient(@patty)
+  clinic = Renalware::Clinics::Clinic.find_by!(name: params[:clinic])
+  consultant = Renalware::Pathology.cast_user_to_consultant(
+    find_or_create_user(given_name: params[:consultant], role: :clinician)
+  )
+  request_descriptions = params[:global_requests].split(", ").map do |request_description_name|
+    Renalware::Pathology::RequestDescription.find_by(name: request_description_name)
+  end
+  patient_rules = params[:patient_requests].split(", ").map do |test_description|
+    patient_rule = Renalware::Pathology::Requests::PatientRule.find_by(test_description: test_description)
+  end
+
+  @request_form = Renalware::Pathology::Requests::Request.new(
+    patient: patient,
+    clinic: clinic,
+    consultant: consultant,
+    telephone: params[:telephone],
+    by: Renalware::SystemUser.find,
+    #request_descriptions: request_descriptions,
+    #patient_rules: patient_rules
+  )
+end
+
 When(/^Clyde chooses the consultant (\w+\s\w+)$/) do |user_name|
   @request_forms = update_request_form_user(user_name)
 end
@@ -33,6 +59,11 @@ When(/^Clyde generates the request form for (\w+) with the following parameters:
   @request_forms = generate_request_forms_for_single_patient(@clyde, params)
 end
 
+When(/^Clyde prints Patty's request form$/) do
+  @request_form.save
+end
+
+
 Then(/^Clyde sees these details at the top of (\w+)'s form$/) do |patient_name, table|
   patient = get_patient(patient_name)
   expect_patient_summary_to_match_table(@request_forms, patient, table)
@@ -50,4 +81,29 @@ Then(/^Clyde sees the requests forms for these patients:$/) do |table|
   end
 
   expect_pathology_forms_for_patients(@request_forms, patients)
+end
+
+Then(/^Patty has the request recorded:$/) do |table|
+  params = table.rows_hash
+
+  patient = Renalware::Pathology.cast_patient(@patty)
+  clinic = Renalware::Clinics::Clinic.find_by!(name: params[:clinic])
+  consultant = Renalware::Pathology.cast_user_to_consultant(
+    find_or_create_user(given_name: params[:consultant], role: :clinician)
+  )
+  request_descriptions = params[:global_requests].split(", ").map do |request_description_name|
+    Renalware::Pathology::RequestDescription.find_by(name: request_description_name)
+  end
+  patient_rules = params[:patient_requests].split(", ").map do |test_description|
+    patient_rule = Renalware::Pathology::Requests::PatientRule.find_by(test_description: test_description)
+  end
+
+  request_exists = Renalware::Pathology::Requests::Request.exists?(
+    patient: patient,
+    clinic: clinic,
+    consultant: consultant,
+    request_descriptions: request_descriptions,
+    patient_rules: patient_rules
+  )
+  expect(request_exists).to be_truthy
 end
