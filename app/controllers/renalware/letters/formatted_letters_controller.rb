@@ -33,6 +33,7 @@ module Renalware
           background: true,
           print_media_type: false,
           no_background: false,
+          layout: "renalware/layouts/letter",
           footer: {
             font_size: 8,
             right: "page [page] of [topage]"
