@@ -1,3 +1,5 @@
+require "inline_image"
+
 module Renalware
   module ApplicationHelper
 
@@ -71,6 +73,15 @@ module Renalware
 
     def blank_separator
       "&nbsp;".html_safe
+    end
+
+    def inline_image_tag(file_path, options={})
+      image = inline_image(file_path)
+      image_tag(image.src, options)
+    end
+
+    def inline_image(file_path)
+      InlineImage.new("/app/assets/images/#{file_path}")
     end
   end
 end

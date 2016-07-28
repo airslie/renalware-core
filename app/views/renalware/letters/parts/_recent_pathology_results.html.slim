@@ -1,12 +1,11 @@
-.columns.large-12
-  .letter-list
-    h3 Recent Investigations
+.list.investigations
+  h3 Recent Investigations
 
-    p
-      - recent_pathology_results.each do |pathology_result|
-        - description, observation, date = pathology_result
-        - if observation.result.present?
-          span #{date}: #{description} #{observation.result};
-        - else
-          span &nbsp; #{description};
+  p
+    - recent_pathology_results.each do |pathology_result|
+      - description, observation, date = pathology_result
+      - if observation.result.present?
+        span #{date}: #{description} #{observation.result};
+      - else
+        span &nbsp; #{description};
 

@@ -1,0 +1,3 @@
+$(function() {
+  $('iframe.fullsize').iFrameResize();
+})

@@ -1099,6 +1099,7 @@ CREATE TABLE letter_archives (
     id integer NOT NULL,
     content text NOT NULL,
     created_by_id integer NOT NULL,
+    updated_by_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     letter_id integer NOT NULL
@@ -4658,6 +4659,13 @@ CREATE INDEX index_letter_archives_on_created_by_id ON letter_archives USING btr
 --
 
 CREATE INDEX index_letter_archives_on_letter_id ON letter_archives USING btree (letter_id);
+
+
+--
+-- Name: index_letter_archives_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_letter_archives_on_updated_by_id ON letter_archives USING btree (updated_by_id);
 
 
 --

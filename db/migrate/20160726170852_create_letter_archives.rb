@@ -3,6 +3,7 @@ class CreateLetterArchives < ActiveRecord::Migration
     create_table :letter_archives do |t|
       t.text :content, null: false
       t.belongs_to :created_by, index: true, null: false
+      t.belongs_to :updated_by, index: true
 
       t.timestamps null: false
     end

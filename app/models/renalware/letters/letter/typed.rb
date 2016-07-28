@@ -7,12 +7,17 @@ module Renalware
         TypedLetterPolicy
       end
 
-      def archive(by:)
+      def archive(by:, presenter: default_presenter)
         becomes!(Archived).tap do |letter|
           letter.by = by
-          letter.build_archive(created_by: by)
-          letter.archive.content = "<div>Archive</div>"
+          letter.build_archive(by: by, content: presenter.content)
         end
+      end
+
+      private
+
+      def default_presenter
+        LetterPresenterFactory.new(self)
       end
     end
   end
