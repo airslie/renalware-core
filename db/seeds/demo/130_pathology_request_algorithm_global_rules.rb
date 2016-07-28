@@ -6,7 +6,7 @@ module Renalware
   logcount=0
   CSV.foreach(file_path, headers: true) do |row|
     logcount += 1
-    Pathology::RequestAlgorithm::GlobalRule.find_or_create_by!(
+    Pathology::Requests::GlobalRule.find_or_create_by!(
       global_rule_set_id: row["global_rule_set_id"],
       param_type: row["param_type"],
       param_id: row["param_id"],

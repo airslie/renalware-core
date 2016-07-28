@@ -27,7 +27,7 @@ RSpec.describe "patient_rules Requests", type: :request do
 
     context "given valid attributes" do
       let(:patient_rule_exists) do
-        Renalware::Pathology::RequestAlgorithm::PatientRule.exists?(patient_rule_attributes)
+        Renalware::Pathology::Requests::PatientRule.exists?(patient_rule_attributes)
       end
 
       it "creates a new record" do
@@ -85,7 +85,7 @@ RSpec.describe "patient_rules Requests", type: :request do
 
   describe "DELETE destroy" do
     let(:patient_rule_exists) do
-      Renalware::Pathology::RequestAlgorithm::PatientRule.exists?(id: patient_rule.id)
+      Renalware::Pathology::Requests::PatientRule.exists?(id: patient_rule.id)
     end
 
     it "deletes the patient rule" do
