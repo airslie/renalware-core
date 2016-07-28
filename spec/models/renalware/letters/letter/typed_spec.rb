@@ -12,7 +12,7 @@ module Renalware::Letters
     subject(:typed_letter) { letter.becomes(Letter::Typed) }
 
     describe "#archive" do
-      let(:presenter) { double(:presenter).as_null_object }
+      let(:presenter) { double(:presenter, content: "hello world") }
 
       it "archives the letter" do
         archived_letter = typed_letter.archive(by: user, presenter: presenter)
