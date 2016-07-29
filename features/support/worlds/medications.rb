@@ -91,10 +91,10 @@ module World
         Renalware::Medications::RevisePrescription.new(prescription).call(update_params)
       end
 
-      def terminate_prescription_for(patient:, user:)
+      def terminate_prescription_for(patient:, user:, terminated_on: Date.current)
         prescription = patient.prescriptions.last!
 
-        prescription.terminate(by: user).save!
+        prescription.terminate(by: user, terminated_on: terminated_on).save
       end
 
       # @ section expectations
