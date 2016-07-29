@@ -1,0 +1,13 @@
+class CreatePathologyRequestDescriptionsRequestsRequests < ActiveRecord::Migration
+  def change
+    create_table :pathology_request_descriptions_requests_requests do |t|
+      t.integer :request_id
+      t.integer :request_description_id
+    end
+
+    add_foreign_key :pathology_request_descriptions_requests_requests, :pathology_requests_requests,
+      column: :request_id
+    add_foreign_key :pathology_request_descriptions_requests_requests, :pathology_request_descriptions,
+      column: :request_description_id
+  end
+end

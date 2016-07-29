@@ -3,9 +3,8 @@ Given(/^Patty has a request form generated:$/) do |table|
 
   patient = Renalware::Pathology.cast_patient(@patty)
   clinic = Renalware::Clinics::Clinic.find_by!(name: params[:clinic])
-  consultant = Renalware::Pathology.cast_user_to_consultant(
-    find_or_create_user(given_name: params[:consultant], role: :clinician)
-  )
+  user = find_or_create_user(given_name: params[:consultant], role: :clinician)
+  consultant = ActiveType.cast(user, ::Renalware::Pathology::Consultant)
   request_descriptions = params[:global_requests].split(", ").map do |request_description_name|
     Renalware::Pathology::RequestDescription.find_by(name: request_description_name)
   end
@@ -19,7 +18,7 @@ Given(/^Patty has a request form generated:$/) do |table|
     consultant: consultant,
     telephone: params[:telephone],
     by: Renalware::SystemUser.find,
-    #request_descriptions: request_descriptions,
+    request_descriptions: request_descriptions,
     #patient_rules: patient_rules
   )
 end
@@ -88,9 +87,8 @@ Then(/^Patty has the request recorded:$/) do |table|
 
   patient = Renalware::Pathology.cast_patient(@patty)
   clinic = Renalware::Clinics::Clinic.find_by!(name: params[:clinic])
-  consultant = Renalware::Pathology.cast_user_to_consultant(
-    find_or_create_user(given_name: params[:consultant], role: :clinician)
-  )
+  user = find_or_create_user(given_name: params[:consultant], role: :clinician)
+  consultant = ActiveType.cast(user, ::Renalware::Pathology::Consultant)
   request_descriptions = params[:global_requests].split(", ").map do |request_description_name|
     Renalware::Pathology::RequestDescription.find_by(name: request_description_name)
   end
@@ -98,12 +96,15 @@ Then(/^Patty has the request recorded:$/) do |table|
     patient_rule = Renalware::Pathology::Requests::PatientRule.find_by(test_description: test_description)
   end
 
-  request_exists = Renalware::Pathology::Requests::Request.exists?(
-    patient: patient,
-    clinic: clinic,
-    consultant: consultant,
-    request_descriptions: request_descriptions,
-    patient_rules: patient_rules
-  )
-  expect(request_exists).to be_truthy
+  request =
+    Renalware::Pathology::Requests::Request
+    .includes(:request_descriptions)
+    .where(
+      patient: patient,
+      clinic: clinic,
+      consultant: consultant,
+      pathology_request_descriptions: { id: request_descriptions.map(&:id) }
+    )
+
+  expect(request).to be_exist
 end
