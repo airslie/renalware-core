@@ -1,7 +1,9 @@
 Feature: Printing a request form
 
-  A clinician prints a request form and the details of the request are saved. This is used by
-  the request algorithm in order to not re-request certain tests unless enough time has passed.
+  A clinician prints a request form and the details of the request are saved.
+
+  The recorded requests are used by the request algorithm to determine if observations are
+  required based on the amount of time passed since the last request.
 
   Background:
     Given Clyde is a clinician
