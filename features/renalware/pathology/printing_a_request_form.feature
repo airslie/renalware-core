@@ -7,9 +7,9 @@ Feature: Printing a request form
     Given Clyde is a clinician
     And Patty is a patient
     And the global rule sets:
-      | request_description_code | BFF        |
-      | clinic                   | Transplant |
-      | frequency_type           | Always     |
+      | request_description_code | clinic     | frequency_type |
+      | BFF                      | Transplant | Always         |
+      | MAL                      | Transplant | Always         |
     And Patty has a recorded patient rule:
       | lab              | Biochemistry  |
       | test_description | Test for HepB |
@@ -25,6 +25,6 @@ Feature: Printing a request form
       | clinic               | Transplant    |
       | consultant           | Dr Hibbert    |
       | telephone            | 0161932263    |
-      | request_descriptions | BFF           |
+      | request_descriptions | BFF, MAL      |
       | patient_rules        | Test for HepB |
       | created_by           | Clyde         |
