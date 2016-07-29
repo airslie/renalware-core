@@ -10,7 +10,7 @@ module Renalware
 
       def new
         prescription = @patient.prescriptions.find(params[:prescription_id])
-        termination = prescription.build_termination
+        termination = prescription.build_termination(terminated_on: Date.current)
         @treatable = treatable_class.find(treatable_id)
 
         render_form(
