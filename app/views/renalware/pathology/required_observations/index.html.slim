@@ -31,7 +31,7 @@
               th Lab
               th Name
           tbody
-          - request.global_requests.each do |request_description|
+          - request.request_descriptions.each do |request_description|
             tr
               td = request_description.code
               td = request_description.lab.name
