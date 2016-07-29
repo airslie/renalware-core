@@ -4,8 +4,6 @@ module Renalware
   module Pathology
     module Requests
       class PatientRulePresenter < SimpleDelegator
-        include ActionView::Helpers::TextHelper
-
         def self.present(patient_rules)
           patient_rules.map { |patient_rule| new patient_rule }
         end

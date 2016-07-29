@@ -4,6 +4,8 @@ module Renalware
   module Pathology
     module Requests
       class SampleDescription
+        include ActionView::Helpers::TextHelper
+
         def initialize(sample_type, sample_number_bottles)
           @sample_type = sample_type
           @sample_number_bottles = sample_number_bottles
