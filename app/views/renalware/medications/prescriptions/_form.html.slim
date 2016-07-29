@@ -21,8 +21,10 @@ ruby:
     = f.input :frequency
     = f.input :notes
     = f.input :prescribed_on, as: :date_picker
-    = f.simple_fields_for(:termination) do |tf|
-      = tf.input :terminated_on, as: :date_picker, required: false
+
+    - if f.object.new_record?
+      = f.simple_fields_for(:termination) do |tf|
+        = tf.input :terminated_on, as: :date_picker, required: false
 
     = f.input :provider, collection: provider_codes, as: :radio_buttons,
         label_method: :to_label, checked: provider_codes.first
