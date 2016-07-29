@@ -35,6 +35,6 @@
           td= prescription.created_by.full_name
           - if include_terminated_column
             td= I18n.l prescription.terminated_on
-            td= prescription.terminated_by.try(:full_name)
+            td= prescription.terminated_by.try!(:full_name)
 - else
   p There are no prescriptions in this list.
