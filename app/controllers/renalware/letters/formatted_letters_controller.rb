@@ -25,7 +25,7 @@ module Renalware
       end
 
       def render_pdf(letter)
-        render pdf_options.merge(pdf: letter.pdf_filename, disposition: "attachment")
+        render(pdf_options.merge(pdf: letter.pdf_filename, disposition: "attachment"))
       end
 
       def pdf_options
