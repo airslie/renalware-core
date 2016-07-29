@@ -249,8 +249,7 @@ module World
       def view_prescriptions_for(clinician, patient)
         login_as clinician
 
-        visit patient_prescriptions_path(patient,
-          treatable_type: patient.class, treatable_id: patient.id)
+        visit patient_prescriptions_path(patient)
 
         current_prescriptions = html_table_to_array("current-prescriptions").drop(1)
         historical_prescriptions = html_table_to_array("historical-prescriptions").drop(1)
