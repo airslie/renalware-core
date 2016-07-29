@@ -1,8 +1,8 @@
 class CreatePathologyRequestDescriptionsRequestsRequests < ActiveRecord::Migration
   def change
     create_table :pathology_request_descriptions_requests_requests do |t|
-      t.integer :request_id
-      t.integer :request_description_id
+      t.integer :request_id, null: false
+      t.integer :request_description_id, null: false
     end
 
     add_foreign_key :pathology_request_descriptions_requests_requests, :pathology_requests_requests,

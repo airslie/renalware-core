@@ -1653,8 +1653,8 @@ ALTER SEQUENCE pathology_request_descriptions_id_seq OWNED BY pathology_request_
 
 CREATE TABLE pathology_request_descriptions_requests_requests (
     id integer NOT NULL,
-    request_id integer,
-    request_description_id integer
+    request_id integer NOT NULL,
+    request_description_id integer NOT NULL
 );
 
 
@@ -1784,8 +1784,8 @@ ALTER SEQUENCE pathology_requests_patient_rules_id_seq OWNED BY pathology_reques
 
 CREATE TABLE pathology_requests_patient_rules_requests (
     id integer NOT NULL,
-    request_id integer,
-    patient_rule_id integer
+    request_id integer NOT NULL,
+    patient_rule_id integer NOT NULL
 );
 
 
