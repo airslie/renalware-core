@@ -65,7 +65,7 @@ hr.page_break
                 p
                   | ======== #{lab_name} ========
                 - patient_rules.each do |patient_rule|
-                  = patient_rule
+                  = patient_rule.to_s
             - else
               p No tests required.
 

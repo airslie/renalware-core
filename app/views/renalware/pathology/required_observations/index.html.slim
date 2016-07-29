@@ -59,7 +59,7 @@
               th
               th
           tbody
-          - request.patient_requests.each do |patient_rule|
+          - request.patient_rules.each do |patient_rule|
             tr
               td = patient_rule.lab.name
               td = patient_rule.test_description

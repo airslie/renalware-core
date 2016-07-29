@@ -6,7 +6,7 @@ module World
         #
         def extract_request_form_params(form_params)
           clinic = find_requested_clinic(form_params[:clinic])
-          consultant = find_requested_consultant(form_params[:consultant])
+          consultant = find_or_create_requested_consultant(form_params[:consultant])
           patients = find_requested_patients(form_params[:patients])
           telephone = form_params[:telephone]
 
@@ -49,6 +49,30 @@ module World
           end
 
           build_request_forms(options[:patients], options)
+        end
+
+        def new_request(params)
+          patient = Renalware::Pathology.cast_patient(params[:patient])
+          clinic = Renalware::Clinics::Clinic.find_by!(name: params[:clinic])
+          given_name, family_name = params[:consultant].split(" ")
+          user = create_user(given_name: given_name, family_name: family_name)
+          consultant = ActiveType.cast(user, ::Renalware::Pathology::Consultant)
+          request_descriptions = params[:global_requests].split(", ").map do |request_description_name|
+            Renalware::Pathology::RequestDescription.find_or_create_by(name: request_description_name)
+          end
+          patient_rules = params[:patient_requests].split(", ").map do |test_description|
+            Renalware::Pathology::Requests::PatientRule.find_or_create_by(test_description: test_description)
+          end
+
+          Renalware::Pathology::Requests::Request.new(
+            patient: patient,
+            clinic: clinic,
+            consultant: consultant,
+            telephone: params[:telephone],
+            by: Renalware::SystemUser.find,
+            request_descriptions: request_descriptions,
+            patient_rules: patient_rules
+          )
         end
 
         # @section expectations
@@ -124,14 +148,20 @@ module World
           Renalware::Clinics::Clinic.find_by!(name: clinic_name)
         end
 
-        def find_requested_consultant(consultant_names)
+        def find_or_create_requested_consultant(consultant_names)
           return unless consultant_names.present?
 
           given_name, family_name = consultant_names.split(" ")
-          Renalware::Pathology::Consultant.find_by(
+          consultant = Renalware::Pathology::Consultant.find_by(
             given_name: given_name,
             family_name: family_name
           )
+
+          if consultant.present?
+            consultant
+          else
+            create_user(given_name: given_name, family_name: family_name)
+          end
         end
 
         def find_requested_patients(patients)
@@ -154,7 +184,7 @@ module World
         def generate_request_forms_for_single_patient(clinician, params)
           patients = find_requested_patients(params[:patients])
           clinic = find_requested_clinic(params[:clinic])
-          consultant = find_requested_consultant(params[:consultant])
+          consultant = find_or_create_requested_consultant(params[:consultant])
           telephone = params[:telephone]
 
 
