@@ -54,6 +54,10 @@ module Renalware
         @content ||= HTMLRenderer.new.call(self)
       end
 
+      def pdf_filename
+        [patient.family_name, patient.local_patient_id, id, state].join("-").upcase
+      end
+
       private
 
       # Include the counterpart cc recipients (i.e. patient and/or doctor)
