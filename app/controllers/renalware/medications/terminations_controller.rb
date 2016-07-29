@@ -23,9 +23,16 @@ module Renalware
         prescription = @patient.prescriptions.find(params[:prescription_id])
         @treatable = treatable_class.find(treatable_id)
 
-        prescription.terminate(by: current_user).save!
+        termination = prescription.build_termination(termination_params)
 
-        render_index
+        if termination.save
+          render_index
+        else
+          render_form(
+            prescription, termination,
+            url: patient_medications_prescription_termination_path(@patient, prescription, @treatable)
+          )
+        end
       end
 
       private

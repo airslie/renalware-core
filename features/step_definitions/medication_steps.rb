@@ -93,6 +93,14 @@ When(/^Clyde terminates the prescription for the patient$/) do
   )
 end
 
+When(/^Clyde records an invalid termination for a prescription$/) do
+  terminate_prescription_for(
+    patient: @patty,
+    user: @clyde,
+    terminated_on: nil
+  )
+end
+
 Then(/^Clyde is recorded as the user who terminated the prescription$/) do
   expect_prescription_to_be_terminated_by(@clyde, patient: @patty)
 end
@@ -109,4 +117,8 @@ Then(/^Patty should have the following prescriptions:$/) do |table|
   table.hashes.each do |row|
     expect_prescription_to_exist(@patty, row)
   end
+end
+
+Then(/^the prescription termination is rejected$/) do
+  expect_termination_to_be_rejected(@patty)
 end

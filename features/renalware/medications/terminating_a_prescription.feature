@@ -9,3 +9,9 @@ Feature: Terminating a prescription
     Given Patty has a recorded prescription
     When Clyde terminates the prescription for the patient
     Then Clyde is recorded as the user who terminated the prescription
+
+  @web @javascript
+  Scenario: A clinician recorded an invalid termination for a prescription
+    Given Patty has a recorded prescription
+    When Clyde records an invalid termination for a prescription
+    Then the prescription termination is rejected

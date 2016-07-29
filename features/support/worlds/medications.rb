@@ -148,6 +148,12 @@ module World
         expect(prescription).to be_terminated
         expect(prescription.terminated_by).to eq(user)
       end
+
+      def expect_termination_to_be_rejected(patient)
+        prescription = patient.prescriptions.last!
+
+        expect(prescription).not_to be_terminated
+      end
     end
 
     module Web
@@ -224,7 +230,7 @@ module World
         end
       end
 
-      def terminate_prescription_for(patient:, user:)
+      def terminate_prescription_for(patient:, user:, terminated_on: Date.current)
         login_as user
 
         visit patient_prescriptions_path(patient)
@@ -234,7 +240,7 @@ module World
           wait_for_ajax
         end
 
-        fill_in "Terminated on", with: I18n.l(Date.current)
+        fill_in "Terminated on", with: I18n.l(terminated_on)
         fill_in "Notes", with: "This is completed."
         click_on "Save"
         wait_for_ajax
