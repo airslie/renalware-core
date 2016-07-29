@@ -58,11 +58,16 @@ module World
           given_name, family_name = params[:consultant].split(" ")
           user = create_user(given_name: given_name, family_name: family_name)
           consultant = ActiveType.cast(user, ::Renalware::Pathology::Consultant)
-          request_descriptions = params[:global_requests].split(", ").map do |request_description_name|
-            Renalware::Pathology::RequestDescription.find_or_create_by(name: request_description_name)
-          end
+          request_descriptions =
+            params[:global_requests].split(", ").map do |request_description_name|
+              Renalware::Pathology::RequestDescription.find_or_create_by(
+                name: request_description_name
+              )
+            end
           patient_rules = params[:patient_requests].split(", ").map do |test_description|
-            Renalware::Pathology::Requests::PatientRule.find_or_create_by(test_description: test_description)
+            Renalware::Pathology::Requests::PatientRule.find_or_create_by(
+              test_description: test_description
+            )
           end
 
           Renalware::Pathology::Requests::Request.new(
@@ -103,7 +108,9 @@ module World
           patient_request_descriptions = request_form.global_requests_by_lab.values.flatten
 
           expected_request_description =
-            Renalware::Pathology::RequestDescription.find_by!(code: expected_request_description_code)
+            Renalware::Pathology::RequestDescription.find_by!(
+              code: expected_request_description_code
+            )
 
           expect(patient_request_descriptions).to include(expected_request_description)
         end
