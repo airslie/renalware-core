@@ -46,7 +46,7 @@ When(/^Clyde generates the request form for (\w+) with the following parameters:
 end
 
 When(/^Clyde prints Patty's request form$/) do
-  @request_forms.each { |request_form| request_form.save }
+  @request_forms.each { |request_form| request_form.print_form }
 end
 
 Then(/^Clyde sees these details at the top of (\w+)'s form$/) do |patient_name, table|

@@ -14,8 +14,8 @@ module Renalware
         has_and_belongs_to_many :patient_rules,
           class_name: "::Renalware::Pathology::Requests::PatientRule"
 
-        def print
-
+        def print_form
+          save
         end
 
         def has_global_requests?
