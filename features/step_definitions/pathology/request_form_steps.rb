@@ -9,7 +9,7 @@ Given(/^Patty has a request form generated:$/) do |table|
     Renalware::Pathology::RequestDescription.find_by(name: request_description_name)
   end
   patient_rules = params[:patient_requests].split(", ").map do |test_description|
-    patient_rule = Renalware::Pathology::Requests::PatientRule.find_by(test_description: test_description)
+    Renalware::Pathology::Requests::PatientRule.find_by(test_description: test_description)
   end
 
   @request_form = Renalware::Pathology::Requests::Request.new(
@@ -19,7 +19,7 @@ Given(/^Patty has a request form generated:$/) do |table|
     telephone: params[:telephone],
     by: Renalware::SystemUser.find,
     request_descriptions: request_descriptions,
-    #patient_rules: patient_rules
+    patient_rules: patient_rules
   )
 end
 
@@ -93,17 +93,18 @@ Then(/^Patty has the request recorded:$/) do |table|
     Renalware::Pathology::RequestDescription.find_by(name: request_description_name)
   end
   patient_rules = params[:patient_requests].split(", ").map do |test_description|
-    patient_rule = Renalware::Pathology::Requests::PatientRule.find_by(test_description: test_description)
+    Renalware::Pathology::Requests::PatientRule.find_by(test_description: test_description)
   end
 
   request =
     Renalware::Pathology::Requests::Request
-    .includes(:request_descriptions)
+    .includes(:request_descriptions, :patient_rules)
     .where(
       patient: patient,
       clinic: clinic,
       consultant: consultant,
-      pathology_request_descriptions: { id: request_descriptions.map(&:id) }
+      pathology_request_descriptions: { id: request_descriptions.map(&:id) },
+      pathology_requests_patient_rules: { id: patient_rules.map(&:id) }
     )
 
   expect(request).to be_exist
