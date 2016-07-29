@@ -189,6 +189,10 @@ scss:
     }
   }
 
+  div.alwaysbreak { page-break-before: always; }
+  div.nobreak:before { clear:both; }
+  div.nobreak { page-break-inside: avoid; }
+
 .letter
   .header
     .addressee
@@ -233,7 +237,7 @@ scss:
     .message
       = simple_format letter.body
 
-    .signature
+    .signature.nobreak
       .electronic-signature
         p= letter.electronic_signature
 
@@ -251,5 +255,6 @@ scss:
         p Private and confidential
 
       - letter.cc_recipients.each do |cc|
-        .address
+        .address.nobreak
           p= cc.to_html
+

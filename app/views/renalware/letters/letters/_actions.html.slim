@@ -10,4 +10,7 @@
   = button_to "Archive", patient_letters_letter_archived_path(letter.patient, letter),
       form_class: "inline", class: "button tiny", data: { confirm: "Are you sure? You will not be able to modify the letter afterwards." }
   = blank_separator
+= link_to "PDF", patient_letters_letter_formatted_path(letter.patient, letter, format: "pdf"),
+    form_class: "inline", class: "button tiny"
+= blank_separator
 = link_to 'back to list', patient_letters_letters_path(letter.patient)
