@@ -23,6 +23,7 @@ module Renalware
             telephone: @params[:telephone],
             request_descriptions: request_descriptions,
             patient_rules: patient_rules,
+            by: @params[:by]
           }
         end
 

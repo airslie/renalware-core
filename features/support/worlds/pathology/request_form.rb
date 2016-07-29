@@ -19,6 +19,7 @@ module World
           params[:clinic_id] = clinic.id if clinic.present?
           params[:consultant_id] = consultant.id if consultant.present?
           params[:telephone] = telephone if telephone.present?
+          params[:by] = Renalware::SystemUser.find
           params
         end
 

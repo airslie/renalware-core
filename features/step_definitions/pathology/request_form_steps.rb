@@ -46,7 +46,7 @@ When(/^Clyde generates the request form for (\w+) with the following parameters:
 end
 
 When(/^Clyde prints Patty's request form$/) do
-
+  @request_forms.each { |request_form| request_form.save }
 end
 
 Then(/^Clyde sees these details at the top of (\w+)'s form$/) do |patient_name, table|
@@ -73,7 +73,7 @@ Then(/^Patty has the request recorded:$/) do |table|
 
   patient = Renalware::Pathology.cast_patient(@patty)
   clinic = find_requested_clinic(params[:clinic])
-  consultant = find_requested_consultant(params[:consultant])
+  consultant = find_or_create_requested_consultant(params[:consultant])
 
   request_descriptions = params[:global_requests].split(", ").map do |request_description_name|
     Renalware::Pathology::RequestDescription.find_or_create_by(name: request_description_name)
