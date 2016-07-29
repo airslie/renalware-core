@@ -89,13 +89,14 @@ module Renalware
         params
           .require(:medications_prescription)
           .permit(prescription_attributes)
-          .deep_merge(by: current_user, termination_attributes: {by: current_user})
+          .deep_merge(by: current_user, termination_attributes: { by: current_user })
       end
 
       def prescription_attributes
         [
           :drug_id, :dose_amount, :dose_unit, :medication_route_id, :frequency,
-          :route_description, :notes, :prescribed_on, :provider, {termination_attributes: :terminated_on}
+          :route_description, :notes, :prescribed_on, :provider,
+          {termination_attributes: :terminated_on}
         ]
       end
 

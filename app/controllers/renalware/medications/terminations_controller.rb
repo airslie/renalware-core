@@ -13,7 +13,10 @@ module Renalware
         termination = prescription.build_termination
         @treatable = treatable_class.find(treatable_id)
 
-        render_form(prescription, termination, url: patient_medications_prescription_termination_path(@patient, prescription, @treatable))
+        render_form(
+          prescription, termination,
+          url: patient_medications_prescription_termination_path(@patient, prescription, @treatable)
+        )
       end
 
       def create

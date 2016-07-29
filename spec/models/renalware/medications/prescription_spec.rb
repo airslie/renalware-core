@@ -118,7 +118,10 @@ module Renalware
 
         describe "#terminated?" do
           context "given the termination date is specified" do
-            let(:prescription) { build(:prescription, termination: build(:prescription_termination, terminated_on: "2010-01-02")) }
+            let(:prescription) do
+              termination = build(:prescription_termination, terminated_on: "2010-01-02")
+              build(:prescription, termination: termination)
+            end
             it { expect(prescription.terminated?).to be_truthy }
           end
 

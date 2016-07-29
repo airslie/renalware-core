@@ -15,8 +15,11 @@ module World
 
       # @section seeds
       #
-      def seed_prescription_for(patient:, treatable: nil, drug_name:, dose_amount:,
-        dose_unit:, route_code:, frequency:, prescribed_on:, provider:, terminated_on:, user: nil, **_)
+      def seed_prescription_for(
+        patient:, treatable: nil, drug_name:, dose_amount:,
+        dose_unit:, route_code:, frequency:, prescribed_on:, provider:,
+        terminated_on:, user: nil, **_
+      )
         drug = Renalware::Drugs::Drug.find_or_create_by!(name: drug_name)
         route = Renalware::Medications::MedicationRoute.find_by!(code: route_code)
 
@@ -34,7 +37,7 @@ module World
           by: user
         )
 
-        if terminated_on = parse_date_string(terminated_on)
+        if (terminated_on = parse_date_string(terminated_on))
           prescription.build_termination(by: user, terminated_on: terminated_on)
         end
 
@@ -139,7 +142,7 @@ module World
         expect(prescription_exists).to be_truthy
       end
 
-      def expect_prescription_to_be_terminated_by(user, patient: patient)
+      def expect_prescription_to_be_terminated_by(user, patient:)
         prescription = patient.prescriptions.last!
 
         expect(prescription).to be_terminated
@@ -222,8 +225,6 @@ module World
       end
 
       def terminate_prescription_for(patient:, user:)
-        prescription = patient.prescriptions.last
-
         login_as user
 
         visit patient_prescriptions_path(patient)
