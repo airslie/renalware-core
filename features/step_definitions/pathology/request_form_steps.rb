@@ -75,10 +75,10 @@ Then(/^Patty has the request recorded:$/) do |table|
   clinic = find_requested_clinic(params[:clinic])
   consultant = find_or_create_requested_consultant(params[:consultant])
 
-  request_descriptions = params[:global_requests].split(", ").map do |request_description_name|
-    Renalware::Pathology::RequestDescription.find_or_create_by(name: request_description_name)
+  request_descriptions = params[:request_descriptions].split(", ").map do |request_description_code|
+    Renalware::Pathology::RequestDescription.find_or_create_by(code: request_description_code)
   end
-  patient_rules = params[:patient_requests].split(", ").map do |test_description|
+  patient_rules = params[:patient_rules].split(", ").map do |test_description|
     Renalware::Pathology::Requests::PatientRule.find_or_create_by(test_description: test_description)
   end
 

@@ -4,25 +4,27 @@ Feature: Printing a request form
   the request algorithm in order to not re-request certain tests unless enough time has passed.
 
   Background:
-    Given Patty is a patient
+    Given Clyde is a clinician
+    And Patty is a patient
+    And the global rule sets:
+      | request_description_code | BFF        |
+      | clinic                   | Transplant |
+      | frequency_type           | Always     |
     And Patty has a recorded patient rule:
       | lab              | Biochemistry  |
       | test_description | Test for HepB |
       | frequency_type   | Always        |
-    And Patty has a request form generated:
-      | clinic | Transplant |
+    And Patty has a request form generated with parameters:
+      | clinic     | Transplant |
       | consultant | Dr Hibbert |
-      | telephone | 0161932263 |
-      | global_requests | FULL BLOOD COUNT, MALARIA, VITAMIN B12 |
-      | patient_requests | Test for HepB |
+      | telephone  | 0161932263 |
 
-  @web
   Scenario: A clinician prints a request form
     When Clyde prints Patty's request form
     Then Patty has the request recorded:
-      | clinic | Transplant |
-      | consultant | Dr Hibbert |
-      | telephone | 0161932263 |
-      | global_requests | FULL BLOOD COUNT, MALARIA, VITAMIN B12 |
-      | patient_requests | Test for HepB |
-      | created_by | Clyde |
+      | clinic               | Transplant    |
+      | consultant           | Dr Hibbert    |
+      | telephone            | 0161932263    |
+      | request_descriptions | BFF           |
+      | patient_rules        | Test for HepB |
+      | created_by           | Clyde         |
