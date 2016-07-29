@@ -25,7 +25,7 @@ ruby:
         label_method: :to_label, checked: provider_codes.first
 
     = f.fields_for(:termination) do |tf|
-      = tf.input :terminated_on, as: :date_picker
+      = tf.input :terminated_on, as: :date_picker, required: false
 
   .row
     .large-offset-3.large-7.columns
