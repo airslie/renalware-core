@@ -33,19 +33,16 @@
           p = request_description.name.downcase.titleize
     - else
       p No tests required.
-  .large-6.columns
-    .row
-      .large-12.columns
+  .border_box_half.columns
+    p
+      h3 HIGH RISK
+
+    b Patient Specific Tests:
+    - if request_form.has_patient_requests?
+      - request_form.patient_requests_by_lab.each do |lab_name, patient_rules|
         p
-          h3 HIGH RISK
-    .row
-      .large-12.columns.with_border.full_height
-        b Patient Specific Tests:
-        - if request_form.has_patient_requests?
-          - request_form.patient_requests_by_lab.each do |lab_name, patient_rules|
-            p
-              | ======== #{lab_name} ========
-            - patient_rules.each do |patient_rule|
-              = patient_rule
-        - else
-          p No tests required.
+          | ======== #{lab_name} ========
+        - patient_rules.each do |patient_rule|
+          = patient_rule
+    - else
+      p No tests required.

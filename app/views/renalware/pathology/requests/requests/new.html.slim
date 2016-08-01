@@ -1,34 +1,44 @@
-.row
-  h4 Pathology Request CRS Form Preview
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8"
 
-.row
-  .large-4.columns
-    = simple_form_for request_html_form_params,
-      url: pathology_requests_request_path,
-      as: :request do |f|
-      = f.input :patient_ids, as: :hidden_array
-      = f.input :clinic_id, collection: all_clinics, input_html: { class: "small-input" }
-      = f.input :consultant_id,
-        collection: all_consultants,
-        label_method: :full_name, input_html: { class: "small-input" }
-      = f.input :telephone, input_html: { class: "small-input" }
-      = f.button :submit, "Update Forms"
+    title= content_for?(:title) ? yield(:title) : "Renalware v#{Renalware::VERSION}"
 
-    = simple_form_for request_html_form_params,
-      url: pathology_requests_requests_path(format: :pdf),
-      as: :request do |f|
-      = f.input :patient_ids, as: :hidden_array
-      = f.input :clinic_id, as: :hidden
-      = f.input :consultant_id, as: :hidden
-      = f.input :telephone, as: :hidden
-      = f.button :submit, "Print Forms"
+    style[type="text/css"] = Rails.application.assets.find_asset('application.css').to_s
+    style[type="text/css"] = Rails.application.assets.find_asset('print/pathology_request_forms.css').to_s
 
-hr.page_break
+    = csrf_meta_tag
 
-.row
-- requests.each do |request_form|
-  - if request_form.has_tests_required?
-    = render partial: "renalware/pathology/requests/requests/request_form",
-      locals: { request_form: request_form }
+  body
+    .row
+      h4 Pathology Request CRS Form Preview
+
+    .row
+      .large-4.columns
+        = simple_form_for request_html_form_params,
+          url: pathology_requests_request_path,
+          as: :request do |f|
+          = f.input :patient_ids, as: :hidden_array
+          = f.input :clinic_id, collection: all_clinics, input_html: { class: "small-input" }
+          = f.input :consultant_id,
+            collection: all_consultants,
+            label_method: :full_name, input_html: { class: "small-input" }
+          = f.input :telephone, input_html: { class: "small-input" }
+          = f.button :submit, "Update Forms"
+
+        = simple_form_for request_html_form_params,
+          url: pathology_requests_requests_path(format: :pdf),
+          as: :request do |f|
+          = f.input :patient_ids, as: :hidden_array
+          = f.input :clinic_id, as: :hidden
+          = f.input :consultant_id, as: :hidden
+          = f.input :telephone, as: :hidden
+          = f.button :submit, "Print Forms"
 
     hr.page_break
+
+    - requests.each do |request_form|
+      - if request_form.has_tests_required?
+        = render partial: "renalware/pathology/requests/requests/request_form.html.slim",
+          locals: { request_form: request_form }
