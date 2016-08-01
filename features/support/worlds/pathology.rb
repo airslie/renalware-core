@@ -41,18 +41,6 @@ module World
         )
       end
 
-      def create_request(patient:, description_code: , requested_at:)
-        patient = Renalware::Pathology.cast_patient(patient)
-        description = Renalware::Pathology::RequestDescription.find_by(code: description_code)
-
-        Renalware::Pathology::ObservationRequest.create!(
-          patient: patient,
-          requestor_name: "KCH",
-          requested_at: requested_at,
-          description: description,
-        )
-      end
-
       def create_observation(request:, description_code:, observed_at:)
         description = Renalware::Pathology::ObservationDescription.find_by(code: description_code)
 

@@ -52,32 +52,21 @@ module World
           build_request_forms(options[:patients], options)
         end
 
-        def new_request(params)
-          patient = Renalware::Pathology.cast_patient(params[:patient])
-          clinic = Renalware::Clinics::Clinic.find_by!(name: params[:clinic])
-          given_name, family_name = params[:consultant].split(" ")
-          user = create_user(given_name: given_name, family_name: family_name)
-          consultant = ActiveType.cast(user, ::Renalware::Pathology::Consultant)
+        def create_request(params)
           request_descriptions =
-            params[:global_requests].split(", ").map do |request_description_name|
-              Renalware::Pathology::RequestDescription.find_or_create_by(
-                name: request_description_name
-              )
+            params[:request_descriptions].map do |code|
+              Renalware::Pathology::RequestDescription.find_or_create_by(code: code)
             end
-          patient_rules = params[:patient_requests].split(", ").map do |test_description|
-            Renalware::Pathology::Requests::PatientRule.find_or_create_by(
-              test_description: test_description
-            )
-          end
 
-          Renalware::Pathology::Requests::Request.new(
-            patient: patient,
-            clinic: clinic,
-            consultant: consultant,
-            telephone: params[:telephone],
+          Renalware::Pathology::Requests::Request.create!(
+            patient: Renalware::Pathology.cast_patient(params[:patient]),
+            clinic: Renalware::Clinics::Clinic.first,
+            consultant: Renalware::Pathology::Consultant.first,
+            telephone: "123",
             by: Renalware::SystemUser.find,
             request_descriptions: request_descriptions,
-            patient_rules: patient_rules
+            created_at: params[:requested_at],
+            updated_at: params[:requested_at]
           )
         end
 

@@ -26,17 +26,21 @@ end
 Given(/^a ([\d\w]+) test was requested for Patty(\s|\s(\d+) days ago)$/) do |code, _time_ago, days|
   if days.present?
     requested_at = (Time.current - days.days).to_date
-    @request = create_request(patient: @patty, description_code: code, requested_at: requested_at)
+
+    create_request(
+      patient: @patty,
+      request_descriptions: [code],
+      requested_at: requested_at
+    )
   end
 end
 
 Given(/^a ([\d\w]+) test was observed for Patty(\s|\s(\d+) days ago)$/) do |code, _time_ago, days|
   if days.present?
     observed_at = (Time.current - days.days).to_date
-    create_observation(
-      request: @request,
-      description_code: code,
-      observed_at: observed_at
+
+    record_observations(patient: @patty, observations_attributes:
+      [{ "code" => code, "observed_at" => observed_at.to_s, "result" => "100" }]
     )
   end
 end
