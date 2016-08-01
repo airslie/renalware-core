@@ -4,32 +4,32 @@ module Renalware
   module Pathology
     module Requests
       class RequestsController < Pathology::BaseController
+        layout "renalware/layouts/printable"
+
         before_filter :load_patients
 
         # NOTE: This needs to be POST since params[:patient_ids] may exceed url char limit in GET
         def new
-          render :new,
-            layout: "renalware/layouts/printable",
-            locals:{
-              request_html_form_params: request_params_for_html_form,
-              requests: requests,
-              all_clinics: Renalware::Clinics::Clinic.ordered,
-              all_consultants: Renalware::Pathology::Consultant.ordered
-            }
+          render :new, locals: local_vars.merge(
+            all_clinics: Renalware::Clinics::Clinic.ordered,
+            all_consultants: Renalware::Pathology::Consultant.ordered
+          )
         end
 
         def create
-          render :create,
-            layout: false,
-            locals:{
-              request_html_form_params: request_params_for_html_form,
-              requests: requests,
-            }
+          render :create, locals: local_vars
         end
 
         private
 
-        def request_params_for_html_form
+        def local_vars
+          {
+            requests: requests,
+            request_html_form_params: request_html_form_params
+          }
+        end
+
+        def request_html_form_params
           OpenStruct.new(
             patient_ids: raw_request_params[:patient_ids],
             clinic_id: request_params[:clinic].id,
