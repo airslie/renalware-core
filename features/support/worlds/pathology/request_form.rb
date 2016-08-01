@@ -224,7 +224,7 @@ module World
           update_request_form_clinic(clinic.name)
         end
 
-        def print_request_forms(request_forms)
+        def print_request_forms(_request_forms)
           click_on "Print Forms"
         end
 
