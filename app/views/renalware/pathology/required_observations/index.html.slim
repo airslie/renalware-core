@@ -31,7 +31,7 @@
               th Lab
               th Name
           tbody
-          - request.global_requests.each do |request_description|
+          - request.request_descriptions.each do |request_description|
             tr
               td = request_description.code
               td = request_description.lab.name
@@ -59,7 +59,7 @@
               th
               th
           tbody
-          - request.patient_requests.each do |patient_rule|
+          - request.patient_rules.each do |patient_rule|
             tr
               td = patient_rule.lab.name
               td = patient_rule.test_description

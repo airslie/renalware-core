@@ -12,7 +12,8 @@ module Renalware
           {
             clinic: clinic,
             consultant: consultant,
-            telephone: telephone
+            telephone: telephone,
+            by: @params[:by]
           }
         end
 

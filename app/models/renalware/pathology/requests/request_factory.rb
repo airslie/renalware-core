@@ -18,23 +18,21 @@ module Renalware
         def request_params
           {
             patient: @patient,
-            global_requests: global_requests,
-            patient_requests: patient_requests,
             clinic: @params[:clinic],
             consultant: @params[:consultant],
-            telephone: @params[:telephone]
+            telephone: @params[:telephone],
+            request_descriptions: request_descriptions,
+            patient_rules: patient_rules,
+            by: @params[:by]
           }
         end
 
-        def global_requests
-          @global_requests ||= @patient.required_observation_requests(@params[:clinic])
+        def request_descriptions
+          @patient.required_observation_requests(@params[:clinic])
         end
 
-        def patient_requests
-          @patient_requests ||=
-            @patient
-            .required_patient_pathology
-            .map { |patient_rule| PatientRulePresenter.new(patient_rule) }
+        def patient_rules
+          @patient.required_patient_pathology
         end
       end
     end

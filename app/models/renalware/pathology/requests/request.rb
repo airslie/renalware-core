@@ -3,37 +3,27 @@ require_dependency "renalware/pathology/requests"
 module Renalware
   module Pathology
     module Requests
-      class Request
-        attr_reader :patient,
-                    :global_requests,
-                    :patient_requests,
-                    :clinic,
-                    :consultant,
-                    :telephone
+      class Request < ActiveRecord::Base
+        include Accountable
 
-        def initialize(params)
-          @patient = params[:patient]
-          @global_requests = params[:global_requests]
-          @patient_requests = params[:patient_requests]
-          @clinic = params[:clinic]
-          @consultant = params[:consultant]
-          @telephone = params[:telephone]
-        end
+        belongs_to :patient, class_name: "::Renalware::Pathology::Patient"
+        belongs_to :clinic, class_name: "::Renalware::Clinics::Clinic"
+        belongs_to :consultant, class_name: "::Renalware::Pathology::Consultant"
+        has_and_belongs_to_many :request_descriptions,
+          class_name: "::Renalware::Pathology::RequestDescription"
+        has_and_belongs_to_many :patient_rules,
+          class_name: "::Renalware::Pathology::Requests::PatientRule"
 
-        def global_requests_by_lab
-          @global_requests.group_by { |request_description| request_description.lab.name }
-        end
-
-        def patient_requests_by_lab
-          @patient_requests.group_by { |patient_rule| patient_rule.lab.name }
+        def print_form
+          save
         end
 
         def has_global_requests?
-          @global_requests.any?
+          request_descriptions.any?
         end
 
         def has_patient_requests?
-          @patient_requests.any?
+          patient_rules.any?
         end
 
         def has_tests_required?

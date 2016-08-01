@@ -29,6 +29,18 @@ module Renalware
         end
         alias_method :contact, :clinical_detail
 
+        def patient_rules
+          ::Renalware::Pathology::Requests::PatientRulePresenter.present(super)
+        end
+
+        def global_requests_by_lab
+          request_descriptions.group_by { |request_description| request_description.lab.name }
+        end
+
+        def patient_requests_by_lab
+          patient_rules.group_by { |patient_rule| patient_rule.lab.name }
+        end
+
         private
 
         def request_form

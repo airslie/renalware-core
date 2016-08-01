@@ -3,7 +3,15 @@ Given(/^the rule set contains these rules:$/) do |table|
 end
 
 Given(/^the global rule sets:$/) do |table|
-  @rule_set = create_global_rule_set(table.rows_hash)
+  num_columns = table.raw.first.count
+
+  if num_columns > 2
+    table.hashes.each do |params|
+      create_global_rule_set(params)
+    end
+  else
+    @rule_set = create_global_rule_set(table.rows_hash)
+  end
 end
 
 Given(/^(\w+) has observed an ([A-Z0-9]+) value of (\d+)$/) do |patient_name, code, result|

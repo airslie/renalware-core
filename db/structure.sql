@@ -1649,6 +1649,36 @@ ALTER SEQUENCE pathology_request_descriptions_id_seq OWNED BY pathology_request_
 
 
 --
+-- Name: pathology_request_descriptions_requests_requests; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_request_descriptions_requests_requests (
+    id integer NOT NULL,
+    request_id integer NOT NULL,
+    request_description_id integer NOT NULL
+);
+
+
+--
+-- Name: pathology_request_descriptions_requests_requests_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pathology_request_descriptions_requests_requests_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_request_descriptions_requests_requests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pathology_request_descriptions_requests_requests_id_seq OWNED BY pathology_request_descriptions_requests_requests.id;
+
+
+--
 -- Name: pathology_requests_global_rule_sets; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1747,6 +1777,72 @@ CREATE SEQUENCE pathology_requests_patient_rules_id_seq
 --
 
 ALTER SEQUENCE pathology_requests_patient_rules_id_seq OWNED BY pathology_requests_patient_rules.id;
+
+
+--
+-- Name: pathology_requests_patient_rules_requests; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_requests_patient_rules_requests (
+    id integer NOT NULL,
+    request_id integer NOT NULL,
+    patient_rule_id integer NOT NULL
+);
+
+
+--
+-- Name: pathology_requests_patient_rules_requests_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pathology_requests_patient_rules_requests_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_requests_patient_rules_requests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pathology_requests_patient_rules_requests_id_seq OWNED BY pathology_requests_patient_rules_requests.id;
+
+
+--
+-- Name: pathology_requests_requests; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_requests_requests (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    clinic_id integer NOT NULL,
+    consultant_id integer NOT NULL,
+    telephone character varying NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pathology_requests_requests_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pathology_requests_requests_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_requests_requests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pathology_requests_requests_id_seq OWNED BY pathology_requests_requests.id;
 
 
 --
@@ -3371,6 +3467,13 @@ ALTER TABLE ONLY pathology_request_descriptions ALTER COLUMN id SET DEFAULT next
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY pathology_request_descriptions_requests_requests ALTER COLUMN id SET DEFAULT nextval('pathology_request_descriptions_requests_requests_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY pathology_requests_global_rule_sets ALTER COLUMN id SET DEFAULT nextval('pathology_requests_global_rule_sets_id_seq'::regclass);
 
 
@@ -3386,6 +3489,20 @@ ALTER TABLE ONLY pathology_requests_global_rules ALTER COLUMN id SET DEFAULT nex
 --
 
 ALTER TABLE ONLY pathology_requests_patient_rules ALTER COLUMN id SET DEFAULT nextval('pathology_requests_patient_rules_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_requests_patient_rules_requests ALTER COLUMN id SET DEFAULT nextval('pathology_requests_patient_rules_requests_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_requests_requests ALTER COLUMN id SET DEFAULT nextval('pathology_requests_requests_id_seq'::regclass);
 
 
 --
@@ -3994,6 +4111,14 @@ ALTER TABLE ONLY pathology_request_descriptions
 
 
 --
+-- Name: pathology_request_descriptions_requests_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_request_descriptions_requests_requests
+    ADD CONSTRAINT pathology_request_descriptions_requests_requests_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: pathology_requests_global_rule_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4015,6 +4140,22 @@ ALTER TABLE ONLY pathology_requests_global_rules
 
 ALTER TABLE ONLY pathology_requests_patient_rules
     ADD CONSTRAINT pathology_requests_patient_rules_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_requests_patient_rules_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_requests_patient_rules_requests
+    ADD CONSTRAINT pathology_requests_patient_rules_requests_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_requests_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_requests_requests
+    ADD CONSTRAINT pathology_requests_requests_pkey PRIMARY KEY (id);
 
 
 --
@@ -5114,6 +5255,14 @@ ALTER TABLE ONLY pathology_observation_requests
 
 
 --
+-- Name: fk_rails_06517764c3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_requests_patient_rules_requests
+    ADD CONSTRAINT fk_rails_06517764c3 FOREIGN KEY (patient_rule_id) REFERENCES pathology_requests_patient_rules(id);
+
+
+--
 -- Name: fk_rails_0aab25a07c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5226,6 +5375,14 @@ ALTER TABLE ONLY transplant_registration_statuses
 
 
 --
+-- Name: fk_rails_3916726775; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_request_descriptions_requests_requests
+    ADD CONSTRAINT fk_rails_3916726775 FOREIGN KEY (request_id) REFERENCES pathology_requests_requests(id);
+
+
+--
 -- Name: fk_rails_39983ddc03; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5263,6 +5420,14 @@ ALTER TABLE ONLY drug_types_drugs
 
 ALTER TABLE ONLY hd_sessions
     ADD CONSTRAINT fk_rails_3e0f147311 FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
+
+
+--
+-- Name: fk_rails_3e725c96fc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_requests_requests
+    ADD CONSTRAINT fk_rails_3e725c96fc FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -5311,6 +5476,14 @@ ALTER TABLE ONLY patients
 
 ALTER TABLE ONLY access_assessments
     ADD CONSTRAINT fk_rails_604fdf3a9e FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_617c726b94; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_requests_requests
+    ADD CONSTRAINT fk_rails_617c726b94 FOREIGN KEY (consultant_id) REFERENCES users(id);
 
 
 --
@@ -5402,6 +5575,14 @@ ALTER TABLE ONLY hospital_units
 
 
 --
+-- Name: fk_rails_8f574ed703; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_request_descriptions_requests_requests
+    ADD CONSTRAINT fk_rails_8f574ed703 FOREIGN KEY (request_description_id) REFERENCES pathology_request_descriptions(id);
+
+
+--
 -- Name: fk_rails_909dcaaf3d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5471,6 +5652,14 @@ ALTER TABLE ONLY hd_sessions
 
 ALTER TABLE ONLY pd_regimes
     ADD CONSTRAINT fk_rails_a70920e237 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_a8d58d31e6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_requests_requests
+    ADD CONSTRAINT fk_rails_a8d58d31e6 FOREIGN KEY (clinic_id) REFERENCES clinics(id);
 
 
 --
@@ -5762,6 +5951,14 @@ ALTER TABLE ONLY drug_types_drugs
 
 
 --
+-- Name: fk_rails_fc41021986; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_requests_patient_rules_requests
+    ADD CONSTRAINT fk_rails_fc41021986 FOREIGN KEY (request_id) REFERENCES pathology_requests_requests(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -5985,5 +6182,11 @@ INSERT INTO schema_migrations (version) VALUES ('20160628141349');
 
 INSERT INTO schema_migrations (version) VALUES ('20160726170852');
 
+INSERT INTO schema_migrations (version) VALUES ('20160728094200');
+
 INSERT INTO schema_migrations (version) VALUES ('20160728103933');
+
+INSERT INTO schema_migrations (version) VALUES ('20160729083654');
+
+INSERT INTO schema_migrations (version) VALUES ('20160729095901');
 
