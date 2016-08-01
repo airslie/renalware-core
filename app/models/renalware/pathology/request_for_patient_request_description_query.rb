@@ -9,9 +9,14 @@ module Renalware
       end
 
       def call
-        @patient.requests
+        @patient
+          .requests
           .joins(:request_descriptions)
-          .where(pathology_request_descriptions_requests_requests: { request_description_id: @request_description.id })
+          .where(
+            pathology_request_descriptions_requests_requests: {
+              request_description_id: @request_description.id
+            }
+          )
           .order(created_at: :desc)
           .first
       end
