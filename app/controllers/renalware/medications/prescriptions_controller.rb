@@ -23,7 +23,7 @@ module Renalware
         @treatable = treatable_class.find(treatable_id)
 
         prescription = @patient.prescriptions.new(
-          prescription_params.merge(by: current_user, treatable: @treatable)
+          prescription_params.merge(treatable: @treatable)
         )
 
         if prescription.save
@@ -44,7 +44,9 @@ module Renalware
         prescription = @patient.prescriptions.find(params[:id])
         @treatable = prescription.treatable
 
-        if prescription.update(prescription_params.merge(by: current_user))
+        updated = RevisePrescription.new(prescription).call(prescription_params)
+
+        if updated
           render_index
         else
           render_form(prescription, url: patient_prescription_path(@patient, prescription))
@@ -90,10 +92,15 @@ module Renalware
       end
 
       def prescription_params
-        params.require(:medications_prescription).permit(
-          :drug_id, :dose, :medication_route_id, :frequency, :route_description,
-          :notes, :prescribed_on, :terminated_on, :provider
-        )
+        params
+          .require(:medications_prescription)
+          .permit(prescription_attributes)
+          .merge(by: current_user)
+      end
+
+      def prescription_attributes
+        %i(drug_id dose_amount dose_unit medication_route_id frequency route_description
+          notes prescribed_on terminated_on provider)
       end
 
       def treatable_type

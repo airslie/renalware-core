@@ -13,7 +13,7 @@ Feature: Determining observations required based on patient's drug types
       | DrugType | ESA |          |       |
     And Patty is a patient
     And Patty has the following prescriptions:
-      | drug_name    | dose   | frequency | route_code | provider | terminated_on |
-      | Epoetin Beta | 100 mg | bd        | PO         | Hospital |               |
+      | drug_name    | dose          | frequency | route_code | provider | terminated_on |
+      | Epoetin Beta | 100 milligram | bd        | PO         | Hospital |               |
     When the global pathology algorithm is run for Patty in clinic Access
     Then it is determined the observation is required

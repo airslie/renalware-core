@@ -4,12 +4,15 @@ module Renalware
       before_action :load_patient
 
       def index
-        @problem = Problem.new
-        @problems = @patient.problems.ordered
+        render :index, locals: {
+          problem: Problem.new,
+          current_problems: @patient.problems.current.ordered,
+          archived_problems: @patient.problems.archived.ordered
+        }
       end
 
       def show
-        @problem = @patient.problems.find(params[:id])
+        @problem = @patient.problems.with_archived.find(params[:id])
         @notes = @problem.notes.ordered
       end
 

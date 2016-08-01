@@ -6,7 +6,7 @@ module Renalware
   logcount=0
   CSV.foreach(file_path, headers: true) do |row|
     logcount += 1
-    OrganismCode.find_or_create_by!(read_code: row['code']) do |code|
+    PD::OrganismCode.find_or_create_by!(read_code: row['code']) do |code|
       code.name = row['name']
     end
   end

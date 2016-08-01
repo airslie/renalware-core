@@ -4,6 +4,7 @@ module Renalware
   module Medications
     class Prescription < ActiveRecord::Base
       include Accountable
+      extend Enumerize
 
       attr_accessor :drug_select
 
@@ -17,7 +18,8 @@ module Renalware
       validates :patient, presence: true
       validates :treatable, presence: true
       validates :drug, presence: true
-      validates :dose, presence: true
+      validates :dose_amount, presence: true
+      validates :dose_unit, presence: true
       validates :medication_route, presence: true
       validates :frequency, presence: true
       validates :prescribed_on, presence: true
@@ -26,9 +28,27 @@ module Renalware
 
       enum provider: Provider.codes
 
+      enumerize :dose_unit, in: %i(
+        ampoule
+        capsule
+        drop
+        gram
+        international_unit
+        microgram
+        milligram
+        millilitre
+        puff
+        tab
+        tablet
+        unit
+      ), i18n_scope: "enumerize.renalware.medications.prescription.dose_unit"
+
       scope :ordered, -> { order(default_search_order) }
       scope :current, -> (date = Date.current) {
-        where("terminated_on IS NULL OR terminated_on >= ?", date)
+        where("terminated_on IS NULL OR terminated_on > ?", date)
+      }
+      scope :terminated, -> (date = Date.current) {
+        where("terminated_on IS NOT NULL AND terminated_on <= ?", date)
       }
 
       def self.default_search_order

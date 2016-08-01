@@ -16,6 +16,10 @@ module World
         )
       end
 
+      def create_problem(patient, params)
+        patient.problems.create!(params)
+      end
+
       # @section commands
       #
       def record_problem_for(patient:, user: nil)
@@ -32,6 +36,13 @@ module World
         nil
       end
 
+      def view_problems_list(patient, _clinician)
+        current_problems = patient.problems.current
+        archived_problems = patient.problems.archived
+
+        [current_problems, archived_problems]
+      end
+
       # @section expectations
       #
       def expect_problem_to_be_recorded(patient:)
@@ -44,6 +55,12 @@ module World
         problem = patient.problems.last!
 
         expect(problem.created_at).not_to eq(problem.updated_at)
+      end
+
+      def expect_problems_to_match_table(problems, table)
+        table.hashes.each do |row|
+          expect(problems.map(&:description)).to include(row[:description])
+        end
       end
     end
 
@@ -72,6 +89,25 @@ module World
         within_fieldset "Edit problem" do
           fill_in "Description", with: description
           click_on "Save"
+        end
+      end
+
+      def view_problems_list(patient, clinician)
+        login_as clinician
+
+        visit patient_problems_path(patient)
+
+        current_problems = html_table_to_array("current_problems")
+        archived_problems = html_table_to_array("archived_problems")
+
+        [current_problems, archived_problems]
+      end
+
+      # @section expectations
+      #
+      def expect_problems_to_match_table(problems, table)
+        table.hashes.each do |row|
+          expect(problems.flatten(2)).to include(row[:description])
         end
       end
     end

@@ -40,7 +40,7 @@ module World
         def run_patient_algorithm(patient, _clinician)
           pathology_patient = Renalware::Pathology.cast_patient(patient)
 
-          Renalware::Pathology::RequestAlgorithm::Patient.new(pathology_patient)
+          Renalware::Pathology::Requests::Patient.new(pathology_patient)
             .determine_required_tests
         end
 

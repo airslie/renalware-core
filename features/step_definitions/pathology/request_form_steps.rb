@@ -1,3 +1,15 @@
+Given(/^Patty has a request form generated with parameters:$/) do |table|
+  params = table.rows_hash
+  pathology_patient = Renalware::Pathology.cast_patient(@patty)
+
+  @request_forms = generate_request_forms_for_single_patient(@clyde,
+    clinic: params[:clinic],
+    consultant: params[:consultant],
+    telephone: params[:telephone],
+    patients: [pathology_patient]
+  )
+end
+
 When(/^Clyde chooses the consultant (\w+\s\w+)$/) do |user_name|
   @request_forms = update_request_form_user(user_name)
 end
@@ -33,6 +45,10 @@ When(/^Clyde generates the request form for (\w+) with the following parameters:
   @request_forms = generate_request_forms_for_single_patient(@clyde, params)
 end
 
+When(/^Clyde prints Patty's request form$/) do
+  @request_forms.each { |request_form| request_form.print_form }
+end
+
 Then(/^Clyde sees these details at the top of (\w+)'s form$/) do |patient_name, table|
   patient = get_patient(patient_name)
   expect_patient_summary_to_match_table(@request_forms, patient, table)
@@ -50,4 +66,32 @@ Then(/^Clyde sees the requests forms for these patients:$/) do |table|
   end
 
   expect_pathology_forms_for_patients(@request_forms, patients)
+end
+
+Then(/^Patty has the request recorded:$/) do |table|
+  params = table.rows_hash
+
+  patient = Renalware::Pathology.cast_patient(@patty)
+  clinic = find_requested_clinic(params[:clinic])
+  consultant = find_or_create_requested_consultant(params[:consultant])
+
+  request_descriptions = params[:request_descriptions].split(", ").map do |request_description_code|
+    Renalware::Pathology::RequestDescription.find_or_create_by(code: request_description_code)
+  end
+  patient_rules = params[:patient_rules].split(", ").map do |test_description|
+    Renalware::Pathology::Requests::PatientRule.find_or_create_by(test_description: test_description)
+  end
+
+  request =
+    Renalware::Pathology::Requests::Request
+    .includes(:request_descriptions, :patient_rules)
+    .where(
+      patient: patient,
+      clinic: clinic,
+      consultant: consultant,
+      pathology_request_descriptions: { id: request_descriptions.map(&:id) },
+      pathology_requests_patient_rules: { id: patient_rules.map(&:id) }
+    )
+
+  expect(request).to be_exist
 end

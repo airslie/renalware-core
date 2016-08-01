@@ -144,22 +144,22 @@ module Renalware
   Medications::Prescription.create([
     {
       patient_id: 1, drug_id: 986, treatable_id: 1, treatable_type: "Renalware::Patient",
-      dose: "50 mg", medication_route_id: 1, frequency: "bd for 7 days", prescribed_on: "2015-09-13",
-      terminated_on: "2015-09-20", provider: 0, by: barts_doc
+      dose_amount: "50", dose_unit: "milligram", medication_route_id: 1, frequency: "bd for 7 days",
+      prescribed_on: "2015-09-13", terminated_on: "2015-09-20", provider: 0, by: barts_doc
     },
     {
       patient_id: 1, drug_id: 183, treatable_id: 1, treatable_type: "Renalware::Patient",
-      dose: "25 mg", medication_route_id: 1, frequency: "nocte", prescribed_on: "2014-10-10",
-      terminated_on: nil, provider: 0, by: barts_doc
+      dose_amount: "25", dose_unit: "milligram", medication_route_id: 1, frequency: "nocte",
+      prescribed_on: "2014-10-10", terminated_on: nil, provider: 0, by: barts_doc
     },
     {
       patient_id: 1, drug_id: 269, treatable_id: 1, treatable_type: "Renalware::Patient",
-      dose: "100 mg", medication_route_id: 1, frequency: "bd", prescribed_on: "2015-06-16",
-      terminated_on: nil, provider: 0, by: barts_doc
+      dose_amount: "100", dose_unit: "milligram", medication_route_id: 1, frequency: "bd",
+      prescribed_on: "2015-06-16", terminated_on: nil, provider: 0, by: barts_doc
     },
     {
-      patient_id: 1, drug_id: 126, treatable_id: 1, treatable_type: "Renalware::PeritonitisEpisode",
-      dose: "100 mg", medication_route_id: 1, frequency: "tid for 7d",
+      patient_id: 1, drug_id: 126, treatable_id: 1, treatable_type: "Renalware::PD::PeritonitisEpisode",
+      dose_amount: "100", dose_unit: "milligram", medication_route_id: 1, frequency: "tid for 7d",
       prescribed_on: "2015-09-21", provider: 0, by: barts_doc
     }
   ])
@@ -168,18 +168,18 @@ module Renalware
   Renal::Profile.create!(patient_id: 1, esrf_on: "2015-05-05", prd_description_id: 109)
 
   log '--------------------Adding Exit Site Infection for Roger RABBIT-------------------'
-  ExitSiteInfection.create([
+  PD::ExitSiteInfection.create([
     {patient_id: 1, diagnosis_date: "2015-06-09", treatment: "liquid and electrolyte replacement ", outcome: "Recovered well. Scheduled another training review session.", notes: ""}
   ])
 
   log '--------------------Adding Peritonitis Episode for Roger RABBIT-------------------'
-  PeritonitisEpisode.create([
+  PD::PeritonitisEpisode.create([
     {patient_id: 1, diagnosis_date: "2015-09-14", treatment_start_date: "2015-09-14", treatment_end_date: "2015-09-21", episode_type_id: 6, catheter_removed: true, line_break: false, exit_site_infection: false, diarrhoea: false, abdominal_pain: true, fluid_description_id: 4, white_cell_total: 5, white_cell_neutro: 57, white_cell_lympho: 37, white_cell_degen: 3, white_cell_other: 3, notes: ""}
   ])
 
-  InfectionOrganism.create([
-    {organism_code_id: 33, sensitivity: "+++", infectable_id: 1, infectable_type: "Renalware::PeritonitisEpisode"},
-    {organism_code_id: 4, sensitivity: "unknown", infectable_id: 1, infectable_type: "Renalware::ExitSiteInfection"}
+  PD::InfectionOrganism.create([
+    {organism_code_id: 33, sensitivity: "+++", infectable_id: 1, infectable_type: "Renalware::PD::PeritonitisEpisode"},
+    {organism_code_id: 4, sensitivity: "unknown", infectable_id: 1, infectable_type: "Renalware::PD::ExitSiteInfection"}
   ])
 
   log '--------------------Assign Live Donor modality to Jessica RABBIT-------------------'
@@ -462,7 +462,7 @@ module Renalware
     by: users.sample
   )
 
-  archived_letter = Letters::Letter::Archived.create!(
+  letter = Letters::Letter::Typed.create!(
     patient: patient,
     issued_on: 10.days.ago,
     description: Renalware::Letters::Description.last.text,
@@ -475,6 +475,8 @@ module Renalware
     author: users.sample,
     by: users.sample
   )
+  archived_letter = letter.archive(by: User.first)
+  archived_letter.save!
 
   archived_letter.main_recipient.build_address.tap do |address|
     address.copy_from(archived_letter.patient.current_address)

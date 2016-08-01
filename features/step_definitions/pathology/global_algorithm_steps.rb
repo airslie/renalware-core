@@ -3,7 +3,15 @@ Given(/^the rule set contains these rules:$/) do |table|
 end
 
 Given(/^the global rule sets:$/) do |table|
-  @rule_set = create_global_rule_set(table.rows_hash)
+  num_columns = table.raw.first.count
+
+  if num_columns > 2
+    table.hashes.each do |params|
+      create_global_rule_set(params)
+    end
+  else
+    @rule_set = create_global_rule_set(table.rows_hash)
+  end
 end
 
 Given(/^(\w+) has observed an ([A-Z0-9]+) value of (\d+)$/) do |patient_name, code, result|
@@ -35,7 +43,8 @@ Given(/^Patty is currently prescribed Ephedrine Tablet (yes|no)$/) do |perscribe
     @patty.prescriptions.create!(
       drug: drug,
       medication_route: route,
-      dose: "20mg",
+      dose_amount: "20",
+      dose_unit: "milligram",
       frequency: "daily",
       prescribed_on: Time.current - 1.week,
       provider: 0,

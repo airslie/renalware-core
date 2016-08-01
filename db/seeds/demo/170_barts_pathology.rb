@@ -20,7 +20,7 @@ module Renalware
   patient_ids = Clinics::Appointment.uniq.pluck(:patient_id)
   patients = Patient.where(id: patient_ids)
   request_description_ids =
-    Pathology::RequestAlgorithm::GlobalRuleSet.uniq.pluck(:request_description_id)
+    Pathology::Requests::GlobalRuleSet.uniq.pluck(:request_description_id)
   request_descriptions =
     Pathology::RequestDescription.where(id: request_description_ids)
     .shuffle

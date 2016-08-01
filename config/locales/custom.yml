@@ -21,3 +21,9 @@ en:
           not_cc_on_all_letters: |
             If not the recipient, the patient <b>will NOT be CCd</b> on the letter.
             This can be changed in the patients profile.
+      typed_letters:
+        create:
+          success: You have successfully marked the letter as typed.
+      archived_letters:
+        create:
+          success: You have successfully archived the letter.

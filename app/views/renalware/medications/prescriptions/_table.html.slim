@@ -14,6 +14,7 @@
         th Prescribed By
         - if include_terminated_column
           th Terminated On
+          th Terminated By
     tbody
       - prescriptions.each do |prescription|
         tr
@@ -35,5 +36,6 @@
           td= prescription.created_by.full_name
           - if include_terminated_column
             td= I18n.l prescription.terminated_on
+            td= prescription.terminated_by
 - else
   p There are no prescriptions in this list.

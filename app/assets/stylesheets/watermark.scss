@@ -1,0 +1,8 @@
+.letter-wrapper {
+  &.draft, &.typed {
+    background-image: image-url('draft.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+}
+

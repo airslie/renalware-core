@@ -1,0 +1,52 @@
+= render layout: "renalware/patients/layout", locals: { title: "PD Regime" } do
+    = field_set_tag "Treatment" do
+      dd
+        dt Last Updated:
+        dl= l @pd_regime.updated_at
+
+        .row
+          .large-6.columns
+            dt Start:
+            dl = l @pd_regime.start_date
+
+          .large-6.columns
+            dt End:
+            dl= default_for_blank_date(@pd_regime.end_date, "Pending")
+
+        .row
+          .large-6.columns
+            dt Treatment:
+            dl= @pd_regime.treatment
+
+          .large-6.columns
+            dt On additional HD?:
+            dl= yes_no(@pd_regime.add_hd)
+
+        .row
+          .large-12.columns
+            dt Average Daily Glucose:
+            dl
+              ul.no-bullet
+                .row
+                  .large-4.columns
+                    li
+                      b 1.36%
+                      | &nbsp;
+                      = "#{ default_daily_glucose_average(@pd_regime.glucose_ml_percent_1_36) } ml"
+                  .large-4.columns
+                    li
+                      b 2.27%
+                      | &nbsp;
+                      = "#{ default_daily_glucose_average(@pd_regime.glucose_ml_percent_2_27) } ml"
+                  .large-4.columns
+                    li
+                      b 3.86%
+                      | &nbsp;
+                      = "#{ default_daily_glucose_average(@pd_regime.glucose_ml_percent_3_86) } ml"
+
+    - if @pd_regime.type == "Renalware::PD::APDRegime"
+      = render partial: "renalware/pd/regimes/apd_regime_show", locals: { model: @pd_regime }
+
+    = field_set_tag "Bags" do
+      ul
+        = pd_regime_bags(@pd_regime.regime_bags)

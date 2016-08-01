@@ -1,8 +1,8 @@
 class CreatePDRegimeBags < ActiveRecord::Migration
   def change
     create_table :pd_regime_bags do |t|
-      t.references :pd_regime,  null: false, foreign_key: true
-      t.references :bag_type,   null: false, foreign_key: true
+      t.references :regime,  null: false
+      t.references :bag_type,   null: false
       t.integer :volume,        null: false
       t.integer :per_week
       t.boolean :monday
@@ -14,5 +14,8 @@ class CreatePDRegimeBags < ActiveRecord::Migration
       t.boolean :sunday
       t.timestamps null: false
     end
+
+    add_foreign_key :pd_regime_bags, :pd_regimes, column: :regime_id
+    add_foreign_key :pd_regime_bags, :pd_bag_types, column: :bag_type_id
   end
 end

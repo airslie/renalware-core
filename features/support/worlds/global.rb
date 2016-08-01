@@ -17,11 +17,13 @@ module World
 
       user = Renalware::User.find_by(given_name: given_name)
       if user.blank?
+        email_name = given_name.gsub(/\s+/, "_").downcase
+
         user = Renalware::User.create!(
           given_name: given_name,
           family_name: "A User",
           username: given_name,
-          email: "#{given_name}@renalware.com",
+          email: "#{email_name}@renalware.com",
           password: "supersecret",
           approved: true,
         )

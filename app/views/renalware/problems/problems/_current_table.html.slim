@@ -1,0 +1,22 @@
+table#current_problems.manual-stripes.auto-layout
+  thead
+    tr
+      td.options
+      td Description
+      td Recorded on
+      td
+  = content_tag(:tbody, class: "sortables", data: { rel: sort_patient_problems_path(@patient) }) do
+    - problems.each do |problem|
+      = content_tag_for(:tr, problem, class: "sortable") do
+        td
+          = link_to "Edit", patient_problem_path(@patient, problem)
+          = pipe_separator
+          = link_to "Terminate", patient_problem_path(@patient, problem), method: :delete, data: { confirm: 'Are you sure?' }
+        td
+          = problem.description
+          ol
+            - problem.notes.each do |note|
+              li= note.description
+        td= l problem.updated_on
+        td.handle
+          i.fa.fa-reorder

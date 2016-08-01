@@ -23,6 +23,7 @@
 //= require foundation-datepicker
 //= require clockpicker
 //= require cocoon
+//= require iframeResizer
 //= require_tree .
 
 $(function(){ $(document).foundation(); });

@@ -6,19 +6,19 @@
         .large-12.columns
           label for="clinic_id" Clinic
           = form_tag(patient_pathology_required_observations_path(patient_id: @patient.id), method: :get) do
-            = select_tag "clinic_id",
-                options_from_collection_for_select(clinics, 'id', 'name', clinic.id),
+            = select_tag "request[clinic_id]",
+                options_from_collection_for_select(all_clinics, 'id', 'name', request_html_form_params.clinic_id),
                 onchange: raw("this.form.submit();")
       .row
         .large-12.columns
-          = simple_form_for request_form_options, url: pathology_forms_path, as: :request_form_options do |f|
+          = simple_form_for request_html_form_params, url: pathology_requests_request_previews_path, as: :request do |f|
             = f.input :patient_ids, as: :hidden_array
             = f.input :clinic_id, as: :hidden
             = f.button :submit, "Generate Forms", class: "button tiny"
 
   .row
     .large-12.columns
-      - if global_pathology.empty?
+      - unless request.has_global_requests?
         p No observation requests are required.
 
       - else
@@ -31,7 +31,7 @@
               th Lab
               th Name
           tbody
-          - global_pathology.each do |request_description|
+          - request.request_descriptions.each do |request_description|
             tr
               td = request_description.code
               td = request_description.lab.name
@@ -39,7 +39,7 @@
 
   .row
     .large-12.columns
-      - if patient_pathology.empty?
+      - unless request.has_patient_requests?
         p No patient specific observations are required.
 
       - else
@@ -59,7 +59,7 @@
               th
               th
           tbody
-          - patient_pathology.each do |patient_rule|
+          - request.patient_rules.each do |patient_rule|
             tr
               td = patient_rule.lab.name
               td = patient_rule.test_description

@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :infection_organism, class: "Renalware::InfectionOrganism" do
+  factory :infection_organism, class: "Renalware::PD::InfectionOrganism" do
     organism_code
     sensitivity "Sensitive to MRSA."
     infectable factory: :peritonitis_episode

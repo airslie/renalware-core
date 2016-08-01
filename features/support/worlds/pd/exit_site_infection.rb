@@ -41,11 +41,11 @@ module World
       def expect_exit_site_infections_revisions_recorded(patient:)
         exit_site_infection = patient.exit_site_infections.last!
         organism = exit_site_infection.infection_organisms.last!
-        prescription = exit_site_infection.prescriptions.last!
 
         expect(exit_site_infection.created_at).not_to eq(exit_site_infection.updated_at)
         expect(organism.created_at).not_to eq(organism.updated_at)
-        expect(prescription.created_at).not_to eq(prescription.updated_at)
+
+        expect_exit_site_prescriptions_to_be_revised(patient, exit_site_infection)
       end
     end
 
@@ -57,7 +57,7 @@ module World
       def record_exit_site_infection_for(patient:, user:, diagnosed_on:, outcome:)
         login_as user
 
-        visit new_patient_exit_site_infection_path(patient)
+        visit new_patient_pd_exit_site_infection_path(patient)
         fill_in "Diagnosed on", with: diagnosed_on
         fill_in "Outcome", with: outcome
         click_on "Save"
@@ -66,7 +66,7 @@ module World
       def revise_exit_site_infection_for(patient:, user:, diagnosed_on:)
         login_as user
 
-        visit patient_exit_site_infection_path(patient, infection_for(patient))
+        visit patient_pd_exit_site_infection_path(patient, infection_for(patient))
         within "#infection" do
           click_on "Edit"
           fill_in "Diagnosed on", with: diagnosed_on

@@ -1,0 +1,25 @@
+require_dependency "renalware/pathology/requests"
+
+module Renalware
+  module Pathology
+    module Requests
+      class Frequency
+        def exceeds?(_days)
+          raise NotImplementedError
+        end
+
+        def once?
+          false
+        end
+
+        def to_s
+          self.class.name.demodulize
+        end
+
+        def self.all_names
+          %w(Always Monthly Once Weekly Yearly)
+        end
+      end
+    end
+  end
+end

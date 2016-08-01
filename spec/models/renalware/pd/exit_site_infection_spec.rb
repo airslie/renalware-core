@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Renalware
-  RSpec.describe ExitSiteInfection, :type => :model do
+  RSpec.describe PD::ExitSiteInfection, type: :model do
     include DrugsSpecHelper
 
     it { should validate_presence_of :patient }
@@ -28,7 +28,6 @@ module Renalware
             patient: @patient,
             drug: @cephradine,
             treatable: @es,
-            dose: "20mg",
             medication_route: @im,
             frequency: "daily",
             notes: "with food",
@@ -41,7 +40,6 @@ module Renalware
             patient: @patient,
             drug: @dicloxacillin,
             treatable: @es,
-            dose: "20mg",
             medication_route: @sc,
             frequency: "daily",
             notes: "with food",

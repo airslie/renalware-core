@@ -3,6 +3,10 @@ require_dependency "renalware/medications"
 module Renalware
   module Medications
     class MedicationRoute < ActiveRecord::Base
+      def self.table_name
+        "medication_routes"
+      end
+
       has_many :prescriptions
       has_many :patients, through: :prescriptions
       has_many :exit_site_infections, through: :prescriptions,

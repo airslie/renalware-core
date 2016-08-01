@@ -10,5 +10,5 @@ haemotology:
   name: Haemotology
 virology:
   name: Virology
-lab:_unknown:
+lab_unknown:
   name: "Lab: Unknown"

@@ -6,33 +6,78 @@ module World
         #
         def extract_request_form_params(form_params)
           clinic = find_requested_clinic(form_params[:clinic])
-          consultant = find_requested_consultant(form_params[:consultant])
+          consultant = find_or_create_requested_consultant(form_params[:consultant])
           patients = find_requested_patients(form_params[:patients])
           telephone = form_params[:telephone]
 
-          [patients, clinic, consultant, telephone]
+          params = {}
+          if patients.present?
+            params[:patients] = patients
+            params[:patient_ids] = patients.map(&:id)
+          end
+
+          params[:clinic_id] = clinic.id if clinic.present?
+          params[:consultant_id] = consultant.id if consultant.present?
+          params[:telephone] = telephone if telephone.present?
+          params[:by] = Renalware::SystemUser.find
+          params
+        end
+
+        def build_request_forms(patients, options)
+          request_params =
+            Renalware::Pathology::Requests::RequestParamsFactory.new(options).build
+
+          requests =
+            Renalware::Pathology::Requests::RequestsFactory
+            .new(patients, request_params).build
+
+          Renalware::Pathology::Requests::RequestPresenter.present(requests)
         end
 
         # @section commands
         #
         def generate_request_forms_for_single_patient(_clinician, params)
-          patients, clinic, consultant, telephone = extract_request_form_params(params)
+          options = extract_request_form_params(params)
 
-          options = { patients: patients }
-          options[:clinic] = clinic if clinic.present?
-          options[:consultant] = consultant if consultant.present?
-          options[:telephone] = telephone if telephone.present?
-
-          request_form_options =
-            Renalware::Pathology::RequestAlgorithm::RequestFormOptions.new(options)
-
-          Renalware::Pathology::RequestFormPresenter.wrap(patients, request_form_options)
+          build_request_forms(options[:patients], options)
         end
 
         def generate_request_forms_for_appointments(clinician, appointments, params)
-          generate_request_forms_for_single_patient(
-            clinician,
-            params.merge(patients: appointments.map(&:patient))
+          options = extract_request_form_params(params)
+
+          options[:patients] = appointments.map do |appointment|
+            Renalware::Pathology.cast_patient(appointment.patient)
+          end
+
+          build_request_forms(options[:patients], options)
+        end
+
+        def new_request(params)
+          patient = Renalware::Pathology.cast_patient(params[:patient])
+          clinic = Renalware::Clinics::Clinic.find_by!(name: params[:clinic])
+          given_name, family_name = params[:consultant].split(" ")
+          user = create_user(given_name: given_name, family_name: family_name)
+          consultant = ActiveType.cast(user, ::Renalware::Pathology::Consultant)
+          request_descriptions =
+            params[:global_requests].split(", ").map do |request_description_name|
+              Renalware::Pathology::RequestDescription.find_or_create_by(
+                name: request_description_name
+              )
+            end
+          patient_rules = params[:patient_requests].split(", ").map do |test_description|
+            Renalware::Pathology::Requests::PatientRule.find_or_create_by(
+              test_description: test_description
+            )
+          end
+
+          Renalware::Pathology::Requests::Request.new(
+            patient: patient,
+            clinic: clinic,
+            consultant: consultant,
+            telephone: params[:telephone],
+            by: Renalware::SystemUser.find,
+            request_descriptions: request_descriptions,
+            patient_rules: patient_rules
           )
         end
 
@@ -63,7 +108,9 @@ module World
           patient_request_descriptions = request_form.global_requests_by_lab.values.flatten
 
           expected_request_description =
-            Renalware::Pathology::RequestDescription.find_by!(code: expected_request_description_code)
+            Renalware::Pathology::RequestDescription.find_by!(
+              code: expected_request_description_code
+            )
 
           expect(patient_request_descriptions).to include(expected_request_description)
         end
@@ -109,14 +156,20 @@ module World
           Renalware::Clinics::Clinic.find_by!(name: clinic_name)
         end
 
-        def find_requested_consultant(consultant_names)
+        def find_or_create_requested_consultant(consultant_names)
           return unless consultant_names.present?
 
           given_name, family_name = consultant_names.split(" ")
-          Renalware::Pathology::Consultant.find_by(
+          consultant = Renalware::Pathology::Consultant.find_by(
             given_name: given_name,
             family_name: family_name
           )
+
+          if consultant.present?
+            consultant
+          else
+            create_user(given_name: given_name, family_name: family_name)
+          end
         end
 
         def find_requested_patients(patients)
@@ -137,7 +190,11 @@ module World
         # @section commands
         #
         def generate_request_forms_for_single_patient(clinician, params)
-          patients, clinic, consultant, telephone = extract_request_form_params(params)
+          patients = find_requested_patients(params[:patients])
+          clinic = find_requested_clinic(params[:clinic])
+          consultant = find_or_create_requested_consultant(params[:consultant])
+          telephone = params[:telephone]
+
 
           login_as clinician
 
@@ -151,7 +208,7 @@ module World
         end
 
         def generate_request_forms_for_appointments(_clinician, _appointments, params)
-          _patients, clinic, _user, _telephone = extract_request_form_params(params)
+          clinic = find_requested_clinic(params[:clinic])
 
           click_on "Generate request forms"
 

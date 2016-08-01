@@ -5,7 +5,7 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
 
   describe "GET new" do
     it "responds with a form" do
-      get new_bag_type_path
+      get new_pd_bag_type_path
 
       expect(response).to have_http_status(:success)
     end
@@ -15,10 +15,10 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
     context "given valid attributes" do
       it "creates a new record" do
         attributes = attributes_for(:bag_type)
-        post bag_types_path, bag_type: attributes
+        post pd_bag_types_path, pd_bag_type: attributes
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::BagType.exists?(attributes)).to be_truthy
+        expect(Renalware::PD::BagType.exists?(attributes)).to be_truthy
 
         follow_redirect!
 
@@ -29,7 +29,7 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
     context "given invalid attributes" do
       it "responds with form" do
         attributes = { manufacturer: "" }
-        post bag_types_path, bag_type: attributes
+        post pd_bag_types_path, pd_bag_type: attributes
 
         expect(response).to have_http_status(:success)
       end
@@ -38,7 +38,7 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
 
   describe "GET index" do
     it "responds successfully" do
-      get bag_types_path
+      get pd_bag_types_path
 
       expect(response).to have_http_status(:success)
     end
@@ -46,7 +46,7 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
 
   describe "GET edit" do
     it "responds with a form" do
-      get edit_bag_type_path(bag_type)
+      get edit_pd_bag_type_path(bag_type)
 
       expect(response).to have_http_status(:success)
     end
@@ -57,10 +57,10 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
       it "updates a record" do
         attributes = { manufacturer: "My Edited Bag Type" }
 
-        patch bag_type_path(bag_type), bag_type: attributes
+        patch pd_bag_type_path(bag_type), pd_bag_type: attributes
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::BagType.exists?(attributes)).to be_truthy
+        expect(Renalware::PD::BagType.exists?(attributes)).to be_truthy
 
         follow_redirect!
 
@@ -72,7 +72,7 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
       it "responds with a form" do
         attributes = { manufacturer: "" }
 
-        patch bag_type_path(bag_type), bag_type: attributes
+        patch pd_bag_type_path(bag_type), pd_bag_type: attributes
 
         expect(response).to have_http_status(:success)
       end
@@ -81,10 +81,10 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
 
   describe "DELETE destroy" do
     it "deletes the bag type" do
-      delete bag_type_path(bag_type)
+      delete pd_bag_type_path(bag_type)
 
       expect(response).to have_http_status(:redirect)
-      expect(Renalware::BagType.exists?(id: bag_type.id)).to be_falsey
+      expect(Renalware::PD::BagType.exists?(id: bag_type.id)).to be_falsey
 
       follow_redirect!
 

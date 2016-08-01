@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Renalware
-  RSpec.describe PeritonitisEpisode, :type => :model do
+  RSpec.describe PD::PeritonitisEpisode, type: :model do
     include DrugsSpecHelper
 
     it { should validate_presence_of :patient }
@@ -29,7 +29,6 @@ module Renalware
             patient: @patient,
             drug: @amoxicillin,
             treatable: @pe,
-            dose: "20mg",
             medication_route: @po,
             frequency: "daily",
             notes: "with food",
@@ -42,7 +41,6 @@ module Renalware
             patient: @patient,
             drug: @penicillin,
             treatable: @pe,
-            dose: "20mg",
             medication_route: @iv,
             frequency: "daily",
             notes: "with food",
