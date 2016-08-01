@@ -52,7 +52,7 @@ module World
           build_request_forms(options[:patients], options)
         end
 
-        def print_request_forms(_clinician, request_forms)
+        def print_request_forms(request_forms)
           request_forms.each { |request_form| request_form.print_form }
         end
 
@@ -125,11 +125,16 @@ module World
           patient = Renalware::Pathology.cast_patient(patient)
           clinic = find_requested_clinic(params[:clinic])
           consultant = find_or_create_requested_consultant(params[:consultant])
-          request_descriptions = params[:request_descriptions].split(", ").map do |request_description_code|
-            Renalware::Pathology::RequestDescription.find_or_create_by(code: request_description_code)
-          end
+          request_descriptions =
+            params[:request_descriptions].split(", ").map do |request_description_code|
+              Renalware::Pathology::RequestDescription.find_or_create_by(
+                code: request_description_code
+              )
+            end
           patient_rules = params[:patient_rules].split(", ").map do |test_description|
-            Renalware::Pathology::Requests::PatientRule.find_or_create_by(test_description: test_description)
+            Renalware::Pathology::Requests::PatientRule.find_or_create_by(
+              test_description: test_description
+            )
           end
 
           request =
@@ -219,7 +224,7 @@ module World
           update_request_form_clinic(clinic.name)
         end
 
-        def print_request_forms(clinician, _request_forms)
+        def print_request_forms(request_forms)
           click_on "Print Forms"
         end
 

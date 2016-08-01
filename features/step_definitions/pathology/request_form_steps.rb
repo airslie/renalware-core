@@ -46,7 +46,7 @@ When(/^Clyde generates the request form for (\w+) with the following parameters:
 end
 
 When(/^Clyde prints Patty's request form$/) do
-  print_request_forms(@clyde, @request_forms)
+  print_request_forms(@request_forms)
 end
 
 Then(/^Clyde sees these details at the top of (\w+)'s form$/) do |patient_name, table|
