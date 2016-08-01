@@ -155,5 +155,5 @@ Feature: Determining observations required based on global rules
       | Once           |                |               | required      |
       | Once           | 6 days ago     |               | not required  |
       | Once           | 7 days ago     |               | not required  |
-      | Once           | 6 days ago     | 1 days ago    | required  |
-      | Once           | 7 days ago     | 1 days ago    | required  |
+      | Once           | 6 days ago     | 1 days ago    | not required  |
+      | Once           | 7 days ago     | 1 days ago    | not required  |

@@ -24,7 +24,7 @@ module Renalware
 
             return false if last_request.nil? || expiration_days.nil? || last_observation.present?
 
-            days_ago_observed = date - last_request.requested_on
+            days_ago_observed = date - last_request.created_at.to_date
             days_ago_observed < expiration_days
           end
 
