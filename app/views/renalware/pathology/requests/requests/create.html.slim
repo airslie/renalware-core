@@ -1,0 +1,20 @@
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8"
+
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+
+    title= content_for?(:title) ? yield(:title) : "Renalware v#{Renalware::VERSION}"
+
+    = wicked_pdf_stylesheet_link_tag "print/pathology_request_forms"
+    = csrf_meta_tag
+
+  body
+    .row
+      - requests.each do |request_form|
+        - if request_form.has_tests_required?
+          = render partial: "renalware/pathology/requests/requests/request_form",
+            locals: { request_form: request_form }
+
+          hr.page_break
