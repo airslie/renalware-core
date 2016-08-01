@@ -46,12 +46,12 @@ When(/^Clyde generates the request form for (\w+) with the following parameters:
 end
 
 When(/^Clyde prints Patty's request form$/) do
-  @request_forms.each { |request_form| request_form.print_form }
+  print_request_forms(@clyde, @request_forms)
 end
 
 Then(/^Clyde sees these details at the top of (\w+)'s form$/) do |patient_name, table|
   patient = get_patient(patient_name)
-  expect_patient_summary_to_match_table(@request_forms, patient, table)
+  expect_patient_summary_to_match_table(@request_forms, patient, table.rows_hash)
 end
 
 Then(/^Clyde sees the following pathology requirements for (\w+):$/) do |patient_name, table|
@@ -68,30 +68,7 @@ Then(/^Clyde sees the requests forms for these patients:$/) do |table|
   expect_pathology_forms_for_patients(@request_forms, patients)
 end
 
-Then(/^Patty has the request recorded:$/) do |table|
-  params = table.rows_hash
-
-  patient = Renalware::Pathology.cast_patient(@patty)
-  clinic = find_requested_clinic(params[:clinic])
-  consultant = find_or_create_requested_consultant(params[:consultant])
-
-  request_descriptions = params[:request_descriptions].split(", ").map do |request_description_code|
-    Renalware::Pathology::RequestDescription.find_or_create_by(code: request_description_code)
-  end
-  patient_rules = params[:patient_rules].split(", ").map do |test_description|
-    Renalware::Pathology::Requests::PatientRule.find_or_create_by(test_description: test_description)
-  end
-
-  request =
-    Renalware::Pathology::Requests::Request
-    .includes(:request_descriptions, :patient_rules)
-    .where(
-      patient: patient,
-      clinic: clinic,
-      consultant: consultant,
-      pathology_request_descriptions: { id: request_descriptions.map(&:id) },
-      pathology_requests_patient_rules: { id: patient_rules.map(&:id) }
-    )
-
-  expect(request).to be_exist
+Then(/^Patty has the request recorded and printed:$/) do |table|
+  params = table.rows_hash.with_indifferent_access
+  expect_request_form_recorded_and_printed(@patty, params)
 end

@@ -17,7 +17,9 @@ module Renalware
         end
 
         def create
-          render :create, locals: local_vars
+          requests.each { |request| request.print_form }
+
+          render pdf: "renalware/pathology/requests/requests/create", locals: local_vars
         end
 
         private
@@ -52,6 +54,7 @@ module Renalware
           params
             .fetch(:request, {})
             .permit(:consultant_id, :clinic_id, :telephone, patient_ids: [])
+            .merge(by: current_user)
         end
 
         def load_patients

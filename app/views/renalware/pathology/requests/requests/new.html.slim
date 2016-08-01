@@ -3,7 +3,9 @@
 
 .row
   .large-4.columns
-    = simple_form_for request_html_form_params, url: pathology_requests_request_path, as: :request do |f|
+    = simple_form_for request_html_form_params,
+      url: pathology_requests_request_path,
+      as: :request do |f|
       = f.input :patient_ids, as: :hidden_array
       = f.input :clinic_id, collection: all_clinics, input_html: { class: "small-input" }
       = f.input :consultant_id,
@@ -12,7 +14,9 @@
       = f.input :telephone, input_html: { class: "small-input" }
       = f.button :submit, "Update Forms"
 
-    = simple_form_for request_html_form_params, url: pathology_requests_requests_path, as: :request do |f|
+    = simple_form_for request_html_form_params,
+      url: pathology_requests_requests_path(format: :pdf),
+      as: :request do |f|
       = f.input :patient_ids, as: :hidden_array
       = f.input :clinic_id, as: :hidden
       = f.input :consultant_id, as: :hidden
