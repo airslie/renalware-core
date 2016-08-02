@@ -52,6 +52,24 @@ module World
           build_request_forms(options[:patients], options)
         end
 
+        def create_request(params)
+          request_descriptions =
+            params[:request_descriptions].map do |code|
+              Renalware::Pathology::RequestDescription.find_or_create_by(code: code)
+            end
+
+          Renalware::Pathology::Requests::Request.create!(
+            patient: Renalware::Pathology.cast_patient(params[:patient]),
+            clinic: Renalware::Clinics::Clinic.first,
+            consultant: Renalware::Pathology::Consultant.first,
+            telephone: "123",
+            by: Renalware::SystemUser.find,
+            request_descriptions: request_descriptions,
+            created_at: params[:requested_at],
+            updated_at: params[:requested_at]
+          )
+        end
+
         def print_request_forms(request_forms)
           request_forms.each { |request_form| request_form.print_form }
         end
