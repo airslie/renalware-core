@@ -21,9 +21,10 @@ Feature: Printing a request form
       | consultant | Dr Hibbert |
       | telephone  | 0161932263 |
 
+  @web
   Scenario: A clinician prints a request form
     When Clyde prints Patty's request form
-    Then Patty has the request recorded:
+    Then Patty has the request recorded and printed:
       | clinic               | Transplant    |
       | consultant           | Dr Hibbert    |
       | telephone            | 0161932263    |

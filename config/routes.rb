@@ -183,7 +183,9 @@ Rails.application.routes.draw do
       resources :forms, only: :create
 
       namespace :requests do
-        resources :request_previews
+        # NOTE: This needs to be POST since the params may exceed url char limit in GET
+        post "requests/new", to: "requests#new", as: "request"
+        resources :requests, only: [:create]
       end
     end
 

@@ -1,0 +1,48 @@
+.row data-role="form_summary" data-patient-id="#{request_form.patient.id}"
+  h4 Pathology Request Listing
+
+  table
+    tr
+      td.header_cell Patient Name:
+      td data-role="patient_name" = request_form.patient_name
+      td.header_cell Date:
+      td data-role="date"  = request_form.date
+    tr
+      td.header_cell DOB:
+      td data-role="date_of_birth" = request_form.date_of_birth
+      td.header_cell Consultant:
+      td data-role="consultant" = request_form.consultant
+    tr
+      td.header_cell Clinical Detail:
+      td data-role="clinical_detail" = request_form.clinical_detail
+      td.header_cell Contact:
+      td data-role="contact" = request_form.contact
+    tr
+      td.header_cell
+      td
+      td.header_cell Bleep/Tel No:
+      td data-role="telephone" = request_form.telephone
+
+.row.full_height data-role="form_pathology" data-patient-id="#{request_form.patient.id}"
+  .border_box_half.columns.full_height
+    - if request_form.has_global_requests?
+      - request_form.global_requests_by_lab.each do |lab_name, request_descriptions|
+        p
+          | ======== #{lab_name} ========
+        - request_descriptions.each do |request_description|
+          p = request_description.name.downcase.titleize
+    - else
+      p No tests required.
+  .border_box_half.columns
+    p
+      h3 HIGH RISK
+
+    b Patient Specific Tests:
+    - if request_form.has_patient_requests?
+      - request_form.patient_requests_by_lab.each do |lab_name, patient_rules|
+        p
+          | ======== #{lab_name} ========
+        - patient_rules.each do |patient_rule|
+          = patient_rule
+    - else
+      p No tests required.
