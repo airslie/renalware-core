@@ -5,8 +5,9 @@ html lang="en"
 
     title= content_for?(:title) ? yield(:title) : "Renalware v#{Renalware::VERSION}"
 
-    style[type="text/css"] = Rails.application.assets.find_asset('application.css').to_s
-    style[type="text/css"] = Rails.application.assets.find_asset('print/pathology_request_forms.css').to_s
+    = stylesheet_link_tag "application", media: :all
+    = stylesheet_link_tag "print/pathology_request_forms", media: :all
+    = javascript_include_tag "vendor/modernizr"
 
     = csrf_meta_tag
 
@@ -34,7 +35,7 @@ html lang="en"
           = f.input :clinic_id, as: :hidden
           = f.input :consultant_id, as: :hidden
           = f.input :telephone, as: :hidden
-          = f.button :submit, "Print Forms"
+          = f.button :submit, "Print Forms", data: { confirm: "Are you sure you want to print this form? Printing will result in a request being logged which will effect the patholgoy algorithm's results." }
 
     hr.page_break
 
@@ -42,3 +43,5 @@ html lang="en"
       - if request_form.has_tests_required?
         = render partial: "renalware/pathology/requests/requests/request_form.html.slim",
           locals: { request_form: request_form }
+
+    = javascript_include_tag "application"

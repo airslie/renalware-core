@@ -5,8 +5,9 @@ html lang="en"
 
     title= content_for?(:title) ? yield(:title) : "Renalware v#{Renalware::VERSION}"
 
-    style[type="text/css"] = Rails.application.assets.find_asset('application.css').to_s
-    style[type="text/css"] = Rails.application.assets.find_asset('print/pathology_request_forms.css').to_s
+    / CSS needs to be inlined to work with wicked_pdf gem
+    style[type="text/css"] = find_asset_str("application.css")
+    style[type="text/css"] = find_asset_str("print/pathology_request_forms.css")
 
     = csrf_meta_tag
 

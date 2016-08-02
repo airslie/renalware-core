@@ -6,21 +6,23 @@ module Renalware
       class RequestsController < Pathology::BaseController
         before_filter :load_patients
 
+        layout false
+
         # NOTE: This needs to be POST since params[:patient_ids] may exceed url char limit in GET
         def new
-          render :new, layout: false, locals: local_vars.merge(
-            all_clinics: Renalware::Clinics::Clinic.ordered,
-            all_consultants: Renalware::Pathology::Consultant.ordered
-          )
+          render :new,
+            locals: local_vars.merge(
+              all_clinics: Renalware::Clinics::Clinic.ordered,
+              all_consultants: Renalware::Pathology::Consultant.ordered
+            )
         end
 
         def create
           requests.each { |request| request.print_form }
 
-          render pdf: "test",
+          render pdf: "create",
             locals: local_vars,
-            layout: false,
-            extra: "--no-print-media-type" # NOTE: Foundation CSS does not work well in print media
+            extra: "--no-print-media-type" # NOTE: Foundation CSS does not work well in print mode
         end
 
         private
