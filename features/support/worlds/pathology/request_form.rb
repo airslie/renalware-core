@@ -70,12 +70,16 @@ module World
           )
         end
 
+        def print_request_forms(request_forms)
+          request_forms.each { |request_form| request_form.print_form }
+        end
+
         # @section expectations
         #
-        def expect_patient_summary_to_match_table(request_forms, patient, expected_table)
+        def expect_patient_summary_to_match_table(request_forms, patient, expected_values)
           request_form = find_request_form_for_patient(request_forms, patient)
 
-          expected_table.rows_hash.each do |key, expected_value|
+          expected_values.each do |key, expected_value|
             expected_value = nil if expected_value.blank?
 
             expect(request_form.send(key.to_sym).to_s).to eq(expected_value.to_s)
@@ -129,6 +133,40 @@ module World
           patient_names = patients.map(&:full_name)
 
           expect(request_forms_names).to eq(patient_names)
+        end
+
+        def expect_request_form_recorded_and_printed(patient, params)
+          expect_request_form_recorded(patient, params)
+        end
+
+        def expect_request_form_recorded(patient, params)
+          patient = Renalware::Pathology.cast_patient(patient)
+          clinic = find_requested_clinic(params[:clinic])
+          consultant = find_or_create_requested_consultant(params[:consultant])
+          request_descriptions =
+            params[:request_descriptions].split(", ").map do |request_description_code|
+              Renalware::Pathology::RequestDescription.find_or_create_by(
+                code: request_description_code
+              )
+            end
+          patient_rules = params[:patient_rules].split(", ").map do |test_description|
+            Renalware::Pathology::Requests::PatientRule.find_or_create_by(
+              test_description: test_description
+            )
+          end
+
+          request =
+            Renalware::Pathology::Requests::Request
+            .includes(:request_descriptions, :patient_rules)
+            .where(
+              patient: patient,
+              clinic: clinic,
+              consultant: consultant,
+              pathology_request_descriptions: { id: request_descriptions.map(&:id) },
+              pathology_requests_patient_rules: { id: patient_rules.map(&:id) }
+            )
+
+          expect(request).to be_exist
         end
 
         private
@@ -204,10 +242,14 @@ module World
           update_request_form_clinic(clinic.name)
         end
 
+        def print_request_forms(_request_forms)
+          click_on "Print Forms"
+        end
+
         # @section expectations
         #
-        def expect_patient_summary_to_match_table(_request_forms, patient, expected_table)
-          expected_table.rows_hash.each do |key, expected_value|
+        def expect_patient_summary_to_match_table(_request_forms, patient, expected_values)
+          expected_values.each do |key, expected_value|
             xpath =
               "//div[data-patient-id='#{patient.id}'][data-role='form_summary']//td[data-role='#{key}']"
             value_in_web = find(xpath).text
@@ -241,6 +283,12 @@ module World
 
             expect(request_form.present?).to be_truthy
           end
+        end
+
+        def expect_request_form_recorded_and_printed(patient, params)
+          expect_request_form_recorded(patient, params)
+
+          expect(page.response_headers["Content-Type"]).to eq("application/pdf")
         end
 
         private

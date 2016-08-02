@@ -1,0 +1,47 @@
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8"
+
+    title= content_for?(:title) ? yield(:title) : "Renalware v#{Renalware::VERSION}"
+
+    = stylesheet_link_tag "application", media: :all
+    = stylesheet_link_tag "print/pathology_request_forms", media: :all
+    = javascript_include_tag "vendor/modernizr"
+
+    = csrf_meta_tag
+
+  body
+    .row
+      h4 Pathology Request CRS Form Preview
+
+    .row
+      .large-4.columns
+        = simple_form_for request_html_form_params,
+          url: pathology_requests_request_path,
+          as: :request do |f|
+          = f.input :patient_ids, as: :hidden_array
+          = f.input :clinic_id, collection: all_clinics, input_html: { class: "small-input" }
+          = f.input :consultant_id,
+            collection: all_consultants,
+            label_method: :full_name, input_html: { class: "small-input" }
+          = f.input :telephone, input_html: { class: "small-input" }
+          = f.button :submit, "Update Forms"
+
+        = simple_form_for request_html_form_params,
+          url: pathology_requests_requests_path(format: :pdf),
+          as: :request do |f|
+          = f.input :patient_ids, as: :hidden_array
+          = f.input :clinic_id, as: :hidden
+          = f.input :consultant_id, as: :hidden
+          = f.input :telephone, as: :hidden
+          = f.button :submit, "Print Forms", data: { confirm: "Are you sure you want to print this form? Printing will result in a request being logged which will effect the patholgoy algorithm's results." }
+
+    hr.page_break
+
+    - requests.each do |request_form|
+      - if request_form.has_tests_required?
+        = render partial: "renalware/pathology/requests/requests/request_form.html.slim",
+          locals: { request_form: request_form }
+
+    = javascript_include_tag "application"
