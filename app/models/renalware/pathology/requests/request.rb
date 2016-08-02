@@ -29,6 +29,10 @@ module Renalware
         def has_tests_required?
           has_global_requests? || has_patient_requests?
         end
+
+        def requested_on
+          created_at.to_date
+        end
       end
     end
   end

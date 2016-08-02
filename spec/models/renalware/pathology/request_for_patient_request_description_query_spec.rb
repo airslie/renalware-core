@@ -1,11 +1,7 @@
 require "rails_helper"
 
 describe Renalware::Pathology::RequestForPatientRequestDescriptionQuery do
-  let!(:patient) do
-    Renalware::Pathology.cast_patient(
-      create(:patient)
-    )
-  end
+  let!(:patient) { create(:pathology_patient) }
   let!(:request_description) { create(:pathology_request_description) }
   let!(:request_description_unrelated) { create(:pathology_request_description) }
 
