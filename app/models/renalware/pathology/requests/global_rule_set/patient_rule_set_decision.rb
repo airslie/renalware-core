@@ -3,6 +3,9 @@ module Renalware
     module Requests
       class GlobalRuleSet
         class PatientRuleSetDecision
+          OBSERVATION_REQUIRED = true
+          OBSERVATION_NOT_REQUIRED = false
+
           def initialize(patient, rule_set)
             @rule_set = rule_set
             @patient = patient
@@ -10,40 +13,43 @@ module Renalware
 
           # NOTE: Decide if a rule_set applies to a patient
           def call
-            date = Date.current
+            date_today = Date.current
 
-            return false if request_still_being_processed?(date)
-            return false unless required_from_rules?
-            required_from_last_observation?(date)
+            if last_observation.present?
+              return OBSERVATION_NOT_REQUIRED unless observation_required_from_frequency?(
+                date_today,
+                last_observation,
+                @rule_set.frequency
+              )
+            end
+
+            if last_request.present?
+              return OBSERVATION_NOT_REQUIRED unless last_request_has_expired?(
+                date_today,
+                last_request,
+                @rule_set.request_description.expiration_days
+              )
+            end
+
+            required_from_rules?
           end
 
           private
 
-          def request_still_being_processed?(date)
-            expiration_days = @rule_set.request_description.expiration_days
+          def observation_required_from_frequency?(date_today, last_observation, frequency)
+            observed_days_ago = date_today - last_observation.observed_on
+            frequency.observation_required?(observed_days_ago)
+          end
 
-            return false if last_request.nil? || expiration_days.nil? || last_observation.present?
-
-            days_ago_observed = date - last_request.requested_on
-            days_ago_observed < expiration_days
+          def last_request_has_expired?(date_today, last_request, expiration_days)
+            requested_days_ago = date_today - last_request.requested_on
+            requested_days_ago >= expiration_days
           end
 
           def required_from_rules?
             @rule_set.rules
               .map { |rule| rule.required_for_patient?(@patient) }
               .all?
-          end
-
-          def required_from_last_observation?(date)
-            if @rule_set.frequency.once? && last_request.present? && last_observation.nil?
-              return false
-            elsif last_observation.nil?
-              return true
-            end
-
-            days_ago_observed = date - last_observation.observed_on
-
-            @rule_set.frequency.exceeds?(days_ago_observed)
           end
 
           def last_observation

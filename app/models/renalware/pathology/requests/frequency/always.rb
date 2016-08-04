@@ -4,7 +4,7 @@ module Renalware
   module Pathology
     module Requests
       class Frequency::Always < Frequency
-        def exceeds?(_days)
+        def observation_required?(_last_observed_on)
           true
         end
       end
