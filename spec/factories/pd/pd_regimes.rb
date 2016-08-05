@@ -27,6 +27,7 @@ FactoryGirl.define do
     tidal_percentage 30
     no_cycles_per_apd 2
     overnight_pd_ml 5100
+    apd_machine_pac "123-4567-890"
   end
 
 end
