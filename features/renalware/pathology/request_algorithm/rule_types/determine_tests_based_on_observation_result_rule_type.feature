@@ -2,9 +2,6 @@ Feature: Determining observations required based on an observation result rule t
 
   A rule with rule_type "ObservationResult" makes a numerical comparison on a patient's observation_result with a given value.
 
-  Background:
-    Given request description BFF requires observation description B12
-
   Scenario Outline:
     Given the global rule sets:
       | request_description_code     | BFF        |

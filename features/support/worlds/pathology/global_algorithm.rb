@@ -9,6 +9,8 @@ module World
             case params["type"]
               when "ObservationResult" then
                 Renalware::Pathology::ObservationDescription.find_by!(code: params["id"]).id
+              when "RequestResult" then
+                Renalware::Pathology::RequestDescription.find_by!(code: params["id"]).id
               when "PrescriptionDrugId" then
                 Renalware::Drugs::Drug.find_by!(name: params["id"]).id
               when "PrescriptionDrugType" then
