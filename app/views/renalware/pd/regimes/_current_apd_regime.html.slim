@@ -7,7 +7,7 @@
         = "#{current.last_fill_ml} ml"
 
       li
-        b Additional manual exchange?:
+        b Add'l manual exchange?:
         | &nbsp;
         = yes_no(current.add_manual_exchange)
 
@@ -24,11 +24,16 @@
   .large-6.columns
     ul.no-bullet
       li
-        b Number of cycles per APD session:
+        b Cycles per session:
         | &nbsp;
         = current.no_cycles_per_apd
 
       li
-        b Overnight PD volume on APD:
+        b Overnight PD vol on APD:
         | &nbsp;
         = "#{current.overnight_pd_ml} ml"
+
+      li
+        b Machine PAC:
+        | &nbsp;
+        = current.apd_machine_pac

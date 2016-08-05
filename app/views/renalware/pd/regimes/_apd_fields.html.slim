@@ -5,7 +5,7 @@
       = r.text_field :last_fill_ml
 
       = r.check_box :add_manual_exchange
-      = r.label :add_manual_exchange, "Additional manual exchange"
+      = r.label :add_manual_exchange, "Add'l manual exchange"
 
     = field_set_tag "Tidal" do
       = r.check_box :tidal_indicator
@@ -15,8 +15,11 @@
       = r.select :tidal_percentage, tidal_options, { prompt: "Please select from options" }, class: "pd-regime-tidal-percentage-select"
 
     = field_set_tag "Additional APD Info" do
-      = r.label :no_cycles_per_apd, "Number of cycles per APD session"
+      = r.label :no_cycles_per_apd, "Cycles per session"
       = r.text_field :no_cycles_per_apd
 
-      = r.label :overnight_pd_ml, "Overnight PD volume on APD (ml)"
+      = r.label :overnight_pd_ml, "Overnight PD vol on APD (ml)"
       = r.text_field :overnight_pd_ml
+
+      = r.label :apd_machine_pac, "Machine PAC"
+      = r.text_field :apd_machine_pac
