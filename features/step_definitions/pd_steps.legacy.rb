@@ -180,7 +180,7 @@ When(/^I complete the form for a apd regime$/) do
 
   fill_in "Overnight PD vol on APD", with: 3100
 
-  fill_in "Machine PAC", with "123-4567-890"
+  fill_in "Machine PAC", with: "123-4567-890"
 
   click_on "Save"
 end
