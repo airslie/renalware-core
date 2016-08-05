@@ -18,6 +18,7 @@ class CreatePDRegimes < ActiveRecord::Migration
       t.integer :tidal_percentage
       t.integer :no_cycles_per_apd
       t.integer :overnight_pd_ml
+      t.string :apd_machine_pac
       t.timestamps null: false
     end
   end
