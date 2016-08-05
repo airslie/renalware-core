@@ -11,7 +11,7 @@ module World
                 Renalware::Pathology::ObservationDescription.find_by!(code: params["id"]).id
               when "PrescriptionDrugId" then
                 Renalware::Drugs::Drug.find_by!(name: params["id"]).id
-              when "DrugType" then
+              when "PrescriptionDrugType" then
                 Renalware::Drugs::Type.find_by!(name: params["id"]).id
             end
 

@@ -9,8 +9,8 @@ Feature: Determining observations required based on patient's drug types
       | clinic                       | Access     |
       | frequency_type               | Always     |
     And the rule set contains these rules:
-      | type     | id  | operator | value |
-      | DrugType | ESA |          |       |
+      | type                 | id  | operator | value |
+      | PrescriptionDrugType | ESA |          |       |
     And Patty is a patient
     And Patty has the following prescriptions:
       | drug_name    | dose          | frequency | route_code | provider | terminated_on |
