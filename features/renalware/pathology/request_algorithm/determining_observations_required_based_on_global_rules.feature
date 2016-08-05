@@ -111,9 +111,9 @@ Feature: Determining observations required based on global rules
       | clinic                   | Access |
       | frequency_type           | Always |
     And the rule set contains these rules:
-      | type              | id               | operator | value |
-      | ObservationResult | HGB              | <        | 100   |
-      | Drug              | Ephedrine Tablet | include? |       |
+      | type               | id               | operator | value |
+      | ObservationResult  | HGB              | <        | 100   |
+      | PrescriptionDrugId | Ephedrine Tablet | include? |       |
     And Patty has observed an HGB value of <observation_result>
     And Patty is currently prescribed Ephedrine Tablet <drug_perscribed>
     When the global pathology algorithm is run for Patty in clinic Access
