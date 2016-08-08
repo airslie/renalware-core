@@ -1,0 +1,26 @@
+.row
+  h1 Request Form Print History
+
+.row
+  - if requests.empty?
+    p No requests forms have been printed yet.
+  - else
+    table#requests
+      thead
+        tr
+          th
+          th Patient
+          th Clinic
+          th Consultant
+          th Printed On
+
+      tbody
+        - requests.each do |request|
+          tr
+            td View
+            td = request.patient.full_name
+            td = request.clinic.name
+            td = request.consultant.full_name
+            td = I18n.l request.printed_on
+
+    = paginate requests
