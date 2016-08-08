@@ -8,7 +8,7 @@
         dl= "#{@pd_regime.last_fill_ml} ml"
 
       .large-4.columns
-        dt Additional manual exchange?:
+        dt Add'l manual exchange?:
         dl= yes_no(@pd_regime.add_manual_exchange)
 
       .large-4.columns
@@ -21,9 +21,13 @@
         dl= "#{@pd_regime.tidal_percentage} %"
 
       .large-4.columns
-        dt Number of cycles per APD session:
+        dt Cycles per session:
         dl= @pd_regime.no_cycles_per_apd
 
       .large-4.columns
-        dt Overnight PD volume on APD:
+        dt Overnight PD vol on APD:
         dl= "#{@pd_regime.overnight_pd_ml} ml"
+
+      .large-4.columns
+        dt Machine PAC:
+        dl= @pd_regime.apd_machine_pac

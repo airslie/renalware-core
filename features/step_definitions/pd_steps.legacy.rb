@@ -84,6 +84,7 @@ Given(/^a patient has existing APD Regimes$/) do
     tidal_percentage: 10,
     no_cycles_per_apd: 3,
     overnight_pd_ml: 7600,
+    apd_machine_pac: "123-4567-890",
     regime_bags_attributes: [
       bag_type: bag_type,
       volume: 600,
@@ -115,6 +116,7 @@ Given(/^a patient has existing APD Regimes$/) do
     tidal_percentage: nil,
     no_cycles_per_apd: 4,
     overnight_pd_ml: 7800,
+    apd_machine_pac: "123-4567-890",
     regime_bags_attributes: [
       bag_type: bag_type,
       volume: 2000,
@@ -168,15 +170,17 @@ When(/^I complete the form for a apd regime$/) do
   #APD specific fields
   fill_in "Last Fill (ml)", with: 520
 
-  check "Additional manual exchange"
+  check "Add'l manual exchange"
 
   check "Has tidal?"
 
   select "75", from: "Tidal (%)"
 
-  fill_in "Number of cycles per APD session", with: 3
+  fill_in "Cycles per session", with: 3
 
-  fill_in "Overnight PD volume on APD", with: 3100
+  fill_in "Overnight PD vol on APD", with: 3100
+
+  fill_in "Machine PAC", with: "123-4567-890"
 
   click_on "Save"
 end
@@ -202,7 +206,7 @@ When(/^I choose to edit and update the form for a apd regime$/) do
 
   fill_in "End date", with: "30/08/2015"
 
-  check "Additional manual exchange"
+  check "Add'l manual exchange"
 
   click_on "Update"
 end
@@ -303,11 +307,12 @@ Then(/^the new apd regime should be current$/) do
     )
 
     expect(page).to have_content("Last Fill: 520")
-    expect(page).to have_content("Additional manual exchange?: Yes")
+    expect(page).to have_content("Add'l manual exchange?: Yes")
     expect(page).to have_content("Tidal?: Yes")
     expect(page).to have_content("Tidal: 75 %")
-    expect(page).to have_content("Number of cycles per APD session: 3")
-    expect(page).to have_content("Overnight PD volume on APD: 3100")
+    expect(page).to have_content("Cycles per session: 3")
+    expect(page).to have_content("Overnight PD vol on APD: 3100")
+    expect(page).to have_content("Machine PAC: 123-4567-890")
   end
 end
 
@@ -354,14 +359,16 @@ Then(/^I should see the chosen apd regime details$/) do
   expect(page).to have_content("Yes")
   expect(page).to have_content("Last fill")
   expect(page).to have_content("535 ml")
-  expect(page).to have_content("Additional manual exchange?")
+  expect(page).to have_content("Add'l manual exchange?")
   expect(page).to have_content("Yes")
   expect(page).to have_content("Has tidal?")
   expect(page).to have_content("No")
-  expect(page).to have_content("Number of cycles per APD session")
+  expect(page).to have_content("Cycles per session")
   expect(page).to have_content("4")
-  expect(page).to have_content("Overnight PD volume on APD")
+  expect(page).to have_content("Overnight PD vol on APD")
   expect(page).to have_content("7800 ml")
+  expect(page).to have_content("Machine PAC")
+  expect(page).to have_content("123-4567-890")
 
   #saved bag for this regime:
   #bag 1

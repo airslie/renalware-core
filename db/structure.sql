@@ -2317,6 +2317,7 @@ CREATE TABLE pd_regimes (
     tidal_percentage integer,
     no_cycles_per_apd integer,
     overnight_pd_ml integer,
+    apd_machine_pac character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
