@@ -14,11 +14,11 @@ module Renalware
           # NOTE: Decide if a rule_set applies to a patient
           def call
             if last_observation.present?
-              return OBSERVATION_NOT_REQUIRED unless observation_required_from_frequency?
+              return OBSERVATION_NOT_REQUIRED if last_observation_too_recent?
             end
 
-            if last_request.present? && last_request_has_no_observation_result?
-              return OBSERVATION_NOT_REQUIRED unless last_request_has_expired?
+            if last_request.present?
+              return OBSERVATION_NOT_REQUIRED if last_request_still_being_processed?
             end
 
             if required_from_rules?
@@ -30,17 +30,19 @@ module Renalware
 
           private
 
-          def observation_required_from_frequency?
+          def last_observation_too_recent?
             observed_days_ago = date_today - last_observation.observed_on
-            @rule_set.frequency.observation_required?(observed_days_ago)
+            !@rule_set.frequency.observation_required?(observed_days_ago)
           end
 
-          def last_request_has_expired?
+          def last_request_still_being_processed?
+            return false if last_request_has_an_observation_result?
+
             expiration_days = @rule_set.request_description.expiration_days
-            return false unless expiration_days > 0
+            return false if expiration_days == 0
 
             requested_days_ago = date_today - last_request.requested_on
-            requested_days_ago >= expiration_days
+            requested_days_ago < expiration_days
           end
 
           def required_from_rules?
@@ -49,8 +51,9 @@ module Renalware
               .all?
           end
 
-          def last_request_has_no_observation_result?
-            !(last_observation.present? && last_observation.observed_on > last_request.requested_on)
+          def last_request_has_an_observation_result?
+            last_observation.present? &&
+              last_observation.observed_on > last_request.requested_on
           end
 
           def last_observation
