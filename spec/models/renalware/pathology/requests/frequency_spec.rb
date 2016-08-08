@@ -7,8 +7,8 @@ module Renalware
         describe Once do
           subject(:frequency) { Once.new }
 
-          describe "#exceeds?" do
-            it { expect(frequency.exceeds?(1)).to be_falsey }
+          describe "#observation_required?" do
+            it { expect(frequency.observation_required?(1)).to be_falsey }
           end
 
           describe "#once?" do
@@ -19,8 +19,8 @@ module Renalware
         describe Always do
           subject(:frequency) { Always.new }
 
-          describe "#exceeds?" do
-            it { expect(frequency.exceeds?(1)).to be_truthy }
+          describe "#observation_required?" do
+            it { expect(frequency.observation_required?(1)).to be_truthy }
           end
 
           describe "#once?" do
@@ -31,13 +31,13 @@ module Renalware
         describe Weekly do
           subject(:frequency) { Weekly.new }
 
-          describe "#exceeds?" do
+          describe "#observation_required?" do
             context "given the days ago is 6" do
-              it { expect(frequency.exceeds?(6)).to be_falsey }
+              it { expect(frequency.observation_required?(6)).to be_falsey }
             end
 
             context "given the days ago is 7" do
-              it { expect(frequency.exceeds?(7)).to be_truthy }
+              it { expect(frequency.observation_required?(7)).to be_truthy }
             end
           end
 
@@ -49,13 +49,13 @@ module Renalware
         describe Monthly do
           subject(:frequency) { Monthly.new }
 
-          describe "#exceeds?" do
+          describe "#observation_required?" do
             context "given the days ago is 27" do
-              it { expect(frequency.exceeds?(27)).to be_falsey }
+              it { expect(frequency.observation_required?(27)).to be_falsey }
             end
 
             context "given the days ago is 28" do
-              it { expect(frequency.exceeds?(28)).to be_truthy }
+              it { expect(frequency.observation_required?(28)).to be_truthy }
             end
           end
 
