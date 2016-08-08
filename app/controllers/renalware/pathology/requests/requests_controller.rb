@@ -14,6 +14,17 @@ module Renalware
           render :index, locals: { requests: requests }
         end
 
+        def show
+          request = RequestPresenter.new(
+            Request.find(params[:id])
+          )
+          authorize request
+          render pdf: "show",
+            layout: false,
+            locals: { request: request },
+            extra: "--no-print-media-type" # NOTE: Foundation CSS does not work well in print mode
+        end
+
         # NOTE: This needs to be POST since params[:patient_ids] may exceed url char limit in GET
         def new
           render :new,
