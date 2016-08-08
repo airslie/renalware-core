@@ -37,6 +37,13 @@ Given(/^Doug is Patty's doctor$/) do
   @doug = @patty.doctor
 end
 
+Given(/^Patty is a diabetic (yes|no)$/) do |diabetic|
+  if diabetic == "yes"
+    @patty.diabetic = true
+    @patty.save!
+  end
+end
+
 Given(/^the following patients:$/) do |table|
   table.raw.flatten.each do |patient_name|
     given_name, family_name = patient_name.split(" ")

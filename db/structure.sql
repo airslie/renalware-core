@@ -1972,7 +1972,8 @@ CREATE TABLE patients (
     email character varying,
     document jsonb,
     religion_id integer,
-    language_id integer
+    language_id integer,
+    diabetic boolean DEFAULT false NOT NULL
 );
 
 
@@ -6189,4 +6190,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160728103933');
 INSERT INTO schema_migrations (version) VALUES ('20160729083654');
 
 INSERT INTO schema_migrations (version) VALUES ('20160729095901');
+
+INSERT INTO schema_migrations (version) VALUES ('20160805120015');
 
