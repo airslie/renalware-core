@@ -9,9 +9,11 @@ module Renalware
         before_filter :load_patients, only: [:new, :create]
 
         def index
-          requests = Request.ordered.page(@page).per(@per_page)
+          requests_query = RequestQuery.new(query_params)
+          requests = requests_query.call.page(@page).per(@per_page)
           authorize requests
-          render :index, locals: { requests: requests }
+
+          render :index, locals: { requests: requests, query: requests_query.search }
         end
 
         def show
@@ -83,6 +85,10 @@ module Renalware
           patient_ids = raw_request_params[:patient_ids]
           @patients = Pathology::OrderedPatientQuery.new(patient_ids).call
           authorize Renalware::Patient
+        end
+
+        def query_params
+          params.fetch(:q, {})
         end
       end
     end
