@@ -4,7 +4,7 @@ module Renalware
   module Pathology
     module Requests
       class Frequency
-        def exceeds?(_days)
+        def observation_required?(_days)
           raise NotImplementedError
         end
 

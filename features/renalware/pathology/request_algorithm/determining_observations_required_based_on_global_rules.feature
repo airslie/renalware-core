@@ -58,7 +58,7 @@ Feature: Determining observations required based on global rules
        | Weekly         | 5 days ago    | not required  |
        | Weekly         | 7 days ago    | required      |
 
-  Scenario Outline: The required observations were determined based on the date of the last observation, the frequency and a single parameter.
+  Scenario Outline: The required observations were determined based on the date of the last observation, the frequency and single parameter.
 
     This scenario encodes the following rule as an example:
 
@@ -147,13 +147,29 @@ Feature: Determining observations required based on global rules
     Examples:
       | frequency_type | last_requested | last_observed | determination |
       | Always         |                |               | required      |
+      | Always         | 1 day ago      |               | not required  |
+      | Always         | 1 day ago      | 6 days ago    | not required  |
+      | Always         | 1 day ago      | 8 days ago    | not required  |
       | Always         | 6 days ago     |               | not required  |
+      | Always         | 6 days ago     | 1 day ago     | required      |
+      | Always         | 6 days ago     | 8 days ago    | not required  |
       | Always         | 7 days ago     |               | required      |
-      | Always         | 6 days ago     | 1 days ago    | required      |
-      | Always         | 7 days ago     | 1 days ago    | required      |
+      | Always         | 7 days ago     | 1 day ago     | required      |
+      | Always         | 7 days ago     | 8 days ago    | required      |
 
       | Once           |                |               | required      |
       | Once           | 6 days ago     |               | not required  |
-      | Once           | 7 days ago     |               | not required  |
-      | Once           | 6 days ago     | 1 days ago    | not required  |
-      | Once           | 7 days ago     | 1 days ago    | not required  |
+      | Once           | 7 days ago     |               | required      |
+      | Once           | 6 days ago     | 1 day ago     | not required  |
+      | Once           | 7 days ago     | 1 day ago     | not required  |
+
+      | Weekly         |                |               | required      |
+      | Weekly         | 1 day ago      |               | not required  |
+      | Weekly         | 1 day ago      | 6 days ago    | not required  |
+      | Weekly         | 1 day ago      | 8 days ago    | not required  |
+      | Weekly         | 6 days ago     |               | not required  |
+      | Weekly         | 6 days ago     | 1 day ago     | not required  |
+      | Weekly         | 6 days ago     | 8 days ago    | not required  |
+      | Weekly         | 7 days ago     |               | required      |
+      | Weekly         | 7 days ago     | 1 day ago     | not required  |
+      | Weekly         | 7 days ago     | 8 days ago    | required      |
