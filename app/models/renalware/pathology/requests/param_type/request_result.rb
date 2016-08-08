@@ -27,8 +27,9 @@ module Renalware
             @observation_result ||= begin
 
               observation =
-                ::Renalware::Pathology::ObservationForPatientObservationDescriptionQuery
-                  .new(@patient, observation_description).call
+                ::Renalware::Pathology::ObservationForPatientObservationDescriptionQuery.new(
+                  @patient, observation_description
+                ).call
 
               observation.result.to_i if observation.present?
             end
@@ -36,7 +37,9 @@ module Renalware
 
           def observation_description
             @observation_description ||=
-              Renalware::Pathology::RequestDescription.find(@param_id).required_observation_description
+              Renalware::Pathology::RequestDescription.find(
+                @param_id
+              ).required_observation_description
           end
         end
       end
