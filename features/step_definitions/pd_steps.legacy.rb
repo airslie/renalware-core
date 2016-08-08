@@ -116,7 +116,7 @@ Given(/^a patient has existing APD Regimes$/) do
     tidal_percentage: nil,
     no_cycles_per_apd: 4,
     overnight_pd_ml: 7800,
-    apd_machine_pac: "123-4567-899",
+    apd_machine_pac: "123-4567-890",
     regime_bags_attributes: [
       bag_type: bag_type,
       volume: 2000,
