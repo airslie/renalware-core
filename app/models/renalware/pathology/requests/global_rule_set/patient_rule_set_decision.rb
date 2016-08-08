@@ -13,13 +13,8 @@ module Renalware
 
           # NOTE: Decide if a rule_set applies to a patient
           def call
-            if last_observation.present?
-              return OBSERVATION_NOT_REQUIRED if last_observation_too_recent?
-            end
-
-            if last_request.present?
-              return OBSERVATION_NOT_REQUIRED if last_request_still_being_processed?
-            end
+            return OBSERVATION_NOT_REQUIRED if last_observation_too_recent?
+            return OBSERVATION_NOT_REQUIRED if last_request_still_being_processed?
 
             if required_from_rules?
               OBSERVATION_REQUIRED
@@ -31,12 +26,14 @@ module Renalware
           private
 
           def last_observation_too_recent?
+            return false if last_observation.nil?
+
             observed_days_ago = date_today - last_observation.observed_on
             !@rule_set.frequency.observation_required?(observed_days_ago)
           end
 
           def last_request_still_being_processed?
-            return false if last_request_has_an_observation_result?
+            return false if last_request.nil? || last_request_has_an_observation_result?
 
             expiration_days = @rule_set.request_description.expiration_days
             return false if expiration_days == 0
