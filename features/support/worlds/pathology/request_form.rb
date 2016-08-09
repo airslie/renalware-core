@@ -55,7 +55,10 @@ module World
         def create_request(params)
           request_descriptions =
             params[:request_descriptions].map do |code|
-              Renalware::Pathology::RequestDescription.find_or_create_by(code: code)
+              Renalware::Pathology::RequestDescription.find_or_create_by(
+                code: code,
+                bottle_type: "serum"
+              )
             end
 
           Renalware::Pathology::Requests::Request.create!(
@@ -98,14 +101,13 @@ module World
 
         def expect_request_description_required(request_forms, patient, expected_request_description_code)
           request_form = find_request_form_for_patient(request_forms, patient)
-          patient_request_descriptions = request_form.global_requests_by_lab.values.flatten
 
           expected_request_description =
             Renalware::Pathology::RequestDescription.find_by!(
               code: expected_request_description_code
             )
 
-          expect(patient_request_descriptions).to include(expected_request_description)
+          expect(request_form.request_descriptions).to include(expected_request_description)
         end
 
         def expect_no_request_descriptions_required(request_forms, patient)
@@ -146,7 +148,8 @@ module World
           request_descriptions =
             params[:request_descriptions].split(", ").map do |request_description_code|
               Renalware::Pathology::RequestDescription.find_or_create_by(
-                code: request_description_code
+                code: request_description_code,
+                bottle_type: "serum"
               )
             end
           patient_rules = params[:patient_rules].split(", ").map do |test_description|

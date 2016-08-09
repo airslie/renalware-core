@@ -24,8 +24,8 @@ Feature: Viewing required pathology for a patient
     Given Clyde is a clinician
     When Clyde views the list of required pathology for Patty in clinic Access
     Then Clyde sees these request descriptions from the global algorithm
-      | Code | Lab          | Name                |
-      | BFF  | Biochemistry | B12/FOLATE/FERRITIN |
+      | Code | Lab          | Bottle Type | Name                |
+      | BFF  | Biochemistry | Serum       | B12/FOLATE/FERRITIN |
     And Clyde sees these observations from the patient algorithm
       | Lab              | Biochemistry        |
       | Description      | Test for HepB       |

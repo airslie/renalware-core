@@ -62,6 +62,7 @@ b12_folate_ferritin:
   code: BFF
   name: B12/FOLATE/FERRITIN
   lab: biochemistry
+  bottle_type: serum
 lipid_profile:
   code: LPRO
   name: LIPID PROFILE
