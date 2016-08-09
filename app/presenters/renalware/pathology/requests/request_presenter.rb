@@ -33,8 +33,10 @@ module Renalware
           ::Renalware::Pathology::Requests::PatientRulePresenter.present(super)
         end
 
-        def global_requests_by_lab
-          request_descriptions.group_by { |request_description| request_description.lab.name }
+        def global_requests_by_lab_and_bottle_type
+          request_descriptions.group_by do |request_description|
+            [request_description.lab.name, request_description.bottle_type]
+          end
         end
 
         def patient_requests_by_lab

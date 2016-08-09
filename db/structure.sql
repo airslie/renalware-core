@@ -1625,7 +1625,8 @@ CREATE TABLE pathology_request_descriptions (
     name character varying,
     required_observation_description_id integer,
     expiration_days integer DEFAULT 0 NOT NULL,
-    lab_id integer NOT NULL
+    lab_id integer NOT NULL,
+    bottle_type character varying
 );
 
 
@@ -6193,4 +6194,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160729083654');
 INSERT INTO schema_migrations (version) VALUES ('20160729095901');
 
 INSERT INTO schema_migrations (version) VALUES ('20160805120015');
+
+INSERT INTO schema_migrations (version) VALUES ('20160809095951');
 

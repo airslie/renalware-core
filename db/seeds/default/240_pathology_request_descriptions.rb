@@ -19,7 +19,8 @@ module Renalware
       name: row["name"],
       lab: labs[row["lab"]],
       required_observation_description: observation_description,
-      expiration_days: row["expiration_days"]
+      expiration_days: row["expiration_days"],
+      bottle_type: row["bottle_type"]
     )
   end
 
