@@ -1,6 +1,6 @@
 Feature: Determining tests required based on patient's prescriptions
 
-  An observation may be required depending on whether or not the patient is currently being
+  An observation may be required depending on whether or not the patient is currently
   prescribed a drug.
 
   Background:

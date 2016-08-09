@@ -12,7 +12,7 @@ Feature: Determining observations required based on patient's transplant date
       | TransplantDateWithinWeeks |    |          | 3     |
     And Patty is a patient
 
-  Scenario Outline: The algorithm determines observations required based on patient's transplant date
+  Scenario Outline: The patient has had a transplant
     Given Patty has a recorded recipient operation performed <transplant_weeks_ago> weeks ago
     When the global pathology algorithm is run for Patty in clinic Access
     Then it is determined the observation is <determination>
@@ -22,6 +22,6 @@ Feature: Determining observations required based on patient's transplant date
        | 2                    | required      |
        | 4                    | not required  |
 
-  Scenario: The algorithm determines observations required even when the patient has no transplant
+  Scenario: The patient has not had a transplant
     Given the global pathology algorithm is run for Patty in clinic Access
     Then it is determined the observation is not required

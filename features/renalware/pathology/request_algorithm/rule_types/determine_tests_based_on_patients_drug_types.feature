@@ -1,6 +1,6 @@
 Feature: Determining observations required based on patient's drug types
 
-  An observation may be required depending on whether or not the patient is currently being
+  An observation may be required depending on whether or not the patient is currently
   prescribed a drug of a specified drug_type.
 
   Scenario: The algorithm determines a test to be required for the patient

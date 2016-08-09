@@ -12,7 +12,7 @@ Feature: Determining observations required based on an observation result rule t
       | type              | id  | operator   | value   |
       | RequestResult     | BFF | ==         | 100     |
     And Patty is a patient
-    And Patty has observed an B12 value of <observation_result>
+    And Patty has observed a B12 value of <observation_result>
     When the global pathology algorithm is run for Patty in clinic Access
     Then it is determined the observation is <determination>
 
