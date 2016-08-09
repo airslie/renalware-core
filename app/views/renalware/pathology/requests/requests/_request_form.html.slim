@@ -26,7 +26,7 @@
 .row.full_height data-role="form_pathology" data-patient-id="#{request_form.patient.id}"
   .border_box_half.columns.full_height
     - if request_form.has_global_requests?
-      - request_form.global_requests_by_lab_and_bottle_type.each do |lab_name, bottle_type, request_descriptions|
+      - request_form.global_requests_by_lab_and_bottle_type.each do |(lab_name, bottle_type), request_descriptions|
         p
           | ==== #{lab_name} (#{bottle_type}) ====
         - request_descriptions.each do |request_description|

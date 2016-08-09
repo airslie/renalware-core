@@ -34,11 +34,9 @@ module Renalware
         end
 
         def global_requests_by_lab_and_bottle_type
-          request_descriptions
-            .group_by do |request_description|
-              [request_description.lab.name, request_description.bottle_type]
-            end
-            .map { |key, request_descriptions| [key[0], key[1], request_descriptions] }
+          request_descriptions.group_by do |request_description|
+            [request_description.lab.name, request_description.bottle_type]
+          end
         end
 
         def patient_requests_by_lab
