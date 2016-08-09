@@ -14,7 +14,7 @@ Given(/^the global rule sets:$/) do |table|
   end
 end
 
-Given(/^(\w+) has observed an ([A-Z0-9]+) value of (\d+)$/) do |patient_name, code, result|
+Given(/^(\w+) has observed (a|an) ([A-Z0-9]+) value of (\d+)$/) do |patient_name, _, code, result|
   patient = get_patient(patient_name)
   record_observations(
     patient: patient,

@@ -18,6 +18,10 @@ Given(/^Patty has a recorded recipient operation$/) do
   @operation = seed_recipient_operation(@patty)
 end
 
+Given(/^Patty has a recorded recipient operation performed (\d+) weeks ago$/) do |weeks_ago|
+  @operation = seed_recipient_operation(@patty, performed_on: weeks_ago.weeks.ago)
+end
+
 Given(/^Don has a donor operation$/) do
   @operation = seed_donor_operation(@don)
 end
