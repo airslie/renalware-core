@@ -14,6 +14,8 @@ module Renalware
         has_and_belongs_to_many :patient_rules,
           class_name: "::Renalware::Pathology::Requests::PatientRule"
 
+        scope :ordered, -> { order(created_at: :desc) }
+
         def print_form
           save
         end
@@ -33,6 +35,7 @@ module Renalware
         def requested_on
           created_at.to_date
         end
+        alias_method :printed_on, :requested_on
       end
     end
   end

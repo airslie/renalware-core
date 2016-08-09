@@ -16,6 +16,11 @@ Given(/^Patty is a patient$/) do
   )
 end
 
+Given(/^Patty's sex is (\w+)$/) do |sex|
+  @patty.sex = sex
+  @patty.save!
+end
+
 Given(/^Don is a patient$/) do
   @don = Renalware::Patient.create!(
     nhs_number: "1234567891",

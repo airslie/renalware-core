@@ -22,14 +22,13 @@ module World
 
       # @section seeding
       #
-      def seed_recipient_operation(patient)
+      def seed_recipient_operation(patient, params = {})
         patient = transplant_patient(patient)
 
-        Renalware::Transplants::RecipientOperation.create!(
-          valid_recipient_operation_attributes.merge(
-            patient: patient,
-          )
-        )
+        operation_attributes = valid_recipient_operation_attributes.merge(patient: patient)
+        params.each { |key, value| operation_attributes[key] = value }
+
+        Renalware::Transplants::RecipientOperation.create!(operation_attributes)
       end
 
       # @section commands

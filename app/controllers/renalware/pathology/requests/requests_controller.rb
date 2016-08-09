@@ -4,13 +4,33 @@ module Renalware
   module Pathology
     module Requests
       class RequestsController < Pathology::BaseController
-        before_filter :load_patients
+        include Renalware::Concerns::Pageable
 
-        layout false
+        before_filter :load_patients, only: [:new, :create]
+
+        def index
+          requests_query = RequestQuery.new(query_params)
+          requests = requests_query.call.page(@page).per(@per_page)
+          authorize requests
+
+          render :index, locals: { requests: requests, query: requests_query.search }
+        end
+
+        def show
+          request = RequestPresenter.new(
+            Request.find(params[:id])
+          )
+          authorize request
+          render pdf: "show",
+            layout: false,
+            locals: { request: request },
+            extra: "--no-print-media-type" # NOTE: Foundation CSS does not work well in print mode
+        end
 
         # NOTE: This needs to be POST since params[:patient_ids] may exceed url char limit in GET
         def new
           render :new,
+            layout: false,
             locals: local_vars.merge(
               all_clinics: Renalware::Clinics::Clinic.ordered,
               all_consultants: Renalware::Pathology::Consultant.ordered
@@ -21,6 +41,7 @@ module Renalware
           requests.each { |request| request.print_form }
 
           render pdf: "create",
+            layout: false,
             locals: local_vars,
             extra: "--no-print-media-type" # NOTE: Foundation CSS does not work well in print mode
         end
@@ -64,6 +85,10 @@ module Renalware
           patient_ids = raw_request_params[:patient_ids]
           @patients = Pathology::OrderedPatientQuery.new(patient_ids).call
           authorize Renalware::Patient
+        end
+
+        def query_params
+          params.fetch(:q, {})
         end
       end
     end
