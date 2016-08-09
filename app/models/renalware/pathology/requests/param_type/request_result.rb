@@ -5,8 +5,10 @@ module Renalware
     module Requests
       module ParamType
         class RequestResult
+          VALID_OPERATORS = ["==", ">", "<", ">=", "<="]
+
           def initialize(patient, param_id, param_comparison_operator, param_comparison_value)
-            unless ["==", ">", "<", ">=", "<="].include?(param_comparison_operator)
+            unless VALID_OPERATORS.include?(param_comparison_operator)
               raise ArgumentError
             end
 

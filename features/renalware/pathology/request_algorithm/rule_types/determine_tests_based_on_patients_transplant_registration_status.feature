@@ -14,7 +14,7 @@ Feature: Determining observations required based on patient's transplant registr
     And Patty is a patient
     And Clyde is a clinician
 
-  Scenario Outline: The algorithm determines observations required based on patient's transplant registration status
+  Scenario Outline: The patient had a transplant registration status
     Given Patty is registered on the wait list
     When Clyde sets the registration status to "<status>" and the start date to "12-10-2016"
     When the global pathology algorithm is run for Patty in clinic Access
@@ -26,6 +26,6 @@ Feature: Determining observations required based on patient's transplant registr
        | Suspended | required      |
 
 
-  Scenario: The algorithm determines observations required when the patient is not registered for transplants
+  Scenario: The patient did not have a transplant registration status
     When the global pathology algorithm is run for Patty in clinic Access
     Then it is determined the observation is not required
