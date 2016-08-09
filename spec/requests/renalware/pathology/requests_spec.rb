@@ -9,9 +9,6 @@ RSpec.describe "requests Requests", type: :request do
       get pathology_requests_path
 
       expect(response).to have_http_status(:success)
-
-      expect(response.body).to include(request_1.patient.family_name)
-      expect(response.body).to include(request_2.patient.family_name)
     end
   end
 
