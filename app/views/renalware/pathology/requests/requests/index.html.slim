@@ -1,0 +1,40 @@
+.row
+  h1 Request Form Print History
+
+.row
+  = simple_form_for query,
+      as: :q,
+      url: pathology_requests_path,
+      method: :get do |f|
+    .row
+      .large-4.columns
+        = f.input :created_on_eq, as: :date_picker, label: "Printed on"
+      .large-2.columns
+        = f.submit "Filter", class: "button"
+      .large-6.columns
+
+.row
+  - if requests.empty?
+    p No requests forms have been printed yet.
+  - else
+    table#requests
+      thead
+        tr
+          th
+          th Patient
+          th Clinic
+          th Consultant
+          th Printed On
+          th Printed By
+
+      tbody
+        - requests.each do |request|
+          tr
+            td = link_to "View", pathology_request_path(id: request.id, format: "pdf")
+            td = request.patient.full_name
+            td = request.clinic.name
+            td = request.consultant.full_name
+            td = I18n.l request.printed_on
+            td = request.created_by.full_name
+
+    = paginate requests

@@ -59,7 +59,7 @@ Rails.application.routes.draw do
     get "authors/:author_id/letters", to: "letters/letters#author", as: "author_letters"
 
     namespace :pathology do
-      resources :forms, only: :create
+      resources :requests, only: [:index, :show], controller: "requests/requests"
     end
 
     namespace :pd do

@@ -1,0 +1,14 @@
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8"
+
+    title= content_for?(:title) ? yield(:title) : "Renalware v#{Renalware::VERSION}"
+
+    / CSS needs to be inlined to work with wicked_pdf gem
+    style[type="text/css"] = find_asset_str("application.css")
+    style[type="text/css"] = find_asset_str("print/pathology_request_forms.css")
+
+    = csrf_meta_tag
+
+  body
