@@ -9,8 +9,8 @@ Feature: Determining tests required based on patient's prescriptions
       | clinic                       | Access     |
       | frequency_type               | Always     |
     And the rule set contains these rules:
-      | type               | id                   | operator | value |
-      | PrescriptionDrugId | Cefuroxime Injection |          |       |
+      | type             | id                   | operator | value |
+      | PrescriptionDrug | Cefuroxime Injection |          |       |
     And Patty is a patient
 
   Scenario: The algorithm determines a test to be required for the patient
