@@ -29,12 +29,14 @@
             tr
               th Code
               th Lab
+              th Bottle Type
               th Name
           tbody
           - request.request_descriptions.each do |request_description|
             tr
               td = request_description.code
               td = request_description.lab.name
+              td = request_description.bottle_type.capitalize
               td = request_description.name
 
   .row
