@@ -24,3 +24,8 @@ Feature: Determining observations required based on patient's transplant registr
        | status    | determination |
        | Active    | not required  |
        | Suspended | required      |
+
+
+  Scenario: The algorithm determines observations required when the patient is not registered for transplants
+    When the global pathology algorithm is run for Patty in clinic Access
+    Then it is determined the observation is not required

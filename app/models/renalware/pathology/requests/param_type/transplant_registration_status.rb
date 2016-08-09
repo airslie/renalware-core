@@ -11,6 +11,8 @@ module Renalware
           end
 
           def required?
+            return false unless registration.present?
+
             registration_status.description.code == @status_code
           end
 

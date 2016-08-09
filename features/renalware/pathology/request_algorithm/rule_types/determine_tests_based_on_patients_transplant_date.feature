@@ -21,3 +21,7 @@ Feature: Determining observations required based on patient's transplant date
        | transplant_weeks_ago | determination |
        | 2                    | required      |
        | 4                    | not required  |
+
+  Scenario: The algorithm determines observations required even when the patient has no transplant
+    Given the global pathology algorithm is run for Patty in clinic Access
+    Then it is determined the observation is not required
