@@ -1,2 +1,2 @@
 "global_rule_set_id","param_type","param_id","param_comparison_operator","param_comparison_value"
-"1","Drug","183","include?",
+"1","PrescriptionDrug","183","include?",
