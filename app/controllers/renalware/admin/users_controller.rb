@@ -45,7 +45,7 @@ module Renalware
     end
 
     def update_user
-      @service ||= UpdateUser.new(@user)
+      @service ||= System::UpdateUser.new(@user)
     end
   end
 end
