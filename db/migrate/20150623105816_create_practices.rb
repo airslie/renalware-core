@@ -9,8 +9,11 @@ class CreatePractices < ActiveRecord::Migration
     end
 
     create_table :doctor_doctors_practices, id: false do |t|
-      t.references :doctor, :practice
+      t.references :doctor, :practice, null: false
     end
+
+    add_foreign_key :doctor_doctors_practices, :doctor_doctors, column: :doctor_id
+    add_foreign_key :doctor_doctors_practices, :doctor_practices, column: :practice_id
 
     add_index :doctor_doctors_practices, [:doctor_id, :practice_id], name: 'index_doctors_practices'
   end

@@ -551,8 +551,8 @@ ALTER SEQUENCE doctor_doctors_id_seq OWNED BY doctor_doctors.id;
 --
 
 CREATE TABLE doctor_doctors_practices (
-    doctor_id integer,
-    practice_id integer
+    doctor_id integer NOT NULL,
+    practice_id integer NOT NULL
 );
 
 
@@ -5434,6 +5434,14 @@ ALTER TABLE ONLY pathology_requests_requests
 
 
 --
+-- Name: fk_rails_3f47dd9cc1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_bookmarks
+    ADD CONSTRAINT fk_rails_3f47dd9cc1 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: fk_rails_40e23de825; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5447,6 +5455,14 @@ ALTER TABLE ONLY pathology_requests_global_rule_sets
 
 ALTER TABLE ONLY access_assessments
     ADD CONSTRAINT fk_rails_506a7ce21d FOREIGN KEY (type_id) REFERENCES access_types(id);
+
+
+--
+-- Name: fk_rails_55ecff6804; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY doctor_doctors_practices
+    ADD CONSTRAINT fk_rails_55ecff6804 FOREIGN KEY (doctor_id) REFERENCES doctor_doctors(id);
 
 
 --
@@ -5562,6 +5578,14 @@ ALTER TABLE ONLY transplant_recipient_followups
 
 
 --
+-- Name: fk_rails_7a89922302; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY doctor_doctors_practices
+    ADD CONSTRAINT fk_rails_7a89922302 FOREIGN KEY (practice_id) REFERENCES doctor_practices(id);
+
+
+--
 -- Name: fk_rails_7dc4363735; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5647,6 +5671,14 @@ ALTER TABLE ONLY patients
 
 ALTER TABLE ONLY letter_recipients
     ADD CONSTRAINT fk_rails_9c76b7ba29 FOREIGN KEY (letter_id) REFERENCES letter_letters(id);
+
+
+--
+-- Name: fk_rails_9dada905f6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY roles_users
+    ADD CONSTRAINT fk_rails_9dada905f6 FOREIGN KEY (role_id) REFERENCES roles(id);
 
 
 --
@@ -5759,6 +5791,14 @@ ALTER TABLE ONLY clinic_visits
 
 ALTER TABLE ONLY hd_sessions
     ADD CONSTRAINT fk_rails_bd995b497c FOREIGN KEY (signed_on_by_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_c12b863727; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_bookmarks
+    ADD CONSTRAINT fk_rails_c12b863727 FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -5879,6 +5919,14 @@ ALTER TABLE ONLY clinics_appointments
 
 ALTER TABLE ONLY events
     ADD CONSTRAINT fk_rails_e1899a68af FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_e2a7142459; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY roles_users
+    ADD CONSTRAINT fk_rails_e2a7142459 FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
