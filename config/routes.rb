@@ -5,6 +5,10 @@ Rails.application.routes.draw do
     sessions: "renalware/devise/sessions"
   }
 
+  # enable mail previews in all environments
+  get "/rails/mailers" => "rails/mailers#index"
+  get "/rails/mailers/*path" => "rails/mailers#preview"
+
   scope module: "renalware" do
     root to: "dashboard/dashboards#show"
 
@@ -60,6 +64,14 @@ Rails.application.routes.draw do
 
     namespace :pathology do
       resources :requests, only: [:index, :show], controller: "requests/requests"
+
+      resources :forms, only: :create
+
+      namespace :requests do
+        # NOTE: This needs to be POST since the params may exceed url char limit in GET
+        post "requests/new", to: "requests#new", as: "request"
+        resources :requests, only: [:create]
+      end
     end
 
     namespace :pd do
@@ -83,6 +95,10 @@ Rails.application.routes.draw do
       resource :wait_list, only: :show
     end
 
+    # Patient-scoped Routes
+    #
+    # Please add all non patient-scoped routes above
+    #
     resources :patients, except: [:destroy] do
       collection do
         get :search
@@ -180,37 +196,5 @@ Rails.application.routes.draw do
         end
       end
     end
-
-    namespace :pathology do
-      resources :forms, only: :create
-
-      namespace :requests do
-        # NOTE: This needs to be POST since the params may exceed url char limit in GET
-        post "requests/new", to: "requests#new", as: "request"
-        resources :requests, only: [:create]
-      end
-    end
-
-    resources :prd_descriptions, only: [:search] do
-      collection do
-        get :search
-      end
-    end
-
-    resources :snomed, only: [:index]
-
-    namespace :system do
-      resources :email_templates, only: :index
-    end
-
-    namespace :transplants do
-      resource :wait_list, only: :show
-    end
-
-    resource :dashboard, only: :show, controller: "dashboard/dashboards"
   end
-
-  # enable mail previews in all environments
-  get "/rails/mailers" => "rails/mailers#index"
-  get "/rails/mailers/*path" => "rails/mailers#preview"
 end
