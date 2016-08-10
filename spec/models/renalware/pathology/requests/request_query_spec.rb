@@ -5,8 +5,31 @@ describe Renalware::Pathology::Requests::RequestQuery do
   let(:request_query) { Renalware::Pathology::Requests::RequestQuery.new(params) }
 
   describe "#call" do
-    let!(:request_new) { create(:pathology_requests_request, created_at: Time.current - 1.day) }
-    let!(:request_old) { create(:pathology_requests_request, created_at: Time.current - 2.day) }
+    let!(:clinic_new) { create(:clinic) }
+    let!(:patient_new) { create(:pathology_patient) }
+    let!(:consultant_new) { create(:pathology_consultant) }
+    let!(:request_new) do
+      create(
+        :pathology_requests_request,
+        clinic: clinic_new,
+        patient: patient_new,
+        consultant: consultant_new,
+        created_at: Time.current - 1.day
+      )
+    end
+    let!(:clinic_old) { create(:clinic) }
+    let!(:patient_old) { create(:pathology_patient) }
+    let!(:consultant_old) { create(:pathology_consultant) }
+    let!(:request_old) do
+      create(
+        :pathology_requests_request,
+        clinic: clinic_old,
+        patient: patient_old,
+        consultant: consultant_old,
+        created_at: Time.current - 2.days
+      )
+    end
+
 
     subject(:request_query) { Renalware::Pathology::Requests::RequestQuery.new(params) }
 
