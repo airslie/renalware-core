@@ -10,6 +10,7 @@ Feature: Marking a letter for review
     And Patty is a patient
     And Doug is Patty's doctor
 
+  @web
   Scenario: A nurse marked the letter typed
     Given Patty has a recorded letter
     When Nathalie marks the letter typed

@@ -11,6 +11,7 @@ Feature: Archiving a letter
     And Doug is Patty's doctor
     And Patty has a typed letter
 
+  @web
   Scenario: A doctor archived a letter
     When Doug archives the letter
     Then an archived copy of the letter is available
