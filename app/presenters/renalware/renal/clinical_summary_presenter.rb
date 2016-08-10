@@ -16,6 +16,10 @@ module Renalware
       def current_problems
         @patient.problems.current.ordered
       end
+
+      def current_events
+        Events::Event.for_patient(@patient)
+      end
     end
   end
 end
