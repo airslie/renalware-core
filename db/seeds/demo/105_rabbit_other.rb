@@ -96,10 +96,10 @@ module Renalware
   log "3 Events seeded"
 
   log '--------------------Adding Doctor for Roger RABBIT---------------------'
-  practice = Practice.first
+  practice = Doctors::Practice.first
   system_user = SystemUser.find
 
-  doctor = Doctor.find_or_create_by!(code: 'GP912837465') do |doc|
+  doctor = Doctors::Doctor.find_or_create_by!(code: 'GP912837465') do |doc|
     doc.given_name = 'John'
     doc.family_name = 'Merrill'
     doc.email = 'john.merrill@nhs.net'

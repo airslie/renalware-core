@@ -4,7 +4,7 @@ module Renalware
   module DoctorsHelper
     def practices_options_for_select(doctor)
       selected_ids = doctor.practices.map(&:id)
-      options_from_collection_for_select(Practice.all, :id, :name, selected_ids)
+      options_from_collection_for_select(Doctors::Practice.all, :id, :name, selected_ids)
     end
 
     def practices_or_address(doctor)

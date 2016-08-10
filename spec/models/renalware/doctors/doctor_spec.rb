@@ -1,7 +1,7 @@
 require 'rails_helper'
 require_dependency "models/renalware/concerns/personable"
 
-module Renalware
+module Renalware::Doctors
   describe Doctor, type: :model do
     subject(:doctor) { create(:doctor) }
 

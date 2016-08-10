@@ -439,6 +439,39 @@ ALTER SEQUENCE clinics_id_seq OWNED BY clinics.id;
 
 
 --
+-- Name: death_edta_codes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE death_edta_codes (
+    id integer NOT NULL,
+    code integer,
+    death_cause character varying,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: death_edta_codes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE death_edta_codes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: death_edta_codes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE death_edta_codes_id_seq OWNED BY death_edta_codes.id;
+
+
+--
 -- Name: delayed_jobs; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -478,10 +511,10 @@ ALTER SEQUENCE delayed_jobs_id_seq OWNED BY delayed_jobs.id;
 
 
 --
--- Name: doctors; Type: TABLE; Schema: public; Owner: -
+-- Name: doctor_doctors; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE doctors (
+CREATE TABLE doctor_doctors (
     id integer NOT NULL,
     given_name character varying,
     family_name character varying,
@@ -495,10 +528,10 @@ CREATE TABLE doctors (
 
 
 --
--- Name: doctors_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: doctor_doctors_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE doctors_id_seq
+CREATE SEQUENCE doctor_doctors_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -507,20 +540,53 @@ CREATE SEQUENCE doctors_id_seq
 
 
 --
--- Name: doctors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: doctor_doctors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE doctors_id_seq OWNED BY doctors.id;
+ALTER SEQUENCE doctor_doctors_id_seq OWNED BY doctor_doctors.id;
 
 
 --
--- Name: doctors_practices; Type: TABLE; Schema: public; Owner: -
+-- Name: doctor_doctors_practices; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE doctors_practices (
-    doctor_id integer,
-    practice_id integer
+CREATE TABLE doctor_doctors_practices (
+    doctor_id integer NOT NULL,
+    practice_id integer NOT NULL
 );
+
+
+--
+-- Name: doctor_practices; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE doctor_practices (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    email character varying,
+    code character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: doctor_practices_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE doctor_practices_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: doctor_practices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE doctor_practices_id_seq OWNED BY doctor_practices.id;
 
 
 --
@@ -595,70 +661,6 @@ CREATE SEQUENCE drugs_id_seq
 --
 
 ALTER SEQUENCE drugs_id_seq OWNED BY drugs.id;
-
-
---
--- Name: edta_codes; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE edta_codes (
-    id integer NOT NULL,
-    code integer,
-    death_cause character varying,
-    deleted_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: edta_codes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE edta_codes_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: edta_codes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE edta_codes_id_seq OWNED BY edta_codes.id;
-
-
---
--- Name: ethnicities; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE ethnicities (
-    id integer NOT NULL,
-    name character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: ethnicities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE ethnicities_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: ethnicities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE ethnicities_id_seq OWNED BY ethnicities.id;
 
 
 --
@@ -1879,6 +1881,37 @@ ALTER SEQUENCE patient_bookmarks_id_seq OWNED BY patient_bookmarks.id;
 
 
 --
+-- Name: patient_ethnicities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE patient_ethnicities (
+    id integer NOT NULL,
+    name character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: patient_ethnicities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE patient_ethnicities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_ethnicities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE patient_ethnicities_id_seq OWNED BY patient_ethnicities.id;
+
+
+--
 -- Name: patient_languages; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2344,71 +2377,6 @@ ALTER SEQUENCE pd_regimes_id_seq OWNED BY pd_regimes.id;
 
 
 --
--- Name: practices; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE practices (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    email character varying,
-    code character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: practices_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE practices_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: practices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE practices_id_seq OWNED BY practices.id;
-
-
---
--- Name: prd_descriptions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE prd_descriptions (
-    id integer NOT NULL,
-    code character varying,
-    term character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: prd_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE prd_descriptions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: prd_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE prd_descriptions_id_seq OWNED BY prd_descriptions.id;
-
-
---
 -- Name: problem_notes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2510,6 +2478,38 @@ CREATE SEQUENCE problem_versions_id_seq
 --
 
 ALTER SEQUENCE problem_versions_id_seq OWNED BY problem_versions.id;
+
+
+--
+-- Name: renal_prd_descriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE renal_prd_descriptions (
+    id integer NOT NULL,
+    code character varying,
+    term character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: renal_prd_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE renal_prd_descriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: renal_prd_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE renal_prd_descriptions_id_seq OWNED BY renal_prd_descriptions.id;
 
 
 --
@@ -3232,6 +3232,13 @@ ALTER TABLE ONLY clinics_appointments ALTER COLUMN id SET DEFAULT nextval('clini
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY death_edta_codes ALTER COLUMN id SET DEFAULT nextval('death_edta_codes_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_id_seq'::regclass);
 
 
@@ -3239,7 +3246,14 @@ ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY doctors ALTER COLUMN id SET DEFAULT nextval('doctors_id_seq'::regclass);
+ALTER TABLE ONLY doctor_doctors ALTER COLUMN id SET DEFAULT nextval('doctor_doctors_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY doctor_practices ALTER COLUMN id SET DEFAULT nextval('doctor_practices_id_seq'::regclass);
 
 
 --
@@ -3254,20 +3268,6 @@ ALTER TABLE ONLY drug_types ALTER COLUMN id SET DEFAULT nextval('drug_types_id_s
 --
 
 ALTER TABLE ONLY drugs ALTER COLUMN id SET DEFAULT nextval('drugs_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY edta_codes ALTER COLUMN id SET DEFAULT nextval('edta_codes_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY ethnicities ALTER COLUMN id SET DEFAULT nextval('ethnicities_id_seq'::regclass);
 
 
 --
@@ -3519,6 +3519,13 @@ ALTER TABLE ONLY patient_bookmarks ALTER COLUMN id SET DEFAULT nextval('patient_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY patient_ethnicities ALTER COLUMN id SET DEFAULT nextval('patient_ethnicities_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY patient_languages ALTER COLUMN id SET DEFAULT nextval('patient_languages_id_seq'::regclass);
 
 
@@ -3603,20 +3610,6 @@ ALTER TABLE ONLY pd_regimes ALTER COLUMN id SET DEFAULT nextval('pd_regimes_id_s
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY practices ALTER COLUMN id SET DEFAULT nextval('practices_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY prd_descriptions ALTER COLUMN id SET DEFAULT nextval('prd_descriptions_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY problem_notes ALTER COLUMN id SET DEFAULT nextval('problem_notes_id_seq'::regclass);
 
 
@@ -3632,6 +3625,13 @@ ALTER TABLE ONLY problem_problems ALTER COLUMN id SET DEFAULT nextval('problem_p
 --
 
 ALTER TABLE ONLY problem_versions ALTER COLUMN id SET DEFAULT nextval('problem_versions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_prd_descriptions ALTER COLUMN id SET DEFAULT nextval('renal_prd_descriptions_id_seq'::regclass);
 
 
 --
@@ -3842,6 +3842,14 @@ ALTER TABLE ONLY clinics
 
 
 --
+-- Name: death_edta_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY death_edta_codes
+    ADD CONSTRAINT death_edta_codes_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3850,11 +3858,19 @@ ALTER TABLE ONLY delayed_jobs
 
 
 --
--- Name: doctors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: doctor_doctors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY doctors
-    ADD CONSTRAINT doctors_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY doctor_doctors
+    ADD CONSTRAINT doctor_doctors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: doctor_practices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY doctor_practices
+    ADD CONSTRAINT doctor_practices_pkey PRIMARY KEY (id);
 
 
 --
@@ -3871,22 +3887,6 @@ ALTER TABLE ONLY drug_types
 
 ALTER TABLE ONLY drugs
     ADD CONSTRAINT drugs_pkey PRIMARY KEY (id);
-
-
---
--- Name: edta_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY edta_codes
-    ADD CONSTRAINT edta_codes_pkey PRIMARY KEY (id);
-
-
---
--- Name: ethnicities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY ethnicities
-    ADD CONSTRAINT ethnicities_pkey PRIMARY KEY (id);
 
 
 --
@@ -4170,6 +4170,14 @@ ALTER TABLE ONLY patient_bookmarks
 
 
 --
+-- Name: patient_ethnicities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_ethnicities
+    ADD CONSTRAINT patient_ethnicities_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: patient_languages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4266,22 +4274,6 @@ ALTER TABLE ONLY pd_regimes
 
 
 --
--- Name: practices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY practices
-    ADD CONSTRAINT practices_pkey PRIMARY KEY (id);
-
-
---
--- Name: prd_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY prd_descriptions
-    ADD CONSTRAINT prd_descriptions_pkey PRIMARY KEY (id);
-
-
---
 -- Name: problem_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4303,6 +4295,14 @@ ALTER TABLE ONLY problem_problems
 
 ALTER TABLE ONLY problem_versions
     ADD CONSTRAINT problem_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: renal_prd_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_prd_descriptions
+    ADD CONSTRAINT renal_prd_descriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -4596,17 +4596,17 @@ CREATE INDEX index_clinic_visits_on_updated_by_id ON clinic_visits USING btree (
 
 
 --
--- Name: index_doctors_on_code; Type: INDEX; Schema: public; Owner: -
+-- Name: index_doctor_doctors_on_code; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_doctors_on_code ON doctors USING btree (code);
+CREATE UNIQUE INDEX index_doctor_doctors_on_code ON doctor_doctors USING btree (code);
 
 
 --
 -- Name: index_doctors_practices; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_doctors_practices ON doctors_practices USING btree (doctor_id, practice_id);
+CREATE INDEX index_doctors_practices ON doctor_doctors_practices USING btree (doctor_id, practice_id);
 
 
 --
@@ -5434,6 +5434,14 @@ ALTER TABLE ONLY pathology_requests_requests
 
 
 --
+-- Name: fk_rails_3f47dd9cc1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_bookmarks
+    ADD CONSTRAINT fk_rails_3f47dd9cc1 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: fk_rails_40e23de825; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5447,6 +5455,14 @@ ALTER TABLE ONLY pathology_requests_global_rule_sets
 
 ALTER TABLE ONLY access_assessments
     ADD CONSTRAINT fk_rails_506a7ce21d FOREIGN KEY (type_id) REFERENCES access_types(id);
+
+
+--
+-- Name: fk_rails_55ecff6804; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY doctor_doctors_practices
+    ADD CONSTRAINT fk_rails_55ecff6804 FOREIGN KEY (doctor_id) REFERENCES doctor_doctors(id);
 
 
 --
@@ -5470,7 +5486,7 @@ ALTER TABLE ONLY transplant_recipient_workups
 --
 
 ALTER TABLE ONLY patients
-    ADD CONSTRAINT fk_rails_5b44e541da FOREIGN KEY (ethnicity_id) REFERENCES ethnicities(id);
+    ADD CONSTRAINT fk_rails_5b44e541da FOREIGN KEY (ethnicity_id) REFERENCES patient_ethnicities(id);
 
 
 --
@@ -5498,11 +5514,27 @@ ALTER TABLE ONLY letter_letters
 
 
 --
+-- Name: fk_rails_6231b53275; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patients
+    ADD CONSTRAINT fk_rails_6231b53275 FOREIGN KEY (second_edta_code_id) REFERENCES death_edta_codes(id);
+
+
+--
 -- Name: fk_rails_6893ba0593; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_recipient_followups
     ADD CONSTRAINT fk_rails_6893ba0593 FOREIGN KEY (transplant_failure_cause_description_id) REFERENCES transplant_failure_cause_descriptions(id);
+
+
+--
+-- Name: fk_rails_6951f9dee7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patients
+    ADD CONSTRAINT fk_rails_6951f9dee7 FOREIGN KEY (first_edta_code_id) REFERENCES death_edta_codes(id);
 
 
 --
@@ -5543,6 +5575,14 @@ ALTER TABLE ONLY events
 
 ALTER TABLE ONLY transplant_recipient_followups
     ADD CONSTRAINT fk_rails_78dc63040c FOREIGN KEY (operation_id) REFERENCES transplant_recipient_operations(id);
+
+
+--
+-- Name: fk_rails_7a89922302; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY doctor_doctors_practices
+    ADD CONSTRAINT fk_rails_7a89922302 FOREIGN KEY (practice_id) REFERENCES doctor_practices(id);
 
 
 --
@@ -5618,11 +5658,27 @@ ALTER TABLE ONLY pd_exit_site_infections
 
 
 --
+-- Name: fk_rails_9739853ad1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patients
+    ADD CONSTRAINT fk_rails_9739853ad1 FOREIGN KEY (doctor_id) REFERENCES doctor_doctors(id);
+
+
+--
 -- Name: fk_rails_9c76b7ba29; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_recipients
     ADD CONSTRAINT fk_rails_9c76b7ba29 FOREIGN KEY (letter_id) REFERENCES letter_letters(id);
+
+
+--
+-- Name: fk_rails_9dada905f6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY roles_users
+    ADD CONSTRAINT fk_rails_9dada905f6 FOREIGN KEY (role_id) REFERENCES roles(id);
 
 
 --
@@ -5738,6 +5794,14 @@ ALTER TABLE ONLY hd_sessions
 
 
 --
+-- Name: fk_rails_c12b863727; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_bookmarks
+    ADD CONSTRAINT fk_rails_c12b863727 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
 -- Name: fk_rails_c31cea56ac; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5782,7 +5846,7 @@ ALTER TABLE ONLY pd_regime_bags
 --
 
 ALTER TABLE ONLY renal_profiles
-    ADD CONSTRAINT fk_rails_cd10bc0ddf FOREIGN KEY (prd_description_id) REFERENCES prd_descriptions(id);
+    ADD CONSTRAINT fk_rails_cd10bc0ddf FOREIGN KEY (prd_description_id) REFERENCES renal_prd_descriptions(id);
 
 
 --
@@ -5855,6 +5919,14 @@ ALTER TABLE ONLY clinics_appointments
 
 ALTER TABLE ONLY events
     ADD CONSTRAINT fk_rails_e1899a68af FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_e2a7142459; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY roles_users
+    ADD CONSTRAINT fk_rails_e2a7142459 FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -5969,6 +6041,8 @@ SET search_path TO "$user", public;
 
 INSERT INTO schema_migrations (version) VALUES ('20141004150240');
 
+INSERT INTO schema_migrations (version) VALUES ('20141010170329');
+
 INSERT INTO schema_migrations (version) VALUES ('20141020170329');
 
 INSERT INTO schema_migrations (version) VALUES ('20141023111038');
@@ -5990,8 +6064,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141222110119');
 INSERT INTO schema_migrations (version) VALUES ('20141223135723');
 
 INSERT INTO schema_migrations (version) VALUES ('20141223135724');
-
-INSERT INTO schema_migrations (version) VALUES ('20150102095659');
 
 INSERT INTO schema_migrations (version) VALUES ('20150109113417');
 

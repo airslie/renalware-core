@@ -6,7 +6,7 @@ module Renalware
   logcount=0
   CSV.foreach(file_path, headers: true) do |row|
     logcount += 1
-    Ethnicity.find_or_create_by!(name: row['name'])
+    Patients::Ethnicity.find_or_create_by!(name: row['name'])
   end
 
   log "#{logcount} Ethnicities seeded"

@@ -1,6 +1,6 @@
 class CreatePractices < ActiveRecord::Migration
   def change
-    create_table :practices do |t|
+    create_table :doctor_practices do |t|
       t.string :name,        null: false
       t.string :email
       t.string :code,        null: false
@@ -8,10 +8,13 @@ class CreatePractices < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    create_table :doctors_practices, id: false do |t|
-      t.references :doctor, :practice
+    create_table :doctor_doctors_practices, id: false do |t|
+      t.references :doctor, :practice, null: false
     end
 
-    add_index :doctors_practices, [:doctor_id, :practice_id], name: 'index_doctors_practices'
+    add_foreign_key :doctor_doctors_practices, :doctor_doctors, column: :doctor_id
+    add_foreign_key :doctor_doctors_practices, :doctor_practices, column: :practice_id
+
+    add_index :doctor_doctors_practices, [:doctor_id, :practice_id], name: 'index_doctors_practices'
   end
 end

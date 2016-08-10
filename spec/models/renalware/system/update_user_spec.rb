@@ -1,6 +1,6 @@
 require "rails_helper"
 
-module Renalware
+module Renalware::System
   describe UpdateUser do
     describe "#call" do
       let(:super_admin) { find_or_create_role(:super_admin) }

@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :prd_description, class: "Renalware::PRDDescription" do
+  factory :prd_description, class: "Renalware::Renal::PRDDescription" do
     code "1074"
     term "Denys-Drash syndrome"
   end
