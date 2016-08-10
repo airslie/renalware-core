@@ -1,3 +1,5 @@
+require_dependency "renalware"
+
 module Renalware
   class ClinicalSummariesController < BaseController
 
