@@ -77,7 +77,7 @@ module World
 
           select params[:lab], from: "Lab"
           fill_in "Test description", with: params[:test_description]
-          select params[:sample_number_bottles], from: "Sample number bottles"
+          select params[:sample_number_bottles].to_s, from: "Sample number bottles"
           fill_in "Sample type", with: params[:sample_type]
           select params[:frequency_type], from: "Frequency"
           fill_in "Start date", with: I18n.l(params[:start_date])
