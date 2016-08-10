@@ -6,9 +6,9 @@ Feature: Viewing required pathology for a patient
 
   Background:
     Given the global rule sets:
-      | request_description_code | BFF    |
-      | clinic                   | Access |
-      | frequency_type           | Always |
+      | request_description_code | BFF        |
+      | clinic                   | Transplant |
+      | frequency_type           | Always     |
     And the rule set contains these rules:
       | type              | id  | operator | value |
       | ObservationResult | HGB | <        | 100   |
@@ -22,7 +22,7 @@ Feature: Viewing required pathology for a patient
   @web
   Scenario:
     Given Clyde is a clinician
-    When Clyde views the list of required pathology for Patty in clinic Access
+    When Clyde views the list of required pathology for Patty in clinic Transplant
     Then Clyde sees these request descriptions from the global algorithm
       | Code | Lab          | Bottle Type | Name                |
       | BFF  | Biochemistry | Serum       | B12/FOLATE/FERRITIN |
