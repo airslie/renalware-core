@@ -9,7 +9,6 @@ Feature: Reviewing a patient's clinical summary
     And Donna is logged in
     And the date today is 07-06-2016
 
-  @wip
   Scenario:
     Given Patty has the following prescriptions:
       | drug_name              | dose          | frequency     | route_code | provider | terminated_on |

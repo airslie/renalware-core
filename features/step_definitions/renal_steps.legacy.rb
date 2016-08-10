@@ -19,7 +19,7 @@ Then(/^Patty's renal profile is updated$/) do
 end
 
 When(/^Donna reviews Patty's clinical summary$/) do
-  review_clinical_summary(patient: @patty)
+  @clinical_summary = review_clinical_summary(patient: @patty, user: @donna)
 end
 
 Then(/^Donna should see these current prescriptions in the clinical summary$/) do |table|

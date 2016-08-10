@@ -8,9 +8,11 @@ module Renalware
     before_action :load_patient
 
     def show
+      clinical_summary = Renal::ClinicalSummaryPresenter.new(@patient)
       @events = Events::Event.for_patient(@patient)
       @problems = @patient.problems.ordered
-      @prescriptions = @patient.prescriptions.current.ordered
+
+      render :show, locals: { clinical_summary: clinical_summary }
     end
   end
 end

@@ -4,8 +4,23 @@ module World
       # @section commands
       #
 
-      def review_clinical_summary(patient:)
-        @clinical_summary = Renalware::Renal::ClinicalSummary.new(patient)
+      def review_clinical_summary(patient:, user:)
+        Renalware::Renal::ClinicalSummaryPresenter.new(patient)
+      end
+    end
+
+    module Web
+      include Domain
+      # @section commands
+      #
+
+      def review_clinical_summary(patient:, user:)
+        login_as user
+
+        visit patient_clinical_summary_path(patient)
+
+        current_prescriptions = html_table_to_array("current-prescriptions").drop(1)
+        OpenStruct.new(current_prescriptions: current_prescriptions)
       end
     end
   end

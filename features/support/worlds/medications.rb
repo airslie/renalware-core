@@ -107,7 +107,7 @@ module World
           expect(prescription.dose).to eq(expected["dose"])
           expect(actual.frequency).to eq(expected["frequency"])
           expect(actual.medication_route.code).to eq(expected["route_code"])
-          expect(actual.provider).to eq(expected["provider"].downcase)
+          expect(actual.provider.downcase).to eq(expected["provider"].downcase)
           expect(actual.terminated_on).to eq(parse_date_string(expected["terminated_on"]))
         end
       end

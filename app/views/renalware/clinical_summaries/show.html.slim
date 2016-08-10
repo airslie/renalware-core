@@ -3,8 +3,8 @@
     .columns.large-6
       = render "problems", problems: @problems
 
-    .columns.large-6
-      = render "prescriptions", prescriptions: @prescriptions
+    #current-prescriptions.columns.large-6
+      = render "prescriptions", prescriptions: clinical_summary.current_prescriptions
   .row
     .columns.large-12
       = render "events", events: @events
