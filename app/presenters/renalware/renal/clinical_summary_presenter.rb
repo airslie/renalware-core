@@ -12,6 +12,10 @@ module Renalware
        prescriptions = @patient.prescriptions.current.ordered
        CollectionPresenter.new(prescriptions, Medications::PrescriptionPresenter)
       end
+
+      def current_problems
+        @patient.problems.current.ordered
+      end
     end
   end
 end

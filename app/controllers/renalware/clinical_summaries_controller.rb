@@ -10,7 +10,6 @@ module Renalware
     def show
       clinical_summary = Renal::ClinicalSummaryPresenter.new(@patient)
       @events = Events::Event.for_patient(@patient)
-      @problems = @patient.problems.ordered
 
       render :show, locals: { clinical_summary: clinical_summary }
     end
