@@ -439,6 +439,39 @@ ALTER SEQUENCE clinics_id_seq OWNED BY clinics.id;
 
 
 --
+-- Name: death_edta_codes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE death_edta_codes (
+    id integer NOT NULL,
+    code integer,
+    death_cause character varying,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: death_edta_codes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE death_edta_codes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: death_edta_codes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE death_edta_codes_id_seq OWNED BY death_edta_codes.id;
+
+
+--
 -- Name: delayed_jobs; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -595,39 +628,6 @@ CREATE SEQUENCE drugs_id_seq
 --
 
 ALTER SEQUENCE drugs_id_seq OWNED BY drugs.id;
-
-
---
--- Name: edta_codes; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE edta_codes (
-    id integer NOT NULL,
-    code integer,
-    death_cause character varying,
-    deleted_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: edta_codes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE edta_codes_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: edta_codes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE edta_codes_id_seq OWNED BY edta_codes.id;
 
 
 --
@@ -3232,6 +3232,13 @@ ALTER TABLE ONLY clinics_appointments ALTER COLUMN id SET DEFAULT nextval('clini
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY death_edta_codes ALTER COLUMN id SET DEFAULT nextval('death_edta_codes_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_id_seq'::regclass);
 
 
@@ -3254,13 +3261,6 @@ ALTER TABLE ONLY drug_types ALTER COLUMN id SET DEFAULT nextval('drug_types_id_s
 --
 
 ALTER TABLE ONLY drugs ALTER COLUMN id SET DEFAULT nextval('drugs_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY edta_codes ALTER COLUMN id SET DEFAULT nextval('edta_codes_id_seq'::regclass);
 
 
 --
@@ -3842,6 +3842,14 @@ ALTER TABLE ONLY clinics
 
 
 --
+-- Name: death_edta_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY death_edta_codes
+    ADD CONSTRAINT death_edta_codes_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3871,14 +3879,6 @@ ALTER TABLE ONLY drug_types
 
 ALTER TABLE ONLY drugs
     ADD CONSTRAINT drugs_pkey PRIMARY KEY (id);
-
-
---
--- Name: edta_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY edta_codes
-    ADD CONSTRAINT edta_codes_pkey PRIMARY KEY (id);
 
 
 --
@@ -5498,11 +5498,27 @@ ALTER TABLE ONLY letter_letters
 
 
 --
+-- Name: fk_rails_6231b53275; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patients
+    ADD CONSTRAINT fk_rails_6231b53275 FOREIGN KEY (second_edta_code_id) REFERENCES death_edta_codes(id);
+
+
+--
 -- Name: fk_rails_6893ba0593; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_recipient_followups
     ADD CONSTRAINT fk_rails_6893ba0593 FOREIGN KEY (transplant_failure_cause_description_id) REFERENCES transplant_failure_cause_descriptions(id);
+
+
+--
+-- Name: fk_rails_6951f9dee7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patients
+    ADD CONSTRAINT fk_rails_6951f9dee7 FOREIGN KEY (first_edta_code_id) REFERENCES death_edta_codes(id);
 
 
 --
@@ -5969,6 +5985,8 @@ SET search_path TO "$user", public;
 
 INSERT INTO schema_migrations (version) VALUES ('20141004150240');
 
+INSERT INTO schema_migrations (version) VALUES ('20141010170329');
+
 INSERT INTO schema_migrations (version) VALUES ('20141020170329');
 
 INSERT INTO schema_migrations (version) VALUES ('20141023111038');
@@ -5990,8 +6008,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141222110119');
 INSERT INTO schema_migrations (version) VALUES ('20141223135723');
 
 INSERT INTO schema_migrations (version) VALUES ('20141223135724');
-
-INSERT INTO schema_migrations (version) VALUES ('20150102095659');
 
 INSERT INTO schema_migrations (version) VALUES ('20150109113417');
 

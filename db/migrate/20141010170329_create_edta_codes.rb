@@ -1,6 +1,6 @@
-class CreateEdtaCodes < ActiveRecord::Migration
+class CreateEDTACodes < ActiveRecord::Migration
   def change
-    create_table :edta_codes do |t|
+    create_table :death_edta_codes do |t|
       t.integer :code
       t.string :death_cause
       t.datetime :deleted_at

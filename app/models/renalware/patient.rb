@@ -15,8 +15,8 @@ module Renalware
 
     has_one :current_address, as: :addressable, class_name: "Address"
     belongs_to :ethnicity
-    belongs_to :first_edta_code, class_name: "EdtaCode", foreign_key: :first_edta_code_id
-    belongs_to :second_edta_code, class_name: "EdtaCode", foreign_key: :second_edta_code_id
+    belongs_to :first_edta_code, class_name: "Deaths::EDTACode", foreign_key: :first_edta_code_id
+    belongs_to :second_edta_code, class_name: "Deaths::EDTACode", foreign_key: :second_edta_code_id
     belongs_to :doctor
     belongs_to :practice
     belongs_to :religion, class_name: "Patients::Religion"

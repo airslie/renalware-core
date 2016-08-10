@@ -20,5 +20,8 @@ class CreatePatients < ActiveRecord::Migration
       t.boolean :cc_on_all_letters, default: true
       t.timestamps null: false
     end
+
+    add_foreign_key :patients, :death_edta_codes, column: :first_edta_code_id
+    add_foreign_key :patients, :death_edta_codes, column: :second_edta_code_id
   end
 end
