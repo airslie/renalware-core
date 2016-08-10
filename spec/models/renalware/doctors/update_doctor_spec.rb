@@ -22,7 +22,7 @@ module Renalware::Doctors
 
           expect(listener)
             .to have_received(:update_doctor_successful)
-            .with(instance_of(Renalware::Doctor))
+            .with(instance_of(Doctor))
         end
       end
 
@@ -37,7 +37,7 @@ module Renalware::Doctors
 
           expect(listener)
             .to have_received(:update_doctor_failed)
-            .with(instance_of(Renalware::Doctor))
+            .with(instance_of(Doctor))
         end
       end
     end

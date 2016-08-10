@@ -22,7 +22,10 @@ Rails.application.routes.draw do
     # Clinics
     resources :appointments, controller: "clinics/appointments", only: [:index]
     resources :clinic_visits, controller: "clinics/clinic_visits"
-    resources :doctors
+
+    namespace :doctors do
+      resources :doctors
+    end
 
     resources :deaths, only: :index, as: :patient_deaths
 

@@ -1,6 +1,6 @@
 class CreateDoctors < ActiveRecord::Migration
   def change
-    create_table :doctors do |t|
+    create_table :doctor_doctors do |t|
       t.string  :given_name
       t.string  :family_name
       t.string  :email
@@ -9,6 +9,6 @@ class CreateDoctors < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index :doctors, :code, unique: true
+    add_index :doctor_doctors, :code, unique: true
   end
 end

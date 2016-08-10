@@ -511,10 +511,10 @@ ALTER SEQUENCE delayed_jobs_id_seq OWNED BY delayed_jobs.id;
 
 
 --
--- Name: doctors; Type: TABLE; Schema: public; Owner: -
+-- Name: doctor_doctors; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE doctors (
+CREATE TABLE doctor_doctors (
     id integer NOT NULL,
     given_name character varying,
     family_name character varying,
@@ -528,10 +528,10 @@ CREATE TABLE doctors (
 
 
 --
--- Name: doctors_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: doctor_doctors_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE doctors_id_seq
+CREATE SEQUENCE doctor_doctors_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -540,20 +540,53 @@ CREATE SEQUENCE doctors_id_seq
 
 
 --
--- Name: doctors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: doctor_doctors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE doctors_id_seq OWNED BY doctors.id;
+ALTER SEQUENCE doctor_doctors_id_seq OWNED BY doctor_doctors.id;
 
 
 --
--- Name: doctors_practices; Type: TABLE; Schema: public; Owner: -
+-- Name: doctor_doctors_practices; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE doctors_practices (
+CREATE TABLE doctor_doctors_practices (
     doctor_id integer,
     practice_id integer
 );
+
+
+--
+-- Name: doctor_practices; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE doctor_practices (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    email character varying,
+    code character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: doctor_practices_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE doctor_practices_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: doctor_practices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE doctor_practices_id_seq OWNED BY doctor_practices.id;
 
 
 --
@@ -2344,39 +2377,6 @@ ALTER SEQUENCE pd_regimes_id_seq OWNED BY pd_regimes.id;
 
 
 --
--- Name: practices; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE practices (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    email character varying,
-    code character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: practices_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE practices_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: practices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE practices_id_seq OWNED BY practices.id;
-
-
---
 -- Name: problem_notes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3246,7 +3246,14 @@ ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY doctors ALTER COLUMN id SET DEFAULT nextval('doctors_id_seq'::regclass);
+ALTER TABLE ONLY doctor_doctors ALTER COLUMN id SET DEFAULT nextval('doctor_doctors_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY doctor_practices ALTER COLUMN id SET DEFAULT nextval('doctor_practices_id_seq'::regclass);
 
 
 --
@@ -3603,13 +3610,6 @@ ALTER TABLE ONLY pd_regimes ALTER COLUMN id SET DEFAULT nextval('pd_regimes_id_s
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY practices ALTER COLUMN id SET DEFAULT nextval('practices_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY problem_notes ALTER COLUMN id SET DEFAULT nextval('problem_notes_id_seq'::regclass);
 
 
@@ -3858,11 +3858,19 @@ ALTER TABLE ONLY delayed_jobs
 
 
 --
--- Name: doctors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: doctor_doctors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY doctors
-    ADD CONSTRAINT doctors_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY doctor_doctors
+    ADD CONSTRAINT doctor_doctors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: doctor_practices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY doctor_practices
+    ADD CONSTRAINT doctor_practices_pkey PRIMARY KEY (id);
 
 
 --
@@ -4266,14 +4274,6 @@ ALTER TABLE ONLY pd_regimes
 
 
 --
--- Name: practices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY practices
-    ADD CONSTRAINT practices_pkey PRIMARY KEY (id);
-
-
---
 -- Name: problem_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4596,17 +4596,17 @@ CREATE INDEX index_clinic_visits_on_updated_by_id ON clinic_visits USING btree (
 
 
 --
--- Name: index_doctors_on_code; Type: INDEX; Schema: public; Owner: -
+-- Name: index_doctor_doctors_on_code; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_doctors_on_code ON doctors USING btree (code);
+CREATE UNIQUE INDEX index_doctor_doctors_on_code ON doctor_doctors USING btree (code);
 
 
 --
 -- Name: index_doctors_practices; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_doctors_practices ON doctors_practices USING btree (doctor_id, practice_id);
+CREATE INDEX index_doctors_practices ON doctor_doctors_practices USING btree (doctor_id, practice_id);
 
 
 --
@@ -5631,6 +5631,14 @@ ALTER TABLE ONLY transplant_donor_workups
 
 ALTER TABLE ONLY pd_exit_site_infections
     ADD CONSTRAINT fk_rails_9702c22886 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_9739853ad1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patients
+    ADD CONSTRAINT fk_rails_9739853ad1 FOREIGN KEY (doctor_id) REFERENCES doctor_doctors(id);
 
 
 --
