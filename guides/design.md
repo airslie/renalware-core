@@ -79,9 +79,21 @@ API ("Clean Architecture" presenter):
 
 Documents are used to embed complex "forms" in a model and are persisted as JSONB.
 
+### Factories
+
+- location: `(app/models)`
+- example: [Accesses::AssessmentFactory](https://github.com/airslie/renalwarev2/blob/master/app/models/renalware/accesses/assessment_factory.rb)
+
+Factories create instantiate other objects and deal with the logic related to that.
+
+API:
+- follows the naming convention "{model}Factory" e.g. `AssessmentFactory`
+- all dependencies are injected via the constructor
+- a `#build` method to instantiate the model
+
 ### Other Archetypes
 
-We don't limit ourselves to just these archetypes. We extract classes as need to encapsulate behavior or variation in the application as needed (e.g. factories, strategies). Overall, we favor small objects that are composable.
+We don't limit ourselves to just these archetypes. We extract classes as need to encapsulate behavior or variation in the application as needed (e.g. strategies). Overall, we favor small objects that are composable.
 
 # Testing
 
