@@ -97,7 +97,7 @@ We don't limit ourselves to just these archetypes. We extract classes as need to
 
 # Testing
 
-We select the most appropriate test strategy depending on what type of feature we are developing. Our selection balances cost (i.e the time to run and code to maintain), risk and the type of feedback we wish to receive (stakeholder communication, regression testing or software design).
+We select the most appropriate test strategy depending on what type of feature we are developing. Our selection balances cost (i.e the time to run and code to maintain), risk and the type of feedback we wish to receive (stakeholder communication, regression testing or software design). Tests are designed to be as robust as possible. When testing the UI, we avoid being overly specific (e.g. specifying deeply nested DOM elements) to avoid brittleness and encourage refactoring.
 
 ## Acceptance Tests
 
