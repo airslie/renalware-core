@@ -3,6 +3,9 @@ Feature: Reviewing a patient's clinical summary
   A doctor reviews a clinical summary periodically to gain an understanding of
   the current status of a patient.
 
+  TODO
+  - migrate displaying current events from legacy acceptance test "Recording patient events"
+
   Background:
     Given Patty is a patient
     And Donna is a doctor
