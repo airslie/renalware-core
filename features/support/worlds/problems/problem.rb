@@ -97,17 +97,17 @@ module World
 
         visit patient_problems_path(patient)
 
-        current_problems = html_table_to_array("current_problems")
-        archived_problems = html_table_to_array("archived_problems")
+        current_problems = html_table_to_array("current_problems").drop(1)
+        archived_problems = html_table_to_array("archived_problems").drop(1)
 
         [current_problems, archived_problems]
       end
 
       # @section expectations
       #
-      def expect_problems_to_match_table(problems, table)
-        table.hashes.each do |row|
-          expect(problems.flatten(2)).to include(row[:description])
+      def expect_problems_to_match_table(problem_strings, table)
+        problem_strings.zip(table.hashes).each do |problem_string, row|
+          expect(problem_string).to include(row[:description])
         end
       end
     end
