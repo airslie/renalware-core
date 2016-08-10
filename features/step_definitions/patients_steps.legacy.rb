@@ -11,7 +11,7 @@ Given(/^some patients who need renal treatment$/) do
     born_on: "01/01/1947",
     paediatric_patient_indicator: "1",
     sex: "M",
-    ethnicity_id: Renalware::Ethnicity.first.id,
+    ethnicity_id: Renalware::Patients::Ethnicity.first.id,
     hospital_centre_code: "888"
   )
 
@@ -23,7 +23,7 @@ Given(/^some patients who need renal treatment$/) do
     born_on: "24/06/1970",
     paediatric_patient_indicator: "1",
     sex: "F",
-    ethnicity_id: Renalware::Ethnicity.second.id,
+    ethnicity_id: Renalware::Patients::Ethnicity.second.id,
     hospital_centre_code: "888"
   )
 
@@ -35,7 +35,7 @@ Given(/^some patients who need renal treatment$/) do
     born_on: "28/02/1930",
     paediatric_patient_indicator: "1",
     sex: "M",
-    ethnicity_id: Renalware::Ethnicity.third.id,
+    ethnicity_id: Renalware::Patients::Ethnicity.third.id,
     hospital_centre_code: "999"
   )
 end

@@ -664,37 +664,6 @@ ALTER SEQUENCE drugs_id_seq OWNED BY drugs.id;
 
 
 --
--- Name: ethnicities; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE ethnicities (
-    id integer NOT NULL,
-    name character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: ethnicities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE ethnicities_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: ethnicities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE ethnicities_id_seq OWNED BY ethnicities.id;
-
-
---
 -- Name: event_types; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1909,6 +1878,37 @@ CREATE SEQUENCE patient_bookmarks_id_seq
 --
 
 ALTER SEQUENCE patient_bookmarks_id_seq OWNED BY patient_bookmarks.id;
+
+
+--
+-- Name: patient_ethnicities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE patient_ethnicities (
+    id integer NOT NULL,
+    name character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: patient_ethnicities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE patient_ethnicities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_ethnicities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE patient_ethnicities_id_seq OWNED BY patient_ethnicities.id;
 
 
 --
@@ -3274,13 +3274,6 @@ ALTER TABLE ONLY drugs ALTER COLUMN id SET DEFAULT nextval('drugs_id_seq'::regcl
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY ethnicities ALTER COLUMN id SET DEFAULT nextval('ethnicities_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY event_types ALTER COLUMN id SET DEFAULT nextval('event_types_id_seq'::regclass);
 
 
@@ -3520,6 +3513,13 @@ ALTER TABLE ONLY pathology_requests_requests ALTER COLUMN id SET DEFAULT nextval
 --
 
 ALTER TABLE ONLY patient_bookmarks ALTER COLUMN id SET DEFAULT nextval('patient_bookmarks_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_ethnicities ALTER COLUMN id SET DEFAULT nextval('patient_ethnicities_id_seq'::regclass);
 
 
 --
@@ -3890,14 +3890,6 @@ ALTER TABLE ONLY drugs
 
 
 --
--- Name: ethnicities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY ethnicities
-    ADD CONSTRAINT ethnicities_pkey PRIMARY KEY (id);
-
-
---
 -- Name: event_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4175,6 +4167,14 @@ ALTER TABLE ONLY pathology_requests_requests
 
 ALTER TABLE ONLY patient_bookmarks
     ADD CONSTRAINT patient_bookmarks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: patient_ethnicities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_ethnicities
+    ADD CONSTRAINT patient_ethnicities_pkey PRIMARY KEY (id);
 
 
 --
@@ -5486,7 +5486,7 @@ ALTER TABLE ONLY transplant_recipient_workups
 --
 
 ALTER TABLE ONLY patients
-    ADD CONSTRAINT fk_rails_5b44e541da FOREIGN KEY (ethnicity_id) REFERENCES ethnicities(id);
+    ADD CONSTRAINT fk_rails_5b44e541da FOREIGN KEY (ethnicity_id) REFERENCES patient_ethnicities(id);
 
 
 --

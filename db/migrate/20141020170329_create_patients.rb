@@ -8,7 +8,7 @@ class CreatePatients < ActiveRecord::Migration
       t.date :born_on,            null: false
       t.boolean :paediatric_patient_indicator
       t.string :sex
-      t.references :ethnicity,    foreign_key: true
+      t.references :ethnicity
       t.string :gp_practice_code
       t.string :pct_org_code
       t.string :hospital_centre_code
@@ -23,5 +23,6 @@ class CreatePatients < ActiveRecord::Migration
 
     add_foreign_key :patients, :death_edta_codes, column: :first_edta_code_id
     add_foreign_key :patients, :death_edta_codes, column: :second_edta_code_id
+    add_foreign_key :patients, :patient_ethnicities, column: :ethnicity_id
   end
 end
