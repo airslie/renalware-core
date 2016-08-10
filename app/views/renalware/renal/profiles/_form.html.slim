@@ -18,7 +18,7 @@
             = text_field_tag 'prd_description_auto_complete', \
                 f.object.prd_description.to_s,
                 data: { \
-                  autocomplete_source: search_prd_descriptions_path, \
+                  autocomplete_source: search_renal_prd_descriptions_path, \
                   autocomplete_rel: "#renal_profile_prd_description_id" \
                 },
                 placeholder: "Start entering the diagnosis or PRD code (min. 2 characters)",

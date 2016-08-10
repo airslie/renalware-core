@@ -67,9 +67,11 @@ Rails.application.routes.draw do
       resources :infection_organisms
     end
 
-    resources :prd_descriptions, only: [:search] do
-      collection do
-        get :search
+    namespace :renal do
+      resources :prd_descriptions, only: [:search] do
+        collection do
+          get :search
+        end
       end
     end
 

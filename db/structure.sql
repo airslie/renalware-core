@@ -2377,38 +2377,6 @@ ALTER SEQUENCE practices_id_seq OWNED BY practices.id;
 
 
 --
--- Name: prd_descriptions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE prd_descriptions (
-    id integer NOT NULL,
-    code character varying,
-    term character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: prd_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE prd_descriptions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: prd_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE prd_descriptions_id_seq OWNED BY prd_descriptions.id;
-
-
---
 -- Name: problem_notes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2510,6 +2478,38 @@ CREATE SEQUENCE problem_versions_id_seq
 --
 
 ALTER SEQUENCE problem_versions_id_seq OWNED BY problem_versions.id;
+
+
+--
+-- Name: renal_prd_descriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE renal_prd_descriptions (
+    id integer NOT NULL,
+    code character varying,
+    term character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: renal_prd_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE renal_prd_descriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: renal_prd_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE renal_prd_descriptions_id_seq OWNED BY renal_prd_descriptions.id;
 
 
 --
@@ -3610,13 +3610,6 @@ ALTER TABLE ONLY practices ALTER COLUMN id SET DEFAULT nextval('practices_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY prd_descriptions ALTER COLUMN id SET DEFAULT nextval('prd_descriptions_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY problem_notes ALTER COLUMN id SET DEFAULT nextval('problem_notes_id_seq'::regclass);
 
 
@@ -3632,6 +3625,13 @@ ALTER TABLE ONLY problem_problems ALTER COLUMN id SET DEFAULT nextval('problem_p
 --
 
 ALTER TABLE ONLY problem_versions ALTER COLUMN id SET DEFAULT nextval('problem_versions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_prd_descriptions ALTER COLUMN id SET DEFAULT nextval('renal_prd_descriptions_id_seq'::regclass);
 
 
 --
@@ -4274,14 +4274,6 @@ ALTER TABLE ONLY practices
 
 
 --
--- Name: prd_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY prd_descriptions
-    ADD CONSTRAINT prd_descriptions_pkey PRIMARY KEY (id);
-
-
---
 -- Name: problem_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4303,6 +4295,14 @@ ALTER TABLE ONLY problem_problems
 
 ALTER TABLE ONLY problem_versions
     ADD CONSTRAINT problem_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: renal_prd_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY renal_prd_descriptions
+    ADD CONSTRAINT renal_prd_descriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -5782,7 +5782,7 @@ ALTER TABLE ONLY pd_regime_bags
 --
 
 ALTER TABLE ONLY renal_profiles
-    ADD CONSTRAINT fk_rails_cd10bc0ddf FOREIGN KEY (prd_description_id) REFERENCES prd_descriptions(id);
+    ADD CONSTRAINT fk_rails_cd10bc0ddf FOREIGN KEY (prd_description_id) REFERENCES renal_prd_descriptions(id);
 
 
 --
