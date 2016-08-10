@@ -206,35 +206,35 @@ module World
         end
       end
 
-      def terminate_perscriptions_path(patient,
+      def terminate_prescriptions_path(patient,
           treatable_type: patient.class, treatable_id: patient.id)
 
-        within "#current-perscriptions" do
+        within "#current-prescriptions" do
           click_on "Terminate"
           wait_for_ajax
         end
 
-        perscription = patient.perscriptions.last!
+        prescription = patient.prescriptions.last!
 
-        expect(perscription).to be_terminated
+        expect(prescription).to be_terminated
       end
 
-      def view_perscriptions_for(clinician, patient)
+      def view_prescriptions_for(clinician, patient)
         login_as clinician
 
-        visit patient_perscriptions_path(patient,
+        visit patient_prescriptions_path(patient,
           treatable_type: patient.class, treatable_id: patient.id)
 
-        current_perscriptions = html_table_to_array("current-perscriptions").drop(1)
-        historical_perscriptions = html_table_to_array("historical-perscriptions").drop(1)
+        current_prescriptions = html_table_to_array("current-prescriptions").drop(1)
+        historical_prescriptions = html_table_to_array("historical-prescriptions").drop(1)
 
-        [current_perscriptions, historical_perscriptions]
+        [current_prescriptions, historical_prescriptions]
       end
 
       # @ section expectations
       #
-      def expect_current_perscriptions_to_match(actual_perscriptions, expected_perscriptions)
-        actual_perscriptions.zip(expected_perscriptions).each do |actual, expected|
+      def expect_current_prescriptions_to_match(actual_prescriptions, expected_prescriptions)
+        actual_prescriptions.zip(expected_prescriptions).each do |actual, expected|
           expected_route = Renalware::Medications::MedicationRoute.find_by!(code: expected[:route_code])
 
           expect(actual).to include(expected[:drug_name])

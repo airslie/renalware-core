@@ -36,8 +36,8 @@ Given(/^Patty was last tested for ([A-Z0-9]+) (.*)$/) do |code, time_ago|
   end
 end
 
-Given(/^Patty is currently prescribed Ephedrine Tablet (yes|no)$/) do |perscribed|
-  if perscribed == "yes"
+Given(/^Patty is currently prescribed Ephedrine Tablet (yes|no)$/) do |prescribed|
+  if prescribed == "yes"
     drug = Renalware::Drugs::Drug.find_by(name: "Ephedrine Tablet")
     route = Renalware::Medications::MedicationRoute.find_by(name: "Per Oral")
     @patty.prescriptions.create!(

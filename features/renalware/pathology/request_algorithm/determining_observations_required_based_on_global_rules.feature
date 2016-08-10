@@ -115,12 +115,12 @@ Feature: Determining observations required based on global rules
       | ObservationResult | HGB              | <        | 100   |
       | PrescriptionDrug  | Ephedrine Tablet | include? |       |
     And Patty has observed an HGB value of <observation_result>
-    And Patty is currently prescribed Ephedrine Tablet <drug_perscribed>
+    And Patty is currently prescribed Ephedrine Tablet <drug_prescribed>
     When the global pathology algorithm is run for Patty in clinic Access
     Then it is determined the observation is <determination>
 
     Examples:
-      | observation_result | drug_perscribed | determination |
+      | observation_result | drug_prescribed | determination |
       | 99                 | yes             | required      |
       | 99                 | no              | not required  |
       | 100                | yes             | not required  |
