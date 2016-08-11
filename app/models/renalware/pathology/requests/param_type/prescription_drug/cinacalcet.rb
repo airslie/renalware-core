@@ -6,7 +6,7 @@ module Renalware
       module ParamType
         class PrescriptionDrug
           class Cinacalcet < Base
-            DRUG_IDS = [520]
+            DRUG_IDS = [520].freeze
 
             def drug_ids
               DRUG_IDS

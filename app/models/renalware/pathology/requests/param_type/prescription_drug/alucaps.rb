@@ -6,7 +6,7 @@ module Renalware
       module ParamType
         class PrescriptionDrug
           class Alucaps < Base
-            DRUG_IDS = [102, 103]
+            DRUG_IDS = [102, 103].freeze
 
             def drug_ids
               DRUG_IDS

@@ -6,7 +6,7 @@ module Renalware
       module ParamType
         class PrescriptionDrug
           class Thyroxine < Base
-            DRUG_IDS = [1402, 1403, 1427, 1428]
+            DRUG_IDS = [1402, 1403, 1427, 1428].freeze
 
             def drug_ids
               DRUG_IDS

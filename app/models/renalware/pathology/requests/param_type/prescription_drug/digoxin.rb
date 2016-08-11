@@ -6,7 +6,7 @@ module Renalware
       module ParamType
         class PrescriptionDrug
           class Digoxin < Base
-            DRUG_IDS = [769, 770, 771, 772]
+            DRUG_IDS = [769, 770, 771, 772].freeze
 
             def drug_ids
               DRUG_IDS
