@@ -33,6 +33,13 @@ describe Renalware::Pathology::Requests::GlobalRuleSet do
   end
 
   describe "#valid?" do
+    context "no request_description is given" do
+      let!(:request_description) { nil }
+
+      it_behaves_like "an invalid request"
+    end
+
+
     context "a request_description has no required_observation_description" do
       let!(:request_description) { create(:pathology_request_description, bottle_type: "serum") }
 
