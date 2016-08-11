@@ -46,10 +46,10 @@ module Renalware
 
       describe "scopes" do
         before do
-          create(:prescription, notes: ":expires_today:", terminated_on: "2010-01-02")
-          create(:prescription, notes: ":expired_yesteday:", terminated_on: "2010-01-01")
-          create(:prescription, notes: ":not_specified:")
-          create(:prescription, notes: ":expires_tomorrow:", terminated_on: "2010-01-03")
+         create_prescription(notes: ":expires_today:", terminated_on: "2010-01-02")
+         create_prescription(notes: ":expired_yesteday:", terminated_on: "2010-01-01")
+         create(:prescription, notes: ":not_specified:")
+         create_prescription(notes: ":expires_tomorrow:", terminated_on: "2010-01-03")
         end
 
         describe ".current" do
@@ -80,32 +80,62 @@ module Renalware
 
         describe "#current?" do
           context "given the termination date is today" do
-            let(:prescription) { Prescription.new(terminated_on: "2010-01-02") }
+            let(:prescription) { build_prescription(terminated_on: "2010-01-02") }
+
             it { expect(prescription.current?(date_today)).to be_truthy }
           end
 
           context "given the termination date is after today" do
-            let(:prescription) { Prescription.new(terminated_on: "2010-01-03") }
+            let(:prescription) { build_prescription(terminated_on: "2010-01-03") }
+
             it { expect(prescription.current?(date_today)).to be_truthy }
           end
 
           context "given the termination date is before today" do
-            let(:prescription) { Prescription.new(terminated_on: "2010-01-01") }
+            let(:prescription) { build_prescription(terminated_on: "2010-01-01") }
             it { expect(prescription.current?(date_today)).to be_falsey }
           end
         end
 
         describe "#terminated?" do
           context "given the termination date is specified" do
-            let(:prescription) { Prescription.new(terminated_on: "2010-01-02") }
+            let(:prescription) { build_prescription(terminated_on: "2010-01-02") }
             it { expect(prescription.terminated?).to be_truthy }
           end
 
           context "given the termination date is not specified" do
-            let(:prescription) { Prescription.new(terminated_on: nil) }
+            let(:prescription) { build(:prescription) }
             it { expect(prescription.terminated?).to be_falsey }
           end
         end
+      end
+
+      describe "entity services" do
+        describe "#terminate" do
+          context "given an active prescription" do
+            subject(:active_prescription) { build(:prescription, prescribed_on: "2009-01-01") }
+
+            let(:user) { build(:user) }
+            let(:terminated_on) { Date.parse("2010-10-10") }
+
+            it "records the termination" do
+              termination = active_prescription.terminate(by: user, terminated_on: terminated_on)
+
+              expect(termination.terminated_on).to eq(terminated_on)
+              expect(termination).to be_valid
+            end
+          end
+        end
+      end
+
+      def build_prescription(terminated_on:)
+        build(:prescription, prescribed_on: "2009-01-01",
+          termination: build(:prescription_termination, terminated_on: terminated_on))
+      end
+
+      def create_prescription(notes: nil, terminated_on:)
+        create(:prescription, prescribed_on: "2009-01-01", notes: notes,
+          termination: build(:prescription_termination, terminated_on: terminated_on))
       end
     end
   end

@@ -17,6 +17,8 @@ module Renalware
       private
 
       def terminate_existing_prescription(params)
+        return if prescription.termination.present?
+
         prescription.terminate(by: params[:by]).save!
       end
 
