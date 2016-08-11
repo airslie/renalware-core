@@ -34,7 +34,7 @@ describe Renalware::Pathology::RequestForPatientRequestDescriptionQuery do
       patient: patient,
       consultant: consultant,
       request_descriptions: [request_description],
-      created_at: Time.current - 2.day
+      created_at: Time.current - 2.days
     )
   end
 
