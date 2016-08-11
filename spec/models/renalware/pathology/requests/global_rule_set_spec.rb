@@ -1,18 +1,24 @@
 require "rails_helper"
 
-describe Renalware::Pathology::Requests::GlobalRuleSet do
-  it { is_expected.to validate_presence_of(:request_description) }
-  it { is_expected.to validate_presence_of(:clinic) }
-  it do
-    is_expected.to validate_inclusion_of(:frequency_type)
-      .in_array(Renalware::Pathology::Requests::Frequency.all_names)
+RSpec.shared_examples "a valid request" do
+  it "is valid" do
+    expect(rule_set.valid?).to be_truthy
   end
+end
 
+RSpec.shared_examples "an invalid request" do
+  it "is invalid" do
+    expect(rule_set.valid?).to be_falsey
+  end
+end
+
+describe Renalware::Pathology::Requests::GlobalRuleSet do
   let!(:observation_description) { create(:pathology_observation_description) }
   let!(:request_description) do
     create(
       :pathology_request_description,
-      required_observation_description: observation_description
+      required_observation_description: observation_description,
+      bottle_type: "serum"
     )
   end
 
@@ -24,69 +30,36 @@ describe Renalware::Pathology::Requests::GlobalRuleSet do
     )
   end
 
-  describe "#required_for_patient?" do
-    let!(:patient) { create(:patient) }
-    let(:pathology_patient) { Renalware::Pathology.cast_patient(patient) }
-    let!(:observation_request) do
-      create(:pathology_observation_request, patient: pathology_patient)
-    end
-    let(:rule_1) { build(:pathology_requests_global_rule) }
-    let(:rule_2) { build(:pathology_requests_global_rule) }
+  describe "#valid?" do
+    context "a request_description has no required_observation_description" do
+      let!(:request_description) { create(:pathology_request_description, bottle_type: "serum") }
 
-    subject(:rule_set_required?) { rule_set.required_for_patient?(pathology_patient) }
-
-    context "given all the rules from the rule_set are required" do
-      let(:observation_query) do
-        double(Renalware::Pathology::ObservationForPatientRequestDescriptionQuery)
-      end
-
-      before do
-        allow(rule_set).to receive(:rules).and_return([rule_1, rule_2])
-        allow(rule_1).to receive(:required_for_patient?).and_return(true)
-        allow(rule_2).to receive(:required_for_patient?).and_return(true)
-        allow(Renalware::Pathology::ObservationForPatientRequestDescriptionQuery).to receive(:new)
-          .and_return(observation_query)
-      end
-
-      context "given last observation for this patient is nil" do
-        before { allow(observation_query).to receive(:call).and_return(nil) }
-
-        it { expect(rule_set_required?).to be_truthy }
-      end
-
-      context "given last observation for this patient is not nil" do
-        let(:last_observation) do
-          build(
-            :pathology_observation,
-            request: observation_request,
-            description: observation_description,
-          )
-        end
-
-        before { allow(observation_query).to receive(:call).and_return(last_observation) }
-
-        it { expect(rule_set_required?).to be_falsey }
-      end
+      it_behaves_like "an invalid request"
     end
 
-    context "given only one of the rules from the rule_set is required" do
-      before do
-        allow(rule_set).to receive(:rules).and_return([rule_1, rule_2])
-        allow(rule_1).to receive(:required_for_patient?).and_return(false)
-        allow(rule_2).to receive(:required_for_patient?).and_return(true)
+    context "a request_description has no bottle_type" do
+      let!(:observation_description) { create(:pathology_observation_description) }
+      let!(:request_description) do
+        create(
+          :pathology_request_description,
+          required_observation_description: observation_description
+        )
       end
 
-      it { expect(rule_set_required?).to be_falsey }
+      it_behaves_like "an invalid request"
     end
 
-    context "given no rules from the rule_set are required" do
-      before do
-        allow(rule_set).to receive(:rules).and_return([rule_1, rule_2])
-        allow(rule_1).to receive(:required_for_patient?).and_return(false)
-        allow(rule_2).to receive(:required_for_patient?).and_return(false)
+    context "a request_description has the necessary fields set" do
+      let!(:observation_description) { create(:pathology_observation_description) }
+      let!(:request_description) do
+        create(
+          :pathology_request_description,
+          required_observation_description: observation_description,
+          bottle_type: "serum"
+        )
       end
 
-      it { expect(rule_set_required?).to be_falsey }
+      it_behaves_like "a valid request"
     end
   end
 end
