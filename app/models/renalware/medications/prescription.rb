@@ -61,6 +61,10 @@ module Renalware
         termination.created_by
       end
 
+      def drug_name
+        drug.try!(:name)
+      end
+
       # @section predicates
       #
 
