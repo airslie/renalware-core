@@ -41,6 +41,14 @@ module World
             Renalware::Pathology::RequestDescription.find_by!(
               code: params["request_description_code"]
             )
+
+          # NOTE: In order to make validations pass this needs a required_observation_description
+          if request_description.required_observation_description.nil?
+            request_description.required_observation_description =
+              Renalware::Pathology::ObservationDescription.first
+            request_description.save
+          end
+
           params["request_description_id"] = request_description.id
 
           clinic =

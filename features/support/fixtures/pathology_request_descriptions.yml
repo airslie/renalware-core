@@ -91,6 +91,7 @@ malaria:
   code: MAL
   name: MALARIA
   lab: lab_unknown
+  bottle_type: serum
 film_comment:
   code: FILM
   name: FILM COMMENT
