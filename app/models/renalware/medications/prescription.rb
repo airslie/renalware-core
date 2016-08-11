@@ -54,14 +54,6 @@ module Renalware
         "prescribed_on desc"
       end
 
-      def self.peritonitis
-        self.new(treatable_type: "Renalware::PeritonitisEpisode")
-      end
-
-      def self.exit_site
-        self.new(treatable_type: "Renalware::ExitSiteInfection")
-      end
-
       def terminated_by
         return unless terminated?
 
