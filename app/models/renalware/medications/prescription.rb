@@ -33,21 +33,8 @@ module Renalware
       validate :constrain_route_description
 
       enum provider: Provider.codes
-
-      enumerize :dose_unit, in: %i(
-        ampoule
-        capsule
-        drop
-        gram
-        international_unit
-        microgram
-        milligram
-        millilitre
-        puff
-        tab
-        tablet
-        unit
-      ), i18n_scope: "enumerize.renalware.medications.prescription.dose_unit"
+      enumerize :dose_unit, in: DoseUnit.codes,
+        i18n_scope: "enumerize.renalware.medications.prescription.dose_unit"
 
       scope :ordered, -> { order(default_search_order) }
       scope :current, -> (date = Date.current) {
@@ -66,23 +53,20 @@ module Renalware
         "prescribed_on desc"
       end
 
-      def self.peritonitis
-        self.new(treatable_type: "Renalware::PeritonitisEpisode")
-      end
-
-      def self.exit_site
-        self.new(treatable_type: "Renalware::ExitSiteInfection")
-      end
-
+      # @section attributes
+      #
       def terminated_by
         return unless terminated?
 
         termination.created_by
       end
 
-      def terminate(by:, terminated_on: Date.current)
-        build_termination(by: by, terminated_on: terminated_on)
+      def drug_name
+        drug.try!(:name)
       end
+
+      # @section predicates
+      #
 
       def current?(date=Date.current)
         self.terminated_on.nil? || self.terminated_on >= date
@@ -90,6 +74,13 @@ module Renalware
 
       def terminated?
         self.terminated_on.present?
+      end
+
+      # @section services
+      #
+
+      def terminate(by:, terminated_on: Date.current)
+        build_termination(by: by, terminated_on: terminated_on)
       end
 
       private

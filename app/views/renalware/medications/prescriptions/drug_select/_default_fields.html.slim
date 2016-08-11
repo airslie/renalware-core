@@ -7,7 +7,7 @@
 /! Search all drugs
 .standard
   = label_tag :drug_search, "Drug"
-  = text_field_tag :drug_search, drug_name(f.object), class: "find_drug #{ highlight_validation_fail(f.object, :drug) }", placeholder: "Search drug by name or type"
+  = text_field_tag :drug_search, f.object.drug_name, class: "find_drug #{ highlight_validation_fail(f.object, :drug) }", placeholder: "Search drug by name or type"
 
   ul.drug-results.no-bullet
 

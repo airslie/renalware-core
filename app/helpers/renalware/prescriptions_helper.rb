@@ -20,10 +20,6 @@ module Renalware
       super(patient, prescription, treatable_type: treatable.class.to_s, treatable_id: treatable.id)
     end
 
-    def drug_name(prescription)
-      prescription.drug.try!(:name)
-    end
-
     def highlight_validation_fail(med_object, med_attribute)
       return unless med_object.errors.include?(med_attribute)
 
