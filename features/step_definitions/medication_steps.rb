@@ -30,6 +30,20 @@ Given(/^Patty has the following prescriptions:$/) do |table|
   end
 end
 
+Given(/^Patty is being prescribed (.+)$/) do |drug_name|
+  seed_prescription_for(
+    patient: @patty,
+    drug_name: drug_name,
+    dose_amount: "100",
+    dose_unit: "millilitre",
+    route_code: "PO",
+    frequency: "once a day",
+    prescribed_on: "10-10-2015",
+    provider: "GP",
+    terminated_on: nil
+  )
+end
+
 When(/^Clyde records the prescription for Patty$/) do
   record_prescription_for_patient(
     user: @clyde,
