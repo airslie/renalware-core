@@ -13,6 +13,7 @@ RSpec.shared_examples "an invalid request" do
 end
 
 describe Renalware::Pathology::Requests::GlobalRuleSet do
+  let!(:clinic) { create(:clinic) }
   let!(:observation_description) { create(:pathology_observation_description) }
   let!(:request_description) do
     create(
@@ -25,6 +26,7 @@ describe Renalware::Pathology::Requests::GlobalRuleSet do
   subject(:rule_set) do
     build(
       :pathology_requests_global_rule_set,
+      clinic: clinic,
       frequency_type: "Once",
       request_description: request_description
     )
