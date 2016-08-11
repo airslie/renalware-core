@@ -1,7 +1,7 @@
 module Renalware
-  log '--------------------Adding EDTA Causes of Death codes--------------------'
+  log '--------------------Adding Renal Reg Cause of Death codes--------------------'
 
-  file_path = File.join(default_path, 'edta_codes.csv')
+  file_path = File.join(default_path, 'death_causes.csv')
 
   logcount=0
   CSV.foreach(file_path, headers: true) do |row|
@@ -11,5 +11,5 @@ module Renalware
     end
   end
 
-  log "#{logcount} EDTA Death Causes seeded"
+  log "#{logcount} Renal Reg Death Causes seeded"
 end
