@@ -5,8 +5,8 @@ module Renalware
     module Requests
       module ParamType
         class PrescriptionDrug
-          class Alucaps < Base
-            DRUG_IDS = [102, 103]
+          class Cinacalcet < Base
+            DRUG_IDS = [520]
 
             def drug_ids
               DRUG_IDS
