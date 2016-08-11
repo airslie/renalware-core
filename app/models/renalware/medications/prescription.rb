@@ -33,7 +33,6 @@ module Renalware
       validate :constrain_route_description
 
       enum provider: Provider.codes
-
       enumerize :dose_unit, in: DoseUnit.codes,
         i18n_scope: "enumerize.renalware.medications.prescription.dose_unit"
 
@@ -54,15 +53,16 @@ module Renalware
         "prescribed_on desc"
       end
 
+      # @section attributes
+      #
       def terminated_by
         return unless terminated?
 
         termination.created_by
       end
 
-      def terminate(by:, terminated_on: Date.current)
-        build_termination(by: by, terminated_on: terminated_on)
-      end
+      # @section predicates
+      #
 
       def current?(date=Date.current)
         self.terminated_on.nil? || self.terminated_on >= date
@@ -70,6 +70,13 @@ module Renalware
 
       def terminated?
         self.terminated_on.present?
+      end
+
+      # @section services
+      #
+
+      def terminate(by:, terminated_on: Date.current)
+        build_termination(by: by, terminated_on: terminated_on)
       end
 
       private
