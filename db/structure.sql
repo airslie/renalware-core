@@ -1682,6 +1682,65 @@ ALTER SEQUENCE pathology_request_descriptions_requests_requests_id_seq OWNED BY 
 
 
 --
+-- Name: pathology_requests_drug_categories; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_requests_drug_categories (
+    id integer NOT NULL,
+    name character varying NOT NULL
+);
+
+
+--
+-- Name: pathology_requests_drug_categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pathology_requests_drug_categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_requests_drug_categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pathology_requests_drug_categories_id_seq OWNED BY pathology_requests_drug_categories.id;
+
+
+--
+-- Name: pathology_requests_drugs_drug_categories; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_requests_drugs_drug_categories (
+    id integer NOT NULL,
+    drug_id integer NOT NULL,
+    drug_category_id integer NOT NULL
+);
+
+
+--
+-- Name: pathology_requests_drugs_drug_categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pathology_requests_drugs_drug_categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pathology_requests_drugs_drug_categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pathology_requests_drugs_drug_categories_id_seq OWNED BY pathology_requests_drugs_drug_categories.id;
+
+
+--
 -- Name: pathology_requests_global_rule_sets; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3477,6 +3536,20 @@ ALTER TABLE ONLY pathology_request_descriptions_requests_requests ALTER COLUMN i
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY pathology_requests_drug_categories ALTER COLUMN id SET DEFAULT nextval('pathology_requests_drug_categories_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_requests_drugs_drug_categories ALTER COLUMN id SET DEFAULT nextval('pathology_requests_drugs_drug_categories_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY pathology_requests_global_rule_sets ALTER COLUMN id SET DEFAULT nextval('pathology_requests_global_rule_sets_id_seq'::regclass);
 
 
@@ -4119,6 +4192,22 @@ ALTER TABLE ONLY pathology_request_descriptions
 
 ALTER TABLE ONLY pathology_request_descriptions_requests_requests
     ADD CONSTRAINT pathology_request_descriptions_requests_requests_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_requests_drug_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_requests_drug_categories
+    ADD CONSTRAINT pathology_requests_drug_categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pathology_requests_drugs_drug_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_requests_drugs_drug_categories
+    ADD CONSTRAINT pathology_requests_drugs_drug_categories_pkey PRIMARY KEY (id);
 
 
 --
@@ -5322,6 +5411,14 @@ ALTER TABLE ONLY modality_modalities
 
 
 --
+-- Name: fk_rails_24de49b694; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_requests_drugs_drug_categories
+    ADD CONSTRAINT fk_rails_24de49b694 FOREIGN KEY (drug_id) REFERENCES drugs(id);
+
+
+--
 -- Name: fk_rails_25e627b557; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5711,6 +5808,14 @@ ALTER TABLE ONLY hd_sessions
 
 ALTER TABLE ONLY pd_regimes
     ADD CONSTRAINT fk_rails_a70920e237 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_a850498c88; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pathology_requests_drugs_drug_categories
+    ADD CONSTRAINT fk_rails_a850498c88 FOREIGN KEY (drug_category_id) REFERENCES pathology_requests_drug_categories(id);
 
 
 --
@@ -6268,4 +6373,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160729095901');
 INSERT INTO schema_migrations (version) VALUES ('20160805120015');
 
 INSERT INTO schema_migrations (version) VALUES ('20160809095951');
+
+INSERT INTO schema_migrations (version) VALUES ('20160812073616');
+
+INSERT INTO schema_migrations (version) VALUES ('20160812073900');
 
