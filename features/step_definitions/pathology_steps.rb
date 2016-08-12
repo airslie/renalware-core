@@ -1,4 +1,3 @@
-# TODO: Remove this once we have this column populated in the DB seeds
 observation_required_regex =
   /^request description ([\d\w]+) requires observation description ([\d\w]+)$/
 Given(observation_required_regex) do |request_code, description_code|
@@ -13,7 +12,6 @@ Given(observation_required_regex) do |request_code, description_code|
   end
 end
 
-# TODO: Remove this once we have this column populated in the DB seeds
 request_description_expiration_regex =
   /^the request description ([\d\w]+) has an expiration of (\d+) days$/
 Given(request_description_expiration_regex) do |request_code, expiration_days|
@@ -48,6 +46,17 @@ end
 Given(/^the following observations were recorded$/) do |table|
   record_observations(patient: @patty, observations_attributes: table.hashes)
 end
+
+Given(/^the drugs with the drug_category (\w+):$/) do |drug_category_name, table|
+  drugs = table.hashes.map do |params|
+    Renalware::Pathology::Requests::Drug.create!(params)
+  end
+
+  category = Renalware::Pathology::Requests::DrugCategory.find_by(name: drug_category_name)
+
+  category.update_attributes!(drugs: drugs)
+end
+
 
 Then(/^an observation request is created with the following attributes:$/) do |table|
   expect_observation_request_to_be_created(table.rows_hash)
