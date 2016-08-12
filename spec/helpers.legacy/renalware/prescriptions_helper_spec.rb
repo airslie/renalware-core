@@ -32,32 +32,6 @@ module Renalware
                             provider: 0)
     end
 
-    describe "drug_name" do
-      context "drug present" do
-        it "should return name" do
-          patient_prescription = FactoryGirl.build_stubbed(
-            :prescription,
-            patient: @patient,
-            drug: @blue_pill
-            )
-
-          expect(drug_name(patient_prescription)).to eq(patient_prescription.drug.name)
-        end
-      end
-
-      context "drug not present" do
-        it "should not return name" do
-          patient_prescription = FactoryGirl.build_stubbed(
-            :prescription,
-            patient: @patient,
-            drug: nil
-            )
-
-          expect(drug_name(patient_prescription)).to eq(nil)
-        end
-      end
-    end
-
     describe "highlight_validation_fail" do
       context "with errors" do
         it "should apply hightlight" do

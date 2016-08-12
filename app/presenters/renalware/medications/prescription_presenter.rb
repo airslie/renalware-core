@@ -15,10 +15,6 @@ module Renalware
         ::I18n.t(super, scope: "enums.provider")
       end
 
-      def terminated_by
-        updated_by.full_name if terminated?
-      end
-
       def dose
         "#{dose_amount} #{translated_dose_unit}"
       end

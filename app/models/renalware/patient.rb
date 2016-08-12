@@ -33,8 +33,8 @@ module Renalware
 
     has_many :prescriptions, class_name: "Medications::Prescription"
     has_many :drugs, through: :prescriptions
-
     has_many :medication_routes, through: :prescriptions, class_name: "Medications::MedicationRoute"
+
     has_many :modalities, class_name: "Modalities::Modality"
 
     has_many :modality_descriptions, class_name: "Modalities::Description", through: :modalities, source: :description

@@ -1271,6 +1271,41 @@ ALTER SEQUENCE letter_recipients_id_seq OWNED BY letter_recipients.id;
 
 
 --
+-- Name: medication_prescription_terminations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE medication_prescription_terminations (
+    id integer NOT NULL,
+    terminated_on date NOT NULL,
+    notes text,
+    prescription_id integer NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: medication_prescription_terminations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE medication_prescription_terminations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: medication_prescription_terminations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE medication_prescription_terminations_id_seq OWNED BY medication_prescription_terminations.id;
+
+
+--
 -- Name: medication_prescription_versions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1322,7 +1357,6 @@ CREATE TABLE medication_prescriptions (
     frequency character varying NOT NULL,
     notes text,
     prescribed_on date NOT NULL,
-    terminated_on date,
     provider integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -3452,6 +3486,13 @@ ALTER TABLE ONLY letter_recipients ALTER COLUMN id SET DEFAULT nextval('letter_r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY medication_prescription_terminations ALTER COLUMN id SET DEFAULT nextval('medication_prescription_terminations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY medication_prescription_versions ALTER COLUMN id SET DEFAULT nextval('medication_prescription_versions_id_seq'::regclass);
 
 
@@ -4096,6 +4137,14 @@ ALTER TABLE ONLY letter_letters
 
 ALTER TABLE ONLY letter_recipients
     ADD CONSTRAINT letter_recipients_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: medication_prescription_terminations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY medication_prescription_terminations
+    ADD CONSTRAINT medication_prescription_terminations_pkey PRIMARY KEY (id);
 
 
 --
@@ -4951,31 +5000,31 @@ CREATE INDEX index_letter_recipients_on_letter_id ON letter_recipients USING btr
 
 
 --
+-- Name: index_medication_prescription_terminations_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_medication_prescription_terminations_on_created_by_id ON medication_prescription_terminations USING btree (created_by_id);
+
+
+--
+-- Name: index_medication_prescription_terminations_on_prescription_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_medication_prescription_terminations_on_prescription_id ON medication_prescription_terminations USING btree (prescription_id);
+
+
+--
+-- Name: index_medication_prescription_terminations_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_medication_prescription_terminations_on_updated_by_id ON medication_prescription_terminations USING btree (updated_by_id);
+
+
+--
 -- Name: index_medication_prescription_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_medication_prescription_versions_on_item_type_and_item_id ON medication_prescription_versions USING btree (item_type, item_id);
-
-
---
--- Name: index_medication_prescriptions_on_created_by_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_medication_prescriptions_on_created_by_id ON medication_prescriptions USING btree (created_by_id);
-
-
---
--- Name: index_medication_prescriptions_on_terminated_on; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_medication_prescriptions_on_terminated_on ON medication_prescriptions USING btree (terminated_on);
-
-
---
--- Name: index_medication_prescriptions_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_medication_prescriptions_on_updated_by_id ON medication_prescriptions USING btree (updated_by_id);
 
 
 --
@@ -5403,6 +5452,14 @@ ALTER TABLE ONLY access_profiles
 
 
 --
+-- Name: fk_rails_1f3fb8ef97; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY medication_prescription_terminations
+    ADD CONSTRAINT fk_rails_1f3fb8ef97 FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
 -- Name: fk_rails_21e1b74109; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5427,11 +5484,27 @@ ALTER TABLE ONLY medication_prescriptions
 
 
 --
+-- Name: fk_rails_27e92c81fe; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY medication_prescriptions
+    ADD CONSTRAINT fk_rails_27e92c81fe FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
 -- Name: fk_rails_2ae6a3ad59; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY medication_prescriptions
     ADD CONSTRAINT fk_rails_2ae6a3ad59 FOREIGN KEY (drug_id) REFERENCES drugs(id);
+
+
+--
+-- Name: fk_rails_2bd34b98f9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY medication_prescription_terminations
+    ADD CONSTRAINT fk_rails_2bd34b98f9 FOREIGN KEY (created_by_id) REFERENCES users(id);
 
 
 --
@@ -5931,6 +6004,14 @@ ALTER TABLE ONLY transplant_donor_followups
 
 
 --
+-- Name: fk_rails_c7b1e35b07; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY medication_prescriptions
+    ADD CONSTRAINT fk_rails_c7b1e35b07 FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
 -- Name: fk_rails_c89b2174e9; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6136,6 +6217,14 @@ ALTER TABLE ONLY drug_types_drugs
 
 ALTER TABLE ONLY pathology_requests_patient_rules_requests
     ADD CONSTRAINT fk_rails_fc41021986 FOREIGN KEY (request_id) REFERENCES pathology_requests_requests(id);
+
+
+--
+-- Name: fk_rails_fe1184d31a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY medication_prescription_terminations
+    ADD CONSTRAINT fk_rails_fe1184d31a FOREIGN KEY (prescription_id) REFERENCES medication_prescriptions(id);
 
 
 --
@@ -6359,6 +6448,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160616163622');
 INSERT INTO schema_migrations (version) VALUES ('20160620131148');
 
 INSERT INTO schema_migrations (version) VALUES ('20160628141349');
+
+INSERT INTO schema_migrations (version) VALUES ('20160726150709');
 
 INSERT INTO schema_migrations (version) VALUES ('20160726170852');
 

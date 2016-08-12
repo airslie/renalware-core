@@ -134,7 +134,13 @@ Rails.application.routes.draw do
       end
 
       # Medications
-      resources :prescriptions, controller: "medications/prescriptions"
+      resources :prescriptions, controller: "medications/prescriptions", except: [:destroy]
+      namespace :medications do
+        # TODO move above resource into namespace
+        resources :prescriptions, only: [] do
+          resource :termination, only: [:new, :create]
+        end
+      end
 
       namespace :letters do
         resources :letters do

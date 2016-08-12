@@ -59,6 +59,21 @@ When(/^Clyde records the prescription for Patty$/) do
   )
 end
 
+When(/^Clyde records the prescription for Patty with a termination date$/) do
+  record_prescription_for_patient(
+    user: @clyde,
+    patient: @patty,
+    drug_name: "Ciprofloxacin Infusion",
+    dose_amount: "100",
+    dose_unit: "millilitre",
+    route_code: "PO",
+    frequency: "once a day",
+    prescribed_on: "10-10-2015",
+    provider: "GP",
+    terminated_on: "20-10-2015"
+  )
+end
+
 When(/^Clyde views the list of prescriptions for Patty$/) do
   @current_prescriptions, @historical_prescriptions = view_prescriptions_for(@clyde, @patty)
 end
@@ -85,11 +100,23 @@ Then(/^Clyde can revise the prescription$/) do
   expect_prescription_to_be_revised(patient: @patty)
 end
 
-Then(/^Clyde can terminate the prescription for the patient$/) do
+When(/^Clyde terminates the prescription for the patient$/) do
   terminate_prescription_for(
     patient: @patty,
     user: @clyde
   )
+end
+
+When(/^Clyde records an invalid termination for a prescription$/) do
+  terminate_prescription_for(
+    patient: @patty,
+    user: @clyde,
+    terminated_on: nil
+  )
+end
+
+Then(/^Clyde is recorded as the user who terminated the prescription$/) do
+  expect_prescription_to_be_terminated_by(@clyde, patient: @patty)
 end
 
 Then(/^Clyde should see these current prescriptions$/) do |table|
@@ -104,4 +131,8 @@ Then(/^Patty should have the following prescriptions:$/) do |table|
   table.hashes.each do |row|
     expect_prescription_to_exist(@patty, row)
   end
+end
+
+Then(/^the prescription termination is rejected$/) do
+  expect_termination_to_be_rejected(@patty)
 end
