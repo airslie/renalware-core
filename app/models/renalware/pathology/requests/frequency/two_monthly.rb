@@ -3,9 +3,9 @@ require_dependency "renalware/pathology/requests/frequency"
 module Renalware
   module Pathology
     module Requests
-      class Frequency::Monthly < Frequency
+      class Frequency::TwoMonthly < Frequency
         def observation_required?(last_observed_on)
-          last_observed_on > 28
+          last_observed_on > 60
         end
       end
     end
