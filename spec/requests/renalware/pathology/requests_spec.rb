@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "requests Requests", type: :request do
+RSpec.describe "Configuring Requests", type: :request do
   describe "GET index" do
     let!(:clinic_1) { create(:clinic) }
     let!(:patient_1) { create(:pathology_patient) }
@@ -33,15 +33,12 @@ RSpec.describe "requests Requests", type: :request do
   end
 
   describe "GET show" do
-    let!(:clinic) { create(:clinic) }
-    let!(:patient) { create(:pathology_patient) }
-    let!(:consultant) { create(:pathology_consultant) }
     let!(:request) do
       create(
         :pathology_requests_request,
-        clinic: clinic,
-        patient: patient,
-        consultant: consultant
+        clinic: create(:clinic),
+        patient: create(:pathology_patient),
+        consultant: create(:pathology_consultant)
       )
     end
 

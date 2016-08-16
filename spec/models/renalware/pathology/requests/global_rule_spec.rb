@@ -17,7 +17,7 @@ describe Renalware::Pathology::Requests::GlobalRule do
     )
   end
 
-  subject(:rule_set) do
+  let(:rule_set) do
     build(
       :pathology_requests_global_rule_set,
       clinic: clinic,

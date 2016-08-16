@@ -1,22 +1,10 @@
 require "rails_helper"
 
-RSpec.shared_examples "a valid request" do
-  it "is valid" do
-    expect(rule_set.valid?).to be_truthy
-  end
-end
-
-RSpec.shared_examples "an invalid request" do
-  it "is invalid" do
-    expect(rule_set.valid?).to be_falsey
-  end
-end
-
 describe Renalware::Pathology::Requests::GlobalRuleSet do
-  let!(:clinic) { create(:clinic) }
-  let!(:observation_description) { create(:pathology_observation_description) }
-  let!(:request_description) do
-    create(
+  let(:clinic) { build(:clinic) }
+  let(:observation_description) { build(:pathology_observation_description) }
+  let(:request_description) do
+    build(
       :pathology_request_description,
       required_observation_description: observation_description,
       bottle_type: "serum"
@@ -34,41 +22,42 @@ describe Renalware::Pathology::Requests::GlobalRuleSet do
 
   describe "#valid?" do
     context "no request_description is given" do
-      let!(:request_description) { nil }
+      let(:request_description) { nil }
 
-      it_behaves_like "an invalid request"
+      it { expect(rule_set).to be_invalid }
     end
 
+    context "given a request_description" do
+      context "without a required_observation_description" do
+        let(:request_description) { build(:pathology_request_description, bottle_type: "serum") }
 
-    context "a request_description has no required_observation_description" do
-      let!(:request_description) { create(:pathology_request_description, bottle_type: "serum") }
-
-      it_behaves_like "an invalid request"
-    end
-
-    context "a request_description has no bottle_type" do
-      let!(:observation_description) { create(:pathology_observation_description) }
-      let!(:request_description) do
-        create(
-          :pathology_request_description,
-          required_observation_description: observation_description
-        )
+        it { expect(rule_set).to be_invalid }
       end
 
-      it_behaves_like "an invalid request"
-    end
+      context "without a bottle_type" do
+        let(:observation_description) { build(:pathology_observation_description) }
+        let(:request_description) do
+          build(
+            :pathology_request_description,
+            required_observation_description: observation_description
+          )
+        end
 
-    context "a request_description has the necessary fields set" do
-      let!(:observation_description) { create(:pathology_observation_description) }
-      let!(:request_description) do
-        create(
-          :pathology_request_description,
-          required_observation_description: observation_description,
-          bottle_type: "serum"
-        )
+        it { expect(rule_set).to be_invalid }
       end
 
-      it_behaves_like "a valid request"
+      context "with the necessary fields set" do
+        let(:observation_description) { build(:pathology_observation_description) }
+        let(:request_description) do
+          build(
+            :pathology_request_description,
+            required_observation_description: observation_description,
+            bottle_type: "serum"
+          )
+        end
+
+        it { expect(rule_set).to be_valid }
+      end
     end
   end
 end
