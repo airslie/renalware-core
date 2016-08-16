@@ -18,7 +18,7 @@ html lang="en"
     .row
       .large-4.columns
         = simple_form_for request_html_form_params,
-          url: pathology_requests_request_path,
+          url: pathology_requests_new_request_path,
           as: :request do |f|
           = f.input :patient_ids, as: :hidden_array
           = f.input :clinic_id, collection: all_clinics, input_html: { class: "small-input" }
