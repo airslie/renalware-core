@@ -7,10 +7,10 @@ describe Renalware::Pathology::Requests::GlobalRule do
       .in_array(Renalware::Pathology::Requests::GlobalRule::PARAM_COMPARISON_OPERATORS)
   end
 
-  let!(:clinic) { create(:clinic) }
-  let!(:observation_description) { create(:pathology_observation_description) }
-  let!(:request_description) do
-    create(
+  let(:clinic) { build(:clinic) }
+  let(:observation_description) { build(:pathology_observation_description) }
+  let(:request_description) do
+    build(
       :pathology_request_description,
       required_observation_description: observation_description,
       bottle_type: "serum"
@@ -27,11 +27,11 @@ describe Renalware::Pathology::Requests::GlobalRule do
   end
 
   subject(:rule) do
-    create(:pathology_requests_global_rule, param_type: "Fake", global_rule_set: rule_set)
+    build(:pathology_requests_global_rule, param_type: "Fake", global_rule_set: rule_set)
   end
 
   describe "#required_for_patient?" do
-    let(:patient) { create(:patient) }
+    let(:patient) { build(:patient) }
 
     subject(:rule_required?) { rule.required_for_patient?(patient) }
 
