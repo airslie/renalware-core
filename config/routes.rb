@@ -5,6 +5,10 @@ Rails.application.routes.draw do
     sessions: "renalware/devise/sessions"
   }
 
+  # enable mail previews in all environments
+  get "/rails/mailers" => "rails/mailers#index"
+  get "/rails/mailers/*path" => "rails/mailers#preview"
+
   scope module: "renalware" do
     root to: "dashboard/dashboards#show"
 
@@ -18,7 +22,10 @@ Rails.application.routes.draw do
     # Clinics
     resources :appointments, controller: "clinics/appointments", only: [:index]
     resources :clinic_visits, controller: "clinics/clinic_visits"
-    resources :doctors
+
+    namespace :doctors do
+      resources :doctors
+    end
 
     resources :deaths, only: :index, as: :patient_deaths
 
@@ -60,6 +67,14 @@ Rails.application.routes.draw do
 
     namespace :pathology do
       resources :requests, only: [:index, :show], controller: "requests/requests"
+
+      resources :forms, only: :create
+
+      namespace :requests do
+        # NOTE: This needs to be POST since the params may exceed url char limit in GET
+        post "requests/new", to: "requests#new", as: "request"
+        resources :requests, only: [:create]
+      end
     end
 
     namespace :pd do
@@ -67,9 +82,11 @@ Rails.application.routes.draw do
       resources :infection_organisms
     end
 
-    resources :prd_descriptions, only: [:search] do
-      collection do
-        get :search
+    namespace :renal do
+      resources :prd_descriptions, only: [:search] do
+        collection do
+          get :search
+        end
       end
     end
 
@@ -81,6 +98,10 @@ Rails.application.routes.draw do
       resource :wait_list, only: :show
     end
 
+    # Patient-scoped Routes
+    #
+    # Please add all non patient-scoped routes above
+    #
     resources :patients, except: [:destroy] do
       collection do
         get :search
@@ -113,7 +134,13 @@ Rails.application.routes.draw do
       end
 
       # Medications
-      resources :prescriptions, controller: "medications/prescriptions"
+      resources :prescriptions, controller: "medications/prescriptions", except: [:destroy]
+      namespace :medications do
+        # TODO move above resource into namespace
+        resources :prescriptions, only: [] do
+          resource :termination, only: [:new, :create]
+        end
+      end
 
       namespace :letters do
         resources :letters do
@@ -178,37 +205,5 @@ Rails.application.routes.draw do
         end
       end
     end
-
-    namespace :pathology do
-      resources :forms, only: :create
-
-      namespace :requests do
-        # NOTE: This needs to be POST since the params may exceed url char limit in GET
-        post "requests/new", to: "requests#new", as: "request"
-        resources :requests, only: [:create]
-      end
-    end
-
-    resources :prd_descriptions, only: [:search] do
-      collection do
-        get :search
-      end
-    end
-
-    resources :snomed, only: [:index]
-
-    namespace :system do
-      resources :email_templates, only: :index
-    end
-
-    namespace :transplants do
-      resource :wait_list, only: :show
-    end
-
-    resource :dashboard, only: :show, controller: "dashboard/dashboards"
   end
-
-  # enable mail previews in all environments
-  get "/rails/mailers" => "rails/mailers#index"
-  get "/rails/mailers/*path" => "rails/mailers#preview"
 end

@@ -8,7 +8,7 @@ Feature: Listing prescriptions
     And Patty is a patient
     And the date today is 07-06-2016
 
-  @web
+  @web @wip
   Scenario: A clinician views the list of current prescriptions
     Given Patty has the following prescriptions:
       | drug_name              | dose          | frequency     | route_code | provider | terminated_on |

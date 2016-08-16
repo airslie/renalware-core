@@ -10,8 +10,14 @@ module Renalware
       super(patient, treatable_type: treatable.class.to_s, treatable_id: treatable.id)
     end
 
-    def drug_name(prescription)
-      prescription.drug.try!(:name)
+    def patient_medications_prescription_termination_path(patient, prescription, treatable=nil)
+      treatable ||= patient
+      super(patient, prescription, treatable_type: treatable.class.to_s, treatable_id: treatable.id)
+    end
+
+    def new_patient_medications_prescription_termination_path(patient, prescription, treatable=nil)
+      treatable ||= patient
+      super(patient, prescription, treatable_type: treatable.class.to_s, treatable_id: treatable.id)
     end
 
     def highlight_validation_fail(med_object, med_attribute)

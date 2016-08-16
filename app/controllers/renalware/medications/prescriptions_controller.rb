@@ -1,3 +1,5 @@
+require_dependency "renalware/medications"
+
 module Renalware
   module Medications
     class PrescriptionsController < BaseController
@@ -15,6 +17,7 @@ module Renalware
       def new
         @treatable = treatable_class.find(treatable_id)
         prescription = Prescription.new(treatable: @treatable)
+        prescription.build_termination
 
         render_form(prescription, url: patient_prescriptions_path(@patient, @treatable))
       end
@@ -53,15 +56,6 @@ module Renalware
         end
       end
 
-      def destroy
-        prescription = @patient.prescriptions.find(params[:id])
-        @treatable = prescription.treatable
-
-        prescription.terminate(by: current_user).save!
-
-        render_index
-      end
-
       private
 
       def render_index
@@ -95,12 +89,15 @@ module Renalware
         params
           .require(:medications_prescription)
           .permit(prescription_attributes)
-          .merge(by: current_user)
+          .deep_merge(by: current_user, termination_attributes: { by: current_user })
       end
 
       def prescription_attributes
-        %i(drug_id dose_amount dose_unit medication_route_id frequency route_description
-          notes prescribed_on terminated_on provider)
+        [
+          :drug_id, :dose_amount, :dose_unit, :medication_route_id, :frequency,
+          :route_description, :notes, :prescribed_on, :provider,
+          { termination_attributes: :terminated_on }
+        ]
       end
 
       def treatable_type

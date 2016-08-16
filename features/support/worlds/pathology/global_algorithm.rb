@@ -83,7 +83,7 @@ module World
 
           visit patient_pathology_required_observations_path(
             patient_id: patient.id,
-            clinic_id: clinic.id
+            request: { clinic_id: clinic.id }
           )
 
           html_table_to_array("global_pathology")

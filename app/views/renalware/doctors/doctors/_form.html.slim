@@ -1,0 +1,33 @@
+.row
+  = render "header"
+  = render partial: 'renalware/shared/errors', locals: { model: @doctor  }
+
+.row
+  .large-6.columns
+    = simple_form_for @doctor do |f|
+      = f.input :given_name
+      = f.input :family_name
+      = f.input :email
+      = f.input :telephone
+      = f.input :code
+      = f.input :practitioner_type,
+          collection: ['GP', 'Other']
+      = label_tag 'doctor[practice_ids]', 'Practices'
+      = select_tag 'doctor[practice_ids]',
+          practices_options_for_select(f.object),
+          { include_hidden: false, multiple: true }
+
+      hr
+
+      a#address-form-toggle href='#address-form' class='button tiny' Alternative address
+
+      .row
+        .large-12.columns
+          fieldset#address-form style='display:none'
+            = f.simple_fields_for :address_attributes do |a|
+              = a.input :id, as: :hidden
+              = render partial: 'renalware/addresses/form', locals: { a: a }
+
+      = f.button :submit
+      span= " or "
+      = link_to "cancel", doctors_doctors_path
