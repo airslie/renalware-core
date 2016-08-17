@@ -41,6 +41,7 @@ module World
             Renalware::Pathology::RequestDescription.find_by!(
               code: params["request_description_code"]
             )
+
           params["request_description_id"] = request_description.id
 
           clinic =
