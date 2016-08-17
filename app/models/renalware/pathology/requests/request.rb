@@ -9,16 +9,14 @@ module Renalware
         belongs_to :patient, class_name: "::Renalware::Pathology::Patient"
         belongs_to :clinic, class_name: "::Renalware::Clinics::Clinic"
         belongs_to :consultant, class_name: "::Renalware::Pathology::Consultant"
-        # TODO: These request_descriptions should be validated to check that the bottle_type and
-        #       required_observation_description columns are not null
         has_and_belongs_to_many :request_descriptions,
           class_name: "::Renalware::Pathology::RequestDescription"
         has_and_belongs_to_many :patient_rules,
           class_name: "::Renalware::Pathology::Requests::PatientRule"
 
-        scope :ordered, -> { order(created_at: :desc) }
-
-
+        validates :patient, presence: true
+        validates :clinic, presence: true
+        validates :consultant, presence: true
 
         def print_form
           save

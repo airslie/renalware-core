@@ -7,12 +7,33 @@ describe Renalware::Pathology::Requests::GlobalRule do
       .in_array(Renalware::Pathology::Requests::GlobalRule::PARAM_COMPARISON_OPERATORS)
   end
 
-  subject(:rule) { create(:pathology_requests_global_rule, param_type: "Fake") }
+  let(:clinic) { build(:clinic) }
+  let(:observation_description) { build(:pathology_observation_description) }
+  let(:request_description) do
+    build(
+      :pathology_request_description,
+      required_observation_description: observation_description,
+      bottle_type: "serum"
+    )
+  end
+
+  let(:global_rule_set) do
+    build(
+      :pathology_requests_global_rule_set,
+      clinic: clinic,
+      frequency_type: "Once",
+      request_description: request_description
+    )
+  end
+
+  subject(:global_rule) do
+    build(:pathology_requests_global_rule, param_type: "Fake", global_rule_set: global_rule_set)
+  end
 
   describe "#required_for_patient?" do
-    let(:patient) { create(:patient) }
+    let(:patient) { build(:patient) }
 
-    subject(:rule_required?) { rule.required_for_patient?(patient) }
+    subject(:rule_required?) { global_rule.required_for_patient?(patient) }
 
     it { expect(rule_required?).to be_truthy }
   end
