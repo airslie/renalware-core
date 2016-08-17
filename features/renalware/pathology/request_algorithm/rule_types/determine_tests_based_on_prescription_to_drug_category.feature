@@ -8,9 +8,9 @@ Feature: Determining tests required based on patient's prescription to a drug ca
 
   Background:
     Given the drugs with the drug_category Alucaps:
-      | id  | name                        |
-      | 102 | Aluminium Hydroxide Capsule |
-      | 103 | Aluminium Hydroxide Mixture |
+      | name                        |
+      | Aluminium Hydroxide Capsule |
+      | Aluminium Hydroxide Mixture |
     And the global rule sets:
       | request_description_code     | BFF        |
       | clinic                       | Access     |
