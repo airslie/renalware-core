@@ -6,7 +6,7 @@ module Renalware
       class Request < ActiveRecord::Base
         include Accountable
 
-        TEMPLATES = %w(crs manual)
+        TEMPLATES = %w(crs manual).freeze
 
         belongs_to :patient, class_name: "::Renalware::Pathology::Patient"
         belongs_to :clinic, class_name: "::Renalware::Clinics::Clinic"

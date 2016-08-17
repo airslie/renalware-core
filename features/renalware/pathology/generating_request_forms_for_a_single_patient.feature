@@ -39,6 +39,7 @@ Feature: Generating request forms for a single patient
      | consultant | Zoe Zimmerman |
      | clinic     | Transplant    |
      | telephone  | 7983123123    |
+     | template   | manual        |
     Then Clyde sees these details at the top of Patty's form
       | patient_name    | THEPATIENT PATTY |
       | date            | 12-10-2016       |

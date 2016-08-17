@@ -62,7 +62,7 @@ module Renalware
             clinic_id: request_params[:clinic].id,
             consultant_id: request_params[:consultant].id,
             telephone: request_params[:telephone],
-            template: request_params[:template],
+            template: request_params[:template]
           )
         end
 

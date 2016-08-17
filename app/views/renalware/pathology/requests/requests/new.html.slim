@@ -36,6 +36,7 @@ html lang="en"
           = f.input :clinic_id, as: :hidden
           = f.input :consultant_id, as: :hidden
           = f.input :telephone, as: :hidden
+          = f.input :template, as: :hidden
           = f.button :submit, "Print Forms", data: { confirm: "Are you sure you want to print this form? Printing will result in a request being logged which will effect the patholgoy algorithm's results." }
 
     hr.page_break
