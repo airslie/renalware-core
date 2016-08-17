@@ -20,12 +20,12 @@ Feature: Determining tests required based on patient's prescription to a drug ca
       | PrescriptionDrugCategory | Alucaps |          |       |
     And Patty is a patient
 
-  Scenario: The rule is required because patty is being prescribed Aluminium Hydroxide Capsule
+  Scenario: The rule is required because Patty is being prescribed Aluminium Hydroxide Capsule
     Given Patty is being prescribed Aluminium Hydroxide Capsule
     When the global pathology algorithm is run for Patty in clinic Access
     Then it is determined the observation is required
 
-  Scenario: The rule is required because patty is being prescribed Aluminium Hydroxide Mixture
+  Scenario: The rule is required because Patty is being prescribed Aluminium Hydroxide Mixture
     Given Patty is being prescribed Aluminium Hydroxide Mixture
     When the global pathology algorithm is run for Patty in clinic Access
     Then it is determined the observation is required
