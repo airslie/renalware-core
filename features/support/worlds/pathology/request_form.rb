@@ -10,7 +10,7 @@ module World
           patients = find_requested_patients(form_params[:patients])
           telephone = form_params[:telephone]
 
-          params = {}
+          params = form_params.slice(:template)
           if patients.present?
             params[:patients] = patients
             params[:patient_ids] = patients.map(&:id)
@@ -166,6 +166,7 @@ module World
               patient: patient,
               clinic: clinic,
               consultant: consultant,
+              template: params[:template],
               pathology_request_descriptions: { id: request_descriptions.map(&:id) },
               pathology_requests_patient_rules: { id: patient_rules.map(&:id) }
             )
@@ -236,6 +237,7 @@ module World
           update_request_form_clinic(clinic.name) if clinic.present?
           update_request_form_consultant(consultant.full_name) if consultant.present?
           update_request_form_telephone(telephone)  if telephone.present?
+          update_request_form_template(params[:template])
         end
 
         def generate_request_forms_for_appointments(_clinician, _appointments, params)
@@ -313,6 +315,11 @@ module World
 
         def update_request_form_telephone(telephone)
           fill_in "Telephone", with: telephone
+          click_on "Update Forms"
+        end
+
+        def update_request_form_template(template)
+          select template, from: "Template"
           click_on "Update Forms"
         end
       end
