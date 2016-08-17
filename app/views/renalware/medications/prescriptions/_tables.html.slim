@@ -5,7 +5,7 @@ b Current
       treatable: treatable,
       prescriptions: current_prescriptions,
       search: current_search,
-      include_terminated_column: false
+      current_scope: true
 hr
 - if defined? historical_prescriptions
   b Historical
@@ -15,6 +15,6 @@ hr
       treatable: treatable,
       prescriptions: historical_prescriptions,
       search: historical_prescriptions_search,
-      include_terminated_column: true
+      current_scope: false
 .right
   = link_to "Add Prescription", new_patient_prescription_path(patient, treatable), remote: true, class: %i(button tiny)
