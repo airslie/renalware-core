@@ -34,7 +34,7 @@ module Renalware
             locals: local_vars.merge(
               all_clinics: Renalware::Clinics::Clinic.ordered,
               all_consultants: Renalware::Pathology::Consultant.ordered,
-              all_templates: %w( crs manual )
+              all_templates: Renalware::Pathology::Requests::Request::TEMPLATES
             )
         end
 

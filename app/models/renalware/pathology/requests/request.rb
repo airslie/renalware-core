@@ -6,6 +6,8 @@ module Renalware
       class Request < ActiveRecord::Base
         include Accountable
 
+        TEMPLATES = %w(crs manual)
+
         belongs_to :patient, class_name: "::Renalware::Pathology::Patient"
         belongs_to :clinic, class_name: "::Renalware::Clinics::Clinic"
         belongs_to :consultant, class_name: "::Renalware::Pathology::Consultant"
@@ -17,6 +19,8 @@ module Renalware
         validates :patient, presence: true
         validates :clinic, presence: true
         validates :consultant, presence: true
+        validates :template, presence: true
+        validates :template, inclusion: { in: TEMPLATES, allow_nil: false }
 
         def print_form
           save

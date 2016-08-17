@@ -66,6 +66,7 @@ module World
             clinic: Renalware::Clinics::Clinic.first,
             consultant: Renalware::Pathology::Consultant.first,
             telephone: "123",
+            template: Renalware::Pathology::Requests::Request::TEMPLATES.first,
             by: Renalware::SystemUser.find,
             request_descriptions: request_descriptions,
             created_at: params[:requested_at],
