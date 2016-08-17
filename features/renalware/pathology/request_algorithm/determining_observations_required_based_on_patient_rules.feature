@@ -27,8 +27,8 @@ Feature: Determining observations required based on patient rules
       | Once           |                  | yes          | required      |
       | Once           | 1 week ago       | yes          | not required  |
       | Weekly         |                  | yes          | required      |
-      | Weekly         | 6 days ago       | yes          | not required  |
-      | Weekly         | 7 days ago       | yes          | required      |
+      | Weekly         | 5 days ago       | yes          | not required  |
+      | Weekly         | 6 days ago       | yes          | required      |
 
       | Always         |                  | no           | not required  |
       | Always         | 1 week ago       | no           | not required  |
