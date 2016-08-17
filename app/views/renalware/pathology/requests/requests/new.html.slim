@@ -26,6 +26,7 @@ html lang="en"
             collection: all_consultants,
             label_method: :full_name, input_html: { class: "small-input" }
           = f.input :telephone, input_html: { class: "small-input" }
+          = f.input :template, collection: all_templates, input_html: { class: "small-input" }
           = f.button :submit, "Update Forms"
 
         = simple_form_for request_html_form_params,

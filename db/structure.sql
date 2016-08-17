@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.3
--- Dumped by pg_dump version 9.5.3
+-- Dumped from database version 9.5.4
+-- Dumped by pg_dump version 9.5.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1859,7 +1859,8 @@ CREATE TABLE pathology_requests_requests (
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    template character varying NOT NULL
 );
 
 
@@ -6359,4 +6360,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160729095901');
 INSERT INTO schema_migrations (version) VALUES ('20160805120015');
 
 INSERT INTO schema_migrations (version) VALUES ('20160809095951');
+
+INSERT INTO schema_migrations (version) VALUES ('20160817095514');
 

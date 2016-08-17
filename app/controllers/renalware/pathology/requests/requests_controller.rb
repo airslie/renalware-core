@@ -33,7 +33,8 @@ module Renalware
             layout: false,
             locals: local_vars.merge(
               all_clinics: Renalware::Clinics::Clinic.ordered,
-              all_consultants: Renalware::Pathology::Consultant.ordered
+              all_consultants: Renalware::Pathology::Consultant.ordered,
+              all_templates: %w( crs manual )
             )
         end
 
@@ -60,7 +61,8 @@ module Renalware
             patient_ids: raw_request_params[:patient_ids],
             clinic_id: request_params[:clinic].id,
             consultant_id: request_params[:consultant].id,
-            telephone: request_params[:telephone]
+            telephone: request_params[:telephone],
+            template: request_params[:template],
           )
         end
 
@@ -77,7 +79,7 @@ module Renalware
         def raw_request_params
           params
             .fetch(:request, {})
-            .permit(:consultant_id, :clinic_id, :telephone, patient_ids: [])
+            .permit(:consultant_id, :clinic_id, :telephone, :template, patient_ids: [])
             .merge(by: current_user)
         end
 
