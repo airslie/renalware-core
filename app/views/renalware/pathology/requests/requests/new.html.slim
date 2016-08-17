@@ -43,7 +43,7 @@ html lang="en"
 
     - requests.each do |request_form|
       - if request_form.has_tests_required?
-        = render partial: "renalware/pathology/requests/requests/request_form.html.slim",
+        = render partial: "renalware/pathology/requests/requests/request_form/#{request_form.template}.html.slim",
           locals: { request_form: request_form }
 
         hr.page_break

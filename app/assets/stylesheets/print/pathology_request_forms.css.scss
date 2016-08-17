@@ -1,8 +1,10 @@
-table, td {
+.with_border {
   border: 1px solid black;
+  border-collapse: collapse;
 }
 
-table {
+.with_border td {
+  border: 1px solid black;
   border-collapse: collapse;
 }
 

@@ -3,6 +3,6 @@
 - requests.each do |request_form|
   - if request_form.has_tests_required?
    .alwaysbreak
-      = render partial: "renalware/pathology/requests/requests/request_form.html.slim",
+      = render partial: "renalware/pathology/requests/requests/request_form/crs.html.slim",
         locals: { request_form: request_form }
 
