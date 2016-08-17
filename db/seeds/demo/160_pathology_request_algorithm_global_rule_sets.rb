@@ -12,10 +12,6 @@ module Renalware
       code: row["request_description_code"]
     )
 
-    unless ::Renalware::Pathology::Requests::Frequency.all_names.include?(row["frequency_type"])
-      puts "\n\n#{row['id']} (#{row['request_description_code']} #{row['frequency_type']} NOT VALID!!!\n\n"
-    end
-
     Pathology::Requests::GlobalRuleSet.find_or_create_by!(
       id: row["id"],
       clinic: clinic,
