@@ -17,7 +17,7 @@ describe Renalware::Pathology::Requests::GlobalRule do
     )
   end
 
-  let(:rule_set) do
+  let(:global_rule_set) do
     build(
       :pathology_requests_global_rule_set,
       clinic: clinic,
@@ -26,14 +26,14 @@ describe Renalware::Pathology::Requests::GlobalRule do
     )
   end
 
-  subject(:rule) do
-    build(:pathology_requests_global_rule, param_type: "Fake", global_rule_set: rule_set)
+  subject(:global_rule) do
+    build(:pathology_requests_global_rule, param_type: "Fake", global_rule_set: global_rule_set)
   end
 
   describe "#required_for_patient?" do
     let(:patient) { build(:patient) }
 
-    subject(:rule_required?) { rule.required_for_patient?(patient) }
+    subject(:rule_required?) { global_rule.required_for_patient?(patient) }
 
     it { expect(rule_required?).to be_truthy }
   end
