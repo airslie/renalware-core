@@ -15,6 +15,8 @@ module World
                 Renalware::Drugs::Drug.find_by!(name: params["id"]).id
               when "PrescriptionDrugType" then
                 Renalware::Drugs::Type.find_by!(name: params["id"]).id
+              when "PrescriptionDrugCategory" then
+                Renalware::Pathology::Requests::DrugCategory.find_by(name: params["id"]).id
             end
 
           Renalware::Pathology::Requests::GlobalRule.create!(
@@ -41,6 +43,7 @@ module World
             Renalware::Pathology::RequestDescription.find_by!(
               code: params["request_description_code"]
             )
+
           params["request_description_id"] = request_description.id
 
           clinic =
