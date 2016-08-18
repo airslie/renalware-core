@@ -30,10 +30,10 @@ describe Renalware::Pathology::Requests::GlobalRule do
     build(:pathology_requests_global_rule, param_type: "Fake", global_rule_set: global_rule_set)
   end
 
-  describe "#required_for_patient?" do
+  describe "#observation_required_for_patient?" do
     let(:patient) { build(:patient) }
 
-    subject(:rule_required?) { global_rule.required_for_patient?(patient) }
+    subject(:rule_required?) { global_rule.observation_required_for_patient?(patient) }
 
     it { expect(rule_required?).to be_truthy }
   end
