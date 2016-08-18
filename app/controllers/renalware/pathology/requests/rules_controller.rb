@@ -5,10 +5,10 @@ module Renalware
     module Requests
       class RulesController < Pathology::BaseController
         # NOTE: These ids are in a specific order to match the Bart's pathology algorithm doc
-        CLINIC_IDS = [10, 4, 11, 15, 9, 8]
+        CLINIC_IDS = [10, 4, 11, 15, 9, 8].freeze
         REQUEST_DESCRIPTION_IDS = [10, 9, 11, 144, 152, 38, 5, 154, 176, 50, 58, 17, 92, 48, 30,
           177, 89, 13, 116, 67, 178, 52, 21, 20, 179, 139, 180, 181, 71, 81, 1, 25, 6, 7, 18, 182,
-          155, 183, 170, 184, 185, 186, 187, 188, 189, 190, 191, 192, 189, 193, 194, 195]
+          155, 183, 170, 184, 185, 186, 187, 188, 189, 190, 191, 192, 189, 193, 194, 195].freeze
 
         def index
           rule_sets = GlobalRuleSet.all

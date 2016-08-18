@@ -5,6 +5,7 @@ module Renalware
     module Requests
       module ParamType
         class Base
+          # TODO: Use STI for these classes from GlobalRule
           def initialize(patient, param_id, param_comparison_operator, param_comparison_value)
             @patient = patient
             @param_id = param_id
