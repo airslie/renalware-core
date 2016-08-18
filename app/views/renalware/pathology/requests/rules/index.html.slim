@@ -17,5 +17,4 @@
               td
                 ul
                 - column.rule_sets.each do |rule_set|
-                  li = render partial: "renalware/pathology/requests/rules/rule_set",
-                      locals: { rule_set: rule_set}
+                  li = rule_set.to_s

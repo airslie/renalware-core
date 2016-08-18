@@ -13,7 +13,11 @@ module Renalware
         end
 
         def to_s
-          rules.map { |rule| rule.to_s }.join(" and ")
+          if rules.any?
+            rules.map { |rule| rule.to_s }.join(" and ")
+          else
+            frequency
+          end
         end
       end
     end
