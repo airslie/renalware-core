@@ -4,14 +4,17 @@ module Renalware
   module Pathology
     module Requests
       module ParamType
-        class PatientIsDiabetic
-          def initialize(patient, _param_id, _param_comparison_operator, param_comparison_value)
-            @patient = patient
-            @diabetic = param_comparison_value == "true"
-          end
-
+        class PatientIsDiabetic < Base
           def required?
             @patient.diabetic
+          end
+
+          def to_s
+            if @param_comparison_value == "true"
+              "patient is DM"
+            else
+              "patient is not DM"
+            end
           end
         end
       end

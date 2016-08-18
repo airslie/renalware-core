@@ -4,14 +4,13 @@ module Renalware
   module Pathology
     module Requests
       module ParamType
-        class PrescriptionDrugType
-          def initialize(patient, param_id, _param_comparison_operator, _param_comparison_value)
-            @patient = patient
-            @param_id = param_id.to_i
-          end
-
+        class PrescriptionDrugType < Base
           def required?
             @patient.drugs.flat_map(&:drug_types).include?(drug_type)
+          end
+
+          def to_s
+            "prescribed drugs include #{drug_type.name}"
           end
 
           private

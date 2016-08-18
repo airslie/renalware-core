@@ -25,33 +25,22 @@ module Renalware
           end
         end
 
-        def to_s
-          str = "if "
-          str +=
-            case param_type
-              when "ObservationResult" then
-                "#{param_id_human_readable} #{param_comparison_operator} #{param_comparison_value}"
-              when "PatientIsDiabetic" then
-                if param_comparison_value == "true"
-                  "patient is DM"
-                else
-                  "patient is not DM"
-                end
-              when "PatientSexIs" then
-                "patient is #{param_comparison_value}"
-              when "PrescriptionDrugCategory", "PrescriptionDrug","PrescriptionDrugType" then
-                "prescribed drugs include #{param_id_human_readable}"
-              when "RequestResult" then
-                "last result is #{param_comparison_operator} #{param_comparison_value}"
-              when "TransplantDateWithinWeeks" then
-                "transplant date within #{param_comparison_value} weeks ago"
-              when "TransplantRegistrationStatus" then
-                "transplant registration status is #{param_comparison_value}"
-              else
-                "Unknown rule.param_type: #{param_type}"
-            end
+        def param
+          param_type_class =
+            "::Renalware::Pathology::Requests::ParamType::#{param_type}"
+            .constantize
 
-          str += " then #{global_rule_set.frequency}"
+          param_type_class
+            .new(
+              nil,
+              param_id,
+              param_comparison_operator,
+              param_comparison_value
+            )
+        end
+
+        def to_s
+          "if #{param} then #{global_rule_set.frequency}"
         end
       end
     end

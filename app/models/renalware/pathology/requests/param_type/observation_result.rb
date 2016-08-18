@@ -4,21 +4,22 @@ module Renalware
   module Pathology
     module Requests
       module ParamType
-        class ObservationResult
+        class ObservationResult < Base
           def initialize(patient, param_id, param_comparison_operator, param_comparison_value)
             unless ["==", ">", "<", ">=", "<="].include?(param_comparison_operator)
               raise ArgumentError
             end
 
-            @patient = patient
-            @param_id = param_id.to_i
-            @param_comparison_operator = param_comparison_operator
-            @param_comparison_value = param_comparison_value.to_i
+            super(patient, param_id, param_comparison_operator, param_comparison_value)
           end
 
           def required?
             return true if observation_result.nil?
             observation_result.send(@param_comparison_operator.to_sym, @param_comparison_value)
+          end
+
+          def to_s
+            "#{find_observation_description.code} #{@param_comparison_operator} #{@param_comparison_value}"
           end
 
           private
@@ -37,6 +38,10 @@ module Renalware
           def observation_description
             @observation_description ||=
               Renalware::Pathology::ObservationDescription.new(id: @param_id)
+          end
+
+          def find_observation_description
+            Renalware::Pathology::ObservationDescription.find(@param_id)
           end
         end
       end
