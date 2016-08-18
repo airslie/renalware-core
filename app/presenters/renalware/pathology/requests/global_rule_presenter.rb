@@ -9,11 +9,11 @@ module Renalware
         end
 
         def param
-          param_type_class =
+          klass =
             "::Renalware::Pathology::Requests::GlobalRule::#{param_type}"
             .constantize
 
-          param_type_class
+          klass
             .new(
               nil,
               param_id,

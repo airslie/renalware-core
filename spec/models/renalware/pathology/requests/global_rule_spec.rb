@@ -27,7 +27,7 @@ describe Renalware::Pathology::Requests::GlobalRule do
   end
 
   subject(:global_rule) do
-    build(:pathology_requests_global_rule, param_type: "Fake", global_rule_set: global_rule_set)
+    build(:pathology_requests_global_rule, type: "Fake", global_rule_set: global_rule_set)
   end
 
   describe "#observation_required_for_patient?" do

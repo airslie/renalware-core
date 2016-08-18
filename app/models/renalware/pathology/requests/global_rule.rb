@@ -13,11 +13,11 @@ module Renalware
           { in: PARAM_COMPARISON_OPERATORS, allow_nil: true }
 
         def observation_required_for_patient?(patient)
-          param_type_class =
+          klass =
             "::Renalware::Pathology::Requests::GlobalRule::#{param_type}"
             .constantize
 
-          param_type_class
+          klass
             .new(
               patient,
               param_id,
