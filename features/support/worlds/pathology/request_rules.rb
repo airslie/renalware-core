@@ -20,7 +20,9 @@ module World
         # @section expectations
         #
         def expect_rules_table_to_have_rule(rules_table, request_description, clinic)
-          table_row = rules_table.rows.detect { |row| row.request_description == request_description }
+          table_row = rules_table.rows.detect do |row|
+            row.request_description == request_description
+          end
           table_cell = table_row.columns.detect { |column| column.clinic == clinic }
 
           expect(table_cell.rule_sets.any?).to be_truthy
