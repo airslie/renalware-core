@@ -4,7 +4,7 @@ module Renalware
   module Pathology
     module Requests
       class GlobalRule
-        class PrescriptionDrugType < Base
+        class PrescriptionDrugType < GlobalRule
           def required?
             @patient.drugs.flat_map(&:drug_types).include?(drug_type)
           end

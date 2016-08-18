@@ -4,17 +4,7 @@ module Renalware
   module Pathology
     module Requests
       class GlobalRule
-        class RequestResult < Base
-          VALID_OPERATORS = ["==", ">", "<", ">=", "<="].freeze
-
-          def initialize(patient, param_id, param_comparison_operator, param_comparison_value)
-            unless VALID_OPERATORS.include?(param_comparison_operator)
-              raise ArgumentError
-            end
-
-            super(patient, param_id, param_comparison_operator, param_comparison_value)
-          end
-
+        class RequestResult < GlobalRule
           def required?
             return true if observation_result.nil?
             observation_result.send(@param_comparison_operator.to_sym, @param_comparison_value.to_i)

@@ -4,7 +4,7 @@ module Renalware
   module Pathology
     module Requests
       class GlobalRule
-        class TransplantDateWithinWeeks < Base
+        class TransplantDateWithinWeeks < GlobalRule
           def required?
             return false unless most_recent_operation.present?
 

@@ -4,7 +4,7 @@ module Renalware
   module Pathology
     module Requests
       class GlobalRule
-        class PatientIsDiabetic < Base
+        class PatientIsDiabetic < GlobalRule
           def required?
             @patient.diabetic
           end

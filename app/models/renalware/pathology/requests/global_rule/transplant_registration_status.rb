@@ -4,7 +4,7 @@ module Renalware
   module Pathology
     module Requests
       class GlobalRule
-        class TransplantRegistrationStatus < Base
+        class TransplantRegistrationStatus < GlobalRule
           def required?
             return false unless registration.present?
 

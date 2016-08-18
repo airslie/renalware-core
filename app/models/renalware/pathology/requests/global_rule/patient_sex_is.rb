@@ -4,7 +4,7 @@ module Renalware
   module Pathology
     module Requests
       class GlobalRule
-        class PatientSexIs < Base
+        class PatientSexIs < GlobalRule
           def required?
             @patient.sex.code == @param_comparison_value
           end

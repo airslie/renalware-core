@@ -4,7 +4,7 @@ module Renalware
   module Pathology
     module Requests
       class GlobalRule
-        class PrescriptionDrug < Base
+        class PrescriptionDrug < GlobalRule
           def required?
             @patient.drugs.include?(drug)
           end

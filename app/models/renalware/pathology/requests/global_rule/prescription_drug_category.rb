@@ -4,7 +4,7 @@ module Renalware
   module Pathology
     module Requests
       class GlobalRule
-        class PrescriptionDrugCategory < Base
+        class PrescriptionDrugCategory < GlobalRule
           def required?
             (@patient.drugs.map(&:id) & drug_ids).any?
           end
