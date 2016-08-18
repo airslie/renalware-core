@@ -15,7 +15,7 @@ module Renalware
 
           def required?
             return true if observation_result.nil?
-            observation_result.send(@param_comparison_operator.to_sym, @param_comparison_value)
+            observation_result.send(@param_comparison_operator.to_sym, @param_comparison_value.to_i)
           end
 
           def to_s
