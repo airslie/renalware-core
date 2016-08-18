@@ -21,19 +21,13 @@ module Renalware
   logcount=0
   CSV.foreach(file_path, headers: true) do |row|
     logcount += 1
-    rule = Pathology::Requests::GlobalRule.new(
+    Pathology::Requests::GlobalRule.find_or_create_by!(
       global_rule_set_id: row["global_rule_set_id"],
       param_type: row["param_type"],
       param_id: find_param_id(row),
       param_comparison_operator: row["param_comparison_operator"],
       param_comparison_value: row["param_comparison_value"]
     )
-
-    unless rule.valid?
-      puts "\nINVALID! #{row['global_rule_set_id']},#{row['param_type']},#{row['param_id']},#{row['param_comparison_operator']},#{row['param_comparison_value']}\n#{rule.errors.messages}"
-    end
-
-    rule.save
   end
 
   log "#{logcount} Global Rules seeded"

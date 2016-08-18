@@ -63,6 +63,7 @@ b12_folate_ferritin:
   name: B12/FOLATE/FERRITIN
   lab: biochemistry
   bottle_type: serum
+  required_observation_description: B12
 lipid_profile:
   code: LPRO
   name: LIPID PROFILE
@@ -91,6 +92,8 @@ malaria:
   code: MAL
   name: MALARIA
   lab: lab_unknown
+  bottle_type: serum
+  required_observation_description: B12
 film_comment:
   code: FILM
   name: FILM COMMENT
