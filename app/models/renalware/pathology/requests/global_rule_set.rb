@@ -23,11 +23,13 @@ module Renalware
           PatientRuleSetDecision.new(patient, self).call
         end
 
+        # TODO: Fix this.
         def to_s
-          if rules.any?
-            rules.map { |rule| rule.to_s }.join(" and ")
+          if rules.length >= 1
+            rules_str = rules.map { |rule| rule.to_s }.join(" and ")
+            "if #{rules_str} then #{frequency}"
           else
-            frequency
+            frequency.to_s
           end
         end
 
