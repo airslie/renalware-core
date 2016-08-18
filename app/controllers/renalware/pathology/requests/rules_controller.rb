@@ -6,15 +6,16 @@ module Renalware
       class RulesController < Pathology::BaseController
         def index
           rule_sets = GlobalRuleSet.all
+          clinics = Renalware::Clinics::Clinic.all
           authorize rule_sets
 
           rules_table = ::Renalware::Pathology::Requests::GlobalRuleSetsTable.new(
             Renalware::Pathology::RequestDescription.with_global_rule_set,
-            Renalware::Clinics::Clinic.all,
+            clinics,
             GlobalRuleSetPresenter.present(rule_sets)
           )
 
-          render :index, locals: { rules_table: rules_table }
+          render :index, locals: { rules_table: rules_table, clinics: clinics }
         end
       end
     end

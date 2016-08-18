@@ -4,8 +4,6 @@ module Renalware
   module Pathology
     module Requests
       class GlobalRuleSetsTable
-        attr_reader :clinics
-
         def initialize(request_descriptions, clinics, rule_sets)
           @request_descriptions = request_descriptions
           @clinics = clinics
@@ -14,23 +12,37 @@ module Renalware
 
         def rows
           @request_descriptions.map do |request_description|
-            OpenStruct.new(
-              request_description: request_description,
-              columns: find_columns(request_description)
-            )
+            Row.new(request_description, @clinics, @rule_sets)
           end
         end
+      end
 
-        def find_columns(request_description)
+      class Row
+        attr_reader :request_description
+
+        def initialize(request_description, clinics, rule_sets)
+          @request_description = request_description
+          @clinics = clinics
+          @rule_sets = rule_sets
+        end
+
+        def columns
           @clinics.map do |clinic|
-            OpenStruct.new(
-              clinic: clinic,
-              rule_sets: find_rule_sets(request_description, clinic)
-            )
+            Cell.new(request_description, clinic, @rule_sets)
           end
         end
+      end
 
-        def find_rule_sets(request_description, clinic)
+      class Cell
+        attr_reader :request_description, :clinic
+
+         def initialize(request_description, clinic, rule_sets)
+          @request_description = request_description
+          @clinic = clinic
+          @rule_sets = rule_sets
+        end
+
+        def rule_sets
           grouped_rule_sets.fetch([request_description.id, clinic.id], [])
         end
 
