@@ -19,9 +19,9 @@ module World
 
         # @section expectations
         #
-        def expect_rules_table_to_have_rule(_clinician, rules_table, request_description, clinic)
-          table_row = rules_table.rows.find { |row| row.request_description == request_description }
-          table_cell = table_row.columns.find { |column| column.clinic == clinic }
+        def expect_rules_table_to_have_rule(rules_table, request_description, clinic)
+          table_row = rules_table.rows.detect { |row| row.request_description == request_description }
+          table_cell = table_row.columns.detect { |column| column.clinic == clinic }
 
           expect(table_cell.rule_sets.any?).to be_truthy
         end
@@ -36,7 +36,7 @@ module World
           visit pathology_requests_rules_path
         end
 
-        def expect_rules_table_to_have_rule(clinician, rules_table, request_description, clinic)
+        def expect_rules_table_to_have_rule(_rules_table, request_description, clinic)
           xpath =
             "td[data-request='#{request_description.id}'][data-clinic='#{clinic.id}']"
           value_in_web = find(xpath).text

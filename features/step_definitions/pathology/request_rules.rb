@@ -10,7 +10,6 @@ Then(/^clyde see rules for these request_descriptions and clinics:$/) do |table|
     clinic = Renalware::Clinics::Clinic.find_by(name: rule_params[:clinic])
 
     expect_rules_table_to_have_rule(
-      @clyde,
       @rules_table,
       request_description,
       clinic
