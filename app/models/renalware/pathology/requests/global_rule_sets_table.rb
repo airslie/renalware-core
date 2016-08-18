@@ -36,7 +36,7 @@ module Renalware
       class Cell
         attr_reader :request_description, :clinic
 
-         def initialize(request_description, clinic, rule_sets)
+        def initialize(request_description, clinic, rule_sets)
           @request_description = request_description
           @clinic = clinic
           @rule_sets = rule_sets
