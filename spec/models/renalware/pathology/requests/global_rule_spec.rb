@@ -39,7 +39,7 @@ describe Renalware::Pathology::Requests::GlobalRule do
   end
 end
 
-class Renalware::Pathology::Requests::ParamType::Fake
+class Renalware::Pathology::Requests::GlobalRule::Fake
   def initialize(*_args); end
 
   def required?

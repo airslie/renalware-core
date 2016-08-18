@@ -10,7 +10,7 @@ module Renalware
 
         def param
           param_type_class =
-            "::Renalware::Pathology::Requests::ParamType::#{param_type}"
+            "::Renalware::Pathology::Requests::GlobalRule::#{param_type}"
             .constantize
 
           param_type_class

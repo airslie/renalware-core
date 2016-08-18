@@ -3,12 +3,10 @@ require_dependency "renalware/pathology/requests"
 module Renalware
   module Pathology
     module Requests
-      module ParamType
-        class RequestResult < Base
-          VALID_OPERATORS = ["==", ">", "<", ">=", "<="].freeze
-
+      module GlobalRule
+        class ObservationResult < Base
           def initialize(patient, param_id, param_comparison_operator, param_comparison_value)
-            unless VALID_OPERATORS.include?(param_comparison_operator)
+            unless ["==", ">", "<", ">=", "<="].include?(param_comparison_operator)
               raise ArgumentError
             end
 
@@ -21,30 +19,31 @@ module Renalware
           end
 
           def to_s
-            "last result is #{@param_comparison_operator} #{@param_comparison_value}"
+            "#{find_observation_description.code} " \
+            " #{@param_comparison_operator} " \
+            "#{@param_comparison_value}"
           end
 
           private
 
           def observation_result
             @observation_result ||= begin
-              observation = find_observation_for_patient(observation_description)
+
+              observation =
+                ::Renalware::Pathology::ObservationForPatientObservationDescriptionQuery
+                  .new(@patient, observation_description).call
+
               observation.result.to_i if observation.present?
             end
           end
 
-          def find_observation_for_patient(observation_description)
-            ::Renalware::Pathology::ObservationForPatientObservationDescriptionQuery.new(
-              @patient, observation_description
-            ).call
-          end
-
           def observation_description
-            @observation_description ||= find_request_description.required_observation_description
+            @observation_description ||=
+              Renalware::Pathology::ObservationDescription.new(id: @param_id)
           end
 
-          def find_request_description
-            Renalware::Pathology::RequestDescription.find(@param_id)
+          def find_observation_description
+            Renalware::Pathology::ObservationDescription.find(@param_id)
           end
         end
       end

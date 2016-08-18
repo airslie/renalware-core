@@ -14,7 +14,7 @@ module Renalware
 
         def required_for_patient?(patient)
           param_type_class =
-            "::Renalware::Pathology::Requests::ParamType::#{param_type}"
+            "::Renalware::Pathology::Requests::GlobalRule::#{param_type}"
             .constantize
 
           param_type_class

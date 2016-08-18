@@ -3,7 +3,7 @@ require_dependency "renalware/pathology/requests"
 module Renalware
   module Pathology
     module Requests
-      module ParamType
+      module GlobalRule
         class PrescriptionDrug < Base
           def required?
             @patient.drugs.include?(drug)
