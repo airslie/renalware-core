@@ -66,14 +66,10 @@ Rails.application.routes.draw do
     get "authors/:author_id/letters", to: "letters/letters#author", as: "author_letters"
 
     namespace :pathology do
-      resources :requests, only: [:index, :show], controller: "requests/requests"
-
-      resources :forms, only: :create
-
       namespace :requests do
         # NOTE: This needs to be POST since the params may exceed url char limit in GET
-        post "requests/new", to: "requests#new", as: "request"
-        resources :requests, only: [:create]
+        post "requests/new", to: "requests#new", as: "new_request"
+        resources :requests, only: [:create, :index, :show]
       end
     end
 

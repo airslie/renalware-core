@@ -8,6 +8,8 @@ module Renalware
     "CAPD Nurses",
     "Dartford Outreach",
     "Dietitians",
+    "Donor Clinic",
+    "Donor Screen",
     "General Nephrology",
     "Haemodialysis",
     "Home Haemodialysis",

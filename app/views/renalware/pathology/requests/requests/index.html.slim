@@ -4,7 +4,7 @@
 .row
   = simple_form_for query,
       as: :q,
-      url: pathology_requests_path,
+      url: pathology_requests_requests_path,
       method: :get do |f|
     .row
       .large-4.columns
@@ -30,7 +30,7 @@
       tbody
         - requests.each do |request|
           tr
-            td = link_to "View", pathology_request_path(id: request.id, format: "pdf")
+            td = link_to "View", pathology_requests_request_path(id: request.id, format: "pdf")
             td = request.patient.full_name
             td = request.clinic.name
             td = request.consultant.full_name
