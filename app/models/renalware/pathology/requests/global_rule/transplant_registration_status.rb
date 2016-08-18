@@ -5,24 +5,16 @@ module Renalware
     module Requests
       class GlobalRule
         class TransplantRegistrationStatus < GlobalRule
-          def required?
+          def observation_required_for_patient?(patient)
+            registration = Renalware::Transplants::Registration.for_patient(patient).first
             return false unless registration.present?
 
-            registration_status.description.code == @param_comparison_value
+            registration_status = registration.current_status
+            registration_status.description.code == param_comparison_value
           end
 
           def to_s
             "transplant registration status is #{@param_comparison_value}"
-          end
-
-          private
-
-          def registration_status
-            @registration_status ||= registration.current_status
-          end
-
-          def registration
-            @registration ||= Renalware::Transplants::Registration.for_patient(@patient).first
           end
         end
       end

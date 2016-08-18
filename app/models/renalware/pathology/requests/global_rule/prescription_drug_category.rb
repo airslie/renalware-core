@@ -5,8 +5,8 @@ module Renalware
     module Requests
       class GlobalRule
         class PrescriptionDrugCategory < GlobalRule
-          def required?
-            (@patient.drugs.map(&:id) & drug_ids).any?
+          def observation_required_for_patient?(patient)
+            (patient.drugs.map(&:id) & drug_ids).any?
           end
 
           def to_s
@@ -20,7 +20,7 @@ module Renalware
           end
 
           def drug_category
-            Renalware::Pathology::Requests::DrugCategory.find(@param_id)
+            Renalware::Pathology::Requests::DrugCategory.find(param_id)
           end
         end
       end

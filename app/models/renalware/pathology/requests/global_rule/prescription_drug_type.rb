@@ -5,8 +5,8 @@ module Renalware
     module Requests
       class GlobalRule
         class PrescriptionDrugType < GlobalRule
-          def required?
-            @patient.drugs.flat_map(&:drug_types).include?(drug_type)
+          def observation_required_for_patient?(patient)
+            patient.drugs.flat_map(&:drug_types).include?(drug_type)
           end
 
           def to_s
@@ -16,7 +16,7 @@ module Renalware
           private
 
           def drug_type
-            @drug_type ||= Renalware::Drugs::Type.find(@param_id)
+            @drug_type ||= Renalware::Drugs::Type.find(param_id)
           end
         end
       end

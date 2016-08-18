@@ -5,15 +5,35 @@ module Renalware
     module Requests
       class GlobalRule
         class ObservationResult < GlobalRule
-          def required?
-            return true if observation_result.nil?
-            observation_result.send(@param_comparison_operator.to_sym, @param_comparison_value.to_i)
+          def observation_required_for_patient?(patient)
+            PatientGlobalRuleDecision.new(patient, self).observation_required_for_patient?
           end
 
           def to_s
-            "#{find_observation_description.code} " \
-            " #{@param_comparison_operator} " \
-            "#{@param_comparison_value}"
+            "#{observation_description.code} " \
+            " #{param_comparison_operator} " \
+            "#{param_comparison_value}"
+          end
+
+          def observation_description
+            @observation_description ||=
+              Renalware::Pathology::ObservationDescription.find(param_id)
+          end
+        end
+
+        class PatientGlobalRuleDecision
+          def initialize(patient, rule)
+            @patient = patient
+            @rule = rule
+          end
+
+          def observation_required_for_patient?
+            return true if observation_result.nil?
+
+            observation_result.send(
+              @rule.param_comparison_operator.to_sym,
+              @rule.param_comparison_value.to_i
+            )
           end
 
           private
@@ -31,11 +51,7 @@ module Renalware
 
           def observation_description
             @observation_description ||=
-              Renalware::Pathology::ObservationDescription.new(id: @param_id)
-          end
-
-          def find_observation_description
-            Renalware::Pathology::ObservationDescription.find(@param_id)
+              Renalware::Pathology::ObservationDescription.new(id: @rule.param_id)
           end
         end
       end
