@@ -3,7 +3,7 @@ require_dependency "renalware/pathology/requests"
 module Renalware
   module Pathology
     module Requests
-      module GlobalRule
+      class GlobalRule
         class ObservationResult < Base
           def initialize(patient, param_id, param_comparison_operator, param_comparison_value)
             unless ["==", ">", "<", ">=", "<="].include?(param_comparison_operator)

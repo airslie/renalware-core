@@ -3,7 +3,7 @@ require_dependency "renalware/pathology/requests"
 module Renalware
   module Pathology
     module Requests
-      module GlobalRule
+      class GlobalRule
         class PatientSexIs < Base
           def required?
             @patient.sex.code == @param_comparison_value

@@ -3,7 +3,7 @@ require_dependency "renalware/pathology/requests"
 module Renalware
   module Pathology
     module Requests
-      module GlobalRule
+      class GlobalRule
         class PrescriptionDrugType < Base
           def required?
             @patient.drugs.flat_map(&:drug_types).include?(drug_type)

@@ -3,7 +3,7 @@ require_dependency "renalware/pathology/requests"
 module Renalware
   module Pathology
     module Requests
-      module GlobalRule
+      class GlobalRule
         class PrescriptionDrugCategory < Base
           def required?
             (@patient.drugs.map(&:id) & drug_ids).any?

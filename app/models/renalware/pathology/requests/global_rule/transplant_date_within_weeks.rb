@@ -3,7 +3,7 @@ require_dependency "renalware/pathology/requests"
 module Renalware
   module Pathology
     module Requests
-      module GlobalRule
+      class GlobalRule
         class TransplantDateWithinWeeks < Base
           def required?
             return false unless most_recent_operation.present?
