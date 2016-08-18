@@ -44,7 +44,7 @@ module Renalware
 
           def required_from_rules?
             @rule_set.rules
-              .map { |rule| rule.required_for_patient?(@patient) }
+              .map { |rule| rule.observation_required_for_patient?(@patient) }
               .all?
           end
 

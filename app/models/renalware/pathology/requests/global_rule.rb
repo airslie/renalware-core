@@ -12,7 +12,7 @@ module Renalware
         validates :param_comparison_operator, inclusion:
           { in: PARAM_COMPARISON_OPERATORS, allow_nil: true }
 
-        def required_for_patient?(patient)
+        def observation_required_for_patient?(patient)
           param_type_class =
             "::Renalware::Pathology::Requests::GlobalRule::#{param_type}"
             .constantize
