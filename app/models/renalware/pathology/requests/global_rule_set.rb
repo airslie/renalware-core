@@ -23,6 +23,14 @@ module Renalware
           PatientRuleSetDecision.new(patient, self).call
         end
 
+        def to_s
+          if rules.any?
+            rules.map { |rule| rule.to_s }.join(" and ")
+          else
+            frequency
+          end
+        end
+
         private
 
         def constrain_request_description

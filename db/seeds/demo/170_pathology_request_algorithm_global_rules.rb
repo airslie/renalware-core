@@ -1,5 +1,5 @@
 def find_param_id(row)
-  case row["type"]
+  case row["type"].demodulize
     when "ObservationResult" then
       Renalware::Pathology::ObservationDescription.find_by!(code: row["param_id"]).id
     when "RequestResult" then
