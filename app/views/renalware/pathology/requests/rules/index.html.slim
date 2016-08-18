@@ -14,7 +14,7 @@
           tr
             td = row.request_description.name
             - row.columns.each do |column|
-              td
+              td data-clinic="#{column.clinic.id}" data-request="#{row.request_description.id}"
                 ul
                 - column.rule_sets.each do |rule_set|
                   li = rule_set.to_s
