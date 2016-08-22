@@ -20,7 +20,7 @@ module Renalware
           end
 
           def drug_category
-            Renalware::Pathology::Requests::DrugCategory.find(param_id)
+            DrugCategory.find(param_id)
           end
         end
       end

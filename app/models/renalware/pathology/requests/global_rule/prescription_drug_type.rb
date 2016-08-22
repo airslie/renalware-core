@@ -16,7 +16,7 @@ module Renalware
           private
 
           def drug_type
-            @drug_type ||= Renalware::Drugs::Type.find(param_id)
+            @drug_type ||= Drugs::Type.find(param_id)
           end
         end
       end

@@ -6,7 +6,7 @@ module Renalware
       class GlobalRule
         class TransplantRegistrationStatus < GlobalRule
           def observation_required_for_patient?(patient)
-            registration = Renalware::Transplants::Registration.for_patient(patient).first
+            registration = Transplants::Registration.for_patient(patient).first
             return false unless registration.present?
 
             registration_status = registration.current_status

@@ -16,7 +16,7 @@ module Renalware
           private
 
           def drug
-            @drug ||= Renalware::Drugs::Drug.find(param_id)
+            @drug ||= Drugs::Drug.find(param_id)
           end
         end
       end

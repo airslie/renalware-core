@@ -7,7 +7,7 @@ module Renalware
         class TransplantDateWithinWeeks < GlobalRule
           def observation_required_for_patient?(patient)
             most_recent_operation =
-              Renalware::Transplants::RecipientOperation.for_patient(patient).most_recent
+              Transplants::RecipientOperation.for_patient(patient).most_recent
             return false unless most_recent_operation.present?
 
             most_recent_operation.performed_on > required_weeks_ago

@@ -7,7 +7,7 @@ module Renalware
         class RequestResult < GlobalRule
           def observation_required_for_patient?(patient)
             observation =
-              ::Renalware::Pathology::ObservationForPatientObservationDescriptionQuery.new(
+              ObservationForPatientObservationDescriptionQuery.new(
                 patient, observation_description
               ).call
             observation_result = observation.result.to_i if observation.present?
@@ -27,7 +27,7 @@ module Renalware
           end
 
           def request_description
-            Renalware::Pathology::RequestDescription.find(param_id)
+            RequestDescription.find(param_id)
           end
         end
       end
