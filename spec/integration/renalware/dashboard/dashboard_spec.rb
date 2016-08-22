@@ -20,7 +20,8 @@ RSpec.describe "User's Dashboard", type: :request do
     create(:draft_letter, patient: patient, author: @current_user, main_recipient: recipient)
 
     recipient = build(:letter_recipient, :main, person_role: "patient")
-    create(:letter_pending_review, patient: patient, author: @current_user, main_recipient: recipient)
+    create(:letter_pending_review,
+      patient: patient, author: @current_user, main_recipient: recipient)
   end
 
   def create_bookmark
