@@ -17,3 +17,6 @@ Feature: Revising a letter
     Given Patty has a typed letter
     Then Doug can revise the letter
 
+  Scenario: A doctor marked a typed letter as draft
+    Given Patty has a typed letter
+    Then Doug can mark the letter as draft

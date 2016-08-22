@@ -24,6 +24,9 @@ en:
       typed_letters:
         create:
           success: You have successfully marked the letter as typed.
+      draft_letters:
+        create:
+          success: You have successfully put back the letter in Draft state.
       archived_letters:
         create:
           success: You have successfully archived the letter.

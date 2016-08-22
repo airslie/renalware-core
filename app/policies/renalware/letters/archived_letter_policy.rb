@@ -11,6 +11,10 @@ module Renalware
         false
       end
 
+      def mark_as_draft?
+        false
+      end
+
       def archive?
         false
       end

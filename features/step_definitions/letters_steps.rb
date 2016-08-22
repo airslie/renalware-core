@@ -57,6 +57,10 @@ When(/^Nathalie marks the letter typed$/) do
   mark_draft_as_typed(patient: @patty, user: @nathalie)
 end
 
+Then(/^Doug can mark the letter as draft$/) do
+  mark_letter_as_draft(patient: @patty, user: @doug_user)
+end
+
 When(/^Doug archives the letter$/) do
   archive_letter(patient: @patty, user: @doctor)
 end

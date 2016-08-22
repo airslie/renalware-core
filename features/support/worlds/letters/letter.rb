@@ -78,6 +78,13 @@ module World
         typed_letter.save!
       end
 
+      def mark_letter_as_draft(patient:, user:)
+        typed_letter = simple_letter_for(patient)
+
+        draft_letter = typed_letter.draft(by: user)
+        draft_letter.save!
+      end
+
       def archive_letter(patient:, user:)
         typed_letter = simple_letter_for(patient)
 
@@ -262,6 +269,15 @@ module World
         visit patient_letters_letter_path(patient, existing_letter)
 
         click_on "Mark as Typed"
+      end
+
+      def mark_letter_as_draft(patient:, user:)
+        login_as user
+        existing_letter = simple_letter_for(patient)
+
+        visit patient_letters_letter_path(patient, existing_letter)
+
+        click_on "Mark as Draft"
       end
 
       def archive_letter(patient:, user:)

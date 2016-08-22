@@ -11,6 +11,10 @@ module Renalware
         self.attributes = params
       end
 
+      def draft(by:)
+        becomes!(Draft).tap { |letter| letter.by = by }
+      end
+
       def archive(by:, presenter: default_presenter)
         becomes!(Archived).tap do |letter|
           letter.by = by
