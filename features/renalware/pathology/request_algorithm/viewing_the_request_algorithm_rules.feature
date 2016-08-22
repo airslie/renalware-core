@@ -1,7 +1,7 @@
 Feature: Viewing the request algorithm rules
 
-  The rules that determine which request_description observation is required to made for a
-  patient are stored in the database.
+  The rules that determine which request_descriptions will be required to be made for a patient
+  are stored in the database.
 
   A user views the rules written in plain English which are displayed an a table.
 
@@ -33,8 +33,8 @@ Feature: Viewing the request algorithm rules
       | type              | id               | operator | value |
       | ObservationResult | HGB              | <        | 100   |
       | PrescriptionDrug  | Ephedrine Tablet | include? |       |
-    When the request algorithm rules are viewed by clyde
-    Then clyde see rules for these request_descriptions and clinics:
+    When the request algorithm rules are viewed by Clyde
+    Then Clyde see rules for these request_descriptions and clinics:
      | request_description_code | clinic        |
      | BFF                      | Haemodialysis |
      | MAL                      | Transplant    |

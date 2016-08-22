@@ -9,7 +9,7 @@ module Renalware
           clinics = Renalware::Clinics::Clinic.all
           authorize rule_sets
 
-          rules_table = ::Renalware::Pathology::Requests::GlobalRuleSetsTable.new(
+          rules_table = GlobalRuleSetsTable.new(
             Renalware::Pathology::RequestDescription.with_global_rule_set,
             clinics,
             GlobalRuleSetPresenter.present(rule_sets)

@@ -1,8 +1,8 @@
-When(/^the request algorithm rules are viewed by clyde$/) do
+When(/^the request algorithm rules are viewed by Clyde$/) do
   @rules_table = view_request_algorithm_rules(@clyde)
 end
 
-Then(/^clyde see rules for these request_descriptions and clinics:$/) do |table|
+Then(/^Clyde see rules for these request_descriptions and clinics:$/) do |table|
   table.hashes.each do |rule_params|
     request_description = Renalware::Pathology::RequestDescription.find_by(
       code: rule_params[:request_description_code]
