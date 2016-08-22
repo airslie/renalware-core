@@ -78,10 +78,10 @@ module World
         letter_pending_review.save!
       end
 
-      def mark_letter_as_draft(patient:, user:)
-        typed_letter = simple_letter_for(patient)
+      def reject_letter(patient:, user:)
+        letter_pending_review = simple_letter_for(patient)
 
-        draft_letter = typed_letter.draft(by: user)
+        draft_letter = letter_pending_review.reject(by: user)
         draft_letter.save!
       end
 
@@ -271,13 +271,13 @@ module World
         click_on "Submit for Review"
       end
 
-      def mark_letter_as_draft(patient:, user:)
+      def reject_letter(patient:, user:)
         login_as user
         existing_letter = simple_letter_for(patient)
 
         visit patient_letters_letter_path(patient, existing_letter)
 
-        click_on "Mark as Draft"
+        click_on "Reject"
       end
 
       def archive_letter(patient:, user:)

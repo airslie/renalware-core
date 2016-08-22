@@ -6,8 +6,8 @@
   = button_to "Submit for Review", patient_letters_letter_pending_review_path(letter.patient, letter),
       form_class: "inline", class: "button tiny", data: { confirm: "Are you sure?" }
   = blank_separator
-- if policy(letter).mark_as_draft?
-  = button_to "Mark as Draft", patient_letters_letter_draft_path(letter.patient, letter),
+- if policy(letter).reject?
+  = button_to "Reject", patient_letters_letter_rejected_path(letter.patient, letter),
       form_class: "inline", class: "button tiny"
   = blank_separator
 - if policy(letter).archive?

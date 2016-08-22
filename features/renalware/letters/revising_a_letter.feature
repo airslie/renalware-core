@@ -16,7 +16,3 @@ Feature: Revising a letter
   Scenario: A doctor revised a letter pending review
     Given Patty has a letter pending review
     Then Doug can revise the letter
-
-  Scenario: A doctor marked a letter pending review as draft
-    Given Patty has a letter pending review
-    Then Doug can mark the letter as draft

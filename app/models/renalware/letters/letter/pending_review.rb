@@ -11,7 +11,7 @@ module Renalware
         self.attributes = params
       end
 
-      def draft(by:)
+      def reject(by:)
         becomes!(Draft).tap { |letter| letter.by = by }
       end
 

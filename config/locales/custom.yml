@@ -24,9 +24,9 @@ en:
       pending_review_letters:
         create:
           success: You have successfully submitted the letter for review.
-      draft_letters:
+      rejected_letters:
         create:
-          success: You have successfully put back the letter in Draft state.
+          success: You have successfully rejected the letter.
       archived_letters:
         create:
           success: You have successfully archived the letter.

@@ -57,8 +57,8 @@ When(/^Nathalie submits the letter for review$/) do
   submit_for_review(patient: @patty, user: @nathalie)
 end
 
-Then(/^Doug can mark the letter as draft$/) do
-  mark_letter_as_draft(patient: @patty, user: @doug_user)
+Then(/^Doug can reject the letter$/) do
+  reject_letter(patient: @patty, user: @doug_user)
 end
 
 When(/^Doug archives the letter$/) do

@@ -7,7 +7,7 @@ module Renalware
         true
       end
 
-      def mark_as_draft?
+      def reject?
         false
       end
 
