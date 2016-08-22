@@ -2,8 +2,12 @@ require_dependency "renalware/letters/letter_policy"
 
 module Renalware
   module Letters
-    class TypedLetterPolicy < LetterPolicy
-      def mark_as_typed?
+    class PendingReviewLetterPolicy < LetterPolicy
+      def update?
+        true
+      end
+
+      def submit_for_review?
         false
       end
 

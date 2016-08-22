@@ -1,5 +1,5 @@
 .letter-wrapper {
-  &.draft, &.typed {
+  &.draft, &.pending-review {
     background-image: asset-data-url('draft.jpg');
     background-repeat: no-repeat;
     background-position: center center;

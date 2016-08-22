@@ -3,7 +3,7 @@ require_dependency "renalware/letters/letter_policy"
 module Renalware
   module Letters
     class DraftLetterPolicy < BasePolicy
-      def mark_as_typed?
+      def submit_for_review?
         true
       end
 

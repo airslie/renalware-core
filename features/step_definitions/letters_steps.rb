@@ -18,11 +18,11 @@ Given(/^Patty has completed pathology investigations relevant to the clinic lett
   seed_observations_relevant_to_clinic_letter(patient: @patty)
 end
 
-Given(/^Patty has a typed letter$/) do
+Given(/^Patty has a letter pending review$/) do
   @doctor = find_or_create_user(given_name: "a_doctor", role: "clinician")
 
   seed_simple_letter_for(@patty, user: @doctor)
-  mark_draft_as_typed(patient: @patty, user: @doctor)
+  submit_for_review(patient: @patty, user: @doctor)
 end
 
 
@@ -53,8 +53,8 @@ When(/^Nathalie updates Patty's address$/) do
   update_patient_address(patient: @patty, current_address_attributes: { street_1: "new street 1" })
 end
 
-When(/^Nathalie marks the letter typed$/) do
-  mark_draft_as_typed(patient: @patty, user: @nathalie)
+When(/^Nathalie submits the letter for review$/) do
+  submit_for_review(patient: @patty, user: @nathalie)
 end
 
 Then(/^Doug can mark the letter as draft$/) do

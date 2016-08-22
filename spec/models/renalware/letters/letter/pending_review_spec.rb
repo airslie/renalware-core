@@ -1,7 +1,7 @@
 require "rails_helper"
 
 module Renalware::Letters
-  describe Letter::Typed do
+  describe Letter::PendingReview do
     include LettersSpecHelper
 
     let(:user) { build(:user) }
@@ -9,13 +9,13 @@ module Renalware::Letters
     let(:patient) { build(:letter_patient, doctor: doctor) }
     let(:letter) { build_letter(to: :patient, patient: patient) }
 
-    subject(:typed_letter) { letter.becomes(Letter::Typed) }
+    subject(:letter_pending_review) { letter.becomes(Letter::PendingReview) }
 
     describe "#archive" do
       let(:presenter) { double(:presenter, content: "hello world") }
 
       it "archives the letter" do
-        archived_letter = typed_letter.archive(by: user, presenter: presenter)
+        archived_letter = letter_pending_review.archive(by: user, presenter: presenter)
         expect(archived_letter).to be_archived
       end
 
@@ -28,13 +28,13 @@ module Renalware::Letters
 
         it "records who archived the letter" do
           user = create(:user)
-          archived_letter = typed_letter.archive(by: user)
+          archived_letter = letter_pending_review.archive(by: user)
           archived_letter.save
           expect(archived_letter.archived_by).to eq(user)
         end
 
         it "archives the content" do
-          archived_letter = typed_letter.archive(by: user)
+          archived_letter = letter_pending_review.archive(by: user)
           expect(archived_letter.content).to match(/class="unit-info"/)
           expect(archived_letter.content).to include(patient.full_name)
           expect(archived_letter.content).to include(doctor.address.street_1)

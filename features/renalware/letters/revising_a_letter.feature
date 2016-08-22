@@ -13,10 +13,10 @@ Feature: Revising a letter
     Then Nathalie can revise Patty's letter
 
   @web
-  Scenario: A doctor revised a typed letter
-    Given Patty has a typed letter
+  Scenario: A doctor revised a letter pending review
+    Given Patty has a letter pending review
     Then Doug can revise the letter
 
-  Scenario: A doctor marked a typed letter as draft
-    Given Patty has a typed letter
+  Scenario: A doctor marked a letter pending review as draft
+    Given Patty has a letter pending review
     Then Doug can mark the letter as draft
