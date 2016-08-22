@@ -6,7 +6,7 @@ module Renalware
       before_filter :load_patient
 
       def create
-        letter = @patient.letters.typed.find(params[:letter_id])
+        letter = @patient.letters.pending_review.find(params[:letter_id])
         archived_letter = letter.archive(by: current_user)
         archived_letter.save!
 

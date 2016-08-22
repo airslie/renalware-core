@@ -9,7 +9,7 @@ Feature: Archiving a letter
   Background:
     Given Patty is a patient
     And Doug is Patty's doctor
-    And Patty has a typed letter
+    And Patty has a letter pending review
 
   @web
   Scenario: A doctor archived a letter

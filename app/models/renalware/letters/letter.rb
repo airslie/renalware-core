@@ -27,10 +27,10 @@ module Renalware
       validates :main_recipient, presence: true
 
       include ExplicitStateModel
-      has_states :draft, :typed, :archived
-      state_scope :reviewable, :typed
+      has_states :draft, :pending_review, :archived
+      state_scope :reviewable, :pending_review
 
-      scope :pending, -> { where(type: [state_class_name(:draft), state_class_name(:typed)]) }
+      scope :pending, -> { where(type: [state_class_name(:draft), state_class_name(:pending_review)]) }
       scope :reverse, -> { order(updated_at: :desc) }
 
       def self.policy_class
