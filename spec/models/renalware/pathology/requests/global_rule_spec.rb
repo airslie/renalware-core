@@ -38,14 +38,15 @@ describe Renalware::Pathology::Requests::GlobalRule do
     let(:patient) { build(:patient) }
 
     it "raises NotImplementedError" do
-     expect{ global_rule.observation_required_for_patient?(patient) }
-      .to raise_error(NotImplementedError)
-   end
+      expect{ global_rule.observation_required_for_patient?(patient) }.to raise_error(
+        NotImplementedError
+      )
+    end
   end
 
   describe "#to_s?" do
     it "raises NotImplementedError" do
-     expect{ global_rule.to_s }.to raise_error(NotImplementedError)
-   end
+      expect{ global_rule.to_s }.to raise_error(NotImplementedError)
+    end
   end
 end
