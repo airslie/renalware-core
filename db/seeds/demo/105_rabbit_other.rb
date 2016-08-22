@@ -448,7 +448,7 @@ module Renalware
     by: users.sample
   )
 
-  Letters::Letter::Typed.create!(
+  Letters::Letter::PendingReview.create!(
     patient: patient,
     issued_on: 3.days.ago,
     description: Renalware::Letters::Description.last.text,
@@ -462,7 +462,7 @@ module Renalware
     by: users.sample
   )
 
-  letter = Letters::Letter::Typed.create!(
+  letter = Letters::Letter::PendingReview.create!(
     patient: patient,
     issued_on: 10.days.ago,
     description: Renalware::Letters::Description.last.text,
