@@ -14,7 +14,7 @@ FactoryGirl.define do
   factory :draft_letter, class: "Renalware::Letters::Letter::Draft", parent: :letter do
   end
 
-  factory :typed_letter, class: "Renalware::Letters::Letter::Typed", parent: :letter do
+  factory :letter_pending_review, class: "Renalware::Letters::Letter::PendingReview", parent: :letter do
   end
 
   factory :archived_letter, class: "Renalware::Letters::Letter::Archived", parent: :letter do

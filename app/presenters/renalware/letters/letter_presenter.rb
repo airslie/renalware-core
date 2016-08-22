@@ -83,7 +83,7 @@ module Renalware
         end
       end
 
-      class Typed < LetterPresenter
+      class PendingReview < LetterPresenter
         private
 
         def recipient_presenter_class

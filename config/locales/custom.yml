@@ -21,9 +21,9 @@ en:
           not_cc_on_all_letters: |
             If not the recipient, the patient <b>will NOT be CCd</b> on the letter.
             This can be changed in the patients profile.
-      typed_letters:
+      pending_review_letters:
         create:
-          success: You have successfully marked the letter as typed.
+          success: You have successfully submitted the letter for review.
       archived_letters:
         create:
           success: You have successfully archived the letter.

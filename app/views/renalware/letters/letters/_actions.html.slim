@@ -2,8 +2,8 @@
   = link_to "Edit", edit_patient_letters_letter_path(letter.patient, letter),
       class: "button tiny"
   = blank_separator
-- if policy(letter).mark_as_typed?
-  = button_to "Mark as Typed", patient_letters_letter_typed_path(letter.patient, letter),
+- if policy(letter).submit_for_review?
+  = button_to "Submit for Review", patient_letters_letter_pending_review_path(letter.patient, letter),
       form_class: "inline", class: "button tiny", data: { confirm: "Are you sure?" }
   = blank_separator
 - if policy(letter).archive?
