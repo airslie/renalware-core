@@ -52,6 +52,17 @@ module World
           build_request_forms(options[:patients], options)
         end
 
+        def create_request_with_patient_rules(patient, patient_rules)
+          Renalware::Pathology::Requests::Request.create!(
+            patient: Renalware::Pathology.cast_patient(patient),
+            clinic: Renalware::Clinics::Clinic.first,
+            consultant: Renalware::Pathology::Consultant.first,
+            telephone: "123",
+            by: Renalware::SystemUser.find,
+            patient_rules: patient_rules
+          )
+        end
+
         def create_request(params)
           request_descriptions =
             params[:request_descriptions].map do |code|
