@@ -4,16 +4,15 @@ module Renalware
   module Pathology
     module Requests
       module ParamType
-        class TransplantRegistrationStatus
-          def initialize(patient, _param_id, _param_comparison_operator, param_comparison_value)
-            @patient = patient
-            @status_code = param_comparison_value
-          end
-
+        class TransplantRegistrationStatus < Base
           def required?
             return false unless registration.present?
 
-            registration_status.description.code == @status_code
+            registration_status.description.code == @param_comparison_value
+          end
+
+          def to_s
+            "transplant registration status is #{@param_comparison_value}"
           end
 
           private

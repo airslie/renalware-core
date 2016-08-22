@@ -70,6 +70,7 @@ Rails.application.routes.draw do
         # NOTE: This needs to be POST since the params may exceed url char limit in GET
         post "requests/new", to: "requests#new", as: "new_request"
         resources :requests, only: [:create, :index, :show]
+        resources :rules, only: :index
       end
     end
 

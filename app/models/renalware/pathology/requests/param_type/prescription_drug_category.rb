@@ -4,14 +4,13 @@ module Renalware
   module Pathology
     module Requests
       module ParamType
-        class PrescriptionDrugCategory
-          def initialize(patient, param_id, _param_comparison_operator, _param_comparison_value)
-            @patient = patient
-            @drug_category_id = param_id
-          end
-
+        class PrescriptionDrugCategory < Base
           def required?
             (@patient.drugs.map(&:id) & drug_ids).any?
+          end
+
+          def to_s
+            "prescribed drugs include #{drug_category.name}"
           end
 
           private
@@ -21,7 +20,7 @@ module Renalware
           end
 
           def drug_category
-            Renalware::Pathology::Requests::DrugCategory.find(@drug_category_id)
+            Renalware::Pathology::Requests::DrugCategory.find(@param_id)
           end
         end
       end

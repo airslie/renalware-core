@@ -4,7 +4,7 @@ module Renalware
   module Pathology
     module Requests
       module ParamType
-        class RequestResult
+        class RequestResult < Base
           VALID_OPERATORS = ["==", ">", "<", ">=", "<="].freeze
 
           def initialize(patient, param_id, param_comparison_operator, param_comparison_value)
@@ -12,15 +12,16 @@ module Renalware
               raise ArgumentError
             end
 
-            @patient = patient
-            @param_id = param_id.to_i
-            @param_comparison_operator = param_comparison_operator
-            @param_comparison_value = param_comparison_value.to_i
+            super(patient, param_id, param_comparison_operator, param_comparison_value)
           end
 
           def required?
             return true if observation_result.nil?
-            observation_result.send(@param_comparison_operator.to_sym, @param_comparison_value)
+            observation_result.send(@param_comparison_operator.to_sym, @param_comparison_value.to_i)
+          end
+
+          def to_s
+            "last result is #{@param_comparison_operator} #{@param_comparison_value}"
           end
 
           private
