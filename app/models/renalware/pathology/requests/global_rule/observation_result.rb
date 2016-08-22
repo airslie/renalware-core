@@ -43,7 +43,7 @@ module Renalware
 
               observation =
                 ::Renalware::Pathology::ObservationForPatientObservationDescriptionQuery
-                  .new(@patient, observation_description).call
+                .new(@patient, observation_description).call
 
               observation.result.to_i if observation.present?
             end
