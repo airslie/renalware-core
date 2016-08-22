@@ -22,18 +22,18 @@ Feature: Determining observations required based on patient rules
 
     Examples:
       | frequency_type | last_observed_at | within_range | determination |
-      #| Always         |                  | yes          | required      |
-      #| Always         | 1 day ago       | yes          | required      |
+      | Always         |                  | yes          | required      |
+      | Always         | 1 day ago       | yes          | required      |
       | Once           |                  | yes          | required      |
       | Once           | 1 day ago       | yes          | not required  |
-      #| Weekly         |                  | yes          | required      |
-      #| Weekly         | 5 days ago       | yes          | not required  |
-      #| Weekly         | 6 days ago       | yes          | required      |
-#
-      #| Always         |                  | no           | not required  |
-      #| Always         | 1 day ago       | no           | not required  |
-      #| Once           |                  | no           | not required  |
-      #| Once           | 1 day ago       | no           | not required  |
-      #| Weekly         |                  | no           | not required  |
-      #| Weekly         | 6 days ago       | no           | not required  |
-      #| Weekly         | 7 days ago       | no           | not required  |
+      | Weekly         |                  | yes          | required      |
+      | Weekly         | 5 days ago       | yes          | not required  |
+      | Weekly         | 6 days ago       | yes          | required      |
+
+      | Always         |                  | no           | not required  |
+      | Always         | 1 day ago       | no           | not required  |
+      | Once           |                  | no           | not required  |
+      | Once           | 1 day ago       | no           | not required  |
+      | Weekly         |                  | no           | not required  |
+      | Weekly         | 6 days ago       | no           | not required  |
+      | Weekly         | 7 days ago       | no           | not required  |
