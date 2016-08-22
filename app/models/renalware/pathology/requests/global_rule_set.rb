@@ -23,7 +23,6 @@ module Renalware
           PatientRuleSetDecision.new(patient, self).call
         end
 
-        # TODO: Fix this.
         def to_s
           if rules.length >= 1
             rules_str = rules.map { |rule| rule.to_s }.join(" and ")
