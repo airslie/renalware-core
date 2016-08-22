@@ -21,7 +21,7 @@ module World
 
           Renalware::Pathology::Requests::GlobalRule.create!(
             global_rule_set_id: params["global_rule_set_id"],
-            param_type: params["type"],
+            type: "Renalware::Pathology::Requests::GlobalRule::#{params['type']}",
             param_id: param_id,
             param_comparison_operator: params["operator"],
             param_comparison_value: params["value"]

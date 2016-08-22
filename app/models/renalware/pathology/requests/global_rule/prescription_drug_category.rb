@@ -3,10 +3,10 @@ require_dependency "renalware/pathology/requests"
 module Renalware
   module Pathology
     module Requests
-      module ParamType
-        class PrescriptionDrugCategory < Base
-          def required?
-            (@patient.drugs.map(&:id) & drug_ids).any?
+      class GlobalRule
+        class PrescriptionDrugCategory < GlobalRule
+          def observation_required_for_patient?(patient)
+            (patient.drugs.map(&:id) & drug_ids).any?
           end
 
           def to_s
@@ -20,7 +20,7 @@ module Renalware
           end
 
           def drug_category
-            Renalware::Pathology::Requests::DrugCategory.find(@param_id)
+            DrugCategory.find(param_id)
           end
         end
       end
