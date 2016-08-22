@@ -219,9 +219,9 @@ module World
       def fill_recipient(recipient)
         case recipient
         when Renalware::Patient
-          choose("letters_letter_draft_main_recipient_attributes_person_role_patient")
+          choose("letter_main_recipient_attributes_person_role_patient")
         when Renalware::Doctors::Doctor
-          choose("letters_letter_draft_main_recipient_attributes_person_role_doctor")
+          choose("letter_main_recipient_attributes_person_role_doctor")
         else
           choose("Postal Address Below")
           fill_in "Name", with: recipient[:name]

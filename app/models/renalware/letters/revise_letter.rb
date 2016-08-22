@@ -10,7 +10,7 @@ module Renalware
       end
 
       def call(patient, letter_id, params={})
-        letter = patient.draft_letters.find(letter_id)
+        letter = patient.letters.pending.find(letter_id)
         letter.revise(params)
         letter.save!
         broadcast(:revise_letter_successful, letter)

@@ -7,6 +7,10 @@ module Renalware
         TypedLetterPolicy
       end
 
+      def revise(params)
+        self.attributes = params
+      end
+
       def archive(by:, presenter: default_presenter)
         becomes!(Archived).tap do |letter|
           letter.by = by

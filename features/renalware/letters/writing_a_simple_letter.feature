@@ -26,11 +26,6 @@ Feature: Writing a letter
       | John in London |                             | Patty, Doug                        |
 
   @web
-  Scenario: A nurse revised a letter
-    Given Patty has a recorded letter
-    Then Nathalie can revise Patty's letter
-
-  @web
   Scenario: A nurse drafted an erroneous letter
     When Nathalie drafts an erroneous letter
     Then the letter is not drafted

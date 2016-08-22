@@ -4,7 +4,6 @@ module Renalware
   module Letters
     class Patient < ActiveType::Record[Renalware::Patient]
       has_many :letters
-      has_many :draft_letters, class_name: "Letter::Draft"
       belongs_to :doctor, class_name: "Renalware::Letters::Doctor"
 
       def cc_on_letter?(letter)
