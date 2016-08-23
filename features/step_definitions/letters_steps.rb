@@ -61,6 +61,9 @@ When(/^Doug archives the letter$/) do
   archive_letter(patient: @patty, user: @doctor)
 end
 
+When(/^Nathalie archives the letter$/) do
+  archive_letter(patient: @patty, user: @nathalie)
+end
 
 Then(/^"(.*?)" will receive the letter$/) do |recipient|
   expect_simple_letter_to_exist(@patty, recipient: letter_recipients_map.fetch(recipient))
@@ -128,6 +131,6 @@ Then(/^nobody can modify the letter$/) do
   expect_letter_to_not_be_modified(patient: @patty, user: @doctor)
 end
 
-Then(/^the letter is signed by Doug$/) do
-  expect_letter_to_be_signed(patient: @patty)
+Then(/^the letter is signed by Nathalie$/) do
+  expect_letter_to_be_signed(patient: @patty, user: @nathalie)
 end

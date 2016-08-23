@@ -1,3 +1,4 @@
+@wip
 Feature: Archiving a letter
 
   A letter is archived when it has been "reviewed" by the doctor. An archived letter
@@ -17,5 +18,10 @@ Feature: Archiving a letter
   Scenario: A doctor archived a letter
     When Doug archives the letter
     Then an archived copy of the letter is available
-    And the letter is signed by Doug
     And nobody can modify the letter
+
+  @web
+  Scenario: A nurse archived a letter
+    Given Nathalie is a nurse
+    When Nathalie archives the letter
+    And the letter is signed by Nathalie

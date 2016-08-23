@@ -7,18 +7,21 @@ module Renalware
         PendingReviewLetterPolicy
       end
 
-      def archive(by:, presenter: default_presenter)
+      def sign(by:)
+        build_signature(user: by, signed_at: Time.now)
+      end
+
+      def archive(by:, presenter_class: LetterPresenterFactory)
+        content = generate_content_to_archive(presenter_class)
+
         becomes!(Archived).tap do |letter|
           letter.by = by
-          letter.signed_at = Time.now
-          letter.build_archive(by: by, content: presenter.content)
+          letter.build_archive(by: by, content: content)
         end
       end
 
-      private
-
-      def default_presenter
-        LetterPresenterFactory.new(self)
+      def generate_content_to_archive(presenter_class)
+        presenter_class.new(self).content
       end
     end
   end

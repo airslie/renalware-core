@@ -12,10 +12,8 @@ module Renalware::Letters
     subject(:letter_pending_review) { letter.becomes(Letter::PendingReview) }
 
     describe "#archive" do
-      let(:presenter) { double(:presenter, content: "hello world") }
-
       it "archives the letter" do
-        archived_letter = letter_pending_review.archive(by: user, presenter: presenter)
+        archived_letter = letter_pending_review.archive(by: user, presenter_class: FakePresenter)
         expect(archived_letter).to be_archived
       end
 
@@ -39,6 +37,23 @@ module Renalware::Letters
           expect(archived_letter.content).to include(patient.full_name)
           expect(archived_letter.content).to include(doctor.address.street_1)
         end
+      end
+
+      class FakePresenter
+        def initialize(_letter)
+        end
+
+        def content
+          "hello world"
+        end
+      end
+    end
+
+    describe "#sign" do
+      it "creates a signature" do
+        letter_pending_review.sign(by: user)
+        expect(letter_pending_review.signature).to be_present
+        expect(letter_pending_review.signature.user).to eq(user)
       end
     end
   end

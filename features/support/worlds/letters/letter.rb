@@ -81,6 +81,8 @@ module World
       def archive_letter(patient:, user:)
         letter_pending_review = simple_letter_for(patient)
 
+        letter_pending_review.sign(by: user).save!
+
         archived_letter = letter_pending_review.archive(by: user)
         archived_letter.save!
       end
@@ -160,10 +162,12 @@ module World
         expect(policy.update?).to be_falsy
       end
 
-      def expect_letter_to_be_signed(patient:)
+      def expect_letter_to_be_signed(patient:, user:)
         letter = simple_letter_for(patient)
 
-        expect(letter.signed_at).to_not be_nil
+        expect(letter.signature).to be_present
+        expect(letter.signature.user).to eq(user)
+        expect(letter.signature.signed_at).to be_present
       end
 
       private

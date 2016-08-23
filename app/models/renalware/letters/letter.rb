@@ -15,6 +15,7 @@ module Renalware
       has_many :cc_recipients, -> { where(role: "cc") },
         class_name: "Recipient", dependent: :destroy, inverse_of: :letter
       has_many :recipients, dependent: :destroy
+      has_one :signature, dependent: :destroy
 
       accepts_nested_attributes_for :main_recipient
       accepts_nested_attributes_for :cc_recipients, reject_if: :all_blank, allow_destroy: true
