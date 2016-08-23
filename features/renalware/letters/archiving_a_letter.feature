@@ -1,4 +1,3 @@
-@wip
 Feature: Archiving a letter
 
   A letter is archived when it has been "reviewed" by the doctor. An archived letter

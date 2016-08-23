@@ -129,5 +129,5 @@ Then(/^nobody can modify the letter$/) do
 end
 
 Then(/^the letter is signed by Doug$/) do
-  expect_letter_to_be_signed(patient: @patty, user: @doctor)
+  expect_letter_to_be_signed(patient: @patty)
 end
