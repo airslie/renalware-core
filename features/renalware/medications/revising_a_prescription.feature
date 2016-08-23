@@ -20,7 +20,6 @@ Feature: Revising a prescription
       | Acarbose Tablet | 200 milligram | bd        | PO         | Hospital |               |
       | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital | 12-10-2016    |
 
-  @web @javascript
   Scenario: A clinician revises the frequency of a prescription for a patient
     Given Patty has the following prescriptions:
       | drug_name       | dose          | frequency | route_code | provider | terminated_on |
@@ -32,7 +31,6 @@ Feature: Revising a prescription
       | Acarbose Tablet | 100 milligram | monthly   | PO         | Hospital |               |
       | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital | 12-10-2016    |
 
-  @web @javascript
   Scenario: A clinician revises the notes of a prescription for a patient
     Given Patty has the following prescriptions:
       | drug_name       | dose          | frequency | route_code | provider | terminated_on |
