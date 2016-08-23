@@ -18,11 +18,11 @@ module Renalware
       end
 
       def required_observation_requests(clinic)
-        Requests::Global.new(self, clinic).determine_required_request_descriptions
+        Requests::GlobalAlgorithm.new(self, clinic).determine_required_request_descriptions
       end
 
       def required_patient_pathology
-        Requests::Patient.new(self).determine_required_tests
+        Requests::PatientAlgorithm.new(self).determine_required_tests
       end
     end
   end

@@ -3,7 +3,7 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     module Requests
-      class Patient
+      class PatientAlgorithm
         def initialize(patient)
           @patient = patient
         end

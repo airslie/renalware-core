@@ -3,7 +3,7 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     module Requests
-      class Global
+      class GlobalAlgorithm
         def initialize(patient, clinic)
           @patient = patient
           @clinic = clinic
