@@ -475,6 +475,7 @@ module Renalware
     author: users.sample,
     by: users.sample
   )
+  letter.sign(by: users.sample).save!
   archived_letter = letter.archive(by: User.first)
   archived_letter.save!
 
