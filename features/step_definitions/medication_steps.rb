@@ -128,9 +128,7 @@ Then(/^Clyde should see these historical prescriptions$/) do |table|
 end
 
 Then(/^Patty should have the following prescriptions:$/) do |table|
-  table.hashes.each do |row|
-    expect_prescription_to_exist(@patty, row)
-  end
+  expect_patient_to_have_prescriptions(@patty, table.hashes)
 end
 
 Then(/^the prescription termination is rejected$/) do

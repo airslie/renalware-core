@@ -9,7 +9,7 @@ Feature: Revising a prescription
     And the date today is 12-10-2016
 
   @web @javascript
-  Scenario: A clinician revises a prescription for a patient
+  Scenario: A clinician revises the dose of a prescription for a patient
     Given Patty has the following prescriptions:
       | drug_name       | dose          | frequency | route_code | provider | terminated_on |
       | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital |               |
@@ -19,3 +19,26 @@ Feature: Revising a prescription
       | drug_name       | dose          | frequency | route_code | provider | terminated_on |
       | Acarbose Tablet | 200 milligram | bd        | PO         | Hospital |               |
       | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital | 12-10-2016    |
+
+  @web @javascript
+  Scenario: A clinician revises the frequency of a prescription for a patient
+    Given Patty has the following prescriptions:
+      | drug_name       | dose          | frequency | route_code | provider | terminated_on |
+      | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital |               |
+    When Clyde revises the prescription for Patty with these changes:
+      | frequency | monthly |
+    Then Patty should have the following prescriptions:
+      | drug_name       | dose          | frequency | route_code | provider | terminated_on |
+      | Acarbose Tablet | 100 milligram | monthly   | PO         | Hospital |               |
+      | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital | 12-10-2016    |
+
+  @web @javascript
+  Scenario: A clinician revises the notes of a prescription for a patient
+    Given Patty has the following prescriptions:
+      | drug_name       | dose          | frequency | route_code | provider | terminated_on |
+      | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital |               |
+    When Clyde revises the prescription for Patty with these changes:
+      | route_code | SC |
+    Then Patty should have the following prescriptions:
+      | drug_name       | dose          | frequency | route_code | provider | terminated_on |
+      | Acarbose Tablet | 100 milligram | bd        | SC         | Hospital |               |
