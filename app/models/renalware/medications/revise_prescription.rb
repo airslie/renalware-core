@@ -5,21 +5,39 @@ module Renalware
     class RevisePrescription
       attr_reader :prescription, :params
 
+      NEW_PRESCRIPTION_ATTRS = %w(dose_amount dose_unit frequency).freeze
+
       def initialize(prescription)
         @prescription = prescription
       end
 
       def call(params)
-        terminate_existing_prescription(params)
-        create_new_prescription(params)
+        @prescription.assign_attributes(params)
+
+        if new_prescription_required?
+          @prescription.reload
+          terminate_existing_and_create_new_prescription(params)
+        else
+          @prescription.save!
+        end
       end
 
       private
 
-      def terminate_existing_prescription(params)
-        return if prescription.termination.present?
+      def new_prescription_required?
+        attr_intersection = @prescription.changed_attributes.keys & NEW_PRESCRIPTION_ATTRS
+        attr_intersection.count > 0
+      end
 
-        prescription.terminate(by: params[:by]).save!
+      def terminate_existing_and_create_new_prescription(params)
+        terminate_existing_prescription(params)
+        create_new_prescription(params)
+      end
+
+      def terminate_existing_prescription(params)
+        return if @prescription.termination.present?
+
+        @prescription.terminate(by: params[:by]).save!
       end
 
       def create_new_prescription(params)
@@ -30,7 +48,7 @@ module Renalware
       end
 
       def terminated_prescription_attributes
-        prescription.attributes.slice(*included_attributes)
+        @prescription.attributes.slice(*included_attributes)
       end
 
       def included_attributes
