@@ -30,8 +30,10 @@ module Renalware
       end
 
       def terminate_existing_and_create_new_prescription(params)
-        terminate_existing_prescription(params)
-        create_new_prescription(params)
+        Prescription.transaction do
+          terminate_existing_prescription(params)
+          create_new_prescription(params)
+        end
       end
 
       def terminate_existing_prescription(params)
