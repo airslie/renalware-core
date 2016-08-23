@@ -35,8 +35,6 @@
     = patient.input :paediatric_patient_indicator,
         as: :inline_radio_buttons,
         label: "If under 18 years, is the recipient being treated in a paediatric unit?"
-    = patient.input :cc_on_all_letters,
-        as: :inline_radio_buttons
 
     - if @patient.persisted?
       .row
@@ -46,6 +44,14 @@
           | To enter date of death please set 'Death' modality:
           | &nbsp;
           = link_to "Change Modal", new_patient_modality_path(@patient), title: "Patient Modality", class: "death-update"
+
+.form-content
+  = field_set_tag do
+    legend Letter Options
+
+    = patient.input :cc_on_all_letters,  as: :inline_radio_buttons
+    = patient.input :cc_decision_on, as: :date_picker
+
 
 .form-content
   .row

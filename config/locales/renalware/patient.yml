@@ -3,3 +3,4 @@ en:
     attributes:
       renalware/patient:
         cc_on_all_letters: CC on all letters
+        cc_decision_on: CC decision date

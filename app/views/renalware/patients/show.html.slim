@@ -1,6 +1,7 @@
 = render layout: "layout", locals: { title: "Demographics" } do
   #patient-demographics
-    = render partial: "renalware/patients/show/patient_demographics", locals: { patient: @patient }
+    = render "renalware/patients/show/patient_demographics", patient: @patient
+    = render "renalware/patients/show/letter_options", patient: @patient
 
     .row
       .large-4.columns
