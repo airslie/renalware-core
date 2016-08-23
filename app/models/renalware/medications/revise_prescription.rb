@@ -5,7 +5,7 @@ module Renalware
     class RevisePrescription
       attr_reader :prescription, :params
 
-      NEW_PRESCRIPTION_ATTRS = %w(dose_amount dose_unit frequency)
+      NEW_PRESCRIPTION_ATTRS = %w(dose_amount dose_unit frequency).freeze
 
       def initialize(prescription)
         @prescription = prescription
@@ -15,6 +15,7 @@ module Renalware
         @prescription.assign_attributes(params)
 
         if new_prescription_required?
+          @prescription.reload
           terminate_existing_and_create_new_prescription(params)
         else
           @prescription.save!
@@ -36,7 +37,6 @@ module Renalware
       def terminate_existing_prescription(params)
         return if @prescription.termination.present?
 
-        @prescription.reload
         @prescription.terminate(by: params[:by]).save!
       end
 
