@@ -5,12 +5,10 @@ module World
         # @section commands
         #
         def create_patient_rule(patient, params)
-          rule_params = params
+          rule_params =
+            params
             .except(:last_observed_at, :patient, :lab)
-            .merge(
-              last_observed_at: str_to_time(params[:last_observed_at]),
-              lab: Renalware::Pathology::Lab.find_by!(name: params[:lab])
-            )
+            .merge(lab: Renalware::Pathology::Lab.find_by!(name: params[:lab]))
 
           pathology_patient = Renalware::Pathology.cast_patient(patient)
           pathology_patient.rules.create(rule_params)

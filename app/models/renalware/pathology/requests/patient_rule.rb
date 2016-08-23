@@ -20,7 +20,6 @@ module Renalware
         OBSERVATION_REQUIRED = true
         OBSERVATION_NOT_REQUIRED = false
 
-
         def required?
           today = Date.current
 
@@ -30,6 +29,13 @@ module Renalware
           days_ago_observed = today - last_observed_at.to_date
 
           frequency.observation_required?(days_ago_observed)
+        end
+
+        def last_observed_at
+          last_request = patient.last_request_for_patient_rule(self)
+          return if last_request.nil?
+
+          last_request.created_at
         end
 
         private

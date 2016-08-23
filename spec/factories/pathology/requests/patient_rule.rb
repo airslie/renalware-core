@@ -7,7 +7,6 @@ FactoryGirl.define do
       sample_number_bottles 1
       sample_type nil
       frequency_type Renalware::Pathology::Requests::Frequency.all_names.sample
-      last_observed_at nil
       start_date nil
       end_date nil
   end

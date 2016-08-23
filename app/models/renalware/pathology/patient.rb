@@ -8,6 +8,15 @@ module Renalware
       has_many :rules, class_name: "Requests::PatientRule"
       has_many :requests, class_name: "Requests::Request"
 
+      def last_request_for_patient_rule(patient_rule)
+        requests
+          .includes(:patient_rules)
+          .where(
+            pathology_requests_patient_rules: { id: [patient_rule] }
+          )
+          .first
+      end
+
       def required_observation_requests(clinic)
         Requests::Global.new(self, clinic).determine_required_request_descriptions
       end
