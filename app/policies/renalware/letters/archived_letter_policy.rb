@@ -7,7 +7,7 @@ module Renalware
         false
       end
 
-      def mark_as_typed?
+      def submit_for_review?
         false
       end
 

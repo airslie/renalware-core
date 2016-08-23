@@ -3,9 +3,11 @@ require_dependency "renalware/pathology/requests"
 module Renalware
   module Pathology
     module Requests
-      module ParamType
-        class TransplantDateWithinWeeks < Base
-          def required?
+      class GlobalRule
+        class TransplantDateWithinWeeks < GlobalRule
+          def observation_required_for_patient?(patient)
+            most_recent_operation =
+              Transplants::RecipientOperation.for_patient(patient).most_recent
             return false unless most_recent_operation.present?
 
             most_recent_operation.performed_on > required_weeks_ago
@@ -18,12 +20,7 @@ module Renalware
           private
 
           def required_weeks_ago
-            @param_comparison_value.to_i.weeks.ago
-          end
-
-          def most_recent_operation
-            @most_recent_operation ||=
-              Renalware::Transplants::RecipientOperation.for_patient(@patient).most_recent
+            param_comparison_value.to_i.weeks.ago
           end
         end
       end

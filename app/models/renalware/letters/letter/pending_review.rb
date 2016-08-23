@@ -2,9 +2,9 @@ require_dependency "renalware/letters/letter"
 
 module Renalware
   module Letters
-    class Letter::Typed < Letter
+    class Letter::PendingReview < Letter
       def self.policy_class
-        TypedLetterPolicy
+        PendingReviewLetterPolicy
       end
 
       def archive(by:, presenter: default_presenter)

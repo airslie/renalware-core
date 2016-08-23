@@ -1812,7 +1812,7 @@ ALTER SEQUENCE pathology_requests_global_rule_sets_id_seq OWNED BY pathology_req
 CREATE TABLE pathology_requests_global_rules (
     id integer NOT NULL,
     global_rule_set_id integer NOT NULL,
-    param_type character varying,
+    type character varying,
     param_id character varying,
     param_comparison_operator character varying,
     param_comparison_value character varying
@@ -6467,6 +6467,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160809095951');
 INSERT INTO schema_migrations (version) VALUES ('20160812073616');
 
 INSERT INTO schema_migrations (version) VALUES ('20160812073900');
+
+INSERT INTO schema_migrations (version) VALUES ('20160818131917');
 
 INSERT INTO schema_migrations (version) VALUES ('20160822130644');
 

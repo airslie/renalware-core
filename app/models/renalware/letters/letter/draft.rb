@@ -11,8 +11,8 @@ module Renalware
         self.attributes = params
       end
 
-      def typed(by:)
-        becomes!(Typed).tap { |letter| letter.by = by }
+      def submit(by:)
+        becomes!(PendingReview).tap { |letter| letter.by = by }
       end
     end
   end

@@ -11,7 +11,7 @@ module Renalware
 
         def determine_required_request_descriptions
           rule_sets
-            .select { |rule_set| rule_set.required_for_patient?(@patient) }
+            .select { |rule_set| rule_set.observation_required_for_patient?(@patient) }
             .map { |rule_set| rule_set.request_description }
             .uniq
         end

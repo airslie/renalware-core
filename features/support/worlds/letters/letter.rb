@@ -71,17 +71,17 @@ module World
         Renalware::Letters::ReviseLetter.build.call(patient, existing_letter.id, letter_attributes)
       end
 
-      def mark_draft_as_typed(patient:, user:)
+      def submit_for_review(patient:, user:)
         draft_letter = simple_letter_for(patient)
 
-        typed_letter = draft_letter.typed(by: user)
-        typed_letter.save!
+        letter_pending_review = draft_letter.submit(by: user)
+        letter_pending_review.save!
       end
 
       def archive_letter(patient:, user:)
-        typed_letter = simple_letter_for(patient)
+        letter_pending_review = simple_letter_for(patient)
 
-        archived_letter = typed_letter.archive(by: user)
+        archived_letter = letter_pending_review.archive(by: user)
         archived_letter.save!
       end
 
@@ -255,13 +255,13 @@ module World
         end
       end
 
-      def mark_draft_as_typed(patient:, user:)
+      def submit_for_review(patient:, user:)
         login_as user
         existing_letter = simple_letter_for(patient)
 
         visit patient_letters_letter_path(patient, existing_letter)
 
-        click_on "Mark as Typed"
+        click_on "Submit for Review"
       end
 
       def archive_letter(patient:, user:)
