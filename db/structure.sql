@@ -1209,6 +1209,7 @@ CREATE TABLE letter_letters (
     salutation character varying,
     body text,
     notes text,
+    signed_at timestamp without time zone,
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
