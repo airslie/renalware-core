@@ -1,8 +1,8 @@
 Feature: Rejecting a letter
 
-  Given a letter is pending for review, a Doctor can reject the letter
-  because it is missing some information.  The letter is then put
-  back in state "Draft".
+  After reviewing a letter, a doctor may decide that the letter
+  is missing some important details that cannot be included at that time by just
+  editing the letter.  The doctor may therefore reject the letter so it can be revised later.
 
   Background:
     Given Nathalie is a nurse

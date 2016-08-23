@@ -1,6 +1,10 @@
 Feature: Revising a letter
 
-  A letter may be revised when in "draft" to "typed" state.
+  In order to communicate information to the patient or other person, a letter
+  is written and sent to the recipient(s).  A letter may be saved as a "draft"
+  and later, revised with valuable information.
+
+  A doctor may also revise a letter while reviewing it.
 
   Background:
     Given Nathalie is a nurse
