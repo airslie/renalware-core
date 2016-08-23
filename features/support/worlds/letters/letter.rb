@@ -160,6 +160,12 @@ module World
         expect(policy.update?).to be_falsy
       end
 
+      def expect_letter_to_be_signed(patient:, user:)
+        letter = simple_letter_for(patient)
+
+        expect(letter.signed_at).to_not be_nil
+      end
+
       private
 
       def build_main_recipient_attributes(recipient)

@@ -34,7 +34,7 @@ module Renalware
       def electronic_signature
         [
           "ELECTRONICALLY SIGNED BY #{author.full_name}",
-          "on #{::I18n.l updated_at}"
+          "on #{::I18n.l signed_at}"
         ].join("<br>").html_safe
       end
 
