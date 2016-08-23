@@ -5,7 +5,8 @@ module World
         # @section commands
         #
         def create_patient_rule(patient, params)
-          rule_params = params
+          rule_params =
+            params
             .except(:last_observed_at, :patient, :lab)
             .merge(lab: Renalware::Pathology::Lab.find_by!(name: params[:lab]))
 
