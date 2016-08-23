@@ -35,7 +35,7 @@ module Renalware
       end
 
       def edit
-        render_form(@patient.draft_letters.find(params[:id]), :edit)
+        render_form(@patient.letters.pending.find(params[:id]), :edit)
       end
 
       def update
@@ -91,7 +91,7 @@ module Renalware
 
       def letter_params
         params
-          .require(:letters_letter_draft)
+          .require(:letter)
           .permit(attributes)
           .merge(by: current_user)
       end

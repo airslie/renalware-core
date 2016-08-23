@@ -40,6 +40,7 @@ end
 
 Given(/^Doug is Patty's doctor$/) do
   @doug = @patty.doctor
+  @doug_user = find_or_create_user(given_name: "Doug", role: "clinician")
 end
 
 Given(/^Patty is a diabetic (yes|no)$/) do |diabetic|

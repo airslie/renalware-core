@@ -78,6 +78,13 @@ module World
         letter_pending_review.save!
       end
 
+      def reject_letter(patient:, user:)
+        letter_pending_review = simple_letter_for(patient)
+
+        draft_letter = letter_pending_review.reject(by: user)
+        draft_letter.save!
+      end
+
       def archive_letter(patient:, user:)
         letter_pending_review = simple_letter_for(patient)
 
@@ -229,9 +236,9 @@ module World
       def fill_recipient(recipient)
         case recipient
         when Renalware::Patient
-          choose("letters_letter_draft_main_recipient_attributes_person_role_patient")
+          choose("letter_main_recipient_attributes_person_role_patient")
         when Renalware::Doctors::Doctor
-          choose("letters_letter_draft_main_recipient_attributes_person_role_doctor")
+          choose("letter_main_recipient_attributes_person_role_doctor")
         else
           choose("Postal Address Below")
           fill_in "Name", with: recipient[:name]
@@ -272,6 +279,15 @@ module World
         visit patient_letters_letter_path(patient, existing_letter)
 
         click_on "Submit for Review"
+      end
+
+      def reject_letter(patient:, user:)
+        login_as user
+        existing_letter = simple_letter_for(patient)
+
+        visit patient_letters_letter_path(patient, existing_letter)
+
+        click_on "Reject"
       end
 
       def archive_letter(patient:, user:)

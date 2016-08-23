@@ -57,6 +57,10 @@ When(/^Nathalie submits the letter for review$/) do
   submit_for_review(patient: @patty, user: @nathalie)
 end
 
+Then(/^Doug can reject the letter$/) do
+  reject_letter(patient: @patty, user: @doug_user)
+end
+
 When(/^Doug archives the letter$/) do
   archive_letter(patient: @patty, user: @doctor)
 end
@@ -73,8 +77,12 @@ Then(/^Nathalie can revise Patty's letter$/) do
   revise_simple_letter(patient: @patty, user: @nathalie)
 end
 
+Then(/^Doug can revise the letter$/) do
+  revise_simple_letter(patient: @patty, user: @doug_user)
+end
+
 Then(/^Doug can revise Patty's clinic visit letter$/) do
-  revise_clinic_visit_letter(patient: @patty, user: @nathalie)
+  revise_clinic_visit_letter(patient: @patty, user: @doug_user)
 end
 
 Then(/^the letter is not drafted$/) do
