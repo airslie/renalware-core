@@ -85,6 +85,8 @@ module World
             when :route_code
               route = Renalware::Medications::MedicationRoute.find_by!(code: value)
               update_params.merge!(medication_route: route)
+            when :dose_amount
+              update_params.merge!(dose_amount: dose_amount.presence)
             else
               update_params.merge!(key.to_sym => value)
           end
@@ -135,6 +137,7 @@ module World
           medication_route = Renalware::Medications::MedicationRoute.find_by(
             code: prescription_attributes[:route_code]
           )
+
           dose_amount, dose_unit = prescription_attributes[:dose].split(" ")
 
           prescription_exists = Renalware::Medications::Prescription.exists?(
@@ -163,9 +166,11 @@ module World
         expect(prescription).not_to be_terminated
       end
 
-      def expect_prescription_revision_to_be_rejected(prescription)
-        expect(prescription.valid?).to be_falsey
-        expect(prescription.errors.empty?).to be_falsey
+      def expect_prescription_revision_to_be_rejected(patient, revision_params)
+        prescription = patient.prescriptions.first
+        revision_params.each do |key, value|
+          expect(prescription.send(key.to_sym)).not_to eq(value)
+        end
       end
     end
 
@@ -182,11 +187,14 @@ module World
       end
 
       def fill_in_dose(dose_amount, dose_unit)
-        dose_unit = ::I18n.t(
-          dose_unit, scope: "enumerize.renalware.medications.prescription.dose_unit"
-        )
         fill_in "Dose amount", with: dose_amount
-        select dose_unit, from: "Dose unit"
+
+        if dose_unit.present?
+          dose_unit = ::I18n.t(
+            dose_unit, scope: "enumerize.renalware.medications.prescription.dose_unit"
+          )
+          select dose_unit, from: "Dose unit"
+        end
       end
 
       # @ section commands
@@ -236,6 +244,8 @@ module World
               when :dose
                 dose_amount, dose_unit = value.split(" ")
                 fill_in_dose(dose_amount, dose_unit)
+              when :dose_amount
+                fill_in "Dose amount", with: dose_amount
               when :frequency
                 fill_in "Frequency", with: value
               when :route_code

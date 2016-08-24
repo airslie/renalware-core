@@ -138,6 +138,6 @@ Then(/^the prescription termination is rejected$/) do
   expect_termination_to_be_rejected(@patty)
 end
 
-Then(/^the prescription revision is rejected$/) do
-  expect_prescription_revision_to_be_rejected(@prescription)
+Then(/^the prescription revision rejects these changes:$/) do |table|
+  expect_prescription_revision_to_be_rejected(@patty, table.rows_hash)
 end

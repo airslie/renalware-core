@@ -41,10 +41,12 @@ Feature: Revising a prescription
       | drug_name       | dose          | frequency | route_code | provider | terminated_on |
       | Acarbose Tablet | 100 milligram | bd        | SC         | Hospital |               |
 
+  @web @javascript
   Scenario: A clinician revises the dose of a prescription for a patient with an invalid value
     Given Patty has a prescription:
       | drug_name       | dose          | frequency | route_code | provider | terminated_on |
       | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital |               |
     When Clyde revises the prescription for Patty with these changes:
-      | dose   | |
-    Then the prescription revision is rejected
+      | dose_amount | |
+    Then the prescription revision rejects these changes:
+      | dose_amount | |
