@@ -37,8 +37,7 @@ module Renalware
       end
 
       def call
-        build_new_prescription
-        run_terminate_and_save_transaction
+        run_terminate_and_create_transaction
         return true
 
       rescue ActiveRecord::RecordInvalid
@@ -49,10 +48,10 @@ module Renalware
 
       private
 
-      def run_terminate_and_save_transaction
+      def run_terminate_and_create_transaction
         Prescription.transaction do
           terminate_existing_prescription
-          save_new_prescription
+          create_new_prescription
         end
       end
 
@@ -62,14 +61,11 @@ module Renalware
         @prescription.terminate(by: @params[:by]).save!
       end
 
-      def build_new_prescription
-        @new_prescription = Prescription.new(terminated_prescription_attributes)
-        @new_prescription.assign_attributes(@params)
-      end
-
-      def save_new_prescription
-        @new_prescription.prescribed_on = Date.current
-        @new_prescription.save!
+      def create_new_prescription
+        new_prescription = Prescription.new(terminated_prescription_attributes)
+        new_prescription.assign_attributes(@params)
+        new_prescription.prescribed_on = Date.current
+        new_prescription.save!
       end
 
       def terminated_prescription_attributes

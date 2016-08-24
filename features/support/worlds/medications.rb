@@ -218,7 +218,7 @@ module World
         record_prescription_for(patient: patient, **args)
       end
 
-      def revise_prescription_for(patient:, user:, drug_selector: default_medication_drug_selector,
+      def revise_prescription_for(prescription:, patient:, user:, drug_selector: default_medication_drug_selector,
         prescription_params: {})
         login_as user
 
