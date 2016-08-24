@@ -16,17 +16,15 @@ module Renalware
       end
 
       def sign(by:)
-        self.by = by
         build_signature(user: by, signed_at: Time.current)
+        self.by = by
         self
       end
 
       def archive(by:, presenter: default_presenter)
-        content = presenter.content
-
         becomes!(Archived).tap do |letter|
           letter.by = by
-          letter.build_archive(by: by, content: content)
+          letter.build_archive(by: by, content: presenter.content)
         end
       end
 
