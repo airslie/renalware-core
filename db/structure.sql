@@ -2084,6 +2084,7 @@ CREATE TABLE patients (
     second_edta_code_id integer,
     death_notes text,
     cc_on_all_letters boolean DEFAULT true,
+    cc_decision_on date,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     practice_id integer,
