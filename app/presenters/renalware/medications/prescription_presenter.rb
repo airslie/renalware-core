@@ -22,6 +22,10 @@ module Renalware
         "#{dose_amount} #{translated_dose_unit}"
       end
 
+      def administer_on_hd?
+        administer_on_hd ? "Yes" : "No"
+      end
+
       private
 
       def translated_dose_unit

@@ -9,14 +9,15 @@ en:
 
   activerecord:
     attributes:
-      renalware/prescription:
+      renalware/medications/prescription:
         medication_route: Route
-        prescirbed_on: "Prescribed on"
+        prescribed_on: "Prescribed on"
         terminated_on: "Terminated on"
         frequency: "Frequency & Duration"
+        administer_on_hd: "Give on HD"
     errors:
       models:
-        renalware/prescription:
+        renalware/medications/prescription:
           attributes:
             route_description:
               not_other: can't be present when a route has been selected

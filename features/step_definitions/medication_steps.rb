@@ -92,6 +92,22 @@ When(/^Clyde records the prescription for Patty with a termination date$/) do
   )
 end
 
+When(/^Clyde flags the prescription for Patty to be administered during an HD session$/) do
+  record_prescription_for_patient(
+    user: @clyde,
+    patient: @patty,
+    drug_name: "Ciprofloxacin Infusion",
+    dose_amount: "100",
+    dose_unit: "millilitre",
+    route_code: "PO",
+    frequency: "once a day",
+    prescribed_on: "10-10-2015",
+    administer_on_hd: true,
+    provider: "GP",
+    terminated_on: "20-10-2015"
+  )
+end
+
 When(/^Clyde views the list of prescriptions for Patty$/) do
   @current_prescriptions, @historical_prescriptions = view_prescriptions_for(@clyde, @patty)
 end
@@ -116,6 +132,10 @@ end
 
 Then(/^the prescription is recorded for Patty$/) do
   expect_prescription_to_be_recorded(patient: @patty)
+end
+
+Then(/^Clyde is prompted to administer the prescription during Patty's future HD sessions$/) do
+  expect_prescription_to_be_recorded(patient: @patty, administer_on_hd: true)
 end
 
 When(/^Clyde terminates the prescription for the patient$/) do

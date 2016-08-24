@@ -16,10 +16,20 @@ module World
       # @section seeds
       #
       def seed_prescription_for(
-        patient:, treatable: nil, drug_name:, dose_amount:,
-        dose_unit:, route_code:, frequency:, prescribed_on:, provider:,
-        terminated_on:, user: nil, **_
-      )
+        patient:,
+        treatable: nil,
+        drug_name:,
+        dose_amount:,
+        dose_unit:,
+        route_code:,
+        frequency:,
+        administer_on_hd: false,
+        prescribed_on:,
+        provider:,
+        terminated_on:,
+        user: nil,
+        **_)
+
         drug = Renalware::Drugs::Drug.find_or_create_by!(name: drug_name)
         route = Renalware::Medications::MedicationRoute.find_by!(code: route_code)
 
@@ -32,6 +42,7 @@ module World
           dose_unit: dose_unit,
           medication_route: route,
           frequency: frequency,
+          administer_on_hd: administer_on_hd,
           prescribed_on: prescribed_on,
           provider: provider.downcase,
           by: user
@@ -71,8 +82,13 @@ module World
         record_prescription_for(args)
       end
 
-      def revise_prescription_for(prescription:, patient:, user:,
-        drug_selector: default_medication_drug_selector, prescription_params: {})
+      def revise_prescription_for(
+        prescription:,
+        patient:,
+        user:,
+        drug_selector: default_medication_drug_selector,
+        prescription_params: {})
+
         update_params = { by: Renalware::SystemUser.find }
         prescription_params.each do |key, value|
           case key.to_sym
@@ -103,10 +119,12 @@ module World
 
       # @ section expectations
       #
-      def expect_prescription_to_be_recorded(patient:)
+      def expect_prescription_to_be_recorded(patient:, **expected_attributes)
         prescription = patient.prescriptions.last!
-
         expect(prescription).to be_present
+        expected_attributes.each do |key, value|
+          expect(prescription.public_send(key)).to eq(value)
+        end
       end
 
       def expect_prescription_to_be_revised(patient:)
@@ -145,9 +163,8 @@ module World
             dose_amount: dose_amount,
             dose_unit: dose_unit,
             medication_route: medication_route,
-            frequency: prescription_attributes[:frequency]
+            frequency: prescription_attributes[:frequency],
           )
-
           expect(prescription_exists).to be_truthy
         end
       end
@@ -197,10 +214,21 @@ module World
         end
       end
 
+
       # @ section commands
       #
-      def record_prescription_for(patient:, treatable: nil, drug_name:, dose_amount:,
-        dose_unit:, route_code:, frequency:, prescribed_on:, provider:, terminated_on: "",
+      def record_prescription_for(
+        patient:,
+        treatable: nil,
+        drug_name:,
+        dose_amount:,
+        dose_unit:,
+        route_code:,
+        frequency:,
+        prescribed_on:,
+        provider:,
+        administer_on_hd: false,
+        terminated_on: "",
         drug_selector: default_medication_drug_selector)
 
         click_link "Add Prescription"
@@ -209,10 +237,13 @@ module World
         within "#new_medications_prescription" do
           drug_selector.call(drug_name)
           fill_in_dose(dose_amount, dose_unit)
-          select route_code, from: "Medication route"
-          fill_in "Frequency", with: frequency
-          fill_in "Prescribed on", with: prescribed_on
-          fill_in "Terminated on", with: terminated_on
+          select route_code, from: t_prescription(:medication_route)
+          fill_in t_prescription(:frequency), with: frequency
+          fill_in t_prescription(:prescribed_on), with: prescribed_on
+          fill_in t_prescription(:terminated_on), with: terminated_on
+          if administer_on_hd
+            find_field(t_prescription(:administer_on_hd)).trigger('click')
+          end
           click_on "Save"
           wait_for_ajax
         end
@@ -226,8 +257,13 @@ module World
         record_prescription_for(patient: patient, **args)
       end
 
-      def revise_prescription_for(prescription:, patient:, user:,
-        drug_selector: default_medication_drug_selector, prescription_params: {})
+      def revise_prescription_for(
+        prescription:,
+        patient:,
+        user:,
+        drug_selector: default_medication_drug_selector,
+        prescription_params: {})
+
         login_as user
 
         visit patient_prescriptions_path(patient)
@@ -247,14 +283,18 @@ module World
               when :dose_amount
                 fill_in "Dose amount", with: dose_amount.to_s
               when :frequency
-                fill_in "Frequency", with: value
+                fill_in t_prescription(:frequency), with: value
               when :route_code
-                select value, from: "Medication route"
+                select value, from: t_prescription(:medication_route)
             end
           end
           click_on "Save"
           wait_for_ajax
         end
+      end
+
+      def t_prescription(key)
+        I18n.t(key, scope: "activerecord.attributes.renalware/medications/prescription")
       end
 
       def terminate_prescription_for(patient:, user:, terminated_on: Date.current)
