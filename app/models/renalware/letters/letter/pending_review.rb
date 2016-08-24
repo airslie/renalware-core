@@ -15,6 +15,12 @@ module Renalware
         becomes!(Draft).tap { |letter| letter.by = by }
       end
 
+      def sign(by:)
+        build_signature(user: by, signed_at: Time.current)
+        self.by = by
+        self
+      end
+
       def archive(by:, presenter: default_presenter)
         becomes!(Archived).tap do |letter|
           letter.by = by

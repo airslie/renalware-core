@@ -8,7 +8,7 @@ module Renalware
       def initialize(patient, _event = Event::Unknown.new)
         @patient = patient
         presented_prescriptions = present(
-          patient.prescriptions,
+          patient.prescriptions.includes(:drug, :medication_route),
           ::Renalware::Medications::PrescriptionPresenter
         )
         super(presented_prescriptions)

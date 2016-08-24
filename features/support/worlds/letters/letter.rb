@@ -85,11 +85,10 @@ module World
         draft_letter.save!
       end
 
-      def archive_letter(patient:, user:)
+      def approve_letter(patient:, user:)
         letter_pending_review = simple_letter_for(patient)
 
-        archived_letter = letter_pending_review.archive(by: user)
-        archived_letter.save!
+        Renalware::Letters::ApproveLetter.build(letter_pending_review).call(by: user)
       end
 
       # @section expectations
@@ -146,11 +145,11 @@ module World
         expect(attributes).to include(address_attributes)
       end
 
-      def expect_letter_to_be_archived(patient:, user:)
+      def expect_letter_can_be_approved(patient:, user:)
         letter = simple_letter_for(patient)
         policy = letter.class.policy_class.new(user, letter)
 
-        expect(policy.archive?).to be_truthy
+        expect(policy.approve?).to be_truthy
       end
 
       def expect_archived_letter(patient:)
@@ -165,6 +164,12 @@ module World
         policy = letter.class.policy_class.new(user, letter)
 
         expect(policy.update?).to be_falsy
+      end
+
+      def expect_letter_to_be_signed(patient:, user:)
+        letter = simple_letter_for(patient)
+
+        expect(letter).to be_signed
       end
 
       private
@@ -280,13 +285,13 @@ module World
         click_on "Reject"
       end
 
-      def archive_letter(patient:, user:)
+      def approve_letter(patient:, user:)
         login_as user
         existing_letter = simple_letter_for(patient)
 
         visit patient_letters_letter_path(patient, existing_letter)
 
-        click_on "Archive"
+        click_on "Approve and archive"
       end
     end
   end
