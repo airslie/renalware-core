@@ -7,12 +7,10 @@ module Renalware
 
       def create
         letter = @patient.letters.pending_review.find(params[:letter_id])
-        letter.sign(by: current_user).save!
 
-        archived_letter = letter.archive(by: current_user)
-        archived_letter.save!
+        ApproveLetter.build(letter).call(by: current_user)
 
-        redirect_to patient_letters_letter_path(@patient, archived_letter), notice: t(".success")
+        redirect_to patient_letters_letter_path(@patient, letter), notice: t(".success")
       end
     end
   end

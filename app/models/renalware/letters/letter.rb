@@ -66,6 +66,10 @@ module Renalware
       def determine_counterpart_ccs
         DetermineCounterpartCCs.new(self).call
       end
+
+      def signed?
+        signature.present?
+      end
     end
   end
 end

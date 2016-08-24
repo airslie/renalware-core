@@ -85,13 +85,10 @@ module World
         draft_letter.save!
       end
 
-      def archive_letter(patient:, user:)
+      def approve_letter(patient:, user:)
         letter_pending_review = simple_letter_for(patient)
 
-        letter_pending_review.sign(by: user).save!
-
-        archived_letter = letter_pending_review.archive(by: user)
-        archived_letter.save!
+        Renalware::Letters::ApproveLetter.build(letter_pending_review).call(by: user)
       end
 
       # @section expectations
@@ -172,9 +169,7 @@ module World
       def expect_letter_to_be_signed(patient:, user:)
         letter = simple_letter_for(patient)
 
-        expect(letter.signature).to be_present
-        expect(letter.signature.user).to eq(user)
-        expect(letter.signature.signed_at).to be_present
+        expect(letter).to be_signed
       end
 
       private
@@ -290,13 +285,13 @@ module World
         click_on "Reject"
       end
 
-      def archive_letter(patient:, user:)
+      def approve_letter(patient:, user:)
         login_as user
         existing_letter = simple_letter_for(patient)
 
         visit patient_letters_letter_path(patient, existing_letter)
 
-        click_on "Archive"
+        click_on "Approve and archive"
       end
     end
   end

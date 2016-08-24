@@ -61,12 +61,12 @@ Then(/^Doug can reject the letter$/) do
   reject_letter(patient: @patty, user: @doug_user)
 end
 
-When(/^Doug archives the letter$/) do
-  archive_letter(patient: @patty, user: @doctor)
+When(/^Doug approves the letter$/) do
+  approve_letter(patient: @patty, user: @doctor)
 end
 
-When(/^Nathalie archives the letter$/) do
-  archive_letter(patient: @patty, user: @nathalie)
+When(/^Nathalie approves the letter$/) do
+  approve_letter(patient: @patty, user: @nathalie)
 end
 
 Then(/^"(.*?)" will receive the letter$/) do |recipient|

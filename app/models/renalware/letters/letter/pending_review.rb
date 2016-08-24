@@ -16,6 +16,7 @@ module Renalware
       end
 
       def sign(by:)
+        self.by = by
         build_signature(user: by, signed_at: Time.current)
         self
       end

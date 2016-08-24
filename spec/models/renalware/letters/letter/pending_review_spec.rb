@@ -18,7 +18,7 @@ module Renalware::Letters
 
         signature = letter.sign(by: user).signature
 
-        expect(signature).to be_present
+        expect(signature).to be_valid
         expect(signature.user).to eq(user)
         expect(signature.signed_at).to eq(now)
       end
