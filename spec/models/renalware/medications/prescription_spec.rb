@@ -97,15 +97,20 @@ module Renalware
           end
         end
 
-        describe "#terminated?" do
-          context "given the termination date is specified" do
-            let(:prescription) { build_prescription(terminated_on: "2010-01-02") }
-            it { expect(prescription.terminated?).to be_truthy }
+        describe "#terminated_or_marked_for_termination?" do
+          context "given the termination date is in the future" do
+            let(:prescription) { build_prescription(terminated_on: Date.current + 1.minute) }
+            it { expect(prescription.terminated_or_marked_for_termination?).to be_truthy }
+          end
+
+          context "given the termination date is in the past" do
+            let(:prescription) { build_prescription(terminated_on: Date.current - 1.minute) }
+            it { expect(prescription.terminated_or_marked_for_termination?).to be_truthy }
           end
 
           context "given the termination date is not specified" do
             let(:prescription) { build(:prescription) }
-            it { expect(prescription.terminated?).to be_falsey }
+            it { expect(prescription.terminated_or_marked_for_termination?).to be_falsey }
           end
         end
       end

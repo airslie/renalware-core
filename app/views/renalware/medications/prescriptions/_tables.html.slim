@@ -6,6 +6,8 @@ b Current
       prescriptions: current_prescriptions,
       search: current_search,
       current_scope: true
+.right
+  = link_to "Add Prescription", new_patient_prescription_path(patient, treatable), remote: true, class: %i(button tiny)
 hr
 - if defined? historical_prescriptions
   b Historical
@@ -16,5 +18,5 @@ hr
       prescriptions: historical_prescriptions,
       search: historical_prescriptions_search,
       current_scope: false
-.right
-  = link_to "Add Prescription", new_patient_prescription_path(patient, treatable), remote: true, class: %i(button tiny)
+
+

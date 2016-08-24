@@ -7,6 +7,14 @@ module Renalware
         PendingReviewLetterPolicy
       end
 
+      def revise(params)
+        self.attributes = params
+      end
+
+      def reject(by:)
+        becomes!(Draft).tap { |letter| letter.by = by }
+      end
+
       def archive(by:, presenter: default_presenter)
         becomes!(Archived).tap do |letter|
           letter.by = by
