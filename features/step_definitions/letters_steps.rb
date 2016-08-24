@@ -127,8 +127,8 @@ Then(/^the letter lists Patty's recent pathology results$/) do
   expect_letter_to_list_recent_pathology_results(patient: @patty)
 end
 
-Then(/^Doug can archive letter$/) do
-  expect_letter_to_be_archived(patient: @patty, user: @doctor)
+Then(/^Doug can approve letter$/) do
+  expect_letter_can_be_approved(patient: @patty, user: @doctor)
 end
 
 Then(/^an archived copy of the letter is available$/) do

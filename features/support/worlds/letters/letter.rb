@@ -148,11 +148,11 @@ module World
         expect(attributes).to include(address_attributes)
       end
 
-      def expect_letter_to_be_archived(patient:, user:)
+      def expect_letter_can_be_approved(patient:, user:)
         letter = simple_letter_for(patient)
         policy = letter.class.policy_class.new(user, letter)
 
-        expect(policy.archive?).to be_truthy
+        expect(policy.approve?).to be_truthy
       end
 
       def expect_archived_letter(patient:)

@@ -11,7 +11,7 @@ module Renalware
         false
       end
 
-      def archive?
+      def approve?
         false
       end
     end
