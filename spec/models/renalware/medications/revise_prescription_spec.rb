@@ -4,7 +4,9 @@ module Renalware::Medications
   RSpec.describe RevisePrescription do
     let(:patient) { create(:patient) }
     let(:original_dose_amount) { "100" }
-    let(:original_prescription) { create(:prescription, patient: patient, dose_amount: original_dose_amount) }
+    let(:original_prescription) do
+      create(:prescription, patient: patient, dose_amount: original_dose_amount)
+    end
 
     describe "#call" do
       let(:user) { create(:user) }

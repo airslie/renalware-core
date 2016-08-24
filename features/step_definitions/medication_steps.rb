@@ -96,7 +96,12 @@ When(/^Clyde views the list of prescriptions for Patty$/) do
 end
 
 When(/^Clyde revises the prescription for Patty with these changes:$/) do |table|
-  revise_prescription_for(prescription: @prescription, patient: @patty, user: @clyde, prescription_params: table.rows_hash)
+  revise_prescription_for(
+    prescription: @prescription,
+    patient: @patty,
+    user: @clyde,
+    prescription_params: table.rows_hash
+  )
 end
 
 Then(/^the prescription is recorded for Patty$/) do
