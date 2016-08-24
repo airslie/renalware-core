@@ -16,11 +16,12 @@ module Renalware
       end
 
       def sign(by:)
-        build_signature(user: by, signed_at: Time.now)
+        build_signature(user: by, signed_at: Time.current)
+        self
       end
 
-      def archive(by:, presenter_class: LetterPresenterFactory)
-        content = generate_content_to_archive(presenter_class)
+      def archive(by:, presenter: default_presenter)
+        content = presenter.content
 
         becomes!(Archived).tap do |letter|
           letter.by = by
@@ -28,8 +29,10 @@ module Renalware
         end
       end
 
-      def generate_content_to_archive(presenter_class)
-        presenter_class.new(self).content
+      private
+
+      def default_presenter
+        LetterPresenterFactory.new(self)
       end
     end
   end
