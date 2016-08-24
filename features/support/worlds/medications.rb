@@ -71,8 +71,8 @@ module World
         record_prescription_for(args)
       end
 
-      def revise_prescription_for(prescription:, _patient:, _user:,
-        _drug_selector: default_medication_drug_selector, prescription_params: {})
+      def revise_prescription_for(prescription:, patient:, user:,
+        drug_selector: default_medication_drug_selector, prescription_params: {})
         update_params = { by: Renalware::SystemUser.find }
         prescription_params.each do |key, value|
           case key.to_sym
@@ -226,7 +226,7 @@ module World
         record_prescription_for(patient: patient, **args)
       end
 
-      def revise_prescription_for(_prescription:, patient:, user:,
+      def revise_prescription_for(prescription:, patient:, user:,
         drug_selector: default_medication_drug_selector, prescription_params: {})
         login_as user
 
