@@ -42,6 +42,7 @@ module World
         end
 
         prescription.save!
+        prescription
       end
 
       # @ section commands
@@ -70,10 +71,8 @@ module World
         record_prescription_for(args)
       end
 
-      def revise_prescription_for(patient:, user:, drug_selector: default_medication_drug_selector,
+      def revise_prescription_for(prescription:, patient:, user:, drug_selector: default_medication_drug_selector,
         prescription_params: {})
-        prescription = patient.prescriptions.last!
-
         update_params = { by: Renalware::SystemUser.find }
         prescription_params.each do |key, value|
           case key.to_sym
@@ -162,6 +161,11 @@ module World
         prescription = patient.prescriptions.last!
 
         expect(prescription).not_to be_terminated
+      end
+
+      def expect_prescription_revision_to_be_rejected(prescription)
+        expect(prescription.valid?).to be_falsey
+        expect(prescription.errors.empty?).to be_falsey
       end
     end
 

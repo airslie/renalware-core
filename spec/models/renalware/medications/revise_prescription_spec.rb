@@ -12,9 +12,13 @@ module Renalware::Medications
       context "updating the prescription's dose_amount with a valid value" do
         let(:revised_dose_amount) { "200" }
 
-        before do
+        subject!(:prescription_revision) do
           RevisePrescription.new(original_prescription)
                             .call(dose_amount: revised_dose_amount, by: user)
+        end
+
+        it "returns true" do
+          expect(prescription_revision).to be_truthy
         end
 
         it "terminates the original prescription and creates a new one" do
@@ -31,14 +35,23 @@ module Renalware::Medications
       end
 
       context "updating the prescription's dose_amount with an invalid value" do
-        before do
-          begin
-            RevisePrescription.new(original_prescription)
-                              .call(dose_amount: nil, by: user)
+        let(:revised_dose_amount) { nil }
 
-          rescue ActiveRecord::RecordInvalid
-            # noop
-          end
+        subject!(:prescription_revision) do
+          RevisePrescription.new(original_prescription)
+                            .call(dose_amount: revised_dose_amount, by: user)
+        end
+
+        it "returns false" do
+          expect(prescription_revision).to be_falsey
+        end
+
+        it "populates the original prescription's errors" do
+          expect(original_prescription.errors.messages.keys).to include(:dose_amount)
+        end
+
+        it "sets the original prescription's dose_amount to the revised value" do
+          expect(original_prescription.dose_amount).to eq(revised_dose_amount)
         end
 
         it "rolls back the transaction" do

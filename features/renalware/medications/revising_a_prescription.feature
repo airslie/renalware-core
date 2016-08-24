@@ -10,7 +10,7 @@ Feature: Revising a prescription
 
   @web @javascript
   Scenario: A clinician revises the dose of a prescription for a patient
-    Given Patty has the following prescriptions:
+    Given Patty has a prescription:
       | drug_name       | dose          | frequency | route_code | provider | terminated_on |
       | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital |               |
     When Clyde revises the prescription for Patty with these changes:
@@ -21,7 +21,7 @@ Feature: Revising a prescription
       | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital | 12-10-2016    |
 
   Scenario: A clinician revises the frequency of a prescription for a patient
-    Given Patty has the following prescriptions:
+    Given Patty has a prescription:
       | drug_name       | dose          | frequency | route_code | provider | terminated_on |
       | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital |               |
     When Clyde revises the prescription for Patty with these changes:
@@ -32,7 +32,7 @@ Feature: Revising a prescription
       | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital | 12-10-2016    |
 
   Scenario: A clinician revises the notes of a prescription for a patient
-    Given Patty has the following prescriptions:
+    Given Patty has a prescription:
       | drug_name       | dose          | frequency | route_code | provider | terminated_on |
       | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital |               |
     When Clyde revises the prescription for Patty with these changes:
@@ -40,3 +40,11 @@ Feature: Revising a prescription
     Then Patty should have the following prescriptions:
       | drug_name       | dose          | frequency | route_code | provider | terminated_on |
       | Acarbose Tablet | 100 milligram | bd        | SC         | Hospital |               |
+
+  Scenario: A clinician revises the dose of a prescription for a patient with an invalid value
+    Given Patty has a prescription:
+      | drug_name       | dose          | frequency | route_code | provider | terminated_on |
+      | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital |               |
+    When Clyde revises the prescription for Patty with these changes:
+      | dose   | |
+    Then the prescription revision is rejected

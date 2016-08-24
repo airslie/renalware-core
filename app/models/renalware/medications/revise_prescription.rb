@@ -16,9 +16,9 @@ module Renalware
 
         if new_prescription_required?
           @prescription.reload
-          terminate_existing_and_create_new_prescription(params)
+          TerminateAndCreateExistingPrescription.new(@prescription, params).call
         else
-          @prescription.save!
+          @prescription.save
         end
       end
 
@@ -28,25 +28,48 @@ module Renalware
         attr_intersection = @prescription.changed_attributes.keys & NEW_PRESCRIPTION_ATTRS
         attr_intersection.count > 0
       end
+    end
 
-      def terminate_existing_and_create_new_prescription(params)
+    class TerminateAndCreateExistingPrescription
+      def initialize(prescription, params)
+        @prescription = prescription
+        @params = params
+      end
+
+      def call
+        build_new_prescription
+        run_terminate_and_save_transaction
+        return true
+
+      rescue ActiveRecord::RecordInvalid
+        @prescription.assign_attributes(@params)
+        @prescription.valid? # NOTE: This will populate the errors object
+        return false
+      end
+
+      private
+
+      def run_terminate_and_save_transaction
         Prescription.transaction do
-          terminate_existing_prescription(params)
-          create_new_prescription(params)
+          terminate_existing_prescription
+          save_new_prescription
         end
       end
 
-      def terminate_existing_prescription(params)
+      def terminate_existing_prescription
         return if @prescription.termination.present?
 
-        @prescription.terminate(by: params[:by]).save!
+        @prescription.terminate(by: @params[:by]).save!
       end
 
-      def create_new_prescription(params)
-        new_prescription = Prescription.new(terminated_prescription_attributes)
-        new_prescription.assign_attributes(params)
-        new_prescription.prescribed_on = Date.current
-        new_prescription.save!
+      def build_new_prescription
+        @new_prescription = Prescription.new(terminated_prescription_attributes)
+        @new_prescription.assign_attributes(@params)
+      end
+
+      def save_new_prescription
+        @new_prescription.prescribed_on = Date.current
+        @new_prescription.save!
       end
 
       def terminated_prescription_attributes
