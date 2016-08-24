@@ -84,7 +84,7 @@ module Renalware
         end
       end
 
-      class Archived < LetterPresenter
+      class Approved < LetterPresenter
         def view_label
           "View"
         end

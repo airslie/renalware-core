@@ -2,7 +2,7 @@ require_dependency "renalware/letters/letter_policy"
 
 module Renalware
   module Letters
-    class ArchivedLetterPolicy < LetterPolicy
+    class ApprovedLetterPolicy < LetterPolicy
       def update?
         false
       end

@@ -29,7 +29,7 @@ module Renalware::Letters
 
       it "archives the letter" do
         archived_letter = letter.archive(by: user, presenter: presenter)
-        expect(archived_letter).to be_archived
+        expect(archived_letter.archive).to be_present
       end
 
       context "given the letter is persisted" do

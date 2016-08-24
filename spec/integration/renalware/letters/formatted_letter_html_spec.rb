@@ -57,11 +57,10 @@ RSpec.describe "Get formatted letter HTML content", type: :request do
     archive_letter(draft)
   end
 
-  def archive_letter(letter)
-    archived_letter = letter
-      .becomes!(Renalware::Letters::Letter::PendingReview)
-      .archive(by: create(:user))
-    archived_letter.save!
-    archived_letter
+  def archive_letter(draft_letter)
+    pending_letter = draft_letter.becomes!(Renalware::Letters::Letter::PendingReview)
+    pending_letter.archive(by: create(:user)).tap do |letter|
+      letter.save!
+    end
   end
 end
