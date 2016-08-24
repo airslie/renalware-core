@@ -12,7 +12,7 @@ module Renalware
         validates :param_comparison_operator, inclusion:
           { in: PARAM_COMPARISON_OPERATORS, allow_nil: true }
 
-        def observation_required_for_patient?(_patient, date)
+        def observation_required_for_patient?(_patient, _date)
           raise NotImplementedError
         end
 
