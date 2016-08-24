@@ -47,11 +47,10 @@
 
 .form-content
   = field_set_tag do
-    legend Letter Options
+    legend Letter Preferences
 
     = patient.input :cc_on_all_letters,  as: :inline_radio_buttons
     = patient.input :cc_decision_on, as: :date_picker
-
 
 .form-content
   .row
