@@ -22,6 +22,8 @@ module Renalware
       before_update :assign_updater
 
       attr_accessor :by
+
+      scope :with_created_by, -> { includes(:created_by) }
     end
 
     private

@@ -15,10 +15,15 @@ module Renalware
       belongs_to :treatable, polymorphic: true
       belongs_to :medication_route
 
-      has_one :termination, class_name: "PrescriptionTermination",
-        dependent: :delete, inverse_of: :prescription
-      accepts_nested_attributes_for :termination, update_only: true,
+      has_one :termination,
+              class_name: "PrescriptionTermination",
+              dependent: :delete,
+              inverse_of: :prescription
+
+      accepts_nested_attributes_for :termination,
+        update_only: true,
         reject_if: -> (attributes) { attributes["terminated_on"].blank? }
+
       delegate :terminated_on, to: :termination, allow_nil: true
 
       validates :patient, presence: true
@@ -30,13 +35,18 @@ module Renalware
       validates :frequency, presence: true
       validates :prescribed_on, presence: true
       validates :provider, presence: true
-      validate :constrain_route_description
+      validate  :constrain_route_description
 
       enum provider: Provider.codes
-      enumerize :dose_unit, in: DoseUnit.codes,
-        i18n_scope: "enumerize.renalware.medications.prescription.dose_unit"
 
-      scope :ordered, -> { order(default_search_order) }
+      enumerize :dose_unit,
+                in: DoseUnit.codes,
+                i18n_scope: "enumerize.renalware.medications.prescription.dose_unit"
+
+      scope :ordered,                   -> { order(default_search_order) }
+      scope :with_medication_route,     -> { includes(:medication_route) }
+      scope :with_drugs,                -> { includes(drug: :drug_types) }
+      scope :with_termination,          -> { includes(termination: [:created_by]) }
       scope :current, -> (date = Date.current) {
         joins(<<-SQL)
           LEFT OUTER JOIN medication_prescription_terminations pt
