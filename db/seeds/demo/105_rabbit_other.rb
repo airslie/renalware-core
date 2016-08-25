@@ -448,7 +448,7 @@ module Renalware
     by: users.sample
   )
 
-  Letters::Letter::Typed.create!(
+  Letters::Letter::PendingReview.create!(
     patient: patient,
     issued_on: 3.days.ago,
     description: Renalware::Letters::Description.last.text,
@@ -462,7 +462,7 @@ module Renalware
     by: users.sample
   )
 
-  letter = Letters::Letter::Typed.create!(
+  letter = Letters::Letter::PendingReview.create!(
     patient: patient,
     issued_on: 10.days.ago,
     description: Renalware::Letters::Description.last.text,
@@ -475,16 +475,15 @@ module Renalware
     author: users.sample,
     by: users.sample
   )
-  archived_letter = letter.archive(by: User.first)
-  archived_letter.save!
 
-  archived_letter.main_recipient.build_address.tap do |address|
-    address.copy_from(archived_letter.patient.current_address)
+  Renalware::Letters::ApproveLetter.build(letter).call(by: users.sample)
+  letter.main_recipient.build_address.tap do |address|
+    address.copy_from(letter.patient.current_address)
     address.save!
   end
-  recipient = archived_letter.cc_recipients.create(person_role: "doctor")
+  recipient = letter.cc_recipients.create(person_role: "doctor")
   recipient.build_address.tap do |address|
-    address.copy_from(archived_letter.patient.doctor.current_address)
+    address.copy_from(letter.patient.doctor.current_address)
     address.save!
   end
 end

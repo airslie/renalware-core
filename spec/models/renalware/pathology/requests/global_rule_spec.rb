@@ -27,22 +27,26 @@ describe Renalware::Pathology::Requests::GlobalRule do
   end
 
   subject(:global_rule) do
-    build(:pathology_requests_global_rule, param_type: "Fake", global_rule_set: global_rule_set)
+    build(
+      :pathology_requests_global_rule,
+      type: nil,
+      global_rule_set: global_rule_set
+    )
   end
 
-  describe "#required_for_patient?" do
+  describe "#observation_required_for_patient?" do
     let(:patient) { build(:patient) }
 
-    subject(:rule_required?) { global_rule.required_for_patient?(patient) }
-
-    it { expect(rule_required?).to be_truthy }
+    it "raises NotImplementedError" do
+      expect{ global_rule.observation_required_for_patient?(patient, Date.current) }.to raise_error(
+        NotImplementedError
+      )
+    end
   end
-end
 
-class Renalware::Pathology::Requests::ParamType::Fake
-  def initialize(*_args); end
-
-  def required?
-    true
+  describe "#to_s?" do
+    it "raises NotImplementedError" do
+      expect{ global_rule.to_s }.to raise_error(NotImplementedError)
+    end
   end
 end

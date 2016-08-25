@@ -19,8 +19,17 @@ module Renalware
             .order("pathology_labs.name ASC, pathology_request_descriptions.code ASC")
         end
 
-        def required_for_patient?(patient)
-          PatientRuleSetDecision.new(patient, self).call
+        def observation_required_for_patient?(patient, date)
+          PatientRuleSetDecision.new(patient, self, date).call
+        end
+
+        def to_s
+          if rules.length >= 1
+            rules_str = rules.map { |rule| rule.to_s }.join(" and ")
+            "if #{rules_str} then #{frequency}"
+          else
+            frequency.to_s
+          end
         end
 
         private

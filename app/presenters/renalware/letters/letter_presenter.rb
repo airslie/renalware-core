@@ -31,13 +31,6 @@ module Renalware
         "(#{letterhead.site_code}) #{super}"
       end
 
-      def electronic_signature
-        [
-          "ELECTRONICALLY SIGNED BY #{author.full_name}",
-          "on #{::I18n.l updated_at}"
-        ].join("<br>").html_safe
-      end
-
       def view_label
         "Preview"
       end
@@ -83,7 +76,7 @@ module Renalware
         end
       end
 
-      class Typed < LetterPresenter
+      class PendingReview < LetterPresenter
         private
 
         def recipient_presenter_class

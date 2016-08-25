@@ -6,11 +6,11 @@ module Renalware
       before_filter :load_patient
 
       def create
-        letter = @patient.letters.typed.find(params[:letter_id])
-        archived_letter = letter.archive(by: current_user)
-        archived_letter.save!
+        letter = @patient.letters.pending_review.find(params[:letter_id])
 
-        redirect_to patient_letters_letter_path(@patient, archived_letter), notice: t(".success")
+        ApproveLetter.build(letter).call(by: current_user)
+
+        redirect_to patient_letters_letter_path(@patient, letter), notice: t(".success")
       end
     end
   end

@@ -6,9 +6,10 @@ module Renalware
           OBSERVATION_REQUIRED = true
           OBSERVATION_NOT_REQUIRED = false
 
-          def initialize(patient, rule_set)
+          def initialize(patient, rule_set, date)
             @rule_set = rule_set
             @patient = patient
+            @date = date
           end
 
           # NOTE: Decide if a rule_set applies to a patient
@@ -28,7 +29,7 @@ module Renalware
           def last_observation_too_recent?
             return false if last_observation.nil?
 
-            observed_days_ago = date_today - last_observation.observed_on
+            observed_days_ago = @date - last_observation.observed_on
             !@rule_set.frequency.observation_required?(observed_days_ago)
           end
 
@@ -38,13 +39,14 @@ module Renalware
             expiration_days = @rule_set.request_description.expiration_days
             return false if expiration_days == 0
 
-            requested_days_ago = date_today - last_request.requested_on
+            requested_days_ago = @date - last_request.requested_on
             requested_days_ago < expiration_days
           end
 
           def required_from_rules?
-            @rule_set.rules
-              .map { |rule| rule.required_for_patient?(@patient) }
+            @rule_set
+              .rules
+              .map { |rule| rule.observation_required_for_patient?(@patient, @date) }
               .all?
           end
 
@@ -67,10 +69,6 @@ module Renalware
                 @patient,
                 @rule_set.request_description
               ).call
-          end
-
-          def date_today
-            @date_today ||= Date.current
           end
         end
       end

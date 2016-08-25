@@ -3,8 +3,8 @@ require_dependency "renalware/medications"
 module Renalware
   module Medications
     class PrescriptionPresenter < DumbDelegator
-      def route_name
-        medication_route.other? ? route_description : medication_route.name
+      def route_code
+        medication_route.other? ? route_description : medication_route.code
       end
 
       def drug_types

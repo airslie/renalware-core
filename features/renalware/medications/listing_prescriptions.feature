@@ -8,6 +8,7 @@ Feature: Listing prescriptions
     And Patty is a patient
     And the date today is 07-06-2016
 
+  # Broken acceptance test https://github.com/airslie/renalwarev2/issues/748
   @web @wip
   Scenario: A clinician views the list of current prescriptions
     Given Patty has the following prescriptions:

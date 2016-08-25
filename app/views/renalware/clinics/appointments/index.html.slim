@@ -17,7 +17,7 @@
 
 .row
   .large-12.columns
-    = simple_form_for request_html_form_params, url: pathology_requests_request_path, as: :request do |f|
+    = simple_form_for request_html_form_params, url: pathology_requests_new_request_path, as: :request do |f|
       = f.input :patient_ids, as: :hidden_array
       = f.button :submit, "Generate request forms", class: "button tiny"
 

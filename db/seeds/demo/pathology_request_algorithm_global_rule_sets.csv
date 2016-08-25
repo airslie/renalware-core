@@ -1,25 +1,163 @@
-"id","clinic","request_description_code","frequency_type"
-"1","Transplant","EUC","Always"
-"2","Transplant","BONE","Always"
-"3","Transplant","LFT","Weekly"
-"4","Transplant","GGT","Weekly"
-"5","Transplant","AST","Weekly"
-"6","Transplant","BIC","Always"
-"7","Transplant","CRP","Always"
-"8","Transplant","URAT","Monthly"
-"9","Transplant","CHOL","Monthly"
-"10","Transplant","FER","Monthly"
-"11","Transplant","FOL","Yearly"
-"12","Transplant","TFT","Yearly"
-"13","Transplant","VITD","Monthly"
-"14","Transplant","VITD","Monthly"
-"15","Transplant","VITD","Monthly"
-"16","Transplant","PTHI","Monthly"
-"17","Transplant","PTHI","Monthly"
-"18","Transplant","PTHI","Monthly"
-"19","Transplant","PCR","Always"
-"20","Transplant","CYA","Always"
-"21","Transplant","FBC","Always"
-"22","Transplant","RET","Monthly"
-"23","Transplant","COAG","Monthly"
-"24","Transplant","DIG","Always"
+id,request_description_code,clinic,frequency_type
+1,EUC,General Nephrology,Always
+2,EUC,CAPD,Always
+3,EUC,Haemodialysis,Always
+4,EUC,Transplant,Always
+5,EUC,Donor Screen,Always
+6,EUC,Donor Clinic,Always
+7,BONE,General Nephrology,Always
+8,BONE,CAPD,Always
+9,BONE,Haemodialysis,Always
+10,BONE,Transplant,Always
+11,BONE,Donor Screen,Always
+12,BONE,Donor Clinic,Always
+13,LFT,General Nephrology,Always
+14,LFT,CAPD,Always
+15,LFT,Haemodialysis,Always
+16,LFT,Transplant,Weekly
+17,LFT,Donor Screen,Always
+18,LFT,Donor Clinic,Always
+19,GGT,General Nephrology,Always
+20,GGT,CAPD,Always
+21,GGT,Haemodialysis,Always
+22,GGT,Transplant,Weekly
+23,GGT,Donor Screen,Always
+24,AST,Transplant,Weekly
+25,AST,Donor Screen,Always
+26,BIC,General Nephrology,Always
+27,BIC,CAPD,Always
+28,BIC,Haemodialysis,Always
+29,BIC,Transplant,Always
+30,BIC,Donor Screen,Always
+31,BIC,Donor Clinic,Always
+32,CRP,General Nephrology,Always
+33,CRP,CAPD,Always
+34,CRP,Haemodialysis,Always
+35,CRP,Transplant,Always
+36,CRP,Donor Screen,Always
+37,CRP,Donor Clinic,Always
+38,PGLU,General Nephrology,Always
+39,PGLU,CAPD,Always
+40,PGLU,Haemodialysis,SixMonthly
+41,PGLU,Transplant,Always
+42,PGLU,Donor Screen,Always
+43,PGLU,Donor Clinic,Always
+44,URAT,General Nephrology,Always
+45,URAT,CAPD,SixMonthly
+46,URAT,Transplant,Monthly
+47,URAT,Donor Screen,Always
+48,URAT,Donor Clinic,Always
+161,LPRO,Donor Screen,Always
+49,CHOL,General Nephrology,Always
+50,CHOL,CAPD,Always
+51,CHOL,Haemodialysis,SixMonthly
+52,CHOL,Transplant,Monthly
+53,CHOL,Donor Clinic,Always
+54,PSA,Donor Screen,Always
+55,FER,General Nephrology,ThreeMonthly
+56,FER,CAPD,ThreeMonthly
+57,FER,Haemodialysis,ThreeMonthly
+58,FER,Transplant,ThreeMonthly
+59,IRT,General Nephrology,ThreeMonthly
+60,IRT,CAPD,ThreeMonthly
+61,IRT,Haemodialysis,ThreeMonthly
+62,IRT,Transplant,ThreeMonthly
+63,FOL,General Nephrology,Yearly
+64,FOL,CAPD,Yearly
+65,FOL,Transplant,Yearly
+66,TFT,General Nephrology,Yearly
+67,TFT,Donor Screen,Always
+68,VITD,General Nephrology,Yearly
+69,VITD,CAPD,Monthly
+70,VITD,Transplant,Monthly
+71,VITD,CAPD,TwoMonthly
+72,VITD,Transplant,FourMonthly
+73,VITD,General Nephrology,Yearly
+74,VITD,CAPD,TwoMonthly
+75,VITD,Transplant,Yearly
+76,VITD,CAPD,FourMonthly
+77,PTHI,General Nephrology,Monthly
+78,PTHI,CAPD,Monthly
+79,PTHI,Haemodialysis,Monthly
+80,PTHI,Transplant,Monthly
+81,PTHI,General Nephrology,ThreeMonthly
+82,PTHI,CAPD,TwoMonthly
+83,PTHI,Haemodialysis,TwoMonthly
+84,PTHI,Transplant,ThreeMonthly
+85,PTHI,CAPD,TwoMonthly
+86,PTHI,Haemodialysis,TwoMonthly
+87,PTHI,Transplant,SixMonthly
+88,PTHI,General Nephrology,FourMonthly
+89,PTHI,CAPD,FourMonthly
+90,PTHI,Haemodialysis,FourMonthly
+91,PTHI,General Nephrology,SixMonthly
+92,PTHI,General Nephrology,Yearly
+93,ALUM,General Nephrology,SixMonthly
+94,ALUM,CAPD,SixMonthly
+95,ALUM,Transplant,SixMonthly
+96,HBA1,General Nephrology,ThreeMonthly
+97,HBA1,CAPD,ThreeMonthly
+98,HBA1,Haemodialysis,SixMonthly
+99,HBA1,Transplant,ThreeMonthly
+100,HBA1,Donor Screen,Always
+101,HBA1,Donor Clinic,Always
+162,HBA1,CAPD,Yearly
+102,HBA1,Transplant,Yearly
+103,PCR,General Nephrology,Always
+104,PCR,Transplant,Always
+105,ACR,Donor Screen,Always
+106,ACR,Donor Clinic,Always
+107,MSU,General Nephrology,Always
+108,MSU,Transplant,Always
+109,MSU,Donor Screen,Always
+110,CYA,General Nephrology,Always
+111,CYA,CAPD,Always
+112,CYA,Transplant,Always
+113,SIR,General Nephrology,Always
+114,SIR,CAPD,Always
+115,SIR,Transplant,Always
+116,TACRO,General Nephrology,Always
+117,TACRO,CAPD,Always
+118,TACRO,Transplant,Always
+119,B12,General Nephrology,Yearly
+120,B12,CAPD,Yearly
+121,B12,Transplant,Yearly
+122,ESR,Donor Screen,Always
+123,FBC,General Nephrology,Always
+124,FBC,CAPD,Always
+125,FBC,Haemodialysis,Monthly
+126,FBC,Transplant,Always
+127,FBC,Donor Screen,Always
+128,FBC,Donor Clinic,Always
+129,RET,General Nephrology,Monthly
+130,RET,CAPD,Monthly
+131,RET,Transplant,Monthly
+132,COAG,Transplant,Monthly
+133,COAG,Donor Screen,Always
+134,STS,Donor Screen,Always
+135,INR,CAPD,Always
+136,INR,Haemodialysis,Always
+137,INR,Transplant,Always
+138,CYTO,General Nephrology,TwoMonthly
+139,CYTO,CAPD,TwoMonthly
+140,CYTO,Haemodialysis,TwoMonthly
+141,CYTO,General Nephrology,TwoMonthly
+142,CYTO,CAPD,TwoMonthly
+143,CYTO,Haemodialysis,TwoMonthly
+144,DIG,General Nephrology,Always
+145,DIG,CAPD,Always
+146,DIG,Transplant,Always
+147,HEPBAG,General Nephrology,Yearly
+148,HEPBAG,CAPD,TwoMonthly
+149,HEPBAG,Haemodialysis,TwoMonthly
+150,HEPBAG,Donor Screen,Always
+151,HCV,General Nephrology,Yearly
+152,HCV,CAPD,TwoMonthly
+153,HCV,Haemodialysis,TwoMonthly
+154,HCV,Donor Screen,Always
+155,HBCV,Donor Screen,Always
+156,HIV,Donor Screen,Always
+157,CMVIG,Donor Screen,Always
+158,SYPH,Donor Screen,Always
+159,TROPT,CAPD,SixMonthly
+160,MRSA,Haemodialysis,ThreeMonthly

@@ -15,25 +15,25 @@ Feature: Determining observations required based on patient rules
       | lab                   | Biochemistry        |
       | test_description      | Test for HepB       |
       | frequency_type        | <frequency_type>    |
-      | last_observed_at      | <last_observed_at>  |
     And the current date is between the rule's start/end dates <within_range>
+    And a request form containing this patient rule was printed <last_observed_at>
     When the patient pathology algorithm is run for Patty
     Then it is determined the patient's observation is <determination>
 
     Examples:
       | frequency_type | last_observed_at | within_range | determination |
       | Always         |                  | yes          | required      |
-      | Always         | 1 week ago       | yes          | required      |
+      | Always         | 1 day ago       | yes          | required      |
       | Once           |                  | yes          | required      |
-      | Once           | 1 week ago       | yes          | not required  |
+      | Once           | 1 day ago       | yes          | not required  |
       | Weekly         |                  | yes          | required      |
-      | Weekly         | 6 days ago       | yes          | not required  |
-      | Weekly         | 7 days ago       | yes          | required      |
+      | Weekly         | 5 days ago       | yes          | not required  |
+      | Weekly         | 6 days ago       | yes          | required      |
 
       | Always         |                  | no           | not required  |
-      | Always         | 1 week ago       | no           | not required  |
+      | Always         | 1 day ago       | no           | not required  |
       | Once           |                  | no           | not required  |
-      | Once           | 1 week ago       | no           | not required  |
+      | Once           | 1 day ago       | no           | not required  |
       | Weekly         |                  | no           | not required  |
       | Weekly         | 6 days ago       | no           | not required  |
       | Weekly         | 7 days ago       | no           | not required  |

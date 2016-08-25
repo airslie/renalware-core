@@ -2,8 +2,9 @@
   table[class="auto-layout" id="#{id}"]
     thead
       tr
-        th
-        th= sort_link_if(treatable.sortable?, search, :drug_name, "Prescription")
+        - if current_scope
+          th
+        th= sort_link_if(treatable.sortable?, search, :drug_name, "Drug name")
         th Drug Type
         th Dose
         th Frequency
@@ -12,28 +13,25 @@
         th Notes
         th= sort_link_if(treatable.sortable?, search, :prescribed_on, "Prescribed on")
         th Prescribed By
-        - if include_terminated_column
+        - unless current_scope
           th Terminated On
           th Terminated By
     tbody
       - prescriptions.each do |prescription|
         tr
-          td
-            - if prescription.current?
-                = link_to "Edit", edit_patient_prescription_path(patient, prescription), remote: true
-            - unless prescription.terminated?
-                = pipe_separator
-                = link_to "Terminate", new_patient_medications_prescription_termination_path(patient, prescription, @treatable), remote: true
+          - if current_scope
+            td= render partial: "renalware/medications/prescriptions/options",
+              locals: { patient: patient, prescription: prescription }
           td= prescription.drug.name
           td= prescription.drug_types
           td= prescription.dose
           td= prescription.frequency
-          td= prescription.route_name
+          td= prescription.route_code
           td= prescription.provider
           td= prescription.notes
           td= I18n.l prescription.prescribed_on
           td= prescription.created_by.full_name
-          - if include_terminated_column
+          - unless current_scope
             td= I18n.l prescription.terminated_on
             td= prescription.terminated_by.try!(:full_name)
 - else

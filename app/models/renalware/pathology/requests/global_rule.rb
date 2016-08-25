@@ -12,19 +12,12 @@ module Renalware
         validates :param_comparison_operator, inclusion:
           { in: PARAM_COMPARISON_OPERATORS, allow_nil: true }
 
-        def required_for_patient?(patient)
-          param_type_class =
-            "::Renalware::Pathology::Requests::ParamType::#{param_type}"
-            .constantize
+        def observation_required_for_patient?(_patient, _date)
+          raise NotImplementedError
+        end
 
-          param_type_class
-            .new(
-              patient,
-              param_id,
-              param_comparison_operator,
-              param_comparison_value
-            )
-            .required?
+        def to_s
+          raise NotImplementedError
         end
       end
     end

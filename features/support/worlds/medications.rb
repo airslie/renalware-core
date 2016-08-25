@@ -83,6 +83,9 @@ module World
             when :dose
               dose_amount, dose_unit = value.split(" ")
               update_params.merge!(dose_amount: dose_amount, dose_unit: dose_unit)
+            when :route_code
+              route = Renalware::Medications::MedicationRoute.find_by!(code: value)
+              update_params.merge!(medication_route: route)
             else
               update_params.merge!(key.to_sym => value)
           end
@@ -123,36 +126,42 @@ module World
         end
       end
 
-      def expect_prescription_to_exist(patient, attributes)
-        drug = Renalware::Drugs::Drug.find_by(name: attributes[:drug_name])
-        medication_route = Renalware::Medications::MedicationRoute.find_by(
-          code: attributes[:route_code]
-        )
-        dose_amount, dose_unit = attributes[:dose].split(" ")
+      def expect_patient_to_have_prescriptions(patient, prescriptions)
+        expect(patient.prescriptions.count).to eq(prescriptions.count)
 
-        prescription_exists = Renalware::Medications::Prescription.exists?(
-          patient: patient,
-          drug: drug,
-          dose_amount: dose_amount,
-          dose_unit: dose_unit,
-          medication_route: medication_route,
-          frequency: attributes[:frequency]
-        )
+        prescriptions.each do |prescription_attributes|
+          drug = Renalware::Drugs::Drug.find_by(
+            name: prescription_attributes[:drug_name]
+          )
+          medication_route = Renalware::Medications::MedicationRoute.find_by(
+            code: prescription_attributes[:route_code]
+          )
+          dose_amount, dose_unit = prescription_attributes[:dose].split(" ")
 
-        expect(prescription_exists).to be_truthy
+          prescription_exists = Renalware::Medications::Prescription.exists?(
+            patient: patient,
+            drug: drug,
+            dose_amount: dose_amount,
+            dose_unit: dose_unit,
+            medication_route: medication_route,
+            frequency: prescription_attributes[:frequency]
+          )
+
+          expect(prescription_exists).to be_truthy
+        end
       end
 
       def expect_prescription_to_be_terminated_by(user, patient:)
         prescription = patient.prescriptions.last!
 
-        expect(prescription).to be_terminated
+        expect(prescription).to be_terminated_or_marked_for_termination
         expect(prescription.terminated_by).to eq(user)
       end
 
       def expect_termination_to_be_rejected(patient)
         prescription = patient.prescriptions.last!
 
-        expect(prescription).not_to be_terminated
+        expect(prescription).not_to be_terminated_or_marked_for_termination
       end
     end
 
@@ -223,6 +232,10 @@ module World
               when :dose
                 dose_amount, dose_unit = value.split(" ")
                 fill_in_dose(dose_amount, dose_unit)
+              when :frequency
+                fill_in "Frequency", with: value
+              when :route_code
+                select value, from: "Medication route"
             end
           end
           click_on "Save"

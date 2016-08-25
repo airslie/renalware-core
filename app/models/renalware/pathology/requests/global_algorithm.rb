@@ -3,15 +3,16 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     module Requests
-      class Global
-        def initialize(patient, clinic)
+      class GlobalAlgorithm
+        def initialize(patient, clinic, date: Date.current)
           @patient = patient
           @clinic = clinic
+          @date = date
         end
 
         def determine_required_request_descriptions
           rule_sets
-            .select { |rule_set| rule_set.required_for_patient?(@patient) }
+            .select { |rule_set| rule_set.observation_required_for_patient?(@patient, @date) }
             .map { |rule_set| rule_set.request_description }
             .uniq
         end

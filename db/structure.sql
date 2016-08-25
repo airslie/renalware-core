@@ -1209,6 +1209,7 @@ CREATE TABLE letter_letters (
     salutation character varying,
     body text,
     notes text,
+    signed_at timestamp without time zone,
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -1268,6 +1269,39 @@ CREATE SEQUENCE letter_recipients_id_seq
 --
 
 ALTER SEQUENCE letter_recipients_id_seq OWNED BY letter_recipients.id;
+
+
+--
+-- Name: letter_signatures; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE letter_signatures (
+    id integer NOT NULL,
+    signed_at timestamp without time zone NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    letter_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+--
+-- Name: letter_signatures_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE letter_signatures_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: letter_signatures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE letter_signatures_id_seq OWNED BY letter_signatures.id;
 
 
 --
@@ -1812,7 +1846,7 @@ ALTER SEQUENCE pathology_requests_global_rule_sets_id_seq OWNED BY pathology_req
 CREATE TABLE pathology_requests_global_rules (
     id integer NOT NULL,
     global_rule_set_id integer NOT NULL,
-    param_type character varying,
+    type character varying,
     param_id character varying,
     param_comparison_operator character varying,
     param_comparison_value character varying
@@ -1849,7 +1883,6 @@ CREATE TABLE pathology_requests_patient_rules (
     sample_type character varying,
     frequency_type character varying,
     patient_id integer,
-    last_observed_at timestamp without time zone,
     start_date date,
     end_date date,
     lab_id integer
@@ -2086,6 +2119,7 @@ CREATE TABLE patients (
     second_edta_code_id integer,
     death_notes text,
     cc_on_all_letters boolean DEFAULT true,
+    cc_decision_on date,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     practice_id integer,
@@ -3487,6 +3521,13 @@ ALTER TABLE ONLY letter_recipients ALTER COLUMN id SET DEFAULT nextval('letter_r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY letter_signatures ALTER COLUMN id SET DEFAULT nextval('letter_signatures_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY medication_prescription_terminations ALTER COLUMN id SET DEFAULT nextval('medication_prescription_terminations_id_seq'::regclass);
 
 
@@ -4138,6 +4179,14 @@ ALTER TABLE ONLY letter_letters
 
 ALTER TABLE ONLY letter_recipients
     ADD CONSTRAINT letter_recipients_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: letter_signatures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY letter_signatures
+    ADD CONSTRAINT letter_signatures_pkey PRIMARY KEY (id);
 
 
 --
@@ -5001,6 +5050,20 @@ CREATE INDEX index_letter_recipients_on_letter_id ON letter_recipients USING btr
 
 
 --
+-- Name: index_letter_signatures_on_letter_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_letter_signatures_on_letter_id ON letter_signatures USING btree (letter_id);
+
+
+--
+-- Name: index_letter_signatures_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_letter_signatures_on_user_id ON letter_signatures USING btree (user_id);
+
+
+--
 -- Name: index_medication_prescription_terminations_on_created_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5669,6 +5732,14 @@ ALTER TABLE ONLY access_assessments
 
 
 --
+-- Name: fk_rails_60aca3bf58; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY letter_signatures
+    ADD CONSTRAINT fk_rails_60aca3bf58 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
 -- Name: fk_rails_617c726b94; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6042,6 +6113,14 @@ ALTER TABLE ONLY renal_profiles
 
 ALTER TABLE ONLY access_profiles
     ADD CONSTRAINT fk_rails_d04ba97fc5 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_d4aaa80dee; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY letter_signatures
+    ADD CONSTRAINT fk_rails_d4aaa80dee FOREIGN KEY (letter_id) REFERENCES letter_letters(id);
 
 
 --
@@ -6471,4 +6550,10 @@ INSERT INTO schema_migrations (version) VALUES ('20160812073616');
 INSERT INTO schema_migrations (version) VALUES ('20160812073900');
 
 INSERT INTO schema_migrations (version) VALUES ('20160817095514');
+
+INSERT INTO schema_migrations (version) VALUES ('20160818131917');
+
+INSERT INTO schema_migrations (version) VALUES ('20160822130644');
+
+INSERT INTO schema_migrations (version) VALUES ('20160823173525');
 

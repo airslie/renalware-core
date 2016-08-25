@@ -15,6 +15,7 @@ module Renalware
       has_many :cc_recipients, -> { where(role: "cc") },
         class_name: "Recipient", dependent: :destroy, inverse_of: :letter
       has_many :recipients, dependent: :destroy
+      has_one :signature, dependent: :destroy
 
       accepts_nested_attributes_for :main_recipient
       accepts_nested_attributes_for :cc_recipients, reject_if: :all_blank, allow_destroy: true
@@ -27,10 +28,10 @@ module Renalware
       validates :main_recipient, presence: true
 
       include ExplicitStateModel
-      has_states :draft, :typed, :archived
-      state_scope :reviewable, :typed
+      has_states :draft, :pending_review, :archived
+      state_scope :reviewable, :pending_review
 
-      scope :pending, -> { where(type: [state_class_name(:draft), state_class_name(:typed)]) }
+      scope :pending, -> { where(type: [state_class_name(:draft), state_class_name(:pending_review)]) }
       scope :reverse, -> { order(updated_at: :desc) }
 
       def self.policy_class
@@ -64,6 +65,10 @@ module Renalware
 
       def determine_counterpart_ccs
         DetermineCounterpartCCs.new(self).call
+      end
+
+      def signed?
+        signature.present?
       end
     end
   end

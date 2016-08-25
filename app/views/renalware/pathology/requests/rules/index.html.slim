@@ -1,0 +1,20 @@
+.row
+  h1 Pathology Request Form Algorithm
+
+.row
+    table
+      thead
+        tr
+          th Request Description
+          - clinics.each do |clinic|
+            th = clinic.name
+
+      tbody
+        - rules_table.rows.each do |row|
+          tr
+            td = row.request_description.name
+            - row.columns.each do |column|
+              td data-clinic="#{column.clinic.id}" data-request="#{row.request_description.id}"
+                ul
+                - column.rule_sets.each do |rule_set|
+                  li = rule_set.to_s

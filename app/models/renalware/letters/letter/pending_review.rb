@@ -2,9 +2,23 @@ require_dependency "renalware/letters/letter"
 
 module Renalware
   module Letters
-    class Letter::Typed < Letter
+    class Letter::PendingReview < Letter
       def self.policy_class
-        TypedLetterPolicy
+        PendingReviewLetterPolicy
+      end
+
+      def revise(params)
+        self.attributes = params
+      end
+
+      def reject(by:)
+        becomes!(Draft).tap { |letter| letter.by = by }
+      end
+
+      def sign(by:)
+        build_signature(user: by, signed_at: Time.current)
+        self.by = by
+        self
       end
 
       def archive(by:, presenter: default_presenter)

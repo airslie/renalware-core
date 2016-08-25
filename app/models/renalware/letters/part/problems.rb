@@ -5,7 +5,7 @@ module Renalware
     class Part::Problems < DumbDelegator
       def initialize(patient, _event = Event::Unknown.new)
         @patient = patient
-        super(patient.problems)
+        super(patient.problems.includes(:notes))
       end
 
       def to_partial_path

@@ -21,7 +21,7 @@ module World
 
           Renalware::Pathology::Requests::GlobalRule.create!(
             global_rule_set_id: params["global_rule_set_id"],
-            param_type: params["type"],
+            type: "Renalware::Pathology::Requests::GlobalRule::#{params['type']}",
             param_id: param_id,
             param_comparison_operator: params["operator"],
             param_comparison_value: params["value"]
@@ -61,7 +61,7 @@ module World
           pathology_patient = Renalware::Pathology.cast_patient(patient)
           clinic = Renalware::Clinics::Clinic.find_by(name: clinic_name)
 
-          Renalware::Pathology::Requests::Global.new(pathology_patient, clinic)
+          Renalware::Pathology::Requests::GlobalAlgorithm.new(pathology_patient, clinic)
             .determine_required_request_descriptions
         end
 

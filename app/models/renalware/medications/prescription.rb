@@ -56,7 +56,7 @@ module Renalware
       # @section attributes
       #
       def terminated_by
-        return unless terminated?
+        return unless terminated_or_marked_for_termination?
 
         termination.created_by
       end
@@ -72,7 +72,7 @@ module Renalware
         self.terminated_on.nil? || self.terminated_on >= date
       end
 
-      def terminated?
+      def terminated_or_marked_for_termination?
         self.terminated_on.present?
       end
 

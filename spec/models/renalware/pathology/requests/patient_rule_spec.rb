@@ -22,35 +22,38 @@ describe Renalware::Pathology::Requests::PatientRule do
     )
   end
 
-  describe "#required_for_patient?" do
-    context "given today is not within the patient_rule's start/end date range" do
-      before do
-        allow(Date).to receive(:current).and_return(Date.parse("2016-04-22")).once
-        patient_rule.last_observed_at = nil
-      end
+  describe "#required?" do
+    context "given the specified date is not within the patient_rule's start/end date range" do
+      let(:date) { Date.parse("2016-04-22") }
 
-      it { expect(patient_rule).not_to be_required }
+      it "returns false" do
+        expect(patient_rule).not_to be_required(date)
+      end
     end
 
-    context "given today is within the patient_rule's start/end date range" do
-      before do
-        allow(Date).to receive(:current).and_return(Date.parse("2016-04-20")).once
-      end
+    context "given specified date is within the patient_rule's start/end date range" do
+      let(:date) { Date.parse("2016-04-20") }
 
-      context "given the patient was not previously observed" do
-        before do
-          patient_rule.last_observed_at = nil
-        end
-
-        it { expect(patient_rule).to be_required }
+      it "returns true" do
+        expect(patient_rule).to be_required(date)
       end
 
       context "given the patient was previously observed" do
-        before do
-          patient_rule.last_observed_at = Date.parse("2016-04-19")
+        let!(:request)  { create_request(patient: patient, observed_on: "2016-04-19") }
+
+        it "returns true" do
+          expect(patient_rule).to be_required(date)
         end
 
-        it { expect(patient_rule).to be_required }
+        def create_request(patient:, observed_on:)
+          create(
+            :pathology_requests_request,
+            clinic: create(:clinic),
+            patient: patient,
+            consultant: create(:pathology_consultant),
+            created_at: observed_on
+          )
+        end
       end
     end
   end
