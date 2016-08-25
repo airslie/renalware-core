@@ -24,12 +24,12 @@ module Renalware::Letters
       end
     end
 
-    describe "#archive" do
+    describe "#generate_archive" do
       let(:presenter) { double(:presenter, content: "hello world") }
 
       it "archives the letter" do
-        archived_letter = letter.archive(by: user, presenter: presenter)
-        expect(archived_letter.archive).to be_present
+        archived_letter = letter.generate_archive(by: user, presenter: presenter)
+        expect(archived_letter).to be_archived
       end
 
       context "given the letter is persisted" do
@@ -41,16 +41,16 @@ module Renalware::Letters
 
         it "records who archived the letter" do
           user = create(:user)
-          archived_letter = letter.archive(by: user)
+          archived_letter = letter.generate_archive(by: user)
           archived_letter.save
           expect(archived_letter.archived_by).to eq(user)
         end
 
         it "archives the content" do
-          archived_letter = letter.archive(by: user)
-          expect(archived_letter.content).to match(/class="unit-info"/)
-          expect(archived_letter.content).to include(patient.full_name)
-          expect(archived_letter.content).to include(doctor.address.street_1)
+          content = letter.generate_archive(by: user).archive.content
+          expect(content).to match(/class="unit-info"/)
+          expect(content).to include(patient.full_name)
+          expect(content).to include(doctor.address.street_1)
         end
       end
     end

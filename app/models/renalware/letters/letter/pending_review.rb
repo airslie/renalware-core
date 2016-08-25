@@ -21,7 +21,7 @@ module Renalware
         self
       end
 
-      def archive(by:, presenter: default_presenter)
+      def generate_archive(by:, presenter: default_presenter)
         becomes!(Approved).tap do |letter|
           letter.by = by
           letter.build_archive(by: by, content: presenter.content)
