@@ -5,7 +5,7 @@ module Renalware
     module Requests
       class GlobalRule
         class RequestResult < GlobalRule
-          def observation_required_for_patient?(patient)
+          def observation_required_for_patient?(patient, _date)
             observation =
               ObservationForPatientObservationDescriptionQuery.new(
                 patient, observation_description

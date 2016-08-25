@@ -30,6 +30,23 @@ Given(/^Patty has the following prescriptions:$/) do |table|
   end
 end
 
+Given(/^Patty has a prescription:$/) do |table|
+  row = table.hashes.first
+  dose_amount, dose_unit = row[:dose].split(" ")
+
+  @prescription = seed_prescription_for(
+    patient: @patty,
+    drug_name: row[:drug_name],
+    dose_amount: dose_amount,
+    dose_unit: dose_unit,
+    route_code: row[:route_code],
+    frequency: row[:frequency],
+    prescribed_on: Time.now - 1.month,
+    provider: row[:provider],
+    terminated_on: row[:terminated_on]
+  )
+end
+
 Given(/^Patty is being prescribed (.+)$/) do |drug_name|
   seed_prescription_for(
     patient: @patty,
@@ -80,24 +97,24 @@ end
 
 When(/^Clyde revises the prescription for Patty with these changes:$/) do |table|
   revise_prescription_for(
+    prescription: @prescription,
     patient: @patty,
     user: @clyde,
     prescription_params: table.rows_hash
   )
 end
 
-Then(/^the prescription is recorded for Patty$/) do
-  expect_prescription_to_be_recorded(patient: @patty)
-end
-
-Then(/^Clyde can revise the prescription$/) do
+When(/^Clyde makes an invalid revision to Patty's prescription$/) do
   revise_prescription_for(
+    prescription: @prescription,
     patient: @patty,
     user: @clyde,
-    prescription_params: { drug_name: "Cefuroxime Injection" }
+    prescription_params: { dose_amount: nil }
   )
+end
 
-  expect_prescription_to_be_revised(patient: @patty)
+Then(/^the prescription is recorded for Patty$/) do
+  expect_prescription_to_be_recorded(patient: @patty)
 end
 
 When(/^Clyde terminates the prescription for the patient$/) do
@@ -133,4 +150,8 @@ end
 
 Then(/^the prescription termination is rejected$/) do
   expect_termination_to_be_rejected(@patty)
+end
+
+Then(/^the prescription revision is rejected$/) do
+  expect_prescription_revision_to_be_rejected(@patty, { dose_amount: nil })
 end

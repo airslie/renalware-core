@@ -42,6 +42,7 @@ module World
         end
 
         prescription.save!
+        prescription
       end
 
       # @ section commands
@@ -70,10 +71,8 @@ module World
         record_prescription_for(args)
       end
 
-      def revise_prescription_for(patient:, user:, drug_selector: default_medication_drug_selector,
-        prescription_params: {})
-        prescription = patient.prescriptions.last!
-
+      def revise_prescription_for(prescription:, patient:, user:,
+        drug_selector: default_medication_drug_selector, prescription_params: {})
         update_params = { by: Renalware::SystemUser.find }
         prescription_params.each do |key, value|
           case key.to_sym
@@ -86,6 +85,8 @@ module World
             when :route_code
               route = Renalware::Medications::MedicationRoute.find_by!(code: value)
               update_params.merge!(medication_route: route)
+            when :dose_amount
+              update_params.merge!(dose_amount: dose_amount.presence)
             else
               update_params.merge!(key.to_sym => value)
           end
@@ -136,6 +137,7 @@ module World
           medication_route = Renalware::Medications::MedicationRoute.find_by(
             code: prescription_attributes[:route_code]
           )
+
           dose_amount, dose_unit = prescription_attributes[:dose].split(" ")
 
           prescription_exists = Renalware::Medications::Prescription.exists?(
@@ -163,6 +165,14 @@ module World
 
         expect(prescription).not_to be_terminated_or_marked_for_termination
       end
+
+      def expect_prescription_revision_to_be_rejected(patient, revision_params)
+        prescription = patient.prescriptions.first
+        prescription.reload
+        revision_params.each do |key, value|
+          expect(prescription.send(key.to_sym)).not_to eq(value)
+        end
+      end
     end
 
     module Web
@@ -178,11 +188,14 @@ module World
       end
 
       def fill_in_dose(dose_amount, dose_unit)
-        dose_unit = ::I18n.t(
-          dose_unit, scope: "enumerize.renalware.medications.prescription.dose_unit"
-        )
         fill_in "Dose amount", with: dose_amount
-        select dose_unit, from: "Dose unit"
+
+        if dose_unit.present?
+          dose_unit = ::I18n.t(
+            dose_unit, scope: "enumerize.renalware.medications.prescription.dose_unit"
+          )
+          select dose_unit, from: "Dose unit"
+        end
       end
 
       # @ section commands
@@ -214,8 +227,8 @@ module World
         record_prescription_for(patient: patient, **args)
       end
 
-      def revise_prescription_for(patient:, user:, drug_selector: default_medication_drug_selector,
-        prescription_params: {})
+      def revise_prescription_for(prescription:, patient:, user:,
+        drug_selector: default_medication_drug_selector, prescription_params: {})
         login_as user
 
         visit patient_prescriptions_path(patient)
@@ -232,6 +245,8 @@ module World
               when :dose
                 dose_amount, dose_unit = value.split(" ")
                 fill_in_dose(dose_amount, dose_unit)
+              when :dose_amount
+                fill_in "Dose amount", with: dose_amount.to_s
               when :frequency
                 fill_in "Frequency", with: value
               when :route_code

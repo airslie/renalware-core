@@ -5,7 +5,7 @@ module Renalware
     module Requests
       class GlobalRule
         class PatientIsDiabetic < GlobalRule
-          def observation_required_for_patient?(patient)
+          def observation_required_for_patient?(patient, _date)
             patient.diabetic == param_comparison_boolean
           end
 
