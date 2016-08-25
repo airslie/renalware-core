@@ -2,17 +2,13 @@ require_dependency "renalware/letters/letter_policy"
 
 module Renalware
   module Letters
-    class DraftLetterPolicy < BasePolicy
-      def submit_for_review?
+    class DraftLetterPolicy < LetterPolicy
+      def update?
         true
       end
 
-      def reject?
-        false
-      end
-
-      def approve?
-        false
+      def submit_for_review?
+        true
       end
     end
   end
