@@ -7,23 +7,23 @@ module Renalware
   #   class Letter < ActiveRecord
   #     include ExplicitStateModel
   #     # define the states you would like
-  #     has_states :draft, :archived
+  #     has_states :draft, :approved
   #   end
   #
   # Calling the `has_states` macro will:
-  # - define scopes for each state; e.g. `Letter.draft`, `Letter.archived`
+  # - define scopes for each state; e.g. `Letter.draft`, `Letter.approved`
   # - add a state attribute; e.g. `Letter::Draft.state # => "draft"`
   #
   # Create subclasses representing those states, this uses ActiveRecord's STI
   # implementation.
   #
   #   class Letter::Draft < Letter
-  #     def archive!
-  #       becomes!(Archived)
+  #     def approve!
+  #       becomes!(Approved)
   #     end
   #   end
   #
-  #   class Letter::Archived < Letter
+  #   class Letter::Approved < Letter
   #   end
   #
   # You are responsible for managing state transitions using ActiveRecord's
@@ -33,9 +33,9 @@ module Renalware
   #   draft_letter = Letter.draft.first!
   #   draft_letter.state # => "draft"
   #   draft_letter.draft? # => true
-  #   archived_letter = draft_letter.archive!
-  #   archived_letter.save!
-  #   archived_letter.state # => "archived"
+  #   approved_letter = draft_letter.approve!
+  #   approved_letter.save!
+  #   approved_letter.state # => "approved"
   #
   module ExplicitStateModel
     extend ActiveSupport::Concern
@@ -64,7 +64,7 @@ module Renalware
       # Allows for custom scope names, example:
       #
       #   class Letter
-      #     has_states :draft, :archived
+      #     has_states :draft, :approved
       #     state_scope :reviewable, :draft
       #   end
       #
