@@ -3,11 +3,14 @@ require_dependency "renalware/medications"
 module Renalware
   module Medications
     class PrescriptionPresenter < DumbDelegator
+
+      delegate :drug_types, to: :drug
+
       def route_code
         medication_route.other? ? route_description : medication_route.code
       end
 
-      def drug_types
+      def drug_type_names
         drug.drug_types.map(&:name).join(", ")
       end
 

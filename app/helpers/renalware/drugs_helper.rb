@@ -5,14 +5,11 @@ module Renalware
       options_for_select Drugs::Type.all.reject{ |r| r.name == "Peritonitis" }.map { |dt| [dt.name, dt.name.downcase] }
     end
 
-    def drug_types_colour_tag(drug_type)
-      if drug_type.map(&:name).include?("ESA")
-        return "esa"
-      elsif drug_type.map(&:name).include?("Immunosuppressant")
-        return "immunosuppressant"
-      else
-        return "drug"
-      end
+    def drug_types_colour_tag(drug_types)
+      drug_names = drug_types.map(&:name)
+      return "esa" if drug_names.include?("ESA")
+      return "immunosuppressant" if drug_names.include?("Immunosuppressant")
+      return "drug"
     end
 
     def drug_types_tag(drug_type)

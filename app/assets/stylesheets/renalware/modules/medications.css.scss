@@ -1,25 +1,19 @@
-.accordion dd > {
+// Drug type colours
+$drug-type-default-colour: #FFFFFF;
+$drug-type-esa-colour: #FFFF99;
+$drug-type-immunosuppressant-colour: #CCFFFF;
 
-  a.drug-drug, li.drug-drug, tbody tr.drug-drug {
-    background: #FFFFFF;
+a, li, tbody tr {
+  &[class^="drug-"] {
+    background: $drug-type-default-colour;
+
+    &.drug-esa {
+      background: $drug-type-esa-colour;
+    }
+    &.drug-immunosuppressant {
+      background: $drug-type-immunosuppressant-colour;
+    }
   }
-
-  a.drug-esa, li.drug-esa, tbody tr.drug-esa{
-    background: #FFFF99;
-  }
-
-  a.drug-immunosuppressant, li.drug-immunosuppressant, tbody tr.drug-immunosuppressant {
-    background: #CCFFFF;
-  }
-
-  a.drug-antibiotic, li.drug-antibiotic, tbody tr.drug-antibiotic {
-    background: #FFFFFF;
-  }
-
-  a.drug-peritonitis, li.drug-peritonitis, tbody tr.drug-peritonitis {
-    background: #FFFFFF;
-  }
-
 }
 
 .med-form.content ul.drug-results {
