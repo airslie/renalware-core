@@ -20,13 +20,11 @@ module Renalware
         OBSERVATION_REQUIRED = true
         OBSERVATION_NOT_REQUIRED = false
 
-        def required?
-          today = Date.current
-
-          return OBSERVATION_NOT_REQUIRED unless today_within_range?(today)
+        def required?(date)
+          return OBSERVATION_NOT_REQUIRED unless today_within_range?(date)
           return OBSERVATION_REQUIRED if last_observed_at.nil?
 
-          days_ago_observed = today - last_observed_at.to_date
+          days_ago_observed = date - last_observed_at.to_date
 
           frequency.observation_required?(days_ago_observed)
         end

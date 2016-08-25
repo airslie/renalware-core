@@ -5,7 +5,7 @@ module Renalware
     module Requests
       class GlobalRule
         class ObservationResult < GlobalRule
-          def observation_required_for_patient?(patient)
+          def observation_required_for_patient?(patient, _date)
             PatientGlobalRuleDecision.new(patient, self).observation_required_for_patient?
           end
 
