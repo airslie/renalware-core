@@ -5,10 +5,9 @@ RSpec.describe "Get formatted letter HTML content", type: :request do
 
   let(:doctor) { create(:letter_doctor) }
   let(:patient) { create(:letter_patient, doctor: doctor) }
+  let(:letter) { create_letter(to: :patient, patient: patient) }
 
   context "with a draft letter" do
-    let(:letter) { create_draft_letter(patient) }
-
     describe "GET show" do
       let(:patient) {
         create(:letter_patient, doctor: doctor,
@@ -37,30 +36,16 @@ RSpec.describe "Get formatted letter HTML content", type: :request do
   end
 
   context "with an archived letter" do
-    let(:letter) { create_archived_letter(patient) }
+    before do
+      create(:letter_archive, letter: letter, by: letter.created_by)
+    end
 
     describe "GET show" do
-      it "responds with the HTML" do
+      it "responds with the archived HTML" do
         get patient_letters_letter_formatted_path(patient_id: letter.patient, letter_id: letter)
         expect(response).to be_success
-        expect(response.body).to include(letter.content)
+        expect(response.body).to include(letter.archive.content)
       end
-    end
-  end
-
-  def create_draft_letter(patient)
-    create_letter(to: :patient, patient: patient)
-  end
-
-  def create_archived_letter(patient)
-    draft = create_draft_letter(patient)
-    archive_letter(draft)
-  end
-
-  def archive_letter(draft_letter)
-    pending_letter = draft_letter.becomes!(Renalware::Letters::Letter::PendingReview)
-    pending_letter.archive(by: create(:user)).tap do |letter|
-      letter.save!
     end
   end
 end
