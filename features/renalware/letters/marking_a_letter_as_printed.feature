@@ -1,12 +1,11 @@
 Feature: Marking a letter as printed
 
-  A letter has to be printed so it can be mailed to the recipients.  Given
-  an approved letter, a user can print it and then mark it as printed.
-  The letter is then considered as completed.
+  A letter has to be printed so it can be mailed to the recipients.
 
   Business rules:
 
-  - Only an approved letter can be marked as printed
+  - Only an approved letter can be marked as printed.
+  - The letter is complete when printed.
 
   Background:
     Given Patty is a patient
