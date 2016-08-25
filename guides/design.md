@@ -129,7 +129,7 @@ Unit tests are used for testing responsibilities of objects in relative isolatio
 
 - location: `(spec/integration)`
 - direct request example: [`Configuring event types`](https://github.com/airslie/renalwarev2/blob/master/spec/integration/renalware/events/event_types_spec.rb)
-- integration test example: [`Searching drugs`](https://github.com/airslie/renalwarev2/blob/master/spec/integration/drugs/search_drugs_spec.rb)
+- integration test example: [`Searching drugs`](https://github.com/airslie/renalwarev2/blob/master/spec/integration/renalware/drugs/search_drugs_spec.rb)
 
 Integration tests give coverage and confidence that is not provided by our Acceptance or Unit Tests. These tests produce a HTTP request directly (i.e. tagged with `type: :request`) or by a browser driven by Capybara (i.e. tagged with `type: :feature`) giving us two styles:
 
