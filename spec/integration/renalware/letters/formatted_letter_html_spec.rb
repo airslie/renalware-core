@@ -36,7 +36,7 @@ RSpec.describe "Get formatted letter HTML content", type: :request do
 
       it "responds with an inlined PDF" do
         get patient_letters_letter_formatted_path(
-          patient_id: letter.patient, letter_id: letter, format: "inlinepdf"
+          patient_id: letter.patient, letter_id: letter, disposition: "inline", format: "pdf"
         )
 
         expect(response).to be_success

@@ -14,8 +14,10 @@ module Renalware
 
         respond_to do |format|
           format.html
-          format.pdf { render_pdf(@letter, "attachment") }
-          format.inlinepdf { render_pdf(@letter, "inline") }
+          format.pdf {
+            disposition = params.fetch("disposition", "attachment")
+            render_pdf(@letter, disposition)
+          }
         end
       end
 
