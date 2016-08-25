@@ -13,12 +13,13 @@ module Renalware
 
       def call(params)
         @prescription.assign_attributes(params)
+        return false unless @prescription.valid?
 
         if new_prescription_required?
           @prescription.reload
-          terminate_existing_and_create_new_prescription(params)
+          TerminateExistingAndCreateNewPescription.new(@prescription, params).call
         else
-          @prescription.save!
+          @prescription.save
         end
       end
 
@@ -28,21 +29,32 @@ module Renalware
         attr_intersection = @prescription.changed_attributes.keys & NEW_PRESCRIPTION_ATTRS
         attr_intersection.count > 0
       end
+    end
 
-      def terminate_existing_and_create_new_prescription(params)
-        terminate_existing_prescription(params)
-        create_new_prescription(params)
+    class TerminateExistingAndCreateNewPescription
+      def initialize(prescription, params)
+        @prescription = prescription
+        @params = params
       end
 
-      def terminate_existing_prescription(params)
+      def call
+        Prescription.transaction do
+          terminate_existing_prescription
+          create_new_prescription
+        end
+      end
+
+      private
+
+      def terminate_existing_prescription
         return if @prescription.termination.present?
 
-        @prescription.terminate(by: params[:by]).save!
+        @prescription.terminate(by: @params[:by]).save!
       end
 
-      def create_new_prescription(params)
+      def create_new_prescription
         new_prescription = Prescription.new(terminated_prescription_attributes)
-        new_prescription.assign_attributes(params)
+        new_prescription.assign_attributes(@params)
         new_prescription.prescribed_on = Date.current
         new_prescription.save!
       end
