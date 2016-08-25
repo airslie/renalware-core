@@ -1,8 +1,5 @@
 = render partial: "renalware/pathology/requests/requests/pdf_header.html.slim"
 
-- requests.each do |request_form|
-  - if request_form.has_tests_required?
-   .alwaysbreak
-      = render partial: "renalware/pathology/requests/requests/request_form/crs.html.slim",
-        locals: { request_form: request_form }
+= render partial: "renalware/pathology/requests/requests/request_form/#{request_html_form_params.template}",
+  locals: { requests: requests }
 
