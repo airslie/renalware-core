@@ -19,8 +19,8 @@ module Renalware
             .order("pathology_labs.name ASC, pathology_request_descriptions.code ASC")
         end
 
-        def observation_required_for_patient?(patient)
-          PatientRuleSetDecision.new(patient, self).call
+        def observation_required_for_patient?(patient, date)
+          PatientRuleSetDecision.new(patient, self, date).call
         end
 
         def to_s

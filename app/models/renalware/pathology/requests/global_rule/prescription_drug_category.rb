@@ -5,7 +5,7 @@ module Renalware
     module Requests
       class GlobalRule
         class PrescriptionDrugCategory < GlobalRule
-          def observation_required_for_patient?(patient)
+          def observation_required_for_patient?(patient, _date)
             (patient.drugs.map(&:id) & drug_ids).any?
           end
 

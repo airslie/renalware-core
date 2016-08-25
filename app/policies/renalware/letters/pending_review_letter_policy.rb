@@ -4,14 +4,18 @@ module Renalware
   module Letters
     class PendingReviewLetterPolicy < LetterPolicy
       def update?
-        false
+        true
       end
 
       def submit_for_review?
         false
       end
 
-      def archive?
+      def reject?
+        true
+      end
+
+      def approve?
         true
       end
     end

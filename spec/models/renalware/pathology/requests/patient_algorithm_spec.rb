@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Renalware::Pathology::Requests::Patient do
+describe Renalware::Pathology::Requests::PatientAlgorithm do
   let(:patient) { build(:patient) }
   let(:pathology_patient) { Renalware::Pathology.cast_patient(patient) }
 
@@ -13,7 +13,7 @@ describe Renalware::Pathology::Requests::Patient do
   let(:rules) { [required_rule, not_required_rule] }
 
   subject(:patient_algorithm) do
-    Renalware::Pathology::Requests::Patient.new(pathology_patient)
+    Renalware::Pathology::Requests::PatientAlgorithm.new(pathology_patient)
   end
 
   describe "#determine_required_tests" do

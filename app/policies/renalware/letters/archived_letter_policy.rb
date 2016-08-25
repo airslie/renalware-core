@@ -11,7 +11,11 @@ module Renalware
         false
       end
 
-      def archive?
+      def reject?
+        false
+      end
+
+      def approve?
         false
       end
     end

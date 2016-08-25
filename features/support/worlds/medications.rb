@@ -156,14 +156,14 @@ module World
       def expect_prescription_to_be_terminated_by(user, patient:)
         prescription = patient.prescriptions.last!
 
-        expect(prescription).to be_terminated
+        expect(prescription).to be_terminated_or_marked_for_termination
         expect(prescription.terminated_by).to eq(user)
       end
 
       def expect_termination_to_be_rejected(patient)
         prescription = patient.prescriptions.last!
 
-        expect(prescription).not_to be_terminated
+        expect(prescription).not_to be_terminated_or_marked_for_termination
       end
 
       def expect_prescription_revision_to_be_rejected(patient, revision_params)

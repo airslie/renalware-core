@@ -57,10 +57,17 @@ When(/^Nathalie submits the letter for review$/) do
   submit_for_review(patient: @patty, user: @nathalie)
 end
 
-When(/^Doug archives the letter$/) do
-  archive_letter(patient: @patty, user: @doctor)
+Then(/^Doug can reject the letter$/) do
+  reject_letter(patient: @patty, user: @doug_user)
 end
 
+When(/^Doug approves the letter$/) do
+  approve_letter(patient: @patty, user: @doctor)
+end
+
+When(/^Nathalie approves the letter$/) do
+  approve_letter(patient: @patty, user: @nathalie)
+end
 
 Then(/^"(.*?)" will receive the letter$/) do |recipient|
   expect_simple_letter_to_exist(@patty, recipient: letter_recipients_map.fetch(recipient))
@@ -70,8 +77,12 @@ Then(/^Nathalie can revise Patty's letter$/) do
   revise_simple_letter(patient: @patty, user: @nathalie)
 end
 
+Then(/^Doug can revise the letter$/) do
+  revise_simple_letter(patient: @patty, user: @doug_user)
+end
+
 Then(/^Doug can revise Patty's clinic visit letter$/) do
-  revise_clinic_visit_letter(patient: @patty, user: @nathalie)
+  revise_clinic_visit_letter(patient: @patty, user: @doug_user)
 end
 
 Then(/^the letter is not drafted$/) do
@@ -116,8 +127,8 @@ Then(/^the letter lists Patty's recent pathology results$/) do
   expect_letter_to_list_recent_pathology_results(patient: @patty)
 end
 
-Then(/^Doug can archive letter$/) do
-  expect_letter_to_be_archived(patient: @patty, user: @doctor)
+Then(/^Doug can approve letter$/) do
+  expect_letter_can_be_approved(patient: @patty, user: @doctor)
 end
 
 Then(/^an archived copy of the letter is available$/) do
@@ -126,4 +137,8 @@ end
 
 Then(/^nobody can modify the letter$/) do
   expect_letter_to_not_be_modified(patient: @patty, user: @doctor)
+end
+
+Then(/^the letter is signed by Nathalie$/) do
+  expect_letter_to_be_signed(patient: @patty, user: @nathalie)
 end

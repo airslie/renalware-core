@@ -5,7 +5,7 @@ module Renalware
     module Requests
       class GlobalRule
         class PatientSexIs < GlobalRule
-          def observation_required_for_patient?(patient)
+          def observation_required_for_patient?(patient, _date)
             patient.sex.code == param_comparison_value
           end
 

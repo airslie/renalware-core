@@ -15,4 +15,4 @@ Feature: Submitting a letter for review
     Given Patty has a recorded letter
     When Nathalie submits the letter for review
     Then Doug can review the letter
-    And Doug can archive letter
+    And Doug can approve letter

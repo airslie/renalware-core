@@ -7,7 +7,11 @@ module Renalware
         true
       end
 
-      def archive?
+      def reject?
+        false
+      end
+
+      def approve?
         false
       end
     end
