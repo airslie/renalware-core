@@ -7,12 +7,12 @@ Feature: Revising a prescription
     Given Clyde is a clinician
     And Patty is a patient
     And the date today is 12-10-2016
+    And Patty has a prescription:
+      | drug_name       | dose          | frequency | route_code | provider | terminated_on |
+      | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital |               |
 
   @web @javascript
   Scenario: A clinician revises the dose of a prescription for a patient
-    Given Patty has a prescription:
-      | drug_name       | dose          | frequency | route_code | provider | terminated_on |
-      | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital |               |
     When Clyde revises the prescription for Patty with these changes:
       | dose   | 200 milligram |
     Then Patty should have the following prescriptions:
@@ -21,9 +21,6 @@ Feature: Revising a prescription
       | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital | 12-10-2016    |
 
   Scenario: A clinician revises the frequency of a prescription for a patient
-    Given Patty has a prescription:
-      | drug_name       | dose          | frequency | route_code | provider | terminated_on |
-      | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital |               |
     When Clyde revises the prescription for Patty with these changes:
       | frequency | monthly |
     Then Patty should have the following prescriptions:
@@ -32,9 +29,6 @@ Feature: Revising a prescription
       | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital | 12-10-2016    |
 
   Scenario: A clinician revises the notes of a prescription for a patient
-    Given Patty has a prescription:
-      | drug_name       | dose          | frequency | route_code | provider | terminated_on |
-      | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital |               |
     When Clyde revises the prescription for Patty with these changes:
       | route_code | SC |
     Then Patty should have the following prescriptions:
@@ -43,10 +37,5 @@ Feature: Revising a prescription
 
   @web @javascript
   Scenario: A clinician revises the dose of a prescription for a patient with an invalid value
-    Given Patty has a prescription:
-      | drug_name       | dose          | frequency | route_code | provider | terminated_on |
-      | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital |               |
-    When Clyde revises the prescription for Patty with these changes:
-      | dose_amount | |
-    Then the prescription revision rejects these changes:
-      | dose_amount | |
+    When Clyde makes an invalid revision to Patty's prescription
+    Then the prescription revision is rejected

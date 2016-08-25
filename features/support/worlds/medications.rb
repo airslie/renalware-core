@@ -168,6 +168,9 @@ module World
 
       def expect_prescription_revision_to_be_rejected(patient, revision_params)
         prescription = patient.prescriptions.first
+        expect(prescription.errors.messages.keys).to include(*revision_params.keys)
+
+        prescription.reload
         revision_params.each do |key, value|
           expect(prescription.send(key.to_sym)).not_to eq(value)
         end

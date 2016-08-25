@@ -104,6 +104,15 @@ When(/^Clyde revises the prescription for Patty with these changes:$/) do |table
   )
 end
 
+When(/^Clyde makes an invalid revision to Patty's prescription$/) do
+  revise_prescription_for(
+    prescription: @prescription,
+    patient: @patty,
+    user: @clyde,
+    prescription_params: { dose_amount: nil }
+  )
+end
+
 Then(/^the prescription is recorded for Patty$/) do
   expect_prescription_to_be_recorded(patient: @patty)
 end
@@ -143,6 +152,6 @@ Then(/^the prescription termination is rejected$/) do
   expect_termination_to_be_rejected(@patty)
 end
 
-Then(/^the prescription revision rejects these changes:$/) do |table|
-  expect_prescription_revision_to_be_rejected(@patty, table.rows_hash)
+Then(/^the prescription revision is rejected$/) do
+  expect_prescription_revision_to_be_rejected(@patty, { dose_amount: nil })
 end

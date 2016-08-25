@@ -13,10 +13,11 @@ module Renalware
 
       def call(params)
         @prescription.assign_attributes(params)
+        return false unless @prescription.valid?
 
         if new_prescription_required?
           @prescription.reload
-          TerminateAndCreateExistingPrescription.new(@prescription, params).call
+          TerminateExistingAndCreateNewPescription.new(@prescription, params).call
         else
           @prescription.save
         end
@@ -30,7 +31,7 @@ module Renalware
       end
     end
 
-    class TerminateAndCreateExistingPrescription
+    class TerminateExistingAndCreateNewPescription
       def initialize(prescription, params)
         @prescription = prescription
         @params = params
