@@ -25,6 +25,10 @@ Given(/^Patty has a letter pending review$/) do
   submit_for_review(patient: @patty, user: @doctor)
 end
 
+Given(/^These letters are recorded$/) do |table|
+  seed_letters(table)
+end
+
 
 When(/^Nathalie drafts a letter for Patty to "(.*?)" with "(.*?)"$/) do |rec, ccs|
   recipient = letter_recipients_map.fetch(rec)
@@ -55,6 +59,10 @@ end
 
 When(/^Nathalie submits the letter for review$/) do
   submit_for_review(patient: @patty, user: @nathalie)
+end
+
+When(/^Clyde views the list of letters$/) do
+  view_letters(filter: :none, user: @clyde)
 end
 
 Then(/^Doug can reject the letter$/) do
@@ -141,4 +149,8 @@ end
 
 Then(/^the letter is signed by Nathalie$/) do
   expect_letter_to_be_signed(patient: @patty, user: @nathalie)
+end
+
+Then(/^Clyde sees these letters$/) do |table|
+  expect_letters_to_be(table.hashes)
 end

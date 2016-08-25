@@ -43,6 +43,28 @@ module World
           .call(patient, letter_attributes)
       end
 
+      def seed_letters(table)
+        table.hashes.each do |row|
+          patient_name = row[:patient]
+          status = row[:letter_status]
+          patient = Renalware::Letters::Patient.create!(
+            family_name: patient_name.split(",").first.strip,
+            given_name: patient_name.split(",").last.strip,
+            nhs_number: rand(10000000).to_s.rjust(10, "1234567890"),
+            local_patient_id: rand(10000).to_s.rjust(6, "Z99999"),
+            sex: "M",
+            born_on: Time.zone.today,
+            by: Renalware::SystemUser.find
+          )
+          letter = seed_simple_letter_for(patient, user: patient.created_by)
+          state_class = "Renalware::Letters::Letter::#{status.classify}".constantize
+          letter.becomes!(state_class).tap do |letter|
+            letter.by = letter.created_by
+            letter.save!
+          end
+        end
+      end
+
       # @section commands
       #
       def draft_simple_letter(patient:, user:, issued_on:, recipient:, ccs: nil)
@@ -89,6 +111,12 @@ module World
         letter_pending_review = simple_letter_for(patient)
 
         Renalware::Letters::ApproveLetter.build(letter_pending_review).call(by: user)
+      end
+
+      def view_letters(filter:, user: nil)
+        @query = Renalware::Letters::LetterQuery.new(
+          quick_filter: filter
+        )
       end
 
       # @section expectations
@@ -170,6 +198,22 @@ module World
         letter = simple_letter_for(patient)
 
         expect(letter).to be_signed
+      end
+
+      def expect_letters_to_be(hashes)
+        letters = @query.call
+        expect(letters.size).to eq(hashes.size)
+
+        entries = letters.map do |r|
+          hash = {
+            patient: r.patient.to_s,
+            letter_status: r.state
+          }
+          hash.with_indifferent_access
+        end
+        hashes.each do |row|
+          expect(entries).to include(row)
+        end
       end
 
       private
