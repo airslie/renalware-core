@@ -93,6 +93,12 @@ module Renalware
           "View"
         end
       end
+
+      class Completed < LetterPresenter
+        def view_label
+          "View"
+        end
+      end
     end
   end
 end

@@ -29,7 +29,7 @@ module Renalware
       validates :main_recipient, presence: true
 
       include ExplicitStateModel
-      has_states :draft, :pending_review, :approved
+      has_states :draft, :pending_review, :approved, :completed
       state_scope :reviewable, :pending_review
 
       scope :pending, -> { where(type: [state_class_name(:draft), state_class_name(:pending_review)]) }
