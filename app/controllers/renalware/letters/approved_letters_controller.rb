@@ -2,7 +2,7 @@ require_dependency "renalware/letters"
 
 module Renalware
   module Letters
-    class ArchivedLettersController < Letters::BaseController
+    class ApprovedLettersController < Letters::BaseController
       before_filter :load_patient
 
       def create

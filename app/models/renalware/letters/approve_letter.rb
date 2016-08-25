@@ -25,7 +25,7 @@ module Renalware
       end
 
       def archive(by:)
-        @letter.archive(by: by).save!
+        @letter.generate_archive(by: by).save!
       end
     end
   end

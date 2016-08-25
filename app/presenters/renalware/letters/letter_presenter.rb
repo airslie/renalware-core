@@ -44,7 +44,11 @@ module Renalware
       end
 
       def content
-        @content ||= HTMLRenderer.new.call(self)
+        if archived?
+          archive.content
+        else
+          @content ||= HTMLRenderer.new.call(self)
+        end
       end
 
       def pdf_filename
@@ -84,13 +88,9 @@ module Renalware
         end
       end
 
-      class Archived < LetterPresenter
+      class Approved < LetterPresenter
         def view_label
           "View"
-        end
-
-        def content
-          archive.content
         end
       end
     end

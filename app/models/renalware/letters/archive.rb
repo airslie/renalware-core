@@ -5,7 +5,7 @@ module Renalware
     class Archive < ActiveRecord::Base
       include Accountable
 
-      belongs_to :letter, class_name: "Renalware::Letters::Archived"
+      belongs_to :letter
 
       validates_presence_of :content
     end
