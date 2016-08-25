@@ -23,42 +23,37 @@ describe Renalware::Pathology::Requests::PatientRule do
   end
 
   describe "#required?" do
-    let(:date) { Date.current }
-    let(:required) { patient_rule.required?(date) }
+    context "given the specified date is not within the patient_rule's start/end date range" do
+      let(:date) { Date.parse("2016-04-22") }
 
-    context "given today is not within the patient_rule's start/end date range" do
-      before do
-        allow(Date).to receive(:current).and_return(Date.parse("2016-04-22")).once
+      it "returns false" do
+        expect(patient_rule).not_to be_required(date)
       end
-
-      it { expect(required).to be_falsey }
     end
 
-    context "given today is within the patient_rule's start/end date range" do
-      before do
-        allow(Date).to receive(:current).and_return(Date.parse("2016-04-20")).once
-      end
+    context "given specified date is within the patient_rule's start/end date range" do
+      let(:date) { Date.parse("2016-04-20") }
 
-      context "given the patient was not previously observed" do
-        it { expect(required).to be_truthy }
+      it "returns true" do
+        expect(patient_rule).to be_required(date)
       end
 
       context "given the patient was previously observed" do
-        let(:observed_on) { Date.parse("2016-04-19") }
-        let!(:clinic) { create(:clinic) }
-        let!(:patient) { create(:pathology_patient) }
-        let!(:consultant) { create(:pathology_consultant) }
-        let!(:request) do
+        let!(:request)  { create_request(patient: patient, observed_on: "2016-04-19") }
+
+        it "returns true" do
+          expect(patient_rule).to be_required(date)
+        end
+
+        def create_request(patient:, observed_on:)
           create(
             :pathology_requests_request,
-            clinic: clinic,
+            clinic: create(:clinic),
             patient: patient,
-            consultant: consultant,
+            consultant: create(:pathology_consultant),
             created_at: observed_on
           )
         end
-
-        it { expect(required).to be_truthy }
       end
     end
   end
