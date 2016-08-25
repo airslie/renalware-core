@@ -102,6 +102,7 @@ Then(/^Clyde can revise the peritonitis episode$/) do
   )
 
   revise_prescription_for(
+    prescription: @patty.prescriptions.first,
     patient: @patty,
     user: @clyde,
     drug_selector: peritonitis_episode_drug_selector,
