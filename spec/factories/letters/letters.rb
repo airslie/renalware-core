@@ -19,4 +19,7 @@ FactoryGirl.define do
 
   factory :approved_letter, class: "Renalware::Letters::Letter::Approved", parent: :letter do
   end
+
+  factory :completed_letter, class: "Renalware::Letters::Letter::Completed", parent: :letter do
+  end
 end

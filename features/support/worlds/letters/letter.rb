@@ -113,6 +113,12 @@ module World
         Renalware::Letters::ApproveLetter.build(letter_pending_review).call(by: user)
       end
 
+      def mark_letter_as_printed(patient:, user:)
+        approved_letter = simple_letter_for(patient)
+
+        Renalware::Letters::CompleteLetter.build(approved_letter).call(by: user)
+      end
+
       def view_letters(filter:, user: nil)
         @query = Renalware::Letters::LetterQuery.new(
           quick_filter: filter
@@ -198,6 +204,12 @@ module World
         letter = simple_letter_for(patient)
 
         expect(letter).to be_signed
+      end
+
+      def expect_letter_to_be_completed(patient:, user:)
+        letter = simple_letter_for(patient)
+
+        expect(letter).to be_completed
       end
 
       def expect_letters_to_be(hashes)
@@ -336,6 +348,15 @@ module World
         visit patient_letters_letter_path(patient, existing_letter)
 
         click_on "Approve and archive"
+      end
+
+      def mark_letter_as_printed(patient:, user:)
+        login_as user
+        existing_letter = simple_letter_for(patient)
+
+        visit patient_letters_letter_path(patient, existing_letter)
+
+        click_on "Mark as printed"
       end
     end
   end
