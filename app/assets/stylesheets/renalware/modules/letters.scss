@@ -1,10 +1,15 @@
 .letter-preview-admin {
   margin-top: -16px;
   padding-top: 10px;
+  padding-bottom: 10px;
   background-color: #ddd;
   margin-bottom: 20px;
 
   @media print {
     display: none;
+  }
+
+  .button {
+    margin-bottom: 5px;
   }
 }

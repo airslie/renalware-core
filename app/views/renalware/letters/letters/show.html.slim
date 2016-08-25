@@ -1,10 +1,10 @@
 .letter-preview-admin
   .row
-    .columns.large-6
+    .columns.large-8
       p Status: #{@letter.state.upcase}
       div= render "actions", letter: @letter
 
-    .columns.large-6
+    .columns.large-4
       p Notes:
       = simple_format @letter.notes
 
