@@ -38,23 +38,13 @@ module Renalware
       end
 
       def call
-        run_terminate_and_create_transaction
-        return true
-
-      rescue ActiveRecord::RecordInvalid
-        @prescription.assign_attributes(@params)
-        @prescription.valid? # NOTE: This will populate the errors object
-        return false
-      end
-
-      private
-
-      def run_terminate_and_create_transaction
         Prescription.transaction do
           terminate_existing_prescription
           create_new_prescription
         end
       end
+
+      private
 
       def terminate_existing_prescription
         return if @prescription.termination.present?
