@@ -105,6 +105,7 @@ Then(/^Clyde can revise the exist site infection$/) do
   )
 
   revise_prescription_for(
+    prescription: @patty.prescriptions.first,
     patient: @patty,
     user: @user,
     drug_selector: exit_site_infection_drug_selector,
