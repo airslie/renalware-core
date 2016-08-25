@@ -62,6 +62,7 @@ module World
             telephone: "123",
             by: Renalware::SystemUser.find,
             patient_rules: patient_rules,
+            template: Renalware::Pathology::Requests::Request::TEMPLATES.first,
             created_at: observed_at,
             updated_at: observed_at
           )
@@ -274,6 +275,7 @@ module World
             xpath =
               "//div[data-patient-id='#{patient.id}'][data-role='form_summary']//td[data-role='#{key}']"
             value_in_web = find(xpath).text
+
             expect(value_in_web).to eq(expected_value)
           end
         end
