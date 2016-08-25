@@ -30,3 +30,6 @@ en:
       approved_letters:
         create:
           success: You have successfully approved and archived the letter.
+      completed_letters:
+        create:
+          success: You have successfully marked the letter as printed.

@@ -1,3 +1,5 @@
+# GIVEN
+
 Given(/^Patty has a recorded letter$/) do
   seed_simple_letter_for(@patty, user: @nathalie)
 end
@@ -25,6 +27,15 @@ Given(/^Patty has a letter pending review$/) do
   submit_for_review(patient: @patty, user: @doctor)
 end
 
+Given(/^Patty has an approved letter$/) do
+  @doctor = find_or_create_user(given_name: "a_doctor", role: "clinician")
+
+  seed_simple_letter_for(@patty, user: @doctor)
+  submit_for_review(patient: @patty, user: @doctor)
+  approve_letter(patient: @patty, user: @doctor)
+end
+
+# WHEN
 
 When(/^Nathalie drafts a letter for Patty to "(.*?)" with "(.*?)"$/) do |rec, ccs|
   recipient = letter_recipients_map.fetch(rec)
@@ -68,6 +79,12 @@ end
 When(/^Nathalie approves the letter$/) do
   approve_letter(patient: @patty, user: @nathalie)
 end
+
+When(/^Nathalie marks the letter as printed$/) do
+  mark_letter_as_printed(patient: @patty, user: @nathalie)
+end
+
+# THEN
 
 Then(/^"(.*?)" will receive the letter$/) do |recipient|
   expect_simple_letter_to_exist(@patty, recipient: letter_recipients_map.fetch(recipient))
@@ -141,4 +158,8 @@ end
 
 Then(/^the letter is signed by Nathalie$/) do
   expect_letter_to_be_signed(patient: @patty, user: @nathalie)
+end
+
+Then(/^the letter is completed$/) do
+  expect_letter_to_be_completed(patient: @patty, user: @nathalie)
 end

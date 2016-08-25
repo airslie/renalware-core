@@ -91,6 +91,12 @@ module World
         Renalware::Letters::ApproveLetter.build(letter_pending_review).call(by: user)
       end
 
+      def mark_letter_as_printed(patient:, user:)
+        approved_letter = simple_letter_for(patient)
+
+        Renalware::Letters::CompleteLetter.build(approved_letter).call(by: user)
+      end
+
       # @section expectations
       #
       def expect_simple_letter_to_exist(patient, recipient:)
@@ -170,6 +176,12 @@ module World
         letter = simple_letter_for(patient)
 
         expect(letter).to be_signed
+      end
+
+      def expect_letter_to_be_completed(patient:, user:)
+        letter = simple_letter_for(patient)
+
+        expect(letter).to be_completed
       end
 
       private
@@ -292,6 +304,15 @@ module World
         visit patient_letters_letter_path(patient, existing_letter)
 
         click_on "Approve and archive"
+      end
+
+      def mark_letter_as_printed(patient:, user:)
+        login_as user
+        existing_letter = simple_letter_for(patient)
+
+        visit patient_letters_letter_path(patient, existing_letter)
+
+        click_on "Mark as printed"
       end
     end
   end
