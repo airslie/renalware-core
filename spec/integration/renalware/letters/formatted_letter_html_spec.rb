@@ -23,7 +23,7 @@ RSpec.describe "Get formatted letter HTML content", type: :request do
         expect(response.body).to include(letter.patient.full_name)
       end
 
-      it "responds with a PDF" do
+      it "responds with a PDF download" do
         get patient_letters_letter_formatted_path(
           patient_id: letter.patient, letter_id: letter, format: "pdf"
         )
@@ -31,7 +31,18 @@ RSpec.describe "Get formatted letter HTML content", type: :request do
         expect(response).to be_success
         expect(response["Content-Type"]).to eq("application/pdf")
         filename = "RABBIT-KCH57837-#{letter.id}-DRAFT".upcase
+        expect(response["Content-Disposition"]).to include("attachment")
         expect(response["Content-Disposition"]).to include(filename)
+      end
+
+      it "responds with an inlined PDF" do
+        get patient_letters_letter_formatted_path(
+          patient_id: letter.patient, letter_id: letter, format: "inlinepdf"
+        )
+
+        expect(response).to be_success
+        expect(response["Content-Type"]).to eq("application/pdf")
+        expect(response["Content-Disposition"]).to include("inline")
       end
     end
   end
