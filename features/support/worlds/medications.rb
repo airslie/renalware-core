@@ -168,8 +168,6 @@ module World
 
       def expect_prescription_revision_to_be_rejected(patient, revision_params)
         prescription = patient.prescriptions.first
-        expect(prescription.errors.messages.keys).to include(*revision_params.keys)
-
         prescription.reload
         revision_params.each do |key, value|
           expect(prescription.send(key.to_sym)).not_to eq(value)
@@ -248,7 +246,7 @@ module World
                 dose_amount, dose_unit = value.split(" ")
                 fill_in_dose(dose_amount, dose_unit)
               when :dose_amount
-                fill_in "Dose amount", with: dose_amount
+                fill_in "Dose amount", with: dose_amount.to_s
               when :frequency
                 fill_in "Frequency", with: value
               when :route_code
