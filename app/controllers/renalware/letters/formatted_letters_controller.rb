@@ -14,7 +14,10 @@ module Renalware
 
         respond_to do |format|
           format.html
-          format.pdf { render_pdf(@letter) }
+          format.pdf {
+            disposition = params.fetch("disposition", "attachment")
+            render_pdf(@letter, disposition)
+          }
         end
       end
 
@@ -24,8 +27,8 @@ module Renalware
         LetterPresenterFactory.new(letter)
       end
 
-      def render_pdf(letter)
-        render(pdf_options.merge(pdf: letter.pdf_filename, disposition: "attachment"))
+      def render_pdf(letter, disposition)
+        render pdf_options.merge(pdf: letter.pdf_filename, disposition: disposition)
       end
 
       def pdf_options

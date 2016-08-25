@@ -1,3 +1,9 @@
+= link_to "Print (PDF)", patient_letters_letter_formatted_path(letter.patient, letter, format: "pdf", disposition: "inline"),
+    form_class: "inline", class: "button tiny", target: "print"
+= blank_separator
+= link_to "Download PDF", patient_letters_letter_formatted_path(letter.patient, letter, format: "pdf"),
+    form_class: "inline", class: "button tiny"
+= blank_separator
 - if policy(letter).update?
   = link_to "Edit", edit_patient_letters_letter_path(letter.patient, letter),
       class: "button tiny"
@@ -14,9 +20,6 @@
   = button_to "Approve and archive", patient_letters_letter_approved_path(letter.patient, letter),
       form_class: "inline", class: "button tiny", data: { confirm: "Are you sure? You will not be able to modify the letter afterwards." }
   = blank_separator
-= link_to "PDF", patient_letters_letter_formatted_path(letter.patient, letter, format: "pdf"),
-    form_class: "inline", class: "button tiny"
-= blank_separator
 - if policy(letter).complete?
   = button_to "Mark as printed", patient_letters_letter_completed_path(letter.patient, letter),
       form_class: "inline", class: "button tiny", data: { confirm: "Are you sure the letter was printed?" }
