@@ -58,9 +58,9 @@ module World
           )
           letter = seed_simple_letter_for(patient, user: patient.created_by)
           state_class = "Renalware::Letters::Letter::#{status.classify}".constantize
-          letter.becomes!(state_class).tap do |letter|
-            letter.by = letter.created_by
-            letter.save!
+          letter.becomes!(state_class).tap do |new_letter|
+            new_letter.by = new_letter.created_by
+            new_letter.save!
           end
         end
       end
@@ -119,10 +119,8 @@ module World
         Renalware::Letters::CompleteLetter.build(approved_letter).call(by: user)
       end
 
-      def view_letters(filter:, user: nil)
-        @query = Renalware::Letters::LetterQuery.new(
-          quick_filter: filter
-        )
+      def view_letters(*)
+        @query = Renalware::Letters::LetterQuery.new
       end
 
       # @section expectations
@@ -357,6 +355,17 @@ module World
         visit patient_letters_letter_path(patient, existing_letter)
 
         click_on "Mark as printed"
+      end
+
+      def view_letters(filter:, user:)
+        login_as user
+        visit letters_list_path(filter: filter)
+      end
+
+      def expect_letters_to_be(hashes)
+        hashes.each do |row|
+          expect(page.body).to have_content(row[:patient])
+        end
       end
     end
   end

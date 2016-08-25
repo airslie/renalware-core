@@ -18,8 +18,6 @@ module Renalware
         end
       end
 
-      private
-
       class QueryableLetter < ActiveType::Record[Letter]
         def self.finder_needs_type_condition?
           false

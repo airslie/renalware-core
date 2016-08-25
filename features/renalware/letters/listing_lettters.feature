@@ -1,4 +1,3 @@
-@wip
 Feature: Listing the letters
 
   Users must have a way to see all the letters in the system.
@@ -12,7 +11,7 @@ Feature: Listing the letters
       | Rabbit, Roger   | draft              |
       | Rabbit, Jessica | pending_review     |
       | Bunny, Bugs     | approved           |
-      | Duck, Daffy     | draft          |
+      | Duck, Daffy     | completed          |
 
   @web
   Scenario: A clinician reported the list of letters
@@ -20,6 +19,6 @@ Feature: Listing the letters
     Then Clyde sees these letters
       | patient         | letter_status      |
       | Rabbit, Roger   | draft              |
-      | Rabbit, Jessica | pendingreview     |
+      | Rabbit, Jessica | pendingreview      |
       | Bunny, Bugs     | approved           |
-      | Duck, Daffy     | draft          |
+      | Duck, Daffy     | completed          |
