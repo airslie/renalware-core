@@ -35,7 +35,7 @@ Given(/^Patty has an approved letter$/) do
   approve_letter(patient: @patty, user: @doctor)
 end
 
-Given(/^These letters are recorded$/) do |table|
+Given(/^these letters are recorded$/) do |table|
   seed_letters(table)
 end
 

@@ -45,17 +45,8 @@ module World
 
       def seed_letters(table)
         table.hashes.each do |row|
-          patient_name = row[:patient]
           status = row[:letter_status]
-          patient = Renalware::Letters::Patient.create!(
-            family_name: patient_name.split(",").first.strip,
-            given_name: patient_name.split(",").last.strip,
-            nhs_number: rand(10000000).to_s.rjust(10, "1234567890"),
-            local_patient_id: rand(10000).to_s.rjust(6, "Z99999"),
-            sex: "M",
-            born_on: Time.zone.today,
-            by: Renalware::SystemUser.find
-          )
+          patient = find_or_create_patient_by_name(row[:patient])
           letter = seed_simple_letter_for(patient, user: patient.created_by)
           state_class = "Renalware::Letters::Letter::#{status.classify}".constantize
           letter.becomes!(state_class).tap do |new_letter|
@@ -216,7 +207,7 @@ module World
 
         entries = letters.map do |r|
           hash = {
-            patient: r.patient.to_s,
+            patient: r.patient.full_name,
             letter_status: r.state
           }
           hash.with_indifferent_access
@@ -364,7 +355,8 @@ module World
 
       def expect_letters_to_be(hashes)
         hashes.each do |row|
-          expect(page.body).to have_content(row[:patient])
+          given_name, family_name = row[:patient].split(" ").map(&:strip)
+          expect(page.body).to have_content("#{family_name}, #{given_name}")
         end
       end
     end
