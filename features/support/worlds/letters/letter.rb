@@ -45,14 +45,10 @@ module World
 
       def seed_letters(table)
         table.hashes.each do |row|
-          status = row[:letter_status]
           patient = find_or_create_patient_by_name(row[:patient])
           letter = seed_simple_letter_for(patient, user: patient.created_by)
-          state_class = "Renalware::Letters::Letter::#{status.classify}".constantize
-          letter.becomes!(state_class).tap do |new_letter|
-            new_letter.by = new_letter.created_by
-            new_letter.save!
-          end
+
+          move_letter_to_state(letter, row[:letter_status])
         end
       end
 
@@ -246,6 +242,14 @@ module World
               street_1: "1 Main St"
             }
           }
+        end
+      end
+
+      def move_letter_to_state(letter, state)
+        state_class = "Renalware::Letters::Letter::#{state.classify}".constantize
+        letter.becomes!(state_class).tap do |new_letter|
+          new_letter.by = new_letter.created_by
+          new_letter.save!
         end
       end
     end
