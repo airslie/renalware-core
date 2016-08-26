@@ -197,9 +197,9 @@ module World
         expect(letter).to be_completed
       end
 
-      def expect_letters_to_be(hashes)
+      def expect_letters_to_be(table)
         letters = @query.call
-        expect(letters.size).to eq(hashes.size)
+        expect(letters.size).to eq(table.hashes.size)
 
         entries = letters.map do |r|
           hash = {
@@ -208,7 +208,7 @@ module World
           }
           hash.with_indifferent_access
         end
-        hashes.each do |row|
+        table.hashes.each do |row|
           expect(entries).to include(row)
         end
       end
@@ -357,8 +357,8 @@ module World
         visit letters_list_path(filter: filter)
       end
 
-      def expect_letters_to_be(hashes)
-        hashes.each do |row|
+      def expect_letters_to_be(table)
+        table.hashes.each do |row|
           given_name, family_name = row[:patient].split(" ").map(&:strip)
           expect(page.body).to have_content("#{family_name}, #{given_name}")
         end

@@ -173,5 +173,5 @@ Then(/^the letter is completed$/) do
 end
 
 Then(/^Clyde sees these letters$/) do |table|
-  expect_letters_to_be(table.hashes)
+  expect_letters_to_be(table)
 end

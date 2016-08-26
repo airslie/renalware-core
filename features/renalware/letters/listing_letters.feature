@@ -1,9 +1,11 @@
-@wip
 Feature: Listing the letters
 
-  Users must have a way to see all the letters in the system.
+  System users view all letters in the system. A user applies filters to the
+  different facets, such as the current state of the letter and who authored
+  it. This feature allows a secretary to filter approved letters for their
+  designated doctor (the author) to print.
 
-  The list can be filtered by a typist or an author or by status (TO-DO).
+  TODO: filtering
 
   Background:
     Given Clyde is a clinician
