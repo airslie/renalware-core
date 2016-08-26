@@ -35,6 +35,10 @@ Given(/^Patty has an approved letter$/) do
   approve_letter(patient: @patty, user: @doctor)
 end
 
+Given(/^these letters are recorded$/) do |table|
+  seed_letters(table)
+end
+
 # WHEN
 
 When(/^Nathalie drafts a letter for Patty to "(.*?)" with "(.*?)"$/) do |rec, ccs|
@@ -66,6 +70,10 @@ end
 
 When(/^Nathalie submits the letter for review$/) do
   submit_for_review(patient: @patty, user: @nathalie)
+end
+
+When(/^Clyde views the list of letters$/) do
+  view_letters(filter: :none, user: @clyde)
 end
 
 Then(/^Doug can reject the letter$/) do
@@ -162,4 +170,8 @@ end
 
 Then(/^the letter is completed$/) do
   expect_letter_to_be_completed(patient: @patty, user: @nathalie)
+end
+
+Then(/^Clyde sees these letters$/) do |table|
+  expect_letters_to_be(table)
 end

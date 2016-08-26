@@ -62,6 +62,7 @@ Rails.application.routes.draw do
           get :search
         end
       end
+      resource :list, only: :show
     end
     get "authors/:author_id/letters", to: "letters/letters#author", as: "author_letters"
 

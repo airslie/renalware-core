@@ -43,6 +43,15 @@ module World
           .call(patient, letter_attributes)
       end
 
+      def seed_letters(table)
+        table.hashes.each do |row|
+          patient = find_or_create_patient_by_name(row[:patient])
+          letter = seed_simple_letter_for(patient, user: patient.created_by)
+
+          move_letter_to_state(letter, row[:letter_status])
+        end
+      end
+
       # @section commands
       #
       def draft_simple_letter(patient:, user:, issued_on:, recipient:, ccs: nil)
@@ -95,6 +104,10 @@ module World
         approved_letter = simple_letter_for(patient)
 
         Renalware::Letters::CompleteLetter.build(approved_letter).call(by: user)
+      end
+
+      def view_letters(*)
+        @query = Renalware::Letters::LetterQuery.new
       end
 
       # @section expectations
@@ -184,6 +197,22 @@ module World
         expect(letter).to be_completed
       end
 
+      def expect_letters_to_be(table)
+        letters = @query.call
+        expect(letters.size).to eq(table.hashes.size)
+
+        entries = letters.map do |r|
+          hash = {
+            patient: r.patient.full_name,
+            letter_status: r.state
+          }
+          hash.with_indifferent_access
+        end
+        table.hashes.each do |row|
+          expect(entries).to include(row)
+        end
+      end
+
       private
 
       def build_main_recipient_attributes(recipient)
@@ -213,6 +242,14 @@ module World
               street_1: "1 Main St"
             }
           }
+        end
+      end
+
+      def move_letter_to_state(letter, state)
+        state_class = "Renalware::Letters::Letter::#{state.classify}".constantize
+        letter.becomes!(state_class).tap do |new_letter|
+          new_letter.by = new_letter.created_by
+          new_letter.save!
         end
       end
     end
@@ -313,6 +350,18 @@ module World
         visit patient_letters_letter_path(patient, existing_letter)
 
         click_on "Mark as printed"
+      end
+
+      def view_letters(filter:, user:)
+        login_as user
+        visit letters_list_path(filter: filter)
+      end
+
+      def expect_letters_to_be(table)
+        table.hashes.each do |row|
+          given_name, family_name = row[:patient].split(" ").map(&:strip)
+          expect(page.body).to have_content("#{family_name}, #{given_name}")
+        end
       end
     end
   end
