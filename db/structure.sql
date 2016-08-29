@@ -1845,11 +1845,12 @@ ALTER SEQUENCE pathology_requests_global_rule_sets_id_seq OWNED BY pathology_req
 
 CREATE TABLE pathology_requests_global_rules (
     id integer NOT NULL,
-    global_rule_set_id integer NOT NULL,
+    rule_set_id integer NOT NULL,
     type character varying,
     param_id character varying,
     param_comparison_operator character varying,
-    param_comparison_value character varying
+    param_comparison_value character varying,
+    rule_set_type character varying NOT NULL
 );
 
 
@@ -6015,7 +6016,7 @@ ALTER TABLE ONLY transplant_donor_operations
 --
 
 ALTER TABLE ONLY pathology_requests_global_rules
-    ADD CONSTRAINT fk_rails_b77918cf71 FOREIGN KEY (global_rule_set_id) REFERENCES pathology_requests_global_rule_sets(id);
+    ADD CONSTRAINT fk_rails_b77918cf71 FOREIGN KEY (rule_set_id) REFERENCES pathology_requests_global_rule_sets(id);
 
 
 --
@@ -6553,4 +6554,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160818131917');
 INSERT INTO schema_migrations (version) VALUES ('20160822130644');
 
 INSERT INTO schema_migrations (version) VALUES ('20160823173525');
+
+INSERT INTO schema_migrations (version) VALUES ('20160829114845');
 

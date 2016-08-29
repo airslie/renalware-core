@@ -6,9 +6,10 @@ module Renalware
       class GlobalRule < ActiveRecord::Base
         PARAM_COMPARISON_OPERATORS = ["==", ">", "<", ">=", "<=", "include?"]
 
-        belongs_to :global_rule_set
+        belongs_to :rule_set, polymorphic: true
 
-        validates :global_rule_set, presence: true
+        validates :rule_set_id, presence: true
+        validates :rule_set_type, presence: true
         validates :param_comparison_operator, inclusion:
           { in: PARAM_COMPARISON_OPERATORS, allow_nil: true }
 

@@ -20,7 +20,8 @@ module World
             end
 
           Renalware::Pathology::Requests::GlobalRule.create!(
-            global_rule_set_id: params["global_rule_set_id"],
+            rule_set_id: params["rule_set_id"],
+            rule_set_type: "Renalware::Pathology::Requests::GlobalRuleSet",
             type: "Renalware::Pathology::Requests::GlobalRule::#{params['type']}",
             param_id: param_id,
             param_comparison_operator: params["operator"],
@@ -31,7 +32,7 @@ module World
         def create_global_rules_from_table(table)
           table.rows.map do |row|
             params = Hash[table.headers.zip(row)]
-            params["global_rule_set_id"] = @rule_set.id
+            params["rule_set_id"] = @rule_set.id
             params["operator"] = nil unless params["operator"].present?
             params["value"] = nil unless params["value"].present?
             create_global_rule(params)
