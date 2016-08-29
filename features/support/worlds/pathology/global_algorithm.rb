@@ -19,9 +19,20 @@ module World
                 Renalware::Pathology::Requests::DrugCategory.find_by(name: params["id"]).id
             end
 
+          rule_set_type = params.fetch(
+            "rule_set_type",
+            "Renalware::Pathology::Requests::GlobalRuleSet"
+          )
+
+          rule_set =
+            if rule_set_type = "Renalware::Pathology::Requests::GlobalRuleSet"
+              rule_set_type.constantize.new(id: params["rule_set_id"])
+            elsif rule_set_type = "Renalware::Pathology::Requests::HighRiskRuleSet"
+              rule_set_type.constantize.new
+            end
+
           Renalware::Pathology::Requests::GlobalRule.create!(
-            rule_set_id: params["rule_set_id"],
-            rule_set_type: "Renalware::Pathology::Requests::GlobalRuleSet",
+            rule_set: rule_set,
             type: "Renalware::Pathology::Requests::GlobalRule::#{params['type']}",
             param_id: param_id,
             param_comparison_operator: params["operator"],
