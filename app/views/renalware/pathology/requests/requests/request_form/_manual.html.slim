@@ -1,13 +1,14 @@
 - requests.each do |request_form|
   - if request_form.has_tests_required?
-    - if request_form.has_global_requests?
-      - request_form.global_requests_by_lab_and_bottle_type.each do |(lab_name, bottle_type), request_descriptions|
-        = render partial: "renalware/pathology/requests/requests/request_form/manual_form_global.html.slim",
-          locals: { request_form: request_form, lab_name: lab_name, bottle_type: bottle_type, request_descriptions: request_descriptions }
-        hr.page_break
+    .row data-role="form_pathology" data-patient-id="#{request_form.patient.id}"
+      - if request_form.has_global_requests?
+        - request_form.global_requests_by_lab_and_bottle_type.each do |(lab_name, bottle_type), request_descriptions|
+          = render partial: "renalware/pathology/requests/requests/request_form/manual_form_global.html.slim",
+            locals: { request_form: request_form, lab_name: lab_name, bottle_type: bottle_type, request_descriptions: request_descriptions }
+          hr.page_break
 
-    - if request_form.has_patient_requests?
-      - request_form.patient_requests_by_lab.each do |lab_name, patient_rules|
-        = render partial: "renalware/pathology/requests/requests/request_form/manual_form_patient.html.slim",
-          locals: { request_form: request_form, lab_name: lab_name, patient_rules: patient_rules }
-        hr.page_break
+      - if request_form.has_patient_requests?
+        - request_form.patient_requests_by_lab.each do |lab_name, patient_rules|
+          = render partial: "renalware/pathology/requests/requests/request_form/manual_form_patient.html.slim",
+            locals: { request_form: request_form, lab_name: lab_name, patient_rules: patient_rules }
+          hr.page_break

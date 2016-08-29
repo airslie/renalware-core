@@ -274,7 +274,10 @@ module World
           expected_values.each do |key, expected_value|
             xpath =
               "//div[data-patient-id='#{patient.id}'][data-role='form_summary']//td[data-role='#{key}']"
-            value_in_web = find(xpath).text
+
+            # NOTE: There will be multiple patient_summaries if the manual form is requested so
+            #       find the first match
+            value_in_web = find(xpath, match: :first).text
 
             expect(value_in_web).to eq(expected_value)
           end
