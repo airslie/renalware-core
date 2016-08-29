@@ -7,8 +7,7 @@ Given(/^the high risk rule set contains these rules:$/) do |table|
 end
 
 When(/^the high risk algorithm is run for Patty$/) do
-  pathology_patty = Renalware::Pathology.cast_patient(@patty)
-  @high_risk = Renalware::Pathology::Requests::HighRiskAlgorithm.new(pathology_patty).patient_is_high_risk?
+  @high_risk = run_high_risk_algorithm(@patty)
 end
 
 Then(/^Patty is determined to be high risk$/) do
