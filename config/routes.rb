@@ -62,6 +62,7 @@ Rails.application.routes.draw do
           get :search
         end
       end
+      resource :list, only: :show
     end
     get "authors/:author_id/letters", to: "letters/letters#author", as: "author_letters"
 
@@ -143,7 +144,8 @@ Rails.application.routes.draw do
         resources :letters do
           resource :pending_review, controller: "pending_review_letters", only: :create
           resource :rejected, controller: "rejected_letters", only: :create
-          resource :archived, controller: "archived_letters", only: :create
+          resource :approved, controller: "approved_letters", only: :create
+          resource :completed, controller: "completed_letters", only: :create
           resource :formatted, controller: "formatted_letters", only: :show
         end
       end

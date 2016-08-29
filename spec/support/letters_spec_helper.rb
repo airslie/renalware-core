@@ -1,6 +1,7 @@
 module LettersSpecHelper
-  def build_letter(to:, patient:, **args)
-    letter = build(:draft_letter, **args)
+  def build_letter(state: :draft, to:, patient:, **args)
+    trait = "#{state}_letter".to_sym
+    letter = build(trait, **args)
     letter.patient = patient
 
     letter.patient.doctor ||= build(:letter_doctor)

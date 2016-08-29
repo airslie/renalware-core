@@ -1,0 +1,20 @@
+.row
+  h1 Letters
+
+.row
+  table.report
+    thead
+      tr
+        th.noprint
+        th= sort_link(@q, :patient_family_name, "Patient")
+        th Date
+        th Author
+        th Recipient
+        th Description
+        th State
+    tbody
+      - @letters.each do |letter|
+        = render "letter", letter: letter
+
+
+  = paginate @letters

@@ -23,13 +23,17 @@ module Renalware
         BasePolicy
       end
 
+      def title
+        "Dr"
+      end
+
       def current_address
         address || practice_address
       end
 
       def practice_address
         address = practices.first.try(:address)
-        address.name = "Dr #{full_name}" if address.present?
+        address.name = "#{title} #{full_name}" if address.present?
         address
       end
     end

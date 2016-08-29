@@ -27,6 +27,9 @@ en:
       rejected_letters:
         create:
           success: You have successfully rejected the letter.
-      archived_letters:
+      approved_letters:
         create:
-          success: You have successfully archived the letter.
+          success: You have successfully approved and archived the letter.
+      completed_letters:
+        create:
+          success: You have successfully marked the letter as printed.

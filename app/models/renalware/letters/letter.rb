@@ -16,6 +16,7 @@ module Renalware
         class_name: "Recipient", dependent: :destroy, inverse_of: :letter
       has_many :recipients, dependent: :destroy
       has_one :signature, dependent: :destroy
+      has_one :archive, foreign_key: "letter_id"
 
       accepts_nested_attributes_for :main_recipient
       accepts_nested_attributes_for :cc_recipients, reject_if: :all_blank, allow_destroy: true
@@ -28,7 +29,7 @@ module Renalware
       validates :main_recipient, presence: true
 
       include ExplicitStateModel
-      has_states :draft, :pending_review, :archived
+      has_states :draft, :pending_review, :approved, :completed
       state_scope :reviewable, :pending_review
 
       scope :pending, -> { where(type: [state_class_name(:draft), state_class_name(:pending_review)]) }
@@ -69,6 +70,14 @@ module Renalware
 
       def signed?
         signature.present?
+      end
+
+      def archived?
+        archive.present?
+      end
+
+      def archived_by
+        archive.created_by
       end
     end
   end

@@ -1,11 +1,11 @@
 .letter-preview-admin
   .row
-    .columns.large-6
+    .columns.large-8
       p Status: #{@letter.state.upcase}
       div= render "actions", letter: @letter
 
-    .columns.large-6
+    .columns.large-4
       p Notes:
       = simple_format @letter.notes
 
-= content_tag :iframe, "", src: patient_letters_letter_formatted_url(@letter.patient, @letter), class: "fullsize"
+= content_tag :iframe, "", src: patient_letters_letter_preview_path(@letter), class: "fullsize"

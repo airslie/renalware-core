@@ -7,10 +7,6 @@ module Renalware
         true
       end
 
-      def submit_for_review?
-        false
-      end
-
       def reject?
         true
       end
