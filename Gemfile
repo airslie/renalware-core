@@ -38,6 +38,7 @@ gem 'nokogiri', '~> 1.6.8'
 gem 'activemodel-associations'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'activerecord-tableless', '~> 1.0'
 
 source 'https://rails-assets.org' do
   # https://github.com/najlepsiwebdesigner/foundation-datepicker
