@@ -7,7 +7,7 @@ module Renalware
         has_no_table
 
         def self.rules
-          GlobalRule.where(rule_set_type: self.class.name)
+          GlobalRule.where(rule_set_type: self.name)
         end
 
         # NOTE: required so ActiveRecord doesn't try to create a new associated HighRiskRuleSet
