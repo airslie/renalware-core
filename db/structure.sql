@@ -1845,7 +1845,7 @@ ALTER SEQUENCE pathology_requests_global_rule_sets_id_seq OWNED BY pathology_req
 
 CREATE TABLE pathology_requests_global_rules (
     id integer NOT NULL,
-    rule_set_id integer NOT NULL,
+    rule_set_id integer,
     type character varying,
     param_id character varying,
     param_comparison_operator character varying,
