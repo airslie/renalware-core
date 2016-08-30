@@ -11,7 +11,7 @@ module Renalware
       end
 
       def drug_type_names
-        drug.drug_types.map(&:name).join(", ")
+        drug_types.map(&:name).join(", ")
       end
 
       def provider
