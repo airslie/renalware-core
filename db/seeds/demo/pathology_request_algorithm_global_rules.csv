@@ -1,4 +1,4 @@
-global_rule_set_id,type,param_id,param_comparison_operator,param_comparison_value
+rule_set_id,type,param_id,param_comparison_operator,param_comparison_value
 54,Renalware::Pathology::Requests::GlobalRule::PatientSexIs,,,M
 55,Renalware::Pathology::Requests::GlobalRule::PrescriptionDrugType,ESA,,
 55,Renalware::Pathology::Requests::GlobalRule::ObservationResult,HB,<,100

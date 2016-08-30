@@ -22,7 +22,8 @@ module Renalware
   CSV.foreach(file_path, headers: true) do |row|
     logcount += 1
     Pathology::Requests::GlobalRule.find_or_create_by!(
-      global_rule_set_id: row["global_rule_set_id"],
+      rule_set_id: row["rule_set_id"],
+      rule_set_type: "Renalware::Pathology::Requests::GlobalRuleSet",
       type: row["type"],
       param_id: find_param_id(row),
       param_comparison_operator: row["param_comparison_operator"],
