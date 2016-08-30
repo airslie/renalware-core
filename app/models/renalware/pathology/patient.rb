@@ -29,6 +29,10 @@ module Renalware
         ).determine_required_tests
       end
 
+      def high_risk?
+        Renalware::Pathology::Requests::HighRiskAlgorithm.new(self).patient_is_high_risk?
+      end
+
       private
 
       def date_for_algorithms

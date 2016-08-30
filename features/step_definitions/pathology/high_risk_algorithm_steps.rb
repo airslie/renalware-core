@@ -6,6 +6,23 @@ Given(/^the high risk rule set contains these rules:$/) do |table|
   end
 end
 
+Given(/^Patty is a high risk patient$/) do
+  code = "HIV"
+  create_global_rule(
+    "rule_set_type" => "Renalware::Pathology::Requests::HighRiskRuleSet",
+    "type" => "ObservationResult",
+    "id" => code,
+    "operator" => "==",
+    "value" => "positive"
+  )
+  record_observations(
+    patient: @patty,
+    observations_attributes: [
+      { "code" => code, "result" => "positive", "observed_at" => Date.current.to_s }
+    ]
+  )
+end
+
 When(/^the high risk algorithm is run for Patty$/) do
   @high_risk = run_high_risk_algorithm(@patty)
 end
