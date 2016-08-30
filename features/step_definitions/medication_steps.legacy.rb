@@ -67,7 +67,7 @@ Then(/^should see the new prescription on the patient's clinical summary$/) do
   end
 
   #drug by search
-  within(".drug-drug") do
+  within(".drug-other") do
     expect(page).to have_content("Amoxicillin")
     expect(page).to have_content("20mg")
     expect(page).to have_content("IV")
@@ -88,7 +88,7 @@ Then(/^should see the new prescription on their prescriptions index\.$/) do
     expect(page).to have_content("02-03-#{Date.current.year - 1}")
   end
 
-  within(".drug-drug") do
+  within(".drug-other") do
     expect(page).to have_content("Standard")
     expect(page).to have_content("Amoxicillin")
     expect(page).to have_content("20mg")
