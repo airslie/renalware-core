@@ -13,6 +13,7 @@ module Renalware
             clinic: clinic,
             consultant: consultant,
             telephone: telephone,
+            template: template,
             by: @params[:by]
           }
         end
@@ -29,6 +30,10 @@ module Renalware
 
         def telephone
           @telephone ||= requested_telephone || default_telephone
+        end
+
+        def template
+          requested_template || default_template
         end
 
         def requested_clinic
@@ -57,6 +62,14 @@ module Renalware
 
         def default_telephone
           consultant.telephone
+        end
+
+        def requested_template
+          @params[:template]
+        end
+
+        def default_template
+          "crs"
         end
       end
     end

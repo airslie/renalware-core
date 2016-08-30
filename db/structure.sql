@@ -1952,7 +1952,8 @@ CREATE TABLE pathology_requests_requests (
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    template character varying NOT NULL
 );
 
 
@@ -6548,6 +6549,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160809095951');
 INSERT INTO schema_migrations (version) VALUES ('20160812073616');
 
 INSERT INTO schema_migrations (version) VALUES ('20160812073900');
+
+INSERT INTO schema_migrations (version) VALUES ('20160817095514');
 
 INSERT INTO schema_migrations (version) VALUES ('20160818131917');
 

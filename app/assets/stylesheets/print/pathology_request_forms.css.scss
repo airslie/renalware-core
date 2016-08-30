@@ -1,8 +1,10 @@
-table, td {
+.with_border {
   border: 1px solid black;
+  border-collapse: collapse;
 }
 
-table {
+.with_border td {
+  border: 1px solid black;
   border-collapse: collapse;
 }
 
@@ -27,3 +29,5 @@ hr.page_break {
   margin: 10px;
   padding: 5px;
 }
+
+div.alwaysbreak { page-break-before: always; }

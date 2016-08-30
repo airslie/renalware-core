@@ -10,7 +10,7 @@ module World
           patients = find_requested_patients(form_params[:patients])
           telephone = form_params[:telephone]
 
-          params = {}
+          params = form_params.slice(:template)
           if patients.present?
             params[:patients] = patients
             params[:patient_ids] = patients.map(&:id)
@@ -62,6 +62,7 @@ module World
             telephone: "123",
             by: Renalware::SystemUser.find,
             patient_rules: patient_rules,
+            template: Renalware::Pathology::Requests::Request::TEMPLATES.first,
             created_at: observed_at,
             updated_at: observed_at
           )
@@ -81,6 +82,7 @@ module World
             clinic: Renalware::Clinics::Clinic.first,
             consultant: Renalware::Pathology::Consultant.first,
             telephone: "123",
+            template: Renalware::Pathology::Requests::Request::TEMPLATES.first,
             by: Renalware::SystemUser.find,
             request_descriptions: request_descriptions,
             created_at: params[:requested_at],
@@ -180,6 +182,7 @@ module World
               patient: patient,
               clinic: clinic,
               consultant: consultant,
+              template: params[:template],
               pathology_request_descriptions: { id: request_descriptions.map(&:id) },
               pathology_requests_patient_rules: { id: patient_rules.map(&:id) }
             )
@@ -250,6 +253,7 @@ module World
           update_request_form_clinic(clinic.name) if clinic.present?
           update_request_form_consultant(consultant.full_name) if consultant.present?
           update_request_form_telephone(telephone)  if telephone.present?
+          update_request_form_template(params[:template])
         end
 
         def generate_request_forms_for_appointments(_clinician, _appointments, params)
@@ -270,7 +274,11 @@ module World
           expected_values.each do |key, expected_value|
             xpath =
               "//div[data-patient-id='#{patient.id}'][data-role='form_summary']//td[data-role='#{key}']"
-            value_in_web = find(xpath).text
+
+            # NOTE: There will be multiple patient_summaries if the manual form is requested so
+            #       find the first match
+            value_in_web = find(xpath, match: :first).text
+
             expect(value_in_web).to eq(expected_value)
           end
         end
@@ -327,6 +335,12 @@ module World
 
         def update_request_form_telephone(telephone)
           fill_in "Telephone", with: telephone
+          click_on "Update Forms"
+        end
+
+        def update_request_form_template(template)
+          template_translation = I18n.t(template, scope: "renalware.pathology.request.template")
+          select template_translation, from: "Template"
           click_on "Update Forms"
         end
       end

@@ -1,5 +1,4 @@
 = render partial: "renalware/pathology/requests/requests/pdf_header.html.slim"
 
-- if request.has_tests_required?
-  = render partial: "renalware/pathology/requests/requests/request_form.html.slim",
-    locals: { request_form: request }
+= render partial: "renalware/pathology/requests/requests/request_form/#{request.template}",
+  locals: { requests: [request] }

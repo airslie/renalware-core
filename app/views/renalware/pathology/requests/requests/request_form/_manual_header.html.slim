@@ -1,0 +1,24 @@
+.row data-role="form_summary" data-patient-id="#{request_form.patient.id}"
+  table
+    tr
+      td
+        b Patient Name:
+      td data-role="patient_name" = request_form.patient_name
+      td
+        b Consultant:
+      td data-role="consultant" = request_form.consultant
+    tr
+      td
+        b DOB:
+      td data-role="date_of_birth" = request_form.date_of_birth
+      td
+        b Contact:
+      td data-role="telephone" = request_form.telephone
+    tr
+      td
+        b Date of request:
+      td data-role="date"  = request_form.date
+    tr
+      td
+        b Requested by:
+      td data-role="requested_by"  = request_form.requested_by

@@ -1,0 +1,13 @@
+- requests.each do |request_form|
+  - if request_form.has_tests_required?
+    - if request_form.has_global_requests?
+      - request_form.global_requests_by_lab_and_bottle_type.each do |(lab_name, bottle_type), request_descriptions|
+        .alwaysbreak
+          = render partial: "renalware/pathology/requests/requests/request_form/manual_form_global.html.slim",
+            locals: { request_form: request_form, lab_name: lab_name, bottle_type: bottle_type, request_descriptions: request_descriptions }
+
+    - if request_form.has_patient_requests?
+      - request_form.patient_requests_by_lab.each do |lab_name, patient_rules|
+        .alwaysbreak
+          = render partial: "renalware/pathology/requests/requests/request_form/manual_form_patient.html.slim",
+            locals: { request_form: request_form, lab_name: lab_name, patient_rules: patient_rules }
