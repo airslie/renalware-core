@@ -1,7 +1,7 @@
 module Renalware
-  log '--------------------Adding Hospital Units--------------------'
+  log '--------------------Adding Dialysis Units--------------------'
 
-  file_path = File.join(default_path, 'hospital_units.csv')
+  file_path = File.join(default_path, 'dialysis_units.csv')
 
   logcount=0
   CSV.foreach(file_path, headers: true) do |row|
@@ -15,5 +15,5 @@ module Renalware
     end
   end
 
-  log "#{logcount} Hospital Units seeded"
+  log "#{logcount} Dialysis Units seeded"
 end
