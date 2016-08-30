@@ -50,7 +50,7 @@ module Renalware
       }
 
       def self.default_search_order
-        "prescribed_on desc"
+        "prescribed_on ASC"
       end
 
       # @section attributes
