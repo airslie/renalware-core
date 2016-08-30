@@ -39,13 +39,12 @@ Feature: Generating request forms for a single patient
      | consultant | Zoe Zimmerman |
      | clinic     | Transplant    |
      | telephone  | 7983123123    |
+     | template   | manual        |
     Then Clyde sees these details at the top of Patty's form
       | patient_name    | THEPATIENT PATTY |
       | date            | 12-10-2016       |
       | date_of_birth   | 25-12-1961       |
       | consultant      | Zoe Zimmerman    |
-      | clinical_detail | Transplant       |
-      | contact         | Transplant       |
       | telephone       | 7983123123       |
     And Clyde sees the following pathology requirements for Patty:
       | global_pathology  | BFF           |

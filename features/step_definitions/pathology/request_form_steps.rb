@@ -6,6 +6,7 @@ Given(/^Patty has a request form generated with parameters:$/) do |table|
     clinic: params[:clinic],
     consultant: params[:consultant],
     telephone: params[:telephone],
+    template: params[:template],
     patients: [pathology_patient]
   )
 end

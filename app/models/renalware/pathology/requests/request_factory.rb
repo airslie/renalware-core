@@ -21,6 +21,7 @@ module Renalware
             clinic: @params[:clinic],
             consultant: @params[:consultant],
             telephone: @params[:telephone],
+            template: @params[:template],
             request_descriptions: request_descriptions,
             patient_rules: patient_rules,
             by: @params[:by]

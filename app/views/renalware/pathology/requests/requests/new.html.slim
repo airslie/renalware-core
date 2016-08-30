@@ -21,11 +21,21 @@ html lang="en"
           url: pathology_requests_new_request_path,
           as: :request do |f|
           = f.input :patient_ids, as: :hidden_array
-          = f.input :clinic_id, collection: all_clinics, input_html: { class: "small-input" }
+          = f.input :clinic_id,
+              collection: all_clinics,
+              input_html: { class: "small-input" },
+              include_blank: false
           = f.input :consultant_id,
             collection: all_consultants,
-            label_method: :full_name, input_html: { class: "small-input" }
+            label_method: :full_name,
+            input_html: { class: "small-input" },
+            include_blank: false
           = f.input :telephone, input_html: { class: "small-input" }
+          = f.input :template,
+              collection: all_templates,
+              input_html: { class: "small-input" },
+              label_method: ->(value) { I18n.t(value, scope: "renalware.pathology.request.template") },
+              include_blank: false
           = f.button :submit, "Update Forms"
 
         = simple_form_for request_html_form_params,
@@ -35,13 +45,11 @@ html lang="en"
           = f.input :clinic_id, as: :hidden
           = f.input :consultant_id, as: :hidden
           = f.input :telephone, as: :hidden
+          = f.input :template, as: :hidden
           = f.button :submit, "Print Forms", data: { confirm: "Are you sure you want to print this form? Printing will result in a request being logged which will effect the patholgoy algorithm's results." }
 
     hr.page_break
 
-    - requests.each do |request_form|
-      - if request_form.has_tests_required?
-        = render partial: "renalware/pathology/requests/requests/request_form.html.slim",
-          locals: { request_form: request_form }
+    = render partial: "renalware/pathology/requests/requests/request_form/#{request_html_form_params.template}",locals: { requests: requests, format: :html }
 
     = javascript_include_tag "application"

@@ -25,7 +25,11 @@
   table#appointments
     thead
       tr
-        th Generate request form?
+        th
+          | Generate request form?
+          br
+          |
+          = link_to "(Uncheck all)", "#", id: "uncheck_all_appointments_link"
         th = sort_link(query, :starts_at, "Date", default_order: :asc)
         th Time
         th = sort_link(query, :patient_family_name, "Patient", default_order: :asc)

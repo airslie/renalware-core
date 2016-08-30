@@ -102,6 +102,10 @@ HGB:
   code: "HGB"
   name: "HGB"
 
+HIV:
+  code: "HIV"
+  name: "HIV"
+
 HYPO:
   code: "HYPO"
   name: "% HYPO"

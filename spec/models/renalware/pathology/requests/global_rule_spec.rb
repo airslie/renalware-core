@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Renalware::Pathology::Requests::GlobalRule do
-  it { is_expected.to validate_presence_of(:global_rule_set) }
+  it { is_expected.to validate_presence_of(:rule_set) }
   it do
     is_expected.to validate_inclusion_of(:param_comparison_operator)
       .in_array(Renalware::Pathology::Requests::GlobalRule::PARAM_COMPARISON_OPERATORS)
@@ -30,7 +30,7 @@ describe Renalware::Pathology::Requests::GlobalRule do
     build(
       :pathology_requests_global_rule,
       type: nil,
-      global_rule_set: global_rule_set
+      rule_set: global_rule_set
     )
   end
 

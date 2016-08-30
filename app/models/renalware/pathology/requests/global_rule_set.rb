@@ -6,7 +6,8 @@ module Renalware
       class GlobalRuleSet < ActiveRecord::Base
         include FrequencyMethods
 
-        has_many :rules, class_name: "GlobalRule"
+        has_many :rules, as: :rule_set, class_name: "GlobalRule"
+
         belongs_to :request_description
         belongs_to :clinic, class_name: "Clinics::Clinic"
         validates :request_description, presence: true

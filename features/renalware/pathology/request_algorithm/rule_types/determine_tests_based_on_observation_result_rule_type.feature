@@ -16,14 +16,14 @@ Feature: Determining observations required based on an observation result rule t
     Then it is determined the observation is <determination>
 
     Examples:
-      | result | operator | value | determination |
-      | 99     | <        | 100   | required      |
-      | 100    | <        | 100   | not required  |
-      | 99     | >        | 100   | not required  |
-      | 100    | >        | 100   | not required  |
-      | 99     | <=       | 100   | required      |
-      | 100    | <=       | 100   | required      |
-      | 99     | >=       | 100   | not required  |
-      | 100    | >=       | 100   | required      |
-      | 99     | ==       | 100   | not required  |
-      | 100    | ==       | 100   | required      |
+      | result   | operator | value    | determination |
+      | 99       | <        | 100      | required      |
+      | 100      | <        | 100      | not required  |
+      | 99       | >        | 100      | not required  |
+      | 100      | >        | 100      | not required  |
+      | 99       | <=       | 100      | required      |
+      | 100      | <=       | 100      | required      |
+      | 99       | >=       | 100      | not required  |
+      | 100      | >=       | 100      | required      |
+      | positive | ==       | positive | required      |
+      | negative | ==       | positive | not required  |

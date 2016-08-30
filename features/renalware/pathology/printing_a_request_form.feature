@@ -20,6 +20,7 @@ Feature: Printing a request form
       | clinic     | Transplant |
       | consultant | Dr Hibbert |
       | telephone  | 0161932263 |
+      | template   | manual     |
 
   @web
   Scenario: A clinician prints a request form
@@ -28,6 +29,7 @@ Feature: Printing a request form
       | clinic               | Transplant    |
       | consultant           | Dr Hibbert    |
       | telephone            | 0161932263    |
+      | template             | manual        |
       | request_descriptions | BFF, MAL      |
       | patient_rules        | Test for HepB |
       | created_by           | Clyde         |
