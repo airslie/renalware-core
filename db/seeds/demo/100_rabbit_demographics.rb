@@ -1,6 +1,6 @@
 module Renalware
   log '--------------------Adding Demographics for Roger RABBIT--------------------'
-  user = User.find_by(username: "bartsdoc")
+  user = User.find_by(username: "kchdoc")
   rabbit = Patient.find_by(family_name: 'RABBIT', given_name: 'Roger')
 
   rabbit.title = "Mr"
