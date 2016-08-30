@@ -11,7 +11,7 @@ describe Renalware::Pathology::Requests::GlobalRule::PrescriptionDrugType do
 
       subject(:global_rule) do
         klass.new(
-          global_rule_set: global_rule_set,
+          rule_set: global_rule_set,
           param_id: drug_type.id,
           param_comparison_operator: nil,
           param_comparison_value: nil
@@ -24,7 +24,7 @@ describe Renalware::Pathology::Requests::GlobalRule::PrescriptionDrugType do
     context "with an invalid drug_type" do
       subject(:global_rule) do
         klass.new(
-          global_rule_set: global_rule_set,
+          rule_set: global_rule_set,
           param_id: nil,
           param_comparison_operator: nil,
           param_comparison_value: nil

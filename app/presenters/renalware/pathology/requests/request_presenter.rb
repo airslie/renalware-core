@@ -29,6 +29,12 @@ module Renalware
         end
         alias_method :contact, :clinical_detail
 
+        def requested_by
+          return "" if created_by.nil?
+
+          created_by.full_name
+        end
+
         def patient_rules
           ::Renalware::Pathology::Requests::PatientRulePresenter.present(super)
         end

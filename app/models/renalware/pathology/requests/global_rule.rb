@@ -6,9 +6,9 @@ module Renalware
       class GlobalRule < ActiveRecord::Base
         PARAM_COMPARISON_OPERATORS = ["==", ">", "<", ">=", "<=", "include?"]
 
-        belongs_to :global_rule_set
+        belongs_to :rule_set, polymorphic: true
 
-        validates :global_rule_set, presence: true
+        validates :rule_set, presence: true
 
         def observation_required_for_patient?(_patient, _date)
           raise NotImplementedError

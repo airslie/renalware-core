@@ -17,7 +17,7 @@ describe Renalware::Pathology::Requests::GlobalRule::RequestResult do
 
       subject(:global_rule) do
         klass.new(
-          global_rule_set: global_rule_set,
+          rule_set: global_rule_set,
           param_id: request_description_for_global_rule.id,
           param_comparison_operator: ">",
           param_comparison_value: 100
@@ -37,7 +37,7 @@ describe Renalware::Pathology::Requests::GlobalRule::RequestResult do
 
       subject(:global_rule) do
         klass.new(
-          global_rule_set: global_rule_set,
+          rule_set: global_rule_set,
           param_id: request_description_for_global_rule,
           param_comparison_operator: ">",
           param_comparison_value: 100
@@ -50,7 +50,7 @@ describe Renalware::Pathology::Requests::GlobalRule::RequestResult do
     context "with no request_description" do
       subject(:global_rule) do
         klass.new(
-          global_rule_set: global_rule_set,
+          rule_set: global_rule_set,
           param_id: nil,
           param_comparison_operator: ">",
           param_comparison_value: 100

@@ -1,0 +1,10 @@
+= render partial: "renalware/pathology/requests/requests/request_form/manual_header.html.slim",
+    locals: { request_form: request_form }
+
+.row
+  p
+    |
+    b #{lab_name}
+  - patient_rules.each do |patient_rule|
+    p = patient_rule
+

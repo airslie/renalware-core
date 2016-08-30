@@ -41,24 +41,27 @@ module Renalware
           def observation_required_for_patient?
             return true if observation_result.nil?
 
-            observation_result.send(
-              @rule.param_comparison_operator.to_sym,
-              @rule.param_comparison_value.to_i
-            )
+            if [">", "<", ">=", "<="].include?(@rule.param_comparison_operator)
+              observation_result.to_i.send(
+                @rule.param_comparison_operator.to_sym,
+                @rule.param_comparison_value.to_i
+              )
+            else
+              observation_result.send(
+                @rule.param_comparison_operator.to_sym,
+                @rule.param_comparison_value
+              )
+            end
           end
 
           private
 
           def observation_result
-            @observation_result ||= begin
-
-              observation = ObservationForPatientObservationDescriptionQuery.new(
+            @observation_result ||=
+              ObservationForPatientObservationDescriptionQuery.new(
                   @patient,
                   observation_description
-                ).call
-
-              observation.result.to_i if observation.present?
-            end
+                ).call.result
           end
 
           def observation_description

@@ -1,0 +1,9 @@
+= render partial: "renalware/pathology/requests/requests/request_form/manual_header.html.slim",
+    locals: { request_form: request_form }
+
+.row
+  p
+    |
+    b #{lab_name} (#{bottle_type})
+  - request_descriptions.each do |request_description|
+    p = request_description.name.downcase.titleize

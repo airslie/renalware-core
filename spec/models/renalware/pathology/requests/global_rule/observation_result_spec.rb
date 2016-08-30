@@ -11,7 +11,7 @@ describe Renalware::Pathology::Requests::GlobalRule::ObservationResult do
 
       subject(:global_rule) do
         klass.new(
-          global_rule_set: global_rule_set,
+          rule_set: global_rule_set,
           param_id: observation_description.id,
           param_comparison_operator: "<",
           param_comparison_value: 100
@@ -24,7 +24,7 @@ describe Renalware::Pathology::Requests::GlobalRule::ObservationResult do
     context "with an invalid observation_description" do
       subject(:global_rule) do
         klass.new(
-          global_rule_set: global_rule_set,
+          rule_set: global_rule_set,
           param_id: nil,
           param_comparison_operator: "<",
           param_comparison_value: 100

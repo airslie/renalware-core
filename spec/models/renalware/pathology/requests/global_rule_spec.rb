@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Renalware::Pathology::Requests::GlobalRule do
-  it { is_expected.to validate_presence_of(:global_rule_set) }
+  it { is_expected.to validate_presence_of(:rule_set) }
 
   let(:clinic) { build(:clinic) }
   let(:observation_description) { build(:pathology_observation_description) }
@@ -26,7 +26,7 @@ describe Renalware::Pathology::Requests::GlobalRule do
     build(
       :pathology_requests_global_rule,
       type: nil,
-      global_rule_set: global_rule_set
+      rule_set: global_rule_set
     )
   end
 
