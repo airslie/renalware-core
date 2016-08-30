@@ -5,6 +5,8 @@ module Renalware
     module Requests
       class GlobalRule
         class PrescriptionDrugCategory < GlobalRule
+          validate :drug_category_present
+
           def observation_required_for_patient?(patient, _date)
             (patient.drugs.map(&:id) & drug_ids).any?
           end
@@ -20,7 +22,12 @@ module Renalware
           end
 
           def drug_category
-            DrugCategory.find(param_id)
+            DrugCategory.find_by(id: param_id)
+          end
+
+          def drug_category_present
+            return if drug_category.present?
+            errors.add(:param_id, "param_id must be the id of a DrugCategory")
           end
         end
       end
