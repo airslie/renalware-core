@@ -21,12 +21,21 @@ html lang="en"
           url: pathology_requests_new_request_path,
           as: :request do |f|
           = f.input :patient_ids, as: :hidden_array
-          = f.input :clinic_id, collection: all_clinics, input_html: { class: "small-input" }
+          = f.input :clinic_id,
+              collection: all_clinics,
+              input_html: { class: "small-input" },
+              include_blank: false
           = f.input :consultant_id,
             collection: all_consultants,
-            label_method: :full_name, input_html: { class: "small-input" }
+            label_method: :full_name,
+            input_html: { class: "small-input" },
+            include_blank: false
           = f.input :telephone, input_html: { class: "small-input" }
-          = f.input :template, collection: all_templates, input_html: { class: "small-input" }
+          = f.input :template,
+              collection: all_templates,
+              input_html: { class: "small-input" },
+              label_method: ->(value) { I18n.t(value, scope: "renalware.pathology.request.template") },
+              include_blank: false
           = f.button :submit, "Update Forms"
 
         = simple_form_for request_html_form_params,
