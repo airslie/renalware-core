@@ -5,6 +5,8 @@ module Renalware
     module Requests
       class GlobalRule
         class TransplantDateWithinWeeks < GlobalRule
+          validates :param_comparison_value, presence: true
+
           def observation_required_for_patient?(patient, date)
             most_recent_operation =
               Transplants::RecipientOperation.for_patient(patient).most_recent

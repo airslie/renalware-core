@@ -5,6 +5,8 @@ module Renalware
     module Requests
       class GlobalRule
         class PrescriptionDrug < GlobalRule
+          validate :drug_present
+
           def observation_required_for_patient?(patient, _date)
             patient.drugs.include?(drug)
           end
@@ -16,7 +18,12 @@ module Renalware
           private
 
           def drug
-            @drug ||= Drugs::Drug.find(param_id)
+            @drug ||= Drugs::Drug.find_by(id: param_id)
+          end
+
+          def drug_present
+            return if drug.present?
+            errors.add(:param_id, "param_id must be the id of a Drug")
           end
         end
       end

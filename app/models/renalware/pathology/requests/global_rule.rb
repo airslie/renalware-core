@@ -9,8 +9,6 @@ module Renalware
         belongs_to :rule_set, polymorphic: true
 
         validates :rule_set, presence: true
-        validates :param_comparison_operator, inclusion:
-          { in: PARAM_COMPARISON_OPERATORS, allow_nil: true }
 
         def observation_required_for_patient?(_patient, _date)
           raise NotImplementedError
