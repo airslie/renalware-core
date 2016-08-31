@@ -85,6 +85,7 @@ module World
             template: Renalware::Pathology::Requests::Request::TEMPLATES.first,
             by: Renalware::SystemUser.find,
             request_descriptions: request_descriptions,
+            high_risk: false,
             created_at: params[:requested_at],
             updated_at: params[:requested_at]
           )
