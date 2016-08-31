@@ -5,6 +5,12 @@ module Renalware
     module Requests
       class GlobalRule
         class RequestResult < GlobalRule
+          validates :param_comparison_operator, inclusion:
+            { in: PARAM_COMPARISON_OPERATORS, allow_nil: false }
+          validates :param_comparison_value, presence: true
+          validate :request_description_present
+          validate :required_observation_description_for_request_description_present
+
           def observation_required_for_patient?(patient, _date)
             observation =
               ObservationForPatientObservationDescriptionQuery.new(
@@ -27,7 +33,18 @@ module Renalware
           end
 
           def request_description
-            RequestDescription.find(param_id)
+            RequestDescription.find_by(id: param_id)
+          end
+
+          def request_description_present
+            return if request_description.present?
+            errors.add(:param_id, "param_id must be the id of an RequestDescription")
+          end
+
+          def required_observation_description_for_request_description_present
+            return if request_description.present? &&
+              request_description.required_observation_description.present?
+            errors.add(:request_description, "required observation description can't be blank")
           end
         end
       end

@@ -5,6 +5,8 @@ module Renalware
     module Requests
       class GlobalRule
         class TransplantRegistrationStatus < GlobalRule
+          validates :param_comparison_value, presence: true
+
           def observation_required_for_patient?(patient, _date)
             registration = Transplants::Registration.for_patient(patient).first
             return false unless registration.present?

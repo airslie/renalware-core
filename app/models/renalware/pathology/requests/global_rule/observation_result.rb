@@ -5,6 +5,11 @@ module Renalware
     module Requests
       class GlobalRule
         class ObservationResult < GlobalRule
+          validates :param_comparison_operator, inclusion:
+            { in: PARAM_COMPARISON_OPERATORS, allow_nil: false }
+          validates :param_comparison_value, presence: true
+          validate :observation_description_present
+
           def observation_required_for_patient?(patient, _date)
             PatientGlobalRuleDecision.new(patient, self).observation_required_for_patient?
           end
@@ -16,7 +21,14 @@ module Renalware
           end
 
           def observation_description
-            @observation_description ||= ObservationDescription.find(param_id)
+            @observation_description ||= ObservationDescription.find_by(id: param_id)
+          end
+
+          private
+
+          def observation_description_present
+            return if observation_description.present?
+            errors.add(:param_id, "param_id must be the id of an ObservationDescription")
           end
         end
 
