@@ -13,8 +13,9 @@ Given(/^Patty has a recorded prescription|Patty has current prescriptions$/) do
 end
 
 Given(/^Patty has the following prescriptions:$/) do |table|
-  table.hashes.each do |row|
+  table.hashes.each_with_index do |row, index|
     dose_amount, dose_unit = row[:dose].split(" ")
+    prescribed_on_default = Time.now.beginning_of_day - 1.month + index.days
 
     seed_prescription_for(
       patient: @patty,
@@ -23,7 +24,7 @@ Given(/^Patty has the following prescriptions:$/) do |table|
       dose_unit: dose_unit,
       route_code: row[:route_code],
       frequency: row[:frequency],
-      prescribed_on: Time.now - 1.month,
+      prescribed_on: row.fetch("prescribed_on", prescribed_on_default),
       provider: row[:provider],
       terminated_on: row[:terminated_on]
     )

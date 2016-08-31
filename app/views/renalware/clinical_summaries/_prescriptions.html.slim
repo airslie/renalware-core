@@ -9,7 +9,7 @@
   - else
     ul.no-bullet
       - prescriptions.each do |prescription|
-        li class="drug-#{drug_types_colour_tag(prescription.drug.drug_types)}"
+        li class="drug-#{drug_types_colour_tag(prescription.drug_types)}"
           = "#{prescription.drug.name}, "
           = "#{prescription.dose}, "
           = "#{prescription.medication_route.code} #{prescription.frequency}, "

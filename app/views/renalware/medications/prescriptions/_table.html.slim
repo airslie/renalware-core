@@ -18,12 +18,12 @@
           th Terminated By
     tbody
       - prescriptions.each do |prescription|
-        tr
+        tr class="drug-#{drug_types_colour_tag(prescription.drug_types)}"
           - if current_scope
             td= render partial: "renalware/medications/prescriptions/options",
               locals: { patient: patient, prescription: prescription }
           td= prescription.drug.name
-          td= prescription.drug_types
+          td= prescription.drug_type_names
           td= prescription.dose
           td= prescription.frequency
           td= prescription.route_code

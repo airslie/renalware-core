@@ -3,6 +3,11 @@ dependencies:
     - bundle exec bundle-audit update && bundle exec bundle-audit check
 
 test:
+  override:
+    - bundle exec rspec spec --format progress
+    - mkdir -p $CIRCLE_TEST_REPORTS/cucumber
+    - bundle exec cucumber --format progress --format json --out $CIRCLE_TEST_REPORTS/cucumber/cucumber.cucumber
+
   post:
     - bundle exec rake cucumber:web:
         environment:
