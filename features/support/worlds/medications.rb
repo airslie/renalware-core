@@ -293,7 +293,7 @@ module World
           expect(actual).to include(expected[:drug_name])
           expect(actual).to include(expected[:dose])
           expect(actual).to include(expected[:frequency])
-          expect(actual).to include(expected_route.name)
+          expect(actual).to include(expected_route.code)
           expect(actual).to include(expected[:provider])
         end
       end
