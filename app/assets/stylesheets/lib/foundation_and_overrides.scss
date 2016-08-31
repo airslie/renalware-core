@@ -421,10 +421,10 @@ $h2-font-reduction: rem-calc(0) !default;
 // $include-html-button-classes: $include-html-classes;
 
 // We use these to build padding for buttons.
-// $button-tny: rem-calc(10);
-// $button-sml: rem-calc(14);
-// $button-med: rem-calc(16);
-// $button-lrg: rem-calc(18);
+$button-tny: rem-calc(8);
+$button-sml: rem-calc(10);
+$button-med: rem-calc(12);
+$button-lrg: rem-calc(14);
 
 // We use this to control the display property.
 // $button-display: inline-block;
@@ -612,7 +612,7 @@ $h2-font-reduction: rem-calc(0) !default;
 // $include-html-form-classes: $include-html-classes;
 
 // We use this to set the base for lots of form spacing and positioning styles
-// $form-spacing: rem-calc(16);
+$form-spacing: rem-calc(12);
 
 // We use these to style the labels in different ways
 // $form-label-pointer: pointer;
@@ -1281,18 +1281,18 @@ $sub-nav-list-margin: rem-calc(-4 0 0);
 $table-head-font-size: rem-calc(13);
 // $table-head-font-color: $jet;
 // $table-head-font-weight: $font-weight-bold;
-// $table-head-padding: rem-calc(8 10 10);
+$table-head-padding: rem-calc(6 4);
 
 // These control the row padding and font styles
-// $table-row-padding: rem-calc(9 10);
+$table-row-padding: rem-calc(6 4);
 $table-row-font-size: rem-calc(13);
 // $table-row-font-color: $jet;
-// $table-line-height: rem-calc(18);
+$table-line-height: rem-calc(14);
 
 // These are for controlling the layout, display and margin of tables
 // $table-layout: auto;
 // $table-display: table-cell;
-// $table-margin-bottom: rem-calc(20);
+$table-margin-bottom: rem-calc(20);
 
 // 31. Tabs
 // - - - - - - - - - - - - - - - - - - - - - - - - -

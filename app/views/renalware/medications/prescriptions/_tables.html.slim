@@ -1,4 +1,4 @@
-b Current
+h3 Current
 = render "renalware/medications/prescriptions/table",
       id: "current-prescriptions",
       patient: patient,
@@ -6,11 +6,16 @@ b Current
       prescriptions: current_prescriptions,
       search: current_search,
       current_scope: true
-.right
-  = link_to "Add Prescription", new_patient_prescription_path(patient, treatable), remote: true, class: %i(button tiny)
-hr
+.row
+  .large-12.columns
+    .right
+      = link_to "Add Prescription",
+                new_patient_prescription_path(patient, treatable),
+                remote: true,
+                class: %i(button tiny add_prescription)
+
 - if defined? historical_prescriptions
-  b Historical
+  h3 Historical
   = render "renalware/medications/prescriptions/table",
       id: "historical-prescriptions",
       patient: patient,
@@ -18,5 +23,3 @@ hr
       prescriptions: historical_prescriptions,
       search: historical_prescriptions_search,
       current_scope: false
-
-
