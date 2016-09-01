@@ -24,6 +24,9 @@ li.has-dropdown
         = link_to "HD Dialysers", hd_dialysers_path
       li
         = link_to "Request Form Print History", pathology_requests_requests_path
+      li
+        = link_to "Pathology Requesting Configuration", pathology_requests_rules_path
+
     - unless Rails.env.production?
       li
         = link_to "Email Templates", system_email_templates_path
