@@ -32,7 +32,7 @@ module Renalware
           render :new,
             layout: false,
             locals: local_vars.merge(
-              all_clinics: Renalware::Clinics::Clinic.ordered,
+              all_clinics: Renalware::Pathology::Clinic.for_algorithm,
               all_consultants: Renalware::Pathology::Consultant.ordered,
               all_templates: Renalware::Pathology::Requests::Request::TEMPLATES
             )

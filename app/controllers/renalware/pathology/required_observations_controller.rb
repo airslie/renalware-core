@@ -32,7 +32,7 @@ module Renalware
       end
 
       def all_clinics
-        Renalware::Clinics::Clinic.ordered
+        Renalware::Pathology::Clinic.for_algorithm
       end
     end
   end
