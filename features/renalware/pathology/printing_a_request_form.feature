@@ -33,3 +33,18 @@ Feature: Printing a request form
       | request_descriptions | BFF, MAL      |
       | patient_rules        | Test for HepB |
       | created_by           | Clyde         |
+      | high_risk            | no            |
+
+  @web
+  Scenario: A clinician prints a request form for a high risk patient
+    Given Patty is a high risk patient
+    When Clyde prints Patty's request form
+    Then Patty has the request recorded and printed:
+      | clinic               | Transplant    |
+      | consultant           | Dr Hibbert    |
+      | telephone            | 0161932263    |
+      | template             | manual        |
+      | request_descriptions | BFF, MAL      |
+      | patient_rules        | Test for HepB |
+      | created_by           | Clyde         |
+      | high_risk            | yes           |

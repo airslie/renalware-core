@@ -24,6 +24,7 @@ module Renalware
             template: @params[:template],
             request_descriptions: request_descriptions,
             patient_rules: patient_rules,
+            high_risk: @patient.high_risk?,
             by: @params[:by]
           }
         end
