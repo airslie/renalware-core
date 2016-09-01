@@ -115,7 +115,6 @@ module World
 
       def expect_current_prescriptions_to_match(actual_prescriptions, expected_prescriptions)
         expect(actual_prescriptions.size).to eq(expected_prescriptions.size)
-
         actual_prescriptions.zip(expected_prescriptions).each do |actual, expected|
           prescription = Renalware::Medications::PrescriptionPresenter.new(actual)
           expect(actual.drug.name).to eq(expected["drug_name"])
@@ -294,7 +293,7 @@ module World
           expect(actual).to include(expected[:drug_name])
           expect(actual).to include(expected[:dose])
           expect(actual).to include(expected[:frequency])
-          expect(actual).to include(expected_route.name)
+          expect(actual).to include(expected_route.code)
           expect(actual).to include(expected[:provider])
         end
       end
