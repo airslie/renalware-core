@@ -6,8 +6,9 @@ module Renalware
       has_many :global_rule_sets, class_name: "Requests::GlobalRuleSet"
 
       scope :for_algorithm, -> do
-        includes(:global_rule_sets).where
-          .not(pathology_requests_global_rule_sets: { id: nil})
+        includes(:global_rule_sets)
+          .where
+          .not(pathology_requests_global_rule_sets: { id: nil })
           .ordered
       end
     end
