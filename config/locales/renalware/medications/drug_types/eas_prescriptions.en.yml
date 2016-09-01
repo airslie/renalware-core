@@ -1,0 +1,20 @@
+en:
+  renalware:
+    medications:
+      drug_types:
+        prescriptions:
+          index:
+            heading: ESA Patients
+            search_prompt: Search by patient name or hospital number
+            patient_local_patient_id: "Hosp. No"
+            patient_name: Patient
+            patient_sex: Sex
+            patient_age: Age
+            modal_at_rx: Modal at Rx
+            dose: Dose
+            route_code: Route
+            frequency: Frequency
+            prescribed_on: Started
+            terminated_on: Terminated
+            drug_name: Drug
+            weekly_units: "Units/Week"

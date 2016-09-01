@@ -5,6 +5,11 @@ module Renalware
     class PrescriptionPresenter < DumbDelegator
 
       delegate :drug_types, to: :drug
+      delegate :local_patient_id, :age, :sex, to: :patient, prefix: true
+
+      def patient_name
+        patient.to_s
+      end
 
       def route_code
         medication_route.other? ? route_description : medication_route.code
