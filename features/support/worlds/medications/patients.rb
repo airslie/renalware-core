@@ -5,7 +5,7 @@ module World
       def seed_prescriptions(table)
         table.rows.each do |patient_name, terminated, drug_type_name|
           patient = seed_patient(patient_name)
-          prescription = seed_prescription_by_drug_type(patient, terminated, drug_type_name)
+          seed_prescription_by_drug_type(patient, terminated, drug_type_name)
         end
       end
 

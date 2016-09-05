@@ -15,11 +15,21 @@ module World
 
       # @section seeds
       #
-      def seed_prescription_for(
-        patient:, treatable: nil, drug_name:, dose_amount:,
-        dose_unit:, route_code:, frequency:, prescribed_on:, provider:,
-        terminated_on:, user: nil, **_
-      )
+      def seed_prescription_for(options)
+        # TODO: Options parsing here is a bit ugly but is a step towards refactoring away from
+        # multiple named arguments.
+        patient = options.fetch(:patient)
+        treatable = options.fetch(:treatable, nil)
+        drug_name = options.fetch(:drug_name)
+        dose_amount = options.fetch(:dose_amount)
+        dose_unit = options.fetch(:dose_unit)
+        route_code = options.fetch(:route_code)
+        frequency = options.fetch(:frequency)
+        prescribed_on = options.fetch(:prescribed_on)
+        provider = options.fetch(:provider)
+        terminated_on = options.fetch(:terminated_on)
+        user = options.fetch(:user, nil)
+
         drug = Renalware::Drugs::Drug.find_or_create_by!(name: drug_name)
         route = Renalware::Medications::MedicationRoute.find_by!(code: route_code)
 
@@ -71,8 +81,11 @@ module World
         record_prescription_for(args)
       end
 
-      def revise_prescription_for(prescription:, patient:, user:,
-        drug_selector: default_medication_drug_selector, prescription_params: {})
+      def revise_prescription_for(prescription:,
+                                  patient:,
+                                  user:,
+                                  drug_selector: default_medication_drug_selector,
+                                  prescription_params: {})
         update_params = { by: Renalware::SystemUser.find }
         prescription_params.each do |key, value|
           case key.to_sym
@@ -199,9 +212,15 @@ module World
 
       # @ section commands
       #
-      def record_prescription_for(patient:, treatable: nil, drug_name:, dose_amount:,
-        dose_unit:, route_code:, frequency:, prescribed_on:, provider:, terminated_on: "",
-        drug_selector: default_medication_drug_selector)
+      def record_prescription_for(options)
+        options.fetch(:drug_name)
+        options.fetch(:dose_amount)
+        options.fetch(:dose_unit)
+        options.fetch(:route_code)
+        options.fetch(:frequency)
+        options.fetch(:prescribed_on)
+        options.fetch(:terminated_on, "")
+        options.fetch(:drug_selector, default_medication_drug_selector)
 
         click_link "Add Prescription"
         wait_for_ajax
@@ -226,8 +245,11 @@ module World
         record_prescription_for(patient: patient, **args)
       end
 
-      def revise_prescription_for(prescription:, patient:, user:,
-        drug_selector: default_medication_drug_selector, prescription_params: {})
+      def revise_prescription_for(prescription:,
+                                  patient:,
+                                  user:,
+                                  drug_selector: default_medication_drug_selector,
+                                  prescription_params: {})
         login_as user
 
         visit patient_prescriptions_path(patient)
@@ -288,7 +310,8 @@ module World
       #
       def expect_current_prescriptions_to_match(actual_prescriptions, expected_prescriptions)
         actual_prescriptions.zip(expected_prescriptions).each do |actual, expected|
-          expected_route = Renalware::Medications::MedicationRoute.find_by!(code: expected[:route_code])
+          expected_route = Renalware::Medications::MedicationRoute
+            .find_by!(code: expected[:route_code])
 
           expect(actual).to include(expected[:drug_name])
           expect(actual).to include(expected[:dose])
