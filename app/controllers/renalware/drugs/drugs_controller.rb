@@ -9,13 +9,11 @@ module Renalware
       before_filter :prepare_paging, only: :index
 
       def selected_drugs
-        @selected_drugs = Drug.for(params[:medication_switch])
-        authorize @selected_drugs
-
-        respond_to do |format|
-          format.html
-          format.json { render :json => @selected_drugs.as_json(:only => [:id, :name]) }
-        end
+        selected_drugs = Drug.for(params[:medication_switch])
+                             .ordered
+                             .pluck(:id, :name)
+        authorize Renalware::Drugs::Drug, :selected_drugs?
+        render json: selected_drugs
       end
 
       def new
