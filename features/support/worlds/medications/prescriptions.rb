@@ -310,8 +310,8 @@ module World
       #
       def expect_current_prescriptions_to_match(actual_prescriptions, expected_prescriptions)
         actual_prescriptions.zip(expected_prescriptions).each do |actual, expected|
-          expected_route = Renalware::Medications::MedicationRoute
-            .find_by!(code: expected[:route_code])
+          expected_route =
+            Renalware::Medications::MedicationRoute.find_by!(code: expected[:route_code])
 
           expect(actual).to include(expected[:drug_name])
           expect(actual).to include(expected[:dose])
