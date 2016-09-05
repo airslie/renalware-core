@@ -213,14 +213,14 @@ module World
       # @ section commands
       #
       def record_prescription_for(options)
-        options.fetch(:drug_name)
-        options.fetch(:dose_amount)
-        options.fetch(:dose_unit)
-        options.fetch(:route_code)
-        options.fetch(:frequency)
-        options.fetch(:prescribed_on)
-        options.fetch(:terminated_on, "")
-        options.fetch(:drug_selector, default_medication_drug_selector)
+        drug_name = options.fetch(:drug_name)
+        dose_amount = options.fetch(:dose_amount)
+        dose_unit = options.fetch(:dose_unit)
+        route_code = options.fetch(:route_code)
+        frequency = options.fetch(:frequency)
+        prescribed_on = options.fetch(:prescribed_on)
+        terminated_on = options.fetch(:terminated_on, "")
+        drug_selector = options.fetch(:drug_selector, default_medication_drug_selector)
 
         click_link "Add Prescription"
         wait_for_ajax
