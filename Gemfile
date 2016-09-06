@@ -59,7 +59,6 @@ group :development, :test do
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'factory_girl_rails', '~> 4.0'
-  gem 'faker'
   gem 'foreman'
   gem 'launchy'
   gem 'poltergeist'
@@ -83,6 +82,9 @@ end
 group :staging do
   gem 'rails_12factor'
   gem 'unicorn'
-  gem 'faker'
   gem "wkhtmltopdf-heroku"
+end
+
+group :development, :test , :staging do
+  gem 'faker'
 end
