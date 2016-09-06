@@ -117,7 +117,7 @@ module Renalware
       end
 
       def current_prescriptions
-        current_prescriptions_query.call.includes(:drug)
+        call_query(current_prescriptions_query)
       end
 
       def historical_prescriptions_query
@@ -128,8 +128,17 @@ module Renalware
           )
       end
 
+      def call_query(query)
+        query
+          .call
+          .with_created_by
+          .with_medication_route
+          .with_drugs
+          .with_termination
+      end
+
       def historical_prescriptions
-        historical_prescriptions_query.call.includes(:drug)
+        call_query(historical_prescriptions_query)
       end
 
       def find_drug_types
