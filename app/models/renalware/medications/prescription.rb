@@ -43,10 +43,10 @@ module Renalware
                 in: DoseUnit.codes,
                 i18n_scope: "enumerize.renalware.medications.prescription.dose_unit"
 
-      scope :ordered,                   -> { order(default_search_order) }
-      scope :with_medication_route,     -> { includes(:medication_route) }
-      scope :with_drugs,                -> { includes(drug: :drug_types) }
-      scope :with_termination,          -> { includes(termination: [:created_by]) }
+      scope :ordered, -> { order(default_search_order) }
+      scope :with_medication_route, -> { includes(:medication_route) }
+      scope :with_drugs, -> { includes(drug: :drug_types) }
+      scope :with_termination, -> { includes(termination: [:created_by]) }
       scope :current, -> (date = Date.current) {
         joins(<<-SQL)
           LEFT OUTER JOIN medication_prescription_terminations pt
