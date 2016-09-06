@@ -35,9 +35,11 @@ module Renalware
       end
 
       def update
-        UpdateDoctor.build
-          .subscribe(self)
-          .call(@doctor.id, doctor_params)
+        if @doctor.update(doctor_params)
+          update_doctor_successful(@doctor)
+        else
+          update_doctor_failed(@doctor)
+        end
       end
 
       def update_doctor_successful(_doctor)
@@ -73,7 +75,7 @@ module Renalware
       end
 
       def doctor_params
-        params.require(:doctor).permit(
+        params.require(:doctors_doctor).permit(
           :given_name, :family_name, :email, :practitioner_type, :code, :telephone, practice_ids: [],
           address_attributes: [
             :id, :name, :organisation_name, :street_1, :street_2, :city, :county, :postcode, :country
