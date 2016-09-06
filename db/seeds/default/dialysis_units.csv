@@ -1,0 +1,7 @@
+"hospital_centre_code","unit_code","unit_name","renal_registry_code","unit_type"
+"QC001","MOUNT","Mount Royal HD Unit","QC001","hospital"
+"QC001","PEEL","Peel HD Unit","QCAB2","satellite"
+"QC001","DRUM","Drummond HD Unit","QCXY3","satellite"
+"QC001","FAIR","Fairmount Hosp HD Unit","QC002","hospital"
+"QC001","MCGILL","McGill Hosp HD Unit","QC003","hospital"
+"QC001","HOME","Home HD","QC001","home"
