@@ -93,6 +93,23 @@ CodeClimate locally read the setup instructions:
 
     https://github.com/codeclimate/codeclimate
 
+## Debugging
+
+The [awesome_print](https://github.com/awesome-print/awesome_print) gem is available
+for improved inspection formatting, for example:
+
+    Rails.logger.ap @variable
+
+To make awesome_print the default formatter in irb, add the following to `~/.irbrc`
+
+    require "awesome_print"
+    AwesomePrint.irb!
+
+To make awesome_print the default formatter in pry, add the following to `~/.pryrc`
+
+    require "awesome_print"
+    AwesomePrint.pry!
+
 ## Deployment to demo server
 
 Heroku hosts our demo server.
