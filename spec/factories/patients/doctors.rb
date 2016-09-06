@@ -3,7 +3,7 @@ FactoryGirl.define do
     "GP123#{n}"
   end
 
-  factory :doctor, class: "Renalware::Doctors::Doctor" do
+  factory :doctor, class: "Renalware::Patients::Doctor" do
     given_name "Donald"
     family_name "Good"
     email "donald.good@nhs.net"

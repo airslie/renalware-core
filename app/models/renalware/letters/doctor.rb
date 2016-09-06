@@ -2,7 +2,7 @@ require_dependency "renalware/letters"
 
 module Renalware
   module Letters
-    class Doctor < ActiveType::Record[Renalware::Doctors::Doctor]
+    class Doctor < ActiveType::Record[Renalware::Patients::Doctor]
       has_many :patients
       has_many :letters, through: :patients
 

@@ -122,7 +122,7 @@ module World
         if recipient.is_a? Renalware::Patient
           expect(main_recipient.person_role).to eq("patient")
           expect(main_recipient.address.city).to eq(recipient.current_address.city)
-        elsif recipient.is_a? Renalware::Doctors::Doctor
+        elsif recipient.is_a? Renalware::Patients::Doctor
           expect(main_recipient.person_role).to eq("doctor")
           expect(main_recipient.address.city).to eq(recipient.current_address.city)
         else
@@ -144,7 +144,7 @@ module World
         ccs_map = ccs.map do |cc|
           if cc.is_a? Renalware::Patient
             ["patient", cc.current_address.city]
-          elsif cc.is_a? Renalware::Doctors::Doctor
+          elsif cc.is_a? Renalware::Patients::Doctor
             ["doctor", cc.current_address.city]
           else
             ["other", cc[:city]]
@@ -229,7 +229,7 @@ module World
 
       def build_recipient_attributes(recipient)
         case recipient
-        when Renalware::Doctors::Doctor
+        when Renalware::Patients::Doctor
           { person_role: "doctor" }
         when Renalware::Patient
           { person_role: "patient" }
@@ -281,7 +281,7 @@ module World
         case recipient
         when Renalware::Patient
           choose("letter_main_recipient_attributes_person_role_patient")
-        when Renalware::Doctors::Doctor
+        when Renalware::Patients::Doctor
           choose("letter_main_recipient_attributes_person_role_doctor")
         else
           choose("Postal Address Below")

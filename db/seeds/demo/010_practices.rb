@@ -5,7 +5,7 @@ module Renalware
     next if row['street_1'].blank?
 
     logcount += 1
-    practice = Doctors::Practice.find_or_initialize_by(code: row['code'])
+    practice = Patients::Practice.find_or_initialize_by(code: row['code'])
 
     practice.name = row['name']
     practice.email = row['email']

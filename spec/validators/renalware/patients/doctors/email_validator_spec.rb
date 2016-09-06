@@ -1,6 +1,6 @@
 require "rails_helper"
 
-module Renalware::Doctors
+module Renalware::Patients::Doctors
   describe EmailValidator do
     describe "validate" do
       it "validates an email is present on the Doctor" do

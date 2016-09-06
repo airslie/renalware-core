@@ -1,7 +1,7 @@
-require_dependency "renalware/doctors"
+require_dependency "renalware/patients"
 
 module Renalware
-  module Doctors
+  module Patients
     class Doctor < ActiveRecord::Base
       include Personable
       include ActiveModel::Validations

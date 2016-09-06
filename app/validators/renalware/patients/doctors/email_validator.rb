@@ -1,7 +1,7 @@
-require_dependency "renalware/doctors"
+require_dependency "renalware/patients"
 
 module Renalware
-  module Doctors
+  module Patients::Doctors
     class EmailValidator < ActiveModel::Validator
       def validate(record)
         # Check for an email address

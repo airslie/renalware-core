@@ -1,7 +1,7 @@
-require_dependency "renalware/doctors"
+require_dependency "renalware/patients"
 
 module Renalware
-  module Doctors
+  module Patients
     class Practice < ActiveRecord::Base
       has_and_belongs_to_many :doctors
       has_one :address, as: :addressable

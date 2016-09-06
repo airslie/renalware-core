@@ -1,7 +1,7 @@
-require_dependency "renalware/doctors"
+require_dependency "renalware/patients"
 
 module Renalware
-  module Doctors
+  module Patients::Doctors
     class AddressValidator < ActiveModel::Validator
       def validate(record)
         return if record.address.present? && record.address.valid?

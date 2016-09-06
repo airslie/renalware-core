@@ -23,10 +23,6 @@ Rails.application.routes.draw do
     resources :appointments, controller: "clinics/appointments", only: [:index]
     resources :clinic_visits, controller: "clinics/clinic_visits"
 
-    namespace :doctors do
-      resources :doctors
-    end
-
     resources :deaths, only: :index, as: :patient_deaths
 
     namespace :drugs do
@@ -75,6 +71,10 @@ Rails.application.routes.draw do
         resources :requests, only: [:create, :index, :show]
         resources :rules, only: :index
       end
+    end
+
+    namespace :patients do
+      resources :doctors
     end
 
     namespace :pd do

@@ -5,7 +5,7 @@ RSpec.describe "Configuring Doctor", type: :request do
 
   describe "GET new" do
     it "responds with a form" do
-      get new_doctors_doctor_path
+      get new_patients_doctor_path
 
       expect(response).to have_http_status(:success)
     end
@@ -18,9 +18,9 @@ RSpec.describe "Configuring Doctor", type: :request do
         doctor_attributes = attributes_for(:doctor)
         doctor_address_attributes = doctor_attributes.merge(address_attributes: address_attributes)
 
-        post doctors_doctors_path, doctor: doctor_address_attributes
+        post patients_doctors_path, patients_doctor: doctor_address_attributes
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::Doctors::Doctor.exists?(doctor_attributes)).to be_truthy
+        expect(Renalware::Patients::Doctor.exists?(doctor_attributes)).to be_truthy
         expect(Renalware::Address.exists?(address_attributes)).to be_truthy
 
         follow_redirect!
@@ -33,7 +33,7 @@ RSpec.describe "Configuring Doctor", type: :request do
       it "responds with form" do
         attributes = { given_name: "" }
 
-        post doctors_doctors_path, doctor: attributes
+        post patients_doctors_path, patients_doctor: attributes
 
         expect(response).to have_http_status(:success)
       end
@@ -42,7 +42,7 @@ RSpec.describe "Configuring Doctor", type: :request do
 
   describe "GET index" do
     it "responds successfully" do
-      get doctors_doctors_path
+      get patients_doctors_path
 
       expect(response).to have_http_status(:success)
     end
@@ -50,7 +50,7 @@ RSpec.describe "Configuring Doctor", type: :request do
 
   describe "GET edit" do
     it "responds with a form" do
-      get edit_doctors_doctor_path(doctor)
+      get edit_patients_doctor_path(doctor)
 
       expect(response).to have_http_status(:success)
     end
@@ -60,10 +60,10 @@ RSpec.describe "Configuring Doctor", type: :request do
     context "given valid attributes" do
       it "updates a record" do
         attributes = { given_name: "My Doctor" }
-        patch doctors_doctor_path(doctor), doctor: attributes
+        patch patients_doctor_path(doctor), patients_doctor: attributes
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::Doctors::Doctor.exists?(attributes)).to be_truthy
+        expect(Renalware::Patients::Doctor.exists?(attributes)).to be_truthy
 
         follow_redirect!
 
@@ -74,7 +74,7 @@ RSpec.describe "Configuring Doctor", type: :request do
     context "given invalid attributes" do
       it "responds with a form" do
         attributes = { given_name: "" }
-        patch doctors_doctor_path(doctor), doctor: attributes
+        patch patients_doctor_path(doctor), patients_doctor: attributes
 
         expect(response).to have_http_status(:success)
       end
@@ -83,15 +83,14 @@ RSpec.describe "Configuring Doctor", type: :request do
 
   describe "DELETE destroy" do
     it "deletes the doctor" do
-      delete doctors_doctor_path(doctor)
+      delete patients_doctor_path(doctor)
 
       expect(response).to have_http_status(:redirect)
-      expect(Renalware::Doctors::Doctor.exists?(id: doctor.id)).to be_falsey
+      expect(Renalware::Patients::Doctor.exists?(id: doctor.id)).to be_falsey
 
       follow_redirect!
 
       expect(response).to have_http_status(:success)
     end
   end
-
 end

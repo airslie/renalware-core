@@ -1,7 +1,7 @@
-require_dependency "renalware/doctors"
+require_dependency "renalware/patients"
 
 module Renalware
-  module Doctors
+  module Patients
     class DoctorsController < BaseController
       include Renalware::Concerns::Pageable
 
@@ -26,7 +26,7 @@ module Renalware
         authorize @doctor
 
         if @doctor.save
-          redirect_to doctors_doctors_path,
+          redirect_to patients_doctors_path,
             notice: t(".success", model_name: "doctor")
         else
           flash[:error] = t(".failed", model_name: "doctor")
@@ -54,7 +54,7 @@ module Renalware
       def destroy
         authorize Doctor.destroy(params[:id])
 
-        redirect_to doctors_doctors_path,
+        redirect_to patients_doctors_path,
           notice: t(".success", model_name: "doctor")
       end
 
@@ -66,7 +66,7 @@ module Renalware
       end
 
       def redirect_to_doctors_list
-        redirect_to doctors_doctors_path, notice: t(".success", model_name: "doctor")
+        redirect_to patients_doctors_path, notice: t(".success", model_name: "doctor")
       end
 
       def render_form(doctor, action)
@@ -75,7 +75,7 @@ module Renalware
       end
 
       def doctor_params
-        params.require(:doctors_doctor).permit(
+        params.require(:patients_doctor).permit(
           :given_name, :family_name, :email, :practitioner_type, :code, :telephone, practice_ids: [],
           address_attributes: [
             :id, :name, :organisation_name, :street_1, :street_2, :city, :county, :postcode, :country
