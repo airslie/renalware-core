@@ -14,5 +14,5 @@ module Renalware
     end
   end
 
-  log "#{logcount} Bookmarks seeded"
+  log "#{logcount} Demo Bookmarks seeded"
 end
