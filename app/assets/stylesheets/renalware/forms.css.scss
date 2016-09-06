@@ -14,11 +14,17 @@ form {
   .small-input {
     max-width: 250px !important;
   }
+
   .tiny-input {
     max-width: 125px !important;
   }
+
   .very-tiny-input {
     max-width: 75px !important;
+  }
+
+  .row.actions {
+    margin-top: 2rem;
   }
 }
 

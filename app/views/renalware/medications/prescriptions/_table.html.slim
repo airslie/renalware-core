@@ -1,38 +1,40 @@
 - if prescriptions.any?
-  table[class="auto-layout" id="#{id}"]
-    thead
-      tr
-        - if current_scope
-          th
-        th= sort_link_if(treatable.sortable?, search, :drug_name, "Drug name")
-        th Drug Type
-        th Dose
-        th Frequency
-        th Route
-        th Provider
-        th Notes
-        th= sort_link_if(treatable.sortable?, search, :prescribed_on, "Prescribed on")
-        th Prescribed By
-        - unless current_scope
-          th Terminated On
-          th Terminated By
-    tbody
-      - prescriptions.each do |prescription|
-        tr class="drug-#{drug_types_colour_tag(prescription.drug_types)}"
-          - if current_scope
-            td= render partial: "renalware/medications/prescriptions/options",
-              locals: { patient: patient, prescription: prescription }
-          td= prescription.drug.name
-          td= prescription.drug_type_names
-          td= prescription.dose
-          td= prescription.frequency
-          td= prescription.route_code
-          td= prescription.provider
-          td= prescription.notes
-          td= I18n.l prescription.prescribed_on
-          td= prescription.created_by.full_name
-          - unless current_scope
-            td= I18n.l prescription.terminated_on
-            td= prescription.terminated_by.try!(:full_name)
+  .row
+    .large-12.columns
+      table[class="auto-layout" id="#{id}"]
+        thead
+          tr
+            - if current_scope
+              th
+            th= sort_link_if(treatable.sortable?, search, :drug_name, "Drug name")
+            th Drug Type
+            th Dose
+            th Frequency
+            th Route
+            th Provider
+            th Notes
+            th= sort_link_if(treatable.sortable?, search, :prescribed_on, "Prescribed on")
+            th Prescribed By
+            - unless current_scope
+              th Terminated On
+              th Terminated By
+        tbody
+          - prescriptions.each do |prescription|
+            tr class="drug-#{drug_types_colour_tag(prescription.drug_types)}"
+              - if current_scope
+                td= render partial: "renalware/medications/prescriptions/options",
+                  locals: { patient: patient, prescription: prescription }
+              td= prescription.drug.name
+              td= prescription.drug_type_names
+              td= prescription.dose
+              td= prescription.frequency
+              td= prescription.route_code
+              td= prescription.provider
+              td= prescription.notes
+              td= I18n.l prescription.prescribed_on
+              td= prescription.created_by.full_name
+              - unless current_scope
+                td= I18n.l prescription.terminated_on
+                td= prescription.terminated_by.try!(:full_name)
 - else
   p There are no prescriptions in this list.

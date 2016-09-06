@@ -26,11 +26,11 @@ ruby:
       = f.simple_fields_for(:termination) do |tf|
         = tf.input :terminated_on, as: :date_picker, required: false
 
-    = f.input :provider, collection: provider_codes, as: :radio_buttons,
+    = f.input :provider, collection: provider_codes, as: :inline_radio_buttons,
         label_method: :to_label, checked: provider_codes.first
 
-  .row
-    .large-offset-3.large-7.columns
-      = f.button :submit, "Save", class: :tiny
+  .row.actions
+    .small-9.columns
+      = f.button :submit, "Save"
       span= " or "
       = link_to "cancel", patient_prescriptions_path(patient, treatable), remote: true

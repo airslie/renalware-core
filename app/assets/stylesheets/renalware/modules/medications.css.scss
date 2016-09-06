@@ -16,6 +16,18 @@ a, li, tbody tr {
   }
 }
 
+.add_prescription {
+  margin-bottom: 0;
+}
+
+#prescriptions {
+  h3 {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0 0 0.3rem 0;
+  }
+}
+
 .med-form.content ul.drug-results {
   height: 15em;
   padding: 1em;
