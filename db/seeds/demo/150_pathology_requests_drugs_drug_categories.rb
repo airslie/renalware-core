@@ -5,6 +5,7 @@ module Renalware
 
   logcount=0
   CSV.foreach(file_path, headers: true) do |row|
+    logcount += 1
     category = Pathology::Requests::DrugCategory.find_by(name: row["drug_category"])
     drug = Pathology::Requests::Drug.find_by(name: row["drug"])
 
