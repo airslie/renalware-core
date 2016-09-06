@@ -10,7 +10,7 @@ en:
             patient_name: Patient
             patient_sex: Sex
             patient_age: Age
-            modal_at_rx: Modality
+            modality: Modality
             dose: Dose
             route_code: Route
             frequency: Frequency
