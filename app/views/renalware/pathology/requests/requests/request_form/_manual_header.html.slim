@@ -1,3 +1,9 @@
+.row
+  .right
+    = image_tag(wicked_pdf_asset_base64("barts_health_nhs_logo.png"))
+
+br
+
 .row data-role="form_summary" data-patient-id="#{request_form.patient.id}"
   table
     tr
@@ -18,6 +24,10 @@
       td
         b Date of request:
       td data-role="date"  = request_form.date
+      td colspan=2
+        - if request_form.high_risk
+          |
+          b HIGH RISK
     tr
       td
         b Requested by:

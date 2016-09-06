@@ -5,6 +5,11 @@ module Renalware
     module Requests
       class GlobalRule
         class ObservationResult < GlobalRule
+          validates :param_comparison_operator, inclusion:
+            { in: PARAM_COMPARISON_OPERATORS, allow_nil: false }
+          validates :param_comparison_value, presence: true
+          validate :observation_description_present
+
           def observation_required_for_patient?(patient, _date)
             PatientGlobalRuleDecision.new(patient, self).observation_required_for_patient?
           end
@@ -16,7 +21,14 @@ module Renalware
           end
 
           def observation_description
-            @observation_description ||= ObservationDescription.find(param_id)
+            @observation_description ||= ObservationDescription.find_by(id: param_id)
+          end
+
+          private
+
+          def observation_description_present
+            return if observation_description.present?
+            errors.add(:param_id, "param_id must be the id of an ObservationDescription")
           end
         end
 
@@ -27,15 +39,15 @@ module Renalware
           end
 
           def observation_required_for_patient?
-            return true if observation_result.nil?
+            return true if observation.nil?
 
             if [">", "<", ">=", "<="].include?(@rule.param_comparison_operator)
-              observation_result.to_i.send(
+              observation.result.to_i.send(
                 @rule.param_comparison_operator.to_sym,
                 @rule.param_comparison_value.to_i
               )
             else
-              observation_result.send(
+              observation.result.send(
                 @rule.param_comparison_operator.to_sym,
                 @rule.param_comparison_value
               )
@@ -44,12 +56,12 @@ module Renalware
 
           private
 
-          def observation_result
-            @observation_result ||=
+          def observation
+            @observation ||=
               ObservationForPatientObservationDescriptionQuery.new(
                   @patient,
                   observation_description
-                ).call.result
+                ).call
           end
 
           def observation_description

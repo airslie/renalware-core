@@ -34,8 +34,9 @@
     - else
       p No tests required.
   .border_box_half.columns
-    p
-      h3 HIGH RISK
+    - if request_form.high_risk
+      p
+        h3 HIGH RISK
 
     b Patient Specific Tests:
     - if request_form.has_patient_requests?

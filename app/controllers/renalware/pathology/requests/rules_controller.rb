@@ -6,7 +6,7 @@ module Renalware
       class RulesController < Pathology::BaseController
         def index
           rule_sets = GlobalRuleSet.all
-          clinics = Renalware::Clinics::Clinic.all
+          clinics = Renalware::Pathology::Clinic.for_algorithm
           authorize rule_sets
 
           rules_table = GlobalRuleSetsTable.new(

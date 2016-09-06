@@ -62,6 +62,7 @@ module World
             telephone: "123",
             by: Renalware::SystemUser.find,
             patient_rules: patient_rules,
+            high_risk: false,
             template: Renalware::Pathology::Requests::Request::TEMPLATES.first,
             created_at: observed_at,
             updated_at: observed_at
@@ -85,6 +86,7 @@ module World
             template: Renalware::Pathology::Requests::Request::TEMPLATES.first,
             by: Renalware::SystemUser.find,
             request_descriptions: request_descriptions,
+            high_risk: false,
             created_at: params[:requested_at],
             updated_at: params[:requested_at]
           )
