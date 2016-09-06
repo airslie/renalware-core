@@ -25,7 +25,7 @@
         th= sort_link(search, "terminated_on", t(".terminated_on"))
         th= sort_link(search, "drug_name", t(".drug_name"))
         th= t(".dose")
-        th= sort_link(search, "route_code", t(".route_code"))
+        th= t(".route_code")
         th= t(".frequency")
         th= t(".weekly_units")
     tbody
@@ -35,7 +35,7 @@
           td= prescription.patient_name
           td= prescription.patient_age
           td= prescription.patient_sex
-          td=
+          td= prescription.patient_current_modality_name
           td= prescription.prescribed_on
           td= prescription.terminated_on
           td= prescription.drug_name
