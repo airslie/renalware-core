@@ -45,7 +45,7 @@ module Renalware
       content_tag(:li, ["Bag type: #{regime_bag.bag_type.description}",
                 "Volume: #{regime_bag.volume}ml",
                 "No. per week: #{regime_bag.per_week}",
-                "Days: #{pd_regime_bag_days(regime_bag)}"].join(', '))
+                "Days: #{pd_regime_bag_days(regime_bag)}"].join(", "))
     end
 
     def pd_regime_bag_days(regime_bag)
@@ -53,7 +53,7 @@ module Renalware
       Date::DAYNAMES.each_with_index do |day, index|
         days << Date::ABBR_DAYNAMES[index] if regime_bag.public_send(day.downcase.to_sym)
       end
-      days.join(', ')
+      days.join(", ")
     end
   end
 end

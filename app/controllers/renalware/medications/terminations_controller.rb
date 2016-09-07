@@ -30,7 +30,9 @@ module Renalware
         else
           render_form(
             prescription, termination,
-            url: patient_medications_prescription_termination_path(@patient, prescription, @treatable)
+            url: patient_medications_prescription_termination_path(@patient,
+                                                                   prescription,
+                                                                   @treatable)
           )
         end
       end

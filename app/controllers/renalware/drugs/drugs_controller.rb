@@ -1,4 +1,4 @@
-require_dependency 'renalware/drugs'
+require_dependency "renalware/drugs"
 
 module Renalware
   module Drugs
@@ -82,7 +82,7 @@ module Renalware
       def prepare_drugs_search
         search_params = params.fetch(:q, {})
         @drugs_search = Drug.search(search_params)
-        @drugs_search.sorts = 'name'
+        @drugs_search.sorts = "name"
       end
     end
   end
