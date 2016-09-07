@@ -42,7 +42,7 @@ $(document).ready(function(){
         var option_template = "<option class='drug-select-link' value=<%=id%>><%=name%></option>"
 
         $drugSelectBox.html('');
-        $drugSelectBox.append(_.template(option_template)({ id: null, name: 'Select a drug' }));
+        $drugSelectBox.append(_.template(option_template)({ id: null, name: 'Please select' }));
         console.log(json);
         for (var i = 0; i < json.length; i++) {
           var drugId = json[i][0];

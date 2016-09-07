@@ -2,5 +2,5 @@
   = f.association :drug, collection: Renalware::Drugs::Drug.for(:peritonitis),
       as: :select,
       label_method: :name,
-      prompt: "Please select drug (exit site drugs only)",
+      prompt: t(".drug.prompt"),
       input_html: { class: "exit-site-drug-select" }
