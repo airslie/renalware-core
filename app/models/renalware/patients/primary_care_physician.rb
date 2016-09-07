@@ -2,7 +2,11 @@ require_dependency "renalware/patients"
 
 module Renalware
   module Patients
-    class Doctor < ActiveRecord::Base
+    # Represents a Primary Care Physician (PCP). The PCP could either be:
+    # - a UK-based General Practitioner (GP)
+    # - a foreign PCP or other referring physician
+    #
+    class PrimaryCarePhysician < ActiveRecord::Base
       include Personable
       include ActiveModel::Validations
 
@@ -12,8 +16,8 @@ module Renalware
 
       accepts_nested_attributes_for :address, reject_if: Address.reject_if_blank
 
-      validates_with Doctors::AddressValidator
-      validates_with Doctors::EmailValidator
+      validates_with PrimaryCarePhysicians::AddressValidator
+      validates_with PrimaryCarePhysicians::EmailValidator
       validates_uniqueness_of :code
       validates_presence_of :practitioner_type
 

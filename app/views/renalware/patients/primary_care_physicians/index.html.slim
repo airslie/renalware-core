@@ -2,7 +2,7 @@
   = render "header"
 
 .row
-  table.doctors
+  table.primary-care-physicians
     thead
       tr
         th
@@ -13,6 +13,6 @@
         th Practices/Address
 
     tbody
-      = render @doctors
+      = render @primary_care_physicians
 
-  = paginate @doctors
+  = paginate @primary_care_physicians

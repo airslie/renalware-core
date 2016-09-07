@@ -1931,52 +1931,6 @@ ALTER SEQUENCE patient_bookmarks_id_seq OWNED BY patient_bookmarks.id;
 
 
 --
--- Name: patient_doctors; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE patient_doctors (
-    id integer NOT NULL,
-    given_name character varying,
-    family_name character varying,
-    email character varying,
-    code character varying,
-    practitioner_type character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    telephone character varying
-);
-
-
---
--- Name: patient_doctors_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE patient_doctors_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: patient_doctors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE patient_doctors_id_seq OWNED BY patient_doctors.id;
-
-
---
--- Name: patient_doctors_practices; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE patient_doctors_practices (
-    doctor_id integer NOT NULL,
-    practice_id integer NOT NULL
-);
-
-
---
 -- Name: patient_ethnicities; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2070,6 +2024,52 @@ ALTER SEQUENCE patient_practices_id_seq OWNED BY patient_practices.id;
 
 
 --
+-- Name: patient_practices_primary_care_physicians; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE patient_practices_primary_care_physicians (
+    primary_care_physician_id integer NOT NULL,
+    practice_id integer NOT NULL
+);
+
+
+--
+-- Name: patient_primary_care_physicians; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE patient_primary_care_physicians (
+    id integer NOT NULL,
+    given_name character varying,
+    family_name character varying,
+    email character varying,
+    code character varying,
+    practitioner_type character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    telephone character varying
+);
+
+
+--
+-- Name: patient_primary_care_physicians_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE patient_primary_care_physicians_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_primary_care_physicians_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE patient_primary_care_physicians_id_seq OWNED BY patient_primary_care_physicians.id;
+
+
+--
 -- Name: patient_religions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2125,7 +2125,7 @@ CREATE TABLE patients (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     practice_id integer,
-    doctor_id integer,
+    primary_care_physician_id integer,
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
     title character varying,
@@ -3663,13 +3663,6 @@ ALTER TABLE ONLY patient_bookmarks ALTER COLUMN id SET DEFAULT nextval('patient_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY patient_doctors ALTER COLUMN id SET DEFAULT nextval('patient_doctors_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY patient_ethnicities ALTER COLUMN id SET DEFAULT nextval('patient_ethnicities_id_seq'::regclass);
 
 
@@ -3685,6 +3678,13 @@ ALTER TABLE ONLY patient_languages ALTER COLUMN id SET DEFAULT nextval('patient_
 --
 
 ALTER TABLE ONLY patient_practices ALTER COLUMN id SET DEFAULT nextval('patient_practices_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_primary_care_physicians ALTER COLUMN id SET DEFAULT nextval('patient_primary_care_physicians_id_seq'::regclass);
 
 
 --
@@ -4344,14 +4344,6 @@ ALTER TABLE ONLY patient_bookmarks
 
 
 --
--- Name: patient_doctors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY patient_doctors
-    ADD CONSTRAINT patient_doctors_pkey PRIMARY KEY (id);
-
-
---
 -- Name: patient_ethnicities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4373,6 +4365,14 @@ ALTER TABLE ONLY patient_languages
 
 ALTER TABLE ONLY patient_practices
     ADD CONSTRAINT patient_practices_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: patient_primary_care_physicians_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_primary_care_physicians
+    ADD CONSTRAINT patient_primary_care_physicians_pkey PRIMARY KEY (id);
 
 
 --
@@ -4789,7 +4789,7 @@ CREATE INDEX index_clinic_visits_on_updated_by_id ON clinic_visits USING btree (
 -- Name: index_doctors_practices; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_doctors_practices ON patient_doctors_practices USING btree (doctor_id, practice_id);
+CREATE INDEX index_doctors_practices ON patient_practices_primary_care_physicians USING btree (primary_care_physician_id, practice_id);
 
 
 --
@@ -5136,10 +5136,17 @@ CREATE UNIQUE INDEX index_patient_bookmarks_on_patient_id_and_user_id ON patient
 
 
 --
--- Name: index_patient_doctors_on_code; Type: INDEX; Schema: public; Owner: -
+-- Name: index_patient_practices_primary_care_physicians_on_practice_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_patient_doctors_on_code ON patient_doctors USING btree (code);
+CREATE INDEX index_patient_practices_primary_care_physicians_on_practice_id ON patient_practices_primary_care_physicians USING btree (practice_id);
+
+
+--
+-- Name: index_patient_primary_care_physicians_on_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_patient_primary_care_physicians_on_code ON patient_primary_care_physicians USING btree (code);
 
 
 --
@@ -5150,17 +5157,17 @@ CREATE INDEX index_patients_on_created_by_id ON patients USING btree (created_by
 
 
 --
--- Name: index_patients_on_doctor_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_patients_on_doctor_id ON patients USING btree (doctor_id);
-
-
---
 -- Name: index_patients_on_document; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_patients_on_document ON patients USING gin (document);
+
+
+--
+-- Name: index_patients_on_primary_care_physician_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_primary_care_physician_id ON patients USING btree (primary_care_physician_id);
 
 
 --
@@ -5697,8 +5704,8 @@ ALTER TABLE ONLY access_assessments
 -- Name: fk_rails_55ecff6804; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY patient_doctors_practices
-    ADD CONSTRAINT fk_rails_55ecff6804 FOREIGN KEY (doctor_id) REFERENCES patient_doctors(id);
+ALTER TABLE ONLY patient_practices_primary_care_physicians
+    ADD CONSTRAINT fk_rails_55ecff6804 FOREIGN KEY (primary_care_physician_id) REFERENCES patient_primary_care_physicians(id);
 
 
 --
@@ -5798,6 +5805,14 @@ ALTER TABLE ONLY pathology_observations
 
 
 --
+-- Name: fk_rails_7345be7c22; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patients
+    ADD CONSTRAINT fk_rails_7345be7c22 FOREIGN KEY (primary_care_physician_id) REFERENCES patient_primary_care_physicians(id);
+
+
+--
 -- Name: fk_rails_751ed7515f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5825,7 +5840,7 @@ ALTER TABLE ONLY transplant_recipient_followups
 -- Name: fk_rails_7a89922302; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY patient_doctors_practices
+ALTER TABLE ONLY patient_practices_primary_care_physicians
     ADD CONSTRAINT fk_rails_7a89922302 FOREIGN KEY (practice_id) REFERENCES patient_practices(id);
 
 
@@ -5906,7 +5921,7 @@ ALTER TABLE ONLY pd_exit_site_infections
 --
 
 ALTER TABLE ONLY patients
-    ADD CONSTRAINT fk_rails_9739853ad1 FOREIGN KEY (doctor_id) REFERENCES patient_doctors(id);
+    ADD CONSTRAINT fk_rails_9739853ad1 FOREIGN KEY (primary_care_physician_id) REFERENCES patient_primary_care_physicians(id);
 
 
 --
@@ -6003,6 +6018,14 @@ ALTER TABLE ONLY pd_peritonitis_episodes
 
 ALTER TABLE ONLY pathology_requests_patient_rules
     ADD CONSTRAINT fk_rails_b13e09c8a3 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_b1b697cf23; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_practices_primary_care_physicians
+    ADD CONSTRAINT fk_rails_b1b697cf23 FOREIGN KEY (primary_care_physician_id) REFERENCES patient_primary_care_physicians(id);
 
 
 --
@@ -6283,6 +6306,14 @@ ALTER TABLE ONLY hd_preference_sets
 
 ALTER TABLE ONLY pd_peritonitis_episodes
     ADD CONSTRAINT fk_rails_f228a98e1b FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_f2b12c3a20; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_practices_primary_care_physicians
+    ADD CONSTRAINT fk_rails_f2b12c3a20 FOREIGN KEY (practice_id) REFERENCES patient_practices(id);
 
 
 --

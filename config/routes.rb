@@ -74,7 +74,7 @@ Rails.application.routes.draw do
     end
 
     namespace :patients do
-      resources :doctors
+      resources :primary_care_physicians
     end
 
     namespace :pd do

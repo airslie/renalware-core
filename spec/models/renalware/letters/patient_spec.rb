@@ -16,8 +16,8 @@ module Renalware
             it { expect(patient.cc_on_letter?(letter)).to be_falsy }
           end
 
-          context "and the doctor is the main recipient" do
-            let(:letter) { build_letter(to: :doctor, patient: patient) }
+          context "and the Primary Care Physician is the main recipient" do
+            let(:letter) { build_letter(to: :primary_care_physician, patient: patient) }
 
             context "and patient requested to be CCd on all letters" do
               before { patient.cc_on_all_letters = true }

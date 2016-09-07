@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Renalware
-  describe DoctorsHelper, type: :helper do
+  describe PrimaryCarePhysiciansHelper, type: :helper do
     include RSpecHtmlMatchers
 
     describe 'practices_options_for_select' do
@@ -9,8 +9,8 @@ module Renalware
         p1 = create(:practice, name: 'AAA')
         p2 = create(:practice, name: 'BBB')
         p3 = create(:practice, name: 'CCC')
-        doctor = build_stubbed(:doctor, practices: [p1,p3])
-        actual = practices_options_for_select(doctor)
+        primary_care_physician = build_stubbed(:primary_care_physician, practices: [p1,p3])
+        actual = practices_options_for_select(primary_care_physician)
 
         expect(actual).to have_tag('option', with: { selected: 'selected' }) { with_text('AAA') }
         expect(actual).to have_tag('option') { with_text('BBB') }
@@ -21,16 +21,16 @@ module Renalware
     describe 'practices_or_address' do
       it 'formats the alternative Address' do
         address = build_stubbed(:address)
-        doctor = build_stubbed(:doctor, address: address)
-        actual = practices_or_address(doctor)
+        primary_care_physician = build_stubbed(:primary_care_physician, address: address)
+        actual = practices_or_address(primary_care_physician)
 
         expect(actual.to_s).to match("#{address.street_1}, #{address.postcode}")
       end
 
       it 'formats the practice names when present' do
         practice = create(:practice, name: 'Legoland Health Centre')
-        doctor = build_stubbed(:doctor, practices: [practice])
-        actual = practices_or_address(doctor)
+        primary_care_physician = build_stubbed(:primary_care_physician, practices: [practice])
+        actual = practices_or_address(primary_care_physician)
 
         expect(actual).to match('Legoland Health Centre')
       end

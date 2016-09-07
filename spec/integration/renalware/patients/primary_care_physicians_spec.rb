@@ -1,11 +1,11 @@
 require "rails_helper"
 
-RSpec.describe "Configuring Doctor", type: :request do
-  let(:doctor) { create(:doctor) }
+RSpec.describe "Configuring Primary Care Physicians", type: :request do
+  let(:primary_care_physician) { create(:primary_care_physician) }
 
   describe "GET new" do
     it "responds with a form" do
-      get new_patients_doctor_path
+      get new_patients_primary_care_physician_path
 
       expect(response).to have_http_status(:success)
     end
@@ -15,12 +15,12 @@ RSpec.describe "Configuring Doctor", type: :request do
     context "given valid attributes" do
       it "creates a new record" do
         address_attributes = attributes_for(:address)
-        doctor_attributes = attributes_for(:doctor)
-        doctor_address_attributes = doctor_attributes.merge(address_attributes: address_attributes)
+        primary_care_physician_attributes = attributes_for(:primary_care_physician)
+        primary_care_physician_address_attributes = primary_care_physician_attributes.merge(address_attributes: address_attributes)
 
-        post patients_doctors_path, patients_doctor: doctor_address_attributes
+        post patients_primary_care_physicians_path, patients_primary_care_physician: primary_care_physician_address_attributes
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::Patients::Doctor.exists?(doctor_attributes)).to be_truthy
+        expect(Renalware::Patients::PrimaryCarePhysician.exists?(primary_care_physician_attributes)).to be_truthy
         expect(Renalware::Address.exists?(address_attributes)).to be_truthy
 
         follow_redirect!
@@ -33,7 +33,7 @@ RSpec.describe "Configuring Doctor", type: :request do
       it "responds with form" do
         attributes = { given_name: "" }
 
-        post patients_doctors_path, patients_doctor: attributes
+        post patients_primary_care_physicians_path, patients_primary_care_physician: attributes
 
         expect(response).to have_http_status(:success)
       end
@@ -42,7 +42,7 @@ RSpec.describe "Configuring Doctor", type: :request do
 
   describe "GET index" do
     it "responds successfully" do
-      get patients_doctors_path
+      get patients_primary_care_physicians_path
 
       expect(response).to have_http_status(:success)
     end
@@ -50,7 +50,7 @@ RSpec.describe "Configuring Doctor", type: :request do
 
   describe "GET edit" do
     it "responds with a form" do
-      get edit_patients_doctor_path(doctor)
+      get edit_patients_primary_care_physician_path(primary_care_physician)
 
       expect(response).to have_http_status(:success)
     end
@@ -59,11 +59,11 @@ RSpec.describe "Configuring Doctor", type: :request do
   describe "PATCH update" do
     context "given valid attributes" do
       it "updates a record" do
-        attributes = { given_name: "My Doctor" }
-        patch patients_doctor_path(doctor), patients_doctor: attributes
+        attributes = { given_name: "My GP" }
+        patch patients_primary_care_physician_path(primary_care_physician), patients_primary_care_physician: attributes
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::Patients::Doctor.exists?(attributes)).to be_truthy
+        expect(Renalware::Patients::PrimaryCarePhysician.exists?(attributes)).to be_truthy
 
         follow_redirect!
 
@@ -74,7 +74,7 @@ RSpec.describe "Configuring Doctor", type: :request do
     context "given invalid attributes" do
       it "responds with a form" do
         attributes = { given_name: "" }
-        patch patients_doctor_path(doctor), patients_doctor: attributes
+        patch patients_primary_care_physician_path(primary_care_physician), patients_primary_care_physician: attributes
 
         expect(response).to have_http_status(:success)
       end
@@ -82,11 +82,11 @@ RSpec.describe "Configuring Doctor", type: :request do
   end
 
   describe "DELETE destroy" do
-    it "deletes the doctor" do
-      delete patients_doctor_path(doctor)
+    it "deletes the primary_care_physician" do
+      delete patients_primary_care_physician_path(primary_care_physician)
 
       expect(response).to have_http_status(:redirect)
-      expect(Renalware::Patients::Doctor.exists?(id: doctor.id)).to be_falsey
+      expect(Renalware::Patients::PrimaryCarePhysician.exists?(id: primary_care_physician.id)).to be_falsey
 
       follow_redirect!
 

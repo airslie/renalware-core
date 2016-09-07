@@ -1,9 +1,9 @@
 var Renalware = typeof Renalware === 'undefined' ? {} : Renalware;
 
-Renalware.Doctors = (function () {
+Renalware.PrimaryCarePhysicians = (function () {
   // private closure methods
   var initSelect2 = function () {
-    $('#doctor_practice_ids').select2();
+    $('#patients_primary_care_physician_practice_ids').select2();
   };
 
   var bindAddressFormToggle = function () {
@@ -22,4 +22,4 @@ Renalware.Doctors = (function () {
   }
 })();
 
-$(document).ready(Renalware.Doctors.init);
+$(document).ready(Renalware.PrimaryCarePhysicians.init);

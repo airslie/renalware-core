@@ -5,8 +5,8 @@ module Renalware
     describe LetterQuery, type: :model do
       include LettersSpecHelper
 
-      let(:doctor) { create(:letter_doctor) }
-      let(:patient) { create(:letter_patient, doctor: doctor) }
+      let(:primary_care_physician) { create(:letter_primary_care_physician) }
+      let(:patient) { create(:letter_patient, primary_care_physician: primary_care_physician) }
 
       subject { LetterQuery.new }
 

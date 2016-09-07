@@ -77,11 +77,11 @@ When(/^Clyde views the list of letters$/) do
 end
 
 Then(/^Doug can reject the letter$/) do
-  reject_letter(patient: @patty, user: @doug_user)
+  reject_letter(patient: @patty, user: @doug)
 end
 
 When(/^Doug approves the letter$/) do
-  approve_letter(patient: @patty, user: @doctor)
+  approve_letter(patient: @patty, user: @doug)
 end
 
 When(/^Nathalie approves the letter$/) do
@@ -103,11 +103,11 @@ Then(/^Nathalie can revise Patty's letter$/) do
 end
 
 Then(/^Doug can revise the letter$/) do
-  revise_simple_letter(patient: @patty, user: @doug_user)
+  revise_simple_letter(patient: @patty, user: @doug)
 end
 
 Then(/^Doug can revise Patty's clinic visit letter$/) do
-  revise_clinic_visit_letter(patient: @patty, user: @doug_user)
+  revise_clinic_visit_letter(patient: @patty, user: @doug)
 end
 
 Then(/^the letter is not drafted$/) do

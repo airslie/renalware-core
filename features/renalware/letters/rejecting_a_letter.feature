@@ -5,9 +5,8 @@ Feature: Rejecting a letter
   editing the letter.  The doctor may therefore reject the letter so it can be revised later.
 
   Background:
-    Given Nathalie is a nurse
+    Given Doug is a doctor
     And Patty is a patient
-    And Doug is Patty's doctor
 
   Scenario: A doctor rejected a letter pending review
     Given Patty has a letter pending review

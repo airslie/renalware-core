@@ -3,7 +3,7 @@ FactoryGirl.define do
     "GP123#{n}"
   end
 
-  factory :doctor, class: "Renalware::Patients::Doctor" do
+  factory :primary_care_physician, class: "Renalware::Patients::PrimaryCarePhysician" do
     given_name "Donald"
     family_name "Good"
     email "donald.good@nhs.net"
@@ -14,8 +14,8 @@ FactoryGirl.define do
     # ensures addressable_type and addressable_id work is assigned, using
     # FactoryGirl's simple assoc method does not work
     #
-    before(:create) do |doctor|
-      doctor.build_address(attributes_for(:address))
+    before(:create) do |primary_care_physician|
+      primary_care_physician.build_address(attributes_for(:address))
     end
   end
 end

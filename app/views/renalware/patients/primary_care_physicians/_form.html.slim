@@ -1,10 +1,10 @@
 .row
   = render "header"
-  = render partial: 'renalware/shared/errors', locals: { model: @doctor  }
+  = render partial: 'renalware/shared/errors', locals: { model: @primary_care_physician  }
 
 .row
   .large-6.columns
-    = simple_form_for @doctor do |f|
+    = simple_form_for @primary_care_physician do |f|
       = f.input :given_name
       = f.input :family_name
       = f.input :email
@@ -12,8 +12,8 @@
       = f.input :code
       = f.input :practitioner_type,
           collection: ['GP', 'Other']
-      = label_tag 'doctor[practice_ids]', 'Practices'
-      = select_tag 'doctor[practice_ids]',
+      = label_tag 'patients_primary_care_physician[practice_ids]', 'Practices'
+      = select_tag 'patients_primary_care_physician[practice_ids]',
           practices_options_for_select(f.object),
           { include_hidden: false, multiple: true }
 
@@ -24,10 +24,10 @@
       .row
         .large-12.columns
           fieldset#address-form style='display:none'
-            = f.simple_fields_for :address_attributes do |a|
+            = f.simple_fields_for @alternative_address do |a|
               = a.input :id, as: :hidden
               = render partial: 'renalware/addresses/form', locals: { a: a }
 
       = f.button :submit
       span= " or "
-      = link_to "cancel", patients_doctors_path
+      = link_to "cancel", patients_primary_care_physicians_path

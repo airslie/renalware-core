@@ -1,15 +1,15 @@
 require_dependency "renalware"
 
 module Renalware
-  module DoctorsHelper
-    def practices_options_for_select(doctor)
-      selected_ids = doctor.practices.map(&:id)
+  module PrimaryCarePhysiciansHelper
+    def practices_options_for_select(primary_care_physician)
+      selected_ids = primary_care_physician.practices.map(&:id)
       options_from_collection_for_select(Patients::Practice.all, :id, :name, selected_ids)
     end
 
-    def practices_or_address(doctor)
-      return practices_list(doctor.practices) if doctor.practices.any?
-      return format_address(doctor.address) if doctor.address.present?
+    def practices_or_address(primary_care_physician)
+      return practices_list(primary_care_physician.practices) if primary_care_physician.practices.any?
+      return format_address(primary_care_physician.address) if primary_care_physician.address.present?
     end
 
     private

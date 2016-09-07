@@ -22,7 +22,7 @@ module Renalware
     belongs_to :first_edta_code, class_name: "Deaths::EDTACode", foreign_key: :first_edta_code_id
     belongs_to :second_edta_code, class_name: "Deaths::EDTACode", foreign_key: :second_edta_code_id
 
-    belongs_to :doctor, class_name: "Patients::Doctor"
+    belongs_to :primary_care_physician, class_name: "Patients::PrimaryCarePhysician"
     belongs_to :practice, class_name: "Patients::Practice"
 
     has_many :exit_site_infections, class_name: "PD::ExitSiteInfection"
@@ -77,8 +77,8 @@ module Renalware
       )
     end
 
-    def assigned_to_doctor?(doctor)
-      self.doctor == doctor
+    def assigned_to_primary_care_physician?(primary_care_physician)
+      self.primary_care_physician == primary_care_physician
     end
 
     # @section services
