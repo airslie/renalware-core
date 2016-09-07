@@ -67,3 +67,40 @@ a, li, tbody tr {
 dl.medication-history {
   left: 0.9em;
 }
+
+#drug_type_prescriptions {
+  table-layout: auto;
+  th.drug_name {
+    min-width: 8rem;
+    width: 25%;
+  }
+  th.patient_name {
+    min-width: 8rem;
+  }
+  th.terminated_on,
+  th.prescribed_on {
+    width: 5rem;
+  }
+  th.prescribed_on {
+    min-width: 5rem;
+  }
+  th.patient_sex,
+  th.patient_age {
+    width: 2.5rem;
+  }
+  th.route_code {
+    width: 3rem;
+  }
+  th.dose {
+    width: 4rem;
+  }
+  th.modality {
+    width: 5rem;
+  }
+  th.frequency {
+    width: 5rem;
+  }
+  th.hosp_no {
+    width: 5rem;
+  }
+}
