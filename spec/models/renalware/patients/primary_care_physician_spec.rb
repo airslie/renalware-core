@@ -1,11 +1,11 @@
-require 'rails_helper'
+require "rails_helper"
 require_dependency "models/renalware/concerns/personable"
 
 module Renalware::Patients
   describe PrimaryCarePhysician, type: :model do
     subject(:primary_care_physician) { create(:primary_care_physician) }
 
-    it_behaves_like 'Personable'
+    it_behaves_like "Personable"
 
     it { should validate_uniqueness_of :code }
     it { should validate_presence_of :practitioner_type }
@@ -31,7 +31,9 @@ module Renalware::Patients
         end
 
         it "adds the Primary Care Physician's name to the address" do
-          expect(primary_care_physician.current_address.name).to eq("Dr " + primary_care_physician.full_name)
+          expect(primary_care_physician.current_address.name).to(
+            eq("Dr " + primary_care_physician.full_name)
+          )
         end
       end
     end

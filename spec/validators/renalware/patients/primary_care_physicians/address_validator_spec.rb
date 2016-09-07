@@ -10,7 +10,11 @@ module Renalware::Patients::PrimaryCarePhysicians
       end
 
       it "does nothing when the Primary Care Physician has an address" do
-        doc = build_stubbed(:primary_care_physician, address: build_stubbed(:address), practices: [build_stubbed(:practice)])
+        doc = build_stubbed(
+          :primary_care_physician,
+          address: build_stubbed(:address),
+          practices: [build_stubbed(:practice)]
+        )
         AddressValidator.new.validate(doc)
         expect(doc.errors[:address]).to be_empty
       end

@@ -33,7 +33,8 @@ module Renalware::Letters
       end
 
       context "given the letter is persisted" do
-        let(:primary_care_physician) { create(:letter_primary_care_physician) } # Primary Care Physician has to exist before saving a letter
+        # Primary Care Physician has to exist before saving a letter
+        let(:primary_care_physician) { create(:letter_primary_care_physician) }
 
         before do
           raw_letter.save
