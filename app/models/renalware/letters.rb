@@ -11,6 +11,10 @@ module Renalware
       ActiveType.cast(user, Author)
     end
 
+    def self.cast_typist(user)
+      ActiveType.cast(user, Typist)
+    end
+
     def self.cast_patient(patient)
       ActiveType.cast(patient, ::Renalware::Letters::Patient)
     end
