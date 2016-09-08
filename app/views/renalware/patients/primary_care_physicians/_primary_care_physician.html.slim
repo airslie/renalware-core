@@ -1,0 +1,15 @@
+tr
+  td
+    = link_to 'Edit', edit_patients_primary_care_physician_path(primary_care_physician)
+    = pipe_separator
+    = link_to 'Delete', patients_primary_care_physician_path(primary_care_physician), method: :delete
+  td
+    = primary_care_physician.full_name
+  td
+    = primary_care_physician.code
+  td
+    = primary_care_physician.email
+  td
+    = primary_care_physician.telephone
+  td
+    = practices_or_address(primary_care_physician)

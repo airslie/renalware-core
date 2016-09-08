@@ -1,8 +1,9 @@
 module Renalware
   class User < ActiveRecord::Base
     include Deviseable
-    include Permissible
     include Personable
+
+    has_and_belongs_to_many :roles
 
     validates :username, presence: true, uniqueness: true
     validates_presence_of :given_name
@@ -27,11 +28,19 @@ module Renalware
       %i(unapproved inactive)
     end
 
-    # @section custom validation methods
-    #
+    def has_role?(name)
+      role_names.include?(name.to_s)
+    end
+
+    def role_names
+      @role_names ||= roles.pluck(:name)
+    end
+
+    private
+
     def approval_with_roles
-      if self.approved? && self.roles.empty?
-        errors.add(:approved, 'approved users must have a role')
+      if approved? && roles.empty?
+        errors.add(:approved, "approved users must have a role")
       end
     end
   end

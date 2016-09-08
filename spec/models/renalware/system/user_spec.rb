@@ -22,7 +22,7 @@ module Renalware
 
     describe 'read_only?' do
       it 'denotes a user with the read_only role' do
-        expect(create(:user, :read_only)).to be_read_only
+        expect(create(:user, :read_only)).to have_role(:read_only)
       end
     end
 

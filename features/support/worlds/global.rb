@@ -44,8 +44,8 @@ module World
       )
     end
 
-    def doctor
-      @doctor ||= FactoryGirl.create(:doctor)
+    def primary_care_physician
+      @primary_care_physician ||= FactoryGirl.create(:primary_care_physician)
     end
   end
 end

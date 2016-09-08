@@ -2,7 +2,7 @@ require_dependency "renalware/letters"
 
 # A method object initialized with an instance of Letter reponsible
 # for determining the "counterpart CC's". A counterpart CC can be a patient,
-# doctor or both.
+# primary care physician or both.
 #
 module Renalware
   module Letters
@@ -10,7 +10,7 @@ module Renalware
       def call
         counterpart_css = []
         counterpart_css << build_recipient("patient") if patient.cc_on_letter?(self)
-        counterpart_css << build_recipient("doctor") if patient.doctor.cc_on_letter?(self)
+        counterpart_css << build_recipient("primary_care_physician") if patient.primary_care_physician.cc_on_letter?(self)
         counterpart_css
       end
 

@@ -13,15 +13,15 @@ module Renalware
         context "given the recipient is the patient" do
           let(:letter) { build_letter(to: :patient, patient: patient) }
 
-          it "determines the doctor as a CC recipient" do
+          it "determines the primary_care_physician as a CC recipient" do
             cc_recipients = subject.call
             expect(cc_recipients.size).to eq(1)
-            expect(cc_recipients.first.person_role).to eq("doctor")
+            expect(cc_recipients.first.person_role).to eq("primary_care_physician")
           end
         end
 
-        context "given the recipient is the doctor" do
-          let(:letter) { build_letter(to: :doctor, patient: patient) }
+        context "given the recipient is the Primary Care Physician" do
+          let(:letter) { build_letter(to: :primary_care_physician, patient: patient) }
 
           context "given the patient opted to be CCd on all letters" do
             before do
@@ -57,13 +57,13 @@ module Renalware
               letter.patient.cc_on_all_letters = true
             end
 
-            it "determines the patient and the doctor as CC recipients" do
+            it "determines the patient and the Primary Care Physician as CC recipients" do
               cc_recipients = subject.call
 
               expect(cc_recipients.size).to eq(2)
               person_roles = cc_recipients.map(&:person_role)
               expect(person_roles).to include("patient")
-              expect(person_roles).to include("doctor")
+              expect(person_roles).to include("primary_care_physician")
             end
           end
         end

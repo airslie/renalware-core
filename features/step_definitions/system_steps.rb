@@ -16,8 +16,8 @@ Given(/^(.*?) is a nurse$/) do |name|
   instance_variable_set("@"+name.downcase, user)
 end
 
-Given(/^(.*?) is a doctor$/) do |name|
-  user = find_or_create_user(given_name: name, role: "doctor")
+Given(/^(.*?) is a doctor/) do |name|
+  user = find_or_create_user(given_name: name, role: "clinician")
   instance_variable_set("@"+name.downcase, user)
 end
 

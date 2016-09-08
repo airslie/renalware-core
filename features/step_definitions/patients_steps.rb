@@ -6,7 +6,7 @@ Given(/^Patty is a patient$/) do
     local_patient_id: "123456",
     sex: "F",
     born_on: Date.new(1961, 12, 25),
-    doctor: doctor,
+    primary_care_physician: primary_care_physician,
     current_address_attributes: {
       name: "Patty ThePatient",
       street_1: "1 Main St",
@@ -29,7 +29,7 @@ Given(/^Don is a patient$/) do
     local_patient_id: "123457",
     sex: "M",
     born_on: Date.new(1989, 1, 1),
-    doctor: doctor,
+    primary_care_physician: primary_care_physician,
     by: Renalware::SystemUser.find
   )
   @don.create_current_address(
@@ -38,9 +38,14 @@ Given(/^Don is a patient$/) do
   )
 end
 
-Given(/^Doug is Patty's doctor$/) do
-  @doug = @patty.doctor
-  @doug_user = find_or_create_user(given_name: "Doug", role: "clinician")
+Given(/^Phylis is Patty's primary care physician$/) do
+  @phylis = @patty.create_primary_care_physician!(
+    given_name: "Phylis",
+    family_name: "Good",
+    practitioner_type: "GP",
+    email: "phylis@example.net",
+    address: FactoryGirl.build(:address)
+  )
 end
 
 Given(/^Patty is a diabetic (yes|no)$/) do |diabetic|

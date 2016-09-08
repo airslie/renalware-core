@@ -95,11 +95,11 @@ module Renalware
 
   log "3 Events seeded"
 
-  log '--------------------Adding Doctor for Roger RABBIT---------------------'
-  practice = Doctors::Practice.first
+  log '--------------------Adding Primary Care Physician for Roger RABBIT---------------------'
+  practice = Patients::Practice.first
   system_user = SystemUser.find
 
-  doctor = Doctors::Doctor.find_or_create_by!(code: 'GP912837465') do |doc|
+  primary_care_physician = Patients::PrimaryCarePhysician.find_or_create_by!(code: 'GP912837465') do |doc|
     doc.given_name = 'John'
     doc.family_name = 'Merrill'
     doc.email = 'john.merrill@nhs.net'
@@ -107,7 +107,7 @@ module Renalware
     doc.practices << practice
   end
 
-  rabbit.doctor = doctor
+  rabbit.primary_care_physician = primary_care_physician
   rabbit.practice = practice
   rabbit.by = system_user
   rabbit.save!
@@ -423,7 +423,7 @@ module Renalware
     description: Renalware::Letters::Description.first.text,
     salutation: "Dear Dr Runner",
     main_recipient_attributes: {
-      person_role: "doctor"
+      person_role: "primary_care_physician"
     },
     body: letter_body,
     notes: "Waiting on lab results.",
@@ -481,9 +481,9 @@ module Renalware
     address.copy_from(letter.patient.current_address)
     address.save!
   end
-  recipient = letter.cc_recipients.create(person_role: "doctor")
+  recipient = letter.cc_recipients.create(person_role: "primary_care_physician")
   recipient.build_address.tap do |address|
-    address.copy_from(letter.patient.doctor.current_address)
+    address.copy_from(letter.patient.primary_care_physician.current_address)
     address.save!
   end
 end

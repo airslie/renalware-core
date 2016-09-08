@@ -8,8 +8,8 @@ Feature: Revising a letter
 
   Background:
     Given Nathalie is a nurse
+    And Doug is a doctor
     And Patty is a patient
-    And Doug is Patty's doctor
 
   @web
   Scenario: A nurse revised a letter

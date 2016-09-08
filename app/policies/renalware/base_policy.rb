@@ -15,7 +15,7 @@ module Renalware
 
     def index?
       case
-      when user.super_admin?
+      when user.has_role?(:super_admin)
         true
       when restricted?
         has_permission_for_restricted?
@@ -30,7 +30,7 @@ module Renalware
 
     def create?
       case
-      when user.super_admin?
+      when user.has_role?(:super_admin)
         true
       when restricted?
         has_permission_for_restricted?
@@ -64,7 +64,7 @@ module Renalware
     end
 
     def has_write_privileges?
-      user.super_admin? || user.admin? || user.clinician?
+      user.has_role?(:super_admin) || user.has_role?(:admin) || user.has_role?(:clinician)
     end
 
     def has_any_role?

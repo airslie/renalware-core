@@ -5,7 +5,7 @@ module Renalware
     class LetterFormPresenter < DumbDelegator
       def person_roles
         [].tap do |collection|
-          collection << doctor_role if patient.doctor.present?
+          collection << primary_care_physician_role if patient.primary_care_physician.present?
           collection << patient_role
           collection << other_role
         end
@@ -15,8 +15,8 @@ module Renalware
         PatientPresenter.new(super)
       end
 
-      def doctor
-        DoctorPresenter.new(patient.doctor)
+      def primary_care_physician
+        PrimaryCarePhysicianPresenter.new(patient.primary_care_physician)
       end
 
       def patient_cc_hint
@@ -30,9 +30,9 @@ module Renalware
 
       private
 
-      def doctor_role
-        label = "Doctor <address>#{doctor.full_name}, #{doctor.address}</address>".html_safe
-        [label, "doctor"]
+      def primary_care_physician_role
+        label = "Primary Care Physician <address>#{primary_care_physician.full_name}, #{primary_care_physician.address}</address>".html_safe
+        [label, "primary_care_physician"]
       end
 
       def patient_role

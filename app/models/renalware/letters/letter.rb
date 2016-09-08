@@ -52,8 +52,8 @@ module Renalware
         @letter_event ||= EVENTS_MAP.fetch(event.class).new(event)
       end
 
-      def doctor
-        patient.doctor
+      def primary_care_physician
+        patient.primary_care_physician
       end
 
       def subject?(other_patient)

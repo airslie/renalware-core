@@ -5,8 +5,8 @@ module Renalware::Letters
     include LettersSpecHelper
 
     let(:user) { build(:user) }
-    let(:doctor) { build(:letter_doctor) }
-    let(:patient) { build(:letter_patient, doctor: doctor) }
+    let(:primary_care_physician) { build(:letter_primary_care_physician) }
+    let(:patient) { build(:letter_patient, primary_care_physician: primary_care_physician) }
     let(:raw_letter) { build_letter(to: :patient, patient: patient) }
 
     subject(:letter) { raw_letter.becomes(Letter::PendingReview) }
@@ -33,7 +33,8 @@ module Renalware::Letters
       end
 
       context "given the letter is persisted" do
-        let(:doctor) { create(:letter_doctor) } # Doctor has to exist before saving a letter
+        # Primary Care Physician has to exist before saving a letter
+        let(:primary_care_physician) { create(:letter_primary_care_physician) }
 
         before do
           raw_letter.save
@@ -50,7 +51,7 @@ module Renalware::Letters
           content = letter.generate_archive(by: user).archive.content
           expect(content).to match(/class="unit-info"/)
           expect(content).to include(patient.full_name)
-          expect(content).to include(doctor.address.street_1)
+          expect(content).to include(primary_care_physician.address.street_1)
         end
       end
     end

@@ -9,11 +9,11 @@ module Renalware
       has_one :address, as: :addressable
 
       enumerize :role, in: %i(main cc)
-      enumerize :person_role, in: %i(patient doctor other)
+      enumerize :person_role, in: %i(patient primary_care_physician other)
 
-      accepts_nested_attributes_for :address, allow_destroy: true, reject_if: :patient_or_doctor?
+      accepts_nested_attributes_for :address, allow_destroy: true, reject_if: :patient_or_primary_care_physician?
 
-      delegate :doctor?, :patient?, :other?, to: :person_role
+      delegate :primary_care_physician?, :patient?, :other?, to: :person_role
 
       def to_s
         address.to_s
@@ -21,8 +21,8 @@ module Renalware
 
       private
 
-      def patient_or_doctor?
-        patient? || doctor?
+      def patient_or_primary_care_physician?
+        patient? || primary_care_physician?
       end
     end
   end

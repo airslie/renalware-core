@@ -12,11 +12,11 @@ Feature: Approving a letter
 
   Background:
     Given Patty is a patient
-    And Doug is Patty's doctor
     And Patty has a letter pending review
 
   @web
   Scenario: A doctor approved a letter
+    Given Doug is a doctor
     When Doug approves the letter
     Then an archived copy of the letter is available
     And nobody can modify the letter

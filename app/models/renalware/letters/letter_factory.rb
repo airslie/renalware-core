@@ -12,13 +12,13 @@ module Renalware
       def build(params={})
         Letter::Draft.new(params).tap do |letter|
           letter.patient = patient
-          include_doctor_as_default_main_recipient(letter)
+          include_primary_care_physician_as_default_main_recipient(letter)
         end
       end
 
-      def include_doctor_as_default_main_recipient(letter)
+      def include_primary_care_physician_as_default_main_recipient(letter)
         if letter.main_recipient.blank?
-          letter.build_main_recipient(person_role: :doctor)
+          letter.build_main_recipient(person_role: :primary_care_physician)
         end
       end
     end
