@@ -54,7 +54,7 @@ OBX|3|TX|HB^Hb^MB||11.8||||||F|||200911112026||BBKA^Kenneth AMENYAH|
       | local_patient_id | Z999990    |
       | family_name      | RABBIT     |
       | given_name       | JESSICA    |
-      | sex              | Female     |
+      | sex              | F          |
       | born_on          | 1988-09-24 |
     And an observation request is created with the following attributes:
       | description            | FBC                       |
