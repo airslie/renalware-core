@@ -12,6 +12,15 @@ Given(/^Patty is the main recipient on a pending letter$/) do
   @letter = seed_simple_letter_for(@patty, user: @nathalie)
 end
 
+
+Given(/^Nathalie drafted a letter for Patty$/) do
+  @letter = seed_simple_letter_for(@patty, user: @nathalie)
+end
+
+Given(/^Nathalie drafted a letter for Patty on behalf of Doug$/) do
+  @letter = seed_simple_letter_for(@patty, user: @nathalie, author: @doug)
+end
+
 Given(/^a letter for Patty's clinical visit was drafted$/) do
   @letter = seed_clinic_visit_letter_for(@patty, user: @nathalie)
 end
@@ -33,6 +42,10 @@ Given(/^Patty has an approved letter$/) do
   seed_simple_letter_for(@patty, user: @doctor)
   submit_for_review(patient: @patty, user: @doctor)
   approve_letter(patient: @patty, user: @doctor)
+end
+
+Given(/^Nathalie submitted the letter for review$/) do
+  submit_for_review(patient: @patty, user: @nathalie)
 end
 
 Given(/^these letters are recorded$/) do |table|
@@ -62,16 +75,6 @@ When(/^Nathalie drafts a letter for Patty$/) do
     user: @nathalie,
     issued_on: Time.zone.today,
     recipient: @patty
-  )
-end
-
-When(/^Nathalie drafts a letter for Patty on behalf of Doug$/) do
-  draft_simple_letter(
-    patient: @patty,
-    user: @nathalie,
-    issued_on: Time.zone.today,
-    recipient: @patty,
-    author: @doug
   )
 end
 

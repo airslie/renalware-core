@@ -28,13 +28,17 @@ module World
 
       # @section seeding
       #
-      def seed_simple_letter_for(patient, user:)
+      def seed_simple_letter_for(patient, options)
+        user = options.fetch(:user)
+        author = options.fetch(:author, user)
+
         patient = letters_patient(patient)
 
         letter_attributes = valid_simple_letter_attributes(patient).merge(
           author: user,
           main_recipient_attributes: { person_role: "patient" },
-          by: user
+          by: user,
+          author: author
         )
 
         Renalware::Letters::DraftLetter.build
