@@ -29,15 +29,15 @@ module Renalware
     end
 
     def has_role?(name)
-      !!roles.find_by(name: name.to_s)
+      role_names.include?(name.to_s)
     end
 
     def role_names
-      roles.map { |r| r.name }
+      @role_names ||= roles.pluck(:name)
     end
 
-    # @section custom validation methods
-    #
+    private
+
     def approval_with_roles
       if approved? && roles.empty?
         errors.add(:approved, "approved users must have a role")
