@@ -121,7 +121,7 @@ module World
         end
 
         fill_autocomplete "recipient_auto_complete",
-          with: "Patty", select: "Patty"
+          with: "ThePatient", select: "Patty"
 
         within ".top" do
           click_on "Save"

@@ -226,8 +226,8 @@ module World
           return unless patients.present?
 
           if patients.first.is_a? String
-            patients.split(", ").map do |patient_family_name|
-              Renalware::Pathology::Patient.find_by!(family_name: patient_family_name)
+            patients.split(", ").map do |patient_given_name|
+              Renalware::Pathology::Patient.find_by!(given_name: patient_given_name)
             end
           else
             patients

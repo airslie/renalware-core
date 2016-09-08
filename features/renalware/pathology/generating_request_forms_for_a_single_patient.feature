@@ -41,7 +41,7 @@ Feature: Generating request forms for a single patient
      | telephone  | 7983123123    |
      | template   | manual        |
     Then Clyde sees these details at the top of Patty's form
-      | patient_name    | THEPATIENT PATTY |
+      | patient_name    | PATTY THEPATIENT |
       | date            | 12-10-2016       |
       | date_of_birth   | 25-12-1961       |
       | consultant      | Zoe Zimmerman    |
