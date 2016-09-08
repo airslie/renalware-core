@@ -2865,7 +2865,9 @@ CREATE TABLE problem_problems (
     date date,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer
 );
 
 
@@ -6224,6 +6226,13 @@ CREATE INDEX index_problem_notes_on_updated_by_id ON problem_notes USING btree (
 
 
 --
+-- Name: index_problem_problems_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_problem_problems_on_created_by_id ON problem_problems USING btree (created_by_id);
+
+
+--
 -- Name: index_problem_problems_on_deleted_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6242,6 +6251,13 @@ CREATE INDEX index_problem_problems_on_patient_id ON problem_problems USING btre
 --
 
 CREATE INDEX index_problem_problems_on_position ON problem_problems USING btree ("position");
+
+
+--
+-- Name: index_problem_problems_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_problem_problems_on_updated_by_id ON problem_problems USING btree (updated_by_id);
 
 
 --
@@ -7414,6 +7430,14 @@ ALTER TABLE ONLY clinic_visits
 
 
 --
+-- Name: fk_rails_bbae3e065d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY problem_problems
+    ADD CONSTRAINT fk_rails_bbae3e065d FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
 -- Name: fk_rails_bd995b497c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7675,6 +7699,14 @@ ALTER TABLE ONLY drug_types_drugs
 
 ALTER TABLE ONLY clinical_allergies
     ADD CONSTRAINT fk_rails_f8f7b6daad FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_fb41553d96; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY problem_problems
+    ADD CONSTRAINT fk_rails_fb41553d96 FOREIGN KEY (updated_by_id) REFERENCES users(id);
 
 
 --
@@ -8160,6 +8192,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160830141439');
 INSERT INTO schema_migrations (version) VALUES ('20160905140623');
 
 INSERT INTO schema_migrations (version) VALUES ('20160906195949');
+
+INSERT INTO schema_migrations (version) VALUES ('20160908120113');
 
 INSERT INTO schema_migrations (version) VALUES ('20160916113152');
 

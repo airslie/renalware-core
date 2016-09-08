@@ -5,6 +5,7 @@ table#archived_problems.manual-stripes.auto-layout
       th Description
       th.col-width-date Recorded on
       th.col-width-date Archived on
+      td By
   = content_tag(:tbody, class: "sortables", data: { rel: sort_patient_problems_path(@patient) }) do
     - problems.each do |problem|
       = content_tag_for(:tr, problem, class: "sortable") do
@@ -17,3 +18,4 @@ table#archived_problems.manual-stripes.auto-layout
               li= note.description
         td= l problem.updated_on
         td= l problem.archived_on
+        td= problem.created_by.full_name
