@@ -8,7 +8,6 @@ Feature: Submitting a letter for review
   Background:
     Given Nathalie is a nurse
     And Patty is a patient
-    And Doug is Patty's doctor
 
   @web
   Scenario: A nurse submitted the letter for review

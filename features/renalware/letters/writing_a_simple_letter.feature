@@ -9,7 +9,7 @@ Feature: Writing a letter
   Background:
     Given Nathalie is a nurse
     And Patty is a patient
-    And Doug is Patty's doctor
+    And Phylis is Patty's primary care physician
 
   @web @javascript
   Scenario Outline: A nurse drafted a letter
@@ -20,10 +20,10 @@ Feature: Writing a letter
 
     Examples:
       | recipient      | manual_ccs                  | ccs                                |
-      | Doug           | John in London              | Patty, John in London              |
-      | Doug           | John in London, Kate in Ely | Patty, John in London, Kate in Ely |
-      | Patty          |                             | Doug                               |
-      | John in London |                             | Patty, Doug                        |
+      | Phylis         | John in London              | Patty, John in London              |
+      | Phylis         | John in London, Kate in Ely | Patty, John in London, Kate in Ely |
+      | Patty          |                             | Phylis                             |
+      | John in London |                             | Patty, Phylis                      |
 
   @web
   Scenario: A nurse drafted an erroneous letter

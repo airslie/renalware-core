@@ -3,14 +3,14 @@ require "rails_helper"
 RSpec.describe "Get formatted letter HTML content", type: :request do
   include LettersSpecHelper
 
-  let(:doctor) { create(:letter_doctor) }
-  let(:patient) { create(:letter_patient, doctor: doctor) }
+  let(:primary_care_physician) { create(:letter_primary_care_physician) }
+  let(:patient) { create(:letter_patient, primary_care_physician: primary_care_physician) }
   let(:letter) { create_letter(to: :patient, patient: patient) }
 
   context "with a draft letter" do
     describe "GET show" do
       let(:patient) {
-        create(:letter_patient, doctor: doctor,
+        create(:letter_patient, primary_care_physician: primary_care_physician,
           family_name: "RABBIT",
           local_patient_id: "KCH57837"
         )

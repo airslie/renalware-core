@@ -1,0 +1,18 @@
+.row
+  = render "header"
+
+.row
+  table.primary-care-physicians
+    thead
+      tr
+        th
+        th Name
+        th GP Code
+        th Email
+        th Telephone
+        th Practices/Address
+
+    tbody
+      = render @primary_care_physicians
+
+  = paginate @primary_care_physicians

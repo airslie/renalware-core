@@ -6,7 +6,7 @@ Feature: Writing a clinic visit letter
   Background:
     Given Nathalie is a nurse
     And Patty is a patient
-    And Doug is Patty's doctor
+    And Doug is a doctor
     And Patty has a recorded clinic visit
     And Patty has current prescriptions
     And Patty has recorded problems with notes

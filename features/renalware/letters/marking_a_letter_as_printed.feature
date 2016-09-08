@@ -9,7 +9,6 @@ Feature: Marking a letter as printed
 
   Background:
     Given Patty is a patient
-    And Doug is Patty's doctor
     And Patty has an approved letter
 
   @web

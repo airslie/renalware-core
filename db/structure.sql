@@ -511,85 +511,6 @@ ALTER SEQUENCE delayed_jobs_id_seq OWNED BY delayed_jobs.id;
 
 
 --
--- Name: doctor_doctors; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE doctor_doctors (
-    id integer NOT NULL,
-    given_name character varying,
-    family_name character varying,
-    email character varying,
-    code character varying,
-    practitioner_type character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    telephone character varying
-);
-
-
---
--- Name: doctor_doctors_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE doctor_doctors_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: doctor_doctors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE doctor_doctors_id_seq OWNED BY doctor_doctors.id;
-
-
---
--- Name: doctor_doctors_practices; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE doctor_doctors_practices (
-    doctor_id integer NOT NULL,
-    practice_id integer NOT NULL
-);
-
-
---
--- Name: doctor_practices; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE doctor_practices (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    email character varying,
-    code character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: doctor_practices_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE doctor_practices_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: doctor_practices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE doctor_practices_id_seq OWNED BY doctor_practices.id;
-
-
---
 -- Name: drug_types; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2070,6 +1991,85 @@ ALTER SEQUENCE patient_languages_id_seq OWNED BY patient_languages.id;
 
 
 --
+-- Name: patient_practices; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE patient_practices (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    email character varying,
+    code character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: patient_practices_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE patient_practices_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_practices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE patient_practices_id_seq OWNED BY patient_practices.id;
+
+
+--
+-- Name: patient_practices_primary_care_physicians; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE patient_practices_primary_care_physicians (
+    primary_care_physician_id integer NOT NULL,
+    practice_id integer NOT NULL
+);
+
+
+--
+-- Name: patient_primary_care_physicians; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE patient_primary_care_physicians (
+    id integer NOT NULL,
+    given_name character varying,
+    family_name character varying,
+    email character varying,
+    code character varying,
+    practitioner_type character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    telephone character varying
+);
+
+
+--
+-- Name: patient_primary_care_physicians_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE patient_primary_care_physicians_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_primary_care_physicians_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE patient_primary_care_physicians_id_seq OWNED BY patient_primary_care_physicians.id;
+
+
+--
 -- Name: patient_religions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2125,7 +2125,7 @@ CREATE TABLE patients (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     practice_id integer,
-    doctor_id integer,
+    primary_care_physician_id integer,
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
     title character varying,
@@ -3376,20 +3376,6 @@ ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY doctor_doctors ALTER COLUMN id SET DEFAULT nextval('doctor_doctors_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY doctor_practices ALTER COLUMN id SET DEFAULT nextval('doctor_practices_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY drug_types ALTER COLUMN id SET DEFAULT nextval('drug_types_id_seq'::regclass);
 
 
@@ -3685,6 +3671,20 @@ ALTER TABLE ONLY patient_ethnicities ALTER COLUMN id SET DEFAULT nextval('patien
 --
 
 ALTER TABLE ONLY patient_languages ALTER COLUMN id SET DEFAULT nextval('patient_languages_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_practices ALTER COLUMN id SET DEFAULT nextval('patient_practices_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_primary_care_physicians ALTER COLUMN id SET DEFAULT nextval('patient_primary_care_physicians_id_seq'::regclass);
 
 
 --
@@ -4013,22 +4013,6 @@ ALTER TABLE ONLY death_edta_codes
 
 ALTER TABLE ONLY delayed_jobs
     ADD CONSTRAINT delayed_jobs_pkey PRIMARY KEY (id);
-
-
---
--- Name: doctor_doctors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY doctor_doctors
-    ADD CONSTRAINT doctor_doctors_pkey PRIMARY KEY (id);
-
-
---
--- Name: doctor_practices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY doctor_practices
-    ADD CONSTRAINT doctor_practices_pkey PRIMARY KEY (id);
 
 
 --
@@ -4373,6 +4357,22 @@ ALTER TABLE ONLY patient_ethnicities
 
 ALTER TABLE ONLY patient_languages
     ADD CONSTRAINT patient_languages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: patient_practices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_practices
+    ADD CONSTRAINT patient_practices_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: patient_primary_care_physicians_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_primary_care_physicians
+    ADD CONSTRAINT patient_primary_care_physicians_pkey PRIMARY KEY (id);
 
 
 --
@@ -4786,17 +4786,10 @@ CREATE INDEX index_clinic_visits_on_updated_by_id ON clinic_visits USING btree (
 
 
 --
--- Name: index_doctor_doctors_on_code; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_doctor_doctors_on_code ON doctor_doctors USING btree (code);
-
-
---
 -- Name: index_doctors_practices; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_doctors_practices ON doctor_doctors_practices USING btree (doctor_id, practice_id);
+CREATE INDEX index_doctors_practices ON patient_practices_primary_care_physicians USING btree (primary_care_physician_id, practice_id);
 
 
 --
@@ -5143,6 +5136,20 @@ CREATE UNIQUE INDEX index_patient_bookmarks_on_patient_id_and_user_id ON patient
 
 
 --
+-- Name: index_patient_practices_primary_care_physicians_on_practice_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patient_practices_primary_care_physicians_on_practice_id ON patient_practices_primary_care_physicians USING btree (practice_id);
+
+
+--
+-- Name: index_patient_primary_care_physicians_on_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_patient_primary_care_physicians_on_code ON patient_primary_care_physicians USING btree (code);
+
+
+--
 -- Name: index_patients_on_created_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5150,17 +5157,17 @@ CREATE INDEX index_patients_on_created_by_id ON patients USING btree (created_by
 
 
 --
--- Name: index_patients_on_doctor_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_patients_on_doctor_id ON patients USING btree (doctor_id);
-
-
---
 -- Name: index_patients_on_document; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_patients_on_document ON patients USING gin (document);
+
+
+--
+-- Name: index_patients_on_primary_care_physician_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_primary_care_physician_id ON patients USING btree (primary_care_physician_id);
 
 
 --
@@ -5697,8 +5704,8 @@ ALTER TABLE ONLY access_assessments
 -- Name: fk_rails_55ecff6804; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY doctor_doctors_practices
-    ADD CONSTRAINT fk_rails_55ecff6804 FOREIGN KEY (doctor_id) REFERENCES doctor_doctors(id);
+ALTER TABLE ONLY patient_practices_primary_care_physicians
+    ADD CONSTRAINT fk_rails_55ecff6804 FOREIGN KEY (primary_care_physician_id) REFERENCES patient_primary_care_physicians(id);
 
 
 --
@@ -5798,6 +5805,14 @@ ALTER TABLE ONLY pathology_observations
 
 
 --
+-- Name: fk_rails_7345be7c22; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patients
+    ADD CONSTRAINT fk_rails_7345be7c22 FOREIGN KEY (primary_care_physician_id) REFERENCES patient_primary_care_physicians(id);
+
+
+--
 -- Name: fk_rails_751ed7515f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5825,8 +5840,8 @@ ALTER TABLE ONLY transplant_recipient_followups
 -- Name: fk_rails_7a89922302; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY doctor_doctors_practices
-    ADD CONSTRAINT fk_rails_7a89922302 FOREIGN KEY (practice_id) REFERENCES doctor_practices(id);
+ALTER TABLE ONLY patient_practices_primary_care_physicians
+    ADD CONSTRAINT fk_rails_7a89922302 FOREIGN KEY (practice_id) REFERENCES patient_practices(id);
 
 
 --
@@ -5906,7 +5921,7 @@ ALTER TABLE ONLY pd_exit_site_infections
 --
 
 ALTER TABLE ONLY patients
-    ADD CONSTRAINT fk_rails_9739853ad1 FOREIGN KEY (doctor_id) REFERENCES doctor_doctors(id);
+    ADD CONSTRAINT fk_rails_9739853ad1 FOREIGN KEY (primary_care_physician_id) REFERENCES patient_primary_care_physicians(id);
 
 
 --
@@ -6003,6 +6018,14 @@ ALTER TABLE ONLY pd_peritonitis_episodes
 
 ALTER TABLE ONLY pathology_requests_patient_rules
     ADD CONSTRAINT fk_rails_b13e09c8a3 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_b1b697cf23; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_practices_primary_care_physicians
+    ADD CONSTRAINT fk_rails_b1b697cf23 FOREIGN KEY (primary_care_physician_id) REFERENCES patient_primary_care_physicians(id);
 
 
 --
@@ -6286,6 +6309,14 @@ ALTER TABLE ONLY pd_peritonitis_episodes
 
 
 --
+-- Name: fk_rails_f2b12c3a20; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_practices_primary_care_physicians
+    ADD CONSTRAINT fk_rails_f2b12c3a20 FOREIGN KEY (practice_id) REFERENCES patient_practices(id);
+
+
+--
 -- Name: fk_rails_f8ed99dfda; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6562,4 +6593,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160823173525');
 INSERT INTO schema_migrations (version) VALUES ('20160829114845');
 
 INSERT INTO schema_migrations (version) VALUES ('20160830141439');
+
+INSERT INTO schema_migrations (version) VALUES ('20160906195949');
 
