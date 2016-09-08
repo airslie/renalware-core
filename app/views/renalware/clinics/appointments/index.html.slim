@@ -25,17 +25,17 @@
   table#appointments
     thead
       tr
-        th
+        th.col-width-small
           | Generate request form?
           br
           |
           = link_to "(Uncheck all)", "#", id: "uncheck_all_appointments_link"
-        th = sort_link(query, :starts_at, "Date", default_order: :asc)
-        th Time
-        th = sort_link(query, :patient_family_name, "Patient", default_order: :asc)
-        th Sex
-        th Age
-        th Modality
+        th.col-width-date = sort_link(query, :starts_at, "Date", default_order: :asc)
+        th.col-width-time Time
+        th.col-width-medium = sort_link(query, :patient_family_name, "Patient", default_order: :asc)
+        th.col-width-tiny Sex
+        th.col-width-tiny Age
+        th.col-width-small Modality
         th = sort_link(query, :clinic_name, "Clinic", default_order: :asc)
         th = sort_link(query, :user_family_name, "Consultant", default_order: :asc)
 

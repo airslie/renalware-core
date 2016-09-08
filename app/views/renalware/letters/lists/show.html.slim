@@ -6,10 +6,10 @@
     thead
       tr
         th.noprint
-        th= sort_link(@q, :patient_family_name, "Patient")
-        th Date
+        th.col-width-medium= sort_link(@q, :patient_family_name, "Patient")
+        th.col-width-date Date
         th Author
-        th Recipient
+        th.col-width-medium Recipient
         th Description
         th State
     tbody

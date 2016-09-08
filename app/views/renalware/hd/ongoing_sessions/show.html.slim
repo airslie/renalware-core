@@ -16,17 +16,17 @@
   table.report
     thead
       tr
-        th.noprint
-        th= sort_link(@q, :patient_family_name, "Patient")
-        th KCH No
+        th.noprint.col-width-11
+        th.col-width-medium= sort_link(@q, :patient_family_name, "Patient")
+        th.col-width-tiny KCH No
         th= sort_link(@q, :patient_born_on, "Age")
         th= sort_link(@q, :patient_sex, "Sex")
         th Current Modal
 
         th= sort_link(@q, :hospital_unit_name, "Unit")
-        th= sort_link(@q, :performed_on, "Date")
-        th= sort_link(@q, :start_time, "Start Time")
-        th= sort_link(@q, :end_time, "End Time")
+        th.col-width-date= sort_link(@q, :performed_on, "Date")
+        th.col-width-time= sort_link(@q, :start_time, "Start Time")
+        th.col-width-time= sort_link(@q, :end_time, "End Time")
         td= sort_link(@q, :signed_on_by_family_name, "Signed On By")
         td= sort_link(@q, :signed_off_by_family_name, "Signed Off By")
 

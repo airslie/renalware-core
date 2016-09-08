@@ -6,14 +6,14 @@
           tr
             - if current_scope
               th
-            th= sort_link_if(treatable.sortable?, search, :drug_name, "Drug name")
+            th.col-width-medium= sort_link_if(treatable.sortable?, search, :drug_name, "Drug name")
             th Drug Type
-            th Dose
+            th.col-width-tiny Dose
             th Frequency
-            th Route
-            th Provider
+            th.col-width-tiny Route
+            th.col-width-tiny Provider
             th Notes
-            th= sort_link_if(treatable.sortable?, search, :prescribed_on, "Prescribed on")
+            th.col-width-date.wide= sort_link_if(treatable.sortable?, search, :prescribed_on, "Prescribed on")
             th Prescribed By
             - unless current_scope
               th Terminated On
