@@ -53,7 +53,7 @@ module Renalware
     # @section coercions
     #
     def to_s
-      name.to_s
+      @code
     end
 
     def to_str
