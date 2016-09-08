@@ -39,12 +39,15 @@ $(document).ready(function(){
       data: { medication_switch: selectedMedicationType },
       success: function(json) {
         var $drugSelectBox = $medForm.find('.drug-select');
-        $drugSelectBox.html('');
+        var option_template = "<option class='drug-select-link' value=<%=id%>><%=name%></option>"
 
+        $drugSelectBox.html('');
+        $drugSelectBox.append(_.template(option_template)({ id: null, name: 'Please select' }));
+        console.log(json);
         for (var i = 0; i < json.length; i++) {
-          var drugId = json[i].id;
-          var drugName = json[i].name;
-          var optionHtml = _.template("<option class='drug-select-link' value=<%=id%>><%=name%></option>")({ id: drugId, name: drugName });
+          var drugId = json[i][0];
+          var drugName = json[i][1];
+          var optionHtml = _.template(option_template)({ id: drugId, name: drugName });
           $drugSelectBox.append(optionHtml);
         }
       },

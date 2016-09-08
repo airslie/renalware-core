@@ -32,7 +32,9 @@ Rails.application.routes.draw do
     namespace :drugs do
       resources :drugs, except: :show do
         collection do
-          get :selected_drugs
+          scope format: true, constraints: { format: :json } do
+            get :selected_drugs
+          end
         end
       end
     end

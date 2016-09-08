@@ -2,22 +2,30 @@
 
 .row.medication-type-field
   .small-3.columns
-    = label_tag :medication_switch, "Medication Type"
+    = label_tag :medication_switch, t(".medication_switch.label")
   .small-9.columns
-    = select_tag :medication_switch, drug_select_options, { prompt: "Select drug by category/type or use the search option below", include_blank: true, class: "medication-type-select" }
+    = select_tag :medication_switch,
+                 drug_select_options,
+                 { prompt: t(".medication_switch.prompt"),
+                   class: "medication-type-select" }
 
 /! Search all drugs
 .row.standard
   .small-3.columns
-    = label_tag :drug_search, "Drug"
+    = label_tag :drug_search, t(".drug_search.label")
   .small-9.columns
-    = text_field_tag :drug_search, f.object.drug_name, class: "find_drug #{ highlight_validation_fail(f.object, :drug) }", placeholder: "Search drug by name or type"
+    = text_field_tag :drug_search,
+                     f.object.drug_name,
+                     class: "find_drug #{ highlight_validation_fail(f.object, :drug) }",
+                     placeholder: t(".drug_search.placeholder")
 
     ul.drug-results.no-bullet
 
 /! Show only when selecting drugs by category/type.
 .row.drug-by-select
   .small-3.columns
-    = label_tag :drug_select, "Select Drug"
+    = label_tag :drug_select, t(".drug_select.label")
   .small-9.columns
-    = select_tag :drug_select, @selected_drugs, class: "drug-select"
+    = select_tag :drug_select,
+                [],
+                class: "drug-select"
