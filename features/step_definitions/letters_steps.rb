@@ -79,10 +79,6 @@ When(/^Doug drafts a clinic letter for Patty$/) do
   draft_clinic_visit_letter(patient: @patty, user: @doug, issued_on: Time.zone.today)
 end
 
-When(/^Doug drafts a clinic letter for Patty$/) do
-  draft_clinic_visit_letter(patient: @patty, user: @doug, issued_on: Time.zone.today)
-end
-
 When(/^Doug drafts an erroneous clinic visit letter$/) do
   draft_clinic_visit_letter(patient: @patty, user: @nathalie, issued_on: nil)
 end

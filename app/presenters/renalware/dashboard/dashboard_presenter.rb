@@ -4,8 +4,13 @@ module Renalware
   module Dashboard
     class DashboardPresenter
       def initialize(user)
+        @bookmarker = Patients.cast_user(user)
         @typists = Letters.cast_typist(user)
         @author = Letters.cast_author(user)
+      end
+
+      def bookmarked_patients
+        @bookmarker.patients
       end
 
       def draft_letters

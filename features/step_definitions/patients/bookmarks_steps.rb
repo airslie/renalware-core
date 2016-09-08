@@ -8,6 +8,10 @@ When(/^Clyde bookmarks (\w+)$/) do |patient_name|
   bookmark_patient(@clyde, patient_name)
 end
 
+When(/^Doug bookmarks (\w+)$/) do |patient_name|
+  bookmark_patient(@doug, patient_name)
+end
+
 When(/^Clyde deletes the bookmark for (\w+)$/) do |patient_name|
   delete_bookmark(@clyde, patient_name)
 end

@@ -19,5 +19,6 @@ Feature: View a personal dashboard
     And Nathalie submits the letter for review
     Then Patty's pending letter is accessible from Doug's dashboard
 
-  @wip
   Scenario: The system user bookmarked a patient
+    When Doug bookmarks Patty
+    Then Patty is accessible from Doug's dashboard

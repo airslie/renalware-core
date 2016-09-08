@@ -14,6 +14,12 @@ module World
 
         expect(dashboard.letters_pending_review.first).to eq(letter_patient.letters.pending_review.first)
       end
+
+      def expect_patient_accessible_from_dashboard(user:, patient:)
+        dashboard = Renalware::Dashboard::DashboardPresenter.new(user)
+
+        expect(dashboard.bookmarked_patients.map(&:given_name).first).to eq(patient.given_name)
+      end
     end
   end
 end
