@@ -54,12 +54,19 @@ module World
 
       # @section commands
       #
-      def draft_simple_letter(patient:, user:, issued_on:, recipient:, ccs: nil)
+      def draft_simple_letter(options)
+        patient = options.fetch(:patient)
+        user = options.fetch(:user)
+        issued_on = options.fetch(:issued_on)
+        recipient = options.fetch(:recipient)
+        author = options.fetch(:author, user)
+        ccs = options.fetch(:ccs, nil)
+
         patient = letters_patient(patient)
 
         letter_attributes = valid_simple_letter_attributes(patient).merge(
           issued_on: issued_on,
-          author: user,
+          author: author,
           by: user,
           main_recipient_attributes: build_main_recipient_attributes(recipient),
           cc_recipients_attributes: build_cc_recipients_attributes(ccs)

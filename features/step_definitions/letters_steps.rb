@@ -61,7 +61,18 @@ When(/^Nathalie drafts a letter for Patty$/) do
     patient: @patty,
     user: @nathalie,
     issued_on: Time.zone.today,
-    recipient: @patty)
+    recipient: @patty
+  )
+end
+
+When(/^Nathalie drafts a letter for Patty on behalf of Doug$/) do
+  draft_simple_letter(
+    patient: @patty,
+    user: @nathalie,
+    issued_on: Time.zone.today,
+    recipient: @patty,
+    author: @doug
+  )
 end
 
 When(/^Doug drafts a clinic letter for Patty$/) do
