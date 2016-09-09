@@ -1,0 +1,14 @@
+en:
+  renalware:
+    dashboard:
+      dashboards:
+        title: "%{name}'s Dashboard"
+        layout:
+          letters:
+            drafts:
+              none: There are no "draft" letters you are typing.
+            pending_review:
+              none: There are no letters pending your review.
+          bookmarks:
+            none: There have no patient bookmarked.
+

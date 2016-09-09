@@ -13,7 +13,7 @@ module Renalware
       attr_reader :user
 
       def title
-        "#{@user.username}'s Dashboard"
+        I18n.t("renalware.dashboard.dashboards.title", name: @user.username)
       end
 
       def bookmarks
