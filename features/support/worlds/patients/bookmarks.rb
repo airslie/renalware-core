@@ -15,8 +15,7 @@ module World
           Renalware::Patients::Bookmark.create!(user: user, patient: patient)
         end
 
-        def delete_bookmark(user, patient_name)
-          patient_given_name, patient_family_name = patient_name.split(" ")
+        def delete_bookmark(user, patient_given_name)
           patient = find_patient_by_given_name(patient_given_name)
           user = Renalware::Patients.cast_user(user)
 

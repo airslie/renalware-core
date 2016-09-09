@@ -42,7 +42,7 @@ module World
           build_request_forms(options[:patients], options)
         end
 
-        def generate_request_forms_for_appointments(clinician, appointments, params)
+        def generate_request_forms_for_appointments(_clinician, appointments, params)
           options = extract_request_form_params(params)
 
           options[:patients] = appointments.map do |appointment|
@@ -118,7 +118,11 @@ module World
           end
         end
 
-        def expect_request_description_required(request_forms, patient, expected_request_description_code)
+        def expect_request_description_required(
+          request_forms,
+          patient,
+          expected_request_description_code
+        )
           request_form = find_request_form_for_patient(request_forms, patient)
 
           expected_request_description =
@@ -274,8 +278,11 @@ module World
         #
         def expect_patient_summary_to_match_table(_request_forms, patient, expected_values)
           expected_values.each do |key, expected_value|
-            xpath =
-              "//div[data-patient-id='#{patient.id}'][data-role='form_summary']//td[data-role='#{key}']"
+            xpath = <<-ELEMENT.squish
+              //div[data-patient-id='#{patient.id}']
+              [data-role='form_summary']
+              //td[data-role='#{key}']
+            ELEMENT
 
             # NOTE: There will be multiple patient_summaries if the manual form is requested so
             #       find the first match
