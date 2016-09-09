@@ -32,6 +32,16 @@ module World
           expect(page).to have_content(patient.to_s)
         end
       end
+
+      def expect_pending_letter_accessible_from_dashboard(user:, patient:)
+        login_as user
+
+        visit dashboard_path
+
+        within("#letters-pending-review") do
+          expect(page).to have_content(patient.to_s)
+        end
+      end
     end
   end
 end

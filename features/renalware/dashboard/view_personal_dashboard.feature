@@ -15,6 +15,7 @@ Feature: View a personal dashboard
     Given Nathalie drafted a letter for Patty
     Then Patty's draft letter is accessible from Nathalie's dashboard
 
+  @web
   Scenario: The system user is an author of a letter pending review
     Given Nathalie drafted a letter for Patty on behalf of Doug
     And Nathalie submitted the letter for review
