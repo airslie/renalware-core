@@ -17,7 +17,7 @@ module Renalware
       end
 
       def bookmarks
-        @bookmarks ||= @bookmarker.bookmarks
+        @bookmarks ||= @bookmarker.bookmarks.includes(patient: [current_modality: :description])
       end
 
       def draft_letters
