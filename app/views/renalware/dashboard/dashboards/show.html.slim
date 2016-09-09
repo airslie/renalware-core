@@ -14,7 +14,8 @@
     p There are currently no letters pending your review.
 
   h4 Bookmarked Patients
-  - if dashboard.bookmarked_patients.present?
-    = render "renalware/dashboard/bookmarks/table", bookmarks: dashboard.bookmarked_patients
+  - if dashboard.bookmarks.any?
+    #bookmarks
+      = render "renalware/dashboard/bookmarks/table", bookmarks: dashboard.bookmarks
   - else
     p There are currently no bookmarked patients.

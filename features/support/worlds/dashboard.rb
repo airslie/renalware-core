@@ -18,7 +18,8 @@ module World
       def expect_patient_accessible_from_dashboard(user:, patient:)
         dashboard = Renalware::Dashboard::DashboardPresenter.new(user)
 
-        expect(dashboard.bookmarked_patients.map(&:given_name).first).to eq(patient.given_name)
+        patient_names = dashboard.bookmarks.map { |bookmark| bookmark.patient.given_name }
+        expect(patient_names.first).to eq(patient.given_name)
       end
     end
 
@@ -39,6 +40,16 @@ module World
         visit dashboard_path
 
         within("#letters-pending-review") do
+          expect(page).to have_content(patient.to_s)
+        end
+      end
+
+      def expect_patient_accessible_from_dashboard(user:, patient:)
+        login_as user
+
+        visit dashboard_path
+
+        within("#bookmarks") do
           expect(page).to have_content(patient.to_s)
         end
       end

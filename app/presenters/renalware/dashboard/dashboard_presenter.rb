@@ -16,8 +16,8 @@ module Renalware
         "#{@user.username}'s Dashboard"
       end
 
-      def bookmarked_patients
-        @bookmarked_patients ||= @bookmarker.patients
+      def bookmarks
+        @bookmarks ||= @bookmarker.bookmarks
       end
 
       def draft_letters
