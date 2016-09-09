@@ -10,6 +10,7 @@ Feature: View a personal dashboard
     And Doug is a doctor
     And Patty is a patient
 
+  @web
   Scenario: The system user was drafting a letter (i.e the typist)
     Given Nathalie drafted a letter for Patty
     Then Patty's draft letter is accessible from Nathalie's dashboard

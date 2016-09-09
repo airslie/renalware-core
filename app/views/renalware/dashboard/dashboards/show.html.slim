@@ -1,9 +1,10 @@
 = render layout: "layout", locals: { user: user, title: "#{user.username}'s Dashboard" } do
-  h4 Pending Letters
+  h4 Draft Letters
   - if letters.present?
-    = render "renalware/dashboard/letters/table", letters: letters
+    #draft-letters
+      = render "renalware/dashboard/letters/table", letters: letters
   - else
-    p There are currently no "draft" or "pending review" letters.
+    p There are currently no "draft" letters you are typing.
 
   h4 Bookmarked Patients
   - if bookmarks.present?

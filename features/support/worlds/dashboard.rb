@@ -21,5 +21,17 @@ module World
         expect(dashboard.bookmarked_patients.map(&:given_name).first).to eq(patient.given_name)
       end
     end
+
+    module Web
+      def expect_draft_letter_accessible_from_dashboard(user:, patient:)
+        login_as user
+
+        visit dashboard_path
+
+        within("#draft-letters") do
+          expect(page).to have_content(patient.to_s)
+        end
+      end
+    end
   end
 end
