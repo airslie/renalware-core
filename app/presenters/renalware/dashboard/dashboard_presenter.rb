@@ -1,4 +1,5 @@
 require_dependency "renalware/dashboard"
+require_dependency "collection_presenter"
 
 module Renalware
   module Dashboard
