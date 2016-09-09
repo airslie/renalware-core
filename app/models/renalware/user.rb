@@ -13,7 +13,7 @@ module Renalware
     validates_presence_of :signature, on: :update, unless: :super_admin_update
 
     scope :unapproved, -> { where(approved: [nil, false]) }
-    scope :inactive, -> { where('last_activity_at IS NOT NULL AND last_activity_at < ?', expire_after.ago) }
+    scope :inactive, -> { where("last_activity_at IS NOT NULL AND last_activity_at < ?", expire_after.ago) }
     scope :author, -> { where.not(signature: nil) }
     scope :ordered, -> { order(:given_name, :family_name) }
 

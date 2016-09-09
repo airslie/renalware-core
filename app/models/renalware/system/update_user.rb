@@ -62,7 +62,7 @@ module Renalware
       end
 
       def true?(param)
-        param == 'true'
+        param == "true"
       end
     end
   end

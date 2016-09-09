@@ -2,6 +2,6 @@ module Renalware
   class Devise::SessionsController < ::Devise::SessionsController
     include Concerns::DeviseControllerMethods
 
-    layout 'renalware/layouts/application'
+    layout "renalware/layouts/application"
   end
 end

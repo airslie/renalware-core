@@ -1,4 +1,4 @@
-require 'active_support/concern'
+require "active_support/concern"
 
 # Concern for Devise enhancements
 # eg. User approval and password expiry

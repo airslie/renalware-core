@@ -4,11 +4,11 @@ module Renalware
   module ApplicationHelper
 
     def errors_css_class(model, attr)
-      ' field_with_errors' if model.errors.key?(attr)
+      " field_with_errors" if model.errors.key?(attr)
     end
 
     def yes_no(bool)
-      bool ? 'Yes' : 'No'
+      bool ? "Yes" : "No"
     end
 
     def default_for_associated(assoc, method, msg)

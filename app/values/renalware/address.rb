@@ -13,7 +13,7 @@ module Renalware
     end
 
     def uk?
-      'United Kingdom' == country
+      "United Kingdom" == country
     end
 
     def copy_from(source)

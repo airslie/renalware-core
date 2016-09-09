@@ -1,5 +1,5 @@
 class Renalware::Devise::RegistrationsController < ::Devise::RegistrationsController
   include Renalware::Concerns::DeviseControllerMethods
 
-  layout 'renalware/layouts/application'
+  layout "renalware/layouts/application"
 end

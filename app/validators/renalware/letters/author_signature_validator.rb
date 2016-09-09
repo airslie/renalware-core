@@ -4,7 +4,7 @@ module Renalware
       def validate(letter)
         return if letter.death_notification?
         if letter.author && letter.author.signature.blank?
-          errors[:signature] << 'Author must have a signature'
+          errors[:signature] << "Author must have a signature"
         end
       end
     end

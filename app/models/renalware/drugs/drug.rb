@@ -1,4 +1,4 @@
-require_dependency 'renalware/drugs'
+require_dependency "renalware/drugs"
 
 module Renalware
   module Drugs
@@ -12,7 +12,7 @@ module Renalware
       validates :name, presence: true
 
       def self.for(code)
-        joins(:drug_types).where(drug_types: {code: code.to_s})
+        joins(:drug_types).where(drug_types: { code: code.to_s })
       end
 
       def display_type
