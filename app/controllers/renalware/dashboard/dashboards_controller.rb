@@ -6,30 +6,13 @@ module Renalware
       skip_after_action :verify_authorized
 
       def show
-        letters = find_letters
+        dashboard = DashboardPresenter.new(current_user)
+
         render :show, locals: {
           user: current_user,
-          letters: present_letters(letters),
-          bookmarks: find_bookmarks
+          letters: dashboard.draft_letters,
+          bookmarks: dashboard.bookmarked_patients
         }
-      end
-
-      private
-
-      def find_bookmarks
-        Patients.cast_user(current_user).bookmarks
-      end
-
-      def find_letters
-        author.letters.pending.reverse
-      end
-
-      def present_letters(letters)
-        CollectionPresenter.new(letters, Letters::LetterPresenterFactory)
-      end
-
-      def author
-        Letters.cast_author(current_user)
       end
     end
   end

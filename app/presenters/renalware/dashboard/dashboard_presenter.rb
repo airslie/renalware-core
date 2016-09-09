@@ -10,15 +10,21 @@ module Renalware
       end
 
       def bookmarked_patients
-        @bookmarker.patients
+        @bookmarked_patients ||= @bookmarker.patients
       end
 
       def draft_letters
-        @typists.letters.draft
+        @draft ||= present_letters(@typists.letters.draft.reverse)
       end
 
       def letters_pending_review
-        @author.letters.pending_review
+        @pending_review ||= present_letters(@author.letters.pending_review.reverse)
+      end
+
+      private
+
+      def present_letters(letters)
+        CollectionPresenter.new(letters, Letters::LetterPresenterFactory)
       end
     end
   end
