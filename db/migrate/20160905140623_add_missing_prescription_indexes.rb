@@ -7,6 +7,5 @@ class AddMissingPrescriptionIndexes < ActiveRecord::Migration
     add_index :medication_prescriptions, :medication_route_id
     add_index :medication_prescriptions, [:patient_id, :medication_route_id], name: 'idx_mp_patient_id_medication_route_id'
     add_index :medication_prescriptions, [:drug_id, :patient_id]
-    add_index :doctor_doctors_practices, [:practice_id, :doctor_id]
   end
 end
