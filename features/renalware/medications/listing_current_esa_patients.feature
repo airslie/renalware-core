@@ -3,11 +3,11 @@ Feature: Listing patients with a current ESA prescription
   A user can view all patients who currently have one or more ESA drugs prescribed.
 
   Rules:
-    - Only patients with a current esa prescription are listed
+    - Only patients with a current ESA prescription are listed
     - A patient is listed only once even if they have >1 matching prescriptions
 
   Background:
-    Given Clyde is a clinician
+    Given Nancy is a nurse
     And these patients and prescriptions
       | patient        | terminated | drug_type  |
       | Roger Rabbit   | false      | ESA        |
@@ -18,8 +18,8 @@ Feature: Listing patients with a current ESA prescription
 
   @web
   Scenario: A clinician views the list of current prescriptions
-    When Clyde views the ESA patients list
-    Then Clyde sees only these patients
+    When Nancy views the ESA patients list
+    Then Nancy sees only these patients
       | patient         |
       | Roger Rabbit    |
       | Jessica Rabbit  |

@@ -9,7 +9,7 @@ module World
         end
       end
 
-      def view_esa_prescriptions(user: @clyde)
+      def view_esa_prescriptions(user: @nancy)
         # noop
       end
 
@@ -66,7 +66,7 @@ module World
     module Web
       include Domain
 
-      def view_esa_prescriptions(user: @clyde)
+      def view_esa_prescriptions(user: @nancy)
         login_as user
         visit medications_esa_prescriptions_path
       end
