@@ -2,6 +2,8 @@ module Renalware
   module Medications
     module DrugTypes
       class PrescriptionsController < BaseController
+        include Renalware::Concerns::Pageable
+
         def index
           authorize Prescription, :index?
           render :index, locals: {
@@ -17,9 +19,7 @@ module Renalware
         end
 
         def paginated_prescriptions
-          page = params.fetch(:page, 1)
-          per_page = params.fetch(:per_page, 10)
-          query.call.page(page).per(per_page)
+          query.call.page(@page).per(@per_page)
         end
 
         def query
