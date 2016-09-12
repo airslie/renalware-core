@@ -6,7 +6,8 @@ Feature: Listing patients with a current ESA prescription
     - Only patients with a current ESA prescription are listed
     - A patient is listed only once even if they have >1 matching prescriptions
 
-  Background:
+  @web
+  Scenario: A clinician views the list of current prescriptions
     Given Nancy is a nurse
     And these patients and prescriptions
       | patient        | terminated | drug_type  |
@@ -15,9 +16,6 @@ Feature: Listing patients with a current ESA prescription
       | Jessica Rabbit | false      | ESA        |
       | Bugs Bunny     | true       | ESA        |
       | Donald Duck    | false      | Antibiotic |
-
-  @web
-  Scenario: A clinician views the list of current prescriptions
     When Nancy views the ESA patients list
     Then Nancy sees only these patients
       | patient         |
