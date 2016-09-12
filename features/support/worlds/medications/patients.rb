@@ -10,13 +10,12 @@ module World
       end
 
       def view_esa_prescriptions(user: @nancy)
-        # noop
+        @prescriptions = query.call
       end
 
       def expect_prescriptions_to_be(table)
-        prescriptions = query.call
-        expect(prescriptions.size).to eq(table.hashes.size)
-        actual_names = prescriptions.map { |prescription| prescription.patient.full_name }
+        expect(@prescriptions.size).to eq(table.hashes.size)
+        actual_names = @prescriptions.map { |prescription| prescription.patient.full_name }
         expected_names = table.hashes.map{ |h| h["patient"] }
         expect(actual_names).to eq(expected_names)
       end
