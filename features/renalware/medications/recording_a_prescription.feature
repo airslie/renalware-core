@@ -1,5 +1,9 @@
 Feature: Recording a prescription
 
+  Rules:
+  - The administration (e.g. injection) of certain drugs requires a trained professional
+   (i.e. Nurse) and the HD session provides this opportunity.
+
   Background:
     Given Clyde is a clinician
     And Patty is a patient
