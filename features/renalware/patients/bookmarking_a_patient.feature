@@ -7,11 +7,11 @@ Feature: Bookmarking a patient
   Scenario: A user bookmarks a patient
     Given Clyde is a clinician
     And the following patients:
-      | Ibiere Elliott     |
-      | Rochelle Hinsberry |
-      | Wendy Sears        |
-    When Clyde bookmarks Ibiere Elliott
-    And Clyde bookmarks Rochelle Hinsberry
+      | Patty    |
+      | Don      |
+      | Yossef   |
+    When Clyde bookmarks Patty
+    And Clyde bookmarks Yossef
     Then the following patients appear in Clyde's bookmarked patient list:
-      | Ibiere Elliott     |
-      | Rochelle Hinsberry |
+      | Patty    |
+      | Yossef   |

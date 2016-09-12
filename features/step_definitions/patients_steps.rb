@@ -1,8 +1,8 @@
 Given(/^Patty is a patient$/) do
   @patty = Renalware::Patient.create!(
     nhs_number: "1234567890",
-    family_name: "Patty",
-    given_name: "ThePatient",
+    given_name: "Patty",
+    family_name: "ThePatient",
     local_patient_id: "123456",
     sex: "F",
     born_on: Date.new(1961, 12, 25),
@@ -24,8 +24,8 @@ end
 Given(/^Don is a patient$/) do
   @don = Renalware::Patient.create!(
     nhs_number: "1234567891",
-    family_name: "Don",
-    given_name: "TheDonor",
+    given_name: "Don",
+    family_name: "TheDonor",
     local_patient_id: "123457",
     sex: "M",
     born_on: Date.new(1989, 1, 1),
@@ -56,11 +56,9 @@ Given(/^Patty is a diabetic (yes|no)$/) do |diabetic|
 end
 
 Given(/^the following patients:$/) do |table|
-  table.raw.flatten.each do |patient_name|
-    given_name, family_name = patient_name.split(" ")
-
+  table.raw.flatten.each do |given_name|
     Renalware::Patient.create!(
-      family_name: family_name,
+      family_name: "ThePatient",
       given_name: given_name,
       local_patient_id: SecureRandom.uuid,
       sex: "M",
