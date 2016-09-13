@@ -5,11 +5,11 @@
         thead
           tr
             - if current_scope
-              th
+              th.col-width-small
             th.col-width-medium= sort_link_if(treatable.sortable?, search, :drug_name, "Drug name")
             th Drug Type
-            th.col-width-tiny Dose
-            th Frequency
+            th.col-width-small Dose
+            th.col-width-tiny Frequency
             th.col-width-tiny Route
             th.col-width-tiny Provider
             th Notes
