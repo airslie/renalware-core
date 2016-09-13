@@ -4,14 +4,14 @@
 .row
   table
     thead
-      th
-      th ID
-      th User
-      th Login
+      th.col-width-tiny
+      th.col-width-tiny ID
+      th.col-width-medium User
+      th.col-width-small Login
       th Email
       th Telephone #
-      th Added
-      th Approved
+      th.col-width-date-time Added
+      th.col-width-tiny Approved
 
     tbody
       - @users.each do |user|
@@ -22,5 +22,5 @@
           td= user.username
           td= user.email
           td= user.telephone
-          td= user.created_at
+          td= l user.created_at
           td= user.approved?

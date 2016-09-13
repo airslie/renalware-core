@@ -9,14 +9,14 @@ fieldset.hd-sessions
   - else
     table.auto-layout
       thead
-        th
-        th Date
-        th From
-        th To
-        th Dur. (min)
-        th Site
-        th Sign On
-        th Sign Off
+        th.col-width-small
+        th.col-width-date Date
+        th.col-width-time From
+        th.col-width-time To
+        th.col-width-date Dur. (min)
+        th.col-width-medium Site
+        th.col-width-medium Sign On
+        th.col-width-medium Sign Off
 
       tbody
         - sessions.each do |session|

@@ -1,26 +1,65 @@
 table {
   width: 100%;
-}
+  // table-layout: fixed; // NB: will stop th min-widths from working
 
-table tr th.col-width-date{
-  width: 5.5rem;
-}
+  tr th {
+    &.col-width-date {
+      width: 5.8rem;
+      min-width: 5.5rem;
 
-table tr th.col-width-9{
-  width: 9rem;
-}
+      &.wide {
+        width: 8rem;
+      }
+    }
 
-table tr th.col-width-13{
-  width: 13rem;
-}
+    &.col-width-time {
+      width: 4rem;
+      min-width: 3rem;
+    }
 
-table {
-  table-layout: fixed;
-  .column-6-width {
-    width: 6%;
-  }
-  .column-9-width {
-    width: 8.5%;
+    &.col-width-date-time {
+      width: 7.5rem;
+      min-width: 5.5rem;
+    }
+
+    &.col-width-reference-no {
+      width: 8rem;
+      min-width: 5.5rem;
+    }
+
+    &.col-width-tiny {
+      width: 3rem;
+      min-width: 2rem;
+    }
+
+    &.col-width-small {
+      width: 7rem;
+      min-width: 5rem;
+    }
+
+    &.col-width-medium {
+      min-width: 10rem;
+    }
+
+    &.column-6-width {
+      width: 6%;
+    }
+
+    &.col-width-6 {
+      width: 6rem;
+    }
+
+    &.col-width-9 {
+      width: 9rem;
+    }
+
+    &.col-width-11 {
+      width: 11rem;
+    }
+
+    &.col-width-13 {
+      width: 13rem;
+    }
   }
 }
 
