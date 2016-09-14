@@ -1,5 +1,5 @@
 tr
-  td= link_to "View", patient_path(id: bookmark.patient.id)
+  td= link_to "View", patient_clinical_summary_path(patient_id: bookmark.patient.id)
   td= bookmark.patient
   td= bookmark.patient.local_patient_id
   td= I18n.l bookmark.patient.born_on
