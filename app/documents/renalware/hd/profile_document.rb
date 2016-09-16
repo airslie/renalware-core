@@ -27,7 +27,7 @@ module Renalware
         def self.dialysers; Dialyser.ordered; end
         def self.potassium_levels; [1, 2, 3, 4]; end
         def self.calcium_levels; [1.0, 1.35, 1.5]; end
-        def self.temperature_levels; [35.0, 35.5, 36.0, 37.0]; end
+        def self.temperature_levels; [35.0, 35.5, 36.0, 36.5, 37.0]; end
         def self.bicarbonate_levels; (30..40).step(5); end
         def self.sodium_levels; [136, 137, 138, 140, 145]; end
       end
