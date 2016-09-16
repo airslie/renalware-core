@@ -1,7 +1,7 @@
 $patient-header-muted-color: #777;
 $patient-header-icon-color: #bbb;
 $patient-list-border-color: #ddd;
-
+$bookmark-urgent-colour: orange;
 
 select.dob {
   display: inline-block;
@@ -95,5 +95,9 @@ dl.patient-header {
         width: auto;
       }
     }
+
+#bookmarks {
+  tr.urgent {
+    background-color: $bookmark-urgent-colour;
   }
 }

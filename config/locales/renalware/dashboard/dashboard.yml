@@ -11,4 +11,14 @@ en:
               none: There are no letters pending your review.
           bookmarks:
             none: There have no patient bookmarked.
-
+      bookmarks:
+        none: There have no patient bookmarked.
+        table:
+          patient_name: Name
+          hopsital_number: Hosp No
+          born_on: DOB
+          age: Age
+          sex: Sex
+          notes: Notes
+          modality: Modality
+          bookmarked_on: Bookmarked
