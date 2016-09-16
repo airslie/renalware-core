@@ -33,13 +33,15 @@ end
 
 When(/^I complete the cause of death form$/) do
 
-  fill_in "Date of Death", with: "22-09-2014"
+  within ".edit_patient" do
+    fill_in "Date of Death", with: "22-09-2014"
 
-  select "Dementia", from: "EDTA Cause of Death (1)"
-  select "Cachexia", from: "EDTA Cause of Death (2)"
+    select "Dementia", from: "EDTA Cause of Death (1)"
+    select "Cachexia", from: "EDTA Cause of Death (2)"
 
-  fill_in "Notes", with: "Heart stopped"
+    fill_in "Notes", with: "Heart stopped"
 
-  click_on "Save Cause of Death"
+    click_on "Save Cause of Death"
+  end
 end
 
