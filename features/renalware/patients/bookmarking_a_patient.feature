@@ -17,7 +17,7 @@ Feature: Bookmarking a patient
       | Yossef   |
     When Clyde bookmarks Patty with the note "Lorem ipum delor" and indicates it is urgent
     And Clyde bookmarks Yossef with the note "" and indicates it is not urgent
-    Then the following patients appear in Clyde's bookmarked patient list:
+    Then Clyde has the following patient bookmarks:
       | Patient  | Notes            | Urgent |
       | Patty    | Lorem ipum delor | true   |
       | Yossef   |                  | false  |

@@ -28,12 +28,7 @@ end
 
 # THEN
 
-Then(/^the following patients appear in Clyde's bookmarked patient list:$/) do |table|
-  # patients = table.raw.flatten.map do |given_name|
-  #   Renalware::Patient.find_by(given_name: given_name)
-  # end
-  # expect_user_to_have_patients_in_bookmarks(@clyde, patients)
-
+Then(/^Clyde has the following patient bookmarks:$/) do |table|
   table.hashes.each do |row|
     expect_user_to_have_patient_in_bookmarks(user: @clyde,
                                              patient_name: row[:Patient],
