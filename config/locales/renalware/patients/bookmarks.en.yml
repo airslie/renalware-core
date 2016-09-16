@@ -1,0 +1,10 @@
+en:
+  renalware:
+    patients:
+      bookmarks:
+        new:
+          title: Create a bookmark
+          save: Save bookmark
+          cancel: Cancel
+        delete:
+          confirm: Are you sure?

@@ -26,4 +26,12 @@
 //= require iframeResizer
 //= require_tree .
 
-$(function(){ $(document).foundation(); });
+$(document).foundation({
+    reveal: {
+        animation: 'fadeAndPop',
+        animation_speed: 200,
+        close_on_background_click: false,
+        close_on_esc: true,
+        dismiss_modal_class: 'reveal-modal-close'
+    }
+});

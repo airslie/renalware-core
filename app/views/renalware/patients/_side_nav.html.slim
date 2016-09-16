@@ -25,9 +25,10 @@ ul.side-nav
   li.divider
   li.heading Options
   - bookmark = find_user_bookmark_for_patient(@patient)
+
   - if bookmark.present?
-    = render partial: "renalware/patients/bookmarks/delete_form",
+    = render partial: "renalware/patients/bookmarks/delete",
         locals: { bookmark: bookmark, link_text: "Remove from bookmarks" }
   - else
-    = render partial: "renalware/patients/bookmarks/form",
+    = render partial: "renalware/patients/bookmarks/new",
         locals: { patient: @patient, link_text: "Bookmark this patient" }

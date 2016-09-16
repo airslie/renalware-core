@@ -4,7 +4,7 @@ module Renalware
       before_action :load_patient, only: :create
 
       def create
-        patients_user.bookmarks.create!(patient: @patient)
+        patients_user.bookmarks.create!(bookmark_params.update(patient: @patient))
 
         redirect_to patient_path(id: @patient.id), notice: t(".success", model_name: "bookmark")
       end
@@ -21,6 +21,10 @@ module Renalware
 
       def patients_user
         @patients_user ||= Renalware::Patients.cast_user(current_user)
+      end
+
+      def bookmark_params
+        params.require(:patients_bookmark).permit(:notes, :urgent)
       end
     end
   end

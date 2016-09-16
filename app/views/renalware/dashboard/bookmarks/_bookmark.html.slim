@@ -7,5 +7,5 @@ tr
   td= bookmark.patient.sex
   td= bookmark.patient.current_modality
   td= I18n.l bookmark.created_at
-  td= render partial: "renalware/patients/bookmarks/delete_form",
+  td= render partial: "renalware/patients/bookmarks/delete",
       locals: { bookmark: bookmark, link_text: "Remove" }
