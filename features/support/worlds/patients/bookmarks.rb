@@ -13,7 +13,10 @@ module World
         def create_bookmark(user:, patient_name:, notes: "", urgent: false)
           user = Renalware::Patients.cast_user(user)
           patient = find_or_create_patient_by_name(patient_name)
-          Renalware::Patients::Bookmark.create!(user: user, patient: patient, notes: notes, urgent: urgent)
+          Renalware::Patients::Bookmark.create!(user: user,
+                                                patient: patient,
+                                                notes: notes,
+                                                urgent: urgent)
         end
 
         def delete_bookmark(user:, patient_name:)
@@ -31,7 +34,10 @@ module World
           expect(user.patients.map(&:given_name)).to eq(patients.map(&:given_name))
         end
 
-        def expect_user_to_have_patient_in_bookmarks(user:, patient_name:, notes: nil, urgent: false)
+        def expect_user_to_have_patient_in_bookmarks(user:,
+                                                     patient_name:,
+                                                     notes: nil,
+                                                     urgent: false)
           user = Renalware::Patients.cast_user(user)
           patient = user.patients.where(given_name: patient_name).first
           expect(patient).to_not be_nil

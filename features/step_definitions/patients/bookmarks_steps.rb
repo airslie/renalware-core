@@ -15,6 +15,7 @@ end
 When(/^Clyde bookmarks (\w+)$/) do |patient_name|
   bookmark_patient(user: @clyde, patient_name: patient_name)
 end
+
 When(/^Clyde bookmarks (\w+) with the note "([^"]*)" and indicates it is (urgent|not urgent)$/) do |patient_name, notes, urgent|
   bookmark_patient(user: @clyde,
                    patient_name: patient_name,
