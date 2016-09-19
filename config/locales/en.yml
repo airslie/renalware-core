@@ -25,6 +25,7 @@ en:
       create: Create
       submit: Save
       update: Save
+      filter: Filter
 
   activerecord:
     attributes:

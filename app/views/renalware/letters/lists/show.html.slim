@@ -7,7 +7,7 @@
       .large-2.columns
         = f.select :state_eq, state_options, include_blank: t(".state_prompt")
       .large-10.columns
-        = f.submit 'Filter', class: 'button tiny'
+        = f.submit t("helpers.submit.filter"), class: "button tiny"
 
 .row
   table.report
