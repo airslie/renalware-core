@@ -83,5 +83,13 @@ module Renalware
     def inline_image(file_path)
       InlineImage.new("/app/assets/images/#{file_path}")
     end
+
+    def modality_description_for(modality)
+      if modality.blank? || modality.new_record?
+        I18n.t("renalware.modalities.none")
+      else
+        modality.description.name
+      end
+    end
   end
 end

@@ -1,10 +1,15 @@
+$patient-header-muted-color: #777;
+$patient-header-icon-color: #bbb;
+$patient-list-border-color: #ddd;
+
+
 select.dob {
   display: inline-block;
   width: 30%;
 }
 
 .patient-list {
-  border-bottom: 1px solid #DDDDDD;
+  border-bottom: 1px solid $patient-list-border-color;
 }
 
 ul.provider {
@@ -18,4 +23,77 @@ ul.provider {
 
 .med-list>li {
   display: inline-block;
+}
+
+dl.patient-header {
+  font-size: 1rem;
+  margin: .3em 0 .5em;
+
+  dt {
+    color: $patient-header-muted-color;
+    display: inline-block;
+    font-size: .6rem;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+
+    // large screens and above
+    @media screen and (min-width: 64em) {
+      font-size: .7em;
+    }
+
+    // dt.name contains only an icon
+    &.name {
+      color: $patient-header-icon-color;
+      display: none;
+
+      // medium screens and above
+      @media screen and (min-width: 40em) {
+        display: inline-block;
+        font-size: 1.4rem;
+        min-width: 1.1rem;
+      }
+
+      // large screens and above
+      @media screen and (min-width: 64em) {
+        font-size: 1.6rem;
+        min-width: 1.2rem;
+      }
+    }
+  }
+
+  dd {
+    display: inline;
+    font-size: 1rem;
+    margin: 0 .5rem 0 .1rem;
+
+    &.name {
+      display: inline-block;
+      font-size: 1.4em;
+      margin-right: .4rem;
+      width: 100%;
+    }
+
+    // medium screens only
+    @media screen and (min-width: 40em) and (max-width: 63.9375em) {
+      font-size: 1.1rem;
+
+      &.name {
+        width: auto;
+      }
+    }
+
+    // large screens and above
+    @media screen and (min-width: 64em) {
+      font-size: 1.4em;
+      margin: 0 .6rem 0 .2rem;
+
+      &.name {
+        font-size: 1.6em;
+        margin-right: .6rem;
+        width: auto;
+      }
+    }
+  }
 }
