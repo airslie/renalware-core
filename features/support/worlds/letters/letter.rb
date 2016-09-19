@@ -51,7 +51,7 @@ module World
           patient = find_or_create_patient_by_name(row[:patient])
           letter = seed_simple_letter_for(patient, user: patient.created_by)
 
-          move_letter_to_state(letter, row[:letter_status])
+          move_letter_to_state(letter, row[:state])
         end
       end
 
@@ -214,7 +214,7 @@ module World
         entries = letters.map do |r|
           hash = {
             patient: r.patient.full_name,
-            letter_status: r.state
+            state: r.state
           }
           hash.with_indifferent_access
         end
