@@ -34,6 +34,10 @@ module Renalware
 
       scope :pending, -> { where(type: [state_class_name(:draft), state_class_name(:pending_review)]) }
       scope :reverse, -> { order(updated_at: :desc) }
+      scope :with_letterhead, -> { includes(:letterhead) }
+      scope :with_main_recipient, -> { includes([main_recipient: :address]) }
+      scope :with_author, -> { includes(:author) }
+      scope :with_patient, -> { includes(:patient) }
 
       def self.policy_class
         LetterPolicy

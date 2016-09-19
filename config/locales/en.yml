@@ -26,6 +26,7 @@ en:
       submit: Save
       update: Save
       filter: Filter
+    reset: Reset
 
   activerecord:
     attributes:
