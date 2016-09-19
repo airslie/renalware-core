@@ -18,6 +18,12 @@ module Renalware
       Duration.new(to_seconds(value))
     end
 
+    def self.from_minutes(minutes)
+      minutes = 0 if minutes.nil? or minutes.blank?
+      seconds = minutes.to_i * 60
+      Duration.new(seconds)
+    end
+
     # Returns the duration in hours and minutes format: "hh:mm"
     def to_s
       return "" if @seconds.nil?

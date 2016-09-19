@@ -18,7 +18,7 @@ en:
         needle_size: Needle Size
         single_needle: Single Needle?
         dialysate: Dialysate
-        flow_rate: Flow Rate
+        flow_rate: Dialysate Flow Rate
         blood_flow: Blood Flow
         has_sodium_profiling: Has Sodium Profiling?
         sodium_first_half: Sodium (first half)
