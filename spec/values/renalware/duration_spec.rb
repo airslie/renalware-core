@@ -30,6 +30,23 @@ module Renalware
       end
     end
 
+    describe ".from_minutes" do
+      it "returns a duration in seconds" do
+        expect(subject.from_minutes(0).seconds).to eq(0)
+        expect(subject.from_minutes(30).seconds).to eq(1800)
+        expect(subject.from_minutes("30").seconds).to eq(1800)
+      end
+
+      it "keeps a nil value" do
+        expect(subject.from_minutes(nil).seconds).to eq(0)
+      end
+
+      it "handles invalid string inputs" do
+        expect(subject.from_minutes("").seconds).to eq(0)
+        expect(subject.from_minutes("bla").seconds).to eq(0)
+      end
+    end
+
     describe "#to_s" do
       it "returns the duration formatted in hours:minutes" do
         expect(subject.new(600).to_s).to eq("0:10")
