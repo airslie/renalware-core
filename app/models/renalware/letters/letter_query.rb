@@ -3,6 +3,7 @@ module Renalware
     class LetterQuery
       def initialize(q: nil)
         @q = q || {}
+        @q[:s] ||= ["patient_family_name, patient_given_name"]
       end
 
       def call
@@ -10,12 +11,7 @@ module Renalware
       end
 
       def search
-        @search ||= begin
-          query = @q
-          QueryableLetter.search(query).tap do |s|
-            s.sorts = ["patient_family_name, patient_given_name"]
-          end
-        end
+        @search ||= QueryableLetter.search(@q)
       end
 
       class QueryableLetter < ActiveType::Record[Letter]
