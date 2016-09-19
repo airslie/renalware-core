@@ -55,6 +55,10 @@ module Renalware
         [patient.family_name, patient.local_patient_id, id, state].join("-").upcase
       end
 
+      def state
+        ::I18n.t(super.to_sym, scope: "enums.letter.state")
+      end
+
       private
 
       # Include the counterpart cc recipients (i.e. patient and/or primary care physician)

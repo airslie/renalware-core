@@ -15,7 +15,7 @@ Feature: Listing the HD sessions
       | Bunny, Bugs     | Nathalie     | Clyde         |
 
   @web
-  Scenario: A clinician reported the list of ongoing HD sessions
+  Scenario: A clinician listed ongoing HD sessions
     When Clyde views the list of ongoing HD sessions
     Then Clyde sees these HD sessions
       | patient         | signed_on_by | signed_off_by |

@@ -48,7 +48,7 @@ Given(/^Nathalie submitted the letter for review$/) do
   submit_for_review(patient: @patty, user: @nathalie)
 end
 
-Given(/^these letters are recorded$/) do |table|
+Given(/^these letters were recorded:$/) do |table|
   seed_letters(table)
 end
 
@@ -94,8 +94,8 @@ When(/^Nathalie submits the letter for review$/) do
   submit_for_review(patient: @patty, user: @nathalie)
 end
 
-When(/^Clyde views the list of letters$/) do
-  view_letters(filter: :none, user: @clyde)
+When(/^Clyde filters on all letters pending review$/) do
+  view_letters(q: { state_eq: "pending_review" }, user: @clyde)
 end
 
 Then(/^Doug can reject the letter$/) do
@@ -194,6 +194,6 @@ Then(/^the letter is completed$/) do
   expect_letter_to_be_completed(patient: @patty, user: @nathalie)
 end
 
-Then(/^Clyde sees these letters$/) do |table|
+Then(/^Clyde views these letters:$/) do |table|
   expect_letters_to_be(table)
 end

@@ -85,9 +85,9 @@ To run the acceptance tests with the UI:
 
     TEST_DEPTH=web bin/cucumber --tags @web
 
-## Code Quaility
+## Code Quality
 
-Code quality can be analyzed using by running `codeclimate anaylze`. To setup
+Code quality can be analyzed using by running `codeclimate analyze`. To setup
 CodeClimate locally read the setup instructions:
 
     https://github.com/codeclimate/codeclimate

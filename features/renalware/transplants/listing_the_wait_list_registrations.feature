@@ -14,7 +14,7 @@ Feature: Listing the wait list registrations
       | Bunny, Bugs     | Transplanted       |
 
   @web
-  Scenario: A clinician reported the list of active wait list registrations
+  Scenario: A clinician listed active wait list registrations
     When Clyde views the list of active wait list registrations
     Then Clyde sees these wait list registrations
       | patient       | status |
