@@ -1,0 +1,10 @@
+en:
+  renalware:
+    patients:
+      header:
+        hospital_code: KCH
+        nhs_number: NHS
+        age: Age
+        sex: Sex
+        born_on: DoB
+        modality: Mod

@@ -1,6 +1,6 @@
 .row
   .large-12.columns
-    = render partial: "renalware/patients/header", locals: { model: @patient }
+    = render partial: "renalware/patients/header", locals: { patient: @patient }
   .large-2.columns.patient-side-nav
     = render partial: "renalware/patients/side_nav", locals: { model: @patient }
   .large-10.columns
