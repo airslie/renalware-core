@@ -116,7 +116,7 @@ module World
         Renalware::Letters::CompleteLetter.build(approved_letter).call(by: user)
       end
 
-      def view_letters(q: nil, user: nil)
+      def view_letters(q: nil, **_)
         @query = Renalware::Letters::LetterQuery.new(q: q)
       end
 
