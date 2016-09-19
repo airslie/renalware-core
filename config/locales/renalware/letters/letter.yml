@@ -1,4 +1,10 @@
 en:
+  renalware:
+    letters:
+      lists:
+        show:
+          state_prompt: -- Select State --
+
   activerecord:
     attributes:
       renalware/letters/letter:

@@ -5,10 +5,9 @@
   = search_form_for @q, url: letters_list_path do |f|
     .row
       .large-2.columns
-        = f.select :state_eq, state_options, include_blank: "-- State --"
+        = f.select :state_eq, state_options, include_blank: t(".state_prompt")
       .large-10.columns
         = f.submit 'Filter', class: 'button tiny'
-
 
 .row
   table.report
