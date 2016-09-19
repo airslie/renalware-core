@@ -35,7 +35,6 @@ module World
         patient = letters_patient(patient)
 
         letter_attributes = valid_simple_letter_attributes(patient).merge(
-          author: user,
           main_recipient_attributes: { person_role: "patient" },
           by: user,
           author: author
@@ -52,7 +51,7 @@ module World
           patient = find_or_create_patient_by_name(row[:patient])
           letter = seed_simple_letter_for(patient, user: patient.created_by)
 
-          move_letter_to_state(letter, row[:letter_status])
+          move_letter_to_state(letter, row[:state])
         end
       end
 
@@ -117,8 +116,8 @@ module World
         Renalware::Letters::CompleteLetter.build(approved_letter).call(by: user)
       end
 
-      def view_letters(*)
-        @query = Renalware::Letters::LetterQuery.new
+      def view_letters(q: nil, **_)
+        @query = Renalware::Letters::LetterQuery.new(q: q)
       end
 
       # @section expectations
@@ -215,7 +214,7 @@ module World
         entries = letters.map do |r|
           hash = {
             patient: r.patient.full_name,
-            letter_status: r.state
+            state: r.state
           }
           hash.with_indifferent_access
         end
@@ -363,9 +362,9 @@ module World
         click_on "Mark as printed"
       end
 
-      def view_letters(filter:, user:)
+      def view_letters(q: nil, user:)
         login_as user
-        visit letters_list_path(filter: filter)
+        visit letters_list_path(q: q)
       end
 
       def expect_letters_to_be(table)

@@ -44,7 +44,7 @@ module Renalware
       # Adds a `state` attribute; e.g. `Letter::Draft.state # => "Draft"`
       #
       def state
-        self.class.name.demodulize.downcase
+        self.class.name.demodulize.underscore
       end
     end
 
@@ -58,6 +58,10 @@ module Renalware
           define_method "#{state}?" do
             send(:state) == state.to_s
           end
+        end
+
+        define_singleton_method "states" do
+          states
         end
       end
 

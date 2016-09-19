@@ -1,4 +1,10 @@
 en:
+  renalware:
+    letters:
+      lists:
+        show:
+          state_prompt: -- Select State --
+
   activerecord:
     attributes:
       renalware/letters/letter:
@@ -10,13 +16,6 @@ en:
         body: Message
         state: State
         notes: Internal Notes
-
-  enumerize:
-    renalware/letters/letter:
-      state:
-        draft: Draft
-        ready_for_review: Typed (for review)
-        archived: Archived
 
   simple_form:
     hints:
