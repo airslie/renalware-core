@@ -1,9 +1,5 @@
 Feature: Recording a prescription
 
-  Rules:
-  - The administration (e.g. injection) of certain drugs requires a trained professional
-   (i.e. Nurse) and the HD session provides this opportunity.
-
   Background:
     Given Clyde is a clinician
     And Patty is a patient
@@ -15,6 +11,10 @@ Feature: Recording a prescription
 
   @web @javascript
   Scenario: A clinician recorded the prescription for a patient with a termination date
+
+    The administration (e.g. injection) of certain drugs requires a trained professional
+    (i.e. Nurse) and the HD session provides this opportunity.
+
     When Clyde records the prescription for Patty with a termination date
     Then the prescription is recorded for Patty
     And Clyde is recorded as the user who terminated the prescription
