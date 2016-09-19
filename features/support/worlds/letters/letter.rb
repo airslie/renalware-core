@@ -35,7 +35,6 @@ module World
         patient = letters_patient(patient)
 
         letter_attributes = valid_simple_letter_attributes(patient).merge(
-          author: user,
           main_recipient_attributes: { person_role: "patient" },
           by: user,
           author: author
