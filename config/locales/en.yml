@@ -3,6 +3,13 @@ en:
   :false: "No"
 
   enums:
+    letter:
+      state:
+        draft: Draft
+        pending_review: Pending Review
+        approved: Approved
+        completed: Completed
+
     provider:
       gp: GP
       hospital: Hospital

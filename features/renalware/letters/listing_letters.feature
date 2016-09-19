@@ -22,6 +22,13 @@ Feature: Listing the letters
     Then Clyde sees these letters
       | patient         | letter_status      |
       | Roger Rabbit    | draft              |
-      | Jessica Rabbit  | pendingreview     |
+      | Jessica Rabbit  | pending_review     |
       | Bugs Bunny      | approved           |
       | Daffy Duck      | completed          |
+
+  @web
+  Scenario: A clinician reported the list of draft letters
+    When Clyde views the list of draft letters
+    Then Clyde sees these letters
+      | patient         | letter_status      |
+      | Roger Rabbit    | draft              |

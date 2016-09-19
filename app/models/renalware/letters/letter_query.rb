@@ -18,6 +18,14 @@ module Renalware
         def self.finder_needs_type_condition?
           false
         end
+
+        scope :state_eq, -> (state = :draft) { where(type: Letter.state_class_name(state)) }
+
+        private_class_method :ransackable_scopes
+
+        def self.ransackable_scopes(_auth_object = nil)
+          %i(state_eq)
+        end
       end
     end
   end

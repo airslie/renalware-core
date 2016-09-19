@@ -95,7 +95,11 @@ When(/^Nathalie submits the letter for review$/) do
 end
 
 When(/^Clyde views the list of letters$/) do
-  view_letters(filter: :none, user: @clyde)
+  view_letters(user: @clyde)
+end
+
+When(/^Clyde views the list of draft letters$/) do
+  view_letters(q: { state_eq: "draft" }, user: @clyde)
 end
 
 Then(/^Doug can reject the letter$/) do

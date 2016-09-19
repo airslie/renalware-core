@@ -27,6 +27,13 @@ module Renalware
     def patient_letters_letter_preview_path(letter)
       patient_letters_letter_formatted_path(letter.patient, letter)
     end
+
+    def state_options
+      Letters::Letter.states.map do |state|
+        label = I18n.t(state.to_sym, scope: "enums.letter.state")
+        [label, state]
+      end
+    end
   end
 end
 

@@ -116,8 +116,8 @@ module World
         Renalware::Letters::CompleteLetter.build(approved_letter).call(by: user)
       end
 
-      def view_letters(*)
-        @query = Renalware::Letters::LetterQuery.new
+      def view_letters(q: nil, user: nil)
+        @query = Renalware::Letters::LetterQuery.new(q: q)
       end
 
       # @section expectations
@@ -362,9 +362,9 @@ module World
         click_on "Mark as printed"
       end
 
-      def view_letters(filter:, user:)
+      def view_letters(q: nil, user:)
         login_as user
-        visit letters_list_path(filter: filter)
+        visit letters_list_path(q: q)
       end
 
       def expect_letters_to_be(table)
