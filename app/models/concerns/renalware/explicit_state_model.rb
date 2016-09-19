@@ -59,6 +59,10 @@ module Renalware
             send(:state) == state.to_s
           end
         end
+
+        define_singleton_method "states" do
+          states
+        end
       end
 
       # Allows for custom scope names, example:
