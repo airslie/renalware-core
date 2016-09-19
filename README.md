@@ -9,7 +9,6 @@ As a Rails developer we assume you have the following setup on your machine:
 
 * Git
 * Postgres (9.5)
-* Heroku Toolbelt (with a Heroku Account)
 * a ruby version manager (e.g. RVM)
 * a js runtime (i.e. nodejs) required by the [uglifier gem](https://github.com/lautis/uglifier#installation)
 
@@ -48,7 +47,7 @@ To see the output from the Rails server, open up another terminal window and run
 
     tail -f log/developments.log
 
-Foreman uses a Procfile to start all the components that we need for the app (server, workers, ...).  The Procfile file is also used by Heroku which is used for hosting staging and demo servers.
+Foreman uses a Procfile to start all the components that we need for the app (server, workers, ...).
 
 Visit [http://localhost:3000](http://localhost:3000).
 
@@ -109,52 +108,3 @@ To make awesome_print the default formatter in pry, add the following to `~/.pry
 
     require "awesome_print"
     AwesomePrint.pry!
-
-## Deployment to demo server
-
-Heroku hosts our demo server.
-
-Setup the remote repository:
-
-    heroku login
-    heroku git:remote -a renalware-demo
-
-To deploy:
-
-    git push heroku master
-    heroku open
-
-The app is available at http://renalware-demo.herokuapp.com. It is password protected:
-
-    username: renalware
-    password: lister
-
-## Deployment to staging server
-
-Heroku hosts our demo server, and acceptance apps.
-
-Setup the remote repository:
-
-    heroku login
-    heroku git:remote -a renalware-staging -r staging
-
-To deploy:
-
-    git push staging master
-    heroku open
-
-To reset the database:
-
-    heroku pg:reset DATABASE -a renalware-staging
-    heroku run rake db:migrate db:seed -a renalware-staging
-
-Note: you might have to restart the dyno to pick-up the new database structure:
-
-    heroku restart -a renalware-staging
-
-The app is available at http://renalware-staging.herokuapp.com. It is password protected:
-
-    username: renalware
-    password: lister
-
-Review app: if the automatic deployment fails, there is no known solution for it.
