@@ -44,7 +44,7 @@ module Renalware
       # Adds a `state` attribute; e.g. `Letter::Draft.state # => "Draft"`
       #
       def state
-        self.class.name.demodulize.downcase
+        self.class.name.demodulize.underscore
       end
     end
 
