@@ -34,7 +34,7 @@ ruby:
         = fcm.input :hd_type, as: :inline_radio_buttons
         = fcm.input :cannulation_type, input_html: { class: "small-input" },
             collection: fcm.object.class.cannulation_types, value_method: :name
-        = fcm.input :needle_size, input_html: { class: "small-input" }
+        = fcm.input :needle_size, collection: fcm.object.class.needle_sizes, input_html: { class: "small-input" }
         = fcm.input :single_needle, as: :inline_radio_buttons
         = fcm.input :dialysate, as: :inline_radio_buttons
         = fcm.input :flow_rate, collection: fcm.object.class.flow_rates, input_html: { class: "small-input" }
