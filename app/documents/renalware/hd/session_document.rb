@@ -24,6 +24,8 @@ module Renalware
         attribute :blood_pressure, BloodPressure
         attribute :temperature, Float
         attribute :bm_stix, Float
+
+        validates :weight, patient_weight: true
       end
       attribute :observations_before, Observations
       attribute :observations_after, Observations
