@@ -22,6 +22,7 @@ module Renalware
         attribute :sodium_second_half, Integer
 
         def self.cannulation_types; CannulationType.ordered; end
+        def self.needle_sizes; [14, 15, 16, 17]; end
         def self.flow_rates; (100..800).step(100); end
         def self.blood_flows; (50..400).step(50); end
         def self.dialysers; Dialyser.ordered; end
