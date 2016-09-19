@@ -9,7 +9,6 @@ As a Rails developer we assume you have the following setup on your machine:
 
 * Git
 * Postgres (9.5)
-* Heroku Toolbelt (with a Heroku Account)
 * a ruby version manager (e.g. RVM)
 * a js runtime (i.e. nodejs) required by the [uglifier gem](https://github.com/lautis/uglifier#installation)
 
@@ -48,7 +47,7 @@ To see the output from the Rails server, open up another terminal window and run
 
     tail -f log/developments.log
 
-Foreman uses a Procfile to start all the components that we need for the app (server, workers, ...).  The Procfile file is also used by Heroku which is used for hosting staging and demo servers.
+Foreman uses a Procfile to start all the components that we need for the app (server, workers, ...).
 
 Visit [http://localhost:3000](http://localhost:3000).
 
