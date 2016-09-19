@@ -17,7 +17,7 @@ Feature: Listing the letters
       | Daffy Duck      | completed          |
 
   @web
-  Scenario: A clinician reported the list of letters
+  Scenario: A clinician listed all letters
     When Clyde views the list of letters
     Then Clyde sees these letters
       | patient         | letter_status      |
@@ -27,7 +27,7 @@ Feature: Listing the letters
       | Daffy Duck      | completed          |
 
   @web
-  Scenario: A clinician reported the list of draft letters
+  Scenario: A clinician listed draft letters
     When Clyde views the list of draft letters
     Then Clyde sees these letters
       | patient         | letter_status      |
