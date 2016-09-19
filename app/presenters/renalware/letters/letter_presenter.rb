@@ -56,7 +56,7 @@ module Renalware
       end
 
       def state
-        ::I18n.t super.to_sym, scope: "enums.letter.state"
+        ::I18n.t(super.to_sym, scope: "enums.letter.state")
       end
 
       private
