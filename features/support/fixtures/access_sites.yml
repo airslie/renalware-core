@@ -22,9 +22,9 @@ popliteallong_saphenous:
 forearm_nos:
   code: 08
   name: Forearm NOS
-intenal_jugular_line:
+internal_jugular_line:
   code: 09
-  name: Intenal jugular line
+  name: Internal jugular line
 subclavian_line:
   code: 10
   name: Subclavian line

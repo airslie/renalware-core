@@ -18,6 +18,10 @@ module Renalware
       def end_time
         ::I18n.l(super, format: :time)
       end
+
+      def duration
+        super && Duration.from_minutes(super)
+      end
     end
   end
 end
