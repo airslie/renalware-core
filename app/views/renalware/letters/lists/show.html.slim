@@ -2,24 +2,23 @@
   h1 Letters
 
 .row
-  = search_form_for @q, url: letters_list_path do |f|
-    .row
-      .large-2.columns
-        = f.select :state_eq, state_options, include_blank: t(".state_prompt")
-      .large-3.columns
-        = f.collection_select :author_id_eq,
-            @authors, :id, :to_s,
-            { :include_blank => t(".author_prompt") },
-            { :class => "searchable_select" }
-      .large-3.columns
-        = f.collection_select :created_by_id_eq,
-            @typists, :id, :to_s,
-            { :include_blank => t(".typist_prompt") },
-            { :class => "searchable_select" }
-      .large-4.columns
-        = f.submit t("helpers.submit.filter"), class: "button"
-        | &nbsp;
-        = link_to t("helpers.reset"), letters_list_path
+  .search-form
+    fieldset
+      legend Filters
+      = simple_form_for @q, as: :q, url: letters_list_path, method: :get do |f|
+        .row
+          .large-2.columns
+            = f.input :state_eq, collection: state_options, label: "State"
+          .large-3.columns
+            = f.input :author_id_eq, collection: @authors, label: "Author",
+                input_html: { class: "searchable_select" }
+          .large-3.columns
+            = f.input :created_by_id_eq, collection: @typists,label: "Typist",
+                input_html: { class: "searchable_select" }
+          .large-4.columns.actions
+            = f.submit t("helpers.submit.filter"), class: "button"
+            span= " or "
+            = link_to t("helpers.reset"), letters_list_path
 
 .row
   table.report
