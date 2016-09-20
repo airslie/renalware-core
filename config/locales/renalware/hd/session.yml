@@ -62,6 +62,11 @@ en:
               inclusion: must be between 0.2 and 3.5
             machine_urr:
               inclusion: must be between 0 and 100
+        renalware/hd/session_document/observations:
+          attributes:
+            weight:
+              out_of_range: Please enter a weight between 5.0 and 300.0 kg
+              invalid_number: Please enter a number with up to 1 decimal place, for example 100 or 100.1
 
   enumerize:
     renalware/hd/session_document/info:
@@ -86,4 +91,8 @@ en:
           info:
             flow_rate: ml/hr
             machine_urr: "%"
+          observations_before:
+            weight: kg
+          observations_after:
+            weight: kg
 
