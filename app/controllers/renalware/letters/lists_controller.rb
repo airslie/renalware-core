@@ -3,9 +3,13 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class ListsController < Letters::BaseController
+      include Renalware::Concerns::Pageable
+
+      before_action :prepare_paging, only: :show
+
       def show
         query = LetterQuery.new(q: params[:q])
-        collection = call_query(query).page(params[:page]).per(15)
+        collection = call_query(query).page(@page).per(@per_page)
         @letters = present_letters(collection)
         authorize @letters
 
