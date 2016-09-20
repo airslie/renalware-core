@@ -1,18 +1,19 @@
 .row
   = render "header"
 
-.row.collapse
+.row
   .search-form
     fieldset
       legend Filters
       = search_form_for @drugs_search do |f|
-        .small-9.large-8.columns
-          = f.label "Name or type"
-          = f.search_field :name_or_drug_types_name_start
-        .small-3.large-4.columns.actions
-          = f.submit "Filter", class: 'button'
-          span= " or "
-          = link_to t("helpers.reset"), drugs_drugs_path
+        .row
+          .small-9.large-8.columns
+            = f.label "Name or type"
+            = f.search_field :name_or_drug_types_name_start
+          .small-3.large-4.columns.actions
+            = f.submit "Filter", class: 'button'
+            span= " or "
+            = link_to t("helpers.reset"), drugs_drugs_path
 
 .row
   table.drugs
