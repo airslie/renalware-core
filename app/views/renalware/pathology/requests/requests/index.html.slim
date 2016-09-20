@@ -2,16 +2,20 @@
   h1 Request Form Print History
 
 .row
-  = simple_form_for query,
-      as: :q,
-      url: pathology_requests_requests_path,
-      method: :get do |f|
-    .row
-      .large-4.columns
-        = f.input :created_on_eq, as: :date_picker, label: "Printed on"
-      .large-2.columns
-        = f.submit "Filter", class: "button"
-      .large-6.columns
+  .search-form
+    fieldset
+      legend Filters
+      = simple_form_for query,
+          as: :q,
+          url: pathology_requests_requests_path,
+          method: :get do |f|
+        .row
+          .large-4.columns
+            = f.input :created_on_eq, as: :date_picker, label: "Printed on"
+          .large-8.columns.actions
+            = f.submit "Filter", class: "button"
+            span= " or "
+            = link_to t("helpers.reset"), pathology_requests_requests_path
 
 .row
   - if requests.empty?
