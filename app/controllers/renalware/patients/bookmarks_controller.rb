@@ -5,8 +5,7 @@ module Renalware
 
       def create
         patients_user.bookmarks.create!(bookmark_params.update(patient: @patient))
-
-        redirect_to patient_path(id: @patient.id), notice: t(".success", model_name: "bookmark")
+        redirect_to :back, notice: t(".success", model_name: "bookmark")
       end
 
       def destroy
