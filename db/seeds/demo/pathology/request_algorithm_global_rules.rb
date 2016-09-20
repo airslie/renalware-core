@@ -18,9 +18,7 @@ module Renalware
 
   file_path = File.join(File.dirname(__FILE__), 'request_algorithm_global_rules.csv')
 
-  logcount=0
   CSV.foreach(file_path, headers: true) do |row|
-    logcount += 1
     Pathology::Requests::GlobalRule.find_or_create_by!(
       rule_set_id: row["rule_set_id"],
       rule_set_type: "Renalware::Pathology::Requests::GlobalRuleSet",
@@ -30,6 +28,4 @@ module Renalware
       param_comparison_value: row["param_comparison_value"]
     )
   end
-
-  log "#{logcount} Global Rules seeded", type: :sub
 end

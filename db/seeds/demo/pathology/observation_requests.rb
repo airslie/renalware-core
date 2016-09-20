@@ -1,6 +1,6 @@
 def create_observation(patient, request_description)
   pathology_patient = Renalware::Pathology.cast_patient(patient)
-  puts "Seeding observations for #{patient.full_name} with request description code: #{request_description.code}"
+  log "Adding observations for #{patient.full_name} with request description code: #{request_description.code}", type: :sub
 
   request = pathology_patient.observation_requests.create!(
     description: request_description,

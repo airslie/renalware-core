@@ -16,7 +16,7 @@ module Renalware
         u.roles = [Renalware::Role.find_by!(name: :super_admin)]
         u.signature = "#{site} Superuser"
       end
-    log "#{username} created!", type: :sub
+    log "#{username} created.", type: :sub
     #admin
     username = "#{sitecode}admin"
       Renalware::User.find_or_create_by!(username: username) do |u|
@@ -28,7 +28,7 @@ module Renalware
         u.roles = [Renalware::Role.find_by!(name: :admin)]
         u.signature = "Dr #{site} Admin, MRCP"
       end
-    log "#{username} created!", type: :sub
+    log "#{username} created.", type: :sub
 
     #clinician
     username = "#{sitecode}doc"
@@ -42,7 +42,7 @@ module Renalware
         u.signature = "Dr #{site}"
         u.telephone = Faker::PhoneNumber.phone_number
       end
-    log "#{username} created!", type: :sub
+    log "#{username} created.", type: :sub
 
     #nurse NB same role as doc
     username = "#{sitecode}nurse"
@@ -55,7 +55,7 @@ module Renalware
         u.roles = [Renalware::Role.find_by!(name: :clinician)]
         u.signature = "#{site} Nurse"
       end
-    log "#{username} created!", type: :sub
+    log "#{username} created.", type: :sub
 
     #guest i.e. readonly
     username = "#{sitecode}guest"
@@ -68,6 +68,6 @@ module Renalware
         u.roles = [Renalware::Role.find_by!(name: :read_only)]
         u.signature = "#{site} Guest"
       end
-    log "#{username} created!", type: :sub
+    log "#{username} created.", type: :sub
   end
 end

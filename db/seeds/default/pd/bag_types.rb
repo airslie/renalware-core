@@ -1,10 +1,9 @@
 module Renalware
   log "Adding PD Bag Types"
-  file_path = File.join(File.dirname(__FILE__), 'bag_types.csv')
 
-  logcount=0
+  file_path = File.join(File.dirname(__FILE__), "bag_types.csv")
+
   CSV.foreach(file_path, headers: true) do |row|
-    logcount += 1
     PD::BagType.find_or_create_by!(
       description: row['description'],
       manufacturer: row['manufacturer'],
@@ -20,6 +19,4 @@ module Renalware
       magnesium_mmole_l: row['magnesium_mmole_l']
     )
   end
-
-  log "#{logcount} Bag Types seeded", type: :sub
 end

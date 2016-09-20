@@ -3,9 +3,7 @@ module Renalware
 
   file_path = File.join(File.dirname(__FILE__), 'request_algorithm_global_rule_sets.csv')
 
-  logcount=0
   CSV.foreach(file_path, headers: true) do |row|
-    logcount += 1
 
     clinic = ::Renalware::Clinics::Clinic.find_by(name: row["clinic"])
     request_description = Pathology::RequestDescription.find_by(
@@ -19,6 +17,4 @@ module Renalware
       frequency_type: row["frequency_type"]
     )
   end
-
-  log "#{logcount} Global Rule Sets seeded", type: :sub
 end

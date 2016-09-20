@@ -4,9 +4,7 @@ module Renalware
   file_path = File.join(File.dirname(__FILE__), 'pathology_request_descriptions.csv')
   labs = Pathology::Lab.all.index_by(&:name)
 
-  logcount=0
   CSV.foreach(file_path, headers: true) do |row|
-    logcount += 1
     observation_description =
       if row["required_observation_description_code"].present?
         Pathology::ObservationDescription.find_by!(
@@ -23,6 +21,4 @@ module Renalware
       bottle_type: row["bottle_type"]
     )
   end
-
-  log "#{logcount} Pathology Request Descriptions seeded", type: :sub
 end

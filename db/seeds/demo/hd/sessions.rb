@@ -1,5 +1,5 @@
 module Renalware
-  log "Add fake HD session"
+  log "Adding fake HD session"
   units = Hospitals::Unit.hd_sites.limit(3).to_a
   users = User.limit(3).to_a
   patients = Patient.limit(10).to_a

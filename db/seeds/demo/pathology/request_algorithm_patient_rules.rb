@@ -3,9 +3,7 @@ module Renalware
 
   file_path = File.join(File.dirname(__FILE__), 'request_algorithm_patient_rules.csv')
 
-  logcount=0
   CSV.foreach(file_path, headers: true) do |row|
-    logcount += 1
     lab = Pathology::Lab.find_by(name: row["lab"])
 
     Pathology::Requests::PatientRule.find_or_create_by!(
@@ -19,6 +17,4 @@ module Renalware
       end_date: row["end_date"]
     )
   end
-
-  log "#{logcount} Patient Rules seeded", type: :sub
 end

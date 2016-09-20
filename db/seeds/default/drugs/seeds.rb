@@ -17,9 +17,7 @@ module Renalware
 
   file_path = File.join(File.dirname(__FILE__), 'drugs.csv')
 
-  logcount=0
   CSV.foreach(file_path, headers: true) do |row|
-    logcount += 1
     Drugs::Drug.find_or_create_by!(name: row['drugname']) do |drug|
       drug.id = row['id']
     end
@@ -29,19 +27,13 @@ module Renalware
     reset_sequence_sql % { table_name: Renalware::Drugs::Drug.table_name }
   )
 
-  log "#{logcount} Drugs seeded", type: :sub
-
   log "Assigning Drug Types to Drugs"
 
   file_path = File.join(File.dirname(__FILE__), 'drug_drug_types.csv')
 
-  logcount=0
   CSV.foreach(file_path, headers: true) do |row|
-    logcount += 1
     drug = Drugs::Drug.find(row['drug_id'])
     drug_type = Drugs::Type.find(row['drug_type_id'])
     drug.drug_types << drug_type unless drug.drug_types.include?(drug_type)
   end
-
-  log "#{logcount} Drug Types assigned", type: :sub
 end

@@ -1,13 +1,9 @@
 module Renalware
   log "Adding HD Dialysers"
 
-  file_path = File.join(File.dirname(__FILE__), 'hd_dialysers.csv')
+  file_path = File.join(File.dirname(__FILE__), "hd_dialysers.csv")
 
-  logcount=0
   CSV.foreach(file_path, headers: true) do |row|
-    logcount += 1
     HD::Dialyser.find_or_create_by!(group: row["group"], name: row["name"])
   end
-
-  log "#{logcount} HD Dialysers seeded", type: :sub
 end

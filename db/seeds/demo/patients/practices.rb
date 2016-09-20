@@ -1,10 +1,9 @@
 module Renalware
   log "Adding Practices"
-  logcount=0
+
   CSV.foreach(File.join(File.dirname(__FILE__), 'practices.csv'), headers: true) do |row|
     next if row['street_1'].blank?
 
-    logcount += 1
     practice = Patients::Practice.find_or_initialize_by(code: row['code'])
 
     practice.name = row['name']
@@ -19,5 +18,4 @@ module Renalware
 
     practice.save!
   end
-  log "#{logcount} Practices seeded", type: :sub
 end

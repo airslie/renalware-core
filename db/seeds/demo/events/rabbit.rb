@@ -26,6 +26,4 @@ module Renalware
     notes: "reminded patient to bring complete drug list to clinic",
     date_time: Time.now - 5.days
   )
-
-  log "3 Events seeded"
 end

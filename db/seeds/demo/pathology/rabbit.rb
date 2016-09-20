@@ -4,10 +4,7 @@ module Renalware
 
   log "Adding Rabbit Pathology Requests (OBR)"
 
-  logcount=0
   CSV.foreach(File.join(File.dirname(__FILE__), 'rabbit_pathology_obr.csv'), headers: true) do |row|
-    #id,"order_no","requestor_name","requested_at",patient_id,"created_at","description"
-    logcount += 1
     request_description = Pathology::RequestDescription.find_by!(code: row['description'])
     request = pathology_rabbit.observation_requests.create!(
       id: row['id'],
@@ -18,14 +15,9 @@ module Renalware
     )
   end
 
-  log "#{logcount} Path Requests seeded", type: :sub
-
   log "Adding Rabbit Pathology Observations (OBX)"
 
-  logcount=0
   CSV.foreach(File.join(File.dirname(__FILE__), 'rabbit_pathology_obx.csv'), headers: true) do |row|
-  #id,"result","description",request_id
-    logcount += 1
     observation_description = Pathology::ObservationDescription.find_by!(code: row['description'])
     request = Pathology::ObservationRequest.find(row['request_id'])
     request.observations.create!(
@@ -34,7 +26,4 @@ module Renalware
       observed_at: request.requested_at - 9.hours
     )
   end
-
-  log "#{logcount} Path Observations seeded"
-
 end

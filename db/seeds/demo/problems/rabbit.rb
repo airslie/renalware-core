@@ -5,25 +5,23 @@ module Renalware
 
   randweeks = (0..52).to_a
   file_path = File.join(File.dirname(__FILE__), 'rabbit_problems.csv')
-  logcount=0
 
   Problems::Problem.where(patient_id: rabbit.id).destroy_all
 
+  count = 0
   CSV.foreach(file_path, headers: true) do |row|
+    count += 1
     randwk = randweeks.sample
     date = Time.now - randwk.weeks
     description = row['description']
-    log "adding #{description} from #{date}", type: :sub
-    logcount += 1
+    log "Adding #{description} from #{date}", type: :sub
     Problems::Problem.create!(
       patient_id: rabbit.to_param,
       description: description,
       date: date,
-      position: logcount
+      position: count
     )
   end
-
-  log "#{logcount} Problems seeded", type: :sub
 
   log "Adding Problem Notes for Roger RABBIT"
 
@@ -32,12 +30,10 @@ module Renalware
   users = User.limit(3).to_a
 
   file_path = File.join(File.dirname(__FILE__), 'rabbit_problem_notes.csv')
-  logcount=0
 
   CSV.foreach(file_path, headers: true) do |row|
     description = row['description']
     problem_index = row['problem_index'].to_i
-    logcount += 1
     Problems::Note.find_or_create_by!(
       problem_id: problem_ids[problem_index],
       description: description
@@ -45,6 +41,4 @@ module Renalware
       note.by = users.sample
     end
   end
-
-  log "#{logcount} Problem Notes seeded", type: :sub
 end

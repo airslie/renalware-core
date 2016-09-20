@@ -3,10 +3,10 @@ module Renalware
 
   file_path = File.join(File.dirname(__FILE__), "appointments.csv")
 
-  logcount=0
+  count = 0
   CSV.foreach(file_path, headers: true) do |row|
-    logcount += 1
-    days_ahead = logcount.even? ? 30 : 40
+    count += 1
+    days_ahead = count.even? ? 30 : 40
     starts_at = Time.now + days_ahead.days
     starts_at_array = row["starts_at"].split(":")
 
@@ -17,6 +17,4 @@ module Renalware
       clinic: Clinics::Clinic.find_by(name: row["clinic_name"])
     )
   end
-
-  log "#{logcount} Appointments seeded", type: :sub
 end
