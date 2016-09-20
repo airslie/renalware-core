@@ -14,7 +14,7 @@ def find_param_id(row)
 end
 
 module Renalware
-  log '--------------------Adding Pathology Request Algorithm Global Rules --------------------'
+  log "Adding Pathology Request Algorithm Global Rules"
 
   file_path = File.join(File.dirname(__FILE__), 'request_algorithm_global_rules.csv')
 
@@ -31,5 +31,5 @@ module Renalware
     )
   end
 
-  log "#{logcount} Global Rules seeded"
+  log "#{logcount} Global Rules seeded", type: :sub
 end

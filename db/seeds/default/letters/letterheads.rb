@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Letterheads --------------------'
+  log "Adding Letterheads"
 
   file_path = File.join(File.dirname(__FILE__), 'letterheads.csv')
 
@@ -16,5 +16,5 @@ module Renalware
     letterhead.save!
   end
 
-  log "#{logcount} Letterheads added"
+  log "#{logcount} Letterheads added", type: :sub
 end

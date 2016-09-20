@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Failure Causes --------------------'
+  log "Adding Failure Causes"
 
   file_path = File.join(File.dirname(__FILE__), 'failure_cause_descriptions.csv')
 
@@ -13,5 +13,5 @@ module Renalware
     end
   end
 
-  log "#{logcount} Failure Causes seeded"
+  log "#{logcount} Failure Causes seeded", type: :sub
 end

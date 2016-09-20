@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Medication Routes--------------------'
+  log "Adding Medication Routes"
 
   Medications::MedicationRoute.find_or_create_by!(code: "PO", name: "Per Oral")
   Medications::MedicationRoute.find_or_create_by!(code: "IV", name: "Intravenous")

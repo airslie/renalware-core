@@ -1,4 +1,4 @@
-log "--------------------Seeding default data--------------------"
+log "Seeding default data"
 
 require_relative "./system/seeds"
 

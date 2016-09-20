@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Primary Renal Diagnosis (PRD) Codes--------------------'
+  log "Adding Primary Renal Diagnosis (PRD) Codes"
 
   file_path = File.join(File.dirname(__FILE__), 'prd_descriptions.csv')
 
@@ -11,5 +11,5 @@ module Renalware
     end
   end
 
-  log "#{logcount} PRD Codes seeded"
+  log "#{logcount} PRD Codes seeded", type: :sub
 end

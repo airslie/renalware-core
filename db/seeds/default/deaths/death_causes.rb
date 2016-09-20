@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Renal Reg Cause of Death codes--------------------'
+  log "Adding Renal Reg Cause of Death codes"
 
   file_path = File.join(File.dirname(__FILE__), 'death_causes.csv')
 
@@ -11,5 +11,5 @@ module Renalware
     end
   end
 
-  log "#{logcount} Renal Reg Death Causes seeded"
+  log "#{logcount} Renal Reg Death Causes seeded", type: :sub
 end

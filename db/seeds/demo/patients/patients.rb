@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Patients--------------------'
+  log "Adding Patients"
   file_path = Rails.root.join(File.dirname(__FILE__), 'patients.csv')
 
   system_user = SystemUser.find
@@ -22,5 +22,5 @@ module Renalware
     end
   end
 
-  log "#{logcount} Patients seeded"
+  log "#{logcount} Patients seeded", type: :sub
 end

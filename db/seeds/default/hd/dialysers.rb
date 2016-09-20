@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding HD Dialysers --------------------'
+  log "Adding HD Dialysers"
 
   file_path = File.join(File.dirname(__FILE__), 'hd_dialysers.csv')
 
@@ -9,5 +9,5 @@ module Renalware
     HD::Dialyser.find_or_create_by!(group: row["group"], name: row["name"])
   end
 
-  log "#{logcount} HD Dialysers seeded"
+  log "#{logcount} HD Dialysers seeded", type: :sub
 end

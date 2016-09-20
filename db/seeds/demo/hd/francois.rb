@@ -1,15 +1,15 @@
 module Renalware
-  log '--------------------Assign Unit HD modality to Francois RABBIT-------------------'
+  log "Assign Unit HD modality to Francois RABBIT"
   patient = Patient.find_by(local_patient_id: "Z100003")
   description = HD::ModalityDescription.first!
   patient.set_modality(description: description, started_on: 1.week.ago)
 
-  log '--------------------Assign some HD preferences to Francois RABBIT-------------------'
+  log "Assign some HD preferences to Francois RABBIT"
   preference_set = HD::PreferenceSet.find_or_initialize_by(patient: HD.cast_patient(patient))
   preference_set.attributes = { schedule: "mon_wed_fri_am", entered_on: 1.week.ago.to_date, by: User.first }
   preference_set.save!
 
-  log '--------------------Assign an HD profile to Francois RABBIT-------------------'
+  log "Assign an HD profile to Francois RABBIT"
   profile = HD::Profile.find_or_initialize_by(patient: HD.cast_patient(patient))
   profile.attributes = {
     by: User.first,
@@ -62,7 +62,7 @@ module Renalware
   }
   profile.save!
 
-  log '--------------------Assign HD sessions to Francois RABBIT-------------------'
+  log "Assign HD sessions to Francois RABBIT"
   units = Hospitals::Unit.hd_sites.limit(3).to_a
   users = User.limit(3).to_a
   start_times = ["13:00", "13:15", "13:30"]

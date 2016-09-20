@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Assign Access procedure to Francois RABBIT-------------------'
+  log "Assign Access procedure to Francois RABBIT"
   patient = Accesses.cast_patient(Patient.find_by(local_patient_id: "Z100003"))
   patient.procedures.destroy_all
   users = User.limit(3).to_a
@@ -24,7 +24,7 @@ module Renalware
     by: users.sample
   )
 
-  log '--------------------Assign Access profiles to Francois RABBIT-------------------'
+  log "Assign Access profiles to Francois RABBIT"
   patient = Accesses.cast_patient(Patient.find_by(local_patient_id: "Z100003"))
   patient.profiles.destroy_all
   users = User.limit(3).to_a
@@ -70,7 +70,7 @@ module Renalware
     by: users.sample
   )
 
-  log '--------------------Assign Access assessments to Francois RABBIT-------------------'
+  log "Assign Access assessments to Francois RABBIT"
   patient = Accesses.cast_patient(Patient.find_by(local_patient_id: "Z100003"))
   patient.assessments.destroy_all
   patient.assessments.create!(

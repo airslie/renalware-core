@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Access Plans --------------------'
+  log "Adding Access Plans"
 
   file_path = File.join(File.dirname(__FILE__), 'access_plans.csv')
 
@@ -9,5 +9,5 @@ module Renalware
     Accesses::Plan.find_or_create_by!(name: row["name"])
   end
 
-  log "#{logcount} Access Plans seeded"
+  log "#{logcount} Access Plans seeded", type: :sub
 end

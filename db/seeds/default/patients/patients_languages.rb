@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Languages --------------------'
+  log "Adding Languages"
 
   file_path = File.join(File.dirname(__FILE__), 'patients_languages.csv')
 
@@ -9,5 +9,5 @@ module Renalware
     Patients::Language.find_or_create_by!(name: row["name"])
   end
 
-  log "#{logcount} languages seeded"
+  log "#{logcount} languages seeded", type: :sub
 end

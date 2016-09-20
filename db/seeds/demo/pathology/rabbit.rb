@@ -2,7 +2,7 @@ module Renalware
   rabbit = Patient.find_by(family_name: 'RABBIT', given_name: 'Roger')
   pathology_rabbit = Pathology.cast_patient(rabbit)
 
-  log '--------------------Adding Rabbit Pathology Requests (OBR)--------------------'
+  log "Adding Rabbit Pathology Requests (OBR)"
 
   logcount=0
   CSV.foreach(File.join(File.dirname(__FILE__), 'rabbit_pathology_obr.csv'), headers: true) do |row|
@@ -18,9 +18,9 @@ module Renalware
     )
   end
 
-  log "#{logcount} Path Requests seeded"
+  log "#{logcount} Path Requests seeded", type: :sub
 
-  log '--------------------Adding Rabbit Pathology Observations (OBX)--------------------'
+  log "Adding Rabbit Pathology Observations (OBX)"
 
   logcount=0
   CSV.foreach(File.join(File.dirname(__FILE__), 'rabbit_pathology_obx.csv'), headers: true) do |row|

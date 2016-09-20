@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Problems for Roger RABBIT--------------------'
+  log "Adding Problems for Roger RABBIT"
 
   rabbit = Patient.find_by(family_name: 'RABBIT', given_name: 'Roger')
 
@@ -13,7 +13,7 @@ module Renalware
     randwk = randweeks.sample
     date = Time.now - randwk.weeks
     description = row['description']
-    log "   ... adding #{description} from #{date}"
+    log "adding #{description} from #{date}", type: :sub
     logcount += 1
     Problems::Problem.create!(
       patient_id: rabbit.to_param,
@@ -23,9 +23,9 @@ module Renalware
     )
   end
 
-  log "#{logcount} Problems seeded"
+  log "#{logcount} Problems seeded", type: :sub
 
-  log '--------------------Adding Problem Notes for Roger RABBIT--------------------'
+  log "Adding Problem Notes for Roger RABBIT"
 
   rabbit = Patient.find_by(family_name: 'RABBIT', given_name: 'Roger')
   problem_ids = Problems::Problem.where(patient_id: rabbit.id).pluck(:id)
@@ -46,5 +46,5 @@ module Renalware
     end
   end
 
-  log "#{logcount} Problem Notes seeded"
+  log "#{logcount} Problem Notes seeded", type: :sub
 end

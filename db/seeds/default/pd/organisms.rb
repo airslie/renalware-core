@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Organisms--------------------'
+  log "Adding Organisms"
 
   file_path = File.join(File.dirname(__FILE__), 'organisms.csv')
 
@@ -11,5 +11,5 @@ module Renalware
     end
   end
 
-  log "#{logcount} Organisms seeded"
+  log "#{logcount} Organisms seeded", type: :sub
 end

@@ -1,5 +1,5 @@
 module Renalware
-  log "--------------------Adding System User--------------------"
+  log "Adding System User"
   Renalware::User.create!(
     given_name: 'System',
     family_name: 'User',
@@ -9,5 +9,5 @@ module Renalware
     approved: true,
     signature: 'System User'
   )
-  log "1 System User created"
+  log "1 System User created", type: :sub
 end

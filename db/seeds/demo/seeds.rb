@@ -1,4 +1,4 @@
-log "--------------------Seeding data from demo--------------------"
+log "Seeding data from demo"
 
 require_relative "./system/seeds"
 require_relative "./patients/seeds"

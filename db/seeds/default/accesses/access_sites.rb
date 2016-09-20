@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Access Sites --------------------'
+  log "Adding Access Sites"
 
   file_path = File.join(File.dirname(__FILE__), 'access_sites.csv')
 
@@ -11,5 +11,5 @@ module Renalware
     end
   end
 
-  log "#{logcount} Access Sites seeded"
+  log "#{logcount} Access Sites seeded", type: :sub
 end

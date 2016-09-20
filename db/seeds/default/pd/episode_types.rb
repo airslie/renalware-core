@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Peritonitis Episode Types--------------------'
+  log "Adding Peritonitis Episode Types"
 
   PD::EpisodeType.find_or_create_by!(term: "De novo", definition: "First infection.")
   PD::EpisodeType.find_or_create_by!(term: "Recurrent",

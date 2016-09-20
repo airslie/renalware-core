@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Pathology Labs --------------------'
+  log "Adding Pathology Labs"
 
   file_path = File.join(File.dirname(__FILE__), 'pathology_labs.csv')
 
@@ -9,5 +9,5 @@ module Renalware
     Pathology::Lab.find_or_create_by!(name: row["name"])
   end
 
-  log "#{logcount} Pathology Labs seeded"
+  log "#{logcount} Pathology Labs seeded", type: :sub
 end

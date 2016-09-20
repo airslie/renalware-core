@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Pathology Request Algorithm Patient Rules --------------------'
+  log "Adding Pathology Request Algorithm Patient Rules"
 
   file_path = File.join(File.dirname(__FILE__), 'request_algorithm_patient_rules.csv')
 
@@ -20,5 +20,5 @@ module Renalware
     )
   end
 
-  log "#{logcount} Patient Rules seeded"
+  log "#{logcount} Patient Rules seeded", type: :sub
 end

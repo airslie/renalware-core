@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Practices--------------------'
+  log "Adding Practices"
   logcount=0
   CSV.foreach(File.join(File.dirname(__FILE__), 'practices.csv'), headers: true) do |row|
     next if row['street_1'].blank?
@@ -19,5 +19,5 @@ module Renalware
 
     practice.save!
   end
-  log "#{logcount} Practices seeded"
+  log "#{logcount} Practices seeded", type: :sub
 end

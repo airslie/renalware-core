@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Ethnicities--------------------'
+  log "Adding Ethnicities"
 
   file_path = File.join(File.dirname(__FILE__), 'ethnicities.csv')
 
@@ -9,5 +9,5 @@ module Renalware
     Patients::Ethnicity.find_or_create_by!(name: row['name'])
   end
 
-  log "#{logcount} Ethnicities seeded"
+  log "#{logcount} Ethnicities seeded", type: :sub
 end

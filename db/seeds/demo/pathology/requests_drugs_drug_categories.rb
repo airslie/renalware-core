@@ -1,5 +1,5 @@
 module Renalware
-  log "--------------------Adding Pathology Requests Drug Categories Drugs --------------------"
+  log "Adding Pathology Requests Drug Categories Drugs"
 
   file_path = File.join(File.dirname(__FILE__), 'requests_drugs_drug_categories.csv')
 
@@ -12,5 +12,5 @@ module Renalware
     category.drugs << drug
   end
 
-  log "#{logcount} Drug Categories Drugs seeded"
+  log "#{logcount} Drug Categories Drugs seeded", type: :sub
 end

@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Pathology Request Algorithm Global Rule Sets --------------------'
+  log "Adding Pathology Request Algorithm Global Rule Sets"
 
   file_path = File.join(File.dirname(__FILE__), 'request_algorithm_global_rule_sets.csv')
 
@@ -20,5 +20,5 @@ module Renalware
     )
   end
 
-  log "#{logcount} Global Rule Sets seeded"
+  log "#{logcount} Global Rule Sets seeded", type: :sub
 end

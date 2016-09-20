@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Access Types --------------------'
+  log "Adding Access Types"
 
   file_path = File.join(File.dirname(__FILE__), 'access_types.csv')
 
@@ -11,5 +11,5 @@ module Renalware
     end
   end
 
-  log "#{logcount} Access Types seeded"
+  log "#{logcount} Access Types seeded", type: :sub
 end

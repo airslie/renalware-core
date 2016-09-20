@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Modalities for Roger RABBIT---------------------'
+  log "Adding Modalities for Roger RABBIT"
 
   rabbit = Patient.find_by(family_name: 'RABBIT', given_name: 'Roger')
   file_path = File.join(File.dirname(__FILE__), 'rabbit_modalities.csv')
@@ -16,5 +16,5 @@ module Renalware
       end
   end
 
-  log "#{logcount} Modalities seeded"
+  log "#{logcount} Modalities seeded", type: :sub
 end

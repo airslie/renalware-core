@@ -1,5 +1,5 @@
 module Renalware
-  log "--------------------Adding Bookmarks --------------------"
+  log "Adding Bookmarks"
 
   users = User.all
   roger_rabbit = Patient.find_by(family_name: 'RABBIT', given_name: 'Roger')
@@ -14,5 +14,5 @@ module Renalware
     end
   end
 
-  log "#{logcount} Demo Bookmarks seeded"
+  log "#{logcount} Demo Bookmarks seeded", type: :sub
 end

@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Prescriptions for Roger RABBIT-------------------'
+  log "Adding Prescriptions for Roger RABBIT"
   barts_doc = User.find_by!(username: "bartsdoc")
   rabbit = Patient.find_by(family_name: 'RABBIT', given_name: 'Roger')
   rabbit.prescriptions.create!(

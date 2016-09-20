@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Pathology Request Descriptions --------------------'
+  log "Adding Pathology Request Descriptions"
 
   file_path = File.join(File.dirname(__FILE__), 'pathology_request_descriptions.csv')
   labs = Pathology::Lab.all.index_by(&:name)
@@ -24,5 +24,5 @@ module Renalware
     )
   end
 
-  log "#{logcount} Pathology Request Descriptions seeded"
+  log "#{logcount} Pathology Request Descriptions seeded", type: :sub
 end

@@ -1,5 +1,5 @@
 module Renalware
-  log "--------------------Adding Clinics--------------------"
+  log "Adding Clinics"
   [
     "Access",
     "AKI",

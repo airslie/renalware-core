@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding Religions --------------------'
+  log "Adding Religions"
 
   file_path = File.join(File.dirname(__FILE__), 'patients_religions.csv')
 
@@ -9,5 +9,5 @@ module Renalware
     Patients::Religion.find_or_create_by!(name: row["name"])
   end
 
-  log "#{logcount} religions seeded"
+  log "#{logcount} religions seeded", type: :sub
 end

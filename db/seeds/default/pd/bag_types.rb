@@ -1,5 +1,5 @@
 module Renalware
-  log '--------------------Adding PD Bag Types--------------------'
+  log "Adding PD Bag Types"
   file_path = File.join(File.dirname(__FILE__), 'bag_types.csv')
 
   logcount=0
@@ -21,5 +21,5 @@ module Renalware
     )
   end
 
-  log "#{logcount} Bag Types seeded"
+  log "#{logcount} Bag Types seeded", type: :sub
 end
