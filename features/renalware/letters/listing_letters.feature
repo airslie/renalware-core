@@ -1,4 +1,3 @@
-@wip
 Feature: Listing the letters
 
   System users view all letters in the system. A user applies filters to the
