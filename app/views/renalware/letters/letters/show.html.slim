@@ -1,8 +1,14 @@
 .letter-preview-admin
   .row
     .columns.large-8
-      p Status: #{@letter.state.upcase}
-      div= render "actions", letter: @letter
+      .row
+        .columns.large-4
+          p Status: #{@letter.state.upcase}
+        .columns.large-8
+          p Typist: #{@letter.typist}
+      .row
+        .columns.large-12
+          div= render "actions", letter: @letter
 
     .columns.large-4
       p Notes:

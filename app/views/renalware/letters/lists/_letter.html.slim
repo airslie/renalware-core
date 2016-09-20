@@ -7,6 +7,7 @@ tr
     = link_to letter.patient.to_s, patient_clinical_summary_path(letter.patient)
   td= l letter.issued_on
   td= letter.author
+  td= letter.typist
   td= letter.main_recipient.address
   td= letter.description
   td= letter.state

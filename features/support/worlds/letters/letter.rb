@@ -50,7 +50,8 @@ module World
         table.hashes.each do |row|
           patient = find_or_create_patient_by_name(row[:patient])
           author = find_or_create_user(given_name: row[:author], role: "clinician")
-          letter = seed_simple_letter_for(patient, user: author)
+          typist = find_or_create_user(given_name: row[:typist], role: "clinician")
+          letter = seed_simple_letter_for(patient, user: typist, author: author)
 
           move_letter_to_state(letter, row[:state])
         end
@@ -215,6 +216,7 @@ module World
         entries = letters.map do |r|
           hash = {
             author: r.author.given_name,
+            typist: r.created_by.given_name,
             patient: r.patient.full_name,
             state: r.state
           }

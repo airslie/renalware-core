@@ -10,16 +10,17 @@ Feature: Listing the letters
   Background:
     Given Clyde is a clinician
     And these letters were recorded:
-      | author | patient        | state          |
-      | Clyde  | Roger Rabbit   | draft          |
-      | Clyde  | Jessica Rabbit | pending_review |
-      | Walt   | Mickey Mouse   | pending_review |
-      | Walt   | Bugs Bunny     | approved       |
-      | Walt   | Daffy Duck     | completed      |
+      | author | typist | patient        | state          |
+      | Clyde  | Clyde  | Roger Rabbit   | draft          |
+      | Clyde  | Clyde  | Bob Rabbit     | pending_review |
+      | Clyde  | Taylor | Jessica Rabbit | pending_review |
+      | Walt   | Taylor | Mickey Mouse   | pending_review |
+      | Walt   | typist | Bugs Bunny     | approved       |
+      | Walt   | typist | Daffy Duck     | completed      |
 
   @todo
   Scenario: A clinician listed his letters waiting for approval
-    When Clyde filters on his letters pending review
+    When Clyde filters on his pending review letters typed by Taylor
     Then Clyde views these letters:
-      | author | patient        | state          |
-      | Clyde  | Jessica Rabbit | pending_review |
+      | author | typist | patient        | state          |
+      | Clyde  | Taylor | Jessica Rabbit | pending_review |

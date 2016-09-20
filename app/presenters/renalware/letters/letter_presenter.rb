@@ -59,6 +59,10 @@ module Renalware
         ::I18n.t(super.to_sym, scope: "enums.letter.state")
       end
 
+      def typist
+        created_by
+      end
+
       private
 
       # Include the counterpart cc recipients (i.e. patient and/or primary care physician)

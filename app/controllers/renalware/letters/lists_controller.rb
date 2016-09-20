@@ -13,9 +13,10 @@ module Renalware
         @letters = present_letters(collection)
         authorize @letters
 
-        @authors = User.author.ordered
-
         @q = query.search
+
+        @authors = User.author.ordered
+        @typists = User.ordered
       end
 
       def present_letters(letters)
@@ -29,6 +30,7 @@ module Renalware
           .with_main_recipient
           .with_letterhead
           .with_author
+          .with_created_by
       end
     end
   end

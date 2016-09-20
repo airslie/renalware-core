@@ -8,9 +8,13 @@
         = f.select :state_eq, state_options, include_blank: t(".state_prompt")
       .large-2.columns
         = f.collection_select :author_id_eq,
-            @authors, :id, :full_name,
+            @authors, :id, :to_s,
             { :include_blank => t(".author_prompt") }
-      .large-8.columns
+      .large-2.columns
+        = f.collection_select :created_by_id_eq,
+            @typists, :id, :to_s,
+            { :include_blank => t(".typist_prompt") }
+      .large-6.columns
         = f.submit t("helpers.submit.filter"), class: "button"
         | &nbsp;
         = link_to t("helpers.reset"), letters_list_path
@@ -21,8 +25,9 @@
       tr
         th.noprint
         th.col-width-medium= sort_link(@q, :patient_family_name, "Patient")
-        th.col-width-date Date
+        th.col-width-date = sort_link(@q, :issued_on, "Date", default_order: :desc)
         th Author
+        th Typist
         th.col-width-medium Recipient
         th Description
         th State
