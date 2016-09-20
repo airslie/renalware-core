@@ -5,20 +5,21 @@ Feature: Listing the letters
   it. This feature allows a secretary to filter approved letters for their
   designated doctor (the author) to print.
 
-  TODO: filtering by author & typist
+  TODO: filtering by typist
 
   Background:
     Given Clyde is a clinician
     And these letters were recorded:
-      | patient         | state              |
-      | Roger Rabbit    | draft              |
-      | Jessica Rabbit  | pending_review     |
-      | Bugs Bunny      | approved           |
-      | Daffy Duck      | completed          |
+      | author | patient        | state          |
+      | Clyde  | Roger Rabbit   | draft          |
+      | Clyde  | Jessica Rabbit | pending_review |
+      | Walt   | Mickey Mouse   | pending_review |
+      | Walt   | Bugs Bunny     | approved       |
+      | Walt   | Daffy Duck     | completed      |
 
   @todo
-  Scenario: A clinician listed all letters waiting for approval
-    When Clyde filters on all letters pending review
+  Scenario: A clinician listed his letters waiting for approval
+    When Clyde filters on his letters pending review
     Then Clyde views these letters:
-      | patient         | state              |
-      | Jessica Rabbit  | pending_review     |
+      | author | patient        | state          |
+      | Clyde  | Jessica Rabbit | pending_review |

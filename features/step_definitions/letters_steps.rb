@@ -94,8 +94,8 @@ When(/^Nathalie submits the letter for review$/) do
   submit_for_review(patient: @patty, user: @nathalie)
 end
 
-When(/^Clyde filters on all letters pending review$/) do
-  view_letters(q: { state_eq: "pending_review" }, user: @clyde)
+When(/^Clyde filters on his letters pending review$/) do
+  view_letters(q: { state_eq: "pending_review", author_id_eq: @clyde.id }, user: @clyde)
 end
 
 Then(/^Doug can reject the letter$/) do

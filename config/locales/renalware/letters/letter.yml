@@ -4,6 +4,7 @@ en:
       lists:
         show:
           state_prompt: -- Select State --
+          author_prompt: -- Select Author --
 
   activerecord:
     attributes:

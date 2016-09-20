@@ -6,8 +6,14 @@
     .row
       .large-2.columns
         = f.select :state_eq, state_options, include_blank: t(".state_prompt")
-      .large-10.columns
-        = f.submit t("helpers.submit.filter"), class: "button tiny"
+      .large-2.columns
+        = f.collection_select :author_id_eq,
+            @authors, :id, :full_name,
+            { :include_blank => t(".author_prompt") }
+      .large-8.columns
+        = f.submit t("helpers.submit.filter"), class: "button"
+        | &nbsp;
+        = link_to t("helpers.reset"), letters_list_path
 
 .row
   table.report
