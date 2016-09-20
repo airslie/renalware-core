@@ -26,6 +26,7 @@ module World
         route_code = options.fetch(:route_code)
         frequency = options.fetch(:frequency)
         prescribed_on = options.fetch(:prescribed_on)
+        administer_on_hd = options.fetch(:administer_on_hd, false)
         provider = options.fetch(:provider)
         terminated_on = options.fetch(:terminated_on)
         user = options.fetch(:user, nil)
@@ -44,6 +45,7 @@ module World
           frequency: frequency,
           prescribed_on: prescribed_on,
           provider: provider.downcase,
+          administer_on_hd: administer_on_hd,
           by: user
         )
 
@@ -116,10 +118,10 @@ module World
 
       # @ section expectations
       #
-      def expect_prescription_to_be_recorded(patient:)
+      def expect_prescription_to_be_recorded(patient:, administer_on_hd: false)
         prescription = patient.prescriptions.last!
-
         expect(prescription).to be_present
+        expect(prescription.administer_on_hd).to eq(administer_on_hd)
       end
 
       def expect_prescription_to_be_revised(patient:)
