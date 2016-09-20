@@ -3,7 +3,7 @@ module Renalware
     class LetterQuery
       def initialize(q: nil)
         @q = q || {}
-        @q[:s] ||= ["patient_family_name, patient_given_name"]
+        @q[:s] ||= ["issued_on desc"]
       end
 
       def call

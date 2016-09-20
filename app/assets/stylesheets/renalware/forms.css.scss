@@ -109,3 +109,17 @@ fieldset {
     }
   }
 }
+
+.search-form {
+  fieldset {
+    margin-top: 0;
+  }
+
+  .columns {
+    padding-right: 0;
+  }
+
+  .actions {
+    padding-top: 8px;
+  }
+}

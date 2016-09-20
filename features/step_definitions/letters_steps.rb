@@ -94,8 +94,15 @@ When(/^Nathalie submits the letter for review$/) do
   submit_for_review(patient: @patty, user: @nathalie)
 end
 
-When(/^Clyde filters on his letters pending review$/) do
-  view_letters(q: { state_eq: "pending_review", author_id_eq: @clyde.id }, user: @clyde)
+When(/^Clyde filters on his pending review letters typed by Taylor$/) do
+  taylor = find_or_create_user(given_name: "Taylor", role: "clinician")
+  view_letters(q: {
+      state_eq: "pending_review",
+      author_id_eq: @clyde.id,
+      created_by_id_eq: taylor.id
+    },
+    user: @clyde
+  )
 end
 
 Then(/^Doug can reject the letter$/) do
