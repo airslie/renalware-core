@@ -17,7 +17,6 @@
  *= require jquery-ui/autocomplete
  *= require jquery-ui/sortable
  *= require clockpicker
- *= require select2
  *= require_tree ./lib
  *= require_tree ./renalware
  */
