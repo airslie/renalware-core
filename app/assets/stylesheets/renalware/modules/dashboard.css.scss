@@ -1,0 +1,10 @@
+$dashboard-muted-color: #888;
+
+.row.dashboard-content {
+  margin-top: 10px;
+
+  p.empty-section {
+    padding-left: 0;
+    color: $dashboard-muted-color;
+  }
+}
