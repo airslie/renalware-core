@@ -25,7 +25,7 @@ ruby:
         }
     = hidden_field_tag "description_id"
     = f.input :issued_on, as: :date_picker
-    = f.association :author, collection: Renalware::User.ordered, label_method: :full_name
+    = f.association :author, as: :user_picker, collection: Renalware::User.ordered
 
     = f.simple_fields_for :main_recipient do |fmr|
       = fmr.input :person_role, as: :radio_buttons,
