@@ -13,6 +13,8 @@ module Renalware
         @letters = present_letters(collection)
         authorize @letters
 
+        @authors = User.author.ordered
+
         @q = query.search
       end
 

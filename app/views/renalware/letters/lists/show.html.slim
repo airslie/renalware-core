@@ -8,7 +8,7 @@
         = f.select :state_eq, state_options, include_blank: t(".state_prompt")
       .large-2.columns
         = f.collection_select :author_id_eq,
-            Renalware::User.ordered, :id, :full_name,
+            @authors, :id, :full_name,
             { :include_blank => t(".author_prompt") }
       .large-8.columns
         = f.submit t("helpers.submit.filter"), class: "button"
