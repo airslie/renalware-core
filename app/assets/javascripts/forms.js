@@ -34,6 +34,11 @@ function initClockpickersIn(container) {
   });
 }
 
+function initSearchableSelects(container) {
+  $(container + " .searchable_select").select2();
+}
+
+
 $(function() {
   if ($('small.error').length > 0) {
     $('html, body').animate({
@@ -44,4 +49,5 @@ $(function() {
   initDatepickersIn("body");
   initDateTimepickersIn("body");
   initClockpickersIn("body");
+  initSearchableSelects("body");
 });
