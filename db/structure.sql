@@ -1316,7 +1316,8 @@ CREATE TABLE medication_prescriptions (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL
+    updated_by_id integer NOT NULL,
+    administer_on_hd boolean DEFAULT false NOT NULL
 );
 
 
@@ -6589,6 +6590,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160818131917');
 INSERT INTO schema_migrations (version) VALUES ('20160822130644');
 
 INSERT INTO schema_migrations (version) VALUES ('20160823173525');
+
+INSERT INTO schema_migrations (version) VALUES ('20160824132805');
 
 INSERT INTO schema_migrations (version) VALUES ('20160829114845');
 

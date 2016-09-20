@@ -86,6 +86,7 @@ Given(/^Patty is being treated for an exit site infection$/) do
     route_code: "PO",
     frequency: "once a day",
     prescribed_on: "10-10-2015",
+    administer_on_hd: false,
     provider: "GP",
     drug_selector: exit_site_infection_drug_selector,
     terminated_on: nil

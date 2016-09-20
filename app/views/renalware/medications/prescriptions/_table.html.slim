@@ -11,6 +11,8 @@
             th.col-width-small Dose
             th.col-width-tiny Frequency
             th.col-width-tiny Route
+            - if current_scope
+              th Give on HD
             th.col-width-tiny Provider
             th Notes
             th.col-width-date.wide= sort_link_if(treatable.sortable?, search, :prescribed_on, "Prescribed on")
@@ -29,6 +31,8 @@
               td= prescription.dose
               td= prescription.frequency
               td= prescription.route_code
+              - if current_scope
+                td= prescription.administer_on_hd?
               td= prescription.provider
               td= prescription.notes
               td= I18n.l prescription.prescribed_on
