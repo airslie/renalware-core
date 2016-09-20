@@ -1,30 +1,38 @@
 module Renalware
   log "Assign Access procedure to Francois RABBIT"
+
   patient = Accesses.cast_patient(Patient.find_by(local_patient_id: "Z100003"))
   patient.procedures.destroy_all
   users = User.limit(3).to_a
+  dummy_text = <<-TEXT.squish
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor
+    sit amet, consectetur adipiscing elit."
+  TEXT
+
   procedure1 = patient.procedures.create!(
     performed_on: 6.months.ago,
     type: Accesses::Type.all.sample,
     site: Accesses::Site.all.sample,
     side: Accesses::Profile.side.values.sample,
     performed_by: users.sample,
-    notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    notes: dummy_text,
     outcome: "Perfect",
     by: users.sample
   )
+
   procedure2 = patient.procedures.create!(
     performed_on: 3.months.ago,
     type: Accesses::Type.all.sample,
     site: Accesses::Site.all.sample,
     side: Accesses::Profile.side.values.sample,
     performed_by: users.sample,
-    notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    notes: dummy_text,
     outcome: "Perfect",
     by: users.sample
   )
 
   log "Assign Access profiles to Francois RABBIT"
+
   patient = Accesses.cast_patient(Patient.find_by(local_patient_id: "Z100003"))
   patient.profiles.destroy_all
   users = User.limit(3).to_a
@@ -39,7 +47,7 @@ module Renalware
     side: procedure1.side,
     plan: Accesses::Plan.all.sample,
     decided_by: users.sample,
-    notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    notes: dummy_text,
     by: users.sample
   )
 
@@ -53,7 +61,7 @@ module Renalware
     side: procedure2.side,
     plan: Accesses::Plan.all.sample,
     decided_by: users.sample,
-    notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    notes: dummy_text,
     by: users.sample
   )
 
@@ -66,11 +74,12 @@ module Renalware
     side: Accesses::Profile.side.values.sample,
     plan: Accesses::Plan.where(name: "Fistula/graft maturing").first,
     decided_by: users.sample,
-    notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    notes: dummy_text,
     by: users.sample
   )
 
   log "Assign Access assessments to Francois RABBIT"
+
   patient = Accesses.cast_patient(Patient.find_by(local_patient_id: "Z100003"))
   patient.assessments.destroy_all
   patient.assessments.create!(
@@ -80,16 +89,16 @@ module Renalware
     type: procedure1.type,
     site: procedure1.site,
     side: procedure1.side,
-    comments: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    comments: dummy_text,
     by: users.sample,
     document: {
       results: {
         method: :hand_doppler,
         flow_feed_artery: "abcdef" ,
         has_art_stenosis: :no,
-        art_stenosis_notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        art_stenosis_notes: dummy_text,
         has_ven_stenosis: :yes,
-        ven_stenosis_notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        ven_stenosis_notes: dummy_text,
         has_residual_stenosis: :no,
         outcome: :green
       },
@@ -107,16 +116,16 @@ module Renalware
     type: procedure2.type,
     site: procedure2.site,
     side: procedure2.side,
-    comments: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    comments: dummy_text,
     by: users.sample,
     document: {
       results: {
         method: :hand_doppler,
         flow_feed_artery: "abcdef" ,
         has_art_stenosis: :no,
-        art_stenosis_notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        art_stenosis_notes: dummy_text,
         has_ven_stenosis: :yes,
-        ven_stenosis_notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        ven_stenosis_notes: dummy_text,
         has_residual_stenosis: :no,
         outcome: :green
       },

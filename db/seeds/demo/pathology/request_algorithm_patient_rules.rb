@@ -1,7 +1,7 @@
 module Renalware
   log "Adding Pathology Request Algorithm Patient Rules"
 
-  file_path = File.join(File.dirname(__FILE__), 'request_algorithm_patient_rules.csv')
+  file_path = File.join(File.dirname(__FILE__), "request_algorithm_patient_rules.csv")
 
   CSV.foreach(file_path, headers: true) do |row|
     lab = Pathology::Lab.find_by(name: row["lab"])

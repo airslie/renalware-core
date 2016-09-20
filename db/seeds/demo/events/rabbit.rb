@@ -1,7 +1,7 @@
 module Renalware
   log "Adding Events for Roger RABBIT"
 
-  rabbit = Patient.find_by(family_name: 'RABBIT', given_name: 'Roger')
+  rabbit = Patient.find_by(family_name: "RABBIT", given_name: "Roger")
 
   Events::Event.find_or_create_by!(
     patient_id: rabbit.to_param,

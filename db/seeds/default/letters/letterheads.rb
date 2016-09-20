@@ -1,7 +1,7 @@
 module Renalware
   log "Adding Letterheads"
 
-  file_path = File.join(File.dirname(__FILE__), 'letterheads.csv')
+  file_path = File.join(File.dirname(__FILE__), "letterheads.csv")
 
   CSV.foreach(file_path, headers: true) do |row|
     name = "(#{row["site_code"]}) #{row["unit_info"]}"

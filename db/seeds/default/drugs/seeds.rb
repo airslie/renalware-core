@@ -8,18 +8,20 @@ module Renalware
     end
   end
 
-  reset_sequence_sql = "SELECT setval('%{table_name}_id_seq', (SELECT MAX(id) FROM %{table_name}));"
+  reset_sequence_sql = <<-SQL.squish
+    SELECT setval('%{table_name}_id_seq', (SELECT MAX(id) FROM %{table_name}));
+  SQL
   ActiveRecord::Base.connection.execute(
     reset_sequence_sql % { table_name: Renalware::Drugs::Type.table_name }
   )
 
   log "Adding Drugs"
 
-  file_path = File.join(File.dirname(__FILE__), 'drugs.csv')
+  file_path = File.join(File.dirname(__FILE__), "drugs.csv")
 
   CSV.foreach(file_path, headers: true) do |row|
-    Drugs::Drug.find_or_create_by!(name: row['drugname']) do |drug|
-      drug.id = row['id']
+    Drugs::Drug.find_or_create_by!(name: row["drugname"]) do |drug|
+      drug.id = row["id"]
     end
   end
 
@@ -29,11 +31,11 @@ module Renalware
 
   log "Assigning Drug Types to Drugs"
 
-  file_path = File.join(File.dirname(__FILE__), 'drug_drug_types.csv')
+  file_path = File.join(File.dirname(__FILE__), "drug_drug_types.csv")
 
   CSV.foreach(file_path, headers: true) do |row|
-    drug = Drugs::Drug.find(row['drug_id'])
-    drug_type = Drugs::Type.find(row['drug_type_id'])
+    drug = Drugs::Drug.find(row["drug_id"])
+    drug_type = Drugs::Type.find(row["drug_type_id"])
     drug.drug_types << drug_type unless drug.drug_types.include?(drug_type)
   end
 end

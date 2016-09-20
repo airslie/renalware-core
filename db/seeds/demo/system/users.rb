@@ -9,9 +9,9 @@ module Renalware
     username = "super#{sitecode}"
       Renalware::User.find_or_create_by!(username: username) do |u|
         u.given_name = site
-        u.family_name = 'Superuser'
+        u.family_name = "Superuser"
         u.email = "#{username}@#{sitecode}.trust.uk"
-        u.password = 'renalware'
+        u.password = "renalware"
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :super_admin)]
         u.signature = "#{site} Superuser"
@@ -21,9 +21,9 @@ module Renalware
     username = "#{sitecode}admin"
       Renalware::User.find_or_create_by!(username: username) do |u|
         u.given_name = site
-        u.family_name = 'Admin'
+        u.family_name = "Admin"
         u.email = "#{username}@#{sitecode}.trust.uk"
-        u.password = 'renalware'
+        u.password = "renalware"
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :admin)]
         u.signature = "Dr #{site} Admin, MRCP"
@@ -33,10 +33,10 @@ module Renalware
     #clinician
     username = "#{sitecode}doc"
       Renalware::User.find_or_create_by!(username: username) do |u|
-        u.given_name = 'Doctor'
+        u.given_name = "Doctor"
         u.family_name = site
         u.email = "#{username}@#{sitecode}.trust.uk"
-        u.password = 'renalware'
+        u.password = "renalware"
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :clinician)]
         u.signature = "Dr #{site}"
@@ -48,9 +48,9 @@ module Renalware
     username = "#{sitecode}nurse"
       Renalware::User.find_or_create_by!(username: username) do |u|
         u.given_name = site
-        u.family_name = 'Nurse'
+        u.family_name = "Nurse"
         u.email = "#{username}@#{sitecode}.trust.uk"
-        u.password = 'renalware'
+        u.password = "renalware"
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :clinician)]
         u.signature = "#{site} Nurse"
@@ -61,9 +61,9 @@ module Renalware
     username = "#{sitecode}guest"
       Renalware::User.find_or_create_by!(username: username) do |u|
         u.given_name = site
-        u.family_name = 'Guest'
+        u.family_name = "Guest"
         u.email = "#{username}@#{sitecode}.trust.uk"
-        u.password = 'renalware'
+        u.password = "renalware"
         u.approved = true
         u.roles = [Renalware::Role.find_by!(name: :read_only)]
         u.signature = "#{site} Guest"

@@ -16,7 +16,7 @@ end
 module Renalware
   log "Adding Pathology Request Algorithm Global Rules"
 
-  file_path = File.join(File.dirname(__FILE__), 'request_algorithm_global_rules.csv')
+  file_path = File.join(File.dirname(__FILE__), "request_algorithm_global_rules.csv")
 
   CSV.foreach(file_path, headers: true) do |row|
     Pathology::Requests::GlobalRule.find_or_create_by!(
