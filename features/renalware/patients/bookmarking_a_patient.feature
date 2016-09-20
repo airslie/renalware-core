@@ -15,9 +15,9 @@ Feature: Bookmarking a patient
       | Patty    |
       | Don      |
       | Yossef   |
-    When Clyde bookmarks Patty with the note "Lorem ipum delor" and indicates it is urgent
-    And Clyde bookmarks Yossef with the note "" and indicates it is not urgent
+    When Clyde bookmarks Patty with the note "Arrange cardiology OP appt ASAP!" and indicates it is urgent
+    And Clyde bookmarks Yossef
     Then Clyde has the following patient bookmarks:
-      | Patient  | Notes            | Urgent |
-      | Patty    | Lorem ipum delor | true   |
-      | Yossef   |                  | false  |
+      | patient  | notes                            | urgent |
+      | Patty    | Arrange cardiology OP appt ASAP! | true   |
+      | Yossef   |                                  | false  |

@@ -78,6 +78,7 @@ end
 group :test do
   gem 'simplecov', '~> 0.12.0', require: false
   gem 'webmock', '~> 1.20.4'
+  gem 'capybara-screenshot', '~> 1.0'
 end
 
 group :staging do

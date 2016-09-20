@@ -1,11 +1,13 @@
 When(/^I select death modality$/) do
-  within "#modality-description-select" do
-    select "Death"
+  within ".patient-content" do
+    within "#modality-description-select" do
+      select "Death"
+    end
+
+    fill_in "Started on", with: "01-04-2015"
+
+    click_on "Save"
   end
-
-  fill_in "Started on", with: "01-04-2015"
-
-  click_on "Save"
 end
 
 Then(/^I should see the patient's current modality set as death with start date$/) do

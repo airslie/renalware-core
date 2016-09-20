@@ -11,6 +11,6 @@ Feature: Bookmarking a patient
       | Yossef   |
     When Clyde deletes the bookmark for Don
     Then Clyde has the following patient bookmarks:
-      | Patient  | Notes  | Urgent |
+      | patient  | notes  | urgent |
       | Patty    |        | false  |
       | Yossef   |        | false  |

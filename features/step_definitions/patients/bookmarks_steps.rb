@@ -32,8 +32,8 @@ end
 Then(/^Clyde has the following patient bookmarks:$/) do |table|
   table.hashes.each do |row|
     expect_user_to_have_patient_in_bookmarks(user: @clyde,
-                                             patient_name: row[:Patient],
-                                             notes: row[:Notes],
-                                             urgent: row[:Urgent])
+                                             patient_name: row[:patient],
+                                             notes: row[:notes],
+                                             urgent: row[:urgent])
   end
 end
