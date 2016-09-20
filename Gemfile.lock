@@ -93,9 +93,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-screenshot (1.0.13)
-      capybara (>= 1.0, < 3)
-      launchy
     cliver (0.3.2)
     cocoon (1.2.9)
     coderay (1.1.1)
@@ -446,7 +443,6 @@ DEPENDENCIES
   bullet (~> 5.3.0)
   bundler-audit (~> 0.4.0)
   capybara (~> 2.8.1)
-  capybara-screenshot (~> 1.0)
   cocoon (~> 1.2.9)
   cucumber-rails (~> 1.4.4)
   database_cleaner (~> 1.5.3)
