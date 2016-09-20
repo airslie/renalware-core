@@ -26,4 +26,11 @@
 //= require iframeResizer
 //= require_tree .
 
-$(function(){ $(document).foundation(); });
+$(function() {
+  $(document).foundation({
+    reveal : {
+      animation: "fade",
+      animation_speed: 100
+    }
+  });
+});

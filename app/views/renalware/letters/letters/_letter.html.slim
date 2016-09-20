@@ -8,6 +8,6 @@ tr
   td= l letter.issued_on
   td= letter.author
   td= letter.main_recipient.address
-  td= letter.description
+  td= render "/renalware/letters/letters/quick_preview", letter: letter
   td= letter.state
   td= l letter.updated_at

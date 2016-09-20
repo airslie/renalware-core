@@ -1,0 +1,7 @@
+= link_to letter.description, patient_letters_letter_preview_path(letter),
+    data: { reveal_id: "quick-preview-#{letter.id}" }
+
+= content_tag(:div, id: "quick-preview-#{letter.id}", class: "reveal-modal", aria: { hidden: true, labelledby: "letter-quick-preview"}, data: { reveal: true}, role: "dialog")
+  = simple_format letter.body
+  a.close-reveal-modal aria-label="Close" &#215;
+
