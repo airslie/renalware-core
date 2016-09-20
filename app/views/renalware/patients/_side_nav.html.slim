@@ -27,8 +27,8 @@ ul.side-nav
   - bookmark = find_user_bookmark_for_patient(@patient)
 
   - if bookmark.present?
-    = render partial: "renalware/patients/bookmarks/delete",
-        locals: { bookmark: bookmark, link_text: "Remove from bookmarks" }
+    li.link= render partial: "renalware/patients/bookmarks/delete",
+                    locals: { bookmark: bookmark, link_text: t(".delete_bookmark") }
   - else
-    = render partial: "renalware/patients/bookmarks/new",
-        locals: { patient: @patient, link_text: "Bookmark this patient" }
+    li.link= render partial: "renalware/patients/bookmarks/new",
+                    locals: { patient: @patient, link_text: t(".create_bookmark") }
