@@ -95,7 +95,7 @@ module Renalware
       def prescription_attributes
         [
           :drug_id, :dose_amount, :dose_unit, :medication_route_id, :frequency,
-          :route_description, :notes, :prescribed_on, :provider,
+          :administer_on_hd, :route_description, :notes, :prescribed_on, :provider,
           { termination_attributes: :terminated_on }
         ]
       end
