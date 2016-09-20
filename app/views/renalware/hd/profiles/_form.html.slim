@@ -20,13 +20,13 @@ ruby:
           hint: f.object.hospital_unit_hint
       = f.input :schedule, input_html: { class: "small-input" }, hint: f.object.schedule_hint
       = f.input :other_schedule, input_html: { class: "small-input" }
-      = f.association :named_nurse, collection: Renalware::User.ordered, label_method: :full_name
+      = f.association :named_nurse, as: :user_picker, collection: Renalware::User.ordered
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Prescription", name: "prescription" } do
       = f.input :prescribed_time, collection: f.object.class.prescribed_times, input_html: { class: "small-input" }
       = f.input :prescribed_on, as: :date_picker
-      = f.association :prescriber, collection: Renalware::User.ordered, label_method: :full_name
+      = f.association :prescriber, as: :user_picker, collection: Renalware::User.ordered
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Dialysis", name: "dialysis" } do
@@ -71,7 +71,7 @@ ruby:
         = fcm.input :has_transport, as: :inline_radio_buttons
         = fcm.input :type, input_html: { class: "small-input" }
         = fcm.input :decided_on, as: :date_picker
-      = f.association :transport_decider, collection: Renalware::User.ordered, label_method: :full_name
+      = f.association :transport_decider, as: :user_picker, collection: Renalware::User.ordered
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Care Level", name: "care_level" } do

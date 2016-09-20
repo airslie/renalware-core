@@ -19,13 +19,13 @@ ruby:
           collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
           label_method: :to_s
       = f.input :start_time, as: :clock_picker
-      = f.association :signed_on_by, collection: Renalware::User.ordered, label_method: :full_name
+      = f.association :signed_on_by, as: :user_picker, collection: Renalware::User.ordered
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Sign-Off", name: "signoff" } do
 
       = f.input :end_time, as: :clock_picker
-      = f.association :signed_off_by, collection: Renalware::User.ordered, label_method: :full_name
+      = f.association :signed_off_by, as: :user_picker, collection: Renalware::User.ordered
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Session Info", name: "info" } do
