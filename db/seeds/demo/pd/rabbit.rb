@@ -2,7 +2,7 @@ module Renalware
 
   log "Adding Exit Site Infection for Roger RABBIT"
 
-  PD::ExitSiteInfection.create({
+  PD::ExitSiteInfection.create!({
     patient_id: 1,
     diagnosis_date: "2015-06-09",
     treatment: "liquid and electrolyte replacement ",
@@ -11,7 +11,7 @@ module Renalware
 
   log "Adding Peritonitis Episode for Roger RABBIT"
 
-  PD::PeritonitisEpisode.create({
+  PD::PeritonitisEpisode.create!({
     patient_id: 1,
     diagnosis_date: "2015-09-14",
     treatment_start_date: "2015-09-14",
@@ -31,14 +31,14 @@ module Renalware
     notes: ""
   })
 
-  PD::InfectionOrganism.create({
+  PD::InfectionOrganism.create!({
     organism_code_id: 33,
     sensitivity: "+++",
     infectable_id: 1,
     infectable_type: "Renalware::PD::PeritonitisEpisode"
   })
 
-  PD::InfectionOrganism.create({
+  PD::InfectionOrganism.create!({
     organism_code_id: 4,
     sensitivity: "unknown",
     infectable_id: 1,

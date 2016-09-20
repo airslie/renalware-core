@@ -1,10 +1,10 @@
 module Renalware
   log "Adding Patients"
+
   file_path = Rails.root.join(File.dirname(__FILE__), "patients.csv")
-
   system_user = SystemUser.find
-
   demo_nhsno = 1234567890
+
   CSV.foreach(file_path, headers: true) do |row|
     local_patient_id = row["local_patient_id"]
     demo_nhsno += 1

@@ -22,7 +22,7 @@ module Renalware
     Transplants::RegistrationStatusDescription.create!(
       code: status[0],
       name: status[1],
-      position: index*10
+      position: index * 10
     )
   end
 end

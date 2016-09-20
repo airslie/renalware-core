@@ -1,5 +1,6 @@
 module Renalware
   log "Adding ClinicVisits for Roger RABBIT"
+
   rabbit = Patient.find_by(family_name: "RABBIT", given_name: "Roger")
 
   5.times do |n|

@@ -4,70 +4,77 @@ module Renalware
   sites = %w(Barts KCH Lister)
 
   sites.each do |site|
-    sitecode = site.downcase
-    #superadmin
-    username = "super#{sitecode}"
-      Renalware::User.find_or_create_by!(username: username) do |u|
-        u.given_name = site
-        u.family_name = "Superuser"
-        u.email = "#{username}@#{sitecode}.trust.uk"
-        u.password = "renalware"
-        u.approved = true
-        u.roles = [Renalware::Role.find_by!(name: :super_admin)]
-        u.signature = "#{site} Superuser"
-      end
-    log "#{username} created.", type: :sub
-    #admin
-    username = "#{sitecode}admin"
-      Renalware::User.find_or_create_by!(username: username) do |u|
-        u.given_name = site
-        u.family_name = "Admin"
-        u.email = "#{username}@#{sitecode}.trust.uk"
-        u.password = "renalware"
-        u.approved = true
-        u.roles = [Renalware::Role.find_by!(name: :admin)]
-        u.signature = "Dr #{site} Admin, MRCP"
-      end
+    site_code = site.downcase
+
+    # superadmin
+    username = "super#{site_code}"
+    Renalware::User.find_or_create_by!(username: username) do |u|
+      u.given_name = site
+      u.family_name = "Superuser"
+      u.email = "#{username}@#{site_code}.trust.uk"
+      u.password = "renalware"
+      u.approved = true
+      u.roles = [Renalware::Role.find_by!(name: :super_admin)]
+      u.signature = "#{site} Superuser"
+    end
+
     log "#{username} created.", type: :sub
 
-    #clinician
-    username = "#{sitecode}doc"
-      Renalware::User.find_or_create_by!(username: username) do |u|
-        u.given_name = "Doctor"
-        u.family_name = site
-        u.email = "#{username}@#{sitecode}.trust.uk"
-        u.password = "renalware"
-        u.approved = true
-        u.roles = [Renalware::Role.find_by!(name: :clinician)]
-        u.signature = "Dr #{site}"
-        u.telephone = Faker::PhoneNumber.phone_number
-      end
+    # admin
+    username = "#{site_code}admin"
+    Renalware::User.find_or_create_by!(username: username) do |u|
+      u.given_name = site
+      u.family_name = "Admin"
+      u.email = "#{username}@#{site_code}.trust.uk"
+      u.password = "renalware"
+      u.approved = true
+      u.roles = [Renalware::Role.find_by!(name: :admin)]
+      u.signature = "Dr #{site} Admin, MRCP"
+    end
+
     log "#{username} created.", type: :sub
 
-    #nurse NB same role as doc
-    username = "#{sitecode}nurse"
-      Renalware::User.find_or_create_by!(username: username) do |u|
-        u.given_name = site
-        u.family_name = "Nurse"
-        u.email = "#{username}@#{sitecode}.trust.uk"
-        u.password = "renalware"
-        u.approved = true
-        u.roles = [Renalware::Role.find_by!(name: :clinician)]
-        u.signature = "#{site} Nurse"
-      end
+    # clinician
+    username = "#{site_code}doc"
+    Renalware::User.find_or_create_by!(username: username) do |u|
+      u.given_name = "Doctor"
+      u.family_name = site
+      u.email = "#{username}@#{site_code}.trust.uk"
+      u.password = "renalware"
+      u.approved = true
+      u.roles = [Renalware::Role.find_by!(name: :clinician)]
+      u.signature = "Dr #{site}"
+      u.telephone = Faker::PhoneNumber.phone_number
+    end
+
     log "#{username} created.", type: :sub
 
-    #guest i.e. readonly
-    username = "#{sitecode}guest"
-      Renalware::User.find_or_create_by!(username: username) do |u|
-        u.given_name = site
-        u.family_name = "Guest"
-        u.email = "#{username}@#{sitecode}.trust.uk"
-        u.password = "renalware"
-        u.approved = true
-        u.roles = [Renalware::Role.find_by!(name: :read_only)]
-        u.signature = "#{site} Guest"
-      end
+    # nurse NB same role as doc
+    username = "#{site_code}nurse"
+    Renalware::User.find_or_create_by!(username: username) do |u|
+      u.given_name = site
+      u.family_name = "Nurse"
+      u.email = "#{username}@#{site_code}.trust.uk"
+      u.password = "renalware"
+      u.approved = true
+      u.roles = [Renalware::Role.find_by!(name: :clinician)]
+      u.signature = "#{site} Nurse"
+    end
+
+    log "#{username} created.", type: :sub
+
+    # guest i.e. readonly
+    username = "#{site_code}guest"
+    Renalware::User.find_or_create_by!(username: username) do |u|
+      u.given_name = site
+      u.family_name = "Guest"
+      u.email = "#{username}@#{site_code}.trust.uk"
+      u.password = "renalware"
+      u.approved = true
+      u.roles = [Renalware::Role.find_by!(name: :read_only)]
+      u.signature = "#{site} Guest"
+    end
+
     log "#{username} created.", type: :sub
   end
 end

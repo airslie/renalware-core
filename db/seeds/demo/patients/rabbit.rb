@@ -1,7 +1,8 @@
 module Renalware
   log "Adding Demographics for Roger RABBIT"
-  user = User.find_by(username: "kchdoc")
-  rabbit = Patient.find_by(family_name: "RABBIT", given_name: "Roger")
+
+  user = User.find_by!(username: "kchdoc")
+  rabbit = Patient.find_by!(family_name: "RABBIT", given_name: "Roger")
 
   rabbit.title = "Mr"
   rabbit.suffix = "OBE"
@@ -51,7 +52,8 @@ module Renalware
   rabbit.save!
 
   log "Adding Primary Care Physician for Roger RABBIT"
-  practice = Patients::Practice.first
+
+  practice = Patients::Practice.first!
   system_user = SystemUser.find
 
   primary_care_physician = Patients::PrimaryCarePhysician
@@ -69,6 +71,7 @@ module Renalware
   rabbit.save!
 
   log "Adding Address for Roger RABBIT"
+
   rabbit.build_current_address(
     name: "M. Roger Rabbit",
     street_1: "123 South Street",
@@ -78,5 +81,4 @@ module Renalware
     )
   rabbit.by = system_user
   rabbit.save!
-
 end
