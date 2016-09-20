@@ -1,10 +1,18 @@
-def default_path
-  Rails.root.join('db','seeds','default')
-end
+log "Seeding default data"
 
-log "--------------------Seeding data from #{default_path}--------------------"
+require_relative "./system/seeds"
 
-Dir.glob(File.join(default_path, '**/*.{rb}')).sort.each do |file|
-  require file
-end
-
+require_relative "./accesses/seeds"
+require_relative "./clinics/seeds"
+require_relative "./drugs/seeds"
+require_relative "./events/seeds"
+require_relative "./hd/seeds"
+require_relative "./hospitals/seeds"
+require_relative "./letters/seeds"
+require_relative "./medications/seeds"
+require_relative "./modalities/seeds"
+require_relative "./pathology/seeds"
+require_relative "./patients/seeds"
+require_relative "./pd/seeds"
+require_relative "./renal/seeds"
+require_relative "./transplants/seeds"
