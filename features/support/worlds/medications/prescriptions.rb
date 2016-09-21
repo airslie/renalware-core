@@ -222,6 +222,7 @@ module World
         frequency = options.fetch(:frequency)
         prescribed_on = options.fetch(:prescribed_on)
         terminated_on = options.fetch(:terminated_on, "")
+        administer_on_hd = options.fetch(:administer_on_hd, false)
         drug_selector = options.fetch(:drug_selector, default_medication_drug_selector)
 
         click_link "Add Prescription"
@@ -230,8 +231,9 @@ module World
         within "#new_medications_prescription" do
           drug_selector.call(drug_name)
           fill_in_dose(dose_amount, dose_unit)
-          select route_code, from: "Medication route"
+          select route_code, from: "Route"
           fill_in "Frequency", with: frequency
+          check "Give on HD" if administer_on_hd
           fill_in "Prescribed on", with: prescribed_on
           fill_in "Terminated on", with: terminated_on
           click_on "Save"

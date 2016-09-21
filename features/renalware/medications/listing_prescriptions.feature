@@ -22,7 +22,7 @@ Feature: Listing prescriptions
       | Flucloxacillin Capsule | 50 mg  | bd for 7 days | PO         | GP       |               |
     And Clyde should see these historical prescriptions
       | drug_name              | dose   | frequency     | route_code | provider | terminated_on |
-      | Acarbose Tablet        | 100 mg | bd            | PO         | Hospital |               |
       | Beta-Carotene Capsule  | 100 mg | bd            | SC         | GP       | 01-06-2016    |
+      | Acarbose Tablet        | 100 mg | bd            | PO         | Hospital |               |
       | Flucloxacillin Capsule | 50 mg  | bd for 7 days | PO         | GP       |               |
 
