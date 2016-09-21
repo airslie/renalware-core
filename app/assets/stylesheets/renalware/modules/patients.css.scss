@@ -103,3 +103,26 @@ dl.patient-header {
     background-color: $bookmark-urgent-colour;
   }
 }
+
+form {
+  .blood-pressure {
+    &.with-errors {
+      input {
+        margin-bottom: 0;
+      }
+      // Apply a bottom margin only to the second of two error messages
+      // or if there is only one.
+      small.error {
+        margin-bottom: 0;
+
+        &:only-child {
+          margin-bottom: 0.75rem;
+        }
+
+        &:nth-child(2) {
+          margin-bottom: 0.75rem;
+        }
+      }
+    }
+  }
+}
