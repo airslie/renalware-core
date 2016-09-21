@@ -27,7 +27,7 @@ module Renalware
 
         validates :weight, "renalware/patients/weight" => true
         validates :temperature, "renalware/patients/temperature" => true
-
+        validates :bm_stix, "renalware/patients/bm_stix" => true
       end
       attribute :observations_before, Observations
       attribute :observations_after, Observations
