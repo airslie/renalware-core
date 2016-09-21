@@ -133,26 +133,31 @@ Given(/^a patient has existing APD Regimes$/) do
 end
 
 When(/^I complete the form for a capd regime$/) do
-  fill_in "Start date", with: "02/04/2015"
-  fill_in "End date", with: "01/06/2015"
 
-  select("CAPD 4 exchanges per day", from: "Treatment")
 
-  check "On additional HD"
+    fill_in "Start date", with: "02/04/2015"
+    fill_in "End date", with: "01/06/2015"
 
-  find("input.add-bag").click
+    select("CAPD 4 exchanges per day", from: "Treatment")
 
-  select("Baxter Nutrineal PD4 (Blue)", from: "Bag Type")
+    check "On additional HD"
 
-  select("2500", from: "Volume (ml)")
+    find("input.add-bag").click
 
-  uncheck "Tuesday"
-  uncheck "Saturday"
+    select("Baxter Nutrineal PD4 (Blue)", from: "Bag Type")
 
-  click_on "Save"
+    select("2500", from: "Volume (ml)")
+
+    uncheck "Tuesday"
+    uncheck "Saturday"
+
+  within ".patient-content" do
+    click_on "Save"
+  end
 end
 
 When(/^I complete the form for a apd regime$/) do
+
   fill_in "Start date", with: "15/05/2015"
   fill_in "End date", with: "16/07/2015"
 
@@ -182,7 +187,9 @@ When(/^I complete the form for a apd regime$/) do
 
   fill_in "Machine PAC", with: "123-4567-890"
 
-  click_on "Save"
+  within ".patient-content" do
+    click_on "Save"
+  end
 end
 
 When(/^I choose to edit and update the form for a capd regime$/) do

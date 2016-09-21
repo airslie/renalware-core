@@ -2,14 +2,14 @@ table.auto-layout
   thead
     tr
       th
-      th Name
-      th Hosp No
-      th DOB
-      th Age
-      th Sex
-      th Modality
-      th Bookmarked
+      th= t(".patient_name")
+      th= t(".hopsital_number")
+      th= t(".born_on")
+      th= t(".age")
+      th= t(".sex")
+      th= t(".notes")
+      th= t(".modality")
+      th= t(".bookmarked_on")
       th
-
   tbody
     = render partial: "renalware/dashboard/bookmarks/bookmark", collection: bookmarks

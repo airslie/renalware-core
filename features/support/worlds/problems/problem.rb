@@ -74,8 +74,10 @@ module World
 
         visit patient_problems_path(patient)
         click_on "Add problem"
-        fill_in "Description", with: "major problem"
-        click_on "Save"
+        within ".patient-content" do
+          fill_in "Description", with: "major problem"
+          click_on "Save"
+        end
       end
 
       def revise_problem_for(patient:, user:, description:)
