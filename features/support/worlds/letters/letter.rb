@@ -280,7 +280,7 @@ module World
         attributes = valid_simple_letter_attributes(patient)
         fill_in "Date", with: I18n.l(attributes[:issued_on]) if issued_on.present?
         select attributes[:letterhead].name, from: "Letterhead"
-        select user.full_name, from: "Author"
+        select user.to_s, from: "Author"
         fill_in "Description", with: attributes[:description]
 
         fill_recipient(recipient)
@@ -323,7 +323,7 @@ module World
         visit patient_letters_letters_path(patient)
         click_on "Edit"
 
-        select user.full_name, from: "Author"
+        select user.to_s, from: "Author"
 
         within ".bottom" do
           click_on "Save"

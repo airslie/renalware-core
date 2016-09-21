@@ -84,7 +84,7 @@ module World
         click_on "Enter profile"
 
         select "Mon, Wed, Fri AM", from: "Schedule"
-        select prescriber.full_name, from: "Prescriber" if prescriber
+        select prescriber.to_s, from: "Prescriber" if prescriber
         select "300", from: "Flow Rate"
 
         within ".top" do
