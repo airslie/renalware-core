@@ -26,6 +26,8 @@ module Renalware
         attribute :bm_stix, Float
 
         validates :weight, "renalware/patients/weight" => true
+        validates :temperature, "renalware/patients/temperature" => true
+
       end
       attribute :observations_before, Observations
       attribute :observations_after, Observations
