@@ -2,15 +2,21 @@
   h1 Ongoing HD Sessions
 
 .row
-  = search_form_for @q, url: hd_ongoing_sessions_path do |f|
-    .row
-      .large-4.columns
-        = f.grouped_collection_select :hospital_unit_id_eq,
-            Renalware::Hospitals::Centre.with_hd_sites.ordered,
-            :hd_sites, :to_s, :id, :to_s,
-            include_blank: "-- All Units --"
-      .large-8.columns
-        = f.submit 'Filter', class: 'button tiny'
+  .search-form
+    fieldset
+      legend Filters
+      = simple_form_for @q, as: :q, url: hd_ongoing_sessions_path, method: :get do |f|
+        .row
+          .large-4.columns
+            = f.label "Unit"
+            = f.grouped_collection_select :hospital_unit_id_eq,
+                Renalware::Hospitals::Centre.with_hd_sites.ordered,
+                :hd_sites, :to_s, :id, :to_s,
+                include_blank: true
+          .large-8.columns.actions
+            = f.submit t("helpers.submit.filter"), class: 'button'
+            span= " or "
+            = link_to t("helpers.reset"), hd_ongoing_sessions_path
 
 .row
   table.report
