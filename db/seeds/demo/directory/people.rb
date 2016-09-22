@@ -3,7 +3,7 @@ module Renalware
 
   user = User.first
 
-  50.times do
+  26.times do
     given_name = Faker::Name.first_name
     family_name = Faker::Name.last_name
     title = [true, false].sample ? Faker::Name.prefix : nil

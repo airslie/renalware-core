@@ -1,7 +1,10 @@
 Feature: Adding a person in the directory
 
-  Users can add people to the global directory.  This allow using the person's
-  name and address in different areas of the application, such as letters.
+  The directory provides a global list of all people recorded in the application.
+  The directory can be used in other modules such as Letters to select recipients for a letter.
+
+  The directory does not currently include Patients or Primary Care Physicians,
+  although we hope to integrate that in the future.
 
   Background:
     Given Clyde is a clinician

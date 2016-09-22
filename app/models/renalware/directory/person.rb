@@ -16,6 +16,12 @@ module Renalware
       def self.policy_class
         BasePolicy
       end
+
+      def self.build(attributes = {})
+        person = self.new(attributes)
+        person.build_address
+        person
+      end
     end
   end
 end

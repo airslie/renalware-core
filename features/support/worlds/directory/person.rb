@@ -8,16 +8,9 @@ module World
       end
 
       def valid_person_attributes
-        {
-          given_name: Faker::Name.first_name,
-          family_name: Faker::Name.last_name,
-          title: Faker::Name.prefix,
-          address_attributes: {
-            name: Faker::Name.name,
-            street_1: Faker::Address.street_address,
-            city: Faker::Address.city
-          }
-        }
+        FactoryGirl.attributes_for(:directory_person,
+          address_attributes: FactoryGirl.attributes_for(:address)
+        )
       end
 
       # @section seeding
@@ -105,13 +98,13 @@ module World
 
         attr = valid_person_attributes.merge(attributes)
 
-        fill_in "Given Name", with: attr[:given_name]
-        fill_in "Family Name", with: attr[:family_name]
-        fill_in "Title", with: attr[:title]
+        fill_in t_person(:given_name), with: attr[:given_name]
+        fill_in t_person(:family_name), with: attr[:family_name]
+        fill_in t_person(:title), with: attr[:title]
 
-        fill_in "Name", with: attr[:address_attributes][:name]
-        fill_in "Line 1", with: attr[:address_attributes][:street_1]
-        fill_in "City", with: attr[:address_attributes][:city]
+        fill_in t_address(:name), with: attr[:address_attributes][:name]
+        fill_in t_address(:street_1), with: attr[:address_attributes][:street_1]
+        fill_in t_address(:city), with: attr[:address_attributes][:city]
 
         click_on "Create"
       end
@@ -121,7 +114,7 @@ module World
         visit directory_people_path
         click_on "Edit"
 
-        fill_in "Title", with: "Monsieur"
+        fill_in t_person(:title), with: "Monsieur"
 
         click_on "Save"
       end
@@ -136,6 +129,14 @@ module World
           expect(page.body).to have_content(row[:given_name])
           expect(page.body).to have_content(row[:family_name])
         end
+      end
+
+      def t_person(key)
+        I18n.t(key, scope: "activerecord.attributes.renalware/directory/person")
+      end
+
+      def t_address(key)
+        I18n.t(key, scope: "activerecord.attributes.renalware/address")
       end
     end
   end
