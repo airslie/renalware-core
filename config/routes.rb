@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     resources :deaths, only: :index, as: :patient_deaths
 
     namespace :directory do
-      resources :people
+      resources :people, except: [:delete]
     end
 
     namespace :drugs do

@@ -27,8 +27,7 @@ module Renalware
         authorize @person
 
         if @person.save
-          redirect_to directory_people_path,
-            notice: t(".success", model_name: "Directory person")
+          redirect_to directory_people_path, notice: t(".success", model_name: "Directory person")
         else
           flash[:error] = t(".failed", model_name: "Directory person")
           render :new
@@ -44,8 +43,7 @@ module Renalware
         @person = Person.find(params[:id])
         authorize @person
         if @person.update(person_params)
-          redirect_to directory_people_path,
-            notice: t(".success", model_name: "Directory person")
+          redirect_to directory_people_path, notice: t(".success", model_name: "Directory person")
         else
           flash[:error] = t(".failed", model_name: "Directory person")
           render :edit

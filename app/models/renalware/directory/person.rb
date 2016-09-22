@@ -8,7 +8,7 @@ module Renalware
 
       has_one :address, as: :addressable
 
-      accepts_nested_attributes_for :address, allow_destroy: true
+      accepts_nested_attributes_for :address
 
       scope :ordered, -> { order(:family_name, :given_name) }
       scope :with_address, -> { includes(:address) }

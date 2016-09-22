@@ -24,9 +24,7 @@ module World
       #
       def seed_person(user:)
         Renalware::Directory::Person.create!(
-          valid_person_attributes.merge(
-            by: user
-          )
+          valid_person_attributes.merge(by: user)
         )
       end
 
