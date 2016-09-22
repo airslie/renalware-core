@@ -13,9 +13,6 @@ capd:
 capd_nurses:
   name: CAPD Nurses
   consultant: systemuser
-dartford_outreach:
-  name: Dartford Outreach
-  consultant: systemuser
 dietitians:
   name: Dietitians
   consultant: systemuser
@@ -39,7 +36,4 @@ transplant:
   consultant: systemuser
 walk_in:
   name: Walk-in
-  consultant: systemuser
-woolwich_outreach:
-  name: Woolwich Outreach
   consultant: systemuser

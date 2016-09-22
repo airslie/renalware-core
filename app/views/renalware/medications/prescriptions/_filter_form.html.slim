@@ -11,6 +11,6 @@
         .columns.small-4
           = f.select(:drug_drug_types_id_eq, options_from_collection_for_select(drug_types, "id", "name", search.drug_drug_types_id_eq), include_blank: true)
         .columns.small-6
-          = f.button "Filter", class: "button tiny"
+          = f.button t("helpers.submit.filter"), class: "button tiny"
           = " or "
           = link_to "reset", patient_prescriptions_path(@patient)

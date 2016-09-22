@@ -13,9 +13,6 @@ capd_nurses_clinic:
 counsellor_meeting:
   name: Counsellor Meeting
 
-dartford_outreach_clinic:
-  name: Dartford Outreach Clinic
-
 dietitians_clinic:
   name: Dietitians clinic
 
@@ -84,19 +81,3 @@ walk-in_clinic:
 
 ward_round:
   name: Ward round
-
-woolwich_outreach_clinic:
-  name: Woolwich Outreach Clinic
-
-
-
-
-
-
-
-
-
-
-
-
-
