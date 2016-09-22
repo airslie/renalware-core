@@ -9,7 +9,7 @@ Feature: Adding a person in the directory
   @web
   Scenario: A clinician added a person
     When Clyde adds a person to the directory
-    Then the directory contains 1 person
+    Then the directory includes the person
 
   @web
   Scenario: A clinician added an erroneous person

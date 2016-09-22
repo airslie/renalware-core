@@ -10,7 +10,7 @@ When(/^Clyde adds an erroneous person to the directory$/) do
   create_person(user: @clyde, attributes: { given_name: nil })
 end
 
-Then(/^the directory contains (\d+) person$/) do |arg1|
+Then(/^the directory includes the person$/) do
   expect_person_to_exist
 end
 
