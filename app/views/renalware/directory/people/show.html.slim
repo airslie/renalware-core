@@ -1,0 +1,37 @@
+.row
+  = render 'header'
+
+.row
+  .document-view
+    = field_set_tag "Person" do
+      dl
+        dt Title
+        dd= @person.title
+
+        dt Given Name
+        dd= @person.given_name
+
+        dt Family Name
+        dd= @person.family_name
+
+    = field_set_tag "Address" do
+      = render "renalware/addresses/address", address: @person.address
+
+    = field_set_tag "Admin" do
+      dl
+        dt Created By
+        dd= @person.created_by
+
+        dt Created On
+        dd= l @person.created_at
+
+        dt Updated By
+        dd= @person.updated_by
+
+        dt Updated On
+        dd= l @person.updated_at
+
+.row
+  = link_to "Edit", edit_directory_person_path(@person), class: "button"
+  = " or "
+  = link_to "Cancel", directory_people_path

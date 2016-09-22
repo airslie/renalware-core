@@ -38,7 +38,6 @@ module Renalware
       scope :with_main_recipient, -> { includes([main_recipient: :address]) }
       scope :with_author, -> { includes(:author) }
       scope :with_patient, -> { includes(:patient) }
-      scope :with_created_by, -> { includes(:created_by) }
 
       def self.policy_class
         LetterPolicy

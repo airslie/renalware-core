@@ -1,0 +1,10 @@
+- f.object.build_address if f.object.address.blank?
+= f.simple_fields_for :address, wrapper: "horizontal_form" do |fa|
+  = fa.input :id, as: :hidden
+  = fa.input :name
+  = fa.input :street_1
+  = fa.input :street_2
+  = fa.input :city
+  = fa.input :county
+  = fa.input :postcode
+  = fa.input :country, as: :string
