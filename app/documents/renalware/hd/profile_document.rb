@@ -16,7 +16,7 @@ module Renalware
         attribute :potassium, Integer
         attribute :calcium, Float
         attribute :temperature, Float
-        attribute :bicarbonate, Integer
+        attribute :bicarbonate, Integer, default: 32
         attribute :has_sodium_profiling, Document::Enum, enums: %i(yes no)
         attribute :sodium_first_half, Integer
         attribute :sodium_second_half, Integer
@@ -29,7 +29,7 @@ module Renalware
         def self.potassium_levels; [1, 2, 3, 4]; end
         def self.calcium_levels; [1.0, 1.35, 1.5]; end
         def self.temperature_levels; [35.0, 35.5, 36.0, 36.5, 37.0]; end
-        def self.bicarbonate_levels; (30..40).step(5); end
+        def self.bicarbonate_levels; (22..43).step(1); end
         def self.sodium_levels; [136, 137, 138, 140, 145]; end
       end
       attribute :dialysis, Dialysis
