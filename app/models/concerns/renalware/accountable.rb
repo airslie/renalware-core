@@ -24,6 +24,7 @@ module Renalware
       attr_accessor :by
 
       scope :with_created_by, -> { includes(:created_by) }
+      scope :with_updated_by, -> { includes(:updated_by) }
     end
 
     private

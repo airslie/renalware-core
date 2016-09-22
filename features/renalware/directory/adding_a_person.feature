@@ -1,4 +1,3 @@
-@wip
 Feature: Adding a person in the directory
 
   Users can add people to the global directory.  This allow using the person's
