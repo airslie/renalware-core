@@ -4,3 +4,13 @@ en:
       renalware/hd/dry_weight:
         weight: Dry Weight
         assessed_on: Assessment Date
+  renalware:
+    hd:
+      dry_weights:
+        list:
+          title: Latest Dry Weights
+          add: Add a Dry Weight
+          date: Date
+          weight: Weight (kg)
+          assessor: Assessor
+          view_all: View All

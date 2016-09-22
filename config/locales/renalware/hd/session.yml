@@ -101,4 +101,18 @@ en:
             weight: kg
           observations_after:
             weight: kg
-
+  renalware:
+    hd:
+      sessions:
+        list:
+          title: Latest HD Sessions
+          date: Date
+          from: From
+          to: To
+          duration: Duration
+          site: Site
+          sign_on: Sign On
+          sign_off: Sign Off
+          edit: Edit
+          add_session: Add a Session
+          view_all: View All

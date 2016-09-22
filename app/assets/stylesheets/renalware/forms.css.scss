@@ -51,6 +51,14 @@ fieldset {
       font-size: 0.9em;
     }
   }
+
+  &.with-actions-above-table {
+    padding-top:3px;
+
+    .actions {
+      margin-bottom: 13px;
+    }
+  }
 }
 
 .document form,
