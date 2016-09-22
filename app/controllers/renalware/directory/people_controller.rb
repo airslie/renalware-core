@@ -1,10 +1,15 @@
 module Renalware
   module Directory
     class PeopleController < BaseController
+      include Renalware::Concerns::Pageable
+
       before_action :load_person, only: [:show, :edit, :update]
+      before_action :prepare_paging, only: [:index]
 
       def index
-        @people = Person.ordered.page(@page).per(@per_page)
+        @people = Person
+          .with_address
+          .ordered.page(@page).per(@per_page)
         authorize @people
       end
 

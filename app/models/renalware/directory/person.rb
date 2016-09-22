@@ -11,6 +11,7 @@ module Renalware
       accepts_nested_attributes_for :address, allow_destroy: true
 
       scope :ordered, -> { order(:family_name, :given_name) }
+      scope :with_address, -> { includes(:address) }
 
       def self.policy_class
         BasePolicy

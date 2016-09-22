@@ -1,10 +1,9 @@
-- @people.each do |person|
-  tr
-    td
-      = link_to "View", directory_person_path(person.id)
-      = pipe_separator
-      = link_to "Edit", edit_directory_person_path(person.id)
-    td= person.title
-    td= link_to person.family_name, directory_person_path(person.id)
-    td= link_to person.given_name, directory_person_path(person.id)
-    td= person.address
+tr
+  td
+    = link_to "View", directory_person_path(person.id)
+    = pipe_separator
+    = link_to "Edit", edit_directory_person_path(person.id)
+  td= person.title
+  td= link_to person.family_name, directory_person_path(person.id)
+  td= link_to person.given_name, directory_person_path(person.id)
+  td= person.address
