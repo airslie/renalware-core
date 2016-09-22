@@ -78,7 +78,7 @@ module World
       def create_hd_dry_weight(user:, patient:, assessed_on:)
         login_as user
         visit patient_hd_dashboard_path(patient)
-        click_on "Add a dry weight"
+        click_on "Add a Dry Weight"
 
         fill_in "Dry Weight", with: 98
         fill_in "Assessment Date", with: assessed_on

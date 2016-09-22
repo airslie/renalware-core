@@ -114,7 +114,7 @@ module World
         login_as user
         visit patient_hd_dashboard_path(patient)
         within_fieldset "Latest HD Sessions" do
-          click_on "Add a session"
+          click_on "Add a Session"
         end
 
         fill_in "Session Start Time", with: "13:00"

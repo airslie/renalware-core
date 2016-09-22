@@ -1,0 +1,18 @@
+// Disable animations during tests to increase stability
+<% reveal_animation = Rails.env.test? ? 'none' : 'fadeAndPop' %>
+
+$(document).foundation({
+    reveal: {
+        animation: '<%= reveal_animation %>',
+        animation_speed: 200,
+        close_on_background_click: false,
+        close_on_esc: true,
+        dismiss_modal_class: 'reveal-modal-close'
+    }
+});
+
+// Honour any html autofocus attributes on inputs inside a modal dialog
+$(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
+  var modal = $(this);
+  modal.find('[autofocus]').focus();
+});

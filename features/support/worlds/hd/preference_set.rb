@@ -62,11 +62,14 @@ module World
       def update_hd_preferences(patient:, user:)
         login_as user
         visit patient_hd_dashboard_path(patient)
+
         click_on "Edit"
 
-        select "Mon, Wed, Fri PM", from: "Schedule"
+        within ".document" do
+          select "Mon, Wed, Fri PM", from: "Schedule"
 
-        click_on "Save"
+          click_on "Save"
+        end
       end
     end
   end

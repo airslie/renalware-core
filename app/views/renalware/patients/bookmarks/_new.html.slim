@@ -1,0 +1,16 @@
+/ Link to launch the modal dialog
+= link_to(link_text, '#', data: { 'reveal-id' => 'add-patient-bookmark-modal' })
+
+/ The modal dialog
+#add-patient-bookmark-modal.reveal-modal.medium(data-reveal)
+  =simple_form_for patient.bookmarks.new,
+                  url: patient_bookmarks_path(patient_id: patient.id) do |f|
+    h2= t(".title")
+    =f.input :urgent, as: :boolean
+    =f.input :notes, as: :text, input_html: { autofocus: :autofocus }
+    =f.submit t(".save"), class: :button
+    span= " or "
+    =link_to t(".cancel"),
+             "#",
+             "aria-label" => "Close",
+             class: "reveal-modal-close"

@@ -16,7 +16,7 @@ module Renalware
 
       validates :patient, presence: true
       validates :assessor, presence: true
-      validates :weight, presence: true
+      validates :weight, presence: true, "renalware/patients/weight" => true
       validates :assessed_on, presence: true
       validates :assessed_on, timeliness: { type: :date, allow_blank: false }
     end

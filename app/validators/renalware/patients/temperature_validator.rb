@@ -1,10 +1,10 @@
 module Renalware
   module Patients
-    class WeightValidator < ActiveModel::EachValidator
+    class TemperatureValidator < ActiveModel::EachValidator
       include NumericRangeValidations
       include NumericScaleValidations
-      MIN_VALUE = 5.0
-      MAX_VALUE = 300.0
+      MIN_VALUE = 28.0
+      MAX_VALUE = 45.0
       MAX_DECIMAL_PLACES = 1
 
       def validate_each(record, attribute, value)

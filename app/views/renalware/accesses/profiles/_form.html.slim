@@ -25,7 +25,7 @@ ruby:
     = f.association :plan,
         collection: Renalware::Accesses::Plan.ordered
     = f.input :planned_on, as: :date_picker
-    = f.association :decided_by, collection: Renalware::User.ordered, label_method: :full_name
+    = f.association :decided_by, as: :user_picker, collection: Renalware::User.ordered
 
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Admin", name: "notes" } do
