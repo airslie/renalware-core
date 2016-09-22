@@ -1,13 +1,20 @@
 tr
   td
+    = link_to "Toggle", "#quick-preview-#{letter.id}", data: { behaviour: "toggler" }
+    = pipe_separator
     = link_to letter.view_label, patient_letters_letter_path(letter.patient, letter)
     - if policy(letter).update?
       = pipe_separator
       = link_to 'Edit', edit_patient_letters_letter_path(letter.patient, letter)
   td= letter.type
+  td= letter.state
   td= l letter.issued_on
   td= letter.author
   td= letter.main_recipient.address
-  td= render "/renalware/letters/letters/quick_preview", letter: letter
-  td= letter.state
+  td= letter.description
   td= l letter.updated_at
+= content_tag(:tr, id: "quick-preview-#{letter.id}", style: "display: none")
+  td
+  td(colspan=7)
+    .quick-preview
+      = simple_format letter.body
