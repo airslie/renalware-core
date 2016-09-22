@@ -70,6 +70,9 @@ en:
             temperature:
               out_of_range: Please enter a temperature between 28.0 and 45.0°C
               invalid_number: Please enter a number with up to 1 decimal place, for example 37 or 37.1
+            bm_stix:
+              out_of_range: Please enter a value between 0.5 and 50.0
+              invalid_number: Please enter a number with up to 1 decimal place, for example 20 or 20.1
 
   enumerize:
     renalware/hd/session_document/info:

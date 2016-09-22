@@ -33,5 +33,7 @@ module Renalware
     config.active_record.schema_format = :sql
 
     config.action_mailer.preview_path = Rails.root.join("app", "mailers", "previews")
+
+    config.autoload_paths += %W(#{config.root}/app/validators/concerns)
   end
 end
