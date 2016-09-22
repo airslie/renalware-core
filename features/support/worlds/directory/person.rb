@@ -8,16 +8,9 @@ module World
       end
 
       def valid_person_attributes
-        {
-          given_name: Faker::Name.first_name,
-          family_name: Faker::Name.last_name,
-          title: Faker::Name.prefix,
-          address_attributes: {
-            name: Faker::Name.name,
-            street_1: Faker::Address.street_address,
-            city: Faker::Address.city
-          }
-        }
+        FactoryGirl.attributes_for(:directory_person,
+          address_attributes: FactoryGirl.attributes_for(:address)
+        )
       end
 
       # @section seeding
