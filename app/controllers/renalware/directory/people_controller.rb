@@ -18,7 +18,7 @@ module Renalware
       end
 
       def new
-        @person = Person.new
+        @person = Person.build
         authorize @person
       end
 
