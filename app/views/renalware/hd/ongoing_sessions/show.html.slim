@@ -14,7 +14,7 @@
                 :hd_sites, :to_s, :id, :to_s,
                 include_blank: true
           .large-8.columns.actions
-            = f.submit 'Filter', class: 'button'
+            = f.submit t("helpers.submit.filter"), class: 'button'
             span= " or "
             = link_to t("helpers.reset"), hd_ongoing_sessions_path
 

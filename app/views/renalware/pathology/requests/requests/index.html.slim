@@ -13,7 +13,7 @@
           .large-4.columns
             = f.input :created_on_eq, as: :date_picker, label: "Printed on"
           .large-8.columns.actions
-            = f.submit "Filter", class: "button"
+            = f.submit t("helpers.submit.filter"), class: "button"
             span= " or "
             = link_to t("helpers.reset"), pathology_requests_requests_path
 
