@@ -42,8 +42,6 @@ ruby:
         = fcm.input :dialyser, as: :grouped_select, input_html: { class: "small-input" },
             collection: fcm.object.class.dialysers.group_by(&:group), group_method: :last,
             label_method: :name, value_method: :name
-        = fcm.input :potassium, collection: fcm.object.class.potassium_levels, input_html: { class: "small-input" }
-        = fcm.input :calcium, collection: fcm.object.class.calcium_levels, input_html: { class: "small-input" }
         = fcm.input :temperature, collection: fcm.object.class.temperature_levels, input_html: { class: "small-input" }
         = fcm.input :bicarbonate, collection: fcm.object.class.bicarbonate_levels, input_html: { class: "small-input" }
         = fcm.input :has_sodium_profiling, as: :inline_radio_buttons
