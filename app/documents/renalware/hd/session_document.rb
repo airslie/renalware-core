@@ -9,10 +9,10 @@ module Renalware
         attribute :access_type
         attribute :access_side, Document::Enum, enums: %i(left right)
         attribute :access_site
-        attribute :is_access_first_use, Document::Enum, enums: %i(yes no)
-        attribute :fistula_plus_line, Document::Enum, enums: %i(yes no)
-        attribute :single_needle, Document::Enum, enums: %i(yes no)
-        attribute :lines_reversed, Document::Enum, enums: %i(yes no)
+        attribute :is_access_first_use, Document::Enum, enums: %i(yes no), default: :no
+        attribute :fistula_plus_line, Document::Enum, enums: %i(yes no), default: :no
+        attribute :single_needle, Document::Enum, enums: %i(yes no), default: :no
+        attribute :lines_reversed, Document::Enum, enums: %i(yes no), default: :no
         attribute :machine_no
         attribute :dialysis_fluid_used, Document::Enum
       end
