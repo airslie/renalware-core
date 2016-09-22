@@ -1,0 +1,23 @@
+$dl_horizontal_dt_width: 7rem;
+
+.dl-horzontal {
+  font-size: 0.9rem;
+  margin-top: 5px;
+
+  dt {
+    float: left;
+    width: $dl_horizontal_dt_width;
+    overflow: hidden;
+    clear: left;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 0;
+  }
+
+  dd {
+    margin-left: $dl_horizontal_dt_width + 1rem;
+    display: table;
+    margin-bottom: 0;
+  }
+}
