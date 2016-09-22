@@ -10,11 +10,9 @@
           .large-2.columns
             = f.input :state_eq, collection: state_options, label: "State"
           .large-3.columns
-            = f.input :author_id_eq, collection: @authors, label: "Author",
-                input_html: { class: "searchable_select" }
+            = f.input :author_id_eq, as: :user_picker, collection: @authors, label: "Author"
           .large-3.columns
-            = f.input :created_by_id_eq, collection: @typists,label: "Typist",
-                input_html: { class: "searchable_select" }
+            = f.input :created_by_id_eq, as: :user_picker, collection: @typists, label: "Typist"
           .large-4.columns.actions
             = f.submit t("helpers.submit.filter"), class: "button"
             span= " or "

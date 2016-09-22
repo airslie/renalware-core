@@ -45,7 +45,9 @@ module Renalware
 
       uncheck "Thursday"
 
-      click_on "Save"
+      within ".patient-content" do
+        click_on "Save"
+      end
 
       within ".current-regime" do
         expect(page).to have_content("Days: Sun, Mon, Wed, Fri, Sat")

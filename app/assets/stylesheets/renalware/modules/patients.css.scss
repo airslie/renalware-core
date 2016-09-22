@@ -1,7 +1,7 @@
 $patient-header-muted-color: #777;
 $patient-header-icon-color: #bbb;
 $patient-list-border-color: #ddd;
-
+$bookmark-urgent-colour: #FFFFC8;
 
 select.dob {
   display: inline-block;
@@ -93,6 +93,35 @@ dl.patient-header {
         font-size: 1.6em;
         margin-right: .6rem;
         width: auto;
+      }
+    }
+  }
+}
+
+#bookmarks {
+  tr.urgent {
+    background-color: $bookmark-urgent-colour;
+  }
+}
+
+form {
+  .blood-pressure {
+    &.with-errors {
+      input {
+        margin-bottom: 0;
+      }
+      // Apply a bottom margin only to the second of two error messages
+      // or if there is only one.
+      small.error {
+        margin-bottom: 0;
+
+        &:only-child {
+          margin-bottom: 0.75rem;
+        }
+
+        &:nth-child(2) {
+          margin-bottom: 0.75rem;
+        }
       }
     }
   }

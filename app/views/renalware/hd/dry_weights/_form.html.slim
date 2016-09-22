@@ -12,7 +12,7 @@ ruby:
         locals: { legend: "Dry Weight", name: "dryweight" } do
       = f.input :weight, input_html: { class: 'small-input' }
       = f.input :assessed_on, as: :date_picker
-      = f.association :assessor, collection: Renalware::User.ordered, label_method: :full_name
+      = f.association :assessor, as: :user_picker, collection: Renalware::User.ordered
 
 .row
   .large-12.columns

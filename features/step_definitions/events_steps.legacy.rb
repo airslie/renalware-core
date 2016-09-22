@@ -7,11 +7,13 @@ When(/^Clyde chooses to add an event$/) do
 end
 
 When(/^records Patty's event$/) do
-  fill_in_date_time "Date time", with: fake_date_time
-  select "Email", from: "Event type"
-  fill_in "Description", with: "Discussed meeting to be set up with family."
-  fill_in "Notes", with: "Patty to speak to family before meeting set up."
-  click_on "Save"
+  within "#new_events_event" do
+    fill_in_date_time "Date time", with: fake_date_time
+    select "Email", from: "Event type"
+    fill_in "Description", with: "Discussed meeting to be set up with family."
+    fill_in "Notes", with: "Patty to speak to family before meeting set up."
+    click_on "Save"
+  end
 end
 
 Then(/^Clyde should see Patty's new event on the clinical summary$/) do

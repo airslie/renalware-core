@@ -10,6 +10,7 @@ Feature: Bookmarking a patient
       | Don      |
       | Yossef   |
     When Clyde deletes the bookmark for Don
-    Then the following patients appear in Clyde's bookmarked patient list:
-      | Patty    |
-      | Yossef   |
+    Then Clyde has the following patient bookmarks:
+      | patient  | notes  | urgent |
+      | Patty    |        | false  |
+      | Yossef   |        | false  |

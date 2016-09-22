@@ -1908,7 +1908,9 @@ CREATE TABLE patient_bookmarks (
     patient_id integer NOT NULL,
     user_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    notes text,
+    urgent boolean DEFAULT false NOT NULL
 );
 
 
@@ -6598,4 +6600,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160829114845');
 INSERT INTO schema_migrations (version) VALUES ('20160830141439');
 
 INSERT INTO schema_migrations (version) VALUES ('20160906195949');
+
+INSERT INTO schema_migrations (version) VALUES ('20160916113152');
 

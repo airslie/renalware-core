@@ -3,7 +3,7 @@
     = render partial: "renalware/patients/header", locals: { patient: @patient }
   .large-2.columns.patient-side-nav
     = render partial: "renalware/patients/side_nav", locals: { model: @patient }
-  .large-10.columns
+  .large-10.columns.patient-content
     = render partial: "renalware/renal/profiles/mini", locals: { patient: @patient }
 
     h2= title

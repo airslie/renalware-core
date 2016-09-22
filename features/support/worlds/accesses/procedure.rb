@@ -76,7 +76,7 @@ module World
         end
 
         fill_in "Performed", with: I18n.l(Time.zone.today)
-        select user.full_name, from: "Performed By"
+        select user.to_s, from: "Performed By"
         select "Vein loop", from: "Access Type"
         select site.to_s, from: "Access Site"
         select "Right", from: "Access Side"

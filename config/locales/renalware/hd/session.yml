@@ -67,6 +67,12 @@ en:
             weight:
               out_of_range: Please enter a weight between 5.0 and 300.0 kg
               invalid_number: Please enter a number with up to 1 decimal place, for example 100 or 100.1
+            temperature:
+              out_of_range: Please enter a temperature between 28.0 and 45.0°C
+              invalid_number: Please enter a number with up to 1 decimal place, for example 37 or 37.1
+            bm_stix:
+              out_of_range: Please enter a value between 0.5 and 50.0
+              invalid_number: Please enter a number with up to 1 decimal place, for example 20 or 20.1
 
   enumerize:
     renalware/hd/session_document/info:
@@ -95,4 +101,18 @@ en:
             weight: kg
           observations_after:
             weight: kg
-
+  renalware:
+    hd:
+      sessions:
+        list:
+          title: Latest HD Sessions
+          date: Date
+          from: From
+          to: To
+          duration: Duration
+          site: Site
+          sign_on: Sign On
+          sign_off: Sign Off
+          edit: Edit
+          add_session: Add a Session
+          view_all: View All

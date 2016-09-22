@@ -73,15 +73,17 @@ module World
 
           visit new_patient_pathology_patient_rule_path(patient_id: patient.id)
 
-          select params[:lab], from: "Lab"
-          fill_in "Test description", with: params[:test_description]
-          select params[:sample_number_bottles].to_s, from: "Sample number bottles"
-          fill_in "Sample type", with: params[:sample_type]
-          select params[:frequency_type], from: "Frequency"
-          fill_in "Start date", with: I18n.l(params[:start_date])
-          fill_in "End date", with: I18n.l(params[:end_date])
+          within "#new_pathology_requests_patient_rule" do
+            select params[:lab], from: "Lab"
+            fill_in "Test description", with: params[:test_description]
+            select params[:sample_number_bottles].to_s, from: "Sample number bottles"
+            fill_in "Sample type", with: params[:sample_type]
+            select params[:frequency_type], from: "Frequency"
+            fill_in "Start date", with: I18n.l(params[:start_date])
+            fill_in "End date", with: I18n.l(params[:end_date])
 
-          click_on "Save"
+            click_on "Save"
+          end
         end
 
         def run_patient_algorithm(patient, clinician)

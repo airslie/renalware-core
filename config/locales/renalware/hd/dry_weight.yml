@@ -4,3 +4,22 @@ en:
       renalware/hd/dry_weight:
         weight: Dry Weight
         assessed_on: Assessment Date
+    errors:
+      models:
+        renalware/hd/dry_weight:
+          attributes:
+            weight:
+              out_of_range: Please enter a weight between 5.0 and 300.0 kg
+              invalid_number: Please enter a number with up to 1 decimal place, for example 100 or 100.1
+
+  renalware:
+    hd:
+      dry_weights:
+        list:
+          title: Latest Dry Weights
+          add: Add a Dry Weight
+          date: Date
+          weight: Weight (kg)
+          assessor: Assessor
+          view_all: View All
+
