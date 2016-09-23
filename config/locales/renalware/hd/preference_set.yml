@@ -14,3 +14,12 @@ en:
         tue_thu_sat_pm: "Tue, Thu, Sat PM"
         tue_thu_sat_eve: "Tue, Thu, Sat Evening"
         other: "Other (specify)"
+  renalware:
+    hd:
+      preference_sets:
+        summary:
+          title: Preferences
+          enter_preferences: Enter preferences
+          hospital_centre: "Hospital Centre:"
+          schedule: "Schedule:"
+          unit: "Unit:"

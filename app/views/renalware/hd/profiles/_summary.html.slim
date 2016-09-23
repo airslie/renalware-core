@@ -1,36 +1,35 @@
-.medium-6.columns
-  fieldset.simple
-    legend
-      span.title HD Profile
-      span.actions.action-links
-        - unless profile.new_record?
-          = link_to "View", patient_hd_profile_path(@patient)
-          = " | "
-          = link_to "Edit", edit_patient_hd_profile_path(@patient)
+fieldset.simple
+  legend
+    span.title= t(".title")
+    span.actions.action-links
+      - unless profile.new_record?
+        = link_to "View", patient_hd_profile_path(@patient)
+        = " | "
+        = link_to "Edit", edit_patient_hd_profile_path(@patient)
 
-    - if profile.new_record?
-      .call-to-action
-        = link_to edit_patient_hd_profile_path(@patient) do
-          i.fa.fa-plus-circle
-          | Enter profile
-    - else
-        dl.dl-horizontal
-          dt Schedule:
-          dd= profile.current_schedule
-          dt Prescribed Time:
-          dd= profile.prescribed_time
-          dt HD Type:
-          dd= profile.hd_type
-          dt Named Nurse:
-          dd= profile.named_nurse
-          dt Dialyser:
-          dd= profile.dialyser
-          dt Dialysate:
-          dd= profile.dialysate
-          dt Anticoagulant:
-          dd= profile.anticoagulant_type
-          dt Cannulation Type:
-          dd= profile.cannulation_type
-          dt Last Update:
-          dd= profile.last_update
+  - if profile.new_record?
+    .call-to-action
+      = link_to edit_patient_hd_profile_path(@patient) do
+        i.fa.fa-plus-circle
+        | Enter profile
+  - else
+      dl.dl-horizontal
+        dt= t(".schedule")
+        dd= profile.current_schedule
+        dt= t(".prescribed_time")
+        dd= profile.prescribed_time
+        dt= t(".hd_type")
+        dd= profile.hd_type
+        dt= t(".named_nurse")
+        dd= profile.named_nurse
+        dt= t(".dialyser")
+        dd= profile.dialyser
+        dt= t(".dialysate")
+        dd= profile.dialysate
+        dt= t(".anticoagulant")
+        dd= profile.anticoagulant_type
+        dt= t(".cannulation_type")
+        dd= profile.cannulation_type
+        dt= t(".last_update")
+        dd= profile.last_update
 

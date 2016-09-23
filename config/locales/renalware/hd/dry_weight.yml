@@ -16,7 +16,7 @@ en:
     hd:
       dry_weights:
         list:
-          title: Latest Dry Weights
+          title: Latest Dry Weight
           add_dry_weight: Add a Dry Weight
           edit: Add
           date: Date

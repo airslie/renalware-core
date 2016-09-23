@@ -1,27 +1,26 @@
-.medium-6.columns
-  fieldset.simple
-    legend
-      span.title Preferences
-      span.actions.action-links
+fieldset.simple
+  legend
+    span.title= t(".title")
+    span.actions.action-links
       - unless preference_set.new_record?
         = link_to "Edit", edit_patient_hd_preference_set_path(@patient)
 
-    - if preference_set.new_record?
-      .call-to-action
-        = link_to edit_patient_hd_preference_set_path(@patient) do
-          i.fa.fa-plus-circle
-          | Enter preferences
-    - else
-          dl.dl-horizontal
-            dt Schedule:
-            dd
-              - if preference_set.schedule
-                - if preference_set.schedule.other?
-                  = preference_set.other_schedule
-                - else
-                  = preference_set.schedule.text
-            dt Hospital Centre:
-            dd= preference_set.hospital_centre
-            dt Unit:
-            dd= preference_set.hospital_unit
+  - if preference_set.new_record?
+    .call-to-action
+      = link_to edit_patient_hd_preference_set_path(@patient) do
+        i.fa.fa-plus-circle
+        = t(".enter_preferences")
+  - else
+        dl.dl-horizontal
+          dt= t(".schedule")
+          dd
+            - if preference_set.schedule
+              - if preference_set.schedule.other?
+                = preference_set.other_schedule
+              - else
+                = preference_set.schedule.text
+          dt= t(".hospital_centre")
+          dd= preference_set.hospital_centre
+          dt= t(".unit")
+          dd= preference_set.hospital_unit
 
