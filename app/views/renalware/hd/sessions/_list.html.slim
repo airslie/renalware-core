@@ -2,10 +2,11 @@
   fieldset.hd-sessions.simple.simple-table
     legend
       span.title= t(".title")
-      span.actions.buttons
-        = link_to t(".add"), new_patient_hd_session_path(@patient), class: "button small slimline"
-        | &nbsp;
-        = link_to t(".view_all"), patient_hd_sessions_path(@patient), class: "button small slimline"
+      - unless sessions.empty?
+        span.actions.action-buttons
+          = link_to t(".add"), new_patient_hd_session_path(@patient), class: "button small slimline"
+          | &nbsp;
+          = link_to t(".view_all"), patient_hd_sessions_path(@patient), class: "button small slimline"
 
     - if sessions.empty?
       .call-to-action

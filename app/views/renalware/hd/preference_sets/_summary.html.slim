@@ -2,7 +2,9 @@
   fieldset.simple
     legend
       span.title Preferences
-      span.actions.links= link_to "Edit", edit_patient_hd_preference_set_path(@patient)
+      span.actions.action-links
+      - unless preference_set.new_record?
+        = link_to "Edit", edit_patient_hd_preference_set_path(@patient)
 
     - if preference_set.new_record?
       .call-to-action

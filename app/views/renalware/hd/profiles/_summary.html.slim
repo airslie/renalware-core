@@ -2,10 +2,11 @@
   fieldset.simple
     legend
       span.title HD Profile
-      span.actions.links
-        = link_to "View", patient_hd_profile_path(@patient)
-        = " | "
-        = link_to "Edit", edit_patient_hd_profile_path(@patient)
+      span.actions.action-links
+        - unless profile.new_record?
+          = link_to "View", patient_hd_profile_path(@patient)
+          = " | "
+          = link_to "Edit", edit_patient_hd_profile_path(@patient)
 
     - if profile.new_record?
       .call-to-action

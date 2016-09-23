@@ -1,21 +1,27 @@
 .medium-6.columns
   fieldset.simple
     legend
-      span.title Access
+      span.title= t(".title")
+      - unless access.nil?
+        span.actions.action-links
+            = link_to t(".view"), patient_accesses_profile_path(@patient, access)
+            = " | "
+            = link_to t(".edit"), edit_patient_accesses_profile_path(@patient, access)
 
     - if access.nil?
       .call-to-action
         = link_to new_patient_accesses_profile_path(@patient) do
           i.fa.fa-plus-circle
-          | Add an Access Profile
+          =t(".add_access_profile")
     - else
       dl.dl-horizontal
-        dt Site:
+        dt= t(".site")
         dd= access.site
-        dt Type:
+        dt= t(".type")
         dd= access.type
-        dt Side:
+        dt= t(".side")
         dd= access.side
-        dt Plan:
+        dt= t(".plan")
         dd= access.plan
-
+        dt= t(".notes")
+        dd= access.notes

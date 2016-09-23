@@ -160,13 +160,13 @@ fieldset {
           font-size: 1rem;
           font-weight: normal;
 
-          &.links {
+          &.action-links {
             a {
               font-weight: normal;
               font-size: 1rem;
             }
           }
-          &.buttons {
+          &.action-buttons {
             position: absolute;
             top: -5px;
 
