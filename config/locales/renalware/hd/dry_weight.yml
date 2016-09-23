@@ -18,6 +18,7 @@ en:
         list:
           title: Latest Dry Weights
           add: Add a Dry Weight
+          edit: Edit
           date: Date
           weight: Weight (kg)
           assessor: Assessor
