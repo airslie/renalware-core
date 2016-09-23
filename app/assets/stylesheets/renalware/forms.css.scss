@@ -137,20 +137,56 @@ fieldset {
     padding: 0.8rem 0 0 0;
     margin: 0;
     border-width: 1px 0 0 0;
+    position: relative;
+    margin-top: 35px;
+
+    &.simple-table {
+      margin-top: 50px;
+    }
 
     legend {
+      position: absolute;
+      top: -28px;
+      left: 0;
+      width: 100%;
+
       span {
-        background-color: #fff;
         &.title {
           padding-right: 1rem;
+          font-weight: normal;
         }
         &.actions {
-          position: absolute;
-          padding-left: 1rem;
-          right: 0;
-          top: -2px;
+          color: #008cba;
+          font-size: 1rem;
+          font-weight: normal;
+
+          &.links {
+            a {
+              font-weight: normal;
+              font-size: 1rem;
+            }
+          }
+          &.buttons {
+            position: absolute;
+            top: -5px;
+
+            a {
+              margin-right: 5px;
+            }
+          }
         }
       }
+    }
+    table {
+      margin-top: 10px;
+    }
+  }
+}
+
+.button {
+  &.slimline {
+    &.small {
+      padding: 0.3rem 0.6rem;
     }
   }
 }

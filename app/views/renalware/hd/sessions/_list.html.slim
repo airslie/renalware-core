@@ -1,18 +1,18 @@
-fieldset.hd-sessions.with-actions-above-table
-  legend=t(".title")
+.small-12.columns
+  fieldset.hd-sessions.simple.simple-table
+    legend
+      span.title= t(".title")
+      span.actions.buttons
+        = link_to t(".add"), new_patient_hd_session_path(@patient), class: "button small slimline"
+        | &nbsp;
+        = link_to t(".view_all"), patient_hd_sessions_path(@patient), class: "button small slimline"
 
-  - if sessions.empty?
-    .call-to-action
-      = link_to new_patient_hd_session_path(@patient) do
-        i.fa.fa-plus-circle
-        =t(".add_session")
-  - else
-    .right.actions
-      = link_to t(".add_session"), new_patient_hd_session_path(@patient),
-        class: 'button tiny'
-      | &nbsp;
-      = link_to t(".view_all"), patient_hd_sessions_path(@patient),
-        class: 'button tiny'
+    - if sessions.empty?
+      .call-to-action
+        = link_to new_patient_hd_session_path(@patient) do
+          i.fa.fa-plus-circle
+          =t(".add_session")
+    - else
 
     table.auto-layout
       thead
@@ -87,9 +87,3 @@ fieldset.hd-sessions.with-actions-above-table
             td= session.post(:temperature)
             td= session.post(:bm_stix)
             td= session.post(:blood_pressure)
-
-
-/date
-   site - which site?
-   UFR - cannot find
-   sign on and off - take too much room - but how to view that once closed.

@@ -1,4 +1,4 @@
-$dl_horizontal_dt_width: 7rem;
+$dl_horizontal_dt_width: 8rem;
 
 .dl-horizontal {
   font-size: 0.9rem;
@@ -10,7 +10,7 @@ $dl_horizontal_dt_width: 7rem;
     width: $dl_horizontal_dt_width;
     overflow: hidden;
     clear: left;
-    text-align: left;
+    text-align: right;
     text-overflow: ellipsis;
     white-space: nowrap;
     margin-bottom: 0;
