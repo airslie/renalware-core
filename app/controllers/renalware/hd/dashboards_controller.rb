@@ -10,7 +10,7 @@ module Renalware
         preference_set = PreferenceSet.for_patient(@patient).first_or_initialize
         access_profile = Renalware::Accesses.cast_patient(@patient).current_profile
         profile = Profile.for_patient(@patient).first_or_initialize
-        sessions = Session.for_patient(@patient).limit(10).ordered
+        sessions = Session.for_patient(@patient).includes(:signed_off_by).limit(10).ordered
         dry_weights = DryWeight.for_patient(@patient).limit(10).includes(:assessor).ordered
 
         render locals: {
