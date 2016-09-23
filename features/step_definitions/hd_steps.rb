@@ -88,10 +88,6 @@ Then(/^Patty has a new dry weight$/) do
   expect_hd_dry_weight_to_exist(@patty)
 end
 
-Then(/^Clyde can update Patty's dry weight entry$/) do
-  update_hd_dry_weight(patient: @patty, user: @clyde)
-end
-
 Then(/^the dry weight is not accepted$/) do
   expect_hd_dry_weight_to_be_refused
 end

@@ -87,18 +87,6 @@ module World
           click_on "Create"
         end
       end
-
-      def update_hd_dry_weight(patient:, user:)
-        login_as user
-        visit patient_hd_dashboard_path(patient)
-        click_on "Edit"
-
-        fill_in "Dry Weight", with: 95
-
-        within ".top" do
-          click_on "Save"
-        end
-      end
     end
   end
 end
