@@ -1,7 +1,23 @@
 .hd-sessions table {
-  tr.active {
-    td {
-      background-color: #FFFFC8;
+  thead {
+    tr {
+      th {
+        vertical-align: top;
+      }
+
+      &.row2 {
+        th {
+          font-weight: normal;
+          font-style: italic;
+        }
+      }
+    }
+  }
+  tbody {
+    tr.active {
+      td {
+        background-color: #FFFFC8;
+      }
     }
   }
 }

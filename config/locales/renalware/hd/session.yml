@@ -107,9 +107,9 @@ en:
         list:
           title: Latest HD Sessions
           date: Date
-          from: From
-          to: To
-          duration: Duration
+          from: 'Off'
+          to: 'On'
+          duration: Dur
           site: Site
           sign_on: Sign On
           sign_off: Sign Off
