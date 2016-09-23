@@ -1,30 +1,54 @@
-fieldset.with-actions-above-table
-  legend HD Profile
+.row
+  .medium-6.columns
+    fieldset.simple
+      legend
+        span.title Access
+        span.actions
+          = link_to "View", patient_hd_profile_path(@patient), class: "button tiny"
+          | &nbsp;
+          = link_to "Edit", edit_patient_hd_profile_path(@patient), class: "button tiny"
 
-  - if profile.new_record?
-    .call-to-action
-      = link_to edit_patient_hd_profile_path(@patient) do
-        i.fa.fa-plus-circle
-        | Enter profile
-  - else
-    .row
-      .small-12.column
-        .right.actions
-            = link_to "View", patient_hd_profile_path(@patient), class: "button tiny"
-            | &nbsp;
-            = link_to "Edit", edit_patient_hd_profile_path(@patient), class: "button tiny"
-      .large-6.column
-        dl.dl-horzontal
-          dt Schedule:
-          dd= profile.current_schedule
-          dt HD Type:
-          dd= profile.document.dialysis.hd_type.try(:text)
-      .large-6.column
-        dl.dl-horzontal
-          dt Named Nurse:
-          dd= profile.named_nurse
-          dt Last Update:
-          dd
-            = l profile.updated_at
-            | &nbsp;by&nbsp;
-            = profile.updated_by.to_s
+      dl.dl-horizontal
+        dt Schedule:
+        dd= profile.current_schedule
+        dt HD Type:
+        dd= profile.document.dialysis.hd_type.try(:text)
+        dt Yay
+        dd ljalsjd lajsdlajsldkja lksdjlasjd lkasj dljasldkjalskdjlaksjdlasjlkj lk
+
+  .medium-6.columns
+    fieldset.simple
+      legend
+        span.title HD Profile
+        span.actions
+          = link_to "View", patient_hd_profile_path(@patient), class: "button tiny"
+          | &nbsp;
+          = link_to "Edit", edit_patient_hd_profile_path(@patient), class: "button tiny"
+
+      - if profile.new_record?
+        .call-to-action
+          = link_to edit_patient_hd_profile_path(@patient) do
+            i.fa.fa-plus-circle
+            | Enter profile
+      - else
+
+          dl.dl-horizontal
+            dt Schedule:
+            dd= profile.current_schedule
+            dt HD Type:
+            dd= profile.document.dialysis.hd_type.try(:text)
+            dt Yay
+            dd ljalsjd lajsdlajsldkja lksdjlasjd lkasj dljasldkjalskdjlaksjdlasjlkj lk
+          dl.dl-horizontal
+            dt Named Nurse:
+            dd= profile.named_nurse
+            dt Last Update:
+            dd
+              = l profile.updated_at
+              | &nbsp;by&nbsp;
+              = profile.updated_by.to_s
+          dl.dl-horizontal
+            dt Named Nurse:
+            dd= profile.named_nurse
+            dt Named Nurse:
+            dd ljalsjd lajsdlajsldkja lksdjlasjd lkasj dljasldkjalskdjlaksjdlasjlkj lk
