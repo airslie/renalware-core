@@ -1,6 +1,9 @@
 .hd-sessions table {
   thead {
     tr {
+      &:nth-of-type(even) {
+        background-color: whitesmoke;
+      }
       th {
         vertical-align: top;
       }
@@ -14,9 +17,21 @@
     }
   }
   tbody {
-    tr.active {
-      td {
-        background-color: #FFFFC8;
+    tr {
+      &:nth-of-type(even) {
+        background-color: #fff;
+      }
+      &:nth-of-type(odd) {
+        background-color: #fff;
+      }
+      &.even{
+        background-color: whitesmoke;
+      }
+
+      &.active {
+        td {
+          background-color: #FFFFC8;
+        }
       }
     }
   }
