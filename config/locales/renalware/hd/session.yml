@@ -116,3 +116,6 @@ en:
           edit: Edit
           add_session: Add a Session
           view_all: View All
+        form_actions:
+          signoff: Save and Sign-Off
+          save: Save

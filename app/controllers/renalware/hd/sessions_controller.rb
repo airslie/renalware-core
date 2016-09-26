@@ -22,7 +22,7 @@ module Renalware
       end
 
       def create
-        @session = Session.new(patient: @patient)
+        @session = session_klass.new(patient: @patient)
         @session.attributes = session_params
 
         if @session.save
@@ -39,7 +39,7 @@ module Renalware
       end
 
       def update
-        @session = Session.for_patient(@patient).find(params[:id])
+        @session = session_klass.for_patient(@patient).find(params[:id])
         @session.attributes = session_params
 
         if @session.save
@@ -61,8 +61,7 @@ module Renalware
       end
 
       def attributes
-        [
-          :performed_on, :start_time, :end_time,
+        [ :performed_on, :start_time, :end_time,
           :hospital_unit_id, :notes,
           :signed_on_by_id, :signed_off_by_id,
           document: []
@@ -74,6 +73,14 @@ module Renalware
           .require(:hd_session)
           .fetch(:document, nil)
           .try(:permit!)
+      end
+
+      def signing_off?
+        params[:signoff].present?
+      end
+
+      def session_klass
+        signing_off? ? HD::Session::Closed : HD::Session
       end
     end
   end
