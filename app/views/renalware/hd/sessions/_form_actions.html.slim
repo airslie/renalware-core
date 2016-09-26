@@ -1,0 +1,5 @@
+= f.button :submit, value: t(".save")
+| &nbsp;
+= f.button :submit, name: 'signoff', value: t(".signoff")
+span= " or "
+= link_to 'cancel', back_path

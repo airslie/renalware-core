@@ -9,9 +9,13 @@ module Renalware
       it { is_expected.to validate_presence_of(:hospital_unit) }
       it { is_expected.to validate_presence_of(:start_time) }
 
+      it { is_expected.to_not validate_presence_of(:signed_off_by) }
+      it { is_expected.to_not validate_presence_of(:end_time) }
+
       it { is_expected.to validate_timeliness_of(:performed_on) }
       it { is_expected.to validate_timeliness_of(:start_time) }
       it { is_expected.to validate_timeliness_of(:end_time) }
+
 
       let(:nurse) { create(:user) }
       let(:patient) { create(:hd_patient) }

@@ -73,6 +73,7 @@ group :development, :test do
   gem 'spring-commands-rspec', '~> 1.0.2'
   gem 'rubocop', '~> 0.37.0', require: false
   gem 'web-console', '~> 2.0'
+  gem 'puma'
 end
 
 group :test do
