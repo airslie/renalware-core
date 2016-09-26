@@ -2,7 +2,6 @@
   .document.hd-sessions
     table.auto-layout
       thead
-        th.col-width-small
         th.col-width-date= sort_link(search, :assessed_on, "Date")
         th.col-width-small= sort_link(search, :weight, "Weight (kg)")
         th Assessor
@@ -12,3 +11,5 @@
           = render "row", dry_weight: dry_weight
 
     = paginate dry_weights
+
+    =link_to "Return to HD Summary", :back
