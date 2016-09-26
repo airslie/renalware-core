@@ -4,8 +4,8 @@ table {
 
   tr th {
     &.col-width-date {
-      width: 5.8rem;
-      min-width: 5.5rem;
+      width: 5.3rem;
+      min-width: 5.0rem;
 
       &.wide {
         width: 8rem;
@@ -13,8 +13,8 @@ table {
     }
 
     &.col-width-time {
-      width: 4rem;
-      min-width: 3rem;
+      width: 3rem;
+      min-width: 2.7rem;
     }
 
     &.col-width-date-time {

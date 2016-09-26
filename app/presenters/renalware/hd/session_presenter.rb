@@ -2,9 +2,25 @@ module Renalware
   module HD
     class SessionPresenter < DumbDelegator
       attr_reader :preference_set
+      delegate :info,
+               :observations_before,
+               :observations_after,
+               :dialysis,
+               to: :document
+      delegate :access_site,
+               :machine_no,
+               to: :info
+      delegate :arterial_pressure,
+               :venous_pressure,
+               :blood_flow,
+               :fluid_removed,
+               :litres_processed,
+               :machine_urr,
+               :machine_ktv,
+               to: :dialysis
 
       def ongoing_css_class
-        signed_off? ? "done" : "active"
+        "active" unless signed_off?
       end
 
       def performed_on
@@ -21,6 +37,14 @@ module Renalware
 
       def duration
         super && Duration.from_minutes(super)
+      end
+
+      def pre(measurement)
+        observations_before.send(measurement.to_sym)
+      end
+
+      def post(measurement)
+        observations_after.send(measurement.to_sym)
       end
     end
   end

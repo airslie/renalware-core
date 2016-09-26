@@ -16,25 +16,80 @@ fieldset.hd-sessions.with-actions-above-table
 
     table.auto-layout
       thead
-        th.col-width-small
-        th.col-width-date= t(".date")
-        th.col-width-time= t(".from")
-        th.col-width-time= t(".to")
-        th.col-width-date= t(".duration")
-        th.col-width-medium= t(".site")
-        th.col-width-medium= t(".sign_on")
-        th.col-width-medium= t(".sign_off")
+        tr
+          th.col-width-small(rowspan=3)
+          th.col-width-date(rowspan=3 valign="top")= t(".date")
+          th.col-width-medium(rowspan=3)= t(".site")
+          th.col-width-time.text-center Time
+          th.col-width-tiny(rowspan=3)= t(".duration")
+          th.col-width-tiny.text-center Weight
+          th.col-width-tiny.text-center Pulse
+          th.col-width-tiny.text-center Temp
+          th.col-width-tiny.text-center BM
+          th.col-width-tiny.text-center BP
+          th.col-width-tiny(rowspan=3) AP
+          th.col-width-tiny(rowspan=3) VP
+          th.col-width-tiny(rowspan=3) Flow rate
+          th.col-width-tiny(rowspan=3) Litres
+          th.col-width-tiny(rowspan=3) Fluid rem
+          th.col-width-tiny.text-center(colspan=3) Machine
+
+        tr.row2
+          th.col-width-time On
+          th.col-width-tiny Pre
+          th.col-width-tiny Pre
+          th.col-width-tiny Pre
+          th.col-width-tiny Pre
+          th.col-width-tiny Pre
+          th.col-width-tiny(rowspan=2) No
+          th.col-width-tiny(rowspan=2) KTv
+          th.col-width-tiny(rowspan=2) URR
+        tr.row2
+          th.col-width-time Off
+          th.col-width-tiny Post
+          th.col-width-tiny Post
+          th.col-width-tiny Post
+          th.col-width-tiny Post
+          th.col-width-tiny Post
+          / th.col-width-medium= t(".sign_on")
+          / th.col-width-medium= t(".sign_off")
 
       tbody
-        - sessions.each do |session|
-          = content_tag(:tr, class: session.ongoing_css_class) do
-            td= link_to edit_patient_hd_session_path(@patient, session) do
+        - sessions.each_with_index do |session, index|
+          - tr_class = session.ongoing_css_class
+          - stripe_class = index % 2 == 0 ? "even" : "odd"
+          tr(class=[tr_class, stripe_class])
+            td(rowspan=2)= link_to edit_patient_hd_session_path(@patient, session) do
               = session.signed_off? ? t(".edit") : t(".sign_off")
-            td= link_to patient_hd_session_path(@patient, session) do
-                = session.performed_on
+            td(rowspan=2)= link_to session.performed_on, patient_hd_session_path(@patient, session)
+            td(rowspan=2)= session.hospital_unit
             td= session.start_time
+            td.derived(rowspan=2)= session.duration
+            td= session.pre(:weight)
+            td= session.pre(:pulse)
+            td= session.pre(:temperature)
+            td= session.pre(:bm_stix)
+            td= session.pre(:blood_pressure)
+            td(rowspan=2)= session.arterial_pressure
+            td(rowspan=2)= session.venous_pressure
+            td(rowspan=2)= session.blood_flow
+            td(rowspan=2)= session.litres_processed
+            td(rowspan=2)= session.fluid_removed
+            td(rowspan=2)= session.machine_no
+            td(rowspan=2)= session.machine_ktv
+            td(rowspan=2)= session.machine_urr
+            / td= session.signed_on_by
+            / td= session.signed_off_by
+          tr(class=[tr_class, stripe_class])
             td= session.end_time
-            td= session.duration
-            td= session.hospital_unit
-            td= session.signed_on_by
-            td= session.signed_off_by
+            td= session.post(:weight)
+            td= session.post(:pulse)
+            td= session.post(:temperature)
+            td= session.post(:bm_stix)
+            td= session.post(:blood_pressure)
+
+
+/date
+   site - which site?
+   UFR - cannot find
+   sign on and off - take too much room - but how to view that once closed.
