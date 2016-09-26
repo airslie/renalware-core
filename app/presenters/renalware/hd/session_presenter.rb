@@ -20,7 +20,7 @@ module Renalware
                to: :dialysis
 
       def ongoing_css_class
-        signed_off? ? "done" : "active"
+        "active" unless signed_off?
       end
 
       def performed_on
