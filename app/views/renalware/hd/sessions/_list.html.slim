@@ -19,6 +19,7 @@ fieldset.hd-sessions.with-actions-above-table
         tr
           th.col-width-small(rowspan=2)
           th.col-width-date(rowspan=2 valign="top")= t(".date")
+          th.col-width-medium(rowspan=2)= t(".site")
           th.col-width-time.text-center(colspan=2) Time
           th.col-width-tiny(rowspan=2)= t(".duration")
           th.col-width-tiny.text-center(colspan=2) Weight
@@ -32,7 +33,7 @@ fieldset.hd-sessions.with-actions-above-table
           th.col-width-tiny(rowspan=2) Litres
           th.col-width-tiny(rowspan=2) Fluid rem
           th.col-width-tiny.text-center(colspan=3) Machine
-          th.col-width-medium(rowspan=2)= t(".site")
+
 
         tr.row2
           th.col-width-time(rowspan=2)= t(".to")
@@ -60,6 +61,7 @@ fieldset.hd-sessions.with-actions-above-table
               = session.signed_off? ? t(".edit") : t(".sign_off")
             td= link_to patient_hd_session_path(@patient, session) do
                 = session.performed_on
+            td= session.access_site
             td= session.start_time
             td= session.end_time
             td= session.duration
@@ -81,7 +83,6 @@ fieldset.hd-sessions.with-actions-above-table
             td= session.machine_no
             td= session.machine_ktv
             td= session.machine_urr
-            td= session.access_site
             / td= session.signed_on_by
             / td= session.signed_off_by
 
