@@ -39,12 +39,22 @@ module Renalware
         super && Duration.from_minutes(super)
       end
 
-      def pre(measurement)
+      def before_measurement_for(measurement)
         observations_before.send(measurement.to_sym)
       end
 
-      def post(measurement)
+      def after_measurement_for(measurement)
         observations_after.send(measurement.to_sym)
+      end
+
+      def change_in(measurement)
+        pre = before_measurement_for(measurement)
+        post = after_measurement_for(measurement)
+        return if pre.blank? || post.blank?
+        case pre
+        when ::Float ; (post - pre).round(1)
+        when ::Fixnum ;(post - pre)
+        end
       end
     end
   end

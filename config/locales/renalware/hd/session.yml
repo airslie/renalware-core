@@ -113,10 +113,30 @@ en:
           site: Site
           sign_on: Sign On
           sign_off: Sign Off
+          time: Time
+          weight: Weight
+          pulse: Pulse
+          temperature: Temp
+          bm_stix: BM
+          blood_pressure: BP
+          arterial_pressure: AP
+          venous_pressure: VP
+          blood_flow: Flow rate
+          litres_processed: Litres
+          fluid_removed: Fluid rem
+          machine: Machine
+          machine_no: "No"
+          machine_ktv: KTv
+          machine_urr: URR
+          start_time: "On"
+          end_time: "Off"
           edit: Edit
           add_session: Add a Session
           add: Add
           view_all: View All
+          pre: Pre
+          post: Post
+          post_with_changed: Post (chg)
         form_actions:
           signoff: Save and Sign-Off
           save: Save
