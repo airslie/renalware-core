@@ -54,7 +54,7 @@ ruby:
         = fcm.input :type, input_html: { class: "small-input" }
         = fcm.input :loading_dose, input_html: { class: "small-input" }
         = fcm.input :hourly_dose, input_html: { class: "small-input" }
-        = fcm.input :stop_time, input_html: { class: "small-input" }
+        = fcm.input :stop_time, collection: fcm.object.class.stop_times, input_html: { class: "small-input" }
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Drugs", name: "drugs" } do
