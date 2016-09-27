@@ -20,37 +20,37 @@ fieldset.hd-sessions.simple.simple-table
           th.col-width-small(rowspan=3)
           th.col-width-date(rowspan=3 valign="top")= t(".date")
           th.col-width-medium(rowspan=3)= t(".site")
-          th.col-width-time.text-center Time
+          th.col-width-time.text-center= t(".time")
           th.col-width-tiny(rowspan=3)= t(".duration")
-          th.col-width-tiny.text-center Weight
-          th.col-width-tiny.text-center Pulse
-          th.col-width-tiny.text-center Temp
-          th.col-width-tiny.text-center BM
-          th.col-width-tiny.text-center BP
-          th.col-width-tiny(rowspan=3) AP
-          th.col-width-tiny(rowspan=3) VP
-          th.col-width-tiny(rowspan=3) Flow rate
-          th.col-width-tiny(rowspan=3) Litres
-          th.col-width-tiny(rowspan=3) Fluid rem
-          th.col-width-tiny.text-center(colspan=3) Machine
+          th.col-width-tiny.text-center= t(".weight")
+          th.col-width-tiny.text-center= t(".pulse")
+          th.col-width-tiny.text-center= t(".temperature")
+          th.col-width-tiny.text-center= t(".bm_stix")
+          th.col-width-tiny.text-center= t(".blood_pressure")
+          th.col-width-tiny(rowspan=3)= t(".arterial_pressure")
+          th.col-width-tiny(rowspan=3)= t(".venous_pressure")
+          th.col-width-tiny(rowspan=3)= t(".blood_flow")
+          th.col-width-tiny(rowspan=3)= t(".litres_processed")
+          th.col-width-tiny(rowspan=3)= t(".fluid_removed")
+          th.col-width-tiny.text-center(colspan=3)= t(".machine")
 
         tr.row2
-          th.col-width-time On
-          th.col-width-tiny Pre
-          th.col-width-tiny Pre
-          th.col-width-tiny Pre
-          th.col-width-tiny Pre
-          th.col-width-tiny Pre
-          th.col-width-tiny(rowspan=2) No
-          th.col-width-tiny(rowspan=2) KTv
-          th.col-width-tiny(rowspan=2) URR
+          th.col-width-time= t(".start_time")
+          th.col-width-small= t(".pre")
+          th.col-width-tiny= t(".pre")
+          th.col-width-tiny= t(".pre")
+          th.col-width-tiny= t(".pre")
+          th.col-width-tiny= t(".pre")
+          th.col-width-tiny(rowspan=2)=t(".machine_no")
+          th.col-width-tiny(rowspan=2)=t(".machine_ktv")
+          th.col-width-tiny(rowspan=2)=t(".machine_urr")
         tr.row2
-          th.col-width-time Off
-          th.col-width-tiny Post
-          th.col-width-tiny Post
-          th.col-width-tiny Post
-          th.col-width-tiny Post
-          th.col-width-tiny Post
+          th.col-width-time= t(".end_time")
+          th= t(".post_with_changed")
+          th= t(".post")
+          th= t(".post")
+          th= t(".post")
+          th= t(".post")
           / th.col-width-medium= t(".sign_on")
           / th.col-width-medium= t(".sign_off")
 
@@ -65,11 +65,11 @@ fieldset.hd-sessions.simple.simple-table
             td(rowspan=2)= session.hospital_unit
             td= session.start_time
             td.derived(rowspan=2)= session.duration
-            td= session.pre(:weight)
-            td= session.pre(:pulse)
-            td= session.pre(:temperature)
-            td= session.pre(:bm_stix)
-            td= session.pre(:blood_pressure)
+            td= session.before_measurement_for(:weight)
+            td= session.before_measurement_for(:pulse)
+            td= session.before_measurement_for(:temperature)
+            td= session.before_measurement_for(:bm_stix)
+            td= session.before_measurement_for(:blood_pressure)
             td(rowspan=2)= session.arterial_pressure
             td(rowspan=2)= session.venous_pressure
             td(rowspan=2)= session.blood_flow
@@ -82,8 +82,11 @@ fieldset.hd-sessions.simple.simple-table
             / td= session.signed_off_by
           tr(class=[tr_class, stripe_class])
             td= session.end_time
-            td= session.post(:weight)
-            td= session.post(:pulse)
-            td= session.post(:temperature)
-            td= session.post(:bm_stix)
-            td= session.post(:blood_pressure)
+            td
+              = session.after_measurement_for(:weight)
+              - if (change = session.change_in(:weight))
+                i=" (#{change})"
+            td= session.after_measurement_for(:pulse)
+            td= session.after_measurement_for(:temperature)
+            td= session.after_measurement_for(:bm_stix)
+            td= session.after_measurement_for(:blood_pressure)
