@@ -36,7 +36,7 @@ ruby:
             collection: fcm.object.class.cannulation_types, value_method: :name
         = fcm.input :needle_size, collection: fcm.object.class.needle_sizes, input_html: { class: "small-input" }
         = fcm.input :single_needle, as: :inline_radio_buttons
-        = fcm.input :dialysate, as: :inline_radio_buttons
+        = fcm.input :dialysate
         = fcm.input :flow_rate, collection: fcm.object.class.flow_rates, input_html: { class: "small-input" }
         = fcm.input :blood_flow, collection: fcm.object.class.blood_flows, input_html: { class: "small-input" }
         = fcm.input :dialyser, as: :grouped_select, input_html: { class: "small-input" },
