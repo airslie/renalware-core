@@ -14,13 +14,21 @@ $dl_horizontal_dt_width: 8rem;
     text-overflow: ellipsis;
     white-space: nowrap;
     margin-bottom: 0;
-    break-before: avoid;
   }
 
   dd {
     margin-left: $dl_horizontal_dt_width + 1rem;
-    display: table;
     margin-bottom: 0;
-    break-before: avoid;
+
+    &:before {
+      content: " ";
+      display: table;
+    }
+
+    &:after {
+      content: " ";
+      display: table;
+      clear:both;
+    }
   }
 }
