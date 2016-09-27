@@ -22,7 +22,7 @@ en:
         single_needle: "Single Needle?"
         lines_reversed: "Lines Reversed?"
         machine_no: Machine No
-        dialysis_fluid_used: Dialysis Fluid Used
+        dialysis_fluid_used: Dialysis Solution Used
       renalware/hd/session_document/observations:
         weight: Weight
         pulse: Pulse
@@ -77,11 +77,10 @@ en:
   enumerize:
     renalware/hd/session_document/info:
       dialysis_fluid_used:
-        ca: Ca
-        hco3: HCO3
-        k: K
-        glucose: Glucose
-        n: N
+        a7: Fresenius A7
+        a10: Fresenius A10
+        a17: Fresenius A17
+        a27: Fresenius A27
     renalware/hd/session_document/complications:
       access_site_status:
         clean_and_dry: Clean and Dry
