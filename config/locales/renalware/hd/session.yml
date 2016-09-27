@@ -41,7 +41,7 @@ en:
       renalware/hd/session_document/hdf:
         subs_fluid_pct: Subs Fluid Percentage
         subs_goal: Subs Goal
-        subs_rate: Subs Goal
+        subs_rate: Subs Rate
         subs_volume: Subs Volume
       renalware/hd/session_document/complications:
         access_site_status: Access Site Status
