@@ -3,8 +3,9 @@ module Renalware
     class ProfilePresenter < DumbDelegator
       attr_reader :preference_set
       delegate :dialysis, :anticoagulant, to: :document
-      delegate :dialyser, :dialysate, :cannulation_type, to: :dialysis, allow_nil: true
+      delegate :dialyser, :dialysate_text, :cannulation_type, to: :dialysis, allow_nil: true
       delegate :type, to: :anticoagulant, allow_nil: true, prefix: true
+      alias_attribute :dialysate, :dialysate_text
 
       def initialize(profile, preference_set: nil)
         super(profile)
