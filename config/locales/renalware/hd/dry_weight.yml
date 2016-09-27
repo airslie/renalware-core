@@ -16,9 +16,9 @@ en:
     hd:
       dry_weights:
         list:
-          title: Latest Dry Weights
-          add: Add a Dry Weight
-          edit: Update
+          title: Latest Dry Weight
+          add_dry_weight: Add a Dry Weight
+          edit: Add
           date: Date
           weight: Weight (kg)
           assessor: Assessor

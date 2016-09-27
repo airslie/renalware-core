@@ -77,3 +77,18 @@ en:
           anticoagulant:
             stop_time: hh:mm
 
+  renalware:
+    hd:
+      profiles:
+        summary:
+          title: "HD Profile"
+          schedule: "Schedule:"
+          prescribed_time: "Prescribed Time:"
+          hd_type:  "HD Type:"
+          named_nurse: "Named Nurse:"
+          dialyser: "Dialyser:"
+          dialysate: "Dialysate:"
+          anticoagulant: "Anticoagulant:"
+          cannulation_type: "Cannulation Type:"
+          last_update: "Last Update:"
+

@@ -1,0 +1,26 @@
+fieldset.simple
+  legend
+    span.title= t(".title")
+    - unless access.nil?
+      span.actions.action-links
+          = link_to t(".view"), patient_accesses_profile_path(@patient, access)
+          = " | "
+          = link_to t(".edit"), edit_patient_accesses_profile_path(@patient, access)
+
+  - if access.nil?
+    .call-to-action
+      = link_to new_patient_accesses_profile_path(@patient) do
+        i.fa.fa-plus-circle
+        =t(".add_access_profile")
+  - else
+    dl.dl-horizontal
+      dt= t(".site")
+      dd= access.site
+      dt= t(".type")
+      dd= access.type
+      dt= t(".side")
+      dd= access.side
+      dt= t(".plan")
+      dd= access.plan
+      dt= t(".notes")
+      dd= access.notes

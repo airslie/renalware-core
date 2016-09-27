@@ -115,6 +115,7 @@ en:
           sign_off: Sign Off
           edit: Edit
           add_session: Add a Session
+          add: Add
           view_all: View All
         form_actions:
           signoff: Save and Sign-Off
