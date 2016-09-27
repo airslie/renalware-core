@@ -46,7 +46,11 @@ table.auto-layout
         td(rowspan=2)= link_to edit_patient_hd_session_path(@patient, session) do
           = session.signed_off? ? t(".edit") : t(".sign_off")
         td(rowspan=2)= link_to session.performed_on, patient_hd_session_path(@patient, session)
-        td(rowspan=2)= session.hospital_unit_unit_code
+        td(rowspan=2)
+          = session.hospital_unit_unit_code
+          br
+          / TODO: move tooltip once DNA partial merged - this code slim code has moved in that PR
+          = tooltip(label: session.summarised_access_used, content: session.access_used)
         td= session.start_time
         td.derived(rowspan=2)= session.duration
         td= session.before_measurement_for(:weight)

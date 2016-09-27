@@ -1,13 +1,16 @@
 module Renalware
   module HD
-    class SessionPresenter < DumbDelegator
+    class SessionPresenter < SimpleDelegator
       attr_reader :preference_set
       delegate :info,
                :observations_before,
                :observations_after,
                :dialysis,
                to: :document
-      delegate :access_site,
+      delegate :access_type,
+               :access_type_abbreviation,
+               :access_site,
+               :access_side,
                :machine_no,
                to: :info
       delegate :arterial_pressure,
@@ -21,6 +24,10 @@ module Renalware
       delegate :unit_code,
                to: :hospital_unit,
                prefix: true
+
+      def class
+        __getobj__.class
+      end
 
       def ongoing_css_class
         "active" unless signed_off?
@@ -39,7 +46,7 @@ module Renalware
       end
 
       def duration
-        super && Duration.from_minutes(super)
+        super && Renalware::Duration.from_minutes(super)
       end
 
       def before_measurement_for(measurement)
@@ -58,6 +65,14 @@ module Renalware
         when ::Float ; (post - pre).round(1)
         when ::Fixnum ;(post - pre)
         end
+      end
+
+      def summarised_access_used
+        Renalware::HD::SessionAccessPresenter.new(self).to_html
+      end
+
+      def access_used
+        Renalware::HD::SessionAccessPresenter.new(self).to_s
       end
     end
   end

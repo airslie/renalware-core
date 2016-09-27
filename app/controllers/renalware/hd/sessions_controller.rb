@@ -24,6 +24,8 @@ module Renalware
       def create
         @session = session_klass.new(patient: @patient)
         @session.attributes = session_params
+        lookup_access_type_abbreviation!(@session)
+
 
         if @session.save
           redirect_to patient_hd_dashboard_path(@patient),
@@ -41,6 +43,7 @@ module Renalware
       def update
         @session = session_klass.for_patient(@patient).find(params[:id])
         @session.attributes = session_params
+        lookup_access_type_abbreviation!(@session)
 
         if @session.save
           redirect_to patient_hd_dashboard_path(@patient),
@@ -52,6 +55,15 @@ module Renalware
       end
 
       protected
+
+      # TODO: move to SaveSession class once that PR is in!
+      def lookup_access_type_abbreviation!(session)
+        return unless session.document
+
+        if (access_type = Accesses::Type.find_by(name: session.document.info.access_type))
+          session.document.info.access_type_abbreviation = access_type.abbreviation
+        end
+      end
 
       def session_params
         params

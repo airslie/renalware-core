@@ -33,6 +33,7 @@ module Renalware
       access_side: "left",
       access_site: "Axillary vein line",
       access_type: "Arteriovenous fistula (AVF)",
+      access_type_abbreviation: "AVF",
       single_needle: "no",
       lines_reversed: "no",
       fistula_plus_line: "no",
