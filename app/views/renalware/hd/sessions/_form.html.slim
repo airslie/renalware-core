@@ -76,8 +76,8 @@ ruby:
         locals: { legend: "HDF", name: "hdf" } do
       = fd.simple_fields_for :hdf, fd.object.hdf do |fcm|
         = fcm.input :subs_fluid_pct, input_html: { class: "small-input" }
-        = fcm.input :subs_goal, input_html: { class: "small-input" }
         = fcm.input :subs_rate, input_html: { class: "small-input" }
+        = fcm.input :subs_goal, input_html: { class: "small-input" }
         = fcm.input :subs_volume, input_html: { class: "small-input" }
 
     = render layout: "renalware/shared/fieldset",

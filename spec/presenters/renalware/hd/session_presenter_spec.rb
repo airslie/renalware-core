@@ -4,6 +4,8 @@ describe Renalware::HD::SessionPresenter do
   let(:session) { double("Session", document: Renalware::HD::SessionDocument.new) }
   subject(:presenter) { Renalware::HD::SessionPresenter.new(session) }
 
+  it { is_expected.to respond_to(:hospital_unit_unit_code) }
+
   describe "#change_in" do
     context "Float values" do
       it "returns the difference between before and after measurements rounded to 1 DP" do
