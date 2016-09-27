@@ -30,7 +30,7 @@ module Renalware
           #       the state of the session (bad) or apply the validation on a per instance
           #       basis (possible but we'd have to add it to the singleton class), use use a
           #       custom validator injected at the session level.
-          validates_presence_of attribute_set.map(&:name)
+          # validates_presence_of attribute_set.map(&:name)
         end
         attribute :hdf, HDF
       end
