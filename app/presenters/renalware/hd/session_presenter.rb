@@ -18,6 +18,9 @@ module Renalware
                :machine_urr,
                :machine_ktv,
                to: :dialysis
+      delegate :unit_code,
+               to: :hospital_unit,
+               prefix: true
 
       def ongoing_css_class
         "active" unless signed_off?
