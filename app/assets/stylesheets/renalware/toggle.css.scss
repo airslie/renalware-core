@@ -4,14 +4,9 @@
 
 .accordion .accordion-navigation > a, .accordion dd > a {
   background: #FFFFFF;
-  font-size: 0.9em;
-  padding: 0 0.5em 0 0.5em;
+  font-size: 1em;
+  padding: 0 0.5em 0 0;
   border-radius: 0.5em;
-}
-
-.accordion .accordion-navigation > a, .accordion dd > a.toggle-form {
-  margin-bottom: 0.5em;
-
 }
 
 .hide-button {
@@ -76,7 +71,7 @@
   background: none;
   border-radius: 0.5em;
   padding: 0 0.3em 0 0.3em;
-  font-size: 0.8em;
+  //font-size: 0.8em;
   color: #008cba;
 }
 
@@ -85,17 +80,18 @@
 }
 
 .toggle-content {
-  font-size: 0.7em;
+  font-size: 0.9em;
 }
 
 .accordion .accordion-navigation > .content.active, .accordion dd  > .content.toggle-content {
   background: rgba(255, 255, 255, 0);
+  margin: 0.2em 0 0.2em 2em;
 }
 
 .fi-plus:before, .fi-minus:before {
   color: #008cba;
-  padding-left: 0.5em;
-  margin-right: 4px;
+  padding-left: 0.1em;
+  margin-right: 8px;
 }
 
 .edit {
