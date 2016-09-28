@@ -12,15 +12,5 @@ fieldset.simple
         = t(".enter_preferences")
   - else
         dl.dl-horizontal
-          dt= t(".schedule")
-          dd
-            - if preference_set.schedule
-              - if preference_set.schedule.other?
-                = preference_set.other_schedule
-              - else
-                = preference_set.schedule.text
           dt= t(".hospital_centre")
           dd= preference_set.hospital_centre
-          dt= t(".unit")
-          dd= preference_set.hospital_unit
-

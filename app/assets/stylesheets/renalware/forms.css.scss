@@ -135,14 +135,10 @@ fieldset {
 fieldset {
   &.simple {
     padding: 0.8rem 0 0 0;
-    margin: 0;
+    margin: 0 0 10px 0;
     border-width: 1px 0 0 0;
     position: relative;
     margin-top: 35px;
-
-    &.simple-table {
-      margin-top: 50px;
-    }
 
     legend {
       position: absolute;
@@ -176,9 +172,6 @@ fieldset {
           }
         }
       }
-    }
-    table {
-      margin-top: 10px;
     }
   }
 }
