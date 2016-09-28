@@ -1,7 +1,6 @@
 $dl_horizontal_dt_width: 8rem;
 
 .dl-horizontal {
-  font-size: 0.9rem;
   margin-top: 0;
   margin-bottom:0;
 
@@ -10,7 +9,7 @@ $dl_horizontal_dt_width: 8rem;
     width: $dl_horizontal_dt_width;
     overflow: hidden;
     clear: left;
-    text-align: right;
+    //text-align: right;
     text-overflow: ellipsis;
     white-space: nowrap;
     margin-bottom: 0;
@@ -29,6 +28,27 @@ $dl_horizontal_dt_width: 8rem;
       content: " ";
       display: table;
       clear:both;
+    }
+  }
+
+  &.large {
+  }
+
+  &.medium {
+    dt {
+      width: $dl_horizontal_dt_width - 2.5rem;
+    }
+    dd {
+      margin-left: $dl_horizontal_dt_width - 1.5rem;
+    }
+  }
+
+  &.small {
+    dt {
+      width: $dl_horizontal_dt_width - 5rem;
+    }
+    dd {
+      margin-left: $dl_horizontal_dt_width - 4rem;
     }
   }
 }

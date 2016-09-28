@@ -31,6 +31,11 @@ form {
 fieldset {
   padding: 1em;
 
+  legend {
+    font-size: 1.1rem;
+    line-height: 1.1rem;
+  }
+
   dt {
     font-weight: normal;
     color: rgb(153, 153, 153);
@@ -135,16 +140,17 @@ fieldset {
 fieldset {
   &.simple {
     padding: 0.8rem 0 0 0;
-    margin: 0 0 10px 0;
+    margin: 40px 0 10px 0;
     border-width: 1px 0 0 0;
     position: relative;
-    margin-top: 35px;
 
     legend {
       position: absolute;
       top: -28px;
       left: 0;
       width: 100%;
+      font-size: 1.3rem;
+      line-height: 1.3rem;
 
       span {
         &.title {
@@ -173,6 +179,9 @@ fieldset {
         }
       }
     }
+  }
+  &.simple-table {
+    margin-top: 50px;
   }
 }
 
