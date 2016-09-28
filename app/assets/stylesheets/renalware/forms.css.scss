@@ -140,10 +140,6 @@ fieldset {
     position: relative;
     margin-top: 35px;
 
-    &.simple-table {
-      margin-top: 50px;
-    }
-
     legend {
       position: absolute;
       top: -28px;
@@ -176,9 +172,6 @@ fieldset {
           }
         }
       }
-    }
-    table {
-      margin-top: 10px;
     }
   }
 }
