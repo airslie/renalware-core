@@ -13,7 +13,7 @@
           dl.accordion(data-accordion)
             dd.accordion-navigation
               a.fi-plus.fi-minus.toggle-info id="patient-event-toggle-info-#{event.id}" href="#patient-event-notes-#{event.id}"
-                = "#{event.date_time}, #{event.event_type.name} - #{event.description}"
+                = "#{l event.date_time}, #{event.event_type.name} - #{event.description}"
 
               .patient-event.content id="patient-event-notes-#{event.id}"
                 = event.notes
