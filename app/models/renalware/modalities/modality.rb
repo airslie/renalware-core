@@ -3,6 +3,7 @@ require_dependency "renalware/modalities"
 module Renalware
   module Modalities
     class Modality < ActiveRecord::Base
+      include PatientScope
 
       belongs_to :description, class_name: "Description"
       belongs_to :patient
