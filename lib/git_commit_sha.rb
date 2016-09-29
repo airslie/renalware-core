@@ -5,7 +5,7 @@ class GitCommitSha
 
   def current
     sha = development_sha || capistrano_sha || heroku_sha
-    sha.present? && sha[0...7]
+    sha.present? && sha[0...6]
   end
 
   private
@@ -15,7 +15,7 @@ class GitCommitSha
   end
 
   def heroku_sha
-    sha_from_file(".source_version")
+    ENV.fetch("SOURCE_VERSION", "N/A")
   end
 
   def capistrano_sha
