@@ -1,7 +1,4 @@
-$patient-header-muted-color: #777;
-$patient-header-icon-color: #bbb;
-$patient-list-border-color: #ddd;
-$bookmark-urgent-colour: #FFFFC8;
+@import "../base/variables";
 
 select.dob {
   display: inline-block;

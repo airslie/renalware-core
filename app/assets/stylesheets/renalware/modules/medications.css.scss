@@ -1,7 +1,4 @@
-// Drug type colours
-$drug-type-default-colour: #FFFFFF;
-$drug-type-esa-colour: #FFFF99;
-$drug-type-immunosuppressant-colour: #CCFFFF;
+@import "../base/variables";
 
 a, li, tbody tr {
   &[class^="drug-"] {
