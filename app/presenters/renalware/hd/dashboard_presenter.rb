@@ -36,7 +36,7 @@ module Renalware
 
       def dry_weights
         @dry_weights ||= begin
-          weights = DryWeight.for_patient(patient).limit(10).includes(:assessor).ordered
+          weights = DryWeight.for_patient(patient).limit(4).includes(:assessor).ordered
           CollectionPresenter.new(weights, DryWeightPresenter)
         end
       end
