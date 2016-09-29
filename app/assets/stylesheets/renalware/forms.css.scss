@@ -34,7 +34,6 @@ fieldset {
   legend {
     font-size: 1.1rem;
     line-height: 1.1rem;
-    margin-bottom: 1rem;
   }
 
   dt {
@@ -67,25 +66,25 @@ fieldset {
   }
 }
 
+.datepicker-wrapper,
+.datetimepicker-wrapper, {
+  max-width: 250px !important;
+  i {
+    font-size: 1.5rem;
+  }
+}
+
+.clockpicker-wrapper {
+  max-width: 120px !important;
+  i {
+    font-size: 1.5rem;
+  }
+}
+
 .document form,
 .profile-info-form {
   .form-content {
     max-width: 960px;
-  }
-
-  .datepicker-wrapper,
-  .datetimepicker-wrapper, {
-    max-width: 250px !important;
-    i {
-      font-size: 1.5rem;
-    }
-  }
-
-  .clockpicker-wrapper {
-    max-width: 120px !important;
-    i {
-      font-size: 1.5rem;
-    }
   }
 
   label.radio_buttons {
