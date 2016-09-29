@@ -1,4 +1,5 @@
 require "inline_image"
+require "git_commit_sha"
 
 module Renalware
   module ApplicationHelper
@@ -90,6 +91,10 @@ module Renalware
       else
         modality.description.name
       end
+    end
+
+    def current_git_commit_sha
+      GitCommitSha.current
     end
   end
 end
