@@ -1,0 +1,3 @@
+https://github.com/heroku/heroku-buildpack-ruby.git
+https://github.com/gunpowderlabs/buildpack-ruby-rake-deploy-tasks.git
+https://github.com/sreid/heroku-buildpack-sourceversion.git
