@@ -26,13 +26,13 @@ ul.provider {
 }
 
 dl.patient-header {
-  font-size: 1rem;
+  font-size: 1.1rem;
   margin: .3em 0 .5em;
 
   dt {
     color: $patient-header-muted-color;
     display: inline-block;
-    font-size: .6rem;
+    font-size: .6em;
     font-weight: normal;
     margin: 0;
     padding: 0;
@@ -51,33 +51,33 @@ dl.patient-header {
       // medium screens and above
       @media screen and (min-width: 40em) {
         display: inline-block;
-        font-size: 1.4rem;
-        min-width: 1.1rem;
+        font-size: 1.4em;
+        min-width: 1.1em;
       }
 
       // large screens and above
       @media screen and (min-width: 64em) {
-        font-size: 1.6rem;
-        min-width: 1.2rem;
+        font-size: 1.6em;
+        min-width: 1.2em;
       }
     }
   }
 
   dd {
     display: inline;
-    font-size: 1rem;
-    margin: 0 .5rem 0 .1rem;
+    font-size: 1em;
+    margin: 0 .5em 0 .1em;
 
     &.name {
       display: inline-block;
       font-size: 1.4em;
-      margin-right: .4rem;
+      margin-right: .4em;
       width: 100%;
     }
 
     // medium screens only
     @media screen and (min-width: 40em) and (max-width: 63.9375em) {
-      font-size: 1.1rem;
+      font-size: 1.1em;
 
       &.name {
         width: auto;
@@ -87,11 +87,11 @@ dl.patient-header {
     // large screens and above
     @media screen and (min-width: 64em) {
       font-size: 1.4em;
-      margin: 0 .6rem 0 .2rem;
+      margin: 0 .6rem 0 .2em;
 
       &.name {
         font-size: 1.6em;
-        margin-right: .6rem;
+        margin-right: .6em;
         width: auto;
       }
     }
