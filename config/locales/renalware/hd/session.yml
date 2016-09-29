@@ -24,7 +24,7 @@ en:
         machine_no: Machine No
         dialysis_fluid_used: Dialysis Solution Used
       renalware/hd/session_document/observations:
-        weight: Weight
+        weight: Weight (kg)
         pulse: Pulse
         blood_pressure: Blood Pressure
         temperature: Temperature
@@ -96,10 +96,6 @@ en:
           info:
             flow_rate: ml/hr
             machine_urr: "%"
-          observations_before:
-            weight: kg
-          observations_after:
-            weight: kg
   renalware:
     hd:
       sessions:
