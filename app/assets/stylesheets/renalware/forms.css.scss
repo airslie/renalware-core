@@ -2,14 +2,6 @@ form .row .row.datepicker-wrapper {
   margin-bottom: 10px;
 }
 
-.datepicker {
-  width: 240px;
-
-  &.dropdown-menu {
-    font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
-  }
-}
-
 form {
   .small-input {
     max-width: 250px !important;
@@ -63,21 +55,6 @@ fieldset {
     .actions {
       margin-bottom: 13px;
     }
-  }
-}
-
-.datepicker-wrapper,
-.datetimepicker-wrapper, {
-  max-width: 250px !important;
-  i {
-    font-size: 1.5rem;
-  }
-}
-
-.clockpicker-wrapper {
-  max-width: 120px !important;
-  i {
-    font-size: 1.5rem;
   }
 }
 
