@@ -14,7 +14,7 @@ module Renalware
         attribute :info, Info
 
         class Observations < Renalware::HD::SessionDocument::Observations
-          validates_presence_of attribute_set.map(&:name)
+          validates_presence_of attribute_set.map(&:name).reject{|item| item == :bm_stix}
         end
         attribute :observations_before, Observations
         attribute :observations_after, Observations
