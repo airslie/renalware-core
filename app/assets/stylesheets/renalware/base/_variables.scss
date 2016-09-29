@@ -4,9 +4,9 @@
 //
 //   $some-standard-color: red;
 //
-// you can use in users.scss like so
+// you can use in renalware/modules/users.scss like so
 //
-//   @import 'base/variables'
+//   @import "../base/variables";
 //
 //   div.some-class {
 //     background-color: $some-standard-color;
@@ -25,7 +25,6 @@ $drug-type-immunosuppressant-colour: #CCFFFF;
 // Patient header/banner
 $patient-header-muted-color: #777;
 $patient-header-icon-color: #bbb;
-$patient-list-border-color: #ddd;
 
 // Bookmarks
 $bookmark-urgent-colour: #FFFFC8;
