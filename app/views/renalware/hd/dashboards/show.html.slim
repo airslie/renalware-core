@@ -1,14 +1,14 @@
-= render layout: "renalware/patients/layout", locals: { title: "HD Summary" } do
+= render layout: "renalware/patients/layout", locals: { title: t(".title") } do
   .row
     .medium-6.columns
-      = render "renalware/hd/profiles/summary", profile: profile
+      = render "renalware/hd/profiles/summary", profile: dashboard.profile
     .medium-6.columns
-      = render "renalware/hd/accesses/summary", access: access
+      = render "renalware/hd/accesses/summary", access: dashboard.access
     .medium-6.columns
-      = render "renalware/hd/preference_sets/summary", preference_set: preference_set
+      = render "renalware/hd/preference_sets/summary", preference_set: dashboard.preference_set
   .row
     .medium-6.columns
-      = render "renalware/hd/dry_weights/list", dry_weights: dry_weights
+      = render "renalware/hd/dry_weights/list", dry_weights: dashboard.dry_weights
   .row
     .medium-12.columns
-      = render "renalware/hd/sessions/list", sessions: sessions
+      = render "renalware/hd/sessions/list", sessions: dashboard.sessions
