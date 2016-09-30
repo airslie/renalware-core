@@ -11,4 +11,5 @@ en:
           type: "Type:"
           side: "Side:"
           plan: "Plan:"
+          plan_date: "Plan date:"
           notes: "Notes:"
