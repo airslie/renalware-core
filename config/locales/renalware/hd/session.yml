@@ -101,6 +101,10 @@ en:
       sessions:
         list:
           title: Latest HD Sessions
+          add_session: Add a Session
+          add: Add
+          view_all: View All
+        table:
           date: Date
           from: 'Off'
           to: 'On'
@@ -126,9 +130,6 @@ en:
           start_time: "On"
           end_time: "Off"
           edit: Edit
-          add_session: Add a Session
-          add: Add
-          view_all: View All
           pre: Pre
           post: Post
           post_with_changed: Post (chg)
