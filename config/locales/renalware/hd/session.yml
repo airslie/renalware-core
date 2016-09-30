@@ -21,6 +21,7 @@ en:
         fistula_plus_line: "1 + 1?"
         single_needle: "Single Needle?"
         lines_reversed: "Lines Reversed?"
+        had_blood_transfusion: "Had blood transfusion?"
         machine_no: Machine No
         dialysis_fluid_used: Dialysis Solution Used
       renalware/hd/session_document/observations:
