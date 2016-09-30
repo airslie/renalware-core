@@ -9,7 +9,6 @@ module Renalware
       belongs_to :patient
       belongs_to :type, class_name: "Type"
       belongs_to :site, class_name: "Site"
-      belongs_to :performed_by, class_name: "User", foreign_key: "performed_by_id"
 
       has_paper_trail class_name: "Renalware::Accesses::Version"
 
