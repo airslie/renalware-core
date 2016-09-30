@@ -21,6 +21,8 @@ module Renalware
         attribute :sodium_first_half, Integer
         attribute :sodium_second_half, Integer
 
+        validates_presence_of [:sodium_first_half, :sodium_second_half], if: :has_sodium_profiling?
+
         def self.cannulation_types; CannulationType.ordered; end
         def self.needle_sizes; [14, 15, 16, 17]; end
         def self.flow_rates; (100..800).step(100); end
@@ -31,6 +33,10 @@ module Renalware
         def self.temperature_levels; [35.0, 35.5, 36.0, 36.5, 37.0]; end
         def self.bicarbonate_levels; (22..43).step(1); end
         def self.sodium_levels; [136, 137, 138, 140, 145]; end
+
+        def has_sodium_profiling?
+          has_sodium_profiling.try(:yes?)
+        end
       end
       attribute :dialysis, Dialysis
 
