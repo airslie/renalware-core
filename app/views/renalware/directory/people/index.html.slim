@@ -1,0 +1,16 @@
+.row
+  = render 'header'
+
+.row
+  table.auto-layout
+    thead
+      tr
+        th.col-width-small
+        th Title
+        th Family Name
+        th Given Name
+        th Address
+    tbody
+      = render @people
+
+  = paginate @people

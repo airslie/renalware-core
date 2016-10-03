@@ -1,0 +1,15 @@
+.form-content2
+  .large-8.columns
+    = simple_form_for @person, wrapper: "horizontal_form" do |f|
+      = field_set_tag "Person" do
+        = f.input :title
+        = f.input :given_name
+        = f.input :family_name
+
+      = field_set_tag "Postal Address" do
+        = render "address_form", f: f
+
+      = f.button :submit
+      span= " or "
+      = link_to "cancel", directory_people_path
+

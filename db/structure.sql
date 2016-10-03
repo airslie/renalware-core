@@ -511,6 +511,41 @@ ALTER SEQUENCE delayed_jobs_id_seq OWNED BY delayed_jobs.id;
 
 
 --
+-- Name: directory_people; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE directory_people (
+    id integer NOT NULL,
+    given_name character varying NOT NULL,
+    family_name character varying NOT NULL,
+    title character varying,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: directory_people_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE directory_people_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: directory_people_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE directory_people_id_seq OWNED BY directory_people.id;
+
+
+--
 -- Name: drug_types; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3379,6 +3414,13 @@ ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY directory_people ALTER COLUMN id SET DEFAULT nextval('directory_people_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY drug_types ALTER COLUMN id SET DEFAULT nextval('drug_types_id_seq'::regclass);
 
 
@@ -4016,6 +4058,14 @@ ALTER TABLE ONLY death_edta_codes
 
 ALTER TABLE ONLY delayed_jobs
     ADD CONSTRAINT delayed_jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: directory_people_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY directory_people
+    ADD CONSTRAINT directory_people_pkey PRIMARY KEY (id);
 
 
 --
@@ -4786,6 +4836,20 @@ CREATE INDEX index_clinic_visits_on_patient_id ON clinic_visits USING btree (pat
 --
 
 CREATE INDEX index_clinic_visits_on_updated_by_id ON clinic_visits USING btree (updated_by_id);
+
+
+--
+-- Name: index_directory_people_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_directory_people_on_created_by_id ON directory_people USING btree (created_by_id);
+
+
+--
+-- Name: index_directory_people_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_directory_people_on_updated_by_id ON directory_people USING btree (updated_by_id);
 
 
 --
@@ -6602,4 +6666,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160830141439');
 INSERT INTO schema_migrations (version) VALUES ('20160906195949');
 
 INSERT INTO schema_migrations (version) VALUES ('20160916113152');
+
+INSERT INTO schema_migrations (version) VALUES ('20160922154638');
 
