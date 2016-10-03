@@ -1,15 +1,18 @@
 module Renalware
   module Directory
     class PeopleController < BaseController
-      include Renalware::Concerns::Pageable
-
-      before_action :prepare_paging, only: [:index]
-
       def index
-        @people = Person
-          .with_address
-          .ordered.page(@page).per(@per_page)
+        query = PersonQuery.new(q: params[:q])
+        @people = call_query(query).page(params[:page])
         authorize @people
+
+        @q = query.search
+      end
+
+      def call_query(query)
+        query
+          .call
+          .with_address
       end
 
       def show
