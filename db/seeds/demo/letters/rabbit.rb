@@ -30,7 +30,7 @@ module Renalware
     by: users.sample
   )
 
-  letter = Letters::Letter::Draft.create!(
+  Letters::Letter::Draft.create!(
     patient: patient,
     event: clinics_patient.clinic_visits.first,
     issued_on: 1.day.ago,
@@ -60,7 +60,7 @@ module Renalware
     by: users.sample
   )
 
-  Letters::Letter::PendingReview.create!(
+  letter = Letters::Letter::PendingReview.create!(
     patient: patient,
     issued_on: 10.days.ago,
     description: Renalware::Letters::Description.last.text,
