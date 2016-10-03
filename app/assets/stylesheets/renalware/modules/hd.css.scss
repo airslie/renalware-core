@@ -1,6 +1,9 @@
 .hd-sessions table {
   border-spacing: 0;
   border-collapse: collapse;
+  td {
+    height: 2rem;
+  }
 
   .has-tip {
     font-weight: normal;

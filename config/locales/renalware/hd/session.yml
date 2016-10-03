@@ -117,14 +117,17 @@ en:
           add: Add Session
           add_dna: Add DNA Session
           view_all: View All
-        table:
+          protocol: Print Protocol
+        row:
+          sign_on: Sign On
+          sign_off: Sign Off
+          edit: Edit
+        thead:
           date: Date
           from: 'Off'
           to: 'On'
           duration: Dur
           site: Site
-          sign_on: Sign On
-          sign_off: Sign Off
           time: Time
           weight: Weight
           pulse: Pulse
@@ -140,9 +143,9 @@ en:
           machine_no: "No"
           machine_ktv: KTv
           machine_urr: URR
+          notes: "Notes"
           start_time: "On"
           end_time: "Off"
-          edit: Edit
           pre: Pre
           post: Post
           post_with_changed: Post (chg)

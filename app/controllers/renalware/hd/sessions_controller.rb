@@ -14,7 +14,7 @@ module Renalware
 
       def show
         session = Session.for_patient(patient).find(params[:id])
-        @session = SessionPresenter.new(session)
+        @session = SessionPresenter.new(session, view_context)
       end
 
       def new

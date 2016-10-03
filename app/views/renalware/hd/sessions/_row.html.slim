@@ -1,7 +1,7 @@
-tr(class=[session.state, stripe_class])
-  td(rowspan=2)
+tr.hd-session-row(class=[session.state, stripe_class])
+  td.noprint(rowspan=2)
     = link_to(t(".#{session.state}.edit"), session.edit_url) if session.edit_url
-  td(rowspan=2)= link_to session.performed_on, patient_hd_session_path(@patient, session)
+  td(rowspan=2)= session.performed_on
   td(rowspan=2)= session.hospital_unit_unit_code
   td= session.start_time
   td.derived(rowspan=2)= session.duration
@@ -18,6 +18,8 @@ tr(class=[session.state, stripe_class])
   td(rowspan=2)= session.machine_no
   td(rowspan=2)= session.machine_ktv
   td(rowspan=2)= session.machine_urr
+  td.print-only(rowspan=2)= session.notes
+
 tr(class=[session.state, stripe_class])
   td= session.end_time
   td

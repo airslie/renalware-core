@@ -40,7 +40,9 @@ module Renalware
       end
 
       def performed_on
-        ::I18n.l(super)
+        url = view_context.patient_hd_session_path(session.patient, session)
+        text = ::I18n.l(super)
+        view_context.link_to(text, url)
       end
 
       def start_time
@@ -52,7 +54,7 @@ module Renalware
       end
 
       def duration
-        super && Renalware::Duration.from_minutes(super)
+        super && ::Renalware::Duration.from_minutes(super)
       end
 
       def before_measurement_for(measurement)
@@ -87,7 +89,6 @@ module Renalware
 
       protected
       attr_reader :session, :view_context
-
     end
   end
 end

@@ -3,7 +3,6 @@ require_dependency "collection_presenter"
 module Renalware
   module HD
     class DashboardPresenter
-
       def initialize(patient, view_context)
         @patient = patient
         @view_context = view_context

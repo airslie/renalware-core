@@ -143,6 +143,10 @@ Rails.application.routes.draw do
 
       namespace :hd do
         resource :dashboard, only: :show
+        resource :protocol,
+                 only: :show,
+                 constraints: { format: /(pdf)/ },
+                 defaults: { format: :pdf }
         resource :preference_set, only: [:edit, :update]
         resource :profile, only: [:show, :edit, :update]
         resources :sessions, except: [:destroy]

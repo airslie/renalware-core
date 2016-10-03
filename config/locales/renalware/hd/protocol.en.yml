@@ -1,0 +1,28 @@
+en:
+  renalware:
+    hd:
+      protocols:
+        profile:
+          site: "Site:"
+          schedule: "Schedule:"
+          prescribed_time: "Prescribed time:"
+          hd_type:  "HD Type:"
+          named_nurse: "Named nurse:"
+          needle_size: "Needle size:"
+          single_needle: "Single needle:"
+          has_sodium_profiling: "Sodium profiling:"
+          sodium_first_half: "NA 1st half:"
+          sodium_second_half: "NA 2nd half:"
+          dialyser: "Dialyser:"
+          dialysate: "Dialysate:"
+          anticoagulant:
+            type: "Anticoagulant:"
+            loading_dose: "loading_dose"
+            hourly_dose: "hourly_dose"
+            stop_time: "stop_time"
+          cannulation_type: "Cannulation type:"
+          last_update: "Updated:"
+          transport:
+            has_transport: "Has transport:"
+            type: "Type:"
+            decided_on: "Decided on:"
