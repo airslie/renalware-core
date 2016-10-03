@@ -8,13 +8,15 @@
       = simple_form_for @q, as: :q, url: directory_people_path, method: :get do |f|
         .row
           .large-8.columns
-            = f.input :family_name_or_given_name_cont, label: "Family Name"
+            = f.input :family_name_or_given_name_cont, label: "Family or Given Name"
           .large-4.columns.actions
             = f.submit t("helpers.submit.filter"), class: "button"
             span= " or "
             = link_to t("helpers.reset"), directory_people_path
 
 .row
+  = page_entries_info @people
+
   table.auto-layout
     thead
       tr

@@ -15,28 +15,11 @@ module World
 
       # @section seeding
       #
-      def seed_person(user: Renalware::User.first, attributes: {})
+      def seed_person(user:)
         Renalware::Directory::Person.create!(
-          valid_person_attributes
-            .merge(by: user)
-            .merge(attributes)
+          valid_person_attributes.merge(by: user)
         )
       end
-
-      def seed_people(table)
-        table.hashes.each do |row|
-          attributes = {
-            given_name: row[:given_name],
-            family_name: row[:family_name]
-          }
-          seed_person(attributes: attributes)
-        end
-      end
-
-      def view_people(q: nil, **_)
-        @query = Renalware::Directory::PersonQuery.new(q: q)
-      end
-
 
       # @section commands
       #
@@ -70,24 +53,7 @@ module World
       def expect_person_to_be_refused
         expect(Renalware::Directory::Person.count).to eq(0)
       end
-
-      def expect_people_to_be(table)
-        people = @query.call
-        expect(people.size).to eq(table.hashes.size)
-
-        entries = people.map do |r|
-          hash = {
-            given_name: r.given_name,
-            family_name: r.family_name
-          }
-          hash.with_indifferent_access
-        end
-        table.hashes.each do |row|
-          expect(entries).to include(row)
-        end
-      end
     end
-
 
     module Web
       include Domain
@@ -117,18 +83,6 @@ module World
         fill_in t_person(:title), with: "Monsieur"
 
         click_on "Save"
-      end
-
-      def view_people(q: nil, user:)
-        login_as user
-        visit directory_people_path(q: q)
-      end
-
-      def expect_people_to_be(table)
-        table.hashes.each do |row|
-          expect(page.body).to have_content(row[:given_name])
-          expect(page.body).to have_content(row[:family_name])
-        end
       end
 
       def t_person(key)
