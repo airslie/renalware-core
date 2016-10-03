@@ -32,7 +32,7 @@ module Renalware
         private
 
         def address_for_addressee
-          __getobj__.address_for_person_role
+          __getobj__.current_address
         end
       end
     end

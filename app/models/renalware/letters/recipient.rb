@@ -23,12 +23,12 @@ module Renalware
         return if address.present?
 
         build_address.tap do |address|
-          address.copy_from(address_for_person_role)
+          address.copy_from(current_address)
           address.save!
         end
       end
 
-      def address_for_person_role
+      def current_address
         case
         when patient?
           letter.patient.current_address
