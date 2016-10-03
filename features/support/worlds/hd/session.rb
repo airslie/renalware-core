@@ -122,7 +122,7 @@ module World
         fill_in "Session Date", with: I18n.l(performed_on)
 
         within ".top" do
-          click_on "Create"
+          click_on "Save"
         end
       end
 

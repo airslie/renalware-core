@@ -2,10 +2,8 @@ ruby:
   back_path = patient_hd_dashboard_path(@patient)
 
 .row.top
-  .medium-6.columns
-    = f.button :submit
-    span= " or "
-    = link_to "cancel", back_path
+  .large-12.columns
+    =render 'form_actions', f: f, back_path: back_path
 
 .form-content
   = f.simple_fields_for :document, f.object.document do |fd|
@@ -78,8 +76,8 @@ ruby:
         locals: { legend: "HDF", name: "hdf" } do
       = fd.simple_fields_for :hdf, fd.object.hdf do |fcm|
         = fcm.input :subs_fluid_pct, input_html: { class: "small-input" }
-        = fcm.input :subs_goal, input_html: { class: "small-input" }
         = fcm.input :subs_rate, input_html: { class: "small-input" }
+        = fcm.input :subs_goal, input_html: { class: "small-input" }
         = fcm.input :subs_volume, input_html: { class: "small-input" }
 
     = render layout: "renalware/shared/fieldset",
@@ -99,6 +97,4 @@ ruby:
 
 .row
   .large-12.columns
-    = f.button :submit
-    span= " or "
-    = link_to 'cancel', back_path
+    =render 'form_actions', f: f, back_path: back_path

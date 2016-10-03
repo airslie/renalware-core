@@ -1,0 +1,34 @@
+$dl_horizontal_dt_width: 8rem;
+
+.dl-horizontal {
+  font-size: 0.9rem;
+  margin-top: 0;
+  margin-bottom:0;
+
+  dt {
+    float: left;
+    width: $dl_horizontal_dt_width;
+    overflow: hidden;
+    clear: left;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 0;
+  }
+
+  dd {
+    margin-left: $dl_horizontal_dt_width + 1rem;
+    margin-bottom: 0;
+
+    &:before {
+      content: " ";
+      display: table;
+    }
+
+    &:after {
+      content: " ";
+      display: table;
+      clear:both;
+    }
+  }
+}

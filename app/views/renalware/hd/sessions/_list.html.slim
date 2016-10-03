@@ -1,5 +1,11 @@
-fieldset.hd-sessions.with-actions-above-table
-  legend=t(".title")
+fieldset.hd-sessions.simple.simple-table
+  legend
+    span.title= t(".title")
+    - unless sessions.empty?
+      span.actions.action-buttons
+        = link_to t(".add"), new_patient_hd_session_path(@patient), class: "button small slimline"
+        | &nbsp;
+        = link_to t(".view_all"), patient_hd_sessions_path(@patient), class: "button small slimline"
 
   - if sessions.empty?
     .call-to-action
@@ -7,34 +13,4 @@ fieldset.hd-sessions.with-actions-above-table
         i.fa.fa-plus-circle
         =t(".add_session")
   - else
-    .right.actions
-      = link_to t(".add_session"), new_patient_hd_session_path(@patient),
-        class: 'button tiny'
-      | &nbsp;
-      = link_to t(".view_all"), patient_hd_sessions_path(@patient),
-        class: 'button tiny'
-
-    table.auto-layout
-      thead
-        th.col-width-small
-        th.col-width-date= t(".date")
-        th.col-width-time= t(".from")
-        th.col-width-time= t(".to")
-        th.col-width-date= t(".duration")
-        th.col-width-medium= t(".site")
-        th.col-width-medium= t(".sign_on")
-        th.col-width-medium= t(".sign_off")
-
-      tbody
-        - sessions.each do |session|
-          = content_tag(:tr, class: session.ongoing_css_class) do
-            td= link_to edit_patient_hd_session_path(@patient, session) do
-              = session.signed_off? ? t(".edit") : t(".sign_off")
-            td= link_to patient_hd_session_path(@patient, session) do
-                = session.performed_on
-            td= session.start_time
-            td= session.end_time
-            td= session.duration
-            td= session.hospital_unit
-            td= session.signed_on_by
-            td= session.signed_off_by
+    =render 'renalware/hd/sessions/table', sessions: sessions

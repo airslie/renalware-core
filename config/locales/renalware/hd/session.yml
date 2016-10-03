@@ -22,9 +22,9 @@ en:
         single_needle: "Single Needle?"
         lines_reversed: "Lines Reversed?"
         machine_no: Machine No
-        dialysis_fluid_used: Dialysis Fluid Used
+        dialysis_fluid_used: Dialysis Solution Used
       renalware/hd/session_document/observations:
-        weight: Weight
+        weight: Weight (kg)
         pulse: Pulse
         blood_pressure: Blood Pressure
         temperature: Temperature
@@ -41,7 +41,7 @@ en:
       renalware/hd/session_document/hdf:
         subs_fluid_pct: Subs Fluid Percentage
         subs_goal: Subs Goal
-        subs_rate: Subs Goal
+        subs_rate: Subs Rate
         subs_volume: Subs Volume
       renalware/hd/session_document/complications:
         access_site_status: Access Site Status
@@ -77,11 +77,10 @@ en:
   enumerize:
     renalware/hd/session_document/info:
       dialysis_fluid_used:
-        ca: Ca
-        hco3: HCO3
-        k: K
-        glucose: Glucose
-        n: N
+        a7: Fresenius A7
+        a10: Fresenius A10
+        a17: Fresenius A17
+        a27: Fresenius A27
     renalware/hd/session_document/complications:
       access_site_status:
         clean_and_dry: Clean and Dry
@@ -97,22 +96,43 @@ en:
           info:
             flow_rate: ml/hr
             machine_urr: "%"
-          observations_before:
-            weight: kg
-          observations_after:
-            weight: kg
   renalware:
     hd:
       sessions:
         list:
           title: Latest HD Sessions
+          add_session: Add a Session
+          add: Add
+          view_all: View All
+        table:
           date: Date
-          from: From
-          to: To
-          duration: Duration
+          from: 'Off'
+          to: 'On'
+          duration: Dur
           site: Site
           sign_on: Sign On
           sign_off: Sign Off
+          time: Time
+          weight: Weight
+          pulse: Pulse
+          temperature: Temp
+          bm_stix: BM
+          blood_pressure: BP
+          arterial_pressure: AP
+          venous_pressure: VP
+          blood_flow: Flow rate
+          litres_processed: Litres
+          fluid_removed: Fluid rem
+          machine: Machine
+          machine_no: "No"
+          machine_ktv: KTv
+          machine_urr: URR
+          start_time: "On"
+          end_time: "Off"
           edit: Edit
-          add_session: Add a Session
-          view_all: View All
+          pre: Pre
+          post: Post
+          post_with_changed: Post (chg)
+        form_actions:
+          signoff: Save and Sign-Off
+          save: Save

@@ -31,6 +31,7 @@ module Renalware
         if (profile = Profile.for_patient(patient).first)
           session.hospital_unit = profile.hospital_unit
           session.document.info.hd_type = profile.document.dialysis.hd_type
+          session.document.info.dialysis_fluid_used = profile.document.dialysis.dialysate
         end
       end
 

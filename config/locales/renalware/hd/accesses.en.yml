@@ -1,0 +1,15 @@
+en:
+  renalware:
+    hd:
+      accesses:
+        summary:
+          title: Access
+          add_access_profile: Add an Access Profile
+          view: View
+          edit: Edit
+          site: "Site:"
+          type: "Type:"
+          side: "Side:"
+          plan: "Plan:"
+          plan_date: "Plan date:"
+          notes: "Notes:"

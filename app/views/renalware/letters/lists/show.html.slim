@@ -19,17 +19,18 @@
             = link_to t("helpers.reset"), letters_list_path
 
 .row
-  table.report
+  table.report.letters
     thead
       tr
         th.noprint
         th.col-width-medium= sort_link(@q, :patient_family_name, "Patient")
+        th Type
+        th State
         th.col-width-date = sort_link(@q, :issued_on, "Date", default_order: :desc)
         th Author
         th Typist
         th.col-width-medium Recipient
         th Description
-        th State
     tbody
       - @letters.each do |letter|
         = render "letter", letter: letter

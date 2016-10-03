@@ -12,11 +12,6 @@ Feature: Recording the dry weight
     Then Patty has a new dry weight
 
   @web
-  Scenario: A clinician udpated the dry weight of a patient
-    Given Patty has a recorded dry weight entry
-    Then Clyde can update Patty's dry weight entry
-
-  @web
   Scenario: A clinician submitted an erroneous dry weight for a patient
     When Clyde submits an erroneous dry weight
     Then the dry weight is not accepted

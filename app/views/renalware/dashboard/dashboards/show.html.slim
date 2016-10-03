@@ -4,18 +4,18 @@
     #draft-letters
       = render "renalware/dashboard/letters/table", letters: dashboard.draft_letters
   - else
-    p= t(".letters.drafts.none")
+    p.empty-section= t(".letters.drafts.none")
 
   h4 Letters Pending Review
   - if dashboard.letters_pending_review.any?
     #letters-pending-review
       = render "renalware/dashboard/letters/table", letters: dashboard.letters_pending_review
   - else
-    p= t(".letters.pending_review.none")
+    p.empty-section= t(".letters.pending_review.none")
 
   h4 Bookmarked Patients
   - if dashboard.bookmarks.any?
     #bookmarks
       = render "renalware/dashboard/bookmarks/table", bookmarks: dashboard.bookmarks
   - else
-    p= t(".bookmarks.none")
+    p.empty-section= t(".bookmarks.none")

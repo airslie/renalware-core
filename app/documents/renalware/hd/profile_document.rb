@@ -9,7 +9,7 @@ module Renalware
         attribute :cannulation_type
         attribute :needle_size
         attribute :single_needle, Document::Enum, enums: %i(yes no)
-        attribute :dialysate, Document::Enum, enums: %i(a7 a10 a17 a27)
+        attribute :dialysate, Document::Enum, enums: %i(a7 a10 a17 a27), default: "a7"
         attribute :flow_rate, Integer
         attribute :blood_flow, Integer
         attribute :dialyser
@@ -39,6 +39,7 @@ module Renalware
         attribute :loading_dose
         attribute :hourly_dose
         attribute :stop_time
+        def self.stop_times; [["0:30", 30], ["1:00", 60], ["1:30", 90], ["2:00", 120]]; end
       end
       attribute :anticoagulant, Anticoagulant
 

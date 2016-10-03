@@ -1,15 +1,16 @@
 table.auto-layout
   thead
     tr
-      th
-      th= t(".patient_name")
-      th= t(".hopsital_number")
-      th= t(".born_on")
-      th= t(".age")
-      th= t(".sex")
+      th.col-width-tiny
+      th.col-width-medium= t(".patient_name")
+      th.col-width-reference-no= t(".hopsital_number")
+      th.col-width-date= t(".born_on")
+      th.col-width-tiny= t(".age")
+      th.col-width-tiny= t(".sex")
       th= t(".notes")
       th= t(".modality")
-      th= t(".bookmarked_on")
-      th
+      th.col-width-date-time= t(".bookmarked_on")
+      th.col-width-tiny
+
   tbody
     = render partial: "renalware/dashboard/bookmarks/bookmark", collection: bookmarks

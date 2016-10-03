@@ -131,3 +131,55 @@ fieldset {
     padding-top: 8px;
   }
 }
+
+fieldset {
+  &.simple {
+    padding: 0.8rem 0 0 0;
+    margin: 0 0 10px 0;
+    border-width: 1px 0 0 0;
+    position: relative;
+    margin-top: 35px;
+
+    legend {
+      position: absolute;
+      top: -28px;
+      left: 0;
+      width: 100%;
+
+      span {
+        &.title {
+          padding-right: 1rem;
+          font-weight: normal;
+        }
+        &.actions {
+          color: #008cba;
+          font-size: 1rem;
+          font-weight: normal;
+
+          &.action-links {
+            a {
+              font-weight: normal;
+              font-size: 1rem;
+            }
+          }
+          &.action-buttons {
+            position: absolute;
+            top: -5px;
+
+            a {
+              margin-right: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.button {
+  &.slimline {
+    &.small {
+      padding: 0.3rem 0.6rem;
+    }
+  }
+}

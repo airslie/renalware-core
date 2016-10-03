@@ -1,28 +1,24 @@
-fieldset.hd-dry_weights.with-actions-above-table
-  legend=t(".title")
+fieldset.hd-dry_weights.simple.simple-table
+  legend
+    span.title= t(".title")
+    - unless dry_weights.empty?
+      span.actions.action-buttons
+        = link_to t(".edit"), new_patient_hd_dry_weight_path(@patient), class: "button small slimline"
+        | &nbsp;
+        = link_to t(".view_all"), patient_hd_dry_weights_path(@patient), class: "button small slimline"
 
   - if dry_weights.empty?
     .call-to-action
       = link_to new_patient_hd_dry_weight_path(@patient) do
         i.fa.fa-plus-circle
-        =t(".add")
+        =t(".add_dry_weight")
   - else
-    .right.actions
-      = link_to t(".add"), new_patient_hd_dry_weight_path(@patient),
-        class: 'button tiny'
-      | &nbsp;
-      = link_to t(".view_all"), patient_hd_dry_weights_path(@patient),
-        class: 'button tiny'
 
     table.auto-layout
       thead
-        th.col-width-tiny
         th.col-width-date= t(".date")
         th.col-width-small= t(".weight")
         th= t(".assessor")
-
       tbody
         - dry_weights.each do |dry_weight|
           = render "renalware/hd/dry_weights/row", dry_weight: dry_weight
-
-
