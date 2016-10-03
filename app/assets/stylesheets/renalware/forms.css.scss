@@ -1,15 +1,3 @@
-form .row .row.datepicker-wrapper {
-  margin-bottom: 10px;
-}
-
-.datepicker {
-  width: 240px;
-
-  &.dropdown-menu {
-    font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
-  }
-}
-
 form {
   .small-input {
     max-width: 250px !important;
@@ -30,6 +18,11 @@ form {
 
 fieldset {
   padding: 1em;
+
+  legend {
+    font-size: 1.1rem;
+    line-height: 1.1rem;
+  }
 
   dt {
     font-weight: normal;
@@ -65,21 +58,6 @@ fieldset {
 .profile-info-form {
   .form-content {
     max-width: 960px;
-  }
-
-  .datepicker-wrapper,
-  .datetimepicker-wrapper, {
-    max-width: 250px !important;
-    i {
-      font-size: 1.5rem;
-    }
-  }
-
-  .clockpicker-wrapper {
-    max-width: 120px !important;
-    i {
-      font-size: 1.5rem;
-    }
   }
 
   label.radio_buttons {
@@ -135,16 +113,17 @@ fieldset {
 fieldset {
   &.simple {
     padding: 0.8rem 0 0 0;
-    margin: 0 0 10px 0;
+    margin: 40px 0 10px 0;
     border-width: 1px 0 0 0;
     position: relative;
-    margin-top: 35px;
 
     legend {
       position: absolute;
       top: -28px;
       left: 0;
       width: 100%;
+      font-size: 1.3rem;
+      line-height: 1.3rem;
 
       span {
         &.title {
@@ -173,6 +152,9 @@ fieldset {
         }
       }
     }
+  }
+  &.simple-table {
+    margin-top: 50px;
   }
 }
 
