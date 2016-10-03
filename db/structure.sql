@@ -1084,6 +1084,38 @@ ALTER SEQUENCE letter_archives_id_seq OWNED BY letter_archives.id;
 
 
 --
+-- Name: letter_contacts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE letter_contacts (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    person_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: letter_contacts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE letter_contacts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: letter_contacts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE letter_contacts_id_seq OWNED BY letter_contacts.id;
+
+
+--
 -- Name: letter_descriptions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3526,6 +3558,13 @@ ALTER TABLE ONLY letter_archives ALTER COLUMN id SET DEFAULT nextval('letter_arc
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY letter_contacts ALTER COLUMN id SET DEFAULT nextval('letter_contacts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY letter_descriptions ALTER COLUMN id SET DEFAULT nextval('letter_descriptions_id_seq'::regclass);
 
 
@@ -4186,6 +4225,14 @@ ALTER TABLE ONLY hospital_units
 
 ALTER TABLE ONLY letter_archives
     ADD CONSTRAINT letter_archives_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: letter_contacts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY letter_contacts
+    ADD CONSTRAINT letter_contacts_pkey PRIMARY KEY (id);
 
 
 --
@@ -5063,6 +5110,20 @@ CREATE INDEX index_letter_archives_on_updated_by_id ON letter_archives USING btr
 
 
 --
+-- Name: index_letter_contacts_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_letter_contacts_on_patient_id ON letter_contacts USING btree (patient_id);
+
+
+--
+-- Name: index_letter_contacts_on_person_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_letter_contacts_on_person_id ON letter_contacts USING btree (person_id);
+
+
+--
 -- Name: index_letter_letters_on_author_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5680,6 +5741,14 @@ ALTER TABLE ONLY transplant_registrations
 
 
 --
+-- Name: fk_rails_33f61c70e6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY letter_contacts
+    ADD CONSTRAINT fk_rails_33f61c70e6 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: fk_rails_36cb307ab5; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6029,6 +6098,14 @@ ALTER TABLE ONLY pathology_request_descriptions
 
 ALTER TABLE ONLY hd_sessions
     ADD CONSTRAINT fk_rails_a3afae15cb FOREIGN KEY (modality_description_id) REFERENCES modality_descriptions(id);
+
+
+--
+-- Name: fk_rails_a5852d1710; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY letter_contacts
+    ADD CONSTRAINT fk_rails_a5852d1710 FOREIGN KEY (person_id) REFERENCES directory_people(id);
 
 
 --
@@ -6668,4 +6745,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160906195949');
 INSERT INTO schema_migrations (version) VALUES ('20160916113152');
 
 INSERT INTO schema_migrations (version) VALUES ('20160922154638');
+
+INSERT INTO schema_migrations (version) VALUES ('20161003192717');
 
