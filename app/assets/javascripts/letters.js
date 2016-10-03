@@ -4,7 +4,7 @@ Renalware.Letters = (function() {
   var hideOrShowOtherAddress = function() {
     var recipient_type = $("input.recipient-person-role-picker:checked").val();
 
-    if (recipient_type === "other") {
+    if (recipient_type === "contact") {
       $("#other-address").show();
     } else {
       $("#other-address").hide();

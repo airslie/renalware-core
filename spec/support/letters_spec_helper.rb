@@ -25,7 +25,7 @@ module LettersSpecHelper
     when :primary_care_physician
       { person_role: "primary_care_physician" }
     else
-      { person_role: "other", address: build(:address) }
+      { person_role: "contact", address: build(:address) }
     end
   end
 end

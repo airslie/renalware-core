@@ -50,7 +50,7 @@ module Renalware
         end
 
         context "given the recipient is someone else" do
-          let(:letter) { build_letter(to: :other, patient: patient) }
+          let(:letter) { build_letter(to: :contact, patient: patient) }
 
           context "given the patient opted to be CCd on all letters" do
             before do

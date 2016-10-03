@@ -159,7 +159,7 @@ module World
           elsif cc.is_a? Renalware::Patients::PrimaryCarePhysician
             ["primary_care_physician", cc.current_address.city]
           else
-            ["other", cc[:city]]
+            ["contact", cc[:city]]
           end
         end
 
@@ -252,7 +252,7 @@ module World
           { person_role: "patient" }
         else
           {
-            person_role: "other",
+            person_role: "contact",
             address_attributes: {
               name: recipient[:name],
               city: recipient[:city],

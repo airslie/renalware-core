@@ -24,7 +24,7 @@ module Renalware
           end
 
           context "and someone else is the main recipient" do
-            let(:letter) { build_letter(to: :other, patient: patient) }
+            let(:letter) { build_letter(to: :contact, patient: patient) }
 
             it { expect(primary_care_physician.cc_on_letter?(letter)).to be_truthy }
           end
