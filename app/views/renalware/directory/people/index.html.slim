@@ -8,7 +8,7 @@
       = simple_form_for @q, as: :q, url: directory_people_path, method: :get do |f|
         .row
           .large-8.columns
-            = f.input :family_name_or_given_name_cont, label: "Family or Given Name"
+            = f.input :name_cont, label: "Name contains"
           .large-4.columns.actions
             = f.submit t("helpers.submit.filter"), class: "button"
             span= " or "
@@ -17,7 +17,7 @@
 .row
   = page_entries_info @people
 
-  table.auto-layout
+  table.auto-layout.people
     thead
       tr
         th.col-width-small
@@ -26,6 +26,6 @@
         th Given Name
         th Address
     tbody
-      = render @people
+      = render partial: "person", collection: @people
 
   = paginate @people

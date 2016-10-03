@@ -11,7 +11,11 @@ module Renalware
       end
 
       def search
-        @search ||= Person.search(@q)
+        @search ||= QueryablePerson.search(@q)
+      end
+
+      class QueryablePerson < ActiveType::Record[Person]
+        ransack_alias :name, :family_name_or_given_name
       end
     end
   end

@@ -2,33 +2,24 @@ require "rails_helper"
 
 RSpec.describe "Searching people", type: :feature do
   describe "GET index" do
-    let(:nurse) { create(:user) }
+    let(:user) { create(:user) }
 
     before do
       login_as_clinician
-      create(:directory_person, given_name: "Roger", family_name: "Rabbit", by: nurse)
-      create(:directory_person, family_name: "::another patient::", by: nurse)
+      create(:directory_person, given_name: "Yosemite", family_name: "Sam", by: user)
+      create(:directory_person, family_name: "::another patient::", by: user)
 
       visit directory_people_path
     end
 
-    context "with a partial family name filter" do
+    context "with a name filter" do
       it "responds with a filtered list of people" do
-        fill_in "Family or Given Name", with: "abbit"
+        fill_in "Name contains", with: "sam"
         click_on "Filter"
 
-        expect(page).to have_content("Rabbit")
-        expect(page).to have_content("Displaying 1 person")
-      end
-    end
-
-    context "with a partial given name filter" do
-      it "responds with a filtered list of people" do
-        fill_in "Family or Given Name", with: "oger"
-        click_on "Filter"
-
-        expect(page).to have_content("Rabbit")
-        expect(page).to have_content("Displaying 1 person")
+        within("table.people") do
+          expect(page).to have_content("Yosemite")
+        end
       end
     end
   end
