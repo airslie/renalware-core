@@ -8,16 +8,16 @@ module Renalware
       # HTML save if we leave it to be implicitly called in the template.
       #
       def to_html
-        AddressPresenter::Block.new(address_for_person_role).to_html
+        AddressPresenter::Block.new(address_for_addressee).to_html
       end
 
       def address
-        AddressPresenter.new(address_for_person_role)
+        AddressPresenter.new(address_for_addressee)
       end
 
       private
 
-      def address_for_person_role
+      def address_for_addressee
         __getobj__.address
       end
 
@@ -31,15 +31,8 @@ module Renalware
       class WithCurrentAddress < RecipientPresenter
         private
 
-        def address_for_person_role
-          case
-          when patient?
-            letter.patient.current_address
-          when primary_care_physician?
-            letter.primary_care_physician.current_address
-          else
-            __getobj__.address
-          end
+        def address_for_addressee
+          __getobj__.current_address
         end
       end
     end

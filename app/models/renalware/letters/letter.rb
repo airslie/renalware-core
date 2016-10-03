@@ -83,6 +83,10 @@ module Renalware
       def archived_by
         archive.created_by
       end
+
+      def archive_recipients!
+        recipients.each { |r| r.archive! }
+      end
     end
   end
 end
