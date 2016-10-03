@@ -30,7 +30,7 @@ module Renalware
       end
 
       def archive_recipients
-        @letter.recipients.each { |r| r.archive! }
+        @letter.archive_recipients!
       end
     end
   end
