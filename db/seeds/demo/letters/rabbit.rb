@@ -30,7 +30,7 @@ module Renalware
     by: users.sample
   )
 
-  Letters::Letter::Draft.create!(
+  letter = Letters::Letter::Draft.create!(
     patient: patient,
     event: clinics_patient.clinic_visits.first,
     issued_on: 1.day.ago,
@@ -60,7 +60,7 @@ module Renalware
     by: users.sample
   )
 
-  letter = Letters::Letter::PendingReview.create!(
+  Letters::Letter::PendingReview.create!(
     patient: patient,
     issued_on: 10.days.ago,
     description: Renalware::Letters::Description.last.text,
@@ -73,15 +73,5 @@ module Renalware
     author: users.sample,
     by: users.sample
   )
-
   Renalware::Letters::ApproveLetter.build(letter).call(by: users.sample)
-  letter.main_recipient.build_address.tap do |address|
-    address.copy_from(letter.patient.current_address)
-    address.save!
-  end
-  recipient = letter.cc_recipients.create(person_role: "primary_care_physician")
-  recipient.build_address.tap do |address|
-    address.copy_from(letter.patient.primary_care_physician.current_address)
-    address.save!
-  end
 end

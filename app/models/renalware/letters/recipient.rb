@@ -19,6 +19,26 @@ module Renalware
         address.to_s
       end
 
+      def archive!
+        return if address.present?
+
+        build_address.tap do |address|
+          address.copy_from(address_for_person_role)
+          address.save!
+        end
+      end
+
+      def address_for_person_role
+        case
+        when patient?
+          letter.patient.current_address
+        when primary_care_physician?
+          letter.primary_care_physician.current_address
+        else
+          address
+        end
+      end
+
       private
 
       def patient_or_primary_care_physician?

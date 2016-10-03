@@ -188,6 +188,9 @@ module World
 
         expect(letter).to be_archived
         expect(letter.archive).to be_present
+        letter.recipients.each do |recipient|
+          expect(recipient.address).to be_present
+        end
       end
 
       def expect_letter_to_not_be_modified(patient:, user:)
