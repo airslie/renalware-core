@@ -9,10 +9,11 @@ module Renalware
         @q = query.search
       end
 
-      def call_query(query)
-        query
-          .call
-          .with_address
+      def search
+        authorize Person, :index?
+
+        query = PersonQuery.new(q: {name_cont: params.fetch(:term)})
+        render json: query.call.map { |person| { id: person.id, label: person.to_s } }.to_json
       end
 
       def show
@@ -53,7 +54,13 @@ module Renalware
         end
       end
 
-      protected
+      private
+
+      def call_query(query)
+        query
+          .call
+          .with_address
+      end
 
       def person_params
         params
