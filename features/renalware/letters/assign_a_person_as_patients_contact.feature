@@ -5,6 +5,7 @@ Feature: Assign a person as a patient's contact
   assignment can be made during the drafting processing or done as an isolated
   task.
 
+  @web
   Scenario:
     Given Patty is a patient
     And Sam is a social worker

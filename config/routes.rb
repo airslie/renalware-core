@@ -147,6 +147,7 @@ Rails.application.routes.draw do
       end
 
       namespace :letters do
+        resources :contacts
         resources :letters do
           resource :pending_review, controller: "pending_review_letters", only: :create
           resource :rejected, controller: "rejected_letters", only: :create

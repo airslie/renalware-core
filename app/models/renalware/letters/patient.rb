@@ -14,8 +14,8 @@ module Renalware
         !letter.main_recipient.patient?
       end
 
-      def assign_contact(person)
-        contacts.build(person: person)
+      def assign_contact(params)
+        contacts.build(params)
       end
 
       def available_contact?(person)

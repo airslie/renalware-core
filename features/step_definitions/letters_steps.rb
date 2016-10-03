@@ -121,7 +121,7 @@ When(/^Nathalie marks the letter as printed$/) do
 end
 
 When(/^Clyde assigns Sam as a contact for Patty$/) do
-  assign_contact(patient: @patty, person: @sam)
+  assign_contact(patient: @patty, person: @sam, user: @clyde)
 end
 
 # THEN

@@ -1,0 +1,6 @@
+= render partial: "renalware/shared/errors", locals: {model: f.object}
+
+.simple_form
+  .row
+    .large-12.columns
+      = f.input :person_id, collection: people, label_method: :to_s
