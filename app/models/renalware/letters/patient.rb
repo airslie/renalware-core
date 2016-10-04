@@ -18,7 +18,7 @@ module Renalware
         contacts.build(params)
       end
 
-      def available_contact?(person)
+      def has_available_contact?(person)
         contacts.map(&:person).include?(person)
       end
     end
