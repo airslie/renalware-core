@@ -65,7 +65,7 @@ module Renalware
       end
 
       def other_cc_recipients
-        cc_recipients.select { |cc| cc.person_role.other? }
+        cc_recipients.select { |cc| cc.person_role.contact? }
       end
 
       def determine_counterpart_ccs

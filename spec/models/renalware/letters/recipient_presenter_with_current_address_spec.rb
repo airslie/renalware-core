@@ -27,11 +27,11 @@ module Renalware
           end
         end
 
-        context "given the recipient's role is other" do
-          let(:letter) { build_letter(to: :other, patient: patient) }
+        context "given the recipient's role is contact" do
+          let(:letter) { build_letter(to: :contact, patient: patient) }
 
           it "returns the recipient's address" do
-            expect(presenter.address).to eq(recipient.address)
+            expect(presenter.address).to eq(recipient.current_address)
           end
         end
       end

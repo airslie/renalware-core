@@ -6,26 +6,25 @@ module Renalware
       extend Enumerize
 
       belongs_to :letter
-      has_one :address, as: :addressable
+      belongs_to :addressee, polymorphic: true
+      has_one :address, as: :addressable # for archiving purposes
 
       enumerize :role, in: %i(main cc)
-      enumerize :person_role, in: %i(patient primary_care_physician other)
+      enumerize :person_role, in: %i(patient primary_care_physician contact)
 
       accepts_nested_attributes_for :address, allow_destroy: true, reject_if: :patient_or_primary_care_physician?
 
-      delegate :primary_care_physician?, :patient?, :other?, to: :person_role
+      delegate :primary_care_physician?, :patient?, :contact?, to: :person_role
 
       def to_s
-        address.to_s
+        (address || current_address).to_s
       end
 
       def archive!
-        return if address.present?
+        build_address if address.blank?
 
-        build_address.tap do |address|
-          address.copy_from(current_address)
-          address.save!
-        end
+        address.copy_from(current_address)
+        address.save!
       end
 
       def current_address
@@ -35,7 +34,7 @@ module Renalware
         when primary_care_physician?
           letter.primary_care_physician.current_address
         else
-          address
+          addressee.address
         end
       end
 

@@ -8,7 +8,7 @@ module Renalware
 
       def cc_on_letter?(letter)
         return false unless letter.patient.assigned_to_primary_care_physician?(self)
-        letter.main_recipient.patient? || letter.main_recipient.other?
+        letter.main_recipient.patient? || letter.main_recipient.contact?
       end
     end
   end

@@ -25,7 +25,12 @@ module LettersSpecHelper
     when :primary_care_physician
       { person_role: "primary_care_physician" }
     else
-      { person_role: "other", address: build(:address) }
+      address_attributes = attributes_for(:address)
+      {
+        person_role: "contact",
+        address_attributes: address_attributes,
+        addressee: build(:directory_person, address_attributes: address_attributes)
+      }
     end
   end
 end
