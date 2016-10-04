@@ -36,7 +36,9 @@ module Renalware
             person.address.copy_from(recipient.address)
             person.address.save!
 
-            recipient.addressee = person
+            contact = Contact.create(person: person, patient: letter.patient)
+
+            recipient.addressee = contact
             recipient.save!
           end
         end
