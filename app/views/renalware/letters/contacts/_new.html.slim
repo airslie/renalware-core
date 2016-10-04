@@ -1,0 +1,14 @@
+/ The modal dialog
+#add-patient-contact-modal.reveal-modal.medium(data-reveal)
+  = simple_form_for patient.contacts.new,
+      url: patient_letters_contacts_path(patient),
+      wrapper: "horizontal_form" do |f|
+    h2= t(".title")
+    = render 'form', f: f, people: people
+
+    =f.submit t(".save"), class: :button
+    span= " or "
+    =link_to t(".cancel"),
+             "#",
+             "aria-label" => "Close",
+             class: "reveal-modal-close"
