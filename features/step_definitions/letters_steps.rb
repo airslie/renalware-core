@@ -12,7 +12,6 @@ Given(/^Patty is the main recipient on a pending letter$/) do
   @letter = seed_simple_letter_for(@patty, user: @nathalie)
 end
 
-
 Given(/^Nathalie drafted a letter for Patty$/) do
   @letter = seed_simple_letter_for(@patty, user: @nathalie)
 end
@@ -121,6 +120,10 @@ When(/^Nathalie marks the letter as printed$/) do
   mark_letter_as_printed(patient: @patty, user: @nathalie)
 end
 
+When(/^Clyde assigns Sam as a contact for Patty$/) do
+  assign_contact(patient: @patty, person: @sam, user: @clyde)
+end
+
 # THEN
 
 Then(/^"(.*?)" will receive the letter$/) do |recipient|
@@ -203,4 +206,8 @@ end
 
 Then(/^Clyde views these letters:$/) do |table|
   expect_letters_to_be(table)
+end
+
+Then(/^Sam is listed as Patty's available contacts$/) do
+  expect_available_contact(patient: @patty, person: @sam)
 end

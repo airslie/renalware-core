@@ -22,6 +22,10 @@ class CollectionPresenter
     to_ary.size
   end
 
+  def to_json
+    @decorated_collection.map(&:to_hash).to_json
+  end
+
   def method_missing(method, *args, &block)
     if @decorated_collection.respond_to?(method)
       @decorated_collection.public_send(method, *args, &block)

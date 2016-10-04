@@ -2,6 +2,10 @@ Given(/^A person exists in the directory$/) do
   seed_person(user: Renalware::User.first)
 end
 
+Given(/^Sam is a social worker$/) do
+  @sam = seed_person(given_name: "Sam", user: Renalware::User.first)
+end
+
 When(/^Clyde adds a person to the directory$/) do
   create_person(user: @clyde)
 end
