@@ -15,9 +15,9 @@ module World
 
       # @section seeding
       #
-      def seed_person(user:)
+      def seed_person(given_name: Faker::Name.first_name, user:)
         Renalware::Directory::Person.create!(
-          valid_person_attributes.merge(by: user)
+          valid_person_attributes.merge(given_name: given_name, by: user)
         )
       end
 

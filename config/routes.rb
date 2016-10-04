@@ -26,7 +26,11 @@ Rails.application.routes.draw do
     resources :deaths, only: :index, as: :patient_deaths
 
     namespace :directory do
-      resources :people, except: [:delete]
+      resources :people, except: [:delete] do
+        collection do
+          get :search
+        end
+      end
     end
 
     namespace :drugs do
@@ -147,6 +151,7 @@ Rails.application.routes.draw do
       end
 
       namespace :letters do
+        resources :contacts
         resources :letters do
           resource :pending_review, controller: "pending_review_letters", only: :create
           resource :rejected, controller: "rejected_letters", only: :create
