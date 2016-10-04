@@ -1204,7 +1204,9 @@ CREATE TABLE letter_recipients (
     person_role character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    letter_id integer NOT NULL
+    letter_id integer NOT NULL,
+    addressee_type character varying,
+    addressee_id integer
 );
 
 
@@ -5105,6 +5107,13 @@ CREATE INDEX index_letter_letters_on_updated_by_id ON letter_letters USING btree
 
 
 --
+-- Name: index_letter_recipients_on_addressee_type_and_addressee_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_letter_recipients_on_addressee_type_and_addressee_id ON letter_recipients USING btree (addressee_type, addressee_id);
+
+
+--
 -- Name: index_letter_recipients_on_letter_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6668,4 +6677,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160906195949');
 INSERT INTO schema_migrations (version) VALUES ('20160916113152');
 
 INSERT INTO schema_migrations (version) VALUES ('20160922154638');
+
+INSERT INTO schema_migrations (version) VALUES ('20161003204347');
 
