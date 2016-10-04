@@ -1,3 +1,6 @@
+require_dependency "renalware/directory"
+require "collection_presenter"
+
 module Renalware
   module Directory
     class PeopleController < BaseController
@@ -13,7 +16,7 @@ module Renalware
         authorize Person, :index?
 
         query = PersonQuery.new(q: { name_cont: params.fetch(:term) })
-        render json: query.call.map { |person| { id: person.id, label: person.to_s } }.to_json
+        render json: CollectionPresenter.new(query.call, PersonAutoCompletePresenter).to_json
       end
 
       def show
