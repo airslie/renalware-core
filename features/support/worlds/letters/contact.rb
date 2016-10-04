@@ -3,7 +3,7 @@ module World
     module Domain
       # @section commands
       #
-      def assign_contact(patient:, person:)
+      def assign_contact(patient:, person:, **_)
         patient = letters_patient(patient)
         contact = patient.assign_contact(person: person)
         contact.save!
@@ -11,7 +11,7 @@ module World
 
       # @section expectations
       #
-      def expect_available_contact(patient:, person:, **_)
+      def expect_available_contact(patient:, person:)
         patient = letters_patient(patient)
         expect(patient).to be_available_contact(person)
       end
