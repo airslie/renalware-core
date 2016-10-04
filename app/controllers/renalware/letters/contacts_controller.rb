@@ -7,12 +7,12 @@ module Renalware
 
       def index
         contacts = find_contacts
-        render :index, locals: { contacts: contacts }
-      end
 
-      def new
-        contact = build_contact
-        render_form(contact, :new)
+        render :index, locals: {
+          patient: @patient,
+          contacts: contacts,
+          people: find_people
+        }
       end
 
       def create
@@ -35,10 +35,6 @@ module Renalware
         @patient
           .assign_contact(contact_params)
           .save!
-      end
-
-      def render_form(contact, action)
-        render action, locals: { contact: contact, people: find_people }
       end
 
       def find_people
