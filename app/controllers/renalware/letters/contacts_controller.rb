@@ -10,8 +10,7 @@ module Renalware
 
         render :index, locals: {
           patient: @patient,
-          contacts: contacts,
-          people: find_people
+          contacts: contacts
         }
       end
 
@@ -26,10 +25,6 @@ module Renalware
 
       def find_contacts
         @patient.contacts
-      end
-
-      def find_people
-        Directory::Person.all.ordered
       end
 
       def create_contact
