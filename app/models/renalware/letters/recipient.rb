@@ -42,6 +42,16 @@ module Renalware
         end
       end
 
+      # To remove when all recipients use the Addressee association
+      def can_use_addressee_association?
+        role.main?
+      end
+
+      def contact_id
+        return nil unless can_use_addressee_association?
+        @contact_id || addressee.try!(:id)
+      end
+
       private
 
       def patient_or_primary_care_physician?
@@ -49,14 +59,13 @@ module Renalware
       end
 
       def assign_addressee
-        return if role.cc?
-
+        return unless can_use_addressee_association?
         assign_addressee_from_contact_id
       end
 
       def assign_addressee_from_contact_id
-        if contact_id.present?
-          self.addressee = Contact.find(contact_id)
+        if contact? && contact_id.present?
+          self.addressee = letter.patient.contacts.find(contact_id)
         else
           self.addressee = nil
         end
