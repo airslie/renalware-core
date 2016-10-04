@@ -58,7 +58,7 @@ module Renalware
       attribute :transport, Transport
 
       class CareLevel < Document::Embedded
-        attribute :required, Document::Enum, enums: %i(yes no unknown)
+        attribute :level, Document::Enum # See .yml file for values
         attribute :assessed_on, Date
       end
       attribute :care_level, CareLevel

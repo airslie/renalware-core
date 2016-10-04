@@ -37,8 +37,8 @@ en:
         on_iron: On Iron?
         on_warfarin: On Warfarin?
       renalware/hd/profile_document/care_level:
-        required: Required?
         assessed_on: Assessment Date
+        level: Level
   enumerize:
     renalware/hd/profile:
       schedule:
@@ -66,6 +66,12 @@ en:
         ambulance_2_man_crew: Ambulance (2 man crew)
         car: Car
         taxi: Taxi
+    renalware/hd/profile_document/care_level:
+      level:
+        level0: 0 - Fully self-caring
+        level1: 1 - Wheelchair, can transfer to chair for dialysis
+        level2: 2 - Wheelchair-bound, transfers with help to bed
+        level3: 3 - Bed bound, needs hoist
 
   simple_form:
     hints:
