@@ -8,11 +8,11 @@
               class: "right inline"
         .small-9.columns
           = text_field_tag "person_auto_complete", \
-              f.object.person.try(:to_s, :long),
+              f.object.person.try!(:to_s, :long),
               data: { \
                 autocomplete_source: search_directory_people_path, \
                 autocomplete_rel: "#letters_contact_person_id" \
               },
               spellcheck: false,
-              placeholder: "Start entering the last name (min. 2 characters)"
+              placeholder: t(".person_auto_complete.prompt")
       = f.input :person_id, as: :hidden

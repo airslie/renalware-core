@@ -4,7 +4,7 @@
       url: patient_letters_contacts_path(patient),
       wrapper: "horizontal_form" do |f|
     h2= t(".title")
-    = render 'form', f: f, people: people
+    = render 'form', f: f
 
     =f.submit t(".save"), class: :button
     span= " or "

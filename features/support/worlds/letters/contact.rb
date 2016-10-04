@@ -13,7 +13,7 @@ module World
       #
       def expect_available_contact(patient:, person:)
         patient = letters_patient(patient)
-        expect(patient).to be_available_contact(person)
+        expect(patient).to have_available_contact(person)
       end
     end
 
