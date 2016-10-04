@@ -12,7 +12,7 @@ module Renalware
       def search
         authorize Person, :index?
 
-        query = PersonQuery.new(q: {name_cont: params.fetch(:term)})
+        query = PersonQuery.new(q: { name_cont: params.fetch(:term) })
         render json: query.call.map { |person| { id: person.id, label: person.to_s } }.to_json
       end
 

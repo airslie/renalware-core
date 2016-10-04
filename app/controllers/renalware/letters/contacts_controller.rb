@@ -18,7 +18,8 @@ module Renalware
       def create
         create_contact
 
-        redirect_to patient_letters_contacts_url(@patient)
+        redirect_to patient_letters_contacts_url(@patient),
+          notice: t(".success", model_name: "contact")
       end
 
       private
@@ -27,18 +28,14 @@ module Renalware
         @patient.contacts
       end
 
-      def build_contact
-        @patient.contacts.build
+      def find_people
+        Directory::Person.all.ordered
       end
 
       def create_contact
         @patient
           .assign_contact(contact_params)
           .save!
-      end
-
-      def find_people
-        Directory::Person.all.ordered
       end
 
       def contact_params
