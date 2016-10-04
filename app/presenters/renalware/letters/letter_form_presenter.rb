@@ -41,7 +41,7 @@ module Renalware
       end
 
       def other_role
-        ["Postal Address Below", "contact"]
+        ["Patient's Contact", "contact"]
       end
     end
   end

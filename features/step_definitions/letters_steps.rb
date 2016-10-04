@@ -51,6 +51,10 @@ Given(/^these letters were recorded:$/) do |table|
   seed_letters(table)
 end
 
+Given(/^Sam is one of Patty's contacts$/) do
+  seed_contact(patient: @patty, person: @sam)
+end
+
 # WHEN
 
 When(/^Nathalie drafts a letter for Patty to "(.*?)" with "(.*?)"$/) do |rec, ccs|

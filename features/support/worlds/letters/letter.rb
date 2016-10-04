@@ -9,12 +9,19 @@ module World
       end
 
       def letter_recipients_map
+        patient = letters_patient(@patty)
+
         {
           "Patty" => @patty,
           "Phylis" => @patty.primary_care_physician,
           "John in London" => { name: "John", city: "London" },
-          "Kate in Ely" => { name: "Kate", city: "Ely" }
+          "Kate in Ely" => { name: "Kate", city: "Ely" },
+          "Sam" => find_contact(patient, "Sam")
         }
+      end
+
+      def find_contact(patient, person_given_name)
+        patient.contacts.detect { |c| c.person.given_name == person_given_name }
       end
 
       def valid_simple_letter_attributes(patient)
@@ -137,6 +144,9 @@ module World
         elsif recipient.is_a? Renalware::Patients::PrimaryCarePhysician
           expect(main_recipient.person_role).to eq("primary_care_physician")
           expect(main_recipient.address.city).to eq(recipient.current_address.city)
+        elsif recipient.is_a? Renalware::Letters::Contact
+          expect(main_recipient.person_role).to eq("contact")
+          expect(main_recipient.addressee).to eq(recipient)
         else
           expect(main_recipient.address.name).to eq(recipient[:name])
           expect(main_recipient.address.city).to eq(recipient[:city])
@@ -250,6 +260,11 @@ module World
           { person_role: "primary_care_physician" }
         when Renalware::Patient
           { person_role: "patient" }
+        when Renalware::Letters::Contact
+          {
+            person_role: "contact",
+            contact_id: recipient.id
+          }
         else
           {
             person_role: "contact",
@@ -301,10 +316,8 @@ module World
         when Renalware::Patients::PrimaryCarePhysician
           choose("letter_main_recipient_attributes_person_role_primary_care_physician")
         else
-          choose("Postal Address Below")
-          fill_in "Name", with: recipient[:name]
-          fill_in "Line 1", with: "1 Main st"
-          fill_in "City", with: recipient[:city]
+          choose("Patient's Contact")
+          select recipient.person.to_s, from: "letter_main_recipient_attributes_contact_id"
         end
       end
 

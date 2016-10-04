@@ -16,6 +16,8 @@ module Renalware
 
       delegate :primary_care_physician?, :patient?, :contact?, to: :person_role
 
+      attr_accessor :contact_id
+
       def to_s
         (address || current_address).to_s
       end
@@ -35,6 +37,17 @@ module Renalware
           letter.primary_care_physician.current_address
         else
           addressee.address
+        end
+      end
+
+      def contact_id
+        addressee.try!(:id)
+      end
+
+      def contact_id=(value)
+        case
+        when contact?
+          self.addressee = Contact.find(value)
         end
       end
 
