@@ -18,6 +18,8 @@ module Renalware
 
       attr_accessor :contact_id
 
+      before_validation :assign_addressee
+
       def to_s
         (address || current_address).to_s
       end
@@ -40,21 +42,24 @@ module Renalware
         end
       end
 
-      def contact_id
-        addressee.try!(:id)
-      end
-
-      def contact_id=(value)
-        case
-        when contact?
-          self.addressee = Contact.find(value)
-        end
-      end
-
       private
 
       def patient_or_primary_care_physician?
         patient? || primary_care_physician?
+      end
+
+      def assign_addressee
+        return if role.cc?
+
+        assign_addressee_from_contact_id
+      end
+
+      def assign_addressee_from_contact_id
+        if contact_id.present?
+          self.addressee = Contact.find(contact_id)
+        else
+          self.addressee = nil
+        end
       end
     end
   end
