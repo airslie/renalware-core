@@ -73,15 +73,5 @@ module Renalware
     author: users.sample,
     by: users.sample
   )
-
   Renalware::Letters::ApproveLetter.build(letter).call(by: users.sample)
-  letter.main_recipient.build_address.tap do |address|
-    address.copy_from(letter.patient.current_address)
-    address.save!
-  end
-  recipient = letter.cc_recipients.create(person_role: "primary_care_physician")
-  recipient.build_address.tap do |address|
-    address.copy_from(letter.patient.primary_care_physician.current_address)
-    address.save!
-  end
 end

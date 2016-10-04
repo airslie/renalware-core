@@ -14,7 +14,8 @@ module Renalware
       def call(by:)
         Letter.transaction do
           sign(by: by)
-          archive(by: by)
+          archive_content(by: by)
+          archive_recipients
         end
       end
 
@@ -24,8 +25,12 @@ module Renalware
         @letter.sign(by: by).save!
       end
 
-      def archive(by:)
+      def archive_content(by:)
         @letter.generate_archive(by: by).save!
+      end
+
+      def archive_recipients
+        @letter.archive_recipients!
       end
     end
   end

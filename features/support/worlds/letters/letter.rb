@@ -159,7 +159,7 @@ module World
           elsif cc.is_a? Renalware::Patients::PrimaryCarePhysician
             ["primary_care_physician", cc.current_address.city]
           else
-            ["other", cc[:city]]
+            ["contact", cc[:city]]
           end
         end
 
@@ -188,6 +188,9 @@ module World
 
         expect(letter).to be_archived
         expect(letter.archive).to be_present
+        letter.recipients.each do |recipient|
+          expect(recipient.address).to be_present
+        end
       end
 
       def expect_letter_to_not_be_modified(patient:, user:)
@@ -249,7 +252,7 @@ module World
           { person_role: "patient" }
         else
           {
-            person_role: "other",
+            person_role: "contact",
             address_attributes: {
               name: recipient[:name],
               city: recipient[:city],
