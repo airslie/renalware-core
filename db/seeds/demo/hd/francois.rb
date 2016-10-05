@@ -62,7 +62,7 @@ module Renalware
         decided_on: 2.days.ago.to_date,
       },
       care_level: {
-        required: :no,
+        level: :level1,
         assessed_on: 3.days.ago.to_date
       }
     }
