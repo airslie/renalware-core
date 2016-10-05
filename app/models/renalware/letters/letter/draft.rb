@@ -8,7 +8,7 @@ module Renalware
       end
 
       def revise(params)
-        params = LetterAttributesProcessor.new(patient, params).call
+        params = LetterParamsProcessor.new(patient).call(params)
         self.attributes = params
       end
 
