@@ -21,7 +21,7 @@ module World
       end
 
       def find_contact(patient, person_given_name)
-        patient.contacts.detect { |c| c.person.given_name == person_given_name }
+        patient.contacts.with_person.find_by(directory_people: { given_name: person_given_name })
       end
 
       def valid_simple_letter_attributes(patient)
