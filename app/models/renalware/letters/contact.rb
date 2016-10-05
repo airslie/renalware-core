@@ -7,6 +7,7 @@ module Renalware
       belongs_to :person, class_name: "Directory::Person"
 
       delegate :address, :to_s, to: :person
+      delegate :name, to: :address, prefix: true
 
       scope :with_person, -> { includes(:person) }
     end
