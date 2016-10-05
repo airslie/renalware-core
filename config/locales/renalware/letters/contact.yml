@@ -1,4 +1,11 @@
 en:
+  activerecord:
+    errors:
+      models:
+        renalware/letters/contact:
+          attributes:
+            person:
+              taken: "must be unique to the patient"
   renalware:
     letters:
       contacts:

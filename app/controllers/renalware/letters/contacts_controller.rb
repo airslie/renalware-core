@@ -29,7 +29,7 @@ module Renalware
       end
 
       def find_contacts
-        @patient.contacts
+        @patient.contacts.ordered
       end
 
       def contact_params

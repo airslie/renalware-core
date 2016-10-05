@@ -2,7 +2,7 @@ require "rails_helper"
 require "test_support/autocomplete_helpers"
 require "test_support/ajax_helpers"
 
-RSpec.describe "Searching drugs", type: :feature, js: true do
+RSpec.describe "Assign a contact to a patient", type: :feature, js: true do
   include AutocompleteHelpers
   include AjaxHelpers
 
