@@ -11,11 +11,12 @@ module Renalware
       end
 
       def call(params)
-        params = if can_have_contact_as_addressee?(params)
-          put_contact_as_addressee(params)
-        else
-          clear_addressee(params)
-        end
+        params =
+          if can_have_contact_as_addressee?(params)
+            put_contact_as_addressee(params)
+          else
+            clear_addressee(params)
+          end
         params = remove_addressee_id(params)
 
         params
