@@ -1,3 +1,7 @@
 = render layout: "renalware/patients/layout", locals: { title: t(".title") } do
-  = render "table", contacts: contacts
-  = render "new", patient: patient
+  #contacts
+    = render "table", contacts: contacts
+
+  / The modal dialog
+  #add-patient-contact-modal.reveal-modal.medium(data-reveal)
+    = render "new", patient: patient, contact: contact

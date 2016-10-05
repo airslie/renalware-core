@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).on('ready ajaxSuccess', function() {
 
   $.ui.autocomplete.prototype._renderItem = function (ul, item) {
     var t = String(item.value).replace(

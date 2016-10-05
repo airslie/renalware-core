@@ -42,6 +42,8 @@ module World
 
           click_on "Save"
         end
+
+        wait_for_ajax
       end
     end
   end
