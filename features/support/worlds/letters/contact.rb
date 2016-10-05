@@ -1,6 +1,14 @@
 module World
   module Letters::Contact
     module Domain
+      # @section seeding
+      #
+      def seed_contact(patient:, person:)
+        patient = letters_patient(patient)
+        contact = patient.assign_contact(person: person)
+        contact.save!
+      end
+
       # @section commands
       #
       def assign_contact(patient:, person:, **_)

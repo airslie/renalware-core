@@ -1,23 +1,23 @@
 var Renalware = typeof Renalware === 'undefined' ? {} : Renalware;
 
 Renalware.Letters = (function() {
-  var hideOrShowOtherAddress = function() {
+  var hideOrShowContactSelector = function() {
     var recipient_type = $("input.recipient-person-role-picker:checked").val();
 
     if (recipient_type === "contact") {
-      $("#other-address").show();
+      $("#contact-selector").show();
     } else {
-      $("#other-address").hide();
+      $("#contact-selector").hide();
     }
   };
 
   var bindOnLetterRecipientTypeChange = function() {
-    $("#letter-form").change(hideOrShowOtherAddress);
+    $("#letter-form").change(hideOrShowContactSelector);
   };
 
   return {
     init: function () {
-      hideOrShowOtherAddress();
+      hideOrShowContactSelector();
       bindOnLetterRecipientTypeChange();
     }
   };

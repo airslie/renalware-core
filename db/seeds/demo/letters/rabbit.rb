@@ -46,14 +46,16 @@ module Renalware
     by: users.sample
   )
 
+  contact = patient.contacts.first!
   Letters::Letter::PendingReview.create!(
     patient: patient,
     issued_on: 3.days.ago,
     description: Renalware::Letters::Description.last.text,
     main_recipient_attributes: {
-      person_role: "patient"
+      person_role: "contact",
+      addressee: contact
     },
-    salutation: "Dear Mr Rabbit",
+    salutation: "Dear #{contact.address_name}",
     body: letter_body,
     letterhead: Renalware::Letters::Letterhead.last,
     author: users.sample,

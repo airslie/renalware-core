@@ -10,6 +10,8 @@ Feature: Writing a letter
     Given Nathalie is a nurse
     And Patty is a patient
     And Phylis is Patty's primary care physician
+    And Sam is a social worker
+    And Sam is one of Patty's contacts
 
   @web @javascript
   Scenario Outline: A nurse drafted a letter
@@ -23,7 +25,7 @@ Feature: Writing a letter
       | Phylis         | John in London              | Patty, John in London              |
       | Phylis         | John in London, Kate in Ely | Patty, John in London, Kate in Ely |
       | Patty          |                             | Phylis                             |
-      | John in London |                             | Patty, Phylis                      |
+      | Sam            |                             | Patty, Phylis                      |
 
   @web
   Scenario: A nurse drafted an erroneous letter

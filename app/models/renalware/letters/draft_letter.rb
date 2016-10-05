@@ -25,7 +25,7 @@ module Renalware
 
       # Will go away when we add the contact picker in the forms
       def hack_people!(letter)
-        letter.recipients.each do |recipient|
+        letter.cc_recipients.each do |recipient|
           if recipient.contact?
             person = Directory::Person.create!(
               given_name: "John",
