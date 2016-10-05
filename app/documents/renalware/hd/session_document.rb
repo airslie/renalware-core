@@ -21,9 +21,11 @@ module Renalware
 
       class Observations < Document::Embedded
         attribute :weight, Float
+        attribute :weight_unmeasurable, Boolean
         attribute :pulse, Integer
         attribute :blood_pressure, BloodPressure
         attribute :temperature, Float
+        attribute :temperature_unmeasurable, Boolean
         attribute :bm_stix, Float
 
         validates :weight, "renalware/patients/weight" => true
