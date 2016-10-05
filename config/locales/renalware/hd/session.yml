@@ -49,14 +49,15 @@ en:
       renalware/hd/session_document/complications:
         access_site_status: Access Site Status
         was_dressing_changed: Was dressing changed?
-        had_mrsa_swab: Had MRSA swab?
-        had_mssa_swab: Had MSSA swab?
         had_intradialytic_hypotension: Had intradialytic hypotension?
         had_saline_administration: Had saline administration?
         had_cramps: Had cramps?
         had_headache: Had headache?
         had_chest_pain: Had chest pain?
         had_alteplase_urokinase: Had alteplase urokinase?
+        had_mrsa_swab: Had MRSA swab?
+        had_mssa_swab: Had MSSA swab?
+
     errors:
       models:
         renalware/hd/session_document/dialysis:
