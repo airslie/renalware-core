@@ -108,7 +108,7 @@ module Renalware
 
       def main_recipient_attributes
         [
-          :id, :person_role, :contact_id
+          :id, :person_role, :addressee_id
         ]
       end
 

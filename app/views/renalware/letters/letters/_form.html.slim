@@ -34,7 +34,7 @@ ruby:
       = fmr.input :id, as: :hidden
 
       div#contact-selector(style="display: none")
-        = fmr.input :contact_id, as: :select, collection: @patient.contacts, label: false
+        = fmr.input :addressee_id, as: :select, collection: @patient.contacts, label: false, include_blank: false
 
 
   = render layout: "renalware/shared/fieldset",

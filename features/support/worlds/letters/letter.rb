@@ -263,7 +263,7 @@ module World
         when Renalware::Letters::Contact
           {
             person_role: "contact",
-            contact_id: recipient.id
+            addressee_id: recipient.id
           }
         else
           {
@@ -317,7 +317,7 @@ module World
           choose("letter_main_recipient_attributes_person_role_primary_care_physician")
         else
           choose("Patient's Contact")
-          select recipient.person.to_s, from: "letter_main_recipient_attributes_contact_id"
+          select recipient.person.to_s, from: "letter_main_recipient_attributes_addressee_id"
         end
       end
 
