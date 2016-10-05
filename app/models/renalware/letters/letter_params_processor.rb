@@ -11,9 +11,7 @@ module Renalware
       end
 
       def call(params)
-        params = process_main_recipient_attributes(params)
-
-        params
+        process_main_recipient_attributes(params)
       end
 
       private

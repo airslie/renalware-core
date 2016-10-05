@@ -11,10 +11,10 @@ module Renalware
       end
 
       def call(params)
-        if can_have_contact_as_addressee?(params)
-          params = put_contact_as_addressee(params)
+        params = if can_have_contact_as_addressee?(params)
+          put_contact_as_addressee(params)
         else
-          params = clear_addressee(params)
+          clear_addressee(params)
         end
         params = remove_addressee_id(params)
 
@@ -40,7 +40,7 @@ module Renalware
       end
 
       def fetch_contact(params)
-        @patient.contacts.find_by(id: params[:addressee_id])
+        @patient.contacts.find_by!(id: params[:addressee_id])
       end
     end
   end
