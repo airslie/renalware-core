@@ -5105,17 +5105,10 @@ CREATE INDEX index_letter_archives_on_updated_by_id ON letter_archives USING btr
 
 
 --
--- Name: index_letter_contacts_on_patient_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_letter_contacts_on_person_id_and_patient_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_letter_contacts_on_patient_id ON letter_contacts USING btree (patient_id);
-
-
---
--- Name: index_letter_contacts_on_person_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_letter_contacts_on_person_id ON letter_contacts USING btree (person_id);
+CREATE UNIQUE INDEX index_letter_contacts_on_person_id_and_patient_id ON letter_contacts USING btree (person_id, patient_id);
 
 
 --
@@ -6740,8 +6733,11 @@ INSERT INTO schema_migrations (version) VALUES ('20160916113152');
 
 INSERT INTO schema_migrations (version) VALUES ('20160922154638');
 
+INSERT INTO schema_migrations (version) VALUES ('20160930111424');
+
 INSERT INTO schema_migrations (version) VALUES ('20161003192717');
 
 INSERT INTO schema_migrations (version) VALUES ('20161003204347');
 
-INSERT INTO schema_migrations (version) VALUES ('20160930111424');
+INSERT INTO schema_migrations (version) VALUES ('20161004185820');
+

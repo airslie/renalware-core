@@ -6,6 +6,9 @@ module Renalware
       belongs_to :patient
       belongs_to :person, class_name: "Directory::Person"
 
+      validates :person, presence: true, uniqueness: { scope: :patient,
+        message: "the person must be unique to the patient" }
+
       delegate :address, :to_s, to: :person
       delegate :name, to: :address, prefix: true
 
