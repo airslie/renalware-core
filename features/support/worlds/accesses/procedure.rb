@@ -75,8 +75,8 @@ module World
           click_on "Add an Access Procedure"
         end
 
-        fill_in "Performed", with: I18n.l(Time.zone.today)
-        select user.to_s, from: "Performed By"
+        fill_in "Performed On", with: I18n.l(Time.zone.today)
+        fill_in "Performed By", with: user.to_s
         select "Vein loop", from: "Access Type"
         select site.to_s, from: "Access Site"
         select "Right", from: "Access Side"

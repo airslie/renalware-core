@@ -12,7 +12,7 @@ ruby:
       locals: { legend: "Access Procedure", name: "procedure" } do
 
     = f.input :performed_on, as: :date_picker
-    = f.association :performed_by, as: :user_picker, collection: Renalware::User.ordered
+    = f.input :performed_by
     = f.association :type,
         collection: Renalware::Accesses::Type.ordered, input_html: { class: "small-input" }
     = f.association :site,

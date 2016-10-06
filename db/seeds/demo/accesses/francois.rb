@@ -14,7 +14,7 @@ module Renalware
     type: Accesses::Type.all.sample,
     site: Accesses::Site.all.sample,
     side: Accesses::Profile.side.values.sample,
-    performed_by: users.sample,
+    performed_by: users.sample.full_name,
     notes: dummy_text,
     outcome: "Perfect",
     by: users.sample
@@ -25,7 +25,7 @@ module Renalware
     type: Accesses::Type.all.sample,
     site: Accesses::Site.all.sample,
     side: Accesses::Profile.side.values.sample,
-    performed_by: users.sample,
+    performed_by: users.sample.full_name,
     notes: dummy_text,
     outcome: "Perfect",
     by: users.sample
