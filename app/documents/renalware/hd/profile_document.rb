@@ -35,7 +35,7 @@ module Renalware
         def self.sodium_levels; [136, 137, 138, 140, 145]; end
 
         def has_sodium_profiling?
-          has_sodium_profiling.try(:yes?)
+          has_sodium_profiling.try!(:yes?)
         end
       end
       attribute :dialysis, Dialysis
