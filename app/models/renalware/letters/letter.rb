@@ -35,11 +35,11 @@ module Renalware
       scope :pending, -> { where(type: [state_class_name(:draft), state_class_name(:pending_review)]) }
       scope :reverse, -> { order(updated_at: :desc) }
       scope :with_letterhead, -> { includes(:letterhead) }
-      scope :with_main_recipient, -> { includes([main_recipient: :addressee]) }
+      scope :with_main_recipient, -> { includes(main_recipient: :addressee) }
       scope :with_author, -> { includes(:author) }
-      scope :with_patient, -> { includes([patient: :primary_care_physician]) }
+      scope :with_patient, -> { includes(patient: :primary_care_physician) }
       scope :with_event, -> { includes(:event) }
-      scope :with_cc_recipients, -> { includes([cc_recipients: [addressee: [person: :address]]]) }
+      scope :with_cc_recipients, -> { includes(cc_recipients: {addressee: {person: :address}}) }
 
       def self.policy_class
         LetterPolicy
