@@ -19,4 +19,7 @@ en:
       navigation:
         list: List
         add_contact: Add contact
+    shared:
+      fieldset:
+        add_contact: Add new person to contacts list
 

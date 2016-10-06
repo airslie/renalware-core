@@ -27,14 +27,24 @@ ruby:
     = f.input :issued_on, as: :date_picker
     = f.association :author, as: :user_picker, collection: Renalware::User.ordered
 
-    = f.simple_fields_for :main_recipient do |fmr|
+  = render layout: "renalware/shared/fieldset",
+      locals: { legend: "Main Recipient", name: "main_recipient" } do
+   = f.simple_fields_for :main_recipient do |fmr|
       = fmr.input :person_role, as: :radio_buttons,
           collection: f.object.person_roles,
           input_html: { class: 'recipient-person-role-picker' }, hint: f.object.patient_cc_hint
       = fmr.input :id, as: :hidden
 
       div#contact-selector(style="display: none")
-        = fmr.input :addressee_id, as: :select, collection: @patient.contacts, label: false, include_blank: false
+        #contact-selector-input
+          = fmr.input :addressee_id, as: :select, collection: @patient.contacts.ordered, label: false, include_blank: false
+
+        .row
+          .small-offset-3.small-9.columns
+            = link_to(t(".add_contact"), '#', class: "tiny button", data: { "reveal-id" => "add-patient-contact-modal" })
+            br
+            br
+
 
 
   = render layout: "renalware/shared/fieldset",

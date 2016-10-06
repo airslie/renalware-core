@@ -68,13 +68,17 @@ module Renalware
       end
 
       def render_form(letter, action)
-        @letter = LetterFormPresenter.new(letter)
-        render action
+        letter = LetterFormPresenter.new(letter)
+        render action, locals: { patient: @patient, letter: letter, contact: build_contact }
       end
 
       def find_event
         return unless event_type.present?
         event_class.for_patient(@patient).find(event_id)
+      end
+
+      def build_contact
+        Contact.new
       end
 
       def event_class

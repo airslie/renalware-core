@@ -4,7 +4,7 @@
     remote: true do |f|
   h2= t(".title")
   = render partial: "renalware/shared/errors", locals: {model: contact}
-  = render 'form', f: f
+  = render "renalware/letters/contacts/form", f: f
 
   =f.submit t(".save"), class: :button
   span= " or "
