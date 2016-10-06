@@ -6,31 +6,30 @@ module Renalware
       before_filter :load_patient
 
       def index
-        contacts = find_contacts
-
         render :index, locals: {
           patient: @patient,
-          contacts: contacts
+          contact: build_contact,
+          contacts: find_contacts
         }
       end
 
       def create
-        create_contact
-
-        redirect_to patient_letters_contacts_url(@patient),
-          notice: t(".success", model_name: "contact")
+        contact = @patient.assign_contact(contact_params)
+        if contact.save
+          render :create, locals: { patient: @patient, contact: contact, contacts: find_contacts }
+        else
+          render :create, locals: { patient: @patient, contact: contact }
+        end
       end
 
       private
 
-      def find_contacts
-        @patient.contacts
+      def build_contact
+        Contact.new
       end
 
-      def create_contact
-        @patient
-          .assign_contact(contact_params)
-          .save!
+      def find_contacts
+        @patient.contacts.ordered
       end
 
       def contact_params

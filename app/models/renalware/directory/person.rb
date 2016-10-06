@@ -22,6 +22,10 @@ module Renalware
         person.build_address
         person
       end
+
+      def to_s
+        "#{family_name}, #{given_name}"
+      end
     end
   end
 end

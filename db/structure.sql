@@ -127,7 +127,7 @@ CREATE TABLE access_procedures (
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    performed_by_id integer NOT NULL
+    performed_by character varying
 );
 
 
@@ -4818,13 +4818,6 @@ CREATE INDEX index_access_procedures_on_patient_id ON access_procedures USING bt
 
 
 --
--- Name: index_access_procedures_on_performed_by_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_access_procedures_on_performed_by_id ON access_procedures USING btree (performed_by_id);
-
-
---
 -- Name: index_access_procedures_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5112,17 +5105,10 @@ CREATE INDEX index_letter_archives_on_updated_by_id ON letter_archives USING btr
 
 
 --
--- Name: index_letter_contacts_on_patient_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_letter_contacts_on_person_id_and_patient_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_letter_contacts_on_patient_id ON letter_contacts USING btree (patient_id);
-
-
---
--- Name: index_letter_contacts_on_person_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_letter_contacts_on_person_id ON letter_contacts USING btree (person_id);
+CREATE UNIQUE INDEX index_letter_contacts_on_person_id_and_patient_id ON letter_contacts USING btree (person_id, patient_id);
 
 
 --
@@ -6342,14 +6328,6 @@ ALTER TABLE ONLY pd_infection_organisms
 
 
 --
--- Name: fk_rails_df8ecd8ea9; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY access_procedures
-    ADD CONSTRAINT fk_rails_df8ecd8ea9 FOREIGN KEY (performed_by_id) REFERENCES users(id);
-
-
---
 -- Name: fk_rails_e03d4a27ce; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6755,7 +6733,11 @@ INSERT INTO schema_migrations (version) VALUES ('20160916113152');
 
 INSERT INTO schema_migrations (version) VALUES ('20160922154638');
 
+INSERT INTO schema_migrations (version) VALUES ('20160930111424');
+
 INSERT INTO schema_migrations (version) VALUES ('20161003192717');
 
 INSERT INTO schema_migrations (version) VALUES ('20161003204347');
+
+INSERT INTO schema_migrations (version) VALUES ('20161004185820');
 
