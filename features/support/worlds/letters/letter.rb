@@ -39,8 +39,7 @@ module World
         author = options.fetch(:author, user)
 
         patient = letters_patient(patient)
-        person = FactoryGirl.create(:directory_person, by: user)
-        contact = FactoryGirl.create(:letter_contact, patient: patient, person: person)
+        contact = create_contact(patient: patient, user: user)
 
         letter_attributes = valid_simple_letter_attributes(patient).merge(
           main_recipient_attributes: { person_role: "patient" },
