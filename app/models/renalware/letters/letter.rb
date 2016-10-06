@@ -64,8 +64,8 @@ module Renalware
         patient == other_patient
       end
 
-      def other_cc_recipients
-        cc_recipients.select { |cc| cc.person_role.contact? }
+      def find_cc_recipient_for_contact(contact)
+        cc_recipients.detect { |recipient| recipient.for_contact?(contact) }
       end
 
       def determine_counterpart_ccs

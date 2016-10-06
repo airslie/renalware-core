@@ -11,7 +11,8 @@ module Renalware
       end
 
       def call(params)
-        process_main_recipient_attributes(params)
+        params = process_main_recipient_attributes(params)
+        process_cc_recipients_attributes(params)
       end
 
       private
@@ -24,8 +25,26 @@ module Renalware
         )
       end
 
+      def process_cc_recipients_attributes(params)
+        return params unless params.has_key?(:cc_recipients_attributes)
+
+        params.merge(
+          cc_recipients_attributes: cc_recipients_attributes(params)
+        )
+      end
+
       def main_recipient_attributes(params)
-        RecipientParamsProcessor.new(@patient).call(params[:main_recipient_attributes])
+        recipient_attributes(params[:main_recipient_attributes])
+      end
+
+      def cc_recipients_attributes(params)
+        params[:cc_recipients_attributes].map do |attributes|
+          recipient_attributes(attributes)
+        end
+      end
+
+      def recipient_attributes(params)
+        RecipientParamsProcessor.new(@patient).call(params)
       end
     end
   end

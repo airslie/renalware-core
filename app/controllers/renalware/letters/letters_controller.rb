@@ -69,6 +69,7 @@ module Renalware
 
       def render_form(letter, action)
         @letter = LetterFormPresenter.new(letter)
+        @contacts = @patient.contacts
         render action
       end
 
@@ -114,8 +115,7 @@ module Renalware
 
       def cc_recipients_attributes
         [
-          :id, :person_role, :_destroy,
-          address_attributes: address_attributes
+          :id, :person_role, :addressee_id, :_keep
         ]
       end
 

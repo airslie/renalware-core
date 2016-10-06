@@ -13,13 +13,13 @@ module Renalware
       def call(params)
         params =
           if can_have_contact_as_addressee?(params)
-            put_contact_as_addressee(params)
+            params = put_contact_as_addressee(params)
+            process_keep_flag(params)
           else
             clear_addressee(params)
           end
-        params = remove_addressee_id(params)
 
-        params
+        remove_addressee_id(params)
       end
 
       private
@@ -38,6 +38,11 @@ module Renalware
 
       def clear_addressee(params)
         params.merge(addressee: nil)
+      end
+
+      def process_keep_flag(params)
+        params[:_destroy] =  (params[:_keep] == "1") ? "0" : "1"
+        params.except(:_keep)
       end
 
       def fetch_contact(params)
