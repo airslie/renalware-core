@@ -14,9 +14,9 @@ module Renalware
         attribute :info, Info
 
         class Observations < Renalware::HD::SessionDocument::Observations
-          validates_presence_of :pulse, :blood_pressure
-          validates_presence_of :weight, unless: :weight_unmeasurable?
-          validates_presence_of :temperature, unless: :temperature_unmeasurable?
+          validates_presence_of :pulse, :blood_pressure, :weight_measured, :temperature_measured
+          validates_presence_of :weight, if: "weight_measured.try!(:yes?)"
+          validates_presence_of :temperature, if: "temperature_measured.try!(:yes?)"
           validates :blood_pressure, "renalware/patients/blood_pressure_presence" => true
         end
         attribute :observations_before, Observations

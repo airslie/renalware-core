@@ -42,7 +42,8 @@ module Renalware
           it { is_expected.to validate_presence_of(:pulse) }
 
           it { is_expected.to_not validate_presence_of(:bm_stix) }
-          it { is_expected.to_not validate_presence_of(:weight_unmeasurable) }
+          it { is_expected.to validate_presence_of(:weight_measured) }
+          it { is_expected.to validate_presence_of(:temperature_measured) }
 
           it "validates presence of blood_pressure" do
             expect(observations).to_not be_valid
@@ -50,26 +51,26 @@ module Renalware
           end
 
           context "#weight" do
-            it "validate weight when weight_unmeasurable is not true" do
-              observations.weight_unmeasurable = true
-              expect(observations).to_not validate_presence_of(:weight)
+            it "validate weight when weight_measured is true" do
+              observations.weight_measured = :yes
+              expect(observations).to validate_presence_of(:weight)
             end
 
-            it "does not validate weight when weight_unmeasurable is true" do
-              observations.weight_unmeasurable = false
-              expect(observations).to validate_presence_of(:weight)
+            it "does not validate weight when weight_measured is false" do
+              observations.weight_measured = :no
+              expect(observations).to_not validate_presence_of(:weight)
             end
           end
 
           context "#temperature" do
-            it "validate temperature when temperature_unmeasurable is not true" do
-              observations.temperature_unmeasurable = true
-              expect(observations).to_not validate_presence_of(:temperature)
+            it "validate temperature when temperature_measured is true" do
+              observations.temperature_measured = :yes
+              expect(observations).to validate_presence_of(:temperature)
             end
 
-            it "does not validate temperature when weight_unmeasurable is true" do
-              observations.temperature_unmeasurable = false
-              expect(observations).to validate_presence_of(:temperature)
+            it "does not validate temperature when weight_measured is false" do
+              observations.temperature_measured = :no
+              expect(observations).to_not validate_presence_of(:temperature)
             end
           end
         end

@@ -46,31 +46,22 @@ ruby:
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Pre-Dialysis Observations", name: "before" } do
       = fd.simple_fields_for :observations_before, fd.object.observations_before do |fcm|
-        = fcm.input :weight_unmeasurable,
-                    as: :boolean,
-                    boolean_style: :inline
+        = fcm.input :weight_measured, as: :inline_radio_buttons
         = fcm.input :weight, input_html: { class: "small-input" }
         = fcm.input :pulse, input_html: { class: "small-input" }
         = render_input fcm, :blood_pressure
-        = fcm.input :temperature_unmeasurable,
-                    as: :boolean,
-                    boolean_style: :inline
-        = fcm.input :temperature,
-                      input_html: { class: "small-input" }
+        = fcm.input :temperature_measured, as: :inline_radio_buttons
+        = fcm.input :temperature, input_html: { class: "small-input" }
         = fcm.input :bm_stix, input_html: { class: "small-input" }
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Post-Dialysis Observations", name: "after" } do
       = fd.simple_fields_for :observations_after, fd.object.observations_after do |fcm|
-        = fcm.input :weight_unmeasurable,
-                    as: :boolean,
-                    boolean_style: :inline
+        = fcm.input :weight_measured, as: :inline_radio_buttons
         = fcm.input :weight, input_html: { class: "small-input" }
         = fcm.input :pulse, input_html: { class: "small-input" }
         = render_input fcm, :blood_pressure
-        = fcm.input :temperature_unmeasurable,
-                    as: :boolean,
-                    boolean_style: :inline
+        = fcm.input :temperature_measured, as: :inline_radio_buttons
         = fcm.input :temperature, input_html: { class: "small-input" }
         = fcm.input :bm_stix, input_html: { class: "small-input" }
 
