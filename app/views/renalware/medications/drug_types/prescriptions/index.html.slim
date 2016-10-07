@@ -1,0 +1,52 @@
+/ # TODO: This search scope isn't very maintainable - move to a scope on the query object once
+/         I understand how to define this in Arel? Ideally the local_patient_id
+/         should be an eq match and the other fields a cont (ilike)?
+- search_scope = :patient_given_name_or_patient_family_name_or_drug_name_or_patient_local_patient_id_cont
+- searching = search.send(search_scope).present?
+
+.row
+  h1= t(".heading")
+
+.row.collapse
+  = search_form_for(search, url: medications_esa_prescriptions_path) do |f|
+    .small-7.medium-8.columns
+      = f.search_field search_scope, placeholder: t(".search_prompt")
+    .small-5.medium-4.columns
+      = f.submit "Search", class: "button small"
+      = link_to t(".clear-search"),
+                medications_esa_prescriptions_path,
+                class: "cancel-link #{'disabled' unless searching}"
+
+.row
+  table#drug-type-prescriptions
+    thead
+      tr
+        th.hosp_no= sort_link(search, :patient_local_patient_id, t(".patient_local_patient_id"))
+        th.patient_name= sort_link(search, "patient_family_name", t(".patient_name"))
+        th.patient_age= sort_link(search, "patient_born_on", t(".patient_age"))
+        th.patient_sex= t(".patient_sex")
+        th.modality= t(".modality")
+        th.prescribed_on= sort_link(search, "prescribed_on", t(".prescribed_on"))
+        th.terminated_on.hide-for-small-only= sort_link(search, "terminated_on", t(".terminated_on"))
+        th.drug_name= sort_link(search, "drug_name", t(".drug_name"))
+        th.dose= t(".dose")
+        th.route_code= t(".route_code")
+        th.frequency= t(".frequency")
+        th.weekly_units= t(".weekly_units")
+    tbody
+      - prescriptions.each do |prescription|
+        tr
+          td= link_to(prescription.patient_local_patient_id, patient_path(prescription.patient_id))
+          td= prescription.patient_name
+          td= prescription.patient_age
+          td= prescription.patient_sex
+          td= prescription.patient_current_modality_name
+          td= prescription.prescribed_on
+          td= prescription.terminated_on
+          td= prescription.drug_name
+          td= prescription.dose
+          td= prescription.route_code
+          td= prescription.frequency
+          td=
+
+  = paginate prescriptions

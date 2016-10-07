@@ -43,6 +43,14 @@ Rails.application.routes.draw do
       end
     end
 
+    namespace :medications do
+      # medications_esa_prescriptions => /medications/esa_prescriptions
+      resources :esa_prescriptions,
+                only: :index,
+                drug_type_name: :esa,
+                controller: "drug_types/prescriptions"
+    end
+
     namespace :events do
       resources :types, except: :show
     end
@@ -144,7 +152,6 @@ Rails.application.routes.draw do
       # Medications
       resources :prescriptions, controller: "medications/prescriptions", except: [:destroy]
       namespace :medications do
-        # TODO move above resource into namespace
         resources :prescriptions, only: [] do
           resource :termination, only: [:new, :create]
         end

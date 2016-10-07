@@ -48,10 +48,7 @@ module Renalware
       scope :with_drugs, -> { includes(drug: :drug_types) }
       scope :with_termination, -> { includes(termination: [:created_by]) }
       scope :current, -> (date = Date.current) {
-        joins(<<-SQL)
-          LEFT OUTER JOIN medication_prescription_terminations pt
-            ON (medication_prescriptions.id = pt.prescription_id)
-        SQL
+        eager_load(:termination)
           .where("terminated_on IS NULL OR terminated_on > ?", date)
       }
       scope :terminated, -> (date = Date.current) {
@@ -61,6 +58,10 @@ module Renalware
 
       def self.default_search_order
         "prescribed_on ASC"
+      end
+
+      def self.policy_class
+        BasePolicy
       end
 
       # @section attributes
