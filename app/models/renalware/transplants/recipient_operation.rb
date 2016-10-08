@@ -40,7 +40,8 @@ module Renalware
       # validates :cold_ischaemic_time, timeliness: { type: :time }
       # validates :warm_ischaemic_time, timeliness: { type: :time }
 
-      enumerize :operation_type, in: %i(kidney kidney_pancreas pancreas kidney_liver liver)
+      enumerize :operation_type,
+                in: %i(kidney kidney_dual kidney_pancreas pancreas kidney_liver liver)
 
       def theatre_case_start_time
         TimeOfDay.new(read_attribute(:theatre_case_start_time))

@@ -65,6 +65,7 @@ en:
     renalware/transplants/recipient_operation:
       operation_type:
         kidney: Kidney only
+        kidney_dual: Kidney only - dual
         kidney_pancreas: Kidney and pancreas
         pancreas: Pancreas only
         kidney_liver: Kidney and liver
