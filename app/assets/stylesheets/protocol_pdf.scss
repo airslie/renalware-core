@@ -75,9 +75,10 @@ h1 {
   dl {
     padding-bottom: 0.2rem;
     margin-bottom: 0.2rem;
+    margin-top: 0.6rem;
     float:left;
     line-height: 0.8rem;
-      font-size: .8rem;
+    font-size: .8rem;
     dd, dt {
       float: left;
       clear: none;
@@ -86,9 +87,13 @@ h1 {
       padding: 0;
 
       margin-bottom: 0.3rem;
+
+      &.new_line {
+        clear:left;
+      }
     }
     dt {
-      margin-right: 0.5rem;
+      margin-right: 0.3rem;
       white-space: nowrap;
     }
     dd {
