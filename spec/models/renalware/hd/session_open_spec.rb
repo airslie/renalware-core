@@ -2,7 +2,7 @@ require "rails_helper"
 
 module Renalware
   module HD
-    RSpec.describe Session, type: :model do
+    RSpec.describe Session::Open, type: :model do
       it { is_expected.to validate_presence_of(:patient) }
       it { is_expected.to validate_presence_of(:signed_on_by) }
       it { is_expected.to validate_presence_of(:performed_on) }
@@ -16,6 +16,9 @@ module Renalware
       it { is_expected.to validate_timeliness_of(:start_time) }
       it { is_expected.to validate_timeliness_of(:end_time) }
 
+      it "defines a policy class" do
+        expect(Session::Open.policy_class).to eq(OpenSessionPolicy)
+      end
 
       let(:nurse) { create(:user) }
       let(:patient) { create(:hd_patient) }

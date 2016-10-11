@@ -7,7 +7,7 @@ Given(/^Patty has a recorded HD profile$/) do
 end
 
 Given(/^Patty has a recorded HD session$/) do
-  seed_hd_session_for(@patty, user: Renalware::User.first)
+  seed_open_session_for(@patty, user: Renalware::User.first)
 end
 
 Given(/^Patty has a recorded dry weight entry$/) do
@@ -94,4 +94,15 @@ end
 
 Then(/^Clyde sees these HD sessions$/) do |table|
   expect_hd_sessions_to_be(table.hashes)
+end
+
+When(/^Nathalie records a DNA HD session for Patty with the notes "([^"]*)"$/) do |notes|
+  create_dna_session(patient: @patty,
+                     user: @nathalie,
+                     notes: notes,
+                     performed_on: Time.zone.today)
+end
+
+Then(/^Patty has a new NDA HD session$/) do
+  expect_dna_session_to_exist(patient: @patty)
 end

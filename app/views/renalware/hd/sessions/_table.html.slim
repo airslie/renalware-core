@@ -40,41 +40,8 @@ table.auto-layout
 
   tbody
     - sessions.each_with_index do |session, index|
-      - tr_class = session.ongoing_css_class
       - stripe_class = index % 2 == 0 ? "even" : "odd"
-      tr(class=[tr_class, stripe_class])
-        td(rowspan=2)= link_to edit_patient_hd_session_path(@patient, session) do
-          = session.signed_off? ? t(".edit") : t(".sign_off")
-        td(rowspan=2)= link_to session.performed_on, patient_hd_session_path(@patient, session)
-        td(rowspan=2)
-          = session.hospital_unit_unit_code
-          br
-          / TODO: move tooltip once DNA partial merged - this code slim code has moved in that PR
-          = tooltip(label: session.summarised_access_used, content: session.access_used)
-        td= session.start_time
-        td.derived(rowspan=2)= session.duration
-        td= session.before_measurement_for(:weight)
-        td= session.before_measurement_for(:pulse)
-        td= session.before_measurement_for(:temperature)
-        td= session.before_measurement_for(:bm_stix)
-        td= session.before_measurement_for(:blood_pressure)
-        td(rowspan=2)= session.arterial_pressure
-        td(rowspan=2)= session.venous_pressure
-        td(rowspan=2)= session.blood_flow
-        td(rowspan=2)= session.litres_processed
-        td(rowspan=2)= session.fluid_removed
-        td(rowspan=2)= session.machine_no
-        td(rowspan=2)= session.machine_ktv
-        td(rowspan=2)= session.machine_urr
-        / td= session.signed_on_by
-        / td= session.signed_off_by
-      tr(class=[tr_class, stripe_class])
-        td= session.end_time
-        td
-          = session.after_measurement_for(:weight)
-          - if (change = session.change_in(:weight))
-            i=" (#{change})"
-        td= session.after_measurement_for(:pulse)
-        td= session.after_measurement_for(:temperature)
-        td= session.after_measurement_for(:bm_stix)
-        td= session.after_measurement_for(:blood_pressure)
+      =render "renalware/hd/sessions/#{session.state}/row",
+              session: session,
+              stripe_class: stripe_class
+

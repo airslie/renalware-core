@@ -2,7 +2,7 @@
     locals: { title: "HD Session" } do
   - return unless @session
 
-  = render "session_nav"
+  = render "session_nav", session: @session
 
   .document-view
     = render "renalware/shared/attributes_group",

@@ -38,11 +38,21 @@
         background-color: #F9F9F9;
       }
 
-      &.active {
+      &.open {
         td {
           background-color: #FFFFC8;
         }
       }
+
+      &.closed {
+      }
+
+      &.dna {
+        td {
+          background-color: #ccc;
+        }
+      }
+
       td {
         border-right: 1px solid #DDDDDD;
         &.derived {

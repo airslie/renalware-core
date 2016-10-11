@@ -1,11 +1,18 @@
+require "document/base"
+
 # This Closed (state) Session adds validation standard HD::Session to enforce the presence of
 # most fields.
 module Renalware
   module HD
-    class Session::Closed < ActiveType::Record[Session]
+    class Session::Closed < Session
+      include Document::Base
 
       validates :signed_off_by, presence: true
       validates :end_time, presence: true
+
+      def self.policy_class
+        ClosedSessionPolicy
+      end
 
       class SessionDocument < ::Renalware::HD::SessionDocument
         class Info < Renalware::HD::SessionDocument::Info

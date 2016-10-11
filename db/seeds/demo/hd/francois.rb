@@ -76,74 +76,86 @@ module Renalware
   start_times = ["13:00", "13:15", "13:30"]
   end_times = ["15:30", "15:45", "16:00"]
 
-  20.times do |i|
-    session = HD::Session.new(
-      patient: HD.cast_patient(patient),
-      hospital_unit: units.sample,
-      performed_on: (i*2).days.ago,
-      start_time: start_times.sample,
-      end_time: end_times.sample,
-      signed_on_by: users.sample,
-      signed_off_by: users.sample,
-      by: users.sample,
-      document: {
-        hdf: {
-          subs_goal: 1.0,
-          subs_rate: 1.0,
-          subs_volume: 1.0,
-          subs_fluid_pct: 1
-        },
-        info: {
-          hd_type: "hd",
-          machine_no: "123",
-          access_side: "left",
-          access_site: "Axillary vein line",
-          access_type: "Arteriovenous fistula (AVF)",
-          single_needle: "no",
-          lines_reversed: "no",
-          fistula_plus_line: "no",
-          dialysis_fluid_used: "a7",
-          is_access_first_use: "no"
-        },
-        dialysis: {
-          flow_rate: 200,
-          blood_flow: 100,
-          machine_ktv: 1.0,
-          machine_urr: 1,
-          fluid_removed: 10.0,
-          venous_pressure: 100,
-          litres_processed: 10.0,
-          arterial_pressure: 100
-        },
-        complications: {
-          access_site_status: "clean_and_dry"
-        },
-        observations_after: {
-          pulse: 72,
-          weight: 120.0,
-          bm_stix: 1.0,
-          temperature: 37.0,
-          blood_pressure: {
-            systolic: 121,
-            diastolic: 81
-          }
-        },
-        observations_before: {
-          pulse: 67,
-          weight: 120.1,
-          bm_stix: 1.1,
-          temperature: 36.0,
-          blood_pressure: {
-            systolic: 120,
-            diastolic: 80
-          }
-        }
+  session_document = {
+    info: {
+      hd_type: "hd",
+      machine_no: 222,
+      access_side: "right",
+      access_site: "Brachio-basilic & transposition",
+      access_type: "Arteriovenous graft (AVG)",
+      access_type_abbreviation: "AVG",
+      single_needle: "no",
+      lines_reversed: "no",
+      fistula_plus_line: "no",
+      dialysis_fluid_used: "a10",
+      is_access_first_use: "no"
+    },
+    dialysis: {
+      flow_rate: 200,
+      blood_flow: 150,
+      machine_ktv: 1.0,
+      machine_urr: 1,
+      fluid_removed: 1.0,
+      venous_pressure: 1,
+      litres_processed: 1.0,
+      arterial_pressure: 1
+    },
+    observations_after: {
+      pulse: 36,
+      weight: 100.0,
+      bm_stix: 1.0,
+      temperature: 36.0,
+      blood_pressure: {
+        systolic: 100,
+        diastolic: 80
       }
-    )
-    if i == 0
-      session.end_time = nil
-      session.signed_off_by = nil
+    },
+    observations_before: {
+      pulse: 67,
+      weight: 100.0,
+      bm_stix: 1.0,
+      temperature: 36.0,
+      blood_pressure: {
+        systolic: 100,
+        diastolic: 80
+      }
+    }
+  }
+
+  # Make the most recent session ongoing
+  HD::Session::Open.create!(
+    patient: HD.cast_patient(patient),
+    hospital_unit: units.sample,
+    performed_on: Time.zone.today,
+    start_time: "09:00",
+    signed_on_by: users.sample,
+    by: users.sample
+  )
+
+  # Create some closed and dna sessions every 2 days starting 2 days ago
+  (2..40).step(2).each do |i|
+    if i % 5 == 0
+      HD::Session::DNA.create!(
+        patient: HD.cast_patient(patient),
+        hospital_unit: units.sample,
+        performed_on: i.days.ago,
+        start_time: start_times.sample,
+        signed_on_by: users.sample,
+        by: users.sample,
+        notes: ""
+      )
+    else
+      HD::Session::Closed.create!(
+        patient: HD.cast_patient(patient),
+        hospital_unit: units.sample,
+        performed_on: i.days.ago,
+        start_time: start_times.sample,
+        end_time: end_times.sample,
+        signed_on_by: users.sample,
+        signed_off_by: users.sample,
+        by: users.sample,
+        document: session_document
+      )
     end
-    session.save!
   end
 end

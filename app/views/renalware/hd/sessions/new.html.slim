@@ -1,9 +1,11 @@
-= render layout: "renalware/patients/layout", locals: { title: "HD Session" } do
-  = render "session_nav"
+= render layout: "renalware/patients/layout",
+         locals: { title: t(".#{session.state}.title") } do
+  = render "session_nav", session: session
 
   .document
-    = simple_form_for @session,
+    = simple_form_for session,
+        as: :hd_session,
         url: patient_hd_sessions_path(@patient),
-        wrapper: "horizontal_form",
-        html: { class: "hd-session-form"} do |f|
-      = render 'form', f: f
+        wrapper: "horizontal_form" do |f|
+
+      = render "renalware/hd/sessions/#{session.state}/form", f: f

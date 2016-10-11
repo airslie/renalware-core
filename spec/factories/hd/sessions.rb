@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :hd_session, class: "Renalware::HD::Session" do
+  factory :hd_session, class: "Renalware::HD::Session::Open" do
     patient
 
     performed_on 1.week.ago

@@ -5,6 +5,8 @@ fieldset.hd-sessions.simple.simple-table
       span.actions.action-buttons
         = link_to t(".add"), new_patient_hd_session_path(@patient), class: "button small slimline"
         | &nbsp;
+        = link_to t(".add_dna"), new_patient_hd_session_path(@patient, type: :dna), class: "button small slimline"
+        | &nbsp;
         = link_to t(".view_all"), patient_hd_sessions_path(@patient), class: "button small slimline"
 
   - if sessions.empty?
@@ -12,5 +14,8 @@ fieldset.hd-sessions.simple.simple-table
       = link_to new_patient_hd_session_path(@patient) do
         i.fa.fa-plus-circle
         =t(".add_session")
+      = link_to new_patient_hd_session_path(@patient, type: :dna) do
+        i.fa.fa-plus-circle
+        =t(".add_dna_session")
   - else
     =render 'renalware/hd/sessions/table', sessions: sessions

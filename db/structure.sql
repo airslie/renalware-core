@@ -921,7 +921,8 @@ CREATE TABLE hd_sessions (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     signed_on_by_id integer,
-    signed_off_by_id integer
+    signed_off_by_id integer,
+    type character varying NOT NULL
 );
 
 
@@ -6879,3 +6880,4 @@ INSERT INTO schema_migrations (version) VALUES ('20161018174711');
 
 INSERT INTO schema_migrations (version) VALUES ('20161019145606');
 
+INSERT INTO schema_migrations (version) VALUES ('20161010191529');

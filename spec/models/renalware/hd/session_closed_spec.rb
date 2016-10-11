@@ -6,6 +6,9 @@ module Renalware
       describe Session::Closed, type: :model do
         it { is_expected.to validate_presence_of(:signed_off_by) }
         it { is_expected.to validate_presence_of(:end_time) }
+        it "defines a policy class" do
+          expect(Session::Closed.policy_class).to eq(ClosedSessionPolicy)
+        end
       end
 
       describe Session::Closed::SessionDocument do

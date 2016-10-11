@@ -6,13 +6,13 @@ module Renalware
                :observations_before,
                :observations_after,
                :dialysis,
-               to: :document
+               to: :document, allow_nil: true
       delegate :access_type,
                :access_type_abbreviation,
                :access_site,
                :access_side,
                :machine_no,
-               to: :info
+               to: :info, allow_nil: true
       delegate :arterial_pressure,
                :venous_pressure,
                :blood_flow,
@@ -20,17 +20,23 @@ module Renalware
                :litres_processed,
                :machine_urr,
                :machine_ktv,
-               to: :dialysis
+               to: :dialysis, allow_nil: true
       delegate :unit_code,
                to: :hospital_unit,
-               prefix: true
+               prefix: true, allow_nil: true
+
+      def state
+        self.class.to_s.demodulize.downcase
+      end
 
       def class
         __getobj__.class
       end
 
-      def ongoing_css_class
-        "active" unless signed_off?
+      def initialize(session, view_context = nil)
+        @view_context = view_context
+        @session = session
+        super(session)
       end
 
       def performed_on
@@ -50,11 +56,11 @@ module Renalware
       end
 
       def before_measurement_for(measurement)
-        observations_before.send(measurement.to_sym)
+        observations_before.try(measurement.to_sym)
       end
 
       def after_measurement_for(measurement)
-        observations_after.send(measurement.to_sym)
+        observations_after.try!(measurement.to_sym)
       end
 
       def change_in(measurement)
@@ -74,6 +80,14 @@ module Renalware
       def access_used
         Renalware::HD::SessionAccessPresenter.new(self).to_s
       end
+
+      def edit_url
+        view_context.edit_patient_hd_session_path(session.patient, session)
+      end
+
+      protected
+      attr_reader :session, :view_context
+
     end
   end
 end

@@ -4,8 +4,9 @@ module Renalware
   module HD
     class DashboardPresenter
 
-      def initialize(patient)
+      def initialize(patient, view_context)
         @patient = patient
+        @view_context = view_context
       end
 
       def preference_set
@@ -30,7 +31,7 @@ module Renalware
           hd_sessions = Session.includes(:hospital_unit, :signed_off_by)
                                .for_patient(patient)
                                .limit(10).ordered
-          CollectionPresenter.new(hd_sessions, SessionPresenter)
+          CollectionPresenter.new(hd_sessions, SessionPresenter, view_context)
         end
       end
 
@@ -42,7 +43,7 @@ module Renalware
       end
 
       private
-      attr_accessor :patient
+      attr_accessor :patient, :view_context
     end
   end
 end

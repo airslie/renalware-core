@@ -1,0 +1,30 @@
+tr(class=[session.state, stripe_class])
+  td(rowspan=2)
+    = link_to(t(".#{session.state}.edit"), session.edit_url) if session.edit_url
+  td(rowspan=2)= link_to session.performed_on, patient_hd_session_path(@patient, session)
+  td(rowspan=2)= session.hospital_unit_unit_code
+  td= session.start_time
+  td.derived(rowspan=2)= session.duration
+  td= session.before_measurement_for(:weight)
+  td= session.before_measurement_for(:pulse)
+  td= session.before_measurement_for(:temperature)
+  td= session.before_measurement_for(:bm_stix)
+  td= session.before_measurement_for(:blood_pressure)
+  td(rowspan=2)= session.arterial_pressure
+  td(rowspan=2)= session.venous_pressure
+  td(rowspan=2)= session.blood_flow
+  td(rowspan=2)= session.litres_processed
+  td(rowspan=2)= session.fluid_removed
+  td(rowspan=2)= session.machine_no
+  td(rowspan=2)= session.machine_ktv
+  td(rowspan=2)= session.machine_urr
+tr(class=[session.state, stripe_class])
+  td= session.end_time
+  td
+    = session.after_measurement_for(:weight)
+    - if (change = session.change_in(:weight))
+      i=" (#{change})"
+  td= session.after_measurement_for(:pulse)
+  td= session.after_measurement_for(:temperature)
+  td= session.after_measurement_for(:bm_stix)
+  td= session.after_measurement_for(:blood_pressure)

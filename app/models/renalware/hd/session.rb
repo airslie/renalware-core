@@ -1,13 +1,16 @@
 require_dependency "renalware/hd"
-require "document/base"
 require "duration_calculator"
 
 module Renalware
   module HD
     class Session < ActiveRecord::Base
-      include Document::Base
       include PatientScope
       include Accountable
+      include ExplicitStateModel
+
+      validates_presence_of :type # Prevent instances of this of this base from being saved
+
+      has_states :open, :closed, :dna
 
       belongs_to :patient
       belongs_to :modality_description, class_name: "Modalities::Description"
@@ -15,7 +18,6 @@ module Renalware
       belongs_to :signed_on_by, class_name: "User", foreign_key: "signed_on_by_id"
       belongs_to :signed_off_by, class_name: "User", foreign_key: "signed_off_by_id"
 
-      has_document class_name: "Renalware::HD::SessionDocument"
       has_paper_trail class_name: "Renalware::HD::Version"
 
       before_create :assign_modality
