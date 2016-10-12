@@ -14,7 +14,10 @@ module Renalware
         attribute :info, Info
 
         class Observations < Renalware::HD::SessionDocument::Observations
-          validates_presence_of attribute_set.map(&:name).reject{|item| item == :bm_stix}
+          validates_presence_of :pulse, :blood_pressure, :weight_measured, :temperature_measured
+          validates_presence_of :weight, if: "weight_measured.try!(:yes?)"
+          validates_presence_of :temperature, if: "temperature_measured.try!(:yes?)"
+          validates :blood_pressure, "renalware/patients/blood_pressure_presence" => true
         end
         attribute :observations_before, Observations
         attribute :observations_after, Observations
@@ -24,15 +27,11 @@ module Renalware
         end
         attribute :dialysis, Dialysis
 
-        class HDF < Renalware::HD::SessionDocument::HDF
-          # TODO: this needs to be conditional but we don't have the pieces in play yet
-          #       to apply conditional validation here - we would need to either know about
-          #       the state of the session (bad) or apply the validation on a per instance
-          #       basis (possible but we'd have to add it to the singleton class), use use a
-          #       custom validator injected at the session level.
-          # validates_presence_of attribute_set.map(&:name)
+        validates :hdf, "renalware/patients/hdf_presence" => true, if: :hd_type_is_hdf?
+
+        def hd_type_is_hdf?
+          ["hdf_pre", "hdf_post"].include?(info.hd_type.to_s)
         end
-        attribute :hdf, HDF
       end
 
       has_document class_name: "::Renalware::HD::Session::Closed::SessionDocument"

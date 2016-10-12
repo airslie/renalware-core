@@ -4900,6 +4900,7 @@ CREATE INDEX index_directory_people_on_created_by_id ON directory_people USING b
 
 CREATE INDEX index_directory_people_on_updated_by_id ON directory_people USING btree (updated_by_id);
 
+
 --
 -- Name: index_doctors_practices; Type: INDEX; Schema: public; Owner: -
 --
@@ -6775,6 +6776,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160829114845');
 
 INSERT INTO schema_migrations (version) VALUES ('20160830141439');
 
+INSERT INTO schema_migrations (version) VALUES ('20160905140623');
+
 INSERT INTO schema_migrations (version) VALUES ('20160906195949');
 
 INSERT INTO schema_migrations (version) VALUES ('20160916113152');
@@ -6789,4 +6792,3 @@ INSERT INTO schema_migrations (version) VALUES ('20161003204347');
 
 INSERT INTO schema_migrations (version) VALUES ('20161004185820');
 
-INSERT INTO schema_migrations (version) VALUES ('20160905140623');
