@@ -54,6 +54,11 @@ module Renalware
         MeanValueStrategy.call(sessions: sessions, selector: selector)
       end
 
+      def mean_machine_ktv
+        selector = ->(session) { session.document && session.document.dialysis.machine_ktv }
+        MeanValueStrategy.call(sessions: sessions, selector: selector)
+      end
+
       # def mean_flow_rate
       #   selector = ->(session) { session.document.dialysis.flow_rate }
       #   MeanValueStrategy.call(sessions: sessions, selector: selector)
@@ -66,6 +71,7 @@ module Renalware
           return 0 if values.blank?
           total = values.inject(0){ |sum,x| sum + x }
           mean = total.to_f / values.count.to_f
+          mean.round(2)
         end
 
         def self.exclude_nil_values(array)

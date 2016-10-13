@@ -76,7 +76,7 @@ module Renalware
           sessions = [ { x: 1.99999 }]
           selector = ->(session) { session[:x] }
           result = strategy.call(sessions: sessions, selector: selector)
-          expect(result).to eq(1.99999)
+          expect(result).to eq(2.0) # 1.9999 rounded up to 2.0
         end
 
         it "excludes nil values from the mean calculation" do
@@ -148,7 +148,7 @@ module Renalware
            "from the first pre obs to the last post obs" do
           pre_obs_weights = [100, 100, 100]
           post_obs_weights = [97, 98, 99]
-          mean = 2 # effective weight loss = [3, 2, 1] so mean = 2
+
           @sessions = (0..2).map do |idx|
             Session::Closed.new.tap do |session|
               session.document.observations_before.weight = pre_obs_weights[idx]
@@ -156,7 +156,22 @@ module Renalware
             end
           end
 
-          expect(audit.mean_weight_loss).to eq(mean)
+          # effective weight loss = [3, 2, 1] so mean = 1.99999 rounded to 2 places rounds up to 2
+          expect(audit.mean_weight_loss).to eq(2)
+        end
+      end
+
+      describe "#mean_machine_ktv" do
+        it "calculates the mean machine ktv over a series of sessions" do
+          ktvs = [0.5, 1.5, 2.2]
+          mean = 1.4
+          @sessions = (0..2).map do |idx|
+            Session::Closed.new.tap do |session|
+              session.document.dialysis.machine_ktv = ktvs[idx]
+            end
+          end
+
+          expect(audit.mean_machine_ktv).to eq(mean)
         end
       end
 
