@@ -45,6 +45,15 @@ module Renalware
         MeanValueStrategy.call(sessions: sessions, selector: selector)
       end
 
+      def mean_weight_loss
+        selector = ->(session) do
+          if (doc = session.document)
+            doc.observations_before.weight - doc.observations_after.weight
+          end
+        end
+        MeanValueStrategy.call(sessions: sessions, selector: selector)
+      end
+
       # def mean_flow_rate
       #   selector = ->(session) { session.document.dialysis.flow_rate }
       #   MeanValueStrategy.call(sessions: sessions, selector: selector)
@@ -75,12 +84,13 @@ module Renalware
 
       def mean_blood_pressure(observation, measurement, strategy = MeanValueStrategy)
         selector = ->(session) do
-          return unless session.document
-          session
-            .document
-            .public_send(observation)
-            .blood_pressure
-            .public_send(measurement)
+          if session.document
+            session
+              .document
+              .public_send(observation)
+              .blood_pressure
+              .public_send(measurement)
+          end
         end
         strategy.call(sessions: sessions, selector: selector)
       end

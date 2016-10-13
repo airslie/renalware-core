@@ -129,7 +129,7 @@ module Renalware
         end
       end
 
-      describe "Highest systolic blood pressure" do
+      describe "highest_systolic_blood_pressure" do
         it "returns a BloodPressure object" #do
         #   pending
         #   stub_sessions(observations: :observations_after,
@@ -141,6 +141,23 @@ module Renalware
         #   expect(bp.systolic).to eq(105)
         #   expect(bp.diastolic).to eq(85)
         # end
+      end
+
+      describe "#mean_weight_loss" do
+        it "calculates the mean weight loss across a number of sessions " \
+           "from the first pre obs to the last post obs" do
+          pre_obs_weights = [100, 100, 100]
+          post_obs_weights = [97, 98, 99]
+          mean = 2 # effective weight loss = [3, 2, 1] so mean = 2
+          @sessions = (0..2).map do |idx|
+            Session::Closed.new.tap do |session|
+              session.document.observations_before.weight = pre_obs_weights[idx]
+              session.document.observations_after.weight = post_obs_weights[idx]
+            end
+          end
+
+          expect(audit.mean_weight_loss).to eq(mean)
+        end
       end
 
       describe "#mean_fluid_removal" do
