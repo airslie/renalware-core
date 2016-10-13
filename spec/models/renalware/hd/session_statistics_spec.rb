@@ -187,17 +187,17 @@ module Renalware
         end
       end
 
-      # describe "#mean_flow_rate" do
-      #   it "calculates the mean value of dialysis flow rate" do
-      #     @sessions = [1.2, 1.3, 1.4, 1.5].map do |fluid_removed|
-      #       Session::Closed.new.tap do |session|
-      #         session.document.dialysis.fluid_removed = fluid_removed
-      #       end
-      #     end
+      describe "#mean_blood_flow aka pump speed" do
+        it "calculates the mean value of dialysis flow rate" do
+          @sessions = [200, 250, 300].map do |blood_flow| # a rate
+            Session::Closed.new.tap do |session|
+              session.document.dialysis.blood_flow = blood_flow
+            end
+          end
 
-      #     expect(audit.mean_fluid_removal).to eq(1.35)
-      #   end
-      # end
+          expect(audit.mean_blood_flow).to eq(250)
+        end
+      end
     end
   end
 end

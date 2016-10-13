@@ -59,11 +59,11 @@ module Renalware
         MeanValueStrategy.call(sessions: sessions, selector: selector)
       end
 
-      # def mean_flow_rate
-      #   selector = ->(session) { session.document.dialysis.flow_rate }
-      #   MeanValueStrategy.call(sessions: sessions, selector: selector)
-      # end
-      #
+      def mean_blood_flow
+        selector = ->(session) { session.document && session.document.dialysis.blood_flow }
+        MeanValueStrategy.call(sessions: sessions, selector: selector)
+      end
+
       class MeanValueStrategy
         def self.call(sessions:, selector:)
           values = sessions.map { |session| selector.call(session) }
