@@ -41,30 +41,15 @@ module Renalware
       end
 
       def mean_fluid_removal
-        selector = ->(session) { session.document.dialysis.fluid_removed }
+        selector = ->(session) { session.document && session.document.dialysis.fluid_removed }
         MeanValueStrategy.call(sessions: sessions, selector: selector)
       end
 
-      private
-
-      def all_blood_pressure_measurements
-        blood_pressures = []
-        blood_pressures.concat(sessions.map { |session| session.observations_before.blood_pressure })
-        blood_pressures.concat(sessions.map { |session| session.observations_after.blood_pressure })
-        blood_pressures
-      end
-
-      def mean_blood_pressure(observation, measurement, strategy = MeanValueStrategy)
-        selector = ->(session) do
-          session
-            .document
-            .public_send(observation)
-            .blood_pressure
-            .public_send(measurement)
-        end
-        strategy.call(sessions: sessions, selector: selector)
-      end
-
+      # def mean_flow_rate
+      #   selector = ->(session) { session.document.dialysis.flow_rate }
+      #   MeanValueStrategy.call(sessions: sessions, selector: selector)
+      # end
+      #
       class MeanValueStrategy
         def self.call(sessions:, selector:)
           values = sessions.map { |session| selector.call(session) }
@@ -79,7 +64,26 @@ module Renalware
         end
       end
 
+      private
 
+      def all_blood_pressure_measurements
+        blood_pressures = []
+        blood_pressures.concat(sessions.map { |session| session.observations_before.blood_pressure })
+        blood_pressures.concat(sessions.map { |session| session.observations_after.blood_pressure })
+        blood_pressures
+      end
+
+      def mean_blood_pressure(observation, measurement, strategy = MeanValueStrategy)
+        selector = ->(session) do
+          return unless session.document
+          session
+            .document
+            .public_send(observation)
+            .blood_pressure
+            .public_send(measurement)
+        end
+        strategy.call(sessions: sessions, selector: selector)
+      end
 
       # class NullBloodPressure
       #   attribute :systolic, Integer, default: 0

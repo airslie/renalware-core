@@ -61,6 +61,53 @@ module Renalware
       subject(:audit) { SessionStatistics.new(@sessions) }
       it { is_expected.to be_a(Renalware::HD::SessionStatistics) }
 
+
+      describe SessionStatistics::MeanValueStrategy do
+        subject(:strategy) { SessionStatistics::MeanValueStrategy }
+
+        it "calculates the mean from a number of values" do
+          sessions = [ { x: 1.1 }, { x: 1.2 }, { x: 1.3 } ]
+          selector = ->(session) { session[:x] }
+          result = strategy.call(sessions: sessions, selector: selector)
+          expect(result).to eq(1.2)
+        end
+
+        it "returns the only value if there is just one" do
+          sessions = [ { x: 1.99999 }]
+          selector = ->(session) { session[:x] }
+          result = strategy.call(sessions: sessions, selector: selector)
+          expect(result).to eq(1.99999)
+        end
+
+        it "excludes nil values from the mean calculation" do
+          sessions = [ { x: 1.1 }, { x: 1.2 }, { x: nil }, { x: 1.3 } ]
+          selector = ->(session) { session[:x] }
+          result = strategy.call(sessions: sessions, selector: selector)
+          expect(result).to eq(1.2)
+        end
+
+        it "returns 0 if there are sessions" do
+          selector = ->(session) { session[:x] }
+          result = strategy.call(sessions: [], selector: selector)
+          expect(result).to eq(0)
+        end
+
+        it "returns 0 if there are only nil values" do
+          sessions = [{ x: nil }, { x: nil }]
+          selector = ->(session) { session[:x] }
+          result = strategy.call(sessions: sessions, selector: selector)
+          expect(result).to eq(0)
+        end
+
+        it "skips nil elements if you use try! in the selector" do
+          sessions = [ OpenStruct.new(document: nil),
+                       OpenStruct.new(document: OpenStruct.new(x: OpenStruct.new(y: 99)))]
+          selector = ->(session) { session.document.try!(:x).try!(:y) }
+          result = strategy.call(sessions: sessions, selector: selector)
+          expect(result).to eq(99)
+        end
+      end
+
       describe "Mean blood pressure" do
 
         it "calculates pre mean blood pressures" do
@@ -79,32 +126,6 @@ module Renalware
 
           expect(audit.post_mean_systolic_blood_pressure).to eq(106.5)
           expect(audit.post_mean_diastolic_blood_pressure).to eq(86.5)
-        end
-
-        it "returns the mean value is the session value when there is only one session" do
-          stub_sessions(observations: :observations_after,
-                        systolic_range: 101,
-                        diastolic_range: 81)
-
-          expect(audit.post_mean_systolic_blood_pressure).to eq(101)
-          expect(audit.post_mean_diastolic_blood_pressure).to eq(81)
-        end
-
-        it "the mean value is 0 if there are no sessions" do
-          stub_sessions(observations: :observations_after,
-                        systolic_range: [],
-                        diastolic_range: [])
-
-          expect(audit.post_mean_systolic_blood_pressure).to eq(0)
-          expect(audit.post_mean_diastolic_blood_pressure).to eq(0)
-        end
-
-        it "returns is 0 for sessions with nil blood pressure measurement" do
-          stub_sessions(observations: :observations_after,
-                        systolic_range: [nil],
-                        diastolic_range: [nil])
-          expect(audit.post_mean_systolic_blood_pressure).to eq(0)
-          expect(audit.post_mean_diastolic_blood_pressure).to eq(0)
         end
       end
 
@@ -132,17 +153,19 @@ module Renalware
 
           expect(audit.mean_fluid_removal).to eq(1.35)
         end
-
-        it "if there is a nil value it is excluded from the mean calculation" do
-          @sessions = [1.2, 1.3, nil, 1.4].map do |fluid_removed|
-            Session::Closed.new.tap do |session|
-              session.document.dialysis.fluid_removed = fluid_removed
-            end
-          end
-
-          expect(audit.mean_fluid_removal).to eq(1.3)
-        end
       end
+
+      # describe "#mean_flow_rate" do
+      #   it "calculates the mean value of dialysis flow rate" do
+      #     @sessions = [1.2, 1.3, 1.4, 1.5].map do |fluid_removed|
+      #       Session::Closed.new.tap do |session|
+      #         session.document.dialysis.fluid_removed = fluid_removed
+      #       end
+      #     end
+
+      #     expect(audit.mean_fluid_removal).to eq(1.35)
+      #   end
+      # end
     end
   end
 end
