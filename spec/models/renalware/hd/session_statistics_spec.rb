@@ -61,7 +61,8 @@ module Renalware
       subject(:audit) { SessionStatistics.new(@sessions) }
       it { is_expected.to be_a(Renalware::HD::SessionStatistics) }
 
-
+      # Most of the mean calculations use this strategy class
+      # so we test all possible edge cases here.
       describe SessionStatistics::MeanValueStrategy do
         subject(:strategy) { SessionStatistics::MeanValueStrategy }
 
@@ -129,18 +130,42 @@ module Renalware
         end
       end
 
-      describe "highest_systolic_blood_pressure" do
-        it "returns a BloodPressure object" #do
-        #   pending
-        #   stub_sessions(observations: :observations_after,
-        #                 systolic_range: (100..105),
-        #                 diastolic_range: (80..85))
+      describe "Blood pressure extents" do
+        let(:highest_systolic_bp) { BloodPressure.new(systolic: 200, diastolic: 100) }
+        let(:lowest_systolic_bp)  { BloodPressure.new(systolic: 100, diastolic: 100) }
+        let(:unmatched_bp)        { BloodPressure.new(systolic: 150, diastolic: 100) }
+        before do
+          @sessions = [
+            Session::Closed.new.tap do |session|
+              session.document.observations_before.blood_pressure = unmatched_bp
+              session.document.observations_after.blood_pressure = lowest_systolic_bp
+            end,
+            Session::Closed.new.tap do |session|
+              session.document.observations_before.blood_pressure = unmatched_bp
+              session.document.observations_after.blood_pressure = unmatched_bp
+            end,
+            Session::Closed.new.tap do |session|
+              session.document.observations_before.blood_pressure = highest_systolic_bp
+              session.document.observations_after.blood_pressure = unmatched_bp
+            end
+          ]
+        end
 
-        #   bp = audit.highest_systolic_blood_pressure
-        #   expect(bp).to be_a(BloodPressure)
-        #   expect(bp.systolic).to eq(105)
-        #   expect(bp.diastolic).to eq(85)
-        # end
+        describe "lowest_systolic_blood_pressure" do
+          it "returns a BloodPressure object" do
+            bp = audit.lowest_systolic_blood_pressure
+
+            expect(bp).to be(lowest_systolic_bp)
+          end
+        end
+
+        describe "highest_systolic_blood_pressure" do
+          it "returns a BloodPressure object" do
+            bp = audit.highest_systolic_blood_pressure
+
+            expect(bp).to be(highest_systolic_bp)
+          end
+        end
       end
 
       describe "#mean_weight_loss" do
@@ -156,8 +181,8 @@ module Renalware
             end
           end
 
-          # effective weight loss = [3, 2, 1] so mean = 1.99999 rounded to 2 places rounds up to 2
-          expect(audit.mean_weight_loss).to eq(2)
+          # effective weight loss = [3, 2, 1] so the mean = 1.99999 rounded to 2 places
+          expect(audit.mean_weight_loss).to eq(2.0)
         end
       end
 
@@ -196,6 +221,42 @@ module Renalware
           end
 
           expect(audit.mean_blood_flow).to eq(250)
+        end
+      end
+
+      describe "#mean_litres_processed" do
+        it "calculates the mean value of dialysis flow rate" do
+          @sessions = [5.1, 10.2, 15.3].map do |litres_processed| # a rate
+            Session::Closed.new.tap do |session|
+              session.document.dialysis.litres_processed = litres_processed
+            end
+          end
+
+          expect(audit.mean_litres_processed).to eq(10.2)
+        end
+      end
+
+      # waiting for #839
+      describe "dialysis_time_shortfall" do
+        it "returns the number of minutes of missed HD time across the sessions "\
+           " which is to say total expected - totl actual time on HD " do
+          pending
+          fail
+        end
+      end
+
+      # waiting for #939
+      describe "#number_of_missed_sessions" do
+
+        it "returns the number of dna sessions" do
+          pending
+          @sessions = [
+            Session::Closed.new,
+            Session::DNA.new,
+            Session::Closed.new,
+            Session::DNA.new
+          ]
+          expect(audit.number_of_missed_sessions).to eq(2)
         end
       end
     end

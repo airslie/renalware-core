@@ -33,11 +33,11 @@ module Renalware
       end
 
       def lowest_systolic_blood_pressure
-        all_blood_pressure_measurements.min_by(:systolic)
+        all_blood_pressure_measurements.min_by(&:systolic)
       end
 
       def highest_systolic_blood_pressure
-        all_blood_pressure_measurements.max_by(:systolic)
+        all_blood_pressure_measurements.max_by(&:systolic)
       end
 
       def mean_fluid_removal
@@ -64,6 +64,16 @@ module Renalware
         MeanValueStrategy.call(sessions: sessions, selector: selector)
       end
 
+      def mean_litres_processed
+        selector = ->(session) { session.document && session.document.dialysis.litres_processed }
+        MeanValueStrategy.call(sessions: sessions, selector: selector)
+      end
+
+      # waiting for #939
+      # def number_of_missed_sessions
+      #   @sessions.count{ |session| session.state = "dna" }
+      # end
+
       class MeanValueStrategy
         def self.call(sessions:, selector:)
           values = sessions.map { |session| selector.call(session) }
@@ -82,10 +92,9 @@ module Renalware
       private
 
       def all_blood_pressure_measurements
-        blood_pressures = []
-        blood_pressures.concat(sessions.map { |session| session.observations_before.blood_pressure })
-        blood_pressures.concat(sessions.map { |session| session.observations_after.blood_pressure })
-        blood_pressures
+        before = sessions.map { |session| session.document.observations_before.blood_pressure }
+        after = sessions.map { |session| session.document.observations_after.blood_pressure }
+        [before, after].flatten
       end
 
       def mean_blood_pressure(observation, measurement, strategy = MeanValueStrategy)
