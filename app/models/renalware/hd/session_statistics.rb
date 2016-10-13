@@ -13,9 +13,6 @@ module Renalware
         @sessions = sessions
       end
 
-      #
-      # Blood pressure
-      #
       def pre_mean_systolic_blood_pressure
         mean_blood_pressure(:observations_before, :systolic)
       end
@@ -69,11 +66,6 @@ module Renalware
         MeanValueStrategy.call(sessions: sessions, selector: selector)
       end
 
-      # waiting for #939
-      # def number_of_missed_sessions
-      #   @sessions.count{ |session| session.state = "dna" }
-      # end
-
       class MeanValueStrategy
         def self.call(sessions:, selector:)
           values = sessions.map { |session| selector.call(session) }
@@ -109,11 +101,6 @@ module Renalware
         end
         strategy.call(sessions: sessions, selector: selector)
       end
-
-      # class NullBloodPressure
-      #   attribute :systolic, Integer, default: 0
-      #   attribute :diastolic, Integer, default: 0
-      # end
     end
   end
 end

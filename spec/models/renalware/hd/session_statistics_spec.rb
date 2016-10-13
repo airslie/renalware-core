@@ -2,44 +2,7 @@ require "rails_helper"
 
 module Renalware
   module HD
-    describe SessionStatistics, focus: true do
-
-       #def stub_sessions(observations_before: {}, observations_before: {})
-
-        # we want to create an array of sessions.
-        # assumptions
-        # - the 3 ranges of pre and post systolic and diastolic must have the same length
-        # - either can be empty so there is no blood pressure reading
-        # pseudo code
-        #
-        # get max readings
-        # pre_systolic_bps = *observations_before.try(:systolic)
-        # pre_diastolic_bps = *observations_before.try(:diastolic)
-        # post_systolic_bps = *observations_after.try(:systolic)
-        # post_diastolic_bps = *observations_after.try(:diastolic)
-        # max = [pre_systolic_bps, post_systolic_bps].map(&:count).max
-        # (0..max),each do |index|
-        #   pre_bp = BloodPressure.new(systolic: pre_systolic_bps[index], diastolic: diastolic[count - 1])
-        # @sessions << double(
-        #    observations_before: OpenStruct.new(blood_pressure: BloodPressure.new(systolic: systolic, diastolic: diastolic[count - 1])),
-        #    observations_after: OpenStruct.new(blood_pressure: BloodPressure.new(systolic: systolic, diastolic: diastolic[count - 1]))
-        #  )
-        # end
-
-
-        # systolic = *systolic_range
-        # diastolic = *diastolic_range
-        # fail unless systolic.count == diastolic.count
-
-        # @sessions = []
-        # systolic.each_with_index do |systolic, count|
-        #   bp = BloodPressure.new(systolic: systolic, diastolic: diastolic[count - 1])
-        #   @sessions << double(
-        #     observations_before: OpenStruct.new(blood_pressure: bp),
-        #     observations_after: OpenStruct.new(blood_pressure: bp)
-        #   )
-        # end
-      #end
+    describe SessionStatistics do
 
       def stub_sessions(observations:, systolic_range:, diastolic_range:)
         systolic = *systolic_range
@@ -50,8 +13,8 @@ module Renalware
         fail unless systolic.count == diastolic.count
 
         @sessions = []
-        systolic.each_with_index do |systolic, count|
-          bp = BloodPressure.new(systolic: systolic, diastolic: diastolic[count - 1])
+        systolic.each_with_index do |systolic_value, count|
+          bp = BloodPressure.new(systolic: systolic_value, diastolic: diastolic[count - 1])
           sesh = Session::Closed.new
           sesh.document[observations].blood_pressure = bp
           @sessions << sesh
