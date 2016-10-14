@@ -3,8 +3,8 @@ class CreateHDPatientStatistics < ActiveRecord::Migration
     create_table :hd_patient_statistics do |t|
       t.references :patient, null: false, foreign_key: true, index: true
 
-      t.date :period_start, null: false, index: true
-      t.date :period_end, null: true, index: true
+      t.date :period_starts_at, null: false, index: true
+      t.date :period_ends_at, null: true, index: true
 
       t.decimal :float_value, precision: 10, scale: 2
       t.decimal :pre_mean_systolic_blood_pressure, precision: 10, scale: 2

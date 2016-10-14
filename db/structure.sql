@@ -828,8 +828,8 @@ ALTER SEQUENCE hd_dry_weights_id_seq OWNED BY hd_dry_weights.id;
 CREATE TABLE hd_patient_statistics (
     id integer NOT NULL,
     patient_id integer NOT NULL,
-    period_start date NOT NULL,
-    period_end date,
+    period_starts_at date NOT NULL,
+    period_ends_at date,
     float_value numeric(10,2),
     pre_mean_systolic_blood_pressure numeric(10,2),
     pre_mean_diastolic_blood_pressure numeric(10,2),
@@ -5074,17 +5074,17 @@ CREATE INDEX index_hd_patient_statistics_on_patient_id ON hd_patient_statistics 
 
 
 --
--- Name: index_hd_patient_statistics_on_period_end; Type: INDEX; Schema: public; Owner: -
+-- Name: index_hd_patient_statistics_on_period_ends_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_hd_patient_statistics_on_period_end ON hd_patient_statistics USING btree (period_end);
+CREATE INDEX index_hd_patient_statistics_on_period_ends_at ON hd_patient_statistics USING btree (period_ends_at);
 
 
 --
--- Name: index_hd_patient_statistics_on_period_start; Type: INDEX; Schema: public; Owner: -
+-- Name: index_hd_patient_statistics_on_period_starts_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_hd_patient_statistics_on_period_start ON hd_patient_statistics USING btree (period_start);
+CREATE INDEX index_hd_patient_statistics_on_period_starts_at ON hd_patient_statistics USING btree (period_starts_at);
 
 
 --
