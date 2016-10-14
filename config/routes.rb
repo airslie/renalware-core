@@ -149,8 +149,8 @@ Rails.application.routes.draw do
                  defaults: { format: :pdf }
         resource :preference_set, only: [:edit, :update]
         resource :profile, only: [:show, :edit, :update]
-        resources :sessions
-        resources :dry_weights, except: [:show, :destroy]
+        resources :sessions, except: [:destroy]
+        resources :dry_weights, only: [:new, :create, :index]
       end
 
       # Medications
