@@ -1,17 +1,23 @@
 = simple_form_for contact,
     url: patient_letters_contacts_path(patient),
-    wrapper: "horizontal_form" do |f|
-  h2= t(".title")
-
+    wrapper: "vertical_form" do |f|
   .row
+    .large-12.columns
+      h2= t(".title")
+
+  .row.errors-container
     .large-12.columns
       ul.error-messages
 
-  = render 'form', f: f
+  .row
+    .large-12.columns
+      = render 'form', f: f
 
-  =f.submit t(".save"), class: :button
-  span= " or "
-  =link_to t(".cancel"),
-           "#",
-           "aria-label" => "Close",
-           class: "reveal-modal-close"
+  .row
+    .large-12.columns
+      =f.submit t(".save"), class: :button
+      span= " or "
+      =link_to t(".cancel"),
+               "#",
+               "aria-label" => "Close",
+               class: "reveal-modal-close"

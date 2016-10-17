@@ -4,7 +4,8 @@ Renalware.Contacts = {
   Modal: function(el, callback) {
     this.el = el,
     this.form = this.el.find("form"),
-    this.errorsList = this.form.find("ul.error-messages"),
+    this.errorsContainer = this.form.find(".errors-container"),
+    this.errorsList = this.errorsContainer.find("ul.error-messages"),
     this.callback = callback,
 
     this.init = function() {
@@ -54,12 +55,14 @@ Renalware.Contacts = {
 
     this._clearErrors = function() {
       this.errorsList.html("");
+      this.errorsContainer.hide();
     },
 
     this._onErrors = function(errors) {
       var list = this.errorsList;
 
       this._clearErrors();
+      this.errorsContainer.show();
       $.each(errors, function(i) {
         list.append("<li>" + errors[i] + "</li>");
       });
