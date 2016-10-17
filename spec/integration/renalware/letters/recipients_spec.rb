@@ -2,7 +2,7 @@ require "rails_helper"
 require "test_support/autocomplete_helpers"
 require "test_support/ajax_helpers"
 
-RSpec.describe "Assign a person as a recipient", type: :feature, js: true do
+RSpec.describe "Assign a person as a recipient", type: :feature do
   include AutocompleteHelpers
   include AjaxHelpers
 
@@ -16,7 +16,7 @@ RSpec.describe "Assign a person as a recipient", type: :feature, js: true do
   let!(:person) { create(:directory_person, address: address, by: create(:user)) }
   let(:user) { create(:user) }
 
-  describe "assigning a new person as a main recipient" do
+  describe "assigning a new person as a main recipient", js: true do
     before do
       create(:letter_letterhead)
       create(:letter_contact, patient: patient, person: create(:directory_person, by: user))

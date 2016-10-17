@@ -1,14 +1,3 @@
 / The modal dialog
 #add-patient-contact-modal.reveal-modal.medium(data-reveal)
   = render "renalware/letters/contacts/new", patient: patient, contact: contact
-
-= content_for :footer do
-  javascript:
-    $(document).ready(function() {
-      $(document).on("contact-added", function(e, data) {
-        console.log(data.id);
-        $("#contact-selector-input").load(document.URL + " #contact-selector-input", function() {
-          $("#letter_main_recipient_attributes_addressee_id").val(data.id);
-        });
-      });
-    });
