@@ -69,7 +69,7 @@ Renalware.Contacts = {
 
 $(document).ready(function() {
   var modal = new Renalware.Contacts.Modal($("#add-patient-contact-modal"), function(contact) {
-    $("#contacts").load(document.URL + " #contacts");
+    $.getScript(document.URL);
   });
   modal.init();
 
