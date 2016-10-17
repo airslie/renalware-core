@@ -1,0 +1,10 @@
+en:
+  renalware:
+    navigation:
+      renal:
+        menu_title: Renal
+        appointments: Appointments
+        tx_wait_list: Tx Wait List
+        ongoing_hd_sessions: Ongoing HD Sessions
+        letters: Letters
+        esa_prescriptions: ESA Patients

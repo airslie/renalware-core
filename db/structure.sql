@@ -4776,6 +4776,13 @@ CREATE INDEX idx_medication_prescriptions_type ON medication_prescriptions USING
 
 
 --
+-- Name: idx_mp_patient_id_medication_route_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX idx_mp_patient_id_medication_route_id ON medication_prescriptions USING btree (patient_id, medication_route_id);
+
+
+--
 -- Name: index_access_assessments_on_created_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5207,6 +5214,48 @@ CREATE INDEX index_medication_prescription_terminations_on_updated_by_id ON medi
 --
 
 CREATE INDEX index_medication_prescription_versions_on_item_type_and_item_id ON medication_prescription_versions USING btree (item_type, item_id);
+
+
+--
+-- Name: index_medication_prescriptions_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_medication_prescriptions_on_created_by_id ON medication_prescriptions USING btree (created_by_id);
+
+
+--
+-- Name: index_medication_prescriptions_on_drug_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_medication_prescriptions_on_drug_id ON medication_prescriptions USING btree (drug_id);
+
+
+--
+-- Name: index_medication_prescriptions_on_drug_id_and_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_medication_prescriptions_on_drug_id_and_patient_id ON medication_prescriptions USING btree (drug_id, patient_id);
+
+
+--
+-- Name: index_medication_prescriptions_on_medication_route_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_medication_prescriptions_on_medication_route_id ON medication_prescriptions USING btree (medication_route_id);
+
+
+--
+-- Name: index_medication_prescriptions_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_medication_prescriptions_on_patient_id ON medication_prescriptions USING btree (patient_id);
+
+
+--
+-- Name: index_medication_prescriptions_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_medication_prescriptions_on_updated_by_id ON medication_prescriptions USING btree (updated_by_id);
 
 
 --
@@ -6726,6 +6775,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160824132805');
 INSERT INTO schema_migrations (version) VALUES ('20160829114845');
 
 INSERT INTO schema_migrations (version) VALUES ('20160830141439');
+
+INSERT INTO schema_migrations (version) VALUES ('20160905140623');
 
 INSERT INTO schema_migrations (version) VALUES ('20160906195949');
 

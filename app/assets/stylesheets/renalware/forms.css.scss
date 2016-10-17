@@ -1,3 +1,24 @@
+form .row .row.datepicker-wrapper {
+  margin-bottom: 10px;
+}
+
+.cancel-link {
+  font-size: 0.9rem;
+  margin-left: 15px;
+  &.disabled {
+    pointer-events: none;
+    color: #cccccc;
+  }
+}
+
+.datepicker {
+  width: 240px;
+
+  &.dropdown-menu {
+    font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  }
+}
+
 form {
   .small-input {
     max-width: 250px !important;

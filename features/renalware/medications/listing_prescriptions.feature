@@ -25,4 +25,3 @@ Feature: Listing prescriptions
       | Acarbose Tablet        | 100 mg | bd            | PO         | Hospital |               |
       | Beta-Carotene Capsule  | 100 mg | bd            | SC         | GP       | 01-06-2016    |
       | Flucloxacillin Capsule | 50 mg  | bd for 7 days | PO         | GP       |               |
-

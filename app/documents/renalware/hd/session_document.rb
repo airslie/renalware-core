@@ -21,9 +21,11 @@ module Renalware
 
       class Observations < Document::Embedded
         attribute :weight, Float
+        attribute :weight_measured, Document::Enum, enums: %i(yes no), default: :yes
         attribute :pulse, Integer
         attribute :blood_pressure, BloodPressure
         attribute :temperature, Float
+        attribute :temperature_measured, Document::Enum, enums: %i(yes no), default: :yes
         attribute :bm_stix, Float
 
         validates :weight, "renalware/patients/weight" => true

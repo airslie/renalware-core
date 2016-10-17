@@ -26,8 +26,10 @@ en:
         dialysis_fluid_used: Dialysis Solution Used
       renalware/hd/session_document/observations:
         weight: Weight (kg)
+        weight_measured: Weight taken
         pulse: Pulse
         blood_pressure: Blood Pressure
+        temperature_measured: Temperature taken
         temperature: Temperature
         bm_stix: BM Stix
       renalware/hd/session_document/dialysis:
@@ -82,6 +84,13 @@ en:
         a10: Fresenius A10
         a17: Fresenius A17
         a27: Fresenius A27
+    renalware/hd/session_document/observations:
+      weight_measured:
+        "yes": "Yes"
+        "no": "No (unmeasurable)"
+      temperature_measured:
+        "yes": "Yes"
+        "no": "No (unmeasurable)"
     renalware/hd/session_document/complications:
       access_site_status:
         clean_and_dry: Clean and Dry
