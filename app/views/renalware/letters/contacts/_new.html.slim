@@ -1,9 +1,12 @@
 = simple_form_for contact,
     url: patient_letters_contacts_path(patient),
-    wrapper: "horizontal_form",
-    remote: true do |f|
+    wrapper: "horizontal_form" do |f|
   h2= t(".title")
-  = render partial: "renalware/shared/errors", locals: {model: contact}
+
+  .row
+    .large-12.columns
+      ul.error-messages
+
   = render 'form', f: f
 
   =f.submit t(".save"), class: :button
