@@ -67,7 +67,7 @@ module Renalware
 
       # Include the counterpart cc recipients (i.e. patient and/or primary care physician)
       def build_cc_recipients
-        __getobj__.cc_recipients + determine_counterpart_ccs
+        determine_counterpart_ccs + __getobj__.cc_recipients
       end
 
       def present_cc_recipients(recipients)

@@ -1,0 +1,12 @@
+- recipient_id = letter.cc_recipient_id_for_contact(contact)
+- check_box_id = "cc-contact-#{contact.id}"
+tr
+  = content_tag(:td, style: "width: 20px") do
+    = hidden_field_tag "letter[cc_recipients_attributes][][id]", recipient_id
+    = hidden_field_tag "letter[cc_recipients_attributes][][person_role]", "contact"
+    = hidden_field_tag "letter[cc_recipients_attributes][][addressee_id]", contact.id
+
+    = check_box_tag("letter[cc_recipients_attributes][][_keep]", "1",
+        recipient_id.present?, id: check_box_id)
+  td
+    = label_tag check_box_id, contact.address

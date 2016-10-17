@@ -14,9 +14,8 @@ module World
         {
           "Patty" => @patty,
           "Phylis" => @patty.primary_care_physician,
-          "John in London" => { name: "John", city: "London" },
-          "Kate in Ely" => { name: "Kate", city: "Ely" },
-          "Sam" => find_contact(patient, "Sam")
+          "Sam" => find_contact(patient, "Sam"),
+          "Kate" => find_contact(patient, "Kate")
         }
       end
 
@@ -40,9 +39,11 @@ module World
         author = options.fetch(:author, user)
 
         patient = letters_patient(patient)
+        contact = create_contact(patient: patient, user: user)
 
         letter_attributes = valid_simple_letter_attributes(patient).merge(
           main_recipient_attributes: { person_role: "patient" },
+          cc_recipients_attributes: build_cc_recipients_attributes([contact]),
           by: user,
           author: author
         )
@@ -147,9 +148,6 @@ module World
         elsif recipient.is_a? Renalware::Letters::Contact
           expect(main_recipient.person_role).to eq("contact")
           expect(main_recipient.addressee).to eq(recipient)
-        else
-          expect(main_recipient.address.name).to eq(recipient[:name])
-          expect(main_recipient.address.city).to eq(recipient[:city])
         end
       end
 
@@ -169,7 +167,7 @@ module World
           elsif cc.is_a? Renalware::Patients::PrimaryCarePhysician
             ["primary_care_physician", cc.current_address.city]
           else
-            ["contact", cc[:city]]
+            ["contact", cc.address.city]
           end
         end
 
@@ -263,16 +261,8 @@ module World
         when Renalware::Letters::Contact
           {
             person_role: "contact",
-            addressee_id: recipient.id
-          }
-        else
-          {
-            person_role: "contact",
-            address_attributes: {
-              name: recipient[:name],
-              city: recipient[:city],
-              street_1: "1 Main St"
-            }
+            addressee_id: recipient.id,
+            _keep: "1"
           }
         end
       end
@@ -323,12 +313,9 @@ module World
 
       def fill_ccs(ccs)
         if ccs.present?
-          ccs.each_with_index do |cc, index|
-            find(".call-to-action").click
-            within(".nested-fields:nth-child(#{index + 1})") do
-              fill_in "Name", with: cc[:name]
-              fill_in "Line 1", with: "1 Main st"
-              fill_in "City", with: cc[:city]
+          within "#letter-ccs" do
+            ccs.each do |cc|
+              find("#cc-contact-#{cc.id}").trigger("click")
             end
           end
         end

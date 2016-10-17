@@ -8,7 +8,7 @@ module Renalware
       layout "renalware/layouts/letter"
 
       def show
-        letter = @patient.letters.find(params[:letter_id])
+        letter = find_letter(params[:letter_id])
         @letter = present_letter(letter)
         @content = @letter.content
 
@@ -22,6 +22,14 @@ module Renalware
       end
 
       private
+
+      def find_letter(id)
+        @patient.letters
+          .with_patient
+          .with_main_recipient
+          .with_cc_recipients
+          .find(id)
+      end
 
       def present_letter(letter)
         LetterPresenterFactory.new(letter)

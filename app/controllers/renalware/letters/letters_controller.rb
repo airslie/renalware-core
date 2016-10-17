@@ -6,7 +6,7 @@ module Renalware
       before_filter :load_patient
 
       def index
-        render :index, locals: { letters: present_letters(@patient.letters) }
+        render :index, locals: { letters: present_letters(find_letters) }
       end
 
       def new
@@ -31,11 +31,11 @@ module Renalware
       end
 
       def show
-        @letter = present_letter(@patient.letters.find(params[:id]))
+        @letter = present_letter(find_letter(params[:id]))
       end
 
       def edit
-        render_form(@patient.letters.pending.find(params[:id]), :edit)
+        render_form(find_letter(params[:id]), :edit)
       end
 
       def update
@@ -55,6 +55,19 @@ module Renalware
 
       private
 
+      def find_letters
+        @patient.letters
+          .with_main_recipient
+          .with_letterhead
+          .with_author
+          .with_event
+          .with_patient
+      end
+
+      def find_letter(id)
+        @patient.letters.find(id)
+      end
+
       def present_letters(letters)
         CollectionPresenter.new(letters, LetterPresenterFactory)
       end
@@ -69,6 +82,7 @@ module Renalware
 
       def render_form(letter, action)
         @letter = LetterFormPresenter.new(letter)
+        @contacts = @patient.contacts
         render action
       end
 
@@ -114,8 +128,7 @@ module Renalware
 
       def cc_recipients_attributes
         [
-          :id, :person_role, :_destroy,
-          address_attributes: address_attributes
+          :id, :person_role, :addressee_id, :_keep
         ]
       end
 

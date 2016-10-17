@@ -12,6 +12,7 @@ Feature: Writing a letter
     And Phylis is Patty's primary care physician
     And Sam is a social worker
     And Sam is one of Patty's contacts
+    And Kate is the emergency contact for Patty
 
   @web @javascript
   Scenario Outline: A nurse drafted a letter
@@ -21,11 +22,11 @@ Feature: Writing a letter
     And all "<ccs>" will also receive the letter
 
     Examples:
-      | recipient      | manual_ccs                  | ccs                                |
-      | Phylis         | John in London              | Patty, John in London              |
-      | Phylis         | John in London, Kate in Ely | Patty, John in London, Kate in Ely |
-      | Patty          |                             | Phylis                             |
-      | Sam            |                             | Patty, Phylis                      |
+      | recipient | manual_ccs | ccs              |
+      | Phylis    | Sam        | Patty, Sam       |
+      | Phylis    | Sam, Kate  | Patty, Sam, Kate |
+      | Patty     |            | Phylis           |
+      | Sam       |            | Patty, Phylis    |
 
   @web
   Scenario: A nurse drafted an erroneous letter

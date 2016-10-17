@@ -38,6 +38,11 @@ module Renalware
         end
       end
 
+      def for_contact?(contact)
+        return false unless person_role.contact?
+        addressee_id == contact.id
+      end
+
       private
 
       def patient_or_primary_care_physician?
