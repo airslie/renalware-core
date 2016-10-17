@@ -6,7 +6,7 @@ $(document).ajaxError(function (e, xhr, settings) {
     case 401:
       location.reload();
       break;
-    default:
+    case 500:
       alert("Your request has unexpectedly failed (" + xhr.statusText + ").  Please try again.");
   }
 });
