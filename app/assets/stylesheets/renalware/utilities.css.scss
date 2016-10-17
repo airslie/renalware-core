@@ -17,3 +17,9 @@
 .nowrap {
   white-space: nowrap;
 }
+
+.row.no-side-gutters {
+  margin-left: 0;
+  margin-right: 0;
+  max-width: inherit;
+}

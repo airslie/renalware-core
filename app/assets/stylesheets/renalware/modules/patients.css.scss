@@ -25,7 +25,7 @@ ul.provider {
 
 dl.patient-header {
   font-size: 1.1rem;
-  margin: .3em 0 .5em;
+  margin: 0 0 .2em 1em;
 
   dt {
     color: $patient-header-muted-color;
@@ -48,13 +48,13 @@ dl.patient-header {
       @media #{$medium-up} {
         display: inline-block;
         font-size: 1.4em;
-        min-width: 1.1em;
+        min-width: 1em;
       }
 
       // large screens and above
       @media print, #{$large-up} {
         font-size: 1.6em;
-        min-width: 1.2em;
+        min-width: 0.8em;
       }
     }
   }
