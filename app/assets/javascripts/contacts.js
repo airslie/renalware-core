@@ -14,12 +14,10 @@ Renalware.Contacts = {
 
     this.open = function() {
       this.el.foundation("reveal", "open");
-    }
+    },
 
     this._onSubmit = function(event) {
       event.preventDefault();
-
-      console.log(this);
 
       var valuesToSubmit = this.form.serialize();
       var self = this;
@@ -30,7 +28,6 @@ Renalware.Contacts = {
         data: valuesToSubmit,
         dataType: "JSON" // you want a difference between normal and ajax-calls, and json is standard
       }).success(function(json){
-        console.log(json);
         if (json.status == "success") {
           self._onContactAdded(json.contact);
         } else {
@@ -52,19 +49,17 @@ Renalware.Contacts = {
         list.append("<li>" + errors[i] + "</li>");
       });
     }
-  },
-
-  init: function () {
-    var modal = new Renalware.Contacts.Modal($("#add-patient-contact-modal"), function(contact) {
-      $("#contacts").load(document.URL + " #contacts");
-    });
-    modal.init();
-
-    $("a[data-behaviour='add-new-contact']").on("click", function(event) {
-       event.preventDefault();
-       modal.open();
-    })
   }
-}
+};
 
-$(document).ready(Renalware.Contacts.init);
+$(document).ready(function() {
+  var modal = new Renalware.Contacts.Modal($("#add-patient-contact-modal"), function(contact) {
+    $("#contacts").load(document.URL + " #contacts");
+  });
+  modal.init();
+
+  $("a[data-behaviour='add-new-contact']").on("click", function(event) {
+     event.preventDefault();
+     modal.open();
+  })
+});
