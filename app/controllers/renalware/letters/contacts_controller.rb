@@ -16,9 +16,9 @@ module Renalware
       def create
         contact = @patient.assign_contact(contact_params)
         if contact.save
-          render :create, locals: { patient: @patient, contact: contact, contacts: find_contacts }
+          create_contact_successful(contact)
         else
-          render :create, locals: { patient: @patient, contact: contact }
+          create_contact_failed(contact)
         end
       end
 
@@ -26,6 +26,14 @@ module Renalware
 
       def build_contact
         Contact.new
+      end
+
+      def create_contact_successful(contact)
+        render json: contact, status: :created
+      end
+
+      def create_contact_failed(contact)
+        render json: contact.errors.full_messages, status: :bad_request
       end
 
       def find_contacts

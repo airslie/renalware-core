@@ -29,14 +29,15 @@ Renalware.Contacts = {
         type: "POST",
         url: $(this).attr("action"), //sumbits it to the given url of the form
         data: valuesToSubmit,
-        dataType: "JSON" // you want a difference between normal and ajax-calls, and json is standard
-      }).success(function(json){
-        switch (json.status) {
-          case "success":
-            self._onContactAdded(json.contact);
-            break;
-          default:
-            self._onErrors(json.errors);
+        dataType: "JSON", // you want a difference between normal and ajax-calls, and json is standard
+        statusCode: {
+          201: function(contact) {
+            self._onContactAdded(contact);
+          },
+          400: function(jqXHR) {
+            var errors = jqXHR.responseJSON;
+            self._onErrors(errors);
+          }
         }
       });
     },
@@ -47,7 +48,8 @@ Renalware.Contacts = {
     },
 
     this._clearForm = function() {
-      this.form[0].reset();
+      this.form.trigger("reset");
+      this.form.find(".hidden").val("");
     },
 
     this._clearErrors = function() {
