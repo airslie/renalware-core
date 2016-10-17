@@ -2,7 +2,11 @@
 // js request after a session timeout, reloading the current page
 // will redirect the user to the login page.
 $(document).ajaxError(function (e, xhr, settings) {
-  if (xhr.status == 401) {
-    location.reload();
+  switch(xhr.status) {
+    case 401:
+      location.reload();
+      break;
+    default:
+      alert("Your request has unexpectedly failed (" + xhr.statusText + ").  Please try again.");
   }
 });
