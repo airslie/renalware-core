@@ -1,5 +1,0 @@
-<% if contact.errors.empty? %>
-  <%= { status: "success", contact: contact }.to_json.html_safe %>
-<% else %>
-  <%= { status: "error", errors: contact.errors.map { |k,v| v } }.to_json.html_safe %>
-<% end %>
