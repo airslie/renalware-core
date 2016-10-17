@@ -15,6 +15,7 @@ module Renalware
     Yours sincerely
     TEXT
 
+  contacts = patient.contacts.limit(2).to_a
   Letters::Letter::Draft.create!(
     patient: patient,
     issued_on: 2.days.ago,
@@ -23,6 +24,10 @@ module Renalware
     main_recipient_attributes: {
       person_role: "primary_care_physician"
     },
+    cc_recipients_attributes: [
+        { person_role: "contact", addressee: contacts.first },
+        { person_role: "contact", addressee: contacts.last },
+      ],
     body: letter_body,
     notes: "Waiting on lab results.",
     letterhead: Renalware::Letters::Letterhead.first,

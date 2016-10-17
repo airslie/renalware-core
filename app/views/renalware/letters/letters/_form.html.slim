@@ -37,7 +37,7 @@ ruby:
 
       div#contact-selector(style="display: none")
         #contact-selector-input
-          = fmr.input :addressee_id, as: :select, collection: @patient.contacts.ordered, label: false, include_blank: false
+          = fmr.input :addressee_id, as: :select, collection: contacts, label: false, include_blank: false
 
         .row
           .small-offset-3.small-9.columns
@@ -45,21 +45,15 @@ ruby:
             br
             br
 
-
-
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Additional CCs", name: "ccs" } do
 
-    .small-offset-3.small-9.columns
-      #letter-ccs
-        = f.simple_fields_for :cc_recipients, f.object.other_cc_recipients do |ff|
-          = render 'cc_recipient_fields', f: ff
+    .row
+      .small-offset-3.small-9.columns
+        #letter-ccs
+          table.auto-layout
+            = render partial: "cc_recipient_form", collection: contacts, as: :contact, locals: { letter: f.object }
 
-      .call-to-action
-        = link_to_add_association f, :cc_recipients,
-            data: { association_insertion_node: "#letter-ccs", association_insertion_method: "append" } do
-            i.fa.fa-plus-circle
-            | Add CC
 
 
   = render layout: "renalware/shared/fieldset",

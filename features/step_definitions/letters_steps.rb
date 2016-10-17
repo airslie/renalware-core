@@ -55,6 +55,11 @@ Given(/^Sam is one of Patty's contacts$/) do
   seed_contact(patient: @patty, person: @sam)
 end
 
+Given(/^Kate is the emergency contact for Patty$/) do
+  @kate = seed_person(given_name: "Kate", user: Renalware::User.first)
+  seed_contact(patient: @patty, person: @kate)
+end
+
 # WHEN
 
 When(/^Nathalie drafts a letter for Patty to "(.*?)" with "(.*?)"$/) do |rec, ccs|

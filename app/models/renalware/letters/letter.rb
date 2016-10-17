@@ -35,9 +35,11 @@ module Renalware
       scope :pending, -> { where(type: [state_class_name(:draft), state_class_name(:pending_review)]) }
       scope :reverse, -> { order(updated_at: :desc) }
       scope :with_letterhead, -> { includes(:letterhead) }
-      scope :with_main_recipient, -> { includes([main_recipient: :address]) }
+      scope :with_main_recipient, -> { includes(main_recipient: :addressee) }
       scope :with_author, -> { includes(:author) }
-      scope :with_patient, -> { includes(:patient) }
+      scope :with_patient, -> { includes(patient: :primary_care_physician) }
+      scope :with_event, -> { includes(:event) }
+      scope :with_cc_recipients, -> { includes(cc_recipients: {addressee: {person: :address}}) }
 
       def self.policy_class
         LetterPolicy
@@ -64,8 +66,8 @@ module Renalware
         patient == other_patient
       end
 
-      def other_cc_recipients
-        cc_recipients.select { |cc| cc.person_role.contact? }
+      def find_cc_recipient_for_contact(contact)
+        cc_recipients.detect { |recipient| recipient.for_contact?(contact) }
       end
 
       def determine_counterpart_ccs
