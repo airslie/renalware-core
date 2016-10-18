@@ -19,6 +19,26 @@ Renalware.Contacts = {
       this._clearErrors();
     },
 
+    this._clearForm = function() {
+      this.form.trigger("reset");
+      this.form.find(".hidden").val("");
+    },
+
+    this._addErrors = function(errors) {
+      var list = this.errorsList;
+      this.errorsContainer.show();
+      $.each(errors, function(i) {
+        list.append("<li>" + errors[i] + "</li>");
+      });
+    },
+
+    this._clearErrors = function() {
+      this.errorsList.html("");
+      this.errorsContainer.hide();
+    },
+
+    // event handlers
+
     this._onSubmit = function(event) {
       event.preventDefault();
 
@@ -30,7 +50,7 @@ Renalware.Contacts = {
         type: "POST",
         url: self.form.attr("action"), //submits it to the given url of the form
         data: valuesToSubmit,
-        dataType: "JSON", // you want a difference between normal and ajax-calls, and json is standard
+        dataType: "JSON",
         statusCode: {
           201: function(contact) {
             self._onContactAdded(contact);
@@ -48,24 +68,9 @@ Renalware.Contacts = {
       this.callback(contact);
     },
 
-    this._clearForm = function() {
-      this.form.trigger("reset");
-      this.form.find(".hidden").val("");
-    },
-
-    this._clearErrors = function() {
-      this.errorsList.html("");
-      this.errorsContainer.hide();
-    },
-
     this._onErrors = function(errors) {
-      var list = this.errorsList;
-
       this._clearErrors();
-      this.errorsContainer.show();
-      $.each(errors, function(i) {
-        list.append("<li>" + errors[i] + "</li>");
-      });
+      this._addErrors(errors);
     }
   }
 };
