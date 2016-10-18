@@ -30,7 +30,7 @@ Renalware.Contacts = {
         type: "POST",
         url: $(this).attr("action"), //sumbits it to the given url of the form
         data: valuesToSubmit,
-        dataType: "JSON", // you want a difference between normal and ajax-calls, and json is standard
+        dataType: "JSON",
         statusCode: {
           201: function(contact) {
             self._onContactAdded(contact);
