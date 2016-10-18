@@ -11,10 +11,9 @@ module Renalware
       delegate :address, :to_s, to: :person
       delegate :name, to: :address, prefix: true
 
-      scope :with_person, -> { includes(:person) }
+      scope :with_person, -> { includes(person: :address) }
       scope :ordered, -> {
-        includes(:person)
-          .order("directory_people.family_name, directory_people.given_name")
+        with_person.order("directory_people.family_name, directory_people.given_name")
       }
 
       def self.find_by_given_name(name)
