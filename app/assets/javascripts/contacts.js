@@ -25,10 +25,10 @@ Renalware.Contacts = {
       var valuesToSubmit = this.form.serialize();
       var self = this;
 
-      this._clearErrors();
+      self._clearErrors();
       $.ajax({
         type: "POST",
-        url: $(this).attr("action"), //sumbits it to the given url of the form
+        url: self.form.attr("action"), //submits it to the given url of the form
         data: valuesToSubmit,
         dataType: "JSON", // you want a difference between normal and ajax-calls, and json is standard
         statusCode: {
