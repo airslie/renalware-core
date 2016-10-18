@@ -29,3 +29,5 @@ capybara-*.html
 capybara*.html
 .vimrc
 rerun.txt
+/.overcommit.yml
+/.git-hooks
