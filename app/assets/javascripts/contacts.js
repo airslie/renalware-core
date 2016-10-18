@@ -24,10 +24,20 @@ Renalware.Contacts = {
       this.form.find(".hidden").val("");
     },
 
+    this._addErrors = function(errors) {
+      var list = this.errorsList;
+      this.errorsContainer.show();
+      $.each(errors, function(i) {
+        list.append("<li>" + errors[i] + "</li>");
+      });
+    },
+
     this._clearErrors = function() {
       this.errorsList.html("");
       this.errorsContainer.hide();
     },
+
+    // event handlers
 
     this._onSubmit = function(event) {
       event.preventDefault();
@@ -59,13 +69,8 @@ Renalware.Contacts = {
     },
 
     this._onErrors = function(errors) {
-      var list = this.errorsList;
-
       this._clearErrors();
-      this.errorsContainer.show();
-      $.each(errors, function(i) {
-        list.append("<li>" + errors[i] + "</li>");
-      });
+      this._addErrors(errors);
     }
   }
 };
