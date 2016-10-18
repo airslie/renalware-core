@@ -19,6 +19,16 @@ Renalware.Contacts = {
       this._clearErrors();
     },
 
+    this._clearForm = function() {
+      this.form.trigger("reset");
+      this.form.find(".hidden").val("");
+    },
+
+    this._clearErrors = function() {
+      this.errorsList.html("");
+      this.errorsContainer.hide();
+    },
+
     this._onSubmit = function(event) {
       event.preventDefault();
 
@@ -46,16 +56,6 @@ Renalware.Contacts = {
     this._onContactAdded = function(contact) {
       this.el.foundation('reveal', 'close');
       this.callback(contact);
-    },
-
-    this._clearForm = function() {
-      this.form.trigger("reset");
-      this.form.find(".hidden").val("");
-    },
-
-    this._clearErrors = function() {
-      this.errorsList.html("");
-      this.errorsContainer.hide();
     },
 
     this._onErrors = function(errors) {
