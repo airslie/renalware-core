@@ -5,7 +5,8 @@ en:
         renalware/letters/contact:
           attributes:
             person:
-              taken: "must be unique to the patient"
+              taken: "is already a contact for the patient"
+
   renalware:
     letters:
       contacts:

@@ -1,5 +1,5 @@
 dl.sub-nav
   dd= link_to t(".list"), patient_letters_contacts_path(@patient)
   / Link to launch the modal dialog
-  dd= link_to(t(".add_contact"), '#', data: { "reveal-id" => "add-patient-contact-modal" })
+  dd= link_to(t(".add_contact"), "#", data: { behaviour: "add-new-contact" })
 
