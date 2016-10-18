@@ -6,9 +6,17 @@ Feature: Assign a person as a patient's contact
   task.
 
   @web @javascript
-  Scenario:
+  Scenario: The clinician assigned a person to the patient as a contact.
     Given Patty is a patient
     And Sam is a social worker
     And Clyde is a clinician
     When Clyde assigns Sam as a contact for Patty
     Then Sam is listed as Patty's available contacts
+
+  Scenario: The clinician assigned a person to the patient as a contact flagging them as a default CC.
+    Given Patty is a patient
+    And Sam is a social worker
+    And Clyde is a clinician
+    When Clyde assigns Sam as a contact for Patty flagging them as a default CC
+    Then Sam is listed as Patty's available contacts
+    And Sam is listed as Patty's default CC's

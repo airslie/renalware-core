@@ -21,6 +21,10 @@ module Renalware
       def has_available_contact?(person)
         contacts.map(&:person).include?(person)
       end
+
+      def has_default_cc?(person)
+        contacts.default_ccs.map(&:person).include?(person)
+      end
     end
   end
 end

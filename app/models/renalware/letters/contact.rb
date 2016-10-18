@@ -16,6 +16,8 @@ module Renalware
         with_person.order("directory_people.family_name, directory_people.given_name")
       }
 
+      scope :default_ccs, -> { where(default_cc: true) }
+
       def self.find_by_given_name(name)
         with_person.find_by(directory_people: { given_name: name })
       end
