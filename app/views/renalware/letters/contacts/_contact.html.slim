@@ -1,3 +1,4 @@
 tr
   td= link_to contact, directory_person_path(contact.person)
+  td= yes_no(contact.default_cc)
   td= contact.address

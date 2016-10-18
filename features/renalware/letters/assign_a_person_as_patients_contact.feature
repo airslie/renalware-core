@@ -13,6 +13,7 @@ Feature: Assign a person as a patient's contact
     When Clyde assigns Sam as a contact for Patty
     Then Sam is listed as Patty's available contacts
 
+  @web @javascript
   Scenario: The clinician assigned a person to the patient as a contact flagging them as a default CC.
     Given Patty is a patient
     And Sam is a social worker

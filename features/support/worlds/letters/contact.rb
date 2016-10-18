@@ -44,6 +44,7 @@ module World
         within("#add-patient-contact-modal") do
           fill_autocomplete "person_auto_complete",
             with: person.family_name, select: person.to_s
+          check "Default CC" if default_cc
 
           click_on "Save"
         end
