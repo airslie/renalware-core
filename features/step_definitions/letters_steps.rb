@@ -137,11 +137,11 @@ When(/^Clyde assigns Sam as a contact for Patty flagging them as a default CC$/)
   assign_contact(patient: @patty, person: @sam, user: @clyde, default_cc: true)
 end
 
-When(/^Clyde assigns Sam as a contact for Patty flagging describing them as "([^"]*)"$/) do |description_name|
+When(/^Clyde assigns Sam as a contact for Patty describing them as "([^"]*)"$/) do |description_name|
   assign_contact(patient: @patty, person: @sam, user: @clyde, description_name: description_name)
 end
 
-When(/^Clyde assigns Sam as a contact for Patty flagging describing them as Great Aunt$/) do
+When(/^Clyde assigns Sam as a contact for Patty describing them as Great Aunt$/) do
   assign_contact(patient: @patty, person: @sam, user: @clyde, description_name: "Great Aunt")
 end
 
