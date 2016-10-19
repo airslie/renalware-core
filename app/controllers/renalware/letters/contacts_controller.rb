@@ -9,6 +9,7 @@ module Renalware
         render :index, locals: {
           patient: @patient,
           contact: build_contact,
+          contact_descriptions: find_contact_descriptions,
           contacts: find_contacts
         }
       end
@@ -38,6 +39,10 @@ module Renalware
 
       def find_contacts
         @patient.contacts.ordered
+      end
+
+      def find_contact_descriptions
+        ContactDescription.ordered
       end
 
       def contact_params

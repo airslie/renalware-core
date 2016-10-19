@@ -22,7 +22,7 @@ Feature: Assign a person as a patient's contact
     Then Sam is listed as Patty's available contacts
     And Sam is listed as Patty's default CC's
 
-  @wip
+  @web @javascript
   Scenario: The clinician assigned a person to the patient as a contact with a description.
     Given Patty is a patient
     And Sam is a social worker

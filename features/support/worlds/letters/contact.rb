@@ -21,7 +21,7 @@ module World
 
       # @section expectations
       #
-      def expect_available_contact(patient:, person:, description_name: "Other")
+      def expect_available_contact(patient:, person:, description_name: "Sibling")
         patient = letters_patient(patient)
         expect(patient).to have_available_contact(person)
 
@@ -48,7 +48,7 @@ module World
 
       # @section commands
       #
-      def assign_contact(patient:, person:, user:, default_cc: false)
+      def assign_contact(patient:, person:, user:, default_cc: false, description_name: "Sibling")
         login_as user
 
         visit patient_letters_contacts_path(patient)
@@ -58,6 +58,7 @@ module World
           fill_autocomplete "#add-patient-contact-modal", "person_auto_complete",
             with: person.family_name, select: person.to_s
           check "Default CC" if default_cc
+          select description_name, from: "Description"
 
           click_on "Save"
         end
