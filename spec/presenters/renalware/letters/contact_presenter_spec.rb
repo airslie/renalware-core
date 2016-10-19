@@ -27,9 +27,8 @@ module Renalware
             contact.other_description = "Great Uncle"
           end
 
-          it "presents the original description name with the contact's other description" do
-            expect(presenter.description_name).to match(unspecified_contact_description.name)
-            expect(presenter.description_name).to match(contact.other_description)
+          it "presents the contact's other description" do
+            expect(presenter.description_name).to eq(contact.other_description)
           end
         end
       end
