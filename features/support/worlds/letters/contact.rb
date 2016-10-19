@@ -73,19 +73,29 @@ module World
         within("#add-patient-contact-modal") do
           fill_autocomplete "#add-patient-contact-modal", "person_auto_complete",
             with: person.family_name, select: person.to_s
-          check "Default CC" if default_cc
+          check t_contact(:default_cc) if default_cc
 
           if find_contact_description(name: description_name)
-            select description_name, from: "Description"
+            select description_name, from: t_contact(:description)
           else
-            select "Other - please specify in the field below", from: "Description"
-            fill_in "Other description", with: description_name
+            select t_contact_description_unspecified, from: t_contact(:description)
+            fill_in t_contact(:other_description), with: description_name
           end
 
           click_on "Save"
         end
 
         wait_for_ajax
+      end
+
+      # @section helpers
+      #
+      def t_contact(key)
+        Renalware::Letters::Contact.human_attribute_name(key)
+      end
+
+      def t_contact_description_unspecified
+        ::I18n.t(:other, scope: :"renalware.letters.contacts.form.description")
       end
     end
   end
