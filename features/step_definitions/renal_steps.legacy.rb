@@ -5,7 +5,7 @@ end
 When(/^Clyde submits Patty's ESRF details$/) do
   fill_in "ESRF Date", with: fake_date
 
-  fill_autocomplete "prd_description_auto_complete",
+  fill_autocomplete "form.simple_form", "prd_description_auto_complete",
     with: "Cystinuria", select: "Cystinuria"
 
   click_on "Save"
