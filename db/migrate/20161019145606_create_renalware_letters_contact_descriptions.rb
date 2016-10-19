@@ -1,10 +1,12 @@
 class CreateRenalwareLettersContactDescriptions < ActiveRecord::Migration
   def change
     create_table :letter_contact_descriptions do |t|
-      t.string :system_code, null: false, unique: true
-      t.string :name, null: false, unique: true
+      t.string :system_code, null: false
+      t.index :system_code, unique: true
+      t.string :name, null: false
       t.index :name, unique: true
-      t.integer :position, null: false, unique: true
+      t.integer :position, null: false
+      t.index :position, unique: true
 
       t.timestamps null: false
     end
