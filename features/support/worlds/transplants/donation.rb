@@ -120,7 +120,7 @@ module World
           click_on "Edit"
         end
 
-        fill_autocomplete "recipient_auto_complete",
+        fill_autocomplete "form.simple_form", "recipient_auto_complete",
           with: "ThePatient", select: "Patty"
 
         within ".top" do
