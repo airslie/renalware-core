@@ -17,7 +17,7 @@ module Renalware
       end
 
       def unspecified?
-        self.system_code == UNSPECIFIED_SYSTEM_CODE
+        system_code == UNSPECIFIED_SYSTEM_CODE
       end
 
       def to_s
