@@ -15,14 +15,12 @@ Renalware.Letters = (function() {
     $("#letter-form").change(hideOrShowContactSelector);
   };
 
-  var _reloadMainRecipientContactPicker = function(new_contact_id) {
-    $("#contact-selector-input").load(document.URL + " #contact-selector-input", function() {
-      $("#letter_main_recipient_attributes_addressee_id").val(new_contact_id);
-    });
+  var _reloadMainRecipientContactPicker = function(callback) {
+    $("#contact-selector-input").load(document.URL + " #contact-selector-input", callback);
   };
 
-  var _reloadCCsList = function(new_contact_id) {
-    $("#letter-ccs").load(document.URL + " #letter-ccs");
+  var _reloadCCsList = function(callback) {
+    $("#letter-ccs").load(document.URL + " #letter-ccs", callback);
   };
 
   var initNewContactAsMainRecipient = function() {
@@ -30,8 +28,29 @@ Renalware.Letters = (function() {
 
     if (trigger.length > 0) {
       var modal = new Renalware.Contacts.Modal($("#add-patient-contact-modal"), function(contact) {
-        _reloadMainRecipientContactPicker(contact.id)
-        _reloadCCsList()
+        _reloadMainRecipientContactPicker(function() {
+          $("#letter_main_recipient_attributes_addressee_id").val(contact.id);
+        });
+        _reloadCCsList();
+      });
+      modal.init();
+
+      trigger.on("click", function(event) {
+         event.preventDefault();
+         modal.open();
+      })
+    }
+  };
+
+  var initNewContactAsCC = function() {
+    var trigger = $("a[data-behaviour='add-new-contact-as-cc-recipient']");
+
+    if (trigger.length > 0) {
+      var modal = new Renalware.Contacts.Modal($("#add-patient-contact-as-cc-modal"), function(contact) {
+        _reloadMainRecipientContactPicker();
+        _reloadCCsList(function() {
+          $("#cc-contact-" + contact.id).prop("checked", true);
+        });
       });
       modal.init();
 
@@ -47,6 +66,7 @@ Renalware.Letters = (function() {
       hideOrShowContactSelector();
       bindOnLetterRecipientTypeChange();
       initNewContactAsMainRecipient();
+      initNewContactAsCC();
     }
   };
 })();
