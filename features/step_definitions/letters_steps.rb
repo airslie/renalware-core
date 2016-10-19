@@ -133,6 +133,10 @@ When(/^Clyde assigns Sam as a contact for Patty$/) do
   assign_contact(patient: @patty, person: @sam, user: @clyde)
 end
 
+When(/^Clyde assigns Sam as a contact for Patty flagging them as a default CC$/) do
+  assign_contact(patient: @patty, person: @sam, user: @clyde, default_cc: true)
+end
+
 # THEN
 
 Then(/^"(.*?)" will receive the letter$/) do |recipient|
@@ -219,4 +223,8 @@ end
 
 Then(/^Sam is listed as Patty's available contacts$/) do
   expect_available_contact(patient: @patty, person: @sam)
+end
+
+Then(/^Sam is listed as Patty's default CC's$/) do
+  expect_default_ccs(patient: @patty, person: @sam)
 end

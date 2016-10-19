@@ -233,9 +233,9 @@ CREATE TABLE access_types (
     id integer NOT NULL,
     code character varying NOT NULL,
     name character varying NOT NULL,
-    abbreviation character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    abbreviation character varying
 );
 
 
@@ -1093,7 +1093,8 @@ CREATE TABLE letter_contacts (
     patient_id integer NOT NULL,
     person_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    default_cc boolean DEFAULT false NOT NULL
 );
 
 
@@ -6794,4 +6795,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161003204347');
 INSERT INTO schema_migrations (version) VALUES ('20161004185820');
 
 INSERT INTO schema_migrations (version) VALUES ('20161014134639');
+
+INSERT INTO schema_migrations (version) VALUES ('20161018174711');
 
