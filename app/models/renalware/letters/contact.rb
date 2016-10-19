@@ -8,6 +8,9 @@ module Renalware
       belongs_to :description, class_name: "ContactDescription"
 
       validates :person, presence: true, uniqueness: { scope: :patient }
+      validates :description, presence: true
+
+      validates :other_description, presence: true, if: -> { unspecified_description? }
 
       delegate :address, :to_s, to: :person
       delegate :name, to: :address, prefix: true
@@ -24,7 +27,11 @@ module Renalware
       end
 
       def described_as?(description)
-        (description == description) || (other_description == description)
+        (self.description == description) || (other_description == description)
+      end
+
+      def unspecified_description?
+        description.try(:unspecified?)
       end
     end
   end

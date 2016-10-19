@@ -27,7 +27,7 @@ module Renalware
       end
 
       def with_contact_for(person, &block)
-        contact = contacts.detect {|contact| contact.person == person }
+        contact = contacts.detect { |c| c.person == person }
         block.call(contact)
       end
     end

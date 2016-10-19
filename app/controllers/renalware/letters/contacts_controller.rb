@@ -48,7 +48,7 @@ module Renalware
       def contact_params
         params
           .require(:letters_contact)
-          .permit(:person_id, :default_cc)
+          .permit(:person_id, :default_cc, :description_id, :other_description)
       end
     end
   end

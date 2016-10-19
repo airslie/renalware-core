@@ -5,7 +5,8 @@ module World
       #
       def seed_contact(patient:, person:)
         patient = letters_patient(patient)
-        contact = patient.assign_contact(person: person)
+        description = find_contact_description(system_code: "referring_physician")
+        contact = patient.assign_contact(person: person, description: description)
         contact.save!
       end
 
@@ -13,10 +14,9 @@ module World
       #
       def assign_contact(patient:, person:, default_cc: false, description_name: "Sibling", **_)
         patient = letters_patient(patient)
-        contact_description = find_contact_description(name: description_name)
-        description_attrs = contact_description ? {description: contact_description} : {other_description: description_name}
-
-        contact = patient.assign_contact({ person: person, default_cc: default_cc }.merge(description_attrs))
+        description_attrs = determine_description_attrs(description_name)
+        contact_attrs = { person: person, default_cc: default_cc }.merge(description_attrs)
+        contact = patient.assign_contact(contact_attrs)
         contact.save!
       end
 
@@ -42,6 +42,21 @@ module World
       def find_contact_description(attrs)
         Renalware::Letters::ContactDescription.find_by(attrs)
       end
+
+      def find_unspecified_contact_description
+        Renalware::Letters::ContactDescription[:other]
+      end
+
+      def determine_description_attrs(description_name)
+        contact_description = find_contact_description(name: description_name)
+
+        if contact_description.present?
+          { description: contact_description }
+        else
+          unspecified_contact_description = find_unspecified_contact_description
+          { description: unspecified_contact_description, other_description: description_name }
+        end
+      end
     end
 
     module Web
@@ -61,9 +76,9 @@ module World
           check "Default CC" if default_cc
 
           if find_contact_description(name: description_name)
-            select "Other", from: "Description"
             select description_name, from: "Description"
           else
+            select "Other", from: "Description"
             fill_in "Other description", with: description_name
           end
 

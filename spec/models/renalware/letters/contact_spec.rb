@@ -5,6 +5,21 @@ module Renalware
     RSpec.describe Contact, type: :model do
       describe "validation" do
         it { is_expected.to validate_presence_of(:person) }
+        it { is_expected.to validate_presence_of(:description) }
+
+        context "given a contact with a specific description" do
+          let(:specific_contact_description) { build(:letter_contact_description, system_code: "sibling") }
+          subject { Contact.new(description: specific_contact_description)}
+
+          it { is_expected.not_to validate_presence_of(:other_description) }
+        end
+
+        context "given a contact with a non-specific description" do
+          let(:non_specific_contact_description) { build(:letter_contact_description, system_code: "other") }
+          subject { Contact.new(description: non_specific_contact_description)}
+
+          it { is_expected.to validate_presence_of(:other_description) }
+        end
 
         context "given the person is already a contact for the patient" do
           let(:patient) { create(:letter_patient) }

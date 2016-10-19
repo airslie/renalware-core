@@ -1090,9 +1090,9 @@ ALTER SEQUENCE letter_archives_id_seq OWNED BY letter_archives.id;
 
 CREATE TABLE letter_contact_descriptions (
     id integer NOT NULL,
-    system_code character varying,
-    name character varying,
-    "position" integer,
+    system_code character varying NOT NULL,
+    name character varying NOT NULL,
+    "position" integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -1128,7 +1128,7 @@ CREATE TABLE letter_contacts (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     default_cc boolean DEFAULT false NOT NULL,
-    description_id integer,
+    description_id integer NOT NULL,
     other_description character varying
 );
 
