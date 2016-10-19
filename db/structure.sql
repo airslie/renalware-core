@@ -1127,7 +1127,8 @@ CREATE TABLE letter_contacts (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     default_cc boolean DEFAULT false NOT NULL,
-    description_id integer
+    description_id integer,
+    other_description character varying
 );
 
 

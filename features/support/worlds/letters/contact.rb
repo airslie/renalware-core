@@ -11,11 +11,12 @@ module World
 
       # @section commands
       #
-      def assign_contact(patient:, person:, default_cc: false, description_name: "Other", **_)
+      def assign_contact(patient:, person:, default_cc: false, description_name: "Sibling", **_)
         patient = letters_patient(patient)
         contact_description = find_contact_description(name: description_name)
+        description_attrs = contact_description ? {description: contact_description} : {other_description: description_name}
 
-        contact = patient.assign_contact(person: person, default_cc: default_cc, description: contact_description)
+        contact = patient.assign_contact({ person: person, default_cc: default_cc }.merge(description_attrs))
         contact.save!
       end
 
@@ -27,7 +28,7 @@ module World
 
         description = find_contact_description(name: description_name)
         patient.with_contact_for(person) do |contact|
-          expect(contact).to be_described_as(description)
+          expect(contact).to be_described_as(description || description_name)
         end
       end
 
@@ -39,7 +40,7 @@ module World
       # @section helpers
       #
       def find_contact_description(attrs)
-        Renalware::Letters::ContactDescription.find_by!(attrs)
+        Renalware::Letters::ContactDescription.find_by(attrs)
       end
     end
 

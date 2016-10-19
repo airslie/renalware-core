@@ -10,6 +10,7 @@ class CreateRenalwareLettersContactDescriptions < ActiveRecord::Migration
     end
 
     add_column :letter_contacts, :description_id, :integer
+    add_column :letter_contacts, :other_description, :string
     add_foreign_key :letter_contacts, :letter_contact_descriptions, column: :description_id
   end
 end

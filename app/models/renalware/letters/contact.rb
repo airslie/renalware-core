@@ -24,7 +24,7 @@ module Renalware
       end
 
       def described_as?(description)
-        description == description
+        (description == description) || (other_description == description)
       end
     end
   end

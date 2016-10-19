@@ -141,6 +141,10 @@ When(/^Clyde assigns Sam as a contact for Patty flagging describing them as "([^
   assign_contact(patient: @patty, person: @sam, user: @clyde, description_name: description_name)
 end
 
+When(/^Clyde assigns Sam as a contact for Patty flagging describing them as Great Aunt$/) do
+  assign_contact(patient: @patty, person: @sam, user: @clyde, description_name: "Great Aunt")
+end
+
 # THEN
 
 Then(/^"(.*?)" will receive the letter$/) do |recipient|
@@ -235,4 +239,8 @@ end
 
 Then(/^Sam is listed as Patty's available contacts as a "([^"]*)"$/) do |description_name|
   expect_available_contact(patient: @patty, person: @sam, description_name: description_name)
+end
+
+Then(/^Sam is listed as Patty's available contacts as Great Aunt$/) do
+  expect_available_contact(patient: @patty, person: @sam, description_name: "Great Aunt")
 end
