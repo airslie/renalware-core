@@ -15,6 +15,8 @@ module Renalware
       delegate :address, :to_s, to: :person
       delegate :name, to: :address, prefix: true
 
+      accepts_nested_attributes_for :person
+
       scope :with_person, -> { includes(person: :address) }
       scope :ordered, -> {
         with_person.order("directory_people.family_name, directory_people.given_name")

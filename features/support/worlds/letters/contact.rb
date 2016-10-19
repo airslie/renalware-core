@@ -20,6 +20,21 @@ module World
         contact.save!
       end
 
+      def assign_new_person_as_contact(patient:, user:, person:, **_)
+        person_attributes = {
+          given_name: person[:given_name],
+          family_name: person[:family_name],
+          address_attributes: {
+            street_1: "1 Main St"
+          },
+          by: user
+        }
+        patient = letters_patient(patient)
+        contact = patient.assign_contact(person_attributes: person_attributes)
+        contact.save!
+      end
+
+
       # @section expectations
       #
       def expect_available_contact(patient:, person:, description_name: "Sibling")

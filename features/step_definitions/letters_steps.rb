@@ -145,6 +145,14 @@ When(/^Clyde assigns Sam as a contact for Patty describing them as Great Aunt$/)
   assign_contact(patient: @patty, person: @sam, user: @clyde, description_name: "Great Aunt")
 end
 
+When(/^Clyde adds Diana Newton as a District Nurse contact for Patty$/) do
+  assign_new_person_as_contact(patient: @patty, user: @clyde,
+    person: {
+      given_name: "Diana", family_name: "Newton", description: "District Nurse"
+    }
+  )
+end
+
 # THEN
 
 Then(/^"(.*?)" will receive the letter$/) do |recipient|
@@ -231,6 +239,11 @@ end
 
 Then(/^Sam is listed as Patty's available contacts$/) do
   expect_available_contact(patient: @patty, person: @sam)
+end
+
+Then(/^Diana is listed as Patty's available contacts$/) do
+  @diana = Renalware::Directory::Person.find_by(given_name: "Diana")
+  expect_available_contact(patient: @patty, person: @diana)
 end
 
 Then(/^Sam is listed as Patty's default CC's$/) do
