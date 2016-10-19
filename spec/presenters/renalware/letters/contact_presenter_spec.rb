@@ -14,7 +14,7 @@ module Renalware
             contact.description = specified_contact_description
           end
 
-          it "expects the contact name description name to be the same as the description name" do
+          it "presents the original description name" do
             expect(presenter.description_name).to eq(specified_contact_description.name)
           end
         end
@@ -27,7 +27,7 @@ module Renalware
             contact.other_description = "Great Uncle"
           end
 
-          it "expects the contact name description to concatenate the contact's other description and the description's name" do
+          it "presents the original description name with the contact's other description" do
             expect(presenter.description_name).to match(unspecified_contact_description.name)
             expect(presenter.description_name).to match(contact.other_description)
           end
