@@ -1,9 +1,11 @@
 = render layout: "renalware/patients/layout", locals: { title: "Letters" } do
-  = render "letter_nav"
+  = render "letter_nav", patient: patient, letter: letter
 
   .document
-    = simple_form_for @letter,
-        url: patient_letters_letter_path(@patient, @letter),
+    = simple_form_for letter,
+        url: patient_letters_letter_path(patient, letter),
         as: :letter,
         wrapper: "horizontal_form", html: {id: "letter-form"} do |f|
-      = render 'form', f: f
+      = render 'form', f: f, patient: patient, contact: contact, contacts: contacts
+
+= render "add_contact", patient: patient, contact: contact

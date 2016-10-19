@@ -45,10 +45,10 @@ Renalware.Contacts = {
       var valuesToSubmit = this.form.serialize();
       var self = this;
 
-      this._clearErrors();
+      self._clearErrors();
       $.ajax({
         type: "POST",
-        url: $(this).attr("action"), //sumbits it to the given url of the form
+        url: self.form.attr("action"), //submits it to the given url of the form
         data: valuesToSubmit,
         dataType: "JSON",
         statusCode: {
@@ -76,13 +76,17 @@ Renalware.Contacts = {
 };
 
 $(document).ready(function() {
-  var modal = new Renalware.Contacts.Modal($("#add-patient-contact-modal"), function(contact) {
-    $.getScript(document.URL);
-  });
-  modal.init();
+  var trigger = $("a[data-behaviour='add-new-contact']");
 
-  $("a[data-behaviour='add-new-contact']").on("click", function(event) {
-     event.preventDefault();
-     modal.open();
-  })
+  if (trigger.length > 0) {
+    var modal = new Renalware.Contacts.Modal($("#add-patient-contact-modal"), function(contact) {
+      $.getScript(document.URL);
+    });
+    modal.init();
+
+    trigger.on("click", function(event) {
+       event.preventDefault();
+       modal.open();
+    })
+  }
 });
