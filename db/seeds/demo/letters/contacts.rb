@@ -4,7 +4,7 @@ module Renalware
   patient = Letters.cast_patient(Patient.find_by(local_patient_id: "Z100001"))
 
   people = Directory::Person.limit(5)
-  contact_descriptions = Letters::ContactDescription.limit(5)
+  contact_descriptions = Letters::ContactDescription.specified.limit(5)
   # add default here in case we don't have enough descriptions
   default_contact_description = Letters::ContactDescription[:sibling]
 
