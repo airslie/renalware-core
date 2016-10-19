@@ -41,7 +41,7 @@ ruby:
 
         .row
           .small-offset-3.small-9.columns
-            = link_to(t(".add_contact"), '#', class: "tiny button", data: { behaviour: "add-new-contact-as-main-recipient" })
+            = link_to(t(".add_contact"), '#', class: "tiny button", data: { behaviour: "add-new-contact-as-main-recipient", source: contact_added_patient_letters_letters_path, modal: "#add-patient-contact-modal" })
             br
             br
 
@@ -54,7 +54,7 @@ ruby:
           table.auto-layout
             = render partial: "cc_recipient_form", collection: contacts, as: :contact, locals: { letter: f.object }
 
-          = link_to(t(".add_contact_as_cc"), '#', class: "tiny button", data: { behaviour: "add-new-contact-as-cc-recipient" })
+          = link_to(t(".add_contact_as_cc"), '#', class: "tiny button", data: { behaviour: "add-new-contact-as-cc-recipient", source: contact_added_patient_letters_letters_path, modal: "#add-patient-contact-as-cc-modal" })
           br
           br
 
