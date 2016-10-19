@@ -7,5 +7,10 @@ FactoryGirl.define do
     system_code
     name
     position
+
+    trait :unspecified do
+      name "Other"
+      system_code "other"
+    end
   end
 end
