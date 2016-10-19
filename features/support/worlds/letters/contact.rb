@@ -53,8 +53,7 @@ module World
         if contact_description.present?
           { description: contact_description }
         else
-          unspecified_contact_description = find_unspecified_contact_description
-          { description: unspecified_contact_description, other_description: description_name }
+          { description: find_unspecified_contact_description, other_description: description_name }
         end
       end
     end
