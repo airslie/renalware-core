@@ -2,7 +2,7 @@ require "rails_helper"
 require "test_support/autocomplete_helpers"
 require "test_support/ajax_helpers"
 
-RSpec.describe "Assign a person as a recipient", type: :feature do
+RSpec.describe "Assign a person as a main recipient", type: :feature do
   include AutocompleteHelpers
   include AjaxHelpers
 
@@ -47,7 +47,7 @@ RSpec.describe "Assign a person as a recipient", type: :feature do
       click_on "Add new person to contacts list"
 
       within("#add-patient-contact-modal") do
-        fill_autocomplete "person_auto_complete",
+        fill_autocomplete "#add-patient-contact-modal", "person_auto_complete",
           with: person.family_name, select: person.to_s
 
         click_on "Save"
@@ -55,7 +55,7 @@ RSpec.describe "Assign a person as a recipient", type: :feature do
 
       wait_for_ajax
 
-      expect(page).to_not have_text("Person must be unique to the patient")
+      expect(page).to_not have_text("is already a contact for the patient")
     end
 
     def fill_out_letter
