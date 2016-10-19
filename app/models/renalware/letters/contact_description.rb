@@ -8,7 +8,7 @@ module Renalware
       validates :position, presence: true, uniqueness: true
 
       scope :ordered, -> { order(:position) }
-      scope :specified, -> { not.where(system_code: UNSPECIFIED_SYSTEM_CODE) }
+      scope :specified, -> { where.not(system_code: UNSPECIFIED_SYSTEM_CODE) }
 
       UNSPECIFIED_SYSTEM_CODE = "other"
 
