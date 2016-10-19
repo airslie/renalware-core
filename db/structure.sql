@@ -1092,6 +1092,7 @@ CREATE TABLE letter_contact_descriptions (
     id integer NOT NULL,
     system_code character varying,
     name character varying,
+    "position" integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -5167,6 +5168,13 @@ CREATE INDEX index_letter_archives_on_updated_by_id ON letter_archives USING btr
 --
 
 CREATE UNIQUE INDEX index_letter_contact_descriptions_on_name ON letter_contact_descriptions USING btree (name);
+
+
+--
+-- Name: index_letter_contact_descriptions_on_position; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_letter_contact_descriptions_on_position ON letter_contact_descriptions USING btree ("position");
 
 
 --

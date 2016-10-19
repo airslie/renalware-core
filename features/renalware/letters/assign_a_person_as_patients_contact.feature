@@ -30,7 +30,7 @@ Feature: Assign a person as a patient's contact
     When Clyde assigns Sam as a contact for Patty flagging describing them as "Referring Physician"
     Then Sam is listed as Patty's available contacts as a "Referring Physician"
 
-  @wip
+  @web @javascript
   Scenario: The clinician assigned a person to the patient as a contact with a non-standard description.
     Given Patty is a patient
     And Sam is a social worker

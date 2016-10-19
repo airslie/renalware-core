@@ -59,7 +59,13 @@ module World
           fill_autocomplete "#add-patient-contact-modal", "person_auto_complete",
             with: person.family_name, select: person.to_s
           check "Default CC" if default_cc
-          select description_name, from: "Description"
+
+          if find_contact_description(name: description_name)
+            select "Other", from: "Description"
+            select description_name, from: "Description"
+          else
+            fill_in "Other description", with: description_name
+          end
 
           click_on "Save"
         end

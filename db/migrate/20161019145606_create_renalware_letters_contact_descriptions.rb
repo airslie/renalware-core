@@ -5,6 +5,8 @@ class CreateRenalwareLettersContactDescriptions < ActiveRecord::Migration
       t.index :system_code, unique: true
       t.string :name
       t.index :name, unique: true
+      t.integer :position
+      t.index :position, unique: true
 
       t.timestamps null: false
     end

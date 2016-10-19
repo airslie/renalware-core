@@ -4,3 +4,6 @@ referring_physician:
 sibling:
   system_code: sibling
   name: Sibling
+other:
+  system_code: other
+  name: Other
