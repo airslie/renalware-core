@@ -78,7 +78,7 @@ module World
           if find_contact_description(name: description_name)
             select description_name, from: "Description"
           else
-            select "Other", from: "Description"
+            select "Other - please specify in the field below", from: "Description"
             fill_in "Other description", with: description_name
           end
 

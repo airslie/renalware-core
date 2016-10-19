@@ -42,7 +42,7 @@ module Renalware
       end
 
       def find_contact_descriptions
-        ContactDescription.ordered
+        CollectionPresenter.new(ContactDescription.ordered, ContactDescriptionPresenter)
       end
 
       def contact_params
