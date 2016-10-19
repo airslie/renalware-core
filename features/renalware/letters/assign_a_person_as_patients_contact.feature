@@ -21,3 +21,11 @@ Feature: Assign a person as a patient's contact
     When Clyde assigns Sam as a contact for Patty flagging them as a default CC
     Then Sam is listed as Patty's available contacts
     And Sam is listed as Patty's default CC's
+
+  @wip
+  Scenario: The clinician assigned a person to the patient as a contact with a description.
+    Given Patty is a patient
+    And Sam is a social worker
+    And Clyde is a clinician
+    When Clyde assigns Sam as a contact for Patty flagging describing them as "Referring Physician"
+    Then Sam is listed as Patty's available contacts as a "Referring Physician"

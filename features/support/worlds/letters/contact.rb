@@ -11,22 +11,35 @@ module World
 
       # @section commands
       #
-      def assign_contact(patient:, person:, default_cc: false, **_)
+      def assign_contact(patient:, person:, default_cc: false, description_name: "Other", **_)
         patient = letters_patient(patient)
-        contact = patient.assign_contact(person: person, default_cc: default_cc)
+        contact_description = find_contact_description(name: description_name)
+
+        contact = patient.assign_contact(person: person, default_cc: default_cc, description: contact_description)
         contact.save!
       end
 
       # @section expectations
       #
-      def expect_available_contact(patient:, person:)
+      def expect_available_contact(patient:, person:, description_name: "Other")
         patient = letters_patient(patient)
         expect(patient).to have_available_contact(person)
+
+        description = find_contact_description(name: description_name)
+        patient.with_contact_for(person) do |contact|
+          expect(contact).to be_described_as(description)
+        end
       end
 
       def expect_default_ccs(patient:, person:)
         patient = letters_patient(patient)
         expect(patient).to have_default_cc(person)
+      end
+
+      # @section helpers
+      #
+      def find_contact_description(attrs)
+        Renalware::Letters::ContactDescription.find_by!(attrs)
       end
     end
 

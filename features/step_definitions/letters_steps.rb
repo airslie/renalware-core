@@ -137,6 +137,10 @@ When(/^Clyde assigns Sam as a contact for Patty flagging them as a default CC$/)
   assign_contact(patient: @patty, person: @sam, user: @clyde, default_cc: true)
 end
 
+When(/^Clyde assigns Sam as a contact for Patty flagging describing them as "([^"]*)"$/) do |description_name|
+  assign_contact(patient: @patty, person: @sam, user: @clyde, description_name: description_name)
+end
+
 # THEN
 
 Then(/^"(.*?)" will receive the letter$/) do |recipient|
@@ -227,4 +231,8 @@ end
 
 Then(/^Sam is listed as Patty's default CC's$/) do
   expect_default_ccs(patient: @patty, person: @sam)
+end
+
+Then(/^Sam is listed as Patty's available contacts as a "([^"]*)"$/) do |description_name|
+  expect_available_contact(patient: @patty, person: @sam, description_name: description_name)
 end

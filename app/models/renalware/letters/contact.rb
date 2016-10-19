@@ -5,6 +5,7 @@ module Renalware
     class Contact < ActiveRecord::Base
       belongs_to :patient
       belongs_to :person, class_name: "Directory::Person"
+      belongs_to :description, class_name: "ContactDescription"
 
       validates :person, presence: true, uniqueness: { scope: :patient }
 
@@ -20,6 +21,10 @@ module Renalware
 
       def self.find_by_given_name(name)
         with_person.find_by(directory_people: { given_name: name })
+      end
+
+      def described_as?(description)
+        description == description
       end
     end
   end

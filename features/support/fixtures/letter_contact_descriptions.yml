@@ -1,0 +1,6 @@
+referring_physician:
+  system_code: referring_physician
+  name: Referring Physician
+other:
+  system_code: other
+  name: Other
