@@ -15,31 +15,40 @@ Renalware.Letters = (function() {
     $("#letter-form").change(hideOrShowContactSelector);
   };
 
-  var _reloadMainRecipientContactPicker = function(new_contact_id) {
-    $("#contact-selector-input").load(document.URL + " #contact-selector-input", function() {
-      $("#letter_main_recipient_attributes_addressee_id").val(new_contact_id);
-    });
-  };
+  var _refreshContactLists = function(url, contact_id, callback) {
+    $.getScript(url + "?id=" + contact_id, callback);
+  }
 
-  var _reloadCCsList = function(new_contact_id) {
-    $("#letter-ccs").load(document.URL + " #letter-ccs");
-  };
-
-  var initNewContactAsMainRecipient = function() {
-    var trigger = $("a[data-behaviour='add-new-contact-as-main-recipient']");
-
-    if (trigger.length > 0) {
-      var modal = new Renalware.Contacts.Modal($("#add-patient-contact-modal"), function(contact) {
-        _reloadMainRecipientContactPicker(contact.id)
-        _reloadCCsList()
+  var initNewContact = function(button, callback) {
+    if (button.length > 0) {
+      var refreshUrl = button.data("source");
+      var modalSelector = button.data("modal");
+      var modal = new Renalware.Contacts.Modal($(modalSelector), function(contact) {
+        _refreshContactLists(refreshUrl, contact.id, function() {
+          callback(contact);
+        });
       });
       modal.init();
 
-      trigger.on("click", function(event) {
+      button.on("click", function(event) {
          event.preventDefault();
          modal.open();
       })
     }
+  }
+
+  var initNewContactAsMainRecipient = function() {
+    var button = $("a[data-behaviour='add-new-contact-as-main-recipient']");
+    initNewContact(button, function(contact) {
+      $("#letter_main_recipient_attributes_addressee_id").val(contact.id);
+    })
+  };
+
+  var initNewContactAsCC = function() {
+    var button = $("a[data-behaviour='add-new-contact-as-cc-recipient']");
+    initNewContact(button, function(contact) {
+      $("#cc-contact-" + contact.id).prop("checked", true);
+    })
   };
 
   return {
@@ -47,6 +56,7 @@ Renalware.Letters = (function() {
       hideOrShowContactSelector();
       bindOnLetterRecipientTypeChange();
       initNewContactAsMainRecipient();
+      initNewContactAsCC();
     }
   };
 })();

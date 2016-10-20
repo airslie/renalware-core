@@ -51,6 +51,7 @@ module Renalware
       end
 
       def fetch_contact(params)
+        return if params[:addressee_id].blank?
         @patient.contacts.find_by!(id: params[:addressee_id])
       end
     end

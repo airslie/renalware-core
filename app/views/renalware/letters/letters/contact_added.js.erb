@@ -1,0 +1,4 @@
+$("#letter_main_recipient_attributes_addressee_id")
+  .append('<option value="<%= @contact.id %>"><%= @contact.to_s %></option>');
+$("#letter-ccs table tbody")
+  .append('<%= j render(partial: "cc_recipient_form", object: @contact, as: :contact, locals: { letter: @letter }) %>');

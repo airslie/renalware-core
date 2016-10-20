@@ -26,7 +26,7 @@ ruby:
             f.object.recipient.try(:to_s, :long),
             data: { \
               autocomplete_source: search_patients_path, \
-              autocomplete_rel: "#transplants_donation_recipient_id" \
+              autocomplete_rel: "[name='transplants_donation[recipient_id]']" \
             },
             spellcheck: false,
             placeholder: "Start entering the last name (min. 2 characters)"

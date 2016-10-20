@@ -165,6 +165,9 @@ Rails.application.routes.draw do
           resource :approved, controller: "approved_letters", only: :create
           resource :completed, controller: "completed_letters", only: :create
           resource :formatted, controller: "formatted_letters", only: :show
+          collection do
+            get :contact_added
+          end
         end
       end
 

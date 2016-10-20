@@ -53,6 +53,11 @@ module Renalware
         render_form(letter, :edit)
       end
 
+      def contact_added
+        @contact = @patient.contacts.find(params[:id])
+        @letter = LetterFormPresenter.new(Letter.new)
+      end
+
       private
 
       def find_letters

@@ -14,10 +14,10 @@ $(document).on('ready ajaxSuccess', function() {
 
   $("[data-autocomplete-source]").each(function() {
     var url = $(this).data("autocomplete-source");
-    var target = $(this).data("autocomplete-rel");
     var parentForm = $(this).closest("form");
+    var target = parentForm.find($(this).data("autocomplete-rel"));
     $(this).autocomplete({
-      appendTo: "#"+$(parentForm).attr("id"), // appending to the form resolves issues with autocomplete hidden in modals
+      appendTo: $(parentForm), // appending to the form resolves issues with autocomplete hidden in modals
       minLength: 2,
       autoFocus: true,
       source: function(request,response) {

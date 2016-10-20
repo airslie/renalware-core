@@ -17,7 +17,7 @@ ruby:
         input_html: { \
           data: { \
             autocomplete_source: search_letters_descriptions_path, \
-            autocomplete_rel: "#description_id" \
+            autocomplete_rel: "[name='letters[description]']" \
           },
           placeholder: "Start entering the description (min. 2 characters)", \
           spellcheck: false, \
@@ -37,11 +37,11 @@ ruby:
 
       div#contact-selector(style="display: none")
         #contact-selector-input
-          = fmr.input :addressee_id, as: :select, collection: contacts, label: false, include_blank: false
+          = fmr.input :addressee_id, as: :select, collection: contacts, label: false, include_blank: "-- Choose contact --"
 
         .row
           .small-offset-3.small-9.columns
-            = link_to(t(".add_contact"), '#', class: "tiny button", data: { behaviour: "add-new-contact-as-main-recipient" })
+            = link_to(t(".add_contact"), '#', class: "tiny button", data: { behaviour: "add-new-contact-as-main-recipient", source: contact_added_patient_letters_letters_path, modal: "#add-patient-contact-modal" })
             br
             br
 
@@ -54,6 +54,9 @@ ruby:
           table.auto-layout
             = render partial: "cc_recipient_form", collection: contacts, as: :contact, locals: { letter: f.object }
 
+          = link_to(t(".add_contact_as_cc"), '#', class: "tiny button", data: { behaviour: "add-new-contact-as-cc-recipient", source: contact_added_patient_letters_letters_path, modal: "#add-patient-contact-as-cc-modal" })
+          br
+          br
 
 
   = render layout: "renalware/shared/fieldset",

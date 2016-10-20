@@ -18,7 +18,7 @@ module Renalware
           it "requires unique person for the patient" do
             new_contact = build_contact(person, patient)
             new_contact.valid?
-            expect(new_contact.errors[:person]).to match([/already/])
+            expect(new_contact.errors[:person]).to match([/is already a contact for the patient/])
           end
         end
       end

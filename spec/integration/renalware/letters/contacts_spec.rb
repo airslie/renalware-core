@@ -38,7 +38,7 @@ RSpec.describe "Assign a contact to a patient", type: :feature, js: true do
       click_on "Add contact"
 
       within("#add-patient-contact-modal") do
-        fill_autocomplete "person_auto_complete",
+        fill_autocomplete "#add-patient-contact-modal", "person_auto_complete",
           with: person.family_name, select: person.to_s
 
         click_on "Save"

@@ -51,6 +51,10 @@ module Renalware
       update?
     end
 
+    def contact_added?
+      update?
+    end
+
     private
 
     attr_reader :permission_configuration
