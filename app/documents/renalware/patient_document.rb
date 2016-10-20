@@ -18,27 +18,6 @@ module Renalware
       attribute :country, String
     end
 
-    class NextOfKin < Document::Embedded
-      attribute :name, String
-      attribute :telephone, String
-      attribute :address, Address
-    end
-    attribute :next_of_kin, NextOfKin
-
-    class Pharmacist < Document::Embedded
-      attribute :name, String
-      attribute :telephone, String
-      attribute :address, Address
-    end
-    attribute :pharmacist, Pharmacist
-
-    class DistrictNurse < Document::Embedded
-      attribute :name, String
-      attribute :telephone, String
-      attribute :address, Address
-    end
-    attribute :district_nurse, DistrictNurse
-
     class Referral < Document::Embedded
       attribute :referring_physician_name, String
       attribute :referral_date, Date
