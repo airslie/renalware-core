@@ -6,6 +6,10 @@ module Renalware
       def description_name
         description.unspecified? ?  other_description : description.to_s
       end
+
+      def name_and_description
+        "#{to_s} (#{description_name})"
+      end
     end
   end
 end
