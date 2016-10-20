@@ -3,58 +3,7 @@
     h2= t(".title")
 
 .zone.person-from-directory
-  = simple_form_for contact,
-      url: patient_letters_contacts_path(patient),
-      wrapper: "vertical_form" do |f|
-    .row.errors-container
-      .large-12.columns
-        ul.error-messages
-
-    .row
-      .large-12.columns
-        = render "/renalware/letters/contacts/form", f: f, contact_descriptions: contact_descriptions
-
-    .row
-      .large-12.columns
-        br
-        =f.submit t(".save"), class: "button"
-        span= " or "
-        =link_to t(".cancel"),
-                 "#",
-                 "aria-label" => "Close",
-                 class: "reveal-modal-close"
-
-  .row
-    .large-12.columns
-      .g-center
-        = link_to "Person not found in directory", '#', class: "button secondary", data: { behaviour: "toggle-zone" }
-
+  = render "person_from_directory", contact: contact, patient: patient, contact_descriptions: contact_descriptions
 
 .zone.new-person
-
-  .row
-    .large-12.columns
-      .g-center
-        = link_to "Pick person from directory", '#', class: "button secondary", data: { behaviour: "toggle-zone" }
-
-  = simple_form_for contact,
-      url: patient_letters_contacts_path(patient),
-      wrapper: "vertical_form" do |f|
-
-    .row.errors-container
-      .large-12.columns
-        ul.error-messages
-
-    .row
-      .large-12.columns
-        = render "/renalware/letters/contacts/person_form", f: f
-
-    .row
-      .large-12.columns
-        br
-        =f.submit t(".save"), class: "button"
-        span= " or "
-        =link_to t(".cancel"),
-                 "#",
-                 "aria-label" => "Close",
-                 class: "reveal-modal-close"
+  = render "new_person", contact: contact, patient: patient, contact_descriptions: contact_descriptions

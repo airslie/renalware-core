@@ -20,11 +20,15 @@ en:
             prompt: Start entering the person's name (min. 2 characters)"
           description:
             other: Other - please specify in the field below
+        person_from_directory:
+          save: Save
+          cancel: Cancel
+        new_person:
+          save: Save
+          cancel: Cancel
       navigation:
         list: List
         add_contact: Add contact
     shared:
       fieldset:
         add_contact: Add new person to contacts list
-        add_contact_as_cc: Add new person to the list
-
