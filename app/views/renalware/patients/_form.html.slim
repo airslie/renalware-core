@@ -77,28 +77,12 @@
       = render partial: 'renalware/addresses/form', locals: { a: a }
 
 .form-content
-  .row
-    .large-6.columns
-      = render partial: 'renalware/patients/person_form_fields',
-          locals: { patient: patient, title: "Next of Kin", document_attribute: :next_of_kin }
+  = field_set_tag do
+    legend Referral Info
 
-    .large-6.columns
-      = field_set_tag do
-        legend Referral
-
-        = patient.simple_fields_for :document, patient.object.document do |patient_doc|
-          = patient_doc.simple_fields_for :referral, patient.object.document.referral do |referral_doc|
-            = referral_doc.input :referring_physician_name
-            = referral_doc.input :referral_date, as: :date_picker
-            = referral_doc.input :referral_type
-            = referral_doc.input :referral_notes
-
-.form-content
-  .row
-    .large-6.columns
-      = render partial: 'renalware/patients/person_form_fields',
-          locals: { patient: patient, title: "Pharmacist", document_attribute: :pharmacist }
-
-    .large-6.columns
-      = render partial: 'renalware/patients/person_form_fields',
-          locals: { patient: patient, title: "District Nurse", document_attribute: :district_nurse }
+    = patient.simple_fields_for :document, patient.object.document do |patient_doc|
+      = patient_doc.simple_fields_for :referral, patient.object.document.referral do |referral_doc|
+        = referral_doc.input :referring_physician_name
+        = referral_doc.input :referral_date, as: :date_picker
+        = referral_doc.input :referral_type
+        = referral_doc.input :referral_notes
