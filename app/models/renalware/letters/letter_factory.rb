@@ -5,8 +5,9 @@ module Renalware
     class LetterFactory
       attr_reader :patient
 
-      def initialize(patient)
+      def initialize(patient, assign_default_ccs: false)
         @patient = patient
+        @assign_default_ccs = assign_default_ccs
       end
 
       def build(params={})
@@ -14,7 +15,7 @@ module Renalware
         Letter::Draft.new(params).tap do |letter|
           letter.patient = patient
           include_primary_care_physician_as_default_main_recipient(letter)
-          include_contacts_as_default_ccs(letter)
+          include_contacts_as_default_ccs(letter) if @assign_default_ccs
         end
       end
 
