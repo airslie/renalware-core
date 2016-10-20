@@ -32,3 +32,4 @@ en:
     shared:
       fieldset:
         add_contact: Add new person to contacts list
+        add_contact_as_cc: Add new person to the list

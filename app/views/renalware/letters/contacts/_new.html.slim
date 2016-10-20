@@ -3,7 +3,9 @@
     h2= t(".title")
 
 section.person-from-directory
-  = render "person_from_directory", contact: contact, patient: patient, contact_descriptions: contact_descriptions
+  = render "/renalware/letters/contacts/person_from_directory", contact: contact, 
+      patient: patient, contact_descriptions: contact_descriptions
 
 section.new-person
-  = render "new_person", contact: contact, patient: patient, contact_descriptions: contact_descriptions
+  = render "/renalware/letters/contacts/new_person", contact: contact, 
+      patient: patient, contact_descriptions: contact_descriptions

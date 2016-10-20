@@ -24,7 +24,7 @@ module Renalware
       end
 
       def to_s
-        "#{family_name}, #{given_name}"
+        [family_name, given_name].compact.join(", ")
       end
     end
   end

@@ -10,6 +10,7 @@ RSpec.describe "Add person to directory and assign as a contact for a patient", 
     login_as_clinician
   end
 
+  let!(:contact_description) { create(:letter_contact_description)}
   let(:patient) { create(:patient) }
   let(:person) { build(:directory_person, address: build(:address)) }
 
@@ -43,8 +44,8 @@ RSpec.describe "Add person to directory and assign as a contact for a patient", 
 
         fill_in "Family Name", with: person.family_name
         fill_in "Given Name", with: person.given_name
-
         fill_in "Line 1", with: person.address.street_1
+        select contact_description.name, from: "Description"
 
         click_on "Save"
       end

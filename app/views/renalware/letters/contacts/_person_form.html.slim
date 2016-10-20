@@ -1,4 +1,3 @@
-- f.object.build_person
 = f.simple_fields_for :person do |ff|
   = field_set_tag "Person" do
     = ff.input :title
@@ -16,4 +15,6 @@
       = fa.input :postcode
       = fa.input :country, as: :string
 
+= f.input :description_id, collection: contact_descriptions
+= f.input :other_description
 = f.input :default_cc

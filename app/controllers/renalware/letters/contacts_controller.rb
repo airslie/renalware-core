@@ -26,7 +26,7 @@ module Renalware
       private
 
       def build_contact
-        Contact.new
+        Contact.new.tap { |c| c.build_person }
       end
 
       def create_contact_successful(contact)
