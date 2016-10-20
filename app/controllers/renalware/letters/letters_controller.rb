@@ -90,13 +90,18 @@ module Renalware
         contacts = @patient.contacts.ordered
         contact = build_contact
         render action, locals: {
-          patient: @patient, letter: letter, contact: contact, contacts: contacts
+          patient: @patient, letter: letter, contact: contact,
+            contacts: contacts, contact_descriptions: find_contact_descriptions
         }
       end
 
       def find_event
         return unless event_type.present?
         event_class.for_patient(@patient).find(event_id)
+      end
+
+      def find_contact_descriptions
+        CollectionPresenter.new(ContactDescription.ordered, ContactDescriptionPresenter)
       end
 
       def build_contact
