@@ -26,7 +26,7 @@ module Renalware
       private
 
       def build_contact
-        Contact.new
+        Contact.new.tap { |c| c.build_person }
       end
 
       def create_contact_successful(contact)
@@ -48,7 +48,39 @@ module Renalware
       def contact_params
         params
           .require(:letters_contact)
-          .permit(:person_id, :default_cc, :description_id, :other_description)
+          .permit(contact_attributes)
+          .tap { |p| try_merge_person_creator(p) }
+      end
+
+      def contact_attributes
+        [
+          :person_id, :default_cc, :description_id, :other_description,
+          person_attributes: person_attributes
+        ]
+      end
+
+      def person_attributes
+        [
+          :given_name, :family_name, :title,
+          address_attributes: person_address_attributes
+        ]
+      end
+
+      def person_address_attributes
+        [
+          :id, :name, :organisation_name, :street_1, :street_2, :city, :county,
+          :postcode, :country
+        ]
+      end
+
+      # Person requires the user who created the record. This is only needed
+      # if we are creating the person for the contact at the same time.
+      #
+      def try_merge_person_creator(params)
+        return params unless params[:person_attributes].present?
+
+        params[:person_attributes].merge!(by: current_user)
+        params
       end
     end
   end

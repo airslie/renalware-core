@@ -1,0 +1,25 @@
+= simple_form_for contact,
+    url: patient_letters_contacts_path(patient),
+    wrapper: "vertical_form" do |f|
+  .row.errors-container
+    .large-12.columns
+      ul.error-messages
+
+  .row
+    .large-12.columns
+      = render "/renalware/letters/contacts/form", f: f, contact_descriptions: contact_descriptions
+
+  .row
+    .large-12.columns
+      br
+      =f.submit t(".save"), class: "button"
+      span= " or "
+      =link_to t(".cancel"),
+               "#",
+               "aria-label" => "Close",
+               class: "reveal-modal-close"
+
+.row
+  .large-12.columns
+    .g-center
+      = link_to "Person not found in directory", '#', class: "button secondary", data: { behaviour: "toggle-section" }

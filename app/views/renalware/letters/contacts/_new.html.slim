@@ -1,23 +1,11 @@
-= simple_form_for contact,
-    url: patient_letters_contacts_path(patient),
-    wrapper: "vertical_form" do |f|
-  .row
-    .large-12.columns
-      h2= t(".title")
+.row
+  .large-12.columns
+    h2= t(".title")
 
-  .row.errors-container
-    .large-12.columns
-      ul.error-messages
+section.person-from-directory
+  = render "/renalware/letters/contacts/person_from_directory", contact: contact, 
+      patient: patient, contact_descriptions: contact_descriptions
 
-  .row
-    .large-12.columns
-      = render "/renalware/letters/contacts/form", f: f, contact_descriptions: contact_descriptions
-
-  .row
-    .large-12.columns
-      =f.submit t(".save"), class: :button
-      span= " or "
-      =link_to t(".cancel"),
-               "#",
-               "aria-label" => "Close",
-               class: "reveal-modal-close"
+section.new-person
+  = render "/renalware/letters/contacts/new_person", contact: contact, 
+      patient: patient, contact_descriptions: contact_descriptions

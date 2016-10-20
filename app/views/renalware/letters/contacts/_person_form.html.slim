@@ -1,0 +1,20 @@
+= f.simple_fields_for :person do |ff|
+  = field_set_tag "Person" do
+    = ff.input :title
+    = ff.input :given_name
+    = ff.input :family_name
+
+  = field_set_tag "Address" do
+    - ff.object.build_address
+    = ff.simple_fields_for :address do |fa|
+      = fa.input :name
+      = fa.input :street_1
+      = fa.input :street_2
+      = fa.input :city
+      = fa.input :county
+      = fa.input :postcode
+      = fa.input :country, as: :string
+
+= f.input :description_id, collection: contact_descriptions
+= f.input :other_description
+= f.input :default_cc

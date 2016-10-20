@@ -105,7 +105,7 @@ module Renalware
       end
 
       def build_contact
-        Contact.new
+        Contact.new.tap { |c| c.build_person }
       end
 
       def event_class

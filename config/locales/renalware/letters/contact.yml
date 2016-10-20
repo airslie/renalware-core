@@ -5,6 +5,7 @@ en:
         renalware/letters/contact:
           attributes:
             person:
+              blank: "has to be selected from the list"
               taken: "is already a contact for the patient"
 
   renalware:
@@ -19,6 +20,12 @@ en:
             prompt: Start entering the person's name (min. 2 characters)"
           description:
             other: Other - please specify in the field below
+        person_from_directory:
+          save: Save
+          cancel: Cancel
+        new_person:
+          save: Save
+          cancel: Cancel
       navigation:
         list: List
         add_contact: Add contact
@@ -26,4 +33,3 @@ en:
       fieldset:
         add_contact: Add new person to contacts list
         add_contact_as_cc: Add new person to the list
-
