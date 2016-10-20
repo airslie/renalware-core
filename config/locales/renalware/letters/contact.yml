@@ -1,5 +1,8 @@
 en:
   activerecord:
+    attributes:
+      renalware/letters/contact:
+        default_cc: Automatically CC on new letters
     errors:
       models:
         renalware/letters/contact:
