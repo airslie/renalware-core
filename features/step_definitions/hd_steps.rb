@@ -14,6 +14,30 @@ Given(/^Patty has an ongoing HD session$/) do
   seed_open_session_for(@patty, user: @nathalie)
 end
 
+Given(/^Patty has a recorded DNA session$/) do
+  @session = seed_dna_session(patient: @patty,
+                              user: @nathalie,
+                              notes: "",
+                              performed_on: Time.zone.today)
+end
+
+Given(/^the session was created less than (\d+) hours ago$/) do |hours|
+  session_age = Time.zone.now - hours.hours + 5.minutes # eg 5 hours 55 mins if hours == 6
+  @session.update!(created_at: session_age)
+end
+
+Given(/^Patty has a recorded HD session with has not yet been signed off$/) do
+  @session = seed_open_session_for(@patty, user: Renalware::User.first)
+end
+
+When(/^Nathalie deletes the session$/) do
+  delete_session(@session, user: @nathalie)
+end
+
+Then(/^the session is removed$/) do
+  expect_hd_session_to_not_exist(@session)
+end
+
 Given(/^Patty has a recorded dry weight entry$/) do
   seed_hd_dry_weight_for(@patty, @clyde)
 end

@@ -49,6 +49,12 @@ module Renalware
           session
         end
 
+        def sign_off!(session)
+          session = session.becomes!(Session::Closed)
+          session.signed_off_at = Time.zone.now
+          session
+        end
+
         def find_or_create_session(id)
           if id.present?
             Session.for_patient(patient).find(id)

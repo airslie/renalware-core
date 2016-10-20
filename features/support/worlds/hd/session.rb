@@ -70,6 +70,7 @@ module World
             signed_on_by: user,
             by: user,
             signed_off_by: signed_off_by,
+            signed_off_at: Time.zone.now,
             end_time: attrs[:start_time] + 1.hour
           )
         )
@@ -108,6 +109,15 @@ module World
         end
       end
 
+      def delete_session(session, **)
+        expect(session).to be_persisted
+        session.destroy!
+      end
+
+      def session_exists?(session)
+        expect(session).to_not be_persisted
+      end
+
       # @section commands
       #
       def create_hd_session(patient:, user:, performed_on:)
@@ -140,7 +150,11 @@ module World
       # @section expectations
       #
       def expect_hd_session_to_exist(patient)
-        expect(Renalware::HD::Session::Open.for_patient(patient)).to be_present
+        expect(Renalware::HD::Session.for_patient(patient)).to be_present
+      end
+
+      def expect_hd_session_to_not_exist(session)
+        expect(Renalware::HD::Session.where(id: session.id).count).to eq(0)
       end
 
       def expect_hd_session_to_be_refused
@@ -196,9 +210,9 @@ module World
       def update_hd_session(patient:, user:)
         login_as user
         visit patient_hd_dashboard_path(patient)
-
         within_fieldset "Latest HD Sessions" do
-          click_on "Sign Off"
+          label = t_sessions(".edit", scope: "renalware.hd.sessions.open")
+          click_on label
         end
 
         fill_in "Session End Time", with: "16:00"
@@ -230,10 +244,18 @@ module World
         expect(trs.count).to eq(3)
       end
 
+      def delete_session(session, user:)
+        login_as user
+        visit edit_patient_hd_session_path(session.patient, session)
+        within ".top" do
+          click_on "Delete"
+        end
+      end
+
       private
 
-      def t_sessions(key)
-        I18n.t(key, scope: "renalware.hd.sessions.list")
+      def t_sessions(key, scope: "renalware.hd.sessions.list")
+        I18n.t(key, scope: scope)
       end
     end
   end

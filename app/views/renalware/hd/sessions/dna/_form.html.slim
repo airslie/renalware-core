@@ -14,8 +14,14 @@ ruby:
         label_method: :to_s
     = f.input :notes, as: :text, input_html: { rows: 5 }
     = f.association :signed_on_by, as: :user_picker, collection: Renalware::User.ordered
-.row
+.row.top
   .large-12.columns.form_actions
       = f.button :submit, value: t(".save")
+      - if policy(session).destroy?
+        | &nbsp;
+        = link_to("Delete", patient_hd_session_path(@patient, session),
+                  data: { confirm: t(".delete_confirmation") },
+                  method: :delete,
+                  class: "button alert")
       | &nbsp;
       = link_to 'cancel', back_path

@@ -16,16 +16,26 @@ module Renalware
       it { is_expected.to validate_timeliness_of(:start_time) }
       it { is_expected.to validate_timeliness_of(:end_time) }
 
-      it "defines a policy class" do
-        expect(Session::Open.policy_class).to eq(OpenSessionPolicy)
-      end
-
       let(:nurse) { create(:user) }
       let(:patient) { create(:hd_patient) }
       subject(:session) { build(:hd_session, patient: patient, signed_on_by: nurse, by: nurse) }
 
+      it "is not immutable" do
+        expect(described_class.new.immutable?).to be(false)
+      end
+
+      it "defines a policy class" do
+        expect(Session::Open.policy_class).to eq(OpenSessionPolicy)
+      end
+
       it "is valid" do
         expect(session).to be_valid
+      end
+
+      describe "immutable?" do
+        it "always returns false" do
+          expect(session.immutable?).to eq(false)
+        end
       end
 
       describe "#valid?" do

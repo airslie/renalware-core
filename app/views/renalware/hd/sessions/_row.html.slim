@@ -1,6 +1,5 @@
 tr.hd-session-row(class=[session.state, stripe_class])
-  td.noprint(rowspan=2)
-    = link_to(t(".#{session.state}.edit"), session.edit_url) if session.edit_url
+  td.noprint(rowspan=2)= session.edit_or_view_url
   td(rowspan=2)= session.performed_on
   td(rowspan=2)= session.hospital_unit_unit_code
   td= session.start_time

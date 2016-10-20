@@ -1,5 +1,6 @@
 table.auto-layout
   = render 'renalware/hd/sessions/thead'
+
   tbody
     - sessions.each_with_index do |session, index|
       - stripe_class = index % 2 == 0 ? "even" : "odd"
