@@ -12,7 +12,7 @@ module World
 
       # @section commands
       #
-      def assign_contact(patient:, person:, default_cc: false, description_name: "Sibling", **_)
+      def assign_contact(patient:, person:, description_name: "Sibling", default_cc: false, **_)
         patient = letters_patient(patient)
         description_attrs = determine_description_attrs(description_name)
         contact_attrs = { person: person, default_cc: default_cc }.merge(description_attrs)
@@ -20,17 +20,17 @@ module World
         contact.save!
       end
 
-      def assign_new_person_as_contact(patient:, user:, person:, **_)
-        person_attributes = {
-          given_name: person[:given_name],
-          family_name: person[:family_name],
-          address_attributes: {
-            street_1: "1 Main St"
-          },
+      def assign_new_person_as_contact(patient:, person_attrs:, description_name: "Sibling", user:, **_)
+        patient = letters_patient(patient)
+        person_attrs = {
+          given_name: person_attrs[:given_name],
+          family_name: person_attrs[:family_name],
+          address_attributes: { street_1: "1 Main St" },
           by: user
         }
-        patient = letters_patient(patient)
-        contact = patient.assign_contact(person_attributes: person_attributes)
+        description_attrs = determine_description_attrs(description_name)
+        contact_attrs = { person_attributes: person_attrs }.merge(description_attrs)
+        contact = patient.assign_contact(contact_attrs)
         contact.save!
       end
 
@@ -102,7 +102,7 @@ module World
         wait_for_ajax
       end
 
-      def assign_new_person_as_contact(patient:, user:, person:, **_)
+      def assign_new_person_as_contact(patient:, person_attrs:, user:, description_name:, **_)
         login_as user
 
         visit patient_letters_contacts_path(patient)
@@ -112,10 +112,16 @@ module World
           click_on "Person not found in directory"
           wait_for_ajax
 
-          fill_in "Family Name", with: person[:family_name]
-          fill_in "Given Name", with: person[:given_name]
-
+          fill_in "Family Name", with: person_attrs[:family_name]
+          fill_in "Given Name", with: person_attrs[:given_name]
           fill_in "Line 1", with: "1 Main St"
+
+          if find_contact_description(name: description_name)
+            select description_name, from: t_contact(:description)
+          else
+            select t_contact_description_unspecified, from: t_contact(:description)
+            fill_in t_contact(:other_description), with: description_name
+          end
 
           click_on "Save"
         end

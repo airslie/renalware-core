@@ -28,7 +28,7 @@ Feature: Assign a person as a patient's contact
     When Clyde assigns Sam as a contact for Patty describing them as Great Aunt
     Then Sam is listed as Patty's available contacts as Great Aunt
 
-  @web @javascript @wip
+  @web @javascript
   Scenario: The clinician added a new person as a contact for the patient
     When Clyde adds Diana Newton as a District Nurse contact for Patty
-    Then Diana is listed as Patty's available contacts
+    Then Diana is listed as Patty's available contacts as a "District Nurse"
