@@ -3,7 +3,7 @@ require "rails_helper"
 module Renalware
   module Letters
     RSpec.describe LetterFactory, type: :model do
-      let(:patient) { build(:letter_patient) }
+      let(:patient) { create(:letter_patient) }
 
       subject { LetterFactory.new(patient) }
 
@@ -12,6 +12,21 @@ module Renalware
           letter = subject.build
 
           expect(letter.main_recipient.person_role).to eq("primary_care_physician")
+        end
+
+        it "sets the patient's default CC's" do
+          default_cc_contact = build(:letter_contact, default_cc: true, person: build(:directory_person, family_name: "default CC"))
+          non_default_cc_contact = build(:letter_contact, default_cc: false, person: build(:directory_person, family_name: "non default CC"))
+          patient.contacts = [non_default_cc_contact, default_cc_contact]
+
+          letter = subject.build
+
+          recipients = letter.cc_recipients.map(&:addressee)
+          expect(recipients.map(&:family_name)).to include(default_cc_contact.family_name)
+          expect(recipients.map(&:family_name)).to_not include(non_default_cc_contact.family_name)
+          letter.cc_recipients.map(&:role).each do |role|
+            expect(role).to eq("cc")
+          end
         end
       end
     end
