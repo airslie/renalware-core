@@ -86,6 +86,7 @@ Renalware.Contacts = {
     this.open = function() {
       this.el.foundation("reveal", "open");
       this._resetForms();
+      this._showPersonDirectory();
     },
 
     this._initForms = function() {
@@ -123,6 +124,11 @@ Renalware.Contacts = {
       this.forms.each(function() {
         this.reset();
       })
+    },
+
+    this._showPersonDirectory = function() {
+      this.pickPersonZone.show();
+      this.createPersonZone.hide();
     },
 
     // event handlers
