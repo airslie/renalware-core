@@ -102,6 +102,27 @@ module World
         wait_for_ajax
       end
 
+      def assign_new_person_as_contact(patient:, user:, person:, **_)
+        login_as user
+
+        visit patient_letters_contacts_path(patient)
+        click_on "Add contact"
+
+        within("#add-patient-contact-modal") do
+          click_on "Person not found in directory"
+          wait_for_ajax
+
+          fill_in "Family Name", with: person[:family_name]
+          fill_in "Given Name", with: person[:given_name]
+
+          fill_in "Line 1", with: "1 Main St"
+
+          click_on "Save"
+        end
+
+        wait_for_ajax
+      end
+
       # @section helpers
       #
       def t_contact(key)
