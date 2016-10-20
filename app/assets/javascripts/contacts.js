@@ -1,11 +1,11 @@
 var Renalware = typeof Renalware === 'undefined' ? {} : Renalware;
 
 Renalware.Contacts = {
-  Form: function(el, callback) {
+  Form: function(el, onContactAddedCallback) {
     this.el = el,
     this.errorsContainer = this.el.find(".errors-container"),
     this.errorsList = this.errorsContainer.find("ul.error-messages"),
-    this.callback = callback,
+    this.callback = onContactAddedCallback,
 
     this.init = function() {
       var self = this;
@@ -22,17 +22,17 @@ Renalware.Contacts = {
       this.el.find(".hidden").val("");
     },
 
+    this._clearErrors = function() {
+      this.errorsList.html("");
+      this.errorsContainer.hide();
+    },
+
     this._addErrors = function(errors) {
       var list = this.errorsList;
       this.errorsContainer.show();
       $.each(errors, function(i) {
         list.append("<li>" + errors[i] + "</li>");
       });
-    },
-
-    this._clearErrors = function() {
-      this.errorsList.html("");
-      this.errorsContainer.hide();
     },
 
     // event handlers
@@ -75,8 +75,20 @@ Renalware.Contacts = {
     this.el = el,
     this.forms = [],
     this.callback = callback,
+    this.pickPersonZone = null,
+    this.createPersonZone = null,
 
     this.init = function() {
+      this._initForms();
+      this._initZones();
+    },
+
+    this.open = function() {
+      this.el.foundation("reveal", "open");
+      this._resetForms();
+    },
+
+    this._initForms = function() {
       var self = this;
       this.forms = this.el.find("form").map(function() {
         var form = new Renalware.Contacts.Form($(this), function(contact) {
@@ -87,9 +99,24 @@ Renalware.Contacts = {
       });
     },
 
-    this.open = function() {
-      this.el.foundation("reveal", "open");
-      this._resetForms();
+    this._initZones = function() {
+      this.pickPersonZone = this.el.find(".zone.person-from-directory");
+      this.createPersonZone = this.el.find(".zone.new-person");
+
+      var self = this;
+      this.pickPersonZone.find("a[data-behaviour='toggle-zone']").on("click", function(event) {
+        event.preventDefault();
+        self.pickPersonZone.slideUp();
+        self.createPersonZone.slideDown();
+      });
+
+      this.createPersonZone.find("a[data-behaviour='toggle-zone']").on("click", function(event) {
+        event.preventDefault();
+        self.pickPersonZone.slideDown();
+        self.createPersonZone.slideUp();
+      });
+
+      this.createPersonZone.hide();
     },
 
     this._resetForms = function() {

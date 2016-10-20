@@ -46,10 +46,37 @@ module Renalware
       end
 
       def contact_params
-        params
+        attrs = params
           .require(:letters_contact)
-          .permit(:person_id, :default_cc, :description_id, :other_description)
+          .permit(attributes)
+
+        if attrs[:person_attributes].present?
+          attrs[:person_attributes].merge!(by: current_user)
+        end
+        attrs
       end
+
+      def attributes
+        [
+          :person_id, :default_cc, :description_id, :other_description,
+          person_attributes: person_attributes
+        ]
+      end
+
+      def person_attributes
+        [
+          :given_name, :family_name, :title,
+          address_attributes: person_address_attributes
+        ]
+      end
+
+      def person_address_attributes
+        [
+          :id, :name, :organisation_name, :street_1, :street_2, :city, :county,
+          :postcode, :country, :_destroy
+        ]
+      end
+
     end
   end
 end

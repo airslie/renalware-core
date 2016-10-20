@@ -5,6 +5,7 @@ en:
         renalware/letters/contact:
           attributes:
             person:
+              blank: "has to be selected from the list"
               taken: "is already a contact for the patient"
 
   renalware:
