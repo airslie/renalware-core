@@ -26,6 +26,7 @@ module World
           {"hdf": {"subs_goal": "", "subs_rate": "", "subs_volume": "", "subs_fluid_pct": ""},
           "info": {"hd_type": "hd", "machine_no": "222", "access_side": "right", "access_site":
             "Brachio-basilic & transposition", "access_type": "Arteriovenous graft (AVG)",
+            "access_type_abbreviation": "AVG",
             "single_needle": "no", "lines_reversed": "no", "fistula_plus_line": "no",
             "dialysis_fluid_used": "a10", "is_access_first_use": "no"},
              "dialysis": {"flow_rate": 200, "blood_flow": 150,

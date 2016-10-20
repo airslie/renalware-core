@@ -1,21 +1,28 @@
 nontunnelled_line:
   code: 01
   name: Non-tunnelled line
+  abbreviation: NTL
 tunnelled_line:
   code: 02
   name: Tunnelled Line
+  abbreviation: TL
 arteriovenous_fistula_avf:
   code: 03
   name: Arteriovenous fistula (AVF)
+  abbreviation: AVF
 arteriovenous_graft_avg:
   code: 04
   name: Arteriovenous graft (AVG)
+  abbreviation: AVG
 vein_loop:
   code: 05
   name: Vein loop
+  abbreviation: VL
 pd_catheter:
   code: 06
   name: PD catheter
+  abbreviation: PD
 pd_catheter_temp:
   code: 07
   name: PD catheter temp
+  abbreviation: PDtmp
