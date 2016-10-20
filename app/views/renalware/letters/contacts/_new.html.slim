@@ -2,8 +2,8 @@
   .large-12.columns
     h2= t(".title")
 
-.zone.person-from-directory
+section.person-from-directory
   = render "person_from_directory", contact: contact, patient: patient, contact_descriptions: contact_descriptions
 
-.zone.new-person
+section.new-person
   = render "new_person", contact: contact, patient: patient, contact_descriptions: contact_descriptions

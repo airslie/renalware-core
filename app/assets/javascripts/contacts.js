@@ -75,12 +75,12 @@ Renalware.Contacts = {
     this.el = el,
     this.forms = [],
     this.callback = callback,
-    this.pickPersonZone = null,
-    this.createPersonZone = null,
+    this.pickPersonSection = null,
+    this.createPersonSection = null,
 
     this.init = function() {
       this._initForms();
-      this._initZones();
+      this._initSections();
     },
 
     this.open = function() {
@@ -100,24 +100,24 @@ Renalware.Contacts = {
       });
     },
 
-    this._initZones = function() {
-      this.pickPersonZone = this.el.find(".zone.person-from-directory");
-      this.createPersonZone = this.el.find(".zone.new-person");
+    this._initSections = function() {
+      this.pickPersonSection = this.el.find("section.person-from-directory");
+      this.createPersonSection = this.el.find("section.new-person");
 
       var self = this;
-      this.pickPersonZone.find("a[data-behaviour='toggle-zone']").on("click", function(event) {
+      this.pickPersonSection.find("a[data-behaviour='toggle-section']").on("click", function(event) {
         event.preventDefault();
-        self.pickPersonZone.slideUp();
-        self.createPersonZone.slideDown();
+        self.pickPersonSection.slideUp();
+        self.createPersonSection.slideDown();
       });
 
-      this.createPersonZone.find("a[data-behaviour='toggle-zone']").on("click", function(event) {
+      this.createPersonSection.find("a[data-behaviour='toggle-section']").on("click", function(event) {
         event.preventDefault();
-        self.pickPersonZone.slideDown();
-        self.createPersonZone.slideUp();
+        self.pickPersonSection.slideDown();
+        self.createPersonSection.slideUp();
       });
 
-      this.createPersonZone.hide();
+      this.createPersonSection.hide();
     },
 
     this._resetForms = function() {
@@ -127,8 +127,8 @@ Renalware.Contacts = {
     },
 
     this._showPersonDirectory = function() {
-      this.pickPersonZone.show();
-      this.createPersonZone.hide();
+      this.pickPersonSection.show();
+      this.createPersonSection.hide();
     },
 
     // event handlers
