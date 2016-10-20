@@ -107,17 +107,25 @@ Renalware.Contacts = {
       var self = this;
       this.pickPersonSection.find("a[data-behaviour='toggle-section']").on("click", function(event) {
         event.preventDefault();
-        self.pickPersonSection.slideUp();
-        self.createPersonSection.slideDown();
+        self._revealCreatePersonSection();
       });
 
       this.createPersonSection.find("a[data-behaviour='toggle-section']").on("click", function(event) {
         event.preventDefault();
-        self.pickPersonSection.slideDown();
-        self.createPersonSection.slideUp();
+        self._revealPickPersonSection();
       });
 
       this.createPersonSection.hide();
+    },
+
+    this._revealCreatePersonSection = function() {
+      this.pickPersonSection.slideUp(); // hide
+      this.createPersonSection.slideDown(); // show
+    },
+
+    this._revealPickPersonSection = function() {
+      this.pickPersonSection.slideDown(); // show
+      this.createPersonSection.slideUp();  // hide
     },
 
     this._resetForms = function() {
