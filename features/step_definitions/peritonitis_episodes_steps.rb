@@ -93,7 +93,7 @@ Then(/^Clyde can revise the peritonitis episode$/) do
   revise_peritonitis_episode_for(
     patient: @patty,
     user: @clyde,
-    diagnosed_on: Date.current - 10.day
+    diagnosed_on: "11-11-2015"
   )
 
   revise_organism_for(
