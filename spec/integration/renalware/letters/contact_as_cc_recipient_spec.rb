@@ -15,6 +15,7 @@ RSpec.describe "Assign a person as a CC recipient", type: :feature do
   let(:address) { build(:address, name: "::cc_name::") }
   let!(:person) { create(:directory_person, address: address, by: create(:user)) }
   let(:user) { create(:user) }
+  let!(:contact_description) { create(:letter_contact_description) }
 
   describe "assigning a new person as a CC recipient", js: true do
     before do
@@ -51,6 +52,7 @@ RSpec.describe "Assign a person as a CC recipient", type: :feature do
       within("#add-patient-contact-as-cc-modal") do
         fill_autocomplete "#add-patient-contact-as-cc-modal", "person_auto_complete",
           with: person.family_name, select: person.to_s
+        select contact_description.name, from: "Description"
 
         click_on "Save"
       end

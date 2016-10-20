@@ -12,6 +12,7 @@ RSpec.describe "Assign a contact to a patient", type: :feature, js: true do
 
   let(:patient) { create(:patient) }
   let!(:person) { create(:directory_person, by: create(:user)) }
+  let!(:contact_description) { create(:letter_contact_description) }
 
   describe "creating a contact" do
     context "given valid attributes" do
@@ -40,6 +41,7 @@ RSpec.describe "Assign a contact to a patient", type: :feature, js: true do
       within("#add-patient-contact-modal") do
         fill_autocomplete "#add-patient-contact-modal", "person_auto_complete",
           with: person.family_name, select: person.to_s
+        select contact_description.to_s, from: "Description"
 
         click_on "Save"
       end

@@ -9,6 +9,7 @@ module Renalware
         render :index, locals: {
           patient: @patient,
           contact: build_contact,
+          contact_descriptions: find_contact_descriptions,
           contacts: find_contacts
         }
       end
@@ -37,13 +38,17 @@ module Renalware
       end
 
       def find_contacts
-        @patient.contacts.ordered
+        CollectionPresenter.new(@patient.contacts.ordered, ContactPresenter)
+      end
+
+      def find_contact_descriptions
+        CollectionPresenter.new(ContactDescription.ordered, ContactDescriptionPresenter)
       end
 
       def contact_params
         params
           .require(:letters_contact)
-          .permit(:person_id, :default_cc)
+          .permit(:person_id, :default_cc, :description_id, :other_description)
       end
     end
   end

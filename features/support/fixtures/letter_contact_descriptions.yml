@@ -1,0 +1,12 @@
+referring_physician:
+  system_code: referring_physician
+  name: Referring Physician
+  position: 10
+sibling:
+  system_code: sibling
+  name: Sibling
+  position: 20
+other:
+  system_code: other
+  name: Other
+  position: 30

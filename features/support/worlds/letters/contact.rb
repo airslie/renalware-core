@@ -5,28 +5,56 @@ module World
       #
       def seed_contact(patient:, person:)
         patient = letters_patient(patient)
-        contact = patient.assign_contact(person: person)
+        description = find_contact_description(system_code: "referring_physician")
+        contact = patient.assign_contact(person: person, description: description)
         contact.save!
       end
 
       # @section commands
       #
-      def assign_contact(patient:, person:, default_cc: false, **_)
+      def assign_contact(patient:, person:, default_cc: false, description_name: "Sibling", **_)
         patient = letters_patient(patient)
-        contact = patient.assign_contact(person: person, default_cc: default_cc)
+        description_attrs = determine_description_attrs(description_name)
+        contact_attrs = { person: person, default_cc: default_cc }.merge(description_attrs)
+        contact = patient.assign_contact(contact_attrs)
         contact.save!
       end
 
       # @section expectations
       #
-      def expect_available_contact(patient:, person:)
+      def expect_available_contact(patient:, person:, description_name: "Sibling")
         patient = letters_patient(patient)
         expect(patient).to have_available_contact(person)
+
+        description = find_contact_description(name: description_name)
+        patient.with_contact_for(person) do |contact|
+          expect(contact).to be_described_as(description || description_name)
+        end
       end
 
       def expect_default_ccs(patient:, person:)
         patient = letters_patient(patient)
         expect(patient).to have_default_cc(person)
+      end
+
+      # @section helpers
+      #
+      def find_contact_description(attrs)
+        Renalware::Letters::ContactDescription.find_by(attrs)
+      end
+
+      def find_unspecified_contact_description
+        Renalware::Letters::ContactDescription[:other]
+      end
+
+      def determine_description_attrs(description_name)
+        contact_description = find_contact_description(name: description_name)
+
+        if contact_description.present?
+          { description: contact_description }
+        else
+          { description: find_unspecified_contact_description, other_description: description_name }
+        end
       end
     end
 
@@ -35,7 +63,7 @@ module World
 
       # @section commands
       #
-      def assign_contact(patient:, person:, user:, default_cc: false)
+      def assign_contact(patient:, person:, user:, default_cc: false, description_name: "Sibling")
         login_as user
 
         visit patient_letters_contacts_path(patient)
@@ -44,12 +72,29 @@ module World
         within("#add-patient-contact-modal") do
           fill_autocomplete "#add-patient-contact-modal", "person_auto_complete",
             with: person.family_name, select: person.to_s
-          check "Default CC" if default_cc
+          check t_contact(:default_cc) if default_cc
+
+          if find_contact_description(name: description_name)
+            select description_name, from: t_contact(:description)
+          else
+            select t_contact_description_unspecified, from: t_contact(:description)
+            fill_in t_contact(:other_description), with: description_name
+          end
 
           click_on "Save"
         end
 
         wait_for_ajax
+      end
+
+      # @section helpers
+      #
+      def t_contact(key)
+        Renalware::Letters::Contact.human_attribute_name(key)
+      end
+
+      def t_contact_description_unspecified
+        ::I18n.t(:other, scope: :"renalware.letters.contacts.form.description")
       end
     end
   end
