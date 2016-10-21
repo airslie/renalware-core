@@ -8,7 +8,7 @@ module Renalware
       end
 
       def name_and_description
-        "#{to_s} (#{description_name})"
+        "#{self} (#{description_name})"
       end
     end
   end
