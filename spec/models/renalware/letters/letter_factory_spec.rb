@@ -15,8 +15,19 @@ module Renalware
         end
 
         context "given the patient has contacts flagged as default CC" do
-          let(:default_cc_contact) { build(:letter_contact, default_cc: true, person: build(:directory_person, family_name: "default CC")) }
-          let(:non_default_cc_contact) { build(:letter_contact, default_cc: false, person: build(:directory_person, family_name: "non default CC")) }
+          let(:default_cc_contact) do
+            build(
+              :letter_contact, default_cc: true,
+              person: build(:directory_person, family_name: "default CC")
+            )
+          end
+
+          let(:non_default_cc_contact) do
+            build(
+              :letter_contact, default_cc: false,
+              person: build(:directory_person, family_name: "non default CC")
+            )
+          end
 
           before do
             patient.contacts = [non_default_cc_contact, default_cc_contact]
