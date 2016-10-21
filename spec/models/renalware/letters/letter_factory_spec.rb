@@ -21,21 +21,9 @@ module Renalware
             patient.contacts = [@non_default_cc_contact, @default_cc_contact]
           end
 
-          context "and automatic CC assignment is disabled" do
-            subject { LetterFactory.new(patient, assign_default_ccs: false) }
-
+          context "with contacts as default ccs" do
             it "sets the patient's default CC's" do
-              letter = subject.build
-
-              expect(letter.cc_recipients).to be_empty
-            end
-          end
-
-          context "and automatic CC assignment is enabled" do
-            subject { LetterFactory.new(patient, assign_default_ccs: true) }
-
-            it "sets the patient's default CC's" do
-              letter = subject.build
+              letter = subject.with_contacts_as_default_ccs.build
 
               recipients = letter.cc_recipients.map(&:addressee)
               expect(recipients.map(&:family_name)).to include(@default_cc_contact.family_name)
