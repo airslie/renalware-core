@@ -10,7 +10,7 @@ module Renalware
       end
 
       def call(patient, params={})
-        letter = LetterFactory.new(patient).build(params)
+        letter = LetterFactory.new(patient, params).build
         letter.save!
         letter.reload
         broadcast(:draft_letter_successful, letter)

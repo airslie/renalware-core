@@ -11,8 +11,8 @@ module Renalware
 
       def new
         letter = LetterFactory
-          .new(@patient, assign_default_ccs: true)
-          .build(event: find_event, author: current_user)
+          .new(@patient, event: find_event, {author: current_user}, assign_default_ccs: true)
+          .build
         render_form(letter, :new)
       end
 
