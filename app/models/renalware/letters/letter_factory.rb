@@ -20,9 +20,9 @@ module Renalware
       end
 
       def include_primary_care_physician_as_default_main_recipient(letter)
-        if letter.main_recipient.blank?
-          letter.build_main_recipient(person_role: :primary_care_physician)
-        end
+        return unless letter.main_recipient.blank?
+
+        letter.build_main_recipient(person_role: :primary_care_physician)
       end
 
       def include_contacts_as_default_ccs(letter)
