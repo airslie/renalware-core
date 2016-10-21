@@ -63,7 +63,7 @@ group :development, :test do
   gem 'foreman', '~> 0.82.0'
   gem 'launchy', '~> 2.4.2'
   gem 'poltergeist', '~> 1.10.0'
-  gem 'pry-byebug', '~> 2.0.0'
+  gem 'byebug'
   gem 'quiet_assets', '~> 1.1.0'
   gem 'rspec-rails', '~> 3.5.1'
   gem 'rspec-html-matchers', '~> 0.8.0'
