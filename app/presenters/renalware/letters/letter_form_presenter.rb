@@ -28,8 +28,8 @@ module Renalware
         end
       end
 
-      def cc_recipient_id_for_contact(contact)
-        find_cc_recipient_for_contact(contact).try!(:id)
+      def cc_recipient_for_contact(contact)
+        find_cc_recipient_for_contact(contact)
       end
 
       private

@@ -37,7 +37,7 @@ ruby:
 
       div#contact-selector(style="display: none")
         #contact-selector-input
-          = fmr.input :addressee_id, as: :select, collection: contacts, label: false, include_blank: "-- Choose contact --"
+          = fmr.input :addressee_id, as: :select, collection: contacts, label: false, label_method: :name_and_description, include_blank: "-- Choose contact --"
 
         .row
           .small-offset-3.small-9.columns

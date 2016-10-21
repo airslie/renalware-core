@@ -17,4 +17,6 @@
 
 = f.input :description_id, collection: contact_descriptions
 = f.input :other_description
-= f.input :default_cc
+
+// Disable `for` attribute, so it works when multiple contact form on the page
+= f.input :default_cc, label_html: { for: nil }
