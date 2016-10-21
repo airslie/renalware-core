@@ -113,7 +113,9 @@ en:
         list:
           title: Latest HD Sessions
           add_session: Add a Session
-          add: Add
+          add_dna_session: Add a DNA Session
+          add: Add Session
+          add_dna: Add DNA Session
           view_all: View All
         table:
           date: Date
@@ -147,3 +149,29 @@ en:
         form_actions:
           signoff: Save and Sign-Off
           save: Save
+        new:
+          open:
+            title: HD Session
+          closed:
+            title: HD Session
+          dna:
+            title: HD DNA Session
+        edit:
+          open:
+            title: HD Session
+          closed:
+            title: HD Session
+          dna:
+            title: HD DNA Session
+        row:
+          open:
+            edit: Sign Off
+          closed:
+            edit: Edit
+          dna:
+            edit: Edit
+        dna:
+          row:
+            edit: Edit
+          form:
+            save: Save

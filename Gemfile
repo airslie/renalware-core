@@ -52,6 +52,7 @@ group :development do
   gem 'guard-cucumber', '~> 2.1.2', require: false
   gem 'awesome_print', '~> 1.7.0'
   gem 'bullet', '~> 5.3.0'
+  gem 'rack-mini-profiler'
 end
 
 group :development, :test do
@@ -79,6 +80,7 @@ end
 group :test do
   gem 'simplecov', '~> 0.12.0', require: false
   gem 'webmock', '~> 1.20.4'
+  gem 'wisper-rspec', require: false
 end
 
 group :staging do

@@ -25,4 +25,5 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "HL7"
   inflect.acronym "CC"
   inflect.acronym "CCs"
+  inflect.acronym "DNA"
 end

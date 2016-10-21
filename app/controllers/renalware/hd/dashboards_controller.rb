@@ -7,7 +7,7 @@ module Renalware
 
       def show
         render locals: {
-          dashboard: DashboardPresenter.new(@patient)
+          dashboard: DashboardPresenter.new(@patient, view_context)
         }
       end
     end
