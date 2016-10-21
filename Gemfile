@@ -2,17 +2,17 @@ source "https://rubygems.org"
 ruby "2.3.1"
 
 gem "rails", "~> 4.2.7"
-gem "pg", "~> 0.18.1"
+gem "pg", "~> 0.19.0"
 gem "foundation-rails", "~> 5.4.5"
-gem "jquery-rails", "~> 4.0.5"
-gem "jquery-ui-rails", "~> 5.0.3"
+gem "jquery-rails", "~> 4.2.1"
+gem "jquery-ui-rails", "~> 5.0.5"
 gem "underscore-rails", "~> 1.8.3"
 gem "uglifier", ">= 1.3.0"
 gem "sass-rails", "~> 4.0.5"
 gem "sdoc", "~> 0.4.0", group: :doc
 gem "httparty", "~> 0.14.0"
 gem "paper_trail", "~> 4.0.0"
-gem "paranoia", "~> 2.1.0"
+gem "paranoia", "~> 2.2.0"
 gem "ransack", git: "https://github.com/activerecord-hackery/ransack.git"
 gem "kaminari", "~> 0.15.1"
 gem "devise", "~> 3.5.4"
@@ -51,27 +51,27 @@ group :development do
   gem "guard-rspec", "4.7.3", require: false
   gem "guard-cucumber", "~> 2.1.2", require: false
   gem "awesome_print", "~> 1.7.0"
-  gem "bullet", "~> 5.3.0"
+  gem "bullet", "~> 5.4"
   gem "rack-mini-profiler"
 end
 
 group :development, :test do
   gem "bundler-audit", "~> 0.4.0", require: false
   gem "capybara", "~> 2.8.1"
-  gem "cucumber-rails", "~> 1.4.4", require: false
+  gem "cucumber-rails", "~> 1.4.5", require: false
   gem "database_cleaner", "~> 1.5.3"
   gem "factory_girl_rails", "~> 4.7.0"
   gem "foreman", "~> 0.82.0"
-  gem "launchy", "~> 2.4.2"
-  gem "poltergeist", "~> 1.10.0"
+  gem "launchy", "~> 2.4.3"
+  gem "poltergeist", "~> 1.11.0"
   gem "byebug"
   gem "quiet_assets", "~> 1.1.0"
-  gem "rspec-rails", "~> 3.5.1"
-  gem "rspec-html-matchers", "~> 0.8.0"
+  gem "rspec-rails", "~> 3.5.2"
+  gem "rspec-html-matchers", "~> 0.8.1"
   gem "shoulda-matchers", "~> 2.7.0"
   gem "spring", "~> 1.7.2"
   gem "spring-commands-cucumber", "~> 1.0.1"
-  gem "spring-commands-rspec", "~> 1.0.2"
+  gem "spring-commands-rspec", "~> 1.0.4"
   gem "rubocop", "~> 0.37.0", require: false
   gem "web-console", "~> 2.0"
   gem "puma"
