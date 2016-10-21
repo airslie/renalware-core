@@ -19,6 +19,7 @@ module Renalware
       accepts_nested_attributes_for :person
 
       scope :with_person, -> { includes(person: :address) }
+      scope :with_description, -> { includes(:description) }
       scope :ordered, -> {
         with_person.order("directory_people.family_name, directory_people.given_name")
       }

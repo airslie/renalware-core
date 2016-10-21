@@ -11,7 +11,7 @@ module Renalware
 
       def new
         letter = LetterFactory
-          .new(@patient, event: find_event, {author: current_user})
+          .new(@patient, event: find_event, author: current_user)
           .with_contacts_as_default_ccs
           .build
         render_form(letter, :new)
@@ -109,7 +109,7 @@ module Renalware
       end
 
       def find_contacts
-        CollectionPresenter.new(@patient.contacts.ordered, ContactPresenter)
+        CollectionPresenter.new(@patient.contacts.with_description.ordered, ContactPresenter)
       end
 
       def build_contact
