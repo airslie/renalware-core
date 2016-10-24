@@ -15,6 +15,9 @@ module Renalware
 
     before_filter :prepare_patient_search
 
+    protected
+    attr_reader :patient
+
     private
 
     def prepare_patient_search
@@ -24,7 +27,6 @@ module Renalware
 
     def load_patient(patient_id = params[:patient_id])
       @patient = Renalware::Patient.find(patient_id)
-
       authorize @patient
     end
 
