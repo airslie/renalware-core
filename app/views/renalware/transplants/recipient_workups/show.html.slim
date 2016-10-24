@@ -2,7 +2,7 @@
 
   - if @workup
     .document-view
-      - ["Comorbidities", "Historicals", "Scores"].each do |group|
+      - ["Historicals", "Scores"].each do |group|
         = render "renalware/shared/documents/attributes_group",
             group: @workup.document.public_send(group.parameterize('_')),
             legend: group, destination: group.parameterize('_')

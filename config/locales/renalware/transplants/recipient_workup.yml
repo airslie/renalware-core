@@ -5,20 +5,6 @@ en:
     attributes:
       renalware/transplants/recipient_workup_document:
         hla_data: HLA Data
-      renalware/transplants/recipient_workup_document/comorbidities:
-        amputation_for_pvd: Amputation for PVD?
-        angina: Angina?
-        chronic_obstr_pulm_dis: COPD?
-        claudication: Claudication?
-        coronary_artery_bypass_graft: CABG or Coronary Angioplasty?
-        cvd_or_stroke: CVD or stroke?
-        diabetes: Diabetes?
-        ischaemic_neuropathic_ulcers: Ischaemic/Neuropathic Ulcers?
-        liver_disease: Liver disease?
-        malignancy: Cancer or malignancy?
-        myocardial_infarct: Myocardial Infarct?
-        non_coronary_angioplasty: Angioplasty, vascular graft, aneurysm, stent (non-coronary)?
-        smoking: Smoker?
       renalware/transplants/recipient_workup_document/historicals:
         dvt: History of DVT?
         family_diabetes: Family history of diabetes?
@@ -80,10 +66,5 @@ en:
     hints:
       transplants_recipient_workup:
         document:
-          comorbidities:
-            angina:
-              status: For comorbidities enter year diagnosed at right if YES
-            smoking:
-              status: Includes former as well as current smokers
           consent:
             full_name: Your name or the person who consented
