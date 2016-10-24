@@ -1,11 +1,16 @@
 require_dependency "renalware/renal"
+require "document/base"
 
 module Renalware
   module Renal
     class Profile < ActiveRecord::Base
+      include Document::Base
+
       belongs_to :patient
       belongs_to :prd_description
       has_one :address_at_diagnosis, as: :addressable, class_name: "Address"
+
+      has_document class_name: "Renalware::Renal::ProfileDocument"
 
       validates :patient, presence: true
       validates :esrf_on, timeliness: { type: :date, allow_nil: true }
