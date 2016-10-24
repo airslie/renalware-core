@@ -4,3 +4,27 @@ en:
       renalware/renal/profile:
         prd_description: Primary Renal Diagnosis (PRD)
         esrf_on: ESRF Date
+      renalware/renal/profile_document/comorbidities:
+        amputation_for_pvd: Amputation for PVD?
+        angina: Angina?
+        chronic_obstr_pulm_dis: COPD?
+        claudication: Claudication?
+        coronary_artery_bypass_graft: CABG or Coronary Angioplasty?
+        cvd_or_stroke: CVD or stroke?
+        diabetes: Diabetes?
+        ischaemic_neuropathic_ulcers: Ischaemic/Neuropathic Ulcers?
+        liver_disease: Liver disease?
+        malignancy: Cancer or malignancy?
+        myocardial_infarct: Myocardial Infarct?
+        non_coronary_angioplasty: Angioplasty, vascular graft, aneurysm, stent (non-coronary)?
+        smoking: Smoker?
+
+  simple_form:
+    hints:
+      renal_profile:
+        document:
+          comorbidities:
+            angina:
+              status: For comorbidities enter year diagnosed at right if YES
+            smoking:
+              status: Includes former as well as current smokers
