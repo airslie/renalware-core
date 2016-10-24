@@ -5,9 +5,11 @@ class CreateRenalProfile < ActiveRecord::Migration
       t.date :esrf_on
       t.date :first_seen_on
       t.references :prd_description
+      t.jsonb :document
       t.timestamps null: false
     end
 
+    add_index :renal_profiles, :document, using: :gin
     add_foreign_key :renal_profiles, :renal_prd_descriptions, column: :prd_description_id
   end
 end
