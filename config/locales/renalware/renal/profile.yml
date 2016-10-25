@@ -9,23 +9,26 @@ en:
         smoking_status: Smoking Status
         comorbidities_updated_on: Comorbidities Updated
       renalware/renal/profile_document/comorbidities:
-        amputation_for_pvd: Amputation for PVD?
-        angina: Angina?
-        chronic_obstr_pulm_dis: COPD?
-        claudication: Claudication?
-        coronary_artery_bypass_graft: CABG or Coronary Angioplasty?
-        cvd_or_stroke: CVD or stroke?
         diabetes: Diabetes?
-        ischaemic_neuropathic_ulcers: Ischaemic/Neuropathic Ulcers?
+        ischaemic_heart_dis: Ischaemic Heart Disease?
+        coronary_artery_bypass_graft: CABG or Coronary Angioplasty?
+        heart_failure: Episode of heart failure (R or L)?
+        atrial_fibrill: Atrial Fibrillation?
+        malignancy: Malignancy?
+        cerebrovascular_dis: Cerebrovascular Disease?
+        chronic_obstr_pulm_dis: Chronic Obstructive Pulmonary Disease?
         liver_disease: Liver disease?
-        malignancy: Cancer or malignancy?
-        myocardial_infarct: Myocardial Infarct?
-        non_coronary_angioplasty: Angioplasty, vascular graft, aneurysm, stent (non-coronary)?
+        periph_vascular_dis: Peripheral Vascular Disease?
+        amputation_for_pvd: Amputation for PVD?
+        claudication: Amputation for PVD?
+        ischaemic_neuropathic_ulcers: Ischaemic/Neuropathic ulcers?
+        non_coronary_intervention: Angioplasty, vascular graft, aneurysm, stent (non-coronary)?
+        dementia: Dementia?
 
   simple_form:
     hints:
       renal_profile:
         document:
           comorbidities:
-            angina:
+            diabetes:
               status: For comorbidities enter year diagnosed at right if YES
