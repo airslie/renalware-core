@@ -5,6 +5,7 @@ class CreateRenalProfile < ActiveRecord::Migration
       t.date :esrf_on
       t.date :first_seen_on
       t.references :prd_description
+      t.date :comorbidities_updated_on
       t.jsonb :document
       t.timestamps null: false
     end
