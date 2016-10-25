@@ -6,7 +6,6 @@
     = f.input :esrf_on, as: :date_picker
     = f.input :first_seen_on, as: :date_picker
     = f.input :prd_description_id, input_html: { class: "clear-autocomplete" }, as: :hidden
-    = f.input :comorbidities_updated_on, as: :date_picker
 
     .row
       .small-3.columns
@@ -29,11 +28,7 @@
             span.postfix
               = link_to 'Clear', '#', data: { clear_value_on_click: ".clear-autocomplete" }
 
-    - f.object.build_address_at_diagnosis if f.object.address_at_diagnosis.blank?
-    = f.simple_fields_for :address_at_diagnosis_attributes, f.object.address_at_diagnosis do |a|
-      fieldset id="address_at_diagnosis"
-        legend Address at Diagnosis
-        = render partial: 'renalware/addresses/form', locals: { a: a }
+    = f.input :comorbidities_updated_on, as: :date_picker
 
     = f.simple_fields_for :document, f.object.document do |fd|
 
@@ -43,3 +38,9 @@
           table
             - fcm.object.class.attributes_list.each do |attribute|
               = render_input fcm, attribute
+
+    - f.object.build_address_at_diagnosis if f.object.address_at_diagnosis.blank?
+    = f.simple_fields_for :address_at_diagnosis_attributes, f.object.address_at_diagnosis do |a|
+      fieldset id="address_at_diagnosis"
+        legend Address at Diagnosis
+        = render partial: 'renalware/addresses/form', locals: { a: a }
