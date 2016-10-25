@@ -6,6 +6,7 @@
     = f.input :esrf_on, as: :date_picker
     = f.input :first_seen_on, as: :date_picker
     = f.input :prd_description_id, input_html: { class: "clear-autocomplete" }, as: :hidden
+    = f.input :comorbidities_updated_on, as: :date_picker
 
     .row
       .small-3.columns
@@ -37,7 +38,7 @@
     = f.simple_fields_for :document, f.object.document do |fd|
 
       = render layout: "renalware/shared/fieldset",
-          locals: { legend: "Co-morbidities", name: "comorbidities" } do
+          locals: { legend: "Comorbidities", name: "comorbidities" } do
         = fd.simple_fields_for :comorbidities, fd.object.comorbidities do |fcm|
           table
             - fcm.object.class.attributes_list.each do |attribute|

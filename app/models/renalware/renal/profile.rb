@@ -15,6 +15,7 @@ module Renalware
       validates :patient, presence: true
       validates :esrf_on, timeliness: { type: :date, allow_nil: true }
       validates :first_seen_on, timeliness: { type: :date, allow_nil: true }
+      validates :comorbidities_updated_on, timeliness: { type: :date, allow_nil: true }
 
       accepts_nested_attributes_for :address_at_diagnosis, reject_if: Address.reject_if_blank
 

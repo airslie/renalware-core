@@ -29,6 +29,7 @@ module Renalware
           .require(:renal_profile)
           .permit(
             :esrf_on, :first_seen_on, :prd_description_id,
+            :comorbidities_updated_on,
             address_at_diagnosis_attributes: address_params
           )
           .merge(document: document_attributes)
