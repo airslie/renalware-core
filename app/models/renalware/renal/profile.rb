@@ -5,6 +5,7 @@ module Renalware
   module Renal
     class Profile < ActiveRecord::Base
       include Document::Base
+      extend Enumerize
 
       belongs_to :patient
       belongs_to :prd_description
@@ -18,6 +19,8 @@ module Renalware
       validates :comorbidities_updated_on, timeliness: { type: :date, allow_nil: true }
 
       accepts_nested_attributes_for :address_at_diagnosis, reject_if: Address.reject_if_blank
+
+      enumerize :smoking_status, in: %i(current ex_smoker nonsmoker unknown)
 
       def to_s
         [I18n.l(esrf_on), prd_description].compact.join(" ")

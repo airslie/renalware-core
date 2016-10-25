@@ -6,6 +6,7 @@ en:
         esrf_on: ESRF Date
         first_seen_on: Date First Seen
         weight_at_esrf: Weight at ESRF
+        smoking_status: Smoking Status
         comorbidities_updated_on: Comorbidities Updated
       renalware/renal/profile_document/comorbidities:
         amputation_for_pvd: Amputation for PVD?
@@ -20,7 +21,6 @@ en:
         malignancy: Cancer or malignancy?
         myocardial_infarct: Myocardial Infarct?
         non_coronary_angioplasty: Angioplasty, vascular graft, aneurysm, stent (non-coronary)?
-        smoking: Smoker?
 
   simple_form:
     hints:
@@ -29,5 +29,3 @@ en:
           comorbidities:
             angina:
               status: For comorbidities enter year diagnosed at right if YES
-            smoking:
-              status: Includes former as well as current smokers

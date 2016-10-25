@@ -6,6 +6,7 @@ class CreateRenalProfile < ActiveRecord::Migration
       t.date :first_seen_on
       t.float :weight_at_esrf
       t.references :prd_description
+      t.string :smoking_status
       t.date :comorbidities_updated_on
       t.jsonb :document
       t.timestamps null: false

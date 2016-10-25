@@ -7,11 +7,11 @@ module Renalware
     weight_at_esrf: 56.7,
     first_seen_on: 18.weeks.ago,
     prd_description_id: 142,
+    smoking_status: "nonsmoker",
     comorbidities_updated_on: 1.week.ago,
     document: {
       comorbidities: {
         angina: {status: "yes", confirmed_on_year: 2003},
-        smoking: {status: "yes", confirmed_on_year: 1993},
         diabetes: {status: "yes", confirmed_on_year: 2005},
         malignancy: {status: "yes", confirmed_on_year: 2014},
         claudication: {status: "no", confirmed_on_year: ""},
