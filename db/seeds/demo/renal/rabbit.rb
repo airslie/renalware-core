@@ -4,6 +4,7 @@ module Renalware
   Renal::Profile.create!(
     patient_id: 1,
     esrf_on: 17.weeks.ago,
+    weight_at_esrf: 56.7,
     first_seen_on: 18.weeks.ago,
     prd_description_id: 142,
     comorbidities_updated_on: 1.week.ago,

@@ -4,6 +4,7 @@ class CreateRenalProfile < ActiveRecord::Migration
       t.references :patient, null: false, foreign_key: true
       t.date :esrf_on
       t.date :first_seen_on
+      t.float :weight_at_esrf
       t.references :prd_description
       t.date :comorbidities_updated_on
       t.jsonb :document

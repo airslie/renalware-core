@@ -5,6 +5,7 @@ en:
         prd_description: Primary Renal Diagnosis (PRD)
         esrf_on: ESRF Date
         first_seen_on: Date First Seen
+        weight_at_esrf: Weight at ESRF
         comorbidities_updated_on: Comorbidities Updated
       renalware/renal/profile_document/comorbidities:
         amputation_for_pvd: Amputation for PVD?
