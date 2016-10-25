@@ -11,7 +11,7 @@ en:
       renalware/renal/profile_document/comorbidities:
         diabetes: Diabetes?
         ischaemic_heart_dis: Ischaemic Heart Disease?
-        coronary_artery_bypass_graft: CABG or Coronary Angioplasty?
+        cabg_or_angioplasty: CABG or Coronary Angioplasty?
         heart_failure: Episode of heart failure (R or L)?
         atrial_fibrill: Atrial Fibrillation?
         malignancy: Malignancy?

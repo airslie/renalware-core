@@ -8,7 +8,7 @@ module Renalware
       class Comorbidities < Document::Embedded
         attribute :diabetes, YearDatedConfirmation
         attribute :ischaemic_heart_dis, YearDatedConfirmation
-        attribute :coronary_artery_bypass_graft, YearDatedConfirmation
+        attribute :cabg_or_angioplasty, YearDatedConfirmation
         attribute :heart_failure, YearDatedConfirmation
         attribute :atrial_fibrill, YearDatedConfirmation
         attribute :malignancy, YearDatedConfirmation

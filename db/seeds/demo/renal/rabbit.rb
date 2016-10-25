@@ -13,7 +13,7 @@ module Renalware
       comorbidities: {
         diabetes: {status: "yes", confirmed_on_year: 2003},
         ischaemic_heart_dis: {status: "yes", confirmed_on_year: 2003},
-        coronary_artery_bypass_graft: {status: "yes", confirmed_on_year: 2005},
+        cabg_or_angioplasty: {status: "yes", confirmed_on_year: 2005},
         heart_failure: {status: "yes", confirmed_on_year: 2004},
         atrial_fibrill: {status: "no", confirmed_on_year: ""},
         malignancy: {status: "no", confirmed_on_year: ""},

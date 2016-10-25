@@ -7,7 +7,7 @@ module Renalware
       class Comorbidities < Document::Embedded
         attribute :angina, YearDatedConfirmation
         attribute :myocardial_infarct, YearDatedConfirmation
-        attribute :coronary_artery_bypass_graft, YearDatedConfirmation
+        attribute :cabg_or_angioplasty, YearDatedConfirmation
         attribute :heart_failure, YearDatedConfirmation
         attribute :smoking, YearDatedConfirmation
         attribute :chronic_obstr_pulm_dis, YearDatedConfirmation
