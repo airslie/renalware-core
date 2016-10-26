@@ -12,21 +12,21 @@ module Renalware
     comorbidities_updated_on: 1.week.ago,
     document: {
       comorbidities: {
-        diabetes: {status: "yes", confirmed_on_year: 2003},
-        ischaemic_heart_dis: {status: "yes", confirmed_on_year: 2003},
-        cabg_or_angioplasty: {status: "yes", confirmed_on_year: 2005},
-        heart_failure: {status: "yes", confirmed_on_year: 2004},
-        atrial_fibrill: {status: "no", confirmed_on_year: ""},
-        malignancy: {status: "no", confirmed_on_year: ""},
-        cerebrovascular_dis: {status: "no", confirmed_on_year: ""},
-        chronic_obstr_pulm_dis: {status: "no", confirmed_on_year: ""},
-        liver_disease: {status: "no", confirmed_on_year: ""},
-        periph_vascular_dis: {status: "yes", confirmed_on_year: 2004},
-        amputation_for_pvd: {status: "no", confirmed_on_year: ""},
-        claudication: {status: "no", confirmed_on_year: ""},
-        ischaemic_neuropathic_ulcers: {status: "no", confirmed_on_year: ""},
-        non_coronary_intervention: {status: "no", confirmed_on_year: ""},
-        dementia: {status: "no", confirmed_on_year: ""}
+        diabetes: { status: "yes", confirmed_on_year: 2003 },
+        ischaemic_heart_dis: { status: "yes", confirmed_on_year: 2003 },
+        cabg_or_angioplasty: { status: "yes", confirmed_on_year: 2005 },
+        heart_failure: { status: "yes", confirmed_on_year: 2004 },
+        atrial_fibrill: { status: "no", confirmed_on_year: "" },
+        malignancy: { status: "no", confirmed_on_year: "" },
+        cerebrovascular_dis: { status: "no", confirmed_on_year: "" },
+        chronic_obstr_pulm_dis: { status: "no", confirmed_on_year: "" },
+        liver_disease: { status: "no", confirmed_on_year: "" },
+        periph_vascular_dis: { status: "yes", confirmed_on_year: 2004 },
+        amputation_for_pvd: { status: "no", confirmed_on_year: "" },
+        claudication: { status: "no", confirmed_on_year: "" },
+        ischaemic_neuropathic_ulcers: { status: "no", confirmed_on_year: "" },
+        non_coronary_intervention: { status: "no", confirmed_on_year: "" },
+        dementia: { status: "no", confirmed_on_year: "" }
       }
     }
   )
