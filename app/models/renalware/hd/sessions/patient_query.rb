@@ -12,13 +12,7 @@ module Renalware
         end
 
         def search
-          @search ||= QueryableSession.for_patient(@patient).search(@q)
-        end
-
-        class QueryableSession < ActiveType::Record[Session]
-          scope :for_patient, -> (patient) {
-            where(patient: patient)
-          }
+          @search ||= Session.where(patient: @patient).search(@q)
         end
       end
     end

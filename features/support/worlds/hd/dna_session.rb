@@ -2,6 +2,10 @@ module World
   module HD::Session
     module Domain
       def create_dna_session(options)
+        seed_dna_session(options)
+      end
+
+      def seed_dna_session(options)
         options = parse_options(options)
         Renalware::HD::Session::DNA.create!(options)
       end
