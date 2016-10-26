@@ -5,6 +5,7 @@ module Renalware
     patient_id: 1,
     esrf_on: 17.weeks.ago,
     weight_at_esrf: 56.7,
+    modality_at_esrf: "HD",
     first_seen_on: 18.weeks.ago,
     prd_description_id: 142,
     smoking_status: "ex_smoker",

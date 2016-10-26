@@ -28,8 +28,8 @@ module Renalware
         params
           .require(:renal_profile)
           .permit(
-            :esrf_on, :first_seen_on, :prd_description_id,
-            :weight_at_esrf, :smoking_status, :comorbidities_updated_on,
+            :esrf_on, :first_seen_on, :prd_description_id, :weight_at_esrf,
+            :modality_at_esrf, :smoking_status, :comorbidities_updated_on,
             address_at_diagnosis_attributes: address_params
           )
           .merge(document: document_attributes)

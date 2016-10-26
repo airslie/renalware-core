@@ -21,6 +21,7 @@ module Renalware
       accepts_nested_attributes_for :address_at_diagnosis, reject_if: Address.reject_if_blank
 
       enumerize :smoking_status, in: %i(current ex_smoker nonsmoker unknown)
+      enumerize :modality_at_esrf, in: %i(HD PD Tx ConsMgt)
 
       def to_s
         [I18n.l(esrf_on), prd_description].compact.join(" ")
