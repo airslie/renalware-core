@@ -11,7 +11,7 @@ module World
 
       # @section seeding
       #
-      def seed_doner_workup_for(patient)
+      def seed_donor_workup_for(patient)
         patient = transplant_patient(patient)
         Renalware::Transplants::DonorWorkup.create!(
 
@@ -29,7 +29,7 @@ module World
       # @section commands
       #
       def create_donor_workup(user: nil, patient:)
-        seed_doner_workup_for(patient)
+        seed_donor_workup_for(patient)
       end
 
       def update_donor_workup(patient:, user: nil)
