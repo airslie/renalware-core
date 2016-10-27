@@ -26,4 +26,5 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "CC"
   inflect.acronym "CCs"
   inflect.acronym "DNA"
+  inflect.acronym "CM"
 end
