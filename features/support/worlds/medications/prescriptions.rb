@@ -186,6 +186,7 @@ module World
           route_code: "PO",
           frequency: "once a day",
           prescribed_on: "10-10-2015",
+          administer_on_hd: false,
           provider: "GP",
           terminated_on: nil
         }
