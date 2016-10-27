@@ -45,4 +45,5 @@
     = f.simple_fields_for :address_at_diagnosis_attributes, f.object.address_at_diagnosis do |a|
       fieldset id="address_at_diagnosis"
         legend Address at Diagnosis
+        = a.input :id, as: :hidden
         = render partial: 'renalware/addresses/form', locals: { a: a }
