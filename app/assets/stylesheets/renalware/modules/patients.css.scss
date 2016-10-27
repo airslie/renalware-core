@@ -1,3 +1,7 @@
+// TODO: This @import is causing foundation css to be loaded twice.
+// We need to import this file once higher up the chain, but that might mean
+// using @import rather than require in application.css so that we have access
+// to the sass vars.
 @import "../../lib/foundation_and_overrides";
 @import "../base/variables";
 
