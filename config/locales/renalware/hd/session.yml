@@ -133,8 +133,8 @@ en:
           blood_pressure: BP
           arterial_pressure: AP
           venous_pressure: VP
-          blood_flow: Flow rate
-          litres_processed: Litres
+          blood_flow: Blood flow
+          litres_processed: Litres proc
           fluid_removed: Fluid rem
           machine: Machine
           machine_no: "No"
