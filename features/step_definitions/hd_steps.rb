@@ -126,7 +126,7 @@ When(/^Natalie views the protocol$/) do
 end
 
 Given(/^Patty has these recorded HD Sessions$/) do
-  pending
+  #pending
 end
 
 Then(/^the protocol contains$/)  do |table|

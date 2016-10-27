@@ -12,12 +12,16 @@ fieldset.hd-sessions.simple.simple-table
         = link_to t(".protocol"), patient_hd_protocol_path(@patient), class: "button small slimline"
 
   - if sessions.empty?
-    .call-to-action
-      = link_to new_patient_hd_session_path(@patient) do
-        i.fa.fa-plus-circle
-        =t(".add_session")
-      = link_to new_patient_hd_session_path(@patient, type: :dna) do
-        i.fa.fa-plus-circle
-        =t(".add_dna_session")
+    .row
+      .call-to-action.columns.small-2.small-offset-3
+        = link_to new_patient_hd_session_path(@patient) do
+          i.fa.fa-plus-circle
+          =t(".add_session")
+      .call-to-action.columns.small-2
+        = link_to new_patient_hd_session_path(@patient, type: :dna) do
+          i.fa.fa-plus-circle
+          =t(".add_dna_session")
+      .call-to-action.columns.small-2.end
+        = link_to t(".protocol"), patient_hd_protocol_path(@patient), class: "button small slimline"
   - else
     =render 'renalware/hd/sessions/table', sessions: sessions
