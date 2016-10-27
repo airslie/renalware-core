@@ -6,19 +6,19 @@ module Renalware
       before_filter :load_patient
 
       def index
-        query = Sessions::PatientQuery.new(patient: @patient, q: params[:q])
+        query = Sessions::PatientQuery.new(patient: patient, q: params[:q])
         sessions = query.call.includes(:hospital_unit, :signed_off_by).page(params[:page]).per(15)
         @sessions = CollectionPresenter.new(sessions, SessionPresenter)
         @q = query.search
       end
 
       def show
-        session = Session.for_patient(@patient).find(params[:id])
+        session = Session.for_patient(patient).find(params[:id])
         @session = SessionPresenter.new(session)
       end
 
       def new
-        session = SessionFactory.new(patient: @patient,
+        session = SessionFactory.new(patient: patient,
                                      user: current_user,
                                      type: params[:type]).build
         render :new, locals: { session: session }
@@ -29,7 +29,7 @@ module Renalware
       end
 
       def edit
-        session = Session.for_patient(@patient).find(params[:id])
+        session = Session.for_patient(patient).find(params[:id])
         render :edit, locals: { session: session }
       end
 
@@ -38,7 +38,7 @@ module Renalware
       end
 
       def save_session
-        command = Sessions::SaveSession.new(patient: @patient,
+        command = Sessions::SaveSession.new(patient: patient,
                                             current_user: current_user)
         command.subscribe(self)
         command.call(params: session_params,
@@ -47,7 +47,7 @@ module Renalware
       end
 
       def save_success(_session)
-        url = patient_hd_dashboard_path(@patient)
+        url = patient_hd_dashboard_path(patient)
         message = t(".success", model_name: "HD session")
         redirect_to url, notice: message
       end

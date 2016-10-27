@@ -8,7 +8,7 @@ module Renalware
 
       def load_patient
         super
-        @patient = Renalware::HD.cast_patient(@patient)
+        @patient = Renalware::HD.cast_patient(patient)
       end
     end
   end
