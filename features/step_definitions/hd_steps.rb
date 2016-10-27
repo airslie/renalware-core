@@ -126,9 +126,10 @@ When(/^Natalie views the protocol$/) do
 end
 
 Given(/^Patty has these recorded HD Sessions$/) do
-  #pending
+  pending
 end
 
-Then(/^the protocol contains$/)  do |table|
+Then(/^the protocol contains$/) do |table|
+  pending
   expect_protocol_to_be(table.hashes)
 end
