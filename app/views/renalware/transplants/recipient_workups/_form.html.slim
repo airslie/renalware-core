@@ -15,13 +15,6 @@ ruby:
   = f.simple_fields_for :document, f.object.document do |fd|
 
     = render layout: "renalware/shared/fieldset",
-        locals: { legend: "Co-morbidities", name: "comorbidities" } do
-      = fd.simple_fields_for :comorbidities, fd.object.comorbidities do |fcm|
-        table
-          - fcm.object.class.attributes_list.each do |attribute|
-            = render_input fcm, attribute
-
-    = render layout: "renalware/shared/fieldset",
         locals: { legend: "Historical", name: "historical" } do
       = fd.simple_fields_for :historicals, fd.object.historicals,
           wrapper: "two_columns_table_row" do |fcm|

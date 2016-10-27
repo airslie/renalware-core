@@ -6,5 +6,6 @@ module Renalware
 
     it { is_expected.to validate_timeliness_of(:esrf_on) }
     it { is_expected.to validate_timeliness_of(:first_seen_on) }
+    it { is_expected.to validate_timeliness_of(:comorbidities_updated_on) }
   end
 end

@@ -1,9 +1,11 @@
 .profile-info-form
 
   = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Diagnosis", name: "diagnosis" } do
+      locals: { legend: "Diagnosis & ESRF Info", name: "diagnosis" } do
 
     = f.input :esrf_on, as: :date_picker
+    = f.input :weight_at_esrf, input_html: { class: "small-input" }
+    = f.input :modality_at_esrf, include_blank: "Select modality", input_html: { class: "small-input" }
     = f.input :first_seen_on, as: :date_picker
     = f.input :prd_description_id, input_html: { class: "clear-autocomplete" }, as: :hidden
 
@@ -27,10 +29,21 @@
           .small-1.columns
             span.postfix
               = link_to 'Clear', '#', data: { clear_value_on_click: ".clear-autocomplete" }
+    = f.input :smoking_status, include_blank: "Please select smoking status", input_html: { class: "small-input" }
+    = f.input :comorbidities_updated_on, as: :date_picker
+
+    = f.simple_fields_for :document, f.object.document do |fd|
+
+      = render layout: "renalware/shared/fieldset",
+          locals: { legend: "Comorbidities", name: "comorbidities" } do
+        = fd.simple_fields_for :comorbidities, fd.object.comorbidities do |fcm|
+          table
+            - fcm.object.class.attributes_list.each do |attribute|
+              = render_input fcm, attribute
 
     - f.object.build_address_at_diagnosis if f.object.address_at_diagnosis.blank?
     = f.simple_fields_for :address_at_diagnosis_attributes, f.object.address_at_diagnosis do |a|
       fieldset id="address_at_diagnosis"
         legend Address at Diagnosis
+        = a.input :id, as: :hidden
         = render partial: 'renalware/addresses/form', locals: { a: a }
-

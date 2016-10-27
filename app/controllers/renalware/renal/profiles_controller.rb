@@ -15,7 +15,7 @@ module Renalware
         @profile = find_profile
 
         if @profile.update_attributes(profile_params)
-          redirect_to patient_clinical_summary_path(@patient),
+          redirect_to edit_patient_renal_profile_path(@patient),
             notice: t(".success", model_name: "profile")
         else
           render :edit
@@ -28,17 +28,26 @@ module Renalware
         params
           .require(:renal_profile)
           .permit(
-            :esrf_on, :first_seen_on, :prd_description_id,
+            :esrf_on, :first_seen_on, :prd_description_id, :weight_at_esrf,
+            :modality_at_esrf, :smoking_status, :comorbidities_updated_on,
             address_at_diagnosis_attributes: address_params
           )
+          .merge(document: document_attributes)
       end
 
       def address_params
-        [:name, :organisation_name, :street_1, :street_2, :county, :country, :city, :postcode]
+        [:id, :name, :organisation_name, :street_1, :street_2, :county, :country, :city, :postcode]
       end
 
       def find_profile
         @patient.profile || @patient.build_profile
+      end
+
+      def document_attributes
+        params
+          .require(:renal_profile)
+          .fetch(:document, nil)
+          .try(:permit!)
       end
     end
   end

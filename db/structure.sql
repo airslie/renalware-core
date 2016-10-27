@@ -2761,7 +2761,12 @@ CREATE TABLE renal_profiles (
     patient_id integer NOT NULL,
     esrf_on date,
     first_seen_on date,
+    weight_at_esrf double precision,
+    modality_at_esrf character varying,
     prd_description_id integer,
+    smoking_status character varying,
+    comorbidities_updated_on date,
+    document jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -5487,6 +5492,13 @@ CREATE INDEX index_problem_versions_on_item_type_and_item_id ON problem_versions
 
 
 --
+-- Name: index_renal_profiles_on_document; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_renal_profiles_on_document ON renal_profiles USING gin (document);
+
+
+--
 -- Name: index_transplant_donations_on_patient_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6874,10 +6886,11 @@ INSERT INTO schema_migrations (version) VALUES ('20161003204347');
 
 INSERT INTO schema_migrations (version) VALUES ('20161004185820');
 
+INSERT INTO schema_migrations (version) VALUES ('20161010191529');
+
 INSERT INTO schema_migrations (version) VALUES ('20161014134639');
 
 INSERT INTO schema_migrations (version) VALUES ('20161018174711');
 
 INSERT INTO schema_migrations (version) VALUES ('20161019145606');
 
-INSERT INTO schema_migrations (version) VALUES ('20161010191529');
