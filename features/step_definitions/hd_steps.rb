@@ -10,6 +10,10 @@ Given(/^Patty has a recorded HD session$/) do
   seed_open_session_for(@patty, user: Renalware::User.first)
 end
 
+Given(/^Patty has an ongoing HD session$/) do
+  seed_open_session_for(@patty, user: @nathalie)
+end
+
 Given(/^Patty has a recorded dry weight entry$/) do
   seed_hd_dry_weight_for(@patty, @clyde)
 end
@@ -18,6 +22,20 @@ Given(/^These patients have these HD sessions$/) do |table|
   seed_hd_sessions(table)
 end
 
+Given(/^Patty has these sessions$/) do |table|
+  seed_patient_hd_sessions(patient: @patty, table: table)
+end
+
+When(/^Nathalie records a DNA HD session for Patty with the notes "([^"]*)"$/) do |notes|
+  create_dna_session(patient: @patty,
+                     user: @nathalie,
+                     notes: notes,
+                     performed_on: Time.zone.today)
+end
+
+When(/^Nathalie views Patty's sessions$/) do
+  view_patients_hd_sessions(patient: @patty, user: @nathalie)
+end
 
 When(/^Clyde records the HD preferences of Patty$/) do
   create_hd_preferences(patient: @patty, user: @clyde)
@@ -51,6 +69,9 @@ When(/^Clyde views the list of ongoing HD sessions$/) do
   view_ongoing_hd_sessions(user: @clyde)
 end
 
+Then(/^Nathalie sees all Patty's HD sessions$/) do
+  expect_all_patient_hd_sessions_to_be_present(patient: @patty, user: @nathalie)
+end
 
 Then(/^Patty has new HD preferences$/) do
   expect_hd_preferences_to_exist(@patty)
@@ -94,13 +115,6 @@ end
 
 Then(/^Clyde sees these HD sessions$/) do |table|
   expect_hd_sessions_to_be(table.hashes)
-end
-
-When(/^Nathalie records a DNA HD session for Patty with the notes "([^"]*)"$/) do |notes|
-  create_dna_session(patient: @patty,
-                     user: @nathalie,
-                     notes: notes,
-                     performed_on: Time.zone.today)
 end
 
 Then(/^Patty has a new NDA HD session$/) do

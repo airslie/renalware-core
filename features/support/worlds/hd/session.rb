@@ -91,6 +91,23 @@ module World
         end
       end
 
+      def seed_patient_hd_sessions(patient:, table:)
+        table.hashes.each do |row|
+          signed_on_by = find_or_create_user(given_name: row[:signed_on_by], role: "nurse")
+          signed_off_by = find_or_create_user(given_name: row[:signed_off_by], role: "nurse")
+          dna = row[:did_not_attend]
+          if dna
+            seed_dna_session(patient: patient, user: signed_on_by)
+          elsif signed_off_by
+            seed_closed_session_for(patient,
+                                    user: signed_on_by,
+                                    signed_off_by: signed_off_by)
+          else
+            seed_open_session_for(patient, user: signed_on_by)
+          end
+        end
+      end
+
       # @section commands
       #
       def create_hd_session(patient:, user:, performed_on:)
@@ -114,6 +131,10 @@ module World
 
       def view_ongoing_hd_sessions(user: nil)
         @query = Renalware::HD::Sessions::OngoingQuery.new()
+      end
+
+      def view_patients_hd_sessions(patient:, user:)
+        # noop
       end
 
       # @section expectations
@@ -142,8 +163,16 @@ module World
           expect(entries).to include(row)
         end
       end
-    end
 
+      def expect_all_patient_hd_sessions_to_be_present(patient:, **)
+        expected_ids = Renalware::HD::Session.where(patient: patient).all.pluck(:id).sort
+        actual_ids =  Renalware::HD::Sessions::PatientQuery.new(patient: patient)
+                                                           .call
+                                                           .pluck(:id)
+                                                           .sort
+        expect(expected_ids).to eq(actual_ids)
+      end
+    end
 
     module Web
       include Domain
@@ -188,6 +217,17 @@ module World
         hashes.each do |row|
           expect(page.body).to have_content(row[:patient])
         end
+      end
+
+      def view_patients_hd_sessions(patient:, user:)
+         login_as user
+         visit patient_hd_sessions_path(patient)
+         expect(page.current_path).to eq(patient_hd_sessions_path(patient))
+      end
+
+      def expect_all_patient_hd_sessions_to_be_present(*)
+        trs = page.find_all(".hd-sessions tbody tr")
+        expect(trs.count).to eq(3)
       end
 
       private
