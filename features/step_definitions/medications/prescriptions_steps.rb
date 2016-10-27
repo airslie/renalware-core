@@ -1,14 +1,6 @@
 Given(/^Patty has a recorded prescription|Patty has current prescriptions$/) do
   seed_prescription_for(
-    patient: @patty,
-    drug_name: "Ciprofloxacin Infusion",
-    dose_amount: "100",
-    dose_unit: "millilitre",
-    route_code: "PO",
-    frequency: "once a day",
-    prescribed_on: "10-10-2015",
-    provider: "GP",
-    terminated_on: nil
+    patient: @patty
   )
 end
 
@@ -51,14 +43,7 @@ end
 Given(/^Patty is being prescribed (.+)$/) do |drug_name|
   seed_prescription_for(
     patient: @patty,
-    drug_name: drug_name,
-    dose_amount: "100",
-    dose_unit: "millilitre",
-    route_code: "PO",
-    frequency: "once a day",
-    prescribed_on: "10-10-2015",
-    provider: "GP",
-    terminated_on: nil
+    drug_name: drug_name
   )
 end
 

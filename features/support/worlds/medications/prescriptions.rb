@@ -13,43 +13,29 @@ module World
         Date.parse(time_string)
       end
 
-      # @section seeds
-      #
-      def seed_prescription_for(options)
-        # TODO: Options parsing here is a bit ugly but is a step towards refactoring away from
-        # multiple named arguments.
-        patient = options.fetch(:patient)
-        treatable = options.fetch(:treatable, nil)
-        drug_name = options.fetch(:drug_name)
-        dose_amount = options.fetch(:dose_amount)
-        dose_unit = options.fetch(:dose_unit)
-        route_code = options.fetch(:route_code)
-        frequency = options.fetch(:frequency)
-        prescribed_on = options.fetch(:prescribed_on)
-        administer_on_hd = options.fetch(:administer_on_hd, false)
-        provider = options.fetch(:provider)
-        terminated_on = options.fetch(:terminated_on)
-        user = options.fetch(:user, nil)
+      def seed_prescription_for(**options)
 
-        drug = Renalware::Drugs::Drug.find_or_create_by!(name: drug_name)
-        route = Renalware::Medications::MedicationRoute.find_by!(code: route_code)
+        options.reverse_merge!(default_prescriptions_options)
 
-        user ||= Renalware::SystemUser.find
+        drug = Renalware::Drugs::Drug.find_or_create_by!(name: options.delete(:drug_name))
+        route = Renalware::Medications::MedicationRoute.find_by!(code: options.delete(:route_code))
+        user = options.delete(:user) { Renalware::SystemUser.find }
+        patient = options.delete(:patient)
 
         prescription = patient.prescriptions.build(
-          treatable: treatable || patient,
+          treatable: options[:treatable] || patient,
           drug: drug,
-          dose_amount: dose_amount,
-          dose_unit: dose_unit,
+          dose_amount: options.delete(:dose_amount),
+          dose_unit: options.delete(:dose_unit),
           medication_route: route,
-          frequency: frequency,
-          prescribed_on: prescribed_on,
-          provider: provider.downcase,
-          administer_on_hd: administer_on_hd,
+          frequency: options.delete(:frequency),
+          administer_on_hd: options.delete(:administer_on_hd),
+          prescribed_on: options.delete(:prescribed_on),
+          provider: options.delete(:provider).downcase,
           by: user
         )
 
-        if (terminated_on = parse_date_string(terminated_on))
+        if (terminated_on = parse_date_string(options.delete(:terminated_on)))
           prescription.build_termination(by: user, terminated_on: terminated_on)
         end
 
@@ -160,7 +146,8 @@ module World
             dose_amount: dose_amount,
             dose_unit: dose_unit,
             medication_route: medication_route,
-            frequency: prescription_attributes[:frequency]
+            frequency: prescription_attributes[:frequency],
+            administer_on_hd: false
           )
 
           expect(prescription_exists).to be_truthy
@@ -186,6 +173,23 @@ module World
         revision_params.each do |key, value|
           expect(prescription.send(key.to_sym)).not_to eq(value)
         end
+      end
+
+      private
+
+      def default_prescriptions_options
+        {
+          treatable: nil,
+          drug_name: "Ciprofloxacin Infusion",
+          dose_amount: "100",
+          dose_unit: "millilitre",
+          route_code: "PO",
+          frequency: "once a day",
+          prescribed_on: "10-10-2015",
+          administer_on_hd: false,
+          provider: "GP",
+          terminated_on: nil
+        }
       end
     end
 
