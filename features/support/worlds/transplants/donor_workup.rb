@@ -18,7 +18,7 @@ module World
           patient: patient,
           document: {
             comorbidities: {
-              angina: {
+              diabetes: {
                 status: "unknown"
               }
             }
@@ -39,7 +39,7 @@ module World
         workup.update_attributes!(
           document: {
             comorbidities: {
-              angina: {
+              diabetes: {
                 status: "no"
               }
             }
