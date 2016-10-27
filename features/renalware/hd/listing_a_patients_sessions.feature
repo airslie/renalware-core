@@ -17,7 +17,7 @@ Feature: Listing a patients HD sessions
       | Rabbit, Roger   | Nathalie     | Nathalie      |                |
       | Rabbit, Jessica | Nathalie     |               |                |
 
-  @web @wip
+  @web
   Scenario: A nurse listed a patient's sessions
     When Nathalie views Patty's sessions
     Then Nathalie sees all Patty's HD sessions
