@@ -3,7 +3,7 @@ Given(/^Patty has a recorded recipient workup$/) do
 end
 
 Given(/^Don has a donor workup$/) do
-  seed_doner_workup_for(@don)
+  seed_donor_workup_for(@don)
 end
 
 Given(/^Patty is registered on the wait list$/) do
