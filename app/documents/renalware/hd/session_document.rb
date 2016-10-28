@@ -13,6 +13,7 @@ module Renalware
     class SessionDocument < Document::Embedded
       class Info < Document::Embedded
         attribute :hd_type, Document::Enum, enums: %i(hd hdf_pre hdf_post)
+        attribute :access_confirmed, Boolean
         attribute :access_type
         attribute :access_type_abbreviation
         attribute :access_side, Document::Enum, enums: %i(left right)

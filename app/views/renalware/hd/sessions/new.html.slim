@@ -2,7 +2,7 @@
          locals: { title: t(".#{session.state}.title") } do
   = render "session_nav", session: session
 
-  .document
+  .document.hd-session-form
     = simple_form_for session,
         as: :hd_session,
         url: patient_hd_sessions_path(@patient),

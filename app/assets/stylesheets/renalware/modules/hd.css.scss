@@ -67,7 +67,13 @@
 }
 
 .hd-session-form {
-  label.boolean {
-    padding-left: 0 !important;
+  .simple_form {
+    label.boolean {
+      padding-left: 0;
+    }
+    input.boolean {
+      margin-top: 0.3rem;
+      float: none;
+    }
   }
 }
