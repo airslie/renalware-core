@@ -7,7 +7,10 @@ SimpleForm.setup do |config|
   # does't provide styles for hints. You will need to provide your own CSS styles for hints.
   # Uncomment them to enable hints.
 
-  config.wrappers :vertical_form, class: :input, hint_class: :field_with_hint, error_class: :error do |b|
+  config.wrappers :vertical_form,
+                  class: :input,
+                  hint_class: :field_with_hint,
+                  error_class: :error do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
@@ -40,12 +43,12 @@ SimpleForm.setup do |config|
     end
   end
 
-  config.wrappers :horizontal_radio_and_checkboxes, tag: 'div', class: 'row' do |b|
+  config.wrappers :horizontal_radio_and_checkboxes, tag: "div", class: "row" do |b|
     b.use :html5
     b.optional :readonly
 
-    b.wrapper :container_wrapper, tag: 'div', class: 'small-offset-3 small-9 columns' do |ba|
-      ba.wrapper :tag => 'label', :class => 'checkbox' do |bb|
+    b.wrapper :container_wrapper, tag: "div", class: "small-offset-3 small-9 columns" do |ba|
+      ba.wrapper tag: "label", class: "checkbox" do |bb|
         bb.use :input
         bb.use :label_text
       end
@@ -62,7 +65,11 @@ SimpleForm.setup do |config|
   # Note that you need to adapt this wrapper to your needs. If you need a 4
   # columns form then change the wrapper class to 'small-3', if you need
   # only two use 'small-6' and so on.
-  config.wrappers :inline_form, tag: 'div', class: 'column small-4', hint_class: :field_with_hint, error_class: :error do |b|
+  config.wrappers :inline_form,
+                  tag: "div",
+                  class: "column small-4",
+                  hint_class: :field_with_hint,
+                  error_class: :error do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
@@ -70,7 +77,7 @@ SimpleForm.setup do |config|
     b.optional :min_max
     b.optional :readonly
 
-    b.use :label, class: 'hidden-for-small-up'
+    b.use :label, class: "hidden-for-small-up"
     b.use :input
 
     b.use :error, wrap_with: { tag: :small, class: :error }
@@ -80,7 +87,7 @@ SimpleForm.setup do |config|
   # Examples of use:
   # - wrapper_html: {class: 'row'}, custom_wrapper_html: {class: 'column small-12'}
   # - custom_wrapper_html: {class: 'column small-3 end'}
-  config.wrappers :customizable_wrapper, tag: 'div', error_class: :error do |b|
+  config.wrappers :customizable_wrapper, tag: "div", error_class: :error do |b|
     b.use :html5
     b.optional :readonly
 
@@ -93,7 +100,7 @@ SimpleForm.setup do |config|
   end
 
   # CSS class for buttons
-  config.button_class = 'button'
+  config.button_class = "button"
 
   # Set this to div to make the checkbox and radio properly work
   # otherwise simple_form adds a label tag instead of a div arround
@@ -101,7 +108,7 @@ SimpleForm.setup do |config|
   config.item_wrapper_tag = :div
 
   # CSS class to add for error notification helper.
-  config.error_notification_class = 'alert-box alert'
+  config.error_notification_class = "alert-box alert"
 
   # The default wrapper to be used by the FormBuilder.
   config.default_wrapper = :vertical_form

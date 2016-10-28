@@ -8,7 +8,7 @@ module ActiveRecord
           FROM pg_stat_activity
           WHERE datname='#{configuration['database']}' AND state='idle';
         SQL
-        connection.drop_database configuration['database']
+        connection.drop_database configuration["database"]
       end
     end
   end
