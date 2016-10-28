@@ -29,8 +29,7 @@ end
 When(/^Nathalie records a DNA HD session for Patty with the notes "([^"]*)"$/) do |notes|
   create_dna_session(patient: @patty,
                      user: @nathalie,
-                     notes: notes,
-                     performed_on: Time.zone.today)
+                     notes: notes)
 end
 
 When(/^Nathalie views Patty's sessions$/) do

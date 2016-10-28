@@ -913,7 +913,7 @@ CREATE TABLE hd_sessions (
     hospital_unit_id integer,
     modality_description_id integer,
     performed_on date NOT NULL,
-    start_time time without time zone NOT NULL,
+    start_time time without time zone,
     end_time time without time zone,
     duration integer,
     notes text,
@@ -6939,3 +6939,4 @@ INSERT INTO schema_migrations (version) VALUES ('20161031170940');
 
 INSERT INTO schema_migrations (version) VALUES ('20161101105519');
 
+INSERT INTO schema_migrations (version) VALUES ('20161028145040');

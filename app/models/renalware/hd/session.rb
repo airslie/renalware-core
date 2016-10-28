@@ -32,8 +32,7 @@ module Renalware
       validates :performed_on, presence: true
       validates :performed_on, timeliness: { type: :date }
 
-      validates :start_time, presence: true
-      validates :start_time, timeliness: { type: :time }
+      validates :start_time, timeliness: { type: :time, allow_blank: true }
 
       validates :end_time, timeliness: { type: :time, allow_blank: true, after: :start_time }
 
