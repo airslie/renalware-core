@@ -24,7 +24,8 @@ module World
         # TODO: seed the document in a more sophisticated way!
         json = <<-END
           {"hdf": {"subs_goal": "", "subs_rate": "", "subs_volume": "", "subs_fluid_pct": ""},
-          "info": {"hd_type": "hd", "machine_no": "222", "access_side": "right", "access_site":
+          "info": {"hd_type": "hd", "machine_no": "222", "access_confirmed": "true",
+            "access_side": "right", "access_site":
             "Brachio-basilic & transposition", "access_type": "Arteriovenous graft (AVG)",
             "access_type_abbreviation": "AVG",
             "single_needle": "no", "lines_reversed": "no", "fistula_plus_line": "no",

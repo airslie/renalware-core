@@ -80,6 +80,7 @@ module Renalware
     info: {
       hd_type: "hd",
       machine_no: 222,
+      access_confirmed: true,
       access_side: "right",
       access_site: "Brachio-basilic & transposition",
       access_type: "Arteriovenous graft (AVG)",
