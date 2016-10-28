@@ -196,12 +196,20 @@ Rails.application.routes.draw do
       end
 
       namespace :pathology do
-        get "observations/current", to: "current_observation_results#index", as: "current_observations"
-        get "observations/recent", to: "recent_observation_results#index", as: "recent_observations"
-        get "observations/historical", to: "historical_observation_results#index", as: "historical_observations"
+        get "observations/current",
+            to: "current_observation_results#index",
+            as: "current_observations"
+        get "observations/recent",
+            to: "recent_observation_results#index",
+            as: "recent_observations"
+        get "observations/historical",
+            to: "historical_observation_results#index",
+            as: "historical_observations"
         resources :observation_requests, only: [:index, :show]
         resources :patient_rules
-        get "descriptions/:description_id/observations", to: "observations#index", as: "observations"
+        get "descriptions/:description_id/observations",
+            to: "observations#index",
+            as: "observations"
         resources :required_observations, only: :index
       end
 
