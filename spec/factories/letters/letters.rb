@@ -9,17 +9,17 @@ FactoryGirl.define do
 
     association :created_by, factory: :user
     association :updated_by, factory: :user
-  end
 
-  factory :draft_letter, class: "Renalware::Letters::Letter::Draft", parent: :letter do
-  end
+    factory :draft_letter, class: "Renalware::Letters::Letter::Draft" do
+    end
 
-  factory :pending_review_letter, class: "Renalware::Letters::Letter::PendingReview", parent: :letter do
-  end
+    factory :pending_review_letter, class: "Renalware::Letters::Letter::PendingReview" do
+    end
 
-  factory :approved_letter, class: "Renalware::Letters::Letter::Approved", parent: :letter do
-  end
+    factory :approved_letter, class: "Renalware::Letters::Letter::Approved" do
+    end
 
-  factory :completed_letter, class: "Renalware::Letters::Letter::Completed", parent: :letter do
+    factory :completed_letter, class: "Renalware::Letters::Letter::Completed" do
+    end
   end
 end

@@ -13,7 +13,12 @@ module Renalware
           query = DetermineObservationDateSeries.new
           actual_series = query.call
 
-          expected_series = [date("2016-01-01"), date("2015-01-01"), date("2014-01-01"), date("2013-01-01")]
+          expected_series = [
+            date("2016-01-01"),
+            date("2015-01-01"),
+            date("2014-01-01"),
+            date("2013-01-01")
+          ]
           expect(actual_series).to eq(expected_series)
         end
       end

@@ -6,7 +6,8 @@ module Renalware::Patients::PrimaryCarePhysicians
       it "validates an email is present on the Primary Care Physician" do
         doc = build_stubbed(:primary_care_physician, email: nil)
         EmailValidator.new.validate(doc)
-        expect(doc.errors[:email]).to match_array(["or an email address for a practice must be present"])
+        expect(doc.errors[:email])
+          .to match_array(["or an email address for a practice must be present"])
       end
 
       it "does nothing when the Primary Care Physician has an email" do

@@ -15,7 +15,10 @@ module Renalware::Problems
     describe "PUT update" do
       context "with valid attributes" do
         it "redirects to the problem index" do
-          put :update, patient_id: patient, id: problem, problems_problem: {  description: "testing" }
+          put :update,
+              patient_id: patient,
+              id: problem,
+              problems_problem: {  description: "testing" }
 
           expect(response).to redirect_to(patient_problems_path(patient))
         end

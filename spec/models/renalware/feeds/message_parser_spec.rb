@@ -13,7 +13,7 @@ module Renalware::Feeds
             OBX|1|TX|WBC^WBC^MB||6.09||||||F|||200911112026||BBKA^Kenneth AMENYAH|
             OBX|2|TX|RBC^RBC^MB||4.00||||||F|||200911112026||BBKA^Kenneth AMENYAH|
           RAW
-         }
+        }
 
         it "returns a message" do
           message = subject.parse(raw_message)
@@ -82,7 +82,7 @@ module Renalware::Feeds
             OBR|1|123456^PCS|09B0099478^LA|FBC^FULL BLOOD COUNT^MB||200911111841|200911111841|||||||200911111841|B^Blood|MID^KINGS MIDWIVES||09B0099478||||200911121646||HM|F||||||||||||||||||
             OBX|1|TX|WBC^WBC^MB||6.09||||||F|||200911112026||BBKA^Kenneth AMENYAH|
           RAW
-         }
+        }
 
         it "returns observations as a collection" do
           message = subject.parse(raw_message)

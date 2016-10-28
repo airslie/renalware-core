@@ -1,5 +1,5 @@
-require 'rails_helper'
-require './spec/support/login_macros'
+require "rails_helper"
+require "./spec/support/login_macros"
 
 module Renalware
   RSpec.describe PD::Regime, type: :model do
@@ -43,18 +43,50 @@ module Renalware
 
       context "if PD type is APDRegime" do
         before { allow(@apd_regime).to receive(:type_apd?).and_return(true) }
-        it { expect(@apd_regime).to validate_numericality_of(:last_fill_ml).is_greater_than_or_equal_to(500).is_less_than_or_equal_to(5000) }
-        it { expect(@apd_regime).to validate_numericality_of(:tidal_percentage).is_greater_than_or_equal_to(0).is_less_than_or_equal_to(100) }
-        it { expect(@apd_regime).to validate_numericality_of(:no_cycles_per_apd).is_greater_than_or_equal_to(2).is_less_than_or_equal_to(20) }
-        it { expect(@apd_regime).to validate_numericality_of(:overnight_pd_ml).is_greater_than_or_equal_to(3000).is_less_than_or_equal_to(25000) }
+        it do
+          expect(@apd_regime).to validate_numericality_of(:last_fill_ml)
+                                  .is_greater_than_or_equal_to(500)
+                                  .is_less_than_or_equal_to(5000)
+        end
+        it do
+          expect(@apd_regime).to validate_numericality_of(:tidal_percentage)
+                                  .is_greater_than_or_equal_to(0)
+                                  .is_less_than_or_equal_to(100)
+        end
+        it do
+          expect(@apd_regime).to validate_numericality_of(:no_cycles_per_apd)
+                                  .is_greater_than_or_equal_to(2)
+                                  .is_less_than_or_equal_to(20)
+        end
+        it do
+          expect(@apd_regime).to validate_numericality_of(:overnight_pd_ml)
+                                  .is_greater_than_or_equal_to(3000)
+                                  .is_less_than_or_equal_to(25000)
+        end
       end
 
       context "if PD type is CAPDRegime" do
         before { allow(@capd_regime).to receive(:type_apd?).and_return(false) }
-        it { expect(@capd_regime).to_not validate_numericality_of(:last_fill_ml).is_greater_than_or_equal_to(500).is_less_than_or_equal_to(5000) }
-        it { expect(@capd_regime).to_not validate_numericality_of(:tidal_percentage).is_greater_than_or_equal_to(0).is_less_than_or_equal_to(100) }
-        it { expect(@capd_regime).to_not validate_numericality_of(:no_cycles_per_apd).is_greater_than_or_equal_to(2).is_less_than_or_equal_to(20) }
-        it { expect(@capd_regime).to_not validate_numericality_of(:overnight_pd_ml).is_greater_than_or_equal_to(3000).is_less_than_or_equal_to(25000) }
+        it do
+          expect(@capd_regime).to_not validate_numericality_of(:last_fill_ml)
+                                        .is_greater_than_or_equal_to(500)
+                                        .is_less_than_or_equal_to(5000)
+        end
+        it do
+          expect(@capd_regime).to_not validate_numericality_of(:tidal_percentage)
+                                        .is_greater_than_or_equal_to(0)
+                                        .is_less_than_or_equal_to(100)
+        end
+        it do
+          expect(@capd_regime).to_not validate_numericality_of(:no_cycles_per_apd)
+                                        .is_greater_than_or_equal_to(2)
+                                        .is_less_than_or_equal_to(20)
+        end
+        it do
+          expect(@capd_regime).to_not validate_numericality_of(:overnight_pd_ml)
+                                        .is_greater_than_or_equal_to(3000)
+                                        .is_less_than_or_equal_to(25000)
+        end
       end
     end
   end

@@ -2,7 +2,7 @@ require "rails_helper"
 require_dependency "models/renalware/concerns/personable"
 
 module Renalware
-  describe Patient, :type => :model do
+  describe Patient, type: :model do
 
     it_behaves_like "Personable"
 
@@ -90,7 +90,8 @@ module Renalware
         let!(:modality) { create(:modality, patient: subject) }
 
         before do
-          subject.set_modality(description: modality_description, started_on: Date.parse("2015-04-17"))
+          subject.set_modality(description: modality_description,
+                               started_on: Date.parse("2015-04-17"))
           subject.reload
         end
 

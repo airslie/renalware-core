@@ -5,16 +5,16 @@ FactoryGirl.define do
 
   factory :modality_reason, class: "Renalware::Modalities::Reason" do
     rr_code
-    description 'Patient / partner choice'
+    description "Patient / partner choice"
   end
 
   factory :pd_to_haemodialysis, parent: :modality_reason do
     type "Renalware::Modalities::PDToHaemodialysis"
-    description 'Effective after temporary HD'
+    description "Effective after temporary HD"
   end
 
   factory :haemodialysis_to_pd, parent: :modality_reason do
     type "Renalware::Modalities::HaemodialysisToPD"
-    description 'Abdominal surgery or complications'
+    description "Abdominal surgery or complications"
   end
 end

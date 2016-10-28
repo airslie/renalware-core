@@ -12,9 +12,9 @@ FactoryGirl.define do
     family_name { Faker::Name.last_name }
     username
     email
-    password 'supersecret'
+    password "supersecret"
     approved false
-    professional_position 'Health Minister'
+    professional_position "Health Minister"
 
     trait :author do
       signature { Faker::Name.name }

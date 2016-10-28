@@ -1,11 +1,11 @@
-require 'rails_helper'
+require "rails_helper"
 
 module Renalware::Drugs
-  RSpec.describe Drug, :type => :model do
+  RSpec.describe Drug, type: :model do
     subject { build(:drug) }
 
-    describe 'destroy' do
-      it 'soft deletes the drug' do
+    describe "destroy" do
+      it "soft deletes the drug" do
         subject.save!
         expect{ subject.destroy! }.to change(Drug,:count).by(-1)
         soft_deleted = Drug.with_deleted.find(subject.id)
@@ -14,8 +14,8 @@ module Renalware::Drugs
       end
     end
 
-    context 'assign drug types to a drug' do
-      it 'can be assigned many unique drug types' do
+    context "assign drug types to a drug" do
+      it "can be assigned many unique drug types" do
         @antibiotic = create(:drug_type, code: "antibiotic", name: "Antibiotic")
         @esa = create(:drug_type, code: "esa", name: "ESA")
 
