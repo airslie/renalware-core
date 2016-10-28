@@ -1,3 +1,8 @@
+// TODO: This @import is causing foundation css to be loaded twice.
+// We need to import this file once higher up the chain, but that might mean
+// using @import rather than require in application.css so that we have access
+// to the sass vars.
+@import "../../lib/foundation_and_overrides";
 @import "../base/variables";
 
 select.dob {
@@ -31,8 +36,7 @@ dl.patient-header {
     padding: 0;
     text-transform: uppercase;
 
-    // large screens and above
-    @media screen and (min-width: 64em) {
+    @media print, #{$large-up} {
       font-size: .7em;
     }
 
@@ -41,15 +45,14 @@ dl.patient-header {
       color: $patient-header-icon-color;
       display: none;
 
-      // medium screens and above
-      @media screen and (min-width: 40em) {
+      @media #{$medium-up} {
         display: inline-block;
         font-size: 1.4em;
         min-width: 1.1em;
       }
 
       // large screens and above
-      @media screen and (min-width: 64em) {
+      @media print, #{$large-up} {
         font-size: 1.6em;
         min-width: 1.2em;
       }
@@ -65,11 +68,11 @@ dl.patient-header {
       display: inline-block;
       font-size: 1.4em;
       margin-right: .4em;
+      margin-left: 0;
       width: 100%;
     }
 
-    // medium screens only
-    @media screen and (min-width: 40em) and (max-width: 63.9375em) {
+    @media #{$medium-only} {
       font-size: 1.1em;
 
       &.name {
@@ -77,8 +80,7 @@ dl.patient-header {
       }
     }
 
-    // large screens and above
-    @media screen and (min-width: 64em) {
+    @media print, #{$large-up} {
       font-size: 1.4em;
       margin: 0 .6rem 0 .2em;
 

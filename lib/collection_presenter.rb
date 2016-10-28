@@ -7,7 +7,7 @@ class CollectionPresenter
   # - presenter_class, optional
   # - view_context, optional
   #
-  # It is written way this because I needed to add an optional view_context
+  # It is written this way because I needed to add an optional view_context
   # (which some Presenters may need) without breaking existing usage.
   def initialize(original_collection, *options)
     @original_collection = original_collection

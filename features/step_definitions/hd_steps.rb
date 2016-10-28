@@ -120,3 +120,16 @@ end
 Then(/^Patty has a new NDA HD session$/) do
   expect_dna_session_to_exist(patient: @patty)
 end
+
+When(/^Natalie views the protocol$/) do
+  view_protocol(@patty)
+end
+
+Given(/^Patty has these recorded HD Sessions$/) do
+  pending
+end
+
+Then(/^the protocol contains$/) do |table|
+  pending
+  expect_protocol_to_be(table.hashes)
+end

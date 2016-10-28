@@ -1,0 +1,104 @@
+/*
+ *= require ./lib/foundation_and_overrides
+ *= require_self
+ *= require ./renalware/lists
+ *= require ./renalware/tables
+ *= require ./renalware/modules/patients
+*/
+
+html {
+  overflow: hidden;
+  font-family: Helvetica, Arial;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+.page-break {
+  display:block;
+  clear:both;
+  page-break-after:always;
+}
+
+.noprint {
+  display: none !important;
+  min-width: 0em !important;
+}
+
+.protocol {
+
+  table {
+    border: solid 1px #000;
+    padding: 0;
+    margin: 0;
+    border-spacing: 0;
+    border-collapse: separate;
+
+    td, th {
+      font-size: .8rem !important;
+      line-height: 0.8rem !important;
+    }
+
+    thead {
+      tr {
+        th {
+          padding: 2px 4px;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        padding:0;
+        border: solid 1px #000;
+
+        td {
+          padding: 3px;
+          border-top: solid 1px #000;
+          border-right: solid 1px #000;
+          height: 2rem;
+        }
+
+        &.empty-session-row {
+          height: 2rem;
+          &.first {
+            td {
+              border-top: solid 2px #000;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  dl {
+    padding-bottom: 0.2rem;
+    margin-bottom: 0.2rem;
+    margin-top: 0.6rem;
+    float:left;
+    line-height: 0.8rem;
+    font-size: .8rem;
+    dd, dt {
+      float: left;
+      clear: none;
+      width: auto;
+      margin: 0;
+      padding: 0;
+
+      margin-bottom: 0.3rem;
+
+      &.new_line {
+        clear:left;
+      }
+    }
+    dt {
+      margin-right: 0.3rem;
+      white-space: nowrap;
+    }
+    dd {
+      margin-right: 0.6rem;
+      white-space: nowrap;
+    }
+  }
+}

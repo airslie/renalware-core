@@ -1,47 +1,8 @@
 table.auto-layout
-  thead
-    tr
-      th.col-width-small(rowspan=3)
-      th.col-width-date(rowspan=3 valign="top")= t(".date")
-      th.col-width-small(rowspan=3)= t(".site")
-      th.col-width-time.text-center= t(".time")
-      th.col-width-tiny(rowspan=3)= t(".duration")
-      th.col-width-tiny= t(".weight")
-      th.col-width-tiny= t(".pulse")
-      th.col-width-tiny= t(".temperature")
-      th.col-width-tiny= t(".bm_stix")
-      th.col-width-tiny= t(".blood_pressure")
-      th.col-width-tiny(rowspan=3)= t(".arterial_pressure")
-      th.col-width-tiny(rowspan=3)= t(".venous_pressure")
-      th.col-width-tiny(rowspan=3)= t(".blood_flow")
-      th.col-width-tiny(rowspan=3)= t(".litres_processed")
-      th.col-width-tiny(rowspan=3)= t(".fluid_removed")
-      th.col-width-tiny.text-center(colspan=3)= t(".machine")
-
-    tr.row2
-      th.col-width-time= t(".start_time")
-      th.col-width-small= t(".pre")
-      th.col-width-tiny= t(".pre")
-      th.col-width-tiny= t(".pre")
-      th.col-width-tiny= t(".pre")
-      th.col-width-tiny= t(".pre")
-      th.col-width-tiny(rowspan=2)=t(".machine_no")
-      th.col-width-tiny(rowspan=2)=t(".machine_ktv")
-      th.col-width-tiny(rowspan=2)=t(".machine_urr")
-    tr.row2
-      th.col-width-time= t(".end_time")
-      th= t(".post_with_changed")
-      th= t(".post")
-      th= t(".post")
-      th= t(".post")
-      th= t(".post")
-      / th.col-width-medium= t(".sign_on")
-      / th.col-width-medium= t(".sign_off")
-
+  = render 'renalware/hd/sessions/thead'
   tbody
     - sessions.each_with_index do |session, index|
       - stripe_class = index % 2 == 0 ? "even" : "odd"
       =render "renalware/hd/sessions/#{session.state}/row",
               session: session,
               stripe_class: stripe_class
-
