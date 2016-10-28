@@ -2,7 +2,9 @@ require "rails_helper"
 
 module Renalware
   describe YAMLPermissionConfiguration, type: :policy do
-    subject { YAMLPermissionConfiguration.new(model, Rails.root.join('spec', 'fixtures', 'permissions.yml')) }
+    subject do
+      YAMLPermissionConfiguration.new(model, Rails.root.join("spec", "fixtures", "permissions.yml"))
+    end
 
     class ::FakeModel; end
 

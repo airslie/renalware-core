@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 module Renalware
   RSpec.describe PD::ExitSiteInfection, type: :model do
@@ -15,8 +15,8 @@ module Renalware
         @proteus = create(:organism_code, name: "Proteus")
         @user = create(:user)
 
-        load_drugs_by_type('Cephradine' => ['Antibiotic','Peritonitis'],
-                           'Dicloxacillin' => ['Antibiotic','Peritonitis'])
+        load_drugs_by_type("Cephradine" => ["Antibiotic","Peritonitis"],
+                           "Dicloxacillin" => ["Antibiotic","Peritonitis"])
 
         load_med_routes
       end
@@ -48,8 +48,12 @@ module Renalware
             by: @user
           )
 
-          @lymphocytes_sensitivity = @es.infection_organisms.build(organism_code: @lymphocytes, sensitivity: "Sensitive to Lymphocytes.")
-          @proteus_sensitivity = @es.infection_organisms.build(organism_code: @proteus, sensitivity: "Sensitive to Proteus.")
+          @lymphocytes_sensitivity = @es.infection_organisms
+                                        .build(organism_code: @lymphocytes,
+                                               sensitivity: "Sensitive to Lymphocytes.")
+          @proteus_sensitivity = @es.infection_organisms
+                                    .build(organism_code: @proteus,
+                                           sensitivity: "Sensitive to Proteus.")
 
           @es.prescriptions << @prescription_one
           @es.prescriptions << @prescription_two
@@ -61,7 +65,11 @@ module Renalware
           expect(@es.infection_organisms.size).to eq(2)
 
           expect(@es.prescriptions).to match_array([@prescription_two, @prescription_one])
-          expect(@es.infection_organisms).to match_array([@proteus_sensitivity, @lymphocytes_sensitivity])
+          expect(@es.infection_organisms).to match_array(
+            [
+              @proteus_sensitivity,
+              @lymphocytes_sensitivity
+            ])
 
           expect(@es).to be_valid
         end

@@ -35,7 +35,7 @@ RSpec.describe "Managing patients", type: :request do
 
     context "given invalid attributes" do
       it "responds with form" do
-        attributes = {given_name: ""}
+        attributes = { given_name: "" }
         post patients_path, patient: attributes
 
         expect(response).to have_http_status(:success)
@@ -54,7 +54,7 @@ RSpec.describe "Managing patients", type: :request do
   describe "PATCH update" do
     context "given valid attributes" do
       it "updates a record" do
-        attributes = {given_name: "My Edited Patient"}
+        attributes = { given_name: "My Edited Patient" }
         patch patient_path(patient), patient: attributes
 
         expect(response).to have_http_status(:redirect)
@@ -74,7 +74,7 @@ RSpec.describe "Managing patients", type: :request do
 
     context "given invalid attributes" do
       it "responds with a form" do
-        attributes = {given_name: ""}
+        attributes = { given_name: "" }
         patch patient_path(patient), patient: attributes
 
         expect(response).to have_http_status(:success)

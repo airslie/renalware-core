@@ -8,14 +8,18 @@ module Renalware
         it { is_expected.to validate_presence_of(:description) }
 
         context "given a contact with a specific description" do
-          let(:specific_contact_description) { build(:letter_contact_description, system_code: "sibling") }
+          let(:specific_contact_description) do
+            build(:letter_contact_description, system_code: "sibling")
+          end
           subject { Contact.new(description: specific_contact_description)}
 
           it { is_expected.not_to validate_presence_of(:other_description) }
         end
 
         context "given a contact with a non-specific description" do
-          let(:non_specific_contact_description) { build(:letter_contact_description, system_code: "other") }
+          let(:non_specific_contact_description) do
+            build(:letter_contact_description, system_code: "other")
+          end
           subject { Contact.new(description: non_specific_contact_description)}
 
           it { is_expected.to validate_presence_of(:other_description) }

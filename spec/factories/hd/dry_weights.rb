@@ -3,7 +3,7 @@ FactoryGirl.define do
     patient
 
     assessed_on 1.week.ago
-    weight  156
+    weight 156
     association :assessor, factory: :user
     association :created_by,  factory: :user
     association :updated_by,  factory: :user

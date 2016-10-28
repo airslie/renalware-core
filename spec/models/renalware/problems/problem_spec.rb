@@ -1,7 +1,7 @@
-require 'rails_helper'
+require "rails_helper"
 
 module Renalware::Problems
-  describe Problem, :type => :model do
+  describe Problem, type: :model do
     it { should validate_presence_of :patient }
     it { should validate_presence_of :description }
   end

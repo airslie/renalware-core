@@ -6,7 +6,7 @@ module Renalware::System
       let(:super_admin) { find_or_create_role(:super_admin) }
 
       context "given an unapproved user" do
-        let (:user) { create(:user, :clinician) }
+        let(:user) { create(:user, :clinician) }
 
         subject { UpdateUser.new(user) }
 
@@ -35,7 +35,7 @@ module Renalware::System
       end
 
       context "given an approved user" do
-        let (:user) { create(:user, :approved) }
+        let(:user) { create(:user, :approved) }
         subject { UpdateUser.new(user) }
 
         it "skips approval" do
@@ -54,7 +54,7 @@ module Renalware::System
       end
 
       context "given an expired user" do
-        let (:user) { build_stubbed(:user, :expired) }
+        let(:user) { build_stubbed(:user, :expired) }
         subject { UpdateUser.new(user) }
 
         it "unexpires the user" do
@@ -69,7 +69,7 @@ module Renalware::System
       end
 
       context "given an unexpired user" do
-        let (:user) { build_stubbed(:user, :approved) }
+        let(:user) { build_stubbed(:user, :approved) }
         subject { UpdateUser.new(user) }
 
         it "skips unexpiry" do

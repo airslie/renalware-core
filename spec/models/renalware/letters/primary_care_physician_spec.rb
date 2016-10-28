@@ -32,7 +32,9 @@ module Renalware
 
         context "given the patient is assigned to another Primary Care Physician" do
           let(:other_primary_care_physician) { build(:letter_primary_care_physician) }
-          let(:patient) { build(:letter_patient, primary_care_physician: other_primary_care_physician) }
+          let(:patient) do
+            build(:letter_patient, primary_care_physician: other_primary_care_physician)
+          end
           let(:letter) { build_letter(to: :patient, patient: patient) }
 
           it { expect(primary_care_physician.cc_on_letter?(letter)).to be_falsy }

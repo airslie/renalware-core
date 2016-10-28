@@ -6,7 +6,9 @@ module Renalware::Pathology
     let(:presenter) { spy(:presenter) }
     let(:observation_descriptions) { [build(:pathology_observation_description)] }
 
-    subject(:service) { ViewCurrentObservationResults.new(patient, presenter, descriptions: observation_descriptions) }
+    subject(:service) do
+      ViewCurrentObservationResults.new(patient, presenter, descriptions: observation_descriptions)
+    end
 
     describe "#call" do
       context "given a patient has no observation requests" do

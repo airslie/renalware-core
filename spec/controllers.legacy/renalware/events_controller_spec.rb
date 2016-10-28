@@ -1,23 +1,23 @@
-require 'rails_helper'
+require "rails_helper"
 
 module Renalware::Events
-  RSpec.describe EventsController, :type => :controller do
+  RSpec.describe EventsController, type: :controller do
 
     before do
       @patient = create(:patient)
       @event_type = create(:events_type)
     end
 
-    describe 'GET new' do
-      it 'renders the new template' do
+    describe "GET new" do
+      it "renders the new template" do
         get :new, patient_id: @patient.id
         expect(response).to render_template(:new)
       end
     end
 
-    describe 'POST create' do
+    describe "POST create" do
       context "with valid attributes" do
-        it 'creates a new event' do
+        it "creates a new event" do
           expect { post :create, patient_id: @patient,
             events_event: {
               events_type_id: @event_type,
@@ -31,7 +31,7 @@ module Renalware::Events
       end
 
       context "with invalid attributes" do
-        it 'creates a new event' do
+        it "creates a new event" do
           expect { post :create, patient_id: @patient.id,
             events_event: {
               patient: @patient,
@@ -43,8 +43,8 @@ module Renalware::Events
       end
     end
 
-    describe 'GET index' do
-      it 'responds with success' do
+    describe "GET index" do
+      it "responds with success" do
         get :index, patient_id: @patient
         expect(response).to have_http_status(:success)
       end

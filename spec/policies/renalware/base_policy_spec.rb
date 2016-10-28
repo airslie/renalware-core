@@ -6,7 +6,7 @@ module Renalware
     let(:admin) { create(:user, :approved, :admin) }
     let(:clinician) { create(:user, :approved, :clinician) }
 
-    it 'checks and defines permissions for super admins' do
+    it "checks and defines permissions for super admins" do
       policy = BasePolicy.new(super_admin, User.new)
       expect(policy.create?).to be true
 
@@ -14,7 +14,7 @@ module Renalware
       expect(policy.create?).to be true
     end
 
-    it 'checks and defines permissions for admins' do
+    it "checks and defines permissions for admins" do
       policy = BasePolicy.new(admin, Role.new)
       expect(policy.create?).to be false
 
@@ -22,7 +22,7 @@ module Renalware
       expect(policy.create?).to be true
     end
 
-    it 'checks and defines permissions for clinicians' do
+    it "checks and defines permissions for clinicians" do
       policy = BasePolicy.new(clinician, User.new)
       expect(policy.create?).to be false
 

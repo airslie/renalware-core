@@ -2,28 +2,28 @@ require "rails_helper"
 require "action_view/record_identifier"
 
 module Renalware
-  feature 'Authorising, approving and reactivating users' do
+  feature "Authorising, approving and reactivating users" do
     include ActionView::RecordIdentifier
 
     background do
       @approved = create(:user, :approved)
       @unapproved = create(:user)
       @expired = create(:user, :approved, :expired)
-      @clinician_role = create(:role, name: 'clinician')
+      @clinician_role = create(:role, name: "clinician")
 
       login_as_super_admin
 
       visit admin_users_path
     end
 
-    scenario 'An admin approves a newly registered user' do
-      click_on 'Unapproved'
+    scenario "An admin approves a newly registered user" do
+      click_on "Unapproved"
 
-      click_link 'Edit'
+      click_link "Edit"
       expect(current_path).to eq(edit_admin_user_path(@unapproved))
 
-      check 'Clinician'
-      click_on 'Approve'
+      check "Clinician"
+      click_on "Approve"
 
       expect(current_path).to eq(admin_users_path)
       expect(page).to have_content("You have successfully updated this user.")
@@ -31,13 +31,13 @@ module Renalware
       expect(@unapproved.roles).to match_array([@clinician_role])
     end
 
-    scenario 'An admin approves a user without assigning a role' do
-      click_on 'Unapproved'
+    scenario "An admin approves a user without assigning a role" do
+      click_on "Unapproved"
 
-      click_link 'Edit'
+      click_link "Edit"
       expect(current_path).to eq(edit_admin_user_path(@unapproved))
 
-      click_on 'Approve'
+      click_on "Approve"
 
       expect(current_path).to eq(admin_user_path(@unapproved))
       expect(@unapproved.reload).not_to be_approved
@@ -45,26 +45,26 @@ module Renalware
       expect(page).to have_content(/approved users must have a role/)
     end
 
-    scenario 'An admin removes all roles from a user' do
+    scenario "An admin removes all roles from a user" do
       first("tbody tr##{dom_id(@approved)}").click_link("Edit")
       expect(current_path).to eq(edit_admin_user_path(@approved))
 
-      uncheck 'Super admin'
-      click_on 'Update'
+      uncheck "Super admin"
+      click_on "Update"
 
       expect(current_path).to eq(admin_user_path(@approved))
       expect(page).to have_content("You have failed to update this user.")
       expect(page).to have_content(/approved users must have a role/)
     end
 
-    scenario 'An admin authorises an existing user with additional roles' do
-      within('tbody') do
+    scenario "An admin authorises an existing user with additional roles" do
+      within("tbody") do
         find("a[href='#{edit_admin_user_path(@approved)}']").click
       end
       expect(current_path).to eq(edit_admin_user_path(@approved))
 
-      check 'Clinician'
-      click_on 'Update'
+      check "Clinician"
+      click_on "Update"
 
       expect(current_path).to eq(admin_users_path)
       expect(page).to have_content("You have successfully updated this")
@@ -72,20 +72,20 @@ module Renalware
       expect(@approved.roles).to include(@clinician_role)
     end
 
-    scenario 'An admin reactivates an inactive user' do
-      click_link 'Inactive'
+    scenario "An admin reactivates an inactive user" do
+      click_link "Inactive"
 
-      first('tbody tr').click_link('Edit')
+      first("tbody tr").click_link("Edit")
       expect(current_path).to eq(edit_admin_user_path(@expired))
 
-      check 'Reactivate account'
-      click_on 'Update'
+      check "Reactivate account"
+      click_on "Update"
 
       expect(current_path).to eq(admin_users_path)
       expect(page).to have_content("You have successfully updated this")
       expect(@expired.reload.expired_at).to be_nil
 
-      click_link 'Inactive'
+      click_link "Inactive"
 
       expect(page).not_to have_content(@expired.username)
     end

@@ -28,7 +28,7 @@ RSpec.describe "Configuring Event Types", type: :request do
 
     context "given invalid attributes" do
       it "responds with form" do
-        attributes = {name: ""}
+        attributes = { name: "" }
         post events_types_path, events_type: attributes
 
         expect(response).to have_http_status(:success)
@@ -47,7 +47,7 @@ RSpec.describe "Configuring Event Types", type: :request do
   describe "PATCH update" do
     context "given valid attributes" do
       it "updates a record" do
-        attributes = {name: "My Edited Event"}
+        attributes = { name: "My Edited Event" }
         patch events_type_path(event_type), events_type: attributes
 
         expect(response).to have_http_status(:redirect)
@@ -61,7 +61,7 @@ RSpec.describe "Configuring Event Types", type: :request do
 
     context "given invalid attributes" do
       it "responds with a form" do
-        attributes = {name: ""}
+        attributes = { name: "" }
         patch events_type_path(event_type), events_type: attributes
 
         expect(response).to have_http_status(:success)

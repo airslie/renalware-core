@@ -1,10 +1,10 @@
 FactoryGirl.define do
   sequence :nhs_number do |n|
-    n.to_s.rjust(10, '1234567890')
+    n.to_s.rjust(10, "1234567890")
   end
 
   sequence :local_patient_id do |n|
-    n.to_s.rjust(6, 'Z99999')
+    n.to_s.rjust(6, "Z99999")
   end
 
   factory :patient, class: "Renalware::Patient" do

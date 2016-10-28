@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 module Renalware
   RSpec.describe PD::PeritonitisEpisode, type: :model do
@@ -16,8 +16,8 @@ module Renalware
         @ecoli = create(:organism_code, name: "E.Coli")
         @user = create(:user)
 
-        load_drugs_by_type('Amoxicillin' => ['Antibiotic','Peritonitis'],
-          'Penicillin' => ['Antibiotic','Peritonitis'])
+        load_drugs_by_type("Amoxicillin" => ["Antibiotic","Peritonitis"],
+          "Penicillin" => ["Antibiotic","Peritonitis"])
 
         load_med_routes
       end
@@ -52,8 +52,12 @@ module Renalware
           @pe.prescriptions << @prescription_one
           @pe.prescriptions << @prescription_two
 
-          @mrsa_sensitivity = @pe.infection_organisms.build(organism_code: @mrsa, sensitivity: "Sensitive to MRSA.")
-          @ecoli_sensitivity = @pe.infection_organisms.build(organism_code: @ecoli, sensitivity: "Sensitive to E.Coli.")
+          @mrsa_sensitivity = @pe.infection_organisms
+                                 .build(organism_code: @mrsa,
+                                        sensitivity: "Sensitive to MRSA.")
+          @ecoli_sensitivity = @pe.infection_organisms
+                                   .build(organism_code: @ecoli,
+                                          sensitivity: "Sensitive to E.Coli.")
 
           @pe.save!
           @pe.reload
