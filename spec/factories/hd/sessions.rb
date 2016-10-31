@@ -7,5 +7,16 @@ FactoryGirl.define do
 
     association :hospital_unit, factory: :hospital_unit
     association :signed_on_by, factory: :user
+
+  end
+
+  factory :hd_dna_session, class: "Renalware::HD::Session::DNA" do
+    association :patient, factory: :hd_patient
+    performed_on 1.week.ago
+    start_time "00:00"
+    notes "Some notes"
+    association :hospital_unit, factory: :hospital_unit
+    association :signed_on_by, factory: :user
+    association :created_by,  factory: :user
   end
 end
