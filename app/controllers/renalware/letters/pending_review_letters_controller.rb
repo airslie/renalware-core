@@ -10,7 +10,8 @@ module Renalware
         letter_pending_review = letter.submit(by: current_user)
         letter_pending_review.save!
 
-        redirect_to patient_letters_letter_path(@patient, letter_pending_review), notice: t(".success")
+        redirect_to patient_letters_letter_path(@patient, letter_pending_review),
+                    notice: t(".success")
       end
     end
   end

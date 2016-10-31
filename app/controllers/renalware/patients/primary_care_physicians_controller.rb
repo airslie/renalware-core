@@ -8,7 +8,9 @@ module Renalware
       before_action :find_primary_care_physician, only: [:edit, :update]
 
       def index
-        @primary_care_physicians = PrimaryCarePhysician.order(:family_name).page(@page).per(@per_page)
+        @primary_care_physicians = PrimaryCarePhysician.order(:family_name)
+                                                       .page(@page)
+                                                       .per(@per_page)
         authorize @primary_care_physicians
       end
 
@@ -68,7 +70,8 @@ module Renalware
       end
 
       def redirect_to_primary_care_physicians_list
-        redirect_to patients_primary_care_physicians_path, notice: t(".success", model_name: "primary_care_physician")
+        redirect_to patients_primary_care_physicians_path,
+                    notice: t(".success", model_name: "primary_care_physician")
       end
 
       def render_form(primary_care_physician, action)
@@ -79,9 +82,11 @@ module Renalware
 
       def primary_care_physician_params
         params.require(:patients_primary_care_physician).permit(
-          :given_name, :family_name, :email, :practitioner_type, :code, :telephone, practice_ids: [],
+          :given_name, :family_name, :email, :practitioner_type, :code, :telephone,
+          practice_ids: [],
           address_attributes: [
-            :id, :name, :organisation_name, :street_1, :street_2, :city, :county, :postcode, :country
+            :id, :name, :organisation_name, :street_1, :street_2, :city, :county,
+            :postcode, :country
           ]
         )
       end

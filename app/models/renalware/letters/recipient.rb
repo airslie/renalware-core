@@ -12,7 +12,9 @@ module Renalware
       enumerize :role, in: %i(main cc)
       enumerize :person_role, in: %i(patient primary_care_physician contact)
 
-      accepts_nested_attributes_for :address, allow_destroy: true, reject_if: :patient_or_primary_care_physician?
+      accepts_nested_attributes_for :address,
+                                    allow_destroy: true,
+                                    reject_if: :patient_or_primary_care_physician?
 
       validates_presence_of :addressee_id, if: :contact?
 

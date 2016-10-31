@@ -9,12 +9,12 @@ module Renalware
       #
       # Example:
       #
-      #     [
-      #       ["observed_on", "HGB", "MCV", "WBC"]
-      #       [Date.parse("2011-10-10")], Observation.new(result: "2"), Observation.new(result: "3")],
-      #       [Date.parse("2011-10-09")], Observation.new(result: "5"), nil],
-      #       [Date.parse("2011-10-10")], nil, Observation.new(result: "4")],
-      #     ]
+      #   [
+      #     ["observed_on", "HGB", "MCV", "WBC"]
+      #     [Date.parse("2011-10-10")], Observation.new(result: "2"), Observation.new(result: "3")],
+      #     [Date.parse("2011-10-09")], Observation.new(result: "5"), nil],
+      #     [Date.parse("2011-10-10")], nil, Observation.new(result: "4")],
+      #   ]
       #
       def present(*args)
         super

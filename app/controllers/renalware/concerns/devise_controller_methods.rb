@@ -33,7 +33,9 @@ module Renalware
       end
 
       def configure_sign_in_parameters
-        devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:username, :password, :remember_me) }
+        devise_parameter_sanitizer.for(:sign_in) do |u|
+          u.permit(:username, :password, :remember_me)
+        end
       end
 
       def configure_account_update_parameters
