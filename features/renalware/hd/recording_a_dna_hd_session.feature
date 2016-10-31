@@ -1,4 +1,4 @@
-Feature: Recording a HD session
+Feature: Recording an HD DNA session
 
   A nurse records a Did Not Attend (DNA) session if the patient did not show.
 

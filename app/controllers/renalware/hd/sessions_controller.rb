@@ -7,14 +7,16 @@ module Renalware
 
       def index
         query = Sessions::PatientQuery.new(patient: patient, q: params[:q])
-        sessions = query.call.includes(:hospital_unit, :signed_off_by).page(params[:page]).per(15)
-        @sessions = CollectionPresenter.new(sessions, SessionPresenter, view_context)
+        sessions = query.call.includes(:hospital_unit, :patient).page(params[:page]).per(15)
+        presenter = CollectionPresenter.new(sessions, SessionPresenter, view_context)
         @q = query.search
+        render :index, locals: { sessions: presenter }
       end
 
       def show
         session = Session.for_patient(patient).find(params[:id])
-        @session = SessionPresenter.new(session, view_context)
+        presenter = SessionPresenter.new(session, view_context)
+        render :show, locals: { session: presenter }
       end
 
       def new
