@@ -32,7 +32,9 @@ module Renalware
       has_states :draft, :pending_review, :approved, :completed
       state_scope :reviewable, :pending_review
 
-      scope :pending, -> { where(type: [state_class_name(:draft), state_class_name(:pending_review)]) }
+      scope :pending, -> {
+        where(type: [state_class_name(:draft), state_class_name(:pending_review)])
+      }
       scope :reverse, -> { order(updated_at: :desc) }
       scope :with_letterhead, -> { includes(:letterhead) }
       scope :with_main_recipient, -> { includes(main_recipient: :addressee) }

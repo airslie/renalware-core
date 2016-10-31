@@ -37,11 +37,19 @@ module Renalware
 
     has_many :modalities, class_name: "Modalities::Modality"
 
-    has_many :modality_descriptions, class_name: "Modalities::Description", through: :modalities, source: :description
-    has_one :current_modality, -> { order(started_on: :desc).where(state: "current") },
-      class_name: "Modalities::Modality"
-    has_one :modality_description, through: :current_modality,
-      class_name: "Modalities::Description", source: :description
+    has_many :modality_descriptions,
+             class_name: "Modalities::Description",
+             through: :modalities,
+             source: :description
+
+    has_one :current_modality,
+            -> { order(started_on: :desc).where(state: "current") },
+            class_name: "Modalities::Modality"
+
+    has_one :modality_description,
+            through: :current_modality,
+            class_name: "Modalities::Description",
+            source: :description
 
     has_document class_name: "Renalware::PatientDocument"
 

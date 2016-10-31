@@ -13,9 +13,21 @@ module Renalware
       #     [
       #       ["year", "2009", "2009"],
       #       ["date", "13/11", "12/11"],
-      #       [ObservationDescription.new(code: "HGB"), Observation.new(result: "4"), Observation.new(result: nil)],
-      #       [ObservationDescription.new(code: "MCV"), Observation.new(result: nil), Observation.new(result: "6")],
-      #       [ObservationDescription.new(code: "WBC"), Observation.new(result: "2"), Observation.new(result: "3")],
+      #       [
+      #         ObservationDescription.new(code: "HGB"),
+      #         Observation.new(result: "4"),
+      #         Observation.new(result: nil)
+      #       ],
+      #       [
+      #         ObservationDescription.new(code: "MCV"),
+      #         Observation.new(result: nil),
+      #         Observation.new(result: "6")
+      #       ],
+      #       [
+      #         ObservationDescription.new(code: "WBC"),
+      #         Observation.new(result: "2"),
+      #         Observation.new(result: "3")
+      #       ],
       #     ]
       #
       def present(*args)

@@ -17,7 +17,9 @@ module Renalware
     end
 
     def patient_letters_letter_print_path(letter)
-      patient_letters_letter_formatted_path(letter.patient, letter, format: "pdf", disposition: "inline")
+      patient_letters_letter_formatted_path(letter.patient,
+                                            letter,
+                                            format: "pdf", disposition: "inline")
     end
 
     def patient_letters_letter_download_path(letter)
