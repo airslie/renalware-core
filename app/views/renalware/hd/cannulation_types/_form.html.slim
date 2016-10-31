@@ -5,7 +5,7 @@
 .row
   .large-6.columns
     = simple_form_for @cannulation_type do |f|
-      = f.input :name
+      = f.input :name, autofocus: true
 
       = f.button :submit
       span= " or "
