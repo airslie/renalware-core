@@ -14,7 +14,7 @@ module Renalware
 
       def profile
         @profile ||= begin
-          ProfilePresenter.new(Profile.for_patient(patient).first_or_initialize)
+          ProfilePresenter.new(Profile.for_patient(patient).where(active: true).first_or_initialize)
         end
       end
 

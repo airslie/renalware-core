@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :hd_profile, class: "Renalware::HD::Profile" do
     patient
+    active true
     association :hospital_unit, factory: :hospital_unit
     association :prescriber, factory: :user
     association :created_by,  factory: :user

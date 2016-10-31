@@ -878,7 +878,8 @@ CREATE TABLE hd_profiles (
     updated_at timestamp without time zone NOT NULL,
     prescriber_id integer,
     named_nurse_id integer,
-    transport_decider_id integer
+    transport_decider_id integer,
+    active boolean DEFAULT true
 );
 
 
@@ -5030,6 +5031,13 @@ CREATE INDEX index_hd_preference_sets_on_updated_by_id ON hd_preference_sets USI
 
 
 --
+-- Name: index_hd_profiles_on_active_and_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hd_profiles_on_active_and_patient_id ON hd_profiles USING btree (active, patient_id);
+
+
+--
 -- Name: index_hd_profiles_on_created_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6893,4 +6901,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161014134639');
 INSERT INTO schema_migrations (version) VALUES ('20161018174711');
 
 INSERT INTO schema_migrations (version) VALUES ('20161019145606');
+
+INSERT INTO schema_migrations (version) VALUES ('20161031170940');
 
