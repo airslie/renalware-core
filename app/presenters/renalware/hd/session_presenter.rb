@@ -72,6 +72,7 @@ module Renalware
         case pre
         when ::Float ; (post - pre).round(1)
         when ::Fixnum ;(post - pre)
+        else raise "Unsupported class '#{pre.class}'' - cannot calculate the change"
         end
       end
 
