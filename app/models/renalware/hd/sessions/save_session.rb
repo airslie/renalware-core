@@ -23,7 +23,7 @@ module Renalware
         def call(params:, id: nil, signing_off: false)
           @params = parse_params(params)
           session = find_or_create_session(id)
-          session = update_session_attributes!(session, signing_off)
+          session = update_session_attributes(session, signing_off)
 
           if session.save
             broadcast(:save_success, session)
@@ -42,11 +42,11 @@ module Renalware
         end
 
         # NB Will return a different object if #becomes! is called
-        def update_session_attributes!(session, signing_off)
+        def update_session_attributes(session, signing_off)
           session = session.becomes!(Session::Closed) if signing_off
           session.attributes = params
           session.by = current_user
-          lookup_access_type_abbreviation!(session)
+          lookup_access_type_abbreviation(session)
           session
         end
 
@@ -62,7 +62,7 @@ module Renalware
           session_type.constantize
         end
 
-        def lookup_access_type_abbreviation!(session)
+        def lookup_access_type_abbreviation(session)
           return unless session.document
 
           if (access_type = Accesses::Type.find_by(name: session.document.info.access_type))
