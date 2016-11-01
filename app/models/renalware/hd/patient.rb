@@ -3,6 +3,7 @@ require_dependency "renalware/hd"
 module Renalware
   module HD
     class Patient < ActiveType::Record[Renalware::Patient]
+      has_one :hd_profile, class_name: "Profile"
       def treated?
         modality_descriptions.exists?(type: "Renalware::HD::ModalityDescription")
       end

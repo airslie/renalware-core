@@ -24,8 +24,8 @@ module Renalware::HD
           ReviseHDProfile.new(original_profile).call(other_schedule: other_schedule, by: user)
         end
 
-        it "returns true" do
-          expect(revised_profile).to be(true)
+        it "returns a profile" do
+          expect(revised_profile).to be_truthy
         end
 
         context "when nothing has changed" do
@@ -42,21 +42,28 @@ module Renalware::HD
 
         context "when something has changed" do
           it "creates a new active profile assigned to the patient" do
-            expect(Profile.count).to eq(2)
-            active_profile = patient.hd_profile
-            expect(active_profile).to_not be_nil
+            expect(Profile.for_patient(patient).count).to eq(1)
+            active_profile = Profile.for_patient(patient).first
             expect(active_profile.id).to_not eq(original_profile.id)
             expect(active_profile.active).to eq(true)
+            expect(active_profile.deactivated_at).to be_nil
             expect(active_profile.patient_id).to eq(patient.id)
           end
 
+          it "can access the active profile through the patient" do
+            expect(patient.hd_profile).to eq(Profile.for_patient(patient).first)
+          end
+
           it "updates the value on the new profile" do
-            expect(patient.hd_profile.other_schedule).to eq(other_schedule)
+            active_profile = Profile.for_patient(patient).first
+            expect(active_profile.other_schedule).to eq(other_schedule)
           end
 
           it "marks the original profile as inactive" do
+            expect(Profile.with_deactivated.count).to eq(2)
             original_profile.reload
             expect(original_profile.active).to eq(nil)
+            expect(original_profile.deactivated_at).to_not be_nil
             expect(original_profile.patient_id).to eq(patient.id)
           end
 
@@ -89,7 +96,8 @@ module Renalware::HD
         it "does not save a new profile" do
           expect(Profile.count).to eq(1)
           expect(Profile.first).to eq(original_profile)
-          expect(patient.hd_profile).to eq(original_profile)
+          active_profile = Profile.for_patient(patient).first
+          expect(active_profile).to eq(original_profile)
         end
       end
     end

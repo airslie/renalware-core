@@ -48,7 +48,7 @@ module Renalware
       end
 
       def load_profile
-        @profile = Profile.for_patient(patient).where(active: true).first_or_initialize
+        @profile = patient.hd_profile
       end
 
       def profile_params

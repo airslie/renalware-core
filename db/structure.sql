@@ -879,6 +879,7 @@ CREATE TABLE hd_profiles (
     prescriber_id integer,
     named_nurse_id integer,
     transport_decider_id integer,
+    deactivated_at timestamp without time zone,
     active boolean DEFAULT true
 );
 

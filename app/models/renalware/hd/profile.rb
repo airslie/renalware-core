@@ -8,6 +8,7 @@ module Renalware
       include PatientScope
       include HasSchedule
       include Accountable
+      include Supersedeable
 
       belongs_to :patient
       belongs_to :hospital_unit, class_name: "Hospitals::Unit"
