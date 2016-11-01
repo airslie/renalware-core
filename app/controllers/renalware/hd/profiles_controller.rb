@@ -48,7 +48,7 @@ module Renalware
       end
 
       def load_profile
-        @profile = patient.hd_profile
+        @profile = Profile.for_patient(patient).first_or_initialize
       end
 
       def profile_params

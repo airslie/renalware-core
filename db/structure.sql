@@ -924,7 +924,9 @@ CREATE TABLE hd_sessions (
     updated_at timestamp without time zone NOT NULL,
     signed_on_by_id integer,
     signed_off_by_id integer,
-    type character varying NOT NULL
+    type character varying NOT NULL,
+    hd_profile_id integer,
+    hd_dry_weight_id integer
 );
 
 
@@ -5109,6 +5111,20 @@ CREATE INDEX index_hd_sessions_on_document ON hd_sessions USING gin (document);
 
 
 --
+-- Name: index_hd_sessions_on_hd_dry_weight_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_sessions_on_hd_dry_weight_id ON hd_sessions USING btree (hd_dry_weight_id);
+
+
+--
+-- Name: index_hd_sessions_on_hd_profile_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_sessions_on_hd_profile_id ON hd_sessions USING btree (hd_profile_id);
+
+
+--
 -- Name: index_hd_sessions_on_hospital_unit_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5888,6 +5904,14 @@ ALTER TABLE ONLY letter_contacts
 
 
 --
+-- Name: fk_rails_3578bf1b78; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_sessions
+    ADD CONSTRAINT fk_rails_3578bf1b78 FOREIGN KEY (hd_dry_weight_id) REFERENCES hd_dry_weights(id);
+
+
+--
 -- Name: fk_rails_36cb307ab5; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6125,6 +6149,14 @@ ALTER TABLE ONLY patient_practices_primary_care_physicians
 
 ALTER TABLE ONLY letter_archives
     ADD CONSTRAINT fk_rails_7dc4363735 FOREIGN KEY (letter_id) REFERENCES letter_letters(id);
+
+
+--
+-- Name: fk_rails_84aaf4753f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_sessions
+    ADD CONSTRAINT fk_rails_84aaf4753f FOREIGN KEY (hd_profile_id) REFERENCES hd_profiles(id);
 
 
 --
@@ -6904,4 +6936,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161018174711');
 INSERT INTO schema_migrations (version) VALUES ('20161019145606');
 
 INSERT INTO schema_migrations (version) VALUES ('20161031170940');
+
+INSERT INTO schema_migrations (version) VALUES ('20161101105519');
 
