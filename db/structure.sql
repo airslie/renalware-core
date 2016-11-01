@@ -925,8 +925,8 @@ CREATE TABLE hd_sessions (
     signed_on_by_id integer,
     signed_off_by_id integer,
     type character varying NOT NULL,
-    hd_profile_id integer,
-    hd_dry_weight_id integer
+    profile_id integer,
+    dry_weight_id integer
 );
 
 
@@ -5111,17 +5111,10 @@ CREATE INDEX index_hd_sessions_on_document ON hd_sessions USING gin (document);
 
 
 --
--- Name: index_hd_sessions_on_hd_dry_weight_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_hd_sessions_on_dry_weight_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_hd_sessions_on_hd_dry_weight_id ON hd_sessions USING btree (hd_dry_weight_id);
-
-
---
--- Name: index_hd_sessions_on_hd_profile_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_hd_sessions_on_hd_profile_id ON hd_sessions USING btree (hd_profile_id);
+CREATE INDEX index_hd_sessions_on_dry_weight_id ON hd_sessions USING btree (dry_weight_id);
 
 
 --
@@ -5143,6 +5136,13 @@ CREATE INDEX index_hd_sessions_on_modality_description_id ON hd_sessions USING b
 --
 
 CREATE INDEX index_hd_sessions_on_patient_id ON hd_sessions USING btree (patient_id);
+
+
+--
+-- Name: index_hd_sessions_on_profile_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_sessions_on_profile_id ON hd_sessions USING btree (profile_id);
 
 
 --
@@ -5904,14 +5904,6 @@ ALTER TABLE ONLY letter_contacts
 
 
 --
--- Name: fk_rails_3578bf1b78; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY hd_sessions
-    ADD CONSTRAINT fk_rails_3578bf1b78 FOREIGN KEY (hd_dry_weight_id) REFERENCES hd_dry_weights(id);
-
-
---
 -- Name: fk_rails_36cb307ab5; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5960,6 +5952,14 @@ ALTER TABLE ONLY drug_types_drugs
 
 
 --
+-- Name: fk_rails_3e035fe47f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_sessions
+    ADD CONSTRAINT fk_rails_3e035fe47f FOREIGN KEY (profile_id) REFERENCES hd_profiles(id);
+
+
+--
 -- Name: fk_rails_3e0f147311; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6005,6 +6005,14 @@ ALTER TABLE ONLY access_assessments
 
 ALTER TABLE ONLY patient_practices_primary_care_physicians
     ADD CONSTRAINT fk_rails_55ecff6804 FOREIGN KEY (primary_care_physician_id) REFERENCES patient_primary_care_physicians(id);
+
+
+--
+-- Name: fk_rails_563fedb262; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_sessions
+    ADD CONSTRAINT fk_rails_563fedb262 FOREIGN KEY (dry_weight_id) REFERENCES hd_dry_weights(id);
 
 
 --
@@ -6149,14 +6157,6 @@ ALTER TABLE ONLY patient_practices_primary_care_physicians
 
 ALTER TABLE ONLY letter_archives
     ADD CONSTRAINT fk_rails_7dc4363735 FOREIGN KEY (letter_id) REFERENCES letter_letters(id);
-
-
---
--- Name: fk_rails_84aaf4753f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY hd_sessions
-    ADD CONSTRAINT fk_rails_84aaf4753f FOREIGN KEY (hd_profile_id) REFERENCES hd_profiles(id);
 
 
 --
