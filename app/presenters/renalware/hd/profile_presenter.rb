@@ -58,6 +58,14 @@ module Renalware
       def hd_type
         document.dialysis.hd_type.try(:text)
       end
+
+      def prescribed_times
+        (60..360).step(15).map { |mins| [Duration.from_minutes(mins).to_s, mins] }
+      end
+
+      def formatted_prescribed_time
+        Duration.from_minutes(prescribed_time).to_s
+      end
     end
   end
 end
