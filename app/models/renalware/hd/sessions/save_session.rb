@@ -60,7 +60,7 @@ module Renalware
         # NB Will return a different session object
         def signed_off(session)
           session = session.becomes!(Session::Closed)
-          session.profile = patient.hd_profile_id
+          session.profile = patient.hd_profile
           session.dry_weight = Renalware::HD::DryWeight.for_patient(patient).first
           session
         end
