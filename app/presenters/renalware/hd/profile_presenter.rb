@@ -58,7 +58,6 @@ module Renalware
       def hd_type
         document.dialysis.hd_type.try(:text)
       end
-
     end
   end
 end

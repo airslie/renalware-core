@@ -5,7 +5,7 @@
 .row
   .large-6.columns
     = simple_form_for @dialyser do |f|
-      = f.input :group
+      = f.input :group, autofocus: true
       = f.input :name
 
       = f.button :submit

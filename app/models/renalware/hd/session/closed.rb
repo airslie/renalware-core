@@ -10,6 +10,9 @@ module Renalware
       validates :signed_off_by, presence: true
       validates :end_time, presence: true
 
+      belongs_to :profile
+      belongs_to :dry_weight
+
       def self.policy_class
         ClosedSessionPolicy
       end

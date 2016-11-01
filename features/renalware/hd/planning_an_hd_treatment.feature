@@ -23,7 +23,7 @@ Feature: Planning an HD treatment
     Then Patty has a new HD profile
 
   @web
-  Scenario: A clinician udpated the HD profile of a patient
+  Scenario: A clinician updated the HD profile of a patient
     Given Patty has a recorded HD profile
     Then Clyde can update Patty's HD profile
 

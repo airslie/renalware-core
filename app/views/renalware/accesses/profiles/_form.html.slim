@@ -12,7 +12,9 @@ ruby:
       locals: { legend: "Access Profile", name: "profile" } do
 
     = f.association :type,
-        collection: Renalware::Accesses::Type.ordered, input_html: { class: "small-input" }
+                    collection: Renalware::Accesses::Type.ordered,
+                    input_html: { class: "small-input" },
+                    autofocus: true
     = f.association :site,
         collection: Renalware::Accesses::Site.ordered, input_html: { class: "small-input" }
     = f.input :side, input_html: { class: "small-input" }

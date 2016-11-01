@@ -8,7 +8,7 @@ module Renalware
 
     describe "#to_s" do
       context "given a completed confirmation" do
-        it "returns the year and status as a string" do 
+        it "returns the year and status as a string" do
           expect(year_dated_confirmation.to_s).to eq("Yes (2015)")
         end
       end

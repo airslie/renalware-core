@@ -27,7 +27,6 @@ module Renalware
             obj.call(params: { type: "Renalware::HD::Session::Open" })
           }.to broadcast(:save_failure)
         end
-        #save_failure)
       end
     end
   end

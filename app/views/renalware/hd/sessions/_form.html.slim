@@ -11,7 +11,7 @@ ruby:
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Sign-In", name: "signin" } do
-      = f.input :performed_on, as: :date_picker
+      = f.input :performed_on, as: :date_picker, autofocus: true
       = f.association :hospital_unit,
           as: :grouped_select,
           group_method: :hd_sites,

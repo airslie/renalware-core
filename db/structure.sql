@@ -878,7 +878,9 @@ CREATE TABLE hd_profiles (
     updated_at timestamp without time zone NOT NULL,
     prescriber_id integer,
     named_nurse_id integer,
-    transport_decider_id integer
+    transport_decider_id integer,
+    deactivated_at timestamp without time zone,
+    active boolean DEFAULT true
 );
 
 
@@ -922,7 +924,9 @@ CREATE TABLE hd_sessions (
     updated_at timestamp without time zone NOT NULL,
     signed_on_by_id integer,
     signed_off_by_id integer,
-    type character varying NOT NULL
+    type character varying NOT NULL,
+    profile_id integer,
+    dry_weight_id integer
 );
 
 
@@ -5030,6 +5034,13 @@ CREATE INDEX index_hd_preference_sets_on_updated_by_id ON hd_preference_sets USI
 
 
 --
+-- Name: index_hd_profiles_on_active_and_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hd_profiles_on_active_and_patient_id ON hd_profiles USING btree (active, patient_id);
+
+
+--
 -- Name: index_hd_profiles_on_created_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5100,6 +5111,13 @@ CREATE INDEX index_hd_sessions_on_document ON hd_sessions USING gin (document);
 
 
 --
+-- Name: index_hd_sessions_on_dry_weight_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_sessions_on_dry_weight_id ON hd_sessions USING btree (dry_weight_id);
+
+
+--
 -- Name: index_hd_sessions_on_hospital_unit_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5118,6 +5136,13 @@ CREATE INDEX index_hd_sessions_on_modality_description_id ON hd_sessions USING b
 --
 
 CREATE INDEX index_hd_sessions_on_patient_id ON hd_sessions USING btree (patient_id);
+
+
+--
+-- Name: index_hd_sessions_on_profile_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_sessions_on_profile_id ON hd_sessions USING btree (profile_id);
 
 
 --
@@ -5927,6 +5952,14 @@ ALTER TABLE ONLY drug_types_drugs
 
 
 --
+-- Name: fk_rails_3e035fe47f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_sessions
+    ADD CONSTRAINT fk_rails_3e035fe47f FOREIGN KEY (profile_id) REFERENCES hd_profiles(id);
+
+
+--
 -- Name: fk_rails_3e0f147311; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5972,6 +6005,14 @@ ALTER TABLE ONLY access_assessments
 
 ALTER TABLE ONLY patient_practices_primary_care_physicians
     ADD CONSTRAINT fk_rails_55ecff6804 FOREIGN KEY (primary_care_physician_id) REFERENCES patient_primary_care_physicians(id);
+
+
+--
+-- Name: fk_rails_563fedb262; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_sessions
+    ADD CONSTRAINT fk_rails_563fedb262 FOREIGN KEY (dry_weight_id) REFERENCES hd_dry_weights(id);
 
 
 --
@@ -6893,4 +6934,8 @@ INSERT INTO schema_migrations (version) VALUES ('20161014134639');
 INSERT INTO schema_migrations (version) VALUES ('20161018174711');
 
 INSERT INTO schema_migrations (version) VALUES ('20161019145606');
+
+INSERT INTO schema_migrations (version) VALUES ('20161031170940');
+
+INSERT INTO schema_migrations (version) VALUES ('20161101105519');
 

@@ -4,12 +4,14 @@ ruby:
 .form-content
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "DNA details", name: "dna" } do
-    = f.input :performed_on, as: :date_picker
+    = f.input :performed_on,
+              as: :date_picker,
+              autofocus: true
     = f.association :hospital_unit,
-        as: :grouped_select,
-        group_method: :hd_sites,
-        collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
-        label_method: :to_s
+                    as: :grouped_select,
+                    group_method: :hd_sites,
+                    collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
+                    label_method: :to_s
     = f.input :start_time, as: :clock_picker
     = f.association :signed_on_by, as: :user_picker, collection: Renalware::User.ordered
 .row

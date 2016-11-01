@@ -19,11 +19,11 @@ module Renalware
         # - so we need make sure the hidden :type form value is not rendered as :closed
         # This is getting a bit confusing and might need some refactoring, for example by
         # driving the :type to save as using the button on the form (which we already do using
-        # the sign-off name of the SignOff button - see signed_of?
+        # the sign-off name of the SignOff button - see signed_off?
         def call(params:, id: nil, signing_off: false)
           @params = parse_params(params)
           session = find_or_create_session(id)
-          session = update_session_attributes!(session, signing_off)
+          session = update_session_attributes(session, signing_off)
 
           if session.save
             broadcast(:save_success, session)
@@ -41,12 +41,11 @@ module Renalware
           params
         end
 
-        # NB Will return a different object if #becomes! is called
-        def update_session_attributes!(session, signing_off)
-          session = session.becomes!(Session::Closed) if signing_off
+        def update_session_attributes(session, signing_off)
+          session = signed_off(session) if signing_off
           session.attributes = params
           session.by = current_user
-          lookup_access_type_abbreviation!(session)
+          lookup_access_type_abbreviation(session)
           session
         end
 
@@ -58,11 +57,19 @@ module Renalware
           end
         end
 
+        # NB Will return a different session object
+        def signed_off(session)
+          session = session.becomes!(Session::Closed)
+          session.profile = patient.hd_profile_id
+          session.dry_weight = Renalware::HD::DryWeight.for_patient(patient).first
+          session
+        end
+
         def session_klass
           session_type.constantize
         end
 
-        def lookup_access_type_abbreviation!(session)
+        def lookup_access_type_abbreviation(session)
           return unless session.document
 
           if (access_type = Accesses::Type.find_by(name: session.document.info.access_type))

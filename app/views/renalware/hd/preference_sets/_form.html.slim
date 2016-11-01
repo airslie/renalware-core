@@ -4,13 +4,16 @@ ruby:
 .form-content
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Preferences", name: "preferences" } do
-    = f.input :schedule, input_html: { class: "small-input" }
-    = f.input :other_schedule, input_html: { class: "small-input" }
+    = f.input :schedule,
+              input_html: { class: "small-input" },
+              autofocus: true
+    = f.input :other_schedule,
+              input_html: { class: "small-input" }
     = f.association :hospital_unit,
-        as: :grouped_select,
-        group_method: :hd_sites,
-        collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
-        label_method: :to_s
+                    as: :grouped_select,
+                    group_method: :hd_sites,
+                    collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
+                    label_method: :to_s
     = f.input :entered_on, as: :date_picker
     = f.input :notes, as: :text, input_html: { rows: 5 }
 

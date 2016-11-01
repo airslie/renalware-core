@@ -17,6 +17,7 @@ ruby:
           group_method: :hd_sites,
           collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
           label_method: :to_s,
+          autofocus: true,
           hint: f.object.hospital_unit_hint
       = f.input :schedule, input_html: { class: "small-input" }, hint: f.object.schedule_hint
       = f.input :other_schedule, input_html: { class: "small-input" }
