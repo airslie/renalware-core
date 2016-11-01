@@ -26,7 +26,6 @@ module World
         {
           notes: "none",
           hospital_unit: Renalware::Hospitals::Unit.hd_sites.first,
-          start_time: "11:30",
           performed_on: Time.zone.today
         }
       end
@@ -36,21 +35,26 @@ module World
       include Domain
 
       def create_dna_session(options)
+        #options = parse_options(options)
         user = options.delete(:user)
         patient = options.delete(:patient)
         login_as user
         visit patient_hd_dashboard_path(patient)
+
         within_fieldset t_sessions(:title) do
           click_on t_sessions(:add_dna_session)
         end
 
-        fill_in t_form(".start_time"), with: "13:00"
         select hd_unit.to_s, from: t_form(".hospital_unit")
-        fill_in t_form(".performed_on"), with: I18n.l(options[:performed_on])
+        fill_in t_form(".performed_on"), with: I18n.l(Time.zone.today)
+
+        within ".document" do
+          fill_in t_form(".notes"), with: options[:notes]
+        end
+
         within ".form_actions" do
           click_on t_form(".save")
         end
-
         expect(page.current_path).to eq(patient_hd_dashboard_path(patient))
         expect_dna_session_to_exist(patient: patient)
       end

@@ -3,16 +3,16 @@ ruby:
 = f.input :type, as: :hidden
 .form-content
   = render layout: "renalware/shared/fieldset",
-      locals: { legend: "DNA details", name: "dna" } do
+           locals: { legend: "DNA details", name: "dna" } do
     = f.input :performed_on,
               as: :date_picker,
               autofocus: true
     = f.association :hospital_unit,
-                    as: :grouped_select,
-                    group_method: :hd_sites,
-                    collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
-                    label_method: :to_s
-    = f.input :start_time, as: :clock_picker
+        as: :grouped_select,
+        group_method: :hd_sites,
+        collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
+        label_method: :to_s
+    = f.input :notes, as: :text, input_html: { rows: 5 }
     = f.association :signed_on_by, as: :user_picker, collection: Renalware::User.ordered
 .row
   .large-12.columns.form_actions

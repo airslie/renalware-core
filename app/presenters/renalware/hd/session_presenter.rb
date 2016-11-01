@@ -84,6 +84,11 @@ module Renalware
         Renalware::HD::SessionAccessPresenter.new(self).to_s
       end
 
+      def truncated_notes
+        return unless notes
+        notes.truncate(100, omission: "&hellip;").html_safe
+      end
+
       def edit_url
         view_context.edit_patient_hd_session_path(session.patient, session)
       end

@@ -5,6 +5,7 @@ module Renalware
     class Session::Open < Session
       include Document::Base
       has_document class_name: "Renalware::HD::SessionDocument"
+      validates :start_time, presence: true
 
       def self.policy_class
         OpenSessionPolicy

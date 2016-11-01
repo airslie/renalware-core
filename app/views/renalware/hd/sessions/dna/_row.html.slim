@@ -2,6 +2,7 @@ tr(class=[session.state, stripe_class])
   td= link_to t(".edit"), edit_patient_hd_session_path(@patient, session)
   td= link_to session.performed_on, patient_hd_session_path(@patient, session)
   td= session.hospital_unit_unit_code
-  td= session.start_time
-  td(colspan=14) Did not attend
+  td(colspan=2) Did not attend
+  td(colspan=13)
+   i= session.truncated_notes
 
