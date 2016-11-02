@@ -14,8 +14,16 @@ module Renalware
         @sessions.each { |session| session.extend(SessionDocumentHelpers) }
       end
 
+      # Note only include in this calculation session that have a prescribed time on their profile.
       def dialysis_time_shortfall
-        100
+        actual = prescribed = 0
+        closed_sessions.each do |session|
+          if session.profile && session.profile.prescribed_time.to_i > 0
+            actual += session.duration
+            prescribed += session.profile.prescribed_time
+          end
+        end
+        prescribed - actual
       end
 
       def number_of_missed_sessions
@@ -105,6 +113,10 @@ module Renalware
       end
 
       private
+
+      def closed_sessions
+        @closed_sessions = sessions.select{ |session| session.is_a?(Session::Closed) }
+      end
 
       def all_blood_pressure_measurements
         sessions.map(&:all_blood_pressure_measurements).flatten

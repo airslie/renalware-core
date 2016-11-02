@@ -194,8 +194,44 @@ module Renalware
       # waiting for #839
       describe "dialysis_time_shortfall" do
         it "returns the number of minutes of missed HD time across the sessions "\
-           " which is to say total expected - total actual time on HD " do
-          expect(audit.dialysis_time_shortfall).to eq(100)
+           " which is to say total prescribed time - total actual time on HD" do
+
+          patient = build_stubbed(:hd_patient)
+          profile1 = build_stubbed(:hd_profile, patient: patient, prescribed_time: nil)
+          profile2 = build_stubbed(:hd_profile, patient: patient, prescribed_time: 100)
+          profile3 = build_stubbed(:hd_profile, patient: patient, prescribed_time: 200)
+
+          sessions_with_no_profile = [
+            Session::Closed.new(duration: 300, profile: nil)
+          ] # expected shortfall across these sessions is  0 because there is no profile to
+            # indicate what the prescribed time is
+
+          sessions_using_profile1 = [
+            Session::Closed.new(duration: 300, profile: profile1)
+          ] # expected shortfall across these sessions is 0 because the profile does not specify
+            # a prescribed time
+
+          sessions_using_profile2 = [
+            Session::Closed.new(duration: 90, profile: profile2),
+            Session::Closed.new(duration: 101, profile: profile2)
+          ] # expected shortfall across these sessions is -10 + 1 = 9
+
+          sessions_using_profile3 = [
+            Session::Closed.new(duration: 150, profile: profile3),
+            Session::Closed.new(duration: 190, profile: profile3)
+          ] # expected shortfall across these sessions is  -50 - 10 = -60
+
+          @sessions = [
+            sessions_with_no_profile,
+            Session::DNA.new,
+            sessions_using_profile1,
+            Session::DNA.new,
+            sessions_using_profile2,
+            Session::DNA.new,
+            sessions_using_profile3
+          ].flatten
+
+          expect(audit.dialysis_time_shortfall).to eq(69) # expected shortfall = 69 - see above
         end
       end
 
@@ -212,6 +248,7 @@ module Renalware
           expect(audit.number_of_missed_sessions).to eq(2)
         end
       end
+
     end
   end
 end
