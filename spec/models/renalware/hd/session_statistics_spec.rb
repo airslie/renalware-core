@@ -194,9 +194,8 @@ module Renalware
       # waiting for #839
       describe "dialysis_time_shortfall" do
         it "returns the number of minutes of missed HD time across the sessions "\
-           " which is to say total expected - totl actual time on HD " do
-          pending
-          fail
+           " which is to say total expected - total actual time on HD " do
+          expect(audit.dialysis_time_shortfall).to eq(100)
         end
       end
 
@@ -204,7 +203,6 @@ module Renalware
       describe "#number_of_missed_sessions" do
 
         it "returns the number of dna sessions" do
-          pending
           @sessions = [
             Session::Closed.new,
             Session::DNA.new,

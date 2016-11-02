@@ -10,7 +10,15 @@ module Renalware
       attr_accessor :sessions
 
       def initialize(sessions)
-        @sessions = sessions
+        @sessions = Array(sessions)
+      end
+
+      def dialysis_time_shortfall
+        100
+      end
+
+      def number_of_missed_sessions
+        sessions.count{ |session| session.is_a?(Session::DNA) }
       end
 
       def pre_mean_systolic_blood_pressure
