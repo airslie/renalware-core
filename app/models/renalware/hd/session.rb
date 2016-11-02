@@ -13,6 +13,8 @@ module Renalware
       has_states :open, :closed, :dna
 
       belongs_to :patient
+      belongs_to :profile
+      belongs_to :dry_weight
       belongs_to :modality_description, class_name: "Modalities::Description"
       belongs_to :hospital_unit, class_name: "Hospitals::Unit"
       belongs_to :signed_on_by, class_name: "User", foreign_key: "signed_on_by_id"

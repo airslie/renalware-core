@@ -11,19 +11,12 @@ module Renalware
 
       def initialize(sessions)
         @sessions = Array(sessions)
-        @sessions.each { |session| session.extend(SessionDocumentHelpers) }
+        # Add helpers to each session to helps us cleanly resolve statistical data.
+        @sessions.each { |session| session.extend(SessionHelpers) }
       end
 
-      # Note only include in this calculation session that have a prescribed time on their profile.
       def dialysis_time_shortfall
-        actual = prescribed = 0
-        closed_sessions.each do |session|
-          if session.profile && session.profile.prescribed_time.to_i > 0
-            actual += session.duration
-            prescribed += session.profile.prescribed_time
-          end
-        end
-        prescribed - actual
+        sessions.sum(&:dialysis_time_shortfall)
       end
 
       def number_of_missed_sessions
@@ -122,12 +115,30 @@ module Renalware
         sessions.map(&:all_blood_pressure_measurements).flatten
       end
 
-      module SessionDocumentHelpers
+      module SessionHelpers
+        NullHDProfile = Naught.build do |config|
+          config.black_hole
+          config.define_explicit_conversions
+          config.singleton
+        end
+
         def all_blood_pressure_measurements
           [
             document.observations_before.blood_pressure,
             document.observations_after.blood_pressure
           ]
+        end
+
+        def profile
+          super || NullHDProfile.instance
+        end
+
+        # Note the profile here might be a NullHDProfile which will always return 0 for the
+        # prescribed time - so sessions with a missing profile always report a
+        # dialysis_time_shortfall of 0
+        def dialysis_time_shortfall
+          prescribed = profile.prescribed_time.to_i
+          prescribed == 0 ? 0 : prescribed - duration
         end
       end
 
