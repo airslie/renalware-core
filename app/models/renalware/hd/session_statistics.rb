@@ -15,8 +15,15 @@ module Renalware
         @sessions.each { |session| session.extend(SessionHelpers) }
       end
 
-      def dialysis_time_shortfall
-        sessions.sum(&:dialysis_time_shortfall)
+      def dialysis_minutes_shortfall
+        sessions.sum(&:dialysis_minutes_shortfall)
+      end
+
+      def dialysis_minutes_shortfall_percentage
+        session_count = closed_sessions.count.to_f
+        return 0 if session_count == 0
+        percentage = closed_sessions.sum(&:dialysis_minutes_shortfall_percentage) / session_count
+        percentage.round(2)
       end
 
       def number_of_missed_sessions
@@ -83,8 +90,7 @@ module Renalware
         end
 
         def call
-          return 0 if values.blank?
-          mean
+          values.blank? ? 0 : mean
         end
 
         def values
@@ -133,15 +139,22 @@ module Renalware
           super || NullHDProfile.instance
         end
 
+        def prescribed_time
+          profile.prescribed_time.to_i
+        end
+
         # Note the profile here might be a NullHDProfile which will always return 0 for the
         # prescribed time - so sessions with a missing profile always report a
         # dialysis_time_shortfall of 0
-        def dialysis_time_shortfall
-          prescribed = profile.prescribed_time.to_i
-          prescribed == 0 ? 0 : prescribed - duration
+        def dialysis_minutes_shortfall
+          prescribed_time == 0 ? 0 : prescribed_time - duration
+        end
+
+        def dialysis_minutes_shortfall_percentage
+          return 0.0 if dialysis_minutes_shortfall == 0
+          (dialysis_minutes_shortfall.to_f / prescribed_time.to_f) * 100.0
         end
       end
-
 
       def mean_blood_pressure(observation, measurement, strategy = MeanValueStrategy)
         selector = ->(session) do

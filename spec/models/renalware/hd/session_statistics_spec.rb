@@ -191,23 +191,20 @@ module Renalware
         end
       end
 
-      # waiting for #839
-      describe "dialysis_time_shortfall" do
-        it "returns the number of minutes of missed HD time across the sessions "\
-           " which is to say total prescribed time - total actual time on HD" do
-
+      describe "Missed HD time methods" do
+        before do
           patient = build_stubbed(:hd_patient)
           profile1 = build_stubbed(:hd_profile, patient: patient, prescribed_time: nil)
           profile2 = build_stubbed(:hd_profile, patient: patient, prescribed_time: 100)
           profile3 = build_stubbed(:hd_profile, patient: patient, prescribed_time: 200)
 
           sessions_with_no_profile = [
-            Session::Closed.new(duration: 300, profile: nil)
+            Session::Closed.new(duration: 100, profile: nil)
           ] # expected shortfall across these sessions is  0 because there is no profile to
             # indicate what the prescribed time is
 
           sessions_using_profile1 = [
-            Session::Closed.new(duration: 300, profile: profile1)
+            Session::Closed.new(duration: 100, profile: profile1)
           ] # expected shortfall across these sessions is 0 because the profile does not specify
             # a prescribed time
 
@@ -221,6 +218,16 @@ module Renalware
             Session::Closed.new(duration: 190, profile: profile3)
           ] # expected shortfall across these sessions is  -50 - 10 = -60
 
+          # Profile | Prescribed time | Actual | Shortfall | % Shortfall
+          # None    | 100 effectively | 100    | 0         | 0
+          # 1       | 100 effectively | 100    | 0         | 0
+          # 2       | 100             | 90     | -10       | -10
+          # 2       | 100             | 101    | +1        | 1
+          # 3       | 200             | 150    | -50       | -25
+          # 3       | 200             | 190    | -10       | -5
+          # =========================================================
+          #         | 800            | 731     | -69       | -6.50 %
+
           @sessions = [
             sessions_with_no_profile,
             Session::DNA.new,
@@ -230,8 +237,19 @@ module Renalware
             Session::DNA.new,
             sessions_using_profile3
           ].flatten
+        end
 
-          expect(audit.dialysis_time_shortfall).to eq(69) # expected shortfall = 69 - see above
+        describe "#dialysis_minutes_shortfall" do
+          it "returns the number of HD minutes missed across the sessions "\
+             " which is to say total prescribed time - total actual time on HD" do
+            expect(audit.dialysis_minutes_shortfall).to eq(69) # expected shortfall = 69 - see above
+          end
+        end
+
+        describe "#dialysis_minutes_shortfall_percentage" do
+          it "returns the percentage of HD minutes missed across all sessions" do
+            expect(audit.dialysis_minutes_shortfall_percentage).to eq(6.5)
+          end
         end
       end
 
