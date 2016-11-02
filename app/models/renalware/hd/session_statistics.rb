@@ -11,6 +11,7 @@ module Renalware
 
       def initialize(sessions)
         @sessions = Array(sessions)
+        @sessions.each { |session| session.extend(SessionDocumentHelpers) }
       end
 
       def dialysis_time_shortfall
@@ -74,8 +75,6 @@ module Renalware
         MeanValueStrategy.new(sessions: sessions, selector: selector).call
       end
 
-      private
-
       class MeanValueStrategy
         def initialize(sessions:, selector:)
           @sessions = sessions
@@ -105,11 +104,21 @@ module Renalware
         attr_reader :sessions, :selector
       end
 
+      private
+
       def all_blood_pressure_measurements
-        before = sessions.map { |session| session.document.observations_before.blood_pressure }
-        after = sessions.map { |session| session.document.observations_after.blood_pressure }
-        [before, after].flatten
+        sessions.map(&:all_blood_pressure_measurements).flatten
       end
+
+      module SessionDocumentHelpers
+        def all_blood_pressure_measurements
+          [
+            document.observations_before.blood_pressure,
+            document.observations_after.blood_pressure
+          ]
+        end
+      end
+
 
       def mean_blood_pressure(observation, measurement, strategy = MeanValueStrategy)
         selector = ->(session) do
