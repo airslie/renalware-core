@@ -15,7 +15,7 @@
 
     = render "renalware/shared/attributes_group",
         legend: "Prescription", destination: "prescription",
-        models: { profile => [:prescribed_time, :prescribed_on, :prescriber] }
+        models: { profile => [:formatted_prescribed_time, :prescribed_on, :prescriber] }
 
     - ["Dialysis", "Anticoagulant", "Drugs"].each do |group|
       = render "renalware/shared/documents/attributes_group",
