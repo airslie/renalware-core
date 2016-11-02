@@ -5,8 +5,9 @@ module Renalware
   module HD
 
     NullSessionDocument = Naught.build do |config|
-        config.black_hole
-        config.singleton
+      config.black_hole
+      config.define_explicit_conversions
+      config.singleton
     end
 
     class SessionDocument < Document::Embedded

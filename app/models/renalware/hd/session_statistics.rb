@@ -15,17 +15,6 @@ module Renalware
         @sessions.each { |session| session.extend(SessionHelpers) }
       end
 
-      def dialysis_minutes_shortfall
-        sessions.sum(&:dialysis_minutes_shortfall)
-      end
-
-      def dialysis_minutes_shortfall_percentage
-        session_count = closed_sessions.count.to_f
-        return 0 if session_count == 0
-        percentage = closed_sessions.sum(&:dialysis_minutes_shortfall_percentage) / session_count
-        percentage.round(2)
-      end
-
       def number_of_missed_sessions
         sessions.count{ |session| session.is_a?(Session::DNA) }
       end
@@ -54,33 +43,48 @@ module Renalware
         all_blood_pressure_measurements.max_by(&:systolic)
       end
 
+      def dialysis_minutes_shortfall
+        sessions.sum(&:dialysis_minutes_shortfall)
+      end
+
+      def dialysis_minutes_shortfall_percentage
+        selector = ->(session) { session.dialysis_minutes_shortfall_percentage }
+        MeanValueStrategy.new(sessions: closed_sessions, selector: selector).call.round(2)
+      end
+
+      def mean_ufr
+        selector = ->(session) { session.ufr }
+        MeanValueStrategy.new(sessions: closed_sessions, selector: selector).call
+      end
+
       def mean_fluid_removal
         selector = ->(session) { session.document.dialysis.fluid_removed }
-        MeanValueStrategy.new(sessions: sessions, selector: selector).call
+        MeanValueStrategy.new(sessions: closed_sessions, selector: selector).call
       end
 
       def mean_weight_loss
-        selector = ->(session) do
-          if (doc = session.document)
-            doc.observations_before.weight - doc.observations_after.weight
-          end
-        end
-        MeanValueStrategy.new(sessions: sessions, selector: selector).call
+        selector = ->(session) { session.weight_loss }
+        MeanValueStrategy.new(sessions: closed_sessions, selector: selector).call
+      end
+
+      def mean_weight_loss_as_percentage_of_body_weight
+        selector = ->(session) { session.weight_loss_as_percentage_of_body_weight }
+        MeanValueStrategy.new(sessions: closed_sessions, selector: selector).call
       end
 
       def mean_machine_ktv
         selector = ->(session) {session.document.dialysis.machine_ktv }
-        MeanValueStrategy.new(sessions: sessions, selector: selector).call
+        MeanValueStrategy.new(sessions: closed_sessions, selector: selector).call
       end
 
       def mean_blood_flow
         selector = ->(session) { session.document.dialysis.blood_flow }
-        MeanValueStrategy.new(sessions: sessions, selector: selector).call
+        MeanValueStrategy.new(sessions: closed_sessions, selector: selector).call
       end
 
       def mean_litres_processed
         selector = ->(session) { session.document.dialysis.litres_processed }
-        MeanValueStrategy.new(sessions: sessions, selector: selector).call
+        MeanValueStrategy.new(sessions: closed_sessions, selector: selector).call
       end
 
       class MeanValueStrategy
@@ -122,7 +126,7 @@ module Renalware
       end
 
       module SessionHelpers
-        NullHDProfile = Naught.build do |config|
+        NullObject = Naught.build do |config|
           config.black_hole
           config.define_explicit_conversions
           config.singleton
@@ -136,11 +140,23 @@ module Renalware
         end
 
         def profile
-          super || NullHDProfile.instance
+          super || NullObject.instance
+        end
+
+        def dry_weight
+          super || NullObject.instance
+        end
+
+        def measured_dry_weight
+          dry_weight.weight.to_f
         end
 
         def prescribed_time
           profile.prescribed_time.to_i
+        end
+
+        def duration_as_hours
+          duration.to_f / 60.0
         end
 
         # Note the profile here might be a NullHDProfile which will always return 0 for the
@@ -153,6 +169,25 @@ module Renalware
         def dialysis_minutes_shortfall_percentage
           return 0.0 if dialysis_minutes_shortfall == 0
           (dialysis_minutes_shortfall.to_f / prescribed_time.to_f) * 100.0
+        end
+
+        def weight_loss
+          document.observations_before.weight.to_f - document.observations_after.weight.to_f
+        end
+
+        def weight_loss_as_percentage_of_body_weight
+          if measured_dry_weight > 0
+            (weight_loss / measured_dry_weight) * 100.0
+          end
+        end
+
+        # This is fluid removed (ml) / HD time in hours eg 3.75 / dry weight (kg)
+        # The result is in ml/hr/kg
+        def ufr
+          return nil unless measured_dry_weight > 0 && duration > 0
+          return nil unless 0 < (fluid_removed = document.dialysis.fluid_removed)
+
+          fluid_removed / duration_as_hours / measured_dry_weight
         end
       end
 

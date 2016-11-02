@@ -3,6 +3,7 @@ require "rails_helper"
 module Renalware
   module HD
     describe SessionStatistics do
+      let(:patient) { build_stubbed(:hd_patient) }
 
       def stub_sessions(observations:, systolic_range:, diastolic_range:)
         systolic = *systolic_range
@@ -193,7 +194,6 @@ module Renalware
 
       describe "Missed HD time methods" do
         before do
-          patient = build_stubbed(:hd_patient)
           profile1 = build_stubbed(:hd_profile, patient: patient, prescribed_time: nil)
           profile2 = build_stubbed(:hd_profile, patient: patient, prescribed_time: 100)
           profile3 = build_stubbed(:hd_profile, patient: patient, prescribed_time: 200)
@@ -253,9 +253,7 @@ module Renalware
         end
       end
 
-      # waiting for #939
       describe "#number_of_missed_sessions" do
-
         it "returns the number of dna sessions" do
           @sessions = [
             Session::Closed.new,
@@ -267,6 +265,77 @@ module Renalware
         end
       end
 
+      # Mean weight loss as percentage body weight last 12 sessions
+      # Use dry weight for each HD session
+      # (pre dialysis weight – post dialysis weight)/dry weight * 100
+      describe "#mean_weight_loss_as_percentage_of_body_weight" do
+        it do
+
+          dry_weight1 = build_stubbed(:hd_dry_weight, patient: patient, weight: 100.0)
+          dry_weight2 = build_stubbed(:hd_dry_weight, patient: patient, weight: 200.0)
+
+          session_with_no_dry_weight = Session::Closed.new(dry_weight: nil)
+          session_with_no_dry_weight.document.observations_before.weight = 100.0
+          session_with_no_dry_weight.document.observations_after.weight = 99.0
+
+          session_with_dry_weight1 = Session::Closed.new(dry_weight: dry_weight1)
+          session_with_dry_weight1.document.observations_before.weight = 100.0
+          session_with_dry_weight1.document.observations_after.weight = 99.0
+
+          session_with_dry_weight2 = Session::Closed.new(dry_weight: dry_weight2)
+          session_with_dry_weight2.document.observations_before.weight = 200.0
+          session_with_dry_weight2.document.observations_after.weight = 190.0
+
+          @sessions = [
+            session_with_no_dry_weight,
+            session_with_dry_weight1,
+            session_with_dry_weight2
+          ]
+
+          # dryweight | weight loss | weight loss as % of body weight
+          # nil       | 1           | 0
+          # 100       | 1           | 1
+          # 200       | 10          | 5
+          # ===========================
+          #                           % Mean = (0 + 1 + 5) / 2 = 3%
+
+          expect(audit.mean_weight_loss_as_percentage_of_body_weight).to eq(3.0)
+        end
+      end
+
+      describe "#mean_ufr" do
+
+        it "returns fluid removed (ml) / HD time in hours / dry weight (kg) in units of ml/hr/kg" do
+          dry_weight1 = build_stubbed(:hd_dry_weight, patient: patient, weight: 100.0)
+          dry_weight2 = build_stubbed(:hd_dry_weight, patient: patient, weight: 120.0)
+
+          session1 = Session::Closed.new(dry_weight: dry_weight1, duration: 225)
+          session1.document.dialysis.fluid_removed = 1000.0 #ml
+
+          session2 = Session::Closed.new(dry_weight: dry_weight2, duration: 225)
+          session2.document.dialysis.fluid_removed = 2000.0 #ml
+
+          @sessions = [ session1, session2]
+
+          # 225 mins = 3.75 hours
+          # session 1 = 1000.0 ml / 3.75 hrs / 100.0 kg = 2.666
+          # session 2 = 2000.0 ml / 3.75 hrs / 120.0 kg = 4.444
+          # Mean = (2.666 + 4.444) / 2 = 3.555
+          expect(audit.mean_ufr).to eq(3.56)
+        end
+
+       it "returns the mean ufr for a single session if only one supplied" do
+          dry_weight1 = build_stubbed(:hd_dry_weight, patient: patient, weight: 100.0)
+          session1 = Session::Closed.new(dry_weight: dry_weight1, duration: 225)
+          session1.document.dialysis.fluid_removed = 1000.0 #ml
+          @sessions = [
+            session1
+          ]
+          # 225 mins = 3.75 hours
+          # 1000.0 ml / 3.75 hrs / 100.0 kg = 2.66
+          expect(audit.mean_ufr).to eq(2.67)
+       end
+      end
     end
   end
 end
