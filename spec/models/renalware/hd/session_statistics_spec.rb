@@ -32,43 +32,35 @@ module Renalware
         it "calculates the mean from a number of values" do
           sessions = [ { x: 1.1 }, { x: 1.2 }, { x: 1.3 } ]
           selector = ->(session) { session[:x] }
-          result = strategy.call(sessions: sessions, selector: selector)
+          result = strategy.new(sessions: sessions, selector: selector).call
           expect(result).to eq(1.2)
         end
 
         it "returns the only value if there is just one" do
           sessions = [ { x: 1.99999 }]
           selector = ->(session) { session[:x] }
-          result = strategy.call(sessions: sessions, selector: selector)
+          result = strategy.new(sessions: sessions, selector: selector).call
           expect(result).to eq(2.0) # 1.9999 rounded up to 2.0
         end
 
         it "excludes nil values from the mean calculation" do
           sessions = [ { x: 1.1 }, { x: 1.2 }, { x: nil }, { x: 1.3 } ]
           selector = ->(session) { session[:x] }
-          result = strategy.call(sessions: sessions, selector: selector)
+          result = strategy.new(sessions: sessions, selector: selector).call
           expect(result).to eq(1.2)
         end
 
         it "returns 0 if there are sessions" do
           selector = ->(session) { session[:x] }
-          result = strategy.call(sessions: [], selector: selector)
+          result = strategy.new(sessions: [], selector: selector).call
           expect(result).to eq(0)
         end
 
         it "returns 0 if there are only nil values" do
           sessions = [{ x: nil }, { x: nil }]
           selector = ->(session) { session[:x] }
-          result = strategy.call(sessions: sessions, selector: selector)
+          result = strategy.new(sessions: sessions, selector: selector).call
           expect(result).to eq(0)
-        end
-
-        it "skips nil elements if you use try! in the selector" do
-          sessions = [ OpenStruct.new(document: nil),
-                       OpenStruct.new(document: OpenStruct.new(x: OpenStruct.new(y: 99)))]
-          selector = ->(session) { session.document.try!(:x).try!(:y) }
-          result = strategy.call(sessions: sessions, selector: selector)
-          expect(result).to eq(99)
         end
       end
 
