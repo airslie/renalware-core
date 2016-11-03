@@ -152,6 +152,7 @@ module Renalware
         start_time: start_times.sample,
         end_time: end_times.sample,
         signed_on_by: users.sample,
+        signed_off_at: Time.zone.now - 1.day,
         signed_off_by: users.sample,
         by: users.sample,
         document: session_document

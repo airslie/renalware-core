@@ -6,12 +6,36 @@ module Renalware
       describe Session::Closed, type: :model do
         it { is_expected.to validate_presence_of(:signed_off_by) }
         it { is_expected.to validate_presence_of(:end_time) }
+        it { is_expected.to validate_presence_of(:signed_off_at) }
 
         it { is_expected.to belong_to(:profile) }
         it { is_expected.to belong_to(:dry_weight) }
 
         it "defines a policy class" do
           expect(Session::Closed.policy_class).to eq(ClosedSessionPolicy)
+        end
+
+        describe "immutable?" do
+          it "returns true is the appropriate window has elapsed" do
+            session = described_class.new(signed_off_at: Time.zone.now - 10.days )
+            allow(session).to receive(:persisted?).and_return(true)
+
+            expect(session.immutable?).to eq(true)
+          end
+
+          it "returns false if the appropriate window has not yet elapsed" do
+            session = described_class.new(signed_off_at: Time.zone.now - 1.minute )
+            allow(session).to receive(:persisted?).and_return(true)
+
+            expect(session.immutable?).to eq(false)
+          end
+
+          it "returns true if not yet persisted" do
+            session = described_class.new(signed_off_at: Time.zone.now - 1.minute)
+            allow(session).to receive(:persisted?).and_return(false)
+
+            expect(session.immutable?).to eq(true)
+          end
         end
       end
 

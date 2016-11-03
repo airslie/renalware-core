@@ -10,12 +10,18 @@ module Renalware
       validates :start_time, presence: true
       validates :signed_off_by, presence: true
       validates :end_time, presence: true
+      validates :signed_off_at, presence: true
 
       belongs_to :profile
       belongs_to :dry_weight
 
       def self.policy_class
         ClosedSessionPolicy
+      end
+
+      def immutable?
+        return true unless persisted?
+        temporary_editing_window_has_elapsed?
       end
 
       class SessionDocument < ::Renalware::HD::SessionDocument
@@ -46,6 +52,13 @@ module Renalware
       end
 
       has_document class_name: "::Renalware::HD::Session::Closed::SessionDocument"
+
+      private
+
+      def temporary_editing_window_has_elapsed?
+        delay = Renalware.config.delay_after_which_a_finished_session_becomes_immutable
+        (Time.zone.now - delay) > signed_off_at
+      end
     end
   end
 end

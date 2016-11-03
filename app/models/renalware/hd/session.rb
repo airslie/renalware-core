@@ -38,10 +38,6 @@ module Renalware
 
       delegate :hospital_centre, to: :hospital_unit, allow_nil: true
 
-      def signed_off?
-        signed_off_by.present? && end_time.present?
-      end
-
       private
 
       def assign_modality

@@ -112,6 +112,19 @@ en:
   renalware:
     hd:
       sessions:
+        open:
+          edit: Sign off
+          view: View
+        closed:
+          edit: Edit
+          view: View
+        dna:
+          edit: Edit
+          view: View
+          form:
+            save: Save
+            delete_confirmation: Are you sure you want to delete this session?
+            notes: Notes
         list:
           title: Latest HD Sessions
           add_session: Add a Session
@@ -154,6 +167,7 @@ en:
         form_actions:
           signoff: Save and Sign-Off
           save: Save
+          delete_confirmation: Are you sure you want to delete this session?
         new:
           open:
             title: HD Session
@@ -169,15 +183,11 @@ en:
           dna:
             title: HD DNA Session
         row:
+          view: View
           open:
             edit: Sign Off
           closed:
             edit: Edit
           dna:
             edit: Edit
-        dna:
-          row:
-            edit: Edit
-          form:
-            save: Save
-            notes: Notes
+

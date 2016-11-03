@@ -1,8 +1,8 @@
 tr.hd-session-row(class=[session.state, stripe_class])
-  td.noprint(rowspan=2)
-    = link_to(t(".#{session.state}.edit"), session.edit_url) if session.edit_url
+  td.noprint(rowspan=2)= session.edit_or_view_url
   td(rowspan=2)= session.performed_on
-  td(rowspan=2)= session.hospital_unit_unit_code
+  td= session.hospital_unit_unit_code
+
   td= session.start_time
   td.derived(rowspan=2)= session.duration
   td= session.before_measurement_for(:weight)
@@ -21,6 +21,7 @@ tr.hd-session-row(class=[session.state, stripe_class])
   td.print-only(rowspan=2)= session.notes
 
 tr(class=[session.state, stripe_class])
+  td=tooltip(label: session.summarised_access_used, content: session.access_used)
   td= session.end_time
   td
     = session.after_measurement_for(:weight)

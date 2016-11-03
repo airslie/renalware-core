@@ -39,6 +39,14 @@ module Renalware
         save_session
       end
 
+      def destroy
+        session = Session.for_patient(@patient).find(params[:id])
+        authorize session
+        session.destroy!
+        message = t(".success", model_name: "HD session")
+        redirect_to patient_hd_dashboard_path(@patient), notice: message
+      end
+
       def save_session
         command = Sessions::SaveSession.new(patient: patient,
                                             current_user: current_user)

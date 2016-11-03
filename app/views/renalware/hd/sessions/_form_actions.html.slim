@@ -1,5 +1,12 @@
 = f.button :submit, value: t(".save")
 | &nbsp;
 = f.button :submit, name: 'signoff', value: t(".signoff")
+- if policy(session).destroy?
+  | &nbsp;
+  = link_to("Delete", patient_hd_session_path(patient, session),
+            data: { confirm: t(".delete_confirmation") },
+            method: :delete,
+            class: "button alert")
+| &nbsp;
 span= " or "
-= link_to 'cancel', back_path
+= link_to "cancel", back_path

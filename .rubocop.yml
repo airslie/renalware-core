@@ -3,8 +3,8 @@ AllCops:
   Exclude:
     - "vendor/**/*"
     - "db/schema.rb"
-    - "db/seeds/*"
-    - "db/migrate/*"
+    - "db/seeds/**/*"
+    - "db/migrate/**/*"
     - "config/initializers/devise.rb"
   UseCache: false
   DisabledByDefault: true

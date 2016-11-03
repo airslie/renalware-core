@@ -10,6 +10,10 @@ module Renalware
       def self.policy_class
         OpenSessionPolicy
       end
+
+      def immutable?
+        false
+      end
     end
   end
 end
