@@ -1,6 +1,6 @@
 FactoryGirl.define do
   sequence :nhs_number do |n|
-    n.to_s.rjust(10, "1234567890")
+    n.to_s.rjust(10, "0000000000")
   end
 
   sequence :local_patient_id do |n|

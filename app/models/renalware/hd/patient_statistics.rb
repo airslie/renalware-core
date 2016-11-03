@@ -13,7 +13,6 @@ module Renalware
                 presence: true,
                 uniqueness: { scope: [:month, :year] }
 
-      # month = 0 = rolling (last 12 months rolled up)
       validates :month,
                 numericality: true,
                 inclusion: 1..12,
@@ -22,7 +21,6 @@ module Renalware
       validates :month, presence: true, unless: :rolling?
       validates :year, presence: true, unless: :rolling?
 
-      # year = 0 = rolling (last 12 months rolled up)
       validates :year,
                 numericality: true,
                 inclusion: 1970..2100,

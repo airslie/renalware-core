@@ -18,7 +18,7 @@ module Renalware::HD
       subject.call
       expect(PatientStatistics.count).to eq(1)
       patient_statistics = PatientStatistics.first
-      expect(patient_statistics.hposital_unit).to eq(session.hposital_unit)
+      expect(patient_statistics.hospital_unit).to eq(session.hospital_unit)
     end
 
     # todo get seeds working with this

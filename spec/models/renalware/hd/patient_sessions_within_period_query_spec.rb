@@ -22,9 +22,9 @@ module Renalware
         end
 
         it "does not select Open (ongoing) sessions" do
-          pending "Waiting for another PR to merged in that will give us the Session::DNA type"
+
           sessions = query.call(patient: patient,
-                                starting_on: Time.zone.today - 1,
+                                starting_on: 4.weeks.ago,
                                 ending_on: Time.zone.today)
 
           types = sessions.map(&:type).uniq.sort
