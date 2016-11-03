@@ -87,26 +87,11 @@ RSpec.describe "Managing patients", type: :request do
       interpreter_notes: Faker::Lorem.sentence,
       admin_notes: Faker::Lorem.sentence,
       special_needs_notes: Faker::Lorem.sentence,
-      next_of_kin: {
-        name: Faker::Name.name,
-        telephone: Faker::PhoneNumber.phone_number,
-        address: address_attributes
-      },
       referral: {
         referring_physician_name: Faker::Name.name,
         referral_date: Faker::Date.backward(14),
         referral_type: "Unknown",
         referral_notes: Faker::Lorem.sentence
-      },
-      pharmacist: {
-        name: Faker::Name.name,
-        telephone: Faker::PhoneNumber.phone_number,
-        address: address_attributes
-      },
-      district_nurse: {
-        name: Faker::Name.name,
-        telephone: Faker::PhoneNumber.phone_number,
-        address: address_attributes
       }
     }
   end
