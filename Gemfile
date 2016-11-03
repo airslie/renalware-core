@@ -54,6 +54,7 @@ group :development do
   gem "awesome_print", "~> 1.7.0"
   gem "bullet", "~> 5.4"
   gem "rack-mini-profiler"
+  gem "terminal-notifier-guard"
 end
 
 group :development, :test do

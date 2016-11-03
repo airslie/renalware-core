@@ -384,6 +384,7 @@ GEM
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
     temple (0.7.7)
+    terminal-notifier-guard (1.7.0)
     thin (1.7.0)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
@@ -496,6 +497,7 @@ DEPENDENCIES
   spring (~> 1.7.2)
   spring-commands-cucumber (~> 1.0.1)
   spring-commands-rspec (~> 1.0.4)
+  terminal-notifier-guard
   thin
   uglifier (>= 1.3.0)
   underscore-rails (~> 1.8.3)
