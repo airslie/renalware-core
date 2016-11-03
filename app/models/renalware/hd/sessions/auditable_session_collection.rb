@@ -1,8 +1,16 @@
+#
+# Decorates an array of session objects, adding methods that provide e.g. a mean measured value
+# across all HD sessions for a patient. See also AuditableSession.
+#
+# Example usage:
+#
+#  recent_sessions = RecentPatientSessions.call # => [Session::DNA, Session::Closed, ...]
+#  auditable_sessions = AuditableSessionCollection.new(recent_sessions)
+#  auditable_sessions.pre_mean_systolic_blood_pressure => 121
+#
+
 require_dependency "renalware/hd"
 
-#
-# This class helps us to generate statistical data from a supplied array of HD Sessions.
-#
 module Renalware
   module HD
     module Sessions
