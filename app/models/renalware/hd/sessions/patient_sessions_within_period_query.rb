@@ -1,7 +1,7 @@
 module Renalware
   module HD
     module Sessions
-      class AuditableSessionsByPeriodQuery
+      class PatientSessionsWithinPeriodQuery
 
         def self.call(args)
           new.call(**args)

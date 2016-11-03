@@ -6,7 +6,7 @@ module Renalware
       include PatientScope
 
       belongs_to :patient
-      belongs_to :hospital_unit
+      belongs_to :hospital_unit, class_name: "Hospitals::Unit"
 
       validates :hospital_unit, presence: true
       validates :patient,
@@ -25,7 +25,8 @@ module Renalware
       # year = 0 = rolling (last 12 months rolled up)
       validates :year,
                 numericality: true,
-                inclusion: 1970..2100
+                inclusion: 1970..2100,
+                allow_nil: true
 
       validates :rolling,
                 inclusion: { in: [true, nil] }
