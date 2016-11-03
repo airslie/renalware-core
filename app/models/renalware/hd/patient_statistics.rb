@@ -6,9 +6,23 @@ module Renalware
       include PatientScope
 
       belongs_to :patient
+      belongs_to :hospital_unit
 
-      validates :patient, presence: true
-      validates :period_starts_at, presence: true
+      validates :hospital_unit, presence: true
+      validates :patient,
+                presence: true,
+                uniqueness: { scope: [:month, :year] }
+
+      # month = 0 = rolling (last 12 months rolled up)
+      validates :month,
+                numericality: true,
+                inclusion: 0..12,
+                allow_nil: true
+
+      # year = 0 = rolling (last 12 months rolled up)
+      validates :year,
+                numericality: true,
+                inclusion: 0..2100
     end
   end
 end

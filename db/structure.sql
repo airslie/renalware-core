@@ -828,9 +828,9 @@ ALTER SEQUENCE hd_dry_weights_id_seq OWNED BY hd_dry_weights.id;
 CREATE TABLE hd_patient_statistics (
     id integer NOT NULL,
     patient_id integer NOT NULL,
-    period_starts_at date NOT NULL,
-    period_ends_at date,
-    float_value numeric(10,2),
+    hospital_unit_id integer NOT NULL,
+    month integer NOT NULL,
+    year integer NOT NULL,
     pre_mean_systolic_blood_pressure numeric(10,2),
     pre_mean_diastolic_blood_pressure numeric(10,2),
     post_mean_systolic_blood_pressure numeric(10,2),
@@ -5067,6 +5067,20 @@ CREATE INDEX index_hd_dry_weights_on_updated_by_id ON hd_dry_weights USING btree
 
 
 --
+-- Name: index_hd_patient_statistics_on_hospital_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_patient_statistics_on_hospital_unit_id ON hd_patient_statistics USING btree (hospital_unit_id);
+
+
+--
+-- Name: index_hd_patient_statistics_on_month; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_patient_statistics_on_month ON hd_patient_statistics USING btree (month);
+
+
+--
 -- Name: index_hd_patient_statistics_on_patient_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5074,17 +5088,17 @@ CREATE INDEX index_hd_patient_statistics_on_patient_id ON hd_patient_statistics 
 
 
 --
--- Name: index_hd_patient_statistics_on_period_ends_at; Type: INDEX; Schema: public; Owner: -
+-- Name: index_hd_patient_statistics_on_patient_id_and_month_and_year; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_hd_patient_statistics_on_period_ends_at ON hd_patient_statistics USING btree (period_ends_at);
+CREATE UNIQUE INDEX index_hd_patient_statistics_on_patient_id_and_month_and_year ON hd_patient_statistics USING btree (patient_id, month, year);
 
 
 --
--- Name: index_hd_patient_statistics_on_period_starts_at; Type: INDEX; Schema: public; Owner: -
+-- Name: index_hd_patient_statistics_on_year; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_hd_patient_statistics_on_period_starts_at ON hd_patient_statistics USING btree (period_starts_at);
+CREATE INDEX index_hd_patient_statistics_on_year ON hd_patient_statistics USING btree (year);
 
 
 --
@@ -6370,6 +6384,14 @@ ALTER TABLE ONLY letter_contacts
 
 
 --
+-- Name: fk_rails_a654a17f8d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_patient_statistics
+    ADD CONSTRAINT fk_rails_a654a17f8d FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
+
+
+--
 -- Name: fk_rails_a70920e237; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7019,8 +7041,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161004185820');
 
 INSERT INTO schema_migrations (version) VALUES ('20161010191529');
 
-INSERT INTO schema_migrations (version) VALUES ('20161014091319');
-
 INSERT INTO schema_migrations (version) VALUES ('20161014134639');
 
 INSERT INTO schema_migrations (version) VALUES ('20161018174711');
@@ -7034,4 +7054,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161028145040');
 INSERT INTO schema_migrations (version) VALUES ('20161031170940');
 
 INSERT INTO schema_migrations (version) VALUES ('20161101105519');
+
+INSERT INTO schema_migrations (version) VALUES ('20161103091319');
 

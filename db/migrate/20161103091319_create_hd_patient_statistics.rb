@@ -1,12 +1,12 @@
 class CreateHDPatientStatistics < ActiveRecord::Migration
   def change
     create_table :hd_patient_statistics do |t|
-      t.references :patient, null: false, foreign_key: true, index: true
+      t.belongs_to :patient, null: false, index: true, foreign_key: true
+      t.belongs_to :hospital_unit, index: true, null: false, foreign_key: true
 
-      t.date :period_starts_at, null: false, index: true
-      t.date :period_ends_at, null: true, index: true
+      t.integer :month, index: true, null: false # 0 = rolling
+      t.integer :year, index: true, null: false  # 0 = rolling
 
-      t.decimal :float_value, precision: 10, scale: 2
       t.decimal :pre_mean_systolic_blood_pressure, precision: 10, scale: 2
       t.decimal :pre_mean_diastolic_blood_pressure, precision: 10, scale: 2
       t.decimal :post_mean_systolic_blood_pressure, precision: 10, scale: 2
@@ -21,5 +21,8 @@ class CreateHDPatientStatistics < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
+    # A patient can only have one row per month and one rolling row (month and year = 0)
+    add_index :hd_patient_statistics, [:patient_id, :month, :year], unique: true
   end
 end
