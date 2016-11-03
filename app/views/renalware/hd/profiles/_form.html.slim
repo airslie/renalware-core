@@ -8,7 +8,7 @@ ruby:
     = link_to "cancel", back_path
 
 .form-content
-  = f.simple_fields_for :document, f.object.document do |fd|
+  = f.simple_fields_for :document, profile.document do |fd|
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Admin", name: "admin" } do
@@ -18,20 +18,20 @@ ruby:
           collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
           label_method: :to_s,
           autofocus: true,
-          hint: f.object.hospital_unit_hint
-      = f.input :schedule, input_html: { class: "small-input" }, hint: f.object.schedule_hint
+          hint: profile.hospital_unit_hint
+      = f.input :schedule, input_html: { class: "small-input" }, hint: profile.schedule_hint
       = f.input :other_schedule, input_html: { class: "small-input" }
       = f.association :named_nurse, as: :user_picker, collection: Renalware::User.ordered
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Prescription", name: "prescription" } do
-      = f.input :prescribed_time, collection: f.object.class.prescribed_times, input_html: { class: "small-input" }
+      = f.input :prescribed_time, collection: profile.prescribed_times, input_html: { class: "small-input" }
       = f.input :prescribed_on, as: :date_picker
       = f.association :prescriber, as: :user_picker, collection: Renalware::User.ordered
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Dialysis", name: "dialysis" } do
-      = fd.simple_fields_for :dialysis, fd.object.dialysis do |fcm|
+      = fd.simple_fields_for :dialysis, profile.document.dialysis do |fcm|
         = fcm.input :hd_type, as: :inline_radio_buttons
         = fcm.input :cannulation_type, input_html: { class: "small-input" },
             collection: fcm.object.class.cannulation_types, value_method: :name
@@ -51,7 +51,7 @@ ruby:
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Anticoagulant", name: "anticoagulant" } do
-      = fd.simple_fields_for :anticoagulant, fd.object.anticoagulant do |fcm|
+      = fd.simple_fields_for :anticoagulant, profile.document.anticoagulant do |fcm|
         = fcm.input :type, input_html: { class: "small-input" }
         = fcm.input :loading_dose, input_html: { class: "small-input" }
         = fcm.input :hourly_dose, input_html: { class: "small-input" }
@@ -59,14 +59,14 @@ ruby:
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Drugs", name: "drugs" } do
-      = fd.simple_fields_for :drugs, fd.object.drugs do |fcm|
+      = fd.simple_fields_for :drugs, profile.document.drugs do |fcm|
         = fcm.input :on_esa, as: :inline_radio_buttons
         = fcm.input :on_iron, as: :inline_radio_buttons
         = fcm.input :on_warfarin, as: :inline_radio_buttons
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Transport", name: "transport" } do
-      = fd.simple_fields_for :transport, fd.object.transport do |fcm|
+      = fd.simple_fields_for :transport, profile.document.transport do |fcm|
         = fcm.input :has_transport, as: :inline_radio_buttons
         = fcm.input :type, input_html: { class: "small-input" }
         = fcm.input :decided_on, as: :date_picker
@@ -74,7 +74,7 @@ ruby:
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Care Level", name: "care_level" } do
-      = fd.simple_fields_for :care_level, fd.object.care_level do |fcm|
+      = fd.simple_fields_for :care_level, profile.document.care_level do |fcm|
         table
           = fcm.input :level
           = fcm.input :assessed_on, as: :date_picker
