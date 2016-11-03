@@ -829,8 +829,9 @@ CREATE TABLE hd_patient_statistics (
     id integer NOT NULL,
     patient_id integer NOT NULL,
     hospital_unit_id integer NOT NULL,
-    month integer NOT NULL,
-    year integer NOT NULL,
+    month integer,
+    year integer,
+    rolling boolean,
     pre_mean_systolic_blood_pressure numeric(10,2),
     pre_mean_diastolic_blood_pressure numeric(10,2),
     post_mean_systolic_blood_pressure numeric(10,2),
@@ -5092,6 +5093,20 @@ CREATE INDEX index_hd_patient_statistics_on_patient_id ON hd_patient_statistics 
 --
 
 CREATE UNIQUE INDEX index_hd_patient_statistics_on_patient_id_and_month_and_year ON hd_patient_statistics USING btree (patient_id, month, year);
+
+
+--
+-- Name: index_hd_patient_statistics_on_patient_id_and_rolling; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hd_patient_statistics_on_patient_id_and_rolling ON hd_patient_statistics USING btree (patient_id, rolling);
+
+
+--
+-- Name: index_hd_patient_statistics_on_rolling; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_patient_statistics_on_rolling ON hd_patient_statistics USING btree (rolling);
 
 
 --

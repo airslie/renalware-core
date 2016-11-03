@@ -4,8 +4,9 @@ class CreateHDPatientStatistics < ActiveRecord::Migration
       t.belongs_to :patient, null: false, index: true, foreign_key: true
       t.belongs_to :hospital_unit, index: true, null: false, foreign_key: true
 
-      t.integer :month, index: true, null: false # 0 = rolling
-      t.integer :year, index: true, null: false  # 0 = rolling
+      t.integer :month, index: true
+      t.integer :year, index: true
+      t.boolean :rolling, index: true
 
       t.decimal :pre_mean_systolic_blood_pressure, precision: 10, scale: 2
       t.decimal :pre_mean_diastolic_blood_pressure, precision: 10, scale: 2
@@ -22,7 +23,10 @@ class CreateHDPatientStatistics < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    # A patient can only have one row per month and one rolling row (month and year = 0)
+    # A patient can only have one row per month
     add_index :hd_patient_statistics, [:patient_id, :month, :year], unique: true
+
+    # A patient can only have one rolling row
+    add_index :hd_patient_statistics, [:patient_id, :rolling], unique: true
   end
 end

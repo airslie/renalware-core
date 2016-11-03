@@ -16,13 +16,19 @@ module Renalware
       # month = 0 = rolling (last 12 months rolled up)
       validates :month,
                 numericality: true,
-                inclusion: 0..12,
+                inclusion: 1..12,
                 allow_nil: true
+
+      validates :month, presence: true, unless: :rolling?
+      validates :year, presence: true, unless: :rolling?
 
       # year = 0 = rolling (last 12 months rolled up)
       validates :year,
                 numericality: true,
-                inclusion: 0..2100
+                inclusion: 1970..2100
+
+      validates :rolling,
+                inclusion: { in: [true, nil] }
     end
   end
 end
