@@ -124,6 +124,7 @@ en:
           form:
             save: Save
             delete_confirmation: Are you sure you want to delete this session?
+            notes: Notes
         list:
           title: Latest HD Sessions
           add_session: Add a Session
