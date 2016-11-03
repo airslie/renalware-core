@@ -35,8 +35,8 @@ module Renalware
       end
 
       def abbreviated_site(length: 13, omission: "&hellip;")
-        return if info.access_site.blank?
-        info.access_site.truncate(length, omission: omission)
+        access_site = info.access_site
+        access_site.truncate(length, omission: omission) unless access_site.blank?
       end
 
       def abbreviated_side
