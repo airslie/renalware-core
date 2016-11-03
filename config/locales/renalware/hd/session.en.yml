@@ -189,11 +189,4 @@ en:
             edit: Edit
           dna:
             edit: Edit
-        dna:
-          view: View
-          row:
-            edit: Edit
-          form:
-            save: Save
-            notes: Notes
-            delete_confirmation: Are you sure you want to delete this session?
+
