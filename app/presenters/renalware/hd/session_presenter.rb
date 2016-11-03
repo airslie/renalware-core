@@ -93,10 +93,12 @@ module Renalware
         i18n_scope = "renalware.hd.sessions.#{session.state}"
         if immutable?
           view_context.link_to(I18n.t(".view", scope: i18n_scope),
-                               view_context.patient_hd_session_path(patient, self))
+                               view_context.patient_hd_session_path(patient, self),
+                               class: "nowrap")
         else
           view_context.link_to(I18n.t(".edit", scope: i18n_scope),
-                               view_context.edit_patient_hd_session_path(patient, self))
+                               view_context.edit_patient_hd_session_path(patient, self),
+                               class: "nowrap")
         end
 
       end
