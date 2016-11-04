@@ -1,3 +1,6 @@
+# When executed this job updates rolling statistics for a patient's
+# last past 12 HD sessions.
+
 module Renalware
   module HD
     class UpdateRollingPatientStatisticsJob < ActiveJob::Base
