@@ -5,6 +5,8 @@ require "spec_helper"
 require "rspec/rails"
 require "shoulda/matchers"
 require "pundit/rspec"
+require "paper_trail/frameworks/rspec"
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -54,4 +56,12 @@ RSpec.configure do |config|
   config.include Select2SpecHelper, type: :feature
   config.include SelectDateSpecHelper, type: :feature
   config.include ActiveSupport::Testing::TimeHelpers
+
+  # By default, all specs will have versioning enabled.
+  # Enable it one spec/example_group at a time by adding `versioning: true`.
+  # Or you can enable it globally:
+  #   config.before(:each) do
+  #    ::PaperTrail.enabled = true
+  #   end
+  # See https://github.com/airblade/paper_trail#7b-rspec for more information.
 end

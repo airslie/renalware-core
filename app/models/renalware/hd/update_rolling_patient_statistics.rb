@@ -17,10 +17,7 @@ module Renalware
 
       def recent_sessions
         @recent_sessions ||= begin
-          Session.all
-          # Sessions::PatientSessionsWithinPeriodQuery.call(patient: patient,
-          #                                                 starting_on: 12.weeks.ago,
-          #                                                 ending_on: Time.zone.now)
+          Sessions::LatestPatientSessionsQuery.new(patient: patient).call
         end
       end
 

@@ -1,19 +1,23 @@
 module Renalware
   module HD
     module Sessions
-      class PatientSessionsWithinPeriodQuery
+      class LatestPatientSessionsQuery
 
-        def self.call(args)
-          new.call(**args)
+        def initialize(patient:)
+          @patient = patient
         end
 
-        def call(patient:, starting_on:, ending_on:)
+        def call(starting_on: 4.weeks.ago, ending_on: Time.zone.today, max_sessions: 12)
           Session.all
             .extending(Scopes)
             .for_patient(patient)
             .not_ongoing
             .within_period(starting_on, ending_on)
+            .limit(max_sessions)
         end
+
+        private
+        attr_reader :patient
 
         module Scopes
 
