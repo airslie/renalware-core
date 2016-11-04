@@ -18,7 +18,9 @@ module Renalware
 
       let(:nurse) { create(:user) }
       let(:patient) { create(:hd_patient) }
-      subject(:session) { build(:hd_session, patient: patient, signed_on_by: nurse, by: nurse) }
+      subject(:session) do
+        build(:hd_open_session, patient: patient, signed_on_by: nurse, by: nurse)
+      end
 
       it "is not immutable" do
         expect(described_class.new.immutable?).to be(false)
