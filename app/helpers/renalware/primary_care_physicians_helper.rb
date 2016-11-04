@@ -8,8 +8,12 @@ module Renalware
     end
 
     def practices_or_address(primary_care_physician)
-      return practices_list(primary_care_physician.practices) if primary_care_physician.practices.any?
-      return format_address(primary_care_physician.address) if primary_care_physician.address.present?
+      if primary_care_physician.practices.any?
+        return practices_list(primary_care_physician.practices)
+      end
+      if primary_care_physician.address.present?
+        return format_address(primary_care_physician.address)
+      end
     end
 
     private
