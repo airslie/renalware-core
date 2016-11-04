@@ -17,6 +17,27 @@ module Renalware
       class AuditableSessionCollection < SimpleDelegator
         attr_accessor :sessions
 
+        AUDITABLE_ATTRIBUTES = %i{
+          pre_mean_systolic_blood_pressure
+          pre_mean_diastolic_blood_pressure
+          post_mean_systolic_blood_pressure
+          post_mean_diastolic_blood_pressure
+          lowest_systolic_blood_pressure
+          highest_systolic_blood_pressure
+          mean_fluid_removal
+          mean_weight_loss
+          mean_machine_ktv
+          mean_blood_flow
+          mean_litres_processed
+        }
+
+        def to_h
+          AUDITABLE_ATTRIBUTES.inject({}) do |hash, sym|
+            hash[sym] = public_send(sym)
+            hash
+          end
+        end
+
         def initialize(sessions)
           @sessions = Array(sessions).map do |session|
             Renalware::HD::Sessions::AuditableSession.new(session)
@@ -45,11 +66,11 @@ module Renalware
         end
 
         def lowest_systolic_blood_pressure
-          all_blood_pressure_measurements.min_by(&:systolic)
+          all_blood_pressure_measurements.select(&:systolic).min_by(&:systolic)
         end
 
         def highest_systolic_blood_pressure
-          all_blood_pressure_measurements.max_by(&:systolic)
+          all_blood_pressure_measurements.select(&:systolic).max_by(&:systolic)
         end
 
         def dialysis_minutes_shortfall

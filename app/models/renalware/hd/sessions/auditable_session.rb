@@ -33,6 +33,10 @@ module Renalware
           super || NullObject.instance
         end
 
+        def document
+          super || SessionDocument.new
+        end
+
         # Note the profile here might be a NullHDProfile which will always return 0 for the
         # prescribed time - so sessions with a missing profile always report a
         # dialysis_time_shortfall of 0

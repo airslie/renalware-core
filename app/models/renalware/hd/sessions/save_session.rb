@@ -24,6 +24,8 @@ module Renalware
           @params = parse_params(params)
           session = find_or_create_session(id)
           session = update_session_attributes(session, signing_off)
+
+          UpdateRollingPatientStatisticsJob.perform_later(patient) unless session.open?
           if session.save
             broadcast(:save_success, session)
           else

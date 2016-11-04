@@ -1,27 +1,31 @@
 module Renalware
   module HD
-    class UpdateRollingPatientStatistics
+    class UpdateRollingPatientStatistics < ActiveJob::Base
 
-      def initialize(patient)
+      def initialize(patient:)
         @patient = patient
       end
 
       def call
         return unless recent_sessions.any?
-        patient_rolling_stats.hospital_unit = most_recently_used_hospital_unit
-        patient_rolling_stats.save!
+        stats = rolling_stats_for_this_patient
+        stats.hospital_unit = most_recently_used_hospital_unit
+        stats.assign_attributes(auditable_sessions.to_h)
+        stats.save!
       end
 
       private
       attr_reader :patient
 
       def recent_sessions
-        @recent_sessions ||= begin
-          Sessions::LatestPatientSessionsQuery.new(patient: patient).call
-        end
+        @recent_sessions ||= Sessions::LatestPatientSessionsQuery.new(patient: patient).call
       end
 
-      def patient_rolling_stats
+      def auditable_sessions
+        @auditable_sessions ||= Sessions:: AuditableSessionCollection.new(recent_sessions)
+      end
+
+      def rolling_stats_for_this_patient
         @patient_rolling_stats ||= begin
           PatientStatistics.where(patient: patient,
                                   rolling: true,
