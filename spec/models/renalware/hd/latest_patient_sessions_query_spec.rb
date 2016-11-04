@@ -46,7 +46,6 @@ module Renalware
           end
           sessions = query.new(patient: patient).call
           expect(sessions.count).to eq(12)
-
         end
       end
     end
