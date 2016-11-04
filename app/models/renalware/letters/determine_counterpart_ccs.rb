@@ -10,7 +10,9 @@ module Renalware
       def call
         counterpart_css = []
         counterpart_css << build_recipient("patient") if patient.cc_on_letter?(self)
-        counterpart_css << build_recipient("primary_care_physician") if patient.primary_care_physician.cc_on_letter?(self)
+        if patient.primary_care_physician.cc_on_letter?(self)
+          counterpart_css << build_recipient("primary_care_physician")
+        end
         counterpart_css
       end
 
