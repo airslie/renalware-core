@@ -40,6 +40,7 @@ gem "wicked_pdf", "~> 1.0.6"
 gem "wkhtmltopdf-binary", "~> 0.12.3"
 gem "activerecord-tableless", "~> 1.3.4"
 gem "naught", "~> 1.1.0"
+gem "delayed_job_web", "~> 1.2.10"
 
 source "https://rails-assets.org" do
   # https://github.com/najlepsiwebdesigner/foundation-datepicker
