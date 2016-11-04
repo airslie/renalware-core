@@ -35,5 +35,8 @@ module Renalware
     config.action_mailer.preview_path = Rails.root.join("app", "mailers", "previews")
 
     config.autoload_paths += %W(#{config.root}/app/validators/concerns)
+
+    config.active_record.raise_in_transactional_callbacks = true
+    config.active_job.queue_adapter = :delayed_job
   end
 end
