@@ -49,6 +49,7 @@ RSpec.describe "Add person to directory and assign as a contact for a patient",
         fill_in "Given Name", with: person.given_name
         fill_in "Line 1", with: person.address.street_1
         select contact_description.name, from: "Description"
+        fill_in "Notes", with: "some contact notes"
 
         click_on "Save"
       end

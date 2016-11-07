@@ -55,7 +55,7 @@ module Renalware
       def contact_attributes
         [
           :person_id, :default_cc, :description_id, :other_description,
-          person_attributes: person_attributes
+          :notes, person_attributes: person_attributes
         ]
       end
 

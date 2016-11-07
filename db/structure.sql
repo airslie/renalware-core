@@ -1181,7 +1181,8 @@ CREATE TABLE letter_contacts (
     updated_at timestamp without time zone NOT NULL,
     default_cc boolean DEFAULT false NOT NULL,
     description_id integer NOT NULL,
-    other_description character varying
+    other_description character varying,
+    notes text
 );
 
 
@@ -7071,4 +7072,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161031170940');
 INSERT INTO schema_migrations (version) VALUES ('20161101105519');
 
 INSERT INTO schema_migrations (version) VALUES ('20161103091319');
+
+INSERT INTO schema_migrations (version) VALUES ('20161107141354');
 
