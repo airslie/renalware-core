@@ -1,0 +1,44 @@
+fieldset.simple
+  legend
+    span.title= t(".title")
+
+  table.mdm.audit
+    thead
+      tr
+        th.col-width-medium= t(".period")
+        th.col-width-small= t(".number_of_sessions")
+        th.col-width-medium= t(".dialysis_minutes_shortfall")
+        th.col-width-small= t(".pre_mean_blood_pressure")
+        th.col-width-small= t(".post_mean_blood_pressure")
+        th.col-width-small= t(".lowest_systolic_blood_pressure")
+        th.col-width-small= t(".highest_systolic_blood_pressure")
+        th.col-width-small= t(".mean_fluid_removal")
+        th.col-width-small= t(".mean_weight_loss")
+        th.col-width-small= t(".mean_machine_ktv")
+        th.col-width-small= t(".mean_blood_flow")
+        th.col-width-small= t(".mean_litres_processed")
+        th.col-width-small= t(".mean_ufr")
+      tr
+
+    tbody
+      - audits.each do |audit|
+        tr
+          td= audit.to_s
+          td
+            = "#{audit.session_count - audit.number_of_missed_sessions} "
+            i.nowrap= "(+ #{audit.number_of_missed_sessions} DNA)"
+          td
+            = "#{audit.dialysis_minutes_shortfall} min "
+            span.nowrap= "(#{audit.dialysis_minutes_shortfall_percentage}%)"
+          td= "#{audit.pre_mean_systolic_blood_pressure.to_i} / #{audit.pre_mean_diastolic_blood_pressure.to_i}"
+          td= "#{audit.post_mean_systolic_blood_pressure.to_i} / #{audit.post_mean_diastolic_blood_pressure.to_i}"
+          td= audit.lowest_systolic_blood_pressure.to_i
+          td= audit.highest_systolic_blood_pressure.to_i
+          td= audit.mean_fluid_removal
+          td
+            = "#{audit.mean_weight_loss} "
+            span.nowrap="(#{audit.mean_weight_loss_as_percentage_of_body_weight} %)"
+          td= audit.mean_machine_ktv
+          td= audit.mean_blood_flow
+          td= audit.mean_litres_processed
+          td= audit.mean_ufr

@@ -1,12 +1,13 @@
 module Renalware
-  log "Adding Prescriptions for Roger RABBIT"
+  patient = Patient.find_by(family_name: "RABBIT", given_name: "Roger")
+
+  log "Adding Prescriptions for #{patient}"
 
   barts_doc = User.find_by!(username: "bartsdoc")
-  rabbit = Patient.find_by(family_name: "RABBIT", given_name: "Roger")
 
-  rabbit.prescriptions.create!(
+  patient.prescriptions.create!(
     drug_id: 183,
-    treatable: rabbit,
+    treatable: patient,
     dose_amount: "25",
     dose_unit: "milligram",
     medication_route_id: 1,
@@ -16,9 +17,9 @@ module Renalware
     by: barts_doc
   )
 
-  rabbit.prescriptions.create!(
+  patient.prescriptions.create!(
     drug_id: 269,
-    treatable: rabbit,
+    treatable: patient,
     dose_amount: "100",
     dose_unit: "milligram",
     medication_route_id: 1,
@@ -28,9 +29,9 @@ module Renalware
     by: barts_doc
   )
 
-  rabbit.prescriptions.create!(
+  patient.prescriptions.create!(
     drug_id: 126,
-    treatable: rabbit.peritonitis_episodes.first!,
+    treatable: patient.peritonitis_episodes.first!,
     dose_amount: "100",
     dose_unit: "milligram",
     medication_route_id: 1,
@@ -40,9 +41,9 @@ module Renalware
     by: barts_doc
   )
 
-  rabbit.prescriptions.create!(
+  patient.prescriptions.create!(
     drug_id: 986,
-    treatable: rabbit,
+    treatable: patient,
     dose_amount: "50",
     dose_unit: "milligram",
     medication_route_id: 1,

@@ -8,3 +8,6 @@ en:
         ongoing_hd_sessions: Ongoing HD Sessions
         letters: Letters
         esa_prescriptions: ESA Patients
+      mdms:
+        menu_title: MDMs
+        hd: HD

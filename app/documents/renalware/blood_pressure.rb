@@ -7,7 +7,11 @@ module Renalware
 
     def to_s
       return "" unless systolic.present? && diastolic.present?
-      "#{systolic}/#{diastolic}"
+      "#{systolic} / #{diastolic}"
+    end
+
+    def blank?
+      systolic.blank? && diastolic.blank?
     end
   end
 end

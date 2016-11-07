@@ -23,7 +23,7 @@ module Renalware
         expect(stats.month).to eq(month)
         expect(stats.year).to eq(year)
         expect(stats.rolling).to be_nil
-        # expect(stats.session_count).to eq(1)
+        expect(stats.session_count).to eq(1)
       end
     end
   end

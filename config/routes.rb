@@ -68,6 +68,7 @@ Rails.application.routes.draw do
       resources :cannulation_types, except: :show
       resources :dialysers, except: :show
       resource :ongoing_sessions, only: :show
+      resources :mdm_patients, only: :index
     end
 
     namespace :hospitals do
@@ -151,6 +152,7 @@ Rails.application.routes.draw do
       resources :events, only: [:new, :create, :index], controller: "events/events"
 
       namespace :hd do
+        resource :mdm, only: :show, controller: "mdm"
         resource :dashboard, only: :show
         resource :protocol,
                  only: :show,

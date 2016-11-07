@@ -17,6 +17,9 @@ module Renalware
       class AuditableSessionCollection < SimpleDelegator
 
         AUDITABLE_ATTRIBUTES = %i(
+          number_of_missed_sessions
+          dialysis_minutes_shortfall
+          dialysis_minutes_shortfall_percentage
           pre_mean_systolic_blood_pressure
           pre_mean_diastolic_blood_pressure
           post_mean_systolic_blood_pressure
@@ -25,9 +28,11 @@ module Renalware
           highest_systolic_blood_pressure
           mean_fluid_removal
           mean_weight_loss
+          mean_weight_loss_as_percentage_of_body_weight
           mean_machine_ktv
           mean_blood_flow
           mean_litres_processed
+          mean_ufr
         ).freeze
 
         def to_h

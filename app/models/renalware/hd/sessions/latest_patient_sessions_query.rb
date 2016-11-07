@@ -12,6 +12,7 @@ module Renalware
             .extending(Scopes)
             .for_patient(patient)
             .not_ongoing
+            .ordered
             .within_period(starting_on, ending_on)
             .limit(max_sessions)
         end

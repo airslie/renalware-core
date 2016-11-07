@@ -20,6 +20,7 @@ module Renalware::HD
       expect(PatientStatistics.count).to eq(1)
       patient_statistics = PatientStatistics.first
       expect(patient_statistics.hospital_unit).to eq(hospital_unit)
+      expect(patient_statistics.session_count).to eq(3) # excludes open
 
       Sessions::AuditableSessionCollection::AUDITABLE_ATTRIBUTES.each do |attr|
         expect(patient_statistics[attr]).to_not be_nil

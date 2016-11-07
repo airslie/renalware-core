@@ -147,6 +147,7 @@ en:
           to: 'On'
           duration: Dur
           site: Site
+          access: Access used
           time: Time
           weight: Weight
           pulse: Pulse

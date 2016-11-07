@@ -9,8 +9,9 @@ module Renalware
     class BloodPressurePresenceValidator < ActiveModel::EachValidator
       def validate_each(_record, _attribute, value)
         blood_pressure = value
-        blood_pressure.errors.add(:systolic, :blank) if blood_pressure.systolic.blank?
-        blood_pressure.errors.add(:diastolic, :blank) if blood_pressure.diastolic.blank?
+        errors = blood_pressure.errors
+        errors.add(:systolic, :blank) if blood_pressure.systolic.blank?
+        errors.add(:diastolic, :blank) if blood_pressure.diastolic.blank?
       end
     end
   end

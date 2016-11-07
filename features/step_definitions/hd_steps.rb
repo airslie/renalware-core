@@ -56,6 +56,10 @@ When(/^Nathalie records a DNA HD session for Patty with the notes "([^"]*)"$/) d
                      notes: notes)
 end
 
+When(/^Clyde brings up the MDM page for Patty$/) do
+  view_patient_mdm_page(patient: @patty, user: @clyde)
+end
+
 When(/^Nathalie views Patty's sessions$/) do
   view_patients_hd_sessions(patient: @patty, user: @nathalie)
 end
@@ -90,6 +94,10 @@ end
 
 When(/^Clyde views the list of ongoing HD sessions$/) do
   view_ongoing_hd_sessions(user: @clyde)
+end
+
+Then(/^the MDM displays the following sessions$/) do |table|
+  expect_mdm_to_include_patient_sessions(patient: @patty, table: table)
 end
 
 Then(/^Nathalie sees all Patty's HD sessions$/) do

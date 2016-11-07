@@ -5,32 +5,49 @@ module Renalware
       delegate :dialysis,
                :anticoagulant,
                :transport,
+               :drugs,
+               :care_level,
                to: :document
+
       delegate :dialyser,
                :dialysate_text,
                :cannulation_type,
                :needle_size,
                :single_needle,
+               :temperature,
+               :blood_flow,
                :has_sodium_profiling,
                :sodium_first_half,
                :sodium_second_half,
                to: :dialysis, allow_nil: true
+
       delegate :type,
                :loading_dose,
                :hourly_dose,
-               :stop_time,
                 to: :anticoagulant, allow_nil: true, prefix: true
+
       delegate :unit_code,
                to: :hospital_unit, prefix: true, allow_nil: true
+
+      delegate :on_esa,
+               :on_iron,
+               :on_warfarin,
+               to: :drugs, prefix: true, allow_nil: true
+
       delegate :has_transport,
                :type,
                :decided_on,
                to: :transport, prefix: true, allow_nil: true
+
       alias_attribute :dialysate, :dialysate_text
 
       def initialize(profile, preference_set: nil)
         super(profile)
         @preference_set = preference_set
+      end
+
+      def document
+        ProfileDocumentPresenter.new(__getobj__.document)
       end
 
       def hospital_unit_hint
@@ -64,7 +81,21 @@ module Renalware
       end
 
       def formatted_prescribed_time
-        Duration.from_minutes(prescribed_time).to_s
+        return unless prescribed_time
+        ::Renalware::Duration.from_minutes(prescribed_time).to_s
+      end
+
+      def blood_flow
+        "#{dialysis.blood_flow} ml/min" unless dialysis.blood_flow.blank?
+      end
+
+      def bicarbonate
+        dialysis.bicarbonate
+      end
+
+      def anticoagulant_stop_time
+        return if anticoagulant.stop_time.blank?
+        Duration.from_minutes(anticoagulant.stop_time).to_s
       end
     end
   end

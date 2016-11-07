@@ -183,3 +183,5 @@ Style/DotPosition:
   Enabled: true
   EnforcedStyle: leading
 
+Style/GuardClause:
+  Enabled: false

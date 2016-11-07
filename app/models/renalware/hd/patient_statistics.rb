@@ -28,6 +28,19 @@ module Renalware
 
       validates :rolling,
                 inclusion: { in: [true, nil] }
+
+      validates :session_count, presence: true, numericality: true
+
+      scope :ordered, lambda {
+        order(:rolling, year: :desc, month: :desc)
+      }
+
+      def to_s
+        return "Last #{session_count} sessions" if rolling?
+        if year > 0 && month > 0
+          Date.new(year, month).strftime("%b %Y")
+        end
+      end
     end
   end
 end
