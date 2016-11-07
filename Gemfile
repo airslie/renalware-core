@@ -59,7 +59,7 @@ group :development do
 end
 
 group :development, :test do
-  gem "bundler-audit", "~> 0.4.0", require: false
+  gem "bundler-audit", "~> 0.5.0", require: false
   gem "capybara", "~> 2.10.1"
   gem "cucumber-rails", "~> 1.4.5", require: false
   gem "database_cleaner", "~> 1.5.3"
