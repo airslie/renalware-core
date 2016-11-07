@@ -17,6 +17,7 @@
 
 = f.input :description_id, collection: contact_descriptions
 = f.input :other_description
+= f.input :notes, as: :text, input_html: { rows: 2 }
 
 // Disable `for` attribute, so it works when multiple contact form on the page
 = f.input :default_cc, label_html: { for: nil }
