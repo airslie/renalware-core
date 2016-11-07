@@ -822,6 +822,52 @@ ALTER SEQUENCE hd_dry_weights_id_seq OWNED BY hd_dry_weights.id;
 
 
 --
+-- Name: hd_patient_statistics; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE hd_patient_statistics (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    hospital_unit_id integer NOT NULL,
+    month integer,
+    year integer,
+    rolling boolean,
+    pre_mean_systolic_blood_pressure numeric(10,2),
+    pre_mean_diastolic_blood_pressure numeric(10,2),
+    post_mean_systolic_blood_pressure numeric(10,2),
+    post_mean_diastolic_blood_pressure numeric(10,2),
+    lowest_systolic_blood_pressure numeric(10,2),
+    highest_systolic_blood_pressure numeric(10,2),
+    mean_fluid_removal numeric(10,2),
+    mean_weight_loss numeric(10,2),
+    mean_machine_ktv numeric(10,2),
+    mean_blood_flow numeric(10,2),
+    mean_litres_processed numeric(10,2),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hd_patient_statistics_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE hd_patient_statistics_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_patient_statistics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE hd_patient_statistics_id_seq OWNED BY hd_patient_statistics.id;
+
+
+--
 -- Name: hd_preference_sets; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3559,6 +3605,13 @@ ALTER TABLE ONLY hd_dry_weights ALTER COLUMN id SET DEFAULT nextval('hd_dry_weig
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY hd_patient_statistics ALTER COLUMN id SET DEFAULT nextval('hd_patient_statistics_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY hd_preference_sets ALTER COLUMN id SET DEFAULT nextval('hd_preference_sets_id_seq'::regclass);
 
 
@@ -4226,6 +4279,14 @@ ALTER TABLE ONLY hd_dialysers
 
 ALTER TABLE ONLY hd_dry_weights
     ADD CONSTRAINT hd_dry_weights_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_patient_statistics_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_patient_statistics
+    ADD CONSTRAINT hd_patient_statistics_pkey PRIMARY KEY (id);
 
 
 --
@@ -5004,6 +5065,55 @@ CREATE INDEX index_hd_dry_weights_on_patient_id ON hd_dry_weights USING btree (p
 --
 
 CREATE INDEX index_hd_dry_weights_on_updated_by_id ON hd_dry_weights USING btree (updated_by_id);
+
+
+--
+-- Name: index_hd_patient_statistics_on_hospital_unit_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_patient_statistics_on_hospital_unit_id ON hd_patient_statistics USING btree (hospital_unit_id);
+
+
+--
+-- Name: index_hd_patient_statistics_on_month; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_patient_statistics_on_month ON hd_patient_statistics USING btree (month);
+
+
+--
+-- Name: index_hd_patient_statistics_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_patient_statistics_on_patient_id ON hd_patient_statistics USING btree (patient_id);
+
+
+--
+-- Name: index_hd_patient_statistics_on_patient_id_and_month_and_year; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hd_patient_statistics_on_patient_id_and_month_and_year ON hd_patient_statistics USING btree (patient_id, month, year);
+
+
+--
+-- Name: index_hd_patient_statistics_on_patient_id_and_rolling; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_hd_patient_statistics_on_patient_id_and_rolling ON hd_patient_statistics USING btree (patient_id, rolling);
+
+
+--
+-- Name: index_hd_patient_statistics_on_rolling; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_patient_statistics_on_rolling ON hd_patient_statistics USING btree (rolling);
+
+
+--
+-- Name: index_hd_patient_statistics_on_year; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_patient_statistics_on_year ON hd_patient_statistics USING btree (year);
 
 
 --
@@ -6289,6 +6399,14 @@ ALTER TABLE ONLY letter_contacts
 
 
 --
+-- Name: fk_rails_a654a17f8d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_patient_statistics
+    ADD CONSTRAINT fk_rails_a654a17f8d FOREIGN KEY (hospital_unit_id) REFERENCES hospital_units(id);
+
+
+--
 -- Name: fk_rails_a70920e237; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6342,6 +6460,14 @@ ALTER TABLE ONLY pd_peritonitis_episodes
 
 ALTER TABLE ONLY pathology_requests_patient_rules
     ADD CONSTRAINT fk_rails_b13e09c8a3 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_b163068880; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_patient_statistics
+    ADD CONSTRAINT fk_rails_b163068880 FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -6943,4 +7069,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161028145040');
 INSERT INTO schema_migrations (version) VALUES ('20161031170940');
 
 INSERT INTO schema_migrations (version) VALUES ('20161101105519');
+
+INSERT INTO schema_migrations (version) VALUES ('20161103091319');
 

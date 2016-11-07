@@ -14,7 +14,7 @@ module Renalware
       AGE_IN_MONTHS_THRESHOLD
     end
 
-    def self.new_from(years:, months:, days: nil)
+    def self.new_from(years:, months:, **)
       new.tap do |age|
         if years && months
           if years < age_in_months_threshold

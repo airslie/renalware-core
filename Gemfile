@@ -39,6 +39,8 @@ gem "activemodel-associations", "~> 0.1.2"
 gem "wicked_pdf", "~> 1.0.6"
 gem "wkhtmltopdf-binary", "~> 0.12.3"
 gem "activerecord-tableless", "~> 1.3.4"
+gem "naught", "~> 1.1.0"
+gem "delayed_job_web", "~> 1.2.10"
 
 source "https://rails-assets.org" do
   # https://github.com/najlepsiwebdesigner/foundation-datepicker
@@ -53,10 +55,11 @@ group :development do
   gem "awesome_print", "~> 1.7.0"
   gem "bullet", "~> 5.4"
   gem "rack-mini-profiler"
+  gem "terminal-notifier-guard"
 end
 
 group :development, :test do
-  gem "bundler-audit", "~> 0.4.0", require: false
+  gem "bundler-audit", "~> 0.5.0", require: false
   gem "capybara", "~> 2.10.1"
   gem "cucumber-rails", "~> 1.4.5", require: false
   gem "database_cleaner", "~> 1.5.3"

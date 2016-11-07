@@ -5,6 +5,15 @@ Rails.application.routes.draw do
     sessions: "renalware/devise/sessions"
   }
 
+  super_admin_constraint = lambda do |request|
+    current_user = request.env["warden"].user
+    current_user && current_user.respond_to?(:has_role?) && current_user.has_role?(:super_admin)
+  end
+
+  constraints super_admin_constraint do
+    match "/delayed_job" => DelayedJobWeb, :anchor => false, via: [:get, :post]
+  end
+
   # enable mail previews in all environments
   get "/rails/mailers" => "rails/mailers#index"
   get "/rails/mailers/*path" => "rails/mailers#preview"
@@ -150,7 +159,7 @@ Rails.application.routes.draw do
         resource :preference_set, only: [:edit, :update]
         resource :profile, only: [:show, :edit, :update]
         resources :sessions
-        resources :dry_weights, except: [:show, :destroy]
+        resources :dry_weights, only: [:new, :create, :index]
       end
 
       # Medications

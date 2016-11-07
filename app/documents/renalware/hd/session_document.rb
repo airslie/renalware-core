@@ -3,6 +3,13 @@ require "document/enum"
 
 module Renalware
   module HD
+
+    NullSessionDocument = Naught.build do |config|
+      config.black_hole
+      config.define_explicit_conversions
+      config.singleton
+    end
+
     class SessionDocument < Document::Embedded
       class Info < Document::Embedded
         attribute :hd_type, Document::Enum, enums: %i(hd hdf_pre hdf_post)
@@ -40,7 +47,7 @@ module Renalware
         attribute :arterial_pressure, Integer
         attribute :venous_pressure, Integer
         attribute :fluid_removed, Float
-        attribute :blood_flow, Integer
+        attribute :blood_flow, Integer # aka pump speed
         attribute :flow_rate, Integer
         attribute :machine_urr, Integer
         attribute :machine_ktv, Float

@@ -42,23 +42,6 @@ module Renalware
         end
       end
 
-      def edit
-        @dry_weight = DryWeight.for_patient(patient).find(params[:id])
-      end
-
-      def update
-        @dry_weight = DryWeight.for_patient(patient).find(params[:id])
-        @dry_weight.attributes = dry_weight_params
-
-        if @dry_weight.save
-          redirect_to patient_hd_dashboard_path(patient),
-            notice: t(".success", model_name: "dry weight")
-        else
-          flash[:error] = t(".failed", model_name: "dry weight")
-          render :edit
-        end
-      end
-
       protected
 
       def dry_weight_params

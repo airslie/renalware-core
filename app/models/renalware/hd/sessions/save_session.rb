@@ -25,12 +25,14 @@ module Renalware
           session = find_or_create_session(id)
           session = update_session_attributes(session, signing_off)
 
+          UpdateRollingPatientStatisticsJob.perform_later(patient) unless session.open?
           if session.save
             broadcast(:save_success, session)
           else
             session.type = session_type  # See method comment
             broadcast(:save_failure, session)
           end
+
         end
 
         private
@@ -46,12 +48,6 @@ module Renalware
           session.attributes = params
           session.by = current_user
           lookup_access_type_abbreviation(session)
-          session
-        end
-
-        def sign_off!(session)
-          session = session.becomes!(Session::Closed)
-          session.signed_off_at = Time.zone.now
           session
         end
 
