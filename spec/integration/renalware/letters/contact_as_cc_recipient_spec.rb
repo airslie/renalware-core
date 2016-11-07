@@ -53,7 +53,7 @@ RSpec.describe "Assign a person as a CC recipient", type: :feature do
         fill_autocomplete "#add-patient-contact-as-cc-modal", "person_auto_complete",
           with: person.family_name, select: person.to_s
         select contact_description.name, from: "Description"
-
+        fill_in "Notes", with: "some contact notes"
         click_on "Save"
       end
 
