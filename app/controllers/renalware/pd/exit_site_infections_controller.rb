@@ -22,9 +22,9 @@ module Renalware
 
       def create
         @exit_site_infection = ExitSiteInfection.new(exit_site_infection_params)
-        @exit_site_infection.patient_id = @patient.id
+        @exit_site_infection.patient_id = patient.id
         if @exit_site_infection.save
-          redirect_to patient_pd_exit_site_infection_path(@patient, @exit_site_infection),
+          redirect_to patient_pd_exit_site_infection_path(patient, @exit_site_infection),
             notice: t(".success", model_name: "exit site infection")
         else
           flash[:error] = t(".failed", model_name: "exit site infection")

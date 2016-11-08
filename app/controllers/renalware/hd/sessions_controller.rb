@@ -65,7 +65,7 @@ module Renalware
       def save_failure(session)
         flash[:error] = t(".failed", model_name: "HD session")
         action = action_name.to_sym == :create ? :new : :edit
-        render action, locals: { session: session }
+        render action, locals: { session: session, patient: patient }
       end
 
       protected

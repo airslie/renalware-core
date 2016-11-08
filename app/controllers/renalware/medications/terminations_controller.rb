@@ -9,18 +9,18 @@ module Renalware
       before_action :load_patient
 
       def new
-        prescription = @patient.prescriptions.find(params[:prescription_id])
+        prescription = patient.prescriptions.find(params[:prescription_id])
         termination = prescription.build_termination(terminated_on: Date.current)
         @treatable = treatable_class.find(treatable_id)
 
         render_form(
           prescription, termination,
-          url: patient_medications_prescription_termination_path(@patient, prescription, @treatable)
+          url: patient_medications_prescription_termination_path(patient, prescription, @treatable)
         )
       end
 
       def create
-        prescription = @patient.prescriptions.find(params[:prescription_id])
+        prescription = patient.prescriptions.find(params[:prescription_id])
         @treatable = treatable_class.find(treatable_id)
 
         termination = prescription.build_termination(termination_params)
@@ -30,7 +30,7 @@ module Renalware
         else
           render_form(
             prescription, termination,
-            url: patient_medications_prescription_termination_path(@patient,
+            url: patient_medications_prescription_termination_path(patient,
                                                                    prescription,
                                                                    @treatable)
           )
@@ -48,7 +48,7 @@ module Renalware
 
       def render_form(prescription, termination, url:)
         render "form", locals: {
-          patient: @patient,
+          patient: patient,
           treatable: @treatable,
           prescription: present(prescription, PrescriptionPresenter),
           termination: termination,
@@ -60,7 +60,7 @@ module Renalware
 
       def render_index
         render "renalware/medications/prescriptions/index", locals: {
-          patient: @patient,
+          patient: patient,
           treatable: present(@treatable, TreatablePresenter),
           current_search: current_prescriptions_query.search,
           current_prescriptions: present(current_prescriptions, PrescriptionPresenter),

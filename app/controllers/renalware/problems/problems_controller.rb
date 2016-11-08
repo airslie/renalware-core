@@ -6,25 +6,25 @@ module Renalware
       def index
         render :index, locals: {
           problem: Problem.new,
-          current_problems: @patient.problems.current.ordered,
-          archived_problems: @patient.problems.archived.ordered
+          current_problems: patient.problems.current.ordered,
+          archived_problems: patient.problems.archived.ordered
         }
       end
 
       def show
-        @problem = @patient.problems.with_archived.find(params[:id])
+        @problem = patient.problems.with_archived.find(params[:id])
         @notes = @problem.notes.ordered
       end
 
       def edit
-        @problem = @patient.problems.find(params[:id])
+        @problem = patient.problems.find(params[:id])
       end
 
       def update
-        @problem = @patient.problems.find(params[:id])
+        @problem = patient.problems.find(params[:id])
 
         if @problem.update(problem_params)
-          redirect_to patient_problems_path(@patient),
+          redirect_to patient_problems_path(patient),
             notice: t(".success", model_name: "problem")
         else
           flash[:error] = t(".failed", model_name: "problem")
@@ -33,11 +33,11 @@ module Renalware
       end
 
       def create
-        @problems = @patient.problems
-        @problem = @patient.problems.new(problem_params)
+        @problems = patient.problems
+        @problem = patient.problems.new(problem_params)
 
         if @problem.save
-          redirect_to patient_problems_url(@patient),
+          redirect_to patient_problems_url(patient),
             notice: t(".success", model_name: "problem")
         else
           flash[:error] = t(".failed", model_name: "problem")
@@ -46,10 +46,10 @@ module Renalware
       end
 
       def destroy
-        @problem = @patient.problems.find(params[:id])
+        @problem = patient.problems.find(params[:id])
         @problem.destroy
 
-        redirect_to patient_problems_path(@patient),
+        redirect_to patient_problems_path(patient),
           notice: t(".success", model_name: "problem")
       end
 

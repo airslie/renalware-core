@@ -4,7 +4,7 @@ module Renalware
       before_action :load_patient, only: :create
 
       def create
-        patients_user.bookmarks.create!(bookmark_params.update(patient: @patient))
+        patients_user.bookmarks.create!(bookmark_params.update(patient: patient))
         redirect_to :back, notice: t(".success", model_name: "bookmark")
       end
 

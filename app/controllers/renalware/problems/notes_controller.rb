@@ -11,7 +11,7 @@ module Renalware
       def new
         load_problem
         note = @problem.notes.new
-        render_form(note, url: patient_problem_notes_path(@patient, @problem))
+        render_form(note, url: patient_problem_notes_path(patient, @problem))
       end
 
       def create
@@ -21,14 +21,14 @@ module Renalware
         if note.save
           render_index
         else
-          render_form(note, url: patient_problem_notes_path(@patient, @problem))
+          render_form(note, url: patient_problem_notes_path(patient, @problem))
         end
       end
 
       private
 
       def load_problem
-        @problem = @patient.problems.find(params[:problem_id])
+        @problem = patient.problems.find(params[:problem_id])
       end
 
       def render_index
