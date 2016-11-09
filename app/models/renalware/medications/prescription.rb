@@ -79,7 +79,7 @@ module Renalware
       # @section predicates
       #
 
-      def current?(date=Date.current)
+      def current?(date = Date.current)
         self.terminated_on.nil? || self.terminated_on >= date
       end
 

@@ -3,7 +3,7 @@ require_dependency "renalware/hd"
 module Renalware
   module Letters
     class LetterFactory
-      def initialize(patient, params={})
+      def initialize(patient, params = {})
         @params = LetterParamsProcessor.new(patient).call(params)
         @patient = patient
         @default_ccs = []

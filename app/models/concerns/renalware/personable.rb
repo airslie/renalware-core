@@ -11,7 +11,7 @@ module Renalware
         "#{given_name} #{family_name}"
       end
 
-      def to_s(format=:default)
+      def to_s(format = :default)
         case format
         when :default
           "#{family_name}, #{given_name}"

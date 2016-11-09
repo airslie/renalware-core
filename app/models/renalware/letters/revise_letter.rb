@@ -9,7 +9,7 @@ module Renalware
         self.new
       end
 
-      def call(patient, letter_id, params={})
+      def call(patient, letter_id, params = {})
         letter = patient.letters.pending.find(letter_id)
         Letter.transaction do
           letter.revise(params)

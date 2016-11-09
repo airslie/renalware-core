@@ -12,7 +12,7 @@ module Renalware
         @presenter = presenter
       end
 
-      def call(params={})
+      def call(params = {})
         observations_for_descriptions = find_observations_for_descriptions
         observation_date_series = determine_observation_date_series(observations_for_descriptions)
         paginated_date_series = paginate(observation_date_series, params)

@@ -76,7 +76,7 @@ module Renalware
       "&nbsp;".html_safe
     end
 
-    def inline_image_tag(file_path, options={})
+    def inline_image_tag(file_path, options = {})
       image = inline_image(file_path)
       image_tag(image.src, options)
     end

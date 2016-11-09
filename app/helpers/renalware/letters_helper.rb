@@ -1,6 +1,6 @@
 module Renalware
   module LettersHelper
-    def patient_letters_letters_path(patient, event=nil)
+    def patient_letters_letters_path(patient, event = nil)
       if event.present?
         super(patient, event_type: event.class.to_s, event_id: event.id)
       else
@@ -8,7 +8,7 @@ module Renalware
       end
     end
 
-    def inline_value(label, value, unit=nil)
+    def inline_value(label, value, unit = nil)
       [
         content_tag(:strong, "#{label}: "),
         value,

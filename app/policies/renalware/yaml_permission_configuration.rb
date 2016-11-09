@@ -29,7 +29,7 @@ module Renalware
   #    configuration.restricted? # => false
   #
   class YAMLPermissionConfiguration
-    def initialize(model_class, filename=nil)
+    def initialize(model_class, filename = nil)
       @model_class = model_class
       @filename =  filename || default_filename
     end

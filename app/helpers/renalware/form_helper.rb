@@ -9,7 +9,7 @@ module Renalware
       render "renalware/shared/documents/#{class_name}_input", attribute: attribute, f: builder
     end
 
-    def monospace(value, width=5)
+    def monospace(value, width = 5)
       content_tag(:span, class: "monospaced") do
         concat("%#{width}s" % value).gsub(/ /, "&nbsp;").html_safe
       end

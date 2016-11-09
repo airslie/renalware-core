@@ -9,7 +9,7 @@ module Renalware
         self.new
       end
 
-      def call(patient, params={})
+      def call(patient, params = {})
         letter = LetterFactory.new(patient, params).build
         letter.save!
         letter.reload
