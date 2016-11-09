@@ -1,3 +1,4 @@
+# rubocop:disable Style/EmptyLineBetweenDefs
 require "document/embedded"
 require "document/enum"
 
