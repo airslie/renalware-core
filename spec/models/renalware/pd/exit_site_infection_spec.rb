@@ -15,8 +15,8 @@ module Renalware
         @proteus = create(:organism_code, name: "Proteus")
         @user = create(:user)
 
-        load_drugs_by_type("Cephradine" => ["Antibiotic","Peritonitis"],
-                           "Dicloxacillin" => ["Antibiotic","Peritonitis"])
+        load_drugs_by_type("Cephradine" => ["Antibiotic", "Peritonitis"],
+                           "Dicloxacillin" => ["Antibiotic", "Peritonitis"])
 
         load_med_routes
       end

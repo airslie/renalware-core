@@ -47,7 +47,7 @@ module Renalware
       end
 
       def match_bag_type
-        glucose_types = [[],[],[]]
+        glucose_types = [[], [], []]
 
         self.regime_bags.each do |bag|
           case bag.bag_type.glucose_grams_per_litre.to_f

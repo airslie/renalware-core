@@ -9,7 +9,7 @@ module Renalware
         p1 = create(:practice, name: "AAA")
         create(:practice, name: "BBB")
         p3 = create(:practice, name: "CCC")
-        primary_care_physician = build_stubbed(:primary_care_physician, practices: [p1,p3])
+        primary_care_physician = build_stubbed(:primary_care_physician, practices: [p1, p3])
         actual = practices_options_for_select(primary_care_physician)
 
         expect(actual).to have_tag("option", with: { selected: "selected" }) { with_text("AAA") }
