@@ -19,32 +19,32 @@ module Renalware
         prescription = Prescription.new(treatable: @treatable)
         prescription.build_termination
 
-        render_form(prescription, url: patient_prescriptions_path(@patient, @treatable))
+        render_form(prescription, url: patient_prescriptions_path(patient, @treatable))
       end
 
       def create
         @treatable = treatable_class.find(treatable_id)
 
-        prescription = @patient.prescriptions.new(
+        prescription = patient.prescriptions.new(
           prescription_params.merge(treatable: @treatable)
         )
 
         if prescription.save
           render_index
         else
-          render_form(prescription, url: patient_prescriptions_path(@patient, @treatable))
+          render_form(prescription, url: patient_prescriptions_path(patient, @treatable))
         end
       end
 
       def edit
-        prescription = @patient.prescriptions.find(params[:id])
+        prescription = patient.prescriptions.find(params[:id])
         @treatable = prescription.treatable
 
-        render_form(prescription, url: patient_prescription_path(@patient, prescription))
+        render_form(prescription, url: patient_prescription_path(patient, prescription))
       end
 
       def update
-        prescription = @patient.prescriptions.find(params[:id])
+        prescription = patient.prescriptions.find(params[:id])
         @treatable = prescription.treatable
 
         updated = RevisePrescription.new(prescription).call(prescription_params)
@@ -52,7 +52,7 @@ module Renalware
         if updated
           render_index
         else
-          render_form(prescription, url: patient_prescription_path(@patient, prescription))
+          render_form(prescription, url: patient_prescription_path(patient, prescription))
         end
       end
 
@@ -60,7 +60,7 @@ module Renalware
 
       def render_index
         render "index", locals: {
-          patient: @patient,
+          patient: patient,
           treatable: present(@treatable, TreatablePresenter),
           current_search: current_prescriptions_query.search,
           current_prescriptions: present(current_prescriptions, PrescriptionPresenter),
@@ -72,7 +72,7 @@ module Renalware
 
       def render_form(prescription, url:)
         render "form", locals: {
-          patient: @patient,
+          patient: patient,
           treatable: @treatable,
           prescription: prescription,
           provider_codes: present(Provider.codes, ProviderCodePresenter),

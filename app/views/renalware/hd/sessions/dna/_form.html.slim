@@ -1,5 +1,5 @@
 ruby:
-  back_path = patient_hd_dashboard_path(@patient)
+  back_path = patient_hd_dashboard_path(patient)
 = f.input :type, as: :hidden
 .form-content
   = render layout: "renalware/shared/fieldset",
@@ -19,7 +19,7 @@ ruby:
       = f.button :submit, value: t(".save")
       - if policy(session).destroy?
         | &nbsp;
-        = link_to("Delete", patient_hd_session_path(@patient, session),
+        = link_to("Delete", patient_hd_session_path(patient, session),
                   data: { confirm: t(".delete_confirmation") },
                   method: :delete,
                   class: "button alert")

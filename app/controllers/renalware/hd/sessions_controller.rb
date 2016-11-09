@@ -16,14 +16,14 @@ module Renalware
       def show
         session = Session.for_patient(patient).find(params[:id])
         presenter = SessionPresenter.new(session, view_context)
-        render :show, locals: { session: presenter }
+        render :show, locals: { session: presenter, patient: patient }
       end
 
       def new
         session = SessionFactory.new(patient: patient,
                                      user: current_user,
                                      type: params[:type]).build
-        render :new, locals: { session: session }
+        render :new, locals: { session: session, patient: patient }
       end
 
       def create
@@ -32,7 +32,7 @@ module Renalware
 
       def edit
         session = Session.for_patient(patient).find(params[:id])
-        render :edit, locals: { session: session }
+        render :edit, locals: { session: session, patient: patient }
       end
 
       def update
@@ -40,11 +40,11 @@ module Renalware
       end
 
       def destroy
-        session = Session.for_patient(@patient).find(params[:id])
+        session = Session.for_patient(patient).find(params[:id])
         authorize session
         session.destroy!
         message = t(".success", model_name: "HD session")
-        redirect_to patient_hd_dashboard_path(@patient), notice: message
+        redirect_to patient_hd_dashboard_path(patient), notice: message
       end
 
       def save_session
@@ -65,7 +65,7 @@ module Renalware
       def save_failure(session)
         flash[:error] = t(".failed", model_name: "HD session")
         action = action_name.to_sym == :create ? :new : :edit
-        render action, locals: { session: session }
+        render action, locals: { session: session, patient: patient }
       end
 
       protected

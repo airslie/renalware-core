@@ -8,4 +8,7 @@
         url: patient_hd_session_path(@patient, session),
         wrapper: "horizontal_form" do |f|
 
-      = render "renalware/hd/sessions/#{session.state}/form", f: f, session: session
+      = render "renalware/hd/sessions/#{session.state}/form",
+               f: f,
+               session: session,
+               patient: patient

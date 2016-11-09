@@ -23,7 +23,7 @@ module Renalware
             disposition: disposition,
             print_media_type: true,
             locals: {
-              protocol: ProtocolPresenter.new(@patient, view_context)
+              protocol: ProtocolPresenter.new(patient, view_context)
             }
         ))
       end
@@ -41,7 +41,7 @@ module Renalware
       end
 
       def pdf_filename
-        "#{@patient.family_name}-#{@patient.local_patient_id}-protocol".upcase
+        "#{patient.family_name}-#{patient.local_patient_id}-protocol".upcase
       end
     end
   end

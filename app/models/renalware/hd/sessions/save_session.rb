@@ -39,7 +39,7 @@ module Renalware
 
         def parse_params(params)
           @session_type = params.delete(:type)
-          raise(ArgumentError, "Missing type in session params") unless @session_type.present?
+          raise(ArgumentError, "Missing type in session params") unless session_type.present?
           params
         end
 
