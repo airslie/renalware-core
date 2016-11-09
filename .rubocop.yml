@@ -23,10 +23,6 @@ Metrics/BlockLength:
   Enabled: false
 
 Metrics/AbcSize:
-  Description: >-
-                 A calculated magnitude based on number of assignments,
-                 branches, and conditions.
-  Reference: 'http://c2.com/cgi/wiki?AbcMetric'
   Enabled: true
   Exclude:
     - "features/**/*"
@@ -45,297 +41,145 @@ Metrics/LineLength:
   Enabled: true
 
 Metrics/MethodLength:
-  Description: 'Avoid methods longer than 30 lines of code.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#short-methods'
   Enabled: true
   Max: 30
 
 Metrics/ModuleLength:
-  Description: 'Avoid modules longer than 250 lines of code.'
   Enabled: true
   Max: 250
-
-# Metrics/ParameterLists:
-#   Description: 'Avoid parameter lists longer than three or four parameters.'
-#   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#too-many-params'
-#   Enabled: true
-
-# Metrics/PerceivedComplexity:
-#   Description: >-
-#                  A complexity metric geared towards measuring complexity for a
-#                  human reader.
-#   Enabled: true
-
-# ##################### Performance #############################
-
-# Performance/Count:
-#   Description: >-
-#                   Use `count` instead of `select...size`, `reject...size`,
-#                   `select...count`, `reject...count`, `select...length`,
-#                   and `reject...length`.
-#   Enabled: true
-
-# Performance/Detect:
-#   Description: >-
-#                   Use `detect` instead of `select.first`, `find_all.first`,
-#                   `select.last`, and `find_all.last`.
-#   Reference: 'https://github.com/JuanitoFatas/fast-ruby#enumerabledetect-vs-enumerableselectfirst-code'
-#   Enabled: true
-
-# Performance/FlatMap:
-#   Description: >-
-#                   Use `Enumerable#flat_map`
-#                   instead of `Enumerable#map...Array#flatten(1)`
-#                   or `Enumberable#collect..Array#flatten(1)`
-#   Reference: 'https://github.com/JuanitoFatas/fast-ruby#enumerablemaparrayflatten-vs-enumerableflat_map-code'
-#   Enabled: true
-#   EnabledForFlattenWithoutParams: false
-#   # If enabled, this cop will warn about usages of
-#   # `flatten` being called without any parameters.
-#   # This can be dangerous since `flat_map` will only flatten 1 level, and
-#   # `flatten` without any parameters can flatten multiple levels.
-
-# Performance/ReverseEach:
-#   Description: 'Use `reverse_each` instead of `reverse.each`.'
-#   Reference: 'https://github.com/JuanitoFatas/fast-ruby#enumerablereverseeach-vs-enumerablereverse_each-code'
-#   Enabled: true
-
-# Performance/Sample:
-#   Description: >-
-#                   Use `sample` instead of `shuffle.first`,
-#                   `shuffle.last`, and `shuffle[Fixnum]`.
-#   Reference: 'https://github.com/JuanitoFatas/fast-ruby#arrayshufflefirst-vs-arraysample-code'
-#   Enabled: true
-
-# Performance/Size:
-#   Description: >-
-#                   Use `size` instead of `count` for counting
-#                   the number of elements in `Array` and `Hash`.
-#   Reference: 'https://github.com/JuanitoFatas/fast-ruby#arraycount-vs-arraysize-code'
-#   Enabled: true
-
-# Performance/StringReplacement:
-#   Description: >-
-#                   Use `tr` instead of `gsub` when you are replacing the same
-#                   number of characters. Use `delete` instead of `gsub` when
-#                   you are deleting characters.
-#   Reference: 'https://github.com/JuanitoFatas/fast-ruby#stringgsub-vs-stringtr-code'
-#   Enabled: true
 
 # ##################### Rails ##################################
 
 Rails/ActionFilter:
-  Description: 'Enforces consistent use of action filter methods.'
   Enabled: false
 
 Rails/Date:
-  Description: >-
-                  Checks the correct usage of date aware methods,
-                  such as Date.today, Date.current etc.
   Enabled: false
 
 Rails/Delegate:
-  Description: 'Prefer delegate method for delegations.'
   Enabled: false
 
 Rails/FindBy:
-  Description: 'Prefer find_by over where.first.'
   Enabled: false
 
 Rails/HasAndBelongsToMany:
-  Description: 'Prefer has_many :through to has_and_belongs_to_many.'
   Enabled: false
 
 Rails/Output:
-  Description: 'Checks for calls to puts, print, etc.'
   Enabled: false
 
 Rails/ReadWriteAttribute:
-  Description: >-
-                 Checks for read_attribute(:attr) and
-                 write_attribute(:attr, val).
   Enabled: false
 
 Rails/TimeZone:
-  Description: 'Checks the correct usage of time zone aware methods.'
-  StyleGuide: 'https://github.com/bbatsov/rails-style-guide#time'
-  Reference: 'http://danilenko.org/2012/7/6/rails_timezones'
   Enabled: false
 
 Rails/Validation:
-  Description: 'Use validates :attribute, hash of validations.'
   Enabled: false
 
 # ################## Style #################################
 
 Style/AccessorMethodName:
-  Description: Check the naming of accessor methods for get_/set_.
   Enabled: true
 
 Style/Alias:
-  Description: 'Use alias_method instead of alias.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#alias-method'
   Enabled: true
 
 Style/AlignArray:
-  Description: >-
-                 Align the elements of an array literal if they span more than
-                 one line.
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#align-multiline-arrays'
   Enabled: false
 
 Style/AlignHash:
-  Description: >-
-                 Align the elements of a hash literal if they span more than
-                 one line.
   Enabled: false
 
 Style/AlignParameters:
-  Description: >-
-                 Align the parameters of a method call if they span more
-                 than one line.
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-double-indent'
   Enabled: false
 
 Style/BarePercentLiterals:
-  Description: 'Checks if usage of %() or %Q() matches configuration.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#percent-q-shorthand'
   Enabled: false
 
 Style/BlockDelimiters:
-  Description: >-
-                Avoid using {...} for multi-line blocks (multiline chaining is
-                always ugly).
-                Prefer {...} over do...end for single-line blocks.
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#single-line-blocks'
   Enabled: false
 
 Style/BracesAroundHashParameters:
-  Description: 'Enforce braces style around hash parameters.'
   Enabled: false
 
 Style/ClassAndModuleChildren:
-  Description: 'Checks style of children classes and modules.'
   Enabled: false
 
 Style/ClosingParenthesisIndentation:
-  Description: 'Checks the indentation of hanging closing parentheses.'
   Enabled: false
 
 Style/Documentation:
-  Description: 'Document classes and non-namespace modules.'
   Enabled: false
 
 Style/EmptyLines:
-  Description: "Don't use several empty lines in a row."
   Enabled: true
   Exclude:
     - "features/**/*"
     - "config/**/*"
 
 Style/EmptyLinesAroundBlockBody:
-  Description: "Keeps track of empty lines around block bodies."
   Enabled: false
 
 Style/EmptyLinesAroundClassBody:
-  Description: "Keeps track of empty lines around class bodies."
   Enabled: false
 
 Style/EmptyLinesAroundModuleBody:
-  Description: "Keeps track of empty lines around module bodies."
   Enabled: false
 
 Style/EmptyLiteral:
-  Description: 'Prefer literals to Array.new/Hash.new/String.new.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#literal-array-hash'
   Enabled: false
 
 Style/FirstParameterIndentation:
-  Description: 'Checks the indentation of the first parameter in a method call.'
   Enabled: false
 
 Style/FormatString:
-  Description: 'Enforce the use of Kernel#sprintf, Kernel#format or String#%.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#sprintf'
   Enabled: false
 
 Style/GuardClause:
-  Description: 'Check for conditionals that can be replaced with guard clauses'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-nested-conditionals'
   Enabled: false
 
 Style/IfUnlessModifier:
-  Description: >-
-                 Favor modifier if/unless usage when you have a
-                 single-line body.
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#if-as-a-modifier'
   Enabled: false
 
 Style/Lambda:
-  Description: 'Use the new lambda literal syntax for single-line blocks.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#lambda-multi-line'
   Enabled: false
 
 Style/LambdaCall:
-  Description: 'Use lambda.call(...) instead of lambda.(...).'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#proc-call'
   Exclude:
     - Guardfile
   Enabled: true
 
 Style/NumericLiterals:
-  Description: >-
-                 Add underscores to large numeric literals to improve their
-                 readability.
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#underscores-in-numerics'
   Enabled: false
 
 Style/PredicateName:
-  Description: 'Check the names of predicate methods.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#bool-methods-qmark'
   Enabled: false
 
 Style/Proc:
-  Description: 'Use proc instead of Proc.new.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#proc'
   Enabled: false
 
 Style/RedundantSelf:
-  Description: "Don't use self where it's not needed."
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-self-unless-required'
   Enabled: false
 
 Style/RegexpLiteral:
-  Description: 'Use / or %r around regular expressions.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#percent-r'
   Exclude:
     - features/**/*
   Enabled: true
 
 Style/SignalException:
-  Description: 'Checks for proper usage of fail and raise.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#fail-method'
   Enabled: false
 
 Style/SingleLineBlockParams:
-  Description: 'Enforces the names of some block params.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#reduce-blocks'
   Enabled: false
 
 Style/SingleLineMethods:
-  Description: 'Avoid single-line methods.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-single-line-methods'
   Enabled: false
 
 Style/SpaceBeforeBlockBraces:
-  Description: >-
-                 Checks that the left block brace has or doesn't have space
-                 before it.
   Enabled: false
 
 Style/StringLiterals:
-  Description: Checks if uses of quotes match the configured preference.
-  StyleGuide: https://github.com/bbatsov/ruby-style-guide#consistent-string-literals
   Enabled: true
   EnforcedStyle: double_quotes
   SupportedStyles:
@@ -343,22 +187,15 @@ Style/StringLiterals:
   - double_quotes
 
 Style/SymbolProc:
-  Description: 'Use symbols as procs instead of blocks when possible.'
   Enabled: false
 
 Style/UnneededPercentQ:
-  Description: 'Checks for %q/%Q when single quotes or double quotes would do.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#percent-q'
   Enabled: false
 
 Style/WhenThen:
-  Description: 'Use when x then ... for one-line cases.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#one-line-cases'
   Enabled: false
 
 Style/WordArray:
-  Description: 'Use %w or %W for arrays of words.'
-  StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#percent-w'
   Enabled: false
 
 Style/MultilineMethodCallIndentation:
