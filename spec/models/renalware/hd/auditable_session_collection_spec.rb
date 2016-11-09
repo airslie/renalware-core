@@ -329,17 +329,17 @@ module Renalware
             expect(audit.mean_ufr).to eq(3.56)
           end
 
-         it "returns the mean ufr for a single session if only one supplied" do
-            dry_weight1 = build_stubbed(:hd_dry_weight, patient: patient, weight: 100.0)
-            session1 = Session::Closed.new(dry_weight: dry_weight1, duration: 225)
-            session1.document.dialysis.fluid_removed = 1000.0 #ml
-            @sessions = [
-              session1
-            ]
-            # 225 mins = 3.75 hours
-            # 1000.0 ml / 3.75 hrs / 100.0 kg = 2.66
-            expect(audit.mean_ufr).to eq(2.67)
-         end
+          it "returns the mean ufr for a single session if only one supplied" do
+             dry_weight1 = build_stubbed(:hd_dry_weight, patient: patient, weight: 100.0)
+             session1 = Session::Closed.new(dry_weight: dry_weight1, duration: 225)
+             session1.document.dialysis.fluid_removed = 1000.0 #ml
+             @sessions = [
+               session1
+             ]
+             # 225 mins = 3.75 hours
+             # 1000.0 ml / 3.75 hrs / 100.0 kg = 2.66
+             expect(audit.mean_ufr).to eq(2.67)
+          end
         end
       end
     end

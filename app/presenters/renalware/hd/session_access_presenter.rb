@@ -16,11 +16,11 @@ module Renalware
 
       def to_html
         return "" unless info
-         [
-          abbreviated_type,
-          abbreviated_site,
-          abbreviated_side
-        ].compact.join("/").html_safe
+        [
+         abbreviated_type,
+         abbreviated_site,
+         abbreviated_side
+       ].compact.join("/").html_safe
       end
 
       private

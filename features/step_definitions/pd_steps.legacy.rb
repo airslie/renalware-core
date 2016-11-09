@@ -151,9 +151,9 @@ When(/^I complete the form for a capd regime$/) do
     uncheck "Tuesday"
     uncheck "Saturday"
 
-  within ".patient-content" do
-    click_on "Save"
-  end
+    within ".patient-content" do
+      click_on "Save"
+    end
 end
 
 When(/^I complete the form for a apd regime$/) do

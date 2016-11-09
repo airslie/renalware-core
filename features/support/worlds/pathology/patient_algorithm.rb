@@ -32,7 +32,7 @@ module World
               }
             end
 
-            patient_rule.update_attributes!(params)
+          patient_rule.update_attributes!(params)
         end
 
         def run_patient_algorithm(patient, _clinician)
