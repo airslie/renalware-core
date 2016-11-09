@@ -25,7 +25,7 @@ module World
           username: given_name,
           email: "#{email_name}@renalware.com",
           password: "supersecret",
-          approved: true,
+          approved: true
         )
       end
       user.roles << Renalware::Role.find_or_create_by(name: role) unless user.roles.any?

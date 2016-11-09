@@ -11,7 +11,7 @@ module Renalware::Patients
             family_name: "::family name::",
             given_name: "::given name::",
             sex: "F",
-            dob: "19880924",
+            dob: "19880924"
           )
         )
       }
