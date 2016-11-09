@@ -3,7 +3,8 @@ module World
     module GlobalAlgorithm
       module Domain
         # @section commands
-        #
+
+        # rubocop:disable Metrics/CyclomaticComplexity
         def create_global_rule(params)
           param_id =
             case params["type"]
