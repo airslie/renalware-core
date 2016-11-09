@@ -68,7 +68,7 @@ module Renalware
       it "deserializes gender" do
         subject.sex = Gender.new("F")
         subject.by = user
-        subject.save! and subject.reload
+        subject.save! && subject.reload
 
         expect(subject.sex.code).to eq "F"
       end

@@ -19,7 +19,7 @@ module Renalware
     end
 
     def self.from_minutes(minutes)
-      minutes = 0 if minutes.nil? or minutes.blank?
+      minutes = 0 if minutes.nil? || minutes.blank?
       seconds = minutes.to_i * 60
       Duration.new(seconds)
     end
