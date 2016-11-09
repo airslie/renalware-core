@@ -33,21 +33,21 @@ module Renalware
           subject(:strategy) { AuditableSessionCollection::MeanValueStrategy }
 
           it "calculates the mean from a number of values" do
-            sessions = [ { x: 1.1 }, { x: 1.2 }, { x: 1.3 } ]
+            sessions = [{ x: 1.1 }, { x: 1.2 }, { x: 1.3 }]
             selector = ->(session) { session[:x] }
             result = strategy.new(sessions: sessions, selector: selector).call
             expect(result).to eq(1.2)
           end
 
           it "returns the only value if there is just one" do
-            sessions = [ { x: 1.99999 }]
+            sessions = [{ x: 1.99999 }]
             selector = ->(session) { session[:x] }
             result = strategy.new(sessions: sessions, selector: selector).call
             expect(result).to eq(2.0) # 1.9999 rounded up to 2.0
           end
 
           it "excludes nil values from the mean calculation" do
-            sessions = [ { x: 1.1 }, { x: 1.2 }, { x: nil }, { x: 1.3 } ]
+            sessions = [{ x: 1.1 }, { x: 1.2 }, { x: nil }, { x: 1.3 }]
             selector = ->(session) { session[:x] }
             result = strategy.new(sessions: sessions, selector: selector).call
             expect(result).to eq(1.2)
@@ -320,7 +320,7 @@ module Renalware
             session2 = Session::Closed.new(dry_weight: dry_weight2, duration: 225)
             session2.document.dialysis.fluid_removed = 2000.0 # ml
 
-            @sessions = [ session1, session2]
+            @sessions = [session1, session2]
 
             # 225 mins = 3.75 hours
             # session 1 = 1000.0 ml / 3.75 hrs / 100.0 kg = 2.666

@@ -79,10 +79,10 @@ module Renalware
       end
 
       def attributes
-        [ :performed_on, :start_time, :end_time,
-          :hospital_unit_id, :notes,
-          :signed_on_by_id, :signed_off_by_id, :type,
-          document: []
+        [:performed_on, :start_time, :end_time,
+         :hospital_unit_id, :notes,
+         :signed_on_by_id, :signed_off_by_id, :type,
+         document: []
         ]
       end
 
