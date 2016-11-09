@@ -4,7 +4,7 @@
 module Renalware
   module HD
     class UpdateRollingPatientStatisticsJob < ActiveJob::Base
-      queue_as :default
+      queue_as :hd_patient_statistics
 
       # :reek:UtilityFunction
       def perform(patient)

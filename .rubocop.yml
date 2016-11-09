@@ -178,3 +178,8 @@ Style/FrozenStringLiteralComment:
 
 Style/TernaryParentheses:
   Enabled: false
+
+Style/DotPosition:
+  Enabled: true
+  EnforcedStyle: leading
+

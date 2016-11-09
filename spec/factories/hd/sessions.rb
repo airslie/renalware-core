@@ -18,7 +18,7 @@ FactoryGirl.define do
     factory :hd_closed_session, class: "Renalware::HD::Session::Closed" do
       start_time "11:00"
       end_time "16:00"
-      signed_off_at 1.day.ago
+      signed_off_at { 1.day.ago }
       association :signed_off_by, factory: :user
 
       after(:build) do |session|

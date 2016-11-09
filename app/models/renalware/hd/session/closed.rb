@@ -44,7 +44,7 @@ module Renalware
         validates :hdf, "renalware/patients/hdf_presence" => true, if: :hd_type_is_hdf?
 
         def hd_type_is_hdf?
-          ["hdf_pre", "hdf_post"].include?(info.hd_type.to_s)
+          %w(hdf_pre hdf_post).include?(info.hd_type.to_s)
         end
       end
 

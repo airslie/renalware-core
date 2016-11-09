@@ -54,9 +54,8 @@ module Renalware
         end
 
         def weight_loss_as_percentage_of_body_weight
-          if measured_dry_weight > 0
-            (weight_loss / measured_dry_weight) * 100.0
-          end
+          return unless measured_dry_weight > 0
+          (weight_loss / measured_dry_weight) * 100.0
         end
 
         # This is fluid removed (ml) / HD time in hours eg 3.75 / dry weight (kg)

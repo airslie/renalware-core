@@ -49,7 +49,7 @@ module Renalware
         end
       end
 
-      def set_default_access(session)
+      def set_default_access(session) # rubocop:disable Style/AccessorMethodName
         return if dna_session?
         accesses_patient = Renalware::Accesses.cast_patient(patient)
         if (profile = accesses_patient.current_profile)
