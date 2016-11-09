@@ -55,18 +55,18 @@ module World
         def create_request_with_patient_rules(patient, days_ago, patient_rules)
           observed_at = days_ago.days.ago
 
-         Renalware::Pathology::Requests::Request.create!(
-           patient: Renalware::Pathology.cast_patient(patient),
-           clinic: Renalware::Clinics::Clinic.first,
-           consultant: Renalware::Pathology::Consultant.first,
-           telephone: "123",
-           by: Renalware::SystemUser.find,
-           patient_rules: patient_rules,
-           high_risk: false,
-           template: Renalware::Pathology::Requests::Request::TEMPLATES.first,
-           created_at: observed_at,
-           updated_at: observed_at
-         )
+          Renalware::Pathology::Requests::Request.create!(
+            patient: Renalware::Pathology.cast_patient(patient),
+            clinic: Renalware::Clinics::Clinic.first,
+            consultant: Renalware::Pathology::Consultant.first,
+            telephone: "123",
+            by: Renalware::SystemUser.find,
+            patient_rules: patient_rules,
+            high_risk: false,
+            template: Renalware::Pathology::Requests::Request::TEMPLATES.first,
+            created_at: observed_at,
+            updated_at: observed_at
+          )
         end
 
         def create_request(params)

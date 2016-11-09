@@ -29,7 +29,7 @@ module Renalware
                         out_of_range: #{out_of_range_message}
                         must_be_less_than_systolic: #{must_be_less_than_systolic_message}
           YAML
-          I18n.backend.store_translations(:en, YAML.load(yaml))
+        I18n.backend.store_translations(:en, YAML.load(yaml))
       end
 
       it "accepts in-range values" do

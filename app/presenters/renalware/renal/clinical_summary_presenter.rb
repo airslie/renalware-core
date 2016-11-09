@@ -10,7 +10,7 @@ module Renalware
 
       def current_prescriptions
         prescriptions = @patient.prescriptions.current.ordered
-       CollectionPresenter.new(prescriptions, Medications::PrescriptionPresenter)
+        CollectionPresenter.new(prescriptions, Medications::PrescriptionPresenter)
       end
 
       def current_problems
