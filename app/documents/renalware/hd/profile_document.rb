@@ -1,4 +1,4 @@
-# rubocop:disable Style/EmptyLineBetweenDefs
+# rubocop:disable Style/EmptyLineBetweenDefs, Style/SingleLineMethods
 require "document/embedded"
 require "document/enum"
 

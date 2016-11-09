@@ -26,7 +26,7 @@ Metrics/AbcSize:
   Enabled: true
   Exclude:
     - "features/**/*"
-  Max: 20
+  Max: 15
 
 Metrics/LineLength:
   Max: 100
@@ -42,36 +42,11 @@ Metrics/LineLength:
 
 Metrics/MethodLength:
   Enabled: true
-  Max: 30
-
-Metrics/ModuleLength:
-  Enabled: true
-  Max: 250
+  Max: 20
 
 # ##################### Rails ##################################
 
-Rails/ActionFilter:
-  Enabled: false
-
-Rails/Date:
-  Enabled: false
-
-Rails/Delegate:
-  Enabled: false
-
-Rails/FindBy:
-  Enabled: false
-
 Rails/HasAndBelongsToMany:
-  Enabled: false
-
-Rails/Output:
-  Enabled: false
-
-Rails/ReadWriteAttribute:
-  Enabled: false
-
-Rails/TimeZone:
   Enabled: false
 
 Rails/Validation:
@@ -103,9 +78,6 @@ Style/BlockDelimiters:
 Style/BracesAroundHashParameters:
   Enabled: false
 
-Style/ClassAndModuleChildren:
-  Enabled: false
-
 Style/ClosingParenthesisIndentation:
   Enabled: false
 
@@ -127,22 +99,13 @@ Style/EmptyLinesAroundClassBody:
 Style/EmptyLinesAroundModuleBody:
   Enabled: false
 
-Style/EmptyLiteral:
-  Enabled: false
-
 Style/FirstParameterIndentation:
   Enabled: false
 
 Style/FormatString:
   Enabled: false
 
-Style/GuardClause:
-  Enabled: false
-
 Style/IfUnlessModifier:
-  Enabled: false
-
-Style/Lambda:
   Enabled: false
 
 Style/LambdaCall:
@@ -156,12 +119,6 @@ Style/NumericLiterals:
 Style/PredicateName:
   Enabled: false
 
-Style/Proc:
-  Enabled: false
-
-Style/RedundantSelf:
-  Enabled: false
-
 Style/RegexpLiteral:
   Exclude:
     - features/**/*
@@ -171,9 +128,6 @@ Style/SignalException:
   Enabled: false
 
 Style/SingleLineBlockParams:
-  Enabled: false
-
-Style/SingleLineMethods:
   Enabled: false
 
 Style/SpaceBeforeBlockBraces:
@@ -186,16 +140,7 @@ Style/StringLiterals:
   - single_quotes
   - double_quotes
 
-Style/SymbolProc:
-  Enabled: false
-
-Style/UnneededPercentQ:
-  Enabled: false
-
 Style/WhenThen:
-  Enabled: false
-
-Style/WordArray:
   Enabled: false
 
 Style/MultilineMethodCallIndentation:
@@ -210,10 +155,10 @@ Style/VariableNumber:
 Style/Alias:
   Enabled: false
 
-Style/FrozenStringLiteralComment:
+Style/NumericLiteralPrefix:
   Enabled: false
 
-Style/NumericLiteralPrefix:
+Style/ClassAndModuleChildren:
   Enabled: false
 
 Style/MultilineHashBraceLayout:
@@ -222,17 +167,14 @@ Style/MultilineHashBraceLayout:
 Style/AsciiComments:
   Enabled: false
 
-Style/MethodMissing:
-  Enabled: false
-
 Style/NumericPredicate:
-  Enabled: false
-
-Style/EmptyCaseCondition:
   Enabled: false
 
 Style/MultilineArrayBraceLayout:
   Enabled: false
 
-Style/EachWithObject:
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/TernaryParentheses:
   Enabled: false
