@@ -44,7 +44,7 @@ module Renalware
       end
 
       it "rejects non numeric values" do
-        model = build_model(systolic: "NaN", diastolic:"NaN")
+        model = build_model(systolic: "NaN", diastolic: "NaN")
         expect_model_to_be_invalid_with_messages(model, :systolic, out_of_range_message)
         expect_model_to_be_invalid_with_messages(model, :diastolic, out_of_range_message)
       end

@@ -8,7 +8,7 @@ module Renalware
                   "aria-haspopup" => "true",
                   data: {
                     tooltip: "",
-                    options:"disable_for_touch:true"
+                    options: "disable_for_touch:true"
                     }) do
         label
       end

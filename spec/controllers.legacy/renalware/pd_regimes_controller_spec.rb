@@ -95,7 +95,7 @@ module Renalware
             treatment: "CAPD 4 exchanges per day",
             regime_bags_attributes: [
               {
-                bag_type_id:"100", volume:"2", per_week:"1", monday:true
+                bag_type_id: "100", volume: "2", per_week: "1", monday: true
               }
             ]
           }
