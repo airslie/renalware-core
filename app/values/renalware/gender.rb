@@ -17,7 +17,7 @@ module Renalware
     }.freeze
 
     def self.all
-      DATA.map {|code, _| self.new(code) }
+      DATA.map { |code, _| self.new(code) }
     end
 
     # @section serialization

@@ -103,7 +103,7 @@ module Renalware
         end
 
         def mean_machine_ktv
-          selector = ->(session) {session.document.dialysis.machine_ktv }
+          selector = ->(session) { session.document.dialysis.machine_ktv }
           MeanValueStrategy.new(sessions: closed_sessions, selector: selector).call
         end
 

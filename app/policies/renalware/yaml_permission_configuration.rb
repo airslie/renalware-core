@@ -51,7 +51,7 @@ module Renalware
     end
 
     def restricted_model_classes
-      config.flat_map {|_, model_names| model_names}
+      config.flat_map { |_, model_names| model_names }
     end
 
     def config

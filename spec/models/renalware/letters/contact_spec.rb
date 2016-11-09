@@ -11,7 +11,7 @@ module Renalware
           let(:specific_contact_description) do
             build(:letter_contact_description, system_code: "sibling")
           end
-          subject { Contact.new(description: specific_contact_description)}
+          subject { Contact.new(description: specific_contact_description) }
 
           it { is_expected.not_to validate_presence_of(:other_description) }
         end
@@ -20,7 +20,7 @@ module Renalware
           let(:non_specific_contact_description) do
             build(:letter_contact_description, system_code: "other")
           end
-          subject { Contact.new(description: non_specific_contact_description)}
+          subject { Contact.new(description: non_specific_contact_description) }
 
           it { is_expected.to validate_presence_of(:other_description) }
         end

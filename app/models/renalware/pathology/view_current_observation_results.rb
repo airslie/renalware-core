@@ -29,7 +29,7 @@ module Renalware
       end
 
       def find_result_for_description(results, description)
-        results.detect {|result| result.description_code == description.code }
+        results.detect { |result| result.description_code == description.code }
       end
 
       def present(results)

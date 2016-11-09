@@ -23,7 +23,7 @@ module World
       def record_observations(patient:, observations_attributes:)
         patient = Renalware::Pathology.cast_patient(patient)
 
-        observations_attributes.map! {|attrs|
+        observations_attributes.map! { |attrs|
           code = attrs.fetch("code")
           description = Renalware::Pathology::ObservationDescription.find_by(code: code)
           result = attrs.fetch("result")
@@ -113,7 +113,7 @@ module World
 
       def expect_pathology_current_observations(user:, patient:, rows:)
         patient = Renalware::Pathology.cast_patient(patient)
-        codes = rows.map {|row| row.first }[1..-1]
+        codes = rows.map { |row| row.first }[1..-1]
         descriptions = Renalware::Pathology::ObservationDescription.for(codes)
 
         presenter = Renalware::Pathology::CurrentObservationResults::Presenter.new
