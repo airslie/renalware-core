@@ -1,3 +1,4 @@
+# rubocop:disable Style/StructInheritance
 module Renalware
   class Country < Struct.new(:name)
 
