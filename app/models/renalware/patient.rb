@@ -76,6 +76,7 @@ module Renalware
       BasePolicy
     end
 
+    # rubocop:disable Style/MultilineTernaryOperator
     def age
       now = Time.now.utc.to_date
       now.year - born_on.year - (
