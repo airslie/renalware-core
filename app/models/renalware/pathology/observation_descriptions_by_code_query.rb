@@ -23,7 +23,7 @@ module Renalware
 
         missing_records = found_codes - @codes
         if missing_records.present?
-          raise ActiveRecord::RecordNotFound.new("Missing records for #{missing_records}")
+          raise ActiveRecord::RecordNotFound, "Missing records for #{missing_records}"
         end
       end
     end
