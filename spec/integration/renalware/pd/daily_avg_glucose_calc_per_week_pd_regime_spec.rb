@@ -33,7 +33,7 @@ module Renalware
 
       fill_in "Start date", with: "18/04/2015"
 
-      #bag 1
+      # bag 1
       find("a.add-bag").click
 
       within("#pd-regime-bags div.fields:nth-child(1)") do
@@ -47,7 +47,7 @@ module Renalware
         uncheck "Saturday"
       end
 
-      #bag 2
+      # bag 2
       find("a.add-bag").click
 
       within("#pd-regime-bags div.fields:nth-child(2)") do
@@ -59,7 +59,7 @@ module Renalware
         uncheck "Thursday"
       end
 
-      #bag 3
+      # bag 3
       find("a.add-bag").click
 
       within("#pd-regime-bags div.fields:nth-child(3)") do
@@ -72,7 +72,7 @@ module Renalware
         uncheck "Friday"
       end
 
-      #bag 4
+      # bag 4
       find("a.add-bag").click
 
       within("#pd-regime-bags div.fields:nth-child(4)") do

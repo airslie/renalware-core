@@ -57,7 +57,7 @@ end
 Then(/^should see the new prescription on the patient's clinical summary$/) do
   visit patient_clinical_summary_path(@patient_1)
 
-  #drug by select
+  # drug by select
   within(".drug-esa") do
     expect(page).to have_content("Epoetin Alfa")
     expect(page).to have_content("10mg")
@@ -66,7 +66,7 @@ Then(/^should see the new prescription on the patient's clinical summary$/) do
     expect(page).to have_content("02-03-#{Date.current.year - 1}")
   end
 
-  #drug by search
+  # drug by search
   within(".drug-other") do
     expect(page).to have_content("Amoxicillin")
     expect(page).to have_content("20mg")

@@ -171,7 +171,7 @@ When(/^I complete the form for a apd regime$/) do
   uncheck "Saturday"
   uncheck "Friday"
 
-  #APD specific fields
+  # APD specific fields
   fill_in "Last Fill (ml)", with: 520
 
   check "Add'l manual exchange"
@@ -240,7 +240,7 @@ Then(/^I should see the new capd regime on the PD info page$/) do
     expect(page).to have_content("CAPD 4 exchanges per day")
   end
 
-  #average daily glucose
+  # average daily glucose
   within("table.capd-regimes tbody tr:first-child td:nth-child(5)") do
     expect(page).to have_content("0")
   end
@@ -261,7 +261,7 @@ Then(/^I should see the new apd regime on the PD info page$/) do
     expect(page).to have_content("APD Wet day with additional exchange")
   end
 
-  #average daily glucose
+  # average daily glucose
   within("table.apd-regimes tbody tr:first-child td:nth-child(5)") do
     expect(page).to have_content("0")
   end
@@ -283,12 +283,12 @@ Then(/^the new capd regime should be current$/) do
     expect(page).to have_content("On additional HD?")
     expect(page).to have_content("Yes")
 
-    #average daily glucose
+    # average daily glucose
     expect(page).to have_content("1.36 % 0 ml")
     expect(page).to have_content("2.27 % 0 ml")
     expect(page).to have_content("3.86 % 0 ml")
 
-    #pd regime bags
+    # pd regime bags
     expect(page).to have_content(
       "Bag type: Nutrineal PD4 (Blue), Volume: 2500ml, No. per week: 5, Days: Sun, Mon, Wed, Thu, Fri"
     )
@@ -307,7 +307,7 @@ Then(/^the new apd regime should be current$/) do
     expect(page).to have_content("2.27 % 0 ml")
     expect(page).to have_content("3.86 % 0 ml")
 
-    #pd regime bags
+    # pd regime bags
     expect(page).to have_content(
       "Nutrineal PD4 (Blue), Volume: 4000ml, No. per week: 3, Days: Sun, Mon, Thu"
     )
@@ -342,13 +342,13 @@ Then(/^I should see the chosen capd regime details$/) do
   expect(page).to have_content("On additional HD?")
   expect(page).to have_content("No")
 
-  #saved bag for this regime:
-  #bag 1
+  # saved bag for this regime:
+  # bag 1
   expect(page).to have_content(
     "Bag type: Extraneal (Icodextrin 7.5%) (Purple), Volume: 600ml, No. per week: 6, Days: Sun, Mon, Wed, Thu, Fri, Sat"
   )
 
-  #average daily glucose calculated from bags
+  # average daily glucose calculated from bags
   expect(page).to have_content("1.36% 0 ml")
   expect(page).to have_content("2.27% 0 ml")
   expect(page).to have_content("3.86% 0 ml")
@@ -376,13 +376,13 @@ Then(/^I should see the chosen apd regime details$/) do
   expect(page).to have_content("Machine PAC")
   expect(page).to have_content("123-4567-890")
 
-  #saved bag for this regime:
-  #bag 1
+  # saved bag for this regime:
+  # bag 1
   expect(page).to have_content(
     "Bag type: Extraneal (Icodextrin 7.5%) (Purple), Volume: 2000ml, No. per week: 5, Days: Sun, Tue, Wed, Thu, Sat"
   )
 
-  #average daily glucose calculated from bags
+  # average daily glucose calculated from bags
   expect(page).to have_content("1.36% 0 ml")
   expect(page).to have_content("2.27% 0 ml")
   expect(page).to have_content("3.86% 0 ml")

@@ -315,10 +315,10 @@ module Renalware
             dry_weight2 = build_stubbed(:hd_dry_weight, patient: patient, weight: 120.0)
 
             session1 = Session::Closed.new(dry_weight: dry_weight1, duration: 225)
-            session1.document.dialysis.fluid_removed = 1000.0 #ml
+            session1.document.dialysis.fluid_removed = 1000.0 # ml
 
             session2 = Session::Closed.new(dry_weight: dry_weight2, duration: 225)
-            session2.document.dialysis.fluid_removed = 2000.0 #ml
+            session2.document.dialysis.fluid_removed = 2000.0 # ml
 
             @sessions = [ session1, session2]
 
@@ -332,7 +332,7 @@ module Renalware
           it "returns the mean ufr for a single session if only one supplied" do
             dry_weight1 = build_stubbed(:hd_dry_weight, patient: patient, weight: 100.0)
             session1 = Session::Closed.new(dry_weight: dry_weight1, duration: 225)
-            session1.document.dialysis.fluid_removed = 1000.0 #ml
+            session1.document.dialysis.fluid_removed = 1000.0 # ml
             @sessions = [
               session1
             ]
