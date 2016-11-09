@@ -6,7 +6,7 @@ module Renalware
       end
 
       def edit?
-        record.persisted? and not record.immutable?
+        record.persisted? && !record.immutable?
       end
     end
   end
