@@ -9,7 +9,7 @@ module Renalware
       end
 
       def current_prescriptions
-       prescriptions = @patient.prescriptions.current.ordered
+        prescriptions = @patient.prescriptions.current.ordered
        CollectionPresenter.new(prescriptions, Medications::PrescriptionPresenter)
       end
 

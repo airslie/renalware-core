@@ -234,9 +234,9 @@ module World
       end
 
       def view_patients_hd_sessions(patient:, user:)
-         login_as user
-         visit patient_hd_sessions_path(patient)
-         expect(page.current_path).to eq(patient_hd_sessions_path(patient))
+        login_as user
+        visit patient_hd_sessions_path(patient)
+        expect(page.current_path).to eq(patient_hd_sessions_path(patient))
       end
 
       def expect_all_patient_hd_sessions_to_be_present(*)

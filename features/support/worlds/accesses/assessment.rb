@@ -93,7 +93,7 @@ module World
         login_as user
         visit patient_accesses_dashboard_path(patient)
         within_fieldset "Assessment History" do
-         click_on "Edit"
+          click_on "Edit"
         end
 
         select "Left", from: "Access Side"

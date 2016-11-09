@@ -1,7 +1,7 @@
 module World
   module Letters
     def letters_patient(patient)
-     Renalware::Letters.cast_patient(patient)
+      Renalware::Letters.cast_patient(patient)
     end
 
     def create_contact(patient:, user:)

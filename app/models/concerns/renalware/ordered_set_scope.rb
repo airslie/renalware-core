@@ -53,7 +53,7 @@ module Renalware
       #
       def generate_conditions(attribute, values)
         values.each_with_index.map do |value, idx|
-         "WHEN #{attribute} = '#{value}' THEN '#{idx}'"
+          "WHEN #{attribute} = '#{value}' THEN '#{idx}'"
         end.join(" ")
       end
     end

@@ -17,7 +17,7 @@ module Renalware
       end
 
       before do
-          yaml = <<-YAML
+        yaml = <<-YAML
             activemodel:
               errors:
                 models:

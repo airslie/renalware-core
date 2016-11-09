@@ -23,7 +23,7 @@ module Renalware
       end
 
       def number_of_columns
-       3
+        3
       end
 
       def build_table(header, body)

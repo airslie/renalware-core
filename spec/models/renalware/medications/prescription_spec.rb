@@ -46,10 +46,10 @@ module Renalware
 
       describe "scopes" do
         before do
-         create_prescription(notes: ":expires_today:", terminated_on: "2010-01-02")
-         create_prescription(notes: ":expired_yesteday:", terminated_on: "2010-01-01")
-         create(:prescription, notes: ":not_specified:")
-         create_prescription(notes: ":expires_tomorrow:", terminated_on: "2010-01-03")
+          create_prescription(notes: ":expires_today:", terminated_on: "2010-01-02")
+          create_prescription(notes: ":expired_yesteday:", terminated_on: "2010-01-01")
+          create(:prescription, notes: ":not_specified:")
+          create_prescription(notes: ":expires_tomorrow:", terminated_on: "2010-01-03")
         end
 
         describe ".current" do

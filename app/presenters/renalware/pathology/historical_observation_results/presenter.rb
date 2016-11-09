@@ -64,7 +64,7 @@ module Renalware
 
       class HeaderPresenter < SimpleDelegator
         def title
-           to_s
+          to_s
         end
 
         def html_class
