@@ -149,7 +149,7 @@ When(/^Clyde adds Diana Newton as a District Nurse contact for Patty$/) do
   assign_new_person_as_contact(
     patient: @patty, user: @clyde,
     description_name: "District Nurse",
-    person_attrs: {  given_name: "Diana", family_name: "Newton" }
+    person_attrs: { given_name: "Diana", family_name: "Newton" }
   )
 end
 

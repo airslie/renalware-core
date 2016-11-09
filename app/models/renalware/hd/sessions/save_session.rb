@@ -29,7 +29,7 @@ module Renalware
           if session.save
             broadcast(:save_success, session)
           else
-            session.type = session_type  # See method comment
+            session.type = session_type # See method comment
             broadcast(:save_failure, session)
           end
         end

@@ -39,7 +39,7 @@ describe Renalware::Pathology::Requests::PatientRule do
       end
 
       context "given the patient was previously observed" do
-        let!(:request)  { create_request(patient: patient, observed_on: "2016-04-19") }
+        let!(:request) { create_request(patient: patient, observed_on: "2016-04-19") }
 
         it "returns true" do
           expect(patient_rule).to be_required(date)

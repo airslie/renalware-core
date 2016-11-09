@@ -35,7 +35,7 @@ module Renalware
       context "given the values not present in the relation for the specified attribute" do
         let(:ordered_values) { ["foo", "::does not exists::", "bar"] }
 
-        it "returns an ordered scope with the values that exist in the relation"  do
+        it "returns an ordered scope with the values that exist in the relation" do
           attribute = :code
           actual_scope = @klass.ordered_set(attribute, ordered_values)
 

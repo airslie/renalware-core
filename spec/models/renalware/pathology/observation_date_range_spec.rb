@@ -5,7 +5,7 @@ module Renalware
     RSpec.describe ObservationDateRange do
       describe ".build" do
         it "returns a range" do
-          date_series =  [
+          date_series = [
             date("2013-01-01"),
             date("2014-01-01"),
             date("2015-01-01"),

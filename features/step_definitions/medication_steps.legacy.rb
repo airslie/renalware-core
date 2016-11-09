@@ -9,7 +9,7 @@ When(/^complete the prescription form by drug type select$/) do
   select "ESA", from: "Medication Type"
   select "Epoetin Alfa (Eprex) Syringe [ESA]", from: "Select Drug"
   fill_in "Dose", with: "10mg"
-  select "PO", from:  "Route"
+  select "PO", from: "Route"
   fill_in "Frequency & Duration", with: "Once daily"
   fill_in "Notes", with: "Review in six weeks"
 

@@ -9,7 +9,7 @@ module Renalware
         header, *body = view_model
 
         content_tag(:div) do
-          slice_size =  calculate_slice_size(body.size)
+          slice_size = calculate_slice_size(body.size)
           body.each_slice(slice_size) do |partial_body|
             concat(build_table(header, partial_body))
           end

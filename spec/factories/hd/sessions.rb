@@ -3,7 +3,7 @@ FactoryGirl.define do
     association :patient, factory: :hd_patient
     association :hospital_unit, factory: :hospital_unit
     association :signed_on_by, factory: :user
-    association :created_by,  factory: :user
+    association :created_by, factory: :user
 
     performed_on 1.week.ago
     notes "Some notes"
