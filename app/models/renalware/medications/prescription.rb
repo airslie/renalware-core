@@ -22,7 +22,7 @@ module Renalware
 
       accepts_nested_attributes_for :termination,
         update_only: true,
-        reject_if: -> (attributes) { attributes["terminated_on"].blank? }
+        reject_if: ->(attributes) { attributes["terminated_on"].blank? }
 
       delegate :terminated_on, to: :termination, allow_nil: true
 
@@ -47,11 +47,11 @@ module Renalware
       scope :with_medication_route, -> { includes(:medication_route) }
       scope :with_drugs, -> { includes(drug: :drug_types) }
       scope :with_termination, -> { includes(termination: [:created_by]) }
-      scope :current, -> (date = Date.current) {
+      scope :current, ->(date = Date.current) {
         eager_load(:termination)
           .where("terminated_on IS NULL OR terminated_on > ?", date)
       }
-      scope :terminated, -> (date = Date.current) {
+      scope :terminated, ->(date = Date.current) {
         joins(:termination)
           .where("terminated_on <= ?", date)
       }

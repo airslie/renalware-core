@@ -17,7 +17,7 @@ module Renalware
       class QueryableLetter < ActiveType::Record[Letter]
         def self.finder_needs_type_condition?; false; end
 
-        scope :state_eq, -> (state = :draft) { where(type: Letter.state_class_name(state)) }
+        scope :state_eq, ->(state = :draft) { where(type: Letter.state_class_name(state)) }
 
         private_class_method :ransackable_scopes
 

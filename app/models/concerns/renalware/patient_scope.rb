@@ -5,7 +5,7 @@ module Renalware
     extend ActiveSupport::Concern
 
     included do
-      scope :for_patient, -> (patient) { where(patient: patient) }
+      scope :for_patient, ->(patient) { where(patient: patient) }
     end
   end
 end

@@ -14,7 +14,7 @@ module Renalware
         validates :clinic, presence: true
         validate :constrain_request_description
 
-        scope :for_clinic, -> (clinic) { where(clinic: clinic) }
+        scope :for_clinic, ->(clinic) { where(clinic: clinic) }
         scope :ordered, -> do
           includes(request_description: :lab)
             .order("pathology_labs.name ASC, pathology_request_descriptions.code ASC")

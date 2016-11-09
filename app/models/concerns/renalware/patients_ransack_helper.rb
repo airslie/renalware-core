@@ -6,7 +6,7 @@ module Renalware
 
     included do
       class_eval do
-        scope :identity_match, -> (identity = 1) {
+        scope :identity_match, ->(identity = 1) {
           where(sql_and_params(identity))
         }
       end
