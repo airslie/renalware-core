@@ -67,5 +67,3 @@ FactoryGirl.define do
     observations_after factory: :hd_session_document_observations_after, strategy: :marshal_dump
   end
 end
-
-

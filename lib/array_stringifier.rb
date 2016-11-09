@@ -24,4 +24,3 @@ class ArrayStringifier < SimpleDelegator
     end
   end
 end
-

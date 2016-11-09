@@ -387,4 +387,3 @@ Then(/^I should see the chosen apd regime details$/) do
   expect(page).to have_content("2.27% 0 ml")
   expect(page).to have_content("3.86% 0 ml")
 end
-

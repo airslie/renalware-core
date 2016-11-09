@@ -46,4 +46,3 @@ When(/^I complete the cause of death form$/) do
     click_on "Save Cause of Death"
   end
 end
-
