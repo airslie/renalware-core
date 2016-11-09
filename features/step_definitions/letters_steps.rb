@@ -104,7 +104,8 @@ end
 
 When(/^Clyde filters on his pending review letters typed by Taylor$/) do
   taylor = find_or_create_user(given_name: "Taylor", role: "clinician")
-  view_letters(q: {
+  view_letters(
+    q: {
       state_eq: "pending_review",
       author_id_eq: @clyde.id,
       created_by_id_eq: taylor.id

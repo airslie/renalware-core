@@ -42,10 +42,12 @@ module World
                   "temperature": 36.0, "blood_pressure": {"systolic": 100, "diastolic": 80}}}
         END
 
-        valid_open_session_attributes(patient).merge({
-          end_time: "23:59",
-          document: JSON.parse(json)
-        })
+        valid_open_session_attributes(patient).merge(
+          {
+            end_time: "23:59",
+            document: JSON.parse(json)
+          }
+        )
       end
 
       # @section seeding

@@ -9,7 +9,7 @@ module Renalware
                   data: {
                     tooltip: "",
                     options: "disable_for_touch:true"
-                    }) do
+                  }) do
         label
       end
     end

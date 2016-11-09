@@ -19,16 +19,18 @@ module Renalware::Patients
       it "transfers attributes from the message payload to the params" do
         params = subject.parse(message_payload)
 
-        expect(params).to eq({
-          patient: {
-            nhs_number: "::external id::",
-            local_patient_id: "::internal id::",
-            family_name: "::family name::",
-            given_name: "::given name::",
-            sex: "F",
-            born_on: "1988-09-24"
+        expect(params).to eq(
+          {
+            patient: {
+              nhs_number: "::external id::",
+              local_patient_id: "::internal id::",
+              family_name: "::family name::",
+              given_name: "::given name::",
+              sex: "F",
+              born_on: "1988-09-24"
+            }
           }
-        })
+        )
       end
     end
   end

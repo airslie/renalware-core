@@ -30,21 +30,23 @@ module Renalware::Pathology
       it "transfers attributes from the message payload to the params" do
         params = subject.parse(message_payload)
 
-        expect(params).to eq({
-          patient_id: patient.id,
-          observation_request: {
-            description_id: request_description.id,
-            requestor_name: "::name::",
-            requestor_order_number: "::pcs code::",
-            requested_at: "2009-11-11 18:41:00 +0000",
-            observations_attributes: [
-              description_id: observation_description.id,
-              observed_at: "2009-11-11 20:26:00 +0000",
-              result: "::value::",
-              comment: "::comment::"
-            ]
+        expect(params).to eq(
+          {
+            patient_id: patient.id,
+            observation_request: {
+              description_id: request_description.id,
+              requestor_name: "::name::",
+              requestor_order_number: "::pcs code::",
+              requested_at: "2009-11-11 18:41:00 +0000",
+              observations_attributes: [
+                description_id: observation_description.id,
+                observed_at: "2009-11-11 20:26:00 +0000",
+                result: "::value::",
+                comment: "::comment::"
+              ]
+            }
           }
-        })
+        )
       end
     end
   end
