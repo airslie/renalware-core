@@ -71,7 +71,7 @@ module Renalware
         return if pre.blank? || post.blank?
         case pre
         when ::Float ; (post - pre).round(1)
-        when ::Fixnum ;(post - pre)
+        when ::Fixnum ; (post - pre)
         else raise "Unsupported class '#{pre.class}'' - cannot calculate the change"
         end
       end
