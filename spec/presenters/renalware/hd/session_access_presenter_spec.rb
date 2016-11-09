@@ -3,7 +3,6 @@ require "rails_helper"
 describe Renalware::HD::SessionAccessPresenter do
   subject(:presenter) { Renalware::HD::SessionAccessPresenter }
 
-
   def mock_session(access_type: "ABC",
                    access_type_abbreviation: "A",
                    access_site: "Site123456789123456789",

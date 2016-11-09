@@ -12,7 +12,6 @@ module Renalware
       has_one :current_status, -> { where(terminated_on: nil) },
         class_name: "RegistrationStatus", foreign_key: "registration_id"
 
-
       has_paper_trail class_name: "Renalware::Transplants::Version"
       has_document class_name: "Renalware::Transplants::RegistrationDocument"
 
@@ -43,7 +42,6 @@ module Renalware
           recompute_termination_dates!
         end
       end
-
 
       private
 
