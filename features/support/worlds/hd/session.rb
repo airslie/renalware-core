@@ -142,7 +142,7 @@ module World
       end
 
       def view_ongoing_hd_sessions(user: nil)
-        @query = Renalware::HD::Sessions::OngoingQuery.new()
+        @query = Renalware::HD::Sessions::OngoingQuery.new
       end
 
       def view_patients_hd_sessions(patient:, user:)
