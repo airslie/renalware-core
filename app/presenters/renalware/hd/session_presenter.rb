@@ -70,8 +70,8 @@ module Renalware
         post = after_measurement_for(measurement)
         return if pre.blank? || post.blank?
         case pre
-        when ::Float ; (post - pre).round(1)
-        when ::Fixnum ;(post - pre)
+        when ::Float; (post - pre).round(1)
+        when ::Fixnum; (post - pre)
         else raise "Unsupported class '#{pre.class}'' - cannot calculate the change"
         end
       end
@@ -100,10 +100,10 @@ module Renalware
                                view_context.edit_patient_hd_session_path(patient, self),
                                class: "nowrap")
         end
-
       end
 
       protected
+
       attr_reader :session, :view_context
     end
   end

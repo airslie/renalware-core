@@ -51,7 +51,7 @@ module World
         profile = hd_dry_weight_for(patient)
         profile.update_attributes!(
           updated_at: Time.zone.now,
-          by: user,
+          by: user
         )
       end
 

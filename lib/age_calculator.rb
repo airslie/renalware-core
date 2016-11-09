@@ -56,6 +56,6 @@ class AgeCalculator
   end
 
   def build_hash(calculation)
-    calculation.to_h.delete_if {|k,v| k == :borrowed_month}
+    calculation.to_h.delete_if { |k, v| k == :borrowed_month }
   end
 end

@@ -21,7 +21,7 @@ module Renalware
         with_deleted
       end
 
-      def supersede!(attrs={})
+      def supersede!(attrs = {})
         transaction do
           successor = self.dup
           self.destroy!

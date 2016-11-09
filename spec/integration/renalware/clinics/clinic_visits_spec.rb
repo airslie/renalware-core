@@ -27,15 +27,15 @@ RSpec.describe "Clinic Visits Management", type: :request do
 
   describe "POST create" do
     before do
-      post patient_clinic_visits_path(patient_id: patient.to_param), 
-        { 
+      post patient_clinic_visits_path(patient_id: patient.to_param),
+        {
           clinic_visit: {
             date: Time.now,
             clinic_id: clinic,
             height: 1725, weight: 89.2, bp: "110/78",
             urine_blood: "neg", urine_protein: "neg",
-            notes: "Nothing unusual" 
-          } 
+            notes: "Nothing unusual"
+          }
         }
     end
     it "responds successfully" do
@@ -69,7 +69,7 @@ RSpec.describe "Clinic Visits Management", type: :request do
   end
 
   describe "DELETE destroy" do
-    subject do 
+    subject do
       delete patient_clinic_visit_path(patient_id: patient.to_param, id: clinic_visit.to_param)
     end
 

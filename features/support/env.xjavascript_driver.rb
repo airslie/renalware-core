@@ -1,4 +1,4 @@
-require 'capybara/poltergeist'
+require "capybara/poltergeist"
 
 # When this option is enabled, you can insert page.driver.debug into your tests
 # to pause the test and launch a browser which gives you the WebKit inspector

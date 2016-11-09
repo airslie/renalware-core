@@ -1,3 +1,4 @@
+# rubocop:disable Style/StructInheritance
 module Renalware
   class Country < Struct.new(:name)
 
@@ -6,7 +7,7 @@ module Renalware
     end
 
     def self.data
-      @data ||= YAML.load_file(Rails.root.join("config","countries.yml"))
+      @data ||= YAML.load_file(Rails.root.join("config", "countries.yml"))
     end
   end
 end

@@ -17,5 +17,5 @@ When(/^I complete the modality form$/) do
 end
 
 Then(/^I should see a patient's modality on their clinical summary$/) do
-   expect(page).to have_content("Other")
+  expect(page).to have_content("Other")
 end

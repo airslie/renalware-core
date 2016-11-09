@@ -15,7 +15,6 @@ module Renalware
       delegate :address, :to_s, :family_name, to: :person
       delegate :name, to: :address, prefix: true
 
-
       accepts_nested_attributes_for :person
 
       scope :with_person, -> { includes(person: :address) }

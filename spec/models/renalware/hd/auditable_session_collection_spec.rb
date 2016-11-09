@@ -33,21 +33,21 @@ module Renalware
           subject(:strategy) { AuditableSessionCollection::MeanValueStrategy }
 
           it "calculates the mean from a number of values" do
-            sessions = [ { x: 1.1 }, { x: 1.2 }, { x: 1.3 } ]
+            sessions = [{ x: 1.1 }, { x: 1.2 }, { x: 1.3 }]
             selector = ->(session) { session[:x] }
             result = strategy.new(sessions: sessions, selector: selector).call
             expect(result).to eq(1.2)
           end
 
           it "returns the only value if there is just one" do
-            sessions = [ { x: 1.99999 }]
+            sessions = [{ x: 1.99999 }]
             selector = ->(session) { session[:x] }
             result = strategy.new(sessions: sessions, selector: selector).call
             expect(result).to eq(2.0) # 1.9999 rounded up to 2.0
           end
 
           it "excludes nil values from the mean calculation" do
-            sessions = [ { x: 1.1 }, { x: 1.2 }, { x: nil }, { x: 1.3 } ]
+            sessions = [{ x: 1.1 }, { x: 1.2 }, { x: nil }, { x: 1.3 }]
             selector = ->(session) { session[:x] }
             result = strategy.new(sessions: sessions, selector: selector).call
             expect(result).to eq(1.2)
@@ -203,12 +203,12 @@ module Renalware
             sessions_with_no_profile = [
               Session::Closed.new(duration: 100, profile: nil)
             ] # expected shortfall across these sessions is  0 because there is no profile to
-              # indicate what the prescribed time is
+            # indicate what the prescribed time is
 
             sessions_using_profile1 = [
               Session::Closed.new(duration: 100, profile: profile1)
             ] # expected shortfall across these sessions is 0 because the profile does not specify
-              # a prescribed time
+            # a prescribed time
 
             sessions_using_profile2 = [
               Session::Closed.new(duration: 90, profile: profile2),
@@ -315,12 +315,12 @@ module Renalware
             dry_weight2 = build_stubbed(:hd_dry_weight, patient: patient, weight: 120.0)
 
             session1 = Session::Closed.new(dry_weight: dry_weight1, duration: 225)
-            session1.document.dialysis.fluid_removed = 1000.0 #ml
+            session1.document.dialysis.fluid_removed = 1000.0 # ml
 
             session2 = Session::Closed.new(dry_weight: dry_weight2, duration: 225)
-            session2.document.dialysis.fluid_removed = 2000.0 #ml
+            session2.document.dialysis.fluid_removed = 2000.0 # ml
 
-            @sessions = [ session1, session2]
+            @sessions = [session1, session2]
 
             # 225 mins = 3.75 hours
             # session 1 = 1000.0 ml / 3.75 hrs / 100.0 kg = 2.666
@@ -329,17 +329,17 @@ module Renalware
             expect(audit.mean_ufr).to eq(3.56)
           end
 
-         it "returns the mean ufr for a single session if only one supplied" do
+          it "returns the mean ufr for a single session if only one supplied" do
             dry_weight1 = build_stubbed(:hd_dry_weight, patient: patient, weight: 100.0)
             session1 = Session::Closed.new(dry_weight: dry_weight1, duration: 225)
-            session1.document.dialysis.fluid_removed = 1000.0 #ml
+            session1.document.dialysis.fluid_removed = 1000.0 # ml
             @sessions = [
               session1
             ]
             # 225 mins = 3.75 hours
             # 1000.0 ml / 3.75 hrs / 100.0 kg = 2.66
             expect(audit.mean_ufr).to eq(2.67)
-         end
+          end
         end
       end
     end

@@ -36,7 +36,7 @@ module Renalware
       end
 
       def parts
-        letter_event.part_classes.values.map {|part_class| part_class.new(patient, letter_event) }
+        letter_event.part_classes.values.map { |part_class| part_class.new(patient, letter_event) }
       end
 
       def part_for(part_name)

@@ -3,20 +3,21 @@ module World
     module GlobalAlgorithm
       module Domain
         # @section commands
-        #
+
+        # rubocop:disable Metrics/CyclomaticComplexity
         def create_global_rule(params)
           param_id =
             case params["type"]
-              when "ObservationResult" then
-                Renalware::Pathology::ObservationDescription.find_by!(code: params["id"]).id
-              when "RequestResult" then
-                Renalware::Pathology::RequestDescription.find_by!(code: params["id"]).id
-              when "PrescriptionDrug" then
-                Renalware::Drugs::Drug.find_by!(name: params["id"]).id
-              when "PrescriptionDrugType" then
-                Renalware::Drugs::Type.find_by!(name: params["id"]).id
-              when "PrescriptionDrugCategory" then
-                Renalware::Pathology::Requests::DrugCategory.find_by(name: params["id"]).id
+            when "ObservationResult" then
+              Renalware::Pathology::ObservationDescription.find_by!(code: params["id"]).id
+            when "RequestResult" then
+              Renalware::Pathology::RequestDescription.find_by!(code: params["id"]).id
+            when "PrescriptionDrug" then
+              Renalware::Drugs::Drug.find_by!(name: params["id"]).id
+            when "PrescriptionDrugType" then
+              Renalware::Drugs::Type.find_by!(name: params["id"]).id
+            when "PrescriptionDrugCategory" then
+              Renalware::Pathology::Requests::DrugCategory.find_by(name: params["id"]).id
             end
 
           rule_set =

@@ -63,7 +63,7 @@ module Renalware::System
         end
 
         it "notifies the user of account reactivation" do
-          expect{subject.call(unexpire: "true")}.to change(
+          expect{ subject.call(unexpire: "true") }.to change(
             ActionMailer::Base.deliveries, :count).by(1)
         end
       end
@@ -74,7 +74,7 @@ module Renalware::System
 
         it "skips unexpiry" do
           expect(subject).not_to receive(:unexpire)
-          expect{subject.call(unexpire: "true")}.to change(
+          expect{ subject.call(unexpire: "true") }.to change(
             ActionMailer::Base.deliveries, :count).by(0)
         end
       end

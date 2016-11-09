@@ -53,8 +53,13 @@ module Renalware
         attribute :machine_ktv, Float
         attribute :litres_processed, Float
 
-        def self.flow_rates; (100..800).step(100); end
-        def self.blood_flows; (50..400).step(50); end
+        def self.flow_rates
+          (100..800).step(100)
+        end
+
+        def self.blood_flows
+          (50..400).step(50)
+        end
 
         validates :machine_urr, inclusion: { in: 0..100, allow_blank: true }
         validates :machine_ktv, inclusion: { in: (0.2..3.5), allow_blank: true }

@@ -4,7 +4,8 @@ module Renalware::Feeds
   RSpec.describe MessageParser do
     describe "#parse" do
       context "given a message with multiple observation segments" do
-        let(:raw_message) { <<-RAW.strip_heredoc
+        let(:raw_message) do
+          <<-RAW.strip_heredoc
             MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
             PID|||Z999990^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
             PV1||Inpatient|NIBC^^^^^^^^|||||MID^KINGS MIDWIVES||||||||||NHS|HXF888888^^^Visit Number|||||||||
@@ -13,7 +14,7 @@ module Renalware::Feeds
             OBX|1|TX|WBC^WBC^MB||6.09||||||F|||200911112026||BBKA^Kenneth AMENYAH|
             OBX|2|TX|RBC^RBC^MB||4.00||||||F|||200911112026||BBKA^Kenneth AMENYAH|
           RAW
-        }
+        end
 
         it "returns a message" do
           message = subject.parse(raw_message)
@@ -74,7 +75,8 @@ module Renalware::Feeds
       end
 
       context "given a message with a single observation segment" do
-        let(:raw_message) { <<-RAW.strip_heredoc
+        let(:raw_message) do
+          <<-RAW.strip_heredoc
             MSH|^~\&|HM|LBE|SCM||20091112164645||ORU^R01|1258271|P|2.3.1|||AL||||
             PID|||Z999990^^^PAS Number||RABBIT^JESSICA^^^MS||19880924|F|||18 RABBITHOLE ROAD^LONDON^^^SE8 8JR|||||||||||||||||||
             PV1||Inpatient|NIBC^^^^^^^^|||||MID^KINGS MIDWIVES||||||||||NHS|HXF888888^^^Visit Number|||||||||
@@ -82,7 +84,7 @@ module Renalware::Feeds
             OBR|1|123456^PCS|09B0099478^LA|FBC^FULL BLOOD COUNT^MB||200911111841|200911111841|||||||200911111841|B^Blood|MID^KINGS MIDWIVES||09B0099478||||200911121646||HM|F||||||||||||||||||
             OBX|1|TX|WBC^WBC^MB||6.09||||||F|||200911112026||BBKA^Kenneth AMENYAH|
           RAW
-        }
+        end
 
         it "returns observations as a collection" do
           message = subject.parse(raw_message)

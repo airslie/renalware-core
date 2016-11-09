@@ -11,7 +11,7 @@ module World
 
       # @section seeding
       #
-      def seed_patient_on_wait_list(patient, status="Active")
+      def seed_patient_on_wait_list(patient, status = "Active")
         patient = transplant_patient(patient)
 
         Renalware::Transplants::Registration.create!(

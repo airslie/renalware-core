@@ -6,14 +6,14 @@ module Renalware
 
     included do
       class_eval do
-        scope :identity_match, -> (identity=1) {
+        scope :identity_match, ->(identity = 1) {
           where(sql_and_params(identity))
         }
       end
     end
 
     class_methods do
-      def ransackable_scopes(_auth=nil)
+      def ransackable_scopes(_auth = nil)
         %i(identity_match)
       end
 

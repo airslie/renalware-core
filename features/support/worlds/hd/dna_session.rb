@@ -35,7 +35,7 @@ module World
       include Domain
 
       def create_dna_session(options)
-        #options = parse_options(options)
+        # options = parse_options(options)
         user = options.delete(:user)
         patient = options.delete(:patient)
         login_as user

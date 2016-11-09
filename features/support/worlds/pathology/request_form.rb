@@ -53,7 +53,7 @@ module World
         end
 
         def create_request_with_patient_rules(patient, days_ago, patient_rules)
-         observed_at = days_ago.days.ago
+          observed_at = days_ago.days.ago
 
           Renalware::Pathology::Requests::Request.create!(
             patient: Renalware::Pathology.cast_patient(patient),
@@ -258,7 +258,7 @@ module World
 
           update_request_form_clinic(clinic.name) if clinic.present?
           update_request_form_consultant(consultant.full_name) if consultant.present?
-          update_request_form_telephone(telephone)  if telephone.present?
+          update_request_form_telephone(telephone) if telephone.present?
           update_request_form_template(params[:template])
         end
 

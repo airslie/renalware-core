@@ -7,7 +7,7 @@ module Renalware
   # if the user #has_permission? to manage the record.
   #
   class BasePolicy < ApplicationPolicy
-    def initialize(user, record, permission_configuration=nil)
+    def initialize(user, record, permission_configuration = nil)
       super(user, record)
 
       @permission_configuration = permission_configuration || default_permission_configuration

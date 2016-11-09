@@ -104,7 +104,8 @@ end
 
 When(/^Clyde filters on his pending review letters typed by Taylor$/) do
   taylor = find_or_create_user(given_name: "Taylor", role: "clinician")
-  view_letters(q: {
+  view_letters(
+    q: {
       state_eq: "pending_review",
       author_id_eq: @clyde.id,
       created_by_id_eq: taylor.id
@@ -149,7 +150,7 @@ When(/^Clyde adds Diana Newton as a District Nurse contact for Patty$/) do
   assign_new_person_as_contact(
     patient: @patty, user: @clyde,
     description_name: "District Nurse",
-    person_attrs: {  given_name: "Diana", family_name: "Newton" }
+    person_attrs: { given_name: "Diana", family_name: "Newton" }
   )
 end
 

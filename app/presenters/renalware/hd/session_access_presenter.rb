@@ -16,7 +16,7 @@ module Renalware
 
       def to_html
         return "" unless info
-         [
+        [
           abbreviated_type,
           abbreviated_site,
           abbreviated_side
@@ -24,6 +24,7 @@ module Renalware
       end
 
       private
+
       attr_reader :session
 
       def info

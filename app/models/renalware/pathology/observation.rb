@@ -11,7 +11,7 @@ module Renalware
       validates :observed_at, presence: true
 
       scope :ordered, -> { order(observed_at: :desc) }
-      scope :for_description, -> (description) { where(description: description) }
+      scope :for_description, ->(description) { where(description: description) }
 
       def observed_on
         observed_at.to_date

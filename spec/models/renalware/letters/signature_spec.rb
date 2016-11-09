@@ -8,7 +8,7 @@ module Renalware
       it { is_expected.to validate_presence_of(:signed_at) }
 
       describe "#to_s" do
-        let(:user) { build(:user, family_name: "Doe", given_name: "John")}
+        let(:user) { build(:user, family_name: "Doe", given_name: "John") }
         subject(:signature) { Signature.new(user: user, signed_at: "2016-08-01 12:05:55") }
 
         it "returns a signature line" do

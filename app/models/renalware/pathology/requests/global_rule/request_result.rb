@@ -43,7 +43,7 @@ module Renalware
 
           def required_observation_description_for_request_description_present
             return if request_description.present? &&
-              request_description.required_observation_description.present?
+                      request_description.required_observation_description.present?
             errors.add(:request_description, "required observation description can't be blank")
           end
         end

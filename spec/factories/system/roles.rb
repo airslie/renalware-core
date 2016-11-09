@@ -15,6 +15,6 @@ FactoryGirl.define do
   end
 end
 
-def find_or_create_role(name=:super_admin)
+def find_or_create_role(name = :super_admin)
   Renalware::Role.find_by(name: name) || create(:role, name)
 end

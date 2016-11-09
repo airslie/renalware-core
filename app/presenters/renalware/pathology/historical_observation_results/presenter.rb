@@ -34,7 +34,7 @@ module Renalware
       end
 
       def build_descriptions
-        @results.observation_descriptions.map {|description| HeaderPresenter.new(description) }
+        @results.observation_descriptions.map { |description| HeaderPresenter.new(description) }
       end
 
       # @section body
@@ -64,7 +64,7 @@ module Renalware
 
       class HeaderPresenter < SimpleDelegator
         def title
-           to_s
+          to_s
         end
 
         def html_class

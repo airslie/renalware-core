@@ -31,25 +31,26 @@ module Renalware
     describe "POST #create" do
       context "with valid attributes" do
         it "creates a new CAPD Regime" do
-          expect { post :create,
-            patient_id: @patient,
-            pd_regime: {
-              type: "Renalware::PD::CAPDRegime",
-              start_date: "01/02/2015",
-              treatment: "CAPD 3 exchanges per day",
-              regime_bags_attributes: [
-                bag_type_id: @bag_type.id,
-                volume: 600,
-                sunday: true,
-                monday: true,
-                tuesday: true,
-                wednesday: true,
-                thursday: true,
-                friday: true,
-                saturday: true
-              ]
-            }
-          }.to change(PD::Regime, :count).by(1)
+          expect do
+            post :create,
+                 patient_id: @patient,
+                 pd_regime: {
+                   type: "Renalware::PD::CAPDRegime",
+                   start_date: "01/02/2015",
+                   treatment: "CAPD 3 exchanges per day",
+                   regime_bags_attributes: [
+                     bag_type_id: @bag_type.id,
+                     volume: 600,
+                     sunday: true,
+                     monday: true,
+                     tuesday: true,
+                     wednesday: true,
+                     thursday: true,
+                     friday: true,
+                     saturday: true
+                   ]
+                 }
+          end.to change(PD::Regime, :count).by(1)
 
           expect(response).to redirect_to(patient_pd_dashboard_path(@patient))
         end
@@ -95,7 +96,7 @@ module Renalware
             treatment: "CAPD 4 exchanges per day",
             regime_bags_attributes: [
               {
-                bag_type_id:"100", volume:"2", per_week:"1", monday:true
+                bag_type_id: "100", volume: "2", per_week: "1", monday: true
               }
             ]
           }

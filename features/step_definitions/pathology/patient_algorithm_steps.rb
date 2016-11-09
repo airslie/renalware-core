@@ -23,7 +23,7 @@ When(/^Clyde records a new patient rule for Patty$/) do
     sample_number_bottles: 1,
     frequency_type: "Always",
     start_date: Date.current,
-    end_date: Date.current + 1.week,
+    end_date: Date.current + 1.week
   }
 
   record_patient_rule(
@@ -41,7 +41,7 @@ When(/^Clyde submits an erroneous patient rule for Patty$/) do
   @patient_rule_attributes = {
     lab: "Biochemistry",
     test_description: "",
-    frequency_type: "Always",
+    frequency_type: "Always"
   }
 
   record_patient_rule(

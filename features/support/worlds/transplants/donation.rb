@@ -23,7 +23,7 @@ module World
 
         Renalware::Transplants::Donation.create!(
           valid_donation_attributes.merge(
-            patient: patient,
+            patient: patient
           )
         )
       end

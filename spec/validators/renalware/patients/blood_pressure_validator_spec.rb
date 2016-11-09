@@ -17,7 +17,7 @@ module Renalware
       end
 
       before do
-          yaml = <<-YAML
+        yaml = <<-YAML
             activemodel:
               errors:
                 models:
@@ -29,7 +29,7 @@ module Renalware
                         out_of_range: #{out_of_range_message}
                         must_be_less_than_systolic: #{must_be_less_than_systolic_message}
           YAML
-          I18n.backend.store_translations(:en, YAML.load(yaml))
+        I18n.backend.store_translations(:en, YAML.load(yaml))
       end
 
       it "accepts in-range values" do
@@ -44,7 +44,7 @@ module Renalware
       end
 
       it "rejects non numeric values" do
-        model = build_model(systolic: "NaN", diastolic:"NaN")
+        model = build_model(systolic: "NaN", diastolic: "NaN")
         expect_model_to_be_invalid_with_messages(model, :systolic, out_of_range_message)
         expect_model_to_be_invalid_with_messages(model, :diastolic, out_of_range_message)
       end

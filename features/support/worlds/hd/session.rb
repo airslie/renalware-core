@@ -42,10 +42,12 @@ module World
                   "temperature": 36.0, "blood_pressure": {"systolic": 100, "diastolic": 80}}}
         END
 
-        valid_open_session_attributes(patient).merge({
-          end_time: "23:59",
-          document: JSON.parse(json)
-        })
+        valid_open_session_attributes(patient).merge(
+          {
+            end_time: "23:59",
+            document: JSON.parse(json)
+          }
+        )
       end
 
       # @section seeding
@@ -140,7 +142,7 @@ module World
       end
 
       def view_ongoing_hd_sessions(user: nil)
-        @query = Renalware::HD::Sessions::OngoingQuery.new()
+        @query = Renalware::HD::Sessions::OngoingQuery.new
       end
 
       def view_patients_hd_sessions(patient:, user:)
@@ -180,7 +182,7 @@ module World
 
       def expect_all_patient_hd_sessions_to_be_present(patient:, **)
         expected_ids = Renalware::HD::Session.where(patient: patient).all.pluck(:id).sort
-        actual_ids =  Renalware::HD::Sessions::PatientQuery.new(patient: patient)
+        actual_ids = Renalware::HD::Sessions::PatientQuery.new(patient: patient)
                                                            .call
                                                            .pluck(:id)
                                                            .sort
@@ -234,9 +236,9 @@ module World
       end
 
       def view_patients_hd_sessions(patient:, user:)
-         login_as user
-         visit patient_hd_sessions_path(patient)
-         expect(page.current_path).to eq(patient_hd_sessions_path(patient))
+        login_as user
+        visit patient_hd_sessions_path(patient)
+        expect(page.current_path).to eq(patient_hd_sessions_path(patient))
       end
 
       def expect_all_patient_hd_sessions_to_be_present(*)

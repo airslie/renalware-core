@@ -23,7 +23,7 @@ module Renalware
     end
 
     def practices_list(practices)
-      practice_links = practices.map { |p| link_to(p.name, '#', title: format_address(p.address)) }
+      practice_links = practices.map { |p| link_to(p.name, "#", title: format_address(p.address)) }
       practice_links.join(tag(:br)).html_safe
     end
   end

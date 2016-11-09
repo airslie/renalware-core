@@ -14,7 +14,6 @@ module World
       end
 
       def seed_prescription_for(**options)
-
         options.reverse_merge!(default_prescriptions_options)
 
         drug = Renalware::Drugs::Drug.find_or_create_by!(name: options.delete(:drug_name))
@@ -77,19 +76,19 @@ module World
         update_params = { by: Renalware::SystemUser.find }
         prescription_params.each do |key, value|
           case key.to_sym
-            when :drug_name
-              drug = Renalware::Drugs::Drug.find_by!(name: value)
-              update_params.merge!(drug: drug)
-            when :dose
-              dose_amount, dose_unit = value.split(" ")
-              update_params.merge!(dose_amount: dose_amount, dose_unit: dose_unit)
-            when :route_code
-              route = Renalware::Medications::MedicationRoute.find_by!(code: value)
-              update_params.merge!(medication_route: route)
-            when :dose_amount
-              update_params.merge!(dose_amount: dose_amount.presence)
-            else
-              update_params.merge!(key.to_sym => value)
+          when :drug_name
+            drug = Renalware::Drugs::Drug.find_by!(name: value)
+            update_params.merge!(drug: drug)
+          when :dose
+            dose_amount, dose_unit = value.split(" ")
+            update_params.merge!(dose_amount: dose_amount, dose_unit: dose_unit)
+          when :route_code
+            route = Renalware::Medications::MedicationRoute.find_by!(code: value)
+            update_params.merge!(medication_route: route)
+          when :dose_amount
+            update_params.merge!(dose_amount: dose_amount.presence)
+          else
+            update_params.merge!(key.to_sym => value)
           end
         end
 
@@ -199,7 +198,7 @@ module World
       # @section helpers
       #
       def default_medication_drug_selector
-        -> (drug_name, drug_type="Antibiotic") do
+        ->(drug_name, drug_type = "Antibiotic") do
           select(drug_type, from: "Medication Type")
           select(drug_name, from: "Drug")
         end
@@ -269,17 +268,17 @@ module World
         within "#prescriptions" do
           prescription_params.each do |key, value|
             case key.to_sym
-              when :drug_name
-                drug_selector.call(value)
-              when :dose
-                dose_amount, dose_unit = value.split(" ")
-                fill_in_dose(dose_amount, dose_unit)
-              when :dose_amount
-                fill_in "Dose amount", with: dose_amount.to_s
-              when :frequency
-                fill_in "Frequency", with: value
-              when :route_code
-                select value, from: "Medication route"
+            when :drug_name
+              drug_selector.call(value)
+            when :dose
+              dose_amount, dose_unit = value.split(" ")
+              fill_in_dose(dose_amount, dose_unit)
+            when :dose_amount
+              fill_in "Dose amount", with: dose_amount.to_s
+            when :frequency
+              fill_in "Frequency", with: value
+            when :route_code
+              select value, from: "Medication route"
             end
           end
           click_on "Save"

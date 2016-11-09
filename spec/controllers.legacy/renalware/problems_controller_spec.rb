@@ -18,7 +18,7 @@ module Renalware::Problems
           put :update,
               patient_id: patient,
               id: problem,
-              problems_problem: {  description: "testing" }
+              problems_problem: { description: "testing" }
 
           expect(response).to redirect_to(patient_problems_path(patient))
         end
@@ -26,7 +26,7 @@ module Renalware::Problems
 
       context "with invalid attributes" do
         it "redirects to the problem index as invalid problems are rejected" do
-          put :update, patient_id: patient, id: problem, problems_problem: {  description: "" }
+          put :update, patient_id: patient, id: problem, problems_problem: { description: "" }
 
           expect(response).to have_http_status(:success)
         end

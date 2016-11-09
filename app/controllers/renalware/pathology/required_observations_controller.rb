@@ -9,10 +9,10 @@ module Renalware
         request_params = Requests::RequestParamsFactory.new(raw_request_params).build
         request = Requests::RequestFactory.new(@patient, request_params).build
 
-        render :index, locals:{
+        render :index, locals: {
           request_html_form_params: build_params_for_html_form,
           request: request,
-          all_clinics: all_clinics,
+          all_clinics: all_clinics
         }
       end
 

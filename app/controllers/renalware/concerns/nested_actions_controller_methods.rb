@@ -12,7 +12,7 @@ module Renalware
       # default_action - the update or save action wrapped in a proc
       # build_attrs - attributes to pass to collection#build when adding to the collection
       #
-      def perform_action(nested, default_action, build_attrs={})
+      def perform_action(nested, default_action, build_attrs = {})
         if (actions = params[:actions]).present?
           if actions.key?(:remove)
             index = actions[:remove].keys.first.to_i

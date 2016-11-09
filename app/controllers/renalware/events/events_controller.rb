@@ -31,7 +31,7 @@ module Renalware
         params.require(:events_event).permit(:event_type_id, :date_time, :description, :notes)
       end
 
-      def new_event_for_patient(params={})
+      def new_event_for_patient(params = {})
         Event.new(params) do |e|
           e.patient = @patient
         end

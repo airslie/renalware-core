@@ -9,7 +9,7 @@ module Renalware
         @presenter = presenter
       end
 
-      def call(_params={})
+      def call(_params = {})
         results = find_current_observations_for_descriptions
         sorted_results = sort_results(results)
         present(sorted_results)
@@ -29,7 +29,7 @@ module Renalware
       end
 
       def find_result_for_description(results, description)
-        results.detect {|result| result.description_code == description.code }
+        results.detect { |result| result.description_code == description.code }
       end
 
       def present(results)

@@ -47,7 +47,7 @@ module Renalware
       end
 
       def match_bag_type
-        glucose_types = [[],[],[]]
+        glucose_types = [[], [], []]
 
         self.regime_bags.each do |bag|
           case bag.bag_type.glucose_grams_per_litre.to_f
@@ -70,7 +70,7 @@ module Renalware
           0
         else
           per_week_total = match_bag_type[0].inject{ |sum, v| sum + v }
-          glucose_daily_average = per_week_total/7.to_f
+          glucose_daily_average = per_week_total / 7.to_f
           self.glucose_ml_percent_1_36 = glucose_daily_average.round
         end
       end
@@ -80,7 +80,7 @@ module Renalware
           0
         else
           per_week_total = match_bag_type[1].inject{ |sum, v| sum + v }
-          glucose_daily_average = per_week_total/7.to_f
+          glucose_daily_average = per_week_total / 7.to_f
           self.glucose_ml_percent_2_27 = glucose_daily_average.round
         end
       end
@@ -90,7 +90,7 @@ module Renalware
           0
         else
           per_week_total = match_bag_type[2].inject{ |sum, v| sum + v }
-          glucose_daily_average = per_week_total/7.to_f
+          glucose_daily_average = per_week_total / 7.to_f
           self.glucose_ml_percent_3_86 = glucose_daily_average.round
         end
       end

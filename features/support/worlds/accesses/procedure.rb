@@ -90,7 +90,7 @@ module World
         login_as user
         visit patient_accesses_dashboard_path(patient)
         within_fieldset "Procedure History" do
-         click_on "Edit"
+          click_on "Edit"
         end
 
         select "Left", from: "Access Side"
