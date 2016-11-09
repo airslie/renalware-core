@@ -4,7 +4,7 @@ module Renalware
   module Pathology
     module Requests
       class GlobalRule < ActiveRecord::Base
-        PARAM_COMPARISON_OPERATORS = ["==", ">", "<", ">=", "<=", "include?"]
+        PARAM_COMPARISON_OPERATORS = ["==", ">", "<", ">=", "<=", "include?"].freeze
 
         belongs_to :rule_set, polymorphic: true
 

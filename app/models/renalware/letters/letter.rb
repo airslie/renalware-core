@@ -54,7 +54,7 @@ module Renalware
       EVENTS_MAP = {
         Clinics::ClinicVisit => Event::ClinicVisit,
         NilClass => Event::Unknown
-      }
+      }.freeze
 
       def letter_event
         @letter_event ||= EVENTS_MAP.fetch(event.class).new(event)

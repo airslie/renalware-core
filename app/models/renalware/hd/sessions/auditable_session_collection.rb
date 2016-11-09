@@ -29,7 +29,7 @@ module Renalware
           mean_machine_ktv
           mean_blood_flow
           mean_litres_processed
-        )
+        ).freeze
 
         def to_h
           AUDITABLE_ATTRIBUTES.inject({}) do |hash, sym|

@@ -1,6 +1,6 @@
 module Renalware
   class SystemUser
-    USERNAME = "systemuser"
+    USERNAME = "systemuser".freeze
 
     def self.username
       USERNAME
