@@ -17,6 +17,7 @@ module Renalware
       end
 
       private
+
       attr_reader :profile
     end
   end

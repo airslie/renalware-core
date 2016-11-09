@@ -15,6 +15,7 @@ module Renalware
       end
 
       private
+
       attr_reader :patient
 
       def recent_sessions

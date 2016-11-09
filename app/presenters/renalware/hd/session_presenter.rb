@@ -104,6 +104,7 @@ module Renalware
       end
 
       protected
+
       attr_reader :session, :view_context
     end
   end

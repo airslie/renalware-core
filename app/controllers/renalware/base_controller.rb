@@ -16,6 +16,7 @@ module Renalware
     before_filter :prepare_patient_search
 
     protected
+
     attr_reader :patient
 
     private

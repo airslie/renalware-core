@@ -142,6 +142,7 @@ module Renalware
           end
 
           private
+
           attr_reader :sessions, :selector
         end
 

@@ -71,6 +71,7 @@ module Renalware
       end
 
       protected
+
       attr_accessor :view_context
     end
   end

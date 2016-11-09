@@ -25,6 +25,7 @@ module Renalware
       end
 
       private
+
       attr_reader :profile
 
       def locals

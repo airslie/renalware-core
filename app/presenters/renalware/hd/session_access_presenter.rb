@@ -24,6 +24,7 @@ module Renalware
       end
 
       private
+
       attr_reader :session
 
       def info

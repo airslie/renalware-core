@@ -42,6 +42,7 @@ module Renalware
       end
 
       private
+
       attr_accessor :patient, :view_context
     end
   end
