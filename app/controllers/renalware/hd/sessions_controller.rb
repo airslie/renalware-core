@@ -8,6 +8,7 @@ module Renalware
       def index
         query = Sessions::PatientQuery.new(patient: patient, q: params[:q])
         sessions = query.call.includes(:hospital_unit, :patient).page(params[:page]).per(15)
+        authorize sessions
         presenter = CollectionPresenter.new(sessions, SessionPresenter, view_context)
         @q = query.search
         render :index, locals: { sessions: presenter }
@@ -15,6 +16,7 @@ module Renalware
 
       def show
         session = Session.for_patient(patient).find(params[:id])
+        authorize session
         presenter = SessionPresenter.new(session, view_context)
         render :show, locals: { session: presenter, patient: patient }
       end
@@ -23,6 +25,7 @@ module Renalware
         session = SessionFactory.new(patient: patient,
                                      user: current_user,
                                      type: params[:type]).build
+        authorize session
         render :new, locals: { session: session, patient: patient }
       end
 
@@ -32,7 +35,11 @@ module Renalware
 
       def edit
         session = Session.for_patient(patient).find(params[:id])
+        authorize session
         render :edit, locals: { session: session, patient: patient }
+      rescue Pundit::NotAuthorizedError
+        flash[:warning] = t(".session_is_immutable")
+        redirect_to patient_hd_session_path(session, patient_id: patient.id)
       end
 
       def update

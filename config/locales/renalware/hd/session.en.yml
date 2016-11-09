@@ -176,6 +176,7 @@ en:
           dna:
             title: HD DNA Session
         edit:
+          session_is_immutable: Sorry, this session is no longer editable
           open:
             title: HD Session
           closed:
