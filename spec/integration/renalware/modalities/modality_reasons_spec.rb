@@ -4,7 +4,7 @@ RSpec.describe "Listing Modality Reasons", type: :request do
 
   describe "GET index" do
     it "responds with a list" do
-      create(:pd_to_haemodialysis, description: "::modality name::" )
+      create(:pd_to_haemodialysis, description: "::modality name::")
 
       get modalities_reasons_path
 
