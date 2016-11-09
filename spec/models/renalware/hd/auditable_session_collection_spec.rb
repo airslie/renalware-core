@@ -203,12 +203,12 @@ module Renalware
             sessions_with_no_profile = [
               Session::Closed.new(duration: 100, profile: nil)
             ] # expected shortfall across these sessions is  0 because there is no profile to
-              # indicate what the prescribed time is
+            # indicate what the prescribed time is
 
             sessions_using_profile1 = [
               Session::Closed.new(duration: 100, profile: profile1)
             ] # expected shortfall across these sessions is 0 because the profile does not specify
-              # a prescribed time
+            # a prescribed time
 
             sessions_using_profile2 = [
               Session::Closed.new(duration: 90, profile: profile2),
