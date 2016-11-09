@@ -2,7 +2,7 @@
 require File.expand_path("../application", __FILE__)
 require File.join(Rails.root, "lib/renalware/configuration")
 
-# TODO Heroku/Sendgrid specific config for acceptance testing environments.
+# TODO: Heroku/Sendgrid specific config for acceptance testing environments.
 # These will be superseded or based completely on environment vars.
 #
 ActionMailer::Base.smtp_settings = {
