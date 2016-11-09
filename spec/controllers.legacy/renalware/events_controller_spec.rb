@@ -19,14 +19,14 @@ module Renalware::Events
       context "with valid attributes" do
         it "creates a new event" do
           expect do
-           post :create,
-                patient_id: @patient,
-                events_event: {
-                  events_type_id: @event_type,
-                  date_time: Time.now,
-                  description: "Needs blood test",
-                  notes: "Arrange appointment in a weeks time."
-                }
+            post :create,
+                 patient_id: @patient,
+                 events_event: {
+                   events_type_id: @event_type,
+                   date_time: Time.now,
+                   description: "Needs blood test",
+                   notes: "Arrange appointment in a weeks time."
+                 }
           end.to change(Event, :count).by(1)
           expect(response).to redirect_to(patient_events_path(@patient))
         end
