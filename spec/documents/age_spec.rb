@@ -52,7 +52,7 @@ module Renalware
         it "computes the age in months if less than 3 years old" do
           age = subject.new_from(parts)
 
-          expect(age.amount).to eq(10*12 + 1)
+          expect(age.amount).to eq(10 * 12 + 1)
           expect(age.unit).to eq(:months)
         end
       end
