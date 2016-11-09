@@ -14,7 +14,6 @@ module World
       end
 
       def seed_prescription_for(**options)
-
         options.reverse_merge!(default_prescriptions_options)
 
         drug = Renalware::Drugs::Drug.find_or_create_by!(name: options.delete(:drug_name))

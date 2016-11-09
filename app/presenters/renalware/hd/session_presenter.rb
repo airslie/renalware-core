@@ -100,7 +100,6 @@ module Renalware
                                view_context.edit_patient_hd_session_path(patient, self),
                                class: "nowrap")
         end
-
       end
 
       protected

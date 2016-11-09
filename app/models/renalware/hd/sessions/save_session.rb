@@ -32,7 +32,6 @@ module Renalware
             session.type = session_type  # See method comment
             broadcast(:save_failure, session)
           end
-
         end
 
         private
