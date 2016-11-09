@@ -12,7 +12,7 @@ module Renalware
         render :index, locals: {
           request_html_form_params: build_params_for_html_form,
           request: request,
-          all_clinics: all_clinics,
+          all_clinics: all_clinics
         }
       end
 
