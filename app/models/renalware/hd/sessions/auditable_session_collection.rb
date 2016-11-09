@@ -17,7 +17,7 @@ module Renalware
       class AuditableSessionCollection < SimpleDelegator
         attr_accessor :sessions
 
-        AUDITABLE_ATTRIBUTES = %i{
+        AUDITABLE_ATTRIBUTES = %i(
           pre_mean_systolic_blood_pressure
           pre_mean_diastolic_blood_pressure
           post_mean_systolic_blood_pressure
@@ -29,7 +29,7 @@ module Renalware
           mean_machine_ktv
           mean_blood_flow
           mean_litres_processed
-        }
+        )
 
         def to_h
           AUDITABLE_ATTRIBUTES.inject({}) do |hash, sym|
