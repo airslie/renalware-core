@@ -26,6 +26,7 @@ FactoryGirl.define do
     access_site "Brachio-basilic & transposition"
     access_type "Arteriovenous graft (AVG)"
     access_type_abbreviation "AVG"
+    access_confirmed true
     single_needle "no"
     lines_reversed "no"
     fistula_plus_line "no"

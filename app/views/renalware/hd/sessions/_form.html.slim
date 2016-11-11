@@ -31,11 +31,14 @@ ruby:
 
       = fd.simple_fields_for :info, fd.object.info do |fcm|
         = fcm.input :hd_type, as: :inline_radio_buttons
-        = fcm.input :access_type, as: :select, value_method: :name,
-            collection: Renalware::Accesses::Type.ordered, input_html: { class: "small-input" }
-        = fcm.input :access_side, input_html: { class: "small-input" }
-        = fcm.input :access_site, as: :select, value_method: :name,
-            collection: Renalware::Accesses::Site.ordered
+        fieldset
+          legend Access
+          = fcm.input :access_type, as: :select, value_method: :name,
+              collection: Renalware::Accesses::Type.ordered, input_html: { class: "small-input" }
+          = fcm.input :access_side, input_html: { class: "small-input" }
+          = fcm.input :access_site, as: :select, value_method: :name,
+              collection: Renalware::Accesses::Site.ordered
+          = fcm.input :access_confirmed, as: :boolean
         = fcm.input :is_access_first_use, as: :inline_radio_buttons
         = fcm.input :fistula_plus_line, as: :inline_radio_buttons
         = fcm.input :single_needle, as: :inline_radio_buttons

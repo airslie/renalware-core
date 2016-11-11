@@ -72,10 +72,9 @@ module Renalware
 
         def lookup_access_type_abbreviation(session)
           return unless session.document
-
-          if (access_type = Accesses::Type.find_by(name: session.document.info.access_type))
-            session.document.info.access_type_abbreviation = access_type.abbreviation
-          end
+          access_type = Accesses::Type.find_by(name: session.document.info.access_type)
+          return unless access_type
+          session.document.info.access_type_abbreviation = access_type.abbreviation
         end
       end
     end

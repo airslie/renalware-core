@@ -1,13 +1,13 @@
 module Renalware
   log "Assign Unit HD modality to Francois RABBIT"
 
-  patient = Patient.find_by(local_patient_id: "Z100003")
+  patient = HD.cast_patient(Patient.find_by(local_patient_id: "Z100003"))
   description = HD::ModalityDescription.first!
   patient.set_modality(description: description, started_on: 1.week.ago)
 
   log "Assign some HD preferences to Francois RABBIT"
 
-  preference_set = HD::PreferenceSet.find_or_initialize_by(patient: HD.cast_patient(patient))
+  preference_set = HD::PreferenceSet.find_or_initialize_by(patient: patient)
   preference_set.attributes = {
     schedule: "mon_wed_fri_am",
     entered_on: 1.week.ago.to_date,
@@ -17,7 +17,7 @@ module Renalware
 
   log "Assign an HD profile to Francois RABBIT"
 
-  profile = HD::Profile.find_or_initialize_by(patient: HD.cast_patient(patient))
+  profile = HD::Profile.find_or_initialize_by(patient: patient)
   profile.attributes = {
     by: User.first,
     hospital_unit: Hospitals::Unit.hd_sites.first,
@@ -76,55 +76,58 @@ module Renalware
   start_times = ["13:00", "13:15", "13:30"]
   end_times = ["15:30", "15:45", "16:00"]
 
-  session_document = {
-    info: {
-      hd_type: "hd",
-      machine_no: 222,
-      access_side: "right",
-      access_site: "Brachio-basilic & transposition",
-      access_type: "Arteriovenous graft (AVG)",
-      access_type_abbreviation: "AVG",
-      single_needle: "no",
-      lines_reversed: "no",
-      fistula_plus_line: "no",
-      dialysis_fluid_used: "a10",
-      is_access_first_use: "no"
-    },
-    dialysis: {
-      flow_rate: 200,
-      blood_flow: 150,
-      machine_ktv: 1.0,
-      machine_urr: 1,
-      fluid_removed: 1.0,
-      venous_pressure: 1,
-      litres_processed: 1.0,
-      arterial_pressure: 1
-    },
-    observations_after: {
-      pulse: 36,
-      weight: 100.0,
-      bm_stix: 1.0,
-      temperature: 36.0,
-      blood_pressure: {
-        systolic: 100,
-        diastolic: 80
-      }
-    },
-    observations_before: {
-      pulse: 67,
-      weight: 100.0,
-      bm_stix: 1.0,
-      temperature: 36.0,
-      blood_pressure: {
-        systolic: 100,
-        diastolic: 80
+  def self.session_document
+    {
+      info: {
+        hd_type: "hd",
+        machine_no: rand(100..222),
+        access_confirmed: true,
+        access_side: "right",
+        access_site: "Brachio-basilic & transposition",
+        access_type: "Arteriovenous graft (AVG)",
+        access_type_abbreviation: "AVG",
+        single_needle: "no",
+        lines_reversed: "no",
+        fistula_plus_line: "no",
+        dialysis_fluid_used: "a10",
+        is_access_first_use: "no"
+      },
+      dialysis: {
+        flow_rate: rand(100..200),
+        blood_flow: rand(100..200),
+        machine_ktv: rand(0.5..3.0).round(1),
+        machine_urr: rand(0.6..10.0).round(1),
+        fluid_removed: rand(1.0..10.0).round(1),
+        venous_pressure: rand(100..200),
+        litres_processed: rand(10.0..20.0).round(1),
+        arterial_pressure: rand(5..10)
+      },
+      observations_after: {
+        pulse: rand(60..80),
+        weight: rand(110.0..112.0).round(1),
+        bm_stix: rand(0.6..10.0).round(1),
+        temperature: rand(36..38),
+        blood_pressure: {
+          systolic: rand(100..120),
+          diastolic: rand(80..99)
+        }
+      },
+      observations_before: {
+        pulse: rand(60..80),
+        weight: rand(106.0..110.0).round(1),
+        bm_stix: rand(0.6..10.0).round(1),
+        temperature: rand(36..38),
+        blood_pressure: {
+          systolic: rand(100..120),
+          diastolic: rand(80..99)
+        }
       }
     }
-  }
+  end
 
   # Make the most recent session ongoing
   HD::Session::Open.create!(
-    patient: HD.cast_patient(patient),
+    patient: patient,
     hospital_unit: units.sample,
     performed_on: Time.zone.today,
     start_time: "09:00",
@@ -132,13 +135,16 @@ module Renalware
     by: users.sample
   )
 
-  # Create some closed and dna sessions every 2 days starting 2 days ago
-  (2..40).step(2).each do |i|
+  # Create some closed and dna sessions on random dates over the past 6 years
+  50.times do |i|
+    date = rand(6.months).seconds.ago
+
+    # She misses every 5th session
     if i % 5 == 0
       HD::Session::DNA.create!(
-        patient: HD.cast_patient(patient),
+        patient: patient,
         hospital_unit: units.sample,
-        performed_on: i.days.ago,
+        performed_on: date,
         start_time: start_times.sample,
         signed_on_by: users.sample,
         by: users.sample,
@@ -148,15 +154,23 @@ module Renalware
       HD::Session::Closed.create!(
         patient: HD.cast_patient(patient),
         hospital_unit: units.sample,
-        performed_on: i.days.ago,
+        performed_on: date,
         start_time: start_times.sample,
         end_time: end_times.sample,
         signed_on_by: users.sample,
-        signed_off_at: Time.zone.now - 1.day,
+        signed_off_at: date,
         signed_off_by: users.sample,
         by: users.sample,
         document: session_document
       )
     end
+  end
+
+  # Generate HD statistics for the last 6 months of HD Sessions
+  (0..5).each do |month|
+    date = Date.today - month.months
+    period = MonthPeriod.new(month: date.month, year: date.year)
+    HD::GenerateMonthlyStatisticsForPatient.new(patient: patient,
+                                                period: period).call
   end
 end

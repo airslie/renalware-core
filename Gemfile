@@ -41,6 +41,8 @@ gem "wkhtmltopdf-binary", "~> 0.12.3"
 gem "activerecord-tableless", "~> 1.3.4"
 gem "naught", "~> 1.1.0"
 gem "delayed_job_web", "~> 1.2.10"
+gem "where-or", "~> 0.1.3" # Rail 5 AR 'or' backport
+gem "whenever", require: false # For managing and deploying cron jobs - see config/schedule.rb
 
 source "https://rails-assets.org" do
   # https://github.com/najlepsiwebdesigner/foundation-datepicker

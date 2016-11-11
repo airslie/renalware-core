@@ -62,6 +62,7 @@ module Renalware
 
       describe Session::Closed::SessionDocument::Info do
         it { is_expected.to validate_presence_of(:hd_type) }
+        it { is_expected.to validate_presence_of(:access_confirmed) }
       end
 
       describe Session::Closed::SessionDocument::Observations do

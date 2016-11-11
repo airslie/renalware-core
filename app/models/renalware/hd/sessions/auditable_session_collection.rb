@@ -15,7 +15,6 @@ module Renalware
   module HD
     module Sessions
       class AuditableSessionCollection < SimpleDelegator
-        attr_accessor :sessions
 
         AUDITABLE_ATTRIBUTES = %i(
           pre_mean_systolic_blood_pressure
@@ -32,7 +31,7 @@ module Renalware
         ).freeze
 
         def to_h
-          AUDITABLE_ATTRIBUTES.inject({}) do |hash, sym|
+          AUDITABLE_ATTRIBUTES.each_with_object({}) do |sym, hash|
             hash[sym] = public_send(sym)
             hash
           end
@@ -118,6 +117,8 @@ module Renalware
         end
 
         class MeanValueStrategy
+          attr_reader :sessions, :selector
+
           def initialize(sessions:, selector:)
             @sessions = sessions
             @selector = selector
@@ -140,13 +141,11 @@ module Renalware
           def mean
             (total.to_f / values.count.to_f).round(2)
           end
-
-          private
-
-          attr_reader :sessions, :selector
         end
 
         private
+
+        attr_accessor :sessions
 
         def closed_sessions
           @closed_sessions ||= sessions.select(&:closed?)
@@ -161,7 +160,7 @@ module Renalware
         # Example usage:
         #   mean_blood_pressure(:observations_after, :diastolic)
         def mean_blood_pressure(observation, measurement)
-          selector = ->(session) do
+          selector = lambda do |session|
             session
               .document
               .public_send(observation)

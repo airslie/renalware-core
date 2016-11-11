@@ -16,8 +16,8 @@ module Renalware
         @ecoli = create(:organism_code, name: "E.Coli")
         @user = create(:user)
 
-        load_drugs_by_type("Amoxicillin" => ["Antibiotic", "Peritonitis"],
-          "Penicillin" => ["Antibiotic", "Peritonitis"])
+        load_drugs_by_type("Amoxicillin" => %w(Antibiotic Peritonitis),
+                           "Penicillin" => %w(Antibiotic Peritonitis))
 
         load_med_routes
       end
