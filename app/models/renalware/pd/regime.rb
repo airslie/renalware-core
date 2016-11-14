@@ -6,9 +6,9 @@ module Renalware
       MIN_THERAPY_TIME = 120
       MAX_THERAPY_TIME = 900
 
-      before_save :set_glucose_ml_percent_1_36
-      before_save :set_glucose_ml_percent_2_27
-      before_save :set_glucose_ml_percent_3_86
+      before_save :set_glucose_volume_percent_1_36
+      before_save :set_glucose_volume_percent_2_27
+      before_save :set_glucose_volume_percent_3_86
 
       belongs_to :patient, class_name: "Renalware::Patient"
 
@@ -26,13 +26,13 @@ module Renalware
       validate :min_one_regime_bag
 
       with_options if: :type_apd? do |apd|
-        apd.validates :last_fill_ml, allow_nil: true, numericality:
+        apd.validates :last_fill_volume, allow_nil: true, numericality:
           { greater_than_or_equal_to: 500, less_than_or_equal_to: 5000 }
         apd.validates :tidal_percentage, allow_nil: true, numericality:
           { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
         apd.validates :no_cycles_per_apd, allow_nil: true, numericality:
           { greater_than_or_equal_to: 2, less_than_or_equal_to: 20 }
-        apd.validates :overnight_pd_ml, allow_nil: true, numericality:
+        apd.validates :overnight_pd_volume, allow_nil: true, numericality:
           { greater_than_or_equal_to: 3000, less_than_or_equal_to: 25000 }
         apd.validates :therapy_time, allow_nil: true, numericality: {
           greater_than_or_equal_to: MIN_THERAPY_TIME, less_than_or_equal_to: MAX_THERAPY_TIME }
@@ -54,7 +54,7 @@ module Renalware
         glucose_types = [[], [], []]
 
         self.regime_bags.each do |bag|
-          case bag.bag_type.glucose_grams_per_litre.to_f
+          case bag.bag_type.glucose_content.to_f
 
           when 13.6
             glucose_types[0] << bag.weekly_total_glucose_ml_per_bag
@@ -69,33 +69,33 @@ module Renalware
         glucose_types
       end
 
-      def set_glucose_ml_percent_1_36
+      def set_glucose_volume_percent_1_36
         if match_bag_type[0].empty?
           0
         else
           per_week_total = match_bag_type[0].inject{ |sum, v| sum + v }
           glucose_daily_average = per_week_total / 7.to_f
-          self.glucose_ml_percent_1_36 = glucose_daily_average.round
+          self.glucose_volume_percent_1_36 = glucose_daily_average.round
         end
       end
 
-      def set_glucose_ml_percent_2_27
+      def set_glucose_volume_percent_2_27
         if match_bag_type[1].empty?
           0
         else
           per_week_total = match_bag_type[1].inject{ |sum, v| sum + v }
           glucose_daily_average = per_week_total / 7.to_f
-          self.glucose_ml_percent_2_27 = glucose_daily_average.round
+          self.glucose_volume_percent_2_27 = glucose_daily_average.round
         end
       end
 
-      def set_glucose_ml_percent_3_86
+      def set_glucose_volume_percent_3_86
         if match_bag_type[2].empty?
           0
         else
           per_week_total = match_bag_type[2].inject{ |sum, v| sum + v }
           glucose_daily_average = per_week_total / 7.to_f
-          self.glucose_ml_percent_3_86 = glucose_daily_average.round
+          self.glucose_volume_percent_3_86 = glucose_daily_average.round
         end
       end
 

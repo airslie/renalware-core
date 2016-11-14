@@ -1,4 +1,4 @@
-manufacturer,description,glucose_grams_per_litre,amino_acid,icodextrin,low_glucose_degradation,low_sodium,sodium_mmole_l,lactate_mmole_l,bicarbonate_mmole_l,calcium_mmole_l,magnesium_mmole_l
+manufacturer,description,glucose_content,amino_acid,icodextrin,low_glucose_degradation,low_sodium,sodium_content,lactate_content,bicarbonate_content,calcium_content,magnesium_content
 Baxter,Dianeal PD2 1.36% (Yellow),13.6,f,f,f,f,132,40,0,1.75,0.25
 Baxter,Dianeal PD2 2.27% (Green),22.7,f,f,f,f,132,40,0,1.75,0.25
 Baxter,Dianeal PD2 3.86% (Red),38.6,f,f,f,f,132,40,0,1.75,0.25

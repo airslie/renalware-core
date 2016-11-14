@@ -32,17 +32,17 @@
                     li
                       b 1.36%
                       | &nbsp;
-                      = "#{ default_daily_glucose_average(@pd_regime.glucose_ml_percent_1_36) } ml"
+                      = "#{ default_daily_glucose_average(@pd_regime.glucose_volume_percent_1_36) } ml"
                   .large-4.columns
                     li
                       b 2.27%
                       | &nbsp;
-                      = "#{ default_daily_glucose_average(@pd_regime.glucose_ml_percent_2_27) } ml"
+                      = "#{ default_daily_glucose_average(@pd_regime.glucose_volume_percent_2_27) } ml"
                   .large-4.columns
                     li
                       b 3.86%
                       | &nbsp;
-                      = "#{ default_daily_glucose_average(@pd_regime.glucose_ml_percent_3_86) } ml"
+                      = "#{ default_daily_glucose_average(@pd_regime.glucose_volume_percent_3_86) } ml"
 
     - if @pd_regime.type == "Renalware::PD::APDRegime"
       = render partial: "renalware/pd/regimes/apd_regime_show", locals: { model: @pd_regime }

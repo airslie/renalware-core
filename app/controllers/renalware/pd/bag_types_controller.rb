@@ -54,9 +54,9 @@ module Renalware
         params
           .require(:pd_bag_type)
           .permit(
-            :manufacturer, :description, :glucose_grams_per_litre, :amino_acid,
-            :icodextrin, :low_glucose_degradation, :low_sodium, :sodium_mmole_l,
-            :lactate_mmole_l, :bicarbonate_mmole_l, :calcium_mmole_l, :magnesium_mmole_l
+            :manufacturer, :description, :glucose_content, :amino_acid,
+            :icodextrin, :low_glucose_degradation, :low_sodium, :sodium_content,
+            :lactate_content, :bicarbonate_content, :calcium_content, :magnesium_content
           )
       end
 

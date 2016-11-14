@@ -1,8 +1,8 @@
 .row
   .large-12.columns
     = field_set_tag "Additional exchanges" do
-      = r.label :last_fill_ml, "Last Fill (ml)"
-      = r.text_field :last_fill_ml
+      = r.label :last_fill_volume, "Last Fill (ml)"
+      = r.text_field :last_fill_volume
 
       = r.check_box :add_manual_exchange
       = r.label :add_manual_exchange, "Add'l manual exchange"
@@ -26,8 +26,8 @@
       = r.label :no_cycles_per_apd, "Cycles per session"
       = r.text_field :no_cycles_per_apd
 
-      = r.label :overnight_pd_ml, "Overnight PD vol on APD (ml)"
-      = r.text_field :overnight_pd_ml
+      = r.label :overnight_pd_volume, "Overnight PD vol on APD (ml)"
+      = r.text_field :overnight_pd_volume
 
       = r.label :apd_machine_pac, "Machine PAC"
       = r.text_field :apd_machine_pac
