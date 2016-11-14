@@ -3,6 +3,8 @@ require_dependency "renalware/pd"
 module Renalware
   module PD
     class Regime < ActiveRecord::Base
+      MIN_THERAPY_TIME = 120
+      MAX_THERAPY_TIME = 900
 
       before_save :set_glucose_ml_percent_1_36
       before_save :set_glucose_ml_percent_2_27
@@ -32,6 +34,8 @@ module Renalware
           { greater_than_or_equal_to: 2, less_than_or_equal_to: 20 }
         apd.validates :overnight_pd_ml, allow_nil: true, numericality:
           { greater_than_or_equal_to: 3000, less_than_or_equal_to: 25000 }
+        apd.validates :therapy_time, allow_nil: true, numericality: {
+          greater_than_or_equal_to: MIN_THERAPY_TIME, less_than_or_equal_to: MAX_THERAPY_TIME }
       end
 
       def type_apd?

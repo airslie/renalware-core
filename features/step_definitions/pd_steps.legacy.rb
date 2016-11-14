@@ -180,6 +180,8 @@ When(/^I complete the form for a apd regime$/) do
 
   select "75", from: "Tidal (%)"
 
+  select "7:30", from: "Therapy time"
+
   fill_in "Cycles per session", with: 3
 
   fill_in "Overnight PD vol on APD", with: 3100
@@ -316,6 +318,7 @@ Then(/^the new apd regime should be current$/) do
     expect(page).to have_content("Add'l manual exchange?: Yes")
     expect(page).to have_content("Tidal?: Yes")
     expect(page).to have_content("Tidal: 75 %")
+    expect(page).to have_content("Therapy time: 7:30")
     expect(page).to have_content("Cycles per session: 3")
     expect(page).to have_content("Overnight PD vol on APD: 3100")
     expect(page).to have_content("Machine PAC: 123-4567-890")

@@ -15,6 +15,14 @@
       = r.select :tidal_percentage, tidal_options, { prompt: "Please select from options" }, class: "pd-regime-tidal-percentage-select"
 
     = field_set_tag "Additional APD Info" do
+
+      = r.label :therapy_time, "Therapy time"
+      = r.select :therapy_time,
+                 therapy_times,
+                 { include_blank: true },
+                 class: "pd-regime-treatment-select"
+
+
       = r.label :no_cycles_per_apd, "Cycles per session"
       = r.text_field :no_cycles_per_apd
 
