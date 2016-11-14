@@ -1,22 +1,46 @@
+- profile_missing = @patient.hd_profile.nil?
+- profile_missing_options = { data: { confirm: t(".missing_profile_message_html").html_safe } }
+
 fieldset.hd-sessions.simple.simple-table
   legend
     span.title= t(".title")
     - unless sessions.empty?
       span.actions.action-buttons
-        = link_to t(".add"), new_patient_hd_session_path(@patient), class: "button small slimline"
+        - if profile_missing
+          = link_to t(".add"),
+                    edit_patient_hd_profile_path(@patient),
+                    class: "button small slimline",
+                    **profile_missing_options
+        - else
+          = link_to t(".add"),
+                    new_patient_hd_session_path(@patient),
+                    class: "button small slimline"
+
         | &nbsp;
-        = link_to t(".add_dna"), new_patient_hd_session_path(@patient, type: :dna), class: "button small slimline"
+        = link_to t(".add_dna"),
+                  new_patient_hd_session_path(@patient, type: :dna),
+                  class: "button small slimline"
         | &nbsp;
-        = link_to t(".view_all"), patient_hd_sessions_path(@patient), class: "button small slimline"
+        = link_to t(".view_all"),
+                  patient_hd_sessions_path(@patient),
+                  class: "button small slimline"
         | &nbsp;
-        = link_to t(".protocol"), patient_hd_protocol_path(@patient), class: "button small slimline"
+        = link_to t(".protocol"),
+                  patient_hd_protocol_path(@patient),
+                  class: "button small slimline"
 
   - if sessions.empty?
     .row
       .call-to-action.columns.small-2.small-offset-3
-        = link_to new_patient_hd_session_path(@patient) do
-          i.fa.fa-plus-circle
-          =t(".add_session")
+        - if profile_missing
+          = link_to(edit_patient_hd_profile_path(@patient), **profile_missing_options) do
+            i.fa.fa-plus-circle
+            =t(".add_session")
+        - else
+          = link_to new_patient_hd_session_path(@patient) do
+                    i.fa.fa-plus-circle
+                    =t(".add_session")
+
       .call-to-action.columns.small-2
         = link_to new_patient_hd_session_path(@patient, type: :dna) do
           i.fa.fa-plus-circle
