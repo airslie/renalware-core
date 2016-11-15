@@ -1,0 +1,7 @@
+fieldset.simple
+  legend
+    span.title= t(".title")
+    span.actions.action-links
+      = link_to t(".view"), patient_pathology_current_observations_path(patient)
+
+  = pathology.table.render(pathology.rows)

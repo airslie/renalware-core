@@ -6,7 +6,7 @@ module Renalware
       before_filter :load_patient
 
       def index
-        query = Sessions::PatientQuery.new(patient: patient, q: params[:q])
+        query = sessions_query
         sessions = query.call.includes(:hospital_unit, :patient).page(params[:page]).per(15)
         authorize sessions
         presenter = CollectionPresenter.new(sessions, SessionPresenter, view_context)
@@ -76,6 +76,10 @@ module Renalware
       end
 
       protected
+
+      def sessions_query
+        Sessions::PatientQuery.new(patient: patient, q: params[:q])
+      end
 
       def session_params
         params.require(:hd_session).require(:type)

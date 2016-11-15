@@ -22,7 +22,7 @@ module Renalware
     by: User.first,
     hospital_unit: Hospitals::Unit.hd_sites.first,
     schedule: "mon_wed_fri_am",
-    prescribed_time: 150,
+    prescribed_time: 180,
     prescribed_on: 1.week.ago.to_date,
     prescriber: User.first,
     named_nurse: User.last,
@@ -68,6 +68,16 @@ module Renalware
     }
   }
   profile.save!
+
+  log "Create dry weight to Francois RABBIT"
+
+  dry_weight = HD::DryWeight.find_or_create_by(
+    patient: patient,
+    weight: 140.5,
+    assessed_on: Time.zone.now,
+    assessor_id: Renalware::User.first.id,
+    created_by_id: Renalware::User.first.id
+  )
 
   log "Assign HD sessions to Francois RABBIT"
 
@@ -151,6 +161,7 @@ module Renalware
         notes: ""
       )
     else
+      # TODO: call SaveSession here?
       HD::Session::Closed.create!(
         patient: HD.cast_patient(patient),
         hospital_unit: units.sample,
@@ -161,16 +172,22 @@ module Renalware
         signed_off_at: date,
         signed_off_by: users.sample,
         by: users.sample,
-        document: session_document
+        document: session_document,
+        dry_weight_id: dry_weight.id,
+        profile_id: profile.id
       )
     end
   end
 
-  # Generate HD statistics for the last 6 months of HD Sessions
-  (0..5).each do |month|
+  # Generate HD statistics for the last 6 months of HD Sessions, starting with last month - we
+  # don't do monthly stats for the current month
+  (1..6).each do |month|
     date = Date.today - month.months
     period = MonthPeriod.new(month: date.month, year: date.year)
     HD::GenerateMonthlyStatisticsForPatient.new(patient: patient,
                                                 period: period).call
   end
+
+  # Update the rolling HD statistics
+  HD::UpdateRollingPatientStatistics.new(patient: patient).call
 end

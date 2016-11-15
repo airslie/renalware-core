@@ -12,12 +12,6 @@ module Renalware
     module Sessions
       class AuditableSession < SimpleDelegator
 
-        NullObject = Naught.build do |config|
-          config.black_hole
-          config.define_explicit_conversions
-          config.singleton
-        end
-
         def blood_pressure_measurements
           [
             document.observations_before.blood_pressure,

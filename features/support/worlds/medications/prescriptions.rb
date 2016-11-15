@@ -198,7 +198,7 @@ module World
       # @section helpers
       #
       def default_medication_drug_selector
-        ->(drug_name, drug_type = "Antibiotic") do
+        lambda do |drug_name, drug_type = "Antibiotic"|
           select(drug_type, from: "Medication Type")
           select(drug_name, from: "Drug")
         end

@@ -1,0 +1,47 @@
+en:
+  renalware:
+    hd:
+      mdm:
+        hd_profile:
+          title: HD Profile
+          schedule: Sched
+          prescribed_time: Prescribed time
+          hd_type: HD Type
+          named_nurse: Named nurse
+          dialyser: Dialyser
+          dialysate: Dialysate
+          anticoagulant: Anticoag
+          cannulation_type: Cann type
+          last_update: Last updated
+        access:
+          title: Access
+          site: Site
+          type: Type
+          side: Side
+          plan: Plan
+          plan_date: Plan date
+          notes: Notes
+        audits:
+          title: Audit
+          period: Period
+          pre_mean_blood_pressure: Pre mean BP
+          post_mean_blood_pressure: Post mean BP
+          lowest_systolic_blood_pressure: Lowest syst BP
+          highest_systolic_blood_pressure: Highest syst BP
+          mean_fluid_removal: Mean fluid removal
+          mean_weight_loss: Mean weight loss
+          mean_machine_ktv: Mean machine KTv
+          mean_ufr: Mean UFR (ml/hr/kg)
+          mean_blood_flow: Mean blood flow
+          mean_litres_processed: Mean litres processed
+          number_of_sessions: Sessions
+          dialysis_minutes_shortfall: Missed HD time
+        pathology:
+          title: Pathology
+          view: View
+        prescriptions:
+          title: Prescriptions
+          view: View
+        sessions:
+          title: HD Sessions
+          view_all: View all

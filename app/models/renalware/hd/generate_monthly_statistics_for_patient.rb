@@ -22,6 +22,7 @@ module Renalware
         stats = build_patient_statistics
         stats.hospital_unit = most_recently_used_hospital_unit(sessions)
         stats.assign_attributes(auditable_sessions(sessions).to_h)
+        stats.session_count = sessions.length
         stats.save!
       end
 

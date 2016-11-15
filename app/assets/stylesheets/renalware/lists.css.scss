@@ -4,6 +4,13 @@
   margin-top: 0;
   margin-bottom:0;
 
+  dt, dd {
+    font-weight: normal;
+    &.inset {
+      margin-left: 0.8em;
+    }
+  }
+
   dt {
     float: left;
     width: $dl_horizontal_dt_width;

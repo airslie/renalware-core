@@ -57,7 +57,7 @@ module Renalware
         context "when creating the record" do
           it "associates the patient current modality" do
             session.save!
-            expect(session.modality_description_id).to eq(modality.id)
+            expect(session.modality_description_id).to eq(modality.description.id)
           end
         end
       end

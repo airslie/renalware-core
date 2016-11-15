@@ -844,7 +844,13 @@ CREATE TABLE hd_patient_statistics (
     mean_blood_flow numeric(10,2),
     mean_litres_processed numeric(10,2),
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    session_count integer DEFAULT 0 NOT NULL,
+    number_of_missed_sessions integer,
+    dialysis_minutes_shortfall integer,
+    dialysis_minutes_shortfall_percentage numeric(10,2),
+    mean_ufr numeric(10,2),
+    mean_weight_loss_as_percentage_of_body_weight numeric(10,2)
 );
 
 
@@ -7075,6 +7081,10 @@ INSERT INTO schema_migrations (version) VALUES ('20161101105519');
 INSERT INTO schema_migrations (version) VALUES ('20161103091319');
 
 INSERT INTO schema_migrations (version) VALUES ('20161107141354');
+
+INSERT INTO schema_migrations (version) VALUES ('20161108123101');
+
+INSERT INTO schema_migrations (version) VALUES ('20161111154939');
 
 INSERT INTO schema_migrations (version) VALUES ('20161114184444');
 
