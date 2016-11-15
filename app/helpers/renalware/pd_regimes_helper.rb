@@ -5,6 +5,12 @@ module Renalware
       60.step(100, 5).to_a
     end
 
+    def therapy_times
+      (PD::Regime::MIN_THERAPY_TIME..PD::Regime::MAX_THERAPY_TIME)
+        .step(30)
+        .map { |minutes| [Duration.from_minutes(minutes).to_s, minutes] }
+    end
+
     def default_daily_glucose_average(glucose)
       if glucose.blank?
         0

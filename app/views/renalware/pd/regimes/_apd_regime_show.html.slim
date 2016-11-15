@@ -21,6 +21,10 @@
         dl= "#{@pd_regime.tidal_percentage} %"
 
       .large-4.columns
+        dt Therapy time:
+        dl= Renalware::Duration.from_minutes(@pd_regime.therapy_time).to_s
+
+      .large-4.columns
         dt Cycles per session:
         dl= @pd_regime.no_cycles_per_apd
 

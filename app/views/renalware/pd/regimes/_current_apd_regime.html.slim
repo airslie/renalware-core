@@ -23,6 +23,11 @@
 
   .large-6.columns
     ul.no-bullet
+
+      li
+        b Therapy time:
+        | &nbsp;
+        = Renalware::Duration.from_minutes(current.therapy_time).to_s
       li
         b Cycles per session:
         | &nbsp;
