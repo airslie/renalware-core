@@ -11,34 +11,29 @@ module Renalware
 
       validates :fill_volume,
                 allow_nil: true,
-                numericality: {
-                  greater_than_or_equal_to: 0,
-                  less_than_or_equal_to: 2500
-                }
+                numericality: { only_integer: true },
+                inclusion: { in: 0..2_500 }
+
       validates :last_fill_volume,
                 allow_nil: true,
-                numericality: {
-                  greater_than_or_equal_to: 500,
-                  less_than_or_equal_to: 5000
-                }
+                inclusion: { in: 500..5_000 },
+                numericality: { only_integer: true }
+
       validates :tidal_percentage,
                 allow_nil: true,
-                numericality: {
-                  greater_than_or_equal_to: 0,
-                  less_than_or_equal_to: 100
-                }
+                inclusion: { in: 0..100 },
+                numericality: { only_integer: true }
+
       validates :no_cycles_per_apd,
                 allow_nil: true,
-                numericality: {
-                  greater_than_or_equal_to: 2,
-                  less_than_or_equal_to: 20
-                }
+                inclusion: { in: 2..20 },
+                numericality: { only_integer: true }
+
       validates :overnight_pd_volume,
                 allow_nil: true,
-                numericality: {
-                  greater_than_or_equal_to: 3000,
-                  less_than_or_equal_to: 25000
-                }
+                inclusion: { in: 3_000..25_000 },
+                numericality: { only_integer: true }
+
       validates :therapy_time,
                 allow_nil: true,
                 numericality: {
@@ -47,7 +42,7 @@ module Renalware
                 }
 
       def apd?
-        false
+        true
       end
     end
   end

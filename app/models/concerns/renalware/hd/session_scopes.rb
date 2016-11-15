@@ -5,6 +5,7 @@ module Renalware
         falling_within(period)
       end
 
+      # TODO: Refactor to two methods/scopes or'ed together e.g. finished_closed.or.finished_dna
       def falling_within(range)
         where(hd_sessions: {
                 type: Session::Closed.sti_name,

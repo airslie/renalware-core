@@ -6,7 +6,7 @@ module Renalware
     end
 
     def therapy_times
-      (PD::Regime::MIN_THERAPY_TIME..PD::Regime::MAX_THERAPY_TIME)
+      (PD::APDRegime::MIN_THERAPY_TIME..PD::APDRegime::MAX_THERAPY_TIME)
         .step(30)
         .map { |minutes| [Duration.from_minutes(minutes).to_s, minutes] }
     end
