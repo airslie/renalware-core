@@ -44,11 +44,11 @@ module Renalware
 
       def pd_regime_params
         params.require(:pd_regime).permit(
-          :start_date, :end_date, :treatment, :type, :glucose_ml_percent_1_36,
-          :glucose_ml_percent_2_27, :glucose_ml_percent_3_86, :amino_acid_ml,
-          :icodextrin_ml, :low_glucose_degradation, :low_sodium, :add_hd, :last_fill_ml,
+          :start_date, :end_date, :treatment, :type, :glucose_volume_percent_1_36,
+          :glucose_volume_percent_2_27, :glucose_volume_percent_3_86, :amino_acid_volume,
+          :icodextrin_volume, :low_glucose_degradation, :low_sodium, :add_hd, :last_fill_volume,
           :add_manual_exchange, :tidal_indicator, :tidal_percentage, :no_cycles_per_apd,
-          :overnight_pd_ml, :apd_machine_pac, :therapy_time,
+          :overnight_pd_volume, :apd_machine_pac, :therapy_time,
           regime_bags_attributes: [
             :id, :regime_id, :bag_type_id, :volume, :per_week, :monday, :tuesday,
             :wednesday, :thursday, :friday, :saturday, :sunday, :_destroy]

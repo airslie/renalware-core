@@ -1,0 +1,9 @@
+.disabled-block {
+  pointer-events:none;
+  opacity: .5;
+
+  .disabled-hint {
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+}

@@ -9,17 +9,17 @@ module Renalware
       @bag_type_13_6 = create(:bag_type,
                     manufacturer: "Baxter",
                     description: "Dianeal PD2 1.36% (Yellow)",
-                    glucose_grams_per_litre: 13.6)
+                    glucose_content: 13.6)
 
       @bag_type_22_7 = create(:bag_type,
                     manufacturer: "Baxter",
                     description: "Dianeal PD2 2.27% (Green)",
-                    glucose_grams_per_litre: 22.7)
+                    glucose_content: 22.7)
 
       @bag_type_38_6 = create(:bag_type,
                     manufacturer: "Baxter",
                     description: "Dianeal PD2 3.86% (Red)",
-                    glucose_grams_per_litre: 38.6)
+                    glucose_content: 38.6)
 
       login_as_clinician
 

@@ -44,7 +44,7 @@ module Renalware
       context "if PD type is APDRegime" do
         before { allow(@apd_regime).to receive(:type_apd?).and_return(true) }
         it do
-          expect(@apd_regime).to validate_numericality_of(:last_fill_ml)
+          expect(@apd_regime).to validate_numericality_of(:last_fill_volume)
                                   .is_greater_than_or_equal_to(500)
                                   .is_less_than_or_equal_to(5000)
         end
@@ -59,7 +59,7 @@ module Renalware
                                   .is_less_than_or_equal_to(20)
         end
         it do
-          expect(@apd_regime).to validate_numericality_of(:overnight_pd_ml)
+          expect(@apd_regime).to validate_numericality_of(:overnight_pd_volume)
                                   .is_greater_than_or_equal_to(3000)
                                   .is_less_than_or_equal_to(25000)
         end
@@ -73,7 +73,7 @@ module Renalware
       context "if PD type is CAPDRegime" do
         before { allow(@capd_regime).to receive(:type_apd?).and_return(false) }
         it do
-          expect(@capd_regime).to_not validate_numericality_of(:last_fill_ml)
+          expect(@capd_regime).to_not validate_numericality_of(:last_fill_volume)
                                         .is_greater_than_or_equal_to(500)
                                         .is_less_than_or_equal_to(5000)
         end
@@ -88,7 +88,7 @@ module Renalware
                                         .is_less_than_or_equal_to(20)
         end
         it do
-          expect(@capd_regime).to_not validate_numericality_of(:overnight_pd_ml)
+          expect(@capd_regime).to_not validate_numericality_of(:overnight_pd_volume)
                                         .is_greater_than_or_equal_to(3000)
                                         .is_less_than_or_equal_to(25000)
         end

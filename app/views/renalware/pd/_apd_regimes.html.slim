@@ -25,11 +25,11 @@ table.apd-regimes
         td valign="top"
           = r.treatment
         td valign="top"
-          = default_daily_glucose_average(r.glucose_ml_percent_1_36)
+          = default_daily_glucose_average(r.glucose_volume_percent_1_36)
         td valign="top"
-          = default_daily_glucose_average(r.glucose_ml_percent_2_27)
+          = default_daily_glucose_average(r.glucose_volume_percent_2_27)
         td valign="top"
-          = default_daily_glucose_average(r.glucose_ml_percent_3_86)
+          = default_daily_glucose_average(r.glucose_volume_percent_3_86)
         td
           = r.updated_at.to_date
 
