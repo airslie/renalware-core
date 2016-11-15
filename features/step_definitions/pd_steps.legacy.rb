@@ -166,6 +166,14 @@ When(/^I complete the form for a apd regime$/) do
 
   select("Baxter Nutrineal PD4 (Blue)", from: "Bag Type")
   select("4000", from: "Volume (ml)")
+
+  # TODO: Unable tp get the click behaviour on a.deselect-bag-days (to deselect
+  # all days) to work here. Its a capybara and not worth the time resolving at this point
+  # expect(page).to have_checked_field("Monday")
+  # find("a.deselect-bag-days").click
+  # page.should have_content # to help js finish
+  # expect(page).to_not have_checked_field("Monday")
+
   uncheck "Tuesday"
   uncheck "Wednesday"
   uncheck "Saturday"

@@ -12,3 +12,14 @@ form .row .columns .validate-add-min-bag {
   padding-right: 0.5rem;
   z-index: 1;
 }
+
+.bag-days {
+  .title {
+    label {
+      display: inline-block;
+    }
+    a {
+      padding-left: 1rem;
+    }
+  }
+}
