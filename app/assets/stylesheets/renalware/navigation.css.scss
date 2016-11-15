@@ -34,22 +34,6 @@ a.fi-plus:before a.fi-minus:before {
   margin-left: 0.5em;
 }
 
-
-nav.sub-nav-container {
-  width: 100%;
-  background-color: #f2f2f2;
-  margin-bottom: 1rem;
-  z-index: 0;
-
-  .sub-nav {
-    margin: -0.25rem 0 0 1rem;
-
-    dt, dd {
-      margin-bottom: 0;
-    }
-  }
-}
-
 #patient_search {
   width: 365px;
 }

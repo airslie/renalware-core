@@ -7086,7 +7086,7 @@ INSERT INTO schema_migrations (version) VALUES ('20161108123101');
 
 INSERT INTO schema_migrations (version) VALUES ('20161111154939');
 
-INSERT INTO schema_migrations (version) VALUES ('20161114184444');
-
 INSERT INTO schema_migrations (version) VALUES ('20161114174727');
+
+INSERT INTO schema_migrations (version) VALUES ('20161114184444');
 
