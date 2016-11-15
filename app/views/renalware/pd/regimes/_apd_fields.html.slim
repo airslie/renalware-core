@@ -1,6 +1,6 @@
 .row
   .large-12.columns
-    = field_set_tag "Additional exchanges" do
+    = field_set_tag t(".fieldset_titles.additional_exchanges") do
       = f.input :last_fill_volume
       = f.input :add_manual_exchange, as: :boolean, boolean_style: :inline
 
@@ -17,11 +17,6 @@
       = f.input :therapy_time,
                 collection: therapy_times,
                 include_blank: t("collection.blank_option")
-      / = f.label :therapy_time, "Therapy time"
-      / = f.select :therapy_time,
-      /            therapy_times,
-      /            { include_blank: true },
-      /            class: "pd-regime-treatment-select"
 
       = f.input :no_cycles_per_apd
       = f.input :overnight_pd_volume

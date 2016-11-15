@@ -3,8 +3,6 @@ require_dependency "renalware/pd"
 module Renalware
   module PD
     class Regime < ActiveRecord::Base
-      MIN_THERAPY_TIME = 120
-      MAX_THERAPY_TIME = 900
 
       before_save :set_glucose_volume_percent_1_36
       before_save :set_glucose_volume_percent_2_27
@@ -22,28 +20,11 @@ module Renalware
       validates :patient, presence: true
       validates :start_date, presence: true
       validates :treatment, presence: true
-
       validate :min_one_regime_bag
 
-      with_options if: :type_apd? do |apd|
-        # apd.validates :fill_volume, allow_nil: true, numericality:
-        #   { greater_than_or_equal_to: 0, less_than_or_equal_to: 2500 }
-        # apd.validates :last_fill_volume, allow_nil: true, numericality:
-        #   { greater_than_or_equal_to: 500, less_than_or_equal_to: 5000 }
-        # apd.validates :tidal_percentage, allow_nil: true, numericality:
-        #   { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
-        # apd.validates :no_cycles_per_apd, allow_nil: true, numericality:
-        #   { greater_than_or_equal_to: 2, less_than_or_equal_to: 20 }
-        # apd.validates :overnight_pd_volume, allow_nil: true, numericality:
-        #   { greater_than_or_equal_to: 3000, less_than_or_equal_to: 25000 }
-        # apd.validates :therapy_time, allow_nil: true, numericality: {
-        #   greater_than_or_equal_to: MIN_THERAPY_TIME, less_than_or_equal_to: MAX_THERAPY_TIME }
-      end
-
       def apd?
-        type == Renalware::PD::APDRegime.to_s
+        false
       end
-      alias_method :type_apd?, :apd?
 
       private
 
@@ -54,7 +35,7 @@ module Renalware
       def match_bag_type
         glucose_types = [[], [], []]
 
-        self.regime_bags.each do |bag|
+        regime_bags.each do |bag|
           case bag.bag_type.glucose_content.to_f
 
           when 13.6
@@ -99,7 +80,6 @@ module Renalware
           self.glucose_volume_percent_3_86 = glucose_daily_average.round
         end
       end
-
     end
   end
 end
