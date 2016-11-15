@@ -1,2 +1,3 @@
-= link_to "MDM", patient_hd_mdm_path(@patient)
-// no navigation
+dl.sub-nav
+  dd= link_to t(".mdm"), patient_hd_mdm_path(@patient)
+  dd= link_to t(".protocol"), patient_hd_protocol_path(@patient)

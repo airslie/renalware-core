@@ -1,9 +1,20 @@
-.disabled-block {
-  pointer-events:none;
-  opacity: .5;
+.disabled-block-reason {
+  display: none;
+  text-align: center;
+  margin-top: 0.5rem;
 
-  .disabled-hint {
-    font-size: 0.9rem;
-    font-style: italic;
+  &.panel.radius {
+    padding: 0.5rem 1rem;
+  }
+}
+
+.disabled-block {
+  .row:first-child {
+    pointer-events:none;
+    opacity: .5;
+  }
+
+  .disabled-block-reason {
+    display: block;
   }
 }

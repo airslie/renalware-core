@@ -1,27 +1,41 @@
+- profile_missing = @patient.hd_profile.nil?
+
 fieldset.hd-sessions.simple.simple-table
   legend
     span.title= t(".title")
     - unless sessions.empty?
       span.actions.action-buttons
-        = link_to t(".add"), new_patient_hd_session_path(@patient), class: "button small slimline"
+        = link_to t(".add"),
+                  new_patient_hd_session_path(@patient),
+                  class: "button small slimline"
+
         | &nbsp;
-        = link_to t(".add_dna"), new_patient_hd_session_path(@patient, type: :dna), class: "button small slimline"
+        = link_to t(".add_dna"),
+                  new_patient_hd_session_path(@patient, type: :dna),
+                  class: "button small slimline"
         | &nbsp;
-        = link_to t(".view_all"), patient_hd_sessions_path(@patient), class: "button small slimline"
-        | &nbsp;
-        = link_to t(".protocol"), patient_hd_protocol_path(@patient), class: "button small slimline"
+        = link_to t(".view_all"),
+                  patient_hd_sessions_path(@patient),
+                  class: "button small slimline"
+
 
   - if sessions.empty?
-    .row
-      .call-to-action.columns.small-2.small-offset-3
-        = link_to new_patient_hd_session_path(@patient) do
-          i.fa.fa-plus-circle
-          =t(".add_session")
-      .call-to-action.columns.small-2
-        = link_to new_patient_hd_session_path(@patient, type: :dna) do
-          i.fa.fa-plus-circle
-          =t(".add_dna_session")
-      .call-to-action.columns.small-2.end
-        = link_to t(".protocol"), patient_hd_protocol_path(@patient), class: "button small slimline"
+
+      .row(class="#{ "disabled-block" if profile_missing}")
+        .small-12.columns.small-centered
+          .row
+            .call-to-action.columns.small-3.small-offset-3
+              = link_to new_patient_hd_session_path(@patient) do
+                        i.fa.fa-plus-circle
+                        =t(".add_session")
+            .call-to-action.columns.small-3.end
+              = link_to new_patient_hd_session_path(@patient, type: :dna) do
+                i.fa.fa-plus-circle
+                =t(".add_dna_session")
+          .row
+            .small-6.columns.small-centered
+              .disabled-block-reason.panel.callout.radius
+                = t(".missing_profile_message")
+
   - else
     =render 'renalware/hd/sessions/table', sessions: sessions

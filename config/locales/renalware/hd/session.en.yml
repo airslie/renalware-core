@@ -136,7 +136,8 @@ en:
           add: Add Session
           add_dna: Add DNA Session
           view_all: View All
-          protocol: Print Protocol
+          missing_profile_message: |
+            Please enter the HD Profile before creating sessions
         row:
           sign_on: Sign On
           sign_off: Sign Off

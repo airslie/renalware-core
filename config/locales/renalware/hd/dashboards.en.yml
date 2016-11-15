@@ -4,3 +4,7 @@ en:
       dashboards:
         show:
           title: "HD Summary"
+        navigation:
+          protocol: Print Protocol
+          mdm: MDM
+
