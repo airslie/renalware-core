@@ -1,35 +1,28 @@
 .row
   .large-12.columns
     = field_set_tag "Additional exchanges" do
-      = r.label :last_fill_volume, "Last Fill (ml)"
-      = r.text_field :last_fill_volume
+      = f.input :last_fill_volume
+      = f.input :add_manual_exchange, as: :boolean, boolean_style: :inline
 
-      = r.check_box :add_manual_exchange
-      = r.label :add_manual_exchange, "Add'l manual exchange"
+    = field_set_tag t(".fieldset_titles.tidal") do
+      = f.input :tidal_indicator, as: :boolean, boolean_style: :inline
 
-    = field_set_tag "Tidal" do
-      = r.check_box :tidal_indicator
-      = r.label :tidal_indicator, "Has tidal?"
+      = f.input :tidal_percentage,
+                collection: tidal_options,
+                include_blank: t("collection.blank_option")
 
-      = r.label :tidal_percentage, "Tidal (%)"
-      = r.select :tidal_percentage, tidal_options, { prompt: "Please select from options" }, class: "pd-regime-tidal-percentage-select"
+    = field_set_tag t(".fieldset_titles.additional_info") do
 
-    = field_set_tag "Additional APD Info" do
+      = f.input :fill_volume
+      = f.input :therapy_time,
+                collection: therapy_times,
+                include_blank: t("collection.blank_option")
+      / = f.label :therapy_time, "Therapy time"
+      / = f.select :therapy_time,
+      /            therapy_times,
+      /            { include_blank: true },
+      /            class: "pd-regime-treatment-select"
 
-      = r.label :fill_volume, "Fill volume"
-      = r.text_field :fill_volume
-
-      = r.label :therapy_time, "Therapy time"
-      = r.select :therapy_time,
-                 therapy_times,
-                 { include_blank: true },
-                 class: "pd-regime-treatment-select"
-
-      = r.label :no_cycles_per_apd, "Cycles per session"
-      = r.text_field :no_cycles_per_apd
-
-      = r.label :overnight_pd_volume, "Overnight PD vol on APD (ml)"
-      = r.text_field :overnight_pd_volume
-
-      = r.label :apd_machine_pac, "Machine PAC"
-      = r.text_field :apd_machine_pac
+      = f.input :no_cycles_per_apd
+      = f.input :overnight_pd_volume
+      = f.input :apd_machine_pac

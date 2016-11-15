@@ -40,11 +40,10 @@ module Renalware
         #   greater_than_or_equal_to: MIN_THERAPY_TIME, less_than_or_equal_to: MAX_THERAPY_TIME }
       end
 
-      def type_apd?
-        if self.type.present?
-          self.type == "Renalware::APDRegime"
-        end
+      def apd?
+        type == Renalware::PD::APDRegime.to_s
       end
+      alias_method :type_apd?, :apd?
 
       private
 

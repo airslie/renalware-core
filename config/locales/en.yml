@@ -2,6 +2,9 @@ en:
   :true: "Yes"
   :false: "No"
 
+  collection:
+    blank_option: "Please select"
+
   enums:
     letter:
       state:
