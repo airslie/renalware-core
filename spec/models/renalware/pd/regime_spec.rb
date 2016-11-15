@@ -68,6 +68,10 @@ module Renalware
                                   .is_greater_than_or_equal_to(PD::Regime::MIN_THERAPY_TIME)
                                   .is_less_than_or_equal_to(PD::Regime::MAX_THERAPY_TIME)
         end
+        it do
+          expect(@apd_regime).to validate_numericality_of(:fill_volume)
+                                  .is_less_than_or_equal_to(2500)
+        end
       end
 
       context "if PD type is CAPDRegime" do
