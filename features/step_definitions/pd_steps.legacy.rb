@@ -81,7 +81,7 @@ Given(/^a patient has existing APD Regimes$/) do
     last_fill_volume: 630,
     add_manual_exchange: false,
     tidal_indicator: true,
-    tidal_percentage: 10,
+    tidal_percentage: 60,
     no_cycles_per_apd: 3,
     overnight_pd_volume: 7600,
     apd_machine_pac: "123-4567-890",
