@@ -2,9 +2,9 @@
 
 .row
   .large-5.columns.inline
-    = rb.input :bag_type_id,
-               collection: bag_types,
-               include_blank: t("collection.blank_option")
+    = rb.association :bag_type,
+                      collection: bag_types,
+                      include_blank: t("collection.blank_option")
 
   .large-3.columns.inline
     = rb.input :volume,
@@ -23,7 +23,7 @@
       label Days to be administered:
       a.deselect-bag-days(href="#") Deselect all
     div
-      - %i(sunday monday tuesday wednesday thursday friday saturday).each do |day|
+      - rb.object.days_to_sym.each do |day|
         = rb.input day,
                    as: :boolean,
                    boolean_style: :inline,
