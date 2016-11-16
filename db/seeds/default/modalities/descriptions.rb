@@ -11,7 +11,6 @@ module Renalware
     "Potential LD",
     "Supportive Care",
     "Transfer Out",
-    "Transfer Out (SPK)",
     "Transplant",
     "vCKD",
     "Waiting List"
