@@ -42,7 +42,7 @@ module Renalware
       validates :therapy_time,
                 allow_nil: true,
                 numericality: { only_integer: true },
-                inclusion: { in: VALID_THERAPY_TIMES }
+                numeric_inclusion: { in: VALID_THERAPY_TIMES }
 
       def apd?
         true
