@@ -20,6 +20,8 @@ en:
         thursday: Thur
         friday: Fri
         saturday: Sat
+        bag_type: Bag type
+        volume: Volume (ml)
   renalware:
     pd:
       regimes:

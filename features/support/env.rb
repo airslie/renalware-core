@@ -11,6 +11,7 @@ SimpleCov.command_name "Cucumber-" + (ENV["TEST_DEPTH"] || "domain")
 ENV["RAILS_ROOT"] = Dir.pwd
 
 require "cucumber/rails"
+require "capybara-screenshot/cucumber"
 
 WebMock.disable!
 # Capybara defaults to CSS3 selectors rather than XPath.

@@ -86,6 +86,7 @@ group :test do
   gem "simplecov", "~> 0.12.0", require: false
   gem "webmock", "~> 1.20.4"
   gem "wisper-rspec", require: false
+  gem "capybara-screenshot"
 end
 
 group :staging do
