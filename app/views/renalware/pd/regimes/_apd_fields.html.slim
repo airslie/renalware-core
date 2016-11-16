@@ -8,7 +8,7 @@
       = f.input :tidal_indicator, as: :boolean, boolean_style: :inline
 
       = f.input :tidal_percentage,
-                collection: tidal_options,
+                collection: Renalware::PD::APDRegime::VALID_TIDAL_PERCENTAGES,
                 include_blank: t("collection.blank_option")
 
     = field_set_tag t(".fieldset_titles.additional_info") do

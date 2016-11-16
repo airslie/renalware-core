@@ -1,14 +1,10 @@
 module Renalware
   module PDRegimesHelper
 
-    def tidal_options
-      60.step(100, 5).to_a
-    end
-
     def therapy_times
-      (PD::APDRegime::MIN_THERAPY_TIME..PD::APDRegime::MAX_THERAPY_TIME)
-        .step(30)
-        .map { |minutes| [Duration.from_minutes(minutes).to_s, minutes] }
+      PD::APDRegime::VALID_THERAPY_TIMES.map do |minutes|
+        [Duration.from_minutes(minutes).to_s, minutes]
+      end
     end
 
     def default_daily_glucose_average(glucose)

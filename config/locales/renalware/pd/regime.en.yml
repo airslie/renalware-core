@@ -12,20 +12,6 @@ en:
         add_hd: "On additional HD"
         tidal_percentage: "Tidal (%)"
         treatment: Treatment
-    errors:
-      models:
-        renalware/pd/regime:
-          attributes:
-            last_fill_volume:
-              inclusion: Please enter a number between 500 and 5000
-            fill_volume:
-              inclusion: Please enter a number between 0 and 2500
-            no_cycles_per_apd:
-              inclusion: Please enter a number between 2 and 20
-            tidal_percentage:
-              inclusion: Please enter a number between 0 and 100
-            overnight_pd_volume:
-              inclusion: Please enter a number between 3000 and 25000
   renalware:
     pd:
       regimes:

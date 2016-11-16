@@ -30,8 +30,8 @@ module Renalware
 
         it do
           is_expected.to validate_numericality_of(:therapy_time)
-                     .is_greater_than_or_equal_to(PD::APDRegime::MIN_THERAPY_TIME)
-                     .is_less_than_or_equal_to(PD::APDRegime::MAX_THERAPY_TIME)
+                     .is_greater_than_or_equal_to(PD::APDRegime::VALID_THERAPY_TIMES.first)
+                     .is_less_than_or_equal_to(PD::APDRegime::VALID_THERAPY_TIMES.last)
         end
 
         it do
