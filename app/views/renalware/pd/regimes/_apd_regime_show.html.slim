@@ -5,33 +5,33 @@
     .row
       .large-4.columns
         dt Last fill:
-        dl= "#{@pd_regime.last_fill_volume} ml"
+        dl= "#{pd_regime.last_fill_volume} ml"
 
       .large-4.columns
         dt Add'l manual exchange?:
-        dl= yes_no(@pd_regime.add_manual_exchange)
+        dl= yes_no(pd_regime.add_manual_exchange)
 
       .large-4.columns
         dt Has tidal?:
-        dl= yes_no(@pd_regime.tidal_indicator)
+        dl= yes_no(pd_regime.tidal_indicator)
 
     .row
       .large-4.columns
         dt Tidal:
-        dl= "#{@pd_regime.tidal_percentage} %"
+        dl= "#{pd_regime.tidal_percentage} %"
 
       .large-4.columns
         dt Therapy time:
-        dl= Renalware::Duration.from_minutes(@pd_regime.therapy_time).to_s
+        dl= Renalware::Duration.from_minutes(pd_regime.therapy_time).to_s
 
       .large-4.columns
         dt Cycles per session:
-        dl= @pd_regime.no_cycles_per_apd
+        dl= pd_regime.no_cycles_per_apd
 
       .large-4.columns
         dt Overnight PD vol on APD:
-        dl= "#{@pd_regime.overnight_pd_volume} ml"
+        dl= "#{pd_regime.overnight_pd_volume} ml"
 
       .large-4.columns
         dt Machine PAC:
-        dl= @pd_regime.apd_machine_pac
+        dl= pd_regime.apd_machine_pac

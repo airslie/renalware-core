@@ -6,38 +6,62 @@ module Renalware
       include Renalware::Concerns::NestedActionsControllerMethods
 
       before_action :load_patient
-      before_action :find_pd_regime, only: [:edit, :update, :show]
+      # before_action :find_pd_regime, only: [:edit, :update, :show]
 
       def new
         regime_type = params[:type] ? "Renalware::#{params[:type]}" : nil
-        @pd_regime = @patient.pd_regimes.new(type: regime_type)
+        pd_regime = patient.pd_regimes.new(type: regime_type)
+        render :new, locals: {
+          pd_regime: pd_regime,
+          patient: patient
+        }
       end
 
       def create
-        @pd_regime = @patient.pd_regimes.new(pd_regime_params)
-        if perform_action(pd_regime_bags, Proc.new { @pd_regime.save }, regime: @pd_regime)
-          redirect_to patient_pd_dashboard_path(@patient),
+        pd_regime = patient.pd_regimes.new(pd_regime_params)
+        if perform_action(pd_regime.regime_bags, proc { pd_regime.save }, regime: pd_regime)
+          redirect_to patient_pd_dashboard_path(patient),
             notice: t(".success", model_name: "PD regime")
         else
           flash[:error] = t(".failed", model_name: "PD regime")
-          render :new
+          render :new, locals: {
+            pd_regime: pd_regime,
+            patient: patient
+          }
         end
+      end
+
+      def edit
+        render :edit, locals: {
+          pd_regime: pd_regime,
+          patient: patient
+        }
       end
 
       def update
         action_performed = perform_action(
-          pd_regime_bags,
-          Proc.new { @pd_regime.update(pd_regime_params) },
-          regime: @pd_regime
+          pd_regime.regime_bags,
+          proc { pd_regime.update(pd_regime_params) },
+          regime: pd_regime
         )
 
         if action_performed
-          redirect_to patient_pd_dashboard_path(@patient),
+          redirect_to patient_pd_dashboard_path(patient),
             notice: t(".success", model_name: "PD regime")
         else
           flash[:error] = t(".failed", model_name: "PD regime")
-          render :edit
+          render :edit, locals: {
+            pd_regime: pd_regime,
+            patient: patient
+          }
         end
+      end
+
+      def show
+        render :show, locals: {
+          pd_regime: pd_regime,
+          patient: patient
+        }
       end
 
       private
@@ -55,12 +79,8 @@ module Renalware
         )
       end
 
-      def find_pd_regime
-        @pd_regime = Regime.find(params[:id])
-      end
-
-      def pd_regime_bags
-        @pd_regime.regime_bags
+      def pd_regime
+        @pd_regime ||= Regime.find(params[:id])
       end
     end
   end

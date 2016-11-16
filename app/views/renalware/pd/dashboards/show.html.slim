@@ -1,50 +1,51 @@
-= render layout: "renalware/patients/layout", locals: { title: "PD Summary" } do
-  = render partial: 'renalware/pd/regimes/current_regime' unless @current_regime.nil?
+= render layout: "renalware/patients/layout", locals: local_assigns.merge!(title: "PD Summary") do
+  - unless current_regime.nil?
+    = render "renalware/pd/regimes/current_regime", local_assigns
 
-  = field_set_tag "CAPD Regimes (#{@capd_regimes.length})" do
-    - if @capd_regimes.empty?
+  = field_set_tag "CAPD Regimes (#{capd_regimes.length})" do
+    - if capd_regimes.empty?
       .call-to-action
-        = link_to new_patient_pd_regime_path(@patient, type: "PD::CAPDRegime") do
+        = link_to new_patient_pd_regime_path(patient, type: "PD::CAPDRegime") do
           i.fa.fa-plus-circle
           | Enter CAPD Regime
     - else
-      = render partial: "renalware/pd/capd_regimes"
+      = render "renalware/pd/capd_regimes", local_assigns
       .right
-        = link_to "Add CAPD Regime", new_patient_pd_regime_path(@patient, type: "PD::CAPDRegime"),
+        = link_to "Add CAPD Regime", new_patient_pd_regime_path(patient, type: "PD::CAPDRegime"),
             class: 'button tiny'
 
-  = field_set_tag "APD Regimes (#{@apd_regimes.length})" do
-    - if @apd_regimes.empty?
+  = field_set_tag "APD Regimes (#{apd_regimes.length})" do
+    - if apd_regimes.empty?
       .call-to-action
-        = link_to new_patient_pd_regime_path(@patient, type: "PD::APDRegime") do
+        = link_to new_patient_pd_regime_path(patient, type: "PD::APDRegime") do
           i.fa.fa-plus-circle
           | Enter APD Regime
     - else
-      = render partial: "renalware/pd/apd_regimes"
+      = render "renalware/pd/apd_regimes", local_assigns
       .right
-        = link_to "Add APD Regime", new_patient_pd_regime_path(@patient, type: "PD::APDRegime"),
+        = link_to "Add APD Regime", new_patient_pd_regime_path(patient, type: "PD::APDRegime"),
             class: 'button tiny'
 
-  = field_set_tag "Peritonitis Episodes (#{@peritonitis_episodes.length})" do
-    - if @peritonitis_episodes.empty?
+  = field_set_tag "Peritonitis Episodes (#{peritonitis_episodes.length})" do
+    - if peritonitis_episodes.empty?
       .call-to-action
-        = link_to new_patient_pd_peritonitis_episode_path(@patient) do
+        = link_to new_patient_pd_peritonitis_episode_path(patient) do
           i.fa.fa-plus-circle
           | Enter Peritonitis Episode
     - else
-      = render partial: "renalware/pd/peritonitis_episodes"
+      = render "renalware/pd/peritonitis_episodes", local_assigns
       .right
-        = link_to "Add Peritonitis Episode", new_patient_pd_peritonitis_episode_path(@patient),
+        = link_to "Add Peritonitis Episode", new_patient_pd_peritonitis_episode_path(patient),
             class: 'button tiny'
 
-  = field_set_tag "Exit Site Infections (#{@exit_site_infections.length})"
-    - if @exit_site_infections.empty?
+  = field_set_tag "Exit Site Infections (#{exit_site_infections.length})"
+    - if exit_site_infections.empty?
       .call-to-action
-        = link_to new_patient_pd_exit_site_infection_path(@patient) do
+        = link_to new_patient_pd_exit_site_infection_path(patient) do
           i.fa.fa-plus-circle
           | Enter Exit Site Infection
     - else
-      = render partial: "renalware/pd/exit_site_infections"
+      = render "renalware/pd/exit_site_infections", local_assigns
       .right
-        = link_to "Add Exit Site Infection", new_patient_pd_exit_site_infection_path(@patient),
+        = link_to "Add Exit Site Infection", new_patient_pd_exit_site_infection_path(patient),
             class: 'button tiny'
