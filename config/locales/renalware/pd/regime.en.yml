@@ -12,6 +12,14 @@ en:
         add_hd: "On additional HD"
         tidal_percentage: "Tidal (%)"
         treatment: Treatment
+      renalware/pd/regime_bag:
+        sunday: Sun
+        monday: Mon
+        tuesday: Tue
+        wednesday: Wed
+        thursday: Thur
+        friday: Fri
+        saturday: Sat
   renalware:
     pd:
       regimes:
@@ -20,3 +28,6 @@ en:
             tidal: Tidal
             additional_info: Additional APD Info
             additional_exchanges: Additional exchanges
+        bags:
+          form:
+            blank_option: "Select bag type"

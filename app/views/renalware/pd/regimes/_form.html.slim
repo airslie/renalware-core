@@ -4,7 +4,8 @@
 
   = f.input :treatment,
             collection: capd_apd_scope(f.object.type),
-            include_blank: t("collection.blank_option")
+            include_blank: t("collection.blank_option"),
+            wrapper_class: "small-12 medium-6"
 
   = f.input :start_date, as: :date_picker
   = f.input :end_date, as: :date_picker

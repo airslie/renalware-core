@@ -7,6 +7,10 @@ module Renalware
       end
     end
 
+    def bag_types
+      Renalware::PD::BagType.all.map { |bt| [bt.full_description, bt.id] }
+    end
+
     def default_daily_glucose_average(glucose)
       if glucose.blank?
         0

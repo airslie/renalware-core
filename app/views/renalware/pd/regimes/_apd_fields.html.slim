@@ -1,7 +1,8 @@
 .row
   .large-12.columns
     = field_set_tag t(".fieldset_titles.additional_exchanges") do
-      = f.input :last_fill_volume
+      = f.input :last_fill_volume,
+                wrapper_class: "small-12 medium-4"
       = f.input :add_manual_exchange, as: :boolean, boolean_style: :inline
 
     = field_set_tag t(".fieldset_titles.tidal") do
@@ -9,15 +10,20 @@
 
       = f.input :tidal_percentage,
                 collection: Renalware::PD::APDRegime::VALID_TIDAL_PERCENTAGES,
-                include_blank: t("collection.blank_option")
+                include_blank: t("collection.blank_option"),
+                wrapper_class: "small-12 medium-4"
 
     = field_set_tag t(".fieldset_titles.additional_info") do
 
-      = f.input :fill_volume
+      = f.input :fill_volume,
+                wrapper_class: "small-12 medium-4"
       = f.input :therapy_time,
                 collection: therapy_times,
-                include_blank: t("collection.blank_option")
-
-      = f.input :no_cycles_per_apd
-      = f.input :overnight_pd_volume
-      = f.input :apd_machine_pac
+                include_blank: t("collection.blank_option"),
+                wrapper_class: "small-12 medium-4"
+      = f.input :no_cycles_per_apd,
+                wrapper_class: "small-12 medium-4"
+      = f.input :overnight_pd_volume,
+                wrapper_class: "small-12 medium-4"
+      = f.input :apd_machine_pac,
+                wrapper_class: "small-12 medium-4"
