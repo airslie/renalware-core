@@ -42,6 +42,12 @@ form {
       padding: 0.3rem 0.5rem 0.2rem 0.5rem;
     }
   }
+
+  .error.datepicker_error {
+    float: left;
+    clear: both;
+    width: 100%;
+  }
 }
 
 fieldset {

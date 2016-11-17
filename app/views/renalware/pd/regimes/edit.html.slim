@@ -1,7 +1,9 @@
 
 = render layout: "renalware/patients/layout", locals: local_assigns.merge!(title: "PD Regime") do
   = render partial: "renalware/shared/errors", locals: { model: pd_regime }
-  = simple_nested_form_for [patient, pd_regime], as: :pd_regime, method: :put do |f|
+  = simple_nested_form_for [patient, pd_regime],
+                          as: :pd_regime,
+                          method: :put do |f|
 
     h4= "Edit #{capd_apd_title(f.object.type)} Regime"
 
