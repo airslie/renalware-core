@@ -12,11 +12,7 @@ module Renalware
 
         render :show, locals: {
           patient: patient,
-          capd_regimes: CAPDRegime.for_patient(@patient).ordered,
-          apd_regimes: APDRegime.for_patient(@patient).ordered,
-          current_regime: current_regime,
-          peritonitis_episodes: PeritonitisEpisode.for_patient(@patient),
-          exit_site_infections: ExitSiteInfection.for_patient(@patient)
+          dashboard: DashboardPresenter.new(patient)
         }
       end
     end

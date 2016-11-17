@@ -1,0 +1,12 @@
+= field_set_tag "APD Regimes (#{apd_regimes.length})" do
+  - if apd_regimes.empty?
+    .call-to-action
+      = link_to new_patient_pd_regime_path(patient, type: "PD::APDRegime") do
+        i.fa.fa-plus-circle
+        | Enter APD Regime
+  - else
+    = render "renalware/pd/apd_regimes", local_assigns
+    .right
+      = link_to "Add APD Regime",
+                new_patient_pd_regime_path(patient, type: "PD::APDRegime"),
+                class: 'button tiny'
