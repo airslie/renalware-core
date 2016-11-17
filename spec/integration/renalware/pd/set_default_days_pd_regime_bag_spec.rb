@@ -37,13 +37,13 @@ module Renalware
 
       find("input.add-bag").click
 
-      select "Star Brand, Lucky Brand Green–2.34", from: "Bag Type"
+      select "Star Brand, Lucky Brand Green–2.34", from: "* Bag type"
 
       select "2500", from: "Volume (ml)"
 
-      uncheck "Tuesday"
+      uncheck "Tue"
 
-      uncheck "Thursday"
+      uncheck "Thu"
 
       within ".patient-content" do
         click_on "Save"

@@ -168,7 +168,7 @@ When(/^I complete the form for a apd regime$/) do
   select("4000", from: "* Volume (ml)")
 
   # TODO: Unable tp get the click behaviour on a.deselect-bag-days (to deselect
-  # all days) to work here. Its a capybara and not worth the time resolving at this point
+  # all days) to work here. Its a capybara issue and not worth the time resolving at this point
   # expect(page).to have_checked_field("Monday")
   # find("a.deselect-bag-days").click
   # page.should have_content # to help js finish

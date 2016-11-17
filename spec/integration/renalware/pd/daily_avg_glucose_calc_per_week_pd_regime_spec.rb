@@ -37,53 +37,53 @@ module Renalware
       find("a.add-bag").click
 
       within("#pd-regime-bags div.fields:nth-child(1)") do
-        select "Dianeal PD2 1.36% (Yellow)", from: "Bag Type"
+        select "Dianeal PD2 1.36% (Yellow)", from: "* Bag type"
 
         select "2000", from: "Volume (ml)"
 
-        uncheck "Monday"
-        uncheck "Wednesday"
-        uncheck "Friday"
-        uncheck "Saturday"
+        uncheck "Mon"
+        uncheck "Wed"
+        uncheck "Fri"
+        uncheck "Sat"
       end
 
       # bag 2
       find("a.add-bag").click
 
       within("#pd-regime-bags div.fields:nth-child(2)") do
-        select "Dianeal PD2 2.27% (Green)", from: "Bag Type"
+        select "Dianeal PD2 2.27% (Green)", from: "* Bag type"
 
         select "3000", from: "Volume (ml)"
 
-        uncheck "Tuesday"
-        uncheck "Thursday"
+        uncheck "Tue"
+        uncheck "Thu"
       end
 
       # bag 3
       find("a.add-bag").click
 
       within("#pd-regime-bags div.fields:nth-child(3)") do
-        select "Dianeal PD2 3.86% (Red)", from: "Bag Type"
+        select "Dianeal PD2 3.86% (Red)", from: "* Bag type"
 
         select "1500", from: "Volume (ml)"
 
-        uncheck "Sunday"
-        uncheck "Wednesday"
-        uncheck "Friday"
+        uncheck "Sun"
+        uncheck "Wed"
+        uncheck "Fri"
       end
 
       # bag 4
       find("a.add-bag").click
 
       within("#pd-regime-bags div.fields:nth-child(4)") do
-        select "Dianeal PD2 3.86% (Red)", from: "Bag Type"
+        select "Dianeal PD2 3.86% (Red)", from: "* Bag type"
 
         select "2000", from: "Volume (ml)"
 
-        uncheck "Monday"
-        uncheck "Wednesday"
-        uncheck "Friday"
-        uncheck "Saturday"
+        uncheck "Mon"
+        uncheck "Wed"
+        uncheck "Fri"
+        uncheck "Sat"
       end
 
       click_on "Save"

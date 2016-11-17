@@ -1,7 +1,12 @@
 .flash-message {
+  clear: both;
   position: relative;
   top: 1.5em;
   z-index: 1;
+
+  .alert {
+    padding: 0.5rem 1rem;
+  }
 }
 
 .call-to-action {
