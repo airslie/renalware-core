@@ -12,6 +12,9 @@ en:
         add_hd: "On additional HD"
         tidal_percentage: "Tidal (%)"
         treatment: Treatment
+        delivery_interval: Delivery interval
+        start_date: Start date
+        end_date: End date
       renalware/pd/regime_bag:
         sunday: Sun
         monday: Mon

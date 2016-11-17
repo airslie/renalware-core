@@ -3,6 +3,9 @@ require_dependency "renalware/pd"
 module Renalware
   module PD
     class Regime < ActiveRecord::Base
+      VALID_RANGES = OpenStruct.new(
+        delivery_intervals: [1, 2, 4, 8]
+      )
 
       before_save :set_glucose_volume_percent_1_36
       before_save :set_glucose_volume_percent_2_27
@@ -17,6 +20,10 @@ module Renalware
 
       scope :current, -> { order("created_at DESC").limit(1) }
 
+      validates :delivery_interval,
+                allow_nil: true,
+                numericality: { only_integer: true },
+                inclusion: { in: VALID_RANGES.delivery_intervals }
       validates :patient, presence: true
       validates :start_date, presence: true
       validates :treatment, presence: true

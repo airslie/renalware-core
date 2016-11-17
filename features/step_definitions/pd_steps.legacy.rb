@@ -136,6 +136,7 @@ When(/^I complete the form for a capd regime$/) do
 
   fill_in "Start date", with: "02/04/2015"
   fill_in "End date", with: "01/06/2015"
+  select "1 week", from: "Delivery interval"
 
   select("CAPD 4 exchanges per day", from: "Treatment")
 
@@ -159,6 +160,7 @@ When(/^I complete the form for a apd regime$/) do
 
   fill_in "Start date", with: "15/05/2015"
   fill_in "End date", with: "16/07/2015"
+  select "2 weeks", from: "Delivery interval"
 
   select("APD Wet day with additional exchange", from: "Treatment")
 

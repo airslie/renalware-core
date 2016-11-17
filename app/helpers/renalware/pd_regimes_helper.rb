@@ -1,6 +1,12 @@
 module Renalware
   module PDRegimesHelper
 
+    def delivery_interval_options
+      PD::Regime::VALID_RANGES.delivery_intervals.map do |interval|
+        [pluralize(interval, "week"), interval]
+      end
+    end
+
     def therapy_times
       PD::APDRegime::VALID_RANGES.therapy_times.map do |minutes|
         [Duration.from_minutes(minutes).to_s, minutes]
