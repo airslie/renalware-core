@@ -1,4 +1,0 @@
-- byebug
-= form_for [patient, pd_regime], authenticity_token: false do |r|
-  = r.fields_for :regime_bags do |rb|
-    = render partial: "renalware/pd/regimes/bags/form", locals: {rb: rb}
