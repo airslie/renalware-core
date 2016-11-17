@@ -36,16 +36,13 @@ module Renalware
         glucose_types = [[], [], []]
 
         regime_bags.each do |bag|
-          case bag.bag_type.glucose_content.to_f
-
-          when 13.6
-            glucose_types[0] << bag.weekly_total_glucose_ml_per_bag
-          when 22.7
-            glucose_types[1] << bag.weekly_total_glucose_ml_per_bag
-          when 38.6
-            glucose_types[2] << bag.weekly_total_glucose_ml_per_bag
-          else
-            glucose_types
+          weekly_total = bag.weekly_total_glucose_ml_per_bag
+          glucose_content = bag.bag_type.glucose_content.to_f
+          case glucose_content
+          when 13.6 then glucose_types[0] << weekly_total
+          when 22.7 then glucose_types[1] << weekly_total
+          when 38.6 then glucose_types[2] << weekly_total
+          else glucose_types
           end
         end
         glucose_types

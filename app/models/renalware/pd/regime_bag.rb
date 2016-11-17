@@ -33,7 +33,7 @@ module Renalware
       end
 
       def days_to_sym
-        Date::DAYNAMES.map { |n| n.underscore.to_sym }
+        Date::DAYNAMES.map { |name| name.underscore.to_sym }
       end
 
       def weekly_total_glucose_ml_per_bag
@@ -43,7 +43,7 @@ module Renalware
       private
 
       def assign_days_per_week
-        self.per_week = days.keep_if { |d| d == true }.size
+        self.per_week = days.keep_if { |day| day == true }.size
       end
 
       def must_select_one_day

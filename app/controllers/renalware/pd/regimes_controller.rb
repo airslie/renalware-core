@@ -6,7 +6,6 @@ module Renalware
       include Renalware::Concerns::NestedActionsControllerMethods
 
       before_action :load_patient
-      # before_action :find_pd_regime, only: [:edit, :update, :show]
 
       def new
         regime_type = params[:type] ? "Renalware::#{params[:type]}" : nil

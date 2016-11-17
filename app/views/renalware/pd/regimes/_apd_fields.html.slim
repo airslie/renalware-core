@@ -9,7 +9,7 @@
       = f.input :tidal_indicator, as: :boolean, boolean_style: :inline
 
       = f.input :tidal_percentage,
-                collection: Renalware::PD::APDRegime::VALID_TIDAL_PERCENTAGES,
+                collection: Renalware::PD::APDRegime::VALID_RANGES::tidal_percentages,
                 include_blank: t("collection.blank_option"),
                 wrapper_class: "small-12 medium-4"
 

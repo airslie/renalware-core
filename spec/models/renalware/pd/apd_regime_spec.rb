@@ -25,34 +25,45 @@ module Renalware
         end
 
         it "tidal_percentage validates numeric_inclusion" do
-          expect(has_numeric_validation(:tidal_percentage, APDRegime::VALID_TIDAL_PERCENTAGES))
-            .to eq(true)
+          expect(
+            has_numeric_validation(:tidal_percentage,
+                                   APDRegime::VALID_RANGES.tidal_percentages)
+          ).to eq(true)
         end
 
         it "no_cycles_per_apd validates numeric_inclusion" do
-          expect(has_numeric_validation(:no_cycles_per_apd, APDRegime::VALID_CYCLES_PER_APD))
-            .to eq(true)
+          expect(
+            has_numeric_validation(:no_cycles_per_apd,
+                                   APDRegime::VALID_RANGES.cycles_per_apd)
+          ).to eq(true)
         end
 
         it "overnight_pd_volume validates numeric_inclusion" do
           expect(
-            has_numeric_validation(:overnight_pd_volume, APDRegime::VALID_OVERNIGHT_PD_VOLUMES)
-          )
-          .to eq(true)
+            has_numeric_validation(:overnight_pd_volume,
+                                   APDRegime::VALID_RANGES.overnight_pd_volumes)
+          ).to eq(true)
         end
 
         it "fill_volume validates numeric_inclusion" do
-          expect(has_numeric_validation(:fill_volume, APDRegime::VALID_FILL_VOLUMES)).to eq(true)
+          expect(
+            has_numeric_validation(:fill_volume,
+                                   APDRegime::VALID_RANGES.fill_volumes)
+          ).to eq(true)
         end
 
         it "last_fill_volume validates numeric_inclusion" do
-          expect(has_numeric_validation(:last_fill_volume, APDRegime::VALID_LAST_FILL_VOLUMES))
-            .to eq(true)
+          expect(
+            has_numeric_validation(:last_fill_volume,
+                                   APDRegime::VALID_RANGES.last_fill_volumes)
+          ).to eq(true)
         end
 
         it "therapy_time validates numeric_inclusion" do
-          expect(has_numeric_validation(:therapy_time, APDRegime::VALID_THERAPY_TIMES))
-            .to eq(true)
+          expect(
+            has_numeric_validation(:therapy_time,
+                                    APDRegime::VALID_RANGES.therapy_times)
+          ).to eq(true)
         end
       end
     end

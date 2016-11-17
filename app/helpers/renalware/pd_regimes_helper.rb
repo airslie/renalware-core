@@ -2,7 +2,7 @@ module Renalware
   module PDRegimesHelper
 
     def therapy_times
-      PD::APDRegime::VALID_THERAPY_TIMES.map do |minutes|
+      PD::APDRegime::VALID_RANGES.therapy_times.map do |minutes|
         [Duration.from_minutes(minutes).to_s, minutes]
       end
     end
