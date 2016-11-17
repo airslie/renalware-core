@@ -2678,6 +2678,38 @@ ALTER SEQUENCE pd_regimes_id_seq OWNED BY pd_regimes.id;
 
 
 --
+-- Name: pd_systems; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pd_systems (
+    id integer NOT NULL,
+    pd_type character varying NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pd_systems_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pd_systems_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pd_systems_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pd_systems_id_seq OWNED BY pd_systems.id;
+
+
+--
 -- Name: problem_notes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3972,6 +4004,13 @@ ALTER TABLE ONLY pd_regimes ALTER COLUMN id SET DEFAULT nextval('pd_regimes_id_s
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY pd_systems ALTER COLUMN id SET DEFAULT nextval('pd_systems_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY problem_notes ALTER COLUMN id SET DEFAULT nextval('problem_notes_id_seq'::regclass);
 
 
@@ -4697,6 +4736,14 @@ ALTER TABLE ONLY pd_regime_bags
 
 ALTER TABLE ONLY pd_regimes
     ADD CONSTRAINT pd_regimes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pd_systems_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_systems
+    ADD CONSTRAINT pd_systems_pkey PRIMARY KEY (id);
 
 
 --
@@ -5593,6 +5640,13 @@ CREATE INDEX index_pd_peritonitis_episodes_on_episode_type_id ON pd_peritonitis_
 --
 
 CREATE INDEX index_pd_peritonitis_episodes_on_fluid_description_id ON pd_peritonitis_episodes USING btree (fluid_description_id);
+
+
+--
+-- Name: index_pd_systems_on_pd_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_systems_on_pd_type ON pd_systems USING btree (pd_type);
 
 
 --
@@ -7096,3 +7150,4 @@ INSERT INTO schema_migrations (version) VALUES ('20161115164413');
 
 INSERT INTO schema_migrations (version) VALUES ('20161117133825');
 
+INSERT INTO schema_migrations (version) VALUES ('20161117101457');
