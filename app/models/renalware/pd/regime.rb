@@ -12,6 +12,7 @@ module Renalware
       before_save :set_glucose_volume_percent_3_86
 
       belongs_to :patient, class_name: "Renalware::Patient"
+      belongs_to :system
 
       has_many :regime_bags
       has_many :bag_types, through: :regime_bags

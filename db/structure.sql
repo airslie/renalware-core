@@ -2685,6 +2685,7 @@ CREATE TABLE pd_systems (
     id integer NOT NULL,
     pd_type character varying NOT NULL,
     name character varying NOT NULL,
+    deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
