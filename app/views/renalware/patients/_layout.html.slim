@@ -1,13 +1,16 @@
 .row
   .large-12.columns
     = render partial: "renalware/patients/header", locals: { patient: @patient }
-  .large-2.columns.patient-side-nav
+  .large-2.medium-3.columns.patient-side-nav
     = render partial: "renalware/patients/side_nav", locals: { model: @patient }
-  .large-10.columns.patient-content
+  .large-10.medium-9.columns.patient-content
     = render partial: "renalware/renal/profiles/mini", locals: { patient: @patient }
 
     h2= title
 
-    = render partial: local_assigns[:navigation_partial] || "navigation"
+    - partial = local_assigns[:navigation_partial] || "navigation"
+
+    / Me sure to pass on any locals passed to us
+    = render partial, local_assigns
 
     = yield

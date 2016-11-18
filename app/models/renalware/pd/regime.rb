@@ -3,8 +3,9 @@ require_dependency "renalware/pd"
 module Renalware
   module PD
     class Regime < ActiveRecord::Base
-      MIN_THERAPY_TIME = 120
-      MAX_THERAPY_TIME = 900
+      VALID_RANGES = OpenStruct.new(
+        delivery_intervals: [1, 2, 4, 8]
+      )
 
       before_save :set_glucose_volume_percent_1_36
       before_save :set_glucose_volume_percent_2_27
@@ -19,29 +20,17 @@ module Renalware
 
       scope :current, -> { order("created_at DESC").limit(1) }
 
+      validates :delivery_interval,
+                allow_nil: true,
+                numericality: { only_integer: true },
+                inclusion: { in: VALID_RANGES.delivery_intervals }
       validates :patient, presence: true
       validates :start_date, presence: true
       validates :treatment, presence: true
-
       validate :min_one_regime_bag
 
-      with_options if: :type_apd? do |apd|
-        apd.validates :last_fill_volume, allow_nil: true, numericality:
-          { greater_than_or_equal_to: 500, less_than_or_equal_to: 5000 }
-        apd.validates :tidal_percentage, allow_nil: true, numericality:
-          { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
-        apd.validates :no_cycles_per_apd, allow_nil: true, numericality:
-          { greater_than_or_equal_to: 2, less_than_or_equal_to: 20 }
-        apd.validates :overnight_pd_volume, allow_nil: true, numericality:
-          { greater_than_or_equal_to: 3000, less_than_or_equal_to: 25000 }
-        apd.validates :therapy_time, allow_nil: true, numericality: {
-          greater_than_or_equal_to: MIN_THERAPY_TIME, less_than_or_equal_to: MAX_THERAPY_TIME }
-      end
-
-      def type_apd?
-        if self.type.present?
-          self.type == "Renalware::APDRegime"
-        end
+      def apd?
+        false
       end
 
       private
@@ -53,17 +42,14 @@ module Renalware
       def match_bag_type
         glucose_types = [[], [], []]
 
-        self.regime_bags.each do |bag|
-          case bag.bag_type.glucose_content.to_f
-
-          when 13.6
-            glucose_types[0] << bag.weekly_total_glucose_ml_per_bag
-          when 22.7
-            glucose_types[1] << bag.weekly_total_glucose_ml_per_bag
-          when 38.6
-            glucose_types[2] << bag.weekly_total_glucose_ml_per_bag
-          else
-            glucose_types
+        regime_bags.each do |bag|
+          weekly_total = bag.weekly_total_glucose_ml_per_bag
+          glucose_content = bag.bag_type.glucose_content.to_f
+          case glucose_content
+          when 13.6 then glucose_types[0] << weekly_total
+          when 22.7 then glucose_types[1] << weekly_total
+          when 38.6 then glucose_types[2] << weekly_total
+          else glucose_types
           end
         end
         glucose_types
@@ -98,7 +84,6 @@ module Renalware
           self.glucose_volume_percent_3_86 = glucose_daily_average.round
         end
       end
-
     end
   end
 end

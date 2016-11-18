@@ -73,6 +73,7 @@ module Renalware
 
       context "add bag" do
         it "adds a bag to the unsaved CAPD Regime" do
+          expect(PD::RegimeBag.count).to eq(1)
           expect {
             post :create,
             patient_id: @patient,
@@ -81,8 +82,7 @@ module Renalware
               start_date: Time.zone.today,
               treatment: "CAPD 3 exchanges per day" }
           }.to change(PD::Regime, :count).by(0)
-
-          expect(assigns(:pd_regime).regime_bags.size).to eq(1)
+          expect(PD::RegimeBag.count).to eq(1)
         end
       end
 
@@ -101,7 +101,7 @@ module Renalware
             ]
           }
 
-          expect(assigns(:pd_regime).regime_bags.size).to eq(0)
+          expect(PD::RegimeBag.count).to eq(1)
         end
       end
     end

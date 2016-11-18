@@ -2,12 +2,15 @@
 
 .row
   .large-5.columns.inline
-    = rb.label :bag_type_id, "Bag Type"
-    = rb.select :bag_type_id, Renalware::PD::BagType.all.map { |bt| [bt.full_description, bt.id] }, { prompt: "Select bag type" }
+    = rb.association :bag_type,
+                      collection: bag_types,
+                      include_blank: t("collection.blank_option")
 
   .large-3.columns.inline
-    = rb.label :volume, "Volume (ml)"
-    = rb.select :volume, Renalware::PD::BagVolume.values, { prompt: "Select volume" }, class: "pd-regime-bag-volume-select"
+    = rb.input :volume,
+                collection: Renalware::PD::BagVolume.values,
+                include_blank: t("collection.blank_option"),
+                wrapper_class: "small-12 medium-12"
 
   .large-2.columns
     .right
@@ -20,17 +23,9 @@
       label Days to be administered:
       a.deselect-bag-days(href="#") Deselect all
     div
-      = rb.check_box :sunday, class: "inline"
-      = rb.label :sunday
-      = rb.check_box :monday, class: "inline"
-      = rb.label :monday
-      = rb.check_box :tuesday, class: "inline"
-      = rb.label :tuesday
-      = rb.check_box :wednesday, class: "inline"
-      = rb.label :wednesday
-      = rb.check_box :thursday, class: "inline"
-      = rb.label :thursday
-      = rb.check_box :friday, class: "inline"
-      = rb.label :friday
-      = rb.check_box :saturday, class: "inline"
-      = rb.label :saturday
+      - rb.object.days_to_sym.each do |day|
+        = rb.input day,
+                   as: :boolean,
+                   boolean_style: :inline,
+                   wrapper: false,
+                   label_html: {class: "nested"}

@@ -1,14 +1,20 @@
 module Renalware
   module PDRegimesHelper
 
-    def tidal_options
-      60.step(100, 5).to_a
+    def delivery_interval_options
+      PD::Regime::VALID_RANGES.delivery_intervals.map do |interval|
+        [pluralize(interval, "week"), interval]
+      end
     end
 
     def therapy_times
-      (PD::Regime::MIN_THERAPY_TIME..PD::Regime::MAX_THERAPY_TIME)
-        .step(30)
-        .map { |minutes| [Duration.from_minutes(minutes).to_s, minutes] }
+      PD::APDRegime::VALID_RANGES.therapy_times.map do |minutes|
+        [Duration.from_minutes(minutes).to_s, minutes]
+      end
+    end
+
+    def bag_types
+      Renalware::PD::BagType.all.map { |bt| [bt.full_description, bt.id] }
     end
 
     def default_daily_glucose_average(glucose)

@@ -2652,7 +2652,9 @@ CREATE TABLE pd_regimes (
     apd_machine_pac character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    therapy_time integer
+    therapy_time integer,
+    fill_volume integer,
+    delivery_interval integer
 );
 
 
@@ -7089,4 +7091,8 @@ INSERT INTO schema_migrations (version) VALUES ('20161111154939');
 INSERT INTO schema_migrations (version) VALUES ('20161114174727');
 
 INSERT INTO schema_migrations (version) VALUES ('20161114184444');
+
+INSERT INTO schema_migrations (version) VALUES ('20161115164413');
+
+INSERT INTO schema_migrations (version) VALUES ('20161117133825');
 

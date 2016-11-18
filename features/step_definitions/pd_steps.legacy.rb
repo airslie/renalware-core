@@ -28,7 +28,7 @@ Given(/^a patient has existing CAPD Regimes$/) do
     add_hd: false,
     regime_bags_attributes: [
       bag_type: bag_type,
-      volume: 600,
+      volume: 1000,
       sunday: true,
       monday: true,
       tuesday: true,
@@ -52,7 +52,7 @@ Given(/^a patient has existing CAPD Regimes$/) do
     add_hd: false,
     regime_bags_attributes: [
       bag_type: bag_type,
-      volume: 600,
+      volume: 1000,
       sunday: true,
       monday: true,
       tuesday: false,
@@ -81,13 +81,13 @@ Given(/^a patient has existing APD Regimes$/) do
     last_fill_volume: 630,
     add_manual_exchange: false,
     tidal_indicator: true,
-    tidal_percentage: 10,
+    tidal_percentage: 60,
     no_cycles_per_apd: 3,
     overnight_pd_volume: 7600,
     apd_machine_pac: "123-4567-890",
     regime_bags_attributes: [
       bag_type: bag_type,
-      volume: 600,
+      volume: 1000,
       sunday: true,
       monday: true,
       tuesday: true,
@@ -136,6 +136,7 @@ When(/^I complete the form for a capd regime$/) do
 
   fill_in "Start date", with: "02/04/2015"
   fill_in "End date", with: "01/06/2015"
+  select "1 week", from: "Delivery interval"
 
   select("CAPD 4 exchanges per day", from: "Treatment")
 
@@ -143,12 +144,12 @@ When(/^I complete the form for a capd regime$/) do
 
   find("input.add-bag").click
 
-  select("Baxter Nutrineal PD4 (Blue)", from: "Bag Type")
+  select("Baxter Nutrineal PD4 (Blue)", from: "* Bag type")
 
-  select("2500", from: "Volume (ml)")
+  select("2500", from: "* Volume (ml)")
 
-  uncheck "Tuesday"
-  uncheck "Saturday"
+  uncheck "Tue"
+  uncheck "Sat"
 
   within ".patient-content" do
     click_on "Save"
@@ -159,25 +160,26 @@ When(/^I complete the form for a apd regime$/) do
 
   fill_in "Start date", with: "15/05/2015"
   fill_in "End date", with: "16/07/2015"
+  select "2 weeks", from: "Delivery interval"
 
   select("APD Wet day with additional exchange", from: "Treatment")
 
   find("input.add-bag").click
 
-  select("Baxter Nutrineal PD4 (Blue)", from: "Bag Type")
-  select("4000", from: "Volume (ml)")
+  select("Baxter Nutrineal PD4 (Blue)", from: "* Bag type")
+  select("4000", from: "* Volume (ml)")
 
   # TODO: Unable tp get the click behaviour on a.deselect-bag-days (to deselect
-  # all days) to work here. Its a capybara and not worth the time resolving at this point
+  # all days) to work here. Its a capybara issue and not worth the time resolving at this point
   # expect(page).to have_checked_field("Monday")
   # find("a.deselect-bag-days").click
   # page.should have_content # to help js finish
   # expect(page).to_not have_checked_field("Monday")
 
-  uncheck "Tuesday"
-  uncheck "Wednesday"
-  uncheck "Saturday"
-  uncheck "Friday"
+  uncheck "Tue"
+  uncheck "Wed"
+  uncheck "Sat"
+  uncheck "Fri"
 
   # APD specific fields
   fill_in "Last Fill (ml)", with: 520
@@ -211,6 +213,8 @@ When(/^I choose to edit and update the form for a capd regime$/) do
   fill_in "End date", with: "03/05/2015"
 
   click_on "Update"
+
+  expect(page.current_path).to eq(patient_pd_dashboard_path(@patient_1))
 end
 
 When(/^I choose to edit and update the form for a apd regime$/) do
@@ -334,6 +338,7 @@ Then(/^the new apd regime should be current$/) do
 end
 
 Then(/^I should see the updated capd regime on the PD info page$/) do
+
   within("table.capd-regimes tbody tr:first-child") do
     expect(page).to have_content("03-05-2015")
   end
@@ -356,7 +361,7 @@ Then(/^I should see the chosen capd regime details$/) do
   # saved bag for this regime:
   # bag 1
   expect(page).to have_content(
-    "Bag type: Extraneal (Icodextrin 7.5%) (Purple), Volume: 600ml, No. per week: 6, Days: Sun, Mon, Wed, Thu, Fri, Sat"
+    "Bag type: Extraneal (Icodextrin 7.5%) (Purple), Volume: 1000ml, No. per week: 6, Days: Sun, Mon, Wed, Thu, Fri, Sat"
   )
 
   # average daily glucose calculated from bags

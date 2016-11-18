@@ -1,16 +1,18 @@
-= r.hidden_field :type
+= f.hidden_field :type
 
 = field_set_tag "PD Regime" do
-  = r.label :treatment, "Treatment"
-  = r.select :treatment, capd_apd_scope(r.object.type), { :prompt => "Please select from options" }, :class => "pd-regime-treatment-select"
-  = r.input :start_date, as: :date_picker
-  = r.input :end_date, as: :date_picker
 
-  p
-    = r.check_box :add_hd
-    = r.label :add_hd, "On additional HD"
+  = f.input :treatment,
+            collection: capd_apd_scope(f.object.type),
+            include_blank: t("collection.blank_option"),
+            wrapper_class: "small-12 medium-6"
 
-= render partial: "pd_regime_bags", locals: {r: r}
+  = f.input :delivery_interval,
+            collection: delivery_interval_options,
+            wrapper_class: "small-12 medium-6"
+  = f.input :start_date, as: :date_picker, wrapper: :datepicker
+  = f.input :end_date, as: :date_picker, wrapper: :datepicker
+  = f.input :add_hd, as: :boolean, boolean_style: :inline
 
-- if r.object.type == "Renalware::PD::APDRegime"
-  = render partial: "apd_fields", locals: { r: r }
+= render(partial: "pd_regime_bags", locals: { f: f })
+= render(partial: "apd_fields", locals: { f: f }) if f.object.apd?

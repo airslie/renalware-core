@@ -11,19 +11,19 @@ ruby:
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Sign-In", name: "signin" } do
-      = f.input :performed_on, as: :date_picker, autofocus: true
+      = f.input :performed_on, as: :date_picker, wrapper: :horizontal_datepicker, autofocus: true
       = f.association :hospital_unit,
           as: :grouped_select,
           group_method: :hd_sites,
           collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
           label_method: :to_s
-      = f.input :start_time, as: :clock_picker
+      = f.input :start_time, as: :clock_picker, wrapper: :horizontal_clockpicker
       = f.association :signed_on_by, as: :user_picker, collection: Renalware::User.ordered
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Sign-Off", name: "signoff" } do
 
-      = f.input :end_time, as: :clock_picker
+      = f.input :end_time, as: :clock_picker, wrapper: :horizontal_clockpicker
       = f.association :signed_off_by, as: :user_picker, collection: Renalware::User.ordered
 
     = render layout: "renalware/shared/fieldset",

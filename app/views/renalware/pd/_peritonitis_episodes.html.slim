@@ -9,10 +9,10 @@ table
       th.col-width-date Updated on
 
   tbody
-    - @peritonitis_episodes.each do |p|
+    - peritonitis_episodes.each do |p|
       tr valign="top"
         td valign="top"
-          = link_to "View", patient_pd_peritonitis_episode_path(@patient, p.id), class: "view-pe", id: "view-pe-#{p.id}"
+          = link_to "View", patient_pd_peritonitis_episode_path(patient, p.id), class: "view-pe", id: "view-pe-#{p.id}"
         td valign="top"
           = l p.diagnosis_date
         td valign="top"

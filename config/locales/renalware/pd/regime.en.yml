@@ -1,0 +1,38 @@
+en:
+  activerecord:
+    attributes:
+      renalware/pd/regime:
+        last_fill_volume: "Last Fill (ml)"
+        fill_volume: "Fill volume (ml)"
+        no_cycles_per_apd: "Cycles per session"
+        overnight_pd_volume: "Overnight PD vol on APD (ml)"
+        apd_machine_pac: "Machine PAC"
+        tidal_indicator: "Has tidal?"
+        add_manual_exchange: "Add'l manual exchange"
+        add_hd: "On additional HD"
+        tidal_percentage: "Tidal (%)"
+        treatment: Treatment
+        delivery_interval: Delivery interval
+        start_date: Start date
+        end_date: End date
+      renalware/pd/regime_bag:
+        sunday: Sun
+        monday: Mon
+        tuesday: Tue
+        wednesday: Wed
+        thursday: Thur
+        friday: Fri
+        saturday: Sat
+        bag_type: Bag type
+        volume: Volume (ml)
+  renalware:
+    pd:
+      regimes:
+        apd_fields:
+          fieldset_titles:
+            tidal: Tidal
+            additional_info: Additional APD Info
+            additional_exchanges: Additional exchanges
+        bags:
+          form:
+            blank_option: "Select bag type"

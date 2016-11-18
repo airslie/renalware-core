@@ -11,13 +11,13 @@ table.apd-regimes
       th.column-6-width Updated on
 
   tbody
-    - @apd_regimes.each do |r|
+    - apd_regimes.each do |r|
       tr valign="top"
         td
           - unless current_user.has_role?(:read_only)
-            = link_to "Update", edit_patient_pd_regime_path(@patient, r.id), class: "update-pd-regime"
+            = link_to "Update", edit_patient_pd_regime_path(patient, r.id), class: "update-pd-regime"
             = pipe_separator
-          = link_to "View", patient_pd_regime_path(@patient, r.id), class: "view-pd-regime"
+          = link_to "View", patient_pd_regime_path(patient, r.id), class: "view-pd-regime"
         td valign="top"
           = l r.start_date
         td valign="top"
