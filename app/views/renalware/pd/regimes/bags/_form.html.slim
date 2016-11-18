@@ -31,3 +31,7 @@
                    boolean_style: :inline,
                    wrapper: false,
                    label_html: {class: "nested"}
+-if regime.apd?
+  .row
+    .small-12.columns
+      =rb.input :additional_manual_exchange, as: :boolean, boolean_style: :inline

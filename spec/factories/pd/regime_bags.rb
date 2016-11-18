@@ -10,5 +10,6 @@ FactoryGirl.define do
     friday true
     saturday false
     sunday false
+    additional_manual_exchange false
   end
 end

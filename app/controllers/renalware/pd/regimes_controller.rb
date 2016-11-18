@@ -74,8 +74,10 @@ module Renalware
           :overnight_pd_volume, :apd_machine_pac, :therapy_time, :fill_volume, :delivery_interval,
           :system_id,
           regime_bags_attributes: [
-            :id, :regime_id, :bag_type_id, :volume, :per_week, :monday, :tuesday,
-            :wednesday, :thursday, :friday, :saturday, :sunday, :_destroy]
+            :id, :regime_id, :bag_type_id, :volume, :additional_manual_exchange,
+            :per_week, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday,
+            :_destroy
+          ]
         )
       end
 

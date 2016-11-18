@@ -5,7 +5,7 @@ h5.section-underliner Bags
     #pd-regime-bags.add-bag
       = f.fields_for :regime_bags do |rb|
         = field_set_tag do
-          = render partial: "renalware/pd/regimes/bags/form", locals: {rb: rb}
+          = render partial: "renalware/pd/regimes/bags/form", locals: { rb: rb, regime: f.object }
 
     .large-12.columns.add-bag
       .right class="#{highlight_add_bag_invalid(f.object)}"

@@ -49,6 +49,10 @@ module Renalware
       def pd_type
         :apd
       end
+
+      def has_additional_manual_exchange_bag?
+        regime_bags.any?(&:additional_manual_exchange)
+      end
     end
   end
 end

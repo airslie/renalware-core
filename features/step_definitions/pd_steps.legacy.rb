@@ -181,10 +181,10 @@ When(/^I complete the form for a apd regime$/) do
   uncheck "Sat"
   uncheck "Fri"
 
+  check "Additional manual exchange"
+
   # APD specific fields
   fill_in "Last Fill (ml)", with: 520
-
-  check "Add'l manual exchange"
 
   check "Has tidal?"
 
@@ -227,7 +227,7 @@ When(/^I choose to edit and update the form for a apd regime$/) do
   select "Fresenius Sleep Safe", from: "System"
   fill_in "End date", with: "30/08/2015"
 
-  check "Add'l manual exchange"
+  check "Additional manual exchange"
 
   click_on "Update"
 end
@@ -317,6 +317,7 @@ Then(/^the new apd regime should be current$/) do
     expect(page).to have_content("APD Wet day with additional exchange")
     expect(page).to have_content("On additional HD?")
     expect(page).to have_content("No")
+    expect(page).to have_content("Add'l manual exchange?: Yes")
 
     expect(page).to have_content("1.36 % 0 ml")
     expect(page).to have_content("2.27 % 0 ml")

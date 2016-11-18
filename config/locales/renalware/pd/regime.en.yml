@@ -24,6 +24,7 @@ en:
         saturday: Sat
         bag_type: Bag type
         volume: Volume (ml)
+        additional_manual_exchange: Additional manual exchange
   renalware:
     pd:
       regimes:
