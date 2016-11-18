@@ -1,7 +1,7 @@
 = field_set_tag "Patient Demographics" do
   .row
     .large-3.columns
-      dl
+      dl.dl-horizontal
         dt NHS Number:
         dd= @patient.nhs_number
 
@@ -9,7 +9,7 @@
         dd= @patient.local_patient_id
 
     .large-3.columns
-      dl
+      dl.dl-horizontal
         dt Title
         dd= @patient.title
 
@@ -23,7 +23,7 @@
         dd= @patient.suffix
 
     .large-3.columns
-      dl
+      dl.dl-horizontal
         dt Sex:
         dd= @patient.sex
 
@@ -40,7 +40,7 @@
         dd= @patient.religion
 
     .large-3.columns
-      dl
+      dl.dl-horizontal
         dt Date of Birth:
         dd= l @patient.born_on
 
@@ -49,7 +49,7 @@
 
   .row
     .large-3.columns
-      dl
+      dl.dl-horizontal
         dt Paediatric Patient:
         dd= yes_no(@patient.paediatric_patient_indicator)
 
@@ -58,7 +58,7 @@
   .row
     .large-12.columns
       = field_set_tag "Death Record" do
-        dl
+        dl.dl-horizontal
           dt First cause of Death:
           dd= @patient.first_edta_code.death_cause
 

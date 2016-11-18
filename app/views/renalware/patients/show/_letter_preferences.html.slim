@@ -1,11 +1,11 @@
 = field_set_tag "Letter Preferences" do
   .row
     .large-6.columns
-      dl
+      dl.dl-horizontal
         dt CC on all letters:
         dd= yes_no(@patient.cc_on_all_letters)
 
     .large-6.columns
-      dl
+      dl.dl-horizontal
         dt CC decision date:
         dd= l @patient.cc_decision_on
