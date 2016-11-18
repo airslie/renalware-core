@@ -9,10 +9,10 @@
 
   = f.input :delivery_interval,
             collection: delivery_interval_options,
-            input_html: { class: "small-input" }
+            wrapper: :horizontal_small
   = f.input :start_date, as: :date_picker, wrapper: :horizontal_datepicker
   = f.input :end_date, as: :date_picker, wrapper: :horizontal_datepicker
-  = f.input :add_hd, as: :boolean
+  = f.input :add_hd, as: :boolean, wrapper: :horizontal_small
 
 = render(partial: "pd_regime_bags", locals: { f: f })
 = render(partial: "apd_fields", locals: { f: f }) if f.object.apd?

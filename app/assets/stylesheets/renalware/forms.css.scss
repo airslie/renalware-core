@@ -1,3 +1,4 @@
+@import "./base/variables";
 
 form .row .row.datepicker-wrapper {
   margin-bottom: 10px;
@@ -21,9 +22,20 @@ form .row .row.datepicker-wrapper {
 }
 
 form {
-  .small-input {
-    max-width: 250px !important;
 
+  &.simple_form div.boolean {
+    label {
+      padding-left: 0;
+      input {
+        margin-left: 0;
+      }
+    }
+  }
+
+  @media screen and (min-width: 40.063em) {
+    .small-input {
+      max-width: 250px !important;
+    }
   }
 
   .medium-input {
