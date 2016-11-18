@@ -2675,7 +2675,6 @@ CREATE TABLE pd_regimes (
     icodextrin_volume integer,
     add_hd boolean,
     last_fill_volume integer,
-    add_manual_exchange boolean,
     tidal_indicator boolean,
     tidal_percentage integer,
     no_cycles_per_apd integer,
@@ -7684,3 +7683,4 @@ INSERT INTO schema_migrations (version) VALUES ('20161124152732');
 
 INSERT INTO schema_migrations (version) VALUES ('20161201183449');
 
+INSERT INTO schema_migrations (version) VALUES ('20161118165332');
