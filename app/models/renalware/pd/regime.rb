@@ -31,7 +31,15 @@ module Renalware
       validate :min_one_regime_bag
 
       def apd?
-        false
+        pd_type == :apd
+      end
+
+      def capd?
+        pd_type == :capd
+      end
+
+      def pd_type
+        raise NotImplementedError
       end
 
       private

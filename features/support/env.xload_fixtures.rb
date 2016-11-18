@@ -24,6 +24,7 @@ models = [
   Renalware::Pathology::RequestDescription,
   Renalware::PD::FluidDescription,
   Renalware::PD::BagType,
+  Renalware::PD::System,
   Renalware::PD::OrganismCode,
   Renalware::PD::EpisodeType,
   Renalware::Renal::PRDDescription,

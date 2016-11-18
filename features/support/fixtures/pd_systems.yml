@@ -1,0 +1,15 @@
+1:
+  pd_type: APD
+  name: Baxter Home Choice
+2:
+  pd_type: APD
+  name: Baxter Claria
+3:
+  pd_type: APD
+  name: Fresenius Sleep Safe
+4:
+  pd_type: CAPD
+  name: Baxter
+5:
+  pd_type: CAPD
+  name: Fresenius

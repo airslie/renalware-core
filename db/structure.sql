@@ -2654,7 +2654,8 @@ CREATE TABLE pd_regimes (
     updated_at timestamp without time zone NOT NULL,
     therapy_time integer,
     fill_volume integer,
-    delivery_interval integer
+    delivery_interval integer,
+    system_id integer
 );
 
 
@@ -7149,6 +7150,9 @@ INSERT INTO schema_migrations (version) VALUES ('20161114184444');
 
 INSERT INTO schema_migrations (version) VALUES ('20161115164413');
 
+INSERT INTO schema_migrations (version) VALUES ('20161117101457');
+
 INSERT INTO schema_migrations (version) VALUES ('20161117133825');
 
-INSERT INTO schema_migrations (version) VALUES ('20161117101457');
+INSERT INTO schema_migrations (version) VALUES ('20161118100149');
+

@@ -5,7 +5,7 @@
                           as: :pd_regime,
                           method: :put do |f|
 
-    h4= "Edit #{capd_apd_title(f.object.type)} Regime"
+    h4= "Edit #{capd_apd_title(f.object)} Regime"
 
     = render partial: "renalware/pd/regimes/form",  locals: local_assigns.merge!(f: f)
 

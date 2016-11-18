@@ -5,6 +5,10 @@ module Renalware
     class CAPDRegime < Regime
       include OrderedScope
       include PatientScope
+
+      def pd_type
+        :capd
+      end
     end
   end
 end

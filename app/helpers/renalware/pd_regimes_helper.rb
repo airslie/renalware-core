@@ -7,6 +7,10 @@ module Renalware
       end
     end
 
+    def system_options_for(regime)
+      PD::System.for_pd_type(regime.pd_type) { |system| [system.name, system.id] }
+    end
+
     def therapy_times
       PD::APDRegime::VALID_RANGES.therapy_times.map do |minutes|
         [Duration.from_minutes(minutes).to_s, minutes]
@@ -26,7 +30,7 @@ module Renalware
     end
 
     def capd_apd_scope(regime)
-      if regime == "Renalware::PD::CAPDRegime"
+      if regime.capd?
         ["CAPD 3 exchanges per day", "CAPD 4 exchanges per day", "CAPD 5 exchanges per day"]
       else
         ["APD Dry Day", "APD Wet Day", "APD Wet day with additional exchange"]
@@ -34,11 +38,7 @@ module Renalware
     end
 
     def capd_apd_title(regime)
-      if regime == "Renalware::PD::CAPDRegime"
-        "CAPD"
-      else
-        "APD"
-      end
+      regime.pd_type.to_s.upcase
     end
 
     def pd_regime_bags(regime_bags)

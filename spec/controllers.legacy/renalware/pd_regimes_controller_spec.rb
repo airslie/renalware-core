@@ -31,6 +31,7 @@ module Renalware
     describe "POST #create" do
       context "with valid attributes" do
         it "creates a new CAPD Regime" do
+          system = create(:capd_system)
           expect do
             post :create,
                  patient_id: @patient,
@@ -38,6 +39,8 @@ module Renalware
                    type: "Renalware::PD::CAPDRegime",
                    start_date: "01/02/2015",
                    treatment: "CAPD 3 exchanges per day",
+                   system_id: system.id,
+                   delivery_interval: 4,
                    regime_bags_attributes: [
                      bag_type_id: @bag_type.id,
                      volume: 600,
@@ -53,14 +56,21 @@ module Renalware
           end.to change(PD::Regime, :count).by(1)
 
           expect(response).to redirect_to(patient_pd_dashboard_path(@patient))
+
+          regime = @patient.pd_regimes.first
+          expect(regime.system).to eq(system)
+          expect(regime.delivery_interval).to eq(4)
         end
       end
 
       context "with invalid attributes" do
-        it "creates a new CAPD Regime" do
+        it "does not create a new CAPD Regime" do
+          system = create(:apd_system)
           expect {
             post :create,
             patient_id: @patient,
+            system_id: system.id,
+            delivery_interval: 4,
             pd_regime: { type: "Renalware::PD::CAPDRegime",
               start_date: nil,
               treatment: nil

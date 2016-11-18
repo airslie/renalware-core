@@ -3,9 +3,14 @@
 = field_set_tag "PD Regime" do
 
   = f.input :treatment,
-            collection: capd_apd_scope(f.object.type),
+            collection: capd_apd_scope(f.object),
             include_blank: t("collection.blank_option"),
             wrapper_class: "small-12 medium-6"
+
+  = f.association :system,
+                  collection: system_options_for(f.object),
+                  include_blank: t("collection.blank_option"),
+                  wrapper_class: "small-12 medium-6"
 
   = f.input :delivery_interval,
             collection: delivery_interval_options,
