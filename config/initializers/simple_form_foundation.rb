@@ -7,6 +7,53 @@ SimpleForm.setup do |config|
   # does't provide styles for hints. You will need to provide your own CSS styles for hints.
   # Uncomment them to enable hints.
 
+  config.wrappers :horizontal_small,
+                  tag: "div",
+                  class: "row",
+                  hint_class: :field_with_hint,
+                  error_class: :error do |b|
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :pattern
+    b.optional :min_max
+    b.optional :readonly
+
+    b.wrapper :label_wrapper, tag: :div, class: "small-12 medium-3 columns" do |ba|
+      ba.use :label, class: "right inline"
+    end
+
+    b.wrapper :right_input_wrapper, tag: :div, class: "small-12 medium-9 columns" do |ba|
+      ba.use :input, class: "small-input"
+      ba.use :error, wrap_with: { tag: :small, class: ["error", "small-input"] }
+      ba.use :hint,  wrap_with: { tag: :span, class: ["hint", "small-input"] }
+    end
+  end
+
+  config.wrappers :horizontal_medium,
+                  tag: "div",
+                  class: "row",
+                  hint_class: :field_with_hint,
+                  error_class: :error do |b|
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :pattern
+    b.optional :min_max
+    b.optional :readonly
+
+    b.wrapper :label_wrapper, tag: :div, class: "small-12 medium-3 columns" do |ba|
+      ba.use :label, class: "right inline"
+    end
+
+    b.wrapper :right_input_wrapper, tag: :div, class: "small-12 medium-9 columns" do |ba|
+      ba.use :input, class: "medium-input"
+      ba.use :error, wrap_with: { tag: :small, class: ["error", "medium-input"] }
+      ba.use :hint,  wrap_with: { tag: :span, class: ["hint", "medium-input"] }
+    end
+  end
+
+
   config.wrappers :vertical_form,
                   class: :input,
                   hint_class: :field_with_hint,
