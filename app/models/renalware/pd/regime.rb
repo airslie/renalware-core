@@ -12,6 +12,7 @@ module Renalware
       before_save :set_glucose_volume_percent_3_86
 
       belongs_to :patient, class_name: "Renalware::Patient"
+      belongs_to :system
 
       has_many :regime_bags
       has_many :bag_types, through: :regime_bags
@@ -30,7 +31,15 @@ module Renalware
       validate :min_one_regime_bag
 
       def apd?
-        false
+        pd_type == :apd
+      end
+
+      def capd?
+        pd_type == :capd
+      end
+
+      def pd_type
+        raise NotImplementedError
       end
 
       private

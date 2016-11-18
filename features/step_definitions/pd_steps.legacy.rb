@@ -136,7 +136,9 @@ When(/^I complete the form for a capd regime$/) do
 
   fill_in "Start date", with: "02/04/2015"
   fill_in "End date", with: "01/06/2015"
+
   select "1 week", from: "Delivery interval"
+  select "Baxter", from: "System"
 
   select("CAPD 4 exchanges per day", from: "Treatment")
 
@@ -224,6 +226,7 @@ When(/^I choose to edit and update the form for a apd regime$/) do
     click_link("Update")
   end
 
+  select "Fresenius Sleep Safe", from: "System"
   fill_in "End date", with: "30/08/2015"
 
   check "Add'l manual exchange"

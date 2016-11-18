@@ -46,8 +46,8 @@ module Renalware
                 numericality: { only_integer: true },
                 numeric_inclusion: { in: VALID_RANGES.therapy_times }
 
-      def apd?
-        true
+      def pd_type
+        :apd
       end
     end
   end
