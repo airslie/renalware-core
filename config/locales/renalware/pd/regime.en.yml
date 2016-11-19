@@ -25,6 +25,7 @@ en:
         bag_type: Bag type
         volume: Volume (ml)
         additional_manual_exchange: Additional manual exchange
+        role: Role
   renalware:
     pd:
       regimes:
@@ -35,3 +36,9 @@ en:
         bags:
           form:
             blank_option: "Select bag type"
+  enumerize:
+    renalware/pd/regime_bag:
+      role:
+        ordinary_bag: Ordinary bag
+        last_fill: Last fill
+        additional_manual_exchange: Additional manual exchange

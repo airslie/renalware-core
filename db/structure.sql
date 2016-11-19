@@ -2635,7 +2635,7 @@ CREATE TABLE pd_regime_bags (
     sunday boolean,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    additional_manual_exchange boolean
+    role character varying
 );
 
 

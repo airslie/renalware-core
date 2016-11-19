@@ -3,6 +3,11 @@ require_dependency "renalware/pd"
 module Renalware
   module PD
     class RegimeBag < ActiveRecord::Base
+      extend Enumerize
+
+      enumerize :role,
+                in: [:ordinary_bag, :last_fill, :additional_manual_exchange],
+                default: :ordinary_bag
 
       before_save :assign_days_per_week
 

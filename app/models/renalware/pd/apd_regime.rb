@@ -51,7 +51,7 @@ module Renalware
       end
 
       def has_additional_manual_exchange_bag?
-        regime_bags.any?(&:additional_manual_exchange)
+        regime_bags.select{ |bag| bag.role.additional_manual_exchange? }.any?
       end
     end
   end

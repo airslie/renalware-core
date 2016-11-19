@@ -9,7 +9,7 @@ module Renalware
       @capd_regime = create(:capd_regime,
                       regime_bags_attributes: [
                         bag_type: @bag_type,
-                        additional_manual_exchange: true,
+                        role: :additional_manual_exchange,
                         volume: 600,
                         sunday: true,
                         monday: true,
@@ -44,7 +44,7 @@ module Renalware
                    delivery_interval: 4,
                    regime_bags_attributes: [
                      bag_type_id: @bag_type.id,
-                     additional_manual_exchange: true,
+                     role: :additional_manual_exchange,
                      volume: 600,
                      sunday: true,
                      monday: true,
@@ -65,7 +65,7 @@ module Renalware
           expect(regime.regime_bags.count).to eq(1)
 
           bag = regime.regime_bags.first
-          expect(bag.additional_manual_exchange).to eq(true)
+          expect(bag.role.additional_manual_exchange?).to eq(true)
         end
       end
 
