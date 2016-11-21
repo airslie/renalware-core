@@ -4,7 +4,6 @@ module Renalware
   module PD
     describe APDRegime, type: :model do
       describe "validations" do
-        it { is_expected.to validate_numericality_of(:last_fill_volume) }
         it { is_expected.to validate_numericality_of(:tidal_percentage) }
         it { is_expected.to validate_numericality_of(:no_cycles_per_apd) }
         it { is_expected.to validate_numericality_of(:overnight_pd_volume) }
@@ -49,13 +48,6 @@ module Renalware
           expect(
             has_numeric_validation(:fill_volume,
                                    APDRegime::VALID_RANGES.fill_volumes)
-          ).to eq(true)
-        end
-
-        it "last_fill_volume validates numeric_inclusion" do
-          expect(
-            has_numeric_validation(:last_fill_volume,
-                                   APDRegime::VALID_RANGES.last_fill_volumes)
           ).to eq(true)
         end
 

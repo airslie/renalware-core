@@ -2,7 +2,6 @@ en:
   activerecord:
     attributes:
       renalware/pd/regime:
-        last_fill_volume: "Last Fill (ml)"
         fill_volume: "Fill volume (ml)"
         no_cycles_per_apd: "Cycles per session"
         overnight_pd_volume: "Overnight PD vol on APD (ml)"
