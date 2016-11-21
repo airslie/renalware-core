@@ -5,7 +5,7 @@
     .row
       .large-4.columns
         dt Add'l manual exchange?:
-        dl
+        dl= yes_no(pd_regime.has_additional_manual_exchange_bag?)
 
       .large-4.columns
         dt Has tidal?:
