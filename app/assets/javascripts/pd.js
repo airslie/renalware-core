@@ -53,5 +53,3 @@ Renalware.PdRegimes = (function () {
 $(document).ready(Renalware.PdRegimes.init);
 $(document).ready(Renalware.PdRegimes.toggleAddRemoveBags);
 $(document).on('nested:fieldAdded:regime_bags', Renalware.PdRegimes.toggleAddRemoveBags);
-
-

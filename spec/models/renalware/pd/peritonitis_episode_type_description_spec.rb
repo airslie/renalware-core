@@ -1,0 +1,9 @@
+require "rails_helper"
+
+module Renalware
+  module PD
+    describe PeritonitisEpisodeTypeDescription do
+      it { is_expected.to have_many(:peritonitis_episode_types) }
+    end
+  end
+end

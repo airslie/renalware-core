@@ -6,6 +6,7 @@ module Renalware
 
     it { should validate_presence_of :patient }
     it { should validate_presence_of :diagnosis_date }
+    it { is_expected.to have_many(:peritonitis_episode_types) }
 
     describe "peritonitis episode" do
 

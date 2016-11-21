@@ -3,24 +3,23 @@
      = f.input :diagnosis_date, as: :date_picker, wrapper: :horizontal_datepicker
      = f.input :treatment_start_date, as: :date_picker, wrapper: :horizontal_datepicker
      = f.input :treatment_end_date, as: :date_picker, wrapper: :horizontal_datepicker
-
   .row
     .large-12.columns
       = field_set_tag t(".fieldsets.outcomes") do
-        = f.association :episode_type,
-                        collection: Renalware::PD::EpisodeType.pluck(:term, :id),
-                        include_blank: t("collection.blank_option"),
-                        wrapper: :horizontal_medium
-
+        = f.input :episode_types,
+                  collection: Renalware::PD::PeritonitisEpisodeTypeDescription.pluck(:term, :id),
+                  include_blank: t("collection.blank_option"),
+                  input_html: { data: { placeholder: t("collection.blank_option_for_multiple") }},
+                  as: :multiple_select,
+                  include_hidden: false
         = f.input :catheter_removed, as: :inline_radio_buttons
-
   .row
     .large-12.columns
       = field_set_tag t(".fieldsets.causes") do
-        = f.input :line_break, as: :boolean, boolean_style: :inline, wrapper: false
-        = f.input :exit_site_infection, as: :boolean, boolean_style: :inline, wrapper: false
-        = f.input :diarrhoea, as: :boolean, boolean_style: :inline, wrapper: false
-        = f.input :abdominal_pain, as: :boolean, boolean_style: :inline, wrapper: false
+        = f.input :line_break, as: :boolean, boolean_style: :inline
+        = f.input :exit_site_infection, as: :boolean, boolean_style: :inline
+        = f.input :diarrhoea, as: :boolean, boolean_style: :inline
+        = f.input :abdominal_pain, as: :boolean, boolean_style: :inline
 
         = f.association :fluid_description,
                         collection: Renalware::PD::FluidDescription.pluck(:description, :id),

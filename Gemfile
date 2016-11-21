@@ -44,6 +44,7 @@ gem "where-or", "~> 0.1.3" # Rail 5 AR 'or' backport
 gem "wicked_pdf", "~> 1.0.6"
 gem "wisper", "2.0.0.rc1"
 gem "wkhtmltopdf-binary", "~> 0.12.3"
+gem "chosen-rails"
 
 source "https://rails-assets.org" do
   gem "rails-assets-clockpicker", "~> 0.0.7"

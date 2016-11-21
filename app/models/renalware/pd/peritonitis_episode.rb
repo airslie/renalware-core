@@ -6,7 +6,7 @@ module Renalware
       include PatientScope
 
       belongs_to :patient, class_name: "Renalware::Patient"
-      belongs_to :episode_type
+      has_many :episode_types, class_name: "PD::PeritonitisEpisodeType"
       belongs_to :fluid_description
 
       has_many :prescriptions, as: :treatable, class_name: "Renalware::Medications::Prescription"
@@ -17,6 +17,7 @@ module Renalware
 
       accepts_nested_attributes_for :prescriptions, allow_destroy: true
       accepts_nested_attributes_for :infection_organisms, allow_destroy: true
+      accepts_nested_attributes_for :episode_types
 
       validates :patient, presence: true
       validates :diagnosis_date, presence: true

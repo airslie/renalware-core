@@ -25,7 +25,7 @@ module Renalware
         @peritonitis_episode.patient_id = @patient.id
         if @peritonitis_episode.save
           redirect_to patient_pd_peritonitis_episode_path(@patient, @peritonitis_episode),
-            notice: t(".success", model_name: "peritonitis episode")
+                      notice: t(".success", model_name: "peritonitis episode")
         else
           flash[:error] = t(".failed", model_name: "peritonitis episode")
           render :new
@@ -37,7 +37,19 @@ module Renalware
       end
 
       def update
-        @peritonitis_episode.update(peritonitis_episode_params)
+        success = @peritonitis_episode.update(peritonitis_episode_params)
+        respond_to do |format|
+          format.js
+          format.html do
+            if success
+              redirect_to patient_pd_peritonitis_episode_path(@patient, @peritonitis_episode),
+                          notice: t(".success", model_name: "peritonitis episode")
+            else
+              flash[:error] = t(".failed", model_name: "peritonitis episode")
+              render :edit
+            end
+          end
+        end
       end
 
       private
@@ -47,10 +59,10 @@ module Renalware
           .require(:pd_peritonitis_episode)
           .permit(
             :diagnosis_date, :treatment_start_date, :treatment_end_date,
-            :episode_type_id, :catheter_removed, :line_break, :exit_site_infection,
+            :catheter_removed, :line_break, :exit_site_infection,
             :diarrhoea, :abdominal_pain, :fluid_description_id, :white_cell_total,
             :white_cell_neutro, :white_cell_lympho, :white_cell_degen,
-            :white_cell_other, :notes
+            :white_cell_other, :notes, { episode_types: [] }
           )
       end
 
