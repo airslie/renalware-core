@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :organism_code, class: "Renalware::PD::OrganismCode" do
-    read_code "READ1"
-    name "Scanty Escherichia vulneris"
+    code "7"
+    name "Staphylococcus aureus"
   end
 end
