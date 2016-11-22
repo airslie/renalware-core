@@ -12,16 +12,15 @@ module Renalware
         prescriptions = peritonitis_episode.prescriptions.ordered
         render locals: {
           patient: patient,
-          peritonitis_episode: peritonitis_episode,
+          peritonitis_episode: present(peritonitis_episode, PeritonitisEpisodePresenter),
           prescriptions: present(prescriptions, Medications::PrescriptionPresenter),
           treatable: present(peritonitis_episode, Medications::TreatablePresenter)
         }
       end
 
       def new
-        @peritonitis_episode = PeritonitisEpisode.new
         render locals: {
-          peritonitis_episode: @peritonitis_episode,
+          peritonitis_episode: PeritonitisEpisode.new,
           patient: patient
         }
       end
@@ -50,7 +49,10 @@ module Renalware
       def save_success(episode)
         respond_to do |format|
           format.js do
-            render locals: { peritonitis_episode: episode, patient: patient }
+            render locals: {
+              peritonitis_episode: present(episode, PeritonitisEpisodePresenter),
+              patient: patient
+            }
           end
           format.html do
             url = patient_pd_peritonitis_episode_path(patient, episode)
@@ -62,7 +64,8 @@ module Renalware
 
       def save_failure(episode)
         flash[:error] = t(".failed", model_name: "peritonitis episode")
-        render locals: {
+        action = action_name.to_sym == :create ? :new : :edit
+        render action, locals: {
           peritonitis_episode: episode,
           patient: patient
         }

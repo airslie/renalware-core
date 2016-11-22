@@ -1,4 +1,4 @@
-- if @peritonitis_episode.try(:new_record?)
+- if peritonitis_episode && peritonitis_episode.new_record?
   = render "renalware/pd/dashboards/navigation"
 - else
   dl.sub-nav

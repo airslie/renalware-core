@@ -11,8 +11,8 @@
 
       dl
         .large-6.columns
-          dt Episode Type
-          /dl = default_for_associated(peritonitis_episode.episode_type, :term, "Unknown")
+          dt Episode Types
+          dl= peritonitis_episode.episode_types_summary
         .large-6.columns
           dt Catheter Removed
           dl= yes_no(peritonitis_episode.catheter_removed)
