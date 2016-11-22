@@ -4,7 +4,6 @@ FactoryGirl.define do
     diagnosis_date "30/01/2015"
     treatment_start_date "1/02/2015"
     treatment_end_date "28/02/2015"
-    # episode_type
     catheter_removed true
     line_break false
     exit_site_infection true
@@ -18,5 +17,4 @@ FactoryGirl.define do
     white_cell_other 30
     notes "Needs review in 6 weeks"
   end
-
 end

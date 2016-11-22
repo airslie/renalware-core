@@ -6,9 +6,9 @@ module Renalware
       include PresenterHelper
 
       before_action :load_patient, except: [:index, :destroy]
-      before_action :load_peritonitis_episode, only: [:show, :edit, :update]
 
       def show
+        @peritonitis_episode = PeritonitisEpisode.for_patient(patient).find(params[:id])
         @prescriptions = present(
           @peritonitis_episode.prescriptions.ordered,
           Medications::PrescriptionPresenter
@@ -21,38 +21,42 @@ module Renalware
       end
 
       def create
-        @peritonitis_episode = PeritonitisEpisode.new(peritonitis_episode_params)
-        @peritonitis_episode.patient_id = @patient.id
-        if @peritonitis_episode.save
-          redirect_to patient_pd_peritonitis_episode_path(@patient, @peritonitis_episode),
-                      notice: t(".success", model_name: "peritonitis episode")
-        else
-          flash[:error] = t(".failed", model_name: "peritonitis episode")
-          render :new
-        end
+        save_episode
       end
 
       def edit
+        @peritonitis_episode = PeritonitisEpisode.for_patient(patient).find(params[:id])
         render
       end
 
       def update
-        success = @peritonitis_episode.update(peritonitis_episode_params)
+        save_episode
+      end
+
+      def save_episode
+        command = SavePeritonitisEpisode.new(patient: patient)
+        command.subscribe(self)
+        command.call(id: params[:id], params: peritonitis_episode_params)
+      end
+
+      def save_success(episode)
+        @peritonitis_episode = episode
         respond_to do |format|
           format.js
           format.html do
-            if success
-              redirect_to patient_pd_peritonitis_episode_path(@patient, @peritonitis_episode),
-                          notice: t(".success", model_name: "peritonitis episode")
-            else
-              flash[:error] = t(".failed", model_name: "peritonitis episode")
-              render :edit
-            end
+            url = patient_pd_peritonitis_episode_path(patient, episode)
+            message = t(".success", model_name: "peritonitis episode")
+            redirect_to url, notice: message
           end
         end
       end
 
-      private
+      def save_failure(episode)
+        @peritonitis_episode = episode
+        flash[:error] = t(".failed", model_name: "peritonitis episode")
+        action = action_name.to_sym == :create ? :new : :edit
+        render action
+      end
 
       def peritonitis_episode_params
         params
@@ -64,10 +68,6 @@ module Renalware
             :white_cell_neutro, :white_cell_lympho, :white_cell_degen,
             :white_cell_other, :notes, { episode_types: [] }
           )
-      end
-
-      def load_peritonitis_episode
-        @peritonitis_episode = PeritonitisEpisode.for_patient(@patient).find(params[:id])
       end
     end
   end

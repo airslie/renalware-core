@@ -1,45 +1,46 @@
-.peritonitis-form
-  = field_set_tag t(".fieldsets.dates") do
-     = f.input :diagnosis_date, as: :date_picker, wrapper: :horizontal_datepicker
-     = f.input :treatment_start_date, as: :date_picker, wrapper: :horizontal_datepicker
-     = f.input :treatment_end_date, as: :date_picker, wrapper: :horizontal_datepicker
-  .row
-    .large-12.columns
-      = field_set_tag t(".fieldsets.outcomes") do
-        = f.input :episode_types,
-                  collection: Renalware::PD::PeritonitisEpisodeTypeDescription.pluck(:term, :id),
-                  include_blank: t("collection.blank_option"),
-                  input_html: { data: { placeholder: t("collection.blank_option_for_multiple") }},
-                  as: :multiple_select,
-                  include_hidden: false
-        = f.input :catheter_removed, as: :inline_radio_buttons
-  .row
-    .large-12.columns
-      = field_set_tag t(".fieldsets.causes") do
-        = f.input :line_break, as: :boolean, boolean_style: :inline
-        = f.input :exit_site_infection, as: :boolean, boolean_style: :inline
-        = f.input :diarrhoea, as: :boolean, boolean_style: :inline
-        = f.input :abdominal_pain, as: :boolean, boolean_style: :inline
+= field_set_tag t(".fieldsets.dates") do
+   = f.input :diagnosis_date, as: :date_picker, wrapper: :horizontal_datepicker
+   = f.input :treatment_start_date, as: :date_picker, wrapper: :horizontal_datepicker
+   = f.input :treatment_end_date, as: :date_picker, wrapper: :horizontal_datepicker
 
-        = f.association :fluid_description,
-                        collection: Renalware::PD::FluidDescription.pluck(:description, :id),
-                        include_blank: t(".fluid_description.blank_option"),
-                        wrapper: :horizontal_medium
+.row
+  .large-12.columns
+    = field_set_tag t(".fieldsets.outcomes") do
+      = f.input :episode_types,
+                collection: Renalware::PD::PeritonitisEpisodeTypeDescription.pluck(:term, :id),
+                include_blank: t("collection.blank_option"),
+                input_html: { data: { placeholder: t("collection.blank_option_for_multiple") }},
+                as: :multiple_select,
+                include_hidden: false,
+                selected: f.object.episode_types.map(&:peritonitis_episode_type_description_id)
+      = f.input :catheter_removed, as: :inline_radio_buttons
+.row
+  .large-12.columns
+    = field_set_tag t(".fieldsets.causes") do
+      = f.input :line_break, as: :boolean, boolean_style: :inline
+      = f.input :exit_site_infection, as: :boolean, boolean_style: :inline
+      = f.input :diarrhoea, as: :boolean, boolean_style: :inline
+      = f.input :abdominal_pain, as: :boolean, boolean_style: :inline
 
-  .row
-    .large-12.columns
-      .row
-        = field_set_tag t(".fieldsets.white_cell_count") do
-            = f.input :white_cell_total, wrapper: :horizontal_tiny
-            = f.input :white_cell_neutro, wrapper: :horizontal_tiny
-            = f.input :white_cell_lympho, wrapper: :horizontal_tiny
-            = f.input :white_cell_degen, wrapper: :horizontal_tiny
-            = f.input :white_cell_other, wrapper: :horizontal_tiny
+      = f.association :fluid_description,
+                      collection: Renalware::PD::FluidDescription.pluck(:description, :id),
+                      include_blank: t(".fluid_description.blank_option"),
+                      wrapper: :horizontal_medium
 
-  .row
-    .large-12.columns
-      = field_set_tag t(".fieldsets.comments")do
-        = f.input :notes,
-                  as: :text,
-                  input_html: { cols: 50, rows: 6 },
-                  wrapper: :vertical_form
+.row
+  .large-12.columns
+    .row
+      = field_set_tag t(".fieldsets.white_cell_count") do
+          = f.input :white_cell_total, wrapper: :horizontal_tiny
+          = f.input :white_cell_neutro, wrapper: :horizontal_tiny
+          = f.input :white_cell_lympho, wrapper: :horizontal_tiny
+          = f.input :white_cell_degen, wrapper: :horizontal_tiny
+          = f.input :white_cell_other, wrapper: :horizontal_tiny
+
+.row
+  .large-12.columns
+    = field_set_tag t(".fieldsets.comments")do
+      = f.input :notes,
+                as: :text,
+                input_html: { cols: 50, rows: 6 },
+                wrapper: :vertical_form

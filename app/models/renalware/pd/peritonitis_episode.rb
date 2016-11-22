@@ -15,10 +15,6 @@ module Renalware
       has_many :infection_organisms, as: :infectable
       has_many :organism_codes, -> { uniq }, through: :infection_organisms, as: :infectable
 
-      accepts_nested_attributes_for :prescriptions, allow_destroy: true
-      accepts_nested_attributes_for :infection_organisms, allow_destroy: true
-      accepts_nested_attributes_for :episode_types
-
       validates :patient, presence: true
       validates :diagnosis_date, presence: true
 

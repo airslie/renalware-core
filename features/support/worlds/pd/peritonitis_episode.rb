@@ -55,7 +55,9 @@ module World
         login_as user
 
         visit new_patient_pd_peritonitis_episode_path(patient)
+        select_from_chosen("Recurrent", from: "Episode type")
         fill_in "Diagnosed on", with: diagnosed_on
+
         click_on "Save"
       end
 
@@ -66,6 +68,7 @@ module World
         visit patient_pd_peritonitis_episode_path(patient, episode)
         within "#" + dom_id(episode) do
           click_on "Edit"
+          select_from_chosen("Relapsing", from: "Episode type")
           fill_in "Diagnosed on", with: diagnosed_on
           click_on "Save"
           wait_for_ajax

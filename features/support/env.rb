@@ -12,6 +12,7 @@ ENV["RAILS_ROOT"] = Dir.pwd
 
 require "cucumber/rails"
 require "capybara-screenshot/cucumber" if RUBY_PLATFORM =~ /darwin/
+require "chosen-rails/rspec"
 
 WebMock.disable!
 # Capybara defaults to CSS3 selectors rather than XPath.

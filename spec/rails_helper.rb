@@ -6,6 +6,7 @@ require "rspec/rails"
 require "shoulda/matchers"
 require "pundit/rspec"
 require "paper_trail/frameworks/rspec"
+require "chosen-rails/rspec"
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -56,6 +57,7 @@ RSpec.configure do |config|
   config.include Select2SpecHelper, type: :feature
   config.include SelectDateSpecHelper, type: :feature
   config.include ActiveSupport::Testing::TimeHelpers
+  config.include Chosen::Rspec::FeatureHelpers, type: :feature
 
   # By default, all specs will have versioning enabled.
   # Enable it one spec/example_group at a time by adding `versioning: true`.
