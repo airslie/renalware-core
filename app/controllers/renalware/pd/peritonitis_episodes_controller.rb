@@ -1,4 +1,4 @@
-require_dependency "renalware/pd"
+require_dependency "renalware/hd/base_controller"
 
 module Renalware
   module PD
@@ -8,7 +8,7 @@ module Renalware
       before_action :load_patient, except: [:index, :destroy]
 
       def show
-        @peritonitis_episode = PeritonitisEpisode.for_patient(patient).find(params[:id])
+        @peritonitis_episode = patient.peritonitis_episodes.find(params[:id])
         @prescriptions = present(
           @peritonitis_episode.prescriptions.ordered,
           Medications::PrescriptionPresenter
@@ -26,7 +26,6 @@ module Renalware
 
       def edit
         @peritonitis_episode = PeritonitisEpisode.for_patient(patient).find(params[:id])
-        render
       end
 
       def update
@@ -57,6 +56,8 @@ module Renalware
         action = action_name.to_sym == :create ? :new : :edit
         render action
       end
+
+      private
 
       def peritonitis_episode_params
         params
