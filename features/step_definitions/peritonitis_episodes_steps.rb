@@ -7,7 +7,7 @@ Given(/^Patty is being treated for a peritonitis episode$/) do
 
   record_organism_for(
     infectable: episode_for(@patty),
-    organism_name: "Acineobactor"
+    organism_name: "Staphylococcus aureus"
   )
 
   seed_prescription_for(
@@ -36,7 +36,7 @@ end
 Given(/^recorded the organism for the episode$/) do
   record_organism_for(
     infectable: episode_for(@patty),
-    organism_name: "Acineobactor"
+    organism_name: "Staphylococcus aureus"
   )
 end
 
@@ -66,7 +66,7 @@ end
 When(/^records the organism for the episode$/) do
   record_organism_for(
     infectable: episode_for(@patty),
-    organism_name: "Acineobactor"
+    organism_name: "Staphylococcus aureus"
   )
 end
 

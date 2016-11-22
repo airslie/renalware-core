@@ -19,14 +19,14 @@ end
 When(/^records the organism for the infection$/) do
   record_organism_for(
     infectable: infection_for(@patty),
-    organism_name: "Acineobactor"
+    organism_name: "Staphylococcus aureus"
   )
 end
 
 Given(/^recorded the organism for the infection$/) do
   record_organism_for(
     infectable: infection_for(@patty),
-    organism_name: "Acineobactor"
+    organism_name: "Staphylococcus aureus"
   )
 end
 
@@ -74,7 +74,7 @@ Given(/^Patty is being treated for an exit site infection$/) do
 
   record_organism_for(
     infectable: infection_for(@patty),
-    organism_name: "Acineobactor"
+    organism_name: "Staphylococcus aureus"
   )
 
   seed_prescription_for(
