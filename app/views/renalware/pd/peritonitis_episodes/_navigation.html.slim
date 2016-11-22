@@ -2,5 +2,5 @@
   = render "renalware/pd/dashboards/navigation"
 - else
   dl.sub-nav
-    dd= link_to "PD Summary", patient_pd_dashboard_path(@patient)
-    dd= link_to "View Peritonitis Episode", patient_pd_peritonitis_episode_path(@patient, @peritonitis_episode)
+    dd= link_to "PD Summary", patient_pd_dashboard_path(patient)
+    dd= link_to "View Peritonitis Episode", patient_pd_peritonitis_episode_path(patient, peritonitis_episode)

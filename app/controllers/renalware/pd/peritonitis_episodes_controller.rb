@@ -8,16 +8,22 @@ module Renalware
       before_action :load_patient, except: [:index, :destroy]
 
       def show
-        @peritonitis_episode = patient.peritonitis_episodes.find(params[:id])
-        @prescriptions = present(
-          @peritonitis_episode.prescriptions.ordered,
-          Medications::PrescriptionPresenter
-        )
-        @treatable = present(@peritonitis_episode, Medications::TreatablePresenter)
+        peritonitis_episode = PeritonitisEpisode.for_patient(patient).find(params[:id])
+        prescriptions = peritonitis_episode.prescriptions.ordered
+        render locals: {
+          patient: patient,
+          peritonitis_episode: peritonitis_episode,
+          prescriptions: present(prescriptions, Medications::PrescriptionPresenter),
+          treatable: present(peritonitis_episode, Medications::TreatablePresenter)
+        }
       end
 
       def new
         @peritonitis_episode = PeritonitisEpisode.new
+        render locals: {
+          peritonitis_episode: @peritonitis_episode,
+          patient: patient
+        }
       end
 
       def create
@@ -25,7 +31,10 @@ module Renalware
       end
 
       def edit
-        @peritonitis_episode = PeritonitisEpisode.for_patient(patient).find(params[:id])
+        render locals: {
+          peritonitis_episode: PeritonitisEpisode.for_patient(patient).find(params[:id]),
+          patient: patient
+        }
       end
 
       def update
@@ -39,9 +48,10 @@ module Renalware
       end
 
       def save_success(episode)
-        @peritonitis_episode = episode
         respond_to do |format|
-          format.js
+          format.js do
+            render locals: { peritonitis_episode: episode, patient: patient }
+          end
           format.html do
             url = patient_pd_peritonitis_episode_path(patient, episode)
             message = t(".success", model_name: "peritonitis episode")
@@ -51,10 +61,11 @@ module Renalware
       end
 
       def save_failure(episode)
-        @peritonitis_episode = episode
         flash[:error] = t(".failed", model_name: "peritonitis episode")
-        action = action_name.to_sym == :create ? :new : :edit
-        render action
+        render locals: {
+          peritonitis_episode: episode,
+          patient: patient
+        }
       end
 
       private

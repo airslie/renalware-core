@@ -1,8 +1,14 @@
-= simple_form_for [patient, peritonitis_episode], html: { class: local_assigns[:form_class] },
-    remote: true, wrapper: :horizontal_form do |f|
-  = render "fields", f: f
+= simple_form_for [patient, peritonitis_episode],
+                  html: { class: local_assigns[:form_class] },
+                  remote: true,
+                  wrapper: :horizontal_form do |f|
+
+  = render "fields", local_assigns.merge!(f: f)
+
   .row
     .large-offset-3.large-7.columns
       = f.button :submit, "Save", class: :tiny
       span= " or "
-      = link_to "cancel", patient_pd_peritonitis_episode_path(patient, peritonitis_episode), remote: true
+      = link_to "cancel",
+                patient_pd_peritonitis_episode_path(patient, peritonitis_episode),
+                remote: true
