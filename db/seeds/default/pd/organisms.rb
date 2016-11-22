@@ -1,7 +1,7 @@
 module Renalware
-  log "Adding Organisms"
+  log "Adding Renal Reg Organisms"
 
-  file_path = File.join(File.dirname(__FILE__), "organisms.csv")
+  file_path = File.join(File.dirname(__FILE__), "rr_organisms.csv")
 
   CSV.foreach(file_path, headers: true) do |row|
     PD::OrganismCode.find_or_create_by!(read_code: row["code"]) do |code|
