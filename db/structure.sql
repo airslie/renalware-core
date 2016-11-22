@@ -2511,7 +2511,7 @@ ALTER SEQUENCE pd_infection_organisms_id_seq OWNED BY pd_infection_organisms.id;
 
 CREATE TABLE pd_organism_codes (
     id integer NOT NULL,
-    read_code character varying,
+    code character varying,
     name character varying,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
@@ -7155,4 +7155,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161117101457');
 INSERT INTO schema_migrations (version) VALUES ('20161117133825');
 
 INSERT INTO schema_migrations (version) VALUES ('20161118100149');
+
+INSERT INTO schema_migrations (version) VALUES ('20161122112905');
 
