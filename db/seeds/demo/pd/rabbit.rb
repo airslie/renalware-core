@@ -32,7 +32,7 @@ module Renalware
   })
 
   PD::InfectionOrganism.create!({
-    organism_code_id: 33,
+    organism_code_id: 3,
     sensitivity: "+++",
     infectable_id: 1,
     infectable_type: "Renalware::PD::PeritonitisEpisode"
