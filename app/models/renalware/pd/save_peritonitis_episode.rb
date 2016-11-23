@@ -3,12 +3,12 @@ module Renalware
     class SavePeritonitisEpisode
       include Wisper::Publisher
 
-      def initialize(patient:)
+      def initialize(patient:, episode:)
         @patient = patient
+        @episode = episode
       end
 
-      def call(id: nil, params:)
-        episode = find_or_build_episode(id: id, params: filtered_params(params))
+      def call(params:)
         success = save_episode(episode, params)
         success ? broadcast(:save_success, episode) : broadcast(:save_failure, episode)
         success
@@ -16,28 +16,15 @@ module Renalware
 
       private
 
-      attr_reader :patient
-
-      def filtered_params(params)
-        params.except(:episode_types)
-      end
+      attr_reader :patient, :episode
 
       def episodes
         patient.peritonitis_episodes
       end
 
-      def find_or_build_episode(id:, params:)
-        episode = if id.present?
-                    episodes.find_by!(id: id)
-                  else
-                    episodes.build(params)
-                  end
-        episode.assign_attributes(params)
-        episode
-      end
-
       def save_episode(episode, params)
         PeritonitisEpisode.transaction do
+          episode.assign_attributes(params.except(:episode_types))
           episode.save && save_episode_types(episode.episode_types, params)
         end
       end

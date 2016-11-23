@@ -1,14 +1,11 @@
 = render layout: "renalware/patients/layout",
          locals: local_assigns.merge!(title: "Peritonitis Episode") do
 
-  = render partial: "renalware/shared/errors",
-           locals: { model: peritonitis_episode }
+  = render "renalware/shared/errors", model: peritonitis_episode
 
-  = simple_form_for [patient, peritonitis_episode],
-                    wrapper: :horizontal_form do |f|
+  = simple_form_for [patient, peritonitis_episode], wrapper: :horizontal_form do |f|
 
-    = render partial: "renalware/pd/peritonitis_episodes/fields",
-             locals: local_assigns.merge!(f: f)
+    = render "renalware/pd/peritonitis_episodes/fields", local_assigns.merge!(f: f)
 
     = submit_tag "Save", class: "button"
     span= " or "

@@ -1,7 +1,7 @@
-- if @patient_search
+- if patient_search.present?
   ul.left
     li.has-form
-      = search_form_for @patient_search, url: patients_path do |f|
+      = search_form_for patient_search, url: patients_path do |f|
         .row.collapse
           .large-11.small-9.columns
             = label_tag :identity_match, "Patient Search" do

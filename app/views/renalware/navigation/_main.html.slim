@@ -6,15 +6,10 @@
         a(href="#")
           span
 
-
     - if user_signed_in?
-
-      = render partial: "renalware/navigation/menu"
-
+      = render "renalware/navigation/menu", patient_search: patient_search
     - else
-
-      = render partial: "renalware/navigation/branding"
+      = render "renalware/navigation/branding"
 
 - if !user_signed_in?
-
-  = render partial: "renalware/navigation/footer"
+  = render "renalware/navigation/footer"
