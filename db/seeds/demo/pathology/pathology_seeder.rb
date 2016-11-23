@@ -6,32 +6,32 @@ module Renalware
     end
 
     def seed_pathology_requests_for(patient:)
-      log "Adding Pathology Requests (OBR) for #{patient}"
-
-      file_path = file_path_for(patient: patient, file_name: "pathology_obr.csv")
-      CSV.foreach(file_path, headers: true) do |row|
-        request_desc = Pathology::RequestDescription.find_by!(code: row["description"])
-        patient.observation_requests.find_or_create_by!(id: row["id"].to_i) do |obr|
-          obr.description = request_desc
-          obr.requestor_order_number = row["order_no"]
-          obr.requested_at = row["requested_at"]
-          obr.requestor_name = row["requestor_name"]
+      log "Adding Pathology Requests (OBR) for #{patient}" do
+        file_path = file_path_for(patient: patient, file_name: "pathology_obr.csv")
+        CSV.foreach(file_path, headers: true) do |row|
+          request_desc = Pathology::RequestDescription.find_by!(code: row["description"])
+          patient.observation_requests.find_or_create_by!(id: row["id"].to_i) do |obr|
+            obr.description = request_desc
+            obr.requestor_order_number = row["order_no"]
+            obr.requested_at = row["requested_at"]
+            obr.requestor_name = row["requestor_name"]
+          end
         end
       end
     end
 
     def seed_pathology_observations_for(patient:)
-      log "Adding Pathology Observations (OBX) for #{patient}"
-
-      file_path = file_path_for(patient: patient, file_name: "pathology_obx.csv")
-      CSV.foreach(file_path, headers: true) do |row|
-        observation_desc = Pathology::ObservationDescription.find_by!(code: row["description"])
-        request = Pathology::ObservationRequest.find(row["request_id"])
-        request.observations.create!(
-          description: observation_desc,
-          result: row["result"],
-          observed_at: request.requested_at - 9.hours
-        )
+      log "Adding Pathology Observations (OBX) for #{patient}" do
+        file_path = file_path_for(patient: patient, file_name: "pathology_obx.csv")
+        CSV.foreach(file_path, headers: true) do |row|
+          observation_desc = Pathology::ObservationDescription.find_by!(code: row["description"])
+          request = Pathology::ObservationRequest.find(row["request_id"])
+          request.observations.create!(
+            description: observation_desc,
+            result: row["result"],
+            observed_at: request.requested_at - 9.hours
+          )
+        end
       end
     end
 

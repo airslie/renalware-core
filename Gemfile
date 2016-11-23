@@ -58,6 +58,7 @@ group :development do
   gem "bullet", "~> 5.4"
   gem "rack-mini-profiler"
   gem "terminal-notifier-guard"
+  gem "activerecord-import"
 end
 
 group :development, :test do

@@ -1,9 +1,12 @@
 module Renalware
-  log "Adding Event Types"
+  log "Adding Event Types" do
 
-  file_path = File.join(File.dirname(__FILE__), "event_types.csv")
+    file_path = File.join(File.dirname(__FILE__), "event_types.csv")
 
-  CSV.foreach(file_path, headers: true) do |row|
-    Events::Type.find_or_create_by!(name: row["eventtype"])
+    Events::Type.transaction do
+      events = CSV.read(file_path, headers: false)
+      columns = events[0]
+      Events::Type.import! columns, events[1..-1], validate: true
+    end
   end
 end
