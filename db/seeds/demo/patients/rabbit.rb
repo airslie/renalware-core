@@ -44,13 +44,13 @@ module Renalware
 
   log "Adding Address for Roger RABBIT"
 
-  rabbit.build_current_address(
-    name: "M. Roger Rabbit",
-    street_1: "123 South Street",
-    city: "Toontown",
-    postcode: "TT1 1HD",
-    country: "United Kingdom"
-    )
+  address = rabbit.current_address || rabbit.build_current_address
+  address.name = "M. Roger Rabbit"
+  address.name = "M. Roger Rabbit"
+  address.street_1 = "123 South Street"
+  address.city = "Toontown"
+  address.postcode = "TT1 1HD"
+  address.country = "United Kingdom"
   rabbit.by = system_user
   rabbit.save!
 end
