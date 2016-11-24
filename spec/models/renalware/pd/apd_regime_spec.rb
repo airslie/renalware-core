@@ -6,7 +6,10 @@ module Renalware
       describe "validations" do
         it { is_expected.to validate_numericality_of(:last_fill_volume) }
         it { is_expected.to validate_numericality_of(:additional_manual_exchange_volume) }
-        it { is_expected.to validate_numericality_of(:tidal_percentage) }
+        it do
+          subject.tidal_indicator = true
+          is_expected.to validate_numericality_of(:tidal_percentage)
+        end
         it { is_expected.to validate_numericality_of(:no_cycles_per_apd) }
         it { is_expected.to validate_numericality_of(:overnight_pd_volume) }
         it { is_expected.to validate_numericality_of(:therapy_time) }
@@ -26,6 +29,7 @@ module Renalware
         end
 
         it "tidal_percentage validates numeric_inclusion" do
+          subject.tidal_indicator = true
           expect(
             has_numeric_validation(:tidal_percentage,
                                    APDRegime::VALID_RANGES.tidal_percentages)
@@ -73,23 +77,52 @@ module Renalware
                                    APDRegime::VALID_RANGES.additional_manual_exchange_volumes)
           ).to eq(true)
         end
+      end
 
-        describe "#has_additional_manual_exchange_bag?" do
-          it "returns true if at least one bag is an additional_manual_exchange" do
-            regime = build(:apd_regime)
-            regime.bags << build(:pd_regime_bag, role: :additional_manual_exchange)
-            regime.bags << build(:pd_regime_bag, role: :ordinary_bag)
+      describe "#has_additional_manual_exchange_bag?" do
+        it "returns true if at least one bag is an additional_manual_exchange" do
+          regime = build(:apd_regime)
+          regime.bags << build(:pd_regime_bag, role: :additional_manual_exchange)
+          regime.bags << build(:pd_regime_bag, role: :ordinary)
 
-            expect(regime.has_additional_manual_exchange_bag?).to eq(true)
-          end
+          expect(regime).to have_additional_manual_exchange_bag
+        end
 
-          it "returns false if no bags are an additional_manual_exchange" do
-            regime = build(:apd_regime)
-            regime.bags << build(:pd_regime_bag, role: :ordinary_bag)
-            regime.bags << build(:pd_regime_bag, role: :last_fill)
+        it "returns false if no bags are an additional_manual_exchange" do
+          regime = build(:apd_regime)
+          regime.bags << build(:pd_regime_bag, role: :ordinary)
+          regime.bags << build(:pd_regime_bag, role: :last_fill)
 
-            expect(regime.has_additional_manual_exchange_bag?).to eq(false)
-          end
+          expect(regime).to_not have_additional_manual_exchange_bag
+        end
+      end
+
+      describe "#has_last_fill_bag?" do
+        it "returns true if at least one bag has the last fill role" do
+          regime = build(:apd_regime)
+          regime.bags << build(:pd_regime_bag, role: :last_fill)
+          regime.bags << build(:pd_regime_bag, role: :ordinary)
+
+          expect(regime).to have_last_fill_bag
+        end
+
+        it "returns false if no bags ave the last_fill role" do
+          regime = build(:apd_regime)
+          regime.bags << build(:pd_regime_bag, role: :ordinary)
+
+          expect(regime).to_not have_last_fill_bag
+        end
+      end
+
+      describe "callbacks" do
+        it "calculates overnight volume before_save" do
+          regime = build(:apd_regime)
+          regime.bags << build(:pd_regime_bag, role: :ordinary)
+          expect_any_instance_of(APD::CalculateOvernightVolume).to receive(:call)
+
+          regime.save!
+
+          expect(regime.overnight_pd_volume).to be > 0
         end
       end
     end

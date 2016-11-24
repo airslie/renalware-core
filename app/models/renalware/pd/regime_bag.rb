@@ -6,8 +6,9 @@ module Renalware
       extend Enumerize
 
       enumerize :role,
-                in: [:ordinary_bag, :last_fill, :additional_manual_exchange],
-                default: :ordinary_bag
+                in: [:ordinary, :last_fill, :additional_manual_exchange],
+                default: :ordinary,
+                scope: :having_role
 
       before_save :assign_days_per_week
 
@@ -29,6 +30,14 @@ module Renalware
           self.public_send(:"#{day}=", true)
         end
         self.attributes = attributes unless attributes.nil?
+      end
+
+      class << self
+        RegimeBag.role.values.each do |role|
+          define_method role.to_sym do
+            having_role(role.to_s)
+          end
+        end
       end
 
       def days

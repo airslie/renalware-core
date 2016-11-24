@@ -5,7 +5,7 @@ module Renalware
   RSpec.describe PD::RegimeBag, type: :model do
     it { should validate_presence_of :bag_type }
     it { should validate_presence_of :volume }
-    it { should enumerize(:role).in(:ordinary_bag, :additional_manual_exchange, :last_fill) }
+    it { should enumerize(:role).in(:ordinary, :additional_manual_exchange, :last_fill) }
 
     it do
       should validate_numericality_of(:volume)

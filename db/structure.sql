@@ -2721,7 +2721,8 @@ CREATE TABLE pd_regimes (
     fill_volume integer,
     delivery_interval integer,
     system_id integer,
-    additional_manual_exchange_volume integer
+    additional_manual_exchange_volume integer,
+    tidal_full_drain_every_three_cycles boolean DEFAULT true
 );
 
 
@@ -7784,4 +7785,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161129122629');
 INSERT INTO schema_migrations (version) VALUES ('20161201165330');
 
 INSERT INTO schema_migrations (version) VALUES ('20161201183449');
+
+INSERT INTO schema_migrations (version) VALUES ('20161202155429');
 

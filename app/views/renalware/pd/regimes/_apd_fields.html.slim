@@ -10,6 +10,11 @@
                 boolean_style: :inline,
                 wrapper: :horizontal_small
 
+      = f.input :tidal_full_drain_every_three_cycles,
+                as: :boolean,
+                boolean_style: :inline,
+                wrapper: :horizontal_small
+
       = f.input :tidal_percentage,
                 collection: Renalware::PD::APDRegime::VALID_RANGES::tidal_percentages,
                 include_blank: t("collection.blank_option"),
@@ -22,5 +27,4 @@
                 include_blank: t("collection.blank_option"),
                 wrapper: :horizontal_small
       = f.input :no_cycles_per_apd, wrapper: :horizontal_small
-      = f.input :overnight_pd_volume, wrapper: :horizontal_small
       = f.input :apd_machine_pac, wrapper: :horizontal_small
