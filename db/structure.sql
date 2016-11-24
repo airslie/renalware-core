@@ -7157,9 +7157,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161118100149');
 
 INSERT INTO schema_migrations (version) VALUES ('20161122112905');
 
-<<<<<<< HEAD
 INSERT INTO schema_migrations (version) VALUES ('20161123141041');
-=======
-INSERT INTO schema_migrations (version) VALUES ('20161123142841');
->>>>>>> master
 
+INSERT INTO schema_migrations (version) VALUES ('20161123142841');
