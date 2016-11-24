@@ -23,9 +23,10 @@ module Renalware
     rabbit.save!
   end
 
+  system_user = SystemUser.find
+
   log "Adding Primary Care Physician for Roger RABBIT" do
     practice = Patients::Practice.first!
-    system_user = SystemUser.find
 
     primary_care_physician = Patients::PrimaryCarePhysician
       .find_or_create_by!(code: "GP912837465") do |doc|
@@ -42,7 +43,7 @@ module Renalware
     rabbit.save!
   end
 
-  log "Adding Address for Roger RABBIT" do=
+  log "Adding Address for Roger RABBIT" do
     address = rabbit.current_address || rabbit.build_current_address
     address.name = "M. Roger Rabbit"
     address.name = "M. Roger Rabbit"

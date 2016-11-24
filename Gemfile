@@ -58,7 +58,6 @@ group :development do
   gem "bullet", "~> 5.4"
   gem "rack-mini-profiler"
   gem "terminal-notifier-guard"
-  gem "activerecord-import"
 end
 
 group :development, :test do
@@ -81,6 +80,7 @@ group :development, :test do
   gem "rubocop", "~> 0.37.0", require: false
   gem "web-console", "~> 2.0"
   gem "thin"
+  gem "activerecord-import", "~> 0.16.2"
 end
 
 group :test do

@@ -3,10 +3,8 @@ module Renalware
 
     file_path = File.join(File.dirname(__FILE__), "event_types.csv")
 
-    Events::Type.transaction do
-      events = CSV.read(file_path, headers: false)
-      columns = events[0]
-      Events::Type.import! columns, events[1..-1], validate: true
+    CSV.foreach(file_path, headers: true) do |row|
+      Events::Type.find_or_create_by!(name: row["name"])
     end
   end
 end

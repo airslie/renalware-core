@@ -14,18 +14,19 @@ def find_param_id(row)
 end
 
 module Renalware
-  log "Adding Pathology Request Algorithm Global Rules"
+  log "Adding Pathology Request Algorithm Global Rules" do
 
-  file_path = File.join(File.dirname(__FILE__), "request_algorithm_global_rules.csv")
+    file_path = File.join(File.dirname(__FILE__), "request_algorithm_global_rules.csv")
 
-  CSV.foreach(file_path, headers: true) do |row|
-    Pathology::Requests::GlobalRule.find_or_create_by!(
-      rule_set_id: row["rule_set_id"],
-      rule_set_type: "Renalware::Pathology::Requests::GlobalRuleSet",
-      type: row["type"],
-      param_id: find_param_id(row),
-      param_comparison_operator: row["param_comparison_operator"],
-      param_comparison_value: row["param_comparison_value"]
-    )
+    CSV.foreach(file_path, headers: true) do |row|
+      Pathology::Requests::GlobalRule.find_or_create_by!(
+        rule_set_id: row["rule_set_id"],
+        rule_set_type: "Renalware::Pathology::Requests::GlobalRuleSet",
+        type: row["type"],
+        param_id: find_param_id(row),
+        param_comparison_operator: row["param_comparison_operator"],
+        param_comparison_value: row["param_comparison_value"]
+      )
+    end
   end
 end

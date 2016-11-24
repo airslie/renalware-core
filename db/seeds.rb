@@ -6,11 +6,12 @@ def log(msg, type: :full)
     print "-----> #{msg}"
     if block_given?
       ms = Benchmark.ms { yield }
-      print "...#{ms.to_i}ms"
+      milliseconds = "#{ms.to_i}ms"
+      print "\r-----> #{milliseconds.ljust(8, ' ')} #{msg}"
     end
     print "\n"
   when :sub
-    puts "       #{msg}"
+    puts "                #{msg}"
   else
     raise "Unknown type #{type}"
   end

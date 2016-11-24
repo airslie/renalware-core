@@ -1,22 +1,25 @@
 def create_observation(patient, request_description)
   pathology_patient = Renalware::Pathology.cast_patient(patient)
-  log <<-MSG.squish, type: :sub
-    Adding observations for #{patient.full_name}
-    with request description code: #{request_description.code}"
-  MSG
 
-  request = pathology_patient.observation_requests.create!(
-    description: request_description,
-    requestor_order_number: rand(100000),
-    requested_at: Time.now,
-    requestor_name: "Dr Stanley Fan",
-  )
+  msg = "Adding observations for #{patient.full_name} "\
+        "with request description code: #{request_description.code}"
 
-  request.observations.create!(
-    description: request_description.required_observation_description,
-    result: rand(120),
-    observed_at: request.requested_at - 9.hours
-  )
+  log msg do
+
+    request = pathology_patient.observation_requests.create!(
+      description: request_description,
+      requestor_order_number: rand(100000),
+      requested_at: Time.now,
+      requestor_name: "Dr Stanley Fan",
+    )
+
+    request.observations.create!(
+      description: request_description.required_observation_description,
+      result: rand(120),
+      observed_at: request.requested_at - 9.hours
+    )
+
+  end
 end
 
 module Renalware

@@ -1,5 +1,5 @@
 module Renalware
- log "Adding Demo Site Users" do
+ log "Adding Demo Site Users\n" do
 
     sites = %w(Barts KCH Lister)
 
