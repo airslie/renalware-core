@@ -2,6 +2,7 @@ module Renalware
   log "Assign Letters to Roger RABBIT"
   patient = Letters.cast_patient(Patient.find_by(local_patient_id: "Z100001"))
   clinics_patient = Renalware::Clinics.cast_patient(patient)
+  patient.letters.each {|letter| letter.archive && letter.archive.destroy! }
   patient.letters.destroy_all
   users = User.limit(3).to_a
 

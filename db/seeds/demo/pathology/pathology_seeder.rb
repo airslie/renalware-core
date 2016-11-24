@@ -11,13 +11,12 @@ module Renalware
       file_path = file_path_for(patient: patient, file_name: "pathology_obr.csv")
       CSV.foreach(file_path, headers: true) do |row|
         request_desc = Pathology::RequestDescription.find_by!(code: row["description"])
-        patient.observation_requests.create!(
-          id: row["id"].to_i,
-          description: request_desc,
-          requestor_order_number: row["order_no"],
-          requested_at: row["requested_at"],
-          requestor_name: row["requestor_name"]
-        )
+        patient.observation_requests.find_or_create_by!(id: row["id"].to_i) do |obr|
+          obr.description = request_desc
+          obr.requestor_order_number = row["order_no"]
+          obr.requested_at = row["requested_at"]
+          obr.requestor_name = row["requestor_name"]
+        end
       end
     end
 

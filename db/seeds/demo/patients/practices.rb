@@ -8,13 +8,15 @@ module Renalware
 
     practice.name = row["name"]
     practice.email = row["email"]
-    practice.build_address(
-      organisation_name: row["name"],
-      postcode: row["postcode"],
-      street_1: row["street_1"],
-      street_2: row["street_2"],
-      city: row["city"]
-    )
+    unless practice.address.present?
+      practice.build_address(
+        organisation_name: row["name"],
+        postcode: row["postcode"],
+        street_1: row["street_1"],
+        street_2: row["street_2"],
+        city: row["city"]
+      )
+    end
 
     practice.save!
   end

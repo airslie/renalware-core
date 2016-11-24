@@ -9,10 +9,12 @@ module Renalware
   default_contact_description = Letters::ContactDescription[:sibling]
 
   people.zip(contact_descriptions).each do |person, contact_description|
-    patient
-      .assign_contact(
-        person: person,
-        description: contact_description || default_contact_description
-      ).save!
+    unless patient.contacts.map(&:person_id).include?(person.id)
+      patient
+        .assign_contact(
+          person: person,
+          description: contact_description || default_contact_description
+        ).save!
+    end
   end
 end

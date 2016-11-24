@@ -9,7 +9,7 @@ module Renalware
   [roger_rabbit, jessica_rabbit, francois_rabbit].each do |patient|
     users.each do |user|
       patients_user = Patients.cast_user(user)
-      patients_user.bookmarks.create!(patient: patient)
+      patients_user.bookmarks.find_or_create_by!(patient: patient)
     end
   end
 end
