@@ -3343,7 +3343,7 @@ CREATE TABLE transplant_registrations (
     patient_id integer,
     referred_on date,
     assessed_on date,
-    enterred_on date,
+    entered_on date,
     contact text,
     notes text,
     document jsonb,
@@ -7157,5 +7157,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161118100149');
 
 INSERT INTO schema_migrations (version) VALUES ('20161122112905');
 
-INSERT INTO schema_migrations (version) VALUES ('20161123142841');
+INSERT INTO schema_migrations (version) VALUES ('20161123141041');
 
+INSERT INTO schema_migrations (version) VALUES ('20161123142841');
