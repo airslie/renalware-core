@@ -14,6 +14,8 @@
 
   .large-2.columns
     .right
+      = link_to "Duplicate", "#", class: "duplicate-bag"
+      |&nbsp;|&nbsp;
       = rb.submit "Remove", name: "actions[remove][#{rb.index}]", class: "right remove-bag"
       = rb.link_to_remove "Remove", class: "remove-bag hide"
 

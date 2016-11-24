@@ -3427,7 +3427,6 @@ CREATE TABLE users (
     family_name character varying NOT NULL,
     signature character varying,
     last_activity_at timestamp without time zone,
-    datetime timestamp without time zone,
     expired_at timestamp without time zone,
     professional_position character varying,
     approved boolean DEFAULT false,
@@ -7158,5 +7157,9 @@ INSERT INTO schema_migrations (version) VALUES ('20161118100149');
 
 INSERT INTO schema_migrations (version) VALUES ('20161122112905');
 
+<<<<<<< HEAD
 INSERT INTO schema_migrations (version) VALUES ('20161123141041');
+=======
+INSERT INTO schema_migrations (version) VALUES ('20161123142841');
+>>>>>>> master
 

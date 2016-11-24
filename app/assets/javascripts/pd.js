@@ -11,12 +11,34 @@ Renalware.PdRegimes = (function () {
       var checkboxes = $(parent).find("input[type='checkbox']");
       checkboxes.prop('checked', false);
     });
-  }
+  };
+
+  var duplicateBag = function() {
+    $(document).on( "click", "#pd-regime-bags a.duplicate-bag", function(event) {
+      event.preventDefault();
+
+      $("a.add-bag").trigger("click");
+
+      var bagToClone = $(this).closest(".fields").first();
+      var newBag = $("#pd-regime-bags .fields").last();
+
+      bagToClone.find('select').each(function(i) {
+        newBag.find('select').eq(i).val($(this).val());
+      });
+
+      var checkedSelector = 'input[type=checkbox],[type=radio]';
+      bagToClone.find(checkedSelector).each(function(i) {
+        var checked = $(this).is(':checked');
+        newBag.find(checkedSelector).eq(i).prop('checked', checked);
+      });
+    });
+  };
 
   // public functions and vars here
   return {
     init : function() {
       deselectAllBagDays();
+      duplicateBag();
     },
     toggleAddRemoveBags : function () {
       $('input.add-bag').hide();
