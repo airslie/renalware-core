@@ -5933,7 +5933,8 @@ CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (it
 
 CREATE UNIQUE INDEX patient_bookmarks_uniqueness ON patient_bookmarks USING btree (patient_id, user_id, (COALESCE(deleted_at, '1970-01-01 00:00:00'::timestamp without time zone)));
 
----
+
+--
 -- Name: pd_peritonitis_episode_types_unique_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7240,4 +7241,3 @@ INSERT INTO schema_migrations (version) VALUES ('20161123142841');
 
 INSERT INTO schema_migrations (version) VALUES ('20161124152732');
 
-INSERT INTO schema_migrations (version) VALUES ('20161121143011');

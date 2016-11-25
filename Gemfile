@@ -100,4 +100,5 @@ end
 group :development, :test, :staging do
   gem "activerecord-import", "~> 0.16.2"
   gem "faker", "~> 1.6.6"
+  gem "activerecord-import", "~> 0.16.2"
 end
