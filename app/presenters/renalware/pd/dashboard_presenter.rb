@@ -22,11 +22,13 @@ module Renalware
       end
 
       def peritonitis_episodes
-        @peritonitis_episodes ||= PeritonitisEpisode.for_patient(patient)
+        @peritonitis_episodes ||= begin
+          PeritonitisEpisode.for_patient(patient).ordered.includes(:episode_type)
+        end
       end
 
       def exit_site_infections
-        @exit_site_infections ||= ExitSiteInfection.for_patient(patient)
+        @exit_site_infections ||= ExitSiteInfection.for_patient(patient).ordered
       end
     end
   end

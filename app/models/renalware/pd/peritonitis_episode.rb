@@ -21,6 +21,7 @@ module Renalware
       validates :patient, presence: true
       validates :diagnosis_date, presence: true
 
+      scope :ordered, -> { order(diagnosis_date: :desc) }
     end
   end
 end
