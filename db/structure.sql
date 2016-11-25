@@ -2075,7 +2075,8 @@ CREATE TABLE patient_bookmarks (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     notes text,
-    urgent boolean DEFAULT false NOT NULL
+    urgent boolean DEFAULT false NOT NULL,
+    deleted_at timestamp without time zone
 );
 
 
@@ -5574,10 +5575,10 @@ CREATE INDEX index_pathology_observations_on_request_id ON pathology_observation
 
 
 --
--- Name: index_patient_bookmarks_on_patient_id_and_user_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_patient_bookmarks_on_patient_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_patient_bookmarks_on_patient_id_and_user_id ON patient_bookmarks USING btree (patient_id, user_id);
+CREATE INDEX index_patient_bookmarks_on_patient_id ON patient_bookmarks USING btree (patient_id);
 
 
 --
@@ -5879,6 +5880,13 @@ CREATE UNIQUE INDEX index_users_on_username ON users USING btree (username);
 --
 
 CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (item_type, item_id);
+
+
+--
+-- Name: patient_bookmarks_uniqueness; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX patient_bookmarks_uniqueness ON patient_bookmarks USING btree (patient_id, user_id, (COALESCE(deleted_at, '1970-01-01 00:00:00'::timestamp without time zone)));
 
 
 --
@@ -7160,3 +7168,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161122112905');
 INSERT INTO schema_migrations (version) VALUES ('20161123141041');
 
 INSERT INTO schema_migrations (version) VALUES ('20161123142841');
+
+INSERT INTO schema_migrations (version) VALUES ('20161124152732');
+
