@@ -3,23 +3,30 @@ module Renalware
     class BookmarksController < BaseController
       before_action :load_patient, only: :create
 
+      # idempotent
       def create
-        patients_user.bookmarks.create!(bookmark_params.update(patient: patient))
+        Bookmark.find_or_create_by!(user: user, patient: patient) do |bookmark|
+          bookmark.assign_attributes(bookmark_params)
+        end
         redirect_to :back, notice: t(".success", model_name: "bookmark")
       end
 
+      # idempotent
       def destroy
-        bookmark = patients_user.bookmarks.find(params[:id])
-        authorize bookmark
-
-        bookmark.destroy
+        bookmark = user.bookmarks.find_by(id: params[:id])
+        if bookmark.present?
+          authorize bookmark
+          bookmark.destroy
+        else
+          skip_authorization
+        end
         redirect_to :back, notice: t(".success", model_name: "bookmark")
       end
 
       private
 
-      def patients_user
-        @patients_user ||= Renalware::Patients.cast_user(current_user)
+      def user
+        @user ||= Renalware::Patients.cast_user(current_user)
       end
 
       def bookmark_params
