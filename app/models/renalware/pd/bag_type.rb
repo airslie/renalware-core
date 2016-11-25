@@ -5,7 +5,7 @@ module Renalware
     class BagType < ActiveRecord::Base
       acts_as_paranoid
 
-      has_many :regime_bags
+      has_many :bags, class_name: "Renalware::PD::RegimeBag"
 
       validates :manufacturer, presence: true
       validates :description, presence: true

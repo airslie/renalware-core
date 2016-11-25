@@ -41,29 +41,29 @@ module Renalware
       regime.pd_type.to_s.upcase
     end
 
-    def pd_regime_bags(regime_bags)
-      if regime_bags.blank?
+    def pd_regime_bags(bags)
+      if bags.blank?
         "Unknown"
       else
-        formatted_pd_regime_bags(regime_bags)
+        formatted_pd_regime_bags(bags)
       end
     end
 
-    def formatted_pd_regime_bags(regime_bags)
-      safe_join(regime_bags.map { |rb| formatted_pd_regime_bag(rb) })
+    def formatted_pd_regime_bags(bags)
+      safe_join(bags.map { |rb| formatted_pd_regime_bag(rb) })
     end
 
-    def formatted_pd_regime_bag(regime_bag)
-      content_tag(:li, ["Bag type: #{regime_bag.bag_type.description}",
-                "Volume: #{regime_bag.volume}ml",
-                "No. per week: #{regime_bag.per_week}",
-                "Days: #{pd_regime_bag_days(regime_bag)}"].join(", "))
+    def formatted_pd_regime_bag(bag)
+      content_tag(:li, ["Bag type: #{bag.bag_type.description}",
+                "Volume: #{bag.volume}ml",
+                "No. per week: #{bag.per_week}",
+                "Days: #{pd_regime_bag_days(bag)}"].join(", "))
     end
 
-    def pd_regime_bag_days(regime_bag)
+    def pd_regime_bag_days(bag)
       days = []
       Date::DAYNAMES.each_with_index do |day, index|
-        days << Date::ABBR_DAYNAMES[index] if regime_bag.public_send(day.downcase.to_sym)
+        days << Date::ABBR_DAYNAMES[index] if bag.public_send(day.downcase.to_sym)
       end
       days.join(", ")
     end

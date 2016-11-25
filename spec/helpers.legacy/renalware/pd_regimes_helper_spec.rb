@@ -57,9 +57,9 @@ module Renalware
                                 friday: true,
                                 saturday: true)
 
-        @capd_regime.regime_bags << @pd_regime_bag_13_6_1
-        @capd_regime.regime_bags << @pd_regime_bag_13_6_2
-        @capd_regime.regime_bags << @pd_regime_bag_22_7
+        @capd_regime.bags << @pd_regime_bag_13_6_1
+        @capd_regime.bags << @pd_regime_bag_13_6_2
+        @capd_regime.bags << @pd_regime_bag_22_7
 
         @capd_regime.save
       end
