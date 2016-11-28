@@ -1,6 +1,6 @@
 table {
+  // This will have to be removed at some point to comply with NHS table guidelines
   width: 100%;
-  // table-layout: fixed; // NB: will stop th min-widths from working
 
   tr th {
     &.col-width-date {
@@ -25,6 +25,11 @@ table {
     &.col-width-reference-no {
       width: 8rem;
       min-width: 5.5rem;
+    }
+
+    &.col-width-bp {
+      width: 4.5rem;
+      min-width: 3.8rem;
     }
 
     &.col-width-tiny {
