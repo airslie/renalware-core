@@ -16,9 +16,12 @@
 // Colours
 //
 $dashboard-muted-color: #888;
+$link-colour: $primary-color; // #008CBA;
+$link-focus-colour: #0078a0;
+
 
 // Drug type colours
-$drug-type-default-colour: #FFFFFF;
+$drug-type-default-colour: $white;
 $drug-type-esa-colour: #FFFF99;
 $drug-type-immunosuppressant-colour: #CCFFFF;
 
@@ -28,6 +31,23 @@ $patient-header-icon-color: #bbb;
 
 // Bookmarks
 $bookmark-urgent-colour: #FFFFC8;
+
+$mini-profile-backgound-colour: #DEF0F6;
+
+$letter-preview-background-colour: #ddd;
+
+// tables
+$table-even-row-colour: #FCFCFC;
+$table-border-colour: #CCC;
+
+$footer-colour: #C0C0C0;
+
+$patient-menu-background-colour: #FAFAFA;
+$menu-divider-colour: #E6E6E6;
+
+// Forms
+$form-hint-colour: #AAA;
+$disabled-colour: #CCC;
 
 //
 // Lists

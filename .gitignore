@@ -36,3 +36,4 @@ rerun.txt
 /.ruby-version
 *.swp
 
+/public/assets

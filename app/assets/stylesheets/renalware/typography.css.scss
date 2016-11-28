@@ -1,5 +1,5 @@
 h1.brand-name {
-  color: #FFFFFF;
+  color: $white;
   padding-left: 0.7em;
 }
 
@@ -37,7 +37,7 @@ span.note {
 }
 
 .hint {
-  color: #aaa;
+  color: $form-hint-colour;
   display: block;
   font-size: 0.75rem;
   font-style: italic;

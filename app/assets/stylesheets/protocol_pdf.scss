@@ -1,10 +1,10 @@
-/*
- *= require ./lib/foundation_and_overrides
- *= require_self
- *= require ./renalware/lists
- *= require ./renalware/tables
- *= require ./renalware/modules/patients
-*/
+
+@import "./lib/foundation_and_overrides";
+@import "./renalware/base/variables";
+@import "./renalware/base/mixins";
+@import "./renalware/lists";
+@import "./renalware/tables";
+@import "./renalware/modules/patients";
 
 html {
   overflow: hidden;

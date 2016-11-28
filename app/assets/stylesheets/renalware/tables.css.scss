@@ -101,7 +101,7 @@ th, td {
       border-radius: 0.5em;
       padding: 0 0.3em 0 0.3em;
       font-size: 0.9em;
-      color: #008cba;
+      color: $link-colour;
     }
 
     thead, tbody, th, td, tr, caption {
@@ -124,7 +124,7 @@ th, td {
       background: #ccc;
     }
 
-    td:nth-child(even) { background: #FCFCFC; }
+    td:nth-child(even) { background: $table-even-row-colour; }
 
     thead tr {
       position: absolute;
@@ -134,7 +134,7 @@ th, td {
 
     tbody tr {
       margin-bottom: 20px;
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid $table-border-colour;
     }
 
     td {
