@@ -20,7 +20,7 @@ a.fi-plus:before a.fi-minus:before {
 }
 
 .sub-nav dd a.has-tip:hover {
-  color: #008cba;
+  color: $link-colour;
 }
 
 .tooltip {
@@ -42,15 +42,15 @@ dd.patient-name {
   display: none;
 }
 
-.patient-nav {
-  background-color: #656565;
-  height: rem-calc(35) !important;
+// .patient-nav {
+//   background-color: red; //#656565;
+//   height: rem-calc(35) !important;
 
-  .top-bar-section li:not(.has-form) a:not(.button) {
-    line-height: rem-calc(35) !important;
-    background-color: #656565 !important;
-  }
-}
+//   .top-bar-section li:not(.has-form) a:not(.button) {
+//     line-height: rem-calc(35) !important;
+//     background-color: #656565 !important;
+//   }
+// }
 
 [data-magellan-expedition], [data-magellan-expedition-clone] {
   padding: 5px 0;
@@ -61,7 +61,7 @@ dd.patient-name {
 }
 
 .patient-side-nav {
-  background-color: #FAFAFA;
+  background-color: $patient-menu-background-colour;
   ul.side-nav li.link {
     padding-left: 0.875rem;
 
@@ -71,7 +71,7 @@ dd.patient-name {
   }
 
   li.divider {
-    border-top-color: #E6E6E6;
+    border-top-color: $menu-divider-colour;
   }
 }
 

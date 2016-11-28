@@ -7,7 +7,7 @@ form .row .row.datepicker-wrapper {
   margin-left: 15px;
   &.disabled {
     pointer-events: none;
-    color: #cccccc;
+    color: $disabled-colour;
   }
 }
 
@@ -180,7 +180,7 @@ fieldset {
           font-weight: normal;
         }
         &.actions {
-          color: #008cba;
+          color: $link-colour;
           font-size: 1rem;
           font-weight: normal;
 
