@@ -2373,39 +2373,6 @@ ALTER SEQUENCE pd_bag_types_id_seq OWNED BY pd_bag_types.id;
 
 
 --
--- Name: pd_episode_types; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE pd_episode_types (
-    id integer NOT NULL,
-    term character varying,
-    definition character varying,
-    deleted_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: pd_episode_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE pd_episode_types_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: pd_episode_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE pd_episode_types_id_seq OWNED BY pd_episode_types.id;
-
-
---
 -- Name: pd_exit_site_infections; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2537,6 +2504,69 @@ CREATE SEQUENCE pd_organism_codes_id_seq
 --
 
 ALTER SEQUENCE pd_organism_codes_id_seq OWNED BY pd_organism_codes.id;
+
+
+--
+-- Name: pd_peritonitis_episode_type_descriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pd_peritonitis_episode_type_descriptions (
+    id integer NOT NULL,
+    term character varying,
+    definition character varying,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pd_peritonitis_episode_type_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pd_peritonitis_episode_type_descriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pd_peritonitis_episode_type_descriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pd_peritonitis_episode_type_descriptions_id_seq OWNED BY pd_peritonitis_episode_type_descriptions.id;
+
+
+--
+-- Name: pd_peritonitis_episode_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pd_peritonitis_episode_types (
+    id integer NOT NULL,
+    peritonitis_episode_id integer NOT NULL,
+    peritonitis_episode_type_description_id integer NOT NULL
+);
+
+
+--
+-- Name: pd_peritonitis_episode_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pd_peritonitis_episode_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pd_peritonitis_episode_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pd_peritonitis_episode_types_id_seq OWNED BY pd_peritonitis_episode_types.id;
 
 
 --
@@ -3950,13 +3980,6 @@ ALTER TABLE ONLY pd_bag_types ALTER COLUMN id SET DEFAULT nextval('pd_bag_types_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY pd_episode_types ALTER COLUMN id SET DEFAULT nextval('pd_episode_types_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY pd_exit_site_infections ALTER COLUMN id SET DEFAULT nextval('pd_exit_site_infections_id_seq'::regclass);
 
 
@@ -3979,6 +4002,20 @@ ALTER TABLE ONLY pd_infection_organisms ALTER COLUMN id SET DEFAULT nextval('pd_
 --
 
 ALTER TABLE ONLY pd_organism_codes ALTER COLUMN id SET DEFAULT nextval('pd_organism_codes_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_peritonitis_episode_type_descriptions ALTER COLUMN id SET DEFAULT nextval('pd_peritonitis_episode_type_descriptions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_peritonitis_episode_types ALTER COLUMN id SET DEFAULT nextval('pd_peritonitis_episode_types_id_seq'::regclass);
 
 
 --
@@ -4677,14 +4714,6 @@ ALTER TABLE ONLY pd_bag_types
 
 
 --
--- Name: pd_episode_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY pd_episode_types
-    ADD CONSTRAINT pd_episode_types_pkey PRIMARY KEY (id);
-
-
---
 -- Name: pd_exit_site_infections_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4714,6 +4743,22 @@ ALTER TABLE ONLY pd_infection_organisms
 
 ALTER TABLE ONLY pd_organism_codes
     ADD CONSTRAINT pd_organism_codes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pd_peritonitis_episode_type_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_peritonitis_episode_type_descriptions
+    ADD CONSTRAINT pd_peritonitis_episode_type_descriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pd_peritonitis_episode_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_peritonitis_episode_types
+    ADD CONSTRAINT pd_peritonitis_episode_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -5890,6 +5935,13 @@ CREATE UNIQUE INDEX patient_bookmarks_uniqueness ON patient_bookmarks USING btre
 
 
 --
+-- Name: pd_peritonitis_episode_types_unique_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX pd_peritonitis_episode_types_unique_id ON pd_peritonitis_episode_types USING btree (peritonitis_episode_id, peritonitis_episode_type_description_id);
+
+
+--
 -- Name: tx_versions_type_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6048,6 +6100,14 @@ ALTER TABLE ONLY medication_prescription_terminations
 
 
 --
+-- Name: fk_rails_2f135fd6d9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_peritonitis_episode_types
+    ADD CONSTRAINT fk_rails_2f135fd6d9 FOREIGN KEY (peritonitis_episode_id) REFERENCES pd_peritonitis_episodes(id);
+
+
+--
 -- Name: fk_rails_31546389ab; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6157,6 +6217,14 @@ ALTER TABLE ONLY hd_sessions
 
 ALTER TABLE ONLY pathology_requests_requests
     ADD CONSTRAINT fk_rails_3e725c96fc FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_3e924fb47c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_peritonitis_episode_types
+    ADD CONSTRAINT fk_rails_3e924fb47c FOREIGN KEY (peritonitis_episode_type_description_id) REFERENCES pd_peritonitis_episode_type_descriptions(id);
 
 
 --
@@ -6524,7 +6592,7 @@ ALTER TABLE ONLY access_profiles
 --
 
 ALTER TABLE ONLY pd_peritonitis_episodes
-    ADD CONSTRAINT fk_rails_ae56e9fe7e FOREIGN KEY (episode_type_id) REFERENCES pd_episode_types(id);
+    ADD CONSTRAINT fk_rails_ae56e9fe7e FOREIGN KEY (episode_type_id) REFERENCES pd_peritonitis_episode_type_descriptions(id);
 
 
 --
@@ -7162,6 +7230,8 @@ INSERT INTO schema_migrations (version) VALUES ('20161117101457');
 INSERT INTO schema_migrations (version) VALUES ('20161117133825');
 
 INSERT INTO schema_migrations (version) VALUES ('20161118100149');
+
+INSERT INTO schema_migrations (version) VALUES ('20161121143011');
 
 INSERT INTO schema_migrations (version) VALUES ('20161122112905');
 

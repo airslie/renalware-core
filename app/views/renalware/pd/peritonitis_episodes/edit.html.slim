@@ -3,7 +3,8 @@
 
   = render "renalware/shared/errors", model: peritonitis_episode
 
-  = simple_form_for [patient, peritonitis_episode], wrapper: :horizontal_form do |f|
+  = simple_form_for [patient, peritonitis_episode],
+                    wrapper: :horizontal_form do |f|
 
     = render "renalware/pd/peritonitis_episodes/fields", local_assigns.merge!(f: f)
 

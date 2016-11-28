@@ -7,7 +7,7 @@ module Renalware
     before_action :load_patient, only: [:show, :edit, :update]
 
     def index
-      @patients = @patient_search.result.page(@page).per(@per_page)
+      @patients = patient_search.result.page(@page).per(@per_page)
       authorize @patients
     end
 

@@ -1,12 +1,12 @@
-var el = "<%= "#" + dom_id(@peritonitis_episode) %>";
-<% if @peritonitis_episode.valid? %>
+var el = "<%= "#" + dom_id(peritonitis_episode) %>";
+<% if peritonitis_episode.valid? %>
   $(el).replaceWith("<%= escape_javascript(
-    render "details", patient: @patient, peritonitis_episode: @peritonitis_episode
+    render "details", local_assigns
   ) %>");
 
 <% else %>
   $(el).replaceWith("<%= escape_javascript(
-    render "form", patient: @patient, peritonitis_episode: @peritonitis_episode
+    render "form", local_assigns
   ) %>");
   initDatepickersIn(el);
 

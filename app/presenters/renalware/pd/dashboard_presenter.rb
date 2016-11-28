@@ -3,6 +3,8 @@ require_dependency "collection_presenter"
 module Renalware
   module PD
     class DashboardPresenter
+      include PresenterHelper
+
       attr_accessor :patient
 
       def initialize(patient)
@@ -23,7 +25,8 @@ module Renalware
 
       def peritonitis_episodes
         @peritonitis_episodes ||= begin
-          PeritonitisEpisode.for_patient(patient).ordered.includes(:episode_type)
+          episodes = PeritonitisEpisode.for_patient(patient).ordered.includes(:episode_types)
+          present(episodes, PeritonitisEpisodePresenter)
         end
       end
 

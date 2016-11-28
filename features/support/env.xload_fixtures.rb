@@ -26,7 +26,7 @@ models = [
   Renalware::PD::BagType,
   Renalware::PD::System,
   Renalware::PD::OrganismCode,
-  Renalware::PD::EpisodeType,
+  Renalware::PD::PeritonitisEpisodeTypeDescription,
   Renalware::Renal::PRDDescription,
   Renalware::Transplants::RegistrationStatusDescription,
   Renalware::Transplants::FailureCauseDescriptionGroup,

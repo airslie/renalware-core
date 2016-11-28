@@ -1,57 +1,46 @@
-.peritonitis-form
-  = field_set_tag "Dates" do
-     = f.input :diagnosis_date, as: :date_picker, label: "Diagnosed on"
-     = f.input :treatment_start_date, as: :date_picker, label: "Treatment start on"
-     = f.input :treatment_end_date, as: :date_picker, label: "Treatment end on"
+= field_set_tag t(".fieldsets.dates") do
+   = f.input :diagnosis_date, as: :date_picker, wrapper: :horizontal_datepicker
+   = f.input :treatment_start_date, as: :date_picker, wrapper: :horizontal_datepicker
+   = f.input :treatment_end_date, as: :date_picker, wrapper: :horizontal_datepicker
 
-  .row
-    .large-12.columns
-      = field_set_tag "Outcome" do
-        = f.label :episode_type_id
-        = f.collection_select :episode_type_id, Renalware::PD::EpisodeType.all, :id, :term, { prompt: "Please select episode type" }, class: "episode-type_select"
+.row
+  .large-12.columns
+    = field_set_tag t(".fieldsets.outcomes") do
+      = f.input :episode_types,
+                collection: Renalware::PD::PeritonitisEpisodeTypeDescription.pluck(:term, :id),
+                include_blank: t("collection.blank_option"),
+                input_html: { data: { placeholder: t("collection.blank_option_for_multiple") }},
+                as: :multiple_select,
+                include_hidden: false,
+                selected: f.object.episode_types.map(&:peritonitis_episode_type_description_id)
+      = f.input :catheter_removed, as: :inline_radio_buttons
+.row
+  .large-12.columns
+    = field_set_tag t(".fieldsets.causes") do
+      = f.input :line_break, as: :boolean, boolean_style: :inline
+      = f.input :exit_site_infection, as: :boolean, boolean_style: :inline
+      = f.input :diarrhoea, as: :boolean, boolean_style: :inline
+      = f.input :abdominal_pain, as: :boolean, boolean_style: :inline
 
-        = f.check_box :catheter_removed
-        = f.label :catheter_removed
+      = f.association :fluid_description,
+                      collection: Renalware::PD::FluidDescription.pluck(:description, :id),
+                      include_blank: t(".fluid_description.blank_option"),
+                      wrapper: :horizontal_medium
 
-  .row
-    .large-12.columns
-      = field_set_tag "Causes/Symptoms" do
-        = f.check_box :line_break
-        = f.label :line_break
+.row
+  .large-12.columns
+    .row
+      = field_set_tag t(".fieldsets.white_cell_count") do
+          = f.input :white_cell_total, wrapper: :horizontal_tiny
+          = f.input :white_cell_neutro, wrapper: :horizontal_tiny
+          = f.input :white_cell_lympho, wrapper: :horizontal_tiny
+          = f.input :white_cell_degen, wrapper: :horizontal_tiny
+          = f.input :white_cell_other, wrapper: :horizontal_tiny
 
-        = f.check_box :exit_site_infection
-        = f.label :exit_site_infection
-
-        = f.check_box :diarrhoea
-        = f.label :diarrhoea
-
-        = f.check_box :abdominal_pain
-        = f.label :abdominal_pain
-
-        = f.label :fluid_description_id
-        = f.collection_select :fluid_description_id, Renalware::PD::FluidDescription.all, :id, :description, { prompt: "Please select description that best describes fluid" }, class: "episode-type_select"
-
-  .row
-    .large-12.columns
-      = field_set_tag "White Cell Count" do
-        .large-4.columns
-          = f.label :white_cell_total, "White Cell Total (x10\u2079)"
-          = f.text_field :white_cell_total
-        .large-2.columns
-          = f.label :white_cell_neutro, "Neutro (%)"
-          = f.text_field :white_cell_neutro
-        .large-2.columns
-          = f.label :white_cell_lympho, "Lympho (%)"
-          = f.text_field :white_cell_lympho
-        .large-2.columns
-          = f.label :white_cell_degen, "Degen (%)"
-          = f.text_field :white_cell_degen
-        .large-2.columns
-          = f.label :white_cell_other, "Other (%)"
-          = f.text_field :white_cell_other
-
-  .row
-    .large-12.columns
-      = field_set_tag "Comments" do
-        = f.label :notes, "Episode notes"
-        = f.text_area :notes, cols: 50, rows: 6
+.row
+  .large-12.columns
+    = field_set_tag t(".fieldsets.comments")do
+      = f.input :notes,
+                as: :text,
+                input_html: { cols: 50, rows: 6 },
+                wrapper: :vertical_form

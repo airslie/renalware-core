@@ -1,16 +1,16 @@
 .row.no-side-gutters
   .large-12.columns
-    = render partial: "renalware/patients/header", locals: { patient: @patient }
+    = render "renalware/patients/header", patient: current_patient
   .large-2.medium-3.columns.patient-side-nav
-    = render partial: "renalware/patients/side_nav", locals: { model: @patient }
+    = render "renalware/patients/side_nav", model: current_patient
   .large-10.medium-9.columns.patient-content
-    = render partial: "renalware/renal/profiles/mini", locals: { patient: @patient }
+    = render "renalware/renal/profiles/mini", patient: current_patient
 
     h2= title
 
     - partial = local_assigns[:navigation_partial] || "navigation"
 
-    / Me sure to pass on any locals passed to us
-    = render partial, local_assigns
+    / Me sure to pass on any locals passed to us, along with the patient if not already provided
+    = render partial, local_assigns.reverse_merge!(patient: current_patient)
 
     = yield

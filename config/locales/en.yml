@@ -3,7 +3,8 @@ en:
   :false: "No"
 
   collection:
-    blank_option: "Please select"
+    blank_option: Please select
+    blank_option_for_multiple: Please select one or more
 
   enums:
     letter:
