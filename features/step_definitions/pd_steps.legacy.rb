@@ -178,7 +178,28 @@ Given(/^a patient has existing APD regimes$/) do
 end
 
 When(/^I complete the form for a CAPD regime$/) do
-  create_capd_regime
+  fill_in "Start date", with: "02/04/2015"
+  fill_in "End date", with: "01/06/2015"
+
+  select "1 week", from: "Delivery interval"
+  select "Baxter", from: "System"
+
+  select("CAPD 4 exchanges per day", from: "Treatment")
+
+  check "On additional HD"
+
+  find("input.add-bag").click
+
+  select("Baxter Nutrineal PD4 (Blue)", from: "* Bag type")
+
+  select("2500", from: "* Volume (ml)")
+
+  uncheck "Tue"
+  uncheck "Sat"
+
+  within ".patient-content" do
+    click_on "Save"
+  end
 end
 
 Given(/^I record a new CAPD regime for Patty$/) do

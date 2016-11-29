@@ -12,7 +12,7 @@ Feature: A Clinician manages a patient's PD regimes
       Then I should see the new CAPD regime on the PD dashboard
         And the new CAPD regime should be current
 
-    @wip
+    @wip @web
     Scenario: A clinician creates a new CAPD regime to succeed the previous one
       Given Patty is a patient
         And Clyde is a clinician
