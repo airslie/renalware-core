@@ -20,7 +20,9 @@ FactoryGirl.define do
     treatment "APD Wet day with additional exchange"
     amino_acid_volume 43
     icodextrin_volume 53
-    add_hd true
+    add_hd false
+    last_fill_volume 630
+    add_manual_exchange true
     tidal_indicator true
     tidal_percentage 70
     no_cycles_per_apd 2

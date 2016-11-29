@@ -16,6 +16,10 @@ module Renalware
 
       has_many :bags, class_name: "Renalware::PD::RegimeBag"
       has_many :bag_types, through: :bags
+      has_one :termination,
+               class_name: "RegimeTermination",
+               dependent: :delete,
+               inverse_of: :regime
 
       accepts_nested_attributes_for :bags, allow_destroy: true
 
@@ -30,6 +34,8 @@ module Renalware
                 allow_nil: true
       validates :treatment, presence: true
       validate :min_one_bag
+
+      scope :current, -> { eager_load(:termination).where(terminated_on: nil).first }
 
       def self.current
         Regime.order("created_at DESC").limit(1).first
@@ -65,6 +71,7 @@ module Renalware
       def deep_restore_attributes
         restore_attributes
         bags.each(&:restore_attributes)
+        with_bag_destruction_marks_removed
       end
 
       # changed_for_autosave? is an AR method that will recursively check the in-memory
@@ -75,6 +82,11 @@ module Renalware
 
       def with_bag_destruction_marks_removed
         bags.select(&:marked_for_destruction?).each(&:reload)
+        self
+      end
+
+      def terminate(by:, terminated_on: Date.current)
+        build_termination(by: by, terminated_on: terminated_on)
         self
       end
 

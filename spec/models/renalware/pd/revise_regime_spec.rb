@@ -3,9 +3,10 @@ require "rails_helper"
 module Renalware
   module PD
     RSpec.describe ReviseRegime do
+      let(:user) { create(:user) }
       let(:patient) { create(:patient) }
-      let(:regime) do
-        regime = build(:apd_regime, add_hd: false)
+      let!(:regime) do
+        regime = build(:apd_regime, add_hd: false, patient: patient, end_date: nil)
         regime.bags << build(:pd_regime_bag, sunday: false)
         regime.save!
         regime
@@ -14,37 +15,79 @@ module Renalware
       describe "#call" do
 
         context "when there are no changes to the regime" do
+          let(:params) { {} }
 
           it "does not create a new regime" do
             command = ReviseRegime.new(regime)
-            expect { command.call({}) }.to_not change{ Regime.count }
+            expect { command.call(by: user, params: params) }.to_not change{ Regime.count }
+          end
+
+          it "does not terminate the regime" do
+            command = ReviseRegime.new(regime)
+            expect { command.call(by: user, params: params) }
+              .to_not change{ RegimeTermination.count }
           end
 
           it "returns true" do
-            result = ReviseRegime.new(regime).call({})
+            result = ReviseRegime.new(regime).call(by: user, params: params)
             expect(result).to be_success
           end
         end
 
         context "when changes are invalid" do
+          let(:params) { { start_date: "2015-12-01", end_date: "2014-12-01" } }
           it "returns false" do
-            command = ReviseRegime.new(regime)
-            result = command.call({ start_date: "2015-12-01", end_date: "2014-12-01" })
+            result = ReviseRegime.new(regime).call(by: user, params: params)
             expect(result).to_not be_success
+          end
+
+          it "does not terminate the regime" do
+            expect { ReviseRegime.new(regime).call(by: user, params: params) }
+              .to_not change{ RegimeTermination.count }
           end
         end
 
         context "when the regime has changes" do
-          let(:params) { {} }
-          it "does not create a new regime" do
+          let(:params) { { add_hd: true } }
+          it "creates a new regime" do
             command = ReviseRegime.new(regime)
-            expect { command.call({}) }.to_not change{ Regime.count }
+            expect { command.call(by: user, params: params) }.to change{ Regime.count }.by(1)
           end
+
+          it "terminates the old regime" do
+            expect(Regime.count).to eq(1)
+            expect(RegimeTermination.count).to eq(0)
+
+            ReviseRegime.new(regime).call(by: user, params: params)
+
+            expect(Regime.count).to eq(2)
+            expect(RegimeTermination.count).to eq(1)
+            expect(RegimeTermination.first.regime).to eq(regime)
+            expect(regime.end_date).to be_present
+          end
+
+          it "sets the current regime to the newly created one" do
+            expect(regime).to eq(patient.pd_regimes.current)
+
+            result = ReviseRegime.new(regime).call(by: user, params: params)
+
+            expect(result).to be_success
+            expect(result.regime).to eq(patient.pd_regimes.current)
+          end
+
+          it "sets the end on the replaced regime to be the start date of new one" do
+            travel_to Time.zone.now do
+              result = ReviseRegime.new(regime).call(by: user, params: params)
+
+              expect(result).to be_success
+              expect(regime.end_date).to eq(result.regime.start_date)
+            end
+          end
+
         end
 
         context "when there are changes to a bag but not the parent regime" do
           it "creates a new regime" do
-            regime
             regime_count = Regime.count
             bag_count = RegimeBag.count
 
@@ -69,7 +112,7 @@ module Renalware
               }
             }
 
-            ReviseRegime.new(regime).call(params)
+            ReviseRegime.new(regime).call(by: user, params: params)
 
             expect(Regime.count).to eq(regime_count + 1)
             expect(RegimeBag.count).to eq(bag_count + 1)
@@ -104,7 +147,7 @@ module Renalware
             }
 
             expect(regime.bags.count).to eq(2)
-            result = ReviseRegime.new(regime).call(params)
+            result = ReviseRegime.new(regime).call(by: user, params: params)
 
             new_regime = result.regime
             expect(new_regime.bags.count).to eq(1)
@@ -117,20 +160,22 @@ module Renalware
         end
 
         context "when there are changes to the regime" do
+          let(:params) { { add_hd: true } }
+
           it "creates a new regime" do
             command = ReviseRegime.new(regime)
-            expect { command.call({ add_hd: true }) }.to change{ Regime.count }.by(1)
+            expect { command.call(by: user, params: params) }.to change{ Regime.count }.by(1)
           end
 
           it "the new regime is not the original regime" do
-            new_regime = ReviseRegime.new(regime).call({ add_hd: true }).regime
+            new_regime = ReviseRegime.new(regime).call(by: user, params: params).regime
             expect(new_regime).to be_present
             expect(new_regime.id).to be_present
             expect(new_regime.id).to_not eq(regime.id)
           end
 
           it "the new regime's bags are not those of the original" do
-            result = ReviseRegime.new(regime).call({ add_hd: true })
+            result = ReviseRegime.new(regime).call(by: user, params: params)
             new_regime = result.regime
             original_bag_ids = regime.bags.map(&:id)
             new_bag_ids = new_regime.bags.map(&:id)

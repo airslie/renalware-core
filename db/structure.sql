@@ -2659,6 +2659,40 @@ ALTER SEQUENCE pd_regime_bags_id_seq OWNED BY pd_regime_bags.id;
 
 
 --
+-- Name: pd_regime_terminations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pd_regime_terminations (
+    id integer NOT NULL,
+    terminated_on date NOT NULL,
+    regime_id integer NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pd_regime_terminations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pd_regime_terminations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pd_regime_terminations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pd_regime_terminations_id_seq OWNED BY pd_regime_terminations.id;
+
+
+--
 -- Name: pd_regimes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4037,6 +4071,13 @@ ALTER TABLE ONLY pd_regime_bags ALTER COLUMN id SET DEFAULT nextval('pd_regime_b
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY pd_regime_terminations ALTER COLUMN id SET DEFAULT nextval('pd_regime_terminations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY pd_regimes ALTER COLUMN id SET DEFAULT nextval('pd_regimes_id_seq'::regclass);
 
 
@@ -4776,6 +4817,14 @@ ALTER TABLE ONLY pd_peritonitis_episodes
 
 ALTER TABLE ONLY pd_regime_bags
     ADD CONSTRAINT pd_regime_bags_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pd_regime_terminations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_regime_terminations
+    ADD CONSTRAINT pd_regime_terminations_pkey PRIMARY KEY (id);
 
 
 --
@@ -6018,6 +6067,25 @@ CREATE INDEX index_pd_regimes_on_patient_id ON pd_regimes USING btree (patient_i
 
 CREATE INDEX index_pd_regimes_on_system_id ON pd_regimes USING btree (system_id);
 
+-- Name: index_pd_regime_terminations_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_regime_terminations_on_created_by_id ON pd_regime_terminations USING btree (created_by_id);
+
+
+--
+-- Name: index_pd_regime_terminations_on_regime_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_regime_terminations_on_regime_id ON pd_regime_terminations USING btree (regime_id);
+
+
+--
+-- Name: index_pd_regime_terminations_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_regime_terminations_on_updated_by_id ON pd_regime_terminations USING btree (updated_by_id);
+
 
 --
 -- Name: index_pd_systems_on_pd_type; Type: INDEX; Schema: public; Owner: -
@@ -6734,6 +6802,14 @@ ALTER TABLE ONLY patients
 
 
 --
+-- Name: fk_rails_6021bed852; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_regime_terminations
+    ADD CONSTRAINT fk_rails_6021bed852 FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
 -- Name: fk_rails_604fdf3a9e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6846,6 +6922,14 @@ ALTER TABLE ONLY patient_practices_primary_care_physicians
 
 
 --
+-- Name: fk_rails_7d318fdf1a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_regime_terminations
+    ADD CONSTRAINT fk_rails_7d318fdf1a FOREIGN KEY (regime_id) REFERENCES pd_regimes(id);
+
+
+--
 -- Name: fk_rails_7dc4363735; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6907,6 +6991,14 @@ ALTER TABLE ONLY transplant_failure_cause_descriptions
 
 ALTER TABLE ONLY transplant_donor_workups
     ADD CONSTRAINT fk_rails_93dc1108f3 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_93f7877530; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_regime_terminations
+    ADD CONSTRAINT fk_rails_93f7877530 FOREIGN KEY (updated_by_id) REFERENCES users(id);
 
 
 --
@@ -7689,3 +7781,4 @@ INSERT INTO schema_migrations (version) VALUES ('20161201165330');
 
 INSERT INTO schema_migrations (version) VALUES ('20161201183449');
 
+INSERT INTO schema_migrations (version) VALUES ('20161129122629');

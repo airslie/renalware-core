@@ -38,7 +38,7 @@ module Renalware
       end
 
       def update
-        result = ReviseRegime.new(pd_regime).call(pd_regime_params)
+        result = ReviseRegime.new(pd_regime).call(by: current_user, params: pd_regime_params)
 
         if result.success?
           redirect_to patient_pd_dashboard_path(patient),
