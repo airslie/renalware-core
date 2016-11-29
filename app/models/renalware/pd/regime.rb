@@ -45,6 +45,10 @@ module Renalware
         Regime.current == self
       end
 
+      def terminated?
+        termination.present?
+      end
+
       def apd?
         pd_type == :apd
       end
@@ -70,7 +74,7 @@ module Renalware
 
       def deep_restore_attributes
         restore_attributes
-        bags.each(&:restore_attributes)
+        bags.reload
         with_bag_destruction_marks_removed
       end
 

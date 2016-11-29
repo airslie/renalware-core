@@ -32,6 +32,14 @@ module Renalware
       end
     end
 
+    def success_msg_for(model_name)
+      t(".success", model_name: model_name)
+    end
+
+    def failed_msg_for(model_name)
+      t(".failed", model_name: "PD regime")
+    end
+
     private
 
     # TODO: remove load_patient before_action once refactored out of other controllers.

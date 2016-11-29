@@ -6,7 +6,11 @@ module Renalware
       let(:user) { create(:user) }
       let(:patient) { create(:patient) }
       let!(:regime) do
-        regime = build(:apd_regime, add_hd: false, patient: patient, end_date: nil)
+        regime = build(:apd_regime,
+                       add_hd: false,
+                       patient: patient,
+                       end_date: nil,
+                       start_date: "01-01-2012")
         regime.bags << build(:pd_regime_bag, sunday: false)
         regime.save!
         regime
@@ -67,12 +71,12 @@ module Renalware
           end
 
           it "sets the current regime to the newly created one" do
-            expect(regime).to eq(patient.pd_regimes.current)
+            expect(regime).to be_current
 
             result = ReviseRegime.new(regime).call(by: user, params: params)
 
             expect(result).to be_success
-            expect(result.regime).to eq(patient.pd_regimes.current)
+            expect(result.object).to be_current
           end
 
           it "sets the end on the replaced regime to be the start date of new one" do
@@ -80,7 +84,7 @@ module Renalware
               result = ReviseRegime.new(regime).call(by: user, params: params)
 
               expect(result).to be_success
-              expect(regime.end_date).to eq(result.regime.start_date)
+              expect(regime.end_date).to eq(result.object.start_date)
             end
           end
 
@@ -149,7 +153,7 @@ module Renalware
             expect(regime.bags.count).to eq(2)
             result = ReviseRegime.new(regime).call(by: user, params: params)
 
-            new_regime = result.regime
+            new_regime = result.object
             expect(new_regime.bags.count).to eq(1)
             expect(regime.reload.bags.count).to eq(2)
 
@@ -168,7 +172,7 @@ module Renalware
           end
 
           it "the new regime is not the original regime" do
-            new_regime = ReviseRegime.new(regime).call(by: user, params: params).regime
+            new_regime = ReviseRegime.new(regime).call(by: user, params: params).object
             expect(new_regime).to be_present
             expect(new_regime.id).to be_present
             expect(new_regime.id).to_not eq(regime.id)
@@ -176,7 +180,7 @@ module Renalware
 
           it "the new regime's bags are not those of the original" do
             result = ReviseRegime.new(regime).call(by: user, params: params)
-            new_regime = result.regime
+            new_regime = result.object
             original_bag_ids = regime.bags.map(&:id)
             new_bag_ids = new_regime.bags.map(&:id)
             expect(original_bag_ids - new_bag_ids).to eq(original_bag_ids)

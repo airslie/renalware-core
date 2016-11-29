@@ -17,14 +17,15 @@ module Renalware
       end
 
       def create
-        pd_regime = patient.pd_regimes.new(pd_regime_params)
-        if perform_action(pd_regime.bags, proc { pd_regime.save }, regime: pd_regime)
-          redirect_to patient_pd_dashboard_path(patient),
-            notice: t(".success", model_name: "PD regime")
+        result = CreateRegime.new(patient: patient)
+                             .call(by: current_user, params: pd_regime_params)
+
+        if result.success?
+          redirect_to patient_pd_dashboard_path(patient), notice: success_msg_for("PD regime")
         else
-          flash[:error] = t(".failed", model_name: "PD regime")
+          flash[:error] = failed_msg_for("PD Regime")
           render :new, locals: {
-            pd_regime: pd_regime,
+            pd_regime: result.object,
             patient: patient
           }
         end
@@ -46,7 +47,7 @@ module Renalware
         else
           flash[:error] = t(".failed", model_name: "PD regime")
           render :edit, locals: {
-            pd_regime: result.regime,
+            pd_regime: result.object,
             patient: patient
           }
         end

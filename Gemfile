@@ -83,10 +83,10 @@ group :development, :test do
   gem "spring-commands-rspec", "~> 1.0.4"
   gem "thin"
   gem "web-console", "~> 2.0"
+  gem "capybara-screenshot"
 end
 
 group :test do
-  gem "capybara-screenshot"
   gem "simplecov", "~> 0.12.0", require: false
   gem "webmock", "~> 1.20.4"
   gem "wisper-rspec", require: false
