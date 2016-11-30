@@ -27,6 +27,12 @@ table {
       min-width: 5.5rem;
     }
 
+    &.col-width-nhs-no {
+      width: 8rem;
+      min-width: 6.5rem;
+      white-space: nowrap;
+    }
+
     &.col-width-bp {
       width: 4.5rem;
       min-width: 3.8rem;

@@ -28,7 +28,7 @@ end
 Then(/^I should see the patient on the death list$/) do
   visit patient_deaths_path
   within("#patients-deceased") do
-    expect(page).to have_content("1000124501")
+    expect(page).to have_content("100 012 4501")
     expect(page).to have_content("M")
   end
 end
