@@ -1,7 +1,7 @@
 log "Seeding default data"
 
 require_relative "./system/seeds"
-
+require_relative "./deaths/seeds"
 require_relative "./accesses/seeds"
 require_relative "./clinics/seeds"
 require_relative "./drugs/seeds"
