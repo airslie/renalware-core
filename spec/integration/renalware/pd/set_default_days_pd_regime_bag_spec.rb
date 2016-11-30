@@ -28,14 +28,14 @@ module Renalware
       expect(@pd_regime_bag_1.sunday).to eq(true)
     end
 
-    scenario "when creating a new pd regime bag, some days are deselected" do
+    scenario "when creating a new pd regime bag, some days are deselected", js: true do
       visit new_patient_pd_regime_path(@patient, type: "PD::CAPDRegime")
 
       fill_in "Start date", with: "25/05/2015"
 
       select "CAPD 3 exchanges per day", from: "Treatment"
 
-      find("input.add-bag").click
+      find("a.add-bag").click
 
       select "Star Brand, Lucky Brand Green–2.34", from: "* Bag type"
 

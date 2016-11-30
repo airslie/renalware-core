@@ -53,7 +53,7 @@ module Renalware
           let(:params) { attributes_for(:apd_regime) } # no bags
 
           it "returns failure with the unsaved regime" do
-            expect(subject).to_not be_failure
+            expect(subject).to be_failure
             expect(subject.object).to be_kind_of(Regime)
             expect(subject.object).to_not be_persisted
           end
