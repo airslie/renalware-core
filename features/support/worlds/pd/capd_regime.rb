@@ -41,7 +41,7 @@ module World
 
         check "On additional HD"
 
-        find("input.add-bag").click && wait_for_ajax
+        find("a.add-bag").click && wait_for_ajax
 
         select("Dianeal PD2 1.36% (Yellow)", from: "* Bag type")
         select("2500", from: "* Volume (ml)")
