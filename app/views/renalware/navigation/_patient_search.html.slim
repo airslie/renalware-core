@@ -1,12 +1,17 @@
 - if patient_search.present?
   ul.left
     li.has-form
-      = search_form_for patient_search, url: patients_path do |f|
+      = search_form_for patient_search,
+                        url: patients_path,
+                        class: "patient-search-form" do |f|
         .row.collapse
-          .large-11.small-9.columns
-            = label_tag :identity_match, "Patient Search" do
-              = f.search_field :identity_match,
-                id: 'patient_search_input',
-                placeholder: "Name/Hosp No/NHS No"
-          .large-1.small-3.columns
-            = f.submit "Find", title: "Find Patient", class: "nav-search button tiny"
+          .columns.small-8.large-10.xlarge-12
+            .row.collapse
+              .small-10.columns
+                = label_tag :identity_match, t(".accessible_label_title") do
+                  = f.search_field :identity_match,
+                                   placeholder: t(".verbose_search_placeholder"),
+                                   class: "radius"
+              .small-2.columns
+                = f.button class: "button tiny postfix radius" do
+                  i.fa.fa-search
