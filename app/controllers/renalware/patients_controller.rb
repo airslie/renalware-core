@@ -1,5 +1,8 @@
+require_dependency "renalware/patients"
+
 module Renalware
   class PatientsController < BaseController
+    include PresenterHelper
     include Renalware::Concerns::Pageable
 
     skip_after_action :verify_authorized, only: [:show, :search]
@@ -7,8 +10,9 @@ module Renalware
     before_action :load_patient, only: [:show, :edit, :update]
 
     def index
-      @patients = patient_search.result.page(@page).per(@per_page)
-      authorize @patients
+      patients = patient_search.result.page(@page).per(@per_page)
+      authorize patients
+      @patients = present(patients, PatientPresenter)
     end
 
     def search
