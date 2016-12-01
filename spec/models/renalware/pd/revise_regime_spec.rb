@@ -62,12 +62,12 @@ module Renalware
             expect(Regime.count).to eq(1)
             expect(RegimeTermination.count).to eq(0)
 
-            ReviseRegime.new(regime).call(by: user, params: params)
+            result = ReviseRegime.new(regime).call(by: user, params: params)
 
             expect(Regime.count).to eq(2)
             expect(RegimeTermination.count).to eq(1)
             expect(RegimeTermination.first.regime).to eq(regime)
-            expect(regime.end_date).to be_present
+            expect(regime.end_date).to eq(result.object.start_date)
           end
 
           it "sets the current regime to the newly created one" do

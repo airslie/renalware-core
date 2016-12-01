@@ -44,8 +44,7 @@ module Renalware
 
             expect(subject.object).to be_current
             expect(pre_existing_regime).to be_terminated
-            # expect(subject.object).to eq(patient.pd_regimes.current)
-            # expect(subject.object).to eq(patient.pd_regimes.current)
+            expect(pre_existing_regime.reload.end_date).to eq(subject.object.start_date)
           end
         end
 
