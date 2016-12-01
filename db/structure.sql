@@ -5032,6 +5032,20 @@ CREATE INDEX index_access_assessments_on_patient_id ON access_assessments USING 
 
 
 --
+-- Name: index_access_assessments_on_site_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_access_assessments_on_site_id ON access_assessments USING btree (site_id);
+
+
+--
+-- Name: index_access_assessments_on_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_access_assessments_on_type_id ON access_assessments USING btree (type_id);
+
+
+--
 -- Name: index_access_assessments_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5050,6 +5064,20 @@ CREATE INDEX index_access_procedures_on_created_by_id ON access_procedures USING
 --
 
 CREATE INDEX index_access_procedures_on_patient_id ON access_procedures USING btree (patient_id);
+
+
+--
+-- Name: index_access_procedures_on_site_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_access_procedures_on_site_id ON access_procedures USING btree (site_id);
+
+
+--
+-- Name: index_access_procedures_on_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_access_procedures_on_type_id ON access_procedures USING btree (type_id);
 
 
 --
@@ -5081,6 +5109,27 @@ CREATE INDEX index_access_profiles_on_patient_id ON access_profiles USING btree 
 
 
 --
+-- Name: index_access_profiles_on_plan_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_access_profiles_on_plan_id ON access_profiles USING btree (plan_id);
+
+
+--
+-- Name: index_access_profiles_on_site_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_access_profiles_on_site_id ON access_profiles USING btree (site_id);
+
+
+--
+-- Name: index_access_profiles_on_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_access_profiles_on_type_id ON access_profiles USING btree (type_id);
+
+
+--
 -- Name: index_access_profiles_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5092,6 +5141,13 @@ CREATE INDEX index_access_profiles_on_updated_by_id ON access_profiles USING btr
 --
 
 CREATE INDEX index_addresses_on_addressable_type_and_addressable_id ON addresses USING btree (addressable_type, addressable_id);
+
+
+--
+-- Name: index_clinic_visits_on_clinic_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinic_visits_on_clinic_id ON clinic_visits USING btree (clinic_id);
 
 
 --
@@ -5113,6 +5169,34 @@ CREATE INDEX index_clinic_visits_on_patient_id ON clinic_visits USING btree (pat
 --
 
 CREATE INDEX index_clinic_visits_on_updated_by_id ON clinic_visits USING btree (updated_by_id);
+
+
+--
+-- Name: index_clinics_appointments_on_clinic_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinics_appointments_on_clinic_id ON clinics_appointments USING btree (clinic_id);
+
+
+--
+-- Name: index_clinics_appointments_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinics_appointments_on_patient_id ON clinics_appointments USING btree (patient_id);
+
+
+--
+-- Name: index_clinics_appointments_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinics_appointments_on_user_id ON clinics_appointments USING btree (user_id);
+
+
+--
+-- Name: index_clinics_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinics_on_user_id ON clinics USING btree (user_id);
 
 
 --
@@ -5141,6 +5225,20 @@ CREATE INDEX index_doctors_practices ON patient_practices_primary_care_physician
 --
 
 CREATE UNIQUE INDEX index_drug_types_drugs_on_drug_id_and_drug_type_id ON drug_types_drugs USING btree (drug_id, drug_type_id);
+
+
+--
+-- Name: index_events_on_event_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_events_on_event_type_id ON events USING btree (event_type_id);
+
+
+--
+-- Name: index_events_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_events_on_patient_id ON events USING btree (patient_id);
 
 
 --
@@ -5340,6 +5438,13 @@ CREATE INDEX index_hd_sessions_on_hospital_unit_id ON hd_sessions USING btree (h
 
 
 --
+-- Name: index_hd_sessions_on_id_and_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_sessions_on_id_and_type ON hd_sessions USING btree (id, type);
+
+
+--
 -- Name: index_hd_sessions_on_modality_description_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5389,6 +5494,13 @@ CREATE INDEX index_hospital_centres_on_code ON hospital_centres USING btree (cod
 
 
 --
+-- Name: index_hospital_units_on_hospital_centre_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hospital_units_on_hospital_centre_id ON hospital_units USING btree (hospital_centre_id);
+
+
+--
 -- Name: index_letter_archives_on_created_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5431,6 +5543,13 @@ CREATE UNIQUE INDEX index_letter_contact_descriptions_on_system_code ON letter_c
 
 
 --
+-- Name: index_letter_contacts_on_description_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_letter_contacts_on_description_id ON letter_contacts USING btree (description_id);
+
+
+--
 -- Name: index_letter_contacts_on_person_id_and_patient_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5456,6 +5575,13 @@ CREATE INDEX index_letter_letters_on_created_by_id ON letter_letters USING btree
 --
 
 CREATE INDEX index_letter_letters_on_event_type_and_event_id ON letter_letters USING btree (event_type, event_id);
+
+
+--
+-- Name: index_letter_letters_on_id_and_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_letter_letters_on_id_and_type ON letter_letters USING btree (id, type);
 
 
 --
@@ -5578,6 +5704,13 @@ CREATE INDEX index_medication_prescriptions_on_updated_by_id ON medication_presc
 
 
 --
+-- Name: index_modality_descriptions_on_id_and_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_modality_descriptions_on_id_and_type ON modality_descriptions USING btree (id, type);
+
+
+--
 -- Name: index_modality_modalities_on_description_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5585,10 +5718,31 @@ CREATE INDEX index_modality_modalities_on_description_id ON modality_modalities 
 
 
 --
+-- Name: index_modality_modalities_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_modality_modalities_on_patient_id ON modality_modalities USING btree (patient_id);
+
+
+--
+-- Name: index_modality_modalities_on_patient_id_and_description_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_modality_modalities_on_patient_id_and_description_id ON modality_modalities USING btree (patient_id, description_id);
+
+
+--
 -- Name: index_modality_modalities_on_reason_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_modality_modalities_on_reason_id ON modality_modalities USING btree (reason_id);
+
+
+--
+-- Name: index_modality_reasons_on_id_and_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_modality_reasons_on_id_and_type ON modality_reasons USING btree (id, type);
 
 
 --
@@ -5617,6 +5771,90 @@ CREATE INDEX index_pathology_observations_on_description_id ON pathology_observa
 --
 
 CREATE INDEX index_pathology_observations_on_request_id ON pathology_observations USING btree (request_id);
+
+
+--
+-- Name: index_pathology_request_descriptions_on_lab_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pathology_request_descriptions_on_lab_id ON pathology_request_descriptions USING btree (lab_id);
+
+
+--
+-- Name: index_pathology_requests_drugs_drug_categories_on_drug_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pathology_requests_drugs_drug_categories_on_drug_id ON pathology_requests_drugs_drug_categories USING btree (drug_id);
+
+
+--
+-- Name: index_pathology_requests_global_rule_sets_on_clinic_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pathology_requests_global_rule_sets_on_clinic_id ON pathology_requests_global_rule_sets USING btree (clinic_id);
+
+
+--
+-- Name: index_pathology_requests_global_rules_on_id_and_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pathology_requests_global_rules_on_id_and_type ON pathology_requests_global_rules USING btree (id, type);
+
+
+--
+-- Name: index_pathology_requests_patient_rules_on_lab_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pathology_requests_patient_rules_on_lab_id ON pathology_requests_patient_rules USING btree (lab_id);
+
+
+--
+-- Name: index_pathology_requests_patient_rules_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pathology_requests_patient_rules_on_patient_id ON pathology_requests_patient_rules USING btree (patient_id);
+
+
+--
+-- Name: index_pathology_requests_patient_rules_requests_on_request_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pathology_requests_patient_rules_requests_on_request_id ON pathology_requests_patient_rules_requests USING btree (request_id);
+
+
+--
+-- Name: index_pathology_requests_requests_on_clinic_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pathology_requests_requests_on_clinic_id ON pathology_requests_requests USING btree (clinic_id);
+
+
+--
+-- Name: index_pathology_requests_requests_on_consultant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pathology_requests_requests_on_consultant_id ON pathology_requests_requests USING btree (consultant_id);
+
+
+--
+-- Name: index_pathology_requests_requests_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pathology_requests_requests_on_created_by_id ON pathology_requests_requests USING btree (created_by_id);
+
+
+--
+-- Name: index_pathology_requests_requests_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pathology_requests_requests_on_patient_id ON pathology_requests_requests USING btree (patient_id);
+
+
+--
+-- Name: index_pathology_requests_requests_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pathology_requests_requests_on_updated_by_id ON pathology_requests_requests USING btree (updated_by_id);
 
 
 --
@@ -5655,10 +5893,52 @@ CREATE INDEX index_patients_on_document ON patients USING gin (document);
 
 
 --
+-- Name: index_patients_on_ethnicity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_ethnicity_id ON patients USING btree (ethnicity_id);
+
+
+--
+-- Name: index_patients_on_first_edta_code_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_first_edta_code_id ON patients USING btree (first_edta_code_id);
+
+
+--
+-- Name: index_patients_on_language_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_language_id ON patients USING btree (language_id);
+
+
+--
+-- Name: index_patients_on_practice_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_practice_id ON patients USING btree (practice_id);
+
+
+--
 -- Name: index_patients_on_primary_care_physician_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_patients_on_primary_care_physician_id ON patients USING btree (primary_care_physician_id);
+
+
+--
+-- Name: index_patients_on_religion_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_religion_id ON patients USING btree (religion_id);
+
+
+--
+-- Name: index_patients_on_second_edta_code_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_second_edta_code_id ON patients USING btree (second_edta_code_id);
 
 
 --
@@ -5676,6 +5956,13 @@ CREATE INDEX index_pd_bag_types_on_deleted_at ON pd_bag_types USING btree (delet
 
 
 --
+-- Name: index_pd_exit_site_infections_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_exit_site_infections_on_patient_id ON pd_exit_site_infections USING btree (patient_id);
+
+
+--
 -- Name: index_pd_peritonitis_episodes_on_episode_type_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5687,6 +5974,48 @@ CREATE INDEX index_pd_peritonitis_episodes_on_episode_type_id ON pd_peritonitis_
 --
 
 CREATE INDEX index_pd_peritonitis_episodes_on_fluid_description_id ON pd_peritonitis_episodes USING btree (fluid_description_id);
+
+
+--
+-- Name: index_pd_peritonitis_episodes_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_peritonitis_episodes_on_patient_id ON pd_peritonitis_episodes USING btree (patient_id);
+
+
+--
+-- Name: index_pd_regime_bags_on_bag_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_regime_bags_on_bag_type_id ON pd_regime_bags USING btree (bag_type_id);
+
+
+--
+-- Name: index_pd_regime_bags_on_regime_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_regime_bags_on_regime_id ON pd_regime_bags USING btree (regime_id);
+
+
+--
+-- Name: index_pd_regimes_on_id_and_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_regimes_on_id_and_type ON pd_regimes USING btree (id, type);
+
+
+--
+-- Name: index_pd_regimes_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_regimes_on_patient_id ON pd_regimes USING btree (patient_id);
+
+
+--
+-- Name: index_pd_regimes_on_system_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_regimes_on_system_id ON pd_regimes USING btree (system_id);
 
 
 --
@@ -5725,6 +6054,13 @@ CREATE INDEX index_problem_problems_on_deleted_at ON problem_problems USING btre
 
 
 --
+-- Name: index_problem_problems_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_problem_problems_on_patient_id ON problem_problems USING btree (patient_id);
+
+
+--
 -- Name: index_problem_problems_on_position; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5743,6 +6079,27 @@ CREATE INDEX index_problem_versions_on_item_type_and_item_id ON problem_versions
 --
 
 CREATE INDEX index_renal_profiles_on_document ON renal_profiles USING gin (document);
+
+
+--
+-- Name: index_renal_profiles_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_renal_profiles_on_patient_id ON renal_profiles USING btree (patient_id);
+
+
+--
+-- Name: index_renal_profiles_on_prd_description_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_renal_profiles_on_prd_description_id ON renal_profiles USING btree (prd_description_id);
+
+
+--
+-- Name: index_roles_users_on_user_id_and_role_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_roles_users_on_user_id_and_role_id ON roles_users USING btree (user_id, role_id);
 
 
 --
@@ -5802,6 +6159,13 @@ CREATE UNIQUE INDEX index_transplant_failure_cause_descriptions_on_code ON trans
 
 
 --
+-- Name: index_transplant_failure_cause_descriptions_on_group_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_transplant_failure_cause_descriptions_on_group_id ON transplant_failure_cause_descriptions USING btree (group_id);
+
+
+--
 -- Name: index_transplant_recipient_followups_on_document; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5820,6 +6184,13 @@ CREATE INDEX index_transplant_recipient_followups_on_operation_id ON transplant_
 --
 
 CREATE INDEX index_transplant_recipient_operations_on_document ON transplant_recipient_operations USING gin (document);
+
+
+--
+-- Name: index_transplant_recipient_operations_on_hospital_centre_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_transplant_recipient_operations_on_hospital_centre_id ON transplant_recipient_operations USING btree (hospital_centre_id);
 
 
 --
@@ -5851,6 +6222,13 @@ CREATE INDEX index_transplant_registration_status_descriptions_on_code ON transp
 
 
 --
+-- Name: index_transplant_registration_statuses_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_transplant_registration_statuses_on_created_by_id ON transplant_registration_statuses USING btree (created_by_id);
+
+
+--
 -- Name: index_transplant_registration_statuses_on_description_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5862,6 +6240,13 @@ CREATE INDEX index_transplant_registration_statuses_on_description_id ON transpl
 --
 
 CREATE INDEX index_transplant_registration_statuses_on_registration_id ON transplant_registration_statuses USING btree (registration_id);
+
+
+--
+-- Name: index_transplant_registration_statuses_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_transplant_registration_statuses_on_updated_by_id ON transplant_registration_statuses USING btree (updated_by_id);
 
 
 --
@@ -5939,6 +6324,62 @@ CREATE UNIQUE INDEX patient_bookmarks_uniqueness ON patient_bookmarks USING btre
 --
 
 CREATE UNIQUE INDEX pd_peritonitis_episode_types_unique_id ON pd_peritonitis_episode_types USING btree (peritonitis_episode_id, peritonitis_episode_type_description_id);
+
+
+--
+-- Name: prd_required_observation_description_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX prd_required_observation_description_id_idx ON pathology_request_descriptions USING btree (required_observation_description_id);
+
+
+--
+-- Name: prddc_drug_category_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX prddc_drug_category_id_idx ON pathology_requests_drugs_drug_categories USING btree (drug_category_id);
+
+
+--
+-- Name: prddc_request_description_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX prddc_request_description_id_idx ON pathology_requests_global_rule_sets USING btree (request_description_id);
+
+
+--
+-- Name: prdr_requests_description_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX prdr_requests_description_id_idx ON pathology_request_descriptions_requests_requests USING btree (request_description_id);
+
+
+--
+-- Name: prdr_requests_request_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX prdr_requests_request_id_idx ON pathology_request_descriptions_requests_requests USING btree (request_id);
+
+
+--
+-- Name: prgr_rule_set_id_and_rule_set_type_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX prgr_rule_set_id_and_rule_set_type_idx ON pathology_requests_global_rules USING btree (rule_set_id, rule_set_type);
+
+
+--
+-- Name: prprr_patient_rule_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX prprr_patient_rule_id_idx ON pathology_requests_patient_rules_requests USING btree (patient_rule_id);
+
+
+--
+-- Name: tx_recip_fol_failure_cause_description_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX tx_recip_fol_failure_cause_description_id_idx ON transplant_recipient_followups USING btree (transplant_failure_cause_description_id);
 
 
 --
@@ -7240,4 +7681,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161123141041');
 INSERT INTO schema_migrations (version) VALUES ('20161123142841');
 
 INSERT INTO schema_migrations (version) VALUES ('20161124152732');
+
+INSERT INTO schema_migrations (version) VALUES ('20161201183449');
 
