@@ -72,7 +72,7 @@ module Renalware
           :icodextrin_volume, :low_glucose_degradation, :low_sodium, :add_hd,
           :tidal_indicator, :tidal_percentage, :no_cycles_per_apd,
           :overnight_pd_volume, :apd_machine_pac, :therapy_time, :fill_volume, :delivery_interval,
-          :system_id,
+          :system_id, :last_fill_volume, :additional_manual_exchange_volume,
           regime_bags_attributes: [
             :id, :regime_id, :bag_type_id, :volume, :role,
             :per_week, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday,

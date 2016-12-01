@@ -2675,6 +2675,7 @@ CREATE TABLE pd_regimes (
     amino_acid_volume integer,
     icodextrin_volume integer,
     add_hd boolean,
+    last_fill_volume integer,
     tidal_indicator boolean,
     tidal_percentage integer,
     no_cycles_per_apd integer,
@@ -2685,7 +2686,8 @@ CREATE TABLE pd_regimes (
     therapy_time integer,
     fill_volume integer,
     delivery_interval integer,
-    system_id integer
+    system_id integer,
+    additional_manual_exchange_volume integer
 );
 
 
@@ -7673,8 +7675,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161118100149');
 
 INSERT INTO schema_migrations (version) VALUES ('20161118165332');
 
-INSERT INTO schema_migrations (version) VALUES ('20161121094056');
-
 INSERT INTO schema_migrations (version) VALUES ('20161121143011');
 
 INSERT INTO schema_migrations (version) VALUES ('20161122112905');
@@ -7685,8 +7685,7 @@ INSERT INTO schema_migrations (version) VALUES ('20161123142841');
 
 INSERT INTO schema_migrations (version) VALUES ('20161124152732');
 
+INSERT INTO schema_migrations (version) VALUES ('20161201165330');
+
 INSERT INTO schema_migrations (version) VALUES ('20161201183449');
 
-INSERT INTO schema_migrations (version) VALUES ('20161118165332');
-
-INSERT INTO schema_migrations (version) VALUES ('20161121094056');

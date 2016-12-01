@@ -1,5 +1,9 @@
 .row
   .large-12.columns
+    = field_set_tag t(".fieldset_titles.additional_exchanges") do
+      = f.input :last_fill_volume, wrapper: :horizontal_small
+      = f.input :additional_manual_exchange_volume, wrapper: :horizontal_small
+
     = field_set_tag t(".fieldset_titles.tidal") do
       = f.input :tidal_indicator,
                 as: :boolean,
