@@ -75,7 +75,11 @@ module Renalware
       end
 
       def pd_regime
-        @pd_regime ||= Regime.find(params[:id])
+        @pd_regime ||= begin
+          regime = Regime.find(params[:id])
+          authorize regime
+          regime
+        end
       end
     end
   end

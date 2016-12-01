@@ -6048,25 +6048,6 @@ CREATE INDEX index_pd_regime_bags_on_regime_id ON pd_regime_bags USING btree (re
 
 
 --
--- Name: index_pd_regimes_on_id_and_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_pd_regimes_on_id_and_type ON pd_regimes USING btree (id, type);
-
-
---
--- Name: index_pd_regimes_on_patient_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_pd_regimes_on_patient_id ON pd_regimes USING btree (patient_id);
-
-
---
--- Name: index_pd_regimes_on_system_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_pd_regimes_on_system_id ON pd_regimes USING btree (system_id);
-
 -- Name: index_pd_regime_terminations_on_created_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6085,6 +6066,27 @@ CREATE INDEX index_pd_regime_terminations_on_regime_id ON pd_regime_terminations
 --
 
 CREATE INDEX index_pd_regime_terminations_on_updated_by_id ON pd_regime_terminations USING btree (updated_by_id);
+
+
+--
+-- Name: index_pd_regimes_on_id_and_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_regimes_on_id_and_type ON pd_regimes USING btree (id, type);
+
+
+--
+-- Name: index_pd_regimes_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_regimes_on_patient_id ON pd_regimes USING btree (patient_id);
+
+
+--
+-- Name: index_pd_regimes_on_system_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_regimes_on_system_id ON pd_regimes USING btree (system_id);
 
 
 --
@@ -7777,8 +7779,9 @@ INSERT INTO schema_migrations (version) VALUES ('20161123142841');
 
 INSERT INTO schema_migrations (version) VALUES ('20161124152732');
 
+INSERT INTO schema_migrations (version) VALUES ('20161129122629');
+
 INSERT INTO schema_migrations (version) VALUES ('20161201165330');
 
 INSERT INTO schema_migrations (version) VALUES ('20161201183449');
 
-INSERT INTO schema_migrations (version) VALUES ('20161129122629');
