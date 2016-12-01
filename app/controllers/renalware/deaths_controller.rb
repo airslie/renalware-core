@@ -1,10 +1,13 @@
 module Renalware
   class DeathsController < BaseController
+    include PresenterHelper
+
     before_action :load_patient, only: [:edit, :update]
 
     def index
-      @patients = Patient.dead
-      authorize @patients
+      patients = Patient.dead
+      authorize patients
+      @patients = present(patients, PatientPresenter)
     end
 
     def update

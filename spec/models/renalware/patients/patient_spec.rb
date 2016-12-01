@@ -21,7 +21,7 @@ module Renalware
     it { is_expected.to validate_timeliness_of(:born_on) }
     it { is_expected.to validate_timeliness_of(:died_on) }
 
-    subject { create(:patient) }
+    subject { create(:patient, nhs_number: "1234567890") }
 
     describe "#valid?" do
       context "given the current modality is death" do

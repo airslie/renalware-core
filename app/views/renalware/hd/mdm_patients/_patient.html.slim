@@ -1,6 +1,6 @@
 tr
   td= link_to "View MDM", patient_hd_mdm_path(patient)
-  td.full-name= patient.to_s
+  td.full-name= patient.to_s(format: :default)
   td= patient.nhs_number
   td= patient.local_patient_id
   td= patient.sex.code

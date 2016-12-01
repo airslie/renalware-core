@@ -3,7 +3,7 @@
     .large-3.columns
       dl.dl-horizontal
         dt NHS Number:
-        dd= @patient.nhs_number
+        dd.nowrap= formatted_nhs_number(@patient)
 
         dt Local Patient ID:
         dd= @patient.local_patient_id
