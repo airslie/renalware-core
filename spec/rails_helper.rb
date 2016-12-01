@@ -67,3 +67,18 @@ RSpec.configure do |config|
   #   end
   # See https://github.com/airblade/paper_trail#7b-rspec for more information.
 end
+
+require "capybara/poltergeist"
+
+# When this option is enabled, you can insert page.driver.debug into your tests
+# to pause the test and launch a browser which gives you the WebKit inspector
+# to view your test run with.
+Capybara.register_driver :poltergeist_debug do |app|
+  Capybara::Poltergeist::Driver.new(
+    app,
+    inspector: "open",
+    debug: false
+  )
+end
+
+# Capybara.javascript_driver = :poltergeist_debug

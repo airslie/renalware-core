@@ -2,6 +2,6 @@ en:
   renalware:
     navigation:
       patient_search:
-        verbose_search_placeholder: "Name/Hosp No/NHS No"
+        verbose_search_placeholder: "Name, Hosp/NHS no"
         succinct_search_placeholder: "Name/Hosp/NHS"
         accessible_label_title: "Patient Search"

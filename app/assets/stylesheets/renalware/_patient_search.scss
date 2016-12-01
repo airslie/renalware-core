@@ -1,10 +1,8 @@
 $search-bar-height: 2.15rem;
-$search-bar-width: 19em;
 $btn-hover-background-color: darken($off-white, 10%);
 $btn-hover-color: darken($dark-grey, 10%);
 
 .patient-search-form {
-  width: $search-bar-width;
   button.button.tiny.postfix {
     padding: 0;
     background-color: $off-white;
