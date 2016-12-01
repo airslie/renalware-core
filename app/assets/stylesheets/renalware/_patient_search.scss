@@ -2,7 +2,12 @@ $search-bar-height: 2.15rem;
 $btn-hover-background-color: darken($off-white, 10%);
 $btn-hover-color: darken($dark-grey, 10%);
 
+.has-form {
+  width: 260px;
+}
+
 .patient-search-form {
+
   button.button.tiny.postfix {
     padding: 0;
     background-color: $off-white;
@@ -13,10 +18,9 @@ $btn-hover-color: darken($dark-grey, 10%);
       color: $btn-hover-color;
     }
   }
+
   input {
     height: $search-bar-height;
     border: none;
-    padding: 0;
-
   }
 }
