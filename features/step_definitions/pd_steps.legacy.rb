@@ -79,7 +79,7 @@ Given(/^a patient has existing APD Regimes$/) do
     icodextrin_volume: 56,
     add_hd: false,
     last_fill_volume: 630,
-    add_manual_exchange: false,
+    additional_manual_exchange_volume: 1000,
     tidal_indicator: true,
     tidal_percentage: 60,
     no_cycles_per_apd: 3,
@@ -111,7 +111,7 @@ Given(/^a patient has existing APD Regimes$/) do
     icodextrin_volume: 57,
     add_hd: true,
     last_fill_volume: 535,
-    add_manual_exchange: true,
+    additional_manual_exchange_volume: 1000,
     tidal_indicator: false,
     tidal_percentage: nil,
     no_cycles_per_apd: 4,
@@ -183,10 +183,12 @@ When(/^I complete the form for a apd regime$/) do
   uncheck "Sat"
   uncheck "Fri"
 
-  # APD specific fields
-  fill_in "Last Fill (ml)", with: 520
+  choose("Additional manual exchange")
 
-  check "Add'l manual exchange"
+  # APD specific fields
+  # This has changed - last fill is no longer on the regime but
+  # on a bag with role 'last fill' - may need to add another bag as last_fill here?
+  # fill_in "Last Fill (ml)", with: 520
 
   check "Has tidal?"
 
@@ -229,7 +231,7 @@ When(/^I choose to edit and update the form for a apd regime$/) do
   select "Fresenius Sleep Safe", from: "System"
   fill_in "End date", with: "30/08/2015"
 
-  check "Add'l manual exchange"
+  choose "Additional manual exchange"
 
   click_on "Update"
 end
@@ -319,6 +321,7 @@ Then(/^the new apd regime should be current$/) do
     expect(page).to have_content("APD Wet day with additional exchange")
     expect(page).to have_content("On additional HD?")
     expect(page).to have_content("No")
+    expect(page).to have_content("Add'l manual exchange?: Yes")
 
     expect(page).to have_content("1.36 % 0 ml")
     expect(page).to have_content("2.27 % 0 ml")
@@ -329,7 +332,7 @@ Then(/^the new apd regime should be current$/) do
       "Nutrineal PD4 (Blue), Volume: 4000ml, No. per week: 3, Days: Sun, Mon, Thu"
     )
 
-    expect(page).to have_content("Last Fill: 520")
+    # expect(page).to have_content("Last Fill: 520")
     expect(page).to have_content("Add'l manual exchange?: Yes")
     expect(page).to have_content("Tidal?: Yes")
     expect(page).to have_content("Tidal: 75 %")
@@ -382,8 +385,8 @@ Then(/^I should see the chosen apd regime details$/) do
   expect(page).to have_content("APD Wet Day")
   expect(page).to have_content("On additional HD?")
   expect(page).to have_content("Yes")
-  expect(page).to have_content("Last fill")
-  expect(page).to have_content("535 ml")
+  # expect(page).to have_content("Last fill")
+  # expect(page).to have_content("535 ml")
   expect(page).to have_content("Add'l manual exchange?")
   expect(page).to have_content("Yes")
   expect(page).to have_content("Has tidal?")

@@ -21,8 +21,6 @@ FactoryGirl.define do
     amino_acid_volume 43
     icodextrin_volume 53
     add_hd true
-    last_fill_volume 630
-    add_manual_exchange true
     tidal_indicator true
     tidal_percentage 30
     no_cycles_per_apd 2

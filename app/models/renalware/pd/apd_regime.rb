@@ -11,6 +11,7 @@ module Renalware
         therapy_times: (120..900).step(30).to_a,
         fill_volumes: 0..2_500,
         last_fill_volumes: 500..5_000,
+        additional_manual_exchange_volumes: 500..5_000,
         cycles_per_apd: 2..20,
         overnight_pd_volumes: 3_000..25_000,
         tidal_percentages: (60..100).step(5).to_a
@@ -25,6 +26,11 @@ module Renalware
                 allow_nil: true,
                 numericality: { only_integer: true },
                 numeric_inclusion: { in: VALID_RANGES.last_fill_volumes }
+
+      validates :additional_manual_exchange_volume,
+                allow_nil: true,
+                numericality: { only_integer: true },
+                numeric_inclusion: { in: VALID_RANGES.additional_manual_exchange_volumes }
 
       validates :tidal_percentage,
                 allow_nil: true,
@@ -48,6 +54,10 @@ module Renalware
 
       def pd_type
         :apd
+      end
+
+      def has_additional_manual_exchange_bag?
+        regime_bags.select{ |bag| bag.role.additional_manual_exchange? }.any?
       end
     end
   end

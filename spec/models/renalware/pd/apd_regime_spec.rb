@@ -5,6 +5,7 @@ module Renalware
     describe APDRegime, type: :model do
       describe "validations" do
         it { is_expected.to validate_numericality_of(:last_fill_volume) }
+        it { is_expected.to validate_numericality_of(:additional_manual_exchange_volume) }
         it { is_expected.to validate_numericality_of(:tidal_percentage) }
         it { is_expected.to validate_numericality_of(:no_cycles_per_apd) }
         it { is_expected.to validate_numericality_of(:overnight_pd_volume) }
@@ -52,6 +53,13 @@ module Renalware
           ).to eq(true)
         end
 
+        it "therapy_time validates numeric_inclusion" do
+          expect(
+            has_numeric_validation(:therapy_time,
+                                    APDRegime::VALID_RANGES.therapy_times)
+          ).to eq(true)
+        end
+
         it "last_fill_volume validates numeric_inclusion" do
           expect(
             has_numeric_validation(:last_fill_volume,
@@ -59,11 +67,29 @@ module Renalware
           ).to eq(true)
         end
 
-        it "therapy_time validates numeric_inclusion" do
+        it "additional_manual_exchange_volume validates numeric_inclusion" do
           expect(
-            has_numeric_validation(:therapy_time,
-                                    APDRegime::VALID_RANGES.therapy_times)
+            has_numeric_validation(:additional_manual_exchange_volume,
+                                   APDRegime::VALID_RANGES.additional_manual_exchange_volumes)
           ).to eq(true)
+        end
+
+        describe "#has_additional_manual_exchange_bag?" do
+          it "returns true if at least one bag is an additional_manual_exchange" do
+            regime = build(:apd_regime)
+            regime.regime_bags << build(:pd_regime_bag, role: :additional_manual_exchange)
+            regime.regime_bags << build(:pd_regime_bag, role: :ordinary_bag)
+
+            expect(regime.has_additional_manual_exchange_bag?).to eq(true)
+          end
+
+          it "returns false if no bags are an additional_manual_exchange" do
+            regime = build(:apd_regime)
+            regime.regime_bags << build(:pd_regime_bag, role: :ordinary_bag)
+            regime.regime_bags << build(:pd_regime_bag, role: :last_fill)
+
+            expect(regime.has_additional_manual_exchange_bag?).to eq(false)
+          end
         end
       end
     end

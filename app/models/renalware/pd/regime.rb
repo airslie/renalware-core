@@ -42,6 +42,10 @@ module Renalware
         raise NotImplementedError
       end
 
+      def has_additional_manual_exchange_bag?
+        false
+      end
+
       private
 
       def min_one_regime_bag

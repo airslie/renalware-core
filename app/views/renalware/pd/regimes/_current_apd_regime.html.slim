@@ -2,14 +2,9 @@
   .large-6.columns
     ul.no-bullet
       li
-        b Last Fill:
-        | &nbsp;
-        = "#{current.last_fill_volume} ml"
-
-      li
         b Add'l manual exchange?:
         | &nbsp;
-        = yes_no(current.add_manual_exchange)
+        = yes_no(current.has_additional_manual_exchange_bag?)
 
       li
         b Tidal?:

@@ -2634,7 +2634,8 @@ CREATE TABLE pd_regime_bags (
     saturday boolean,
     sunday boolean,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    role character varying
 );
 
 
@@ -2675,7 +2676,6 @@ CREATE TABLE pd_regimes (
     icodextrin_volume integer,
     add_hd boolean,
     last_fill_volume integer,
-    add_manual_exchange boolean,
     tidal_indicator boolean,
     tidal_percentage integer,
     no_cycles_per_apd integer,
@@ -2686,7 +2686,8 @@ CREATE TABLE pd_regimes (
     therapy_time integer,
     fill_volume integer,
     delivery_interval integer,
-    system_id integer
+    system_id integer,
+    additional_manual_exchange_volume integer
 );
 
 
@@ -7672,6 +7673,8 @@ INSERT INTO schema_migrations (version) VALUES ('20161117133825');
 
 INSERT INTO schema_migrations (version) VALUES ('20161118100149');
 
+INSERT INTO schema_migrations (version) VALUES ('20161118165332');
+
 INSERT INTO schema_migrations (version) VALUES ('20161121143011');
 
 INSERT INTO schema_migrations (version) VALUES ('20161122112905');
@@ -7681,6 +7684,8 @@ INSERT INTO schema_migrations (version) VALUES ('20161123141041');
 INSERT INTO schema_migrations (version) VALUES ('20161123142841');
 
 INSERT INTO schema_migrations (version) VALUES ('20161124152732');
+
+INSERT INTO schema_migrations (version) VALUES ('20161201165330');
 
 INSERT INTO schema_migrations (version) VALUES ('20161201183449');
 
