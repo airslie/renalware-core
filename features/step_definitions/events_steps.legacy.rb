@@ -17,7 +17,7 @@ When(/^records Patty's event$/) do
 end
 
 Then(/^Clyde should see Patty's new event on the clinical summary$/) do
-  expect(page).to have_content(fake_date)
+  expect(page).to have_content(I18n.l(fake_date))
   expect(page).to have_content(fake_time)
   expect(page).to have_content("Email")
   expect(page).to have_content("Discussed meeting to be set up with family.")
@@ -27,7 +27,7 @@ end
 Then(/^see Patty's new event in her event index$/) do
   visit patient_events_path(@patty)
 
-  expect(page).to have_content(fake_date)
+  expect(page).to have_content(I18n.l(fake_date))
   expect(page).to have_content(fake_time)
   expect(page).to have_content("Email")
   expect(page).to have_content("Discussed meeting to be set up with family.")

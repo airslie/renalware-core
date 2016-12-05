@@ -42,8 +42,8 @@ Feature: Generating request forms for a single patient
      | template   | manual        |
     Then Clyde sees these details at the top of Patty's form
       | patient_name    | PATTY THEPATIENT |
-      | date            | 12-10-2016       |
-      | date_of_birth   | 25-12-1961       |
+      | date            | 12-Oct-2016       |
+      | date_of_birth   | 25-Dec-1961       |
       | consultant      | Zoe Zimmerman    |
       | telephone       | 7983123123       |
     And Clyde sees the following pathology requirements for Patty:

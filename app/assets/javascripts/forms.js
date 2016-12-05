@@ -9,12 +9,12 @@ function initDatePicker(container, elem, pickerOptions) {
 }
 
 function initDatepickersIn(container) {
-  initDatePicker(container, '.datepicker', {format: "dd-mm-yyyy"});
+  initDatePicker(container, '.datepicker', {format: "dd-M-yyyy"});
 }
 
 function initDateTimepickersIn(container) {
   initDatePicker(container, '.datetimepicker', {
-    format: "dd-mm-yyyy hh:ii", pickTime: true, minuteStep: 1
+    format: "dd-M-yyyy hh:ii", pickTime: true, minuteStep: 1
   });
 }
 

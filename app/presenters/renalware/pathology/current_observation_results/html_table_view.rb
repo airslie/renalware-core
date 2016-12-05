@@ -2,7 +2,7 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
-    # Reponsible for rendering a HTML table for recent observation results.
+    # Responsible for rendering a HTML table for recent observation results.
     #
     class CurrentObservationResults::HTMLTableView < SimpleDelegator
       def render(view_model)

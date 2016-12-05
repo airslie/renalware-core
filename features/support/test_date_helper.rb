@@ -8,7 +8,7 @@ module TestDateHelper
   end
 
   def fake_date
-    I18n.l(Date.parse("20-07-#{Date.current.year}"))
+    Date.parse("20-07-#{Date.current.year}")
   end
 
   def fake_time

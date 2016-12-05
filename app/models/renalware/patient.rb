@@ -78,7 +78,7 @@ module Renalware
 
     # Overrides Personable mixin
     def to_s(format = :default)
-      title_suffix = "(#{title})" if title.present?
+      title_suffix = " (#{title})" if title.present?
       formatted_name = "#{family_name.upcase}, #{given_name}#{title_suffix}"
       case format
       when :default then formatted_name

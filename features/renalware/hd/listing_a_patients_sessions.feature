@@ -14,8 +14,8 @@ Feature: Listing a patients HD sessions
       | Nathalie     |               | true           |
     And These patients have these HD sessions
       | patient         | signed_on_by | signed_off_by | did_not_attend |
-      | Rabbit, Roger   | Nathalie     | Nathalie      |                |
-      | Rabbit, Jessica | Nathalie     |               |                |
+      | RABBIT, Roger   | Nathalie     | Nathalie      |                |
+      | RABBIT, Jessica | Nathalie     |               |                |
 
   @web
   Scenario: A nurse listed a patient's sessions
