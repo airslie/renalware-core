@@ -33,24 +33,6 @@ dl.patient-header {
     @media print, #{$large-up} {
       font-size: .7em;
     }
-
-    // dt.name contains only an icon
-    &.name {
-      color: $patient-header-icon-color;
-      display: none;
-
-      @media #{$medium-up} {
-        display: inline-block;
-        font-size: 1.4em;
-        min-width: 1em;
-      }
-
-      // large screens and above
-      @media print, #{$large-up} {
-        font-size: 1.6em;
-        min-width: 0.8em;
-      }
-    }
   }
 
   dd {

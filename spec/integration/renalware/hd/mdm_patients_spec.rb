@@ -17,7 +17,7 @@ RSpec.describe "HD MDM Patients", type: :feature do
       login_as_clinician
       visit hd_mdm_patients_path
 
-      expect(page).to have_content(patient.family_name)
+      expect(page).to have_content(patient.family_name.upcase)
     end
   end
 end

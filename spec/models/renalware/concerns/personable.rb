@@ -24,7 +24,7 @@ shared_examples_for "Personable" do
       expect(instance.full_name).to eq("Aneurin Bevan")
     end
     it "accepts the :default format" do
-      expect(instance.to_s).to eq("Bevan, Aneurin")
+      expect(instance.to_s).to match(/^Bevan, Aneurin$/i)
     end
   end
 end
