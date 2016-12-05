@@ -62,9 +62,9 @@ module Renalware
           regime = @patient.pd_regimes.first
           expect(regime.system).to eq(system)
           expect(regime.delivery_interval).to eq(4)
-          expect(regime.regime_bags.count).to eq(1)
+          expect(regime.bags.count).to eq(1)
 
-          bag = regime.regime_bags.first
+          bag = regime.bags.first
           expect(bag.role.additional_manual_exchange?).to eq(true)
         end
       end
