@@ -195,8 +195,14 @@ Rails.application.routes.draw do
 
       namespace :pd do
         resource :dashboard, only: :show
-        resources :apd_regimes, controller: "regimes", type: "ApdRegime"
-        resources :capd_regimes, controller: "regimes", type: "CapdRegime"
+        resources :apd_regimes,
+                  controller: "regimes",
+                  type: "PD::APDRegime",
+                  only: [:new, :create, :edit, :update, :show]
+        resources :capd_regimes,
+                  controller: "regimes",
+                  type: "PD::CAPDRegime",
+                  only: [:new, :create, :edit, :update, :show]
         resources :regimes, only: [:new, :create, :edit, :update, :show]
         resources :peritonitis_episodes, only: [:new, :create, :show, :edit, :update]
         resources :exit_site_infections, only: [:new, :create, :show, :edit, :update]

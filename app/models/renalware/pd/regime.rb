@@ -65,7 +65,6 @@ module Renalware
         raise NotImplementedError
       end
 
-
       def has_additional_manual_exchange_bag?
         false
       end

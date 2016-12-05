@@ -8,10 +8,10 @@ module Renalware
       before_action :load_patient
 
       def new
-        regime_type = params[:type] ? "Renalware::#{params[:type]}" : nil
-        pd_regime = patient.pd_regimes.new(type: regime_type)
+        regime = cloned_last_known_regime_of_type || patient.pd_regimes.new(type: regime_type)
+
         render :new, locals: {
-          pd_regime: pd_regime,
+          pd_regime: regime,
           patient: patient
         }
       end
@@ -61,6 +61,17 @@ module Renalware
       end
 
       private
+
+      def regime_type
+        params[:type] ? "Renalware::#{params[:type]}" : nil
+      end
+
+      def cloned_last_known_regime_of_type
+        regime = patient.pd_regimes
+                        .order(start_date: :desc, created_at: :desc)
+                        .where(type: regime_type).first
+        regime && regime.deep_dup
+      end
 
       def pd_regime_params
         params.require(:pd_regime).permit(
