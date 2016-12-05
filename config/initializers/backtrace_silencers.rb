@@ -1,9 +1,10 @@
-# Be sure to restart your server when you modify this file.
+SHOULDA_NOISE      = %w(shoulda).freeze
+FACTORY_GIRL_NOISE = %w(factory_girl).freeze
+RENALWARE_NOISE = SHOULDA_NOISE + FACTORY_GIRL_NOISE
 
-# You can add backtrace silencers for libraries that you're using but don't
-# wish to see in your backtraces.
-# Rails.backtrace_cleaner.add_silencer { |line| line =~ /my_noisy_library/ }
+Rails.backtrace_cleaner.add_silencer do |line|
+  RENALWARE_NOISE.any? { |dir| line.include?(dir) }
+end
 
-# You can also remove all the silencers if you're trying to debug a problem that might
-# stem from framework code.
+# When debugging, uncomment the next line.
 # Rails.backtrace_cleaner.remove_silencers!
