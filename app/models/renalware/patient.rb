@@ -78,7 +78,7 @@ module Renalware
 
     # Overrides Personable mixin
     def to_s(format = :default)
-      title_suffix = " (#{title})" if title.present?
+      title_suffix = " (#{title})" if has_title?
       formatted_name = "#{family_name.upcase}, #{given_name}#{title_suffix}"
       case format
       when :default then formatted_name
@@ -118,6 +118,10 @@ module Renalware
     end
 
     private
+
+    def has_title?
+      respond_to?(:title) && title.present?
+    end
 
     def validate_sex
       errors.add(:sex, "is invalid option (#{sex.code})") unless sex.valid?
