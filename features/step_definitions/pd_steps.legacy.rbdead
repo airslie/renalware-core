@@ -1,3 +1,18 @@
+#
+# New steps
+#
+Given(/^Patty has no PD regimes$/) do
+  @patty.pd_regimes.destroy_all
+end
+
+When(/^Clyde adds a CAPD regime$/) do
+  @capd_regime = record_capd_regime_for(@patty)
+end
+
+Then(/^the CAPD becomes the current one$/) do
+  expect(@capd_regime).to be_current
+end
+
 
 Given(/^Patty has an existing CAPD regime$/) do
   @regime1 = record_capd_regime_for(@patty)
@@ -14,6 +29,16 @@ end
 Then(/^Clyde cannot edit the old regime$/) do
   regime_is_immutable(@regime1)
 end
+
+
+
+
+
+
+
+
+
+
 
 
 Given(/^a patient has PD$/) do
