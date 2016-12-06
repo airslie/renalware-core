@@ -4,7 +4,8 @@
   .large-5.columns.inline
     = rb.association :bag_type,
                       collection: bag_types,
-                      include_blank: t("collection.blank_option")
+                      include_blank: t("collection.blank_option"),
+                      input_html: { class: "bag-types"}
 
   .large-3.columns.inline
     = rb.input :volume,

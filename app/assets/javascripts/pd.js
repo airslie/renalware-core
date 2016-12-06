@@ -52,4 +52,4 @@ Renalware.PdRegimes = (function () {
 // so that buttons are toggled when JS is active.
 $(document).ready(Renalware.PdRegimes.init);
 $(document).ready(Renalware.PdRegimes.toggleAddRemoveBags);
-$(document).on('nested:fieldAdded:regime_bags', Renalware.PdRegimes.toggleAddRemoveBags);
+$(document).on('nested:fieldAdded:bags', Renalware.PdRegimes.toggleAddRemoveBags);

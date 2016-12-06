@@ -45,7 +45,7 @@ module Renalware
 
       regimes = PD::Regime.all
       expect(regimes.length).to eq(1)
-      bags = regimes.first.regime_bags
+      bags = regimes.first.bags
       expect(bags.length).to eq(2)
       expect(bags[0].days).to eq([true, true, false, true, true, false, true]) # no tue fri
       expect(bags[0].volume).to eq(2000)

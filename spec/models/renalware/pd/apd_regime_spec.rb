@@ -77,16 +77,16 @@ module Renalware
         describe "#has_additional_manual_exchange_bag?" do
           it "returns true if at least one bag is an additional_manual_exchange" do
             regime = build(:apd_regime)
-            regime.regime_bags << build(:pd_regime_bag, role: :additional_manual_exchange)
-            regime.regime_bags << build(:pd_regime_bag, role: :ordinary_bag)
+            regime.bags << build(:pd_regime_bag, role: :additional_manual_exchange)
+            regime.bags << build(:pd_regime_bag, role: :ordinary_bag)
 
             expect(regime.has_additional_manual_exchange_bag?).to eq(true)
           end
 
           it "returns false if no bags are an additional_manual_exchange" do
             regime = build(:apd_regime)
-            regime.regime_bags << build(:pd_regime_bag, role: :ordinary_bag)
-            regime.regime_bags << build(:pd_regime_bag, role: :last_fill)
+            regime.bags << build(:pd_regime_bag, role: :ordinary_bag)
+            regime.bags << build(:pd_regime_bag, role: :last_fill)
 
             expect(regime.has_additional_manual_exchange_bag?).to eq(false)
           end

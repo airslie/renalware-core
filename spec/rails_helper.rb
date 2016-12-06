@@ -7,6 +7,7 @@ require "shoulda/matchers"
 require "pundit/rspec"
 require "paper_trail/frameworks/rspec"
 require "chosen-rails/rspec"
+require "capybara-screenshot/rspec" if RUBY_PLATFORM =~ /darwin/
 
 # Add additional requires below this line. Rails is not loaded until this point!
 

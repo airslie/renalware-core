@@ -57,6 +57,7 @@ When(/^Nathalie records a DNA HD session for Patty with the notes "([^"]*)"$/) d
 end
 
 When(/^Clyde brings up the MDM page for Patty$/) do
+  pending
   view_patient_mdm_page(patient: @patty, user: @clyde)
 end
 

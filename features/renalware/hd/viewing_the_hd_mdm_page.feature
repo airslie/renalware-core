@@ -13,10 +13,10 @@ Feature: Viewing the HD MDM page
       | Nathalie     |               |                |
       | Nathalie     |               | true           |
 
-  @wip @web
-  Scenario: A clinician displayed the MDM page at a meeting
-    When Clyde brings up the MDM page for Patty
-    Then the MDM displays the following sessions
-      | signed_on_by | signed_off_by | did_not_attend |
-      | Nathalie     |               | true           |
-      | Nathalie     | Nathalie      |                |
+  # @wip @web
+  # Scenario: A clinician displayed the MDM page at a meeting
+  #   When Clyde brings up the MDM page for Patty
+  #   Then the MDM displays the following sessions
+  #     | signed_on_by | signed_off_by | did_not_attend |
+  #     | Nathalie     |               | true           |
+  #     | Nathalie     | Nathalie      |                |

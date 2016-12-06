@@ -1,48 +1,49 @@
-=field_set_tag "Current PD Regime", class: "current-regime"
-  - current_regime.each do |current|
-    .row
-      .large-3.columns
+- current = current_regime
+=field_set_tag "Current PD Regime", class: "current-regime", data: { "regime-id" => current.id }
+
+  .row
+    .large-3.columns
+      dl
+        dt Regime Start Date:
+        dl=l current.start_date
+
+        dt Regime End Date:
+        dl= default_for_blank_date(current.end_date, "Pending")
+
+        dt Treatment:
+        dl= current.treatment
+
+        dt On additional HD?:
+        dl= yes_no(current.add_hd)
+
+    .large-3.columns
+      dl
+        dt Average Daily Glucose:
         dl
-          dt Regime Start Date:
-          dl=l current.start_date
+        ul style="list-style-type: disc"
+          li
+            b 1.36 %
+            | &nbsp;
+            = "#{ default_daily_glucose_average(current.glucose_volume_percent_1_36) } ml"
 
-          dt Regime End Date:
-          dl= default_for_blank_date(current.end_date, "Pending")
+          li
+            b 2.27 %
+            | &nbsp;
+            = "#{ default_daily_glucose_average(current.glucose_volume_percent_2_27) } ml"
 
-          dt Treatment:
-          dl= current.treatment
+          li
+            b 3.86 %
+            | &nbsp;
+            = "#{ default_daily_glucose_average(current.glucose_volume_percent_3_86) } ml"
 
-          dt On additional HD?:
-          dl= yes_no(current.add_hd)
+    .large-6.columns
+      - if current.type == "Renalware::PD::APDRegime"
+        = render partial: "renalware/pd/regimes/current_apd_regime", locals: { current: current }
 
-      .large-3.columns
-        dl
-          dt Average Daily Glucose:
-          dl
-          ul style="list-style-type: disc"
-            li
-              b 1.36 %
-              | &nbsp;
-              = "#{ default_daily_glucose_average(current.glucose_volume_percent_1_36) } ml"
+  .row
+    .large-12.columns
+      .section-underliner.padding-top-1
+        b Bags:
 
-            li
-              b 2.27 %
-              | &nbsp;
-              = "#{ default_daily_glucose_average(current.glucose_volume_percent_2_27) } ml"
-
-            li
-              b 3.86 %
-              | &nbsp;
-              = "#{ default_daily_glucose_average(current.glucose_volume_percent_3_86) } ml"
-
-      .large-6.columns
-        - if current.type == "Renalware::PD::APDRegime"
-          = render partial: "renalware/pd/regimes/current_apd_regime", locals: { current: current }
-
-    .row
-      .large-12.columns
-        .section-underliner.padding-top-1
-          b Bags:
-
-        ul
-          = pd_regime_bags(current.regime_bags)
+      ul
+        = pd_regime_bags(current.bags)
