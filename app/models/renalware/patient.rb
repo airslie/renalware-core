@@ -76,6 +76,17 @@ module Renalware
       BasePolicy
     end
 
+    # Overrides Personable mixin
+    def to_s(format = :default)
+      title_suffix = " (#{title})" if has_title?
+      formatted_name = "#{family_name.upcase}, #{given_name}#{title_suffix}"
+      case format
+      when :default then formatted_name
+      when :long then "#{formatted_name} (#{nhs_number})"
+      else full_name
+      end
+    end
+
     # rubocop:disable Style/MultilineTernaryOperator
     def age
       now = Time.now.utc.to_date
@@ -107,6 +118,10 @@ module Renalware
     end
 
     private
+
+    def has_title?
+      respond_to?(:title) && title.present?
+    end
 
     def validate_sex
       errors.add(:sex, "is invalid option (#{sex.code})") unless sex.valid?

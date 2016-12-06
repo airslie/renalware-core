@@ -10,14 +10,14 @@ Feature: Listing patients with a current ESA prescription
   Scenario: A clinician views the list of current prescriptions
     Given Nancy is a nurse
     And these patients and prescriptions
-      | patient        | terminated | drug_type  |
-      | Roger Rabbit   | false      | ESA        |
-      | Jessica Rabbit | true       | ESA        |
-      | Jessica Rabbit | false      | ESA        |
-      | Bugs Bunny     | true       | ESA        |
-      | Donald Duck    | false      | Antibiotic |
+      | patient         | terminated | drug_type  |
+      | RABBIT, Roger   | false      | ESA        |
+      | RABBIT, Jessica | true       | ESA        |
+      | RABBIT, Jessica | false      | ESA        |
+      | BUNNY, Bugs     | true       | ESA        |
+      | DUCK, Donald    | false      | Antibiotic |
     When Nancy views the ESA patients list
     Then Nancy sees only these patients
       | patient         |
-      | Roger Rabbit    |
-      | Jessica Rabbit  |
+      | RABBIT, Roger   |
+      | RABBIT, Jessica |

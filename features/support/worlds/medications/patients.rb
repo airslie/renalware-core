@@ -15,7 +15,7 @@ module World
 
       def expect_prescriptions_to_be(table)
         expect(@prescriptions.size).to eq(table.hashes.size)
-        actual_names = @prescriptions.map { |prescription| prescription.patient.full_name }
+        actual_names = @prescriptions.map { |prescription| prescription.patient.to_s }
         expected_names = table.hashes.map{ |h| h["patient"] }
         expect(actual_names).to eq(expected_names)
       end
@@ -27,7 +27,7 @@ module World
       end
 
       def seed_patient(name)
-        given_name, family_name = name.split(" ")
+        family_name, given_name = name.split(", ")
         Renalware::Patient.create_with(
           local_patient_id: SecureRandom.uuid,
           sex: "M",
@@ -72,8 +72,7 @@ module World
 
       def expect_prescriptions_to_be(table)
         table.hashes.each do |row|
-          given_name, family_name = row[:patient].split(" ").map(&:strip)
-          expect(page.body).to have_content("#{family_name}, #{given_name}")
+          expect(page.body).to have_content(row[:patient].strip)
         end
       end
     end

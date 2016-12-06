@@ -18,4 +18,4 @@ Feature: Listing the wait list registrations
     When Clyde views the list of active wait list registrations
     Then Clyde sees these wait list registrations
       | patient       | status |
-      | Rabbit, Roger | Active |
+      | RABBIT, Roger | Active |

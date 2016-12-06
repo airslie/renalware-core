@@ -4,7 +4,6 @@ en:
       header:
         hospital_code: KCH
         nhs_number: NHS
-        age: Age
         sex: Sex
-        born_on: DoB
+        born_on: Born
         modality: Mod

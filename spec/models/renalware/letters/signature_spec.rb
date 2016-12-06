@@ -12,7 +12,7 @@ module Renalware
         subject(:signature) { Signature.new(user: user, signed_at: "2016-08-01 12:05:55") }
 
         it "returns a signature line" do
-          expect(signature.to_s).to eq("ELECTRONICALLY SIGNED BY JOHN DOE AT 12:05 ON 01-08-2016")
+          expect(signature.to_s).to eq("ELECTRONICALLY SIGNED BY JOHN DOE AT 12:05 ON 01-AUG-2016")
         end
       end
     end

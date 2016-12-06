@@ -19,4 +19,4 @@ Feature: Listing the HD sessions
     When Clyde views the list of ongoing HD sessions
     Then Clyde sees these HD sessions
       | patient         | signed_on_by | signed_off_by |
-      | Rabbit, Jessica | Clyde        |               |
+      | RABBIT, Jessica | Clyde        |               |

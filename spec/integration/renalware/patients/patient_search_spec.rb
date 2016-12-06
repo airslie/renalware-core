@@ -26,7 +26,7 @@ RSpec.describe "Searching patients", type: :request do
         get patients_path(q: { identity_match: "rabb r" })
 
         expect(response).to have_http_status(:success)
-        expect(response.body).to match("Rabbit")
+        expect(response.body).to match("RABBIT")
       end
     end
 
@@ -40,7 +40,7 @@ RSpec.describe "Searching patients", type: :request do
         get patients_path(q: { identity_match: "rabbit" })
 
         expect(response).to have_http_status(:success)
-        expect(response.body).to match("Rabbit")
+        expect(response.body).to match("RABBIT")
       end
     end
 
