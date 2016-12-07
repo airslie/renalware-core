@@ -11,12 +11,15 @@ html {
       height: 100%; /* needed for proper layout */
     }
 
-    .main-content {
+    main {
       position: relative;
-      padding-bottom: 4em;
+      display: flex;
       flex: 1 1 auto;
       position: relative; /* need this to position inner content */
       overflow-y: auto;
+      .main-content {
+        width: 100%;
+      }
     }
   }
 }
@@ -25,8 +28,9 @@ footer {
   text-align: right;
   color: $footer-colour;
   font-size: 12px;
-  margin: 1em;
-  //flex: 0 0 auto;
+  padding: .2rem 1rem;
+  background-color: $footer-bg-colour;
+  border-top: 1px solid #eee;
 }
 
 .sticky-top {

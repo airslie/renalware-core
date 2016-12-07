@@ -1,8 +1,9 @@
 ul.side-nav
   li.heading General
+  li.link= link_to "Clinical Summary", patient_clinical_summary_path(current_patient)
   li.link= link_to "Demographics", patient_path(current_patient)
   li.link= link_to "Contacts", patient_letters_contacts_path(current_patient)
-  li.link= link_to "Clinical Summary", patient_clinical_summary_path(current_patient)
+  li.link= link_to "Clinical Profile", patient_clinical_profile_path(current_patient)
   li.link= link_to "ESRF/Comorbidities", edit_patient_renal_profile_path(current_patient)
   li.link= link_to "Modalities (#{Renalware::Modalities::Modality.for_patient(current_patient).count})", patient_modalities_path(current_patient)
   li.link= link_to "Problems (#{Renalware::Problems::Problem.for_patient(current_patient).count})", patient_problems_path(current_patient)

@@ -1,0 +1,8 @@
+= render layout: "renalware/patients/layout", locals: { title: "Clinical Profile" } do
+  .row
+    .columns.medium-12.large-6
+      = render "renalware/clinical/allergies/list",
+               patient: profile.patient,
+               allergies: profile.allergies
+    .columns.medium-12.large-6
+      = render "renalware/clinical/swabs/list"

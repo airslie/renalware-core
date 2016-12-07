@@ -20,6 +20,7 @@ module Renalware
       interpreter_notes: "Second language French",
       special_needs_notes: "Lorem ipsum dolor sit amet"
     }
+
     rabbit.save!
   end
 

@@ -19,10 +19,10 @@ html lang="en"
           = yield(:header)
       = render partial: 'renalware/shared/flash_messages'
 
-      main.main-content
-        = yield
+      main
+        .main-content
+          = yield
 
-      = javascript_include_tag "application"
-
-      - unless user_signed_in?
-        = render "renalware/navigation/footer"
+      /- unless user_signed_in?
+      = render "renalware/navigation/footer"
+    = javascript_include_tag "application"

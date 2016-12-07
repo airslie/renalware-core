@@ -4,3 +4,11 @@ en:
       renalware/patient:
         cc_on_all_letters: CC on all letters
         cc_decision_on: CC decision date
+  enumerize:
+    renalware/patient:
+      allergy_status:
+        unrecorded: Allergies Unrecorded
+        known_allergies: Known Allergies
+        no_known_allergies: No Known Allergies
+        unavailable: Allergies Unavailable
+

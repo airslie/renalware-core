@@ -376,6 +376,40 @@ ALTER SEQUENCE clinic_visits_id_seq OWNED BY clinic_visits.id;
 
 
 --
+-- Name: clinical_allergies; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE clinical_allergies (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    description text NOT NULL,
+    recorded_at timestamp without time zone NOT NULL,
+    deleted_at timestamp without time zone,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL
+);
+
+
+--
+-- Name: clinical_allergies_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE clinical_allergies_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: clinical_allergies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE clinical_allergies_id_seq OWNED BY clinical_allergies.id;
+
+
+--
 -- Name: clinics; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2308,7 +2342,8 @@ CREATE TABLE patients (
     document jsonb,
     religion_id integer,
     language_id integer,
-    diabetic boolean DEFAULT false NOT NULL
+    diabetic boolean DEFAULT false NOT NULL,
+    allergy_status character varying DEFAULT 'unrecorded'::character varying NOT NULL
 );
 
 
@@ -3627,6 +3662,13 @@ ALTER TABLE ONLY clinic_visits ALTER COLUMN id SET DEFAULT nextval('clinic_visit
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY clinical_allergies ALTER COLUMN id SET DEFAULT nextval('clinical_allergies_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY clinics ALTER COLUMN id SET DEFAULT nextval('clinics_id_seq'::regclass);
 
 
@@ -4309,6 +4351,14 @@ ALTER TABLE ONLY addresses
 
 ALTER TABLE ONLY clinic_visits
     ADD CONSTRAINT clinic_visits_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: clinical_allergies_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinical_allergies
+    ADD CONSTRAINT clinical_allergies_pkey PRIMARY KEY (id);
 
 
 --
@@ -5223,6 +5273,27 @@ CREATE INDEX index_clinic_visits_on_patient_id ON clinic_visits USING btree (pat
 --
 
 CREATE INDEX index_clinic_visits_on_updated_by_id ON clinic_visits USING btree (updated_by_id);
+
+
+--
+-- Name: index_clinical_allergies_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinical_allergies_on_created_by_id ON clinical_allergies USING btree (created_by_id);
+
+
+--
+-- Name: index_clinical_allergies_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinical_allergies_on_patient_id ON clinical_allergies USING btree (patient_id);
+
+
+--
+-- Name: index_clinical_allergies_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinical_allergies_on_updated_by_id ON clinical_allergies USING btree (updated_by_id);
 
 
 --
@@ -6646,6 +6717,14 @@ ALTER TABLE ONLY transplant_donations
 
 
 --
+-- Name: fk_rails_0d8b5ebbad; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinical_allergies
+    ADD CONSTRAINT fk_rails_0d8b5ebbad FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
 -- Name: fk_rails_11c7f6fec3; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7110,6 +7189,14 @@ ALTER TABLE ONLY transplant_failure_cause_descriptions
 
 
 --
+-- Name: fk_rails_9193bda748; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinical_allergies
+    ADD CONSTRAINT fk_rails_9193bda748 FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
 -- Name: fk_rails_93dc1108f3; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7563,6 +7650,14 @@ ALTER TABLE ONLY patient_practices_primary_care_physicians
 
 ALTER TABLE ONLY drug_types_drugs
     ADD CONSTRAINT fk_rails_f8ed99dfda FOREIGN KEY (drug_id) REFERENCES drugs(id);
+
+
+--
+-- Name: fk_rails_f8f7b6daad; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinical_allergies
+    ADD CONSTRAINT fk_rails_f8f7b6daad FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -8100,6 +8195,8 @@ INSERT INTO schema_migrations (version) VALUES ('20161201165330');
 INSERT INTO schema_migrations (version) VALUES ('20161201183449');
 
 INSERT INTO schema_migrations (version) VALUES ('20161202155429');
+
+INSERT INTO schema_migrations (version) VALUES ('20161207183903');
 
 INSERT INTO schema_migrations (version) VALUES ('20161212095607');
 

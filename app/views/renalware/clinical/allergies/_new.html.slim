@@ -1,0 +1,20 @@
+/ Link to launch the modal dialog
+.row
+  .columns.small-12
+    = link_to link_text, '#',
+              class: "button right",
+              data: { "reveal-id" => "add-allergy-modal" }
+
+/ The modal dialog
+#add-allergy-modal.reveal-modal.medium(data-reveal)
+  = simple_form_for patient.allergies.new,
+                    url: patient_clinical_allergies_path(patient_id: patient),
+                    validate: true do |f|
+    h2= t(".title")
+    =f.input :description, as: :text, autofocus: true
+    =f.submit t(".save"), class: :button, data: { disable_with: t(".save_disable_with") }
+    span= " or "
+    =link_to t(".cancel"),
+             "#",
+             "aria-label" => "Close",
+             class: "reveal-modal-close"

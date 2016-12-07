@@ -3,7 +3,8 @@
 
 .patient-container
   .patient-content
-    = render "renalware/renal/profiles/mini", patient: current_patient
+    /= render "renalware/renal/profiles/mini", patient: current_patient
+    = render "renalware/patients/mini_profile", patient: current_patient
     .row
       h1= content_for(:page_title) || local_assigns[:title]
 

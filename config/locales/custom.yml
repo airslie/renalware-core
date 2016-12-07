@@ -8,6 +8,7 @@ en:
       failed: You have failed to update this %{model_name}.
     destroy:
       success: You have successfully removed this %{model_name}.
+      success_with_name: You have successfully removed '%{name}'.
       failed: You have failed to remove this %{model_name}.
     esrf:
       update:

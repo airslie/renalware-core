@@ -1,0 +1,30 @@
+fieldset.clinical-allergies
+  legend= t(".legend")
+
+  p.current-status
+    | Current status:&nbsp;
+    i= patient.allergy_status.text
+
+  table.natural-width
+    thead
+      tr
+        th.col-width-large= t(".description")
+        th.col-width-date-time= t(".recorded_at")
+        th.col-width-tiny
+    tbody
+      - delete_confirmation_msg = I18n.t("prompts.confirm_delete_with_model", model: "allergy")
+      - patient.allergies.each do |allergy|
+        tr data-allergy-id=allergy.id
+          td= allergy.description
+          td= l(allergy.recorded_at)
+          td.right
+            = link_to t(".delete"),
+                      patient_clinical_allergy_path(patient_id: patient, id: allergy),
+                      method: :delete,
+                      data: { confirm: delete_confirmation_msg }
+
+  = render "renalware/clinical/allergies/new",
+           link_text: t(".add"),
+           patient: patient
+
+  = render "renalware/clinical/allergy_statuses/form", patient: patient

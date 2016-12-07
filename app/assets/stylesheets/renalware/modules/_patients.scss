@@ -1,4 +1,39 @@
 
+.patient-summary {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: stretch;
+  align-items: stretch;
+  background-color: $mini-profile-backgound-colour;
+  font-size: 0.9rem;
+
+  ul {
+    font-size: inherit;
+  }
+
+  div {
+    padding: 0.2em 0.2em 0.2em 1.2em;
+    margin: 0;
+    flex-grow: 2;
+
+    white-space: nowrap;
+
+    .title {
+      color: #777;
+      margin-right: 0.6rem;
+    }
+  }
+  .allergies {
+    background-color: $mini-profile-allergies-backgound-colour;
+  }
+
+  .renal-profile {
+    background-color: $mini-profile-renal-backgound-colour;
+  }
+}
+
 select.dob {
   display: inline-block;
   width: 30%;
@@ -22,6 +57,8 @@ ul.provider {
 }
 .patient-container {
   display:flex;
+  flex: 1;
+  height:100%;
 }
 
 .patient-header {

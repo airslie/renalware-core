@@ -3,7 +3,7 @@ en:
     patients:
       header:
         hospital_code: KCH
-        nhs_number: NHS
+        nhs_number: NHS No.
         sex: Sex
         born_on: Born
         modality: Mod

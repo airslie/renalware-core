@@ -15,4 +15,6 @@ $(document).foundation({
 $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
   var modal = $(this);
   modal.find('[autofocus]').focus();
+  $('form[data-validate]').enableClientSideValidations();
 });
+
