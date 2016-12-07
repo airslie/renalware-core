@@ -2672,7 +2672,8 @@ CREATE TABLE pd_regime_bags (
     sunday boolean,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    role character varying
+    role character varying,
+    capd_overnight_bag boolean DEFAULT false NOT NULL
 );
 
 
@@ -8195,6 +8196,8 @@ INSERT INTO schema_migrations (version) VALUES ('20161201165330');
 INSERT INTO schema_migrations (version) VALUES ('20161201183449');
 
 INSERT INTO schema_migrations (version) VALUES ('20161202155429');
+
+INSERT INTO schema_migrations (version) VALUES ('20161207115413');
 
 INSERT INTO schema_migrations (version) VALUES ('20161207183903');
 

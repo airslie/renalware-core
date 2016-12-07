@@ -41,25 +41,6 @@ module Renalware
       regime.pd_type.to_s.upcase
     end
 
-    def pd_regime_bags(bags)
-      if bags.blank?
-        "Unknown"
-      else
-        formatted_pd_regime_bags(bags)
-      end
-    end
-
-    def formatted_pd_regime_bags(bags)
-      safe_join(bags.map { |rb| formatted_pd_regime_bag(rb) })
-    end
-
-    def formatted_pd_regime_bag(bag)
-      content_tag(:li, ["Bag type: #{bag.bag_type.description}",
-                "Volume: #{bag.volume}ml",
-                "No. per week: #{bag.per_week}",
-                "Days: #{pd_regime_bag_days(bag)}"].join(", "))
-    end
-
     def pd_regime_bag_days(bag)
       days = []
       Date::DAYNAMES.each_with_index do |day, index|

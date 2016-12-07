@@ -36,6 +36,7 @@ en:
         saturday: Sat
         bag_type: Bag type
         volume: Volume (ml)
+        capd_overnight_bag: Overnight bag
         additional_manual_exchange: Additional manual exchange
         role: Role
   renalware:
@@ -55,6 +56,15 @@ en:
         apd_regime_show:
           overnight_volume: Overnight APD volume
           daily_volume: Total daily volume
+      regime_bags:
+        regime_bag:
+          bag_type: "Bag type:"
+          volume: "Vol:"
+          capd_overnight: "Overnight:"
+          role: "Type:"
+          days_quantity: " No. per week:"
+          days: "Days"
+
   enumerize:
     renalware/pd/regime_bag:
       role:
