@@ -22,3 +22,21 @@ footer {
 .inline {
   display: inline;
 }
+
+.flex-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+
+  dl {
+    flex: 1;
+    dd {
+      white-space: nowrap;
+    }
+  }
+  @media #{$medium-only} {
+    dl {
+      flex-basis: 50%;
+    }
+  }
+}

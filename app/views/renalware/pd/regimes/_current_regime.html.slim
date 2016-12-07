@@ -13,16 +13,7 @@
       dt On additional HD?:
       dd= yes_no(current.add_hd)
 
-    dl.dl-horizontal.pd-glucose-details
-      dt.subheading Avg Daily Glucose
-      dd
-      dl.dl-horizontal.avg-daily-glucose-list
-        dt 1.36 %
-        dd= "#{ default_daily_glucose_average(current.glucose_volume_percent_1_36) } ml"
-        dt 2.27 %
-        dd= "#{ default_daily_glucose_average(current.glucose_volume_percent_2_27) } ml"
-        dt 3.86 %
-        dd = "#{ default_daily_glucose_average(current.glucose_volume_percent_3_86) } ml"
+    = render"renalware/pd/regimes/glucose", regime: current
 
     - if current.type == "Renalware::PD::APDRegime"
       = render partial: "renalware/pd/regimes/current_apd_regime", locals: { current: current }
@@ -31,6 +22,5 @@
     .large-12.columns
       .section-underliner.padding-top-1
         b Bags:
-
       ul
         = pd_regime_bags(current.bags)

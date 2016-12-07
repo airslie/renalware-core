@@ -1,22 +1,5 @@
-
-.current-regime {
-  .flex-container {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-
-    dl {
-      flex: 1;
-      dd {
-        white-space: nowrap;
-      }
-    }
-    @media #{$medium-only} {
-      dl {
-        flex-basis: 50%;
-      }
-    }
-  }
+dl.pd-regime-details {
+  min-width: 300px;
 }
 
 form .row .columns .validate-days-of-week {
@@ -44,7 +27,6 @@ form .row .columns .validate-add-min-bag {
     }
   }
 }
-
 
 .pd-form {
   max-width: 840px;

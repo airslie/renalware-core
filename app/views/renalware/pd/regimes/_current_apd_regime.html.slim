@@ -2,11 +2,14 @@ dl.dl-horizontal.xlarge.apd-regime-details
   dt Add'l manual exchange?:
   dd= yes_no(current.has_additional_manual_exchange_bag?)
 
-  dt Tidal?:
+  dt Tidal:
   dd= yes_no(current.tidal_indicator)
 
   dt Tidal %:
   dd = "#{current.tidal_percentage} %"
+
+  dt Fill volume:
+  dd = "#{current.fill_volume} ml"
 
   dt Therapy time:
   dd= Renalware::Duration.from_minutes(current.therapy_time).to_s
