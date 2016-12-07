@@ -1,15 +1,9 @@
 = field_set_tag "APD" do
-  dd
-    /* force field set to render correctly */
-    dt
-    .row
-      .large-4.columns
-        dt Add'l manual exchange?:
-        dl= yes_no(pd_regime.has_additional_manual_exchange_bag?)
-
-      .large-4.columns
-        dt Has tidal?:
-        dl= yes_no(pd_regime.tidal_indicator)
+  dl.dl-horizontal
+    dt Add'l manual exchange?:
+    dd= yes_no(pd_regime.has_additional_manual_exchange_bag?)
+    dt Has tidal?:
+    dd= yes_no(pd_regime.tidal_indicator)
 
     .row
       .large-4.columns

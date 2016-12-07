@@ -2,41 +2,29 @@
 =field_set_tag "Current PD Regime", class: "current-regime", data: { "regime-id" => current.id }
 
   .row
-    .large-3.columns
-      dl
+    .medium-6.large-4.columns
+      dl.dl-horizontal
         dt Regime Start Date:
-        dl=l current.start_date
-
+        dd=l current.start_date
         dt Regime End Date:
-        dl= default_for_blank_date(current.end_date, "Pending")
-
+        dd= default_for_blank_date(current.end_date, "Pending")
         dt Treatment:
-        dl= current.treatment
-
+        dd= current.treatment
         dt On additional HD?:
-        dl= yes_no(current.add_hd)
+        dd= yes_no(current.add_hd)
 
-    .large-3.columns
-      dl
-        dt Average Daily Glucose:
-        dl
-        ul style="list-style-type: disc"
-          li
-            b 1.36 %
-            | &nbsp;
-            = "#{ default_daily_glucose_average(current.glucose_volume_percent_1_36) } ml"
+    .medium-6.large-4.columns
+        dt.subheading Avg Daily Glucose:
+        dd
+        dl.dl-horizontal.avg-daily-glucose-list
+          dt 1.36 %
+          dd= "#{ default_daily_glucose_average(current.glucose_volume_percent_1_36) } ml"
+          dt 2.27 %
+          dd= "#{ default_daily_glucose_average(current.glucose_volume_percent_2_27) } ml"
+          dt 3.86 %
+          dd = "#{ default_daily_glucose_average(current.glucose_volume_percent_3_86) } ml"
 
-          li
-            b 2.27 %
-            | &nbsp;
-            = "#{ default_daily_glucose_average(current.glucose_volume_percent_2_27) } ml"
-
-          li
-            b 3.86 %
-            | &nbsp;
-            = "#{ default_daily_glucose_average(current.glucose_volume_percent_3_86) } ml"
-
-    .large-6.columns
+    .medium-6.large-4.columns
       - if current.type == "Renalware::PD::APDRegime"
         = render partial: "renalware/pd/regimes/current_apd_regime", locals: { current: current }
 
