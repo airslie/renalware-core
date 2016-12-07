@@ -1,32 +1,31 @@
 - current = current_regime
 =field_set_tag "Current PD Regime", class: "current-regime", data: { "regime-id" => current.id }
 
-  .row
-    .medium-6.large-4.columns
-      dl.dl-horizontal
-        dt Regime Start Date:
-        dd=l current.start_date
-        dt Regime End Date:
-        dd= default_for_blank_date(current.end_date, "Pending")
-        dt Treatment:
-        dd= current.treatment
-        dt On additional HD?:
-        dd= yes_no(current.add_hd)
+  .flex-container
 
-    .medium-6.large-4.columns
-        dt.subheading Avg Daily Glucose:
-        dd
-        dl.dl-horizontal.avg-daily-glucose-list
-          dt 1.36 %
-          dd= "#{ default_daily_glucose_average(current.glucose_volume_percent_1_36) } ml"
-          dt 2.27 %
-          dd= "#{ default_daily_glucose_average(current.glucose_volume_percent_2_27) } ml"
-          dt 3.86 %
-          dd = "#{ default_daily_glucose_average(current.glucose_volume_percent_3_86) } ml"
+    dl.dl-horizontal.pd-regime-details.xlarge
+      dt Regime Start Date:
+      dd=l current.start_date
+      dt Regime End Date:
+      dd= default_for_blank_date(current.end_date, "Pending")
+      dt Treatment:
+      dd= current.treatment
+      dt On additional HD?:
+      dd= yes_no(current.add_hd)
 
-    .medium-6.large-4.columns
-      - if current.type == "Renalware::PD::APDRegime"
-        = render partial: "renalware/pd/regimes/current_apd_regime", locals: { current: current }
+    dl.dl-horizontal.pd-glucose-details
+      dt.subheading Avg Daily Glucose
+      dd
+      dl.dl-horizontal.avg-daily-glucose-list
+        dt 1.36 %
+        dd= "#{ default_daily_glucose_average(current.glucose_volume_percent_1_36) } ml"
+        dt 2.27 %
+        dd= "#{ default_daily_glucose_average(current.glucose_volume_percent_2_27) } ml"
+        dt 3.86 %
+        dd = "#{ default_daily_glucose_average(current.glucose_volume_percent_3_86) } ml"
+
+    - if current.type == "Renalware::PD::APDRegime"
+      = render partial: "renalware/pd/regimes/current_apd_regime", locals: { current: current }
 
   .row
     .large-12.columns
