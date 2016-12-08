@@ -1,15 +1,12 @@
-.sticky
-  nav.top-bar(data-topbar role="navigation")
-    ul.title-area
-      li.name
-      li.toggle-topbar.menu-icon
-        a(href="#")
-          span
 
-    - if user_signed_in?
-      = render "renalware/navigation/menu", patient_search: patient_search
-    - else
-      = render "renalware/navigation/branding"
+nav.top-bar(data-topbar role="navigation")
+  ul.title-area
+    li.name
+    li.toggle-topbar.menu-icon
+      a(href="#")
+        span
 
-- if !user_signed_in?
-  = render "renalware/navigation/footer"
+  - if user_signed_in?
+    = render "renalware/navigation/menu", patient_search: patient_search
+  - else
+    = render "renalware/navigation/branding"

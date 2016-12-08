@@ -1,18 +1,36 @@
-body > .main-content {
-  position: relative;
-  top: 0.3em;
-  padding-bottom: 4em;
+html {
+  height: 100%; /* needed for proper layout */
+
+  body {
+    height: 100%; /* needed for proper layout */
+    overflow: hidden;
+
+    .page {
+      display: flex;
+      flex-direction: column;
+      height: 100%; /* needed for proper layout */
+    }
+
+    .main-content {
+      position: relative;
+      padding-bottom: 4em;
+      flex: 1 1 auto;
+      position: relative; /* need this to position inner content */
+      overflow-y: auto;
+    }
+  }
 }
 
 footer {
   text-align: right;
-  position: fixed;
-  right: 0px;
-  bottom: 0px;
-  width: 100%;
   color: $footer-colour;
   font-size: 12px;
   margin: 1em;
+  //flex: 0 0 auto;
+}
+
+.sticky-top {
+  flex: 0 0 auto;
 }
 
 .embedded-scroll {

@@ -16,54 +16,64 @@ ul.provider {
 .med-list>li {
   display: inline-block;
 }
+.patient-content {
+  display: block;
+  flex: 1;
+}
+.patient-container {
+  display:flex;
+}
 
-dl.patient-header {
-  font-size: 1.1rem;
-  margin: 0 0 .2em 1em;
+.patient-header {
+  background-color: $white;
+  dl {
+    font-size: 1.1rem;
+    margin: 0 0 .2em 1em;
 
-  dt {
-    color: $patient-header-muted-color;
-    display: inline-block;
-    font-size: .6em;
-    font-weight: normal;
-    margin: 0;
-    padding: 0;
-    text-transform: uppercase;
-
-    @media print, #{$large-up} {
-      font-size: .7em;
-    }
-  }
-
-  dd {
-    display: inline;
-    font-size: 1em;
-    margin: 0 .5em 0 .1em;
-
-    &.name {
+    dt {
+      color: $patient-header-muted-color;
       display: inline-block;
-      font-size: 1.4em;
-      margin-right: .4em;
-      margin-left: 0;
-      width: 100%;
-    }
+      font-size: .6em;
+      font-weight: normal;
+      margin: 0;
+      padding: 0;
+      text-transform: uppercase;
 
-    @media #{$medium-only} {
-      font-size: 1.1em;
-
-      &.name {
-        width: auto;
+      @media print, #{$large-up} {
+        font-size: .7em;
       }
     }
 
-    @media print, #{$large-up} {
-      font-size: 1.4em;
-      margin: 0 .6rem 0 .2em;
+    dd {
+      display: inline;
+      font-size: 1em;
+      margin: 0 .5em 0 .1em;
 
       &.name {
-        font-size: 1.6em;
-        margin-right: .6em;
-        width: auto;
+        display: inline-block;
+        font-size: 1.4em;
+        margin-right: .4em;
+        margin-left: 0;
+        width: 100%;
+      }
+
+      @media #{$medium-only} {
+        font-size: 1.1em;
+
+        &.name {
+          width: auto;
+        }
+      }
+
+      @media print, #{$large-up} {
+        font-size: 1.4em;
+        margin: 0 .6rem 0 .2em;
+
+        &.name {
+          font-size: 1.6em;
+          margin-right: .6em;
+          width: auto;
+        }
       }
     }
   }

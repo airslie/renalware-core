@@ -13,12 +13,16 @@ html lang="en"
 
   body
     #modals-wrapper
+    .page
+      .sticky-top
+          = render partial: 'renalware/navigation/main'
+          = yield(:header)
+      = render partial: 'renalware/shared/flash_messages'
 
-    = render partial: 'renalware/navigation/main'
-    = render partial: 'renalware/shared/flash_messages'
+      main.main-content
+        = yield
 
-    .main-content
-      = yield
+      = javascript_include_tag "application"
 
-    = javascript_include_tag "application"
-    = yield :footer
+      - unless user_signed_in?
+        = render "renalware/navigation/footer"

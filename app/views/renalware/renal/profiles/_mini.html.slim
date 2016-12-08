@@ -1,8 +1,7 @@
 - patient = Renalware::Renal.cast_patient(patient)
 
-.row
-  .renal-profile
-    = link_to "ESRF", edit_patient_renal_profile_path(patient)
-    | &nbsp;
-    = patient.profile
-    | &nbsp;
+.renal-profile
+  = link_to "ESRF", edit_patient_renal_profile_path(patient)
+  | &nbsp;
+  = patient.profile
+  | &nbsp;
