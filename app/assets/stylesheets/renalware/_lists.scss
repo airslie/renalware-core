@@ -36,6 +36,13 @@
     }
   }
 
+  &.xlarge {
+    dt {
+      width: $dl_horizontal_dt_width + 5.5rem;
+    }
+  }
+
+  // Default
   &.large {
   }
 

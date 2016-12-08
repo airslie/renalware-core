@@ -1,39 +1,24 @@
-.row
-  .large-6.columns
-    ul.no-bullet
-      li
-        b Add'l manual exchange?:
-        | &nbsp;
-        = yes_no(current.has_additional_manual_exchange_bag?)
+dl.dl-horizontal.xlarge.apd-regime-details
+  dt Add'l manual exchange?:
+  dd= yes_no(current.has_additional_manual_exchange_bag?)
 
-      li
-        b Tidal?:
-        | &nbsp;
-        = yes_no(current.tidal_indicator)
+  dt Tidal:
+  dd= yes_no(current.tidal_indicator)
 
-      li
-        b Tidal:
-        | &nbsp;
-        = "#{current.tidal_percentage} %"
+  dt Tidal %:
+  dd = "#{current.tidal_percentage} %"
 
-  .large-6.columns
-    ul.no-bullet
+  dt Fill volume:
+  dd = "#{current.fill_volume} ml"
 
-      li
-        b Therapy time:
-        | &nbsp;
-        = Renalware::Duration.from_minutes(current.therapy_time).to_s
-      li
-        b Cycles per session:
-        | &nbsp;
-        = current.no_cycles_per_apd
+  dt Therapy time:
+  dd= Renalware::Duration.from_minutes(current.therapy_time).to_s
 
-      li
-        b Overnight PD vol on APD:
-        | &nbsp;
-        = "#{current.overnight_pd_volume} ml"
+  dt Cycles per session:
+  dd= current.no_cycles_per_apd
 
-      li
-        b Machine PAC:
-        | &nbsp;
-        = current.apd_machine_pac
+  dt Overnight PD vol on APD:
+  dd = "#{current.overnight_pd_volume} ml"
+
+  dt Machine PAC:
+  dd= current.apd_machine_pac
