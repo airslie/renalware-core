@@ -75,13 +75,15 @@ module Renalware
 
       def pd_regime_params
         params.require(:pd_regime).permit(
-          :start_date, :end_date, :treatment, :type, :add_hd, :last_fill_volume,
+          :start_date, :end_date, :treatment, :type, :add_hd, :tidal_full_drain_every_three_cycles,
           :tidal_indicator, :tidal_percentage, :no_cycles_per_apd,
-          :overnight_pd_volume, :apd_machine_pac, :therapy_time, :fill_volume, :delivery_interval,
+          :apd_machine_pac, :therapy_time, :fill_volume, :delivery_interval,
           :system_id, :last_fill_volume, :additional_manual_exchange_volume,
           bags_attributes: [
-            :id, :regime_id, :bag_type_id, :volume, :role, :per_week, :monday, :tuesday,
-            :wednesday, :thursday, :friday, :saturday, :sunday, :_destroy]
+            :id, :regime_id, :bag_type_id, :volume, :role,
+            :per_week, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday,
+            :_destroy
+          ]
         )
       end
 

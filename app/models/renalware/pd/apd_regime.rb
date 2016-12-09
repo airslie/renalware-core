@@ -7,6 +7,10 @@ module Renalware
       include OrderedScope
       include PatientScope
 
+      alias_attribute :tidal?, :tidal_indicator?
+      alias_attribute :cycles, :no_cycles_per_apd
+      alias_attribute :drain_every_three_cycles?, :tidal_full_drain_every_three_cycles?
+
       VALID_RANGES = OpenStruct.new(
         therapy_times: (120..900).step(30).to_a,
         fill_volumes: 0..2_500,
@@ -35,7 +39,8 @@ module Renalware
       validates :tidal_percentage,
                 allow_nil: true,
                 numericality: { only_integer: true },
-                numeric_inclusion: { in: VALID_RANGES.tidal_percentages }
+                numeric_inclusion: { in: VALID_RANGES.tidal_percentages },
+                if: :tidal?
 
       validates :no_cycles_per_apd,
                 allow_nil: true,
@@ -52,12 +57,24 @@ module Renalware
                 numericality: { only_integer: true },
                 numeric_inclusion: { in: VALID_RANGES.therapy_times }
 
+      before_save -> { APD::CalculateOvernightVolume.new(self).call }
+
       def pd_type
         :apd
       end
 
       def has_additional_manual_exchange_bag?
-        bags.select{ |bag| bag.role.additional_manual_exchange? }.any?
+        has_bag_with_role?(:additional_manual_exchange)
+      end
+
+      def has_last_fill_bag?
+        has_bag_with_role?(:last_fill)
+      end
+
+      private
+
+      def has_bag_with_role?(role)
+        bags.select{ |bag| bag.role.public_send(:"#{role}?") }.any?
       end
     end
   end

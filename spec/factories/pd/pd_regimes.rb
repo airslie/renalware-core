@@ -22,9 +22,12 @@ FactoryGirl.define do
     icodextrin_volume 53
     add_hd false
     last_fill_volume 630
-    tidal_indicator true
-    tidal_percentage 70
-    no_cycles_per_apd 2
+    # tidal_indicator true
+    # tidal_percentage 70
+    tidal_indicator false
+    tidal_percentage nil
+    tidal_full_drain_every_three_cycles nil
+    no_cycles_per_apd 7
     overnight_pd_volume 5100
     apd_machine_pac "123-4567-890"
   end

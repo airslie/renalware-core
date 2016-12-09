@@ -9,6 +9,7 @@ en:
         overnight_pd_volume: "Overnight PD vol on APD (ml)"
         apd_machine_pac: "Machine PAC"
         tidal_indicator: "Has tidal?"
+        tidal_full_drain_every_three_cycles: "Full drain every 3 cycles?"
         add_hd: "On additional HD"
         tidal_percentage: "Tidal (%)"
         treatment: Treatment
@@ -41,6 +42,6 @@ en:
   enumerize:
     renalware/pd/regime_bag:
       role:
-        ordinary_bag: Ordinary bag
+        ordinary: Ordinary bag
         last_fill: Last fill
         additional_manual_exchange: Additional manual exchange

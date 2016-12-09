@@ -10,6 +10,6 @@ FactoryGirl.define do
     friday true
     saturday false
     sunday false
-    role :ordinary_bag
+    role :ordinary
   end
 end
