@@ -50,11 +50,20 @@ RSpec.describe "Searching patients", type: :request do
         create(:patient, nhs_number: "9999999999")
       end
 
-      it "responds with a filtered list of records matching the hospital number" do
+      it "responds with a filtered list of records matching the NHS number" do
         get patients_path(q: { identity_match: "1234567890" })
 
         expect(response).to have_http_status(:success)
         expect(response.body).to match("1234567890")
+      end
+
+      context "when the NHS number is entered in the 3-groups-separated-with-spaces format" do
+        it "responds with a filtered list of records matching the NHS number" do
+          get patients_path(q: { identity_match: "123 456 7890" })
+
+          expect(response).to have_http_status(:success)
+          expect(response.body).to match("1234567890")
+        end
       end
     end
   end
