@@ -1,11 +1,11 @@
 .flash-message {
   clear: both;
   position: relative;
-  top: 1.5em;
   z-index: 1;
 
-  .alert {
+  .alert-box {
     padding: 0.5rem 1rem;
+    margin-bottom: 0;
   }
 }
 
