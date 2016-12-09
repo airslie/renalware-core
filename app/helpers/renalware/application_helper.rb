@@ -4,6 +4,17 @@ require "git_commit_sha"
 module Renalware
   module ApplicationHelper
 
+    def page_title(separator = " – ")
+      [
+        content_for(:page_title),
+        Renalware.config.site_name
+      ].compact.join(separator)
+    end
+
+    def page_heading(title)
+      content_for(:page_title){ title.html_safe }
+    end
+
     def errors_css_class(model, attr)
       " field_with_errors" if model.errors.key?(attr)
     end

@@ -1,0 +1,16 @@
+en:
+  renalware:
+    patients:
+      show:
+        page_title: Demographics
+    clinical_summaries:
+      show:
+        page_title: Clinical Summary
+    pd:
+      dashboards:
+        show:
+          page_title: PD Summary
+      regimes:
+        show:
+          page_title: PD Regime
+

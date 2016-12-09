@@ -1,4 +1,8 @@
-= render layout: "renalware/patients/layout", locals: local_assigns.merge!(title: "PD Summary") do
+- content_for(:page_title, t(".page_title"))
+
+= render layout: "renalware/patients/layout",
+         locals: local_assigns.merge!(title: t(".page_title")) do
+
   - if dashboard.current_regime.present?
     = render "renalware/pd/regimes/current_regime",
               current_regime: dashboard.current_regime

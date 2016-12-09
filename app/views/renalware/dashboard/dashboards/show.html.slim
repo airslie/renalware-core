@@ -1,3 +1,5 @@
+- page_heading(dashboard.title)
+
 = render layout: "layout", locals: { user: dashboard.user, title: dashboard.title } do
   h4 Draft Letters
   - if dashboard.draft_letters.any?

@@ -1,5 +1,5 @@
 .row.header
-  h1= title
+  h1= content_for(:page_title) || local_assigns[:title]
 
 .row
   .large-12.columns

@@ -1,4 +1,6 @@
-= render layout: "renalware/patients/layout", locals: { title: "Access Summary" } do
+- page_heading "Access Summary"
+
+= render layout: "renalware/patients/layout" do
   .document
     = render "renalware/accesses/profiles/current_profile"
     = render "renalware/accesses/profiles/list"

@@ -1,4 +1,8 @@
-= render layout: "renalware/patients/layout", locals: local_assigns.merge!(title: "PD Regime") do
+- page_heading(t(".page_title"))
+
+= render layout: "renalware/patients/layout",
+         locals: local_assigns do
+
     = field_set_tag "Treatment" do
 
       .flex-container
