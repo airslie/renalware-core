@@ -1,0 +1,5 @@
+browsers:
+  - "> 10%"
+  - "last 2 versions"
+  - "IE > 8"
+  - "Safari >= 4"
