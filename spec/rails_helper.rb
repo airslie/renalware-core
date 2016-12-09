@@ -85,7 +85,7 @@ end
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(
     app,
-    window_size: [1366, 768],
+    window_size: [1366, 1768],
     js_errors: true
   )
 end

@@ -7,9 +7,17 @@ Capybara.register_driver :poltergeist_debug do |app|
   Capybara::Poltergeist::Driver.new(
     app,
     inspector: "open",
+    window_size: [1366, 1768],
     debug: true
   )
 end
 
-Capybara.javascript_driver = :poltergeist
+Capybara.register_driver :poltergeist_large_window do |app|
+  Capybara::Poltergeist::Driver.new(
+    app,
+    window_size: [1366, 1768]
+  )
+end
+
+Capybara.javascript_driver = :poltergeist_large_window
 # Capybara.javascript_driver = :poltergeist_debug
