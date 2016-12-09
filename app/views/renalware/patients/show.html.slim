@@ -1,4 +1,6 @@
-= render layout: "layout", locals: { title: "Demographics" } do
+- page_heading(t(".page_title"))
+
+= render layout: "layout" do
   #patient-demographics
     = render "renalware/patients/show/patient_demographics", patient: @patient
     = render "renalware/patients/show/letter_preferences", patient: @patient

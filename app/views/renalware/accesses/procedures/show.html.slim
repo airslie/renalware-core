@@ -1,5 +1,6 @@
-= render layout: "renalware/patients/layout",
-    locals: { title: "Access Procedure" } do
+- page_heading("Access Procedure")
+
+= render layout: "renalware/patients/layout" do
   - return unless @procedure
 
   = render "procedure_nav"

@@ -5,7 +5,7 @@
   .patient-content
     = render "renalware/renal/profiles/mini", patient: current_patient
     .row
-      h2= title
+      h1= content_for(:page_title) || local_assigns[:title]
 
       - partial = local_assigns[:navigation_partial] || "navigation"
 
