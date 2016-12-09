@@ -39,16 +39,6 @@ dd.patient-name {
   display: none;
 }
 
-// .patient-nav {
-//   background-color: red; //#656565;
-//   height: rem-calc(35) !important;
-
-//   .top-bar-section li:not(.has-form) a:not(.button) {
-//     line-height: rem-calc(35) !important;
-//     background-color: #656565 !important;
-//   }
-// }
-
 [data-magellan-expedition], [data-magellan-expedition-clone] {
   padding: 5px 0;
 }
@@ -58,7 +48,11 @@ dd.patient-name {
 }
 
 .patient-side-nav {
+  flex: 0 0 $patient-side-nav-width;
+  order: -1;
   background-color: $patient-menu-background-colour;
+  padding: 0 1rem 0 1rem;
+
   ul.side-nav li.link {
     padding-left: 0.875rem;
 
