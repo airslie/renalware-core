@@ -26,7 +26,9 @@ module Renalware
     # Override ApplicationController, where this default `helper_method` is defined.
     def patient_search
       @patient_search ||= begin
-        Renalware::Patient.search(params[:q]).tap do |search|
+        Renalware::Patient
+          .includes(current_modality: [:description])
+          .search(params[:q]).tap do |search|
           search.sorts = %w(family_name given_name)
         end
       end
