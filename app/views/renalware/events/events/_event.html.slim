@@ -9,3 +9,4 @@ tr
         .content.toggle-content id="patient-event-notes-#{event.id}"
           = event.notes
   td=l event.date_time
+  td = event.created_by.full_name
