@@ -28,7 +28,8 @@ module Renalware
       private
 
       def event_params
-        params.require(:events_event).permit(:event_type_id, :date_time, :description, :notes)
+        params.require(:events_event).permit(:event_type_id, :date_time,
+          :description, :notes)
       end
 
       def new_event_for_patient(params = {})
