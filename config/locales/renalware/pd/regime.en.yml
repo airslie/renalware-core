@@ -1,5 +1,14 @@
 en:
   activerecord:
+    errors:
+      models:
+        renalware/pd/regime:
+          attributes:
+              additional_manual_exchange_volume:
+                blank: "required if you have added an 'Additional manual exchange' bag"
+              last_fill_volume:
+                blank: "required if you have added a 'Last fill' bag"
+
     attributes:
       renalware/pd/regime:
         fill_volume: "Fill volume (ml)"
