@@ -14,11 +14,11 @@ module Renalware
       end
 
       def capd_regimes
-        @capd_regimes ||= CAPDRegime.for_patient(patient).ordered
+        @capd_regimes ||= CAPDRegime.for_patient(patient).with_bags.ordered
       end
 
       def apd_regimes
-        @apd_regimes ||= APDRegime.for_patient(patient).ordered
+        @apd_regimes ||= APDRegime.for_patient(patient).with_bags.ordered
       end
 
       def peritonitis_episodes

@@ -8,7 +8,8 @@ module Renalware
       enumerize :role,
                 in: [:ordinary, :last_fill, :additional_manual_exchange],
                 default: :ordinary,
-                scope: :having_role
+                scope: :having_role,
+                predicates: true
 
       before_save :assign_days_per_week
 

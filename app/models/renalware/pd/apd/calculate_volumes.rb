@@ -3,15 +3,16 @@ require_dependency "renalware/pd"
 module Renalware
   module PD
     module APD
-      class CalculateOvernightVolume
+      class CalculateVolumes
 
         def initialize(regime)
           raise ArgumentError("Not an APD regime") unless regime.apd?
-          @regime = regime
+          @regime = decorate(regime)
         end
 
         def call
-          regime.overnight_pd_volume = decorate(@regime).overnight_volume
+          regime.overnight_volume = regime.calculated_overnight_volume
+          regime.daily_volume = regime.calculated_daily_volume
         end
 
         private

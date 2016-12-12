@@ -36,9 +36,10 @@ module Renalware
       validate :min_one_bag
 
       scope :current, -> { eager_load(:termination).where(terminated_on: nil).first }
+      scope :with_bags, -> { eager_load(bags: [:bag_type]) }
 
       def self.current
-        Regime.order("created_at DESC").limit(1).first
+        Regime.order("pd_regimes.created_at DESC").limit(1).with_bags.first
       end
 
       def current?

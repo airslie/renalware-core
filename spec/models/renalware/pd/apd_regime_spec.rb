@@ -11,7 +11,8 @@ module Renalware
           is_expected.to validate_numericality_of(:tidal_percentage)
         end
         it { is_expected.to validate_numericality_of(:no_cycles_per_apd) }
-        it { is_expected.to validate_numericality_of(:overnight_pd_volume) }
+        it { is_expected.to validate_numericality_of(:overnight_volume) }
+        it { is_expected.to validate_numericality_of(:daily_volume) }
         it { is_expected.to validate_numericality_of(:therapy_time) }
         it { is_expected.to validate_numericality_of(:fill_volume) }
 
@@ -43,10 +44,10 @@ module Renalware
           ).to eq(true)
         end
 
-        it "overnight_pd_volume validates numeric_inclusion" do
+        it "overnight_volume validates numeric_inclusion" do
           expect(
-            has_numeric_validation(:overnight_pd_volume,
-                                   APDRegime::VALID_RANGES.overnight_pd_volumes)
+            has_numeric_validation(:overnight_volume,
+                                   APDRegime::VALID_RANGES.overnight_volumes)
           ).to eq(true)
         end
 
@@ -118,11 +119,11 @@ module Renalware
         it "calculates overnight volume before_save" do
           regime = build(:apd_regime)
           regime.bags << build(:pd_regime_bag, role: :ordinary)
-          expect_any_instance_of(APD::CalculateOvernightVolume).to receive(:call)
+          expect_any_instance_of(APD::CalculateVolumes).to receive(:call)
 
           regime.save!
 
-          expect(regime.overnight_pd_volume).to be > 0
+          expect(regime.overnight_volume).to be > 0
         end
       end
     end
