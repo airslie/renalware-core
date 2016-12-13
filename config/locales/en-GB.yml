@@ -1,6 +1,9 @@
 # From: https://raw.githubusercontent.com/svenfuchs/rails-i18n/master/rails/locale/en-GB.yml
 ---
 en-GB:
+  :true: "Yes"
+  :false: "No"
+
   date:
     abbr_day_names:
     - Sun
