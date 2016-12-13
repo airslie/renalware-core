@@ -13,6 +13,8 @@ module Renalware
       click_link "Add APD Regime"
 
       fill_in "Start date", with: "25/05/2015"
+      fill_in "* Fill volume (ml)", with: "1500"
+      fill_in "* Cycles per session", with: "7"
 
       select "APD Dry Day", from: "Treatment"
 
