@@ -1,5 +1,4 @@
-= render layout: "renalware/patients/layout",
-         locals: { title: t(".#{session.state}.title") } do
+= within_patient_layout(title: t(".#{session.state}.title") ) do
   = render "session_nav", session: session
 
   .document.hd-session-form

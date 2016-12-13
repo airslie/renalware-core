@@ -1,6 +1,4 @@
-- page_heading "Access Profile"
-
-= render layout: "renalware/patients/layout" do
+= within_patient_layout(title: "Access Profile") do
   = render "profile_nav"
 
   .document

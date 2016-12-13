@@ -1,4 +1,4 @@
-= render layout: "renalware/patients/layout", locals: { title: "Demographics" } do
+= within_patient_layout(title: "Demographics") do
 
   .document
     = simple_form_for @patient, wrapper: "horizontal_form" do |f|

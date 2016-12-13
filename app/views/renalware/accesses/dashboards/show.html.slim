@@ -1,6 +1,4 @@
-- page_heading "Access Summary"
-
-= render layout: "renalware/patients/layout" do
+= within_patient_layout do
   .document
     = render "renalware/accesses/profiles/current_profile"
     = render "renalware/accesses/profiles/list"

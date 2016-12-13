@@ -1,6 +1,4 @@
-- page_heading("Access Procedure")
-
-= render layout: "renalware/patients/layout" do
+= within_patient_layout(title: "Access Procedure") do
   - return unless @procedure
 
   = render "procedure_nav"

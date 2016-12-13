@@ -1,4 +1,5 @@
-= render layout: "renalware/patients/layout", locals: { title: "Problems" } do
+= within_patient_layout(title: "Problems") do
+
   - if !current_user.has_role?(:read_only) && params[:add_problem].present?
     = simple_form_for problem, url: patient_problems_path(@patient), wrapper: :horizontal_form do |f|
         = field_set_tag "New problem" do

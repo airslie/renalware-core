@@ -4,6 +4,7 @@ require "git_commit_sha"
 module Renalware
   module ApplicationHelper
 
+    # For use in layouts
     def page_title(separator = " – ")
       [
         content_for(:page_title),
@@ -11,8 +12,13 @@ module Renalware
       ].compact.join(separator)
     end
 
+    # For use in pages
     def page_heading(title)
       content_for(:page_title){ title.html_safe }
+    end
+
+    def t?(key)
+      t(key, cascade: false, raise: false, default: "").present?
     end
 
     def errors_css_class(model, attr)

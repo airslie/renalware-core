@@ -1,6 +1,6 @@
 - return unless @registration
 
-= render layout: "renalware/patients/layout", locals: { title: "Transplant Wait List Registration" } do
+= within_patient_layout(title: "Transplant Wait List Registration") do
 
   .document-view
     - ["Codes", "CRF", "HLA", "Transplant", "Organs", "NHB Consent"].each do |group|

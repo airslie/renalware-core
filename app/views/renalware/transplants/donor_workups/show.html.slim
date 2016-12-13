@@ -1,4 +1,4 @@
-= render layout: "renalware/patients/layout", locals: { title: "Transplant Donor Workup" } do
+= within_patient_layout(title: "Transplant Donor Workup") do
   - return unless @workup
   .document-view
     = render "renalware/shared/documents/attributes_group",

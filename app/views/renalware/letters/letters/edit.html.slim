@@ -1,4 +1,4 @@
-= render layout: "renalware/patients/layout", locals: { title: "Letters" } do
+= within_patient_layout(title: "Letter") do
   = render "letter_nav", patient: patient, letter: letter
 
   .document

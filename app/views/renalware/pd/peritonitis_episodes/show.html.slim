@@ -1,7 +1,5 @@
 - title = "Peritonitis Episode - Diagnosed: #{ l peritonitis_episode.diagnosis_date }"
-
-= render layout: "renalware/patients/layout",
-         locals:  local_assigns.merge!(title: title) do
+= within_patient_layout(title: title, **local_assigns) do
 
   = field_set_tag "Episode" do
 

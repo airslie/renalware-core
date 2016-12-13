@@ -1,4 +1,4 @@
-= render layout: "renalware/patients/layout", locals: { title: "Clinic Visits" } do
+= within_patient_layout(title: "New Clinic Visit") do
   .document
     = simple_form_for [@patient, @clinic_visit],
         as: :clinic_visit,

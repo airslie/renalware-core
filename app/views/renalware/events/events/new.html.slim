@@ -1,4 +1,4 @@
-= render layout: "renalware/patients/layout", locals: { title: "Events" } do
+= within_patient_layout(title: "New Event") do
   = render partial: "renalware/shared/errors", locals: { model: @event }
 
   .row
@@ -8,8 +8,7 @@
           wrapper: "horizontal_form" do |f|
 
         = f.input :date_time, as: :datetime_picker
-        = f.association :event_type,
-            label_method: :name, value_method: :id
+        = f.association :event_type, label_method: :name, value_method: :id
         = f.input :description
         = f.input :notes, as: :text, input_html: { rows: 5 }
 

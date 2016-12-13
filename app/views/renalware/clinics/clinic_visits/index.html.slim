@@ -1,2 +1,2 @@
-= render layout: "renalware/patients/layout", locals: { title: "Clinic Visits" } do
+= within_patient_layout(title: "Clinic Visits") do
   = render "table", clinic_visits: @clinic_visits
