@@ -18,6 +18,7 @@ module Renalware
       enumerize :urine_protein, in: %i(neg trace very_low low medium high)
 
       def bmi
+        return unless weight && height && height > 0
         ((weight / height) / height).round(2)
       end
 
