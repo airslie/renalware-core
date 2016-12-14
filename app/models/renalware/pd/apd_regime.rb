@@ -17,7 +17,7 @@ module Renalware
         last_fill_volumes: 500..5_000,
         additional_manual_exchange_volumes: 500..5_000,
         cycles_per_apd: 2..20,
-        overnight_pd_volumes: 3_000..25_000,
+        overnight_volumes: 3_000..25_000,
         tidal_percentages: (60..100).step(5).to_a
       ).freeze
 
@@ -47,34 +47,32 @@ module Renalware
                 numericality: { only_integer: true },
                 numeric_inclusion: VALID_RANGES.cycles_per_apd
 
-      validates :overnight_pd_volume,
+      validates :overnight_volume,
                 allow_nil: true,
                 numericality: { only_integer: true },
-                numeric_inclusion: VALID_RANGES.overnight_pd_volumes
+                numeric_inclusion: VALID_RANGES.overnight_volumes
+
+      validates :daily_volume,
+                allow_nil: true,
+                numericality: { only_integer: true }
 
       validates :therapy_time,
                 allow_nil: true,
                 numericality: { only_integer: true },
                 numeric_inclusion: { in: VALID_RANGES.therapy_times }
 
-      before_save -> { APD::CalculateOvernightVolume.new(self).call }
+      before_save -> { APD::CalculateVolumes.new(self).call }
 
       def pd_type
         :apd
       end
 
       def has_additional_manual_exchange_bag?
-        has_bag_with_role?(:additional_manual_exchange)
+        bags.any?(&:additional_manual_exchange?)
       end
 
       def has_last_fill_bag?
-        has_bag_with_role?(:last_fill)
-      end
-
-      private
-
-      def has_bag_with_role?(role)
-        bags.select{ |bag| bag.role.public_send(:"#{role}?") }.any?
+        bags.any?(&:last_fill?)
       end
     end
   end

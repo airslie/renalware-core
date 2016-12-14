@@ -2715,7 +2715,7 @@ CREATE TABLE pd_regimes (
     tidal_indicator boolean,
     tidal_percentage integer,
     no_cycles_per_apd integer,
-    overnight_pd_volume integer,
+    overnight_volume integer,
     apd_machine_pac character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -2724,7 +2724,8 @@ CREATE TABLE pd_regimes (
     delivery_interval integer,
     system_id integer,
     additional_manual_exchange_volume integer,
-    tidal_full_drain_every_three_cycles boolean DEFAULT true
+    tidal_full_drain_every_three_cycles boolean DEFAULT true,
+    daily_volume integer
 );
 
 
@@ -8099,6 +8100,8 @@ INSERT INTO schema_migrations (version) VALUES ('20161201165330');
 INSERT INTO schema_migrations (version) VALUES ('20161201183449');
 
 INSERT INTO schema_migrations (version) VALUES ('20161202155429');
+
+INSERT INTO schema_migrations (version) VALUES ('20161212095607');
 
 INSERT INTO schema_migrations (version) VALUES ('20161212133822');
 

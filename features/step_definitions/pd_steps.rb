@@ -142,7 +142,7 @@ end
 #     tidal_indicator: true,
 #     tidal_percentage: 60,
 #     no_cycles_per_apd: 3,
-#     overnight_pd_volume: 7600,
+#     overnight_volume: 7600,
 #     apd_machine_pac: "123-4567-890",
 #     bags_attributes: [
 #       bag_type: bag_type,
@@ -174,7 +174,7 @@ end
 #     tidal_indicator: false,
 #     tidal_percentage: nil,
 #     no_cycles_per_apd: 4,
-#     overnight_pd_volume: 7800,
+#     overnight_volume: 7800,
 #     apd_machine_pac: "123-4567-890",
 #     bags_attributes: [
 #       bag_type: bag_type,

@@ -17,7 +17,9 @@
     dd= Renalware::Duration.from_minutes(pd_regime.therapy_time).to_s
     dt Cycles per session:
     dd= pd_regime.no_cycles_per_apd
-    dt Overnight PD vol on APD:
-    dd= "#{pd_regime.overnight_pd_volume} ml"
+    dt= t(".overnight_volume")
+    dd= "#{pd_regime.overnight_volume}"
+    dt= t(".daily_volume")
+    dd= "#{pd_regime.daily_volume}"
     dt Machine PAC:
     dd= pd_regime.apd_machine_pac

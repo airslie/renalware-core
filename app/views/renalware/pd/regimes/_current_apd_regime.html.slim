@@ -17,8 +17,11 @@ dl.dl-horizontal.xlarge.apd-regime-details
   dt Cycles per session:
   dd= current.no_cycles_per_apd
 
-  dt Overnight PD vol on APD:
-  dd = "#{current.overnight_pd_volume} ml"
+  dt= t(".overnight_volume")
+  dd = "#{current.overnight_volume} ml"
+
+  dt= t(".daily_volume")
+  dd= "#{current.daily_volume} ml"
 
   dt Machine PAC:
   dd= current.apd_machine_pac

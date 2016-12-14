@@ -3,29 +3,33 @@ require "rails_helper"
 module Renalware
   module PD
     module APD
-      describe CalculateOvernightVolume do
+      describe CalculateVolumes do
         let(:patient) { create(:pd_patient) }
 
         describe "#call" do
+
           it "uses non tidal calculations when the regime is not tidal" do
             expect_any_instance_of(NonTidalRegimeCalculations)
-              .to receive(:overnight_volume)
+              .to receive(:calculated_overnight_volume)
+              .at_least(:once)
               .and_return(100)
             regime = build(:apd_regime, tidal_indicator: false)
 
-            CalculateOvernightVolume.new(regime).call
+            CalculateVolumes.new(regime).call
 
-            expect(regime.overnight_pd_volume).to eq(100)
+            expect(regime.overnight_volume).to eq(100)
           end
+
           it "uses tidal calculations when the regime is tidal" do
             expect_any_instance_of(TidalRegimeCalculations)
-              .to receive(:overnight_volume)
+              .to receive(:calculated_overnight_volume)
+              .at_least(:once)
               .and_return(100)
             regime = build(:apd_regime, tidal_indicator: true)
 
-            CalculateOvernightVolume.new(regime).call
+            CalculateVolumes.new(regime).call
 
-            expect(regime.overnight_pd_volume).to eq(100)
+            expect(regime.overnight_volume).to eq(100)
           end
         end
       end
