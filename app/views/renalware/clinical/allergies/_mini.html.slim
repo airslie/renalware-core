@@ -4,8 +4,8 @@
   span.title
     i.fi-alert
     |&nbsp;
-    b= link_to patient.allergy_status.text,
-               patient_clinical_profile_path(patient)
-  ul.body
+    b= link_to patient.allergy_status.text, patient_clinical_profile_path(patient)
+  dl
     - patient.allergies.each do |allergy|
-      li= "#{allergy.description} #{l(allergy.recorded_at.to_date)}"
+      dt= allergy.description
+      dd= l(allergy.recorded_at.to_date)
