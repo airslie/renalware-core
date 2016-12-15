@@ -3,6 +3,7 @@ require_dependency "renalware/modalities"
 module Renalware
   module Modalities
     class Modality < ActiveRecord::Base
+      include Accountable
       include PatientScope
 
       belongs_to :description, class_name: "Description"
@@ -58,6 +59,7 @@ module Renalware
       def terminate!(successor)
         self.ended_on = successor.started_on
         self.state = "terminated"
+        self.by = User.first
         save!
       end
     end
