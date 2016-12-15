@@ -50,7 +50,7 @@ module Renalware
       end
 
       within ".current-regime" do
-        expect(page).to have_content("Days: Sun, Mon, Wed, Fri, Sat")
+        expect(page).to have_content("Sun, Mon, Wed, Fri, Sat")
       end
     end
   end

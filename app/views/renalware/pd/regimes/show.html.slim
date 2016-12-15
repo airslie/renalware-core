@@ -25,5 +25,5 @@
       = render partial: "renalware/pd/regimes/apd_regime_show", locals: local_assigns
 
     = field_set_tag "Bags" do
-      ul
-        = pd_regime_bags(pd_regime.bags)
+      ul.regime-bags= render @pd_regime.bags
+

@@ -1,3 +1,18 @@
+.regime-bags {
+  dl {
+    display: inline;
+    dd, dt {
+      display: inline;
+    }
+    dt {
+      margin-right: .2rem;
+    }
+    dd {
+      margin-right: 0.6rem;
+    }
+  }
+}
+
 dl.pd-regime-details {
   min-width: 300px;
 }
