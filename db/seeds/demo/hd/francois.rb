@@ -2,9 +2,10 @@ module Renalware
 
   patient = HD.cast_patient(Patient.find_by(local_patient_id: "Z100003"))
 
-  log "Assign Unit HD modality to Francois RABBIT" do
+  log "Assign HD modality to Francois RABBIT" do
     description = HD::ModalityDescription.first!
-    patient.set_modality(description: description, started_on: 1.week.ago)
+    patient.set_modality(description: description,
+     started_on: 1.week.ago, created_by_id: Renalware::User.first.id)
   end
 
   log "Assign some HD preferences to Francois RABBIT" do

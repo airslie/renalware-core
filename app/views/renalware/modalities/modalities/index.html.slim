@@ -2,10 +2,11 @@
   table
     thead
       tr
-        th Modality Code
+        th Modality
         th Notes
         th.col-width-date Start Date
         th.col-width-date.wide Termination Date
+        th Added by
 
     tbody
       - @modalities.each do |modality|
@@ -14,3 +15,4 @@
           td= modality.notes
           td= l modality.started_on
           td= l modality.ended_on
+          td= modality.created_by.full_name

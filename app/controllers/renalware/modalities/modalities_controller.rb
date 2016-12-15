@@ -28,10 +28,11 @@ module Renalware
       private
 
       def modality_params
-        params.require(:modality).permit(
+        params.require(:modality)
+        .permit(
           :description_id, :modal_change_type,
           :reason_id, :notes, :started_on
-        )
+        ).merge(by: current_user)
       end
 
       def handle_valid_modality

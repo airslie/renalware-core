@@ -1622,7 +1622,9 @@ CREATE TABLE modality_modalities (
     ended_on date,
     state character varying DEFAULT 'current'::character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL
 );
 
 
@@ -5851,6 +5853,13 @@ CREATE INDEX index_modality_descriptions_on_id_and_type ON modality_descriptions
 
 
 --
+-- Name: index_modality_modalities_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_modality_modalities_on_created_by_id ON modality_modalities USING btree (created_by_id);
+
+
+--
 -- Name: index_modality_modalities_on_description_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5876,6 +5885,13 @@ CREATE INDEX index_modality_modalities_on_patient_id_and_description_id ON modal
 --
 
 CREATE INDEX index_modality_modalities_on_reason_id ON modality_modalities USING btree (reason_id);
+
+
+--
+-- Name: index_modality_modalities_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_modality_modalities_on_updated_by_id ON modality_modalities USING btree (updated_by_id);
 
 
 --
@@ -7782,6 +7798,22 @@ ALTER TABLE ONLY letter_letters
 
 
 --
+-- Name: modality_modalities_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY modality_modalities
+    ADD CONSTRAINT modality_modalities_created_by_id_fk FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
+-- Name: modality_modalities_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY modality_modalities
+    ADD CONSTRAINT modality_modalities_updated_by_id_fk FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
 -- Name: pathology_requests_requests_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8206,4 +8238,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161212095607');
 INSERT INTO schema_migrations (version) VALUES ('20161212133822');
 
 INSERT INTO schema_migrations (version) VALUES ('20161212181500');
+
+INSERT INTO schema_migrations (version) VALUES ('20161215090417');
 
