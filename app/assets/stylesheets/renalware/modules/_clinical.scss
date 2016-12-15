@@ -1,0 +1,34 @@
+fieldset.clinical-allergies {
+  padding-bottom: 0;
+
+  .current-status {
+    font-weight:  normal;
+    padding-left: 0;
+  }
+
+  .panel {
+    margin-top: 3rem;
+    padding: 0.5rem 0;
+    border-bottom: none;
+
+    .flex-container {
+      flex-align: stretch;
+      margin: 0 1rem;
+      align-items: center;
+      justify-content: center;
+
+      &.disabled {
+        pointer-events:none;
+        opacity: .5;
+      }
+
+      input {
+        margin: 0;
+      }
+
+      label {
+        flex: 10;
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 en:
   prompts:
     confirm_delete: "Are you sure you want to delete?"
+    confirm_delete_with_model: "Are you sure you want to delete this %{model}?"
   renalware:
     new:
       save: "Save"

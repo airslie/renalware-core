@@ -1,0 +1,35 @@
+en:
+  renalware:
+    clinical:
+      allergies:
+        list:
+          legend: Allergies
+          description: Description
+          recorded_at: Recorded
+          add: Add
+          delete: Delete
+          edit: Edit
+
+
+
+        new:
+          title: Add allergy
+          description: Description
+          save: Add
+          save_disable_with: Saving...
+
+        mini:
+          title: Allergies
+      allergy_statuses:
+        form:
+          no_known_allergies: The patient reports no allergies
+          save: Confirm
+          save_disable_with: Saving...
+
+  enumerize:
+    renalware/patient:
+      allergy_status:
+        unrecorded: Allergies not recorded
+        known_allergies: Known allergies
+        no_known_allergies: No known allergies
+        unavailable: Unavailable

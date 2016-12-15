@@ -1,0 +1,23 @@
+module Renalware
+  module Clinical
+    class AllergyStatusForm
+      include ActiveModel::Model
+      include Virtus::Model
+
+      attribute :no_known_allergies, Integer
+
+      def save(patient, user)
+        return unless patient.allergies.count == 0
+        patient.allergy_status = no_known_allergies? ? :no_known_allergies : :unrecorded
+        patient.by = user
+        patient.save!
+      end
+
+      private
+
+      def no_known_allergies?
+        no_known_allergies == 1
+      end
+    end
+  end
+end

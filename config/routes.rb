@@ -136,6 +136,12 @@ Rails.application.routes.draw do
       resource :clinical_summary, only: :show
       resource :death, only: [:edit, :update]
 
+      namespace :clinical do
+        resources :allergies, only: [:create, :destroy]
+        resource :allergy_status, only: [:update]
+        resource :profile
+      end
+
       resources :bookmarks, only: :create, controller: "patients/bookmarks"
 
       namespace :accesses do

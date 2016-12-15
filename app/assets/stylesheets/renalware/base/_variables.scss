@@ -23,7 +23,19 @@ $off-white: #EEE;
 $dark-grey: #333;
 
 // NHS Colours
-$nhs_dark_blue: #003893;
+$nhs-yellow: #F7E214;
+$nhs-orange: #D88C05;
+$nhs-red: #D81E05;
+$nhs-dark-red: #931638;
+$nhs-dark-pink: #A00054;
+$nhs-purple: #56008C;
+$nhs-dark-blue: #003893;
+$nhs-light-blue: #0091C9;
+$nhs-aqua-blue: #00ADC6;
+$nhs-aqua-green: #00AA9E;
+$nhs-light-green: #5BBF21;
+$nhs-green: #009E49;
+$nhs-dark-green: #006B54;
 
 // Drug type colours
 $drug-type-default-colour: $white;
@@ -38,6 +50,8 @@ $patient-header-icon-color: #bbb;
 $bookmark-urgent-colour: #FFFFC8;
 
 $mini-profile-backgound-colour: #DEF0F6;
+$mini-profile-renal-backgound-colour: #DEF0F6;
+$mini-profile-allergies-backgound-colour: $nhs-yellow;
 
 $letter-preview-background-colour: #ddd;
 
@@ -46,6 +60,7 @@ $table-even-row-colour: #FCFCFC;
 $table-border-colour: #CCC;
 
 $footer-colour: #C0C0C0;
+$footer-bg-colour: #FAFAFA;
 
 $patient-menu-background-colour: #FAFAFA;
 $menu-divider-colour: #E6E6E6;

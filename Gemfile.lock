@@ -103,6 +103,13 @@ GEM
       railties (>= 3.0)
       sass-rails (>= 3.2)
     chronic (0.10.2)
+    client_side_validations (4.2.10)
+      jquery-rails (>= 3.1.2, < 5.0.0)
+      js_regex (~> 1.0, >= 1.0.19)
+      rails (>= 4.0.0, < 4.3.0)
+    client_side_validations-simple_form (3.3.1)
+      client_side_validations (~> 4.2.9)
+      simple_form (~> 3.3)
     cliver (0.3.2)
     cocoon (1.2.9)
     coderay (1.1.1)
@@ -218,6 +225,8 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
+    js_regex (1.2.0)
+      regexp_parser (>= 0.3.6, <= 0.4.1)
     json (1.8.3)
     json_pure (1.8.3)
     kaminari (0.15.1)
@@ -327,6 +336,7 @@ GEM
       ffi (>= 0.5.0)
     rdoc (4.1.2)
       json (~> 1.4)
+    regexp_parser (0.4.1)
     request_store (1.2.0)
     responders (2.1.1)
       railties (>= 4.2.0, < 5.1)
@@ -483,6 +493,8 @@ DEPENDENCIES
   capybara (~> 2.10.1)
   capybara-screenshot
   chosen-rails
+  client_side_validations
+  client_side_validations-simple_form
   cocoon (~> 1.2.9)
   cucumber-rails (~> 1.4.5)
   database_cleaner (~> 1.5.3)
