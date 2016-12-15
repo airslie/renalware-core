@@ -8,11 +8,9 @@ module Renalware
       Modalities::Modality.find_or_create_by!(
         patient_id: rabbit.id,
         description_id: row["description_id"],
-        reason_id: row["reason_id"]) do |mod|
-          mod.modal_change_type   = row["modal_change_type"]
-          mod.started_on          = row["started_on"]
-          mod.ended_on            = row["ended_on"]
-        end
+        started_on: row["started_on"],
+        ended_on: row["ended_on"],
+        created_by_id: Renalware::User.first.id)
     end
   end
 end

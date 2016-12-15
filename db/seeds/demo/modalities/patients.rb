@@ -11,7 +11,8 @@ module Renalware
           patient.modalities.create!(
             patient_id: patient.id,
             description_id: modal_ids.sample,
-            started_on: months.sample.months.ago)
+            started_on: months.sample.months.ago,
+            created_by_id: Renalware::User.first.id)
         end
       end
     end
