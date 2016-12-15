@@ -1,11 +1,13 @@
 module Renalware
   class DeathsController < BaseController
     include PresenterHelper
+    include Renalware::Concerns::Pageable
 
+    before_action :prepare_paging, only: [:index]
     before_action :load_patient, only: [:edit, :update]
 
     def index
-      patients = Patient.dead
+      patients = Patient.dead.page(@page).per(@per_page)
       authorize patients
       @patients = present(patients, PatientPresenter)
     end
