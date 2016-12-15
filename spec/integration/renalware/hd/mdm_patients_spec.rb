@@ -12,7 +12,8 @@ RSpec.describe "HD MDM Patients", type: :feature do
                        local_patient_id: "KCH12345")
 
       set_modality(patient: patient,
-                   modality_description: create(:hd_modality_description))
+                   modality_description: create(:hd_modality_description),
+                   by: user)
 
       login_as_clinician
       visit hd_mdm_patients_path

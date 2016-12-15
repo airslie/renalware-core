@@ -24,7 +24,6 @@ module World
         login
         dashboard_path = patient_pd_dashboard_path(patient)
         visit dashboard_path
-        byebug
 
         within ".capd-regimes-group" do
           if patient.pd_regimes.count == 0

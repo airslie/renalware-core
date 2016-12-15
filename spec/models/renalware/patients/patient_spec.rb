@@ -76,10 +76,13 @@ module Renalware
 
     describe "#set_modality" do
       let(:modality_description) { create(:modality_description) }
+      let(:user) { create(:user) }
 
       context "given the patient has no modality" do
         it "creates a patient modality on the patient" do
-          subject.set_modality(description: modality_description, started_on: Time.zone.today)
+          subject.set_modality(description: modality_description,
+                               started_on: Time.zone.today,
+                               by: user)
 
           expect(subject.reload.current_modality).not_to be_nil
           expect(subject.modalities).not_to be_empty
@@ -91,7 +94,8 @@ module Renalware
 
         before do
           subject.set_modality(description: modality_description,
-                               started_on: Date.parse("2015-04-17"))
+                               started_on: Date.parse("2015-04-17"),
+                               by: user)
           subject.reload
         end
 

@@ -80,7 +80,8 @@ module Renalware
         modality_description = FactoryGirl.create(:modality_description, :capd_standard)
         @actual = subject.transfer!(description: modality_description,
                                     notes: "Some notes",
-                                    started_on: started_on)
+                                    started_on: started_on,
+                                    by: create(:user))
       end
 
       it "updates the end date" do

@@ -25,9 +25,9 @@ module Renalware
 
       def transfer!(attrs)
         transaction do
-          successor = patient.modalities.create(attrs)
+          successor = patient.modalities.new(attrs)
+          successor.save!
           terminate!(successor) if successor.valid?
-
           successor
         end
       end
@@ -59,7 +59,7 @@ module Renalware
       def terminate!(successor)
         self.ended_on = successor.started_on
         self.state = "terminated"
-        self.by = User.first
+        self.by = successor.by
         save!
       end
     end

@@ -5,6 +5,9 @@ FactoryGirl.define do
     association :reason, factory: :modality_reason
     started_on Date.parse("2015-04-01")
 
+    association :created_by, factory: :user
+    association :updated_by, factory: :user
+
     trait :terminated do
       state "terminated"
     end
