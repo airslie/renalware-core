@@ -9,8 +9,7 @@ module Renalware
 
       def call(by:, params:)
         regime = patient.pd_regimes.new(params)
-        if regime.valid?
-          save_regime(regime, by)
+        if regime.valid? && save_regime(regime, by)
           return Success.new(regime)
         else
           return Failure.new(regime)
@@ -26,8 +25,7 @@ module Renalware
           if update_old_regime_end_date?(current_regime, new_regime)
             current_regime.end_date ||= new_regime.start_date
           end
-          current_regime.terminate(by: by).save!
-          new_regime.save!
+          current_regime.terminate(by: by).save && new_regime.save
         end
       end
 

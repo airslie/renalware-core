@@ -22,6 +22,7 @@ FactoryGirl.define do
     icodextrin_volume 53
     add_hd false
     last_fill_volume 630
+    fill_volume 1500
     # tidal_indicator true
     # tidal_percentage 70
     tidal_indicator false

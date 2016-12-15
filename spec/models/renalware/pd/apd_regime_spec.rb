@@ -16,6 +16,58 @@ module Renalware
         it { is_expected.to validate_numericality_of(:therapy_time) }
         it { is_expected.to validate_numericality_of(:fill_volume) }
 
+        it { is_expected.to validate_presence_of(:fill_volume) }
+        it { is_expected.to validate_presence_of(:no_cycles_per_apd) }
+
+        describe "#additional_manual_exchange_volume" do
+          context "when regime has an additional_manual_exchange bag" do
+            it "requires additional_manual_exchange_volume to be specified" do
+              allow(subject).to receive(:has_additional_manual_exchange_bag?).and_return(true)
+              subject.additional_manual_exchange_volume = nil
+
+              is_expected.to validate_presence_of :additional_manual_exchange_volume
+            end
+          end
+          context "when regime does not have an additional_manual_exchange bag" do
+            it "does not expect additional_manual_exchange_volume to be specified" do
+              allow(subject).to receive(:has_additional_manual_exchange_bag?).and_return(false)
+              subject.additional_manual_exchange_volume = nil
+
+              is_expected.to_not validate_presence_of :additional_manual_exchange_volume
+            end
+          end
+        end
+
+        describe "#last_fill_volume" do
+          context "when regime has a last_fill bag" do
+            it "requires last_fill_volume to be specified" do
+              allow(subject).to receive(:has_last_fill_bag?).and_return(true)
+              subject.last_fill_volume = nil
+
+              is_expected.to validate_presence_of :last_fill_volume
+            end
+          end
+          context "when regime does not have a last_fill bag" do
+            it "does not expect last_fill_volume to be specified" do
+              allow(subject).to receive(:has_last_fill_bag?).and_return(false)
+              subject.last_fill_volume = nil
+
+              is_expected.to_not validate_presence_of :last_fill_volume
+            end
+          end
+        end
+
+        describe "#tidal_percentage" do
+          it "validates #tidal_percentage when the regime is tidal" do
+            subject.tidal_indicator = true
+            is_expected.to validate_presence_of :tidal_percentage
+          end
+          it "doesn't validate #tidal_percentage when the regime is not tidal" do
+            subject.tidal_indicator = false
+            is_expected.to_not validate_presence_of :tidal_percentage
+          end
+        end
+
         def has_numeric_validation(attribute, range)
           subject.send("#{attribute}=".to_sym, range.first - 1)
           subject.valid?

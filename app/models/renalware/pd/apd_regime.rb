@@ -63,6 +63,21 @@ module Renalware
 
       before_save -> { APD::CalculateVolumes.new(self).call }
 
+      validates :no_cycles_per_apd, presence: true
+      validates :fill_volume, presence: true
+
+      with_options if: :has_additional_manual_exchange_bag?, on: [:create, :update] do |regime|
+        regime.validates :additional_manual_exchange_volume, presence: true
+      end
+
+      with_options if: :has_last_fill_bag?, on: [:create, :update] do |regime|
+        regime.validates :last_fill_volume, presence: true
+      end
+
+      with_options if: :tidal?, on: [:create, :update] do |regime|
+        regime.validates :tidal_percentage, presence: true
+      end
+
       def pd_type
         :apd
       end
