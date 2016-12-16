@@ -2657,6 +2657,62 @@ ALTER SEQUENCE pd_peritonitis_episodes_id_seq OWNED BY pd_peritonitis_episodes.i
 
 
 --
+-- Name: pd_pet_adequacy_results; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pd_pet_adequacy_results (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    pet_date date,
+    pet_type character varying,
+    pet_duration numeric(8,1),
+    pet_net_uf integer,
+    dialysate_creat_plasma_ratio numeric(8,2),
+    dialysate_glucose_start numeric(8,1),
+    dialysate_glucose_end numeric(8,1),
+    adequacy_date date,
+    ktv_total numeric(8,2),
+    ktv_dialysate numeric(8,2),
+    ktv_rrf numeric(8,2),
+    crcl_total integer,
+    crcl_dialysate integer,
+    crcl_rrf integer,
+    daily_uf integer,
+    daily_urine integer,
+    date_rff date,
+    creat_value integer,
+    dialysate_effluent_volume numeric(8,2),
+    date_creat_clearance date,
+    date_creat_value date,
+    urine_urea_conc numeric(8,1),
+    urine_creat_conc integer,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pd_pet_adequacy_results_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pd_pet_adequacy_results_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pd_pet_adequacy_results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pd_pet_adequacy_results_id_seq OWNED BY pd_pet_adequacy_results.id;
+
+
+--
 -- Name: pd_regime_bags; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4116,6 +4172,13 @@ ALTER TABLE ONLY pd_peritonitis_episodes ALTER COLUMN id SET DEFAULT nextval('pd
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY pd_pet_adequacy_results ALTER COLUMN id SET DEFAULT nextval('pd_pet_adequacy_results_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY pd_regime_bags ALTER COLUMN id SET DEFAULT nextval('pd_regime_bags_id_seq'::regclass);
 
 
@@ -4869,6 +4932,14 @@ ALTER TABLE ONLY pd_peritonitis_episode_types
 
 ALTER TABLE ONLY pd_peritonitis_episodes
     ADD CONSTRAINT pd_peritonitis_episodes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pd_pet_adequacy_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_pet_adequacy_results
+    ADD CONSTRAINT pd_pet_adequacy_results_pkey PRIMARY KEY (id);
 
 
 --
@@ -6143,6 +6214,20 @@ CREATE INDEX index_pd_peritonitis_episodes_on_patient_id ON pd_peritonitis_episo
 
 
 --
+-- Name: index_pd_pet_adequacy_results_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_pet_adequacy_results_on_created_by_id ON pd_pet_adequacy_results USING btree (created_by_id);
+
+
+--
+-- Name: index_pd_pet_adequacy_results_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_pet_adequacy_results_on_updated_by_id ON pd_pet_adequacy_results USING btree (updated_by_id);
+
+
+--
 -- Name: index_pd_regime_bags_on_bag_type_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6796,6 +6881,14 @@ ALTER TABLE ONLY access_profiles
 
 ALTER TABLE ONLY medication_prescription_terminations
     ADD CONSTRAINT fk_rails_1f3fb8ef97 FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_1f91303c21; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_pet_adequacy_results
+    ADD CONSTRAINT fk_rails_1f91303c21 FOREIGN KEY (created_by_id) REFERENCES users(id);
 
 
 --
@@ -7551,6 +7644,14 @@ ALTER TABLE ONLY pathology_observations
 
 
 --
+-- Name: fk_rails_dd74a1d162; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_pet_adequacy_results
+    ADD CONSTRAINT fk_rails_dd74a1d162 FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
 -- Name: fk_rails_de0d26811a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7684,6 +7785,14 @@ ALTER TABLE ONLY pd_peritonitis_episodes
 
 ALTER TABLE ONLY patient_practices_primary_care_physicians
     ADD CONSTRAINT fk_rails_f2b12c3a20 FOREIGN KEY (practice_id) REFERENCES patient_practices(id);
+
+
+--
+-- Name: fk_rails_f8ae33fdba; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_pet_adequacy_results
+    ADD CONSTRAINT fk_rails_f8ae33fdba FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -8277,6 +8386,8 @@ INSERT INTO schema_migrations (version) VALUES ('20161214172314');
 INSERT INTO schema_migrations (version) VALUES ('20161215090417');
 
 INSERT INTO schema_migrations (version) VALUES ('20161216090417');
+
+INSERT INTO schema_migrations (version) VALUES ('20161216155218');
 
 INSERT INTO schema_migrations (version) VALUES ('20170103161015');
 

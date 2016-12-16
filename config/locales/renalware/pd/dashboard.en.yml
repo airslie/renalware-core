@@ -1,0 +1,7 @@
+en:
+  renalware:
+    pd:
+      dashboards:
+        show:
+          pet_adequacies:
+            add_pet_adequacy: Add PET Adequacy

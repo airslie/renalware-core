@@ -31,6 +31,10 @@ module Renalware
       def exit_site_infections
         @exit_site_infections ||= ExitSiteInfection.for_patient(patient).ordered
       end
+
+      def pet_adequacies
+        @pet_adequacies ||= PETAdequacyResult.for_patient(patient).ordered
+      end
     end
   end
 end

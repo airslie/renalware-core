@@ -3,6 +3,8 @@
 en-GB:
   :true: "Yes"
   :false: "No"
+  updated_at: "Updated on"
+  created_at: "Created on"
 
   date:
     abbr_day_names:

@@ -1,0 +1,32 @@
+= simple_form_for [patient, pet_adequacy_result],
+                  as: "pet_adequacy",
+                  wrapper: :horizontal_form,
+                  html: { class: "pet-adequacy-form" } do |f|
+
+  =f.input :pet_type, as: :inline_radio_buttons
+  =f.input :pet_date, as: :date_picker, wrapper: :horizontal_datepicker
+  =f.input :pet_duration, wrapper: :horizontal_small
+  =f.input :pet_net_uf, wrapper: :horizontal_small
+  =f.input :adequacy_date, as: :date_picker, wrapper: :horizontal_datepicker
+  =f.input :dialysate_creat_plasma_ratio, wrapper: :horizontal_small
+  =f.input :dialysate_glucose_start, wrapper: :horizontal_small
+  =f.input :dialysate_glucose_end, wrapper: :horizontal_small
+  =f.input :ktv_total, wrapper: :horizontal_small
+  =f.input :ktv_dialysate, wrapper: :horizontal_small
+  =f.input :ktv_rrf, wrapper: :horizontal_small
+  =f.input :crcl_total, wrapper: :horizontal_small
+  =f.input :crcl_dialysate, wrapper: :horizontal_small
+  =f.input :crcl_rrf, wrapper: :horizontal_small
+  =f.input :daily_uf, wrapper: :horizontal_small
+  =f.input :daily_urine, wrapper: :horizontal_small
+  =f.input :date_rff, as: :date_picker, wrapper: :horizontal_datepicker
+  =f.input :creat_value, wrapper: :horizontal_small
+  =f.input :dialysate_effluent_volume, wrapper: :horizontal_small
+  =f.input :date_creat_clearance, as: :date_picker, wrapper: :horizontal_datepicker
+  =f.input :date_creat_value, as: :date_picker, wrapper: :horizontal_datepicker
+  =f.input :urine_urea_conc, wrapper: :horizontal_small
+  =f.input :urine_creat_conc, wrapper: :horizontal_small
+
+  = submit_tag "Save", class: "button"
+  span= " or "
+  = link_to "cancel", patient_pd_dashboard_path(patient)
