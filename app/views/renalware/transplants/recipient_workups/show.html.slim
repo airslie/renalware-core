@@ -1,5 +1,4 @@
-= render layout: "renalware/patients/layout", locals: { title: "Transplant Recipient Workup" } do
-
+= within_patient_layout(title: "Transplant Recipient Workup") do
   - if @workup
     .document-view
       - ["Historicals", "Scores"].each do |group|

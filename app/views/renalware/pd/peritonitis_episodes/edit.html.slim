@@ -1,5 +1,4 @@
-= render layout: "renalware/patients/layout",
-         locals: local_assigns.merge!(title: "Peritonitis Episode") do
+= within_patient_layout(title: "Peritonitis Episode", **local_assigns) do
 
   = render "renalware/shared/errors", model: peritonitis_episode
 

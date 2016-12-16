@@ -1,4 +1,4 @@
-= render layout: "renalware/patients/layout", locals: { title: "HD Preferences" } do
+= within_patient_layout(title: "HD Preferences") do
   .document
     = simple_form_for @preference_set,
         url: patient_hd_preference_set_path(@patient),

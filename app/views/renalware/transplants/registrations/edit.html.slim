@@ -1,4 +1,4 @@
-= render layout: "renalware/patients/layout", locals: { title: "Transplant Wait List Registration" } do
+= within_patient_layout(title: "Transplant Wait List Registration") do
   .document
     = simple_form_for @registration,
         url: patient_transplants_registration_path(@patient),

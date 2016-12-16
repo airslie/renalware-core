@@ -1,6 +1,4 @@
-- page_heading("Access Assessment")
-
-= render layout: "renalware/patients/layout" do
+= within_patient_layout(title: "Access Assessment") do
   - return unless @assessment
 
   = render "assessment_nav"

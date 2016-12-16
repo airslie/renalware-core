@@ -1,7 +1,6 @@
-- opts = { title: "Edit Patient Rule", navigation_partial: "renalware/pathology/navigation" }
-= render layout: "renalware/patients/layout", locals: opts do
+= within_patient_layout(title: "Edit Patient Rule",
+                        navigation_partial: "renalware/pathology/navigation") do
   = render partial: "renalware/shared/errors", locals: { model: patient_rule }
-
   .row
     .large-8.columns
       = simple_form_for patient_rule,

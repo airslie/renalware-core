@@ -1,5 +1,4 @@
-= render layout: "renalware/patients/layout",
-    locals: { title: "HD Profile" } do
+= within_patient_layout(title: "HD Profile") do
   - return unless profile
 
   - if profile.persisted?

@@ -1,6 +1,7 @@
 - datestamp = l @recipient_followup.operation.performed_on
-= render layout: "renalware/patients/layout",
-    locals: { title: "Transplant Recipient Operation (#{datestamp}) Followup" } do
+
+= within_patient_layout(title: "Transplant Recipient Operation (#{datestamp}) Followup") do
+
   - return unless @recipient_followup
 
   .document-view

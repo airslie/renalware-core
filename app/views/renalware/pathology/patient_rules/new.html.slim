@@ -1,5 +1,5 @@
-- opts = { title: "New Patient Rules", navigation_partial: "renalware/pathology/navigation" }
-= render layout: "renalware/patients/layout", locals: opts do
+= within_patient_layout(title: "New Patient Rules",
+                        navigation_partial: "renalware/pathology/navigation") do
   = render partial: "renalware/shared/errors", locals: { model: patient_rule }
 
   .row

@@ -1,6 +1,4 @@
-- page_heading(t(".page_title"))
-
-= render layout: "renalware/patients/layout" do
+= within_patient_layout do
   .row
     #current-problems.columns.large-6
       = render "problems", problems: clinical_summary.current_problems

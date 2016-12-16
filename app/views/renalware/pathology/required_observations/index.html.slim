@@ -1,5 +1,5 @@
-- opts = { title: "Required Observations", navigation_partial: "renalware/pathology/navigation" }
-= render layout: "renalware/patients/layout", locals: opts do
+= within_patient_layout(title: "Required Observations",
+                        navigation_partial: "renalware/pathology/navigation") do
   .row
     .large-4.columns
       .row

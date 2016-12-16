@@ -1,6 +1,5 @@
-- page_heading(t(".page_title"))
+= within_patient_layout(title: "Demographics") do
 
-= render layout: "layout" do
   #patient-demographics
     = render "renalware/patients/show/patient_demographics", patient: @patient
     = render "renalware/patients/show/letter_preferences", patient: @patient

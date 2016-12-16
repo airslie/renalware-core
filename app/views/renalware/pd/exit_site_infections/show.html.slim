@@ -1,5 +1,4 @@
-- title = "PD - Exit Site Infection"
-= render layout: "renalware/patients/layout", locals: { title: title } do
+= within_patient_layout(title: "PD - Exit Site Infection") do
 
   = field_set_tag "Infection" do
     = render "details", patient: @patient, exit_site_infection: @exit_site_infection

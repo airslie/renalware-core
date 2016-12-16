@@ -1,4 +1,4 @@
-= render layout: "renalware/patients/layout", locals: { title: "Events" } do
+= within_patient_layout(title: "Events") do
   table
     thead
       th.col-width-date Added
@@ -6,6 +6,5 @@
       th Description
       th.col-width-date-time Date/Time
       th Created by
-
     tbody
       = render @events

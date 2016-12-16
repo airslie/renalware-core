@@ -1,4 +1,4 @@
-= render layout: "renalware/patients/layout", locals: { title: "HD Profile" } do
+= within_patient_layout(title: "HD Profile") do
   .document
     = simple_form_for profile,
         url: patient_hd_profile_path(patient),

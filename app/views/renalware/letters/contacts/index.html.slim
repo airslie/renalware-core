@@ -1,4 +1,4 @@
-= render layout: "renalware/patients/layout", locals: { title: t(".title") } do
+= within_patient_layout do
   #contacts
     = render "table", contacts: contacts
 

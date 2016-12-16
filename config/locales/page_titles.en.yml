@@ -13,4 +13,7 @@ en:
       regimes:
         show:
           page_title: PD Regime
-
+    accesses:
+      dashboards:
+        show:
+          page_title: "Access Summary"

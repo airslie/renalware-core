@@ -1,4 +1,4 @@
-= render layout: "renalware/patients/layout", locals: { title: "Transplant Recipient Operation" } do
+= within_patient_layout(title: "Transplant Recipient Operation") do
   .document
     = simple_form_for @recipient_operation,
         url: patient_transplants_recipient_operation_path(@patient, @recipient_operation),
