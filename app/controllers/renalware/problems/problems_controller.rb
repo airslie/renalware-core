@@ -21,10 +21,11 @@ module Renalware
       end
 
       def update
-        @problem = patient.problems.find(params[:id])
+        @problem = @patient.problems.find(params[:id])
+        @problem.assign_attributes(problem_params)
 
-        if @problem.update(problem_params)
-          redirect_to patient_problems_path(patient),
+        if @problem.save
+          redirect_to patient_problems_path(@patient),
             notice: t(".success", model_name: "problem")
         else
           flash[:error] = t(".failed", model_name: "problem")
@@ -47,6 +48,8 @@ module Renalware
 
       def destroy
         @problem = patient.problems.find(params[:id])
+        @problem.by = current_user
+        @problem.save!
         @problem.destroy
 
         redirect_to patient_problems_path(patient),
@@ -62,7 +65,9 @@ module Renalware
       private
 
       def problem_params
-        params.require(:problems_problem).permit(:description)
+        params.require(:problems_problem)
+              .permit(:description)
+              .merge(by: current_user)
       end
     end
   end

@@ -13,12 +13,14 @@ module Renalware
     CSV.foreach(file_path, headers: true) do |row|
       random_week_number = week_numbers.sample
 
-      Problems::Problem.create!(
+      problem = Problems::Problem.new(
         patient: rabbit,
         description: row["description"],
         date: Time.now - random_week_number.weeks,
-        position: count += 1
+        position: count += 1,
+        by: User.last
       )
+      problem.save!
     end
   end
 

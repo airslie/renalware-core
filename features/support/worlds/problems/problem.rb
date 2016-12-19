@@ -10,6 +10,7 @@ module World
       def seed_problem_for(patient, user)
         patient.problems.create(
           description: "outcome",
+          created_by: user,
           notes: [
             Renalware::Problems::Note.new(description: "note", by: user)
           ]
@@ -45,10 +46,11 @@ module World
 
       # @section expectations
       #
-      def expect_problem_to_be_recorded(patient:)
+      def expect_problem_to_be_recorded(patient:, user:)
         problem = patient.problems.last
 
         expect(problem).to be_present
+        expect(problem.created_by).to eq(user)
       end
 
       def expect_problem_revisions_to_be_recorded(patient:)

@@ -11,7 +11,8 @@ Given(/^Patty has problems:$/) do |table|
     create_problem(@patty,
       description: row[:description],
       date: parse_date_string(row[:recorded_on]),
-      deleted_at: parse_date_string(row[:terminated_on])
+      deleted_at: parse_date_string(row[:terminated_on]),
+      by: Renalware::User.last
     )
   end
 end
@@ -30,7 +31,7 @@ When(/^Clyde views the list of problems for Patty$/) do
 end
 
 Then(/^a problem is recorded for Patty$/) do
-  expect_problem_to_be_recorded(patient: @patty)
+  expect_problem_to_be_recorded(patient: @patty, user: @clyde)
   problem = problem_for(@patty)
   expect_problem_note_to_be_recorded(problem: problem)
 end

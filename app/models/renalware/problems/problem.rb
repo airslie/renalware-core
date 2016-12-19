@@ -4,6 +4,7 @@ module Renalware
   module Problems
     class Problem < ActiveRecord::Base
       include PatientScope
+      include Accountable
 
       acts_as_paranoid
       has_paper_trail class_name: "Renalware::Problems::Version"
