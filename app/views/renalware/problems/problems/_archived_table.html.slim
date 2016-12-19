@@ -19,6 +19,6 @@ table#archived_problems.manual-stripes.auto-layout
             - problem.notes.each do |note|
               li= note.description
         td= l problem.updated_on
-        td= problem.created_by.full_name
-        td= l problem.archived_on
         td= problem.updated_by.full_name
+        td= l problem.archived_on
+        td= problem.created_by.full_name
