@@ -1,0 +1,12 @@
+- patient = Renalware::Clinical.cast_patient(patient)
+
+.allergies
+  dl
+    dt Allergies:
+    - if patient.allergies.length == 0
+      dd= patient.allergy_status.text
+    - else
+      dd= ""
+      - patient.allergies.each do |allergy|
+        dt= allergy.description
+        dd= l(allergy.recorded_at.to_date)
