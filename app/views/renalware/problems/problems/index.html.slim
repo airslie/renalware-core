@@ -1,7 +1,10 @@
 = within_patient_layout(title: "Problems") do
 
   - if !current_user.has_role?(:read_only) && params[:add_problem].present?
-    = simple_form_for problem, url: patient_problems_path(@patient), wrapper: :horizontal_form do |f|
+    = simple_form_for problem,
+                      url: patient_problems_path(@patient),
+                      wrapper: :horizontal_form,
+                      validate: true do |f|
         = field_set_tag "New problem" do
           .row
             .large-6.columns
