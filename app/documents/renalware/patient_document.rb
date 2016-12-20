@@ -25,5 +25,12 @@ module Renalware
       attribute :referral_notes, String
     end
     attribute :referral, Referral
+
+    class History < Document::Embedded
+      attribute :alcohol, Document::Enum, enums: %i(never rarely social heavy)
+      attribute :smoking, Document::Enum, enums: %i(never former current)
+    end
+    attribute :history, History
+
   end
 end

@@ -87,6 +87,10 @@ RSpec.describe "Managing patients", type: :request do
       interpreter_notes: Faker::Lorem.sentence,
       admin_notes: Faker::Lorem.sentence,
       special_needs_notes: Faker::Lorem.sentence,
+      history: {
+        alcohol: nil,
+        smoking: nil
+      },
       referral: {
         referring_physician_name: Faker::Name.name,
         referral_date: Faker::Date.backward(14),
