@@ -13,6 +13,7 @@ module Renalware
       has_many :notes, dependent: :destroy
 
       scope :ordered, -> { order(position: :asc) }
+      scope :with_notes, -> { includes(:notes) }
 
       validates :patient, presence: true
       validates :description, presence: true
@@ -22,11 +23,11 @@ module Renalware
       end
 
       def self.current
-        all
+        all.with_notes
       end
 
       def self.archived
-        only_deleted
+        only_deleted.with_notes
       end
 
       def archived?

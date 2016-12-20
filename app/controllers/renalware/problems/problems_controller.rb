@@ -6,14 +6,14 @@ module Renalware
       def index
         render :index, locals: {
           problem: Problem.new,
-          current_problems: patient.problems.current.ordered,
-          archived_problems: patient.problems.archived.ordered
+          current_problems: patient.problems.current.with_created_by.ordered,
+          archived_problems: patient.problems.archived.with_created_by.ordered
         }
       end
 
       def show
         @problem = patient.problems.with_archived.find(params[:id])
-        @notes = @problem.notes.ordered
+        @notes = @problem.notes.with_updated_by.ordered
       end
 
       def edit
