@@ -30,12 +30,9 @@ module Renalware
       validates :patient, presence: true
       validates :hospital_unit, presence: true
       validates :signed_on_by, presence: true
-
       validates :performed_on, presence: true
       validates :performed_on, timeliness: { type: :date }
-
       validates :start_time, timeliness: { type: :time, allow_blank: true }
-
       validates :end_time, timeliness: { type: :time, allow_blank: true, after: :start_time }
 
       delegate :hospital_centre, to: :hospital_unit, allow_nil: true

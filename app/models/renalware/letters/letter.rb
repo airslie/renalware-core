@@ -10,10 +10,15 @@ module Renalware
       belongs_to :author, class_name: "User"
       belongs_to :patient
       belongs_to :letterhead
-      has_one :main_recipient, -> { where(role: "main") },
-        class_name: "Recipient", inverse_of: :letter
-      has_many :cc_recipients, -> { where(role: "cc") },
-        class_name: "Recipient", dependent: :destroy, inverse_of: :letter
+      has_one :main_recipient,
+              -> { where(role: "main") },
+              class_name: "Recipient",
+              inverse_of: :letter
+      has_many :cc_recipients,
+               -> { where(role: "cc") },
+               class_name: "Recipient",
+               dependent: :destroy,
+               inverse_of: :letter
       has_many :recipients, dependent: :destroy
       has_one :signature, dependent: :destroy
       has_one :archive, foreign_key: "letter_id"

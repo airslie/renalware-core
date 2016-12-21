@@ -9,7 +9,6 @@ module Renalware
 
       validates :person, presence: true, uniqueness: { scope: :patient }
       validates :description, presence: true
-
       validates :other_description, presence: true, if: -> { unspecified_description? }
 
       delegate :address, :to_s, :family_name, to: :person
