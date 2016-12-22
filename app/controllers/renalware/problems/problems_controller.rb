@@ -4,11 +4,7 @@ module Renalware
       before_action :load_patient
 
       def index
-        render :index, locals: {
-          problem: Problem.new,
-          current_problems: patient.problems.current.with_created_by.ordered,
-          archived_problems: patient.problems.archived.with_created_by.ordered
-        }
+        render :index, locals: locals(Problem.new)
       end
 
       def show
@@ -29,7 +25,7 @@ module Renalware
             notice: t(".success", model_name: "problem")
         else
           flash[:error] = t(".failed", model_name: "problem")
-          render :edit
+          render :edit, locals: locals(@problem)
         end
       end
 
@@ -42,7 +38,7 @@ module Renalware
             notice: t(".success", model_name: "problem")
         else
           flash[:error] = t(".failed", model_name: "problem")
-          render :index
+          render :index, locals: locals(@problem)
         end
       end
 
@@ -64,6 +60,13 @@ module Renalware
 
       private
 
+      def locals(problem)
+        {
+          problem: problem,
+          current_problems: patient.problems.current.with_created_by.ordered,
+          archived_problems: patient.problems.archived.with_created_by.ordered
+        }
+      end
       def problem_params
         params.require(:problems_problem)
               .permit(:description)
