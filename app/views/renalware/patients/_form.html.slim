@@ -73,7 +73,7 @@
   = patient.simple_fields_for :current_address_attributes, patient.object.current_address do |a|
     fieldset id="current_address"
       legend Current Address
-
+      = a.input :id, as: :hidden
       = render partial: 'renalware/addresses/form', locals: { a: a }
 
 .form-content

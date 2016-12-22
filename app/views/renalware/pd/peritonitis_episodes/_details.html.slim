@@ -1,25 +1,21 @@
 = content_tag_for(:div, peritonitis_episode) do
   = field_set_tag "Dates" do
     .row
-      dl
-        .large-6.columns
-          dt Start
-          dl= l peritonitis_episode.treatment_start_date
-        .large-6.columns
-          dt End
-          dl= l peritonitis_episode.treatment_end_date
+      .columns.small-12.medium-6
+        dl.dl-horizontal
+            dt Start
+            dd= l peritonitis_episode.treatment_start_date
+            dt End
+            dd= l peritonitis_episode.treatment_end_date
 
-      dl
-        .large-6.columns
+      .columns.small-12.medium-6
+        dl.dl-horizontal
           dt Episode Types
-          dl= peritonitis_episode.episode_types_summary
-        .large-6.columns
+          dd= peritonitis_episode.episode_types_summary
           dt Catheter Removed
-          dl= yes_no(peritonitis_episode.catheter_removed)
+          dd= yes_no(peritonitis_episode.catheter_removed)
 
-    .row
-      dl
-        .large-6.columns
+        dl.dl-horizontal
           dt Last Updated:
           dd= l peritonitis_episode.updated_at
 
