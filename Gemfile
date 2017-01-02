@@ -95,6 +95,7 @@ group :test do
   gem "simplecov", "~> 0.13.0", require: false
   gem "webmock", "~> 1.20.4"
   gem "wisper-rspec", require: false
+  gem "codeclimate-test-reporter", "1.0.3", require: false
 end
 
 group :staging do
