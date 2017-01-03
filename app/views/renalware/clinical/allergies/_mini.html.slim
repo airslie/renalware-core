@@ -1,11 +1,9 @@
 - patient = Renalware::Clinical.cast_patient(patient)
 
 .allergies
-  span.title
-    i.fi-alert
-    |&nbsp;
-    b= link_to patient.allergy_status.text, patient_clinical_profile_path(patient)
-  dl
-    - patient.allergies.each do |allergy|
-      dt= allergy.description
-      dd= l(allergy.recorded_at.to_date)
+  span.fi-alert
+  span.allergy_status= link_to patient.allergy_status.text, patient_clinical_profile_path(patient)
+  span.allergy_status_updated_at
+    = patient.allergy_status_updated_at && "(#{l(patient.allergy_status_updated_at.to_date)})"
+  span.allergy_descriptions
+    = patient.allergies.map(&:description).join (", ")

@@ -2345,7 +2345,8 @@ CREATE TABLE patients (
     religion_id integer,
     language_id integer,
     diabetic boolean DEFAULT false NOT NULL,
-    allergy_status character varying DEFAULT 'unrecorded'::character varying NOT NULL
+    allergy_status character varying DEFAULT 'unrecorded'::character varying NOT NULL,
+    allergy_status_updated_at timestamp without time zone
 );
 
 
@@ -8274,4 +8275,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161212181500');
 INSERT INTO schema_migrations (version) VALUES ('20161215090417');
 
 INSERT INTO schema_migrations (version) VALUES ('20161216090417');
+
+INSERT INTO schema_migrations (version) VALUES ('20170103161015');
 

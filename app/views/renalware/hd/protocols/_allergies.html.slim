@@ -2,11 +2,9 @@
 
 .allergies
   dl
-    dt Allergies:
-    - if patient.allergies.length == 0
-      dd= patient.allergy_status.text
-    - else
-      dd= ""
-      - patient.allergies.each do |allergy|
-        dt= allergy.description
-        dd= l(allergy.recorded_at.to_date)
+    dt.allergy_status
+      = patient.allergy_status.text
+    dd.allergy_status_updated_at
+      = patient.allergy_status_updated_at && "(#{l(patient.allergy_status_updated_at.to_date)})"
+    dt.allergy_descriptions
+      = patient.allergies.map(&:description).join (", ")
