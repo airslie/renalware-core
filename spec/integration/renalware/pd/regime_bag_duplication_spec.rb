@@ -13,7 +13,7 @@ module Renalware
       click_link "Add APD Regime"
 
       fill_in "Start date", with: "25/05/2015"
-      fill_in "* Fill volume (ml)", with: "1500"
+      fill_in "* Fill volume (ml)", with: "2500"
       fill_in "* Cycles per session", with: "7"
 
       select "APD Dry Day", from: "Treatment"
@@ -37,7 +37,7 @@ module Renalware
         selects = page.all("select")
         expect(selects.first.value).to eq(@bag_type.id.to_s)
         expect(selects.last.value).to eq("2000")
-        select "1500", from: "Volume (ml)"
+        select "5000", from: "Volume (ml)"
       end
 
       click_button "Save"
@@ -51,7 +51,7 @@ module Renalware
       expect(bags[0].days).to eq([true, true, false, true, true, false, true]) # no tue fri
       expect(bags[0].volume).to eq(2000)
       expect(bags[1].days).to eq(bags[0].days)
-      expect(bags[1].volume).to eq(1500)
+      expect(bags[1].volume).to eq(5000)
     end
   end
 end
