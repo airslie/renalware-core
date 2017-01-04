@@ -27,22 +27,11 @@
   }
   .allergies {
     background-color: $mini-profile-allergies-backgound-colour;
-
-
-    dl {
-      font-size: inherit;
-      margin: 0;
-      display:inline;
-
-      dt, dd {
-        display: inline;
-      }
-      dt {
-        padding-right: .1rem;
-      }
-      dd {
-        padding-right: .5rem;
-      }
+    span {
+      margin-right: 3px;
+    }
+    .allergy_status, .allergy_descriptions {
+      font-weight: bold;
     }
   }
 

@@ -4,6 +4,7 @@ module Renalware
   module Clinical
     class Allergy < ActiveRecord::Base
       include Accountable
+      include PatientScope
       acts_as_paranoid
       validates :description, presence: true
       validates :recorded_at, presence: true

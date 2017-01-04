@@ -1,0 +1,10 @@
+- patient = Renalware::Clinical.cast_patient(patient)
+
+.allergies
+  dl
+    dt.allergy_status
+      = patient.allergy_status.text
+    dd.allergy_status_updated_at
+      = patient.allergy_status_updated_at && "(#{l(patient.allergy_status_updated_at.to_date)})"
+    dt.allergy_descriptions
+      = patient.allergies.map(&:description).join (", ")
