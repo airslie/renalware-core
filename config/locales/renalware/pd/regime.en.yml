@@ -50,6 +50,8 @@ en:
         bags:
           form:
             blank_option: "Select bag type"
+        current_regime:
+          bags_heading: Bags
         current_apd_regime:
           overnight_volume: Overnight APD volume
           daily_volume: Total daily volume
@@ -57,13 +59,13 @@ en:
           overnight_volume: Overnight APD volume
           daily_volume: Total daily volume
       regime_bags:
-        regime_bag:
-          bag_type: "Bag type:"
-          volume: "Vol:"
-          capd_overnight: "Overnight:"
-          role: "Type:"
-          days_quantity: " No. per week:"
-          days: "Days:"
+        regime_bags:
+          bag_type: Description
+          volume: Vol
+          capd_overnight: Overnight
+          role: Type
+          days_quantity: No. per week
+          days: Days
 
   enumerize:
     renalware/pd/regime_bag:

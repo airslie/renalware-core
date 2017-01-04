@@ -17,19 +17,21 @@ module Renalware
       private
 
       def match_bag_type
-        glucose_types = [[], [], []]
+        @match_bag_type ||= begin
+          glucose_types = [[], [], []]
 
-        bags.each do |bag|
-          weekly_total = bag.weekly_total_glucose_ml_per_bag
-          glucose_content = bag.bag_type.glucose_content.to_f
-          case glucose_content
-          when 13.6 then glucose_types[0] << weekly_total
-          when 22.7 then glucose_types[1] << weekly_total
-          when 38.6 then glucose_types[2] << weekly_total
-          else glucose_types
+          bags.each do |bag|
+            weekly_total = bag.weekly_total_glucose_ml_per_bag
+            glucose_content = bag.bag_type.glucose_content.to_f
+            case glucose_content
+            when 1.36 then glucose_types[0] << weekly_total
+            when 2.27 then glucose_types[1] << weekly_total
+            when 3.86 then glucose_types[2] << weekly_total
+            else glucose_types
+            end
           end
+          glucose_types
         end
-        glucose_types
       end
 
       def set_glucose_volume_percent_1_36
