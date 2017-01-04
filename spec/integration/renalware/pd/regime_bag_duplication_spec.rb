@@ -37,7 +37,6 @@ module Renalware
         selects = page.all("select")
         expect(selects.first.value).to eq(@bag_type.id.to_s)
         expect(selects.last.value).to eq("2000")
-        check "Tue"
         select "1500", from: "Volume (ml)"
       end
 
@@ -51,7 +50,7 @@ module Renalware
       expect(bags.length).to eq(2)
       expect(bags[0].days).to eq([true, true, false, true, true, false, true]) # no tue fri
       expect(bags[0].volume).to eq(2000)
-      expect(bags[1].days).to eq([true, true, true, true, true, false, true]) # no  fri
+      expect(bags[1].days).to eq(bags[0].days)
       expect(bags[1].volume).to eq(1500)
     end
   end

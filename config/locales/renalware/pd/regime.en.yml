@@ -63,7 +63,7 @@ en:
           capd_overnight: "Overnight:"
           role: "Type:"
           days_quantity: " No. per week:"
-          days: "Days"
+          days: "Days:"
 
   enumerize:
     renalware/pd/regime_bag:

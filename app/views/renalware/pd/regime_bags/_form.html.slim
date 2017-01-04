@@ -39,7 +39,7 @@
       label Days to be administered:
       a.deselect-bag-days(href="#") Deselect all
     div
-      - rb.object.days_to_sym.each do |day|
+      - Date::DAYNAME_SYMBOLS.each do |day|
         = rb.input day,
                    as: :boolean,
                    boolean_style: :inline,

@@ -11,7 +11,7 @@ module Renalware
                        patient: patient,
                        end_date: nil,
                        start_date: "01-01-2012")
-        regime.bags << build(:pd_regime_bag, sunday: false)
+        regime.bags << build(:pd_regime_bag, :everyday)
         regime.save!
         regime
       end
@@ -125,7 +125,7 @@ module Renalware
 
         context "when a bag is deleted from a regime with one bag" do
           it "creates a new regime with just one bag" do
-            regime.bags << build(:pd_regime_bag, sunday: false)
+            regime.bags << build(:pd_regime_bag, :everyday)
             regime_count = Regime.count
             bag_count = RegimeBag.count
 

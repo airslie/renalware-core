@@ -9,8 +9,20 @@ When(/^Clyde adds a CAPD regime$/) do
   @capd_regime = record_capd_regime_for(patient: @patty, user: @clyde)
 end
 
+When(/^Clyde creates the following APD Regime for Patty$/) do |table|
+  @regime = build_apd_regime_for(patient: @patty, user: @clyde, data: table.rows)
+end
+
+When(/^adds the following bags$/) do |table|
+  add_bags_to_regime(regime: @regime, user: @clyde, data: table.hashes)
+end
+
 Then(/^the CAPD becomes the current one$/) do
   regime_for_patient_is_current(patient: @patty, regime: @capd_regime)
+end
+
+Then(/^the calculated regime volumes are$/) do |table|
+  expect_calculated_regime_volumes_to_be(data: table.rows, regime: @regime)
 end
 
 # Given(/^Patty has an existing CAPD regime$/) do

@@ -34,10 +34,10 @@ module Renalware
       end
     end
 
-    describe "days_to_sym" do
+    describe "Date::DAYNAME_SYMBOLS" do
       it "should convert rails date daynames module to become lowercase and to symbol" do
         days = [:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday]
-        expect(@pd_regime_bag_1.days_to_sym).to eq(days)
+        expect(Date::DAYNAME_SYMBOLS).to eq(days)
       end
     end
   end

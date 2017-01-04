@@ -61,6 +61,8 @@ module Renalware
                 numericality: { only_integer: true },
                 numeric_inclusion: { in: VALID_RANGES.therapy_times }
 
+      validate :all_active_days_have_the_same_available_volume
+
       before_save -> { APD::CalculateVolumes.new(self).call }
 
       validates :no_cycles_per_apd, presence: true
@@ -88,6 +90,15 @@ module Renalware
 
       def has_last_fill_bag?
         bags.any?(&:last_fill?)
+      end
+
+      private
+
+      def all_active_days_have_the_same_available_volume
+        APD::AvailableOvernightVolume.new(regime: self).value
+      rescue APD::NonUniqueOvernightVolumeError
+        errors.add(:base, "The total volume of 'ordinary' bags should be the same on each day "\
+                          "the patient has PD")
       end
     end
   end

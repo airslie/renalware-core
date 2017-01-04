@@ -1,7 +1,7 @@
 0:
   manufacturer: Baxter
   description: Dianeal PD2 1.36% (Yellow)
-  glucose_content: 13.6
+  glucose_content: 1.36
   amino_acid: false
   icodextrin: false
   low_glucose_degradation: false
@@ -14,7 +14,7 @@
 1:
   manufacturer: Baxter
   description: Dianeal PD2 2.27% (Green)
-  glucose_content: 22.7
+  glucose_content: 2.27
   amino_acid: false
   icodextrin: false
   low_glucose_degradation: false
@@ -27,7 +27,7 @@
 2:
   manufacturer: Baxter
   description: Dianeal PD2 3.86% (Red)
-  glucose_content: 38.6
+  glucose_content: 3.86
   amino_acid: false
   icodextrin: false
   low_glucose_degradation: false
@@ -40,7 +40,7 @@
 3:
   manufacturer: Baxter
   description: Dianeal PD4 1.36% (Yellow)
-  glucose_content: 13.6
+  glucose_content: 1.36
   amino_acid: false
   icodextrin: false
   low_glucose_degradation: false
@@ -53,7 +53,7 @@
 4:
   manufacturer: Baxter
   description: Dianeal PD4 2.27% (Green)
-  glucose_content: 22.7
+  glucose_content: 2.27
   amino_acid: false
   icodextrin: false
   low_glucose_degradation: false
@@ -66,7 +66,7 @@
 5:
   manufacturer: Baxter
   description: Dianeal PD4 3.86% (Red)
-  glucose_content: 38.6
+  glucose_content: 3.86
   amino_acid: false
   icodextrin: false
   low_glucose_degradation: false
@@ -105,7 +105,7 @@
 8:
   manufacturer: Fresenius
   description: Balance 1.5% Calcium 1.25 (Yellow)
-  glucose_content: 15.0
+  glucose_content: 1.5
   amino_acid: false
   icodextrin: false
   low_glucose_degradation: false
@@ -118,7 +118,7 @@
 9:
   manufacturer: Fresenius
   description: Balance 2.3% Calcium 1.25 (Green)
-  glucose_content: 23.0
+  glucose_content: 2.30
   amino_acid: false
   icodextrin: false
   low_glucose_degradation: false
@@ -131,7 +131,7 @@
 10:
   manufacturer: Fresenius
   description: Balance 4.25% Calcium 1.25 (Red)
-  glucose_content: 42.5
+  glucose_content: 4.25
   amino_acid: false
   icodextrin: false
   low_glucose_degradation: false
@@ -144,7 +144,7 @@
 11:
   manufacturer: Fresenius
   description: Balance 1.5% Calcium 1.75 (Yellow)
-  glucose_content: 15.0
+  glucose_content: 1.50
   amino_acid: false
   icodextrin: false
   low_glucose_degradation: false
@@ -157,7 +157,7 @@
 12:
   manufacturer: Fresenius
   description: Balance 2.3% Calcium 1.75 (Green)
-  glucose_content: 23.0
+  glucose_content: 2.30
   amino_acid: false
   icodextrin: false
   low_glucose_degradation: false
@@ -170,7 +170,7 @@
 13:
   manufacturer: Fresenius
   description: Balance 4.25% Calcium 1.75 (Red)
-  glucose_content: 42.5
+  glucose_content: 4.25
   amino_acid: false
   icodextrin: false
   low_glucose_degradation: false
@@ -183,7 +183,7 @@
 14:
   manufacturer: Fresenius
   description: bicaVera 1.5% Calcium 1.75 (Yellow)
-  glucose_content: 15.0
+  glucose_content: 1.50
   amino_acid: false
   icodextrin: false
   low_glucose_degradation: true
@@ -196,7 +196,7 @@
 15:
   manufacturer: Fresenius
   description: bicaVera 2.3% Calcium 1.75 (Green)
-  glucose_content: 23.0
+  glucose_content: 2.30
   amino_acid: false
   icodextrin: false
   low_glucose_degradation: true
@@ -209,7 +209,7 @@
 16:
   manufacturer: Fresenius
   description: bicaVera 4.25% Calcium 1.75 (Red)
-  glucose_content: 42.5
+  glucose_content: 4.25
   amino_acid: false
   icodextrin: false
   low_glucose_degradation: true

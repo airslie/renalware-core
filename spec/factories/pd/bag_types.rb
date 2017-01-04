@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :bag_type, class: "Renalware::PD::BagType" do
     manufacturer "Star Brand, Lucky Brand"
     description "Green–2.34"
-    glucose_content 28.6
+    glucose_content 2.86
     amino_acid true
     icodextrin false
     low_glucose_degradation true

@@ -1,18 +1,18 @@
 manufacturer,description,glucose_content,amino_acid,icodextrin,low_glucose_degradation,low_sodium,sodium_content,lactate_content,bicarbonate_content,calcium_content,magnesium_content
-Baxter,Dianeal PD2 1.36% (Yellow),13.6,f,f,f,f,132,40,0,1.75,0.25
-Baxter,Dianeal PD2 2.27% (Green),22.7,f,f,f,f,132,40,0,1.75,0.25
-Baxter,Dianeal PD2 3.86% (Red),38.6,f,f,f,f,132,40,0,1.75,0.25
-Baxter,Dianeal PD4 1.36% (Yellow),13.6,f,f,f,f,132,40,0,1.25,0.25
-Baxter,Dianeal PD4 2.27% (Green),22.7,f,f,f,f,132,40,0,1.25,0.25
-Baxter,Dianeal PD4 3.86% (Red),38.6,f,f,f,f,132,40,0,1.25,0.25
+Baxter,Dianeal PD2 1.36% (Yellow),1.36,f,f,f,f,132,40,0,1.75,0.25
+Baxter,Dianeal PD2 2.27% (Green),2.27,f,f,f,f,132,40,0,1.75,0.25
+Baxter,Dianeal PD2 3.86% (Red),3.86,f,f,f,f,132,40,0,1.75,0.25
+Baxter,Dianeal PD4 1.36% (Yellow),1.36,f,f,f,f,132,40,0,1.25,0.25
+Baxter,Dianeal PD4 2.27% (Green),2.27,f,f,f,f,132,40,0,1.25,0.25
+Baxter,Dianeal PD4 3.86% (Red),3.86,f,f,f,f,132,40,0,1.25,0.25
 Baxter,Nutrineal PD4 (Blue),0,t,f,f,f,132,40,0,1.25,0.25
 Baxter,Extraneal (Icodextrin 7.5%) (Purple),0,f,t,f,f,133,40,0,1.75,0.25
-Fresenius,Balance 1.5% Calcium 1.25 (Yellow),15,f,f,f,f,134,34,0,1.25,0.5
-Fresenius,Balance 2.3% Calcium 1.25 (Green),23,f,f,f,f,134,34,0,1.25,0.5
-Fresenius,Balance 4.25% Calcium 1.25 (Red),42.5,f,f,f,f,134,34,0,1.25,0.5
-Fresenius,Balance 1.5% Calcium 1.75 (Yellow),15,f,f,f,f,134,34,0,1.75,0.5
-Fresenius,Balance 2.3% Calcium 1.75 (Green),23,f,f,f,f,134,34,0,1.75,0.5
-Fresenius,Balance 4.25% Calcium 1.75 (Red),42.5,f,f,f,f,134,34,0,1.75,0.5
-Fresenius,bicaVera 1.5% Calcium 1.75 (Yellow),15,f,f,t,f,134,0,34,1.75,0.5
-Fresenius,bicaVera 2.3% Calcium 1.75 (Green),23,f,f,t,f,134,0,34,1.75,0.5
-Fresenius,bicaVera 4.25% Calcium 1.75 (Red),42.5,f,f,t,f,134,0,34,1.75,0.5
+Fresenius,Balance 1.5% Calcium 1.25 (Yellow),1.5,f,f,f,f,134,34,0,1.25,0.5
+Fresenius,Balance 2.3% Calcium 1.25 (Green),2.3,f,f,f,f,134,34,0,1.25,0.5
+Fresenius,Balance 4.25% Calcium 1.25 (Red),4.25,f,f,f,f,134,34,0,1.25,0.5
+Fresenius,Balance 1.5% Calcium 1.75 (Yellow),1.5,f,f,f,f,134,34,0,1.75,0.5
+Fresenius,Balance 2.3% Calcium 1.75 (Green),2.3,f,f,f,f,134,34,0,1.75,0.5
+Fresenius,Balance 4.25% Calcium 1.75 (Red),4.25,f,f,f,f,134,34,0,1.75,0.5
+Fresenius,bicaVera 1.5% Calcium 1.75 (Yellow),1.5,f,f,t,f,134,0,34,1.75,0.5
+Fresenius,bicaVera 2.3% Calcium 1.75 (Green),2.3,f,f,t,f,134,0,34,1.75,0.5
+Fresenius,bicaVera 4.25% Calcium 1.75 (Red),4.25,f,f,t,f,134,0,34,1.75,0.5

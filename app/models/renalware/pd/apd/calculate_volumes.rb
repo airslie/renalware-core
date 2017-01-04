@@ -1,4 +1,5 @@
 require_dependency "renalware/pd"
+require_dependency "renalware/pd/apd/glucose_calculator"
 
 module Renalware
   module PD
@@ -10,10 +11,15 @@ module Renalware
           @regime = decorate(regime)
         end
 
+        # rubocop:disable Metrics/AbcSize
         def call
           regime.overnight_volume = regime.calculated_overnight_volume
           regime.daily_volume = regime.calculated_daily_volume
+          regime.glucose_volume_percent_1_36 = regime.volume_of_glucose_at(percent: 1.36)
+          regime.glucose_volume_percent_2_27 = regime.volume_of_glucose_at(percent: 2.27)
+          regime.glucose_volume_percent_3_86 = regime.volume_of_glucose_at(percent: 3.86)
         end
+        # rubocop:enable Metrics/AbcSize
 
         private
 

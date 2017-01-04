@@ -20,15 +20,17 @@ module Renalware
       validates :volume, presence: true
 
       validates :volume, numericality: {
-        allow_nil: true, greater_than_or_equal_to: 100, less_than_or_equal_to: 10000
+        allow_nil: true,
+        greater_than_or_equal_to: 100,
+        less_than_or_equal_to: 10000
       }
 
       validate :must_select_one_day
 
       def initialize(attributes = nil, options = {})
         super
-        days_to_sym.each do |day|
-          self.public_send(:"#{day}=", true)
+        Date::DAYNAME_SYMBOLS.each do |day|
+          public_send(:"#{day}=", true)
         end
         self.attributes = attributes unless attributes.nil?
       end
@@ -42,30 +44,35 @@ module Renalware
       end
 
       def days
-        days_to_sym.map do |day|
-          self.public_send(day)
+        Date::DAYNAME_SYMBOLS.map do |day|
+          public_send(day)
         end
       end
 
-      def days_to_sym
-        Date::DAYNAMES.map { |name| name.underscore.to_sym }
+      def weekly_total_glucose_ml_per_bag
+        days_per_week * volume
       end
 
-      def weekly_total_glucose_ml_per_bag
-        assign_days_per_week * self.volume
+      def days_per_week
+        days.count(true)
+      end
+
+      def has_volume?
+        volume.to_i.nonzero?
       end
 
       private
 
       def assign_days_per_week
-        self.per_week = days.keep_if { |day| day == true }.size
+        self.per_week = days_per_week
       end
 
       def must_select_one_day
-        return unless self.days.count(false) == 7
+        return unless days_per_week == 0
 
         errors.add(:days, "must be assigned at least one day of the week")
       end
+
     end
   end
 end
