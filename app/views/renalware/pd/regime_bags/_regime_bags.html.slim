@@ -1,0 +1,22 @@
+ table.regime-bags
+    thead
+      tr
+        - if regime.apd?
+          th= t(".role")
+        th =t(".bag_type")
+        th= t(".volume")
+        th= t(".days_quantity")
+        th= t(".days")
+        - if regime.capd?
+          th= t(".capd_overnight")
+    tbody
+      - regime.bags.each do |bag|
+        tr
+          - if regime.apd?
+            td= bag.role.text
+          td= bag.bag_type.description
+          td= "#{bag.volume}ml"
+          td= bag.per_week
+          td= pd_regime_bag_days(bag)
+          - if regime.capd?
+            td= t(bag.capd_overnight_bag.try!(:to_s))
