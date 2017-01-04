@@ -1,12 +1,13 @@
 source "https://rubygems.org"
 ruby "2.3.1"
 
-gem "rails", "~> 4.2.7"
-
 gem "active_type", "~> 0.4.3"
 gem "activemodel-associations", "~> 0.1.2"
 gem "activerecord-tableless", "~> 1.3.4"
 gem "autoprefixer-rails"
+gem "chosen-rails"
+gem "client_side_validations"
+gem "client_side_validations-simple_form"
 gem "cocoon", "~> 1.2.9"
 gem "delayed_job_active_record", "~> 4.1.1"
 gem "delayed_job_web", "~> 1.2.10"
@@ -30,6 +31,7 @@ gem "paper_trail", "~> 4.0.0"
 gem "paranoia", "~> 2.2.0"
 gem "pg", "~> 0.19.0"
 gem "pundit", "~> 1.1.0"
+gem "rails", "~> 4.2.7"
 gem "ransack", git: "https://github.com/activerecord-hackery/ransack.git"
 gem "ruby-hl7", "~> 1.1.1"
 gem "sass-rails", "~> 4.0.5"
@@ -45,9 +47,6 @@ gem "where-or", "~> 0.1.3" # Rail 5 AR 'or' backport
 gem "wicked_pdf", "~> 1.0.6"
 gem "wisper", "2.0.0.rc1"
 gem "wkhtmltopdf-binary", "~> 0.12.3"
-gem "chosen-rails"
-gem "client_side_validations"
-gem "client_side_validations-simple_form"
 
 source "https://rails-assets.org" do
   gem "rails-assets-clockpicker", "~> 0.0.7"
@@ -69,6 +68,7 @@ group :development, :test do
   gem "bundler-audit", "~> 0.5.0", require: false
   gem "byebug"
   gem "capybara", "~> 2.10.1"
+  gem "capybara-screenshot"
   gem "cucumber-rails", "~> 1.4.5", require: false
   gem "database_cleaner", "~> 1.5.3"
   gem "factory_girl_rails", "~> 4.7.0"
@@ -85,7 +85,6 @@ group :development, :test do
   gem "spring-commands-rspec", "~> 1.0.4"
   gem "thin"
   gem "web-console", "~> 2.0"
-  gem "capybara-screenshot"
 end
 
 group :test do
