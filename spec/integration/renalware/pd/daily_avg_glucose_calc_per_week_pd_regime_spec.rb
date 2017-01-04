@@ -53,7 +53,7 @@ module Renalware
       within("#pd-regime-bags div.fields:nth-child(2)") do
         select "Dianeal PD2 2.27% (Green)", from: "* Bag type"
 
-        select "3000", from: "Volume (ml)"
+        select "2000", from: "Volume (ml)"
 
         uncheck "Tue"
         uncheck "Thu"
@@ -65,7 +65,7 @@ module Renalware
       within("#pd-regime-bags div.fields:nth-child(3)") do
         select "Dianeal PD2 3.86% (Red)", from: "* Bag type"
 
-        select "1500", from: "Volume (ml)"
+        select "2500", from: "Volume (ml)"
 
         uncheck "Sun"
         uncheck "Wed"
@@ -89,8 +89,8 @@ module Renalware
       click_on "Save"
 
       expect(page).to have_content("1.36 % 857 ml")
-      expect(page).to have_content("2.27 % 2143 ml")
-      expect(page).to have_content("3.86 % 1714 ml")
+      expect(page).to have_content("2.27 % 1429 ml")
+      expect(page).to have_content("3.86 % 2286 ml")
     end
   end
 end

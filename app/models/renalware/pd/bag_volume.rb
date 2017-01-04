@@ -5,7 +5,7 @@ module Renalware
     class BagVolume
 
       def self.values
-        1000.step(5000, 250).to_a
+        [2000, 2500, 5000]
       end
     end
   end
