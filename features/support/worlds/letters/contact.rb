@@ -87,7 +87,8 @@ module World
         within("#add-patient-contact-modal") do
           fill_autocomplete "#add-patient-contact-modal", "person_auto_complete",
             with: person.family_name, select: person.to_s
-          check t_contact(:default_cc) if default_cc
+
+          find(:css, "#letters_contact_default_cc").set(true) if default_cc
 
           if find_contact_description(name: description_name)
             select description_name, from: t_contact(:description)
