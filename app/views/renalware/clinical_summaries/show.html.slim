@@ -6,5 +6,8 @@
     #current-prescriptions.columns.large-6
       = render "prescriptions", prescriptions: clinical_summary.current_prescriptions
   .row
-    .columns.large-12
+    #letters.columns.large-12
+      = render "letters", letters: clinical_summary.letters, patient: @patient
+  .row
+    #events.columns.large-12
       = render "events", events: clinical_summary.current_events

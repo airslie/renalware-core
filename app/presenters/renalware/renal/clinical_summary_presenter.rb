@@ -9,16 +9,42 @@ module Renalware
       end
 
       def current_prescriptions
-        prescriptions = @patient.prescriptions.current.ordered
-        CollectionPresenter.new(prescriptions, Medications::PrescriptionPresenter)
+        @current_prescriptions ||= begin
+          prescriptions = @patient.prescriptions
+                                  .current
+                                  .includes([:medication_route, drug: [:drug_types]])
+                                  .ordered
+          CollectionPresenter.new(prescriptions, Medications::PrescriptionPresenter)
+        end
       end
 
       def current_problems
-        @patient.problems.current.ordered
+        @current_problems ||= @patient.problems.current.ordered
       end
 
       def current_events
-        Events::Event.for_patient(@patient)
+        @current_events ||= Events::Event.includes([:created_by, :event_type])
+                                         .for_patient(@patient)
+      end
+
+      def letters
+        present_letters(find_letters)
+      end
+
+      private
+
+      def find_letters
+        patient = Renalware::Letters.cast_patient(@patient)
+        patient.letters
+               .with_main_recipient
+               .with_letterhead
+               .with_author
+               .with_event
+               .with_patient
+      end
+
+      def present_letters(letters)
+        CollectionPresenter.new(letters, Renalware::Letters::LetterPresenterFactory)
       end
     end
   end
