@@ -34,7 +34,7 @@ gem "pundit", "~> 1.1.0"
 gem "rails", "~> 4.2.7"
 gem "ransack", git: "https://github.com/activerecord-hackery/ransack.git"
 gem "ruby-hl7", "~> 1.1.1"
-gem "sass-rails", "~> 4.0.5"
+gem "sass-rails" #, "~> 4.0.5"
 gem "sdoc", "~> 0.4.0", group: :doc
 gem "simple_form", "~> 3.3.1"
 gem "slim-rails", "~> 3.1.1"
@@ -51,7 +51,7 @@ gem "wkhtmltopdf-binary", "~> 0.12.3"
 source "https://rails-assets.org" do
   gem "rails-assets-clockpicker", "~> 0.0.7"
   # https://github.com/najlepsiwebdesigner/foundation-datepicker
-  gem "rails-assets-foundation-datepicker", "~> 1.5.0"
+  gem "rails-assets-foundation-datepicker", "1.5.0"
   gem "rails-assets-select2", "~> 4.0.2"
 end
 
@@ -78,7 +78,7 @@ group :development, :test do
   gem "quiet_assets", "~> 1.1.0"
   gem "rspec-html-matchers", "~> 0.8.1"
   gem "rspec-rails", "~> 3.5.2"
-  gem "rubocop", "~> 0.37.0", require: false
+  gem "rubocop", "~> 0.45.0", require: false
   gem "shoulda-matchers", "~> 2.7.0"
   gem "spring", "~> 1.7.2"
   gem "spring-commands-cucumber", "~> 1.0.1"
