@@ -10,6 +10,8 @@ en:
         form:
           save: "Save"
   activerecord:
+    models:
+      renalware/pd/pet_adequacy_result: PET/Adequacy
     attributes:
       renalware/pd/pet_adequacy_result:
         pet_type: PET type

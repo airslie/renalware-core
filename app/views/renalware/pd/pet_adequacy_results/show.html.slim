@@ -1,0 +1,27 @@
+- klass = pet_adequacy_result.class
+= within_patient_layout(title: pet_adequacy_result.model_name.human) do
+
+  - definition_list_for(model: pet_adequacy_result, css_class: :xlarge) do |list|
+    = list.definition(:pet_type) { |value| value.text }
+    = list.definition(:pet_date) { |value| l value }
+    = list.definition(:pet_duration)
+    = list.definition(:pet_net_uf)
+    = list.definition(:adequacy_date) { |value| l value }
+    = list.definition(:dialysate_creat_plasma_ratio)
+    = list.definition(:dialysate_glucose_start)
+    = list.definition(:dialysate_glucose_end)
+    = list.definition(:ktv_total)
+    = list.definition(:ktv_dialysate)
+    = list.definition(:ktv_rrf,)
+    = list.definition(:crcl_total)
+    = list.definition(:crcl_dialysate)
+    = list.definition(:crcl_rrf)
+    = list.definition(:daily_uf)
+    = list.definition(:daily_urine)
+    = list.definition(:date_rff) { |value| l value }
+    = list.definition(:creat_value)
+    = list.definition(:dialysate_effluent_volume)
+    = list.definition(:date_creat_clearance) { |value| l value }
+    = list.definition(:date_creat_value) { |value| l value }
+    = list.definition(:urine_urea_conc)
+    = list.definition(:urine_creat_conc)

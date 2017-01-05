@@ -37,6 +37,10 @@ module Renalware
         end
       end
 
+      def show
+        render locals: { pet_adequacy_result: pet_adequacy_result, patient: patient }
+      end
+
       private
 
       def pet_adequacy_result

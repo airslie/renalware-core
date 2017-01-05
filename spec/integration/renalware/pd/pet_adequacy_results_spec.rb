@@ -43,4 +43,18 @@ RSpec.describe "Managing PD PET Adequacy Results", type: :request do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe "GET show" do
+    it "responds with success" do
+      pet_adequacy_result = create(:pet_adequacy_result, patient: patient, by: user)
+      params = {
+        patient_id: patient.id,
+        id: pet_adequacy_result.id
+      }
+
+      get patient_pd_pet_adequacy_result_path(params)
+
+      expect(response).to have_http_status(:success)
+    end
+  end
 end
