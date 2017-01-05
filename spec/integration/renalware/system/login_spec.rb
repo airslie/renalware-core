@@ -17,7 +17,7 @@ module Renalware
       click_on "Log in"
 
       expect(current_path).to eq(new_user_session_path)
-      expect(page).to have_css(".alert", text: /Invalid username or password/)
+      expect(page).to have_css(".alert", text: /Invalid username or password/i)
     end
 
     scenario "An unapproved user authenticates with valid credentials" do
