@@ -19,31 +19,27 @@ module Renalware
       end
 
       def configure_sign_up_parameters
-        devise_parameter_sanitizer.for(:sign_up) do |u|
-          u.permit(
-            :given_name,
-            :family_name,
-            :username,
-            :email,
-            :password,
-            :password_confirmation,
-            :remember_me
-          )
-        end
+        devise_parameter_sanitizer.permit(:sign_up, keys: [
+                                            :given_name,
+          :family_name,
+          :username,
+          :email,
+          :password,
+          :password_confirmation,
+          :remember_me
+                                          ])
       end
 
       def configure_sign_in_parameters
-        devise_parameter_sanitizer.for(:sign_in) do |u|
-          u.permit(:username, :password, :remember_me)
-        end
+        devise_parameter_sanitizer.permit(:sign_in, keys: [:username, :password, :remember_me])
       end
 
       def configure_account_update_parameters
-        devise_parameter_sanitizer.for(:account_update) do |u|
-          u.permit(:given_name, :family_name, :username, :email, :password,
-                   :password_confirmation, :current_password,
-                   :professional_position, :signature)
-        end
+        devise_parameter_sanitizer.permit(:account_update, keys: [
+                                            :given_name, :family_name, :username, :email, :password,
+          :password_confirmation, :current_password,
+          :professional_position, :signature
+                                          ])
       end
     end
   end
