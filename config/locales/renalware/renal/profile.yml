@@ -1,5 +1,5 @@
 en:
-  activerecord:
+  activemodel:
     attributes:
       renalware/renal/profile:
         prd_description: Primary Renal Diagnosis (PRD)
@@ -10,21 +10,21 @@ en:
         smoking_status: Smoking Status
         comorbidities_updated_on: Comorbidities Updated
       renalware/renal/profile_document/comorbidities:
-        diabetes: Diabetes?
-        ischaemic_heart_dis: Ischaemic Heart Disease?
-        cabg_or_angioplasty: CABG or Coronary Angioplasty?
-        heart_failure: Episode of heart failure (R or L)?
-        atrial_fibrill: Atrial Fibrillation?
-        malignancy: Malignancy?
-        cerebrovascular_dis: Cerebrovascular Disease?
-        chronic_obstr_pulm_dis: Chronic Obstructive Pulmonary Disease?
-        liver_disease: Liver disease?
-        periph_vascular_dis: Peripheral Vascular Disease?
-        amputation_for_pvd: Amputation for PVD?
-        claudication: Claudication?
-        ischaemic_neuropathic_ulcers: Ischaemic/Neuropathic ulcers?
-        non_coronary_intervention: Angioplasty, vascular graft, aneurysm, stent (non-coronary)?
-        dementia: Dementia?
+        diabetes: Diabetes
+        ischaemic_heart_dis: Ischaemic Heart Disease
+        cabg_or_angioplasty: CABG or Coronary Angioplasty
+        heart_failure: Episode of heart failure (R or L)
+        atrial_fibrill: Atrial Fibrillation
+        malignancy: Malignancy
+        cerebrovascular_dis: Cerebrovascular Disease
+        chronic_obstr_pulm_dis: Chronic Obstructive Pulmonary Disease
+        liver_disease: Liver disease
+        periph_vascular_dis: Peripheral Vascular Disease
+        amputation_for_pvd: Amputation for PVD
+        claudication: Claudication
+        ischaemic_neuropathic_ulcers: Ischaemic/Neuropathic ulcers
+        non_coronary_intervention: Angioplasty, vascular graft, aneurysm, stent (non-coronary)
+        dementia: Dementia
 
   simple_form:
     hints:
