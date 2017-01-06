@@ -1,7 +1,10 @@
-- klass = pet_adequacy_result.class
-= within_patient_layout(title: pet_adequacy_result.model_name.human) do
+- title = pet_adequacy_result.model_name.human
 
-  - definition_list_for(model: pet_adequacy_result, css_class: :xlarge) do |list|
+-content_for(:page_navigation) do
+  = back_link_to("Back to PD Summary", patient_pd_dashboard_path(patient))
+
+= within_patient_layout(title: title) do
+  = definition_list_for(pet_adequacy_result, size: :xlarge) do |list|
     = list.definition(:pet_type) { |value| value.text }
     = list.definition(:pet_date) { |value| l value }
     = list.definition(:pet_duration)

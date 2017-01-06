@@ -10,10 +10,12 @@
     .row
       h1= local_assigns[:title]
 
-      - partial = local_assigns[:navigation_partial] || "navigation"
-
-      / Me sure to pass on any locals passed to us, along with the patient if not already provided
-      = render partial, local_assigns.reverse_merge!(patient: current_patient)
+      - if content_for?(:page_navigation)
+        .page-navigation= yield(:page_navigation)
+      - else
+        - partial = local_assigns[:navigation_partial] || "navigation"
+        / Me sure to pass on any locals passed to us, along with the patient if not already provided
+        = render partial, local_assigns.reverse_merge!(patient: current_patient)
 
       = yield
 

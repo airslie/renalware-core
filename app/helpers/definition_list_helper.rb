@@ -21,8 +21,8 @@ module DefinitionListHelper
     end
   end
 
-  def definition_list_for(model:, css_class:)
-    content_tag(:dl, class: "dl-horizontal #{css_class}") do
+  def definition_list_for(model, size:)
+    content_tag(:dl, class: "dl-horizontal #{size}") do
       yield DefinitionList.new(model)
     end
   end

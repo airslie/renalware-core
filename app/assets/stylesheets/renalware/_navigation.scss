@@ -47,6 +47,10 @@ dd.patient-name {
   left: auto;
 }
 
+.page-navigation {
+  margin: 5px 0;
+}
+
 .patient-side-nav {
   flex: 0 0 $patient-side-nav-width;
   order: -1;
