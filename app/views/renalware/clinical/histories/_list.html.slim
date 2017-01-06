@@ -1,0 +1,7 @@
+fieldset.clinical-allergies
+  legend History
+  dl.dl-horizontal
+    dt Smoking
+    dd= profile.smoking_history.try!(:text)
+    dt Alcohol
+    dd= profile.alcohol_history.try!(:text)
