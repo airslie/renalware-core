@@ -1,5 +1,13 @@
+- back_path ||= nil
+
 .header.patient-header
   dl
+    - if back_path
+      dt
+      dd.back-link
+        = link_to back_path do
+          i.fa.fa-arrow-left
+          | &nbsp;Back
     dt
     dd.name= patient
     dt= t(".hospital_code")
