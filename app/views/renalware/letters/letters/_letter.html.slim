@@ -7,6 +7,7 @@ tr
     - if policy(letter).update?
       = pipe_separator
       = link_to 'Edit', edit_patient_letters_letter_path(letter.patient, letter)
+
   - unless compact
     td= letter.type
     td= letter.state
