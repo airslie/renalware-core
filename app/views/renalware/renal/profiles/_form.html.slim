@@ -37,7 +37,8 @@
       = render layout: "renalware/shared/fieldset",
           locals: { legend: "Comorbidities", name: "comorbidities" } do
         = fd.simple_fields_for :comorbidities, fd.object.comorbidities do |fcm|
-          table
+          = link_to "Set all comorbidities to No", "#", class: "set_all_comorbidities_to_no"
+          table.comorbidities
             - fcm.object.class.attributes_list.each do |attribute|
               = render_input fcm, attribute
 
