@@ -10,7 +10,7 @@ module Renalware
       end
 
       def new
-        @clinic_visit = @patient.clinic_visits.new
+        @clinic_visit = @patient.clinic_visits.new(height: last_height_measurement)
       end
 
       def create
@@ -42,6 +42,11 @@ module Renalware
       end
 
       private
+
+      def last_height_measurement
+        last_visit = @patient.clinic_visits.order(created_at: :desc).first
+        last_visit.try!(:height)
+      end
 
       def load_patient
         super
