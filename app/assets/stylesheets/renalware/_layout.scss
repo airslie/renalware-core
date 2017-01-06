@@ -62,3 +62,35 @@ footer {
     }
   }
 }
+
+section.display {
+
+  h4 {
+    margin: .1rem 1rem 0 0;
+    float: left;
+    clear: left;
+    font-size: 1.3rem;
+    color: $dark-grey;
+  }
+
+  .section-actions {
+    float: left;
+    clear: right;
+
+    a {
+      @extend .button;
+      padding: .3rem 1rem;
+      font-size: .9rem;
+      margin: 0;
+    }
+  }
+
+  .section-content {
+    display: block;
+    margin-top: .2rem;
+
+    dl {
+      clear: both;
+    }
+  }
+}
