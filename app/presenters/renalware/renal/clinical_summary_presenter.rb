@@ -36,6 +36,7 @@ module Renalware
       def find_letters
         patient = Renalware::Letters.cast_patient(@patient)
         patient.letters
+               .approved
                .with_main_recipient
                .with_letterhead
                .with_author

@@ -1,11 +1,4 @@
 = field_set_tag do
   legend= link_to "Letters (#{letters.size})", patient_letters_letters_path(patient)
 
-  ul.no-bullet
-    - letters.each do |letter|
-      li
-        = link_to("#{letter.description} (#{letter.state})", patient_letters_letter_path(patient, letter))
-        | &nbsp;
-        = letter.author
-        | &nbsp;
-        = l letter.issued_on
+  = render "renalware/letters/letters/table", letters: letters, compact: true
