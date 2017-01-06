@@ -47,14 +47,6 @@
 
 .form-content
   = field_set_tag do
-    legend History
-    = patient.simple_fields_for :document, patient.object.document do |patient_doc|
-      = patient_doc.simple_fields_for :history, patient.object.document.history do |history_doc|
-        = history_doc.input :alcohol, input_html: { class: "small-input" }
-        = history_doc.input :smoking, input_html: { class: "small-input" }
-
-.form-content
-  = field_set_tag do
     legend Letter Preferences
 
     = patient.input :cc_on_all_letters,  as: :inline_radio_buttons

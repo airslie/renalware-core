@@ -1,7 +1,12 @@
-fieldset.clinical-allergies
+fieldset.clinical-history
   legend History
   dl.dl-horizontal
     dt Smoking
     dd= profile.smoking_history.try!(:text)
     dt Alcohol
     dd= profile.alcohol_history.try!(:text)
+
+  = render "renalware/clinical/history/update",
+           link_text: t(".edit"),
+           patient: profile.patient
+  br

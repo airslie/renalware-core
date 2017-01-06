@@ -140,6 +140,7 @@ Rails.application.routes.draw do
         resources :allergies, only: [:create, :destroy]
         resource :allergy_status, only: [:update]
         resource :profile
+        resource :history, only: :update, controller: "history"
       end
 
       resources :bookmarks, only: :create, controller: "patients/bookmarks"

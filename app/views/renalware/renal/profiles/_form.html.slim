@@ -29,7 +29,6 @@
           .small-1.columns
             span.postfix
               = link_to 'Clear', '#', data: { clear_value_on_click: ".clear-autocomplete" }
-    = f.input :smoking_status, include_blank: "Please select smoking status", input_html: { class: "small-input" }
     = f.input :comorbidities_updated_on, as: :date_picker
 
     = f.simple_fields_for :document, f.object.document do |fd|
