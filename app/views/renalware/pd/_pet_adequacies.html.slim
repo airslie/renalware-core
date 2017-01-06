@@ -1,0 +1,27 @@
+table
+  thead
+    tr
+      th.col-width-tiny
+      th.col-width-date PET date
+      th.col-width-date PET type
+      th Kt/V_Total
+      th Creat clearance
+      th Daily urine
+      th Daily UF
+      th.col-width-date=t("updated_at")
+
+
+  tbody
+    - pet_adequacies.each do |pet_adequacy|
+      tr data-assessment-id="#{pet_adequacy.id}" valign="top"
+        td
+          = link_to "View", patient_pd_pet_adequacy_result_path(patient, pet_adequacy.id)
+          | &nbsp;|&nbsp;
+          = link_to "Edit", edit_patient_pd_pet_adequacy_result_path(patient, pet_adequacy.id)
+        td= l(pet_adequacy.pet_date)
+        td= pet_adequacy.pet_type.try!(:text)
+        td= pet_adequacy.ktv_total
+        td= l(pet_adequacy.date_creat_clearance)
+        td= pet_adequacy.daily_urine
+        td= pet_adequacy.daily_uf
+        td= l(pet_adequacy.updated_at.to_date)

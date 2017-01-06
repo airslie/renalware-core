@@ -12,20 +12,20 @@
 
 # These inflection rules are supported but not enabled by default:
 ActiveSupport::Inflector.inflections(:en) do |inflect|
-  # inflect.acronym 'RESTful'
-  inflect.acronym "ESRF"
-  inflect.acronym "EDTA"
-  inflect.acronym "PRD"
-  inflect.acronym "PD"
-  inflect.acronym "CAPD"
   inflect.acronym "APD"
-  inflect.acronym "HDF"
-  inflect.acronym "HD"
-  inflect.acronym "XHR"
-  inflect.acronym "HL7"
+  inflect.acronym "CAPD"
   inflect.acronym "CC"
   inflect.acronym "CCs"
-  inflect.acronym "DNA"
   inflect.acronym "CM"
+  inflect.acronym "DNA"
+  inflect.acronym "EDTA"
+  inflect.acronym "ESRF"
+  inflect.acronym "HD"
+  inflect.acronym "HDF"
+  inflect.acronym "HL7"
   inflect.acronym "MDM"
+  inflect.acronym "PD"
+  inflect.acronym "PET"
+  inflect.acronym "PRD"
+  inflect.acronym "XHR"
 end

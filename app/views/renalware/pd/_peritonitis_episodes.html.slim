@@ -1,12 +1,12 @@
 table
   thead
     tr
-      th.col-width-9
+      th.col-width-tiny
       th.col-width-date Diagnosed on
       th.col-width-date Treatment Started on
       th Episode Type
       th Outcome
-      th.col-width-date Updated on
+      th.col-width-date= t("updated_at")
 
   tbody
     - peritonitis_episodes.each do |episode|

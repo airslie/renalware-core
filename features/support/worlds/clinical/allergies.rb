@@ -53,7 +53,7 @@ module World
           allergies.each do |allergy|
             description = allergy["description"]
             within ".clinical-allergies" do
-              click_on t(".add")
+              click_on t_allergies(".add")
             end
             within "#add-allergy-modal.open" do
               fill_in "clinical_allergy_description", with: description
@@ -74,7 +74,7 @@ module World
           within ".clinical-allergies table" do
             row = page.find("tbody tr[data-allergy-id='#{allergy.id}']")
             within row do
-              click_on t(".delete")
+              click_on t_allergies(".delete")
             end
           end
         end
@@ -92,8 +92,8 @@ module World
         def mark_patient_as_having_no_allergies(patient:, user:)
           within ".clinical-allergies" do
             expect(page).to_not have_css(".allergy-status-form .disabled")
-            check(allergy_status_t(".no_known_allergies"))
-            click_on allergy_status_t(".save")
+            check(t_allergy_status(".no_known_allergies"))
+            click_on t_allergy_status(".save")
           end
 
           expect(patient.reload.allergy_status).to eq("no_known_allergies")
@@ -101,17 +101,17 @@ module World
 
         private
 
-        def t(key, scope: "renalware.clinical.allergies.list", required: false)
+        def t_allergies(key, scope: "renalware.clinical.allergies.list", required: false)
           translation = I18n.t(key, scope: scope)
           required ? "* #{translation}" : translation
         end
 
         def modal_t(key, required: false)
-          t(key, scope: "renalware.clinical.allergies.new", required: required)
+          t_allergies(key, scope: "renalware.clinical.allergies.new", required: required)
         end
 
-        def allergy_status_t(key, required: false)
-          t(key, scope: "renalware.clinical.allergy_statuses.form", required: required)
+        def t_allergy_status(key, required: false)
+          t_allergies(key, scope: "renalware.clinical.allergy_statuses.form", required: required)
         end
       end
     end

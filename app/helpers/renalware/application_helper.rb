@@ -25,6 +25,15 @@ module Renalware
       t(key, cascade: false, raise: false, default: "").present?
     end
 
+    def back_link_to(text, path)
+      capture do
+        link_to(path) do
+          concat "<i class='fa fa-arrow-left'></i>&nbsp;".html_safe
+          concat text
+        end
+      end
+    end
+
     def errors_css_class(model, attr)
       " field_with_errors" if model.errors.key?(attr)
     end

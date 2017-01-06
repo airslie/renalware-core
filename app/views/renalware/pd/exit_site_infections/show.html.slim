@@ -1,5 +1,10 @@
+- content_for(:page_navigation) do
+  = back_link_to("Back to PD Summary", patient_pd_dashboard_path(@patient))
+
 = within_patient_layout(title: "PD - Exit Site Infection") do
 
+  /= section(title: "Infection") do
+  /  = render "details", patient: @patient, exit_site_infection: @exit_site_infection
   = field_set_tag "Infection" do
     = render "details", patient: @patient, exit_site_infection: @exit_site_infection
 
