@@ -1,0 +1,4 @@
+= field_set_tag do
+  legend= link_to "Letters (#{letters.size})", patient_letters_letters_path(patient)
+
+  = render "renalware/letters/letters/table", letters: letters, compact: true
