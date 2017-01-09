@@ -3,8 +3,8 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     module Requests
-      class HighRiskRuleSet < ActiveRecord::Base
-        has_no_table
+      class HighRiskRuleSet < Tableless # ActiveRecord::Base
+        # has_no_table
 
         def self.rules
           GlobalRule.where(rule_set_type: self.name)
