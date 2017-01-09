@@ -12,6 +12,14 @@ module Renalware
       def allergies
         patient.allergies
       end
+
+      def smoking_history
+        patient.document.history.try!(:smoking)
+      end
+
+      def alcohol_history
+        patient.document.history.try!(:alcohol)
+      end
     end
   end
 end

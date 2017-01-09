@@ -3026,7 +3026,6 @@ CREATE TABLE renal_profiles (
     weight_at_esrf double precision,
     modality_at_esrf character varying,
     prd_description_id integer,
-    smoking_status character varying,
     comorbidities_updated_on date,
     document jsonb,
     created_at timestamp without time zone NOT NULL,
@@ -8390,4 +8389,6 @@ INSERT INTO schema_migrations (version) VALUES ('20161216090417');
 INSERT INTO schema_migrations (version) VALUES ('20161216155218');
 
 INSERT INTO schema_migrations (version) VALUES ('20170103161015');
+
+INSERT INTO schema_migrations (version) VALUES ('20170106161800');
 

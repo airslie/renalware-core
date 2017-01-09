@@ -8,7 +8,6 @@ module Renalware
         modality_at_esrf: "HD",
         first_seen_on: 18.weeks.ago,
         prd_description_id: 142,
-        smoking_status: "ex_smoker",
         comorbidities_updated_on: 1.week.ago,
         document: {
           comorbidities: {
