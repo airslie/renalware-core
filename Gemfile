@@ -1,23 +1,27 @@
 source "https://rubygems.org"
 ruby "2.3.1"
 
-gem "active_type", "~> 0.4.3"
-gem "activemodel-associations", "~> 0.1.2"
-gem "activerecord-tableless", "~> 1.3.4"
+gem "active_type", "~> 0.6.1"
+gem "activemodel-associations"#, "~> 0.2.0"
+#gem "activerecord-tableless"#, "~> 1.3.4"
 gem "autoprefixer-rails"
 gem "chosen-rails"
-gem "client_side_validations"
-gem "client_side_validations-simple_form"
+gem "client_side_validations",
+    git: "https://github.com/DavyJonesLocker/client_side_validations.git",
+    branch: "rails5"
+gem "client_side_validations-simple_form",
+    git: "https://github.com/DavyJonesLocker/client_side_validations-simple_form.git",
+    branch: "rails5"
 gem "cocoon", "~> 1.2.9"
-gem "delayed_job_active_record", "~> 4.1.1"
-gem "delayed_job_web", "~> 1.2.10"
+gem "delayed_job_active_record"#, "~> 4.1.1"
+gem "delayed_job_web"#, "~> 1.2.10"
 gem "devise", "~> 4.2.0"
 gem "devise_security_extension", git: "https://github.com/phatworx/devise_security_extension.git"
 gem "dumb_delegator", "~> 0.8.0"
 gem "email_validator", "~> 1.6.0"
 gem "enumerize", "~> 1.0.0"
-gem "font-awesome-rails", "~> 4.4.0.0" # See icons here: https://fortawesome.github.io/Font-Awesome/icons/
-gem "foundation-rails", "~> 5.4.5"
+gem "font-awesome-rails"#, "~> 4.4.0.0" # See icons here: https://fortawesome.github.io/Font-Awesome/icons/
+gem "foundation-rails", "~> 5.5.3"
 gem "hashdiff", "~> 0.2.2"
 gem "httparty", "~> 0.14.0"
 gem "jbuilder", "~> 2.4.0"
@@ -31,7 +35,8 @@ gem "paper_trail", "~> 4.0.0"
 gem "paranoia", "~> 2.2.0"
 gem "pg", "~> 0.19.0"
 gem "pundit", "~> 1.1.0"
-gem "rails", "~> 4.2.7"
+gem "sinatra", git: 'https://github.com/sinatra/sinatra.git'
+gem "rails", "5.0.1"
 gem "ransack", git: "https://github.com/activerecord-hackery/ransack.git"
 gem "ruby-hl7", "~> 1.1.1"
 gem "sass-rails" #, "~> 4.0.5"
@@ -43,7 +48,7 @@ gem "underscore-rails", "~> 1.8.3"
 gem "validates_timeliness", "~> 3.0.14"
 gem "virtus", "~> 1.0.5"
 gem "whenever", require: false # For managing and deploying cron jobs - see config/schedule.rb
-gem "where-or", "~> 0.1.3" # Rail 5 AR 'or' backport
+#gem "where-or", "~> 0.1.3" # Rail 5 AR 'or' backport
 gem "wicked_pdf", "~> 1.0.6"
 gem "wisper", "2.0.0.rc1"
 gem "wkhtmltopdf-binary", "~> 0.12.3"
@@ -75,7 +80,6 @@ group :development, :test do
   gem "foreman", "~> 0.82.0"
   gem "launchy", "~> 2.4.3"
   gem "poltergeist", "~> 1.11.0"
-  gem "quiet_assets", "~> 1.1.0"
   gem "rspec-html-matchers", "~> 0.8.1"
   gem "rspec-rails", "~> 3.5.2"
   gem "rubocop", "~> 0.45.0", require: false
