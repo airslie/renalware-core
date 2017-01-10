@@ -54,7 +54,7 @@ module Renalware::System
       end
 
       context "given an expired user" do
-        let(:user) { build_stubbed(:user, :expired) }
+        let(:user) { build(:user, :expired) }
         subject { UpdateUser.new(user) }
 
         it "unexpires the user" do
@@ -69,7 +69,7 @@ module Renalware::System
       end
 
       context "given an unexpired user" do
-        let(:user) { build_stubbed(:user, :approved) }
+        let(:user) { build(:user, :approved) }
         subject { UpdateUser.new(user) }
 
         it "skips unexpiry" do
