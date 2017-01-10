@@ -7,8 +7,8 @@ module Renalware
     it_behaves_like "Personable"
 
     it { should validate_uniqueness_of :nhs_number }
-    it { should ensure_length_of(:nhs_number).is_at_least(10) }
-    it { should ensure_length_of(:nhs_number).is_at_most(10) }
+    it { should validate_length_of(:nhs_number).is_at_least(10) }
+    it { should validate_length_of(:nhs_number).is_at_most(10) }
 
     it { should validate_presence_of :family_name }
     it { should validate_presence_of :given_name }
