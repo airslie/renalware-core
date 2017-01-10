@@ -7,7 +7,6 @@ module Renalware
     sit amet, consectetur adipiscing elit."
   TEXT
 
-
   log "Assign Access procedure to Francois RABBIT" do
     patient.procedures.destroy_all
 
@@ -16,7 +15,7 @@ module Renalware
       type: Accesses::Type.all.sample,
       site: Accesses::Site.all.sample,
       side: Accesses::Profile.side.values.sample,
-      performed_by: users.sample.full_name,
+      performed_by: users.sample,
       notes: dummy_text,
       outcome: "Perfect",
       by: users.sample
@@ -27,7 +26,7 @@ module Renalware
       type: Accesses::Type.all.sample,
       site: Accesses::Site.all.sample,
       side: Accesses::Profile.side.values.sample,
-      performed_by: users.sample.full_name,
+      performed_by: users.sample,
       notes: dummy_text,
       outcome: "Perfect",
       by: users.sample
