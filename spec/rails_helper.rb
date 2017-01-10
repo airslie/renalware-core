@@ -60,6 +60,9 @@ RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
   config.include Chosen::Rspec::FeatureHelpers, type: :feature
 
+  config.include(Shoulda::Matchers::ActiveModel, type: :model)
+  config.include(Shoulda::Matchers::ActiveRecord, type: :model)
+
   # By default, all specs will have versioning enabled.
   # Enable it one spec/example_group at a time by adding `versioning: true`.
   # Or you can enable it globally:
