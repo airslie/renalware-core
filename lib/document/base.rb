@@ -21,8 +21,18 @@ module Document
         before_save :serialize_document
       end
 
+      # Note that unless you specify a default value in the migration when defining your jsonb
+      # column e.g.
+      #   add_column :users, :meta2, :jsonb, default: {}
+      # then the default value in rails 5 is "{}" and rails 4 is {}.
+      # According to this issue the default in 4.2 was a bug and "{}" is correct.
+      # https://github.com/rails/rails/issues/25594
       def document
-        @document ||= document_class.new(read_attribute(:document))
+        @document ||= begin
+          value = read_attribute(:document)
+          value = ::ActiveSupport::JSON.decode(value) if value.is_a? String
+          document_class.new(value)
+        end
       end
 
       def document=(attributes)

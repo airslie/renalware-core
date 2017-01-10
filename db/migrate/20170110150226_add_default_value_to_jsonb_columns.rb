@@ -1,0 +1,27 @@
+class AddDefaultValueToJsonbColumns < ActiveRecord::Migration[5.0]
+  def change
+    change_column_default(:renal_profiles, :document, {})
+    change_column_default(:versions, :object, {})
+    change_column_default(:versions, :object_changes, {})
+    change_column_default(:problem_versions, :object, {})
+    change_column_default(:problem_versions, :object_changes, {})
+    change_column_default(:medication_prescription_versions, :object, {})
+    change_column_default(:medication_prescription_versions, :object_changes, {})
+    change_column_default(:transplant_recipient_workups, :document, {})
+    change_column_default(:transplant_donor_workups, :document, {})
+    change_column_default(:transplant_registrations, :document, {})
+    change_column_default(:transplant_recipient_operations, :document, {})
+    change_column_default(:transplant_donor_operations, :document, {})
+    change_column_default(:transplant_versions, :object, {})
+    change_column_default(:transplant_versions, :object_changes, {})
+    change_column_default(:transplant_recipient_followups, :document, {})
+    change_column_default(:access_versions, :object, {})
+    change_column_default(:access_versions, :object_changes, {})
+    change_column_default(:access_assessments, :document, {})
+    change_column_default(:hd_versions, :object_changes, {})
+    change_column_default(:hd_versions, :object, {})
+    change_column_default(:hd_profiles, :document, {})
+    change_column_default(:hd_sessions, :document, {})
+    change_column_default(:patients, :document, {})
+  end
+end

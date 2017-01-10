@@ -48,7 +48,7 @@ CREATE TABLE access_assessments (
     comments text,
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
-    document jsonb,
+    document jsonb DEFAULT '{}'::jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -269,8 +269,8 @@ CREATE TABLE access_versions (
     item_id integer NOT NULL,
     event character varying NOT NULL,
     whodunnit character varying,
-    object jsonb,
-    object_changes jsonb,
+    object jsonb DEFAULT '{}'::jsonb,
+    object_changes jsonb DEFAULT '{}'::jsonb,
     created_at timestamp without time zone
 );
 
@@ -974,7 +974,7 @@ CREATE TABLE hd_profiles (
     prescribed_on date,
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
-    document jsonb,
+    document jsonb DEFAULT '{}'::jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     prescriber_id integer,
@@ -1020,7 +1020,7 @@ CREATE TABLE hd_sessions (
     notes text,
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
-    document jsonb,
+    document jsonb DEFAULT '{}'::jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     signed_on_by_id integer,
@@ -1061,8 +1061,8 @@ CREATE TABLE hd_versions (
     item_id integer NOT NULL,
     event character varying NOT NULL,
     whodunnit character varying,
-    object jsonb,
-    object_changes jsonb,
+    object jsonb DEFAULT '{}'::jsonb,
+    object_changes jsonb DEFAULT '{}'::jsonb,
     created_at timestamp without time zone
 );
 
@@ -1484,8 +1484,8 @@ CREATE TABLE medication_prescription_versions (
     item_id integer NOT NULL,
     event character varying NOT NULL,
     whodunnit character varying,
-    object jsonb,
-    object_changes jsonb,
+    object jsonb DEFAULT '{}'::jsonb,
+    object_changes jsonb DEFAULT '{}'::jsonb,
     created_at timestamp without time zone
 );
 
@@ -2970,8 +2970,8 @@ CREATE TABLE problem_versions (
     item_id integer NOT NULL,
     event character varying NOT NULL,
     whodunnit character varying,
-    object jsonb,
-    object_changes jsonb,
+    object jsonb DEFAULT '{}'::jsonb,
+    object_changes jsonb DEFAULT '{}'::jsonb,
     created_at timestamp without time zone
 );
 
@@ -3040,7 +3040,7 @@ CREATE TABLE renal_profiles (
     modality_at_esrf character varying,
     prd_description_id integer,
     comorbidities_updated_on date,
-    document jsonb,
+    document jsonb DEFAULT '{}'::jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -3211,7 +3211,7 @@ CREATE TABLE transplant_donor_operations (
     nephrectomy_type_other character varying,
     operating_surgeon character varying,
     notes text,
-    document jsonb,
+    document jsonb DEFAULT '{}'::jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -3243,7 +3243,7 @@ ALTER SEQUENCE transplant_donor_operations_id_seq OWNED BY transplant_donor_oper
 CREATE TABLE transplant_donor_workups (
     id integer NOT NULL,
     patient_id integer,
-    document jsonb,
+    document jsonb DEFAULT '{}'::jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -3346,7 +3346,7 @@ CREATE TABLE transplant_recipient_followups (
     transplant_failure_cause_description_id integer,
     transplant_failure_cause_other character varying,
     transplant_failure_notes text,
-    document jsonb,
+    document jsonb DEFAULT '{}'::jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -3387,7 +3387,7 @@ CREATE TABLE transplant_recipient_operations (
     cold_ischaemic_time integer NOT NULL,
     warm_ischaemic_time integer NOT NULL,
     notes text,
-    document jsonb,
+    document jsonb DEFAULT '{}'::jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -3419,7 +3419,7 @@ ALTER SEQUENCE transplant_recipient_operations_id_seq OWNED BY transplant_recipi
 CREATE TABLE transplant_recipient_workups (
     id integer NOT NULL,
     patient_id integer,
-    document jsonb,
+    document jsonb DEFAULT '{}'::jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -3525,7 +3525,7 @@ CREATE TABLE transplant_registrations (
     entered_on date,
     contact text,
     notes text,
-    document jsonb,
+    document jsonb DEFAULT '{}'::jsonb,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -3560,8 +3560,8 @@ CREATE TABLE transplant_versions (
     item_id integer NOT NULL,
     event character varying NOT NULL,
     whodunnit character varying,
-    object jsonb,
-    object_changes jsonb,
+    object jsonb DEFAULT '{}'::jsonb,
+    object_changes jsonb DEFAULT '{}'::jsonb,
     created_at timestamp without time zone
 );
 
@@ -3644,8 +3644,8 @@ CREATE TABLE versions (
     item_id integer NOT NULL,
     event character varying NOT NULL,
     whodunnit character varying,
-    object jsonb,
-    object_changes jsonb,
+    object jsonb DEFAULT '{}'::jsonb,
+    object_changes jsonb DEFAULT '{}'::jsonb,
     created_at timestamp without time zone
 );
 
@@ -8257,6 +8257,7 @@ INSERT INTO schema_migrations (version) VALUES
 ('20161216090417'),
 ('20161216155218'),
 ('20170103161015'),
-('20170106161800');
+('20170106161800'),
+('20170110150226');
 
 
