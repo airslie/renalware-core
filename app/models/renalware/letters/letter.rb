@@ -42,7 +42,7 @@ module Renalware
       }
       scope :reverse, -> { order(updated_at: :desc) }
       scope :with_letterhead, -> { includes(:letterhead) }
-      scope :with_main_recipient, -> { includes(main_recipient: :addressee) }
+      scope :with_main_recipient, -> { includes(main_recipient: [:address, :addressee]) }
       scope :with_author, -> { includes(:author) }
       scope :with_patient, -> { includes(patient: :primary_care_physician) }
       scope :with_event, -> { includes(:event) }
