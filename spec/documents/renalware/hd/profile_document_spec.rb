@@ -2,7 +2,7 @@ require "rails_helper"
 
 module Renalware
   module HD
-    describe ProfileDocument::Dialysis do
+    describe ProfileDocument::Dialysis, type: :model do
 
       describe "validation" do
 
