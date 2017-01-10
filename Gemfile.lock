@@ -237,7 +237,7 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
     ice_nine (0.11.2)
-    jbuilder (2.4.1)
+    jbuilder (2.6.1)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
     jquery-rails (4.2.2)
@@ -262,7 +262,7 @@ GEM
       ruby_dep (~> 1.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
-    lumberjack (1.0.10)
+    lumberjack (1.0.11)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
     method_source (0.8.2)
@@ -279,7 +279,7 @@ GEM
     nenv (0.3.0)
     nested_form (0.3.2)
     nio4r (1.2.1)
-    nokogiri (1.6.8.1)
+    nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
     notiffany (0.1.1)
       nenv (~> 0.1)
@@ -497,8 +497,8 @@ DEPENDENCIES
   activemodel-associations
   activerecord-import (~> 0.16.2)
   autoprefixer-rails
-  awesome_print (~> 1.7.0)
-  bullet (~> 5.4)
+  awesome_print
+  bullet
   bundler-audit
   byebug
   capybara
@@ -521,18 +521,18 @@ DEPENDENCIES
   font-awesome-rails
   foreman
   foundation-rails (~> 5.5.3)
-  guard-cucumber (~> 2.1.2)
-  guard-rspec (= 4.7.3)
+  guard-cucumber
+  guard-rspec
   hashdiff
-  httparty (~> 0.14.0)
-  jbuilder (~> 2.4.0)
+  httparty
+  jbuilder
   jquery-rails (~> 4.2.1)
   jquery-ui-rails (~> 5.0.5)
   kaminari (~> 0.15.1)
   launchy
   naught (~> 1.1.0)
   nested_form
-  nokogiri (~> 1.6.8)
+  nokogiri
   paper_trail
   paranoia
   pg
