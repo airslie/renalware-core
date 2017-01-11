@@ -38,6 +38,7 @@ module Renalware
           Date::DAYNAME_SYMBOLS.each_with_object({}) do |day, hash|
             hash[day] = nil
             regime.bags.select(&:ordinary?).each do |bag|
+              next unless bag.volume
               next unless bag.public_send(day) == true
               hash[day] = (hash[day] || 0) + bag.volume
             end
