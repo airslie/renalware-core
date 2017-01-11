@@ -164,7 +164,6 @@ GEM
       nokogiri (~> 1.5)
       railties (>= 3, < 5.1)
     cucumber-wire (0.0.1)
-    daemons (1.2.4)
     database_cleaner (1.5.3)
     debug_inspector (0.0.2)
     delayed_job (4.1.2)
@@ -193,7 +192,6 @@ GEM
       activesupport (>= 3.2)
     equalizer (0.0.11)
     erubis (2.7.0)
-    eventmachine (1.2.1)
     execjs (2.7.0)
     factory_girl (4.8.0)
       activesupport (>= 3.0.0)
@@ -314,6 +312,7 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     public_suffix (2.0.5)
+    puma (3.6.2)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (2.0.1)
@@ -453,10 +452,6 @@ GEM
       sprockets (>= 3.0.0)
     temple (0.7.7)
     terminal-notifier-guard (1.7.0)
-    thin (1.7.0)
-      daemons (~> 1.0, >= 1.0.9)
-      eventmachine (~> 1.0, >= 1.0.4)
-      rack (>= 1, < 3)
     thor (0.19.4)
     thread_safe (0.3.5)
     tilt (2.0.5)
@@ -550,6 +545,7 @@ DEPENDENCIES
   paranoia
   pg
   poltergeist (~> 1.11.0)
+  puma
   pundit (~> 1.1.0)
   rack-mini-profiler
   rails (= 5.0.1)
@@ -575,7 +571,6 @@ DEPENDENCIES
   spring-commands-cucumber
   spring-commands-rspec
   terminal-notifier-guard
-  thin
   uglifier
   underscore-rails
   unicorn (~> 4.8.3)

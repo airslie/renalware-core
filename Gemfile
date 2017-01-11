@@ -88,7 +88,7 @@ group :development, :test do
   gem "spring"
   gem "spring-commands-cucumber"
   gem "spring-commands-rspec"
-  gem "thin"
+  gem "puma"
 end
 
 group :test do
