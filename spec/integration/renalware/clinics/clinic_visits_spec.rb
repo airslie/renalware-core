@@ -28,7 +28,7 @@ RSpec.describe "Clinic Visits Management", type: :request do
   describe "POST create" do
     before do
       post patient_clinic_visits_path(patient_id: patient.to_param),
-        {
+        params: {
           clinic_visit: {
             date: Time.now,
             clinic_id: clinic,
@@ -55,7 +55,7 @@ RSpec.describe "Clinic Visits Management", type: :request do
   describe "PUT update" do
     before do
       put patient_clinic_visit_path(patient_id: patient.to_param, id: clinic_visit.to_param),
-        {
+        params: {
           clinic_visit: {
             date: Time.now,
             height: 1725, weight: 89.2, bp: "110/70",

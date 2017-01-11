@@ -15,7 +15,7 @@ RSpec.describe "Managing Cannulation Types", type: :request do
     context "given valid attributes" do
       it "creates a new record" do
         attributes = attributes_for(:hd_dialyser)
-        post hd_dialysers_path, hd_dialyser: attributes
+        post hd_dialysers_path, params: { hd_dialyser: attributes }
 
         expect(response).to have_http_status(:redirect)
         expect(Renalware::HD::Dialyser.exists?(attributes)).to be_truthy
@@ -29,7 +29,7 @@ RSpec.describe "Managing Cannulation Types", type: :request do
     context "given invalid attributes" do
       it "responds with form" do
         attributes = { name: "" }
-        post hd_dialysers_path, hd_dialyser: attributes
+        post hd_dialysers_path, params: { hd_dialyser: attributes }
 
         expect(response).to have_http_status(:success)
       end
@@ -48,7 +48,7 @@ RSpec.describe "Managing Cannulation Types", type: :request do
     context "given valid attributes" do
       it "updates a record" do
         attributes = { name: "Something" }
-        patch hd_dialyser_path(dialyser), hd_dialyser: attributes
+        patch hd_dialyser_path(dialyser), params: { hd_dialyser: attributes }
 
         expect(response).to have_http_status(:redirect)
         expect(Renalware::HD::Dialyser.exists?(attributes)).to be_truthy
@@ -62,7 +62,7 @@ RSpec.describe "Managing Cannulation Types", type: :request do
     context "given invalid attributes" do
       it "responds with a form" do
         attributes = { name: "" }
-        patch hd_dialyser_path(dialyser), hd_dialyser: attributes
+        patch hd_dialyser_path(dialyser), params: { hd_dialyser: attributes }
 
         expect(response).to have_http_status(:success)
       end

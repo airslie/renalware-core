@@ -10,7 +10,7 @@ RSpec.describe "History management", type: :request do
       url = patient_clinical_history_path(patient_id: patient.to_param)
       params = { history: { smoking: "former", alcohol: "rarely" } }
 
-      put(url, params, headers)
+      put(url, params: params, headers: headers)
 
       follow_redirect!
       expect(response).to have_http_status(:success)

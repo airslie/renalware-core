@@ -10,7 +10,9 @@ RSpec.describe "Allergy management", type: :request do
       url = patient_clinical_allergies_path(patient_id: patient.to_param)
       params = { clinical_allergy: { description: "Nuts" } }
 
-      expect{ post(url, params, headers) }.to change(patient.allergies, :count).by(1)
+      expect{
+        post(url, params: params, headers: headers)
+      }.to change(patient.allergies, :count).by(1)
       follow_redirect!
       expect(response).to have_http_status(:success)
     end
@@ -22,7 +24,7 @@ RSpec.describe "Allergy management", type: :request do
       allergy = create(:allergy, patient: patient, by: user)
       url = patient_clinical_allergy_path(patient_id: patient.to_param, id: allergy.to_param)
 
-      expect{ delete(url, nil, headers) }.to change(patient.allergies, :count).by(-1)
+      expect{ delete(url, headers: headers) }.to change(patient.allergies, :count).by(-1)
       follow_redirect!
       expect(response).to have_http_status(:success)
       expect(patient.allergies.with_deleted.count).to eq(1)

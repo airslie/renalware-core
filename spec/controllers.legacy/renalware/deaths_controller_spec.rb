@@ -21,7 +21,7 @@ module Renalware
 
     describe "GET edit" do
       it "responds with success" do
-        get :edit, patient_id: subject.id
+        get :edit, params: { patient_id: subject.id }
         expect(response).to have_http_status(:success)
       end
     end
@@ -30,18 +30,20 @@ module Renalware
       context "with valid attributes" do
         it "updates death details" do
           put :update,
-          patient_id: subject.id,
-          patient: {
-            died_on: Date.parse(Time.now.to_s),
-            first_edta_code_id: @edta_code.id
-          }
+            params: {
+              patient_id: subject.id,
+              patient: {
+                died_on: Date.parse(Time.now.to_s),
+                first_edta_code_id: @edta_code.id
+              }
+            }
           expect(response).to redirect_to(patient_path(subject))
         end
       end
 
       context "with invalid attributes" do
         it "fails to update death details" do
-          put :update, patient_id: subject.id, patient: { died_on: nil }
+          put :update, params: { patient_id: subject.id, patient: { died_on: nil } }
           expect(response).to render_template(:edit)
         end
       end

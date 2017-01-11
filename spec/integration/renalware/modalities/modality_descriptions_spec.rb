@@ -16,7 +16,7 @@ RSpec.describe "Configuring Modality Descriptions", type: :request do
       it "creates a new record" do
         attributes = attributes_for(:modality_description)
 
-        post modalities_descriptions_path, modalities_description: attributes
+        post modalities_descriptions_path, params: { modalities_description: attributes }
 
         expect(response).to have_http_status(:redirect)
         expect(Renalware::Modalities::Description.exists?(attributes)).to be_truthy
@@ -31,7 +31,7 @@ RSpec.describe "Configuring Modality Descriptions", type: :request do
       it "responds with form" do
         attributes = { name: "" }
 
-        post modalities_descriptions_path, modalities_description: attributes
+        post modalities_descriptions_path, params: { modalities_description: attributes }
 
         expect(response).to have_http_status(:success)
       end
@@ -59,7 +59,8 @@ RSpec.describe "Configuring Modality Descriptions", type: :request do
       it "updates a record" do
         attributes = { name: "My Edited Modality Description" }
 
-        patch modalities_description_path(modality_description), modalities_description: attributes
+        patch modalities_description_path(modality_description),
+              params: { modalities_description: attributes }
 
         expect(response).to have_http_status(:redirect)
         expect(Renalware::Modalities::Description.exists?(attributes)).to be_truthy
@@ -74,7 +75,8 @@ RSpec.describe "Configuring Modality Descriptions", type: :request do
       it "responds with a form" do
         attributes = { name: "" }
 
-        patch modalities_description_path(modality_description), modalities_description: attributes
+        patch modalities_description_path(modality_description),
+              params: { modalities_description: attributes }
 
         expect(response).to have_http_status(:success)
       end

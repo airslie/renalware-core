@@ -38,7 +38,8 @@ module Renalware
         it "responds with form" do
           attributes = { given_name: "" }
 
-          post patients_primary_care_physicians_path, patients_primary_care_physician: attributes
+          post patients_primary_care_physicians_path,
+               params: { patients_primary_care_physician: attributes }
 
           expect(response).to have_http_status(:success)
         end
@@ -66,7 +67,7 @@ module Renalware
         it "updates a record" do
           attributes = { given_name: "My GP" }
           patch patients_primary_care_physician_path(primary_care_physician),
-            patients_primary_care_physician: attributes
+                params: { patients_primary_care_physician: attributes }
 
           expect(response).to have_http_status(:redirect)
           expect(Patients::PrimaryCarePhysician.exists?(attributes)).to be_truthy
@@ -81,7 +82,7 @@ module Renalware
         it "responds with a form" do
           attributes = { given_name: "" }
           patch patients_primary_care_physician_path(primary_care_physician),
-            patients_primary_care_physician: attributes
+                params: { patients_primary_care_physician: attributes }
 
           expect(response).to have_http_status(:success)
         end

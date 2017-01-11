@@ -15,7 +15,7 @@ RSpec.describe "Managing Cannulation Types", type: :request do
     context "given valid attributes" do
       it "creates a new record" do
         attributes = attributes_for(:hd_cannulation_type)
-        post hd_cannulation_types_path, hd_cannulation_type: attributes
+        post hd_cannulation_types_path, params: { hd_cannulation_type: attributes }
 
         expect(response).to have_http_status(:redirect)
         expect(Renalware::HD::CannulationType.exists?(attributes)).to be_truthy
@@ -29,7 +29,7 @@ RSpec.describe "Managing Cannulation Types", type: :request do
     context "given invalid attributes" do
       it "responds with form" do
         attributes = { name: "" }
-        post hd_cannulation_types_path, hd_cannulation_type: attributes
+        post hd_cannulation_types_path, params: { hd_cannulation_type: attributes }
 
         expect(response).to have_http_status(:success)
       end
@@ -48,7 +48,8 @@ RSpec.describe "Managing Cannulation Types", type: :request do
     context "given valid attributes" do
       it "updates a record" do
         attributes = { name: "Something" }
-        patch hd_cannulation_type_path(cannulation_type), hd_cannulation_type: attributes
+        patch hd_cannulation_type_path(cannulation_type),
+              params: { hd_cannulation_type: attributes }
 
         expect(response).to have_http_status(:redirect)
         expect(Renalware::HD::CannulationType.exists?(attributes)).to be_truthy
@@ -62,7 +63,8 @@ RSpec.describe "Managing Cannulation Types", type: :request do
     context "given invalid attributes" do
       it "responds with a form" do
         attributes = { name: "" }
-        patch hd_cannulation_type_path(cannulation_type), hd_cannulation_type: attributes
+        patch hd_cannulation_type_path(cannulation_type),
+              params: { hd_cannulation_type: attributes }
 
         expect(response).to have_http_status(:success)
       end

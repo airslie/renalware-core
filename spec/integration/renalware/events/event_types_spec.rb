@@ -15,7 +15,7 @@ RSpec.describe "Configuring Event Types", type: :request do
     context "given valid attributes" do
       it "creates a new record" do
         attributes = attributes_for(:events_type)
-        post events_types_path, events_type: attributes
+        post events_types_path, params: { events_type: attributes }
 
         expect(response).to have_http_status(:redirect)
         expect(Renalware::Events::Type.exists?(attributes)).to be_truthy
@@ -29,7 +29,7 @@ RSpec.describe "Configuring Event Types", type: :request do
     context "given invalid attributes" do
       it "responds with form" do
         attributes = { name: "" }
-        post events_types_path, events_type: attributes
+        post events_types_path, params: { events_type: attributes }
 
         expect(response).to have_http_status(:success)
       end
@@ -48,7 +48,7 @@ RSpec.describe "Configuring Event Types", type: :request do
     context "given valid attributes" do
       it "updates a record" do
         attributes = { name: "My Edited Event" }
-        patch events_type_path(event_type), events_type: attributes
+        patch events_type_path(event_type), params: { events_type: attributes }
 
         expect(response).to have_http_status(:redirect)
         expect(Renalware::Events::Type.exists?(attributes)).to be_truthy
@@ -62,7 +62,7 @@ RSpec.describe "Configuring Event Types", type: :request do
     context "given invalid attributes" do
       it "responds with a form" do
         attributes = { name: "" }
-        patch events_type_path(event_type), events_type: attributes
+        patch events_type_path(event_type), params: { events_type: attributes }
 
         expect(response).to have_http_status(:success)
       end

@@ -16,7 +16,7 @@ RSpec.describe "Configuring Drugs", type: :request do
       it "creates a new record" do
         attributes = attributes_for(:drug)
 
-        post drugs_drugs_path, drugs_drug: attributes
+        post drugs_drugs_path, params: { drugs_drug: attributes }
 
         expect(response).to have_http_status(:redirect)
         expect(Renalware::Drugs::Drug.exists?(attributes)).to be_truthy
@@ -31,7 +31,7 @@ RSpec.describe "Configuring Drugs", type: :request do
       it "responds with form" do
         attributes = { name: "" }
 
-        post drugs_drugs_path, drugs_drug: attributes
+        post drugs_drugs_path, params: { drugs_drug: attributes }
 
         expect(response).to have_http_status(:success)
       end
@@ -50,7 +50,7 @@ RSpec.describe "Configuring Drugs", type: :request do
     it "responds with json" do
       create(:drug, name: "::drug name::")
 
-      get drugs_drugs_path, format: :json
+      get drugs_drugs_path, params: { format: :json }
 
       expect(response).to have_http_status(:success)
 
@@ -66,7 +66,7 @@ RSpec.describe "Configuring Drugs", type: :request do
       create(:drug, name: "::target drug name::")
       create(:drug, name: "::another drug name::")
 
-      get drugs_drugs_path, q: { name_cont: "target" }
+      get drugs_drugs_path, params: { q: { name_cont: "target" } }
 
       expect(response).to have_http_status(:success)
       expect(response.body).to match("::target drug name::")
@@ -87,7 +87,7 @@ RSpec.describe "Configuring Drugs", type: :request do
       it "updates a record" do
         attributes = { name: "::drug_name::" }
 
-        patch drugs_drug_path(drug), drugs_drug: attributes
+        patch drugs_drug_path(drug), params: { drugs_drug: attributes }
 
         expect(response).to have_http_status(:redirect)
         expect(Renalware::Drugs::Drug.exists?(attributes)).to be_truthy
@@ -102,7 +102,7 @@ RSpec.describe "Configuring Drugs", type: :request do
       it "responds with a form" do
         attributes = { name: "" }
 
-        patch drugs_drug_path(drug), drugs_drug: attributes
+        patch drugs_drug_path(drug), params: { drugs_drug: attributes }
 
         expect(response).to have_http_status(:success)
       end

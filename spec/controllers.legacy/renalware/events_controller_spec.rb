@@ -10,7 +10,7 @@ module Renalware::Events
 
     describe "GET new" do
       it "renders the new template" do
-        get :new, patient_id: @patient.id
+        get :new, params: { patient_id: @patient.id }
         expect(response).to render_template(:new)
       end
     end
@@ -20,12 +20,14 @@ module Renalware::Events
         it "creates a new event" do
           expect do
             post :create,
-                 patient_id: @patient,
-                 events_event: {
-                   events_type_id: @event_type,
-                   date_time: Time.now,
-                   description: "Needs blood test",
-                   notes: "Arrange appointment in a weeks time."
+                 params: {
+                   patient_id: @patient,
+                   events_event: {
+                     events_type_id: @event_type,
+                     date_time: Time.now,
+                     description: "Needs blood test",
+                     notes: "Arrange appointment in a weeks time."
+                   }
                  }
           end.to change(Event, :count).by(1)
           expect(response).to redirect_to(patient_events_path(@patient))
@@ -36,10 +38,12 @@ module Renalware::Events
         it "creates a new event" do
           expect do
             post :create,
-                 patient_id: @patient.id,
-                 events_event: {
-                   patient: @patient,
-                   event_type: nil
+                 params: {
+                   patient_id: @patient.id,
+                   events_event: {
+                     patient: @patient,
+                     event_type: nil
+                   }
                  }
           end.to change(Event, :count).by(0)
           expect(response).to render_template(:new)
@@ -49,7 +53,7 @@ module Renalware::Events
 
     describe "GET index" do
       it "responds with success" do
-        get :index, patient_id: @patient
+        get :index, params: { patient_id: @patient }
         expect(response).to have_http_status(:success)
       end
     end
