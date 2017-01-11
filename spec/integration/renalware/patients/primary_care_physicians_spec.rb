@@ -21,7 +21,9 @@ module Renalware
             primary_care_physician_attributes.merge(address_attributes: address_attributes)
 
           post patients_primary_care_physicians_path,
-            patients_primary_care_physician: primary_care_physician_address_attributes
+               params: {
+                 patients_primary_care_physician: primary_care_physician_address_attributes
+               }
           expect(response).to have_http_status(:redirect)
           expect(Patients::PrimaryCarePhysician.exists?(primary_care_physician_attributes)).to(
             be_truthy
