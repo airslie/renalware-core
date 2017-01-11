@@ -26,7 +26,7 @@ module Renalware
         private
 
         def sample_number_bottles_string
-          pluralize(@sample_number_bottles, "bottle")
+          pluralize(@sample_number_bottles, "bottle", plural: "bottles")
         end
       end
     end
