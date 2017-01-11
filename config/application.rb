@@ -1,13 +1,21 @@
-require File.expand_path("../boot", __FILE__)
+# rubocop:disable Lint/HandleExceptions
+require_relative "boot"
+require "rails"
 
-# Pick the frameworks you want:
-require "active_model/railtie"
-require "active_record/railtie"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "action_view/railtie"
-require "sprockets/railtie"
-# require "rails/test_unit/railtie"
+# Skip test_unit and action_cable
+%w(
+  active_record/railtie
+  action_controller/railtie
+  action_view/railtie
+  action_mailer/railtie
+  active_job/railtie
+  sprockets/railtie
+).each do |railtie|
+  begin
+    require railtie.to_s
+  rescue LoadError
+  end
+end
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
