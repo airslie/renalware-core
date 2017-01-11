@@ -18,7 +18,7 @@ RSpec.describe "Configuring PD Bag Types", type: :request do
         post pd_bag_types_path, params: { pd_bag_type: attributes }
 
         expect(response).to have_http_status(:redirect)
-        expect(Renalware::PD::BagType.exists?(attributes)).to be_truthy
+        expect(Renalware::PD::BagType.count).to eq(1)
 
         follow_redirect!
 
