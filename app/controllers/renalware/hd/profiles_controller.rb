@@ -3,8 +3,8 @@ require_dependency "renalware/hd/base_controller"
 module Renalware
   module HD
     class ProfilesController < BaseController
-      before_filter :load_patient
-      before_filter :load_profile
+      before_action :load_patient
+      before_action :load_profile
 
       def show
         render :show, locals: locals

@@ -3,7 +3,7 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class PatientRulesController < Pathology::BaseController
-      before_filter :load_patient
+      before_action :load_patient
 
       def new
         patient_rule = @patient.rules.new

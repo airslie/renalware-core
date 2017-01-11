@@ -3,7 +3,7 @@ require "collection_presenter"
 module Renalware
   module Accesses
     class DashboardsController < Accesses::BaseController
-      before_filter :load_patient
+      before_action :load_patient
 
       def show
         procedures = @patient.procedures.ordered

@@ -3,7 +3,7 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     class RecentObservationResultsController < Pathology::BaseController
-      before_filter :load_patient
+      before_action :load_patient
 
       def index
         table_view = RecentObservationResults::HTMLTableView.new(self.view_context)

@@ -3,7 +3,7 @@ require_dependency "renalware/hd/base_controller"
 module Renalware
   module HD
     class DashboardsController < BaseController
-      before_filter :load_patient
+      before_action :load_patient
 
       def show
         render locals: {

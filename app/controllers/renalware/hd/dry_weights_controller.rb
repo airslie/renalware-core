@@ -4,7 +4,7 @@ require_dependency "renalware/hd/base_controller"
 module Renalware
   module HD
     class DryWeightsController < BaseController
-      before_filter :load_patient
+      before_action :load_patient
 
       def index
         @query = PatientDryWeightsQuery.new(patient: patient, search_params: params[:q])

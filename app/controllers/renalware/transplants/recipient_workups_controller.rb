@@ -4,7 +4,7 @@ module Renalware
   module Transplants
     class RecipientWorkupsController < BaseController
 
-      before_filter :load_patient
+      before_action :load_patient
 
       def show
         @workup = RecipientWorkup.for_patient(@patient).first_or_initialize
