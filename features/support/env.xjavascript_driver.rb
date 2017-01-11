@@ -20,4 +20,9 @@ Capybara.register_driver :poltergeist_large_window do |app|
 end
 
 Capybara.javascript_driver = :poltergeist_large_window
+
+Capybara::Screenshot.register_driver(:poltergeist_large_window) do |driver, path|
+  # noop
+end
+
 # Capybara.javascript_driver = :poltergeist_debug
