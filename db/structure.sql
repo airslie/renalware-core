@@ -2389,7 +2389,7 @@ CREATE TABLE pd_bag_types (
     id integer NOT NULL,
     manufacturer character varying NOT NULL,
     description character varying NOT NULL,
-    glucose_content numeric(4,2) NOT NULL,
+    glucose_content numeric(3,2) NOT NULL,
     amino_acid boolean,
     icodextrin boolean,
     low_glucose_degradation boolean,
@@ -8242,6 +8242,7 @@ INSERT INTO schema_migrations (version) VALUES
 ('20161216155218'),
 ('20170103161015'),
 ('20170106161800'),
-('20170110161149');
+('20170110161149'),
+('20170112104919');
 
 
