@@ -14,9 +14,19 @@ module Renalware
       has_document class_name: "Renalware::Renal::ProfileDocument"
 
       validates :patient, presence: true
-      validates :esrf_on, timeliness: { type: :date, allow_nil: true }
-      validates :first_seen_on, timeliness: { type: :date, allow_nil: true }
-      validates :comorbidities_updated_on, timeliness: { type: :date, allow_nil: true }
+      validates :esrf_on, timeliness: { type: :date, allow_nil: true }, allow_blank: true
+      validates :first_seen_on,
+                timeliness: {
+                  type: :date,
+                  allow_nil: true
+                },
+                allow_blank: true
+      validates :comorbidities_updated_on,
+                timeliness: {
+                  type: :date,
+                  allow_nil: true
+                },
+                allow_blank: true
 
       accepts_nested_attributes_for :address_at_diagnosis, reject_if: Address.reject_if_blank
 
