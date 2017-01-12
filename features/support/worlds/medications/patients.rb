@@ -40,7 +40,7 @@ module World
       end
 
       def seed_prescription_by_drug_type(patient, terminated, drug_type_name)
-        terminated = ActiveRecord::Type::Boolean.new.type_cast_from_user(terminated)
+        terminated = ActiveRecord::Type::Boolean.new.cast(terminated)
         prescribed_on = Time.zone.now - 1.week
         terminated_on = terminated ? I18n.l(Time.zone.now - 1.day) : nil
 
