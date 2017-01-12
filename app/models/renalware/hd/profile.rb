@@ -3,7 +3,7 @@ require "document/base"
 
 module Renalware
   module HD
-    class Profile < ActiveRecord::Base
+    class Profile < ApplicationRecord
       include Document::Base
       include PatientScope
       include HasSchedule

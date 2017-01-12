@@ -2,7 +2,7 @@ require_dependency "renalware/problems"
 
 module Renalware
   module Problems
-    class Note < ActiveRecord::Base
+    class Note < ApplicationRecord
       include Accountable
 
       belongs_to :problem

@@ -2,7 +2,7 @@ require_dependency "renalware/pd"
 
 module Renalware
   module PD
-    class InfectionOrganism < ActiveRecord::Base
+    class InfectionOrganism < ApplicationRecord
       belongs_to :organism_code
       belongs_to :infectable, polymorphic: true
 

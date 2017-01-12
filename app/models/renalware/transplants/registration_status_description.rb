@@ -2,7 +2,7 @@ require_dependency "renalware/transplants"
 
 module Renalware
   module Transplants
-    class RegistrationStatusDescription < ActiveRecord::Base
+    class RegistrationStatusDescription < ApplicationRecord
       scope :ordered, -> { order(position: :asc) }
 
       validates :name, presence: true

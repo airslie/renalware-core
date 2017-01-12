@@ -2,7 +2,7 @@ require_dependency "renalware/events"
 
 module Renalware
   module Events
-    class Event < ActiveRecord::Base
+    class Event < ApplicationRecord
       include Accountable
       include PatientScope
 

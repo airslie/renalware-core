@@ -2,7 +2,7 @@ require_dependency "renalware/letters"
 
 module Renalware
   module Letters
-    class Signature < ActiveRecord::Base
+    class Signature < ApplicationRecord
       belongs_to :user
       belongs_to :letter
 

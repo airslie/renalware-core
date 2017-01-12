@@ -2,7 +2,7 @@ require_dependency "renalware/problems"
 
 module Renalware
   module Problems
-    class Problem < ActiveRecord::Base
+    class Problem < ApplicationRecord
       include PatientScope
       include Accountable
 

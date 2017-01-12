@@ -2,7 +2,7 @@ require_dependency "renalware/patients"
 
 module Renalware
   module Patients
-    class Language < ActiveRecord::Base
+    class Language < ApplicationRecord
       validates :name, presence: true
 
       def to_s

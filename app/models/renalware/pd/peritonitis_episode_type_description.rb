@@ -2,7 +2,7 @@ require_dependency "renalware/pd"
 
 module Renalware
   module PD
-    class PeritonitisEpisodeTypeDescription < ActiveRecord::Base
+    class PeritonitisEpisodeTypeDescription < ApplicationRecord
       has_many :peritonitis_episode_types,
                 class_name: "PD::PeritonitisEpisodeType"
     end

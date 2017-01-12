@@ -2,7 +2,7 @@ require_dependency "renalware/transplants"
 
 module Renalware
   module Transplants
-    class RegistrationStatus < ActiveRecord::Base
+    class RegistrationStatus < ApplicationRecord
       include Accountable
 
       belongs_to :description, class_name: "RegistrationStatusDescription"

@@ -3,7 +3,7 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     module Requests
-      class GlobalRuleSet < ActiveRecord::Base
+      class GlobalRuleSet < ApplicationRecord
         include FrequencyMethods
 
         has_many :rules, as: :rule_set, class_name: "GlobalRule"

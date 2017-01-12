@@ -2,7 +2,7 @@ require_dependency "renalware"
 require "document/base"
 
 module Renalware
-  class Patient < ActiveRecord::Base
+  class Patient < ApplicationRecord
     include PatientsRansackHelper
     include Personable
     include Accountable

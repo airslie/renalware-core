@@ -5,7 +5,7 @@ module Renalware
     # Responsible for persisting the raw message. Useful for audit and
     # debugging purposes.
     #
-    class Message < ActiveRecord::Base
+    class Message < ApplicationRecord
       validates :header_id, presence: true
       validates :event_code, presence: true
       validates :body, presence: true

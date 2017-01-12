@@ -2,7 +2,7 @@ require_dependency "renalware/deaths"
 
 module Renalware
   module Deaths
-    class EDTACode < ActiveRecord::Base
+    class EDTACode < ApplicationRecord
     end
   end
 end

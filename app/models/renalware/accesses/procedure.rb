@@ -2,7 +2,7 @@ require_dependency "renalware/accesses"
 
 module Renalware
   module Accesses
-    class Procedure < ActiveRecord::Base
+    class Procedure < ApplicationRecord
       include Accountable
       extend Enumerize
 

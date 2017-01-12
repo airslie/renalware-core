@@ -3,7 +3,7 @@ require "document/base"
 
 module Renalware
   module Transplants
-    class DonorWorkup < ActiveRecord::Base
+    class DonorWorkup < ApplicationRecord
       include Document::Base
       include PatientScope
 

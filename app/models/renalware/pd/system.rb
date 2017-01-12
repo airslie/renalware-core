@@ -2,7 +2,7 @@ require_dependency "renalware/pd"
 
 module Renalware
   module PD
-    class System < ActiveRecord::Base
+    class System < ApplicationRecord
       acts_as_paranoid
 
       validates :name, presence: true

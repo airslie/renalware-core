@@ -2,7 +2,7 @@ require_dependency "renalware/pd"
 
 module Renalware
   module PD
-    class Regime < ActiveRecord::Base
+    class Regime < ApplicationRecord
       VALID_RANGES = OpenStruct.new(
         delivery_intervals: [1, 2, 4, 8]
       )

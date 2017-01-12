@@ -1,6 +1,6 @@
 module Renalware
   module Clinics
-    class ClinicVisit < ActiveRecord::Base
+    class ClinicVisit < ApplicationRecord
       include Accountable
       include PatientScope
       extend Enumerize

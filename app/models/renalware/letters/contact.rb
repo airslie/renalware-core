@@ -2,8 +2,8 @@ require_dependency "renalware/letters"
 
 module Renalware
   module Letters
-    class Contact < ActiveRecord::Base
-      delegate :salutation, to: :person
+    class Contact < ApplicationRecord
+
       belongs_to :patient
       belongs_to :person, class_name: "Directory::Person"
       belongs_to :description, class_name: "ContactDescription"
@@ -12,6 +12,7 @@ module Renalware
       validates :description, presence: true
       validates :other_description, presence: true, if: -> { unspecified_description? }
 
+      delegate :salutation, to: :person
       delegate :address, :to_s, :family_name, to: :person
       delegate :name, to: :address, prefix: true
 

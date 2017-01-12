@@ -2,7 +2,7 @@ require_dependency "renalware/pd"
 
 module Renalware
   module PD
-    class RegimeBag < ActiveRecord::Base
+    class RegimeBag < ApplicationRecord
       extend Enumerize
 
       enumerize :role,

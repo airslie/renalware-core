@@ -2,7 +2,7 @@ require_dependency "renalware/hd"
 
 module Renalware
   module HD
-    class Dialyser < ActiveRecord::Base
+    class Dialyser < ApplicationRecord
       acts_as_paranoid
 
       validates :group, presence: true

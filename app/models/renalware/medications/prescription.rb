@@ -2,7 +2,7 @@ require_dependency "renalware/medications"
 
 module Renalware
   module Medications
-    class Prescription < ActiveRecord::Base
+    class Prescription < ApplicationRecord
       include Accountable
       extend Enumerize
 

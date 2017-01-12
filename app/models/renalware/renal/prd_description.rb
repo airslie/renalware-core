@@ -2,7 +2,7 @@ require_dependency "renalware/renal"
 
 module Renalware
   module Renal
-    class PRDDescription < ActiveRecord::Base
+    class PRDDescription < ApplicationRecord
       scope :ordered, -> { order(:id) }
 
       def to_s

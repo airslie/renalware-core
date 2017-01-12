@@ -2,7 +2,7 @@ require_dependency "renalware/letters"
 
 module Renalware
   module Letters
-    class Recipient < ActiveRecord::Base
+    class Recipient < ApplicationRecord
       extend Enumerize
 
       belongs_to :letter

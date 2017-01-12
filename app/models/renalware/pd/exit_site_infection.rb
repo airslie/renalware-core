@@ -2,7 +2,7 @@ require_dependency "renalware/pd"
 
 module Renalware
   module PD
-    class ExitSiteInfection < ActiveRecord::Base
+    class ExitSiteInfection < ApplicationRecord
       include PatientScope
 
       belongs_to :patient, class_name: "Renalware::Patient"

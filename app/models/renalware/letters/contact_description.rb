@@ -2,7 +2,7 @@ require_dependency "renalware/letters"
 
 module Renalware
   module Letters
-    class ContactDescription < ActiveRecord::Base
+    class ContactDescription < ApplicationRecord
       validates :system_code, presence: true, uniqueness: true
       validates :name, presence: true, uniqueness: true
       validates :position, presence: true, uniqueness: true

@@ -3,7 +3,7 @@ require "duration_calculator"
 
 module Renalware
   module HD
-    class Session < ActiveRecord::Base
+    class Session < ApplicationRecord
       include PatientScope
       include Accountable
       include ExplicitStateModel

@@ -2,7 +2,7 @@ require_dependency "renalware/clinical"
 
 module Renalware
   module Clinical
-    class Allergy < ActiveRecord::Base
+    class Allergy < ApplicationRecord
       include Accountable
       include PatientScope
       acts_as_paranoid

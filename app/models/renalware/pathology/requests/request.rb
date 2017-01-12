@@ -3,7 +3,7 @@ require_dependency "renalware/pathology/requests"
 module Renalware
   module Pathology
     module Requests
-      class Request < ActiveRecord::Base
+      class Request < ApplicationRecord
         include Accountable
 
         TEMPLATES = %w(crs manual).freeze

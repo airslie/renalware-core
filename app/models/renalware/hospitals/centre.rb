@@ -2,7 +2,7 @@ require_dependency "renalware/hospitals"
 
 module Renalware
   module Hospitals
-    class Centre < ActiveRecord::Base
+    class Centre < ApplicationRecord
       has_many :units, class_name: "Hospitals::Unit", foreign_key: :hospital_centre_id
 
       scope :ordered, -> { order(:name) }

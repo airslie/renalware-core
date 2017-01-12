@@ -2,7 +2,7 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
-    class ObservationRequest < ActiveRecord::Base
+    class ObservationRequest < ApplicationRecord
       has_many :observations, foreign_key: :request_id
       belongs_to :description, class_name: "RequestDescription"
       belongs_to :patient, class_name: "Patient"

@@ -5,7 +5,7 @@ require_dependency "renalware/pd"
 #
 module Renalware
   module PD
-    class PETAdequacyResult < ActiveRecord::Base
+    class PETAdequacyResult < ApplicationRecord
       extend Enumerize
       include PatientScope
       include Accountable

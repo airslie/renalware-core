@@ -2,7 +2,7 @@ require_dependency "renalware/letters"
 
 module Renalware
   module Letters
-    class Archive < ActiveRecord::Base
+    class Archive < ApplicationRecord
       include Accountable
 
       belongs_to :letter

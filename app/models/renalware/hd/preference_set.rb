@@ -2,7 +2,7 @@ require_dependency "renalware/hd"
 
 module Renalware
   module HD
-    class PreferenceSet < ActiveRecord::Base
+    class PreferenceSet < ApplicationRecord
       include PatientScope
       include Accountable
       include HasSchedule

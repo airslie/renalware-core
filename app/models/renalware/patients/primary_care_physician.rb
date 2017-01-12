@@ -6,7 +6,7 @@ module Renalware
     # - a UK-based General Practitioner (GP)
     # - a foreign PCP or other referring physician
     #
-    class PrimaryCarePhysician < ActiveRecord::Base
+    class PrimaryCarePhysician < ApplicationRecord
       include Personable
       include ActiveModel::Validations
 

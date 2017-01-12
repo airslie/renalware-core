@@ -2,7 +2,7 @@ require_dependency "renalware/letters"
 
 module Renalware
   module Letters
-    class Letterhead < ActiveRecord::Base
+    class Letterhead < ApplicationRecord
       validates :name, presence: true
       validates :unit_info, presence: true
       validates :trust_name, presence: true

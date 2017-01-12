@@ -2,7 +2,7 @@ require_dependency "renalware/directory"
 
 module Renalware
   module Directory
-    class Person < ActiveRecord::Base
+    class Person < ApplicationRecord
       include Personable
       include Accountable
 

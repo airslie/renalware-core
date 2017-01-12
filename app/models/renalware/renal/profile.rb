@@ -3,7 +3,7 @@ require "document/base"
 
 module Renalware
   module Renal
-    class Profile < ActiveRecord::Base
+    class Profile < ApplicationRecord
       include Document::Base
       extend Enumerize
 
