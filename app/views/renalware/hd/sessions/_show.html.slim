@@ -29,8 +29,8 @@
       .columns.large-6
         - ["Dialysis", "HDF"].each do |group|
           = render "renalware/shared/documents/attributes_group",
-              group: session.document.public_send(group.parameterize('_')),
-              legend: group, destination: group.parameterize('_')
+              group: session.document.public_send(group.parameterize(separator: '_')),
+              legend: group, destination: group.parameterize(separator: '_')
 
         = render "renalware/shared/attributes_group",
             legend: "Notes/Complications", destination: "complications",
