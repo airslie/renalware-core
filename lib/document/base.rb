@@ -55,6 +55,7 @@ module Document
       def filter_date_params(params)
         params = (params ? params.dup : {}) # DISCUSS: not sure if that slows down form processing?
         date_attributes = {}
+        params = JSON.parse(params) if params.is_a?(String)
 
         params.each do |attribute, value|
           if value.is_a?(Hash)
