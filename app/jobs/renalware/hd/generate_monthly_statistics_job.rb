@@ -2,7 +2,7 @@
 # for each HD patient.
 module Renalware
   module HD
-    class GenerateMonthlyStatisticsJob < ActiveJob::Base
+    class GenerateMonthlyStatisticsJob < ApplicationJob
       queue_as :hd_patient_statistics
 
       # :reek:UtilityFunction
