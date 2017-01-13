@@ -11,6 +11,14 @@ module Renalware
       super(format)
     end
 
+    def salutation
+      if title.present? && family_name.present?
+        [title, family_name].join(" ")
+      else
+        [given_name, family_name].compact.join(" ")
+      end
+    end
+
     def nhs_number
       return unless super.present? && super.length >= 10
       return if super.index(" ")

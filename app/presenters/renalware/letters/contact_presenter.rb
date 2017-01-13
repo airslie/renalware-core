@@ -10,6 +10,15 @@ module Renalware
       def name_and_description
         "#{self} (#{description_name})"
       end
+
+      def salutation
+        return unless person
+        if person.title.present?
+          [person.title, person.family_name]
+        else
+          [person.given_name, person.family_name]
+        end.compact.join(" ")
+      end
     end
   end
 end

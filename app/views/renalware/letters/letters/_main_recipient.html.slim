@@ -1,0 +1,43 @@
+= render layout: "renalware/shared/fieldset",
+         locals: { legend: "Main Recipient", name: "main_recipient" } do
+
+ = f.simple_fields_for :main_recipient do |fmr|
+
+    .radio_buttons.row.optional.letter_main_recipient_person_role.field_with_hint
+      .columns.small-3
+        label.right.inline.radio_buttons.optional Recipient
+      .columns.small-9
+
+        = fmr.collection_radio_buttons(:person_role,
+                                      f.object.person_roles,
+                                      :second,
+                                      :first,
+                                      label: false) do |b|
+
+          .radio= b.label { b.radio_button(data: { salutation: b.object.last },
+                                           class: "radio_buttons recipient-person-role-picker")  + b.text }
+        .hint=f .object.patient_cc_hint
+
+
+    = fmr.input :id, as: :hidden
+
+    div#contact-selector(style="display: none")
+      #contact-selector-input
+        / = fmr.input :addressee_id do
+        /  = f.select :county_id, User.lawyer.map{ |l| [l.name, l.id, {:name => l.name.downcase}] }
+
+        = fmr.input :addressee_id,
+                    as: :select,
+                    collection: contacts,
+                    label: false,
+                    label_method: :name_and_description,
+                    include_blank: "-- Choose contact --"
+
+      .row
+        .small-offset-3.small-9.columns
+          = link_to t(".add_contact"),
+                    '#',
+                    class: "tiny button",
+                    data: { behaviour: "add-new-contact-as-main-recipient", source: contact_added_patient_letters_letters_path, modal: "#add-patient-contact-modal" }
+          br
+          br

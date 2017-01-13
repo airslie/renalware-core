@@ -32,6 +32,25 @@ module Renalware
           end
         end
       end
+
+      describe "#salutation" do
+        context "when there is a title" do
+          it "formats as Mr Smith" do
+            person = Directory::Person.new(title: "Mr", given_name: "John", family_name: "Smith")
+            contact = Contact.new(person: person)
+
+            expect(ContactPresenter.new(contact).salutation).to eq("Mr Smith")
+          end
+        end
+        context "when there is no title" do
+          it "formats as John Smith" do
+            person = Directory::Person.new(title: "", given_name: "John", family_name: "Smith")
+            contact = Contact.new(person: person)
+
+            expect(ContactPresenter.new(contact).salutation).to eq("John Smith")
+          end
+        end
+      end
     end
   end
 end

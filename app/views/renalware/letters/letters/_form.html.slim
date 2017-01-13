@@ -27,37 +27,8 @@ ruby:
     = f.input :issued_on, as: :date_picker
     = f.association :author, as: :user_picker, collection: Renalware::User.ordered
 
-  = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Main Recipient", name: "main_recipient" } do
-   = f.simple_fields_for :main_recipient do |fmr|
-      = fmr.input :person_role, as: :radio_buttons,
-          collection: f.object.person_roles,
-          input_html: { class: 'recipient-person-role-picker' }, hint: f.object.patient_cc_hint
-      = fmr.input :id, as: :hidden
-
-      div#contact-selector(style="display: none")
-        #contact-selector-input
-          = fmr.input :addressee_id, as: :select, collection: contacts, label: false, label_method: :name_and_description, include_blank: "-- Choose contact --"
-
-        .row
-          .small-offset-3.small-9.columns
-            = link_to(t(".add_contact"), '#', class: "tiny button", data: { behaviour: "add-new-contact-as-main-recipient", source: contact_added_patient_letters_letters_path, modal: "#add-patient-contact-modal" })
-            br
-            br
-
-  = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Additional CCs", name: "ccs" } do
-
-    .row
-      .small-offset-3.small-9.columns
-        #letter-ccs
-          table.auto-layout
-            = render partial: "cc_recipient_form", collection: contacts, as: :contact, locals: { letter: f.object }
-
-          = link_to(t(".add_contact_as_cc"), '#', class: "tiny button", data: { behaviour: "add-new-contact-as-cc-recipient", source: contact_added_patient_letters_letters_path, modal: "#add-patient-contact-as-cc-modal" })
-          br
-          br
-
+  = render "main_recipient", f: f, contacts: contacts
+  = render "additional_ccs", f: f, contacts: contacts
 
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Message", name: "message" } do
