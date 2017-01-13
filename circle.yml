@@ -17,6 +17,6 @@ test:
         environment:
           RAILS_ENV: test
           TEST_DEPTH: web
-    - bundle exec rake db:migrate:reset db:seed:
+    - bin/rails db:environment:set db:migrate:reset db:seed RAILS_ENV=test:
         environment:
           DEMO: true
