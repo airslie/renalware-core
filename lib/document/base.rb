@@ -21,16 +21,9 @@ module Document
         before_save :serialize_document
       end
 
-      # Note that unless you specify a default value in the migration when defining your jsonb
-      # column e.g.
-      #   add_column :users, :meta2, :jsonb, default: {}
-      # then the default value in rails 5 is "{}" and rails 4 is {}.
-      # According to this issue the default in 4.2 was a bug and "{}" is correct.
-      # https://github.com/rails/rails/issues/25594
       def document
         @document ||= begin
           value = read_attribute(:document)
-          value = ::ActiveSupport::JSON.decode(value) if value.is_a? String
           document_class.new(value)
         end
       end
@@ -45,17 +38,16 @@ module Document
       private
 
       def initialize_document
-        write_attribute(:document, {}.to_json)
+        write_attribute(:document, {})
       end
 
       def serialize_document
-        write_attribute(:document, document.to_json)
+        write_attribute(:document, document)
       end
 
       def filter_date_params(params)
         params = (params ? params.dup : {}) # DISCUSS: not sure if that slows down form processing?
         date_attributes = {}
-        params = JSON.parse(params) if params.is_a?(String)
 
         params.each do |attribute, value|
           if value.is_a?(Hash)
