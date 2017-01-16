@@ -111,7 +111,7 @@ Style/IfUnlessModifier:
 Style/LambdaCall:
   Exclude:
     - Guardfile
-  Enabled: true
+  Enabled: false
 
 Style/NumericLiterals:
   Enabled: false

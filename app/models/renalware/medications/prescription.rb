@@ -47,13 +47,20 @@ module Renalware
       scope :with_medication_route, -> { includes(:medication_route) }
       scope :with_drugs, -> { includes(drug: :drug_types) }
       scope :with_termination, -> { includes(termination: [:created_by]) }
-      scope :current, ->(date = Date.current) {
+      scope :current, lambda { |date = Date.current|
         eager_load(:termination)
           .where("terminated_on IS NULL OR terminated_on > ?", date)
       }
-      scope :terminated, ->(date = Date.current) {
+      scope :terminated, lambda { |date = Date.current|
         joins(:termination)
           .where("terminated_on <= ?", date)
+      }
+      scope :created_between, lambda { |from:, to:|
+        where("medication_prescriptions.created_at >= ? and "\
+              "medication_prescriptions.created_at <= ?", from, to)
+      }
+      scope :terminated_between, lambda { |from:, to:|
+        where("terminated_on >= ? and terminated_on <= ?", from, to)
       }
 
       def self.default_search_order
@@ -80,11 +87,11 @@ module Renalware
       #
 
       def current?(date = Date.current)
-        self.terminated_on.nil? || self.terminated_on >= date
+        terminated_on.nil? || terminated_on >= date
       end
 
       def terminated_or_marked_for_termination?
-        self.terminated_on.present?
+        terminated_on.present?
       end
 
       # @section services
@@ -98,11 +105,11 @@ module Renalware
 
       def constrain_route_description
         return unless medication_route
-
-        case
-        when medication_route.other? && !route_description.present?
+        route_description_present = route_description.present?
+        route_other = medication_route.other?
+        if route_other && !route_description_present
           errors.add(:route_description, :blank)
-        when !medication_route.other? && route_description.present?
+        elsif !route_other && route_description_present
           errors.add(:route_description, :not_other)
         end
       end
