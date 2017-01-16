@@ -109,7 +109,7 @@ module Renalware
       end
 
       def find_contacts
-        CollectionPresenter.new(@patient.contacts.with_description.ordered, ContactPresenter)
+        ContactsPresenter.new(@patient.contacts.with_description.ordered, ContactPresenter)
       end
 
       def build_contact

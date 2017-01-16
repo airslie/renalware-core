@@ -39,8 +39,7 @@ module Renalware
       end
 
       def build_salutation
-        return if letter.main_recipient.blank?
-        # letter.salutation = "Dear X"
+        letter.salutation ||= patient.primary_care_physician.try!(:salutation)
       end
 
       def assign_default_ccs

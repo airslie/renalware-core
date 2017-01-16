@@ -87,6 +87,14 @@ module Renalware
       end
     end
 
+    def salutation
+      if title.present? && family_name.present?
+        [title, family_name].join(" ")
+      else
+        [given_name, family_name].compact.join(" ")
+      end
+    end
+
     # rubocop:disable Style/MultilineTernaryOperator
     def age
       now = Time.now.utc.to_date

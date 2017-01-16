@@ -46,7 +46,7 @@ module Renalware
       end
 
       def other_role
-        ["Patient's Contact", "contact", "pppp"]
+        ["Patient's Contact", "contact", ""]
       end
     end
   end

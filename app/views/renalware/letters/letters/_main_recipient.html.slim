@@ -15,7 +15,7 @@
                                       label: false) do |b|
 
           .radio= b.label { b.radio_button(data: { salutation: b.object.last },
-                                           class: "radio_buttons recipient-person-role-picker")  + b.text }
+                                           class: "radio_buttons recipient-person-role-picker has_salutation")  + b.text }
         .hint=f .object.patient_cc_hint
 
 
@@ -23,14 +23,11 @@
 
     div#contact-selector(style="display: none")
       #contact-selector-input
-        / = fmr.input :addressee_id do
-        /  = f.select :county_id, User.lawyer.map{ |l| [l.name, l.id, {:name => l.name.downcase}] }
-
         = fmr.input :addressee_id,
                     as: :select,
-                    collection: contacts,
+                    collection: contacts.array_for_drop_down_with_options,
+                    input_html: { :class => "containing_salutations" },
                     label: false,
-                    label_method: :name_and_description,
                     include_blank: "-- Choose contact --"
 
       .row

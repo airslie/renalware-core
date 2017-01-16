@@ -35,6 +35,15 @@ module Renalware
       def unspecified_description?
         description.try(:unspecified?)
       end
+
+      def salutation
+        return unless person
+        if person.title.present?
+          [person.title, person.family_name]
+        else
+          [person.given_name, person.family_name]
+        end.compact.join(" ")
+      end
     end
   end
 end

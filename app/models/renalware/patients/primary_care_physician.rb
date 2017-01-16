@@ -31,6 +31,10 @@ module Renalware
         "Dr"
       end
 
+      def salutation
+        [title, family_name].join(" ")
+      end
+
       def current_address
         address || practice_address
       end
