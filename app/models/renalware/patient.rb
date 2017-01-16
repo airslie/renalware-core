@@ -88,12 +88,10 @@ module Renalware
     end
 
     def salutation
-      prefix = Renalware.config.salutation_prefix
-      if title.present? && family_name.present?
-        [prefix, title, family_name].join(" ")
-      else
-        [prefix, given_name, family_name].compact.join(" ")
-      end
+      parts = [Renalware.config.salutation_prefix]
+      parts << (title.present? ? title : given_name)
+      parts << family_name
+      parts.compact.join(" ")
     end
 
     # rubocop:disable Style/MultilineTernaryOperator
