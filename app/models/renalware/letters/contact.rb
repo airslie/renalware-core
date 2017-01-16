@@ -3,6 +3,7 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class Contact < ActiveRecord::Base
+      delegate :salutation, to: :person
       belongs_to :patient
       belongs_to :person, class_name: "Directory::Person"
       belongs_to :description, class_name: "ContactDescription"

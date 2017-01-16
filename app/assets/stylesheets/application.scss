@@ -1,9 +1,12 @@
+/*
+    *= require jquery-ui/core
+    *= require jquery-ui/autocomplete
+    *= require jquery-ui/sortable
+    *= require_self
+*/
 
 @import "font-awesome";
 @import "foundation-datepicker";
-@import "jquery-ui/core";
-@import "jquery-ui/autocomplete";
-@import "jquery-ui/sortable";
 @import "clockpicker";
 @import "chosen";
 @import "./lib/select2-foundation5";

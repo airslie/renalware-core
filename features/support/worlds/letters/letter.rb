@@ -82,7 +82,8 @@ module World
           author: author,
           by: user,
           main_recipient_attributes: build_main_recipient_attributes(recipient),
-          cc_recipients_attributes: build_cc_recipients_attributes(ccs)
+          cc_recipients_attributes: build_cc_recipients_attributes(ccs),
+          salutation: recipient.salutation
         )
 
         Renalware::Letters::DraftLetter.build.call(patient, letter_attributes)
@@ -137,6 +138,8 @@ module World
 
         letter = patient.letters.first
         expect(letter).to be_present
+
+        expect(letter.salutation).to eq(recipient.salutation)
 
         main_recipient = Renalware::Letters::LetterPresenterFactory.new(letter).main_recipient
         if recipient.is_a? Renalware::Patient

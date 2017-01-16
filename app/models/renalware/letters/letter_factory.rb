@@ -14,6 +14,7 @@ module Renalware
         letter.patient = patient
         include_primary_care_physician_as_default_main_recipient
         assign_default_ccs
+        build_salutation
         letter
       end
 
@@ -35,6 +36,10 @@ module Renalware
 
       def contacts_with_default_cc_option
         patient.contacts.default_ccs
+      end
+
+      def build_salutation
+        letter.salutation ||= patient.primary_care_physician.try!(:salutation)
       end
 
       def assign_default_ccs

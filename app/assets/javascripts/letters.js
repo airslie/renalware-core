@@ -13,7 +13,26 @@ Renalware.Letters = (function() {
 
   var bindOnLetterRecipientTypeChange = function() {
     $("#letter-form").change(hideOrShowContactSelector);
-  };
+  }
+
+  var bindOnSalutationChange = function() {
+
+    $("#letter-form").on("click", ".has_salutation", function(e) {
+      var salutation = $(this).data('salutation');
+      _setSaluation(salutation);
+    });
+
+    $("#letter-form").on("change", "select.containing_salutations", function(e) {
+      var salutation = $(this).find(':selected').data('salutation');
+      _setSaluation(salutation);
+    });
+  }
+
+  var _setSaluation = function(salutation) {
+    if (salutation) {
+      $("#letter_salutation").val(salutation);
+    }
+  }
 
   var _refreshContactLists = function(url, contact_id, callback) {
     $.getScript(url + "?id=" + contact_id, callback);
@@ -55,6 +74,7 @@ Renalware.Letters = (function() {
     init: function () {
       hideOrShowContactSelector();
       bindOnLetterRecipientTypeChange();
+      bindOnSalutationChange();
       initNewContactAsMainRecipient();
       initNewContactAsCC();
     }

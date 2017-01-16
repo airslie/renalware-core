@@ -1,0 +1,17 @@
+= render layout: "renalware/shared/fieldset",
+    locals: { legend: "Additional CCs", name: "ccs" } do
+
+  .row
+    .small-offset-3.small-9.columns
+      #letter-ccs
+        table.auto-layout
+          = render partial: "cc_recipient_form", collection: contacts, as: :contact, locals: { letter: f.object }
+
+        = link_to(t(".add_contact_as_cc"),
+                  '#',
+                  class: "tiny button",
+                  data: { behaviour: "add-new-contact-as-cc-recipient",
+                          source: contact_added_patient_letters_letters_path,
+                          modal: "#add-patient-contact-as-cc-modal" })
+        br
+        br
