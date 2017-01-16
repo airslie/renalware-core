@@ -87,13 +87,6 @@ module Renalware
       end
     end
 
-    def salutation
-      parts = [Renalware.config.salutation_prefix]
-      parts << (title.present? ? title : given_name)
-      parts << family_name
-      parts.compact.join(" ")
-    end
-
     # rubocop:disable Style/MultilineTernaryOperator
     def age
       now = Time.now.utc.to_date

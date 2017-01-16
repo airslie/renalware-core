@@ -3,6 +3,7 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class Contact < ActiveRecord::Base
+      delegate :salutation, to: :person
       belongs_to :patient
       belongs_to :person, class_name: "Directory::Person"
       belongs_to :description, class_name: "ContactDescription"
@@ -34,14 +35,6 @@ module Renalware
 
       def unspecified_description?
         description.try(:unspecified?)
-      end
-
-      def salutation
-        return unless person
-        parts = [Renalware.config.salutation_prefix]
-        parts << (person.title.present? ? person.title : person.given_name)
-        parts << person.family_name
-        parts.compact.join(" ")
       end
     end
   end

@@ -19,6 +19,13 @@ module Renalware
           "#{family_name}, #{given_name} (#{nhs_number})"
         end
       end
+
+      def salutation
+        parts = [Renalware.config.salutation_prefix]
+        parts << (title.present? ? title : given_name)
+        parts << family_name
+        parts.compact.join(" ")
+      end
     end
   end
 end
