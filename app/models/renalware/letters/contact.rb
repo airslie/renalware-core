@@ -38,10 +38,11 @@ module Renalware
 
       def salutation
         return unless person
+        prefix = Renalware.config.salutation_prefix
         if person.title.present?
-          [person.title, person.family_name]
+          [prefix, person.title, person.family_name]
         else
-          [person.given_name, person.family_name]
+          [prefix, person.given_name, person.family_name]
         end.compact.join(" ")
       end
     end

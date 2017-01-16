@@ -88,10 +88,11 @@ module Renalware
     end
 
     def salutation
+      prefix = Renalware.config.salutation_prefix
       if title.present? && family_name.present?
-        [title, family_name].join(" ")
+        [prefix, title, family_name].join(" ")
       else
-        [given_name, family_name].compact.join(" ")
+        [prefix, given_name, family_name].compact.join(" ")
       end
     end
 
