@@ -9,14 +9,21 @@ module Renalware
     class DetermineCounterpartCCs < SimpleDelegator
       def call
         counterpart_css = []
-        counterpart_css << build_recipient("patient") if patient.cc_on_letter?(self)
-        if patient.primary_care_physician.cc_on_letter?(self)
-          counterpart_css << build_recipient("primary_care_physician")
-        end
+        counterpart_css << build_recipient("patient") if cc_patient?
+        counterpart_css << build_recipient("primary_care_physician") if cc_primary_care_physican?
         counterpart_css
       end
 
       private
+
+      def cc_primary_care_physican?
+        pcp = patient.primary_care_physician
+        pcp && pcp.cc_on_letter?(self)
+      end
+
+      def cc_patient?
+        patient.cc_on_letter?(self)
+      end
 
       def build_recipient(person_role)
         Recipient.new(person_role: person_role, letter: __getobj__)

@@ -3,13 +3,14 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class LettersController < Letters::BaseController
-      before_filter :load_patient
+      before_filter :load_patient, except: [:new]
 
       def index
         render :index, locals: { letters: present_letters(find_letters) }
       end
 
       def new
+        @patient = load_and_authorize_patient
         letter = LetterFactory
           .new(@patient, event: find_event, author: current_user)
           .with_contacts_as_default_ccs
@@ -63,6 +64,12 @@ module Renalware
       end
 
       private
+
+      def load_and_authorize_patient
+        patient = Patient.includes(:prescriptions).find(params[:patient_id])
+        authorize patient
+        patient
+      end
 
       def find_letters
         @patient.letters
