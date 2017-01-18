@@ -1,8 +1,9 @@
 = within_patient_layout(title: "Demographics") do
-
   #patient-demographics
     = render "renalware/patients/show/patient_demographics", patient: @patient
     .row
+      .large-6.xlarge-4.columns
+        = render partial: "renalware/patients/show/primary_care_physician", locals: { patient: @patient }
       .large-6.xlarge-4.columns
         = render "renalware/patients/show/letter_preferences", patient: @patient
       .large-6.xlarge-4.columns

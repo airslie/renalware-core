@@ -23,10 +23,6 @@ module Renalware
 
       scope :ordered, -> { order(family_name: :asc) }
 
-      def self.policy_class
-        BasePolicy
-      end
-
       def title
         "Dr"
       end

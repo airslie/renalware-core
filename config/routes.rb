@@ -101,6 +101,14 @@ Rails.application.routes.draw do
 
     namespace :patients do
       resources :primary_care_physicians
+      resources :practices, only: [] do
+        collection do
+          get :search
+        end
+        resources :primary_care_physicians,
+                  only: :index,
+                  controller: "practices/primary_care_physicians"
+      end
     end
 
     namespace :pd do
@@ -135,6 +143,9 @@ Rails.application.routes.draw do
 
       resource :clinical_summary, only: :show
       resource :death, only: [:edit, :update]
+      resource :primary_care_physician,
+               controller: "patients/primary_care_physician",
+               only: [:edit, :update]
 
       namespace :clinical do
         resources :allergies, only: [:create, :destroy]
