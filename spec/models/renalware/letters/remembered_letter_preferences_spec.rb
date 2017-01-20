@@ -6,7 +6,11 @@ module Renalware
 
       describe "#persist" do
         it "saves certain model attributes to the session" do
-          letter = double("Letter", letterhead_id: 1, description: "1", author_id: 1)
+          letter = double("Letter",
+                          letterhead_id: 1,
+                          description: "1",
+                          author_id: 1,
+                          issued_on: Date.today)
           session = {}
 
           RememberedLetterPreferences.new(session).persist(letter)
@@ -23,10 +27,14 @@ module Renalware
             letter_preferences: {
               letterhead_id: 1,
               description: "1",
-              author_id: 1
+              author_id: 1,
+              issued_on: Date.today
             }
           }
-          letter = OpenStruct.new(letterhead_id: nil, description: nil, author_id: nil)
+          letter = OpenStruct.new(letterhead_id: nil,
+                                  description: nil,
+                                  author_id: nil,
+                                  issued_on: nil)
 
           RememberedLetterPreferences.new(session).apply_to(letter)
 
