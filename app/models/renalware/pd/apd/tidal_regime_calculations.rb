@@ -5,6 +5,11 @@ module Renalware
     module APD
       class TidalRegimeCalculations < RegimeCalculations
 
+        # Each patient will have the same volume for each night they do APD and that is the
+        # overnight APD volume. If a patient only does APD on 6 nights per week, the overnight
+        # volume does not need to be averaged over 7 nights as the clinicians will want to
+        # know what the volume is for the nights the patient does the APD (intuitively knowing
+        # that, on nights the patient does not do APD, the volume is zero).
         def calculated_overnight_volume
           return INCALCULABLE unless volume_calculable?
           if drain_every_three_cycles?
