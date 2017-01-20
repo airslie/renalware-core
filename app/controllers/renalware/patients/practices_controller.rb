@@ -9,16 +9,15 @@ module Renalware
         authorize Practice, :search?
         respond_to do |format|
           format.json do
-            render json: practices_with_name_matching(term: search_term)
+            render json: practices_matching_search_term
           end
         end
       end
 
       private
 
-      def practices_with_name_matching(term:)
-        return [] unless term.present?
-        Practice.where("name ILIKE ?", "%#{term}%").select(:id, :name)
+      def practices_matching_search_term
+        PracticeSearchQuery.new(term: search_term).call
       end
 
       def search_term
