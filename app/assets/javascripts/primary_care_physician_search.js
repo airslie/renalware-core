@@ -54,7 +54,7 @@ Renalware.PrimaryCarePhysicianSearch = (function() {
           console.log(errorThrown, textStatus ,jqXHR)
         },
         success: function(data, textStatus, jqXHR) {
-          console.log("OK!")
+          // console.log("OK!")
         }
       });
     });

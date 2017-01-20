@@ -4,6 +4,7 @@ RSpec.describe "Changing a patient's GP (primary care physician)", type: :reques
   describe "GET show" do
     context "when there is a match" do
       it "responds with json containing the practice/s when searching by practice name" do
+        create(:practice, name: "Harpenden").address.update(postcode: "TW20 8AP")
         practice = create(:practice, name: "St. John's Wood")
 
         get search_patients_practices_path(params: { q: "wood" }, format: :json)
@@ -14,6 +15,7 @@ RSpec.describe "Changing a patient's GP (primary care physician)", type: :reques
       end
 
       it "responds with json containing the practice/s when searching by practice postcode" do
+        create(:practice, name: "Harpenden").address.update(postcode: "TW20 8AP")
         practice = create(:practice, name: "St. John's Wood")
         practice.address.update(postcode: "NW1 1AA")
 

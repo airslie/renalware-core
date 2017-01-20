@@ -12,6 +12,4 @@
         = field_set_tag "Current Address" do
           = render @patient.current_address if @patient.current_address
       .large-6.xlarge-4.columns
-        = render partial: "renalware/patients/show/organisation_practice", locals: { patient: @patient }
-      .large-6.xlarge-4.columns
         = render partial: "renalware/patients/show/referral", locals: { patient: @patient }

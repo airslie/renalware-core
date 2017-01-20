@@ -17,11 +17,7 @@ module Renalware
       private
 
       def practices_matching_search_term
-        PracticeSearchQuery.new(term: search_term).call
-      end
-
-      def search_term
-        params[:q]
+        PracticeSearchQuery.new(search_term: params[:q]).call
       end
     end
   end
