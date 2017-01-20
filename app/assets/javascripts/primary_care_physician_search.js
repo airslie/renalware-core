@@ -12,7 +12,13 @@ Renalware.PrimaryCarePhysicianSearch = (function() {
 
   var initPracticeAutocomplete = function(){
     var practiceDropDown = $("#practice-search");
+
     $(practiceDropDown).select2({
+      language: {
+        inputTooShort: function(args) {
+          return $(practiceDropDown).data("hint");
+        }
+      },
       ajax: {
         dataType: 'json',
         delay: 250,
