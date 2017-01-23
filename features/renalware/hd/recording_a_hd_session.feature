@@ -24,3 +24,10 @@ Feature: Recording a HD session
   Scenario: A nurse submitted an erroneous HD session for a patient
     When Nathalie submits an erroneous HD session
     Then the HD session is not accepted
+
+  @web
+  Scenario: A nurse signed-off the HD session of a patieny
+    When Nathalie records the pre-session observations for Patty
+    And Nathalie later adds post-session observations for Patty and signs off the session
+    Then Patty has a signed-off session HD session
+

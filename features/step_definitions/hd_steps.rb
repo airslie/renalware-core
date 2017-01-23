@@ -97,6 +97,14 @@ When(/^Clyde views the list of ongoing HD sessions$/) do
   view_ongoing_hd_sessions(user: @clyde)
 end
 
+When(/^Nathalie later adds post\-session observations for Patty and signs off the session$/) do
+  sign_off_hd_session_for(@patty, user: @nathalie)
+end
+
+Then(/^Patty has a signed\-off session HD session$/) do
+  expect_session_to_be_signed_off(patient: @patty)
+end
+
 Then(/^the MDM displays the following sessions$/) do |table|
   expect_mdm_to_include_patient_sessions(patient: @patty, table: table)
 end

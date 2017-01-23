@@ -62,6 +62,7 @@ module Renalware
         def signed_off(session)
           session = session.becomes!(Session::Closed)
           session.profile = patient.hd_profile
+          session.signed_off_at = Time.zone.now
           session.dry_weight = Renalware::HD::DryWeight.for_patient(patient).first
           session
         end
