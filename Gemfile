@@ -1,18 +1,14 @@
 source "https://rubygems.org"
-ruby "2.3.1"
+ruby "2.3.3"
 
-gem 'record_tag_helper', '~> 1.0'
+gem "record_tag_helper", "~> 1.0"
 gem "active_type", "~> 0.6.1"
 gem "activemodel-associations"
-#gem "activerecord-tableless"#, "~> 1.3.4"
+# gem "activerecord-tableless"#, "~> 1.3.4"
 gem "autoprefixer-rails"
 gem "chosen-rails"
-gem "client_side_validations",
-    git: "https://github.com/DavyJonesLocker/client_side_validations.git",
-    branch: "rails5"
-gem "client_side_validations-simple_form",
-    git: "https://github.com/DavyJonesLocker/client_side_validations-simple_form.git",
-    branch: "rails5"
+gem "client_side_validations"
+gem "client_side_validations-simple_form"
 gem "cocoon"
 gem "delayed_job_active_record"
 gem "delayed_job_web"
@@ -26,8 +22,8 @@ gem "foundation-rails", "~> 5.5.3.2"
 gem "hashdiff"
 gem "httparty"
 gem "jbuilder"
-gem "jquery-rails"#, "~> 4.2.1"
-gem "jquery-ui-rails"#, "~> 5.0.5"
+gem "jquery-rails" # , "~> 4.2.1"
+gem "jquery-ui-rails" # , "~> 5.0.5"
 gem "kaminari"
 gem "naught", "~> 1.1.0"
 gem "nested_form"
@@ -36,7 +32,7 @@ gem "paper_trail"
 gem "paranoia"
 gem "pg"
 gem "pundit", "~> 1.1.0"
-gem "sinatra", git: 'https://github.com/sinatra/sinatra.git'
+gem "sinatra", git: "https://github.com/sinatra/sinatra.git"
 gem "rails", "5.0.1"
 gem "ransack", git: "https://github.com/activerecord-hackery/ransack.git"
 gem "ruby-hl7", "~> 1.1.1"
