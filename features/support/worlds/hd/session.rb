@@ -1,3 +1,6 @@
+# rubocop:disable Metrics/ModuleLength
+# rubocop:disable Metrics/MethodLength
+
 module World
   module HD::Session
     module Domain
@@ -189,12 +192,21 @@ module World
                                                            .sort
         expect(expected_ids).to eq(actual_ids)
       end
+
+      # Closed aka signed-off
+      def expect_session_to_be_signed_off(patient: @patty)
+        patient = hd_patient(patient)
+
+        expect(patient.hd_sessions.length).to eq(1)
+        expect(patient.hd_sessions.first).to be_closed
+      end
     end
 
     module Web
       include Domain
 
       def create_hd_session(user:, patient:, performed_on:)
+        expect(hd_patient(patient).hd_sessions.count).to eq(0)
         login_as user
         visit patient_hd_dashboard_path(patient)
         within_fieldset t_sessions(:title) do
@@ -223,6 +235,67 @@ module World
         within ".top" do
           click_on "Save"
         end
+
+        expect(page.current_path).to eq(patient_hd_dashboard_path(patient))
+      end
+
+      def sign_off_hd_session_for(patient, user:)
+        visit patient_hd_dashboard_path(patient)
+
+        within_fieldset "Latest HD Sessions" do
+          expect(all(:css, "tbody tr.hd-session-row").count).to eq(1)
+          label = t_sessions(".edit", scope: "renalware.hd.sessions.open")
+          click_on label
+        end
+
+        fill_in "Session End Time", with: "16:00"
+        select user.to_s, from: "Signed Off By"
+
+        within_fieldset "Session Info" do
+          choose "HD"
+          within_fieldset "Access" do
+            select "Vein loop", from: "Access Type Used"
+            select "Left", from: "Access Side Used"
+            select "Other", from: "Access Site Used"
+            check "Confirm this access was used"
+          end
+          fill_in "Machine No", with: "123"
+        end
+
+        within_fieldset "Pre-Dialysis Observations" do
+          fill_in "Weight (kg)", with: "111"
+          fill_in "Pulse", with: "80"
+          fill_in "Temperature", with: "37"
+          find(:css, "#hd_session_document_observations_before_blood_pressure_systolic").set("120")
+          find(:css, "#hd_session_document_observations_before_blood_pressure_diastolic").set("80")
+          fill_in "BM Stix", with: "1.0"
+        end
+
+        within_fieldset "Post-Dialysis Observations" do
+          fill_in "Weight (kg)", with: "112"
+          fill_in "Pulse", with: "81"
+          fill_in "Temperature", with: "36"
+          find(:css, "#hd_session_document_observations_after_blood_pressure_systolic").set("121")
+          find(:css, "#hd_session_document_observations_after_blood_pressure_diastolic").set("81")
+          fill_in "BM Stix", with: "1.0"
+        end
+
+        within_fieldset "Dialysis" do
+          fill_in "Arterial Pressure", with: "11"
+          fill_in "Venous pressure", with: "11"
+          fill_in "Fluid Removed", with: "30"
+          select "100", from: "Dialysate Flow Rate"
+          select "100", from: "Blood Flow Rate"
+          fill_in "Machine URR", with: "1.0"
+          fill_in "Machine KTV", with: "1.0"
+          fill_in "Litres Processed", with: "10"
+        end
+
+        within ".top" do
+          click_on "Save and Sign-Off"
+        end
+
+        expect(page.current_path).to eq(patient_hd_dashboard_path(patient))
       end
 
       def view_ongoing_hd_sessions(user:)
