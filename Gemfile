@@ -95,7 +95,6 @@ group :test do
 end
 
 group :staging do
-  gem "rails_12factor", "~> 0.0.3"
   gem "unicorn", "~> 4.8.3"
   gem "wkhtmltopdf-heroku", "~> 2.12.3"
 end
