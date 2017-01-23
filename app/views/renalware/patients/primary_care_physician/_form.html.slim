@@ -1,0 +1,19 @@
+= simple_form_for patient,
+                  method: :patch,
+                  url: patient_primary_care_physician_path(patient) do |f|
+
+  = f.input :practice_id, as: :hidden
+
+  = f.input :primary_care_physician_id,
+            collection: available_primary_care_physicians,
+            prompt: "Select a GP",
+            input_html: { class: "searchable_select", required: :required, tabindex: 2001}
+
+  = f.submit "Save",
+              class: "button",
+              data: {  disable_with: "Saving.." }
+  | &nbsp;
+  = link_to "Cancel",
+            "#",
+            "aria-label" => "Close",
+            class: "reveal-modal-close"

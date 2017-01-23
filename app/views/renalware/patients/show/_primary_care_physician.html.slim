@@ -1,0 +1,22 @@
+fieldset
+  legend
+    | GP
+    span.actions = link_to "Edit",
+            edit_patient_primary_care_physician_path(@patient),
+            class: "fieldset-action",
+            data: { "reveal-id" => "change-gp-modal", "reveal-ajax" => "true"}
+  dl.dl-horizontal
+    dt GP:
+    - if patient.primary_care_physician.present?
+      dd= patient.primary_care_physician
+    - else
+      dd None
+    - if patient.practice
+      dt Practice
+      dd
+        = patient.practice.name
+        br
+        = Renalware::AddressPresenter::Block.new(patient.practice.address).to_html
+
+/ This is where the Find GP modal will be inserted in an Ajax call
+#change-gp-modal.reveal-modal.medium(data-reveal)
