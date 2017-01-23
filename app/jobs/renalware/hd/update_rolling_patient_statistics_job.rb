@@ -3,7 +3,7 @@
 
 module Renalware
   module HD
-    class UpdateRollingPatientStatisticsJob < ActiveJob::Base
+    class UpdateRollingPatientStatisticsJob < ApplicationJob
       queue_as :hd_patient_statistics
 
       # :reek:UtilityFunction

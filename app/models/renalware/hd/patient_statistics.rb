@@ -2,7 +2,7 @@ require_dependency "renalware/hd"
 
 module Renalware
   module HD
-    class PatientStatistics < ActiveRecord::Base
+    class PatientStatistics < ApplicationRecord
       include PatientScope
 
       belongs_to :patient

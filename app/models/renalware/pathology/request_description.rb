@@ -2,7 +2,7 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
-    class RequestDescription < ActiveRecord::Base
+    class RequestDescription < ApplicationRecord
       belongs_to :required_observation_description, class_name: "ObservationDescription"
       belongs_to :lab
       has_many :global_rule_sets, class_name: "::Renalware::Pathology::Requests::GlobalRuleSet"

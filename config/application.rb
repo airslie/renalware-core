@@ -1,13 +1,21 @@
-require File.expand_path("../boot", __FILE__)
+# rubocop:disable Lint/HandleExceptions
+require_relative "boot"
+require "rails"
 
-# Pick the frameworks you want:
-require "active_model/railtie"
-require "active_record/railtie"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "action_view/railtie"
-require "sprockets/railtie"
-# require "rails/test_unit/railtie"
+# Skip test_unit and action_cable
+%w(
+  active_record/railtie
+  action_controller/railtie
+  action_view/railtie
+  action_mailer/railtie
+  active_job/railtie
+  sprockets/railtie
+).each do |railtie|
+  begin
+    require railtie.to_s
+  rescue LoadError
+  end
+end
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -23,6 +31,8 @@ module Renalware
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = "London"
 
+    config.active_record.time_zone_aware_types = [:datetime]
+
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]
@@ -36,7 +46,6 @@ module Renalware
 
     config.autoload_paths += %W(#{config.root}/app/validators/concerns)
 
-    config.active_record.raise_in_transactional_callbacks = true
     config.active_job.queue_adapter = :delayed_job
   end
 end

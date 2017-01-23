@@ -3,7 +3,7 @@ require_dependency "renalware/transplants/base_controller"
 module Renalware
   module Transplants
     class DonationsController < BaseController
-      before_filter :load_patient
+      before_action :load_patient
 
       def show
         @donation = Donation.for_patient(@patient).find(params[:id])

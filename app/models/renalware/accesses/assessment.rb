@@ -3,7 +3,7 @@ require "document/base"
 
 module Renalware
   module Accesses
-    class Assessment < ActiveRecord::Base
+    class Assessment < ApplicationRecord
       include Document::Base
       include Accountable
       extend Enumerize

@@ -2,7 +2,7 @@ require_dependency "renalware/hospitals"
 
 module Renalware
   module Hospitals
-    class Unit < ActiveRecord::Base
+    class Unit < ApplicationRecord
       extend Enumerize
 
       belongs_to :hospital_centre, class_name: "Hospitals::Centre"

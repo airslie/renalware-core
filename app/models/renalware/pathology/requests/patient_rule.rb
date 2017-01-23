@@ -3,7 +3,7 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     module Requests
-      class PatientRule < ActiveRecord::Base
+      class PatientRule < ApplicationRecord
         include FrequencyMethods
 
         self.table_name = "pathology_requests_patient_rules"

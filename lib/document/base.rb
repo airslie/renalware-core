@@ -22,7 +22,10 @@ module Document
       end
 
       def document
-        @document ||= document_class.new(read_attribute(:document))
+        @document ||= begin
+          value = read_attribute(:document)
+          document_class.new(value)
+        end
       end
 
       def document=(attributes)
@@ -35,11 +38,11 @@ module Document
       private
 
       def initialize_document
-        write_attribute(:document, {}.to_json)
+        write_attribute(:document, {})
       end
 
       def serialize_document
-        write_attribute(:document, document.to_json)
+        write_attribute(:document, document)
       end
 
       def filter_date_params(params)

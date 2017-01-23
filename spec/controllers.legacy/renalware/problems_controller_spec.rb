@@ -7,7 +7,7 @@ module Renalware::Problems
 
     describe "GET index" do
       it "responds with success" do
-        get :index, patient_id: patient
+        get :index, params: { patient_id: patient }
         expect(response).to have_http_status(:success)
       end
     end
@@ -16,9 +16,11 @@ module Renalware::Problems
       context "with valid attributes" do
         it "redirects to the problem index" do
           put :update,
-              patient_id: patient,
-              id: problem,
-              problems_problem: { description: "testing" }
+              params: {
+                patient_id: patient,
+                id: problem,
+                problems_problem: { description: "testing" }
+              }
 
           expect(response).to redirect_to(patient_problems_path(patient))
         end
@@ -26,7 +28,12 @@ module Renalware::Problems
 
       context "with invalid attributes" do
         it "redirects to the problem index as invalid problems are rejected" do
-          put :update, patient_id: patient, id: problem, problems_problem: { description: "" }
+          put :update,
+              params: {
+                patient_id: patient,
+                id: problem,
+                problems_problem: { description: "" }
+              }
 
           expect(response).to have_http_status(:success)
         end

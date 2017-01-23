@@ -2,7 +2,7 @@ require_dependency "renalware/patients"
 
 module Renalware
   module Patients
-    class Practice < ActiveRecord::Base
+    class Practice < ApplicationRecord
       has_one :address, as: :addressable
       has_and_belongs_to_many :primary_care_physicians
 

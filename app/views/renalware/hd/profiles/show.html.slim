@@ -12,8 +12,8 @@
       .medium-6.columns
         - ["Dialysis", "Anticoagulant", "Drugs"].each do |group|
           = render "renalware/shared/documents/attributes_group",
-              group: profile.document.public_send(group.parameterize('_')),
-              legend: group, destination: group.parameterize('_')
+              group: profile.document.public_send(group.parameterize(separator: '_')),
+              legend: group, destination: group.parameterize(separator: '_')
 
       .medium-6.columns
         = render "renalware/shared/attributes_group",

@@ -81,7 +81,7 @@ module Renalware
       end
 
       def state_class_name(name)
-        const_get(name.to_s.classify)
+        const_get(name.to_s.classify).to_s
       end
     end
   end

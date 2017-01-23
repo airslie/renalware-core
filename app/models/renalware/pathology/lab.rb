@@ -2,7 +2,7 @@ require_dependency "renalware/pathology"
 
 module Renalware
   module Pathology
-    class Lab < ActiveRecord::Base
+    class Lab < ApplicationRecord
       has_many :request_descriptions, class_name: "RequestDescription"
 
       scope :ordered, -> { order(name: :asc) }

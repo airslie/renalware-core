@@ -2,8 +2,8 @@ module Renalware
   module Clinics
     class ClinicVisitsController < BaseController
 
-      before_filter :load_patient
-      before_filter :load_clinic_visit, only: [:edit, :update, :destroy]
+      before_action :load_patient
+      before_action :load_clinic_visit, only: [:edit, :update, :destroy]
 
       def index
         @clinic_visits = @patient.clinic_visits

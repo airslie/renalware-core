@@ -3,7 +3,7 @@ require "document/base"
 
 module Renalware
   module HD
-    class DryWeight < ActiveRecord::Base
+    class DryWeight < ApplicationRecord
       include PatientScope
       include Accountable
 

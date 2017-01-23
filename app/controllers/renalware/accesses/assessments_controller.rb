@@ -1,7 +1,7 @@
 module Renalware
   module Accesses
     class AssessmentsController < Accesses::BaseController
-      before_filter :load_patient
+      before_action :load_patient
 
       def show
         assessment = @patient.assessments.find(params[:id])
@@ -54,7 +54,7 @@ module Renalware
           :performed_on, :first_used_on, :failed_on,
           :site_id, :side, :type_id,
           :catheter_make, :catheter_lot_no,
-          :performed_by_id, :notes, :outcome,
+          :performed_by, :notes, :outcome,
           document: []
         ]
       end

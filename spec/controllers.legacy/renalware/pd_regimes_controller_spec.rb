@@ -24,7 +24,7 @@ module Renalware
 
     describe "GET #new" do
       it "renders the new template" do
-        get :new, patient_id: @patient
+        get :new, params: { patient_id: @patient }
         expect(response).to render_template("new")
       end
     end
@@ -35,25 +35,27 @@ module Renalware
           system = create(:capd_system)
           expect do
             post :create,
-                 patient_id: @patient,
-                 pd_regime: {
-                   type: "Renalware::PD::CAPDRegime",
-                   start_date: "01/02/2015",
-                   treatment: "CAPD 3 exchanges per day",
-                   system_id: system.id,
-                   delivery_interval: 4,
-                   bags_attributes: [
-                     bag_type_id: @bag_type.id,
-                     role: :additional_manual_exchange,
-                     volume: 600,
-                     sunday: true,
-                     monday: true,
-                     tuesday: true,
-                     wednesday: true,
-                     thursday: true,
-                     friday: true,
-                     saturday: true
-                   ]
+                 params: {
+                   patient_id: @patient,
+                   pd_regime: {
+                     type: "Renalware::PD::CAPDRegime",
+                     start_date: "01/02/2015",
+                     treatment: "CAPD 3 exchanges per day",
+                     system_id: system.id,
+                     delivery_interval: 4,
+                     bags_attributes: [
+                       bag_type_id: @bag_type.id,
+                       role: :additional_manual_exchange,
+                       volume: 600,
+                       sunday: true,
+                       monday: true,
+                       tuesday: true,
+                       wednesday: true,
+                       thursday: true,
+                       friday: true,
+                       saturday: true
+                     ]
+                   }
                  }
           end.to change(PD::Regime, :count).by(1)
 
@@ -74,13 +76,15 @@ module Renalware
           system = create(:apd_system)
           expect {
             post :create,
-            patient_id: @patient,
-            system_id: system.id,
-            delivery_interval: 4,
-            pd_regime: { type: "Renalware::PD::CAPDRegime",
-              start_date: nil,
-              treatment: nil
-            }
+                 params: {
+                   patient_id: @patient,
+                   system_id: system.id,
+                   delivery_interval: 4,
+                   pd_regime: { type: "Renalware::PD::CAPDRegime",
+                     start_date: nil,
+                     treatment: nil
+                   }
+                 }
           }.to change(PD::Regime, :count).by(0)
 
           expect(response).to render_template(:new)
@@ -92,11 +96,13 @@ module Renalware
           expect(PD::RegimeBag.count).to eq(1)
           expect {
             post :create,
-            patient_id: @patient,
-            actions: { add_bag: "Add Bag" },
-            pd_regime: { type: "Renalware::PD::CAPDRegime",
-              start_date: Time.zone.today,
-              treatment: "CAPD 3 exchanges per day" }
+                  params: {
+                    patient_id: @patient,
+                    actions: { add_bag: "Add Bag" },
+                    pd_regime: { type: "Renalware::PD::CAPDRegime",
+                      start_date: Time.zone.today,
+                      treatment: "CAPD 3 exchanges per day" }
+                  }
           }.to change(PD::Regime, :count).by(0)
           expect(PD::RegimeBag.count).to eq(1)
         end
@@ -105,16 +111,18 @@ module Renalware
       context "remove bag" do
         it "removes a bag from the unsaved CAPD Regime" do
           post :create,
-          patient_id: @patient,
-          actions: { remove: { "0" => "Remove" } },
-          pd_regime: { type: "Renalware::PD::CAPDRegime",
-            start_date: Time.zone.today,
-            treatment: "CAPD 4 exchanges per day",
-            bags_attributes: [
-              {
-                bag_type_id: "100", volume: "2", per_week: "1", monday: true
-              }
-            ]
+          params: {
+            patient_id: @patient,
+            actions: { remove: { "0" => "Remove" } },
+            pd_regime: { type: "Renalware::PD::CAPDRegime",
+              start_date: Time.zone.today,
+              treatment: "CAPD 4 exchanges per day",
+              bags_attributes: [
+                {
+                  bag_type_id: "100", volume: "2", per_week: "1", monday: true
+                }
+              ]
+            }
           }
 
           expect(PD::RegimeBag.count).to eq(1)
@@ -124,16 +132,14 @@ module Renalware
 
     describe "GET show" do
       it "responds with success" do
-        get :show, id: @capd_regime.id, patient_id: @patient
+        get :show, params: { id: @capd_regime.id, patient_id: @patient }
         expect(response).to have_http_status(:success)
       end
     end
 
     describe "GET edit" do
       it "responds with success" do
-        get :edit,
-        id: @capd_regime.id,
-        patient_id: @patient
+        get :edit, params: { id: @capd_regime.id, patient_id: @patient }
         expect(response).to have_http_status(:success)
       end
     end
@@ -142,12 +148,14 @@ module Renalware
       context "with valid attributes" do
         it "updates a CAPD Regime" do
           put :update,
-          id: @capd_regime.id,
-          patient_id: @patient,
-          pd_regime: { type: "Renalware::PD:CAPDRegime",
-            start_date: "15/02/2015",
-            treatment: "CAPD 5 exchanges per day"
-          }
+              params: {
+                id: @capd_regime.id,
+                patient_id: @patient,
+                pd_regime: { type: "Renalware::PD:CAPDRegime",
+                  start_date: "15/02/2015",
+                  treatment: "CAPD 5 exchanges per day"
+                }
+              }
 
           expect(response).to redirect_to(patient_pd_dashboard_path(@patient))
         end
@@ -156,12 +164,14 @@ module Renalware
       context "with invalid attributes" do
         it "update a CAPD Regime" do
           put :update,
-          id: @capd_regime.id,
-          patient_id: @patient,
-          pd_regime: { type: "Renalware::PD::CAPDRegime",
-            start_date: nil,
-            treatment: nil
-          }
+              params: {
+                id: @capd_regime.id,
+                patient_id: @patient,
+                pd_regime: { type: "Renalware::PD::CAPDRegime",
+                  start_date: nil,
+                  treatment: nil
+                }
+              }
 
           expect(response).to render_template(:edit)
         end

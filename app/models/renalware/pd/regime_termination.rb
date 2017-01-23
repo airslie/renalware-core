@@ -2,7 +2,7 @@ require_dependency "renalware/pd"
 
 module Renalware
   module PD
-    class RegimeTermination < ActiveRecord::Base
+    class RegimeTermination < ApplicationRecord
       include Accountable
 
       belongs_to :regime

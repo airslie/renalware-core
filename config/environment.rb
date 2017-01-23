@@ -1,6 +1,6 @@
 # Load the Rails application.
-require File.expand_path("../application", __FILE__)
-require File.join(Rails.root, "lib/renalware/configuration")
+require_relative "application"
+require_relative "../lib/renalware/configuration"
 
 # TODO: Heroku/Sendgrid specific config for acceptance testing environments.
 # These will be superseded or based completely on environment vars.
@@ -14,8 +14,6 @@ ActionMailer::Base.smtp_settings = {
   domain: "heroku.com",
   enable_starttls_auto: true
 }
-
-
 
 # Initialize the Rails application.
 Rails.application.initialize!

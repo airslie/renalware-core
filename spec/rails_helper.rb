@@ -31,6 +31,9 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+
+  config.example_status_persistence_file_path = "#{::Rails.root}/tmp/examples.txt"
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -59,6 +62,9 @@ RSpec.configure do |config|
   config.include SelectDateSpecHelper, type: :feature
   config.include ActiveSupport::Testing::TimeHelpers
   config.include Chosen::Rspec::FeatureHelpers, type: :feature
+
+  config.include(Shoulda::Matchers::ActiveModel, type: :model)
+  config.include(Shoulda::Matchers::ActiveRecord, type: :model)
 
   # By default, all specs will have versioning enabled.
   # Enable it one spec/example_group at a time by adding `versioning: true`.

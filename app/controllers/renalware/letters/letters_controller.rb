@@ -3,10 +3,17 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class LettersController < Letters::BaseController
-      before_filter :load_patient, except: [:new]
+      before_action :load_patient, except: [:new, :author]
 
       def index
         render :index, locals: { letters: present_letters(find_letters) }
+      end
+
+      def author
+        user = Renalware::User.find(params[:author_id])
+        @author = Letters.cast_author(user)
+        @letters = @author.letters
+        authorize @letters
       end
 
       def new
@@ -120,7 +127,7 @@ module Renalware
       end
 
       def build_contact
-        Contact.new.tap { |c| c.build_person }
+        Contact.new.tap(&:build_person)
       end
 
       def event_class

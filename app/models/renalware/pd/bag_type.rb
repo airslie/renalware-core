@@ -2,7 +2,7 @@ require_dependency "renalware/pd"
 
 module Renalware
   module PD
-    class BagType < ActiveRecord::Base
+    class BagType < ApplicationRecord
       acts_as_paranoid
 
       has_many :bags, class_name: "Renalware::PD::RegimeBag"

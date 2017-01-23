@@ -2,7 +2,7 @@ require_dependency "renalware/modalities"
 
 module Renalware
   module Modalities
-    class Modality < ActiveRecord::Base
+    class Modality < ApplicationRecord
       include Accountable
       include PatientScope
 

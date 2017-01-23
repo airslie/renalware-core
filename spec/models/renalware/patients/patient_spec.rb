@@ -6,9 +6,19 @@ module Renalware
 
     it_behaves_like "Personable"
 
-    it { should validate_uniqueness_of :nhs_number }
-    it { should ensure_length_of(:nhs_number).is_at_least(10) }
-    it { should ensure_length_of(:nhs_number).is_at_most(10) }
+    describe "uniqueness validation" do
+      subject do
+        Patient.new(local_patient_id: "1",
+                    family_name: "x",
+                    given_name: "x",
+                    born_on: Date.today,
+                    nhs_number: "1234567890",
+                    by: create(:user))
+      end
+      it { should validate_uniqueness_of(:nhs_number).case_insensitive }
+    end
+    it { should validate_length_of(:nhs_number).is_at_least(10) }
+    it { should validate_length_of(:nhs_number).is_at_most(10) }
 
     it { should validate_presence_of :family_name }
     it { should validate_presence_of :given_name }

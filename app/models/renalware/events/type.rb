@@ -2,7 +2,7 @@ require_dependency "renalware/events"
 
 module Renalware
   module Events
-    class Type < ActiveRecord::Base
+    class Type < ApplicationRecord
       self.table_name = "event_types"
 
       acts_as_paranoid

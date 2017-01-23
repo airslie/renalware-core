@@ -3,8 +3,8 @@ require_dependency "renalware/transplants/base_controller"
 module Renalware
   module Transplants
     class RegistrationStatusesController < BaseController
-      before_filter :load_patient
-      before_filter :load_registration
+      before_action :load_patient
+      before_action :load_registration
 
       def new
         @status = @registration.statuses.build

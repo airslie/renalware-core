@@ -2,7 +2,7 @@ require_dependency "renalware/medications"
 
 module Renalware
   module Medications
-    class PrescriptionTermination < ActiveRecord::Base
+    class PrescriptionTermination < ApplicationRecord
       include Accountable
 
       belongs_to :prescription

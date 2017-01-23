@@ -17,7 +17,7 @@ RSpec.describe "Managing patients", type: :request do
         attributes = attributes_for(:patient)
         document = build_document
 
-        post patients_path, patient: attributes.merge(document: document)
+        post patients_path, params: { patient: attributes.merge(document: document) }
 
         expect(response).to have_http_status(:redirect)
         expect(Renalware::Patient.exists?(attributes)).to be_truthy
@@ -36,7 +36,7 @@ RSpec.describe "Managing patients", type: :request do
     context "given invalid attributes" do
       it "responds with form" do
         attributes = { given_name: "" }
-        post patients_path, patient: attributes
+        post patients_path, params: { patient: attributes }
 
         expect(response).to have_http_status(:success)
       end
@@ -55,7 +55,7 @@ RSpec.describe "Managing patients", type: :request do
     context "given valid attributes" do
       it "updates a record" do
         attributes = { given_name: "My Edited Patient" }
-        patch patient_path(patient), patient: attributes
+        patch patient_path(patient), params: { patient: attributes }
 
         expect(response).to have_http_status(:redirect)
         expect(Renalware::Patient.exists?(attributes)).to be_truthy
@@ -75,7 +75,7 @@ RSpec.describe "Managing patients", type: :request do
     context "given invalid attributes" do
       it "responds with a form" do
         attributes = { given_name: "" }
-        patch patient_path(patient), patient: attributes
+        patch patient_path(patient), params: { patient: attributes }
 
         expect(response).to have_http_status(:success)
       end

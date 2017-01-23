@@ -10,8 +10,13 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+// Not that jquery3 is not currently compatible for foundation 5
+//= require jquery2
 //= require jquery_ujs
+//= require jquery-ui/core
+//= require jquery-ui/widgets/autocomplete
+//= require jquery-ui/widgets/sortable
+//= require jquery-ui/effects/effect-highlight
 //= require foundation
 //= require underscore
 //= require select2
@@ -22,10 +27,6 @@
 //= require mousetrap
 //= require iframeResizer
 //= require chosen-jquery
-//= require jquery-ui/core
-//= require jquery-ui/autocomplete
-//= require jquery-ui/sortable
-//= require jquery-ui/effect-highlight
 //= require rails.validations
 //= require rails.validations.simple_form
 //= require_tree .

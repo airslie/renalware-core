@@ -3,7 +3,7 @@ require "document/base"
 
 module Renalware
   module Transplants
-    class DonorFollowup < ActiveRecord::Base
+    class DonorFollowup < ApplicationRecord
       belongs_to :operation, class_name: "DonorOperation", foreign_key: "operation_id"
 
       has_paper_trail class_name: "Renalware::Transplants::Version"

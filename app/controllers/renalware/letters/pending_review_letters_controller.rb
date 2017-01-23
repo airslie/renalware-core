@@ -3,7 +3,7 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class PendingReviewLettersController < Letters::BaseController
-      before_filter :load_patient
+      before_action :load_patient
 
       def create
         letter = @patient.letters.draft.find(params[:letter_id])

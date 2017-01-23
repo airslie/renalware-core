@@ -3,7 +3,7 @@ require_dependency "renalware/transplants/base_controller"
 module Renalware
   module Transplants
     class DonorDashboardsController < BaseController
-      before_filter :load_patient
+      before_action :load_patient
 
       def show
         @donations = Donation.for_patient(@patient).reversed

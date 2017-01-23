@@ -3,7 +3,7 @@ require_dependency "renalware/pathology"
 module Renalware
   module Pathology
     module Requests
-      class GlobalRule < ActiveRecord::Base
+      class GlobalRule < ApplicationRecord
         PARAM_COMPARISON_OPERATORS = ["==", ">", "<", ">=", "<=", "include?"].freeze
 
         belongs_to :rule_set, polymorphic: true

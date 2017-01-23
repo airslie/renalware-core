@@ -3,8 +3,8 @@ require_dependency "renalware/transplants/base_controller"
 module Renalware
   module Transplants
     class RegistrationsController < BaseController
-      before_filter :load_patient
-      before_filter :load_registration
+      before_action :load_patient
+      before_action :load_registration
 
       def show
         url = edit_patient_transplants_registration_path(@patient)

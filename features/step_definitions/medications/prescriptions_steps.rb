@@ -63,6 +63,7 @@ When(/^Clyde records the prescription for Patty$/) do
 end
 
 When(/^Clyde records the prescription for Patty with a termination date$/) do
+
   record_prescription_for_patient(
     user: @clyde,
     patient: @patty,
@@ -71,9 +72,9 @@ When(/^Clyde records the prescription for Patty with a termination date$/) do
     dose_unit: "millilitre",
     route_code: "PO",
     frequency: "once a day",
-    prescribed_on: "10-10-2015",
+    prescribed_on: "10-Oct-2015",
     provider: "GP",
-    terminated_on: "20-10-2015"
+    terminated_on: "20-Oct-2015"
   )
 end
 
@@ -86,7 +87,7 @@ When(/^Clyde flags the prescription for Patty to be administered during an HD se
     dose_unit: "millilitre",
     route_code: "PO",
     frequency: "once a day",
-    prescribed_on: "10-10-2015",
+    prescribed_on: "10-Oct-2015",
     administer_on_hd: true,
     provider: "GP",
     terminated_on: "20-10-2015"

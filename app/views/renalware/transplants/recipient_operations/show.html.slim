@@ -8,5 +8,5 @@
 
     - ["Donor", "Cadaveric Donor", "Donor Specific Antibodies", "BK Virus"].each do |group|
       = render "renalware/shared/documents/attributes_group",
-          group: @recipient_operation.document.public_send(group.parameterize('_')),
-          legend: group, destination: group.parameterize('_')
+          group: @recipient_operation.document.public_send(group.parameterize(separator: '_')),
+          legend: group, destination: group.parameterize(separator: '_')

@@ -2,7 +2,7 @@ require_dependency "renalware/letters"
 
 module Renalware
   module Letters
-    class Letter < ActiveRecord::Base
+    class Letter < ApplicationRecord
       include Accountable
       extend Enumerize
 

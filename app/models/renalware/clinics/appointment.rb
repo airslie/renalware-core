@@ -2,7 +2,7 @@ require_dependency "renalware/clinics"
 
 module Renalware
   module Clinics
-    class Appointment < ActiveRecord::Base
+    class Appointment < ApplicationRecord
       self.table_name = :clinics_appointments
 
       belongs_to :patient

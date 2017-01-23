@@ -2,7 +2,7 @@ require_dependency "renalware/accesses"
 
 module Renalware
   module Accesses
-    class Site < ActiveRecord::Base
+    class Site < ApplicationRecord
       validates :code, presence: true
       validates :name, presence: true
 

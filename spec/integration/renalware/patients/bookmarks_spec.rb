@@ -15,7 +15,7 @@ RSpec.describe "Managing bookmarks", type: :request do
           }
         }
 
-        post(patient_bookmarks_path(patient), params, headers)
+        post(patient_bookmarks_path(patient), params: params, headers: headers)
         expect(response).to have_http_status(:redirect)
 
         bookmark = Renalware::Patients::Bookmark.find_by(
@@ -40,7 +40,7 @@ RSpec.describe "Managing bookmarks", type: :request do
         attributes = params[:patients_bookmark].merge!(patient_id: patient.id)
         extant_bookmark = Renalware::Patients::Bookmark.create(attributes)
 
-        post(patient_bookmarks_path(patient), params, headers)
+        post(patient_bookmarks_path(patient), params: params, headers: headers)
         expect(response).to have_http_status(:redirect)
 
         bookmark = Renalware::Patients::Bookmark.find_by(attributes)
@@ -61,7 +61,7 @@ RSpec.describe "Managing bookmarks", type: :request do
 
     it "soft deletes the bookmark" do
       headers = { "HTTP_REFERER" => "/" }
-      delete bookmark_path(bookmark), nil, headers
+      delete bookmark_path(bookmark), headers: headers
       expect(response).to have_http_status(:redirect)
       expect(Renalware::Patients::Bookmark.exists?(id: bookmark.id)).to be_falsey
     end
@@ -70,7 +70,7 @@ RSpec.describe "Managing bookmarks", type: :request do
       bookmark.destroy!
       expect(Renalware::Patients::Bookmark.exists?(id: bookmark.id)).to be_falsey
       headers = { "HTTP_REFERER" => "/" }
-      delete bookmark_path(bookmark), nil, headers
+      delete bookmark_path(bookmark), headers: headers
       expect(response).to have_http_status(:redirect)
       expect(Renalware::Patients::Bookmark.exists?(id: bookmark.id)).to be_falsey
     end

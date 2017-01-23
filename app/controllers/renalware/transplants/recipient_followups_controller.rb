@@ -3,8 +3,8 @@ require_dependency "renalware/transplants/base_controller"
 module Renalware
   module Transplants
     class RecipientFollowupsController < BaseController
-      before_filter :load_patient
-      before_filter :load_operation
+      before_action :load_patient
+      before_action :load_operation
 
       def show
         @recipient_followup = @operation.followup

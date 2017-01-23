@@ -2,7 +2,7 @@ require_dependency "renalware"
 require "document/base"
 
 module Renalware
-  class Patient < ActiveRecord::Base
+  class Patient < ApplicationRecord
     include PatientsRansackHelper
     include Personable
     include Accountable
@@ -55,7 +55,10 @@ module Renalware
 
     accepts_nested_attributes_for :current_address
 
-    validates :nhs_number, length: { minimum: 10, maximum: 10 }, uniqueness: true, allow_blank: true
+    validates :nhs_number,
+              length: { minimum: 10, maximum: 10 },
+              uniqueness: { case_sensitive: false },
+              allow_blank: true
     validates :family_name, presence: true
     validates :given_name, presence: true
     validates :local_patient_id, presence: true, uniqueness: true

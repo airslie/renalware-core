@@ -1,5 +1,5 @@
 module Renalware
-  class Address < ActiveRecord::Base
+  class Address < ApplicationRecord
     validates_presence_of :street_1
     validates_with AddressValidator
 

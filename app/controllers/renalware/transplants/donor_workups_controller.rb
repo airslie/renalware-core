@@ -3,7 +3,7 @@ require_dependency "renalware/transplants/base_controller"
 module Renalware
   module Transplants
     class DonorWorkupsController < BaseController
-      before_filter :load_patient
+      before_action :load_patient
 
       def show
         @workup = DonorWorkup.for_patient(@patient).first_or_initialize

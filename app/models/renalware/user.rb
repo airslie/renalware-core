@@ -1,5 +1,5 @@
 module Renalware
-  class User < ActiveRecord::Base
+  class User < ApplicationRecord
     include Deviseable
     include Personable
 

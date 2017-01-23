@@ -17,7 +17,7 @@ RSpec.describe "Managing Hospital Units", type: :request do
       it "creates a new record" do
         attributes = attributes_for(:hospital_unit)
                       .merge(hospital_centre_id: hospital_centre.id)
-        post hospitals_units_path, hospitals_unit: attributes
+        post hospitals_units_path, params: { hospitals_unit: attributes }
 
         expect(response).to have_http_status(:redirect)
         expect(Renalware::Hospitals::Unit.exists?(attributes)).to be_truthy
@@ -31,7 +31,7 @@ RSpec.describe "Managing Hospital Units", type: :request do
     context "given invalid attributes" do
       it "responds with form" do
         attributes = { name: "" }
-        post hospitals_units_path, hospitals_unit: attributes
+        post hospitals_units_path, params: { hospitals_unit: attributes }
 
         expect(response).to have_http_status(:success)
       end
@@ -50,7 +50,7 @@ RSpec.describe "Managing Hospital Units", type: :request do
     context "given valid attributes" do
       it "updates a record" do
         attributes = { name: "My Edited Event" }
-        patch hospitals_unit_path(hospital_unit), hospitals_unit: attributes
+        patch hospitals_unit_path(hospital_unit), params: { hospitals_unit: attributes }
 
         expect(response).to have_http_status(:redirect)
         expect(Renalware::Hospitals::Unit.exists?(attributes)).to be_truthy
@@ -64,7 +64,7 @@ RSpec.describe "Managing Hospital Units", type: :request do
     context "given invalid attributes" do
       it "responds with a form" do
         attributes = { name: "" }
-        patch hospitals_unit_path(hospital_unit), hospitals_unit: attributes
+        patch hospitals_unit_path(hospital_unit), params: { hospitals_unit: attributes }
 
         expect(response).to have_http_status(:success)
       end

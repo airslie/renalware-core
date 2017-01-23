@@ -3,7 +3,7 @@ require_dependency "renalware/hd/base_controller"
 module Renalware
   module HD
     class PreferenceSetsController < BaseController
-      before_filter :load_patient
+      before_action :load_patient
 
       def edit
         @preference_set = PreferenceSet.for_patient(patient).first_or_initialize

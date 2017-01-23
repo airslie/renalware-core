@@ -31,7 +31,7 @@ RSpec.describe "patient_rules Requests", type: :request do
       end
 
       it "creates a new record" do
-        post url, pathology_requests_patient_rule: patient_rule_attributes
+        post url, params: { pathology_requests_patient_rule: patient_rule_attributes }
 
         expect(response).to have_http_status(:redirect)
         expect(patient_rule_exists).to be_truthy
@@ -44,7 +44,8 @@ RSpec.describe "patient_rules Requests", type: :request do
 
     context "given invalid attributes" do
       it "responds with form" do
-        post url, pathology_requests_patient_rule: patient_rule_attributes.except(:lab_id)
+        post url,
+             params: { pathology_requests_patient_rule: patient_rule_attributes.except(:lab_id) }
 
         expect(response).to have_http_status(:success)
       end
@@ -64,7 +65,7 @@ RSpec.describe "patient_rules Requests", type: :request do
 
     context "given valid attributes" do
       it "updates the patient rule" do
-        patch url, pathology_requests_patient_rule: { test_description: "Lorem Ipsum" }
+        patch url, params: { pathology_requests_patient_rule: { test_description: "Lorem Ipsum" } }
 
         expect(response).to have_http_status(:redirect)
 
@@ -76,7 +77,7 @@ RSpec.describe "patient_rules Requests", type: :request do
 
     context "given invalid attributes" do
       it "responds with form" do
-        patch url, pathology_requests_patient_rule: { test_description: nil }
+        patch url, params: { pathology_requests_patient_rule: { test_description: nil } }
 
         expect(response).to have_http_status(:success)
       end

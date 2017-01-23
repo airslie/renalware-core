@@ -4,7 +4,7 @@ require "renalware/automatic_age_calculator"
 
 module Renalware
   module Transplants
-    class RecipientOperation < ActiveRecord::Base
+    class RecipientOperation < ApplicationRecord
       include Document::Base
       include PatientScope
       extend Enumerize

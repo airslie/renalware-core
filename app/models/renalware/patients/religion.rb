@@ -2,7 +2,7 @@ require_dependency "renalware/patients"
 
 module Renalware
   module Patients
-    class Religion < ActiveRecord::Base
+    class Religion < ApplicationRecord
       validates :name, presence: true
 
       def to_s

@@ -9,41 +9,39 @@ ruby:
 
 .row
   h1 Transplant Wait List Registrations
-  h2.print-only= filters[params[:filter].to_sym]
+  h2.print-only= filters[path_params[:filter].to_sym]
 
 .row
   dl.sub-nav
     - filters.each do |key, label|
-      = sub_nav_item label, params.merge(filter: key)
+      = sub_nav_item label, path_params.merge(filter: key)
 
 .row
   table.report
     thead
       tr
         th.noprint
-        th= sort_link(@q, :patient_family_name, "Patient")
+        th= sort_link(q, :patient_family_name, "Patient")
         th KCH No
-        th= sort_link(@q, :patient_born_on, "Age")
-        th= sort_link(@q, :patient_sex, "Sex")
+        th= sort_link(q, :patient_born_on, "Age")
+        th= sort_link(q, :patient_sex, "Sex")
         th Modal
-        th= sort_link(@q, :uk_transplant_centre_code, "Site")
-        th= sort_link(@q, :patient_renal_profile_diagnosed_on, "ESRF Date")
+        th= sort_link(q, :uk_transplant_centre_code, "Site")
+        th= sort_link(q, :patient_renal_profile_diagnosed_on, "ESRF Date")
         th NHB Cons?
-        th= sort_link(@q, :entered_on, "Entry Date")
+        th= sort_link(q, :entered_on, "Entry Date")
         th DOL
         th Bld Grp
-        th= sort_link(@q, :crf_highest_value, "CRF high")
+        th= sort_link(q, :crf_highest_value, "CRF high")
         th CRF high date
-        th= sort_link(@q, :crf_latest_value, "CRF latest")
+        th= sort_link(q, :crf_latest_value, "CRF latest")
         th CRF latest date
         th Sens (CRF>60)
         th Prev Ops
         th Tx Type
 
-
     tbody
-      - @registrations.each do |registration|
+      - registrations.each do |registration|
         = render "registration", registration: registration
 
-
-  = paginate @registrations
+  = paginate registrations

@@ -3,7 +3,7 @@ require "document/base"
 
 module Renalware
   module Transplants
-    class Donation < ActiveRecord::Base
+    class Donation < ApplicationRecord
       include PatientScope
       extend Enumerize
 

@@ -2,7 +2,7 @@ require_dependency "renalware/pd"
 
 module Renalware
   module PD
-    class RegimeBag < ActiveRecord::Base
+    class RegimeBag < ApplicationRecord
       extend Enumerize
 
       enumerize :role,
@@ -28,7 +28,7 @@ module Renalware
       validate :must_select_one_day
 
       def initialize(attributes = nil, options = {})
-        super
+        super() # !! Rails5 upgrade was super
         Date::DAYNAME_SYMBOLS.each do |day|
           public_send(:"#{day}=", true)
         end

@@ -2,7 +2,7 @@ require_dependency "renalware/drugs"
 
 module Renalware
   module Drugs
-    class Type < ActiveRecord::Base
+    class Type < ApplicationRecord
       self.table_name = "drug_types"
 
       has_and_belongs_to_many :drugs, foreign_key: :drug_type_id

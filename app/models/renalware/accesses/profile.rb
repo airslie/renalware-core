@@ -2,7 +2,7 @@ require_dependency "renalware/accesses"
 
 module Renalware
   module Accesses
-    class Profile < ActiveRecord::Base
+    class Profile < ApplicationRecord
       include Accountable
       extend Enumerize
 

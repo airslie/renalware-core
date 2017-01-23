@@ -2,7 +2,7 @@ require_dependency "renalware/pd"
 
 module Renalware
   module PD
-    class Regime < ActiveRecord::Base
+    class Regime < ApplicationRecord
       VALID_RANGES = OpenStruct.new(
         delivery_intervals: [1, 2, 4, 8]
       )
@@ -27,6 +27,7 @@ module Renalware
       validates :start_date, presence: true, timeliness: { type: :date }
       validates :end_date,
                 timeliness: { type: :date, on_or_after: ->(regime) { regime.start_date } },
+                allow_blank: true,
                 allow_nil: true
       validates :treatment, presence: true
       validate :min_one_bag

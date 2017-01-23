@@ -31,7 +31,7 @@ RSpec.describe "Managing Users", type: :request do
     context "given valid attributes" do
       it "updates a record" do
         attributes = { approved: !user.approved, role_ids: user.role_ids }
-        patch admin_user_path(user), user: attributes
+        patch admin_user_path(user), params: { user: attributes }
 
         expect(response).to have_http_status(:redirect)
         expect(Renalware::User.exists?(id: user.id, approved: !user.approved)).to be_truthy
@@ -45,7 +45,7 @@ RSpec.describe "Managing Users", type: :request do
     context "given invalid attributes" do
       it "responds with a form" do
         attributes = { approved: true, role_ids: [] }
-        patch admin_user_path(user), user: attributes
+        patch admin_user_path(user), params: { user: attributes }
 
         expect(response).to have_http_status(:success)
         expect(response.body).to include("<form")

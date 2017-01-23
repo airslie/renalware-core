@@ -2,7 +2,7 @@ require_dependency "renalware/medications"
 
 module Renalware
   module Medications
-    class MedicationRoute < ActiveRecord::Base
+    class MedicationRoute < ApplicationRecord
       def self.table_name
         "medication_routes"
       end

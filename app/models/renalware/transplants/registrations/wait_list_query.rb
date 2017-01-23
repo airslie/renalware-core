@@ -40,7 +40,8 @@ module Renalware
         end
 
         class QueryableRegistration < ActiveType::Record[Registration]
-          scope :current_status_in, ->(codes = %w(active)) {
+          scope :current_status_in, lambda { |codes|
+            codes ||= %w(active)
             joins(statuses: :description)
               .where(transplant_registration_statuses: { terminated_on: nil })
               .where(transplant_registration_status_descriptions: { code: codes })

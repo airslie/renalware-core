@@ -1,5 +1,5 @@
 module Renalware
-  class Role < ActiveRecord::Base
+  class Role < ApplicationRecord
     has_and_belongs_to_many :users
 
     validates_uniqueness_of :name

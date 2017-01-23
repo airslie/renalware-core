@@ -37,13 +37,13 @@ module Renalware
         patient = Renalware::Letters.cast_patient(@patient)
         patient.letters
                .approved
-               .limit(6)
-               .reverse
                .with_main_recipient
                .with_letterhead
                .with_author
                .with_event
                .with_patient
+               .limit(6)
+               .reverse
       end
 
       def present_letters(letters)
