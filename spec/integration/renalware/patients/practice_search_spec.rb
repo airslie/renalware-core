@@ -10,7 +10,7 @@ RSpec.describe "Changing a patient's GP (primary care physician)", type: :reques
         get search_patients_practices_path(params: { q: "wood" }, format: :json)
 
         expect(response).to have_http_status(:success)
-        expect(response.content_type).to eq(:json)
+        expect(response.content_type).to eq("application/json")
         expect(JSON.parse(response.body)).to eq([{ "id" => practice.id, "name" => practice.name }])
       end
 
@@ -22,7 +22,7 @@ RSpec.describe "Changing a patient's GP (primary care physician)", type: :reques
         get search_patients_practices_path(params: { q: "NW1 1AA" }, format: :json)
 
         expect(response).to have_http_status(:success)
-        expect(response.content_type).to eq(:json)
+        expect(response.content_type).to eq("application/json")
         expect(JSON.parse(response.body)).to eq([{ "id" => practice.id, "name" => practice.name }])
       end
     end
@@ -32,7 +32,7 @@ RSpec.describe "Changing a patient's GP (primary care physician)", type: :reques
         get search_patients_practices_path(params: { q: "wood" }, format: :json)
 
         expect(response).to have_http_status(:success)
-        expect(response.content_type).to eq(:json)
+        expect(response.content_type).to eq("application/json")
         expect(JSON.parse(response.body)).to eq([])
       end
     end
