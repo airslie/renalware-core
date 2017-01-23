@@ -12,6 +12,10 @@ module World
         Renalware::HD::Session.for_patient(patient).first_or_initialize
       end
 
+      def sign_off_hd_session_for(patient, user:)
+        # noop web only test
+      end
+
       def valid_open_session_attributes(patient)
         {
           patient: patient,
@@ -195,15 +199,19 @@ module World
 
       # Closed aka signed-off
       def expect_session_to_be_signed_off(patient: @patty)
-        patient = hd_patient(patient)
-
-        expect(patient.hd_sessions.length).to eq(1)
-        expect(patient.hd_sessions.first).to be_closed
+        # noop web only test
       end
     end
 
     module Web
       include Domain
+
+      def expect_session_to_be_signed_off(patient: @patty)
+        patient = hd_patient(patient)
+
+        expect(patient.hd_sessions.length).to eq(1)
+        expect(patient.hd_sessions.first).to be_closed
+      end
 
       def create_hd_session(user:, patient:, performed_on:)
         expect(hd_patient(patient).hd_sessions.count).to eq(0)
@@ -285,7 +293,7 @@ module World
           fill_in "Venous pressure", with: "11"
           fill_in "Fluid Removed", with: "30"
           select "100", from: "Dialysate Flow Rate"
-          select "100", from: "Blood Flow Rate"
+          fill_in "Blood Flow Rate", with: "100"
           fill_in "Machine URR", with: "1.0"
           fill_in "Machine KTV", with: "1.0"
           fill_in "Litres Processed", with: "10"
