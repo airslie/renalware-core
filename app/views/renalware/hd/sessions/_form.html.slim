@@ -11,7 +11,7 @@ ruby:
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Sign-In", name: "signin" } do
-      = f.input :performed_on, as: :date_picker, wrapper: :horizontal_datepicker, autofocus: true
+      = f.input :performed_on, as: :date_picker, wrapper: :horizontal_datepicker
       = f.association :hospital_unit,
           as: :grouped_select,
           group_method: :hd_sites,
@@ -75,7 +75,7 @@ ruby:
         = fcm.input :venous_pressure, input_html: { class: "small-input" }
         = fcm.input :fluid_removed, input_html: { class: "small-input" }
         = fcm.input :flow_rate, collection: fcm.object.class.flow_rates, input_html: { class: "small-input" }
-        = fcm.input :blood_flow, collection: fcm.object.class.blood_flows, input_html: { class: "small-input" }
+        = fcm.input :blood_flow, input_html: { class: "small-input" }
         = fcm.input :machine_urr, input_html: { class: "small-input" }
         = fcm.input :machine_ktv, input_html: { class: "small-input" }
         = fcm.input :litres_processed, input_html: { class: "small-input" }

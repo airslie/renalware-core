@@ -39,7 +39,7 @@ ruby:
         = fcm.input :single_needle, as: :inline_radio_buttons
         = fcm.input :dialysate, input_html: { class: "small-input" }
         = fcm.input :flow_rate, collection: fcm.object.class.flow_rates, input_html: { class: "small-input" }
-        = fcm.input :blood_flow, collection: fcm.object.class.blood_flows, input_html: { class: "small-input" }
+        = fcm.input :blood_flow, input_html: { class: "small-input" }
         = fcm.input :dialyser, as: :grouped_select, input_html: { class: "small-input" },
             collection: fcm.object.class.dialysers.group_by(&:group), group_method: :last,
             label_method: :name, value_method: :name
