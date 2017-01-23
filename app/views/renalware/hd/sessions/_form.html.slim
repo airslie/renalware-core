@@ -34,51 +34,52 @@ ruby:
         fieldset
           legend Access
           = fcm.input :access_type, as: :select, value_method: :name,
-              collection: Renalware::Accesses::Type.ordered, input_html: { class: "small-input" }
-          = fcm.input :access_side, input_html: { class: "small-input" }
+              collection: Renalware::Accesses::Type.ordered, wrapper: :horizontal_small
+          = fcm.input :access_side, wrapper: :horizontal_tiny
           = fcm.input :access_site, as: :select, value_method: :name,
-              collection: Renalware::Accesses::Site.ordered
-          = fcm.input :access_confirmed, as: :boolean
+              collection: Renalware::Accesses::Site.ordered, wrapper: :horizontal_small
+          = fcm.input :access_confirmed, as: :boolean, wrapper: :horizontal_medium
         = fcm.input :is_access_first_use, as: :inline_radio_buttons
         = fcm.input :fistula_plus_line, as: :inline_radio_buttons
         = fcm.input :single_needle, as: :inline_radio_buttons
         = fcm.input :lines_reversed, as: :inline_radio_buttons
-        = fcm.input :machine_no, input_html: { class: "small-input" }
-        = fcm.input :dialysis_fluid_used, input_html: { class: "small-input" }
+        = fcm.input :machine_no, wrapper: :horizontal_tiny
+        = fcm.input :dialysis_fluid_used, wrapper: :horizontal_tiny
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Pre-Dialysis Observations", name: "before" } do
       = fd.simple_fields_for :observations_before, fd.object.observations_before do |fcm|
         = fcm.input :weight_measured, as: :inline_radio_buttons
-        = fcm.input :weight, input_html: { class: "small-input" }
-        = fcm.input :pulse, input_html: { class: "small-input" }
+        = fcm.input :weight, wrapper: :horizontal_tiny
+        = fcm.input :pulse, wrapper: :horizontal_tiny
         = render_input fcm, :blood_pressure
         = fcm.input :temperature_measured, as: :inline_radio_buttons
-        = fcm.input :temperature, input_html: { class: "small-input" }
-        = fcm.input :bm_stix, input_html: { class: "small-input" }
+        = fcm.input :temperature, wrapper: :horizontal_tiny
+        = fcm.input :bm_stix, wrapper: :horizontal_tiny
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Post-Dialysis Observations", name: "after" } do
       = fd.simple_fields_for :observations_after, fd.object.observations_after do |fcm|
         = fcm.input :weight_measured, as: :inline_radio_buttons
-        = fcm.input :weight, input_html: { class: "small-input" }
-        = fcm.input :pulse, input_html: { class: "small-input" }
+        = fcm.input :weight, wrapper: :horizontal_tiny
+        = fcm.input :pulse, wrapper: :horizontal_tiny
         = render_input fcm, :blood_pressure
         = fcm.input :temperature_measured, as: :inline_radio_buttons
-        = fcm.input :temperature, input_html: { class: "small-input" }
-        = fcm.input :bm_stix, input_html: { class: "small-input" }
+        = fcm.input :temperature, wrapper: :horizontal_tiny
+        = fcm.input :bm_stix, wrapper: :horizontal_tiny
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Dialysis", name: "dialysis" } do
       = fd.simple_fields_for :dialysis, fd.object.dialysis do |fcm|
-        = fcm.input :arterial_pressure, input_html: { class: "small-input" }
-        = fcm.input :venous_pressure, input_html: { class: "small-input" }
-        = fcm.input :fluid_removed, input_html: { class: "small-input" }
-        = fcm.input :flow_rate, collection: fcm.object.class.flow_rates, input_html: { class: "small-input" }
-        = fcm.input :blood_flow, input_html: { class: "small-input" }
-        = fcm.input :machine_urr, input_html: { class: "small-input" }
-        = fcm.input :machine_ktv, input_html: { class: "small-input" }
-        = fcm.input :litres_processed, input_html: { class: "small-input" }
+
+        = fcm.input :arterial_pressure, wrapper: :horizontal_tiny
+        = fcm.input :venous_pressure, wrapper: :horizontal_tiny
+        = fcm.input :fluid_removed, wrapper: :horizontal_tiny
+        = fcm.input :flow_rate, collection: fcm.object.class.flow_rates, wrapper: :horizontal_tiny
+        = fcm.input :blood_flow, wrapper: :horizontal_tiny
+        = fcm.input :machine_urr, wrapper: :horizontal_tiny
+        = fcm.input :machine_ktv, wrapper: :horizontal_tiny
+        = fcm.input :litres_processed, wrapper: :horizontal_tiny
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "HDF", name: "hdf" } do
