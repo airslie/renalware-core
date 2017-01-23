@@ -23,11 +23,15 @@ module Renalware
         attribute :sodium_second_half, Integer
 
         validates_presence_of [:sodium_first_half, :sodium_second_half], if: :has_sodium_profiling?
+        validates :blood_flow, numericality: {
+          greater_than_or_equal_to: 50,
+          less_than_or_equal_to: 800,
+          allow_blank: true
+        }
 
         def self.cannulation_types; CannulationType.ordered; end
         def self.needle_sizes; [14, 15, 16, 17]; end
         def self.flow_rates; (100..800).step(100); end
-        def self.blood_flows; (50..400).step(50); end
         def self.dialysers; Dialyser.ordered; end
         def self.potassium_levels; [1, 2, 3, 4]; end
         def self.calcium_levels; [1.0, 1.35, 1.5]; end
