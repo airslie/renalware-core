@@ -1,23 +1,4 @@
 GIT
-  remote: https://github.com/DavyJonesLocker/client_side_validations-simple_form.git
-  revision: d3466f50f681d2fbd2ec68ee29b8668fec6f51d0
-  branch: rails5
-  specs:
-    client_side_validations-simple_form (3.3.1)
-      client_side_validations (~> 5.0.0)
-      simple_form (~> 3.3)
-
-GIT
-  remote: https://github.com/DavyJonesLocker/client_side_validations.git
-  revision: fe23ff15e115e7fe2e1ee07c129608e6468c7b24
-  branch: rails5
-  specs:
-    client_side_validations (5.0.0)
-      jquery-rails (~> 4.0, >= 4.0.1)
-      js_regex (~> 1.0, >= 1.0.19)
-      rails (>= 5.0.0, < 5.1.0)
-
-GIT
   remote: https://github.com/activerecord-hackery/ransack.git
   revision: 1f1ec180ea6e29cfe717fccd45c2e06878d59257
   specs:
@@ -109,7 +90,7 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.11)
-    builder (3.2.2)
+    builder (3.2.3)
     bullet (5.5.0)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.10.0)
@@ -132,6 +113,13 @@ GEM
       railties (>= 3.0)
       sass-rails (>= 3.2)
     chronic (0.10.2)
+    client_side_validations (8.0.0)
+      jquery-rails (~> 4.2)
+      js_regex (~> 1.2)
+      rails (~> 5.0.0, >= 5.0.0.1)
+    client_side_validations-simple_form (5.2.0)
+      client_side_validations (>= 6.0, < 9.0)
+      simple_form (~> 3.4)
     cliver (0.3.2)
     cocoon (1.2.9)
     coderay (1.1.1)
@@ -183,7 +171,7 @@ GEM
       railties (>= 4.1.0, < 5.1)
       responders
       warden (~> 1.2.3)
-    diff-lcs (1.2.5)
+    diff-lcs (1.3)
     docile (1.1.5)
     dumb_delegator (0.8.0)
     email_validator (1.6.0)
@@ -244,8 +232,8 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
-    js_regex (1.2.0)
-      regexp_parser (>= 0.3.6, <= 0.4.1)
+    js_regex (1.2.1)
+      regexp_parser (>= 0.3.6, <= 0.4.2)
     json (1.8.3)
     json_pure (2.0.2)
     kaminari (1.0.0)
@@ -366,7 +354,7 @@ GEM
     rdoc (4.3.0)
     record_tag_helper (1.0.0)
       actionview (~> 5.x)
-    regexp_parser (0.4.1)
+    regexp_parser (0.4.2)
     request_store (1.3.2)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
@@ -379,7 +367,7 @@ GEM
     rspec-expectations (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.5.0)
-    rspec-html-matchers (0.8.2)
+    rspec-html-matchers (0.9.0)
       nokogiri (~> 1)
       rspec (>= 3.0.0.a, < 4)
     rspec-mocks (3.5.0)
@@ -484,7 +472,7 @@ GEM
     webmock (1.20.4)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
-    websocket-driver (0.6.4)
+    websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     whenever (0.9.7)
@@ -512,8 +500,8 @@ DEPENDENCIES
   capybara
   capybara-screenshot
   chosen-rails
-  client_side_validations!
-  client_side_validations-simple_form!
+  client_side_validations
+  client_side_validations-simple_form
   cocoon
   cucumber-rails
   database_cleaner
@@ -586,7 +574,7 @@ DEPENDENCIES
   wkhtmltopdf-heroku (~> 2.12.3)
 
 RUBY VERSION
-   ruby 2.3.1p112
+   ruby 2.3.3p222
 
 BUNDLED WITH
-   1.13.7
+   1.14.2

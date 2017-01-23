@@ -238,7 +238,7 @@ module World
           click_on label
         end
 
-        fill_in "Session End Time", with: "16:00"
+        fill_in "Session End Time", with: "23:59"
 
         within ".top" do
           click_on "Save"
@@ -256,7 +256,7 @@ module World
           click_on label
         end
 
-        fill_in "Session End Time", with: "16:00"
+        fill_in "Session End Time", with: "23:59"
         select user.to_s, from: "Signed Off By"
 
         within_fieldset "Session Info" do
