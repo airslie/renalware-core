@@ -1,10 +1,9 @@
 source "https://rubygems.org"
 ruby "2.3.3"
 
-gem "record_tag_helper", "~> 1.0"
+# gem "activerecord-tableless"#, "~> 1.3.4"
 gem "active_type", "~> 0.6.1"
 gem "activemodel-associations"
-# gem "activerecord-tableless"#, "~> 1.3.4"
 gem "autoprefixer-rails"
 gem "chosen-rails"
 gem "client_side_validations"
@@ -31,14 +30,16 @@ gem "nokogiri"
 gem "paper_trail"
 gem "paranoia"
 gem "pg"
+gem "puma"
 gem "pundit", "~> 1.1.0"
-gem "sinatra", git: "https://github.com/sinatra/sinatra.git"
 gem "rails", "5.0.1"
 gem "ransack", git: "https://github.com/activerecord-hackery/ransack.git"
+gem "record_tag_helper", "~> 1.0"
 gem "ruby-hl7", "~> 1.1.1"
 gem "sass-rails"
 gem "sdoc", "~> 0.4.0", group: :doc
 gem "simple_form"
+gem "sinatra", git: "https://github.com/sinatra/sinatra.git"
 gem "slim-rails"
 gem "uglifier"
 gem "underscore-rails"
@@ -84,7 +85,6 @@ group :development, :test do
   gem "spring"
   gem "spring-commands-cucumber"
   gem "spring-commands-rspec"
-  gem "puma"
 end
 
 group :test do
