@@ -95,7 +95,6 @@ group :test do
 end
 
 group :staging do
-  gem "unicorn", "~> 4.8.3"
   gem "wkhtmltopdf-heroku", "~> 2.12.3"
 end
 
