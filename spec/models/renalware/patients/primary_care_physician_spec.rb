@@ -7,8 +7,12 @@ module Renalware::Patients
 
     it_behaves_like "Personable"
 
-    it { should validate_uniqueness_of :code }
-    it { should validate_presence_of :practitioner_type }
+    describe "validation" do
+      it { should validate_uniqueness_of :code }
+      it { should validate_presence_of :practitioner_type }
+      it { should allow_value("email@addresse.foo").for(:email) }
+      it { should_not allow_value("foo").for(:email) }
+    end
 
     describe "#current_address" do
       context "when Primary Care Physician has an alternate address" do
