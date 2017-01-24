@@ -18,6 +18,7 @@ module Renalware
 
       validates_with PrimaryCarePhysicians::AddressValidator
       validates_with PrimaryCarePhysicians::EmailValidator
+      validates :email, email: true, allow_blank: true
       validates_uniqueness_of :code
       validates_presence_of :practitioner_type
 
