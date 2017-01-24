@@ -351,6 +351,8 @@ GEM
     request_store (1.3.2)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
+    rollbar (2.14.0)
+      multi_json
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -532,6 +534,7 @@ DEPENDENCIES
   rails-controller-testing
   ransack!
   record_tag_helper (~> 1.0)
+  rollbar
   rspec-html-matchers
   rspec-rails
   rubocop (~> 0.45.0)
