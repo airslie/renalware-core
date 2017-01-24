@@ -191,7 +191,7 @@ GEM
     ffi (1.9.14)
     font-awesome-rails (4.7.0.1)
       railties (>= 3.2, < 5.1)
-    foreman (0.82.0)
+    foreman (0.83.0)
       thor (~> 0.19.1)
     formatador (0.2.5)
     foundation-rails (5.5.3.2)
@@ -248,7 +248,6 @@ GEM
       activerecord
       kaminari-core (= 1.0.0)
     kaminari-core (1.0.0)
-    kgio (2.11.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     listen (3.1.5)
@@ -341,7 +340,6 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rainbow (2.2.1)
-    raindrops (0.17.0)
     rake (12.0.0)
     rb-fsevent (0.9.8)
     rb-inotify (0.9.7)
@@ -445,10 +443,6 @@ GEM
       execjs (>= 0.3.0, < 3)
     underscore-rails (1.8.3)
     unicode-display_width (1.1.2)
-    unicorn (4.8.3)
-      kgio (~> 2.6)
-      rack
-      raindrops (~> 0.7)
     uniform_notifier (1.10.0)
     validates_timeliness (4.0.2)
       timeliness (~> 0.3.7)
@@ -555,7 +549,6 @@ DEPENDENCIES
   terminal-notifier-guard
   uglifier
   underscore-rails
-  unicorn (~> 4.8.3)
   validates_timeliness
   virtus
   web-console

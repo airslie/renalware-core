@@ -9,7 +9,7 @@ threads threads_count, threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests, default is 3000.
 #
-port        ENV.fetch("PORT") { 3000 }
+port ENV.fetch("PORT") { 3000 }
 
 # Specifies the `environment` that Puma will run in.
 #
@@ -21,7 +21,7 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # Workers do not work on JRuby or Windows (both of which do not support
 # processes).
 #
-# workers ENV.fetch("WEB_CONCURRENCY") { 2 }
+workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
@@ -30,7 +30,22 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # you need to make sure to reconnect any threads in the `on_worker_boot`
 # block.
 #
-# preload_app!
+preload_app!
+
+# rackup DefaultRackup
+
+# There is no request timeout mechanism inside of Puma. The Heroku router will timeout all requests
+# that exceed 30 seconds. Although an error will be returned back to the client, Puma will continue
+# to work on the request as there is no way for the router to notify Puma that the request
+# terminated early. To avoid clogging your processing ability we recommend using Rack::Timeout
+# to terminate long running requests and locate their source.
+# Add the Rack Timeout gem to your project then in an initializer set the value to something lower
+# than 30:
+# config/initializers/timeout.rb
+#   Rack::Timeout.timeout = 20  # seconds
+# Now any requests that continue for 20 seconds will be terminated and a stack trace output to your
+# logs. The stack trace should help you determine what part of your application is causing the
+# timeout so you can fix it.
 
 # The code in the `on_worker_boot` will be called if you are using
 # clustered mode by specifying a number of `workers`. After each worker
@@ -39,9 +54,9 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # or connections that may have been created at application boot, Ruby
 # cannot share connections between processes.
 #
-# on_worker_boot do
-#   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
-# end
+on_worker_boot do
+  ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
+end
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
