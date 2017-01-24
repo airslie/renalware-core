@@ -2,6 +2,9 @@ en:
   :true: "Yes"
   :false: "No"
 
+  modal:
+    close: Close
+
   collection:
     blank_option: Please select
     blank_option_for_multiple: Please select one or more

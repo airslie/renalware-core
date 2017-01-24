@@ -120,6 +120,7 @@ GEM
     client_side_validations-simple_form (5.2.0)
       client_side_validations (>= 6.0, < 9.0)
       simple_form (~> 3.4)
+    clipboard-rails (1.5.16)
     cliver (0.3.2)
     cocoon (1.2.9)
     coderay (1.1.1)
@@ -496,6 +497,7 @@ DEPENDENCIES
   chosen-rails
   client_side_validations
   client_side_validations-simple_form
+  clipboard-rails
   cocoon
   cucumber-rails
   database_cleaner

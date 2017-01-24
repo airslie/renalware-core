@@ -97,3 +97,14 @@
   color: #999999;
   padding-right: 0.5em;
 }
+
+
+.css-toggle-container {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  &.expanded {
+    white-space: normal;
+  }
+}

@@ -1,0 +1,10 @@
+=simple_form_for snippet,
+                 url: submit_to_url,
+                 as: :snippet,
+                 wrapper: :horizontal_form do |f|
+
+  = f.input :title, wrapper: :horizontal_medium
+  = f.input :body, wrapper: :horizontal_large, as: :text, input_html: { rows: 10 }
+  = f.submit "Save", class: "button"
+  = " or "
+  = link_to "Cancel", :back, default: snippets_path

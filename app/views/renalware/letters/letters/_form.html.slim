@@ -34,6 +34,7 @@ ruby:
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Message", name: "message" } do
     = f.input :salutation
+    = snippets_modal_and_link_to_open_it(target_input_for_seleted_snippet: "#letter_body")
     = f.input :body, as: :text, input_html: { rows: 15 }
 
   = render layout: "renalware/shared/fieldset",

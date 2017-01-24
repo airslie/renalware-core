@@ -23,10 +23,13 @@ a.fi-plus:before a.fi-minus:before {
 .tooltip {
   background-color: rgba(92,92,92,0.9);
   border-radius: 0.5em;
-  radius: 30px;
+  radius: 20px;
+  padding: 6px 8px;
+  font-size: 0.9rem;
+  color: $white;
 }
 
-.tooltip > .nub{
+.tooltip > .nub {
   border-color: transparent transparent rgba(92,92,92,0.8) transparent;
   margin-left: 0.5em;
 }
