@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   scope module: "renalware" do
     root to: "dashboard/dashboards#show"
 
+    resources :mock_errors, only: [:index]
+
     namespace :admin do
       resources :users
     end

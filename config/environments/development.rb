@@ -66,4 +66,8 @@ Rails.application.configure do
     Bullet.console = true
     Bullet.rails_logger = true
   end
+
+  Rollbar.configure do |config|
+    config.enabled = false
+  end
 end
