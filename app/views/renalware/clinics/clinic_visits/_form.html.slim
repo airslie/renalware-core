@@ -7,7 +7,8 @@
         legend Summary
         .row
           .columns.small-12
-            = f.input :date, as: :datetime_picker, input_html: { class: "small-input" }
+            = f.input :date, as: :date_picker, input_html: { class: "small-input" }
+            = f.input :time, as: :clock_picker, input_html: { class: "small-input" }
             = f.association :clinic, input_html: { class: "small-input" },
                 label_method: :name, value_method: :id,
                 include_blank: t(".clinic_prompt")

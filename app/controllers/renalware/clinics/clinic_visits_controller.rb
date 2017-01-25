@@ -11,12 +11,14 @@ module Renalware
 
       def new
         @clinic_visit = @patient.clinic_visits.new(height: last_height_measurement)
+        RememberedClinicVisitPreferences.new(session).apply_to(@clinic_visit)
       end
 
       def create
         @clinic_visit = @patient.clinic_visits.new(clinic_visit_params)
 
         if @clinic_visit.save
+          RememberedClinicVisitPreferences.new(session).persist(@clinic_visit)
           redirect_to patient_clinic_visits_path(@patient),
             notice: t(".success", model_name: "clinic visit")
         else
@@ -55,7 +57,7 @@ module Renalware
 
       def clinic_visit_params
         params.require(:clinic_visit).permit(
-          :date, :clinic_id, :height, :weight,
+          :date, :time, :clinic_id, :height, :weight,
           :bp, :urine_blood, :urine_protein, :notes
         ).merge(by: current_user)
       end

@@ -352,7 +352,7 @@ CREATE TABLE ar_internal_metadata (
 CREATE TABLE clinic_visits (
     id integer NOT NULL,
     patient_id integer,
-    date timestamp without time zone NOT NULL,
+    date date NOT NULL,
     height double precision,
     weight double precision,
     systolic_bp integer,
@@ -364,7 +364,8 @@ CREATE TABLE clinic_visits (
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    clinic_id integer NOT NULL
+    clinic_id integer NOT NULL,
+    "time" time without time zone
 );
 
 

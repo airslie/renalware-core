@@ -13,6 +13,7 @@ module Renalware
       validates_presence_of :clinic
 
       validates :date, timeliness: { type: :date }
+      validates :time, timeliness: { type: :time, allow_blank: true }
 
       enumerize :urine_blood, in: %i(neg trace very_low low medium high)
       enumerize :urine_protein, in: %i(neg trace very_low low medium high)

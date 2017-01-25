@@ -22,6 +22,7 @@ module Renalware
           .new(@patient, event: find_event, author: current_user)
           .with_contacts_as_default_ccs
           .build
+        RememberedLetterPreferences.new(session).apply_to(letter)
         render_form(letter, :new)
       end
 
@@ -33,6 +34,7 @@ module Renalware
       end
 
       def draft_letter_successful(letter)
+        RememberedLetterPreferences.new(session).persist(letter)
         redirect_to_letter_show(@patient, letter)
       end
 
