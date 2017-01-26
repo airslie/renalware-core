@@ -1,5 +1,6 @@
 system_code,name,position
 "referring_physician","Referring Physician","10"
+"foreign_physician","Foreign Physician","15"
 "district_nurse","District Nurse","20"
 "social_worker","Social Worker","30"
 "pharmacist","Pharmacist","40"
