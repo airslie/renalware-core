@@ -11,6 +11,7 @@ module Renalware
           raise NotImplementedAError
         end
 
+        #  The total volume of all bags for a day when they have PD.
         def calculated_daily_volume
           vol = [
             calculated_overnight_volume,
@@ -28,21 +29,11 @@ module Renalware
         private
 
         def effective_last_fill_volume
-          return 0 unless last_fill_volume && has_last_fill_bag?
-          average_daily_volume_for_bags_with_role(:last_fill, useable_volume: last_fill_volume)
+          has_last_fill_bag? ? last_fill_volume : 0
         end
 
         def effective_additional_manual_exchange_volume
-          return 0 unless additional_manual_exchange_volume && has_additional_manual_exchange_bag?
-          average_daily_volume_for_bags_with_role(:additional_manual_exchange,
-                                                  useable_volume: additional_manual_exchange_volume)
-        end
-
-        def average_daily_volume_for_bags_with_role(role, useable_volume:)
-          selector = "#{role}?".to_sym
-          role_bags = bags.select(&selector)
-          avg_days_per_week = role_bags.sum(&:days_per_week).to_f / role_bags.count.to_f
-          ((avg_days_per_week * useable_volume) / 7.to_f).to_i
+          has_additional_manual_exchange_bag? ? additional_manual_exchange_volume : 0
         end
       end
     end

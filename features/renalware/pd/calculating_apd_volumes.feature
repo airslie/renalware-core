@@ -153,7 +153,7 @@ Feature: The system calculates apd volumes after a clinician has saved an APD re
     | 1.36               | Baxter Dianeal PD2 1.36% (Yellow)           | 2000   | monday,tuesday,wednesday,thursday,friday | additional_manual_exchange  |
     Then the calculated regime volumes are
     | name                        | volume |
-    | daily_volume                | 12185  |
+    | daily_volume                | 12900  |
     | overnight_volume            | 10400  |
     | glucose_volume_percent_1_36 | 4523   |
     | glucose_volume_percent_2_27 | 3095   |
