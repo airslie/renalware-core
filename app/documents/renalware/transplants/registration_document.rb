@@ -12,8 +12,8 @@ module Renalware
       attribute :codes, Codes
 
       class CRF < Document::Embedded
-        attribute :highest, DatedResult
-        attribute :latest, DatedResult
+        attribute :highest, CRFDatedResult
+        attribute :latest, CRFDatedResult
       end
       attribute :crf, CRF
 

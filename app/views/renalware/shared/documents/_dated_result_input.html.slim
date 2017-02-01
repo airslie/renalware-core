@@ -1,5 +1,6 @@
-= f.simple_fields_for attribute, f.object.public_send(attribute) do |fd|
-  tr
+- renderable = f.object.public_send(attribute)
+= f.simple_fields_for attribute, renderable do |fd|
+  tr(class=partial_type_for(renderable))
     td= fd.label :result, f.object.class.human_attribute_name(attribute)
     td= fd.input :result, label: false, wrapper: "vertical_form"
     td= fd.input :recorded_on, as: :date_picker, label: false, wrapper: "vertical_form"
