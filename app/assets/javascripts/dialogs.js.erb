@@ -16,4 +16,11 @@ $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
   var modal = $(this);
   modal.find('[autofocus]').focus();
   $('form[data-validate]').enableClientSideValidations();
+  // If a modal is launched again, ensure the submit button is re-enabled.
+  $.rails.enableFormElement($('input[data-disable-with]'));
+});
+
+// If there was an error submitting a modal form, be sure to re-enable the submit button
+$(document).on('ajaxError', function(event, xhr, status, error) {
+  $.rails.enableFormElement($('input[data-disable-with]'));
 });
