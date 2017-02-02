@@ -1,5 +1,7 @@
 # Renalware
 
+[![Code Climate](https://codeclimate.com/github/airslie/renalware/badges/gpa.svg)](https://codeclimate.com/github/airslie/renalware)
+
 Renalware uses demographic, clinical, pathology, and nephrology datasets to improve patient care,
 undertake clinical and administrative audits and share data with external systems.
 
