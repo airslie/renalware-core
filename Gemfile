@@ -1,7 +1,6 @@
 source "https://rubygems.org"
 ruby "2.3.3"
 
-# gem "activerecord-tableless"#, "~> 1.3.4"
 gem "active_type", "~> 0.6.1"
 gem "activemodel-associations"
 gem "autoprefixer-rails"
@@ -30,13 +29,13 @@ gem "nested_form"
 gem "nokogiri"
 gem "paper_trail"
 gem "paranoia"
-gem "rollbar"
 gem "pg"
 gem "puma"
 gem "pundit", "~> 1.1.0"
 gem "rails", "5.0.1"
 gem "ransack", git: "https://github.com/activerecord-hackery/ransack.git"
 gem "record_tag_helper", "~> 1.0"
+gem "rollbar"
 gem "ruby-hl7", "~> 1.1.1"
 gem "sass-rails"
 gem "scenic"
@@ -68,6 +67,7 @@ group :development do
   gem "rack-mini-profiler"
   gem "terminal-notifier-guard"
   gem "web-console"
+  gem "thin"
 end
 
 group :development, :test do
@@ -91,10 +91,10 @@ group :development, :test do
 end
 
 group :test do
+  gem "rails-controller-testing"
   gem "simplecov", "~> 0.12.0", require: false
   gem "webmock", "~> 1.20.4"
   gem "wisper-rspec", require: false
-  gem "rails-controller-testing"
 end
 
 group :staging do

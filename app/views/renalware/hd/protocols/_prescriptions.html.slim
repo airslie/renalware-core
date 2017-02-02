@@ -1,0 +1,7 @@
+dl.prescriptions
+  - prescriptions.each do |prescription|
+    dt= prescription.drug.name
+    dd
+      = prescription.dose
+      = blank_separator
+      = prescription.frequency

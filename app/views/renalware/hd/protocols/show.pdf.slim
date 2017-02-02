@@ -1,19 +1,31 @@
+- clinical_patient = Renalware::Clinical.cast_patient(protocol.patient)
+
 - content_for(:head) do
   = wicked_pdf_stylesheet_link_tag "protocol_pdf"
 
 - protocol.with_format('html') do
-
   .protocol
 
     = render "renalware/patients/header", patient: protocol.patient
-    .row.collapse
-      .small-9.columns
-        = render "profile", profile: protocol.profile
-        = render "allergies", patient: protocol.patient
+    table.protocol-patient-summary
+      thead
+        tr
+          th.protocol-hd-profile HD Profile
+          th.protocol-allergies
+            = clinical_patient.allergy_status&.text
+            - if clinical_patient.allergy_status_updated_at
+              span.allergy_status_updated_at
+                = "(#{l(clinical_patient.allergy_status_updated_at&.to_date)})"
+          th.protocol-prescriptions Prescriptions on HD
+      tbody
+        tr
+          td= render "profile", profile: protocol.profile
+          td= render "allergies", patient: protocol.patient
+          td= render "prescriptions", prescriptions: protocol.prescriptions
 
     .row.collapse
       .small-12.columns
-        table.auto-layout
+        table.auto-layout.protocol-sessions
           = render 'renalware/hd/sessions/thead'
           tbody
             - 1..3.times do

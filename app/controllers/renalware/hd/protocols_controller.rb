@@ -28,11 +28,15 @@ module Renalware
         ))
       end
 
+      # Other options to consider:
+      #  viewport_size: '1280x1024'
+      #  disable_smart_shrinking: true
       def pdf_options
         {
           page_size: "A4",
           orientation: "Landscape",
           layout: "renalware/layouts/pdf",
+          margin: { top: 10, bottom: 10, left: 10, right: 10 },
           footer: {
             font_size: 8
           },

@@ -62,6 +62,7 @@ module Renalware
       scope :terminated_between, lambda { |from:, to:|
         where("terminated_on >= ? and terminated_on <= ?", from, to)
       }
+      scope :to_be_administered_on_hd, -> { current.where(administer_on_hd: true) }
 
       def self.default_search_order
         "prescribed_on ASC"

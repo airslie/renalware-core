@@ -42,6 +42,11 @@ module Renalware
         end
       end
 
+      def prescriptions
+        prescriptions = patient.prescriptions.to_be_administered_on_hd
+        ::CollectionPresenter.new(prescriptions, ::Renalware::Medications::PrescriptionPresenter)
+      end
+
       def patient_title
         patient.to_s(:long)
       end
