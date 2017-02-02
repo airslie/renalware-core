@@ -22,3 +22,8 @@
 .letters td {
   vertical-align: top;
 }
+
+#add-patient-contact-as-cc-modal {
+  max-height: $max-modal-height;
+  overflow-y: auto;
+}
