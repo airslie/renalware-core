@@ -5,8 +5,24 @@ module Renalware
     end
 
     def render_input(builder, attribute)
-      class_name = builder.object.public_send(attribute).class.name.demodulize.underscore
-      render "renalware/shared/documents/#{class_name}_input", attribute: attribute, f: builder
+      renderable = builder.object.public_send(attribute)
+      return unless renderable
+      render input_partial_path_for(renderable),
+             attribute: attribute,
+             f: builder
+    end
+
+    def input_partial_path_for(renderable)
+      partial_type = partial_type_for(renderable)
+      "renalware/shared/documents/#{partial_type}_input"
+    end
+
+    def partial_type_for(renderable)
+      if renderable.respond_to?(:to_partial_path)
+        renderable.to_partial_path.split("/").last
+      else
+        renderable.class.name.demodulize.underscore
+      end
     end
 
     def monospace(value, width = 5)
