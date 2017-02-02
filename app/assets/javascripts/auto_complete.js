@@ -1,3 +1,9 @@
+// Make the autocomplete the same width as the input it is related to.
+jQuery.ui.autocomplete.prototype._resizeMenu = function () {
+ var ul = this.menu.element;
+  ul.outerWidth(this.element.outerWidth());
+};
+
 $(document).on('ready ajaxSuccess', function() {
 
   $.ui.autocomplete.prototype._renderItem = function (ul, item) {
@@ -20,6 +26,7 @@ $(document).on('ready ajaxSuccess', function() {
       appendTo: $(parentForm), // appending to the form resolves issues with autocomplete hidden in modals
       minLength: 2,
       autoFocus: true,
+      open: function() { console.log("as"); $('#div .ui-menu').width(300) },
       source: function(request,response) {
         $.ajax({
           url: url,
@@ -52,4 +59,5 @@ $(document).on('ready ajaxSuccess', function() {
     var target = $(this).data("clear-value-on-click");
     $(target).val("");
   })
+
 });
