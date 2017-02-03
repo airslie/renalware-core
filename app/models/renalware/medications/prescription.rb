@@ -25,6 +25,7 @@ module Renalware
         reject_if: ->(attributes) { attributes["terminated_on"].blank? }
 
       delegate :terminated_on, to: :termination, allow_nil: true
+      delegate :name, to: :drug, prefix: true, allow_nil: true
 
       validates :patient, presence: true
       validates :treatable, presence: true
@@ -78,10 +79,6 @@ module Renalware
         return unless terminated_or_marked_for_termination?
 
         termination.created_by
-      end
-
-      def drug_name
-        drug.try!(:name)
       end
 
       # @section predicates

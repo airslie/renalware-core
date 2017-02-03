@@ -30,7 +30,6 @@ gem "nokogiri"
 gem "paper_trail"
 gem "paranoia"
 gem "pg"
-gem "puma"
 gem "pundit", "~> 1.1.0"
 gem "rails", "5.0.1"
 gem "ransack", git: "https://github.com/activerecord-hackery/ransack.git"
@@ -51,6 +50,7 @@ gem "whenever", require: false # For managing and deploying cron jobs - see conf
 gem "wicked_pdf", "~> 1.0.6"
 gem "wisper"
 gem "wkhtmltopdf-binary", "~> 0.12.3"
+gem "puma"
 
 source "https://rails-assets.org" do
   gem "rails-assets-clockpicker", "~> 0.0.7"
@@ -88,6 +88,7 @@ group :development, :test do
   gem "spring"
   gem "spring-commands-cucumber"
   gem "spring-commands-rspec"
+  gem "thin"
 end
 
 group :test do

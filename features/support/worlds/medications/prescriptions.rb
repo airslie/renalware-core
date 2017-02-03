@@ -28,7 +28,7 @@ module World
           dose_unit: options.delete(:dose_unit),
           medication_route: route,
           frequency: options.delete(:frequency),
-          administer_on_hd: options.delete(:administer_on_hd),
+          administer_on_hd: options.delete(:administer_on_hd) || false,
           prescribed_on: options.delete(:prescribed_on),
           provider: options.delete(:provider).downcase,
           by: user

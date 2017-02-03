@@ -9,6 +9,9 @@ Feature: Recording a HD session
     Given Nathalie is a nurse
     And Patty is a patient
     And Patty has a recorded HD profile
+    And Patty has a prescription:
+      | drug_name       | dose          | frequency | route_code | provider | terminated_on | administer_on_hd |
+      | Acarbose Tablet | 100 milligram | bd        | PO         | Hospital |               | true |
 
   @web
   Scenario: A nurse recorded the pre-session observations
@@ -25,9 +28,8 @@ Feature: Recording a HD session
     When Nathalie submits an erroneous HD session
     Then the HD session is not accepted
 
-  @web
-  Scenario: A nurse signed-off the HD session of a patieny
+  @web @wip
+  Scenario: A nurse signed-off the HD session of a patient
     When Nathalie records the pre-session observations for Patty
     And Nathalie later adds post-session observations for Patty and signs off the session
     Then Patty has a signed-off session HD session
-
