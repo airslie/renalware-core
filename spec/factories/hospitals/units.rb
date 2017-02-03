@@ -5,5 +5,9 @@ FactoryGirl.define do
     unit_code "UJZ"
     renal_registry_code "RJZ"
     unit_type :hospital
+
+    factory :hd_hospital_unit do
+      is_hd_site true
+    end
   end
 end

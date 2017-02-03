@@ -1,1 +1,22 @@
-p TODO: Filters: Hospital Unit + Schedule + AM/PM
+= simple_form_for presenter.q,
+                  as: :q,
+                  url: hd_mdm_patients_path,
+                  method: :get,
+                  wrapper: :horizontal_form do |f|
+  .row
+    .medium-4.columns
+      = f.input :hd_profile_hospital_unit_id_eq,
+          collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
+          as: :grouped_select, group_method: :hd_sites,
+          label: t(".hospital_unit")
+
+    .medium-4.columns
+      = f.input :hd_profile_schedule_eq,
+          collection: Renalware::HD::Profile.schedule.options,
+          include_blank: true,
+          label:  t(".schedule")
+
+    .medium-4.columns.actions
+      = f.submit t("helpers.submit.filter"), class: 'button', name: nil
+      span= " or "
+      = link_to t("helpers.reset"), hd_mdm_patients_path

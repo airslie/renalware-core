@@ -86,6 +86,10 @@ table {
     &.col-width-13 {
       width: 13rem;
     }
+
+    &.at-least {
+      width: auto;
+    }
   }
 }
 
