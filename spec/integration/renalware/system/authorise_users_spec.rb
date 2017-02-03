@@ -89,5 +89,15 @@ module Renalware
 
       expect(page).not_to have_content(@expired.username)
     end
+
+    scenario "An admin cannot assign super_admin role to anyone" do
+      within("tbody") do
+        find("a[href='#{edit_admin_user_path(@approved)}']").click
+      end
+      expect(current_path).to eq(edit_admin_user_path(@approved))
+
+      expect(page).to_not have_content("Super admin")
+      expect(page).to_not have_content("super_admin")
+    end
   end
 end

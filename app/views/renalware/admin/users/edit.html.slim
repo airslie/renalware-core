@@ -19,6 +19,7 @@
 
     .row
       - Renalware::Role.all.each_with_index do |role, index|
+        - next if role.hidden?
         - element_id = "user_role_ids_#{index}"
         = check_box_tag "user[role_ids][]", role.id, @user.has_role?(role.name), id: element_id, class: "inline"
         = label_tag element_id, role.name.humanize
