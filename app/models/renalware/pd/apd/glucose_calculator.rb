@@ -14,13 +14,30 @@ module Renalware
 
         # See calculating_apd_volumes.feature for a description of the algorithm here.
         def glucose_content
-          glucose = overnight_bags.inject(0) do |total, bag|
-            total + glucose_for_bag(bag).to_i
-          end
-          glucose + (other_content / 7)
+          overnight_glucose_content + other_glucose_content
         end
 
         private
+
+        def overnight_glucose_content
+          overnight_bags.inject(0) do |total, bag|
+            total + glucose_for_bag(bag).to_i
+          end
+        end
+
+        def other_glucose_content
+          other_bags.inject(0) do |sum, bag|
+            volume_to_use = volume_to_use_for_other_bag(bag)
+            sum + (volume_to_use * bag.days_per_week)
+          end.to_f / 7
+        end
+
+        # If a last fill bag has glucose content then use last_fill_volume.
+        # For additional_manual_exchange bags use the bag volume.
+        def volume_to_use_for_other_bag(bag)
+          return regime.last_fill_volume if bag.role.last_fill?
+          bag.volume
+        end
 
         # rubocop:disable Metrics/LineLength
         def glucose_for_bag(bag)
@@ -30,12 +47,6 @@ module Renalware
 
         def available_overnight_volume
           @available_overnight_volume ||= AvailableOvernightVolume.new(regime: regime).value
-        end
-
-        def other_content
-          other_bags.inject(0) do |sum, bag|
-            sum + (bag.volume * bag.days_per_week)
-          end.to_f
         end
 
         def overnight_bags
