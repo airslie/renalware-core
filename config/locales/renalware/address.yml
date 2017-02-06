@@ -3,7 +3,7 @@ en:
     attributes:
       renalware/address:
         name: Name
-        organisation_name: Organisation Name
+        organisation_name: Organisation
         street_1: Line 1
         street_2: Line 2
         city: City

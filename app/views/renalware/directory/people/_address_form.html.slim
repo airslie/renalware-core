@@ -1,5 +1,8 @@
 = f.simple_fields_for :address, wrapper: "horizontal_form" do |fa|
-  = fa.input :name
+  = fa.input :name,
+              placeholder: "If different than above (optional)"
+  = fa.input :organisation_name,
+              placeholder: "e.g. practice or hospital name (optional)"
   = fa.input :street_1
   = fa.input :street_2
   = fa.input :city

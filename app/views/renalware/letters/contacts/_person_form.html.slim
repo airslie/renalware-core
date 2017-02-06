@@ -7,9 +7,10 @@
   = field_set_tag "Address" do
     - ff.object.build_address
     = ff.simple_fields_for :address do |fa|
+      = fa.input :name,
+                  placeholder: "If different than above (optional)"
       = fa.input :organisation_name,
-                 label: "Organisation",
-                 placeholder: "E.g. general practice or hospital name (optional)"
+                 placeholder: "e.g. practice or hospital name (optional)"
       = fa.input :street_1
       = fa.input :street_2
       = fa.input :city
