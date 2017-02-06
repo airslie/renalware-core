@@ -32,7 +32,7 @@ module Renalware
     end
 
     def update_params
-      roles = fetch_roles(user_params[:role_ids])
+      roles = fetch_roles(user_params[:role_ids]).to_a
       user_params.merge(roles: roles)
     end
 

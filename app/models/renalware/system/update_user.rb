@@ -65,12 +65,20 @@ module Renalware
         @sanitized_roles ||= begin
           roles = params[:roles] || []
           remove_hidden_roles(roles)
+          preserve_super_admin_role_if_previously_set(roles)
         end
       end
 
-      # Hidden roles cannot be set in the UI so remove if found
+      # Hidden roles e.g. superadmin cannot be set in the UI so remove if found
       def remove_hidden_roles(roles)
         roles.reject(&:hidden)
+      end
+
+      def preserve_super_admin_role_if_previously_set(roles)
+        if user.has_role?(:super_admin)
+          roles << Role.find_by(name: :super_admin)
+        end
+        roles
       end
 
       def true?(param)
