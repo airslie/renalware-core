@@ -1,7 +1,7 @@
 require "rails_helper"
 
 module Renalware
-  module HD
+  module Patients
     describe MDMPatientsQuery do
       include PatientsSpecHelper
       subject(:query) { described_class }
@@ -23,7 +23,7 @@ module Renalware
                        modality_description: pd_modality_description,
                        started_on: Time.zone.today)
 
-          patients = subject.call
+          patients = subject.call(modality_names: "HD")
 
           expect(patients.count).to eq(1)
           expect(patients.first.id).to be(hd_patient.id)

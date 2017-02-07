@@ -1,0 +1,30 @@
+.row
+  h1= page_title
+
+.row
+  = render_if_exists "filters"
+.row
+  table#patients.mdm-patients
+    thead
+      tr
+        th.col-width-tiny
+        th.col-width-medium= t(".name")
+        th.col-width-nhs-no= t(".nhs_no")
+        th.col-width-reference-no= t(".hosp_no")
+        th.col-width-tiny= t(".sex")
+        th.col-width-tiny= t(".age")
+        th.col-width-tiny= t(".modality")
+        th.col-width-tiny= t(".hgb")
+        th.col-width-tiny= t(".hgb_date")
+        th.col-width-tiny= t(".ure")
+        th.col-width-tiny= t(".ure_date")
+        th.col-width-tiny= t(".cre")
+        th.col-width-tiny= t(".cre_date")
+        th.col-width-tiny= t(".mdrd")
+        th.col-width-date= t(".esrf")
+
+    tbody
+      - patients.each do |patient|
+        = render "patient", patient: patient, view_proc: view_proc
+
+  = paginate patients

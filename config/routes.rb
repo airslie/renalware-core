@@ -116,6 +116,7 @@ Rails.application.routes.draw do
     namespace :pd do
       resources :bag_types, except: [:show]
       resources :infection_organisms
+      resources :mdm_patients, only: :index
     end
 
     namespace :renal do
@@ -132,6 +133,7 @@ Rails.application.routes.draw do
 
     namespace :transplants do
       resource :wait_list, only: :show
+      resources :mdm_patients, only: :index
     end
 
     # Patient-scoped Routes
@@ -227,6 +229,7 @@ Rails.application.routes.draw do
         resources :peritonitis_episodes, only: [:new, :create, :show, :edit, :update]
         resources :exit_site_infections, only: [:new, :create, :show, :edit, :update]
         resources :pet_adequacy_results, except: [:destroy]
+        resource :mdm, only: :show, controller: "mdm"
       end
 
       member do
@@ -259,6 +262,7 @@ Rails.application.routes.draw do
       end
 
       namespace :transplants do
+        resource :mdm, only: :show, controller: "mdm"
         resource :donor_dashboard, only: :show
         resource :donor_workup, only: [:show, :edit, :update]
         resources :donor_operations, expect: [:index, :destroy] do

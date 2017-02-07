@@ -1,0 +1,16 @@
+/ a.trigger-full-screen Full screen
+.full-screen-container.row.mdm-page.no-side-gutters
+  .columns.small-12
+    .row.collapse
+      .columns.small-12
+        = render "renalware/patients/header", patient: mdm.patient, back_path: :back
+    .row.collapse
+      .columns.medium-12.large-6
+        = render "renalware/hd/mdm/prescriptions",
+                 prescriptions: mdm.prescriptions,
+                 patient: mdm.patient
+    .row.collapse
+      .columns.small-12.embedded-scroll
+        = render "renalware/hd/mdm/pathology",
+                  pathology: mdm.pathology,
+                  patient: mdm.patient
