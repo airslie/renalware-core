@@ -38,6 +38,7 @@ gem "ransack", git: "https://github.com/activerecord-hackery/ransack.git"
 gem "record_tag_helper", "~> 1.0"
 gem "ruby-hl7", "~> 1.1.1"
 gem "sass-rails"
+gem "scenic"
 gem "sdoc", "~> 0.4.0", group: :doc
 gem "simple_form"
 gem "sinatra", git: "https://github.com/sinatra/sinatra.git"
