@@ -7,8 +7,7 @@ module Renalware
         super(object)
       end
 
-      def description
-      end
+      def description; end
 
       def to_s
         "Simple"
