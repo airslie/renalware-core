@@ -2364,6 +2364,57 @@ CREATE TABLE patients (
 
 
 --
+-- Name: problem_problems; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE problem_problems (
+    id integer NOT NULL,
+    "position" integer DEFAULT 0 NOT NULL,
+    patient_id integer NOT NULL,
+    description character varying NOT NULL,
+    date date,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer
+);
+
+
+--
+-- Name: patient_summaries; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW patient_summaries AS
+ SELECT patients.id AS patient_id,
+    ( SELECT count(*) AS count
+           FROM events
+          WHERE (events.patient_id = patients.id)) AS events_count,
+    ( SELECT count(*) AS count
+           FROM clinic_visits
+          WHERE (clinic_visits.patient_id = patients.id)) AS clinic_visits_count,
+    ( SELECT count(*) AS count
+           FROM letter_letters
+          WHERE (letter_letters.patient_id = patients.id)) AS letters_count,
+    ( SELECT count(*) AS count
+           FROM access_profiles
+          WHERE (access_profiles.patient_id = patients.id)) AS access_profiles_count,
+    ( SELECT count(*) AS count
+           FROM modality_modalities
+          WHERE (modality_modalities.patient_id = patients.id)) AS modalities_count,
+    ( SELECT count(*) AS count
+           FROM problem_problems
+          WHERE ((problem_problems.deleted_at IS NULL) AND (problem_problems.patient_id = patients.id))) AS problems_count,
+    ( SELECT count(*) AS count
+           FROM pathology_observation_requests
+          WHERE (pathology_observation_requests.patient_id = patients.id)) AS observation_requests_count,
+    ( SELECT count(*) AS count
+           FROM medication_prescriptions
+          WHERE (medication_prescriptions.patient_id = patients.id)) AS prescriptions_count
+   FROM patients;
+
+
+--
 -- Name: patients_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -2921,24 +2972,6 @@ CREATE SEQUENCE problem_notes_id_seq
 --
 
 ALTER SEQUENCE problem_notes_id_seq OWNED BY problem_notes.id;
-
-
---
--- Name: problem_problems; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE problem_problems (
-    id integer NOT NULL,
-    "position" integer DEFAULT 0 NOT NULL,
-    patient_id integer NOT NULL,
-    description character varying NOT NULL,
-    date date,
-    deleted_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    created_by_id integer NOT NULL,
-    updated_by_id integer
-);
 
 
 --
@@ -8244,6 +8277,7 @@ INSERT INTO schema_migrations (version) VALUES
 ('20170103161015'),
 ('20170106161800'),
 ('20170110161149'),
-('20170120135631');
+('20170120135631'),
+('20170207195029');
 
 

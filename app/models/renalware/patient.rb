@@ -14,6 +14,7 @@ module Renalware
     serialize :sex, Gender
 
     has_one :current_address, as: :addressable, class_name: "Address"
+    has_one :summary, class_name: "PatientSummary"
     belongs_to :ethnicity, class_name: "Patients::Ethnicity"
     belongs_to :religion, class_name: "Patients::Religion"
     belongs_to :language, class_name: "Patients::Language"
