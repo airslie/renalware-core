@@ -9,7 +9,7 @@
         th.col-width-small Group
         th Name
     tbody
-      - @dialysers.each do |t|
+      - dialysers.each do |t|
         tr
           td
             = link_to "Edit", edit_hd_dialyser_path(t.id)

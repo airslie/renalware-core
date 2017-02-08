@@ -3,45 +3,49 @@ require_dependency "renalware/hd/base_controller"
 module Renalware
   module HD
     class DialysersController < BaseController
-      before_action :load_dialyser, only: [:edit, :update]
-
       def new
-        @dialyser = Dialyser.new
-        authorize @dialyser
+        dialyser = Dialyser.new
+        authorize dialyser
+        render locals: { dialyser: dialyser }
       end
 
       def create
-        @dialyser = Dialyser.new(dialyser_params)
-        authorize @dialyser
+        dialyser = Dialyser.new(dialyser_params)
+        authorize dialyser
 
-        if @dialyser.save
-          redirect_to hd_dialysers_path,
-            notice: t(".success", model_name: "dialyser")
+        if dialyser.save
+          redirect_to hd_dialysers_path, notice: success_msg_for("dialyser")
         else
-          flash[:error] = t(".failed", model_name: "dialyser")
-          render :new
+          flash[:error] = failed_msg_for("dialyser")
+          render :new, locals: { dialyser: dialyser }
         end
       end
 
       def index
-        @dialysers = Dialyser.all
-        authorize @dialysers
+        dialysers = Dialyser.all
+        authorize dialysers
+        render locals: { dialysers: dialysers }
+      end
+
+      def edit
+        dialyser = load_and_authorize_dialyser
+        render locals: { dialyser: dialyser }
       end
 
       def update
-        if @dialyser.update(dialyser_params)
-          redirect_to hd_dialysers_path,
-            notice: t(".success", model_name: "dialyser")
+        dialyser = load_and_authorize_dialyser
+        if dialyser.update(dialyser_params)
+          redirect_to hd_dialysers_path, notice: success_msg_for("dialyser")
         else
-          flash[:error] = t(".failed", model_name: "dialyser")
-          render :edit
+          flash[:error] = failed_msg_for("dialyser")
+          render :edit, locals: { dialyser: dialyser }
         end
       end
 
       def destroy
-        authorize Dialyser.destroy(params[:id])
-        redirect_to hd_dialysers_path,
-          notice: t(".success", model_name: "dialyser")
+        dialyser = load_and_authorize_dialyser
+        dialyser.destroy
+        redirect_to hd_dialysers_path, notice: success_msg_for("dialyser")
       end
 
       private
@@ -50,9 +54,10 @@ module Renalware
         params.require(:hd_dialyser).permit(:group, :name)
       end
 
-      def load_dialyser
-        @dialyser = Dialyser.find(params[:id])
-        authorize @dialyser
+      def load_and_authorize_dialyser
+        dialyser = Dialyser.find(params[:id])
+        authorize dialyser
+        dialyser
       end
     end
   end
