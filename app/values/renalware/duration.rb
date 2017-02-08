@@ -3,11 +3,15 @@ module Renalware
     attr_reader :seconds
 
     class Minute
-      def self.to_seconds(value); value.to_i * 60; end
+      def self.to_seconds(value)
+        value.to_i * 60
+      end
     end
 
     class Hour
-      def self.to_seconds(value); value.to_i * Minute.to_seconds(60); end
+      def self.to_seconds(value)
+        value.to_i * Minute.to_seconds(60)
+      end
     end
 
     def initialize(seconds)

@@ -47,6 +47,6 @@ class SubscriptionRegistry
   end
 
   def registry
-    @registry ||= Hash.new
+    @registry ||= {}
   end
 end
