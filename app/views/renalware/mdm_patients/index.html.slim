@@ -1,5 +1,5 @@
 .row
-  h1= page_title
+  h1= presenter.page_title
 
 .row
   = render_if_exists "filters"
@@ -24,7 +24,7 @@
         th.col-width-date= t(".esrf")
 
     tbody
-      - patients.each do |patient|
-        = render "patient", patient: patient, view_proc: view_proc
+      - presenter.patients.each do |patient|
+        = render "patient", patient: patient, view_proc: presenter.view_proc
 
-  = paginate patients
+  = paginate presenter.patients

@@ -1,10 +1,3 @@
-/ TODO: All this belongs in an mdm patient presenter
-- pathology = current_pathology_for(patient)
-- renal_patient = Renalware::Renal.cast_patient(patient.__getobj__)
-- hgb = pathology.find { |path| path&.description&.code == "HGB" }
-- ure = pathology.find { |path| path&.description&.code == "URE" }
-- cre = pathology.find { |path| path&.description&.code == "CRE" }
-
 tr
   td= link_to t(".view"), view_proc.call(patient)
   td.full-name= patient.to_s(format: :default)
@@ -13,11 +6,11 @@ tr
   td= patient.sex.code
   td= patient.age
   td= patient.modality_description&.name
-  td= hgb&.result
-  td= l(hgb&.observed_at&.to_date)
-  td= ure&.result
-  td= l(ure&.observed_at&.to_date)
-  td= cre&.result
-  td= l(cre&.observed_at&.to_date)
+  td= patient.hgb_result
+  td= l(patient.hgb_observed_at&.to_date)
+  td= patient.ure_result
+  td= l(patient.ure_observed_at&.to_date)
+  td= patient.cre_result
+  td= l(patient.cre_observed_at&.to_date)
   td=
-  td= l(renal_patient.profile&.esrf_on)
+  td= l(patient.esrf_date)
