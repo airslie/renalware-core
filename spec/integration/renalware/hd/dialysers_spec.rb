@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Managing Cannulation Types", type: :request do
+RSpec.describe "Managing Dialysers", type: :request do
   let(:dialyser) { create(:hd_dialyser) }
 
   describe "GET new" do

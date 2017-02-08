@@ -43,7 +43,6 @@ module Renalware
 
       def destroy
         event_type = load_and_authorize_event_type
-        authorize event_type
         event_type.destroy
         redirect_to events_types_path, notice: success_msg_for("event type")
       end
