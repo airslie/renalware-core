@@ -35,8 +35,11 @@ module Renalware
         # If a last fill bag has glucose content then use last_fill_volume.
         # For additional_manual_exchange bags use the bag volume.
         def volume_to_use_for_other_bag(bag)
-          return regime.last_fill_volume if bag.role.last_fill?
-          bag.volume
+          case bag.role.to_sym
+          when :last_fill then regime.last_fill_volume
+          when :additional_manual_exchange then regime.additional_manual_exchange_volume
+          else raise "Unrecognised other bag type #{bag.role}"
+          end
         end
 
         # rubocop:disable Metrics/LineLength

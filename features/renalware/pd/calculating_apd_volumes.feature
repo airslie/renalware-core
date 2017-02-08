@@ -54,7 +54,7 @@ Feature: The system calculates apd volumes after a clinician has saved an APD re
     | argument                            | value       |
     | fill_volume                         | 2000        |
     | last_fill_volume                    | 1500        |
-    | additional_manual_exchange_volume   | 1000        |
+    | additional_manual_exchange_volume   | 2000        |
     | cycles                              | 6           |
     | start_date                          | 01-May-2016 |
     | tidal_indicator                     | true        |
@@ -66,10 +66,10 @@ Feature: The system calculates apd volumes after a clinician has saved an APD re
     | 2.27               | Baxter Dianeal PD2 2.27% (Green)            | 5000   | monday,tuesday,wednesday,thursday,friday,saturday,sunday | ordinary                    |
     | 0                  | Baxter Nutrineal PD4 (Blue)                 | 2000   | monday,tuesday,wednesday,thursday,friday,saturday,sunday | ordinary                    |
     | 0                  | Baxter Extraneal (Icodextrin 7.5%) (Purple) | 2000   | monday,tuesday,wednesday,thursday,friday,saturday,sunday | last_fill                   |
-    | 1.36               | Baxter Dianeal PD2 1.36% (Yellow)           | 2000   | monday,tuesday,wednesday,thursday,friday,saturday,sunday | additional_manual_exchange  |
+    | 1.36               | Baxter Dianeal PD2 1.36% (Yellow)           | 5000   | monday,tuesday,wednesday,thursday,friday,saturday,sunday | additional_manual_exchange  |
     Then the calculated regime volumes are
     | name                        | volume |
-    | daily_volume                | 12900  |
+    | daily_volume                | 13900  |
     | overnight_volume            | 10400  |
     | glucose_volume_percent_1_36 | 6333   |
     | glucose_volume_percent_2_27 | 4333   |
@@ -80,8 +80,8 @@ Feature: The system calculates apd volumes after a clinician has saved an APD re
   # - another 5L 1.36% on 5 nights per week
   # - a 5L 2.27% bag on the other 2 nights per week
   # - 2L Nutrineal
-  # - a 2L Extraneal with a 2L last fill and a
-  # - 2L 1.36% bag using 2L as the Additional Manual Exchange 7 days per week.
+  # - a 5L Extraneal with a 2L last fill and a
+  # - 5L 1.36% bag using 2L as the Additional Manual Exchange 7 days per week.
   # 6 exchanges of 2L volume with no Tidal. So the total volume
   # available for overnight exchange is 12L and the actual exchanged volume is also 12 L (6 x 2).
   # Therefore
@@ -108,8 +108,8 @@ Feature: The system calculates apd volumes after a clinician has saved an APD re
     | 1.36            | Baxter Dianeal PD2 1.36% (Yellow)           | 5000   | monday,tuesday,wednesday,thursday,friday                 | ordinary                    |
     | 2.27            | Baxter Dianeal PD2 2.27% (Green)            | 5000   | saturday,sunday                                          | ordinary                    |
     | 0               | Baxter Nutrineal PD4 (Blue)                 | 2000   | monday,tuesday,wednesday,thursday,friday,saturday,sunday | ordinary                    |
-    | 0               | Baxter Extraneal (Icodextrin 7.5%) (Purple) | 2000   | monday,tuesday,wednesday,thursday,friday,saturday,sunday | last_fill                   |
-    | 1.36            | Baxter Dianeal PD2 1.36% (Yellow)           | 2000   | monday,tuesday,wednesday,thursday,friday,saturday,sunday | additional_manual_exchange  |
+    | 0               | Baxter Extraneal (Icodextrin 7.5%) (Purple) | 5000   | monday,tuesday,wednesday,thursday,friday,saturday,sunday | last_fill                   |
+    | 1.36            | Baxter Dianeal PD2 1.36% (Yellow)           | 5000   | monday,tuesday,wednesday,thursday,friday,saturday,sunday | additional_manual_exchange  |
     Then the calculated regime volumes are
     | name                        | volume |
     | daily_volume                | 16000  |
@@ -118,27 +118,14 @@ Feature: The system calculates apd volumes after a clinician has saved an APD re
     | glucose_volume_percent_2_27 | 1428   |
     | glucose_volume_percent_3_86 | 0      |
 
-  # APD wet day with an additional manual exchange of 2 L 1.36%. All the bags are being used 5 days
-  # per week and each night the patient has a 5L 1.36% bag, a 5L 2.27% bag, a 2 L Nutrineal
-  # (no glucose)- (so total volume available overnight is 12L. There is a last fill of Extraneal
-  # (no glucose) 2L and an additional manual exchange of 1.36% 2L. Patient is tidal 80% with full
-  # fill every third cycle, 6 cycles in total of 2 L - therefore Actual Overnight volume is
-  # 10.4 L (2 + 1.6 + 1.6 + 2 + 1.6 + 1.6).
-  # Therefore, for the 1.36% volume, we have
-  # (((5000 x 5)/12)x 10.4)/7 = 3095.24
-  # and
-  # (2000 x 5)/7 = 1428.57 which is the additional manual exchange which happens each day.
-  # So average 1.36% use per day is 3095.24 + 1428.57 = 4523.81
-  # For the 2.27% the equation is
-  # (((5000 x 5)/12)x 10.4)/7 = 3095.24 (this is of course the same as the above equation for the
-  # overnight 1.36% bag as, for this regime, the overnight 1.36% and 2.27% bags are the same \
-  # volume and frequency).
+
+  # A rare variation where a last_fill has glucose content.
   Scenario: APD Wet Day Tidal with additional manual exchange 5 days a week
     When Clyde creates the following APD Regime for Patty
     | argument                            | value       |
     | fill_volume                         | 2000        |
     | last_fill_volume                    | 1500        |
-    | additional_manual_exchange_volume   | 1000        |
+    | additional_manual_exchange_volume   | 2000        |
     | cycles                              | 6           |
     | start_date                          | 01-May-2016 |
     | tidal_indicator                     | true        |
@@ -150,10 +137,10 @@ Feature: The system calculates apd volumes after a clinician has saved an APD re
     | 2.27               | Baxter Dianeal PD2 2.27% (Green)            | 5000   | monday,tuesday,wednesday,thursday,friday | ordinary                    |
     | 0                  | Baxter Nutrineal PD4 (Blue)                 | 2000   | monday,tuesday,wednesday,thursday,friday | ordinary                    |
     | 2.27               | Baxter Extraneal (Icodextrin 7.5%) (Purple) | 2000   | monday,tuesday,wednesday,thursday,friday | last_fill                   |
-    | 1.36               | Baxter Dianeal PD2 1.36% (Yellow)           | 2000   | monday,tuesday,wednesday,thursday,friday | additional_manual_exchange  |
+    | 1.36               | Baxter Dianeal PD2 1.36% (Yellow)           | 5000   | monday,tuesday,wednesday,thursday,friday | additional_manual_exchange  |
     Then the calculated regime volumes are
     | name                        | volume |
-    | daily_volume                | 12900  |
+    | daily_volume                | 13900  |
     | overnight_volume            | 10400  |
     | glucose_volume_percent_1_36 | 4523   |
     | glucose_volume_percent_2_27 | 4166   |
