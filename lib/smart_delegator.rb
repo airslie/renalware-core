@@ -8,8 +8,16 @@
 #
 # The chart below demonstrates the difference:
 #
-#    `mymessage` -> SimpleDelegator -> OriginalObject -> invokes `mymessage` returning self -> returns OriginalObject
-#    `mymessage` -> SmartDelegator  -> OriginalObject -> invokes `mymessage` returning self -> returns SmartDelegator decorating OriginalObject
+#    `mymessage` ->
+#       SimpleDelegator ->
+#         OriginalObject ->
+#           invokes `mymessage` returning self ->
+#             returns OriginalObject
+#    `mymessage` ->
+#       SmartDelegator  ->
+#         OriginalObject ->
+#           invokes `mymessage` returning self ->
+#             returns SmartDelegator decorating OriginalObject
 class SmartDelegator
 
   attr_reader :object

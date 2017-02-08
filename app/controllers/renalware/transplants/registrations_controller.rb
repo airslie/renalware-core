@@ -11,8 +11,7 @@ module Renalware
         redirect_to url if @registration.new_record?
       end
 
-      def edit
-      end
+      def edit; end
 
       def update
         @registration.attributes = registration_params

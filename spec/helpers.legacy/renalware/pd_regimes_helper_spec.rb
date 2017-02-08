@@ -66,8 +66,10 @@ module Renalware
 
       context "has a glucose volume" do
         it "should return a glucose volume" do
-          expect(default_daily_glucose_average(@capd_regime.glucose_volume_percent_1_36)).to eq(1071)
-          expect(default_daily_glucose_average(@capd_regime.glucose_volume_percent_2_27)).to eq(1786)
+          expect(default_daily_glucose_average(@capd_regime.glucose_volume_percent_1_36))
+            .to eq(1071)
+          expect(default_daily_glucose_average(@capd_regime.glucose_volume_percent_2_27))
+            .to eq(1786)
         end
       end
 

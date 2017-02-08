@@ -20,7 +20,11 @@ module World
         contact.save!
       end
 
-      def assign_new_person_as_contact(patient:, person_attrs:, description_name: "Sibling", user:, **_)
+      def assign_new_person_as_contact(patient:,
+                                       person_attrs:,
+                                       description_name: "Sibling",
+                                       user:,
+                                       **_)
         patient = letters_patient(patient)
         person_attrs = {
           given_name: person_attrs[:given_name],
