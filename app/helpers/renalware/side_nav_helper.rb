@@ -1,3 +1,5 @@
+require_dependency "renalware/patients"
+
 module Renalware
   module SideNavHelper
     def display_pd_menu?(patient)

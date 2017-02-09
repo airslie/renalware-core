@@ -1,0 +1,6 @@
+.columns.small-12.medium-6.large-3
+  = render "renalware/hd/profiles/summary", profile: mdm.hd_profile
+.columns.small-12.medium-6.large-3
+  = render "renalware/hd/accesses/summary", access: mdm.access
+.columns.medium-12.large-6
+  = render "prescriptions", mdm: mdm

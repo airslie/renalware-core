@@ -37,3 +37,4 @@ rerun.txt
 *.swp
 
 /public/assets
+/config.codekit3

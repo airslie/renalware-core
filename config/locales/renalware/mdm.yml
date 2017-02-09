@@ -19,3 +19,10 @@ en:
         cre: CRE
         cre_date: CRE Date
         mdrd: MDRD
+    mdm:
+      pathology:
+        title: Pathology
+        view: View
+      prescriptions:
+        title: Prescriptions
+        view: View

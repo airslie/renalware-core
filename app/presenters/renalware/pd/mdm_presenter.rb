@@ -29,6 +29,10 @@ module Renalware
             .map { |prescrip| Medications::PrescriptionPresenter.new(prescrip) }
         end
       end
+
+      def current_regime
+        @current_regime ||= patient.pd_regimes&.current
+      end
     end
   end
 end
