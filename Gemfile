@@ -79,7 +79,7 @@ group :development, :test do
   gem "factory_girl_rails"
   gem "foreman"
   gem "launchy"
-  gem "poltergeist", "~> 1.11.0"
+  gem "poltergeist" # , "~> 1.11.0"
   gem "rspec-html-matchers"
   gem "rspec-rails"
   gem "rubocop", "~> 0.45.0", require: false

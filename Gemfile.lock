@@ -19,7 +19,7 @@ GIT
 
 GIT
   remote: https://github.com/sinatra/sinatra.git
-  revision: 004daf4922af6ee7a7a87982f3040768e428209e
+  revision: 32f416c7b8e5131247dadee4ac848ac42c43c761
   specs:
     rack-protection (2.0.0.beta2)
       rack
@@ -234,7 +234,7 @@ GEM
       railties (>= 3.2.16)
     js_regex (1.2.1)
       regexp_parser (>= 0.3.6, <= 0.4.2)
-    json (1.8.3)
+    json (1.8.6)
     json_pure (2.0.2)
     kaminari (1.0.1)
       activesupport (>= 4.1.0)
@@ -287,7 +287,7 @@ GEM
     parser (2.3.3.1)
       ast (~> 2.2)
     pg (0.19.0)
-    poltergeist (1.11.0)
+    poltergeist (1.13.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
@@ -423,7 +423,7 @@ GEM
       railties (>= 3.1)
       slim (~> 3.0)
     slop (3.6.0)
-    spring (2.0.0)
+    spring (2.0.1)
       activesupport (>= 4.2)
     spring-commands-cucumber (1.0.1)
       spring (>= 0.9.1)
@@ -440,7 +440,7 @@ GEM
     terminal-notifier-guard (1.7.0)
     thor (0.19.4)
     thread_safe (0.3.5)
-    tilt (2.0.5)
+    tilt (2.0.6)
     timeliness (0.3.8)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
@@ -526,7 +526,7 @@ DEPENDENCIES
   paper_trail
   paranoia
   pg
-  poltergeist (~> 1.11.0)
+  poltergeist
   puma
   pundit (~> 1.1.0)
   rack-mini-profiler
