@@ -67,20 +67,12 @@ ul.provider {
 	//	top: 0; right: 0; bottom: 0; left: 0;
 }
 .patient-content {
-
-  // display: block;
-  // flex: 1;
-
-  // h1 {
-  //   margin-top: 1rem;
-  // }
-
-	//display: block;
-	//flex: 1;
-	//margin-left: 200px;
 	padding-bottom: 10rem;
 	position: absolute;
-	top: 0; right: 0; bottom: 0; left: $patient-side-nav-width;
+	top: 0;
+  right: 0;
+  bottom: 0;
+  left: $patient-side-nav-width;
 	overflow-y: auto;
 }
 .patient-container .patient-content > .row {
@@ -92,6 +84,7 @@ ul.provider {
 }
 
 .patient-header {
+
 
   // background-color: $patient-header-bg-color;
   // color: $white;
@@ -110,6 +103,7 @@ ul.provider {
   //   font-size: 1rem;
   //   margin: 0 0 .2em 1em;
   // background-color: $nhs-light-blue;
+
 
   background-color: $nhs-blue;
   dl {

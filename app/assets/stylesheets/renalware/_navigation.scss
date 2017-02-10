@@ -63,10 +63,52 @@ dd.patient-name {
 }
 
 .patient-side-nav {
-  //flex: 0 0 $patient-side-nav-width;
-  //order: -1;
+
   background-color: $patient-menu-background-colour;
 
+  // padding: 0;
+
+  // ul.side-nav {
+  //   margin: 0;
+  //   padding: 0.5rem 0 0 0;
+
+  //   li {
+  //     margin: 0;
+  //     padding: 0.15rem 0;
+
+  //     &.heading {
+  //       padding-left: 1.1rem;
+  //       color: $dark-grey;
+  //     }
+
+  //     &.link {
+  //       padding-left: 1.875rem;
+
+  //       &.active {
+  //         background-color: $white;
+  //         a {
+  //           color: $dark-grey;
+  //           text-decoration: none;
+  //         }
+  //       }
+
+  //       a {
+  //         padding: 0;
+  //         text-decoration: underline;
+
+  //         &:hover {
+  //          background-color: inherit;
+  //         }
+  //       }
+  //     }
+
+  overflow-y: scroll;
+  padding: 0.5rem 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: $patient-side-nav-width;
 
   // padding: 0;
 
@@ -112,21 +154,41 @@ dd.patient-name {
   ul.side-nav {
 	  margin: 0;
 	  padding: 0;
-  }
-  ul.side-nav li {
-    margin: 0;
-    padding: 0 0 1px 0.5rem;
+//
+//   }
+//   ul.side-nav li {
+//     margin: 0;
+//     padding: 0 0 1px 0.5rem;
 
-    a {
-	    border-radius: 3px;
-      padding: 0.2rem 0.5rem;
-      text-decoration: underline;
+//     a {
+// 	    border-radius: 3px;
+//       padding: 0.2rem 0.5rem;
+//       text-decoration: underline;
+//     }
+//   }
+// }
+// .patient-side-nav li:last-child {
+// 	margin-bottom: 0;
+// }
+//
+
+    li {
+      margin: 0;
+      padding: 0 0 1px 0.5rem;
+
+      a {
+  	    border-radius: 3px;
+        padding: 0.2rem 0.5rem;
+        text-decoration: underline;
+      }
     }
   }
 }
+
 .patient-side-nav li:last-child {
 	margin-bottom: 0;
 }
+
 .patient-side-nav li > a:hover,
 .patient-side-nav li > a:hover:first-child:not(.button) {
 	  background-color: $link-colour;
