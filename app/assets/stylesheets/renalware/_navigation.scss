@@ -66,52 +66,124 @@ dd.patient-name {
   flex: 0 0 $patient-side-nav-width;
   order: -1;
   background-color: $patient-menu-background-colour;
-  padding: 0;
 
+  // padding: 0;
+
+  // ul.side-nav {
+  //   margin: 0;
+  //   padding: 0.5rem 0 0 0;
+
+  //   li {
+  //     margin: 0;
+  //     padding: 0.15rem 0;
+
+  //     &.heading {
+  //       padding-left: 1.1rem;
+  //       color: $dark-grey;
+  //     }
+
+  //     &.link {
+  //       padding-left: 1.875rem;
+
+  //       &.active {
+  //         background-color: $white;
+  //         a {
+  //           color: $dark-grey;
+  //           text-decoration: none;
+  //         }
+  //       }
+
+  //       a {
+  //         padding: 0;
+  //         text-decoration: underline;
+
+  //         &:hover {
+  //          background-color: inherit;
+  //         }
+  //       }
+  //     }
+
+  padding: 0.5rem 0;
   ul.side-nav {
+	  margin: 0 0 15rem;
+	  padding: 0;
+  }
+  ul.side-nav li {
     margin: 0;
-    padding: 0.5rem 0 0 0;
+    padding: 0 0 1px 0.5rem;
 
-    li {
-      margin: 0;
-      padding: 0.15rem 0;
-
-      &.heading {
-        padding-left: 1.1rem;
-        color: $dark-grey;
-      }
-
-      &.link {
-        padding-left: 1.875rem;
-
-        &.active {
-          background-color: $white;
-          a {
-            color: $dark-grey;
-            text-decoration: none;
-          }
-        }
-
-        a {
-          padding: 0;
-          text-decoration: underline;
-
-          &:hover {
-           background-color: inherit;
-          }
-        }
-      }
+    a {
+	    border-radius: 3px;
+      padding: 0.2rem 0.5rem;
+      text-decoration: underline;
     }
   }
-
-  li.divider {
-    border-top-color: $menu-divider-colour;
-  }
 }
+.patient-side-nav li:last-child {
+	margin-bottom: 0;
+}
+.patient-side-nav li > a:hover,
+.patient-side-nav li > a:hover:first-child:not(.button) {
+	  background-color: $nhs-light-blue;
+	  color: $white;
+	  margin-right: 0.5rem;
+  }
+.patient-side-nav li.active > a,
+.patient-side-nav li.active > a:first-child:not(.button) {
+	  background-color: $white;
+	  border-top-left-radius: 3px;
+	  border-top-right-radius: 0px;
+	  border-bottom-left-radius: 3px;
+	  border-bottom-right-radius: 0px;
+	  color: $dark-grey;
+	  margin-right: 0;
+	  text-decoration: none;
+  }
+.patient-side-nav li a.active:hover {
+	  background-color: $white;
+	  color: $dark-grey;
+  }
+.patient-side-nav li.heading {
+    color: $dark-grey;
+  }
 
 .top-bar-section .dropdown li.info {
   color: rgba(255, 255, 255, 0.5);
   padding: 0px 15px;
   line-height: 45px;
   font-size: 0.8em;
+}
+.sub-nav {
+	//border-bottom: 2px solid $nhs-light-blue;
+	background-color: $patient-menu-background-colour;
+	margin: 0 0 1rem;
+	padding: 0.25rem;
+}
+.sub-nav dd {
+	margin: 0 0.25rem 0 0;
+}
+.sub-nav dd a {
+	background-color: $off-white;
+	border-radius: 3px;
+	color: #008CBA;
+	display: block;
+	padding: 0.2rem 0.5rem;
+	text-decoration: underline;
+}
+.sub-nav dd a:hover {
+	background-color: $nhs-light-blue;
+	color: $white;
+}
+.sub-nav dd.active a {
+	background-color: $white;
+	color: $dark-grey;
+	padding: 0.2rem 0.5rem;
+	text-decoration: none;
+}
+.sub-nav dd.active {
+	font-weight: bold;
+}
+.sub-nav dd.active a:hover {
+	background-color: $white;
+	color: $dark-grey;
 }

@@ -78,12 +78,19 @@ form {
 }
 
 fieldset {
-  padding: 1em;
+	background-color: $white;
+	border: none;
+	border-top: 4px solid $mini-profile-backgound-colour;
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+	margin: 0 0 1rem;
+  padding: 1rem;
+  position: relative;
 
   legend {
     font-size: 1.1rem;
     line-height: 1.1rem;
-
+margin: 0;
+padding: 0;
     .fieldset-action {
       padding-left: 1rem;
       font-weight: normal;
