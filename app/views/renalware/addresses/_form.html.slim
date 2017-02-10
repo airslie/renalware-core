@@ -1,9 +1,11 @@
 ul.no-bullet
   li
-    = a.input :name
+    = a.input :name,
+              placeholder: "If different than above (optional)"
 
-  li
-    = a.input :organisation_name
+  / li
+  /   = a.input :organisation_name,
+  /             placeholder: "e.g. practice name or hospital (optional)"
 
   li
     = a.input :street_1
