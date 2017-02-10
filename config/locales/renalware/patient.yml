@@ -25,7 +25,7 @@ en:
         modalities: Modalities (%{count})
         esrf: ESRF/Comorbidities
         clinical_profile: Clinical Profile
-        contacts: Contacts
+        contacts: Contacts (%{count})
         demographics: Demographics
         clinical_summary: Clinical Summary
         regimes: Regimes

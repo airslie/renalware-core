@@ -3,7 +3,7 @@ ul.side-nav
   li.heading= t(".heading")
   li.link= link_to t(".clinical_summary"), patient_clinical_summary_path(current_patient)
   li.link= link_to t(".demographics"), patient_path(current_patient)
-  li.link= link_to t(".contacts"), patient_letters_contacts_path(current_patient)
+  li.link= link_to t(".contacts", count: summary.contacts_count), patient_letters_contacts_path(current_patient)
   li.link= link_to t(".clinical_profile"), patient_clinical_profile_path(current_patient)
   li.link= link_to t(".esrf"), edit_patient_renal_profile_path(current_patient)
   li.link= link_to t(".modalities", count: summary.modalities_count), patient_modalities_path(current_patient)
