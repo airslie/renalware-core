@@ -2410,7 +2410,10 @@ CREATE VIEW patient_summaries AS
           WHERE (pathology_observation_requests.patient_id = patients.id)) AS observation_requests_count,
     ( SELECT count(*) AS count
            FROM medication_prescriptions
-          WHERE (medication_prescriptions.patient_id = patients.id)) AS prescriptions_count
+          WHERE (medication_prescriptions.patient_id = patients.id)) AS prescriptions_count,
+    ( SELECT count(*) AS count
+           FROM letter_contacts
+          WHERE (letter_contacts.patient_id = patients.id)) AS contacts_count
    FROM patients;
 
 
@@ -8278,6 +8281,7 @@ INSERT INTO schema_migrations (version) VALUES
 ('20170106161800'),
 ('20170110161149'),
 ('20170120135631'),
-('20170207195029');
+('20170207195029'),
+('20170210133517');
 
 
