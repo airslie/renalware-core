@@ -26,7 +26,7 @@ RSpec.describe "Assign a person as a CC recipient", type: :feature do
     context "given valid attributes" do
       it "responds successfully" do
         visit patient_letters_letters_path(patient)
-        click_on "Draft Letter"
+        click_on "Draft Simple Letter"
 
         fill_out_letter
 

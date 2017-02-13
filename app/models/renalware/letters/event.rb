@@ -6,7 +6,7 @@ module Renalware
       attr_reader :clinical
       alias_method :clinical?, :clinical
 
-      def initialize(event, clinical: false)
+      def initialize(event = nil, clinical: false)
         @clinical = clinical
         super(event)
       end

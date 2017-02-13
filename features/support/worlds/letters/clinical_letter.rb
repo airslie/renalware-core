@@ -4,6 +4,7 @@ module World
 
       def build_clinical_letter_attributes(patient, issued_on, user)
         valid_simple_letter_attributes(patient).merge(
+          clinical: true,
           issued_on: issued_on,
           author: user,
           by: user
@@ -44,13 +45,6 @@ module World
         expect(letter.part_for(:prescriptions)).to be_present
       end
 
-      def expect_clinical_letter_to_list_clinical_observations(patient:)
-        letter = clinical_letter_for(patient)
-
-        letter = Renalware::Letters::LetterPresenterFactory.new(letter)
-        expect(letter.part_for(:clinical_observations)).to be_present
-      end
-
       def expect_clinical_letter_to_list_problems(patient:)
         letter = clinical_letter_for(patient)
 
@@ -69,10 +63,10 @@ module World
     module Web
       include Domain
 
-      def draft_clinic_visit_letter(patient:, user:, issued_on:)
+      def draft_clinical_letter(patient:, user:, issued_on:)
         login_as user
-        visit patient_clinic_visits_path(patient)
-        click_on "Draft Letter"
+        visit patient_letters_letters_path(patient)
+        click_on "Draft Clinical Letter"
 
         attributes = valid_simple_letter_attributes(patient)
         fill_in "Date", with: I18n.l(attributes[:issued_on]) if issued_on.present?
@@ -85,22 +79,9 @@ module World
         end
       end
 
-      def revise_clinic_visit_letter(patient:, user:)
-        login_as user
-        visit patient_clinic_visits_path(patient)
-        click_on "Preview Letter"
-        click_on "Edit"
-
-        select user.to_s, from: "Author"
-
-        within ".bottom" do
-          click_on "Save"
-        end
-      end
-
-      def expect_letter_to_list_current_prescriptions(patient:)
-        visit patient_clinic_visits_path(patient)
-        click_on "Preview Letter"
+      def expect_clinical_letter_to_list_current_prescriptions(patient:)
+        visit patient_letters_letters_path(patient)
+        click_on "Preview"
 
         visit_iframe_content
 
@@ -109,9 +90,9 @@ module World
         end
       end
 
-      def expect_letter_to_list_clinical_observations(patient:)
-        visit patient_clinic_visits_path(patient)
-        click_on "Preview Letter"
+      def expect_clinical_letter_to_list_clinical_observations(patient:)
+        visit patient_letters_letters_path(patient)
+        click_on "Preview"
 
         visit_iframe_content
 
@@ -121,9 +102,9 @@ module World
         expect(page.body).to include(clinic_visit.bp)
       end
 
-      def expect_letter_to_list_problems(patient:)
-        visit patient_clinic_visits_path(patient)
-        click_on "Preview Letter"
+      def expect_clincal_letter_to_list_problems(patient:)
+        visit patient_letters_letters_path(patient)
+        click_on "Preview"
 
         visit_iframe_content
 
@@ -133,9 +114,9 @@ module World
         end
       end
 
-      def expect_letter_to_list_recent_pathology_results(patient:)
-        visit patient_clinic_visits_path(patient)
-        click_on "Preview Letter"
+      def expect_clinical_letter_to_list_recent_pathology_results(patient:)
+        visit patient_letters_letters_path(patient)
+        click_on "Preview"
 
         visit_iframe_content
 
@@ -146,10 +127,6 @@ module World
         pathology_patient.observations.each do |observation|
           expect(page.body).to include(observation.to_s)
         end
-      end
-
-      def visit_iframe_content
-        visit find("iframe")[:src]
       end
     end
   end

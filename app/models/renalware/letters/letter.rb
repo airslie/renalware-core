@@ -48,6 +48,8 @@ module Renalware
       scope :with_event, -> { includes(:event) }
       scope :with_cc_recipients, -> { includes(cc_recipients: { addressee: { person: :address } }) }
 
+      delegate :primary_care_physician, to: :patient
+
       def self.policy_class
         LetterPolicy
       end
@@ -75,16 +77,6 @@ module Renalware
         EVENTS_MAP.fetch(event.class).new(event, clinical: clinical?)
       end
 
-      # def part_classes
-      #   klasses = letter_event.part_classes
-      #   klasses.merge!(clinical_part_classes) if clinical?
-      #   klasses
-      # end
-
-      def primary_care_physician
-        patient.primary_care_physician
-      end
-
       def subject?(other_patient)
         patient == other_patient
       end
@@ -110,7 +102,7 @@ module Renalware
       end
 
       def archive_recipients!
-        recipients.each { |r| r.archive! }
+        recipients.each(&:archive!)
       end
     end
   end

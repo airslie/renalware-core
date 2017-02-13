@@ -124,11 +124,7 @@ module Renalware
 
       def find_event
         return unless event_type.present?
-        if event_id.present?
-          event_class.for_patient(@patient).find(event_id)
-        else
-          event_class
-        end
+        event_class.for_patient(@patient).find(event_id)
       end
 
       def find_contact_descriptions

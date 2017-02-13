@@ -14,21 +14,10 @@ Feature: Writing a clinical letter
     And Patty has recorded problems with notes
     And Patty has completed pathology investigations relevant to the clinic letter
 
-  @web @wip
+  @web
   Scenario: A doctor drafted a clinical letter
     When Doug drafts a clinical letter for Patty
     Then a clinical letter is drafted for Patty
     And the clinical letter lists Patty's current prescriptions
-    And the clinical letter lists Patty's clinical observations
     And the clinical letter lists Patty's problems and notes
     And the clinical letter lists Patty's recent pathology results
-
-  # @web
-  # Scenario: A doctor revised a clinic visit letter
-  #   Given a letter for Patty's clinical visit was drafted
-  #   Then Doug can revise Patty's clinic visit letter
-
-  # @web
-  # Scenario: A doctor drafted an erroneous clinic visit letter
-  #   When Doug drafts an erroneous clinic visit letter
-  #   Then the letter is not drafted
