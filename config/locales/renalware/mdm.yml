@@ -26,3 +26,6 @@ en:
       prescriptions:
         title: Prescriptions
         view: View
+      letters:
+        title: Letters
+        view: View all

@@ -1,0 +1,8 @@
+.columns.small-12
+  fieldset.simple
+    legend
+      span.title= t(".title")
+      span.actions.action-links
+        = link_to t(".view"), patient_letters_letters_path(mdm.patient)
+
+    =render "renalware/letters/letters/table", letters: mdm.letters
