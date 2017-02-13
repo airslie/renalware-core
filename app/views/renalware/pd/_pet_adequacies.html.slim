@@ -5,7 +5,9 @@ table
       th.col-width-date PET date
       th.col-width-date PET type
       th Kt/V_Total
-      th Creat clearance
+      th CrCl Total
+      th CrCl Dial
+      th CrCl RRF
       th Daily urine
       th Daily UF
       th.col-width-date=t("updated_at")
@@ -21,7 +23,9 @@ table
         td= l(pet_adequacy.pet_date)
         td= pet_adequacy.pet_type.try!(:text)
         td= pet_adequacy.ktv_total
-        td= l(pet_adequacy.date_creat_clearance)
+        td= pet_adequacy.crcl_total
+        td= pet_adequacy.crcl_dialysate
+        td= pet_adequacy.crcl_rrf
         td= pet_adequacy.daily_urine
         td= pet_adequacy.daily_uf
         td= l(pet_adequacy.updated_at.to_date)
