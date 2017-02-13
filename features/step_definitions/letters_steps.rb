@@ -86,7 +86,7 @@ When(/^Nathalie drafts a letter for Patty$/) do
   )
 end
 
-When(/^Doug drafts a clinic letter for Patty$/) do
+When(/^Doug drafts a clinic visit letter for Patty$/) do
   draft_clinic_visit_letter(patient: @patty, user: @doug, issued_on: Time.zone.today)
 end
 
@@ -154,7 +154,15 @@ When(/^Clyde adds Diana Newton as a District Nurse contact for Patty$/) do
   )
 end
 
+When(/^Doug drafts a clinical letter for Patty$/) do
+  draft_clinical_letter(patient: @patty, user: @doug, issued_on: Time.zone.today)
+end
+
 # THEN
+
+Then(/^a clinical letter is drafted for Patty$/) do
+  expect_clinical_letter_to_exist(patient: @patty)
+end
 
 Then(/^"(.*?)" will receive the letter$/) do |recipient|
   expect_simple_letter_to_exist(@patty, recipient: letter_recipients_map.fetch(recipient))
@@ -211,7 +219,23 @@ Then(/^the letter lists Patty's problems and notes$/) do
 end
 
 Then(/^the letter lists Patty's recent pathology results$/) do
-  expect_letter_to_list_recent_pathology_results(patient: @patty)
+  expect_clinical_letter_to_list_recent_pathology_results(patient: @patty)
+end
+
+Then(/^the clinical letter lists Patty's current prescriptions$/) do
+  expect_clinical_letter_to_list_current_prescriptions(patient: @patty)
+end
+
+Then(/^the clinical letter lists Patty's clinical observations$/) do
+  expect_clinical_letter_to_list_clinical_observations(patient: @patty)
+end
+
+Then(/^the clinical letter lists Patty's problems and notes$/) do
+  expect_clinical_letter_to_list_problems(patient: @patty)
+end
+
+Then(/^the clinical letter lists Patty's recent pathology results$/) do
+  expect_clinical_letter_to_list_recent_pathology_results(patient: @patty)
 end
 
 Then(/^Doug can approve letter$/) do
@@ -234,7 +258,7 @@ Then(/^the letter is completed$/) do
   expect_letter_to_be_completed(patient: @patty, user: @nathalie)
 end
 
-Then(/^Clyde views these letters:$/) do |table|
+Then(/^Clyde views these letters:$/) do |_table|
   # pendinhg
   puts "FIXME!!!!!: Invalid single-table inheritance type: " \
           "Renalware::Letters::Letter::PendingReview is not a subclass of " \

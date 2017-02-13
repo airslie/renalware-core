@@ -14,7 +14,7 @@ Feature: Writing a clinic visit letter
 
   @web
   Scenario: A doctor drafted a clinic visit letter
-    When Doug drafts a clinic letter for Patty
+    When Doug drafts a clinic visit letter for Patty
     Then a letter for Patty's clinical visit is drafted
     And the letter lists Patty's current prescriptions
     And the letter lists Patty's clinical observations
