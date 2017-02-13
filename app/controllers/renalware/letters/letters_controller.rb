@@ -19,7 +19,10 @@ module Renalware
       def new
         @patient = load_and_authorize_patient
         letter = LetterFactory
-          .new(@patient, event: find_event, author: current_user)
+          .new(@patient,
+               event: find_event,
+               author: current_user,
+               clinical: clinical?)
           .with_contacts_as_default_ccs
           .build
         RememberedLetterPreferences.new(session).apply_to(letter)
@@ -105,6 +108,10 @@ module Renalware
         redirect_to patient_letters_letter_path(patient, letter)
       end
 
+      def clinical?
+        params[:clinical].present?
+      end
+
       def render_form(letter, action)
         letter = LetterFormPresenter.new(letter)
         contacts = find_contacts
@@ -117,7 +124,11 @@ module Renalware
 
       def find_event
         return unless event_type.present?
-        event_class.for_patient(@patient).find(event_id)
+        if event_id.present?
+          event_class.for_patient(@patient).find(event_id)
+        else
+          event_class
+        end
       end
 
       def find_contact_descriptions
@@ -153,7 +164,7 @@ module Renalware
 
       def attributes
         [
-          :event_type, :event_id,
+          :event_type, :event_id, :clinical,
           :letterhead_id, :author_id, :description, :issued_on,
           :salutation, :body, :notes,
           main_recipient_attributes: main_recipient_attributes,

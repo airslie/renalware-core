@@ -58,11 +58,15 @@ module Renalware
 
       EVENTS_MAP = {
         Clinics::ClinicVisit => Event::ClinicVisit,
+        clinical: Event::ClinicalLetter,
         NilClass => Event::Unknown
       }.freeze
 
       def letter_event
-        @letter_event ||= EVENTS_MAP.fetch(event.class).new(event)
+        @letter_event ||= begin
+          key = clinical? ? :clinical : event.class
+          EVENTS_MAP.fetch(key).new(event)
+        end
       end
 
       def primary_care_physician

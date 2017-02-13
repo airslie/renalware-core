@@ -10,7 +10,7 @@ module Renalware
       end
 
       def build
-        @letter = Letter::Draft.new(@params)
+        @letter = Letter::Draft.new(params)
         letter.patient = patient
         include_primary_care_physician_as_default_main_recipient
         assign_default_ccs
@@ -26,7 +26,7 @@ module Renalware
 
       private
 
-      attr_reader :patient, :letter
+      attr_reader :patient, :letter, :params
 
       def include_primary_care_physician_as_default_main_recipient
         return unless letter.main_recipient.blank?
@@ -39,7 +39,7 @@ module Renalware
       end
 
       def build_salutation
-        letter.salutation ||= patient.primary_care_physician.try!(:salutation)
+        letter.salutation ||= patient.primary_care_physician&.salutation
       end
 
       def assign_default_ccs
