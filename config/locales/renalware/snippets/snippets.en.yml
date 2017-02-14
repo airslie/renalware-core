@@ -1,0 +1,38 @@
+en:
+  snippets:
+    insert: Insert snippet
+
+  activerecord:
+    attributes:
+      renalware/snippets/snippet:
+        title: Title
+        body: Body
+  renalware:
+    snippets:
+      snippets:
+        index:
+          page_title: Manage Snippets
+        list:
+          page_title: Manage Snippets
+          modal:
+            page_title: Choose snippet
+            cancel: Close
+        table:
+          title: Title
+          body: Body
+          author: Author
+          last_used_on: Last used (no. times)
+          updated_at: Last updated
+          times_used: Times used
+        row:
+          edit: Edit
+          delete: Delete
+          duplicate: Duplicate
+          clone: Clone
+          copy_to_clipboard: Copy
+        new:
+          title: New snippet
+        edit:
+          title: Edit snippet
+        search_form:
+          search_placeholder: Search by title or author's name

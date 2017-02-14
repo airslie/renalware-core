@@ -55,7 +55,7 @@
 $rem-base: 14px;
 
 // Allows the use of rem-calc() or lower-bound() in your settings
-@import "foundation/functions";
+@import 'foundation/functions';
 
 // The default font-size is set to 100% of the browser style sheet (usually 16px)
 // for compatibility with browser-based text zoom or user-set defaults.
@@ -99,6 +99,8 @@ $row-width: 95%;
 // $primary-color: #008CBA;
 // $secondary-color: #e7e7e7;
 // $alert-color: #f04124;
+$original-alert-color: #f04124;
+$alert-color: lighten($original-alert-color, 10%);
 // $success-color: #43AC6A;
 // $warning-color: #f08a24;
 // $info-color: #a0d3e8;

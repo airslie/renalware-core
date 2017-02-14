@@ -2,7 +2,7 @@
     locals: { legend: "Additional CCs", name: "ccs" } do
 
   .row
-    .small-offset-3.small-9.columns
+    .small-12.columns
       #letter-ccs
         table.auto-layout
           = render partial: "cc_recipient_form", collection: contacts, as: :contact, locals: { letter: f.object }

@@ -1,0 +1,47 @@
+- id = "snippet_#{snippet.id}"
+- snippet_authored_by_me = snippet.author_id == current_user.id
+- row_selector = "tr[data-snippet-id='#{snippet.id}']"
+
+tr(data={"snippet-id" => snippet.id, invocation_url: snippet_invocations_path(snippet) })
+  td
+    = link_to "Toggle",
+              "#{row_selector} .css-toggle-container",
+              class: "button compact low-key",
+              title: "Toggle the visibility of the entire content and body",
+              data: { behaviour: "css-toggler" }
+    | &nbsp;
+    = tooltip_with_block(label: t(".copy_to_clipboard")) do
+      = clipboard_button_for("#{row_selector} .body")
+    -if remote
+      | &nbsp;
+      = link_to "Insert",
+                 "#",
+                 title: "Insert this snippet into the letter",
+                 class: 'insert-snippet button compact alternative'
+  td.css-toggle-container
+    = tooltip_with_block(label: snippet.title) do
+      = snippet.title
+  td.css-toggle-container.body= snippet.body
+  - unless author == :me
+    td.col-width-medium.author= snippet.author
+  -unless remote
+    td.last_used_on
+      = "#{snippet.last_used_on? ? l(snippet.last_used_on) : "Never"} (#{snippet.times_used})"
+    td.updated_at= l(snippet.updated_at)
+    td.actions
+
+      - if snippet_authored_by_me
+        = link_to t(".edit"), edit_snippet_path(snippet)
+        = pipe_separator
+        = link_to t(".duplicate"),
+                   snippet_clones_path(snippet_id: snippet),
+                   method: :post
+        = pipe_separator
+        = link_to t(".delete"),
+                  snippet_path(snippet),
+                  method: :delete,
+                  data: { confirm: delete_confirmation_msg }
+      - else
+         = link_to t(".clone"),
+                   snippet_clones_path(snippet_id: snippet),
+                   method: :post

@@ -17,7 +17,7 @@ RSpec.describe "Changing a patient's GP (primary care physician)", type: :reques
       it "updates a record" do
         attributes = { patient: { primary_care_physician_id: primary_care_physician.id } }
 
-        patch patient_primary_care_physician_path(patient), attributes
+        patch patient_primary_care_physician_path(patient), params: attributes
 
         expect(response).to have_http_status(:redirect)
 

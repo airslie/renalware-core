@@ -42,6 +42,10 @@ module Renalware
       t(".failed", model_name: "PD regime")
     end
 
+    def paginate(collection, default_per_page: 25)
+      collection.page(params[:page]).per(params[:per_page] || default_per_page)
+    end
+
     private
 
     # TODO: remove load_patient before_action once refactored out of other controllers.

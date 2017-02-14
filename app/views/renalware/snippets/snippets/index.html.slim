@@ -1,0 +1,18 @@
+- content_for(:page_title){ t(".page_title") }
+
+.row.collapse
+
+  = render "list", snippets: snippets, search: search, author: author, remote: false
+
+  / br
+  / br
+  / p Could use a dropdown button in each row to create a bit more room like a smaller version of this
+  / .left
+  /   <div class="dropdown-button wrapper-dropdown-1" tabindex="1">
+  /     <span>Actions</span>
+  /       <ul class="dropdown">
+  /         <li><a href="#">Edit</a></li>
+  /         <li><a href="#">Duplicate</a></li>
+  /         <li><a href="#">Delete</a></li>
+  /       </ul>
+  /   </div>

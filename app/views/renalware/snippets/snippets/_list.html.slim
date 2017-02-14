@@ -1,0 +1,26 @@
+- klass = remote ? "modal" : "."
+- i18n_scope = remote ? ".modal" : ""
+
+.snippets(class=klass)
+  .modal-header
+    h1= t("#{i18n_scope}.page_title")
+
+    = render "modal_close_link" if remote
+
+  - unless remote
+    .columns.small-12
+      =link_to "Create new", new_snippet_path, class: "button create-snippet right"
+
+  ul.tabs
+    li(class= "#{'active' if author == :me}")
+      =link_to snippets_path, remote: remote do
+        i.fa.fa-user
+        | Mine
+    li(class= "#{'active' if author== :anyone}")
+      =link_to snippets_path(author: :anyone), remote: remote do
+        i.fa.fa-users
+        | Everyone's
+  /.columns.small-5.medium-6.large-5
+  = render "search_form", search: search, author: author, remote: remote
+  = render "table", snippets: snippets, author: author, search: search, remote: remote
+  = paginate snippets

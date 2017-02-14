@@ -43,7 +43,7 @@ $(document).ready(function(){
 
         $drugSelectBox.html('');
         $drugSelectBox.append(_.template(option_template)({ id: null, name: 'Please select' }));
-        console.log(json);
+        // console.log(json);
         for (var i = 0; i < json.length; i++) {
           var drugId = json[i][0];
           var drugName = json[i][1];

@@ -10,6 +10,7 @@
         = f.input :date_time, as: :datetime_picker
         = f.association :event_type, label_method: :name, value_method: :id
         = f.input :description
+        = snippets_modal_and_link_to_open_it(target_input_for_seleted_snippet: "#events_event_notes")
         = f.input :notes, as: :text, input_html: { rows: 5 }
 
         = submit_tag "Save", class: "button"

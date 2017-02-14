@@ -13,5 +13,18 @@ module Renalware
         label
       end
     end
+
+    def tooltip_with_block(label:)
+      content_tag(:span,
+                  title: label,
+                  class: "has-tip",
+                  "aria-haspopup" => "true",
+                  data: {
+                    tooltip: "",
+                    options: "disable_for_touch: true; hover_delay: 100;"
+                  }) do
+        yield if block_given?
+      end
+    end
   end
 end
