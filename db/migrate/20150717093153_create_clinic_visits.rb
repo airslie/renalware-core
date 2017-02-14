@@ -1,4 +1,4 @@
-class CreateClinicVisits < ActiveRecord::Migration
+class CreateClinicVisits < ActiveRecord::Migration[4.2]
   def change
     create_table :clinic_visits do |t|
       t.belongs_to :patient, index: true

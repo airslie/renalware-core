@@ -1,4 +1,4 @@
-class CreateHDPreferenceSets < ActiveRecord::Migration
+class CreateHDPreferenceSets < ActiveRecord::Migration[4.2]
   def change
     create_table :hd_preference_sets do |t|
       t.belongs_to :patient, index: true, foreign_key: true, null: false

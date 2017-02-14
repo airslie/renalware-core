@@ -1,4 +1,4 @@
-class CreateRenalProfile < ActiveRecord::Migration
+class CreateRenalProfile < ActiveRecord::Migration[4.2]
   def change
     create_table :renal_profiles do |t|
       t.references :patient, null: false, foreign_key: true

@@ -1,4 +1,4 @@
-class AddAccountableToModalityModalities < ActiveRecord::Migration
+class AddAccountableToModalityModalities < ActiveRecord::Migration[4.2]
   def change
     add_column :modality_modalities, :created_by_id, :integer, null: false
     add_column :modality_modalities, :updated_by_id, :integer, null: false

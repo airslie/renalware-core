@@ -1,4 +1,4 @@
-class CreateAccessSites < ActiveRecord::Migration
+class CreateAccessSites < ActiveRecord::Migration[4.2]
   def change
     create_table :access_sites do |t|
       t.string :code, null: false

@@ -1,4 +1,4 @@
-class CreatePeritonitisEpisodeDescriptions < ActiveRecord::Migration
+class CreatePeritonitisEpisodeDescriptions < ActiveRecord::Migration[4.2]
   def change
     rename_table :pd_episode_types, :pd_peritonitis_episode_type_descriptions
 

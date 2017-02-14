@@ -1,4 +1,4 @@
-class AddActiveToHDProfiles < ActiveRecord::Migration
+class AddActiveToHDProfiles < ActiveRecord::Migration[4.2]
   def change
     add_column :hd_profiles, :deactivated_at, :datetime, index: true
     add_column :hd_profiles, :active, :boolean, null: true, default: true

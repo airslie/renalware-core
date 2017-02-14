@@ -1,4 +1,4 @@
-class CreateRegimeTerminations < ActiveRecord::Migration
+class CreateRegimeTerminations < ActiveRecord::Migration[4.2]
   def change
     create_table :pd_regime_terminations do |t|
       t.date :terminated_on, null: false

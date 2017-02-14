@@ -1,4 +1,4 @@
-class CreateTransplantRegistrations < ActiveRecord::Migration
+class CreateTransplantRegistrations < ActiveRecord::Migration[4.2]
   def change
     create_table :transplant_registrations do |t|
       t.belongs_to :patient, index: true, foreign_key: true

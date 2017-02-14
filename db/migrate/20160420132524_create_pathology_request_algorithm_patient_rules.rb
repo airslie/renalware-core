@@ -1,4 +1,4 @@
-class CreatePathologyRequestAlgorithmPatientRules < ActiveRecord::Migration
+class CreatePathologyRequestAlgorithmPatientRules < ActiveRecord::Migration[4.2]
   def change
     create_table :pathology_request_algorithm_patient_rules do |t|
       t.string :lab

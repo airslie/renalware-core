@@ -1,4 +1,4 @@
-class CreateHDSessions < ActiveRecord::Migration
+class CreateHDSessions < ActiveRecord::Migration[4.2]
   def change
     create_table :hd_sessions do |t|
       t.belongs_to :patient, index: true, foreign_key: true

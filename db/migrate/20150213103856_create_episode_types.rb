@@ -1,4 +1,4 @@
-class CreateEpisodeTypes < ActiveRecord::Migration
+class CreateEpisodeTypes < ActiveRecord::Migration[4.2]
   def change
     create_table :pd_episode_types do |t|
       t.string :term

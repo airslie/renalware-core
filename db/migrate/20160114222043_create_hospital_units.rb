@@ -1,4 +1,4 @@
-class CreateHospitalUnits < ActiveRecord::Migration
+class CreateHospitalUnits < ActiveRecord::Migration[4.2]
   def change
     create_table :hospital_units do |t|
       t.references :hospital_centre, foreign_key: true, null: false

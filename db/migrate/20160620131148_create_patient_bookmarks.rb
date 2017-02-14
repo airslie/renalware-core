@@ -1,4 +1,4 @@
-class CreatePatientBookmarks < ActiveRecord::Migration
+class CreatePatientBookmarks < ActiveRecord::Migration[4.2]
   def change
     create_table :patient_bookmarks do |t|
       t.references :patient, null: false, foreign_key: true

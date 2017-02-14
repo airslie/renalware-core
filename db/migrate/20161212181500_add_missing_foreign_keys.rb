@@ -1,4 +1,4 @@
-class AddMissingForeignKeys < ActiveRecord::Migration
+class AddMissingForeignKeys < ActiveRecord::Migration[4.2]
   def change
     add_foreign_key "access_assessments", "users", column: "created_by_id", name: "access_assessments_created_by_id_fk"
     add_foreign_key "access_assessments", "users", column: "updated_by_id", name: "access_assessments_updated_by_id_fk"

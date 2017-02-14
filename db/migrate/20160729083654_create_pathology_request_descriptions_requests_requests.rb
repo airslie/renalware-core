@@ -1,4 +1,4 @@
-class CreatePathologyRequestDescriptionsRequestsRequests < ActiveRecord::Migration
+class CreatePathologyRequestDescriptionsRequestsRequests < ActiveRecord::Migration[4.2]
   def change
     create_table :pathology_request_descriptions_requests_requests do |t|
       t.integer :request_id, null: false

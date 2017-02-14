@@ -1,4 +1,4 @@
-class CreateInfectionOrganisms < ActiveRecord::Migration
+class CreateInfectionOrganisms < ActiveRecord::Migration[4.2]
   def change
     create_table :pd_infection_organisms do |t|
       t.references :organism_code, null: false

@@ -1,4 +1,4 @@
-class CreateLetterSignatures < ActiveRecord::Migration
+class CreateLetterSignatures < ActiveRecord::Migration[4.2]
   def change
     create_table :letter_signatures do |t|
       t.datetime :signed_at, null: false

@@ -1,4 +1,4 @@
-class CreateTransplantFailureCauseDescriptions < ActiveRecord::Migration
+class CreateTransplantFailureCauseDescriptions < ActiveRecord::Migration[4.2]
   def change
     create_table :transplant_failure_cause_descriptions do |t|
       t.integer :group_id

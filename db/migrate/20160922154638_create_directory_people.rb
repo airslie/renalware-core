@@ -1,4 +1,4 @@
-class CreateDirectoryPeople < ActiveRecord::Migration
+class CreateDirectoryPeople < ActiveRecord::Migration[4.2]
   def change
     create_table :directory_people do |t|
       t.string :given_name, null: false

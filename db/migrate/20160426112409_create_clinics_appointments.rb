@@ -1,4 +1,4 @@
-class CreateClinicsAppointments < ActiveRecord::Migration
+class CreateClinicsAppointments < ActiveRecord::Migration[4.2]
   def change
     create_table :clinics_appointments do |t|
       t.datetime :starts_at, null: false

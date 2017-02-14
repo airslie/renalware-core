@@ -1,4 +1,4 @@
-class CreateEthnicities < ActiveRecord::Migration
+class CreateEthnicities < ActiveRecord::Migration[4.2]
   def change
     create_table :patient_ethnicities do |t|
       t.string :name

@@ -1,4 +1,4 @@
-class AddColumnsToHDPatientStatistics < ActiveRecord::Migration
+class AddColumnsToHDPatientStatistics < ActiveRecord::Migration[4.2]
   def change
     add_column :hd_patient_statistics, :number_of_missed_sessions, :integer
     add_column :hd_patient_statistics, :dialysis_minutes_shortfall, :integer

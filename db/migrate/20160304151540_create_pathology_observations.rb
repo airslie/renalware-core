@@ -1,4 +1,4 @@
-class CreatePathologyObservations < ActiveRecord::Migration
+class CreatePathologyObservations < ActiveRecord::Migration[4.2]
   def change
     create_table :pathology_observations do |t|
       t.string :result, null: false

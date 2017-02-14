@@ -1,4 +1,4 @@
-class AddReligionAndLanguageToPatients < ActiveRecord::Migration
+class AddReligionAndLanguageToPatients < ActiveRecord::Migration[4.2]
   def change
     add_column :patients, :religion_id, :integer
     add_column :patients, :language_id, :integer

@@ -1,4 +1,4 @@
-class AddAdministerOnHDToPrescriptions < ActiveRecord::Migration
+class AddAdministerOnHDToPrescriptions < ActiveRecord::Migration[4.2]
   def change
     add_column :medication_prescriptions,
                :administer_on_hd,

@@ -1,4 +1,4 @@
-class CreateTransplantRegistrationStatusDescriptions < ActiveRecord::Migration
+class CreateTransplantRegistrationStatusDescriptions < ActiveRecord::Migration[4.2]
   def change
     create_table :transplant_registration_status_descriptions do |t|
       t.string :code, index: true, null: false

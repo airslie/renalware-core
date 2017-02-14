@@ -1,4 +1,4 @@
-class CreateEDTACodes < ActiveRecord::Migration
+class CreateEDTACodes < ActiveRecord::Migration[4.2]
   def change
     create_table :death_edta_codes do |t|
       t.integer :code

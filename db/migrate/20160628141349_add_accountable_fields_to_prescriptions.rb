@@ -1,4 +1,4 @@
-class AddAccountableFieldsToPrescriptions < ActiveRecord::Migration
+class AddAccountableFieldsToPrescriptions < ActiveRecord::Migration[4.2]
   def change
     add_column :medication_prescriptions, :created_by_id, :integer, null: false, index: true
     add_column :medication_prescriptions, :updated_by_id, :integer, null: false, index: true

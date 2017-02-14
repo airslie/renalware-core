@@ -1,4 +1,4 @@
-class CreateMedicationRoutes < ActiveRecord::Migration
+class CreateMedicationRoutes < ActiveRecord::Migration[4.2]
   def change
     create_table :medication_routes do |t|
       t.string :code, null: false

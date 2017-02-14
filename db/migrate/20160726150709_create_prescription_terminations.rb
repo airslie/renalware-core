@@ -1,4 +1,4 @@
-class CreatePrescriptionTerminations < ActiveRecord::Migration
+class CreatePrescriptionTerminations < ActiveRecord::Migration[4.2]
   def change
     create_table :medication_prescription_terminations do |t|
       t.date :terminated_on, null: false

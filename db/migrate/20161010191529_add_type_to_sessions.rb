@@ -1,4 +1,4 @@
-class AddTypeToSessions < ActiveRecord::Migration
+class AddTypeToSessions < ActiveRecord::Migration[4.2]
   class HDSession < ActiveRecord::Base
   end
   def up

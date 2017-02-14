@@ -1,4 +1,4 @@
-class CreateRenalwareLettersContactDescriptions < ActiveRecord::Migration
+class CreateRenalwareLettersContactDescriptions < ActiveRecord::Migration[4.2]
   def change
     create_table :letter_contact_descriptions do |t|
       t.string :system_code, null: false

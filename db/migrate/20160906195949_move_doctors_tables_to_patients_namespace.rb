@@ -1,4 +1,4 @@
-class MoveDoctorsTablesToPatientsNamespace < ActiveRecord::Migration
+class MoveDoctorsTablesToPatientsNamespace < ActiveRecord::Migration[4.2]
   def change
     rename_table :doctor_doctors, :patient_primary_care_physicians
     rename_table :doctor_practices, :patient_practices

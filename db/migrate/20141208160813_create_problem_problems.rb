@@ -1,4 +1,4 @@
-class CreateProblemProblems < ActiveRecord::Migration
+class CreateProblemProblems < ActiveRecord::Migration[4.2]
   def change
     create_table :problem_problems do |t|
       t.integer :position, default: 0, null: false, index: true

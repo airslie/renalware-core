@@ -1,4 +1,4 @@
-class CreateAccessVersions < ActiveRecord::Migration
+class CreateAccessVersions < ActiveRecord::Migration[4.2]
   def change
     create_table :access_versions do |t|
       t.string   :item_type, :null => false

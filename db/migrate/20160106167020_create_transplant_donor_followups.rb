@@ -1,4 +1,4 @@
-class CreateTransplantDonorFollowups < ActiveRecord::Migration
+class CreateTransplantDonorFollowups < ActiveRecord::Migration[4.2]
   def change
     create_table :transplant_donor_followups do |t|
       t.integer :operation_id, null: false

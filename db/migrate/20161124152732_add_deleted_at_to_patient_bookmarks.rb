@@ -1,4 +1,4 @@
-class AddDeletedAtToPatientBookmarks < ActiveRecord::Migration
+class AddDeletedAtToPatientBookmarks < ActiveRecord::Migration[4.2]
   def up
     add_column :patient_bookmarks, :deleted_at, :datetime
     remove_index(:patient_bookmarks, [:patient_id, :user_id])

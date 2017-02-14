@@ -1,4 +1,4 @@
-class CreatePathologyObservationRequests < ActiveRecord::Migration
+class CreatePathologyObservationRequests < ActiveRecord::Migration[4.2]
   def change
     create_table :pathology_observation_requests do |t|
       t.string :requestor_order_number

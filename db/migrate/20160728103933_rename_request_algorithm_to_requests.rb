@@ -1,4 +1,4 @@
-class RenameRequestAlgorithmToRequests < ActiveRecord::Migration
+class RenameRequestAlgorithmToRequests < ActiveRecord::Migration[4.2]
   def change
     rename_table :pathology_request_algorithm_global_rules, :pathology_requests_global_rules
     rename_table :pathology_request_algorithm_global_rule_sets, :pathology_requests_global_rule_sets

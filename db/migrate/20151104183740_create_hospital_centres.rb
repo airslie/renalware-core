@@ -1,4 +1,4 @@
-class CreateHospitalCentres < ActiveRecord::Migration
+class CreateHospitalCentres < ActiveRecord::Migration[4.2]
   def change
     create_table :hospital_centres do |t|
       t.string :code, index: true, null: false

@@ -1,4 +1,4 @@
-class CreateModalityDescriptions < ActiveRecord::Migration
+class CreateModalityDescriptions < ActiveRecord::Migration[4.2]
   def change
     create_table :modality_descriptions do |t|
       t.string :name, null: false

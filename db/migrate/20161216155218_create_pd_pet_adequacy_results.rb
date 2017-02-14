@@ -1,4 +1,4 @@
-class CreatePDPETAdequacyResults < ActiveRecord::Migration
+class CreatePDPETAdequacyResults < ActiveRecord::Migration[4.2]
   def change
     create_table :pd_pet_adequacy_results do |t|
       t.references :patient, null: false, foreign_key: true

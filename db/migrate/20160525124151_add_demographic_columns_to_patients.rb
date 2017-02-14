@@ -1,4 +1,4 @@
-class AddDemographicColumnsToPatients < ActiveRecord::Migration
+class AddDemographicColumnsToPatients < ActiveRecord::Migration[4.2]
   def change
     add_column :patients, :title, :string
     add_column :patients, :suffix, :string
