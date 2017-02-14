@@ -11,6 +11,7 @@ module Renalware
           raise NotImplementedAError
         end
 
+        #  The total volume of all bags for a day when they have PD.
         def calculated_daily_volume
           vol = [
             calculated_overnight_volume,
@@ -28,14 +29,12 @@ module Renalware
         private
 
         def effective_last_fill_volume
-          (last_fill_volume && has_last_fill_bag?) ? last_fill_volume : 0
+          has_last_fill_bag? ? last_fill_volume : 0
         end
 
         def effective_additional_manual_exchange_volume
-          return unless additional_manual_exchange_volume && has_additional_manual_exchange_bag?
-          additional_manual_exchange_volume
+          has_additional_manual_exchange_bag? ? additional_manual_exchange_volume : 0
         end
-
       end
     end
   end
