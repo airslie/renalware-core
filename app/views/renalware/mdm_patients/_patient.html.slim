@@ -1,0 +1,16 @@
+tr
+  td= link_to t(".view"), view_proc.call(patient)
+  td.full-name= patient.to_s(format: :default)
+  td= patient.nhs_number
+  td= patient.local_patient_id
+  td= patient.sex.code
+  td= patient.age
+  td= patient.modality_description&.name
+  td= patient.hgb_result
+  td= l(patient.hgb_observed_at&.to_date)
+  td= patient.ure_result
+  td= l(patient.ure_observed_at&.to_date)
+  td= patient.cre_result
+  td= l(patient.cre_observed_at&.to_date)
+  td= patient.mdrd_result
+  td= l(patient.esrf_date)

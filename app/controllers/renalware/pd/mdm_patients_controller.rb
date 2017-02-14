@@ -1,12 +1,12 @@
 module Renalware
-  module HD
+  module PD
     class MDMPatientsController < Renalware::MDMPatientsController
-      MODALITY_NAMES = "HD".freeze
+      MODALITY_NAMES = %w(PD APD CAPD).freeze
 
       def index
         render_index(modalities: MODALITY_NAMES,
                      page_title: t(".page_title"),
-                     view_proc: ->(patient) { patient_hd_mdm_path(patient) })
+                     view_proc: ->(patient) { patient_pd_mdm_path(patient) })
       end
     end
   end

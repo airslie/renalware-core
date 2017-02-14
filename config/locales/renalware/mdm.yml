@@ -1,0 +1,31 @@
+en:
+  renalware:
+    mdm_patients:
+      patient:
+        view: "View"
+      index:
+        name: Name
+        nhs_no: NHS No.
+        hosp_no: Hosp No.
+        sex: Sex
+        age: Age
+        dob: Date of Birth
+        modality: Mod
+        esrf: ESRF
+        hgb: HGB
+        hgb_date: HGB Date
+        ure: URE
+        ure_date: URE Date
+        cre: CRE
+        cre_date: CRE Date
+        mdrd: MDRD
+    mdm:
+      pathology:
+        title: Pathology
+        view: View
+      prescriptions:
+        title: Prescriptions
+        view: View
+      letters:
+        title: Letters
+        view: View all

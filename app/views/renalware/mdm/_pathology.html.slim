@@ -1,0 +1,8 @@
+.columns.small-12.embedded-scroll
+  fieldset.simple
+    legend
+      span.title= t(".title")
+      span.actions.action-links
+        = link_to t(".view"), patient_pathology_current_observations_path(mdm.patient)
+
+    = mdm.pathology.table.render(mdm.pathology.rows)

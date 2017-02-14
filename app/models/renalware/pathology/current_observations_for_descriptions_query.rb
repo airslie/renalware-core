@@ -16,8 +16,10 @@ module Renalware
         @descriptions = descriptions
       end
 
+      # rubocop:disable Metrics/MethodLength
       def call
         Observation
+          .includes(:description)
           .select(<<-SQL)
             DISTINCT ON (pathology_observation_descriptions.id)
             pathology_observations.*,
@@ -38,6 +40,7 @@ module Renalware
                   "pathology_observation_requests.patient_id IS NULL", @patient.id])
           .where(pathology_observation_descriptions: { id: @descriptions })
       end
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end

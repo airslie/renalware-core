@@ -3,7 +3,6 @@ require_dependency "renalware/pd"
 module Renalware
   module PD
     module APD
-
       class GlucoseCalculator
         attr_reader :regime, :bags
         delegate :overnight_volume, to: :regime
