@@ -961,6 +961,42 @@ ALTER SEQUENCE hd_preference_sets_id_seq OWNED BY hd_preference_sets.id;
 
 
 --
+-- Name: hd_prescription_administrations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE hd_prescription_administrations (
+    id integer NOT NULL,
+    hd_session_id integer NOT NULL,
+    prescription_id integer NOT NULL,
+    administered boolean,
+    notes text,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: hd_prescription_administrations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE hd_prescription_administrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: hd_prescription_administrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE hd_prescription_administrations_id_seq OWNED BY hd_prescription_administrations.id;
+
+
+--
 -- Name: hd_profiles; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1348,7 +1384,8 @@ CREATE TABLE letter_letters (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     letterhead_id integer NOT NULL,
-    author_id integer NOT NULL
+    author_id integer NOT NULL,
+    clinical boolean
 );
 
 
@@ -3884,6 +3921,13 @@ ALTER TABLE ONLY hd_preference_sets ALTER COLUMN id SET DEFAULT nextval('hd_pref
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY hd_prescription_administrations ALTER COLUMN id SET DEFAULT nextval('hd_prescription_administrations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY hd_profiles ALTER COLUMN id SET DEFAULT nextval('hd_profiles_id_seq'::regclass);
 
 
@@ -4604,6 +4648,14 @@ ALTER TABLE ONLY hd_patient_statistics
 
 ALTER TABLE ONLY hd_preference_sets
     ADD CONSTRAINT hd_preference_sets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hd_prescription_administrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_prescription_administrations
+    ADD CONSTRAINT hd_prescription_administrations_pkey PRIMARY KEY (id);
 
 
 --
@@ -5624,6 +5676,34 @@ CREATE INDEX index_hd_preference_sets_on_patient_id ON hd_preference_sets USING 
 --
 
 CREATE INDEX index_hd_preference_sets_on_updated_by_id ON hd_preference_sets USING btree (updated_by_id);
+
+
+--
+-- Name: index_hd_prescription_administrations_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_prescription_administrations_on_created_by_id ON hd_prescription_administrations USING btree (created_by_id);
+
+
+--
+-- Name: index_hd_prescription_administrations_on_hd_session_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_prescription_administrations_on_hd_session_id ON hd_prescription_administrations USING btree (hd_session_id);
+
+
+--
+-- Name: index_hd_prescription_administrations_on_prescription_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_prescription_administrations_on_prescription_id ON hd_prescription_administrations USING btree (prescription_id);
+
+
+--
+-- Name: index_hd_prescription_administrations_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_hd_prescription_administrations_on_updated_by_id ON hd_prescription_administrations USING btree (updated_by_id);
 
 
 --
@@ -7325,6 +7405,14 @@ ALTER TABLE ONLY letter_archives
 
 
 --
+-- Name: fk_rails_885e37560e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_prescription_administrations
+    ADD CONSTRAINT fk_rails_885e37560e FOREIGN KEY (prescription_id) REFERENCES medication_prescriptions(id);
+
+
+--
 -- Name: fk_rails_89630f47ee; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7621,6 +7709,14 @@ ALTER TABLE ONLY access_profiles
 
 
 --
+-- Name: fk_rails_c654406492; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_prescription_administrations
+    ADD CONSTRAINT fk_rails_c654406492 FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
 -- Name: fk_rails_c75064199c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7845,6 +7941,14 @@ ALTER TABLE ONLY patient_practices_primary_care_physicians
 
 
 --
+-- Name: fk_rails_f51a425d72; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_prescription_administrations
+    ADD CONSTRAINT fk_rails_f51a425d72 FOREIGN KEY (hd_session_id) REFERENCES hd_sessions(id);
+
+
+--
 -- Name: fk_rails_f8ae33fdba; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7866,6 +7970,14 @@ ALTER TABLE ONLY drug_types_drugs
 
 ALTER TABLE ONLY clinical_allergies
     ADD CONSTRAINT fk_rails_f8f7b6daad FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: fk_rails_fb03f6bde8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY hd_prescription_administrations
+    ADD CONSTRAINT fk_rails_fb03f6bde8 FOREIGN KEY (updated_by_id) REFERENCES users(id);
 
 
 --
@@ -8281,7 +8393,10 @@ INSERT INTO schema_migrations (version) VALUES
 ('20170106161800'),
 ('20170110161149'),
 ('20170120135631'),
+('20170203102941'),
 ('20170207195029'),
-('20170210133517');
+('20170210124019'),
+('20170210133517'),
+('20170213140513');
 
 

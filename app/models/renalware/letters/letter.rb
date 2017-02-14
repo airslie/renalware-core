@@ -48,6 +48,8 @@ module Renalware
       scope :with_event, -> { includes(:event) }
       scope :with_cc_recipients, -> { includes(cc_recipients: { addressee: { person: :address } }) }
 
+      delegate :primary_care_physician, to: :patient
+
       def self.policy_class
         LetterPolicy
       end
@@ -61,12 +63,18 @@ module Renalware
         NilClass => Event::Unknown
       }.freeze
 
+      # A Letter Event is unrelated to Events::Event. Instead it is an un-persisted decorator
+      # around the polymorphic event relationship (determined by event_class and event_id);
+      # each concrete Event class decorates that relationship with some helpers, for example
+      # #part_classes which determined which extra letter 'parts' should be rendered for that
+      # specific polymorphic relationship. Note that general clinical parts_classes are defined
+      # on Letter, because a relationship to say a ClinicVisit (the letter event) is not required
+      # for a letter to want to have clinical content (prescriptions etc.). Clinical parts will
+      # always be included if #clinical? is true. This for example enables us to create a
+      # 'clinical letter' which is a simple letter with the added clinical parts, but which is
+      # unrelated to a clinic_visit for instance.
       def letter_event
-        @letter_event ||= EVENTS_MAP.fetch(event.class).new(event)
-      end
-
-      def primary_care_physician
-        patient.primary_care_physician
+        EVENTS_MAP.fetch(event.class).new(event, clinical: clinical?)
       end
 
       def subject?(other_patient)
@@ -94,7 +102,7 @@ module Renalware
       end
 
       def archive_recipients!
-        recipients.each { |r| r.archive! }
+        recipients.each(&:archive!)
       end
     end
   end
