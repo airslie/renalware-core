@@ -164,6 +164,7 @@ en:
           machine_no: "No"
           machine_ktv: KTv
           machine_urr: URR
+          hd_drugs_administered: Drugs given?
           notes: "Notes"
           start_time: "On"
           end_time: "Off"

@@ -14,6 +14,7 @@ module Renalware
       frequency: "nocte",
       prescribed_on: "2014-10-10",
       provider: 0,
+      administer_on_hd: true,
       by: barts_doc
     )
 
@@ -26,6 +27,7 @@ module Renalware
       frequency: "bd",
       prescribed_on: "2015-06-16",
       provider: 0,
+      administer_on_hd: true,
       by: barts_doc
     )
 
@@ -38,6 +40,7 @@ module Renalware
       frequency: "bd for 7 days",
       prescribed_on: "2015-09-13",
       provider: 0, by: barts_doc,
+      administer_on_hd: true,
       termination: Medications::PrescriptionTermination.new(
         terminated_on: "2015-09-20",
         by: barts_doc

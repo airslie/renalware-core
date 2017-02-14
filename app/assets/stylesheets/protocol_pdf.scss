@@ -1,14 +1,11 @@
-
-@import "./lib/foundation_and_overrides";
-@import "./renalware/base/variables";
-@import "./renalware/base/mixins";
-@import "./renalware/lists";
-@import "./renalware/tables";
-@import "./renalware/modules/patients";
-
 html {
   overflow: hidden;
-  font-family: Helvetica, Arial;
+}
+
+html,
+body {
+  font-size: 10px;
+  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
 }
 
 h1 {
@@ -28,22 +25,136 @@ h1 {
 
 .protocol {
 
-  table {
+  .patient-header {
+    float: left;
+    clear: right;
+    dl {
+      font-size: 1.1rem;
+      margin: 0 0 .2em 0;
+      color: #000;
+
+      dt {
+        display: inline-block;
+        font-size: .6em;
+        font-weight: normal;
+        margin: 0;
+        padding: 1rem 0 0 0;
+        text-transform: uppercase;
+      }
+
+      dd {
+        display: inline;
+        margin: 0 .5em 0 .1em;
+        margin: 0 .6rem 0 .2em;
+        font-size: 1.5em;
+        line-height: 1.3em;
+
+        &.name {
+          display: inline-block;
+          margin-right: .4em;
+          margin-left: 0;
+          margin-right: .6em;
+          font-weight: bold;
+          width: auto;
+        }
+      }
+    }
+  }
+
+  table.protocol-patient-summary {
+    border: none;
+    float:left;
+    clear: both;
+
+    thead {
+      background-color: transparent;
+      text-align: left;
+
+      th {
+        padding: 0;
+        padding-bottom: 0.4rem;
+        font-size: 1.1rem ;
+
+        &.protocol-hd-profile {
+          width: 52%;
+        }
+
+        &.protocol-allergies {
+          width: 20%;
+        }
+
+        &.protocol-prescriptions {
+          width: 28%;
+        }
+      }
+    }
+
+    td {
+      vertical-align: top;
+      margin: 0;
+      padding: 0 0.1rem;
+    }
+  }
+
+  table.protocol-sessions {
+    float: left;
+    clear: both;
     border: solid 1px #000;
     padding: 0;
     margin: 0;
     border-spacing: 0;
     border-collapse: separate;
+    width: 100%;
 
     td, th {
-      font-size: .8rem !important;
       line-height: 0.8rem !important;
+      border-right: solid 1px #AAA;
     }
 
     thead {
       tr {
         th {
           padding: 2px 4px;
+
+          &.col-width-tiny {
+            min-width: 2.5rem;
+            width: 4.5rem;
+            text-align: centre;
+          }
+
+          &.col-width-date {
+            min-width: 5.6rem;
+            width: 5.6px;
+          }
+
+          &.col-width-date {
+            min-width: 5.6rem;
+            width: 5.6rem;
+          }
+
+          &.col-width-time {
+            min-width: 5.6rem;
+            width: 5.6rem;
+          }
+
+          &.col-width-minute {
+            min-width: 1rem;
+            width: 1.5rem;
+          }
+
+          &.col-width-small {
+            min-width: 5rem;
+            width: 5rem;
+          }
+
+          &.col-width-drugs {
+            min-width: 10rem;
+            width: 10rem;
+          }
+
+          &.col-width-notes {
+            min-width: 10rem;
+          }
         }
       }
     }
@@ -56,29 +167,44 @@ h1 {
         td {
           padding: 3px;
           border-top: solid 1px #000;
-          border-right: solid 1px #000;
           height: 2rem;
+          text-align: center;
+
+          &.text-left {
+            text-align: left;
+          }
         }
 
         &.empty-session-row {
-          height: 2rem;
+          height: 4rem;
           &.first {
             td {
               border-top: solid 2px #000;
             }
           }
         }
+
+        &:nth-child(7) {
+          td {
+            border-top: solid 2px #000;
+          }
+        }
+        &:nth-child(even){
+          td {
+            border-top: solid 1px #BBB;
+          }
+        }
       }
     }
   }
 
+
   dl {
     padding-bottom: 0.2rem;
     margin-bottom: 0.2rem;
-    margin-top: 0.6rem;
+    margin-top: 0;
     float:left;
-    line-height: 0.8rem;
-    font-size: .8rem;
+
     dd, dt {
       float: left;
       clear: none;
@@ -95,11 +221,41 @@ h1 {
     dt {
       margin-right: 0.3rem;
       white-space: nowrap;
+      font-weight: bold;
     }
     dd {
       margin-right: 0.6rem;
       white-space: nowrap;
       margin-top:.07rem;
+    }
+
+    &.prescriptions {
+      dt {
+        float: left;
+        clear: left;
+      }
+      dd {
+        clear: right;
+      }
+    }
+  }
+
+  .allergies {
+
+    .allergy_status {
+      font-weight: normal;
+      margin-right: 10px;
+    }
+    .allergy_descriptions {
+      font-weight: bold;
+      padding: 0;
+      margin: 0;
+      margin-top: 0.1rem;
+      list-style-type: none;
+
+      li {
+        margin-bottom: 0.3rem;
+      }
     }
   }
 }

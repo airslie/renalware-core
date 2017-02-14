@@ -47,7 +47,7 @@ module Renalware
       describe "scopes" do
         before do
           create_prescription(notes: ":expires_today:", terminated_on: "2010-01-02")
-          create_prescription(notes: ":expired_yesteday:", terminated_on: "2010-01-01")
+          create_prescription(notes: ":expired_yesterday:", terminated_on: "2010-01-01")
           create(:prescription, notes: ":not_specified:")
           create_prescription(notes: ":expires_tomorrow:", terminated_on: "2010-01-03")
         end
@@ -68,9 +68,32 @@ module Renalware
 
           it "returns prescriptions that terminate today or later, or not specified" do
             expect(prescriptions.map(&:notes)).to \
-              include(":expires_today:", ":expired_yesteday:")
+              include(":expires_today:", ":expired_yesterday:")
             expect(prescriptions.map(&:notes)).not_to \
               include(":expires_tomorrow:", ":not_specified:")
+          end
+        end
+
+        describe ".to_be_administered_on_hd" do
+          it "returns only current prescriptions flagged as administer_on_hd" do
+            travel_to Time.current do
+              tomorrow = Date.current + 1.day
+              yesterday = Date.current - 1.day
+              create_prescription(administer_on_hd: false,
+                                  terminated_on: tomorrow,
+                                  notes: ":expires_tomorrow:")
+              target = create_prescription(administer_on_hd: true,
+                                           terminated_on: tomorrow,
+                                           notes: ":expires_tomorrow:")
+              create_prescription(administer_on_hd: true,
+                                  terminated_on: yesterday,
+                                  notes: ":expired_yesterday:")
+
+              prescriptions = Prescription.to_be_administered_on_hd
+              expect(prescriptions.length).to eq(1)
+              expect(prescriptions.first.administer_on_hd).to be_truthy
+              expect(prescriptions.first).to eq(target)
+            end
           end
         end
       end
@@ -138,9 +161,14 @@ module Renalware
           termination: build(:prescription_termination, terminated_on: terminated_on))
       end
 
-      def create_prescription(notes: nil, terminated_on:)
-        create(:prescription, prescribed_on: "2009-01-01", notes: notes,
-          termination: build(:prescription_termination, terminated_on: terminated_on))
+      def create_prescription(notes: nil, terminated_on:, administer_on_hd: false)
+        create(
+          :prescription,
+           prescribed_on: "2009-01-01",
+           notes: notes,
+           administer_on_hd: administer_on_hd,
+           termination: build(:prescription_termination, terminated_on: terminated_on)
+        )
       end
     end
   end
