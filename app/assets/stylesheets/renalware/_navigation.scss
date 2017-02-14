@@ -20,6 +20,14 @@ a.fi-plus:before a.fi-minus:before {
   color: $link-colour;
 }
 
+.sub-nav {
+  margin-bottom: 0.8rem;
+  dd {
+    margin:0;
+    padding:0;
+  }
+}
+
 .tooltip {
   background-color: rgba(92,92,92,0.9);
   border-radius: 0.5em;
