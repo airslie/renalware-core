@@ -72,13 +72,19 @@ ul.provider {
 }
 
 .patient-header {
-  background-color: $white;
+  background-color: $patient-header-bg-color;
+  color: $white;
+  padding-top: 0.3rem;
+
+  &.header {
+    border-color: $patient-header-bg-color;
+  }
   dl {
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin: 0 0 .2em 1em;
 
     dt {
-      color: $patient-header-muted-color;
+      color: $white;
       display: inline-block;
       font-size: .6em;
       font-weight: normal;
