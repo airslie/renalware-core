@@ -66,13 +66,41 @@ dd.patient-name {
   flex: 0 0 $patient-side-nav-width;
   order: -1;
   background-color: $patient-menu-background-colour;
-  padding: 0 1rem 0 1rem;
+  padding: 0;
 
-  ul.side-nav li.link {
-    padding-left: 0.875rem;
+  ul.side-nav {
+    margin: 0;
+    padding: 0.5rem 0 0 0;
 
-    a {
-      padding: 0;
+    li {
+      margin: 0;
+      padding: 0.15rem 0;
+
+      &.heading {
+        padding-left: 1.1rem;
+        color: $dark-grey;
+      }
+
+      &.link {
+        padding-left: 1.875rem;
+
+        &.active {
+          background-color: $white;
+          a {
+            color: $dark-grey;
+            text-decoration: none;
+          }
+        }
+
+        a {
+          padding: 0;
+          text-decoration: underline;
+
+          &:hover {
+           background-color: inherit;
+          }
+        }
+      }
     }
   }
 
