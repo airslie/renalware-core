@@ -37,6 +37,7 @@ $nhs-aqua-green: #00AA9E;
 $nhs-light-green: #5BBF21;
 $nhs-green: #009E49;
 $nhs-dark-green: #006B54;
+$nhs-blue: #0068A5;
 
 // Drug type colours
 $drug-type-default-colour: $white;
@@ -46,6 +47,7 @@ $drug-type-immunosuppressant-colour: #CCFFFF;
 // Patient header/banner
 $patient-header-muted-color: #777;
 $patient-header-icon-color: #bbb;
+$patient-header-bg-color: $nhs-blue;
 
 // Bookmarks
 $bookmark-urgent-colour: #FFFFC8;
