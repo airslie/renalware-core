@@ -2,6 +2,9 @@ en:
   :true: "Yes"
   :false: "No"
 
+  disable_with:
+    save: Saving
+
   modal:
     close: Close
 
