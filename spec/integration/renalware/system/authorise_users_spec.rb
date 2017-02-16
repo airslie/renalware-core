@@ -6,10 +6,10 @@ module Renalware
     include ActionView::RecordIdentifier
 
     background do
+      @clinician_role = create(:role, name: "clinician")
       @approved = create(:user, :approved)
       @unapproved = create(:user)
       @expired = create(:user, :approved, :expired)
-      @clinician_role = create(:role, name: "clinician")
 
       login_as_super_admin
 
@@ -49,7 +49,7 @@ module Renalware
       first("tbody tr##{dom_id(@approved)}").click_link("Edit")
       expect(current_path).to eq(edit_admin_user_path(@approved))
 
-      uncheck "Super admin"
+      uncheck "Clinician"
       click_on "Update"
 
       expect(current_path).to eq(admin_user_path(@approved))
@@ -88,6 +88,36 @@ module Renalware
       click_link "Inactive"
 
       expect(page).not_to have_content(@expired.username)
+    end
+
+    scenario "An admin cannot assign super_admin role to anyone" do
+      within("tbody") do
+        find("a[href='#{edit_admin_user_path(@approved)}']").click
+      end
+
+      # 'Hidden' super_admin role appears as a disabled checkbox
+      expect(find("input[type='checkbox'][disabled='disabled']")).to_not be_nil
+    end
+
+    scenario "An admin cannot remove the super_admin role" do
+      superadmin = create(:user, :approved, :super_admin)
+      visit admin_users_path
+      within("tbody") do
+        find("a[href='#{edit_admin_user_path(superadmin)}']").click
+      end
+      expect(current_path).to eq(edit_admin_user_path(superadmin))
+
+      # may be already unchecked, but just to be sure this person has no roles
+      # other than the hidden superadmin role
+      uncheck "Clinician"
+      click_on "Update"
+
+      # They are as super-admin so submit should succeed and the super-admin
+      # role be preserved because that can only be changed on the command line.
+      expect(current_path).to eq(admin_users_path)
+      superadmin.reload
+      expect(superadmin.role_names).to include("super_admin")
+      expect(superadmin.roles).to_not include(@clinician_role)
     end
   end
 end

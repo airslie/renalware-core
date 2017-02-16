@@ -3110,7 +3110,8 @@ CREATE TABLE roles (
     id integer NOT NULL,
     name character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    hidden boolean DEFAULT false NOT NULL
 );
 
 
@@ -6493,7 +6494,7 @@ CREATE INDEX index_renal_profiles_on_prd_description_id ON renal_profiles USING 
 -- Name: index_roles_users_on_user_id_and_role_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_roles_users_on_user_id_and_role_id ON roles_users USING btree (user_id, role_id);
+CREATE UNIQUE INDEX index_roles_users_on_user_id_and_role_id ON roles_users USING btree (user_id, role_id);
 
 
 --
@@ -8355,6 +8356,7 @@ INSERT INTO schema_migrations (version) VALUES
 ('20170110161149'),
 ('20170120135631'),
 ('20170124153334'),
+('20170203145405'),
 ('20170207195029'),
 ('20170210133517'),
 ('20170213140513');

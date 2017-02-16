@@ -25,7 +25,7 @@ module Renalware
           user.super_admin_update = true
           approve if can_approve?(params)
           unexpire if can_unexpire?(params)
-          authorise(params[:roles] || [])
+          authorise(params)
           user.telephone = params[:telephone]
           user.save!
         end
@@ -57,8 +57,28 @@ module Renalware
         user.last_activity_at = Time.zone.now
       end
 
-      def authorise(roles)
-        user.roles = roles
+      def authorise(params)
+        user.roles = sanitized_roles(params)
+      end
+
+      def sanitized_roles(params)
+        @sanitized_roles ||= begin
+          roles = params[:roles] || []
+          remove_hidden_roles(roles)
+          preserve_super_admin_role_if_previously_set(roles)
+        end
+      end
+
+      # Hidden roles e.g. superadmin cannot be set in the UI so remove if found
+      def remove_hidden_roles(roles)
+        roles.reject(&:hidden)
+      end
+
+      def preserve_super_admin_role_if_previously_set(roles)
+        if user.has_role?(:super_admin)
+          roles << Role.find_by(name: :super_admin)
+        end
+        roles
       end
 
       def true?(param)

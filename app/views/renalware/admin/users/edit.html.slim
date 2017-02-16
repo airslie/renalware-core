@@ -2,33 +2,38 @@
   = render "header"
 
 .row
-  h2= @user
+  .columns.small-12
+    h2= @user
 
-  = simple_form_for @user, url: admin_user_path(@user) do |f|
-    = f.input :approved, as: :hidden, input_html: { value: true }
+    = simple_form_for @user, url: admin_user_path(@user) do |f|
+      = f.input :approved, as: :hidden, input_html: { value: true }
 
-    - if @user.errors.any?
-      ul.error-messages
-        - @user.errors.full_messages.each do |msg|
-          li= msg
+      - if @user.errors.any?
+        ul.error-messages
+          - @user.errors.full_messages.each do |msg|
+            li= msg
 
-    - if @user.expired?
-      .row
-        = check_box_tag "user[unexpire]", true, false, class: "inline"
-        = label_tag :user_unexpire, "Reactivate account"
+      - if @user.expired?
+        .row
+          = check_box_tag "user[unexpire]", true, false, class: "inline"
+          = label_tag :user_unexpire, "Reactivate account"
 
-    .row
       - Renalware::Role.all.each_with_index do |role, index|
         - element_id = "user_role_ids_#{index}"
-        = check_box_tag "user[role_ids][]", role.id, @user.has_role?(role.name), id: element_id, class: "inline"
+        = check_box_tag "user[role_ids][]",
+                        role.id,
+                        @user.has_role?(role.name),
+                        disabled: role.hidden,
+                        id: element_id,
+                        class: "inline"
         = label_tag element_id, role.name.humanize
 
-    .row
-      .large-2.columns
-        = f.input :telephone, input_html: { class: "input small" }
+      .row
+        .large-2.columns
+          = f.input :telephone, input_html: { class: "input small" }
 
-    .row
-      - msg = @user.approved? ? "Update" : "Approve"
-      = f.submit msg, class: "button"
-      span= " or "
-      = link_to "cancel", admin_users_path
+      .row
+        - msg = @user.approved? ? "Update" : "Approve"
+        = f.submit msg, class: "button"
+        span= " or "
+        = link_to "cancel", admin_users_path

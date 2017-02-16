@@ -23,7 +23,7 @@ FactoryGirl.define do
     trait :approved do
       approved true
       after(:create) do |user|
-        user.roles = [find_or_create_role]
+        user.roles = [find_or_create_role(:clinician)]
       end
     end
     trait :expired do
@@ -32,7 +32,7 @@ FactoryGirl.define do
     end
     trait :super_admin do
       after(:create) do |user|
-        user.roles = [find_or_create_role]
+        user.roles = [find_or_create_role(:super_admin)]
       end
     end
     trait :admin do
