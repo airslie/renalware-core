@@ -1,8 +1,10 @@
 require_dependency "renalware/hd/base_controller"
+require "collection_presenter"
 
 module Renalware
   module HD
     class SessionsController < BaseController
+      include PresenterHelper
       before_action :load_patient
 
       def index
@@ -26,7 +28,7 @@ module Renalware
                                      user: current_user,
                                      type: params[:type]).build
         authorize session
-        render :new, locals: { session: session, patient: patient }
+        render :new, locals: locals(session)
       end
 
       def create
@@ -36,7 +38,7 @@ module Renalware
       def edit
         session = Session.for_patient(patient).find(params[:id])
         authorize session
-        render :edit, locals: { session: session, patient: patient }
+        render :edit, locals: locals(session)
       rescue Pundit::NotAuthorizedError
         flash[:warning] = t(".session_is_immutable")
         redirect_to patient_hd_session_path(session, patient_id: patient.id)
@@ -72,27 +74,50 @@ module Renalware
       def save_failure(session)
         flash[:error] = t(".failed", model_name: "HD session")
         action = action_name.to_sym == :create ? :new : :edit
-        render action, locals: { session: session, patient: patient }
+        render action, locals: locals(session)
       end
 
       protected
+
+      def locals(session)
+        {
+          session: session,
+          patient: patient,
+          prescriptions_to_be_administered_on_hd: prescriptions_on_hd
+        }
+      end
+
+      def prescriptions_on_hd
+        @prescriptions_on_hd ||= begin
+          prescriptions = patient.prescriptions.includes([:drug]).to_be_administered_on_hd
+          present(prescriptions, Medications::PrescriptionPresenter)
+        end
+      end
 
       def sessions_query
         Sessions::PatientQuery.new(patient: patient, q: params[:q])
       end
 
       def session_params
-        params.require(:hd_session).require(:type)
-        params
-          .require(:hd_session)
-          .permit(attributes)
-          .merge(document: document_attributes, by: current_user)
+        @session_params ||= begin
+          params.require(:hd_session).require(:type)
+          sesh_params = params.require(:hd_session)
+                              .permit(attributes)
+                              .merge(document: document_attributes, by: current_user)
+          (sesh_params[:prescription_administrations_attributes] || {}).each do |_key, hash|
+            hash[:by] = current_user
+          end
+          sesh_params
+        end
       end
 
       def attributes
         [:performed_on, :start_time, :end_time,
          :hospital_unit_id, :notes,
          :signed_on_by_id, :signed_off_by_id, :type,
+         prescription_administrations_attributes: [
+          :id, :hd_session_id, :prescription_id, :administered, :notes
+         ],
          document: []
         ]
       end

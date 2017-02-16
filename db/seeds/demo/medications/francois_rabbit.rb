@@ -39,6 +39,7 @@ module Renalware
       medication_route_id: 1,
       frequency: "bd for 7 days",
       prescribed_on: "2015-09-13",
+      administer_on_hd: true,
       provider: 0, by: barts_doc,
       administer_on_hd: true,
       termination: Medications::PrescriptionTermination.new(

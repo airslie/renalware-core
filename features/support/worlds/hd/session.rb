@@ -299,11 +299,22 @@ module World
           fill_in "Litres Processed", with: "10"
         end
 
-        within ".top" do
-          click_on "Save and Sign-Off"
-        end
+        page.all("input[name='signoff']").first.click
 
         expect(page.current_path).to eq(patient_hd_dashboard_path(patient))
+        expect(page).to_not have_content "failed"
+        hd_patient = Renalware::HD.cast_patient(patient)
+        sessions = hd_patient.reload.hd_sessions
+        expect(sessions.length).to eq(1)
+        new_session = sessions.first
+
+        # TODO:
+        # We have not populated the prescription_administrations yet in this test, so
+        # we _should_ have had a validation error because neither Yes nor Nor were selected
+        # in the HD Drugs section for the drug that is administrable on HD.
+        # However no validation error.
+        expect(new_session.prescription_administrations.length).to eq(1)
+        expect(new_session.prescription_administrations.first.administered).to eq(true)
       end
 
       def view_ongoing_hd_sessions(user:)

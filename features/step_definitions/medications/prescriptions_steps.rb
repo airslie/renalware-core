@@ -36,6 +36,7 @@ Given(/^Patty has a prescription:$/) do |table|
     frequency: row[:frequency],
     prescribed_on: Time.current - 1.month,
     provider: row[:provider],
+    administer_on_hd: row[:administer_on_hd],
     terminated_on: row[:terminated_on]
   )
 end

@@ -18,6 +18,7 @@ module Renalware
         session = build_session
         apply_profile(session)
         set_default_access(session)
+        build_prescription_administrations(session)
         session
       end
 
@@ -56,6 +57,13 @@ module Renalware
           session.document.info.access_type = profile.type.name
           session.document.info.access_site = profile.site.name
           session.document.info.access_side = profile.side
+        end
+      end
+
+      def build_prescription_administrations(session)
+        return unless session.new_record?
+        patient.prescriptions.to_be_administered_on_hd.map do |prescription|
+          session.prescription_administrations.build(prescription: prescription)
         end
       end
 

@@ -90,6 +90,19 @@ ruby:
         = fcm.input :subs_volume, input_html: { class: "small-input" }
 
     = render layout: "renalware/shared/fieldset",
+        locals: { legend: "HD Drugs", name: "hd_prescriptions" } do
+
+        /- prescriptions_to_be_administered_on_hd.each do |prescription|
+        /h1= f.object.prescription_administrations.length
+        = f.simple_fields_for :prescription_administrations, f.object.prescription_administrations do |fpa|
+          - presenter = Renalware::Medications::PrescriptionPresenter.new(fpa.object.prescription)
+          b= "#{presenter.drug_name}"
+          span= "#{presenter.dose} #{presenter.frequency}"
+          = fpa.input :prescription_id, as: :hidden
+          = fpa.input :administered, as: :inline_radio_buttons
+          = fpa.input :notes, input_html: { class: "small-input" }
+
+    = render layout: "renalware/shared/fieldset",
         locals: { legend: "Notes/Complications", name: "complications" } do
       = fd.simple_fields_for :complications, fd.object.complications do |fcm|
         = fcm.input :access_site_status, input_html: { class: "small-input" }

@@ -1,0 +1,11 @@
+en:
+  activerecord:
+    attributes:
+      renalware/hd/prescription_administration:
+        administered: Administered
+    errors:
+      models:
+        renalware/hd/prescription_administration:
+          attributes:
+            administered:
+              inclusion: Please indicate if the drug was administered

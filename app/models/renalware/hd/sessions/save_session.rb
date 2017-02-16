@@ -22,11 +22,12 @@ module Renalware
         # the sign-off name of the SignOff button - see signed_off?
         def call(params:, id: nil, signing_off: false)
           @params = parse_params(params)
-          session = find_or_create_session(id)
+          session = find_or_build_session(id)
           session = update_session_attributes(session, signing_off)
 
-          UpdateRollingPatientStatisticsJob.perform_later(patient) unless session.open?
           if session.save
+            # Might be cleaner if something listened for this event and created this job there?
+            UpdateRollingPatientStatisticsJob.perform_later(patient) unless session.open?
             broadcast(:save_success, session)
           else
             session.type = session_type # See method comment
@@ -45,12 +46,22 @@ module Renalware
         def update_session_attributes(session, signing_off)
           session = signed_off(session) if signing_off
           session.attributes = params
+          force_validation_of_nested_prescription_administrations(session)
+          skip_validation_on_prescription_administrations(session) unless signing_off
           session.by = current_user
           lookup_access_type_abbreviation(session)
           session
         end
 
-        def find_or_create_session(id)
+        def force_validation_of_nested_prescription_administrations(session)
+          # These valid? calls required because while accepts_nested_attributes yields validation
+          # errors on create, no errors are raise when updating existing records.
+          # It might be something I don't understand about how accepts_nested_attributes works in
+          # this scenario. Anyway calling valid? causes the errors collection to be updated.
+          session.prescription_administrations.each(&:valid?)
+        end
+
+        def find_or_build_session(id)
           if id.present?
             Session.for_patient(patient).find(id)
           else
@@ -76,6 +87,12 @@ module Renalware
           access_type = Accesses::Type.find_by(name: session.document.info.access_type)
           return unless access_type
           session.document.info.access_type_abbreviation = access_type.abbreviation
+        end
+
+        def skip_validation_on_prescription_administrations(session)
+          session.prescription_administrations.each do |pa|
+            pa.skip_validation = true
+          end
         end
       end
     end
