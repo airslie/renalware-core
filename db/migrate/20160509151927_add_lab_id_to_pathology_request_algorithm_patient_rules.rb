@@ -1,4 +1,4 @@
-class AddLabIdToPathologyRequestAlgorithmPatientRules < ActiveRecord::Migration
+class AddLabIdToPathologyRequestAlgorithmPatientRules < ActiveRecord::Migration[4.2]
   def change
     remove_column :pathology_request_algorithm_patient_rules, :lab
     add_column :pathology_request_algorithm_patient_rules, :lab_id, :integer

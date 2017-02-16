@@ -1,4 +1,4 @@
-class CreateModalities < ActiveRecord::Migration
+class CreateModalities < ActiveRecord::Migration[4.2]
   def change
     create_table :modality_modalities do |t|
       t.references :patient,       null: false, foreign_key: true

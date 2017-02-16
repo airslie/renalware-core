@@ -1,4 +1,4 @@
-class CreateMedicationPrescriptions < ActiveRecord::Migration
+class CreateMedicationPrescriptions < ActiveRecord::Migration[4.2]
   def change
     create_table :medication_prescriptions do |t|
       t.references :patient,           null: false, foreign_key: true

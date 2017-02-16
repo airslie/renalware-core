@@ -1,4 +1,4 @@
-class CreateFeedMessages < ActiveRecord::Migration
+class CreateFeedMessages < ActiveRecord::Migration[4.2]
   def change
     create_table :feed_messages do |t|
       t.string :event_code, null: false

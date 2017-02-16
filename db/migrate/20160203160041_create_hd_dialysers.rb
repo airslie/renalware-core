@@ -1,4 +1,4 @@
-class CreateHDDialysers < ActiveRecord::Migration
+class CreateHDDialysers < ActiveRecord::Migration[4.2]
   def change
     create_table :hd_dialysers do |t|
       t.string :group, null: false

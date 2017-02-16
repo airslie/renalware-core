@@ -1,4 +1,4 @@
-class AddMissingPrescriptionIndexes < ActiveRecord::Migration
+class AddMissingPrescriptionIndexes < ActiveRecord::Migration[4.2]
   def change
     add_index :medication_prescriptions, :created_by_id
     add_index :medication_prescriptions, :updated_by_id

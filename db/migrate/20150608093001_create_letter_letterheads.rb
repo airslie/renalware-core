@@ -1,4 +1,4 @@
-class CreateLetterLetterheads < ActiveRecord::Migration
+class CreateLetterLetterheads < ActiveRecord::Migration[4.2]
   def change
     create_table :letter_letterheads do |t|
       t.string :name, null: false

@@ -1,4 +1,4 @@
-class CreateHDPatientStatistics < ActiveRecord::Migration
+class CreateHDPatientStatistics < ActiveRecord::Migration[4.2]
   def change
     create_table :hd_patient_statistics do |t|
       t.belongs_to :patient, null: false, index: true, foreign_key: true

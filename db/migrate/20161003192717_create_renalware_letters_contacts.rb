@@ -1,4 +1,4 @@
-class CreateRenalwareLettersContacts < ActiveRecord::Migration
+class CreateRenalwareLettersContacts < ActiveRecord::Migration[4.2]
   def change
     create_table :letter_contacts do |t|
       t.references :patient, index: true, null: false

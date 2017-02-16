@@ -1,4 +1,4 @@
-class CreatePDRegimes < ActiveRecord::Migration
+class CreatePDRegimes < ActiveRecord::Migration[4.2]
   def change
     create_table :pd_regimes do |t|
       t.references :patient, null: false, foreign_key: true

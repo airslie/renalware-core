@@ -1,4 +1,4 @@
-class AddCreatedByIdAndUpdatedByIdToProblems < ActiveRecord::Migration
+class AddCreatedByIdAndUpdatedByIdToProblems < ActiveRecord::Migration[4.2]
 
   def up
     add_reference :problem_problems, :created_by, references: :users, index: true, null: true

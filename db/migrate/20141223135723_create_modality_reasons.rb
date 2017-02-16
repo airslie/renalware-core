@@ -1,4 +1,4 @@
-class CreateModalityReasons < ActiveRecord::Migration
+class CreateModalityReasons < ActiveRecord::Migration[4.2]
   def change
     create_table :modality_reasons do |t|
       t.string :type

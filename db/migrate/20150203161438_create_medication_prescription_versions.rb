@@ -1,4 +1,4 @@
-class CreateMedicationPrescriptionVersions < ActiveRecord::Migration
+class CreateMedicationPrescriptionVersions < ActiveRecord::Migration[4.2]
   def change
     create_table :medication_prescription_versions do |t|
       t.string   :item_type, :null => false

@@ -1,4 +1,4 @@
-class CreateHDDryWeights < ActiveRecord::Migration
+class CreateHDDryWeights < ActiveRecord::Migration[4.2]
   def change
     create_table :hd_dry_weights do |t|
       t.belongs_to :patient, index: true, foreign_key: true

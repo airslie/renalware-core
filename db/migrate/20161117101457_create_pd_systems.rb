@@ -1,4 +1,4 @@
-class CreatePDSystems < ActiveRecord::Migration
+class CreatePDSystems < ActiveRecord::Migration[4.2]
   def change
     create_table :pd_systems do |t|
       t.string :pd_type, null: false, index: true

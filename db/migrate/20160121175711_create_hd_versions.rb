@@ -1,4 +1,4 @@
-class CreateHDVersions < ActiveRecord::Migration
+class CreateHDVersions < ActiveRecord::Migration[4.2]
   def change
     create_table :hd_versions do |t|
       t.string   :item_type, :null => false

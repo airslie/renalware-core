@@ -1,4 +1,4 @@
-class ChangePathologyRequestAlgorithmGlobalRuleSets < ActiveRecord::Migration
+class ChangePathologyRequestAlgorithmGlobalRuleSets < ActiveRecord::Migration[4.2]
   def change
     remove_foreign_key :pathology_request_algorithm_global_rule_sets,
       column: :observation_description_id

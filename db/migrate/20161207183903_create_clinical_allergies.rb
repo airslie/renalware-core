@@ -1,4 +1,4 @@
-class CreateClinicalAllergies < ActiveRecord::Migration
+class CreateClinicalAllergies < ActiveRecord::Migration[4.2]
   def change
     create_table :clinical_allergies do |t|
       t.references :patient, index: true, null: false

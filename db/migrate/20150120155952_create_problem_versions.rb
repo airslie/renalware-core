@@ -1,4 +1,4 @@
-class CreateProblemVersions < ActiveRecord::Migration
+class CreateProblemVersions < ActiveRecord::Migration[4.2]
   def change
     create_table :problem_versions do |t|
       t.string   :item_type, :null => false

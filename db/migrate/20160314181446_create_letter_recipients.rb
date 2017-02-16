@@ -1,4 +1,4 @@
-class CreateLetterRecipients < ActiveRecord::Migration
+class CreateLetterRecipients < ActiveRecord::Migration[4.2]
   def change
     create_table :letter_recipients do |t|
       t.string :role, null: false

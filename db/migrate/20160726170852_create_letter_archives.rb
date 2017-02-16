@@ -1,4 +1,4 @@
-class CreateLetterArchives < ActiveRecord::Migration
+class CreateLetterArchives < ActiveRecord::Migration[4.2]
   def change
     create_table :letter_archives do |t|
       t.text :content, null: false

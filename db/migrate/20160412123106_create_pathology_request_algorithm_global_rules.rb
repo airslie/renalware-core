@@ -1,4 +1,4 @@
-class CreatePathologyRequestAlgorithmGlobalRules < ActiveRecord::Migration
+class CreatePathologyRequestAlgorithmGlobalRules < ActiveRecord::Migration[4.2]
   def change
     create_table :pathology_request_algorithm_global_rules do |t|
       t.integer :global_rule_set_id, null: false

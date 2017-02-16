@@ -1,4 +1,4 @@
-class CreateLetters < ActiveRecord::Migration
+class CreateLetters < ActiveRecord::Migration[4.2]
   def change
     create_table :letter_letters do |t|
       t.string :event_type

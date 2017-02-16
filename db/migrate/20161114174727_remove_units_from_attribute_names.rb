@@ -1,4 +1,4 @@
-class RemoveUnitsFromAttributeNames < ActiveRecord::Migration
+class RemoveUnitsFromAttributeNames < ActiveRecord::Migration[4.2]
   def change
     rename_column(:pd_bag_types, :glucose_grams_per_litre, :glucose_content)
     rename_column(:pd_bag_types, :sodium_mmole_l, :sodium_content)

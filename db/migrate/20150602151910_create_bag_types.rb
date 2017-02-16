@@ -1,4 +1,4 @@
-class CreateBagTypes < ActiveRecord::Migration
+class CreateBagTypes < ActiveRecord::Migration[4.2]
   def change
     create_table :pd_bag_types do |t|
       t.string :manufacturer, null: false

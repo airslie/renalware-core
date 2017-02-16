@@ -1,4 +1,4 @@
-class CreateAccessProfiles < ActiveRecord::Migration
+class CreateAccessProfiles < ActiveRecord::Migration[4.2]
   def change
     create_table :access_profiles do |t|
       t.belongs_to :patient, index: true, foreign_key: true

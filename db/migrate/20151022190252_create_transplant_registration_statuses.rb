@@ -1,4 +1,4 @@
-class CreateTransplantRegistrationStatuses < ActiveRecord::Migration
+class CreateTransplantRegistrationStatuses < ActiveRecord::Migration[4.2]
   def change
     create_table :transplant_registration_statuses do |t|
       t.belongs_to :registration, index: true

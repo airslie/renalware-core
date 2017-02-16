@@ -1,4 +1,4 @@
-class CreateDrugTypesDrugs < ActiveRecord::Migration
+class CreateDrugTypesDrugs < ActiveRecord::Migration[4.2]
   def change
     create_table :drug_types_drugs, id: false do |t|
       t.references :drug,      foreign_key: true

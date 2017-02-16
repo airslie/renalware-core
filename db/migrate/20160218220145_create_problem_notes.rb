@@ -1,4 +1,4 @@
-class CreateProblemNotes < ActiveRecord::Migration
+class CreateProblemNotes < ActiveRecord::Migration[4.2]
   def change
     create_table :problem_notes do |t|
       t.belongs_to :problem, index: true

@@ -1,4 +1,4 @@
-class CreatePeritonitisEpisodes < ActiveRecord::Migration
+class CreatePeritonitisEpisodes < ActiveRecord::Migration[4.2]
   def change
     create_table :pd_peritonitis_episodes do |t|
       t.references :patient,           null: false, foreign_key: true

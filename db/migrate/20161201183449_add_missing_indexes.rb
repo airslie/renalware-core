@@ -1,4 +1,4 @@
-class AddMissingIndexes < ActiveRecord::Migration
+class AddMissingIndexes < ActiveRecord::Migration[4.2]
   def change
     add_index :access_profiles, :type_id
     add_index :access_profiles, :site_id
