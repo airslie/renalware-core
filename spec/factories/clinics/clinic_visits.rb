@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :clinic_visit, class: "Renalware::Clinics::ClinicVisit" do
     patient
-    date Date.today
+    date Time.zone.today
     time Time.zone.now
     height 1725
     weight 6985

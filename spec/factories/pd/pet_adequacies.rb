@@ -3,11 +3,11 @@ FactoryGirl.define do
   factory :pet_adequacy_result, class: "Renalware::PD::PETAdequacyResult" do
 
     patient
-    pet_date { I18n.l(Date.today) }
+    pet_date { I18n.l(Time.zone.today) }
     pet_type { Renalware::PD::PETAdequacyResult.pet_type.values.first }
     pet_duration { Renalware::PD::PETAdequacyResult::MAXIMUMS[:pet_duration] }
     pet_net_uf { Renalware::PD::PETAdequacyResult::MAXIMUMS[:pet_net_uf] }
-    adequacy_date { I18n.l(Date.today) }
+    adequacy_date { I18n.l(Time.zone.today) }
     dialysate_creat_plasma_ratio do
       Renalware::PD::PETAdequacyResult::MAXIMUMS[:dialysate_creat_plasma_ratio]
     end

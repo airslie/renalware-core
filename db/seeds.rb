@@ -20,6 +20,7 @@ end
 log "Seeding Database"
 
 ms = Benchmark.ms do
+  require_relative "./seeds/seeds_helper.rb"
   require_relative "./seeds/default/seeds.rb"
   require_relative "./seeds/demo/seeds.rb" if ENV["DEMO"] || Rails.env.development?
 end

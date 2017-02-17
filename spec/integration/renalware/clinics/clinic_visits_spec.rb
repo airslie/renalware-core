@@ -30,7 +30,7 @@ RSpec.describe "Clinic Visits Management", type: :request do
       post patient_clinic_visits_path(patient_id: patient.to_param),
         params: {
           clinic_visit: {
-            date: Date.today,
+            date: Time.zone.today,
             time: Time.zone.now,
             clinic_id: clinic,
             height: 1725, weight: 89.2, bp: "110/78",
@@ -58,7 +58,7 @@ RSpec.describe "Clinic Visits Management", type: :request do
       put patient_clinic_visit_path(patient_id: patient.to_param, id: clinic_visit.to_param),
         params: {
           clinic_visit: {
-            date: Date.today,
+            date: Time.zone.today,
             time: Time.zone.now,
             height: 1725, weight: 89.2, bp: "110/70",
             urine_blood: "neg", urine_protein: "neg",

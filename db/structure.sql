@@ -2490,6 +2490,41 @@ CREATE VIEW patient_summaries AS
 
 
 --
+-- Name: patient_versions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE patient_versions (
+    id integer NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: patient_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE patient_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE patient_versions_id_seq OWNED BY patient_versions.id;
+
+
+--
 -- Name: patients_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -4279,6 +4314,13 @@ ALTER TABLE ONLY patient_religions ALTER COLUMN id SET DEFAULT nextval('patient_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY patient_versions ALTER COLUMN id SET DEFAULT nextval('patient_versions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY patients ALTER COLUMN id SET DEFAULT nextval('patients_id_seq'::regclass);
 
 
@@ -5061,6 +5103,14 @@ ALTER TABLE ONLY patient_primary_care_physicians
 
 ALTER TABLE ONLY patient_religions
     ADD CONSTRAINT patient_religions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: patient_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_versions
+    ADD CONSTRAINT patient_versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -6865,6 +6915,13 @@ CREATE UNIQUE INDEX patient_bookmarks_uniqueness ON patient_bookmarks USING btre
 
 
 --
+-- Name: patient_versions_versions_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX patient_versions_versions_type_id ON patient_versions USING btree (item_type, item_id);
+
+
+--
 -- Name: pd_peritonitis_episode_types_unique_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8531,6 +8588,7 @@ INSERT INTO schema_migrations (version) VALUES
 ('20170210133517'),
 ('20170213140513'),
 ('20170217132644'),
-('20170217141529');
+('20170217141529'),
+('20170217161409');
 
 
