@@ -9,3 +9,14 @@ en:
           attributes:
             administered:
               inclusion: Please indicate if the drug was administered
+  renalware:
+    hd:
+      sessions:
+        prescription_administrations:
+          legend: HD Prescriptions
+          drug_name: Drug
+          dose: Dose
+          frequency: Freq
+          administered: Given
+          notes: Notes
+

@@ -1,0 +1,20 @@
+= field_set_tag do
+  legend= t(".legend")
+
+  table
+    thead
+      tr
+        th= t(".drug_name")
+        th= t(".dose")
+        th= t(".frequency")
+        th= t(".administered")
+        th= t(".notes")
+    tbody
+      - session.prescription_administrations.each do |pa|
+        - prescription = Renalware::Medications::PrescriptionPresenter.new(pa.prescription)
+        tr
+          td.strong= prescription.drug_name
+          td= prescription.dose
+          td= prescription.frequency
+          td.strong= yes_no(pa.administered?)
+          td= pa.notes

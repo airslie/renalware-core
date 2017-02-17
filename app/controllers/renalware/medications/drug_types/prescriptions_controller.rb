@@ -23,10 +23,12 @@ module Renalware
         end
 
         def query
-          PrescriptionsByDrugTypeQuery.new(
-            drug_type_name: drug_type_name,
-            search_params: params[:q]
-          )
+          @query ||= begin
+            PrescriptionsByDrugTypeQuery.new(
+              drug_type_name: drug_type_name,
+              search_params: params[:q]
+            )
+          end
         end
 
         def drug_type_name
