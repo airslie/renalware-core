@@ -1,16 +1,19 @@
 = within_patient_layout(title: "Demographics") do
-  #patient-demographics
 
-    = render "renalware/patients/show/patient_demographics", patient: @patient
-    .row
-      .large-6.xlarge-4.columns
-        = render "renalware/patients/show/primary_care_physician", patient: @patient
-      .large-6.xlarge-4.columns
-        = render "renalware/patients/show/letter_preferences", patient: @patient
-      .large-6.xlarge-4.columns
-        = render "renalware/patients/show/contact_details", patient: @patient
-      .large-6.xlarge-4.columns
-        = field_set_tag "Current Address" do
-          = render @patient.current_address if @patient.current_address
-      .large-6.xlarge-4.columns
-        = render "renalware/patients/show/referral", patient: @patient
+  #patient-demographics
+    .grid
+      .row
+      	  .columns.large-4
+      	    = render "renalware/patients/show/patient_demographics", patient: @patient
+	      .columns.large-4
+	        = render "renalware/patients/show/primary_care_physician", patient: @patient
+	      .columns.large-4
+	        = render "renalware/patients/show/letter_preferences", patient: @patient
+	      .columns.large-4
+	        = render "renalware/patients/show/contact_details", patient: @patient
+	      .columns.large-4
+	        = field_set_tag "Current Address" do
+	          = render @patient.current_address if @patient.current_address
+	      .columns.large-4
+		  	  = render "renalware/patients/show/referral", patient: @patient
+

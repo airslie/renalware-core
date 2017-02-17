@@ -77,26 +77,81 @@ form {
   }
 }
 
-fieldset {
-	background-color: $white;
+//fieldset
+article {
+	background-color: $very-light-grey;
 	border: none;
-	border-top: 4px solid $mini-profile-backgound-colour;
-	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+	border-top: 4px solid $link-colour;
+	float: left;
 	margin: 0 0 1rem;
-  padding: 1rem;
-  position: relative;
-
-  legend {
-    font-size: 1.1rem;
-    line-height: 1.1rem;
-margin: 0;
-padding: 0;
+	padding: 0.5rem;
+	position: relative;
+	width: 100%;
+	header {
+		float: left;
+		margin: 0 0 0.5rem;
+		width: 100%;
+		h1 {
+			float: left;
+			font-size: 1.2rem;
+			margin: 0 1rem 0 0;
+			padding: 0;
+			a {
+				font-weight: bold;
+				text-decoration: underline;
+			}
+		}
+		.button {
+			background-color: $steel;
+		    border-radius: 3px !important;
+		    color: $white;
+		    float: right;
+		    display: block;
+		    padding: 0.4rem;
+		    text-decoration: none;
+    	}
+    	.button:hover {
+	    	background-color: $link-colour;
+	    	text-decoration: underline;
+    	}
+	}
+	.no-bullet {
+		float: left;
+		width: 100%;
+		li {
+			border-bottom: 1px dotted $iron;
+			font-weight: bold;
+			padding-bottom: 0.2rem;
+			a {
+				font-weight: normal;
+				text-decoration: underline;
+			}
+		}
+		li:last-child {
+			border: none;
+			padding-bottom: 0;
+		}
+		li[class^="drug-"] {
+			font-weight: normal;
+			span {
+			font-weight: bold;
+			}
+		}
+	}
+	legend {
+    	font-size: 1.2rem;
+		line-height: 1.1rem;
+		margin: 0;
+		padding: 0;
+		position: absolute;
+			top: 8px; left: 8px;
     .fieldset-action {
-      padding-left: 1rem;
-      font-weight: normal;
-      font-size: 1rem;
+	    padding-left: 1rem;
+		font-weight: normal;
+		font-size: 1rem;
     }
-  }
+    
+}
 
   dt {
     font-weight: normal;

@@ -63,9 +63,10 @@ dd.patient-name {
 }
 
 .patient-side-nav {
-  flex: 0 0 $patient-side-nav-width;
-  order: -1;
+  //flex: 0 0 $patient-side-nav-width;
+  //order: -1;
   background-color: $patient-menu-background-colour;
+
 
   // padding: 0;
 
@@ -103,9 +104,13 @@ dd.patient-name {
   //       }
   //     }
 
+  overflow-y: auto;
   padding: 0.5rem 0;
+  position: absolute;
+  	top: 0; bottom: 0; left: 0;
+  width: $patient-side-nav-width;
   ul.side-nav {
-	  margin: 0 0 15rem;
+	  margin: 0;
 	  padding: 0;
   }
   ul.side-nav li {
@@ -124,7 +129,7 @@ dd.patient-name {
 }
 .patient-side-nav li > a:hover,
 .patient-side-nav li > a:hover:first-child:not(.button) {
-	  background-color: $nhs-light-blue;
+	  background-color: $link-colour;
 	  color: $white;
 	  margin-right: 0.5rem;
   }
@@ -165,13 +170,13 @@ dd.patient-name {
 .sub-nav dd a {
 	background-color: $off-white;
 	border-radius: 3px;
-	color: #008CBA;
+	color: $link-colour;
 	display: block;
 	padding: 0.2rem 0.5rem;
 	text-decoration: underline;
 }
 .sub-nav dd a:hover {
-	background-color: $nhs-light-blue;
+	background-color: $link-colour;
 	color: $white;
 }
 .sub-nav dd.active a {

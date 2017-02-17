@@ -1,13 +1,51 @@
-.accordion .accordion-navigation > .content, .accordion dd > .content {
-  padding: 0;
+.accordion .accordion-navigation > .content,
+.accordion dd > .content {
+	color: $nhs-dark-red;
+	font-weight: normal;
+	padding: 0.25rem 0.5rem;
 }
-
-.accordion .accordion-navigation > a, .accordion dd > a {
-  background: #FFFFFF;
-  font-size: 0.9em;
+.accordion-navigation.active {
+	background-color: $white;
+	border-radius: 3px;
+}
+.accordion .accordion-navigation > a,
+.accordion dd > a {
+  font-size: 1rem;
   padding: 0 0.5em 0 0;
   border-radius: 0.5em;
+  text-decoration: none;
 }
+.accordion-navigation a span {
+	color: $dark-grey;
+}
+.accordion-navigation a .when {
+	font-weight: bold;
+}
+.accordion-navigation a .what,
+.accordion-navigation a .about {
+	color: $link-colour;
+	text-decoration: underline;
+}
+.accordion-navigation a .whom {
+	color: $nhs-dark-blue;
+	font-weight: bold;
+}
+.accordion .accordion-navigation.active > a,
+.accordion dd.active > a {
+	background-color: $white;
+}
+.accordion a.toggle-info:hover {
+	background-color: $link-colour;
+}
+.accordion a.toggle-info:hover span,
+.accordion a.toggle-info:hover:before {
+	color: $white;
+}
+.accordion .active a.toggle-info:hover {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
 
 .hide-button {
   display: none;
@@ -69,7 +107,7 @@
 
 .accordion dd > a.toggle-info {
   background: none;
-  border-radius: 0.5em;
+  border-radius: 3px;
   padding: 0 0.3em 0 0.3em;
   color: $link-colour;
 }
@@ -82,10 +120,13 @@
   font-size: 0.9em;
 }
 
-.accordion .accordion-navigation > .content.active, .accordion dd  > .content.toggle-content {
+/*
+.accordion .accordion-navigation > .content.active,
+.accordion dd  > .content.toggle-content {
   background: rgba(255, 255, 255, 0);
   margin: 0.2em 0 0.2em 2em;
 }
+*/
 
 .fi-plus:before, .fi-minus:before {
   color: $link-colour;

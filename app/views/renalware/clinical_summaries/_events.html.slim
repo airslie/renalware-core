@@ -1,19 +1,25 @@
-= field_set_tag do
-  legend= link_to "Patient Events (#{events.size})", patient_events_path(@patient)
+article
+  header
+    h1
+      = link_to "Patient Events (#{events.size})", patient_events_path(@patient)
+      
+    = link_to new_patient_event_path(@patient), class: 'button' do
+      | Enter event
 
-  - if events.empty?
-    .call-to-action
-      = link_to new_patient_event_path(@patient) do
-        i.fa.fa-plus-circle
-        | Enter event
-  - else
-    ul.no-bullet
-      - events.each do |event|
-        li
-          dl.accordion(data-accordion)
-            dd.accordion-navigation
-              a.fi-plus.fi-minus.toggle-info id="patient-event-toggle-info-#{event.id}" href="#patient-event-notes-#{event.id}"
-                = "#{l event.date_time}, #{event.event_type.name} - #{event.description} [#{event.created_by.full_name}]"
+  ul.no-bullet
+    - events.each do |event|
+      li
+        dl.accordion(data-accordion)
+          dd.accordion-navigation
+            a.fi-plus.fi-minus.toggle-info id="patient-event-toggle-info-#{event.id}" href="#patient-event-notes-#{event.id}"
+              span.when
+                = "#{l event.date_time} "
+              span.what
+                = "#{event.event_type.name} | "
+              span.about
+                = "#{event.description} "
+              span.whom
+                = "[#{event.created_by.full_name}]"
 
-              .patient-event.content id="patient-event-notes-#{event.id}"
-                = event.notes
+            .patient-event.content id="patient-event-notes-#{event.id}"
+              = event.notes

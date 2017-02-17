@@ -23,22 +23,43 @@ $white: #FFF;
 $off-white: #EEE;
 $dark-grey: #333;
 $light-grey: #DDD;
+$very-light-grey: #f5f5f5;
 
 // NHS Colours
-$nhs-yellow: #F7E214;
-$nhs-orange: #D88C05;
+$nhs-yellow: #FAE100;
+$nhs-warm-yellow: #FFB81C;
+$nhs-orange: #ED8B00;
+
 $nhs-red: #D81E05;
-$nhs-dark-red: #931638;
-$nhs-dark-pink: #A00054;
-$nhs-purple: #56008C;
-$nhs-dark-blue: #003893;
-$nhs-light-blue: #0091C9;
-$nhs-aqua-blue: #00ADC6;
-$nhs-aqua-green: #00AA9E;
-$nhs-light-green: #5BBF21;
-$nhs-green: #009E49;
-$nhs-dark-green: #006B54;
-$nhs-blue: #0068A5;
+
+// $nhs-dark-red: #931638;
+// $nhs-dark-pink: #A00054;
+// $nhs-purple: #56008C;
+// $nhs-dark-blue: #003893;
+// $nhs-light-blue: #0091C9;
+// $nhs-aqua-blue: #00ADC6;
+// $nhs-aqua-green: #00AA9E;
+// $nhs-light-green: #5BBF21;
+// $nhs-green: #009E49;
+// $nhs-dark-green: #006B54;
+// $nhs-blue: #0068A5;
+
+$nhs-emergency-red: #DA291C;
+$nhs-dark-red: #8A1538;
+$nhs-dark-pink: #7C2855;
+$nhs-purple: #330072;
+$nhs-pink: #AE2573;
+
+$nhs-dark-blue: #003087;
+$nhs-blue: #005EB8;
+$nhs-bright-blue: #0072CE;
+$nhs-light-blue: #41B6E6;
+$nhs-aqua-blue: #00A9CE;
+
+$nhs-aqua-green: #00A499;
+$nhs-light-green: #78BE20;
+$nhs-green: #009639;
+$nhs-dark-green: #006747;
 
 // Drug type colours
 $drug-type-default-colour: $white;

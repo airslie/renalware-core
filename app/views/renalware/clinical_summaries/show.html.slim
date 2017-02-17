@@ -1,13 +1,18 @@
 = within_patient_layout do
-  .row
-    #current-problems.columns.large-6
-      = render "problems", problems: clinical_summary.current_problems
-
-    #current-prescriptions.columns.large-6
-      = render "prescriptions", prescriptions: clinical_summary.current_prescriptions
-  .row
-    #letters.columns.large-12
-      = render "letters", letters: clinical_summary.letters, patient: @patient
-  .row
-    #events.columns.large-12
-      = render "events", events: clinical_summary.current_events
+  .grid
+    .row
+      .columns.large-6
+	    #current-problems
+	      = render "problems", problems: clinical_summary.current_problems
+	  
+	  .columns.large-6
+	    #current-prescriptions
+	      = render "prescriptions", prescriptions: clinical_summary.current_prescriptions
+	  
+	  .columns.large-6
+	    #letters
+	      = render "letters", letters: clinical_summary.letters, patient: @patient
+		
+      .columns.large-6
+	    #events
+	      = render "events", events: clinical_summary.current_events
