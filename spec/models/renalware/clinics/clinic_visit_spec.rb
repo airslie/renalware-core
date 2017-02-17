@@ -1,6 +1,7 @@
 require "rails_helper"
 
 describe Renalware::Clinics::ClinicVisit, type: :model do
+  it { is_expected.to be_versioned }
   it { should belong_to :patient }
 
   it { should validate_presence_of :date }

@@ -1,6 +1,11 @@
+require_dependency "renalware/clinics"
+
 module Renalware
   module Clinics
     class ClinicVisit < ApplicationRecord
+      self.table_name = :clinic_visits
+      has_paper_trail class_name: "Renalware::Clinics::Version"
+
       include Accountable
       include PatientScope
       extend Enumerize

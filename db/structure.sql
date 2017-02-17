@@ -346,6 +346,105 @@ CREATE TABLE ar_internal_metadata (
 
 
 --
+-- Name: clinic_appointments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE clinic_appointments (
+    id integer NOT NULL,
+    starts_at timestamp without time zone NOT NULL,
+    patient_id integer NOT NULL,
+    user_id integer NOT NULL,
+    clinic_id integer NOT NULL
+);
+
+
+--
+-- Name: clinic_appointments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE clinic_appointments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: clinic_appointments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE clinic_appointments_id_seq OWNED BY clinic_appointments.id;
+
+
+--
+-- Name: clinic_clinics; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE clinic_clinics (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+--
+-- Name: clinic_clinics_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE clinic_clinics_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: clinic_clinics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE clinic_clinics_id_seq OWNED BY clinic_clinics.id;
+
+
+--
+-- Name: clinic_versions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE clinic_versions (
+    id integer NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: clinic_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE clinic_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: clinic_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE clinic_versions_id_seq OWNED BY clinic_versions.id;
+
+
+--
 -- Name: clinic_visits; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -420,70 +519,6 @@ CREATE SEQUENCE clinical_allergies_id_seq
 --
 
 ALTER SEQUENCE clinical_allergies_id_seq OWNED BY clinical_allergies.id;
-
-
---
--- Name: clinics; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE clinics (
-    id integer NOT NULL,
-    name character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    user_id integer NOT NULL
-);
-
-
---
--- Name: clinics_appointments; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE clinics_appointments (
-    id integer NOT NULL,
-    starts_at timestamp without time zone NOT NULL,
-    patient_id integer NOT NULL,
-    user_id integer NOT NULL,
-    clinic_id integer NOT NULL
-);
-
-
---
--- Name: clinics_appointments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE clinics_appointments_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: clinics_appointments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE clinics_appointments_id_seq OWNED BY clinics_appointments.id;
-
-
---
--- Name: clinics_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE clinics_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: clinics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE clinics_id_seq OWNED BY clinics.id;
 
 
 --
@@ -3838,6 +3873,27 @@ ALTER TABLE ONLY addresses ALTER COLUMN id SET DEFAULT nextval('addresses_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY clinic_appointments ALTER COLUMN id SET DEFAULT nextval('clinic_appointments_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinic_clinics ALTER COLUMN id SET DEFAULT nextval('clinic_clinics_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinic_versions ALTER COLUMN id SET DEFAULT nextval('clinic_versions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY clinic_visits ALTER COLUMN id SET DEFAULT nextval('clinic_visits_id_seq'::regclass);
 
 
@@ -3846,20 +3902,6 @@ ALTER TABLE ONLY clinic_visits ALTER COLUMN id SET DEFAULT nextval('clinic_visit
 --
 
 ALTER TABLE ONLY clinical_allergies ALTER COLUMN id SET DEFAULT nextval('clinical_allergies_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY clinics ALTER COLUMN id SET DEFAULT nextval('clinics_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY clinics_appointments ALTER COLUMN id SET DEFAULT nextval('clinics_appointments_id_seq'::regclass);
 
 
 --
@@ -4558,6 +4600,30 @@ ALTER TABLE ONLY ar_internal_metadata
 
 
 --
+-- Name: clinic_appointments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinic_appointments
+    ADD CONSTRAINT clinic_appointments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: clinic_clinics_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinic_clinics
+    ADD CONSTRAINT clinic_clinics_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: clinic_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinic_versions
+    ADD CONSTRAINT clinic_versions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: clinic_visits_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4571,22 +4637,6 @@ ALTER TABLE ONLY clinic_visits
 
 ALTER TABLE ONLY clinical_allergies
     ADD CONSTRAINT clinical_allergies_pkey PRIMARY KEY (id);
-
-
---
--- Name: clinics_appointments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY clinics_appointments
-    ADD CONSTRAINT clinics_appointments_pkey PRIMARY KEY (id);
-
-
---
--- Name: clinics_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY clinics
-    ADD CONSTRAINT clinics_pkey PRIMARY KEY (id);
 
 
 --
@@ -5317,6 +5367,13 @@ CREATE INDEX access_versions_type_id ON access_versions USING btree (item_type, 
 
 
 --
+-- Name: clinic_versions_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX clinic_versions_type_id ON clinic_versions USING btree (item_type, item_id);
+
+
+--
 -- Name: delayed_jobs_priority; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5492,6 +5549,34 @@ CREATE INDEX index_addresses_on_addressable_type_and_addressable_id ON addresses
 
 
 --
+-- Name: index_clinic_appointments_on_clinic_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinic_appointments_on_clinic_id ON clinic_appointments USING btree (clinic_id);
+
+
+--
+-- Name: index_clinic_appointments_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinic_appointments_on_patient_id ON clinic_appointments USING btree (patient_id);
+
+
+--
+-- Name: index_clinic_appointments_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinic_appointments_on_user_id ON clinic_appointments USING btree (user_id);
+
+
+--
+-- Name: index_clinic_clinics_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinic_clinics_on_user_id ON clinic_clinics USING btree (user_id);
+
+
+--
 -- Name: index_clinic_visits_on_clinic_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5538,34 +5623,6 @@ CREATE INDEX index_clinical_allergies_on_patient_id ON clinical_allergies USING 
 --
 
 CREATE INDEX index_clinical_allergies_on_updated_by_id ON clinical_allergies USING btree (updated_by_id);
-
-
---
--- Name: index_clinics_appointments_on_clinic_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_clinics_appointments_on_clinic_id ON clinics_appointments USING btree (clinic_id);
-
-
---
--- Name: index_clinics_appointments_on_patient_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_clinics_appointments_on_patient_id ON clinics_appointments USING btree (patient_id);
-
-
---
--- Name: index_clinics_appointments_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_clinics_appointments_on_user_id ON clinics_appointments USING btree (user_id);
-
-
---
--- Name: index_clinics_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_clinics_on_user_id ON clinics USING btree (user_id);
 
 
 --
@@ -7282,7 +7339,7 @@ ALTER TABLE ONLY patient_bookmarks
 --
 
 ALTER TABLE ONLY pathology_requests_global_rule_sets
-    ADD CONSTRAINT fk_rails_40e23de825 FOREIGN KEY (clinic_id) REFERENCES clinics(id);
+    ADD CONSTRAINT fk_rails_40e23de825 FOREIGN KEY (clinic_id) REFERENCES clinic_clinics(id);
 
 
 --
@@ -7521,7 +7578,7 @@ ALTER TABLE ONLY pathology_request_descriptions_requests_requests
 -- Name: fk_rails_909dcaaf3d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY clinics_appointments
+ALTER TABLE ONLY clinic_appointments
     ADD CONSTRAINT fk_rails_909dcaaf3d FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
@@ -7658,7 +7715,7 @@ ALTER TABLE ONLY pathology_requests_drugs_drug_categories
 --
 
 ALTER TABLE ONLY pathology_requests_requests
-    ADD CONSTRAINT fk_rails_a8d58d31e6 FOREIGN KEY (clinic_id) REFERENCES clinics(id);
+    ADD CONSTRAINT fk_rails_a8d58d31e6 FOREIGN KEY (clinic_id) REFERENCES clinic_clinics(id);
 
 
 --
@@ -7729,8 +7786,8 @@ ALTER TABLE ONLY pathology_requests_global_rules
 -- Name: fk_rails_b7cc8fd5dd; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY clinics_appointments
-    ADD CONSTRAINT fk_rails_b7cc8fd5dd FOREIGN KEY (clinic_id) REFERENCES clinics(id);
+ALTER TABLE ONLY clinic_appointments
+    ADD CONSTRAINT fk_rails_b7cc8fd5dd FOREIGN KEY (clinic_id) REFERENCES clinic_clinics(id);
 
 
 --
@@ -7738,7 +7795,7 @@ ALTER TABLE ONLY clinics_appointments
 --
 
 ALTER TABLE ONLY clinic_visits
-    ADD CONSTRAINT fk_rails_b844dc9537 FOREIGN KEY (clinic_id) REFERENCES clinics(id);
+    ADD CONSTRAINT fk_rails_b844dc9537 FOREIGN KEY (clinic_id) REFERENCES clinic_clinics(id);
 
 
 --
@@ -7897,7 +7954,7 @@ ALTER TABLE ONLY pd_infection_organisms
 -- Name: fk_rails_e03d4a27ce; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY clinics_appointments
+ALTER TABLE ONLY clinic_appointments
     ADD CONSTRAINT fk_rails_e03d4a27ce FOREIGN KEY (user_id) REFERENCES users(id);
 
 
@@ -7985,7 +8042,7 @@ ALTER TABLE ONLY problem_problems
 -- Name: fk_rails_f0adc9d29e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY clinics
+ALTER TABLE ONLY clinic_clinics
     ADD CONSTRAINT fk_rails_f0adc9d29e FOREIGN KEY (user_id) REFERENCES users(id);
 
 
@@ -8472,6 +8529,8 @@ INSERT INTO schema_migrations (version) VALUES
 ('20170207195029'),
 ('20170210124019'),
 ('20170210133517'),
-('20170213140513');
+('20170213140513'),
+('20170217132644'),
+('20170217141529');
 
 
