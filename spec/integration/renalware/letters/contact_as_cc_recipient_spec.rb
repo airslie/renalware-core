@@ -63,7 +63,7 @@ RSpec.describe "Assign a person as a CC recipient", type: :feature do
     end
 
     def fill_out_letter
-      fill_in "Date", with: I18n.l(Date.today)
+      fill_in "Date", with: I18n.l(Time.zone.today)
       select Renalware::Letters::Letterhead.first.name, from: "Letterhead"
       select Renalware::User.first.to_s, from: "Author"
       fill_in "Description", with: "::description::"

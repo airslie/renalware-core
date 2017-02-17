@@ -36,7 +36,7 @@ module Renalware::Letters
 
     describe "#current" do
       it "comprises only current prescriptions" do
-        patient.prescriptions << terminated_prescription(terminated_on: Date.today - 1.day)
+        patient.prescriptions << terminated_prescription(terminated_on: Time.zone.today - 1.day)
         patient.prescriptions << current = current_prescription
 
         expect(part.current.to_a).to eq([current])

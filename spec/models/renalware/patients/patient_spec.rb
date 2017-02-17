@@ -3,6 +3,7 @@ require_dependency "models/renalware/concerns/personable"
 
 module Renalware
   describe Patient, type: :model do
+    it { is_expected.to be_versioned }
 
     it_behaves_like "Personable"
 
@@ -11,7 +12,7 @@ module Renalware
         Patient.new(local_patient_id: "1",
                     family_name: "x",
                     given_name: "x",
-                    born_on: Date.today,
+                    born_on: Time.zone.today,
                     nhs_number: "1234567890",
                     by: create(:user))
       end

@@ -11,6 +11,8 @@ module Renalware
 
     enumerize :marital_status, in: %i(married single divorced widowed)
 
+    has_paper_trail class_name: "Renalware::Patients::Version"
+
     serialize :sex, Gender
 
     has_one :current_address, as: :addressable, class_name: "Address"

@@ -7,7 +7,7 @@ module Renalware
       let(:new_episode) { PeritonitisEpisode.new(patient_id: patient.id) }
       let(:existing_episode) { create(:peritonitis_episode, patient: patient) }
       subject { described_class.new(patient: patient, episode: episode) }
-      let(:date) { Date.today }
+      let(:date) { Time.zone.today }
       let(:episode_type_descriptions) do
         [
           create(:peritonitis_episode_type_description),
@@ -21,12 +21,12 @@ module Renalware
           let(:episode) { new_episode }
 
           it "saves a new episode and returns true" do
-            params = { diagnosis_date: Date.today }
+            params = { diagnosis_date: Time.zone.today }
             expect(subject.call(params: params)).to eq(true)
           end
 
           it "saves a new episode and broadcasts success" do
-            params = { diagnosis_date: Date.today }
+            params = { diagnosis_date: Time.zone.today }
             expect { subject.call(params: params) }.to broadcast(:save_success)
           end
         end

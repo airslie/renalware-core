@@ -10,7 +10,7 @@ module Renalware
                           letterhead_id: 1,
                           description: "1",
                           author_id: 1,
-                          issued_on: Date.today)
+                          issued_on: Time.zone.today)
           session = {}
 
           RememberedLetterPreferences.new(session).persist(letter)
@@ -28,7 +28,7 @@ module Renalware
               letterhead_id: 1,
               description: "1",
               author_id: 1,
-              issued_on: Date.today
+              issued_on: Time.zone.today
             }
           }
           letter = OpenStruct.new(letterhead_id: nil,
