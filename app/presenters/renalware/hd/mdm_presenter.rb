@@ -32,6 +32,20 @@ module Renalware
       def audits
         @audits ||= PatientStatistics.for_patient(patient).limit(6).ordered
       end
+
+      def esa_prescriptions
+        @esa_prescriptions ||= begin
+          Medications::PrescriptionsQuery.new(relation: patient.prescriptions)
+            .call
+            .having_drug_of_type("esa")
+            .with_created_by
+            .with_medication_route
+            .with_drugs
+            .with_termination
+            .eager_load(drug: [:drug_types])
+            .map { |prescrip| Medications::PrescriptionPresenter.new(prescrip) }
+        end
+      end
     end
   end
 end

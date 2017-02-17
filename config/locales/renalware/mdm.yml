@@ -23,7 +23,7 @@ en:
       pathology:
         title: Pathology
         view: View
-      prescriptions:
+      current_prescriptions:
         title: Prescriptions
         view: View
       letters:

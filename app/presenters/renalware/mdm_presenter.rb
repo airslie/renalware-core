@@ -17,7 +17,19 @@ module Renalware
       end
     end
 
-    def prescriptions
+    def current_prescriptions
+      @prescriptions ||= begin
+        Medications::PrescriptionsQuery.new(relation: patient.prescriptions.current)
+          .call
+          .with_created_by
+          .with_medication_route
+          .with_drugs
+          .with_termination
+          .map { |prescrip| Medications::PrescriptionPresenter.new(prescrip) }
+      end
+    end
+
+    def esa_prescriptions
       @prescriptions ||= begin
         Medications::PrescriptionsQuery.new(relation: patient.prescriptions.current)
           .call
