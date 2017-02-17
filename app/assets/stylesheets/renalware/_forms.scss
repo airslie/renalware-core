@@ -94,6 +94,7 @@ article {
 		h1 {
 			float: left;
 			font-size: 1.2rem;
+			font-weight: bold;
 			margin: 0 1rem 0 0;
 			padding: 0;
 			a {
@@ -139,12 +140,7 @@ article {
 		}
 	}
 	legend {
-    	font-size: 1.2rem;
-		line-height: 1.1rem;
-		margin: 0;
-		padding: 0;
-		position: absolute;
-			top: 8px; left: 8px;
+    	
     .fieldset-action {
 	    padding-left: 1rem;
 		font-weight: normal;

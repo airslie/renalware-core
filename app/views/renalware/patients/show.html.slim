@@ -12,7 +12,9 @@
 	      .columns.large-4
 	        = render "renalware/patients/show/contact_details", patient: @patient
 	      .columns.large-4
-	        = field_set_tag "Current Address" do
+	        article
+	          header
+	            h1 Current Address
 	          = render @patient.current_address if @patient.current_address
 	      .columns.large-4
 		  	  = render "renalware/patients/show/referral", patient: @patient
