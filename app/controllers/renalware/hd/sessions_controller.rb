@@ -116,7 +116,7 @@ module Renalware
          :hospital_unit_id, :notes,
          :signed_on_by_id, :signed_off_by_id, :type,
          prescription_administrations_attributes: [
-          :id, :hd_session_id, :prescription_id, :administered, :notes
+           :id, :hd_session_id, :prescription_id, :administered, :notes
          ],
          document: []
         ]
