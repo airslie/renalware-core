@@ -1,3 +1,6 @@
+= content_for(:actions) do
+  =link_to "Edit", edit_patient_path(current_patient), class: "button"
+
 = within_patient_layout(title: "Demographics") do
 
   #patient-demographics

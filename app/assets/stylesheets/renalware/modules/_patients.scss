@@ -18,7 +18,7 @@
     padding: 0.2em 0.2em 0.2em 1.2em;
     margin: 0;
     //flex-grow: 2;
-	float: left;
+  float: left;
     width: 50%;
     white-space: nowrap;
 
@@ -60,27 +60,36 @@ ul.provider {
   display: inline-block;
 }
 
-.patient-container {
-	//display:flex;
-	//flex: 1;
-	//position: absolute;
-	//	top: 0; right: 0; bottom: 0; left: 0;
-}
 .patient-content {
-	padding-bottom: 10rem;
-	position: absolute;
-	top: 0;
+  padding-bottom: 10rem;
+  position: absolute;
+  top: 0;
   right: 0;
   bottom: 0;
   left: $patient-side-nav-width;
 	overflow-y: auto;
 }
 .patient-container .patient-content > .row {
-	padding-top: 1.07143rem;
+  padding-top: 1.07143rem;
 }
-.patient-container .patient-content .row > h1 {
-	font-weight: bold;
-	margin-top: 1rem;
+
+.patient-container .patient-content .row .page-heading > h1 {
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.page-heading {
+  height: 5rem;
+  h1 {
+    float: left;
+    clear: left;
+  }
+  .actions {
+    float: left;
+    clear: right;
+    padding-top: 1rem;
+    margin-left: 3rem;
+  }
 }
 
 .patient-header {
@@ -125,7 +134,7 @@ ul.provider {
     }
 
     dd {
-	    color: $white;
+      color: $white;
       display: inline;
       font-size: 1em;
       margin: 0 .5em 0 .1em;

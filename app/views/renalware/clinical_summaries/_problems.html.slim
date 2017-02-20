@@ -2,12 +2,12 @@ article
   header
     h1
       = link_to "Problems (#{problems.length})", patient_problems_path(@patient)
-    
+
     = link_to patient_problems_path(@patient), class: 'button' do
       | Enter problem
-  
+
   ul.no-bullet
     - problems.each do |problem|
       li
-      	= "#{l problem.created_at.to_date} "
+        = "#{l problem.created_at.to_date} "
         = link_to problem.full_description, patient_problem_path(problem.patient, problem)

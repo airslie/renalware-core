@@ -1,12 +1,12 @@
 .accordion .accordion-navigation > .content,
 .accordion dd > .content {
-	color: $nhs-dark-red;
-	font-weight: normal;
-	padding: 0.25rem 0.5rem;
+  color: $nhs-dark-red;
+  font-weight: normal;
+  padding: 0.25rem 0.5rem;
 }
 .accordion-navigation.active {
-	background-color: $white;
-	border-radius: 3px;
+  background-color: $white;
+  border-radius: 3px;
 }
 .accordion .accordion-navigation > a,
 .accordion dd > a {
@@ -16,35 +16,35 @@
   text-decoration: none;
 }
 .accordion-navigation a span {
-	color: $dark-grey;
+  color: $dark-grey;
 }
 .accordion-navigation a .when {
-	font-weight: bold;
+  font-weight: bold;
 }
 .accordion-navigation a .what,
 .accordion-navigation a .about {
-	color: $link-colour;
-	text-decoration: underline;
+  color: $link-colour;
+  text-decoration: underline;
 }
 .accordion-navigation a .whom {
-	color: $nhs-dark-blue;
-	font-weight: bold;
+  color: $nhs-dark-blue;
+  font-weight: bold;
 }
 .accordion .accordion-navigation.active > a,
 .accordion dd.active > a {
-	background-color: $white;
+  background-color: $white;
 }
 .accordion a.toggle-info:hover {
-	background-color: $link-colour;
-	color: $white;
+  background-color: $link-colour;
+  color: $white;
 }
 .accordion a.toggle-info:hover span,
 .accordion a.toggle-info:hover:before {
-	color: $white;
+  color: $white;
 }
 .accordion .active a.toggle-info:hover {
-	border-bottom-left-radius: 0;
-	border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 

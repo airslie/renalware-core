@@ -1,4 +1,4 @@
-= within_patient_layout(title: "Clinic Visit") do
+= within_patient_layout(title: "Edit", breadcrumbs: breadcrumb_for("Clinic Visits", patient_clinic_visits_path)) do
   .document
     = simple_form_for [@patient, @clinic_visit],
       as: :clinic_visit,

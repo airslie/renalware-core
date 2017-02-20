@@ -1,4 +1,6 @@
-= within_patient_layout(title: "Modality History") do
+= within_patient_layout(title: t("new_record.page_title"),
+    breadcrumbs: breadcrumb_for("Modality History", patient_modalities_path(@patient))) do
+
   = render "renalware/shared/errors", model: @modality
 
   .modality-form

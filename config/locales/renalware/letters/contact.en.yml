@@ -16,6 +16,7 @@ en:
       contacts:
         index:
           title: Contacts
+          add_contact: Add
         new:
           title: Add new contact
         form:
@@ -31,7 +32,7 @@ en:
           cancel: Cancel
       navigation:
         list: List
-        add_contact: Add contact
+
     shared:
       fieldset:
         add_contact: Add new person to contacts list

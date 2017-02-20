@@ -2,17 +2,17 @@
   .grid
     .row
       .columns.large-6
-	    #current-problems
-	      = render "problems", problems: clinical_summary.current_problems
-	  
-	  .columns.large-6
-	    #current-prescriptions
-	      = render "prescriptions", prescriptions: clinical_summary.current_prescriptions
-	  
-	  .columns.large-6
-	    #letters
-	      = render "letters", letters: clinical_summary.letters, patient: @patient
-		
+      #current-problems
+        = render "problems", problems: clinical_summary.current_problems
+
+    .columns.large-6
+      #current-prescriptions
+        = render "prescriptions", prescriptions: clinical_summary.current_prescriptions
+
+    .columns.large-6
+      #letters
+        = render "letters", letters: clinical_summary.letters, patient: @patient
+
       .columns.large-6
-	    #events
-	      = render "events", events: clinical_summary.current_events
+      #events
+        = render "events", events: clinical_summary.current_events

@@ -1,2 +1,7 @@
+= content_for(:actions) do
+  = link_to t("new_record.link_title"),
+            new_patient_clinic_visit_path(@patient),
+            class: "button"
+
 = within_patient_layout(title: "Clinic Visits") do
   = render "table", clinic_visits: @clinic_visits

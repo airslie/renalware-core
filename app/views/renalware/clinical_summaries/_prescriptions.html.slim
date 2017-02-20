@@ -7,9 +7,9 @@ article
       | Enter prescription
 
   ul.no-bullet
-	- prescriptions.each do |prescription|
-	  li class="drug-#{drug_types_colour_tag(prescription.drug_types)}"
-	    span #{l prescription.prescribed_on}
-	    = "  #{prescription.drug.name}, "
-	    = "#{prescription.dose}, "
-	    = "#{prescription.medication_route.code} #{prescription.frequency}"
+  - prescriptions.each do |prescription|
+    li class="drug-#{drug_types_colour_tag(prescription.drug_types)}"
+      span #{l prescription.prescribed_on}
+      = "  #{prescription.drug.name}, "
+      = "#{prescription.dose}, "
+      = "#{prescription.medication_route.code} #{prescription.frequency}"

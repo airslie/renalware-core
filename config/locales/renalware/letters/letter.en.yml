@@ -15,3 +15,11 @@ en:
     hints:
       letters_letter:
         notes: These notes will not appear on the letter
+
+  renalware:
+    letters:
+      letters:
+        index:
+          draft_clinical_letter: Clinical Letter
+          draft_clinic_visit_letter: Clinic Visit Letter
+          simple_letter: Simple Letter

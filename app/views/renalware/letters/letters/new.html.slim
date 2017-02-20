@@ -1,4 +1,9 @@
-= within_patient_layout(title: "Letter", skip_top_navigation: true) do
+
+- i18_scope = letter.clinical? ? "clincal" : "simple"
+
+= within_patient_layout(title: t(".#{i18_scope}.page_title"),
+                        breadcrumbs: breadcrumb_for("Letters", patient_letters_letters_path(@patient))) do
+
   = render "letter_nav", patient: patient, letter: letter
 
   .document

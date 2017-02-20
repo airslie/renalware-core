@@ -1,4 +1,6 @@
-= within_patient_layout(title: "New Event") do
+= within_patient_layout(title: t("new_record.page_title"),
+                        breadcrumbs: breadcrumb_for("Events", patient_events_path)) do
+
   = render "renalware/shared/errors", model: @event
 
   .row
