@@ -17,6 +17,7 @@ module Renalware
     config_accessor(:site_name) { "Renalware" }
     config_accessor(:delay_after_which_a_finished_session_becomes_immutable) { 6.hours }
     config_accessor(:salutation_prefix) { "Dear" }
+    config_accessor(:page_title_spearator) { " : " }
   end
 
   def self.config

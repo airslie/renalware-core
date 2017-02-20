@@ -23,6 +23,6 @@ html lang="en"
         .main-content
           = yield
 
-      /- unless user_signed_in?
-      = render "renalware/navigation/footer"
+      - unless user_signed_in?
+        = render "renalware/navigation/footer"
     = javascript_include_tag "application"

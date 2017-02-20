@@ -20,7 +20,7 @@ module World
       end
 
       def find_contact(patient, person_given_name)
-        patient.contacts.find_by(given_name: person_given_name)
+        patient.contacts.find_by_given_name(person_given_name)
       end
 
       def valid_simple_letter_attributes(patient)

@@ -1,13 +1,10 @@
 .row
-  = render "header"
   = render "renalware/shared/errors", model: event_type
 
 .row
   .large-6.columns
     = simple_form_for event_type do |f|
-
       = f.input :name, label: "Event Type"
-
       = f.button :submit
       span= " or "
       = link_to "cancel", events_types_path
