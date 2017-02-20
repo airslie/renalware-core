@@ -12,7 +12,7 @@ module Renalware
       private
 
       def build_header
-        ["description", "result", "date"]
+        %w(description result date)
       end
 
       def build_body(results)

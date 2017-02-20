@@ -67,6 +67,7 @@ module Renalware
           archived_problems: patient.problems.archived.with_created_by.ordered
         }
       end
+
       def problem_params
         params.require(:problems_problem)
               .permit(:description)
