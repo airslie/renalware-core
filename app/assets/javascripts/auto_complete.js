@@ -26,7 +26,7 @@ $(document).on('ready ajaxSuccess', function() {
       appendTo: $(parentForm), // appending to the form resolves issues with autocomplete hidden in modals
       minLength: 2,
       autoFocus: true,
-      open: function() { console.log("as"); $('#div .ui-menu').width(300) },
+      open: function() { $('#div .ui-menu').width(300) },
       source: function(request,response) {
         $.ajax({
           url: url,

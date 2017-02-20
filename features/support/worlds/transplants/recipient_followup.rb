@@ -65,7 +65,7 @@ module World
       def create_recipient_followup(operation:, user:)
         login_as user
         visit patient_transplants_recipient_dashboard_path(operation.patient)
-        within_fieldset "Recipient Operations" do
+        within_article "Recipient Operations" do
           click_on "Enter details"
         end
 
@@ -79,7 +79,7 @@ module World
       def update_recipient_followup(operation:, user:)
         login_as user
         visit patient_transplants_recipient_dashboard_path(operation.patient)
-        within_fieldset "Recipient Operations" do
+        within_article "Recipient Operations" do
           click_on "Update"
         end
 

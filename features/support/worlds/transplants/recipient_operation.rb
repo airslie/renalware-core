@@ -98,7 +98,7 @@ module World
       def update_recipient_operation(patient:, user:)
         login_as user
         visit patient_transplants_recipient_dashboard_path(patient)
-        within_fieldset "Recipient Operations" do
+        within_article "Recipient Operations" do
           click_on "Edit"
         end
 

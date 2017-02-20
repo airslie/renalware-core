@@ -30,7 +30,6 @@ module Renalware
     # :breadcrumbs can be anchors or just a page name, and is single does not need to be an array.
     # :title is normally just a string as it represents the current page, and should not be a link.
     def breadcrumbs_and_title(breadcrumbs: [], title:)
-
       Array(breadcrumbs).map(&:anchor).append(title).join(" / ").html_safe
     end
 
