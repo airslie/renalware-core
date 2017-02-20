@@ -104,6 +104,10 @@ table.auto-layout {
 
 th, td {
   overflow: hidden;
+
+  &.strong {
+    font-weight: bold;
+  }
 }
 
 @media screen and (max-width: 1000px) {

@@ -92,8 +92,6 @@ ruby:
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "HD Drugs", name: "hd_prescriptions" } do
 
-        /- prescriptions_to_be_administered_on_hd.each do |prescription|
-        /h1= f.object.prescription_administrations.length
         = f.simple_fields_for :prescription_administrations, f.object.prescription_administrations do |fpa|
           - presenter = Renalware::Medications::PrescriptionPresenter.new(fpa.object.prescription)
           b= "#{presenter.drug_name}"
