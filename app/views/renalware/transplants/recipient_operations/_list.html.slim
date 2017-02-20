@@ -14,7 +14,10 @@ fieldset.status-history
         th Type
         th Recip Age
         th Donor Type
-        th Site
+        th Donor Age
+        th Recip CMV
+        th Donor CMV
+        th HLA Mismatch
         th Failure Date
         th Failure Cause
         th Followup
@@ -27,7 +30,10 @@ fieldset.status-history
             td= operation.operation_type.text
             td= operation.recipient_age_at_operation
             td= operation.document.donor.type.try(:text)
-            td= operation.hospital_centre
+            td= operation.donor_age_at_operation
+            td= operation.document.recipient.cmv_status.try(:text)
+            td= operation.document.donor.cmv_status.try(:text)
+            td= operation.document.donor.hla_mismatch
             - if operation.followup
               td= l operation.followup.transplant_failed_on
               td= operation.followup.transplant_failure_cause_description

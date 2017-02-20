@@ -73,6 +73,14 @@ module Renalware
           ).compute
       end
 
+      def donor_age_at_operation
+        @donor_age_at_operation ||=
+          AutomaticAgeCalculator.new(
+            Age.new,
+            born_on: document.donor.born_on, age_on_date: performed_on
+          ).compute
+      end
+
       private
 
       def compute_donor_age
