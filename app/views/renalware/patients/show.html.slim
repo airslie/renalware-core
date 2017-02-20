@@ -3,8 +3,8 @@
   #patient-demographics
     .grid
       .row
-      	  .columns.large-4
-      	    = render "renalware/patients/show/patient_demographics", patient: @patient
+      	.columns.large-4
+      	   = render "renalware/patients/show/patient_demographics", patient: @patient
 	      .columns.large-4
 	        = render "renalware/patients/show/primary_care_physician", patient: @patient
 	      .columns.large-4
@@ -18,4 +18,3 @@
 	          = render @patient.current_address if @patient.current_address
 	      .columns.large-4
 		  	  = render "renalware/patients/show/referral", patient: @patient
-

@@ -1,4 +1,4 @@
-= within_patient_layout(title: "Demographics") do
+= within_patient_layout(title: "Edit", breadcrumbs: breadcrumb_for("Demographics", @patient)) do
 
   .document
     = simple_form_for @patient, wrapper: "horizontal_form" do |f|

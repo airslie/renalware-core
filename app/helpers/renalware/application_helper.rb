@@ -12,6 +12,28 @@ module Renalware
       ].compact.join(separator)
     end
 
+    def breadcrumb_for(title, url)
+      Renalware::Breadcrumb.new(title: title, anchor: link_to(title, url))
+    end
+
+    # Example usage for the edit patient (demographics) page
+    # breadcrumbs_and_title(
+    #   breadcrumbs: [
+    #     Renalware::Breadcrumb.new(title: "Demographics",
+    #                               anchor: link_to("Demographics", patient_path)
+    #   ],
+    #   title: "Edit"
+    # )
+    # Returns
+    #   Demographics / Edit
+    # where Demographics is a link back in the navigation, like a true breadcrumb.
+    # :breadcrumbs can be anchors or just a page name, and is single does not need to be an array.
+    # :title is normally just a string as it represents the current page, and should not be a link.
+    def breadcrumbs_and_title(breadcrumbs: [], title:)
+
+      Array(breadcrumbs).map(&:anchor).append(title).join(" / ").html_safe
+    end
+
     def flash_messages
       flash.to_hash.reject{ |key| key.to_sym == :timedout }
     end
