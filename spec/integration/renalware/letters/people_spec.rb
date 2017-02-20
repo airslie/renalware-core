@@ -39,7 +39,7 @@ RSpec.describe "Add person to directory and assign as a contact for a patient",
     end
 
     def try_create_contact_with_valid_params
-      click_on "Add contact"
+      click_on "Add"
 
       within("#add-patient-contact-modal") do
         click_on "Person not found in directory"
@@ -58,7 +58,7 @@ RSpec.describe "Add person to directory and assign as a contact for a patient",
     end
 
     def try_create_contact_with_invalid_params
-      click_on "Add contact"
+      click_on "Add"
 
       within("#add-patient-contact-modal") do
         click_on "Person not found in directory"

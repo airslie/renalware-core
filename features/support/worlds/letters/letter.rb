@@ -20,7 +20,7 @@ module World
       end
 
       def find_contact(patient, person_given_name)
-        patient.contacts.find_by_given_name(person_given_name)
+        patient.contacts.find_by(given_name: person_given_name)
       end
 
       def valid_simple_letter_attributes(patient)
@@ -286,7 +286,8 @@ module World
       def draft_simple_letter(patient:, user:, issued_on:, recipient:, ccs: nil)
         login_as user
         visit patient_letters_letters_path(patient)
-        click_on "Draft Simple Letter"
+        click_on "Draft"
+        click_on "Simple Letter"
 
         attributes = valid_simple_letter_attributes(patient)
         fill_in "Date", with: I18n.l(attributes[:issued_on]) if issued_on.present?

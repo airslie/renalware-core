@@ -36,7 +36,7 @@ RSpec.describe "Assign a contact to a patient", type: :feature, js: true do
     end
 
     def try_create_contact_with_valid_params
-      click_on "Add contact"
+      click_on "Add"
 
       within("#add-patient-contact-modal") do
         fill_autocomplete "#add-patient-contact-modal", "person_auto_complete",
@@ -50,7 +50,7 @@ RSpec.describe "Assign a contact to a patient", type: :feature, js: true do
     end
 
     def try_create_contact_with_invalid_params
-      click_on "Add contact"
+      click_on "Add"
 
       within("#add-patient-contact-modal") do
         click_on "Save"

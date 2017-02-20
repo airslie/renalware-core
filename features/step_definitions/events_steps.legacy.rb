@@ -3,7 +3,7 @@ Given(/^Clyde is on Patty's event index$/) do
 end
 
 When(/^Clyde chooses to add an event$/) do
-  click_on "Add event"
+  click_on "Add"
 end
 
 When(/^records Patty's event$/) do
