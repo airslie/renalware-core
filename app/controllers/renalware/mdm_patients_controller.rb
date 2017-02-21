@@ -9,42 +9,21 @@ module Renalware
     include PresenterHelper
 
     def render_index(**args)
-      presenter = BuildPresenter.new(params: params, **args).call
+      presenter = build_presenter(params: params, **args)
       authorize presenter.patients
       render :index, locals: { presenter: presenter }
     end
 
-    class BuildPresenter
-      attr_reader :modalities, :page_title, :view_proc, :patient_relation, :params
+    def build_presenter(**args)
+      params = args.fetch(:params)
+      query  = args.fetch(:query)
 
-      def initialize(**args)
-        @modalities = args.fetch(:modalities)
-        @page_title = args.fetch(:page_title)
-        @view_proc = args.fetch(:view_proc)
-        @patient_relation = args.fetch(:patient_relation)
-        @params = args.fetch(:params)
-      end
-
-      def call
-        MDMPatientsPresenter.new(
-          patients: patients,
-          page_title: page_title,
-          view_proc: view_proc,
-          q: query.search
-        )
-      end
-
-      private
-
-      def query
-        @query ||= Patients::MDMPatientsQuery.new(relation: patient_relation,
-                                                  modality_names: modalities,
-                                                  q: params[:q])
-      end
-
-      def patients
-        @patients ||= query.call.page(params[:page])
-      end
+      MDMPatientsPresenter.new(
+        patients: query.call.page(params[:page]),
+        page_title: args.fetch(:page_title),
+        view_proc: args.fetch(:view_proc),
+        q: query.search
+      )
     end
   end
 end

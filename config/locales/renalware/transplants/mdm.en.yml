@@ -4,3 +4,8 @@ en:
       mdm_patients:
         index:
           page_title: Transplant MDM Patients
+        filters:
+          filter:
+            all: All
+            recent: Recent
+            on_worryboard: On Worryboard
