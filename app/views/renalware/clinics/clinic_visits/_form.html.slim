@@ -39,4 +39,10 @@
         .row
           .columns.large-12
             = snippets_modal_and_link_to_open_it(target_input_for_seleted_snippet: "#clinic_visit_notes")
-            = f.input :notes, as: :text, label: false, input_html: { columns: 50, rows: 5 }
+            = f.text_area :notes, { rows: 15 }
+
+      fieldset
+        legend Admin Notes
+        .row
+          .columns.large-12
+            = f.text_area :admin_notes, { rows: 5 }

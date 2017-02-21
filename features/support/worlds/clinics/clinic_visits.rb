@@ -17,11 +17,13 @@ module World
           Renalware::Clinics::ClinicVisit.create(
             patient: patient,
             clinic: clinic,
-            date: Time.now,
+            date: Time.zone.now,
             height: 1.7,
             weight: 71,
             systolic_bp: 112,
             diastolic_bp: 71,
+            notes: "Notes",
+            admin_notes: "Admin notes",
             created_by: user,
             updated_by: user
           )
@@ -37,6 +39,8 @@ module World
             clinic: clinic,
             height: 1.71,
             weight: 75.0,
+            notes: "Updated notes",
+            admin_notes: "Updated admin notes",
             by: user
           )
         end
@@ -55,6 +59,8 @@ module World
           expect(clinic_visit.clinic_id).to eq(expected_clinic.id)
           expect(clinic_visit.height).to eq(1.71)
           expect(clinic_visit.weight).to eq(75)
+          expect(clinic_visit.notes).to eq("Updated notes")
+          expect(clinic_visit.admin_notes).to eq("Updated admin notes")
         end
       end
 
@@ -72,6 +78,8 @@ module World
             fill_in "Height", with: "1.78"
             fill_in "Weight", with: "82.5"
             fill_in "Blood Pressure", with: "110/75"
+            find("textarea[name='clinic_visit[notes]']").set("Notes")
+            find("textarea[name='clinic_visit[admin_notes]']").set("Admin notes")
 
             click_on "Save"
           end
@@ -88,6 +96,8 @@ module World
           fill_in "Height", with: "1.71"
           fill_in "Weight", with: "75"
           fill_in "Blood Pressure", with: "128/95"
+          find("textarea[name='clinic_visit[notes]']").set("Updated notes")
+          find("textarea[name='clinic_visit[admin_notes]']").set("Updated admin notes")
 
           click_on "Update"
         end

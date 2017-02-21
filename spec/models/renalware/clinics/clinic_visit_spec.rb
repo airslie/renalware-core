@@ -2,14 +2,14 @@ require "rails_helper"
 
 describe Renalware::Clinics::ClinicVisit, type: :model do
   it { is_expected.to be_versioned }
-  it { should belong_to :patient }
+  it { is_expected.to belong_to :patient }
 
-  it { should validate_presence_of :date }
-  it { should_not validate_presence_of :time }
-  it { should validate_presence_of :clinic }
-
+  it { is_expected.to validate_presence_of :date }
+  it { is_expected.to validate_presence_of :clinic }
   it { is_expected.to validate_timeliness_of(:date) }
   it { is_expected.to validate_timeliness_of(:time) }
+  it { is_expected.to_not validate_presence_of :time }
+  it { is_expected.to_not validate_presence_of(:admin_notes) }
 
   describe "bmi" do
     let(:patient) { Renalware::Clinics.cast_patient(create(:patient)) }

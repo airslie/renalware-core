@@ -47,7 +47,7 @@ module Renalware
 
       def last_height_measurement
         last_visit = @patient.clinic_visits.order(created_at: :desc).first
-        last_visit.try!(:height)
+        last_visit&.height
       end
 
       def load_patient
@@ -58,7 +58,7 @@ module Renalware
       def clinic_visit_params
         params.require(:clinic_visit).permit(
           :date, :time, :clinic_id, :height, :weight,
-          :bp, :urine_blood, :urine_protein, :notes
+          :bp, :urine_blood, :urine_protein, :notes, :admin_notes
         ).merge(by: current_user)
       end
 
