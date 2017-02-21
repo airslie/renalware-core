@@ -2230,7 +2230,9 @@ CREATE TABLE patient_ethnicities (
     id integer NOT NULL,
     name character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    cfh_name character varying,
+    rr18_code character varying
 );
 
 
@@ -8589,6 +8591,7 @@ INSERT INTO schema_migrations (version) VALUES
 ('20170213140513'),
 ('20170217132644'),
 ('20170217141529'),
-('20170217161409');
+('20170217161409'),
+('20170220150611');
 
 
