@@ -1,9 +1,9 @@
-/ a.trigger-full-screen Full screen
+- content_for(:header) do
+  = render "renalware/patients/header", patient: mdm.patient, back_path: :back
+
+/ TODO: a.trigger-full-screen Full screen
 .full-screen-container.row.mdm-page.no-side-gutters
   .columns.small-12
-    .row.collapse
-      .columns.small-12
-        = render "renalware/patients/header", patient: mdm.patient, back_path: :back
     .row.collapse= render_if_exists "top", mdm: mdm
     .row.collapse= render "pathology", mdm: mdm
     .row.collapse= render_if_exists "middle", mdm: mdm
