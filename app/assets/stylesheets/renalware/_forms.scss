@@ -121,7 +121,7 @@ article {
     width: 100%;
     li {
       border-bottom: 1px dotted $iron;
-      font-weight: bold;
+      // font-weight: bold;
       padding-bottom: 0.2rem;
       a {
         font-weight: normal;
@@ -135,19 +135,18 @@ article {
     li[class^="drug-"] {
       font-weight: normal;
       span {
-      font-weight: bold;
+        font-weight: bold;
       }
     }
   }
-  legend {
 
+  legend {
     .fieldset-action {
       padding-left: 1rem;
-    font-weight: normal;
-    font-size: 1rem;
+      font-weight: normal;
+      font-size: 1rem;
     }
-
-}
+  }
 
   dt {
     font-weight: normal;

@@ -9,5 +9,6 @@ article
   ul.no-bullet
     - problems.each do |problem|
       li
-        = "#{l problem.created_at.to_date} "
-        = link_to problem.full_description, patient_problem_path(problem.patient, problem)
+        = problem.full_description
+        = " - #{l(problem.created_at.to_date)}"
+
