@@ -13,7 +13,7 @@ tr
     td= letter.state
   td= l letter.issued_on
   td= letter.author
-  td= letter.main_recipient.address
+  td.recipient= letter.main_recipient.address
   td= letter.description
   - unless compact
     td= l letter.updated_at

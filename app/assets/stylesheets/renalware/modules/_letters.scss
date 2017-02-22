@@ -14,13 +14,22 @@
   }
 }
 
-.letters .quick-preview p {
-  font-size: 0.9rem;
-  line-height: 1.0rem;
-}
+.letters {
+  .quick-preview p {
+    font-size: 0.9rem;
+    line-height: 1.0rem;
+  }
 
-.letters td {
-  vertical-align: top;
+  td {
+    vertical-align: top;
+
+    &.recipient {
+      max-width: 200px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
 }
 
 #add-patient-contact-as-cc-modal {
