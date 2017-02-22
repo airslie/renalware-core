@@ -1,6 +1,6 @@
 = within_patient_layout(**local_assigns) do
 
-    = field_set_tag "Treatment" do
+    = article_tag "Treatment" do
 
       .flex-container
 
@@ -16,11 +16,11 @@
           dt On additional HD?:
           dd= yes_no(pd_regime.add_hd)
 
-        = render"renalware/pd/regimes/glucose", regime: pd_regime
+          = render"renalware/pd/regimes/glucose", regime: pd_regime
 
     - if pd_regime.type == "Renalware::PD::APDRegime"
       = render partial: "renalware/pd/regimes/apd_regime_show", locals: local_assigns
 
-    = field_set_tag "Bags" do
+    = article_tag "Bags" do
       = render "renalware/pd/regime_bags/regime_bags", regime: pd_regime
 

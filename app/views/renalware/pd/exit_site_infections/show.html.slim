@@ -5,15 +5,15 @@
 
   /= section(title: "Infection") do
   /  = render "details", patient: @patient, exit_site_infection: @exit_site_infection
-  = field_set_tag "Infection" do
+  = article_tag "Infection" do
     = render "details", patient: @patient, exit_site_infection: @exit_site_infection
 
-  = field_set_tag "Organisms/Sensitivity" do
+  = article_tag "Organisms/Sensitivity" do
     = render "renalware/pd/infection_organisms/index",
         infectable: @exit_site_infection,
         infection_organisms: @exit_site_infection.infection_organisms
 
-  = field_set_tag "Antibiotics/Routes" do
+  = article_tag "Antibiotics/Routes" do
     = render "renalware/medications/prescriptions/index",
         patient: @patient,
         treatable: @treatable,

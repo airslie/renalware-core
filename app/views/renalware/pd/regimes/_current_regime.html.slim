@@ -1,11 +1,11 @@
 - current = current_regime
 - pd_type = current.pd_type&.to_s&.upcase
 
-= field_set_tag "Current #{pd_type} Regime",
-                class: "current-regime",
-                data: { "regime-id" => current.id } do
+= article_tag "Current #{pd_type} Regime",
+              class: "current-regime",
+              data: { "regime-id" => current.id }
 
-  .flex-container
+  .columns.medium-6
 
     dl.dl-horizontal.pd-regime-details.xlarge
       dt Regime Start Date:
@@ -17,10 +17,10 @@
       dt On additional HD?:
       dd= yes_no(current.add_hd)
 
-    = render"renalware/pd/regimes/glucose", regime: current
+      = render"renalware/pd/regimes/glucose", regime: current
 
-    - if current.type == "Renalware::PD::APDRegime"
-      = render partial: "renalware/pd/regimes/current_apd_regime", locals: { current: current }
+  - if current.type == "Renalware::PD::APDRegime"
+    = render partial: "renalware/pd/regimes/current_apd_regime", locals: { current: current }
 
   .row
     .large-12.columns

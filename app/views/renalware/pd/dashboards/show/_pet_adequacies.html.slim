@@ -1,4 +1,4 @@
-= field_set_tag "PET/Adequacies (#{pet_adequacies.length})", class: "pet-adequacies" do
+= article_tag "PET/Adequacies (#{pet_adequacies.length})", class: "pet-adequacies" do
   - if pet_adequacies.empty?
     .call-to-action
       = link_to new_patient_pd_pet_adequacy_result_path(patient) do

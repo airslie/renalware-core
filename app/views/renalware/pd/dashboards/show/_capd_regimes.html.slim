@@ -1,4 +1,4 @@
-= field_set_tag "CAPD Regimes (#{capd_regimes.length})", class: "capd-regimes-group" do
+= article_tag "CAPD Regimes (#{capd_regimes.length})", class: "capd-regimes-group" do
   - if capd_regimes.empty?
     .call-to-action
       = link_to new_patient_pd_regime_path(patient, type: "PD::CAPDRegime") do
