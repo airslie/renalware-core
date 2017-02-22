@@ -2,7 +2,7 @@
   h1= presenter.page_title
 
 .row
-  = render_if_exists "filters"
+  = render_if_exists "filters", presenter: presenter
 .row
   table#patients.mdm-patients
     thead

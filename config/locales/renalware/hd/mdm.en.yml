@@ -4,6 +4,9 @@ en:
       mdm_patients:
         index:
           page_title: HD MDM Patients
+        filters:
+          hospital_unit: Hosp. Unit
+          schedule: Schedule
       mdm:
         en:
         hd_profile:
@@ -34,10 +37,10 @@ en:
           highest_systolic_blood_pressure: Highest syst BP
           mean_fluid_removal: Mean fluid removal
           mean_weight_loss: Mean weight loss
-          mean_machine_ktv: Mean machine KTv
+          mean_machine_ktv: Mean mach. KTv
           mean_ufr: Mean UFR (ml/hr/kg)
           mean_blood_flow: Mean blood flow
-          mean_litres_processed: Mean litres processed
+          mean_litres_processed: Mean litres proc.
           number_of_sessions: Sessions
           dialysis_minutes_shortfall: Missed HD time
         pathology:

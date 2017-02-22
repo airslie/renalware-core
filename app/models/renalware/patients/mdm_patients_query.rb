@@ -1,12 +1,27 @@
 module Renalware
   module Patients
     class MDMPatientsQuery
+      attr_reader :modality_names, :q, :relation
+
       # modality_names: eg "HD" or ["APD", "CAPD", "PD"]
-      def self.call(relation: Patient.all, modality_names:)
-        relation
-          .extending(Scopes)
-          .with_current_modality_matching(modality_names)
-          .includes(:modality_description)
+      def initialize(modality_names:, q:, relation: Patient.all)
+        @modality_names = modality_names
+        @q = q
+        @relation = relation
+      end
+
+      def call
+        search.result
+      end
+
+      def search
+        @search ||= begin
+          relation
+            .extending(Scopes)
+            .with_current_modality_matching(modality_names)
+            .includes(:modality_description)
+            .search(q)
+        end
       end
 
       module Scopes

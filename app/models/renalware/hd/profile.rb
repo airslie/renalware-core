@@ -23,7 +23,6 @@ module Renalware
       validates :prescriber, presence: true
 
       delegate :hospital_centre, to: :hospital_unit, allow_nil: true
-
     end
   end
 end

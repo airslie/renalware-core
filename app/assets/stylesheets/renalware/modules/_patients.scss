@@ -76,6 +76,12 @@ ul.provider {
   color: $white;
   padding-top: 0.3rem;
 
+  .back-link {
+    a {
+      color: $white;
+    }
+  }
+
   &.header {
     border-color: $patient-header-bg-color;
   }
