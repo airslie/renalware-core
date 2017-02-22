@@ -10,8 +10,8 @@ tr
 
   - unless compact
     td= letter.type
-    td= letter.state
-  td= l letter.issued_on
+  td= letter.state
+  td= l(letter.issued_on)
   td= letter.author
   td.recipient= letter.main_recipient.address
   td= letter.description

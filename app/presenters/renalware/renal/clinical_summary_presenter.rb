@@ -41,11 +41,12 @@ module Renalware
       def find_letters
         patient = Renalware::Letters.cast_patient(@patient)
         patient.letters
-               .approved
+               .with_main_recipient
                .with_letterhead
                .with_author
                .with_patient
                .limit(6)
+               .order(issued_on: :desc)
       end
 
       def present_letters(letters)
