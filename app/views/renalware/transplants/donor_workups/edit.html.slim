@@ -1,4 +1,9 @@
-= within_patient_layout(title: "Transplant Donor Workup") do
+= within_patient_layout(title: "Edit",
+                        breadcrumbs: [ breadcrumb_for("Transplant Donor Summary",
+                                                      patient_transplants_donor_dashboard_path(@patient)),
+                                       breadcrumb_for("Workup",
+                                                      patient_transplants_donor_workup_path(@patient))]) do
+  /= within_patient_layout(title: "Transplant Donor Workup") do
   .document
     = simple_form_for @workup,
         url: patient_transplants_donor_workup_path(@patient),

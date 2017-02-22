@@ -1,5 +1,5 @@
-.columns.small-12.medium-6.large-4.xlarge-3
-  div data-magellan-destination="#{destination}"
-    a name="#{destination}"
+.columns.small-12.medium-6.large-6.xlarge-4
+  div data-magellan-destination="#{local_assigns[:destination]}"
+    a name="#{local_assigns[:destination]}"
     = article_tag(legend) do
       = yield
