@@ -1769,6 +1769,69 @@ ALTER SEQUENCE modality_reasons_id_seq OWNED BY modality_reasons.id;
 
 
 --
+-- Name: pathology_observation_descriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_observation_descriptions (
+    id integer NOT NULL,
+    code character varying NOT NULL,
+    name character varying
+);
+
+
+--
+-- Name: pathology_observation_requests; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_observation_requests (
+    id integer NOT NULL,
+    requestor_order_number character varying,
+    requestor_name character varying NOT NULL,
+    requested_at timestamp without time zone NOT NULL,
+    patient_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    description_id integer NOT NULL
+);
+
+
+--
+-- Name: pathology_observations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_observations (
+    id integer NOT NULL,
+    result character varying NOT NULL,
+    comment text,
+    observed_at timestamp without time zone NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    description_id integer NOT NULL,
+    request_id integer
+);
+
+
+--
+-- Name: pathology_current_observations; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW pathology_current_observations AS
+ SELECT DISTINCT ON (pathology_observation_requests.patient_id, pathology_observation_descriptions.id) pathology_observations.id,
+    pathology_observations.result,
+    pathology_observations.comment,
+    pathology_observations.observed_at,
+    pathology_observations.description_id,
+    pathology_observations.request_id,
+    pathology_observation_descriptions.code AS description_code,
+    pathology_observation_descriptions.name AS description_name,
+    pathology_observation_requests.patient_id
+   FROM ((pathology_observations
+     LEFT JOIN pathology_observation_requests ON ((pathology_observations.request_id = pathology_observation_requests.id)))
+     LEFT JOIN pathology_observation_descriptions ON ((pathology_observations.description_id = pathology_observation_descriptions.id)))
+  ORDER BY pathology_observation_requests.patient_id, pathology_observation_descriptions.id, pathology_observations.observed_at DESC;
+
+
+--
 -- Name: pathology_labs; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1798,17 +1861,6 @@ ALTER SEQUENCE pathology_labs_id_seq OWNED BY pathology_labs.id;
 
 
 --
--- Name: pathology_observation_descriptions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE pathology_observation_descriptions (
-    id integer NOT NULL,
-    code character varying NOT NULL,
-    name character varying
-);
-
-
---
 -- Name: pathology_observation_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -1828,22 +1880,6 @@ ALTER SEQUENCE pathology_observation_descriptions_id_seq OWNED BY pathology_obse
 
 
 --
--- Name: pathology_observation_requests; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE pathology_observation_requests (
-    id integer NOT NULL,
-    requestor_order_number character varying,
-    requestor_name character varying NOT NULL,
-    requested_at timestamp without time zone NOT NULL,
-    patient_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    description_id integer NOT NULL
-);
-
-
---
 -- Name: pathology_observation_requests_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -1860,22 +1896,6 @@ CREATE SEQUENCE pathology_observation_requests_id_seq
 --
 
 ALTER SEQUENCE pathology_observation_requests_id_seq OWNED BY pathology_observation_requests.id;
-
-
---
--- Name: pathology_observations; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE pathology_observations (
-    id integer NOT NULL,
-    result character varying NOT NULL,
-    comment text,
-    observed_at timestamp without time zone NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    description_id integer NOT NULL,
-    request_id integer
-);
 
 
 --
@@ -8705,6 +8725,7 @@ INSERT INTO schema_migrations (version) VALUES
 ('20170217141529'),
 ('20170217161409'),
 ('20170220150611'),
+('20170222135148'),
 ('20170227154311'),
 ('20170228131923');
 

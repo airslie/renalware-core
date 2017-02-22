@@ -18,6 +18,15 @@ module Renalware
 
       # rubocop:disable Metrics/MethodLength
       def call
+        # Note:
+        #
+        #   CurrentObservation.where(patient: @patient, description_name: @descriptions.map(&:name))
+        #
+        # is potentially a replacement for the SQL below, but it does not return
+        # null values. We'd need a bit of SQL to join again onto pathology_observation_descriptions
+        # and fill the missing observations with NULLs in order to keep the output of this query
+        # the same.
+
         Observation
           .includes(:description)
           .select(<<-SQL)
