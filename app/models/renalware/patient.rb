@@ -95,6 +95,7 @@ module Renalware
 
     # rubocop:disable Style/MultilineTernaryOperator
     def age
+      return unless born_on
       now = Time.now.utc.to_date
       now.year - born_on.year - (
         (now.month > born_on.month ||
