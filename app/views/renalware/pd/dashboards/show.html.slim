@@ -1,18 +1,5 @@
 = content_for(:actions) do
-  = link_to "View MDM", patient_pd_mdm_path(@patient), class: "button secondary"
-  = blank_separator
-  = blank_separator
-  a.button.dropdown(href="#"
-                         data-dropdown="draft-letter-options"
-                         aria-controls="draft-letter-options"
-                         aria-expanded="false")
-    | Add
-  br
-  ul.f-dropdown#draft-letter-options(data-dropdown-content aria-hidden="true")
-    li= link_to "CAPD Regime", new_patient_pd_regime_path(@patient, type: "PD::CAPDRegime")
-    li= link_to "APD Regime", new_patient_pd_regime_path(@patient, type: "PD::APDRegime")
-    li= link_to "Peritonitis Episode", new_patient_pd_peritonitis_episode_path(@patient)
-    li= link_to "Exit Site Infection", new_patient_pd_exit_site_infection_path(@patient)
+  =render "renalware/pd/dashboards/show/page_actions", patient: patient
 
 = within_patient_layout do
   - if dashboard.current_regime.present?
