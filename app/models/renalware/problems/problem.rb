@@ -14,6 +14,7 @@ module Renalware
 
       scope :ordered, -> { order(position: :asc) }
       scope :with_notes, -> { includes(:notes) }
+      scope :with_patient, ->{ includes(:patient) }
 
       validates :patient, presence: true
       validates :description, presence: true
@@ -51,7 +52,7 @@ module Renalware
       end
 
       def self.reject_if_proc
-        Proc.new { |attrs| attrs[:description].blank? }
+        proc { |attrs| attrs[:description].blank? }
       end
 
       def full_description

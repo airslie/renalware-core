@@ -44,7 +44,7 @@ module Renalware
                 in: DoseUnit.codes,
                 i18n_scope: "enumerize.renalware.medications.prescription.dose_unit"
 
-      scope :ordered, -> { order(default_search_order) }
+      scope :ordered, -> { includes(:drug).order("drugs.name") }
       scope :with_medication_route, -> { includes(:medication_route) }
       scope :with_drugs, -> { includes(drug: :drug_types) }
       scope :with_termination, -> { includes(termination: [:created_by]) }
@@ -65,8 +65,9 @@ module Renalware
       }
       scope :to_be_administered_on_hd, -> { current.where(administer_on_hd: true) }
 
+      # This is a Ransack-compatible search predicate
       def self.default_search_order
-        "prescribed_on ASC"
+        "drug_name"
       end
 
       def self.policy_class

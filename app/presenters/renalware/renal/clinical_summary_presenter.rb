@@ -11,15 +11,19 @@ module Renalware
       def current_prescriptions
         @current_prescriptions ||= begin
           prescriptions = @patient.prescriptions
+                                  .includes(drug: [:drug_types])
+                                  .includes(:medication_route)
                                   .current
-                                  .includes([:medication_route, drug: [:drug_types]])
                                   .ordered
           CollectionPresenter.new(prescriptions, Medications::PrescriptionPresenter)
         end
       end
 
       def current_problems
-        @current_problems ||= @patient.problems.current.ordered
+        @current_problems ||= @patient.problems
+                                      .current
+                                      .with_patient
+                                      .ordered
       end
 
       def current_events
@@ -37,10 +41,8 @@ module Renalware
         patient = Renalware::Letters.cast_patient(@patient)
         patient.letters
                .approved
-               .with_main_recipient
                .with_letterhead
                .with_author
-               .with_event
                .with_patient
                .limit(6)
                .reverse
