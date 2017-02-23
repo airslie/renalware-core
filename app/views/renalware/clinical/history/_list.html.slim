@@ -1,6 +1,10 @@
 article
   header
     h1 History
+    / Link to launch the modal dialog
+    = link_to t(".edit"), "#",
+              class: "button",
+              data: { "reveal-id" => "update-history-modal" }
   dl.dl-horizontal
     dt Smoking
     dd= profile.smoking_history.try!(:text)
@@ -8,6 +12,5 @@ article
     dd= profile.alcohol_history.try!(:text)
 
   = render "renalware/clinical/history/update",
-           link_text: t(".edit"),
            patient: profile.patient
-  br
+

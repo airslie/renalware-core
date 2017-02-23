@@ -6,7 +6,8 @@
         | Enter CAPD Regime
   - else
     = render "renalware/pd/capd_regimes", local_assigns
-    .right
-      = link_to "Add CAPD Regime",
-                new_patient_pd_regime_path(patient, type: "PD::CAPDRegime"),
-                class: "button tiny"
+
+    / .right
+    /   = link_to "Add CAPD Regime",
+    /             new_patient_pd_regime_path(patient, type: "PD::CAPDRegime"),
+    /             class: 'button tiny'

@@ -6,7 +6,8 @@
         | Enter APD Regime
   - else
     = render "renalware/pd/apd_regimes", local_assigns
-    .right
-      = link_to "Add APD Regime",
-                new_patient_pd_regime_path(patient, type: "PD::APDRegime"),
-                class: "button tiny"
+    / .right
+    /   = link_to "Add APD Regime",
+    /             new_patient_pd_regime_path(patient, type: "PD::APDRegime"),
+    /             class: 'button tiny'
+

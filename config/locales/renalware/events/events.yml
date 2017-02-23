@@ -1,0 +1,10 @@
+en:
+  renalware:
+    events:
+      events:
+        table:
+          created_at: Added
+          type: Type
+          description: Description
+          date_time: Date/Time
+          created_by: Created by

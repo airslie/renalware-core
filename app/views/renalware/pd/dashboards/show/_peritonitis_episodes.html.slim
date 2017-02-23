@@ -5,8 +5,9 @@
                 i.fa.fa-plus-circle
                 | Enter Peritonitis Episode
   - else
-    = render "renalware/pd/peritonitis_episodes", local_assigns
-    .right
-      = link_to "Add Peritonitis Episode",
-                new_patient_pd_peritonitis_episode_path(patient),
-                class: "button tiny"
+
+    / = render "renalware/pd/peritonitis_episodes", local_assigns
+    / .right
+    /   = link_to "Add Peritonitis Episode",
+    /             new_patient_pd_peritonitis_episode_path(patient),
+    /             class: 'button tiny'

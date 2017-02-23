@@ -2,7 +2,9 @@
   button.button.dropdown(href="#"
                          data-dropdown="draft-letter-options"
                          aria-controls="draft-letter-options"
-                         aria-expanded="false") Draft
+                         aria-expanded="false")
+    | Create a Draft
+    /span &hellip;
   br
   ul.f-dropdown#draft-letter-options(data-dropdown-content aria-hidden="true")
     li= link_to(t(".draft_clinical_letter"), new_patient_letters_letter_path(@patient, clinical: true))
@@ -11,7 +13,3 @@
 
 = within_patient_layout(title: "Letters") do
   = render "table", letters: letters
-
-/draft_clinic_letter: Clinical Letter
-/draft_clinic_visit_letter: Clinic Visit Letter
-/simple_letter: Simple Letter

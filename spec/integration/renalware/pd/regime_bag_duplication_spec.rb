@@ -10,7 +10,8 @@ module Renalware
 
     scenario "duplicate an existing bag" do
       visit patient_pd_dashboard_path(@patient)
-      click_link "Add APD Regime"
+      click_link "Add"
+      click_link "APD Regime"
 
       fill_in "Start date", with: "25/05/2015"
       fill_in "* Fill volume (ml)", with: "2500"

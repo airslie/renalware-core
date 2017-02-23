@@ -6,10 +6,9 @@
         |
         = t(".add_pet_adequacy")
   - else
-    = render "renalware/pd/pet_adequacies", local_assigns
-    .right
-      = link_to t(".add_pet_adequacy"),
-                new_patient_pd_pet_adequacy_result_path(patient),
-                class: "button tiny"
 
-
+    / = render "renalware/pd/pet_adequacies", local_assigns
+    / .right
+    /   = link_to t(".add_pet_adequacy"),
+    /             new_patient_pd_pet_adequacy_result_path(patient),
+    /             class: 'button tiny'
