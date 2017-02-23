@@ -1,40 +1,41 @@
-.form-content
+.columns.large-12
   = field_set_tag do
     legend Patient Demographics
 
-    = patient.input :nhs_number, label: "NHS Number", input_html: { class: "small-input" }
-    = patient.input :local_patient_id, label: "Local Patient ID", input_html: { class: "small-input" }
-    = patient.input :title, input_html: { class: "very-tiny-input" }
-    = patient.input :family_name, input_html: { class: "small-input" }
-    = patient.input :given_name, input_html: { class: "small-input" }
-    = patient.input :suffix, input_html: { class: "very-tiny-input" }
-    = patient.input :email, input_html: { class: "small-input" }
-    = patient.input :telephone1, input_html: { class: "small-input" }
-    = patient.input :telephone2, input_html: { class: "small-input" }
+    = patient.input :nhs_number, label: "NHS Number", wrapper: :horizontal_small
+    = patient.input :local_patient_id, label: "Local Patient ID", wrapper: :horizontal_small
+    = patient.input :title, wrapper: :horizontal_tiny
+    = patient.input :family_name, wrapper: :horizontal_small
+    = patient.input :given_name, wrapper: :horizontal_small
+    = patient.input :suffix, wrapper: :horizontal_small
+    = patient.input :email, wrapper: :horizontal_small
+    = patient.input :telephone1, wrapper: :horizontal_small
+    = patient.input :telephone2, wrapper: :horizontal_small
     = patient.input :sex,
         selected: patient.object.sex.code,
         placeholder: "Please select gender",
         collection: Renalware::Gender.all,
         label_method: :name, value_method: :code,
         include_blank: "Please select gender",
-        input_html: { class: "small-input" }
+        wrapper: :horizontal_small
     = patient.association :ethnicity,
         label_method: :name, value_method: :id,
         include_blank: "Please select ethnicity",
-        input_html: { class: "small-input" }
+        wrapper: :horizontal_small
     = patient.association :religion,
         label_method: :name, value_method: :id,
         include_blank: "Please select religion",
-        input_html: { class: "small-input" }
+        wrapper: :horizontal_small
     = patient.association :language,
         label_method: :name, value_method: :id,
         include_blank: "Please select language",
-        input_html: { class: "small-input" }
-    = patient.input :marital_status, include_blank: "Please select marital status", input_html: { class: "small-input" }
-    = patient.input :born_on, as: :date_picker, label: "DoB"
+        wrapper: :horizontal_small
+    = patient.input :marital_status, include_blank: "Please select marital status", wrapper: :horizontal_small
+    = patient.input :born_on, as: :date_picker, label: "DoB", wrapper: :horizontal_datepicker
     = patient.input :paediatric_patient_indicator,
         as: :inline_radio_buttons,
-        label: "If under 18 years, is the recipient being treated in a paediatric unit?"
+        label: "If under 18 years, is the recipient being treated in a paediatric unit?",
+        wrapper: :horizontal_small
 
     - if @patient.persisted?
       .row
@@ -45,44 +46,48 @@
           | &nbsp;
           = link_to "Change Modal", new_patient_modality_path(@patient), title: "Patient Modality", class: "death-update"
 
-.form-content
+.columns.large-12
   = field_set_tag do
     legend Letter Preferences
 
-    = patient.input :cc_on_all_letters,  as: :inline_radio_buttons
-    = patient.input :cc_decision_on, as: :date_picker
+    = patient.input :cc_on_all_letters,  as: :inline_radio_buttons, wrapper: :horizontal_small
+    = patient.input :cc_decision_on, as: :date_picker, wrapper: :horizontal_datepicker
 
-.form-content
-  .row
-    .large-6.columns
-      = field_set_tag do
-        legend Organisation/Practice
+.columns.large-12
+  = field_set_tag do
+    legend Notes
 
-        = render partial: 'organisation_practice_form', locals: { patient: patient }
+    = patient.simple_fields_for :document, patient.object.document do |patient_doc|
+      = patient_doc.input :interpreter_notes,
+                          as: :text,
+                          wrapper: :horizontal_large,
+                          input_html: { rows: 3 }
+      = patient_doc.input :admin_notes,
+                          as: :text,
+                          wrapper: :horizontal_large,
+                          input_html: { rows: 3 }
+      = patient_doc.input :special_needs_notes,
+                          as: :text,
+                          wrapper: :horizontal_large,
+                          input_html: { rows: 3 }
 
-    .large-6.columns
-      = field_set_tag do
-        legend Notes
-
-        = patient.simple_fields_for :document, patient.object.document do |patient_doc|
-          = patient_doc.input :interpreter_notes
-          = patient_doc.input :admin_notes
-          = patient_doc.input :special_needs_notes
-
-.form-content
+.columns.large-12
   = patient.simple_fields_for :current_address_attributes, patient.object.current_address do |a|
     fieldset id="current_address"
       legend Current Address
       = a.input :id, as: :hidden
       = render partial: 'renalware/addresses/form', locals: { a: a }
 
-.form-content
+.columns.large-12
   = field_set_tag do
     legend Referral Info
 
     = patient.simple_fields_for :document, patient.object.document do |patient_doc|
       = patient_doc.simple_fields_for :referral, patient.object.document.referral do |referral_doc|
-        = referral_doc.input :referring_physician_name
-        = referral_doc.input :referral_date, as: :date_picker
-        = referral_doc.input :referral_type
-        = referral_doc.input :referral_notes
+        = referral_doc.input :referring_physician_name, wrapper: :horizontal_medium
+        = referral_doc.input :referral_date, as: :date_picker, wrapper: :horizontal_datepicker
+        = referral_doc.input :referral_type, wrapper: :horizontal_medium
+        = referral_doc.input :referral_notes,
+                             as: :text,
+                             wrapper: :horizontal_large,
+                             input_html: { rows: 3 }
