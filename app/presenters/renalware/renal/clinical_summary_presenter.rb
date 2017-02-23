@@ -45,7 +45,7 @@ module Renalware
                .with_letterhead
                .with_author
                .with_patient
-               .limit(6)
+               .limit(10)
                .order(issued_on: :desc)
       end
 

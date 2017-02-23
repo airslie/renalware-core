@@ -235,6 +235,16 @@ article {
 }
 
 fieldset {
+
+  &.borderless {
+    padding: 0 !important;
+    border: none;
+
+    legend {
+      display: none;
+    }
+  }
+
   &.simple {
     padding: 0.8rem 0 0 0;
     margin: 40px 0 10px 0;

@@ -3,14 +3,14 @@
 
   = render "renalware/shared/errors", model: @modality
 
-  .modality-form
+  .modality-form.row
     = simple_form_for @modality,
         as: :modality,
         url: patient_modalities_path(@patient),
         wrapper: "horizontal_form" do |m|
 
         .large-9.columns
-          = field_set_tag "New Modality"
+          = field_set_tag "", class: "borderless" do
 
               = m.association :description,
                   input_html: { id: "modality-description-select" },
@@ -29,7 +29,7 @@
                     collection: Renalware::Modalities::Reason.where(type: m.object.modal_change_type),
                     label_method: :description, value_method: :id
 
-              .hide-death.reference.large-offset-5.large-7.columns
+              .hide-death.reference.small-offset-3.small-7.columns
                 = link_to "Renal Registry Reason for Change Codes", "#", id: "modal-reason-code"
 
               = m.input :started_on, as: :date_picker
