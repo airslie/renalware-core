@@ -12,11 +12,11 @@ module World
         end
 
         result.pet_type = Renalware::PD::PETAdequacyResult.pet_type.values.first
-        result.pet_date = Date.today
-        result.adequacy_date = Date.today
-        result.date_rff = Date.today
-        result.date_creat_value = Date.today
-        result.date_creat_clearance = Date.today
+        result.pet_date = Time.zone.today
+        result.adequacy_date = Time.zone.today
+        result.date_rff = Time.zone.today
+        result.date_creat_value = Time.zone.today
+        result.date_creat_clearance = Time.zone.today
 
         result.save!
         result
@@ -52,7 +52,7 @@ module World
         login_as user
         visit patient_pd_dashboard_path(patient)
 
-        within ".pet-adequacies" do
+        within ".page-actions" do
           click_on t_dashboard(".add_pet_adequacy")
         end
 
@@ -61,11 +61,11 @@ module World
         within(".pet-adequacy-form") do
 
           choose "Fast"
-          fill_in t_model(".pet_date"), with: I18n.l(Date.today)
-          fill_in t_model(".adequacy_date"), with: I18n.l(Date.today)
-          fill_in t_model(".date_rff"), with: I18n.l(Date.today)
-          fill_in t_model(".date_creat_value"), with: I18n.l(Date.today)
-          fill_in t_model(".date_creat_clearance"), with: I18n.l(Date.today)
+          fill_in t_model(".pet_date"), with: I18n.l(Time.zone.today)
+          fill_in t_model(".adequacy_date"), with: I18n.l(Time.zone.today)
+          fill_in t_model(".date_rff"), with: I18n.l(Time.zone.today)
+          fill_in t_model(".date_creat_value"), with: I18n.l(Time.zone.today)
+          fill_in t_model(".date_creat_clearance"), with: I18n.l(Time.zone.today)
 
           numeric_attributes.each do |att|
             fill_in(t_model(".#{att}"), with: max_value_for(att))
@@ -78,7 +78,7 @@ module World
       def expect_patient_to_have_pet_adequacy(patient:, pet_adequacy:)
         within ".pet-adequacies" do
           expect(page.all("tbody tr").length).to eq(1)
-          expect(page).to have_content(I18n.l(Date.today))
+          expect(page).to have_content(I18n.l(Time.zone.today))
         end
       end
 
@@ -92,7 +92,7 @@ module World
         I18n.t(key, scope: scope, cascade: true)
       end
 
-      def t_dashboard(key, scope: "renalware.pd.dashboards.show.pet_adequacies")
+      def t_dashboard(key, scope: "renalware.pd.dashboards.show.page_actions")
         I18n.t(key, scope: scope, cascade: true)
       end
     end

@@ -1,9 +1,8 @@
 - title = "Peritonitis Episode - Diagnosed: #{l(peritonitis_episode.diagnosis_date)}"
 
-- content_for(:page_navigation) do
-  = back_link_to("Back to PD Summary", patient_pd_dashboard_path(patient))
-
-= within_patient_layout(title: title, **local_assigns) do
+= within_patient_layout(title: title,
+                        breadcrumbs: pd_summary_breadcrumb(patient),
+                        **local_assigns) do
 
   = article_tag "Episode" do
 

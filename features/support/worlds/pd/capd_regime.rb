@@ -26,7 +26,7 @@ module World
         dashboard_path = patient_pd_dashboard_path(patient)
         visit dashboard_path
 
-        within ".capd-regimes-group" do
+        within ".page-actions" do
           click_on "Add"
           click_on "CAPD Regime"
         end

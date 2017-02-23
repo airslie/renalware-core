@@ -21,6 +21,7 @@ Then(/^Clyde should see Patty's new event on the clinical summary$/) do
   expect(page).to have_content(fake_time)
   expect(page).to have_content("Email")
   expect(page).to have_content("Discussed meeting to be set up with family.")
+  click_on "Toggle"
   expect(page).to have_content("Patty to speak to family before meeting set up.")
 end
 
@@ -31,5 +32,6 @@ Then(/^see Patty's new event in her event index$/) do
   expect(page).to have_content(fake_time)
   expect(page).to have_content("Email")
   expect(page).to have_content("Discussed meeting to be set up with family.")
+  click_on "Toggle"
   expect(page).to have_content("Patty to speak to family before meeting set up.")
 end

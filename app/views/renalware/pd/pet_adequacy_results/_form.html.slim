@@ -3,7 +3,7 @@
                   wrapper: :horizontal_form,
                   html: { class: "pet-adequacy-form" } do |f|
 
-  =f.input :pet_type, as: :inline_radio_buttons
+  =f.input :pet_type, as: :inline_radio_buttons, wrapper: :horizontal_small
   =f.input :pet_date, as: :date_picker, wrapper: :horizontal_datepicker
   =f.input :pet_duration, wrapper: :horizontal_small
   =f.input :pet_net_uf, wrapper: :horizontal_small

@@ -1,7 +1,6 @@
-- content_for(:page_navigation) do
-  = back_link_to("Back to PD Summary", patient_pd_dashboard_path(@patient))
 
-= within_patient_layout(title: "PD - Exit Site Infection") do
+= within_patient_layout(title: "Exit Site Infection",
+                        breadcrumbs: pd_summary_breadcrumb(@patient)) do
 
   /= section(title: "Infection") do
   /  = render "details", patient: @patient, exit_site_infection: @exit_site_infection
