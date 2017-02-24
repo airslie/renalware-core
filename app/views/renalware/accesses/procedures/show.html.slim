@@ -1,29 +1,33 @@
-= within_patient_layout(title: "Access Procedure") do
-  - return unless @procedure
+= content_for(:actions) do
+  =link_to "Edit",
+           edit_patient_accesses_procedure_path(patient, procedure),
+           class: "button"
 
-  = render "procedure_nav"
+= within_patient_layout(title: "Access Procedure",
+                        breadcrumbs: access_summary_breadrumb(patient)) do
+  - return unless procedure
 
   .document-view
     .grid
       .row
         = render "renalware/shared/attributes_group",
             legend: "Access Procedure", destination: "procedure",
-            models: { @procedure => [:performed_on,
-                                     :performed_by,
-                                     :type,
-                                     :site,
-                                     :side,
-                                     :notes,
-                                     :catheter_make,
-                                     :catheter_lot_no] }
+            models: { procedure => [:performed_on,
+                                    :performed_by,
+                                    :type,
+                                    :site,
+                                    :side,
+                                    :notes,
+                                    :catheter_make,
+                                    :catheter_lot_no] }
 
         = render "renalware/shared/attributes_group",
             legend: "Follow-up", destination: "followup",
-            models: { @procedure => [:outcome,
-                                     :first_used_on,
-                                     :failed_on] }
+            models: { procedure => [:outcome,
+                                    :first_used_on,
+                                    :failed_on] }
 
         = render "renalware/shared/attributes_group",
             legend: "Admin", destination: "notes",
-            models: { @procedure => [:updated_by,
-                                     :updated_at] }
+            models: { procedure => [:updated_by,
+                                    :updated_at] }

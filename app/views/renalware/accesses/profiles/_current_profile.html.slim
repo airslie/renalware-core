@@ -1,6 +1,11 @@
 - return if @current_profile.blank?
 
-= article_tag("Current Access Profile") do
+article
+  header
+    h1 Current Access Profile
+    = link_to "Edit", edit_patient_accesses_profile_path(@patient, @current_profile), class: "button"
+    | &nbsp;
+    = link_to "View", patient_accesses_profile_path(@patient, @current_profile), class: "button secondary"
 
   .row
     .large-4.columns
@@ -27,13 +32,14 @@
 
     .large-2.columns
       .right
-        = link_to "View",
-                  patient_accesses_profile_path(@patient, @current_profile),
-                  class: "button tiny"
-        | &nbsp;
-        = link_to "Edit",
-                  edit_patient_accesses_profile_path(@patient, @current_profile),
-                  class: "button tiny"
+
+        / = link_to "View",
+        /           patient_accesses_profile_path(@patient, @current_profile),
+        /           class: "button tiny"
+        / | &nbsp;
+        / = link_to "Edit",
+        /           edit_patient_accesses_profile_path(@patient, @current_profile),
+        /           class: "button tiny"
 
   .row
     .large-12.columns

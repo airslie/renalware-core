@@ -4,39 +4,42 @@ module Renalware
       before_action :load_patient
 
       def show
-        procedure = @patient.procedures.find(params[:id])
-        @procedure = ProcedurePresenter.new(procedure)
+        procedure = patient.procedures.find(params[:id])
+        presenter = ProcedurePresenter.new(procedure)
+        render locals: { patient: patient, procedure: presenter }
       end
 
       def new
-        @procedure = @patient.procedures.new(by: current_user)
+        procedure = patient.procedures.new(by: current_user)
+        render locals: { patient: patient, procedure: procedure }
       end
 
       def create
-        @procedure = @patient.procedures.new(procedure_params)
+        procedure = patient.procedures.new(procedure_params)
 
-        if @procedure.save
-          redirect_to patient_accesses_dashboard_path(@patient),
+        if procedure.save
+          redirect_to patient_accesses_dashboard_path(patient),
             notice: t(".success", model_name: "Access procedure")
         else
           flash[:error] = t(".failed", model_name: "Access procedure")
-          render :new
+          render :new, locals: { patient: patient, procedure: procedure }
         end
       end
 
       def edit
-        @procedure = @patient.procedures.find(params[:id])
+        procedure = patient.procedures.find(params[:id])
+        render locals: { patient: patient, procedure: procedure }
       end
 
       def update
-        @procedure = @patient.procedures.find(params[:id])
+        procedure = patient.procedures.find(params[:id])
 
-        if @procedure.update(procedure_params)
-          redirect_to patient_accesses_dashboard_path(@patient),
+        if procedure.update(procedure_params)
+          redirect_to patient_accesses_dashboard_path(patient),
             notice: t(".success", model_name: "Access procedure")
         else
           flash[:error] = t(".failed", model_name: "Access procedure")
-          render :edit
+          render :edit, locals: { patient: patient, procedure: procedure }
         end
       end
 

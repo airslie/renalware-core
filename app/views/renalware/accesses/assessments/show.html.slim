@@ -1,7 +1,11 @@
-= within_patient_layout(title: "Access Assessment") do
-  - return unless @assessment
+= content_for(:actions) do
+  =link_to "Edit",
+          edit_patient_accesses_assessment_path(@patient, @assessment),
+          class: "button"
 
-  = render "assessment_nav"
+= within_patient_layout(title: "Access Assessment",
+                        breadcrumbs: access_summary_breadrumb(@patient)) do
+  - return unless @assessment
 
   .document-view
     .grid
