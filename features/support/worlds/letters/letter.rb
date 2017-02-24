@@ -286,7 +286,7 @@ module World
       def draft_simple_letter(patient:, user:, issued_on:, recipient:, ccs: nil)
         login_as user
         visit patient_letters_letters_path(patient)
-        click_on "Draft"
+        click_on "Create"
         click_on "Simple Letter"
 
         attributes = valid_simple_letter_attributes(patient)

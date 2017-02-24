@@ -1,5 +1,8 @@
 = content_for(:actions) do
-  = link_to(t("new_record.link_title"), "#", data: { behaviour: "add-new-contact" }, class: "button")
+  = link_to t("new_record.link_title"),
+            "#",
+            data: { behaviour: "add-new-contact" },
+            class: "button"
 
 = within_patient_layout do
   #contacts

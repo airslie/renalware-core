@@ -66,7 +66,7 @@ module World
       def draft_clinical_letter(patient:, user:, issued_on:)
         login_as user
         visit patient_letters_letters_path(patient)
-        click_on "Draft"
+        click_on "Create"
         click_on "Clinical Letter"
 
         attributes = valid_simple_letter_attributes(patient)

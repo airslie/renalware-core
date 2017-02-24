@@ -22,8 +22,8 @@
         -unless local_assigns[:skip_top_navigation].present?
           - partial = local_assigns[:navigation_partial] || "navigation"
 
-          / Be sure to pass on any locals passed to us,
-          / along with the patient if not already provided
+          / Be sure to pass on any locals passed to us, along with the patient
+          / if not already provided
           = render_if_exists partial, local_assigns.reverse_merge!(patient: current_patient)
 
       = yield

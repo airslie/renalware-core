@@ -1,6 +1,6 @@
 = within_patient_layout(title: "Edit",
-                        breadcrumbs: [ donor_summary_breadrumb(@patient),
-                                       donor_workup_breadrumb(@patient)]) do
+                        breadcrumbs: [donor_summary_breadrumb(@patient),
+                                      donor_workup_breadrumb(@patient)]) do
   /= within_patient_layout(title: "Transplant Donor Workup") do
   .document
     = simple_form_for @workup,

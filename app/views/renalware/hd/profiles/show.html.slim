@@ -10,7 +10,6 @@
   .document-view
     .grid
       .row
-
         - %w(Dialysis Anticoagulant Drugs).each do |group|
           = render "renalware/shared/documents/attributes_group",
               group: profile.document.public_send(group.parameterize(separator: "_")),
@@ -36,6 +35,6 @@
                                                      :decided_on],
                       profile => [:transport_decider] }
 
-          = render "renalware/shared/documents/attributes_group",
-              group: profile.document.care_level,
-              legend: "Care Level", destination: "care_level"
+        = render "renalware/shared/documents/attributes_group",
+            group: profile.document.care_level,
+            legend: "Care Level", destination: "care_level"

@@ -3,8 +3,7 @@
             edit_patient_transplants_donor_workup_path(@patient),
             class: "button"
 
-= within_patient_layout(title: "Workup",
-                        breadcrumbs: breadcrumb_for("Transplant Donor Summary", patient_transplants_donor_dashboard_path(@patient))) do
+= within_patient_layout(title: "Workup", breadcrumbs: donor_summary_breadrumb(@patient)) do
   - return unless @workup
   .document-view
     .grid

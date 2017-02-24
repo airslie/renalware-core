@@ -1,9 +1,10 @@
 article
   header
     h1
-      = link_to "Current Prescriptions (#{prescriptions.length})", patient_prescriptions_path(@patient)
+      = link_to "Current Prescriptions (#{prescriptions.length})",
+                patient_prescriptions_path(@patient)
 
-    = link_to patient_prescriptions_path(@patient), class: 'button' do
+    = link_to patient_prescriptions_path(@patient), class: "button" do
       | Enter prescription
 
   ul.no-bullet
