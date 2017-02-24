@@ -18,7 +18,7 @@
     padding: 0.2em 0.2em 0.2em 1.2em;
     margin: 0;
     //flex-grow: 2;
-  float: left;
+    float: left;
     width: 50%;
     white-space: nowrap;
 
@@ -61,7 +61,7 @@ ul.provider {
 }
 
 .patient-content {
-  padding-bottom: 10rem;
+  padding-bottom: 16rem;
   position: absolute;
   top: 0;
   right: 0;
@@ -69,26 +69,32 @@ ul.provider {
   left: $patient-side-nav-width;
 	overflow-y: auto;
 }
-.patient-container .patient-content > .row {
-  padding-top: 1.07143rem;
-}
 
-.patient-container .patient-content .row .page-heading > h1 {
+// .patient-container .patient-content > .row {
+//   padding-top: 1.07143rem;
+// }
+
+.patient-container .page-heading h1 {
   font-weight: bold;
-  margin-top: 1rem;
+  margin: 0;
+  padding: 0;
 }
 
 .page-heading {
-  height: 5rem;
-  h1 {
+  float: left;
+  margin: 1rem 0;
+  width: 100%;
+  li {
     float: left;
-    clear: left;
+    list-style-type: none;
+    margin: 0 1rem 0 0;
+    padding: 0;
+    h1 a {
+	   //text-decoration: underline;
+    }
   }
-  .page-actions {
-    float: left;
-    clear: right;
-    padding-top: 1rem;
-    margin-left: 2rem;
+  .page-actions .button {
+	  margin: 0;
   }
 }
 

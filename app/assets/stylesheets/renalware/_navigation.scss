@@ -104,6 +104,7 @@ dd.patient-name {
 
   overflow-y: auto;
   padding: 0.5rem 0;
+  padding-bottom: 8rem;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -182,6 +183,9 @@ dd.patient-name {
         padding: 0.2rem 0.5rem;
         text-decoration: underline;
       }
+      span {
+	      padding: 0.2rem 0.5rem;
+      }
     }
   }
 }
@@ -222,17 +226,21 @@ dd.patient-name {
   font-size: 0.8em;
 }
 .sub-nav {
-  //border-bottom: 2px solid $nhs-light-blue;
-  background-color: $patient-menu-background-colour;
+  background-color: $white;
+  float: left;
   margin: 0 0 1rem;
-  padding: 0.25rem;
+  padding: 0;
+  width: 100%;
 }
 .sub-nav dd {
   margin: 0 0.25rem 0 0;
 }
 .sub-nav dd a {
   background-color: $off-white;
-  border-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
   color: $link-colour;
   display: block;
   padding: 0.2rem 0.5rem;
@@ -244,6 +252,13 @@ dd.patient-name {
 }
 .sub-nav dd.active a {
   background-color: $white;
+  border-top: 1px solid $table-border-colour;
+  border-right: 1px solid $table-border-colour;
+  border-left: 1px solid $table-border-colour;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
   color: $dark-grey;
   padding: 0.2rem 0.5rem;
   text-decoration: none;

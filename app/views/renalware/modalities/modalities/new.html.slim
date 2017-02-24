@@ -1,12 +1,12 @@
 = within_patient_layout(title: t("new_record.page_title"),
-    breadcrumbs: breadcrumb_for("Modality History", patient_modalities_path(@patient))) do
+    breadcrumbs: breadcrumb_for("Modality History", patient_modalities_path(patient))) do
 
   = render "renalware/shared/errors", model: @modality
 
   .modality-form.row
-    = simple_form_for @modality,
+    = simple_form_for modality,
         as: :modality,
-        url: patient_modalities_path(@patient),
+        url: patient_modalities_path(patient),
         wrapper: "horizontal_form" do |m|
 
         .large-9.columns
@@ -14,29 +14,37 @@
 
               = m.association :description,
                   input_html: { id: "modality-description-select" },
-                  label_method: :name, value_method: :id
+                  label_method: :name, value_method: :id,
+                  wrapper: :horizontal_medium
 
               .hide-death
                 = m.input :modal_change_type,
                     label: "Type of Change",
                     input_html: { class: "modal-change-type" },
-                    collection: Renalware::Modalities::ChangeType.to_a
+                    collection: Renalware::Modalities::ChangeType.to_a,
+                    wrapper: :horizontal_medium
 
               .hide-death
                 = m.input :reason_id,
                     label: "Reason for Change",
                     input_html: { class: "modality-reason-select" },
                     collection: Renalware::Modalities::Reason.where(type: m.object.modal_change_type),
-                    label_method: :description, value_method: :id
+                    label_method: :description, value_method: :id,
+                    wrapper: :horizontal_medium
 
-              .hide-death.reference.small-offset-3.small-7.columns
+              .hide-death.reference.columns.small-12.medium-8.medium-offset-4.large-9.large-offset-3
                 = link_to "Renal Registry Reason for Change Codes", "#", id: "modal-reason-code"
 
-              = m.input :started_on, as: :date_picker
+              = m.input :started_on,
+                        as: :date_picker,
+                        wrapper: :horizontal_datepicker
 
               .hide-death
-                = m.input :notes, as: :text, input_html: { rows: 5 }
+                = m.input :notes,
+                          as: :text,
+                          input_html: { rows: 5 },
+                          wrapper: :horizontal_large
 
               = m.submit "Save", class: "button"
               span= " or "
-              = link_to "cancel", patient_modalities_path(@patient)
+              = link_to "cancel", patient_modalities_path(patient)

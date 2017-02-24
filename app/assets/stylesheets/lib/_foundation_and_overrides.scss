@@ -110,42 +110,19 @@ $white       : #FFFFFF;
 // $vapor       : #F6F6F6;
 // $white-smoke : #F5F5F5;
 // $silver      : #EFEFEF;
-// $smoke       : #EEEEEE;
-// $gainsboro   : #DDDDDD;
+$smoke       : #EEEEEE;
+$gainsboro   : #DDDDDD;
 // $iron        : #CCCCCC;
 // $base        : #AAAAAA;
 // $aluminum    : #999999;
 // $jumbo       : #888888;
 // $monsoon     : #777777;
-// $steel       : #666666;
-// $charcoal    : #555555;
-// $tuatara     : #444444;
-// $oil         : #333333;
-// $jet         : #222222;
+$steel       : #666666;
+$charcoal    : #555555;
+$tuatara     : #444444;
+$oil         : #333333;
+$jet         : #222222;
 // $black       : #000000;
-
-// NHS Colours
-$nhs-yellow: #FAE100;
-$nhs-warm-yellow: #FFB81C;
-$nhs-orange: #ED8B00;
-
-$nhs-red: #D81E05;
-$nhs-emergency-red: #DA291C;
-$nhs-dark-red: #8A1538;
-$nhs-dark-pink: #7C2855;
-$nhs-purple: #330072;
-$nhs-pink: #AE2573;
-
-$nhs-dark-blue: #003087;
-$nhs-blue: #005EB8;
-$nhs-bright-blue: #0072CE;
-$nhs-light-blue: #41B6E6;
-$nhs-aqua-blue: #00A9CE;
-
-$nhs-aqua-green: #00A499;
-$nhs-light-green: #78BE20;
-$nhs-green: #009639;
-$nhs-dark-green: #006747;
 
 // We use these to control various global styles
 // $body-bg: $white;
@@ -1296,14 +1273,14 @@ $sub-nav-list-margin: rem-calc(-4 0 0);
 // $table-even-row-bg: $snow  ;
 
 // These control the table cell border style
-$table-border-style: solid;
+$table-border-style: none;
 $table-border-size: 0;
 //$table-border-color: $gainsboro;
 
 // These control the table head styles
-$table-head-bg: $nhs-blue;
+$table-head-bg: $smoke;
 $table-head-font-size: rem-calc(13);
-$table-head-font-color: $white;
+$table-head-font-color: $tuatara;
 // $table-head-font-weight: $font-weight-bold;
 $table-head-padding: rem-calc(6 4);
 

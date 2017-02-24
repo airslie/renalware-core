@@ -1,11 +1,11 @@
 = a.input :name,
           placeholder: "If different than above (optional)",
-          wrapper: :horizontal_small
+          wrapper: :horizontal_medium
 = a.input :street_1, wrapper: :horizontal_large
 = a.input :street_2, wrapper: :horizontal_large
-= a.input :city, wrapper: :horizontal_small
-= a.input :county, wrapper: :horizontal_medium
-= a.input :postcode, wrapper: :horizontal_tiny
+= a.input :city, wrapper: :horizontal_medium
+= a.input :county, wrapper: :horizontal_small
+= a.input :postcode, wrapper: :horizontal_small
 = a.input :country,
           collection: Renalware::Country.all.map(&:name),
-          wrapper: :horizontal_medium
+          wrapper: :horizontal_small

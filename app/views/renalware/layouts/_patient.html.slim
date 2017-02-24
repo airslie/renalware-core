@@ -8,11 +8,12 @@
   .patient-content
     = render "renalware/patients/mini_profile", patient: current_patient
     .row
-      .page-heading
-        h1
-          = breadcrumbs_and_title(breadcrumbs: local_assigns[:breadcrumbs],
-                                  title: local_assigns[:title])
-        .page-actions
+      ul.page-heading
+        li
+          h1
+            = breadcrumbs_and_title(breadcrumbs: local_assigns[:breadcrumbs],
+                                    title: local_assigns[:title])
+        li.page-actions
           / Output any page-level actions
           = yield(:actions)
 
@@ -26,6 +27,7 @@
           / if not already provided
           = render_if_exists partial, local_assigns.reverse_merge!(patient: current_patient)
 
+    .row
       = yield
 
   nav.patient-side-nav

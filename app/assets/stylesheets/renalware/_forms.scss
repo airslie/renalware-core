@@ -76,15 +76,13 @@ form {
     width: 100%;
   }
 }
-
-//fieldset
 article {
-  background-color: $very-light-grey;
+  background-color: $white;
   border: none;
-  border-top: 4px solid $link-colour;
+  border-top: 2px solid $link-colour;
   float: left;
-  margin: 0 0 1rem;
-  padding: 0.5rem;
+  margin: 0 0 1.5rem;
+  padding: 0.5rem 0 0;
   position: relative;
   width: 100%;
   header {

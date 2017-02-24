@@ -2,12 +2,22 @@ table {
   // This will have to be removed at some point to comply with NHS table guidelines
   width: 100%;
 
+  thead a {
+	color: $white;
+	text-decoration: underline;
+  }
+  thead a:hover {
+	color: $white;
+  }
+
   &.natural-width {
     width: auto;
   }
 
   tr th, tr td {
+	  border-bottom: 1px dotted $disabled-colour;
     font-size: 1rem;
+    border-left-width: 0;
   }
 
   tr th {

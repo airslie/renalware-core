@@ -1,5 +1,19 @@
 .simple_form {
 
+  fieldset {
+	 border: none;
+    padding: 0.5rem 0;
+    legend {
+	  border-top: 2px solid $link-colour;
+	  color: $link-colour;
+      font-size: 1.2rem;
+	  font-weight: bold;
+	  margin: 0;
+	  padding: 0.5rem 0 0;
+	  width: 100%;
+    }
+  }
+
   div.boolean {
     label {
       float: none;

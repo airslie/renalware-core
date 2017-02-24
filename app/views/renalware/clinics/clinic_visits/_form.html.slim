@@ -7,32 +7,25 @@
         legend Summary
         .row
           .columns.small-12
-            = f.input :date, as: :date_picker, input_html: { class: "small-input" }
-            = f.input :time, as: :clock_picker, input_html: { class: "small-input" }
-            = f.association :clinic, input_html: { class: "small-input" },
-                label_method: :name, value_method: :id,
-                include_blank: t(".clinic_prompt")
+            = f.input :date, as: :date_picker, wrapper: :horizontal_datepicker
+            = f.input :time, as: :clock_picker, wrapper: :horizontal_clockpicker
+            = f.association :clinic,
+                            wrapper: :horizontal_small,
+                            label_method: :name,
+                            value_method: :id,
+                            include_blank: t(".clinic_prompt")
 
       fieldset
         legend Observations
-        .row
-          .columns.small-12
-            = f.input :height, input_html: { class: "small-input" }
-          .columns.small-12
-            = f.input :weight, input_html: { class: "small-input" }
-          .columns.small-12
-            = f.input :bp, label: "Blood Pressure",
-                placeholder: "eg. 110/70",
-                input_html: { class: "small-input" }
+        = f.input :height, wrapper: :horizontal_small
+        = f.input :weight, wrapper: :horizontal_small
+        = f.input :bp,
+                  label: "Blood Pressure",
+                  placeholder: "eg. 110/70",
+                  wrapper: :horizontal_small
 
-        .row
-          .columns.small-12
-            = f.input :urine_blood,
-                input_html: { class: "small-input" }
-
-          .columns.small-12
-            = f.input :urine_protein,
-                input_html: { class: "small-input" }
+        = f.input :urine_blood, wrapper: :horizontal_small
+        = f.input :urine_protein, wrapper: :horizontal_small
 
       fieldset
         legend Notes
@@ -44,6 +37,4 @@
 
       fieldset
         legend Admin Notes
-        .row
-          .columns.large-12
-            = f.text_area :admin_notes, { rows: 5 }
+        = f.text_area :admin_notes, { rows: 5 }

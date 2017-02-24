@@ -1,6 +1,6 @@
 = content_for(:actions) do
   = link_to t("new_record.link_title"),
-            new_patient_modality_path(@patient),
+            new_patient_modality_path(patient),
             class: "button"
 
 = within_patient_layout(title: "Modality History") do
@@ -14,7 +14,7 @@
         th Added by
 
     tbody
-      - @modalities.each do |modality|
+      - modalities.each do |modality|
         tr
           td= modality.description.name
           td= modality.notes

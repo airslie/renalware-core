@@ -70,8 +70,9 @@ module World
       def create_access_profile(user:, patient:, site:)
         login_as user
         visit patient_accesses_dashboard_path(patient)
-        within_fieldset "Access Profile History" do
-          click_on "Add an Access Profile"
+        within ".page-actions" do
+          click_on "Add"
+          click_on "Access Profile"
         end
 
         fill_in "Formed On", with: I18n.l(Time.zone.today)
@@ -87,7 +88,7 @@ module World
       def update_access_profile(patient:, user:)
         login_as user
         visit patient_accesses_dashboard_path(patient)
-        within_fieldset "Access Profile History" do
+        within_article "Access Profile History" do
           click_on "Edit"
         end
 
