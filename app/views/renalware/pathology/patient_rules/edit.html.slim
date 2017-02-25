@@ -7,4 +7,8 @@
           url: patient_pathology_patient_rule_path(patient_id: @patient.id, id: patient_rule.id),
           wrapper: "horizontal_form",
           method: :put do |f|
-        = render partial: "form", locals: { patient_rule: patient_rule, frequencies: frequencies, labs: labs, f: f }
+        = render "form",
+                 patient_rule: patient_rule,
+                 frequencies: frequencies,
+                 labs: labs,
+                 f: f

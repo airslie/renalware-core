@@ -8,7 +8,9 @@
 
   .row
     .large-12.columns
-      = render "/renalware/letters/contacts/form", f: f, contact_descriptions: contact_descriptions
+      = render "/renalware/letters/contacts/form",
+               f: f,
+               contact_descriptions: contact_descriptions
 
   .row
     .large-12.columns
@@ -22,4 +24,7 @@
 .row
   .large-12.columns
     .g-center
-      = link_to "Person not found in directory", '#', class: "button secondary", data: { behaviour: "toggle-section" }
+      = link_to "Person not found in directory",
+                "#",
+                class: "button secondary",
+                data: { behaviour: "toggle-section" }

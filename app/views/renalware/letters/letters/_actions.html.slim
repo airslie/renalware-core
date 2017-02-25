@@ -1,28 +1,46 @@
-= link_to "Print (PDF)", patient_letters_letter_print_path(letter),
-    form_class: "inline", class: "button tiny", target: "print"
+= link_to "Print (PDF)",
+          patient_letters_letter_print_path(letter),
+          form_class: "inline",
+          class: "button tiny",
+          target: "print"
 = blank_separator
-= link_to "Download PDF", patient_letters_letter_download_path(letter),
-    form_class: "inline", class: "button tiny"
+= link_to "Download PDF",
+          patient_letters_letter_download_path(letter),
+          form_class: "inline",
+          class: "button tiny"
 = blank_separator
 - if policy(letter).update?
-  = link_to "Edit", edit_patient_letters_letter_path(letter.patient, letter),
-      class: "button tiny"
+  = link_to "Edit",
+            edit_patient_letters_letter_path(letter.patient, letter),
+            class: "button tiny"
   = blank_separator
 - if policy(letter).submit_for_review?
-  = button_to "Submit for Review", patient_letters_letter_pending_review_path(letter.patient, letter),
-      form_class: "inline", class: "button tiny", data: { confirm: "Are you sure?" }
+  = button_to "Submit for Review",
+              patient_letters_letter_pending_review_path(letter.patient, letter),
+              form_class: "inline",
+              class: "button tiny",
+              data: { confirm: "Are you sure?" }
   = blank_separator
 - if policy(letter).reject?
-  = button_to "Reject", patient_letters_letter_rejected_path(letter.patient, letter),
-      form_class: "inline", class: "button tiny"
+  = button_to "Reject",
+              patient_letters_letter_rejected_path(letter.patient, letter),
+              form_class: "inline",
+              class: "button tiny"
   = blank_separator
 - if policy(letter).approve?
-  = button_to "Approve and archive", patient_letters_letter_approved_path(letter.patient, letter),
-      form_class: "inline", class: "button tiny", data: { confirm: "Are you sure? You will not be able to modify the letter afterwards." }
+  = button_to "Approve and archive",
+              patient_letters_letter_approved_path(letter.patient, letter),
+              form_class: "inline",
+              class: "button tiny",
+              data: { confirm: "Are you sure? You will not be able to modify the letter afterwards." }
   = blank_separator
 - if policy(letter).complete?
-  = button_to "Mark as printed", patient_letters_letter_completed_path(letter.patient, letter),
-      form_class: "inline", class: "button tiny", data: { confirm: "Are you sure the letter was printed?" }
+  = button_to "Mark as printed",
+              patient_letters_letter_completed_path(letter.patient, letter),
+              form_class: "inline",
+              class: "button tiny",
+              data: { confirm: "Are you sure the letter was printed?" }
   = blank_separator
 = blank_separator
-= link_to 'back to list', patient_letters_letters_path(letter.patient)
+= link_to "back to list",
+          patient_letters_letters_path(letter.patient)

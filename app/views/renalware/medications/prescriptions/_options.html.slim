@@ -2,4 +2,8 @@
     = link_to "Edit", edit_patient_prescription_path(patient, prescription), remote: true
 - unless prescription.terminated_or_marked_for_termination?
     = pipe_separator
-    = link_to "Terminate", new_patient_medications_prescription_termination_path(patient, prescription, @treatable), remote: true
+    = link_to "Terminate",
+              new_patient_medications_prescription_termination_path(patient,
+                                                                    prescription,
+                                                                    @treatable),
+              remote: true

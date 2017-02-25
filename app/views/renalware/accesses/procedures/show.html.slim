@@ -6,12 +6,22 @@
   .document-view
     = render "renalware/shared/attributes_group",
         legend: "Access Procedure", destination: "procedure",
-        models: { @procedure => [:performed_on, :performed_by, :type, :site, :side, :notes, :catheter_make, :catheter_lot_no] }
+        models: { @procedure => [:performed_on,
+                                 :performed_by,
+                                 :type,
+                                 :site,
+                                 :side,
+                                 :notes,
+                                 :catheter_make,
+                                 :catheter_lot_no] }
 
     = render "renalware/shared/attributes_group",
         legend: "Follow-up", destination: "followup",
-        models: { @procedure => [:outcome, :first_used_on, :failed_on] }
+        models: { @procedure => [:outcome,
+                                 :first_used_on,
+                                 :failed_on] }
 
     = render "renalware/shared/attributes_group",
         legend: "Admin", destination: "notes",
-        models: { @procedure => [:updated_by, :updated_at] }
+        models: { @procedure => [:updated_by,
+                                 :updated_at] }

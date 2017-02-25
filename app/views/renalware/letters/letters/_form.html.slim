@@ -13,16 +13,16 @@ ruby:
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Header", name: "header" } do
     = f.association :letterhead
-    = f.input :description, \
-        input_html: { \
-          data: { \
-            autocomplete_source: search_letters_descriptions_path, \
-            autocomplete_rel: "[name='letters[description]']" \
-          },
-          placeholder: "Start entering the description (min. 2 characters)", \
-          spellcheck: false, \
-          class: "clear-autocomplete" \
-        }
+    = f.input :description,
+              input_html: { \
+                data: { \
+                  autocomplete_source: search_letters_descriptions_path,
+                  autocomplete_rel: "[name='letters[description]']" \
+                },
+                placeholder: "Start entering the description (min. 2 characters)",
+                spellcheck: false,
+                class: "clear-autocomplete" \
+              }
     = hidden_field_tag "description_id"
     = f.input :clinical, as: :hidden
     = f.input :issued_on, as: :date_picker

@@ -10,5 +10,5 @@
 
     - ["Diagnosis", "Outcome"].each do |group|
       = render "renalware/shared/documents/attributes_group",
-          group: @donor_operation.document.public_send(group.parameterize(separator: '_')),
-          legend: group, destination: group.parameterize(separator: '_')
+          group: @donor_operation.document.public_send(group.parameterize(separator: "_")),
+          legend: group, destination: group.parameterize(separator: "_")

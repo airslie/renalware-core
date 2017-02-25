@@ -3,9 +3,13 @@ fieldset.hd-dry_weights.simple.simple-table
     span.title= t(".title")
     - unless dry_weights.empty?
       span.actions.action-buttons
-        = link_to t(".edit"), new_patient_hd_dry_weight_path(@patient), class: "button small slimline"
+        = link_to t(".edit"),
+                  new_patient_hd_dry_weight_path(@patient),
+                  class: "button small slimline"
         | &nbsp;
-        = link_to t(".view_all"), patient_hd_dry_weights_path(@patient), class: "button small slimline"
+        = link_to t(".view_all"),
+                  patient_hd_dry_weights_path(@patient),
+                  class: "button small slimline"
 
   - if dry_weights.empty?
     .call-to-action
