@@ -5,8 +5,8 @@
   = simple_nested_form_for [patient, pd_regime],
                            as: :pd_regime,
                            wrapper: :horizontal_form,
-                           html: { class: "pd-form"} do |f|
-    = render partial: 'renalware/pd/regimes/form', locals: local_assigns.merge!(f: f)
+                           html: { class: "pd-form" } do |f|
+    = render partial: "renalware/pd/regimes/form", locals: local_assigns.merge!(f: f)
     = submit_tag "Save", class: "button"
     span= " or "
     = link_to "cancel", patient_pd_dashboard_path(patient)

@@ -1,4 +1,5 @@
-= render layout: "renalware/dashboard/dashboards/layout", locals: { user: resource, title: "Update Profile" } do
+= render layout: "renalware/dashboard/dashboards/layout",
+         locals: { user: resource, title: "Update Profile" } do
   .document
     h4 #{resource}'s Profile
 
@@ -40,6 +41,6 @@
         = f.text_field :signature
 
       .actions
-        = f.submit "Update", class: 'button save'
+        = f.submit "Update", class: "button save"
 
       = link_to "Back", :back

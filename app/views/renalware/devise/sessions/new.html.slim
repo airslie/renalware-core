@@ -1,7 +1,13 @@
 .row.small-8.large-12
   h3 Log in to Renalware
 
-  .alert-box.warning NOTICE: This system contains patient clinical records. All information is highly confidential and must be treated as such. All data must be used with the Data Protection Act and related legislation and in compliance with security policies governing use of this system. Unauthorised, illegal or improper use may result in disciplinary action and civil or criminal prosecution. By continuing to access this system you agree that such access and use is subject to the foregoing.
+  .alert-box.warning
+    | NOTICE: This system contains patient clinical records. All information is highly
+    | confidential and must be treated as such. All data must be used with the Data
+    | Protection Act and related legislation and in compliance with security policies
+    | governing use of this system. Unauthorised, illegal or improper use may result
+    | in disciplinary action and civil or criminal prosecution. By continuing to access
+    | this system you agree that such access and use is subject to the foregoing.
 
 .row.small-6.large-3
 
@@ -11,6 +17,6 @@
     = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
 
     .actions
-      = f.submit "Log in", class: 'button save'
+      = f.submit "Log in", class: "button save"
 
   = render "devise/shared/links"

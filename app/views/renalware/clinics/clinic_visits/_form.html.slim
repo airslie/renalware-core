@@ -1,4 +1,4 @@
-= render partial: "renalware/shared/errors", locals: {model: f.object}
+= render partial: "renalware/shared/errors", locals: { model: f.object }
 
 .simple_form
   .row
@@ -38,7 +38,8 @@
         legend Notes
         .row
           .columns.large-12
-            = snippets_modal_and_link_to_open_it(target_input_for_seleted_snippet: "#clinic_visit_notes")
+            - target = "#clinic_visit_notes"
+            = snippets_modal_and_link_to_open_it(target_input_for_seleted_snippet: target)
             = f.text_area :notes, { rows: 15 }
 
       fieldset

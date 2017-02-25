@@ -1,5 +1,7 @@
 = within_patient_layout(title: "Problem")
-  = simple_form_for @problem, url: patient_problem_path(@patient, @problem), wrapper: :horizontal_form do |f|
+  = simple_form_for @problem,
+                    url: patient_problem_path(@patient, @problem),
+                    wrapper: :horizontal_form do |f|
     = field_set_tag "Edit problem" do
       = f.input :description
       .row

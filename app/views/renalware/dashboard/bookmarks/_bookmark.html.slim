@@ -1,4 +1,4 @@
-tr class=('urgent' if bookmark.urgent?)
+tr class=("urgent" if bookmark.urgent?)
   td= link_to "View", patient_clinical_summary_path(patient_id: bookmark.patient.id)
   td= bookmark.patient
   td= bookmark.patient.local_patient_id

@@ -11,7 +11,7 @@
             = f.label "Name or type"
             = f.search_field :name_or_drug_types_name_start
           .small-3.large-4.columns.actions
-            = f.submit t("helpers.submit.filter"), class: 'button'
+            = f.submit t("helpers.submit.filter"), class: "button"
             span= " or "
             = link_to t("helpers.reset"), drugs_drugs_path
 
@@ -27,7 +27,7 @@
           td
             = link_to "Edit", edit_drugs_drug_path(drug)
             = pipe_separator
-            = link_to 'Delete', drugs_drug_path(drug),
+            = link_to "Delete", drugs_drug_path(drug),
               id: "#{drug.id}-drug",
               method: :delete,
               data: { confirm: I18n.t("prompts.confirm_delete") }

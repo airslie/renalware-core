@@ -4,10 +4,14 @@
   = render "assessment_nav"
 
   .document-view
+    - attributes_list = @assessment.document.results.class.attributes_list
     = render "renalware/shared/attributes_group",
         legend: "Results & Observations", destination: "results",
-        models: { @assessment => [:performed_on, :type, :site, :side], @assessment.document.results => @assessment.document.results.class.attributes_list }
+        models: { @assessment => [:performed_on, :type, :site, :side],
+                  @assessment.document.results => attributes_list }
 
+    - attributes_list = @assessment.document.admin.class.attributes_list
     = render "renalware/shared/attributes_group",
         legend: "Management Plans", destination: "plans",
-        models: { @assessment.document.admin => @assessment.document.admin.class.attributes_list, @assessment => [:comments, :updated_by, :updated_at] }
+        models: { @assessment.document.admin => attributes_list,
+                  @assessment => [:comments, :updated_by, :updated_at] }

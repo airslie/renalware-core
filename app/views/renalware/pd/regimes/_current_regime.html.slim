@@ -1,7 +1,9 @@
 - current = current_regime
 - pd_type = current.pd_type&.to_s&.upcase
 
-= field_set_tag "Current #{pd_type} Regime", class: "current-regime", data: { "regime-id" => current.id }
+= field_set_tag "Current #{pd_type} Regime",
+                class: "current-regime",
+                data: { "regime-id" => current.id } do
 
   .flex-container
 
