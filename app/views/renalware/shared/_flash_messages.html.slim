@@ -1,6 +1,6 @@
 .flash-message
   - flash_messages.each do |name, msg|
     .row.no-side-gutters class=name
-      .alert-box class=flash_style(name) data={alert: nil}
+      .alert-box class=flash_style(name) data={ alert: nil }
         = msg
         a href="#" class="close" &times;

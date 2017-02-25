@@ -1,8 +1,12 @@
-= search_form_for(search, url: snippets_path, remote: remote, id: "snippet-search-form") do |f|
+= search_form_for(search,
+                  url: snippets_path,
+                  remote: remote,
+                  id: "snippet-search-form") do |f|
   .row.collapse
     .columns.small-10.large-11
       = hidden_field_tag :author, author
-      = label_tag :title_or_author_given_name_or_author_family_name_cont, t(".search_placeholder") do
+      = label_tag :title_or_author_given_name_or_author_family_name_cont,
+                  t(".search_placeholder") do
         = f.search_field :title_or_author_given_name_or_author_family_name_cont,
                          placeholder: t(".search_placeholder") ,
                          class: "radius radius-left"

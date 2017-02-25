@@ -28,10 +28,13 @@ fieldset
 
     .large-2.columns
       .right
-        = link_to "View", patient_accesses_profile_path(@patient, @current_profile), class: "button tiny"
+        = link_to "View",
+                  patient_accesses_profile_path(@patient, @current_profile),
+                  class: "button tiny"
         | &nbsp;
-        = link_to "Edit", edit_patient_accesses_profile_path(@patient, @current_profile), class: "button tiny"
-
+        = link_to "Edit",
+                  edit_patient_accesses_profile_path(@patient, @current_profile),
+                  class: "button tiny"
 
   .row
     .large-12.columns

@@ -16,4 +16,7 @@ table
         td= infection_organism.sensitivity
 
 .right
-  = link_to "Add Infection Organism", new_pd_infection_organism_path(infectable), remote: true, class: %i(button tiny)
+  = link_to "Add Infection Organism",
+            new_pd_infection_organism_path(infectable),
+            remote: true,
+            class: %i(button tiny)

@@ -1,6 +1,7 @@
-
 .row.panel.allergy-status-form
-  = simple_form_for Renalware::Clinical::AllergyStatusForm.new(no_known_allergies: patient.allergy_status.no_known_allergies?),
+  - no_known_allergies = patient.allergy_status.no_known_allergies?
+  - model = Renalware::Clinical::AllergyStatusForm.new(no_known_allergies: no_known_allergies)
+  = simple_form_for model,
                     url: patient_clinical_allergy_status_path(patient_id: patient),
                     wrapper: "horizontal_form",
                     html: { id: "allergy-status-form" },

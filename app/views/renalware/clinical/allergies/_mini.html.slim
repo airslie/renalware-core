@@ -6,4 +6,4 @@
   span.allergy_status_updated_at
     = patient.allergy_status_updated_at && "(#{l(patient.allergy_status_updated_at.to_date)})"
   span.allergy_descriptions
-    = patient.allergies.map(&:description).join (", ")
+    = patient.allergies.map(&:description).join(", ")

@@ -5,7 +5,7 @@
     = rb.association :bag_type,
                       collection: bag_types,
                       include_blank: t("collection.blank_option"),
-                      input_html: { class: "bag-types"}
+                      input_html: { class: "bag-types" }
 
   .large-3.columns.inline
     = rb.input :volume,
@@ -35,7 +35,7 @@
 
 .row.bag-days
   .large-12.columns class="#{highlight_days_invalid(rb.object)}"
-    div.title
+    .title
       label Days to be administered:
       a.deselect-bag-days(href="#") Deselect all
     div
@@ -44,4 +44,4 @@
                    as: :boolean,
                    boolean_style: :inline,
                    wrapper: false,
-                   label_html: {class: "nested"}
+                   label_html: { class: "nested" }

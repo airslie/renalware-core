@@ -2,7 +2,7 @@
   .blood-pressure class=('with-errors' if fd.object.errors.any?)
     .row
       .small-3.columns
-        = fd.label :age, f.object.class.human_attribute_name(attribute), class: 'right inline'
+        = fd.label :age, f.object.class.human_attribute_name(attribute), class: "right inline"
       .small-1.columns
         = fd.input :systolic, as: :integer,
             placeholder: "syst",

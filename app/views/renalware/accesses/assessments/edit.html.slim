@@ -5,4 +5,4 @@
     = simple_form_for @assessment,
         url: patient_accesses_assessment_path(@patient, @assessment),
         wrapper: "horizontal_form" do |f|
-      = render 'form', f: f
+      = render "form", f: f

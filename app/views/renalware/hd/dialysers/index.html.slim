@@ -1,5 +1,5 @@
 .row
-  = render 'header'
+  = render "header"
 
 .row
   table.auto-layout
@@ -14,7 +14,9 @@
           td
             = link_to "Edit", edit_hd_dialyser_path(t.id)
             = pipe_separator
-            = link_to "Delete", hd_dialyser_path(t.id), method: :delete,
-                data: { confirm: I18n.t("prompts.confirm_delete") }
+            = link_to "Delete",
+                      hd_dialyser_path(t.id),
+                      method: :delete,
+                      data: { confirm: I18n.t("prompts.confirm_delete") }
           td= t.group
           td= t.name

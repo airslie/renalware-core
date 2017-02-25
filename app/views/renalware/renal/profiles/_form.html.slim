@@ -5,7 +5,9 @@
 
     = f.input :esrf_on, as: :date_picker
     = f.input :weight_at_esrf, input_html: { class: "small-input" }
-    = f.input :modality_at_esrf, include_blank: "Select modality", input_html: { class: "small-input" }
+    = f.input :modality_at_esrf,
+              include_blank: "Select modality",
+              input_html: { class: "small-input" }
     = f.input :first_seen_on, as: :date_picker
     = f.input :prd_description_id, input_html: { class: "clear-autocomplete" }, as: :hidden
 
@@ -28,7 +30,7 @@
                 class: "clear-autocomplete"
           .small-1.columns
             span.postfix
-              = link_to 'Clear', '#', data: { clear_value_on_click: ".clear-autocomplete" }
+              = link_to "Clear", "#", data: { clear_value_on_click: ".clear-autocomplete" }
     = f.input :comorbidities_updated_on, as: :date_picker
 
     = f.simple_fields_for :document, f.object.document do |fd|
@@ -46,4 +48,4 @@
       fieldset id="address_at_diagnosis"
         legend Address at Diagnosis
         = a.input :id, as: :hidden
-        = render partial: 'renalware/addresses/form', locals: { a: a }
+        = render partial: "renalware/addresses/form", locals: { a: a }
