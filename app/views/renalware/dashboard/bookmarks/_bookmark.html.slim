@@ -8,5 +8,6 @@ tr class=("urgent" if bookmark.urgent?)
   td= bookmark.patient.current_modality
   td= bookmark.notes
   td= I18n.l bookmark.created_at
-  td= render partial: "renalware/patients/bookmarks/delete",
-      locals: { bookmark: bookmark, link_text: "Remove" }
+  td= render "renalware/patients/bookmarks/delete",
+             bookmark: bookmark,
+             link_text: "Remove"

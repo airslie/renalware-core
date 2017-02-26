@@ -1,6 +1,6 @@
 .row
   = render "header"
-  = render partial: "renalware/shared/errors", locals: { model: @primary_care_physician }
+  = render "renalware/shared/errors", model: @primary_care_physician
 
 .row
   .large-6.columns
@@ -25,7 +25,7 @@
           fieldset#address-form style="display:none"
             = f.simple_fields_for @alternative_address do |a|
               = a.input :id, as: :hidden
-              = render partial: "renalware/addresses/form", locals: { a: a }
+              = render "renalware/addresses/form", a: a
 
       = f.button :submit
       span= " or "

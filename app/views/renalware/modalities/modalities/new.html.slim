@@ -1,5 +1,5 @@
 = within_patient_layout(title: "Modality History") do
-  = render partial: "renalware/shared/errors", locals: { model: @modality }
+  = render "renalware/shared/errors", model: @modality
 
   .modality-form
     = simple_form_for @modality,

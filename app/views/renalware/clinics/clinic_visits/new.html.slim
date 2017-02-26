@@ -5,7 +5,7 @@
         url: patient_clinic_visits_path(@patient),
         wrapper: "horizontal_form" do |f|
 
-      = render partial: "form", locals: { f: f }
+      = render "form", f: f
 
       = f.submit "Save", class: "button"
       span= " or "

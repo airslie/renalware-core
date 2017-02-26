@@ -48,4 +48,4 @@
       fieldset id="address_at_diagnosis"
         legend Address at Diagnosis
         = a.input :id, as: :hidden
-        = render partial: "renalware/addresses/form", locals: { a: a }
+        = render "renalware/addresses/form", a: a

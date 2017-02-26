@@ -1,7 +1,7 @@
 = within_patient_layout(title: "Renal Profile & Comorbidity Data") do
 
   .row
-    = render partial: "renalware/shared/errors", locals: { model: @profile }
+    = render "renalware/shared/errors", model: @profile
 
   .row
     .large-12.columns
