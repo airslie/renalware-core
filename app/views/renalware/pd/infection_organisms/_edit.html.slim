@@ -9,7 +9,7 @@
       .columns.large-12.organism-form.content id="edit-organism-#{io.object.id}" data-index=0
         fieldset
           legend Edit organism and sensitivity
-          = render partial: 'renalware/infection_organisms/fields', locals: { io: io }
+          = render "renalware/infection_organisms/fields", io: io
 
           .organism-form.content id="edit-organism-#{io.object.id}"
             = io.check_box :_destroy

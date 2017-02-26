@@ -1,4 +1,4 @@
-= render partial: "renalware/pd/infection_organisms/edit", locals: { io: io } unless io.object.new_record?
+= render("renalware/pd/infection_organisms/edit", io: io) unless io.object.new_record?
 
 #infection-organisms
-  = render partial: "renalware/pd/infection_organisms/new", locals: { io: io } if io.object.new_record?
+  = render("renalware/pd/infection_organisms/new", io: io) if io.object.new_record?

@@ -8,7 +8,7 @@
       = simple_form_for @profile,
           url: patient_renal_profile_path(@patient),
           method: :patch,
-          wrapper: "horizontal_form"  do |f|
+          wrapper: "horizontal_form" do |f|
         = render "form", f: f
 
         = submit_tag "Save", class: "button"

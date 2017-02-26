@@ -1,9 +1,9 @@
 ruby:
   back_path = if f.object.new_record?
-    patient_clinical_summary_path(@patient)
-  else
-    patient_transplants_recipient_workup_path(@patient)
-  end
+                patient_clinical_summary_path(@patient)
+              else
+                patient_transplants_recipient_workup_path(@patient)
+              end
 
 .row.top
   .medium-6.columns

@@ -1,6 +1,6 @@
 .row
   = render "header"
-  = render partial: "renalware/shared/errors", locals: { model: @primary_care_physician  }
+  = render partial: "renalware/shared/errors", locals: { model: @primary_care_physician }
 
 .row
   .large-6.columns
@@ -10,11 +10,11 @@
       = f.input :email
       = f.input :telephone
       = f.input :code
-      = f.input :practitioner_type, collection: ['GP', 'Other']
+      = f.input :practitioner_type, collection: ["GP", "Other"]
       = label_tag "patients_primary_care_physician[practice_ids]", "Practices"
       = select_tag "patients_primary_care_physician[practice_ids]",
-          practices_options_for_select(f.object),
-          { include_hidden: false, multiple: true }
+                   practices_options_for_select(f.object),
+                   { include_hidden: false, multiple: true }
 
       hr
 
