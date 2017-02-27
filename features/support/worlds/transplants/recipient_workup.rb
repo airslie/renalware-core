@@ -36,7 +36,8 @@ module World
               tb: "no"
             }
           },
-          updated_at: Time.zone.now
+          updated_at: Time.zone.now,
+          by: user
         )
       end
 
