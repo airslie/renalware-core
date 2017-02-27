@@ -35,7 +35,7 @@
         dd= @patient.sex
 
         dt Ethnicity:
-        dd= default_for_associated(@patient.ethnicity, :name, 'Unspecified')
+        dd= default_for_associated(@patient.ethnicity, :name, "Unspecified")
 
         dt Marital Status
         dd= @patient.marital_status
@@ -62,6 +62,6 @@
           dd= @patient.first_edta_code.death_cause
 
           dt Second cause of Death:
-          dd= default_for_associated(@patient.second_edta_code, :death_cause, 'N/A')
+          dd= default_for_associated(@patient.second_edta_code, :death_cause, "N/A")
 
         = link_to "Update Death Record", edit_patient_death_path(@patient)

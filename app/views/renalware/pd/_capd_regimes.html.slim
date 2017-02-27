@@ -15,9 +15,13 @@ table.capd-regimes
       tr valign="top" data-regime-id=r.id
         td
           - if r.current? && !current_user.has_role?(:read_only)
-            = link_to "Update", edit_patient_pd_regime_path(patient, r.id), class: "update-pd-regime"
+            = link_to "Update",
+                      edit_patient_pd_regime_path(patient, r.id),
+                      class: "update-pd-regime"
             = pipe_separator
-          = link_to "View", patient_pd_regime_path(patient, r.id), class: "view-pd-regime"
+          = link_to "View",
+                    patient_pd_regime_path(patient, r.id),
+                    class: "view-pd-regime"
 
         td valign="top"
           = l r.start_date

@@ -36,9 +36,13 @@ fieldset
 
     .large-2.columns
       .right
-        = link_to "View", patient_transplants_donation_path(@patient, donation), class: "button tiny"
+        = link_to "View",
+                  patient_transplants_donation_path(@patient, donation),
+                  class: "button tiny"
         | &nbsp;
-        = link_to "Edit", edit_patient_transplants_donation_path(@patient, donation), class: "button tiny"
+        = link_to "Edit",
+                  edit_patient_transplants_donation_path(@patient, donation),
+                  class: "button tiny"
 
   - if donation.notes.present?
     .row

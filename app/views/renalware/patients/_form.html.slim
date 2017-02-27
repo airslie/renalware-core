@@ -30,7 +30,9 @@
         label_method: :name, value_method: :id,
         include_blank: "Please select language",
         wrapper: :horizontal_small
-    = patient.input :marital_status, include_blank: "Please select marital status", wrapper: :horizontal_small
+    = patient.input :marital_status,
+                    include_blank: "Please select marital status",
+                    wrapper: :horizontal_small
     = patient.input :born_on, as: :date_picker, label: "DoB", wrapper: :horizontal_datepicker
     = patient.input :paediatric_patient_indicator,
         as: :inline_radio_buttons,
@@ -44,7 +46,10 @@
         .large-12.columns
           | To enter date of death please set 'Death' modality:
           | &nbsp;
-          = link_to "Change Modal", new_patient_modality_path(@patient), title: "Patient Modality", class: "death-update"
+          = link_to "Change Modal",
+                    new_patient_modality_path(@patient),
+                    title: "Patient Modality",
+                    class: "death-update"
 
 .columns.large-12
   = field_set_tag do
@@ -76,7 +81,7 @@
     fieldset id="current_address"
       legend Current Address
       = a.input :id, as: :hidden
-      = render partial: 'renalware/addresses/form', locals: { a: a }
+      = render "renalware/addresses/form", a: a
 
 .columns.large-12
   = field_set_tag do

@@ -46,10 +46,12 @@ html lang="en"
           = f.input :consultant_id, as: :hidden
           = f.input :telephone, as: :hidden
           = f.input :template, as: :hidden
-          = f.button :submit, "Print Forms", data: { confirm: "Are you sure you want to print this form? Printing will result in a request being logged which will effect the patholgoy algorithm's results." }
+          = f.button :submit, "Print Forms",
+                     data: { confirm: "Are you sure you want to print this form? Printing will result in a request being logged which will effect the patholgoy algorithm's results." }
 
     hr.page_break
 
-    = render partial: "renalware/pathology/requests/requests/request_form/#{request_html_form_params.template}",locals: { requests: requests, format: :html }
+    = render partial: "renalware/pathology/requests/requests/request_form/#{request_html_form_params.template}",
+             locals: { requests: requests, format: :html }
 
     = javascript_include_tag "application"

@@ -1,6 +1,6 @@
 = within_patient_layout(title: "#{capd_apd_title(pd_regime)} Regime", **local_assigns) do
 
-  = render partial: "renalware/shared/errors", locals: { model: pd_regime }
+  = render "renalware/shared/errors", model: pd_regime
 
   = simple_nested_form_for [patient, pd_regime],
                            as: :pd_regime,

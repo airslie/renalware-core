@@ -27,7 +27,8 @@
         th.patient_sex= t(".patient_sex")
         th.modality= t(".modality")
         th.col-width-date= sort_link(search, "prescribed_on", t(".prescribed_on"))
-        th.col-width-date.hide-for-small-only= sort_link(search, "terminated_on", t(".terminated_on"))
+        th.col-width-date.hide-for-small-only
+          = sort_link(search, "terminated_on", t(".terminated_on"))
         th.drug_name= sort_link(search, "drug_name", t(".drug_name"))
         th.dose= t(".dose")
         th.route_code= t(".route_code")

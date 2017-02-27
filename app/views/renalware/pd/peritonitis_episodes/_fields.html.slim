@@ -9,7 +9,7 @@
       = f.input :episode_types,
                 collection: Renalware::PD::PeritonitisEpisodeTypeDescription.pluck(:term, :id),
                 include_blank: t("collection.blank_option"),
-                input_html: { data: { placeholder: t("collection.blank_option_for_multiple") }},
+                input_html: { data: { placeholder: t("collection.blank_option_for_multiple") } },
                 as: :multiple_select,
                 include_hidden: false,
                 selected: f.object.episode_types.map(&:peritonitis_episode_type_description_id)
@@ -39,7 +39,7 @@
 
 .row
   .large-12.columns
-    = field_set_tag t(".fieldsets.comments")do
+    = field_set_tag t(".fieldsets.comments") do
       = f.input :notes,
                 as: :text,
                 input_html: { cols: 50, rows: 6 },

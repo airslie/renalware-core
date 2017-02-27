@@ -7,11 +7,11 @@
   = f.input :primary_care_physician_id,
             collection: available_primary_care_physicians,
             prompt: "Select a GP",
-            input_html: { class: "searchable_select", required: :required, tabindex: 2001}
+            input_html: { class: "searchable_select", required: :required, tabindex: 2001 }
 
   = f.submit "Save",
               class: "button",
-              data: {  disable_with: "Saving.." }
+              data: { disable_with: "Saving.." }
   | &nbsp;
   = link_to "Cancel",
             "#",

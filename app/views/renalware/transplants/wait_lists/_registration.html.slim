@@ -1,8 +1,10 @@
 tr
   td.noprint
-    = link_to "Tx&nbsp;Status".html_safe, patient_transplants_recipient_dashboard_path(registration.patient)
+    = link_to "Tx&nbsp;Status".html_safe,
+              patient_transplants_recipient_dashboard_path(registration.patient)
   td.full-name
-    = link_to registration.patient.to_s, patient_clinical_summary_path(registration.patient)
+    = link_to registration.patient.to_s,
+              patient_clinical_summary_path(registration.patient)
   td= registration.patient.local_patient_id
   td= registration.patient.age
   td= registration.patient.sex.code

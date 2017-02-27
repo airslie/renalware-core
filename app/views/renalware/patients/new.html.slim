@@ -1,9 +1,9 @@
 .row
   = render "index_header"
-  = render partial: "renalware/shared/errors", locals: { model: @patient }
+  = render "renalware/shared/errors", model: @patient
 
   = simple_form_for @patient, wrapper: "horizontal_form" do |f|
-    = render partial: "renalware/patients/form", locals: { patient: f }
+    = render "renalware/patients/form", patient: f
 
     = submit_tag "Save", class: "button"
     span= " or "

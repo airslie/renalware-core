@@ -7,9 +7,11 @@
   .document-view
     = render "renalware/shared/attributes_group",
         legend: "Transplant Failure", destination: "transplant_failure",
-        models: { @recipient_followup => [:stent_removed_on, :transplant_failed, :transplant_failed_on,
-          :transplant_failure_cause_description, :transplant_failure_cause_other,
-          :transplant_failure_notes] }
+        models: { @recipient_followup => [:stent_removed_on,
+                                          :transplant_failed, :transplant_failed_on,
+                                          :transplant_failure_cause_description,
+                                          :transplant_failure_cause_other,
+                                          :transplant_failure_notes] }
 
     = render "renalware/shared/documents/attributes_group",
         group: @recipient_followup.document.cardiovascular_complication,
@@ -18,9 +20,10 @@
     = render "renalware/shared/attributes_group",
         legend: "Observations", destination: "observations",
         models: { @recipient_followup.document => [:malignancy_within_first_3_months,
-          :malignancy_within_first_12_months, :acute_rejection_biopsy_proven,
-          :recipient_pregnancy,
-          :primary_or_recurrent_renal_disease] }
+                                                   :malignancy_within_first_12_months,
+                                                   :acute_rejection_biopsy_proven,
+                                                   :recipient_pregnancy,
+                                                   :primary_or_recurrent_renal_disease] }
 
     = render "renalware/shared/attributes_group",
         legend: "Admin", destination: "admin",

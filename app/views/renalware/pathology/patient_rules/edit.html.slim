@@ -1,10 +1,14 @@
 = within_patient_layout(title: "Edit Patient Rule",
                         navigation_partial: "renalware/pathology/navigation") do
-  = render partial: "renalware/shared/errors", locals: { model: patient_rule }
+  = render "renalware/shared/errors", model: patient_rule
   .row
     .large-8.columns
       = simple_form_for patient_rule,
           url: patient_pathology_patient_rule_path(patient_id: @patient.id, id: patient_rule.id),
           wrapper: "horizontal_form",
           method: :put do |f|
-        = render partial: "form", locals: { patient_rule: patient_rule, frequencies: frequencies, labs: labs, f: f }
+        = render "form",
+                 patient_rule: patient_rule,
+                 frequencies: frequencies,
+                 labs: labs,
+                 f: f

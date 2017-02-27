@@ -1,7 +1,7 @@
 = f.button :submit, value: t(".save"), data: { disable_with: t("disable_with.save") }
 | &nbsp;
 = f.button :submit,
-           name: 'signoff',
+           name: "signoff",
            value: t(".signoff"),
            data: { disable_with: t("disable_with.save") }
 - if policy(session).destroy?

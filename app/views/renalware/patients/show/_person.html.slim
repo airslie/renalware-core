@@ -6,4 +6,4 @@
     dd= person.telephone
 
   b Address
-  = render partial: "renalware/addresses/address", locals: { address: person.address } if person.address
+  = render("renalware/addresses/address", address: person.address) if person.address

@@ -16,7 +16,7 @@
   .small-9.columns
     = text_field_tag :drug_search,
                      f.object.drug_name,
-                     class: "find_drug #{ highlight_validation_fail(f.object, :drug) }",
+                     class: "find_drug #{highlight_validation_fail(f.object, :drug)}",
                      placeholder: t(".drug_search.placeholder")
 
     ul.drug-results.no-bullet

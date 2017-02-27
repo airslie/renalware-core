@@ -2,7 +2,7 @@
 
   .row
     .large-12.columns
-      = render partial: "renalware/shared/errors", locals: { model: @patient }
+      = render "renalware/shared/errors", model: @patient
 
       = simple_form_for @patient,
           url: patient_death_path(@patient),

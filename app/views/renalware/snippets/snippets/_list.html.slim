@@ -16,7 +16,7 @@
       =link_to snippets_path, remote: remote do
         i.fa.fa-user
         | Mine
-    li(class= "#{'active' if author== :anyone}")
+    li(class= "#{'active' if author == :anyone}")
       =link_to snippets_path(author: :anyone), remote: remote do
         i.fa.fa-users
         | Everyone's

@@ -26,9 +26,11 @@ fieldset.status-history
             - if operation.followup
               td= l operation.followup.last_seen_on
               td
-                = link_to "View", patient_transplants_donor_operation_followup_path(@patient, operation)
+                = link_to "View",
+                    patient_transplants_donor_operation_followup_path(@patient, operation)
                 = pipe_separator
-                = link_to "Update", edit_patient_transplants_donor_operation_followup_path(@patient, operation)
+                = link_to "Update",
+                    edit_patient_transplants_donor_operation_followup_path(@patient, operation)
             - else
               td
               td

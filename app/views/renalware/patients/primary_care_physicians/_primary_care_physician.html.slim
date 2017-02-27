@@ -1,8 +1,11 @@
 tr
   td
-    = link_to 'Edit', edit_patients_primary_care_physician_path(primary_care_physician)
+    = link_to "Edit",
+              edit_patients_primary_care_physician_path(primary_care_physician)
     = pipe_separator
-    = link_to 'Delete', patients_primary_care_physician_path(primary_care_physician), method: :delete
+    = link_to "Delete",
+              patients_primary_care_physician_path(primary_care_physician),
+              method: :delete
   td
     = primary_care_physician.full_name
   td

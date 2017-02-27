@@ -15,7 +15,7 @@ fieldset.status-history
             = link_to "Edit",
                 edit_patient_transplants_registration_status_path(@patient, status)
             = pipe_separator
-            = link_to 'Delete',
+            = link_to "Delete",
                 patient_transplants_registration_status_path(@patient, status),
                 method: :delete,
                 data: { confirm: I18n.t("prompts.confirm_delete") }

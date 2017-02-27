@@ -15,9 +15,9 @@ html lang="en"
     #modals-wrapper
     .page
       .sticky-top
-          = render partial: 'renalware/navigation/main'
+          = render "renalware/navigation/main"
           = yield(:header)
-      = render partial: 'renalware/shared/flash_messages'
+      = render "renalware/shared/flash_messages"
 
       main
         .main-content
