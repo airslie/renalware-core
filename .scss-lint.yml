@@ -1,0 +1,13 @@
+linters:
+  StringQuotes:
+    enabled: false
+  PropertySortOrder:
+    enabled: false
+  EmptyLineBetweenBlocks:
+    enabled: false
+  LeadingZero:
+    enabled: false
+  HexNotation:
+    enabled: false
+  QualifyingElement:
+    enabled: false
