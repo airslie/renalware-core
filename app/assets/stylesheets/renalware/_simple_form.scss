@@ -1,16 +1,18 @@
 .simple_form {
 
   fieldset {
-	 border: none;
+	  border: none;
     padding: 0.5rem 0;
+    margin: 0 0 1.5rem;
+
     legend {
-	  border-top: 2px solid $link-colour;
-	  color: $link-colour;
+	    border-top: 2px solid $link-colour;
+	    color: $dark-grey;
       font-size: 1.2rem;
-	  font-weight: bold;
-	  margin: 0;
-	  padding: 0.5rem 0 0;
-	  width: 100%;
+	    font-weight: bold;
+	    margin: 0;
+	    padding: .5rem 0 1rem 0;
+	    width: 100%;
     }
   }
 

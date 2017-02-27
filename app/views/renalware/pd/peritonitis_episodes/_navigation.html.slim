@@ -1,5 +1,5 @@
-- if peritonitis_episode && peritonitis_episode.new_record?
-  = render "renalware/pd/dashboards/navigation"
+/ - if peritonitis_episode && peritonitis_episode.new_record?
+/   = render "renalware/pd/dashboards/navigation"
 / - else
 /   dl.sub-nav
 /     dd= link_to "PD Summary", patient_pd_dashboard_path(patient)
