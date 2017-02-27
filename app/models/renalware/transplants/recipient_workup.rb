@@ -6,6 +6,7 @@ module Renalware
     class RecipientWorkup < ApplicationRecord
       include Document::Base
       include PatientScope
+      include Accountable
 
       belongs_to :patient
 

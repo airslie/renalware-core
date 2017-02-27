@@ -1,5 +1,5 @@
 Given(/^Patty has a recorded recipient workup$/) do
-  seed_recipient_workup_for(@patty)
+  seed_recipient_workup_for(patient: @patty, user: @clyde)
 end
 
 Given(/^Don has a donor workup$/) do

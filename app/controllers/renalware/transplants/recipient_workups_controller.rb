@@ -34,7 +34,7 @@ module Renalware
         params
           .require(:transplants_recipient_workup)
           .permit
-          .merge(document: document_attributes)
+          .merge(document: document_attributes, by: current_user)
       end
 
       def document_attributes
