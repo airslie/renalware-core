@@ -11,18 +11,19 @@ module World
 
       # @section seeding
       #
-      def seed_recipient_workup_for(patient)
+      def seed_recipient_workup_for(user: nil, patient:)
         patient = transplant_patient(patient)
 
         Renalware::Transplants::RecipientWorkup.create!(
-          patient: patient
+          patient: patient,
+          by: user
         )
       end
 
       # @section commands
       #
       def create_recipient_workup(user: nil, patient:)
-        seed_recipient_workup_for(patient)
+        seed_recipient_workup_for(user: user, patient: patient)
       end
 
       def update_workup(patient:, user: nil)
@@ -35,7 +36,8 @@ module World
               tb: "no"
             }
           },
-          updated_at: Time.zone.now
+          updated_at: Time.zone.now,
+          by: user
         )
       end
 

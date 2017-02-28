@@ -2,11 +2,12 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.5
--- Dumped by pg_dump version 9.5.5
+-- Dumped from database version 9.6.2
+-- Dumped by pg_dump version 9.6.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -3603,7 +3604,9 @@ CREATE TABLE transplant_recipient_workups (
     patient_id integer,
     document jsonb,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL
 );
 
 
@@ -3852,728 +3855,728 @@ ALTER SEQUENCE versions_id_seq OWNED BY versions.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: access_assessments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_assessments ALTER COLUMN id SET DEFAULT nextval('access_assessments_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: access_plans id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_plans ALTER COLUMN id SET DEFAULT nextval('access_plans_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: access_procedures id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_procedures ALTER COLUMN id SET DEFAULT nextval('access_procedures_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: access_profiles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_profiles ALTER COLUMN id SET DEFAULT nextval('access_profiles_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: access_sites id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_sites ALTER COLUMN id SET DEFAULT nextval('access_sites_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: access_types id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_types ALTER COLUMN id SET DEFAULT nextval('access_types_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: access_versions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_versions ALTER COLUMN id SET DEFAULT nextval('access_versions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: addresses id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY addresses ALTER COLUMN id SET DEFAULT nextval('addresses_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: clinic_appointments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY clinic_appointments ALTER COLUMN id SET DEFAULT nextval('clinic_appointments_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: clinic_clinics id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY clinic_clinics ALTER COLUMN id SET DEFAULT nextval('clinic_clinics_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: clinic_versions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY clinic_versions ALTER COLUMN id SET DEFAULT nextval('clinic_versions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: clinic_visits id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY clinic_visits ALTER COLUMN id SET DEFAULT nextval('clinic_visits_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: clinical_allergies id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY clinical_allergies ALTER COLUMN id SET DEFAULT nextval('clinical_allergies_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: death_edta_codes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY death_edta_codes ALTER COLUMN id SET DEFAULT nextval('death_edta_codes_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: delayed_jobs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: directory_people id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY directory_people ALTER COLUMN id SET DEFAULT nextval('directory_people_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: drug_types id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY drug_types ALTER COLUMN id SET DEFAULT nextval('drug_types_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: drugs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY drugs ALTER COLUMN id SET DEFAULT nextval('drugs_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: event_types id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY event_types ALTER COLUMN id SET DEFAULT nextval('event_types_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: events id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: feed_messages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY feed_messages ALTER COLUMN id SET DEFAULT nextval('feed_messages_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: hd_cannulation_types id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_cannulation_types ALTER COLUMN id SET DEFAULT nextval('hd_cannulation_types_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: hd_dialysers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_dialysers ALTER COLUMN id SET DEFAULT nextval('hd_dialysers_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: hd_dry_weights id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_dry_weights ALTER COLUMN id SET DEFAULT nextval('hd_dry_weights_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: hd_patient_statistics id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_patient_statistics ALTER COLUMN id SET DEFAULT nextval('hd_patient_statistics_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: hd_preference_sets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_preference_sets ALTER COLUMN id SET DEFAULT nextval('hd_preference_sets_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: hd_prescription_administrations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_prescription_administrations ALTER COLUMN id SET DEFAULT nextval('hd_prescription_administrations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: hd_profiles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_profiles ALTER COLUMN id SET DEFAULT nextval('hd_profiles_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: hd_sessions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_sessions ALTER COLUMN id SET DEFAULT nextval('hd_sessions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: hd_versions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_versions ALTER COLUMN id SET DEFAULT nextval('hd_versions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: hospital_centres id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hospital_centres ALTER COLUMN id SET DEFAULT nextval('hospital_centres_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: hospital_units id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hospital_units ALTER COLUMN id SET DEFAULT nextval('hospital_units_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: letter_archives id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_archives ALTER COLUMN id SET DEFAULT nextval('letter_archives_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: letter_contact_descriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_contact_descriptions ALTER COLUMN id SET DEFAULT nextval('letter_contact_descriptions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: letter_contacts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_contacts ALTER COLUMN id SET DEFAULT nextval('letter_contacts_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: letter_descriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_descriptions ALTER COLUMN id SET DEFAULT nextval('letter_descriptions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: letter_letterheads id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_letterheads ALTER COLUMN id SET DEFAULT nextval('letter_letterheads_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: letter_letters id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_letters ALTER COLUMN id SET DEFAULT nextval('letter_letters_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: letter_recipients id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_recipients ALTER COLUMN id SET DEFAULT nextval('letter_recipients_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: letter_signatures id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_signatures ALTER COLUMN id SET DEFAULT nextval('letter_signatures_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: medication_prescription_terminations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY medication_prescription_terminations ALTER COLUMN id SET DEFAULT nextval('medication_prescription_terminations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: medication_prescription_versions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY medication_prescription_versions ALTER COLUMN id SET DEFAULT nextval('medication_prescription_versions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: medication_prescriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY medication_prescriptions ALTER COLUMN id SET DEFAULT nextval('medication_prescriptions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: medication_routes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY medication_routes ALTER COLUMN id SET DEFAULT nextval('medication_routes_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: modality_descriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY modality_descriptions ALTER COLUMN id SET DEFAULT nextval('modality_descriptions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: modality_modalities id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY modality_modalities ALTER COLUMN id SET DEFAULT nextval('modality_modalities_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: modality_reasons id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY modality_reasons ALTER COLUMN id SET DEFAULT nextval('modality_reasons_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pathology_labs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_labs ALTER COLUMN id SET DEFAULT nextval('pathology_labs_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pathology_observation_descriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_observation_descriptions ALTER COLUMN id SET DEFAULT nextval('pathology_observation_descriptions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pathology_observation_requests id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_observation_requests ALTER COLUMN id SET DEFAULT nextval('pathology_observation_requests_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pathology_observations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_observations ALTER COLUMN id SET DEFAULT nextval('pathology_observations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pathology_request_descriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_request_descriptions ALTER COLUMN id SET DEFAULT nextval('pathology_request_descriptions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pathology_request_descriptions_requests_requests id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_request_descriptions_requests_requests ALTER COLUMN id SET DEFAULT nextval('pathology_request_descriptions_requests_requests_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pathology_requests_drug_categories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_drug_categories ALTER COLUMN id SET DEFAULT nextval('pathology_requests_drug_categories_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pathology_requests_drugs_drug_categories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_drugs_drug_categories ALTER COLUMN id SET DEFAULT nextval('pathology_requests_drugs_drug_categories_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pathology_requests_global_rule_sets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_global_rule_sets ALTER COLUMN id SET DEFAULT nextval('pathology_requests_global_rule_sets_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pathology_requests_global_rules id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_global_rules ALTER COLUMN id SET DEFAULT nextval('pathology_requests_global_rules_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pathology_requests_patient_rules id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_patient_rules ALTER COLUMN id SET DEFAULT nextval('pathology_requests_patient_rules_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pathology_requests_patient_rules_requests id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_patient_rules_requests ALTER COLUMN id SET DEFAULT nextval('pathology_requests_patient_rules_requests_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pathology_requests_requests id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_requests ALTER COLUMN id SET DEFAULT nextval('pathology_requests_requests_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: patient_bookmarks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patient_bookmarks ALTER COLUMN id SET DEFAULT nextval('patient_bookmarks_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: patient_ethnicities id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patient_ethnicities ALTER COLUMN id SET DEFAULT nextval('patient_ethnicities_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: patient_languages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patient_languages ALTER COLUMN id SET DEFAULT nextval('patient_languages_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: patient_practices id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patient_practices ALTER COLUMN id SET DEFAULT nextval('patient_practices_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: patient_primary_care_physicians id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patient_primary_care_physicians ALTER COLUMN id SET DEFAULT nextval('patient_primary_care_physicians_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: patient_religions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patient_religions ALTER COLUMN id SET DEFAULT nextval('patient_religions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: patient_versions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patient_versions ALTER COLUMN id SET DEFAULT nextval('patient_versions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: patients id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patients ALTER COLUMN id SET DEFAULT nextval('patients_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pd_bag_types id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_bag_types ALTER COLUMN id SET DEFAULT nextval('pd_bag_types_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pd_exit_site_infections id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_exit_site_infections ALTER COLUMN id SET DEFAULT nextval('pd_exit_site_infections_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pd_fluid_descriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_fluid_descriptions ALTER COLUMN id SET DEFAULT nextval('pd_fluid_descriptions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pd_infection_organisms id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_infection_organisms ALTER COLUMN id SET DEFAULT nextval('pd_infection_organisms_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pd_organism_codes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_organism_codes ALTER COLUMN id SET DEFAULT nextval('pd_organism_codes_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pd_peritonitis_episode_type_descriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_peritonitis_episode_type_descriptions ALTER COLUMN id SET DEFAULT nextval('pd_peritonitis_episode_type_descriptions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pd_peritonitis_episode_types id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_peritonitis_episode_types ALTER COLUMN id SET DEFAULT nextval('pd_peritonitis_episode_types_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pd_peritonitis_episodes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_peritonitis_episodes ALTER COLUMN id SET DEFAULT nextval('pd_peritonitis_episodes_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pd_pet_adequacy_results id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_pet_adequacy_results ALTER COLUMN id SET DEFAULT nextval('pd_pet_adequacy_results_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pd_regime_bags id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_regime_bags ALTER COLUMN id SET DEFAULT nextval('pd_regime_bags_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pd_regime_terminations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_regime_terminations ALTER COLUMN id SET DEFAULT nextval('pd_regime_terminations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pd_regimes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_regimes ALTER COLUMN id SET DEFAULT nextval('pd_regimes_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pd_systems id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_systems ALTER COLUMN id SET DEFAULT nextval('pd_systems_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: problem_notes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY problem_notes ALTER COLUMN id SET DEFAULT nextval('problem_notes_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: problem_problems id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY problem_problems ALTER COLUMN id SET DEFAULT nextval('problem_problems_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: problem_versions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY problem_versions ALTER COLUMN id SET DEFAULT nextval('problem_versions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: renal_prd_descriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY renal_prd_descriptions ALTER COLUMN id SET DEFAULT nextval('renal_prd_descriptions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: renal_profiles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY renal_profiles ALTER COLUMN id SET DEFAULT nextval('renal_profiles_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: roles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY roles ALTER COLUMN id SET DEFAULT nextval('roles_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: snippets_snippets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY snippets_snippets ALTER COLUMN id SET DEFAULT nextval('snippets_snippets_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: transplant_donations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_donations ALTER COLUMN id SET DEFAULT nextval('transplant_donations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: transplant_donor_followups id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_donor_followups ALTER COLUMN id SET DEFAULT nextval('transplant_donor_followups_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: transplant_donor_operations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_donor_operations ALTER COLUMN id SET DEFAULT nextval('transplant_donor_operations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: transplant_donor_workups id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_donor_workups ALTER COLUMN id SET DEFAULT nextval('transplant_donor_workups_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: transplant_failure_cause_description_groups id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_failure_cause_description_groups ALTER COLUMN id SET DEFAULT nextval('transplant_failure_cause_description_groups_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: transplant_failure_cause_descriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_failure_cause_descriptions ALTER COLUMN id SET DEFAULT nextval('transplant_failure_cause_descriptions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: transplant_recipient_followups id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_recipient_followups ALTER COLUMN id SET DEFAULT nextval('transplant_recipient_followups_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: transplant_recipient_operations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_recipient_operations ALTER COLUMN id SET DEFAULT nextval('transplant_recipient_operations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: transplant_recipient_workups id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_recipient_workups ALTER COLUMN id SET DEFAULT nextval('transplant_recipient_workups_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: transplant_registration_status_descriptions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_registration_status_descriptions ALTER COLUMN id SET DEFAULT nextval('transplant_registration_status_descriptions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: transplant_registration_statuses id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_registration_statuses ALTER COLUMN id SET DEFAULT nextval('transplant_registration_statuses_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: transplant_registrations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_registrations ALTER COLUMN id SET DEFAULT nextval('transplant_registrations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: transplant_versions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_versions ALTER COLUMN id SET DEFAULT nextval('transplant_versions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: versions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq'::regclass);
 
 
 --
--- Name: access_assessments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: access_assessments access_assessments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_assessments
@@ -4581,7 +4584,7 @@ ALTER TABLE ONLY access_assessments
 
 
 --
--- Name: access_plans_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: access_plans access_plans_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_plans
@@ -4589,7 +4592,7 @@ ALTER TABLE ONLY access_plans
 
 
 --
--- Name: access_procedures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: access_procedures access_procedures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_procedures
@@ -4597,7 +4600,7 @@ ALTER TABLE ONLY access_procedures
 
 
 --
--- Name: access_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: access_profiles access_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_profiles
@@ -4605,7 +4608,7 @@ ALTER TABLE ONLY access_profiles
 
 
 --
--- Name: access_sites_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: access_sites access_sites_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_sites
@@ -4613,7 +4616,7 @@ ALTER TABLE ONLY access_sites
 
 
 --
--- Name: access_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: access_types access_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_types
@@ -4621,7 +4624,7 @@ ALTER TABLE ONLY access_types
 
 
 --
--- Name: access_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: access_versions access_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_versions
@@ -4629,7 +4632,7 @@ ALTER TABLE ONLY access_versions
 
 
 --
--- Name: addresses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: addresses addresses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY addresses
@@ -4637,7 +4640,7 @@ ALTER TABLE ONLY addresses
 
 
 --
--- Name: ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ar_internal_metadata
@@ -4645,7 +4648,7 @@ ALTER TABLE ONLY ar_internal_metadata
 
 
 --
--- Name: clinic_appointments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: clinic_appointments clinic_appointments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY clinic_appointments
@@ -4653,7 +4656,7 @@ ALTER TABLE ONLY clinic_appointments
 
 
 --
--- Name: clinic_clinics_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: clinic_clinics clinic_clinics_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY clinic_clinics
@@ -4661,7 +4664,7 @@ ALTER TABLE ONLY clinic_clinics
 
 
 --
--- Name: clinic_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: clinic_versions clinic_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY clinic_versions
@@ -4669,7 +4672,7 @@ ALTER TABLE ONLY clinic_versions
 
 
 --
--- Name: clinic_visits_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: clinic_visits clinic_visits_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY clinic_visits
@@ -4677,7 +4680,7 @@ ALTER TABLE ONLY clinic_visits
 
 
 --
--- Name: clinical_allergies_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: clinical_allergies clinical_allergies_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY clinical_allergies
@@ -4685,7 +4688,7 @@ ALTER TABLE ONLY clinical_allergies
 
 
 --
--- Name: death_edta_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: death_edta_codes death_edta_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY death_edta_codes
@@ -4693,7 +4696,7 @@ ALTER TABLE ONLY death_edta_codes
 
 
 --
--- Name: delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: delayed_jobs delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY delayed_jobs
@@ -4701,7 +4704,7 @@ ALTER TABLE ONLY delayed_jobs
 
 
 --
--- Name: directory_people_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: directory_people directory_people_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY directory_people
@@ -4709,7 +4712,7 @@ ALTER TABLE ONLY directory_people
 
 
 --
--- Name: drug_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: drug_types drug_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY drug_types
@@ -4717,7 +4720,7 @@ ALTER TABLE ONLY drug_types
 
 
 --
--- Name: drugs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: drugs drugs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY drugs
@@ -4725,7 +4728,7 @@ ALTER TABLE ONLY drugs
 
 
 --
--- Name: event_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: event_types event_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY event_types
@@ -4733,7 +4736,7 @@ ALTER TABLE ONLY event_types
 
 
 --
--- Name: events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: events events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY events
@@ -4741,7 +4744,7 @@ ALTER TABLE ONLY events
 
 
 --
--- Name: feed_messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: feed_messages feed_messages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY feed_messages
@@ -4749,7 +4752,7 @@ ALTER TABLE ONLY feed_messages
 
 
 --
--- Name: hd_cannulation_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_cannulation_types hd_cannulation_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_cannulation_types
@@ -4757,7 +4760,7 @@ ALTER TABLE ONLY hd_cannulation_types
 
 
 --
--- Name: hd_dialysers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_dialysers hd_dialysers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_dialysers
@@ -4765,7 +4768,7 @@ ALTER TABLE ONLY hd_dialysers
 
 
 --
--- Name: hd_dry_weights_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_dry_weights hd_dry_weights_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_dry_weights
@@ -4773,7 +4776,7 @@ ALTER TABLE ONLY hd_dry_weights
 
 
 --
--- Name: hd_patient_statistics_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_patient_statistics hd_patient_statistics_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_patient_statistics
@@ -4781,7 +4784,7 @@ ALTER TABLE ONLY hd_patient_statistics
 
 
 --
--- Name: hd_preference_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_preference_sets hd_preference_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_preference_sets
@@ -4789,7 +4792,7 @@ ALTER TABLE ONLY hd_preference_sets
 
 
 --
--- Name: hd_prescription_administrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_prescription_administrations hd_prescription_administrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_prescription_administrations
@@ -4797,7 +4800,7 @@ ALTER TABLE ONLY hd_prescription_administrations
 
 
 --
--- Name: hd_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_profiles hd_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_profiles
@@ -4805,7 +4808,7 @@ ALTER TABLE ONLY hd_profiles
 
 
 --
--- Name: hd_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_sessions hd_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_sessions
@@ -4813,7 +4816,7 @@ ALTER TABLE ONLY hd_sessions
 
 
 --
--- Name: hd_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_versions hd_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_versions
@@ -4821,7 +4824,7 @@ ALTER TABLE ONLY hd_versions
 
 
 --
--- Name: hospital_centres_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: hospital_centres hospital_centres_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hospital_centres
@@ -4829,7 +4832,7 @@ ALTER TABLE ONLY hospital_centres
 
 
 --
--- Name: hospital_units_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: hospital_units hospital_units_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hospital_units
@@ -4837,7 +4840,7 @@ ALTER TABLE ONLY hospital_units
 
 
 --
--- Name: letter_archives_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_archives letter_archives_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_archives
@@ -4845,7 +4848,7 @@ ALTER TABLE ONLY letter_archives
 
 
 --
--- Name: letter_contact_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_contact_descriptions letter_contact_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_contact_descriptions
@@ -4853,7 +4856,7 @@ ALTER TABLE ONLY letter_contact_descriptions
 
 
 --
--- Name: letter_contacts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_contacts letter_contacts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_contacts
@@ -4861,7 +4864,7 @@ ALTER TABLE ONLY letter_contacts
 
 
 --
--- Name: letter_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_descriptions letter_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_descriptions
@@ -4869,7 +4872,7 @@ ALTER TABLE ONLY letter_descriptions
 
 
 --
--- Name: letter_letterheads_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_letterheads letter_letterheads_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_letterheads
@@ -4877,7 +4880,7 @@ ALTER TABLE ONLY letter_letterheads
 
 
 --
--- Name: letter_letters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_letters letter_letters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_letters
@@ -4885,7 +4888,7 @@ ALTER TABLE ONLY letter_letters
 
 
 --
--- Name: letter_recipients_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_recipients letter_recipients_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_recipients
@@ -4893,7 +4896,7 @@ ALTER TABLE ONLY letter_recipients
 
 
 --
--- Name: letter_signatures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_signatures letter_signatures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_signatures
@@ -4901,7 +4904,7 @@ ALTER TABLE ONLY letter_signatures
 
 
 --
--- Name: medication_prescription_terminations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: medication_prescription_terminations medication_prescription_terminations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY medication_prescription_terminations
@@ -4909,7 +4912,7 @@ ALTER TABLE ONLY medication_prescription_terminations
 
 
 --
--- Name: medication_prescription_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: medication_prescription_versions medication_prescription_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY medication_prescription_versions
@@ -4917,7 +4920,7 @@ ALTER TABLE ONLY medication_prescription_versions
 
 
 --
--- Name: medication_prescriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: medication_prescriptions medication_prescriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY medication_prescriptions
@@ -4925,7 +4928,7 @@ ALTER TABLE ONLY medication_prescriptions
 
 
 --
--- Name: medication_routes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: medication_routes medication_routes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY medication_routes
@@ -4933,7 +4936,7 @@ ALTER TABLE ONLY medication_routes
 
 
 --
--- Name: modality_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: modality_descriptions modality_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY modality_descriptions
@@ -4941,7 +4944,7 @@ ALTER TABLE ONLY modality_descriptions
 
 
 --
--- Name: modality_modalities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: modality_modalities modality_modalities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY modality_modalities
@@ -4949,7 +4952,7 @@ ALTER TABLE ONLY modality_modalities
 
 
 --
--- Name: modality_reasons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: modality_reasons modality_reasons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY modality_reasons
@@ -4957,7 +4960,7 @@ ALTER TABLE ONLY modality_reasons
 
 
 --
--- Name: pathology_labs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_labs pathology_labs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_labs
@@ -4965,7 +4968,7 @@ ALTER TABLE ONLY pathology_labs
 
 
 --
--- Name: pathology_observation_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_observation_descriptions pathology_observation_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_observation_descriptions
@@ -4973,7 +4976,7 @@ ALTER TABLE ONLY pathology_observation_descriptions
 
 
 --
--- Name: pathology_observation_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_observation_requests pathology_observation_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_observation_requests
@@ -4981,7 +4984,7 @@ ALTER TABLE ONLY pathology_observation_requests
 
 
 --
--- Name: pathology_observations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_observations pathology_observations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_observations
@@ -4989,7 +4992,7 @@ ALTER TABLE ONLY pathology_observations
 
 
 --
--- Name: pathology_request_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_request_descriptions pathology_request_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_request_descriptions
@@ -4997,7 +5000,7 @@ ALTER TABLE ONLY pathology_request_descriptions
 
 
 --
--- Name: pathology_request_descriptions_requests_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_request_descriptions_requests_requests pathology_request_descriptions_requests_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_request_descriptions_requests_requests
@@ -5005,7 +5008,7 @@ ALTER TABLE ONLY pathology_request_descriptions_requests_requests
 
 
 --
--- Name: pathology_requests_drug_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_requests_drug_categories pathology_requests_drug_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_drug_categories
@@ -5013,7 +5016,7 @@ ALTER TABLE ONLY pathology_requests_drug_categories
 
 
 --
--- Name: pathology_requests_drugs_drug_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_requests_drugs_drug_categories pathology_requests_drugs_drug_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_drugs_drug_categories
@@ -5021,7 +5024,7 @@ ALTER TABLE ONLY pathology_requests_drugs_drug_categories
 
 
 --
--- Name: pathology_requests_global_rule_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_requests_global_rule_sets pathology_requests_global_rule_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_global_rule_sets
@@ -5029,7 +5032,7 @@ ALTER TABLE ONLY pathology_requests_global_rule_sets
 
 
 --
--- Name: pathology_requests_global_rules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_requests_global_rules pathology_requests_global_rules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_global_rules
@@ -5037,7 +5040,7 @@ ALTER TABLE ONLY pathology_requests_global_rules
 
 
 --
--- Name: pathology_requests_patient_rules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_requests_patient_rules pathology_requests_patient_rules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_patient_rules
@@ -5045,7 +5048,7 @@ ALTER TABLE ONLY pathology_requests_patient_rules
 
 
 --
--- Name: pathology_requests_patient_rules_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_requests_patient_rules_requests pathology_requests_patient_rules_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_patient_rules_requests
@@ -5053,7 +5056,7 @@ ALTER TABLE ONLY pathology_requests_patient_rules_requests
 
 
 --
--- Name: pathology_requests_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_requests_requests pathology_requests_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_requests
@@ -5061,7 +5064,7 @@ ALTER TABLE ONLY pathology_requests_requests
 
 
 --
--- Name: patient_bookmarks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: patient_bookmarks patient_bookmarks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patient_bookmarks
@@ -5069,7 +5072,7 @@ ALTER TABLE ONLY patient_bookmarks
 
 
 --
--- Name: patient_ethnicities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: patient_ethnicities patient_ethnicities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patient_ethnicities
@@ -5077,7 +5080,7 @@ ALTER TABLE ONLY patient_ethnicities
 
 
 --
--- Name: patient_languages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: patient_languages patient_languages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patient_languages
@@ -5085,7 +5088,7 @@ ALTER TABLE ONLY patient_languages
 
 
 --
--- Name: patient_practices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: patient_practices patient_practices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patient_practices
@@ -5093,7 +5096,7 @@ ALTER TABLE ONLY patient_practices
 
 
 --
--- Name: patient_primary_care_physicians_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: patient_primary_care_physicians patient_primary_care_physicians_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patient_primary_care_physicians
@@ -5101,7 +5104,7 @@ ALTER TABLE ONLY patient_primary_care_physicians
 
 
 --
--- Name: patient_religions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: patient_religions patient_religions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patient_religions
@@ -5109,7 +5112,7 @@ ALTER TABLE ONLY patient_religions
 
 
 --
--- Name: patient_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: patient_versions patient_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patient_versions
@@ -5117,7 +5120,7 @@ ALTER TABLE ONLY patient_versions
 
 
 --
--- Name: patients_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: patients patients_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patients
@@ -5125,7 +5128,7 @@ ALTER TABLE ONLY patients
 
 
 --
--- Name: pd_bag_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_bag_types pd_bag_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_bag_types
@@ -5133,7 +5136,7 @@ ALTER TABLE ONLY pd_bag_types
 
 
 --
--- Name: pd_exit_site_infections_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_exit_site_infections pd_exit_site_infections_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_exit_site_infections
@@ -5141,7 +5144,7 @@ ALTER TABLE ONLY pd_exit_site_infections
 
 
 --
--- Name: pd_fluid_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_fluid_descriptions pd_fluid_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_fluid_descriptions
@@ -5149,7 +5152,7 @@ ALTER TABLE ONLY pd_fluid_descriptions
 
 
 --
--- Name: pd_infection_organisms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_infection_organisms pd_infection_organisms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_infection_organisms
@@ -5157,7 +5160,7 @@ ALTER TABLE ONLY pd_infection_organisms
 
 
 --
--- Name: pd_organism_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_organism_codes pd_organism_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_organism_codes
@@ -5165,7 +5168,7 @@ ALTER TABLE ONLY pd_organism_codes
 
 
 --
--- Name: pd_peritonitis_episode_type_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_peritonitis_episode_type_descriptions pd_peritonitis_episode_type_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_peritonitis_episode_type_descriptions
@@ -5173,7 +5176,7 @@ ALTER TABLE ONLY pd_peritonitis_episode_type_descriptions
 
 
 --
--- Name: pd_peritonitis_episode_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_peritonitis_episode_types pd_peritonitis_episode_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_peritonitis_episode_types
@@ -5181,7 +5184,7 @@ ALTER TABLE ONLY pd_peritonitis_episode_types
 
 
 --
--- Name: pd_peritonitis_episodes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_peritonitis_episodes pd_peritonitis_episodes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_peritonitis_episodes
@@ -5189,7 +5192,7 @@ ALTER TABLE ONLY pd_peritonitis_episodes
 
 
 --
--- Name: pd_pet_adequacy_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_pet_adequacy_results pd_pet_adequacy_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_pet_adequacy_results
@@ -5197,7 +5200,7 @@ ALTER TABLE ONLY pd_pet_adequacy_results
 
 
 --
--- Name: pd_regime_bags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_regime_bags pd_regime_bags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_regime_bags
@@ -5205,7 +5208,7 @@ ALTER TABLE ONLY pd_regime_bags
 
 
 --
--- Name: pd_regime_terminations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_regime_terminations pd_regime_terminations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_regime_terminations
@@ -5213,7 +5216,7 @@ ALTER TABLE ONLY pd_regime_terminations
 
 
 --
--- Name: pd_regimes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_regimes pd_regimes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_regimes
@@ -5221,7 +5224,7 @@ ALTER TABLE ONLY pd_regimes
 
 
 --
--- Name: pd_systems_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_systems pd_systems_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_systems
@@ -5229,7 +5232,7 @@ ALTER TABLE ONLY pd_systems
 
 
 --
--- Name: problem_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: problem_notes problem_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY problem_notes
@@ -5237,7 +5240,7 @@ ALTER TABLE ONLY problem_notes
 
 
 --
--- Name: problem_problems_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: problem_problems problem_problems_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY problem_problems
@@ -5245,7 +5248,7 @@ ALTER TABLE ONLY problem_problems
 
 
 --
--- Name: problem_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: problem_versions problem_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY problem_versions
@@ -5253,7 +5256,7 @@ ALTER TABLE ONLY problem_versions
 
 
 --
--- Name: renal_prd_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: renal_prd_descriptions renal_prd_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY renal_prd_descriptions
@@ -5261,7 +5264,7 @@ ALTER TABLE ONLY renal_prd_descriptions
 
 
 --
--- Name: renal_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: renal_profiles renal_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY renal_profiles
@@ -5269,7 +5272,7 @@ ALTER TABLE ONLY renal_profiles
 
 
 --
--- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY roles
@@ -5277,7 +5280,7 @@ ALTER TABLE ONLY roles
 
 
 --
--- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY schema_migrations
@@ -5285,7 +5288,7 @@ ALTER TABLE ONLY schema_migrations
 
 
 --
--- Name: snippets_snippets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: snippets_snippets snippets_snippets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY snippets_snippets
@@ -5293,7 +5296,7 @@ ALTER TABLE ONLY snippets_snippets
 
 
 --
--- Name: transplant_donations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_donations transplant_donations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_donations
@@ -5301,7 +5304,7 @@ ALTER TABLE ONLY transplant_donations
 
 
 --
--- Name: transplant_donor_followups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_donor_followups transplant_donor_followups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_donor_followups
@@ -5309,7 +5312,7 @@ ALTER TABLE ONLY transplant_donor_followups
 
 
 --
--- Name: transplant_donor_operations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_donor_operations transplant_donor_operations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_donor_operations
@@ -5317,7 +5320,7 @@ ALTER TABLE ONLY transplant_donor_operations
 
 
 --
--- Name: transplant_donor_workups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_donor_workups transplant_donor_workups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_donor_workups
@@ -5325,7 +5328,7 @@ ALTER TABLE ONLY transplant_donor_workups
 
 
 --
--- Name: transplant_failure_cause_description_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_failure_cause_description_groups transplant_failure_cause_description_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_failure_cause_description_groups
@@ -5333,7 +5336,7 @@ ALTER TABLE ONLY transplant_failure_cause_description_groups
 
 
 --
--- Name: transplant_failure_cause_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_failure_cause_descriptions transplant_failure_cause_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_failure_cause_descriptions
@@ -5341,7 +5344,7 @@ ALTER TABLE ONLY transplant_failure_cause_descriptions
 
 
 --
--- Name: transplant_recipient_followups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_recipient_followups transplant_recipient_followups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_recipient_followups
@@ -5349,7 +5352,7 @@ ALTER TABLE ONLY transplant_recipient_followups
 
 
 --
--- Name: transplant_recipient_operations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_recipient_operations transplant_recipient_operations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_recipient_operations
@@ -5357,7 +5360,7 @@ ALTER TABLE ONLY transplant_recipient_operations
 
 
 --
--- Name: transplant_recipient_workups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_recipient_workups transplant_recipient_workups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_recipient_workups
@@ -5365,7 +5368,7 @@ ALTER TABLE ONLY transplant_recipient_workups
 
 
 --
--- Name: transplant_registration_status_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_registration_status_descriptions transplant_registration_status_descriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_registration_status_descriptions
@@ -5373,7 +5376,7 @@ ALTER TABLE ONLY transplant_registration_status_descriptions
 
 
 --
--- Name: transplant_registration_statuses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_registration_statuses transplant_registration_statuses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_registration_statuses
@@ -5381,7 +5384,7 @@ ALTER TABLE ONLY transplant_registration_statuses
 
 
 --
--- Name: transplant_registrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_registrations transplant_registrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_registrations
@@ -5389,7 +5392,7 @@ ALTER TABLE ONLY transplant_registrations
 
 
 --
--- Name: transplant_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_versions transplant_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_versions
@@ -5397,7 +5400,7 @@ ALTER TABLE ONLY transplant_versions
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -5405,7 +5408,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: versions versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY versions
@@ -6799,6 +6802,13 @@ CREATE INDEX index_transplant_recipient_operations_on_patient_id ON transplant_r
 
 
 --
+-- Name: index_transplant_recipient_workups_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_transplant_recipient_workups_on_created_by_id ON transplant_recipient_workups USING btree (created_by_id);
+
+
+--
 -- Name: index_transplant_recipient_workups_on_document; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6810,6 +6820,13 @@ CREATE INDEX index_transplant_recipient_workups_on_document ON transplant_recipi
 --
 
 CREATE INDEX index_transplant_recipient_workups_on_patient_id ON transplant_recipient_workups USING btree (patient_id);
+
+
+--
+-- Name: index_transplant_recipient_workups_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_transplant_recipient_workups_on_updated_by_id ON transplant_recipient_workups USING btree (updated_by_id);
 
 
 --
@@ -6995,7 +7012,7 @@ CREATE INDEX tx_versions_type_id ON transplant_versions USING btree (item_type, 
 
 
 --
--- Name: access_assessments_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: access_assessments access_assessments_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_assessments
@@ -7003,7 +7020,7 @@ ALTER TABLE ONLY access_assessments
 
 
 --
--- Name: access_assessments_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: access_assessments access_assessments_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_assessments
@@ -7011,7 +7028,7 @@ ALTER TABLE ONLY access_assessments
 
 
 --
--- Name: access_procedures_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: access_procedures access_procedures_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_procedures
@@ -7019,7 +7036,7 @@ ALTER TABLE ONLY access_procedures
 
 
 --
--- Name: access_procedures_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: access_procedures access_procedures_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_procedures
@@ -7027,7 +7044,7 @@ ALTER TABLE ONLY access_procedures
 
 
 --
--- Name: access_profiles_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: access_profiles access_profiles_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_profiles
@@ -7035,7 +7052,7 @@ ALTER TABLE ONLY access_profiles
 
 
 --
--- Name: access_profiles_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: access_profiles access_profiles_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_profiles
@@ -7043,7 +7060,7 @@ ALTER TABLE ONLY access_profiles
 
 
 --
--- Name: clinic_visits_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: clinic_visits clinic_visits_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY clinic_visits
@@ -7051,7 +7068,7 @@ ALTER TABLE ONLY clinic_visits
 
 
 --
--- Name: clinic_visits_patient_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: clinic_visits clinic_visits_patient_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY clinic_visits
@@ -7059,7 +7076,7 @@ ALTER TABLE ONLY clinic_visits
 
 
 --
--- Name: clinic_visits_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: clinic_visits clinic_visits_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY clinic_visits
@@ -7067,7 +7084,7 @@ ALTER TABLE ONLY clinic_visits
 
 
 --
--- Name: directory_people_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: directory_people directory_people_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY directory_people
@@ -7075,7 +7092,7 @@ ALTER TABLE ONLY directory_people
 
 
 --
--- Name: directory_people_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: directory_people directory_people_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY directory_people
@@ -7083,7 +7100,7 @@ ALTER TABLE ONLY directory_people
 
 
 --
--- Name: events_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: events events_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY events
@@ -7091,7 +7108,7 @@ ALTER TABLE ONLY events
 
 
 --
--- Name: events_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: events events_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY events
@@ -7099,7 +7116,7 @@ ALTER TABLE ONLY events
 
 
 --
--- Name: fk_rails_01ec61436d; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: patients fk_rails_01ec61436d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patients
@@ -7107,7 +7124,7 @@ ALTER TABLE ONLY patients
 
 
 --
--- Name: fk_rails_042462eeb9; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: patients fk_rails_042462eeb9; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patients
@@ -7115,7 +7132,7 @@ ALTER TABLE ONLY patients
 
 
 --
--- Name: fk_rails_0447199042; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: modality_modalities fk_rails_0447199042; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY modality_modalities
@@ -7123,7 +7140,7 @@ ALTER TABLE ONLY modality_modalities
 
 
 --
--- Name: fk_rails_050f679712; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_observation_requests fk_rails_050f679712; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_observation_requests
@@ -7131,7 +7148,7 @@ ALTER TABLE ONLY pathology_observation_requests
 
 
 --
--- Name: fk_rails_06517764c3; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_requests_patient_rules_requests fk_rails_06517764c3; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_patient_rules_requests
@@ -7139,7 +7156,7 @@ ALTER TABLE ONLY pathology_requests_patient_rules_requests
 
 
 --
--- Name: fk_rails_0aab25a07c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_profiles fk_rails_0aab25a07c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_profiles
@@ -7147,7 +7164,7 @@ ALTER TABLE ONLY hd_profiles
 
 
 --
--- Name: fk_rails_0b66891291; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_donations fk_rails_0b66891291; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_donations
@@ -7155,7 +7172,7 @@ ALTER TABLE ONLY transplant_donations
 
 
 --
--- Name: fk_rails_0d8b5ebbad; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: clinical_allergies fk_rails_0d8b5ebbad; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY clinical_allergies
@@ -7163,7 +7180,7 @@ ALTER TABLE ONLY clinical_allergies
 
 
 --
--- Name: fk_rails_11c7f6fec3; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: access_procedures fk_rails_11c7f6fec3; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_procedures
@@ -7171,7 +7188,7 @@ ALTER TABLE ONLY access_procedures
 
 
 --
--- Name: fk_rails_15f58845a2; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_requests_patient_rules fk_rails_15f58845a2; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_patient_rules
@@ -7179,7 +7196,7 @@ ALTER TABLE ONLY pathology_requests_patient_rules
 
 
 --
--- Name: fk_rails_17327d4301; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: medication_prescriptions fk_rails_17327d4301; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY medication_prescriptions
@@ -7187,7 +7204,7 @@ ALTER TABLE ONLY medication_prescriptions
 
 
 --
--- Name: fk_rails_18650a2566; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: access_profiles fk_rails_18650a2566; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_profiles
@@ -7195,7 +7212,7 @@ ALTER TABLE ONLY access_profiles
 
 
 --
--- Name: fk_rails_1f3fb8ef97; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: medication_prescription_terminations fk_rails_1f3fb8ef97; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY medication_prescription_terminations
@@ -7203,7 +7220,7 @@ ALTER TABLE ONLY medication_prescription_terminations
 
 
 --
--- Name: fk_rails_1f91303c21; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_pet_adequacy_results fk_rails_1f91303c21; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_pet_adequacy_results
@@ -7211,7 +7228,7 @@ ALTER TABLE ONLY pd_pet_adequacy_results
 
 
 --
--- Name: fk_rails_21e1b74109; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: modality_modalities fk_rails_21e1b74109; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY modality_modalities
@@ -7219,7 +7236,7 @@ ALTER TABLE ONLY modality_modalities
 
 
 --
--- Name: fk_rails_24de49b694; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_requests_drugs_drug_categories fk_rails_24de49b694; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_drugs_drug_categories
@@ -7227,7 +7244,7 @@ ALTER TABLE ONLY pathology_requests_drugs_drug_categories
 
 
 --
--- Name: fk_rails_25e627b557; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: medication_prescriptions fk_rails_25e627b557; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY medication_prescriptions
@@ -7235,7 +7252,7 @@ ALTER TABLE ONLY medication_prescriptions
 
 
 --
--- Name: fk_rails_27e92c81fe; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: medication_prescriptions fk_rails_27e92c81fe; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY medication_prescriptions
@@ -7243,7 +7260,7 @@ ALTER TABLE ONLY medication_prescriptions
 
 
 --
--- Name: fk_rails_2ae6a3ad59; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: medication_prescriptions fk_rails_2ae6a3ad59; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY medication_prescriptions
@@ -7251,7 +7268,7 @@ ALTER TABLE ONLY medication_prescriptions
 
 
 --
--- Name: fk_rails_2bd34b98f9; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: medication_prescription_terminations fk_rails_2bd34b98f9; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY medication_prescription_terminations
@@ -7259,7 +7276,7 @@ ALTER TABLE ONLY medication_prescription_terminations
 
 
 --
--- Name: fk_rails_2f135fd6d9; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_peritonitis_episode_types fk_rails_2f135fd6d9; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_peritonitis_episode_types
@@ -7267,7 +7284,7 @@ ALTER TABLE ONLY pd_peritonitis_episode_types
 
 
 --
--- Name: fk_rails_31546389ab; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_dry_weights fk_rails_31546389ab; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_dry_weights
@@ -7275,7 +7292,7 @@ ALTER TABLE ONLY hd_dry_weights
 
 
 --
--- Name: fk_rails_324e505f46; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_dry_weights fk_rails_324e505f46; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_dry_weights
@@ -7283,7 +7300,7 @@ ALTER TABLE ONLY hd_dry_weights
 
 
 --
--- Name: fk_rails_32f4ff205a; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_registration_statuses fk_rails_32f4ff205a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_registration_statuses
@@ -7291,7 +7308,7 @@ ALTER TABLE ONLY transplant_registration_statuses
 
 
 --
--- Name: fk_rails_33f3612955; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_registrations fk_rails_33f3612955; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_registrations
@@ -7299,7 +7316,7 @@ ALTER TABLE ONLY transplant_registrations
 
 
 --
--- Name: fk_rails_33f61c70e6; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_contacts fk_rails_33f61c70e6; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_contacts
@@ -7307,7 +7324,7 @@ ALTER TABLE ONLY letter_contacts
 
 
 --
--- Name: fk_rails_36cb307ab5; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_registration_statuses fk_rails_36cb307ab5; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_registration_statuses
@@ -7315,7 +7332,7 @@ ALTER TABLE ONLY transplant_registration_statuses
 
 
 --
--- Name: fk_rails_3916726775; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_request_descriptions_requests_requests fk_rails_3916726775; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_request_descriptions_requests_requests
@@ -7323,7 +7340,7 @@ ALTER TABLE ONLY pathology_request_descriptions_requests_requests
 
 
 --
--- Name: fk_rails_39983ddc03; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_letters fk_rails_39983ddc03; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_letters
@@ -7331,7 +7348,7 @@ ALTER TABLE ONLY letter_letters
 
 
 --
--- Name: fk_rails_39da21b3fe; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_request_descriptions fk_rails_39da21b3fe; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_request_descriptions
@@ -7339,7 +7356,7 @@ ALTER TABLE ONLY pathology_request_descriptions
 
 
 --
--- Name: fk_rails_3a852d1667; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_recipient_operations fk_rails_3a852d1667; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_recipient_operations
@@ -7347,7 +7364,7 @@ ALTER TABLE ONLY transplant_recipient_operations
 
 
 --
--- Name: fk_rails_3bafe36805; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: drug_types_drugs fk_rails_3bafe36805; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY drug_types_drugs
@@ -7355,7 +7372,7 @@ ALTER TABLE ONLY drug_types_drugs
 
 
 --
--- Name: fk_rails_3e035fe47f; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_sessions fk_rails_3e035fe47f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_sessions
@@ -7363,7 +7380,7 @@ ALTER TABLE ONLY hd_sessions
 
 
 --
--- Name: fk_rails_3e0f147311; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_sessions fk_rails_3e0f147311; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_sessions
@@ -7371,7 +7388,7 @@ ALTER TABLE ONLY hd_sessions
 
 
 --
--- Name: fk_rails_3e725c96fc; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_requests_requests fk_rails_3e725c96fc; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_requests
@@ -7379,7 +7396,7 @@ ALTER TABLE ONLY pathology_requests_requests
 
 
 --
--- Name: fk_rails_3e924fb47c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_peritonitis_episode_types fk_rails_3e924fb47c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_peritonitis_episode_types
@@ -7387,7 +7404,7 @@ ALTER TABLE ONLY pd_peritonitis_episode_types
 
 
 --
--- Name: fk_rails_3f47dd9cc1; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: patient_bookmarks fk_rails_3f47dd9cc1; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patient_bookmarks
@@ -7395,7 +7412,7 @@ ALTER TABLE ONLY patient_bookmarks
 
 
 --
--- Name: fk_rails_40e23de825; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_requests_global_rule_sets fk_rails_40e23de825; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_global_rule_sets
@@ -7403,7 +7420,7 @@ ALTER TABLE ONLY pathology_requests_global_rule_sets
 
 
 --
--- Name: fk_rails_506a7ce21d; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: access_assessments fk_rails_506a7ce21d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_assessments
@@ -7411,7 +7428,7 @@ ALTER TABLE ONLY access_assessments
 
 
 --
--- Name: fk_rails_55ecff6804; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: patient_practices_primary_care_physicians fk_rails_55ecff6804; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patient_practices_primary_care_physicians
@@ -7419,7 +7436,7 @@ ALTER TABLE ONLY patient_practices_primary_care_physicians
 
 
 --
--- Name: fk_rails_563fedb262; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_sessions fk_rails_563fedb262; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_sessions
@@ -7427,7 +7444,7 @@ ALTER TABLE ONLY hd_sessions
 
 
 --
--- Name: fk_rails_568750244e; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: renal_profiles fk_rails_568750244e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY renal_profiles
@@ -7435,7 +7452,7 @@ ALTER TABLE ONLY renal_profiles
 
 
 --
--- Name: fk_rails_571a3cadda; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_recipient_workups fk_rails_571a3cadda; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_recipient_workups
@@ -7443,7 +7460,7 @@ ALTER TABLE ONLY transplant_recipient_workups
 
 
 --
--- Name: fk_rails_5b44e541da; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: patients fk_rails_5b44e541da; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patients
@@ -7451,7 +7468,7 @@ ALTER TABLE ONLY patients
 
 
 --
--- Name: fk_rails_6021bed852; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_regime_terminations fk_rails_6021bed852; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_regime_terminations
@@ -7459,7 +7476,7 @@ ALTER TABLE ONLY pd_regime_terminations
 
 
 --
--- Name: fk_rails_604fdf3a9e; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: access_assessments fk_rails_604fdf3a9e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_assessments
@@ -7467,7 +7484,7 @@ ALTER TABLE ONLY access_assessments
 
 
 --
--- Name: fk_rails_60aca3bf58; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_signatures fk_rails_60aca3bf58; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_signatures
@@ -7475,7 +7492,7 @@ ALTER TABLE ONLY letter_signatures
 
 
 --
--- Name: fk_rails_617c726b94; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_requests_requests fk_rails_617c726b94; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_requests
@@ -7483,7 +7500,7 @@ ALTER TABLE ONLY pathology_requests_requests
 
 
 --
--- Name: fk_rails_6191e75b3b; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_letters fk_rails_6191e75b3b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_letters
@@ -7491,7 +7508,7 @@ ALTER TABLE ONLY letter_letters
 
 
 --
--- Name: fk_rails_6231b53275; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: patients fk_rails_6231b53275; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patients
@@ -7499,7 +7516,7 @@ ALTER TABLE ONLY patients
 
 
 --
--- Name: fk_rails_6893ba0593; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_recipient_followups fk_rails_6893ba0593; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_recipient_followups
@@ -7507,7 +7524,7 @@ ALTER TABLE ONLY transplant_recipient_followups
 
 
 --
--- Name: fk_rails_6951f9dee7; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: patients fk_rails_6951f9dee7; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patients
@@ -7515,7 +7532,7 @@ ALTER TABLE ONLY patients
 
 
 --
--- Name: fk_rails_6a44f3907b; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: problem_notes fk_rails_6a44f3907b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY problem_notes
@@ -7523,7 +7540,7 @@ ALTER TABLE ONLY problem_notes
 
 
 --
--- Name: fk_rails_70ef87ad18; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_observations fk_rails_70ef87ad18; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_observations
@@ -7531,7 +7548,7 @@ ALTER TABLE ONLY pathology_observations
 
 
 --
--- Name: fk_rails_7345be7c22; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: patients fk_rails_7345be7c22; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patients
@@ -7539,7 +7556,7 @@ ALTER TABLE ONLY patients
 
 
 --
--- Name: fk_rails_751ed7515f; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_sessions fk_rails_751ed7515f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_sessions
@@ -7547,7 +7564,7 @@ ALTER TABLE ONLY hd_sessions
 
 
 --
--- Name: fk_rails_75f14fef31; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: events fk_rails_75f14fef31; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY events
@@ -7555,7 +7572,7 @@ ALTER TABLE ONLY events
 
 
 --
--- Name: fk_rails_78dc63040c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_recipient_followups fk_rails_78dc63040c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_recipient_followups
@@ -7563,7 +7580,7 @@ ALTER TABLE ONLY transplant_recipient_followups
 
 
 --
--- Name: fk_rails_7a89922302; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: patient_practices_primary_care_physicians fk_rails_7a89922302; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patient_practices_primary_care_physicians
@@ -7571,7 +7588,7 @@ ALTER TABLE ONLY patient_practices_primary_care_physicians
 
 
 --
--- Name: fk_rails_7d318fdf1a; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_regime_terminations fk_rails_7d318fdf1a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_regime_terminations
@@ -7579,7 +7596,7 @@ ALTER TABLE ONLY pd_regime_terminations
 
 
 --
--- Name: fk_rails_7d5fdddbd2; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: snippets_snippets fk_rails_7d5fdddbd2; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY snippets_snippets
@@ -7587,7 +7604,7 @@ ALTER TABLE ONLY snippets_snippets
 
 
 --
--- Name: fk_rails_7dc4363735; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_archives fk_rails_7dc4363735; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_archives
@@ -7595,7 +7612,7 @@ ALTER TABLE ONLY letter_archives
 
 
 --
--- Name: fk_rails_885e37560e; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_prescription_administrations fk_rails_885e37560e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_prescription_administrations
@@ -7603,7 +7620,7 @@ ALTER TABLE ONLY hd_prescription_administrations
 
 
 --
--- Name: fk_rails_89630f47ee; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_profiles fk_rails_89630f47ee; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_profiles
@@ -7611,7 +7628,7 @@ ALTER TABLE ONLY hd_profiles
 
 
 --
--- Name: fk_rails_8d75e5423f; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: access_profiles fk_rails_8d75e5423f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_profiles
@@ -7619,7 +7636,7 @@ ALTER TABLE ONLY access_profiles
 
 
 --
--- Name: fk_rails_8f3a7fc1c7; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hospital_units fk_rails_8f3a7fc1c7; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hospital_units
@@ -7627,7 +7644,7 @@ ALTER TABLE ONLY hospital_units
 
 
 --
--- Name: fk_rails_8f574ed703; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_request_descriptions_requests_requests fk_rails_8f574ed703; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_request_descriptions_requests_requests
@@ -7635,7 +7652,7 @@ ALTER TABLE ONLY pathology_request_descriptions_requests_requests
 
 
 --
--- Name: fk_rails_909dcaaf3d; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: clinic_appointments fk_rails_909dcaaf3d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY clinic_appointments
@@ -7643,7 +7660,7 @@ ALTER TABLE ONLY clinic_appointments
 
 
 --
--- Name: fk_rails_9183cb4170; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_failure_cause_descriptions fk_rails_9183cb4170; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_failure_cause_descriptions
@@ -7651,7 +7668,7 @@ ALTER TABLE ONLY transplant_failure_cause_descriptions
 
 
 --
--- Name: fk_rails_9193bda748; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: clinical_allergies fk_rails_9193bda748; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY clinical_allergies
@@ -7659,7 +7676,7 @@ ALTER TABLE ONLY clinical_allergies
 
 
 --
--- Name: fk_rails_93dc1108f3; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_donor_workups fk_rails_93dc1108f3; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_donor_workups
@@ -7667,7 +7684,7 @@ ALTER TABLE ONLY transplant_donor_workups
 
 
 --
--- Name: fk_rails_93f7877530; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_regime_terminations fk_rails_93f7877530; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_regime_terminations
@@ -7675,7 +7692,7 @@ ALTER TABLE ONLY pd_regime_terminations
 
 
 --
--- Name: fk_rails_9702c22886; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_exit_site_infections fk_rails_9702c22886; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_exit_site_infections
@@ -7683,7 +7700,7 @@ ALTER TABLE ONLY pd_exit_site_infections
 
 
 --
--- Name: fk_rails_9739853ad1; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: patients fk_rails_9739853ad1; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patients
@@ -7691,7 +7708,7 @@ ALTER TABLE ONLY patients
 
 
 --
--- Name: fk_rails_9c76b7ba29; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_recipients fk_rails_9c76b7ba29; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_recipients
@@ -7699,7 +7716,7 @@ ALTER TABLE ONLY letter_recipients
 
 
 --
--- Name: fk_rails_9dada905f6; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: roles_users fk_rails_9dada905f6; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY roles_users
@@ -7707,7 +7724,7 @@ ALTER TABLE ONLY roles_users
 
 
 --
--- Name: fk_rails_9dbbc5bfd0; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: access_procedures fk_rails_9dbbc5bfd0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_procedures
@@ -7715,7 +7732,7 @@ ALTER TABLE ONLY access_procedures
 
 
 --
--- Name: fk_rails_a0b9cd97fe; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_request_descriptions fk_rails_a0b9cd97fe; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_request_descriptions
@@ -7723,7 +7740,7 @@ ALTER TABLE ONLY pathology_request_descriptions
 
 
 --
--- Name: fk_rails_a0d87208a0; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_contacts fk_rails_a0d87208a0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_contacts
@@ -7731,7 +7748,7 @@ ALTER TABLE ONLY letter_contacts
 
 
 --
--- Name: fk_rails_a3afae15cb; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_sessions fk_rails_a3afae15cb; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_sessions
@@ -7739,7 +7756,7 @@ ALTER TABLE ONLY hd_sessions
 
 
 --
--- Name: fk_rails_a5852d1710; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_contacts fk_rails_a5852d1710; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_contacts
@@ -7747,7 +7764,7 @@ ALTER TABLE ONLY letter_contacts
 
 
 --
--- Name: fk_rails_a654a17f8d; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_patient_statistics fk_rails_a654a17f8d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_patient_statistics
@@ -7755,7 +7772,7 @@ ALTER TABLE ONLY hd_patient_statistics
 
 
 --
--- Name: fk_rails_a70920e237; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_regimes fk_rails_a70920e237; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_regimes
@@ -7763,7 +7780,7 @@ ALTER TABLE ONLY pd_regimes
 
 
 --
--- Name: fk_rails_a850498c88; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_requests_drugs_drug_categories fk_rails_a850498c88; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_drugs_drug_categories
@@ -7771,7 +7788,7 @@ ALTER TABLE ONLY pathology_requests_drugs_drug_categories
 
 
 --
--- Name: fk_rails_a8d58d31e6; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_requests_requests fk_rails_a8d58d31e6; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_requests
@@ -7779,7 +7796,7 @@ ALTER TABLE ONLY pathology_requests_requests
 
 
 --
--- Name: fk_rails_ac8e970c42; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_preference_sets fk_rails_ac8e970c42; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_preference_sets
@@ -7787,7 +7804,7 @@ ALTER TABLE ONLY hd_preference_sets
 
 
 --
--- Name: fk_rails_acbcae03df; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: access_profiles fk_rails_acbcae03df; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_profiles
@@ -7795,7 +7812,7 @@ ALTER TABLE ONLY access_profiles
 
 
 --
--- Name: fk_rails_ae56e9fe7e; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_peritonitis_episodes fk_rails_ae56e9fe7e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_peritonitis_episodes
@@ -7803,7 +7820,7 @@ ALTER TABLE ONLY pd_peritonitis_episodes
 
 
 --
--- Name: fk_rails_b13e09c8a3; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_requests_patient_rules fk_rails_b13e09c8a3; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_patient_rules
@@ -7811,7 +7828,7 @@ ALTER TABLE ONLY pathology_requests_patient_rules
 
 
 --
--- Name: fk_rails_b163068880; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_patient_statistics fk_rails_b163068880; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_patient_statistics
@@ -7819,7 +7836,7 @@ ALTER TABLE ONLY hd_patient_statistics
 
 
 --
--- Name: fk_rails_b1b697cf23; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: patient_practices_primary_care_physicians fk_rails_b1b697cf23; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patient_practices_primary_care_physicians
@@ -7827,7 +7844,7 @@ ALTER TABLE ONLY patient_practices_primary_care_physicians
 
 
 --
--- Name: fk_rails_b6ee03185c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_donor_operations fk_rails_b6ee03185c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_donor_operations
@@ -7835,7 +7852,7 @@ ALTER TABLE ONLY transplant_donor_operations
 
 
 --
--- Name: fk_rails_b77918cf71; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_requests_global_rules fk_rails_b77918cf71; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_global_rules
@@ -7843,7 +7860,7 @@ ALTER TABLE ONLY pathology_requests_global_rules
 
 
 --
--- Name: fk_rails_b7cc8fd5dd; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: clinic_appointments fk_rails_b7cc8fd5dd; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY clinic_appointments
@@ -7851,7 +7868,7 @@ ALTER TABLE ONLY clinic_appointments
 
 
 --
--- Name: fk_rails_b844dc9537; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: clinic_visits fk_rails_b844dc9537; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY clinic_visits
@@ -7859,7 +7876,7 @@ ALTER TABLE ONLY clinic_visits
 
 
 --
--- Name: fk_rails_bbae3e065d; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: problem_problems fk_rails_bbae3e065d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY problem_problems
@@ -7867,7 +7884,7 @@ ALTER TABLE ONLY problem_problems
 
 
 --
--- Name: fk_rails_bd995b497c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_sessions fk_rails_bd995b497c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_sessions
@@ -7875,7 +7892,7 @@ ALTER TABLE ONLY hd_sessions
 
 
 --
--- Name: fk_rails_c12b863727; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: patient_bookmarks fk_rails_c12b863727; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patient_bookmarks
@@ -7883,7 +7900,7 @@ ALTER TABLE ONLY patient_bookmarks
 
 
 --
--- Name: fk_rails_c31cea56ac; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: modality_modalities fk_rails_c31cea56ac; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY modality_modalities
@@ -7891,7 +7908,7 @@ ALTER TABLE ONLY modality_modalities
 
 
 --
--- Name: fk_rails_c367d368e6; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: access_profiles fk_rails_c367d368e6; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_profiles
@@ -7899,7 +7916,7 @@ ALTER TABLE ONLY access_profiles
 
 
 --
--- Name: fk_rails_c654406492; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_prescription_administrations fk_rails_c654406492; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_prescription_administrations
@@ -7907,7 +7924,7 @@ ALTER TABLE ONLY hd_prescription_administrations
 
 
 --
--- Name: fk_rails_c75064199c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_donor_followups fk_rails_c75064199c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_donor_followups
@@ -7915,7 +7932,7 @@ ALTER TABLE ONLY transplant_donor_followups
 
 
 --
--- Name: fk_rails_c7b1e35b07; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: medication_prescriptions fk_rails_c7b1e35b07; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY medication_prescriptions
@@ -7923,7 +7940,7 @@ ALTER TABLE ONLY medication_prescriptions
 
 
 --
--- Name: fk_rails_c89b2174e9; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_profiles fk_rails_c89b2174e9; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_profiles
@@ -7931,7 +7948,7 @@ ALTER TABLE ONLY hd_profiles
 
 
 --
--- Name: fk_rails_ca16ec591e; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_regime_bags fk_rails_ca16ec591e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_regime_bags
@@ -7939,7 +7956,7 @@ ALTER TABLE ONLY pd_regime_bags
 
 
 --
--- Name: fk_rails_cd10bc0ddf; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: renal_profiles fk_rails_cd10bc0ddf; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY renal_profiles
@@ -7947,7 +7964,7 @@ ALTER TABLE ONLY renal_profiles
 
 
 --
--- Name: fk_rails_d04ba97fc5; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: access_profiles fk_rails_d04ba97fc5; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_profiles
@@ -7955,7 +7972,7 @@ ALTER TABLE ONLY access_profiles
 
 
 --
--- Name: fk_rails_d4aaa80dee; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_signatures fk_rails_d4aaa80dee; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_signatures
@@ -7963,7 +7980,7 @@ ALTER TABLE ONLY letter_signatures
 
 
 --
--- Name: fk_rails_d92d27629e; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_profiles fk_rails_d92d27629e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_profiles
@@ -7971,7 +7988,7 @@ ALTER TABLE ONLY hd_profiles
 
 
 --
--- Name: fk_rails_db5255e417; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_observation_requests fk_rails_db5255e417; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_observation_requests
@@ -7979,7 +7996,7 @@ ALTER TABLE ONLY pathology_observation_requests
 
 
 --
--- Name: fk_rails_dc1b1799e7; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_observations fk_rails_dc1b1799e7; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_observations
@@ -7987,7 +8004,7 @@ ALTER TABLE ONLY pathology_observations
 
 
 --
--- Name: fk_rails_dd74a1d162; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_pet_adequacy_results fk_rails_dd74a1d162; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_pet_adequacy_results
@@ -7995,7 +8012,7 @@ ALTER TABLE ONLY pd_pet_adequacy_results
 
 
 --
--- Name: fk_rails_de0d26811a; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_regime_bags fk_rails_de0d26811a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_regime_bags
@@ -8003,7 +8020,7 @@ ALTER TABLE ONLY pd_regime_bags
 
 
 --
--- Name: fk_rails_df82011585; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_infection_organisms fk_rails_df82011585; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_infection_organisms
@@ -8011,7 +8028,7 @@ ALTER TABLE ONLY pd_infection_organisms
 
 
 --
--- Name: fk_rails_e03d4a27ce; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: clinic_appointments fk_rails_e03d4a27ce; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY clinic_appointments
@@ -8019,7 +8036,7 @@ ALTER TABLE ONLY clinic_appointments
 
 
 --
--- Name: fk_rails_e1899a68af; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: events fk_rails_e1899a68af; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY events
@@ -8027,7 +8044,7 @@ ALTER TABLE ONLY events
 
 
 --
--- Name: fk_rails_e2a7142459; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: roles_users fk_rails_e2a7142459; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY roles_users
@@ -8035,7 +8052,7 @@ ALTER TABLE ONLY roles_users
 
 
 --
--- Name: fk_rails_e32b0e0494; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_sessions fk_rails_e32b0e0494; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_sessions
@@ -8043,7 +8060,7 @@ ALTER TABLE ONLY hd_sessions
 
 
 --
--- Name: fk_rails_e41edf9bc0; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_recipient_operations fk_rails_e41edf9bc0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_recipient_operations
@@ -8051,7 +8068,7 @@ ALTER TABLE ONLY transplant_recipient_operations
 
 
 --
--- Name: fk_rails_e53c500fcd; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_requests_global_rule_sets fk_rails_e53c500fcd; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_global_rule_sets
@@ -8059,7 +8076,7 @@ ALTER TABLE ONLY pathology_requests_global_rule_sets
 
 
 --
--- Name: fk_rails_e97a696dd5; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_peritonitis_episodes fk_rails_e97a696dd5; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_peritonitis_episodes
@@ -8067,7 +8084,7 @@ ALTER TABLE ONLY pd_peritonitis_episodes
 
 
 --
--- Name: fk_rails_e97e417b7d; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: access_assessments fk_rails_e97e417b7d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_assessments
@@ -8075,7 +8092,7 @@ ALTER TABLE ONLY access_assessments
 
 
 --
--- Name: fk_rails_eb5294f3df; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_profiles fk_rails_eb5294f3df; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_profiles
@@ -8083,7 +8100,7 @@ ALTER TABLE ONLY hd_profiles
 
 
 --
--- Name: fk_rails_ed137a641b; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: access_procedures fk_rails_ed137a641b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY access_procedures
@@ -8091,7 +8108,7 @@ ALTER TABLE ONLY access_procedures
 
 
 --
--- Name: fk_rails_edf3902cb0; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: problem_problems fk_rails_edf3902cb0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY problem_problems
@@ -8099,7 +8116,7 @@ ALTER TABLE ONLY problem_problems
 
 
 --
--- Name: fk_rails_f0adc9d29e; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: clinic_clinics fk_rails_f0adc9d29e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY clinic_clinics
@@ -8107,7 +8124,7 @@ ALTER TABLE ONLY clinic_clinics
 
 
 --
--- Name: fk_rails_f0bcae6feb; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_preference_sets fk_rails_f0bcae6feb; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_preference_sets
@@ -8115,7 +8132,7 @@ ALTER TABLE ONLY hd_preference_sets
 
 
 --
--- Name: fk_rails_f228a98e1b; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_peritonitis_episodes fk_rails_f228a98e1b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_peritonitis_episodes
@@ -8123,7 +8140,7 @@ ALTER TABLE ONLY pd_peritonitis_episodes
 
 
 --
--- Name: fk_rails_f2b12c3a20; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: patient_practices_primary_care_physicians fk_rails_f2b12c3a20; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patient_practices_primary_care_physicians
@@ -8131,7 +8148,7 @@ ALTER TABLE ONLY patient_practices_primary_care_physicians
 
 
 --
--- Name: fk_rails_f51a425d72; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_prescription_administrations fk_rails_f51a425d72; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_prescription_administrations
@@ -8139,7 +8156,7 @@ ALTER TABLE ONLY hd_prescription_administrations
 
 
 --
--- Name: fk_rails_f8ae33fdba; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_pet_adequacy_results fk_rails_f8ae33fdba; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_pet_adequacy_results
@@ -8147,7 +8164,7 @@ ALTER TABLE ONLY pd_pet_adequacy_results
 
 
 --
--- Name: fk_rails_f8ed99dfda; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: drug_types_drugs fk_rails_f8ed99dfda; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY drug_types_drugs
@@ -8155,7 +8172,7 @@ ALTER TABLE ONLY drug_types_drugs
 
 
 --
--- Name: fk_rails_f8f7b6daad; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: clinical_allergies fk_rails_f8f7b6daad; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY clinical_allergies
@@ -8163,7 +8180,7 @@ ALTER TABLE ONLY clinical_allergies
 
 
 --
--- Name: fk_rails_fb03f6bde8; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_prescription_administrations fk_rails_fb03f6bde8; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_prescription_administrations
@@ -8171,7 +8188,7 @@ ALTER TABLE ONLY hd_prescription_administrations
 
 
 --
--- Name: fk_rails_fb41553d96; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: problem_problems fk_rails_fb41553d96; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY problem_problems
@@ -8179,7 +8196,7 @@ ALTER TABLE ONLY problem_problems
 
 
 --
--- Name: fk_rails_fc41021986; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_requests_patient_rules_requests fk_rails_fc41021986; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_patient_rules_requests
@@ -8187,7 +8204,7 @@ ALTER TABLE ONLY pathology_requests_patient_rules_requests
 
 
 --
--- Name: fk_rails_fe1184d31a; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: medication_prescription_terminations fk_rails_fe1184d31a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY medication_prescription_terminations
@@ -8195,7 +8212,7 @@ ALTER TABLE ONLY medication_prescription_terminations
 
 
 --
--- Name: hd_dry_weights_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_dry_weights hd_dry_weights_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_dry_weights
@@ -8203,7 +8220,7 @@ ALTER TABLE ONLY hd_dry_weights
 
 
 --
--- Name: hd_dry_weights_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_dry_weights hd_dry_weights_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_dry_weights
@@ -8211,7 +8228,7 @@ ALTER TABLE ONLY hd_dry_weights
 
 
 --
--- Name: hd_preference_sets_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_preference_sets hd_preference_sets_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_preference_sets
@@ -8219,7 +8236,7 @@ ALTER TABLE ONLY hd_preference_sets
 
 
 --
--- Name: hd_preference_sets_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_preference_sets hd_preference_sets_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_preference_sets
@@ -8227,7 +8244,7 @@ ALTER TABLE ONLY hd_preference_sets
 
 
 --
--- Name: hd_profiles_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_profiles hd_profiles_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_profiles
@@ -8235,7 +8252,7 @@ ALTER TABLE ONLY hd_profiles
 
 
 --
--- Name: hd_profiles_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_profiles hd_profiles_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_profiles
@@ -8243,7 +8260,7 @@ ALTER TABLE ONLY hd_profiles
 
 
 --
--- Name: hd_sessions_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_sessions hd_sessions_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_sessions
@@ -8251,7 +8268,7 @@ ALTER TABLE ONLY hd_sessions
 
 
 --
--- Name: hd_sessions_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: hd_sessions hd_sessions_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY hd_sessions
@@ -8259,7 +8276,7 @@ ALTER TABLE ONLY hd_sessions
 
 
 --
--- Name: letter_archives_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_archives letter_archives_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_archives
@@ -8267,7 +8284,7 @@ ALTER TABLE ONLY letter_archives
 
 
 --
--- Name: letter_archives_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_archives letter_archives_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_archives
@@ -8275,7 +8292,7 @@ ALTER TABLE ONLY letter_archives
 
 
 --
--- Name: letter_letters_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_letters letter_letters_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_letters
@@ -8283,7 +8300,7 @@ ALTER TABLE ONLY letter_letters
 
 
 --
--- Name: letter_letters_patient_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_letters letter_letters_patient_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_letters
@@ -8291,7 +8308,7 @@ ALTER TABLE ONLY letter_letters
 
 
 --
--- Name: letter_letters_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: letter_letters letter_letters_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY letter_letters
@@ -8299,7 +8316,7 @@ ALTER TABLE ONLY letter_letters
 
 
 --
--- Name: modality_modalities_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: modality_modalities modality_modalities_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY modality_modalities
@@ -8307,7 +8324,7 @@ ALTER TABLE ONLY modality_modalities
 
 
 --
--- Name: modality_modalities_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: modality_modalities modality_modalities_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY modality_modalities
@@ -8315,7 +8332,7 @@ ALTER TABLE ONLY modality_modalities
 
 
 --
--- Name: pathology_requests_requests_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_requests_requests pathology_requests_requests_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_requests
@@ -8323,7 +8340,7 @@ ALTER TABLE ONLY pathology_requests_requests
 
 
 --
--- Name: pathology_requests_requests_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pathology_requests_requests pathology_requests_requests_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pathology_requests_requests
@@ -8331,7 +8348,7 @@ ALTER TABLE ONLY pathology_requests_requests
 
 
 --
--- Name: patients_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: patients patients_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patients
@@ -8339,7 +8356,7 @@ ALTER TABLE ONLY patients
 
 
 --
--- Name: patients_practice_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: patients patients_practice_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patients
@@ -8347,7 +8364,7 @@ ALTER TABLE ONLY patients
 
 
 --
--- Name: patients_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: patients patients_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY patients
@@ -8355,7 +8372,7 @@ ALTER TABLE ONLY patients
 
 
 --
--- Name: pd_regimes_system_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pd_regimes pd_regimes_system_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pd_regimes
@@ -8363,7 +8380,7 @@ ALTER TABLE ONLY pd_regimes
 
 
 --
--- Name: problem_notes_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: problem_notes problem_notes_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY problem_notes
@@ -8371,7 +8388,7 @@ ALTER TABLE ONLY problem_notes
 
 
 --
--- Name: problem_notes_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: problem_notes problem_notes_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY problem_notes
@@ -8379,7 +8396,7 @@ ALTER TABLE ONLY problem_notes
 
 
 --
--- Name: transplant_donations_recipient_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_donations transplant_donations_recipient_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_donations
@@ -8387,7 +8404,7 @@ ALTER TABLE ONLY transplant_donations
 
 
 --
--- Name: transplant_registration_statuses_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_registration_statuses transplant_registration_statuses_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_registration_statuses
@@ -8395,7 +8412,7 @@ ALTER TABLE ONLY transplant_registration_statuses
 
 
 --
--- Name: transplant_registration_statuses_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: transplant_registration_statuses transplant_registration_statuses_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY transplant_registration_statuses
@@ -8594,6 +8611,7 @@ INSERT INTO schema_migrations (version) VALUES
 ('20170217132644'),
 ('20170217141529'),
 ('20170217161409'),
-('20170220150611');
+('20170220150611'),
+('20170227154311');
 
 
