@@ -46,9 +46,6 @@ en:
         pathology:
           title: Pathology
           view: View
-        prescriptions:
-          title: Prescriptions
-          view: View
         sessions:
           title: HD Sessions
           view_all: View all

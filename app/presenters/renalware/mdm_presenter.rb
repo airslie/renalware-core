@@ -30,13 +30,15 @@ module Renalware
     end
 
     def esa_prescriptions
-      @prescriptions ||= begin
-        Medications::PrescriptionsQuery.new(relation: patient.prescriptions.current)
+      @esa_prescriptions ||= begin
+        Medications::PrescriptionsQuery.new(relation: patient.prescriptions)
           .call
+          .having_drug_of_type("esa")
           .with_created_by
           .with_medication_route
           .with_drugs
           .with_termination
+          .eager_load(drug: [:drug_types])
           .map { |prescrip| Medications::PrescriptionPresenter.new(prescrip) }
       end
     end
