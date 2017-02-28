@@ -1,6 +1,6 @@
 module Renalware
   module Patients
-    class WorriesController < BaseController
+    class WorryController < BaseController
       before_action :load_patient, only: :create
 
       # idempotent
@@ -9,7 +9,7 @@ module Renalware
           worry.by = user
         end
         redirect_back(fallback_location: patient_path(patient),
-                      notice: t(".success", model_name: "worry"))
+                      notice: t(".success", patient: patient))
       end
 
       # idempotent
@@ -21,7 +21,7 @@ module Renalware
           skip_authorization
         end
         redirect_back(fallback_location: patient_path(patient),
-                      notice: t(".success", model_name: "worry"))
+                      notice: t(".success", patient: patient))
       end
 
       private

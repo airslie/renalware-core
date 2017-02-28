@@ -6,7 +6,7 @@ RSpec.describe "Managing the patient worryboard", type: :request do
   describe "POST create" do
     context "the patient has no worry (!)" do
       it "creates a new patient worry (aka adding them to the Worryboard)" do
-        post(patient_worries_path(patient))
+        post(patient_worry_path(patient))
         expect(response).to have_http_status(:redirect)
         follow_redirect!
         expect(response).to have_http_status(:success)
@@ -19,7 +19,7 @@ RSpec.describe "Managing the patient worryboard", type: :request do
       it "behaves idempotently, does not fail, behaves as if the patient was just added" do
         Renalware::Patients::Worry.new(patient: patient, by: @current_user).save!
 
-        post(patient_worries_path(patient))
+        post(patient_worry_path(patient))
         expect(response).to have_http_status(:redirect)
         follow_redirect!
         expect(response).to have_http_status(:success)
