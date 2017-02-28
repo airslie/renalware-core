@@ -55,9 +55,7 @@ RSpec.describe "Managing the patient worryboard", type: :request do
 
           expect(response).to have_http_status(:redirect)
           version = Renalware::Patients::Version.last
-          pending "Remove this pending once the change that sets whodunnit in BaseController"\
-                  "is merged"
-          expect(version.whodunnit).to eq(@current_user.id)
+          expect(version.whodunnit.to_s).to eq(@current_user.id.to_s)
         end
       end
     end
