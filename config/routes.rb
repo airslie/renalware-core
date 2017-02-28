@@ -169,6 +169,7 @@ Rails.application.routes.draw do
       end
 
       resources :bookmarks, only: :create, controller: "patients/bookmarks"
+      resources :worries, only: [:create, :destroy], controller: "patients/worries"
 
       namespace :accesses do
         resource :dashboard, only: :show

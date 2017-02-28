@@ -21,6 +21,7 @@ module Renalware
     belongs_to :religion, class_name: "Patients::Religion"
     belongs_to :language, class_name: "Patients::Language"
     has_many :bookmarks, class_name: "Patients::Bookmark"
+    has_one :worry, class_name: "Patients::Worry"
 
     belongs_to :first_edta_code, class_name: "Deaths::EDTACode", foreign_key: :first_edta_code_id
     belongs_to :second_edta_code, class_name: "Deaths::EDTACode", foreign_key: :second_edta_code_id
