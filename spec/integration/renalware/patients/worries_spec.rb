@@ -31,9 +31,8 @@ RSpec.describe "Managing the patient worryboard", type: :request do
     describe "DELETE destroy" do
 
       it "soft deletes the bookmark" do
-        worry = Renalware::Patients::Worry.find_or_create_by(patient: patient) do |worry|
-          worry.by = @current_user
-        end
+        worry = Renalware::Patients::Worry.new(patient: patient, by: @current_user)
+        worry.save!
 
         delete patient_worry_path(patient, worry)
 
@@ -49,9 +48,8 @@ RSpec.describe "Managing the patient worryboard", type: :request do
       with_versioning do
         it "stores a papertrail version with the correct whodunnit value" do
           expect(PaperTrail).to be_enabled
-          worry = Renalware::Patients::Worry.find_or_create_by(patient: patient) do |worry|
-            worry.by = @current_user
-          end
+          worry = Renalware::Patients::Worry.new(patient: patient, by: @current_user)
+          worry.save!
 
           delete patient_worry_path(patient, worry)
 
