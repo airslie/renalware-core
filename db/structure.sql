@@ -4357,7 +4357,6 @@ ALTER TABLE ONLY patient_versions ALTER COLUMN id SET DEFAULT nextval('patient_v
 
 
 --
-<<<<<<< HEAD
 -- Name: patient_worries id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4365,8 +4364,6 @@ ALTER TABLE ONLY patient_worries ALTER COLUMN id SET DEFAULT nextval('patient_wo
 
 
 --
-=======
->>>>>>> Add EPO History tab on HD MDM
 -- Name: patients id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5163,7 +5160,6 @@ ALTER TABLE ONLY patient_versions
 
 
 --
-<<<<<<< HEAD
 -- Name: patient_worries patient_worries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5172,8 +5168,6 @@ ALTER TABLE ONLY patient_worries
 
 
 --
-=======
->>>>>>> Add EPO History tab on HD MDM
 -- Name: patients patients_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7327,7 +7321,6 @@ ALTER TABLE ONLY medication_prescriptions
 
 
 --
-<<<<<<< HEAD
 -- Name: patient_worries fk_rails_27dc6e2dc8; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7336,8 +7329,6 @@ ALTER TABLE ONLY patient_worries
 
 
 --
-=======
->>>>>>> Add EPO History tab on HD MDM
 -- Name: medication_prescriptions fk_rails_27e92c81fe; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7698,7 +7689,6 @@ ALTER TABLE ONLY letter_archives
 
 
 --
-<<<<<<< HEAD
 -- Name: patient_worries fk_rails_8837145e13; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7707,8 +7697,6 @@ ALTER TABLE ONLY patient_worries
 
 
 --
-=======
->>>>>>> Add EPO History tab on HD MDM
 -- Name: hd_prescription_administrations fk_rails_885e37560e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8253,7 +8241,6 @@ ALTER TABLE ONLY hd_prescription_administrations
 
 
 --
-<<<<<<< HEAD
 -- Name: patient_worries fk_rails_f866b9dc2f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8262,8 +8249,6 @@ ALTER TABLE ONLY patient_worries
 
 
 --
-=======
->>>>>>> Add EPO History tab on HD MDM
 -- Name: pd_pet_adequacy_results fk_rails_f8ae33fdba; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
