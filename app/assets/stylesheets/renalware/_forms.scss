@@ -10,13 +10,10 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-form .row .row.datepicker-wrapper {
-  margin-bottom: 10px;
-}
-
 .cancel-link {
   font-size: 0.9rem;
   margin-left: 15px;
+
   &.disabled {
     pointer-events: none;
     color: $disabled-colour;
@@ -32,10 +29,14 @@ form .row .row.datepicker-wrapper {
 }
 
 form {
+  .row .row.datepicker-wrapper {
+    margin-bottom: 10px;
+  }
 
   &.simple_form div.boolean {
     label {
       padding-left: 0;
+
       input {
         margin-left: 0;
       }
@@ -65,73 +66,86 @@ form {
   }
 
   .error {
+
     small.error {
       padding: 0.3rem 0.5rem 0.2rem 0.5rem;
     }
-  }
 
-  .error.datepicker_error {
-    float: left;
-    clear: both;
-    width: 100%;
+    .datepicker_error {
+      float: left;
+      clear: both;
+      width: 100%;
+    }
   }
 }
+
 article {
   background-color: $white;
-  border: none;
+  border: 0;
   border-top: 2px solid $link-colour;
   float: left;
   margin: 0 0 1.5rem;
   padding: 0.5rem 0 0;
   position: relative;
   width: 100%;
+
   header {
     float: left;
     margin: 0 0 0.5rem;
     width: 100%;
+
     h1 {
       float: left;
       font-size: 1.2rem;
       font-weight: bold;
       margin: 0 1rem 0 0;
       padding: 0;
+
       a {
         font-weight: bold;
         text-decoration: underline;
       }
     }
+
     .button {
       background-color: $steel;
-        border-radius: 3px !important;
-        color: $white;
-        float: right;
-        display: block;
-        padding: 0.4rem;
-        text-decoration: none;
-      }
-      .button:hover {
-        background-color: $link-colour;
-        text-decoration: underline;
-      }
+      border-radius: 3px !important;
+      color: $white;
+      float: right;
+      display: block;
+      padding: 0.4rem;
+      text-decoration: none;
+    }
+
+    .button:hover {
+      background-color: $link-colour;
+      text-decoration: underline;
+    }
   }
+
   .no-bullet {
     float: left;
     width: 100%;
+
     li {
       border-bottom: 1px dotted $iron;
       // font-weight: bold;
       padding-bottom: 0.2rem;
+
       a {
         font-weight: normal;
         text-decoration: underline;
       }
     }
+
     li:last-child {
-      border: none;
+      border: 0;
       padding-bottom: 0;
     }
+
     li[class^="drug-"] {
       font-weight: normal;
+
       span {
         font-weight: bold;
       }
@@ -162,13 +176,13 @@ article {
 
     address {
       display: inline;
-      color: #AAA;
+      color: $form-hint-colour;
       font-size: 0.9em;
     }
   }
 
   &.with-actions-above-table {
-    padding-top:3px;
+    padding-top: 3px;
 
     .actions {
       margin-bottom: 13px;
@@ -178,6 +192,7 @@ article {
 
 .document form,
 .profile-info-form {
+
   .form-content {
     max-width: 960px;
   }
@@ -191,7 +206,7 @@ article {
   }
 
   table {
-    border: none;
+    border: 0;
 
     &.no-stripes tr:nth-of-type(even) {
       background-color: transparent !important;
@@ -204,7 +219,8 @@ article {
         margin-top: -4px !important;
       }
 
-      input, select {
+      input,
+      select {
         margin: 0;
       }
     }
@@ -219,6 +235,7 @@ article {
 }
 
 .search-form {
+
   fieldset {
     margin-top: 0;
   }
@@ -236,7 +253,7 @@ fieldset {
 
   &.borderless {
     padding: 0 !important;
-    border: none;
+    border: 0;
 
     legend {
       display: none;
@@ -258,10 +275,12 @@ fieldset {
       line-height: 1.3rem;
 
       span {
+
         &.title {
           padding-right: 1rem;
           font-weight: normal;
         }
+
         &.actions {
           color: $link-colour;
           font-size: 1rem;
@@ -273,6 +292,7 @@ fieldset {
               font-size: 1rem;
             }
           }
+
           &.action-buttons {
             position: absolute;
             top: -5px;
@@ -285,13 +305,16 @@ fieldset {
       }
     }
   }
+
   &.simple-table {
     margin-top: 50px;
   }
 }
 
 .button {
+
   &.slimline {
+
     &.small {
       padding: 0.3rem 0.6rem;
     }

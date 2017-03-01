@@ -1,18 +1,18 @@
 .simple_form {
 
   fieldset {
-	  border: none;
+    border: 0;
     padding: 0.5rem 0;
     margin: 0 0 1.5rem;
 
     legend {
-	    border-top: 2px solid $link-colour;
-	    color: $dark-grey;
+      border-top: 2px solid $link-colour;
+      color: $dark-grey;
       font-size: 1.2rem;
-	    font-weight: bold;
-	    margin: 0;
-	    padding: .5rem 0 1rem 0;
-	    width: 100%;
+      font-weight: bold;
+      margin: 0;
+      padding: .5rem 0 1rem 0;
+      width: 100%;
     }
   }
 
@@ -36,7 +36,8 @@
   }
 
   .field_with_hint {
-    input, select {
+    input,
+    select {
       margin-bottom: 0;
     }
   }
@@ -48,7 +49,7 @@
     font-style: italic;
     font-weight: normal;
     margin-bottom: 0.25rem;
-    padding: 0.2rem 0rem;
+    padding: 0.2rem 0;
   }
 
   .radio.inline {

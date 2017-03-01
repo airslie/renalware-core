@@ -4,10 +4,14 @@ linters:
   PropertySortOrder:
     enabled: false
   EmptyLineBetweenBlocks:
-    enabled: false
+    enabled: true
   LeadingZero:
     enabled: false
   HexNotation:
     enabled: false
   QualifyingElement:
+    enabled: false
+  SelectorDepth:
+    enabled: false
+  NestingDepth:
     enabled: false

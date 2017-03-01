@@ -1,11 +1,12 @@
 
 .dl-horizontal {
   margin-top: 0;
-  margin-bottom:0;
-  // columns: 2;
+  margin-bottom: 0;
 
-  dt, dd {
+  dt,
+  dd {
     font-weight: normal;
+
     &.inset {
       margin-left: 0.8em;
     }
@@ -13,7 +14,7 @@
 
   dt {
     float: left;
-    width: $dl_horizontal_dt_width;
+    width: $dl-horizontal-dt-width;
     overflow: hidden;
     clear: left;
     text-overflow: ellipsis;
@@ -22,7 +23,7 @@
   }
 
   dd {
-    margin-left: $dl_horizontal_dt_width + 1rem;
+    margin-left: $dl-horizontal-dt-width + 1rem;
     margin-bottom: 0;
 
     &:before {
@@ -33,13 +34,14 @@
     &:after {
       content: " ";
       display: table;
-      clear:both;
+      clear: both;
     }
   }
 
   &.xlarge {
+
     dt {
-      width: $dl_horizontal_dt_width + 5.5rem;
+      width: $dl-horizontal-dt-width + 5.5rem;
     }
   }
 
@@ -48,20 +50,24 @@
   }
 
   &.medium {
+
     dt {
-      width: $dl_horizontal_dt_width - 2.5rem;
+      width: $dl-horizontal-dt-width - 2.5rem;
     }
+
     dd {
-      margin-left: $dl_horizontal_dt_width - 1.5rem;
+      margin-left: $dl-horizontal-dt-width - 1.5rem;
     }
   }
 
   &.small {
+
     dt {
-      width: $dl_horizontal_dt_width - 5rem;
+      width: $dl-horizontal-dt-width - 5rem;
     }
+
     dd {
-      margin-left: $dl_horizontal_dt_width - 4rem;
+      margin-left: $dl-horizontal-dt-width - 4rem;
     }
   }
 }

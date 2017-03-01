@@ -11,6 +11,7 @@
       margin: 0;
       text-align: right;
     }
+
     dd {
       float: left;
       width: 59%;
@@ -31,9 +32,11 @@
       .datepicker-wrapper {
         margin-bottom: 0 !important;
       }
+
       td:nth-child(1) {
         text-align: left !important;
       }
+
       td:nth-child(2) {
         width: 160px;
       }

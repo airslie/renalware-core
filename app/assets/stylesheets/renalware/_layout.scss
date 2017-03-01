@@ -3,9 +3,6 @@ html {
   body {
     overflow: hidden;
 
-    .page {
-    }
-
     main {
       .main-content {
         width: 100%;
@@ -20,49 +17,26 @@ html {
 
 footer {
   background-color: $footer-bg-colour;
-  border-top: 1px solid #eee;
+  border-top: 1px solid $smoke;
   color: $footer-colour;
   font-size: 12px;
   padding: .2rem 1rem;
   position: fixed;
-  right: 0; bottom: 0; left: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   text-align: right;
 }
 
-.sticky-top {
-  //flex: 0 0 auto;
-}
-
 .embedded-scroll {
-  overflow:auto;
+  overflow: auto;
 }
 
 .inline {
   display: inline;
 }
 
-/*
-.flex-container {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-
-  dl {
-    flex: 1;
-    dd {
-      white-space: nowrap;
-    }
-  }
-  @media #{$medium-only} {
-    dl {
-      flex-basis: 50%;
-    }
-  }
-}
-*/
-
 section.display {
-
   h4 {
     margin: .1rem 1rem 0 0;
     float: left;

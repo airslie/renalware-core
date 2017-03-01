@@ -3,19 +3,21 @@ table {
   width: 100%;
 
   thead a {
-	color: $white;
-	text-decoration: underline;
+    color: $white;
+    text-decoration: underline;
   }
+
   thead a:hover {
-	color: $white;
+    color: $white;
   }
 
   &.natural-width {
     width: auto;
   }
 
-  tr th, tr td {
-	  border-bottom: 1px dotted $disabled-colour;
+  tr th,
+  tr td {
+    border-bottom: 1px dotted $disabled-colour;
     font-size: 1rem;
     border-left-width: 0;
   }
@@ -110,7 +112,8 @@ table {
 table.report {
   table-layout: auto;
 
-  th, td {
+  th,
+  td {
     padding-left: 5px;
     padding-right: 5px;
   }
@@ -120,7 +123,8 @@ table.auto-layout {
   table-layout: auto;
 }
 
-th, td {
+th,
+td {
   overflow: hidden;
 
   &.strong {
@@ -146,7 +150,12 @@ th, td {
       color: $link-colour;
     }
 
-    thead, tbody, th, td, tr, caption {
+    thead,
+    tbody,
+    th,
+    td,
+    tr,
+    caption {
       display: block;
     }
 
@@ -189,7 +198,8 @@ th, td {
       padding: 12px;
     }
 
-    th.g-center, td.g-center {
+    th.g-center,
+    td.g-center {
       text-align: left;
     }
   }

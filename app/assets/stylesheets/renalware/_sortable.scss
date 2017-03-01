@@ -6,8 +6,9 @@
 }
 
 .ui-sortable-placeholder {
-  td {
-    border-top: 3px solid black !important;
-  }
   visibility: visible !important;
+
+  td {
+    border-top: 3px solid $black !important;
+  }
 }
