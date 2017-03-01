@@ -2529,6 +2529,39 @@ ALTER SEQUENCE patient_versions_id_seq OWNED BY patient_versions.id;
 
 
 --
+-- Name: patient_worries; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE patient_worries (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: patient_worries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE patient_worries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: patient_worries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE patient_worries_id_seq OWNED BY patient_worries.id;
+
+
+--
 -- Name: patients_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -4324,6 +4357,13 @@ ALTER TABLE ONLY patient_versions ALTER COLUMN id SET DEFAULT nextval('patient_v
 
 
 --
+-- Name: patient_worries id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_worries ALTER COLUMN id SET DEFAULT nextval('patient_worries_id_seq'::regclass);
+
+
+--
 -- Name: patients id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5117,6 +5157,14 @@ ALTER TABLE ONLY patient_religions
 
 ALTER TABLE ONLY patient_versions
     ADD CONSTRAINT patient_versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: patient_worries patient_worries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_worries
+    ADD CONSTRAINT patient_worries_pkey PRIMARY KEY (id);
 
 
 --
@@ -6417,6 +6465,27 @@ CREATE UNIQUE INDEX index_patient_primary_care_physicians_on_code ON patient_pri
 
 
 --
+-- Name: index_patient_worries_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patient_worries_on_created_by_id ON patient_worries USING btree (created_by_id);
+
+
+--
+-- Name: index_patient_worries_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_patient_worries_on_patient_id ON patient_worries USING btree (patient_id);
+
+
+--
+-- Name: index_patient_worries_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patient_worries_on_updated_by_id ON patient_worries USING btree (updated_by_id);
+
+
+--
 -- Name: index_patients_on_created_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7252,6 +7321,14 @@ ALTER TABLE ONLY medication_prescriptions
 
 
 --
+-- Name: patient_worries fk_rails_27dc6e2dc8; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_worries
+    ADD CONSTRAINT fk_rails_27dc6e2dc8 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: medication_prescriptions fk_rails_27e92c81fe; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7609,6 +7686,14 @@ ALTER TABLE ONLY snippets_snippets
 
 ALTER TABLE ONLY letter_archives
     ADD CONSTRAINT fk_rails_7dc4363735 FOREIGN KEY (letter_id) REFERENCES letter_letters(id);
+
+
+--
+-- Name: patient_worries fk_rails_8837145e13; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_worries
+    ADD CONSTRAINT fk_rails_8837145e13 FOREIGN KEY (updated_by_id) REFERENCES users(id);
 
 
 --
@@ -8156,6 +8241,14 @@ ALTER TABLE ONLY hd_prescription_administrations
 
 
 --
+-- Name: patient_worries fk_rails_f866b9dc2f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY patient_worries
+    ADD CONSTRAINT fk_rails_f866b9dc2f FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
 -- Name: pd_pet_adequacy_results fk_rails_f8ae33fdba; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8612,6 +8705,7 @@ INSERT INTO schema_migrations (version) VALUES
 ('20170217141529'),
 ('20170217161409'),
 ('20170220150611'),
-('20170227154311');
+('20170227154311'),
+('20170228131923');
 
 

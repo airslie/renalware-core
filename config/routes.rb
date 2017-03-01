@@ -39,6 +39,7 @@ Rails.application.routes.draw do
 
     resources :bookmarks, controller: "patients/bookmarks", only: :destroy
     resource :dashboard, only: :show, controller: "dashboard/dashboards"
+    resource :worryboard, :show, controller: "patients/worryboard"
 
     # Clinics
     resources :appointments, controller: "clinics/appointments", only: [:index]
@@ -169,6 +170,7 @@ Rails.application.routes.draw do
       end
 
       resources :bookmarks, only: :create, controller: "patients/bookmarks"
+      resource :worry, only: [:create, :destroy], controller: "patients/worry"
 
       namespace :accesses do
         resource :dashboard, only: :show

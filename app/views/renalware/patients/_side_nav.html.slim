@@ -92,3 +92,10 @@ ul.side-nav
   - else
     li.link= render partial: "renalware/patients/bookmarks/new",
                     locals: { patient: current_patient, link_text: t(".create_bookmark") }
+
+  - if current_patient.worry.present?
+    li.link= render partial: "renalware/patients/worries/delete",
+                    locals: { patient: current_patient }
+  - else
+    li.link= render partial: "renalware/patients/worries/new",
+                    locals: { patient: current_patient }

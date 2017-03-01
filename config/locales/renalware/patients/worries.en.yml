@@ -1,0 +1,15 @@
+en:
+  renalware:
+    patients:
+      worries:
+        delete:
+          title: Remove from Worryboard
+          confirm: Remove this patient from the Worryboard?
+        new:
+          title: Add to Worryboard
+          confirm: Add this patient to the Worryboard?
+      worry:
+        create:
+          success: "%{patient} added to Worryboard"
+        destroy:
+          success: "%{patient} removed from Worryboard"
