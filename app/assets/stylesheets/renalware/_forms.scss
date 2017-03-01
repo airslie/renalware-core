@@ -107,6 +107,16 @@ article {
       }
     }
 
+    ul {
+      list-style-type: none;
+
+      li {
+        a.button {
+          margin-left: 0.5rem;
+        }
+      }
+    }
+
     .button {
       background-color: $steel;
       border-radius: 3px !important;

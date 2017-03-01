@@ -63,6 +63,10 @@ dd.patient-name {
   margin: 5px 0;
 }
 
+.collapse-patient-menu .patient-side-nav {
+  left: -$patient-side-nav-width;
+}
+
 .patient-side-nav {
   background-color: $patient-menu-background-colour;
   padding: 0.5rem 0;

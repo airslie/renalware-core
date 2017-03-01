@@ -4,7 +4,11 @@ module Renalware
       klasses = %w(link)
       klasses << "active" if current_controller_matches(active_when_controller_matches)
       content_tag :li, class: klasses.join(" ") do
-        link_to_if(enabled, title, path)
+        if enabled
+          link_to(title, path)
+        else
+          content_tag :span, title
+        end
       end
     end
 

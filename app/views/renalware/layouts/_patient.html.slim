@@ -1,3 +1,4 @@
+
 - content_for(:header) do
   = render "renalware/patients/header", patient: current_patient
 
@@ -5,17 +6,18 @@
                       patient: current_patient)
 
 .patient-container
-  .patient-content
+  .patient-content.full-screenable
     = render "renalware/patients/mini_profile", patient: current_patient
     .row.collapse
-      ul.page-heading.columns.small-12
-        li
-          h1
-            = breadcrumbs_and_title(breadcrumbs: local_assigns[:breadcrumbs],
-                                    title: local_assigns[:title])
-        li.page-actions
-          / Output any page-level actions
-          = yield(:actions)
+      - if local_assigns[:title].present?
+        ul.page-heading.columns.small-12
+          li
+            h1
+              = breadcrumbs_and_title(breadcrumbs: local_assigns[:breadcrumbs],
+                                      title: local_assigns[:title])
+          li.page-actions
+            / Output any page-level actions
+            = yield(:actions)
 
       - if content_for?(:page_navigation)
         .page-navigation= yield(:page_navigation)
@@ -29,5 +31,5 @@
     .row
       = yield
 
-  nav.patient-side-nav
+  nav.patient-side-nav.full-screenable
     = render "renalware/patients/side_nav", model: current_patient
