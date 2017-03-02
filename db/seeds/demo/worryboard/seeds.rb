@@ -1,17 +1,20 @@
 module Renalware
 
-  # Set the current DB connection
-  connection = ActiveRecord::Base.connection();
+  # add random patients plus RABBITs
+  users = User.all.to_a
 
-  log "SQL INSERT 3 sample Worryboard patients" do
-
-  # Execute a sql statement
-    connection.execute("INSERT INTO patient_worries (id, patient_id,
-    updated_by_id, created_by_id, created_at, updated_at) VALUES
-    (1, 1, 9, 9, '2017-03-01 15:21:45.242479', '2017-03-01 15:21:45.242479'),
-    (2, 2, 9, 9, '2017-03-01 15:22:00.922088', '2017-03-01 15:22:00.922088'),
-    (3, 252, 9, 9, '2017-03-01 15:22:12.956671', '2017-03-01 15:22:12.956671');")
-
+  log "Adding Patients to Worryboard" do
+    Patient.transaction do
+      patients = Patient.all
+      i = 0
+      patients.each do |patient|
+        i += 1
+        if i % 10 == 0 or patient.family_name == "RABBIT"
+          Renalware::Patients::Worry.new(
+            patient: patient,
+            by: users.sample).save!
+        end
+      end
+    end
   end
-
 end
