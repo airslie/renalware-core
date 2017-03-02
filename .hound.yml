@@ -1,5 +1,5 @@
 scss:
-  enabled: false
+  enabled: true
 
 ruby:
   config_file: .rubocop.yml
