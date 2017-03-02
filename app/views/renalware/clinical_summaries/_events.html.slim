@@ -1,7 +1,7 @@
 article
   header
     h1
-      = link_to "Patient Events (#{events.size})", patient_events_path(@patient)
+      = link_to "Events (#{events.size})", patient_events_path(@patient)
 
     = link_to new_patient_event_path(@patient), class: "button" do
       | Add event
