@@ -1,4 +1,3 @@
-- compact ||= false
 tr
   td
     = link_to "Toggle", "#quick-preview-#{letter.id}", data: { behaviour: "toggler" }
@@ -8,15 +7,12 @@ tr
       = pipe_separator
       = link_to "Edit", edit_patient_letters_letter_path(letter.patient, letter)
 
-  - unless compact
-    td= letter.type
   td= letter.state
   td= l(letter.issued_on)
   td= letter.author
   td.recipient= letter.main_recipient.address
   td= letter.description
-  - unless compact
-    td= l letter.updated_at
+
 = content_tag(:tr, id: "quick-preview-#{letter.id}", style: "display: none")
   td
   td(colspan=7)
