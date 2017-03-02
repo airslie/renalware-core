@@ -3,5 +3,9 @@ en:
     pd:
       dashboards:
         show:
-          pet_adequacies:
-            add_pet_adequacy: Add PET Adequacy
+          page_actions:
+            add_capd_regime: CAPD Regime
+            add_apd_regime: APD Regime
+            add_pet_adequacy: PET Adequacy
+            add_exit_site_infection: Exit Site Infection
+            add_peritonitis_episode: Peritonitis Episode

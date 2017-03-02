@@ -47,7 +47,6 @@
 // 33. Tooltips
 // 34. Top Bar
 // 36. Visibility Classes
-
 // a. Base
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -63,7 +62,7 @@ $rem-base: 14px;
 // Since the typical default browser font-size is 16px, that makes the calculation for grid size.
 // If you want your base font-size to be different and not have it affect the grid breakpoints,
 // set $rem-base to $base-font-size and make sure $base-font-size is a px value.
-$base-font-size: 14px;
+$base-font-size:13px;
 
 // The $base-font-size is 100% while $base-line-height is 150%
 // $base-line-height: 150%;
@@ -105,25 +104,25 @@ $alert-color: lighten($original-alert-color, 10%);
 // $warning-color: #f08a24;
 // $info-color: #a0d3e8;
 
-// $white       : #FFFFFF;
+$white       : #FFFFFF;
 // $ghost       : #FAFAFA;
 // $snow        : #F9F9F9;
 // $vapor       : #F6F6F6;
 // $white-smoke : #F5F5F5;
 // $silver      : #EFEFEF;
-// $smoke       : #EEEEEE;
-// $gainsboro   : #DDDDDD;
+$smoke       : #EEEEEE;
+$gainsboro   : #DDDDDD;
 // $iron        : #CCCCCC;
 // $base        : #AAAAAA;
-// $aluminum    : #999999;
+$aluminum    : #999999;
 // $jumbo       : #888888;
 // $monsoon     : #777777;
-// $steel       : #666666;
-// $charcoal    : #555555;
-// $tuatara     : #444444;
-// $oil         : #333333;
-// $jet         : #222222;
-// $black       : #000000;
+$steel       : #666666;
+$charcoal    : #555555;
+$tuatara     : #444444;
+$oil         : #333333;
+$jet         : #222222;
+$black       : #000000;
 
 // We use these to control various global styles
 // $body-bg: $white;
@@ -1274,14 +1273,14 @@ $sub-nav-list-margin: rem-calc(-4 0 0);
 // $table-even-row-bg: $snow  ;
 
 // These control the table cell border style
-// $table-border-style: solid;
-// $table-border-size: 1px;
-// $table-border-color: $gainsboro;
+$table-border-style: none;
+$table-border-size: 0;
+//$table-border-color: $gainsboro;
 
 // These control the table head styles
-// $table-head-bg: $white-smoke  ;
+$table-head-bg: $smoke;
 $table-head-font-size: rem-calc(13);
-// $table-head-font-color: $jet;
+$table-head-font-color: $tuatara;
 // $table-head-font-weight: $font-weight-bold;
 $table-head-padding: rem-calc(6 4);
 
@@ -1294,7 +1293,7 @@ $table-line-height: rem-calc(14);
 // These are for controlling the layout, display and margin of tables
 // $table-layout: auto;
 // $table-display: table-cell;
-$table-margin-bottom: rem-calc(20);
+$table-margin-bottom: rem-calc(4);
 
 // 31. Tabs
 // - - - - - - - - - - - - - - - - - - - - - - - - -

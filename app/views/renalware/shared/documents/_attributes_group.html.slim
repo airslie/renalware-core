@@ -3,4 +3,8 @@ ruby:
   attributes = group.class.attributes_list
 
 = render "renalware/shared/attributes_group",
-    destination: destination, legend: legend, models: { model => attributes }
+          local_assigns.merge!({ models: { model => attributes }} )
+          / destination: local_assigns[:destination],
+          / legend: legend,
+          / size:
+          / models: { model => attributes }

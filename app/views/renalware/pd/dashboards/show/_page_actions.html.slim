@@ -1,0 +1,15 @@
+= link_to "View MDM", patient_pd_mdm_path(@patient), class: "button secondary"
+= blank_separator
+= blank_separator
+a.button.dropdown(href="#"
+                       data-dropdown="draft-letter-options"
+                       aria-controls="draft-letter-options"
+                       aria-expanded="false")
+  | Add
+br
+ul.f-dropdown#draft-letter-options(data-dropdown-content aria-hidden="true")
+  li= link_to t(".add_capd_regime"), new_patient_pd_regime_path(@patient, type: "PD::CAPDRegime")
+  li= link_to t(".add_apd_regime"), new_patient_pd_regime_path(@patient, type: "PD::APDRegime")
+  li= link_to t(".add_peritonitis_episode"), new_patient_pd_peritonitis_episode_path(@patient)
+  li= link_to t(".add_exit_site_infection"), new_patient_pd_exit_site_infection_path(@patient)
+  li= link_to t(".add_pet_adequacy"), new_patient_pd_pet_adequacy_result_path(patient)

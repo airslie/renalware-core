@@ -1,8 +1,7 @@
-= within_patient_layout(title: "New Access Profile") do
-  = render "profile_nav"
-
+= within_patient_layout(title: "New Access Profile",
+                        breadcrumbs: access_summary_breadrumb(patient)) do
   .document
-    = simple_form_for @profile,
-        url: patient_accesses_profiles_path(@patient),
+    = simple_form_for profile,
+        url: patient_accesses_profiles_path(patient),
         wrapper: "horizontal_form" do |f|
       = render "form", f: f

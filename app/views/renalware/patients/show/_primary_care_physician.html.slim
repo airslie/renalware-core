@@ -1,11 +1,12 @@
-fieldset
-  legend
-    | GP
-    span.actions = link_to "Edit",
-                           edit_patient_primary_care_physician_path(@patient),
-                           class: "fieldset-action change-gp",
-                           data: { "reveal-id" => "change-gp-modal",
-                                   "reveal-ajax" => "true" }
+
+article
+  header
+    h1 GP
+    = link_to "Edit",
+              edit_patient_primary_care_physician_path(@patient),
+              class: "button change-gp",
+              data: { "reveal-id" => "change-gp-modal", "reveal-ajax" => "true" }
+
   dl.dl-horizontal
     dt GP:
     - if patient.primary_care_physician.present?

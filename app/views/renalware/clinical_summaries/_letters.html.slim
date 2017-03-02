@@ -1,4 +1,9 @@
-= field_set_tag do
-  legend= link_to "Letters (#{letters.size})", patient_letters_letters_path(patient)
+article
+  header
+    h1
+      = link_to "Letters (#{letters.size})", patient_letters_letters_path(patient)
 
-  = render "renalware/letters/letters/table", letters: letters, compact: true
+    = link_to patient_letters_letters_path(patient), class: "button" do
+      | Draft letter
+
+  = render "renalware/letters/letters/table", letters: letters

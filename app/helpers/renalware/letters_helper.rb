@@ -1,5 +1,9 @@
 module Renalware
   module LettersHelper
+    def letters_breadcrumb(patient)
+      breadcrumb_for("Letters", patient_letters_letters_path(patient))
+    end
+
     def patient_letters_letters_path(patient, event = nil)
       if event.present?
         super(patient, event_type: event.class.to_s, event_id: event.id)

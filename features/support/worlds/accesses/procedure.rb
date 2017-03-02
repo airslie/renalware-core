@@ -71,8 +71,9 @@ module World
       def create_access_procedure(user:, patient:, site:)
         login_as user
         visit patient_accesses_dashboard_path(patient)
-        within_fieldset "Procedure History" do
-          click_on "Add an Access Procedure"
+        within(".page-actions") do
+          click_on "Add"
+          click_on "Access Procedure"
         end
 
         fill_in "Performed On", with: I18n.l(Time.zone.today)
@@ -89,7 +90,7 @@ module World
       def update_access_procedure(patient:, user:)
         login_as user
         visit patient_accesses_dashboard_path(patient)
-        within_fieldset "Procedure History" do
+        within_article "Procedure History" do
           click_on "Edit"
         end
 

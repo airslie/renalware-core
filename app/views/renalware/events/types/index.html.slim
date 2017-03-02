@@ -1,20 +1,7 @@
-.row
-  = render "header"
+= content_for(:actions) do
+  = link_to t("new_record.link_title"),
+            new_events_type_path,
+            class: "button"
 
-.row
-  table
-    thead
-      tr
-        th.col-width-small
-        th Name
-    tbody
-      - event_types.each do |t|
-        tr
-          td
-            = link_to "Edit", edit_events_type_path(t.id)
-            = pipe_separator
-            = link_to "Delete",
-                      events_type_path(t.id),
-                      method: :delete,
-                      data: { confirm: I18n.t("prompts.confirm_delete") }
-          td= t.name
+= within_admin_layout(title: "Patient Event Types") do
+  =render "table", event_types: event_types

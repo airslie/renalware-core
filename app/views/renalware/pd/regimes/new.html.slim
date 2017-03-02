@@ -1,4 +1,6 @@
-= within_patient_layout(title: "#{capd_apd_title(pd_regime)} Regime", **local_assigns) do
+= within_patient_layout(title: "New #{capd_apd_title(pd_regime)} Regime",
+                        breadcrumbs: pd_summary_breadcrumb(patient),
+                        **local_assigns) do
 
   = render "renalware/shared/errors", model: pd_regime
 

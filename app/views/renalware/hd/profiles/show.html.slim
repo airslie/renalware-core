@@ -8,14 +8,13 @@
       dd= link_to "Edit", edit_patient_hd_profile_path(patient, profile)
 
   .document-view
-    .row
-      .medium-6.columns
+    .grid
+      .row
         - %w(Dialysis Anticoagulant Drugs).each do |group|
           = render "renalware/shared/documents/attributes_group",
               group: profile.document.public_send(group.parameterize(separator: "_")),
               legend: group, destination: group.parameterize(separator: "_")
 
-      .medium-6.columns
         = render "renalware/shared/attributes_group",
             legend: "Prescription", destination: "prescription",
             models: { profile => [:prescribed_time,

@@ -1,17 +1,23 @@
-= within_patient_layout(title: "Access Profile") do
-  - return unless @profile
+= content_for(:actions) do
+  =link_to "Edit",
+          edit_patient_accesses_profile_path(patient, profile),
+          class: "button"
 
-  = render "profile_nav"
+= within_patient_layout(title: "Access Profile",
+                        breadcrumbs: access_summary_breadrumb(patient)) do
+  - return unless profile
 
   .document-view
-    = render "renalware/shared/attributes_group",
-        legend: "Access Profile", destination: "profile",
-        models: { @profile => [:type, :site, :side, :formed_on, :started_on, :terminated_on] }
+    .grid
+      .row
+        = render "renalware/shared/attributes_group",
+            legend: "Access Profile", destination: "profile",
+            models: { profile => [:type, :site, :side, :formed_on, :started_on, :terminated_on] }
 
-    = render "renalware/shared/attributes_group",
-        legend: "Access Plan", destination: "plan",
-        models: { @profile => [:plan, :planned_on, :decided_by] }
+        = render "renalware/shared/attributes_group",
+            legend: "Access Plan", destination: "plan",
+            models: { profile => [:plan, :planned_on, :decided_by] }
 
-    = render "renalware/shared/attributes_group",
-        legend: "Admin", destination: "notes",
-        models: { @profile => [:updated_by, :updated_at, :notes] }
+        = render "renalware/shared/attributes_group",
+            legend: "Admin", destination: "notes",
+            models: { profile => [:updated_by, :updated_at, :notes] }

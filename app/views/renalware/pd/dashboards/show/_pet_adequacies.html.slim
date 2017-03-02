@@ -1,15 +1,2 @@
-= field_set_tag "PET/Adequacies (#{pet_adequacies.length})", class: "pet-adequacies" do
-  - if pet_adequacies.empty?
-    .call-to-action
-      = link_to new_patient_pd_pet_adequacy_result_path(patient) do
-        i.fa.fa-plus-circle
-        |
-        = t(".add_pet_adequacy")
-  - else
-    = render "renalware/pd/pet_adequacies", local_assigns
-    .right
-      = link_to t(".add_pet_adequacy"),
-                new_patient_pd_pet_adequacy_result_path(patient),
-                class: "button tiny"
-
-
+= article_tag "PET/Adequacies (#{pet_adequacies.length})", class: "pet-adequacies" do
+  = render "renalware/pd/pet_adequacies", local_assigns

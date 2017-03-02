@@ -86,7 +86,7 @@ module World
         login_as user
 
         visit patient_letters_contacts_path(patient)
-        click_on "Add contact"
+        click_on "Add"
 
         within("#add-patient-contact-modal") do
           fill_autocomplete "#add-patient-contact-modal", "person_auto_complete",
@@ -111,7 +111,7 @@ module World
         login_as user
 
         visit patient_letters_contacts_path(patient)
-        click_on "Add contact"
+        click_on "Add"
 
         within("#add-patient-contact-modal") do
           click_on "Person not found in directory"

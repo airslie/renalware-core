@@ -1,5 +1,11 @@
-fieldset.clinical-allergies
-  legend= t(".legend")
+article.clinical-allergies
+  header
+    h1= t(".legend")
+    / Link to launch the modal dialog
+    = link_to t(".add"),
+              "#",
+              class: "button right",
+              data: { "reveal-id" => "add-allergy-modal" }
 
   p.current-status
     | Current status:&nbsp;

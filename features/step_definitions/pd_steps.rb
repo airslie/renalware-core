@@ -60,11 +60,13 @@ end
 # end
 
 # Given(/^I choose to record a new CAPD regime$/) do
-#   click_on "Add CAPD Regime"
+#   click_on "Add"
+#   click_on "CAPD Regime"
 # end
 
 # Given(/^I choose to record a new APD regime$/) do
-#   click_on "Add APD Regime"
+#   click_on "Add"
+#   click_on "APD Regime"
 # end
 
 # Given(/^a patient has existing CAPD regimes$/) do

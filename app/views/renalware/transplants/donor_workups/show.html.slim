@@ -1,30 +1,37 @@
-= within_patient_layout(title: "Transplant Donor Workup") do
+= content_for(:actions) do
+  = link_to t("edit_record.link_title"),
+            edit_patient_transplants_donor_workup_path(@patient),
+            class: "button"
+
+= within_patient_layout(title: "Workup", breadcrumbs: donor_summary_breadrumb(@patient)) do
   - return unless @workup
   .document-view
-    = render "renalware/shared/documents/attributes_group",
-        group: @workup.document.comorbidities,
-        legend: "Comorbidities", destination: "comorbidities"
+    .grid
+        .row
+            = render "renalware/shared/documents/attributes_group",
+                group: @workup.document.comorbidities,
+                legend: "Comorbidities", width: :large
 
-    = render "renalware/shared/documents/attributes_group",
-        group: @workup.document.infections,
-        legend: "Virology/Bacteriology/Cytology", destination: "infections"
+            = render "renalware/shared/documents/attributes_group",
+                group: @workup.document.infections,
+                legend: "Virology/Bacteriology/Cytology"
 
-    = render "renalware/shared/documents/attributes_group",
-        group: @workup.document.imaging_and_scans,
-        legend: "Imaging and Scans", destination: "imaging_and_scans"
+            = render "renalware/shared/documents/attributes_group",
+                group: @workup.document.imaging_and_scans,
+                legend: "Imaging and Scans"
 
-    = render "renalware/shared/documents/attributes_group",
-        group: @workup.document.creatinine_clearance,
-        legend: "Creatinine Clearance", destination: "creatinine_clearance"
+            = render "renalware/shared/documents/attributes_group",
+                group: @workup.document.creatinine_clearance,
+                legend: "Creatinine Clearance"
 
-    = render "renalware/shared/documents/attributes_group",
-        group: @workup.document.glomerular_filtration_rate,
-        legend: "Glomerular Filtration Rate (GFR)", destination: "glomerular_filtration_rate"
+            = render "renalware/shared/documents/attributes_group",
+                group: @workup.document.glomerular_filtration_rate,
+                legend: "Glomerular Filtration Rate (GFR)"
 
-    = render "renalware/shared/documents/attributes_group",
-        group: @workup.document.urine_dipsticks,
-        legend: "Urine Dipsticks", destination: "urine_dipsticks"
+            = render "renalware/shared/documents/attributes_group",
+                group: @workup.document.urine_dipsticks,
+                legend: "Urine Dipsticks"
 
-    = render "renalware/shared/documents/attributes_group",
-        group: @workup.document.other_investigations,
-        legend: "Other Investigations", destination: "other_investigations"
+            = render "renalware/shared/documents/attributes_group",
+                group: @workup.document.other_investigations,
+                legend: "Other Investigations"

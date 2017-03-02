@@ -1,2 +1,17 @@
+= content_for(:actions) do
+  button.button.dropdown(href="#"
+                         data-dropdown="draft-letter-options"
+                         aria-controls="draft-letter-options"
+                         aria-expanded="false")
+    | Create
+  br
+  ul.f-dropdown#draft-letter-options(data-dropdown-content aria-hidden="true")
+    li= link_to(t(".draft_clinical_letter"),
+                new_patient_letters_letter_path(@patient, clinical: true))
+    li= link_to(t(".draft_clinic_visit_letter"),
+                patient_clinic_visits_path(@patient))
+    li= link_to(t(".simple_letter"),
+                new_patient_letters_letter_path(@patient))
+
 = within_patient_layout(title: "Letters") do
   = render "table", letters: letters

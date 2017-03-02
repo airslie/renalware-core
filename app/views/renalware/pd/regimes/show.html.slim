@@ -1,26 +1,30 @@
-= within_patient_layout(**local_assigns) do
+- pd_type = pd_regime.pd_type&.to_s&.upcase
 
-    = field_set_tag "Treatment" do
+= within_patient_layout(**local_assigns,
+                        title: "#{pd_type} Regime",
+                        breadcrumbs: pd_summary_breadcrumb(pd_regime.patient)) do
+  .row
+    .columns.medium-6
+      = article_tag "Treatment" do
 
-      .flex-container
+          dl.dl-horizontal
+            dt Last Updated:
+            dd= l pd_regime.updated_at
+            dt Start:
+            dd= l pd_regime.start_date
+            dt End:
+            dd= default_for_blank_date(pd_regime.end_date, "Pending")
+            dt Treatment:
+            dd= pd_regime.treatment
+            dt On additional HD?:
+            dd= yes_no(pd_regime.add_hd)
 
-        dl.dl-horizontal
-          dt Last Updated:
-          dd= l pd_regime.updated_at
-          dt Start:
-          dd= l pd_regime.start_date
-          dt End:
-          dd= default_for_blank_date(pd_regime.end_date, "Pending")
-          dt Treatment:
-          dd= pd_regime.treatment
-          dt On additional HD?:
-          dd= yes_no(pd_regime.add_hd)
-
-        = render"renalware/pd/regimes/glucose", regime: pd_regime
+            = render"renalware/pd/regimes/glucose", regime: pd_regime
 
     - if pd_regime.type == "Renalware::PD::APDRegime"
       = render partial: "renalware/pd/regimes/apd_regime_show", locals: local_assigns
-
-    = field_set_tag "Bags" do
-      = render "renalware/pd/regime_bags/regime_bags", regime: pd_regime
+  .row
+    .columns
+      = article_tag "Bags" do
+        = render "renalware/pd/regime_bags/regime_bags", regime: pd_regime
 

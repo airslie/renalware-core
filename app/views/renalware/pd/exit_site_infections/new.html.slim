@@ -1,4 +1,6 @@
-= within_patient_layout(title: "Exit Site Infection") do
+= within_patient_layout(title: "New Exit Site Infection",
+                        breadcrumbs: pd_summary_breadcrumb(@patient)) do
+
   = render "renalware/shared/errors", model: @exit_site_infection
 
   = field_set_tag "Infection" do

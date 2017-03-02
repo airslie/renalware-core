@@ -1,7 +1,11 @@
 - back_path ||= nil
 
 .header.patient-header
-  dl
+  / If screen-is-mobile-size is visible then we collapse the patient LH nav
+  / (A media query rule hides and shows it, and some js looks for its visibility
+  / when the browser is resized)
+  #screen-is-mobile-size
+  dl.full-screenable
     - if back_path
       dt
       dd.back-link
@@ -9,6 +13,9 @@
           i.fa.fa-arrow-left
           | &nbsp;Back
     dt
+    dd.patient-menu-toggler.menu-icon
+      a
+        span
     dd.name= patient
     dt= t(".hospital_code")
     dd= patient.local_patient_id

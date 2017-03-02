@@ -1,16 +1,17 @@
-
 #new-form input.field_with_errors {
-    border: 1px solid red;
+  border: 1px solid red;
 }
 
 .field_with_errors {
-  input,select,textarea {
+  input,
+  select,
+  textarea {
     border: 1px solid red;
   }
 }
 
 ul.error-messages {
   font-size: 1.1rem;
-  padding: 1.5rem;
+  padding: 0 1rem;
   color: red;
 }

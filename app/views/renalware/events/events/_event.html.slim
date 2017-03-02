@@ -1,12 +1,12 @@
 tr
+  td = link_to "Toggle", "#event-quick-preview-#{event.id}", data: { behaviour: "toggler" }
   td= l event.created_at.to_date
   td= event.event_type
-  td
-    dl.accordion(data-accordion)
-      dd.accordion-navigation
-        a.fi-plus.fi-minus.toggle-info id="patient-event-notes-#{event.id}" href="#patient-event-notes-#{event.id}"
-          = event.description
-        .content.toggle-content id="patient-event-notes-#{event.id}"
-          = event.notes
+  td= event.description
   td=l event.date_time
   td = event.created_by.full_name
+= content_tag(:tr, id: "event-quick-preview-#{event.id}", style: "display: none")
+  td
+  td(colspan=5)
+    .quick-preview
+      = simple_format event.notes

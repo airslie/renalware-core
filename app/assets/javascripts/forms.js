@@ -40,11 +40,16 @@ function initSearchableSelects(container) {
 
 
 $(function() {
-  if ($('small.error').length > 0) {
-    $('html, body').animate({
-      scrollTop: ($('small.error').first().offset().top-100)
-    },500);
-  }
+  // Removed the auto scroll-to-error feature as it is not working with
+  // the new layout - it causes the top menu and patient header to scroll irretrievably off
+  // the top of the page. Adjusting the offset eg -300 helps but can lead to the bottom of
+  // the page being cut off instead. If this feature is required, we need to find a more standard
+  // way to ask the browser to scroll to an element.
+  // if ($('small.error').length > 0) {
+  //   $('html, body').animate({
+  //     scrollTop: ($('small.error').first().offset().top - 300)
+  //   },500);
+  // }
 
   initDatepickersIn("body");
   initDateTimepickersIn("body");

@@ -5,11 +5,15 @@ module Renalware
   module ApplicationHelper
 
     # For use in layouts
-    def page_title(separator = " – ")
+    def page_title(separator = Renalware.config.page_title_spearator)
       [
         content_for(:page_title),
         Renalware.config.site_name
       ].compact.join(separator)
+    end
+
+    def breadcrumb_for(title, url)
+      Renalware::Breadcrumb.new(title: title, anchor: link_to(title, url))
     end
 
     def flash_messages

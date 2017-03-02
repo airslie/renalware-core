@@ -5,6 +5,7 @@ Background:
     And Clyde is a clinician
     And Clyde is logged in
 
+@web @javascript
 Scenario: Clyde records an event for Patty
   Given Clyde is on Patty's event index
   When Clyde chooses to add an event

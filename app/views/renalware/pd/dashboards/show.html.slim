@@ -1,24 +1,32 @@
+= content_for(:actions) do
+  =render "renalware/pd/dashboards/show/page_actions", patient: patient
+
 = within_patient_layout do
   - if dashboard.current_regime.present?
     = render "renalware/pd/regimes/current_regime",
               current_regime: dashboard.current_regime
 
-  = render "renalware/pd/dashboards/show/capd_regimes",
-           capd_regimes: dashboard.capd_regimes,
+  - if dashboard.capd_regimes.any?
+    = render "renalware/pd/dashboards/show/capd_regimes",
+             capd_regimes: dashboard.capd_regimes,
+             patient: patient
+
+  - if dashboard.apd_regimes.any?
+    = render "renalware/pd/dashboards/show/apd_regimes",
+             apd_regimes: dashboard.apd_regimes,
+             patient: patient
+
+  - if dashboard.peritonitis_episodes.any?
+    = render "renalware/pd/dashboards/show/peritonitis_episodes",
+           peritonitis_episodes: dashboard.peritonitis_episodes,
            patient: patient
 
-  = render "renalware/pd/dashboards/show/apd_regimes",
-           apd_regimes: dashboard.apd_regimes,
+  - if dashboard.exit_site_infections.any?
+    = render "renalware/pd/dashboards/show/exit_site_infections",
+           exit_site_infections: dashboard.exit_site_infections,
            patient: patient
 
-  = render "renalware/pd/dashboards/show/peritonitis_episodes",
-         peritonitis_episodes: dashboard.peritonitis_episodes,
-         patient: patient
-
-  = render "renalware/pd/dashboards/show/exit_site_infections",
-         exit_site_infections: dashboard.exit_site_infections,
-         patient: patient
-
-  = render "renalware/pd/dashboards/show/pet_adequacies",
-         pet_adequacies: dashboard.pet_adequacies,
-         patient: patient
+  - if dashboard.pet_adequacies.any?
+    = render "renalware/pd/dashboards/show/pet_adequacies",
+           pet_adequacies: dashboard.pet_adequacies,
+           patient: patient

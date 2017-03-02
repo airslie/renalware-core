@@ -9,7 +9,8 @@ module Renalware
     end
 
     scenario "creating a CAPD regime without a bag should fail validation" do
-      click_link "Add CAPD Regime"
+      click_link "Add"
+      click_link "CAPD Regime"
 
       select "CAPD 3 exchanges per day", from: "Treatment"
 

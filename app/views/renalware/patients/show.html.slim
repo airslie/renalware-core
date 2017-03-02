@@ -1,16 +1,22 @@
+= content_for(:actions) do
+  =link_to "Edit", edit_patient_path(current_patient), class: "button"
+
 = within_patient_layout(title: "Demographics") do
   #patient-demographics
-
-    = render "renalware/patients/show/patient_demographics", patient: @patient
-    .row
-      .large-6.xlarge-4.columns
-        = render "renalware/patients/show/primary_care_physician", patient: @patient
-      .large-6.xlarge-4.columns
-        = render "renalware/patients/show/letter_preferences", patient: @patient
-      .large-6.xlarge-4.columns
-        = render "renalware/patients/show/contact_details", patient: @patient
-      .large-6.xlarge-4.columns
-        = field_set_tag "Current Address" do
-          = render @patient.current_address if @patient.current_address
-      .large-6.xlarge-4.columns
-        = render "renalware/patients/show/referral", patient: @patient
+    .grid
+      .row
+        .columns.medium-6.large-4.xlarge-3
+          = render "renalware/patients/show/patient_demographics", patient: @patient
+        .columns.medium-6.large-4.xlarge-3
+          = render "renalware/patients/show/primary_care_physician", patient: @patient
+        .columns.medium-6.large-4.xlarge-3
+          = render "renalware/patients/show/letter_preferences", patient: @patient
+        .columns.medium-6.large-4.xlarge-3
+          = render "renalware/patients/show/contact_details", patient: @patient
+        .columns.medium-6.large-4.xlarge-3
+          article
+            header
+              h1 Current Address
+            = render @patient.current_address if @patient.current_address
+        .columns.medium-6.large-4.xlarge-3
+          = render "renalware/patients/show/referral", patient: @patient

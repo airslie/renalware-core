@@ -26,12 +26,9 @@ module World
         dashboard_path = patient_pd_dashboard_path(patient)
         visit dashboard_path
 
-        within ".capd-regimes-group" do
-          if patient.pd_regimes.count == 0
-            click_on "Enter CAPD Regime"
-          else
-            click_on "Add CAPD Regime"
-          end
+        within ".page-actions" do
+          click_on "Add"
+          click_on "CAPD Regime"
         end
 
         fill_in "* Start date", with: "02/04/2015"

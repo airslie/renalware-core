@@ -27,7 +27,8 @@ module Renalware
     end
 
     scenario "should return daily average volume (ml) for each concentration type" do
-      click_link "Add CAPD Regime"
+      click_link "Add"
+      click_link "CAPD Regime"
 
       select "CAPD 3 exchanges per day", from: "Treatment"
 

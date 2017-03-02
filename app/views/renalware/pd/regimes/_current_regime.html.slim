@@ -1,29 +1,29 @@
 - current = current_regime
 - pd_type = current.pd_type&.to_s&.upcase
 
-= field_set_tag "Current #{pd_type} Regime",
-                class: "current-regime",
-                data: { "regime-id" => current.id } do
+= article_tag "Current #{pd_type} Regime",
+              class: "current-regime",
+              data: { "regime-id" => current.id } do
 
-  .flex-container
+  .row
+    .columns.medium-6
+      dl.dl-horizontal.pd-regime-details.xlarge
+        dt Regime Start Date:
+        dd=l current.start_date
+        dt Regime End Date:
+        dd= default_for_blank_date(current.end_date, "Pending")
+        dt Treatment:
+        dd= current.treatment
+        dt On additional HD?:
+        dd= yes_no(current.add_hd)
 
-    dl.dl-horizontal.pd-regime-details.xlarge
-      dt Regime Start Date:
-      dd=l current.start_date
-      dt Regime End Date:
-      dd= default_for_blank_date(current.end_date, "Pending")
-      dt Treatment:
-      dd= current.treatment
-      dt On additional HD?:
-      dd= yes_no(current.add_hd)
-
-    = render"renalware/pd/regimes/glucose", regime: current
+        = render"renalware/pd/regimes/glucose", regime: current
 
     - if current.type == "Renalware::PD::APDRegime"
       = render partial: "renalware/pd/regimes/current_apd_regime", locals: { current: current }
 
   .row
     .large-12.columns
-      .section-underliner.padding-top-1
+      .padding-top-1
         h5= t(".bags_heading")
         =render "renalware/pd/regime_bags/regime_bags", regime: current

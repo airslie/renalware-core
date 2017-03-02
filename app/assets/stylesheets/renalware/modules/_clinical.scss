@@ -1,4 +1,4 @@
-fieldset.clinical-allergies {
+article.clinical-allergies {
   padding-bottom: 0;
 
   .current-status {
@@ -7,9 +7,8 @@ fieldset.clinical-allergies {
   }
 
   .panel {
-    margin-top: 3rem;
+    margin: 2rem 0 .6rem 0;
     padding: 0.5rem 0;
-    border-bottom: none;
 
     .flex-container {
       flex-align: stretch;

@@ -5,6 +5,14 @@ en:
   disable_with:
     save: Saving
 
+  new_record:
+    link_title: Add
+    page_title: New
+
+  edit_record:
+    link_title: Edit
+    page_title: Edit
+
   modal:
     close: Close
 

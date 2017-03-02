@@ -1,10 +1,7 @@
+= content_for(:actions) do
+  = link_to t("new_record.link_title"),
+            new_patient_event_path(@patient),
+            class: "button"
+
 = within_patient_layout(title: "Events") do
-  table
-    thead
-      th.col-width-date Added
-      th.col-width-medium Event Type
-      th Description
-      th.col-width-date-time Date/Time
-      th Created by
-    tbody
-      = render @events
+  = render "table", events: @events

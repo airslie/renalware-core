@@ -1,1 +1,4 @@
-= render "form", event_type: event_type
+= within_admin_layout(title: t("edit_record.link_title"),
+                      breadcrumbs: breadcrumb_for("Patient Event Types", events_types_path)) do
+
+  = render "form", event_type: event_type

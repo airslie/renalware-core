@@ -31,7 +31,7 @@ ul.table-data-list {
 
 li.history {
   display: block;
-  color: #999999;
+  color: $aluminum;
 }
 
 span.monospaced {
@@ -40,7 +40,7 @@ span.monospaced {
 }
 
 span.note {
-  color: #999;
+  color: $aluminum;
   font-size: 0.8rem;
 }
 
@@ -51,5 +51,5 @@ span.note {
   font-style: italic;
   font-weight: normal;
   margin-bottom: 0.25rem;
-  padding: 0.2rem 0rem;
+  padding: 0.2rem 0;
 }

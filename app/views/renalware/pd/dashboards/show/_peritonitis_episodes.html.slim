@@ -1,12 +1,2 @@
-= field_set_tag "Peritonitis Episodes (#{peritonitis_episodes.length})" do
-  - if peritonitis_episodes.empty?
-    .call-to-action
-      = link_to new_patient_pd_peritonitis_episode_path(patient) do
-                i.fa.fa-plus-circle
-                | Enter Peritonitis Episode
-  - else
-    = render "renalware/pd/peritonitis_episodes", local_assigns
-    .right
-      = link_to "Add Peritonitis Episode",
-                new_patient_pd_peritonitis_episode_path(patient),
-                class: "button tiny"
+= article_tag "Peritonitis Episodes (#{peritonitis_episodes.length})" do
+  = render "renalware/pd/peritonitis_episodes", local_assigns

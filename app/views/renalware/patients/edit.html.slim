@@ -1,10 +1,11 @@
-= within_patient_layout(title: "Demographics") do
+= within_patient_layout(title: "Edit", breadcrumbs: breadcrumb_for("Demographics", @patient)) do
 
-  .document
+  .row.document
     = simple_form_for @patient, wrapper: "horizontal_form" do |f|
 
       = render "renalware/patients/form", patient: f
 
-      = submit_tag "Update", class: "button"
-      span= " or "
-      = link_to "Cancel", patient_path(@patient)
+      .columns.large-12
+        = submit_tag "Update", class: "button"
+        span= " or "
+        = link_to "Cancel", patient_path(@patient)

@@ -1,13 +1,10 @@
 
 .patient-summary {
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-flow: row wrap;
-  align-content: stretch;
-  align-items: stretch;
   background-color: $mini-profile-backgound-colour;
   font-size: 0.9rem;
+  margin: 0;
+  padding: 0;
+  position: relative;
 
   ul {
     font-size: inherit;
@@ -16,8 +13,9 @@
   div {
     padding: 0.2em 0.2em 0.2em 1.2em;
     margin: 0;
-    flex-grow: 2;
-
+    //flex-grow: 2;
+    float: left;
+    width: 50%;
     white-space: nowrap;
 
     .title {
@@ -57,37 +55,54 @@ ul.provider {
 .med-list>li {
   display: inline-block;
 }
-.patient-content {
-  display: block;
-  flex: 1;
 
-  h1 {
-    margin-top: 1rem;
-  }
+.patient-content {
+  padding-bottom: 16rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: $patient-side-nav-width;
+	overflow-y: auto;
 }
-.patient-container {
-  display:flex;
-  flex: 1;
-  height:100%;
+
+.collapse-patient-menu .patient-content {
+  left: 0;
+}
+
+.full-screenable {
+  transition: left .2s ease 0s;
+}
+
+.patient-container .page-heading h1 {
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+
+.page-heading {
+  float: left;
+  margin: 1rem 0;
+  width: 100%;
+  li {
+    float: left;
+    list-style-type: none;
+    margin: 0 1rem 0 0;
+    padding: 0;
+    h1 a {
+	   //text-decoration: underline;
+    }
+  }
+  .page-actions .button {
+	  margin: 0;
+  }
 }
 
 .patient-header {
-  background-color: $patient-header-bg-color;
-  color: $white;
-  padding-top: 0.3rem;
-
-  .back-link {
-    a {
-      color: $white;
-    }
-  }
-
-  &.header {
-    border-color: $patient-header-bg-color;
-  }
+  background-color: $nhs-blue;
   dl {
-    font-size: 1rem;
-    margin: 0 0 .2em 1em;
+    font-size: 1.1rem;
+    margin: 0 0 0 0.5em;
 
     dt {
       color: $white;
@@ -104,16 +119,30 @@ ul.provider {
     }
 
     dd {
+      color: $white;
       display: inline;
       font-size: 1em;
       margin: 0 .5em 0 .1em;
 
       &.name {
-        display: inline-block;
+        display: inline;
         font-size: 1.4em;
         margin-right: .4em;
         margin-left: 0;
         width: 100%;
+      }
+
+      &.patient-menu-toggler {
+        font-size: 1.6rem;
+        margin: 0 0.5rem 0 0;
+
+        a,
+        a:visited {
+          color: darken($white, 15%);
+          &:hover {
+            color: darken($white, 25%);
+          }
+        }
       }
 
       &.back-link {
@@ -137,8 +166,58 @@ ul.provider {
           margin-right: .6em;
           width: auto;
         }
+
+        &.patient-menu-toggler {
+          font-size: 1.8rem;
+        }
       }
     }
+  }
+
+  .menu-icon {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    width: 16px;
+    height: 21px;
+    cursor: pointer;
+
+    @media #{$large-up} {
+      width: 21px;
+      height: 24px;
+    }
+  }
+
+  .menu-icon::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: $patient-menu-icon-color;
+    box-shadow: 0 6px 0 $patient-menu-icon-color, 0 12px 0 $patient-menu-icon-color;
+    content: '';
+
+    @media #{$large-up} {
+      box-shadow: 0 7px 0 $patient-menu-icon-color, 0 14px 0 $patient-menu-icon-color;
+    }
+  }
+  .menu-icon:hover::after {
+    background: $patient-menu-icon-hover-color;
+    box-shadow: 0 6px 0 $patient-menu-icon-hover-color, 0 12px 0 $patient-menu-icon-hover-color;
+
+    @media #{$large-up} {
+      box-shadow: 0 7px 0 $patient-menu-icon-hover-color, 0 14px 0 $patient-menu-icon-hover-color;
+    }
+  }
+}
+
+#screen-is-mobile-size {
+  display: none;
+
+  @media #{$small-only} {
+    display: inline;
   }
 }
 

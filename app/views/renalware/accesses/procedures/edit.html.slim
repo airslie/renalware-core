@@ -1,8 +1,9 @@
-= within_patient_layout(title: "Access Procedure") do
-  = render "procedure_nav"
+= within_patient_layout(title: "Edit",
+                        breadcrumbs: [access_summary_breadrumb(patient),
+                                      access_procedure_breadcrumb(patient, procedure)]) do
 
   .document
-    = simple_form_for @procedure,
-        url: patient_accesses_procedure_path(@patient, @procedure),
+    = simple_form_for procedure,
+        url: patient_accesses_procedure_path(patient, procedure),
         wrapper: "horizontal_form" do |f|
       = render "form", f: f

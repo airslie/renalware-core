@@ -1,4 +1,7 @@
-= within_patient_layout(title: "#{capd_apd_title(pd_regime)} Regime", **local_assigns) do
+= within_patient_layout(title: "Edit #{capd_apd_title(pd_regime)} Regime",
+                        breadcrumbs: pd_summary_breadcrumb(patient),
+                        **local_assigns) do
+
   = render "renalware/shared/errors", model: pd_regime
 
   = simple_nested_form_for [patient, pd_regime],
@@ -7,9 +10,7 @@
                           html: { class: "pd-form" },
                           method: :put do |f|
 
-    h4= "Edit #{capd_apd_title(f.object)} Regime"
-
-    = render partial: "renalware/pd/regimes/form", locals: local_assigns.merge!(f: f)
+    = render partial: "renalware/pd/regimes/form",  locals: local_assigns.merge!(f: f)
 
     .row
       .large-12.columns

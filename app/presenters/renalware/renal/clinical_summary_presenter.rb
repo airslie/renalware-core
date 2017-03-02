@@ -29,6 +29,7 @@ module Renalware
       def current_events
         @current_events ||= Events::Event.includes([:created_by, :event_type])
                                          .for_patient(@patient)
+                                         .order(created_at: :desc)
       end
 
       def letters
@@ -40,12 +41,12 @@ module Renalware
       def find_letters
         patient = Renalware::Letters.cast_patient(@patient)
         patient.letters
-               .approved
+               .with_main_recipient
                .with_letterhead
                .with_author
                .with_patient
-               .limit(6)
-               .reverse
+               .limit(10)
+               .order(issued_on: :desc)
       end
 
       def present_letters(letters)

@@ -1,20 +1,13 @@
-- compact ||= false
-
 table.auto-layout.letters
   thead
     tr
       th
-      - unless compact
-        th Type
-        th State
+      th State
       th.col-width-date Date
       th Author
       th Recipient
       th Description
-      - unless compact
-        th.col-width-date-time Last Update
 
   tbody
     = render partial: "renalware/letters/letters/letter",
-             collection: letters,
-             locals: { compact: compact }
+             collection: letters

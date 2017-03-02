@@ -1,16 +1,16 @@
-= field_set_tag do
-  legend= link_to "Current Prescriptions (#{prescriptions.length})", patient_prescriptions_path(@patient)
+article
+  header
+    h1
+      = link_to "Current Prescriptions (#{prescriptions.length})",
+                patient_prescriptions_path(@patient)
 
-  - if prescriptions.empty?
-    .call-to-action
-      = link_to patient_prescriptions_path(@patient) do
-        i.fa.fa-plus-circle
-        | Enter prescription
-  - else
-    ul.no-bullet
-      - prescriptions.each do |prescription|
-        li class="drug-#{drug_types_colour_tag(prescription.drug_types)}"
-          = "#{prescription.drug.name}, "
-          = "#{prescription.dose}, "
-          = "#{prescription.medication_route.code} #{prescription.frequency}, "
-          = "#{l prescription.prescribed_on}"
+    = link_to patient_prescriptions_path(@patient), class: "button" do
+      | Enter prescription
+
+  ul.no-bullet
+    - prescriptions.each do |prescription|
+      li class="drug-#{drug_types_colour_tag(prescription.drug_types)}"
+        = "#{prescription.drug.name}, "
+        = "#{prescription.dose}, "
+        = "#{prescription.medication_route.code} #{prescription.frequency} - "
+        = l(prescription.prescribed_on)

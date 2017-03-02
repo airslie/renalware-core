@@ -179,8 +179,8 @@ SimpleForm.setup do |config|
   end
 
   # Examples of use:
-  # - wrapper_html: {class: 'row'}, custom_wrapper_html: {class: 'column small-12'}
-  # - custom_wrapper_html: {class: 'column small-3 end'}
+  # - wrapper_html: {class: "row"}, custom_wrapper_html: {class: "column small-12"}
+  # - custom_wrapper_html: {class: "column small-3 end"}
   config.wrappers :customizable_wrapper, tag: "div", error_class: :error do |b|
     b.use :html5
     b.optional :readonly

@@ -1,5 +1,6 @@
-= within_patient_layout(title: "Access Assessment") do
-  = render "assessment_nav"
+= within_patient_layout(title: "Edit",
+                        breadcrumbs: [access_summary_breadrumb(@patient),
+                                      access_assesment_breadcrumb(@patient, @assessment)]) do
 
   .document
     = simple_form_for @assessment,

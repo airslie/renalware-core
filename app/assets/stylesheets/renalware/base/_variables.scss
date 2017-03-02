@@ -18,31 +18,53 @@
 $dashboard-muted-color: #888;
 $link-colour: $primary-color; // #008CBA;
 $link-focus-colour: #0078a0;
+$link-hover-colour: #64d6fb;
 $white: #FFF;
 $off-white: #EEE;
-$dark-grey: #333;
+$dark-grey: #222;
 $light-grey: #DDD;
+$very-light-grey: #f5f5f5;
 
 // NHS Colours
-$nhs-yellow: #F7E214;
-$nhs-orange: #D88C05;
+$nhs-yellow: #FAE100;
+$nhs-warm-yellow: #FFB81C;
+$nhs-orange: #ED8B00;
+
 $nhs-red: #D81E05;
-$nhs-dark-red: #931638;
-$nhs-dark-pink: #A00054;
-$nhs-purple: #56008C;
-$nhs-dark-blue: #003893;
-$nhs-light-blue: #0091C9;
-$nhs-aqua-blue: #00ADC6;
-$nhs-aqua-green: #00AA9E;
-$nhs-light-green: #5BBF21;
-$nhs-green: #009E49;
-$nhs-dark-green: #006B54;
-$nhs-blue: #0068A5;
+
+// $nhs-dark-red: #931638;
+// $nhs-dark-pink: #A00054;
+// $nhs-purple: #56008C;
+// $nhs-dark-blue: #003893;
+// $nhs-light-blue: #0091C9;
+// $nhs-aqua-blue: #00ADC6;
+// $nhs-aqua-green: #00AA9E;
+// $nhs-light-green: #5BBF21;
+// $nhs-green: #009E49;
+// $nhs-dark-green: #006B54;
+// $nhs-blue: #0068A5;
+
+$nhs-emergency-red: #DA291C;
+$nhs-dark-red: #8A1538;
+$nhs-dark-pink: #7C2855;
+$nhs-purple: #330072;
+$nhs-pink: #AE2573;
+
+$nhs-dark-blue: #003087;
+$nhs-blue: #005EB8;
+$nhs-bright-blue: #0072CE;
+$nhs-light-blue: #41B6E6;
+$nhs-aqua-blue: #00A9CE;
+
+$nhs-aqua-green: #00A499;
+$nhs-light-green: #78BE20;
+$nhs-green: #009639;
+$nhs-dark-green: #006747;
 
 // Drug type colours
-$drug-type-default-colour: $white;
+$drug-type-default-colour: none;
 $drug-type-esa-colour: #FFFF99;
-$drug-type-immunosuppressant-colour: #CCFFFF;
+$drug-type-immunosuppressant-colour: #CCFeFF;
 
 // Patient header/banner
 $patient-header-muted-color: #777;
@@ -68,17 +90,21 @@ $table-border-colour: #CCC;
 $footer-colour: #C0C0C0;
 $footer-bg-colour: #FAFAFA;
 
-$patient-menu-background-colour: #F4F3F2;
+$patient-menu-background-colour: #eeeeee;
 $menu-divider-colour: #E6E6E6;
 
 // Forms
 $form-hint-colour: #AAA;
 $disabled-colour: #CCC;
 
+// Menus
+$patient-menu-icon-color: $gainsboro;
+$patient-menu-icon-hover-color: $white;
+
 //
 // Lists
 //
-$dl_horizontal_dt_width: 9rem;
+$dl-horizontal-dt-width: 9rem;
 
 $patient-side-nav-width: 14rem;
 

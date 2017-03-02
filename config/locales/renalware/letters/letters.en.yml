@@ -1,0 +1,13 @@
+en:
+  renalware:
+    letters:
+      letters:
+        index:
+          draft_clinical_letter: Clinical Letter
+          draft_clinic_visit_letter: Clinic Visit Letter
+          simple_letter: Simple Letter
+        new:
+          clincal:
+            page_title: New Clincal Letter
+          simple:
+            page_title: New Simple Letter
