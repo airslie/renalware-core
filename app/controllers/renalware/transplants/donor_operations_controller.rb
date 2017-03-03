@@ -6,40 +6,42 @@ module Renalware
       before_action :load_patient
 
       def show
-        @donor_operation = DonorOperation.for_patient(@patient).find(params[:id])
+        operation = DonorOperation.for_patient(patient).find(params[:id])
+        render locals: { operation: operation, patient: patient }
       end
 
       def new
-        @donor_operation = DonorOperation.new
+        render locals: { operation: DonorOperation.new, patient: patient }
       end
 
       def create
-        @donor_operation = DonorOperation.new(patient: @patient)
-        @donor_operation.attributes = operation_params
+        operation = DonorOperation.new(patient: patient)
+        operation.attributes = operation_params
 
-        if @donor_operation.save
-          redirect_to patient_transplants_donor_dashboard_path(@patient),
+        if operation.save
+          redirect_to patient_transplants_donor_dashboard_path(patient),
             notice: t(".success", model_name: "donor operation")
         else
           flash[:error] = t(".failed", model_name: "donor operation")
-          render :new
+          render :new, locals: { operation: operation, patient: patient }
         end
       end
 
       def edit
-        @donor_operation = DonorOperation.for_patient(@patient).find(params[:id])
+        operation = DonorOperation.for_patient(patient).find(params[:id])
+        render locals: { operation: operation, patient: patient }
       end
 
       def update
-        @donor_operation = DonorOperation.for_patient(@patient).find(params[:id])
-        @donor_operation.attributes = operation_params
+        operation = DonorOperation.for_patient(patient).find(params[:id])
+        operation.attributes = operation_params
 
-        if @donor_operation.save
-          redirect_to patient_transplants_donor_dashboard_path(@patient),
+        if operation.save
+          redirect_to patient_transplants_donor_dashboard_path(patient),
             notice: t(".success", model_name: "donor operation")
         else
           flash[:error] = t(".failed", model_name: "donor operation")
-          render :edit
+          render :edit, locals: { operation: operation, patient: patient }
         end
       end
 

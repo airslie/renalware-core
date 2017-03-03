@@ -1,25 +1,27 @@
 = content_for(:actions) do
   = link_to t("edit_record.link_title"),
-            edit_patient_transplants_donor_operation_path(@patient, @donor_operation),
+            edit_patient_transplants_donor_operation_path(patient, operation),
             class: "button"
 
 = within_patient_layout(title: "Operation",
-                        breadcrumbs: donor_summary_breadcrumb(@patient)) do
-  - return unless @donor_operation
+                        breadcrumbs: donor_summary_breadcrumb(patient)) do
+  - return unless operation
+
+  p= render "renalware/shared/last_update", record: operation
 
   .document-view
     = render "renalware/shared/attributes_group",
         legend: "Operation", destination: "operation",
-        models: { @donor_operation => [:performed_on,
-                                       :kidney_side,
-                                       :operating_surgeon,
-                                       :anaesthetist,
-                                       :nephrectomy_type,
-                                       :nephrectomy_type_other,
-                                       :donor_splenectomy_peri_or_post_operatively,
-                                       :notes] }
+        models: { operation => [:performed_on,
+                                :kidney_side,
+                                :operating_surgeon,
+                                :anaesthetist,
+                                :nephrectomy_type,
+                                :nephrectomy_type_other,
+                                :donor_splenectomy_peri_or_post_operatively,
+                                :notes] }
 
     - ["Diagnosis", "Outcome"].each do |group|
       = render "renalware/shared/documents/attributes_group",
-          group: @donor_operation.document.public_send(group.parameterize(separator: "_")),
+          group: operation.document.public_send(group.parameterize(separator: "_")),
           legend: group, destination: group.parameterize(separator: "_")
