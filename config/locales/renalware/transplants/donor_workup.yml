@@ -35,7 +35,7 @@ en:
         toxoplasmosis: Toxoplasmosis Test
       renalware/transplants/donor_workup_document/imaging_and_scans:
         chest_xray: Chest X-ray (CXR)
-        ecg_comment: EGC Comment
+        ecg_comment: ECG Comment
         renal_ultrasound: Renal Ultrasound
       renalware/transplants/donor_workup_document/creatinine_clearance:
         clearance: Calculated Clearance
