@@ -1,4 +1,6 @@
-= within_patient_layout(title: "Transplant Donor Operation") do
+= within_patient_layout(title: "Edit",
+                        breadcrumbs: [donor_summary_breadcrumb(@patient),
+                                      donor_operation_breadcrumb(@patient, @donor_operation)]) do
   .row
     .columns.large-12
       .document

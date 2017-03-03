@@ -1,4 +1,11 @@
-= within_patient_layout(title: "Transplant Donation") do
+= content_for(:actions) do
+  = link_to t("edit_record.link_title"),
+            edit_patient_transplants_donation_path(@patient, @donation),
+            class: "button"
+
+= within_patient_layout(title: "Transplant Donation",
+                        breadcrumbs: donor_summary_breadcrumb(@patient)) do
+
   - return unless @donation
 
   .document-view

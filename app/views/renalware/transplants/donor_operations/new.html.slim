@@ -1,4 +1,5 @@
-= within_patient_layout(title: "Transplant Donor Operation") do
+= within_patient_layout(title: "New Operation",
+                        breadcrumbs: donor_summary_breadcrumb(@patient)) do
   .document
     = simple_form_for @donor_operation,
         url: patient_transplants_donor_operations_path(@patient),

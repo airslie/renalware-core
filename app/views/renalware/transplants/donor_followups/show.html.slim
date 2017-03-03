@@ -1,12 +1,23 @@
-- datestamp = l @donor_followup.operation.performed_on
-= within_patient_layout(title: "Transplant Donor Operation (#{datestamp}) Followup") do
+- patient = @patient
+- donor_followup = @donor_followup
+- operation = @operation
 
-  - return unless @donor_followup
+= content_for(:actions) do
+  = link_to t("edit_record.link_title"),
+            edit_patient_transplants_donor_operation_followup_path(patient,
+                                                                   donor_followup.operation),
+            class: "button"
+
+= within_patient_layout(title: "Follow-up",
+   breadcrumbs: [donor_summary_breadcrumb(patient),
+                 donor_operation_breadcrumb(patient, donor_followup.operation, with_timestamp: true)]) do
+
+  - return unless donor_followup
 
   .document-view
     = render "renalware/shared/attributes_group",
         legend: "Admin", destination: "admin",
-        models: { @donor_followup => [:followed_up, :last_seen_on, :ukt_center_code,
+        models: { donor_followup => [:followed_up, :last_seen_on, :ukt_center_code,
           :lost_to_followup, :transferred_for_followup,
           :dead_on, :notes] }
 
