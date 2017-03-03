@@ -19,7 +19,9 @@ ruby:
                        name: "comorbidities" } do
 
       = fd.simple_fields_for :comorbidities, fd.object.comorbidities do |fcm|
-        table
+        = link_to "Set all comorbidities to No", "#",
+                  class: "set_all_comorbidities_to_no"
+        table.comorbidities
           - fcm.object.class.attributes_list.each do |attribute|
             = render_input fcm, attribute
 
@@ -27,12 +29,11 @@ ruby:
              locals: { legend: "Virology/Bacteriology/Cytology",
                        name: "infections" } do
 
+
       = fd.simple_fields_for :infections, fd.object.infections do |fcm|
-        table.no-stripes
+        table.no-stripes.infections
           = render_input fcm, :hiv
           = render_input fcm, :hcv
-          = render_input fcm, :htlv_preop
-          = render_input fcm, :syphilis_preop
           = render_input fcm, :htlv
           = render_input fcm, :ebv
           = render_input fcm, :syphilis
