@@ -2,4 +2,4 @@
   - if mdm.current_regime
     = render "renalware/pd/regimes/current_regime", current_regime: mdm.current_regime
 .columns.medium-12.large-6
-  = render "prescriptions", mdm: mdm
+    = render "prescriptions", mdm: mdm, with_esa: true

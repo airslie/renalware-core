@@ -1,29 +1,21 @@
-.columns.medium-12.large-6
-  fieldset.simple
-    legend
-      span.title= t(".title")
-      span.actions.action-links
-        = link_to t(".view"), patient_prescriptions_path(mdm.patient)
+fieldset.simple
+  legend
+    span.title= t(".title")
+    span.actions.action-links
+      = link_to t(".view"), patient_prescriptions_path(mdm.patient)
 
-    table.mdm.prescriptions
-      thead
-        tr
-          th.col-width-medium Drug
-          th.col-width-small Type
-          th.col-width-small Dose
-          th.col-width-small Freq
-          th.col-width-tiny Route
-          th Give on HD
-          th.col-width-tiny Prov
-          th.col-width-date.wide Date
-      tbody
-        - mdm.prescriptions.each do |prescription|
-          tr class="drug-#{drug_types_colour_tag(prescription.drug_types)}"
-            td= prescription.drug.name
-            td= prescription.drug_type_names
-            td= prescription.dose
-            td= prescription.frequency
-            td= prescription.route_code
-            td= prescription.administer_on_hd?
-            td= prescription.provider
-            td= I18n.l prescription.prescribed_on
+  - if local_assigns[:with_esa] == true
+
+    ul.tab-strip(data-tab)
+      li.tab-title.active= link_to "Current", "#current"
+      li.tab-title= link_to "EPO History", "#epo-history"
+
+    .tabs-content
+      #current.content.active
+        = render "current_prescriptions", mdm: mdm
+      #epo-history.content
+        = render "esa_prescriptions", mdm: mdm
+
+  - else
+
+    = render "current_prescriptions", mdm: mdm
