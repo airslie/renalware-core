@@ -2,13 +2,4 @@
   - if mdm.current_regime
     = render "renalware/pd/regimes/current_regime", current_regime: mdm.current_regime
 .columns.medium-12.large-6
-  .tabs(data-tab)
-    li.tab-title.active= link_to "Current", "#current"
-    li.tab-title= link_to "EPO History", "#epo-history"
-
-  .tabs-content
-    #current.content.active
-      = render "current_prescriptions", mdm: mdm
-    #epo-history.content
-      = render "esa_prescriptions", mdm: mdm
-  br
+    = render "prescriptions", mdm: mdm, with_esa: true

@@ -3,13 +3,4 @@
 .columns.small-12.medium-6.large-3
   = render "renalware/hd/accesses/summary", access: mdm.access
 .columns.medium-12.large-6
-  .tabs(data-tab)
-    li.tab-title.active= link_to "Current", "#current"
-    li.tab-title= link_to "EPO History", "#epo-history"
-
-  .tabs-content
-    #current.content.active
-      = render "current_prescriptions", mdm: mdm
-    #epo-history.content
-      = render "esa_prescriptions", mdm: mdm
-  br
+  = render "prescriptions", mdm: mdm, with_esa: true

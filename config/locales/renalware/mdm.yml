@@ -23,9 +23,16 @@ en:
       pathology:
         title: Pathology
         view: View
-      current_prescriptions:
+      prescriptions:
         title: Prescriptions
         view: View
+        drug_name: Drug
+        drug_type: Type
+        dose: Dose
+        frequency: Freq
+        route: Route
+        administer_on_hd: Give on HD
+        terminated_on: Term on
       esa_prescriptions:
         title: EPO History
         view: View
