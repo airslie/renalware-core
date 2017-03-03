@@ -1,4 +1,27 @@
+= content_for(:actions) do
+
+  a.button.dropdown(href="#"
+                    data-dropdown="draft-letter-options"
+                    aria-controls="draft-letter-options"
+                    aria-expanded="false")
+    | Add
+
+  ul.f-dropdown#draft-letter-options(data-dropdown-content aria-hidden="true")
+    li
+      -if @donations.empty?
+        = link_to t(".add_donation"),
+                  new_patient_transplants_donation_path(@patient)
+      -else
+        = link_to "Donor (identify a new recipient)",
+                  new_patient_transplants_donation_path(@patient)
+
+    li= link_to_if @donor_workup.new_record?,
+                   t(".add_workup"),
+                   edit_patient_transplants_donor_workup_path(@patient)
+    li= link_to t(".add_operation"),
+                new_patient_transplants_donor_operation_path(@patient)
+
 = within_patient_layout(title: "Transplant Donor Summary") do
-  = render "renalware/transplants/donations/list"
-  = render "renalware/transplants/donor_workups/summary"
-  = render "renalware/transplants/donor_operations/list"
+  = render "renalware/transplants/donations/list" unless @donations.empty?
+  = render "renalware/transplants/donor_workups/summary" unless @donor_workup.new_record?
+  = render "renalware/transplants/donor_operations/list" unless @donor_operations.empty?

@@ -62,7 +62,7 @@ module World
       def create_donor_followup(operation:, user:)
         login_as user
         visit patient_transplants_donor_dashboard_path(operation.patient)
-        within_fieldset "Donor Transplant Operations" do
+        within_article "Donor Transplant Operations" do
           click_on "Enter details"
         end
 
@@ -76,7 +76,7 @@ module World
       def update_donor_followup(operation:, user:)
         login_as user
         visit patient_transplants_donor_dashboard_path(operation.patient)
-        within_fieldset "Donor Transplant Operations" do
+        within_article "Donor Transplant Operations" do
           click_on "Update"
         end
 

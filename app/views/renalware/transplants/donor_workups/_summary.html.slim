@@ -1,32 +1,18 @@
-fieldset
-  legend Donor Workup
+article
+  header
+    h1 Donor Workup
+    ul
+      li= link_to "View",
+                  patient_transplants_donor_workup_path(@patient),
+                  class: "button secondary"
+      li= link_to "Edit",
+                  edit_patient_transplants_donor_workup_path(@patient),
+                  class: "button"
 
-  .row
-    - if @donor_workup.new_record?
-      .call-to-action
-        = link_to edit_patient_transplants_donor_workup_path(@patient) do
-          i.fa.fa-plus-circle
-          | Enter workup
-    - else
-      .large-3.columns
-
-      .large-3.columns
-
-      .large-4.columns
-        dl
-          dt Last Update:
-          dd
-            - if version = @donor_workup.versions.last
-              = l version.created_at
-              | &nbsp;by&nbsp;
-              = who_did_it version
-
-      .large-2.columns
-        .right
-          = link_to "View",
-                    patient_transplants_donor_workup_path(@patient),
-                    class: "button tiny"
-          | &nbsp;
-          = link_to "Edit",
-                    edit_patient_transplants_donor_workup_path(@patient),
-                    class: "button tiny"
+  dl.dl-horizontal
+    dt Last Update:
+    dd
+      - if version = @donor_workup.versions.last
+        = l version.created_at
+        | &nbsp;by&nbsp;
+        = who_did_it version
