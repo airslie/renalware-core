@@ -1,3 +1,5 @@
+scss_files: "app/assets/stylesheets/**/*.scss"
+
 linters:
   StringQuotes:
     enabled: false
