@@ -31,7 +31,7 @@ gem "paper_trail"
 gem "paranoia"
 gem "pg"
 gem "pundit", "~> 1.1.0"
-gem "rails", "5.0.1"
+gem "rails", "5.0.2"
 gem "ransack", git: "https://github.com/activerecord-hackery/ransack.git"
 gem "record_tag_helper", "~> 1.0"
 gem "rollbar"
@@ -67,7 +67,6 @@ group :development do
   gem "rack-mini-profiler"
   gem "terminal-notifier-guard"
   gem "web-console"
-  gem "thin"
 end
 
 group :development, :test do
