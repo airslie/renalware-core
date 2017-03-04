@@ -92,7 +92,7 @@ end
 
 group :test do
   gem "rails-controller-testing"
-  gem "simplecov", "~> 0.12.0", require: false
+  gem "simplecov", "~> 0.13.0", require: false
   gem "webmock", "~> 1.20.4"
   gem "wisper-rspec", require: false
 end
