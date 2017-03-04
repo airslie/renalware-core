@@ -82,7 +82,7 @@ group :development, :test do
   gem "poltergeist" # , "~> 1.11.0"
   gem "rspec-html-matchers"
   gem "rspec-rails"
-  gem "rubocop", "~> 0.45.0", require: false
+  gem "rubocop", "~> 0.47.1", require: false
   gem "shoulda-matchers"
   gem "spring"
   gem "spring-commands-cucumber"
