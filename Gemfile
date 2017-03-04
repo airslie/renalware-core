@@ -31,7 +31,7 @@ gem "paper_trail"
 gem "paranoia"
 gem "pg"
 gem "pundit", "~> 1.1.0"
-gem "rails", "5.0.1"
+gem "rails", "5.0.2"
 gem "ransack", git: "https://github.com/activerecord-hackery/ransack.git"
 gem "record_tag_helper", "~> 1.0"
 gem "rollbar"
@@ -67,7 +67,6 @@ group :development do
   gem "rack-mini-profiler"
   gem "terminal-notifier-guard"
   gem "web-console"
-  gem "thin"
 end
 
 group :development, :test do
@@ -83,7 +82,7 @@ group :development, :test do
   gem "poltergeist" # , "~> 1.11.0"
   gem "rspec-html-matchers"
   gem "rspec-rails"
-  gem "rubocop", "~> 0.45.0", require: false
+  gem "rubocop", "~> 0.47.1", require: false
   gem "shoulda-matchers"
   gem "spring"
   gem "spring-commands-cucumber"
@@ -93,7 +92,7 @@ end
 
 group :test do
   gem "rails-controller-testing"
-  gem "simplecov", "~> 0.12.0", require: false
+  gem "simplecov", "~> 0.13.0", require: false
   gem "webmock", "~> 1.20.4"
   gem "wisper-rspec", require: false
 end
