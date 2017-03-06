@@ -3,16 +3,16 @@ article
     h1 Donor Workup
     ul
       li= link_to "View",
-                  patient_transplants_donor_workup_path(@patient),
+                  patient_transplants_donor_workup_path(patient),
                   class: "button secondary"
       li= link_to "Edit",
-                  edit_patient_transplants_donor_workup_path(@patient),
+                  edit_patient_transplants_donor_workup_path(patient),
                   class: "button"
 
   dl.dl-horizontal
     dt Last Update:
     dd
-      - if version = @donor_workup.versions.last
+      - if version = donor_workup.versions.last
         = l version.created_at
         | &nbsp;by&nbsp;
         = who_did_it version

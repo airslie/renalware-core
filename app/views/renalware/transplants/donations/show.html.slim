@@ -1,17 +1,17 @@
 = content_for(:actions) do
   = link_to t("edit_record.link_title"),
-            edit_patient_transplants_donation_path(@patient, @donation),
+            edit_patient_transplants_donation_path(patient, donation),
             class: "button"
 
 = within_patient_layout(title: "Transplant Donation",
-                        breadcrumbs: donor_summary_breadcrumb(@patient)) do
+                        breadcrumbs: donor_summary_breadcrumb(patient)) do
 
-  - return unless @donation
+  - return unless donation
 
   .document-view
     = render "renalware/shared/attributes_group",
         legend: "Recipient", destination: "recipient",
-        models: { @donation => [:recipient,
+        models: { donation => [:recipient,
                                 :relationship_with_recipient,
                                 :relationship_with_recipient_other,
                                 :blood_group_compatibility,
@@ -20,7 +20,7 @@
 
     = render "renalware/shared/attributes_group",
         legend: "Admin", destination: "admin",
-        models: { @donation => [:state,
+        models: { donation => [:state,
                                 :volunteered_on,
                                 :first_seen_on,
                                 :workup_completed_on,

@@ -1,37 +1,37 @@
 = content_for(:actions) do
   = link_to t("edit_record.link_title"),
-            edit_patient_transplants_donor_workup_path(@patient),
+            edit_patient_transplants_donor_workup_path(patient),
             class: "button"
 
-= within_patient_layout(title: "Workup", breadcrumbs: donor_summary_breadcrumb(@patient)) do
-  - return unless @workup
+= within_patient_layout(title: "Workup", breadcrumbs: donor_summary_breadcrumb(patient)) do
+  - return unless workup
   .document-view
     .grid
         .row
             = render "renalware/shared/documents/attributes_group",
-                group: @workup.document.comorbidities,
+                group: workup.document.comorbidities,
                 legend: "Comorbidities", width: :large
 
             = render "renalware/shared/documents/attributes_group",
-                group: @workup.document.infections,
+                group: workup.document.infections,
                 legend: "Virology/Bacteriology/Cytology"
 
             = render "renalware/shared/documents/attributes_group",
-                group: @workup.document.imaging_and_scans,
+                group: workup.document.imaging_and_scans,
                 legend: "Imaging and Scans"
 
             = render "renalware/shared/documents/attributes_group",
-                group: @workup.document.creatinine_clearance,
+                group: workup.document.creatinine_clearance,
                 legend: "Creatinine Clearance"
 
             = render "renalware/shared/documents/attributes_group",
-                group: @workup.document.glomerular_filtration_rate,
+                group: workup.document.glomerular_filtration_rate,
                 legend: "Glomerular Filtration Rate (GFR)"
 
             = render "renalware/shared/documents/attributes_group",
-                group: @workup.document.urine_dipsticks,
+                group: workup.document.urine_dipsticks,
                 legend: "Urine Dipsticks"
 
             = render "renalware/shared/documents/attributes_group",
-                group: @workup.document.other_investigations,
+                group: workup.document.other_investigations,
                 legend: "Other Investigations"

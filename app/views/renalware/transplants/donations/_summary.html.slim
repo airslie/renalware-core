@@ -3,10 +3,10 @@ article
     h1 Donation Summary
     ul
       li= link_to "View",
-                  patient_transplants_donation_path(@patient, donation),
+                  patient_transplants_donation_path(patient, donation),
                   class: "button secondary"
       li= link_to "Edit",
-                  edit_patient_transplants_donation_path(@patient, donation),
+                  edit_patient_transplants_donation_path(patient, donation),
                   class: "button"
 
   dl.dl-horizontal

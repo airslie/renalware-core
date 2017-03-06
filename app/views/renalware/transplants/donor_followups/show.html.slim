@@ -1,6 +1,3 @@
-- patient = @patient
-- donor_followup = @donor_followup
-- operation = @operation
 
 = content_for(:actions) do
   = link_to t("edit_record.link_title"),
@@ -13,6 +10,8 @@
                  donor_operation_breadcrumb(patient, donor_followup.operation, with_timestamp: true)]) do
 
   - return unless donor_followup
+
+  .edit_timestamp= render "renalware/shared/last_update", record: donor_followup
 
   .document-view
     = render "renalware/shared/attributes_group",

@@ -7,7 +7,7 @@
                         breadcrumbs: donor_summary_breadcrumb(patient)) do
   - return unless operation
 
-  p= render "renalware/shared/last_update", record: operation
+  .edit_timestamp= render "renalware/shared/last_update", record: operation
 
   .document-view
     = render "renalware/shared/attributes_group",

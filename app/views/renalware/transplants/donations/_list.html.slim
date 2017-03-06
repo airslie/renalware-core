@@ -1,2 +1,4 @@
-- @donations.each do |donation|
-  = render "renalware/transplants/donations/summary", donation: donation
+- donations.each do |donation|
+  = render "renalware/transplants/donations/summary",
+           donation: donation,
+           patient: patient

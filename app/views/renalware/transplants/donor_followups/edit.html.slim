@@ -1,11 +1,11 @@
-- patient = @patient
-- donor_followup = @donor_followup
 
 = within_patient_layout(title: "Follow-up / Edit",
     breadcrumbs: [donor_summary_breadcrumb(patient)]) do
+
+  .edit_timestamp= render "renalware/shared/last_update", record: donor_followup
 
   .document
     = simple_form_for donor_followup,
         url: patient_transplants_donor_operation_followup_path(patient, donor_followup.operation),
         wrapper: "horizontal_form" do |f|
-      = render "form", f: f
+      = render "form", f: f, patient: patient

@@ -4,46 +4,46 @@ module Renalware
   module Transplants
     class DonorFollowupsController < BaseController
       before_action :load_patient
-      before_action :load_operation
 
       def show
-        @donor_followup = @operation.followup
+        render locals: { patient: patient, donor_followup: operation.followup }
       end
 
       def new
-        @donor_followup = @operation.build_followup
+        donor_followup = operation.build_followup
+        render locals: { patient: patient, donor_followup: donor_followup }
       end
 
       def create
-        @donor_followup = @operation.build_followup
-        @donor_followup.attributes = followup_attributes
+        donor_followup = operation.build_followup
+        donor_followup.attributes = followup_attributes
 
-        if @donor_followup.save
-          redirect_to patient_transplants_donor_dashboard_path(@patient)
+        if donor_followup.save
+          redirect_to patient_transplants_donor_dashboard_path(patient)
         else
-          render :new
+          render :new, locals: { patient: patient, donor_followup: donor_followup }
         end
       end
 
       def edit
-        @donor_followup = @operation.followup
+        render locals: { patient: patient, donor_followup: operation.followup }
       end
 
       def update
-        @donor_followup = @operation.followup
-        @donor_followup.attributes = followup_attributes
+        donor_followup = operation.followup
+        donor_followup.attributes = followup_attributes
 
-        if @donor_followup.save
-          redirect_to patient_transplants_donor_dashboard_path(@patient)
+        if donor_followup.save
+          redirect_to patient_transplants_donor_dashboard_path(patient)
         else
-          render :edit
+          render :edit, locals: { patient: patient, donor_followup: donor_followup }
         end
       end
 
       protected
 
-      def load_operation
-        @operation = DonorOperation.find(params[:donor_operation_id])
+      def operation
+        @operation ||= DonorOperation.find(params[:donor_operation_id])
       end
 
       def followup_attributes

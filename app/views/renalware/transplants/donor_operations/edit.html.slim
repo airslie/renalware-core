@@ -1,7 +1,7 @@
 = within_patient_layout(title: "Edit",
                         breadcrumbs: [donor_summary_breadcrumb(patient),
                                       donor_operation_breadcrumb(patient, operation)]) do
-  =render "renalware/shared/last_update", record: operation
+  .edit_timestamp= render "renalware/shared/last_update", record: operation
 
   .row
     .columns.large-12
