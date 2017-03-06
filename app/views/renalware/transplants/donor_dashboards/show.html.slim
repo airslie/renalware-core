@@ -1,12 +1,12 @@
 = content_for(:actions) do
 
   a.button.dropdown(href="#"
-                    data-dropdown="draft-letter-options"
-                    aria-controls="draft-letter-options"
+                    data-dropdown="donor-options"
+                    aria-controls="donor-options"
                     aria-expanded="false")
     | Add
 
-  ul.f-dropdown#draft-letter-options(data-dropdown-content aria-hidden="true")
+  ul.f-dropdown#donor-options(data-dropdown-content aria-hidden="true")
     li
       -if donations.empty?
         = link_to t(".add_donation"),
@@ -15,9 +15,11 @@
         = link_to "Donor (identify a new recipient)",
                   new_patient_transplants_donation_path(patient)
 
-    li= link_to_if donor_workup.new_record?,
+    li(class="#{'disabled' unless donor_workup.new_record?}")
+       = link_to_if donor_workup.new_record?,
                    t(".add_workup"),
                    edit_patient_transplants_donor_workup_path(patient)
+
     li= link_to t(".add_operation"),
                 new_patient_transplants_donor_operation_path(patient)
 

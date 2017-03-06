@@ -189,3 +189,16 @@ dd.patient-name {
   background-color: $white;
   color: $dark-grey;
 }
+
+.f-dropdown li {
+  &.disabled {
+    padding: 0.5rem;
+    color: $mid-grey;
+    cursor: default;
+    display: inline-block;
+
+    &:hover {
+      background-color: $white;
+    }
+  }
+}
