@@ -7,6 +7,7 @@ module Renalware
 
       def new
         @event = new_event_for_patient
+        @event.date_time = Time.zone.now.beginning_of_hour
         @event_type = Type.new
       end
 
