@@ -23,14 +23,14 @@ module Renalware
             .with_current_key_pathology
             .with_current_modality_matching(modality_names)
             .search(q)
-            # .order("pathology_current_key_observations.hgb_result asc")
+          # .order("pathology_current_key_observations.hgb_result asc")
         end
       end
 
       module Scopes
 
         def with_current_key_pathology
-          includes(:current_key_observation_set) #.joins(:current_key_observation)
+          includes(:current_key_observation_set) # .joins(:current_key_observation)
         end
       end
     end
