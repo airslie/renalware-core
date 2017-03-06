@@ -133,15 +133,19 @@ ul.provider {
       }
 
       &.patient-menu-toggler {
-        font-size: 1.6rem;
-        margin: 0 0.5rem 0 0;
-
         a,
         a:visited {
-          color: darken($white, 15%);
+          color: $white;
           &:hover {
-            color: darken($white, 25%);
+            color: darken($white, 5%);
           }
+        }
+        i {
+          padding-right: 0.4rem;
+          display: inline-block;
+          font-size: 0.9em;
+          font-weight: normal;
+          color: lighten($nhs-blue, 35%);
         }
       }
 
