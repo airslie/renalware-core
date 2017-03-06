@@ -18,9 +18,11 @@ module Renalware
         @search ||= begin
           relation
             .extending(Scopes)
+            .with_current_key_pathology
             .with_current_modality_matching(modality_names)
             .includes(:modality_description)
             .search(q)
+            # .order("pathology_current_key_observations.hgb_result asc")
         end
       end
 
@@ -35,6 +37,10 @@ module Renalware
                 state: "current",
                 ended_on: nil
               })
+        end
+
+        def with_current_key_pathology
+          includes(:current_key_observation_set) #.joins(:current_key_observation)
         end
       end
     end

@@ -3,13 +3,13 @@ en:
     patients:
       worries:
         delete:
-          title: Remove from Worryboard
-          confirm: Remove this patient from the Worryboard?
+          title: Remove from worryboard
+          confirm: Remove this patient from the worryboard?
         new:
           title: Add to Worryboard
-          confirm: Add this patient to the Worryboard?
+          confirm: Add this patient to the worryboard?
       worry:
         create:
-          success: "%{patient} added to Worryboard"
+          success: "%{patient} added to worryboard"
         destroy:
-          success: "%{patient} removed from Worryboard"
+          success: "%{patient} removed from worryboard"

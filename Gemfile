@@ -60,7 +60,6 @@ source "https://rails-assets.org" do
 end
 
 group :development do
-  gem "awesome_print"
   gem "bullet"
   gem "guard-cucumber", require: false
   gem "guard-rspec", require: false
@@ -70,6 +69,7 @@ group :development do
 end
 
 group :development, :test do
+  gem "awesome_print"
   gem "bundler-audit", require: false
   gem "byebug"
   gem "capybara"

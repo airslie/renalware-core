@@ -15,6 +15,7 @@ module Renalware
 
     serialize :sex, Gender
 
+    has_one :current_key_observation_set, class_name: "Pathology::CurrentKeyObservationSet"
     has_one :current_address, as: :addressable, class_name: "Address"
     has_one :summary, class_name: "PatientSummary"
     belongs_to :ethnicity, class_name: "Patients::Ethnicity"

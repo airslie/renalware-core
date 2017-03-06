@@ -1769,6 +1769,147 @@ ALTER SEQUENCE modality_reasons_id_seq OWNED BY modality_reasons.id;
 
 
 --
+-- Name: pathology_observation_descriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_observation_descriptions (
+    id integer NOT NULL,
+    code character varying NOT NULL,
+    name character varying
+);
+
+
+--
+-- Name: pathology_observation_requests; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_observation_requests (
+    id integer NOT NULL,
+    requestor_order_number character varying,
+    requestor_name character varying NOT NULL,
+    requested_at timestamp without time zone NOT NULL,
+    patient_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    description_id integer NOT NULL
+);
+
+
+--
+-- Name: pathology_observations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pathology_observations (
+    id integer NOT NULL,
+    result character varying NOT NULL,
+    comment text,
+    observed_at timestamp without time zone NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    description_id integer NOT NULL,
+    request_id integer
+);
+
+
+--
+-- Name: pathology_current_observations; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW pathology_current_observations AS
+ SELECT DISTINCT ON (pathology_observation_requests.patient_id, pathology_observation_descriptions.id) pathology_observations.id,
+    pathology_observations.result,
+    pathology_observations.comment,
+    pathology_observations.observed_at,
+    pathology_observations.description_id,
+    pathology_observations.request_id,
+    pathology_observation_descriptions.code AS description_code,
+    pathology_observation_descriptions.name AS description_name,
+    pathology_observation_requests.patient_id
+   FROM ((pathology_observations
+     LEFT JOIN pathology_observation_requests ON ((pathology_observations.request_id = pathology_observation_requests.id)))
+     LEFT JOIN pathology_observation_descriptions ON ((pathology_observations.description_id = pathology_observation_descriptions.id)))
+  ORDER BY pathology_observation_requests.patient_id, pathology_observation_descriptions.id, pathology_observations.observed_at DESC;
+
+
+--
+-- Name: patients; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE patients (
+    id integer NOT NULL,
+    nhs_number character varying,
+    local_patient_id character varying NOT NULL,
+    family_name character varying NOT NULL,
+    given_name character varying NOT NULL,
+    born_on date NOT NULL,
+    paediatric_patient_indicator boolean,
+    sex character varying,
+    ethnicity_id integer,
+    gp_practice_code character varying,
+    pct_org_code character varying,
+    hospital_centre_code character varying,
+    primary_esrf_centre character varying,
+    died_on date,
+    first_edta_code_id integer,
+    second_edta_code_id integer,
+    death_notes text,
+    cc_on_all_letters boolean DEFAULT true,
+    cc_decision_on date,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    practice_id integer,
+    primary_care_physician_id integer,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    title character varying,
+    suffix character varying,
+    marital_status character varying,
+    telephone1 character varying,
+    telephone2 character varying,
+    email character varying,
+    document jsonb,
+    religion_id integer,
+    language_id integer,
+    diabetic boolean DEFAULT false NOT NULL,
+    allergy_status character varying DEFAULT 'unrecorded'::character varying NOT NULL,
+    allergy_status_updated_at timestamp without time zone
+);
+
+
+--
+-- Name: pathology_current_key_observation_sets; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW pathology_current_key_observation_sets AS
+ SELECT p.id AS patient_id,
+    ( SELECT pathology_current_observations.result
+           FROM pathology_current_observations
+          WHERE (((pathology_current_observations.description_code)::text = 'HGB'::text) AND (pathology_current_observations.patient_id = p.id))) AS hgb_result,
+    ( SELECT pathology_current_observations.observed_at
+           FROM pathology_current_observations
+          WHERE (((pathology_current_observations.description_code)::text = 'HGB'::text) AND (pathology_current_observations.patient_id = p.id))) AS hgb_observed_at,
+    ( SELECT pathology_current_observations.result
+           FROM pathology_current_observations
+          WHERE (((pathology_current_observations.description_code)::text = 'CRE'::text) AND (pathology_current_observations.patient_id = p.id))) AS cre_result,
+    ( SELECT pathology_current_observations.observed_at
+           FROM pathology_current_observations
+          WHERE (((pathology_current_observations.description_code)::text = 'CRE'::text) AND (pathology_current_observations.patient_id = p.id))) AS cre_observed_at,
+    ( SELECT pathology_current_observations.result
+           FROM pathology_current_observations
+          WHERE (((pathology_current_observations.description_code)::text = 'URE'::text) AND (pathology_current_observations.patient_id = p.id))) AS ure_result,
+    ( SELECT pathology_current_observations.observed_at
+           FROM pathology_current_observations
+          WHERE (((pathology_current_observations.description_code)::text = 'URE'::text) AND (pathology_current_observations.patient_id = p.id))) AS ure_observed_at,
+    ( SELECT pathology_current_observations.result
+           FROM pathology_current_observations
+          WHERE (((pathology_current_observations.description_code)::text = 'MDRD'::text) AND (pathology_current_observations.patient_id = p.id))) AS mdrd_result,
+    ( SELECT pathology_current_observations.observed_at
+           FROM pathology_current_observations
+          WHERE (((pathology_current_observations.description_code)::text = 'MDRD'::text) AND (pathology_current_observations.patient_id = p.id))) AS mdrd_observed_at
+   FROM patients p;
+
+
+--
 -- Name: pathology_labs; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1798,17 +1939,6 @@ ALTER SEQUENCE pathology_labs_id_seq OWNED BY pathology_labs.id;
 
 
 --
--- Name: pathology_observation_descriptions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE pathology_observation_descriptions (
-    id integer NOT NULL,
-    code character varying NOT NULL,
-    name character varying
-);
-
-
---
 -- Name: pathology_observation_descriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -1828,22 +1958,6 @@ ALTER SEQUENCE pathology_observation_descriptions_id_seq OWNED BY pathology_obse
 
 
 --
--- Name: pathology_observation_requests; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE pathology_observation_requests (
-    id integer NOT NULL,
-    requestor_order_number character varying,
-    requestor_name character varying NOT NULL,
-    requested_at timestamp without time zone NOT NULL,
-    patient_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    description_id integer NOT NULL
-);
-
-
---
 -- Name: pathology_observation_requests_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -1860,22 +1974,6 @@ CREATE SEQUENCE pathology_observation_requests_id_seq
 --
 
 ALTER SEQUENCE pathology_observation_requests_id_seq OWNED BY pathology_observation_requests.id;
-
-
---
--- Name: pathology_observations; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE pathology_observations (
-    id integer NOT NULL,
-    result character varying NOT NULL,
-    comment text,
-    observed_at timestamp without time zone NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    description_id integer NOT NULL,
-    request_id integer
-);
 
 
 --
@@ -2392,51 +2490,6 @@ CREATE SEQUENCE patient_religions_id_seq
 --
 
 ALTER SEQUENCE patient_religions_id_seq OWNED BY patient_religions.id;
-
-
---
--- Name: patients; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE patients (
-    id integer NOT NULL,
-    nhs_number character varying,
-    local_patient_id character varying NOT NULL,
-    family_name character varying NOT NULL,
-    given_name character varying NOT NULL,
-    born_on date NOT NULL,
-    paediatric_patient_indicator boolean,
-    sex character varying,
-    ethnicity_id integer,
-    gp_practice_code character varying,
-    pct_org_code character varying,
-    hospital_centre_code character varying,
-    primary_esrf_centre character varying,
-    died_on date,
-    first_edta_code_id integer,
-    second_edta_code_id integer,
-    death_notes text,
-    cc_on_all_letters boolean DEFAULT true,
-    cc_decision_on date,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    practice_id integer,
-    primary_care_physician_id integer,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL,
-    title character varying,
-    suffix character varying,
-    marital_status character varying,
-    telephone1 character varying,
-    telephone2 character varying,
-    email character varying,
-    document jsonb,
-    religion_id integer,
-    language_id integer,
-    diabetic boolean DEFAULT false NOT NULL,
-    allergy_status character varying DEFAULT 'unrecorded'::character varying NOT NULL,
-    allergy_status_updated_at timestamp without time zone
-);
 
 
 --
@@ -8518,7 +8571,7 @@ ALTER TABLE ONLY transplant_registration_statuses
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES
+INSERT INTO "schema_migrations" (version) VALUES
 ('20141004150240'),
 ('20141010170329'),
 ('20141020170329'),
@@ -8705,7 +8758,9 @@ INSERT INTO schema_migrations (version) VALUES
 ('20170217141529'),
 ('20170217161409'),
 ('20170220150611'),
+('20170222135148'),
 ('20170227154311'),
-('20170228131923');
+('20170228131923'),
+('20170306093012');
 
 
