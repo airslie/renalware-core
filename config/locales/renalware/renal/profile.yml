@@ -27,7 +27,7 @@ en:
       renalware/renal/profile_document/low_clearance:
         first_seen_on: Date first seen
         dialysis_plan: Dialysis plan
-        dialysis_planned_on: Dial. plan date
+        dialysis_planned_on: Dialysis plan date
         predicted_esrf_date: Predicted ESRF date
         referral_creatinine: Referral CRE
         referral_egfr: Referral eGFR
