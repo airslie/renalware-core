@@ -1,4 +1,8 @@
 = f.input :description_id,
-    collection: Renalware::Transplants::RegistrationStatusDescription.ordered,
-    label_method: :name, value_method: :id
-= f.input :started_on, as: :date_picker
+          collection: Renalware::Transplants::RegistrationStatusDescription.ordered,
+          label_method: :name,
+          value_method: :id,
+          wrapper: :horizontal_medium
+= f.input :started_on,
+          as: :date_picker,
+          wrapper: :horizontal_datepicker

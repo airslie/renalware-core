@@ -1,12 +1,22 @@
-= within_patient_layout(title: "Transplant Recipient Operation") do
-  - return unless @recipient_operation
+= content_for(:actions) do
+  = link_to t("edit_record.link_title"),
+            edit_patient_transplants_recipient_operation_path(patient, recipient_operation),
+            class: "button"
+
+= within_patient_layout(title: "Recipient Operation",
+                        breadcrumbs: recipient_summary_breadcrumb(patient)) do
+  - return unless recipient_operation
+
+  .edit_timestamp= render "renalware/shared/last_update", record: recipient_operation
 
   .document-view
-    = render "operation", recipient_operation: @recipient_operation
+    .grid
+      .row
+        = render "operation", recipient_operation: recipient_operation
 
-    = render "recipient", recipient_operation: @recipient_operation
+        = render "recipient", recipient_operation: recipient_operation
 
-    - ["Donor", "Cadaveric Donor", "Donor Specific Antibodies", "BK Virus"].each do |group|
-      = render "renalware/shared/documents/attributes_group",
-          group: @recipient_operation.document.public_send(group.parameterize(separator: "_")),
-          legend: group, destination: group.parameterize(separator: "_")
+        - ["Donor", "Cadaveric Donor", "Donor Specific Antibodies", "BK Virus"].each do |group|
+          = render "renalware/shared/documents/attributes_group",
+              group: recipient_operation.document.public_send(group.parameterize(separator: "_")),
+              legend: group, destination: group.parameterize(separator: "_")

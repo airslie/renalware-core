@@ -60,7 +60,10 @@ module World
       def create_recipient_workup(user:, patient:)
         login_as user
         visit patient_transplants_recipient_dashboard_path(patient)
-        click_on "Enter workup"
+        within ".page-actions" do
+          click_on "Add"
+          click_on "Recipient Workup"
+        end
 
         fill_in "Karnofsky Score", with: "66"
 

@@ -73,9 +73,9 @@ module World
         registration = Renalware::Transplants::Registration.for_patient(patient).first
         expect(registration).to_not be_nil
         status = registration.current_status
-        expect(registration.current_status).to_not be_nil
-        expect(registration.current_status.description.name).to eq(status_name)
-        expect(registration.current_status.started_on).to eq(Date.parse(started_on))
+        expect(status).to_not be_nil
+        expect(status.description.name).to eq(status_name)
+        expect(status.started_on).to eq(Date.parse(started_on))
       end
 
       def expect_transplant_registration_to_be_modified(patient:)
@@ -118,7 +118,11 @@ module World
       def create_transplant_registration(user:, patient:, status:, started_on:)
         login_as user
         visit patient_transplants_recipient_dashboard_path(patient)
-        click_on "Enter registration details"
+
+        within ".page-actions" do
+          click_on "Add"
+          click_on "Wait List Registration"
+        end
 
         select "Kidney only", from: "Transplant Type"
         within_fieldset "Status" do

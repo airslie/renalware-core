@@ -89,12 +89,19 @@ article {
   position: relative;
   width: 100%;
 
+  &.secondary {
+    border-width: 1px;
+    border-color: lighten($link-colour, 20%);
+  }
+
   header {
     float: left;
     margin: 0 0 0.5rem;
     width: 100%;
 
-    h1 {
+    h1,
+    h2,
+    h3 {
       float: left;
       font-size: 1.2rem;
       font-weight: bold;
@@ -104,6 +111,11 @@ article {
       a {
         font-weight: bold;
       }
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      color: $muted-dark-grey;
     }
 
     ul {

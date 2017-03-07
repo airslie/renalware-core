@@ -1,43 +1,23 @@
 article
   header
-    h1 Transplant Wait List Registration
+    h2 Transplant Wait List Registration
+    ul
+      li= link_to "Edit",
+                  edit_patient_transplants_registration_path(patient),
+                  class: "button"
+      li= link_to "View",
+                  patient_transplants_registration_path(patient),
+                  class: "button secondary"
 
-  .row
-    - if @registration.new_record?
-      .call-to-action
-        = link_to edit_patient_transplants_registration_path(@patient) do
-          i.fa.fa-plus-circle
-          | Enter registration details
-    - else
-      .large-3.columns
-        dl
-          dt Status:
-          dd
-            b= @registration.current_status
-            br
-            | since&nbsp;
-            = l @registration.current_status.started_on
+  dl.dl-horizontal
+    dt Status:
+    dd
+      b= registration.current_status
+      = " since #{l(registration.current_status&.started_on)}"
 
-      .large-3.columns
-        dl
-          dt Transplant Type:
-          dd= @registration.document.organs.transplant_type.try(:text)
-
-      .large-4.columns
-        dl
-          dt Last Update:
-          dd
-            - if version = @registration.versions.last
-              = l version.created_at
-              | &nbsp;by&nbsp;
-              = who_did_it version
-
-      .large-2.columns
-        .right
-          = link_to "View",
-                    patient_transplants_registration_path(@patient),
-                    class: "button tiny"
-          | &nbsp;
-          = link_to "Edit",
-                    edit_patient_transplants_registration_path(@patient),
-                    class: "button tiny"
+    dt Transplant Type:
+    dd= registration.document&.organs&.transplant_type&.text
+    dt Last Update:
+    dd
+      - if version = registration.versions.last
+        = "#{l(version.created_at)} by #{who_did_it(version)}"

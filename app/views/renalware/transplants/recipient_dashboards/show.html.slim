@@ -1,8 +1,49 @@
-= within_patient_layout(title: "Transplant Recipient Summary") do
-  = render "renalware/transplants/recipient_workups/summary"
-  = render "renalware/transplants/registrations/summary"
-  - if @registration.persisted?
-    = render "renalware/transplants/registration_statuses/list"
+= content_for(:actions) do
+  a.button.dropdown(href="#"
+                       data-dropdown="tx-recip-options"
+                       aria-controls="tx-recip-options"
+                       aria-expanded="false")
+    | Add
+  br
 
-  = render "renalware/transplants/donations/recipient_list"
-  = render "renalware/transplants/recipient_operations/list"
+  ul.f-dropdown#tx-recip-options(data-dropdown-content aria-hidden="true")
+
+    li(class="#{'disabled' unless recipient_workup.new_record?}")
+      = link_to_if recipient_workup.new_record?,
+                   t(".add_recipient_workup"),
+                   edit_patient_transplants_recipient_workup_path(@patient)
+
+    li(class="#{'disabled' unless registration.new_record?}")
+      = link_to_if registration.new_record?,
+                 t(".add_waitlist_registration"),
+                edit_patient_transplants_registration_path(@patient)
+
+    li
+      = link_to t(".add_recipient_operation"),
+                new_patient_transplants_recipient_operation_path(@patient)
+
+
+= within_patient_layout(title: "Transplant Recipient Summary") do
+
+  -unless recipient_workup.new_record?
+    = render "renalware/transplants/recipient_workups/summary",
+              patient: patient,
+              recipient_workup: recipient_workup
+
+  -unless registration.new_record?
+    = render "renalware/transplants/registrations/summary",
+             patient: patient,
+             registration: registration
+
+  - unless registration.new_record?
+    = render "renalware/transplants/registration_statuses/list",
+             patient: patient,
+             registration: registration
+
+  /= render "renalware/transplants/donations/recipient_list",
+           donations: donations
+
+  - if recipient_operations.any?
+    = render "renalware/transplants/recipient_operations/list",
+             patient: patient,
+             recipient_operations: recipient_operations

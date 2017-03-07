@@ -79,7 +79,10 @@ module World
       def create_recipient_operation(user:, patient:, performed_on:)
         login_as user
         visit patient_transplants_recipient_dashboard_path(patient)
-        click_on "Enter operation details"
+        within ".page-actions" do
+          click_on "Add"
+          click_on "Recipient Operation"
+        end
 
         select "Kidney only", from: "Operation Type"
         fill_in "Operation Date", with: performed_on

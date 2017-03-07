@@ -1,32 +1,17 @@
 article
   header
-    h1 Recipient Workup
+    h2 Recipient Workup
+    ul
+      li= link_to "Edit",
+                  edit_patient_transplants_recipient_workup_path(patient),
+                  class: "button"
+      li= link_to "View",
+                  patient_transplants_recipient_workup_path(patient),
+                  class: "button secondary"
 
-  .row
-    - if @recipient_workup.new_record?
-      .call-to-action
-        = link_to edit_patient_transplants_recipient_workup_path(@patient) do
-          i.fa.fa-plus-circle
-          | Enter workup
-    - else
-      .large-3.columns
-
-      .large-3.columns
-
-      .large-4.columns
-        dl
-          dt Last Update:
-          dd
-            = l(@recipient_workup.updated_at)
-            | &nbsp;by&nbsp;
-            = @recipient_workup.updated_by&.full_name
-
-      .large-2.columns
-        .right
-          = link_to "View",
-                    patient_transplants_recipient_workup_path(@patient),
-                    class: "button tiny"
-          | &nbsp;
-          = link_to "Edit",
-                    edit_patient_transplants_recipient_workup_path(@patient),
-                    class: "button tiny"
+  dl.dl-horizontal
+    dt Last Update:
+    dd
+      = l(recipient_workup.updated_at)
+      | &nbsp;by&nbsp;
+      = recipient_workup.updated_by&.full_name

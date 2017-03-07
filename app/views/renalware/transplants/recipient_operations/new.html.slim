@@ -1,6 +1,10 @@
-= within_patient_layout(title: "Transplant Recipient Operation") do
+= within_patient_layout(title: "New Recipient Operation",
+                         breadcrumbs: [ \
+                           recipient_summary_breadcrumb(patient)]) do
+
   .document
-    = simple_form_for @recipient_operation,
-        url: patient_transplants_recipient_operations_path(@patient),
+    = simple_form_for recipient_operation,
+        url: patient_transplants_recipient_operations_path(patient),
+        html: { autocomplete: :off },
         wrapper: "horizontal_form" do |f|
-      = render "form", f: f
+      = render "form", f: f, patient: patient

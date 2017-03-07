@@ -1,13 +1,21 @@
-- return unless @registration
+= content_for(:actions) do
+  = link_to t("edit_record.link_title"),
+            edit_patient_transplants_registration_path(patient),
+            class: "button"
 
-= within_patient_layout(title: "Transplant Wait List Registration") do
+= within_patient_layout(title: "Wait List Registration",
+                        breadcrumbs: recipient_summary_breadcrumb(patient)) do
+
+  .edit_timestamp= render "renalware/shared/last_update", record: registration
 
   .document-view
-    - ["Codes", "CRF", "HLA", "Transplant", "Organs", "NHB Consent"].each do |group|
-      = render "renalware/shared/documents/attributes_group",
-          group: @registration.document.public_send(group.parameterize(separator: "_")),
-          legend: group, destination: group.parameterize(separator: "_")
+    .grid
+      .row
+          - ["Codes", "CRF", "HLA", "Transplant", "Organs", "NHB Consent"].each do |group|
+            = render "renalware/shared/documents/attributes_group",
+                group: registration.document.public_send(group.parameterize(separator: "_")),
+                legend: group, destination: group.parameterize(separator: "_")
 
-    = render "renalware/shared/attributes_group",
-        legend: "Admin", destination: "admin",
-        models: { @registration => %i(referred_on assessed_on entered_on contact notes) }
+          = render "renalware/shared/attributes_group",
+              legend: "Admin", destination: "admin",
+              models: { registration => %i(referred_on assessed_on entered_on contact notes) }

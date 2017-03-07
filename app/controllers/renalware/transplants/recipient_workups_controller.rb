@@ -7,24 +7,29 @@ module Renalware
       before_action :load_patient
 
       def show
-        @workup = RecipientWorkup.for_patient(@patient).first_or_initialize
+        workup = RecipientWorkup.for_patient(patient).first_or_initialize
 
-        redirect_to edit_patient_transplants_recipient_workup_path(@patient) if @workup.new_record?
+        if workup.new_record?
+          redirect_to edit_patient_transplants_recipient_workup_path(patient)
+        else
+          render locals: { patient: patient, workup: workup }
+        end
       end
 
       def edit
-        @workup = RecipientWorkup.for_patient(@patient).first_or_initialize
+        workup = RecipientWorkup.for_patient(patient).first_or_initialize
+        render locals: { patient: patient, workup: workup }
       end
 
       def update
-        @workup = RecipientWorkup.for_patient(@patient).first_or_initialize
+        workup = RecipientWorkup.for_patient(patient).first_or_initialize
 
-        if @workup.update_attributes workup_params
-          redirect_to patient_transplants_recipient_workup_path(@patient),
+        if workup.update_attributes workup_params
+          redirect_to patient_transplants_recipient_workup_path(patient),
             notice: t(".success", model_name: "recipient work up")
         else
           flash[:error] = t(".failed", model_name: "recipient work up")
-          render :edit
+          render :edit, locals: { patient: patient, workup: workup }
         end
       end
 

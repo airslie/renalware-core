@@ -4,32 +4,39 @@ module Renalware
   module Transplants
     class RegistrationsController < BaseController
       before_action :load_patient
-      before_action :load_registration
 
       def show
-        url = edit_patient_transplants_registration_path(@patient)
-        redirect_to url if @registration.new_record?
+        if registration.new_record?
+          redirect_to edit_patient_transplants_registration_path(patient)
+        else
+          render locals: { patient: patient, registration: registration }
+        end
       end
 
-      def edit; end
+      def edit
+        render locals: { patient: patient, registration: registration }
+      end
 
       def update
-        @registration.attributes = registration_params
-        @registration.statuses.first.by = current_user if @registration.new_record?
-
-        if @registration.save
-          redirect_to patient_transplants_recipient_dashboard_path(@patient),
+        if update_registration
+          redirect_to patient_transplants_recipient_dashboard_path(patient),
             notice: t(".success", model_name: "registration")
         else
           flash[:error] = t(".failed", model_name: "registration")
-          render :edit
+          render :edit, locals: { patient: patient, registration: registration }
         end
       end
 
       protected
 
-      def load_registration
-        @registration = Registration.for_patient(@patient).first_or_initialize
+      def update_registration
+        registration.attributes = registration_params
+        registration.statuses.first.by = current_user if registration.new_record?
+        registration.save
+      end
+
+      def registration
+        @registration ||= Registration.for_patient(@patient).first_or_initialize
       end
 
       def registration_params

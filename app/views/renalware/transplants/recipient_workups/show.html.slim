@@ -1,23 +1,33 @@
-= within_patient_layout(title: "Transplant Recipient Workup") do
-  - if @workup
-    .document-view
-      - ["Historicals", "Scores"].each do |group|
+= content_for(:actions) do
+  = link_to t("edit_record.link_title"),
+            edit_patient_transplants_recipient_workup_path(patient),
+            class: "button"
+
+= within_patient_layout(title: "Recipient Workup",
+                        breadcrumbs: recipient_summary_breadcrumb(patient)) do
+
+
+  .edit_timestamp= render "renalware/shared/last_update", record: workup
+
+  .document-view
+   .grid
+     .row
+        - ["Historicals", "Scores"].each do |group|
+          = render "renalware/shared/documents/attributes_group",
+              group: workup.document.public_send(group.parameterize(separator: "_")),
+              legend: group, destination: group.parameterize(separator: "_")
+
         = render "renalware/shared/documents/attributes_group",
-            group: @workup.document.public_send(group.parameterize(separator: "_")),
-            legend: group, destination: group.parameterize(separator: "_")
+            group: workup.document.cervical_smear,
+            legend: "Cervical smear data (latest and historical)", destination: "cervical"
 
-      = render "renalware/shared/documents/attributes_group",
-          group: @workup.document.cervical_smear,
-          legend: "Cervical smear data (latest and historical)", destination: "cervical"
+        - ["Examination", "Education", "Consent"].each do |group|
+          = render "renalware/shared/documents/attributes_group",
+              group: workup.document.public_send(group.parameterize(separator: "_")),
+              legend: group, destination: group.parameterize(separator: "_")
 
-      - ["Examination", "Education", "Consent"].each do |group|
-        = render "renalware/shared/documents/attributes_group",
-            group: @workup.document.public_send(group.parameterize(separator: "_")),
-            legend: group, destination: group.parameterize(separator: "_")
-
-      .row data-magellan-destination="hla"
-        .columns.large-12
-          a name="hla"
-          = field_set_tag do
-            legend HLA Data
-            = simple_format @workup.document.hla_data
+        .columns.medium-6
+          article
+            header
+              h2 HLA Data
+            = simple_format workup.document.hla_data

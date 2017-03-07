@@ -3,5 +3,6 @@
   .document
     = simple_form_for donation,
         url: patient_transplants_donations_path(patient),
+        html: { autocomplete: :off },
         wrapper: "horizontal_form" do |f|
       = render "form", f: f, patient: patient
