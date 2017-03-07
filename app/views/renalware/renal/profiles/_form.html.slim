@@ -3,20 +3,22 @@
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Diagnosis & ESRF Info", name: "diagnosis" } do
 
-    = f.input :esrf_on, as: :date_picker
-    = f.input :weight_at_esrf, input_html: { class: "small-input" }
+    = f.input :esrf_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :weight_at_esrf, wrapper: :horizontal_small
     = f.input :modality_at_esrf,
               include_blank: "Select modality",
-              input_html: { class: "small-input" }
-    = f.input :first_seen_on, as: :date_picker
-    = f.input :prd_description_id, input_html: { class: "clear-autocomplete" }, as: :hidden
+              wrapper: :horizontal_small
+    = f.input :first_seen_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :prd_description_id,
+              input_html: { class: "clear-autocomplete" },
+              as: :hidden
 
     .row
-      .small-3.columns
+      .columns.small-12.medium-4.large-3
         = label_tag "prd_description_auto_complete",
             f.object.class.human_attribute_name(:prd_description),
             class: "right inline"
-      .small-9.columns
+      .columns.small-12.medium-8.large-9
         .row.collapse
           .small-11.columns
             = text_field_tag "prd_description_auto_complete", \
@@ -31,7 +33,8 @@
           .small-1.columns
             span.postfix
               = link_to "Clear", "#", data: { clear_value_on_click: ".clear-autocomplete" }
-    = f.input :comorbidities_updated_on, as: :date_picker
+
+    = f.input :comorbidities_updated_on, as: :date_picker, wrapper: :horizontal_datepicker
 
     = f.simple_fields_for :document, f.object.document do |fd|
 
@@ -43,9 +46,31 @@
             - fcm.object.class.attributes_list.each do |attribute|
               = render_input fcm, attribute
 
+      = render layout: "renalware/shared/fieldset",
+          locals: { legend: "Low Clearance", name: "low_clearance" } do
+        = fd.simple_fields_for :low_clearance, fd.object.low_clearance do |flc|
+          = flc.input :first_seen_on, as: :date_picker, wrapper: :horizontal_datepicker
+          = flc.input :dialysis_plan, wrapper: :horizontal_medium
+          = flc.input :dialysis_planned_on, as: :date_picker, wrapper: :horizontal_datepicker
+          = flc.input :predicted_esrf_date, as: :date_picker, wrapper: :horizontal_datepicker
+          = flc.input :referral_creatinine, wrapper: :horizontal_tiny
+          = flc.input :referral_egfr, wrapper: :horizontal_tiny
+          = flc.input :referred_by, wrapper: :horizontal_medium
+          = flc.input :education_status, wrapper: :horizontal_tiny
+          = flc.input :education_type, wrapper: :horizontal_tiny
+          = flc.input :attended_on, as: :date_picker, wrapper: :horizontal_datepicker
+          = flc.input :dvd1_provided, as: :inline_radio_buttons, wrapper: :horizontal_small
+          = flc.input :dvd2_provided, as: :inline_radio_buttons, wrapper: :horizontal_small
+          = flc.input :transplant_referral, as: :inline_radio_buttons, wrapper: :horizontal_small
+          = flc.input :transplant_referred_on, as: :date_picker, wrapper: :horizontal_datepicker
+          = flc.input :home_hd_possible, as: :inline_radio_buttons, wrapper: :horizontal_small
+          = flc.input :self_care_possible, as: :inline_radio_buttons, wrapper: :horizontal_small
+          = flc.input :access_notes, as: :text, wrapper: :horizontal_large
+
     - f.object.build_address_at_diagnosis if f.object.address_at_diagnosis.blank?
     = f.simple_fields_for :address_at_diagnosis_attributes, f.object.address_at_diagnosis do |a|
       fieldset id="address_at_diagnosis"
         legend Address at Diagnosis
         = a.input :id, as: :hidden
         = render "renalware/addresses/form", a: a
+

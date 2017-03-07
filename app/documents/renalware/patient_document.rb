@@ -31,6 +31,5 @@ module Renalware
       attribute :smoking, Document::Enum, enums: %i(never former current)
     end
     attribute :history, History
-
   end
 end

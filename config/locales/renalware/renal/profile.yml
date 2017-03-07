@@ -24,6 +24,24 @@ en:
         ischaemic_neuropathic_ulcers: Ischaemic/Neuropathic ulcers
         non_coronary_intervention: Angioplasty, vascular graft, aneurysm, stent (non-coronary)
         dementia: Dementia
+      renalware/renal/profile_document/low_clearance:
+        first_seen_on: Date first seen
+        dialysis_plan: Dialysis plan
+        dialysis_planned_on: Dial. plan date
+        predicted_esrf_date: Predicted ESRF date
+        referral_creatinine: Referral CRE
+        referral_egfr: Referral eGFR
+        referred_by: Referred by
+        education_status: Education status
+        education_type: Education type
+        attended_on: Date attended educ.
+        dvd1_provided: "'Your Kidneys' DVD"
+        dvd2_provided: "'Dialysis Choices' DVD"
+        transplant_referral: Tx team referral
+        transplant_referred_on: Referral date
+        home_hd_possible: Home HD
+        self_care_possible: Self Care
+        access_notes: Low Clearance access notes
 
   simple_form:
     hints:
@@ -32,3 +50,28 @@ en:
           comorbidities:
             diabetes:
               status: For comorbidities enter year diagnosed at right if YES
+
+  enumerize:
+    renalware/renal/profile_document/low_clearance:
+      dialysis_plan:
+        capd_la: CAPD LA
+        capd_ga: CAPD GA
+        capd_ga_avf: CAPD GA + AVF
+        capd_la_sedation: CAPD LA with sedation
+        hd_via_avf: HD via AVF
+        hd_via_ptfe_graft: HD via PTFE Graft
+        hd_via_line: HD via line
+        pre_emptive_lrd: pre-emptive LRD
+        not_for_dial_patient_choice: Not for dialysis--patient choice
+        not_for_dial_concensus: Not for dialysis--consensus
+        refuse_to_plan_for_dial: Refusing to plan for RTT--In Denial
+        home_hd: Home HD
+        self_care_hd: Self Care HD
+        no_current_plan: No Current Plan
+      education_status:
+        invited: Invited
+        attended: Attended
+        declined: Declined
+      education_type:
+        day: Day
+        evening: Evening
