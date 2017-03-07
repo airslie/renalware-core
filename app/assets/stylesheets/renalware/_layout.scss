@@ -1,4 +1,5 @@
 html {
+  overflow: auto;
 
   body {
     overflow: hidden;
@@ -12,6 +13,9 @@ html {
         padding-bottom: 20rem;
       }
     }
+  }
+  body.overflow {
+    overflow: auto;
   }
 }
 
