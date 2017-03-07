@@ -6,40 +6,42 @@ module Renalware
       before_action :load_patient
 
       def show
-        @donation = Donation.for_patient(@patient).find(params[:id])
+        donation = Donation.for_patient(patient).find(params[:id])
+        render locals: { patient: patient, donation: donation }
       end
 
       def new
-        @donation = Donation.new
+        render locals: { patient: patient, donation: Donation.new }
       end
 
       def create
-        @donation = Donation.new(patient: @patient)
-        @donation.attributes = donation_params
+        donation = Donation.new(patient: patient)
+        donation.attributes = donation_params
 
-        if @donation.save
-          redirect_to patient_transplants_donor_dashboard_path(@patient),
+        if donation.save
+          redirect_to patient_transplants_donor_dashboard_path(patient),
             notice: t(".success", model_name: "donation")
         else
           flash[:error] = t(".failed", model_name: "donation")
-          render :new
+          render :new, locals: { patient: patient, donation: donation }
         end
       end
 
       def edit
-        @donation = Donation.for_patient(@patient).find(params[:id])
+        donation = Donation.for_patient(patient).find(params[:id])
+        render locals: { patient: patient, donation: donation }
       end
 
       def update
-        @donation = Donation.for_patient(@patient).find(params[:id])
-        @donation.attributes = donation_params
+        donation = Donation.for_patient(patient).find(params[:id])
+        donation.attributes = donation_params
 
-        if @donation.save
-          redirect_to patient_transplants_donor_dashboard_path(@patient),
+        if donation.save
+          redirect_to patient_transplants_donor_dashboard_path(patient),
             notice: t(".success", model_name: "donation")
         else
           flash[:error] = t(".failed", model_name: "donation")
-          render :edit
+          render :edit, locals: { patient: patient, donation: donation }
         end
       end
 

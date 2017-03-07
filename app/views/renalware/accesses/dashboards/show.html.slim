@@ -1,10 +1,10 @@
 = content_for(:actions) do
   button.button.dropdown(href="#"
-                         data-dropdown="draft-letter-options"
-                         aria-controls="draft-letter-options"
+                         data-dropdown="access-options"
+                         aria-controls="access-options"
                          aria-expanded="false")
     | Add
-  ul.f-dropdown#draft-letter-options(data-dropdown-content aria-hidden="true")
+  ul.f-dropdown#access-options(data-dropdown-content aria-hidden="true")
     li= link_to("Access Profile", new_patient_accesses_profile_path(@patient))
     li= link_to("Access Procedure", new_patient_accesses_procedure_path(@patient))
     li= link_to("Access Assessment", new_patient_accesses_assessment_path(@patient))

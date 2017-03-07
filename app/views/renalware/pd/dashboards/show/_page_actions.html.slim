@@ -2,12 +2,12 @@
 = blank_separator
 = blank_separator
 a.button.dropdown(href="#"
-                       data-dropdown="draft-letter-options"
-                       aria-controls="draft-letter-options"
+                       data-dropdown="pd-options"
+                       aria-controls="pd-options"
                        aria-expanded="false")
   | Add
 br
-ul.f-dropdown#draft-letter-options(data-dropdown-content aria-hidden="true")
+ul.f-dropdown#pd-options(data-dropdown-content aria-hidden="true")
   li= link_to t(".add_capd_regime"), new_patient_pd_regime_path(@patient, type: "PD::CAPDRegime")
   li= link_to t(".add_apd_regime"), new_patient_pd_regime_path(@patient, type: "PD::APDRegime")
   li= link_to t(".add_peritonitis_episode"), new_patient_pd_peritonitis_episode_path(@patient)

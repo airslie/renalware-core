@@ -75,7 +75,10 @@ module World
       def create_donor_operation(user:, patient:, performed_on:)
         login_as user
         visit patient_transplants_donor_dashboard_path(patient)
-        click_on "Enter operation details"
+        within ".page-heading" do
+          click_on "Add"
+          click_on "Donor Transplant Operation"
+        end
 
         fill_in "Operation Date", with: performed_on
 
@@ -87,7 +90,7 @@ module World
       def update_donor_operation(patient:, user:)
         login_as user
         visit patient_transplants_donor_dashboard_path(patient)
-        within_fieldset "Donor Transplant Operations" do
+        within_article "Donor Transplant Operations" do
           click_on "Edit"
         end
 

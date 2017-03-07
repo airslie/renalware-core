@@ -67,7 +67,10 @@ module World
       def create_donor_workup(user:, patient:)
         login_as user
         visit patient_transplants_donor_dashboard_path(patient)
-        click_on "Enter workup"
+        within ".page-heading" do
+          click_on "Add"
+          click_on "Donor Workup"
+        end
 
         fill_in "Oral GTT", with: "66"
 

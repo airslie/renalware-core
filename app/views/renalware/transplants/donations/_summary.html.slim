@@ -1,52 +1,39 @@
-fieldset
-  legend Donation Summary
+article
+  header
+    h1 Donation Summary
+    ul
+      li= link_to "View",
+                  patient_transplants_donation_path(patient, donation),
+                  class: "button secondary"
+      li= link_to "Edit",
+                  edit_patient_transplants_donation_path(patient, donation),
+                  class: "button"
 
-  .row
-    .large-3.columns
-      dt Recipient:
-      dd
-        - if donation.recipient.present?
-          = link_to donation.recipient.to_s(:long),
-              patient_transplants_recipient_dashboard_path(donation.recipient)
-        - else
-          i Unassigned
-        br
-        - if donation.relationship_with_recipient_other.present?
-          = "(#{donation.relationship_with_recipient.text}: #{donation.relationship_with_recipient_other})"
-        - else
-          = "(#{donation.relationship_with_recipient.text})"
+  dl.dl-horizontal
+    dt Recipient:
+    dd
+      - if donation.recipient.present?
+        = link_to donation.recipient.to_s(:long),
+            patient_transplants_recipient_dashboard_path(donation.recipient)
+      - else
+        i Unassigned
+      - if donation.relationship_with_recipient_other.present?
+        = " (#{donation.relationship_with_recipient.text}: #{donation.relationship_with_recipient_other})"
+      - else
+        = " (#{donation.relationship_with_recipient.text})"
 
-    .large-2.columns
-      dt State:
-      dd= donation.state.text
+    dt State:
+    dd= donation.state.text
 
-    .large-2.columns
-      dt Mismatch Grade:
-      dd= donation.mismatch_grade
+    dt Mismatch Grade:
+    dd= donation.mismatch_grade
 
-    .large-3.columns
-      dl
-        dt Last Update:
-        dd
-          - if version = donation.versions.last
-            = l version.created_at
-            br
-            | by&nbsp;
-            = who_did_it version
+    dt Last Update:
+    dd
+      - if version = donation.versions.last
+        = l version.created_at
+        | &nbsp;by&nbsp;
+        = who_did_it version
 
-    .large-2.columns
-      .right
-        = link_to "View",
-                  patient_transplants_donation_path(@patient, donation),
-                  class: "button tiny"
-        | &nbsp;
-        = link_to "Edit",
-                  edit_patient_transplants_donation_path(@patient, donation),
-                  class: "button tiny"
-
-  - if donation.notes.present?
-    .row
-      .large-12.columns
-        dt Notes:
-        dd
-          = simple_format donation.notes
+    dt Notes:
+    dd= simple_format donation.notes

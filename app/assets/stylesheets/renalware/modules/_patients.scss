@@ -84,7 +84,7 @@ ul.provider {
   float: left;
   margin: 1rem 0;
   width: 100%;
-  li {
+  & > li {
     float: left;
     list-style-type: none;
     margin: 0 1rem 0 0;

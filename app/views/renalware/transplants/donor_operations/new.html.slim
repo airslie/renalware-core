@@ -1,6 +1,8 @@
-= within_patient_layout(title: "Transplant Donor Operation") do
+= within_patient_layout(title: "New Operation",
+                        breadcrumbs: donor_summary_breadcrumb(patient)) do
   .document
-    = simple_form_for @donor_operation,
-        url: patient_transplants_donor_operations_path(@patient),
+    = simple_form_for operation,
+        url: patient_transplants_donor_operations_path(patient),
+        html: { class: "transplant-donor-operation-form" },
         wrapper: "horizontal_form" do |f|
-      = render "form", f: f
+      = render "form", f: f, patient: patient

@@ -1,0 +1,9 @@
+en:
+  renalware:
+    transplants:
+      donor_dashboards:
+        show:
+
+          add_donation: Donation
+          add_workup: Donor Workup
+          add_operation: Donor Transplant Operation

@@ -1,8 +1,8 @@
 ruby:
   back_path = if f.object.new_record?
-    patient_transplants_donor_dashboard_path(@patient)
+    patient_transplants_donor_dashboard_path(patient)
   else
-    patient_transplants_donation_path(@patient, f.object)
+    patient_transplants_donation_path(patient, f.object)
   end
 
 .row.top
@@ -14,14 +14,14 @@ ruby:
 .form-content2
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Recipient", name: "recipient" } do
-    = f.input :relationship_with_recipient
-    = f.input :relationship_with_recipient_other
+    = f.input :relationship_with_recipient, wrapper: :horizontal_medium
+    = f.input :relationship_with_recipient_other, wrapper: :horizontal_medium
     .row
-      .small-3.columns
+      .columns.small-12.medium-4.large-3
         = label_tag "recipient_auto_complete",
             f.object.class.human_attribute_name(:recipient),
             class: "right inline"
-      .small-9.columns
+      .columns.small-12.medium-8.large-9
         = text_field_tag "recipient_auto_complete", \
             f.object.recipient.try(:to_s, :long),
             data: { \
@@ -29,20 +29,23 @@ ruby:
               autocomplete_rel: "[name='transplants_donation[recipient_id]']" \
             },
             spellcheck: false,
-            placeholder: "Start entering the last name (min. 2 characters)"
+            placeholder: "Start entering the last name (min. 2 characters)",
+            class: "medium-input"
     = f.input :recipient_id, as: :hidden
-    = f.input :blood_group_compatibility, as: :inline_radio_buttons
-    = f.input :mismatch_grade, input_html: { class: "small-input" }
-    = f.input :paired_pooled_donation
+    = f.input :blood_group_compatibility,
+              as: :inline_radio_buttons,
+              wrapper: :horizontal_medium
+    = f.input :mismatch_grade, wrapper: :horizontal_medium
+    = f.input :paired_pooled_donation, wrapper: :horizontal_medium
 
   = render layout: "renalware/shared/fieldset",
       locals: { legend: "Admin", name: "admin" } do
-    = f.input :state, input_html: { class: "small-input" }
-    = f.input :volunteered_on, as: :date_picker
-    = f.input :first_seen_on, as: :date_picker
-    = f.input :workup_completed_on, as: :date_picker
-    = f.input :donated_on, as: :date_picker
-    = f.input :notes, input_html: { rows: 5 }
+    = f.input :state, wrapper: :horizontal_small
+    = f.input :volunteered_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :first_seen_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :workup_completed_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :donated_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :notes, input_html: { rows: 5 }, wrapper: :horizontal_large
 
 .row
   .large-12.columns

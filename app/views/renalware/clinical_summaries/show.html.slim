@@ -1,13 +1,14 @@
 = within_patient_layout do
   .row
-    .columns.large-6.xlarge-4
+    .columns.large-6
       #current-problems
         = render "problems", problems: clinical_summary.current_problems
 
-    .columns.large-6.xlarge-4
+    .columns.large-6
       #current-prescriptions
         = render "prescriptions", prescriptions: clinical_summary.current_prescriptions
 
+  .row
     .columns.large-12.xlarge-6
       #letters
         = render "letters", letters: clinical_summary.letters, patient: @patient

@@ -86,7 +86,10 @@ module World
       def create_donation(user:, patient:, state: nil)
         login_as user
         visit patient_transplants_donor_dashboard_path(patient)
-        click_on "Enter donation"
+        within ".page-heading" do
+          click_on "Add"
+          click_on "Donation"
+        end
 
         begin
           find("option[value='#{state}']").select_option
@@ -102,7 +105,7 @@ module World
       def update_donation(patient:, user:)
         login_as user
         visit patient_transplants_donor_dashboard_path(patient)
-        within_fieldset "Donation" do
+        within_article "Donation" do
           click_on "Edit"
         end
 
@@ -116,7 +119,7 @@ module World
       def assign_recipient_to_donation(patient:, recipient:, user:)
         login_as user
         visit patient_transplants_donor_dashboard_path(patient)
-        within_fieldset "Donation" do
+        within_article "Donation" do
           click_on "Edit"
         end
 

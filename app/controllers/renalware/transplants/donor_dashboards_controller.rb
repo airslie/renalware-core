@@ -6,9 +6,12 @@ module Renalware
       before_action :load_patient
 
       def show
-        @donations = Donation.for_patient(@patient).reversed
-        @donor_workup = DonorWorkup.for_patient(@patient).first_or_initialize
-        @donor_operations = DonorOperation.for_patient(@patient).reversed
+        render locals: {
+          patient: patient,
+          donations: Donation.for_patient(patient).reversed,
+          donor_workup: DonorWorkup.for_patient(patient).first_or_initialize,
+          donor_operations: DonorOperation.for_patient(patient).reversed
+        }
       end
     end
   end
