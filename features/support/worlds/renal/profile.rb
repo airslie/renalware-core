@@ -10,7 +10,7 @@ module World
       end
 
       def expect_renal_profile_to_be_updated(user, patient)
-       # noop
+        # noop
       end
     end
 
