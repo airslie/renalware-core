@@ -22,6 +22,10 @@ module Renalware
         ransacker :starts_at, type: :date do
           Arel.sql("DATE(starts_at)")
         end
+
+        ransacker :start_time, type: :datetime do
+          Arel.sql("starts_at")
+        end
       end
     end
   end
