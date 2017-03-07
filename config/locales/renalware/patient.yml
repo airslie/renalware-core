@@ -28,7 +28,7 @@ en:
         contacts: Contacts (%{count})
         demographics: Demographics
         clinical_summary: Clinical Summary
-        regimes: Regimes
+        modalities: Modalities
         pd: PD
         hd: HD
         transplants: Transplants
