@@ -43,6 +43,14 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Enabled: true
   Max: 20
+  Exclude:
+    - "features/**/*"
+
+Metrics/ModuleLength:
+  Enabled: true
+  Max: 100
+  Exclude:
+    - "features/**/*"
 
 # ##################### Rails ##################################
 
