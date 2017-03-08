@@ -8,6 +8,13 @@
         .columns.medium-6.large-4.xlarge-3
           = render "renalware/patients/show/patient_demographics", patient: @patient
         .columns.medium-6.large-4.xlarge-3
+          article
+            header
+              h1 Current Address
+            = render @patient.current_address if @patient.current_address
+        .columns.medium-6.large-4.xlarge-3
+          = render "renalware/patients/show/hospital_numbers", patient: @patient
+        .columns.medium-6.large-4.xlarge-3
           = render "renalware/patients/show/primary_care_physician", patient: @patient
         .columns.medium-6.large-4.xlarge-3
           = render "renalware/patients/show/letter_preferences", patient: @patient
