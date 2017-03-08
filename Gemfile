@@ -30,6 +30,7 @@ gem "nokogiri"
 gem "paper_trail"
 gem "paranoia"
 gem "pg"
+gem "puma"
 gem "pundit", "~> 1.1.0"
 gem "rails", "5.0.2"
 gem "ransack", git: "https://github.com/activerecord-hackery/ransack.git"
@@ -50,11 +51,10 @@ gem "whenever", require: false # For managing and deploying cron jobs - see conf
 gem "wicked_pdf", "~> 1.0.6"
 gem "wisper"
 gem "wkhtmltopdf-binary", "~> 0.12.3"
-gem "puma"
 
 source "https://rails-assets.org" do
-  gem "rails-assets-clockpicker", "~> 0.0.7"
   # https://github.com/najlepsiwebdesigner/foundation-datepicker
+  gem "rails-assets-clockpicker", "~> 0.0.7"
   gem "rails-assets-foundation-datepicker", "1.5.0"
   gem "rails-assets-select2", "~> 4.0.2"
 end
@@ -91,6 +91,7 @@ group :development, :test do
 end
 
 group :test do
+  gem "codeclimate-test-reporter", "1.0.3", require: false
   gem "rails-controller-testing"
   gem "simplecov", "~> 0.13.0", require: false
   gem "webmock", "~> 1.20.4"
