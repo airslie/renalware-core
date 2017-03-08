@@ -3,7 +3,13 @@ en:
     patients:
       header:
         hospital_code: KCH
-        nhs_number: NHS No.
+        nhs_number: NHS No
         sex: Sex
         born_on: Born
         modality: Mod
+        local_patient_id: KCH
+        local_patient_id_2: QEH
+        local_patient_id_3: DVH
+        local_patient_id_4: PRUH
+        local_patient_id_5: GUYS
+        external_patient_id: Ext Hosp No
