@@ -3,7 +3,12 @@
     legend Patient Demographics
 
     = patient.input :nhs_number, label: "NHS Number", wrapper: :horizontal_small
-    = patient.input :local_patient_id, label: "Local Patient ID", wrapper: :horizontal_small
+    = patient.input :local_patient_id, label: "KCH No", wrapper: :horizontal_small
+    = patient.input :local_patient_id_2, label: "QEH No", wrapper: :horizontal_small
+    = patient.input :local_patient_id_3, label: "DVH No", wrapper: :horizontal_small
+    = patient.input :local_patient_id_4, label: "PRUH No", wrapper: :horizontal_small
+    = patient.input :local_patient_id_5, label: "GUYS No", wrapper: :horizontal_small
+    = patient.input :external_patient_id, label: "Other Hosp No", wrapper: :horizontal_small
     = patient.input :title, wrapper: :horizontal_tiny
     = patient.input :family_name, wrapper: :horizontal_small
     = patient.input :given_name, wrapper: :horizontal_small
