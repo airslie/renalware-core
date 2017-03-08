@@ -6605,6 +6605,34 @@ CREATE INDEX index_patients_on_language_id ON patients USING btree (language_id)
 
 
 --
+-- Name: index_patients_on_local_patient_id_2; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_local_patient_id_2 ON patients USING btree (local_patient_id_2);
+
+
+--
+-- Name: index_patients_on_local_patient_id_3; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_local_patient_id_3 ON patients USING btree (local_patient_id_3);
+
+
+--
+-- Name: index_patients_on_local_patient_id_4; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_local_patient_id_4 ON patients USING btree (local_patient_id_4);
+
+
+--
+-- Name: index_patients_on_local_patient_id_5; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_local_patient_id_5 ON patients USING btree (local_patient_id_5);
+
+
+--
 -- Name: index_patients_on_practice_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8800,3 +8828,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170314120712'),
 ('20170315100152');
 ('20170308173219');
+('20170308173219'),
+('20170308180443');
+
+INSERT INTO schema_migrations (version) VALUES ('20170106164639');
