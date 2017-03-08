@@ -14,10 +14,12 @@ test:
 
   post:
     - bundle exec rake cucumber:web:
-        environment:
-          RAILS_ENV: test
-          TEST_DEPTH: web
-    - bin/rails db:environment:set db:migrate:reset db:seed RAILS_ENV=test:
-        environment:
-          DEMO: true
+       environment:
+         RAILS_ENV: test
+         TEST_DEPTH: web
     - bundle exec codeclimate-test-reporter
+    - bin/rails db:environment:set db:migrate:reset db:seed RAILS_ENV=test:
+       environment:
+         DEMO: true
+
+
