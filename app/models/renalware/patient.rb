@@ -66,7 +66,6 @@ module Renalware
               allow_blank: true
     validates :family_name, presence: true
     validates :given_name, presence: true
-    validates :local_patient_id, presence: true, uniqueness: true
     validates :born_on, presence: true
     validate :validate_sex
     validates :born_on, timeliness: { type: :date }
