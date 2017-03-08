@@ -20,3 +20,4 @@ test:
     - bin/rails db:environment:set db:migrate:reset db:seed RAILS_ENV=test:
         environment:
           DEMO: true
+    - bundle exec codeclimate-test-reporter
