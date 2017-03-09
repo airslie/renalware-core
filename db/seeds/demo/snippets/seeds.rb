@@ -3,6 +3,8 @@ module Renalware
   log "Adding Sample Snippets" do
 
     x = User.count
+    #for DNA snippets -- so not every user has one
+    y = x/2
 
     modals = %w(Nephrology Transplant HD PD Access)
     body_text_1 = "Lorem ipsum dolor sit amet, consectetur adipisicing elit,
@@ -20,6 +22,8 @@ module Renalware
       Renalware::Snippets::Snippet.create(
         author_id: i,
         title: "#{clinic} Clinic snippet",
+        last_used_on: i.days.ago,
+        times_used: i,
         body: "I saw this patient in #{clinic} Clinic today. #{body_text_1}")
     end
 
@@ -28,14 +32,18 @@ module Renalware
       Renalware::Snippets::Snippet.create(
         author_id: i,
         title: "#{mdm} MDM snippet",
+        last_used_on: i.days.ago,
+        times_used: 1,
         body: "#{body_text_2}")
     end
 
-    5.times do |i|
+    y.times do |i|
       clinic = modals.sample
       Renalware::Snippets::Snippet.create(
         author_id: i,
         title: "#{clinic} Clinic DNA",
+        last_used_on: i.days.ago,
+        times_used: 10,
         body: "This patient did not attend the #{clinic} Clinic ullamco
         laboris nisi ut aliquip ex ea commodo consequat.
         Duis aute irure dolor in reprehenderit in voluptate")
