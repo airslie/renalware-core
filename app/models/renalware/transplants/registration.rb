@@ -8,17 +8,19 @@ module Renalware
       include PatientScope
 
       belongs_to :patient
-      has_many :statuses, class_name: "RegistrationStatus", foreign_key: "registration_id"
-      has_one :current_status, -> { where(terminated_on: nil) },
-        class_name: "RegistrationStatus", foreign_key: "registration_id"
+      has_many :statuses,
+               class_name: "RegistrationStatus",
+               foreign_key: "registration_id"
+      has_one :current_status,
+              -> { where(terminated_on: nil).order([:started_on, :created_at]) },
+              class_name: "RegistrationStatus",
+              foreign_key: "registration_id"
 
       has_paper_trail class_name: "Renalware::Transplants::Version"
       has_document class_name: "Renalware::Transplants::RegistrationDocument"
 
       accepts_nested_attributes_for :statuses
 
-      # @section services
-      #
       def add_status!(params)
         Registration.transaction do
           statuses.create(params).tap do |status|
