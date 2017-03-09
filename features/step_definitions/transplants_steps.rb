@@ -87,7 +87,8 @@ When(/^Clyde records a recipient operation for Patty$/) do
   create_recipient_operation(
     patient: @patty,
     user: @clyde,
-    performed_on: Time.zone.today
+    performed_on: Time.zone.today,
+    age: 30
   )
 end
 
@@ -127,7 +128,8 @@ When(/^Clyde submits an erroneous recipient operation$/) do
   create_recipient_operation(
     patient: @patty,
     user: @clyde,
-    performed_on: ""
+    performed_on: "",
+    age: 30
   )
 end
 
@@ -250,7 +252,7 @@ Then(/^Patty has an active transplant registration since "(.*?)"$/) do |started_
 end
 
 Then(/^Patty has a new recipient operation$/) do
-  expect_recipient_operation_to_exist(@patty)
+  expect_recipient_operation_to_exist(@patty, age: 30)
 end
 
 Then(/^Don has a new donor operation$/) do

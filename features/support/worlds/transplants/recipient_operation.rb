@@ -16,7 +16,15 @@ module World
           hospital_centre: transplant_hospital,
           kidney_perfused_with_blood_at: fake_date_time,
           cold_ischaemic_time: fake_time,
-          warm_ischaemic_time: fake_time
+          warm_ischaemic_time: fake_time,
+          document: {
+            donor: {
+              age: {
+                amount: 11,
+                unit: "months"
+              }
+            }
+          }
         }
       end
 
@@ -33,23 +41,36 @@ module World
 
       # @section commands
       #
-      def create_recipient_operation(patient:, user:, performed_on:)
+      def create_recipient_operation(patient:, user:, performed_on:, age:)
         patient = transplant_patient(patient)
 
         Renalware::Transplants::RecipientOperation.create(
           valid_recipient_operation_attributes.merge(
             patient: patient,
-            performed_on: performed_on
+            performed_on: performed_on,
+            document: {
+              donor: {
+                age: {
+                  amount: age
+                }
+              }
+            }
           )
         )
       end
 
-      def update_recipient_operation(patient:, user: nil)
+      def update_recipient_operation(patient:, user: nil, age:)
         travel_to 1.hour.from_now
 
         operation = recipient_operation_for(patient)
         operation.update_attributes!(
           document: {
+            donor: {
+              age: {
+                amount: age,
+                unit: "years"
+              }
+            }
           },
           updated_at: Time.zone.now
         )
@@ -57,14 +78,17 @@ module World
 
       # @section expectations
       #
-      def expect_recipient_operation_to_exist(patient)
-        expect(Renalware::Transplants::RecipientOperation.for_patient(patient)).to be_present
+      def expect_recipient_operation_to_exist(patient, age:)
+        operation = Renalware::Transplants::RecipientOperation.for_patient(patient).first
+        expect(operation).to be_present
+        expect(operation.document.donor.age.amount).to eq(age)
       end
 
       def expect_update_recipient_operation_to_succeed(patient:, user:)
-        update_recipient_operation(patient: patient, user: user)
+        update_recipient_operation(patient: patient, user: user, age: 52)
         operation = recipient_operation_for(patient)
         expect(operation).to be_modified
+        expect(operation.document.donor.age.amount).to eq(52)
       end
 
       def expect_recipient_operation_to_be_refused
@@ -75,7 +99,7 @@ module World
     module Web
       include Domain
 
-      def create_recipient_operation(user:, patient:, performed_on:)
+      def create_recipient_operation(user:, patient:, performed_on:, age:)
         login_as user
         visit patient_transplants_recipient_dashboard_path(patient)
         within ".page-actions" do
@@ -91,13 +115,15 @@ module World
         fill_in "Kidney Perfused With Blood At", with: fake_time
         fill_in "Cold Ischaemic Time", with: fake_time
         fill_in "Warm Ischaemic Time", with: fake_time
+        find("#transplants_recipient_operation_document_donor_age_amount").set(age)
+        select "years", from: "transplants_recipient_operation_document_donor_age_unit"
 
         within ".top" do
           click_on "Save"
         end
       end
 
-      def update_recipient_operation(patient:, user:)
+      def update_recipient_operation(patient:, user:, age:)
         login_as user
         visit patient_transplants_recipient_dashboard_path(patient)
         within_article "Recipient Operations" do
@@ -105,6 +131,8 @@ module World
         end
 
         select "Pancreas only", from: "Operation Type"
+        find("#transplants_recipient_operation_document_donor_age_amount").set(age)
+        select "years", from: "transplants_recipient_operation_document_donor_age_unit"
 
         within ".top" do
           click_on "Save"

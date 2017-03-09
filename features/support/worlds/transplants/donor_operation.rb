@@ -54,7 +54,8 @@ module World
       # @section expectations
       #
       def expect_donor_operation_to_exist(patient)
-        expect(Renalware::Transplants::DonorOperation.for_patient(patient)).to be_present
+        operation = Renalware::Transplants::DonorOperation.for_patient(patient)
+        expect(operation).to be_present
       end
 
       def expect_update_donor_operation_to_succeed(patient:, user:)
