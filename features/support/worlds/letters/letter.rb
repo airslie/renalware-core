@@ -20,7 +20,7 @@ module World
       end
 
       def find_contact(patient, person_given_name)
-        patient.contacts.find_by_given_name(person_given_name)
+        patient.contacts.find_by(given_name: person_given_name)
       end
 
       def valid_simple_letter_attributes(patient)
@@ -101,6 +101,15 @@ module World
         Renalware::Letters::ReviseLetter.build.call(patient, existing_letter.id, letter_attributes)
       end
 
+      def delete_simple_letter(patient:, user:)
+        patient = letters_patient(patient)
+        letter = simple_letter_for(patient)
+        policy = letter.class.policy_class.new(user, letter)
+
+        expect(policy.destroy?).to be_truthy
+        letter.destroy
+      end
+
       def submit_for_review(patient:, user:)
         draft_letter = simple_letter_for(patient)
 
@@ -156,6 +165,18 @@ module World
 
       def expect_letter_to_be_refused
         expect(Renalware::Letters::Letter.count).to eq(0)
+      end
+
+      def expect_letter_to_be_deleted
+        expect(Renalware::Letters::Letter.count).to eq(0)
+      end
+
+      def expect_letter_to_be_immutable(patient:, user:)
+        expect(Renalware::Letters::Letter.count).to eq(1)
+        letter = Renalware::Letters::Letter.first
+        policy = letter.class.policy_class.new(user, letter)
+
+        expect(policy.destroy?).to be_falsey
       end
 
       def expect_simple_letter_to_have_ccs(patient, ccs:)
@@ -335,6 +356,18 @@ module World
         within ".bottom" do
           click_on "Save"
         end
+      end
+
+      def delete_simple_letter(patient:, user:)
+        login_as user
+        visit patient_letters_letters_path(patient)
+        click_on "Delete"
+      end
+
+      def expect_letter_to_be_immutable(patient:, user:)
+        login_as user
+        visit patient_letters_letters_path(patient)
+        expect(page).to have_no_content("Delete")
       end
 
       def submit_for_review(patient:, user:)

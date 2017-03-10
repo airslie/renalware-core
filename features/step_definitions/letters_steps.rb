@@ -5,7 +5,7 @@ Given(/^Patty has a recorded letter$/) do
 end
 
 Given(/^Patty accepted to be CCd on all letters$/) do
-  @patty.update_attribute(:cc_on_all_letters, true)
+  @patty.cc_on_all_letters = true
 end
 
 Given(/^Patty is the main recipient on a pending letter$/) do
@@ -170,6 +170,18 @@ end
 
 Then(/^Nathalie can revise Patty's letter$/) do
   revise_simple_letter(patient: @patty, user: @nathalie)
+end
+
+Then(/^Doug can delete Patty's letter$/) do
+  delete_simple_letter(patient: @patty, user: @doug)
+end
+
+Then(/^the letter is deleted$/) do
+  expect_letter_to_be_deleted
+end
+
+Then(/^Doug cannot delete Patty's letter$/) do
+  expect_letter_to_be_immutable(patient: @patty, user: @doug)
 end
 
 Then(/^Doug can revise the letter$/) do

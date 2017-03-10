@@ -1,3 +1,5 @@
+# TODO: Remove this disable
+# rubocop:disable Metrics/ClassLength
 require_dependency "renalware/letters"
 
 module Renalware
@@ -34,6 +36,14 @@ module Renalware
         DraftLetter.build
           .subscribe(self)
           .call(@patient, attributes)
+      end
+
+      def destroy
+        load_and_authorize_patient
+        letter = find_letter(params[:id])
+        authorize letter
+        letter.destroy
+        redirect_to patient_letters_letters_path(patient)
       end
 
       def draft_letter_successful(letter)

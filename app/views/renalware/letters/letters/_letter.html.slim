@@ -6,6 +6,12 @@ tr
     - if policy(letter).update?
       = pipe_separator
       = link_to "Edit", edit_patient_letters_letter_path(letter.patient, letter)
+    - if policy(letter).destroy?
+      = pipe_separator
+      = link_to "Delete",
+                patient_letters_letter_path(letter.patient, letter),
+                method: :delete,
+                data: { confirm: I18n.t("prompts.confirm_delete") }
 
   td= letter.state
   td= l(letter.issued_on)
