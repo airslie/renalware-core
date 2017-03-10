@@ -14,7 +14,6 @@ module Renalware
         attribute :neurogenic_bladder, Document::Enum, enums: CONFIRMATION
         attribute :recurrent_utis, Document::Enum, enums: CONFIRMATION
         attribute :family_diabetes, Document::Enum, enums: CONFIRMATION
-        attribute :pregnancies_count, Integer
       end
       attribute :historicals, Historicals
 
@@ -33,7 +32,12 @@ module Renalware
 
         validates :recorded_on, timeliness: { type: :date, allow_blank: true }
       end
-      attribute :cervical_smear, CervicalSmear
+
+      class ObstetricsAndgynaecology < Document::Embedded
+        attribute :pregnancies_count, Integer
+        attribute :cervical_smear, CervicalSmear
+      end
+      attribute :obstetrics_and_gynaecology, ObstetricsAndgynaecology
 
       class Examination < Document::Embedded
         attribute :femoral_pulse, LeftRightConfirmation

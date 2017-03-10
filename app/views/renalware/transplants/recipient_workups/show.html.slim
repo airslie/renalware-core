@@ -17,9 +17,11 @@
               legend: group, destination: group.parameterize(separator: "_")
 
         - unless patient.sex.code.M?
-          = render "renalware/shared/documents/attributes_group",
-            group: workup.document.cervical_smear,
-            legend: "Cervical smear data (latest and historical)", destination: "cervical"
+          = render "renalware/shared/attributes_group",
+            legend: "Obstetrics/Gynaecology History", destination: "obstetrics_and_gynaecology",
+            models: { workup.document.obstetrics_and_gynaecology => [:pregnancies_count],
+                      workup.document.obstetrics_and_gynaecology.cervical_smear => [:result,
+                                                                                   :recorded_on] }
 
         - ["Examination", "Education", "Consent", "Marginal Consent", "NHB Consent"].each do |group|
           = render "renalware/shared/documents/attributes_group",

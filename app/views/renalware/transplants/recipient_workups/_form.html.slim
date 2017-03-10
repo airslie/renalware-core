@@ -15,36 +15,34 @@ ruby:
   = f.simple_fields_for :document, f.object.document do |fd|
 
     = render layout: "renalware/shared/fieldset",
-        locals: { legend: "Historical", name: "historical" } do
-      = fd.simple_fields_for :historicals, fd.object.historicals,
-          wrapper: "two_columns_table_row" do |fcm|
-        table
-          = fcm.input :tb, as: :inline_radio_buttons
-          = fcm.input :dvt, as: :inline_radio_buttons
-          = fcm.input :reflux, as: :inline_radio_buttons
-          = fcm.input :neurogenic_bladder, as: :inline_radio_buttons
-          = fcm.input :recurrent_utis, as: :inline_radio_buttons
-          = fcm.input :family_diabetes, as: :inline_radio_buttons
-
-        - unless patient.sex.code.M?
-          = fcm.input :pregnancies_count,
-                      collection: (0..9).to_a,
-                      wrapper: "horizontal_form", input_html: { class: "small-input" }
+             locals: { legend: "Historical", name: "historical" } do
+      .striped
+        = fd.simple_fields_for :historicals, fd.object.historicals do |fcm|
+            = fcm.input :tb, as: :inline_radio_buttons, wrapper: :horizontal_small
+            = fcm.input :dvt, as: :inline_radio_buttons, wrapper: :horizontal_small
+            = fcm.input :reflux, as: :inline_radio_buttons, wrapper: :horizontal_small
+            = fcm.input :neurogenic_bladder, as: :inline_radio_buttons, wrapper: :horizontal_small
+            = fcm.input :recurrent_utis, as: :inline_radio_buttons, wrapper: :horizontal_small
+            = fcm.input :family_diabetes, as: :inline_radio_buttons, wrapper: :horizontal_small
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Scores", name: "scores" } do
       = fd.simple_fields_for :scores, fd.object.scores do |fcm|
-        / = render_input fcm, :karnofsky
-        / = render_input fcm, :prisma
         = fcm.input :karnofsky, wrapper: :horizontal_small
         = fcm.input :prisma, wrapper: :horizontal_small
 
     - unless patient.sex.code.M?
       = render layout: "renalware/shared/fieldset",
-          locals: { legend: "Cervical smear data (latest and historical)", name: "cervical" } do
-        = fd.simple_fields_for :cervical_smear, fd.object.cervical_smear do |fcm|
-          = fcm.input :result
-          = fcm.input :recorded_on, as: :date_picker
+               locals: { legend: "Obstetrics/Gynaecology History",
+                         name: "obstetrics_gynaecology" } do
+        = fd.simple_fields_for :obstetrics_and_gynaecology,
+                               fd.object.obstetrics_and_gynaecology do |fcm|
+          = fcm.input :pregnancies_count,
+                      collection: (0..9).to_a,
+                      wrapper: :horizontal_tiny
+          = fcm.simple_fields_for :cervical_smear, fcm.object.cervical_smear do |fsmear|
+            = fsmear.input :result, wrapper: :horizontal_small
+            = fsmear.input :recorded_on, as: :date_picker, wrapper: :horizontal_datepicker
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Examination", name: "examination" } do
@@ -65,11 +63,11 @@ ruby:
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Transplant Education", name: "education" } do
-      = fd.simple_fields_for :education, fd.object.education,
-        wrapper: "two_columns_table_row" do |fcm|
-        table
-          - fcm.object.class.attributes_list.each do |attribute|
-            = fcm.input attribute, as: :inline_radio_buttons
+
+      = fd.simple_fields_for :education, fd.object.education do |fcm|
+        .striped
+            - fcm.object.class.attributes_list.each do |attribute|
+              = fcm.input attribute, as: :inline_radio_buttons, wrapper: :horizontal_small
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Consent", name: "consent" } do

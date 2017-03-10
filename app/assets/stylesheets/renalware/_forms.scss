@@ -29,6 +29,21 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 form {
+  .striped {
+    > .row {
+      padding-top: .35rem;
+      padding-bottom: .35rem;
+
+      input {
+        margin-bottom: 0;
+      }
+
+      &:nth-of-type(even) {
+        background-color: $ghost;
+      }
+    }
+  }
+
   .row .row.datepicker-wrapper {
     margin-bottom: 10px;
   }

@@ -70,9 +70,11 @@ module Renalware
       "dorsalis_pedis_pulse": {"left": "yes", "right": "yes"},
       "posterior_tibial_pulse": {"left": "yes", "right": "yes"}},
       "historicals": {"tb": "no", "dvt": "no", "reflux": "yes",
-      "recurrent_utis": "no", "family_diabetes": "no", "pregnancies_count": 0,
+      "recurrent_utis": "no", "family_diabetes": "no",
       "neurogenic_bladder": "no"},
-      "cervical_smear": {"result": "", "recorded_on": ""},
+      "obstetrics_and_gynaecology": {
+        "pregnancies_count": 0,
+        "cervical_smear": {"result": "", "recorded_on": ""}},
       "consent": {"value": "full", "full_name": "JANE SUMISU", "consented_on": "2017-02-22"},
       "marginal_consent": {"value": "yes", "full_name": "JANE SUMISU","consented_on": "2017-02-22"},
       "nhb_consent": {"value": "no", "full_name": "JANE SUMISU", "consented_on": "2017-02-21"}}',

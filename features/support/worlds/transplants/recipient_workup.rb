@@ -76,7 +76,6 @@ module World
         login_as user
         visit patient_transplants_recipient_workup_path(patient)
         click_on "Edit"
-
         fill_in "Cervical smear result", with: "193"
 
         within ".top" do

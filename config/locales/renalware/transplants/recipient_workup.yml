@@ -9,16 +9,17 @@ en:
         dvt: History of DVT?
         family_diabetes: Family history of diabetes?
         neurogenic_bladder: History of neurogenic bladder?
-        pregnancies_count: Number of pregnancies
         recurrent_utis: History of UTIs?
         reflux: History of reflux?
         tb: History of TB?
       renalware/transplants/recipient_workup_document/scores:
         karnofsky: Karnofsky Score
         prisma: Frailty (Prisma) score
+      renalware/transplants/recipient_workup_document/obstetrics_and_gynaecology:
+        pregnancies_count: Number of pregnancies
       renalware/transplants/recipient_workup_document/cervical_smear:
         recorded_on: Cervical smear date
-        result: Cervical smear result
+        result: Cervical smear result (latest)
       renalware/transplants/recipient_workup_document/examination:
         carotid_bruit: Carotid Bruit?
         dorsalis_pedis_pulse: Dorsalis pedis pulse?
