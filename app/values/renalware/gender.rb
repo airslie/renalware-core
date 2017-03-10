@@ -1,6 +1,7 @@
 module Renalware
   class Gender
     include ActiveModel::Model
+    attr_reader :code
 
     DATA = {
       "NK" => "Not Known",
@@ -31,7 +32,7 @@ module Renalware
     end
 
     def initialize(code)
-      @code = code
+      @code = code && ActiveSupport::StringInquirer.new(code)
     end
 
     # @section validations
@@ -40,10 +41,6 @@ module Renalware
 
     # @section attributes
     #
-
-    def code
-      ActiveSupport::StringInquirer.new(@code)
-    end
 
     def name
       DATA[@code]
