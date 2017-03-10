@@ -58,8 +58,7 @@ module Renalware
       INSERT INTO transplant_recipient_workups
       (patient_id, document, created_at, updated_at, created_by_id, updated_by_id)
       VALUES (1, '{"scores": {"prisma": 3, "karnofsky": 56},
-      "consent": {"value": "full", "full_name": "JANE SUMISU",
-      "consented_on": "2017-02-22"}, "hla_data": "FASDF;KJASFDAHSDFKSHFDHASOUOW",
+      "hla_data": "FASDF;KJASFDAHSDFKSHFDHASOUOW",
       "education": {"cancer": "yes", "followup": "yes", "infection": "yes",
       "procedure": "yes", "rejection": "yes", "recurrence": "yes",
       "success_rate": "yes", "waiting_list": "yes", "drugs_longterm": "yes",
@@ -74,10 +73,9 @@ module Renalware
       "recurrent_utis": "no", "family_diabetes": "no", "pregnancies_count": 0,
       "neurogenic_bladder": "no"},
       "cervical_smear": {"result": "", "recorded_on": ""},
-      "marginal_consent": {"value": "yes", "full_name": "JANE SUMISU",
-        "consented_on": "2017-02-22"}}',
-      "nhb_consent": {"value": "no", "full_name": "JANE SUMISU",
-        "consented_on": "2017-02-21"}
+      "consent": {"value": "full", "full_name": "JANE SUMISU", "consented_on": "2017-02-22"},
+      "marginal_consent": {"value": "yes", "full_name": "JANE SUMISU","consented_on": "2017-02-22"},
+      "nhb_consent": {"value": "no", "full_name": "JANE SUMISU", "consented_on": "2017-02-21"}}',
       '2017-02-23 13:36:44.271472', '2017-02-23 13:36:44.271472', 1,1);
     SQL
   end
