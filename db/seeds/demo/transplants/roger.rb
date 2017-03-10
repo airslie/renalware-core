@@ -34,9 +34,7 @@ module Renalware
       "to_be_listed_for_other_organs": "no",
       "received_previous_kidney_or_pancreas_grafts": "no"},
       "transplant": {"blood_group": {"value": "A"},
-      "sens_status": "SADF;LJ;K", "nb_of_previous_grafts": 0},
-      "nhb_consent": {"value": "no", "full_name": "JANE SUMISU",
-      "consented_on": "2017-02-21"}}', '2017-02-23 13:34:24.618171',
+      "sens_status": "SADF;LJ;K", "nb_of_previous_grafts": 0}}', '2017-02-23 13:34:24.618171',
       '2017-02-23 13:34:24.618171');
     SQL
   end
@@ -77,7 +75,9 @@ module Renalware
       "neurogenic_bladder": "no"},
       "cervical_smear": {"result": "", "recorded_on": ""},
       "marginal_consent": {"value": "yes", "full_name": "JANE SUMISU",
-      "consented_on": "2017-02-22"}}',
+        "consented_on": "2017-02-22"}}',
+      "nhb_consent": {"value": "no", "full_name": "JANE SUMISU",
+        "consented_on": "2017-02-21"}
       '2017-02-23 13:36:44.271472', '2017-02-23 13:36:44.271472', 1,1);
     SQL
   end

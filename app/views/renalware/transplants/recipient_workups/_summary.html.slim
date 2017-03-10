@@ -15,3 +15,10 @@ article
       = l(recipient_workup.updated_at)
       | &nbsp;by&nbsp;
       = recipient_workup.updated_by&.full_name
+    dt= t(".consent")
+    dd= Renalware::Transplants::ConsentPresenter.new(recipient_workup.document.consent)
+    dt= t(".marginal_consent")
+    dd= Renalware::Transplants::ConsentPresenter.new(recipient_workup.document.marginal_consent)
+    dt= t(".nhb_consent")
+    dd= Renalware::Transplants::ConsentPresenter.new(recipient_workup.document.nhb_consent)
+

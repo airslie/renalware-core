@@ -33,8 +33,12 @@ en:
         value: Transplant Consent
       renalware/transplants/recipient_workup_document/marginal_consent:
         consented_on: Marginal Consent Date
-        full_name: Who marginally consented
+        full_name: Who Marginal consented
         value: Marginal consent?
+      renalware/transplants/recipient_workup_document/nhb_consent:
+        consented_on: NHB Consent Date
+        full_name: Who NHB consented
+        value: NHB Consent
       renalware/transplants/recipient_workup_document/education:
         cancer: Cancer Risks
         drugs_longterm: Drugs (Long term)
@@ -68,3 +72,11 @@ en:
         document:
           consent:
             full_name: Your name or the person who consented
+
+  renalware:
+    transplants:
+      recipient_workups:
+        summary:
+          consent: "Consent:"
+          marginal_consent: "Marginal Consent:"
+          nhb_consent: "NHB Consent:"

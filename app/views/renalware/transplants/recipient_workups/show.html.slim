@@ -21,7 +21,7 @@
             group: workup.document.cervical_smear,
             legend: "Cervical smear data (latest and historical)", destination: "cervical"
 
-        - ["Examination", "Education", "Consent"].each do |group|
+        - ["Examination", "Education", "Consent", "Marginal Consent", "NHB Consent"].each do |group|
           = render "renalware/shared/documents/attributes_group",
               group: workup.document.public_send(group.parameterize(separator: "_")),
               legend: group, destination: group.parameterize(separator: "_")

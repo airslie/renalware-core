@@ -74,14 +74,19 @@ ruby:
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Consent", name: "consent" } do
       = fd.simple_fields_for :consent, fd.object.consent do |fcm|
-        = fcm.input :value, as: :inline_radio_buttons
-        = fcm.input :consented_on, as: :date_picker
-        = fcm.input :full_name
+        = fcm.input :value, as: :inline_radio_buttons, wrapper: :horizontal_medium
+        = fcm.input :consented_on, as: :date_picker, wrapper: :horizontal_datepicker
+        = fcm.input :full_name, wrapper: :horizontal_medium
         hr
       = fd.simple_fields_for :marginal_consent, fd.object.marginal_consent do |fcm|
-        = fcm.input :value, as: :inline_radio_buttons
-        = fcm.input :consented_on, as: :date_picker
-        = fcm.input :full_name
+        = fcm.input :value, as: :inline_radio_buttons, wrapper: :horizontal_medium
+        = fcm.input :consented_on, as: :date_picker, wrapper: :horizontal_datepicker
+        = fcm.input :full_name, wrapper: :horizontal_medium
+      hr
+      = fd.simple_fields_for :nhb_consent, fd.object.nhb_consent do |fcm|
+        = fcm.input :value, as: :inline_radio_buttons, wrapper: :horizontal_medium
+        = fcm.input :consented_on, as: :date_picker, wrapper: :horizontal_datepicker
+        = fcm.input :full_name, wrapper: :horizontal_medium
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "HLA Data", name: "hla" } do

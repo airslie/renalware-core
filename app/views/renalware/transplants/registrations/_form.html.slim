@@ -69,13 +69,6 @@ ruby:
                       wrapper: :horizontal_medium
 
     = render layout: "renalware/shared/fieldset",
-        locals: { legend: "Consent", name: "consent" } do
-      = fd.simple_fields_for :nhb_consent, fd.object.nhb_consent do |fcm|
-        = fcm.input :value, as: :inline_radio_buttons, wrapper: :horizontal_medium
-        = fcm.input :consented_on, as: :date_picker, wrapper: :horizontal_datepicker
-        = fcm.input :full_name, wrapper: :horizontal_medium
-
-    = render layout: "renalware/shared/fieldset",
         locals: { legend: "Admin", name: "admin" } do
       = f.input :referred_on, as: :date_picker, wrapper: :horizontal_datepicker
       = f.input :assessed_on, as: :date_picker, wrapper: :horizontal_datepicker
