@@ -17,13 +17,13 @@ module Renalware
     }.freeze
 
     def self.all
-      DATA.map { |code, _| self.new(code) }
+      DATA.map { |code, _| new(code) }
     end
 
     # @section serialization
     #
     def self.load(raw_string)
-      self.new(raw_string)
+      new(raw_string)
     end
 
     def self.dump(gender)
@@ -40,7 +40,10 @@ module Renalware
 
     # @section attributes
     #
-    attr_reader :code
+
+    def code
+      ActiveSupport::StringInquirer.new(@code)
+    end
 
     def name
       DATA[@code]

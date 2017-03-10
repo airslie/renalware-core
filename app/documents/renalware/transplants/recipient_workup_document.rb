@@ -19,8 +19,8 @@ module Renalware
       attribute :historicals, Historicals
 
       class Scores < Document::Embedded
-        attribute :karnofsky, Integer
-        attribute :prisma, Integer
+        attribute :karnofsky, Integer # DatedResult
+        attribute :prisma, Integer # DatedResult
 
         validates :karnofsky, inclusion: { in: 0..100, allow_blank: true }
         validates :prisma, inclusion: { in: 0..7, allow_blank: true }

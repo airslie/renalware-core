@@ -26,20 +26,25 @@ ruby:
           = fcm.input :recurrent_utis, as: :inline_radio_buttons
           = fcm.input :family_diabetes, as: :inline_radio_buttons
 
-        = fcm.input :pregnancies_count, collection: (0..9).to_a,
-          wrapper: "horizontal_form", input_html: { class: "small-input" }
+        - unless patient.sex.code.M?
+          = fcm.input :pregnancies_count,
+                      collection: (0..9).to_a,
+                      wrapper: "horizontal_form", input_html: { class: "small-input" }
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Scores", name: "scores" } do
       = fd.simple_fields_for :scores, fd.object.scores do |fcm|
-        = fcm.input :karnofsky, input_html: { class: "small-input" }
-        = fcm.input :prisma, input_html: { class: "small-input" }
+        / = render_input fcm, :karnofsky
+        / = render_input fcm, :prisma
+        = fcm.input :karnofsky, wrapper: :horizontal_small
+        = fcm.input :prisma, wrapper: :horizontal_small
 
-    = render layout: "renalware/shared/fieldset",
-        locals: { legend: "Cervical smear data (latest and historical)", name: "cervical" } do
-      = fd.simple_fields_for :cervical_smear, fd.object.cervical_smear do |fcm|
-        = fcm.input :result
-        = fcm.input :recorded_on, as: :date_picker
+    - unless patient.sex.code.M?
+      = render layout: "renalware/shared/fieldset",
+          locals: { legend: "Cervical smear data (latest and historical)", name: "cervical" } do
+        = fd.simple_fields_for :cervical_smear, fd.object.cervical_smear do |fcm|
+          = fcm.input :result
+          = fcm.input :recorded_on, as: :date_picker
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Examination", name: "examination" } do

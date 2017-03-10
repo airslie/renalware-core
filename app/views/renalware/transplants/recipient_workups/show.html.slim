@@ -6,7 +6,6 @@
 = within_patient_layout(title: "Recipient Workup",
                         breadcrumbs: recipient_summary_breadcrumb(patient)) do
 
-
   .edit_timestamp= render "renalware/shared/last_update", record: workup
 
   .document-view
@@ -17,7 +16,8 @@
               group: workup.document.public_send(group.parameterize(separator: "_")),
               legend: group, destination: group.parameterize(separator: "_")
 
-        = render "renalware/shared/documents/attributes_group",
+        - unless patient.sex.code.M?
+          = render "renalware/shared/documents/attributes_group",
             group: workup.document.cervical_smear,
             legend: "Cervical smear data (latest and historical)", destination: "cervical"
 
