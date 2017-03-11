@@ -1,13 +1,13 @@
 require "simplecov"
-# SimpleCov.command_name "Cucumber-" + (ENV["TEST_DEPTH"] || "domain")
+SimpleCov.command_name "Cucumber-" + (ENV["TEST_DEPTH"] || "domain")
 
 SimpleCov.start "rails" do
 
   # save to CircleCI's artifacts directory if we're on CircleCI
-  # if ENV['CIRCLE_ARTIFACTS']
-  #  dir = File.join(ENV['CIRCLE_ARTIFACTS'], "coverage")
-  #  coverage_dir(dir)
-  # end
+  if ENV["CIRCLE_ARTIFACTS"]
+    dir = File.join(ENV["CIRCLE_ARTIFACTS"], "coverage")
+    coverage_dir(dir)
+  end
 
   use_merging true
   merge_timeout 1200 # 20 minutes

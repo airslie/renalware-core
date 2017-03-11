@@ -91,7 +91,7 @@ group :development, :test do
 end
 
 group :test do
-  gem "codeclimate-test-reporter", "1.0.3", require: false
+  gem "codeclimate-test-reporter", require: false
   gem "rails-controller-testing"
   gem "simplecov", "~> 0.13.0", require: false
   gem "webmock", "~> 1.20.4"
