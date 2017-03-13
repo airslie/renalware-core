@@ -26,6 +26,10 @@ module Renalware
       def complete?
         false
       end
+
+      def destroy?
+        record.state.downcase.to_sym != :approved
+      end
     end
   end
 end
