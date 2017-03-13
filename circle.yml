@@ -1,8 +1,12 @@
 machine:
   pre:
     - sudo curl --output /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1
+    - export DEBIAN_FRONTEND=noninteractive && sudo apt-get remove -y --purge mysql-server mysql-community-server
+    - sudo service mongod stop; sleep 3
 
 dependencies:
+  pre:
+    - gem install bundler
   post:
     - bundle exec bundle-audit update && bundle exec bundle-audit check
 
