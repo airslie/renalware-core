@@ -6,44 +6,60 @@ module Renalware
       before_action :load_patient
 
       def show
-        @recipient_operation = RecipientOperation.for_patient(@patient).find(params[:id])
+        render locals: {
+          patient: patient,
+          recipient_operation: operation
+        }
       end
 
       def new
-        @recipient_operation = RecipientOperation.new
+        render locals: {
+          patient: patient,
+          recipient_operation: RecipientOperation.new
+        }
       end
 
       def create
-        @recipient_operation = RecipientOperation.new(patient: @patient)
-        @recipient_operation.attributes = operation_params
+        recipient_operation = RecipientOperation.new(patient: patient)
+        recipient_operation.attributes = operation_params
 
-        if @recipient_operation.save
-          redirect_to patient_transplants_recipient_dashboard_path(@patient),
+        if recipient_operation.save
+          redirect_to patient_transplants_recipient_dashboard_path(patient),
             notice: t(".success", model_name: "recipient operation")
         else
           flash[:error] = t(".failed", model_name: "recipient operation")
-          render :new
+          render :new,
+                 locals: {
+                   patient: patient,
+                   recipient_operation: recipient_operation
+                 }
         end
       end
 
       def edit
-        @recipient_operation = RecipientOperation.for_patient(@patient).find(params[:id])
+        render locals: {
+          patient: patient,
+          recipient_operation: operation
+        }
       end
 
       def update
-        @recipient_operation = RecipientOperation.for_patient(@patient).find(params[:id])
-        @recipient_operation.attributes = operation_params
+        operation.attributes = operation_params
 
-        if @recipient_operation.save
-          redirect_to patient_transplants_recipient_dashboard_path(@patient),
+        if operation.save
+          redirect_to patient_transplants_recipient_dashboard_path(patient),
             notice: t(".success", model_name: "recipient operation")
         else
           flash[:error] = t(".failed", model_name: "recipient operation")
-          render :edit
+          render :edit, locals: { patient: patient, recipient_operation: operation }
         end
       end
 
       protected
+
+      def operation
+        @operation ||= RecipientOperation.for_patient(patient).find(params[:id])
+      end
 
       def operation_params
         params

@@ -1,0 +1,8 @@
+en:
+  renalware:
+    transplants:
+      recipient_dashboards:
+        show:
+          add_recipient_workup: Recipient Workup
+          add_waitlist_registration: Wait List Registration
+          add_recipient_operation: Recipient Operation

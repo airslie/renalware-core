@@ -1,23 +1,35 @@
-= within_patient_layout(title: "Transplant Recipient Workup") do
-  - if @workup
-    .document-view
-      - ["Historicals", "Scores"].each do |group|
-        = render "renalware/shared/documents/attributes_group",
-            group: @workup.document.public_send(group.parameterize(separator: "_")),
-            legend: group, destination: group.parameterize(separator: "_")
+= content_for(:actions) do
+  = link_to t("edit_record.link_title"),
+            edit_patient_transplants_recipient_workup_path(patient),
+            class: "button"
 
-      = render "renalware/shared/documents/attributes_group",
-          group: @workup.document.cervical_smear,
-          legend: "Cervical smear data (latest and historical)", destination: "cervical"
+= within_patient_layout(title: "Recipient Workup",
+                        breadcrumbs: recipient_summary_breadcrumb(patient)) do
 
-      - ["Examination", "Education", "Consent"].each do |group|
-        = render "renalware/shared/documents/attributes_group",
-            group: @workup.document.public_send(group.parameterize(separator: "_")),
-            legend: group, destination: group.parameterize(separator: "_")
+  .edit_timestamp= render "renalware/shared/last_update", record: workup
 
-      .row data-magellan-destination="hla"
-        .columns.large-12
-          a name="hla"
-          = field_set_tag do
-            legend HLA Data
-            = simple_format @workup.document.hla_data
+  .document-view
+   .grid
+     .row
+        - ["Historicals", "Scores"].each do |group|
+          = render "renalware/shared/documents/attributes_group",
+              group: workup.document.public_send(group.parameterize(separator: "_")),
+              legend: group, destination: group.parameterize(separator: "_")
+
+        - unless patient.sex.code.M?
+          = render "renalware/shared/attributes_group",
+            legend: "Obstetrics/Gynaecology History", destination: "obstetrics_and_gynaecology",
+            models: { workup.document.obstetrics_and_gynaecology => [:pregnancies_count],
+                      workup.document.obstetrics_and_gynaecology.cervical_smear => [:result,
+                                                                                   :recorded_on] }
+
+        - ["Examination", "Education", "Consent", "Marginal Consent", "NHB Consent"].each do |group|
+          = render "renalware/shared/documents/attributes_group",
+              group: workup.document.public_send(group.parameterize(separator: "_")),
+              legend: group, destination: group.parameterize(separator: "_")
+
+        .columns.medium-6
+          article
+            header
+              h2 HLA Data
+            = simple_format workup.document.hla_data

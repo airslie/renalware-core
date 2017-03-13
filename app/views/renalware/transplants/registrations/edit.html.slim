@@ -1,7 +1,12 @@
-= within_patient_layout(title: "Transplant Wait List Registration") do
+= within_patient_layout(title: "Edit",
+                        breadcrumbs: recipient_wait_list_breadcrumbs(patient)) do
+
+  .edit_timestamp= render "renalware/shared/last_update", record: registration
+
   .document
-    = simple_form_for @registration,
-        url: patient_transplants_registration_path(@patient),
+    = simple_form_for registration,
+        url: patient_transplants_registration_path(patient),
         method: :patch,
+        html: { autocomplete: :off },
         wrapper: "horizontal_form" do |f|
-      = render "form", f: f
+      = render "form", f: f, patient: patient

@@ -14,13 +14,12 @@ module Renalware
         attribute :neurogenic_bladder, Document::Enum, enums: CONFIRMATION
         attribute :recurrent_utis, Document::Enum, enums: CONFIRMATION
         attribute :family_diabetes, Document::Enum, enums: CONFIRMATION
-        attribute :pregnancies_count, Integer
       end
       attribute :historicals, Historicals
 
       class Scores < Document::Embedded
-        attribute :karnofsky, Integer
-        attribute :prisma, Integer
+        attribute :karnofsky, Integer # DatedResult
+        attribute :prisma, Integer # DatedResult
 
         validates :karnofsky, inclusion: { in: 0..100, allow_blank: true }
         validates :prisma, inclusion: { in: 0..7, allow_blank: true }
@@ -33,7 +32,12 @@ module Renalware
 
         validates :recorded_on, timeliness: { type: :date, allow_blank: true }
       end
-      attribute :cervical_smear, CervicalSmear
+
+      class ObstetricsAndgynaecology < Document::Embedded
+        attribute :pregnancies_count, Integer
+        attribute :cervical_smear, CervicalSmear
+      end
+      attribute :obstetrics_and_gynaecology, ObstetricsAndgynaecology
 
       class Examination < Document::Embedded
         attribute :femoral_pulse, LeftRightConfirmation
@@ -45,25 +49,31 @@ module Renalware
       end
       attribute :examination, Examination
 
-      class Consent < Document::Embedded
-        attribute :value, Document::Enum, enums: %i(full partial refused)
+      class BaseConsent < Document::Embedded
+        attribute :value
         attribute :consented_on, Date
         attribute :full_name
-
         validates :consented_on, timeliness: { type: :date, allow_blank: true }
-        validates :consented_on, presence: true, if: ->(o) { o.value.present? }
-        validates :full_name, presence: true, if: ->(o) { o.value.present? }
+      end
+
+      class Consent < BaseConsent
+        attribute :value, Document::Enum, enums: %i(full partial refused)
+        validates :consented_on, presence: true, if: ->(consent) { consent.value.present? }
+        validates :full_name, presence: true, if: ->(consent) { consent.value.present? }
       end
       attribute :consent, Consent
 
-      class MarginalConsent < Document::Embedded
+      class YesNoUnknownConsent < BaseConsent
         attribute :value, Document::Enum, enums: %i(yes no unknown)
-        attribute :consented_on, Date
-        attribute :full_name
+        validates :consented_on, presence: true, if: ->(consent) { consent.value == :yes }
+        validates :full_name, presence: true, if: ->(consent) { consent.value == :yes }
+      end
 
-        validates :consented_on, timeliness: { type: :date, allow_blank: true }
-        validates :consented_on, presence: true, if: ->(o) { o.value.present? }
-        validates :full_name, presence: true, if: ->(o) { o.value.present? }
+      class NHBConsent < YesNoUnknownConsent
+      end
+      attribute :nhb_consent, NHBConsent
+
+      class MarginalConsent < YesNoUnknownConsent
       end
       attribute :marginal_consent, MarginalConsent
 

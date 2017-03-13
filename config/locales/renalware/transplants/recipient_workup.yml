@@ -9,16 +9,17 @@ en:
         dvt: History of DVT?
         family_diabetes: Family history of diabetes?
         neurogenic_bladder: History of neurogenic bladder?
-        pregnancies_count: Number of pregnancies
         recurrent_utis: History of UTIs?
         reflux: History of reflux?
         tb: History of TB?
       renalware/transplants/recipient_workup_document/scores:
         karnofsky: Karnofsky Score
         prisma: Frailty (Prisma) score
+      renalware/transplants/recipient_workup_document/obstetrics_and_gynaecology:
+        pregnancies_count: Number of pregnancies
       renalware/transplants/recipient_workup_document/cervical_smear:
         recorded_on: Cervical smear date
-        result: Cervical smear result
+        result: Cervical smear result (latest)
       renalware/transplants/recipient_workup_document/examination:
         carotid_bruit: Carotid Bruit?
         dorsalis_pedis_pulse: Dorsalis pedis pulse?
@@ -33,8 +34,12 @@ en:
         value: Transplant Consent
       renalware/transplants/recipient_workup_document/marginal_consent:
         consented_on: Marginal Consent Date
-        full_name: Who marginally consented
+        full_name: Who Marginal consented
         value: Marginal consent?
+      renalware/transplants/recipient_workup_document/nhb_consent:
+        consented_on: NHB Consent Date
+        full_name: Who NHB consented
+        value: NHB Consent
       renalware/transplants/recipient_workup_document/education:
         cancer: Cancer Risks
         drugs_longterm: Drugs (Long term)
@@ -68,3 +73,11 @@ en:
         document:
           consent:
             full_name: Your name or the person who consented
+
+  renalware:
+    transplants:
+      recipient_workups:
+        summary:
+          consent: "Consent:"
+          marginal_consent: "Marginal Consent:"
+          nhb_consent: "NHB Consent:"

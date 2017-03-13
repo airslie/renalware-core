@@ -1,9 +1,10 @@
-= render "record_header"
-
-.row
-  .columns.large-12
-    .document
-      = simple_form_for @status,
-          url: patient_transplants_registration_statuses_path(@patient, @status),
-          wrapper: "horizontal_form" do |f|
-        = render "form", f: f
+= within_patient_layout(title: "New Registration Status History",
+                        breadcrumbs: recipient_summary_breadcrumb(patient)) do
+  .row
+    .columns.large-12
+      .document
+        = simple_form_for status,
+            url: patient_transplants_registration_statuses_path(patient, status),
+            html: { autocomplete: :off },
+            wrapper: "horizontal_form" do |f|
+          = render "form", f: f, patient: patient

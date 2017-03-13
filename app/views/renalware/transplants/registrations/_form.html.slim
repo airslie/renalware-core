@@ -1,5 +1,5 @@
 ruby:
-  back_path = patient_transplants_recipient_dashboard_path(@patient)
+  back_path = patient_transplants_recipient_dashboard_path(patient)
 
 .row.top
   .medium-6.columns
@@ -13,8 +13,8 @@ ruby:
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Codes", name: "codes" } do
       = fd.simple_fields_for :codes, fd.object.codes do |fcm|
-        = fcm.input :uk_transplant_centre_code, input_html: { class: "small-input" }
-        = fcm.input :uk_transplant_patient_recipient_number, input_html: { class: "small-input" }
+        = fcm.input :uk_transplant_centre_code, wrapper: :horizontal_small
+        = fcm.input :uk_transplant_patient_recipient_number, wrapper: :horizontal_small
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "CRF", name: "crf" } do
@@ -26,8 +26,8 @@ ruby:
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "HLA", name: "hla" } do
       = fd.simple_fields_for :hla, fd.object.hla do |fcm|
-        = fcm.input :type
-        = fcm.input :recorded_on, as: :date_picker
+        = fcm.input :type, wrapper: :horizontal_large
+        = fcm.input :recorded_on, as: :date_picker, wrapper: :horizontal_datepicker
         table
           tbody
             = render_input fcm, :a
@@ -43,35 +43,38 @@ ruby:
       = fd.simple_fields_for :transplant, fd.object.transplant do |fcm|
         table.no-stripes
           = render_input fcm, :blood_group
-          = fcm.input :nb_of_previous_grafts, collection: 0..5, include_blank: false,
-            input_html: { class: "small-input" }
-          = fcm.input :sens_status
+          = fcm.input :nb_of_previous_grafts,
+                      collection: 0..5,
+                      include_blank: false,
+                      wrapper: :horizontal_small
+          = fcm.input :sens_status, wrapper: :horizontal_large
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Organs", name: "organs" } do
       = fd.simple_fields_for :organs, fd.object.organs do |fcm|
         table.no-stripes
-          = fcm.input :transplant_type
-          = fcm.input :pancreas_only_type, as: :inline_radio_buttons
-          = fcm.input :rejection_risk
-          = fcm.input :also_listed_for_kidney_only, as: :inline_radio_buttons
-          = fcm.input :to_be_listed_for_other_organs, as: :inline_radio_buttons
-          = fcm.input :received_previous_kidney_or_pancreas_grafts, as: :inline_radio_buttons
-
-    = render layout: "renalware/shared/fieldset",
-        locals: { legend: "Consent", name: "consent" } do
-      = fd.simple_fields_for :nhb_consent, fd.object.nhb_consent do |fcm|
-        = fcm.input :value, as: :inline_radio_buttons
-        = fcm.input :consented_on, as: :date_picker
-        = fcm.input :full_name
+          = fcm.input :transplant_type, wrapper: :horizontal_medium
+          = fcm.input :pancreas_only_type,
+                      as: :inline_radio_buttons,
+                      wrapper: :horizontal_medium
+          = fcm.input :rejection_risk, wrapper: :horizontal_small
+          = fcm.input :also_listed_for_kidney_only,
+                      as: :inline_radio_buttons,
+                      wrapper: :horizontal_medium
+          = fcm.input :to_be_listed_for_other_organs,
+                      as: :inline_radio_buttons,
+                      wrapper: :horizontal_medium
+          = fcm.input :received_previous_kidney_or_pancreas_grafts,
+                      as: :inline_radio_buttons,
+                      wrapper: :horizontal_medium
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Admin", name: "admin" } do
-      = f.input :referred_on, as: :date_picker
-      = f.input :assessed_on, as: :date_picker
-      = f.input :entered_on, as: :date_picker
-      = f.input :contact, as: :text, input_html: { rows: 5 }
-      = f.input :notes, as: :text, input_html: { rows: 5 }
+      = f.input :referred_on, as: :date_picker, wrapper: :horizontal_datepicker
+      = f.input :assessed_on, as: :date_picker, wrapper: :horizontal_datepicker
+      = f.input :entered_on, as: :date_picker, wrapper: :horizontal_datepicker
+      = f.input :contact, as: :text, input_html: { rows: 5 }, wrapper: :horizontal_large
+      = f.input :notes, as: :text, input_html: { rows: 5 }, wrapper: :horizontal_large
 
     = render "status_form", f: f if f.object.new_record?
 

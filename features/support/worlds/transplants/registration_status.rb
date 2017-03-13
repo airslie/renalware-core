@@ -112,30 +112,34 @@ module World
       def set_transplant_registration_status(user:, patient:, status:, started_on:)
         login_as user
         visit patient_transplants_recipient_dashboard_path(patient)
-        within_fieldset "Status History" do
+        within_article "Status History" do
           click_on "Update Status"
         end
 
         fill_in "Started on", with: started_on
         select status, from: "Description"
-        click_on "Save"
+        within ".document" do
+          click_on "Save"
+        end
       end
 
       def update_transplant_registration_status(user:, patient:, status:, started_on:)
         login_as user
         visit patient_transplants_recipient_dashboard_path(patient)
-        within_fieldset "Status History" do
+        within_article "Status History" do
           find_link_in_row_with(text: status, link_label: "Edit").click
         end
 
         fill_in "transplants_registration_status[started_on]", with: started_on
-        click_on "Save"
+        within ".document" do
+          click_on "Save"
+        end
       end
 
       def delete_transplant_registration_status(patient:, user:, status:)
         login_as user
         visit patient_transplants_recipient_dashboard_path(patient)
-        within_fieldset "Status History" do
+        within_article "Status History" do
           find_link_in_row_with(text: status, link_label: "Delete").click
         end
       end

@@ -4,50 +4,60 @@ module Renalware
   module Transplants
     class RecipientFollowupsController < BaseController
       before_action :load_patient
-      before_action :load_operation
 
       def show
-        @recipient_followup = @operation.followup
+        recipient_followup = operation.followup
+        render locals: { patient: patient, recipient_followup: recipient_followup }
       end
 
       def new
-        @recipient_followup = @operation.build_followup
+        render locals: {
+          patient: patient,
+          recipient_followup: operation.build_followup
+        }
       end
 
       def create
-        @recipient_followup = @operation.build_followup
-        @recipient_followup.attributes = followup_attributes
+        recipient_followup = operation.build_followup
+        recipient_followup.attributes = followup_attributes
 
-        if @recipient_followup.save
-          redirect_to patient_transplants_recipient_dashboard_path(@patient),
+        if recipient_followup.save
+          redirect_to patient_transplants_recipient_dashboard_path(patient),
             notice: t(".success", model_name: "recipient follow up")
         else
           flash[:error] = t(".failed", model_name: "recipient follow up")
-          render :new
+          render :new, locals: { patient: patient, recipient_followup: recipient_followup }
         end
       end
 
       def edit
-        @recipient_followup = @operation.followup
+        render locals: {
+          patient: patient,
+          recipient_followup: operation.followup
+        }
       end
 
       def update
-        @recipient_followup = @operation.followup
-        @recipient_followup.attributes = followup_attributes
+        recipient_followup = operation.followup
+        recipient_followup.attributes = followup_attributes
 
-        if @recipient_followup.save
-          redirect_to patient_transplants_recipient_dashboard_path(@patient),
+        if recipient_followup.save
+          redirect_to patient_transplants_recipient_dashboard_path(patient),
             notice: t(".success", model_name: "recipient follow up")
         else
           flash[:error] = t(".failed", model_name: "recipient follow up")
-          render :edit
+          render :edit,
+                 locals: {
+                   patient: patient,
+                   recipient_followup: recipient_followup
+                 }
         end
       end
 
       protected
 
-      def load_operation
-        @operation = RecipientOperation.find(params[:recipient_operation_id])
+      def operation
+        @operation ||= RecipientOperation.find(params[:recipient_operation_id])
       end
 
       def followup_attributes

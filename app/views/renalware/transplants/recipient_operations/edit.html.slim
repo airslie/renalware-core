@@ -1,6 +1,11 @@
-= within_patient_layout(title: "Transplant Recipient Operation") do
+= within_patient_layout(title: "Edit",
+                  breadcrumbs: recipient_operation_breadcrumbs(patient, recipient_operation)) do
+  .edit_timestamp
+    = render "renalware/shared/last_update", record: recipient_operation
+
   .document
-    = simple_form_for @recipient_operation,
-        url: patient_transplants_recipient_operation_path(@patient, @recipient_operation),
-        wrapper: "horizontal_form" do |f|
-      = render "form", f: f
+    = simple_form_for recipient_operation,
+        url: patient_transplants_recipient_operation_path(patient, recipient_operation),
+        wrapper: :horizontal_form,
+        html: { autocomplete: :off } do |f|
+      = render "form", f: f, patient: patient

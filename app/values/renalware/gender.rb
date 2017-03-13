@@ -1,6 +1,7 @@
 module Renalware
   class Gender
     include ActiveModel::Model
+    attr_reader :code
 
     DATA = {
       "NK" => "Not Known",
@@ -17,13 +18,13 @@ module Renalware
     }.freeze
 
     def self.all
-      DATA.map { |code, _| self.new(code) }
+      DATA.map { |code, _| new(code) }
     end
 
     # @section serialization
     #
     def self.load(raw_string)
-      self.new(raw_string)
+      new(raw_string)
     end
 
     def self.dump(gender)
@@ -31,7 +32,7 @@ module Renalware
     end
 
     def initialize(code)
-      @code = code
+      @code = code && ActiveSupport::StringInquirer.new(code)
     end
 
     # @section validations
@@ -40,7 +41,6 @@ module Renalware
 
     # @section attributes
     #
-    attr_reader :code
 
     def name
       DATA[@code]

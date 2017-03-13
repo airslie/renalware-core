@@ -9,5 +9,6 @@
         = simple_form_for operation,
             url: patient_transplants_donor_operation_path(patient, operation),
             html: { class: "transplant-donor-operation-form" },
+            html: { autocomplete: :off },
             wrapper: "horizontal_form" do |f|
           = render "form", f: f, patient: patient

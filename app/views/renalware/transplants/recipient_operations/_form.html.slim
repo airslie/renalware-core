@@ -1,5 +1,5 @@
 ruby:
-  back_path = patient_transplants_recipient_dashboard_path(@patient)
+  back_path = patient_transplants_recipient_dashboard_path(patient)
 
 .row.top
   .medium-6.columns
@@ -9,71 +9,84 @@ ruby:
 
 .form-content
   = render layout: "renalware/shared/fieldset",
-      locals: { legend: "Operation", name: "operation" } do
-    = f.input :performed_on, as: :date_picker
+           locals: { legend: "Operation", name: "operation" } do
+    = f.input :performed_on, as: :date_picker, wrapper: :horizontal_datepicker
     = f.input :theatre_case_start_time, as: :clock_picker, wrapper: :horizontal_clockpicker
-    = f.input :donor_kidney_removed_from_ice_at, as: :datetime_picker
-    = f.input :kidney_perfused_with_blood_at, as: :datetime_picker
-    = f.input :operation_type, input_html: { class: "small-input" }
+    = f.input :donor_kidney_removed_from_ice_at,
+              as: :datetime_picker,
+              wrapper: :horizontal_datepicker
+    = f.input :kidney_perfused_with_blood_at,
+              as: :datetime_picker,
+              wrapper: :horizontal_datepicker
+    = f.input :operation_type, wrapper: :horizontal_small
     = f.association :hospital_centre,
-        collection: Renalware::Hospitals::Centre.performing_transplant.ordered, label_method: :to_s
-    = f.input :cold_ischaemic_time_formatted, as: :string, input_html: { class: "small-input" }
-    = f.input :warm_ischaemic_time_formatted, as: :string, input_html: { class: "small-input" }
-    = f.input :notes, as: :text, input_html: { rows: 5 }
+        collection: Renalware::Hospitals::Centre.performing_transplant.ordered,
+        label_method: :to_s,
+        wrapper: :horizontal_medium
+    = f.input :cold_ischaemic_time_formatted, as: :string, wrapper: :horizontal_small
+    = f.input :warm_ischaemic_time_formatted, as: :string, wrapper: :horizontal_small
+    = f.input :notes, as: :text, input_html: { rows: 5 }, wrapper: :horizontal_large
 
   = f.simple_fields_for :document, f.object.document do |fd|
 
     = render layout: "renalware/shared/fieldset",
-        locals: { legend: "Recipient", name: "recipient" } do
+             locals: { legend: "Recipient", name: "recipient" } do
       = fd.simple_fields_for :recipient, fd.object.recipient do |fcm|
-        = fcm.input :operation_number, input_html: { class: "small-input" }
-        = fcm.input :last_dialysis_on, as: :date_picker
-        = fcm.input :cmv_status, input_html: { class: "small-input" }
+        = fcm.input :operation_number, wrapper: :horizontal_small
+        = fcm.input :last_dialysis_on, as: :date_picker, wrapper: :horizontal_datepicker
+        = fcm.input :cmv_status, wrapper: :horizontal_small
         = render_input fcm, :blood_group
 
     = render layout: "renalware/shared/fieldset",
-        locals: { legend: "Donor", name: "donor" } do
+             locals: { legend: "Donor", name: "donor" } do
       = fd.simple_fields_for :donor, fd.object.donor do |fcm|
-        = fcm.input :type, input_html: { class: "small-input" }
-        = fcm.input :ukt_donor_number, input_html: { class: "small-input" }
-        = fcm.input :ukt_notified_at, as: :datetime_picker
-        = fcm.input :gender, input_html: { class: "small-input" }
-        = fcm.input :ethnic_category
-        = fcm.input :born_on, as: :date_picker
+        = fcm.input :type, wrapper: :horizontal_small
+        = fcm.input :ukt_donor_number, wrapper: :horizontal_small
+        = fcm.input :ukt_notified_at, as: :datetime_picker, wrapper: :horizontal_datepicker
+        = fcm.input :gender, wrapper: :horizontal_small
+        = fcm.input :ethnic_category, wrapper: :horizontal_medium
+        = fcm.input :born_on, as: :date_picker, wrapper: :horizontal_datepicker
         = render_input fcm, :age
-        = fcm.input :hla
-        = fcm.input :hla_mismatch
-        = fcm.input :cmv_status, input_html: { class: "small-input" }
+        = fcm.input :hla, wrapper: :horizontal_large
+        = fcm.input :hla_mismatch, wrapper: :horizontal_large
+        = fcm.input :cmv_status, wrapper: :horizontal_small
         = render_input fcm, :blood_group
-        = fcm.input :blood_group_rhesus, input_html: { class: "small-input" }
-        = fcm.input :organ_donor_register_checked, as: :inline_radio_buttons
-        = fcm.input :kidney_side, input_html: { class: "small-input" }
-        = fcm.input :asystolic, as: :inline_radio_buttons
-        = fcm.input :kidney_weight, input_html: { class: "small-input" }
+        = fcm.input :blood_group_rhesus, wrapper: :horizontal_small
+        = fcm.input :organ_donor_register_checked,
+                    as: :inline_radio_buttons,
+                    wrapper: :horizontal_small
+        = fcm.input :kidney_side, wrapper: :horizontal_small
+        = fcm.input :asystolic, as: :inline_radio_buttons, wrapper: :horizontal_small
+        = fcm.input :kidney_weight, wrapper: :horizontal_small
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Cadaveric Donor", name: "cadaveric_donor" } do
       = fd.simple_fields_for :cadaveric_donor, fd.object.cadaveric_donor do |fcm|
-        = fcm.input :cadaveric_donor_type, input_html: { class: "small-input" }
-        = fcm.input :death_certified_at, as: :datetime_picker
-        = fcm.input :ukt_cause_of_death
-        = fcm.input :ukt_cause_of_death_other
+        = fcm.input :cadaveric_donor_type,
+                    wrapper: :horizontal_small
+        = fcm.input :death_certified_at,
+                    as: :datetime_picker,
+                    wrapper: :horizontal_datepicker
+        = fcm.input :ukt_cause_of_death, wrapper: :horizontal_medium
+        = fcm.input :ukt_cause_of_death_other, wrapper: :horizontal_large
 
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Donor Specific Antibodies", name: "donor_specific_antibodies" } do
       = fd.simple_fields_for :donor_specific_antibodies,
                              fd.object.donor_specific_antibodies do |fcm|
-        = fcm.input :tested_on, as: :date_picker
-        = fcm.input :results
-        = fcm.input :notes, as: :text, input_html: { rows: 2 }
+        = fcm.input :tested_on,
+                    as: :date_picker,
+                    wrapper: :horizontal_datepicker
+        = fcm.input :results, wrapper: :horizontal_large
+        = fcm.input :notes, as: :text, input_html: { rows: 2 }, wrapper: :horizontal_large
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "BK Virus", name: "bk_virus" } do
       = fd.simple_fields_for :bk_virus, fd.object.bk_virus do |fcm|
-        = fcm.input :tested_on, as: :date_picker
-        = fcm.input :results
-        = fcm.input :notes, as: :text, input_html: { rows: 2 }
+        = fcm.input :tested_on, as: :date_picker, wrapper: :horizontal_datepicker
+        = fcm.input :results, wrapper: :horizontal_large
+        = fcm.input :notes, as: :text, input_html: { rows: 2 }, wrapper: :horizontal_large
 
 .row
   .large-12.columns

@@ -34,9 +34,7 @@ module Renalware
       "to_be_listed_for_other_organs": "no",
       "received_previous_kidney_or_pancreas_grafts": "no"},
       "transplant": {"blood_group": {"value": "A"},
-      "sens_status": "SADF;LJ;K", "nb_of_previous_grafts": 0},
-      "nhb_consent": {"value": "no", "full_name": "JANE SUMISU",
-      "consented_on": "2017-02-21"}}', '2017-02-23 13:34:24.618171',
+      "sens_status": "SADF;LJ;K", "nb_of_previous_grafts": 0}}', '2017-02-23 13:34:24.618171',
       '2017-02-23 13:34:24.618171');
     SQL
   end
@@ -60,8 +58,7 @@ module Renalware
       INSERT INTO transplant_recipient_workups
       (patient_id, document, created_at, updated_at, created_by_id, updated_by_id)
       VALUES (1, '{"scores": {"prisma": 3, "karnofsky": 56},
-      "consent": {"value": "full", "full_name": "JANE SUMISU",
-      "consented_on": "2017-02-22"}, "hla_data": "FASDF;KJASFDAHSDFKSHFDHASOUOW",
+      "hla_data": "FASDF;KJASFDAHSDFKSHFDHASOUOW",
       "education": {"cancer": "yes", "followup": "yes", "infection": "yes",
       "procedure": "yes", "rejection": "yes", "recurrence": "yes",
       "success_rate": "yes", "waiting_list": "yes", "drugs_longterm": "yes",
@@ -73,11 +70,14 @@ module Renalware
       "dorsalis_pedis_pulse": {"left": "yes", "right": "yes"},
       "posterior_tibial_pulse": {"left": "yes", "right": "yes"}},
       "historicals": {"tb": "no", "dvt": "no", "reflux": "yes",
-      "recurrent_utis": "no", "family_diabetes": "no", "pregnancies_count": 0,
+      "recurrent_utis": "no", "family_diabetes": "no",
       "neurogenic_bladder": "no"},
-      "cervical_smear": {"result": "", "recorded_on": ""},
-      "marginal_consent": {"value": "yes", "full_name": "JANE SUMISU",
-      "consented_on": "2017-02-22"}}',
+      "obstetrics_and_gynaecology": {
+        "pregnancies_count": 0,
+        "cervical_smear": {"result": "", "recorded_on": ""}},
+      "consent": {"value": "full", "full_name": "JANE SUMISU", "consented_on": "2017-02-22"},
+      "marginal_consent": {"value": "yes", "full_name": "JANE SUMISU","consented_on": "2017-02-22"},
+      "nhb_consent": {"value": "no", "full_name": "JANE SUMISU", "consented_on": "2017-02-21"}}',
       '2017-02-23 13:36:44.271472', '2017-02-23 13:36:44.271472', 1,1);
     SQL
   end

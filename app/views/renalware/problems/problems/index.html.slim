@@ -14,8 +14,8 @@
               span= " or "
               = link_to "cancel", patient_problems_path(@patient)
 
-  b Current Problems
+  h2 Current
   = render "renalware/problems/problems/current_table", problems: current_problems
 
-  b Archived Problems
+  h2 Archived
   = render "renalware/problems/problems/archived_table", problems: archived_problems
