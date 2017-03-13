@@ -4,7 +4,11 @@ tr
     = pipe_separator
     = link_to "Edit", edit_patient_clinic_visit_path(@patient, clinic_visit)
     = pipe_separator
-    = link_to "Delete", patient_clinic_visit_path(@patient, clinic_visit), method: :delete
+    - if policy(clinic_visit).destroy?
+      = link_to "Delete",
+                patient_clinic_visit_path(@patient, clinic_visit),
+                method: :delete,
+                data: { confirm: I18n.t("prompts.confirm_delete") }
   td.date-time= l clinic_visit.date
   td.clinic-type= clinic_visit.clinic
   td.bmi= clinic_visit.bmi
