@@ -1609,7 +1609,8 @@ CREATE TABLE medication_prescriptions (
     updated_at timestamp without time zone NOT NULL,
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
-    administer_on_hd boolean DEFAULT false NOT NULL
+    administer_on_hd boolean DEFAULT false NOT NULL,
+    last_delivery_date date
 );
 
 
@@ -8788,6 +8789,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170227154311'),
 ('20170228131923'),
 ('20170306093012'),
+('20170313154020'),
 ('20170314114614'),
 ('20170314115111'),
 ('20170314120712'),

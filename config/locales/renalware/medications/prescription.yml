@@ -11,10 +11,11 @@ en:
     attributes:
       renalware/medications/prescription:
         medication_route: Route
-        prescribed_on: "Prescribed on"
-        terminated_on: "Terminated on"
+        prescribed_on: Prescribed on
+        terminated_on: Terminated on
         frequency: "Frequency & Duration"
-        administer_on_hd: "Give on HD"
+        administer_on_hd: Give on HD
+        last_delivery_date: Last delivery date
     errors:
       models:
         renalware/medications/prescription:
