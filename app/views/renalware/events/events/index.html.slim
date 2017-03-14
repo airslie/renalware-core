@@ -1,7 +1,8 @@
 = content_for(:actions) do
   = link_to t("new_record.link_title"),
-            new_patient_event_path(@patient),
+            new_patient_event_path(patient),
             class: "button"
 
 = within_patient_layout(title: "Events") do
-  = render "table", events: @events
+  = render "table", events: events
+  = paginate(events)

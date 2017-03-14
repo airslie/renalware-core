@@ -1,0 +1,17 @@
+// Insert inputs (if any) specific to the EventType the user has selected.
+// For example if the user selects a 'Renal Biopsy' event type in the 'new event' form
+// then we should insert some extra fields to capture biopsy-specific data.
+// We do this by rendering the event's partial the name of which is specified by the event class
+// in #to_partial_path.
+// Note in order to get form error validations to wire up nicely, we need a SimpleFormBuilder
+// or more correctly we need to be inside a simple_form_for block. Note the quotes around the
+// simple_form_for code here ensure the content is not rendered, but the erb tags
+// still means the ruby is interpreted and the block and its argument f are available!
+'<%= simple_form_for(event, url: new_patient_event_path(patient), as: :events_event, wrapper: "horizontal_form") do |f| %>'
+  <%=
+    partial_name = "#{event.to_partial_path}_inputs"
+    refresh("#event-type-specific-inputs",
+              partial: partial_name,
+              locals: { f: f, event: event })
+  %>
+'<% end %>'

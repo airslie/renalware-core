@@ -188,6 +188,11 @@ Rails.application.routes.draw do
       # Events
       resources :events, only: [:new, :create, :index], controller: "events/events"
 
+      # Enable new event by slug eg patient_new_specific_event(slug: "transplant_biopsies")
+      get "events/:slug/new",
+          to: "events/events#new",
+          as: :new_specific_event
+
       namespace :hd do
         resource :mdm, only: :show, controller: "mdm"
         resource :dashboard, only: :show

@@ -22,6 +22,16 @@ table {
     width: auto;
   }
 
+  .quick-preview {
+    p {
+      padding: 0;
+    }
+
+    dt {
+      color: $monsoon;
+    }
+  }
+
   tr th,
   tr td {
     border-bottom: 1px dotted $disabled-colour;

@@ -3,9 +3,8 @@ module Document
     extend ActiveSupport::Concern
 
     class_methods do
-      def has_document(options)
-        class_name = options[:class_name]
-        document_class = self.const_get(class_name)
+      def has_document(class_name: "Document")
+        document_class = const_get(class_name)
 
         define_method("document_class".to_sym) do
           document_class

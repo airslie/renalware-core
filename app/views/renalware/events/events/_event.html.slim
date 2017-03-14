@@ -9,4 +9,5 @@ tr
   td
   td(colspan=5)
     .quick-preview
-      = simple_format event.notes
+      = render partial: "renalware/events/events/#{event.to_partial_path}",
+               locals: { event: event }

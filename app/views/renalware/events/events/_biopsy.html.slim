@@ -1,0 +1,8 @@
+- document = event.document
+= simple_format event.notes
+
+dl.dl-horizontal
+  dt= document.class.human_attribute_name(:result1)
+  dd= document.result1&.text
+  dt= document.class.human_attribute_name(:result2)
+  dd= document.result2&.text

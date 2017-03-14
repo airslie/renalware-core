@@ -1,31 +1,32 @@
-"name"
-"Access clinic"
-"Anaemia clinic"
-"CAPD clinic"
-"CAPD Nurses Clinic"
-"Counsellor Meeting"
-"Outreach Clinic"
-"Dietitians Clinic"
-"Email"
-"General Nephrology Clinic"
-"Haemodialysis Clinic"
-"Home Haemodialysis Clinic"
-"Iron Clinic"
-"Low Clearance Clinic"
-"MDM--Diabetes"
-"MDM--Liver Renal Virology"
-"MDM--Radiology"
-"MDM--Renal Biopsy"
-"MDM--Renal Sickle"
-"Meeting with family"
-"Physiotherapist"
-"Plasma Exchange"
-"Research visit"
-"Result Review"
-"Social Worker"
-"Telephone call"
-"Transplant Clinic"
-"Transplant Coordination"
-"Walk-in Clinic"
-"Ward Round"
-"Woolwich Outreach Clinic"
+"name","event_class_name","slug"
+"Access clinic",,
+"Anaemia clinic",,
+"CAPD clinic",,
+"CAPD Nurses Clinic",,
+"Counsellor Meeting",,
+"Outreach Clinic",,
+"Dietitians Clinic",,
+"Email",
+"General Nephrology Clinic",,
+"Haemodialysis Clinic",,
+"Home Haemodialysis Clinic",,
+"Iron Clinic",
+"Low Clearance Clinic",,
+"MDM--Diabetes",,
+"MDM--Liver Renal Virology",,
+"MDM--Radiology",,
+"Renal Biopsy Transplant","Renalware::Events::Biopsy","transplant_biopsies"
+"Renal Biopsy Native","Renalware::Events::Biopsy","native_biopsies"
+"MDM--Renal Sickle",,
+"Meeting with family",,
+"Physiotherapist",,
+"Plasma Exchange",,
+"Research visit",,
+"Result Review",,
+"Social Worker",,
+"Telephone call",,
+"Transplant Clinic",,
+"Transplant Coordination",,
+"Walk-in Clinic",,
+"Ward Round",,
+"Woolwich Outreach Clinic",,

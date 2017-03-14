@@ -3,4 +3,5 @@ en:
     clinical:
       swabs:
         list:
-          legend: Swabs
+          title: Swabs
+          add: Add

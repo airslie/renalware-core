@@ -8,4 +8,4 @@ table
       th.col-width-date-time= t(".date_time")
       th= t(".created_by")
   tbody
-    = render events
+    = render partial: "renalware/events/events/event", collection: events

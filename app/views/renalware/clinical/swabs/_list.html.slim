@@ -1,7 +1,9 @@
 article
   header
-    h2
-      legend= t(".legend")
+    h2= t(".title")
+    = link_to t(".add"),
+              patient_new_specific_event_path(@patient, slug: "native_biopsies"),
+              class: "button right"
   table.natural-width
     thead
       tr

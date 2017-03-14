@@ -3,7 +3,7 @@ module Renalware
 
     rabbit = Patient.find_by(family_name: "RABBIT", given_name: "Roger")
 
-    Events::Event.find_or_create_by!(
+    Events::Simple.find_or_create_by!(
       patient_id: rabbit.to_param,
       event_type_id: 19,
       description: "meeting with family in clinic",
@@ -13,7 +13,7 @@ module Renalware
       updated_by_id: Renalware::User.first.id
     )
 
-    Events::Event.find_or_create_by!(
+    Events::Simple.find_or_create_by!(
       patient_id: rabbit.to_param,
       event_type_id: 25,
       description: "call regarding meds",
@@ -23,7 +23,7 @@ module Renalware
       updated_by_id: Renalware::User.second.id
     )
 
-    Events::Event.find_or_create_by!(
+    Events::Simple.find_or_create_by!(
       patient_id: rabbit.to_param,
       event_type_id: 8,
       description: "email re next clinic visit",
