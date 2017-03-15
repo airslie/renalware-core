@@ -1,12 +1,11 @@
 module Renalware
-  module Patients
+  module PD
     class MDMPatientsQuery
       include ModalityScopes
-      attr_reader :modality_names, :q, :relation
+      MODALITY_NAMES = %w(PD APD CAPD).freeze
+      attr_reader :q, :relation
 
-      # modality_names: eg "HD" or ["APD", "CAPD", "PD"]
-      def initialize(relation: Patient.all, q:, modality_names:)
-        @modality_names = modality_names
+      def initialize(relation: PD::Patient.all, q:)
         @q = q
         @relation = relation
       end
@@ -20,17 +19,16 @@ module Renalware
           relation
             .extending(ModalityScopes)
             .extending(Scopes)
+            .with_current_modality_matching(MODALITY_NAMES)
             .with_current_key_pathology
-            .with_current_modality_matching(modality_names)
             .search(q)
-          # .order("pathology_current_key_observations.hgb_result asc")
         end
       end
 
       module Scopes
 
         def with_current_key_pathology
-          includes(:current_key_observation_set) # .joins(:current_key_observation)
+          includes(:current_key_observation_set) # . joins(:current_key_observation)
         end
       end
     end

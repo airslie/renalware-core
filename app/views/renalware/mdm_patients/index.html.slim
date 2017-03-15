@@ -9,7 +9,7 @@
     thead
       tr
         th.col-width-tiny
-        th.col-width-medium= t(".name")
+        th.col-width-medium= sort_link(presenter.q, :family_name, t(".name"))
         th.col-width-nhs-no= t(".nhs_no")
         th.col-width-reference-no= t(".hosp_no")
         th.col-width-tiny= t(".sex")
@@ -20,12 +20,12 @@
         th.col-width-tiny= t(".ure")
         th.col-width-date= t(".ure_date")
         th.col-width-tiny= t(".cre")
-        th.col-width-date= t(".cre_date")
+        th.col-width-date= sort_link(presenter.q, :patient_current_key_observation_set_cre_date, t(".cre_date"))
         th.col-width-tiny= t(".mdrd")
         th.col-width-date= t(".esrf")
 
     tbody
       - presenter.patients.each do |patient|
-        = render "patient", patient: patient, view_proc: presenter.view_proc
+        = render "patient", patient: patient, view_proc: presenter.view_proc, q: presenter.q
 
   = paginate presenter.patients

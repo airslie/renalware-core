@@ -1,13 +1,25 @@
 module Renalware
   module Transplants
     class MDMPatientsController < Renalware::MDMPatientsController
-      MODALITY_NAMES = ["Transplant", "Live Donor", "Potential LD"].freeze
 
       def index
-        render_index(patient_relation: Transplants::Patient.all,
-                     modalities: MODALITY_NAMES,
+        render_index(query: query,
                      page_title: t(".page_title"),
                      view_proc: ->(patient) { patient_transplants_mdm_path(patient) })
+      end
+
+      private
+
+      def query
+        @query ||= MDMPatientsQuery.new(q: q, named_filter: named_filter)
+      end
+
+      def named_filter
+        params[:named_filter]
+      end
+
+      def q
+        params[:q]
       end
     end
   end
