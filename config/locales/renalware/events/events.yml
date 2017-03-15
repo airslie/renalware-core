@@ -12,18 +12,4 @@ en:
     attributes:
       renalware/events/event:
         date_time: Date time
-  activemodel:
-    attributes:
-      renalware/events/biopsy/document:
-        result1: Result 1
-        result2: Result 2
-  enumerize:
-    renalware/events/biopsy/document:
-      result1:
-        a: Option A
-        b: Option B
-        c: Option C
-      result2:
-        x: Option X
-        y: Option Y
-        z: Option Z
+        notes: Notes

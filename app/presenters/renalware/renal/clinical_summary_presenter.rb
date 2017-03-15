@@ -29,7 +29,7 @@ module Renalware
       def current_events
         @current_events ||= Events::Event.includes([:created_by, :event_type])
                                          .for_patient(@patient)
-                                         .order(created_at: :desc)
+                                         .ordered
       end
 
       def letters

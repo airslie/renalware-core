@@ -40,9 +40,11 @@ module Renalware
 
       def events
         Event.for_patient(patient)
+             .includes(:event_type)
+             .includes(:created_by)
              .page(params[:page])
              .per(params[:per_page])
-             .order(date_time: :desc)
+             .ordered
       end
 
       def disable_selection_of_event_type?

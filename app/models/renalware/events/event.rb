@@ -19,6 +19,8 @@ module Renalware
       validates :patient, :date_time, presence: true
       validates :date_time, timeliness: { type: :datetime }
 
+      scope :ordered, -> { order(date_time: :desc, updated_at: :desc) }
+
       # By default an event has no embedded document but a subclass may
       # implement one using has_document
       def document
@@ -27,6 +29,10 @@ module Renalware
 
       def to_partial_path
         self.class.name.demodulize.underscore
+      end
+
+      def to_s
+        description
       end
     end
   end

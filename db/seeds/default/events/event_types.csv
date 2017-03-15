@@ -4,7 +4,6 @@
 "CAPD clinic",,
 "CAPD Nurses Clinic",,
 "Counsellor Meeting",,
-"Outreach Clinic",,
 "Dietitians Clinic",,
 "Email",
 "General Nephrology Clinic",,
@@ -15,15 +14,17 @@
 "MDM--Diabetes",,
 "MDM--Liver Renal Virology",,
 "MDM--Radiology",,
-"Renal Biopsy Transplant","Renalware::Events::Biopsy","transplant_biopsies"
-"Renal Biopsy Native","Renalware::Events::Biopsy","native_biopsies"
 "MDM--Renal Sickle",,
 "Meeting with family",,
+"Outreach Clinic",,
 "Physiotherapist",,
 "Plasma Exchange",,
+"Renal Biopsy Native","Renalware::Events::Biopsy","native_biopsies"
+"Renal Biopsy Transplant","Renalware::Events::Biopsy","transplant_biopsies"
 "Research visit",,
 "Result Review",,
 "Social Worker",,
+"Swab","Renalware::Events::Swab","swabs"
 "Telephone call",,
 "Transplant Clinic",,
 "Transplant Coordination",,

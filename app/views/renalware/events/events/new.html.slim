@@ -4,42 +4,14 @@
 = within_patient_layout(title: title,
                         breadcrumbs: breadcrumb_for("Events", patient_events_path)) do
 
-      = simple_form_for event,
-          url: patient_events_path(patient, event),
-          as: :events_event,
-          html: { autocomplete: "off" },
-          wrapper: "horizontal_form" do |f|
+  = simple_form_for event,
+      url: patient_events_path(patient, event),
+      as: :events_event,
+      html: { autocomplete: "off" },
+      wrapper: "horizontal_form" do |f|
 
-        = f.input :date_time,
-                  as: :datetime_picker,
-                  wrapper: :horizontal_datepicker
-
-        = f.input :disable_selection_of_event_type, as: :hidden
-
-        - if event.disable_selection_of_event_type
-          = f.input :event_type_id, as: :hidden
-        - else
-          = f.input :event_type_id,
-                    collection: event_types,
-                    input_html: { id: "event-type-dropdown" },
-                    wrapper: :horizontal_medium
-
-        = f.input :description, wrapper: :horizontal_medium
-
-        = snippets_modal_and_link_to_open_it( \
-            target_input_for_seleted_snippet: "#events_event_notes" \
-          )
-        = f.input :notes,
-                  as: :text,
-                  input_html: { rows: 5 },
-                  wrapper: :horizontal_medium
-
-        / The contents of this div will get replaced if a user selects an alternative
-        / event type in the dropdown above. See events.js.
-        #event-type-specific-inputs
-          = render partial: "#{event.to_partial_path}_inputs",
-                   locals: { event: event, f: f }
-
-        = submit_tag "Save", class: "button"
-        span= " or "
-        = link_to "Cancel", patient_events_path(patient)
+    = render "form",
+             event: event,
+             patient: patient,
+             event_types: event_types,
+             f: f

@@ -1,0 +1,30 @@
+en:
+  renalware:
+    events:
+      swabs:
+        list:
+          title: Swabs
+          add: Add
+          date_time: Date taken
+          type: Type
+          result: Result
+          location: "Site"
+          notes: Notes
+  activerecord:
+    attributes:
+      renalware/events/swab:
+        date_time: Date taken
+  activemodel:
+    attributes:
+      renalware/events/swab/document:
+        type: Swab type
+        result: Swab result
+        location: Site
+  enumerize:
+    renalware/events/swab/document:
+      result:
+        pos: Positive
+        neg: Negative
+      type:
+        mrsa: MRSA
+        mssa: MSSA

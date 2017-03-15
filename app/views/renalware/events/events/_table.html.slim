@@ -6,6 +6,6 @@ table
       th.col-width-medium=t(".type")
       th=t(".description")
       th.col-width-date-time= t(".date_time")
-      th= t(".created_by")
+      th.col-width-medium= t(".created_by")
   tbody
     = render partial: "renalware/events/events/event", collection: events

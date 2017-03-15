@@ -7,7 +7,7 @@ module Renalware
         authorize patient
         render locals: {
           patient: patient,
-          profile: Clinical::ProfilePresenter.new(patient)
+          profile: Clinical::ProfilePresenter.new(patient: patient, params: params)
         }
       end
     end

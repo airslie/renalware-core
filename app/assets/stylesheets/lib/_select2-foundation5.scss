@@ -14,11 +14,12 @@
 span.select2.select2-container.select2-container--default {
     width: 100%!important;
 }
+
 .select2-container .select2-selection--single {
     box-sizing: border-box;
     cursor: pointer;
     display: block;
-    height: 1.9rem;
+    height: $select2-input-height;
     user-select: none;
     -webkit-user-select: none;
 }
@@ -151,7 +152,7 @@ span.select2.select2-container.select2-container--default {
 }
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     color: rgba(0, 0, 0, .75);
-    line-height: 1.9rem;
+    line-height: $select2-input-height;
 }
 .select2-container--default .select2-selection--single .select2-selection__clear {
     cursor: pointer;
@@ -340,7 +341,7 @@ span.select2.select2-container.select2-container--default {
 }
 .select2-container--classic .select2-selection--single .select2-selection__rendered {
     color: rgba(0, 0, 0, .75);
-    line-height: 1.9rem;
+    line-height: $select2-input-height;
 }
 .select2-container--classic .select2-selection--single .select2-selection__clear {
     cursor: pointer;
