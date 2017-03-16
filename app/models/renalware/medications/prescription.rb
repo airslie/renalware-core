@@ -64,8 +64,8 @@ module Renalware
         where("terminated_on >= ? and terminated_on <= ?", from, to)
       }
       scope :to_be_administered_on_hd, -> { current.where(administer_on_hd: true) }
-      scope :having_drug_of_type, ->(drug_type_name) {
-        where("lower(drug_types.name) = lower(?)", drug_type_name)
+      scope :having_drug_of_type, lambda { |drug_type_name|
+        where("lower(drug_types.code) = lower(?)", drug_type_name)
       }
 
       # This is a Ransack-compatible search predicate

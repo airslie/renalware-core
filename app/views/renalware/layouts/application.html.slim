@@ -15,8 +15,12 @@ html lang="en"
     #modals-wrapper
     .page
       .sticky-top
+        - if content_for(:top_navigation)
+          = yield :top_navigation
+        - else
           = render "renalware/navigation/main"
-          = yield(:header)
+        = yield(:header)
+
       = render "renalware/shared/flash_messages"
 
       main

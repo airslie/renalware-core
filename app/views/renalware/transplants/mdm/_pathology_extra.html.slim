@@ -1,0 +1,15 @@
+  ruby:
+    # Just a reminder that we set up a Pathology presenter directly here as we want to avoid
+    # cross-module references at levels deeper than the view (ie we are not doing this in our
+    # Transplants::MDMPresenter).
+    # The presenter in this case is a bit unconventional as it returns a reformatted
+    # array of OpenStructs which are easier to consume that any other format we currently have.
+    presenter = Renalware::Pathology::ObservationsForCodesPresenter
+                  .new(patient: mdm.patient, codes: %w(HBA FER PTH))
+
+  article
+    header
+      h2 Special Pathology
+
+    = render "renalware/pathology/observations_definition_list",
+             observations: presenter.observations

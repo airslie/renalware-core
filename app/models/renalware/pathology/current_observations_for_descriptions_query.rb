@@ -17,6 +17,18 @@ module Renalware
       end
 
       # rubocop:disable Metrics/MethodLength
+      # If no observations found, returns nil values for all descriptions, e.g.
+      #   <ActiveRecord::Relation [
+      #     #<Renalware::Pathology::Observation id: nil, ...(all nil)>,
+      #     #<Renalware::Pathology::Observation id: nil, ...(all nil)>,
+      #     ...
+      #   ]
+      # or if results found:
+      # #<ActiveRecord::Relation [
+      #   #<Renalware::Pathology::Observation id: 199, result: "48", observed_at: "2016-03-15..>,
+      #   #<Renalware::Pathology::Observation id: 201, result: "71", observed_at: "2016-03-15..>,
+      #   ...
+      # ]
       def call
         # Note:
         #

@@ -1,8 +1,8 @@
 tr
   td= link_to t(".view"), view_proc.call(patient)
   td.full-name= patient.to_s(format: :default)
-  td= patient.nhs_number
-  td= patient.hospital_identifier
+  td.nowrap= patient.nhs_number
+  td.nowrap= patient.hospital_identifier
   td= patient.sex.code
   td= patient.age
   td= patient.modality_description&.name

@@ -1,0 +1,6 @@
+dl.dl-horizontal
+  - observations.each do |obs|
+    dt= obs.description
+    dd.obs-result
+      span= obs&.result || "-"
+      span= l(obs&.observed_at&.to_date)

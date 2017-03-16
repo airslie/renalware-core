@@ -13,6 +13,9 @@ en:
     link_title: Edit
     page_title: Edit
 
+  links:
+    view_all: View All
+
   modal:
     close: Close
 

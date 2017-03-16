@@ -1,0 +1,37 @@
+article
+  header
+    h1 Prescriptions
+    .supplemental
+      span= "#{mdm.current_prescriptions.length} of #{mdm.patient.summary.prescriptions_count}"
+      = link_to t("links.view_all"),
+                patient_prescriptions_path(mdm.patient),
+                class: "button secondary"
+
+      = link_to "Toggle visibility",
+                "#prescriptions",
+                class: "button secondary",
+                data: { behaviour: "css-toggler" }
+
+  #prescriptions.expandable
+
+    ul.tab-strip(data-tab)
+      li.tab-title.active= link_to "Current", "#current"
+      li.tab-title= link_to "Current Immunosuppressant", "#current_immunosuppressant"
+      li.tab-title= link_to "Historical", "#historical"
+      li.tab-title= link_to "Historical Immunosuppressant", "#historical_immunosuppressant"
+
+    .tabs-content
+      #current.content.active
+        = render "renalware/mdm/prescriptions/table",
+                 prescriptions: mdm.current_prescriptions
+      #current_immunosuppressant.content
+        = render "renalware/mdm/prescriptions/table",
+                 prescriptions: mdm.current_immunosuppressant_prescriptions
+      #historical.content
+        = render "renalware/mdm/prescriptions/table",
+                 prescriptions: mdm.historical_prescriptions,
+                 show_terminated_on: true
+      #historical_immunosuppressant.content
+        = render "renalware/mdm/prescriptions/table",
+                 prescriptions: mdm.historical_immunosuppressant_prescriptions,
+                 show_terminated_on: true

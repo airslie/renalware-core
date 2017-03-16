@@ -1,4 +1,8 @@
 .columns.medium-12.large-6
-
+  = render "renalware/transplants/recipient_operations/mdm_list",
+           recipient_operations: mdm.recipient_operations,
+           patient: mdm.patient
 .columns.medium-12.large-6
   = render "prescriptions", mdm: mdm
+.columns.medium-12.large-6
+  = render "problems", mdm: mdm

@@ -1,0 +1,17 @@
+- relation = Renalware::Events::Biopsy.for_patient(mdm.patient).includes(:created_by)
+- biopsies = relation.limit(6).ordered
+- total_biopsies = relation.count
+
+article.events
+  header
+    h2 Biopsies
+    .supplemental
+      span= "#{biopsies.length} of #{total_biopsies}"
+      = link_to "View All",
+                patient_events_path(mdm.patient),
+                class: "button secondary"
+
+  = render "renalware/events/events/table",
+           events: biopsies,
+           exclude_type_column: true,
+           toggle_prefix: "biopsy"

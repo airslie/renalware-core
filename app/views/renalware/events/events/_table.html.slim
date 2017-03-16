@@ -1,11 +1,17 @@
+- toggle_prefix ||= "event"
+
 table
   thead
     tr
       th.col-width-tiny
       th.col-width-date=t(".created_at")
-      th.col-width-medium=t(".type")
-      th.col-width-medium=t(".description")
-      th.col-width-date-time= t(".date_time")
-      th.col-width-medium= t(".created_by")
+      - unless local_assigns.fetch(:exclude_type_column, false)
+        th.col-width-medium= t(".type")
+      th.col-width-medium= t(".description")
+      th.created_at.col-width-date-time= t(".date_time")
+      th.created_by.col-width-medium= t(".created_by")
   tbody
-    = render partial: "renalware/events/events/event", collection: events
+    = render partial: "renalware/events/events/event",
+             collection: events,
+             locals: { exclude_type_column: local_assigns[:exclude_type_column],
+                       toggle_prefix: toggle_prefix }

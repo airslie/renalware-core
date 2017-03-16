@@ -3,3 +3,48 @@
     vertical-align: top;
   }
 }
+
+.mdm-page .embedded-scroll {
+  margin-bottom: 10px;
+
+  article {
+    margin-bottom: 0;
+  }
+}
+
+.mdm-page .obs-result {
+  :first-child {
+    font-weight: bold;
+    min-width: 2.75rem;
+    display: inline-block;
+    margin-right: .5rem;
+    white-space: nowrap;
+  }
+
+  :last-child {
+    white-space: nowrap;
+  }
+}
+
+.mdm-page {
+  article {
+    &.events {
+      .created_at,
+      .created_by {
+
+      }
+    }
+  }
+
+  .expandable {
+    clear: both;
+    height: 0;
+    opacity: 0;
+
+    &.expanded {
+      height: auto;
+      opacity: 1;
+      transition: all .3s ease .15s;
+    }
+  }
+}

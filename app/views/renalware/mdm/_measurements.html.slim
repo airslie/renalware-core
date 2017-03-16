@@ -1,0 +1,19 @@
+article
+  header
+    h2 Recent Measurements
+
+  table.measurements.auto-layout
+    thead
+      tr
+        th.col-width-date Date
+        th.col-width-tiny BMI
+        th.col-width-tiny BP
+        th Weight (kg)
+
+    tbody
+      -mdm.clinic_visits_having_measurements.each do |clinic_visit|
+        tr
+          td.col-width-date= l(clinic_visit.date)
+          td.bmi= clinic_visit.bmi
+          td.bp= clinic_visit.bp
+          td.weight= clinic_visit.weight

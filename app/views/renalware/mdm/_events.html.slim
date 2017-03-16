@@ -1,0 +1,10 @@
+article.events
+  header
+    h2 Events
+    .supplemental
+      span= "#{events.length} of #{patient.summary.events_count}"
+      = link_to "View All",
+                  patient_events_path(patient),
+                  class: "button secondary"
+
+  = render "renalware/events/events/table", events: events

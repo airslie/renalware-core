@@ -1,0 +1,28 @@
+table.mdm.prescriptions
+  thead
+    tr
+      th.col-width-medium= t(".drug_name")
+      th.col-width-small= t(".drug_type")
+      th.col-width-small= t(".dose")
+      th.col-width-tiny= t(".frequency")
+      th.col-width-tiny= t(".route")
+      - if local_assigns[:show_administer_on_hd]
+        th.col-width-small= t(".administer_on_hd")
+      th.col-width-tiny=t(".provider")
+      th.col-width-date= t(".started_on")
+      - if local_assigns[:show_terminated_on]
+        th.col-width-date= t(".terminated_on")
+  tbody
+    - prescriptions.each do |prescription|
+      tr class="drug-#{drug_types_colour_tag(prescription.drug_types)}"
+        td= prescription.drug.name
+        td= prescription.drug_type_names
+        td= prescription.dose
+        td= prescription.frequency
+        td= prescription.route_code
+        - if local_assigns[:show_administer_on_hd]
+          td= prescription.administer_on_hd?
+        td= prescription.provider
+        td= I18n.l prescription.prescribed_on
+        - if local_assigns[:show_terminated_on]
+          td= l(prescription.terminated_on)

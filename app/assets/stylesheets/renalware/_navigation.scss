@@ -90,6 +90,7 @@ dd.patient-name {
         border-radius: 3px;
         padding: 0.2rem 0.5rem;
         text-decoration: underline;
+        color: $nhs-blue;
       }
 
       span {
@@ -107,7 +108,8 @@ dd.patient-name {
 .patient-side-nav li > a:hover:first-child:not(.button) {
   background-color: $link-colour;
   color: $white;
-  margin-right: 0.5rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .patient-side-nav li.active > a,
@@ -129,6 +131,23 @@ dd.patient-name {
 
 .patient-side-nav li.heading {
   color: $dark-grey;
+}
+
+.mdm-top-bar {
+  height: 2.3rem;
+
+  ul li.name {
+    height: 2.2rem;
+    padding-left: 0.5rem;
+    padding-top: 0.4rem;
+    color: $white;
+    font-size: 1rem;
+
+    a {
+      color: $white;
+      padding-left: 0.5rem;
+    }
+  }
 }
 
 .top-bar-section .dropdown li.info {

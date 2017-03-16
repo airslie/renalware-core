@@ -1,23 +1,26 @@
 .tab-strip {
-  float: left;
   list-style-type: none;
   margin: 0 0 2px 0;
   padding: 0;
 
   li {
-    background-color: $gainsboro;
+    background-color: $white;
     border-radius: 4px 5px 0 0;
     display: inline;
     padding: 4px 20px 6px 15px;
+
+    a {
+      outline-style: none;
+    }
 
     .fa {
       margin-right: 7px;
     }
 
     &.active {
-      background-color: $white;
+      background-color: $smoke;
       border: solid 1px $table-border-colour;
-      border-bottom: solid 1px $white;
+      border-bottom: solid 1px $smoke;
     }
   }
 }

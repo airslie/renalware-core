@@ -3,7 +3,7 @@ require "hash_collection"
 
 module Renalware
   module Pathology
-    # Reponsible for building the view model for recent observation results.
+    # Responsible for building the view model for recent observation results.
     #
     class RecentObservationResults::Presenter < ResultsPresenter
       # @return [Array] see example below for composition of array

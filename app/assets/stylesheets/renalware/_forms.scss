@@ -120,8 +120,9 @@ article {
       float: left;
       font-size: 1.2rem;
       font-weight: bold;
-      margin: 0 1rem 0 0;
+      margin: 0 .5rem 0 0;
       padding: 0;
+      line-height: 1.8rem;
 
       a {
         font-weight: bold;
@@ -130,11 +131,12 @@ article {
 
     .supplemental {
       display: inline-block;
-      float: left;
+      // float: left;
 
       span {
-        font-size: 1.2rem;
-        line-height: 1.66rem;
+        font-size: 1.1rem;
+        line-height: 1.78rem;
+        margin: 0 .5rem 0 0;
         color: $mid-grey;
       }
 

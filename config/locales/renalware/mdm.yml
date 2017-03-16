@@ -10,7 +10,7 @@ en:
         sex: Sex
         age: Age
         dob: Date of Birth
-        modality: Mod
+        modality: Modality
         esrf: ESRF
         hgb: HGB
         hgb_date: HGB Date
@@ -20,29 +20,24 @@ en:
         cre_date: CRE Date
         mdrd: MDRD
     mdm:
+      problems:
+        view_all: View All
       pathology:
         title: Pathology
         view: View
       prescriptions:
         title: Prescriptions
-        view: View
-        drug_name: Drug
-        drug_type: Type
-        dose: Dose
-        frequency: Freq
-        route: Route
-        administer_on_hd: Give on HD
-        terminated_on: Term on
-      esa_prescriptions:
-        title: EPO History
-        view: View
-        drug_name: Drug
-        drug_type: Type
-        dose: Dose
-        frequency: Freq
-        route: Route
-        administer_on_hd: Give on HD
-        terminated_on: Term on
+        view_all: View All
+        table:
+          drug_name: Drug
+          drug_type: Type
+          dose: Dose
+          frequency: Freq
+          route: Route
+          provider: Provider
+          administer_on_hd: Give on HD
+          terminated_on: Term on
+          started_on: Started on
       letters:
         title: Letters
-        view: View all
+        view_all: View All

@@ -1,10 +1,9 @@
 - named_filter_param = params[:named_filter]
-/ TODO: remove .snippets class - there for now to pick up tabs styling
-.snippets
-  ul.tabs
-    li(class=("active" unless named_filter_param.present?))
-       = link_to t(".filter.all"), transplants_mdm_patients_path
 
+.row
+  dl.sub-nav
+    dd(class=("active" unless named_filter_param.present?))
+       = link_to t(".filter.all"), transplants_mdm_patients_path
     - %i(recent on_worryboard).each do |filter|
-      li(class=("active" if named_filter_param == filter.to_s))
+      dd(class=("active" if named_filter_param == filter.to_s))
         = link_to t(".filter.#{filter}"), transplants_filtered_mdm_patients_path(named_filter: filter)
