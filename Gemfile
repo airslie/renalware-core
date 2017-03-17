@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-ruby "2.3.3"
+ruby "2.4.0"
 
 gem "active_type", "~> 0.6.1"
 gem "activemodel-associations"
@@ -94,7 +94,7 @@ group :test do
   gem "codeclimate-test-reporter", require: false
   gem "rails-controller-testing"
   gem "simplecov", "~> 0.13.0", require: false
-  gem "webmock", "~> 1.20.4"
+  gem "webmock"
   gem "wisper-rspec", require: false
 end
 

@@ -472,9 +472,10 @@ GEM
       activemodel (>= 5.0)
       debug_inspector
       railties (>= 5.0)
-    webmock (1.20.4)
+    webmock (2.3.2)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
+      hashdiff
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -571,7 +572,7 @@ DEPENDENCIES
   validates_timeliness
   virtus
   web-console
-  webmock (~> 1.20.4)
+  webmock
   whenever
   wicked_pdf (~> 1.0.6)
   wisper
@@ -580,7 +581,7 @@ DEPENDENCIES
   wkhtmltopdf-heroku (~> 2.12.3)
 
 RUBY VERSION
-   ruby 2.3.3p222
+   ruby 2.4.0p0
 
 BUNDLED WITH
-   1.14.3
+   1.14.6
