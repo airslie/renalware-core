@@ -6,7 +6,7 @@ module Renalware
     before_action :load_patient
 
     def show
-      clinical_summary = Renal::ClinicalSummaryPresenter.new(@patient)
+      clinical_summary = Renal::ClinicalSummaryPresenter.new(patient)
       render :show, locals: { clinical_summary: clinical_summary }
     end
   end
