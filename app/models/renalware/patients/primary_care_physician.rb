@@ -17,7 +17,6 @@ module Renalware
       accepts_nested_attributes_for :address, reject_if: Address.reject_if_blank
 
       validates_with PrimaryCarePhysicians::AddressValidator
-      validates_with PrimaryCarePhysicians::EmailValidator
       validates :email, email: true, allow_blank: true
       validates_uniqueness_of :code
       validates_presence_of :practitioner_type

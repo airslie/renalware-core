@@ -6504,6 +6504,13 @@ CREATE INDEX index_patient_bookmarks_on_patient_id ON patient_bookmarks USING bt
 
 
 --
+-- Name: index_patient_practices_on_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patient_practices_on_code ON patient_practices USING btree (code);
+
+
+--
 -- Name: index_patient_practices_primary_care_physicians_on_practice_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8744,6 +8751,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20161216155218'),
 ('20170103161015'),
 ('20170106161800'),
+('20170106164639'),
 ('20170110161149'),
 ('20170120135631'),
 ('20170124153334'),
@@ -8763,4 +8771,4 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170228131923'),
 ('20170306093012');
 
-
+INSERT INTO schema_migrations (version) VALUES ('20170106164639');
