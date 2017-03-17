@@ -1,0 +1,22 @@
+article
+  header
+    h2= t(".title")
+    = link_to t(".add"),
+              new_patient_swab_path(@patient),
+              class: "button right"
+  table
+    thead
+      tr
+        th.col-width-date-time= t(".date_time")
+        th.col-width-tiny= t(".type")
+        th.col-width-tiny= t(".result")
+        th.col-width-tiny= t(".location")
+        th= t(".notes")
+    tbody
+      - swabs.each do |swab|
+        tr
+          td= l(swab.date_time)
+          td= swab.document.type&.text
+          td= swab.document.result&.text
+          td= swab.document.location
+          td= swab.notes

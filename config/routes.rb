@@ -188,6 +188,18 @@ Rails.application.routes.draw do
       # Events
       resources :events, only: [:new, :create, :index], controller: "events/events"
 
+      resources :swabs,
+                only: [:new, :create],
+                controller: "events/swabs",
+                defaults: { slug: :swabs }
+
+      # Here we could enable new event by any other slug
+      # eg patient_new_specific_event(slug: "transplant_biopsies")
+      # get "events/:slug/new",
+      #     to: "events/events#new",
+      #     as: :new_specific_event
+      # or we could hardwire routes as we do for swabs.
+
       namespace :hd do
         resource :mdm, only: :show, controller: "mdm"
         resource :dashboard, only: :show

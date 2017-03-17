@@ -713,7 +713,9 @@ CREATE TABLE event_types (
     name character varying NOT NULL,
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    event_class_name character varying,
+    slug character varying
 );
 
 
@@ -750,7 +752,9 @@ CREATE TABLE events (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL
+    updated_by_id integer NOT NULL,
+    type character varying NOT NULL,
+    document jsonb
 );
 
 
@@ -5811,6 +5815,13 @@ CREATE UNIQUE INDEX index_drug_types_drugs_on_drug_id_and_drug_type_id ON drug_t
 
 
 --
+-- Name: index_event_types_on_slug; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_event_types_on_slug ON event_types USING btree (slug);
+
+
+--
 -- Name: index_events_on_created_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5829,6 +5840,13 @@ CREATE INDEX index_events_on_event_type_id ON events USING btree (event_type_id)
 --
 
 CREATE INDEX index_events_on_patient_id ON events USING btree (patient_id);
+
+
+--
+-- Name: index_events_on_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_events_on_type ON events USING btree (type);
 
 
 --
@@ -8769,6 +8787,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170222135148'),
 ('20170227154311'),
 ('20170228131923'),
-('20170306093012');
+('20170306093012'),
+('20170314114614'),
+('20170314115111'),
+('20170314120712'),
+('20170315100152');
 
-INSERT INTO schema_migrations (version) VALUES ('20170106164639');
+

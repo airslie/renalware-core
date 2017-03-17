@@ -2,11 +2,13 @@ tr
   td = link_to "Toggle", "#event-quick-preview-#{event.id}", data: { behaviour: "toggler" }
   td= l event.created_at.to_date
   td= event.event_type
-  td= event.description
-  td=l event.date_time
-  td = event.created_by.full_name
-= content_tag(:tr, id: "event-quick-preview-#{event.id}", style: "display: none")
   td
-  td(colspan=5)
+    = render partial: "renalware/events/events/cell/#{event.to_partial_path}",
+               locals: { event: event }
+  td=l event.date_time
+  td= event.created_by.full_name
+= content_tag(:tr, id: "event-quick-preview-#{event.id}", style: "display: none")
+  td(colspan=6)
     .quick-preview
-      = simple_format event.notes
+      = render partial: "renalware/events/events/toggled_cell/#{event.to_partial_path}",
+               locals: { event: event }

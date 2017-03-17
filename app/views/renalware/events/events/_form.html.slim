@@ -1,0 +1,40 @@
+= simple_form_for event,
+    url: patient_events_path(patient, event),
+    as: :events_event,
+    html: { autocomplete: "off" },
+    wrapper: "horizontal_form" do |f|
+
+  = f.input :date_time,
+            as: :datetime_picker,
+            wrapper: :horizontal_datepicker
+
+  = f.input :disable_selection_of_event_type, as: :hidden
+
+  - if event.disable_selection_of_event_type
+    = f.input :event_type_id, as: :hidden
+  - else
+    = f.input :event_type_id,
+              collection: event_types,
+              wrapper: :horizontal_medium,
+              input_html: {  id: "event-type-dropdown",
+                             class: "searchable_select",
+                             required: :required,
+                             tabindex: 2001 }
+
+  / The contents of this div will get replaced if a user selects an alternative
+  / event type in the dropdown above. See events.js.
+  #event-type-specific-inputs
+    = render partial: "renalware/events/events/inputs/#{event.to_partial_path}",
+             locals: { event: event, f: f }
+
+  = snippets_modal_and_link_to_open_it( \
+      target_input_for_seleted_snippet: "#events_event_notes" \
+    )
+  = f.input :notes,
+            as: :text,
+            input_html: { rows: 5 },
+            wrapper: :horizontal_medium
+
+  = submit_tag "Save", class: "button"
+  span= " or "
+  = link_to "Cancel", patient_events_path(patient)

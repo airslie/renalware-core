@@ -10,6 +10,7 @@ When(/^records Patty's event$/) do
   within "#new_events_event" do
     fill_in_date_time "Date time", with: fake_date_time
     select "Email", from: "Event type"
+    wait_for_ajax
     fill_in "Description", with: "Discussed meeting to be set up with family."
     fill_in "Notes", with: "Patty to speak to family before meeting set up."
     click_on "Save"

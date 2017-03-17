@@ -4,3 +4,9 @@ select.date {
   width: auto;
   padding-right: 2.5em;
 }
+
+#new_events_event {
+  span.select2.select2-container.select2-container--default {
+    //width: 500px !important;
+  }
+}

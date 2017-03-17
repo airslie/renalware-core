@@ -1,20 +1,17 @@
-= within_patient_layout(title: t("new_record.page_title"),
+- title = t("new_record.page_title")
+- title += " #{event.event_type.name}" if event.disable_selection_of_event_type
+
+= within_patient_layout(title: title,
                         breadcrumbs: breadcrumb_for("Events", patient_events_path)) do
 
-  = render "renalware/shared/errors", model: @event
+  = simple_form_for event,
+      url: patient_events_path(patient, event),
+      as: :events_event,
+      html: { autocomplete: "off" },
+      wrapper: "horizontal_form" do |f|
 
-  .row
-    .large-8.columns
-      = simple_form_for @event,
-          url: patient_events_path(@patient, @event),
-          wrapper: "horizontal_form" do |f|
-
-        = f.input :date_time, as: :datetime_picker
-        = f.association :event_type, label_method: :name, value_method: :id
-        = f.input :description
-        = snippets_modal_and_link_to_open_it(target_input_for_seleted_snippet: "#events_event_notes")
-        = f.input :notes, as: :text, input_html: { rows: 5 }
-
-        = submit_tag "Save", class: "button"
-        span= " or "
-        = link_to "Cancel", patient_events_path(@patient)
+    = render "form",
+             event: event,
+             patient: patient,
+             event_types: event_types,
+             f: f
