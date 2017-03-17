@@ -5,17 +5,16 @@ tr
   td.full-name
     = link_to registration.patient.to_s,
               patient_clinical_summary_path(registration.patient)
-  td= registration.patient.local_patient_id
+  td= registration.patient.hospital_identifier
   td= registration.patient.age
   td= registration.patient.sex.code
   td= registration.patient.current_modality
   td= registration.document.codes.uk_transplant_centre_code
   td
-    -# TODO: Temp until we add a transplant/patient
+    / TODO: Temp until we add a transplant/patient
     - Renalware::Renal.cast_patient(registration.patient).tap do |patient|
-      - if diagnosed_on = patient.profile.try(:diagnosed_on)
+      - if diagnosed_on = patient.profile&.diagnosed_on
         = I18n.l diagnosed_on
-  /td= registration.document.nhb_consent.value.try(:text)
   td Pull from workup
   td= I18n.l registration.entered_on
   td

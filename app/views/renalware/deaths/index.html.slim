@@ -7,7 +7,7 @@
         th
         th Name
         th.col-width-nhs-no NHS No.
-        th KCH No.
+        th Hosp No.
         th Sex
         th Date of Birth
         th Date of Death
@@ -24,7 +24,7 @@
                       title: "Edit death details"
           td= patient.to_s(format: :default)
           td= patient.nhs_number
-          td= patient.local_patient_id
+          td= patient.hospital_identifier
           td= patient.sex
           td= l patient.born_on
           td= l patient.died_on

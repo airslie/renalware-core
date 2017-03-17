@@ -59,8 +59,8 @@ module Renalware::Patients
 
         identifiers = PatientHospitalIdentifiers.new(patient)
         expect(identifiers.id).to eq("LP4")
-        expect(identifiers.to_s).to eq("LP4")
         expect(identifiers.patient_hospital_id).to eq("LP4")
+        expect(identifiers.to_s).to eq("HOSP2: LP4")
 
         # see configure_local_patient_id_map
         # HOSP2 is mapped to local_patient_id_4 as the second-most preferred column

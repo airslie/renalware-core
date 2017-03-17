@@ -10,9 +10,6 @@ module Renalware
     include Document::Base
     extend Enumerize
 
-    delegate :patient_hospital_id, to: :patient_hospital_identifiers
-    delegate :patient_hospital_id_name, to: :patient_hospital_identifiers
-
     enumerize :marital_status, in: %i(married single divorced widowed)
 
     has_paper_trail class_name: "Renalware::Patients::Version"
@@ -129,11 +126,15 @@ module Renalware
       current_modality.description.is_a?(Deaths::ModalityDescription)
     end
 
-    private
+    def hospital_identifier
+      hospital_identifiers.first
+    end
 
-    def patient_hospital_identifiers
+    def hospital_identifiers
       @patient_hospital_identifiers ||= Patients::PatientHospitalIdentifiers.new(self)
     end
+
+    private
 
     def has_title?
       respond_to?(:title) && title.present?

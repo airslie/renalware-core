@@ -1,7 +1,7 @@
 class AddColumnsToPatients < ActiveRecord::Migration[5.0]
   def change
 
-    #rename_column :patients, :local_patient_id, :local_patient_id_1
+    change_column :patients, :local_patient_id, :string, null: true
     add_column :patients, :local_patient_id_2, :string
     add_column :patients, :local_patient_id_3, :string
     add_column :patients, :local_patient_id_4, :string

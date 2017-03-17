@@ -58,6 +58,7 @@ module Renalware
         ObservationDescription.find_by!(code: code)
       end
 
+      # TODO: Support searching by other local patient ids?
       def find_patient(local_patient_id)
         Patient.find_by!(local_patient_id: local_patient_id)
       end

@@ -16,8 +16,8 @@
       a
         i.fa.fa-ellipsis-v
         = patient
-    dt= t(".hospital_code")
-    dd= patient.local_patient_id
+    dt= patient.hospital_identifier.name
+    dd= patient.hospital_identifier.id
     dt= t(".nhs_number")
     dd= formatted_nhs_number(patient)
     dt= t(".sex")

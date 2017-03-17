@@ -6,20 +6,7 @@ article
     dt NHS Number:
     dd= formatted_nhs_number(@patient)
 
-    dt KCH No:
-    dd= @patient.local_patient_id
+    - Renalware.config.patient_hospital_identifier_map.each do |key, value|
+      dt= "#{key} No:"
+      dd= @patient.public_send(value)
 
-    dt QEH No:
-    dd= @patient.local_patient_id_2
-
-    dt DVH No:
-    dd= @patient.local_patient_id_3
-
-    dt PRUH No:
-    dd= @patient.local_patient_id_4
-
-    dt GUYS No:
-    dd= @patient.local_patient_id_5
-
-    dt Other Hosp No:
-    dd= @patient.external_patient_id

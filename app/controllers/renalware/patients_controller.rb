@@ -63,10 +63,11 @@ module Renalware
 
     def patient_attributes
       [
-        :nhs_number, :local_patient_id, :family_name, :given_name, :sex,
+        :nhs_number, :family_name, :given_name, :sex,
         :ethnicity_id, :born_on, :paediatric_patient_indicator, :cc_on_all_letters,
         :title, :suffix, :marital_status, :telephone1, :telephone2, :email, :religion_id,
-        :language_id, :cc_decision_on, :local_patient_id_2, :local_patient_id_3,
+        :language_id, :cc_decision_on,
+        :local_patient_id, :local_patient_id_2, :local_patient_id_3,
         :local_patient_id_4, :local_patient_id_5, :external_patient_id,
         current_address_attributes: address_params
       ]

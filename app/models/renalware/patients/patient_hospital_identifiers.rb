@@ -14,18 +14,20 @@ module Renalware
       attr_reader :patient, :name, :value, :first
       delegate :present?, to: :name
       delegate :name, :id, to: :first
-      alias_method :to_s, :id
+      delegate :to_s, to: :first
       alias_method :to_sym, :name
-
-      # These two are legacy support at this stage
-      alias_method :patient_hospital_id, :id
-      alias_method :patient_hospital_id_name, :name
 
       def initialize(patient)
         @patient = patient
       end
 
-      Identifier = Struct.new(:name, :id)
+      Identifier = Struct.new(:name, :id) do
+        def to_s
+          return "" unless id
+          "#{name}: #{id}"
+        end
+      end
+
       def first
         @first ||= Identifier.new(*all.first)
       end

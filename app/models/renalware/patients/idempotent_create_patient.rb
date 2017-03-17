@@ -9,6 +9,7 @@ module Renalware
         @user = user
       end
 
+      # TODO: Support different local_patient_id columns
       def call(params)
         patient_params = params.fetch(:patient).merge(by: @user)
         local_patient_id = patient_params.fetch(:local_patient_id)
