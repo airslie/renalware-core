@@ -125,6 +125,10 @@ module Renalware
       current_modality.description.is_a?(Deaths::ModalityDescription)
     end
 
+    def preferred_local_patient_id
+      @preferred_local_patient_id ||= PreferredLocalPatientId.new(self)
+    end
+
     private
 
     def has_title?

@@ -28,6 +28,20 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
+--
+-- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS hstore WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION hstore; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs';
+
+
 SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
@@ -1882,7 +1896,9 @@ CREATE TABLE patients (
     local_patient_id_3 character varying,
     local_patient_id_4 character varying,
     local_patient_id_5 character varying,
-    external_patient_id character varying
+    external_patient_id character varying,
+    local_patient_ids text[] DEFAULT '{}'::text[],
+    local_ids hstore
 );
 
 
@@ -6605,6 +6621,13 @@ CREATE INDEX index_patients_on_language_id ON patients USING btree (language_id)
 
 
 --
+-- Name: index_patients_on_local_ids; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_local_ids ON patients USING gin (local_ids);
+
+
+--
 -- Name: index_patients_on_local_patient_id_2; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6630,6 +6653,13 @@ CREATE INDEX index_patients_on_local_patient_id_4 ON patients USING btree (local
 --
 
 CREATE INDEX index_patients_on_local_patient_id_5 ON patients USING btree (local_patient_id_5);
+
+
+--
+-- Name: index_patients_on_local_patient_ids; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_local_patient_ids ON patients USING gin (local_patient_ids);
 
 
 --
