@@ -6,7 +6,7 @@ article
     dt NHS Number:
     dd= formatted_nhs_number(@patient)
 
-    - Renalware.config.patient_hospital_identifier_map.each do |key, value|
+    - Renalware.config.patient_hospital_identifiers.each do |key, value|
       dt= "#{key} No:"
       dd= @patient.public_send(value)
 

@@ -7,7 +7,7 @@ module Renalware::Patients
     # their 'display names' for use e.g. in the patient banner
     def configure_patient_identifier_map
       Renalware.configure do |config|
-        config.patient_hospital_identifier_map = {
+        config.patient_hospital_identifiers = {
           KCH: :local_patient_id,
           HOSP2: :local_patient_id_4,
           HOSP3: :local_patient_id_2,
@@ -59,14 +59,12 @@ module Renalware::Patients
 
         identifiers = PatientHospitalIdentifiers.new(patient)
         expect(identifiers.id).to eq("LP4")
-        expect(identifiers.patient_hospital_id).to eq("LP4")
         expect(identifiers.to_s).to eq("HOSP2: LP4")
 
         # see configure_local_patient_id_map
         # HOSP2 is mapped to local_patient_id_4 as the second-most preferred column
         expect(identifiers.name).to eq(:HOSP2)
         expect(identifiers.to_sym).to eq(:HOSP2)
-        expect(identifiers.patient_hospital_id_name).to eq(:HOSP2)
       end
 
       context "when the patient has no local_patient_ids" do

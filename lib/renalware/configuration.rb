@@ -20,7 +20,7 @@ module Renalware
     config_accessor(:delay_after_which_a_finished_session_becomes_immutable) { 6.hours }
     config_accessor(:salutation_prefix) { "Dear" }
     config_accessor(:page_title_spearator) { " : " }
-    config_accessor(:patient_hospital_identifier_map) { {} }
+    config_accessor(:patient_hospital_identifiers) { {} }
   end
 
   def self.config

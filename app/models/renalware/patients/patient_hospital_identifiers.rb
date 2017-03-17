@@ -45,7 +45,7 @@ module Renalware
       private
 
       def identifier_map
-        Renalware.config.patient_hospital_identifier_map
+        Renalware.config.patient_hospital_identifiers
       end
     end
   end

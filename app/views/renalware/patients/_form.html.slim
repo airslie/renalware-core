@@ -4,7 +4,7 @@
 
     = patient.input :nhs_number, label: "NHS Number", wrapper: :horizontal_small
 
-    - Renalware.config.patient_hospital_identifier_map.each do |key, field|
+    - Renalware.config.patient_hospital_identifiers.each do |key, field|
       = patient.input field,
                       label: "#{key} No",
                       wrapper: :horizontal_small

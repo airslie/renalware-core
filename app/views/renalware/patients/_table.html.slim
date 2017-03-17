@@ -5,7 +5,7 @@
         th.col-width-11
         th.col-width-medium Name
         th.col-width-nhs-no NHS No
-        - Renalware.config.patient_hospital_identifier_map.keys.each do |key|
+        - Renalware.config.patient_hospital_identifiers.keys.each do |key|
           th.col-width-reference-no="#{key} No"
         th.col-width-tiny Sex
         th.col-width-date Date of Birth
