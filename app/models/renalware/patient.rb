@@ -1,4 +1,5 @@
 require_dependency "renalware"
+require_dependency "renalware/patients"
 require "document/base"
 
 module Renalware
@@ -8,6 +9,9 @@ module Renalware
     include Accountable
     include Document::Base
     extend Enumerize
+
+    delegate :patient_hospital_id, to: :patient_hospital_identifiers
+    delegate :patient_hospital_id_name, to: :patient_hospital_identifiers
 
     enumerize :marital_status, in: %i(married single divorced widowed)
 
@@ -125,11 +129,11 @@ module Renalware
       current_modality.description.is_a?(Deaths::ModalityDescription)
     end
 
-    def preferred_local_patient_id
-      @preferred_local_patient_id ||= PreferredLocalPatientId.new(self)
-    end
-
     private
+
+    def patient_hospital_identifiers
+      @patient_hospital_identifiers ||= Patients::PatientHospitalIdentifiers.new(self)
+    end
 
     def has_title?
       respond_to?(:title) && title.present?

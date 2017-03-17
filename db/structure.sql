@@ -6607,6 +6607,13 @@ CREATE INDEX index_patients_on_ethnicity_id ON patients USING btree (ethnicity_i
 
 
 --
+-- Name: index_patients_on_external_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_external_patient_id ON patients USING btree (external_patient_id);
+
+
+--
 -- Name: index_patients_on_first_edta_code_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6625,6 +6632,13 @@ CREATE INDEX index_patients_on_language_id ON patients USING btree (language_id)
 --
 
 CREATE INDEX index_patients_on_local_ids ON patients USING gin (local_ids);
+
+
+--
+-- Name: index_patients_on_local_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_local_patient_id ON patients USING btree (local_patient_id);
 
 
 --
@@ -8860,5 +8874,4 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170308173219');
 ('20170308173219'),
 ('20170308180443');
-
-INSERT INTO schema_migrations (version) VALUES ('20170106164639');
+('20170308173219');
