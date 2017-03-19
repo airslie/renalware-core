@@ -14,6 +14,8 @@ module Renalware
         it { should validate_presence_of(:prescribed_on) }
         it { should validate_presence_of(:provider) }
 
+        it { is_expected.to respond_to(:last_delivery_date) }
+
         describe "#valid?" do
           context "route description" do
             context "given a route" do
