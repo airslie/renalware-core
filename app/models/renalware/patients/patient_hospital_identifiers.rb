@@ -42,6 +42,12 @@ module Renalware
         end
       end
 
+      # Renders all patients hospital numbers in the format e.g.
+      # "KCH: X12344 QEH: 12123123 XXX: Xxxxx ..."
+      def to_s
+        all.map{ |name, hosp_no| "#{name}: #{hosp_no}" }.join(" ")
+      end
+
       private
 
       def identifier_map

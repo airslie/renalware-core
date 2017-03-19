@@ -4,7 +4,7 @@ require_dependency "models/renalware/concerns/personable"
 module Renalware
   describe Patient, type: :model do
 
-    def configure_patient_identifier_map
+    def configure_patient_hospital_identifiers
       Renalware.configure do |config|
         config.patient_hospital_identifiers = {
           HOSP1: :local_patient_id,
@@ -18,7 +18,7 @@ module Renalware
 
     describe "#local_patient_id" do
       it "resolves correctly using the patient_hospital_identifiers" do
-        configure_patient_identifier_map
+        configure_patient_hospital_identifiers
         patient = build(:patient,
                          local_patient_id: "",
                          local_patient_id_2: "",
