@@ -4,7 +4,7 @@ tr
     = link_to "View", patient_clinical_summary_path(patient), title: "Clinical Summary"
   td.full-name= patient.to_s(format: :default)
   td= patient.nhs_number
-  td= patient.local_patient_id
+  td= patient.hospital_identifier
   td= patient.sex.code
   td= patient.born_on
   td= patient.age

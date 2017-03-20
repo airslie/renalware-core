@@ -45,7 +45,7 @@ module Renalware
       end
 
       def pdf_filename
-        "#{patient.family_name}-#{patient.local_patient_id}-protocol".upcase
+        "#{patient.family_name}-#{patient.hospital_identifier.id}-protocol".upcase
       end
     end
   end

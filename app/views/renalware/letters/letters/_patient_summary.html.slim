@@ -1,7 +1,9 @@
 = "#{patient.sex.salutation} #{patient.full_name} ("
-= "#{patient.sex.code}: "
+= patient.sex.code
+= blank_separator
 = "DOB: #{l patient.born_on}: "
-= "KCH: #{patient.local_patient_id}, "
+= patient.hospital_identifiers
+= blank_separator
 = "NHS No: #{patient.nhs_number})"
 br
 = patient.address

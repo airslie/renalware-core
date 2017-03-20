@@ -24,9 +24,6 @@ module Renalware
     it { should validate_presence_of :family_name }
     it { should validate_presence_of :given_name }
 
-    it { should validate_presence_of :local_patient_id }
-    it { should validate_uniqueness_of :local_patient_id }
-
     it { should validate_presence_of :born_on }
 
     it { is_expected.to validate_timeliness_of(:born_on) }

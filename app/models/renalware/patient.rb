@@ -1,4 +1,5 @@
 require_dependency "renalware"
+require_dependency "renalware/patients"
 require "document/base"
 
 module Renalware
@@ -66,7 +67,6 @@ module Renalware
               allow_blank: true
     validates :family_name, presence: true
     validates :given_name, presence: true
-    validates :local_patient_id, presence: true, uniqueness: true
     validates :born_on, presence: true
     validate :validate_sex
     validates :born_on, timeliness: { type: :date }
@@ -124,6 +124,14 @@ module Renalware
       return false unless current_modality.present?
 
       current_modality.description.is_a?(Deaths::ModalityDescription)
+    end
+
+    def hospital_identifier
+      hospital_identifiers.first
+    end
+
+    def hospital_identifiers
+      @patient_hospital_identifiers ||= Patients::PatientHospitalIdentifiers.new(self)
     end
 
     private

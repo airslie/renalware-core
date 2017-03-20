@@ -5,7 +5,7 @@ tr
     = link_to "HD Summary".html_safe, patient_hd_dashboard_path(session.patient)
   td.full-name
     = link_to session.patient.to_s, patient_clinical_summary_path(session.patient)
-  td= session.patient.local_patient_id
+  td= session.patient.hospital_identifier
   td= session.patient.age
   td= session.patient.sex.code
   td= session.patient.current_modality

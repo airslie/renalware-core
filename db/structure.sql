@@ -1843,7 +1843,7 @@ CREATE VIEW pathology_current_observations AS
 CREATE TABLE patients (
     id integer NOT NULL,
     nhs_number character varying,
-    local_patient_id character varying NOT NULL,
+    local_patient_id character varying,
     family_name character varying NOT NULL,
     given_name character varying NOT NULL,
     born_on date NOT NULL,
@@ -1877,7 +1877,12 @@ CREATE TABLE patients (
     language_id integer,
     diabetic boolean DEFAULT false NOT NULL,
     allergy_status character varying DEFAULT 'unrecorded'::character varying NOT NULL,
-    allergy_status_updated_at timestamp without time zone
+    allergy_status_updated_at timestamp without time zone,
+    local_patient_id_2 character varying,
+    local_patient_id_3 character varying,
+    local_patient_id_4 character varying,
+    local_patient_id_5 character varying,
+    external_patient_id character varying
 );
 
 
@@ -6586,6 +6591,13 @@ CREATE INDEX index_patients_on_ethnicity_id ON patients USING btree (ethnicity_i
 
 
 --
+-- Name: index_patients_on_external_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_external_patient_id ON patients USING btree (external_patient_id);
+
+
+--
 -- Name: index_patients_on_first_edta_code_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6597,6 +6609,41 @@ CREATE INDEX index_patients_on_first_edta_code_id ON patients USING btree (first
 --
 
 CREATE INDEX index_patients_on_language_id ON patients USING btree (language_id);
+
+
+--
+-- Name: index_patients_on_local_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_local_patient_id ON patients USING btree (local_patient_id);
+
+
+--
+-- Name: index_patients_on_local_patient_id_2; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_local_patient_id_2 ON patients USING btree (local_patient_id_2);
+
+
+--
+-- Name: index_patients_on_local_patient_id_3; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_local_patient_id_3 ON patients USING btree (local_patient_id_3);
+
+
+--
+-- Name: index_patients_on_local_patient_id_4; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_local_patient_id_4 ON patients USING btree (local_patient_id_4);
+
+
+--
+-- Name: index_patients_on_local_patient_id_5; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_local_patient_id_5 ON patients USING btree (local_patient_id_5);
 
 
 --
@@ -8789,6 +8836,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170227154311'),
 ('20170228131923'),
 ('20170306093012'),
+('20170308173219'),
 ('20170313154020'),
 ('20170314114614'),
 ('20170314115111'),

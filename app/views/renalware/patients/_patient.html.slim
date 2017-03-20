@@ -5,7 +5,8 @@ tr
     = link_to "Admin", patient_path(patient), title: "Admin"
   td.full-name= patient.to_s(format: :default)
   td= patient.nhs_number
-  td= patient.local_patient_id
+  - Renalware.config.patient_hospital_identifiers.values.each do |value|
+    td= patient.public_send(value)
   td= patient.sex.code
   td= patient.born_on
   td= patient.age
