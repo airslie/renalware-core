@@ -26,7 +26,10 @@ module World
         {
           notes: "none",
           hospital_unit: Renalware::Hospitals::Unit.hd_sites.first,
-          performed_on: Time.zone.today
+          performed_on: Time.zone.today,
+          document: {
+            patient_on_holiday: "yes"
+          }
         }
       end
     end
@@ -35,7 +38,6 @@ module World
       include Domain
 
       def create_dna_session(options)
-        # options = parse_options(options)
         user = options.delete(:user)
         patient = options.delete(:patient)
         login_as user
@@ -48,8 +50,12 @@ module World
         select hd_unit.to_s, from: t_form(".hospital_unit")
         fill_in t_form(".performed_on"), with: I18n.l(Time.zone.today)
 
-        within ".document" do
+        within ".hd_session_notes" do
           fill_in t_form(".notes"), with: options[:notes]
+        end
+
+        within ".hd_session_document_patient_on_holiday" do
+          choose "Yes"
         end
 
         within ".form_actions" do

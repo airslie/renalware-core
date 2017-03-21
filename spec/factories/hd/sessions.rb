@@ -13,6 +13,11 @@ FactoryGirl.define do
     end
 
     factory :hd_dna_session, class: "Renalware::HD::Session::DNA" do
+      document {
+        {
+          patient_on_holiday: "yes"
+        }
+      }
     end
 
     factory :hd_closed_session, class: "Renalware::HD::Session::Closed" do
