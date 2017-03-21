@@ -56,6 +56,7 @@ module Renalware
           local_patient_id_3 = :exact_term OR
           local_patient_id_4 = :exact_term OR
           local_patient_id_5 = :exact_term OR
+          external_patient_id = :exact_term OR
           nhs_number = :exact_term OR
           family_name ILIKE :fuzzy_term
         SQL

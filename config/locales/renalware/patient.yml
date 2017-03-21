@@ -4,6 +4,8 @@ en:
       renalware/patient:
         cc_on_all_letters: CC on all letters
         cc_decision_on: CC decision date
+        nhs_number: NHS Number
+        external_patient_id: Other Hospital No.
   enumerize:
     renalware/patient:
       allergy_status:
