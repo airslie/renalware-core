@@ -11,5 +11,16 @@ FactoryGirl.define do
     factory :simple_event, class: "Renalware::Events::Simple" do
 
     end
+
+    factory :swab, class: "Renalware::Events::Swab" do
+      event_type factory: :swab_event_type
+      document {
+        {
+          type: Renalware::Events::Swab::Document.type.values.first,
+          result: Renalware::Events::Swab::Document.result.values.first,
+          location: "The location"
+        }
+      }
+    end
   end
 end

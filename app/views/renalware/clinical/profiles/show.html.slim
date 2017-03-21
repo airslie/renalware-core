@@ -1,13 +1,13 @@
 = within_patient_layout(title: "Clinical Profile") do
-  .row
-    .columns.medium-12.large-6
-      = render "renalware/clinical/allergies/list",
-               patient: profile.patient,
-               allergies: profile.allergies
+  .grid
+    .row
+      .columns.medium-12.large-6
+        = render "renalware/clinical/allergies/list",
+                 patient: profile.patient,
+                 allergies: profile.allergies
 
-    .columns.medium-12.large-6
-      = render "renalware/events/swabs/list", swabs: profile.swabs
+      .columns.medium-12.large-6
+        = render "renalware/events/swabs/list", swabs: profile.swabs, patient: patient
 
-  .row
-    .columns.medium-6.large-3
-      = render "renalware/clinical/history/list", profile: profile
+      .columns.medium-6.large-3
+        = render "renalware/clinical/history/list", profile: profile

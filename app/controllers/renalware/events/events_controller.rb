@@ -1,9 +1,9 @@
+# rubocop:disable Metrics/ClassLength
 require_dependency "renalware/events"
 
 module Renalware
   module Events
     class EventsController < BaseController
-      before_action :load_patient, only: [:new, :create, :index]
 
       def new
         session[:return_to] ||= request.referer
@@ -17,7 +17,6 @@ module Renalware
       def create
         event = new_event_for_patient(event_params)
         if event.save
-          return_url = session.delete(:return_to) || patient_events_path(patient)
           redirect_to return_url, notice: t(".success", model_name: "event")
         else
           flash[:error] = t(".failed", model_name: "event")
@@ -30,21 +29,57 @@ module Renalware
       end
 
       def index
+        authorize events
         render locals: {
           patient: patient,
           events: events
         }
       end
 
+      def edit
+        render locals: {
+          patient: patient,
+          event: load_and_authorize_event_for_edit_or_update,
+          event_types: []
+        }
+      end
+
+      def update
+        event = load_and_authorize_event_for_edit_or_update
+        if event.update(event_params)
+          redirect_to return_url, notice: t(".success", model_name: "event")
+        else
+          flash[:error] = failed_msg_for("event type")
+          render :edit, locals: {
+            patient: patient,
+            event: event,
+            event_types: []
+          }
+        end
+      end
+
+      protected
+
+      def return_url
+        session.delete(:return_to) || patient_events_path(patient)
+      end
+
+      def load_and_authorize_event_for_edit_or_update
+        event = Event.for_patient(patient).find(params[:id])
+        authorize event
+        event.disable_selection_of_event_type = true
+        event
+      end
+
       private
 
       def events
-        Event.for_patient(patient)
-             .includes(:event_type)
-             .includes(:created_by)
-             .page(params[:page])
-             .per(params[:per_page])
-             .ordered
+        @events ||= Event.for_patient(patient)
+                         .includes(:event_type)
+                         .includes(:created_by)
+                         .page(params[:page])
+                         .per(params[:per_page])
+                         .ordered
       end
 
       def disable_selection_of_event_type?
@@ -55,7 +90,7 @@ module Renalware
         event = new_event_for_patient
         event.date_time = Time.zone.now.beginning_of_hour
         event.event_type = event_type
-        # This is a virtual attribute
+        # disable_selection_of_event_type is a virtual attribute
         event.disable_selection_of_event_type = disable_selection_of_event_type?
         event
       end
@@ -98,6 +133,7 @@ module Renalware
         event = event_class.new
         event.attributes = params
         event.patient = patient
+        authorize event
         event
       end
 
