@@ -1,0 +1,14 @@
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    title= yield(:page_title)
+    = stylesheet_link_tag "application", media: :all
+
+  body
+    nav.top-bar(data-topbar role="navigation")
+      ul.title-area
+        li.name
+
+    .error-page= yield

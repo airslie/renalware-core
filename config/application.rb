@@ -33,6 +33,8 @@ module Renalware
 
     config.active_record.time_zone_aware_types = [:datetime]
 
+    config.exceptions_app = routes
+
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]
