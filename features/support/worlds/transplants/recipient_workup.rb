@@ -53,7 +53,6 @@ module World
       end
     end
 
-
     module Web
       include Domain
 
@@ -65,11 +64,21 @@ module World
           click_on "Recipient Workup"
         end
 
-        fill_in "Karnofsky Score", with: "66"
+        within ".row.karnofsky" do
+          all("input").first.set("66")
+          all("input").last.set(Time.zone.today.to_s)
+        end
+
+        within ".row.prisma" do
+          all("input").first.set("6")
+          all("input").last.set(Time.zone.today.to_s)
+        end
 
         within ".top" do
           click_on "Save"
         end
+
+        expect(page.current_path).to eq(patient_transplants_recipient_workup_path(patient))
       end
 
       def update_workup(patient:, user:)

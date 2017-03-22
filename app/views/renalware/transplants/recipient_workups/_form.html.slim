@@ -28,8 +28,8 @@ ruby:
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Scores", name: "scores" } do
       = fd.simple_fields_for :scores, fd.object.scores do |fcm|
-        = fcm.input :karnofsky, wrapper: :horizontal_small
-        = fcm.input :prisma, wrapper: :horizontal_small
+        = render_input fcm, :karnofsky
+        = render_input fcm, :prisma
 
     - unless patient.sex.code.M?
       = render layout: "renalware/shared/fieldset",
