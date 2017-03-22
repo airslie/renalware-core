@@ -6,14 +6,28 @@ ruby:
            locals: { legend: "DNA details", name: "dna" } do
     = f.input :performed_on,
               as: :date_picker,
-              autofocus: true
+              wrapper: :horizontal_datepicker
     = f.association :hospital_unit,
         as: :grouped_select,
         group_method: :hd_sites,
         collection: Renalware::Hospitals::Centre.with_hd_sites.ordered,
-        label_method: :to_s
-    = f.input :notes, as: :text, input_html: { rows: 5 }
-    = f.association :signed_on_by, as: :user_picker, collection: Renalware::User.ordered
+        label_method: :to_s,
+        wrapper: :horizontal_medium
+
+    = f.simple_fields_for :document, f.object.document do |fd|
+      = fd.input :patient_on_holiday,
+                 as: :inline_radio_buttons,
+                 wrapper: :horizontal_small
+
+    = f.input :notes,
+              as: :text,
+              input_html: { rows: 5 },
+              wrapper: :horizontal_large
+    = f.association :signed_on_by,
+                    as: :user_picker,
+                    collection: Renalware::User.ordered,
+                    wrapper: :horizontal_medium
+
 .row.top
   .large-12.columns.form_actions
       = f.button :submit, value: t(".save")

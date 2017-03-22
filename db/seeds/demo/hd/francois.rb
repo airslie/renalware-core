@@ -165,7 +165,10 @@ module Renalware
           start_time: start_times.sample,
           signed_on_by: users.sample,
           by: users.sample,
-          notes: ""
+          notes: "",
+          document: {
+            patient_on_holiday: "yes"
+          }
         )
       else
         # TODO: call SaveSession here?

@@ -28,6 +28,7 @@ module Renalware
         end
 
         def document
+          return SessionDocument.new if dna?
           super || SessionDocument.new
         end
 

@@ -1,6 +1,18 @@
+require "document/base"
+require "document/enum"
+
 module Renalware
   module HD
     class Session::DNA < Session
+      include Document::Base
+
+      class Document < Document::Embedded
+        attribute :patient_on_holiday, ::Document::Enum, enums: %i(yes no)
+        validates :patient_on_holiday, presence: true
+      end
+
+      has_document class_name: "Renalware::HD::Session::DNA::Document"
+
       def self.policy_class
         DNASessionPolicy
       end

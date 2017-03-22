@@ -13,6 +13,8 @@ en:
         modality_description: Modality
   activemodel:
     attributes:
+      renalware/hd/session/dna/document:
+        patient_on_holiday: Is the patient on holiday?
       renalware/hd/session_document/info:
         access_confirmed: Confirm this access was used
         access_type: Access Type Used
@@ -61,6 +63,9 @@ en:
 
     errors:
       models:
+        renalware/hd/session/dna/document:
+          patient_on_holiday:
+            blank: Please choose an option
         renalware/hd/session_document/info:
           access_confirmed:
             blank: Please confirm this was the access used in this session
