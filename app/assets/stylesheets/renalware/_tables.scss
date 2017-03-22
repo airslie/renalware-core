@@ -51,9 +51,19 @@ table {
     }
   }
 
+  tr td {
+    &.col-with-medium-with-ellipsis {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      min-width: 5rem;
+      max-width: 7rem;
+    }
+  }
+
   tr th {
     &.col-width-date {
-      min-width: 6.8em;
+      min-width: 7em;
       width: 7.8em;
 
       &.wide {
@@ -211,7 +221,9 @@ td {
       background: #ccc;
     }
 
-    td:nth-child(even) { background: $table-even-row-colour; }
+    td:nth-child(even) {
+      background: $table-even-row-colour;
+    }
 
     thead tr {
       position: absolute;

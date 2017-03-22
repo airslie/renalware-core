@@ -2,7 +2,7 @@ tr
   td = link_to "Toggle", "#event-quick-preview-#{event.id}", data: { behaviour: "toggler" }
   td= l event.created_at.to_date
   td= event.event_type
-  td
+  td.col-with-medium-with-ellipsis
     = render partial: "renalware/events/events/cell/#{event.to_partial_path}",
                locals: { event: event }
   td=l event.date_time
