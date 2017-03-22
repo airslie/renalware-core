@@ -1,4 +1,6 @@
-= content_for(:page_title) { "Page not found" }
+= content_for(:page_title) { t(".page_title") }
 
-h1 Sorry, we couldn't find what you were looking for
-
+.error-code 404 Page not found
+h1.heading= t(".heading")
+p.subheading= t(".subheading")
+p.support-info= t(".support_info")

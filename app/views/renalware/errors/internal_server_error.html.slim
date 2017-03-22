@@ -1,4 +1,6 @@
-= content_for(:page_title) { "Server error" }
+= content_for(:page_title) { t(".page_title") }
 
-h1 Sorry, an error occurred and we couldn't process your request.
-p A notification has been sent to the support team and we will look into as son as possible.
+.error-code 500 error
+h1.heading= t(".heading")
+p.subheading= t(".subheading")
+p.support-info= t(".support_info")

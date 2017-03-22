@@ -6,9 +6,11 @@ html lang="en"
     title= yield(:page_title)
     = stylesheet_link_tag "application", media: :all
 
-  body
+  body.error-page
     nav.top-bar(data-topbar role="navigation")
       ul.title-area
-        li.name
+        li.name Renalware
 
-    .error-page= yield
+    .error-content= yield
+
+    = render "renalware/navigation/footer"
