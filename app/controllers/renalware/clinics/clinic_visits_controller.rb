@@ -6,7 +6,7 @@ module Renalware
       before_action :load_clinic_visit, only: [:edit, :update, :destroy]
 
       def index
-        @clinic_visits = @patient.clinic_visits
+        @clinic_visits = @patient.clinic_visits.ordered
       end
 
       def new
