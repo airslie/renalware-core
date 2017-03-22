@@ -23,6 +23,8 @@ module Renalware
       enumerize :urine_blood, in: %i(neg trace very_low low medium high)
       enumerize :urine_protein, in: %i(neg trace very_low low medium high)
 
+      scope :ordered, -> { order(date: :desc, created_at: :desc) }
+
       def bmi
         return unless weight && height && height > 0
         ((weight / height) / height).round(2)
