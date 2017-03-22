@@ -18,8 +18,9 @@ html lang="en"
     .row
       .large-4.columns
         = simple_form_for request_html_form_params,
-          url: pathology_requests_new_request_path,
-          as: :request do |f|
+                          url: pathology_requests_new_request_path,
+                          html: { autocomplete: "off" },
+                          as: :request do |f|
           = f.input :patient_ids, as: :hidden_array
           = f.input :clinic_id,
               collection: all_clinics,
@@ -39,8 +40,9 @@ html lang="en"
           = f.button :submit, "Update Forms"
 
         = simple_form_for request_html_form_params,
-          url: pathology_requests_requests_path(format: :pdf),
-          as: :request do |f|
+                          url: pathology_requests_requests_path(format: :pdf),
+                          html: { autocomplete: "off" },
+                          as: :request do |f|
           = f.input :patient_ids, as: :hidden_array
           = f.input :clinic_id, as: :hidden
           = f.input :consultant_id, as: :hidden

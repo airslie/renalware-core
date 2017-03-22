@@ -4,7 +4,7 @@
   = simple_form_for model,
                     url: patient_clinical_allergy_status_path(patient_id: patient),
                     wrapper: "horizontal_form",
-                    html: { id: "allergy-status-form" },
+                    html: { id: "allergy-status-form", autocomplete: "off" },
                     method: :put do |f|
     .flex-container(class="#{ "disabled" if patient.allergies.count > 0}")
 

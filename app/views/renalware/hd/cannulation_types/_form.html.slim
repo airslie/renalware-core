@@ -4,7 +4,7 @@
 
 .row
   .large-6.columns
-    = simple_form_for @cannulation_type do |f|
+    = simple_form_for @cannulation_type, html: { autocomplete: "off" } do |f|
       = f.input :name, autofocus: true
 
       = f.button :submit

@@ -5,8 +5,11 @@ ruby:
   end
 
 .document
-  = simple_form_for prescription, url: url, html: { class: "prescription-form" },
-      remote: true, wrapper: :horizontal_form do |f|
+  = simple_form_for prescription,
+                    url: url,
+                    html: { class: "prescription-form", autocomplete: "off" },
+                    remote: true,
+                    wrapper: :horizontal_form do |f|
 
     = render "renalware/shared/errors", model: f.object
 
@@ -16,8 +19,10 @@ ruby:
       = hidden_field_tag :treatable_type, treatable.class.name
       = f.input :dose_amount
       = f.input :dose_unit
-      = f.association :medication_route, collection: medication_routes,
-          label_method: :code, prompt: :translate
+      = f.association :medication_route,
+                      collection: medication_routes,
+                      label_method: :code,
+                      prompt: :translate
       = f.input :route_description
       = f.input :frequency
       = f.input :administer_on_hd
@@ -28,8 +33,11 @@ ruby:
         = f.simple_fields_for(:termination) do |tf|
           = tf.input :terminated_on, as: :date_picker, required: false
 
-      = f.input :provider, collection: provider_codes, as: :inline_radio_buttons,
-          label_method: :to_label, checked: provider_codes.first
+      = f.input :provider,
+                collection: provider_codes,
+                as: :inline_radio_buttons,
+                label_method: :to_label,
+                checked: provider_codes.first
       = f.input :last_delivery_date, as: :date_picker
 
     .row.actions

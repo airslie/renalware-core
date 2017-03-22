@@ -11,7 +11,10 @@
                 onchange: raw("this.form.submit();")
       .row
         .large-12.columns
-          = simple_form_for request_html_form_params, url: pathology_requests_new_request_path, as: :request do |f|
+          = simple_form_for request_html_form_params,
+                            url: pathology_requests_new_request_path,
+                            html: { autocomplete: "off" },
+                            as: :request do |f|
             = f.input :patient_ids, as: :hidden_array
             = f.input :clinic_id, as: :hidden
             = f.button :submit, "Generate Forms", class: "button tiny"

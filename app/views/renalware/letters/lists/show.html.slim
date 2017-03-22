@@ -5,7 +5,11 @@
   .search-form
     fieldset
       legend Filters
-      = simple_form_for @q, as: :q, url: letters_list_path, method: :get do |f|
+      = simple_form_for @q,
+                        as: :q,
+                        url: letters_list_path,
+                        html: { autocomplete: "off" },
+                        method: :get do |f|
         .row
           .large-2.columns
             = f.input :state_eq, collection: state_options, label: "State"

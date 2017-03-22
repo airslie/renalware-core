@@ -4,7 +4,7 @@
 
 .row
   .large-6.columns
-    = simple_form_for @drug do |f|
+    = simple_form_for @drug, html: { autocomplete: "off" } do |f|
       = f.input :name, label: "Drug Name"
 
       h6

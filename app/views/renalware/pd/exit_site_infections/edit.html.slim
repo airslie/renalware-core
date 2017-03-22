@@ -1,7 +1,9 @@
 = within_patient_layout(title: "Exit Site Infection") do
   = render "renalware/shared/errors", model: @exit_site_infection
 
-  = simple_form_for [@patient, @exit_site_infection] do |es|
+  = simple_form_for [@patient, @exit_site_infection],
+                    html: { autocomplete: "off" } do |es|
+
     = render partial: "renalware/pd/exit_site_infections/form", locals: { es: es }
 
     = submit_tag "Save", class: "button"

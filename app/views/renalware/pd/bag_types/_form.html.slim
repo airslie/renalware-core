@@ -4,7 +4,7 @@
 
 .row
   .large-6.columns
-    = simple_form_for @bag_type do |f|
+    = simple_form_for @bag_type, html: { autocomplete: "off" } do |f|
       = f.input :id, as: :hidden unless f.object.new_record?
 
       = f.input :manufacturer,

@@ -6,7 +6,9 @@
 
       = simple_form_for @patient,
           url: patient_death_path(@patient),
+          html: { autocomplete: "off" },
           wrapper: "horizontal_form" do |f|
+
         .row
           .large-12.columns
             fieldset

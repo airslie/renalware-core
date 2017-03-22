@@ -2,7 +2,10 @@
   = render "index_header"
   = render "renalware/shared/errors", model: @patient
 
-  = simple_form_for @patient, wrapper: "horizontal_form" do |f|
+  = simple_form_for @patient,
+                    html: { autocomplete: "off" },
+                    wrapper: "horizontal_form" do |f|
+
     = render "renalware/patients/form", patient: f
 
     = submit_tag "Save", class: "button"

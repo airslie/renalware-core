@@ -5,9 +5,10 @@
 
   .modality-form.row
     = simple_form_for modality,
-        as: :modality,
-        url: patient_modalities_path(patient),
-        wrapper: "horizontal_form" do |m|
+                      as: :modality,
+                      url: patient_modalities_path(patient),
+                      html: { autocomplete: "off" },
+                      wrapper: "horizontal_form" do |m|
 
         .large-9.columns
           = field_set_tag "", class: "borderless" do
