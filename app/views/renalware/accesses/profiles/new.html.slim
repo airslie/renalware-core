@@ -3,5 +3,6 @@
   .document
     = simple_form_for profile,
         url: patient_accesses_profiles_path(patient),
+        html: { autocomplete: "off" },
         wrapper: "horizontal_form" do |f|
       = render "form", f: f

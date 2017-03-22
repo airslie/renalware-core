@@ -3,6 +3,7 @@
 #add-allergy-modal.reveal-modal.medium(data-reveal)
   = simple_form_for patient.allergies.new,
                     url: patient_clinical_allergies_path(patient_id: patient),
+                    html: { autocomplete: "off" },
                     validate: true do |f|
     h2= t(".title")
     =f.input :description, as: :text, autofocus: true

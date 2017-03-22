@@ -4,7 +4,7 @@
 
 .row
   .large-6.columns
-    = simple_form_for @hospital_unit do |f|
+    = simple_form_for @hospital_unit, html: { autocomplete: "off" } do |f|
       = f.association :hospital_centre, collection: Renalware::Hospitals::Centre.ordered
       = f.input :unit_code
       = f.input :name

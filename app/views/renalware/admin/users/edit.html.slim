@@ -5,7 +5,9 @@
   .columns.small-12
     h2= @user
 
-    = simple_form_for @user, url: admin_user_path(@user) do |f|
+    = simple_form_for @user,
+                      html: { autocomplete: "off" },
+                      url: admin_user_path(@user) do |f|
       = f.input :approved, as: :hidden, input_html: { value: true }
 
       - if @user.errors.any?

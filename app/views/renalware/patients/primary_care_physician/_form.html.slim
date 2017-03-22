@@ -1,5 +1,6 @@
 = simple_form_for patient,
                   method: :patch,
+                  html: { autocomplete: "off" },
                   url: patient_primary_care_physician_path(patient) do |f|
 
   = f.input :practice_id, as: :hidden

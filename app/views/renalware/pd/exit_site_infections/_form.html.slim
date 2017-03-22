@@ -1,5 +1,8 @@
-= simple_form_for [patient, exit_site_infection], html: { class: local_assigns[:form_class] },
-    remote: true, wrapper: :horizontal_form do |f|
+= simple_form_for [patient, exit_site_infection],
+                  html: { class: local_assigns[:form_class], autocomplete: "off" },
+                  remote: true,
+                  wrapper: :horizontal_form do |f|
+
   = render "fields", f: f
   .row
     .large-offset-3.large-7.columns

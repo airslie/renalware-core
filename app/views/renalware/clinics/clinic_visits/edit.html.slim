@@ -4,6 +4,7 @@
     = simple_form_for [@patient, @clinic_visit],
       as: :clinic_visit,
       url: patient_clinic_visit_path(patient_id: @patient.to_param, id: @clinic_visit.to_param),
+      html: { autocomplete: "off" },
       wrapper: :horizontal_form do |f|
 
       = render "form", f: f

@@ -1,7 +1,11 @@
 p
   strong Termination Prescription: #{prescription.drug.name} #{prescription.dose}
 
-= simple_form_for termination, url: url, remote: true, wrapper: :horizontal_form do |f|
+= simple_form_for termination,
+                  url: url,
+                  remote: true,
+                  html: { autocomplete: "off" },
+                  wrapper: :horizontal_form do |f|
   = f.input :terminated_on, as: :date_picker
   = f.input :notes
 

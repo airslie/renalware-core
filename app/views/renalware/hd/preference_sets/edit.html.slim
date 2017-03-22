@@ -2,6 +2,7 @@
   .document
     = simple_form_for @preference_set,
         url: patient_hd_preference_set_path(@patient),
+        html: { autocomplete: "off" },
         method: :patch,
         wrapper: "horizontal_form" do |f|
       = render "form", f: f

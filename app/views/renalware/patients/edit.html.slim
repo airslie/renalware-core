@@ -1,7 +1,9 @@
 = within_patient_layout(title: "Edit", breadcrumbs: breadcrumb_for("Demographics", @patient)) do
 
   .row.document
-    = simple_form_for @patient, wrapper: "horizontal_form" do |f|
+    = simple_form_for @patient,
+                      wrapper: "horizontal_form",
+                      html: { autocomplete: "off" } do |f|
 
       = render "renalware/patients/form", patient: f
 
