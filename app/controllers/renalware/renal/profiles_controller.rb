@@ -7,18 +7,31 @@ module Renalware
 
       before_action :load_patient
 
+      def show
+        render locals: {
+          patient: patient,
+          profile: find_profile
+        }
+      end
+
       def edit
-        @profile = find_profile
+        render locals: {
+          patient: patient,
+          profile: find_profile
+        }
       end
 
       def update
-        @profile = find_profile
+        profile = find_profile
 
-        if @profile.update_attributes(profile_params)
-          redirect_to edit_patient_renal_profile_path(@patient),
+        if profile.update_attributes(profile_params)
+          redirect_to patient_renal_profile_path(patient),
             notice: t(".success", model_name: "profile")
         else
-          render :edit
+          render :edit, locals: {
+            patient: patient,
+            profile: find_profile
+          }
         end
       end
 
@@ -40,7 +53,7 @@ module Renalware
       end
 
       def find_profile
-        @patient.profile || @patient.build_profile
+        patient.profile || patient.build_profile
       end
 
       def document_attributes
