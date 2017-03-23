@@ -4,6 +4,8 @@ li.has-dropdown
     li
       = link_to t(".appointments"), appointments_path
     li
+      = link_to t(".clinic_visits"), clinic_visits_path
+    li
       = link_to t(".tx_wait_list"), transplants_wait_list_path(filter: "active")
     li
       = link_to t(".ongoing_hd_sessions"), hd_ongoing_sessions_path

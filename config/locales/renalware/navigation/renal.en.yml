@@ -4,6 +4,7 @@ en:
       renal:
         menu_title: Renal
         appointments: Appointments
+        clinic_visits: Clinic Visits
         tx_wait_list: Tx Wait List
         ongoing_hd_sessions: Ongoing HD Sessions
         letters: Letters

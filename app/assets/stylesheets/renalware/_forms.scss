@@ -304,6 +304,12 @@ article {
   .actions {
     padding-top: 8px;
   }
+
+  &.search-form-vertical {
+    .actions {
+      padding-top: 1.3rem;
+    }
+  }
 }
 
 fieldset {

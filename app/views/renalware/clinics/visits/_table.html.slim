@@ -1,0 +1,15 @@
+table.global-clinic-visits
+  thead
+    tr
+      th.col-width-date Date
+      th Patient
+      th NHS Number
+      th Clinic Type
+      th BMI
+      th BP
+      th Created by
+  tbody
+    = render partial: "table_row",
+             collection: clinic_visits,
+             as: :clinic_visit
+
