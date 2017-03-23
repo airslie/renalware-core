@@ -3,11 +3,13 @@ table.global-clinic-visits
     tr
       th.col-width-date Date
       th Patient
-      th NHS Number
+      th.col-width-nhs-no NHS Number
+      th.col-width-tiny Sex
+      th.col-width-tiny Age
       th Clinic Type
-      th BMI
-      th BP
-      th Created by
+      th.col-width-small BMI
+      th.col-width-small BP
+      th.col-width-medium Created by
   tbody
     = render partial: "table_row",
              collection: clinic_visits,
