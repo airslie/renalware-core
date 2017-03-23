@@ -54,11 +54,12 @@ en:
         waiting_list: Waiting List
     errors:
       models:
-        renalware/transplants/recipient_workup_document/scores:
+        renalware/transplants/recipient_workup_document/scores/karnofsky/dated_integer:
           attributes:
-            karnofsky:
+            result:
               inclusion: must be between 0 and 100
-            prisma:
+        renalware/transplants/recipient_workup_document/scores/prisma/dated_integer:
+            result:
               inclusion: must be between 0 and 7
   enumerize:
     renalware/transplants/recipient_workup_document/consent:

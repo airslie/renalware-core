@@ -18,11 +18,20 @@ module Renalware
       attribute :historicals, Historicals
 
       class Scores < Document::Embedded
-        attribute :karnofsky, Integer # DatedResult
-        attribute :prisma, Integer # DatedResult
+        module Karnofsky
+          class DatedInteger < Renalware::DatedInteger
+            validates :result, inclusion: { in: 0..100, allow_blank: true }
+          end
+        end
 
-        validates :karnofsky, inclusion: { in: 0..100, allow_blank: true }
-        validates :prisma, inclusion: { in: 0..7, allow_blank: true }
+        module Prisma
+          class DatedInteger < Renalware::DatedInteger
+            validates :result, inclusion: { in: 0..7, allow_blank: true }
+          end
+        end
+
+        attribute :karnofsky, Karnofsky::DatedInteger
+        attribute :prisma, Prisma::DatedInteger
       end
       attribute :scores, Scores
 

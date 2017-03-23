@@ -57,7 +57,9 @@ module Renalware
     connection.execute(<<-SQL)
       INSERT INTO transplant_recipient_workups
       (patient_id, document, created_at, updated_at, created_by_id, updated_by_id)
-      VALUES (1, '{"scores": {"prisma": 3, "karnofsky": 56},
+      VALUES (1, '{"scores": {
+      "prisma": { "result": 2, "recorded_on": "2017-03-24" },
+      "karnofsky": { "result": 1, "recorded_on": "2017-03-23" } },
       "hla_data": "FASDF;KJASFDAHSDFKSHFDHASOUOW",
       "education": {"cancer": "yes", "followup": "yes", "infection": "yes",
       "procedure": "yes", "rejection": "yes", "recurrence": "yes",

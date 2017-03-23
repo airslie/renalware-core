@@ -9,16 +9,22 @@ article
                   patient_transplants_recipient_workup_path(patient),
                   class: "button secondary"
 
-  dl.dl-horizontal
-    dt Last Update:
-    dd
-      = l(recipient_workup.updated_at)
-      | &nbsp;by&nbsp;
-      = recipient_workup.updated_by&.full_name
-    dt= t(".consent")
-    dd= Renalware::Transplants::ConsentPresenter.new(recipient_workup.document.consent)
-    dt= t(".marginal_consent")
-    dd= Renalware::Transplants::ConsentPresenter.new(recipient_workup.document.marginal_consent)
-    dt= t(".nhb_consent")
-    dd= Renalware::Transplants::ConsentPresenter.new(recipient_workup.document.nhb_consent)
+  .row
+    dl.dl-horizontal.columns.medium-6
+      dt Last Update:
+      dd
+        = l(recipient_workup.updated_at)
+        | &nbsp;by&nbsp;
+        = recipient_workup.updated_by&.full_name
+      dt= t(".consent")
+      dd= Renalware::Transplants::ConsentPresenter.new(recipient_workup.document.consent)
+      dt= t(".marginal_consent")
+      dd= Renalware::Transplants::ConsentPresenter.new(recipient_workup.document.marginal_consent)
+      dt= t(".nhb_consent")
+      dd= Renalware::Transplants::ConsentPresenter.new(recipient_workup.document.nhb_consent)
 
+    dl.dl-horizontal.columns.medium-6
+      dt= attr_name(recipient_workup.document.scores, :karnofsky)
+      dd= recipient_workup.document.scores.karnofsky.to_s
+      dt= attr_name(recipient_workup.document.scores, :prisma)
+      dd= recipient_workup.document.scores.prisma.to_s
