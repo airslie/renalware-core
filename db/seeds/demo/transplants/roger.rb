@@ -94,7 +94,7 @@ log "SQL INSERT Transplant Recipient Operation for Roger RABBIT" do
       VALUES (1, '2017-02-23', '08:15:00', '2017-02-23 07:07:00', 'kidney_pancreas', 51,
       '2017-02-23 09:15:00', 5100, 5520, 'Uneventful Tx.', '{"donor":
       {"age": {"unit": "years", "amount": 36}, "hla": "DASFS", "type":
-      "cadaver", "gender": "male", "born_on": "1980-03-13", "asystolic": "yes",
+      "cadaver", "gender": "male", "asystolic": "yes",
       "cmv_status": "unknown", "blood_group": {"value": "B"}, "kidney_side": "left",
       "hla_mismatch": "WWERW", "kidney_weight": 234, "ethnic_category": "other_european",
       "ukt_notified_at": "2017-02-22T06:07:00.000+00:00", "ukt_donor_number": "54321",

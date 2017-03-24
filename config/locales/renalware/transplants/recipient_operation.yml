@@ -29,7 +29,6 @@ en:
         asystolic: Asystolic
         blood_group: Blood Group
         blood_group_rhesus: Blood Group Rhesus
-        born_on: Birthdate
         cmv_status: CMV Status
         ethnic_category: Ethnic Category
         gender: Gender
@@ -164,8 +163,5 @@ en:
   simple_form:
     hints:
       transplants_recipient_operation:
-        document:
-          donor:
-            born_on: Age will be computed if you provide a date
         cold_ischaemic_time_formatted: hh:mm
         warm_ischaemic_time_formatted: minutes
