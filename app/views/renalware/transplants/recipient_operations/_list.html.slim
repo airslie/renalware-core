@@ -31,7 +31,7 @@ article
           td= operation.operation_type.text
           td= operation.recipient_age_at_operation
           td= operation.document.donor.type.try(:text)
-          td= operation.donor_age_at_operation
+          td= operation.document.donor.age
           td= operation.document.recipient.cmv_status.try(:text)
           td= operation.document.donor.cmv_status.try(:text)
           td= operation.document.donor.hla_mismatch
