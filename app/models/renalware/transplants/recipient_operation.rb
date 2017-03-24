@@ -13,8 +13,6 @@ module Renalware
       belongs_to :hospital_centre, class_name: "Hospitals::Centre"
       has_one :followup, class_name: "RecipientFollowup", foreign_key: "operation_id"
 
-      before_validation :compute_donor_age
-
       scope :ordered, -> { order(performed_on: :asc) }
       scope :reversed, -> { order(performed_on: :desc) }
       scope :most_recent, -> { order(performed_on: :desc).first }
@@ -73,22 +71,6 @@ module Renalware
           ).compute
       end
 
-      def donor_age_at_operation
-        @donor_age_at_operation ||=
-          AutomaticAgeCalculator.new(
-            Age.new,
-            born_on: document.donor.born_on, age_on_date: performed_on
-          ).compute
-      end
-
-      private
-
-      def compute_donor_age
-        document.donor.age = AutomaticAgeCalculator.new(
-          document.donor.age,
-          born_on: document.donor.born_on, age_on_date: performed_on
-        ).compute
-      end
     end
   end
 end
