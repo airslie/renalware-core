@@ -22,7 +22,6 @@ module Renalware
         attribute :type, Document::Enum
         attribute :gender, Document::Enum, enums: %i(male female)
         attribute :ethnic_category, Document::Enum
-        attribute :born_on, Date
         attribute :age, Age
         attribute :hla
         attribute :hla_mismatch
@@ -36,7 +35,6 @@ module Renalware
 
         validates :kidney_weight, numericality: { allow_blank: true }
 
-        validates :born_on, timeliness: { type: :date, allow_blank: true }
         validates :ukt_notified_at, timeliness: { type: :datetime, allow_blank: true }
       end
       attribute :donor, Donor
