@@ -189,7 +189,7 @@ Rails.application.routes.draw do
       resources :events, only: [:new, :create, :index], controller: "events/events"
 
       resources :swabs,
-                only: [:new, :create],
+                only: [:new, :create, :edit, :update],
                 controller: "events/swabs",
                 defaults: { slug: :swabs }
 

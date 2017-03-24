@@ -1,4 +1,4 @@
-article
+article.swabs
   header
     h2= t(".title")
     = link_to t(".add"),
@@ -7,6 +7,7 @@ article
   table
     thead
       tr
+        th.col-width-tiny
         th.col-width-date-time= t(".date_time")
         th.col-width-tiny= t(".type")
         th.col-width-tiny= t(".result")
@@ -15,6 +16,7 @@ article
     tbody
       - swabs.each do |swab|
         tr
+          td= link_to("Edit", edit_patient_swab_path(patient, swab)) if policy(swab).edit?
           td= l(swab.date_time)
           td= swab.document.type&.text
           td= swab.document.result&.text
