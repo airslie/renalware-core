@@ -25,4 +25,5 @@ html lang="en"
 
       - unless user_signed_in?
         = render "renalware/navigation/footer"
-    = javascript_include_tag "application"
+    - load_js_asynchonously = (Rails.env.staging? || Rails.env.production?)
+    = javascript_include_tag "application", async: load_js_asynchonously
