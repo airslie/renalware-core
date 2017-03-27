@@ -19,7 +19,7 @@ ul.side-nav
                       active_when_controller_matches: %r{renalware/clinical/profiles}
 
   = patient_menu_item title: t(".esrf"),
-                      path: edit_patient_renal_profile_path(current_patient),
+                      path: patient_renal_profile_path(current_patient),
                       active_when_controller_matches: %r{renalware/renal}
 
   = patient_menu_item title: t(".modalities", count: summary.modalities_count),

@@ -1,0 +1,32 @@
+= content_for(:actions) do
+  = link_to t("edit_record.link_title"),
+            edit_patient_renal_profile_path(@patient),
+            class: "button"
+
+= within_patient_layout(title: "Renal Profile & Comorbidity Data") do
+    .grid
+      .row
+        -
+        - attrs = %i(esrf_on weight_at_esrf modality_at_esrf first_seen_on)
+        - attrs.concat %i(prd_description comorbidities_updated_on)
+        = render "renalware/shared/attributes_group",
+                 legend: "Diagnosis & ESRF Info",
+                 models: { profile => attrs },
+                 width: "xlarge"
+
+        = render "renalware/shared/documents/attributes_group",
+                 group: profile.document.comorbidities,
+                 legend: "Comorbidities",
+                 width: "xlarge"
+
+        = render "renalware/shared/documents/attributes_group",
+                 group: profile.document.low_clearance,
+                 legend: "Low Clearance",
+                 width: "xlarge"
+
+        - profile.build_address_at_diagnosis if profile.address_at_diagnosis.blank?
+        - attrs = %i(name street_1 street_2 city county postcode country)
+        = render "renalware/shared/attributes_group",
+                 legend: "Address at Diagnosis",
+                 models: { profile.address_at_diagnosis => attrs },
+                 width: "xlarge"

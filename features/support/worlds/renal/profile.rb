@@ -50,7 +50,9 @@ module World
           fill_in low_clearance_t("access_notes"), with: "Notes"
         end
 
-        click_on "Save"
+        within page.first(".form-actions") do
+          click_on "Save"
+        end
       end
 
       def expect_renal_profile_to_be_updated(user, patient)

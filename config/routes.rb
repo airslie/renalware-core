@@ -236,7 +236,7 @@ Rails.application.routes.draw do
       end
 
       namespace :renal do
-        resource :profile, only: [:edit, :update]
+        resource :profile, only: [:show, :edit, :update]
       end
 
       # Modalities

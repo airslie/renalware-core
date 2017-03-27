@@ -1,16 +1,26 @@
-= within_patient_layout(title: "Renal Profile & Comorbidity Data") do
+= within_patient_layout(title: "Edit",
+                        breadcrumbs: breadcrumb_for("Renal Profile & Comorbidity Data",
+                                                    patient_renal_profile_path(patient))) do
 
   .row
-    = render "renalware/shared/errors", model: @profile
+    = render "renalware/shared/errors", model: profile
 
   .row
     .large-12.columns
-      = simple_form_for @profile,
-          url: patient_renal_profile_path(@patient),
+      = simple_form_for profile,
+          url: patient_renal_profile_path(patient),
           method: :patch,
+          html: { autocomplete: "off" },
           wrapper: "horizontal_form" do |f|
+
+        .form-actions
+          = submit_tag "Save", class: "button"
+          span= " or "
+          = link_to "cancel", patient_clinical_summary_path(patient)
+
         = render "form", f: f
 
-        = submit_tag "Save", class: "button"
-        span= " or "
-        = link_to "cancel", patient_clinical_summary_path(@patient)
+        .form-actions
+          = submit_tag "Save", class: "button"
+          span= " or "
+          = link_to "cancel", patient_clinical_summary_path(patient)
