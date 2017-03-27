@@ -13,6 +13,7 @@
 # These inflection rules are supported but not enabled by default:
 ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "APD"
+  inflect.acronym "API"
   inflect.acronym "CAPD"
   inflect.acronym "CC"
   inflect.acronym "CCs"
@@ -30,4 +31,5 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "XHR"
   inflect.acronym "GP"
   inflect.acronym "RTF"
+  inflect.acronym "UKRDC"
 end

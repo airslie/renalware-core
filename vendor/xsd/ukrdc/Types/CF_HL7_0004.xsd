@@ -1,0 +1,76 @@
+<xs:schema xmlns="http://www.rixg.org.uk/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.rixg.org.uk/">
+	<xs:complexType name="CF_HL7_0004">
+		<xs:sequence>
+			<xs:element name="CodingStandard" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="HL7_0004"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Code" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="E">
+							<xs:annotation>
+								<xs:documentation>Emergency</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="I">
+							<xs:annotation>
+								<xs:documentation>Inpatient</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="O">
+							<xs:annotation>
+								<xs:documentation>Outpatient</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="P">
+							<xs:annotation>
+								<xs:documentation>Preadmit</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="R">
+							<xs:annotation>
+								<xs:documentation>Recurring Patient</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="B">
+							<xs:annotation>
+								<xs:documentation>Obstetrics</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="D">
+							<xs:annotation>
+								<xs:documentation>Day Hospital</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="W">
+							<xs:annotation>
+								<xs:documentation>Week Hospital</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="S">
+							<xs:annotation>
+								<xs:documentation>Psychiatric</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="K">
+							<xs:annotation>
+								<xs:documentation>Newborn</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Description" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="32000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

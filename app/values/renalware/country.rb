@@ -1,13 +1,19 @@
 # rubocop:disable Style/StructInheritance
 module Renalware
-  class Country < Struct.new(:name)
+  class Country < Struct.new(:name, :code)
 
     def self.all
-      data.map{ |d| Country.new(d[:name]) }
+      @all ||= data.map{ |row| Country.new(row[0], row[1]) }
     end
 
     def self.data
-      @data ||= YAML.load_file(Rails.root.join("config", "countries.yml"))
+      CSV.read(Rails.root.join("config", "countries.csv"), headers: true)
+    end
+
+    def self.code_for(country_name)
+      country = all.find{ |cntry| cntry.name == country_name }
+      return unless country
+      country.code
     end
   end
 end

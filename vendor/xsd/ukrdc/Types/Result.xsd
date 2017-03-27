@@ -1,0 +1,178 @@
+<xs:schema xmlns="http://www.rixg.org.uk/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.rixg.org.uk/">
+
+<xs:complexType name="Result">
+    <xs:sequence>
+        <xs:element minOccurs="0" name="FromTime" type="TimeStamp">
+            <xs:annotation>
+                <xs:documentation>start of time range.</xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="ToTime" type="TimeStamp">
+            <xs:annotation>
+                <xs:documentation>End of time range</xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="CustomPairs" type="ArrayOfNVPairNVPair">
+            <xs:annotation>
+                <xs:documentation>The generic container to hold all sorts of data about this object</xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="ResultType" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Describes the type of result. Atomic results are treated differently than other results - they have a list of ResultItems, where non-atomic results have either a ResultText or a Stream (for IM types)</xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="ResultItems">
+            <xs:annotation>
+                <xs:documentation>A list of the lab result's items, used for atomic results</xs:documentation>
+            </xs:annotation>
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="LabResultItem" nillable="true" type="LabResultItem"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" name="VerifiedBy" type="CareProvider">
+            <xs:annotation>
+                <xs:documentation>Care provider who verified result</xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="ResultTime" type="TimeStamp">
+            <xs:annotation>
+                <xs:documentation>Time of result</xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="ResultStatus" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Result status</xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="ResultText" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>The actual text of the result</xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="FileType" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>The type of data e.g PDF, DOC, RTF, TXT</xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="DocumentName">
+            <xs:annotation>
+                <xs:documentation>This is the name of the document.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="220"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:element>
+        <xs:element minOccurs="0" name="Stream" type="xs:base64Binary">
+            <xs:annotation>
+                <xs:documentation>This property contains the (text) result, which can be lines of text (if FileType="TXT")</xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="DocumentURL">
+            <xs:annotation>
+                <xs:documentation>The full URL where the document can be accessed</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="32000"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:element>
+        <xs:element minOccurs="0" name="DocumentNumber">
+            <xs:annotation>
+                <xs:documentation>Used as an external reference Id.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="220"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:element>
+        <xs:element minOccurs="0" name="Comments" type="xs:string">
+            <xs:annotation>
+                <xs:documentation></xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="AuthorizationTime" type="TimeStamp">
+            <xs:annotation>
+                <xs:documentation>Time result was authenticated/verified</xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="PerformedAt" type="Organization">
+            <xs:annotation>
+                <xs:documentation>PerformedAt / ProducersID</xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="ResultInterpretation" type="xs:string">
+            <xs:annotation>
+                <xs:documentation></xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="GUID" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>The unique identifier for a radiology image cached by eHGT.</xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="GUIDExpDate" type="TimeStamp">
+            <xs:annotation>
+                <xs:documentation>The date on which the image cache identified by the GUID expires.</xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="EnteredBy" type="User">
+            <xs:annotation>
+                <xs:documentation></xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="EnteredAt" type="Organization">
+            <xs:annotation>
+                <xs:documentation></xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="EnteredOn" type="TimeStamp">
+            <xs:annotation>
+                <xs:documentation></xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="ExternalId">
+            <xs:annotation>
+                <xs:documentation>Used as a default for FillerId for an Order</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="220"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:element>
+        <xs:element minOccurs="0" name="ActionCode" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Not used.</xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="ActionScope" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>Not used.</xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="UpdatedOn" type="TimeStamp">
+            <xs:annotation>
+                <xs:documentation>Not used.</xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" name="EncounterNumber">
+            <xs:annotation>
+                <xs:documentation>Not used.</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="220"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:element>
+    </xs:sequence>
+</xs:complexType>
+
+</xs:schema>

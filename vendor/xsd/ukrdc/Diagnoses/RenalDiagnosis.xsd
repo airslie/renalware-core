@@ -1,0 +1,8 @@
+<xs:schema xmlns="http://www.rixg.org.uk/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.rixg.org.uk/">
+	<xs:include schemaLocation="Diagnosis.xsd"/>
+	<xs:complexType name="RenalDiagnosis">
+		<xs:complexContent>
+			<xs:extension base="Diagnosis"/>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

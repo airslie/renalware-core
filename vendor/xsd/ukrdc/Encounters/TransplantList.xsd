@@ -1,0 +1,108 @@
+<!-- edited with XMLSpy v2015 rel. 4 (x64) (http://www.altova.com) by Nick Jones (Agiloak Limited) -->
+<xs:schema xmlns="http://www.rixg.org.uk/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.rixg.org.uk/">
+	<!-- To be used to record NHS B&T Waiting List periods -->
+	<xs:include schemaLocation="../Types/Clinician.xsd"/>
+	<xs:include schemaLocation="../Types/Location.xsd"/>
+	<xs:include schemaLocation="../Types/CodedField.xsd"/>
+	<xs:include schemaLocation="../Types/CommonMetadata.xsd"/>
+	<xs:complexType name="TransplantList">
+		<xs:sequence>
+			<xs:element name="EncounterNumber" type="xs:string"/>
+			<xs:element name="EncounterType">
+				<xs:annotation>
+					<xs:documentation>General Encounter Type (PV1-2)</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="E">
+							<xs:annotation>
+								<xs:documentation>Emergency</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="I">
+							<xs:annotation>
+								<xs:documentation>Inpatient</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="O">
+							<xs:annotation>
+								<xs:documentation>Outpatient</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="N">
+							<xs:annotation>
+								<xs:documentation>N/A</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="G">
+							<xs:annotation>
+								<xs:documentation>?</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="P">
+							<xs:annotation>
+								<xs:documentation>Pre-Admit</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="S">
+							<xs:annotation>
+								<xs:documentation>?</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="FromTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Time that encounter starts as CCYYMMDD</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ToTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Time that encounter ends as CCYYMMDD</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdmittingClinician" type="Clinician" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Responsible Clinician as a National Clinicial code where possible or other local code if not.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="HealthCareFacility" type="Location" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Parent renal unit as national ODS code (e.g. RXF01)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdmitReason" type="CodedField" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Type of Organ</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdmissionSource" type="Location" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Parent renal unit as national ODS code (e.g. RXF01)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DischargeReason" type="CodedField" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Reason for Discharge (Transplant, Removed from List etc.)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DischargeLocation" type="Location" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Parent renal unit as national ODS code (e.g. RXF01)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EnteredAt" type="Location" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>National code for the hospital providing care - e.g. RXF01</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="VisitDescription" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Details of validation e.g. Date Done, by whom, who provided the info</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:group ref="CommonMetadata"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

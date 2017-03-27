@@ -22,6 +22,15 @@ module Renalware
         expect(valid_gender).to be_invalid
         expect(valid_gender.errors[:code]).to include(/included/)
       end
+
+      describe "#nhs_dictionary_number" do
+        it "maps genders to the the correct NHS-defined number" do
+          expect(Gender.new("NK").nhs_dictionary_number).to eq(0)
+          expect(Gender.new("M").nhs_dictionary_number).to eq(1)
+          expect(Gender.new("F").nhs_dictionary_number).to eq(2)
+          expect(Gender.new("NS").nhs_dictionary_number).to eq(9)
+        end
+      end
     end
   end
 end

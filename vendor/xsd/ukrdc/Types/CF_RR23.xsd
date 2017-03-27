@@ -1,0 +1,82 @@
+<xs:schema xmlns="http://www.rixg.org.uk/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.rixg.org.uk/">
+    <xs:complexType name="CF_RR23">
+        <xs:sequence>
+            <xs:element name="CodingStandard" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="CF_RR23"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Code" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="l">
+                            <xs:annotation>
+                                <xs:documentation>Litres</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="dl">
+                            <xs:annotation>
+                                <xs:documentation>Decilitres</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="ml">
+                            <xs:annotation>
+                                <xs:documentation>Mililitres</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="g">
+                            <xs:annotation>
+                                <xs:documentation>Grams</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="mg">
+                            <xs:annotation>
+                                <xs:documentation>Miligrams</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <!-- Note: Mu isn't ASCII which requires this file to be UTF-8 encoded -->
+                        <xs:enumeration value="μg">
+                            <xs:annotation>
+                                <xs:documentation>Micrograms</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="ng">
+                            <xs:annotation>
+                                <xs:documentation>Nanograms</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="tab">
+                            <xs:annotation>
+                                <xs:documentation>Tablets</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="units">
+                            <xs:annotation>
+                                <xs:documentation>Units (i.e. for Epoetins)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="mmol">
+                            <xs:annotation>
+                                <xs:documentation>Minimols</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="other">
+                            <xs:annotation>
+                                <xs:documentation>Other</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Description" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,80 @@
+<xs:schema xmlns="http://www.rixg.org.uk/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.rixg.org.uk/">
+    <xs:complexType name="CF_RR7_DISCHARGE">
+        <xs:sequence>
+            <xs:element name="CodingStandard" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="CF_RR7_DISCHARGE"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Code" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+
+                        <xs:enumeration value="30">
+                            <xs:annotation>
+                                <xs:documentation>Graft Failure</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="38">
+                            <xs:annotation>
+                                <xs:documentation>Patient transferred Out</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="84">
+                            <xs:annotation>
+                                <xs:documentation>ARF - Recovered</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="85">
+                            <xs:annotation>
+                                <xs:documentation>ARF - Stopped Dialysis (without recovery of function)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="86">
+                            <xs:annotation>
+                                <xs:documentation>ARF - Transferred Out</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="90">
+                            <xs:annotation>
+                                <xs:documentation>Patient - Renal Function Recovered</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="91">
+                            <xs:annotation>
+                                <xs:documentation>Patient - Treatment Stopped (Without Recovery of Function)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="92">
+                            <xs:annotation>
+                                <xs:documentation>Conservative Management - Treatment stopped without recovery</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="95">
+                            <xs:annotation>
+                                <xs:documentation>Patient - Lost to follow-up</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Description" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

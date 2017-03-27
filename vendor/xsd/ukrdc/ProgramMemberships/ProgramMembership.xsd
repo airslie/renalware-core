@@ -1,0 +1,46 @@
+<!-- edited with XMLSpy v2015 rel. 4 (x64) (http://www.altova.com) by Nick Jones (Agiloak Limited) -->
+<xs:schema xmlns="http://www.rixg.org.uk/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.rixg.org.uk/">
+	<xs:include schemaLocation="../Types/Clinician.xsd"/>
+	<xs:include schemaLocation="../Types/Location.xsd"/>
+	<xs:include schemaLocation="../Types/CommonMetadata.xsd"/>
+	<xs:complexType name="ProgramMembership">
+		<xs:sequence>
+			<xs:element name="EnteredBy" type="Clinician" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Person entering the consent as a National Clinicial code where possible or other local code if not.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EnteredAt" type="Location" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>National code for the trust recording the consent - e.g. RXF01</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProgramName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Name of RDG or study</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProgramDescription" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Free text</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="220"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="FromTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>Date Consent Given</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ToTime" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Date Consent Withdrawn</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:group ref="CommonMetadata"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

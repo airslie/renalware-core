@@ -1,0 +1,343 @@
+<xs:schema xmlns="http://www.rixg.org.uk/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.rixg.org.uk/">
+    <xs:complexType name="CF_EDTA_COD">
+        <!-- Also known as RR5 -->
+        <xs:sequence>
+            <xs:element name="CodingStandard" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="EDTA"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Code" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="0">
+                            <xs:annotation>
+                                <xs:documentation>Cause of death uncertain / not determined</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>                    
+                        <xs:enumeration value="11">
+                            <xs:annotation>
+                                <xs:documentation>Myocardial Ischaemia and Infraction</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="12">
+                            <xs:annotation>
+                                <xs:documentation>Hyperkalaemia</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="13">
+                            <xs:annotation>
+                                <xs:documentation>Haemorrhagic Pericarditis</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="14">
+                            <xs:annotation>
+                                <xs:documentation>Other causes of cardiac failure</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="15">
+                            <xs:annotation>
+                                <xs:documentation>Cardiac arrest/sudden death; other cause or unknown</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="16">
+                            <xs:annotation>
+                                <xs:documentation>Hypertensive cardiac failure</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="17">
+                            <xs:annotation>
+                                <xs:documentation>Hypokalaemia</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="18">
+                            <xs:annotation>
+                                <xs:documentation>Fluid Overload / Pulmonary Oedema</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="19">
+                            <xs:annotation>
+                                <xs:documentation>Elevated PVR / Pulmonary hypertension</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>                        
+                        <xs:enumeration value="21">
+                            <xs:annotation>
+                                <xs:documentation>Pulmonary Embolus</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="22">
+                            <xs:annotation>
+                                <xs:documentation>Cerebro-Vascular Accident, other cause or unspecified</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="23">
+                            <xs:annotation>
+                                <xs:documentation>Gastro-Intestinal Haemorrhage (Digestive)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="24">
+                            <xs:annotation>
+                                <xs:documentation>Haemorrhage from graft site</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="25">
+                            <xs:annotation>
+                                <xs:documentation>Haemorrhage from vascular access or dailysis circuit</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="26">
+                            <xs:annotation>
+                                <xs:documentation>Cerebral haemorrhage from ruptured vascular aneurysm (not code 22 or 23)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="27">
+                            <xs:annotation>
+                                <xs:documentation>Haemorrhage from surgery (except digestive haemorrhage</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="28">
+                            <xs:annotation>
+                                <xs:documentation>Other haemorrhage, other site and/or other cause</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="29">
+                            <xs:annotation>
+                                <xs:documentation>Mesenteric Infarction</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="31">
+                            <xs:annotation>
+                                <xs:documentation>Pulmonary Infection (Bacterial)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="32">
+                            <xs:annotation>
+                                <xs:documentation>Pulmonary Infection (Viral)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="33">
+                            <xs:annotation>
+                                <xs:documentation>Pulmonary Infection (Fungal or Protozoal; parasitic)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="35">
+                            <xs:annotation>
+                                <xs:documentation>Septicaemia</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="36">
+                            <xs:annotation>
+                                <xs:documentation>Tuberculosis (Lung)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="37">
+                            <xs:annotation>
+                                <xs:documentation>Tuberculosis (Elsewhere)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="38">
+                            <xs:annotation>
+                                <xs:documentation>Generalised Viral Infection</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="39">
+                            <xs:annotation>
+                                <xs:documentation>Peritonitis (all causes except for Peritoneal Dialysis)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="41">
+                            <xs:annotation>
+                                <xs:documentation>Liver disease due to hepatitis B virus</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="42">
+                            <xs:annotation>
+                                <xs:documentation>Liver disease due to other viral hepatitis</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="43">
+                            <xs:annotation>
+                                <xs:documentation>Liver disease due to drug toxicity</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="44">
+                            <xs:annotation>
+                                <xs:documentation>Cirrhosis - not viral (alcoholic or other cause)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="45">
+                            <xs:annotation>
+                                <xs:documentation>Cystic liver disease</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="46">
+                            <xs:annotation>
+                                <xs:documentation>Liver failure - cause unknown</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="51">
+                            <xs:annotation>
+                                <xs:documentation>Patient refused further treatment for ERF</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="52">
+                            <xs:annotation>
+                                <xs:documentation>Suicide</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="53">
+                            <xs:annotation>
+                                <xs:documentation>ERF Treatment ceased for any other reason</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="54">
+                            <xs:annotation>
+                                <xs:documentation>ERF TReatment withdrawn for medical reasons</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="62">
+                            <xs:annotation>
+                                <xs:documentation>Pancreatitis</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="63">
+                            <xs:annotation>
+                                <xs:documentation>Bone Marrow Depression (Aplosia)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="64">
+                            <xs:annotation>
+                                <xs:documentation>Cachexia</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="66">
+                            <xs:annotation>
+                                <xs:documentation>Malignant disease in patient treated by immuosuppressive therapy</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="67">
+                            <xs:annotation>
+                                <xs:documentation>Malignant disease: solid tumours except those of 66</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="68">
+                            <xs:annotation>
+                                <xs:documentation>Malignant disease: lymphoproliferative disorders (Except 66)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="69">
+                            <xs:annotation>
+                                <xs:documentation>Dementia</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="70">
+                            <xs:annotation>
+                                <xs:documentation>Peritonitis (sclerosing, with peritoneal dialysis)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="71">
+                            <xs:annotation>
+                                <xs:documentation>Perforation of peptic ulcer</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="72">
+                            <xs:annotation>
+                                <xs:documentation>Perforation of colon</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="73">
+                            <!-- NOTE: In v3.14 This was incorrectly published as Unknown -->
+                            <xs:annotation>
+                                <xs:documentation>COPD</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="79">
+                            <xs:annotation>
+                                <xs:documentation>Multi-system failure</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>                        
+                        <xs:enumeration value="81">
+                            <xs:annotation>
+                                <xs:documentation>Accident related to ERF Treatment</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="82">
+                            <xs:annotation>
+                                <xs:documentation>Accident unrelated to ERF Treatment</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="99">
+                            <xs:annotation>
+                                <xs:documentation>Cause of death uncertain/not determined</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="100">
+                            <xs:annotation>
+                                <xs:documentation>Peritonitis (bacterial, with peritoneal dialysis)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="101">
+                            <xs:annotation>
+                                <xs:documentation>Peritonitis (fungal, with peritoneal dialysis)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="102">
+                            <xs:annotation>
+                                <xs:documentation>Peritonitis (due to other cause, with peritoneal dialysis)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="103">
+                            <xs:annotation>
+                                <xs:documentation>Peripheral Vascular Disease</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="104">
+                            <xs:annotation>
+                                <xs:documentation>Calciphylaxis</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="105">
+                            <xs:annotation>
+                                <xs:documentation>Ischaemic bowel</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="106">
+                            <xs:annotation>
+                                <xs:documentation>Ruptured AAA</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="107">
+                            <xs:annotation>
+                                <xs:documentation>Advanced CKD not on dialysis (conservative management)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="108">
+                            <xs:annotation>
+                                <xs:documentation>Acute Kidney Injury</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="109">
+                            <xs:annotation>
+                                <xs:documentation>C Diff Colitis</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="110">
+                            <xs:annotation>
+                                <xs:documentation>Line Related Sepsis</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>                        
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Description" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

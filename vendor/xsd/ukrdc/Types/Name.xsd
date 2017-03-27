@@ -1,0 +1,51 @@
+<xs:schema xmlns="http://www.rixg.org.uk/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.rixg.org.uk/">
+	<xs:complexType name="Name">
+		<xs:sequence>
+			<xs:element name="Prefix" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Prefix or title e.g. Mr, Mrs etc</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="220"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Family" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Surname or family name. Mandatory on Usual name</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="80"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Given" minOccurs="0" maxOccurs="2">
+				<xs:annotation>
+					<xs:documentation>Up to 2 given names. If the person has more than 2 concatenate in the 2nd occurrence. 1 occurrence is mandatory for a Usual name.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="60"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Suffix" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Suffix e.g. Jnr, Snr etc.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="220"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="use">
+			<xs:annotation>
+				<xs:documentation>Use codes from PDS L=Usual A=Alias (0..*) PREFERRED=Preferred PREVIOUS-BIRTH=Birth name</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>
