@@ -1,0 +1,16 @@
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    title= yield(:page_title)
+    = stylesheet_link_tag "application", media: :all
+
+  body.error-page
+    nav.top-bar(data-topbar role="navigation")
+      ul.title-area
+        li.name Renalware
+
+    .error-content= yield
+
+    = render "renalware/navigation/footer"

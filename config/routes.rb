@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  match "/404", to: "renalware/errors#not_found", via: :all
+  match "/500", to: "renalware/errors#internal_server_error", via: :all
+  match "/generate_test_internal_server_error",
+        to: "renalware/errors#generate_test_internal_server_error",
+        via: :get
+
   devise_for :users, class_name: "Renalware::User", controllers: {
     registrations: "renalware/devise/registrations",
     sessions: "renalware/devise/sessions"
@@ -19,6 +25,7 @@ Rails.application.routes.draw do
   get "/rails/mailers/*path" => "rails/mailers#preview"
 
   scope module: "renalware" do
+
     root to: "dashboard/dashboards#show"
 
     resources :mock_errors, only: [:index]
