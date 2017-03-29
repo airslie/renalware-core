@@ -11,13 +11,9 @@ module Renalware
     class MDMLink
       include ActionView::Helpers
       include Rails.application.routes.url_helpers
-      attr_reader :patient, :modality_description_name
 
       def initialize(patient)
         @patient = patient
-        if patient.current_modality
-          @modality_description_name = patient.current_modality.description.name
-        end
       end
 
       def path
@@ -36,6 +32,20 @@ module Renalware
       end
 
       private
+
+      attr_reader :patient, :modality_description_name
+
+      def modality_description_name
+        case modality_description.name.downcase.to_sym
+        when :pd, :apd, :capd then "PD"
+        else modality_description.name
+        end
+      end
+
+      def modality_description
+        current_modality = patient.current_modality || NullObject.instance
+        current_modality.description
+      end
 
       def mdm_name
         "#{modality_description_name} MDM"
