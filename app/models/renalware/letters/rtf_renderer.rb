@@ -41,7 +41,9 @@ module Renalware
       end
 
       def rtf_content_converted_from(html_temp_file)
-        PandocRuby.html([html_temp_file.path], :standalone).to_rtf
+        rtf_template = File.join(Rails.root, "lib", "pandoc", "templates", "default.rtf")
+        options = { template: rtf_template }
+        PandocRuby.html([html_temp_file.path], options, :standalone).to_rtf
       end
 
       def html_with_images_stripped
