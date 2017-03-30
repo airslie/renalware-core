@@ -12,7 +12,7 @@ module Renalware
       def render
         using_temp_html_file do |temp_file|
           controller.send_data rtf_content_converted_from(temp_file),
-                               type: "rtf",
+                               type: "text/richtext",
                                filename: filename
         end
       end
