@@ -19,23 +19,7 @@ module Renalware
             render_pdf(@letter, disposition)
           }
           format.rtf {
-            disposition = "attachment;"
-            filename = "yay.rtf"
-            disposition += " filename=\"#{filename}\""
-            headers["Content-Disposition"] = disposition
-
-            html = render_to_string(
-              template: "/renalware/letters/formatted_letters/show",
-              locals: { letter: letter },
-              format: :pdf
-            )
-            p html
-            #converter = PandocRuby.new('# Markdown Title', :from => :markdown, :to => :rtf)
-            send_data PandocRuby.new(html, :standalone).to_rtf,
-                     type: "rtf",
-                     filename: "yay.rtf"
-            # render text: rtf
-
+            render_rtf(@letter)
           }
         end
       end
@@ -67,6 +51,10 @@ module Renalware
             right: "page [page] of [topage]"
           }
         }
+      end
+
+      def render_rtf(letter)
+        RTFRenderer.new(letter, self).render
       end
     end
   end

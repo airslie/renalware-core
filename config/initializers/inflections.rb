@@ -29,4 +29,5 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "PRD"
   inflect.acronym "XHR"
   inflect.acronym "GP"
+  inflect.acronym "RTF"
 end
