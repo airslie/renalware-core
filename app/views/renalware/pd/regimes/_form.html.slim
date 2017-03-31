@@ -7,10 +7,13 @@
             include_blank: t("collection.blank_option"),
             wrapper: :horizontal_medium
 
+  - if f.object.apd?
+    = f.input :assistance_type, wrapper: :horizontal_small, default: :none
+
   = f.association :system,
                   collection: system_options_for(f.object),
                   include_blank: t("collection.blank_option"),
-                  wrapper: :horizontal_medium
+                  wrapper: :horizontal_small
 
   = f.input :delivery_interval,
             collection: delivery_interval_options,

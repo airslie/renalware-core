@@ -11,6 +11,7 @@ en:
 
     attributes:
       renalware/pd/regime:
+        assistance_type: "Assistance"
         fill_volume: "Fill volume (ml)"
         last_fill_volume: "Last fill volume (ml)"
         additional_manual_exchange_volume: "Add'l man exchange vol (ml)"

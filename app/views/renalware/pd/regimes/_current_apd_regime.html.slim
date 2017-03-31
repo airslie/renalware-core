@@ -1,33 +1,33 @@
 dl.columns.medium-6.dl-horizontal.xlarge.apd-regime-details
   dt Add'l manual exchange?:
-  dd= yes_no(current.has_additional_manual_exchange_bag?)
+  dd= yes_no(regime.has_additional_manual_exchange_bag?)
 
   dt Tidal:
-  dd= yes_no(current.tidal_indicator)
+  dd= yes_no(regime.tidal_indicator)
 
   dt Tidal %:
-  dd = "#{current.tidal_percentage} %"
+  dd = "#{regime.tidal_percentage} %"
 
   dt Fill volume:
-  dd = "#{current.fill_volume} ml"
+  dd = "#{regime.fill_volume} ml"
 
   dt Last fill volume:
-  dd = "#{current.last_fill_volume} ml"
+  dd = "#{regime.last_fill_volume} ml"
 
   dt Add'l man exchange volume:
-  dd = "#{current.additional_manual_exchange_volume} ml"
+  dd = "#{regime.additional_manual_exchange_volume} ml"
 
   dt Therapy time:
-  dd= Renalware::Duration.from_minutes(current.therapy_time).to_s
+  dd= Renalware::Duration.from_minutes(regime.therapy_time).to_s
 
   dt Cycles per session:
-  dd= current.no_cycles_per_apd
+  dd= regime.no_cycles_per_apd
 
   dt= t(".overnight_volume")
-  dd = "#{current.overnight_volume} ml"
+  dd = "#{regime.overnight_volume} ml"
 
   dt= t(".daily_volume")
-  dd= "#{current.daily_volume} ml"
+  dd= "#{regime.daily_volume} ml"
 
   dt Machine PAC:
-  dd= current.apd_machine_pac
+  dd= regime.apd_machine_pac

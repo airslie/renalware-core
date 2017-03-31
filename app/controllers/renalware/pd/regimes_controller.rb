@@ -11,7 +11,7 @@ module Renalware
         regime = cloned_last_known_regime_of_type || patient.pd_regimes.new(type: regime_type)
 
         render :new, locals: {
-          pd_regime: regime,
+          regime: regime,
           patient: patient
         }
       end
@@ -25,7 +25,7 @@ module Renalware
         else
           flash[:error] = failed_msg_for("PD Regime")
           render :new, locals: {
-            pd_regime: result.object,
+            regime: result.object,
             patient: patient
           }
         end
@@ -33,7 +33,7 @@ module Renalware
 
       def edit
         render :edit, locals: {
-          pd_regime: pd_regime,
+          regime: pd_regime,
           patient: patient
         }
       end
@@ -47,7 +47,7 @@ module Renalware
         else
           flash[:error] = t(".failed", model_name: "PD regime")
           render :edit, locals: {
-            pd_regime: result.object,
+            regime: result.object,
             patient: patient
           }
         end
@@ -55,7 +55,7 @@ module Renalware
 
       def show
         render :show, locals: {
-          pd_regime: pd_regime,
+          regime: pd_regime,
           patient: patient
         }
       end
@@ -75,7 +75,8 @@ module Renalware
 
       def pd_regime_params
         params.require(:pd_regime).permit(
-          :start_date, :end_date, :treatment, :type, :add_hd, :tidal_full_drain_every_three_cycles,
+          :start_date, :end_date, :treatment, :assistance_type, :type,
+          :add_hd, :tidal_full_drain_every_three_cycles,
           :tidal_indicator, :tidal_percentage, :no_cycles_per_apd,
           :apd_machine_pac, :therapy_time, :fill_volume, :delivery_interval,
           :system_id, :last_fill_volume, :additional_manual_exchange_volume,

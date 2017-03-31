@@ -1,0 +1,9 @@
+en:
+  enumerize:
+    renalware/pd/regime:
+      assistance_type:
+        none: None
+        setup: Setup
+        connect: Connect
+        disconnect: Disconnect
+        connect_and_disconnect: Connect and Disconnect

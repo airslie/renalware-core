@@ -1,10 +1,10 @@
-= within_patient_layout(title: "New #{capd_apd_title(pd_regime)} Regime",
+= within_patient_layout(title: "New #{capd_apd_title(regime)} Regime",
                         breadcrumbs: pd_summary_breadcrumb(patient),
                         **local_assigns) do
 
-  = render "renalware/shared/errors", model: pd_regime
+  = render "renalware/shared/errors", model: regime
 
-  = simple_nested_form_for [patient, pd_regime],
+  = simple_nested_form_for [patient, regime],
                            as: :pd_regime,
                            wrapper: :horizontal_form,
                            html: { class: "pd-form" } do |f|
