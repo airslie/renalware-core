@@ -84,14 +84,12 @@ ul.provider {
   float: left;
   margin: 1rem 0 1.5rem;
   width: 100%;
+
   & > li {
     float: left;
     list-style-type: none;
     margin: 0 1rem 0 0;
     padding: 0;
-  }
-  .page-actions .button {
-    margin: 0;
   }
 }
 

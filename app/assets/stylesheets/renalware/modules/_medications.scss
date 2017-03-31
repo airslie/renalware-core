@@ -48,6 +48,18 @@ a, li, tbody tr {
   }
 }
 
+.medications-filter {
+  select {
+    width: 250px;
+  }
+
+  .button {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    padding: .53rem 1rem;
+  }
+}
+
 .find-drug-list ul.drug-results-admin {
   height: 20em;
 
