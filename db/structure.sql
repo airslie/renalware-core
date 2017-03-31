@@ -1426,7 +1426,8 @@ CREATE TABLE letter_letters (
     updated_at timestamp without time zone NOT NULL,
     letterhead_id integer NOT NULL,
     author_id integer NOT NULL,
-    clinical boolean
+    clinical boolean,
+    enclosures character varying
 );
 
 
@@ -1915,7 +1916,25 @@ CREATE VIEW pathology_current_key_observation_sets AS
           WHERE (((pathology_current_observations.description_code)::text = 'MDRD'::text) AND (pathology_current_observations.patient_id = p.id))) AS mdrd_result,
     ( SELECT pathology_current_observations.observed_at
            FROM pathology_current_observations
-          WHERE (((pathology_current_observations.description_code)::text = 'MDRD'::text) AND (pathology_current_observations.patient_id = p.id))) AS mdrd_observed_at
+          WHERE (((pathology_current_observations.description_code)::text = 'MDRD'::text) AND (pathology_current_observations.patient_id = p.id))) AS mdrd_observed_at,
+    ( SELECT pathology_current_observations.result
+           FROM pathology_current_observations
+          WHERE (((pathology_current_observations.description_code)::text = 'HBA'::text) AND (pathology_current_observations.patient_id = p.id))) AS hba_result,
+    ( SELECT pathology_current_observations.observed_at
+           FROM pathology_current_observations
+          WHERE (((pathology_current_observations.description_code)::text = 'HBA'::text) AND (pathology_current_observations.patient_id = p.id))) AS hba_observed_at,
+    ( SELECT pathology_current_observations.result
+           FROM pathology_current_observations
+          WHERE (((pathology_current_observations.description_code)::text = 'FER'::text) AND (pathology_current_observations.patient_id = p.id))) AS fer_result,
+    ( SELECT pathology_current_observations.observed_at
+           FROM pathology_current_observations
+          WHERE (((pathology_current_observations.description_code)::text = 'FER'::text) AND (pathology_current_observations.patient_id = p.id))) AS fer_observed_at,
+    ( SELECT pathology_current_observations.result
+           FROM pathology_current_observations
+          WHERE (((pathology_current_observations.description_code)::text = 'PTH'::text) AND (pathology_current_observations.patient_id = p.id))) AS pth_result,
+    ( SELECT pathology_current_observations.observed_at
+           FROM pathology_current_observations
+          WHERE (((pathology_current_observations.description_code)::text = 'PTH'::text) AND (pathology_current_observations.patient_id = p.id))) AS pth_observed_at
    FROM patients p;
 
 
@@ -2521,6 +2540,28 @@ CREATE TABLE problem_problems (
 
 
 --
+-- Name: transplant_recipient_operations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE transplant_recipient_operations (
+    id integer NOT NULL,
+    patient_id integer,
+    performed_on date NOT NULL,
+    theatre_case_start_time time without time zone NOT NULL,
+    donor_kidney_removed_from_ice_at timestamp without time zone NOT NULL,
+    operation_type character varying NOT NULL,
+    hospital_centre_id integer NOT NULL,
+    kidney_perfused_with_blood_at timestamp without time zone NOT NULL,
+    cold_ischaemic_time integer NOT NULL,
+    warm_ischaemic_time integer NOT NULL,
+    notes text,
+    document jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
 -- Name: patient_summaries; Type: VIEW; Schema: public; Owner: -
 --
 
@@ -2548,11 +2589,15 @@ CREATE VIEW patient_summaries AS
            FROM pathology_observation_requests
           WHERE (pathology_observation_requests.patient_id = patients.id)) AS observation_requests_count,
     ( SELECT count(*) AS count
-           FROM medication_prescriptions
-          WHERE (medication_prescriptions.patient_id = patients.id)) AS prescriptions_count,
+           FROM (medication_prescriptions p
+             FULL JOIN medication_prescription_terminations pt ON ((pt.prescription_id = p.id)))
+          WHERE ((p.patient_id = patients.id) AND ((pt.terminated_on IS NULL) OR (pt.terminated_on > now())))) AS prescriptions_count,
     ( SELECT count(*) AS count
            FROM letter_contacts
-          WHERE (letter_contacts.patient_id = patients.id)) AS contacts_count
+          WHERE (letter_contacts.patient_id = patients.id)) AS contacts_count,
+    ( SELECT count(*) AS count
+           FROM transplant_recipient_operations
+          WHERE (transplant_recipient_operations.patient_id = patients.id)) AS recipient_operations_count
    FROM patients;
 
 
@@ -3094,7 +3139,8 @@ CREATE TABLE pd_regimes (
     system_id integer,
     additional_manual_exchange_volume integer,
     tidal_full_drain_every_three_cycles boolean DEFAULT true,
-    daily_volume integer
+    daily_volume integer,
+    assistance_type character varying
 );
 
 
@@ -3648,28 +3694,6 @@ CREATE SEQUENCE transplant_recipient_followups_id_seq
 --
 
 ALTER SEQUENCE transplant_recipient_followups_id_seq OWNED BY transplant_recipient_followups.id;
-
-
---
--- Name: transplant_recipient_operations; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE transplant_recipient_operations (
-    id integer NOT NULL,
-    patient_id integer,
-    performed_on date NOT NULL,
-    theatre_case_start_time time without time zone NOT NULL,
-    donor_kidney_removed_from_ice_at timestamp without time zone NOT NULL,
-    operation_type character varying NOT NULL,
-    hospital_centre_id integer NOT NULL,
-    kidney_perfused_with_blood_at timestamp without time zone NOT NULL,
-    cold_ischaemic_time integer NOT NULL,
-    warm_ischaemic_time integer NOT NULL,
-    notes text,
-    document jsonb,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
 
 
 --
@@ -8841,6 +8865,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170314114614'),
 ('20170314115111'),
 ('20170314120712'),
-('20170315100152');
+('20170315100152'),
+('20170320112730'),
+('20170320124532'),
+('20170323100125'),
+('20170331115718'),
+('20170331153349');
 
 
