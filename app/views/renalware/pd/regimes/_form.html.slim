@@ -3,7 +3,7 @@
 = field_set_tag "PD Regime" do
 
   = f.input :treatment,
-            collection: capd_apd_scope(f.object),
+            collection: available_pd_treatments_for(f.object),
             include_blank: t("collection.blank_option"),
             wrapper: :horizontal_medium
 

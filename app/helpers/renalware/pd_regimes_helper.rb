@@ -29,12 +29,11 @@ module Renalware
       end
     end
 
-    def capd_apd_scope(regime)
-      if regime.capd?
-        ["CAPD 3 exchanges per day", "CAPD 4 exchanges per day", "CAPD 5 exchanges per day"]
-      else
-        ["APD Dry Day", "APD Wet Day", "APD Wet day with additional exchange"]
-      end
+    # The list of treatment options, stored in I18n
+    def available_pd_treatments_for(regime)
+      scope = "renalware.pd.treatments"
+      key = regime.capd? ? "capd" : "apd"
+      I18n.t(key, scope: scope)
     end
 
     def capd_apd_title(regime)
