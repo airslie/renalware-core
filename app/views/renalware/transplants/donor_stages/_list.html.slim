@@ -1,0 +1,26 @@
+article.donor-statuses
+  header
+    h2 Donor Stage History
+    ul
+      li = link_to "Update",
+                   new_patient_transplants_donor_stage_path(patient),
+                   class: "button"
+  table
+    thead
+      th.col-width-tiny
+      th.col-width-date Started on
+      th.col-width-date Terminated on
+      th.col-width-large Position
+      th.col-width-medium Status
+      th.col-with-large Notes
+
+    tbody
+      - donor_stages.each do |stage|
+        tr(data={ "stage-id" => stage.id })
+          td= css_toggle_link_to(row_selector: "tr[data-stage-id='#{stage.id}']")
+          td= l(stage.started_on.to_date)
+          td= l(stage.terminated_on&.to_date)
+          td= stage.donor_stage_position.name
+          td= stage.donor_stage_status.name
+          td.col-with-large-with-ellipsis.css-toggle-container= stage.notes
+

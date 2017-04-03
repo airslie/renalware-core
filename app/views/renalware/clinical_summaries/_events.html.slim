@@ -4,6 +4,6 @@ article
       = link_to "Events (#{events.size})", patient_events_path(@patient)
 
     = link_to new_patient_event_path(@patient), class: "button" do
-      | Add event
+      | Add
 
   = render "renalware/events/events/table", events: events

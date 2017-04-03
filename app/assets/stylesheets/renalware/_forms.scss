@@ -128,6 +128,22 @@ article {
       }
     }
 
+    .supplemental {
+      display: inline-block;
+      float: left;
+
+      span {
+        font-size: 1.2rem;
+        line-height: 1.66rem;
+        color: $mid-grey;
+      }
+
+      a {
+        display: inline-block;
+        margin-right: .5rem;
+      }
+    }
+
     h3 {
       font-size: 1.1rem;
       color: $muted-dark-grey;

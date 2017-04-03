@@ -1,0 +1,26 @@
+= within_patient_layout(title: "Update Donor Stage",
+                        breadcrumbs: donor_summary_breadcrumb(patient)) do
+
+  = simple_form_for status,
+                    url: patient_transplants_donor_stage_path(patient),
+                    html: { autocomplete: :off },
+                    as: :donor_stage,
+                    wrapper: "horizontal_form" do |f|
+
+    = f.association :donor_stage_position,
+                    wrapper: :horizontal_small
+
+    = f.association :donor_stage_status,
+                    wrapper: :horizontal_small
+
+    = f.input :started_on,
+              as: :date_picker,
+              wrapper: :horizontal_datepicker
+
+    = f.input :notes,
+              input_html: { rows: 6 },
+              wrapper: :horizontal_medium
+
+    = f.submit "Save", class: "button"
+    span= " or "
+    = link_to "cancel", patient_transplants_donor_dashboard_path(patient)

@@ -313,6 +313,10 @@ Rails.application.routes.draw do
         resource :registration, expect: [:index, :destroy] do
           resources :statuses, controller: "registration_statuses"
         end
+
+        resource :donor_stage, expect: [:index, :destroy] do
+
+        end
       end
     end
 

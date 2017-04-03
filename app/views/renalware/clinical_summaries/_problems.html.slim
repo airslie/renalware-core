@@ -4,7 +4,7 @@ article
       = link_to "Problems (#{problems.length})", patient_problems_path(@patient)
 
     = link_to patient_problems_path(@patient), class: "button" do
-      | Enter problem
+      | Add
 
   ul.no-bullet
     - problems.each do |problem|
