@@ -1,0 +1,15 @@
+en:
+  renalware:
+    pd:
+      treatments:
+        capd:
+          - "CAPD 3 exchanges per day"
+          - "CAPD 4 exchanges per day"
+          - "CAPD 5 exchanges per day"
+        apd:
+          - "APD Dry Day"
+          - "APD Dry Day Assisted"
+          - "APD Wet Day"
+          - "APD Wet Day Assisted"
+          - "APD Wet Day with additional exchange"
+          - "APD Wet Day Assisted with additional exchange"
