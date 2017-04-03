@@ -17,28 +17,36 @@ ruby:
       = render "renalware/medications/prescriptions/drug_select/#{drug_select_partials[f.object.treatable_type]}_fields", f: f
 
       = hidden_field_tag :treatable_type, treatable.class.name
-      = f.input :dose_amount
-      = f.input :dose_unit
+      = f.input :dose_amount, wrapper: :horizontal_small
+      = f.input :dose_unit, wrapper: :horizontal_small
       = f.association :medication_route,
                       collection: medication_routes,
                       label_method: :code,
-                      prompt: :translate
-      = f.input :route_description
-      = f.input :frequency
-      = f.input :administer_on_hd
-      = f.input :notes
-      = f.input :prescribed_on, as: :date_picker
+                      prompt: :translate,
+                      wrapper: :horizontal_medium
+      = f.input :route_description , wrapper: :horizontal_medium
+      = f.input :frequency, wrapper: :horizontal_small
+      = f.input :administer_on_hd, wrapper: :horizontal_small
+      = f.input :notes, wrapper: :horizontal_medium
+      = f.input :prescribed_on, as: :date_picker, wrapper: :horizontal_datepicker
 
       - if f.object.new_record?
         = f.simple_fields_for(:termination) do |tf|
-          = tf.input :terminated_on, as: :date_picker, required: false
+          = tf.input :terminated_on,
+                     as: :date_picker,
+                     required: false,
+                     wrapper: :horizontal_datepicker
 
       = f.input :provider,
                 collection: provider_codes,
                 as: :inline_radio_buttons,
                 label_method: :to_label,
-                checked: provider_codes.first
-      = f.input :last_delivery_date, as: :date_picker
+                checked: provider_codes.first,
+                wrapper: :horizontal_medium
+
+      = f.input :last_delivery_date,
+                as: :date_picker,
+                wrapper: :horizontal_datepicker
 
     .row.actions
       .small-9.columns

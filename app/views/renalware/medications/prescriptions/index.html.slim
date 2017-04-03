@@ -1,5 +1,9 @@
+= content_for(:actions) do
+  = link_to "Add",
+            new_patient_prescription_path(@patient),
+            remote: true,
+            class: "button"
+
 = within_patient_layout(title: "Prescriptions") do
-  .document
-    - if params[:filter]
-      = render "filter_form", search: current_search, drug_types: drug_types, treatable: treatable
-    = render "index", local_assigns
+  = render "filter_form", search: current_search, drug_types: drug_types, treatable: treatable
+  = render "index", local_assigns

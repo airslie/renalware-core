@@ -1,31 +1,31 @@
 = f.hidden_field :drug_id, class: "selected-drug-id"
 
 .row.medication-type-field
-  .small-3.columns
+  .small-12.medium-4.large-3.columns
     = label_tag :medication_switch, t(".medication_switch.label")
-  .small-9.columns
+  .small-12.medium-8.large-9.columns
     = select_tag :medication_switch,
                  drug_select_options,
                  { prompt: t(".medication_switch.prompt"),
-                   class: "medication-type-select" }
+                   class: "medication-type-select medium-input" }
 
 /! Search all drugs
 .row.standard
-  .small-3.columns
+  .small-12.medium-4.large-3.columns
     = label_tag :drug_search, t(".drug_search.label")
-  .small-9.columns
+  .small-12.medium-8.large-9.columns
     = text_field_tag :drug_search,
                      f.object.drug_name,
-                     class: "find_drug #{highlight_validation_fail(f.object, :drug)}",
+                     class: " medium-input find_drug #{highlight_validation_fail(f.object, :drug)}",
                      placeholder: t(".drug_search.placeholder")
 
     ul.drug-results.no-bullet
 
 /! Show only when selecting drugs by category/type.
 .row.drug-by-select
-  .small-3.columns
+  .small-12.medium-4.large-3.columns
     = label_tag :drug_select, t(".drug_select.label")
-  .small-9.columns
+  .small-12.medium-8.large-9.columns
     = select_tag :drug_select,
                 [],
-                class: "drug-select"
+                class: "drug-select medium-input"
