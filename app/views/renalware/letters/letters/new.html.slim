@@ -3,8 +3,6 @@
 = within_patient_layout(title: t(".#{i18_scope}.page_title"),
                         breadcrumbs: letters_breadcrumb(patient)) do
 
-  = render "letter_nav", patient: patient, letter: letter
-
   .document
     = simple_form_for letter,
         url: patient_letters_letters_path(patient, letter.event),

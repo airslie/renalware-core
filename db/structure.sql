@@ -1426,7 +1426,8 @@ CREATE TABLE letter_letters (
     updated_at timestamp without time zone NOT NULL,
     letterhead_id integer NOT NULL,
     author_id integer NOT NULL,
-    clinical boolean
+    clinical boolean,
+    enclosures character varying
 );
 
 
@@ -8841,6 +8842,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170314114614'),
 ('20170314115111'),
 ('20170314120712'),
-('20170315100152');
+('20170315100152'),
+('20170331153349');
 
 

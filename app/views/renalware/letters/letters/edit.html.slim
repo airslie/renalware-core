@@ -1,5 +1,8 @@
-= within_patient_layout(title: "Letter", skip_top_navigation: true) do
-  = render "letter_nav", patient: patient, letter: letter
+= content_for(:actions) do
+  = link_to "Preview", patient_letters_letter_path(patient, letter), class: "button secondary"
+
+= within_patient_layout(title: "Edit Letter",
+    breadcrumbs: [ breadcrumb_for("Letters", patient_letters_letters_path(patient)) ]) do
 
   .document
     = simple_form_for letter,
