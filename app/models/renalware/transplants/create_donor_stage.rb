@@ -41,8 +41,8 @@ module Renalware
         DonorStage.new(
           patient: patient,
           started_on: started_on_for_new_stage,
-          donor_stage_position_id: options.fetch(:donor_stage_position_id),
-          donor_stage_status_id: options.fetch(:donor_stage_status_id),
+          stage_position_id: options.fetch(:stage_position_id),
+          stage_status_id: options.fetch(:stage_status_id),
           notes: options.fetch(:notes),
           by: by
         )

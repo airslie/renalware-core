@@ -6,6 +6,10 @@ en:
         cc_decision_on: CC decision date
         nhs_number: NHS Number
         external_patient_id: Other Hospital No.
+        sex: Sex
+        born_on: Date of Birth
+        age: Age
+
   enumerize:
     renalware/patient:
       allergy_status:

@@ -1,16 +1,9 @@
 li.has-dropdown
   = link_to t(".menu_title"), "#"
   ul.dropdown
-    li
-      = link_to t(".appointments"), appointments_path
-    li
-      = link_to t(".clinic_visits"), clinic_visits_path
-    li
-      = link_to t(".tx_wait_list"), transplants_wait_list_path(filter: "active")
-    li
-      = link_to t(".ongoing_hd_sessions"), hd_ongoing_sessions_path
-    li
-      = link_to t(".letters"), letters_list_path
-    li
-      = link_to t(".esa_prescriptions"), medications_esa_prescriptions_path
-
+    li= link_to t(".appointments"), appointments_path
+    li= link_to t(".tx_wait_list"), transplants_wait_list_path(filter: "active")
+    li= link_to t(".live_donors"), transplants_live_donors_path
+    li= link_to t(".ongoing_hd_sessions"), hd_ongoing_sessions_path
+    li= link_to t(".letters"), letters_list_path
+    li= link_to t(".esa_prescriptions"), medications_esa_prescriptions_path

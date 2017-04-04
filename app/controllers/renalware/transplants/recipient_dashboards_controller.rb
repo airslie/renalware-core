@@ -3,10 +3,16 @@ require_dependency "renalware/transplants/base_controller"
 module Renalware
   module Transplants
     class RecipientDashboardsController < BaseController
-      before_action :load_patient
 
       def show
-        render locals: {
+        authorize patient
+        render locals: locals
+      end
+
+      private
+
+      def locals
+        {
           patient: patient,
           recipient_workup: RecipientWorkup.for_patient(patient).first_or_initialize,
           registration: Registration.for_patient(patient).first_or_initialize,

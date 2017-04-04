@@ -7,11 +7,8 @@
                     as: :donor_stage,
                     wrapper: "horizontal_form" do |f|
 
-    = f.association :donor_stage_position,
-                    wrapper: :horizontal_small
-
-    = f.association :donor_stage_status,
-                    wrapper: :horizontal_small
+    = f.association :stage_position, wrapper: :horizontal_small
+    = f.association :stage_status, wrapper: :horizontal_small
 
     = f.input :started_on,
               as: :date_picker,

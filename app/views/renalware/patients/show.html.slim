@@ -1,29 +1,29 @@
 = content_for(:actions) do
-  =link_to "Edit", edit_patient_path(current_patient), class: "button"
+  =link_to "Edit", edit_patient_path(patient), class: "button"
 
 = within_patient_layout(title: "Demographics") do
   #patient-demographics
     .grid
       .row
         .columns.medium-6.large-4.xlarge-3
-          = render "renalware/patients/show/patient_demographics", patient: @patient
+          = render "renalware/patients/show/patient_demographics", patient: patient
         .columns.medium-6.large-4.xlarge-3
           article
             header
               h1 Current Address
-            = render @patient.current_address if @patient.current_address
+            = render patient.current_address if patient.current_address
         .columns.medium-6.large-4.xlarge-3
-          = render "renalware/patients/show/hospital_numbers", patient: @patient
+          = render "renalware/patients/show/hospital_numbers", patient: patient
         .columns.medium-6.large-4.xlarge-3
-          = render "renalware/patients/show/primary_care_physician", patient: @patient
+          = render "renalware/patients/show/primary_care_physician", patient: patient
         .columns.medium-6.large-4.xlarge-3
-          = render "renalware/patients/show/letter_preferences", patient: @patient
+          = render "renalware/patients/show/letter_preferences", patient: patient
         .columns.medium-6.large-4.xlarge-3
-          = render "renalware/patients/show/contact_details", patient: @patient
+          = render "renalware/patients/show/contact_details", patient: patient
         .columns.medium-6.large-4.xlarge-3
           article
             header
               h2 Current Address
-            = render @patient.current_address if @patient.current_address
+            = render patient.current_address if patient.current_address
         .columns.medium-6.large-4.xlarge-3
-          = render "renalware/patients/show/referral", patient: @patient
+          = render "renalware/patients/show/referral", patient: patient

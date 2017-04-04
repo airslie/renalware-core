@@ -160,6 +160,7 @@ Rails.application.routes.draw do
 
     namespace :transplants do
       resource :wait_list, only: :show
+      resources :live_donors, only: :index
       resources :mdm_patients, only: :index
       constraints(named_filter: /(recent|on_worryboard)/) do
         get "mdm_patients/:named_filter", to: "mdm_patients#index", as: :filtered_mdm_patients

@@ -2,50 +2,50 @@
   = field_set_tag do
     legend Patient Demographics
 
-    = patient.input :nhs_number, wrapper: :horizontal_small
+    = f.input :nhs_number, wrapper: :horizontal_small
 
     - Renalware.config.patient_hospital_identifiers.each do |key, field|
-      = patient.input field,
+      = f.input field,
                       label: "#{key} No",
                       wrapper: :horizontal_small
 
-    = patient.input :external_patient_id, wrapper: :horizontal_small
-    = patient.input :title, wrapper: :horizontal_tiny
-    = patient.input :family_name, wrapper: :horizontal_small
-    = patient.input :given_name, wrapper: :horizontal_small
-    = patient.input :suffix, wrapper: :horizontal_small
-    = patient.input :email, wrapper: :horizontal_small
-    = patient.input :telephone1, wrapper: :horizontal_small
-    = patient.input :telephone2, wrapper: :horizontal_small
-    = patient.input :sex,
-        selected: patient.object.sex.code,
+    = f.input :external_patient_id, wrapper: :horizontal_small
+    = f.input :title, wrapper: :horizontal_tiny
+    = f.input :family_name, wrapper: :horizontal_small
+    = f.input :given_name, wrapper: :horizontal_small
+    = f.input :suffix, wrapper: :horizontal_small
+    = f.input :email, wrapper: :horizontal_small
+    = f.input :telephone1, wrapper: :horizontal_small
+    = f.input :telephone2, wrapper: :horizontal_small
+    = f.input :sex,
+        selected: patient.sex.code,
         placeholder: "Please select gender",
         collection: Renalware::Gender.all,
         label_method: :name, value_method: :code,
         include_blank: "Please select gender",
         wrapper: :horizontal_small
-    = patient.association :ethnicity,
+    = f.association :ethnicity,
         label_method: :name, value_method: :id,
         include_blank: "Please select ethnicity",
         wrapper: :horizontal_small
-    = patient.association :religion,
+    = f.association :religion,
         label_method: :name, value_method: :id,
         include_blank: "Please select religion",
         wrapper: :horizontal_small
-    = patient.association :language,
+    = f.association :language,
         label_method: :name, value_method: :id,
         include_blank: "Please select language",
         wrapper: :horizontal_small
-    = patient.input :marital_status,
+    = f.input :marital_status,
                     include_blank: "Please select marital status",
                     wrapper: :horizontal_small
-    = patient.input :born_on, as: :date_picker, label: "DoB", wrapper: :horizontal_datepicker
-    = patient.input :paediatric_patient_indicator,
+    = f.input :born_on, as: :date_picker, label: "DoB", wrapper: :horizontal_datepicker
+    = f.input :paediatric_patient_indicator,
         as: :inline_radio_buttons,
         label: "If under 18 years, is the recipient being treated in a paediatric unit?",
         wrapper: :horizontal_small
 
-    - if @patient.persisted?
+    - if patient.persisted?
       .row
         .section-underliner
       .row
@@ -53,7 +53,7 @@
           | To enter date of death please set 'Death' modality:
           | &nbsp;
           = link_to "Change Modal",
-                    new_patient_modality_path(@patient),
+                    new_patient_modality_path(patient),
                     title: "Patient Modality",
                     class: "death-update"
 
@@ -61,14 +61,14 @@
   = field_set_tag do
     legend Letter Preferences
 
-    = patient.input :cc_on_all_letters,  as: :inline_radio_buttons, wrapper: :horizontal_small
-    = patient.input :cc_decision_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = f.input :cc_on_all_letters,  as: :inline_radio_buttons, wrapper: :horizontal_small
+    = f.input :cc_decision_on, as: :date_picker, wrapper: :horizontal_datepicker
 
 .columns.large-12
   = field_set_tag do
     legend Notes
 
-    = patient.simple_fields_for :document, patient.object.document do |patient_doc|
+    = f.simple_fields_for :document, patient.document do |patient_doc|
       = patient_doc.input :interpreter_notes,
                           as: :text,
                           wrapper: :horizontal_large,
@@ -83,7 +83,7 @@
                           input_html: { rows: 3 }
 
 .columns.large-12
-  = patient.simple_fields_for :current_address_attributes, patient.object.current_address do |a|
+  = f.simple_fields_for :current_address_attributes, patient.current_address do |a|
     fieldset id="current_address"
       legend Current Address
       = a.input :id, as: :hidden
@@ -93,8 +93,8 @@
   = field_set_tag do
     legend Referral Info
 
-    = patient.simple_fields_for :document, patient.object.document do |patient_doc|
-      = patient_doc.simple_fields_for :referral, patient.object.document.referral do |referral_doc|
+    = f.simple_fields_for :document, patient.document do |patient_doc|
+      = patient_doc.simple_fields_for :referral, patient.document.referral do |referral_doc|
         = referral_doc.input :referring_physician_name, wrapper: :horizontal_medium
         = referral_doc.input :referral_date, as: :date_picker, wrapper: :horizontal_datepicker
         = referral_doc.input :referral_type, wrapper: :horizontal_medium

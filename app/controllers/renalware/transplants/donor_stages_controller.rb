@@ -36,7 +36,7 @@ module Renalware
       def donor_stage_params
         params
           .require(:donor_stage)
-          .permit(:started_on, :donor_stage_position_id, :donor_stage_status_id, :notes)
+          .permit(:started_on, :stage_position_id, :stage_status_id, :notes)
           .to_h
           .merge(by: current_user)
       end

@@ -2,7 +2,7 @@ require_dependency "renalware/clinical"
 
 module Renalware
   module Clinical
-    class ProfilesController < BaseController
+    class ProfilesController < Clinical::BaseController
       def show
         authorize patient
         render locals: {

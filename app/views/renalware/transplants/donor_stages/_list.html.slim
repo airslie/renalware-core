@@ -20,7 +20,7 @@ article.donor-statuses
           td= css_toggle_link_to(row_selector: "tr[data-stage-id='#{stage.id}']")
           td= l(stage.started_on.to_date)
           td= l(stage.terminated_on&.to_date)
-          td= stage.donor_stage_position.name
-          td= stage.donor_stage_status.name
+          td= stage.stage_position.name
+          td= stage.stage_status.name
           td.col-with-large-with-ellipsis.css-toggle-container= stage.notes
 

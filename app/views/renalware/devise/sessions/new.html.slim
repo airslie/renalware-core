@@ -11,7 +11,10 @@
 
 .row.small-6.large-3
 
-  = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  = simple_form_for(resource,
+                    as: resource_name,
+                    url: session_path(resource_name),
+                    html: { autocomplete: "off" }) do |f|
     = f.input :username, input_html: { autofocus: true }, required: false
     = f.input :password, input_html: { autocomplete: "off" }
     = f.input :remember_me, as: :boolean if devise_mapping.rememberable?

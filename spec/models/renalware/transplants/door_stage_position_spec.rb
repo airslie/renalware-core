@@ -7,10 +7,9 @@ module Renalware
       it { is_expected.to respond_to(:updated_at) }
 
       it { is_expected.to validate_presence_of :name }
-      it { is_expected.to validate_presence_of :position }
 
       describe "validation" do
-        subject { DonorStagePosition.new(name: "name", position: "position") }
+        subject { DonorStagePosition.new(name: "name") }
         it { is_expected.to validate_uniqueness_of :name }
       end
     end

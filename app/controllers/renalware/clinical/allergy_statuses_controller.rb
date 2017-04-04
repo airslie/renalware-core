@@ -2,7 +2,7 @@ require_dependency "renalware/clinical"
 
 module Renalware
   module Clinical
-    class AllergyStatusesController < BaseController
+    class AllergyStatusesController < Clinical::BaseController
 
       def update
         authorize patient
@@ -19,10 +19,6 @@ module Renalware
 
       def allergy_status_params
         params.require(:clinical_allergy_status_form).permit(:no_known_allergies)
-      end
-
-      def patient
-        Renalware::Clinical.cast_patient(super)
       end
     end
   end

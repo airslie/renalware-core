@@ -1,12 +1,12 @@
 .row
   = render "index_header"
-  = render "renalware/shared/errors", model: @patient
+  = render "renalware/shared/errors", model: patient
 
-  = simple_form_for @patient,
+  = simple_form_for patient,
                     html: { autocomplete: "off" },
                     wrapper: "horizontal_form" do |f|
 
-    = render "renalware/patients/form", patient: f
+    = render "renalware/patients/form", f: f, patient: patient
 
     = submit_tag "Save", class: "button"
     span= " or "
