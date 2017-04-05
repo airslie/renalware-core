@@ -16,6 +16,17 @@
             "value": "Nicholas Henry"
     }
   },
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    },
+    {
+      "url": "https://github.com/ianpurvis/heroku-buildpack-version"
+    },
+    {
+      "url": "https://github.com/danielboggs/heroku-buildpack-pandoc.git"
+    }
+  ],
   "scripts": {
     "postdeploy": "bundle exec rake db:seed"
   }
