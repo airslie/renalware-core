@@ -18,13 +18,13 @@
   },
   "buildpacks": [
     {
-      "url": "heroku/ruby"
+      "url": "https://github.com/tonyta/heroku-buildpack-custom-binaries#v1.0.0"
     },
     {
       "url": "https://github.com/ianpurvis/heroku-buildpack-version"
     },
     {
-      "url": "https://github.com/peterkeen/heroku-buildpack-vendorbinaries"
+      "url": "heroku/ruby"
     }
   ],
   "scripts": {

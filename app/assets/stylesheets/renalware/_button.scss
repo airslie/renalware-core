@@ -10,6 +10,10 @@
     margin: 0;
   }
 
+  &:focus {
+    outline-style: none;
+  }
+
   &.low-key {
     background-color: $off-white;
     border: solid 1px $light-grey;

@@ -4,10 +4,18 @@
           class: "button tiny",
           target: "print"
 = blank_separator
-= link_to "Download PDF",
-          patient_letters_letter_download_path(letter),
-          form_class: "inline",
-          class: "button tiny"
+
+button.button.tiny.dropdown(href="#"
+                            data-dropdown="download-options"
+                            aria-controls="download-options"
+                            aria-expanded="false")
+  | Download
+ul.f-dropdown#download-options(data-dropdown-content aria-hidden="true")
+  li= link_to "PDF",
+              patient_letters_letter_download_path(letter)
+  li= link_to "RTF",
+        patient_letters_letter_download_path(letter, :rtf)
+
 = blank_separator
 - if policy(letter).update?
   = link_to "Edit",
