@@ -12,6 +12,7 @@ module Renalware
         it { should validate_presence_of :treatment }
         it { is_expected.to belong_to(:system) }
         it { is_expected.to have_one(:termination) }
+        it { is_expected.to respond_to(:assistance_type) }
 
         it do
           should validate_inclusion_of(:delivery_interval)

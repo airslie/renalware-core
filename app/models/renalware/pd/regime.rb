@@ -3,6 +3,10 @@ require_dependency "renalware/pd"
 module Renalware
   module PD
     class Regime < ApplicationRecord
+      extend Enumerize
+
+      enumerize :assistance_type, in: %i(none setup connect disconnect connect_and_disconnect)
+
       VALID_RANGES = OpenStruct.new(
         delivery_intervals: [1, 2, 4, 8]
       )
