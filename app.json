@@ -24,7 +24,7 @@
       "url": "https://github.com/ianpurvis/heroku-buildpack-version"
     },
     {
-      "url": "https://github.com/danielboggs/heroku-buildpack-pandoc.git"
+      "url": "https://github.com/peterkeen/heroku-buildpack-vendorbinaries"
     }
   ],
   "scripts": {
