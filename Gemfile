@@ -3,6 +3,7 @@ ruby "2.4.0"
 
 gem "active_type", "~> 0.6.1"
 gem "activemodel-associations"
+gem "activerecord-import", "~> 0.16.2"
 gem "autoprefixer-rails"
 gem "chosen-rails"
 gem "client_side_validations"
@@ -89,7 +90,6 @@ group :development, :test do
   gem "spring-commands-cucumber"
   gem "spring-commands-rspec"
   gem "thin"
-  gem "activerecord-import", "~> 0.16.2"
 end
 
 group :test do
