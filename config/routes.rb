@@ -50,7 +50,7 @@ Rails.application.routes.draw do
 
     # Clinics
     resources :appointments, controller: "clinics/appointments", only: [:index]
-    resources :clinic_visits, controller: "clinics/clinic_visits"
+    resources :clinic_visits, controller: "clinics/visits"
 
     resources :deaths, only: :index, as: :patient_deaths
 

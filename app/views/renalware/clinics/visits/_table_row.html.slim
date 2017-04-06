@@ -1,0 +1,12 @@
+tr
+  td.date-time= l clinic_visit.date
+  td= link_to(clinic_visit.patient, patient_path(clinic_visit.patient))
+  td= clinic_visit.patient.nhs_number
+  td= clinic_visit.patient.sex
+  td= clinic_visit.patient.age
+  td= clinic_visit.patient.current_modality&.description&.name
+  td.clinic-type= clinic_visit.clinic
+  td.bmi= clinic_visit.bmi
+  td.bp= clinic_visit.bp
+  td= link_to_mdm(clinic_visit.patient)
+  td.created-by= clinic_visit.created_by
