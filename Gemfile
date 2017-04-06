@@ -89,6 +89,7 @@ group :development, :test do
   gem "spring-commands-cucumber"
   gem "spring-commands-rspec"
   gem "thin"
+  gem "activerecord-import", "~> 0.16.2"
 end
 
 group :test do
@@ -104,6 +105,5 @@ group :staging do
 end
 
 group :development, :test, :staging do
-  gem "activerecord-import", "~> 0.16.2"
   gem "faker", "~> 1.6.6"
 end
