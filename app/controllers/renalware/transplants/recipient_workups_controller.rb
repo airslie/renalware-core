@@ -18,6 +18,10 @@ module Renalware
 
       def edit
         workup = RecipientWorkup.for_patient(patient).first_or_initialize
+        workup = RecipientWorkupBuilder.new(
+          workup: workup,
+          default_consenter_name: current_user.to_s
+        ).build
         render locals: { patient: patient, workup: workup }
       end
 
