@@ -59,6 +59,14 @@ table {
       min-width: 5rem;
       max-width: 7rem;
     }
+
+    &.col-with-large-with-ellipsis {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      min-width: 15rem;
+      max-width: 20rem;
+    }
   }
 
   tr th {

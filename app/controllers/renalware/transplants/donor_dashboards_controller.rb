@@ -10,7 +10,8 @@ module Renalware
           patient: patient,
           donations: Donation.for_patient(patient).reversed,
           donor_workup: DonorWorkup.for_patient(patient).first_or_initialize,
-          donor_operations: DonorOperation.for_patient(patient).reversed
+          donor_operations: DonorOperation.for_patient(patient).reversed,
+          donor_stages: DonorStage.for_patient(patient).ordered
         }
       end
     end

@@ -20,8 +20,12 @@
                    t(".add_workup"),
                    edit_patient_transplants_donor_workup_path(patient)
 
+    li= link_to t(".add_status_update"),
+                new_patient_transplants_donor_stage_path(patient)
+
     li= link_to t(".add_operation"),
                 new_patient_transplants_donor_operation_path(patient)
+
 
 = within_patient_layout(title: "Transplant Donor Summary") do
   - unless donations.empty?
@@ -31,6 +35,10 @@
   - unless donor_workup.new_record?
     = render "renalware/transplants/donor_workups/summary",
              donor_workup: donor_workup,
+             patient: patient
+  - unless donor_stages.empty?
+    = render "renalware/transplants/donor_stages/list",
+             donor_stages: donor_stages,
              patient: patient
   - unless donor_operations.empty?
     = render "renalware/transplants/donor_operations/list",

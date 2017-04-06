@@ -3518,6 +3518,108 @@ ALTER SEQUENCE transplant_donor_operations_id_seq OWNED BY transplant_donor_oper
 
 
 --
+-- Name: transplant_donor_stage_positions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE transplant_donor_stage_positions (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    "position" integer DEFAULT 1 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: transplant_donor_stage_positions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE transplant_donor_stage_positions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transplant_donor_stage_positions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE transplant_donor_stage_positions_id_seq OWNED BY transplant_donor_stage_positions.id;
+
+
+--
+-- Name: transplant_donor_stage_statuses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE transplant_donor_stage_statuses (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    "position" integer DEFAULT 1 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: transplant_donor_stage_statuses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE transplant_donor_stage_statuses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transplant_donor_stage_statuses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE transplant_donor_stage_statuses_id_seq OWNED BY transplant_donor_stage_statuses.id;
+
+
+--
+-- Name: transplant_donor_stages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE transplant_donor_stages (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    donor_stage_position_id integer NOT NULL,
+    donor_stage_status_id integer NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    started_on timestamp without time zone NOT NULL,
+    terminated_on timestamp without time zone,
+    notes text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: transplant_donor_stages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE transplant_donor_stages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: transplant_donor_stages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE transplant_donor_stages_id_seq OWNED BY transplant_donor_stages.id;
+
+
+--
 -- Name: transplant_donor_workups; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4597,6 +4699,27 @@ ALTER TABLE ONLY transplant_donor_operations ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: transplant_donor_stage_positions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplant_donor_stage_positions ALTER COLUMN id SET DEFAULT nextval('transplant_donor_stage_positions_id_seq'::regclass);
+
+
+--
+-- Name: transplant_donor_stage_statuses id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplant_donor_stage_statuses ALTER COLUMN id SET DEFAULT nextval('transplant_donor_stage_statuses_id_seq'::regclass);
+
+
+--
+-- Name: transplant_donor_stages id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplant_donor_stages ALTER COLUMN id SET DEFAULT nextval('transplant_donor_stages_id_seq'::regclass);
+
+
+--
 -- Name: transplant_donor_workups id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5430,6 +5553,30 @@ ALTER TABLE ONLY transplant_donor_followups
 
 ALTER TABLE ONLY transplant_donor_operations
     ADD CONSTRAINT transplant_donor_operations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: transplant_donor_stage_positions transplant_donor_stage_positions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplant_donor_stage_positions
+    ADD CONSTRAINT transplant_donor_stage_positions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: transplant_donor_stage_statuses transplant_donor_stage_statuses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplant_donor_stage_statuses
+    ADD CONSTRAINT transplant_donor_stage_statuses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: transplant_donor_stages transplant_donor_stages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplant_donor_stages
+    ADD CONSTRAINT transplant_donor_stages_pkey PRIMARY KEY (id);
 
 
 --
@@ -6936,6 +7083,55 @@ CREATE INDEX index_transplant_donor_operations_on_patient_id ON transplant_donor
 
 
 --
+-- Name: index_transplant_donor_stage_positions_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_transplant_donor_stage_positions_on_name ON transplant_donor_stage_positions USING btree (name);
+
+
+--
+-- Name: index_transplant_donor_stage_positions_on_position; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_transplant_donor_stage_positions_on_position ON transplant_donor_stage_positions USING btree ("position");
+
+
+--
+-- Name: index_transplant_donor_stage_statuses_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_transplant_donor_stage_statuses_on_name ON transplant_donor_stage_statuses USING btree (name);
+
+
+--
+-- Name: index_transplant_donor_stage_statuses_on_position; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_transplant_donor_stage_statuses_on_position ON transplant_donor_stage_statuses USING btree ("position");
+
+
+--
+-- Name: index_transplant_donor_stages_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_transplant_donor_stages_on_created_by_id ON transplant_donor_stages USING btree (created_by_id);
+
+
+--
+-- Name: index_transplant_donor_stages_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_transplant_donor_stages_on_patient_id ON transplant_donor_stages USING btree (patient_id);
+
+
+--
+-- Name: index_transplant_donor_stages_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_transplant_donor_stages_on_updated_by_id ON transplant_donor_stages USING btree (updated_by_id);
+
+
+--
 -- Name: index_transplant_donor_workups_on_document; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7192,6 +7388,20 @@ CREATE INDEX prgr_rule_set_id_and_rule_set_type_idx ON pathology_requests_global
 --
 
 CREATE INDEX prprr_patient_rule_id_idx ON pathology_requests_patient_rules_requests USING btree (patient_rule_id);
+
+
+--
+-- Name: tx_donor_stage_position_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX tx_donor_stage_position_idx ON transplant_donor_stages USING btree (donor_stage_position_id);
+
+
+--
+-- Name: tx_donor_stage_status_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX tx_donor_stage_status_idx ON transplant_donor_stages USING btree (donor_stage_status_id);
 
 
 --
@@ -7561,6 +7771,14 @@ ALTER TABLE ONLY pathology_request_descriptions
 
 
 --
+-- Name: transplant_donor_stages fk_rails_3a0cb37b2f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplant_donor_stages
+    ADD CONSTRAINT fk_rails_3a0cb37b2f FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: transplant_recipient_operations fk_rails_3a852d1667; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7670,6 +7888,14 @@ ALTER TABLE ONLY transplant_recipient_workups
 
 ALTER TABLE ONLY patients
     ADD CONSTRAINT fk_rails_5b44e541da FOREIGN KEY (ethnicity_id) REFERENCES patient_ethnicities(id);
+
+
+--
+-- Name: transplant_donor_stages fk_rails_5d8c314e3a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplant_donor_stages
+    ADD CONSTRAINT fk_rails_5d8c314e3a FOREIGN KEY (donor_stage_status_id) REFERENCES transplant_donor_stage_statuses(id);
 
 
 --
@@ -7961,6 +8187,14 @@ ALTER TABLE ONLY letter_contacts
 
 
 --
+-- Name: transplant_donor_stages fk_rails_a129b9a1e5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplant_donor_stages
+    ADD CONSTRAINT fk_rails_a129b9a1e5 FOREIGN KEY (donor_stage_position_id) REFERENCES transplant_donor_stage_positions(id);
+
+
+--
 -- Name: hd_sessions fk_rails_a3afae15cb; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7990,6 +8224,14 @@ ALTER TABLE ONLY hd_patient_statistics
 
 ALTER TABLE ONLY pd_regimes
     ADD CONSTRAINT fk_rails_a70920e237 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: transplant_donor_stages fk_rails_a7ac3785a4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplant_donor_stages
+    ADD CONSTRAINT fk_rails_a7ac3785a4 FOREIGN KEY (updated_by_id) REFERENCES users(id);
 
 
 --
@@ -8182,6 +8424,14 @@ ALTER TABLE ONLY renal_profiles
 
 ALTER TABLE ONLY access_profiles
     ADD CONSTRAINT fk_rails_d04ba97fc5 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: transplant_donor_stages fk_rails_d05e755f4a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplant_donor_stages
+    ADD CONSTRAINT fk_rails_d05e755f4a FOREIGN KEY (created_by_id) REFERENCES users(id);
 
 
 --
@@ -8845,6 +9095,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170314120712'),
 ('20170315100152'),
 ('20170331115718'),
-('20170331153349');
+('20170331153349'),
+('20170403091407'),
+('20170403092407'),
+('20170403094115');
 
 
