@@ -1,0 +1,34 @@
+<!-- edited with XMLSpy v2015 rel. 4 (x64) (http://www.altova.com) by Nick Jones (Agiloak Limited) -->
+<xs:schema xmlns="http://www.rixg.org.uk/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.rixg.org.uk/">
+	<xs:include schemaLocation="../Types/Clinician.xsd"/>
+	<xs:include schemaLocation="../Types/Location.xsd"/>
+	<xs:include schemaLocation="../Types/CF_SNOMED.xsd"/>
+	<xs:include schemaLocation="../Types/CommonMetadata.xsd"/>
+	<xs:complexType name="Procedure">
+		<xs:sequence>
+			<!-- NOTE: This is Procedure in SDA -->
+			<xs:element name="ProcedureType" type="CF_SNOMED" minOccurs="0"/>
+			<xs:element name="Clinician" type="Clinician" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>National Clinicial code where possible or other local code if not.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ProcedureTime" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>As CCYYMMDDhhmm</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EnteredBy" type="Clinician" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Person entering the diagnosis as a National Clinicial code where possible or other local code if not.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EnteredAt" type="Location" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Location the procedure was performed at. Use National coding e.g. RXF01</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:group ref="CommonMetadata"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

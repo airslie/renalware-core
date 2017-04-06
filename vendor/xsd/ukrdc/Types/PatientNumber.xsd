@@ -1,0 +1,90 @@
+<xs:schema xmlns="http://www.rixg.org.uk/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.rixg.org.uk/">
+    <xs:complexType name="PatientNumber">
+        <xs:sequence>
+            <xs:element name="Number" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Patient Idenfitication Number</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="220"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <xs:element name="Organization" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>Organisation that issued the number</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="NHS">
+                            <xs:annotation>
+                                <xs:documentation>NHS Number (England and Wales)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="CHI">
+                            <xs:annotation>
+                                <xs:documentation>NHS Number (Scotland)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="HSC">
+                            <xs:annotation>
+                                <xs:documentation>NHS Number (Ireland)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="UKRR">
+                            <xs:annotation>
+                                <xs:documentation>UK Renal Registry</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="SRR">
+                            <xs:annotation>
+                                <xs:documentation>Scottish Renal Registry</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="NHSBT">
+                            <xs:annotation>
+                                <xs:documentation>NHS Blood and Transplant</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="RADAR">
+                            <xs:annotation>
+                                <xs:documentation>Rare Disease Registry</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="BAPN">
+                            <xs:annotation>
+                                <xs:documentation>British Association For Paediatric Nephrology</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>                        
+                        <xs:enumeration value="LOCALHOSP">
+                            <xs:annotation>
+                                <xs:documentation>Local Hospital Number</xs:documentation>
+                                <!-- TODO: Ideally this would be the Trust ID but this wouldn't allow the enumeration. We could swap LOCALHOSP for that on load? -->
+                            </xs:annotation>
+                        </xs:enumeration>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <xs:element minOccurs="0" name="NumberType">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="MRN">
+                            <xs:annotation>
+                                <xs:documentation>Primary Identifier for that Organisation</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="NI">
+                            <xs:annotation>
+                                <xs:documentation>For 3rd-Party Identifiers such as NHS Numbers</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>                        
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,24 @@
+<xs:schema xmlns="http://www.rixg.org.uk/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.rixg.org.uk/">
+
+<xs:complexType name="LabTestItem">
+    <xs:complexContent>
+        <xs:extension base="CodeTableTranslated">
+            <xs:sequence>
+                <xs:element minOccurs="0" name="IsNumeric" type="Boolean">
+                    <xs:annotation>
+                        <xs:documentation>Should the item appear in Cumulative displays?&lt;br&gt;
+HL7:  OBX-2 : ValueType&lt;br&gt;
+HSDB: User.HS.CTTestCode(CTTCShowInCummulative)&lt;br&gt;
+HSDB: User.HS.ARCItmMast(ARCIMDisplayCumulative)&lt;br&gt;
+In HL7, IsNumeric is set to 'true' if ValueType is "NM" or "ST"&lt;br&gt;
+Note: In HL7 you can update from "N" (or "") to "Y" but not from "Y" to "N".&lt;br&gt;
+In direct-SDA you can update in either direction.&lt;br&gt;
+ARCIMDisplayCumulative is set to "Y" if any testitem has it set = "Y".</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:extension>
+    </xs:complexContent>
+</xs:complexType>
+
+</xs:schema>

@@ -17,6 +17,13 @@ module Renalware
       "NS" => ""
     }.freeze
 
+    NHS_DICTIONARY_NUMBERS = {
+      "NK" => 0,
+      "M" => 1,
+      "F" => 2,
+      "NS" => 9
+    }.freeze
+
     def self.all
       DATA.map { |code, _| new(code) }
     end
@@ -43,21 +50,25 @@ module Renalware
     #
 
     def name
-      DATA[@code]
+      DATA[code]
     end
 
     def salutation
-      SALUTATIONS[@code]
+      SALUTATIONS[code]
+    end
+
+    def nhs_dictionary_number
+      NHS_DICTIONARY_NUMBERS[code]
     end
 
     # @section coercions
     #
     def to_s
-      @code
+      code
     end
 
     def to_str
-      @code
+      code
     end
   end
 end

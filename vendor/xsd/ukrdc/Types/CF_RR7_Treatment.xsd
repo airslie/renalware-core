@@ -1,0 +1,241 @@
+<xs:schema xmlns="http://www.rixg.org.uk/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.rixg.org.uk/">
+    <xs:complexType name="CF_RR7_TREATMENT">
+        <xs:sequence>
+            <xs:element name="CodingStandard" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="CF_RR7_TREATMENT"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Code" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="1">
+                            <xs:annotation>
+                                <xs:documentation>Haemodialysis</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="2">
+                            <xs:annotation>
+                                <xs:documentation>Haemofiltration</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="3">
+                            <xs:annotation>
+                                <xs:documentation>Haemodiafiltration</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="4">
+                            <xs:annotation>
+                                <xs:documentation>Haemodialysis > 4 days per week / daily</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="5">
+                            <xs:annotation>
+                                <xs:documentation>Ultrafiltration</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="9">
+                            <xs:annotation>
+                                <xs:documentation>Haemodialysis - type unknown</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="10">
+                            <xs:annotation>
+                                <xs:documentation>CAPD Connect</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="11">
+                            <xs:annotation>
+                                <xs:documentation>CAPD Disconnect</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="12">
+                            <xs:annotation>
+                                <xs:documentation>Cycling PD >= 6 Nights/Week Dry</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="13">
+                            <xs:annotation>
+                                <xs:documentation>Cycling PD &lt; 6 Nights/Week Dry</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="14">
+                            <xs:annotation>
+                                <xs:documentation>Cycling PD >= 6 Nights/Week Wet (Day Dwell)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="15">
+                            <xs:annotation>
+                                <xs:documentation>Cycling PD &lt; 6 Nights/Week Wet (Day Dwell)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="16">
+                            <xs:annotation>
+                                <xs:documentation>Assisted Cycling PD >= 6 nights/week dry</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="17">
+                            <xs:annotation>
+                                <xs:documentation>Assisted Cycling PD >= 6 nights/week wet (day dwell)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="19">
+                            <xs:annotation>
+                                <xs:documentation>Peritoneal Dialysis - Type Unknown</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="20">
+                            <xs:annotation>
+                                <xs:documentation>Transplant; Cadaver Donor</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="21">
+                            <xs:annotation>
+                                <xs:documentation>Transplant; Live Related - Sibling</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="22">
+                            <xs:annotation>
+                                <xs:documentation>Transplant; Live Related - Parent or Child</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="23">
+                            <xs:annotation>
+                                <xs:documentation>Transplant; Live Related - Other</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="24">
+                            <xs:annotation>
+                                <xs:documentation>Transplant; Live Genetically Unrelated</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="25">
+                            <xs:annotation>
+                                <xs:documentation>Transplant; Cadaver + Transp Other Organ</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="26">
+                            <xs:annotation>
+                                <xs:documentation>Transplant; Live Donor + Transp Other Organ</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="27">
+                            <xs:annotation>
+                                <xs:documentation>Transplant; Live donor Non-UK Transplant</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="28">
+                            <xs:annotation>
+                                <xs:documentation>Transplant; Non-Heart-beating Donor</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="29">
+                            <xs:annotation>
+                                <xs:documentation>Transplant; Type Unknown</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="31">
+                            <xs:annotation>
+                                <xs:documentation>Graft acute rejection episode - biopsy proven</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="32">
+                            <xs:annotation>
+                                <xs:documentation>Graft acute rejection episode - no biopsy</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="74">
+                            <xs:annotation>
+                                <xs:documentation>Transplant : Live related - father</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="75">
+                            <xs:annotation>
+                                <xs:documentation>Transplant : Live related - mother</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="76">
+                            <xs:annotation>
+                                <xs:documentation>Transplant : Live related - child</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>                        
+                        <xs:enumeration value="80">
+                            <xs:annotation>
+                                <xs:documentation>Acute Renal Failure not dialysed</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="81">
+                            <xs:annotation>
+                                <xs:documentation>Acute Haemodialysis - ARF</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="82">
+                            <xs:annotation>
+                                <xs:documentation>Acute Haemofiltration - ARF</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="83">
+                            <xs:annotation>
+                                <xs:documentation>Acute Peritoneal Dialysis - ARF</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="93">
+                            <xs:annotation>
+                                <xs:documentation>Conservative Management - Mutual decision not to offer RRT</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="94">
+                            <xs:annotation>
+                                <xs:documentation>Conservative Management - Clinical decision not to offer RRT</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="110">
+                            <xs:annotation>
+                                <xs:documentation>Plasmapharesis / Plasma Exchange</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="111">
+                            <xs:annotation>
+                                <xs:documentation>Assisted CAPD</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>                         
+                        <xs:enumeration value="121">
+                            <xs:annotation>
+                                <xs:documentation>Assisted APD</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="201">
+                            <xs:annotation>
+                                <xs:documentation>Hybrid CAPD with HD</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>                        
+                        <xs:enumeration value="202">
+                            <xs:annotation>
+                                <xs:documentation>Hybrid APD with HD</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="203">
+                            <xs:annotation>
+                                <xs:documentation>Hybrid APD with CAPD</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>                            
+                        <xs:enumeration value="900">
+                            <xs:annotation>
+                                <xs:documentation>CKD (Not on RRT)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Description" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

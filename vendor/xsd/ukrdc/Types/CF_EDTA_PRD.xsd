@@ -1,0 +1,356 @@
+<xs:schema xmlns="http://www.rixg.org.uk/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.rixg.org.uk/">
+    <xs:complexType name="CF_EDTA_PRD">
+        <!-- Also known as RR4/RR20 -->
+        <xs:sequence>
+            <xs:element name="CodingStandard" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="EDTA"/>
+                        <xs:enumeration value="EDTA2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Code" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="0">
+                            <xs:annotation>
+                                <xs:documentation>Chronic Renal Failure, Aetiology uncertain</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="10">
+                            <xs:annotation>
+                                <xs:documentation>Glomerulonephritis, historically not examined</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="11">
+                            <xs:annotation>
+                                <xs:documentation>Severe nephoritic syndrome with focal sclerosis (Paediatric)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="12">
+                            <xs:annotation>
+                                <xs:documentation>IgA nephropathy proven by immunofluoresence</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="13">
+                            <xs:annotation>
+                                <xs:documentation>Dense deposite disease, membrano-prolif. GN Type II</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="14">
+                            <xs:annotation>
+                                <xs:documentation>Membranous nephropathy</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="15">
+                            <xs:annotation>
+                                <xs:documentation>Membrano-proliferative GN Type I</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="16">
+                            <xs:annotation>
+                                <xs:documentation>Rapidly progressive GN without systemic disease (crescentic)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="17">
+                            <xs:annotation>
+                                <xs:documentation>Focal segmental glomeruloscerosis with nephrotic syndrome in adults </xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="19">
+                            <xs:annotation>
+                                <xs:documentation>Glomerulonephritis, historically examined</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="20">
+                            <xs:annotation>
+                                <xs:documentation>Pyelo/Interstital nephritis - cause not specified</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="21">
+                            <xs:annotation>
+                                <xs:documentation>Pyelo/Interstital nephritis - with neurogenic bladder</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="22">
+                            <xs:annotation>
+                                <xs:documentation>Pyelo/Interstital nephritis - congen. obst. uropathy +/- reflux</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="23">
+                            <xs:annotation>
+                                <xs:documentation>Pyelo/Interstital nephritis - acquired obst. uropathy</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="24">
+                            <xs:annotation>
+                                <xs:documentation>Pyelo/Interstital nephritis - vesico-ureteric reflux no obstruction</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="25">
+                            <xs:annotation>
+                                <xs:documentation>Pyelo/Interstital nephritis - due to urolithiasis</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="29">
+                            <xs:annotation>
+                                <xs:documentation>Pyelo/Interstital nephritis - due to other cause (please specify)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="30">
+                            <xs:annotation>
+                                <xs:documentation>Tubulo interstital nephritis (not pyelonephritis)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="31">
+                            <xs:annotation>
+                                <xs:documentation>Nephropathy due to analgesic drugs</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="32">
+                            <xs:annotation>
+                                <xs:documentation>Nephropathy due to cis-platinum</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="33">
+                            <xs:annotation>
+                                <xs:documentation>Nephropathy due to Cyclosporin A</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="34">
+                            <xs:annotation>
+                                <xs:documentation>Lead induced nephropathy (interstitial)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="39">
+                            <xs:annotation>
+                                <xs:documentation>Nephroapthy caused by other specific drug</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="40">
+                            <xs:annotation>
+                                <xs:documentation>Cystic Kidney Disease - Type Unspecified</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="41">
+                            <xs:annotation>
+                                <xs:documentation>Polycystic Kidneys - Adult Type (Dominant)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="42">
+                            <xs:annotation>
+                                <xs:documentation>Polycystic Kidneys = Infantile (Recessive)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="43">
+                            <xs:annotation>
+                                <xs:documentation>Medullary Cystic Disease - including Nephoronophthisis</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="49">
+                            <xs:annotation>
+                                <xs:documentation>Cystic Kidney Disease - Other Specified Type</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="50">
+                            <xs:annotation>
+                                <xs:documentation>Hereditary/Familial Nephropathy - Typoe Unspecified</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="51">
+                            <xs:annotation>
+                                <xs:documentation>Hereditary Nephritis with Nerve Deafness (Alport's)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="52">
+                            <xs:annotation>
+                                <xs:documentation>Cystinosis</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="53">
+                            <xs:annotation>
+                                <xs:documentation>Primary Oxalosis</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="54">
+                            <xs:annotation>
+                                <xs:documentation>Fabry's disease</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="59">
+                            <xs:annotation>
+                                <xs:documentation>Hereditary Nephropathy - Other</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="60">
+                            <xs:annotation>
+                                <xs:documentation>congenital Renal Hypoplasia - Type Unspecified</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="61">
+                            <xs:annotation>
+                                <xs:documentation>Oligomeganephronic Hypoplasia</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="63">
+                            <xs:annotation>
+                                <xs:documentation>Congenital Renal Dysplasia +/- Urinary Tract Malformation</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="66">
+                            <xs:annotation>
+                                <xs:documentation>Syndrome of Agenesis of Abdo. muscles - Prune Belly Syndrome</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="70">
+                            <xs:annotation>
+                                <xs:documentation>Renal Vascular Disease - Type Unspecified</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="71">
+                            <xs:annotation>
+                                <xs:documentation>Renal Vascular Disease due to MALIGNANT Hypertension</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="72">
+                            <xs:annotation>
+                                <xs:documentation>Renal Vascular Disease due to Hypertension</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="73">
+                            <xs:annotation>
+                                <xs:documentation>Renal Vascular Disease due to Polyarteritis</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="74">
+                            <xs:annotation>
+                                <xs:documentation>Wegener's Granulomatosis</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="75">
+                            <xs:annotation>
+                                <xs:documentation>Ischaemic Renal Disease/Cholesterol Embolism</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="76">
+                            <xs:annotation>
+                                <xs:documentation>Glomerulonephritis related to liver cirrhosis</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="78">
+                            <xs:annotation>
+                                <xs:documentation>Cryoglobulinaemic Glomerulonephritis</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="79">
+                            <xs:annotation>
+                                <xs:documentation>Renal Vascular Disease - Classified (Please Specify)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="80">
+                            <xs:annotation>
+                                <xs:documentation>Diabetes Type 1 (Insulin Dependent)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="81">
+                            <xs:annotation>
+                                <xs:documentation>Diabetes Type 2 (Non-Insulin Dependent)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="82">
+                            <xs:annotation>
+                                <xs:documentation>Myelomatosis</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="83">
+                            <xs:annotation>
+                                <xs:documentation>Amyloid</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="84">
+                            <xs:annotation>
+                                <xs:documentation>Systemic Lupus Erythematosus</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="85">
+                            <xs:annotation>
+                                <xs:documentation>Henoch-Schonlein Purpura</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="86">
+                            <xs:annotation>
+                                <xs:documentation>Goodpastures Syndrome</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="87">
+                            <xs:annotation>
+                                <xs:documentation>Scleroderma</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="88">
+                            <xs:annotation>
+                                <xs:documentation>Haemolytic Uraemic Syndrome</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="89">
+                            <xs:annotation>
+                                <xs:documentation>Multu-System Diseased - Type Unspecified</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="90">
+                            <xs:annotation>
+                                <xs:documentation>Cortical or Tubula Necrosis</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="91">
+                            <xs:annotation>
+                                <xs:documentation>Tuberculosis</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="92">
+                            <xs:annotation>
+                                <xs:documentation>Gout</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="93">
+                            <xs:annotation>
+                                <xs:documentation>Nephrocalcinosis / Hypercalcaemic Nephropathy</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="94">
+                            <xs:annotation>
+                                <xs:documentation>Balkan Nephropathy</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="95">
+                            <xs:annotation>
+                                <xs:documentation>Kidney Tumour</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="96">
+                            <xs:annotation>
+                                <xs:documentation>Traumatic or Surgical Loss of Kidney</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="99">
+                            <xs:annotation>
+                                <xs:documentation>Other identified Renal Disorders - Please Specify</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <!-- TODO: EDTA2 Codes will go here -->
+
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Description" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,114 @@
+<xs:schema xmlns="http://www.rixg.org.uk/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.rixg.org.uk/">
+    <xs:complexType name="EthnicGroup">
+        <xs:sequence>
+            <xs:element name="CodingStandard" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="NHS_DATA_DICTIONARY"/>
+                        <!-- TODO: Use OID? -->
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <xs:element name="Code" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="A">
+                            <xs:annotation>
+                                <xs:documentation>British</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="B">
+                            <xs:annotation>
+                                <xs:documentation>Irish</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="C">
+                            <xs:annotation>
+                                <xs:documentation>Any other White background</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="D">
+                            <xs:annotation>
+                                <xs:documentation>White and Black Caribbean</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="E">
+                            <xs:annotation>
+                                <xs:documentation>White and Black African</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="F">
+                            <xs:annotation>
+                                <xs:documentation>White and Asian</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="G">
+                            <xs:annotation>
+                                <xs:documentation>Any other mixed background</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="H">
+                            <xs:annotation>
+                                <xs:documentation>Indian</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="J">
+                            <xs:annotation>
+                                <xs:documentation>Pakistani</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="K">
+                            <xs:annotation>
+                                <xs:documentation>Bangladeshi</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="L">
+                            <xs:annotation>
+                                <xs:documentation>Any other Asian background</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="M">
+                            <xs:annotation>
+                                <xs:documentation>Caribbean</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="N">
+                            <xs:annotation>
+                                <xs:documentation>African</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="P">
+                            <xs:annotation>
+                                <xs:documentation>Any other Black background</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="R">
+                            <xs:annotation>
+                                <xs:documentation>Chinese</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="S">
+                            <xs:annotation>
+                                <xs:documentation>Any other ethnic group</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="Z">
+                            <xs:annotation>
+                                <xs:documentation>Not stated</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <xs:element name="Description" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

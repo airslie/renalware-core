@@ -1,0 +1,567 @@
+<xs:schema xmlns="http://www.rixg.org.uk/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.rixg.org.uk/">
+    <xs:complexType name="CF_RR1">
+        <xs:sequence>
+            <xs:element name="CodingStandard" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="CF_RR1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Code" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+
+                        <xs:enumeration value="11023">
+                            <xs:annotation>
+                                <xs:documentation>Royal Belfast Hospital For Sick Children</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="2020">
+                            <xs:annotation>
+                                <xs:documentation>Belfast City Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="24027">
+                            <xs:annotation>
+                                <xs:documentation>Antrim Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="33020">
+                            <xs:annotation>
+                                <xs:documentation>Daisy Hill Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="45020">
+                            <xs:annotation>
+                                <xs:documentation>Western Trust - Old</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="45021">
+                            <xs:annotation>
+                                <xs:documentation>Western Trust</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="48021">
+                            <xs:annotation>
+                                <xs:documentation>Dummy</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="7021">
+                            <xs:annotation>
+                                <xs:documentation>Ulster Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="99RCSLB">
+                            <xs:annotation>
+                                <xs:documentation>Nottingham City Hospital - Paediatric</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="99RHM01">
+                            <xs:annotation>
+                                <xs:documentation>Southampton Childrens Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="99RQR13">
+                            <xs:annotation>
+                                <xs:documentation>St James'S University Hospital - Paediatric</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="99RTD01">
+                            <xs:annotation>
+                                <xs:documentation>Great North Childrens Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RA723">
+                            <xs:annotation>
+                                <xs:documentation>Bristol Royal Hospital For Children</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RAE05">
+                            <xs:annotation>
+                                <xs:documentation>St Lukes Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RAJ01">
+                            <xs:annotation>
+                                <xs:documentation>Southend Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RAL01">
+                            <xs:annotation>
+                                <xs:documentation>Royal Free and Middlesex Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RAQ01">
+                            <xs:annotation>
+                                <xs:documentation>Lister Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RAZ">
+                            <xs:annotation>
+                                <xs:documentation>St Helier Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RBD01">
+                            <xs:annotation>
+                                <xs:documentation>Dorset County Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RBL14">
+                            <xs:annotation>
+                                <xs:documentation>Arrowe Park Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RBS25">
+                            <xs:annotation>
+                                <xs:documentation>Royal Liverpool Childrens Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RCB55">
+                            <xs:annotation>
+                                <xs:documentation>York District General Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RCJAT">
+                            <xs:annotation>
+                                <xs:documentation>James Cook University Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RCSLB">
+                            <xs:annotation>
+                                <xs:documentation>Nottingham City Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RDDH0">
+                            <xs:annotation>
+                                <xs:documentation>Basildon Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RDEE4">
+                            <xs:annotation>
+                                <xs:documentation>Colchester General Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="REE01">
+                            <xs:annotation>
+                                <xs:documentation>Southmead Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="REF12">
+                            <xs:annotation>
+                                <xs:documentation>Royal Cornwall Hospital (Treliske)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RF201">
+                            <xs:annotation>
+                                <xs:documentation>Hull Royal Infirmary</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RFBAK">
+                            <xs:annotation>
+                                <xs:documentation>Leicester General Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RFPFG">
+                            <xs:annotation>
+                                <xs:documentation>Royal Derby Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RGQ02">
+                            <xs:annotation>
+                                <xs:documentation>Ipswich Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RGT01">
+                            <xs:annotation>
+                                <xs:documentation>Addenbrookes Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RGU01">
+                            <xs:annotation>
+                                <xs:documentation>Royal Sussex County Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RH641">
+                            <xs:annotation>
+                                <xs:documentation>Gloucester Royal Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RH8">
+                            <xs:annotation>
+                                <xs:documentation>Royal Devon And Exeter Hospital (Wonford)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RHM02">
+                            <xs:annotation>
+                                <xs:documentation>Southampton General Hospital - Paediatric</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RHU02">
+                            <xs:annotation>
+                                <xs:documentation>Queen Alexandra Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RHW01">
+                            <xs:annotation>
+                                <xs:documentation>Royal Berkshire Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RJ121">
+                            <xs:annotation>
+                                <xs:documentation>Guy'S And St Thomas'S Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RJ122">
+                            <xs:annotation>
+                                <xs:documentation>Evelina Childrens Hospital (Guys)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RJ701">
+                            <xs:annotation>
+                                <xs:documentation>St George'S Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RJE01">
+                            <xs:annotation>
+                                <xs:documentation>University Hospital Of North Staffordshire</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RJZ">
+                            <xs:annotation>
+                                <xs:documentation>King'S College Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RK7CC">
+                            <xs:annotation>
+                                <xs:documentation>Northern General Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RK950">
+                            <xs:annotation>
+                                <xs:documentation>Derriford Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RKB01">
+                            <xs:annotation>
+                                <xs:documentation>Walsgrave Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RKGA1">
+                            <xs:annotation>
+                                <xs:documentation>Ysbyty Glan Clwyd</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RKHA4">
+                            <xs:annotation>
+                                <xs:documentation>Wrexham Maelor Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RL403">
+                            <xs:annotation>
+                                <xs:documentation>New Cross Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RL7">
+                            <xs:annotation>
+                                <xs:documentation>Heartlands Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RLGAY">
+                            <xs:annotation>
+                                <xs:documentation>Cumberland Infirmary</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RLNGH">
+                            <xs:annotation>
+                                <xs:documentation>Sunderland Royal Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RLZ01">
+                            <xs:annotation>
+                                <xs:documentation>Royal Shrewsbury Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RM102">
+                            <xs:annotation>
+                                <xs:documentation>Norfolk and Norwich University Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RM301">
+                            <xs:annotation>
+                                <xs:documentation>Salford Royal</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RM574">
+                            <xs:annotation>
+                                <xs:documentation>Royal Infirmary  Manchester</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RMF01">
+                            <xs:annotation>
+                                <xs:documentation>Royal Preston Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RNA03">
+                            <xs:annotation>
+                                <xs:documentation>Russells Hall Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RNJ00">
+                            <xs:annotation>
+                                <xs:documentation>Barts And The London Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RNX02">
+                            <xs:annotation>
+                                <xs:documentation>Oxford Radcliffe Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RP4">
+                            <xs:annotation>
+                                <xs:documentation>Great Ormond Street Hospital For Children</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RP5">
+                            <xs:annotation>
+                                <xs:documentation>Doncaster Royal Infirmary</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RQ3">
+                            <xs:annotation>
+                                <xs:documentation>Birmingham Childrens Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RQ617">
+                            <xs:annotation>
+                                <xs:documentation>Royal Liverpool University Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RQ8L0">
+                            <xs:annotation>
+                                <xs:documentation>Broomfield Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RQBAU">
+                            <xs:annotation>
+                                <xs:documentation>Ysbyty Gwynedd</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RQHC7">
+                            <xs:annotation>
+                                <xs:documentation>Morriston Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RQN02">
+                            <xs:annotation>
+                                <xs:documentation>Hammersmith and Charing Cross Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RQR13">
+                            <xs:annotation>
+                                <xs:documentation>St James'S University Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RQS01">
+                            <xs:annotation>
+                                <xs:documentation>Dummy</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RRBBV">
+                            <xs:annotation>
+                                <xs:documentation>University Hospital Of Wales</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RRK02">
+                            <xs:annotation>
+                                <xs:documentation>Queen Elizabeth Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RTD01">
+                            <xs:annotation>
+                                <xs:documentation>Freeman Hospital and Royal Victoria Infirmary</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RTD02">
+                            <xs:annotation>
+                                <xs:documentation>Royal Victoria Infirmary - Paediatric</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RVVKC">
+                            <xs:annotation>
+                                <xs:documentation>Kent and Canterbury Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RW3RM">
+                            <xs:annotation>
+                                <xs:documentation>Royal Manchester Children'S Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RW402">
+                            <xs:annotation>
+                                <xs:documentation>University Hospital Aintree</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="RWM51">
+                            <xs:annotation>
+                                <xs:documentation>Children'S Kidney Centre - Uhw</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="SAC02">
+                            <xs:annotation>
+                                <xs:documentation>Crosshouse Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="SFC01">
+                            <xs:annotation>
+                                <xs:documentation>Queen Margaret'S Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="SGC02">
+                            <xs:annotation>
+                                <xs:documentation>Royal Hospital For Sick Children</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="SGC04">
+                            <xs:annotation>
+                                <xs:documentation>Western Infirmary Glasgow</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="SGC05">
+                            <xs:annotation>
+                                <xs:documentation>Glasgow Royal Infirmary and Western Infirmary</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="SHC01">
+                            <xs:annotation>
+                                <xs:documentation>Raigmore Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="SLC01">
+                            <xs:annotation>
+                                <xs:documentation>Monklands Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="SNC01">
+                            <xs:annotation>
+                                <xs:documentation>Aberdeen Royal Infirmary</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="SSC02">
+                            <xs:annotation>
+                                <xs:documentation>Royal Infirmary Of Edinburgh (New Royal)</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="STC01">
+                            <xs:annotation>
+                                <xs:documentation>Ninewells Hospital</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                        <xs:enumeration value="SYC02">
+                            <xs:annotation>
+                                <xs:documentation>Dumfries and Galloway Royal Infirmary</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="Description" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="32000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

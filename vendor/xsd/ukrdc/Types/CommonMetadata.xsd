@@ -1,0 +1,23 @@
+<!-- edited with XMLSpy v2015 rel. 4 (x64) (http://www.altova.com) by Nick Jones (Agiloak Limited) -->
+<xs:schema xmlns="http://www.rixg.org.uk/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.rixg.org.uk/">
+	<xs:include schemaLocation="../Types/ActionCode.xsd"/>
+	<xs:group name="CommonMetadata">
+		<xs:sequence>
+			<xs:element name="UpdatedOn" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Last Modified Date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ActionCode" type="ActionCode" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>A/U/D for Add/Update/Delete</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExternalId" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Unique Identifier</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+</xs:schema>
