@@ -284,6 +284,7 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     orm_adapter (0.5.0)
+    pandoc-ruby (2.0.1)
     paper_trail (6.0.2)
       activerecord (>= 4.0, < 5.2)
       request_store (~> 1.1)
@@ -535,6 +536,7 @@ DEPENDENCIES
   naught (~> 1.1.0)
   nested_form
   nokogiri (>= 1.7.1)
+  pandoc-ruby
   paper_trail
   paranoia
   pg

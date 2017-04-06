@@ -15,6 +15,14 @@ module Renalware
       CountryPresenter.new(super)
     end
 
+    def to_a
+      return [] unless __getobj__.present?
+
+      presentable_attrs
+        .map(&:to_s)
+        .reject(&:blank?)
+    end
+
     private
 
     def join_arg

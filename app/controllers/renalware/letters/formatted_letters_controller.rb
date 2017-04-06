@@ -18,6 +18,9 @@ module Renalware
             disposition = params.fetch("disposition", "attachment")
             render_pdf(@letter, disposition)
           }
+          format.rtf {
+            render_rtf(@letter)
+          }
         end
       end
 
@@ -48,6 +51,10 @@ module Renalware
             right: "page [page] of [topage]"
           }
         }
+      end
+
+      def render_rtf(letter)
+        RTFRenderer.new(letter, self).render
       end
     end
   end

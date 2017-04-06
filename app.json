@@ -16,6 +16,17 @@
             "value": "Nicholas Henry"
     }
   },
+  "buildpacks": [
+    {
+      "url": "https://github.com/tonyta/heroku-buildpack-custom-binaries#v1.0.0"
+    },
+    {
+      "url": "https://github.com/ianpurvis/heroku-buildpack-version"
+    },
+    {
+      "url": "heroku/ruby"
+    }
+  ],
   "scripts": {
     "postdeploy": "bundle exec rake db:seed"
   }
