@@ -57,7 +57,7 @@ gem "wkhtmltopdf-binary", "~> 0.12.3"
 source "https://rails-assets.org" do
   # https://github.com/najlepsiwebdesigner/foundation-datepicker
   gem "rails-assets-clockpicker", "~> 0.0.7"
-  gem "rails-assets-foundation-datepicker", "1.5.0"
+  gem "rails-assets-foundation-datepicker", "1.5.6"
   gem "rails-assets-select2", "~> 4.0.2"
 end
 
