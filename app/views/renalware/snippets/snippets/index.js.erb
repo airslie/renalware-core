@@ -8,7 +8,6 @@ $("#snippets-modal").foundation('reveal', 'open');
 
 // Make the sorting and pagination links 'remote' so they do not navigate away.
 $('.snippets').on('click', 'th a, .pagination a', function () {
-    console.log("click");
     $.getScript(this.href);
     return false;
   }
