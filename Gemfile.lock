@@ -482,7 +482,7 @@ GEM
     websocket-extensions (0.1.2)
     whenever (0.9.7)
       chronic (>= 0.6.3)
-    wicked_pdf (1.0.6)
+    wicked_pdf (1.1.0)
     wisper (2.0.0)
     wisper-rspec (0.0.3)
     wkhtmltopdf-binary (0.12.3.1)
@@ -576,7 +576,7 @@ DEPENDENCIES
   web-console
   webmock
   whenever
-  wicked_pdf (~> 1.0.6)
+  wicked_pdf (~> 1.1.0)
   wisper
   wisper-rspec
   wkhtmltopdf-binary (~> 0.12.3)

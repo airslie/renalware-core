@@ -50,7 +50,7 @@ gem "underscore-rails"
 gem "validates_timeliness"
 gem "virtus"
 gem "whenever", require: false # For managing and deploying cron jobs - see config/schedule.rb
-gem "wicked_pdf", "~> 1.0.6"
+gem "wicked_pdf", "~> 1.1.0"
 gem "wisper"
 gem "wkhtmltopdf-binary", "~> 0.12.3"
 
