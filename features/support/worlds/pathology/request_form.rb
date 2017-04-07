@@ -93,7 +93,7 @@ module World
         end
 
         def print_request_forms(request_forms)
-          request_forms.each { |request_form| request_form.print_form }
+          request_forms.each(&:print_form)
         end
 
         # @section expectations

@@ -113,7 +113,7 @@ module World
 
       def expect_pathology_current_observations(user:, patient:, rows:)
         patient = Renalware::Pathology.cast_patient(patient)
-        codes = rows.map { |row| row.first }[1..-1]
+        codes = rows.map(&:first)[1..-1]
         descriptions = Renalware::Pathology::ObservationDescription.for(codes)
 
         presenter = Renalware::Pathology::CurrentObservationResults::Presenter.new
