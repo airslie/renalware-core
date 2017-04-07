@@ -105,5 +105,5 @@ group :staging do
 end
 
 group :development, :test, :staging do
-  gem "faker", "~> 1.6.6"
+  gem "faker", "~> 1.7.3"
 end
