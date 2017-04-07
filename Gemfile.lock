@@ -454,7 +454,7 @@ GEM
     timeliness (0.3.8)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
-    uglifier (3.1.8)
+    uglifier (3.1.13)
       execjs (>= 0.3.0, < 3)
     underscore-rails (1.8.3)
     unicode-display_width (1.1.3)
