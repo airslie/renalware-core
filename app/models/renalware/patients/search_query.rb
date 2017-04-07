@@ -24,8 +24,8 @@ module Renalware
       private
 
       def search
-        @search ||= Patient.search(family_name_cont: term).tap do |s|
-          s.sorts = ["family_name", "given_name"]
+        @search ||= Patient.search(family_name_cont: term).tap do |srch|
+          srch.sorts = %w(family_name given_name)
         end
       end
 

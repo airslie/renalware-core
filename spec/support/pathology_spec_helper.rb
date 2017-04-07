@@ -27,7 +27,6 @@ module PathologySpecHelper
     Renalware::Pathology.cast_patient(patient)
   end
 
-
   def add_descriptions_not_observed_for_patient(*description_names)
     description_names.map { |name| create_observation_description(name) }
   end
