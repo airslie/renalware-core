@@ -1,0 +1,16 @@
+article
+  header
+    h2 Current Problems
+    .supplemental
+      span= "#{mdm.current_problems.length} of #{mdm.patient.summary.problems_count}"
+      = link_to t(".view_all"),
+                patient_problems_path(mdm.patient),
+                class: "button secondary"
+      = link_to "Toggle visibility",
+                "#problems",
+                class: "button secondary",
+                data: { behaviour: "css-toggler" }
+
+  #problems.expandable
+    = render "renalware/problems/problems/current_list",
+             problems: mdm.current_problems

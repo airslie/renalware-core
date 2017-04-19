@@ -1,0 +1,18 @@
+.row
+  .columns.small-12.medium-4
+    = render "pathology_extra", mdm: mdm
+
+  .columns.small-12.medium-4
+    = render "pathology_cmvdna", mdm: mdm
+
+  .columns.small-12.medium-4
+    = render "measurements", mdm: mdm
+.row
+  .columns.medium-12.large-6
+    = render "clinic_visits", mdm: mdm
+
+  .columns.medium-12.large-6
+    = render "biopsies", mdm: mdm
+.row
+  .columns.medium-12.large-12
+    = render "events", events: mdm.events, patient: mdm.patient

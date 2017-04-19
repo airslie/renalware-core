@@ -1,11 +1,15 @@
-- content_for(:body_class) { "collapse-patient-menu always-collapse-patient-menu" }
+- content_for(:top_navigation) do
+  = render "top_navigation"
+
+- content_for(:body_class) { "collapse-patient-menu always-collapse-patient-menu mdm" }
 
 = within_patient_layout(title: "") do
+  br
   / TODO: a.trigger-full-screen Full screen
-  .full-screen-container.row.mdm-page.no-side-gutters
-    .columns.small-12
-      .row.collapse= render_if_exists "top", mdm: mdm
-      .row.collapse= render "pathology", mdm: mdm
-      .row.collapse= render_if_exists "middle", mdm: mdm
-      .row.collapse= render_if_exists "bottom", mdm: mdm
-      .row.collapse= render "letters", mdm: mdm
+  .full-screen-container.mdm-page.no-side-gutters
+    .grid
+      .row= render_if_exists "top", mdm: mdm
+      .row= render "pathology", mdm: mdm
+      .row= render_if_exists "middle", mdm: mdm
+      = render_if_exists "bottom", mdm: mdm
+      .row= render "letters", mdm: mdm

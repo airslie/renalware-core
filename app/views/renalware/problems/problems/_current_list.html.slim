@@ -1,0 +1,17 @@
+table#current_problems
+  thead
+    tr
+      th Description
+      th.col-width-date Recorded on
+      td.nowrap Recorded by
+  tbody
+    - problems.each do |problem|
+      tr
+        td
+          = problem.description
+          ol
+            - problem.notes.each do |note|
+              li= note.description
+        td= l problem.updated_on
+        td= problem.created_by.full_name
+

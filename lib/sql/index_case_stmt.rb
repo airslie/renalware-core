@@ -10,7 +10,7 @@ module SQL
   #       WHEN 'AC' THEN 2
   #    END
   #
-  # Used for creating an explicit sort order in conjustion with a find:
+  # Used for creating an explicit sort order in conjunction with a find:
   #
   #    Description.where(code: codes).order(indexed_case_stmt(:code, codes))
   #

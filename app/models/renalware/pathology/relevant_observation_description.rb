@@ -6,6 +6,14 @@ module Renalware
     # are relevant to pathology in the renal care domain
     #
     class RelevantObservationDescription
+
+      # Returns an AR Relation containing e.g.:
+      # [
+      #    #<Renalware::Pathology::ObservationDescription id: 767, code: "HGB", name: "HGB">,
+      #    #<Renalware::Pathology::ObservationDescription id: 1058, code: "MCV", name: "MCV">,
+      #    #<Renalware::Pathology::ObservationDescription id: 1055, code: "MCH", name: "MCH">,
+      #     ...
+      #  ]
       def self.all
         ObservationDescription.for(codes)
       end

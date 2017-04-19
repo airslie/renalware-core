@@ -1,0 +1,11 @@
+article
+  header
+    h2 Clinic Visits
+    .supplemental
+      span= "#{mdm.clinic_visits.length} of #{mdm.patient.summary.clinic_visits_count}"
+      = link_to "View All",
+                  patient_clinic_visits_path(mdm.patient),
+                  class: "button secondary"
+
+  = render "renalware/clinics/clinic_visits/table",
+           clinic_visits: mdm.clinic_visits

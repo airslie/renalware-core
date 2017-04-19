@@ -125,6 +125,11 @@ table {
       min-width: 10rem;
     }
 
+    &.col-width-medium-ish {
+      width: 14rem;
+      min-width: 12rem;
+    }
+
     &.col-width-large {
       width: 20rem;
       min-width: 15rem;

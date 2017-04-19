@@ -1,13 +1,14 @@
 tr
-  td = link_to "Toggle", "#event-quick-preview-#{event.id}", data: { behaviour: "toggler" }
-  td= l event.created_at.to_date
-  td= event.event_type
+  td = link_to "Toggle", "##{toggle_prefix}-quick-preview-#{event.id}", data: { behaviour: "toggler" }
+  td.nowrap= l event.created_at.to_date
+  - unless local_assigns.fetch(:exclude_type_column, false)
+    td= event.event_type
   td.col-with-medium-with-ellipsis
     = render partial: "renalware/events/events/cell/#{event.to_partial_path}",
                locals: { event: event }
-  td=l event.date_time
-  td= event.created_by.full_name
-= content_tag(:tr, id: "event-quick-preview-#{event.id}", style: "display: none")
+  td.created_at= l(event.date_time)
+  td.created_by= event.created_by.full_name
+= content_tag(:tr, id: "#{toggle_prefix}-quick-preview-#{event.id}", style: "display: none")
   td(colspan=6)
     .quick-preview
       = render partial: "renalware/events/events/toggled_cell/#{event.to_partial_path}",

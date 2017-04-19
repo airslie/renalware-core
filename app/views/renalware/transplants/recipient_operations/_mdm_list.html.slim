@@ -1,0 +1,29 @@
+  article
+    header
+      h2 Recipient Operations
+      .supplemental
+        span= "#{recipient_operations.length} of #{patient.summary.recipient_operations_count}"
+        = link_to "View Recipient Workup",
+                  patient_transplants_recipient_workup_path(patient),
+                  class: "button secondary"
+        = link_to "View All",
+                  patient_transplants_recipient_dashboard_path(patient),
+                  class: "button secondary"
+    table
+      thead
+        th.col-width-date Op Date
+        th Type
+        th Recip Age
+        th Donor Type
+        th Donor Age
+        th Stent Removed On
+      tbody
+        - recipient_operations.each do |operation|
+          tr
+            td= link_to l(operation.performed_on),
+                        patient_transplants_recipient_operation_path(patient, operation)
+            td= operation.operation_type.text
+            td= operation.recipient_age_at_operation
+            td= operation.document.donor.type&.text
+            td= operation.document.donor&.age
+            td= l(operation.followup&.stent_removed_on)

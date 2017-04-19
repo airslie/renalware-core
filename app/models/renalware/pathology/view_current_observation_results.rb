@@ -10,7 +10,10 @@ module Renalware
       end
 
       def call(_params = {})
+        # Get an array of observations for the requested descriptions
         results = find_current_observations_for_descriptions
+        # Although we now have all the observations, they are not in the right order.
+        # Hence this sort by description code.
         sorted_results = sort_results(results)
         present(sorted_results)
       end

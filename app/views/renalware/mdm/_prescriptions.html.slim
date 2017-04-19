@@ -1,8 +1,11 @@
-fieldset.simple
-  legend
-    span.title= t(".title")
-    span.actions.action-links
-      = link_to t(".view"), patient_prescriptions_path(mdm.patient)
+article
+  header
+    h2= t(".title")
+    .supplemental
+      span= "#{mdm.current_prescriptions.length} of #{mdm.patient.summary.prescriptions_count}"
+      = link_to t(".view_all"),
+                patient_prescriptions_path(mdm.patient),
+                class: "button secondary"
 
   - if local_assigns[:with_esa] == true
 
@@ -12,10 +15,13 @@ fieldset.simple
 
     .tabs-content
       #current.content.active
-        = render "current_prescriptions", mdm: mdm
+        = render "renalware/mdm/prescriptions/table",
+                 prescriptions: mdm.current_prescriptions,
+                 show_administer_on_hd: true
       #epo-history.content
-        = render "esa_prescriptions", mdm: mdm
-
+        = render "renalware/mdm/prescriptions/table",
+                 prescriptions: mdm.esa_prescriptions,
+                 show_terminated_on: true,
+                 show_administer_on_hd: true
   - else
-
     = render "current_prescriptions", mdm: mdm

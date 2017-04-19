@@ -9,7 +9,7 @@ tr
                 patient_clinic_visit_path(@patient, clinic_visit),
                 method: :delete,
                 data: { confirm: I18n.t("prompts.confirm_delete") }
-  td.date-time= l clinic_visit.date
+  td.date-time= l(clinic_visit.date)
   td.clinic-type= clinic_visit.clinic
   td.bmi= clinic_visit.bmi
   td.bp= clinic_visit.bp
