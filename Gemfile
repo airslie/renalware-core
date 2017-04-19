@@ -3,7 +3,7 @@ ruby "2.4.0"
 
 gem "active_type", "~> 0.6.1"
 gem "activemodel-associations"
-gem "activerecord-import", "~> 0.16.2"
+gem "activerecord-import"
 gem "autoprefixer-rails"
 gem "chosen-rails"
 gem "client_side_validations"
@@ -38,7 +38,7 @@ gem "ransack", git: "https://github.com/activerecord-hackery/ransack.git"
 gem "record_tag_helper", "~> 1.0"
 gem "rollbar"
 gem "pandoc-ruby"
-gem "ruby-hl7", "~> 1.1.1"
+gem "ruby-hl7", "~> 1.2.0"
 gem "sass-rails"
 gem "scenic"
 gem "sdoc", "~> 0.4.0", group: :doc
@@ -50,14 +50,14 @@ gem "underscore-rails"
 gem "validates_timeliness"
 gem "virtus"
 gem "whenever", require: false # For managing and deploying cron jobs - see config/schedule.rb
-gem "wicked_pdf", "~> 1.0.6"
+gem "wicked_pdf", "~> 1.1.0"
 gem "wisper"
 gem "wkhtmltopdf-binary", "~> 0.12.3"
 
 source "https://rails-assets.org" do
   # https://github.com/najlepsiwebdesigner/foundation-datepicker
   gem "rails-assets-clockpicker", "~> 0.0.7"
-  gem "rails-assets-foundation-datepicker", "1.5.0"
+  gem "rails-assets-foundation-datepicker", "1.5.0" # 1.5.6 causes capybara errors
   gem "rails-assets-select2", "~> 4.0.2"
 end
 
@@ -84,7 +84,7 @@ group :development, :test do
   gem "poltergeist" # , "~> 1.11.0"
   gem "rspec-html-matchers"
   gem "rspec-rails"
-  gem "rubocop", "~> 0.47.1", require: false
+  gem "rubocop", "~> 0.48.1", require: false
   gem "shoulda-matchers"
   gem "spring"
   gem "spring-commands-cucumber"
@@ -105,5 +105,5 @@ group :staging do
 end
 
 group :development, :test, :staging do
-  gem "faker", "~> 1.6.6"
+  gem "faker", "~> 1.7.3"
 end

@@ -1,7 +1,6 @@
 $(document).ready(function(){
 
   var clipboard = new Clipboard('.clipboard-btn');
-  // console.log(clipboard);
 
   clipboard.on('success', function(e) {
     if (e.action != "copy" ) {
