@@ -11,14 +11,14 @@ describe Renalware::Pathology::Requests::SampleDescription do
   context "both sample_type and sample_number_bottles are present" do
     it do
       expect(sample_description.to_s)
-        .to include("#{sample_type}", "#{sample_number_bottles} bottles")
+        .to include(sample_type.to_s, "#{sample_number_bottles} bottles")
     end
   end
 
   context "only sample_type is present" do
     let(:sample_number_bottles) { nil }
 
-    it { expect(sample_description.to_s).to include("#{sample_type}") }
+    it { expect(sample_description.to_s).to include(sample_type.to_s) }
   end
 
   context "only sample_number_bottles is present" do

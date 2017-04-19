@@ -21,11 +21,11 @@ module Renalware::Pathology
         observation_attrs = attributes_for(:pathology_observation)
           .merge(description_id: observation_description.id)
 
-        Hash.new.tap do |params|
-          params[:patient_id] = patient.id
-          params[:observation_request] = request_attrs
-          params[:observation_request][:observations_attributes] = [observation_attrs]
-        end
+        params = {}
+        params[:patient_id] = patient.id
+        params[:observation_request] = request_attrs
+        params[:observation_request][:observations_attributes] = [observation_attrs]
+        params
       end
 
       def pathology_patient(patient)

@@ -46,6 +46,7 @@ module Renalware
       def add_descriptions_not_observed_for_patient(*description_names)
         description_names.map { |name| create_observation_description(name) }
       end
+
       def filter_targeted_descriptions(descriptions)
         descriptions.select { |description| description.name.start_with?("target-") }
       end
