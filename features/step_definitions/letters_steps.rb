@@ -270,12 +270,8 @@ Then(/^the letter is completed$/) do
   expect_letter_to_be_completed(patient: @patty, user: @nathalie)
 end
 
-Then(/^Clyde views these letters:$/) do |_table|
-  # pendinhg
-  puts "FIXME!!!!!: Invalid single-table inheritance type: " \
-          "Renalware::Letters::Letter::PendingReview is not a subclass of " \
-          "Renalware::Letters::LetterQuery::QueryableLetter (ActiveRecord::SubclassNotFound)"
-  # expect_letters_to_be(table)
+Then(/^Clyde views these letters:$/) do |table|
+  expect_letters_to_be(table)
 end
 
 Then(/^Sam is listed as Patty's available contacts$/) do

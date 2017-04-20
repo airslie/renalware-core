@@ -1,15 +1,5 @@
 .row
-  h1= "#{@author.full_name}'s letters"
+  h1= "#{author.full_name}'s letters"
 
 .row
-  table.letters.responsive
-    thead
-      tr
-        th Patient
-        th Description
-        th State
-        th Last updated
-        th
-
-    tbody
-      = render @letters
+  = render "table", letters: letters

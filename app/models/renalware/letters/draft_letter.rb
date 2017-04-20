@@ -11,6 +11,7 @@ module Renalware
 
       def call(patient, params = {})
         letter = LetterFactory.new(patient, params).build
+        # Rails.logger.info "Drafting letter of class #{letter.class} with type #{letter.type}"
         letter.save!
         letter.reload
         broadcast(:draft_letter_successful, letter)

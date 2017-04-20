@@ -1,3 +1,5 @@
+require_dependency "renalware/letters"
+
 module Renalware
   module Letters
     class RTFRenderer
@@ -27,7 +29,6 @@ module Renalware
         temp_html_file.close
 
         yield(temp_html_file) if block_given?
-
       ensure
         temp_html_file.unlink # allows garbage collection and temp file removal
       end

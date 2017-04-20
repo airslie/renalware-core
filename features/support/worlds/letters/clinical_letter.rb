@@ -39,7 +39,6 @@ module World
 
       def expect_clinical_letter_to_list_current_prescriptions(patient:)
         letter = clinical_letter_for(patient)
-        p letter.class
 
         letter = Renalware::Letters::LetterPresenterFactory.new(clinical_letter_for(patient))
         expect(letter.part_for(:prescriptions)).to be_present
