@@ -1,4 +1,4 @@
-require_dependency "renalware/hd"
+require_dependency "renalware/letters"
 
 module Renalware
   module Letters
@@ -10,8 +10,7 @@ module Renalware
       end
 
       def build
-        @letter = Letter::Draft.new(params)
-        letter.patient = patient
+        @letter = build_letter
         include_primary_care_physician_as_default_main_recipient
         assign_default_ccs
         build_salutation
@@ -27,6 +26,14 @@ module Renalware
       private
 
       attr_reader :patient, :letter, :params
+
+      def build_letter
+        # We should not have to set the STI type manually here but in some circumstances
+        # the type is not getting set by rails STI mechanism automatically - hence this hack.
+        # TODO: Get to the bottom of why this is happening by removing the type setting and
+        # running all cucumber specs to assess the errors.
+        Letter::Draft.new(params.merge!(type: Letter::Draft.name, patient: patient))
+      end
 
       def include_primary_care_physician_as_default_main_recipient
         return unless letter.main_recipient.blank?

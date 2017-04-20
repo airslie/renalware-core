@@ -13,9 +13,13 @@ module Renalware
 
       def author
         user = Renalware::User.find(params[:author_id])
-        @author = Letters.cast_author(user)
-        @letters = @author.letters
-        authorize @letters
+        author = Letters.cast_author(user)
+        letters = author.letters
+        authorize letters
+        render locals: {
+          author: author,
+          letters: present_letters(letters)
+        }
       end
 
       def new
