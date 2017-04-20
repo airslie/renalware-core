@@ -7,14 +7,14 @@ RSpec.describe "Donor stage management", type: :request do
     context "given valid attributes" do
       it "creates a new donor stage" do
 
-        donor_stage_position = create(:donor_stage_position)
-        donor_stage_status = create(:donor_stage_status)
+        position = create(:donor_stage_position)
+        status = create(:donor_stage_status)
 
         params = {
           donor_stage: {
             started_on: Time.zone.now,
-            donor_stage_position_id: donor_stage_position.id,
-            donor_stage_status_id: donor_stage_status.id,
+            stage_position_id: position.id,
+            stage_status_id: status.id,
             notes: "Some notes"
           }
         }
@@ -28,13 +28,13 @@ RSpec.describe "Donor stage management", type: :request do
 
     context "given invalid attributes (missing status)" do
       it "does not submit successfully" do
-        donor_stage_position = create(:donor_stage_position)
+        position = create(:donor_stage_position)
 
         params = {
           donor_stage: {
             started_on: Time.zone.now,
-            donor_stage_position_id: donor_stage_position.id,
-            donor_stage_status_id: nil,
+            stage_position_id: position.id,
+            stage_status_id: nil,
             notes: "Some notes"
           }
         }

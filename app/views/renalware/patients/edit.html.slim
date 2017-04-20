@@ -1,13 +1,13 @@
-= within_patient_layout(title: "Edit", breadcrumbs: breadcrumb_for("Demographics", @patient)) do
+= within_patient_layout(title: "Edit", breadcrumbs: breadcrumb_for("Demographics", patient)) do
 
   .row.document
-    = simple_form_for @patient,
+    = simple_form_for patient,
                       wrapper: "horizontal_form",
                       html: { autocomplete: "off" } do |f|
 
-      = render "renalware/patients/form", patient: f
+      = render "renalware/patients/form", f: f, patient: patient
 
       .columns.large-12
         = submit_tag "Update", class: "button"
         span= " or "
-        = link_to "Cancel", patient_path(@patient)
+        = link_to "Cancel", patient_path(patient)

@@ -2,7 +2,7 @@ require_dependency "renalware/clinical"
 
 module Renalware
   module Clinical
-    class AllergiesController < BaseController
+    class AllergiesController < Clinical::BaseController
 
       def create
         result = CreateAllergy.new(patient, current_user).call(allergy_params) do |allergy|
@@ -24,10 +24,6 @@ module Renalware
       end
 
       private
-
-      def patient
-        @patient ||= Patient.find(params[:patient_id])
-      end
 
       def allergy_params
         params.require(:clinical_allergy).permit([:description])

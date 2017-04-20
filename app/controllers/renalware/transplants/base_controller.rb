@@ -4,6 +4,10 @@ module Renalware
   module Transplants
     class BaseController < Renalware::BaseController
 
+      def patient
+        @transplant_patient ||= Renalware::Transplants.cast_patient(super)
+      end
+
       private
 
       def load_patient

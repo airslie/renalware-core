@@ -5,50 +5,61 @@ module Renalware
     include PresenterHelper
     include Renalware::Concerns::Pageable
 
-    skip_after_action :verify_authorized, only: [:show, :search]
-    before_action :prepare_paging, only: [:index]
-    before_action :load_patient, only: [:show, :edit, :update]
-
     def index
-      patients = patient_search.result.page(@page).per(@per_page)
+      prepare_paging
+      patients = patient_search.result.page(page).per(per_page)
       authorize patients
-      @patients = present(patients, PatientPresenter)
+      render locals: {
+        patients: present(patients, PatientPresenter)
+      }
     end
 
     def search
+      skip_authorization
       query = Patients::SearchQuery.new(term: params[:term])
       render json: query.call.to_json
     end
 
     def new
-      @patient = Patient.new
-      authorize @patient
+      patient = Patient.new
+      authorize patient
+      render locals: { patient: patient }
     end
 
     def create
-      @patient = Patient.new(patient_params)
-      authorize @patient
+      patient = Patient.new(patient_params)
+      authorize patient
 
-      if @patient.save
-        redirect_to patient_path(@patient),
-          notice: t(".success", model_name: "patient")
+      if patient.save
+        redirect_to_patient_demographics(patient)
       else
-        flash[:error] = t(".failed", model_name: "patient")
-        render :new
+        flash[:error] = failed_msg_for("patient")
+        render :new, locals: { patient: patient }
       end
     end
 
     def edit
-      render_form(@patient, :edit)
+      authorize patient
+      render locals: { patient: patient }
     end
 
     def update
-      if @patient.update(patient_params)
-        redirect_to_patient_demographics(@patient)
+      authorize patient
+      if patient.update(patient_params)
+        redirect_to_patient_demographics(patient)
       else
         flash[:error] = t(".failed", model_name: "patient")
-        render_form(@patient, :edit)
+        render :edit, locals: { patient: patient }
       end
+    end
+
+    def show
+      authorize patient
+      render locals: { patient: patient }
+    end
+
+    def patient
+      @patients ||= Renalware::Patient.find(params[:id])
     end
 
     private
@@ -84,18 +95,8 @@ module Renalware
         .try(:permit!)
     end
 
-    def load_patient
-      super(params[:id])
-    end
-
     def redirect_to_patient_demographics(patient)
-      redirect_to patient_path(patient),
-        notice: t(".success", model_name: "patient")
-    end
-
-    def render_form(patient, action)
-      @patient = patient
-      render action
+      redirect_to patient, notice: success_msg_for("patient")
     end
   end
 end

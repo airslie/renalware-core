@@ -2,7 +2,7 @@ require_dependency "renalware/clinical"
 
 module Renalware
   module Clinical
-    class HistoryController < BaseController
+    class HistoryController < Renalware::BaseController
 
       def update
         authorize patient

@@ -1,0 +1,14 @@
+en:
+  renalware:
+    transplants:
+      live_donors:
+        index:
+          page_title: Live Donors
+          name: Name
+          nhs_no: NHS no
+          hosp_no: Hosp no
+          sex: Sex
+          age: Age
+          stage:
+            position: Position
+            status: Status

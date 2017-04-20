@@ -7,11 +7,11 @@ module Renalware
       include PatientScope
 
       belongs_to :patient, class_name: "Renalware::Patient"
-      belongs_to :donor_stage_position
-      belongs_to :donor_stage_status
+      belongs_to :stage_position, class_name: "DonorStagePosition"
+      belongs_to :stage_status, class_name: "DonorStageStatus"
       validates :patient, presence: true
-      validates :donor_stage_position, presence: true
-      validates :donor_stage_status, presence: true
+      validates :stage_position, presence: true
+      validates :stage_status, presence: true
       validates :started_on, presence: true
 
       scope :current, ->{ where(terminated_on: nil) }

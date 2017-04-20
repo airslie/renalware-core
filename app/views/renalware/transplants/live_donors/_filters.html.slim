@@ -1,0 +1,18 @@
+= search_form_for(search,
+                  url: transplants_live_donors_path,
+                  method: :get) do |f|
+  .row
+    .columns.small-12.medium-6
+      = f.select(:current_donor_stage_stage_position_id_eq,
+                 options_from_collection_for_select(Renalware::Transplants::DonorStagePosition.all,
+                                                    :id,
+                                                    :name,
+                                                    search.current_donor_stage_stage_position_id_eq),
+                 include_blank: "All stages")
+
+    .columns.small-12.medium-6
+      = f.button class: "button", name: nil do
+        i.fa.fa-search
+        | &nbsp; Filter
+      = " or "
+      = link_to "reset", transplants_live_donors_path

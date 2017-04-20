@@ -3632,8 +3632,8 @@ ALTER SEQUENCE transplant_donor_stage_statuses_id_seq OWNED BY transplant_donor_
 CREATE TABLE transplant_donor_stages (
     id integer NOT NULL,
     patient_id integer NOT NULL,
-    donor_stage_position_id integer NOT NULL,
-    donor_stage_status_id integer NOT NULL,
+    stage_position_id integer NOT NULL,
+    stage_status_id integer NOT NULL,
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
     started_on timestamp without time zone NOT NULL,
@@ -7416,14 +7416,14 @@ CREATE INDEX prprr_patient_rule_id_idx ON pathology_requests_patient_rules_reque
 -- Name: tx_donor_stage_position_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX tx_donor_stage_position_idx ON transplant_donor_stages USING btree (donor_stage_position_id);
+CREATE INDEX tx_donor_stage_position_idx ON transplant_donor_stages USING btree (stage_position_id);
 
 
 --
 -- Name: tx_donor_stage_status_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX tx_donor_stage_status_idx ON transplant_donor_stages USING btree (donor_stage_status_id);
+CREATE INDEX tx_donor_stage_status_idx ON transplant_donor_stages USING btree (stage_status_id);
 
 
 --
@@ -7614,6 +7614,14 @@ ALTER TABLE ONLY clinical_allergies
 
 ALTER TABLE ONLY access_procedures
     ADD CONSTRAINT fk_rails_11c7f6fec3 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: transplant_donor_stages fk_rails_15abd8aa8d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplant_donor_stages
+    ADD CONSTRAINT fk_rails_15abd8aa8d FOREIGN KEY (stage_status_id) REFERENCES transplant_donor_stage_statuses(id);
 
 
 --
@@ -7913,14 +7921,6 @@ ALTER TABLE ONLY patients
 
 
 --
--- Name: transplant_donor_stages fk_rails_5d8c314e3a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY transplant_donor_stages
-    ADD CONSTRAINT fk_rails_5d8c314e3a FOREIGN KEY (donor_stage_status_id) REFERENCES transplant_donor_stage_statuses(id);
-
-
---
 -- Name: pd_regime_terminations fk_rails_6021bed852; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8209,14 +8209,6 @@ ALTER TABLE ONLY letter_contacts
 
 
 --
--- Name: transplant_donor_stages fk_rails_a129b9a1e5; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY transplant_donor_stages
-    ADD CONSTRAINT fk_rails_a129b9a1e5 FOREIGN KEY (donor_stage_position_id) REFERENCES transplant_donor_stage_positions(id);
-
-
---
 -- Name: hd_sessions fk_rails_a3afae15cb; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8246,6 +8238,14 @@ ALTER TABLE ONLY hd_patient_statistics
 
 ALTER TABLE ONLY pd_regimes
     ADD CONSTRAINT fk_rails_a70920e237 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: transplant_donor_stages fk_rails_a791cc53cd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY transplant_donor_stages
+    ADD CONSTRAINT fk_rails_a791cc53cd FOREIGN KEY (stage_position_id) REFERENCES transplant_donor_stage_positions(id);
 
 
 --

@@ -6,6 +6,7 @@ en:
         appointments: Appointments
         clinic_visits: Clinic Visits
         tx_wait_list: Tx Wait List
+        live_donors: Live Donors
         ongoing_hd_sessions: Ongoing HD Sessions
         letters: Letters
         esa_prescriptions: ESA Patients

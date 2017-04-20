@@ -16,13 +16,13 @@ module Renalware
     # Devise's current_user) allows a layout to access e.g. the current patient easily,
     # and is more encapsulated and less bug-prone than accessing @patient directly
     helper_method :current_patient
+    alias_attribute :current_patient, :patient
+
+    def patient
+      @patient ||= Renalware::Patient.find(params[:patient_id])
+    end
 
     protected
-
-    def patient(patient_id: params[:patient_id])
-      @patient ||= Renalware::Patient.find(patient_id)
-    end
-    alias_attribute :current_patient, :patient
 
     # Override ApplicationController, where this default `helper_method` is defined.
     def patient_search
@@ -40,7 +40,7 @@ module Renalware
     end
 
     def failed_msg_for(model_name)
-      t(".failed", model_name: "PD regime")
+      t(".failed", model_name: model_name)
     end
 
     def paginate(collection, default_per_page: 25)
@@ -55,8 +55,9 @@ module Renalware
     # on the entity being actioned e.g. a Prescription. That way provides more authorisation
     # granularity if required, for example if it transpires deleting a Prescriptions is actually
     # possible if you have a certain role.
-    def load_patient(patient_id = params[:patient_id])
-      authorize patient(patient_id: patient_id)
+    def load_patient
+      authorize patient
+      patient
     end
 
     def user_not_authorized

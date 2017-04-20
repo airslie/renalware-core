@@ -3,13 +3,13 @@
     thead
       tr
         th.col-width-11
-        th.col-width-medium Name
-        th.col-width-nhs-no NHS No
+        th.col-width-medium= attr_name(Renalware::Patient, :name)
+        th.col-width-nhs-no= attr_name(Renalware::Patient, :nhs_number)
         - Renalware.config.patient_hospital_identifiers.keys.each do |key|
           th.col-width-reference-no="#{key} No"
-        th.col-width-tiny Sex
-        th.col-width-date Date of Birth
-        th.col-width-tiny Age
+        th.col-width-tiny= attr_name(Renalware::Patient, :sex)
+        th.col-width-date= attr_name(Renalware::Patient, :born_on)
+        th.col-width-tiny= attr_name(Renalware::Patient, :age)
         th.col-width-small Modality
 
     tbody
