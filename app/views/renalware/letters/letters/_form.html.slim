@@ -38,9 +38,10 @@ ruby:
       h2 Message
 
     = f.input :salutation
-    = snippets_modal_and_link_to_open_it(target_input_for_seleted_snippet: "#letter_body")
+
     = f.label :body
-    = f.text_area :body, rows: 25, class: "letter-body"
+    = snippets_modal_and_link_to_open_it(target_input_for_seleted_snippet: ".letter-body-editor")
+    = f.trix_editor :body, class: "letter-body-editor"
 
   article
     header

@@ -452,6 +452,8 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.6)
     timeliness (0.3.8)
+    trix (0.10.1)
+      rails
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
     uglifier (3.1.13)
@@ -569,6 +571,7 @@ DEPENDENCIES
   spring-commands-rspec
   terminal-notifier-guard
   thin
+  trix
   uglifier
   underscore-rails
   validates_timeliness

@@ -235,7 +235,7 @@ scss:
     = render letter.parts
 
     .message
-      = simple_format letter.body
+      = letter.body&.html_safe
 
     .signature.nobreak
       .electronic-signature

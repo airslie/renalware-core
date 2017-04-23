@@ -59,7 +59,8 @@ module World
           expect(clinic_visit.clinic_id).to eq(expected_clinic.id)
           expect(clinic_visit.height).to eq(1.71)
           expect(clinic_visit.weight).to eq(75)
-          expect(clinic_visit.notes).to eq("Updated notes")
+          expect(ActionView::Base.full_sanitizer.sanitize(clinic_visit.notes))
+            .to eq("Updated notes")
           expect(clinic_visit.admin_notes).to eq("Updated admin notes")
         end
       end
@@ -78,7 +79,7 @@ module World
             fill_in "Height", with: "1.78"
             fill_in "Weight", with: "82.5"
             fill_in "Blood Pressure", with: "110/75"
-            find("textarea[name='clinic_visit[notes]']").set("Notes")
+            find("trix-editor").set("Notes")
             find("textarea[name='clinic_visit[admin_notes]']").set("Admin notes")
 
             click_on "Save"
@@ -96,7 +97,8 @@ module World
           fill_in "Height", with: "1.71"
           fill_in "Weight", with: "75"
           fill_in "Blood Pressure", with: "128/95"
-          find("textarea[name='clinic_visit[notes]']").set("Updated notes")
+          find("trix-editor").set("Updated notes")
+          # find("textarea[name='clinic_visit[notes]']").set("Updated notes")
           find("textarea[name='clinic_visit[admin_notes]']").set("Updated admin notes")
 
           click_on "Update"

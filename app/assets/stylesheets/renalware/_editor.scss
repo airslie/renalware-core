@@ -1,0 +1,47 @@
+trix-toolbar {
+  background-color: white;
+
+  .button_row {
+    display: inline-block;
+
+    .button_group {
+      display: inline-block;
+      -webkit-justify-content: initial;
+      margin: 0;
+      border: 0;
+
+      button {
+        border: none;
+        background-color: transparent;
+        padding: 0.2rem;
+        margin: 0.5rem 0.2rem 0rem;
+      }
+    }
+  }
+
+  // Hide Trix buttons we don't use
+  button.icon {
+    &.heading-1,
+    &.code,
+    &.link,
+    &.quote,
+    &.nesting-level {
+      display: none;
+    }
+  }
+
+  .button_group button.icon,
+  .button_group input[type=button].icon {
+    opacity: 0.9;
+    height: auto; // prevent fuzzy SVGs in IE11
+  }
+}
+
+trix-editor {
+  padding: 0.6em 0.9em;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #cccccc;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 0;
+}
