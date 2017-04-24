@@ -16,6 +16,8 @@ module Renalware
       attribute :county, String
       attribute :postcode, String
       attribute :country, String
+      attribute :telephone, String
+      attribute :email, String
     end
 
     class Referral < Document::Embedded
