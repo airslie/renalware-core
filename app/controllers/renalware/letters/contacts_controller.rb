@@ -69,7 +69,7 @@ module Renalware
       def person_address_attributes
         [
           :id, :name, :organisation_name, :street_1, :street_2, :city, :county,
-          :postcode, :country
+          :postcode, :country, :telephone, :email
         ]
       end
 
