@@ -3,6 +3,13 @@
             new_patient_prescription_path(@patient),
             remote: true,
             class: "button"
+  |&nbsp;
+  = link_to patient_prescriptions_url(@patient,
+                                      treatable_id: treatable.id,
+                                      treatable_type: params[:treatable_type], format: :pdf),
+            class: "button secondary with-icon" do
+    i.fa.fa-print
+    | Print
 
 = within_patient_layout(title: "Prescriptions") do
   = render "filter_form", search: current_search, drug_types: drug_types, treatable: treatable

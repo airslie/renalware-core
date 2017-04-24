@@ -1,0 +1,133 @@
+scss:
+  html {
+    overflow: hidden;
+    font-family: Helvetica, Arial;
+    font-size: 13px;
+  }
+
+  ul {
+    padding-left: 0;
+    list-style-position: inside;
+    line-height: 1.3em;
+  }
+
+  dl {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 1.3em;
+
+    p {
+      padding-left: 0;
+    }
+
+    dt,
+    dd {
+      font-weight: normal;
+    }
+
+    dt {
+      font-weight: bold;
+      float: left;
+      width: 9rem;
+      overflow: hidden;
+      clear: left;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-bottom: 0;
+    }
+
+    dd {
+      margin-left: 9rem + 1rem;
+      margin-bottom: 0;
+
+      &:before {
+        content: " ";
+        display: table;
+      }
+
+      &:after {
+        content: " ";
+        display: table;
+        clear: both;
+      }
+    }
+  }
+
+  heading {
+    text-align: right;
+
+    .our-ref {
+      float: left;
+      font-weight: normal;
+      font-size: 0.8em;
+      color: #666;
+    }
+
+    .trust {
+      float: right;
+      margin-right: 1em;
+      .title {
+        font-size: 1.5em;
+      }
+    }
+
+    .logo {
+      float: right;
+    }
+  }
+
+  main {
+    clear: both;
+    display: block;
+    padding-top: 1em;
+
+    h1 {
+      margin-bottom: 0.2em;
+      padding-bottom: 0em;
+    }
+
+    section {
+      margin: 2em 0;
+    }
+  }
+
+
+heading
+  .our-ref= "RW ref: #{patient.hospital_identifier}"
+
+  span.logo= wicked_pdf_image_tag "NHS-Black.jpg", width: 50
+  .trust
+    .title Barts and the London
+    span NHS Trust
+
+main
+
+  h1 Medication List
+  = "As at #{l(Time.zone.now)}"
+
+  section
+    dl
+      dt Name
+      dd= patient.to_s
+      dt Date of Birth
+      dd= l(patient.born_on)
+      dt NHS Number
+      dd= patient.nhs_number
+      dt Hospital no
+      dd= patient.hospital_identifier
+
+  section
+    h2 Allergies
+    - allergies = Renalware::Clinical.cast_patient(patient).allergies
+    - if allergies.any?
+      ul.allergies
+        - allergies.each do |allergy|
+          li= allergy.description
+    - else
+      p None
+
+  section
+    h2 Current Medication
+    ul
+      - current_prescriptions.each do |prescription|
+        li= "#{prescription.drug.name} - #{prescription.dose} #{prescription.frequency}"
