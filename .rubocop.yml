@@ -193,3 +193,15 @@ Style/DotPosition:
 
 Style/GuardClause:
   Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    default: ()
+    '%r': '{}'
+    '%w': '()'
+    '%W': '()'
+    '%i': '()'
+    '%I': '()'
