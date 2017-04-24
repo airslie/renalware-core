@@ -17,6 +17,9 @@
     = field_set_tag "Address" do
       = render "renalware/addresses/address", address: @person.address
 
+    = field_set_tag "Telephone/Email" do
+      = render "renalware/addresses/email_phone", address: @person.address
+
     = field_set_tag "Admin" do
       dl
         dt Created By
