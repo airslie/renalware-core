@@ -10,19 +10,3 @@
   font-weight: normal;
   background-color: $letter-state-unknown;
 }
-// $color: nth($scheme, 1);
-// $border: nth($scheme, 2);
-// @switch $side {
-//   @when top {
-//     $direction: bottom;
-//   }
-//   @when right {
-//     $direction: left;
-//   }
-//   @when bottom {
-//     $direction: top;
-//   }
-//   @when left {
-//     $direction: right;
-//   }
-// }

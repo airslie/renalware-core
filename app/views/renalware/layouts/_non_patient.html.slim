@@ -2,12 +2,15 @@
 
 .non-patient-page
   .row
-    .page-heading.columns.small-12
-      h1
-        = breadcrumbs_and_title1(local_assigns)
-      .page-actions
+    ul.page-heading.columns.small-12
+      li
+        h1
+          = breadcrumbs_and_title(breadcrumbs: local_assigns[:breadcrumbs],
+                                  title: local_assigns[:title])
+      li.page-actions
         / Output any page-level actions
         = yield(:actions)
+
   .row
     .columns.small-12
       = yield
