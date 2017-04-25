@@ -9,6 +9,10 @@ module Renalware
       def to_s
         clinical? ? "Clinical" : "Simple"
       end
+
+      def to_link
+        ->(_) { to_s }
+      end
     end
   end
 end

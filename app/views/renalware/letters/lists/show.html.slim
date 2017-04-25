@@ -2,42 +2,43 @@
   h1 Letters
 
 .row
-  .search-form
-    fieldset
-      legend Filters
-      = simple_form_for @q,
-                        as: :q,
-                        url: letters_list_path,
-                        html: { autocomplete: "off" },
-                        method: :get do |f|
-        .row
-          .large-2.columns
-            = f.input :state_eq, collection: state_options, label: "State"
-          .large-3.columns
-            = f.input :author_id_eq, as: :user_picker, collection: @authors, label: "Author"
-          .large-3.columns
-            = f.input :created_by_id_eq, as: :user_picker, collection: @typists, label: "Typist"
-          .large-4.columns.actions
-            = f.submit t("helpers.submit.filter"), class: "button"
-            span= " or "
-            = link_to t("helpers.reset"), letters_list_path
+  .search-form.filters
+    = simple_form_for @q,
+                      as: :q,
+                      url: letters_list_path,
+                      html: { autocomplete: "off" },
+                      method: :get do |f|
+      .row
+        .small-6.medium-1.large-1.columns
+          = f.input :enclosures_present, as: :select, label: "Enclosure"
+        .small-6.medium-3.large-2.columns
+          = f.input :state_eq, collection: state_options, label: "State"
+        .small-6.medium-3.large-2.columns
+          = f.input :author_id_eq, as: :user_picker, collection: @authors, label: "Author"
+        .small-6.medium-3.large-2.columns
+          = f.input :created_by_id_eq, as: :user_picker, collection: @typists, label: "Typist"
+        .small-12.medium-2.large-4.columns.actions.end
+          = f.submit t("helpers.submit.filter"), class: "button"
+          span= " or "
+          = link_to t("helpers.reset"), letters_list_path
 
 .row
   table.report.letters
     thead
       tr
         th.noprint
-        th.col-width-medium= sort_link(@q, :patient_family_name, "Patient")
         th Type
-        th State
+        th= sort_link(@q, :type, "State")
+        th.col-width-medium= sort_link(@q, :patient_family_name, "Patient")
+        th.col-width-nhs-no= sort_link(@q, :patient_nhs_number, "NHS No")
+        th= sort_link(@q, :enclosures, "Enc.")
         th.col-width-date = sort_link(@q, :issued_on, "Date", default_order: :desc)
-        th Author
-        th Typist
+        th= sort_link(@q, :author_family_name, "Author")
+        th= sort_link(@q, :created_by_family_name, "Typist")
         th.col-width-medium Recipient
         th Description
     tbody
       - @letters.each do |letter|
         = render "letter", letter: letter
-
 
   = paginate @letters

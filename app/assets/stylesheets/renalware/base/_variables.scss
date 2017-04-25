@@ -65,6 +65,14 @@ $patient-header-bg-color: $nhs-blue;
 // Bookmarks
 $bookmark-urgent-colour: #FFFFC8;
 
+// Letter states
+
+$letter-state-unknown: $mid-grey;
+$letter-state-draft: $nhs-aqua-blue;
+$letter-state-pending-review: $nhs-orange;
+$letter-state-approved: $nhs-green;
+$letter-state-completed: $nhs-dark-green;
+
 // Modals
 $max-modal-height: 600px;
 

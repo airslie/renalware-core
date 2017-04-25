@@ -1,4 +1,4 @@
-tr
+tr(class=letter.state.dasherize)
   td.noprint
     = link_to "Toggle",
               "#quick-preview-#{letter.id}",
@@ -9,17 +9,20 @@ tr
     = link_to "Print&nbsp;(PDF)".html_safe,
               patient_letters_letter_print_path(letter),
               target: "print"
+  td.col-with-medium-with-ellipsis= letter.type
+  td.state
+    span= letter.state_description
   td.full-name
-    = link_to letter.patient.to_s, patient_clinical_summary_path(letter.patient)
-  td= letter.type
-  td= letter.state
+    = link_to letter.patient.full_name, patient_clinical_summary_path(letter.patient)
+  td= letter.patient.nhs_number
+  td= letter.enclosures&.truncate(6)
   td= l letter.issued_on
   td= letter.author
   td= letter.typist
-  td= letter.main_recipient.address
-  td= letter.description
+  td.col-with-medium-with-ellipsis= letter.main_recipient.address
+  td.col-with-medium-with-ellipsis= letter.description
 = content_tag(:tr, id: "quick-preview-#{letter.id}", style: "display: none")
   td
-  td(colspan=8)
+  td(colspan=10)
     .quick-preview
       = simple_format letter.body

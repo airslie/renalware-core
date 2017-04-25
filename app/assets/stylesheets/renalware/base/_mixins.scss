@@ -1,2 +1,28 @@
 // Add mixins here and import them into the scss file where you want to use them with
 // @import "base/mixins"
+
+@mixin badge {
+  border-radius: 0.2rem;
+  padding: 0.15rem 0.4rem;
+  color: $white;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  font-weight: normal;
+  background-color: $letter-state-unknown;
+}
+// $color: nth($scheme, 1);
+// $border: nth($scheme, 2);
+// @switch $side {
+//   @when top {
+//     $direction: bottom;
+//   }
+//   @when right {
+//     $direction: left;
+//   }
+//   @when bottom {
+//     $direction: top;
+//   }
+//   @when left {
+//     $direction: right;
+//   }
+// }
