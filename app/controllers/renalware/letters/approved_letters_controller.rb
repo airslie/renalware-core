@@ -10,7 +10,7 @@ module Renalware
 
         ApproveLetter.build(letter).call(by: current_user)
 
-        redirect_to patient_letters_letter_path(@patient, letter), notice: t(".success")
+        redirect_to patient_clinical_summary_path(@patient), notice: t(".success")
       end
     end
   end
