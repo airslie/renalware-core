@@ -1,7 +1,9 @@
+
 = link_to "Print (PDF)",
           patient_letters_letter_print_path(letter),
+          data: { target: patient_letters_letter_print_path(letter) },
           form_class: "inline",
-          class: "button tiny",
+          class: "button tiny print-pdf",
           target: "print"
 = blank_separator
 
