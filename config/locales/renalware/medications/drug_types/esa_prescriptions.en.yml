@@ -5,8 +5,10 @@ en:
         prescriptions:
           index:
             heading: ESA Patients
+          filters:
             search_prompt: Search by drug name or a patient's name or hospital number
             clear-search: Clear search
+          table:
             patient_local_patient_id: "Hosp. No"
             patient_name: Patient
             patient_sex: Sex

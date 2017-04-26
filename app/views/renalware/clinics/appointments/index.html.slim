@@ -1,64 +1,59 @@
-.row
-  h1 Upcoming Clinic Visit Appointments
+= within_admin_layout(title: "Upcoming Clinic Visit Appointments") do
 
-.row
-  .search-form
-    fieldset
-      legend Filters
-      = simple_form_for query,
-          as: :q,
-          url: appointments_path,
-          method: :get do |f|
-        .row
-          .large-3.columns
-            = f.input :starts_at_eq, as: :date_picker, label: "Date"
-          .large-3.columns
-            = f.input :clinic_id_eq, collection: clinics, label: "Clinic"
-          .large-3.columns
-            = f.input :user_id_eq, as: :user_picker, collection: users, label: "User"
-          .large-3.columns.actions
-            = f.submit "Filter", class: "button"
+  .search-form.filters
+    = simple_form_for query,
+        as: :q,
+        url: appointments_path,
+        method: :get do |f|
+      .row
+        .medium-3.large-2.columns
+          = f.input :starts_at_eq, as: :date_picker, label: "Date"
+        .medium-3.large-3.columns
+          = f.input :clinic_id_eq, collection: clinics, label: "Clinic"
+        .medium-3.large-3.columns
+          = f.input :user_id_eq, as: :user_picker, collection: users, label: "User"
+        .medium-3.large-3.columns.actions.end
+          = f.submit "Filter", class: "button"
 
-.row
+    = simple_form_for request_html_form_params,
+                      url: pathology_requests_new_request_path,
+                      html: { autocomplete: "off" },
+                      as: :request do |f|
 
-  = simple_form_for request_html_form_params,
-                    url: pathology_requests_new_request_path,
-                    html: { autocomplete: "off" },
-                    as: :request do |f|
+        = f.input :patient_ids, as: :hidden_array
+        = button_tag(type: "submit", class: "button secondary") do
+          i.fa.fa-files-o
+          | Generate request forms
 
-      = f.input :patient_ids, as: :hidden_array
-      = f.button :submit, "Generate request forms", class: "button tiny"
-
-.row
-  table#appointments
-    thead
-      tr
-        th.col-width-small
-          | Generate request form?
-          br
-          |
-          = link_to "(Uncheck all)", "#", id: "uncheck_all_appointments_link"
-        th.col-width-date= sort_link(query, :starts_at, "Date", default_order: :asc)
-        th.col-width-time= sort_link(query, :start_time, "Time", default_order: :asc)
-        th.col-width-medium= sort_link(query, :patient_family_name, "Patient", default_order: :asc)
-        th.col-width-tiny Sex
-        th.col-width-tiny Age
-        th.col-width-small Modality
-        th= sort_link(query, :clinic_name, "Clinic", default_order: :asc)
-        th= sort_link(query, :user_family_name, "Consultant", default_order: :asc)
-
-    tbody
-      - appointments.each do |appointment|
+    table#appointments
+      thead
         tr
-          td= check_box_tag nil, appointment.patient.id, true, class: "patient_checkbox"
-          td= I18n.l appointment.starts_on
-          td= appointment.start_time
-          td= link_to appointment.patient.full_name,
-                      patient_clinical_summary_path(patient_id: appointment.patient.id)
-          td= appointment.patient.sex.code
-          td= appointment.patient.age
-          td= appointment.patient.current_modality
-          td= appointment.clinic.name
-          td= appointment.user.full_name
+          th.col-width-small
+            | Generate request form?
+            br
+            |
+            = link_to "(Uncheck all)", "#", id: "uncheck_all_appointments_link"
+          th.col-width-date= sort_link(query, :starts_at, "Date", default_order: :asc)
+          th.col-width-time= sort_link(query, :start_time, "Time", default_order: :asc)
+          th.col-width-medium= sort_link(query, :patient_family_name, "Patient", default_order: :asc)
+          th.col-width-tiny Sex
+          th.col-width-tiny Age
+          th.col-width-small Modality
+          th= sort_link(query, :clinic_name, "Clinic", default_order: :asc)
+          th= sort_link(query, :user_family_name, "Consultant", default_order: :asc)
 
-  = paginate appointments
+      tbody
+        - appointments.each do |appointment|
+          tr
+            td= check_box_tag nil, appointment.patient.id, true, class: "patient_checkbox"
+            td= I18n.l appointment.starts_on
+            td= appointment.start_time
+            td= link_to appointment.patient.full_name,
+                        patient_clinical_summary_path(patient_id: appointment.patient.id)
+            td= appointment.patient.sex.code
+            td= appointment.patient.age
+            td= appointment.patient.current_modality
+            td= appointment.clinic.name
+            td= appointment.user.full_name
+
+    = paginate appointments
