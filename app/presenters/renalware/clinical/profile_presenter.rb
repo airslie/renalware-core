@@ -5,6 +5,7 @@ module Renalware
     class ProfilePresenter
       attr_reader :patient, :params
       delegate :allergies, to: :patient
+      delegate :diagnosis, :diagnosed_on, to: :diabetes, prefix: true
 
       def initialize(patient:, params:)
         @params = params
@@ -19,11 +20,19 @@ module Renalware
       end
 
       def smoking_history
-        patient.document.history&.smoking
+        history.smoking || NullObject.instance
       end
 
       def alcohol_history
-        patient.document.history&.alcohol
+        history.alcohol || NullObject.instance
+      end
+
+      def history
+        patient.document.history || NullObject.instance
+      end
+
+      def diabetes
+        patient.document.diabetes || NullObject.instance
       end
     end
   end
