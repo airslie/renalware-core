@@ -45,6 +45,7 @@ gem "sdoc", "~> 0.4.0", group: :doc
 gem "simple_form"
 gem "sinatra", git: "https://github.com/sinatra/sinatra.git"
 gem "slim-rails"
+gem "trix"
 gem "uglifier"
 gem "underscore-rails"
 gem "validates_timeliness"
