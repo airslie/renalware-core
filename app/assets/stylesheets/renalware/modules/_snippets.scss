@@ -112,7 +112,9 @@
   }
 }
 
-.insert-snippet-button {
+.insert-snippet-button,
+.editor-toolbar-button {
   padding: 5px 8px;
   margin-bottom: 5px !important;
+  margin-left: 1rem;
 }
