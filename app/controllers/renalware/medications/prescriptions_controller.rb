@@ -10,8 +10,10 @@ module Renalware
 
       def index
         @treatable = treatable_class.find(treatable_id)
-
-        render_index
+        respond_to do |format|
+          format.html { render_index }
+          format.pdf { render_prescriptions_list_to_hand_to_patient }
+        end
       end
 
       def new
@@ -59,7 +61,33 @@ module Renalware
       private
 
       def render_index
-        render "index", locals: {
+        render :index, locals: locals
+      end
+
+      def render_prescriptions_list_to_hand_to_patient
+        render(
+          pdf_options.merge(
+            pdf: "test",
+            disposition: "inline",
+            print_media_type: true,
+            locals: locals
+        ))
+      end
+
+      def pdf_options
+        {
+          page_size: "A4",
+          layout: "renalware/layouts/letter",
+          show_as_html: params.key?(:debug),
+          footer: {
+            font_size: 8,
+            right: "page [page] of [topage]"
+          }
+        }
+      end
+
+      def locals
+        {
           patient: patient,
           treatable: present(@treatable, TreatablePresenter),
           current_search: current_prescriptions_query.search,

@@ -1,3 +1,8 @@
+.page-actions {
+  .button {
+    margin-right: 0.8rem;
+  }
+}
 
 .button {
   border-radius: 2px !important;
@@ -6,6 +11,15 @@
 
   i.fa {
     margin-right: .5rem;
+  }
+
+  &.with-icon {
+    padding-left: 0.7rem;
+
+    i.fa {
+      font-size: 1.1rem;
+      margin-right: 0.5rem;
+    }
   }
 
   &.compact {
