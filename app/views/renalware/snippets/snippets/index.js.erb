@@ -15,35 +15,13 @@ $('.snippets').on('click', 'th a, .pagination a', function () {
 
 initTogglers();
 
-// function insertAtCursor(myField, myValue) {
-//   // IE support
-//   if (document.selection) {
-//       myField.focus();
-//       sel = document.selection.createRange();
-//       sel.text = myValue;
-//   }
-//   // MOZILLA and others
-//   else if (myField.selectionStart || myField.selectionStart == '0') {
-//       var startPos = myField.selectionStart;
-//       var endPos = myField.selectionEnd;
-//       myField.value = myField.value.substring(0, startPos)
-//           + myValue
-//           + myField.value.substring(endPos, myField.value.length);
-//   } else {
-//     // myField.selectionStart = startPos + myValue.length;
-//     // myField.selectionEnd = startPos + myValue.length;
-//     myField.value += myValue;
-//   }
-// }
-
 // The
 $('.insert-snippet').on('click', function (e) {
     var modal = $("#snippets-modal");
     var snippetBody = $(this).parent().closest("tr").find(".body").html();
     var targetInputSelector = $(modal).data("target");
-    var targetInputSelector = $(targetInputSelector)[0]; // $("trix-editor.letter-body")[0]
-    //var targetInput = $(targetInputSelector)[0];
-    //insertAtCursor(targetInput, snippetBody)
+    var targetInputSelector = $(targetInputSelector)[0];
+
     targetInputSelector.editor.insertHTML(snippetBody)
     $(modal).foundation('reveal', 'close');
   }
