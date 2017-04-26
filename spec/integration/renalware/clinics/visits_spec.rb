@@ -13,7 +13,6 @@ RSpec.describe "Global Clinic Visits list", type: :feature do
 
       expect(page.status_code).to eq(200)
       expect(page).to have_content(patient.nhs_number)
-
     end
   end
 end
