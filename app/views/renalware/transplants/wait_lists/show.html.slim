@@ -1,22 +1,20 @@
-ruby:
-  filters = {
-    active: "Active",
-    suspended: "Suspended",
-    active_and_suspended: "Active & Suspended",
-    working_up: "Working Up",
-    nhb_consent: "NHB Consent"
-  }
+= within_admin_layout(title: "Transplant Wait List Registrations") do
+  ruby:
+    filters = {
+      active: "Active",
+      suspended: "Suspended",
+      active_and_suspended: "Active & Suspended",
+      working_up: "Working Up",
+      nhb_consent: "NHB Consent"
+    }
 
-.row
-  h1 Transplant Wait List Registrations
   h2.print-only= filters[path_params[:filter].to_sym]
 
-.row
   dl.sub-nav
     - filters.each do |key, label|
       = sub_nav_item label, path_params.merge(filter: key)
 
-.row
+
   table.report
     thead
       tr

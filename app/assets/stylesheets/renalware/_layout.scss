@@ -77,3 +77,9 @@ section.display {
     padding-right: $column-gutter / 2;
   }
 }
+
+.non-patient-page {
+  .page-heading {
+    margin-bottom: 0.5rem;
+  }
+}
