@@ -1,4 +1,4 @@
-tr
+tr(class=letter.state.dasherize)
   td
     = link_to "Toggle", "#quick-preview-#{letter.id}", data: { behaviour: "toggler" }
     = pipe_separator
@@ -13,7 +13,8 @@ tr
                 method: :delete,
                 data: { confirm: I18n.t("prompts.confirm_delete") }
 
-  td= letter.state
+  td.state
+    span= letter.state_description
   td= l(letter.issued_on)
   td= letter.author
   td.recipient= letter.main_recipient.address

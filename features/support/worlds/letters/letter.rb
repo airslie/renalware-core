@@ -45,7 +45,8 @@ module World
           main_recipient_attributes: { person_role: "patient" },
           cc_recipients_attributes: build_cc_recipients_attributes([contact]),
           by: user,
-          author: author
+          author: author,
+          enclosures: options[:enclosures]
         )
 
         Renalware::Letters::DraftLetter.build
@@ -59,7 +60,10 @@ module World
           patient = find_or_create_patient_by_name(row[:patient])
           author = find_or_create_user(given_name: row[:author], role: "clinician")
           typist = find_or_create_user(given_name: row[:typist], role: "clinician")
-          letter = seed_simple_letter_for(patient, user: typist, author: author)
+          letter = seed_simple_letter_for(patient,
+                                          user: typist,
+                                          author: author,
+                                          enclosures: row[:enclosures])
 
           move_letter_to_state(letter, row[:state])
         end
@@ -74,6 +78,7 @@ module World
         recipient = options.fetch(:recipient)
         author = options.fetch(:author, user)
         ccs = options.fetch(:ccs, nil)
+        enclosures = options.fetch(:enclosures, nil)
 
         patient = letters_patient(patient)
 
@@ -83,7 +88,8 @@ module World
           by: user,
           main_recipient_attributes: build_main_recipient_attributes(recipient),
           cc_recipients_attributes: build_cc_recipients_attributes(ccs),
-          salutation: recipient.salutation
+          salutation: recipient.salutation,
+          enclosures: enclosures
         )
 
         Renalware::Letters::DraftLetter.build.call(patient, letter_attributes)
@@ -253,7 +259,8 @@ module World
             author: r.author.given_name,
             typist: r.created_by.given_name,
             patient: r.patient.full_name,
-            state: r.state
+            state: r.state,
+            enclosures: r.enclosures
           }
           hash.with_indifferent_access
         end

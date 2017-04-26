@@ -114,6 +114,16 @@ When(/^Clyde filters on his pending review letters typed by Taylor$/) do
   )
 end
 
+When(/^Clyde filters on approved letters having an attachment$/) do
+  view_letters(
+    q: {
+      state_eq: "approved",
+      enclosures_present: true
+    },
+    user: @clyde
+  )
+end
+
 Then(/^Doug can reject the letter$/) do
   reject_letter(patient: @patty, user: @doug)
 end

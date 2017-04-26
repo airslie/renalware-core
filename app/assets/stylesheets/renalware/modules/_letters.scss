@@ -40,3 +40,43 @@
 textarea.letter-body {
   font-size: 1.1rem;
 }
+
+table.letters {
+  td.state {
+    span {
+      @include badge;
+    }
+  }
+
+  tr.pending-review {
+    td.state {
+      span {
+        background-color: $letter-state-pending-review;
+      }
+    }
+  }
+
+  tr.draft {
+    td.state {
+      span {
+        background-color: $letter-state-draft;
+      }
+    }
+  }
+
+  tr.approved {
+    td.state {
+      span {
+        background-color: $letter-state-approved;
+      }
+    }
+  }
+
+  tr.completed {
+    td.state {
+      span {
+        background-color: $letter-state-completed;
+      }
+    }
+  }
+}
