@@ -1,0 +1,18 @@
+.row.search-form.search-form-vertical
+  = simple_form_for query,
+      as: :q,
+      url: clinic_visits_path,
+      method: :get do |f|
+
+      .medium-3.large-2.columns
+        = f.input :date_gteq, as: :date_picker, label: "From"
+      .medium-3.large-2.columns
+        = f.input :date_lteq, as: :date_picker, label: "To"
+      .medium-3.large-2.columns
+        = f.input :clinic_id_eq, collection: clinics, label: "Clinic"
+      .medium-3.large-2.columns
+        = f.input :created_by_id_eq, as: :user_picker, collection: users, label: "Clinician"
+      .medium-3.large-3.columns.actions.end
+        = f.submit "Filter", class: "button"
+        span= " or "
+        = link_to t("helpers.reset"), clinic_visits_path
