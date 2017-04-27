@@ -1,7 +1,5 @@
 tr(class="#{'dna' if clinic_visit.did_not_attend?}")
   td
-    = link_to_clinic_visit_letter(patient, clinic_visit)
-    = pipe_separator
     = link_to "Edit", edit_patient_clinic_visit_path(patient, clinic_visit)
     = pipe_separator
     - if policy(clinic_visit).destroy?
@@ -9,6 +7,8 @@ tr(class="#{'dna' if clinic_visit.did_not_attend?}")
                 patient_clinic_visit_path(patient, clinic_visit),
                 method: :delete,
                 data: { confirm: I18n.t("prompts.confirm_delete") }
+      = pipe_separator
+    = link_to_clinic_visit_letter(patient, clinic_visit)
   td.date-time= l(clinic_visit.date)
   td= yes_no(clinic_visit.did_not_attend)
   td.clinic-type= clinic_visit.clinic

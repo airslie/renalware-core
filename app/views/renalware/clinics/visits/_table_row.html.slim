@@ -1,5 +1,9 @@
 tr(class="#{'dna' if clinic_visit.did_not_attend?}")
-  td= l clinic_visit.date
+  td
+    = link_to("Edit", edit_patient_clinic_visit_path(clinic_visit.patient, clinic_visit))
+    = pipe_separator
+    = link_to_clinic_visit_letter(clinic_visit.patient, clinic_visit)
+  td.date-time= l clinic_visit.date
   td= yes_no(clinic_visit.did_not_attend)
   td= link_to(clinic_visit.patient, patient_path(clinic_visit.patient))
   td= clinic_visit.patient.nhs_number
