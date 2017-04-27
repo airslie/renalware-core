@@ -28,6 +28,7 @@ describe Renalware::Clinics::ClinicVisit, type: :model do
       expect(subject.bp).to eq("112/85")
     end
   end
+
   describe "bp=" do
     it "writes to systolic and diastolic attributes" do
       subject.bp = "112/82"
