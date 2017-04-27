@@ -5,7 +5,7 @@ module Renalware
     class LetterFactory
       def initialize(patient, params = {})
         @params = LetterParamsProcessor.new(patient).call(params)
-        @patient = patient
+        @patient = Letters.cast_patient(patient)
         @default_ccs = []
       end
 
