@@ -15,6 +15,9 @@ article
       b= registration.current_status
       = " since #{l(registration.current_status&.started_on)}"
 
+    dt TT Status:
+    dd= registration.tissue_typing_summary
+
     dt Transplant Type:
     dd= registration.document&.organs&.transplant_type&.text
     dt Last Update:

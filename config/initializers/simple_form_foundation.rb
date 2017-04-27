@@ -83,7 +83,7 @@ SimpleForm.setup do |config|
     b.optional :min_max
     b.optional :readonly
 
-    b.wrapper :right_input_wrapper, tag: :div, class: "small-11" do |ba|
+    b.wrapper :right_input_wrapper, tag: :div, class: "small-11 columns" do |ba|
       ba.use :input, class: "small-input"
       ba.use :error, wrap_with: { tag: :small, class: ["error", "small-input"] }
       ba.use :hint,  wrap_with: { tag: :span, class: ["hint", "small-input"] }

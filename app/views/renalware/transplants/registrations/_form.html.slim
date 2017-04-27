@@ -47,7 +47,18 @@ ruby:
                       collection: 0..5,
                       include_blank: false,
                       wrapper: :horizontal_small
-          = fcm.input :sens_status, wrapper: :horizontal_large
+          = fcm.input :sens_status, wrapper: :horizontal_medium
+
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Tissue Typing", name: "tissue_typing" } do
+      = fd.simple_fields_for :tissue_typing, fd.object.tissue_typing do |fcm|
+          = fcm.input :status,
+                      wrapper: :horizontal_small,
+                      hint: "To be updated by feed"
+          = fcm.input :updated_at,
+                      as: :date_picker,
+                      wrapper: :horizontal_datepicker,
+                      hint: "To be updated by feed"
 
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Organs", name: "organs" } do

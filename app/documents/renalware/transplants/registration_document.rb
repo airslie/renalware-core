@@ -24,6 +24,12 @@ module Renalware
       end
       attribute :transplant, Transplant
 
+      class TissueTyping < Document::Embedded
+        attribute :status, String
+        attribute :updated_at, Date
+      end
+      attribute :tissue_typing, TissueTyping
+
       class Organs < Document::Embedded
         attribute :transplant_type, Document::Enum,
           enums: %i(kidney kidney_pancreas pancreas kidney_liver liver)
