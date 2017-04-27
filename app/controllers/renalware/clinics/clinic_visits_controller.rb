@@ -6,7 +6,10 @@ module Renalware
       before_action :load_clinic_visit, only: [:edit, :update, :destroy]
 
       def index
-        @clinic_visits = @patient.clinic_visits.ordered
+        render locals: {
+          patient: patient,
+          clinic_visits: patient.clinic_visits.ordered
+        }
       end
 
       def new
@@ -33,7 +36,7 @@ module Renalware
             notice: t(".success", model_name: "clinic visit")
         else
           flash[:error] = t(".failed", model_name: "clinic visit")
-          render :new
+          render :edit
         end
       end
 
@@ -57,7 +60,7 @@ module Renalware
 
       def clinic_visit_params
         params.require(:clinic_visit).permit(
-          :date, :time, :clinic_id, :height, :weight,
+          :date, :time, :clinic_id, :height, :weight, :pulse,
           :bp, :urine_blood, :urine_protein, :notes, :admin_notes
         ).merge(by: current_user)
       end

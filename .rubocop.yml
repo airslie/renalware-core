@@ -205,3 +205,6 @@ Style/PercentLiteralDelimiters:
     '%W': '()'
     '%i': '()'
     '%I': '()'
+
+Lint/AmbiguousBlockAssociation:
+  Enabled: false

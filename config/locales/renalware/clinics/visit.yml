@@ -9,6 +9,12 @@ en:
       renalware/clinics/clinic_visit:
         bp: "BP"
         bmi: "BMI"
+    errors:
+      models:
+        renalware/clinics/clinic_visit:
+          attributes:
+            pulse:
+              out_of_range: must be between 20 and 200
 
   enumerize:
     renalware/clinics/clinic_visit:
