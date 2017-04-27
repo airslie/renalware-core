@@ -1,4 +1,4 @@
-tr
+tr(class="#{'dna' if clinic_visit.did_not_attend?}")
   td
     = link_to_clinic_visit_letter(patient, clinic_visit)
     = pipe_separator
@@ -10,6 +10,7 @@ tr
                 method: :delete,
                 data: { confirm: I18n.t("prompts.confirm_delete") }
   td.date-time= l(clinic_visit.date)
+  td= yes_no(clinic_visit.did_not_attend)
   td.clinic-type= clinic_visit.clinic
   td.bmi= clinic_visit.bmi
   td.bp= clinic_visit.bp

@@ -467,7 +467,8 @@ CREATE TABLE clinic_visits (
     clinic_id integer NOT NULL,
     "time" time without time zone,
     admin_notes text,
-    pulse integer
+    pulse integer,
+    did_not_attend boolean DEFAULT false NOT NULL
 );
 
 
@@ -9125,6 +9126,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170403091407'),
 ('20170403092407'),
 ('20170403094115'),
-('20170427123530');
+('20170427123530'),
+('20170427130642');
 
 

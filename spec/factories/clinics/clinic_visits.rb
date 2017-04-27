@@ -3,6 +3,7 @@ FactoryGirl.define do
     patient
     date Time.zone.today
     time Time.zone.now
+    did_not_attend false
     height 1725
     weight 6985
     pulse 100
