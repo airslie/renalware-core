@@ -5,6 +5,8 @@ article
   dl.dl-horizontal
     dt= attr_name(clinic_visit, :date)
     dd= l(clinic_visit.date)
+    dt= attr_name(clinic_visit, :did_not_attend)
+    dd= yes_no(clinic_visit.did_not_attend)
     dt= attr_name(clinic_visit, :clinic)
     dd= clinic_visit.clinic
     dt= attr_name(clinic_visit, :bp)

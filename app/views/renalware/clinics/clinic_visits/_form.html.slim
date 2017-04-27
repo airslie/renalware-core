@@ -14,6 +14,10 @@
                             label_method: :name,
                             value_method: :id,
                             include_blank: t(".clinic_prompt")
+            = f.input :did_not_attend,
+                      as: :boolean,
+                      boolean_style: :inline,
+                      wrapper: :horizontal_small
 
       fieldset
         legend Observations

@@ -23,6 +23,7 @@ module World
             systolic_bp: 112,
             diastolic_bp: 71,
             pulse: 100,
+            did_not_attend: false,
             notes: "Notes",
             admin_notes: "Admin notes",
             created_by: user,
@@ -41,6 +42,7 @@ module World
             height: 1.71,
             weight: 75.0,
             pulse: 101,
+            did_not_attend: false,
             notes: "Updated notes",
             admin_notes: "Updated admin notes",
             by: user
