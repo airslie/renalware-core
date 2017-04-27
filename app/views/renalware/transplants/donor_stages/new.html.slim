@@ -1,7 +1,7 @@
 = within_patient_layout(title: "Update Donor Stage",
                         breadcrumbs: donor_summary_breadcrumb(patient)) do
 
-  = simple_form_for status,
+  = simple_form_for stage,
                     url: patient_transplants_donor_stage_path(patient),
                     html: { autocomplete: :off },
                     as: :donor_stage,
