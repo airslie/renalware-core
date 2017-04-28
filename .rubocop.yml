@@ -42,7 +42,7 @@ Metrics/LineLength:
 
 Metrics/MethodLength:
   Enabled: true
-  Max: 20
+  Max: 10
   Exclude:
     - "features/**/*"
 
