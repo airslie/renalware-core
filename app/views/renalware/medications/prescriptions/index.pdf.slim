@@ -9,6 +9,7 @@ scss:
     padding-left: 0;
     list-style-position: inside;
     line-height: 1.3em;
+    list-style-type: none;
   }
 
   dl {
@@ -127,7 +128,19 @@ main
       p None
 
   section
-    h2 Current Medication
+    h2 Current Medications
     ul
       - current_prescriptions.each do |prescription|
+        - if recently_changed_prescriptions.include?(prescription)
+          li(style="font-weight: bold;")
+            | *&nbsp;
+            = "#{prescription.drug.name} - #{prescription.dose} #{prescription.frequency}"
+        - else
+          li
+            = "#{prescription.drug.name} - #{prescription.dose} #{prescription.frequency}"
+
+  section
+    h2 Stopped Medications
+    ul
+      - recently_stopped_prescriptions.each do |prescription|
         li= "#{prescription.drug.name} - #{prescription.dose} #{prescription.frequency}"

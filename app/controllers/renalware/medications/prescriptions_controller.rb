@@ -64,15 +64,24 @@ module Renalware
         render :index, locals: locals
       end
 
+      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Metrics/MethodLength
       def render_prescriptions_list_to_hand_to_patient
         render(
           pdf_options.merge(
             pdf: "test",
             disposition: "inline",
             print_media_type: true,
-            locals: locals
+            locals: {
+              patient: patient,
+              current_prescriptions: present(current_prescriptions, PrescriptionPresenter),
+              recently_stopped_prescriptions: present(recently_stopped_prescriptions, PrescriptionPresenter),
+              recently_changed_prescriptions: present(recently_changed_current_prescriptions, PrescriptionPresenter)
+            }
         ))
       end
+      # rubocop:enable Metrics/LineLength
+      # rubocop:enable Metrics/MethodLength
 
       def pdf_options
         {
@@ -155,6 +164,28 @@ module Renalware
             relation: @treatable.prescriptions,
             search_params: params[:q]
           )
+      end
+
+      # Prescriptions created or with dosage changed in the last 14 days.
+      # Because we terminated a prescription if the dosage changes, and create a new one,
+      # we just need to search for prescriptions created in the last 14 days.
+      def recently_changed_current_prescriptions
+        @recently_changed_prescriptions ||= begin
+          current_prescriptions_query.call.created_between(from: 14.days.ago, to: ::Time.zone.now)
+        end
+      end
+
+      # Find prescriptions terminated within 14 days.
+      # Note we do not include those prescriptions which might have just had a dose change
+      # so they were implicitly terminated and re-created. We only want ones which were explicitly
+      # terminated.
+      def recently_stopped_prescriptions
+        @recently_stopped_prescriptions ||= begin
+          historical_prescriptions_query.call
+            .terminated
+            .terminated_between(from: 14.days.ago, to: ::Time.zone.now)
+            .where.not(drug_id: current_prescriptions.map(&:drug_id))
+        end
       end
 
       def call_query(query)
