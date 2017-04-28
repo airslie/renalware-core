@@ -8,3 +8,11 @@ ruby:
 javascript:
   enabled: false
   ignore_file: .javascript_ignore
+
+slim-lint:
+  enabled: true
+  config_file: .slim-lint.yml
+
+slim:
+  enabled: true
+  config_file: .slim-lint.yml
