@@ -18,9 +18,7 @@ module Renalware
 
       def new
         @treatable = treatable_class.find(treatable_id)
-        prescription = Prescription.new(treatable: @treatable)
-        prescription.build_termination
-
+        prescription = build_new_prescription_for(@treatable)
         render_form(prescription, url: patient_prescriptions_path(patient, @treatable))
       end
 
@@ -59,6 +57,13 @@ module Renalware
       end
 
       private
+
+      def build_new_prescription_for(treatable)
+        gp_provider_code = Provider.codes.find{ |code| code == :gp }
+        prescription = Prescription.new(treatable: treatable, provider: gp_provider_code)
+        prescription.build_termination
+        prescription
+      end
 
       def render_index
         render :index, locals: locals
