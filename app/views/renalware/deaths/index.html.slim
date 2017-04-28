@@ -1,17 +1,18 @@
-= render "renalware/patients/index_header"
+= within_admin_layout(title: "Patients") do
+  = render "renalware/patients/index_header"
 
-.row
+
   table#patients-deceased
     thead
       tr
-        th
+        th.col-width-large
         th Name
         th.col-width-nhs-no NHS No.
-        th Hosp No.
-        th Sex
-        th Date of Birth
-        th Date of Death
-        th.column-6-width Age
+        th.col-width-reference-no Hosp No.
+        th.col-width-tiny Sex
+        th.col-width-date Date of Birth
+        th.col-width-date Date of Death
+        th.col-width-tiny Age
 
     tbody
       - @patients.each do |patient|

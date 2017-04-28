@@ -1,18 +1,17 @@
-.row
-  table#patients
-    thead
-      tr
-        th.col-width-11
-        th.col-width-medium= attr_name(Renalware::Patient, :name)
-        th.col-width-nhs-no= attr_name(Renalware::Patient, :nhs_number)
-        - Renalware.config.patient_hospital_identifiers.keys.each do |key|
-          th.col-width-reference-no="#{key} No"
-        th.col-width-tiny= attr_name(Renalware::Patient, :sex)
-        th.col-width-date= attr_name(Renalware::Patient, :born_on)
-        th.col-width-tiny= attr_name(Renalware::Patient, :age)
-        th.col-width-small Modality
+table#patients
+  thead
+    tr
+      th.col-width-11
+      th.col-width-medium= attr_name(Renalware::Patient, :name)
+      th.col-width-nhs-no= attr_name(Renalware::Patient, :nhs_number)
+      - Renalware.config.patient_hospital_identifiers.keys.each do |key|
+        th.col-width-reference-without-prefix="#{key} No"
+      th.col-width-tiny= attr_name(Renalware::Patient, :sex)
+      th.col-width-date= attr_name(Renalware::Patient, :born_on)
+      th.col-width-tiny= attr_name(Renalware::Patient, :age)
+      th.col-width-small Modality
 
-    tbody
-      = render patients
+  tbody
+    = render patients
 
-  = paginate patients
+= paginate patients

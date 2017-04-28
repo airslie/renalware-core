@@ -1,13 +1,14 @@
-.row
-  = render "index_header"
-  = render "renalware/shared/errors", model: patient
 
-  = simple_form_for patient,
-                    html: { autocomplete: "off" },
-                    wrapper: "horizontal_form" do |f|
+= within_admin_layout(title: "New", breadcrumbs: breadcrumb_for("Patients", patients_path)) do
+  .row
+    = render "renalware/shared/errors", model: patient
 
-    = render "renalware/patients/form", f: f, patient: patient
+    = simple_form_for patient,
+                      html: { autocomplete: "off" },
+                      wrapper: "horizontal_form" do |f|
 
-    = submit_tag "Save", class: "button"
-    span= " or "
-    = link_to "cancel", patients_path
+      = render "renalware/patients/form", f: f, patient: patient
+
+      = submit_tag "Save", class: "button"
+      span= " or "
+      = link_to "cancel", patients_path
