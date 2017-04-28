@@ -128,6 +128,12 @@ ul.provider {
       }
 
       &.patient-menu-toggler {
+        display: block;
+
+        @media only screen and (min-width: 830px)  {
+          display: inline;
+        }
+
         a,
         a:visited {
           color: $white;
