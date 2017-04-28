@@ -39,17 +39,23 @@ module Renalware
     SQL
   end
 
-  log "SQL INSERT Transplant Registration Status for Roger RABBIT" do
+  # Note this status seeding causes an error when the next subsequent status
+  # is added. I think we need to revert to using AR to create seeds in order to run
+  # validations and be more sure data integrity.
+  # The error was that Rails could not 'see' this added status for some reason
+  # so the next one it tries to add it does so with id=1 and thus we get a duplicate
+  # index error from pg.
+  # log "SQL INSERT Transplant Registration Status for Roger RABBIT" do
 
-    connection.execute(<<-SQL)
-      INSERT INTO transplant_registration_statuses
-      (id, registration_id, description_id, started_on, terminated_on, created_by_id,
-      updated_by_id, created_at, updated_at)
-      VALUES
-      (1, 1, 1, '2017-02-23', NULL, 9, 9,
-      '2017-02-23 13:34:24.626362', '2017-02-23 13:34:24.626362');
-    SQL
-  end
+  #   connection.execute(<<-SQL)
+  #     INSERT INTO transplant_registration_statuses
+  #     (id, registration_id, description_id, started_on, terminated_on, created_by_id,
+  #     updated_by_id, created_at, updated_at)
+  #     VALUES
+  #     (1, 1, 1, '2017-02-23', NULL, 9, 9,
+  #     '2017-02-23 13:34:24.626362', '2017-02-23 13:34:24.626362');
+  #   SQL
+  # end
 
   log "SQL INSERT Transplant Recipient Workup for Roger RABBIT" do
 
