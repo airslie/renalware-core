@@ -29,7 +29,11 @@ ruby:
     = hidden_field_tag "description_id"
     = f.input :clinical, as: :hidden
     = f.input :issued_on, as: :date_picker
-    = f.association :author, as: :user_picker, collection: Renalware::User.ordered
+    = f.association :author,
+        as: :user_picker,
+        collection: Renalware::System::UsersPresenter.new.list_for_dropdown( \
+          user_to_promote_to_top: current_user \
+        )
 
   = render "main_recipient", f: f, contacts: contacts
   = render "additional_ccs", f: f, contacts: contacts
