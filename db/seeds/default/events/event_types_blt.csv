@@ -1,111 +1,109 @@
-"name","event_class_name","slug"
-"A&E assessment--Anaesthetic Review",,
-"Access--Anaesthetic Review",,
-"Access--Assessment",,
-"Access--Clinic",,
-"Access--Clinic Review",,
-"Access--Comment / Others",,
-"Access--MDT",,
-"Access--Surgery",,
-"Anaesthetic assessment--Anaesthetic Review",,
-"Biopsy--Comment / Others",,
-"Biopsy--MDT",,
-"Clinic--AKI",,
-"Clinic--Clinic",,
-"Clinic--General Nephrology",,
-"Clinic--HD",,
-"Clinic--HomeHD",,
-"Clinic--Joint clinic",,
-"Clinic--Live Donor Assessment",,
-"Clinic--Live Donor FU",,
-"Clinic--Low Clearance",,
-"Clinic--Misc / Others",,
-"Clinic--PD",,
-"Clinic--PKD",,
-"Clinic--Post Transplant",,
-"Clinic--Pre Transplant Assessment",,
-"Clinic--Supportive Care",,
-"Clinical Trial--Comment / Others",,
-"Clinical Trial--Phone Call",,
-"Clinical Trial--Review",,
-"Clinical Trial--Study Visit",,
-"Correspondence--Correspondence",,
-"Diabetes--Clinic",,
-"Diabetes--Comment / Others",,
-"Diabetes--MDT",,
-"Diabetes--Post Transplant",,
-"Dietitian clinic",,
-"Dietitian Clinic Review",,
-"Dietitian Comment / Others",,
-"Dietitian Phone Call",,
-"Email",,
-"E-mail--correspondence",,
-"EPO Comment / Others",,
-"EPO Phone Call",,
-"EPO Review",,
-"Haemodialysis Clinic",,
-"Haemodialysis Clinic Review",,
-"Haemodialysis Comment / Others",,
-"Haemodialysis MDT",,
-"Haemodialysis Ward round",,
-"Infusion / Injection--Antibiotics",,
-"Infusion / Injection--Belatacept",,
-"Infusion / Injection--Blood transfusion",,
-"Infusion / Injection--Comment / Others",,
-"Infusion / Injection--Cyclophosphamide",,
-"Infusion / Injection--Eclizimab",,
-"Infusion / Injection--Hep B vaccination",,
-"Infusion / Injection--iv Iron",,
-"Infusion / Injection--MethylPrednisolone",,
-"Infusion / Injection--Rituximab",,
-"Infusion / Injection--tPA infusion",,
-"IN-PATIENT--In-patient",,
-"LCC Assessment",,
-"LCC Clinic",,
-"LCC Clinic Review",,
-"LCC Comment / Others",,
-"LCC Community Visit",,
-"LCC Emergency Visit",,
-"LCC MDT",,
-"LCC Phone Call",,
-"Live Donor--Clinic",,
-"Live Donor--Clinic Review",,
-"Live Donor--Comment / Others",,
-"Live Donor--HTA assessment",,
-"Live Donor--MDT",,
-"Live Donor--Phone Call",,
-"MDT Comment / Others",,
-"MDT Histology",,
-"MDT Radiology",,
-"PD / Home Dialysis--APD_Session",,
-"PD / Home Dialysis--Clinic",,
-"PD / Home Dialysis--Clinic Review",,
-"PD / Home Dialysis--Comment / Others",,
-"PD / Home Dialysis--Community Visit",,
-"PD / Home Dialysis--Emergency Visit",,
-"PD / Home Dialysis--In-patient",,
-"PD / Home Dialysis--MDT",,
-"PD / Home Dialysis--Nurse Clinic",,
-"PD / Home Dialysis--Peritonitis_D1",,
-"PD / Home Dialysis--Phone Call",,
-"PD / Home Dialysis--Training",,
-"pre transplant assessment--Clinic",,
-"pre transplant assessment--Clinic Review",,
-"pre transplant assessment--Comment / Others",,
-"pre transplant assessment--High risk transplant MDT",,
-"pre transplant assessment--MDT",,
-"pre transplant assessment--Phone Call",,
-"Pre-admission Clinic",,
-"RAU Assessment",,
-"RAU Clinic",,
-"RAU Comment / Others",,
-"RAU Review",,
-"Renal Biopsy Native","Renalware::Events::Biopsy","native_biopsies"
-"Renal Biopsy Transplant","Renalware::Events::Biopsy","transplant_biopsies"
-"Supportive Care--Clinic",,
-"Supportive Care--Comment / Others",,
-"Supportive Care--Community Visit",,
-"Supportive Care--Correspondence",,
-"Supportive Care--MDT",,
-"Supportive Care--Phone Call",,
-"Supportive Care--Supportive Care",,
+"name"
+"A&E assessment--Anaesthetic Review"
+"Access--Anaesthetic Review"
+"Access--Assessment"
+"Access--Clinic"
+"Access--Clinic Review"
+"Access--Comment / Others"
+"Access--MDT"
+"Access--Surgery"
+"Anaesthetic assessment--Anaesthetic Review"
+"Biopsy--Comment / Others"
+"Biopsy--MDT"
+"Clinic--AKI"
+"Clinic--Clinic"
+"Clinic--General Nephrology"
+"Clinic--HD"
+"Clinic--HomeHD"
+"Clinic--Joint clinic"
+"Clinic--Live Donor Assessment"
+"Clinic--Live Donor FU"
+"Clinic--Low Clearance"
+"Clinic--Misc / Others"
+"Clinic--PD"
+"Clinic--PKD"
+"Clinic--Post Transplant"
+"Clinic--Pre Transplant Assessment"
+"Clinic--Supportive Care"
+"Clinical Trial--Comment / Others"
+"Clinical Trial--Phone Call"
+"Clinical Trial--Review"
+"Clinical Trial--Study Visit"
+"Correspondence--Correspondence"
+"Diabetes--Clinic"
+"Diabetes--Comment / Others"
+"Diabetes--MDT"
+"Diabetes--Post Transplant"
+"Dietitian clinic"
+"Dietitian Clinic Review"
+"Dietitian Comment / Others"
+"Dietitian Phone Call"
+"Email"
+"E-mail--correspondence"
+"EPO Comment / Others"
+"EPO Phone Call"
+"EPO Review"
+"Haemodialysis Clinic"
+"Haemodialysis Clinic Review"
+"Haemodialysis Comment / Others"
+"Haemodialysis MDT"
+"Haemodialysis Ward round"
+"Infusion / Injection--Antibiotics"
+"Infusion / Injection--Belatacept"
+"Infusion / Injection--Blood transfusion"
+"Infusion / Injection--Comment / Others"
+"Infusion / Injection--Cyclophosphamide"
+"Infusion / Injection--Eclizimab"
+"Infusion / Injection--Hep B vaccination"
+"Infusion / Injection--iv Iron"
+"Infusion / Injection--MethylPrednisolone"
+"Infusion / Injection--Rituximab"
+"Infusion / Injection--tPA infusion"
+"IN-PATIENT--In-patient"
+"LCC Assessment"
+"LCC Clinic"
+"LCC Clinic Review"
+"LCC Comment / Others"
+"LCC Community Visit"
+"LCC Emergency Visit"
+"LCC MDT"
+"LCC Phone Call"
+"Live Donor--Clinic"
+"Live Donor--Clinic Review"
+"Live Donor--Comment / Others"
+"Live Donor--HTA assessment"
+"Live Donor--MDT"
+"Live Donor--Phone Call"
+"MDT Comment / Others"
+"MDT Histology"
+"MDT Radiology"
+"PD / Home Dialysis--APD_Session"
+"PD / Home Dialysis--Clinic"
+"PD / Home Dialysis--Clinic Review"
+"PD / Home Dialysis--Comment / Others"
+"PD / Home Dialysis--Community Visit"
+"PD / Home Dialysis--Emergency Visit"
+"PD / Home Dialysis--In-patient"
+"PD / Home Dialysis--MDT"
+"PD / Home Dialysis--Nurse Clinic"
+"PD / Home Dialysis--Peritonitis_D1"
+"PD / Home Dialysis--Phone Call"
+"PD / Home Dialysis--Training"
+"Pre-transplant assessment--Clinic"
+"Pre-transplant assessment--Clinic Review"
+"Pre-transplant assessment--Comment / Others"
+"Pre-transplant assessment--High risk transplant MDT"
+"Pre-transplant assessment--MDT"
+"Pre-transplant assessment--Phone Call"
+"Pre-admission Clinic"
+"RAU Assessment"
+"RAU Clinic"
+"RAU Comment / Others"
+"RAU Review"
+"Supportive Care--Clinic"
+"Supportive Care--Comment / Others"
+"Supportive Care--Community Visit"
+"Supportive Care--Correspondence"
+"Supportive Care--MDT"
+"Supportive Care--Phone Call"
+"Supportive Care--Supportive Care"
