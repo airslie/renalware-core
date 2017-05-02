@@ -92,6 +92,16 @@ scss:
     }
   }
 
+  .prescriptions {
+    .prescription {
+      font-weight: normal;
+
+      &.recently_changed {
+        font-weight: bold;
+      }
+    }
+  }
+
 
 heading
   .our-ref= "RW ref: #{patient.hospital_identifier}"
@@ -118,7 +128,7 @@ main
       dd= patient.hospital_identifier
 
   section
-    h2 Allergies
+    h3 Allergies
     - allergies = Renalware::Clinical.cast_patient(patient).allergies
     - if allergies.any?
       ul.allergies
@@ -127,20 +137,14 @@ main
     - else
       p None
 
-  section
-    h2 Current Medications
-    ul
-      - current_prescriptions.each do |prescription|
-        - if recently_changed_prescriptions.include?(prescription)
-          li(style="font-weight: bold;")
-            | *&nbsp;
-            = "#{prescription.drug.name} - #{prescription.dose} #{prescription.frequency}"
-        - else
-          li
-            = "#{prescription.drug.name} - #{prescription.dose} #{prescription.frequency}"
+  section.prescriptions
+    - with_format(:html) do
+      = render "current",
+               prescriptions: current_prescriptions,
+               recently_changed: recently_changed_prescriptions
 
-  section
-    h2 Stopped Medications
-    ul
-      - recently_stopped_prescriptions.each do |prescription|
-        li= "#{prescription.drug.name} - #{prescription.dose} #{prescription.frequency}"
+  section.prescriptions
+    - with_format(:html) do
+      = render "recently_stopped",
+               prescriptions: recently_stopped_prescriptions
+

@@ -1,19 +1,7 @@
 .list.prescriptions
-  h3 Current Prescriptions
+  = render "renalware/medications/prescriptions/current",
+           prescriptions: prescriptions.current,
+           recently_changed: prescriptions.recently_changed
 
-  ul
-    - prescriptions.current.each do |prescription|
-      - if prescriptions.recently_changed.include?(prescription)
-        li(style="font-weight: bold;")
-          | *
-          = render "renalware/letters/parts/prescription", prescription: prescription
-      - else
-        li
-          = render "renalware/letters/parts/prescription", prescription: prescription
-
-  - if prescriptions.recently_stopped.any?
-    h3 Recently Stopped Prescriptions
-
-    ul
-      - prescriptions.recently_stopped.each do |prescription|
-        li= render "renalware/letters/parts/prescription", prescription: prescription
+  = render "renalware/medications/prescriptions/recently_stopped",
+         prescriptions: prescriptions.recently_stopped
