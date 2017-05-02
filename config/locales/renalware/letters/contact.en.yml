@@ -33,6 +33,6 @@ en:
       navigation:
         list: List
       main_recipient:
-        add_contact: Add new person to contacts list
+        add_contact: Add a different recipient via the contacts Directory
       additional_ccs:
         add_contact_as_cc: Add new person to the list
