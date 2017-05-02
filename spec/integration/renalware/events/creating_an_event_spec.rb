@@ -12,11 +12,11 @@ RSpec.describe "Creating an event", type: :feature, js: true do
 
   context "adding a simple event" do
     it "works" do
-      # event_type = create(:events_type, name: "Access clinic")
-      create(:events_type, name: "Access clinic")
+      # event_type = create(:events_type, name: "Access--Clinic")
+      create(:events_type, name: "Access--Clinic")
       visit new_patient_event_path(patient)
 
-      # select "Access clinic", from: "Event type"
+      # select "Access--Clinic", from: "Event type"
       expect(page).to have_content("Description")
       fill_in "Description", with: "Test"
 

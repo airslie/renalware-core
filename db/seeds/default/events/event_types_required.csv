@@ -1,0 +1,4 @@
+"name","event_class_name","slug"
+"Renal Biopsy Native","Renalware::Events::Biopsy","native_biopsies"
+"Renal Biopsy Transplant","Renalware::Events::Biopsy","transplant_biopsies"
+"Swab","Renalware::Events::Swab","swabs"
