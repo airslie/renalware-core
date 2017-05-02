@@ -1,0 +1,15 @@
+h3 Current Prescriptions
+
+- if prescriptions.blank?
+  p.prescription None
+- else
+  ul
+    - prescriptions.each do |prescription|
+      - if recently_changed.include?(prescription)
+          = render "renalware/medications/prescriptions/prescription",
+                   prescription: prescription,
+                   date_changed: prescription.prescribed_on,
+                   recently_changed: true
+      - else
+          = render "renalware/medications/prescriptions/prescription",
+                   prescription: prescription

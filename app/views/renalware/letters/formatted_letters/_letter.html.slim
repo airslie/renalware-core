@@ -127,13 +127,26 @@ scss:
     }
 
     .problems {
-      width: 60%;
+      width: 50%;
       float: left;
+
+      .problem {
+        font-size: 14px;
+      }
     }
 
     .prescriptions {
-      width: 40%;
+      width: 50%;
       float: right;
+
+      .prescription {
+        font-weight: normal;
+        font-size: 14px;
+
+        &.recently_changed {
+          font-weight: bold;
+        }
+      }
     }
 
     .observations {

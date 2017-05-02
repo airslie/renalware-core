@@ -35,7 +35,7 @@ module Renalware
       # we just need to search for prescriptions created in the last 14 days.
       def recently_changed_current_prescriptions
         @recently_changed_prescriptions ||= begin
-          current_prescriptions.created_between(from: 14.days.ago, to: ::Time.zone.now)
+          current_prescriptions.prescribed_between(from: 14.days.ago, to: ::Time.zone.now)
         end
       end
 

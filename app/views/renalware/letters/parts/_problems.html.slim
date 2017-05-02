@@ -3,7 +3,7 @@
 
   ul
     - problems.ordered.each do |problem|
-      li= problem.description
+      li.problem= problem.description
       - if problem.notes.present?
         ol
           - problem.notes.each do |note|
