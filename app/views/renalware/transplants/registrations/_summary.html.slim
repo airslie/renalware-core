@@ -12,8 +12,9 @@ article
   dl.dl-horizontal
     dt Status:
     dd
-      b= registration.current_status
-      = " since #{l(registration.current_status&.started_on)}"
+      - if registration.current_status.present?
+        b= registration.current_status
+        = " since #{l(registration.current_status&.started_on)}"
 
     dt TT Status:
     dd= registration.tissue_typing_summary
@@ -22,5 +23,5 @@ article
     dd= registration.document&.organs&.transplant_type&.text
     dt Last Update:
     dd
-      - if version = registration.versions.last
+      - if (version = registration.versions.last)
         = "#{l(version.created_at)} by #{who_did_it(version)}"
