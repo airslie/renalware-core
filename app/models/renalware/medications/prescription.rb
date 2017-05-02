@@ -60,6 +60,10 @@ module Renalware
         where("medication_prescriptions.created_at >= ? and "\
               "medication_prescriptions.created_at <= ?", from, to)
       }
+      scope :prescribed_between, lambda { |from:, to:|
+        where("medication_prescriptions.prescribed_on >= ? and "\
+              "medication_prescriptions.prescribed_on <= ?", from, to)
+      }
       scope :terminated_between, lambda { |from:, to:|
         where("terminated_on >= ? and terminated_on <= ?", from, to)
       }

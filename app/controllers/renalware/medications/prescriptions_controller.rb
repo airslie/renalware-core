@@ -74,7 +74,7 @@ module Renalware
       def render_prescriptions_list_to_hand_to_patient
         render(
           pdf_options.merge(
-            pdf: "test",
+            pdf: pdf_filename,
             disposition: "inline",
             print_media_type: true,
             locals: {
@@ -87,6 +87,11 @@ module Renalware
       end
       # rubocop:enable Metrics/LineLength
       # rubocop:enable Metrics/MethodLength
+
+      def pdf_filename
+        "#{patient.family_name}_#{patient.hospital_identifier&.id}" \
+        "_medications_#{I18n.l(Time.zone.today)}".upcase
+      end
 
       def pdf_options
         {
@@ -176,7 +181,9 @@ module Renalware
       # we just need to search for prescriptions created in the last 14 days.
       def recently_changed_current_prescriptions
         @recently_changed_prescriptions ||= begin
-          current_prescriptions_query.call.created_between(from: 14.days.ago, to: ::Time.zone.now)
+          current_prescriptions_query
+            .call
+            .prescribed_between(from: 14.days.ago, to: ::Time.zone.now)
         end
       end
 
