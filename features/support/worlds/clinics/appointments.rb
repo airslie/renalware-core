@@ -85,11 +85,11 @@ module World
           appointments.shift # Remove column headers row
 
           appointments.zip(expected_appointments).each do |appointment, expected_appointment|
-            expect(appointment[1]).to eq(I18n.l(Date.parse(expected_appointment["date"])))
-            expect(appointment[2]).to eq(expected_appointment["starts_at"])
-            expect(appointment[3]).to eq(expected_appointment["patient"])
-            expect(appointment[7]).to eq(expected_appointment["clinic"])
-            expect(appointment[8]).to eq(expected_appointment["user"])
+            expect(appointment[2]).to eq(I18n.l(Date.parse(expected_appointment["date"])))
+            expect(appointment[3]).to eq(expected_appointment["starts_at"])
+            expect(appointment[4]).to eq(expected_appointment["patient"])
+            expect(appointment[8]).to eq(expected_appointment["clinic"])
+            expect(appointment[9]).to eq(expected_appointment["user"])
           end
         end
       end

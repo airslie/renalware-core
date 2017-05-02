@@ -2,14 +2,18 @@
   breadcrumbs: breadcrumb_for("Clinic Visits", patient_clinic_visits_path)) do
 
   .document
-    = simple_form_for [@patient, @clinic_visit],
+    = simple_form_for [patient, clinic_visit],
         as: :clinic_visit,
-        url: patient_clinic_visits_path(@patient),
+        url: patient_clinic_visits_path(patient),
         html: { autocomplete: "off" },
         wrapper: "horizontal_form" do |f|
+
+      input(type="hidden"
+            name="clinic_visit[built_from_appointment_id]"
+            value="#{built_from_appointment&.id}")
 
       = render "form", f: f
 
       = f.submit "Save", class: "button"
       span= " or "
-      = link_to "cancel", patient_clinic_visits_path(@patient)
+      = link_to "cancel", patient_clinic_visits_path(patient)

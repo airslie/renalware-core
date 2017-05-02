@@ -15,7 +15,9 @@ module Renalware
     def apply_to(model)
       return unless model
       self.class::ATTRIBUTES_TO_REMEMBER.each do |attribute|
-        model.public_send(:"#{attribute}=", remembered_attributes[attribute])
+        unless model.public_send(:"#{attribute}?")
+          model.public_send(:"#{attribute}=", remembered_attributes[attribute])
+        end
       end
     end
 
