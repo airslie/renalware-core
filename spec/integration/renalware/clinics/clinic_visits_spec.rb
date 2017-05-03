@@ -17,10 +17,8 @@ RSpec.describe "Clinic Visits Management", type: :request do
   end
 
   describe "GET new" do
-    before do
-      get new_patient_clinic_visit_path(patient_id: patient.to_param)
-    end
     it "responds successfully" do
+      get new_patient_clinic_visit_path(patient_id: patient.to_param)
       expect(response).to have_http_status(:success)
     end
   end

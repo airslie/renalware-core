@@ -33,6 +33,7 @@
             br
             |
             = link_to "(Uncheck all)", "#", id: "uncheck_all_appointments_link"
+          th.col-width-medium
           th.col-width-date= sort_link(query, :starts_at, "Date", default_order: :asc)
           th.col-width-time= sort_link(query, :start_time, "Time", default_order: :asc)
           th.col-width-medium
@@ -51,6 +52,20 @@
         - appointments.each do |appointment|
           tr
             td= check_box_tag nil, appointment.patient.id, true, class: "patient_checkbox"
+            td
+              - if appointment.becomes_visit_id.present?
+                = link_to edit_patient_clinic_visit_path(appointment.patient,
+                                                          id: appointment.becomes_visit_id) do
+                  i.fa.fa-file-o
+                  | &nbsp;&nbsp;
+                  | View Clinic Visit
+              - else
+                = link_to new_patient_clinic_visit_path(appointment.patient,
+                                                        appointment_id: appointment.id) do
+                  i.fa.fa-pencil
+                  | &nbsp;&nbsp;
+                  | Create Clinic Visit
+
             td= I18n.l appointment.starts_on
             td= appointment.start_time
             td= link_to appointment.patient.full_name,

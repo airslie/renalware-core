@@ -355,7 +355,8 @@ CREATE TABLE clinic_appointments (
     starts_at timestamp without time zone NOT NULL,
     patient_id integer NOT NULL,
     user_id integer NOT NULL,
-    clinic_id integer NOT NULL
+    clinic_id integer NOT NULL,
+    becomes_visit_id integer
 );
 
 
@@ -7723,6 +7724,14 @@ ALTER TABLE ONLY medication_prescription_terminations
 
 
 --
+-- Name: clinic_appointments fk_rails_2eaec177ff; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinic_appointments
+    ADD CONSTRAINT fk_rails_2eaec177ff FOREIGN KEY (becomes_visit_id) REFERENCES clinic_visits(id);
+
+
+--
 -- Name: pd_peritonitis_episode_types fk_rails_2f135fd6d9; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9127,6 +9136,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170403092407'),
 ('20170403094115'),
 ('20170427123530'),
-('20170427130642');
+('20170427130642'),
+('20170502165422');
 
 
