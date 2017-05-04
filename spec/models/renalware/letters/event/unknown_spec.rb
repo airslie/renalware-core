@@ -10,7 +10,8 @@ module Renalware::Letters
             {
               problems: Part::Problems,
               prescriptions: Part::Prescriptions,
-              recent_pathology_results: Part::RecentPathologyResults
+              recent_pathology_results: Part::RecentPathologyResults,
+              allergies: Part::Allergies
             }
           )
         end

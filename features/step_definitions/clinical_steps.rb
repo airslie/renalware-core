@@ -1,5 +1,5 @@
 Given(/^Patty has these allergies$/) do |table|
-  seed_allergies_for(patient: @patty, user: @clyde, allergies: table.hashes)
+  seed_allergies_for(patient: @patty, user: @clyde || @doug, allergies: table.hashes)
 end
 
 When(/^Clyde views add the following allergies to Patty$/) do |table|

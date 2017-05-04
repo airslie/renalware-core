@@ -101,16 +101,19 @@ scss:
     }
 
     .list {
-      margin-bottom: 20px;
+      margin-bottom: 5px;
 
       h3 {
         font-size: 0.9em;
         font-weight: bold;
-        margin-bottom: 0px;
+        margin-bottom: 0;
+        margin-top: 0;
       }
 
       ul {
         padding-left: 20px;
+        margin-top: 7px;
+        margin-bottom: 7px;
       }
 
       ol {
@@ -123,15 +126,45 @@ scss:
 
       li {
         line-height: 1.2em;
+        font-size: 0.9rem;
+      }
+
+      span, p {
+        font-size: 0.9rem;
       }
     }
 
     .problems {
       width: 50%;
       float: left;
+    }
 
-      .problem {
-        font-size: 14px;
+    .allergies {
+      margin-bottom: 1rem;
+
+      h3 {
+        padding-right: 1rem;
+      }
+
+      h3, p {
+        display: inline;
+      }
+
+      ul {
+        list-style-type: none;
+        margin: 0.5rem 0 0;
+        padding: 0;
+        display: inline;
+
+        li {
+          display: inline;
+          margin-right: 1rem;
+
+          &::before {
+            content: "\2022";
+            padding-right: 0.2rem;
+          }
+        }
       }
     }
 
@@ -141,7 +174,6 @@ scss:
 
       .prescription {
         font-weight: normal;
-        font-size: 14px;
 
         &.recently_changed {
           font-weight: bold;
@@ -166,10 +198,6 @@ scss:
         display: inline;
         padding-right: 15px;
       }
-    }
-
-    .allergies {
-      margin-bottom: 30px;
     }
 
     .message {
@@ -245,7 +273,7 @@ scss:
     .patient-status
       p= render "patient_summary", patient: letter.patient
 
-    = render letter.parts
+    = render letter.parts, patient: letter.patient
 
     .message
       = letter.body&.html_safe

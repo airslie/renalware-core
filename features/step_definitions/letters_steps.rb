@@ -244,6 +244,10 @@ Then(/^the letter lists Patty's recent pathology results$/) do
   expect_clinical_letter_to_list_recent_pathology_results(patient: @patty)
 end
 
+Then(/^the letter lists Patty's allergies$/) do
+  expect_clinical_letter_to_list_allergies(patient: @patty)
+end
+
 Then(/^the clinical letter lists Patty's current prescriptions$/) do
   expect_clinical_letter_to_list_current_prescriptions(patient: @patty)
 end
