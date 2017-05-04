@@ -8,6 +8,7 @@ require "pundit/rspec"
 require "paper_trail/frameworks/rspec"
 require "chosen-rails/rspec"
 require "capybara-screenshot/rspec" if RUBY_PLATFORM =~ /darwin/
+require_relative "../lib/test_support/text_editor_helpers"
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -60,6 +61,7 @@ RSpec.configure do |config|
   config.include CapybaraHelper, type: :feature
   config.include Select2SpecHelper, type: :feature
   config.include SelectDateSpecHelper, type: :feature
+  config.include TextEditorHelpers, type: :feature
   config.include ActiveSupport::Testing::TimeHelpers
   config.include Chosen::Rspec::FeatureHelpers, type: :feature
 

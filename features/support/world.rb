@@ -34,3 +34,6 @@ World(AutocompleteHelpers)
 
 require_relative "../../lib/test_support/ajax_helpers"
 World(AjaxHelpers)
+
+require_relative "../../lib/test_support/text_editor_helpers"
+World(TextEditorHelpers)
