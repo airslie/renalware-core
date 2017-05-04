@@ -12,7 +12,11 @@ RSpec.describe "Creating a swab", type: :feature, js: true do
 
     visit new_patient_swab_path(patient)
 
-    fill_in "Notes", with: "notes"
+    fill_in_trix_editor(
+      "events_event_notes_trix_input_events_swab",
+      "notes"
+    )
+
     find("div.radio_buttons", text: "Swab type").choose("MRSA")
     find("div.radio_buttons", text: "Swab result").choose("Positive")
 
