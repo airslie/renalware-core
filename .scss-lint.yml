@@ -17,3 +17,6 @@ linters:
     enabled: false
   NestingDepth:
     enabled: false
+  SelectorFormat:
+    enabled: true
+    convention: hyphenated_BEM
