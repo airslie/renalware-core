@@ -30,6 +30,34 @@ RSpec.describe "Searching patients", type: :request do
       end
     end
 
+    context "with a partial family name and given name filter using a comma delimiter" do
+      before do
+        create(:patient, given_name: "Roger", family_name: "Rabbit")
+        create(:patient, family_name: "::another patient::")
+      end
+
+      it "responds with a filtered list of records matching the hospital number" do
+        get patients_path(q: { identity_match: "rabb,r" })
+
+        expect(response).to have_http_status(:success)
+        expect(response.body).to match("RABBIT")
+      end
+    end
+
+    context "with a partial family name and given name filter using a comma + space delimiter" do
+      before do
+        create(:patient, given_name: "Roger", family_name: "Rabbit")
+        create(:patient, family_name: "::another patient::")
+      end
+
+      it "responds with a filtered list of records matching the hospital number" do
+        get patients_path(q: { identity_match: "rabb, r" })
+
+        expect(response).to have_http_status(:success)
+        expect(response.body).to match("RABBIT")
+      end
+    end
+
     context "with a family name filter" do
       before do
         create(:patient, given_name: "Roger", family_name: "Rabbit")
