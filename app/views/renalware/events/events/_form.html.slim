@@ -22,18 +22,15 @@
                              tabindex: 2001 }
 
   / The contents of this div will get replaced if a user selects an alternative
-  / event type in the dropdown above. See events.js.
+  / event type in the drop-down above. See events.js.
   #event-type-specific-inputs
     = render partial: "renalware/events/events/inputs/#{event.to_partial_path}",
              locals: { event: event, f: f }
 
-  = snippets_modal_and_link_to_open_it( \
-      target_input_for_seleted_snippet: "#events_event_notes" \
-    )
-  = f.input :notes,
-            as: :text,
-            input_html: { rows: 5 },
-            wrapper: :horizontal_medium
+  = f.label :notes
+  = snippets_modal_and_link_to_open_it(target_input_for_seleted_snippet: ".event-notes")
+  = f.trix_editor :notes, class: "event-notes"
+  br
 
   = submit_tag "Save", class: "button"
   span= " or "
