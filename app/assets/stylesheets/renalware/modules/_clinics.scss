@@ -5,6 +5,12 @@
   }
 
   @media print {
+
+    table tr th,
+    table tr td, {
+      font-size: 0.9rem;
+    }
+
     .row {
       margin: 0;
       max-width: 100%;
