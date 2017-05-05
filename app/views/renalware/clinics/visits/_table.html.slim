@@ -1,18 +1,18 @@
 table.global-clinic-visits
   thead
     tr
-      th.col-width-smallish
+      th.col-width-medium.no-print
       th.col-width-date Date
       th.col-width-tiny DNA
-      th Patient
+      th.col-width-medium Patient
       th.col-width-nhs-no NHS Number
       th.col-width-tiny Sex
       th.col-width-tiny Age
       th.col-width-small Modality
-      th Clinic Type
+      th.col-width-medium Clinic Type
       th.col-width-tiny BMI
       th.col-width-tiny BP
-      th
+      th.no-print
       th.col-width-medium Created by
   tbody
     = render partial: "table_row",

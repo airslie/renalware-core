@@ -1,0 +1,33 @@
+.page--cinic-visits {
+
+  .filters__output {
+    display: none;
+  }
+
+  @media print {
+
+    table tr th,
+    table tr td, {
+      font-size: 0.9rem;
+    }
+
+    .row {
+      margin: 0;
+      max-width: 100%;
+    }
+
+    .filters__form,
+    .no-print {
+      display: none;
+    }
+
+    .filters__output {
+      display: block;
+    }
+
+    // Create space for the user to write under each row
+    table tbody tr td {
+      padding-bottom: 3rem;
+    }
+  }
+}

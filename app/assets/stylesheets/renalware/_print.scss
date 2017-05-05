@@ -9,6 +9,10 @@
     font-size: 0.7em;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   a[href]:after {
     content: none !important;
   }
@@ -25,10 +29,8 @@
   .noprint {
     display: none;
   }
-}
 
-// Use the large grid when printing, instead of the default small one.
-@media print {
+  // Use the large grid when printing, instead of the default small one.
   .large-1 {
     width: 8.33333%;
   }

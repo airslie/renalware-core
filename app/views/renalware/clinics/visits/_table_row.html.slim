@@ -1,5 +1,5 @@
 tr(class="#{'dna' if clinic_visit.did_not_attend?}")
-  td
+  td.no-print
     = link_to("Edit", edit_patient_clinic_visit_path(clinic_visit.patient, clinic_visit))
     = pipe_separator
     = link_to_clinic_visit_letter(clinic_visit.patient, clinic_visit)
@@ -13,5 +13,5 @@ tr(class="#{'dna' if clinic_visit.did_not_attend?}")
   td.clinic-type= clinic_visit.clinic
   td.bmi= clinic_visit.bmi
   td.bp= clinic_visit.bp
-  td= link_to_mdm(clinic_visit.patient)
+  td.no-print= link_to_mdm(clinic_visit.patient)
   td.created-by= clinic_visit.created_by
