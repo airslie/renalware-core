@@ -1,7 +1,7 @@
 .large-12.columns
   dl.accordion(data-accordion)
     dd.accordion-navigation.organism-form
-      a.fi-plus.fi-minus.form-toggle.organism-accordian href="#edit-organism-#{io.object.id}"
+      a.fa-plus.fa-minus.form-toggle.organism-accordian href="#edit-organism-#{io.object.id}"
         = "#{io.object.organism_code.name} - #{io.object.sensitivity}"
 
         .right.edit Edit
