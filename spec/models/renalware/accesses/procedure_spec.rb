@@ -12,6 +12,7 @@ module Renalware
       it { is_expected.to validate_timeliness_of(:performed_on) }
       it { is_expected.to validate_timeliness_of(:first_used_on) }
       it { is_expected.to validate_timeliness_of(:failed_on) }
+      it { is_expected.to belong_to(:pd_catheter_insertion_technique) }
     end
   end
 end

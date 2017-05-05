@@ -75,6 +75,38 @@ ALTER SEQUENCE access_assessments_id_seq OWNED BY access_assessments.id;
 
 
 --
+-- Name: access_catheter_insertion_techniques; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE access_catheter_insertion_techniques (
+    id integer NOT NULL,
+    code character varying NOT NULL,
+    description character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: access_catheter_insertion_techniques_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE access_catheter_insertion_techniques_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: access_catheter_insertion_techniques_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE access_catheter_insertion_techniques_id_seq OWNED BY access_catheter_insertion_techniques.id;
+
+
+--
 -- Name: access_plans; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -128,7 +160,8 @@ CREATE TABLE access_procedures (
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    performed_by character varying
+    performed_by character varying,
+    pd_catheter_insertion_technique_id integer
 );
 
 
@@ -4087,6 +4120,13 @@ ALTER TABLE ONLY access_assessments ALTER COLUMN id SET DEFAULT nextval('access_
 
 
 --
+-- Name: access_catheter_insertion_techniques id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_catheter_insertion_techniques ALTER COLUMN id SET DEFAULT nextval('access_catheter_insertion_techniques_id_seq'::regclass);
+
+
+--
 -- Name: access_plans id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4834,6 +4874,14 @@ ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq':
 
 ALTER TABLE ONLY access_assessments
     ADD CONSTRAINT access_assessments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: access_catheter_insertion_techniques access_catheter_insertion_techniques_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY access_catheter_insertion_techniques
+    ADD CONSTRAINT access_catheter_insertion_techniques_pkey PRIMARY KEY (id);
 
 
 --
@@ -5698,6 +5746,13 @@ ALTER TABLE ONLY users
 
 ALTER TABLE ONLY versions
     ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: access_procedure_pd_catheter_tech_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX access_procedure_pd_catheter_tech_idx ON access_procedures USING btree (pd_catheter_insertion_technique_id);
 
 
 --
@@ -9137,6 +9192,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170403094115'),
 ('20170427123530'),
 ('20170427130642'),
-('20170502165422');
+('20170502165422'),
+('20170505104641'),
+('20170505112521');
 
 
