@@ -8,7 +8,15 @@ module Renalware
       subject { LetterFactory.new(patient) }
 
       describe "#build" do
-        it "sets the patient's Primary Care Physician as the main recipient" do
+        it "sets the patient as the main recipient if no Primary Care Physician present" do
+          letter = subject.build
+
+          expect(letter.main_recipient.person_role).to eq("patient")
+        end
+
+        it "sets the patient's Primary Care Physician as the main recipient if present" do
+          patient.primary_care_physician = create(:letter_primary_care_physician)
+
           letter = subject.build
 
           expect(letter.main_recipient.person_role).to eq("primary_care_physician")
