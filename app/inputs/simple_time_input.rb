@@ -23,7 +23,7 @@ class SimpleTimeInput < SimpleForm::Inputs::StringInput
   end
 
   def icon_clock
-    "<span class='prefix'><i class='fi-clock'></i></span>".html_safe
+    "<span class='prefix'><i class='fa fa-clock-o'></i></span>".html_safe
   end
 
   def input_type

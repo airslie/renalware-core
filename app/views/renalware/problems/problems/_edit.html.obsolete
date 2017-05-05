@@ -1,6 +1,6 @@
 dl.accordion(data-accordion)
   dd.accordion-navigation.med-form
-    a.fi-plus.fi-minus.toggle-info.problem href="#edit-probs-#{pb.object.id}"
+    a.fa-plus.fa-minus.toggle-info.problem href="#edit-probs-#{pb.object.id}"
       = "#{pb.object.full_description}, #{pb.object.created_at.to_date}"
       .right.edit
         | Edit
