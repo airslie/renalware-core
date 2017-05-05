@@ -9,6 +9,7 @@ module Renalware
       belongs_to :patient
       belongs_to :type, class_name: "Type"
       belongs_to :site, class_name: "Site"
+      belongs_to :pd_catheter_insertion_technique, class_name: "CatheterInsertionTechnique"
 
       has_paper_trail class_name: "Renalware::Accesses::Version"
 

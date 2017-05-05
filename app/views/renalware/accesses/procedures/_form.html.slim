@@ -20,6 +20,11 @@ ruby:
         collection: Renalware::Accesses::Site.ordered,
         wrapper: :horizontal_small
     = f.input :side, wrapper: :horizontal_small
+    = f.association :pd_catheter_insertion_technique,
+                    collection: Renalware::Accesses::CatheterInsertionTechnique.ordered,
+                    label_method: :description,
+                    value_method: :code,
+                    wrapper: :horizontal_medium
     = f.input :notes, as: :text, input_html: { rows: 5 }, wrapper: :horizontal_large
     = f.input :catheter_make, wrapper: :horizontal_small
     = f.input :catheter_lot_no,wrapper: :horizontal_small
