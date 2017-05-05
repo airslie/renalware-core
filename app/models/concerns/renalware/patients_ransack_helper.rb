@@ -6,9 +6,7 @@ module Renalware
 
     included do
       class_eval do
-        scope :identity_match, ->(identity = 1) {
-          where(sql_and_params(identity))
-        }
+        scope :identity_match, ->(identity = 1) { where(sql_and_params(identity)) }
       end
     end
 
@@ -31,7 +29,8 @@ module Renalware
       end
 
       def sanitize_query!(query)
-        query.delete!(",")
+        query.tr!(",", " ")
+        query.gsub!("  ", " ")
       end
 
       def sql_and_params(query)
