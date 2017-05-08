@@ -1,5 +1,7 @@
 = f.simple_fields_for attribute, f.object.public_send(attribute) do |fd|
-  = fd.input :value,
-             label: f.object.class.human_attribute_name(attribute),
-             wrapper: :horizontal_small,
-             collection: Renalware::BloodGroup.valid_values
+  = fd.input :group,
+             label: attr_name(fd.object, :group),
+             wrapper: :horizontal_small
+  = fd.input :rhesus,
+             label: fd.object.class.human_attribute_name(:rhesus),
+             wrapper: :horizontal_small

@@ -1,13 +1,10 @@
 module Renalware
   class BloodGroup < NestedAttribute
-    attribute :value, String
-
-    def self.valid_values
-      %w(A B O AB)
-    end
+    attribute :group, Document::Enum, enums: %i(A B O AB)
+    attribute :rhesus, Document::Enum, enums: %i(positive negative)
 
     def to_s
-      value
+      "#{group&.text} #{rhesus&.text}".strip
     end
   end
 end

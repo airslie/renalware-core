@@ -33,7 +33,7 @@ module Renalware
       "pancreas_only_type": "solid_organ", "also_listed_for_kidney_only": "no",
       "to_be_listed_for_other_organs": "no",
       "received_previous_kidney_or_pancreas_grafts": "no"},
-      "transplant": {"blood_group": {"value": "A"},
+      "transplant": {"blood_group": {"group": "A", "rhesus": "positive"},
       "sens_status": "SADF;LJ;K", "nb_of_previous_grafts": 0}}', '2017-02-23 13:34:24.618171',
       '2017-02-23 13:34:24.618171');
     SQL
@@ -101,13 +101,14 @@ log "SQL INSERT Transplant Recipient Operation for Roger RABBIT" do
       '2017-02-23 09:15:00', 5100, 5520, 'Uneventful Tx.', '{"donor":
       {"age": {"unit": "years", "amount": 36}, "hla": "DASFS", "type":
       "cadaver", "gender": "male", "asystolic": "yes",
-      "cmv_status": "unknown", "blood_group": {"value": "B"}, "kidney_side": "left",
+      "cmv_status": "unknown", "blood_group": {"group": "B", "rhesus": "positive"},
+      "kidney_side": "left",
       "hla_mismatch": "WWERW", "kidney_weight": 234, "ethnic_category": "other_european",
       "ukt_notified_at": "2017-02-22T06:07:00.000+00:00", "ukt_donor_number": "54321",
-      "blood_group_rhesus": "positive", "organ_donor_register_checked": "yes"},
+      "organ_donor_register_checked": "yes"},
       "bk_virus": {"notes": "BKV notes here", "results": "NEGATIVE",
       "tested_on": "2017-02-22"}, "recipient": {"cmv_status": "negative",
-      "blood_group": {"value": "B"}, "last_dialysis_on": "2017-02-21",
+      "blood_group": {"group": "B", "rhesus": "positive"}, "last_dialysis_on": "2017-02-21",
       "operation_number": 12345},
       "cadaveric_donor": {"death_certified_at": "2017-02-22T19:19:00.000+00:00",
       "ukt_cause_of_death": "trauma_rta_pushbike",
