@@ -5,10 +5,13 @@ AllCops:
     - "vendor/**/*"
     - "bin/**/*"
     - "lib/tasks/**/*"
-    - "db/schema.rb"
     - "db/seeds/**/*"
     - "db/migrate/**/*"
     - "config/initializers/devise.rb"
+    - "spec/dummy/bin/**/*"
+    - "spec/dummy/lib/tasks/**/*"
+    - "spec/dummy/db/schema.rb"
+    - "spec/dummy/db/seeds/**/*"
   UseCache: false
   DisabledByDefault: false
 

@@ -14,10 +14,13 @@ describe Renalware::HD::ProtocolPresenter do
   describe "#prescriptions" do
     it "returns only the patient's prescriptions that should be administered on HD" do
       patient = create(:hd_patient)
+      create(:prescription, patient: patient, administer_on_hd: true)
+      create(:prescription, patient: patient, administer_on_hd: false)
       presenter = Renalware::HD::ProtocolPresenter.new(patient, nil)
 
-      expect(patient.prescriptions).to receive(:to_be_administered_on_hd)
       presenter.prescriptions
+      expect(presenter.prescriptions.length).to eq(1)
+      expect(presenter.prescriptions.first.administer_on_hd).to be_truthy
     end
   end
 end

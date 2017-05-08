@@ -4,7 +4,7 @@
 table#patients.live-donors.columns
   thead
     tr
-      th.col-width-medium= sort_link(q, :family_name, t(".name"))
+      th.col-width-medium= sort_link([:renalware, q], :family_name, t(".name"))
       th.col-width-nhs-no= t(".nhs_no")
       th.col-width-reference-no= t(".hosp_no")
       th= t(".stage.position")

@@ -1,0 +1,8 @@
+.letter-wrapper {
+  &.draft, &.pendingreview {
+    background-image: image-url('renalware/draft.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+}
+

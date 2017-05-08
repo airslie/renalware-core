@@ -9,7 +9,7 @@ namespace_and_schema = {
   "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
   "xsi:schemaLocation" => [
     "http://www.rixg.org.uk/",
-    Rails.root.join("vendor", "xsd", "ukrdc/UKRDC.xsd")
+    Renalware::Engine.root.join("vendor", "xsd", "ukrdc/UKRDC.xsd")
   ].join(" ")
 }
 

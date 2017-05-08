@@ -1,5 +1,5 @@
-
 require_dependency "renalware/letters"
+require_dependency "collection_presenter"
 
 module Renalware
   module Letters

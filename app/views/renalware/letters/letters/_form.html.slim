@@ -35,8 +35,8 @@ ruby:
           user_to_promote_to_top: current_user \
         )
 
-  = render "main_recipient", f: f, contacts: contacts
-  = render "additional_ccs", f: f, contacts: contacts
+  = render "main_recipient", f: f, contacts: contacts, patient: @patient
+  = render "additional_ccs", f: f, contacts: contacts, patient: @patient
 
   article
     header

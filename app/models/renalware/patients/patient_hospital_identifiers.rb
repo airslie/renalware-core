@@ -1,4 +1,4 @@
-# A patient can have may 'local hospital identifers' for example they may have come
+# A patient can have may 'local hospital identifiers' for example they may have come
 # initially into hospital id where they were assigned the id e.g. KCH123. Subsequently
 # they might move to or be treated in another hospital and may be assigned a different number.
 # We capture all these numbers in the database. The hospital hosting Renalware will have a
@@ -8,6 +8,7 @@
 # patient number, at least until another number with a higher 'preference' is assigned to the
 # patient. The order of preference for local patient ids is set in Renalware.config (in an
 # initialiser in the host application) in
+
 module Renalware
   module Patients
     class PatientHospitalIdentifiers

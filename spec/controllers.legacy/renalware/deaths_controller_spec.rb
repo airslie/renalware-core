@@ -2,6 +2,7 @@ require "rails_helper"
 
 module Renalware
   RSpec.describe DeathsController, type: :controller do
+    routes { Engine.routes }
 
     subject { create(:patient) }
 

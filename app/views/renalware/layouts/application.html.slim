@@ -3,9 +3,12 @@ html lang="en"
   head
     meta charset="utf-8"
     meta name="viewport" content="width=device-width, initial-scale=1.0"
-    title= page_title
-    = stylesheet_link_tag "application", media: :all
-    = javascript_include_tag "vendor/modernizr"
+
+    - if defined?(page_title)
+      title= page_title
+
+    = stylesheet_link_tag "renalware/application", media: :all
+    = javascript_include_tag "renalware/modernizr"
     = csrf_meta_tag
     link(rel="apple-touch-icon" sizes="180x180" href="#{image_path('favicon/apple-touch-icon.png?1')}")
     link(rel="icon" type="image/png" sizes="32x32" href="#{image_path('favicon/favicon-32x32.png?1')}")
@@ -24,7 +27,8 @@ html lang="en"
           = render "renalware/navigation/main"
         = yield(:header)
 
-      = render "renalware/shared/flash_messages"
+      - if defined?(flash_messages)
+        = render "renalware/shared/flash_messages"
 
       main
         .main-content
@@ -33,4 +37,4 @@ html lang="en"
       - unless user_signed_in?
         = render "renalware/navigation/footer"
     - load_js_asynchonously = (Rails.env.staging? || Rails.env.production?)
-    = javascript_include_tag "application", async: load_js_asynchonously
+    = javascript_include_tag "renalware/application", async: load_js_asynchonously

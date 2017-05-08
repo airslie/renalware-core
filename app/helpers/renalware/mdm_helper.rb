@@ -10,7 +10,7 @@ module Renalware
     #
     class MDMLink
       include ActionView::Helpers
-      include Rails.application.routes.url_helpers
+      include Renalware::Engine.routes.url_helpers
 
       def initialize(patient)
         @patient = patient

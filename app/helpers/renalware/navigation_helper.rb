@@ -1,5 +1,7 @@
 module Renalware
   module NavigationHelper
+    # Path here must be already resolved to a string using url_for
+    # e.g. Engine.routes.url_for({controller: .., action: .., only_path: true})
     def sub_nav_item(label, path)
       current_page = current_page?(path)
       content_tag(:dd, class: (current_page ? "active" : "")) do

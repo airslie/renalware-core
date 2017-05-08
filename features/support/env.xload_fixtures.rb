@@ -39,7 +39,7 @@ table_model_map = models.each_with_object({}) { |model, hsh| hsh[model.table_nam
 
 Before do
   ActiveRecord::FixtureSet.reset_cache
-  fixtures_folder = Rails.root.join("features", "support", "fixtures")
+  fixtures_folder = Renalware::Engine.root.join("features", "support", "fixtures")
   fixtures = Dir[File.join(fixtures_folder, "*.yml")].map { |f| File.basename(f, ".yml") }
   ActiveRecord::FixtureSet.create_fixtures(fixtures_folder, fixtures, table_model_map)
 end

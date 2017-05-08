@@ -22,7 +22,7 @@ article.clinical-allergies
       - patient.allergies.each do |allergy|
         tr data-allergy-id=allergy.id
           td= allergy.description
-          td= l(allergy.recorded_at)
+          td = l(allergy.recorded_at)
           td.right
             = link_to t(".delete"),
                       patient_clinical_allergy_path(patient_id: patient, id: allergy),

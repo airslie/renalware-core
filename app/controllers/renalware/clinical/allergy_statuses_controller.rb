@@ -8,7 +8,8 @@ module Renalware
         authorize patient
         form = AllergyStatusForm.new(allergy_status_params)
         if form.save(patient, current_user)
-          redirect_to :back, notice: "Allergy status updated"
+          redirect_back fallback_location: patient_clinical_profile_path(patient),
+                        notice: "Allergy status updated"
         else
           # we use client-side validation so will not get here
           raise NotImplementedError
