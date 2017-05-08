@@ -40,7 +40,7 @@ module World
       def expect_clinical_letter_to_list_current_prescriptions(patient:)
         letter = clinical_letter_for(patient)
 
-        letter = Renalware::Letters::LetterPresenterFactory.new(clinical_letter_for(patient))
+        letter = Renalware::Letters::LetterPresenterFactory.new(letter)
         expect(letter.part_for(:prescriptions)).to be_present
       end
 
@@ -56,6 +56,13 @@ module World
 
         letter = Renalware::Letters::LetterPresenterFactory.new(letter)
         expect(letter.part_for(:recent_pathology_results)).to be_present
+      end
+
+      def expect_clinical_letter_to_list_allergies(patient:)
+        letter = clinical_letter_for(patient)
+
+        letter = Renalware::Letters::LetterPresenterFactory.new(letter)
+        expect(letter.part_for(:allergies)).to be_present
       end
     end
 
@@ -126,6 +133,21 @@ module World
 
         pathology_patient.observations.each do |observation|
           expect(page.body).to include(observation.to_s)
+        end
+      end
+
+      def expect_clinical_letter_to_list_allergies(patient:)
+        visit patient_letters_letters_path(patient)
+        click_on "Preview"
+
+        visit_iframe_content
+
+        clinical_patient = Renalware::Clinical.cast_patient(patient)
+
+        expect(clinical_patient.allergies).to be_present
+
+        clinical_patient.allergies.each do |allergy|
+          expect(page.body).to include(allergy.description)
         end
       end
     end
