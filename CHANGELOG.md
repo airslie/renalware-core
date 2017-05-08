@@ -8,6 +8,14 @@ This project adheres to Semantic Versioning.
 
 ### Added
 
+### Changed
+
+### Fixed
+
+## v2.0.0-beta2
+
+### Added
+
 - Add Access Catheter Insertion Techniques to Access Procedure
 - When Clinic visit is printed it hides filters a adds space under each row for notes
 - Allow patient search with a comma and no spaces e.g. `Rabb,Rog`
