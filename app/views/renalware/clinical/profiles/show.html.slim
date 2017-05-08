@@ -26,6 +26,26 @@
             dt Smoking
             dd= profile.smoking_history.text
 
+      .columns.medium-6
+        article
+          header
+            h2 Death Record
+
+        - if patient.died_on.present?
+
+          dl.dl-horizontal
+
+            dt Date of Death:
+            dd= patient.died_on
+
+            dt 1st Death cause:
+            dd= patient.first_edta_code.death_cause
+
+            dt 2nd Death cause:
+            dd= default_for_associated(patient.second_edta_code, :death_cause, "N/A")
+
+        = link_to "Update Death Record", edit_patient_death_path(patient)
+
       .columns.medium-12.large-6
         = render "renalware/clinical/allergies/list",
                  patient: patient,
@@ -33,4 +53,3 @@
 
       .columns.medium-12.large-6
         = render "renalware/events/swabs/list", swabs: profile.swabs, patient: patient
-
