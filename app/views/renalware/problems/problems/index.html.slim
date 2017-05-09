@@ -1,18 +1,9 @@
-= within_patient_layout(title: "Problems") do
+= content_for(:actions) do
+  =link_to "Add",
+          new_patient_problem_path(patient),
+          class: "button"
 
-  - if !current_user.has_role?(:read_only) && params[:add_problem].present?
-    = simple_form_for problem,
-                      url: patient_problems_path(@patient),
-                      wrapper: :horizontal_form,
-                      validate: true do |f|
-        = field_set_tag "New problem" do
-          .row
-            .large-6.columns
-              = f.input :description
-            .large-6.columns
-              = f.button :button, "Save", class: "tiny"
-              span= " or "
-              = link_to "cancel", patient_problems_path(@patient)
+= within_patient_layout(title: "Problems") do
 
   h2 Current
   = render "renalware/problems/problems/current_table", problems: current_problems

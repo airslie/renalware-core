@@ -1,22 +1,6 @@
-= within_patient_layout(title: "Problem") do
+= within_patient_layout(title: "Problem",
+                        breadcrumbs: problems_breadcrumb(patient))
 
-  = field_set_tag "Problem" do
-    = render "details", patient: @patient, problem: @problem
-
-  = render "renalware/problems/notes/list"
-
-  = field_set_tag "Problem History" do
-    - @problem.versions.map(&:reify).compact.tap do |problems|
-      - if problems.empty?
-        p There are no revisions for this problem.
-      - else
-          table
-            thead
-              tr
-                th Description
-                th Recorded at
-            - problems.each do |problem|
-              tbody
-                tr
-                  td= problem.description
-                  td= l problem.updated_at
+  = render "details", patient: patient, problem: problem
+  = render "renalware/problems/notes/list", problem: problem, notes: notes
+  = render "history", problem: problem

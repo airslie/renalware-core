@@ -1,58 +1,80 @@
 module Renalware
   module Problems
     class ProblemsController < BaseController
-      before_action :load_patient
 
       def index
-        render :index, locals: locals(Problem.new)
+        problems = patient.problems
+        authorize problems
+        render locals: {
+          patient: patient,
+          current_problems: problems.current.with_created_by.ordered,
+          archived_problems: problems.archived.with_created_by.ordered
+        }
       end
 
       def show
-        @problem = patient.problems.with_archived.find(params[:id])
-        @notes = @problem.notes.with_updated_by.ordered
+        problem = patient.problems.with_archived.find(params[:id])
+        notes = problem.notes.with_updated_by.ordered
+        authorize problem
+        render locals: {
+          patient: patient,
+          problem: problem,
+          notes: notes
+        }
       end
 
       def edit
-        @problem = patient.problems.find(params[:id])
+        problem = find_problem
+        authorize problem
+        render locals: {
+          patient: patient,
+          problem: problem
+        }
       end
 
       def update
-        @problem = @patient.problems.find(params[:id])
-        @problem.assign_attributes(problem_params)
+        authorize(problem = find_problem)
 
-        if @problem.save
-          redirect_to patient_problems_path(@patient),
-            notice: t(".success", model_name: "problem")
+        if update_problem(problem)
+          redirect_to patient_problem_path(patient, problem), notice: success_msg_for("problem")
         else
-          flash[:error] = t(".failed", model_name: "problem")
-          render :edit, locals: locals(@problem)
+          flash[:error] = failed_msg_for("problem")
+          render :edit, locals: {
+            patient: patient,
+            problem: problem
+          }
         end
       end
 
-      def create
-        @problems = patient.problems
-        @problem = patient.problems.new(problem_params)
+      def new
+        problem = patient.problems.build
+        authorize problem
+        render locals: { patient: patient, problem: problem }
+      end
 
-        if @problem.save
-          redirect_to patient_problems_url(patient),
-            notice: t(".success", model_name: "problem")
+      def create
+        problem = patient.problems.new(problem_params)
+        authorize problem
+
+        if problem.save
+          redirect_to patient_problems_url(patient), notice: success_msg_for("problem")
         else
-          flash[:error] = t(".failed", model_name: "problem")
-          render :index, locals: locals(@problem)
+          flash[:error] = failed_msg_for("problem")
+          render :new, locals: { patient: patient, problem: problem }
         end
       end
 
       def destroy
-        @problem = patient.problems.find(params[:id])
-        @problem.by = current_user
-        @problem.save!
-        @problem.destroy
-
-        redirect_to patient_problems_path(patient),
-          notice: t(".success", model_name: "problem")
+        problem = find_problem
+        authorize problem
+        problem.by = current_user
+        problem.save!
+        problem.destroy
+        redirect_to patient_problems_path(patient), notice: success_msg_for("problem")
       end
 
       def sort
+        authorize Problem, :sort?
         ids = params[:problems_problem]
         Problem.sort(ids)
         render json: ids
@@ -60,12 +82,13 @@ module Renalware
 
       private
 
-      def locals(problem)
-        {
-          problem: problem,
-          current_problems: patient.problems.current.with_created_by.ordered,
-          archived_problems: patient.problems.archived.with_created_by.ordered
-        }
+      def find_problem
+        patient.problems.find(params[:id])
+      end
+
+      def update_problem(problem)
+        problem.assign_attributes(problem_params)
+        problem.save
       end
 
       def problem_params

@@ -22,7 +22,7 @@ module Renalware::Problems
                 problems_problem: { description: "testing" }
               }
 
-          expect(response).to redirect_to(patient_problems_path(patient))
+          expect(response).to redirect_to(patient_problem_path(patient, problem))
         end
       end
 

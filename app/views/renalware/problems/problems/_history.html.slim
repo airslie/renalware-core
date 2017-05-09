@@ -1,0 +1,17 @@
+article
+  header
+    h2 History
+  - problem.versions.map(&:reify).compact.tap do |problems|
+    - if problems.empty?
+      span There are no revisions for this problem.
+    - else
+        table
+          thead
+            tr
+              th Description
+              th.col-width-date-time Recorded at
+          - problems.each do |problem|
+            tbody
+              tr
+                td= problem.description
+                td= l problem.updated_at
