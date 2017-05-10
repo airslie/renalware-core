@@ -17,8 +17,8 @@ Then(/^I should see the patient's current modality set as death with start date$
   expect(page).to have_content(I18n.l(Date.parse("01-04-2015")))
 end
 
-Then(/^I should see the date of death and causes of death in the patient's demographics$/) do
-  visit patient_path(@patient_1)
+Then(/^I should see the date of death and causes of death in the patient's clinical profile$/) do
+  visit patient_clinical_profile_path(@patient_1)
 
   expect(page).to have_content(I18n.l(Date.parse("22-09-2014")))
   expect(page).to have_content("Dementia")
