@@ -30,21 +30,20 @@
         article
           header
             h2 Death Record
+            = link_to "Update", edit_patient_death_path(patient), class: "button"
 
-        - if patient.died_on.present?
+          - if patient.died_on.present?
 
-          dl.dl-horizontal
+            dl.dl-horizontal
 
-            dt Date of Death:
-            dd= patient.died_on
+              dt Date of Death:
+              dd= patient.died_on
 
-            dt 1st Death cause:
-            dd= patient.first_edta_code.death_cause
+              dt 1st Death cause:
+              dd= patient.first_edta_code.death_cause
 
-            dt 2nd Death cause:
-            dd= default_for_associated(patient.second_edta_code, :death_cause, "N/A")
-
-        = link_to "Update Death Record", edit_patient_death_path(patient)
+              dt 2nd Death cause:
+              dd= default_for_associated(patient.second_edta_code, :death_cause, "N/A")
 
       .columns.medium-12.large-6
         = render "renalware/clinical/allergies/list",
