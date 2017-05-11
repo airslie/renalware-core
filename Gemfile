@@ -28,6 +28,7 @@ gem "kaminari"
 gem "naught", "~> 1.1.0"
 gem "nested_form"
 gem "nokogiri", ">= 1.7.1"
+gem "pandoc-ruby"
 gem "paper_trail"
 gem "paranoia"
 gem "pg"
@@ -37,7 +38,6 @@ gem "rails", "5.0.2"
 gem "ransack", git: "https://github.com/activerecord-hackery/ransack.git"
 gem "record_tag_helper", "~> 1.0"
 gem "rollbar"
-gem "pandoc-ruby"
 gem "ruby-hl7", "~> 1.2.0"
 gem "sass-rails"
 gem "scenic"
@@ -64,6 +64,12 @@ end
 
 group :development do
   gem "bullet"
+  # https://github.com/aleks/ansible-rails#rails-setup
+  gem "capistrano", "~> 3.6"
+  gem "capistrano-rails", "~> 1.2"
+  gem "capistrano3-puma"
+  # gem "capistrano-rbenv"
+  # gem "capistrano-rails-collection"
   gem "guard-cucumber", require: false
   gem "guard-rspec", require: false
   gem "rack-mini-profiler"
