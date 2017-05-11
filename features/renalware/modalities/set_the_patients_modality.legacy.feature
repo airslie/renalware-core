@@ -14,6 +14,6 @@ Feature: Set the patient's modality
     Given I choose to add a modality
     When I select death modality
     When I complete the cause of death form
-    Then I should see the date of death and causes of death in the patient's demographics
+    Then I should see the date of death and causes of death in the patient's clinical profile
       And I should see the patient on the death list
       And I should see the patient's current modality set as death with start date

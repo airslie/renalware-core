@@ -37,7 +37,7 @@ module Renalware
                 first_edta_code_id: @edta_code.id
               }
             }
-          expect(response).to redirect_to(patient_path(subject))
+          expect(response).to redirect_to(patient_clinical_profile_path(subject))
         end
       end
 

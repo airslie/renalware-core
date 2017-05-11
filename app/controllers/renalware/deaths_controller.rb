@@ -14,7 +14,7 @@ module Renalware
 
     def update
       if @patient.update(death_params)
-        redirect_to patient_path(@patient),
+        redirect_to patient_clinical_profile_path(@patient),
           notice: t(".success", model_name: "patient")
       else
         flash[:error] = t(".failed", model_name: "patient")

@@ -48,16 +48,3 @@ article
   dl.dl-horizontal
     dt Paediatric Patient:
     dd= yes_no(patient.paediatric_patient_indicator)
-
-
-- if patient.died_on.present?
-
-      = field_set_tag "Death Record" do
-        dl.dl-horizontal
-          dt First cause of Death:
-          dd= patient.first_edta_code.death_cause
-
-          dt Second cause of Death:
-          dd= default_for_associated(patient.second_edta_code, :death_cause, "N/A")
-
-        = link_to "Update Death Record", edit_patient_death_path(patient)
