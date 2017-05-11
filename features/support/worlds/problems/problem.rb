@@ -75,22 +75,19 @@ module World
         login_as user
 
         visit patient_problems_path(patient)
-        click_on "Add problem"
-        within ".patient-content" do
-          fill_in "Description", with: "major problem"
-          click_on "Save"
-        end
+        click_on "Add"
+        fill_in "Description", with: "major problem"
+        click_on "Create"
       end
 
       def revise_problem_for(patient:, user:, description:)
         login_as user
 
         visit patient_problem_path(patient, problem_for(patient))
-        within_fieldset "Problem" do
-          click_on "Edit"
-        end
+        click_on "Edit"
+        # actually now goes to #show
 
-        within_fieldset "Edit problem" do
+        within ".problem-form" do
           fill_in "Description", with: description
           click_on "Save"
         end

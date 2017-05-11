@@ -1,0 +1,12 @@
+= within_patient_layout(title: "New", breadcrumbs: problems_breadcrumb(patient)) do
+
+  = simple_form_for problem,
+                    url: patient_problems_path(patient),
+                    html: { autocomplete: "off" },
+                    wrapper: :horizontal_form do |f|
+
+    = f.input :description, wrapper: :horizontal_small
+
+    = f.button :submit
+    span= " or "
+    = link_to "cancel", patient_problems_path(patient)
