@@ -1,0 +1,13 @@
+en:
+  activemodel:
+    attributes:
+      renalware/blood_group:
+        group: Blood Group
+        rhesus: Rhesus
+  enumerize:
+    renalware/blood_group:
+      group:
+        A: A
+        B: B
+        O: O
+        AB: AB
