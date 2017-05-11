@@ -84,5 +84,7 @@ staging:
   pool: <%= ENV["DB_POOL"] || ENV['RAILS_MAX_THREADS'] || 5 %>
 
 production:
-  url: <%= ENV['DATABASE_URL'] %>
+  <<: *default
+  username: renalware
+  database: renalware_production
   pool: <%= ENV["DB_POOL"] || ENV['RAILS_MAX_THREADS'] || 5 %>

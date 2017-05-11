@@ -3,16 +3,19 @@ lock "3.8.1"
 
 set :application, "renalware"
 set :repo_url, "git@github.com:airslie/renalwarev2.git"
+# TODO: change to master
+set :branch, "chore/capistrano_and_vagrant"
 # set :deploy_to, "/var/www/renalware"
 
 # Default value for :pty is false
 # set :pty, true
 
+append :stages, %w(vagrant)
+
 # Default value for :linked_files is []
-append :linked_files, "config/database.yml", "config/secrets.yml"
+# append :linked_files, "config/secrets.yml"
 
 # Default value for linked_dirs is []
-# append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
 append :linked_dirs,
        "log",
        "tmp/pids",
