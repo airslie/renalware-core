@@ -4,7 +4,7 @@ When(/^I select death modality$/) do
       select "Death"
     end
 
-    fill_in "Started on", with: "01-04-2015"
+    fill_in "Started on", with: "22-09-2014"
 
     click_on "Save"
   end
@@ -14,7 +14,7 @@ Then(/^I should see the patient's current modality set as death with start date$
   visit patient_modalities_path(@patient_1)
 
   expect(page).to have_content("Death")
-  expect(page).to have_content(I18n.l(Date.parse("01-04-2015")))
+  expect(page).to have_content(I18n.l(Date.parse("22-09-2014")))
 end
 
 Then(/^I should see the date of death and causes of death in the patient's clinical profile$/) do
