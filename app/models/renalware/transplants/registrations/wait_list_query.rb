@@ -57,6 +57,11 @@ module Renalware
             Arel.sql("transplant_registrations.document -> 'crf' -> 'latest' ->> 'result'")
           end
 
+          private_class_method :ransackable_scopes
+
+          def self.ransackable_scopes(_auth_object = nil)
+            %i(current_status_in)
+          end
         end
       end
     end
