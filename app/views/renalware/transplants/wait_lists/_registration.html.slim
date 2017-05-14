@@ -15,7 +15,6 @@ tr
     - Renalware::Renal.cast_patient(registration.patient).tap do |patient|
       - if diagnosed_on = patient.profile.try(:diagnosed_on)
         = I18n.l diagnosed_on
-  td Pull from workup
   td= I18n.l registration.entered_on
   td
     - if registration.entered_on

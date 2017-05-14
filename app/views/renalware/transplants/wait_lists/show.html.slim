@@ -4,8 +4,7 @@
       active: "Active",
       suspended: "Suspended",
       active_and_suspended: "Active & Suspended",
-      working_up: "Working Up",
-      nhb_consent: "NHB Consent"
+      working_up: "Working Up"
     }
 
   h2.print-only= filters[path_params[:filter].to_sym]
@@ -26,7 +25,6 @@
         th Modal
         th= sort_link(q, :uk_transplant_centre_code, "Site")
         th= sort_link(q, :patient_renal_profile_diagnosed_on, "ESRF Date")
-        th NHB Cons?
         th= sort_link(q, :entered_on, "Entry Date")
         th DOL
         th Bld Grp
