@@ -41,7 +41,7 @@ module World
         end
       end
 
-      def revise_organism_for(infectable:, sensitivity:)
+      def revise_organism_for(infectable:, sensitivity:, resistance:)
         within "#infection-organisms" do
           click_on "Edit"
 
