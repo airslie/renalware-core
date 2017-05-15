@@ -3,6 +3,8 @@ en:
     pd:
       treatments:
         capd:
+          - "CAPD 1 exchange per day"
+          - "CAPD 2 exchanges per day"
           - "CAPD 3 exchanges per day"
           - "CAPD 4 exchanges per day"
           - "CAPD 5 exchanges per day"
@@ -11,5 +13,7 @@ en:
           - "APD Dry Day Assisted"
           - "APD Wet Day"
           - "APD Wet Day Assisted"
-          - "APD Wet Day with additional exchange"
-          - "APD Wet Day Assisted with additional exchange"
+          - "APD Wet Day w additional manual exchange"
+          - "APD Wet Day w additional machine exchange"
+          - "APD Wet Day Assisted w additional manual exchange"
+          - "APD Wet Day Assisted w additional machine exchange"
