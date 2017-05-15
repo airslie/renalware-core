@@ -99,6 +99,7 @@ Then(/^Clyde can revise the peritonitis episode$/) do
   revise_organism_for(
     infectable: episode_for(@patty),
     sensitivity: "Lorem ipsum."
+    resistance: "tetracycline"
   )
 
   revise_prescription_for(

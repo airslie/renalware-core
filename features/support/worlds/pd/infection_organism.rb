@@ -9,10 +9,11 @@ module World
         infectable.infection_organisms.create!(organism_code: code)
       end
 
-      def revise_organism_for(infectable:, sensitivity:)
+      def revise_organism_for(infectable:, sensitivity:, resistance:)
         organism = infectable.infection_organisms.last!
 
         organism.update!(sensitivity: sensitivity)
+        organism.update!(resistance: resistance)
       end
 
       def terminate_organism_for(infectable:, user:)
@@ -45,6 +46,7 @@ module World
           click_on "Edit"
 
           fill_in "Sensitivity", with: sensitivity
+          fill_in "Resistance", with: resistance
           click_on "Save"
           wait_for_ajax
         end
