@@ -102,7 +102,7 @@ Then(/^Clyde can revise the exist site infection$/) do
 
   revise_organism_for(
     infectable: infection_for(@patty),
-    sensitivity: "Lorem ipsum."
+    sensitivity: "Lorem ipsum.",
     resistance: "tetracycline"
   )
 
