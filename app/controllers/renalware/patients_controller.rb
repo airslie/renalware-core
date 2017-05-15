@@ -80,6 +80,8 @@ module Renalware
         :language_id, :cc_decision_on,
         :local_patient_id, :local_patient_id_2, :local_patient_id_3,
         :local_patient_id_4, :local_patient_id_5, :external_patient_id,
+        :send_to_renalreg, :send_to_rpv, :renalreg_decision_on, :rpv_decision_on,
+        :renalreg_recorded_by, :rpv_recorded_by,
         current_address_attributes: address_params
       ]
     end

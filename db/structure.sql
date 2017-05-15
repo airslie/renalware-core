@@ -1920,7 +1920,13 @@ CREATE TABLE patients (
     local_patient_id_3 character varying,
     local_patient_id_4 character varying,
     local_patient_id_5 character varying,
-    external_patient_id character varying
+    external_patient_id character varying,
+    send_to_renalreg boolean DEFAULT false NOT NULL,
+    send_to_rpv boolean DEFAULT false NOT NULL,
+    renalreg_decision_on date,
+    rpv_decision_on date,
+    renalreg_recorded_by character varying,
+    rpv_recorded_by character varying
 );
 
 
@@ -9197,5 +9203,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170505104641'),
 ('20170505112521'),
 ('20170515105635');
+('20170512150125');
 
 
