@@ -89,7 +89,7 @@ module Renalware
       def visit_params
         @visit_params ||= begin
           params.require(:clinic_visit).permit(
-            :date, :time, :clinic_id, :height, :weight, :pulse,
+            :date, :time, :clinic_id, :height, :weight, :pulse, :temperature,
             :bp, :urine_blood, :urine_protein, :notes, :admin_notes, :did_not_attend,
             :built_from_appointment_id
           ).to_h.merge(by: current_user)
