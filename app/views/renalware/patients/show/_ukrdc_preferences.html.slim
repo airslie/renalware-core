@@ -1,16 +1,21 @@
 article
   header
-    h2 UKRDC Preferences
+    h2 Renal Registry Preferences
   dl.dl-horizontal
-    dt Send data to Renal Registry:
+    dt Send data?
     dd= yes_no(patient.send_to_renalreg)
-    dt Renal Reg decision date:
+    dt Decision date:
     dd= l(patient.renalreg_decision_on)
-    dt Renal Reg decision recorded by:
+    dt Recorded by:
     dd= patient.renalreg_recorded_by
-    dt Send data to Renal Patient View:
+
+article
+  header
+    h2 Renal Patient View Preferences
+  dl.dl-horizontal
+    dt Send data?
     dd= yes_no(patient.send_to_rpv)
-    dt Renal Reg decision date:
+    dt Decision date:
     dd= l(patient.rpv_decision_on)
-    dt Renal Reg decision recorded by:
+    dt Recorded by:
     dd= patient.rpv_recorded_by
