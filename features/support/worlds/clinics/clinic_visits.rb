@@ -23,6 +23,7 @@ module World
             systolic_bp: 112,
             diastolic_bp: 71,
             pulse: 100,
+            temperature: 37.3,
             did_not_attend: false,
             notes: "Notes",
             admin_notes: "Admin notes",
@@ -42,6 +43,7 @@ module World
             height: 1.71,
             weight: 75.0,
             pulse: 101,
+            temperature: 37.7,
             did_not_attend: false,
             notes: "Updated notes",
             admin_notes: "Updated admin notes",
@@ -64,6 +66,7 @@ module World
           expect(clinic_visit.height).to eq(1.71)
           expect(clinic_visit.weight).to eq(75)
           expect(clinic_visit.pulse).to eq(101)
+          expect(clinic_visit.temperature).to eq(37.7)
           expect(ActionView::Base.full_sanitizer.sanitize(clinic_visit.notes))
             .to eq("Updated notes")
           expect(clinic_visit.admin_notes).to eq("Updated admin notes")
@@ -84,6 +87,7 @@ module World
             fill_in "Height", with: "1.78"
             fill_in "Weight", with: "82.5"
             fill_in "Pulse", with: "100"
+            fill_in "Temperature", with: "37.3"
             fill_in "Blood Pressure", with: "110/75"
             find("trix-editor").set("Notes")
             find("textarea[name='clinic_visit[admin_notes]']").set("Admin notes")
@@ -103,6 +107,7 @@ module World
           fill_in "Height", with: "1.71"
           fill_in "Weight", with: "75"
           fill_in "Pulse", with: "101"
+          fill_in "Temperature", with: "37.7"
           fill_in "Blood Pressure", with: "128/95"
           find("trix-editor").set("Updated notes")
           # find("textarea[name='clinic_visit[notes]']").set("Updated notes")
