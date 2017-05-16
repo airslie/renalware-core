@@ -93,7 +93,7 @@ Given(/^Patty is being treated for an exit site infection$/) do
   )
 end
 
-Then(/^Clyde can revise the exist site infection$/) do
+Then(/^Clyde can revise the exit site infection$/) do
   revise_exit_site_infection_for(
     patient: @patty,
     user: @clyde,
@@ -102,7 +102,8 @@ Then(/^Clyde can revise the exist site infection$/) do
 
   revise_organism_for(
     infectable: infection_for(@patty),
-    sensitivity: "Lorem ipsum."
+    sensitivity: "Lorem ipsum.",
+    resistance: "tetracycline"
   )
 
   revise_prescription_for(

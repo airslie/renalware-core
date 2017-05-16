@@ -2852,7 +2852,8 @@ CREATE TABLE pd_infection_organisms (
     infectable_type character varying,
     infectable_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    resistance text
 );
 
 
@@ -9202,6 +9203,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170502165422'),
 ('20170505104641'),
 ('20170505112521'),
+('20170515093430'),
 ('20170512150125'),
 ('20170515105635');
 
