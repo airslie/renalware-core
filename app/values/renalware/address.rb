@@ -1,6 +1,7 @@
 module Renalware
   class Address < ApplicationRecord
     validates_presence_of :street_1
+    validates :email, email: true, allow_blank: true
     validates_with AddressValidator
 
     belongs_to :addressable, polymorphic: true
