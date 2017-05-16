@@ -2,14 +2,17 @@ doctype html
 html lang="en"
   head
     meta charset="utf-8"
-
     meta name="viewport" content="width=device-width, initial-scale=1.0"
-
     title= page_title
-
     = stylesheet_link_tag "application", media: :all
     = javascript_include_tag "vendor/modernizr"
     = csrf_meta_tag
+    link(rel="apple-touch-icon" sizes="180x180" href="#{image_path('favicon/apple-touch-icon.png?1')}")
+    link(rel="icon" type="image/png" sizes="32x32" href="#{image_path('favicon/favicon-32x32.png?1')}")
+    link(rel="icon" type="image/png" sizes="16x16" href="#{image_path('favicon/favicon-16x16.png?1')}")
+    link(rel="manifest" href="#{image_path('favicon/manifest.json')}")
+    link(rel="mask-icon" href="#{image_path('favicon/safari-pinned-tab.svg')}" color="#5bbad5")
+    meta(name="theme-color" content="#ffffff")
 
   body(class="#{yield(:body_class)}")
     #modals-wrapper
