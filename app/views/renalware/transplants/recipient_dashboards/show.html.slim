@@ -40,8 +40,9 @@
              patient: patient,
              registration: registration
 
-  /= render "renalware/transplants/donations/recipient_list",
-           donations: donations
+  - if donations.any?
+    = render "renalware/transplants/donations/recipient_list",
+             donations: donations
 
   - if recipient_operations.any?
     = render "renalware/transplants/recipient_operations/list",

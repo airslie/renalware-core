@@ -185,8 +185,7 @@ Rails.application.routes.draw do
       namespace :clinical do
         resources :allergies, only: [:create, :destroy]
         resource :allergy_status, only: [:update]
-        resource :profile
-        resource :history, only: :update, controller: "history"
+        resource :profile, only: [:show, :edit, :update]
       end
 
       resources :bookmarks, only: :create, controller: "patients/bookmarks"

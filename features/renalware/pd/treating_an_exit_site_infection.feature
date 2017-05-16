@@ -14,7 +14,7 @@ Feature: Treating an exit site an infection
   @web @javascript
   Scenario: A clinician revised an exit site infection
     Given Patty is being treated for an exit site infection
-    Then Clyde can revise the exist site infection
+    Then Clyde can revise the exit site infection
 
   @web @javascript
   Scenario: A clinician terminated an organism for an exit site infection

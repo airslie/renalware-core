@@ -9,6 +9,12 @@ en:
         sex: Sex
         born_on: Date of Birth
         age: Age
+        send_to_renalreg: Send data to Renal Registry
+        send_to_rpv: Send data to Renal Patient View (RPV)
+        renalreg_decision_on: Renal Reg decision date
+        rpv_decision_on: RPV decision date
+        renalreg_recorded_by: Renal Reg decision recorded by
+        rpv_recorded_by: RPV decision recorded by
 
   enumerize:
     renalware/patient:

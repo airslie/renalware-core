@@ -1,0 +1,34 @@
+.row.filters
+  .filters__form
+    = simple_form_for query,
+        as: :q,
+        url: clinic_visits_path,
+        method: :get do |f|
+
+        .small-6.medium-2.large-2.columns
+          = f.input :date_gteq, as: :date_picker, label: "From"
+        .small-6.medium-2.large-2.columns
+          = f.input :date_lteq, as: :date_picker, label: "To"
+        .medium-3.large-2.columns
+          = f.input :clinic_id_eq, collection: clinics, label: "Clinic"
+        .medium-3.large-2.columns
+          = f.input :created_by_id_eq, as: :user_picker, collection: users, label: "Clinician"
+        .medium-2.large-3.columns.actions.end
+          = f.submit "Filter", class: "button"
+          span= " or "
+          = link_to t("helpers.reset"), clinic_visits_path
+
+  .filters__output
+
+    dl.dl-horizontal.left
+      dt From
+      dd= l(query.date_gteq)
+      dt To
+      dd= l(query.date_lteq)
+      dt Clinic
+      dd= clinics.detect{ |clinic| query.clinic_id_eq == clinic.id }&.name
+      dt Clinician
+      dd= users.detect{ |user| query.created_by_id_eq == user.id }&.to_s
+      br
+      br
+

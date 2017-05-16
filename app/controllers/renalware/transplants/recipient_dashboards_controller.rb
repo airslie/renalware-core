@@ -15,10 +15,18 @@ module Renalware
         {
           patient: patient,
           recipient_workup: RecipientWorkup.for_patient(patient).first_or_initialize,
-          registration: Registration.for_patient(patient).first_or_initialize,
+          registration: registration_presenter,
           recipient_operations: RecipientOperation.for_patient(patient).reversed,
           donations: Donation.for_recipient(patient).reversed
         }
+      end
+
+      def registration_presenter
+        WaitListRegistrationPresenter.new(registration)
+      end
+
+      def registration
+        Registration.for_patient(patient).first_or_initialize
       end
     end
   end

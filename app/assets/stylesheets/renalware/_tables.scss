@@ -71,7 +71,7 @@ table {
 
   tr th {
     &.col-width-date {
-      min-width: 7em;
+      min-width: 7.1em;
       width: 7.8em;
 
       &.wide {
@@ -89,14 +89,21 @@ table {
       min-width: 9.3rem;
     }
 
+    &.col-width-reference-without-prefix {
+      width: 7rem;
+      min-width: 5.5rem;
+      white-space: nowrap;
+    }
+
     &.col-width-reference-no {
       width: 8rem;
-      min-width: 5.5rem;
+      min-width: 7.7rem;
+      white-space: nowrap;
     }
 
     &.col-width-nhs-no {
       width: 8rem;
-      min-width: 6.5rem;
+      min-width: 7rem;
       white-space: nowrap;
     }
 
@@ -113,6 +120,11 @@ table {
     &.col-width-tiny {
       width: 3rem;
       min-width: 2rem;
+    }
+
+    &.col-width-tinyish {
+      width: 5rem;
+      min-width: 3.5rem;
     }
 
     &.col-width-small {

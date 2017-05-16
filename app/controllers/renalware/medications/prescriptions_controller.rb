@@ -10,15 +10,15 @@ module Renalware
 
       def index
         @treatable = treatable_class.find(treatable_id)
-
-        render_index
+        respond_to do |format|
+          format.html { render_index }
+          format.pdf { render_prescriptions_list_to_hand_to_patient }
+        end
       end
 
       def new
         @treatable = treatable_class.find(treatable_id)
-        prescription = Prescription.new(treatable: @treatable)
-        prescription.build_termination
-
+        prescription = build_new_prescription_for(@treatable)
         render_form(prescription, url: patient_prescriptions_path(patient, @treatable))
       end
 
@@ -58,8 +58,55 @@ module Renalware
 
       private
 
+      def build_new_prescription_for(treatable)
+        gp_provider_code = Provider.codes.find{ |code| code == :gp }
+        prescription = Prescription.new(treatable: treatable, provider: gp_provider_code)
+        prescription.build_termination
+        prescription
+      end
+
       def render_index
-        render "index", locals: {
+        render :index, locals: locals
+      end
+
+      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Metrics/MethodLength
+      def render_prescriptions_list_to_hand_to_patient
+        render(
+          pdf_options.merge(
+            pdf: pdf_filename,
+            disposition: "inline",
+            print_media_type: true,
+            locals: {
+              patient: patient,
+              current_prescriptions: present(current_prescriptions, PrescriptionPresenter),
+              recently_stopped_prescriptions: present(recently_stopped_prescriptions, PrescriptionPresenter),
+              recently_changed_prescriptions: present(recently_changed_current_prescriptions, PrescriptionPresenter)
+            }
+        ))
+      end
+      # rubocop:enable Metrics/LineLength
+      # rubocop:enable Metrics/MethodLength
+
+      def pdf_filename
+        "#{patient.family_name}_#{patient.hospital_identifier&.id}" \
+        "_medications_#{I18n.l(Time.zone.today)}".upcase
+      end
+
+      def pdf_options
+        {
+          page_size: "A4",
+          layout: "renalware/layouts/letter",
+          show_as_html: params.key?(:debug),
+          footer: {
+            font_size: 8,
+            right: "page [page] of [topage]"
+          }
+        }
+      end
+
+      def locals
+        {
           patient: patient,
           treatable: present(@treatable, TreatablePresenter),
           current_search: current_prescriptions_query.search,
@@ -127,6 +174,30 @@ module Renalware
             relation: @treatable.prescriptions,
             search_params: params[:q]
           )
+      end
+
+      # Prescriptions created or with dosage changed in the last 14 days.
+      # Because we terminated a prescription if the dosage changes, and create a new one,
+      # we just need to search for prescriptions created in the last 14 days.
+      def recently_changed_current_prescriptions
+        @recently_changed_prescriptions ||= begin
+          current_prescriptions_query
+            .call
+            .prescribed_between(from: 14.days.ago, to: ::Time.zone.now)
+        end
+      end
+
+      # Find prescriptions terminated within 14 days.
+      # Note we do not include those prescriptions which might have just had a dose change
+      # so they were implicitly terminated and re-created. We only want ones which were explicitly
+      # terminated.
+      def recently_stopped_prescriptions
+        @recently_stopped_prescriptions ||= begin
+          historical_prescriptions_query.call
+            .terminated
+            .terminated_between(from: 14.days.ago, to: ::Time.zone.now)
+            .where.not(drug_id: current_prescriptions.map(&:drug_id))
+        end
       end
 
       def call_query(query)

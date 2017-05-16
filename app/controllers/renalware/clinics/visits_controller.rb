@@ -3,12 +3,13 @@ module Renalware
   module Clinics
     class VisitsController < BaseController
       include Renalware::Concerns::Pageable
+      PER_PAGE = 100
 
       before_action :prepare_paging, only: [:index]
 
       def index
         visits_query = VisitQuery.new(query_params)
-        visits = visits_query.call.page(@page).per(@per_page)
+        visits = visits_query.call.page(@page).per(PER_PAGE)
         authorize visits
 
         render locals: {

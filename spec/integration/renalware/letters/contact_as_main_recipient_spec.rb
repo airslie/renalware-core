@@ -46,7 +46,7 @@ RSpec.describe "Assign a person as a main recipient", type: :feature do
     end
 
     def try_adding_person_as_main_recipient
-      click_on "Add new person to contacts list"
+      click_on "Add a different recipient via the contacts Directory"
 
       within("#add-patient-contact-modal") do
         fill_autocomplete "#add-patient-contact-modal", "person_auto_complete",

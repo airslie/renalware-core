@@ -1,4 +1,25 @@
-.document-view
-  = render "renalware/shared/attributes_group",
-      legend: "Clinic Visit", destination: "event",
-      models: { clinic_visit => [:date, :clinic, :bp, :bmi, :urine_blood, :urine_protein, :notes] }
+article
+  header
+    h2 Clinic Visit
+
+  dl.dl-horizontal
+    dt= attr_name(clinic_visit, :date)
+    dd= l(clinic_visit.date)
+    dt= attr_name(clinic_visit, :did_not_attend)
+    dd= yes_no(clinic_visit.did_not_attend)
+    dt= attr_name(clinic_visit, :clinic)
+    dd= clinic_visit.clinic
+    dt= attr_name(clinic_visit, :bp)
+    dd= clinic_visit.bp
+    dt= attr_name(clinic_visit, :pulse)
+    dd= clinic_visit.pulse
+    dt= attr_name(clinic_visit, :temperature)
+    dd= clinic_visit.temperature
+    dt= attr_name(clinic_visit, :bmi)
+    dd= clinic_visit.bmi
+    dt= attr_name(clinic_visit, :urine_blood)
+    dd= clinic_visit.urine_blood
+    dt= attr_name(clinic_visit, :urine_protein)
+    dd= clinic_visit.urine_protein
+    dt= attr_name(clinic_visit, :notes)
+    dd= clinic_visit.notes&.html_safe

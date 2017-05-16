@@ -10,11 +10,6 @@
   color: red !important;
 }
 
-a.fi-plus:before a.fi-minus:before {
-  position: absolute;
-  right: 0;
-}
-
 .sub-nav dd a.has-tip:hover {
   color: $link-colour;
 }
@@ -150,7 +145,13 @@ dd.patient-name {
   }
 }
 
-.top-bar-section .dropdown li.info {
+@media only screen and (min-width: 830px) {
+  .top-bar-section li:not(.has-form) a:not(.button) {
+    padding: 0 0.6rem;
+  }
+}
+
+.top-bar-section  .dropdown li.info {
   color: rgba(255, 255, 255, 0.5);
   padding: 0 15px;
   line-height: 45px;

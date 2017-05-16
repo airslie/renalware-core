@@ -27,14 +27,12 @@ module Renalware
         attribute :hla_mismatch
         attribute :cmv_status, Document::Enum, enums: %i(unknown positive negative)
         attribute :blood_group, BloodGroup
-        attribute :blood_group_rhesus, Document::Enum, enums: %i(positive negative)
         attribute :organ_donor_register_checked, Document::Enum, enums: %i(yes no)
         attribute :kidney_side, Document::Enum, enums: %i(left right both)
         attribute :asystolic, Document::Enum, enums: %i(yes no)
         attribute :kidney_weight, Integer
 
         validates :kidney_weight, numericality: { allow_blank: true }
-
         validates :ukt_notified_at, timeliness: { type: :datetime, allow_blank: true }
       end
       attribute :donor, Donor
@@ -48,8 +46,9 @@ module Renalware
 
         validates :death_certified_at, timeliness: { type: :datetime, allow_blank: true }
         validates :warm_ischaemic_time_in_minutes, numericality: { allow_blank: true }
-        validates :ukt_cause_of_death_other, presence: true,
-          if: ->(o) { o.ukt_cause_of_death.try(:text) =~ /specify/ }
+        validates :ukt_cause_of_death_other,
+                  presence: true,
+                  if: ->(o) { o.ukt_cause_of_death.try(:text) =~ /specify/ }
       end
       attribute :cadaveric_donor, CadavericDonor
 

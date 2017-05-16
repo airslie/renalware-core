@@ -5,7 +5,7 @@ require_dependency "renalware/letters"
 module Renalware
   module Letters
     class LettersController < Letters::BaseController
-      before_action :load_patient, except: [:new, :author]
+      before_action :load_patient, except: [:author]
 
       def index
         render :index, locals: { letters: present_letters(find_letters) }

@@ -1,0 +1,32 @@
+= within_patient_layout(title: "Edit",
+  breadcrumbs: breadcrumb_for("Clinical Profile", patient_clinical_profile_path)) do
+
+  .row.document
+    = simple_form_for patient.document,
+                      url: patient_clinical_profile_path(patient),
+                      method: :patch,
+                      as: :clinical_profile,
+                      wrapper: "horizontal_form",
+                      html: { autocomplete: "off" } do |f|
+
+      .columns.large-12
+        article
+          header
+            h2 Diabetes
+
+          = f.simple_fields_for :diabetes, patient.document.diabetes do |fd|
+            = fd.input :diagnosis, as: :inline_radio_buttons
+            = fd.input :diagnosed_on, as: :date_picker
+
+        article
+          header
+            h2 History
+
+          = f.simple_fields_for :history, patient.document.history do |fd|
+            = fd.input :alcohol, input_html: { class: "small-input" }
+            = fd.input :smoking, input_html: { class: "small-input" }
+
+        .columns.large-12
+          = submit_tag "Update", class: "button"
+          span= " or "
+          = link_to "Cancel", patient_clinical_profile_path(patient)

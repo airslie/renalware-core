@@ -46,21 +46,6 @@ module Renalware
             end
           end
 
-          context "with filter 'nhb_consent'" do
-            let(:filter) { :nhb_consent }
-
-            before do
-              reg = Renalware::Transplants::Registration.first!
-              reg.document.nhb_consent.value = :yes
-              reg.document.nhb_consent.consented_on = Time.zone.today
-              reg.document.nhb_consent.full_name = "Someone"
-              reg.save!
-            end
-
-            it "returns the registrations with nhb consent set to yes" do
-              expect(subject.call.count).to eq(1)
-            end
-          end
         end
       end
     end

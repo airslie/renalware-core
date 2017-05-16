@@ -2,8 +2,9 @@ $search-bar-height: 2.15rem;
 $btn-hover-background-color: darken($off-white, 10%);
 $btn-hover-color: darken($dark-grey, 10%);
 
-.has-form {
-  width: 260px;
+.top-bar-section .has-form {
+  padding-left: 0.5rem;
+  width: 210px;
 }
 
 .patient-search-form {

@@ -1,0 +1,9 @@
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  //
+  // Put all IE11-specific classes inside this media query, which only IE11 will parse
+  //
+
+  .layout-wrapper {
+    padding-bottom: 7rem;
+  }
+}

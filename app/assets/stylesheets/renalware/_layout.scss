@@ -70,3 +70,16 @@ section.display {
     }
   }
 }
+
+.half-collapse {
+  .columns {
+    padding-left: $column-gutter / 2;
+    padding-right: $column-gutter / 2;
+  }
+}
+
+.non-patient-page {
+  .page-heading {
+    margin-bottom: 0.5rem;
+  }
+}

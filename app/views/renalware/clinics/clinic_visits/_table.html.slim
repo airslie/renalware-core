@@ -3,12 +3,17 @@ table.clinics.auto-layout
     tr
       th.col-width-medium-ish
       th.col-width-date Date
+      th.col-width-tiny DNA
       th Clinic Type
-      th BMI
-      th BP
+      th.col-width-tinyish Wt
+      th.col-width-tinyish BMI
+      th.col-width-tinyish BP
+      th.col-width-tinyish Pulse
+      th.col-width-tinyish Temp
       th Created by
 
   tbody
     = render partial: "renalware/clinics/clinic_visits/table_row",
              collection: clinic_visits,
-             as: :clinic_visit
+             as: :clinic_visit,
+             locals: { patient: patient }

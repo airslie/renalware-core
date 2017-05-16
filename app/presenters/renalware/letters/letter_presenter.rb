@@ -5,7 +5,7 @@ module Renalware
   module Letters
     class LetterPresenter < DumbDelegator
       def type
-        letter_event.to_s
+        letter_event.to_link.call(patient)
       end
 
       def patient
@@ -55,8 +55,8 @@ module Renalware
         [patient.family_name, patient.local_patient_id, id, state].join("-").upcase
       end
 
-      def state
-        ::I18n.t(super.to_sym, scope: "enums.letter.state")
+      def state_description
+        ::I18n.t(state.to_sym, scope: "enums.letter.state")
       end
 
       def typist

@@ -13,7 +13,8 @@ module World
           performed_on: Time.zone.today,
           type: Renalware::Accesses::Type.first,
           performed_by: Renalware::User.first,
-          side: :left
+          side: :left,
+          pd_catheter_insertion_technique: Renalware::Accesses::CatheterInsertionTechnique.first
         }
       end
 
@@ -81,6 +82,7 @@ module World
         select "Vein loop", from: "Access Type"
         select site.to_s, from: "Access Site"
         select "Right", from: "Access Side"
+        select "Laparoscopic", from: "PD Catheter Insertion Technique"
 
         within ".top" do
           click_on "Create"

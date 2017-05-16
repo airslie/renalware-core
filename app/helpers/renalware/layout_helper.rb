@@ -52,5 +52,29 @@ module Renalware
       title = local_assigns[:title]
       Array(breadcrumbs).map(&:anchor).append(title).join(" / ").html_safe
     end
+
+    # In order for pdf rendering to easily re-use html partials (despite a mime type of :pdf),
+    # pass partial rendering code as a block to `with_format`.
+    #
+    # Example issues and usage trying to render my_partial.html.slim from my_template.pdf.slim:
+    #
+    #   = render 'my_partial' # cannot resolve the html partial
+    #
+    #   = render 'my_partial', format: :html # resolves partial but i18n requires an `html:` key
+    #
+    #   - with_format(:html) do
+    #     = render 'my_partial' # resolves the html partial and existing i18n keys are used.
+    #
+    # See http://stackoverflow.com/questions/339130/how-do-i-render-a-partial-of-a-\
+    # different-format-in-rails/3427634#3427634
+    def with_format(format, &block)
+      old_formats = formats
+      begin
+        self.formats = [format]
+        return block.call
+      ensure
+        self.formats = old_formats
+      end
+    end
   end
 end

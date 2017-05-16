@@ -6,34 +6,49 @@ module Renalware
       before_action :load_clinic_visit, only: [:edit, :update, :destroy]
 
       def index
-        @clinic_visits = @patient.clinic_visits.ordered
+        render locals: {
+          patient: patient,
+          clinic_visits: patient.clinic_visits.ordered
+        }
       end
 
       def new
-        @clinic_visit = @patient.clinic_visits.new(height: last_height_measurement)
-        RememberedClinicVisitPreferences.new(session).apply_to(@clinic_visit)
+        clinic_visit = build_new_clinic_visit
+        RememberedClinicVisitPreferences.new(session).apply_to(clinic_visit)
+
+        render :new, locals: {
+          patient: patient,
+          clinic_visit: clinic_visit,
+          built_from_appointment: appointment_to_build_from
+        }
       end
 
       def create
-        @clinic_visit = @patient.clinic_visits.new(clinic_visit_params)
+        result = CreateClinicVisit.call(patient, visit_params)
+        visit = result.object.clinic_visit
+        appointment = result.object.appointment_to_build_from
 
-        if @clinic_visit.save
-          RememberedClinicVisitPreferences.new(session).persist(@clinic_visit)
-          redirect_to patient_clinic_visits_path(@patient),
-            notice: t(".success", model_name: "clinic visit")
+        if result.success?
+          RememberedClinicVisitPreferences.new(session).persist(visit)
+          notice = success_msg_for("clinic visit")
+          redirect_to patient_clinic_visits_path(patient), notice: notice
         else
-          flash[:error] = t(".failed", model_name: "clinic visit")
-          render :new
+          flash[:error] = failed_msg_for("clinic visit")
+          render :new, locals: {
+            patient: patient,
+            clinic_visit: visit,
+            built_from_appointment: appointment
+          }
         end
       end
 
       def update
-        if @clinic_visit.update_attributes(clinic_visit_params)
+        if @clinic_visit.update_attributes(visit_params)
           redirect_to patient_clinic_visits_path(@patient),
             notice: t(".success", model_name: "clinic visit")
         else
           flash[:error] = t(".failed", model_name: "clinic visit")
-          render :new
+          render :edit
         end
       end
 
@@ -45,9 +60,25 @@ module Renalware
 
       private
 
+      def build_new_clinic_visit
+        attrs = { height: last_height_measurement }
+        if appointment_to_build_from.present?
+          BuildVisitFromAppointment.new(appointment_to_build_from).call(attrs)
+        else
+          patient.clinic_visits.new(attrs)
+        end
+      end
+
       def last_height_measurement
         last_visit = @patient.clinic_visits.order(created_at: :desc).first
         last_visit&.height
+      end
+
+      def appointment_to_build_from
+        @appointment_to_build_from ||= begin
+          appointment_id = params[:appointment_id]
+          patient.appointments.find(appointment_id) if appointment_id.present?
+        end
       end
 
       def load_patient
@@ -55,11 +86,14 @@ module Renalware
         @patient = Renalware::Clinics.cast_patient(@patient)
       end
 
-      def clinic_visit_params
-        params.require(:clinic_visit).permit(
-          :date, :time, :clinic_id, :height, :weight,
-          :bp, :urine_blood, :urine_protein, :notes, :admin_notes
-        ).merge(by: current_user)
+      def visit_params
+        @visit_params ||= begin
+          params.require(:clinic_visit).permit(
+            :date, :time, :clinic_id, :height, :weight, :pulse, :temperature,
+            :bp, :urine_blood, :urine_protein, :notes, :admin_notes, :did_not_attend,
+            :built_from_appointment_id
+          ).to_h.merge(by: current_user)
+        end
       end
 
       def load_clinic_visit

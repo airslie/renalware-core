@@ -9,6 +9,8 @@ describe Renalware::Clinics::ClinicVisit, type: :model do
   it { is_expected.to validate_timeliness_of(:date) }
   it { is_expected.to validate_timeliness_of(:time) }
   it { is_expected.to_not validate_presence_of :time }
+  it { is_expected.to_not validate_presence_of :pulse }
+  it { is_expected.to_not validate_presence_of :temperature }
   it { is_expected.to_not validate_presence_of(:admin_notes) }
 
   describe "bmi" do
@@ -28,6 +30,7 @@ describe Renalware::Clinics::ClinicVisit, type: :model do
       expect(subject.bp).to eq("112/85")
     end
   end
+
   describe "bp=" do
     it "writes to systolic and diastolic attributes" do
       subject.bp = "112/82"

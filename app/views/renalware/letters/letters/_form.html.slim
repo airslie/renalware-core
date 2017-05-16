@@ -1,5 +1,6 @@
 ruby:
   back_path = patient_letters_letters_path(@patient)
+  event = f.object.event
 
 .row.top
   .medium-6.columns
@@ -8,7 +9,7 @@ ruby:
     = link_to "cancel", back_path
 
 .form-content
-  = render f.object.event if f.object.event.present?
+  = render event if event.present?
 
   article
     header
@@ -28,7 +29,11 @@ ruby:
     = hidden_field_tag "description_id"
     = f.input :clinical, as: :hidden
     = f.input :issued_on, as: :date_picker
-    = f.association :author, as: :user_picker, collection: Renalware::User.ordered
+    = f.association :author,
+        as: :user_picker,
+        collection: Renalware::System::UsersPresenter.new.list_for_dropdown( \
+          user_to_promote_to_top: current_user \
+        )
 
   = render "main_recipient", f: f, contacts: contacts
   = render "additional_ccs", f: f, contacts: contacts
@@ -38,9 +43,17 @@ ruby:
       h2 Message
 
     = f.input :salutation
-    = snippets_modal_and_link_to_open_it(target_input_for_seleted_snippet: "#letter_body")
+
     = f.label :body
-    = f.text_area :body, rows: 25, class: "letter-body"
+    = snippets_modal_and_link_to_open_it(target_input_for_seleted_snippet: ".letter-body-editor")
+
+    -if event&.respond_to?(:notes)
+      = link_to "Insert #{event.class.name.demodulize.underscore.humanize.downcase} notes",
+                "/",
+                data: { :notes => event.notes || "", target: ".letter-body-editor" },
+                class: "insert-data-notes button alternative right editor-toolbar-button"
+
+    = f.trix_editor :body, class: "letter-body-editor"
 
   article
     header

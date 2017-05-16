@@ -2,7 +2,7 @@
                   url: transplants_live_donors_path,
                   method: :get) do |f|
   .row
-    .columns.small-12.medium-6
+    .columns.small-6.medium-4
       = f.select(:current_donor_stage_stage_position_id_eq,
                  options_from_collection_for_select(Renalware::Transplants::DonorStagePosition.all,
                                                     :id,
@@ -10,7 +10,7 @@
                                                     search.current_donor_stage_stage_position_id_eq),
                  include_blank: "All stages")
 
-    .columns.small-12.medium-6
+    .columns.small-6.medium-4.end
       = f.button class: "button", name: nil do
         i.fa.fa-search
         | &nbsp; Filter

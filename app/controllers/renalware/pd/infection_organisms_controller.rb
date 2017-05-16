@@ -56,7 +56,7 @@ module Renalware
       def infection_organism_params
         params
           .require(:pd_infection_organism)
-          .permit(:organism_code_id, :sensitivity)
+          .permit(:organism_code_id, :sensitivity, :resistance)
       end
 
       def infectable_class

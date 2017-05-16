@@ -34,8 +34,8 @@ module World
         login_as user
 
         visit patient_problem_path(problem.patient, problem)
-        within_fieldset "Notes" do
-          find("a", text: "Add a note").trigger("click")
+        within_article "Notes" do
+          find("a", text: "Add").trigger("click")
           wait_for_ajax
 
           fill_in "Text", with: "this is something"

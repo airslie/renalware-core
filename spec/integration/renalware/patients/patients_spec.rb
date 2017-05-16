@@ -91,6 +91,10 @@ RSpec.describe "Managing patients", type: :request do
         alcohol: nil,
         smoking: nil
       },
+      diabetes: {
+        diagnosis: nil,
+        diagnosed_on: nil
+      },
       referral: {
         referring_physician_name: Faker::Name.name,
         referral_date: Faker::Date.backward(14),

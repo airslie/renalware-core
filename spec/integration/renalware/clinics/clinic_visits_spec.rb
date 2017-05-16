@@ -17,10 +17,8 @@ RSpec.describe "Clinic Visits Management", type: :request do
   end
 
   describe "GET new" do
-    before do
-      get new_patient_clinic_visit_path(patient_id: patient.to_param)
-    end
     it "responds successfully" do
+      get new_patient_clinic_visit_path(patient_id: patient.to_param)
       expect(response).to have_http_status(:success)
     end
   end
@@ -33,6 +31,7 @@ RSpec.describe "Clinic Visits Management", type: :request do
             date: Time.zone.today,
             time: Time.zone.now,
             clinic_id: clinic,
+            did_not_attend: false,
             height: 1725, weight: 89.2, bp: "110/78",
             urine_blood: "neg", urine_protein: "neg",
             notes: "Nothing unusual"
@@ -60,6 +59,7 @@ RSpec.describe "Clinic Visits Management", type: :request do
           clinic_visit: {
             date: Time.zone.today,
             time: Time.zone.now,
+            did_not_attend: false,
             height: 1725, weight: 89.2, bp: "110/70",
             urine_blood: "neg", urine_protein: "neg",
             notes: "Nothing unusual" }

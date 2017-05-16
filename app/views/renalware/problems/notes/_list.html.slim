@@ -1,6 +1,11 @@
-fieldset.problem-notes
-  legend Notes
+article
+  header
+    h2 Notes
+    - unless problem.archived?
+      = link_to "Add Note",
+                new_patient_problem_note_path(problem.patient, problem),
+                remote: true,
+                class: "button"
 
   #problem-notes
-
-    = render "renalware/problems/notes/table", problem: @problem, notes: @notes
+    = render "renalware/problems/notes/table", problem: problem, notes: notes

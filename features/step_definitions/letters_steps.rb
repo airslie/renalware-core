@@ -114,6 +114,16 @@ When(/^Clyde filters on his pending review letters typed by Taylor$/) do
   )
 end
 
+When(/^Clyde filters on approved letters having an attachment$/) do
+  view_letters(
+    q: {
+      state_eq: "approved",
+      enclosures_present: true
+    },
+    user: @clyde
+  )
+end
+
 Then(/^Doug can reject the letter$/) do
   reject_letter(patient: @patty, user: @doug)
 end
@@ -232,6 +242,10 @@ end
 
 Then(/^the letter lists Patty's recent pathology results$/) do
   expect_clinical_letter_to_list_recent_pathology_results(patient: @patty)
+end
+
+Then(/^the letter lists Patty's allergies$/) do
+  expect_clinical_letter_to_list_allergies(patient: @patty)
 end
 
 Then(/^the clinical letter lists Patty's current prescriptions$/) do

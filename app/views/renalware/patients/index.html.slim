@@ -1,2 +1,6 @@
-= render "index_header"
-= render "table", patients: patients
+= content_for(:actions) do
+  = link_to t("new_record.link_title"), new_patient_path, class: "button"
+
+= within_admin_layout(title: "Patients") do
+  = render "renalware/patients/index_header"
+  = render "table", patients: patients

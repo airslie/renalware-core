@@ -1,12 +1,13 @@
-= within_patient_layout(title: "Problem")
-  = simple_form_for @problem,
-                    url: patient_problem_path(@patient, @problem),
-                    wrapper: :horizontal_form do |f|
-    = field_set_tag "Edit problem" do
-      = f.input :description
-      .row
-        .large-9.large-offset-3.columns
-          = f.button :button, "Save", class: "tiny"
-          span= " or "
-          = link_to "cancel", patient_problems_path(@patient)
+= within_patient_layout(title: "Edit",
+                        breadcrumbs: [problems_breadcrumb(patient),
+                                      problem_breadcrumb(patient, problem)])
 
+  = simple_form_for problem,
+                    url: patient_problem_path(patient, problem),
+                    html: { autocomplete: "off", class: "problem-form" },
+                    wrapper: :horizontal_form do |f|
+
+      = f.input :description
+      = f.button :button, "Save"
+      span= " or "
+      = link_to "cancel", patient_problems_path(patient)

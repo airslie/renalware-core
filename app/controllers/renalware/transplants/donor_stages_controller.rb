@@ -1,3 +1,4 @@
+require_dependency "renalware/transplants"
 require_dependency "renalware/transplants/base_controller"
 
 module Renalware
@@ -5,11 +6,11 @@ module Renalware
     class DonorStagesController < BaseController
 
       def new
-        status = DonorStage.new(patient: patient)
-        authorize status
+        stage = DonorStage.new(patient: patient)
+        authorize stage
         render locals: {
           patient: patient,
-          status: status
+          stage: stage
         }
       end
 
@@ -22,7 +23,7 @@ module Renalware
         else
           render :new, locals: {
             patient: patient,
-            status: result.object
+            stage: result.object
           }
         end
       end

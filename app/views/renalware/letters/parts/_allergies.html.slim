@@ -1,0 +1,8 @@
+.list.allergies
+  h3 Allergies:
+  - if allergies.any?
+    ul
+      - allergies.each do |allergy|
+        li.allergy= allergy.description
+  - else
+    p= allergies.allergy_status&.text

@@ -11,7 +11,8 @@ module Renalware::Letters
               problems: Part::Problems,
               prescriptions: Part::Prescriptions,
               recent_pathology_results: Part::RecentPathologyResults,
-              clinical_observations: Part::ClinicalObservations
+              clinical_observations: Part::ClinicalObservations,
+              allergies: Part::Allergies
             }
           )
         end

@@ -12,7 +12,10 @@ When(/^records Patty's event$/) do
     select "Email", from: "Event type"
     wait_for_ajax
     fill_in "Description", with: "Discussed meeting to be set up with family."
-    fill_in "Notes", with: "Patty to speak to family before meeting set up."
+    fill_in_trix_editor(
+      "events_event_notes_trix_input_events_simple",
+      "Patty to speak to family before meeting set up."
+    )
     click_on "Save"
   end
 end

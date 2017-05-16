@@ -33,7 +33,7 @@ $(document).ready(function(){
   $('#modal-reason-code').click(function() {
 
     var $bigModal = $('<div></div>').attr('class','modal-show');
-    var $smallModal = $('<div><b class="modal-close fi-x"></b><h5 class="g-center ">Renal Registry Reason for Change Codes</h5></div>').attr('class','modal-window ');
+    var $smallModal = $('<div><b class="modal-close fa fa-close"></b><h5 class="g-center ">Renal Registry Reason for Change Codes</h5></div>').attr('class','modal-window ');
     var $modalHolder = $('<div id=modal-holder></div>');
     var $hdPdTable = $('<table><caption>Haemodialysis to PD</caption><thead><tr><th>RR Code</th><th>Reason for Change</th></tr></thead><tbody id="hd-pd"></tbody></table>');
     var $pdHdTable = $('<table><caption>PD to Haemodialysis</caption><thead><tr><th>RR Code</th><th>Reason for Change</th></tr></thead><tbody id="pd-hd"></tbody></table>');

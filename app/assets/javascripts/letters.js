@@ -70,6 +70,20 @@ Renalware.Letters = (function() {
     })
   };
 
+  var initInsertEventNotesIntoTextEditor = function() {
+    $(".insert-data-notes").on("click", function(e) {
+      e.preventDefault();
+      var notes = $(this).data("notes");
+      var targetEditorSelector = $(this).data("target");
+      if (notes && targetEditorSelector) {
+         var targetInput = $(targetEditorSelector)[0];
+         targetInput.editor.insertHTML(notes);
+      } else {
+        alert("There are no notes to insert");
+      }
+    });
+  }
+
   return {
     init: function () {
       hideOrShowContactSelector();
@@ -77,6 +91,7 @@ Renalware.Letters = (function() {
       bindOnSalutationChange();
       initNewContactAsMainRecipient();
       initNewContactAsCC();
+      initInsertEventNotesIntoTextEditor();
     }
   };
 })();

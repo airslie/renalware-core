@@ -27,23 +27,27 @@ module Renalware
       end
 
       def edit
-        procedure = patient.procedures.find(params[:id])
+        procedure = find_procedure
         render locals: { patient: patient, procedure: procedure }
       end
 
       def update
-        procedure = patient.procedures.find(params[:id])
+        procedure = find_procedure
 
         if procedure.update(procedure_params)
           redirect_to patient_accesses_dashboard_path(patient),
-            notice: t(".success", model_name: "Access procedure")
+                      notice: success_msg_for("access procedure")
         else
-          flash[:error] = t(".failed", model_name: "Access procedure")
+          flash[:error] = failed_msg_for("access procedure")
           render :edit, locals: { patient: patient, procedure: procedure }
         end
       end
 
       protected
+
+      def find_procedure
+        patient.procedures.find(params[:id])
+      end
 
       def procedure_params
         params
@@ -57,7 +61,8 @@ module Renalware
           :performed_on, :first_used_on, :failed_on,
           :site_id, :side, :type_id,
           :catheter_make, :catheter_lot_no,
-          :performed_by, :notes, :outcome
+          :performed_by, :notes, :outcome,
+          :pd_catheter_insertion_technique_id
         ]
       end
     end

@@ -5,7 +5,7 @@ module Renalware
     class LetterFactory
       def initialize(patient, params = {})
         @params = LetterParamsProcessor.new(patient).call(params)
-        @patient = patient
+        @patient = Letters.cast_patient(patient)
         @default_ccs = []
       end
 
@@ -36,9 +36,12 @@ module Renalware
       end
 
       def include_primary_care_physician_as_default_main_recipient
-        return unless letter.main_recipient.blank?
-
-        letter.build_main_recipient(person_role: :primary_care_physician)
+        return if letter.main_recipient.present?
+        if patient.primary_care_physician.present?
+          letter.build_main_recipient(person_role: :primary_care_physician)
+        else
+          letter.build_main_recipient(person_role: :patient)
+        end
       end
 
       def contacts_with_default_cc_option
@@ -46,7 +49,14 @@ module Renalware
       end
 
       def build_salutation
-        letter.salutation ||= patient.primary_care_physician&.salutation
+        letter.salutation ||= begin
+          main_recipient = letter.main_recipient
+          if main_recipient.patient?
+            patient.salutation
+          elsif main_recipient.primary_care_physician?
+            patient.primary_care_physician.salutation
+          end
+        end
       end
 
       def assign_default_ccs

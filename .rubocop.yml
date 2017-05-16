@@ -42,7 +42,7 @@ Metrics/LineLength:
 
 Metrics/MethodLength:
   Enabled: true
-  Max: 20
+  Max: 10
   Exclude:
     - "features/**/*"
 
@@ -192,4 +192,19 @@ Style/DotPosition:
   EnforcedStyle: leading
 
 Style/GuardClause:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    default: ()
+    '%r': '{}'
+    '%w': '()'
+    '%W': '()'
+    '%i': '()'
+    '%I': '()'
+
+Lint/AmbiguousBlockAssociation:
   Enabled: false

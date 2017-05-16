@@ -14,6 +14,10 @@
                             label_method: :name,
                             value_method: :id,
                             include_blank: t(".clinic_prompt")
+            = f.input :did_not_attend,
+                      as: :boolean,
+                      boolean_style: :inline,
+                      wrapper: :horizontal_small
 
       fieldset
         legend Observations
@@ -23,6 +27,8 @@
                   label: "Blood Pressure",
                   placeholder: "eg. 110/70",
                   wrapper: :horizontal_small
+        = f.input :pulse, wrapper: :horizontal_small
+        = f.input :temperature, wrapper: :horizontal_small
 
         = f.input :urine_blood, wrapper: :horizontal_small
         = f.input :urine_protein, wrapper: :horizontal_small
@@ -31,9 +37,9 @@
         legend Notes
         .row
           .columns.large-12
-            - target = "#clinic_visit_notes"
+            - target = ".clinic-visit-notes-editor"
             = snippets_modal_and_link_to_open_it(target_input_for_seleted_snippet: target)
-            = f.text_area :notes, { rows: 15 }
+            = f.trix_editor :notes, class: "clinic-visit-notes-editor"
 
       fieldset
         legend Admin Notes

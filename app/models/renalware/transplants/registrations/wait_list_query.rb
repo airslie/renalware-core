@@ -24,8 +24,6 @@ module Renalware
 
         def query_for_filter(filter)
           case filter
-          when :nhb_consent
-            { nhb_consent_eq: "yes" }
           when :active
             { current_status_in: :active }
           when :suspended
@@ -46,12 +44,6 @@ module Renalware
               .where(transplant_registration_statuses: { terminated_on: nil })
               .where(transplant_registration_status_descriptions: { code: codes })
           }
-          scope :nhb_consent_eq, ->(enum = "yes") {
-            where(
-              "transplant_registrations.document @> ?",
-              { nhb_consent: { value: enum } }.to_json
-            )
-          }
 
           ransacker :uk_transplant_centre_code do
             Arel.sql("transplant_registrations.document -> 'codes' ->> 'uk_transplant_centre_code'")
@@ -68,7 +60,7 @@ module Renalware
           private_class_method :ransackable_scopes
 
           def self.ransackable_scopes(_auth_object = nil)
-            %i(nhb_consent_eq current_status_in)
+            %i(current_status_in)
           end
         end
       end

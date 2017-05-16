@@ -9,6 +9,7 @@ en:
         type: Access Type
         side: Access Side
         site: Access Site
+        pd_catheter_insertion_technique: PD Catheter Insertion Technique
         notes: Notes
         outcome: Outcome
         catheter_make: Catheter Make

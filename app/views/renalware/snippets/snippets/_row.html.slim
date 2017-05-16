@@ -20,7 +20,7 @@ tr(data={ "snippet-id" => snippet.id, invocation_url: snippet_invocations_path(s
   td.css-toggle-container
     = tooltip_with_block(label: snippet.title) do
       = snippet.title
-  td.css-toggle-container.body= snippet.body
+  td.css-toggle-container.body= snippet.body.html_safe
   - unless author == :me
     td.col-width-medium.author= snippet.author
   -unless remote
