@@ -87,7 +87,8 @@ module Renalware
     end
 
     def address_params
-      [:id, :name, :organisation_name, :street_1, :street_2, :county, :country, :city, :postcode]
+      [:id, :name, :organisation_name, :street_1, :street_2, :county, :country,
+        :city, :postcode, :telephone, :email]
     end
 
     def document_attributes

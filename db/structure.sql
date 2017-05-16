@@ -344,7 +344,9 @@ CREATE TABLE addresses (
     updated_at timestamp without time zone NOT NULL,
     country character varying,
     name character varying,
-    organisation_name character varying
+    organisation_name character varying,
+    telephone character varying,
+    email character varying
 );
 
 
@@ -9198,6 +9200,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170403091407'),
 ('20170403092407'),
 ('20170403094115'),
+('20170424064032'),
 ('20170427123530'),
 ('20170427130642'),
 ('20170502165422'),

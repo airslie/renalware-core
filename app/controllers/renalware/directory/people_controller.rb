@@ -82,7 +82,7 @@ module Renalware
       def address_attributes
         [
           :id, :name, :organisation_name, :street_1, :street_2, :city, :county,
-          :postcode, :country, :_destroy
+          :postcode, :country, :telephone, :email, :_destroy
         ]
       end
     end
