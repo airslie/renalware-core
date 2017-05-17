@@ -36,10 +36,7 @@ module Renalware
       attr_reader :patient, :modality_description_name
 
       def modality_description_name
-        case modality_description.name.downcase.to_sym
-        when :pd, :apd, :capd then "PD"
-        else modality_description.name
-        end
+        modality_description.name
       end
 
       def modality_description
