@@ -4,7 +4,7 @@ module Renalware
       include ModalityScopes
       attr_reader :modality_names, :q, :relation
 
-      # modality_names: eg "HD" or ["APD", "CAPD", "PD"]
+      # modality_names: eg "HD" or "PD"
       def initialize(relation: Patient.all, q:, modality_names:)
         @modality_names = modality_names
         @q = q

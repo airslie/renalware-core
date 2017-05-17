@@ -3,7 +3,8 @@ module Renalware
 
     Deaths::ModalityDescription.find_or_create_by!(name: "Death")
     Transplants::DonorModalityDescription.find_or_create_by!(name: "Live Donor")
-
+    PD::ModalityDescription.find_or_create_by!(name: "PD")
+    HD::ModalityDescription.find_or_create_by!(name: "HD")
     [
       "LCC",
       "LOST",
@@ -16,14 +17,6 @@ module Renalware
       "Waiting List"
     ].each do |modal_name|
       Modalities::Description.find_or_create_by!(name: modal_name)
-    end
-
-    %w(PD APD CAPD).each do |modal_name|
-      PD::ModalityDescription.find_or_create_by!(name: modal_name)
-    end
-
-    %w(HD).each do |modal_name|
-      HD::ModalityDescription.find_or_create_by!(name: modal_name)
     end
   end
 end
