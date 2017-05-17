@@ -2,7 +2,7 @@ module Renalware
   module PD
     class MDMPatientsQuery
       include ModalityScopes
-      MODALITY_NAMES = %w(PD APD CAPD).freeze
+      MODALITY_NAMES = "PD".freeze
       attr_reader :q, :relation
 
       def initialize(relation: PD::Patient.all, q:)
