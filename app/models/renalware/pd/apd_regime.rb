@@ -7,6 +7,8 @@ module Renalware
       include OrderedScope
       include PatientScope
 
+      BAG_VOLUMES = [2000, 2500, 5000].freeze
+
       alias_attribute :tidal?, :tidal_indicator?
       alias_attribute :cycles, :no_cycles_per_apd
       alias_attribute :drain_every_three_cycles?, :tidal_full_drain_every_three_cycles?
