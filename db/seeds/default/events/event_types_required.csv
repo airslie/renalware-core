@@ -3,4 +3,4 @@
 "Renal Biopsy Transplant","Renalware::Events::Biopsy","transplant_biopsies"
 "Swab","Renalware::Events::Swab","swabs"
 "Plasma Exchange",,
-"PD Line Change",,"pd_line_change"
+"PD Line Change",,"pd_line_changes"
