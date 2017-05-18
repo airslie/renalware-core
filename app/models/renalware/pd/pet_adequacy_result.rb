@@ -58,7 +58,6 @@ module Renalware
 
       enumerize :pet_type, in: %i(fast full), predicate: true
 
-      validates :pet_date, presence: true
       validates :pet_type, presence: true
 
       validates :pet_duration,
