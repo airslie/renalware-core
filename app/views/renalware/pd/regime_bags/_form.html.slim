@@ -9,7 +9,7 @@
 
   .large-3.columns.inline
     = rb.input :volume,
-                collection: Renalware::PD::BagVolume.values,
+                collection: regime.class::BAG_VOLUMES,
                 include_blank: t("collection.blank_option"),
                 wrapper_class: "small-12 medium-12"
 

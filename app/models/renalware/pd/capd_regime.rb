@@ -6,6 +6,8 @@ module Renalware
       include OrderedScope
       include PatientScope
 
+      BAG_VOLUMES = [1000, 1200, 1500, 1800, 2000, 2200, 2500].freeze
+
       before_save :set_glucose_volume_percent_1_36
       before_save :set_glucose_volume_percent_2_27
       before_save :set_glucose_volume_percent_3_86
