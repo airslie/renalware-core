@@ -6,6 +6,8 @@ module Renalware
     it { should validate_presence_of :started_on }
     it { should validate_presence_of :description }
 
+    it { is_expected.to belong_to(:patient).touch(true) }
+
     it { is_expected.to validate_timeliness_of(:started_on) }
 
     describe "validate start date based on previous modalities" do

@@ -2,6 +2,7 @@ require "rails_helper"
 
 module Renalware
   RSpec.describe Renal::Profile, type: :model do
+    it { is_expected.to belong_to(:patient).touch(true) }
     it { should validate_presence_of :patient }
 
     it { is_expected.to validate_timeliness_of(:esrf_on) }

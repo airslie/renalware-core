@@ -5,6 +5,7 @@ module Renalware
     RSpec.describe Session, type: :model do
       it { is_expected.to be_versioned }
       it { is_expected.to have_many(:prescription_administrations) }
+      it { is_expected.to belong_to(:patient).touch(true) }
     end
   end
 end

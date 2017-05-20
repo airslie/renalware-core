@@ -7,7 +7,7 @@ module Renalware
       include PatientScope
 
       belongs_to :description, class_name: "Description"
-      belongs_to :patient
+      belongs_to :patient, touch: true
       belongs_to :reason, class_name: "Reason"
 
       scope :ordered, -> { order(ended_on: :desc, updated_at: :desc) }

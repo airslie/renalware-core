@@ -7,7 +7,10 @@ module Renalware
       include Document::Base
       extend Enumerize
 
-      belongs_to :operation, class_name: "RecipientOperation", foreign_key: "operation_id"
+      belongs_to :operation,
+                 class_name: "RecipientOperation",
+                 foreign_key: "operation_id",
+                 touch: true
       belongs_to :transplant_failure_cause_description,
         class_name: "Transplants::FailureCauseDescription",
         foreign_key: "transplant_failure_cause_description_id"

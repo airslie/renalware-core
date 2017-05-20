@@ -10,7 +10,7 @@ module Renalware
       include PatientScope
       extend Enumerize
 
-      belongs_to :patient
+      belongs_to :patient, touch: true
       belongs_to :clinic
       has_many :clinic_letters
 

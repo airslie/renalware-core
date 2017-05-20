@@ -4,7 +4,10 @@ require "document/base"
 module Renalware
   module Transplants
     class DonorFollowup < ApplicationRecord
-      belongs_to :operation, class_name: "DonorOperation", foreign_key: "operation_id"
+      belongs_to :operation,
+                 class_name: "DonorOperation",
+                 foreign_key: "operation_id",
+                 touch: true
 
       has_paper_trail class_name: "Renalware::Transplants::Version"
 

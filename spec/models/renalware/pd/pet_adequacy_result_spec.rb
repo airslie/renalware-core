@@ -3,7 +3,7 @@ require "rails_helper"
 module Renalware
   module PD
     RSpec.describe PETAdequacyResult, type: :model do
-      it { is_expected.to belong_to(:patient) }
+      it { is_expected.to belong_to(:patient).touch(true) }
 
       describe "validation" do
         before do

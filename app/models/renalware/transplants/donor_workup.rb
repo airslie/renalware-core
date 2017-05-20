@@ -7,7 +7,7 @@ module Renalware
       include Document::Base
       include PatientScope
 
-      belongs_to :patient
+      belongs_to :patient, touch: true
 
       has_paper_trail class_name: "Renalware::Transplants::Version"
       has_document class_name: "Renalware::Transplants::DonorWorkupDocument"

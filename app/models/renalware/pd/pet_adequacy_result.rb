@@ -10,7 +10,7 @@ module Renalware
       include PatientScope
       include Accountable
 
-      belongs_to :patient, class_name: "Renalware::PD::Patient"
+      belongs_to :patient, class_name: "Renalware::PD::Patient", touch: true
       scope :ordered, -> { order(created_at: :desc) }
 
       MAXIMUMS = {

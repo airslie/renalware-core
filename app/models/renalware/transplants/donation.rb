@@ -7,7 +7,7 @@ module Renalware
       include PatientScope
       extend Enumerize
 
-      belongs_to :patient
+      belongs_to :patient, touch: true
       belongs_to :recipient, class_name: "Patient", foreign_key: "recipient_id"
 
       has_paper_trail class_name: "Renalware::Transplants::Version"

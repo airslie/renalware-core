@@ -7,7 +7,7 @@ module Renalware
       include Accountable
       include HasSchedule
 
-      belongs_to :patient
+      belongs_to :patient, touch: true
       belongs_to :hospital_unit, class_name: "Hospitals::Unit"
 
       has_paper_trail class_name: "Renalware::HD::Version"

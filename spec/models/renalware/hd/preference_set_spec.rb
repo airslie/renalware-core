@@ -5,6 +5,7 @@ module Renalware
     RSpec.describe PreferenceSet, type: :model do
       it { is_expected.to validate_presence_of(:patient) }
       it { is_expected.to validate_timeliness_of(:entered_on) }
+      it { is_expected.to belong_to(:patient).touch(true) }
 
       context "when schedule is other" do
         let(:preference_set) { PreferenceSet.new(schedule: :other) }
