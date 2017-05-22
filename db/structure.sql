@@ -146,8 +146,8 @@ CREATE TABLE access_procedures (
     id integer NOT NULL,
     patient_id integer,
     type_id integer NOT NULL,
-    site_id integer NOT NULL,
-    side character varying NOT NULL,
+    site_id integer,
+    side character varying,
     performed_on date NOT NULL,
     first_procedure boolean,
     catheter_make character varying,
@@ -9206,8 +9206,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170502165422'),
 ('20170505104641'),
 ('20170505112521'),
-('20170515093430'),
 ('20170512150125'),
-('20170515105635');
+('20170515093430'),
+('20170515105635'),
+('20170522151032');
 
 
