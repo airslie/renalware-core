@@ -55,7 +55,6 @@ Gem::Specification.new do |s|
   s.add_dependency "pundit", "~> 1.1.0"
   s.add_dependency "ransack"
   s.add_dependency "record_tag_helper", "~> 1.0"
-  s.add_dependency "rollbar"
   s.add_dependency "pandoc-ruby"
   s.add_dependency "ruby-hl7", "~> 1.2.0"
   s.add_dependency "sass-rails"

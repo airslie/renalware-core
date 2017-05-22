@@ -49,7 +49,6 @@ PATH
       rails-assets-select2 (~> 4.0.2)
       ransack
       record_tag_helper (~> 1.0)
-      rollbar
       ruby-hl7 (~> 1.2.0)
       sass-rails
       scenic
@@ -564,6 +563,7 @@ DEPENDENCIES
   rack-mini-profiler
   rails-controller-testing
   renalware!
+  rollbar
   rspec-html-matchers
   rspec-rails
   rubocop (~> 0.48.1)

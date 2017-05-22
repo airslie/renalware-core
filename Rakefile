@@ -1,9 +1,6 @@
 # Add your own tasks in files placed in lib/tasks ending in .rake,
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
-# require File.expand_path("../config/application", __FILE__)
-
-# Rails.application.load_tasks
 puts "Loading engine rake tasks"
 
 begin
@@ -16,6 +13,7 @@ end
 unless defined?(APP_RAKEFILE)
   APP_RAKEFILE = File.expand_path("../spec/dummy/Rakefile", __FILE__)
 end
+
 load "rails/tasks/engine.rake"
 load "rails/tasks/statistics.rake"
 
@@ -34,7 +32,7 @@ Bundler::GemHelper.install_tasks
 
 # task default: :test
 
-# assets:precompile task for For Heroku only
+# assets:* tasks for For Heroku only
 # When deploying the engine to Heroku, we are actually deployment the spec/dummy app.
 # Heroku however loads this Rakefile first hunting for an assets:precompile task to indicate
 # it should compile the assets. If not found it won't compile assets and we won't have any styling.
