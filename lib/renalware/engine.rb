@@ -48,7 +48,9 @@ require "wisper"
 require "rails-assets-clockpicker"
 require "rails-assets-foundation-datepicker"
 require "rails-assets-select2"
-require "byebug" unless ENV["RAILS_ENV"] == "production"
+if ENV["RAILS_ENV"] == "development"
+  require "byebug"
+end
 
 module Renalware
 
