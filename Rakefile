@@ -20,6 +20,9 @@ load "rails/tasks/engine.rake"
 load "rails/tasks/statistics.rake"
 
 require "bundler/gem_tasks"
+
+Bundler::GemHelper.install_tasks
+
 # require 'rake/testtask'
 
 # Rake::TestTask.new(:test) do |t|
@@ -36,19 +39,18 @@ require "bundler/gem_tasks"
 # Heroku however loads this Rakefile first hunting for an assets:precompile task to indicate
 # it should compile the assets. If not found it won't compile assets and we won't have any styling.
 namespace :assets do
-  desc 'Clean any assets within dummy app'
+  desc "Clean any assets within dummy app"
   task :clean do
-    Dir.chdir('spec/dummy') do
-      system('bundle exec rake assets:clean')
-    end
+    Rake::Task["app:assets:clean"].invoke
   end
 
-  desc 'Precompile assets within dummy app'
+  desc "Precompile assets within dummy app"
   task :precompile do
-    Dir.chdir('spec/dummy') do
-      system('bundle exec rake assets:precompile')
-    end
+    Rake::Task["app:assets:precompile"].invoke
+  end
+
+  desc "Clobbers assets within dummy app"
+  task :clobber do
+    Rake::Task["app:assets:clobber"].invoke
   end
 end
-
-Bundler::GemHelper.install_tasks
