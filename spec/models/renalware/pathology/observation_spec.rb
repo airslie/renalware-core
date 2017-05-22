@@ -5,5 +5,6 @@ module Renalware
     it { is_expected.to validate_presence_of(:description) }
     it { is_expected.to validate_presence_of(:result) }
     it { is_expected.to validate_presence_of(:observed_at) }
+    it { is_expected.to belong_to(:request).touch(true) }
   end
 end
