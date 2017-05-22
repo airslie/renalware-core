@@ -8,8 +8,8 @@ gemspec
 gem "devise_security_extension", git: "https://github.com/phatworx/devise_security_extension.git"
 
 group :test do
-  gem "cucumber-rails", require: false
   gem "codeclimate-test-reporter", require: false
+  gem "cucumber-rails", require: false
   gem "rails-controller-testing"
   gem "simplecov", "~> 0.13.0", require: false
   gem "webmock"
