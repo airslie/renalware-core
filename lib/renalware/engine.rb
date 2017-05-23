@@ -72,21 +72,10 @@ module Renalware
       g.fixture_replacement :factory_girl, dir: "../../spec/factories"
     end
 
-    initializer :url_defaults do |app|
-      app.routes.default_url_options[:host] = "localhost"
-      routes.default_url_options[:host] = "localhost"
-      # default_url_options[:host] =  "localhost"
-      # app.config.default_url_options = { host: "localhost", port: 3000 }
-      # config.action_mailer.smtp_settings = {
-      #   address: "smtp.sendgrid.net",
-      #   port: "587",
-      #   authentication: :plain,
-      #   user_name: ENV["SENDGRID_USERNAME"],
-      #   password: ENV["SENDGRID_PASSWORD"],
-      #   domain: "heroku.com",
-      #   enable_starttls_auto: true
-      # }
-    end
+    # initializer :url_defaults do |app|
+    #   app.routes.default_url_options[:host] = "localhost"
+    #   routes.default_url_options[:host] = "localhost"
+    # end
 
     initializer :add_locales do |app|
       app.config.i18n.load_path += Dir[config.root.join("config", "locales", "**", "*.{rb,yml}")]
