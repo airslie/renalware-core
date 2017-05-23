@@ -72,11 +72,6 @@ module Renalware
       g.fixture_replacement :factory_girl, dir: "../../spec/factories"
     end
 
-    # initializer :url_defaults do |app|
-    #   app.routes.default_url_options[:host] = "localhost"
-    #   routes.default_url_options[:host] = "localhost"
-    # end
-
     initializer :add_locales do |app|
       app.config.i18n.load_path += Dir[config.root.join("config", "locales", "**", "*.{rb,yml}")]
       app.config.i18n.default_locale = "en-GB"
