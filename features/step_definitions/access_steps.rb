@@ -24,7 +24,7 @@ When(/^Clyde records an access procedure for Patty$/) do
 end
 
 When(/^Clyde submits an erroneous access procedure$/) do
-  create_access_procedure(patient: @patty, user: @clyde, site: nil)
+  create_access_procedure(patient: @patty, user: @clyde, performed_on: nil)
 end
 
 When(/^Clyde records an access assessment for Patty$/) do
