@@ -106,3 +106,23 @@ To make awesome_print the default formatter in irb, add the following to `~/.irb
 
     require "awesome_print"
     AwesomePrint.irb!
+
+## Deploying
+
+### Vagrant
+
+To build a vagrant vm, first clone the
+[renalware-provisioning](https://github.com/airslie/renalware-provisioning) repo in a sibling folder
+alongside this project's folder.
+
+Provision the server using ansible:
+
+```
+$ vagrant up --provision
+```
+
+Deploy using capistrano:
+
+```
+cap vagrant deploy
+```
