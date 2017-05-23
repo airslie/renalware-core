@@ -4,8 +4,15 @@ module Renalware
   module PD
     class ExitSiteInfection < ApplicationRecord
       include PatientScope
+      extend Enumerize
 
       belongs_to :patient, class_name: "Renalware::Patient", touch: true
+      # serialize :clinical_presentation, Array
+
+      # clinical_presentation serializes to a pg array
+      enumerize :clinical_presentation,
+                in: [:pain, :redness, :swelling, :pus, :swabbed, :tunnel_infection],
+                multiple: true
 
       has_many :prescriptions, as: :treatable, class_name: "Renalware::Medications::Prescription"
       has_many :medication_routes, through: :prescriptions

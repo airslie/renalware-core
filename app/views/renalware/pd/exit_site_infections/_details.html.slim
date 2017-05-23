@@ -1,5 +1,5 @@
 #infection
-  dl.dl-horizontal
+  dl.dl-horizontal.xlarge
     dt Diagnosed:
     dd= l exit_site_infection.diagnosis_date
     dt Last Updated:
@@ -10,6 +10,11 @@
     dd= exit_site_infection.treatment
     dt Notes:
     dd= exit_site_infection.notes
+    dt= attr_name(exit_site_infection, :clinical_presentation)
+    dd= exit_site_infection.clinical_presentation&.texts&.join(", ")
+    dt= attr_name(exit_site_infection, :cleared)
+    dd= yes_no_if_set(exit_site_infection.cleared)
+
 
   .right
     = link_to "Edit",

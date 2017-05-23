@@ -9,17 +9,26 @@ module World
 
       # @section commands
       #
-      def record_exit_site_infection_for(patient:, user:, diagnosed_on:, outcome:)
+      def record_exit_site_infection_for(patient:,
+                                         user:,
+                                         diagnosed_on:,
+                                         outcome:,
+                                         clinical_presentation:)
         patient.exit_site_infections.create(
           diagnosis_date: diagnosed_on,
+          clinical_presentation: clinical_presentation,
           outcome: outcome
         )
       end
 
-      def revise_exit_site_infection_for(patient:, user:, diagnosed_on:)
+      def revise_exit_site_infection_for(patient:, user:, diagnosed_on:, clinical_presentation: nil)
         infection = patient.exit_site_infections.last!
 
-        infection.update!(diagnosis_date: diagnosed_on)
+        infection.diagnosis_date = diagnosed_on
+        if clinical_presentation.present?
+          infection.clinical_presentation = clinical_presentation
+        end
+        infection.save!
       end
 
       def exit_site_infection_drug_selector
@@ -54,12 +63,23 @@ module World
 
       # @section commands
       #
-      def record_exit_site_infection_for(patient:, user:, diagnosed_on:, outcome:)
+      def record_exit_site_infection_for(patient:,
+                                         user:,
+                                         diagnosed_on:,
+                                         outcome:,
+                                         clinical_presentation:)
         login_as user
 
         visit new_patient_pd_exit_site_infection_path(patient)
         fill_in "Diagnosed on", with: diagnosed_on
         fill_in "Outcome", with: outcome
+
+        clinical_presentation&.each do |item|
+          label = I18n.t(item,
+                         scope: "enumerize.renalware/pd/exit_site_infection.clinical_presentation")
+          check label
+        end
+
         click_on "Save"
       end
 

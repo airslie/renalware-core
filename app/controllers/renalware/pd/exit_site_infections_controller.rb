@@ -94,7 +94,8 @@ module Renalware
       def exit_site_infection_params
         params
           .require(:pd_exit_site_infection)
-          .permit(:diagnosis_date, :treatment, :outcome, :notes)
+          .permit(:diagnosis_date, :treatment, :outcome, :notes,
+                  clinical_presentation: [])
       end
 
       def load_exit_site_infection
