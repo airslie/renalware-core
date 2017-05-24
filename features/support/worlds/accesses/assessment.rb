@@ -11,7 +11,6 @@ module World
       def valid_access_assessment_attributes
         {
           performed_on: Time.zone.today,
-          type: Renalware::Accesses::Type.first,
           side: :left,
           document: {
             results: {
@@ -23,11 +22,14 @@ module World
 
       # @section seeding
       #
-      def seed_access_assessment_for(patient, user:)
+      def seed_access_assessment_for(patient,
+                                     user:,
+                                     access_type: Renalware::Accesses::Type.first)
         patient = accesses_patient(patient)
         patient.assessments.create!(
           valid_access_assessment_attributes.merge(
             site: Renalware::Accesses::Site.first,
+            type: access_type,
             by: user
           )
         )
@@ -35,11 +37,16 @@ module World
 
       # @section commands
       #
-      def create_access_assessment(patient:, user:, site:)
+      def create_access_assessment(patient:,
+                                   user:,
+                                   site: Renalware::Accesses::Site.first,
+                                   access_type: Renalware::Accesses::Type.first)
+
         patient = accesses_patient(patient)
         patient.assessments.create(
           valid_access_assessment_attributes.merge(
             site: site,
+            type: access_type,
             by: user
           )
         )
@@ -72,7 +79,10 @@ module World
     module Web
       include Domain
 
-      def create_access_assessment(user:, patient:, site:)
+      def create_access_assessment(user:,
+                                  patient:,
+                                  site: Renalware::Accesses::Site.first,
+                                  access_type: Renalware::Accesses::Type.first)
         login_as user
         visit patient_accesses_dashboard_path(patient)
         within ".page-actions" do
@@ -81,7 +91,7 @@ module World
         end
 
         fill_in "Performed", with: I18n.l(Time.zone.today)
-        select "Vein loop", from: "Access Type"
+        select(access_type, from: "Access Type") if access_type.present?
         select site.to_s, from: "Access Site"
         select "Right", from: "Access Side"
 
