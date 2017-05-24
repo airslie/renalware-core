@@ -1,8 +1,15 @@
 en:
   renalware:
-    assessments:
+    pd:
+      assessments:
+        new:
+          title: New PD Assessment
+        list:
+          title: PD Assessments
+          notes: Notes
+          date_time: Date recorded
+          had_home_visit: Home visit?
+          home_visit_on: Home visit date
   enumerize:
     renalware/events/pd_assessment/document:
-    had_home_visit:
-      positive: "Yes"
-      negative: "No"
+

@@ -30,3 +30,8 @@
     = render "renalware/pd/dashboards/show/pet_adequacies",
            pet_adequacies: dashboard.pet_adequacies,
            patient: patient
+
+  - if dashboard.assessments.any?
+    = render "renalware/pd/assessments/list",
+              assessments: dashboard.assessments,
+              patient: patient

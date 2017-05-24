@@ -35,6 +35,10 @@ module Renalware
       def pet_adequacies
         @pet_adequacies ||= PETAdequacyResult.for_patient(patient).ordered
       end
+
+      def assessments
+        @assessments ||= Assessment.for_patient(patient).ordered
+      end
     end
   end
 end
