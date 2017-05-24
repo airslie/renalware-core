@@ -30,7 +30,7 @@ module World
 
       # @section commands
       #
-      def create_access_profile(patient:, user:, site:)
+      def create_access_profile(patient:, user:, site: Renalware::Accesses::Site.first)
         patient = accesses_patient(patient)
         patient.profiles.create(
           valid_access_profile_attributes.merge(
@@ -67,7 +67,7 @@ module World
     module Web
       include Domain
 
-      def create_access_profile(user:, patient:, site:)
+      def create_access_profile(user:, patient:, site: Renalware::Accesses::Site.first)
         login_as user
         visit patient_accesses_dashboard_path(patient)
         within ".page-actions" do

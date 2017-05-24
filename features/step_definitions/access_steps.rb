@@ -12,7 +12,7 @@ end
 
 
 When(/^Clyde records an access profile for Patty$/) do
-  create_access_profile(patient: @patty, user: @clyde, site: Renalware::Accesses::Site.first)
+  create_access_profile(patient: @patty, user: @clyde)
 end
 
 When(/^Clyde submits an erroneous access profile$/) do
@@ -20,19 +20,19 @@ When(/^Clyde submits an erroneous access profile$/) do
 end
 
 When(/^Clyde records an access procedure for Patty$/) do
-  create_access_procedure(patient: @patty, user: @clyde, site: Renalware::Accesses::Site.first)
+  create_access_procedure(patient: @patty, user: @clyde)
 end
 
 When(/^Clyde submits an erroneous access procedure$/) do
-  create_access_procedure(patient: @patty, user: @clyde, site: nil)
+  create_access_procedure(patient: @patty, user: @clyde, access_type: nil)
 end
 
 When(/^Clyde records an access assessment for Patty$/) do
-  create_access_assessment(patient: @patty, user: @clyde, site: Renalware::Accesses::Site.first)
+  create_access_assessment(patient: @patty, user: @clyde)
 end
 
 When(/^Clyde submits an erroneous access assessment$/) do
-  create_access_assessment(patient: @patty, user: @clyde, site: nil)
+  create_access_assessment(patient: @patty, user: @clyde, access_type: nil)
 end
 
 

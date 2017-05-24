@@ -16,8 +16,6 @@ module Renalware
       scope :ordered, -> { order(performed_on: :desc) }
 
       validates :type, presence: true
-      validates :site, presence: true
-      validates :side, presence: true
       validates :performed_by, presence: true
       validates :performed_on, presence: true
       validates :performed_on, timeliness: { type: :date, allow_blank: false }
