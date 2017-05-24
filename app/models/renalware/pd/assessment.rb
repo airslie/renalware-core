@@ -5,13 +5,14 @@ module Renalware
   module PD
     class Assessment < ApplicationRecord
       include Accountable
+      include PatientScope
       include Document::Base
       extend Enumerize
 
-      belongs_to :patient, touch: true
+      belongs_to :patient, class_name: "Renalware::Patient", touch: true
 
       class Document < Document::Embedded
-        attribute :had_home_visit, ::Document::Enum, enums: %i(pos neg)
+        attribute :had_home_visit, ::Document::Enum, enums: %i(positive negative)
         attribute :home_visit_on, Date
         attribute :housing_type, ::Document::Enum, enums: %i(patient council)
         attribute :occupant_notes, String

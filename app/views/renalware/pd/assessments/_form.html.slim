@@ -1,0 +1,18 @@
+= simple_form_for assessment,
+                  url: patient_pd_assessments_path(patient),
+                  html: { autocomplete: "off" },
+                  wrapper: "horizontal_form" do |f|
+
+  = simple_fields_for :document, assessment.document  do |fdoc|
+    = fdoc.input :had_home_visit, as: :inline_radio_buttons, wrapper: :horizontal_medium
+    = fdoc.input :home_visit_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = fdoc.input :housing_type, as: :inline_radio_buttons, wrapper: :horizontal_medium
+    = fdoc.input :occupant_notes, wrapper: :horizontal_medium
+    = fdoc.input :exchange_area, wrapper: :horizontal_medium
+    = fdoc.input :handwashing, wrapper: :horizontal_medium
+    = fdoc.input :bag_warming, wrapper: :horizontal_medium
+    = fdoc.input :delivery_frequency, wrapper: :horizontal_medium
+
+  = f.submit "Save", class: "button"
+  span= " or "
+  = link_to "cancel", patient_pd_dashboard_path(patient)

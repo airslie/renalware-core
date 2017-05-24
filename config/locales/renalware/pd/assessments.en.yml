@@ -1,0 +1,8 @@
+en:
+  renalware:
+    assessments:
+  enumerize:
+    renalware/events/pd_assessment/document:
+    had_home_visit:
+      positive: "Yes"
+      negative: "No"
