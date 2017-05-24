@@ -1,3 +1,2 @@
-= within_patient_layout(breadcrumbs: pd_summary_breadcrumb(patient)) do
-
+= within_patient_layout(breadcrumbs: pd_assessment_breadcrumbs(patient, assessment)) do
   = render "form", patient: patient, assessment: assessment

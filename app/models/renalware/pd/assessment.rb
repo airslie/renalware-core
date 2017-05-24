@@ -12,7 +12,7 @@ module Renalware
 
       belongs_to :patient, class_name: "Renalware::Patient", touch: true
 
-      attr_reader :ignore_me
+      attr_reader :ignore_me # see html form for explanation of this non-persistent attribute
 
       class Document < Document::Embedded
         attribute :had_home_visit, ::Document::Enum, enums: %i(yes no)

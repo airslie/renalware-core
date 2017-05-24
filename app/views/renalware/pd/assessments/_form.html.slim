@@ -3,7 +3,10 @@
                   html: { autocomplete: "off" },
                   wrapper: "horizontal_form" do |f|
 
-  = f.input :ignore_me
+  / This hidden input exists only so that posted form params have 'assessment' at the top
+  / eg params[:assessment][:document], otherwise we just get params[:document] and that would
+  / confound our .permit/.require expectations in the controller.
+  = f.input :ignore_me, as: :hidden
 
   = f.simple_fields_for :document, assessment.document  do |fdoc|
     = fdoc.input :had_home_visit, as: :inline_radio_buttons, wrapper: :horizontal_medium

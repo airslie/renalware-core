@@ -2,7 +2,8 @@ require "rails_helper"
 
 module Renalware
   feature "PD Assessment management", js: true do
-    scenario "Adding a PD Assessment" do
+    ###
+    scenario "Add a PD Assessment" do
       patient = create(:pd_patient)
       login_as_clinician
 
@@ -37,6 +38,7 @@ module Renalware
       PD::Assessment.human_attribute_name(att)
     end
 
+    ###
     scenario "Edit a PD Assessment" do
       patient = create(:pd_patient)
       user = login_as_clinician
@@ -52,7 +54,7 @@ module Renalware
         click_on "Edit"
       end
 
-      # Edit
+      # Edit - change a couple of fields
       home_visit_on = I18n.l(Time.zone.today + 99.days)
       fill_in input_called(:home_visit_on), with: home_visit_on
       within(".assessment_document_had_home_visit") { choose("No") }
@@ -63,10 +65,12 @@ module Renalware
       within ".pd_assessments table tbody" do
         expect(page).to have_content("No")
         expect(page).to have_content(home_visit_on)
+        # We don't need to test all fields, just that the ones we changed have updated.
       end
     end
 
-    scenario "Viewing a PD Assessment" do
+    ###
+    scenario "View a PD Assessment" do
       patient = create(:pd_patient)
       user = login_as_clinician
       assessment = create(:pd_assessment,
@@ -75,13 +79,20 @@ module Renalware
                           updated_by: user)
 
       visit patient_pd_dashboard_path(patient)
-      p assessment
+
       # Summary
       within ".pd_assessments table tbody" do
         click_on "View"
       end
 
       # View
+      doc = assessment.document
+      within "article.pd_assessment_document" do
+        expect(page).to have_content(I18n.l(doc.home_visit_on))
+        expect(page).to have_content(doc.occupant_notes)
+        # No need to test presence of all items here - we just want to make
+        # we are are in the right place and some is being displayed.
+      end
     end
   end
 end
