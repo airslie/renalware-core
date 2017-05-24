@@ -4,6 +4,12 @@ module Renalware
   module PD
     class AssessmentsController < BaseController
 
+      def show
+        assessment = find_assessment
+        authorize assessment
+        render locals: { patient: patient, assessment: assessment }
+      end
+
       def new
         assessment = PD::Assessment.for_patient(patient).new
         authorize assessment
@@ -11,9 +17,9 @@ module Renalware
       end
 
       def create
-        assessment = PD::Assessment.for_patient(patient).new
+        assessment = PD::Assessment.for_patient(patient).new(assessment_params)
         authorize assessment
-        if assessment.update(assessment_params)
+        if assessment.save
           redirect_to patient_pd_dashboard_path(patient),
                       notice: success_msg_for("assessment")
         else
@@ -21,7 +27,28 @@ module Renalware
         end
       end
 
+      def edit
+        assessment = find_assessment
+        authorize assessment
+        render locals: { patient: patient, assessment: assessment }
+      end
+
+      def update
+        assessment = find_assessment
+        authorize assessment
+        if assessment.update(assessment_params)
+          redirect_to patient_pd_dashboard_path(patient),
+                      notice: success_msg_for("assessment")
+        else
+          render :edit, locals: { patient: patient, assessment: assessment }
+        end
+      end
+
       private
+
+      def find_assessment
+        PD::Assessment.for_patient(patient).find(params[:id])
+      end
 
       def assessment_params
         params

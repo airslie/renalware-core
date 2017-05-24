@@ -16,6 +16,9 @@ article.pd_assessments
           td
             - if policy(assessment).edit?
               = link_to("Edit", edit_patient_pd_assessment_path(patient, assessment))
+              = pipe_separator
+            - if policy(assessment).edit?
+              = link_to("View", [patient, assessment])
           td= l(assessment.created_at)
           td= assessment.document.had_home_visit&.text
           td= l(assessment.document.home_visit_on)

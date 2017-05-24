@@ -4,6 +4,10 @@ en:
       assessments:
         new:
           title: New PD Assessment
+        edit:
+          title: Edit PD Assessment
+        show:
+          title: PD Assessment
         list:
           title: PD Assessments
           notes: Notes
@@ -12,4 +16,3 @@ en:
           home_visit_on: Home visit date
   enumerize:
     renalware/events/pd_assessment/document:
-
