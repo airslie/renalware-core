@@ -31,7 +31,7 @@ RSpec.describe "Creating an event", type: :feature, js: true do
   end
 
   context "adding a biopsy event" do
-    it "captures extra date" do
+    it "captures extra data" do
       event_type = create(:events_type,
                           name: "Renal biopsy",
                           event_class_name: "Renalware::Events::Biopsy")
