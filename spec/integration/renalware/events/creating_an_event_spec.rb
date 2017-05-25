@@ -39,8 +39,8 @@ RSpec.describe "Creating an event", type: :feature, js: true do
       visit new_patient_event_path(patient)
 
       select "Renal biopsy", from: "Event type"
-      select "A", from: "Result 1"
-      select "Z", from: "Result 2"
+      select "A", from: "Rejection"
+      select "Z", from: "IFTA"
 
       click_on "Save"
 
