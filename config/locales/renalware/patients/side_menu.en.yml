@@ -1,0 +1,31 @@
+en:
+  renalware:
+    patients:
+      side_menu:
+        general:
+          heading: General
+          clinic_visits: Clinic Visits (%{count})
+          letters: Letters (%{count})
+          events: Events (%{count})
+          access_profiles: Access Summary (%{count})
+          prescriptions: Prescriptions (%{count})
+          pathology: Pathology (%{count})
+          problems: Problems (%{count})
+          modalities: Modalities (%{count})
+          esrf: ESRF/Comorbidities
+          clinical_profile: Clinical Profile
+          contacts: Contacts (%{count})
+          demographics: Demographics
+          clinical_summary: Clinical Summary
+        modalities:
+          heading: Modalities
+          pd: PD
+          hd: HD
+        transplants:
+          heading: Transplants
+          donor_summary: Donor Summary
+          recipient_summary: Recipient Summary
+        options:
+          heading: Options
+          create_bookmark: Bookmark this patient
+          delete_bookmark: Remove from bookmarks

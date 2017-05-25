@@ -7,7 +7,11 @@ module Renalware
               -> { current },
               class_name: "DonorStage"
 
-      def donor?
+      def has_ever_been_a_donor?
+        modality_descriptions.exists?(type: "Renalware::Transplants::DonorModalityDescription")
+      end
+
+      def has_ever_been_a_recipient?
         modality_descriptions.exists?(type: "Renalware::Transplants::DonorModalityDescription")
       end
     end
