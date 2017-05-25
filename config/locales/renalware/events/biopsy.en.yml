@@ -2,15 +2,25 @@ en:
   activemodel:
     attributes:
       renalware/events/biopsy/document:
-        result1: "Result 1"
-        result2: "Result 2"
+        result1: "Rejection"
+        result2: "IFTA"
   enumerize:
     renalware/events/biopsy/document:
       result1:
-        a: Option A
-        b: Option B
-        c: Option C
+        a: Acute AMR
+        b: Chronic AMR
+        c: Borderline TCMR
+        d: TCMR IA
+        e: TCMR IB
+        f: TCMR IIA
+        g: TCMR IIB
+        h: TCMR III
+        i: CNI toxicity
+        j: BK nephropathy
+        k: Diabetic nephropathy
+        l: Recurrent GN
+        m: De Novo GN
       result2:
-        x: Option X
-        y: Option Y
-        z: Option Z
+        x: "<25%"
+        y: "26-50%"
+        z: ">50%"
