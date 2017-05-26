@@ -24,8 +24,6 @@ RSpec.describe "Creating an event", type: :feature, js: true do
 
       click_on "Save"
 
-      expect(current_path).to eq(root_path)
-
       events = Renalware::Events::Event.for_patient(patient)
       expect(events.length).to eq(1)
       event = events.first
