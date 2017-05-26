@@ -6,7 +6,7 @@ module Renalware
     class EventsController < BaseController
 
       def new
-        session[:return_to] ||= request.referer
+        save_path_to_return_to
         render locals: {
           patient: patient,
           event: build_new_event,
@@ -60,9 +60,19 @@ module Renalware
 
       protected
 
-      def return_url
-        session.delete(:return_to) || patient_events_path(patient)
+      def save_path_to_return_to
+        return unless request.format == :html
+        session[:return_to] ||= request.path
       end
+
+      def return_url
+        @return_url ||= begin
+          path = session.delete(:return_to)
+          path = nil if path == new_patient_event_path(patient)
+          path || patient_events_path(patient)
+        end
+      end
+      helper_method :return_url
 
       def load_and_authorize_event_for_edit_or_update
         event = Event.for_patient(patient).find(params[:id])
