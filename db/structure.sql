@@ -28,6 +28,20 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
+--
+-- Name: uuid-ossp; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UUIDs)';
+
+
 SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
@@ -1928,7 +1942,8 @@ CREATE TABLE patients (
     renalreg_decision_on date,
     rpv_decision_on date,
     renalreg_recorded_by character varying,
-    rpv_recorded_by character varying
+    rpv_recorded_by character varying,
+    uuid uuid DEFAULT uuid_generate_v4() NOT NULL
 );
 
 
@@ -6921,6 +6936,13 @@ CREATE INDEX index_patients_on_updated_by_id ON patients USING btree (updated_by
 
 
 --
+-- Name: index_patients_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_patients_on_uuid ON patients USING btree (uuid);
+
+
+--
 -- Name: index_pd_bag_types_on_deleted_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9209,6 +9231,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170512150125'),
 ('20170515093430'),
 ('20170515105635'),
-('20170522151032');
+('20170522151032'),
+('20170526060804'),
+('20170526061000');
 
 
