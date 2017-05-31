@@ -24,14 +24,17 @@
         th= sort_link(q, :patient_sex, "Sex")
         th Modal
         th= sort_link(q, :uk_transplant_centre_code, "Site")
-        th= sort_link(q, :patient_renal_profile_diagnosed_on, "ESRF Date")
-        th= sort_link(q, :entered_on, "Entry Date")
+        / Note patient_profile_esrf_on sorting not yet working because patient is not a
+        / Renal::Patient so patient#profile does not exist. We may need to add a ransacker
+        / in WaitListQuery
+        th.col-width-date= sort_link(q, :patient_profile_esrf_on, "ESRF Date")
+        th.col-width-date= sort_link(q, :entered_on, "Entry Date")
         th DOL
         th Bld Grp
-        th= sort_link(q, :crf_highest_value, "CRF high")
-        th CRF high date
+        th.col-width-date= sort_link(q, :crf_highest_value, "CRF high")
+        th.col-width-date CRF high date
         th= sort_link(q, :crf_latest_value, "CRF latest")
-        th CRF latest date
+        th.col-width-date CRF latest date
         th Sens (CRF>60)
         th Prev Ops
         th Tx Type
