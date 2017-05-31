@@ -3,6 +3,7 @@ require "active_support/concern"
 module Renalware
   module PatientsRansackHelper
     extend ActiveSupport::Concern
+    UUID_REGEXP =  /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/
 
     included do
       class_eval do
@@ -29,6 +30,7 @@ module Renalware
       end
 
       def sanitize_query!(query)
+        query.strip!
         query.tr!(",", " ")
         query.gsub!("  ", " ")
       end
@@ -40,7 +42,7 @@ module Renalware
         if query.include?(" ")
           [full_name_sql, full_name_params(query)]
         else
-          [identity_sql, identity_params(query)]
+          [identity_sql(query), identity_params(query)]
         end
       end
 
@@ -48,8 +50,8 @@ module Renalware
         { fuzzy_term: "#{query}%", exact_term: query }
       end
 
-      def identity_sql
-        <<-SQL.squish
+      def identity_sql(query)
+        sql = <<-SQL.squish
           local_patient_id = :exact_term OR
           local_patient_id_2 = :exact_term OR
           local_patient_id_3 = :exact_term OR
@@ -59,6 +61,12 @@ module Renalware
           nhs_number = :exact_term OR
           family_name ILIKE :fuzzy_term
         SQL
+        sql += " OR uuid = :exact_term" if query_is_a_uuid?(query)
+        sql
+      end
+
+      def query_is_a_uuid?(query)
+        query.match(UUID_REGEXP)
       end
 
       def full_name_params(query)
