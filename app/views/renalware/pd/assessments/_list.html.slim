@@ -7,6 +7,8 @@ article.pd_assessments
       tr
         th.col-width-tiny
         th.col-width-date-time= t(".date_time")
+        th.col-width-date-time= t(".assessed_on")
+        th.col-width-date-time= t(".assessor")
         th.col-width-tiny= t(".had_home_visit")
         th.col-width-date= t(".home_visit_on")
         th
@@ -20,6 +22,8 @@ article.pd_assessments
             - if policy(assessment).show?
               = link_to("View", [patient, assessment])
           td= l(assessment.created_at)
+          td= l(assessment.assessed_on)
+          td= assessment.document.assessor
           td= assessment.document.had_home_visit&.text
           td= l(assessment.document.home_visit_on)
           td

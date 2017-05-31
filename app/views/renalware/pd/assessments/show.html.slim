@@ -8,6 +8,8 @@
   article.pd_assessment_document
     header
     = definition_list_for(assessment.document, size: :xlarge) do |list|
+      = list.definition(:assessed_on) { |value| l(value) }
+      = list.definition(:assessor)
       = list.definition(:had_home_visit) { |value| value.text }
       = list.definition(:home_visit_on) { |value| l(value) }
       = list.definition(:housing_type) { |value| value.text }
@@ -16,4 +18,26 @@
       = list.definition(:handwashing)
       = list.definition(:fluid_storage)
       = list.definition(:bag_warming)
-      = list.definition(:delivery_frequency)
+      = list.definition(:delivery_interval)
+      = list.definition(:needs_rehousing) { |value| value.text }
+      = list.definition(:rehousing_notes)
+      = list.definition(:social_worker) { |value| value.text }
+      = list.definition(:seen_video) { |value| value.text }
+      = list.definition(:can_open_bag) { |value| value.text }
+      = list.definition(:can_lift_bag) { |value| value.text }
+      = list.definition(:eyesight)
+      = list.definition(:hearing)
+      = list.definition(:dexterity)
+      = list.definition(:motivation)
+      = list.definition(:language)
+      = list.definition(:other_notes)
+      = list.definition(:suitable_for_pd) { |value| value.text }
+      = list.definition(:system_choice) { |value| value.text }
+      = list.definition(:insertion_discussed) { |value| value.text }
+      = list.definition(:method_chosen) { |value| value.text }
+      = list.definition(:access_clinic_referral) { |value| value.text }
+      = list.definition(:access_clinic_on) { |value| l(value) }
+      = list.definition(:abdo_assessor)
+      = list.definition(:bowel_disease) { |value| value.text }
+      = list.definition(:bowel_disease_notes)
+      = list.definition(:added_comments)
