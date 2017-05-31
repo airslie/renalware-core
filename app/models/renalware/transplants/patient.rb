@@ -12,7 +12,7 @@ module Renalware
       end
 
       def has_ever_been_a_recipient?
-        modality_descriptions.exists?(type: "Renalware::Transplants::DonorModalityDescription")
+        modality_descriptions.exists?(type: "Renalware::Transplants::RecipientModalityDescription")
       end
     end
   end
