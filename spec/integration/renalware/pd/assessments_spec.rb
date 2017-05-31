@@ -16,14 +16,15 @@ module Renalware
       # New
       home_visit_on = I18n.l(Time.zone.today)
       within(".assessment_document_had_home_visit") { choose("Yes") }
-      within(".assessment_document_housing_type") { choose("Patient") }
+      within(".assessment_document_housing_type") { choose("Flat") }
+      fill_in input_called(:assessor), with: "Flo Nightengale RN"
       fill_in input_called(:home_visit_on), with: home_visit_on
       fill_in input_called(:occupant_notes), with: "occupant_notes"
       fill_in input_called(:exchange_area), with: "exchange_area"
       fill_in input_called(:handwashing), with: "handwashing"
       fill_in input_called(:bag_warming), with: "bag_warming"
       fill_in input_called(:fluid_storage), with: "bag_warming"
-      fill_in input_called(:delivery_frequency), with: "delivery_frequency"
+      fill_in input_called(:delivery_interval), with: "delivery_interval"
 
       click_on "Save"
 
@@ -55,7 +56,7 @@ module Renalware
       end
 
       # Edit - change a couple of fields
-      home_visit_on = I18n.l(Time.zone.today + 99.days)
+      home_visit_on = I18n.l(Time.zone.today - 1.day)
       fill_in input_called(:home_visit_on), with: home_visit_on
       within(".assessment_document_had_home_visit") { choose("No") }
 
