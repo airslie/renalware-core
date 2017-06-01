@@ -30,8 +30,8 @@ RSpec.describe "Creating an event", type: :feature, js: true do
       expect(event.event_type_id).to eq(event_type.id)
 
       # These two fields are defined in the Events::Biopsy::Document
-      expect(event.document.result1).to eq("m")
-      expect(event.document.result2).to eq("y")
+      expect(event.document.result1).to eq("de_novo_gn")
+      expect(event.document.result2).to eq("from_26_to_50")
     end
   end
 end
