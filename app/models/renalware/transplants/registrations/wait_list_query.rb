@@ -14,8 +14,10 @@ module Renalware
         def search
           @search ||= begin
             query = query_for_filter(@quick_filter).merge(@q)
-            QueryableRegistration.search(query).tap do |s|
-              s.sorts = ["patient_family_name, patient_given_name"]
+            QueryableRegistration
+              .includes(patient: [current_modality: :description])
+              .search(query).tap do |s|
+                s.sorts = ["patient_family_name, patient_given_name"]
             end
           end
         end
@@ -29,7 +31,7 @@ module Renalware
           when :suspended
             { current_status_in: :suspended }
           when :active_and_suspended
-            # note: array must be embedded in another array as mentionned here:
+            # note: array must be embedded in another array as mentioned here:
             # https://github.com/activerecord-hackery/ransack#using-scopesclass-methods
             { current_status_in: [%w(active suspended)] }
           when :working_up
