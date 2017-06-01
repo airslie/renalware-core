@@ -8,7 +8,10 @@ module Renalware
         end
 
         def call
-          search.result
+          search
+            .result
+            .extending(Scopes)
+            .apply_filter(@quick_filter)
         end
 
         def search
@@ -17,7 +20,22 @@ module Renalware
             QueryableRegistration
               .includes(patient: [current_modality: :description])
               .search(query).tap do |s|
-                s.sorts = ["patient_family_name, patient_given_name"]
+              s.sorts = ["patient_family_name, patient_given_name"]
+            end
+          end
+        end
+
+        # Mixing in some scopes here rather than using ransack as I cannot get ransack scopes
+        # to 'or' together other scopes like this. I seem to spend a lot of time debugging the
+        # vagaries of ransack and wonder if its more pain that its worth!
+        module Scopes
+          def apply_filter(filter)
+            case filter
+            when :status_mismatch
+              current_status_is_active.ukt_status_is_not_active
+              .or(current_status_is_not_active.ukt_status_is_active)
+            else
+              all
             end
           end
         end
@@ -36,6 +54,8 @@ module Renalware
             { current_status_in: [%w(active suspended)] }
           when :working_up
             { current_status_in: [%w(working_up working_up_lrf)] }
+          when :status_mismatch
+            {} # See Scopes
           end
         end
 
@@ -45,6 +65,13 @@ module Renalware
             joins(statuses: :description)
               .where(transplant_registration_statuses: { terminated_on: nil })
               .where(transplant_registration_status_descriptions: { code: codes })
+          }
+
+          scope :current_status_not_in, lambda { |codes|
+            codes ||= %w(active)
+            joins(statuses: :description)
+              .where(transplant_registration_statuses: { terminated_on: nil })
+              .where.not(transplant_registration_status_descriptions: { code: codes })
           }
 
           ransacker :uk_transplant_centre_code do
@@ -59,10 +86,29 @@ module Renalware
             Arel.sql("transplant_registrations.document -> 'crf' -> 'latest' ->> 'result'")
           end
 
+          scope :ukt_status_is, lambda { |status|
+            where("transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' ilike '#{status}'")
+          }
+          scope :ukt_status_is_not, lambda { |status|
+            where.not("transplant_registrations.document -> 'uk_transplant_centre' ->> 'status' ilike '#{status}'")
+          }
+          scope :current_status_is_active, ->{ current_status_in(:active) }
+          scope :current_status_is_not_active, ->{ current_status_not_in(:active) }
+          scope :ukt_status_is_active, ->{ ukt_status_is(:active) }
+          scope :ukt_status_is_not_active, ->{ ukt_status_is_not(:active) }
+
           private_class_method :ransackable_scopes
 
           def self.ransackable_scopes(_auth_object = nil)
-            %i(current_status_in)
+            %i(current_status_in
+               current_status_not_in
+               current_status_is_active
+               current_status_is_not_active
+               ukt_status_is
+               ukt_status_is_not
+               ukt_status_is_active
+               ukt_status_is_not_active
+               status_mismatches)
           end
         end
       end

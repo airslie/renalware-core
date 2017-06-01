@@ -1,12 +1,12 @@
 module Renalware
   module Transplants
     class WaitListRegistrationPresenter < SimpleDelegator
-      delegate :tissue_typing, to: :document
-      delegate :status, :updated_at, to: :tissue_typing, prefix: true
+      delegate :uk_transplant_centre, to: :document
+      delegate :status, :status_updated_on, to: :uk_transplant_centre, prefix: true, allow_nil: true
 
-      def tissue_typing_summary
-        return unless tissue_typing_status
-        "#{tissue_typing_status} (#{I18n.l(tissue_typing_updated_at)})"
+      def uk_transplant_centre_summary
+        return unless uk_transplant_centre_status.present?
+        "#{uk_transplant_centre_status} (#{I18n.l(uk_transplant_centre_status_updated_on)})"
       end
     end
   end

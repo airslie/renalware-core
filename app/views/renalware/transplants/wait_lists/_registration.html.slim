@@ -10,6 +10,8 @@ tr
   td= registration.patient.sex.code
   td= registration.patient.current_modality
   td= registration.document.codes.uk_transplant_centre_code
+  td= registration.current_status
+  td= registration.document.uk_transplant_centre&.status
   td
     - Renalware::Renal.cast_patient(registration.patient).tap do |patient|
       = I18n.l(patient.profile&.esrf_on)

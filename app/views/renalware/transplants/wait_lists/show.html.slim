@@ -4,7 +4,8 @@
       active: "Active",
       suspended: "Suspended",
       active_and_suspended: "Active & Suspended",
-      working_up: "Working Up"
+      working_up: "Working Up",
+      status_mismatch: "Status Mismatch"
     }
 
   h2.print-only= filters[path_params[:filter].to_sym]
@@ -24,6 +25,8 @@
         th= sort_link(q, :patient_sex, "Sex")
         th Modal
         th= sort_link(q, :uk_transplant_centre_code, "Site")
+        th Status
+        th UKT Status
         / Note patient_profile_esrf_on sorting not yet working because patient is not a
         / Renal::Patient so patient#profile does not exist. We may need to add a ransacker
         / in WaitListQuery

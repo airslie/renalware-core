@@ -24,11 +24,11 @@ module Renalware
       end
       attribute :transplant, Transplant
 
-      class TissueTyping < Document::Embedded
+      class UKTransplantCentre < Document::Embedded
         attribute :status, String
-        attribute :updated_at, Date
+        attribute :status_updated_on, Date
       end
-      attribute :tissue_typing, TissueTyping
+      attribute :uk_transplant_centre, UKTransplantCentre
 
       class Organs < Document::Embedded
         attribute :transplant_type, Document::Enum,
