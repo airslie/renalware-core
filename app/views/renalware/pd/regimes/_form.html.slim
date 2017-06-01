@@ -16,7 +16,7 @@
                   wrapper: :horizontal_small
 
   = f.input :delivery_interval,
-            collection: delivery_interval_options,
+            collection: Renalware::PD::DeliveryIntervalPresenter.dropdown_options,
             wrapper: :horizontal_small
   = f.input :start_date, as: :date_picker, wrapper: :horizontal_datepicker
   = f.input :end_date, as: :date_picker, wrapper: :horizontal_datepicker

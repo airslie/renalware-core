@@ -18,7 +18,8 @@
       = list.definition(:handwashing)
       = list.definition(:fluid_storage)
       = list.definition(:bag_warming)
-      = list.definition(:delivery_interval)
+      = list.definition(:delivery_interval) do |iso8601duration|
+        - Renalware::PD::DeliveryIntervalPresenter.new(iso8601duration).to_s
       = list.definition(:needs_rehousing) { |value| value.text }
       = list.definition(:rehousing_notes)
       = list.definition(:social_worker) { |value| value.text }

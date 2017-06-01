@@ -7,10 +7,6 @@ module Renalware
 
       enumerize :assistance_type, in: %i(none setup connect disconnect connect_and_disconnect)
 
-      VALID_RANGES = OpenStruct.new(
-        delivery_intervals: [1, 2, 4, 8]
-      )
-
       belongs_to :patient, class_name: "Renalware::Patient"
       belongs_to :system
 
@@ -23,10 +19,6 @@ module Renalware
 
       accepts_nested_attributes_for :bags, allow_destroy: true
 
-      validates :delivery_interval,
-                allow_nil: true,
-                numericality: { only_integer: true },
-                inclusion: { in: VALID_RANGES.delivery_intervals }
       validates :patient, presence: true
       validates :start_date, presence: true, timeliness: { type: :date }
       validates :end_date,

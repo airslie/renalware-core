@@ -48,9 +48,10 @@ module Renalware
         attribute :bowel_disease, ::Document::Enum, enums: %i(yes no)
         attribute :bowel_disease_notes
         attribute :added_comments
+
+        validates :assessed_on, presence: true
       end
       has_document
-
     end
   end
 end

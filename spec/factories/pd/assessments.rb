@@ -15,7 +15,7 @@ FactoryGirl.define do
         handwashing: "handwashing...",
         fluid_storage: "fluid storage...",
         bag_warming: "bag warming...",
-        delivery_interval: "delivery interval..."
+        delivery_interval: "P1W"
       }
     }
   end

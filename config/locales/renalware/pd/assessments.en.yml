@@ -16,9 +16,9 @@ en:
           assessor: Assessor
           had_home_visit: Home visit?
           home_visit_on: Home Visit Date
-  activerecord:
+  activemodel:
     attributes:
-      renalware/pd/assessment:
+      renalware/pd/assessment/document:
         assessed_on: Assessment Date
         assessor: Assessor
         had_home_visit: Had Home Visit?
@@ -52,13 +52,6 @@ en:
         bowel_disease: Bowel Disease?
         bowel_disease_notes: Bowel Disease Notes
         added_comments: Added Comments
-  enumerize:
-    renalware/pd/assessment/document:
-      delivery_interval:
-        1_week: 1 Week
-        2_weeks: 2 Weeks
-        4_weeks: 4 Weeks
-        8_weeks: 8 Weeks
 
       # system_choice:
       #   baxter_homechoice: Baxter Homechoice

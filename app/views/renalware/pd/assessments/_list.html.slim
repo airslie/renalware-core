@@ -14,6 +14,7 @@ article.pd_assessments
         th
     tbody
       - assessments.each do |assessment|
+        - document = assessment.document
         tr
           td
             - if policy(assessment).edit?
@@ -22,8 +23,8 @@ article.pd_assessments
             - if policy(assessment).show?
               = link_to("View", [patient, assessment])
           td= l(assessment.created_at)
-          td= l(assessment.assessed_on)
-          td= assessment.document.assessor
-          td= assessment.document.had_home_visit&.text
-          td= l(assessment.document.home_visit_on)
+          td= l(document.assessed_on)
+          td= document.assessor
+          td= document.had_home_visit&.text
+          td= l(document.home_visit_on)
           td

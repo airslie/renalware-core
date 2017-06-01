@@ -20,8 +20,8 @@
     = fdoc.input :fluid_storage, wrapper: :horizontal_medium
     = fdoc.input :bag_warming, wrapper: :horizontal_medium
     = fdoc.input :delivery_interval,
-          collection: delivery_interval_options,
-          wrapper: :horizontal_small
+                 collection: Renalware::PD::DeliveryIntervalPresenter.dropdown_options,
+                 wrapper: :horizontal_small
     = fdoc.input :needs_rehousing, as: :inline_radio_buttons, wrapper: :horizontal_medium
     = fdoc.input :rehousing_notes, as: :text, input_html: { rows: 5 }
     = fdoc.input :social_worker, as: :inline_radio_buttons, wrapper: :horizontal_medium

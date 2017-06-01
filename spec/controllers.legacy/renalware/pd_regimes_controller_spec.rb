@@ -42,7 +42,7 @@ module Renalware
                      start_date: "01/02/2015",
                      treatment: "CAPD 3 exchanges per day",
                      system_id: system.id,
-                     delivery_interval: 4,
+                     delivery_interval: "P4W",
                      bags_attributes: [
                        bag_type_id: @bag_type.id,
                        role: :additional_manual_exchange,
@@ -63,7 +63,7 @@ module Renalware
 
           regime = @patient.pd_regimes.first
           expect(regime.system).to eq(system)
-          expect(regime.delivery_interval).to eq(4)
+          expect(regime.delivery_interval).to eq("P4W")
           expect(regime.bags.count).to eq(1)
 
           bag = regime.bags.first
@@ -79,7 +79,7 @@ module Renalware
                  params: {
                    patient_id: @patient,
                    system_id: system.id,
-                   delivery_interval: 4,
+                   delivery_interval: "P4W",
                    pd_regime: { type: "Renalware::PD::CAPDRegime",
                      start_date: nil,
                      treatment: nil
