@@ -5,6 +5,5 @@ en:
         show:
           title: "HD Summary"
         navigation:
-          protocol: Print Protocol
+          protocol: Print HD Session Form
           mdm: MDM
-
