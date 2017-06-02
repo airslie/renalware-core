@@ -36,9 +36,18 @@ module Renalware
         "#{systolic_bp}/#{diastolic_bp}" if systolic_bp.present? && diastolic_bp.present?
       end
 
+      def standing_bp
+        "#{standing_systolic_bp}/#{standing_diastolic_bp}" if standing_systolic_bp.present? && standing_diastolic_bp.present?
+      end
+
       def bp=(val)
         self.systolic_bp, self.diastolic_bp = val.split("/")
       end
+
+      def standing_bp=(val)
+        self.standing_systolic_bp, self.standing_diastolic_bp = val.split("/")
+      end
+
     end
   end
 end
