@@ -22,6 +22,8 @@ module World
             weight: 71,
             systolic_bp: 112,
             diastolic_bp: 71,
+            standing_systolic_bp: 108,
+            standing_diastolic_bp: 67,
             pulse: 100,
             temperature: 37.3,
             did_not_attend: false,
@@ -89,6 +91,7 @@ module World
             fill_in "Pulse", with: "100"
             fill_in "Temperature", with: "37.3"
             fill_in "Blood Pressure", with: "110/75"
+            fill_in "Standing BP", with: "107/71"
             find("trix-editor").set("Notes")
             find("textarea[name='clinic_visit[admin_notes]']").set("Admin notes")
 
@@ -109,6 +112,7 @@ module World
           fill_in "Pulse", with: "101"
           fill_in "Temperature", with: "37.7"
           fill_in "Blood Pressure", with: "128/95"
+          fill_in "Standing BP", with: "124/92"
           find("trix-editor").set("Updated notes")
           # find("textarea[name='clinic_visit[notes]']").set("Updated notes")
           find("textarea[name='clinic_visit[admin_notes]']").set("Updated admin notes")

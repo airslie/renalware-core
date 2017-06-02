@@ -8,6 +8,7 @@ en:
     attributes:
       renalware/clinics/clinic_visit:
         bp: "BP"
+        standing_bp: "Standing BP"
         bmi: "BMI"
     errors:
       models:

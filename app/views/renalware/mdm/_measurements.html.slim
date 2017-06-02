@@ -8,6 +8,7 @@ article
         th.col-width-date Date
         th.col-width-tiny BMI
         th.col-width-tiny BP
+        th.col-width-tiny Standing BP
         th Weight (kg)
 
     tbody
@@ -16,4 +17,5 @@ article
           td.col-width-date= l(clinic_visit.date)
           td.bmi= clinic_visit.bmi
           td.bp= clinic_visit.bp
+          td.bp= clinic_visit.standing_bp
           td.weight= clinic_visit.weight
