@@ -44,6 +44,12 @@ module World
       def get_patient(patient_name)
         instance_variable_get("@#{patient_name.downcase}".to_sym)
       end
+
+      def seed_modality_for(patient:, modality_description:, user:)
+        patient.set_modality(description: modality_description,
+                             started_on: 1.week.ago,
+                             created_by_id: user.id)
+      end
     end
 
     module Web
