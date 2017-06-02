@@ -519,7 +519,9 @@ CREATE TABLE clinic_visits (
     admin_notes text,
     pulse integer,
     did_not_attend boolean DEFAULT false NOT NULL,
-    temperature numeric(3,1)
+    temperature numeric(3,1),
+    standing_systolic_bp integer,
+    standing_diastolic_bp integer
 );
 
 
@@ -2749,6 +2751,40 @@ ALTER SEQUENCE patients_id_seq OWNED BY patients.id;
 
 
 --
+-- Name: pd_assessments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pd_assessments (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    document jsonb,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: pd_assessments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pd_assessments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pd_assessments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pd_assessments_id_seq OWNED BY pd_assessments.id;
+
+
+--
 -- Name: pd_bag_types; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4628,6 +4664,13 @@ ALTER TABLE ONLY patients ALTER COLUMN id SET DEFAULT nextval('patients_id_seq':
 
 
 --
+-- Name: pd_assessments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_assessments ALTER COLUMN id SET DEFAULT nextval('pd_assessments_id_seq'::regclass);
+
+
+--
 -- Name: pd_bag_types id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5459,6 +5502,14 @@ ALTER TABLE ONLY patient_worries
 
 ALTER TABLE ONLY patients
     ADD CONSTRAINT patients_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pd_assessments pd_assessments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_assessments
+    ADD CONSTRAINT pd_assessments_pkey PRIMARY KEY (id);
 
 
 --
@@ -6943,6 +6994,27 @@ CREATE INDEX index_patients_on_uuid ON patients USING btree (uuid);
 
 
 --
+-- Name: index_pd_assessments_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_assessments_on_created_by_id ON pd_assessments USING btree (created_by_id);
+
+
+--
+-- Name: index_pd_assessments_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_assessments_on_patient_id ON pd_assessments USING btree (patient_id);
+
+
+--
+-- Name: index_pd_assessments_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_assessments_on_updated_by_id ON pd_assessments USING btree (updated_by_id);
+
+
+--
 -- Name: index_pd_bag_types_on_deleted_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -7763,6 +7835,14 @@ ALTER TABLE ONLY modality_modalities
 
 
 --
+-- Name: pd_assessments fk_rails_22dc579c4a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_assessments
+    ADD CONSTRAINT fk_rails_22dc579c4a FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: pathology_requests_drugs_drug_categories fk_rails_24de49b694; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7960,6 +8040,14 @@ ALTER TABLE ONLY pd_peritonitis_episode_types
 
 ALTER TABLE ONLY patient_bookmarks
     ADD CONSTRAINT fk_rails_3f47dd9cc1 FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: pd_assessments fk_rails_408dde93e5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_assessments
+    ADD CONSTRAINT fk_rails_408dde93e5 FOREIGN KEY (updated_by_id) REFERENCES users(id);
 
 
 --
@@ -8659,6 +8747,14 @@ ALTER TABLE ONLY pathology_requests_global_rule_sets
 
 
 --
+-- Name: pd_assessments fk_rails_e8c15c8c13; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_assessments
+    ADD CONSTRAINT fk_rails_e8c15c8c13 FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
 -- Name: pd_peritonitis_episodes fk_rails_e97a696dd5; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9232,7 +9328,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170515093430'),
 ('20170515105635'),
 ('20170522151032'),
+('20170524134229'),
 ('20170526060804'),
-('20170526061000');
+('20170526061000'),
+('20170602124855');
 
 
