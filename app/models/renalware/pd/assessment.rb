@@ -39,9 +39,9 @@ module Renalware
         attribute :language, String
         attribute :other_notes
         attribute :suitable_for_pd, ::Document::Enum, enums: %i(yes no)
-        attribute :system_choice, ::Document::Enum, enums: %i(Homechoice Solo Staysafe)
+        attribute :system_choice, ::Document::Enum # Defined in i18n as may vary
         attribute :insertion_discussed, ::Document::Enum, enums: %i(yes no)
-        attribute :method_chosen, ::Document::Enum, enums: %i(PERC_LA IOT_GA)
+        attribute :method_chosen, ::Document::Enum # Defined in i18n as may vary
         attribute :access_clinic_referral, ::Document::Enum, enums: %i(yes no)
         attribute :access_clinic_on, Date
         attribute :abdo_assessor, String

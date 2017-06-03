@@ -32,6 +32,4 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym "GP"
   inflect.acronym "RTF"
   inflect.acronym "UKRDC"
-  inflect.acronym "PERC_LA"
-  inflect.acronym "IOT_GA"
 end

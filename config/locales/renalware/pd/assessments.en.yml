@@ -53,12 +53,12 @@ en:
         bowel_disease_notes: Bowel Disease Notes
         added_comments: Added Comments
 
-      # system_choice:
-      #   baxter_homechoice: Baxter Homechoice
-      #   baxter_solo: Baxter Solo
-      #   baxter_uv_flash_homechoice: Baxter UV Flash Homechoice
-      #   baxter_uv_flash_solo: Baxter UV Flash Solo
-      #   fresenius_staysafe: Fresenius Staysafe
-      # method_chosen:
-      #   perc_la: PERC LA
-      #   iot_ga: IOT GA
+  enumerize:
+    renalware/pd/assessment/document:
+      system_choice:
+        homechoice: Homechoice
+        solo: Solo
+        staysafe: Staysafe
+      method_chosen:
+        perc_la: PERC LA
+        iot_ga: IOT GA
