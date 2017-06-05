@@ -1,0 +1,32 @@
+article.pd_training_sessions
+  header
+    h2= t(".title")
+
+  table
+    thead
+      tr
+        th.col-width-tiny
+        th.col-width-date-time= t(".date_time")
+        th.col-width-date= t(".started_on")
+        th.col-width-medium= t(".trainer")
+        th.col-width-medium= t(".training_site")
+        th.col-width-medium= t(".training_type")
+        th.col-width-tiny= t(".training_duration")
+        th.col-width-small= t(".outcome")
+    tbody
+      - training_sessions.each do |training_session|
+        - document = training_session.document
+        tr
+          td
+            - if policy(training_session).edit?
+              = link_to("Edit", edit_patient_pd_training_session_path(patient, training_session))
+              = pipe_separator
+            - if policy(training_session).show?
+              = link_to("View", [patient, training_session])
+          td= l(training_session.created_at)
+          td= l(document.started_on)
+          td= document.trainer
+          td= document.training_site&.text
+          td= document.training_type&.text
+          td= document.training_duration
+          td= document.outcome&.text

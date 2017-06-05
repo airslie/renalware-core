@@ -35,3 +35,8 @@
     = render "renalware/pd/assessments/list",
               assessments: dashboard.assessments,
               patient: patient
+
+  - if dashboard.training_sessions.any?
+    = render "renalware/pd/training_sessions/list",
+              training_sessions: dashboard.training_sessions,
+              patient: patient

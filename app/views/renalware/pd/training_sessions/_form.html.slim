@@ -1,0 +1,22 @@
+= simple_form_for [patient, training_session],
+                  as: :training_session,
+                  html: { autocomplete: "off" },
+                  wrapper: "horizontal_form" do |f|
+
+  / This hidden input exists only so that posted form params have 'training_session' at the top
+  / eg params[:training_session][:document], otherwise we just get params[:document] and that would
+  / confound our .permit/.require expectations in the controller.
+  = f.input :ignore_me, as: :hidden
+
+  = f.simple_fields_for :document, training_session.document  do |fdoc|
+    = fdoc.input :started_on, as: :date_picker, wrapper: :horizontal_datepicker
+    = fdoc.input :trainer, wrapper: :horizontal_medium
+    = fdoc.input :training_site, as: :inline_radio_buttons, wrapper: :horizontal_medium
+    = fdoc.input :training_type, as: :inline_radio_buttons, wrapper: :horizontal_medium
+    = fdoc.input :training_duration, wrapper: :horizontal_tiny
+    = fdoc.input :outcome, as: :inline_radio_buttons, wrapper: :horizontal_medium
+    = fdoc.input :training_comments, as: :text, input_html: { rows: 5 }
+
+  = f.submit "Save", class: "button"
+  span= " or "
+  = link_to "cancel", patient_pd_dashboard_path(patient)
