@@ -15,6 +15,7 @@ en:
         rpv_decision_on: RPV decision date
         renalreg_recorded_by: Renal Reg decision recorded by
         rpv_recorded_by: RPV decision recorded by
+        language: Main Language
 
   enumerize:
     renalware/patient:
