@@ -3294,6 +3294,40 @@ ALTER SEQUENCE pd_systems_id_seq OWNED BY pd_systems.id;
 
 
 --
+-- Name: pd_training_sessions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pd_training_sessions (
+    id integer NOT NULL,
+    patient_id integer NOT NULL,
+    document jsonb,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: pd_training_sessions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pd_training_sessions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pd_training_sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pd_training_sessions_id_seq OWNED BY pd_training_sessions.id;
+
+
+--
 -- Name: problem_notes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4762,6 +4796,13 @@ ALTER TABLE ONLY pd_systems ALTER COLUMN id SET DEFAULT nextval('pd_systems_id_s
 
 
 --
+-- Name: pd_training_sessions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_training_sessions ALTER COLUMN id SET DEFAULT nextval('pd_training_sessions_id_seq'::regclass);
+
+
+--
 -- Name: problem_notes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5614,6 +5655,14 @@ ALTER TABLE ONLY pd_regimes
 
 ALTER TABLE ONLY pd_systems
     ADD CONSTRAINT pd_systems_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pd_training_sessions pd_training_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_training_sessions
+    ADD CONSTRAINT pd_training_sessions_pkey PRIMARY KEY (id);
 
 
 --
@@ -7127,6 +7176,27 @@ CREATE INDEX index_pd_systems_on_pd_type ON pd_systems USING btree (pd_type);
 
 
 --
+-- Name: index_pd_training_sessions_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_training_sessions_on_created_by_id ON pd_training_sessions USING btree (created_by_id);
+
+
+--
+-- Name: index_pd_training_sessions_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_training_sessions_on_patient_id ON pd_training_sessions USING btree (patient_id);
+
+
+--
+-- Name: index_pd_training_sessions_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_training_sessions_on_updated_by_id ON pd_training_sessions USING btree (updated_by_id);
+
+
+--
 -- Name: index_problem_notes_on_created_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8107,6 +8177,14 @@ ALTER TABLE ONLY patients
 
 
 --
+-- Name: pd_training_sessions fk_rails_5cbe110e5f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_training_sessions
+    ADD CONSTRAINT fk_rails_5cbe110e5f FOREIGN KEY (created_by_id) REFERENCES users(id);
+
+
+--
 -- Name: pd_regime_terminations fk_rails_6021bed852; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8851,6 +8929,14 @@ ALTER TABLE ONLY pd_pet_adequacy_results
 
 
 --
+-- Name: pd_training_sessions fk_rails_f8d9e0a9b0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_training_sessions
+    ADD CONSTRAINT fk_rails_f8d9e0a9b0 FOREIGN KEY (updated_by_id) REFERENCES users(id);
+
+
+--
 -- Name: drug_types_drugs fk_rails_f8ed99dfda; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8864,6 +8950,14 @@ ALTER TABLE ONLY drug_types_drugs
 
 ALTER TABLE ONLY clinical_allergies
     ADD CONSTRAINT fk_rails_f8f7b6daad FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
+-- Name: pd_training_sessions fk_rails_fa412bd095; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_training_sessions
+    ADD CONSTRAINT fk_rails_fa412bd095 FOREIGN KEY (patient_id) REFERENCES patients(id);
 
 
 --
@@ -9332,6 +9426,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170526060804'),
 ('20170526061000'),
 ('20170601142904'),
-('20170602124855');
+('20170602124855'),
+('20170605161951');
 
 
