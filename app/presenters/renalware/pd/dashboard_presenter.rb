@@ -39,6 +39,10 @@ module Renalware
       def assessments
         @assessments ||= Assessment.for_patient(patient).ordered
       end
+
+      def training_sessions
+        @training_sessions ||= TrainingSession.for_patient(patient).ordered
+      end
     end
   end
 end
