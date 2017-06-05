@@ -11,6 +11,11 @@ dependencies:
   post:
     - bundle exec bundle-audit update && bundle exec bundle-audit check
 
+database:
+  override:
+    - cp spec/dummy/config/database.circle.yml spec/dummy/database.yml
+    - bundle exec rake app:db:create app:db:schema:load
+
 test:
   override:
     - bundle exec rspec spec --format progress
@@ -24,4 +29,4 @@ test:
          TEST_DEPTH: web
     - bundle exec codeclimate-test-reporter "$CIRCLE_ARTIFACTS/coverage/.resultset.json"
     - pushd ./spec/dummy ; bundle exec rails db:environment:set RAILS_ENV=test ; popd
-    # temp removed this til merged into master - bundle exec rake app:db:migrate:reset app:db:seed RAILS_ENV=test
+    - bundle exec rake app:db:migrate:reset app:db:seed RAILS_ENV=test
