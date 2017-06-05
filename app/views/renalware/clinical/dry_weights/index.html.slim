@@ -1,4 +1,4 @@
-= within_patient_layout(title: "HD Dry Weights") do
+= within_patient_layout(title: "Dry Weights", breadcrumbs: clinical_profile_breadcrumb(@patient)) do
   .document.hd-sessions
     table.auto-layout
       thead
@@ -11,5 +11,3 @@
           = render "row", dry_weight: dry_weight
 
     = paginate dry_weights
-
-    =link_to "Return to HD Summary", :back

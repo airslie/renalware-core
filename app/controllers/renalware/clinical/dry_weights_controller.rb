@@ -7,12 +7,13 @@ module Renalware
       before_action :load_patient
 
       def index
-        @query = PatientDryWeightsQuery.new(patient: patient, search_params: params[:q])
-        dry_weights = @query.call.page(params[:page]).per(15)
+        query = PatientDryWeightsQuery.new(patient: patient, search_params: params[:q])
+        dry_weights = query.call.page(params[:page]).per(15)
 
         render locals: {
-          search: @query.search,
-          dry_weights: CollectionPresenter.new(dry_weights, DryWeightPresenter)
+          search: query.search,
+          dry_weights: CollectionPresenter.new(dry_weights, DryWeightPresenter),
+          patient: patient
         }
       end
 
@@ -37,6 +38,7 @@ module Renalware
 
         if dry_weight.save
           redirect_to return_url, notice: t(".success", model_name: "dry weight")
+          session.delete(:return_to)
         else
           flash[:error] = t(".failed", model_name: "dry weight")
           render_new(dry_weight)
@@ -47,12 +49,12 @@ module Renalware
 
       def save_path_to_return_to
         return unless request.format == :html
-        session[:return_to] ||= request.referrer
+        session[:return_to] ||= request.referer
       end
 
       def return_url
         @return_url ||= begin
-          path = session.delete(:return_to)
+          path = session[:return_to]
           path = nil if path == new_patient_clinical_dry_weight_path(patient)
           path || patient_clinical_profile_path(patient)
         end

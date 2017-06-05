@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :dry_weight, class: "Renalware::Clinical::DryWeight" do
-    #patient
+    patient
 
     assessed_on 1.week.ago
     weight 156.1

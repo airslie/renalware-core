@@ -23,4 +23,6 @@ en:
           weight: Weight (kg)
           assessor: Assessor
           view_all: View All
+          recent:
+            title: Recent Dry Weights
 

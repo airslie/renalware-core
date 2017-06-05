@@ -35,3 +35,7 @@
     = render "renalware/pd/assessments/list",
               assessments: dashboard.assessments,
               patient: patient
+
+  .row
+    .medium-6.large-4.xlarge-3.columns
+      = render "renalware/clinical/dry_weights/list", patient: patient, limit: 5

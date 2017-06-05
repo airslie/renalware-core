@@ -4,6 +4,7 @@ module Renalware
   module HD
     class DashboardPresenter
       attr_accessor :patient
+
       def initialize(patient, view_context)
         @patient = patient
         @view_context = view_context
@@ -34,14 +35,6 @@ module Renalware
           CollectionPresenter.new(hd_sessions, SessionPresenter, view_context)
         end
       end
-
-      # def dry_weights
-      #   @dry_weights ||= begin
-      #     # TODO: move dependency to view layer
-      #     weights = Renalware::Clinical::DryWeight.for_patient(patient).limit(4).includes(:assessor).ordered
-      #     CollectionPresenter.new(weights, Renalware::Clinical::DryWeightPresenter)
-      #   end
-      # end
 
       private
 

@@ -1,12 +1,3 @@
-ruby:
-  back_path = patient_hd_dashboard_path(@patient)
-
-.row.top
-  .medium-6.columns
-    = f.button :submit
-    span= " or "
-    = link_to "cancel", back_path
-
 .form-content
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Dry Weight", name: "dryweight" } do
@@ -19,9 +10,8 @@ ruby:
       = f.association :assessor,
                       as: :user_picker,
                       collection: Renalware::User.ordered
-
 .row
   .large-12.columns
     = f.button :submit
     span= " or "
-    = link_to "cancel", back_path
+    = link_to "cancel", return_url
