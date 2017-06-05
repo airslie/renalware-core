@@ -1,5 +1,5 @@
 module Renalware
-  module HD
+  module Clinical
     class DryWeightPresenter < DumbDelegator
       def assessed_on
         ::I18n.l(super)

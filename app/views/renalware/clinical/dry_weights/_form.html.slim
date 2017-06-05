@@ -11,10 +11,14 @@ ruby:
     = render layout: "renalware/shared/fieldset",
         locals: { legend: "Dry Weight", name: "dryweight" } do
       = f.input :weight,
-                input_html: { class: "small-input" },
-                autofocus: true
-      = f.input :assessed_on, as: :date_picker
-      = f.association :assessor, as: :user_picker, collection: Renalware::User.ordered
+                autofocus: true,
+                wrapper: :horizontal_small
+      = f.input :assessed_on,
+                as: :date_picker,
+                wrapper: :horizontal_datepicker
+      = f.association :assessor,
+                      as: :user_picker,
+                      collection: Renalware::User.ordered
 
 .row
   .large-12.columns

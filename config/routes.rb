@@ -186,6 +186,7 @@ Rails.application.routes.draw do
         resources :allergies, only: [:create, :destroy]
         resource :allergy_status, only: [:update]
         resource :profile, only: [:show, :edit, :update]
+        resources :dry_weights, only: [:new, :create, :index]
       end
 
       resources :bookmarks, only: :create, controller: "patients/bookmarks"
@@ -226,7 +227,6 @@ Rails.application.routes.draw do
         resource :preference_set, only: [:edit, :update]
         resource :profile, only: [:show, :edit, :update]
         resources :sessions
-        resources :dry_weights, only: [:new, :create, :index]
       end
 
       # Medications

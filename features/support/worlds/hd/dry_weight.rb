@@ -1,12 +1,12 @@
 module World
-  module HD::DryWeight
+  module Clinical::DryWeight
     module Domain
       # @section helpers
       #
       def hd_dry_weight_for(patient)
         patient = hd_patient(patient)
 
-        Renalware::HD::DryWeight.for_patient(patient).first_or_initialize
+        Renalware::Clinical::DryWeight.for_patient(patient).first_or_initialize
       end
 
       def valid_dry_weight_attributes
@@ -18,10 +18,10 @@ module World
 
       # @section seeding
       #
-      def seed_hd_dry_weight_for(patient, assessor)
+      def seed_dry_weight_for(patient, assessor)
         patient = hd_patient(patient)
 
-        Renalware::HD::DryWeight.create!(
+        Renalware::Clinical::DryWeight.create!(
           valid_dry_weight_attributes.merge(
             patient: patient,
             assessor: assessor,
@@ -32,10 +32,10 @@ module World
 
       # @section commands
       #
-      def create_hd_dry_weight(user: nil, patient:, assessed_on:)
-        patient = hd_patient(patient)
+      def create_dry_weight(user: nil, patient:, assessed_on:)
+        patient = clinical_patient(patient)
 
-        Renalware::HD::DryWeight.create(
+        Renalware::Clinical::DryWeight.create(
           valid_dry_weight_attributes.merge(
             patient: patient,
             assessor: user,
@@ -57,35 +57,42 @@ module World
 
       # @section expectations
       #
-      def expect_hd_dry_weight_to_exist(patient)
-        expect(Renalware::HD::DryWeight.for_patient(patient)).to be_present
+      def expect_dry_weight_to_exist(patient)
+        expect(Renalware::Clinical::DryWeight.for_patient(patient)).to be_present
       end
 
-      def expect_hd_dry_weight_to_be_modified(patient)
-        profile = Renalware::HD::DryWeight.for_patient(patient).first
+      def expect_dry_weight_to_be_modified(patient)
+        profile = Renalware::Clinical::DryWeight.for_patient(patient).first
         expect(profile).to be_modified
       end
 
-      def expect_hd_dry_weight_to_be_refused
-        expect(Renalware::HD::DryWeight.count).to eq(0)
+      def expect_dry_weight_to_be_refused(patient)
+        expect(Renalware::Clinical::DryWeight.count).to eq(0)
       end
     end
-
 
     module Web
       include Domain
 
-      def create_hd_dry_weight(user:, patient:, assessed_on:)
+      def create_dry_weight(user:, patient:, assessed_on:)
         login_as user
         visit patient_hd_dashboard_path(patient)
-        click_on "Add a Dry Weight"
+
+        within "article.dry-weights" do
+          click_on "Add"
+        end
 
         fill_in "Dry Weight", with: 98
-        fill_in "Assessment Date", with: assessed_on
+        fill_in "Assessment Date", with: assessed_on || ""
 
         within ".top" do
           click_on "Create"
         end
+      end
+
+      def expect_dry_weight_to_exist(patient)
+        expect(page.current_path).to eq(patient_hd_dashboard_path(patient))
+        expect(Renalware::Clinical::DryWeight.for_patient(patient)).to be_present
       end
     end
   end

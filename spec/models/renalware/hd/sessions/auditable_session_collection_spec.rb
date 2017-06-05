@@ -5,7 +5,7 @@ module Renalware
   module HD
     module Sessions
       describe AuditableSessionCollection do
-        let(:patient) { build_stubbed(:hd_patient) }
+        let(:patient) { create(:hd_patient) }
 
         def stub_sessions(observations:, systolic_range:, diastolic_range:)
           systolic = *systolic_range
@@ -274,8 +274,9 @@ module Renalware
         describe "#mean_weight_loss_as_percentage_of_body_weight" do
           it do
 
-            dry_weight1 = build_stubbed(:hd_dry_weight, patient: patient, weight: 100.0)
-            dry_weight2 = build_stubbed(:hd_dry_weight, patient: patient, weight: 200.0)
+            clinical_patient = Clinical.cast_patient(patient)
+            dry_weight1 = create(:dry_weight, patient: clinical_patient, weight: 100.0)
+            dry_weight2 = create(:dry_weight, patient: clinical_patient, weight: 200.0)
 
             session_with_no_dry_weight = Session::Closed.new(dry_weight: nil)
             session_with_no_dry_weight.document.observations_before.weight = 100.0
@@ -311,8 +312,9 @@ module Renalware
           it "returns fluid removed (ml) / HD time in hours / dry weight (kg) "\
              "in units of ml/hr/kg" do
 
-            dry_weight1 = build_stubbed(:hd_dry_weight, patient: patient, weight: 100.0)
-            dry_weight2 = build_stubbed(:hd_dry_weight, patient: patient, weight: 120.0)
+            clinical_patient = Clinical.cast_patient(patient)
+            dry_weight1 = build_stubbed(:dry_weight, patient: clinical_patient, weight: 100.0)
+            dry_weight2 = build_stubbed(:dry_weight, patient: clinical_patient, weight: 120.0)
 
             session1 = Session::Closed.new(dry_weight: dry_weight1, duration: 225)
             session1.document.dialysis.fluid_removed = 1000.0 # ml
@@ -330,7 +332,8 @@ module Renalware
           end
 
           it "returns the mean ufr for a single session if only one supplied" do
-            dry_weight1 = build_stubbed(:hd_dry_weight, patient: patient, weight: 100.0)
+            clinical_patient = Clinical.cast_patient(patient)
+            dry_weight1 = create(:dry_weight, patient: clinical_patient, weight: 100.0)
             session1 = Session::Closed.new(dry_weight: dry_weight1, duration: 225)
             session1.document.dialysis.fluid_removed = 1000.0 # ml
             @sessions = [

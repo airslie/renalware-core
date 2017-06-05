@@ -1,0 +1,32 @@
+ruby:
+  # Since we use this partial in HD and PD dashboard but do not want to create a hard cross
+  # dependency to Clinical module from there, we load the data up at the view level here.
+  # Not ideal but expedient.
+  limit = defined?(limit) ? limit : 10_000
+  if !defined?(dry_weights)
+    dry_weights ||= Renalware::Clinical::DryWeight
+                      .for_patient(patient)
+                      .includes(:assessor)
+                      .limit(limit)
+                      .ordered
+    dry_weights = CollectionPresenter.new(dry_weights, Renalware::Clinical::DryWeightPresenter)
+  end
+
+article.dry-weights.simple.simple-table
+  header
+    h2.title= t(".title")
+    ul
+      li= link_to t(".add"),
+                  new_patient_clinical_dry_weight_path(@patient),
+                  class: "button"
+      / li= link_to t(".view_all"),
+      /             patient_clinical_dry_weights_path(@patient),
+      /            class: "button"
+  table.auto-layout
+    thead
+      th.col-width-date= t(".date")
+      th.col-width-small= t(".weight")
+      th= t(".assessor")
+    tbody
+      - dry_weights.each do |dry_weight|
+        = render "renalware/clinical/dry_weights/row", dry_weight: dry_weight
