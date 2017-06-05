@@ -20,7 +20,6 @@ module Renalware
       fill_in input_called(:trainer), with: "Flo Nightengale RN"
       fill_in input_called(:started_on), with: Time.zone.today
 
-
       click_on "Save"
 
       expect(page.current_path).to eq(patient_pd_dashboard_path(patient))
