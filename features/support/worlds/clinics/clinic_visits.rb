@@ -81,7 +81,7 @@ module World
         def record_clinic_visit(patient, user)
           login_as user
 
-          visit new_patient_clinic_visit_path(patient_id: patient.id)
+          visit new_patient_clinic_visit_path(patient_id: patient)
 
           within ".document" do
             fill_in "Date", with: "20-07-2015 10:45"
@@ -103,7 +103,7 @@ module World
           login_as user
 
           visit edit_patient_clinic_visit_path(
-            patient_id: patient.id,
+            patient_id: patient,
             id: clinic_visit.id
           )
           select "AKI", from: "Clinic"

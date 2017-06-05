@@ -31,7 +31,8 @@ module Renalware
       authorize patient
 
       if patient.save
-        redirect_to_patient_demographics(patient)
+        # Reload in order to let pg generate the secure id
+        redirect_to_patient_demographics(patient.reload)
       else
         flash[:error] = failed_msg_for("patient")
         render :new, locals: { patient: patient }
@@ -59,7 +60,7 @@ module Renalware
     end
 
     def patient
-      @patients ||= Renalware::Patient.find(params[:id])
+      @patient ||= Renalware::Patient.find_by!(secure_id: params[:id])
     end
 
     private
@@ -72,6 +73,7 @@ module Renalware
         .merge(by: current_user)
     end
 
+    # rubocop:disable Metrics/MethodLength
     def patient_attributes
       [
         :nhs_number, :family_name, :given_name, :sex,
@@ -85,6 +87,7 @@ module Renalware
         current_address_attributes: address_params
       ]
     end
+    # rubocop:enable Metrics/MethodLength
 
     def address_params
       [:id, :name, :organisation_name, :street_1, :street_2, :county, :country,

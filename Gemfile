@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 ruby "2.4.0"
 
+gem "friendly_id"
 gem "active_type", "~> 0.6.1"
 gem "activemodel-associations"
 gem "activerecord-import"

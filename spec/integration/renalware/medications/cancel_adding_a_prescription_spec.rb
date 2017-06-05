@@ -9,7 +9,7 @@ RSpec.describe "Configuring Modality Descriptions", type: :feature, js: true do
 
       visit patient_prescriptions_path(patient,
                                        treatable_type: patient.class.to_s,
-                                       treatable_id: patient.id)
+                                       treatable_id: patient)
 
       check_we_are_on_the_medications_list
       load_the_new_prescription_form_via_remote_js_call

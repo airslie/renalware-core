@@ -10,7 +10,7 @@ module Renalware::Events
 
     describe "GET new" do
       it "renders the new template" do
-        get :new, params: { patient_id: @patient.id }
+        get :new, params: { patient_id: @patient }
         expect(response).to render_template(:new)
       end
     end
@@ -24,7 +24,7 @@ module Renalware::Events
                    patient_id: @patient,
                    events_event: {
                      events_type_id: @event_type,
-                     date_time: Time.now,
+                     date_time: Time.zone.now,
                      description: "Needs blood test",
                      notes: "Arrange appointment in a weeks time."
                    }
@@ -39,7 +39,7 @@ module Renalware::Events
           expect do
             post :create,
                  params: {
-                   patient_id: @patient.id,
+                   patient_id: @patient,
                    events_event: {
                      patient: @patient,
                      event_type: nil

@@ -19,7 +19,7 @@ module Renalware
     alias_attribute :current_patient, :patient
 
     def patient
-      @patient ||= Renalware::Patient.find(params[:patient_id])
+      @patient ||= Renalware::Patient.find_by!(secure_id: params[:patient_id])
     end
 
     protected

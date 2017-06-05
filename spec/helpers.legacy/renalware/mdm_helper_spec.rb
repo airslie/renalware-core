@@ -16,26 +16,26 @@ module Renalware
         it "PD" do
           patient = patient_with_modality(modality_trait: :pd)
           link = link_to_mdm(patient)
-          expect(link).to match(patient_pd_mdm_path(patient_id: patient.id))
+          expect(link).to match(patient_pd_mdm_path(patient_id: patient))
         end
 
         it "HD" do
           patient = patient_with_modality(modality_trait: :hd)
           link = link_to_mdm(patient)
-          expect(link).to match(patient_hd_mdm_path(patient_id: patient.id))
+          expect(link).to match(patient_hd_mdm_path(patient_id: patient))
         end
 
         it "Transplant" do
           patient = patient_with_modality(modality_trait: :transplant)
           link = link_to_mdm(patient)
-          expect(link).to match(patient_transplants_mdm_path(patient_id: patient.id))
+          expect(link).to match(patient_transplants_mdm_path(patient_id: patient))
         end
 
         it "LCC (low clearance)" do
           pending "waiting for low clearance mdm"
           patient = patient_with_modality(modality_trait: :lcc)
           link = link_to_mdm(patient)
-          expect(link).to match(patient_transplants_mdm_path(patient_id: patient.id))
+          expect(link).to match(patient_transplants_mdm_path(patient_id: patient))
         end
 
         it "anything else resolves to nil" do

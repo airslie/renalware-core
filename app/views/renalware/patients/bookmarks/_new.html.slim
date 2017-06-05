@@ -5,7 +5,7 @@
 #add-patient-bookmark-modal.reveal-modal.medium(data-reveal)
   =simple_form_for patient.bookmarks.new,
                    html: { autocomplete: "off" },
-                   url: patient_bookmarks_path(patient_id: patient.id) do |f|
+                   url: patient_bookmarks_path(patient_id: patient) do |f|
     h2= t(".title")
     =f.input :urgent, as: :boolean
     =f.input :notes, as: :text, input_html: { autofocus: :autofocus }
