@@ -273,6 +273,7 @@ Rails.application.routes.draw do
         resources :exit_site_infections, only: [:new, :create, :show, :edit, :update]
         resources :pet_adequacy_results, except: [:destroy]
         resources :assessments, except: [:index, :destroy]
+        resources :training_sessions, except: [:index, :destroy]
         resource :mdm, only: :show, controller: "mdm"
       end
 
