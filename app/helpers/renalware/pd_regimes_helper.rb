@@ -1,12 +1,6 @@
 module Renalware
   module PDRegimesHelper
 
-    def delivery_interval_options
-      PD::Regime::VALID_RANGES.delivery_intervals.map do |interval|
-        [pluralize(interval, "week"), interval]
-      end
-    end
-
     def system_options_for(regime)
       PD::System.for_pd_type(regime.pd_type) { |system| [system.name, system.id] }
     end

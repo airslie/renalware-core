@@ -3232,7 +3232,7 @@ CREATE TABLE pd_regimes (
     updated_at timestamp without time zone NOT NULL,
     therapy_time integer,
     fill_volume integer,
-    delivery_interval integer,
+    delivery_interval character varying,
     system_id integer,
     additional_manual_exchange_volume integer,
     tidal_full_drain_every_three_cycles boolean DEFAULT true,
@@ -9331,6 +9331,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170524134229'),
 ('20170526060804'),
 ('20170526061000'),
+('20170601142904'),
 ('20170602124855');
 
 
