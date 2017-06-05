@@ -24,4 +24,4 @@ test:
          TEST_DEPTH: web
     - bundle exec codeclimate-test-reporter "$CIRCLE_ARTIFACTS/coverage/.resultset.json"
     - pushd ./spec/dummy ; bundle exec rails db:environment:set RAILS_ENV=test ; popd
-    - bundle exec rake app:db:migrate:reset app:db:seed RAILS_ENV=test
+    # temp removed this til merged into master - bundle exec rake app:db:migrate:reset app:db:seed RAILS_ENV=test
