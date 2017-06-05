@@ -53,7 +53,7 @@ module Renalware
       end
 
       # Edit - change a couple of fields
-      within(".training_session_document_outcome") { choose("successful") }
+      within(".training_session_document_outcome") { choose("Successful") }
 
       click_on "Save"
 
