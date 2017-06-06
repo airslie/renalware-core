@@ -1,48 +1,31 @@
-.row
-  = render "header"
-  = render "renalware/shared/errors", model: @bag_type
+= simple_form_for bag_type,
+                  html: { autocomplete: "off" },
+                  wrapper: :horizontal_form do |f|
 
-.row
-  .large-6.columns
-    = simple_form_for @bag_type, html: { autocomplete: "off" } do |f|
-      = f.input :id, as: :hidden unless f.object.new_record?
+  = f.input :id, as: :hidden unless f.object.new_record?
+  = f.input :manufacturer,
+            collection: manufacturer_options,
+            prompt: t(".collection.blank_option"),
+            input_html: { class: "manufacturer-select" },
+            wrapper: :horizontal_small
+  = f.input :description, wrapper: :horizontal_medium
+  = f.input :glucose_content, wrapper: :horizontal_small
+  = f.input :glucose_strength,
+            include_blank: t("collection.blank_option"),
+            wrapper: :horizontal_small
 
-      = f.input :manufacturer,
-          collection: manufacturer_options,
-          prompt: "Please select from options",
-          input_html: { class: "manufacturer-select" }
+  ul.no-bullet
+    li= f.input :amino_acid, as: :boolean, wrapper: :horizontal_small
+    li= f.input :icodextrin, as: :boolean, wrapper: :horizontal_small
+    li= f.input :low_glucose_degradation, as: :boolean, wrapper: :horizontal_small
+    li= f.input :low_sodium, as: :boolean, wrapper: :horizontal_small
 
-      = f.input :description
+  = f.input :sodium_content, wrapper: :horizontal_small
+  = f.input :lactate_content, wrapper: :horizontal_small
+  = f.input :bicarbonate_content, wrapper: :horizontal_small
+  = f.input :calcium_content, wrapper: :horizontal_small
+  = f.input :magnesium_content, wrapper: :horizontal_small
 
-      = f.input :glucose_content,
-          label: "Glucose content (g/l)"
-
-      ul.no-bullet
-        li
-          = f.input :amino_acid, as: :boolean,
-              label: "Contains amino acid soln?"
-        li
-          = f.input :icodextrin, as: :boolean,
-              label: "Contains icodextrin soln?"
-
-        li
-          = f.input :low_glucose_degradation, as: :boolean,
-              label: "Low glucose degradation product (GDP)"
-
-        li
-          = f.input :low_sodium, as: :boolean,
-              label: "Low sodium solution"
-
-      = f.input :sodium_content, label: "Sodium content (mmole/l)"
-
-      = f.input :lactate_content, label: "Lactate content (mmole/l)"
-
-      = f.input :bicarbonate_content, label: "Bicarbonate content (mmole/l)"
-
-      = f.input :calcium_content, label: "Calcium content (mmole/l)"
-
-      = f.input :magnesium_content, label: "Magnesium content (mmole/l)"
-
-      = f.button :submit
-      span= " or "
-      = link_to "Cancel", pd_bag_types_path
+  = f.button :submit
+  span= " or "
+  = link_to "Cancel", pd_bag_types_path

@@ -14,17 +14,20 @@ module Renalware
       @bag_type_13_6 = create(:bag_type,
                     manufacturer: "Baxter",
                     description: "Dianeal PD2 1.36% (Yellow)",
-                    glucose_content: 1.36)
+                    glucose_content: 1.3,
+                    glucose_strength: :low)
 
       @bag_type_22_7 = create(:bag_type,
                     manufacturer: "Baxter",
                     description: "Dianeal PD2 2.27% (Green)",
-                    glucose_content: 2.27)
+                    glucose_content: 2.2,
+                    glucose_strength: :medium)
 
       @bag_type_38_6 = create(:bag_type,
                     manufacturer: "Baxter",
                     description: "Dianeal PD2 3.86% (Red)",
-                    glucose_content: 3.86)
+                    glucose_content: 3.8,
+                    glucose_strength: :high)
 
       login_as_clinician
 
@@ -97,9 +100,9 @@ module Renalware
 
       click_on "Save"
 
-      expect(page).to have_content("1.36 % 857 ml")
-      expect(page).to have_content("2.27 % 1429 ml")
-      expect(page).to have_content("3.86 % 2286 ml")
+      expect(page).to have_content("Low strength 857 ml")
+      expect(page).to have_content("Med. strength 1429 ml")
+      expect(page).to have_content("High strength 2286 ml")
     end
   end
 end

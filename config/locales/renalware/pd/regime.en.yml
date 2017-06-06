@@ -11,6 +11,9 @@ en:
 
     attributes:
       renalware/pd/regime:
+        glucose_volume_low_strength: Low strength
+        glucose_volume_medium_strength: Med. strength
+        glucose_volume_high_strength: High strength
         assistance_type: "Assistance"
         fill_volume: "Fill volume (ml)"
         last_fill_volume: "Last fill volume (ml)"
@@ -43,6 +46,9 @@ en:
   renalware:
     pd:
       regimes:
+        glucose_volume_low_strength: Glucose low strength vol
+        glucose_volume_medium_strength: Glucose med. strength vol
+        glucose_volume_high_strength: Glucose high strength vol
         apd_fields:
           fieldset_titles:
             tidal: Tidal
