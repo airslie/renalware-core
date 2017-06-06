@@ -18,7 +18,7 @@ module Renalware
       within(".training_session_document_training_site") { choose("Home") }
       within(".training_session_document_training_type") { choose("APD Baxter") }
       fill_in input_called(:trainer), with: "Flo Nightengale RN"
-      fill_in input_called(:started_on), with: Time.zone.today
+      fill_in input_called(:started_on), with: started_on
 
       click_on "Save"
 
