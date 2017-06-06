@@ -12,6 +12,7 @@ module Renalware
         @treatable = treatable_class.find(treatable_id)
         respond_to do |format|
           format.html { render_index }
+          format.js { render_index }
           format.pdf { render_prescriptions_list_to_hand_to_patient }
         end
       end
