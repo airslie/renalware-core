@@ -19,18 +19,14 @@ module Renalware
         attribute :trainer, String
         attribute :training_site, ::Document::Enum # Defined in i18n as may vary
         attribute :training_type, ::Document::Enum # Defined in i18n as may vary
-        attribute :training_duration, Integer
+        attribute :training_duration, String
         attribute :outcome, ::Document::Enum, enums: %i(successful limited_success unsuccessful)
         attribute :training_comments
 
         validates :started_on, presence: true
         validates :training_site, presence: true
         validates :training_type, presence: true
-        validates :training_duration, numericality: {
-          greater_than_or_equal_to: 1,
-          less_than_or_equal_to: 15,
-          allow_blank: true
-        }
+
       end
       has_document
     end

@@ -12,6 +12,7 @@
       = list.definition(:trainer)
       = list.definition(:training_site) { |value| value.text }
       = list.definition(:training_type) { |value| value.text }
-      = list.definition(:training_duration)
+      = list.definition(:training_duration) do |iso8601duration|
+        - Renalware::PD::TrainingDurationPresenter.new(iso8601duration).to_s
       = list.definition(:outcome) { |value| value.text }
       = list.definition(:training_comments)

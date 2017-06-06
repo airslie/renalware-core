@@ -15,7 +15,7 @@ en:
           trainer: Trainer
           training_site: Site
           training_type: Type
-          training_duration: Days trained
+          training_duration: Duration
           outcome: Outcome
   activemodel:
     attributes:
@@ -24,7 +24,7 @@ en:
         trainer: Trainer
         training_site: Training Site
         training_type: Training Type
-        training_duration: Days trained
+        training_duration: Duration (days)
         outcome: Outcome
         training_comments: Training Comments
 

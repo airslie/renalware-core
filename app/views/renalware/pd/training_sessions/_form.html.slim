@@ -13,7 +13,9 @@
     = fdoc.input :trainer, wrapper: :horizontal_medium
     = fdoc.input :training_site, as: :inline_radio_buttons, wrapper: :horizontal_medium
     = fdoc.input :training_type, as: :inline_radio_buttons, wrapper: :horizontal_medium
-    = fdoc.input :training_duration, wrapper: :horizontal_tiny
+    = fdoc.input :training_duration,
+            collection: Renalware::PD::TrainingDurationPresenter.dropdown_options,
+            wrapper: :horizontal_small
     = fdoc.input :outcome, as: :inline_radio_buttons, wrapper: :horizontal_medium
     = fdoc.input :training_comments, as: :text, input_html: { rows: 5 }
 

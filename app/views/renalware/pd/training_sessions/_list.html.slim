@@ -11,7 +11,7 @@ article.pd_training_sessions
         th.col-width-medium= t(".trainer")
         th.col-width-medium= t(".training_site")
         th.col-width-medium= t(".training_type")
-        th.col-width-tiny= t(".training_duration")
+        th.col-width-small= t(".training_duration")
         th.col-width-small= t(".outcome")
     tbody
       - training_sessions.each do |training_session|
@@ -28,5 +28,6 @@ article.pd_training_sessions
           td= document.trainer
           td= document.training_site&.text
           td= document.training_type&.text
-          td= document.training_duration
+          td= document.training_duration do |iso8601duration|
+              - Renalware::PD::TrainingDurationPresenter.new(iso8601duration).to_s
           td= document.outcome&.text
