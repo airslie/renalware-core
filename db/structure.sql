@@ -2760,8 +2760,8 @@ CREATE TABLE pd_assessments (
     document jsonb,
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -3300,11 +3300,12 @@ ALTER SEQUENCE pd_systems_id_seq OWNED BY pd_systems.id;
 CREATE TABLE pd_training_sessions (
     id integer NOT NULL,
     patient_id integer NOT NULL,
+    training_site_id integer NOT NULL,
     document jsonb,
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -3325,6 +3326,39 @@ CREATE SEQUENCE pd_training_sessions_id_seq
 --
 
 ALTER SEQUENCE pd_training_sessions_id_seq OWNED BY pd_training_sessions.id;
+
+
+--
+-- Name: pd_training_sites; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pd_training_sites (
+    id integer NOT NULL,
+    code character varying NOT NULL,
+    name character varying NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pd_training_sites_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pd_training_sites_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pd_training_sites_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pd_training_sites_id_seq OWNED BY pd_training_sites.id;
 
 
 --
@@ -4803,6 +4837,13 @@ ALTER TABLE ONLY pd_training_sessions ALTER COLUMN id SET DEFAULT nextval('pd_tr
 
 
 --
+-- Name: pd_training_sites id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_training_sites ALTER COLUMN id SET DEFAULT nextval('pd_training_sites_id_seq'::regclass);
+
+
+--
 -- Name: problem_notes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5663,6 +5704,14 @@ ALTER TABLE ONLY pd_systems
 
 ALTER TABLE ONLY pd_training_sessions
     ADD CONSTRAINT pd_training_sessions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pd_training_sites pd_training_sites_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_training_sites
+    ADD CONSTRAINT pd_training_sites_pkey PRIMARY KEY (id);
 
 
 --
@@ -7187,6 +7236,13 @@ CREATE INDEX index_pd_training_sessions_on_created_by_id ON pd_training_sessions
 --
 
 CREATE INDEX index_pd_training_sessions_on_patient_id ON pd_training_sessions USING btree (patient_id);
+
+
+--
+-- Name: index_pd_training_sessions_on_training_site_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_training_sessions_on_training_site_id ON pd_training_sessions USING btree (training_site_id);
 
 
 --
@@ -9161,6 +9217,14 @@ ALTER TABLE ONLY pd_regimes
 
 
 --
+-- Name: pd_training_sessions pd_training_sessions_site_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_training_sessions
+    ADD CONSTRAINT pd_training_sessions_site_id_fk FOREIGN KEY (training_site_id) REFERENCES pd_training_sites(id);
+
+
+--
 -- Name: problem_notes problem_notes_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9427,6 +9491,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170526061000'),
 ('20170601142904'),
 ('20170602124855'),
-('20170605161951');
+('20170605161951'),
+('20170606182242');
 
 
