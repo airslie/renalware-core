@@ -1,0 +1,41 @@
+= link_to(patient_hd_mdm_path(patient), class: "button with-icon secondary") do
+  i.fa.fa-group
+  = t(".mdm")
+= link_to(patient_hd_protocol_path(patient), class: "button with-icon secondary") do
+  i.fa.fa-print
+  = t(".protocol")
+a.button.dropdown.with-icon(href="#"
+                            data-dropdown="pd-options"
+                            aria-controls="pd-options"
+                            aria-expanded="false")
+  i.fa.fa-plus
+  | Add
+br
+ul.f-dropdown#pd-options(data-dropdown-content aria-hidden="true")
+
+  = dropdown_btn_item enabled: dashboard.can_add_hd_profile?,
+                      title: t(".add_hd_profile"),
+                      path: edit_patient_hd_profile_path(patient)
+
+  = dropdown_btn_item enabled: dashboard.can_add_access_profile?,
+                      title: t(".add_access_profile"),
+                      path: new_patient_accesses_profile_path(patient)
+
+  = dropdown_btn_item enabled: dashboard.can_add_preference_set?,
+                      title: t(".add_preferences"),
+                      path: edit_patient_hd_preference_set_path(patient)
+
+  = dropdown_btn_item enabled: dashboard.can_add_session?,
+                      title: t(".add_session"),
+                      path: new_patient_hd_session_path(patient)
+
+  = dropdown_btn_item enabled: dashboard.can_add_dna_session?,
+                      title: t(".add_dna_session"),
+                      path: new_patient_hd_session_path(@patient, type: :dna)
+
+  = dropdown_btn_item enabled: policy(Renalware::Clinical::DryWeight).new?,
+                      title: t(".add_dry_weight"),
+                      path: new_patient_clinical_dry_weight_path(@patient)
+
+- unless dashboard.has_ever_been_on_hd?
+  = render "modality_missing_warning", message: t(".missing_modality_warning")

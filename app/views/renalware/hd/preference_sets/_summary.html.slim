@@ -1,16 +1,9 @@
-fieldset.simple
-  legend
-    span.title= t(".title")
-    span.actions.action-links
-      - unless preference_set.new_record?
-        = link_to "Edit", edit_patient_hd_preference_set_path(@patient)
+article
+  header
+    h2= t(".title")
+    ul
+      li= link_to "Edit", edit_patient_hd_preference_set_path(patient), class: "button"
 
-  - if preference_set.new_record?
-    .call-to-action
-      = link_to edit_patient_hd_preference_set_path(@patient) do
-        i.fa.fa-plus-circle
-        = t(".enter_preferences")
-  - else
-        dl.dl-horizontal
-          dt= t(".hospital_centre")
-          dd= preference_set.hospital_centre
+  dl.dl-horizontal
+    dt= t(".hospital_centre")
+    dd= preference_set.hospital_centre

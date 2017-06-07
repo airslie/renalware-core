@@ -120,9 +120,28 @@ en:
             machine_urr: "%"
   renalware:
     hd:
+      dashboards:
+        page_actions:
+          add_session: HD Session
+          add_dna_session: DNA Session
+          add_preferences: HD Preferences
+          add_access_profile: Access Profile
+          add_hd_profile: HD Profile
+          add_dry_weight: Dry Weight
+          missing_modality_warning: >
+              Some actions will be unavailable until you add the HD modality
+      sessions_types:
+        show:
+          dna: DNA Session
+          open: Session
+          closed: Session
+        edit:
+          dna: Edit
+          open: Sign Off
+          closed: Edit
       sessions:
         open:
-          edit: Sign off
+          edit: Sign Off
           view: View
         closed:
           edit: Edit
@@ -134,10 +153,16 @@ en:
             save: Save
             delete_confirmation: Are you sure you want to delete this session?
             notes: Notes
+        show:
+          dna:
+            title: DNA Session
+        edit:
+          dna:
+            title: DNA Session
         list:
           title: Latest HD Sessions
           add_session: Add a Session
-          add_dna_session: Add a DNA Session
+          add_dna_session: Add DNA Session
           add: Add Session
           add_dna: Add DNA Session
           view_all: View All
@@ -182,19 +207,19 @@ en:
           delete_confirmation: Are you sure you want to delete this session?
         new:
           open:
-            title: HD Session
+            title: New Session
           closed:
-            title: HD Session
+            title: New Session
           dna:
-            title: HD DNA Session
+            title: New DNA Session
         edit:
           session_is_immutable: Sorry, this session is no longer editable
           open:
-            title: HD Session
+            title: Sign-off
           closed:
-            title: HD Session
+            title: Edit
           dna:
-            title: HD DNA Session
+            title: Edit DNA Session
         row:
           view: View
           open:

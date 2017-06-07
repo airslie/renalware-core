@@ -9,6 +9,9 @@ transplant:
   type: Renalware::Transplants::RecipientModalityDescription
 other:
   name: Other
-pd_apd:
-  name: PD APD
+pd:
+  name: PD
   type: Renalware::PD::ModalityDescription
+hd:
+  name: HD
+  type: Renalware::HD::ModalityDescription

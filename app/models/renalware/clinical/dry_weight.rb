@@ -19,6 +19,10 @@ module Renalware
       validates :weight, presence: true, "renalware/patients/weight" => true
       validates :assessed_on, presence: true
       validates :assessed_on, timeliness: { type: :date, allow_blank: false }
+
+      def self.policy_class
+        BasePolicy
+      end
     end
   end
 end

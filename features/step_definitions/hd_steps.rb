@@ -1,3 +1,12 @@
+Given(/^Patty has the HD modality$/) do
+  modality_description = Renalware::Modalities::Description.find_by(
+    type: "Renalware::HD::ModalityDescription"
+  )
+  seed_modality_for(patient: @patty,
+                    modality_description: modality_description,
+                    user: Renalware::User.first)
+end
+
 Given(/^Patty has recorded HD preferences$/) do
   seed_hd_preferences_for(@patty, user: @clyde)
 end

@@ -1,5 +1,6 @@
-= within_patient_layout(title: t(".#{session.state}.title")) do
-  = render "session_nav", session: session
+= within_patient_layout(title: session_edit_title(session),
+                        breadcrumbs: [hd_summary_breadcrumb(session.patient),
+                                      hd_session_breadcrumb(session)]) do
 
   .document.hd-session-form
     = simple_form_for session,

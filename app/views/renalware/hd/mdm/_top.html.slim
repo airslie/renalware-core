@@ -1,6 +1,7 @@
 .columns.small-12.medium-6.large-3
-  = render "renalware/hd/profiles/summary", profile: mdm.hd_profile
+  = render "renalware/hd/profiles/summary", profile: mdm.hd_profile, patient: mdm.patient
 .columns.small-12.medium-6.large-3
-  = render "renalware/hd/accesses/summary", access: mdm.access
+  - if mdm.access.present?
+    = render "renalware/hd/accesses/summary", access: mdm.access, patient: mdm.patient
 .columns.medium-12.large-6
   = render "prescriptions", mdm: mdm, with_esa: true

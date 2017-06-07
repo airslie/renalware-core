@@ -43,8 +43,9 @@ module World
         login_as user
         visit patient_hd_dashboard_path(patient)
 
-        within_fieldset t_sessions(:title) do
-          click_on t_sessions(:add_dna_session)
+        within ".page-actions" do
+          click_on "Add"
+          click_on "DNA Session"
         end
 
         select hd_unit.to_s, from: t_form(".hospital_unit")

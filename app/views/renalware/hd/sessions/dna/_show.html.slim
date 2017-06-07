@@ -1,11 +1,7 @@
-= within_patient_layout(title: "HD DNA (Did Not Attend) Session") do
-  = render "session_nav", session: session
-
-  .document-view
-
-    = render "renalware/shared/attributes_group",
-          legend: "Session details", destination: "",
-          models: { session => [:performed_on,
-                                :hospital_unit,
-                                :notes,
-                                :signed_on_by] }
+.document-view
+  = render "renalware/shared/attributes_group",
+        legend: "Session details", destination: "",
+        models: { session => [:performed_on,
+                              :hospital_unit,
+                              :notes,
+                              :signed_on_by] }

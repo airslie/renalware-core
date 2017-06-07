@@ -158,6 +158,14 @@ dd.patient-name {
   font-size: 0.8em;
 }
 
+.dropdown.button {
+  padding-right: 3rem;
+
+  &::after {
+    right: 1rem;
+  }
+}
+
 .sub-nav {
   background-color: $white;
   float: left;
@@ -215,7 +223,7 @@ dd.patient-name {
     padding: 0.5rem;
     color: $mid-grey;
     cursor: default;
-    display: inline-block;
+    display: block;
 
     &:hover {
       background-color: $white;

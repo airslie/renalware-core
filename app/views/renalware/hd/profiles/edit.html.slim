@@ -1,4 +1,6 @@
-= within_patient_layout(title: "HD Profile") do
+= within_patient_layout(title: "Edit",
+                        breadcrumbs: [hd_summary_breadcrumb(patient),
+                                      hd_profile_breadcrumb(patient)]) do
   .document
     = simple_form_for profile,
         url: patient_hd_profile_path(patient),
