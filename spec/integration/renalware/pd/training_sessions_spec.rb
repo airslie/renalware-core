@@ -15,7 +15,7 @@ module Renalware
 
       # New
       started_on = I18n.l(Time.zone.today)
-      within(".training_session_document_training_site") { choose("Home") }
+      select "Home", from: "Training site"
       within(".training_session_document_training_type") { choose("APD Baxter") }
       fill_in input_called(:trainer), with: "Flo Nightengale RN"
       fill_in input_called(:started_on), with: started_on
