@@ -6,6 +6,7 @@ Feature: A Clinician creates a PET/Adequacy form
   Background:
     Given Clyde is a clinician
       And Patty is a patient
+      And Patty has the PD modality
 
   @web
   Scenario: A clinician created a PET/Adequacy record for a patient
