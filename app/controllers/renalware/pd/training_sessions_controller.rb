@@ -21,7 +21,7 @@ module Renalware
         authorize training_session
         if training_session.save
           redirect_to patient_pd_dashboard_path(patient),
-                      notice: success_msg_for("training_session")
+            notice: success_msg_for("training_session")
         else
           render :new, locals: { patient: patient, training_session: training_session }
         end
@@ -38,7 +38,7 @@ module Renalware
         authorize training_session
         if training_session.update(training_session_params)
           redirect_to patient_pd_dashboard_path(patient),
-                      notice: success_msg_for("training_session")
+            notice: success_msg_for("training_session")
         else
           render :edit, locals: { patient: patient, training_session: training_session }
         end
@@ -53,18 +53,21 @@ module Renalware
       def training_session_params
         params
           .require(:training_session)
-          .permit(attributes)
+          .permit(training_session_attributes)
           .merge(document: document_attributes, by: current_user)
       end
 
-      def attributes
+      def training_session_attributes
         [
-          document: []
+          :training_site_id,
         ]
       end
 
       def document_attributes
-        params.require(:training_session).fetch(:document, nil).try(:permit!)
+        params
+          .require(:training_session)
+          .fetch(:document, nil)
+          .try(:permit!)
       end
     end
   end
