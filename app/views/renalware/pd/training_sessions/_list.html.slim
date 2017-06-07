@@ -26,7 +26,7 @@ article.pd_training_sessions
           td= l(training_session.created_at)
           td= l(document.started_on)
           td= document.trainer
-          td= document.training_site&.text
+          td= training_session.training_site
           td= document.training_type&.text
           td= document.training_duration do |iso8601duration|
               - Renalware::PD::TrainingDurationPresenter.new(iso8601duration).to_s
