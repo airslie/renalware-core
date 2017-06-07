@@ -579,6 +579,77 @@ ALTER SEQUENCE clinical_allergies_id_seq OWNED BY clinical_allergies.id;
 
 
 --
+-- Name: clinical_dry_weights; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE clinical_dry_weights (
+    id integer NOT NULL,
+    patient_id integer,
+    weight double precision NOT NULL,
+    assessed_on date NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    assessor_id integer NOT NULL
+);
+
+
+--
+-- Name: clinical_dry_weights_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE clinical_dry_weights_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: clinical_dry_weights_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE clinical_dry_weights_id_seq OWNED BY clinical_dry_weights.id;
+
+
+--
+-- Name: clinical_versions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE clinical_versions (
+    id integer NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: clinical_versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE clinical_versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: clinical_versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE clinical_versions_id_seq OWNED BY clinical_versions.id;
+
+
+--
 -- Name: death_edta_codes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -928,42 +999,6 @@ CREATE SEQUENCE hd_dialysers_id_seq
 --
 
 ALTER SEQUENCE hd_dialysers_id_seq OWNED BY hd_dialysers.id;
-
-
---
--- Name: hd_dry_weights; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE hd_dry_weights (
-    id integer NOT NULL,
-    patient_id integer,
-    weight double precision NOT NULL,
-    assessed_on date NOT NULL,
-    created_by_id integer NOT NULL,
-    updated_by_id integer NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    assessor_id integer NOT NULL
-);
-
-
---
--- Name: hd_dry_weights_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE hd_dry_weights_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: hd_dry_weights_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE hd_dry_weights_id_seq OWNED BY hd_dry_weights.id;
 
 
 --
@@ -4272,6 +4307,20 @@ ALTER TABLE ONLY clinical_allergies ALTER COLUMN id SET DEFAULT nextval('clinica
 
 
 --
+-- Name: clinical_dry_weights id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinical_dry_weights ALTER COLUMN id SET DEFAULT nextval('clinical_dry_weights_id_seq'::regclass);
+
+
+--
+-- Name: clinical_versions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinical_versions ALTER COLUMN id SET DEFAULT nextval('clinical_versions_id_seq'::regclass);
+
+
+--
 -- Name: death_edta_codes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4339,13 +4388,6 @@ ALTER TABLE ONLY hd_cannulation_types ALTER COLUMN id SET DEFAULT nextval('hd_ca
 --
 
 ALTER TABLE ONLY hd_dialysers ALTER COLUMN id SET DEFAULT nextval('hd_dialysers_id_seq'::regclass);
-
-
---
--- Name: hd_dry_weights id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY hd_dry_weights ALTER COLUMN id SET DEFAULT nextval('hd_dry_weights_id_seq'::regclass);
 
 
 --
@@ -5057,6 +5099,22 @@ ALTER TABLE ONLY clinical_allergies
 
 
 --
+-- Name: clinical_dry_weights clinical_dry_weights_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinical_dry_weights
+    ADD CONSTRAINT clinical_dry_weights_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: clinical_versions clinical_versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinical_versions
+    ADD CONSTRAINT clinical_versions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: death_edta_codes death_edta_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5134,14 +5192,6 @@ ALTER TABLE ONLY hd_cannulation_types
 
 ALTER TABLE ONLY hd_dialysers
     ADD CONSTRAINT hd_dialysers_pkey PRIMARY KEY (id);
-
-
---
--- Name: hd_dry_weights hd_dry_weights_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY hd_dry_weights
-    ADD CONSTRAINT hd_dry_weights_pkey PRIMARY KEY (id);
 
 
 --
@@ -6098,6 +6148,41 @@ CREATE INDEX index_clinical_allergies_on_updated_by_id ON clinical_allergies USI
 
 
 --
+-- Name: index_clinical_dry_weights_on_assessor_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinical_dry_weights_on_assessor_id ON clinical_dry_weights USING btree (assessor_id);
+
+
+--
+-- Name: index_clinical_dry_weights_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinical_dry_weights_on_created_by_id ON clinical_dry_weights USING btree (created_by_id);
+
+
+--
+-- Name: index_clinical_dry_weights_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinical_dry_weights_on_patient_id ON clinical_dry_weights USING btree (patient_id);
+
+
+--
+-- Name: index_clinical_dry_weights_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinical_dry_weights_on_updated_by_id ON clinical_dry_weights USING btree (updated_by_id);
+
+
+--
+-- Name: index_clinical_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinical_versions_on_item_type_and_item_id ON clinical_versions USING btree (item_type, item_id);
+
+
+--
 -- Name: index_directory_people_on_created_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6165,34 +6250,6 @@ CREATE INDEX index_events_on_type ON events USING btree (type);
 --
 
 CREATE INDEX index_events_on_updated_by_id ON events USING btree (updated_by_id);
-
-
---
--- Name: index_hd_dry_weights_on_assessor_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_hd_dry_weights_on_assessor_id ON hd_dry_weights USING btree (assessor_id);
-
-
---
--- Name: index_hd_dry_weights_on_created_by_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_hd_dry_weights_on_created_by_id ON hd_dry_weights USING btree (created_by_id);
-
-
---
--- Name: index_hd_dry_weights_on_patient_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_hd_dry_weights_on_patient_id ON hd_dry_weights USING btree (patient_id);
-
-
---
--- Name: index_hd_dry_weights_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_hd_dry_weights_on_updated_by_id ON hd_dry_weights USING btree (updated_by_id);
 
 
 --
@@ -7907,19 +7964,11 @@ ALTER TABLE ONLY pd_peritonitis_episode_types
 
 
 --
--- Name: hd_dry_weights fk_rails_31546389ab; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: clinical_dry_weights fk_rails_31546389ab; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY hd_dry_weights
+ALTER TABLE ONLY clinical_dry_weights
     ADD CONSTRAINT fk_rails_31546389ab FOREIGN KEY (patient_id) REFERENCES patients(id);
-
-
---
--- Name: hd_dry_weights fk_rails_324e505f46; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY hd_dry_weights
-    ADD CONSTRAINT fk_rails_324e505f46 FOREIGN KEY (assessor_id) REFERENCES users(id);
 
 
 --
@@ -8079,7 +8128,7 @@ ALTER TABLE ONLY patient_practices_primary_care_physicians
 --
 
 ALTER TABLE ONLY hd_sessions
-    ADD CONSTRAINT fk_rails_563fedb262 FOREIGN KEY (dry_weight_id) REFERENCES hd_dry_weights(id);
+    ADD CONSTRAINT fk_rails_563fedb262 FOREIGN KEY (dry_weight_id) REFERENCES clinical_dry_weights(id);
 
 
 --
@@ -8891,6 +8940,14 @@ ALTER TABLE ONLY pathology_requests_patient_rules_requests
 
 
 --
+-- Name: clinical_dry_weights fk_rails_fdc1dbcc6d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinical_dry_weights
+    ADD CONSTRAINT fk_rails_fdc1dbcc6d FOREIGN KEY (assessor_id) REFERENCES users(id);
+
+
+--
 -- Name: medication_prescription_terminations fk_rails_fe1184d31a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8899,18 +8956,18 @@ ALTER TABLE ONLY medication_prescription_terminations
 
 
 --
--- Name: hd_dry_weights hd_dry_weights_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: clinical_dry_weights hd_dry_weights_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY hd_dry_weights
+ALTER TABLE ONLY clinical_dry_weights
     ADD CONSTRAINT hd_dry_weights_created_by_id_fk FOREIGN KEY (created_by_id) REFERENCES users(id);
 
 
 --
--- Name: hd_dry_weights hd_dry_weights_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: clinical_dry_weights hd_dry_weights_updated_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY hd_dry_weights
+ALTER TABLE ONLY clinical_dry_weights
     ADD CONSTRAINT hd_dry_weights_updated_by_id_fk FOREIGN KEY (updated_by_id) REFERENCES users(id);
 
 
@@ -9332,6 +9389,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170526060804'),
 ('20170526061000'),
 ('20170601142904'),
-('20170602124855');
+('20170602124855'),
+('20170605102519'),
+('20170605103133');
 
 

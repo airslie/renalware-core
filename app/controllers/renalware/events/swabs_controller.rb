@@ -9,7 +9,7 @@ module Renalware
       private
 
       # Override this because as we probably originated from the clinical profile we want to
-      # go back there when done editing or creating. This soes not apply if were created
+      # go back there when done editing or creating. This does not apply if we were created
       # from the generic Events list and controller.
       def return_url
         session.delete(:return_to)

@@ -10,8 +10,10 @@ module Renalware
       visit patient_pd_dashboard_path(patient)
 
       # Summary
-      click_link "Add"
-      click_link "PD Assessment"
+      within ".page-actions" do
+        click_link "Add"
+        click_link "PD Assessment"
+      end
 
       # New
       home_visit_on = I18n.l(Time.zone.today)

@@ -14,7 +14,7 @@ module Renalware
 
       belongs_to :patient
       belongs_to :profile
-      belongs_to :dry_weight
+      belongs_to :dry_weight, class_name: "Renalware::Clinical::DryWeight"
       belongs_to :modality_description, class_name: "Modalities::Description"
       belongs_to :hospital_unit, class_name: "Hospitals::Unit"
       belongs_to :signed_on_by, class_name: "User", foreign_key: "signed_on_by_id"

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 module Renalware
-  module HD
+  module Clinical
     RSpec.describe DryWeight, type: :model do
       it { is_expected.to validate_presence_of(:patient) }
       it { is_expected.to validate_presence_of(:assessor) }

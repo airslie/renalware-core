@@ -1,0 +1,17 @@
+.form-content
+    = render layout: "renalware/shared/fieldset",
+        locals: { legend: "Dry Weight", name: "dryweight" } do
+      = f.input :weight,
+                autofocus: true,
+                wrapper: :horizontal_small
+      = f.input :assessed_on,
+                as: :date_picker,
+                wrapper: :horizontal_datepicker
+      = f.association :assessor,
+                      as: :user_picker,
+                      collection: Renalware::User.ordered
+.row
+  .large-12.columns
+    = f.button :submit
+    span= " or "
+    = link_to "cancel", return_url

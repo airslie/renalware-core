@@ -34,6 +34,10 @@ module Renalware
       def diabetes
         patient.document.diabetes || NullObject.instance
       end
+
+      def dry_weights
+        @dry_weights ||= DryWeight.for_patient(patient).ordered
+      end
     end
   end
 end
