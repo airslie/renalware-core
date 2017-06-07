@@ -30,11 +30,6 @@ en:
 
   enumerize:
     renalware/pd/training_session/document:
-      training_site:
-        home: Home
-        kch: KCH
-        sydenham: Sydenham
-        baxter: Baxter Education Centre
       training_type:
         exit_site_care: Exit Site Care
         drainage_system: Drainage System
