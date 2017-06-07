@@ -7,7 +7,6 @@ FactoryGirl.define do
       {
         started_on: Time.zone.today,
         trainer: "Flo Nightengale RN",
-        training_site: :home,
         training_type: :apd_baxter,
         outcome: :successful
       }
