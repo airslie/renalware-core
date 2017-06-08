@@ -3,6 +3,7 @@ FactoryGirl.define do
     patient
     association :updated_by, factory: :user
     association :created_by, factory: :user
+    association :training_site, factory: :pd_training_site
     document {
       {
         started_on: Time.zone.today,

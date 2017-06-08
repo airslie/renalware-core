@@ -5,6 +5,7 @@ module Renalware
     ###
     scenario "Add a PD Training Session" do
       patient = create(:pd_patient)
+      create(:pd_training_site, name: "Home")
       login_as_clinician
 
       visit patient_pd_dashboard_path(patient)
