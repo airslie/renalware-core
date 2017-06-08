@@ -3340,7 +3340,8 @@ CREATE TABLE pd_training_sessions (
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    training_type_id integer NOT NULL
 );
 
 
@@ -3394,6 +3395,38 @@ CREATE SEQUENCE pd_training_sites_id_seq
 --
 
 ALTER SEQUENCE pd_training_sites_id_seq OWNED BY pd_training_sites.id;
+
+
+--
+-- Name: pd_training_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pd_training_types (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pd_training_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pd_training_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pd_training_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pd_training_types_id_seq OWNED BY pd_training_types.id;
 
 
 --
@@ -4886,6 +4919,13 @@ ALTER TABLE ONLY pd_training_sites ALTER COLUMN id SET DEFAULT nextval('pd_train
 
 
 --
+-- Name: pd_training_types id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_training_types ALTER COLUMN id SET DEFAULT nextval('pd_training_types_id_seq'::regclass);
+
+
+--
 -- Name: problem_notes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5762,6 +5802,14 @@ ALTER TABLE ONLY pd_training_sessions
 
 ALTER TABLE ONLY pd_training_sites
     ADD CONSTRAINT pd_training_sites_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pd_training_types pd_training_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_training_types
+    ADD CONSTRAINT pd_training_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -7300,6 +7348,13 @@ CREATE INDEX index_pd_training_sessions_on_patient_id ON pd_training_sessions US
 --
 
 CREATE INDEX index_pd_training_sessions_on_training_site_id ON pd_training_sessions USING btree (training_site_id);
+
+
+--
+-- Name: index_pd_training_sessions_on_training_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_training_sessions_on_training_type_id ON pd_training_sessions USING btree (training_type_id);
 
 
 --
@@ -9282,6 +9337,14 @@ ALTER TABLE ONLY pd_training_sessions
 
 
 --
+-- Name: pd_training_sessions pd_training_sessions_type_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_training_sessions
+    ADD CONSTRAINT pd_training_sessions_type_id_fk FOREIGN KEY (training_type_id) REFERENCES pd_training_types(id);
+
+
+--
 -- Name: problem_notes problem_notes_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9551,6 +9614,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170605102519'),
 ('20170605103133'),
 ('20170605161951'),
-('20170606182242');
+('20170606182242'),
+('20170608192234');
 
 
