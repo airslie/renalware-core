@@ -5,7 +5,7 @@ class CreatePDAssessments < ActiveRecord::Migration[5.0]
       t.jsonb :document
       t.references :created_by, index: true, null: false
       t.references :updated_by, index: true, null: false
-      t.timestamps null: true
+      t.timestamps null: false
     end
 
     add_foreign_key :pd_assessments, :users, column: :created_by_id

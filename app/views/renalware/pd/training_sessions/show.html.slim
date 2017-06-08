@@ -1,0 +1,19 @@
+= content_for(:actions) do
+  = link_to t("edit_record.link_title"),
+            edit_patient_pd_training_session_path(patient, training_session),
+            class: "button"
+
+= within_patient_layout(breadcrumbs: pd_summary_breadcrumb(patient)) do
+
+
+  article.pd_training_session_document
+    head
+    h2= "Location: #{training_session.training_site}"
+    = definition_list_for(training_session.document, size: :xlarge) do |list|
+      = list.definition(:started_on) { |value| l(value) }
+      = list.definition(:trainer)
+      = list.definition(:training_type) { |value| value.text }
+      = list.definition(:training_duration) do |iso8601duration|
+        - Renalware::PD::TrainingDurationPresenter.new(iso8601duration).to_s
+      = list.definition(:outcome) { |value| value.text }
+      = list.definition(:training_comments)

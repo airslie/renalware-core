@@ -1,0 +1,43 @@
+en:
+  renalware:
+    pd:
+      training_sessions:
+        new:
+          title: New PD Training Session
+        edit:
+          title: Edit
+        show:
+          title: PD Training Session
+        list:
+          title: PD Training Sessions
+          date_time: Date recorded
+          started_on: Starting Date
+          trainer: Trainer
+          training_site: Site
+          training_type: Type
+          training_duration: Duration
+          outcome: Outcome
+  activemodel:
+    attributes:
+      renalware/pd/training_session/document:
+        started_on: Starting Date
+        trainer: Trainer
+        training_site: Training Site
+        training_type: Training Type
+        training_duration: Duration (days)
+        outcome: Outcome
+        training_comments: Training Comments
+
+  enumerize:
+    renalware/pd/training_session/document:
+      training_type:
+        exit_site_care: Exit Site Care
+        drainage_system: Drainage System
+        capd_baxter: CAPD Baxter
+        capd_fresenius: CAPD Fresenius
+        apd_baxter: APD Baxter
+        apd_fresenius: APD Fresenius
+      outcome:
+        successful: Successful
+        limited_success: Limited Success
+        unsuccessful: Unsuccessful

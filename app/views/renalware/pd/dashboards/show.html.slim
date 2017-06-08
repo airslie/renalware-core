@@ -36,6 +36,10 @@
               assessments: dashboard.assessments,
               patient: patient
 
+  - if dashboard.training_sessions.any?
+    = render "renalware/pd/training_sessions/list",
+              training_sessions: dashboard.training_sessions,
+              patient: patient
   .row
     .medium-6.large-4.xlarge-3.columns
       = render "renalware/clinical/dry_weights/list", patient: patient, limit: 5

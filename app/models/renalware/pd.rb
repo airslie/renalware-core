@@ -24,6 +24,9 @@ module Renalware
       include ActiveSupport::Configurable
 
       config_accessor(:delivery_intervals) { [1.week, 2.weeks, 3.weeks, 4.weeks] }
+
+      config_accessor(:training_durations) { (1..15).map{ |day| day.days } }
+
     end
 
     def self.config
