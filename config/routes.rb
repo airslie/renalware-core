@@ -307,25 +307,26 @@ Rails.application.routes.draw do
 
       namespace :transplants do
         resource :mdm, only: :show, controller: "mdm"
-        resource :donor_dashboard, only: :show
-        resource :donor_workup, only: [:show, :edit, :update]
-        resources :donor_operations, expect: [:index, :destroy] do
-          resource :followup, controller: "donor_followups"
+
+        scope "/donor" do
+          resource :donor_dashboard, only: :show, path: "/dashboard"
+          resource :donor_workup, only: [:show, :edit, :update], path: "/workup"
+          resources :donor_operations, expect: [:index, :destroy], path: "/operations" do
+            resource :followup, controller: "donor_followups", path: "/follow_up"
+          end
+          resources :donations, expect: [:index, :destroy]
+          resource :donor_stage, expect: [:index, :destroy], path: "/stage"
         end
 
-        resources :donations, expect: [:index, :destroy]
-        resource :recipient_dashboard, only: :show
-        resource :recipient_workup, only: [:show, :edit, :update]
-        resources :recipient_operations, expect: [:index, :destroy] do
-          resource :followup, controller: "recipient_followups"
-        end
-
-        resource :registration, expect: [:index, :destroy] do
-          resources :statuses, controller: "registration_statuses"
-        end
-
-        resource :donor_stage, expect: [:index, :destroy] do
-
+        scope "/recipient" do
+          resource :recipient_dashboard, only: :show, path: "/dashboard"
+          resource :recipient_workup, only: [:show, :edit, :update], path: "/workup"
+          resources :recipient_operations, expect: [:index, :destroy], path: "/operations" do
+            resource :followup, controller: "recipient_followups", path: "/follow_up"
+          end
+          resource :registration, expect: [:index, :destroy] do
+            resources :statuses, controller: "registration_statuses"
+          end
         end
       end
     end
@@ -335,5 +336,10 @@ Rails.application.routes.draw do
     # In theory we should only ever hit these routes if the user manually edits/enters the URL.
     get "/patients/:id/hd", to: redirect("/patients/%{id}/hd/dashboard")
     get "/patients/:id/pd", to: redirect("/patients/%{id}/pd/dashboard")
+    get "/patients/:id/transplants", to: redirect("/patients/%{id}")
+    get "/patients/:id/transplants/donor",
+        to: redirect("/patients/%{id}/transplants/donor/dashboard")
+    get "/patients/:id/transplants/recipient",
+        to: redirect("/patients/%{id}/transplants/recipient/dashboard")
   end
 end

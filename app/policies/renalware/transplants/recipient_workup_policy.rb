@@ -2,7 +2,7 @@ require_dependency "renalware/transplants"
 
 module Renalware
   module Transplants
-    class RegistrationPolicy < BasePolicy
+    class RecipientWorkupPolicy < BasePolicy
       def new?
         super && record.new_record?
       end

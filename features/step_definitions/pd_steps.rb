@@ -5,6 +5,15 @@ Given(/^Patty has no PD regimes$/) do
   @patty.pd_regimes.destroy_all
 end
 
+Given(/^Patty has the PD modality$/) do
+  modality_description = Renalware::Modalities::Description.find_by(
+    type: "Renalware::PD::ModalityDescription"
+  )
+  seed_modality_for(patient: @patty,
+                    modality_description: modality_description,
+                    user: @clyde)
+end
+
 When(/^Clyde adds a CAPD regime$/) do
   @capd_regime = record_capd_regime_for(patient: @patty, user: @clyde)
 end

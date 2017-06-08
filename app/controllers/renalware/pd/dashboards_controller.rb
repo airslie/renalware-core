@@ -1,11 +1,11 @@
-require_dependency "renalware/hd/base_controller"
+require_dependency "renalware/pd"
 
 module Renalware
   module PD
-    class DashboardsController < BaseController
-      before_action :load_patient
+    class DashboardsController < PD::BaseController
 
       def show
+        authorize patient
         render :show, locals: {
           patient: patient,
           dashboard: DashboardPresenter.new(patient)

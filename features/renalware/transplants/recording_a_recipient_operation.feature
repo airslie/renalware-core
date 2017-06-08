@@ -6,6 +6,7 @@ Feature: Recording the operation on a recipient
   Background:
     Given Clyde is a clinician
     And Patty is a patient
+    And Patty has the Transplant modality
 
   @web
   Scenario: A clinician recorded a transplant operation on a recipient

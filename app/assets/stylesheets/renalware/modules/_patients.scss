@@ -90,6 +90,18 @@ ul.provider {
     list-style-type: none;
     margin: 0 1rem 0 0;
     padding: 0;
+
+    &.missing-modality-warning {
+      color: #666;
+      background-color: lighten($nhs-yellow, 45);
+      padding: 0.35rem;
+      padding-left: 0.8rem;
+      padding-right: 1rem;
+      border: solid 1px #eee;
+      i {
+        margin-right: 0.5rem;
+      }
+    }
   }
 }
 

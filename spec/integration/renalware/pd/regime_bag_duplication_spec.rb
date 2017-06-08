@@ -2,14 +2,20 @@ require "rails_helper"
 
 module Renalware
   feature "PD Regime bag duplication", js: true do
-    background do
-      @patient = create(:patient)
-      @bag_type = create(:bag_type, description: "Option 1")
-      login_as_clinician
-    end
+    include PatientsSpecHelper
 
     scenario "duplicate an existing bag" do
-      visit patient_pd_dashboard_path(@patient)
+
+      patient = create(:patient)
+      set_modality(patient: patient,
+                   modality_description: create(:pd_modality_description),
+                   by: User.first)
+
+      bag_type = create(:bag_type, description: "Option 1")
+
+      login_as_clinician
+
+      visit patient_pd_dashboard_path(patient)
 
       within ".page-actions" do
         click_link "Add"
@@ -28,7 +34,7 @@ module Renalware
 
       within(".fields:first-child") do
         select "2000", from: "Volume (ml)"
-        select @bag_type.description, from: "* Bag type"
+        select bag_type.description, from: "* Bag type"
         uncheck "Tue"
         uncheck "Fri"
 
@@ -39,14 +45,14 @@ module Renalware
 
       within(".fields:last-child") do
         selects = page.all("select")
-        expect(selects.first.value).to eq(@bag_type.id.to_s)
+        expect(selects.first.value).to eq(bag_type.id.to_s)
         expect(selects.last.value).to eq("2000")
         select "5000", from: "Volume (ml)"
       end
 
       click_button "Save"
 
-      expect(page.current_path).to eq(patient_pd_dashboard_path(@patient))
+      expect(page.current_path).to eq(patient_pd_dashboard_path(patient))
 
       regimes = PD::Regime.all
       expect(regimes.length).to eq(1)

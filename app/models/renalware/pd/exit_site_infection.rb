@@ -17,6 +17,10 @@ module Renalware
       validates :diagnosis_date, presence: true
 
       scope :ordered, -> { order(diagnosis_date: :desc) }
+
+      def self.policy_class
+        BasePolicy
+      end
     end
   end
 end
