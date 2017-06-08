@@ -1,16 +1,16 @@
-require_dependency "renalware/hd"
+require_dependency "renalware/clinical"
 require "document/base"
 
 module Renalware
-  module HD
+  module Clinical
     class DryWeight < ApplicationRecord
       include PatientScope
       include Accountable
 
-      belongs_to :patient
+      belongs_to :patient, class_name: "Renalware::Clinical::Patient"
       belongs_to :assessor, class_name: "User", foreign_key: "assessor_id"
 
-      has_paper_trail class_name: "Renalware::HD::Version"
+      has_paper_trail class_name: "Renalware::Clinical::Version"
 
       scope :ordered, -> { order(assessed_on: :desc, created_at: :desc) }
 

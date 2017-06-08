@@ -1,5 +1,5 @@
 module Renalware
-  module HD
+  module Clinical
     class PatientDryWeightsQuery
       def initialize(patient:, search_params: nil)
         @patient = patient

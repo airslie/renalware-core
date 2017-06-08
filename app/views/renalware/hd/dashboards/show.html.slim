@@ -6,7 +6,7 @@
       = render "renalware/hd/accesses/summary", access: dashboard.access
     .medium-6.large-4.xlarge-6.columns
       = render "renalware/hd/preference_sets/summary", preference_set: dashboard.preference_set
-      = render "renalware/hd/dry_weights/list", dry_weights: dashboard.dry_weights
+      = render "renalware/clinical/dry_weights/list", patient: dashboard.patient, limit: 5
   .row
     .small-12.columns
       = render "renalware/hd/sessions/list", sessions: dashboard.sessions

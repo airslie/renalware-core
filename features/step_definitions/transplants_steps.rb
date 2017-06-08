@@ -1,3 +1,12 @@
+Given(/^Patty has the Transplant modality$/) do
+  modality_description = Renalware::Modalities::Description.find_by(
+    type: "Renalware::Transplants::RecipientModalityDescription"
+  )
+  seed_modality_for(patient: @patty,
+                    modality_description: modality_description,
+                    user: @clyde)
+end
+
 Given(/^Patty has a recorded recipient workup$/) do
   seed_recipient_workup_for(patient: @patty, user: @clyde)
 end

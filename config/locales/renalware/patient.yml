@@ -15,6 +15,7 @@ en:
         rpv_decision_on: RPV decision date
         renalreg_recorded_by: Renal Reg decision recorded by
         rpv_recorded_by: RPV decision recorded by
+        language: Main Language
 
   enumerize:
     renalware/patient:
@@ -23,27 +24,3 @@ en:
         known_allergies: Known Allergies
         no_known_allergies: No Known Allergies
         unavailable: Allergies Unavailable
-  renalware:
-    patients:
-      side_nav:
-        heading: General
-        clinic_visits: Clinic Visits (%{count})
-        letters: Letters (%{count})
-        events: Events (%{count})
-        access_profiles: Access Summary (%{count})
-        prescriptions: Prescriptions (%{count})
-        pathology: Pathology (%{count})
-        problems: Problems (%{count})
-        modalities: Modalities (%{count})
-        esrf: ESRF/Comorbidities
-        clinical_profile: Clinical Profile
-        contacts: Contacts (%{count})
-        demographics: Demographics
-        clinical_summary: Clinical Summary
-        modalities: Modalities
-        pd: PD
-        hd: HD
-        transplants: Transplants
-        donor_summary: Donor Summary
-        recipient_summary: Recipient Summary
-        options: Options

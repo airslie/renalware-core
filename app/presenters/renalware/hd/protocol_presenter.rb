@@ -35,9 +35,7 @@ module Renalware
 
       def sessions
         @sessions ||= begin
-          hd_sessions = Session.includes(:hospital_unit, :signed_off_by)
-                               .for_patient(patient)
-                               .limit(3).ordered
+          hd_sessions = Sessions::ProtocolSessionsQuery.new(patient: patient).call
           ::CollectionPresenter.new(hd_sessions, Protocol::SessionPresenter, view_context)
         end
       end

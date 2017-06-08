@@ -2,9 +2,14 @@ require "rails_helper"
 
 module Renalware
   feature "Daily average glucose(ml) calculated from bags per type assigned during one week",
-    js: true do
+          js: true do
+    include PatientsSpecHelper
+
     background do
       @patient = create(:patient)
+      set_modality(patient: @patient,
+                   modality_description: create(:pd_modality_description),
+                   by: User.first)
 
       @bag_type_13_6 = create(:bag_type,
                     manufacturer: "Baxter",
@@ -27,8 +32,11 @@ module Renalware
     end
 
     scenario "should return daily average volume (ml) for each concentration type" do
-      click_link "Add"
-      click_link "CAPD Regime"
+
+      within ".page-actions" do
+        click_link "Add"
+        click_link "CAPD Regime"
+      end
 
       select "CAPD 3 exchanges per day", from: "Treatment"
 

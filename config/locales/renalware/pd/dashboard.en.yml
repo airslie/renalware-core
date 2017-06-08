@@ -11,3 +11,5 @@ en:
             add_peritonitis_episode: Peritonitis Episode
             add_pd_assessment: PD Assessment
             add_pd_training_session: PD Training Session
+            missing_modality_warning: >
+              Some actions will be unavailable until you add the PD modality

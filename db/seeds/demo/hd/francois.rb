@@ -77,8 +77,8 @@ module Renalware
   dry_weight = nil
 
   log "Create dry weight to Francois RABBIT" do
-    dry_weight = HD::DryWeight.find_or_create_by(
-      patient: patient,
+    dry_weight = Clinical::DryWeight.find_or_create_by(
+      patient: Renalware::Clinical.cast_patient(patient),
       weight: 140.5,
       assessed_on: Time.zone.now,
       assessor_id: Renalware::User.first.id,

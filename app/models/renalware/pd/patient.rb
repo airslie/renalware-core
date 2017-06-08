@@ -8,6 +8,11 @@ module Renalware
       def treated?
         modality_descriptions.exists?(type: "Renalware::PD::ModalityDescription")
       end
+
+      def has_ever_been_on_pd?
+        @has_ever_been_on_pd ||=
+          modality_descriptions.exists?(type: "Renalware::PD::ModalityDescription")
+      end
     end
   end
 end

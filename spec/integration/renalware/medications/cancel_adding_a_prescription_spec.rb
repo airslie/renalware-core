@@ -1,0 +1,38 @@
+require "rails_helper"
+
+RSpec.describe "Configuring Modality Descriptions", type: :feature, js: true do
+
+  describe "when cancelling out of the new prescription form" do
+    it "returns the the original location" do
+      patient = create(:patient)
+      login_as_clinician
+
+      visit patient_prescriptions_path(patient,
+                                       treatable_type: patient.class.to_s,
+                                       treatable_id: patient.id)
+
+      check_we_are_on_the_medications_list
+      load_the_new_prescription_form_via_remote_js_call
+
+      cancel_the_add_prescription_form_via_remote_js_call
+
+      check_we_are_on_the_medications_list
+    end
+  end
+
+  def check_we_are_on_the_medications_list
+    expect(page).to have_css(".medications-filter")
+  end
+
+  def load_the_new_prescription_form_via_remote_js_call
+    within ".page-actions" do
+      click_on "Add"
+    end
+  end
+
+  def cancel_the_add_prescription_form_via_remote_js_call
+    within "form .actions" do
+      click_on "cancel"
+    end
+  end
+end

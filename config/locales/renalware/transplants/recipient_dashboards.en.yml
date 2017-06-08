@@ -2,7 +2,9 @@ en:
   renalware:
     transplants:
       recipient_dashboards:
-        show:
+        page_actions:
           add_recipient_workup: Recipient Workup
           add_waitlist_registration: Wait List Registration
           add_recipient_operation: Recipient Operation
+          missing_modality_warning: >
+            Some actions will be unavailable until you add the Transplant modality

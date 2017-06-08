@@ -6,6 +6,7 @@ Feature: Registering a patient on the wait list
   Background:
     And Clyde is a clinician
     And Patty is a patient
+    And Patty has the Transplant modality
 
   @web
   Scenario: A clinician registered a patient on the transplant wait list

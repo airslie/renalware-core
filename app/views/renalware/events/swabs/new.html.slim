@@ -1,5 +1,4 @@
-= within_patient_layout(title: "New Swab",
-          breadcrumbs: breadcrumb_for("Clinical Profile", patient_clinical_profile_path(patient))) do
+= within_patient_layout(title: "New Swab", breadcrumbs: clinical_profile_breadcrumb(patient)) do
 
   = simple_form_for event,
       url: patient_swabs_path(patient, event),

@@ -3,6 +3,8 @@ require_dependency "collection_presenter"
 module Renalware
   module HD
     class DashboardPresenter
+      attr_accessor :patient
+
       def initialize(patient, view_context)
         @patient = patient
         @view_context = view_context
@@ -34,16 +36,9 @@ module Renalware
         end
       end
 
-      def dry_weights
-        @dry_weights ||= begin
-          weights = DryWeight.for_patient(patient).limit(4).includes(:assessor).ordered
-          CollectionPresenter.new(weights, DryWeightPresenter)
-        end
-      end
-
       private
 
-      attr_accessor :patient, :view_context
+      attr_accessor :view_context
     end
   end
 end

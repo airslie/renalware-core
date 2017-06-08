@@ -4,6 +4,9 @@ death:
 live_donor:
   name: Live Donor
   type: Renalware::Transplants::DonorModalityDescription
+transplant:
+  name: Transplant
+  type: Renalware::Transplants::RecipientModalityDescription
 other:
   name: Other
 pd_apd:

@@ -39,7 +39,7 @@ Then(/^the session is removed$/) do
 end
 
 Given(/^Patty has a recorded dry weight entry$/) do
-  seed_hd_dry_weight_for(@patty, @clyde)
+  seed_dry_weight_for(@patty, @clyde)
 end
 
 Given(/^These patients have these HD sessions$/) do |table|
@@ -82,7 +82,7 @@ When(/^Nathalie records the pre\-session observations for Patty$/) do
 end
 
 When(/^Clyde records the dry weight for Patty$/) do
-  create_hd_dry_weight(patient: @patty, user: @clyde, assessed_on: Time.zone.today)
+  create_dry_weight(patient: @patty, user: @clyde, assessed_on: Time.zone.today)
 end
 
 When(/^Nathalie submits an erroneous HD session$/) do
@@ -90,7 +90,7 @@ When(/^Nathalie submits an erroneous HD session$/) do
 end
 
 When(/^Clyde submits an erroneous dry weight$/) do
-  create_hd_dry_weight(patient: @patty, user: @clyde, assessed_on: nil)
+  create_dry_weight(patient: @patty, user: @clyde, assessed_on: nil)
 end
 
 When(/^Clyde views the list of ongoing HD sessions$/) do
@@ -146,11 +146,11 @@ Then(/^the HD session is not accepted$/) do
 end
 
 Then(/^Patty has a new dry weight$/) do
-  expect_hd_dry_weight_to_exist(@patty)
+  expect_dry_weight_to_exist(@patty)
 end
 
 Then(/^the dry weight is not accepted$/) do
-  expect_hd_dry_weight_to_be_refused
+  expect_dry_weight_to_be_refused(@patty)
 end
 
 Then(/^Clyde sees these HD sessions$/) do |table|
