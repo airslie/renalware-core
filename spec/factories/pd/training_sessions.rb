@@ -4,11 +4,11 @@ FactoryGirl.define do
     association :updated_by, factory: :user
     association :created_by, factory: :user
     association :training_site, factory: :pd_training_site
+    association :training_type, factory: :pd_training_type
     document {
       {
         started_on: Time.zone.today,
         trainer: "Flo Nightengale RN",
-        training_type: :apd_baxter,
         outcome: :successful
       }
     }
