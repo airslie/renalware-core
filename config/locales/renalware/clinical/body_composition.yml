@@ -1,0 +1,94 @@
+en:
+  activerecord:
+    attributes:
+      renalware/clinical/body_composition:
+        assessed_on: Assessment Date
+        overhydration: Overhydration (OH)
+        volume_of_distribution: Volume of Distribution (V)
+        total_body_water: Total Body Water (TBW)
+        extracellular_water: Extracellular Water (ECW)
+        intracellular_water: Intracellular Water (ICW)
+        lean_tissue_index: Lean Tissue Index (LTI)
+        fat_tissue_index: Fat Tissue Index (FTI)
+        lean_tissue_mass: Lean Tissue Mass (LTM)
+        fat_tissue_mass: Fat Tissue Mass (FTM)
+        adipose_tissue_mass: Adipose Tissue Mass (ATM)
+        body_cell_mass: Body Cell Mass (BCM)
+        quality_of_reading: Quality of Reading (Q)
+    errors:
+      models:
+        renalware/clinical/body_composition:
+          attributes:
+            overhydration:
+              out_of_range: Must be between -20 and 20
+              invalid_number: Please enter a number with up to 1 decimal place
+
+            volume_of_distribution:
+              out_of_range: Must be between 5 and 150
+              invalid_number: Please enter a number with up to 1 decimal place
+
+            total_body_water:
+              out_of_range: Must be between 0 and 150
+              invalid_number: Please enter a number with up to 1 decimal place
+
+            extracellular_water:
+              out_of_range: Must be between 0 and 150
+              invalid_number: Please enter a number with up to 1 decimal place
+
+            intracellular_water:
+              out_of_range: Must be between 0 and and 150
+              invalid_number: Please enter a number with up to 1 decimal place
+
+            lean_tissue_index:
+              out_of_range: Must be between 0 and and 150
+              invalid_number: Please enter a number with up to 1 decimal place
+
+            fat_tissue_index:
+              out_of_range: Must be between 0 and and 150
+              invalid_number: Please enter a number with up to 1 decimal place
+
+            lean_tissue_mass:
+              out_of_range: Must be between 0 and and 150
+              invalid_number: Please enter a number with up to 1 decimal place
+
+            fat_tissue_mass:
+              out_of_range: Must be between 0 and and 150
+              invalid_number: Please enter a number with up to 1 decimal place
+
+            adipose_tissue_mass:
+              out_of_range: Must be between 0 and 100
+              invalid_number: Please enter a number with up to 1 decimal place
+
+            body_cell_mass:
+              out_of_range: Must be between 0 and 150
+              invalid_number: Please enter a number with up to 1 decimal place
+
+            quality_of_reading:
+              out_of_range: Must be between 50 and 100
+              invalid_number: Please enter a number with up to 3 decimal places
+
+  renalware:
+    clinical:
+      body_compositions:
+        list:
+          title: Body Composition Measurements
+          add_dry_weight: Add a Body Composition Measurements
+          add: Add
+          assessed_on: Date
+          overhydration: OH
+          volume_of_distribution: V
+          total_body_water: TBW
+          extracellular_water: ECW
+          intracellular_water: ICW
+          lean_tissue_index: LTI
+          fat_tissue_index: FTI
+          lean_tissue_mass: LTM
+          fat_tissue_mass: FTM
+          adipose_tissue_mass: ATM
+          body_cell_mass: BCM
+          quality_of_reading: Q
+          assessor: Assessor
+          view_all: View All
+          recent:
+            title: Recent Body Composition Measurements
+
