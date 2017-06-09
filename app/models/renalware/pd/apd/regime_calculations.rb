@@ -21,9 +21,9 @@ module Renalware
           vol == 0 ? nil : vol
         end
 
-        def volume_of_glucose_at(percent:)
-          raise "Overnight volume must be calculated first" unless overnight_volume.present?
-          GlucoseCalculator.new(regime: self, percent: percent).glucose_content
+        def volume_of_glucose_at_strength(strength)
+          raise "Overnight volume must be calculated first" if overnight_volume.blank?
+          GlucoseCalculator.new(regime: self, strength: strength).glucose_content
         end
 
         private

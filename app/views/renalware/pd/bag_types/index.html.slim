@@ -1,7 +1,7 @@
-.row
-  = render "header"
+= content_for(:actions) do
+  = link_to t("new_record.link_title"), new_pd_bag_type_path, class: "button"
 
-.row
+= within_admin_layout do
   table
     thead
       tr
@@ -9,6 +9,7 @@
         th Manufacturer
         th Description
         th Glucose (g/l)
+        th Glucose Strength
         th Amino acid
         th Icodextrin
         th Low GDP
@@ -20,7 +21,7 @@
         th Magnesium (mmole/l)
 
     tbody
-      - @bag_types.each do |bt|
+      - bag_types.each do |bt|
         tr
           td
             = link_to "Edit", edit_pd_bag_type_path(bt.id), id: "edit-bag-type-#{bt.id}"
@@ -33,6 +34,7 @@
             td= bt.manufacturer
             td= bt.description
             td= bt.glucose_content
+            td= bt.glucose_strength&.text
             td= yes_no(bt.amino_acid)
             td= yes_no(bt.icodextrin)
             td= yes_no(bt.low_glucose_degradation)

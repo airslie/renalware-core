@@ -13,7 +13,7 @@ module World
       def add_bags_to_regime(regime:, user:, data:)
         data.each do |attrs|
           bag = regime.bags.new
-          bag.bag_type = bag_type_with(glucose_content: attrs[:glucose_content].to_f)
+          bag.bag_type = bag_type_with_glucose_strength(attrs[:glucose_strength])
           bag.role = attrs[:role].to_sym
           bag.volume = attrs[:volume]
           reset_all_days_to_false_for(bag: bag)
@@ -45,17 +45,8 @@ module World
         expect(bag.days_per_week).to eq(days.length)
       end
 
-      def bag_type_with(glucose_content:)
-        # TL;DR: Coercing glucose_content to_s because where(glucose_content: 1.36) returns no rows
-        # even though the raw query in the log, run in pgadmin, works fine. AR doing something odd.
-        #
-        # Since migrating to Rails 5, querying the glucose_content column *for some reason*
-        # won't work using a float on the RHS. Works for sodium_content, not for glucose_content
-        # even though they are similarly defined. IN fact sodium_content is numeric(3,2) and
-        # glucose_content numeric(4,2) but changing it numeric(3,2) doesn't help. Its odd.
-        # Hence the #to_s which means I presume that AR will not get to misinterpret it and
-        # it will leave pg to query with it and get it right.
-        Renalware::PD::BagType.find_by!(glucose_content: glucose_content.to_s)
+      def bag_type_with_glucose_strength(strength)
+        Renalware::PD::BagType.find_by!(glucose_strength: strength)
       end
     end
 

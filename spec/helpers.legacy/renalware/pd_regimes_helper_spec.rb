@@ -10,17 +10,20 @@ module Renalware
         @bag_type_13_6 = create(:bag_type,
                       manufacturer: "Baxter",
                       description: "Dianeal PD2 1.36% (Yellow)",
-                      glucose_content: 1.36)
+                      glucose_content: 1.3,
+                      glucose_strength: :low)
 
         @bag_type_22_7 = create(:bag_type,
                       manufacturer: "Baxter",
                       description: "Dianeal PD2 2.27% (Green)",
-                      glucose_content: 2.27)
+                      glucose_content: 2.2,
+                      glucose_strength: :medium)
 
         @bag_type_38_6 = create(:bag_type,
                       manufacturer: "Baxter",
                       description: "Dianeal PD2 3.86% (Red)",
-                      glucose_content: 3.86)
+                      glucose_content: 3.8,
+                      glucose_strength: :high)
 
         @capd_regime = build(:capd_regime)
 
@@ -66,16 +69,16 @@ module Renalware
 
       context "has a glucose volume" do
         it "should return a glucose volume" do
-          expect(default_daily_glucose_average(@capd_regime.glucose_volume_percent_1_36))
+          expect(default_daily_glucose_average(@capd_regime.glucose_volume_low_strength))
             .to eq(1071)
-          expect(default_daily_glucose_average(@capd_regime.glucose_volume_percent_2_27))
+          expect(default_daily_glucose_average(@capd_regime.glucose_volume_medium_strength))
             .to eq(1786)
         end
       end
 
       context "has no glucose volume" do
         it 'should display "0"' do
-          expect(default_daily_glucose_average(@capd_regime.glucose_volume_percent_3_86)).to eq(0)
+          expect(default_daily_glucose_average(@capd_regime.glucose_volume_high_strength)).to eq(0)
         end
       end
     end

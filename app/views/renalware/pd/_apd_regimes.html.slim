@@ -5,9 +5,9 @@ table.apd-regimes
       th.col-width-date Started on
       th.col-width-date Ended on
       th.col-width-13 Treatment
-      th Glucose 1.36% (ml)
-      th Glucose 2.27% (ml)
-      th Glucose 3.86% (ml)
+      th= t("glucose_volume_low_strength", scope: "renalware.pd.regimes")
+      th= t("glucose_volume_medium_strength", scope: "renalware.pd.regimes")
+      th= t("glucose_volume_high_strength", scope: "renalware.pd.regimes")
       th.column-6-date Updated on
 
   tbody
@@ -29,11 +29,11 @@ table.apd-regimes
         td valign="top"
           = r.treatment
         td valign="top"
-          = default_daily_glucose_average(r.glucose_volume_percent_1_36)
+          = "#{default_daily_glucose_average(r.glucose_volume_low_strength)} ml"
         td valign="top"
-          = default_daily_glucose_average(r.glucose_volume_percent_2_27)
+          = "#{default_daily_glucose_average(r.glucose_volume_medium_strength)} ml"
         td valign="top"
-          = default_daily_glucose_average(r.glucose_volume_percent_3_86)
+          = "#{default_daily_glucose_average(r.glucose_volume_high_strength)} ml"
         td
           = r.updated_at.to_date
 

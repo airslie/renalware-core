@@ -8,6 +8,7 @@ module Renalware
         description: row["description"],
         manufacturer: row["manufacturer"],
         glucose_content: row["glucose_content"],
+        glucose_strength: row["glucose_strength"],
         amino_acid: row["amino_acid"],
         icodextrin: row["icodextrin"],
         low_glucose_degradation: row["low_glucose_degradation"],

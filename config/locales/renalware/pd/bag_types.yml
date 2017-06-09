@@ -1,0 +1,33 @@
+en:
+  renalware:
+    pd:
+      bag_types:
+        new:
+          title: New
+        index:
+          title: PD Bag Types
+        edit:
+          title: Edit
+
+  enumerize:
+    renalware/pd/bag_type:
+      glucose_strength:
+        not_applicable: N/A
+        low: Low
+        medium: Medium
+        high: High
+
+  activerecord:
+    attributes:
+      renalware/pd/bag_type:
+        glucose_content: Glucose content (g/l)
+        glucose_strength: Glucose strength
+        amino_acid: Contains amino acid soln
+        icodextrin: Contains icodextrin soln
+        low_glucose_degradation: Low glucose degradation product (GDP)
+        low_sodium: Low sodium solution
+        sodium_content: Sodium content (mmole/l)
+        lactate_content: Lactate content (mmole/l)
+        bicarbonate_content: Bicarbonate content (mmole/l)
+        calcium_content: Calcium content (mmole/l)
+        magnesium_content: Magnesium content (mmole/l)

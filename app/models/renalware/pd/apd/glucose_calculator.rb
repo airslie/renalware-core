@@ -7,9 +7,9 @@ module Renalware
         attr_reader :regime, :bags
         delegate :overnight_volume, to: :regime
 
-        def initialize(regime:, percent:)
+        def initialize(regime:, strength:)
           @regime = regime
-          @bags = bags_having_glucose_percentage(regime.bags, percent)
+          @bags = bags_having_glucose_strength(regime.bags, strength)
         end
 
         # See calculating_apd_volumes.feature for a description of the algorithm here.
@@ -60,8 +60,8 @@ module Renalware
           bags - overnight_bags
         end
 
-        def bags_having_glucose_percentage(bags, percent)
-          bags.select{ |bag| bag.bag_type.glucose_content == percent }
+        def bags_having_glucose_strength(bags, strength)
+          bags.select{ |bag| bag.bag_type.glucose_strength == strength.to_sym }
         end
       end
     end
