@@ -1,0 +1,29 @@
+table.hd-unmet-preferences
+  thead
+    tr.primary
+      th(rowspan=2) Patient
+      th(colspan=2) Schedule
+      th(colspan=2) Other Schedule
+      th(colspan=2) Hospital Unit
+      th(rowspan=2) Notes
+    tr.secondary
+      th Current
+      th Preferred
+      th Current
+      th Preferred
+      th Current
+      th Preferred
+
+  tbody
+    - patients.each do |patient|
+      tr
+        td= link_to(patient, patient_hd_dashboard_path(patient))
+        td.current= patient.current(:schedule)&.text
+        td.preferred= patient.preferred(:schedule)&.text
+        td.current= patient.current(:other_schedule)
+        td.preferred= patient.preferred(:other_schedule)
+        td.current= patient.current(:hospital_unit)
+        td.preferred= patient.preferred(:hospital_unit)
+        td.col-with-large-with-ellipsis= patient.notes
+
+= paginate patients

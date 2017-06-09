@@ -22,7 +22,7 @@ module Renalware
       end
     end
 
-    def definition_list_for(model, size:)
+    def definition_list_for(model, size: :large)
       content_tag(:dl, class: "dl-horizontal #{size}") do
         yield DefinitionList.new(model)
       end
