@@ -28,6 +28,5 @@ article.pd_training_sessions
           td= document.trainer
           td= training_session.training_site
           td= training_session.training_type
-          td= document.training_duration do |iso8601duration|
-              - Renalware::PD::TrainingDurationPresenter.new(iso8601duration).to_s
+          td= Renalware::PD::TrainingDurationPresenter.new(document.training_duration).to_s
           td= document.outcome&.text
