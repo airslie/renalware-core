@@ -1,0 +1,43 @@
+article.swabs
+  header
+    h2= t(".title")
+    = link_to t(".add"),
+              new_patient_clinical_body_composition_path(@patient),
+              class: "button right"
+  table
+    thead
+      tr
+        th.col-width-tiny
+        th.col-width-date= t(".assessed_on")
+        th.col-width-tiny= t(".assessor")
+        th.col-width-tiny= t(".overhydration")
+        th.col-width-tiny= t(".volume_of_distribution")
+        th.col-width-tiny= t(".total_body_water")
+        th.col-width-tiny= t(".extracellular_water")
+        th.col-width-tiny= t(".intracellular_water")
+        th.col-width-tiny= t(".lean_tissue_index")
+        th.col-width-tiny= t(".fat_tissue_index")
+        th.col-width-tiny= t(".lean_tissue_mass")
+        th.col-width-tiny= t(".fat_tissue_mass")
+        th.col-width-tiny= t(".adipose_tissue_mass")
+        th.col-width-tiny= t(".body_cell_mass")
+        th.col-width-tiny= t(".quality_of_reading")
+
+    tbody
+      - body_compositions.each do |body_composition|
+        tr
+          td= link_to("Edit", edit_patient_clinical_body_composition_path(patient, body_composition)) if policy(body_composition).edit?
+          td= body_composition.assessed_on
+          td= body_composition.assessor
+          td= body_composition.overhydration
+          td= body_composition.volume_of_distribution
+          td= body_composition.total_body_water
+          td= body_composition.extracellular_water
+          td= body_composition.intracellular_water
+          td= body_composition.lean_tissue_index
+          td= body_composition.fat_tissue_index
+          td= body_composition.lean_tissue_mass
+          td= body_composition.fat_tissue_mass
+          td= body_composition.adipose_tissue_mass
+          td= body_composition.body_cell_mass
+          td= body_composition.quality_of_reading

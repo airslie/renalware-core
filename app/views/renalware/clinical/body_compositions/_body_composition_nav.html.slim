@@ -1,0 +1,4 @@
+- if @body_composition.persisted?
+  dl.sub-nav
+    dd= link_to "Clinical Profile", patient_clinical_profile_path(@patient)
+    dd= link_to "Edit", edit_patient_clinical_body_composition_path(@patient, @body_composition)

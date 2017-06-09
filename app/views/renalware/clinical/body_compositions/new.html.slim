@@ -1,0 +1,10 @@
+= within_patient_layout(title: "New Body Composition Measurement",
+  breadcrumbs: breadcrumb_for("Clinical Profile", patient_clinical_profile_path)) do
+
+
+  .document
+    = simple_form_for body_composition,
+        url: patient_clinical_body_compositions_path(patient),
+        html: { autocomplete: "off" },
+        wrapper: "horizontal_form" do |f|
+      = render "form", f: f
