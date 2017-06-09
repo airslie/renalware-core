@@ -579,6 +579,54 @@ ALTER SEQUENCE clinical_allergies_id_seq OWNED BY clinical_allergies.id;
 
 
 --
+-- Name: clinical_body_compositions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE clinical_body_compositions (
+    id integer NOT NULL,
+    patient_id integer,
+    modality_description_id integer,
+    assessed_on date NOT NULL,
+    overhydration numeric(3,1) NOT NULL,
+    volume_of_distribution numeric(4,1) NOT NULL,
+    total_body_water numeric(4,1) NOT NULL,
+    extracellular_water numeric(4,1) NOT NULL,
+    intracellular_water numeric(3,1) NOT NULL,
+    lean_tissue_index numeric(4,1) NOT NULL,
+    fat_tissue_index numeric(4,1) NOT NULL,
+    lean_tissue_mass numeric(4,1) NOT NULL,
+    fat_tissue_mass numeric(4,1) NOT NULL,
+    adipose_tissue_mass numeric(4,1) NOT NULL,
+    body_cell_mass numeric(4,1) NOT NULL,
+    quality_of_reading numeric(6,3) NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    assessor_id integer NOT NULL
+);
+
+
+--
+-- Name: clinical_body_compositions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE clinical_body_compositions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: clinical_body_compositions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE clinical_body_compositions_id_seq OWNED BY clinical_body_compositions.id;
+
+
+--
 -- Name: clinical_dry_weights; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3341,7 +3389,8 @@ CREATE TABLE pd_training_sessions (
     created_by_id integer NOT NULL,
     updated_by_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    training_type_id integer NOT NULL
 );
 
 
@@ -3395,6 +3444,38 @@ CREATE SEQUENCE pd_training_sites_id_seq
 --
 
 ALTER SEQUENCE pd_training_sites_id_seq OWNED BY pd_training_sites.id;
+
+
+--
+-- Name: pd_training_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pd_training_types (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    deleted_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pd_training_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pd_training_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pd_training_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pd_training_types_id_seq OWNED BY pd_training_types.id;
 
 
 --
@@ -4376,6 +4457,13 @@ ALTER TABLE ONLY clinical_allergies ALTER COLUMN id SET DEFAULT nextval('clinica
 
 
 --
+-- Name: clinical_body_compositions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinical_body_compositions ALTER COLUMN id SET DEFAULT nextval('clinical_body_compositions_id_seq'::regclass);
+
+
+--
 -- Name: clinical_dry_weights id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -4887,6 +4975,13 @@ ALTER TABLE ONLY pd_training_sites ALTER COLUMN id SET DEFAULT nextval('pd_train
 
 
 --
+-- Name: pd_training_types id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_training_types ALTER COLUMN id SET DEFAULT nextval('pd_training_types_id_seq'::regclass);
+
+
+--
 -- Name: problem_notes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -5179,6 +5274,14 @@ ALTER TABLE ONLY clinic_visits
 
 ALTER TABLE ONLY clinical_allergies
     ADD CONSTRAINT clinical_allergies_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: clinical_body_compositions clinical_body_compositions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinical_body_compositions
+    ADD CONSTRAINT clinical_body_compositions_pkey PRIMARY KEY (id);
 
 
 --
@@ -5766,6 +5869,14 @@ ALTER TABLE ONLY pd_training_sites
 
 
 --
+-- Name: pd_training_types pd_training_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_training_types
+    ADD CONSTRAINT pd_training_types_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: problem_notes problem_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6244,6 +6355,41 @@ CREATE INDEX index_clinical_allergies_on_patient_id ON clinical_allergies USING 
 --
 
 CREATE INDEX index_clinical_allergies_on_updated_by_id ON clinical_allergies USING btree (updated_by_id);
+
+
+--
+-- Name: index_clinical_body_compositions_on_assessor_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinical_body_compositions_on_assessor_id ON clinical_body_compositions USING btree (assessor_id);
+
+
+--
+-- Name: index_clinical_body_compositions_on_created_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinical_body_compositions_on_created_by_id ON clinical_body_compositions USING btree (created_by_id);
+
+
+--
+-- Name: index_clinical_body_compositions_on_modality_description_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinical_body_compositions_on_modality_description_id ON clinical_body_compositions USING btree (modality_description_id);
+
+
+--
+-- Name: index_clinical_body_compositions_on_patient_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinical_body_compositions_on_patient_id ON clinical_body_compositions USING btree (patient_id);
+
+
+--
+-- Name: index_clinical_body_compositions_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_clinical_body_compositions_on_updated_by_id ON clinical_body_compositions USING btree (updated_by_id);
 
 
 --
@@ -7304,6 +7450,13 @@ CREATE INDEX index_pd_training_sessions_on_training_site_id ON pd_training_sessi
 
 
 --
+-- Name: index_pd_training_sessions_on_training_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pd_training_sessions_on_training_type_id ON pd_training_sessions USING btree (training_type_id);
+
+
+--
 -- Name: index_pd_training_sessions_on_updated_by_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -8179,6 +8332,14 @@ ALTER TABLE ONLY drug_types_drugs
 
 
 --
+-- Name: clinical_body_compositions fk_rails_3cab0126da; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinical_body_compositions
+    ADD CONSTRAINT fk_rails_3cab0126da FOREIGN KEY (patient_id) REFERENCES patients(id);
+
+
+--
 -- Name: hd_sessions fk_rails_3e035fe47f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8459,6 +8620,14 @@ ALTER TABLE ONLY hd_profiles
 
 
 --
+-- Name: clinical_body_compositions fk_rails_8acc26446b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinical_body_compositions
+    ADD CONSTRAINT fk_rails_8acc26446b FOREIGN KEY (modality_description_id) REFERENCES modality_descriptions(id);
+
+
+--
 -- Name: access_profiles fk_rails_8d75e5423f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -8688,6 +8857,14 @@ ALTER TABLE ONLY hd_patient_statistics
 
 ALTER TABLE ONLY patient_practices_primary_care_physicians
     ADD CONSTRAINT fk_rails_b1b697cf23 FOREIGN KEY (primary_care_physician_id) REFERENCES patient_primary_care_physicians(id);
+
+
+--
+-- Name: clinical_body_compositions fk_rails_b4786e77de; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY clinical_body_compositions
+    ADD CONSTRAINT fk_rails_b4786e77de FOREIGN KEY (assessor_id) REFERENCES users(id);
 
 
 --
@@ -9283,6 +9460,14 @@ ALTER TABLE ONLY pd_training_sessions
 
 
 --
+-- Name: pd_training_sessions pd_training_sessions_type_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pd_training_sessions
+    ADD CONSTRAINT pd_training_sessions_type_id_fk FOREIGN KEY (training_type_id) REFERENCES pd_training_types(id);
+
+
+--
 -- Name: problem_notes problem_notes_created_by_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -9554,6 +9739,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170605161951'),
 ('20170606131948'),
 ('20170606160731'),
-('20170606182242');
+('20170606182242'),
+('20170608192234'),
+('20170609144233');
 
 
