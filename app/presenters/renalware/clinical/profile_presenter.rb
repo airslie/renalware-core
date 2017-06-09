@@ -38,6 +38,10 @@ module Renalware
       def dry_weights
         @dry_weights ||= DryWeight.for_patient(patient).ordered
       end
+
+      def body_compositions
+        @body_compositions ||= BodyComposition.for_patient(patient).ordered
+      end
     end
   end
 end
