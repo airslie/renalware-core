@@ -11,10 +11,13 @@
       collection: Renalware::PD::TrainingSite.ordered,
       wrapper: :horizontal_small
 
+  = f.association :training_type,
+      collection: Renalware::PD::TrainingType.ordered,
+      wrapper: :horizontal_medium
+
   = f.simple_fields_for :document, training_session.document  do |fdoc|
     = fdoc.input :started_on, as: :date_picker, wrapper: :horizontal_datepicker
     = fdoc.input :trainer, wrapper: :horizontal_medium
-    = fdoc.input :training_type, as: :inline_radio_buttons, wrapper: :horizontal_medium
     = fdoc.input :training_duration,
             collection: Renalware::PD::TrainingDurationPresenter.dropdown_options,
             wrapper: :horizontal_small

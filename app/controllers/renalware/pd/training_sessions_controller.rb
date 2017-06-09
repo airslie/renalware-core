@@ -59,7 +59,7 @@ module Renalware
 
       def training_session_attributes
         [
-          :training_site_id,
+          :training_site_id, :training_type_id
         ]
       end
 
