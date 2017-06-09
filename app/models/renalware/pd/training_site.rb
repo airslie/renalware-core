@@ -3,6 +3,8 @@ require_dependency "renalware/pd"
 module Renalware
   module PD
     class TrainingSite < ApplicationRecord
+      acts_as_paranoid
+
       validates :code, presence: true
       validates :name, presence: true
 
