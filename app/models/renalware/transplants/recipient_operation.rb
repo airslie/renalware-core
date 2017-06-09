@@ -9,7 +9,7 @@ module Renalware
       include PatientScope
       extend Enumerize
 
-      belongs_to :patient
+      belongs_to :patient, touch: true
       belongs_to :hospital_centre, class_name: "Hospitals::Centre"
       has_one :followup, class_name: "RecipientFollowup", foreign_key: "operation_id"
 

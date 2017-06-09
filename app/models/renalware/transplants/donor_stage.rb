@@ -6,7 +6,7 @@ module Renalware
       include Accountable
       include PatientScope
 
-      belongs_to :patient, class_name: "Renalware::Patient"
+      belongs_to :patient, class_name: "Renalware::Patient", touch: true
       belongs_to :stage_position, class_name: "DonorStagePosition"
       belongs_to :stage_status, class_name: "DonorStageStatus"
       validates :patient, presence: true

@@ -7,7 +7,7 @@ module Renalware
 
       enumerize :assistance_type, in: %i(none setup connect disconnect connect_and_disconnect)
 
-      belongs_to :patient, class_name: "Renalware::Patient"
+      belongs_to :patient, class_name: "Renalware::Patient", touch: true
       belongs_to :system
 
       has_many :bags, class_name: "Renalware::PD::RegimeBag"

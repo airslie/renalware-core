@@ -10,6 +10,8 @@ module Renalware
 
       it { is_expected.to validate_timeliness_of(:performed_on) }
       it { is_expected.to validate_timeliness_of(:procedure_on) }
+
+      it { is_expected.to belong_to(:patient).touch(true) }
     end
   end
 end

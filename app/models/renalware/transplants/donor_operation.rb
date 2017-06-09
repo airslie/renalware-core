@@ -8,7 +8,7 @@ module Renalware
       include PatientScope
       extend Enumerize
 
-      belongs_to :patient
+      belongs_to :patient, touch: true
       has_one :followup, class_name: "DonorFollowup", foreign_key: "operation_id"
 
       scope :ordered, -> { order(performed_on: :asc) }

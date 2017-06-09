@@ -7,7 +7,7 @@ module Renalware
       include Document::Base
       include PatientScope
 
-      belongs_to :patient
+      belongs_to :patient, touch: true
       has_many :statuses,
                class_name: "RegistrationStatus",
                foreign_key: "registration_id"

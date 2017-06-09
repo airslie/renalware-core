@@ -13,6 +13,8 @@ module Renalware
       it { is_expected.to validate_timeliness_of(:terminated_on) }
       it { is_expected.to validate_timeliness_of(:planned_on) }
 
+      it { is_expected.to belong_to(:patient).touch(true) }
+
       context "when plan is provided" do
         let(:plan) { create(:access_plan) }
         let(:profile) { Profile.new(plan: plan) }

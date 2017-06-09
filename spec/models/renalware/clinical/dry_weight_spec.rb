@@ -8,6 +8,7 @@ module Renalware
       it { is_expected.to validate_presence_of(:weight) }
       it { is_expected.to validate_presence_of(:assessed_on) }
       it { is_expected.to validate_timeliness_of(:assessed_on) }
+      it { is_expected.to belong_to(:patient).touch(true) }
     end
   end
 end

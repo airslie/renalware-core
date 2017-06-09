@@ -7,7 +7,7 @@ module Renalware
       include Document::Base
       extend Enumerize
 
-      belongs_to :patient
+      belongs_to :patient, touch: true
       belongs_to :prd_description
       has_one :address_at_diagnosis, as: :addressable, class_name: "Address"
 

@@ -38,5 +38,7 @@ rerun.txt
 
 /public/assets
 /config.codekit3
+/spec/dummy/tmp
 /.vagrant
-/spec/dummy
+/spec/dummy/log
+/spec/dummy/.byebug_history

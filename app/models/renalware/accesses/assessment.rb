@@ -8,7 +8,7 @@ module Renalware
       include Accountable
       extend Enumerize
 
-      belongs_to :patient
+      belongs_to :patient, touch: true
       belongs_to :type, class_name: "Type"
       belongs_to :site, class_name: "Site"
 

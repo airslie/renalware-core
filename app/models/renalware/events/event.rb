@@ -13,7 +13,7 @@ module Renalware
       # 'something') and therefore changing that type in the new event form should be disallowed
       attr_accessor :disable_selection_of_event_type
 
-      belongs_to :patient
+      belongs_to :patient, touch: true
       belongs_to :event_type, class_name: "Type"
 
       validates :patient, :date_time, presence: true

@@ -4,7 +4,7 @@ module Renalware
   module Clinics
     class Appointment < ApplicationRecord
 
-      belongs_to :patient
+      belongs_to :patient, touch: true
       belongs_to :clinic
       belongs_to :user
 

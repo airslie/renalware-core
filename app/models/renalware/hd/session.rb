@@ -12,7 +12,7 @@ module Renalware
 
       has_states :open, :closed, :dna
 
-      belongs_to :patient
+      belongs_to :patient, touch: true
       belongs_to :profile
       belongs_to :dry_weight, class_name: "Renalware::Clinical::DryWeight"
       belongs_to :modality_description, class_name: "Modalities::Description"

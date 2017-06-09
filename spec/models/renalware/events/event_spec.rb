@@ -5,6 +5,7 @@ module Renalware::Events
     it { is_expected.to validate_presence_of(:patient) }
     it { is_expected.to validate_presence_of(:date_time) }
     it { is_expected.to respond_to(:type) }
+    it { is_expected.to belong_to(:patient).touch(true) }
 
     it { is_expected.to validate_timeliness_of(:date_time) }
 

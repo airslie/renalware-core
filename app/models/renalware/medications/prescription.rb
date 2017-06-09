@@ -10,7 +10,7 @@ module Renalware
 
       has_paper_trail class_name: "Renalware::Medications::PrescriptionVersion"
 
-      belongs_to :patient
+      belongs_to :patient, touch: true
       belongs_to :drug, class_name: "Renalware::Drugs::Drug"
       belongs_to :treatable, polymorphic: true
       belongs_to :medication_route
