@@ -5,7 +5,7 @@ module Renalware
     module APD
       describe AvailableOvernightVolume do
         let(:patient) { build(:pd_patient) }
-        let(:bag_type) { build(:bag_type, glucose_content: 2.86) }
+        let(:bag_type) { build(:bag_type, glucose_strength: :medium) }
         let(:regime) do
           reg = build(:apd_regime, no_cycles_per_apd: 7, fill_volume: 1500)
           reg.bags << build(:pd_regime_bag, :weekdays_only, role: :ordinary, volume: 1000)

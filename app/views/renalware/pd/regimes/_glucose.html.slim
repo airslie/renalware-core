@@ -2,9 +2,9 @@ br
 dt.subheading Avg Daily Glucose
 dd
 dl.dl-horizontal.avg-daily-glucose-list
-  dt 1.36 %
-  dd= "#{default_daily_glucose_average(regime.glucose_volume_percent_1_36)} ml"
-  dt 2.27 %
-  dd= "#{default_daily_glucose_average(regime.glucose_volume_percent_2_27)} ml"
-  dt 3.86 %
-  dd = "#{default_daily_glucose_average(regime.glucose_volume_percent_3_86)} ml"
+  dt= attr_name(regime, :glucose_volume_low_strength)
+  dd= "#{default_daily_glucose_average(regime.glucose_volume_low_strength)} ml"
+  dt= attr_name(regime, :glucose_volume_medium_strength)
+  dd= "#{default_daily_glucose_average(regime.glucose_volume_medium_strength)} ml"
+  dt= attr_name(regime, :glucose_volume_high_strength)
+  dd = "#{default_daily_glucose_average(regime.glucose_volume_high_strength)} ml"

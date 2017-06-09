@@ -15,9 +15,9 @@ module Renalware
         def call
           regime.overnight_volume = regime.calculated_overnight_volume
           regime.daily_volume = regime.calculated_daily_volume
-          regime.glucose_volume_percent_1_36 = regime.volume_of_glucose_at(percent: 1.36)
-          regime.glucose_volume_percent_2_27 = regime.volume_of_glucose_at(percent: 2.27)
-          regime.glucose_volume_percent_3_86 = regime.volume_of_glucose_at(percent: 3.86)
+          regime.glucose_volume_low_strength = regime.volume_of_glucose_at_strength(:low)
+          regime.glucose_volume_medium_strength = regime.volume_of_glucose_at_strength(:medium)
+          regime.glucose_volume_high_strength = regime.volume_of_glucose_at_strength(:high)
         end
         # rubocop:enable Metrics/AbcSize
 

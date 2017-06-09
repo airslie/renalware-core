@@ -2839,7 +2839,8 @@ CREATE TABLE pd_bag_types (
     magnesium_content numeric(3,2),
     deleted_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    glucose_strength integer NOT NULL
 );
 
 
@@ -3251,9 +3252,9 @@ CREATE TABLE pd_regimes (
     end_date date,
     treatment character varying NOT NULL,
     type character varying,
-    glucose_volume_percent_1_36 integer,
-    glucose_volume_percent_2_27 integer,
-    glucose_volume_percent_3_86 integer,
+    glucose_volume_low_strength integer,
+    glucose_volume_medium_strength integer,
+    glucose_volume_high_strength integer,
     amino_acid_volume integer,
     icodextrin_volume integer,
     add_hd boolean,
@@ -9615,6 +9616,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170605103133'),
 ('20170605161951'),
 ('20170606182242'),
-('20170608192234');
+('20170608192234'),
+('20170606131948'),
+('20170606160731'),
+('20170606182242');
+
 
 
