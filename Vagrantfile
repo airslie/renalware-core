@@ -16,7 +16,7 @@ Vagrant.configure(2) do |config|
   config.vm.box = "bento/centos-7.3"
   config.vm.provider "vmware_fusion"
   config.vm.provider "virtualbox"
-  #config.vm.provision :shell, path: "config/vagrant/provision-server.sh"
+  # config.vm.provision :shell, path: "config/vagrant/provision-server.sh"
   config.vm.hostname = "test01"
   config.vm.network "forwarded_port", guest: 80, host: 8080, auto_correct: true
 

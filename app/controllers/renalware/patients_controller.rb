@@ -6,7 +6,6 @@ module Renalware
     include Renalware::Concerns::Pageable
 
     def index
-      prepare_paging
       patients = patient_search.result.page(page).per(per_page)
       authorize patients
       render locals: {

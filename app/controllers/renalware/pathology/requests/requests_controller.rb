@@ -10,7 +10,7 @@ module Renalware
 
         def index
           requests_query = RequestQuery.new(query_params)
-          requests = requests_query.call.page(@page).per(@per_page)
+          requests = requests_query.call.page(page).per(per_page)
           authorize requests
 
           render :index, locals: { requests: requests, query: requests_query.search }

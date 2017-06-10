@@ -10,10 +10,11 @@ module Renalware
       before_action :find_primary_care_physician, only: [:edit, :update]
 
       def index
-        @primary_care_physicians = PrimaryCarePhysician.order(:family_name)
-                                                       .page(@page)
-                                                       .per(@per_page)
-        authorize @primary_care_physicians
+        primary_care_physicians = PrimaryCarePhysician.order(:family_name)
+                                                      .page(page)
+                                                      .per(per_page)
+        authorize primary_care_physicians
+        render locals: { primary_care_physicians: primary_care_physicians }
       end
 
       def new

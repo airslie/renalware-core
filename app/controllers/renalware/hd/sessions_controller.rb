@@ -5,11 +5,13 @@ module Renalware
   module HD
     class SessionsController < BaseController
       include PresenterHelper
+      include Renalware::Concerns::Pageable
+
       before_action :load_patient
 
       def index
         query = sessions_query
-        sessions = query.call.includes(:hospital_unit, :patient).page(params[:page]).per(15)
+        sessions = query.call.includes(:hospital_unit, :patient).page(page).per(per_page || 15)
         authorize sessions
         presenter = CollectionPresenter.new(sessions, SessionPresenter, view_context)
         @q = query.search
