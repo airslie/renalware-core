@@ -1,12 +1,35 @@
+= content_for(:actions) do
+  = render "page_actions", patient: dashboard.patient, dashboard: dashboard
+
 = within_patient_layout do
+
   .row
-    .medium-6.large-4.xlarge-3.columns
-      = render "renalware/hd/profiles/summary", profile: dashboard.profile
-    .medium-6.large-4.xlarge-3.columns
-      = render "renalware/hd/accesses/summary", access: dashboard.access
-    .medium-6.large-4.xlarge-6.columns
-      = render "renalware/hd/preference_sets/summary", preference_set: dashboard.preference_set
-      = render "renalware/clinical/dry_weights/list", patient: dashboard.patient, limit: 5
-  .row
-    .small-12.columns
-      = render "renalware/hd/sessions/list", sessions: dashboard.sessions
+    - unless dashboard.profile.new_record?
+      .medium-6.large-4.xlarge-3.columns
+        = render "renalware/hd/profiles/summary",
+                 patient: dashboard.patient,
+                 profile: dashboard.profile
+
+    - if dashboard.access.present?
+      .medium-6.large-4.xlarge-3.columns
+        = render "renalware/hd/accesses/summary",
+                 patient: dashboard.patient,
+                 access: dashboard.access
+
+    - unless dashboard.preference_set.new_record?
+      .medium-6.large-4.xlarge-6.columns
+        = render "renalware/hd/preference_sets/summary",
+                 patient: dashboard.patient,
+                 preference_set: dashboard.preference_set
+
+    .medium-6.large-4.xlarge-3.end.columns
+      = render "renalware/clinical/dry_weights/list",
+               patient: dashboard.patient,
+               limit: 5
+
+  - if dashboard.sessions.any?
+    .row
+      .small-12.columns
+        = render "renalware/hd/sessions/list",
+                 sessions: dashboard.sessions,
+                 policy: dashboard

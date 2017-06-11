@@ -23,6 +23,10 @@ module Renalware
       validates :prescriber, presence: true
 
       delegate :hospital_centre, to: :hospital_unit, allow_nil: true
+
+      def self.policy_class
+        BasePolicy
+      end
     end
   end
 end

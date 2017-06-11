@@ -4,6 +4,6 @@ en:
       dashboards:
         show:
           title: "HD Summary"
-        navigation:
+        page_actions:
           protocol: Print HD Session Form
           mdm: MDM

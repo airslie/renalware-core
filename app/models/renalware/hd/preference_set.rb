@@ -20,6 +20,10 @@ module Renalware
       def preferred_schedule
         other_schedule_required? ? other_schedule : schedule.try(:text)
       end
+
+      def self.policy_class
+        BasePolicy
+      end
     end
   end
 end

@@ -1,1 +1,10 @@
-= render "renalware/hd/sessions/#{session.state}/show", session: session
+= content_for :actions do
+  - if policy(session).edit?
+    li= link_to "Edit",
+                edit_patient_hd_session_path(session.patient, session),
+                class: :button
+
+= within_patient_layout(title: session_title(session),
+                        breadcrumbs: hd_summary_breadcrumb(session.patient)) do
+
+  = render "renalware/hd/sessions/#{session.state}/show", session: session

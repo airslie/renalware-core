@@ -52,7 +52,10 @@ module World
       def create_hd_preferences(user:, patient:)
         login_as user
         visit patient_hd_dashboard_path(patient)
-        click_on "Enter preferences"
+        within ".page-actions" do
+          click_on "Add"
+          click_on "HD Preferences"
+        end
 
         select "Mon, Wed, Fri AM", from: "Schedule"
 

@@ -81,7 +81,11 @@ module World
       def create_hd_profile(user:, patient:, prescriber:)
         login_as user
         visit patient_hd_dashboard_path(patient)
-        click_on "Enter profile"
+
+        within ".page-actions" do
+          click_on "Add"
+          click_on "HD Profile"
+        end
 
         select "Mon, Wed, Fri AM", from: "Schedule"
         select prescriber.to_s, from: "Prescriber" if prescriber
