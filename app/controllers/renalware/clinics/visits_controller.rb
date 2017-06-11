@@ -5,11 +5,9 @@ module Renalware
       include Renalware::Concerns::Pageable
       PER_PAGE = 100
 
-      before_action :prepare_paging, only: [:index]
-
       def index
         visits_query = VisitQuery.new(query_params)
-        visits = visits_query.call.page(@page).per(PER_PAGE)
+        visits = visits_query.call.page(page).per(PER_PAGE)
         authorize visits
 
         render locals: {
@@ -25,7 +23,7 @@ module Renalware
       def query_params
         params
           .fetch(:q, {})
-          .merge(page: @page, per_page: @per_page)
+          .merge(page: page, per_page: per_page)
       end
     end
   end

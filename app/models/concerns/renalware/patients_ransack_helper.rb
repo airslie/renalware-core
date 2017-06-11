@@ -3,7 +3,7 @@ require "active_support/concern"
 module Renalware
   module PatientsRansackHelper
     extend ActiveSupport::Concern
-    UUID_REGEXP =  /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/
+    UUID_REGEXP = /[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/
 
     included do
       class_eval do
@@ -50,6 +50,7 @@ module Renalware
         { fuzzy_term: "#{query}%", exact_term: query }
       end
 
+      # rubocop:disable Metrics/MethodLength
       def identity_sql(query)
         sql = <<-SQL.squish
           local_patient_id = :exact_term OR
@@ -64,6 +65,7 @@ module Renalware
         sql += " OR uuid = :exact_term" if query_is_a_uuid?(query)
         sql
       end
+      # rubocop:enable Metrics/MethodLength
 
       def query_is_a_uuid?(query)
         query.match(UUID_REGEXP)

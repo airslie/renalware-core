@@ -1,23 +1,23 @@
 = content_for(:actions) do
   =link_to "Edit",
-          edit_patient_accesses_assessment_path(@patient, @assessment),
+          edit_patient_accesses_assessment_path(patient, assessment),
           class: "button"
 
 = within_patient_layout(title: "Access Assessment",
-                        breadcrumbs: access_summary_breadrumb(@patient)) do
-  - return unless @assessment
+                        breadcrumbs: access_summary_breadrumb(patient)) do
+  - return unless assessment
 
   .document-view
     .grid
       .row
-        - attributes_list = @assessment.document.results.class.attributes_list
+        - attributes_list = assessment.document.results.class.attributes_list
         = render "renalware/shared/attributes_group",
             legend: "Results & Observations", destination: "results",
-            models: { @assessment => [:performed_on, :type, :site, :side],
-                      @assessment.document.results => attributes_list }
+            models: { assessment => [:performed_on, :type, :site, :side],
+                      assessment.document.results => attributes_list }
 
-        - attributes_list = @assessment.document.admin.class.attributes_list
+        - attributes_list = assessment.document.admin.class.attributes_list
         = render "renalware/shared/attributes_group",
             legend: "Management Plans", destination: "plans",
-            models: { @assessment.document.admin => attributes_list,
-                      @assessment => [:comments, :updated_by, :updated_at] }
+            models: { assessment.document.admin => attributes_list,
+                      assessment => [:comments, :updated_by, :updated_at] }

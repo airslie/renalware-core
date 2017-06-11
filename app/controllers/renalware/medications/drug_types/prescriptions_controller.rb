@@ -19,7 +19,7 @@ module Renalware
         end
 
         def paginated_prescriptions
-          query.call.page(@page).per(@per_page)
+          query.call.page(page).per(per_page)
         end
 
         def query

@@ -4,6 +4,7 @@ require_dependency "renalware/events"
 module Renalware
   module Events
     class EventsController < BaseController
+      include Renalware::Concerns::Pageable
 
       def new
         save_path_to_return_to
@@ -87,8 +88,8 @@ module Renalware
         @events ||= Event.for_patient(patient)
                          .includes(:event_type)
                          .includes(:created_by)
-                         .page(params[:page])
-                         .per(params[:per_page])
+                         .page(page)
+                         .per(per_page)
                          .ordered
       end
 

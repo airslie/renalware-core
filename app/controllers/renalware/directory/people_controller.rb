@@ -4,9 +4,11 @@ require "collection_presenter"
 module Renalware
   module Directory
     class PeopleController < BaseController
+      include Renalware::Concerns::Pageable
+
       def index
         query = PersonQuery.new(q: params[:q])
-        @people = call_query(query).page(params[:page])
+        @people = call_query(query).page(page)
         authorize @people
 
         @q = query.search

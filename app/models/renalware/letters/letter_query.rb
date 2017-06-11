@@ -8,7 +8,7 @@ module Renalware
       end
 
       def ransackable_scopes(_auth_object = nil)
-        %i[state_eq]
+        %i(state_eq)
       end
 
       def state_eq(state = :draft)

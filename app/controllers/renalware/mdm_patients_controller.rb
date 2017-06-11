@@ -7,6 +7,7 @@ require_dependency "renalware/base_controller"
 module Renalware
   class MDMPatientsController < BaseController
     include PresenterHelper
+    include Renalware::Concerns::Pageable
 
     def render_index(**args)
       presenter = build_presenter(params: params, **args)
@@ -19,7 +20,7 @@ module Renalware
       query  = args.fetch(:query)
 
       MDMPatientsPresenter.new(
-        patients: query.call.page(params[:page]),
+        patients: query.call.page(page),
         page_title: args.fetch(:page_title),
         view_proc: args.fetch(:view_proc),
         q: query.search
